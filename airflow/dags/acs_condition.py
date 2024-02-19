@@ -69,6 +69,11 @@ acs_condition_gcs_operator_2021 = util.create_gcs_ingest_operator(
     'acs_condition_to_gcs_2021', acs_condition_gcs_payload_2021, data_ingestion_dag
 )
 
+acs_condition_gcs_payload_2022 = util.generate_gcs_payload(_ACS_WORKFLOW_ID, year='2022')
+acs_condition_gcs_operator_2022 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2022', acs_condition_gcs_payload_2022, data_ingestion_dag
+)
+
 # PROCESS AND WRITE TO BQ
 
 acs_condition_bq_payload_2012 = util.generate_bq_payload(_ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2012')
@@ -121,6 +126,11 @@ acs_condition_bq_operator_2021 = util.create_bq_ingest_operator(
     "acs_condition_to_bq_2021", acs_condition_bq_payload_2021, data_ingestion_dag
 )
 
+acs_condition_bq_payload_2022 = util.generate_bq_payload(_ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2022')
+acs_condition_bq_operator_2022 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2022", acs_condition_bq_payload_2022, data_ingestion_dag
+)
+
 # EXPORT FROM BQ TO BUCKETS
 acs_condition_exporter_payload_race = {
     'dataset_name': _ACS_DATASET_NAME,
@@ -170,6 +180,7 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     >> acs_condition_bq_operator_2019
     >> acs_condition_bq_operator_2020
     >> acs_condition_bq_operator_2021
+    >> acs_condition_bq_operator_2022
     >> [
         acs_condition_exporter_operator_race,
         acs_condition_exporter_operator_age,

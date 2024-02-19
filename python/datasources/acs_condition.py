@@ -50,6 +50,7 @@ ACS_URLS_MAP = {
     '2019': 'https://api.census.gov/data/2019/acs/acs5',
     '2020': 'https://api.census.gov/data/2020/acs/acs5',
     '2021': 'https://api.census.gov/data/2021/acs/acs5',
+    '2022': 'https://api.census.gov/data/2022/acs/acs5',
 }
 
 

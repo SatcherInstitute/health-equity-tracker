@@ -14,10 +14,10 @@ from test_utils import (
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_condition')
 
-GOLDEN_DATA_NATIONAL_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_national.csv')
-GOLDEN_DATA_STATE_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_state.csv')
-GOLDEN_DATA_COUNTY_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_county.csv')
-GOLDEN_DATA_COUNTY_RACE = os.path.join(TEST_DIR, 'golden_data', 'race_county.csv')
+GOLDEN_DATA_2022_NATIONAL_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_national.csv')
+GOLDEN_DATA_2022_STATE_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_state.csv')
+GOLDEN_DATA_2022_COUNTY_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_county.csv')
+GOLDEN_DATA_2022_COUNTY_RACE = os.path.join(TEST_DIR, 'golden_data', 'race_county.csv')
 
 
 # NOT USING SHARED POPULATION MOCKS BECAUSE THESE ARE THE CACHED ACS_CONDITION TABLES,
@@ -30,7 +30,7 @@ def _get_by_race_as_df(*args):
 
 
 acsCondition = AcsCondition()
-acsCondition.year = '2019'
+acsCondition.year = '2022'
 
 
 @mock.patch(
@@ -38,11 +38,11 @@ acsCondition.year = '2019'
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    df = acsCondition.get_raw_data('sex', 'national', get_acs_metadata_as_json(2019), 'some-bucket')
+def testSexNational2022(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    df = acsCondition.get_raw_data('sex', 'national', get_acs_metadata_as_json(2022), 'some-bucket')
     df = acsCondition.post_process(df, 'sex', 'national')
 
-    expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL_SEX, dtype={'state_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_2022_NATIONAL_SEX, dtype={'state_fips': str})
     cols = list(expected_df.columns)
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -56,11 +56,11 @@ def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    df = acsCondition.get_raw_data('sex', 'state', get_acs_metadata_as_json(2019), 'some-bucket')
+def testSexState2022(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    df = acsCondition.get_raw_data('sex', 'state', get_acs_metadata_as_json(2022), 'some-bucket')
     df = acsCondition.post_process(df, 'sex', 'state')
 
-    expected_df = pd.read_csv(GOLDEN_DATA_STATE_SEX, dtype={'state_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_2022_STATE_SEX, dtype={'state_fips': str})
     cols = list(expected_df.columns)
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -74,11 +74,11 @@ def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    df = acsCondition.get_raw_data('sex', 'county', get_acs_metadata_as_json(2019), 'some-bucket')
+def testSexCounty2022(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    df = acsCondition.get_raw_data('sex', 'county', get_acs_metadata_as_json(2022), 'some-bucket')
     df = acsCondition.post_process(df, 'sex', 'county')
 
-    expected_df = pd.read_csv(GOLDEN_DATA_COUNTY_SEX, dtype={'state_fips': str, 'county_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_2022_COUNTY_SEX, dtype={'state_fips': str, 'county_fips': str})
     cols = list(expected_df.columns)
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -92,11 +92,11 @@ def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
-    df = acsCondition.get_raw_data('race', 'county', get_acs_metadata_as_json(2019), 'some-bucket')
+def testRaceCounty2022(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+    df = acsCondition.get_raw_data('race', 'county', get_acs_metadata_as_json(2022), 'some-bucket')
     df = acsCondition.post_process(df, 'race', 'county')
 
-    expected_df = pd.read_csv(GOLDEN_DATA_COUNTY_RACE, dtype={'state_fips': str, 'county_fips': str})
+    expected_df = pd.read_csv(GOLDEN_DATA_2022_COUNTY_RACE, dtype={'state_fips': str, 'county_fips': str})
     cols = list(expected_df.columns)
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -105,7 +105,7 @@ def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     )
 
 
-@mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2019))
+@mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2012))
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -126,21 +126,21 @@ def testWriteToBqOverwriteFirstYear2012(
         assert call[1]['overwrite'] is True
 
 
-@mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2019))
+@mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022))
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqAppend2019(
+def testWriteToBqAppend2022(
     mock_bq: mock.MagicMock,
     mock_fips: mock.MagicMock,
     mock_acs: mock.MagicMock,
     mock_json: mock.MagicMock,
 ):
-    acsCondition2019 = AcsCondition()
-    acsCondition2019.write_to_bq('dataset', 'gcs_bucket', year='2019')
+    acsCondition2022 = AcsCondition()
+    acsCondition2022.write_to_bq('dataset', 'gcs_bucket', year='2022')
 
     # Every subsequent year should APPEND its yearly data onto the existing BQ tables
     for call in mock_bq.call_args_list:
