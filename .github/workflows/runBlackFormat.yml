@@ -24,7 +24,7 @@ jobs:
 
       - name: Format changed Python files
         run: |
-          git diff --name-only $GITHUB_BASE_REF $GITHUB_HEAD_REF | grep '\.py$' | xargs black
+          git diff --name-only $GITHUB_BASE_REF -- $GITHUB_HEAD_REF | grep '\.py$' | xargs black
 
       - name: Commit changes
         run: |
