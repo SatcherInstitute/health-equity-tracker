@@ -2,6 +2,7 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 import ingestion.standardized_columns as std_col
+from ingestion.constants import HISTORICAL, CURRENT
 
 from ingestion.census import (
     parse_acs_metadata,
@@ -37,6 +38,7 @@ from ingestion.standardized_columns import (
 )
 
 EARLIEST_ACS_CONDITION_YEAR = '2012'
+CURRENT_ACS_CONDITION_YEAR = '2022'
 
 # available years with all topics working
 ACS_URLS_MAP = {
@@ -50,7 +52,7 @@ ACS_URLS_MAP = {
     '2019': 'https://api.census.gov/data/2019/acs/acs5',
     '2020': 'https://api.census.gov/data/2020/acs/acs5',
     '2021': 'https://api.census.gov/data/2021/acs/acs5',
-    '2022': 'https://api.census.gov/data/2022/acs/acs5',
+    CURRENT_ACS_CONDITION_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
 }
 
 
@@ -246,7 +248,7 @@ ACS_ITEMS_2022_AND_LATER = {
 
 
 def update_col_types(df):
-    """Returns a new DataFrame with the column types replaced with int64 for
+    """Returns a new DataFrame with the column types replaced with float for
     population columns and string for other columns.
 
     df: The original DataFrame"""
@@ -357,36 +359,88 @@ class AcsCondition(DataSource):
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
-                table_name = f'by_{demo}_{geo}_time_series'
+
                 df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
-
                 if demo == RACE:
                     add_race_columns_from_category_id(df)
 
-                dfs[table_name] = df
+                table_name_prefix = f'by_{demo}_{geo}'
+                dfs[table_name_prefix] = df
 
-        suffixes = [
-            std_col.PCT_SHARE_SUFFIX,
-            std_col.POP_PCT_SUFFIX,
-            std_col.PCT_RATE_SUFFIX,
+        suffixes_time_series_only = [
             std_col.PCT_REL_INEQUITY_SUFFIX,
         ]
-        for table_name, df in dfs.items():
 
-            # TIME SERIES  TABLE
-            df[std_col.TIME_PERIOD_COL] = self.year
+        suffixes_both = [
+            std_col.PCT_SHARE_SUFFIX,
+            std_col.PCT_RATE_SUFFIX,
+        ]
+
+        suffixes_current_only = [
+            std_col.POP_PCT_SUFFIX,
+            std_col.RAW_SUFFIX,  # numerator counts
+            f'{POP_SUFFIX}_{std_col.RAW_SUFFIX}',  # denominator counts
+        ]
+
+        for table_name_prefix, df in dfs.items():
+
+            # MAKE AND WRITE TIME SERIES TABLE
+            df_time_series = df.copy()
+            df_time_series[std_col.TIME_PERIOD_COL] = self.year
+
+            # DROP THE "CURRENT" COLUMNS WE DON'T NEED
+            float_cols_to_drop = []
+            for acs_item in acs_items.values():
+                float_cols_to_drop += [
+                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current_only
+                ]
+            df_time_series.drop(columns=float_cols_to_drop, inplace=True)
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
             overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
 
-            float_cols = []
+            float_cols_time_series = []
             for acs_item in acs_items.values():
-                float_cols += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes]
+                float_cols_time_series += [
+                    generate_column_name(acs_item.bq_prefix, suffix)
+                    for suffix in suffixes_time_series_only + suffixes_both
+                ]
 
-            col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+            col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
 
-            gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types, overwrite=overwrite)
+            gcs_to_bq_util.add_df_to_bq(
+                df_time_series,
+                dataset,
+                f'{table_name_prefix}_{HISTORICAL}',
+                column_types=col_types,
+                overwrite=overwrite,
+            )
+
+            # MAKE AND WRITE CURRENT TABLE
+            if self.year == CURRENT_ACS_CONDITION_YEAR:
+                df_current = df.copy()
+
+                # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
+                float_cols_to_drop = []
+                for acs_item in acs_items.values():
+                    float_cols_to_drop += [
+                        generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only
+                    ]
+                df_current.drop(columns=float_cols_to_drop, inplace=True)
+
+                float_cols_current = []
+                for acs_item in acs_items.values():
+                    float_cols_current += [
+                        generate_column_name(acs_item.bq_prefix, suffix)
+                        for suffix in suffixes_current_only + suffixes_both
+                    ]
+
+                col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
+
+                gcs_to_bq_util.add_df_to_bq(
+                    df_current, dataset, f'{table_name_prefix}_{CURRENT}', column_types=col_types
+                )
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
@@ -624,7 +678,6 @@ class AcsCondition(DataSource):
             all_columns.append(pop_pct_col)
 
         # PCT_SHARE
-
         df = generate_pct_share_col_without_unknowns(df, pct_share_cols, demo_col, all_val)
 
         for item in acs_items.values():
@@ -638,6 +691,20 @@ class AcsCondition(DataSource):
                 pct_rel_inequity_col,
             )
             all_columns.append(pct_rel_inequity_col)
+
+        # Keep and rename raw count "N" columns
+        for measure, acs_item in acs_items.items():
+            rename_map = {
+                # Rename numerators e.g. health_insurance_has_acs_item to uninsurance_estimated_total
+                generate_column_name(measure, HAS_ACS_ITEM_SUFFIX): generate_column_name(
+                    acs_item.bq_prefix, std_col.RAW_SUFFIX
+                ),
+                # Rename denominators e.g. health_insurance_pop to uninsurance_population_estimated_total
+                generate_column_name(measure, POP_SUFFIX): f'{acs_item.bq_prefix}_{POP_SUFFIX}_{std_col.RAW_SUFFIX}',
+            }
+            all_columns.extend(rename_map.values())
+
+            df = df.rename(columns=rename_map)
 
         df = df[all_columns].reset_index(drop=True)
         return df

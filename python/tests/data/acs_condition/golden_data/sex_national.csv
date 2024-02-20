@@ -1,4 +1,4 @@
-state_fips,state_name,sex,uninsured_pct_rate,poverty_pct_rate,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity
-00,United States,Female,7.0,30.0,44.5,52.2,55.5,52.1,-14.8,6.5
-00,United States,Male,10.0,26.0,55.5,47.8,44.5,47.9,16.1,-7.1
-00,United States,All,8.0,28.0,100.0,100.0,100.0,100.0,0.0,0.0
+state_fips,state_name,sex,uninsured_pct_rate,poverty_pct_rate,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity,uninsured_estimated_total,uninsured_pop_estimated_total,poverty_estimated_total,poverty_pop_estimated_total
+00,United States,Female,7.0,30.0,44.5,52.2,55.5,52.1,-14.8,6.5,299999.0,4226870.0,1246770.0,4193722.0
+00,United States,Male,10.0,26.0,55.5,47.8,44.5,47.9,16.1,-7.1,373654.0,3863871.0,998310.0,3850088.0
+00,United States,All,8.0,28.0,100.0,100.0,100.0,100.0,0.0,0.0,673653.0,8090741.0,2245080.0,8043810.0
