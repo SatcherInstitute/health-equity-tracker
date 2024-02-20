@@ -76,30 +76,27 @@ HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE = {
     Race.MULTI.value: 'Health Insurance Coverage Status by Age (Two or More Races)',
 }
 
-NHPI_POVERTY_VALUE_CAPS = (
-    'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
-)
 POVERTY_RACE_TO_CONCEPT_CAPS = {
     Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
     Race.HISP.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)',
     Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
-    Race.NHPI.value: NHPI_POVERTY_VALUE_CAPS,
+    Race.NHPI.value: (
+        'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
+    ),
     Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
     Race.OTHER_STANDARD.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)',
     Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
 }
-
-NHPI_POVERTY_VALUE_TITLE = (
-    'Poverty Status in the Past 12 Months by Sex by Age (Native Hawaiian and Other Pacific Islander Alone)'
-)
 
 POVERTY_RACE_TO_CONCEPT_TITLE = {
     Race.AIAN.value: 'Poverty Status in the Past 12 Months by Sex by Age (American Indian and Alaska Native Alone)',
     Race.ASIAN.value: 'Poverty Status in the Past 12 Months by Sex by Age (Asian Alone)',
     Race.HISP.value: 'Poverty Status in the Past 12 Months by Sex by Age (Hispanic or Latino)',
     Race.BLACK.value: 'Poverty Status in the Past 12 Months by Sex by Age (Black or African American Alone)',
-    Race.NHPI.value: NHPI_POVERTY_VALUE_TITLE,
+    Race.NHPI.value: (
+        'Poverty Status in the Past 12 Months by Sex by Age (Native Hawaiian and Other Pacific Islander Alone)'
+    ),
     Race.WHITE.value: 'Poverty Status in the Past 12 Months by Sex by Age (White Alone)',
     Race.OTHER_STANDARD.value: 'Poverty Status in the Past 12 Months by Sex by Age (Some Other Race Alone)',
     Race.MULTI.value: 'Poverty Status in the Past 12 Months by Sex by Age (Two or More Races)',
