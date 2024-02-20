@@ -43,7 +43,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_sex_national_time_series',
+      'acs_condition-by_sex_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX
     )
@@ -51,7 +51,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_age_national_time_series',
+      'acs_condition-by_age_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE
     )
@@ -59,7 +59,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_race_national_time_series',
+      'acs_condition-by_race_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE
     )
@@ -67,7 +67,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_age_state_time_series',
+      'acs_condition-by_age_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       AGE
     )
@@ -75,7 +75,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_sex_state_time_series',
+      'acs_condition-by_sex_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       SEX
     )
@@ -83,7 +83,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_race_state_time_series',
+      'acs_condition-by_race_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE
     )
@@ -91,7 +91,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_age_county_time_series',
+      'acs_condition-by_age_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE
     )
@@ -99,7 +99,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_sex_county_time_series',
+      'acs_condition-by_sex_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX
     )
@@ -107,7 +107,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_race_county_time_series',
+      'acs_condition-by_race_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE
     )
