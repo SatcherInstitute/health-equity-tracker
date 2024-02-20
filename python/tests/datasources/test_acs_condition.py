@@ -260,14 +260,14 @@ def testWriteToBqAppend2022(
     assert mock_fips.call_count == 9 + 3
 
     assert mock_bq.call_count == 9
-    assert mock_bq.call_args_list[0].args[2] == 'by_race_national_time_series'
-    assert mock_bq.call_args_list[1].args[2] == 'by_age_national_time_series'
-    assert mock_bq.call_args_list[2].args[2] == 'by_sex_national_time_series'
+    assert mock_bq.call_args_list[0].args[2] == 'by_race_national_historical'
+    assert mock_bq.call_args_list[1].args[2] == 'by_age_national_historical'
+    assert mock_bq.call_args_list[2].args[2] == 'by_sex_national_historical'
 
-    assert mock_bq.call_args_list[3].args[2] == 'by_race_state_time_series'
-    assert mock_bq.call_args_list[4].args[2] == 'by_age_state_time_series'
-    assert mock_bq.call_args_list[5].args[2] == 'by_sex_state_time_series'
+    assert mock_bq.call_args_list[3].args[2] == 'by_race_state_historical'
+    assert mock_bq.call_args_list[4].args[2] == 'by_age_state_historical'
+    assert mock_bq.call_args_list[5].args[2] == 'by_sex_state_historical'
 
-    assert mock_bq.call_args_list[6].args[2] == 'by_race_county_time_series'
-    assert mock_bq.call_args_list[7].args[2] == 'by_age_county_time_series'
-    assert mock_bq.call_args_list[8].args[2] == 'by_sex_county_time_series'
+    assert mock_bq.call_args_list[6].args[2] == 'by_race_county_historical'
+    assert mock_bq.call_args_list[7].args[2] == 'by_age_county_historical'
+    assert mock_bq.call_args_list[8].args[2] == 'by_sex_county_historical'

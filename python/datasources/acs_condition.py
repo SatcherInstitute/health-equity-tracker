@@ -2,6 +2,7 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 import ingestion.standardized_columns as std_col
+from ingestion.constants import HISTORICAL, CURRENT
 
 from ingestion.census import (
     parse_acs_metadata,
@@ -357,36 +358,68 @@ class AcsCondition(DataSource):
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
-                table_name = f'by_{demo}_{geo}_time_series'
+
                 df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
-
                 if demo == RACE:
                     add_race_columns_from_category_id(df)
 
-                dfs[table_name] = df
+                table_name_prefix = f'by_{demo}_{geo}'
+                dfs[table_name_prefix] = df
 
-        suffixes = [
+        suffixes_time_series = [
             std_col.PCT_SHARE_SUFFIX,
             std_col.POP_PCT_SUFFIX,
             std_col.PCT_RATE_SUFFIX,
             std_col.PCT_REL_INEQUITY_SUFFIX,
         ]
-        for table_name, df in dfs.items():
 
-            # TIME SERIES  TABLE
-            df[std_col.TIME_PERIOD_COL] = self.year
+        # suffixes_current = [
+        #     std_col.PCT_SHARE_SUFFIX,
+        #     std_col.POP_PCT_SUFFIX,
+        #     std_col.PCT_RATE_SUFFIX,
+        #     # std_col.PCT_REL_INEQUITY_SUFFIX,
+        # ]
+
+        for table_name_prefix, df in dfs.items():
+
+            # TIME SERIES TABLE
+            df_time_series = df.copy()
+            df_time_series[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
             overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
 
-            float_cols = []
+            float_cols_time_series = []
             for acs_item in acs_items.values():
-                float_cols += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes]
+                float_cols_time_series += [
+                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series
+                ]
 
-            col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+            col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
 
-            gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types, overwrite=overwrite)
+            gcs_to_bq_util.add_df_to_bq(
+                df_time_series,
+                dataset,
+                f'{table_name_prefix}_{HISTORICAL}',
+                column_types=col_types,
+                overwrite=overwrite,
+            )
+
+            # CURRENT TABLE
+            # df_current = df.copy()
+
+            # float_cols_current = []
+            # for acs_item in acs_items.values():
+            #     float_cols_current += [
+            #         generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current
+            #     ]
+
+            # col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
+
+            # gcs_to_bq_util.add_df_to_bq(
+            #     df_current, dataset, table_name_prefix, column_types=col_types, overwrite=overwrite
+            # )
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
