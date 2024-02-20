@@ -1,10 +1,10 @@
-state_fips,state_name,race_category_id,county_name,county_fips,uninsured_pct_rate,poverty_pct_rate,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity
-17,Illinois,AIAN,Fayette County,17051,0.0,0.0,0.0,0.3,0.0,0.3,-100.0,-100.0
-17,Illinois,ASIAN,Fayette County,17051,0.0,11.0,0.0,0.6,0.4,0.6,-100.0,-33.3
-17,Illinois,HISP,Fayette County,17051,0.0,0.0,0.0,1.0,0.0,1.0,-100.0,-100.0
-17,Illinois,BLACK,Fayette County,17051,0.0,65.0,0.0,0.4,1.7,0.4,-100.0,325.0
-17,Illinois,NHPI,Fayette County,17051,0.0,0.0,0.0,0.1,0.0,0.1,-100.0,-100.0
-17,Illinois,WHITE,Fayette County,17051,8.0,17.0,100.0,98.1,97.2,98.1,1.9,-0.9
-17,Illinois,OTHER_STANDARD,Fayette County,17051,0.0,0.0,0.0,0.1,0.0,0.1,-100.0,-100.0
-17,Illinois,MULTI,Fayette County,17051,0.0,36.0,0.0,0.4,0.8,0.4,-100.0,100.0
-17,Illinois,ALL,Fayette County,17051,8.0,17.0,100.0,100.0,100.0,100.0,0.0,0.0
+state_fips,state_name,race_category_id,county_name,county_fips,uninsured_pct_rate,poverty_pct_rate,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity,uninsured_estimated_total,uninsured_pop_estimated_total,poverty_estimated_total,poverty_pop_estimated_total
+17,Illinois,AIAN,Fayette County,17051,0.0,0.0,0.0,0.3,0.0,0.3,-100.0,-100.0,0.0,68.0,0.0,68.0
+17,Illinois,ASIAN,Fayette County,17051,0.0,11.0,0.0,0.6,0.4,0.6,-100.0,-33.3,0.0,116.0,13.0,116.0
+17,Illinois,HISP,Fayette County,17051,0.0,0.0,0.0,1.0,0.0,1.0,-100.0,-100.0,0.0,195.0,0.0,195.0
+17,Illinois,BLACK,Fayette County,17051,0.0,65.0,0.0,0.4,1.7,0.4,-100.0,325.0,0.0,88.0,57.0,88.0
+17,Illinois,NHPI,Fayette County,17051,0.0,0.0,0.0,0.1,0.0,0.1,-100.0,-100.0,0.0,28.0,0.0,28.0
+17,Illinois,WHITE,Fayette County,17051,8.0,17.0,100.0,98.1,97.2,98.1,1.9,-0.9,1644.0,19562.0,3325.0,19469.0
+17,Illinois,OTHER_STANDARD,Fayette County,17051,0.0,0.0,0.0,0.1,0.0,0.1,-100.0,-100.0,0.0,13.0,0.0,13.0
+17,Illinois,MULTI,Fayette County,17051,0.0,36.0,0.0,0.4,0.8,0.4,-100.0,100.0,0.0,73.0,26.0,73.0
+17,Illinois,ALL,Fayette County,17051,8.0,17.0,100.0,100.0,100.0,100.0,0.0,0.0,1644.0,19948.0,3421.0,19855.0

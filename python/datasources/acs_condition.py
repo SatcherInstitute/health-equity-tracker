@@ -248,7 +248,7 @@ ACS_ITEMS_2022_AND_LATER = {
 
 
 def update_col_types(df):
-    """Returns a new DataFrame with the column types replaced with int64 for
+    """Returns a new DataFrame with the column types replaced with float for
     population columns and string for other columns.
 
     df: The original DataFrame"""
@@ -369,7 +369,6 @@ class AcsCondition(DataSource):
                 dfs[table_name_prefix] = df
 
         suffixes_time_series_only = [
-            # std_col.POP_PCT_SUFFIX,
             std_col.PCT_REL_INEQUITY_SUFFIX,
         ]
 
@@ -380,7 +379,8 @@ class AcsCondition(DataSource):
 
         suffixes_current_only = [
             std_col.POP_PCT_SUFFIX,
-            # std_col.PCT_REL_INEQUITY_SUFFIX,
+            std_col.RAW_SUFFIX,  # numerator counts
+            f'{POP_SUFFIX}_{std_col.RAW_SUFFIX}',  # denominator counts
         ]
 
         for table_name_prefix, df in dfs.items():
@@ -678,7 +678,6 @@ class AcsCondition(DataSource):
             all_columns.append(pop_pct_col)
 
         # PCT_SHARE
-
         df = generate_pct_share_col_without_unknowns(df, pct_share_cols, demo_col, all_val)
 
         for item in acs_items.values():
@@ -692,6 +691,20 @@ class AcsCondition(DataSource):
                 pct_rel_inequity_col,
             )
             all_columns.append(pct_rel_inequity_col)
+
+        # Keep and rename raw count "N" columns
+        for measure, acs_item in acs_items.items():
+            rename_map = {
+                # Rename numerators e.g. health_insurance_has_acs_item to uninsurance_estimated_total
+                generate_column_name(measure, HAS_ACS_ITEM_SUFFIX): generate_column_name(
+                    acs_item.bq_prefix, std_col.RAW_SUFFIX
+                ),
+                # Rename denominators e.g. health_insurance_pop to uninsurance_population_estimated_total
+                generate_column_name(measure, POP_SUFFIX): f'{acs_item.bq_prefix}_{POP_SUFFIX}_{std_col.RAW_SUFFIX}',
+            }
+            all_columns.extend(rename_map.values())
+
+            df = df.rename(columns=rename_map)
 
         df = df[all_columns].reset_index(drop=True)
         return df
