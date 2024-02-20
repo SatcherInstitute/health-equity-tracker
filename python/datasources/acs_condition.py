@@ -50,10 +50,11 @@ ACS_URLS_MAP = {
     '2019': 'https://api.census.gov/data/2019/acs/acs5',
     '2020': 'https://api.census.gov/data/2020/acs/acs5',
     '2021': 'https://api.census.gov/data/2021/acs/acs5',
+    '2022': 'https://api.census.gov/data/2022/acs/acs5',
 }
 
 
-HEALTH_INSURANCE_RACE_TO_CONCEPT = {
+HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS = {
     Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)',
     Race.HISP.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)',
@@ -64,18 +65,41 @@ HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.MULTI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)',
 }
 
-NHPI_POVERTY_VALUE = (
-    'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE ' '(NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
-)
-POVERTY_RACE_TO_CONCEPT = {
+HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE = {
+    Race.AIAN.value: 'Health Insurance Coverage Status by Age (American Indian and Alaska Native Alone)',
+    Race.ASIAN.value: 'Health Insurance Coverage Status by Age (Asian Alone)',
+    Race.HISP.value: 'Health Insurance Coverage Status by Age (Hispanic or Latino)',
+    Race.BLACK.value: 'Health Insurance Coverage Status by Age (Black or African American Alone)',
+    Race.NHPI.value: 'Health Insurance Coverage Status by Age (Native Hawaiian and Other Pacific Islander Alone)',
+    Race.WHITE.value: 'Health Insurance Coverage Status by Age (White Alone)',
+    Race.OTHER_STANDARD.value: 'Health Insurance Coverage Status by Age (Some Other Race Alone)',
+    Race.MULTI.value: 'Health Insurance Coverage Status by Age (Two or More Races)',
+}
+
+POVERTY_RACE_TO_CONCEPT_CAPS = {
     Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
     Race.HISP.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)',
     Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
-    Race.NHPI.value: NHPI_POVERTY_VALUE,
+    Race.NHPI.value: (
+        'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
+    ),
     Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
     Race.OTHER_STANDARD.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)',
     Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
+}
+
+POVERTY_RACE_TO_CONCEPT_TITLE = {
+    Race.AIAN.value: 'Poverty Status in the Past 12 Months by Sex by Age (American Indian and Alaska Native Alone)',
+    Race.ASIAN.value: 'Poverty Status in the Past 12 Months by Sex by Age (Asian Alone)',
+    Race.HISP.value: 'Poverty Status in the Past 12 Months by Sex by Age (Hispanic or Latino)',
+    Race.BLACK.value: 'Poverty Status in the Past 12 Months by Sex by Age (Black or African American Alone)',
+    Race.NHPI.value: (
+        'Poverty Status in the Past 12 Months by Sex by Age (Native Hawaiian and Other Pacific Islander Alone)'
+    ),
+    Race.WHITE.value: 'Poverty Status in the Past 12 Months by Sex by Age (White Alone)',
+    Race.OTHER_STANDARD.value: 'Poverty Status in the Past 12 Months by Sex by Age (Some Other Race Alone)',
+    Race.MULTI.value: 'Poverty Status in the Past 12 Months by Sex by Age (Two or More Races)',
 }
 
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 etc
@@ -153,10 +177,12 @@ class AcsItem:
 # Health insurance by Sex only has one prefix, and is kept
 # in the form of a dict to help with standardizing code flow
 HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = 'B27001'
-HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT = 'HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE'
+HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_CAPS = 'HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE'
+HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_TITLE = 'Health Insurance Coverage Status by Sex by Age'
 
 POVERTY_BY_SEX_AGE_GROUPS_PREFIX = 'B17001'
-POVERTY_BY_SEX_AGE_CONCEPT = 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE'
+POVERTY_BY_SEX_AGE_CONCEPT_CAPS = 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE'
+POVERTY_BY_SEX_AGE_CONCEPT_TITLE = 'Poverty Status in the Past 12 Months by Sex by Age'
 
 HAS_HEALTH_INSURANCE = 'has_health_insurance'
 INCOME_UNDER_POVERTY = 'under_poverty_line'
@@ -175,21 +201,43 @@ POVERTY_KEY = 'Income in the past 12 months below poverty level'
 HEALTH_INSURANCE_MEASURE = 'health_insurance'
 POVERTY_MEASURE = 'poverty'
 
-ACS_ITEMS = {
+ACS_ITEMS_2021_AND_EARLIER = {
     HEALTH_INSURANCE_MEASURE: AcsItem(
         HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
-        HEALTH_INSURANCE_RACE_TO_CONCEPT,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS,
         HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
-        HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT,
+        HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_CAPS,
         HEALTH_INSURANCE_KEY,
         WITH_HEALTH_INSURANCE_KEY,
         std_col.UNINSURED_PREFIX,
     ),
     POVERTY_MEASURE: AcsItem(
         POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
-        POVERTY_RACE_TO_CONCEPT,
+        POVERTY_RACE_TO_CONCEPT_CAPS,
         POVERTY_BY_SEX_AGE_GROUPS_PREFIX,
-        POVERTY_BY_SEX_AGE_CONCEPT,
+        POVERTY_BY_SEX_AGE_CONCEPT_CAPS,
+        POVERTY_KEY,
+        NOT_IN_POVERTY_KEY,
+        std_col.POVERTY_PREFIX,
+    ),
+}
+
+
+ACS_ITEMS_2022_AND_LATER = {
+    HEALTH_INSURANCE_MEASURE: AcsItem(
+        HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE,
+        HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX,
+        HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_TITLE,
+        HEALTH_INSURANCE_KEY,
+        WITH_HEALTH_INSURANCE_KEY,
+        std_col.UNINSURED_PREFIX,
+    ),
+    POVERTY_MEASURE: AcsItem(
+        POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES,
+        POVERTY_RACE_TO_CONCEPT_TITLE,
+        POVERTY_BY_SEX_AGE_GROUPS_PREFIX,
+        POVERTY_BY_SEX_AGE_CONCEPT_TITLE,
         POVERTY_KEY,
         NOT_IN_POVERTY_KEY,
         std_col.POVERTY_PREFIX,
@@ -255,12 +303,17 @@ class AcsCondition(DataSource):
         self.year = year
         self.base_url = ACS_URLS_MAP[year]
 
+        if int(year) < 2022:
+            acs_items = ACS_ITEMS_2021_AND_EARLIER
+        else:
+            acs_items = ACS_ITEMS_2022_AND_LATER
+
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
 
         file_diff = False
-        for measure, acs_item in ACS_ITEMS.items():
+        for measure, acs_item in acs_items.items():
             for prefix, race in acs_item.prefix_map.items():
                 for county_level in [True, False]:
                     params = get_all_params_for_group(prefix, county_level)
@@ -293,14 +346,20 @@ class AcsCondition(DataSource):
         year = self.get_attr(attrs, 'year')
         self.year = year
         self.base_url = ACS_URLS_MAP[year]
+        if int(year) < 2022:
+            acs_items = ACS_ITEMS_2021_AND_EARLIER
+            health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS
+        else:
+            acs_items = ACS_ITEMS_2022_AND_LATER
+            health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE
 
         metadata = census.fetch_acs_metadata(self.base_url)
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
                 table_name = f'by_{demo}_{geo}_time_series'
-                df = self.get_raw_data(demo, geo, metadata, gcs_bucket=gcs_bucket)
-                df = self.post_process(df, demo, geo)
+                df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
+                df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
 
                 if demo == RACE:
                     add_race_columns_from_category_id(df)
@@ -322,16 +381,17 @@ class AcsCondition(DataSource):
             overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
 
             float_cols = []
-            for acs_item in ACS_ITEMS.values():
+            for acs_item in acs_items.values():
                 float_cols += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes]
 
             col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types, overwrite=overwrite)
 
-    def get_raw_data(self, demo, geo, metadata, gcs_bucket):
+    def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
+
         groups = []
-        for acs_item in ACS_ITEMS.values():
+        for acs_item in acs_items.values():
             groups.extend(list(acs_item.prefix_map.keys()) + [acs_item.sex_age_prefix])
 
         var_map = parse_acs_metadata(metadata, groups)
@@ -353,7 +413,7 @@ class AcsCondition(DataSource):
         df = pd.DataFrame(columns=merge_cols)
 
         if demo == RACE:
-            for measure, acs_item in ACS_ITEMS.items():
+            for measure, acs_item in acs_items.items():
                 concept_dfs = []
                 for race, concept in acs_item.concept_map.items():
                     # Get cached data from GCS
@@ -375,7 +435,7 @@ class AcsCondition(DataSource):
             return df
 
         else:
-            for measure, acs_item in ACS_ITEMS.items():
+            for measure, acs_item in acs_items.items():
                 concept_dfs = []
                 concept_df = gcs_to_bq_util.load_values_as_df(
                     gcs_bucket,
@@ -504,7 +564,7 @@ class AcsCondition(DataSource):
 
         return df
 
-    def post_process(self, df, demo, geo):
+    def post_process(self, df, demo, geo, acs_items, health_insurance_race_to_concept):
         """Merge population data, state, and county names.
         Do all needed calculations to generate pct_rate,
         pct_share, and pct_relative_inequity columns.
@@ -524,13 +584,14 @@ class AcsCondition(DataSource):
         ]
 
         breakdown_vals_to_sum = None
+
         if demo == RACE:
-            all_races = HEALTH_INSURANCE_RACE_TO_CONCEPT.keys()
+            all_races = health_insurance_race_to_concept.keys()
             breakdown_vals_to_sum = list(all_races)
             breakdown_vals_to_sum.remove(Race.HISP.value)
 
         value_cols = []
-        for measure in ACS_ITEMS.keys():
+        for measure in acs_items.keys():
             value_cols.append(generate_column_name(measure, HAS_ACS_ITEM_SUFFIX))
             value_cols.append(generate_column_name(measure, POP_SUFFIX))
 
@@ -542,7 +603,7 @@ class AcsCondition(DataSource):
             all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
 
-        for measure, acs_item in ACS_ITEMS.items():
+        for measure, acs_item in acs_items.items():
             raw_count_col = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
             pop_col = generate_column_name(measure, POP_SUFFIX)
 
@@ -553,7 +614,7 @@ class AcsCondition(DataSource):
             df = generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col)
 
         pct_share_cols = {}
-        for measure, acs_item in ACS_ITEMS.items():
+        for measure, acs_item in acs_items.items():
             pct_share_col = generate_column_name(acs_item.bq_prefix, std_col.PCT_SHARE_SUFFIX)
             pct_share_cols[generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)] = pct_share_col
             all_columns.append(pct_share_col)
@@ -563,9 +624,10 @@ class AcsCondition(DataSource):
             all_columns.append(pop_pct_col)
 
         # PCT_SHARE
+
         df = generate_pct_share_col_without_unknowns(df, pct_share_cols, demo_col, all_val)
 
-        for item in ACS_ITEMS.values():
+        for item in acs_items.values():
             pct_rel_inequity_col = f'{item.bq_prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
 
             # PCT_REL_INEQUITY
