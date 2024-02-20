@@ -31,7 +31,7 @@ import {
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
@@ -219,7 +219,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   let selectedRaceSuffix = ''
   if (
-    CAWP_METRICS.includes(metricConfig.metricId) &&
+    CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
     activeDemographicGroup !== ALL
   ) {
     selectedRaceSuffix = ` and also identifying as ${activeDemographicGroup}`

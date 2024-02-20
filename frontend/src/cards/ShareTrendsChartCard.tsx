@@ -28,7 +28,10 @@ import AltTableView from './ui/AltTableView'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle } from '../charts/utils'
@@ -98,7 +101,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const isCawp =
     metricConfigInequitable?.metricId &&
-    CAWP_METRICS.includes(metricConfigInequitable.metricId)
+    CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId)
 
   const isHIV =
     metricConfigInequitable?.metricId &&

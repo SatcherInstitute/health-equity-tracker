@@ -16,7 +16,7 @@ import {
   shouldShowAltPopCompare,
   splitIntoKnownsAndUnknowns,
 } from '../data/utils/datasetutils'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
@@ -119,7 +119,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           props.demographicType
         )
 
-        const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
+        const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId)
 
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)

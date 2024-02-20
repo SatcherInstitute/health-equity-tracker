@@ -10,7 +10,10 @@ import {
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { type Fips } from '../data/utils/Fips'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
@@ -153,7 +156,7 @@ export function getAltGroupLabel(
   metricId: MetricId,
   demographicType: DemographicType
 ) {
-  if (CAWP_METRICS.includes(metricId)) {
+  if (CAWP_DETERMINANTS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
   if (group === ALL && demographicType === AGE) {

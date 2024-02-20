@@ -23,7 +23,7 @@ import {
 } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import {
-  CAWP_METRICS,
+  CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import {
@@ -182,7 +182,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
-              const mapLabel = CAWP_METRICS.includes(
+              const mapLabel = CAWP_DETERMINANTS.includes(
                 props.metricConfig.metricId
               )
                 ? getWomenRaceLabel(demographicGroup)

@@ -9,7 +9,7 @@ import {
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
 import {
   COLOR_SCALE,
@@ -75,7 +75,7 @@ interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const isCawp = CAWP_METRICS.includes(props.metric.metricId)
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0

@@ -10,7 +10,10 @@ import {
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
@@ -119,7 +122,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const isMobile = !useIsBreakpointAndUp('md')
 
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
-  const isCawp = CAWP_METRICS.includes(props.metric.metricId)
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
   const isAcsCondition = ACS_CONDITION_METRICS.includes(props.metric.metricId)
 

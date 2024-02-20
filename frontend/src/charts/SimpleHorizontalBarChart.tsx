@@ -17,7 +17,7 @@ import {
   getAltGroupLabel,
   LABEL_HEIGHT,
 } from './utils'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { createBarLabel } from './mapHelperFunctions'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
@@ -279,7 +279,7 @@ interface SimpleHorizontalBarChartProps {
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth()
 
-  const altLabelDeterminants = [...CAWP_METRICS, ...HIV_DETERMINANTS]
+  const altLabelDeterminants = [...CAWP_DETERMINANTS, ...HIV_DETERMINANTS]
 
   // swap race labels if applicable
   const dataLabelled = altLabelDeterminants.includes(props.metric.metricId)
