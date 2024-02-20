@@ -38,6 +38,7 @@ from ingestion.standardized_columns import (
 )
 
 EARLIEST_ACS_CONDITION_YEAR = '2012'
+CURRENT_ACS_CONDITION_YEAR = '2022'
 
 # available years with all topics working
 ACS_URLS_MAP = {
@@ -51,7 +52,7 @@ ACS_URLS_MAP = {
     '2019': 'https://api.census.gov/data/2019/acs/acs5',
     '2020': 'https://api.census.gov/data/2020/acs/acs5',
     '2021': 'https://api.census.gov/data/2021/acs/acs5',
-    '2022': 'https://api.census.gov/data/2022/acs/acs5',
+    CURRENT_ACS_CONDITION_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
 }
 
 
@@ -367,25 +368,34 @@ class AcsCondition(DataSource):
                 table_name_prefix = f'by_{demo}_{geo}'
                 dfs[table_name_prefix] = df
 
-        suffixes_time_series = [
-            std_col.PCT_SHARE_SUFFIX,
-            std_col.POP_PCT_SUFFIX,
-            std_col.PCT_RATE_SUFFIX,
+        suffixes_time_series_only = [
+            # std_col.POP_PCT_SUFFIX,
             std_col.PCT_REL_INEQUITY_SUFFIX,
         ]
 
-        # suffixes_current = [
-        #     std_col.PCT_SHARE_SUFFIX,
-        #     std_col.POP_PCT_SUFFIX,
-        #     std_col.PCT_RATE_SUFFIX,
-        #     # std_col.PCT_REL_INEQUITY_SUFFIX,
-        # ]
+        suffixes_both = [
+            std_col.PCT_SHARE_SUFFIX,
+            std_col.PCT_RATE_SUFFIX,
+        ]
+
+        suffixes_current_only = [
+            std_col.POP_PCT_SUFFIX,
+            # std_col.PCT_REL_INEQUITY_SUFFIX,
+        ]
 
         for table_name_prefix, df in dfs.items():
 
-            # TIME SERIES TABLE
+            # MAKE AND WRITE TIME SERIES TABLE
             df_time_series = df.copy()
             df_time_series[std_col.TIME_PERIOD_COL] = self.year
+
+            # DROP THE "CURRENT" COLUMNS WE DON'T NEED
+            float_cols_to_drop = []
+            for acs_item in acs_items.values():
+                float_cols_to_drop += [
+                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current_only
+                ]
+            df_time_series.drop(columns=float_cols_to_drop, inplace=True)
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
             overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
@@ -393,7 +403,8 @@ class AcsCondition(DataSource):
             float_cols_time_series = []
             for acs_item in acs_items.values():
                 float_cols_time_series += [
-                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series
+                    generate_column_name(acs_item.bq_prefix, suffix)
+                    for suffix in suffixes_time_series_only + suffixes_both
                 ]
 
             col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
@@ -406,20 +417,30 @@ class AcsCondition(DataSource):
                 overwrite=overwrite,
             )
 
-            # CURRENT TABLE
-            # df_current = df.copy()
+            # MAKE AND WRITE CURRENT TABLE
+            if self.year == CURRENT_ACS_CONDITION_YEAR:
+                df_current = df.copy()
 
-            # float_cols_current = []
-            # for acs_item in acs_items.values():
-            #     float_cols_current += [
-            #         generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current
-            #     ]
+                # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
+                float_cols_to_drop = []
+                for acs_item in acs_items.values():
+                    float_cols_to_drop += [
+                        generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only
+                    ]
+                df_current.drop(columns=float_cols_to_drop, inplace=True)
 
-            # col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
+                float_cols_current = []
+                for acs_item in acs_items.values():
+                    float_cols_current += [
+                        generate_column_name(acs_item.bq_prefix, suffix)
+                        for suffix in suffixes_current_only + suffixes_both
+                    ]
 
-            # gcs_to_bq_util.add_df_to_bq(
-            #     df_current, dataset, table_name_prefix, column_types=col_types, overwrite=overwrite
-            # )
+                col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
+
+                gcs_to_bq_util.add_df_to_bq(
+                    df_current, dataset, f'{table_name_prefix}_{CURRENT}', column_types=col_types
+                )
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
