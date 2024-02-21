@@ -240,17 +240,15 @@ def post_process(breakdown_df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE, g
     return breakdown_df
 
 
-def get_matched_row(
-    df: pd.DataFrame, state: str, determinant: str, breakdown_value: str, breakdown: SEX_RACE_ETH_AGE_TYPE
-):
+def get_matched_row(df: pd.DataFrame, state: str, topic: str, breakdown_value: str, breakdown: SEX_RACE_ETH_AGE_TYPE):
     """
-    Find the row in the AHR dataframe that matches the given state, determinant,
+    Find the row in the AHR dataframe that matches the given state, topic,
     and breakdown values.
 
     Args:
         df: Dataframe with raw data directly pulled from the AHR csv.
         state: The state abbreviation to search for (e.g. "CA").
-        determinant: The AHR determinant to search for (e.g. "Asthma").
+        topic: The AHR topic to search for (e.g. "Asthma").
         breakdown_value: The breakdown value to search for (e.g. "65+).
         breakdown: string equal to race_and_ethnicity, sex, or age.
 
@@ -260,18 +258,18 @@ def get_matched_row(
     if breakdown_value in {std_col.ALL_VALUE, 'Total'}:
         # find row that matches current nested iterations
         matched_row = df.loc[
-            (df[std_col.STATE_POSTAL_COL] == state) & (df['Measure'] == ALT_ROWS_ALL.get(determinant, determinant))
+            (df[std_col.STATE_POSTAL_COL] == state) & (df['Measure'] == ALT_ROWS_ALL.get(topic, topic))
         ]
 
     else:
-        # For rows with demographic breakdown, the determinant
+        # For rows with demographic breakdown, the topic
         # and breakdown group are in a single field
         # We build that string to perfectly match the field,
-        # using any alias for the determinant as needed
+        # using any alias for the topic as needed
         space_or_ages = " "
         if breakdown == std_col.AGE_COL:
             space_or_ages += "Ages "
-        measure_name = f"{ALT_ROWS_WITH_DEMO.get(determinant, determinant)}" f" -{space_or_ages}" f"{breakdown_value}"
+        measure_name = f"{ALT_ROWS_WITH_DEMO.get(topic, topic)}" f" -{space_or_ages}" f"{breakdown_value}"
 
         matched_row = df.loc[(df[std_col.STATE_POSTAL_COL] == state) & (df['Measure'] == measure_name)]
 
