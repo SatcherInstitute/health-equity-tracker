@@ -569,6 +569,8 @@ def generate_time_df_with_cols_and_types(
     if table_type == CURRENT:
         df = preserve_only_current_time_period_rows(df)
 
+    df[time_cols] = df[time_cols].astype(float)
+
     column_types = {c: BQ_STRING for c in df.columns}
     for col in time_cols:
         column_types[col] = BQ_FLOAT
