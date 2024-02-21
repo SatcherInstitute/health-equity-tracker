@@ -163,9 +163,9 @@ class CDCWisqarsData(DataSource):
             df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
 
         for col in RAW_TOTALS_MAP.values():
-            pop_col = std_col.FATAL_POPULATION
+            pop_col = std_col.FATAL_POPULATION_PCT
             if col == std_col.GUN_VIOLENCE_INJURIES_RAW:
-                pop_col = std_col.NON_FATAL_POPULATION
+                pop_col = std_col.NON_FATAL_POPULATION_PCT
             df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col])
 
         return df
