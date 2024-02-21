@@ -57,7 +57,6 @@ import {
 import { setupUnknownsLegend } from './legendHelperFunctions'
 import { het } from '../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import { ACS_CONDITION_METRICS } from '../data/providers/AcsConditionProvider'
 
 const {
   howToColor: UNKNOWN_GREY,
@@ -121,7 +120,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_METRICS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
-  const isAcsCondition = ACS_CONDITION_METRICS.includes(props.metric.metricId)
 
   let suppressedData = props.data
 
@@ -259,20 +257,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* includeSvi */ false
   )
 
-  if (isCawp) {
+  if (props.countColsMap) {
     addCountsTooltipInfo(
       /* demographicType */ props.demographicType,
       /* tooltipPairs */ tooltipPairs,
       /* countColsMap */ props.countColsMap,
       /* activeDemographicGroup */ props.activeDemographicGroup,
-      /* isCawp */ true
-    )
-  } else if (isPhrma || isAcsCondition) {
-    addCountsTooltipInfo(
-      /* demographicType */ props.demographicType,
-      /* tooltipPairs */ tooltipPairs,
-      /* countColsMap */ props.countColsMap,
-      /* activeDemographicGroup */ props.activeDemographicGroup
+      /* isCawp */ isCawp
     )
   }
 
