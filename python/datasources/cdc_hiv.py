@@ -430,15 +430,15 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
     hiv_directory = "cdc_hiv_black_women" if std_col.BLACK_WOMEN in breakdown else "cdc_hiv"
 
-    for determinant in HIV_METRICS.values():
+    for datatype in HIV_METRICS.values():
         atlas_cols_to_exclude = generate_atlas_cols_to_exclude(breakdown)
 
-        no_black_women_data = (std_col.BLACK_WOMEN in breakdown) and ((determinant not in BASE_COLS_PER_100K))
-        no_deaths_data = (determinant == std_col.HIV_DEATHS_PREFIX) and (geo_level == COUNTY_LEVEL)
-        no_prep_data = (determinant == std_col.HIV_PREP_PREFIX) and (
+        no_black_women_data = (std_col.BLACK_WOMEN in breakdown) and ((datatype not in BASE_COLS_PER_100K))
+        no_deaths_data = (datatype == std_col.HIV_DEATHS_PREFIX) and (geo_level == COUNTY_LEVEL)
+        no_prep_data = (datatype == std_col.HIV_PREP_PREFIX) and (
             breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level != NATIONAL_LEVEL
         )
-        no_stigma_data = (determinant == std_col.HIV_STIGMA_INDEX) and (
+        no_stigma_data = (datatype == std_col.HIV_STIGMA_INDEX) and (
             (geo_level == COUNTY_LEVEL) or (geo_level == STATE_LEVEL and breakdown != "all")
         )
 
@@ -447,25 +447,25 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
         else:
             if breakdown == std_col.BLACK_WOMEN:
-                filename = f"{determinant}-{geo_level}-{breakdown}-age.csv"
+                filename = f"{datatype}-{geo_level}-{breakdown}-age.csv"
             else:
-                filename = f"{determinant}-{geo_level}-{breakdown}.csv"
+                filename = f"{datatype}-{geo_level}-{breakdown}.csv"
             df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 hiv_directory,
                 filename,
-                subdirectory=determinant,
+                subdirectory=datatype,
                 na_values=NA_VALUES,
                 usecols=lambda x: x not in atlas_cols_to_exclude,
                 thousands=",",
                 dtype=DTYPE,
             )
 
-            if (determinant in BASE_COLS_NO_PREP) and (breakdown == "all") and (geo_level == NATIONAL_LEVEL):
-                filename = f"{determinant}-{geo_level}-gender.csv"
+            if (datatype in BASE_COLS_NO_PREP) and (breakdown == "all") and (geo_level == NATIONAL_LEVEL):
+                filename = f"{datatype}-{geo_level}-gender.csv"
                 all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                     hiv_directory,
                     filename,
-                    subdirectory=determinant,
+                    subdirectory=datatype,
                     na_values=NA_VALUES,
                     usecols=lambda x: x not in atlas_cols_to_exclude,
                     thousands=",",
@@ -478,34 +478,34 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
                 national_gender_cases_pivot.columns = [
                     "Year",
-                    f"{determinant}_{std_col.TOTAL_ADDITIONAL_GENDER}",
-                    f"{determinant}_{std_col.TOTAL_TRANS_MEN}",
-                    f"{determinant}_{std_col.TOTAL_TRANS_WOMEN}",
+                    f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
+                    f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
+                    f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
                 ]
 
                 df = pd.merge(df, national_gender_cases_pivot, on="Year")
 
-            if determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
+            if datatype in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
                 cols_to_standard = {
-                    "Cases": determinant,
-                    "Percent": CARE_PREP_MAP[determinant],
-                    "Population": POP_MAP[determinant],
+                    "Cases": datatype,
+                    "Percent": CARE_PREP_MAP[datatype],
+                    "Population": POP_MAP[datatype],
                 }
-            elif determinant == std_col.HIV_STIGMA_INDEX:
+            elif datatype == std_col.HIV_STIGMA_INDEX:
                 cols_to_standard = {
                     "Rate per 100000": std_col.HIV_STIGMA_INDEX,
-                    "Population": POP_MAP[determinant],
+                    "Population": POP_MAP[datatype],
                 }
             else:
                 cols_to_standard = {
-                    "Cases": determinant,
-                    "Rate per 100000": PER_100K_MAP[determinant],
-                    "Population": POP_MAP[determinant],
+                    "Cases": datatype,
+                    "Rate per 100000": PER_100K_MAP[datatype],
+                    "Population": POP_MAP[datatype],
                 }
 
-            if determinant == std_col.HIV_PREP_PREFIX:
+            if datatype == std_col.HIV_PREP_PREFIX:
                 df = df.replace({"13-24": "16-24"})
-            elif determinant == std_col.HIV_STIGMA_INDEX:
+            elif datatype == std_col.HIV_STIGMA_INDEX:
                 df = df.replace({"13-24": "18-24"})
 
             df["Geography"] = df["Geography"].str.replace("^", "", regex=False)
@@ -513,7 +513,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
             df = df.rename(columns=cols_to_standard)
 
-            if determinant == std_col.HIV_STIGMA_INDEX:
+            if datatype == std_col.HIV_STIGMA_INDEX:
                 df = df.drop(columns=["Cases", "population"])
 
             # TODO: GitHub #2907 this is causing FutureWarning: not sure how to fix

@@ -74,7 +74,7 @@ CONVERT_PCT_TO_100K_TOPICS = {
 AHR_METRICS = {**PER100K_TOPICS, **PCT_RATE_TOPICS, **CONVERT_PCT_TO_100K_TOPICS}
 
 # When parsing Measure Names from rows with a demographic breakdown
-# these aliases will be used instead of the determinant string above
+# these aliases will be used instead of the topic string above
 ALT_ROWS_ALL = {
     "Non-medical Drug Use": "Non-medical Drug Use - Past Year",
     "Voter Participation": "Voter Participation (Presidential)",
@@ -177,7 +177,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
             else:
                 output_row[breakdown] = breakdown_value
 
-            for determinant, prefix in AHR_METRICS.items():
+            for topic, prefix in AHR_METRICS.items():
                 per_100k_col_name = std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
                 pct_rate_col_name = std_col.generate_column_name(prefix, std_col.PCT_RATE_SUFFIX)
                 pct_share_col_name = std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
@@ -189,14 +189,14 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
                     inplace=True,
                 )
 
-                matched_row = get_matched_row(df, state, determinant, breakdown_value, breakdown)
+                matched_row = get_matched_row(df, state, topic, breakdown_value, breakdown)
 
                 if len(matched_row) > 0:
                     output_row[pct_share_col_name] = matched_row['CaseShare'].values[0]
 
-                    if determinant in PER100K_TOPICS:
+                    if topic in PER100K_TOPICS:
                         output_row[per_100k_col_name] = matched_row['Value'].values[0]
-                    elif determinant in PCT_RATE_TOPICS:
+                    elif topic in PCT_RATE_TOPICS:
                         output_row[pct_rate_col_name] = matched_row['Value'].values[0]
                     else:
                         # convert AHR pct_rate to HET per100k
