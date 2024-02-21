@@ -24,7 +24,7 @@ export default function MetricsLink() {
         <HetNotice>
           In the example below, we use <HetTerm>COVID-19 cases</HetTerm> as the
           variable, and <HetTerm>race and ethnicity</HetTerm> as the demographic
-          breakdown for simplicity; the definitions apply to all variables and
+          breakdown for simplicity; the definitions apply to all topics and
           demographic breakdowns.
         </HetNotice>
         <div className='pl-10'>

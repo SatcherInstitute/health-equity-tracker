@@ -86,7 +86,7 @@ export const STIGMA_METRICS: MetricId[] = [
   'hiv_stigma_pct_share',
 ]
 
-export const HIV_DETERMINANTS: MetricId[] = [
+export const HIV_METRICS: MetricId[] = [
   ...BLACK_WOMEN_METRICS,
   ...CARE_METRICS,
   ...DEATHS_METRICS,
@@ -106,7 +106,7 @@ export const BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 
 class HivProvider extends VariableProvider {
   constructor() {
-    super('hiv_provider', HIV_DETERMINANTS)
+    super('hiv_provider', HIV_METRICS)
   }
 
   getDatasetId(
