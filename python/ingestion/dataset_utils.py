@@ -11,8 +11,12 @@ from ingestion.constants import (
     UNKNOWN,
     STATE_LEVEL_FIPS_LIST,
     COUNTY_LEVEL_FIPS_LIST,
+    CURRENT,
 )
 from functools import reduce
+
+BQ_STRING = 'STRING'
+BQ_FLOAT = 'FLOAT64'
 
 
 def melt_to_het_style_df(
@@ -70,9 +74,7 @@ def melt_to_het_style_df(
         partial_dfs.append(df)
 
     # merge all partial_dfs
-    result_df = reduce(
-        lambda x, y: pd.merge(x, y, how="outer", on=[*keep_cols, demo_col]), partial_dfs
-    )
+    result_df = reduce(lambda x, y: pd.merge(x, y, how="outer", on=[*keep_cols, demo_col]), partial_dfs)
 
     return result_df.sort_values(by=keep_cols).reset_index(drop=True)
 
@@ -103,9 +105,7 @@ def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.Da
             }
         )
 
-    raise ValueError(
-        f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.'
-    )
+    raise ValueError(f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.')
 
 
 def generate_pct_share_col_without_unknowns(
@@ -127,10 +127,7 @@ def generate_pct_share_col_without_unknowns(
     all_demo_values = set(df[breakdown_col].to_list())
     if Race.UNKNOWN.value in all_demo_values or 'Unknown' in all_demo_values:
         raise ValueError(
-            (
-                'This dataset contains unknowns, use the'
-                'generate_pct_share_col_with_unknowns function instead'
-            )
+            ('This dataset contains unknowns, use the' 'generate_pct_share_col_with_unknowns function instead')
         )
 
     return _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
@@ -161,9 +158,7 @@ def generate_pct_share_col_with_unknowns(
     # First, only run the _generate_pct_share_col function on the UNKNOWNS
     # in the dataframe, so we only need the ALL and UNKNOWN rows
     unknown_all_df = df.loc[df[breakdown_col].isin({unknown_val, all_val})]
-    unknown_all_df = _generate_pct_share_col(
-        unknown_all_df, raw_count_to_pct_share, breakdown_col, all_val
-    )
+    unknown_all_df = _generate_pct_share_col(unknown_all_df, raw_count_to_pct_share, breakdown_col, all_val)
 
     # Make sure this dataframe contains unknowns
     unknown_df = df.loc[df[breakdown_col] == unknown_val].reset_index(drop=True)
@@ -193,9 +188,7 @@ def generate_pct_share_col_with_unknowns(
     df = df.loc[df[breakdown_col] != all_val]
 
     for share_of_known_col in raw_count_to_pct_share.values():
-        unknown_all_df.loc[
-            unknown_all_df[breakdown_col] == all_val, share_of_known_col
-        ] = 100.0
+        unknown_all_df.loc[unknown_all_df[breakdown_col] == all_val, share_of_known_col] = 100.0
 
     df = pd.concat([df, unknown_all_df]).reset_index(drop=True)
     return df
@@ -203,9 +196,7 @@ def generate_pct_share_col_with_unknowns(
 
 def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     def calc_pct_share(record, raw_count_col):
-        return percent_avoid_rounding_to_zero(
-            record[raw_count_col], record[f'{raw_count_col}_all']
-        )
+        return percent_avoid_rounding_to_zero(record[raw_count_col], record[f'{raw_count_col}_all'])
 
     rename_cols = {}
     for raw_count_col in raw_count_to_pct_share.keys():
@@ -223,11 +214,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     alls = alls[on_cols + list(rename_cols.values())]
 
     # Ensure there is exactly one ALL value for each fips or fips/time_period group.
-    split_cols = (
-        [std_col.COUNTY_FIPS_COL]
-        if std_col.COUNTY_FIPS_COL in df.columns
-        else [std_col.STATE_FIPS_COL]
-    )
+    split_cols = [std_col.COUNTY_FIPS_COL] if std_col.COUNTY_FIPS_COL in df.columns else [std_col.STATE_FIPS_COL]
 
     if std_col.TIME_PERIOD_COL in df.columns:
         split_cols.append(std_col.TIME_PERIOD_COL)
@@ -280,9 +267,7 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     per_100k_col: String column name to place the generated row in."""
 
     def calc_per_100k(record):
-        per_100k = percent_avoid_rounding_to_zero(
-            1000 * float(record[raw_count_col]), float(record[pop_col]), 0, 0
-        )
+        per_100k = percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]), float(record[pop_col]), 0, 0)
         if not pd.isna(per_100k):
             return round(per_100k, 0)
         return np.nan
@@ -291,9 +276,7 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     return df
 
 
-def percent_avoid_rounding_to_zero(
-    numerator, denominator, default_decimals=1, max_decimals=2
-):
+def percent_avoid_rounding_to_zero(numerator, denominator, default_decimals=1, max_decimals=2):
     """Calculates percentage to `default_decimals` number of decimal places. If
     the percentage would round to 0, calculates with more decimal places until
     either it doesn't round to 0, or until `max_decimals`. `default_decimals`
@@ -324,9 +307,7 @@ def ratio_round_to_None(numerator, denominator):
     return round(ratio, 1)
 
 
-def add_sum_of_rows(
-    df, breakdown_col, value_col, new_row_breakdown_val, breakdown_vals_to_sum=None
-):
+def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val, breakdown_vals_to_sum=None):
     """Returns a new DataFrame by appending rows by summing the values of other
     rows. Automatically groups by all other columns, so this won't work if
     there are extraneous columns.
@@ -385,15 +366,10 @@ def estimate_total(row, condition_name_per_100k):
     ):
         return None
 
-    return round(
-        (float(row[condition_name_per_100k]) / 100_000)
-        * float(row[std_col.POPULATION_COL])
-    )
+    return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
 
 
-def ensure_leading_zeros(
-    df: pd.DataFrame, fips_col_name: str, num_digits: int
-) -> pd.DataFrame:
+def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) -> pd.DataFrame:
     """
     Ensure a column contains values of a certain digit length, adding leading zeros as needed.
     This could be used for 5 digit fips codes, or zip codes, etc.
@@ -404,9 +380,7 @@ def ensure_leading_zeros(
         fips_col_name: string column name containing the values to be padded
         num_digits: how many digits should be present after leading zeros are added
     """
-    df[fips_col_name] = df[fips_col_name].apply(
-        lambda code: (str(code).rjust(num_digits, '0'))
-    )
+    df[fips_col_name] = df[fips_col_name].apply(lambda code: (str(code).rjust(num_digits, '0')))
     return df
 
 
@@ -426,16 +400,10 @@ def generate_pct_rel_inequity_col(
     """
 
     def calc_pct_relative_inequity(row):
-        if (
-            pd.isna(row[pct_share_col])
-            or pd.isna(row[pct_pop_col])
-            or (row[pct_pop_col] == 0)
-        ):
+        if pd.isna(row[pct_share_col]) or pd.isna(row[pct_pop_col]) or (row[pct_pop_col] == 0):
             return np.NaN
 
-        pct_relative_inequity_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[
-            pct_pop_col
-        ]
+        pct_relative_inequity_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
         return round(pct_relative_inequity_ratio * 100, 1)
 
     df[pct_relative_inequity_col] = df.apply(calc_pct_relative_inequity, axis=1)
@@ -497,19 +465,11 @@ def zero_out_pct_rel_inequity(
     df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
     df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
 
-    grouped_df = (
-        df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL])
-        .sum(min_count=1)
-        .reset_index()
-    )
+    grouped_df = df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
     grouped_df = grouped_df.rename(columns=per_100k_col_names)
-    grouped_df = grouped_df[
-        geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]
-    ]
+    grouped_df = grouped_df[geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
 
-    df = pd.merge(
-        df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL]
-    )
+    df = pd.merge(df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL])
     for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
         grouped_col = f'{rate_col}_grouped'
         # set pct_inequity to 0 in a place/time_period if the summed rates are zero
@@ -540,9 +500,7 @@ def preserve_only_current_time_period_rows(
         raise ValueError(f'df does not contain column: {time_period_col}.')
 
     # Convert time_period to datetime-like object
-    df['time_period_dt'] = pd.to_datetime(
-        df[time_period_col], errors='coerce', format='%Y-%m'
-    )
+    df['time_period_dt'] = pd.to_datetime(df[time_period_col], errors='coerce', format='%Y-%m')
     # For rows that failed to convert (NaT), try again assuming just a year is provided
     df.loc[df['time_period_dt'].isna(), 'time_period_dt'] = pd.to_datetime(
         df[time_period_col], format='%Y', errors='coerce'
@@ -585,9 +543,7 @@ def combine_race_ethnicity(
     df[std_col.RACE_ETH_COL] = std_col.Race.UNKNOWN.value
 
     # Overwrite specific race if given
-    df.loc[other_mask, std_col.RACE_ETH_COL] = df.loc[other_mask, std_col.RACE_COL].map(
-        RACE_NAMES_MAPPING
-    )
+    df.loc[other_mask, std_col.RACE_ETH_COL] = df.loc[other_mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING)
 
     # overwrite with Hispanic if given
     df.loc[hispanic_mask, std_col.RACE_ETH_COL] = std_col.Race.HISP.value
@@ -596,3 +552,25 @@ def combine_race_ethnicity(
     df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
 
     return df
+
+
+def generate_time_df_with_cols_and_types(
+    df: pd.DataFrame,
+    time_cols: list[str],
+    table_type: Literal['current', 'historical'],
+    dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
+):
+    df = df.copy()
+    mandatory_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL]
+
+    all_cols = mandatory_cols + [dem_col] + time_cols
+    df = df[all_cols]
+
+    if table_type == CURRENT:
+        df = preserve_only_current_time_period_rows(df)
+
+    column_types = {c: BQ_STRING for c in df.columns}
+    for col in time_cols:
+        column_types[col] = BQ_FLOAT
+
+    return df, column_types
