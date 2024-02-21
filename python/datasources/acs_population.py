@@ -152,7 +152,7 @@ def get_decade_age_bucket(age_range):
 def get_ahr_standard_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    # buckets for most AHR determinants
+    # buckets for most AHR topics
     elif age_range in {
         '18-19',
         '20-24',

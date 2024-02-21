@@ -26,7 +26,7 @@ export const AHR_CONDITIONS: DropdownVarId[] = [
   'voter_participation',
 ]
 
-export const AHR_DETERMINANTS: MetricId[] = [
+export const AHR_METRICS: MetricId[] = [
   'ahr_population_pct',
   'asthma_pct_share',
   'asthma_per_100k',
@@ -52,25 +52,25 @@ export const AHR_DETERMINANTS: MetricId[] = [
   'preventable_hospitalizations_per_100k',
 ]
 
-export const AHR_VOTER_AGE_DETERMINANTS: MetricId[] = [
+export const AHR_VOTER_AGE_METRICS: MetricId[] = [
   'voter_participation_pct_share',
   'voter_participation_pct_rate',
 ]
 
-export const AHR_DECADE_PLUS_5_AGE_DETERMINANTS: MetricId[] = [
+export const AHR_DECADE_PLUS_5_AGE_METRICS: MetricId[] = [
   'suicide_pct_share',
   'suicide_per_100k',
 ]
 
-export const AHR_API_NH_DETERMINANTS: MetricId[] = [
+export const AHR_API_NH_METRICS: MetricId[] = [
   'preventable_hospitalizations_pct_share',
   'preventable_hospitalizations_per_100k',
 ]
 
-export const ALL_AHR_DETERMINANTS = [
-  ...AHR_VOTER_AGE_DETERMINANTS,
-  ...AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
-  ...AHR_DETERMINANTS,
+export const ALL_AHR_METRICS = [
+  ...AHR_VOTER_AGE_METRICS,
+  ...AHR_DECADE_PLUS_5_AGE_METRICS,
+  ...AHR_METRICS,
 ]
 
 export const AHR_DATATYPES_WITH_MISSING_AGE_DEMO: DataTypeId[] = [
@@ -86,9 +86,9 @@ class AhrProvider extends VariableProvider {
   constructor() {
     super('ahr_provider', [
       'ahr_population_pct',
-      ...AHR_DETERMINANTS,
-      ...AHR_VOTER_AGE_DETERMINANTS,
-      ...AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
+      ...AHR_METRICS,
+      ...AHR_VOTER_AGE_METRICS,
+      ...AHR_DECADE_PLUS_5_AGE_METRICS,
     ])
   }
 
