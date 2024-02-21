@@ -12,6 +12,7 @@ from ingestion.constants import (
     STATE_LEVEL_FIPS_LIST,
     COUNTY_LEVEL_FIPS_LIST,
     CURRENT,
+    HISTORICAL,
 )
 from functools import reduce
 
@@ -560,6 +561,22 @@ def generate_time_df_with_cols_and_types(
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
 ):
+    """
+    Accepts a DataFrame along with list of column names for either current or
+    historical data and generates the appropiate BQ types for each column.
+
+    Parameters:
+    - df: The source DataFrame to be processed.
+    - time_cols: A list of column names related to `table_type` that will be
+      included in the DataFrame and converted to floats.
+    - table_type: `current` or `historical`.
+    - dem_col: The name of the demographic column to be included in the DataFrame.
+
+    Returns:
+    - A tuple containing the processed DataFrame and a dict mapping column names
+      to their BQ data types ('STRING' or 'FLOAT').
+
+    """
     df = df.copy()
     mandatory_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL]
 
@@ -568,11 +585,12 @@ def generate_time_df_with_cols_and_types(
 
     if table_type == CURRENT:
         df = preserve_only_current_time_period_rows(df)
+    elif table_type == HISTORICAL:
+        df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
 
-    df[time_cols] = df[time_cols].astype(float)
+    float_cols = [col for col in time_cols if col in df.columns]
+    df[float_cols] = df[float_cols].astype(float)
 
-    column_types = {c: BQ_STRING for c in df.columns}
-    for col in time_cols:
-        column_types[col] = BQ_FLOAT
+    column_types = {c: (BQ_FLOAT if c in float_cols else BQ_STRING) for c in df.columns}
 
     return df, column_types
