@@ -10,11 +10,8 @@ import {
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { type Fips } from '../data/utils/Fips'
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from '../data/providers/CawpProvider'
-import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
+import { HIV_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
@@ -118,7 +115,7 @@ export function generateSubtitle(
     subtitle = `${activeDemographicGroup}`
   }
 
-  if (HIV_DETERMINANTS.includes(metricId)) {
+  if (HIV_METRICS.includes(metricId)) {
     let ageTitle = ''
     if (metricId === 'hiv_prep_coverage') {
       ageTitle = 'Ages 16+'
@@ -156,7 +153,7 @@ export function getAltGroupLabel(
   metricId: MetricId,
   demographicType: DemographicType
 ) {
-  if (CAWP_DETERMINANTS.includes(metricId)) {
+  if (CAWP_METRICS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
   if (group === ALL && demographicType === AGE) {

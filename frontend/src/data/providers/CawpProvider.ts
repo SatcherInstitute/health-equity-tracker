@@ -29,7 +29,7 @@ export const CAWP_STLEG_COUNTS: MetricId[] = [
   'total_state_leg_count',
 ]
 
-export const CAWP_DETERMINANTS: MetricId[] = [
+export const CAWP_METRICS: MetricId[] = [
   'cawp_population_pct',
   'pct_share_of_state_leg',
   'pct_share_of_women_state_leg',
@@ -72,7 +72,7 @@ export const CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 
 class CawpProvider extends VariableProvider {
   constructor() {
-    super('cawp_provider', CAWP_DETERMINANTS)
+    super('cawp_provider', CAWP_METRICS)
   }
 
   getDatasetId(
