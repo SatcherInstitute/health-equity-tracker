@@ -1423,8 +1423,8 @@ export default function OldMethodologyTab() {
             <p>
               In the definitions below, we use <b>COVID-19 cases</b> as the
               variable, and <b>race and ethnicity</b> as the demographic
-              breakdown for simplicity; the definitions apply to all variables
-              and demographic breakdowns.
+              breakdown for simplicity; the definitions apply to all topics and
+              demographic breakdowns.
             </p>
             <ul>
               <li>
@@ -1492,7 +1492,7 @@ export default function OldMethodologyTab() {
         </article>
         <article className='pb-6'>
           <h2 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
-            What do the condition variables on the tracker mean?
+            What do the condition topics on the tracker mean?
           </h2>
           <div className='text-left font-sansText text-text'>
             <DefinitionsList

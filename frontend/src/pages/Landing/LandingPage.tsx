@@ -167,8 +167,8 @@ function LandingPage() {
                   Search by completing the sentence
                 </h4>
                 <p className='md:text-left'>
-                  Select variables you’re interested in to complete the sentence
-                  and explore the data.
+                  Select topics and locations you’re interested in to complete
+                  the sentence and explore the data.
                 </p>
               </div>
               <div className='w-full md:w-2/3'>
