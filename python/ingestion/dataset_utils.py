@@ -13,11 +13,10 @@ from ingestion.constants import (
     COUNTY_LEVEL_FIPS_LIST,
     CURRENT,
     HISTORICAL,
+    BQ_STRING,
+    BQ_FLOAT,
 )
 from functools import reduce
-
-BQ_STRING = 'STRING'
-BQ_FLOAT = 'FLOAT64'
 
 
 def melt_to_het_style_df(
@@ -557,7 +556,7 @@ def combine_race_ethnicity(
 
 def generate_time_df_with_cols_and_types(
     df: pd.DataFrame,
-    time_cols: list[str],
+    numerical_cols_to_keep: list[str],
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
 ):
@@ -566,29 +565,38 @@ def generate_time_df_with_cols_and_types(
     historical data and generates the appropiate BQ types for each column.
 
     Parameters:
-    - df: The source DataFrame to be processed.
-    - time_cols: A list of column names related to `table_type` that will be
-      included in the DataFrame and converted to floats.
+    - df: The DataFrame to be processed.
+    - numerical_cols_to_keep: A list of column names related to `table_type` that
+      will be included in the DataFrame and converted to floats.
+      - For current dataframes: estimated_total, per_100k/pct_rate, pct_share,
+        population_pct
+      - For historical dataframes: per_100k/pct_rate, pct_share(if unknown rows exist),
+        pct_relative_inequity
     - table_type: `current` or `historical`.
     - dem_col: The name of the demographic column to be included in the DataFrame.
 
     Returns:
     - A tuple containing the processed DataFrame and a dict mapping column names
-      to their BQ data types ('STRING' or 'FLOAT').
+      to their BQ data types ('STRING' or 'FLOAT64').
 
+    Note: This function aligns with the specific front-end table requirements,
+    The rate map, rate chart, unknown demographic map, pop vs dist, and data table use
+    the current DataFrame. The rates over time and inequities over time use the historical
+    DataFrame.
     """
     df = df.copy()
     mandatory_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL]
 
-    all_cols = mandatory_cols + [dem_col] + time_cols
+    all_cols = mandatory_cols + [dem_col] + numerical_cols_to_keep
     df = df[all_cols]
 
     if table_type == CURRENT:
         df = preserve_only_current_time_period_rows(df)
     elif table_type == HISTORICAL:
         df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
+        df = df[[col for col in df.columns if std_col.RAW_SUFFIX not in col]]
 
-    float_cols = [col for col in time_cols if col in df.columns]
+    float_cols = [col for col in numerical_cols_to_keep if col in df.columns]
     df[float_cols] = df[float_cols].astype(float)
 
     column_types = {c: (BQ_FLOAT if c in float_cols else BQ_STRING) for c in df.columns}
