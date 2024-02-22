@@ -1,10 +1,10 @@
-state_name,state_fips,race_and_ethnicity,race_category_id,population,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,population_pct,gun_violence_youth_deaths_pct_relative_inequity
-United States,00,American Indian and Alaska Native (NH),AIAN_NH,882778.0,740.0,83.83,1.8,0.8,125.0
-United States,00,Asian (NH),ASIAN_NH,5940330.0,855.0,14.39,2.1,5.5,-61.8
-United States,00,Black or African American (NH),BLACK_NH,14921868.0,11178.0,74.91,27.8,13.8,101.4
-United States,00,Hispanic or Latino,HISP,26916004.0,8427.0,31.0,20.9,24.9,-16.1
-United States,00,Two or more races (NH),MULTI_NH,4594493.0,984.0,21.42,2.4,4.3,-44.2
-United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,226770.0,111.0,48.95,0.3,0.2,50.0
-United States,00,White (NH),WHITE_NH,54482236.0,17934.0,32.92,44.6,50.5,-11.7
-United States,00,Unknown race,UNKNOWN,,,,,,
-United States,00,All,ALL,107964479.0,40289.0,37.32,100.0,100.0,0.0
+state_name,state_fips,race_and_ethnicity,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,population_pct
+United States,00,American Indian and Alaska Native (NH),740.0,83.83,1.8,0.8
+United States,00,Asian (NH),855.0,14.39,2.1,5.5
+United States,00,Black or African American (NH),11178.0,74.91,27.8,13.8
+United States,00,Hispanic or Latino,8427.0,31.0,20.9,24.9
+United States,00,Two or more races (NH),984.0,21.42,2.4,4.3
+United States,00,Native Hawaiian and Pacific Islander (NH),111.0,48.95,0.3,0.2
+United States,00,White (NH),17934.0,32.92,44.6,50.5
+United States,00,Unknown race,,,,
+United States,00,All,40289.0,37.32,100.0,100.0

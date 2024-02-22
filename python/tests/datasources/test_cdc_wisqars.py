@@ -30,9 +30,7 @@ GOLDEN_DATA = {
     AGE_NATIONAL_CURRENT: os.path.join(GOLDEN_DIR, f"{AGE_NATIONAL_CURRENT}.csv"),
     AGE_NATIONAL_HISTORICAL: os.path.join(GOLDEN_DIR, f"{AGE_NATIONAL_HISTORICAL}.csv"),
     RACE_NATIONAL_CURRENT: os.path.join(GOLDEN_DIR, f"{RACE_NATIONAL_CURRENT}.csv"),
-    RACE_NATIONAL_HISTORICAL: os.path.join(
-        GOLDEN_DIR, f"{RACE_NATIONAL_HISTORICAL}.csv"
-    ),
+    RACE_NATIONAL_HISTORICAL: os.path.join(GOLDEN_DIR, f"{RACE_NATIONAL_HISTORICAL}.csv"),
     SEX_NATIONAL_CURRENT: os.path.join(GOLDEN_DIR, f"{SEX_NATIONAL_CURRENT}.csv"),
     SEX_NATIONAL_HISTORICAL: os.path.join(GOLDEN_DIR, f"{SEX_NATIONAL_HISTORICAL}.csv"),
     SEX_STATE_CURRENT: os.path.join(GOLDEN_DIR, f"{SEX_STATE_CURRENT}.csv"),
@@ -72,9 +70,7 @@ def test_write_to_bq_age_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCWisqarsData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="age", geographic="national"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="age", geographic="national")
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -107,9 +103,7 @@ def test_write_to_bq_race_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCWisqarsData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national")
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -142,9 +136,7 @@ def test_write_to_bq_sex_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCWisqarsData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="sex", geographic="national"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="national")
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -177,9 +169,7 @@ def test_write_to_bq_sex_state(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCWisqarsData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="sex", geographic="state"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="state")
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
