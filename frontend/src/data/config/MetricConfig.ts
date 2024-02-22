@@ -179,7 +179,6 @@ export interface DataTypeConfig {
     sub_population_count?: MetricConfig
   }
   surveyCollectedData?: boolean
-  timeSeriesData?: boolean
   dataTableTitle: string
   mapConfig: MapConfig
   categoryId?: CategoryTypeId

@@ -178,21 +178,16 @@ export function Report(props: ReportProps) {
                 <div
                   tabIndex={-1}
                   className='w-full scroll-m-0 md:scroll-mt-24'
-                  id={
-                    dataTypeConfig.timeSeriesData
-                      ? 'rates-over-time'
-                      : undefined
-                  }
+                  id='rates-over-time'
                 >
-                  {dataTypeConfig.timeSeriesData &&
-                    !hideNonCountyBJSTimeCards && (
-                      <RateTrendsChartCard
-                        dataTypeConfig={dataTypeConfig}
-                        demographicType={demographicType}
-                        fips={props.fips}
-                        reportTitle={props.reportTitle}
-                      />
-                    )}
+                  {!hideNonCountyBJSTimeCards && (
+                    <RateTrendsChartCard
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      fips={props.fips}
+                      reportTitle={props.reportTitle}
+                    />
+                  )}
                 </div>
 
                 {/* 100K BAR CHART CARD */}
@@ -240,23 +235,18 @@ export function Report(props: ReportProps) {
                 {/* SHARE TRENDS LINE CHART CARD */}
                 <div
                   tabIndex={-1}
-                  id={
-                    dataTypeConfig.timeSeriesData
-                      ? 'inequities-over-time'
-                      : undefined
-                  }
+                  id='inequities-over-time'
                   className='w-full scroll-m-0 md:scroll-mt-24'
                 >
                   <LazyLoad offset={600} height={750} once>
-                    {dataTypeConfig.timeSeriesData &&
-                      !hideNonCountyBJSTimeCards && (
-                        <ShareTrendsChartCard
-                          dataTypeConfig={dataTypeConfig}
-                          demographicType={demographicType}
-                          fips={props.fips}
-                          reportTitle={props.reportTitle}
-                        />
-                      )}
+                    {!hideNonCountyBJSTimeCards && (
+                      <ShareTrendsChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={props.fips}
+                        reportTitle={props.reportTitle}
+                      />
+                    )}
                   </LazyLoad>
                 </div>
 

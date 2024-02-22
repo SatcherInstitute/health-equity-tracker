@@ -34,7 +34,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
     geographic_level: 'National, State, County',
-    time_period_range: 'January 2020 - Current',
+    time_period_range: 'January 2020 - current',
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'Monthly',
     description:
@@ -102,6 +102,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'acs_condition-by_sex_national_current',
     ],
     downloadable: true,
+    time_period_range:
+      'Population: 2009 - current, Health Topics: 2012 - current',
   },
   decia_2010_territory_population: {
     id: 'decia_2010_territory_population',
@@ -120,6 +122,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'decia_2010_territory_population-by_age_territory_state_level',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   decia_2020_territory_population: {
     id: 'decia_2020_territory_population',
@@ -141,6 +144,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'decia_2020_territory_population-by_age_territory_county_level',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   census_pop_estimates: {
     id: 'census_pop_estimates',
@@ -155,6 +159,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Population percentage estimates by race/ethnicity, age, and sex to the county level provided by the U.S Census Bureau. We use the single year estimates from 2019.',
     dataset_ids: ['census_pop_estimates-race_and_ethnicity'],
     downloadable: true,
+    time_period_range: null,
   },
   cdc_svi_county: {
     id: 'cdc_svi_county',
@@ -169,6 +174,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Every community must prepare for and respond to hazardous events, whether a natural disaster like a tornado or a disease outbreak, or an anthropogenic event such as a harmful chemical spill. The degree to which a community exhibits certain social conditions, including high poverty, low percentage of vehicle access, or crowded households, may affect that community’s ability to prevent human suffering and financial loss in the event of disaster. These factors describe a community’s social vulnerability.',
     dataset_ids: ['cdc_svi_county-age'],
     downloadable: true,
+    time_period_range: null,
   },
   cdc_vaccination_county: {
     id: 'cdc_vaccination_county',
@@ -183,6 +189,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Overall US COVID-19 Vaccine administration and vaccine equity data at county level Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.',
     dataset_ids: ['cdc_vaccination_county-alls_county'],
     downloadable: true,
+    time_period_range: null,
   },
   cdc_vaccination_national: {
     id: 'cdc_vaccination_national',
@@ -202,6 +209,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cdc_vaccination_national-sex_processed',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   cdc_atlas: {
     id: 'cdc_atlas',
@@ -240,6 +248,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cdc_hiv_data-black_women_state_historical',
     ],
     downloadable: true,
+    time_period_range: '2008 - current',
   },
   kff_vaccination: {
     id: 'kff_vaccination',
@@ -256,6 +265,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'kff_vaccination-alls_state',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   ahr: {
     id: 'ahr',
@@ -277,6 +287,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'ahr_data-sex_state',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   bjs: {
     id: 'bjs',
@@ -297,6 +308,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'bjs_incarceration_data-sex_state',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   vera: {
     id: 'vera',
@@ -314,6 +326,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'vera_incarceration_county-by_age_county_time_series',
     ],
     downloadable: true,
+    time_period_range: '1985 - 2016',
   },
   cawp: {
     id: 'cawp',
@@ -322,7 +335,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link: 'https://cawpdata.rutgers.edu/',
     geographic_level: 'National, State',
     time_period_range:
-      'U.S. Congress: 1915 - Current, State Legislatures: 1983 - Current',
+      'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
     demographic_granularity: 'Race/ethnicity',
     update_frequency: 'Monthly',
     description:
@@ -348,6 +361,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory. This dataset is viewable and downloadable in the CAWP datasets.',
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
+    time_period_range: null,
   },
   geo_context: {
     id: 'geo_context',
@@ -367,6 +381,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'geo_context-national',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   phrma: {
     id: 'phrma',
@@ -402,6 +417,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable_blurb:
       'Disease rates and medication adherence percentages for multiple HIV, mental health, and cardiovascular conditions within the Medicare beneficiary population.',
     downloadable_data_dictionary: true,
+    time_period_range: null,
   },
   covid_tracking_project: {
     id: 'covid_tracking_project',
@@ -420,6 +436,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'covid_tracking_project-tests_by_race_state',
     ],
     downloadable: true,
+    time_period_range: null,
   },
   geographies_source: {
     id: 'geographies_source',
@@ -434,5 +451,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'This dataset contains the geographic boundaries for the United States, states, territories, counties, and county-equivalents.',
     dataset_ids: [],
     downloadable: false,
+    time_period_range: null,
   },
 }

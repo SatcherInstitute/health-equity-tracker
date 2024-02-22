@@ -55,7 +55,6 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
       text: 'Health insurance is important for ensuring that people have access to quality healthcare. People of color and people with low incomes are less likely to have health insurance. Studying health insurance can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
-    timeSeriesData: true,
     metrics: {
       pct_rate: {
         metricId: 'uninsured_pct_rate',
@@ -116,7 +115,6 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
       text: 'Poverty is a major determinant of health. People who are poor are more likely to experience a number of health problems, including chronic diseases, mental illness, and substance use disorders. Studying poverty can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
-    timeSeriesData: true,
     metrics: {
       pct_rate: {
         metricId: 'poverty_pct_rate',
