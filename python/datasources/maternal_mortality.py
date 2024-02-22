@@ -1,3 +1,5 @@
+import pandas as pd
+
 from ingestion import gcs_to_bq_util
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
@@ -48,7 +50,8 @@ class MaternalMortalityData(DataSource):
         )
 
         # round to whole numbers
-        df['maternal_mortality_per_100k'] = df['maternal_mortality_per_100k'].round(0)
+        df['maternal_mortality_per_100k'] = df['maternal_mortality_per_100k'].round(
+            0)
 
         df = df.replace(RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(df)
@@ -72,4 +75,20 @@ class MaternalMortalityData(DataSource):
         print("\n")
         print(df)
 
+        # identify data types of columns in df
+
         print(df.dtypes)
+
+        float_cols = df.select_dtypes(include=['float64']).columns.tolist()
+
+        print(float_cols)
+
+        # get list of all columns expected to contain numbers
+
+        float_cols = [std_col.POPULATION_PCT_COL,
+                      'maternal_mortality_per_100k']
+
+        col_types = gcs_to_bq_util.get_bq_column_types(df,
+                                                       float_cols)
+
+        # print(col_types)
