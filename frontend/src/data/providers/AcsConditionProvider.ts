@@ -1,10 +1,9 @@
 import { getDataManager } from '../../utils/globals'
-import { type Breakdowns } from '../query/Breakdowns'
+import { type TimeView, type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
-import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 import { type DatasetId } from '../config/DatasetMetadata'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
@@ -21,6 +20,10 @@ export const ACS_CONDITION_METRICS: MetricId[] = [
   'poverty_pct_rate',
   'poverty_pct_share',
   'poverty_pct_relative_inequity',
+  'uninsured_estimated_total',
+  'uninsured_pop_estimated_total',
+  'poverty_estimated_total',
+  'poverty_pop_estimated_total',
 ]
 
 class AcsConditionProvider extends VariableProvider {
@@ -28,31 +31,64 @@ class AcsConditionProvider extends VariableProvider {
     super('acs_condition_provider', ACS_CONDITION_METRICS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
-    if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace())
-        return 'acs_condition-by_race_national_time_series'
-      if (breakdowns.hasOnlyAge())
-        return 'acs_condition-by_age_national_time_series'
-      if (breakdowns.hasOnlySex())
-        return 'acs_condition-by_sex_national_time_series'
-    }
-    if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace())
-        return 'acs_condition-by_race_state_time_series'
-      if (breakdowns.hasOnlyAge())
-        return 'acs_condition-by_age_state_time_series'
-      if (breakdowns.hasOnlySex())
-        return 'acs_condition-by_sex_state_time_series'
+  getDatasetId(
+    breakdowns: Breakdowns,
+    _dataTypeId?: DataTypeId,
+    timeView?: TimeView
+  ): DatasetId | undefined {
+    console.log({ breakdowns }, { _dataTypeId }, { timeView })
+    if (timeView === 'historical') {
+      if (breakdowns.geography === 'national') {
+        if (breakdowns.hasOnlyRace())
+          return 'acs_condition-by_race_national_historical'
+        if (breakdowns.hasOnlyAge())
+          return 'acs_condition-by_age_national_historical'
+        if (breakdowns.hasOnlySex())
+          return 'acs_condition-by_sex_national_historical'
+      }
+      if (breakdowns.geography === 'state') {
+        if (breakdowns.hasOnlyRace())
+          return 'acs_condition-by_race_state_historical'
+        if (breakdowns.hasOnlyAge())
+          return 'acs_condition-by_age_state_historical'
+        if (breakdowns.hasOnlySex())
+          return 'acs_condition-by_sex_state_historical'
+      }
+
+      if (breakdowns.geography === 'county') {
+        if (breakdowns.hasOnlyRace())
+          return 'acs_condition-by_race_county_historical'
+        if (breakdowns.hasOnlyAge())
+          return 'acs_condition-by_age_county_historical'
+        if (breakdowns.hasOnlySex())
+          return 'acs_condition-by_sex_county_historical'
+      }
     }
 
-    if (breakdowns.geography === 'county') {
-      if (breakdowns.hasOnlyRace())
-        return 'acs_condition-by_race_county_time_series'
-      if (breakdowns.hasOnlyAge())
-        return 'acs_condition-by_age_county_time_series'
-      if (breakdowns.hasOnlySex())
-        return 'acs_condition-by_sex_county_time_series'
+    if (timeView === 'current') {
+      if (breakdowns.geography === 'national') {
+        if (breakdowns.hasOnlyRace())
+          return 'acs_condition-by_race_national_current'
+        if (breakdowns.hasOnlyAge())
+          return 'acs_condition-by_age_national_current'
+        if (breakdowns.hasOnlySex())
+          return 'acs_condition-by_sex_national_current'
+      }
+      if (breakdowns.geography === 'state') {
+        if (breakdowns.hasOnlyRace())
+          return 'acs_condition-by_race_state_current'
+        if (breakdowns.hasOnlyAge()) return 'acs_condition-by_age_state_current'
+        if (breakdowns.hasOnlySex()) return 'acs_condition-by_sex_state_current'
+      }
+
+      if (breakdowns.geography === 'county') {
+        if (breakdowns.hasOnlyRace())
+          return 'acs_condition-by_race_county_current'
+        if (breakdowns.hasOnlyAge())
+          return 'acs_condition-by_age_county_current'
+        if (breakdowns.hasOnlySex())
+          return 'acs_condition-by_sex_county_current'
+      }
     }
   }
 
@@ -61,7 +97,7 @@ class AcsConditionProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns)
+    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const acsDataset = await getDataManager().loadDataset(specificDatasetId)
@@ -71,14 +107,6 @@ class AcsConditionProvider extends VariableProvider {
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns)
-
-    const mostRecentYear = getMostRecentYearAsString(
-      df,
-      metricQuery.metricIds[0]
-    )
-
-    df = this.filterByTimeView(df, timeView, mostRecentYear)
-
     df = this.renameGeoColumns(df, breakdowns)
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)

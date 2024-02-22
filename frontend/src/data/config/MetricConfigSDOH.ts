@@ -24,12 +24,16 @@ export type SDOHMetricId =
   | 'poverty_pct_rate'
   | 'poverty_population_pct'
   | 'poverty_pct_relative_inequity'
+  | 'poverty_estimated_total'
+  | 'poverty_pop_estimated_total'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
   | 'uninsured_pct_share'
   | 'uninsured_pct_rate'
   | 'uninsured_population_pct'
   | 'uninsured_pct_relative_inequity'
+  | 'uninsured_estimated_total'
+  | 'uninsured_pop_estimated_total'
 
 export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
@@ -60,6 +64,18 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Uninsured people',
         shortLabel: '% uninsured',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'uninsured_estimated_total',
+          shortLabel: 'Without insurance',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'uninsured_pop_estimated_total',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of uninsured people',
@@ -109,6 +125,18 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People below the poverty line',
         shortLabel: '% in poverty',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'poverty_estimated_total',
+          shortLabel: 'In poverty',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'poverty_pop_estimated_total',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of poverty',
