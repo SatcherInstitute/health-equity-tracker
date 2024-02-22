@@ -63,7 +63,6 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 cases',
     metrics: {
       pct_share: {
@@ -112,7 +111,6 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 deaths',
     metrics: {
       pct_share: {
@@ -168,7 +166,6 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 hospitalizations',
     metrics: {
       pct_share: {

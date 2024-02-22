@@ -28,7 +28,7 @@ test('Non Medical Drug Use', async ({ page }) => {
       name: 'Graph unavailable: Population vs. distribution of total non-medical drug use in the United States',
     })
     .click()
-  await page.getByText('Our data sources do not have').click()
+  await page.getByText('Our data sources do not have Population vs. distribution of total non-medical').click()
   await page
     .getByRole('heading', {
       name: 'Breakdown summary for opioid and other non-medical drug use in the United States',

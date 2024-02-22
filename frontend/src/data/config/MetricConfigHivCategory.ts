@@ -82,7 +82,6 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Access to quality HIV care is essential for ensuring that people living with HIV can live long and healthy lives. However, not everyone with HIV has access to quality care. Studying HIV care in regard to health equity can help us to understand why these disparities exist and how to improve access to quality care for all people living with HIV.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for linkage to HIV care',
     metrics: {
       pct_share: {
@@ -133,7 +132,6 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV prevalence',
     metrics: {
       pct_share: {
@@ -180,7 +178,6 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV diagnoses',
     metrics: {
       pct_share: {
@@ -226,7 +223,6 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV deaths',
     metrics: {
       pct_share: {
@@ -283,7 +279,6 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV stigma often intersects with other forms of stigma and discrimination, such as racism, homophobia, and sexism. Studying HIV stigma can shed light on broader issues of social injustice and inequality.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV stigma',
     metrics: {
       index: {
@@ -324,7 +319,6 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV prevalence for Black (NH) women',
     metrics: {
       pct_share: {
@@ -373,7 +367,6 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
-    timeSeriesData: true,
     dataTableTitle:
       'Breakdown summary for new HIV diagnoses for Black (NH) women',
     metrics: {
@@ -424,7 +417,6 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
     metrics: {
       pct_share: {
@@ -477,7 +469,6 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV PrEP is a medication that can help to prevent HIV infection. PrEP is highly effective when taken as prescribed. Studying HIV PrEP in regard to health equity can help us to understand why certain populations are more likely to use PrEP and why others are less likely to use it.',
     },
-    timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for PrEP coverage',
     metrics: {
       pct_share: {

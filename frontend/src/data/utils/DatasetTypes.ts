@@ -17,7 +17,7 @@ export interface DataSourceMetadata {
   readonly downloadable: boolean
   readonly downloadable_blurb?: string
   readonly downloadable_data_dictionary?: boolean
-  readonly time_period_range?: string
+  readonly time_period_range: string | null
 }
 
 // Datasets contain data with specified breakdowns
