@@ -52,14 +52,14 @@ export function FilterLegend({
 
   return (
     // Legend Wrapper
-    <div className='font-sansText text-small font-normal'>
+    <div className='font-sansText text-small font-normal '>
       {/* Legend Title & Clear Button */}
       <div className='mb-5 flex	items-center text-left font-sansText font-medium'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
         <button
           aria-disabled={!selectedGroups?.length}
-          className={`ml-5 ${
+          className={`ml-5 text-altBlack  ${
             groupsAreMinMax
               ? 'cursor-not-allowed opacity-30'
               : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
@@ -76,7 +76,7 @@ export function FilterLegend({
         <button
           aria-label={`Clear demographic filters`}
           aria-disabled={!selectedGroups?.length}
-          className={`ml-5 ${
+          className={`ml-5 text-altBlack ${
             !selectedGroups?.length
               ? 'cursor-not-allowed opacity-30 '
               : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
@@ -110,7 +110,7 @@ export function FilterLegend({
               key={`legendItem-${group}`}
               aria-label={`Include ${group}`}
               aria-pressed={groupEnabled}
-              className='mb-1.5 mr-5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start transition-opacity	duration-300 ease-in-out'
+              className='mb-1.5 mr-5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start text-altBlack transition-opacity	duration-300 ease-in-out'
               onClick={() => {
                 handleClick(group)
               }} // send group name to parent on click
