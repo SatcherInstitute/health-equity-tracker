@@ -257,20 +257,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* includeSvi */ false
   )
 
-  if (isCawp) {
+  if (props.countColsMap) {
     addCountsTooltipInfo(
       /* demographicType */ props.demographicType,
       /* tooltipPairs */ tooltipPairs,
       /* countColsMap */ props.countColsMap,
       /* activeDemographicGroup */ props.activeDemographicGroup,
-      /* isCawp */ true
-    )
-  } else if (isPhrma) {
-    addCountsTooltipInfo(
-      /* demographicType */ props.demographicType,
-      /* tooltipPairs */ tooltipPairs,
-      /* countColsMap */ props.countColsMap,
-      /* activeDemographicGroup */ props.activeDemographicGroup
+      /* isCawp */ isCawp
     )
   }
 
