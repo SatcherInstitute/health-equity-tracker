@@ -6,10 +6,9 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.getByRole('heading', { name: 'Ages 85+, Medicare' }).click();
   await page.getByLabel('Legend for rate map').getByRole('img').click();
   await page.locator('li').filter({ hasText: 'Total Medicare Population:' }).click();
-  const page1Promise = page.waitForEvent('popup');
   await page.locator('#rate-chart').getByText('Medication Utilization and Disease Rates in the Medicare Population (data from 2020)').click();
-  const page1 = await page1Promise;
-  await page.getByRole('note').click();
+  await page.locator('#unknown-demographic-map').getByRole('note').click();
+  await page.getByRole('button', { name: 'Population vs. distribution' }).click();
   await page.getByLabel('Comparison bar chart showing').getByRole('img').click();
   await page.getByRole('heading', { name: 'Breakdown summary for acute' }).click();
   await page.getByRole('figure', { name: 'Breakdown summary for acute' }).locator('h4').click();
