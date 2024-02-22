@@ -33,7 +33,6 @@ import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
@@ -123,10 +122,6 @@ export function Report(props: ReportProps) {
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
 
-  // we only have time-series data for incarceration at the county-level
-  const hideNonCountyBJSTimeCards =
-    !props.fips.isCounty() && INCARCERATION_IDS.includes(props.dropdownVarId)
-
   const shareMetricConfig =
     dataTypeConfig?.metrics.pct_share_unknown ??
     dataTypeConfig?.metrics.pct_share
@@ -180,14 +175,12 @@ export function Report(props: ReportProps) {
                   className='w-full scroll-m-0 md:scroll-mt-24'
                   id='rates-over-time'
                 >
-                  {!hideNonCountyBJSTimeCards && (
-                    <RateTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
-                      demographicType={demographicType}
-                      fips={props.fips}
-                      reportTitle={props.reportTitle}
-                    />
-                  )}
+                  <RateTrendsChartCard
+                    dataTypeConfig={dataTypeConfig}
+                    demographicType={demographicType}
+                    fips={props.fips}
+                    reportTitle={props.reportTitle}
+                  />
                 </div>
 
                 {/* 100K BAR CHART CARD */}
@@ -239,14 +232,12 @@ export function Report(props: ReportProps) {
                   className='w-full scroll-m-0 md:scroll-mt-24'
                 >
                   <LazyLoad offset={600} height={750} once>
-                    {!hideNonCountyBJSTimeCards && (
-                      <ShareTrendsChartCard
-                        dataTypeConfig={dataTypeConfig}
-                        demographicType={demographicType}
-                        fips={props.fips}
-                        reportTitle={props.reportTitle}
-                      />
-                    )}
+                    <ShareTrendsChartCard
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      fips={props.fips}
+                      reportTitle={props.reportTitle}
+                    />
                   </LazyLoad>
                 </div>
 
