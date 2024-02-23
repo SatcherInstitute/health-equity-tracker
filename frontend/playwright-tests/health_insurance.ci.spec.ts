@@ -45,10 +45,9 @@ test('Health Insurance Flow', async ({ page }) => {
       name: 'Relative inequity for uninsurance in the United States',
     })
     .click()
-  await page
-    .locator('#inequities-over-time')
-    .getByLabel('Clear demographic filters')
-    .click()
+  await page.getByRole('heading', { name: 'Relative inequity for' }).click();
+  await page.locator('#inequities-over-time').getByLabel('Highlight groups with lowest').click();
+  await page.locator('#inequities-over-time').getByLabel('Clear demographic filters').click();
   await page.getByText('Expand inequities over time').click()
   await page
     .locator('#inequities-over-time')

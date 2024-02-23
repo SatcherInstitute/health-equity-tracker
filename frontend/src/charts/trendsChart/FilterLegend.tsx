@@ -50,6 +50,8 @@ export function FilterLegend({
   const groupsAreMinMax =
     JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data))
 
+  const noGroupsAreFiltered = selectedGroups.length === 0
+
   return (
     // Legend Wrapper
     <div className='font-sansText text-small font-normal '>
@@ -58,7 +60,7 @@ export function FilterLegend({
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
         <button
-          aria-disabled={!selectedGroups?.length}
+          aria-disabled={groupsAreMinMax}
           className={`ml-5 text-altBlack  ${
             groupsAreMinMax
               ? 'cursor-not-allowed opacity-30'
@@ -75,9 +77,9 @@ export function FilterLegend({
         {/* Remove Filters / Show All Button */}
         <button
           aria-label={`Clear demographic filters`}
-          aria-disabled={!selectedGroups?.length}
+          aria-disabled={noGroupsAreFiltered}
           className={`ml-5 text-altBlack ${
-            !selectedGroups?.length
+            noGroupsAreFiltered
               ? 'cursor-not-allowed opacity-30 '
               : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
           }`}
