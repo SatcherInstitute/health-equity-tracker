@@ -32,7 +32,7 @@ import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import { het } from '../styles/DesignTokens'
+import UnknownPctRateGradient from './UnknownPctRateGradient'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -207,56 +207,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* ensure we don't render two of these in compare mode */}
-                {!props.isCompareCard && (
-                  <svg
-                    height='0'
-                    version='1.1'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <linearGradient id='gradient'>
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='0%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='20%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='30%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='40%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='50%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='60%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='70%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='80%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='90%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='100%'
-                      />
-                    </linearGradient>
-                  </svg>
-                )}
+                {!props.isCompareCard && <UnknownPctRateGradient />}
                 <TrendsChart
                   data={nestedRatesData}
                   chartTitle={getTitleText()}
