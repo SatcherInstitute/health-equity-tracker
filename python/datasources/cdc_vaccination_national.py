@@ -4,19 +4,10 @@ from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
-from ingestion.merge_utils import (
-    merge_pop_numbers)
+from ingestion import gcs_to_bq_util, local_pipeline_utils
+from ingestion.merge_utils import merge_pop_numbers
 
-from ingestion.constants import (
-    Sex,
-    NATIONAL_LEVEL,
-    US_FIPS,
-    US_NAME,
-    RACE,
-    AGE,
-    SEX,
-    UNKNOWN)
+from ingestion.constants import Sex, NATIONAL_LEVEL, US_FIPS, US_NAME, RACE, AGE, SEX, UNKNOWN
 
 
 CDC_SEX_GROUPS_TO_STANDARD = {
@@ -89,14 +80,9 @@ class CDCVaccinationNational(DataSource):
     def get_table_name():
         return 'cdc_vaccination_national'
 
-    def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError(
-            'upload_to_gcs should not be called for CDCVaccinationNational')
-
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def run_local_pipeline(self):
         df = gcs_to_bq_util.load_json_as_df_from_web(
-            BASE_CDC_URL,
-            dtype={'administered_dose1_pct': float, 'population_pct': str}
+            BASE_CDC_URL, dtype={'administered_dose1_pct': float, 'population_pct': str}
         )
 
         latest_date = df['date'].max()
@@ -105,14 +91,29 @@ class CDCVaccinationNational(DataSource):
         for breakdown in [RACE, SEX, AGE]:
             breakdown_df = self.generate_breakdown(breakdown, df)
 
-            float_cols = [std_col.VACCINATED_PER_100K,
-                          std_col.VACCINATED_PCT_SHARE,
-                          std_col.VACCINATED_POP_PCT]
+            local_pipeline_utils.write_df_as_json_to_frontend_tmp(
+                breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
+            )
+
+    def upload_to_gcs(self, _, **attrs):
+        raise NotImplementedError('upload_to_gcs should not be called for CDCVaccinationNational')
+
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+        df = gcs_to_bq_util.load_json_as_df_from_web(
+            BASE_CDC_URL, dtype={'administered_dose1_pct': float, 'population_pct': str}
+        )
+
+        latest_date = df['date'].max()
+        df = df.loc[df['date'] == latest_date]
+
+        for breakdown in [RACE, SEX, AGE]:
+            breakdown_df = self.generate_breakdown(breakdown, df)
+
+            float_cols = [std_col.VACCINATED_PER_100K, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
 
             col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
 
-            gcs_to_bq_util.add_df_to_bq(
-                breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
 
     def generate_breakdown(self, breakdown, df):
         demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == RACE else breakdown
@@ -144,9 +145,16 @@ class CDCVaccinationNational(DataSource):
         df[std_col.STATE_FIPS_COL] = US_FIPS
         df[std_col.STATE_NAME_COL] = US_NAME
 
-        df = df[[std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, demo_col,
-                 std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT,
-                 std_col.VACCINATED_PER_100K]]
+        df = df[
+            [
+                std_col.STATE_NAME_COL,
+                std_col.STATE_FIPS_COL,
+                demo_col,
+                std_col.VACCINATED_PCT_SHARE,
+                std_col.VACCINATED_POP_PCT,
+                std_col.VACCINATED_PER_100K,
+            ]
+        ]
 
         if breakdown == RACE:
             std_col.add_race_columns_from_category_id(df)
