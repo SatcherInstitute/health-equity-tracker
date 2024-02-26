@@ -33,7 +33,9 @@ def get_test_data_as_df():
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBq(
+    mock_bq: mock.MagicMock,
     mock_public: mock.MagicMock,
     mock_pop: mock.MagicMock,
     # VARIABLE THAT REPRESENTS THE MOCKED READ CSV FUNCTION
@@ -51,3 +53,6 @@ def testWriteToBq(
 
     # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED ONCE
     assert mock_csv.call_count == 1
+
+    for call in mock_bq.call_args_list:
+        print("call from mock_bq", call)
