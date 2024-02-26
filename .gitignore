@@ -1,7 +1,7 @@
 .terraform/plugins
 /config/.terraform/plugins
 .vscode
-.venv
+.venv*/
 __pycache__
 venv
 *.egg-info
