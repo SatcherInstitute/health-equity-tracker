@@ -54,42 +54,45 @@ export function FilterLegend({
 
   return (
     // Legend Wrapper
-    <div className='font-sansText text-small font-normal '>
+    <div className='mt-4 font-sansText text-small font-normal'>
       {/* Legend Title & Clear Button */}
       <div className='mb-5 flex	items-center text-left font-sansText font-medium'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
-        <button
-          aria-disabled={groupsAreMinMax}
-          className={`ml-5 text-altBlack  ${
-            groupsAreMinMax
-              ? 'cursor-not-allowed opacity-30'
-              : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
-          }`}
-          aria-label={`Highlight groups with lowest and highest average values over time`}
-          onClick={() => {
-            handleMinMaxClick(null)
-          }} // clear selected groups on click
-        >
-          Show highest / lowest averages
-        </button>
+        <div className='mx-4 flex items-center justify-center rounded-sm border-none border-altGreen '>
+          <button
+            aria-disabled={groupsAreMinMax}
+            className={`rounded-l-sm border p-4 text-altBlack ${
+              groupsAreMinMax
+                ? 'cursor-default border-altGreen bg-methodologyGreen font-bold'
+                : 'cursor-pointer  bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+            }`}
+            aria-label={`Highlight groups with lowest and highest average values over time`}
+            onClick={() => {
+              handleMinMaxClick(null)
+            }} // clear selected groups on click
+          >
+            {groupsAreMinMax
+              ? 'Showing highest / lowest averages'
+              : 'Show highest / lowest averages'}
+          </button>
 
-        {/* Remove Filters / Show All Button */}
-        <button
-          aria-label={`Clear demographic filters`}
-          aria-disabled={noGroupsAreFiltered}
-          className={`ml-5 text-altBlack ${
-            noGroupsAreFiltered
-              ? 'cursor-not-allowed opacity-30 '
-              : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
-          }`}
-          onClick={() => {
-            handleClick(null)
-          }} // clear selected groups on click
-        >
-          Show all groups
-        </button>
-
+          {/* Remove Filters / Show All Button */}
+          <button
+            aria-label={`Clear demographic filters`}
+            aria-disabled={noGroupsAreFiltered}
+            className={`rounded-r-sm border p-4 text-altBlack ${
+              noGroupsAreFiltered
+                ? 'cursor-default border-altGreen bg-methodologyGreen font-bold'
+                : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+            }`}
+            onClick={() => {
+              handleClick(null)
+            }} // clear selected groups on click
+          >
+            {noGroupsAreFiltered ? 'Showing all groups' : 'Show all groups'}
+          </button>
+        </div>
         {/* Options for the "Close" x-character:  ✕×⨯✖× */}
       </div>
       {/* Legend Items Wrapper */}
@@ -118,7 +121,7 @@ export function FilterLegend({
               }} // send group name to parent on click
               // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
               style={{
-                opacity: !selectedGroups?.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
+                opacity: !selectedGroups?.length || groupEnabled ? 1 : 0.5, // failing a11y; need minimum opacity .55 ?
               }}
             >
               {/* Legend Item color swatch */}
