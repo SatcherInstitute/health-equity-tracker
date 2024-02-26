@@ -75,20 +75,13 @@ class MaternalMortalityData(DataSource):
         print("\n")
         print(df)
 
-        # identify data types of columns in df
-
-        print(df.dtypes)
-
-        float_cols = df.select_dtypes(include=['float64']).columns.tolist()
-
-        print(float_cols)
-
         # get list of all columns expected to contain numbers
 
         float_cols = [std_col.POPULATION_PCT_COL,
                       'maternal_mortality_per_100k']
-
         col_types = gcs_to_bq_util.get_bq_column_types(df,
                                                        float_cols)
 
-        # print(col_types)
+        print(col_types)
+
+        # gcs_to_bq_util.add_df_to_bq(dataset, column_types=col_types)
