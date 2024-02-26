@@ -20,6 +20,7 @@ from datasources.geo_context import GeoContext
 from datasources.kff_vaccination import KFFVaccination
 from datasources.phrma import PhrmaData
 from datasources.vera_incarceration_county import VeraIncarcerationCounty
+from datasources.maternal_mortality import MaternalMortalityData
 
 # Map of data source ID to the class that implements the ingestion methods for
 # that data source.
@@ -44,6 +45,7 @@ DATA_SOURCES_DICT = {
     Decia2020TerritoryPopulationData.get_id(): Decia2020TerritoryPopulationData(),
     GeoContext.get_id(): GeoContext(),
     KFFVaccination.get_id(): KFFVaccination(),
+    MaternalMortalityData.get_id(): MaternalMortalityData(),
     PhrmaData.get_id(): PhrmaData(),
     VeraIncarcerationCounty.get_id(): VeraIncarcerationCounty(),
 }

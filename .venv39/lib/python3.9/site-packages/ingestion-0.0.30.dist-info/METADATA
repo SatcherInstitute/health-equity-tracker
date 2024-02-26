@@ -1,0 +1,84 @@
+Metadata-Version: 2.1
+Name: ingestion
+Version: 0.0.30
+Summary: Ingestão de dados
+Author: Jefferson Farias
+Author-email: jefferson@fb.com
+Keywords: ingestion
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: azure-keyvault-secrets (==4.4.0)
+Requires-Dist: azure-storage-blob (==12.12.0)
+Requires-Dist: pandas (==1.4.2)
+Requires-Dist: openpyxl (==3.0.9)
+Requires-Dist: xlrd (==2.0.1)
+Requires-Dist: sqlalchemy (==1.4.37)
+Requires-Dist: mysql-connector-python (==8.0.13)
+Requires-Dist: adlfs (==2022.4.0)
+
+# clarolib - Evoluindo a Biblioteca de validaÃ§Ã£o de dados
+
+## PrÃ© Requisitos
+
+- Python 3.x
+- Docker e Docker Compose
+
+## IntroduÃ§Ã£o
+
+O objetivo desse documento Ã© descrever os passos para criaÃ§Ã£o do ambiente de desenvolvimento da biblioteca **Clarolib**.
+
+Essa biblioteca foi criada com os seguintes objetivos:
+- Padronizar a etapa de validaÃ§Ã£o das fontes de dados a serem ingeridas no *Datalake*
+- Padronizar mÃ©tricas e implementaÃ§Ãµes de [linhagem de dados](https://docs.microsoft.com/pt-br/power-bi/collaborate-share/service-data-lineage)
+- Dar mais agilidade/produtividade na criaÃ§Ã£o de esteiras de validaÃ§Ãµes de dados antes que esses sejam ingeridos no *Datalake*
+- Evitar necessidade de repetiÃ§Ã£o de cÃ³digos e deixar o cÃ³digo 'mais limpo'.
+
+Abaixo estÃ£o os passos para criaÃ§Ã£o do ambiente de desenvolvimento:
+
+# CriaÃ§Ã£o de [Ambiente Virtual Python](https://docs.python.org/pt-br/3/tutorial/venv.html)
+
+Para criar o ambiente virtual, execute os comandos abaixo:
+```sh
+python3 -m venv clarolib_env
+source clarolib_env/bin/activate
+
+pip install -r requirements.txt
+```
+
+### **Executando o Apache Spark localmente com Docker**
+
+Acesse a pasta `spark` folder no seu terminal e execute o comando abaixo.
+Esse serÃ¡ responsÃ¡vel por iniciar a execuÃ§Ã£o do spark localmente.
+
+```sh
+docker-compose up
+```
+
+### **Como executar exemplos localmente**
+
+Acesse os arquivos de exemplo localizados no diretÃ³rio `code_examples` e execute-os.
+
+### **Desativando o ambiente virtual**
+
+Acesse o diretorio `clarolib_env` e execute o seguinte comando:
+
+```sh
+deactivate
+```
+
+### **Compilando e executando testes unitÃ¡rios**
+
+Para compilar os cÃ³digos, disparar a execuÃ§Ã£o dos testes unitÃ¡rios e validaÃ§Ã£o de [*code lint*](https://en.wikipedia.org/wiki/Lint_(software)) execute os passos conforme abaixo:
+
+```sh
+flake8 ./lib ./code_examples ./tests
+pytest --ignore=setup.py
+python3 setup.py sdist bdist_wheel
+```
+> Esses mesmos passos serÃ£o executados pela esteira do Azure Devops para garantir que os critÃ©rios mÃ­nimos de qualidade estÃ£o sendo seguidos.
+> 
+> Caso o cÃ³digo criado nÃ£o esteja de acordo, a esteira **nÃ£o** permitirÃ¡ que esse cÃ³digo seja entregue.
