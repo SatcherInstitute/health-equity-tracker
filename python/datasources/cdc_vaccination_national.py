@@ -80,21 +80,6 @@ class CDCVaccinationNational(DataSource):
     def get_table_name():
         return 'cdc_vaccination_national'
 
-    def run_local_pipeline(self):
-        df = gcs_to_bq_util.load_json_as_df_from_web(
-            BASE_CDC_URL, dtype={'administered_dose1_pct': float, 'population_pct': str}
-        )
-
-        latest_date = df['date'].max()
-        df = df.loc[df['date'] == latest_date]
-
-        for breakdown in [RACE, SEX, AGE]:
-            breakdown_df = self.generate_breakdown(breakdown, df)
-
-            local_pipeline_utils.write_df_as_json_to_frontend_tmp(
-                breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
-            )
-
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError('upload_to_gcs should not be called for CDCVaccinationNational')
 
@@ -110,7 +95,6 @@ class CDCVaccinationNational(DataSource):
             breakdown_df = self.generate_breakdown(breakdown, df)
 
             if write_local_instead_of_bq:
-                print("WRITING LOCALLY")
                 local_pipeline_utils.write_df_as_json_to_frontend_tmp(
                     breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
                 )
