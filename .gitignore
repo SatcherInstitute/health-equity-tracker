@@ -1,9 +1,9 @@
 .terraform/plugins
 /config/.terraform/plugins
 .vscode
-.venv
+.venv*/
 __pycache__
-venv
+venv*/
 *.egg-info
 *.tfstate
 *.tfstate.backup
