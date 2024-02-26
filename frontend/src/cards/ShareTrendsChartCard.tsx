@@ -28,14 +28,11 @@ import AltTableView from './ui/AltTableView'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from '../data/providers/CawpProvider'
+import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle } from '../charts/utils'
-import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
@@ -101,11 +98,11 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const isCawp =
     metricConfigInequitable?.metricId &&
-    CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId)
+    CAWP_METRICS.includes(metricConfigInequitable.metricId)
 
   const isHIV =
     metricConfigInequitable?.metricId &&
-    HIV_DETERMINANTS.includes(metricConfigInequitable.metricId)
+    HIV_METRICS.includes(metricConfigInequitable.metricId)
 
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 

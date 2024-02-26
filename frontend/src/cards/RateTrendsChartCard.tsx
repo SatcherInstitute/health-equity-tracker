@@ -25,17 +25,14 @@ import AltTableView from './ui/AltTableView'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import {
-  CAWP_DETERMINANTS,
-  getWomenRaceLabel,
-} from '../data/providers/CawpProvider'
+import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
-import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import { het } from '../styles/DesignTokens'
+import UnknownPctRateGradient from './UnknownPctRateGradient'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -105,10 +102,10 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     } in ${props.fips.getSentenceDisplayName()}`
   }
 
-  const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId)
+  const isCawp = CAWP_METRICS.includes(metricConfigRates.metricId)
   const isCawpStateLeg = metricConfigRates.metricId === 'pct_share_of_state_leg'
 
-  const isHIV = HIV_DETERMINANTS.includes(metricConfigRates.metricId)
+  const isHIV = HIV_METRICS.includes(metricConfigRates.metricId)
 
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
@@ -210,56 +207,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ) : (
               <>
                 {/* ensure we don't render two of these in compare mode */}
-                {!props.isCompareCard && (
-                  <svg
-                    height='0'
-                    version='1.1'
-                    xmlns='http://www.w3.org/2000/svg'
-                  >
-                    <linearGradient id='gradient'>
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='0%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='20%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='30%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='40%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='50%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='60%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='70%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='80%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMost }}
-                        offset='90%'
-                      />
-                      <stop
-                        style={{ stopColor: het.unknownMapMid }}
-                        offset='100%'
-                      />
-                    </linearGradient>
-                  </svg>
-                )}
+                {!props.isCompareCard && <UnknownPctRateGradient />}
                 <TrendsChart
                   data={nestedRatesData}
                   chartTitle={getTitleText()}

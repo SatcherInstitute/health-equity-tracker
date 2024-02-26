@@ -79,12 +79,8 @@ export function TrendsChart({
   /* State Management */
   const allPossibleGroups = data.map(([group]) => group)
 
-  const isRelativeInequity = axisConfig.type === 'pct_relative_inequity'
-  const isInequityWithManyGroups =
-    isRelativeInequity && allPossibleGroups.length > 6
-
   // Manages which group filters user has applied
-  const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : []
+  const defaultGroups: DemographicGroup[] = []
   const [selectedTrendGroups, setSelectedTrendGroups] =
     useState<DemographicGroup[]>(defaultGroups)
 

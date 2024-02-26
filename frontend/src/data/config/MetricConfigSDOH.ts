@@ -24,12 +24,16 @@ export type SDOHMetricId =
   | 'poverty_pct_rate'
   | 'poverty_population_pct'
   | 'poverty_pct_relative_inequity'
+  | 'poverty_estimated_total'
+  | 'poverty_pop_estimated_total'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
   | 'uninsured_pct_share'
   | 'uninsured_pct_rate'
   | 'uninsured_population_pct'
   | 'uninsured_pct_relative_inequity'
+  | 'uninsured_estimated_total'
+  | 'uninsured_pop_estimated_total'
 
 export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
@@ -51,7 +55,6 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
       text: 'Health insurance is important for ensuring that people have access to quality healthcare. People of color and people with low incomes are less likely to have health insurance. Studying health insurance can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
-    timeSeriesData: true,
     metrics: {
       pct_rate: {
         metricId: 'uninsured_pct_rate',
@@ -60,6 +63,18 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Uninsured people',
         shortLabel: '% uninsured',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'uninsured_estimated_total',
+          shortLabel: 'Without insurance',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'uninsured_pop_estimated_total',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of uninsured people',
@@ -100,7 +115,6 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
       text: 'Poverty is a major determinant of health. People who are poor are more likely to experience a number of health problems, including chronic diseases, mental illness, and substance use disorders. Studying poverty can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
-    timeSeriesData: true,
     metrics: {
       pct_rate: {
         metricId: 'poverty_pct_rate',
@@ -109,6 +123,18 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People below the poverty line',
         shortLabel: '% in poverty',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'poverty_estimated_total',
+          shortLabel: 'In poverty',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'poverty_pop_estimated_total',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of poverty',

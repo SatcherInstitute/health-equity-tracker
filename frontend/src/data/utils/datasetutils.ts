@@ -6,11 +6,11 @@ import {
 } from '../config/MetricConfig'
 import { type Breakdowns, type DemographicType } from '../query/Breakdowns'
 import {
-  AHR_API_NH_DETERMINANTS,
-  AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
-  AHR_DETERMINANTS,
-  AHR_VOTER_AGE_DETERMINANTS,
-  ALL_AHR_DETERMINANTS,
+  AHR_API_NH_METRICS,
+  AHR_DECADE_PLUS_5_AGE_METRICS,
+  AHR_METRICS,
+  AHR_VOTER_AGE_METRICS,
+  ALL_AHR_METRICS,
 } from '../providers/AhrProvider'
 import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
 import {
@@ -299,20 +299,20 @@ export function getExclusionList(
   }
 
   // AHR
-  if (ALL_AHR_DETERMINANTS.includes(currentRate) && demographicType === RACE) {
-    AHR_API_NH_DETERMINANTS.includes(currentRate)
+  if (ALL_AHR_METRICS.includes(currentRate) && demographicType === RACE) {
+    AHR_API_NH_METRICS.includes(currentRate)
       ? exclusionList.push(ASIAN_NH, NHPI_NH)
       : exclusionList.push(API_NH)
   }
 
-  if (ALL_AHR_DETERMINANTS.includes(currentRate) && demographicType === AGE) {
+  if (ALL_AHR_METRICS.includes(currentRate) && demographicType === AGE) {
     // get correct age buckets for this determinant
     const determinantBuckets: any[] = []
-    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(currentRate)) {
+    if (AHR_DECADE_PLUS_5_AGE_METRICS.includes(currentRate)) {
       determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS)
-    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(currentRate)) {
+    } else if (AHR_VOTER_AGE_METRICS.includes(currentRate)) {
       determinantBuckets.push(...VOTER_AGE_BUCKETS)
-    } else if (AHR_DETERMINANTS.includes(currentRate)) {
+    } else if (AHR_METRICS.includes(currentRate)) {
       determinantBuckets.push(...BROAD_AGE_BUCKETS)
     }
 

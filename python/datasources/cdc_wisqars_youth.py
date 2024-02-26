@@ -4,6 +4,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
     convert_columns_to_numeric,
+    DATA_DIR,
     RACE_NAMES_MAPPING,
     WISQARS_COLS,
 )
@@ -14,15 +15,13 @@ from ingestion.constants import (
     US_NAME,
 )
 from ingestion.dataset_utils import (
+    combine_race_ethnicity,
     generate_pct_rel_inequity_col,
     generate_pct_share_col_with_unknowns,
     generate_per_100k_col,
-    preserve_only_current_time_period_rows,
-    combine_race_ethnicity,
+    generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-
-DATA_DIR = "cdc_wisqars"
 
 """
 Data Source: CDC WISQARS Youth (data on gun violence)
@@ -59,6 +58,20 @@ Notes:
 Last Updated: 2/24
 """
 
+TIME_MAP = {
+    CURRENT: [
+        std_col.GUN_VIOLENCE_DEATHS_RAW,
+        std_col.GUN_VIOLENCE_DEATHS_PER_100K,
+        std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
+        std_col.POPULATION_PCT_COL,
+    ],
+    HISTORICAL: [
+        std_col.GUN_VIOLENCE_DEATHS_PER_100K,
+        std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
+        std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
+    ],
+}
+
 
 class CDCWisqarsYouthData(DataSource):
     @staticmethod
@@ -78,37 +91,17 @@ class CDCWisqarsYouthData(DataSource):
 
         national_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
 
-        df = self.generate_breakdown_df(
-            demographic, geo_level, national_totals_by_intent_df
-        )
-
-        float_cols = [
-            std_col.POPULATION_COL,
-            std_col.GUN_VIOLENCE_DEATHS_RAW,
-            std_col.GUN_VIOLENCE_DEATHS_PER_100K,
-            std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-            std_col.POPULATION_PCT_COL,
-            std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
-        ]
-
-        df[float_cols] = df[float_cols].astype(float)
+        df = self.generate_breakdown_df(demographic, geo_level, national_totals_by_intent_df)
 
         for table_type in [CURRENT, HISTORICAL]:
-            df_for_bq = df.copy()
             table_name = f"youth_by_{demographic}_{geo_level}_{table_type}"
+            time_cols = TIME_MAP[table_type]
 
-            if table_type == CURRENT:
-                df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
 
-            col_types = gcs_to_bq_util.get_bq_column_types(df_for_bq, float_cols)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-            gcs_to_bq_util.add_df_to_bq(
-                df_for_bq, dataset, table_name, column_types=col_types
-            )
-
-    def generate_breakdown_df(
-        self, breakdown: str, geo_level: str, alls_df: pd.DataFrame
-    ):
+    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         cols_to_standard = {
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,

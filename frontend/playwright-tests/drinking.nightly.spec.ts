@@ -12,6 +12,13 @@ test('Excessive Drinking Flow', async ({ page }) => {
   await page
     .getByText('See the states/territories with the highest and lowest rates.')
     .click()
+  await page.getByRole('heading', { name: 'Highest:' }).click();
+  await page.getByRole('heading', { name: 'Lowest:' }).click();
+  await page.getByRole('heading', { name: 'National overall:' }).click();
+  await page.locator('#highest-lowest-geos').getByText('Excessive drinking cases').click();
+  await page.getByText('Consider the possible impact').click();
+  await page.getByLabel('hide lists of states/').click();
+  await page.getByRole('button', { name: 'Unknown demographic map' }).click();
   await page
     .getByRole('heading', {
       name: 'Share of all excessive drinking cases with unknown race and ethnicity in the United States',

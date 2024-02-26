@@ -3,15 +3,24 @@ import { type StateFipsCode } from '../utils/FipsData'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
 export type DatasetId =
-  | 'acs_condition-by_age_county_time_series'
-  | 'acs_condition-by_age_national_time_series'
-  | 'acs_condition-by_age_state_time_series'
-  | 'acs_condition-by_race_county_time_series'
-  | 'acs_condition-by_race_national_time_series'
-  | 'acs_condition-by_race_state_time_series'
-  | 'acs_condition-by_sex_county_time_series'
-  | 'acs_condition-by_sex_national_time_series'
-  | 'acs_condition-by_sex_state_time_series'
+  | 'acs_condition-by_race_county_historical'
+  | 'acs_condition-by_race_county_current'
+  | 'acs_condition-by_race_state_historical'
+  | 'acs_condition-by_race_state_current'
+  | 'acs_condition-by_race_national_historical'
+  | 'acs_condition-by_race_national_current'
+  | 'acs_condition-by_age_county_historical'
+  | 'acs_condition-by_age_county_current'
+  | 'acs_condition-by_age_state_historical'
+  | 'acs_condition-by_age_state_current'
+  | 'acs_condition-by_age_national_historical'
+  | 'acs_condition-by_age_national_current'
+  | 'acs_condition-by_sex_county_historical'
+  | 'acs_condition-by_sex_county_current'
+  | 'acs_condition-by_sex_state_historical'
+  | 'acs_condition-by_sex_state_current'
+  | 'acs_condition-by_sex_national_historical'
+  | 'acs_condition-by_sex_national_current'
   | 'acs_population-by_age_county'
   | 'acs_population-by_age_national'
   | 'acs_population-by_age_state'
@@ -130,47 +139,47 @@ export type DatasetIdWithStateFIPSCode = `${DatasetId}-${StateFipsCode}`
 export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   'acs_population-by_race_county': {
     name: 'Population by race/ethnicity and county',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_race_state': {
     name: 'Population by race/ethnicity and state',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_race_national': {
     name: 'Population by race/ethnicity nationally',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_age_county': {
     name: 'Population by age and county',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_age_state': {
     name: 'Population by age and state',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_age_national': {
     name: 'Population by age nationally',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_sex_county': {
     name: 'Population by sex and county',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_sex_state': {
     name: 'Population by sex and state',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'acs_population-by_sex_national': {
     name: 'Population by sex nationally',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'cdc_hiv_data-race_and_ethnicity_county_historical': {
@@ -369,51 +378,105 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: 'April 2021',
     source_id: 'covid_tracking_project',
   },
-  'acs_condition-by_age_county_time_series': {
+  'acs_condition-by_age_county_historical': {
     name: 'Health insurance and poverty, yearly, by age and county',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_age_state_time_series': {
+  'acs_condition-by_age_state_historical': {
     name: 'Health insurance and poverty, yearly, by age and state',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_age_national_time_series': {
+  'acs_condition-by_age_national_historical': {
     name: 'Health insurance and poverty, yearly, by age at the national level',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_sex_county_time_series': {
+  'acs_condition-by_sex_county_historical': {
     name: 'Health insurance and poverty, yearly, by sex and county',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_sex_state_time_series': {
+  'acs_condition-by_sex_state_historical': {
     name: 'Health insurance and poverty, yearly, by sex and state',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_sex_national_time_series': {
+  'acs_condition-by_sex_national_historical': {
     name: 'Health insurance and poverty, yearly, by sex at the national level',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_race_county_time_series': {
+  'acs_condition-by_race_county_historical': {
     name: 'Health insurance and poverty, yearly, by race and county',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_race_state_time_series': {
+  'acs_condition-by_race_state_historical': {
     name: 'Health insurance and poverty, yearly, by race and state',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_race_national_time_series': {
+  'acs_condition-by_race_national_historical': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
-    original_data_sourced: '2021',
+    original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
+  'acs_condition-by_age_county_current': {
+    name: 'Health insurance and poverty, yearly, by age and county',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_age_state_current': {
+    name: 'Health insurance and poverty, yearly, by age and state',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_age_national_current': {
+    name: 'Health insurance and poverty, yearly, by age at the national level',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_sex_county_current': {
+    name: 'Health insurance and poverty, yearly, by sex and county',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_sex_state_current': {
+    name: 'Health insurance and poverty, yearly, by sex and state',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_sex_national_current': {
+    name: 'Health insurance and poverty, yearly, by sex at the national level',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_race_county_current': {
+    name: 'Health insurance and poverty, yearly, by race and county',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_race_state_current': {
+    name: 'Health insurance and poverty, yearly, by race and state',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-by_race_national_current': {
+    name: 'Health insurance and poverty, yearly, by race at the national level',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
   'cdc_restricted_data-by_race_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
     original_data_sourced: 'January 2020 - January 2024',
