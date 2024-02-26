@@ -27,9 +27,7 @@ class MaternalMortalityData(DataSource):
         return 'maternal_mortality_data'
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError(
-            'upload_to_gcs should not be called for MaternalMortalityData'
-        )
+        raise NotImplementedError('upload_to_gcs should not be called for MaternalMortalityData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         # Read in the data
@@ -69,7 +67,8 @@ class MaternalMortalityData(DataSource):
             ]
         ]
 
-        print("\n")
-        print(df)
-
-        print(df.dtypes)
+        # get list of all columns expected to contain numbers
+        float_cols = [std_col.POPULATION_PCT_COL, 'maternal_mortality_per_100k']
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+        table_name = 'by_race_state'
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
