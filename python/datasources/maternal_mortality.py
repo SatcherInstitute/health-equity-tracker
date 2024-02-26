@@ -84,4 +84,7 @@ class MaternalMortalityData(DataSource):
 
         print(col_types)
 
-        # gcs_to_bq_util.add_df_to_bq(dataset, column_types=col_types)
+        table_name = 'by_race_state'
+
+        gcs_to_bq_util.add_df_to_bq(
+            df, dataset, table_name, column_types=col_types)
