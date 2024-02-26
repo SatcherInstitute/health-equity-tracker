@@ -59,10 +59,10 @@ export function FilterLegend({
       <div className='mb-5 flex	items-center text-left font-sansText font-medium'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
-        <div className='mx-4 flex items-center justify-center rounded-2xl border-none border-altGreen shadow-raised-tighter'>
+        <div className='mx-4 flex items-center justify-center rounded-sm border-none border-altGreen '>
           <button
             aria-disabled={groupsAreMinMax}
-            className={`rounded-l-2xl border p-4 text-altBlack ${
+            className={`rounded-l-sm border p-4 text-altBlack ${
               groupsAreMinMax
                 ? 'cursor-default border-altGreen bg-methodologyGreen font-bold'
                 : 'cursor-pointer  bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
@@ -81,7 +81,7 @@ export function FilterLegend({
           <button
             aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
-            className={`rounded-r-2xl border p-4 text-altBlack ${
+            className={`rounded-r-sm border p-4 text-altBlack ${
               noGroupsAreFiltered
                 ? 'cursor-default border-altGreen bg-methodologyGreen font-bold'
                 : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
