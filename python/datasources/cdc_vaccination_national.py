@@ -98,7 +98,7 @@ class CDCVaccinationNational(DataSource):
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError('upload_to_gcs should not be called for CDCVaccinationNational')
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         df = gcs_to_bq_util.load_json_as_df_from_web(
             BASE_CDC_URL, dtype={'administered_dose1_pct': float, 'population_pct': str}
         )
@@ -109,11 +109,15 @@ class CDCVaccinationNational(DataSource):
         for breakdown in [RACE, SEX, AGE]:
             breakdown_df = self.generate_breakdown(breakdown, df)
 
-            float_cols = [std_col.VACCINATED_PER_100K, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
-
-            col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
-
-            gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
+            if write_local_instead_of_bq:
+                print("WRITING LOCALLY")
+                local_pipeline_utils.write_df_as_json_to_frontend_tmp(
+                    breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
+                )
+            else:
+                float_cols = [std_col.VACCINATED_PER_100K, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
+                col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
+                gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
 
     def generate_breakdown(self, breakdown, df):
         demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == RACE else breakdown
