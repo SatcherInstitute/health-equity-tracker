@@ -62,7 +62,7 @@ export class HetEnvironment implements Environment {
   }
 
   private getEnvVariable(nonPrefixedName: string): string | undefined {
-    const prefix = this.deployContext === 'storybook' ? 'STORYBOOK_' : 'VITE_'
+    const prefix = 'VITE_'
     return import.meta.env[prefix + nonPrefixedName]
   }
 
@@ -72,7 +72,13 @@ export class HetEnvironment implements Environment {
 
   getBaseApiUrl() {
     // If the API url isn't provided, requests are relative to current domain.
-    return this.getEnvVariable('BASE_API_URL') ?? ''
+    const apiBaseUrl = this.getEnvVariable('BASE_API_URL')
+    if (!apiBaseUrl && this.deployContext === 'development') {
+      console.warn(
+        'BASE_API_URL environment variable is not set. Did you forget to copy the .env.example into an .env.development file? See the repo README for more information.'
+      )
+    }
+    return apiBaseUrl ?? ''
   }
 
   getEnableServerLogging() {
