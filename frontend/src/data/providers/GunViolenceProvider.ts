@@ -1,10 +1,10 @@
-import { appendFipsIfNeeded } from '../utils/datasetutils';
-import { type Breakdowns } from '../query/Breakdowns';
-import { DataTypeId, MetricId } from '../config/MetricConfig';
-import { type DatasetId } from '../config/DatasetMetadata';
-import { getDataManager } from '../../utils/globals';
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery';
-import VariableProvider from './VariableProvider';
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { type Breakdowns } from '../query/Breakdowns'
+import { DataTypeId, MetricId } from '../config/MetricConfig'
+import { type DatasetId } from '../config/DatasetMetadata'
+import { getDataManager } from '../../utils/globals'
+import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import VariableProvider from './VariableProvider'
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = ['gun_violence']
 
@@ -14,18 +14,21 @@ export const GUN_VIOLENCE_HOMICIDE_METRICS: MetricId[] = [
     'gun_violence_homicide_pct_share',
     'gun_violence_homicide_per_100k'
 ]
+
 export const GUN_VIOLENCE_INJURIES_METRICS: MetricId[] = [
     'gun_violence_injuries_estimated_total',
     'gun_violence_injuries_pct_relative_inequity',
     'gun_violence_injuries_pct_share',
     'gun_violence_injuries_per_100k'
 ]
+
 export const GUN_VIOLENCE_LEGAL_INTERVENTION_METRICS: MetricId[] = [
     'gun_violence_legal_intervention_estimated_total',
     'gun_violence_legal_intervention_pct_relative_inequity',
     'gun_violence_legal_intervention_pct_share',
     'gun_violence_legal_intervention_per_100k'
 ]
+
 export const GUN_VIOLENCE_SUICIDE_METRICS: MetricId[] = [
     'gun_violence_suicide_estimated_total',
     'gun_violence_suicide_pct_relative_inequity',
@@ -101,12 +104,11 @@ class GunViolenceProvider extends VariableProvider {
             const consumedDatasetIds = [datasetId]
             return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
         } catch (error) {
-            console.error("Error fetching gun violence data:", error)
+            console.error('Error fetching gun violence data:', error)
             throw error
         }
     }
     
-
     allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[] | undefined): boolean {
         const validDemographicBreakdownRequest = breakdowns.hasExactlyOneDemographic()
 
