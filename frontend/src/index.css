@@ -21,6 +21,8 @@
     background: theme('colors.white');
   }
   ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
   }
 }
@@ -101,6 +103,12 @@ button[data-action='back']:focus {
     @media screen(md) {
       width: 50vw;
     }
+  }
+
+  & ul {
+    list-style: disc;
+    margin-left: 1rem;
+    padding-left: 1rem;
   }
 
   & hr {
