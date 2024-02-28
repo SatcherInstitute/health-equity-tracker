@@ -2,13 +2,16 @@ import pandas as pd  # type: ignore
 from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
-from ingestion import fips_data
 from typing import Literal, List
-from io import StringIO
+import os
 
 ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
+
+MERGE_DATA_DIR = 'python/ingestion/merge_data'
+COUNTY_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'county_level_fips.csv')
+STATE_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'state_level_fips.csv')
 
 
 def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
@@ -28,7 +31,7 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
-    county_level_fips_df = pd.read_csv(StringIO(fips_data.COUNTY_FIPS_CSV_STRING), dtype=str)
+    county_level_fips_df = pd.read_csv(COUNTY_LEVEL_FIPS_CSV, dtype=str)
 
     if std_col.COUNTY_NAME_COL in df.columns:
         df = df.drop(columns=std_col.COUNTY_NAME_COL)
@@ -65,7 +68,7 @@ def merge_state_ids(df, keep_postal=False):
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
-    state_level_fips_df = pd.read_csv(StringIO(fips_data.STATE_FIPS_CSV_STRING), dtype=str)
+    state_level_fips_df = pd.read_csv(STATE_LEVEL_FIPS_CSV, dtype=str)
 
     united_states_fips = pd.DataFrame(
         [
