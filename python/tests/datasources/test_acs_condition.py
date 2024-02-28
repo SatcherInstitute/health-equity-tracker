@@ -11,7 +11,6 @@ from datasources.acs_condition import (
 
 from test_utils import (
     get_acs_metadata_as_json,
-    _load_public_dataset_from_bigquery_as_df,
 )
 
 # Current working directory.
@@ -37,12 +36,8 @@ acsCondition = AcsCondition()
 acsCondition.year = '2022'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testSexNationalBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+def testSexNationalBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
         'sex', 'national', get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, 'some-bucket'
     )
@@ -63,12 +58,8 @@ def testSexNationalBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testSexStateBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+def testSexStateBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
         'sex', 'state', get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, 'some-bucket'
     )
@@ -89,12 +80,8 @@ def testSexStateBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testSexCountyBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+def testSexCountyBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
         'sex', 'county', get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, 'some-bucket'
     )
@@ -115,12 +102,8 @@ def testSexCountyBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-def testRaceCountyBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
+def testRaceCountyBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
         'race', 'county', get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, 'some-bucket'
     )
@@ -143,14 +126,9 @@ def testRaceCountyBaseTable(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock)
 
 @mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2012))
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqOverwriteEarliestYear(
     mock_bq: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_acs: mock.MagicMock,
     mock_json: mock.MagicMock,
 ):
