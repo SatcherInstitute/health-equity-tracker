@@ -9,7 +9,7 @@ ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
-MERGE_DATA_DIR = os.path.join(os.sep, 'ingestion', 'merge_data')
+MERGE_DATA_DIR = os.path.join('python', 'ingestion', 'merge_data')
 COUNTY_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'county_level_fips.csv')
 STATE_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'state_level_fips.csv')
 
