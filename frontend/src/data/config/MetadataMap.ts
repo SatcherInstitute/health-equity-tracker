@@ -1,4 +1,5 @@
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
+import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
 
@@ -15,6 +16,7 @@ export type DataSourceId =
   | 'cdc_svi_county'
   | 'cdc_vaccination_county'
   | 'cdc_vaccination_national'
+  | 'cdc_wisqars_data'
   | 'census_pop_estimates'
   | 'covid_tracking_project'
   | 'decia_2010_territory_population'
@@ -453,4 +455,31 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: false,
     time_period_range: null,
   },
+  cdc_wisqars_data: {
+    hideFromUser: !SHOW_GUN_VIOLENCE,
+    id: 'cdc_wisqars_data',
+    data_source_name: `CDC's WISQARS™ Web-based Injury Statistics Query and Reporting System`,
+    data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
+    data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
+    geographic_level: 'National, State',
+    demographic_granularity: 'Race/ethnicity, sex, age',
+    update_frequency: 'Yearly',
+    description: `The CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting System) dataset includes a wide range of information related to gun-related injuries, providing a holistic perspective on the impact of gun-related incidents.`,
+    dataset_ids: [
+      'cdc_wisqars_data-age_state_historical',
+      'cdc_wisqars_data-race_and_ethnicity_state_historical',
+      'cdc_wisqars_data-sex_state_historical',
+      'cdc_wisqars_data-age_state_current',
+      'cdc_wisqars_data-race_and_ethnicity_state_current',
+      'cdc_wisqars_data-sex_state_current',
+      'cdc_wisqars_data-age_national_historical',
+      'cdc_wisqars_data-race_and_ethnicity_national_historical',
+      'cdc_wisqars_data-sex_national_historical',
+      'cdc_wisqars_data-age_national_current',
+      'cdc_wisqars_data-race_and_ethnicity_national_current',
+      'cdc_wisqars_data-sex_national_current',
+    ],
+    downloadable: true,
+    time_period_range: '2001 - current'
+  }
 }
