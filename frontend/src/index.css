@@ -105,6 +105,12 @@ button[data-action='back']:focus {
     }
   }
 
+  & ul {
+    list-style: disc;
+    margin-left: 1rem;
+    padding-left: 1rem;
+  }
+
   & hr {
     margin-block: 3rem;
     width: 50%;
