@@ -57,11 +57,13 @@ import {
 } from './MetricConfigPhrma'
 import {
   UNINSURANCE_METRICS,
+  type SDOHDataTypeId,
   type SDOHMetricId,
   POVERTY_METRICS,
   CARE_AVOIDANCE_METRICS,
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
+  GUN_VIOLENCE_METRICS,
 } from './MetricConfigSDOH'
 import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
 
@@ -94,6 +96,7 @@ export type DataTypeId =
   | BehavioralHealthDataTypeId
   | PhrmaDataTypeId
   | PDOHDataTypeId
+  | SDOHDataTypeId
 
 export type MetricId =
   | CovidCategoryMetricId
@@ -292,6 +295,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   depression: DEPRESSION_METRICS,
   excessive_drinking: EXCESSIVE_DRINKING_METRICS,
   frequent_mental_distress: FREQUENT_MENTAL_DISTRESS_METRICS,
+  gun_violence: GUN_VIOLENCE_METRICS,
   substance: SUBSTANCE_MISUSE_METRICS,
   suicide: SUICIDE_METRICS,
   diabetes: DIABETES_METRICS,

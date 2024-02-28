@@ -6,7 +6,14 @@ import { getDataManager } from '../../utils/globals'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
-export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = ['gun_violence']
+export const SHOW_GUN_VIOLENCE = import.meta.env.VITE_SHOW_GUN_VIOLENCE
+  
+export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
+    'gun_violence_homicide',
+    'gun_violence_injuries',
+    'gun_violence_legal_intervention',
+    'gun_violence_suicide'
+]
 
 export const GUN_VIOLENCE_HOMICIDE_METRICS: MetricId[] = [
     'gun_violence_homicide_estimated_total',
@@ -87,20 +94,20 @@ class GunViolenceProvider extends VariableProvider {
         try {
             const { breakdowns, dataTypeId, timeView } = metricQuery
             const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
-    
+
             if (!datasetId) {
                 throw new Error('DatasetId is undefined.')
             }
-    
+
             const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
             const gunViolenceData = await getDataManager().loadDataset(specificDatasetId)
             let df = gunViolenceData.toDataFrame()
-    
+
             df = this.filterByGeo(df, breakdowns)
             df = this.renameGeoColumns(df, breakdowns)
             df = this.applyDemographicBreakdownFilters(df, breakdowns)
             df = this.removeUnrequestedColumns(df, metricQuery)
-    
+
             const consumedDatasetIds = [datasetId]
             return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
         } catch (error) {
@@ -108,7 +115,7 @@ class GunViolenceProvider extends VariableProvider {
             throw error
         }
     }
-    
+
     allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[] | undefined): boolean {
         const validDemographicBreakdownRequest = breakdowns.hasExactlyOneDemographic()
 
