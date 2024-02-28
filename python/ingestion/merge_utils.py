@@ -14,6 +14,17 @@ COUNTY_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'county_level_fips.csv')
 STATE_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'state_level_fips.csv')
 
 
+def print_directory_contents():
+    """
+    Print the current directory and its files/folders.
+    """
+    current_dir = os.getcwd()
+    print("Current Directory:", current_dir)
+    print("Contents:")
+    for item in os.listdir(current_dir):
+        print(item)
+
+
 def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
     """Merges standardized county names by county FIPS code downloaded from
     `census_utility` big query public dataset into an existing county level dataframe
@@ -30,6 +41,8 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
             'df must be county-level with `county_fips` col of 5 digit FIPS strings.'
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
+
+    print_directory_contents()
 
     county_level_fips_df = pd.read_csv(COUNTY_LEVEL_FIPS_CSV, dtype=str)
 
@@ -67,6 +80,8 @@ def merge_state_ids(df, keep_postal=False):
             + ' or `state_postal` containing 2 digit FIPS strings.'
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
+
+    print_directory_contents()
 
     state_level_fips_df = pd.read_csv(STATE_LEVEL_FIPS_CSV, dtype=str)
 
