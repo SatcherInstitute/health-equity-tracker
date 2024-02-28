@@ -3,6 +3,11 @@ from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 from typing import Literal, List
+import os
+
+MERGE_DATA_DIR = os.path.abspath('python/ingestion/merge_data')
+COUNTY_FIPS_CODES_CSV = os.path.join(MERGE_DATA_DIR, 'county_fips_codes.csv')
+STATE_FIPS_CODES_CSV = os.path.join(MERGE_DATA_DIR, 'state_fips_codes.csv')
 
 ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
@@ -10,9 +15,9 @@ DECIA_CUTOFF_YEAR = '2016'
 
 
 def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
-    """Merges standardized county names by county FIPS code found in the `census_utility`
-     big query public dataset into an existing county level dataframe. Any existing
-    'county_name' data in the incoming df will be overwritten.
+    """Merges standardized county names by county FIPS code downloaded from
+    `census_utility` big query public dataset into an existing county level dataframe
+    Any existing 'county_name' data in the incoming df will be overwritten.
 
     Parameters:
         df: county-level dataframe with a 'county_fips' column containing 5-digit FIPS code strings
@@ -26,42 +31,19 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
-    all_county_names = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
-        'census_utility',
-        'fips_codes_all',
-        dtype={'state_fips_code': str, 'county_fips_code': str},
-    )
-
-    all_county_names = all_county_names.loc[all_county_names['summary_level_name'] == 'state-county']
-
-    all_county_names = all_county_names[['county_fips_code', 'area_name']]
-    all_county_names = all_county_names.rename(
-        columns={
-            'county_fips_code': std_col.COUNTY_FIPS_COL,
-            'area_name': std_col.COUNTY_NAME_COL,
-        }
-    )
-
-    # fill in missing territory county equivalents
-    county_equivalent_names = pd.DataFrame(
-        list(constants.COUNTY_EQUIVALENT_FIPS_MAP.items()),
-        columns=[std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL],
-    )
-
-    all_county_names = pd.concat([all_county_names, county_equivalent_names]).reset_index(drop=True)
+    county_level_fips_df = pd.read_csv(COUNTY_FIPS_CODES_CSV, dtype=str)
 
     if std_col.COUNTY_NAME_COL in df.columns:
         df = df.drop(columns=std_col.COUNTY_NAME_COL)
 
-    df = pd.merge(df, all_county_names, how='left', on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
+    df = pd.merge(df, county_level_fips_df, how='left', on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
 
     return df
 
 
 def merge_state_ids(df, keep_postal=False):
     """Accepts a df that may be lacking state info (like names, FIPS codes or postal codes)
-    and merges in the missing columns based on the
-       `census_utility` big query public dataset.
+    and merges in the missing columns with info downloaded from`census_utility` big query public dataset.
 
     Parameters:
        df: dataframe to missing info into, with at least one of the following columns:
@@ -86,9 +68,7 @@ def merge_state_ids(df, keep_postal=False):
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
-    all_fips_codes_df = gcs_to_bq_util.load_public_dataset_from_bigquery_as_df(
-        'census_utility', 'fips_codes_states', dtype={'state_fips_code': str}
-    )
+    state_level_fips_df = pd.read_csv(STATE_FIPS_CODES_CSV, dtype=str)
 
     united_states_fips = pd.DataFrame(
         [
@@ -110,10 +90,10 @@ def merge_state_ids(df, keep_postal=False):
         ]
     )
 
-    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
-    all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips, unknown_fips])
+    state_level_fips_df = state_level_fips_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
+    state_level_fips_df = pd.concat([state_level_fips_df, united_states_fips, unknown_fips])
 
-    all_fips_codes_df = all_fips_codes_df.rename(
+    state_level_fips_df = state_level_fips_df.rename(
         columns={
             'state_fips_code': std_col.STATE_FIPS_COL,
             'state_postal_abbreviation': std_col.STATE_POSTAL_COL,
@@ -126,7 +106,7 @@ def merge_state_ids(df, keep_postal=False):
     if std_col.STATE_FIPS_COL in df.columns:
         merge_col = std_col.STATE_FIPS_COL
 
-    df = pd.merge(df, all_fips_codes_df, how='left', on=merge_col).reset_index(drop=True)
+    df = pd.merge(df, state_level_fips_df, how='left', on=merge_col).reset_index(drop=True)
 
     if (not keep_postal) and (std_col.STATE_POSTAL_COL in df.columns):
         df = df.drop(columns=std_col.STATE_POSTAL_COL)

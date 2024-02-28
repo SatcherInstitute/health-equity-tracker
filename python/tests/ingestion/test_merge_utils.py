@@ -14,8 +14,8 @@ _fips_codes_from_bq = [
 
 _county_names_from_bq = [
     ['county_fips_code', 'area_name', 'summary_level_name'],
-    ['06123', 'California County', 'state-county'],
-    ['13345', 'Georgia County', 'state-county'],
+    ['06059', 'Orange County', 'state-county'],
+    ['13133', 'Greene County', 'state-county'],
 ]
 
 _terr_pop_2010_state_data = [
@@ -74,22 +74,22 @@ _pop_data_time_series = [
 
 _data_with_bad_county_names = [
     ['state_postal', 'county_fips', 'county_name'],
-    ['CA', '06123', 'drop-me'],
-    ['GA', '13345', 'also-drop-me'],
+    ['CA', '06059', 'drop-me'],
+    ['GA', '13133', 'also-drop-me'],
     ['VI', '78010', 'bad-county-equivalent-name'],
 ]
 
 _data_with_good_county_names = [
     ['state_postal', 'county_fips', 'county_name'],
-    ['CA', '06123', 'California County'],
-    ['GA', '13345', 'Georgia County'],
+    ['CA', '06059', 'Orange County'],
+    ['GA', '13133', 'Greene County'],
     ['VI', '78010', 'St. Croix'],
 ]
 
 _expected_merged_fips_county = [
     ['state_name', 'state_fips', 'county_fips', 'county_name'],
-    ['California', '06', '06123', 'California County'],
-    ['Georgia', '13', '13345', 'Georgia County'],
+    ['California', '06', '06059', 'Orange County'],
+    ['Georgia', '13', '13133', 'Greene County'],
     ['U.S. Virgin Islands', '78', '78010', 'St. Croix'],
 ]
 
@@ -313,15 +313,7 @@ def _get_pop_data_as_df(*args):
         return gcs_to_bq_util.values_json_to_df(json.dumps(_pop_data_county), dtype=pop_dtype).reset_index(drop=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    return_value=_get_fips_codes_as_df(),
-)
-def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
-
-    mock_public_dataset.side_effect = [
-        _get_county_names_as_df(),
-    ]
+def testStandardizeCountyNames():
 
     df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_bad_county_names), dtype=str).reset_index(drop=True)
 
@@ -330,19 +322,13 @@ def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
     )
 
     df = merge_utils.merge_county_names(df)
-
-    assert mock_public_dataset.call_count == 1
+    print(df)
+    print(expected_df)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    return_value=_get_fips_codes_as_df(),
-)
-def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
-    mock_public_dataset.side_effect = [
-        _get_fips_codes_as_df(),
-    ]
+def testMergeFipsCodesCounty():
+
     df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips_county), dtype=str).reset_index(
@@ -351,15 +337,10 @@ def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    return_value=_get_fips_codes_as_df(),
-)
-def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
+def testMergeStateInfoByName():
     df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
     df = df[['state_name', 'other_col']]
@@ -368,15 +349,10 @@ def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    return_value=_get_fips_codes_as_df(),
-)
-def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
+def testMergeStateInfoByPostal():
     df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
     df = df[['state_postal', 'other_col']]
@@ -385,15 +361,10 @@ def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    return_value=_get_fips_codes_as_df(),
-)
-def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
+def testMergeStateInfoByFips():
     df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_only_fips_codes), dtype=str).reset_index(drop=True)
 
     df = df[['state_fips', 'other_col']]
@@ -404,7 +375,6 @@ def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
 
     df = merge_utils.merge_state_ids(df)
 
-    assert mock_public_dataset.call_count == 1
     assert_frame_equal(df, expected_df, check_like=True)
 
 
