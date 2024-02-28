@@ -2,7 +2,7 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
+from test_utils import _load_df_from_bigquery
 from datasources.ahr import AHRData
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -51,10 +51,6 @@ EXPECTED_DTYPE = {
     side_effect=_load_df_from_bigquery,
 )
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
 )
@@ -62,7 +58,6 @@ EXPECTED_DTYPE = {
 def testWriteToBqRaceState(
     mock_bq: mock.MagicMock,
     mock_data_dir_df: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
     expected_dtype = EXPECTED_DTYPE.copy()
@@ -88,13 +83,7 @@ def testWriteToBqRaceState(
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
@@ -103,7 +92,6 @@ def testWriteToBqRaceState(
 def testWriteToBqAgeState(
     mock_bq: mock.MagicMock,
     mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
     datasource = AHRData()
@@ -128,13 +116,7 @@ def testWriteToBqAgeState(
     assert_frame_equal(mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
@@ -143,7 +125,6 @@ def testWriteToBqAgeState(
 def testWriteToBqSexState(
     mock_bq: mock.MagicMock,
     mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
     datasource = AHRData()
@@ -172,13 +153,7 @@ def testWriteToBqSexState(
 # correct call to bigquery to get population data, so that is all we need to
 # test. There is no need to maintain GOLDEN files for this, as there is no
 # special parsing logic for national data.
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
@@ -187,7 +162,6 @@ def testWriteToBqSexState(
 def testWriteToBqRaceNational(
     mock_bq: mock.MagicMock,
     mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
     datasource = AHRData()
@@ -206,13 +180,7 @@ def testWriteToBqRaceNational(
     assert mock_pop.call_args_list[6].args[1] == 'by_race_national'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
@@ -221,7 +189,6 @@ def testWriteToBqRaceNational(
 def testWriteToBqAgeNational(
     mock_bq: mock.MagicMock,
     mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
     datasource = AHRData()
@@ -240,13 +207,7 @@ def testWriteToBqAgeNational(
     assert mock_pop.call_args_list[7].args[1] == 'by_age_national'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
@@ -255,7 +216,6 @@ def testWriteToBqAgeNational(
 def testWriteToBqSexNational(
     mock_bq: mock.MagicMock,
     mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
     datasource = AHRData()

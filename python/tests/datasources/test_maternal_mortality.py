@@ -2,7 +2,7 @@ from unittest import mock
 import os
 import pandas as pd
 from datasources.maternal_mortality import MaternalMortalityData
-from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
+from test_utils import _load_df_from_bigquery
 
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,14 +25,9 @@ def get_test_data_as_df():
     'ingestion.gcs_to_bq_util.load_df_from_bigquery',
     side_effect=_load_df_from_bigquery,
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBq(
     mock_bq: mock.MagicMock,
-    mock_public: mock.MagicMock,
     mock_pop: mock.MagicMock,
     # VARIABLE THAT REPRESENTS THE MOCKED READ CSV FUNCTION
     mock_csv: mock.MagicMock,
