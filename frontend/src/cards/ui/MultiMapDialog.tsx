@@ -149,7 +149,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
         <div ref={screenshotTargetRef}>
           {/* mobile-only card options button */}
 
-          <div className='mb-3 flex w-full justify-end sm:hidden'>
+          <div className='flex w-full justify-end sm:hidden'>
             <CardOptionsMenu
               downloadTargetScreenshot={downloadTargetScreenshot}
               reportTitle={props.reportTitle}
@@ -336,7 +336,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             Close
           </HetLinkButton>
           {/* Desktop only Sources and Card Options */}
-          <div className='hidden w-full justify-between sm:flex'>
+          <div className='flex w-full items-center justify-between sm:flex'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
