@@ -325,7 +325,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
-        <div className='flex justify-between pl-2 text-left text-small'>
+        <div className='ml-5 flex justify-between pl-2 text-left text-small'>
           {/* mobile-only CLOSE button */}
           <HetLinkButton
             aria-label='close this multiple maps modal'
