@@ -322,8 +322,6 @@ def testStandardizeCountyNames():
     )
 
     df = merge_utils.merge_county_names(df)
-    print(df)
-    print(expected_df)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
