@@ -99,8 +99,7 @@ class GunViolenceProvider extends VariableProvider {
                 throw new Error('DatasetId is undefined.')
             }
 
-            const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
-            const gunViolenceData = await getDataManager().loadDataset(specificDatasetId)
+            const gunViolenceData = await getDataManager().loadDataset(datasetId)
             let df = gunViolenceData.toDataFrame()
 
             df = this.filterByGeo(df, breakdowns)

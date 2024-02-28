@@ -9,7 +9,8 @@ import {
 } from './MetricConfigUtils'
 import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 
-console.log(SHOW_GUN_VIOLENCE)
+console.log('Gun violence preview enabled')
+
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
   'health_insurance',
