@@ -1,4 +1,11 @@
 repos:
+  # PREVENT COMMON GIT/GITHUB ERRORS
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=100_000", "--enforce-all"]
   # LINT/FORMAT PYTHON WITH BLACK
   - repo: https://github.com/psf/black
     rev: 22.10.0
@@ -12,3 +19,12 @@ repos:
         entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
+  # WARN IF THERE ARE TOO MANY FILES IN ONE COMMIT
+  - repo: local
+    hooks:
+      - id: check-file-count
+        name: Check File Count
+        entry: ./scripts/.util/warn_many_files_per_commit.sh
+        language: system
+        types: [text]
+        pass_filenames: false
