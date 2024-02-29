@@ -1,4 +1,12 @@
 repos:
+  # SPELL CHECKER
+  - repo: local
+    hooks:
+      - id: cspell
+        name: check spelling
+        entry: npm run --prefix frontend/ cspell
+        language: system
+        types: [text]
   # PREVENT COMMON GIT/GITHUB ERRORS
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
