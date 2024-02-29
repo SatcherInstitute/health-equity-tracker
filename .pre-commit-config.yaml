@@ -18,7 +18,7 @@ repos:
   - repo: local
     hooks:
       - id: local-biome-check
-        name: biome ☕️ js/ts/json format + lint
+        name: biome 🦕 ts/json format + lint
         entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
