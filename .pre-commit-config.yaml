@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: cspell
         name: check spelling of staged files
-        entry: bash -c 'npx cspell --cache -v --no-must-find-files --gitignore "**/*.{md,html,tsx,ts,py,yaml,yml}"'
+        entry: bash -c 'cd frontend && npx cspell --cache -v --no-must-find-files --gitignore "**/*.{md,html,tsx,ts,py,yaml,yml}"'
         language: system
         types: [text]
   # PREVENT COMMON GIT/GITHUB ERRORS
