@@ -2,6 +2,7 @@
 	"version": "0.2",
 	"language": "en",
 	"ignorePaths": [
+		".vscode/",
 		"**/build/**",
 		"**/aggregator/**",
 		"**/airflow/**",
