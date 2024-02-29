@@ -4,6 +4,7 @@ repos:
     rev: v4.5.0
     hooks:
       - id: check-case-conflict
+      - id: check-merge-conflict
       - id: check-added-large-files
         args: ["--maxkb=100_000", "--enforce-all"]
   # LINT/FORMAT PYTHON WITH BLACK
