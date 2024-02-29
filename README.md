@@ -1,4 +1,4 @@
-# Health Equity Tracker SPELING eror
+# Health Equity Tracker
 
 Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satcher Health Leadership Institute, Morehouse School of Medicine.
 
