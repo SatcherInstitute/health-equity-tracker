@@ -1,10 +1,10 @@
 repos:
-  # SPELL CHECKER baaaaad wordz
+  # SPELL CHECKER
   - repo: local
     hooks:
       - id: cspell
         name: check spelling of staged files
-        entry: bash -c 'cd frontend && npx cspell --cache -v --no-must-find-files --gitignore "**/*.{md,html,tsx,ts,py,yaml,yml}"'
+        entry: bash -c 'npx cspell --no-must-find-files --no-progress --cache --gitignore $(git diff --name-only origin/main...HEAD | grep -E "\.(md|html|tsx|ts|py|yaml|yml)$")'
         language: system
         types: [text]
   # PREVENT COMMON GIT/GITHUB ERRORS
