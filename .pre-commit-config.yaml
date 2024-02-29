@@ -1,5 +1,5 @@
 repos:
-  # SPELL CHECKER baad wordz
+  # SPELL CHECKER baaaaad wordz
   - repo: local
     hooks:
       - id: cspell
