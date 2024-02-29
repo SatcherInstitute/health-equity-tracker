@@ -11,11 +11,12 @@ repos:
     rev: 22.10.0
     hooks:
       - id: black
+        name: black python format + lint
   # LINT/FORMAT JS/TS/JSON WITH BIOME
   - repo: local
     hooks:
       - id: local-biome-check
-        name: biome check
+        name: biome js/ts/json format + lint
         entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched
         language: system
         types: [text]
@@ -23,7 +24,7 @@ repos:
   - repo: local
     hooks:
       - id: check-file-count
-        name: Check File Count
+        name: warn more than 100 files per commit
         entry: ./scripts/.util/warn_many_files_per_commit.sh
         language: system
         types: [text]
