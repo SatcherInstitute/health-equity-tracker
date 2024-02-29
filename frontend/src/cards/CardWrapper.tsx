@@ -1,47 +1,47 @@
-import { CircularProgress } from '@mui/material'
+import { CircularProgress } from '@mui/material';
 import {
   type MetricQuery,
   type MetricQueryResponse,
-} from '../data/query/MetricQuery'
-import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
-import { Sources } from './ui/Sources'
-import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+} from '../data/query/MetricQuery';
+import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI';
+import { Sources } from './ui/Sources';
+import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes';
+import { type ScrollableHashId } from '../utils/hooks/useStepObserver';
 import {
   type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
-} from '../utils/hooks/useDownloadCardImage'
-import CardOptionsMenu from './ui/CardOptionsMenu'
+} from '../utils/hooks/useDownloadCardImage';
+import CardOptionsMenu from './ui/CardOptionsMenu';
 
 function CardWrapper(props: {
   // prevent layout shift as component  loads
-  minHeight?: number
-  downloadTitle: string
+  minHeight?: number;
+  downloadTitle: string;
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
-  infoPopover?: JSX.Element
-  hideFooter?: boolean
-  hideNH?: boolean
-  queries: MetricQuery[]
+  infoPopover?: JSX.Element;
+  hideFooter?: boolean;
+  hideNH?: boolean;
+  queries: MetricQuery[];
   // Whether to load the geographies dataset for this card.
-  loadGeographies?: boolean
+  loadGeographies?: boolean;
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
-    geoData?: Record<string, any>
-  ) => JSX.Element
-  isCensusNotAcs?: boolean
-  scrollToHash: ScrollableHashId
-  reportTitle: string
-  elementsToHide?: ElementHashIdHiddenOnScreenshot[]
-  expanded?: boolean
-  isCompareCard?: boolean
+    geoData?: Record<string, any>,
+  ) => JSX.Element;
+  isCensusNotAcs?: boolean;
+  scrollToHash: ScrollableHashId;
+  reportTitle: string;
+  elementsToHide?: ElementHashIdHiddenOnScreenshot[];
+  expanded?: boolean;
+  isCompareCard?: boolean;
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle,
     props.elementsToHide,
     props.scrollToHash,
-    props.expanded
-  )
+    props.expanded,
+  );
 
   const loadingComponent = (
     <div
@@ -51,7 +51,7 @@ function CardWrapper(props: {
     >
       <CircularProgress aria-label='loading' />
     </div>
-  )
+  );
 
   return (
     <WithMetadataAndMetrics
@@ -83,10 +83,10 @@ function CardWrapper(props: {
               />
             )}
           </article>
-        )
+        );
       }}
     </WithMetadataAndMetrics>
-  )
+  );
 }
 
-export default CardWrapper
+export default CardWrapper;

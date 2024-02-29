@@ -6,7 +6,9 @@
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "single",
-			"jsxQuoteStyle": "single"
+			"jsxQuoteStyle": "single",
+			"indentStyle": "space",
+			"indentWidth": 4
 		}
 	},
 	"linter": {
@@ -21,6 +23,9 @@
 			},
 			"style": {
 				"useTemplate": "off"
+			},
+			"complexity": {
+				"noForEach": "off"
 			}
 		}
 	}
