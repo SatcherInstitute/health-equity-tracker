@@ -3,8 +3,8 @@ repos:
   - repo: local
     hooks:
       - id: cspell
-        name: check spelling
-        entry: npm run --prefix frontend/ cspell
+        name: check spelling of staged files
+        entry: bash -c 'npm run --prefix frontend/ cspell $(git diff --cached --name-only | grep -E "\.(ts|tsx|scss|md|py)$")'
         language: system
         types: [text]
   # PREVENT COMMON GIT/GITHUB ERRORS
