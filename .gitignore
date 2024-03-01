@@ -15,6 +15,7 @@ airflow-logs
 .idea/
 ~$*
 tig
+.cspellcache
 
 node_modules/
 /frontend_server/build/
