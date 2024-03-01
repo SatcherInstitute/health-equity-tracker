@@ -49,6 +49,20 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
    origin   https://github.com/SatcherInstitute/health-equity-tracker.git (push)
    ```
 
+### Install Node and Pre-Commit
+
+Our repo requires Node, and is also configured to run helpful code linting, formatting, and error-checking automatically on every commit. On Mac, the easiest way is to first ensure you have [Homebrew installed](https://brew.sh/), and then use that to install [pre-commit](https://pre-commit.com/#installation). If you don't already have it installed, you can also install Node via Homebrew as well.
+
+```bash
+brew install pre-commit
+```
+
+After it installs successfully, you need to use it to install the HET pre-commit hooks within your local .git
+
+```bash
+pre-commit install
+```
+
 ### Setting Up the Frontend Locally (One Time Setup)
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
@@ -64,6 +78,8 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
    ```bash
    npm i
    ```
+
+Note: If you are using VSCode, ensure you install the recommended extensions including Biome, which we use for linting and formatting JavaScript-based files.
 
 ### Running the Frontend Locally on a Development Server (localhost)
 
@@ -99,10 +115,6 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
   - `npm run e2e statins.nightly.spec.ts` runs the single file
   - `npm run e2e hiv` runs all tests that include the string `hiv` in the filename
 - To run the tests locally, but target either the production or staging deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-staging` respectivally. Target specific test files the same way described above.
-
-#### Outgoing Link Checker
-
-- Run the outgoing link checker (ensuring external linked URLs return a `200`): `npm run url`. Note: this automatically runs weekly in GitHub Actions
 
 ## Making a Pull Request (PR)
 
@@ -246,9 +258,12 @@ The backend consists of:
 
 ### Python environment setup
 
+1. (One-time) Ensure you have the right version of Python installed (as found in pyproject.toml). You can install the correct version using Homebrew (on Mac) with `brew install python@3.9`
 1. (One-time) Create a virtual environment in your project directory, for example: `python3 -m venv .venv`
-2. (Every time you develop on Python code) Activate the venv (every time you want to update Python ): `source .venv/bin/activate`
-3. (One-time) Install pip-tools and other packages as needed: `pip install pip-tools`
+1. (Every time you develop on Python code) Activate the venv (every time you want to update Python ): `source .venv/bin/activate`
+1. (One-time) Install pip-tools and other packages as needed: `pip install pip-tools`
+
+Note: If you are using VSCode, ensure you install the recommend extensions, including Black which is used for linting/formatting.
 
 ### To confirm and stage changes to `/python`, `/airflow/dags`, or other backend code
 
