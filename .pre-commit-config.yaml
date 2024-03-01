@@ -36,7 +36,7 @@ repos:
   - repo: local
     hooks:
       - id: check-file-count
-        name: 🗄️ check + warn if 100+ files in commit
+        name: 🗄️  check + warn if 100+ files in commit
         entry: ./scripts/.util/warn_many_files_per_commit.sh
         language: system
         types: [text]
