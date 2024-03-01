@@ -14,7 +14,7 @@ repos:
       - id: check-case-conflict
         name: 👯 check for file name casing conflicts
       - id: check-merge-conflict
-        name: ⛔️ check for merge conflict markers
+        name: 🙅 check for merge conflict markers
       - id: check-added-large-files
         name: 🐳 check for files over 100mb
         args: ["--maxkb=100_000", "--enforce-all"]
