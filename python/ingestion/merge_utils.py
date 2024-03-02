@@ -217,6 +217,9 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         std_col.POPULATION_PCT_COL: float,
     }
 
+    if loc == 'county':
+        pop_dtype[std_col.COUNTY_FIPS_COL] = str
+
     if demo not in on_col_map:
         raise ValueError(f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}')
 
@@ -254,9 +257,9 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             std_col.POPULATION_PCT_COL: float,
         }
 
-        # pop_terr_2020_df = gcs_to_bq_util.load_df_from_bigquery(
-        #     'decia_2020_territory_population', pop_terr_table_name, terr_pop_dtype
-        # )
+        if loc == 'county':
+            terr_pop_dtype[std_col.COUNTY_FIPS_COL] = str
+
         pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
         pop_terr_2020_df = pd.read_csv(pop_terr_2020_file, dtype=terr_pop_dtype)
 
@@ -266,9 +269,6 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             # re-use 2020 territory populations in every ACS year 2016-current
             # load and use 2010 territory populations in every ACS year 2009-2015
 
-            # pop_terr_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-            #     'decia_2010_territory_population', pop_terr_table_name, terr_pop_dtype
-            # )
             pop_terr_2010_file = os.path.join(DECIA_2010_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
             pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
 
