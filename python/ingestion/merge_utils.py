@@ -9,9 +9,9 @@ ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
 MERGE_DATA_DIR = os.path.join('python', 'ingestion', 'merge_data')
-ACS_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'acs')
-DECIA_2010_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2010')
-DECIA_2020_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2020')
+ACS_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'acs_population')
+DECIA_2010_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2010_territory_population')
+DECIA_2020_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2020_territory_population')
 COUNTY_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'county_level_fips.csv')
 STATE_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'state_level_fips.csv')
 
