@@ -9,16 +9,13 @@ from ingestion import gcs_to_bq_util, github_util
 
 from ingestion.dataset_utils import generate_per_100k_col
 
-from ingestion.merge_utils import (
-    merge_state_ids,
-    merge_pop_numbers)
+from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 
-from ingestion.constants import (
-    STATE_LEVEL,
-    RACE)
+from ingestion.constants import STATE_LEVEL, RACE
 
-BASE_KFF_URL_TOTALS_STATE = ('https://raw.githubusercontent.com/KFFData/COVID-19-Data/'
-                             'kff_master/State%20Trend%20Data/State_Trend_Data.csv')
+BASE_KFF_URL_TOTALS_STATE = (
+    'https://raw.githubusercontent.com/KFFData/COVID-19-Data/' 'kff_master/State%20Trend%20Data/State_Trend_Data.csv'
+)
 
 BASE_GITHUB_API_URL = "https://api.github.com/repos/KFFData/COVID-19-Data/git/trees/kff_master?recursive=1"
 
@@ -36,7 +33,7 @@ KFF_RACES_PCT_SHARE = [
     'Asian',
     'American Indian or Alaska Native',
     'Native Hawaiian or Other Pacific Islander',
-    'Other'
+    'Other',
 ]
 
 KFF_RACES_PCT_TOTAL = ['White', 'Black', 'Hispanic', 'Asian']
@@ -49,7 +46,7 @@ KFF_RACES_TO_STANDARD_NH = {
     'American Indian or Alaska Native': Race.AIAN_NH.value,
     'Native Hawaiian or Other Pacific Islander': Race.NHPI_NH.value,
     'AAPI': Race.API_NH.value,
-    'Other': Race.OTHER_NONSTANDARD_NH.value
+    'Other': Race.OTHER_NONSTANDARD_NH.value,
 }
 
 KFF_RACES_TO_STANDARD = {
@@ -60,11 +57,22 @@ KFF_RACES_TO_STANDARD = {
     'American Indian or Alaska Native': Race.AIAN.value,
     'Native Hawaiian or Other Pacific Islander': Race.NHPI.value,
     'AAPI': Race.API.value,
-    'Other': Race.OTHER_NONSTANDARD.value
+    'Other': Race.OTHER_NONSTANDARD.value,
 }
 
-AAPI_STATES = {'Arizona', 'Connecticut', 'District of Columbia', 'Michigan', 'Minnesota', 'Nevada',
-               'New Mexico', 'North Carolina', 'Oklahoma', 'South Carolina', 'Virginia'}
+AAPI_STATES = {
+    'Arizona',
+    'Connecticut',
+    'District of Columbia',
+    'Michigan',
+    'Minnesota',
+    'Nevada',
+    'New Mexico',
+    'North Carolina',
+    'Oklahoma',
+    'South Carolina',
+    'Virginia',
+}
 
 KFF_TERRITORIES = ['Guam', 'Puerto Rico', 'Northern Mariana Islands']
 VACCINATED_FIRST_DOSE = 'one_dose'
@@ -82,8 +90,7 @@ def get_data_url(data_type):
         'pct_share': 'COVID19 Vaccinations by RE',
         'pct_population': 'Distribution of Vaccinations, Cases, Deaths',
     }
-    df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(
-        BASE_GITHUB_API_URL, "tree")
+    df = gcs_to_bq_util.load_json_as_df_from_web_based_on_key(BASE_GITHUB_API_URL, "tree")
 
     df = df.loc[df['path'].str.contains(data_types_to_strings[data_type])]
 
@@ -143,15 +150,12 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
 
     output_row = {}
     output_row[std_col.STATE_NAME_COL] = state
-    output_row[std_col.VACCINATED_PCT_SHARE] = str(
-        state_row_pct_share[generate_pct_share_key(race)].values[0])
+    output_row[std_col.VACCINATED_PCT_SHARE] = str(state_row_pct_share[generate_pct_share_key(race)].values[0])
 
     if race in KFF_RACES_PCT_TOTAL:
-        output_row[std_col.VACCINATED_PER_100K] = str(
-            state_row_pct_total[generate_total_pct_key(race)].values[0])
+        output_row[std_col.VACCINATED_PER_100K] = str(state_row_pct_total[generate_total_pct_key(race)].values[0])
         output_row[std_col.VACCINATED_POP_PCT] = str(
-            state_row_pct_population[generate_pct_of_population_key(
-                race)].values[0]
+            state_row_pct_population[generate_pct_of_population_key(race)].values[0]
         )
 
     if race == "Asian" and state in AAPI_STATES:
@@ -172,18 +176,14 @@ def generate_total_row(state_row_totals, state):
     output_row[std_col.STATE_NAME_COL] = state
     output_row[std_col.RACE_CATEGORY_ID_COL] = Race.ALL.value
 
-    state_row_totals = state_row_totals.loc[~state_row_totals['one_dose'].isnull(
-    )]
-    latest_row = state_row_totals.loc[state_row_totals['date']
-                                      == state_row_totals['date'].max()]
-    output_row[VACCINATED_FIRST_DOSE] = str(
-        latest_row[TOTAL_KEY].values[0])
+    state_row_totals = state_row_totals.loc[~state_row_totals['one_dose'].isnull()]
+    latest_row = state_row_totals.loc[state_row_totals['date'] == state_row_totals['date'].max()]
+    output_row[VACCINATED_FIRST_DOSE] = str(latest_row[TOTAL_KEY].values[0])
     output_row[std_col.VACCINATED_POP_PCT] = "1.0"
     return output_row
 
 
 class KFFVaccination(DataSource):
-
     @staticmethod
     def get_id():
         return 'KFF_VACCINATION'
@@ -193,26 +193,22 @@ class KFFVaccination(DataSource):
         return 'kff_vaccination'
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError(
-            'upload_to_gcs should not be called for KFFVaccination')
+        raise NotImplementedError('upload_to_gcs should not be called for KFFVaccination')
 
     def parse_data(self):
         """Parses vaccine data from all needed data sources and places
-           all needed info into HET style df."""
+        all needed info into HET style df."""
 
         percentage_of_total_url = get_data_url('pct_total')
-        percentage_of_total_df = github_util.decode_json_from_url_into_df(
-            percentage_of_total_url)
+        percentage_of_total_df = github_util.decode_json_from_url_into_df(percentage_of_total_url)
 
         pct_share_url = get_data_url('pct_share')
         pct_share_df = github_util.decode_json_from_url_into_df(pct_share_url)
 
         pct_population_url = get_data_url('pct_population')
-        pct_population_df = github_util.decode_json_from_url_into_df(
-            pct_population_url)
+        pct_population_df = github_util.decode_json_from_url_into_df(pct_population_url)
 
-        total_df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
+        total_df = gcs_to_bq_util.load_csv_as_df_from_web(BASE_KFF_URL_TOTALS_STATE, dtype={TOTAL_KEY: str})
 
         output = []
         columns = [
@@ -237,13 +233,15 @@ class KFFVaccination(DataSource):
 
             # Get race metrics
             for race in KFF_RACES_PCT_SHARE:
-                output.append(generate_output_row(
-                    state_row_pct_share,
-                    state_row_pct_total,
-                    state_row_pct_population,
-                    state,
-                    race,
-                ))
+                output.append(
+                    generate_output_row(
+                        state_row_pct_share,
+                        state_row_pct_total,
+                        state_row_pct_population,
+                        state,
+                        race,
+                    )
+                )
 
             output.append(generate_total_row(state_row_totals, state))
 
@@ -255,8 +253,8 @@ class KFFVaccination(DataSource):
 
     def post_process(self, df):
         """Takes in dataframe with raw vaccine data and runs all needed operations
-           on it.
-           Returns an dataframe ready for the frontend."""
+        on it.
+        Returns an dataframe ready for the frontend."""
 
         df = merge_state_ids(df)
 
@@ -271,8 +269,9 @@ class KFFVaccination(DataSource):
 
         total_df = df.loc[~df[VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
         total_df = merge_pop_numbers(total_df, RACE, STATE_LEVEL)
-        total_df = generate_per_100k_col(total_df, VACCINATED_FIRST_DOSE,
-                                         std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
+        total_df = generate_per_100k_col(
+            total_df, VACCINATED_FIRST_DOSE, std_col.POPULATION_COL, std_col.VACCINATED_PER_100K
+        )
 
         df = df.loc[df[VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
         df = pd.concat([df, total_df])
@@ -282,10 +281,17 @@ class KFFVaccination(DataSource):
         df = merge_pop_numbers(df, RACE, STATE_LEVEL)
         df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.ACS_VACCINATED_POP_PCT})
 
-        df = df[[std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL,
-                 std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_PCT_SHARE,
-                 std_col.VACCINATED_PER_100K, std_col.VACCINATED_POP_PCT,
-                 std_col.ACS_VACCINATED_POP_PCT]]
+        df = df[
+            [
+                std_col.STATE_NAME_COL,
+                std_col.STATE_FIPS_COL,
+                std_col.RACE_CATEGORY_ID_COL,
+                std_col.VACCINATED_PCT_SHARE,
+                std_col.VACCINATED_PER_100K,
+                std_col.VACCINATED_POP_PCT,
+                std_col.ACS_VACCINATED_POP_PCT,
+            ]
+        ]
 
         return df
 
@@ -296,32 +302,30 @@ class KFFVaccination(DataSource):
         float_cols = [
             std_col.VACCINATED_PCT_SHARE,
             std_col.VACCINATED_PER_100K,
-            std_col.VACCINATED_POP_PCT, std_col.ACS_VACCINATED_POP_PCT
+            std_col.VACCINATED_POP_PCT,
+            std_col.ACS_VACCINATED_POP_PCT,
         ]
 
         # WRITE RACE TABLE
         std_col.add_race_columns_from_category_id(df)
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-        gcs_to_bq_util.add_df_to_bq(
-            df, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_state', column_types=col_types)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_state', column_types=col_types)
 
         # WRITE ALLS TABLE FOR SEX/AGE (get just the All rows from the race table and add needed cols)
         df = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value]
-        # print(df)
         df[std_col.SEX_COL] = std_col.ALL_VALUE
         df[std_col.AGE_COL] = std_col.ALL_VALUE
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-        gcs_to_bq_util.add_df_to_bq(
-            df, dataset, 'alls_state', column_types=col_types)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, 'alls_state', column_types=col_types)
 
 
 def clean_row(df, column):
     """Removes non float KFF data from the raw data and replaces
-       them with np.nan, as that is how we have chosen to display the
-       data to the user.
+    them with np.nan, as that is how we have chosen to display the
+    data to the user.
 
-       df: KFF Dataframe to clean data notes from.
-       column: Column name to clean."""
+    df: KFF Dataframe to clean data notes from.
+    column: Column name to clean."""
     df[column] = df[column].fillna(np.nan)
     df[column] = df[column].replace(0, np.nan)
     df[column] = df[column].replace('<0.01', np.nan)

@@ -1,5 +1,4 @@
 import pandas as pd  # type: ignore
-
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
@@ -71,7 +70,6 @@ BASE_CDC_URL = "https://data.cdc.gov/resource/km4m-vcsb.json"
 
 
 class CDCVaccinationNational(DataSource):
-
     @staticmethod
     def get_id():
         return 'CDC_VACCINATION_NATIONAL'

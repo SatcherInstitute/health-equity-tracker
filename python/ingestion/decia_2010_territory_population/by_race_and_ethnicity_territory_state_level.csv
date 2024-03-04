@@ -1,0 +1,65 @@
+state_fips,state_name,population,race_category_id,population_pct,race_and_ethnicity
+60,American Samoa,55519.0,ALL,100.0,All
+60,American Samoa,53397.0,AIAN_API,96.2,"American Indian, Alaska Native, Asian & Pacific Islander"
+60,American Samoa,51403.0,NHPI,92.6,Native Hawaiian and Pacific Islander
+60,American Samoa,51403.0,NHPI_NH,92.6,Native Hawaiian and Pacific Islander (NH)
+60,American Samoa,1994.0,ASIAN,3.6,Asian
+60,American Samoa,1994.0,ASIAN_NH,3.6,Asian (NH)
+60,American Samoa,13.0,BLACK,0.02,Black or African American
+60,American Samoa,13.0,BLACK_NH,0.02,Black or African American (NH)
+60,American Samoa,73.0,HISP,0.1,Hispanic or Latino
+60,American Samoa,493.0,WHITE,0.9,White
+60,American Samoa,493.0,WHITE_NH,0.9,White (NH)
+60,American Samoa,1479.0,MULTI,2.7,Two or more races
+60,American Samoa,1479.0,MULTI_NH,2.7,Two or more races (NH)
+60,American Samoa,64.0,OTHER_STANDARD,0.1,Unrepresented race
+60,American Samoa,64.0,OTHER_STANDARD_NH,0.1,Unrepresented race (NH)
+60,American Samoa,1543.0,MULTI_OR_OTHER_STANDARD,2.8,Two or more races & Unrepresented race
+60,American Samoa,1543.0,MULTI_OR_OTHER_STANDARD_NH,2.8,Two or more races & Unrepresented race (NH)
+78,U.S. Virgin Islands,106405.0,ALL,100.0,All
+78,U.S. Virgin Islands,,AIAN_API,,"American Indian, Alaska Native, Asian & Pacific Islander"
+78,U.S. Virgin Islands,18504.0,HISP,17.4,Hispanic or Latino
+78,U.S. Virgin Islands,80908.0,BLACK,76.0,Black or African American
+78,U.S. Virgin Islands,70379.0,BLACK_NH,66.1,Black or African American (NH)
+78,U.S. Virgin Islands,2203.0,MULTI,2.1,Two or more races
+78,U.S. Virgin Islands,2203.0,MULTI_NH,2.1,Two or more races (NH)
+78,U.S. Virgin Islands,6648.0,OTHER_STANDARD,6.2,Unrepresented race
+78,U.S. Virgin Islands,6648.0,OTHER_STANDARD_NH,6.2,Unrepresented race (NH)
+78,U.S. Virgin Islands,8851.0,MULTI_OR_OTHER_STANDARD,8.3,Two or more races & Unrepresented race
+78,U.S. Virgin Islands,8851.0,MULTI_OR_OTHER_STANDARD_NH,8.3,Two or more races & Unrepresented race (NH)
+78,U.S. Virgin Islands,16646.0,WHITE,15.6,White
+78,U.S. Virgin Islands,14352.0,WHITE_NH,13.5,White (NH)
+69,Northern Mariana Islands,53883.0,ALL,100.0,All
+69,Northern Mariana Islands,45708.0,AIAN_API,84.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+69,Northern Mariana Islands,26908.0,ASIAN,49.9,Asian
+69,Northern Mariana Islands,26908.0,ASIAN_NH,49.9,Asian (NH)
+69,Northern Mariana Islands,55.0,BLACK,0.1,Black or African American
+69,Northern Mariana Islands,55.0,BLACK_NH,0.1,Black or African American (NH)
+69,Northern Mariana Islands,18800.0,NHPI,34.9,Native Hawaiian and Pacific Islander
+69,Northern Mariana Islands,18800.0,NHPI_NH,34.9,Native Hawaiian and Pacific Islander (NH)
+69,Northern Mariana Islands,1117.0,WHITE,2.1,White
+69,Northern Mariana Islands,1117.0,WHITE_NH,2.1,White (NH)
+69,Northern Mariana Islands,6832.0,MULTI,12.7,Two or more races
+69,Northern Mariana Islands,6832.0,MULTI_NH,12.7,Two or more races (NH)
+69,Northern Mariana Islands,117.0,OTHER_STANDARD,0.2,Unrepresented race
+69,Northern Mariana Islands,117.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+69,Northern Mariana Islands,6949.0,MULTI_OR_OTHER_STANDARD,12.9,Two or more races & Unrepresented race
+69,Northern Mariana Islands,6949.0,MULTI_OR_OTHER_STANDARD_NH,12.9,Two or more races & Unrepresented race (NH)
+69,Northern Mariana Islands,54.0,HISP,0.1,Hispanic or Latino
+66,Guam,159358.0,ALL,100.0,All
+66,Guam,129963.0,AIAN_API,81.6,"American Indian, Alaska Native, Asian & Pacific Islander"
+66,Guam,51381.0,ASIAN,32.2,Asian
+66,Guam,51381.0,ASIAN_NH,32.2,Asian (NH)
+66,Guam,1540.0,BLACK,1.0,Black or African American
+66,Guam,1540.0,BLACK_NH,1.0,Black or African American (NH)
+66,Guam,78582.0,NHPI,49.3,Native Hawaiian and Pacific Islander
+66,Guam,78582.0,NHPI_NH,49.3,Native Hawaiian and Pacific Islander (NH)
+66,Guam,11321.0,WHITE,7.1,White
+66,Guam,11321.0,WHITE_NH,7.1,White (NH)
+66,Guam,14929.0,MULTI,9.4,Two or more races
+66,Guam,14929.0,MULTI_NH,9.4,Two or more races (NH)
+66,Guam,404.0,OTHER_STANDARD,0.3,Unrepresented race
+66,Guam,404.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+66,Guam,15333.0,MULTI_OR_OTHER_STANDARD,9.6,Two or more races & Unrepresented race
+66,Guam,15333.0,MULTI_OR_OTHER_STANDARD_NH,9.6,Two or more races & Unrepresented race (NH)
+66,Guam,1201.0,HISP,0.8,Hispanic or Latino

@@ -3,7 +3,6 @@ import os
 
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
-from test_utils import _load_df_from_bigquery
 from datasources.cdc_vaccination_county import CDCVaccinationCounty  # type: ignore
 
 # Current working directory.
@@ -24,11 +23,9 @@ def get_total_vaccinations_as_df():
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
     return_value=get_total_vaccinations_as_df(),
 )
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBq(
     mock_bq: mock.MagicMock,
-    mock_pop: mock.MagicMock,
     mock_csv: mock.MagicMock,
 ):
     cdcVaccinationCounty = CDCVaccinationCounty()

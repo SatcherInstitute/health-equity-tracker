@@ -3,9 +3,6 @@ import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
-from test_utils import (
-    _load_df_from_bigquery,
-)
 
 from datasources.cawp_time import (
     CAWPTimeData,
@@ -128,7 +125,6 @@ def _load_csv_as_df_from_web(*args, **kwargs):
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     side_effect=_load_csv_as_df_from_data_dir,
 )
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'datasources.cawp_time.get_consecutive_time_periods',
     side_effect=_get_consecutive_time_periods,
@@ -137,7 +133,6 @@ def _load_csv_as_df_from_web(*args, **kwargs):
 def testWriteToBq(
     mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
     mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
-    mock_df_from_bq: mock.MagicMock,  # shared mock for read HET BQ like acs_population
     mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG.
     mock_csv_from_web: mock.MagicMock,  # reading STATE LEG TOTAL from CAWP site
     mock_json_from_web: mock.MagicMock,  # reading CONGRESS TOTALS from UNITEDSTATES.IO
@@ -163,9 +158,6 @@ def testWriteToBq(
     # SCAFFOLD CONGRESS BY ALL + SCAFFOLD CONGRESS BY RACE +
     # SCAFFOLD STATELEG BY ALL + SCAFFOLD STATELEG BY RACE
     assert mock_test_time_periods.call_count == 6
-
-    # TODO: REFACTOR - THIS IS CALLING THE SAME HET TABLES MULTIPLE TIMES
-    assert mock_df_from_bq.call_count == 8
 
     # CAWP LINE ITEM CSV + 6 TERRITORY LEG. TOTAL CSVS
     assert mock_data_dir.call_count == 7

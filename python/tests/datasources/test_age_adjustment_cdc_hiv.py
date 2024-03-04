@@ -18,7 +18,7 @@ GOLDEN_INTEGRATION_DATA_STATE = os.path.join(
 
 def _load_df_from_bigquery(*args, **kwargs):
     dataset, table_name = args
-    print("mocking read from BQ table:", f'{dataset}-{table_name}')
+    print("mocking read of HET COVID tables (pre age-adjusted):", f'{dataset}-{table_name}')
     dtype = kwargs["dtype"]
     race_age_df = pd.read_csv(os.path.join(TEST_DIR, f'{table_name}.csv'), dtype=dtype)
 
@@ -27,9 +27,7 @@ def _load_df_from_bigquery(*args, **kwargs):
 
 # Integration tests
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 def testWriteToBq(
     mock_race_age: mock.MagicMock,
     mock_bq: mock.MagicMock,
@@ -63,15 +61,11 @@ def testWriteToBq(
 
     national_df, _national_dataset, national_table_name = mock_bq.call_args_list[0][0]
     assert national_table_name == "race_and_ethnicity_national_current-with_age_adjust"
-    expected_national_df = pd.read_csv(
-        GOLDEN_INTEGRATION_DATA_NATIONAL, dtype=dtype, index_col=False
-    )
+    expected_national_df = pd.read_csv(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype=dtype, index_col=False)
     assert_frame_equal(national_df, expected_national_df, check_like=True)
 
     state_df, _state_dataset, state_table_name = mock_bq.call_args_list[1][0]
     assert state_table_name == "race_and_ethnicity_state_current-with_age_adjust"
-    expected_state_df = pd.read_csv(
-        GOLDEN_INTEGRATION_DATA_STATE, dtype=dtype, index_col=False
-    )
+    expected_state_df = pd.read_csv(GOLDEN_INTEGRATION_DATA_STATE, dtype=dtype, index_col=False)
     # state_df.to_csv(f'{state_table_name}.csv', index=False)
     assert_frame_equal(state_df, expected_state_df, check_like=True)
