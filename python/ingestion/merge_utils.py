@@ -9,15 +9,8 @@ ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
 
-# Get the directory of the current script
+# This works for both local runs and also in a container within the /app directory
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
-
-print(INGESTION_DIR)
-
-# Construct the path to the desired directory
-#  = os.path.join(CURRENT_DIR, 'python', 'ingestion')
-
-# INGESTION_DIR = os.path.join(os.sep, 'app', 'python', 'ingestion')
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
 DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2010_territory_population')
 DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2020_territory_population')
@@ -239,11 +232,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         pop_table_name += "_time_series"
         pop_dtype[std_col.TIME_PERIOD_COL] = str
 
-    # pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, pop_dtype)
-
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'{pop_table_name}.csv')
-    print("**&&**&&**")
-    print("pop_file", pop_file)
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
@@ -281,7 +270,6 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         if on_time_period:
             # re-use 2020 territory populations in every ACS year 2016-current
             # load and use 2010 territory populations in every ACS year 2009-2015
-
             pop_terr_2010_file = os.path.join(DECIA_2010_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
             pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
 

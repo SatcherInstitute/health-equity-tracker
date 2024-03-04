@@ -1,5 +1,4 @@
 import pandas as pd  # type: ignore
-import os
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
@@ -126,14 +125,6 @@ class CDCVaccinationNational(DataSource):
         if breakdown == AGE:
             df[std_col.VACCINATED_POP_PCT] = df[demo_col].map(AGE_GROUPS_TO_POP_PCT)
         else:
-            # Print current working directory
-            print(breakdown, "Current Working Directory:", os.getcwd())
-
-            # List contents of the current directory
-            print("Contents of the Current Directory:")
-            for item in os.listdir():
-                print(item)
-
             df = merge_pop_numbers(df, breakdown, NATIONAL_LEVEL)
             df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.VACCINATED_POP_PCT})
 
