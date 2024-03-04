@@ -8,11 +8,11 @@ ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
-MERGE_DATA_DIR = os.path.join('python', 'ingestion', 'merge_data')
-ACS_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'acs_population')
-DECIA_2010_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2010_territory_population')
-DECIA_2020_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2020_territory_population')
-FIPS_CODES_DIR = os.path.join(MERGE_DATA_DIR, 'fips_codes')
+INGESTION_DIR = os.path.join('python', 'ingestion')
+ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
+DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2010_territory_population')
+DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2020_territory_population')
+FIPS_CODES_DIR = os.path.join(INGESTION_DIR, 'fips_codes')
 COUNTY_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'county_level_fips.csv')
 STATE_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'state_level_fips.csv')
 
@@ -232,14 +232,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     # pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, pop_dtype)
 
-    # print out all files and folders in this dir
-    for root, dirs, files in os.walk(ACS_MERGE_DATA_DIR):
-        print(root, dirs, files)
-
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'{pop_table_name}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
-
-    print("FILE", pop_file)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
