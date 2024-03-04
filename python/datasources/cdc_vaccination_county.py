@@ -70,6 +70,7 @@ def generate_breakdown(df):
     df = merge_pop_numbers(df, RACE, COUNTY_LEVEL)
 
     df = generate_per_100k_col(df, CDC_ONE_DOSE, std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
+
     df = df[
         [
             std_col.COUNTY_FIPS_COL,
