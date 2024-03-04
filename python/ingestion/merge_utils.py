@@ -71,6 +71,14 @@ def merge_state_ids(df, keep_postal=False):
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
+    # Print current working directory
+    print("Current Working Directory:", os.getcwd())
+
+    # List contents of the current directory
+    print("Contents of the Current Directory:")
+    for item in os.listdir():
+        print(item)
+
     state_level_fips_df = pd.read_csv(STATE_LEVEL_FIPS_CSV, dtype=str)
 
     united_states_fips = pd.DataFrame(
