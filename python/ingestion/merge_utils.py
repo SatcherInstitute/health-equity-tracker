@@ -8,7 +8,16 @@ ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
-INGESTION_DIR = os.path.join(os.sep, 'app', 'python', 'ingestion')
+
+# Get the directory of the current script
+INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
+
+print(INGESTION_DIR)
+
+# Construct the path to the desired directory
+#  = os.path.join(CURRENT_DIR, 'python', 'ingestion')
+
+# INGESTION_DIR = os.path.join(os.sep, 'app', 'python', 'ingestion')
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
 DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2010_territory_population')
 DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2020_territory_population')
@@ -233,6 +242,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
     # pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, pop_dtype)
 
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'{pop_table_name}.csv')
+    print("**&&**&&**")
+    print("pop_file", pop_file)
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
