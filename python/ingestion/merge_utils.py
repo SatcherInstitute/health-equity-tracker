@@ -8,7 +8,7 @@ ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
-INGESTION_DIR = os.path.join('python', 'ingestion')
+INGESTION_DIR = os.path.join(os.sep, 'app', 'python', 'ingestion')
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
 DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2010_territory_population')
 DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2020_territory_population')
