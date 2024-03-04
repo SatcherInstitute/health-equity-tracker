@@ -2,7 +2,7 @@ import requests  # type: ignore
 import json
 import os
 import pandas as pd
-from google.cloud import bigquery, storage
+from google.cloud import bigquery, storage, secretmanager
 from zipfile import ZipFile
 from io import BytesIO
 from typing import List
@@ -407,3 +407,77 @@ def get_bq_column_types(df, float_cols: List[str]):
         column_types[col] = BQ_FLOAT
 
     return column_types
+
+
+def fetch_ahr_data_from_graphql(breakdown: str):
+    """
+    Fetches data from AmericasHealthRankings GraphQL API.
+
+    Parameters:
+        query (str): The GraphQL query to be executed.
+        variables (dict): Variables to be passed with the query.
+    Returns:
+        a dictionary containing the data retrieved from the API.
+    """
+    client = secretmanager.SecretManagerServiceClient()
+    resource_name = f"projects/585592748590/secrets/ahr-api-key/versions/latest"
+    response = client.access_secret_version(request={"name": resource_name})
+    api_key = response.payload.data.decode("UTF-8")
+
+    graphql_url = 'https://api.americashealthrankings.org/graphql'
+    headers = {'Content-Type': 'application/json', 'x-api-key': api_key}
+    all_responses = []
+
+    query = """
+    query Data_A($where: MeasureFilterInput_A) {
+        measures_A(where: $where) {
+            data {
+                endDate
+                state
+                value
+                measure {
+                    name
+                }
+            }
+        }
+    }
+    """
+
+    descriptions_list = [
+        'asthma',
+        'cost',
+        'angina or coronary heart disease, a heart attack or myocardial infarction, or a stroke',
+        'kidney disease',
+        'chronic obstructive pulmonary disease',
+        'depression',
+        'diabetes',
+        'binge drinking',
+        'mental health',
+        'Discharges following hospitalization for ambulatory care sensitive conditions (PQI 90) per 100,000 Medicare beneficiaries ages 18 and older enrolled in the fee-for-service program',
+        'prescription drugs non-medically',
+        "self-harm",
+        'presidential national election',
+    ]
+
+    # Iterate over each set of variables in the list
+    for description in descriptions_list:
+        variables_str = f"""
+        {{
+            "where": {{
+                "description": {{
+                    "contains": "{description}"
+                }}
+            }}
+        }}
+        """
+        variables = json.loads(variables_str)
+        graphql_request = {'query': query, 'variables': variables}
+        response = requests.post(graphql_url, json=graphql_request, headers=headers)
+
+        if response.status_code == 200:
+            # Collect each successful responses
+            all_responses.append(response.json().get('data')['measures_A'])
+        else:
+            print("HTTP Error:", response.status_code)
+
+    return all_responses

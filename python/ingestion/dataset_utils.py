@@ -486,7 +486,7 @@ def zero_out_pct_rel_inequity(
 
 
 def preserve_only_current_time_period_rows(
-    df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False
+    df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False, current_year: int = None
 ):
     """Takes a dataframe with a time col (default `time_period`) that contains datatime strings
     in formats like `YYYY` or `YYYY-MM`,
@@ -506,9 +506,14 @@ def preserve_only_current_time_period_rows(
         df[time_period_col], format='%Y', errors='coerce'
     )
 
-    # Filter the DataFrame to keep only the rows with the most recent rows
-    most_recent = df["time_period_dt"].max()
-    filtered_df = df[df["time_period_dt"] == most_recent]
+    if current_year:
+        # Use the provided current_year to filter rows
+        current_year_dt = pd.to_datetime(str(current_year), format='%Y')
+        filtered_df = df[df["time_period_dt"].dt.year == current_year_dt.year]
+    else:
+        # Filter the DataFrame to keep only the rows with the most recent time_period
+        most_recent = df["time_period_dt"].max()
+        filtered_df = df[df["time_period_dt"] == most_recent]
 
     # optionally keep the original string "time_period" col
     drop_cols = ["time_period_dt"]
@@ -559,6 +564,7 @@ def generate_time_df_with_cols_and_types(
     numerical_cols_to_keep: list[str],
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
+    current_year: int = None,
 ):
     """
     Accepts a DataFrame along with list of column names for either current or
@@ -591,7 +597,7 @@ def generate_time_df_with_cols_and_types(
     df = df[all_cols]
 
     if table_type == CURRENT:
-        df = preserve_only_current_time_period_rows(df)
+        df = preserve_only_current_time_period_rows(df, current_year)
     elif table_type == HISTORICAL:
         df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
         df = df[[col for col in df.columns if std_col.RAW_SUFFIX not in col]]
