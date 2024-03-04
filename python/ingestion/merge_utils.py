@@ -231,8 +231,15 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         pop_dtype[std_col.TIME_PERIOD_COL] = str
 
     # pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, pop_dtype)
+
+    # print out all files and folders in this dir
+    for root, dirs, files in os.walk(ACS_MERGE_DATA_DIR):
+        print(root, dirs, files)
+
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'{pop_table_name}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
+
+    print("FILE", pop_file)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
