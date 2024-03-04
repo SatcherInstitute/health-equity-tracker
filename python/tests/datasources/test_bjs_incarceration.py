@@ -3,7 +3,6 @@ import os
 from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from test_utils import _load_df_from_bigquery
 from datasources.bjs_incarceration import BJSIncarcerationData
 from ingestion.bjs_utils import (
     strip_footnote_refs_from_df,
@@ -34,21 +33,6 @@ def _get_test_table_files(*args):
             loaded_tables[file] = set_state_col(source_df)
 
     return loaded_tables
-
-
-# MOCKS FOR READING IN TABLES
-
-
-def _get_pop_as_df(*args):
-    # retrieve fake ACS table subsets
-    data_source, table_name, _dtypes = args
-
-    df = pd.read_json(
-        os.path.join(TEST_DIR, data_source, f'{table_name}.json'),
-        dtype={'state_fips': str},
-    )
-
-    return df
 
 
 def _get_prison_2():
@@ -191,8 +175,7 @@ expected_dtype_sex = {
 
 
 # - AGE
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testGenerateBreakdownAgeNational(mock_pop: mock.MagicMock):
+def testGenerateBreakdownAgeNational():
     df_prison_10 = _get_prison_10()
     df_prison_13 = _get_prison_13()
     df_jail_6 = _get_jail_6()
@@ -206,8 +189,7 @@ def testGenerateBreakdownAgeNational(mock_pop: mock.MagicMock):
 
 
 # - RACE
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testGenerateBreakdownRaceNational(mock_pop: mock.MagicMock):
+def testGenerateBreakdownRaceNational():
     prison_app_2 = _get_prison_app2()
     prison_23 = _get_prison_23()
     prison_13 = _get_prison_13()
@@ -230,8 +212,7 @@ def testGenerateBreakdownRaceNational(mock_pop: mock.MagicMock):
 # - SEX
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testGenerateBreakdownSexNational(mock_pop: mock.MagicMock):
+def testGenerateBreakdownSexNational():
     prison_2 = _get_prison_2()
     prison_23 = _get_prison_23()
     prison_13 = _get_prison_13()
@@ -249,8 +230,7 @@ def testGenerateBreakdownSexNational(mock_pop: mock.MagicMock):
 
 
 # - SEX
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testGenerateBreakdownSexState(mock_pop: mock.MagicMock):
+def testGenerateBreakdownSexState():
     prison_2 = _get_prison_2()
     prison_23 = _get_prison_23()
     prison_13 = _get_prison_13()
@@ -265,8 +245,7 @@ def testGenerateBreakdownSexState(mock_pop: mock.MagicMock):
 
 
 # - AGE
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testGenerateBreakdownAgeState(mock_pop: mock.MagicMock):
+def testGenerateBreakdownAgeState():
     prison_2 = _get_prison_2()
     prison_23 = _get_prison_23()
     prison_13 = _get_prison_13()
@@ -281,8 +260,7 @@ def testGenerateBreakdownAgeState(mock_pop: mock.MagicMock):
 
 
 # - RACE
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testGenerateBreakdownRaceState(mock_pop: mock.MagicMock):
+def testGenerateBreakdownRaceState():
     prison_app_2 = _get_prison_app2()
     prison_23 = _get_prison_23()
     prison_13 = _get_prison_13()
@@ -303,13 +281,11 @@ def testGenerateBreakdownRaceState(mock_pop: mock.MagicMock):
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
 # comment out all mocks expect BQ to see real results (not just test sample results)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch('datasources.bjs_incarceration.load_tables', side_effect=_get_test_table_files)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqNetworkCalls(
     mock_bq: mock.MagicMock,
     mock_zip: mock.MagicMock,
-    mock_pop: mock.MagicMock,
 ):
     datasource = BJSIncarcerationData()
 
@@ -324,15 +300,3 @@ def testWriteToBqNetworkCalls(
 
     assert mock_bq.call_count == 6
     assert mock_zip.call_count == 2
-
-    assert mock_pop.call_count == 10
-    assert mock_pop.call_args_list[0].args[1] == 'by_age_national'
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_national'
-    assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
-    assert mock_pop.call_args_list[3].args[1] == 'by_sex_national'
-    assert mock_pop.call_args_list[4].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[5].args[1] == 'by_age_territory_state_level'
-    assert mock_pop.call_args_list[6].args[1] == 'by_race_state'
-    assert mock_pop.call_args_list[7].args[1] == 'by_race_and_ethnicity_territory_state_level'
-    assert mock_pop.call_args_list[8].args[1] == 'by_sex_state'
-    assert mock_pop.call_args_list[9].args[1] == 'by_sex_territory_state_level'

@@ -1,5 +1,4 @@
 import pandas as pd  # type: ignore
-from ingestion import gcs_to_bq_util
 import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 from typing import Literal, List
@@ -9,9 +8,15 @@ ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
-MERGE_DATA_DIR = os.path.join('python', 'ingestion', 'merge_data')
-COUNTY_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'county_level_fips.csv')
-STATE_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'state_level_fips.csv')
+
+# This works for both local runs and also in a container within the /app directory
+INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
+ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
+DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2010_territory_population')
+DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2020_territory_population')
+FIPS_CODES_DIR = os.path.join(INGESTION_DIR, 'fips_codes')
+COUNTY_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'county_level_fips.csv')
+STATE_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'state_level_fips.csv')
 
 
 def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
@@ -215,6 +220,9 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         std_col.POPULATION_PCT_COL: float,
     }
 
+    if loc == 'county':
+        pop_dtype[std_col.COUNTY_FIPS_COL] = str
+
     if demo not in on_col_map:
         raise ValueError(f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}')
 
@@ -224,7 +232,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         pop_table_name += "_time_series"
         pop_dtype[std_col.TIME_PERIOD_COL] = str
 
-    pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, pop_dtype)
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'{pop_table_name}.csv')
+    pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
@@ -250,18 +259,20 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             std_col.POPULATION_PCT_COL: float,
         }
 
-        pop_terr_2020_df = gcs_to_bq_util.load_df_from_bigquery(
-            'decia_2020_territory_population', pop_terr_table_name, terr_pop_dtype
-        )
+        if loc == 'county':
+            terr_pop_dtype[std_col.COUNTY_FIPS_COL] = str
+
+        pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
+        pop_terr_2020_df = pd.read_csv(pop_terr_2020_file, dtype=terr_pop_dtype)
 
         pop_terr_df = pop_terr_2020_df[needed_cols]
 
         if on_time_period:
             # re-use 2020 territory populations in every ACS year 2016-current
             # load and use 2010 territory populations in every ACS year 2009-2015
-            pop_terr_2010_df = gcs_to_bq_util.load_df_from_bigquery(
-                'decia_2010_territory_population', pop_terr_table_name, terr_pop_dtype
-            )
+            pop_terr_2010_file = os.path.join(DECIA_2010_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
+            pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
+
             pop_terr_2010_df = pop_terr_2010_df[needed_cols]
 
             yearly_pop_terr_dfs = []
