@@ -409,7 +409,7 @@ def get_bq_column_types(df, float_cols: List[str]):
     return column_types
 
 
-def fetch_ahr_data_from_graphql(breakdown: str):
+def fetch_ahr_data_from_graphql():
     """
     Fetches data from AmericasHealthRankings GraphQL API.
 

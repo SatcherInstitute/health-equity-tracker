@@ -22,7 +22,7 @@ AHR_BASE_MEASURES = {
     'Excessive Drinking': 'excessive_drinking_per_100k',
     'Frequent Mental Distress': 'frequent_mental_distress_per_100k',
     'Preventable Hospitalizations': 'preventable_hospitalizations_per_100k',
-    'Non-Medical Drug Use': 'non_medical_drug_use_per_100k',
+    'Non-Medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
     'Suicide': 'suicide_per_100k',
     'Voter Participation (Presidential)': 'voter_participation_pct_rate',
 }
@@ -90,12 +90,11 @@ class GraphQlAHRData(DataSource):
         geographic = self.get_attr(attrs, "geographic")
         table_name = f"{demographic}_{geographic}"
 
-        response_data = gcs_to_bq_util.fetch_ahr_data_from_graphql(demographic)
+        response_data = gcs_to_bq_util.fetch_ahr_data_from_graphql()
 
         df = graphql_response_to_dataframe(response_data, geographic)
 
         df = self.generate_breakdown_df(df, demographic, geographic)
-
         df_for_bq, col_types = generate_time_df_with_cols_and_types(
             df, CURRENT_COLS, CURRENT, demographic, current_year='2021'
         )
@@ -214,6 +213,8 @@ def create_measure_map():
 
     for category in measure_map:
         for base_measure in AHR_BASE_MEASURES:
+            if base_measure == 'Non-Medical Drug Use - Past Year':
+                base_measure = 'Non-Medical Drug Use'
             if category is std_col.AGE_COL:
                 for demographic in AHR_AGE_STRINGS:
                     measure_map[category].append(f"{base_measure} - {demographic}")

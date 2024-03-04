@@ -597,7 +597,7 @@ def generate_time_df_with_cols_and_types(
     df = df[all_cols]
 
     if table_type == CURRENT:
-        df = preserve_only_current_time_period_rows(df, current_year)
+        df = preserve_only_current_time_period_rows(df, current_year=current_year)
     elif table_type == HISTORICAL:
         df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
         df = df[[col for col in df.columns if std_col.RAW_SUFFIX not in col]]
