@@ -5,5 +5,5 @@ setup(
     package_dir={'ingestion': ''},
     packages=['ingestion'],
     include_package_data=True,
-    package_data={'ingestion': ['merge_data/*.csv']},
+    package_data={'ingestion': ['merge_data/**/*.csv']},
 )

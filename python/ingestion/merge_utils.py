@@ -12,8 +12,9 @@ MERGE_DATA_DIR = os.path.join('python', 'ingestion', 'merge_data')
 ACS_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'acs_population')
 DECIA_2010_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2010_territory_population')
 DECIA_2020_MERGE_DATA_DIR = os.path.join(MERGE_DATA_DIR, 'decia_2020_territory_population')
-COUNTY_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'county_level_fips.csv')
-STATE_LEVEL_FIPS_CSV = os.path.join(MERGE_DATA_DIR, 'state_level_fips.csv')
+FIPS_CODES_DIR = os.path.join(MERGE_DATA_DIR, 'fips_codes')
+COUNTY_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'county_level_fips.csv')
+STATE_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'state_level_fips.csv')
 
 
 def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
