@@ -349,24 +349,32 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val, breakdo
     return result
 
 
-def estimate_total(row, condition_name_per_100k):
-    """Returns an estimate of the total number of people with a given condition.
-    Parameters:
-        row: a dataframe row containing a "per_100k" column with values for the incidence rate
-            and a "population" column containing the total number of people
-        condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc
-    Returns:
-        float value representing the estimated raw total for the row
+def add_estimated_total_columns(df: pd.DataFrame, per_100k_to_raw_count: dict, population_col: str):
     """
+    Returns a DataFrame with added `estimated_total` columns for each given condition, based
+    on a mapping of condition per 100k columns to te new column names for estimated totals.
 
-    if (
-        pd.isna(row[condition_name_per_100k])
-        or pd.isna(row[std_col.POPULATION_COL])
-        or int(row[std_col.POPULATION_COL]) == 0
-    ):
-        return None
+    Parameters:
+        df: The DataFrame to be processed.
+        per_100k_to_raw_count: Dictionary mapping for conditions per 100k people
+                               to the new column names for the estimated totals.
+        population_col: Column name for population data.
 
-    return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
+    Returns:
+        A DataFrame with added columns for each condition's estimated total.
+    """
+    for condition_per_100k, estimated_total_col in per_100k_to_raw_count.items():
+        condition_rate = df[condition_per_100k].fillna(0)
+        population = df[population_col].fillna(0)
+        estimated_total = (condition_rate / 100_000) * population
+
+        # Replace zeros back with NaN where original condition rates or populations were NaN
+        is_missing_or_zero = (df[condition_per_100k].isna()) | (df[population_col].isna()) | (df[population_col] == 0)
+        estimated_total[is_missing_or_zero] = np.nan
+
+        df[estimated_total_col] = round(estimated_total)
+
+    return df
 
 
 def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) -> pd.DataFrame:
@@ -591,9 +599,16 @@ def generate_time_df_with_cols_and_types(
     DataFrame.
     """
     df = df.copy()
+
     mandatory_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL]
 
-    all_cols = mandatory_cols + [dem_col] + numerical_cols_to_keep
+    if dem_col == std_col.RACE_OR_HISPANIC_COL:
+        dem_list = [dem_col, std_col.RACE_CATEGORY_ID_COL]
+    else:
+        dem_list = [dem_col]
+
+    all_cols = mandatory_cols + dem_list + numerical_cols_to_keep
+
     df = df[all_cols]
 
     if table_type == CURRENT:

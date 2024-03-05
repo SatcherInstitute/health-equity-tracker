@@ -7,9 +7,33 @@ from ingestion import gcs_to_bq_util
 
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, STATE_LEVEL, NATIONAL_LEVEL, CURRENT
-from ingestion.dataset_utils import generate_time_df_with_cols_and_types
-from ingestion.merge_utils import merge_pop_numbers, merge_state_ids
+from ingestion.dataset_utils import (
+    add_estimated_total_columns,
+    generate_time_df_with_cols_and_types,
+    generate_pct_share_col_without_unknowns,
+)
+from ingestion.merge_utils import merge_pop_numbers, merge_yearly_pop_numbers, merge_state_ids
 
+
+def generate_cols_map(prefixes, suffix):
+    cols_map = {}
+
+    for prefix in prefixes:
+        if f"_{std_col.RAW_SUFFIX}" in prefix:
+            new_key = prefix.replace(f"_{std_col.RAW_SUFFIX}", "")
+        elif f"_{std_col.PER_100K_SUFFIX}" in prefix:
+            new_key = prefix.replace(f"_{std_col.PER_100K_SUFFIX}", "")
+        else:
+            new_key = prefix
+
+        cols_map[prefix] = new_key + f"_{suffix}"
+
+    return cols_map
+
+
+AHR_MEASURES = [
+    std_col.ASTHMA_PREFIX,
+]
 
 AHR_BASE_MEASURES = {
     'Asthma': 'asthma_per_100k',
@@ -27,6 +51,8 @@ AHR_BASE_MEASURES = {
     'Voter Participation (Presidential)': 'voter_participation_pct_rate',
 }
 
+PER_100K_TOPICS = ['Suicide', 'Preventable Hospitalizations']
+
 PCT_RATE_TO_PER_100K_TOPICS = [
     "Asthma",
     "Cardiovascular Diseases",
@@ -38,6 +64,24 @@ PCT_RATE_TO_PER_100K_TOPICS = [
     "Frequent Mental Distress",
     "Non-medical Drug Use",
 ]
+
+ALL_PER_100K_TOPICS = [
+    std_col.ASTHMA_PREFIX,
+    std_col.CARDIOVASCULAR_PREFIX,
+    std_col.CHRONIC_KIDNEY_PREFIX,
+    std_col.DEPRESSION_PREFIX,
+    std_col.DIABETES_PREFIX,
+    std_col.EXCESSIVE_DRINKING_PREFIX,
+    std_col.FREQUENT_MENTAL_DISTRESS_PREFIX,
+    std_col.NON_MEDICAL_DRUG_USE_PREFIX,
+    std_col.PREVENTABLE_HOSP_PREFIX,
+    std_col.SUICIDE_PREFIX,
+]
+
+PER_100K_MAP = generate_cols_map(ALL_PER_100K_TOPICS, std_col.PER_100K_SUFFIX)
+RAW_TOTALS_MAP = generate_cols_map(PER_100K_MAP.values(), std_col.RAW_SUFFIX)
+PCT_SHARE_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
+PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.POPULATION_PCT_COL
 
 AGE_GROUPS_TO_STANDARD = {
     'Ages 15-24': '15-24',
@@ -70,7 +114,7 @@ AHR_AGE_STRINGS = list(AGE_GROUPS_TO_STANDARD.keys())
 AHR_RACE_STRINGS = list(RACE_GROUPS_TO_STANDARD.keys())
 AHR_SEX_STRINGS = ['Female', 'Male']
 
-CURRENT_COLS = list(AHR_BASE_MEASURES.values())
+CURRENT_COLS = list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values())
 
 
 class GraphQlAHRData(DataSource):
@@ -95,6 +139,7 @@ class GraphQlAHRData(DataSource):
         df = graphql_response_to_dataframe(response_data, geographic)
 
         df = self.generate_breakdown_df(df, demographic, geographic)
+
         df_for_bq, col_types = generate_time_df_with_cols_and_types(
             df, CURRENT_COLS, CURRENT, demographic, current_year='2021'
         )
@@ -186,20 +231,29 @@ def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
     if breakdown == std_col.AGE_COL:
         df = df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        breakdown = std_col.RACE_COL
         df = df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
         df = df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(df)
 
     breakdown_df = merge_state_ids(df)
-    breakdown_df = merge_pop_numbers(breakdown_df, breakdown, geographic)
 
-    breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.AHR_POPULATION_PCT})
+    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        breakdown_df = merge_yearly_pop_numbers(breakdown_df, 'race', geographic)
+    else:
+        breakdown_df = merge_pop_numbers(breakdown_df, breakdown, geographic)
 
-    breakdown_df[std_col.AHR_POPULATION_PCT] = breakdown_df[std_col.AHR_POPULATION_PCT].astype(float)
+    breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.POPULATION_PCT_COL})
+
+    breakdown_df[std_col.POPULATION_PCT_COL] = breakdown_df[std_col.POPULATION_PCT_COL].astype(float)
+
+    breakdown_df = add_estimated_total_columns(breakdown_df, RAW_TOTALS_MAP, std_col.POPULATION_COL)
+
+    breakdown_df = generate_pct_share_col_without_unknowns(breakdown_df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
+
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
-
-    # No data on raw counts!
+    breakdown_df = breakdown_df.sort_values(
+        by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
+    )
 
     return breakdown_df
 
