@@ -16,6 +16,7 @@ import {
     TOPIC_CATEGORIES_LINK,
     NEW_METHODOLOGY_PAGE_LINK,
     NEW_AGE_ADJUSTMENT_LINK,
+    LIMITATIONS_LINK,
 } from '../../../utils/internalRoutes';
 import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink';
 import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink';
@@ -31,7 +32,8 @@ import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesL
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink';
 import SdohLink from '../methodologySections/SdohLink';
 import DataSourcesLink from '../methodologySections/DataSourcesLink';
-import TopicCategoriesLimitationsLink from '../methodologySections/TopicCategoriesLimitationsLink';
+import TopicCategoriesLink from '../methodologySections/TopicCategoriesLink';
+import LimitationsLink from '../methodologySections/LimitationsLink';
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink';
 import GlossaryLink from '../methodologySections/GlossaryLink';
 import { ReactNode } from 'react';
@@ -99,24 +101,12 @@ export const routeConfigs: RouteConfig[] = [
     },
     {
         isTopLevel: true,
-        label: 'Topic Categories & Limitations',
+        label: 'Topic Categories',
         path: TOPIC_CATEGORIES_LINK,
-        component: TopicCategoriesLimitationsLink,
-        subLinks: [
-            {
-                label: 'Categories',
-                path: '#categories',
-            },
-            {
-                label: 'Limitations',
-                path: '#limitations',
-            },
-            {
-                label: 'Missing Data',
-                path: '#missing-data',
-            },
-        ],
+        component: TopicCategoriesLink,
+        subLinks: [],
     },
+
     {
         label: 'Behavioral Health',
         path: BEHAVIORAL_HEALTH_LINK,
@@ -315,6 +305,21 @@ export const routeConfigs: RouteConfig[] = [
         path: DATA_METHOD_DEFINITIONS_LINK,
         component: DataMethodDefinitionsLink,
         subLinks: [],
+    },
+    {
+        label: 'Limitations and Missing Data',
+        path: LIMITATIONS_LINK,
+        component: LimitationsLink,
+        subLinks: [
+            {
+                label: 'Limitations',
+                path: '#limitations',
+            },
+            {
+                label: 'Missing Data',
+                path: '#missing-data',
+            },
+        ],
     },
     {
         label: 'Metrics',
