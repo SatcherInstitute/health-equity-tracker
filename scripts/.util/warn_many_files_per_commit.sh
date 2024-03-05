@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Get the list of files to be committed
 files=$(git diff --cached --name-only)

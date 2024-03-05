@@ -63,6 +63,9 @@ After it installs successfully, you need to use it to install the HET pre-commit
 pre-commit install
 ```
 
+Note: If you have existing git hooks (like from Husky) you need to force install:
+`pre-commit install -f`
+
 ### Setting Up the Frontend Locally (One Time Setup)
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
@@ -98,9 +101,9 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
 - To run once: `npm run test`
 - To run in watch mode, so saved changes to the codebase will trigger reruns of affected tests:
 
-   ```bash
-   npm run test:watch
-   ```
+  ```bash
+  npm run test:watch
+  ```
 
 ### End to End (E2E) Tests with Playwright
 
@@ -127,13 +130,14 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
    ```
 
 3. Ensure your forked repo's main branch is up to date:
-    - first time to set the upstream for the main branch
 
-      ```bash
-      git push -u <your-remote-name> main
-      ```
+   - first time to set the upstream for the main branch
 
-    - ongoing, simply `git push`
+     ```bash
+     git push -u <your-remote-name> main
+     ```
+
+   - ongoing, simply `git push`
 
 4. Create and switch to a local feature branch from main:
 
@@ -142,6 +146,7 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
    ```
 
    (we don't follow any particular conventions here or in commit messages, just make it easy to type and relevant)
+
 5. Continuously ensure the branch is up to date with the origin main branch which is often updated several times a day:
 
    ```bash
@@ -165,6 +170,7 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
 9. Ensure the pre-commit checks pass. If not, make the fixes as required by the linters and type-checker, etc., and run the same commit command again (hit ⬆ key to cycle through your previously run terminal commands)
 
 10. Push to your forked remote:
+
     - First time:
 
       ```bash
