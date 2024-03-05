@@ -34,10 +34,12 @@ google-cloud-pubsub==2.2.0
     # via -r python/tests/../ingestion/requirements.in
 google-cloud-storage==1.35.0
     # via -r python/tests/../ingestion/requirements.in
-google-cloud-secret-manager
+google-cloud-secret-manager==2.16.3
     # via -r python/tests/../ingestion/requirements.in
     # google-api-core
     # grpc-google-iam-v1
+    # proto-plus
+    # protobuf
 google-cloud==0.34.0
     # via -r python/tests/../ingestion/requirements.in
 google-crc32c==1.1.0
