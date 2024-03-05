@@ -124,10 +124,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"lint-staged": {
-		"**/*.ts?(x)": "bash -c tsc --noEmit",
-		"src/**/*.{js,jsx,ts,tsx,json}": ["npm run lint", "npm run format"],
-		"src/**/*.{css,scss,md,html}": ["npm run format"]
 	}
 }
