@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, cast
 import pandas as pd
 from datetime import datetime
 
@@ -13,6 +13,7 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
 )
 from ingestion.merge_utils import merge_pop_numbers, merge_yearly_pop_numbers, merge_state_ids
+from ingestion.types import GEO_TYPE
 
 
 def generate_cols_map(prefixes, suffix):
@@ -238,7 +239,7 @@ def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
     breakdown_df = merge_state_ids(df)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        breakdown_df = merge_yearly_pop_numbers(breakdown_df, 'race', geographic)
+        breakdown_df = merge_yearly_pop_numbers(breakdown_df, std_col.RACE_COL, cast(GEO_TYPE, geographic))
     else:
         breakdown_df = merge_pop_numbers(breakdown_df, breakdown, geographic)
 
