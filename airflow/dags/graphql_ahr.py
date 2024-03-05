@@ -2,8 +2,8 @@ from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
 
-_GRAPHQL_AHR_WORKFLOW_ID = 'AHR_DATA'
-_GRAPHQL_AHR_DATASET_NAME = 'ahr_data'
+_GRAPHQL_AHR_WORKFLOW_ID = 'GRAPHQL_AHR_DATA'
+_GRAPHQL_AHR_DATASET_NAME = 'graphql_ahr_data'
 
 default_args = {
     'start_date': days_ago(0),
@@ -16,7 +16,7 @@ data_ingestion_dag = DAG(
     description='Ingestion configuration for GRAPHQL AHR',
 )
 
-# race NATIONAL
+# AGE NATIONAL
 graphql_ahr_bq_payload_age_national = util.generate_bq_payload(
     _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='age', geographic='national'
 )
