@@ -4,7 +4,6 @@ import pandas as pd
 
 from datasources.graphql_ahr import GraphQlAHRData
 from pandas._testing import assert_frame_equal
-from test_utils import _load_df_from_bigquery
 from unittest import mock
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -29,8 +28,7 @@ def _fetch_ahr_data_from_graphql():
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testWriteToBqAgeNational(mock_pop: mock.MagicMock, mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
+def testWriteToBqAgeNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
     datasource = GraphQlAHRData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic='age', geographic='national')
 
@@ -45,8 +43,7 @@ def testWriteToBqAgeNational(mock_pop: mock.MagicMock, mock_fetch: mock.MagicMoc
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testWriteToBqRaceNational(mock_pop: mock.MagicMock, mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
+def testWriteToBqRaceNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
     datasource = GraphQlAHRData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic='race_and_ethnicity', geographic='state')
 
@@ -61,8 +58,7 @@ def testWriteToBqRaceNational(mock_pop: mock.MagicMock, mock_fetch: mock.MagicMo
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
-def testWriteToBqSexNational(mock_pop: mock.MagicMock, mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
+def testWriteToBqSexNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
     datasource = GraphQlAHRData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic='sex', geographic='national')
 
