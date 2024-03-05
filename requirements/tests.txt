@@ -27,7 +27,7 @@ flask==1.1.2
     #   flask-cors
 freezegun==1.0.0
     # via -r requirements/../python/tests/requirements.in
-google-api-core[grpc]==1.23.0
+google-api-core[grpc]==1.34.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-core
