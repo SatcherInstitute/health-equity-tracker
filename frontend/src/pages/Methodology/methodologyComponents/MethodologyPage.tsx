@@ -1,12 +1,12 @@
-import { HET_URL } from '../../../utils/internalRoutes';
 import { Helmet } from 'react-helmet-async';
-import { currentYear } from '../../../cards/ui/SourcesHelpers';
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
-import MethodologyCardMenu from './MethodologyCardMenu';
-import { routeConfigs } from '.././methodologyContent/routeConfigs';
-import MethodologyPagination from './MethodologyPagination';
-import MethodologyCardMenuMobile from './MethodologyCardMenuMobile';
+import { currentYear } from '../../../cards/ui/SourcesHelpers';
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu';
+import { HET_URL } from '../../../utils/internalRoutes';
+import { routeConfigs } from '.././methodologyContent/routeConfigs';
+import MethodologyCardMenu from './MethodologyCardMenu';
+import MethodologyCardMenuMobile from './MethodologyCardMenuMobile';
+import MethodologyPagination from './MethodologyPagination';
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
 
@@ -38,18 +38,13 @@ export default function MethodologyPage() {
 						<div className='flex flex-wrap p-1'>
 							{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
 							<div className='px-12 md:hidden'>
-								{routeConfigs.map((routeConfig) => {
+								{routeConfigs.map((route, index) => {
 									const match = useRouteMatch({
-										path: routeConfig.path,
+										path: route.path,
 										exact: true,
 									});
-									const hasSublinks =
-										routeConfig.subLinks && routeConfig.subLinks.length > 0;
-									return match && hasSublinks ? (
-										<HetOnThisPageMenu
-											key={routeConfig.path}
-											links={routeConfig.subLinks}
-										/>
+									return match && route.subLinks.length > 0 ? (
+										<HetOnThisPageMenu key={index} links={route.subLinks} />
 									) : null;
 								})}
 							</div>
@@ -63,9 +58,9 @@ export default function MethodologyPage() {
 								<Switch>
 									<>
 										{/* TEXT */}
-										{routeConfigs.map((route) => (
+										{routeConfigs.map((route, index) => (
 											<Route
-												key={route.path}
+												key={index}
 												exact
 												path={route.path}
 												component={route.component}
@@ -80,17 +75,15 @@ export default function MethodologyPage() {
 
 						{/* ON THIS PAGE SUB-MENU - DESKTOP */}
 						<div className='hidden min-w-fit md:block'>
-							{routeConfigs.map((routeConfig) => {
+							{routeConfigs.map((route, index) => {
 								const match = useRouteMatch({
-									path: routeConfig.path,
+									path: route.path,
 									exact: true,
 								});
-								const hasSublinks =
-									routeConfig.subLinks && routeConfig.subLinks.length > 0;
-								return match && hasSublinks ? (
+								return match && route.subLinks.length > 0 ? (
 									<HetOnThisPageMenu
-										key={routeConfig.path}
-										links={routeConfig.subLinks}
+										key={index}
+										links={route.subLinks}
 										className='sticky right-0 top-4  z-top h-min'
 									/>
 								) : null;

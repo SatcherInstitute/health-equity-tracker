@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { CATEGORIES_LIST } from '../../../utils/MadLibs';
-import { slugify } from '../../../utils/urlutils';
 import {
 	type DataTypeConfig,
 	type DropdownVarId,
 	METRIC_CONFIG,
 } from '../../../data/config/MetricConfig';
+import { CATEGORIES_LIST } from '../../../utils/MadLibs';
+import { slugify } from '../../../utils/urlutils';
 
 export default function TopicDefinitionsLink() {
 	return (
@@ -23,6 +23,7 @@ export default function TopicDefinitionsLink() {
 						},
 					);
 
+					console.log(categoryConfigs);
 					return (
 						<div
 							id={slugify(category.title)}

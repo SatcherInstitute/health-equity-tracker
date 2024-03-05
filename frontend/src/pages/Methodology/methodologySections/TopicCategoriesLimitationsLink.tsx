@@ -1,6 +1,15 @@
 import { Helmet } from 'react-helmet-async';
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap';
 import StripedTable from '../methodologyComponents/StripedTable';
+
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap';
+import {
+	type DataTypeConfig,
+	type DropdownVarId,
+	METRIC_CONFIG,
+} from '../../../data/config/MetricConfig';
+import { Fips } from '../../../data/utils/Fips';
+import WhatDataAreMissing from '../../../reports/WhatDataAreMissing';
+// TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 import { behavioralHealthTopicsString } from './BehavioralHealthLink';
 import { chronicDiseaseTopicsString } from './ChronicDiseaseLink';
 import { covidTopicsString } from './Covid19Link';
@@ -10,7 +19,7 @@ import { sdohTopicsString } from './SdohLink';
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length;
 
-export default function TopicCategoriesLink() {
+export default function TopicCategoriesLimitationsLink() {
 	return (
 		<section id='#categories'>
 			<article>
@@ -82,6 +91,21 @@ export default function TopicCategoriesLink() {
 						},
 					]}
 				/>
+				<h3 className='mt-12 text-title font-medium' id='#limitations'>
+					Limitations
+				</h3>
+
+				<div id='#missing-data'>
+					<WhatDataAreMissing
+						metricConfigSubset={
+							Object.entries(METRIC_CONFIG) as Array<
+								[DropdownVarId, DataTypeConfig[]]
+							>
+						}
+						fips1={new Fips('78')}
+					/>
+					{/* <ConditionVariable definitions={missingData} /> */}
+				</div>
 			</article>
 		</section>
 	);
