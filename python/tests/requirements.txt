@@ -34,7 +34,7 @@ google-cloud-pubsub==2.2.0
     # via -r python/tests/../ingestion/requirements.in
 google-cloud-storage==1.35.0
     # via -r python/tests/../ingestion/requirements.in
-google-cloud-secret-manager==2.16.3
+google-cloud-secret-manager
     # via -r python/tests/../ingestion/requirements.in
     # google-api-core
     # grpc-google-iam-v1

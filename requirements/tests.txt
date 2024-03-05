@@ -49,7 +49,7 @@ google-cloud-storage==1.32.0
     # via
     #   -r requirements/../data_server/../python/data_server/requirements.in
     #   -r requirements/../python/tests/../ingestion/requirements.in
-google-cloud-secret-manager==2.16.3
+google-cloud-secret-manager
     # via -r python/tests/../ingestion/requirements.in
     # google-api-core
     # grpc-google-iam-v1
