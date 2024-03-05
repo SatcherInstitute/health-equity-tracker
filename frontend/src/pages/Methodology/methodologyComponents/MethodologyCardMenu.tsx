@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import HetDivider from '../../../styles/HetComponents/HetDivider';
 import HetListItemButton from '../../../styles/HetComponents/HetListItemButton';
@@ -20,6 +21,7 @@ import {
 	TOPIC_CATEGORIES_LINK,
 	TOPIC_DEFINITIONS_LINK,
 } from '../../../utils/internalRoutes';
+import { RouteConfig, routeConfigs } from '../methodologyContent/routeConfigs';
 
 interface MethodologyCardMenuProps {
 	className?: string;
@@ -33,191 +35,31 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
 				props.className ?? ''
 			} `}
 		>
-			<Link to={NEW_METHODOLOGY_PAGE_LINK} className='no-underline'>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === NEW_METHODOLOGY_PAGE_LINK}
-				>
-					Introduction
-				</HetListItemButton>
-			</Link>
-
-			<HetDivider />
-
-			<Link className='no-underline' to={NEW_AGE_ADJUSTMENT_LINK}>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === NEW_AGE_ADJUSTMENT_LINK}
-				>
-					Age-Adjustment
-				</HetListItemButton>
-			</Link>
-
-			<HetDivider />
-
-			<Link className='no-underline' to={SOURCES_LINK}>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === SOURCES_LINK}
-				>
-					Data Sources
-				</HetListItemButton>
-			</Link>
-
-			<HetDivider />
-
-			<Link className='no-underline' to={TOPIC_CATEGORIES_LINK}>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === TOPIC_CATEGORIES_LINK}
-				>
-					Topic Categories & Limitations
-				</HetListItemButton>
-			</Link>
-			<ul className='my-0 list-none pl-0 leading-lhLoose'>
-				<li>
-					<Link className='no-underline' to={BEHAVIORAL_HEALTH_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === BEHAVIORAL_HEALTH_LINK}
-							option='normalBlack'
-						>
-							Behavioral Health
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={CHRONIC_DISEASE_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === CHRONIC_DISEASE_LINK}
-							option='normalBlack'
-						>
-							Chronic Diseases
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={COVID_19_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === COVID_19_LINK}
-							option='normalBlack'
-						>
-							COVID-19
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={HIV_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === HIV_LINK}
-							option='normalBlack'
-						>
-							HIV
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={PDOH_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === PDOH_LINK}
-							option='normalBlack'
-						>
-							Political Determinants of Health
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={SDOH_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === SDOH_LINK}
-							option='normalBlack'
-						>
-							Social Determinants of Health
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={MEDICATION_UTILIZATION_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={
-								window.location.pathname === MEDICATION_UTILIZATION_LINK
-							}
-							option='normalBlack'
-						>
-							Medication Utilization
-						</HetListItemButton>
-					</Link>
-				</li>
-			</ul>
-			<HetDivider />
-			<Link className='no-underline' to={DATA_METHOD_DEFINITIONS_LINK}>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === DATA_METHOD_DEFINITIONS_LINK}
-				>
-					Data Method Definitions
-				</HetListItemButton>
-			</Link>
-			<ul className='my-0 list-none pl-0 leading-lhLoose'>
-				<li>
-					<Link className='no-underline' to={METRICS_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === METRICS_LINK}
-							option='normalBlack'
-						>
-							Metrics
-						</HetListItemButton>
-					</Link>
-				</li>
-				<li>
-					<Link className='no-underline' to={TOPIC_DEFINITIONS_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === TOPIC_DEFINITIONS_LINK}
-							option='normalBlack'
-						>
-							Topic Definitions
-						</HetListItemButton>
-					</Link>
-				</li>
-
-				<li>
-					<Link className='no-underline' to={RACES_AND_ETHNICITIES_LINK}>
-						<HetListItemButton
-							className='mx-2 pl-2 font-roboto'
-							selected={window.location.pathname === RACES_AND_ETHNICITIES_LINK}
-							option='normalBlack'
-						>
-							Races and Ethnicities
-						</HetListItemButton>
-					</Link>
-				</li>
-			</ul>
-			<HetDivider />
-			<Link className='no-underline' to={RECOMMENDED_CITATION_LINK}>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === RECOMMENDED_CITATION_LINK}
-				>
-					Recommended Citation
-				</HetListItemButton>
-			</Link>
-			<HetDivider />
-			<Link className='no-underline' to={GLOSSARY_LINK}>
-				<HetListItemButton
-					className='mx-2 pl-2 font-roboto'
-					selected={window.location.pathname === GLOSSARY_LINK}
-				>
-					Glossary
-				</HetListItemButton>
-			</Link>
+			{routeConfigs.map((config) => (
+				<HetDesktopMenuItem key={config.path} routeConfig={config} />
+			))}
 		</nav>
+	);
+}
+
+interface HetDesktopMenuItemProps {
+	routeConfig: RouteConfig;
+}
+
+function HetDesktopMenuItem(props: HetDesktopMenuItemProps) {
+	return (
+		<>
+			{props.routeConfig.isTopLevel && <HetDivider />}
+			<Link className='no-underline' to={props.routeConfig.path}>
+				<HetListItemButton
+					className='mx-2 pl-2 font-roboto'
+					selected={window.location.pathname === props.routeConfig.path}
+					aria-label={props.routeConfig.label}
+					option={props.routeConfig.isTopLevel ? 'boldGreen' : 'normalBlack'}
+				>
+					{props.routeConfig.label}
+				</HetListItemButton>
+			</Link>
+		</>
 	);
 }

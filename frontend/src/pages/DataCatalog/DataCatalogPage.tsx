@@ -90,8 +90,8 @@ export default function DataCatalogPage() {
 
 							return (
 								<>
-									{filteredDatasets.map((sourceId, index) => (
-										<li key={index}>
+									{filteredDatasets.map((sourceId) => (
+										<li key={sourceId}>
 											<DataSourceListing
 												key={dataSourceMetadataMap[sourceId].id}
 												source_metadata={dataSourceMetadataMap[sourceId]}

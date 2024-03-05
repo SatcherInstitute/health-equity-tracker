@@ -313,8 +313,8 @@ const RacesAndEthnicitiesLink = () => {
 															<p className='text-smallest font-semibold'>
 																{consideration.title}
 															</p>
-															{consideration.points.map((point, idx) => (
-																<p key={idx}>{point}</p>
+															{consideration.points.map((point) => (
+																<p key={point}>{point}</p>
 															))}
 														</div>
 													))}

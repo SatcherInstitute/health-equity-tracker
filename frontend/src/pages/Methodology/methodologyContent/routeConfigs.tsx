@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
 	BEHAVIORAL_HEALTH_LINK,
 	CHRONIC_DISEASE_LINK,
@@ -5,6 +6,7 @@ import {
 	DATA_METHOD_DEFINITIONS_LINK,
 	GLOSSARY_LINK,
 	HIV_LINK,
+	LIMITATIONS_LINK,
 	MEDICATION_UTILIZATION_LINK,
 	METRICS_LINK,
 	NEW_AGE_ADJUSTMENT_LINK,
@@ -25,6 +27,7 @@ import DataMethodDefinitionsLink from '../methodologySections/DataMethodDefiniti
 import DataSourcesLink from '../methodologySections/DataSourcesLink';
 import GlossaryLink from '../methodologySections/GlossaryLink';
 import HivLink from '../methodologySections/HivLink';
+import LimitationsLink from '../methodologySections/LimitationsLink';
 import MedicationUtilizationLink from '../methodologySections/MedicationUtilizationLink';
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink';
 import MetricsLink from '../methodologySections/MetricsLink';
@@ -32,35 +35,28 @@ import PdohLink from '../methodologySections/PdohLink';
 import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesLink';
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink';
 import SdohLink from '../methodologySections/SdohLink';
-import TopicCategoriesLimitationsLink from '../methodologySections/TopicCategoriesLimitationsLink';
+import TopicCategoriesLink from '../methodologySections/TopicCategoriesLink';
 import TopicDefinitionsLink from '../methodologySections/TopicDefinitionsLink';
 
-export const routeConfigs = [
+export type RouteConfig = {
+	isTopLevel?: boolean;
+	label: string;
+	path: string;
+	component?: () => ReactNode;
+	subLinks?: RouteConfig[];
+};
+
+export const routeConfigs: RouteConfig[] = [
 	{
+		isTopLevel: true,
 		label: 'Methodology Introduction',
 		path: NEW_METHODOLOGY_PAGE_LINK,
 		component: MethodologyHomeLink,
 		subLinks: [],
 	},
-	{
-		label: 'Age-Adjustment',
-		path: NEW_AGE_ADJUSTMENT_LINK,
-		component: AgeAdjustmentLink,
-		subLinks: [
-			{ label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
-			{ label: 'Data Sourcing', path: '#data-sourcing' },
-			{ label: 'Algorithm', path: '#algorithm' },
-			{
-				label: 'Example: HIV Deaths',
-				path: '#age-adjustment-examples',
-			},
-			{ label: 'Explore Examples', path: '#age-adjustment-explore' },
 
-			{ label: 'Key Terms', path: '#age-adjustment-key-terms' },
-			{ label: 'Resources', path: '#age-adjustment-resources' },
-		],
-	},
 	{
+		isTopLevel: true,
 		label: 'Data Sources',
 		path: SOURCES_LINK,
 		component: DataSourcesLink,
@@ -104,24 +100,13 @@ export const routeConfigs = [
 		],
 	},
 	{
-		label: 'Topic Categories & Limitations',
+		isTopLevel: true,
+		label: 'Topic Categories',
 		path: TOPIC_CATEGORIES_LINK,
-		component: TopicCategoriesLimitationsLink,
-		subLinks: [
-			{
-				label: 'Categories',
-				path: '#categories',
-			},
-			{
-				label: 'Limitations',
-				path: '#limitations',
-			},
-			{
-				label: 'Missing Data',
-				path: '#missing-data',
-			},
-		],
+		component: TopicCategoriesLink,
+		subLinks: [],
 	},
+
 	{
 		label: 'Behavioral Health',
 		path: BEHAVIORAL_HEALTH_LINK,
@@ -230,7 +215,7 @@ export const routeConfigs = [
 		],
 	},
 	{
-		label: 'Political Determinants of Health (PDOH)',
+		label: 'Political Determinants of Health',
 		path: PDOH_LINK,
 		component: PdohLink,
 		subLinks: [
@@ -287,7 +272,7 @@ export const routeConfigs = [
 		],
 	},
 	{
-		label: 'Social Determinants of Health (SDOH)',
+		label: 'Social Determinants of Health',
 		path: SDOH_LINK,
 		component: SdohLink,
 		subLinks: [
@@ -302,24 +287,49 @@ export const routeConfigs = [
 		path: MEDICATION_UTILIZATION_LINK,
 		component: MedicationUtilizationLink,
 		subLinks: [
-			{ label: 'Data Sourcing', path: '#medication-utilization-data-sourcing' },
-			{ label: 'Data Sources', path: '#medication-utilization-data-sources' },
+			{
+				label: 'Data Sourcing',
+				path: '#medication-utilization-data-sourcing',
+			},
+			{
+				label: 'Data Sources',
+				path: '#medication-utilization-data-sources',
+			},
 			{ label: 'Key Terms', path: '#medication-utilization-key-terms' },
 			{ label: 'Resources', path: '#medication-utilization-resources' },
 		],
 	},
 	{
+		isTopLevel: true,
 		label: 'Data Methods',
 		path: DATA_METHOD_DEFINITIONS_LINK,
 		component: DataMethodDefinitionsLink,
 		subLinks: [],
 	},
 	{
+		label: 'Limitations and Missing Data',
+		path: LIMITATIONS_LINK,
+		component: LimitationsLink,
+		subLinks: [
+			{
+				label: 'Limitations',
+				path: '#limitations',
+			},
+			{
+				label: 'Missing Data',
+				path: '#missing-data',
+			},
+		],
+	},
+	{
 		label: 'Metrics',
 		path: METRICS_LINK,
 		component: MetricsLink,
 		subLinks: [
-			{ label: 'Age-adjusted ratios', path: '#age-adjusted-ratios-metrics' },
+			{
+				label: 'Age-adjusted ratios',
+				path: '#age-adjusted-ratios-metrics',
+			},
 			{ label: 'Total cases per 100k people', path: '#per-100k-metrics' },
 			{
 				label: 'Share of total cases with unknown races',
@@ -428,12 +438,33 @@ export const routeConfigs = [
 		],
 	},
 	{
+		isTopLevel: true,
+		label: 'Age-Adjustment',
+		path: NEW_AGE_ADJUSTMENT_LINK,
+		component: AgeAdjustmentLink,
+		subLinks: [
+			{ label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
+			{ label: 'Data Sourcing', path: '#data-sourcing' },
+			{ label: 'Algorithm', path: '#algorithm' },
+			{
+				label: 'Example: HIV Deaths',
+				path: '#age-adjustment-examples',
+			},
+			{ label: 'Explore Examples', path: '#age-adjustment-explore' },
+
+			{ label: 'Key Terms', path: '#age-adjustment-key-terms' },
+			{ label: 'Resources', path: '#age-adjustment-resources' },
+		],
+	},
+	{
+		isTopLevel: true,
 		label: 'Recommended Citation',
 		path: RECOMMENDED_CITATION_LINK,
 		component: RecommendedCitationLink,
 		subLinks: [],
 	},
 	{
+		isTopLevel: true,
 		label: 'Glossary',
 		path: GLOSSARY_LINK,
 		component: GlossaryLink,

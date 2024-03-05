@@ -38,13 +38,18 @@ export default function MethodologyPage() {
 						<div className='flex flex-wrap p-1'>
 							{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
 							<div className='px-12 md:hidden'>
-								{routeConfigs.map((route, index) => {
+								{routeConfigs.map((routeConfig) => {
 									const match = useRouteMatch({
-										path: route.path,
+										path: routeConfig.path,
 										exact: true,
 									});
-									return match && route.subLinks.length > 0 ? (
-										<HetOnThisPageMenu key={index} links={route.subLinks} />
+									const hasSublinks =
+										routeConfig.subLinks && routeConfig.subLinks.length > 0;
+									return match && hasSublinks ? (
+										<HetOnThisPageMenu
+											key={routeConfig.path}
+											links={routeConfig.subLinks}
+										/>
 									) : null;
 								})}
 							</div>
@@ -58,9 +63,9 @@ export default function MethodologyPage() {
 								<Switch>
 									<>
 										{/* TEXT */}
-										{routeConfigs.map((route, index) => (
+										{routeConfigs.map((route) => (
 											<Route
-												key={index}
+												key={route.path}
 												exact
 												path={route.path}
 												component={route.component}
@@ -75,15 +80,17 @@ export default function MethodologyPage() {
 
 						{/* ON THIS PAGE SUB-MENU - DESKTOP */}
 						<div className='hidden min-w-fit md:block'>
-							{routeConfigs.map((route, index) => {
+							{routeConfigs.map((routeConfig) => {
 								const match = useRouteMatch({
-									path: route.path,
+									path: routeConfig.path,
 									exact: true,
 								});
-								return match && route.subLinks.length > 0 ? (
+								const hasSublinks =
+									routeConfig.subLinks && routeConfig.subLinks.length > 0;
+								return match && hasSublinks ? (
 									<HetOnThisPageMenu
-										key={index}
-										links={route.subLinks}
+										key={routeConfig.path}
+										links={routeConfig.subLinks}
 										className='sticky right-0 top-4  z-top h-min'
 									/>
 								) : null;

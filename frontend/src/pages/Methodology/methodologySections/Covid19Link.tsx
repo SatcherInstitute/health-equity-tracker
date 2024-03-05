@@ -301,10 +301,10 @@ export default function Covid19Link() {
 						{ header: 'Source', accessor: 'source' },
 						{ header: 'Update Frequency', accessor: 'updates' },
 					]}
-					rows={covidDataSources.map((source, index) => ({
+					rows={covidDataSources.map((source) => ({
 						source: (
 							<a
-								key={index}
+								key={source.id}
 								href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
 							>
 								{source.data_source_name}

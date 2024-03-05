@@ -90,10 +90,10 @@ export default function BehavioralHealthLink() {
 						{ header: 'Source', accessor: 'source' },
 						{ header: 'Update Frequency', accessor: 'updates' },
 					]}
-					rows={behavioralHealthDataSources.map((source, index) => ({
+					rows={behavioralHealthDataSources.map((source) => ({
 						source: (
 							<a
-								key={index}
+								key={source.id}
 								href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
 							>
 								{source.data_source_name}

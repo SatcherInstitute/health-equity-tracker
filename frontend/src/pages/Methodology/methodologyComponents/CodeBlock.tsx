@@ -18,6 +18,7 @@ interface CodeBlockProps {
 
 export function CodeBlock(props: CodeBlockProps) {
 	const border = props?.border ?? true;
+
 	return (
 		<TableContainer>
 			<Table

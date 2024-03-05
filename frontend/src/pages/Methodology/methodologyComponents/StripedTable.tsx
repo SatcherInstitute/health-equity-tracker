@@ -51,7 +51,7 @@ export default function StripedTable(props: StripedTableProps) {
 				<TableBody>
 					{props.rows.map((row, rowIndex) => (
 						<StyledTableRow
-							key={rowIndex}
+							key={row.id}
 							className={
 								props.applyThickBorder &&
 								props.rows.length !== 3 &&

@@ -23,7 +23,6 @@ export default function TopicDefinitionsLink() {
 						},
 					);
 
-					console.log(categoryConfigs);
 					return (
 						<div
 							id={slugify(category.title)}

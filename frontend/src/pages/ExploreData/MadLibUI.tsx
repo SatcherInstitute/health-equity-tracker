@@ -130,7 +130,7 @@ export default function MadLibUI(props: MadLibUIProps) {
 							);
 
 							return (
-								<React.Fragment key={index}>
+								<React.Fragment key={segmentDataTypeId}>
 									{typeof phraseSegment === 'string' ? (
 										// NON_INTERACTIVE MADLIB WORDS
 										<span className='text-altBlack'>
@@ -166,7 +166,6 @@ export default function MadLibUI(props: MadLibUIProps) {
 											{dataTypes?.length > 1 && (
 												// DATA TYPE SUB TOPIC
 												<DataTypeSelector
-													key={`${index}-datatype`}
 													newValue={config?.dataTypeId ?? dataTypes[0][0]}
 													onOptionUpdate={(newValue) => {
 														handleDataTypeUpdate(

@@ -1,25 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import { useHistory } from 'react-router-dom';
-import {
-	BEHAVIORAL_HEALTH_LINK,
-	CHRONIC_DISEASE_LINK,
-	COVID_19_LINK,
-	DATA_METHOD_DEFINITIONS_LINK,
-	GLOSSARY_LINK,
-	HIV_LINK,
-	MEDICATION_UTILIZATION_LINK,
-	METRICS_LINK,
-	NEW_AGE_ADJUSTMENT_LINK,
-	NEW_METHODOLOGY_PAGE_LINK,
-	PDOH_LINK,
-	RACES_AND_ETHNICITIES_LINK,
-	RECOMMENDED_CITATION_LINK,
-	SDOH_LINK,
-	SOURCES_LINK,
-	TOPIC_CATEGORIES_LINK,
-	TOPIC_DEFINITIONS_LINK,
-} from '../../../utils/internalRoutes';
+import { routeConfigs } from '../methodologyContent/routeConfigs';
 
 interface MethodologyCardMenuMobileProps {
 	className?: string;
@@ -52,46 +34,11 @@ export default function MethodologyCardMenuMobile(
 							onChange={handleSelected}
 							label='Methodology Pages'
 						>
-							<MenuItem value={NEW_METHODOLOGY_PAGE_LINK}>
-								Introduction
-							</MenuItem>
-							<MenuItem value={NEW_AGE_ADJUSTMENT_LINK}>
-								Age-Adjustment
-							</MenuItem>
-							<MenuItem value={SOURCES_LINK}>Data Sources</MenuItem>
-							<MenuItem value={TOPIC_CATEGORIES_LINK}>
-								Topic Categories & Limitations
-							</MenuItem>
-							<MenuItem value={BEHAVIORAL_HEALTH_LINK}>
-								Behavioral Health
-							</MenuItem>
-							<MenuItem value={CHRONIC_DISEASE_LINK}>Chronic Diseases</MenuItem>
-							<MenuItem value={COVID_19_LINK}>COVID-19</MenuItem>
-							<MenuItem value={HIV_LINK}>HIV</MenuItem>
-							<MenuItem value={PDOH_LINK}>
-								Political Determinants of Health (PDOH)
-							</MenuItem>
-							<MenuItem value={SDOH_LINK}>
-								Social Determinants of Health (SDOH)
-							</MenuItem>
-							<MenuItem value={MEDICATION_UTILIZATION_LINK}>
-								Medication Utilization
-							</MenuItem>
-							<MenuItem value={DATA_METHOD_DEFINITIONS_LINK}>
-								Data Method Definitions
-							</MenuItem>
-							<MenuItem value={METRICS_LINK}>Metrics</MenuItem>
-							<MenuItem value={TOPIC_DEFINITIONS_LINK}>
-								Topic Definitions
-							</MenuItem>
-
-							<MenuItem value={RACES_AND_ETHNICITIES_LINK}>
-								Races and Ethnicities
-							</MenuItem>
-							<MenuItem value={RECOMMENDED_CITATION_LINK}>
-								Recommended Citation
-							</MenuItem>
-							<MenuItem value={GLOSSARY_LINK}>Glossary</MenuItem>
+							{routeConfigs.map((config) => (
+								<MenuItem key={config.path} value={config.path}>
+									{config.label}
+								</MenuItem>
+							))}
 						</Select>
 					</FormControl>
 				</Toolbar>

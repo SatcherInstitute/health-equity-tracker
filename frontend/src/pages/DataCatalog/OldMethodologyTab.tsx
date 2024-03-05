@@ -1390,14 +1390,11 @@ export default function OldMethodologyTab() {
 						</p>
 
 						<p>
-							<>
-								Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont
-								each operate an integrated system that combines both prisons and
-								jails; for our reports these are treated only as prison
-								facilities.
-							</>{' '}
-							In addition, Alaska contracts with a small network of private
-							jails, which are included here only as jail facilities.
+							Alaska, Connecticut, Delaware, Hawaii, Rhode Island, and Vermont
+							each operate an integrated system that combines both prisons and
+							jails; for our reports these are treated only as prison
+							facilities. In addition, Alaska contracts with a small network of
+							private jails, which are included here only as jail facilities.
 						</p>
 					</section>
 

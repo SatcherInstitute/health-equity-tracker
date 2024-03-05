@@ -92,10 +92,10 @@ function SdohLink() {
 						{ header: 'Source', accessor: 'source' },
 						{ header: 'Update Frequency', accessor: 'updates' },
 					]}
-					rows={sdohDataSources.map((source, index) => ({
+					rows={sdohDataSources.map((source) => ({
 						source: (
 							<a
-								key={index}
+								key={source.id}
 								href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
 							>
 								{source.data_source_name}
