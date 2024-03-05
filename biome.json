@@ -7,7 +7,7 @@
 		"formatter": {
 			"quoteStyle": "single",
 			"jsxQuoteStyle": "single",
-			"indentStyle": "space",
+			"indentStyle": "tab",
 			"indentWidth": 2
 		}
 	},
