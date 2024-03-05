@@ -75,7 +75,7 @@ proto-plus==1.13.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.14.0
+protobuf==3.19.5
     # via
     #   google-api-core
     #   google-cloud-bigquery
