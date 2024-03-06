@@ -235,8 +235,6 @@ def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
         df = df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         df = df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
-        print('df before race conversion')
-        print(df)
         df = df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(df)
 
