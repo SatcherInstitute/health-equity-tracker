@@ -37,7 +37,7 @@ repos:
     hooks:
       - id: local-tsc-check
         name: 🦕 typechecking
-        entry: bash -c 'npm run --prefix frontend/ tsc'
+        entry: bash -c 'npm run tsc --prefix frontend/'
         language: system
         types: [text]
   # WARN IF THERE ARE TOO MANY FILES IN ONE COMMIT
