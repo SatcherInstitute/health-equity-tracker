@@ -4,11 +4,14 @@ on: # rebuild any PRs and main branch changes
   push:
 
 jobs:
-  spellcheck: # run the action
+  spellcheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: streetsidesoftware/cspell-action@v5
+      - uses: streetsidesoftware/cspell-action@v6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           config: 'cspell.config.json'
+          incremental_files_only: true
+          verbose: true
+          files: |
+            **/*.{ts,tsx,css,md,py}
