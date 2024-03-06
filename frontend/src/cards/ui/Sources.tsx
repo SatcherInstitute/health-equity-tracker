@@ -64,8 +64,9 @@ export function Sources(props: SourcesProps) {
     ? selectedDataTypeConfig2Atom
     : selectedDataTypeConfig1Atom
 
-  const selectedDataTypeId = useAtomValue(selectedDataTypeConfigAtom)
-    ?.dataTypeId
+  const selectedDataTypeId = useAtomValue(
+    selectedDataTypeConfigAtom
+  )?.dataTypeId
 
   const methodologyHashId: DropdownVarId | '' = selectedDataTypeId
     ? getParentDropdownFromDataTypeId(selectedDataTypeId)

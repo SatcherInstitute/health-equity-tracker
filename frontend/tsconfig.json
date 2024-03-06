@@ -30,6 +30,8 @@
   ],
   "exclude": [
     "**/*.test.tsx",
+    "src/assets",
+    "**/*.test.ts",
     "node_modules"
   ]
 }

@@ -97,15 +97,13 @@ export function addCountsTooltipInfo(
       )
 
   if (countColsMap?.numeratorConfig) {
-    tooltipPairs[
-      `# ${numeratorPhrase}`
-    ] = `datum.${countColsMap.numeratorConfig.metricId}`
+    tooltipPairs[`# ${numeratorPhrase}`] =
+      `datum.${countColsMap.numeratorConfig.metricId}`
   }
 
   if (countColsMap?.denominatorConfig) {
-    tooltipPairs[
-      `# ${denominatorPhrase}`
-    ] = `datum.${countColsMap.denominatorConfig.metricId}`
+    tooltipPairs[`# ${denominatorPhrase}`] =
+      `datum.${countColsMap.denominatorConfig.metricId}`
   }
 
   return tooltipPairs
@@ -344,7 +342,7 @@ export function setupColorScale(
     /* metridId */ metricId
   )
 
-  if (legendLowerBound < legendUpperBound || isNaN(legendLowerBound)) {
+  if (legendLowerBound < legendUpperBound || Number.isNaN(legendLowerBound)) {
     // if there is a range, adjust slope of the linear behavior of symlog around 0.
     if (scaleType === 'symlog') colorScale.constant = 0.01
   } else {
@@ -471,8 +469,8 @@ export function createBarLabel(
   const symbol = usePercentSuffix
     ? PERCENT
     : measure === 'hiv_stigma_index'
-    ? ''
-    : PER_100K
+      ? ''
+      : PER_100K
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${symbol}"`
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${symbol}"]`
 

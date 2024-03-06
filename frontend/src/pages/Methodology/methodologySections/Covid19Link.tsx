@@ -28,9 +28,9 @@ export const covidDataSources = [
   dataSourceMetadataMap.covid_tracking_project,
 ]
 
-const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
-}).flat()
+})
 
 export const covidTopicsString = buildTopicsString(COVID_CATEGORY_DROPDOWNIDS)
 

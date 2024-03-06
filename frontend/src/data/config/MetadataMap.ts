@@ -480,6 +480,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cdc_wisqars_data-sex_national_current',
     ],
     downloadable: true,
-    time_period_range: '2001 - current'
-  }
+    time_period_range: '2001 - current',
+  },
 }
