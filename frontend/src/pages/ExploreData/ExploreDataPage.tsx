@@ -53,6 +53,7 @@ interface ExploreDataPageProps {
 function ExploreDataPage(props: ExploreDataPageProps) {
   const location: any = useLocation()
   const [showStickyLifeline, setShowStickyLifeline] = useState(false)
+  const [showAnnouncementBanner, setShowAnnouncementBanner] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false)
 
@@ -267,6 +268,12 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         (condition: DataTypeConfig) => condition?.dataTypeId === 'suicide'
       )
     )
+    setShowAnnouncementBanner(
+      getSelectedConditions(madLib)?.some(
+        (condition: DataTypeConfig) =>
+          condition?.dataTypeId === 'voter_participation'
+      )
+    )
 
     setShowIncarceratedChildrenAlert(
       getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
@@ -278,7 +285,12 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const headerScrollMargin = useHeaderScrollMargin(
     'madlib-container',
     isSticking,
-    [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
+    [
+      madLib,
+      showIncarceratedChildrenAlert,
+      showStickyLifeline,
+      showAnnouncementBanner,
+    ]
   )
 
   return (
@@ -328,6 +340,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
               selectedConditions={getSelectedConditions(madLib)}
               showLifeLineAlert={showStickyLifeline}
               showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
+              showAnnouncementBanner={showAnnouncementBanner}
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
