@@ -69,7 +69,7 @@ googleapis-common-protos[grpc]==1.56.2
     #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.4
     # via google-cloud-pubsub
-grpcio==1.33.1
+grpcio==1.33.2
     # via
     #   google-api-core
     #   googleapis-common-protos
