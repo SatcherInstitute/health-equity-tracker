@@ -54,7 +54,7 @@ describe('DatasetTypes', () => {
   const expectedCsvString =
     'population_pct,race_and_ethnicity,race_category_id,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,ALL,01,Alabama,,<0.01\r\n99,"Asian, Native Hawaiian, and Pacific Islander",API_NH,01,Alabama,,<0.01'
 
-  let dataset = new Dataset(fakeRows, fakeMetaData)
+  const dataset = new Dataset(fakeRows, fakeMetaData)
 
   test('Testing getAllColumnNames()', async () => {
     expect(dataset.getAllColumnNames()).toEqual(expectedColumnNames)

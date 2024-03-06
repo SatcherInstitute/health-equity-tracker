@@ -50,11 +50,10 @@ function AllPosts() {
 
       if (selectedCategory && data?.data) {
         setFilteredArticles(
-          data.data.filter(
-            (article: Article) =>
-              article._embedded['wp:term'][0]?.some(
-                (term: { name: string }) => term.name === selectedCategory
-              )
+          data.data.filter((article: Article) =>
+            article._embedded['wp:term'][0]?.some(
+              (term: { name: string }) => term.name === selectedCategory
+            )
           )
         )
       }

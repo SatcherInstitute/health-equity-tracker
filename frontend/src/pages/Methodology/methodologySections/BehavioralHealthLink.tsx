@@ -22,11 +22,11 @@ const behavioralHealthDataSources = [
 ]
 
 // All metric configs used for Behavioral Health category topics
-const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
+const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.flatMap(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
   }
-).flat()
+)
 
 export const behavioralHealthTopicsString = buildTopicsString(
   BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS

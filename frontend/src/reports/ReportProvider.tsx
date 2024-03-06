@@ -21,6 +21,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import WhatDataAreMissing from './WhatDataAreMissing'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import { DATA_CATALOG_PAGE_LINK } from '../utils/internalRoutes'
+import AnnouncementBanner from './ui/AnnouncementBanner'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -32,6 +33,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean
   setMadLib: (madLib: MadLib) => void
   showIncarceratedChildrenAlert: boolean
+  showAnnouncementBanner: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
   isMobile: boolean
@@ -171,6 +173,7 @@ function ReportProvider(props: ReportProviderProps) {
         }`}
       >
         {props.showLifeLineAlert && <LifelineAlert />}
+        {props.showAnnouncementBanner && <AnnouncementBanner />}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}

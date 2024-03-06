@@ -53,8 +53,8 @@ const {
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   // shared between breakdown types
-  'All': black,
-  'Unknown': darkBlue,
+  All: black,
+  Unknown: darkBlue,
   // race and ethnicity (NH)
   [AIAN_NH]: timeCyanBlue,
   [ASIAN_NH]: timePastelGreen,
@@ -90,9 +90,9 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   //  race and ethnicity for INCARCERATION
   [API_NH]: timePink,
   // sex
-  'Female': timeCyanBlue,
-  'Male': timePurple,
-  'Other': timeYellow,
+  Female: timeCyanBlue,
+  Male: timePurple,
+  Other: timeYellow,
   // age
   '0-9': timeCyanBlue,
   '10-19': timePastelGreen,

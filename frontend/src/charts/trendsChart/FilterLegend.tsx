@@ -61,6 +61,7 @@ export function FilterLegend({
         {/* Reset to Highest Lowest Averages */}
         <div className='mx-4 flex items-center justify-center rounded-sm border-none border-altGreen '>
           <button
+            type='button'
             aria-disabled={groupsAreMinMax}
             className={`rounded-l-sm border p-4 text-altBlack ${
               groupsAreMinMax
@@ -79,6 +80,7 @@ export function FilterLegend({
 
           {/* Remove Filters / Show All Button */}
           <button
+            type='button'
             aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
             className={`rounded-r-sm border p-4 text-altBlack ${
@@ -112,6 +114,7 @@ export function FilterLegend({
           // Legend Item Filter Button
           return (
             <button
+              type='button'
               key={`legendItem-${group}`}
               aria-label={`Include ${group}`}
               aria-pressed={groupEnabled}

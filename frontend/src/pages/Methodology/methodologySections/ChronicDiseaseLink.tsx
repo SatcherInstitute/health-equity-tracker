@@ -17,11 +17,11 @@ export const chronicDiseaseDataSources = [
   dataSourceMetadataMap.ahr,
 ]
 
-const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.map(
+const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.flatMap(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
   }
-).flat()
+)
 
 export const chronicDiseaseTopicsString = buildTopicsString(
   CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS
