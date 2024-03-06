@@ -200,6 +200,7 @@ def graphql_response_to_dataframe(response_data, geographic):
 
 
 def parse_raw_data(df: pd.DataFrame, breakdown: str):
+    df['Measure'] = df['Measure'].str.strip()
     breakdown_df = df.copy()
 
     for topic, metric in AHR_BASE_MEASURES.items():
