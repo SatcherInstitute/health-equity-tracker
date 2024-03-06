@@ -1,15 +1,30 @@
+import { GridView } from '@mui/icons-material';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import ChoroplethMap from '../charts/ChoroplethMap';
+import { Legend } from '../charts/Legend';
+import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals';
+import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions';
+import { generateChartTitle, generateSubtitle } from '../charts/utils';
 import {
-	type MetricId,
 	type DataTypeConfig,
+	type MetricId,
 } from '../data/config/MetricConfig';
+import { CAWP_METRICS } from '../data/providers/CawpProvider';
+import { POPULATION, SVI } from '../data/providers/GeoContextProvider';
+import {
+	COMBINED_INCARCERATION_STATES_LIST,
+	COMBINED_QUALIFIER,
+	PRIVATE_JAILS_QUALIFIER,
+} from '../data/providers/IncarcerationProvider';
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider';
 import { exclude } from '../data/query/BreakdownFilter';
 import {
 	Breakdowns,
-	type DemographicType,
 	DEMOGRAPHIC_DISPLAY_TYPES,
-	type DemographicTypeDisplayName,
 	DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+	type DemographicType,
+	type DemographicTypeDisplayName,
 } from '../data/query/Breakdowns';
 import {
 	MetricQuery,
@@ -17,43 +32,26 @@ import {
 } from '../data/query/MetricQuery';
 import { AgeSorterStrategy } from '../data/sorting/AgeSorterStrategy';
 import {
-	ALL,
-	NON_HISPANIC,
-	UNKNOWN,
-	UNKNOWN_RACE,
-	UNKNOWN_ETHNICITY,
-	type DemographicGroup,
-	RACE,
 	AGE,
+	ALL,
+	type DemographicGroup,
+	NON_HISPANIC,
+	RACE,
+	UNKNOWN,
+	UNKNOWN_ETHNICITY,
+	UNKNOWN_RACE,
 } from '../data/utils/Constants';
 import { type Row } from '../data/utils/DatasetTypes';
-import { getExtremeValues } from '../data/utils/datasetutils';
 import { Fips } from '../data/utils/Fips';
-import {
-	COMBINED_INCARCERATION_STATES_LIST,
-	COMBINED_QUALIFIER,
-	PRIVATE_JAILS_QUALIFIER,
-} from '../data/providers/IncarcerationProvider';
-import { CAWP_METRICS } from '../data/providers/CawpProvider';
-import CardWrapper from './CardWrapper';
-import DropDownMenu from './ui/DropDownMenu';
-import { HighestLowestGeosList } from './ui/HighestLowestGeosList';
-import MissingDataAlert from './ui/MissingDataAlert';
-import MultiMapDialog from './ui/MultiMapDialog';
-import { findVerboseRating } from './ui/SviAlert';
+import { getExtremeValues } from '../data/utils/datasetutils';
+import HetDivider from '../styles/HetComponents/HetDivider';
+import HetLinkButton from '../styles/HetComponents/HetLinkButton';
+import { type MadLibId } from '../utils/MadLibs';
+import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage';
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight';
-import { generateChartTitle, generateSubtitle } from '../charts/utils';
-import { useLocation } from 'react-router-dom';
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp';
+import { useParamState } from '../utils/hooks/useParamState';
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver';
-import { useEffect, useMemo, useState } from 'react';
-import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions';
-import { Legend } from '../charts/Legend';
-import GeoContext, {
-	getSubPopulationPhrase,
-	getTotalACSPopulationPhrase,
-} from './ui/GeoContext';
-import TerritoryCircles from './ui/TerritoryCircles';
-import { GridView } from '@mui/icons-material';
 import {
 	HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
 	HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
@@ -66,16 +64,18 @@ import {
 	getParameter,
 	setParameter,
 } from '../utils/urlutils';
+import CardWrapper from './CardWrapper';
 import ChartTitle from './ChartTitle';
-import { useParamState } from '../utils/hooks/useParamState';
-import { POPULATION, SVI } from '../data/providers/GeoContextProvider';
-import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals';
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage';
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider';
-import { type MadLibId } from '../utils/MadLibs';
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp';
-import HetLinkButton from '../styles/HetComponents/HetLinkButton';
-import HetDivider from '../styles/HetComponents/HetDivider';
+import DropDownMenu from './ui/DropDownMenu';
+import GeoContext, {
+	getSubPopulationPhrase,
+	getTotalACSPopulationPhrase,
+} from './ui/GeoContext';
+import { HighestLowestGeosList } from './ui/HighestLowestGeosList';
+import MissingDataAlert from './ui/MissingDataAlert';
+import MultiMapDialog from './ui/MultiMapDialog';
+import { findVerboseRating } from './ui/SviAlert';
+import TerritoryCircles from './ui/TerritoryCircles';
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5;
 

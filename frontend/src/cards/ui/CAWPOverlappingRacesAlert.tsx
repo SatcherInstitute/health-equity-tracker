@@ -1,21 +1,21 @@
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
-import HetNotice from '../../styles/HetComponents/HetNotice'
-import HetTerm from '../../styles/HetComponents/HetTerm'
+import { type DataTypeConfig } from '../../data/config/MetricConfig';
+import HetNotice from '../../styles/HetComponents/HetNotice';
+import HetTerm from '../../styles/HetComponents/HetTerm';
 
 interface CAWPOverlappingRacesAlertProps {
-  dataTypeConfig: DataTypeConfig
+	dataTypeConfig: DataTypeConfig;
 }
 
 export default function CAWPOverlappingRacesAlert(
-  props: CAWPOverlappingRacesAlertProps
+	props: CAWPOverlappingRacesAlertProps,
 ) {
-  return (
-    <HetNotice>
-      Percentages reported for{' '}
-      <HetTerm>{props.dataTypeConfig.fullDisplayName}</HetTerm> cannot be
-      summed, as these race/ethnicity groupings are not mutually exclusive.
-      Individuals who identify with more than one group (e.g. both "White" and
-      "Latina") are represented in each corresponding category.
-    </HetNotice>
-  )
+	return (
+		<HetNotice>
+			Percentages reported for{' '}
+			<HetTerm>{props.dataTypeConfig.fullDisplayName}</HetTerm> cannot be
+			summed, as these race/ethnicity groupings are not mutually exclusive.
+			Individuals who identify with more than one group (e.g. both "White" and
+			"Latina") are represented in each corresponding category.
+		</HetNotice>
+	);
 }
