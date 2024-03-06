@@ -734,7 +734,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
       '1915-2023 for Congress, 1983-2023 for state/territory legislatures',
     source_id: 'cawp',
   },
-  'the_unitedstates_project': {
+  the_unitedstates_project: {
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
     original_data_sourced: '1915-2023',
     source_id: 'the_unitedstates_project',

@@ -32,6 +32,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
         </>
       )}{' '}
       <button
+        type='button'
         onClick={changeUnknownState}
         className='cursor-pointer border-0 bg-transparent p-0 text-altGreen underline'
         aria-label={

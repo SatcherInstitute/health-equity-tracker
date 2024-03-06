@@ -22,9 +22,9 @@ export const pdohDataSources = [
   dataSourceMetadataMap.the_unitedstates_project,
 ]
 
-const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
-}).flat()
+})
 
 export const pdohTopicsString = buildTopicsString(PDOH_CATEGORY_DROPDOWNIDS)
 

@@ -186,7 +186,10 @@ function EquityTab() {
                       className='flex flex-col items-start p-4 text-left'
                       aria-label='NCRN Information'
                     >
-                      <a href={urlMap.ncrn} className='text-black	no-underline'>
+                      <a
+                        href={urlMap.ncrn}
+                        className='text-black	no-underline'
+                      >
                         <LazyLoad offset={300} height={200} once>
                           <img
                             className='h-44 w-full rounded-md'
