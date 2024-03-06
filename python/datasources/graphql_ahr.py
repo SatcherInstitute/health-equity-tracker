@@ -18,8 +18,6 @@ from ingestion.types import GEO_TYPE, SEX_RACE_AGE_TYPE
 # Set options to display the full DataFrame
 pd.set_option('display.max_rows', None)  # Shows all rows
 pd.set_option('display.max_columns', None)  # Shows all columns
-pd.set_option('display.width', None)  # Uses the maximum width for displaying
-pd.set_option('display.max_colwidth', None)  # Shows the full content of each column
 
 
 def generate_cols_map(prefixes, suffix):
@@ -156,6 +154,8 @@ class GraphQlAHRData(DataSource):
 
         if demographic in measure_map:
             measures_for_demographic = measure_map[demographic]
+
+            print(measures_for_demographic)
 
             filtered_df = df[df['Measure'].isin(measures_for_demographic)]
 
