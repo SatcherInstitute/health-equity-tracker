@@ -113,7 +113,7 @@ RACE_GROUPS_TO_STANDARD = {
 
 AHR_AGE_STRINGS = list(AGE_GROUPS_TO_STANDARD.keys())
 AHR_RACE_STRINGS = list(RACE_GROUPS_TO_STANDARD.keys())
-AHR_RACE_STRINGS.remove(std_col.Race.ALL.value)
+AHR_RACE_STRINGS.remove('All')
 AHR_SEX_STRINGS = ['Female', 'Male']
 
 CURRENT_COLS = list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values())
