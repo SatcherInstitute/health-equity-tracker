@@ -1,53 +1,53 @@
 import {
-  type MetricConfig,
-  type MetricId,
-} from '../../data/config/MetricConfig'
-import { type DemographicType } from '../../data/query/Breakdowns'
-import { type ChartDimensionProps } from '../../utils/hooks/useChartDimensions'
+	type MetricConfig,
+	type MetricId,
+} from '../../data/config/MetricConfig';
+import { type DemographicType } from '../../data/query/Breakdowns';
+import { type ChartDimensionProps } from '../../utils/hooks/useChartDimensions';
 
-type Data = Array<Record<string, any>>
-type Text = string | string[]
+type Data = Array<Record<string, any>>;
+type Text = string | string[];
 
 export interface DisparityBarChartProps {
-  demographicType: DemographicType
-  data: Data
-  darkMetric: MetricConfig
-  lightMetric: MetricConfig
-  filename: string
-  metricDisplayName: string
-  showAltPopCompare?: boolean
+	demographicType: DemographicType;
+	data: Data;
+	darkMetric: MetricConfig;
+	lightMetric: MetricConfig;
+	filename: string;
+	metricDisplayName: string;
+	showAltPopCompare?: boolean;
 }
 
 export interface AxesProps {
-  chartDimensions: ChartDimensionProps
-  xAxisTitle: Text
-  yAxisTitle: Text
+	chartDimensions: ChartDimensionProps;
+	xAxisTitle: Text;
+	yAxisTitle: Text;
 }
 
 export interface MarkProps {
-  barLabelBreakpoint: number
-  demographicType: DemographicType
-  data: Data
-  hasAltPop: boolean
-  altLightMeasure: MetricId
-  altLightMeasureDisplayName: string
-  altLightMetricDisplayColumnName: string
-  darkMeasure: MetricId
-  darkMeasureDisplayName: string
-  darkMetricDisplayColumnName: string
-  lightMeasure: MetricId
-  lightMeasureDisplayName: string
-  lightMetricDisplayColumnName: string
-  LEGEND_DOMAINS: string[]
-  darkMeasureText: string
+	barLabelBreakpoint: number;
+	demographicType: DemographicType;
+	data: Data;
+	hasAltPop: boolean;
+	altLightMeasure: MetricId;
+	altLightMeasureDisplayName: string;
+	altLightMetricDisplayColumnName: string;
+	darkMeasure: MetricId;
+	darkMeasureDisplayName: string;
+	darkMetricDisplayColumnName: string;
+	lightMeasure: MetricId;
+	lightMeasureDisplayName: string;
+	lightMetricDisplayColumnName: string;
+	LEGEND_DOMAINS: string[];
+	darkMeasureText: string;
 }
 
 export interface LegendsProps {
-  chartDimensions: ChartDimensionProps
+	chartDimensions: ChartDimensionProps;
 }
 
 export interface ScalesProps {
-  largerMeasure: MetricId
-  demographicType: DemographicType
-  LEGEND_DOMAINS: string[]
+	largerMeasure: MetricId;
+	demographicType: DemographicType;
+	LEGEND_DOMAINS: string[];
 }
