@@ -6,7 +6,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
 from ingestion import standardized_columns as std_col
-from ingestion.constants import US_ABBR, STATE_LEVEL, NATIONAL_LEVEL, CURRENT
+from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT
 from ingestion.dataset_utils import (
     add_estimated_total_columns,
     generate_time_df_with_cols_and_types,
@@ -31,10 +31,6 @@ def generate_cols_map(prefixes, suffix):
 
     return cols_map
 
-
-AHR_MEASURES = [
-    std_col.ASTHMA_PREFIX,
-]
 
 AHR_BASE_MEASURES = {
     'Asthma': 'asthma_per_100k',
@@ -233,6 +229,8 @@ def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
         df = df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         df = df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
+        print('df before race conversion')
+        print(df)
         df = df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(df)
 
