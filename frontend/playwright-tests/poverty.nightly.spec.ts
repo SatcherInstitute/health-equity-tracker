@@ -27,9 +27,7 @@ test('Poverty', async ({ page }) => {
     })
     .click()
   await page
-    .locator('div')
-    .filter({ hasText: /^Expand rates over time table$/ })
-    .nth(2)
+    .getByRole('button', { name: 'Expand rates over time table' })
     .click()
   await page.getByText('Add or remove columns by').click()
   await page.getByText('View and download full .csv').click()

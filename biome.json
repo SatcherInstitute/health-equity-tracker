@@ -1,14 +1,22 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
 	"organizeImports": {
-		"enabled": true
+		"enabled": false
+	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
 	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "single",
 			"jsxQuoteStyle": "single",
+			"semicolons": "asNeeded",
 			"indentStyle": "space",
-			"indentWidth": 4
+			"indentWidth": 2,
+			"trailingComma": "es5"
 		}
 	},
 	"linter": {
@@ -16,17 +24,34 @@
 		"rules": {
 			"recommended": true,
 			"suspicious": {
-				"noExplicitAny": "off"
+				"noExplicitAny": "off",
+				"noImplicitAnyLet": "off",
+				"noArrayIndexKey": "off",
+				"noAssignInExpressions": "off",
+				"noGlobalIsNan": "off"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off"
 			},
 			"style": {
-				"useTemplate": "off"
+				"useTemplate": "off",
+				"noUnusedTemplateLiteral": "off",
+				"useSelfClosingElements": "off",
+				"noNonNullAssertion": "off",
+				"noInferrableTypes": "off",
+				"noParameterAssign": "off",
+				"noUselessElse": "off",
+				"useDefaultParameterLast": "off"
 			},
 			"complexity": {
 				"noForEach": "off",
-				"useLiteralKeys": "off"
+				"useLiteralKeys": "off",
+				"noUselessEmptyExport": "off",
+				"noUselessSwitchCase": "off",
+				"noUselessFragments": "off"
+			},
+			"security": {
+				"noDangerouslySetInnerHtml": "warn"
 			}
 		}
 	}

@@ -163,7 +163,6 @@ export function Axes({
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
-          role='group'
           tabIndex={0}
         />
         {/* Y-Axis */}
@@ -176,7 +175,6 @@ export function Axes({
           } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${
             getMaxNumber(data) ?? 'highest'
           }${optionalPct}`}
-          role='group'
           tabIndex={0}
         />
       </g>
@@ -199,20 +197,16 @@ export function Axes({
           })`}
         >
           {/* only display x-axis label on desktop */}
-          <text textAnchor='end' dy='8px' aria-hidden={true}>
+          <text textAnchor='end' dy='8px'>
             {isSkinny ? '' : 'time →'}
           </text>
         </g>
         {/* Top Y-Axis Label */}
-        <g
-          aria-hidden={true}
-          transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}
-        >
+        <g transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}>
           <text textAnchor='end'>{Y_AXIS_CONFIG[type]?.topLabel}</text>
         </g>
         {/* Bottom Y-Axis Label */}
         <g
-          aria-hidden={true}
           transform={`translate(${yAxisLabelPadding}, ${
             HEIGHT - marginBottom
           })rotate(-90)`}
