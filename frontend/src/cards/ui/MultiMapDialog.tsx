@@ -325,18 +325,16 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
-        <div className='ml-5 flex justify-between pl-2 text-left text-small'>
+        <div className='flex justify-between pl-2 text-left text-small'>
           {/* mobile-only CLOSE button */}
           <HetLinkButton
             aria-label='close this multiple maps modal'
             onClick={props.handleClose}
-            id={'multi-map-close-button2'}
-            className='sm:hidden'
           >
             Close
           </HetLinkButton>
           {/* Desktop only Sources and Card Options */}
-          <div className='flex w-full items-center justify-between sm:flex'>
+          <div className='flex w-full sm:flex'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
