@@ -15,6 +15,12 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import merge_pop_numbers, merge_yearly_pop_numbers, merge_state_ids
 from ingestion.types import GEO_TYPE, SEX_RACE_AGE_TYPE
 
+# Set options to display the full DataFrame
+pd.set_option('display.max_rows', None)  # Shows all rows
+pd.set_option('display.max_columns', None)  # Shows all columns
+pd.set_option('display.width', None)  # Uses the maximum width for displaying
+pd.set_option('display.max_colwidth', None)  # Shows the full content of each column
+
 
 def generate_cols_map(prefixes, suffix):
     cols_map = {}
