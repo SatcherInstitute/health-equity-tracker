@@ -152,6 +152,9 @@ class GraphQlAHRData(DataSource):
     ):
         measure_map = create_measure_map()
 
+        if demographic == 'race_and_ethnicity':
+            print(measure_map[demographic])
+
         if demographic in measure_map:
             measures_for_demographic = measure_map[demographic]
 
