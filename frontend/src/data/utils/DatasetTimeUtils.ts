@@ -228,7 +228,8 @@ export function getPrettyDate(timePeriod: string): string {
     const [year, monthNum] = timePeriod?.split('-') || ['', '']
 
     // skip if non-numerical input
-    if (isNaN(parseInt(year)) || isNaN(parseInt(monthNum))) return timePeriod
+    if (Number.isNaN(parseInt(year)) || Number.isNaN(parseInt(monthNum)))
+      return timePeriod
 
     return `${MONTHS[monthNum]} ${year}`
   }

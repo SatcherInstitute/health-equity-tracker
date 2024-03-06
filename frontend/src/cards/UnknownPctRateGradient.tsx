@@ -2,7 +2,13 @@ import { het } from '../styles/DesignTokens'
 
 export default function UnknownPctRateGradient() {
   return (
-    <svg height='0' version='1.1' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      height='0'
+      version='1.1'
+      aria-label='Unknown percentage rate gradient'
+      role='img'
+      xmlns='http://www.w3.org/2000/svg'
+    >
       <linearGradient id='gradient'>
         <stop style={{ stopColor: het.unknownMapMost }} offset='0%' />
         <stop style={{ stopColor: het.unknownMapMid }} offset='20%' />

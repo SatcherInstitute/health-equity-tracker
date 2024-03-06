@@ -34,7 +34,7 @@ const useScrollPosition = (
 
       if (wait) {
         if (throttleTimeout.current === null) {
-          throttleTimeout.current = setTimeout(function () {
+          throttleTimeout.current = setTimeout(() => {
             scrollCallBack(stickyBarOffsetFromTop)
           }, wait)
         }

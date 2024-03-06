@@ -15,12 +15,12 @@ export function srSpeak(message: string) {
   document.body.appendChild(temp)
 
   // render
-  window.setTimeout(function () {
+  window.setTimeout(() => {
     temp.innerHTML = message
   }, 100)
 
   // remove
-  window.setTimeout(function () {
+  window.setTimeout(() => {
     document.body.removeChild(temp)
   }, 1000)
 }

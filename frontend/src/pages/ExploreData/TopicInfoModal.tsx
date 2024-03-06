@@ -17,8 +17,9 @@ export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
     useParamState(TOPIC_INFO_PARAM_KEY)
 
-  const selectedDataTypeId = useAtomValue(selectedDataTypeConfig1Atom)
-    ?.dataTypeId
+  const selectedDataTypeId = useAtomValue(
+    selectedDataTypeConfig1Atom
+  )?.dataTypeId
 
   const dropdownVarId: DropdownVarId | '' = selectedDataTypeId
     ? getParentDropdownFromDataTypeId(selectedDataTypeId)

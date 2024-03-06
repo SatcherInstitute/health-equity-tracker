@@ -82,7 +82,6 @@ export function CircleChart({
     <g>
       <g
         tabIndex={0}
-        role='list'
         aria-label={unknownCircleLegendText + ' per month'}
         transform={`translate(0, ${
           HEIGHT - MARGIN.bottom_with_unknowns + 4 * MAX_RADIUS
@@ -95,7 +94,6 @@ export function CircleChart({
 
           return (
             <g
-              role='listitem'
               key={`dataCircleGroup-${i}`}
               transform={`translate(${xScale(new Date(date)) ?? ''}, 0)`}
             >
@@ -108,7 +106,6 @@ export function CircleChart({
                     <circle
                       r={rScale(percent)}
                       fill={colors(percent)}
-                      role='img'
                       aria-label={date}
                     />
                   )}
@@ -138,7 +135,7 @@ export function CircleChart({
           HEIGHT - 6.25 * MAX_RADIUS
         })`}
       >
-        <g role='list' aria-label='Unknown Demographic Legend' tabIndex={0}>
+        <g aria-label='Unknown Demographic Legend' tabIndex={0}>
           {/* Display circle for min, mid, and max values */}
           {getLegendValues().map((percent = 0, i) => {
             let legendHelper = ''
@@ -150,14 +147,9 @@ export function CircleChart({
               <g
                 key={`legendCircle-${i}`}
                 transform={`translate(${(i - 1) * 6 * MAX_RADIUS}, 0)`}
-                role='listitem'
               >
                 {/* Legend circle */}
-                <circle
-                  r={rScale(percent)}
-                  fill={colors(percent)}
-                  role='presentation'
-                >
+                <circle r={rScale(percent)} fill={colors(percent)}>
                   <title>{`${legendHelper} unknown value`}</title>
                 </circle>
                 {/* Circle label annotation (percent represented by circle) */}

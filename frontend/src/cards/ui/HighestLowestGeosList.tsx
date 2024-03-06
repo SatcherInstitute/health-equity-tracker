@@ -80,12 +80,12 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
           {props.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
-      <div
+      <button
+        type='button'
         onClick={() => {
           props.setIsOpen(!props.isOpen)
         }}
-        aria-hidden={true}
-        className={`cursor-pointer pl-4 text-left  text-smallest sm:text-text ${
+        className={`cursor-pointer pl-4 text-left bg-standardInfo border-none text-smallest sm:text-text ${
           props.isOpen
             ? 'px-0 py-4'
             : 'text-ellipsis whitespace-nowrap leading-lhListBoxTitle sm:overflow-hidden'
@@ -96,7 +96,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
           the {placesType} with the{' '}
         </span>
         <strong>highest</strong> and <strong>lowest</strong> rates.
-      </div>
+      </button>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.isOpen && (

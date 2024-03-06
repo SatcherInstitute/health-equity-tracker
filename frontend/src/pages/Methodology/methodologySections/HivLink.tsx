@@ -19,9 +19,9 @@ export const hivDataSources = [
   dataSourceMetadataMap.acs,
 ]
 
-const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
-}).flat()
+})
 
 export const hivTopicsString = buildTopicsString(HIV_CATEGORY_DROPDOWNIDS)
 
