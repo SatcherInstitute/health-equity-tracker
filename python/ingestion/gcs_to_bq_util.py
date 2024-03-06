@@ -420,7 +420,7 @@ def fetch_ahr_data_from_graphql():
         a dictionary containing the data retrieved from the API.
     """
     client = secretmanager.SecretManagerServiceClient()
-    resource_name = f"projects/585592748590/secrets/ahr-api-key/versions/latest"
+    resource_name = "projects/585592748590/secrets/ahr-api-key/versions/latest"
     response = client.access_secret_version(request={"name": resource_name})
     api_key = response.payload.data.decode("UTF-8")
 
@@ -453,7 +453,7 @@ def fetch_ahr_data_from_graphql():
         'diabetes',
         'binge drinking',
         'mental health',
-        'Discharges following hospitalization for ambulatory care sensitive conditions (PQI 90) per 100,000 Medicare beneficiaries ages 18 and older enrolled in the fee-for-service program',
+        'Discharges following hospitalization',
         'prescription drugs non-medically',
         "self-harm",
         'presidential national election',

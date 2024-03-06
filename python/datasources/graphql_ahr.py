@@ -113,7 +113,6 @@ RACE_GROUPS_TO_STANDARD = {
 
 AHR_AGE_STRINGS = list(AGE_GROUPS_TO_STANDARD.keys())
 AHR_RACE_STRINGS = list(RACE_GROUPS_TO_STANDARD.keys())
-AHR_RACE_STRINGS.remove('All')
 AHR_SEX_STRINGS = ['Female', 'Male']
 
 CURRENT_COLS = list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values())
@@ -155,8 +154,6 @@ class GraphQlAHRData(DataSource):
 
         if demographic in measure_map:
             measures_for_demographic = measure_map[demographic]
-
-            print(measures_for_demographic)
 
             filtered_df = df[df['Measure'].isin(measures_for_demographic)]
 
