@@ -35,9 +35,9 @@ export const missingAhrDataArray = [
   },
 ]
 
-const datatypeConfigs = SDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+const datatypeConfigs = SDOH_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
-}).flat()
+})
 
 export const sdohTopicsString = buildTopicsString(SDOH_CATEGORY_DROPDOWNIDS)
 
