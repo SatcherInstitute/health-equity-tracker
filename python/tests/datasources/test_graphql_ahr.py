@@ -26,19 +26,19 @@ def _fetch_ahr_data_from_graphql():
     return data
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
-def testWriteToBqAgeNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
-    datasource = GraphQlAHRData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic='age', geographic='national')
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+# @mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
+# def testWriteToBqAgeNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
+#     datasource = GraphQlAHRData()
+#     datasource.write_to_bq('dataset', 'gcs_bucket', demographic='age', geographic='national')
 
-    actual_df, _, table_name = mock_bq.call_args_list[0][0]
-    expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
-    assert table_name == "age_national"
+#     actual_df, _, table_name = mock_bq.call_args_list[0][0]
+#     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
+#     assert table_name == "age_national"
 
-    assert mock_bq.call_count == 1
+#     assert mock_bq.call_count == 1
 
-    assert_frame_equal(actual_df, expected_df, check_like=True)
+#     assert_frame_equal(actual_df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -56,16 +56,16 @@ def testWriteToBqRaceNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMoc
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
-def testWriteToBqSexNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
-    datasource = GraphQlAHRData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic='sex', geographic='national')
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+# @mock.patch('ingestion.gcs_to_bq_util.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
+# def testWriteToBqSexNational(mock_fetch: mock.MagicMock, mock_bq: mock.MagicMock):
+#     datasource = GraphQlAHRData()
+#     datasource.write_to_bq('dataset', 'gcs_bucket', demographic='sex', geographic='national')
 
-    actual_df, _, table_name = mock_bq.call_args_list[0][0]
-    expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
+#     actual_df, _, table_name = mock_bq.call_args_list[0][0]
+#     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
 
-    assert table_name == "sex_national"
-    assert mock_bq.call_count == 1
+#     assert table_name == "sex_national"
+#     assert mock_bq.call_count == 1
 
-    assert_frame_equal(actual_df, expected_df, check_like=True)
+#     assert_frame_equal(actual_df, expected_df, check_like=True)

@@ -37,6 +37,7 @@ def generate_cols_map(prefixes, suffix):
 
 
 AHR_BASE_MEASURES = {
+    'Voter Participation (Presidential)': 'voter_participation_pct_rate',
     'Asthma': 'asthma_per_100k',
     'Avoided Care Due to Cost': 'avoided_care_pct_rate',
     'Cardiovascular Diseases': 'cardiovascular_diseases_per_100k',
@@ -49,7 +50,6 @@ AHR_BASE_MEASURES = {
     'Preventable Hospitalizations': 'preventable_hospitalizations_per_100k',
     'Non-Medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
     'Suicide': 'suicide_per_100k',
-    'Voter Participation (Presidential)': 'voter_participation_pct_rate',
 }
 
 PER_100K_TOPICS = ['Suicide', 'Preventable Hospitalizations']
