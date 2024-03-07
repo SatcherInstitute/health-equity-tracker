@@ -24,6 +24,10 @@ export type SDOHDataTypeId =
   | 'gun_violence_injuries'
   | 'gun_violence_suicide'
   | 'gun_violence_legal_intervention'
+  | 'poverty'
+  | 'health_insurance'
+  | 'preventable_hospitalizations'
+  | 'avoided_care'
 
 export type SDOHMetricId =
   | 'ahr_population_pct'

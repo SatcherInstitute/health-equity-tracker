@@ -31,6 +31,7 @@ import {
   type DataTypeConfig,
   METRIC_CONFIG,
   isDropdownVarId,
+  DataTypeId,
 } from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
@@ -41,6 +42,12 @@ import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRed
 import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
 import TopicInfoModal from './TopicInfoModal'
+import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
+import { useAtom, useAtomValue } from 'jotai'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -52,10 +59,19 @@ interface ExploreDataPageProps {
 
 function ExploreDataPage(props: ExploreDataPageProps) {
   const location: any = useLocation()
-  const [showStickyLifeline, setShowStickyLifeline] = useState(false)
   const [showAnnouncementBanner, setShowAnnouncementBanner] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false)
+
+  const dtId1: DataTypeId | undefined = useAtomValue(
+    selectedDataTypeConfig1Atom
+  )?.dataTypeId
+  const dtId2: DataTypeId | undefined = useAtomValue(
+    selectedDataTypeConfig2Atom
+  )?.dataTypeId
+  const showStickyLifeline = LIFELINE_IDS.some(
+    (id) => id === dtId1 || id === dtId2
+  )
 
   // Set up initial mad lib values based on defaults and query params, redirecting from deprecated ones
   const params = useDeprecatedParamRedirects()
@@ -261,13 +277,6 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   useEffect(() => {
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`)
-
-    // hide/display the sticky suicide lifeline link based on selected condition
-    setShowStickyLifeline(
-      getSelectedConditions(madLib)?.some(
-        (condition: DataTypeConfig) => condition?.dataTypeId === 'suicide'
-      )
-    )
     setShowAnnouncementBanner(
       getSelectedConditions(madLib)?.some(
         (condition: DataTypeConfig) =>
