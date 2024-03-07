@@ -1,9 +1,7 @@
 from unittest import mock
 import os
-
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from test_utils import _load_df_from_bigquery
 from datasources.cdc_vaccination_national import CDCVaccinationNational
 
 # Current working directory.
@@ -11,9 +9,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_vaccination_national")
 
 GOLDEN_DATA = {
-    'race': os.path.join(
-        TEST_DIR, 'cdc_vaccination_national_by_race_and_ethnicity.csv'
-    ),
+    'race': os.path.join(TEST_DIR, 'cdc_vaccination_national_by_race_and_ethnicity.csv'),
     'sex': os.path.join(TEST_DIR, 'cdc_vaccination_national_by_sex.csv'),
     'age': os.path.join(TEST_DIR, 'cdc_vaccination_national_by_age.csv'),
 }
@@ -30,13 +26,8 @@ def get_state_test_data_as_df():
     'ingestion.gcs_to_bq_util.load_json_as_df_from_web',
     return_value=get_state_test_data_as_df(),
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqRace(
-    mock_bq: mock.MagicMock, mock_pop: mock.MagicMock, mock_csv: mock.MagicMock
-):
+def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdcVaccination = CDCVaccinationNational()
 
     kwargs = {
@@ -48,9 +39,7 @@ def testWriteToBqRace(
     cdcVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 3
 
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['race'], dtype={'population_pct': str, 'state_fips': str}
-    )
+    expected_df = pd.read_csv(GOLDEN_DATA['race'], dtype={'population_pct': str, 'state_fips': str})
 
     df = mock_bq.call_args_list[0].args[0]
     sort_cols = list(df.columns)
@@ -66,13 +55,8 @@ def testWriteToBqRace(
     'ingestion.gcs_to_bq_util.load_json_as_df_from_web',
     return_value=get_state_test_data_as_df(),
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqSex(
-    mock_bq: mock.MagicMock, mock_pop: mock.MagicMock, mock_csv: mock.MagicMock
-):
+def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdcVaccination = CDCVaccinationNational()
 
     kwargs = {
@@ -84,9 +68,7 @@ def testWriteToBqSex(
     cdcVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 3
 
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['sex'], dtype={'population_pct': str, 'state_fips': str}
-    )
+    expected_df = pd.read_csv(GOLDEN_DATA['sex'], dtype={'population_pct': str, 'state_fips': str})
 
     df = mock_bq.call_args_list[1].args[0]
     sort_cols = list(df.columns)
@@ -102,13 +84,8 @@ def testWriteToBqSex(
     'ingestion.gcs_to_bq_util.load_json_as_df_from_web',
     return_value=get_state_test_data_as_df(),
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqAge(
-    mock_bq: mock.MagicMock, mock_pop: mock.MagicMock, mock_csv: mock.MagicMock
-):
+def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdcVaccination = CDCVaccinationNational()
 
     kwargs = {
@@ -120,9 +97,7 @@ def testWriteToBqAge(
     cdcVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 3
 
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['age'], dtype={'vaccinated_pop_pct': str, 'state_fips': str}
-    )
+    expected_df = pd.read_csv(GOLDEN_DATA['age'], dtype={'vaccinated_pop_pct': str, 'state_fips': str})
 
     df = mock_bq.call_args_list[2].args[0]
     sort_cols = list(df.columns)

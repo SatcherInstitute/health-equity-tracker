@@ -6,8 +6,6 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from datasources.geo_context import GeoContext, format_svi
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
-from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
-
 
 # UNIT TESTS
 
@@ -45,9 +43,7 @@ def _scaffold_fips_df(*args):
 
 
 def _get_svi_as_df():
-    return pd.read_csv(
-        os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str}
-    )
+    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
 
 
 def _generate_breakdown(*args):
@@ -95,23 +91,10 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_generate_breakdown: mock.MagicMo
     }
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-def testGenerateNationalBreakdown(
-    mock_pop: mock.MagicMock,
-    mock_state_names: mock.MagicMock,
-):
+def testGenerateNationalBreakdown():
     """Tests the generation of national breakdown"""
     geoContext = GeoContext()
     national_df = geoContext.generate_breakdown("national")
-
-    assert mock_pop.call_count == 1
-    assert mock_state_names.call_count == 1
 
     expected_national_df = pd.read_csv(
         GOLDEN_DATA_NATIONAL,
@@ -123,16 +106,7 @@ def testGenerateNationalBreakdown(
 
 
 @mock.patch('ingestion.dataset_utils.scaffold_fips_df', side_effect=_scaffold_fips_df)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
 def testGenerateStateLevelBreakdown(
-    mock_pop: mock.MagicMock,
-    mock_state_names: mock.MagicMock,
     mock_scaffold: mock.MagicMock,
 ):
     """Tests the generation of state and territory breakdown"""
@@ -147,9 +121,6 @@ def testGenerateStateLevelBreakdown(
         },
     )
 
-    # 1 call for state pops, 1 call for territory pops
-    assert mock_pop.call_count == 2
-    assert mock_state_names.call_count == 1
     assert mock_scaffold.call_count == 1
 
     assert_frame_equal(state_level_df, expected_state_level_df, check_like=True)
@@ -157,20 +128,11 @@ def testGenerateStateLevelBreakdown(
 
 @mock.patch('ingestion.dataset_utils.scaffold_fips_df', side_effect=_scaffold_fips_df)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=_get_svi_as_df(),
 )
 def testGenerateCountyBreakdown(
     mock_svi_data: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-    mock_county_names: mock.MagicMock,
     mock_scaffold: mock.MagicMock,
 ):
     """Tests the generation of county breakdown"""
@@ -180,9 +142,6 @@ def testGenerateCountyBreakdown(
     county_df = geoContext.generate_breakdown("county")
 
     assert mock_svi_data.call_count == 1
-    # 1 for counties + 1 for county-equivalents
-    assert mock_pop.call_count == 2
-    assert mock_county_names.call_count == 1
     assert mock_scaffold.call_count == 1
 
     expected_county_df = pd.read_csv(GOLDEN_DATA_COUNTY, dtype={'county_fips': str})

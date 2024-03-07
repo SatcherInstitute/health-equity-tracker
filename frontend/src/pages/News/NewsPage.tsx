@@ -34,7 +34,7 @@ export interface Article {
     hide_on_production: boolean
   }
   _embedded: {
-    'author': {
+    author: {
       id: number
     }
     'wp:featuredmedia': Array<{

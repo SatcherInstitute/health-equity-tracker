@@ -40,11 +40,11 @@ export const CategoryMap = {
   'behavioral-health': 'Behavioral Health',
   'black-women-health': `Black Women's Health`,
   'chronic-disease': 'Chronic Disease',
-  'covid': 'COVID-19',
-  'hiv': 'HIV',
-  'medicare': 'Medication Utilization',
-  'pdoh': 'Political Determinants of Health',
-  'sdoh': 'Social Determinants of Health',
+  covid: 'COVID-19',
+  hiv: 'HIV',
+  medicare: 'Medication Utilization',
+  pdoh: 'Political Determinants of Health',
+  sdoh: 'Social Determinants of Health',
 }
 
 export type CategoryTypeId = keyof typeof CategoryMap
@@ -140,6 +140,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
+  gun_violence: 'Gun Violence (General Population)',
   health_insurance: 'Uninsured Individuals',
   hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',
@@ -167,6 +168,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
+  gun_violence: 'Gun Violence',
 }
 
 export interface Category {

@@ -3,7 +3,6 @@ from pandas._testing import assert_frame_equal
 from datasources.cdc_hiv import CDCHIVData, DTYPE, NA_VALUES
 import pandas as pd
 import os
-from test_utils import _load_public_dataset_from_bigquery_as_df
 
 HIV_DIR = "cdc_hiv"
 BLACK_HIV_DIR = "cdc_hiv_black_women"
@@ -21,22 +20,14 @@ GOLDEN_DATA = {
     "age_national_current": os.path.join(GOLDEN_DIR, "age_national_current.csv"),
     "age_national_historical": os.path.join(GOLDEN_DIR, "age_national_historical.csv"),
     "race_age_national": os.path.join(GOLDEN_DIR, "by_race_age_national.csv"),
-    "race_national_current": os.path.join(
-        GOLDEN_DIR, "race_and_ethnicity_national_current.csv"
-    ),
-    "race_national_historical": os.path.join(
-        GOLDEN_DIR, "race_and_ethnicity_national_historical.csv"
-    ),
+    "race_national_current": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_current.csv"),
+    "race_national_historical": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_historical.csv"),
     "sex_state_current": os.path.join(GOLDEN_DIR, "sex_state_current.csv"),
     "sex_state_historical": os.path.join(GOLDEN_DIR, "sex_state_historical.csv"),
     "sex_county_current": os.path.join(GOLDEN_DIR, "sex_county_current.csv"),
     "sex_county_historical": os.path.join(GOLDEN_DIR, "sex_county_historical.csv"),
-    "black_women_national_current": os.path.join(
-        BLACK_GOLDEN_DIR, "black_women_national_current.csv"
-    ),
-    "black_women_national_historical": os.path.join(
-        BLACK_GOLDEN_DIR, "black_women_national_historical.csv"
-    ),
+    "black_women_national_current": os.path.join(BLACK_GOLDEN_DIR, "black_women_national_current.csv"),
+    "black_women_national_historical": os.path.join(BLACK_GOLDEN_DIR, "black_women_national_historical.csv"),
 }
 
 EXP_DTYPE = {"state_fips": str, "county_fips": str, "time_period": str}
@@ -68,9 +59,7 @@ def test_write_to_bq_race_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="race", geographic="national"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race", geographic="national")
 
     assert mock_bq.call_count == 3
     (
@@ -86,12 +75,8 @@ def test_write_to_bq_race_national(
         race_age_table_name,
     ), _col_types = mock_bq_race_age_national
     assert race_age_table_name == "by_race_age_national"
-    expected_race_age_national_df = pd.read_csv(
-        GOLDEN_DATA["race_age_national"], dtype=EXP_DTYPE
-    )
-    assert_frame_equal(
-        race_age_national_df, expected_race_age_national_df, check_like=True
-    )
+    expected_race_age_national_df = pd.read_csv(GOLDEN_DATA["race_age_national"], dtype=EXP_DTYPE)
+    assert_frame_equal(race_age_national_df, expected_race_age_national_df, check_like=True)
 
     # BY RACE NATIONAL CURRENT
     (
@@ -100,17 +85,11 @@ def test_write_to_bq_race_national(
         race_current_table_name,
     ), _col_types = mock_bq_race_national_current
     assert race_current_table_name == "race_and_ethnicity_national_current"
-    expected_race_national_current_df = pd.read_csv(
-        GOLDEN_DATA["race_national_current"], dtype=EXP_DTYPE
-    )
+    expected_race_national_current_df = pd.read_csv(GOLDEN_DATA["race_national_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        race_national_current_df.sort_values(by='race_and_ethnicity').reset_index(
-            drop=True
-        ),
-        expected_race_national_current_df.sort_values(
-            by='race_and_ethnicity'
-        ).reset_index(drop=True),
+        race_national_current_df.sort_values(by='race_and_ethnicity').reset_index(drop=True),
+        expected_race_national_current_df.sort_values(by='race_and_ethnicity').reset_index(drop=True),
         check_like=True,
     )
 
@@ -122,17 +101,13 @@ def test_write_to_bq_race_national(
     ), _col_types = mock_bq_race_national_historical
 
     assert race_historical_table_name == "race_and_ethnicity_national_historical"
-    expected_race_national_historical_df = pd.read_csv(
-        GOLDEN_DATA["race_national_historical"], dtype=EXP_DTYPE
-    )
+    expected_race_national_historical_df = pd.read_csv(GOLDEN_DATA["race_national_historical"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        race_national_historical_df.sort_values(
-            by=['time_period', 'race_and_ethnicity']
-        ).reset_index(drop=True),
-        expected_race_national_historical_df.sort_values(
-            by=['time_period', 'race_and_ethnicity']
-        ).reset_index(drop=True),
+        race_national_historical_df.sort_values(by=['time_period', 'race_and_ethnicity']).reset_index(drop=True),
+        expected_race_national_historical_df.sort_values(by=['time_period', 'race_and_ethnicity']).reset_index(
+            drop=True
+        ),
         check_like=True,
     )
 
@@ -147,9 +122,7 @@ def test_write_to_bq_age_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="age", geographic="national"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="age", geographic="national")
 
     assert mock_bq.call_count == 2
     (
@@ -163,9 +136,7 @@ def test_write_to_bq_age_national(
         table_name,
     ), _col_types = mock_bq_age_national_current
     assert table_name == "age_national_current"
-    expected_age_national_current_df = pd.read_csv(
-        GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE
-    )
+    expected_age_national_current_df = pd.read_csv(GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
         age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
@@ -179,17 +150,11 @@ def test_write_to_bq_age_national(
         table_name,
     ), _col_types = mock_bq_age_national_historical
     assert table_name == "age_national_historical"
-    expected_age_national_historical_df = pd.read_csv(
-        GOLDEN_DATA["age_national_historical"], dtype=EXP_DTYPE
-    )
+    expected_age_national_historical_df = pd.read_csv(GOLDEN_DATA["age_national_historical"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        age_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(
-            drop=True
-        ),
-        expected_age_national_historical_df.sort_values(
-            by=['time_period', 'age']
-        ).reset_index(drop=True),
+        age_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(drop=True),
+        expected_age_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(drop=True),
         check_like=True,
     )
 
@@ -204,26 +169,18 @@ def test_write_to_bq_sex_state(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="sex", geographic="state"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="state")
 
     assert mock_bq.call_count == 2
     mock_bq_sex_state_current, mock_bq_sex_state_historical = mock_bq.call_args_list
 
     (sex_state_current_df, _dataset, table_name), _col_types = mock_bq_sex_state_current
     assert table_name == "sex_state_current"
-    expected_sex_state_current_df = pd.read_csv(
-        GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE
-    )
+    expected_sex_state_current_df = pd.read_csv(GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(
-            drop=True
-        ),
-        expected_sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(
-            drop=True
-        ),
+        sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(drop=True),
+        expected_sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(drop=True),
         check_like=True,
     )
 
@@ -233,39 +190,26 @@ def test_write_to_bq_sex_state(
         table_name,
     ), _col_types = mock_bq_sex_state_historical
     assert table_name == "sex_state_historical"
-    expected_sex_state_historical_df = pd.read_csv(
-        GOLDEN_DATA["sex_state_historical"], dtype=EXP_DTYPE
-    )
+    expected_sex_state_historical_df = pd.read_csv(GOLDEN_DATA["sex_state_historical"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        sex_state_historical_df.sort_values(
-            by=['time_period', 'sex', 'state_name']
-        ).reset_index(drop=True),
-        expected_sex_state_historical_df.sort_values(
-            by=['time_period', 'sex', 'state_name']
-        ).reset_index(drop=True),
+        sex_state_historical_df.sort_values(by=['time_period', 'sex', 'state_name']).reset_index(drop=True),
+        expected_sex_state_historical_df.sort_values(by=['time_period', 'sex', 'state_name']).reset_index(drop=True),
         check_like=True,
     )
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_sex_county(
     mock_data_dir: mock.MagicMock,
-    mock_public_bq: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="sex", geographic="county"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="county")
 
     assert mock_bq.call_count == 2
     mock_bq_sex_county_current, mock_bq_sex_county_historical = mock_bq.call_args_list
@@ -276,12 +220,8 @@ def test_write_to_bq_sex_county(
         table_name,
     ), _col_types = mock_bq_sex_county_current
     assert table_name == "sex_county_current"
-    expected_sex_county_current_df = pd.read_csv(
-        GOLDEN_DATA["sex_county_current"], dtype=EXP_DTYPE
-    )
-    assert_frame_equal(
-        sex_county_current_df, expected_sex_county_current_df, check_like=True
-    )
+    expected_sex_county_current_df = pd.read_csv(GOLDEN_DATA["sex_county_current"], dtype=EXP_DTYPE)
+    assert_frame_equal(sex_county_current_df, expected_sex_county_current_df, check_like=True)
 
     (
         sex_county_historical_df,
@@ -289,16 +229,10 @@ def test_write_to_bq_sex_county(
         table_name,
     ), _col_types = mock_bq_sex_county_historical
     assert table_name == "sex_county_historical"
-    expected_sex_county_historical_df = pd.read_csv(
-        GOLDEN_DATA["sex_county_historical"], dtype=EXP_DTYPE
-    )
+    expected_sex_county_historical_df = pd.read_csv(GOLDEN_DATA["sex_county_historical"], dtype=EXP_DTYPE)
     assert_frame_equal(
-        sex_county_historical_df.sort_values(by=['time_period', 'sex']).reset_index(
-            drop=True
-        ),
-        expected_sex_county_historical_df.sort_values(
-            by=['time_period', 'sex']
-        ).reset_index(drop=True),
+        sex_county_historical_df.sort_values(by=['time_period', 'sex']).reset_index(drop=True),
+        expected_sex_county_historical_df.sort_values(by=['time_period', 'sex']).reset_index(drop=True),
         check_like=True,
     )
 
@@ -313,9 +247,7 @@ def test_write_to_bq_black_women_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="black_women", geographic="national"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="black_women", geographic="national")
 
     assert mock_bq.call_count == 2
     (
@@ -329,14 +261,10 @@ def test_write_to_bq_black_women_national(
         table_name,
     ), _col_types = mock_bq_black_women_national_current
     assert table_name == "black_women_national_current"
-    expected_black_women_national_current_df = pd.read_csv(
-        GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE
-    )
+    expected_black_women_national_current_df = pd.read_csv(GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE)
     assert_frame_equal(
         black_women_national_current_df.sort_values(by=['age']).reset_index(drop=True),
-        expected_black_women_national_current_df.sort_values(by=['age']).reset_index(
-            drop=True
-        ),
+        expected_black_women_national_current_df.sort_values(by=['age']).reset_index(drop=True),
         check_like=True,
     )
 
@@ -350,11 +278,7 @@ def test_write_to_bq_black_women_national(
         GOLDEN_DATA["black_women_national_historical"], dtype=EXP_DTYPE
     )
     assert_frame_equal(
-        black_women_national_historical_df.sort_values(
-            by=['time_period', 'age']
-        ).reset_index(drop=True),
-        expected_black_women_national_historical_df.sort_values(
-            by=['time_period', 'age']
-        ).reset_index(drop=True),
+        black_women_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(drop=True),
+        expected_black_women_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(drop=True),
         check_like=True,
     )

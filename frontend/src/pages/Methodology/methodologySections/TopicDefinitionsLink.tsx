@@ -17,13 +17,12 @@ export default function TopicDefinitionsLink() {
         <h2 className='sr-only'>Topic Definitions</h2>
 
         {CATEGORIES_LIST.map((category) => {
-          const categoryConfigs = category.options
-            .map((topic: DropdownVarId) => {
+          const categoryConfigs = category.options.flatMap(
+            (topic: DropdownVarId) => {
               return METRIC_CONFIG[topic]
-            })
-            .flat()
+            }
+          )
 
-          console.log(categoryConfigs)
           return (
             <div
               id={slugify(category.title)}

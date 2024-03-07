@@ -5,7 +5,6 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from datasources.kff_vaccination import KFFVaccination
 from datasources.kff_vaccination import get_data_url
-from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -19,15 +18,11 @@ def get_github_file_list_as_df():
 
 
 def get_percentage_of_race_test_data_as_df():
-    return pd.read_csv(
-        os.path.join(TEST_DIR, 'kff_vaccination_percentage_of_race_test.csv')
-    )
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_percentage_of_race_test.csv'))
 
 
 def get_pct_share_race_test_data_as_df():
-    return pd.read_csv(
-        os.path.join(TEST_DIR, 'kff_vaccination_pct_share_race_test.csv')
-    )
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_pct_share_race_test.csv'))
 
 
 def get_state_totals_test_data_as_df():
@@ -38,9 +33,7 @@ def get_state_totals_test_data_as_df():
 
 
 def get_kff_population_numbers_as_df():
-    return pd.read_csv(
-        os.path.join(TEST_DIR, 'kff_vaccination_population.csv'), dtype=str
-    )
+    return pd.read_csv(os.path.join(TEST_DIR, 'kff_vaccination_population.csv'), dtype=str)
 
 
 @mock.patch(
@@ -68,18 +61,9 @@ def testGetDataUrlPctShare(mock_json: mock.MagicMock):
     return_value=get_state_totals_test_data_as_df(),
 )
 @mock.patch('ingestion.github_util.decode_json_from_url_into_df')
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBq(
     mock_bq: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-    mock_fips: mock.MagicMock,
     mock_csv: mock.MagicMock,
     mock_csv_web: mock.MagicMock,
     mock_json: mock.MagicMock,
@@ -102,6 +86,8 @@ def testWriteToBq(
     assert mock_bq.call_args_list[0].args[2] == 'race_and_ethnicity_state'
     assert mock_bq.call_args_list[1].args[2] == 'alls_state'
 
+    df = mock_bq.call_args_list[0].args[0]
+
     expected_df = pd.read_csv(
         GOLDEN_DATA,
         dtype={
@@ -112,4 +98,4 @@ def testWriteToBq(
         },
     )
 
-    assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)

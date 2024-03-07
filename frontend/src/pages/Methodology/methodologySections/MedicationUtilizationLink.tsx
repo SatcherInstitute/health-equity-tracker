@@ -17,9 +17,9 @@ import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 export const medicareMedicationDataSources = [dataSourceMetadataMap.phrma]
 
-const datatypeConfigs = MEDICARE_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+const datatypeConfigs = MEDICARE_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
-}).flat()
+})
 
 export const medicareTopicsString = buildTopicsString(
   MEDICARE_CATEGORY_DROPDOWNIDS

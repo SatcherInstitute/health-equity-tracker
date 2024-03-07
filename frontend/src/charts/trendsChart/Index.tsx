@@ -193,8 +193,8 @@ export function TrendsChart({
       selectedGroup === null
         ? [] // if selectedGroup has null value, clear selected group array to remove filter
         : selectedTrendGroups.includes(selectedGroup) // otherwise update the array with newly selected or removed group
-        ? selectedTrendGroups.filter((group) => group !== selectedGroup)
-        : [...selectedTrendGroups, selectedGroup]
+          ? selectedTrendGroups.filter((group) => group !== selectedGroup)
+          : [...selectedTrendGroups, selectedGroup]
     // Set new array of selected groups to state
 
     const allGroupsAreSelected =

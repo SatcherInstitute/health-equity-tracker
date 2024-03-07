@@ -90,12 +90,12 @@ export default function AltTableView(props: AltTableViewProps) {
           {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
-      <div
+      <button
+        type='button'
         onClick={() => {
           props.setExpanded(!props.expanded)
         }}
-        aria-hidden={true}
-        className={`cursor-pointer pl-4 text-left  text-smallest sm:text-text ${
+        className={`cursor-pointer pl-4 text-left border-none bg-listboxColor text-smallest sm:text-text ${
           props.expanded
             ? 'px-0 py-4'
             : 'text-ellipsis whitespace-nowrap leading-lhListBoxTitle sm:overflow-hidden'
@@ -105,7 +105,7 @@ export default function AltTableView(props: AltTableViewProps) {
           {!props.expanded ? 'Expand' : 'Collapse'}{' '}
           <HetTerm>{props.expandBoxLabel}</HetTerm> table
         </span>
-      </div>
+      </button>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.expanded && (

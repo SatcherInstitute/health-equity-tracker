@@ -10,19 +10,21 @@ import { type MetricId } from '../config/MetricConfig'
 import VaccineProvider from '../providers/VaccineProvider'
 import PhrmaProvider from '../providers/PhrmaProvider'
 import GeoContextProvider from '../providers/GeoContextProvider'
+import GunViolenceProvider from '../providers/GunViolenceProvider'
 
 export type ProviderId =
   | 'acs_condition_provider'
   | 'acs_pop_provider'
-  | 'cdc_covid_provider'
-  | 'hiv_provider'
-  | 'geo_context_provider'
-  | 'vaccine_provider'
-  | 'covid_provider'
   | 'ahr_provider'
   | 'cawp_provider'
+  | 'cdc_covid_provider'
+  | 'covid_provider'
+  | 'geo_context_provider'
+  | 'gun_violence_provider'
+  | 'hiv_provider'
   | 'incarceration_provider'
   | 'phrma_provider'
+  | 'vaccine_provider'
 
 export default class VariableProviderMap {
   private readonly providers: VariableProvider[]
@@ -34,12 +36,13 @@ export default class VariableProviderMap {
     this.providers = [
       acsProvider,
       new AcsConditionProvider(),
-      new CdcCovidProvider(acsProvider),
-      new HivProvider(),
-      new GeoContextProvider(),
-      new CawpProvider(),
-      new IncarcerationProvider(),
       new AhrProvider(),
+      new CawpProvider(),
+      new CdcCovidProvider(acsProvider),
+      new GeoContextProvider(),
+      new GunViolenceProvider(),
+      new HivProvider(),
+      new IncarcerationProvider(),
       new PhrmaProvider(),
       new VaccineProvider(acsProvider),
     ]

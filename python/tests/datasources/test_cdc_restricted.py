@@ -1,39 +1,24 @@
 from unittest import mock
 import os
-
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
-
-from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 from datasources.cdc_restricted import CDCRestrictedData  # type: ignore
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_restricted")
 
-GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_state_time_series.json'
-)
+GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES = os.path.join(TEST_DIR, 'golden_data', 'by_sex_state_time_series.json')
 
-GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_county_time_series.json'
-)
+GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES = os.path.join(TEST_DIR, 'golden_data', 'by_sex_county_time_series.json')
 
-GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_national_time_series.json'
-)
+GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES = os.path.join(TEST_DIR, 'golden_data', 'by_sex_national_time_series.json')
 
-GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_state_cumulative.json'
-)
+GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_state_cumulative.json')
 
-GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_county_cumulative.json'
-)
+GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_county_cumulative.json')
 
-GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(
-    TEST_DIR, 'golden_data', 'by_sex_national_cumulative.json'
-)
+GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_national_cumulative.json')
 
 
 def get_cdc_numbers_as_df(*args, **kwargs):
@@ -74,21 +59,10 @@ def get_cdc_restricted_by_sex_county_as_df():
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-def testGenerateBreakdownSexStateTimeSeries(
-    mock_fips: mock.MagicMock, mock_pop: mock.MagicMock
-):
+def testGenerateBreakdownSexStateTimeSeries():
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(
-        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', True
-    )
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', True)
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES,
         dtype={
@@ -108,21 +82,10 @@ def testGenerateBreakdownSexStateTimeSeries(
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-def testGenerateBreakdownSexCountyTimeSeries(
-    mock_fips: mock.MagicMock, mock_pop: mock.MagicMock
-):
+def testGenerateBreakdownSexCountyTimeSeries():
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(
-        get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', True
-    )
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', True)
 
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES,
@@ -144,21 +107,11 @@ def testGenerateBreakdownSexCountyTimeSeries(
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-def testGenerateBreakdownSexNationalTimeSeries(
-    mock_fips: mock.MagicMock, mock_pop: mock.MagicMock
-):
+def testGenerateBreakdownSexNationalTimeSeries():
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(
-        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True
-    )
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True)
+
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES,
         dtype={
@@ -178,21 +131,11 @@ def testGenerateBreakdownSexNationalTimeSeries(
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-def testGenerateBreakdownSexStateCumulative(
-    mock_fips: mock.MagicMock, mock_pop: mock.MagicMock
-):
+def testGenerateBreakdownSexStateCumulative():
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(
-        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False
-    )
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
+
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE,
         dtype={
@@ -212,21 +155,11 @@ def testGenerateBreakdownSexStateCumulative(
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-def testGenerateBreakdownSexNationalCumulative(
-    mock_fips: mock.MagicMock, mock_pop: mock.MagicMock
-):
+def testGenerateBreakdownSexNationalCumulative():
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(
-        get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False
-    )
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
+
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE,
         dtype={
@@ -246,21 +179,10 @@ def testGenerateBreakdownSexNationalCumulative(
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-def testGenerateBreakdownSexCountyCumulative(
-    mock_fips: mock.MagicMock, mock_pop: mock.MagicMock
-):
+def testGenerateBreakdownSexCountyCumulative():
     cdc_restricted = CDCRestrictedData()
 
-    df = cdc_restricted.generate_breakdown(
-        get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False
-    )
+    df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
 
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE,
@@ -282,23 +204,9 @@ def testGenerateBreakdownSexCountyCumulative(
     )
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqAgeNational(
-    mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-):
+def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     kwargs = {
@@ -314,41 +222,14 @@ def testWriteToBqAgeNational(
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_state.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_state.csv'
 
-    assert mock_fips.call_count == 2
-
-    assert mock_pop.call_count == 6
-    # National, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory_state_level'
-    assert mock_pop.call_args_list[2].args[1] == 'by_age_national'
-
-    # National, non cumulative
-    assert mock_pop.call_args_list[3].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[4].args[1] == 'by_age_territory_state_level'
-    assert mock_pop.call_args_list[5].args[1] == 'by_age_national'
-
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_national_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_age_national_processed_time_series'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqAgeState(
-    mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-):
+def testWriteToBqAgeState(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     kwargs = {
@@ -364,38 +245,14 @@ def testWriteToBqAgeState(
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_state.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_state.csv'
 
-    assert mock_pop.call_count == 4
-
-    # State, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory_state_level'
-
-    # State, non cumulative
-    assert mock_pop.call_args_list[2].args[1] == 'by_age_state'
-    assert mock_pop.call_args_list[3].args[1] == 'by_age_territory_state_level'
-
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_state_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_age_state_processed_time_series'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqAgeCounty(
-    mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-):
+def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     kwargs = {
@@ -411,38 +268,14 @@ def testWriteToBqAgeCounty(
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_county.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_county.csv'
 
-    assert mock_pop.call_count == 4
-
-    # County, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_age_county'
-    assert mock_pop.call_args_list[1].args[1] == 'by_age_territory_county_level'
-
-    # County, non cumulative
-    assert mock_pop.call_args_list[2].args[1] == 'by_age_county'
-    assert mock_pop.call_args_list[3].args[1] == 'by_age_territory_county_level'
-
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_county_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_age_county_processed_time_series'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqSexCounty(
-    mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-):
+def testWriteToBqSexCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     kwargs = {
@@ -458,38 +291,14 @@ def testWriteToBqSexCounty(
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_county.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_sex_county.csv'
 
-    assert mock_pop.call_count == 4
-
-    # County, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_sex_county'
-    assert mock_pop.call_args_list[1].args[1] == 'by_sex_territory_county_level'
-
-    # County, non cumulative
-    assert mock_pop.call_args_list[2].args[1] == 'by_sex_county'
-    assert mock_pop.call_args_list[3].args[1] == 'by_sex_territory_county_level'
-
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_sex_county_processed'
     assert mock_bq.call_args_list[1].args[2] == 'by_sex_county_processed_time_series'
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-def testWriteToBqRaceNational(
-    mock_bq: mock.MagicMock,
-    mock_csv: mock.MagicMock,
-    mock_fips: mock.MagicMock,
-    mock_pop: mock.MagicMock,
-):
+def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     cdc_restricted = CDCRestrictedData()
 
     kwargs = {
@@ -504,26 +313,7 @@ def testWriteToBqRaceNational(
     assert mock_csv.call_count == 3
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_race_state.csv'
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert (
-        mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
-    )
-
-    assert mock_pop.call_count == 6
-    # National, cumulative
-    assert mock_pop.call_args_list[0].args[1] == 'by_race_state'
-    assert (
-        mock_pop.call_args_list[1].args[1]
-        == 'by_race_and_ethnicity_territory_state_level'
-    )
-    assert mock_pop.call_args_list[2].args[1] == 'by_race_national'
-
-    # National, non cumulative
-    assert mock_pop.call_args_list[3].args[1] == 'by_race_state'
-    assert (
-        mock_pop.call_args_list[4].args[1]
-        == 'by_race_and_ethnicity_territory_state_level'
-    )
-    assert mock_pop.call_args_list[5].args[1] == 'by_race_national'
+    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
 
     assert mock_bq.call_count == 3
     assert mock_bq.call_args_list[0].args[2] == 'by_race_national_processed'

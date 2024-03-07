@@ -1,0 +1,51 @@
+repos:
+  # SPELL CHECKER
+  - repo: local
+    hooks:
+      - id: cspell
+        name: 📚 check spelling of staged files
+        entry: bash -c 'npx cspell --no-must-find-files --no-progress --cache --gitignore "**/*.{md,html,tsx,ts,py,yaml,yml}"'
+        language: system
+        types: [text]
+  # PREVENT COMMON GIT/GITHUB ERRORS
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-case-conflict
+        name: 👯 check for file name casing conflicts
+      - id: check-merge-conflict
+        name: 🙅 check for merge conflict markers
+      - id: check-added-large-files
+        name: 🐳 check for files over 100mb
+        args: ["--maxkb=100_000", "--enforce-all"]
+  # LINT/FORMAT PYTHON WITH BLACK
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black
+        name: 🐍 python format + lint with black
+  # LINT/FORMAT JS/TS/JSON WITH BIOME
+  - repo: local
+    hooks:
+      - id: local-biome-check
+        name: ☕️ ts/json format + lint with biome
+        entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched --changed
+        language: system
+        types: [text]
+  # TYPECHECK WITH TSC
+  - repo: local
+    hooks:
+      - id: local-tsc-check
+        name: 🦕 typechecking
+        entry: bash -c 'npm run tsc --prefix frontend/'
+        language: system
+        types: [text]
+  # WARN IF THERE ARE TOO MANY FILES IN ONE COMMIT
+  - repo: local
+    hooks:
+      - id: check-file-count
+        name: 🗄️  check + warn if 100+ files in commit
+        entry: bash -c scripts/.util/warn_many_files_per_commit.sh
+        language: system
+        types: [text]
+        pass_filenames: false

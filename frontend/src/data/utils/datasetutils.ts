@@ -100,7 +100,9 @@ export function getExtremeValues(
 
   // cleanup and sort the data
   let sortedData = data
-    .filter((row: Row) => !isNaN(row[fieldName]) && row[fieldName] != null)
+    .filter(
+      (row: Row) => !Number.isNaN(row[fieldName]) && row[fieldName] != null
+    )
     .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]) // ascending order
 
   const lowestValue = sortedData[0][fieldName]

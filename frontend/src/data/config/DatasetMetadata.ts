@@ -94,6 +94,18 @@ export type DatasetId =
   | 'cdc_vaccination_national-age_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
   | 'cdc_vaccination_national-race_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
   | 'cdc_vaccination_national-sex_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
+  | 'cdc_wisqars_data-age_national_current'
+  | 'cdc_wisqars_data-age_national_historical'
+  | 'cdc_wisqars_data-age_state_current'
+  | 'cdc_wisqars_data-age_state_historical'
+  | 'cdc_wisqars_data-race_and_ethnicity_national_current'
+  | 'cdc_wisqars_data-race_and_ethnicity_national_historical'
+  | 'cdc_wisqars_data-race_and_ethnicity_state_current'
+  | 'cdc_wisqars_data-race_and_ethnicity_state_historical'
+  | 'cdc_wisqars_data-sex_national_current'
+  | 'cdc_wisqars_data-sex_national_historical'
+  | 'cdc_wisqars_data-sex_state_current'
+  | 'cdc_wisqars_data-sex_state_historical'
   | 'census_pop_estimates-race_and_ethnicity'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
@@ -722,7 +734,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
       '1915-2023 for Congress, 1983-2023 for state/territory legislatures',
     source_id: 'cawp',
   },
-  'the_unitedstates_project': {
+  the_unitedstates_project: {
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
     original_data_sourced: '1915-2023',
     source_id: 'the_unitedstates_project',
@@ -830,5 +842,69 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     name: 'medicare adherence by Medicare eligibility reason, by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
+  },
+  'cdc_wisqars_data-age_state_historical': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by age and state',
+    original_data_sourced:
+      '2001-2021 (Non-Fatal); 2018-2021 [Fatal (single race)]',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-race_and_ethnicity_state_historical': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by race/ethnicity and state',
+    original_data_sourced: '2018-2021 (single race)',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-sex_state_historical': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by sex (fatal and non-fatal) and state (fatal only)',
+    original_data_sourced:
+      '2001-2021 (Non-Fatal); 2018-2021 [Fatal (single race)]',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-age_state_current': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by age and state',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-race_and_ethnicity_state_current': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by race/ethnicity and state',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-sex_state_current': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by sex (fatal and non-fatal) and state (fatal only)',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-age_national_historical': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by age, nationally',
+    original_data_sourced:
+      '2001-2021 (Non-Fatal); 2018-2021 [Fatal (single race)]',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-race_and_ethnicity_national_historical': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by race/ethnicity, nationally',
+    original_data_sourced: '2018-2021 (single race)',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-sex_national_historical': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by sex (fatal and non-fatal), nationally (fatal only)',
+    original_data_sourced:
+      '2001-2021 (Non-Fatal); 2018-2021 [Fatal (single race)]',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-age_national_current': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by age, nationally',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-race_and_ethnicity_national_current': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by race/ethnicity, nationally',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data',
+  },
+  'cdc_wisqars_data-sex_national_current': {
+    name: 'Non-fatal Gun-related Injuries and Deaths, by sex (fatal and non-fatal), nationally (fatal only)',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data',
   },
 }
