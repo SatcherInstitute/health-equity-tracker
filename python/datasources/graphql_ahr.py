@@ -11,7 +11,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
     generate_pct_share_col_without_unknowns,
 )
-from ingestion.merge_utils import merge_pop_numbers, merge_yearly_pop_numbers, merge_state_ids
+from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE
 
 # Set options to display the full DataFrame
@@ -198,6 +198,8 @@ def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
     breakdown_df = df.copy()
 
     for topic, metric in AHR_BASE_MEASURES.items():
+        print('---------------')
+        print(topic, metric)
         topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
 
         # Extract and assign the demographic breakdown
@@ -213,8 +215,8 @@ def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
         else:
             breakdown_df.loc[topic_rows, 'Value'] = breakdown_df.loc[topic_rows, 'Value']
 
-    print('---------------')
-    print(breakdown_df)
+    # print('---------------')
+    # print(breakdown_df)
     # breakdown_df.to_csv("testing_output.csv", index=False)
 
     # Pivot the DataFrame
