@@ -1,26 +1,29 @@
 import LightbulbIcon from '@mui/icons-material/Lightbulb'
 import HetNotice from '../../styles/HetComponents/HetNotice'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
-import { Button } from 'react-scroll'
 import { IconButton } from '@mui/material'
+
 
 function AnnouncementBanner() {
   return (
     <HetNotice
-      className='m-2 mt-0 border border-secondaryMain text-left text-small'
+      className='my-8 mx-8 border border-secondaryMain text-left text-small'
       icon={<LightbulbIcon color='primary' />}
       title='Did You Know?'
       kind='text-only'
     >
-      <p>
+      <p className='w-full'>
         Historical data reveals that women in government positions significantly
         contribute to higher rates of inclusivity and equitable power
         distribution, fostering a more representative democracy.
       </p>
+      <p className="w-full text-smallest">Source:{' '}
+        <a href='https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality' target="_blank">
+          The Future We Expect: Women's Health and Gender Equality at WHO
+        </a>
+      </p>
       <IconButton
         href={'/exploredata?mls=1.women_in_gov-3.00&group1=All'}
-        className='mx-0 my-2 px-0 text-left text-text'
+        className='mx-0 my-2 px-0 text-left text-text rounded-xs'
       >
         Explore the Women in Government Data →
       </IconButton>
