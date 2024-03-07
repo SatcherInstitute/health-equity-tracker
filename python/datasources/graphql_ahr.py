@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+from typing import cast
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -12,7 +13,7 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
 )
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers
-from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE
+from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
 
 
 def generate_cols_map(prefixes, suffix):
@@ -234,7 +235,7 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geographic: GEO_
     pop_breakdown = std_col.RACE_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
     breakdown_df = merge_state_ids(breakdown_df)
-    breakdown_df = merge_yearly_pop_numbers(breakdown_df, pop_breakdown, geographic)
+    breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geographic)
 
     breakdown_df = add_estimated_total_columns(breakdown_df, RAW_TOTALS_MAP, std_col.POPULATION_COL)
 
