@@ -16,8 +16,9 @@ from ingestion.merge_utils import merge_pop_numbers, merge_yearly_pop_numbers, m
 from ingestion.types import GEO_TYPE, SEX_RACE_AGE_TYPE
 
 # Set options to display the full DataFrame
-pd.set_option('display.max_rows', None)  # Shows all rows
-pd.set_option('display.max_columns', None)  # Shows all columns
+# pd.set_option('display.max_rows', None)  # Shows all rows
+# pd.set_option('display.max_columns', None)  # Shows all columns
+# pd.set_option('display.max_colwidth', None)
 
 
 def generate_cols_map(prefixes, suffix):
@@ -117,6 +118,9 @@ AHR_SEX_STRINGS = ['Female', 'Male']
 
 CURRENT_COLS = list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values())
 
+DemographicScope = Literal['age', 'race_and_ethnicity', 'sex']
+GeographicScope = Literal['national', 'state']
+
 
 class GraphQlAHRData(DataSource):
     @staticmethod
@@ -148,7 +152,7 @@ class GraphQlAHRData(DataSource):
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
     def generate_breakdown_df(
-        self, df: pd.DataFrame, demographic: Literal['age', 'race_and_ethnicity', 'sex'], geographic: str
+        self, df: pd.DataFrame, demographic: Literal['age', 'race_and_ethnicity', 'sex'], geographic: GeographicScope
     ):
         measure_map = create_measure_map()
 
@@ -196,16 +200,11 @@ def graphql_response_to_dataframe(response_data, geographic):
     return df
 
 
-def parse_raw_data(df: pd.DataFrame, breakdown: str):
+def parse_raw_data(df: pd.DataFrame, breakdown: DemographicScope):
     breakdown_df = df.copy()
 
     for topic, metric in AHR_BASE_MEASURES.items():
         topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
-
-        print('--')
-        print(topic_rows)
-        print('--')
-        print(topic)
 
         # Extract and assign the demographic breakdown
         breakdown_value = breakdown_df.loc[topic_rows, 'Measure'].str.replace(topic, "").str.strip(" - ")
@@ -220,6 +219,10 @@ def parse_raw_data(df: pd.DataFrame, breakdown: str):
         else:
             breakdown_df.loc[topic_rows, 'Value'] = breakdown_df.loc[topic_rows, 'Value']
 
+    print('---------------')
+    print(breakdown_df)
+    # breakdown_df.to_csv("testing_output.csv", index=False)
+
     # Pivot the DataFrame
     pivot_df = breakdown_df.pivot_table(
         index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown],
@@ -233,30 +236,27 @@ def parse_raw_data(df: pd.DataFrame, breakdown: str):
     return pivot_df
 
 
-def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
+def post_process(df: pd.DataFrame, breakdown: DemographicScope, geographic: GeographicScope):
+    breakdown_df = df.copy()
+
     if breakdown == std_col.AGE_COL:
-        df = df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
+        breakdown_df = breakdown_df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        df = df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
-        df = df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
-        std_col.add_race_columns_from_category_id(df)
+        breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
+        breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
+        std_col.add_race_columns_from_category_id(breakdown_df)
 
-    breakdown_df = merge_state_ids(df)
+    pop_breakdown = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
-    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        breakdown_df = merge_yearly_pop_numbers(
-            breakdown_df, cast(SEX_RACE_AGE_TYPE, std_col.RACE_COL), cast(GEO_TYPE, geographic)
-        )
-    else:
-        breakdown_df = merge_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, breakdown), cast(GEO_TYPE, geographic))
-
-    breakdown_df[std_col.POPULATION_PCT_COL] = breakdown_df[std_col.POPULATION_PCT_COL].astype(float)
+    breakdown_df = merge_state_ids(breakdown_df)
+    breakdown_df = merge_yearly_pop_numbers(breakdown_df, pop_breakdown, geographic)
 
     breakdown_df = add_estimated_total_columns(breakdown_df, RAW_TOTALS_MAP, std_col.POPULATION_COL)
 
     breakdown_df = generate_pct_share_col_without_unknowns(breakdown_df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
 
     breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
+
     breakdown_df = breakdown_df.sort_values(
         by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
     )
