@@ -159,6 +159,12 @@ export function TableChart(props: TableChartProps) {
     const denominatorLabel =
       props.countColsMap.denominatorConfig?.shortLabel ?? ''
     prepareRow(row)
+    console.log(row)
+
+    if (row.cells.slice(1).every((cell) => cell.value == null)) {
+      // skip a row if the only non-null item is the demographic group
+      return <></>
+    }
     return (
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
