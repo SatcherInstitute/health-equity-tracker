@@ -147,9 +147,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true} className='p-2'>
         <div ref={screenshotTargetRef}>
-          {/* mobile-only card options button */}
+          {/* card options button */}
 
-          <div className='flex w-full justify-end sm:hidden'>
+          <div className='flex w-full justify-end '>
             <CardOptionsMenu
               downloadTargetScreenshot={downloadTargetScreenshot}
               reportTitle={props.reportTitle}
@@ -167,16 +167,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               {title}
               {props?.subtitle && ` (${props.subtitle})`}
             </h2>
-            {/* desktop-only close button */}
-            <div className='mb-3 mr-1 hidden sm:flex md:mr-0'>
-              <HetLinkButton
-                ariaLabel='close multiple maps modal'
-                onClick={props.handleClose}
-                id='multi-map-close-button1'
-              >
-                <CloseIcon />
-              </HetLinkButton>
-            </div>
           </div>
 
           <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
@@ -326,27 +316,23 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
         <div className='flex justify-between pl-2 text-left text-small'>
-          {/* mobile-only CLOSE button */}
-          <HetLinkButton
-            aria-label='close this multiple maps modal'
-            onClick={props.handleClose}
-          >
-            Close
-          </HetLinkButton>
           {/* Desktop only Sources and Card Options */}
-          <div className='flex w-full sm:flex'>
+          <div className='hidden w-full sm:block'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
               downloadTargetScreenshot={downloadTargetScreenshot}
               isMulti={true}
             />
-            <CardOptionsMenu
-              downloadTargetScreenshot={downloadTargetScreenshot}
-              reportTitle={props.reportTitle}
-              scrollToHash={props.scrollToHash}
-            />
           </div>
+          {/*  CLOSE button */}
+          <HetLinkButton
+            className='w-full justify-center'
+            aria-label='close this multiple maps modal'
+            onClick={props.handleClose}
+          >
+            Close
+          </HetLinkButton>
         </div>
       </footer>
     </Dialog>
