@@ -12,22 +12,18 @@ function AnnouncementBanner() {
       kind='text-only'
     >
       <p className='w-full'>
-        Historical data reveals that women in government positions significantly
+        <a href='https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality' target="_blank">Historical data</a> reveals that women in government positions significantly
         contribute to higher rates of inclusivity and equitable power
         distribution, fostering a more representative democracy.
       </p>
-      <p className="w-full text-smallest">Source:{' '}
-        <a href='https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality' target="_blank">
-          The Future We Expect: Women's Health and Gender Equality at WHO
-        </a>
-      </p>
+
       <IconButton
         href={'/exploredata?mls=1.women_in_gov-3.00&group1=All'}
         className='mx-0 my-2 px-0 text-left text-text rounded-xs'
       >
         Explore the Women in Government Data →
       </IconButton>
-    </HetNotice>
+    </HetNotice >
   )
 }
 
