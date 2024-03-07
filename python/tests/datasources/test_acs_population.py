@@ -17,6 +17,7 @@ GOLDEN_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_population', 'golden
 MOCK_CACHE_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_population', 'mock_cache')
 
 # single year golden data
+GOLDEN_DATA_AGE_NATIONAL_2009 = os.path.join(GOLDEN_DIR, 'age_national.csv')
 GOLDEN_DATA_RACE = os.path.join(GOLDEN_DIR, 'table_by_race_state.csv')
 GOLDEN_DATA_SEX_AGE = os.path.join(GOLDEN_DIR, 'table_by_sex_age.csv')
 GOLDEN_DATA_SEX = os.path.join(GOLDEN_DIR, 'table_by_sex.csv')
@@ -24,7 +25,6 @@ GOLDEN_DATA_SEX_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_sex_national.csv')
 GOLDEN_DATA_RACE_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_race_national.csv')
 GOLDEN_DATA_AGE_COUNTY = os.path.join(GOLDEN_DIR, 'table_by_age_county.csv')
 
-GOLDEN_DATA_AGE_NATIONAL_2009 = os.path.join(GOLDEN_DIR, 'age_national.csv')
 
 # time series golden data initial year OVERWRITES
 
