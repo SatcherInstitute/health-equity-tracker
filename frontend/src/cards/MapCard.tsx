@@ -75,6 +75,12 @@ import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetDivider from '../styles/HetComponents/HetDivider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
+const HASH_ID: ScrollableHashId = 'rate-map'
+const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
+  '#map-group-dropdown',
+  '#download-card-image-button',
+  '#card-options-menu',
+]
 
 interface MapCardProps {
   key?: string
@@ -103,13 +109,53 @@ export default function MapCard(props: MapCardProps) {
 }
 
 function MapCardWithKey(props: MapCardProps) {
+  // HOOKS MUST NOT BE CALLED CONDITIONALLY.
   const preloadHeight = useGuessPreloadHeight([750, 1050])
+  const location = useLocation()
+  const highestLowestGeosParamKey = props.isCompareCard
+    ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
+    : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
+
+  const [highestLowestGeosMode, setHighestLowestGeosMode] =
+    useParamState<boolean>(highestLowestGeosParamKey, false)
+  useEffect(() => {
+    setHighestLowestGeosMode(false)
+  }, [props.reportTitle, props.trackerMode])
+  const MULTIMAP_PARAM_KEY = props.isCompareCard
+    ? MULTIPLE_MAPS_2_PARAM_KEY
+    : MULTIPLE_MAPS_1_PARAM_KEY
+  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
+    MULTIMAP_PARAM_KEY,
+    false
+  )
+  const MAP_GROUP_PARAM = props.isCompareCard
+    ? MAP2_GROUP_PARAM
+    : MAP1_GROUP_PARAM
+
+  const initialGroupParam: string = getParameter(MAP_GROUP_PARAM, ALL)
+  const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
+
+  const [activeDemographicGroup, setActiveDemographicGroup] =
+    useState<DemographicGroup>(initialGroup)
 
   const metricConfig =
     props.dataTypeConfig?.metrics?.per100k ??
     props.dataTypeConfig?.metrics?.pct_rate ??
     props.dataTypeConfig?.metrics?.index
 
+  const isMobile = !useIsBreakpointAndUp('sm')
+  const isMd = useIsBreakpointAndUp('md')
+  const isCompareMode = window.location.href.includes('compare')
+  const mapIsWide = !isMobile && !isCompareMode
+
+  const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
+
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
+
+  // ALL HOOKS MUST BE ABOVE THIS SHORT CIRCUIT
   if (!metricConfig) return <></>
 
   const demographicType = props.demographicType
@@ -118,8 +164,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
-
-  const location = useLocation()
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -130,34 +174,6 @@ function MapCardWithKey(props: MapCardProps) {
       }
     },
   }
-
-  const MAP_GROUP_PARAM = props.isCompareCard
-    ? MAP2_GROUP_PARAM
-    : MAP1_GROUP_PARAM
-
-  const initialGroupParam: string = getParameter(MAP_GROUP_PARAM, ALL)
-  const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
-
-  const highestLowestGeosParamKey = props.isCompareCard
-    ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
-    : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
-  const [highestLowestGeosMode, setHighestLowestGeosMode] =
-    useParamState<boolean>(highestLowestGeosParamKey, false)
-
-  useEffect(() => {
-    setHighestLowestGeosMode(false)
-  }, [props.reportTitle, props.trackerMode])
-
-  const [activeDemographicGroup, setActiveDemographicGroup] =
-    useState<DemographicGroup>(initialGroup)
-
-  const MULTIMAP_PARAM_KEY = props.isCompareCard
-    ? MULTIPLE_MAPS_2_PARAM_KEY
-    : MULTIPLE_MAPS_1_PARAM_KEY
-  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
-    MULTIMAP_PARAM_KEY,
-    false
-  )
 
   const metricQuery = (
     metricIds: MetricId[],
@@ -244,30 +260,11 @@ function MapCardWithKey(props: MapCardProps) {
       props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
     } with highest/lowest rates)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
-  const HASH_ID: ScrollableHashId = 'rate-map'
-
-  const isMobile = !useIsBreakpointAndUp('sm')
-  const isMd = useIsBreakpointAndUp('md')
-  const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !isMobile && !isCompareMode
-
-  const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
-
-  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
-    domain: [],
-    range: [],
-  })
 
   function handleScaleChange(domain: number[], range: number[]) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
-
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#map-group-dropdown',
-    '#download-card-image-button',
-    '#card-options-menu',
-  ]
 
   return (
     <CardWrapper
@@ -397,10 +394,8 @@ function MapCardWithKey(props: MapCardProps) {
         const mapConfig = props.dataTypeConfig.mapConfig
         if (isSummaryLegend) mapConfig.min = mapConfig.mid
 
-        useEffect(() => {
-          if (dataForActiveDemographicGroup?.length <= 1)
-            setHighestLowestGeosMode(false)
-        }, [props.fips])
+        if (dataForActiveDemographicGroup?.length <= 1)
+          setHighestLowestGeosMode(false)
 
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
@@ -422,14 +417,10 @@ function MapCardWithKey(props: MapCardProps) {
             </>
           )
 
-        const highestLowestGroupsByFips = useMemo(
-          () =>
-            getHighestLowestGroupsByFips(
-              mapQueryResponse.data,
-              props.demographicType,
-              metricId
-            ),
-          [mapQueryResponse.data, props.demographicType, metricId, props.fips]
+        const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
+          mapQueryResponse.data,
+          props.demographicType,
+          metricId
         )
 
         const isPhrmaAdherence =
