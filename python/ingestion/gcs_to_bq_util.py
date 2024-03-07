@@ -2,13 +2,14 @@ import requests  # type: ignore
 import json
 import os
 import pandas as pd
-from google.cloud import bigquery, storage, secretmanager
+from google.cloud import bigquery, storage
 from zipfile import ZipFile
 from io import BytesIO
 from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
+AHR_API_KEY = 'TGSG5RI-3Z5U6JQ-SFBSMKA-6JPIG3A'
 
 
 def __convert_frame_to_json(frame):
@@ -419,13 +420,9 @@ def fetch_ahr_data_from_graphql():
     Returns:
         a dictionary containing the data retrieved from the API.
     """
-    client = secretmanager.SecretManagerServiceClient()
-    resource_name = "projects/585592748590/secrets/ahr-api-key/versions/latest"
-    response = client.access_secret_version(request={"name": resource_name})
-    api_key = response.payload.data.decode("UTF-8")
 
     graphql_url = 'https://api.americashealthrankings.org/graphql'
-    headers = {'Content-Type': 'application/json', 'x-api-key': api_key}
+    headers = {'Content-Type': 'application/json', 'x-api-key': AHR_API_KEY}
     all_responses = []
 
     query = """
