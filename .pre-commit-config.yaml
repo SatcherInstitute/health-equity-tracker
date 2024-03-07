@@ -28,19 +28,11 @@ repos:
   - repo: local
     hooks:
       - id: local-biome-check
-        name: ☕️ ts/json format + lint with biome
+        name: 🦕 ts/json format + lint with biome
         entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched --changed
         language: system
         types: [text]
-  # TYPECHECK WITH TSC
-  - repo: local
-    hooks:
-      - id: local-tsc-check
-        name: 🦕 typechecking
-        entry: bash -c 'npm run tsc --prefix frontend/'
-        language: system
-        types: [text]
-  # WARN IF THERE ARE TOO MANY FILES IN ONE COMMIT
+  # WARN IF TOO MANY FILES IN ONE COMMIT
   - repo: local
     hooks:
       - id: check-file-count

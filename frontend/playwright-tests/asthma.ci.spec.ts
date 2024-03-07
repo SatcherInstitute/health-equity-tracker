@@ -17,7 +17,9 @@ test('Asthma', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Asthma in the United States' })
     .click()
-  await page.getByRole('heading', { name: 'Share of all asthma cases' }).click()
+  await page
+    .getByRole('heading', { name: 'Share of all adult asthma cases' })
+    .click()
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()

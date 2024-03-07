@@ -21,6 +21,7 @@ import {
   type ChronicDiseaseMetricId,
   COPD_METRICS,
   CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
+  ChronicDiseaseDataTypeId,
 } from './MetricConfigChronicDisease'
 import {
   COVID_CATEGORY_DROPDOWNIDS,
@@ -91,6 +92,7 @@ export type AgeAdjustedDataTypeId =
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
   | DropdownVarId
+  | ChronicDiseaseDataTypeId
   | CovidCategoryDataTypeId
   | HivCategoryDataTypeId
   | BehavioralHealthDataTypeId
