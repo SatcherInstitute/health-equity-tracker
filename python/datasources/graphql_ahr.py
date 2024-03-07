@@ -15,8 +15,8 @@ from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE
 
 # Set options to display the full DataFrame
-# pd.set_option('display.max_rows', None)  # Shows all rows
-# pd.set_option('display.max_columns', None)  # Shows all columns
+pd.set_option('display.max_rows', None)  # Shows all rows
+pd.set_option('display.max_columns', None)  # Shows all columns
 # pd.set_option('display.max_colwidth', None)
 
 
@@ -196,17 +196,19 @@ def graphql_response_to_dataframe(response_data, geographic: GEO_TYPE):
 
 def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
     breakdown_df = df.copy()
+    # breakdown_df.to_csv("testing_output.csv", index=False)
 
     for topic, metric in AHR_BASE_MEASURES.items():
+        if topic == 'Voter Participation (Presidential)':
+            print('---------------')
+            print(breakdown_df['Measure'])
+            print('---------------')
+            print(breakdown_df['Measure'].str.contains(topic, regex=False))
 
         topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
 
         # Extract and assign the demographic breakdown
         breakdown_value = breakdown_df.loc[topic_rows, 'Measure'].str.replace(topic, "").str.strip(" - ")
-        print('---------------')
-        print(topic, metric)
-        print('---------------')
-        print(topic_rows)
         breakdown_df.loc[topic_rows, breakdown] = breakdown_value
         breakdown_df.loc[breakdown_df[breakdown] == "", breakdown] = std_col.ALL_VALUE
 
