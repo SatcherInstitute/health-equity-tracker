@@ -14,11 +14,6 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE
 
-# Set options to display the full DataFrame
-pd.set_option('display.max_rows', None)  # Shows all rows
-pd.set_option('display.max_columns', None)  # Shows all columns
-# pd.set_option('display.max_colwidth', None)
-
 
 def generate_cols_map(prefixes, suffix):
     cols_map = {}
@@ -194,46 +189,28 @@ def graphql_response_to_dataframe(response_data, geographic: GEO_TYPE):
     return df
 
 
-def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
+def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     breakdown_df = df.copy()
-    # breakdown_df.to_csv("testing_output.csv", index=False)
 
-    for topic, metric in AHR_BASE_MEASURES.items():
-        # if topic == 'Voter Participation (Presidential)':
-        #     print('---------------')
-        #     print(breakdown_df['Measure'])
-        #     print('---------------')
-        #     print(breakdown_df['Measure'].str.contains(topic, regex=False))
-        #     print('---------------')
-        #     print(
-        #         breakdown_df.loc[breakdown_df['Measure'].str.contains(topic, regex=False), 'Measure']
-        #         .str.replace(topic, "", regex=False)
-        #         .str.strip(" - ")
-        #     )
+    for topic, measure_type in AHR_BASE_MEASURES.items():
+        is_topic_present = breakdown_df['Measure'].str.contains(topic, regex=False)
 
-        topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
+        extracted_breakdowns = breakdown_df.loc[is_topic_present, 'Measure']
+        extracted_breakdowns = extracted_breakdowns.str.replace(topic, "", regex=False).str.strip(" - ")
 
-        # Extract and assign the demographic breakdown
-        breakdown_value = breakdown_df.loc[topic_rows, 'Measure'].str.replace(topic, "", regex=False).str.strip(" - ")
+        breakdown_df.loc[is_topic_present, breakdown_col] = extracted_breakdowns
+        breakdown_df.loc[breakdown_df[breakdown_col] == "", breakdown_col] = std_col.ALL_VALUE
 
-        breakdown_df.loc[topic_rows, breakdown] = breakdown_value
-        breakdown_df.loc[breakdown_df[breakdown] == "", breakdown] = std_col.ALL_VALUE
-
-        # Update the 'Measure' column
-        breakdown_df.loc[topic_rows, 'Measure'] = metric
+        breakdown_df.loc[is_topic_present, 'Measure'] = measure_type
 
         if topic in PCT_RATE_TO_PER_100K_TOPICS:
-            breakdown_df.loc[topic_rows, 'Value'] = breakdown_df.loc[topic_rows, 'Value'] * 1000
+            breakdown_df.loc[is_topic_present, 'Value'] = breakdown_df.loc[is_topic_present, 'Value'] * 1000
         else:
-            breakdown_df.loc[topic_rows, 'Value'] = breakdown_df.loc[topic_rows, 'Value']
-
-    # print('---------------')
-    # print(breakdown_df)
-    # breakdown_df.to_csv("testing_output.csv", index=False)
+            breakdown_df.loc[is_topic_present, 'Value'] = breakdown_df.loc[is_topic_present, 'Value']
 
     # Pivot the DataFrame
     pivot_df = breakdown_df.pivot_table(
-        index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown],
+        index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown_col],
         columns='Measure',
         values='Value',
         aggfunc='first',
@@ -254,7 +231,7 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geographic: GEO_
         breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(breakdown_df)
 
-    pop_breakdown = 'race' if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
+    pop_breakdown = std_col.RACE_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
     breakdown_df = merge_state_ids(breakdown_df)
     breakdown_df = merge_yearly_pop_numbers(breakdown_df, pop_breakdown, geographic)
