@@ -24,6 +24,10 @@ export type SDOHDataTypeId =
   | 'gun_violence_injuries'
   | 'gun_violence_suicide'
   | 'gun_violence_legal_intervention'
+  | 'poverty'
+  | 'health_insurance'
+  | 'preventable_hospitalizations'
+  | 'avoided_care'
 
 export type SDOHMetricId =
   | 'ahr_population_pct'
@@ -216,7 +220,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
       pct_share: {
         chartTitle: 'Share of all care avoidance due to cost',
         metricId: 'avoided_care_pct_share',
-        columnTitleHeader: 'Share of all care avoidance due to cost',
+        columnTitleHeader: 'Share of all care avoidance due to cost for adults',
         shortLabel: '% of avoidances',
         type: 'pct_share',
         populationComparisonMetric: {

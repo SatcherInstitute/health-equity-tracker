@@ -19,7 +19,6 @@ class Logger {
       if (context) {
         logInfo.push(context)
       }
-      // console.log(...logInfo);
     }
   }
 
@@ -32,11 +31,6 @@ class Logger {
     const consoleFn = this.getConsoleFn(severity)
     if (this.enableConsoleLogging) {
       consoleFn('Error Reported', error, error.stack, severity, context)
-    }
-
-    if (this.enableServerLogging && !import.meta.env.PROD) {
-      // TODO: implement server logging
-      console.log('TODO: implement server logging')
     }
   }
 
