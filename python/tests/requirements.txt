@@ -14,12 +14,12 @@ chardet==4.0.0
     # via requests
 freezegun==1.0.0
     # via -r python/tests/requirements.in
-google-api-core[grpc]==1.34.0
+google-api-core[grpc]==1.24.1
     # via
     #   google-cloud-bigquery
     #   google-cloud-core
     #   google-cloud-pubsub
-google-auth==1.25.0
+google-auth==1.24.0
     # via
     #   google-api-core
     #   google-cloud-storage
@@ -34,12 +34,6 @@ google-cloud-pubsub==2.2.0
     # via -r python/tests/../ingestion/requirements.in
 google-cloud-storage==1.35.0
     # via -r python/tests/../ingestion/requirements.in
-google-cloud-secret-manager==2.16.3
-    # via -r python/tests/../ingestion/requirements.in
-    # google-api-core
-    # grpc-google-iam-v1
-    # proto-plus
-    # protobuf
 google-cloud==0.34.0
     # via -r python/tests/../ingestion/requirements.in
 google-crc32c==1.1.0
@@ -48,13 +42,13 @@ google-resumable-media==1.2.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-storage
-googleapis-common-protos[grpc]==1.56.2
+googleapis-common-protos[grpc]==1.52.0
     # via
     #   google-api-core
     #   grpc-google-iam-v1
-grpc-google-iam-v1==0.12.4
+grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-grpcio==1.33.2
+grpcio==1.34.0
     # via
     #   google-api-core
     #   googleapis-common-protos
@@ -71,11 +65,11 @@ pandas==1.1.5
     # via
     #   -r python/tests/../ingestion/requirements.in
     #   -r python/tests/requirements.in
-proto-plus==1.22.0
+proto-plus==1.13.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.19.5
+protobuf==3.14.0
     # via
     #   google-api-core
     #   google-cloud-bigquery

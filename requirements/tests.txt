@@ -27,12 +27,12 @@ flask==1.1.2
     #   flask-cors
 freezegun==1.0.0
     # via -r requirements/../python/tests/requirements.in
-google-api-core[grpc]==1.34.0
+google-api-core[grpc]==1.23.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-core
     #   google-cloud-pubsub
-google-auth==1.25.0
+google-auth==1.22.1
     # via
     #   google-api-core
     #   google-cloud-storage
@@ -49,12 +49,6 @@ google-cloud-storage==1.32.0
     # via
     #   -r requirements/../data_server/../python/data_server/requirements.in
     #   -r requirements/../python/tests/../ingestion/requirements.in
-google-cloud-secret-manager==2.16.3
-    # via -r python/tests/../ingestion/requirements.in
-    # google-api-core
-    # grpc-google-iam-v1
-    # proto-plus
-    # protobuf
 google-cloud==0.34.0
     # via -r requirements/../python/tests/../ingestion/requirements.in
 google-crc32c==1.0.0
@@ -63,13 +57,13 @@ google-resumable-media==1.1.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-storage
-googleapis-common-protos[grpc]==1.56.2
+googleapis-common-protos[grpc]==1.52.0
     # via
     #   google-api-core
     #   grpc-google-iam-v1
-grpc-google-iam-v1==0.12.4
+grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-grpcio==1.33.2
+grpcio==1.33.1
     # via
     #   google-api-core
     #   googleapis-common-protos
@@ -100,11 +94,11 @@ pandas==1.1.3
     #   -r requirements/../python/tests/requirements.in
 pluggy==0.13.1
     # via pytest
-proto-plus==1.22.0
+proto-plus==1.11.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.19.5
+protobuf==3.13.0
     # via
     #   google-api-core
     #   google-cloud-bigquery
