@@ -198,12 +198,13 @@ def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
     breakdown_df = df.copy()
 
     for topic, metric in AHR_BASE_MEASURES.items():
-        print('---------------')
-        print(topic, metric)
+
         topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
 
         # Extract and assign the demographic breakdown
         breakdown_value = breakdown_df.loc[topic_rows, 'Measure'].str.replace(topic, "").str.strip(" - ")
+        print('---------------')
+        print(topic, metric, breakdown_value)
         breakdown_df.loc[topic_rows, breakdown] = breakdown_value
         breakdown_df.loc[breakdown_df[breakdown] == "", breakdown] = std_col.ALL_VALUE
 
