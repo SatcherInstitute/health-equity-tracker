@@ -2,7 +2,7 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import { IconButton } from '@mui/material'
 import { urlMap } from '../../utils/externalUrls'
-
+//
 export default function AnnouncementBanner() {
   return (
     <HetNotice
