@@ -247,7 +247,7 @@ def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
             breakdown_df, cast(SEX_RACE_AGE_TYPE, std_col.RACE_COL), cast(GEO_TYPE, geographic)
         )
     else:
-        breakdown_df = merge_pop_numbers(breakdown_df, breakdown, geographic)
+        breakdown_df = merge_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, breakdown), cast(GEO_TYPE, geographic))
 
     breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.POPULATION_PCT_COL})
 
