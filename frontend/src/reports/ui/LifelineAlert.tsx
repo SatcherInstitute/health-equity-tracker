@@ -1,8 +1,11 @@
 import PhoneIcon from '@mui/icons-material/Phone'
 import { urlMap } from '../../utils/externalUrls'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { DataTypeId } from '../../data/config/MetricConfig'
 
-function LifelineAlert() {
+export const LIFELINE_IDS: DataTypeId[] = ['suicide', 'gun_violence_suicide']
+
+export default function LifelineAlert() {
   return (
     <HetNotice
       className='m-2 mt-0 border border-secondaryMain text-left text-small'
@@ -21,5 +24,3 @@ function LifelineAlert() {
     </HetNotice>
   )
 }
-
-export default LifelineAlert

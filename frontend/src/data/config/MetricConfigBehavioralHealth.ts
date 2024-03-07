@@ -51,16 +51,17 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for depression cases',
+    dataTableTitle: 'Breakdown summary for depression',
     metrics: {
       pct_share: {
-        chartTitle: 'Share of total depression cases',
+        chartTitle: 'Share of total adult depression cases',
         metricId: 'depression_pct_share',
-        columnTitleHeader: 'Share of total depression cases',
+        columnTitleHeader: 'Share of total adult depression cases',
         shortLabel: '% of cases',
         type: 'pct_share',
         populationComparisonMetric: {
-          chartTitle: 'Population vs. distribution of total depression cases',
+          chartTitle:
+            'Population vs. distribution of total adult depression cases',
           metricId: 'ahr_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -103,14 +104,14 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Breakdown summary for excessive drinking cases',
     metrics: {
       pct_share: {
-        chartTitle: 'Share of all excessive drinking cases',
+        chartTitle: 'Share of all adult excessive drinking cases',
         metricId: 'excessive_drinking_pct_share',
-        columnTitleHeader: 'Share of all excessive drinking cases',
+        columnTitleHeader: 'Share of all adult excessive drinking cases',
         shortLabel: '% of all cases',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total excessive drinking cases',
+            'Population vs. distribution of total adult excessive drinking cases',
           metricId: 'ahr_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -155,14 +156,14 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
       'Breakdown summary for opioid and other non-medical drug use',
     metrics: {
       pct_share: {
-        chartTitle: 'Share of total non-medical drug use',
+        chartTitle: 'Share of total adult non-medical drug use',
         metricId: 'non_medical_drug_use_pct_share',
-        columnTitleHeader: 'Share of total non-medical drug use',
+        columnTitleHeader: 'Share of total adult non-medical drug use',
         shortLabel: '% of cases',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total non-medical drug use',
+            'Population vs. distribution of total adult non-medical drug use',
           metricId: 'ahr_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -202,17 +203,17 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for frequent mental distress cases',
+    dataTableTitle: 'Breakdown summary for frequent mental distress',
     metrics: {
       pct_share: {
-        chartTitle: 'Share of all frequent mental distress cases',
+        chartTitle: 'Share of all adult frequent mental distress cases',
         metricId: 'frequent_mental_distress_pct_share',
-        columnTitleHeader: 'Share of all frequent mental distress cases',
+        columnTitleHeader: 'Share of all adult frequent mental distress cases',
         shortLabel: '% of cases',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total frequent mental distress cases',
+            'Population vs. distribution of total adult frequent mental distress cases',
           metricId: 'ahr_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
