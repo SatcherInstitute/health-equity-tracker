@@ -204,7 +204,9 @@ def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
         # Extract and assign the demographic breakdown
         breakdown_value = breakdown_df.loc[topic_rows, 'Measure'].str.replace(topic, "").str.strip(" - ")
         print('---------------')
-        print(topic, metric, breakdown_value)
+        print(topic, metric)
+        print('---------------')
+        print(topic_rows)
         breakdown_df.loc[topic_rows, breakdown] = breakdown_value
         breakdown_df.loc[breakdown_df[breakdown] == "", breakdown] = std_col.ALL_VALUE
 
