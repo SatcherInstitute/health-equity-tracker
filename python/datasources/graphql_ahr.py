@@ -152,9 +152,6 @@ class GraphQlAHRData(DataSource):
     ):
         measure_map = create_measure_map()
 
-        if demographic == 'race_and_ethnicity':
-            print(measure_map[demographic])
-
         if demographic in measure_map:
             measures_for_demographic = measure_map[demographic]
 
@@ -200,11 +197,15 @@ def graphql_response_to_dataframe(response_data, geographic):
 
 
 def parse_raw_data(df: pd.DataFrame, breakdown: str):
-    df['Measure'] = df['Measure'].str.strip()
     breakdown_df = df.copy()
 
     for topic, metric in AHR_BASE_MEASURES.items():
         topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
+
+        print('--')
+        print(topic_rows)
+        print('--')
+        print(topic)
 
         # Extract and assign the demographic breakdown
         breakdown_value = breakdown_df.loc[topic_rows, 'Measure'].str.replace(topic, "").str.strip(" - ")
@@ -248,8 +249,6 @@ def post_process(df: pd.DataFrame, breakdown: str, geographic: str):
         )
     else:
         breakdown_df = merge_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, breakdown), cast(GEO_TYPE, geographic))
-
-    breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_PCT_COL: std_col.POPULATION_PCT_COL})
 
     breakdown_df[std_col.POPULATION_PCT_COL] = breakdown_df[std_col.POPULATION_PCT_COL].astype(float)
 

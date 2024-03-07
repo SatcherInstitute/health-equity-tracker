@@ -456,7 +456,7 @@ def fetch_ahr_data_from_graphql():
         'presidential national election',
     ]
 
-    # Iterate over each set of variables in the list
+    # Iterate over each description in the list
     for description in descriptions_list:
         variables_str = f"""
         {{
