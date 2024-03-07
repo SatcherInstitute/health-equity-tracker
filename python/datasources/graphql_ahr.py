@@ -1,4 +1,3 @@
-from typing import Literal, cast
 import pandas as pd
 from datetime import datetime
 
@@ -13,7 +12,7 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
 )
 from ingestion.merge_utils import merge_pop_numbers, merge_yearly_pop_numbers, merge_state_ids
-from ingestion.types import GEO_TYPE, SEX_RACE_AGE_TYPE
+from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE
 
 # Set options to display the full DataFrame
 # pd.set_option('display.max_rows', None)  # Shows all rows
@@ -118,9 +117,6 @@ AHR_SEX_STRINGS = ['Female', 'Male']
 
 CURRENT_COLS = list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values())
 
-DemographicScope = Literal['age', 'race_and_ethnicity', 'sex']
-GeographicScope = Literal['national', 'state']
-
 
 class GraphQlAHRData(DataSource):
     @staticmethod
@@ -151,9 +147,7 @@ class GraphQlAHRData(DataSource):
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(
-        self, df: pd.DataFrame, demographic: Literal['age', 'race_and_ethnicity', 'sex'], geographic: GeographicScope
-    ):
+    def generate_breakdown_df(self, df: pd.DataFrame, demographic: DEMOGRAPHIC_TYPE, geographic: GEO_TYPE):
         measure_map = create_measure_map()
 
         if demographic in measure_map:
@@ -171,7 +165,7 @@ class GraphQlAHRData(DataSource):
             return None
 
 
-def graphql_response_to_dataframe(response_data, geographic):
+def graphql_response_to_dataframe(response_data, geographic: GEO_TYPE):
     flattened_data = []
 
     for dataset in response_data:
@@ -200,7 +194,7 @@ def graphql_response_to_dataframe(response_data, geographic):
     return df
 
 
-def parse_raw_data(df: pd.DataFrame, breakdown: DemographicScope):
+def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
     breakdown_df = df.copy()
 
     for topic, metric in AHR_BASE_MEASURES.items():
@@ -236,7 +230,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown: DemographicScope):
     return pivot_df
 
 
-def post_process(df: pd.DataFrame, breakdown: DemographicScope, geographic: GeographicScope):
+def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geographic: GEO_TYPE):
     breakdown_df = df.copy()
 
     if breakdown == std_col.AGE_COL:
