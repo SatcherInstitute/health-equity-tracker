@@ -24,6 +24,7 @@ GOLDEN_DATA_SEX_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_sex_national.csv')
 GOLDEN_DATA_RACE_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_race_national.csv')
 GOLDEN_DATA_AGE_COUNTY = os.path.join(GOLDEN_DIR, 'table_by_age_county.csv')
 
+GOLDEN_DATA_AGE_NATIONAL_2009 = os.path.join(GOLDEN_DIR, 'age_national.csv')
 
 # time series golden data initial year OVERWRITES
 
@@ -160,6 +161,11 @@ def testOverWriteToBqStateNationalCalls2009(
         'by_race_national_time_series',
         'by_sex_national_time_series',
     ]
+
+    df_age_national_2009_overwrite = mock_bq.call_args_list[5][0][0]
+    expected_df_age_national_2009_overwrite = pd.read_csv(GOLDEN_DATA_AGE_NATIONAL_2009, dtype=DTYPE)
+
+    assert_frame_equal(df_age_national_2009_overwrite, expected_df_age_national_2009_overwrite, check_like=True)
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022))
