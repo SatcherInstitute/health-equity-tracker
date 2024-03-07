@@ -36,7 +36,6 @@ class AcsConditionProvider extends VariableProvider {
     _dataTypeId?: DataTypeId,
     timeView?: TimeView
   ): DatasetId | undefined {
-    console.log({ breakdowns }, { _dataTypeId }, { timeView })
     if (timeView === 'historical') {
       if (breakdowns.geography === 'national') {
         if (breakdowns.hasOnlyRace())
