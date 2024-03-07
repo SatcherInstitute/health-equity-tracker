@@ -32,7 +32,7 @@ repos:
         entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched --changed
         language: system
         types: [text]
-  # WARN IF THERE ARE TOO MANY FILES IN ONE COMMIT
+  # WARN IF TOO MANY FILES IN ONE COMMIT
   - repo: local
     hooks:
       - id: check-file-count
