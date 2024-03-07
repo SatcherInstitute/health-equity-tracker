@@ -199,17 +199,17 @@ def parse_raw_data(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE):
     # breakdown_df.to_csv("testing_output.csv", index=False)
 
     for topic, metric in AHR_BASE_MEASURES.items():
-        if topic == 'Voter Participation (Presidential)':
-            print('---------------')
-            print(breakdown_df['Measure'])
-            print('---------------')
-            print(breakdown_df['Measure'].str.contains(topic, regex=False))
-            print('---------------')
-            print(
-                breakdown_df.loc[breakdown_df['Measure'].str.contains(topic, regex=False), 'Measure']
-                .str.replace(topic, "", regex=False)
-                .str.strip(" - ")
-            )
+        # if topic == 'Voter Participation (Presidential)':
+        #     print('---------------')
+        #     print(breakdown_df['Measure'])
+        #     print('---------------')
+        #     print(breakdown_df['Measure'].str.contains(topic, regex=False))
+        #     print('---------------')
+        #     print(
+        #         breakdown_df.loc[breakdown_df['Measure'].str.contains(topic, regex=False), 'Measure']
+        #         .str.replace(topic, "", regex=False)
+        #         .str.strip(" - ")
+        #     )
 
         topic_rows = breakdown_df['Measure'].str.contains(topic, regex=False)
 
