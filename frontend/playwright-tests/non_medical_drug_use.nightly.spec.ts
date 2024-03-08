@@ -19,16 +19,20 @@ test('Non Medical Drug Use', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of total non-medical drug use with unknown race and ethnicity in the United States',
+      name: 'Share of total adult non-medical drug use with unknown race and ethnicity in the United States',
     })
     .click()
   await page.getByText('No unknown values for race').click()
   await page
     .getByRole('heading', {
-      name: 'Graph unavailable: Population vs. distribution of total non-medical drug use in the United States',
+      name: 'Graph unavailable: Population vs. distribution of total adult non-medical drug use in the United States',
     })
     .click()
-  await page.getByText('Our data sources do not have Population vs. distribution of total non-medical').click()
+  await page
+    .getByText(
+      'Our data sources do not have Population vs. distribution of total adult non-medical'
+    )
+    .click()
   await page
     .getByRole('heading', {
       name: 'Breakdown summary for opioid and other non-medical drug use in the United States',

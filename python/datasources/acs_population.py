@@ -184,7 +184,7 @@ def get_ahr_standard_age_bucket(age_range):
 def get_ahr_decade_plus_5_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    # buckets for Suicide
+    # buckets for Suicide metrics
     elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
         return '15-24'
     elif age_range in {'25-29', '30-34'}:
@@ -201,6 +201,34 @@ def get_ahr_decade_plus_5_age_bucket(age_range):
         return '75-84'
     elif age_range in {'85+'}:
         return '85+'
+
+
+def get_ahr_suicide_denominators_age_bucket(age_range):
+    if age_range in {'0-4', '5-9', '10-14'}:
+        return '0-14'
+    elif age_range in {
+        '15-17',
+        '18-19',
+        '20-20',
+        '21-21',
+        '22-24',
+        '25-29',
+        '30-34',
+        '35-39',
+        '40-44',
+        '45-49',
+        '50-54',
+        '55-59',
+        '60-61',
+        '62-64',
+        '65-66',
+        '67-69',
+        '70-74',
+        '75-79',
+        '80-84',
+        '85+',
+    }:
+        return '15+'
 
 
 def get_ahr_voter_age_bucket(age_range):
@@ -443,6 +471,7 @@ class ACSPopulationIngester:
         by_sex_standard_age_ahr = None
         by_sex_decade_plus_5_age_ahr = None
         by_sex_voter_age_ahr = None
+        by_sex_suicide_denominator_ahr = None
         by_sex_bjs_prison_age = None
         by_sex_bjs_jail_age = None
         by_sex_phrma_age = None
@@ -459,6 +488,9 @@ class ACSPopulationIngester:
             by_sex_voter_age_ahr = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_ahr_voter_age_bucket
             )
+            by_sex_suicide_denominator_ahr = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_ahr_suicide_denominators_age_bucket
+            )
             by_sex_bjs_prison_age = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket
             )
@@ -470,6 +502,7 @@ class ACSPopulationIngester:
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
             by_sex_standard_age_ahr,
+            by_sex_suicide_denominator_ahr,
             by_sex_decade_plus_5_age_ahr,
             by_sex_voter_age_ahr,
             by_sex_bjs_prison_age,
@@ -706,6 +739,7 @@ class ACSPopulationIngester:
         by_sex_standard_age_ahr=None,
         by_sex_decade_plus_5_age_ahr=None,
         by_sex_voter_age_ahr=None,
+        by_sex_suicide_denominator_ahr=None,
         by_sex_bjs_prison_age=None,
         by_sex_bjs_jail_age=None,
         by_sex_phrma_age=None,
@@ -733,6 +767,10 @@ class ACSPopulationIngester:
             by_decade_plus_5_age_ahr = by_decade_plus_5_age_ahr[cols[1:]]
             by_voter_age_ahr = by_sex_voter_age_ahr.loc[by_sex_voter_age_ahr[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_voter_age_ahr = by_voter_age_ahr[cols[1:]]
+            by_suicide_denominator_age_ahr = by_sex_suicide_denominator_ahr.loc[
+                by_sex_suicide_denominator_ahr[std_col.SEX_COL] == std_col.ALL_VALUE
+            ]
+            by_suicide_denominator_age_ahr = by_suicide_denominator_age_ahr[cols[1:]]
             by_bjs_prison_age = by_sex_bjs_prison_age.loc[by_sex_bjs_prison_age[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_bjs_prison_age = by_bjs_prison_age[cols[1:]]
             by_bjs_jail_age = by_sex_bjs_jail_age.loc[by_sex_bjs_jail_age[std_col.SEX_COL] == std_col.ALL_VALUE]
@@ -747,6 +785,7 @@ class ACSPopulationIngester:
                         by_standard_age_ahr,
                         by_decade_plus_5_age_ahr,
                         by_voter_age_ahr,
+                        by_suicide_denominator_age_ahr,
                         by_bjs_prison_age,
                         by_bjs_jail_age,
                         by_phrma_age,
