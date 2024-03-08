@@ -12,6 +12,8 @@ state_fips,state_name,population,population_pct,age
 00,United States,24444045.0,7.3,70-79
 00,United States,43700460.0,13.1,10-19
 00,United States,45357101.0,13.6,20-29
+00,United States,60824969.0,18.2,0-14
+00,United States,273545006.0,81.8,15+
 00,United States,20452744.0,6.1,45-49
 00,United States,22194899.0,6.6,35-39
 00,United States,39207178.0,11.7,0-9
