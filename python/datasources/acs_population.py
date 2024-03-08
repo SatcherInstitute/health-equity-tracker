@@ -184,9 +184,7 @@ def get_ahr_standard_age_bucket(age_range):
 def get_ahr_decade_plus_5_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
-    # buckets for Suicide
-    elif age_range in {'0-4', '5-9', '10-14'}:
-        return '0-14'
+    # buckets for Suicide metrics
     elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
         return '15-24'
     elif age_range in {'25-29', '30-34'}:
