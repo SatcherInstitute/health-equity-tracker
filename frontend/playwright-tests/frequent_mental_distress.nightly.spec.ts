@@ -18,7 +18,7 @@ test('Frequent Mental Distress', async ({ page }) => {
     .getByRole('heading', { name: 'Frequent mental distress in' })
     .click()
   await page
-    .getByRole('heading', { name: 'Share of all frequent mental' })
+    .getByRole('heading', { name: 'Share of all adult frequent mental' })
     .click()
   await page.getByText('No unknown values for race').click()
   await page

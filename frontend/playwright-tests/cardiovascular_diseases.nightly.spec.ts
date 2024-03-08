@@ -28,12 +28,12 @@ test('Cardiovascular Diseases', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Population vs. distribution of total cases of cardiovascular diseases in the United States',
+      name: 'Population vs. distribution of total adult cases of cardiovascular diseases in the United States',
     })
     .click()
   await page
     .getByRole('heading', {
-      name: 'Breakdown summary for cases of cardiovascular diseases in the United States',
+      name: 'Breakdown summary for cardiovascular disease in the United States',
     })
     .click()
   await page
