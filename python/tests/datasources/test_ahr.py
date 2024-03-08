@@ -96,12 +96,6 @@ def testWriteToBqAgeState(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     expected_dtype['age'] = str
     expected_df = pd.read_json(GOLDEN_DATA_AGE, dtype=expected_dtype)
 
-    print("*")
-    print(df[['age', 'ahr_population_pct', 'state_fips', 'suicide_per_100k']])
-    print(expected_df[['age', 'ahr_population_pct', 'state_fips', 'suicide_per_100k']])
-
-    df.to_json('ahr_test_output_age.json', orient='records')
-
     assert_frame_equal(df, expected_df, check_like=True)
 
 
