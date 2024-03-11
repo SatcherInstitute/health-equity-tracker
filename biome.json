@@ -41,8 +41,7 @@
 				"noInferrableTypes": "off",
 				"noParameterAssign": "off",
 				"noUselessElse": "off",
-				"useDefaultParameterLast": "off",
-				"useImportType": "off"
+				"useDefaultParameterLast": "off"
 			},
 			"complexity": {
 				"noForEach": "off",
