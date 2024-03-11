@@ -64,6 +64,7 @@ TIME_MAP = {
         std_col.GUN_VIOLENCE_DEATHS_PER_100K,
         std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
         std_col.POPULATION_PCT_COL,
+        std_col.POPULATION_COL,
     ],
     HISTORICAL: [
         std_col.GUN_VIOLENCE_DEATHS_PER_100K,
@@ -145,8 +146,8 @@ class CDCWisqarsYouthData(DataSource):
             std_col.STATE_FIPS_COL,
             std_col.RACE_OR_HISPANIC_COL,
             std_col.RACE_CATEGORY_ID_COL,
-            std_col.POPULATION_COL,
             std_col.GUN_VIOLENCE_DEATHS_RAW,
+            std_col.POPULATION_COL,
             std_col.GUN_VIOLENCE_DEATHS_PER_100K,
             std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
             std_col.POPULATION_PCT_COL,
