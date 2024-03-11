@@ -198,6 +198,7 @@ export const DECADE_AGE_BUCKETS = [
 ] as const
 
 export const DECADE_PLUS_5_AGE_BUCKETS = [
+  '0-14',
   '15-24',
   '25-34',
   '35-44',
@@ -208,9 +209,10 @@ export const DECADE_PLUS_5_AGE_BUCKETS = [
   '85+',
 ] as const
 
-export const BROAD_AGE_BUCKETS = ['18-44', '45-64', '65+'] as const
+export const BROAD_AGE_BUCKETS = ['0-17', '18-44', '45-64', '65+'] as const
 
 export const VOTER_AGE_BUCKETS = [
+  '0-17',
   '18-24',
   '25-34',
   '35-44',

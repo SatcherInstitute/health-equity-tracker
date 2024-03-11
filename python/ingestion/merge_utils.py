@@ -228,6 +228,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     pop_table_name = f'by_{demo}_{loc}'
 
+    print(f'\nMerging real ACS population from python/ingestion/acs_population/{pop_table_name}')
+
     if on_time_period:
         pop_table_name += "_time_series"
         pop_dtype[std_col.TIME_PERIOD_COL] = str

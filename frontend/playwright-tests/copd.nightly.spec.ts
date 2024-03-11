@@ -17,7 +17,9 @@ test('COPD Flow', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'COPD in the United States' })
     .click()
-  await page.getByRole('heading', { name: 'Share of total COPD cases' }).click()
+  await page
+    .getByRole('heading', { name: 'Share of total adult COPD cases' })
+    .click()
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
@@ -26,12 +28,19 @@ test('COPD Flow', async ({ page }) => {
     .click()
   await page.getByText('Share this report:').click()
 
-  await page.getByRole('button', { name: 'Definitions & missing data' }).click();
-  await page.getByRole('heading', { name: 'Definitions:' }).click();
-  await page.getByText('Chronic Disease').click();
-  await page.locator('#definitionsList').getByText('COPD', { exact: true }).click();
-  await page.getByText('Measurement Definition: Adults who reported being told by a health professional').click();
-  await page.getByText('Clinical Importance: COPD is').click();
+  await page.getByRole('button', { name: 'Definitions & missing data' }).click()
+  await page.getByRole('heading', { name: 'Definitions:' }).click()
+  await page.getByText('Chronic Disease').click()
+  await page
+    .locator('#definitionsList')
+    .getByText('COPD', { exact: true })
+    .click()
+  await page
+    .getByText(
+      'Measurement Definition: Adults who reported being told by a health professional'
+    )
+    .click()
+  await page.getByText('Clinical Importance: COPD is').click()
 
   await page.getByText('Do you have information that').click()
 })

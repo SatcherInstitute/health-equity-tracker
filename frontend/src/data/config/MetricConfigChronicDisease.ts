@@ -87,7 +87,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Cases of cardiovascular diseases',
     fullDisplayNameInline: 'cases of cardiovascular diseases',
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases',
+    dataTableTitle: 'Breakdown summary for cardiovascular disease',
     definition: {
       text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
     },

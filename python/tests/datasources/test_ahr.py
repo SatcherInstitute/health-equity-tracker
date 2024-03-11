@@ -91,11 +91,12 @@ def testWriteToBqAgeState(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 6
 
-    expected_dtype['age'] = str
+    df = mock_bq.call_args_list[1].args[0]
 
+    expected_dtype['age'] = str
     expected_df = pd.read_json(GOLDEN_DATA_AGE, dtype=expected_dtype)
 
-    assert_frame_equal(mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch(
