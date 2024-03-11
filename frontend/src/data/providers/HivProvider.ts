@@ -21,15 +21,19 @@ export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
 ]
 
 export const BLACK_WOMEN_METRICS: MetricId[] = [
+  'hiv_deaths_black_women',
   'hiv_deaths_black_women_pct_relative_inequity',
   'hiv_deaths_black_women_pct_share',
   'hiv_deaths_black_women_per_100k',
+  'hiv_diagnoses_black_women',
   'hiv_diagnoses_black_women_pct_relative_inequity',
   'hiv_diagnoses_black_women_pct_share',
   'hiv_diagnoses_black_women_per_100k',
+  'hiv_prevalence_black_women',
   'hiv_prevalence_black_women_pct_relative_inequity',
   'hiv_prevalence_black_women_pct_share',
   'hiv_prevalence_black_women_per_100k',
+  'black_women_population_count',
   'black_women_population_pct',
 ]
 
@@ -38,6 +42,7 @@ export const CARE_METRICS: MetricId[] = [
   'hiv_care_pct_relative_inequity',
   'hiv_care_pct_share',
   'hiv_care_population_pct',
+  'hiv_care'
 ]
 
 export const DEATHS_METRICS: MetricId[] = [
@@ -45,12 +50,14 @@ export const DEATHS_METRICS: MetricId[] = [
   'hiv_deaths_pct_share',
   'hiv_deaths_per_100k',
   'hiv_deaths_ratio_age_adjusted',
+  'hiv_deaths',
 ]
 
 export const DIAGNOSES_METRICS: MetricId[] = [
   'hiv_diagnoses_pct_relative_inequity',
   'hiv_diagnoses_pct_share',
   'hiv_diagnoses_per_100k',
+  'hiv_diagnoses',
 ]
 
 export const PREP_METRICS: MetricId[] = [
@@ -58,12 +65,14 @@ export const PREP_METRICS: MetricId[] = [
   'hiv_prep_pct_relative_inequity',
   'hiv_prep_pct_share',
   'hiv_prep_population_pct',
+  'hiv_prep'
 ]
 
 export const PREVALENCE_METRICS: MetricId[] = [
   'hiv_prevalence_pct_relative_inequity',
   'hiv_prevalence_pct_share',
   'hiv_prevalence_per_100k',
+  'hiv_prevalence',
 ]
 
 export const GENDER_METRICS: MetricId[] = [

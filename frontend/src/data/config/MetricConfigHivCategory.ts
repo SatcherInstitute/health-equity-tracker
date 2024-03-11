@@ -24,35 +24,44 @@ export type HivCategoryDataTypeId =
 
 export type HivCategoryMetricId =
   | 'black_women_population_pct'
+  | 'black_women_population_count'
   | 'hiv_care_linkage'
   | 'hiv_care_pct_relative_inequity'
   | 'hiv_care_pct_share'
   | 'hiv_care_population_pct'
+  | 'hiv_care'
   | 'hiv_deaths_black_women_pct_relative_inequity'
   | 'hiv_deaths_black_women_pct_share'
   | 'hiv_deaths_black_women_per_100k'
+  | 'hiv_deaths_black_women'
   | 'hiv_deaths_pct_relative_inequity'
   | 'hiv_deaths_pct_share'
   | 'hiv_deaths_per_100k'
   | 'hiv_deaths_ratio_age_adjusted'
+  | 'hiv_deaths'
   | 'hiv_diagnoses_black_women_pct_relative_inequity'
   | 'hiv_diagnoses_black_women_pct_share'
   | 'hiv_diagnoses_black_women_per_100k'
+  | 'hiv_diagnoses_black_women'
   | 'hiv_diagnoses_pct_relative_inequity'
   | 'hiv_diagnoses_pct_share'
   | 'hiv_diagnoses_per_100k'
+  | 'hiv_diagnoses'
   | 'hiv_population_pct'
   | 'hiv_prep_coverage'
   | 'hiv_prep_pct_relative_inequity'
   | 'hiv_prep_pct_share'
   | 'hiv_prep_population_pct'
+  | 'hiv_prep'
   | 'hiv_prevalence_black_women_pct_relative_inequity'
   | 'hiv_prevalence_black_women_pct_share'
   | 'hiv_prevalence_black_women_per_100k'
+  | 'hiv_prevalence_black_women'
   | 'hiv_prevalence_pct_relative_inequity'
   | 'hiv_prevalence_pct_share'
   | 'hiv_prevalence_per_100k'
   | 'hiv_prevalence_ratio_age_adjusted'
+  | 'hiv_prevalence'
   | 'hiv_stigma_index'
   | 'hiv_stigma_pct_share'
   | 'hiv_care_total_additional_gender'
@@ -108,6 +117,12 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Linkage to HIV care',
         shortLabel: '% linkage',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+            metricId: 'hiv_care',
+            shortLabel: 'Individuals with linkage to HIV care',
+            chartTitle: '',
+            type: 'count',
+          },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity in linkage to HIV care',
@@ -156,6 +171,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'HIV prevalence per 100k people',
         shortLabel: 'HIV prevalence per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'hiv_prevalence',
+          shortLabel: 'Individuals living with HIV',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for HIV prevalence',
@@ -202,6 +223,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'HIV diagnoses per 100k people',
         shortLabel: 'HIV diagnoses per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'hiv_diagnoses',
+          shortLabel: 'HIV diagnoses',
+          chartTitle: '',
+          type: 'count',
+        }
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for new HIV diagnoses',
@@ -248,6 +275,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'HIV deaths per 100k people',
         shortLabel: 'deaths per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'hiv_deaths',
+          shortLabel: 'HIV deaths',
+          chartTitle: '',
+          type: 'count',
+        }
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for HIV deaths',
@@ -346,6 +379,18 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
           'HIV prevalence for Black (NH) women per 100k people',
         shortLabel: 'prevalence per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'hiv_prevalence_black_women',
+          shortLabel: 'Black women living with HIV',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'black_women_population_count',
+          shortLabel: 'Total Black women',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle:
@@ -396,6 +441,18 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'New HIV diagnoses for Black (NH) women per 100k',
         shortLabel: 'diagnoses per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'hiv_diagnoses_black_women',
+          shortLabel: 'HIV diagnoses for Black women',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'black_women_population_count',
+          shortLabel: 'Total Black women',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle:
@@ -444,6 +501,18 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'HIV deaths for Black (NH) women per 100k people',
         shortLabel: 'deaths per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'hiv_deaths_black_women',
+          shortLabel: 'HIV deaths for Black women',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'black_women_population_count',
+          shortLabel: 'Total Black women',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle:
@@ -495,6 +564,12 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'PrEP coverage',
         shortLabel: '% PrEP coverage',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'hiv_prep',
+          shortLabel: 'PrEP prescriptions',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for PrEP coverage',
