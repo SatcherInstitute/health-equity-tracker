@@ -66,6 +66,7 @@ Last Updated: 2/24
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
 RAW_TOTALS_MAP = generate_cols_map(INJ_INTENTS, std_col.RAW_SUFFIX)
+RAW_POPULATIONS_MAP = generate_cols_map(INJ_OUTCOMES, std_col.POPULATION_COL)
 PCT_SHARE_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
 PCT_SHARE_MAP[std_col.FATAL_POPULATION] = std_col.FATAL_POPULATION_PCT
 PCT_SHARE_MAP[std_col.NON_FATAL_POPULATION] = std_col.NON_FATAL_POPULATION_PCT
@@ -79,7 +80,10 @@ PIVOT_DEM_COLS = {
 }
 
 TIME_MAP = {
-    CURRENT: list(RAW_TOTALS_MAP.values()) + list(PER_100K_MAP.values()) + list(PCT_SHARE_MAP.values()),
+    CURRENT: list(PER_100K_MAP.values())
+    + list(PCT_SHARE_MAP.values())
+    + list(RAW_TOTALS_MAP.values())
+    + list(RAW_POPULATIONS_MAP.values()),
     HISTORICAL: list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()),
 }
 

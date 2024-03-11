@@ -1,21 +1,21 @@
-state_name,state_fips,age,gun_violence_homicide_estimated_total,gun_violence_legal_intervention_estimated_total,gun_violence_suicide_estimated_total,gun_violence_injuries_estimated_total,gun_violence_homicide_per_100k,gun_violence_legal_intervention_per_100k,gun_violence_suicide_per_100k,gun_violence_injuries_per_100k,gun_violence_homicide_pct_share,gun_violence_legal_intervention_pct_share,gun_violence_suicide_pct_share,gun_violence_injuries_pct_share,fatal_population_pct,non_fatal_population_pct
-United States,00,0 to 4,87.0,,,,0.46,,,,0.4,,,,5.7,5.7
-United States,00,10 to 14,254.0,,235.0,1673.0,1.18,,1.1,7.8,1.2,,0.9,44.1,6.5,6.5
-United States,00,15 to 19,2611.0,,1185.0,,12.11,,5.5,,12.5,,4.5,,6.5,6.5
-United States,00,20 to 24,3596.0,59.0,2405.0,,16.71,0.27,11.17,,17.2,12.4,9.1,,6.5,6.5
-United States,00,25 to 29,3594.0,83.0,2201.0,,16.05,0.37,9.83,,17.1,17.5,8.4,,6.7,6.7
-United States,00,30 to 34,3085.0,116.0,2020.0,,13.35,0.5,8.74,,14.7,24.5,7.7,,7.0,7.0
-United States,00,35 to 39,2255.0,88.0,1889.0,,10.11,0.4,8.47,,10.8,18.6,7.2,,6.7,6.7
-United States,00,40 to 44,1676.0,59.0,1755.0,,7.94,0.28,8.32,,8.0,12.4,6.7,,6.4,6.4
-United States,00,45 to 49,1154.0,35.0,1706.0,,5.83,0.18,8.62,,5.5,7.4,6.5,,6.0,6.0
-United States,00,5 to 9,105.0,,,,0.52,,,,0.5,,,,6.1,6.1
-United States,00,50 to 54,870.0,34.0,2011.0,,4.16,0.16,9.62,,4.2,7.2,7.6,,6.3,6.3
-United States,00,55 to 59,630.0,,2045.0,,2.92,,9.48,,3.0,,7.8,,6.5,6.5
-United States,00,60 to 64,466.0,,1939.0,,2.19,,9.13,,2.2,,7.4,,6.4,6.4
-United States,00,65 to 69,244.0,,1720.0,2124.0,1.33,,9.35,11.55,1.2,,6.5,55.9,5.5,5.5
-United States,00,70 to 74,169.0,,1710.0,,1.11,,11.2,,0.8,,6.5,,4.6,4.6
-United States,00,75 to 79,74.0,,1385.0,,0.75,,13.98,,0.4,,5.3,,3.0,3.0
-United States,00,80 to 84,41.0,,1085.0,,0.65,,17.22,,0.2,,4.1,,1.9,1.9
-United States,00,85+,47.0,,1035.0,,0.79,,17.32,,0.2,,3.9,,1.8,1.8
-United States,00,Unknown,,,,,,,,,,,,,,
-United States,00,All,20958.0,537.0,26328.0,,6.32,0.16,7.93,,100.0,100.0,100.0,100.0,100.0,100.0
+state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_legal_intervention_per_100k,gun_violence_suicide_per_100k,gun_violence_injuries_per_100k,gun_violence_homicide_pct_share,gun_violence_legal_intervention_pct_share,gun_violence_suicide_pct_share,gun_violence_injuries_pct_share,fatal_population_pct,non_fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_legal_intervention_estimated_total,gun_violence_suicide_estimated_total,gun_violence_injuries_estimated_total,fatal_population,non_fatal_population
+United States,00,0 to 4,0.46,,,,0.4,,,,5.7,5.7,87.0,,,,18827338.0,18827338.0
+United States,00,10 to 14,1.18,,1.1,7.8,1.2,,0.9,44.1,6.5,6.5,254.0,,235.0,1673.0,21447784.0,21447784.0
+United States,00,15 to 19,12.11,,5.5,,12.5,,4.5,,6.5,6.5,2611.0,,1185.0,,21564666.0,21564666.0
+United States,00,20 to 24,16.71,0.27,11.17,,17.2,12.4,9.1,,6.5,6.5,3596.0,59.0,2405.0,,21523997.0,21523997.0
+United States,00,25 to 29,16.05,0.37,9.83,,17.1,17.5,8.4,,6.7,6.7,3594.0,83.0,2201.0,,22392477.0,22392477.0
+United States,00,30 to 34,13.35,0.5,8.74,,14.7,24.5,7.7,,7.0,7.0,3085.0,116.0,2020.0,,23102628.0,23102628.0
+United States,00,35 to 39,10.11,0.4,8.47,,10.8,18.6,7.2,,6.7,6.7,2255.0,88.0,1889.0,,22299318.0,22299318.0
+United States,00,40 to 44,7.94,0.28,8.32,,8.0,12.4,6.7,,6.4,6.4,1676.0,59.0,1755.0,,21104536.0,21104536.0
+United States,00,45 to 49,5.83,0.18,8.62,,5.5,7.4,6.5,,6.0,6.0,1154.0,35.0,1706.0,,19781510.0,19781510.0
+United States,00,5 to 9,0.52,,,,0.5,,,,6.1,6.1,105.0,,,,20291548.0,20291548.0
+United States,00,50 to 54,4.16,0.16,9.62,,4.2,7.2,7.6,,6.3,6.3,870.0,34.0,2011.0,,20906926.0,20906926.0
+United States,00,55 to 59,2.92,,9.48,,3.0,,7.8,,6.5,6.5,630.0,,2045.0,,21567314.0,21567314.0
+United States,00,60 to 64,2.19,,9.13,,2.2,,7.4,,6.4,6.4,466.0,,1939.0,,21235750.0,21235750.0
+United States,00,65 to 69,1.33,,9.35,11.55,1.2,,6.5,55.9,5.5,5.5,244.0,,1720.0,2124.0,18394320.0,18394320.0
+United States,00,70 to 74,1.11,,11.2,,0.8,,6.5,,4.6,4.6,169.0,,1710.0,,15271802.0,15271802.0
+United States,00,75 to 79,0.75,,13.98,,0.4,,5.3,,3.0,3.0,74.0,,1385.0,,9904769.0,9904769.0
+United States,00,80 to 84,0.65,,17.22,,0.2,,4.1,,1.9,1.9,41.0,,1085.0,,6301306.0,6301306.0
+United States,00,85+,0.79,,17.32,,0.2,,3.9,,1.8,1.8,47.0,,1035.0,,5975756.0,5975756.0
+United States,00,Unknown,,,,,,,,,,,,,,,,
+United States,00,All,6.32,0.16,7.93,,100.0,100.0,100.0,100.0,100.0,100.0,20958.0,537.0,26328.0,,331893745.0,331893745.0
