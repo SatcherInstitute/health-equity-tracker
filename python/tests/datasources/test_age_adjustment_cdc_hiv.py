@@ -62,10 +62,10 @@ def testWriteToBq(
     national_df, _national_dataset, national_table_name = mock_bq.call_args_list[0][0]
     assert national_table_name == "race_and_ethnicity_national_current-with_age_adjust"
     expected_national_df = pd.read_csv(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype=dtype, index_col=False)
+
     assert_frame_equal(national_df, expected_national_df, check_like=True)
 
     state_df, _state_dataset, state_table_name = mock_bq.call_args_list[1][0]
     assert state_table_name == "race_and_ethnicity_state_current-with_age_adjust"
     expected_state_df = pd.read_csv(GOLDEN_INTEGRATION_DATA_STATE, dtype=dtype, index_col=False)
-    # state_df.to_csv(f'{state_table_name}.csv', index=False)
     assert_frame_equal(state_df, expected_state_df, check_like=True)
