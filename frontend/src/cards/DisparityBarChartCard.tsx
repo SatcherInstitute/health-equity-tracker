@@ -10,7 +10,14 @@ import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
-import { NON_HISPANIC, ALL, RACE, HISPANIC, SEX } from '../data/utils/Constants'
+import {
+  NON_HISPANIC,
+  ALL,
+  RACE,
+  HISPANIC,
+  SEX,
+  AGE,
+} from '../data/utils/Constants'
 import UnknownsAlert from './ui/UnknownsAlert'
 import {
   shouldShowAltPopCompare,
@@ -24,6 +31,7 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
 
 interface DisparityBarChartCardProps {
   key?: string
@@ -121,6 +129,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
 
+        const showAHRPopulationWarning =
+          ALL_AHR_METRICS.includes(metricConfig.metricId) &&
+          props.demographicType === AGE
+
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
@@ -197,6 +209,15 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <CAWPOverlappingRacesAlert
                 dataTypeConfig={props.dataTypeConfig}
               />
+            )}
+            {showAHRPopulationWarning && (
+              <HetNotice kind='data-integrity'>
+                Percent share values on this report measure the share of{' '}
+                <em>adult</em> cases, whereas the comparison population percent
+                shares displayed are for the entire population (all ages). Use
+                caution when comparing an age group's share of cases to their
+                share of the population.
+              </HetNotice>
             )}
           </>
         )
