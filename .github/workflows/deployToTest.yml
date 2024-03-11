@@ -123,6 +123,7 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          ahr-api-key: ${{ secrets.AHR_API_KEY }}
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
