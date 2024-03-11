@@ -88,8 +88,8 @@ def test_write_to_bq_race_national(
     expected_race_national_current_df = pd.read_csv(GOLDEN_DATA["race_national_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        race_national_current_df.sort_values(by='race_and_ethnicity').reset_index(drop=True),
-        expected_race_national_current_df.sort_values(by='race_and_ethnicity').reset_index(drop=True),
+        race_national_current_df,
+        expected_race_national_current_df,
         check_like=True,
     )
 
@@ -139,8 +139,8 @@ def test_write_to_bq_age_national(
     expected_age_national_current_df = pd.read_csv(GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
-        expected_age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
+        age_national_current_df,
+        expected_age_national_current_df,
         check_like=True,
     )
 
@@ -179,8 +179,8 @@ def test_write_to_bq_sex_state(
     expected_sex_state_current_df = pd.read_csv(GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
-        sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(drop=True),
-        expected_sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(drop=True),
+        sex_state_current_df,
+        expected_sex_state_current_df,
         check_like=True,
     )
 
@@ -221,6 +221,7 @@ def test_write_to_bq_sex_county(
     ), _col_types = mock_bq_sex_county_current
     assert table_name == "sex_county_current"
     expected_sex_county_current_df = pd.read_csv(GOLDEN_DATA["sex_county_current"], dtype=EXP_DTYPE)
+
     assert_frame_equal(sex_county_current_df, expected_sex_county_current_df, check_like=True)
 
     (
