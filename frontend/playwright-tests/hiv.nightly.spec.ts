@@ -26,6 +26,7 @@ test('HIV: Prevalance', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
+  await page.getByRole('button', { name: 'Population vs. distribution' }).click();
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
