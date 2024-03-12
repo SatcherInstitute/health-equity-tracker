@@ -38,9 +38,7 @@ class AgeAdjustCDCHiv(DataSource):
         return 'cdc_hiv_data'
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError(
-            'upload_to_gcs should not be called for AgeAdjustCDCHiv'
-        )
+        raise NotImplementedError('upload_to_gcs should not be called for AgeAdjustCDCHiv')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for geo in [NATIONAL_LEVEL, STATE_LEVEL]:
@@ -81,6 +79,9 @@ class AgeAdjustCDCHiv(DataSource):
                 "hiv_diagnoses": BQ_FLOAT,
                 "hiv_prep": BQ_FLOAT,
                 "hiv_prevalence": BQ_FLOAT,
+                std_col.HIV_POPULATION: BQ_FLOAT,
+                std_col.HIV_CARE_POPULATION: BQ_FLOAT,
+                std_col.HIV_PREP_POPULATION: BQ_FLOAT,
                 "hiv_deaths_ratio_age_adjusted": BQ_FLOAT,
             }
 
@@ -106,9 +107,9 @@ class AgeAdjustCDCHiv(DataSource):
         ]
         race_age_df = race_age_df.groupby(groupby_cols).sum().reset_index()
 
-        race_age_df = race_age_df.loc[
-            race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(AGE_ADJUST_RACES)
-        ].reset_index(drop=True)
+        race_age_df = race_age_df.loc[race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(AGE_ADJUST_RACES)].reset_index(
+            drop=True
+        )
 
         df = get_expected_col(race_age_df, pop_df, EXPECTED_DEATHS, TOTAL_DEATHS)
 
@@ -157,9 +158,7 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
         split."""
 
         if not row[ref_pop_size]:
-            raise ValueError(
-                f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil'
-            )
+            raise ValueError(f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil')
 
         if not row[raw_number_col]:
             return None
@@ -177,9 +176,9 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     df = pd.merge(race_and_age_df, population_df, on=merge_cols)
     df = df.rename(columns={std_col.POPULATION_COL: this_pop_size})
 
-    ref_pop_df = population_df.loc[
-        population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION
-    ].reset_index(drop=True)
+    ref_pop_df = population_df.loc[population_df[std_col.RACE_CATEGORY_ID_COL] == REFERENCE_POPULATION].reset_index(
+        drop=True
+    )
 
     merge_cols = [std_col.AGE_COL, std_col.STATE_FIPS_COL]
     ref_pop_df = ref_pop_df[merge_cols + [std_col.POPULATION_COL]]
@@ -212,9 +211,7 @@ def age_adjust_from_expected(df):
         row[std_col.HIV_DEATH_RATIO_AGE_ADJUSTED] = (
             None
             if not row[base_pop_expected_deaths]
-            else ratio_round_to_None(
-                row[EXPECTED_DEATHS], row[base_pop_expected_deaths]
-            )
+            else ratio_round_to_None(row[EXPECTED_DEATHS], row[base_pop_expected_deaths])
         )
         return row
 
@@ -228,16 +225,12 @@ def age_adjust_from_expected(df):
 
     # Sum all of a race group's age rows into a single row
     df = df.groupby(groupby_cols).sum().reset_index()
-    base_pop_df = df.loc[
-        df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION
-    ].reset_index(drop=True)
+    base_pop_df = df.loc[df[std_col.RACE_CATEGORY_ID_COL] == BASE_POPULATION].reset_index(drop=True)
 
     merge_cols = [std_col.STATE_FIPS_COL]
 
     base_pop_df = base_pop_df[merge_cols + [EXPECTED_DEATHS]]
-    base_pop_df = base_pop_df.rename(
-        columns={EXPECTED_DEATHS: base_pop_expected_deaths}
-    )
+    base_pop_df = base_pop_df.rename(columns={EXPECTED_DEATHS: base_pop_expected_deaths})
 
     # Then, merge the expected deaths of the 'base'
     # or comparison population (WHITE_NH in this case)
