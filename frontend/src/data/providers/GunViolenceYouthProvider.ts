@@ -13,12 +13,12 @@ export const GUN_VIOLENCE_YOUTH_METRICS: MetricId[] = [
     'gun_violence_youth_deaths_pct_relative_inequity',
     'gun_violence_youth_deaths_pct_share', 
     'gun_violence_youth_deaths_per_100k',
-    'population_pct'
+    'population_pct',
 ]
 
 export const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
-    ['Age', 'unavailable for Gun Deaths Youth'],
-    ['Sex', 'unavailable for Gun Deaths Youth'],
+    ['Age', 'unavailable for Gun Deaths (Youth)'],
+    ['Sex', 'unavailable for Gun Deaths (Youth)'],
   ]
   
 class GunViolenceYouthProvider extends VariableProvider {

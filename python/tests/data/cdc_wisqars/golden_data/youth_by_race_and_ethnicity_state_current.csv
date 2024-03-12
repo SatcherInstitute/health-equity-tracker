@@ -1,4 +1,4 @@
-state_name,state_fips,race_and_ethnicity,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,population_pct,population
+state_name,state_fips,race_and_ethnicity,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,youth_population_pct,youth_population
 Alabama,01,American Indian and Alaska Native (NH),,,,0.4,7214.0
 Alabama,01,Asian (NH),,,,1.5,25270.0
 Alabama,01,Black or African American (NH),416.0,86.4,51.7,29.3,481490.0

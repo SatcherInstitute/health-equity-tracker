@@ -588,9 +588,9 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig, 
     metrics: {
       sub_population_count: {
-        chartTitle: 'Estimated total of gun deaths amgonst youth',
+        chartTitle: '',
         metricId: 'gun_violence_youth_deaths_estimated_total',
-        shortLabel: 'estimated total', 
+        shortLabel: 'Total Population for Gun Deaths (Youth)', 
         type: 'count',
       }, 
       pct_relative_inequity: {
@@ -619,8 +619,20 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         metricId: 'gun_violence_youth_deaths_per_100k', 
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths amongst youth over time', 
-        type: 'per100k'
-      }
+        type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_violence_youth_deaths_estimated_total',
+          shortLabel: 'Gun deaths (youth)',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        }
+      },
     }
   }
 ]

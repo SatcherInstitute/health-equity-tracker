@@ -141,7 +141,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
   gun_violence: 'Gun Violence (General Population)',
-  gun_violence_youth: 'Gun Violence (Youth)',
+  gun_violence_youth: 'Gun Deaths (Youth)',
   health_insurance: 'Uninsured Individuals',
   hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',
