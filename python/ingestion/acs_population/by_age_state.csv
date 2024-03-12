@@ -1,7 +1,9 @@
 state_fips,state_name,age,population,population_pct
+01,Alabama,0-14,917070.0,18.2
 01,Alabama,0-17,1110642.0,22.1
 01,Alabama,0-9,591060.0,11.8
 01,Alabama,10-19,667547.0,13.3
+01,Alabama,15+,4111022.0,81.8
 01,Alabama,15-24,682502.0,13.6
 01,Alabama,18+,3917450.0,77.9
 01,Alabama,18-19,147965.0,2.9
@@ -39,9 +41,11 @@ state_fips,state_name,age,population,population_pct
 01,Alabama,80-84,104450.0,2.1
 01,Alabama,85+,87589.0,1.7
 01,Alabama,All,5028092.0,100.0
+02,Alaska,0-14,150397.0,20.5
 02,Alaska,0-17,179338.0,24.4
 02,Alaska,0-9,101021.0,13.7
 02,Alaska,10-19,96682.0,13.2
+02,Alaska,15+,584424.0,79.5
 02,Alaska,15-24,98553.0,13.4
 02,Alaska,18+,555483.0,75.6
 02,Alaska,18-19,18365.0,2.5
@@ -79,9 +83,11 @@ state_fips,state_name,age,population,population_pct
 02,Alaska,80-84,9232.0,1.3
 02,Alaska,85+,6653.0,0.9
 02,Alaska,All,734821.0,100.0
+04,Arizona,0-14,1310864.0,18.3
 04,Arizona,0-17,1593463.0,22.2
 04,Arizona,0-9,837050.0,11.7
 04,Arizona,10-19,954649.0,13.3
+04,Arizona,15+,5861418.0,81.7
 04,Arizona,15-24,982459.0,13.7
 04,Arizona,18+,5578819.0,77.8
 04,Arizona,18-19,198236.0,2.8
@@ -119,9 +125,11 @@ state_fips,state_name,age,population,population_pct
 04,Arizona,80-84,156666.0,2.2
 04,Arizona,85+,138895.0,1.9
 04,Arizona,All,7172282.0,100.0
+05,Arkansas,0-14,575677.0,19.1
 05,Arkansas,0-17,697268.0,23.1
 05,Arkansas,0-9,375137.0,12.4
 05,Arkansas,10-19,406467.0,13.5
+05,Arkansas,15+,2442992.0,80.9
 05,Arkansas,15-24,411145.0,13.6
 05,Arkansas,18+,2321401.0,76.9
 05,Arkansas,18-19,84336.0,2.8
@@ -159,9 +167,11 @@ state_fips,state_name,age,population,population_pct
 05,Arkansas,80-84,60613.0,2.0
 05,Arkansas,85+,57090.0,1.9
 05,Arkansas,All,3018669.0,100.0
+06,California,0-14,7239502.0,18.4
 06,California,0-17,8774570.0,22.3
 06,California,0-9,4626466.0,11.8
 06,California,10-19,5212166.0,13.2
+06,California,15+,32116602.0,81.6
 06,California,15-24,5273904.0,13.4
 06,California,18+,30581534.0,77.7
 06,California,18-19,1064062.0,2.7
@@ -199,9 +209,11 @@ state_fips,state_name,age,population,population_pct
 06,California,80-84,673456.0,1.7
 06,California,85+,751191.0,1.9
 06,California,All,39356104.0,100.0
+08,Colorado,0-14,1021174.0,17.7
 08,Colorado,0-17,1241310.0,21.5
 08,Colorado,0-9,655967.0,11.4
 08,Colorado,10-19,741611.0,12.9
+08,Colorado,15+,4749616.0,82.3
 08,Colorado,15-24,766856.0,13.3
 08,Colorado,18+,4529480.0,78.5
 08,Colorado,18-19,156268.0,2.7
@@ -239,9 +251,11 @@ state_fips,state_name,age,population,population_pct
 08,Colorado,80-84,89279.0,1.5
 08,Colorado,85+,92304.0,1.6
 08,Colorado,All,5770790.0,100.0
+09,Connecticut,0-14,601635.0,16.7
 09,Connecticut,0-17,742877.0,20.6
 09,Connecticut,0-9,379368.0,10.5
 09,Connecticut,10-19,469768.0,13.0
+09,Connecticut,15+,3009682.0,83.3
 09,Connecticut,15-24,488892.0,13.5
 09,Connecticut,18+,2868440.0,79.4
 09,Connecticut,18-19,106259.0,2.9
@@ -279,9 +293,11 @@ state_fips,state_name,age,population,population_pct
 09,Connecticut,80-84,70912.0,2.0
 09,Connecticut,85+,87997.0,2.4
 09,Connecticut,All,3611317.0,100.0
+10,Delaware,0-14,170463.0,17.2
 10,Delaware,0-17,206702.0,20.8
 10,Delaware,0-9,109968.0,11.1
 10,Delaware,10-19,123481.0,12.4
+10,Delaware,15+,823172.0,82.8
 10,Delaware,15-24,122808.0,12.4
 10,Delaware,18+,786933.0,79.2
 10,Delaware,18-19,26747.0,2.7
@@ -319,9 +335,11 @@ state_fips,state_name,age,population,population_pct
 10,Delaware,80-84,21733.0,2.2
 10,Delaware,85+,19419.0,2.0
 10,Delaware,All,993635.0,100.0
+11,District of Columbia,0-14,108459.0,16.2
 11,District of Columbia,0-17,124056.0,18.5
 11,District of Columbia,0-9,76159.0,11.4
 11,District of Columbia,10-19,64579.0,9.6
+11,District of Columbia,15+,562128.0,83.8
 11,District of Columbia,15-24,77532.0,11.6
 11,District of Columbia,18+,546531.0,81.5
 11,District of Columbia,18-19,16682.0,2.5
@@ -359,9 +377,11 @@ state_fips,state_name,age,population,population_pct
 11,District of Columbia,80-84,9990.0,1.5
 11,District of Columbia,85+,10167.0,1.5
 11,District of Columbia,All,670587.0,100.0
+12,Florida,0-14,3492962.0,16.1
 12,Florida,0-17,4235429.0,19.6
 12,Florida,0-9,2244141.0,10.4
 12,Florida,10-19,2507794.0,11.6
+12,Florida,15+,18141567.0,83.9
 12,Florida,15-24,2561720.0,11.8
 12,Florida,18+,17399100.0,80.4
 12,Florida,18-19,516506.0,2.4
@@ -399,9 +419,11 @@ state_fips,state_name,age,population,population_pct
 12,Florida,80-84,573196.0,2.6
 12,Florida,85+,573014.0,2.6
 12,Florida,All,21634529.0,100.0
+13,Georgia,0-14,2063066.0,19.2
 13,Georgia,0-17,2512545.0,23.4
 13,Georgia,0-9,1315156.0,12.3
 13,Georgia,10-19,1505467.0,14.0
+13,Georgia,15+,8659259.0,80.8
 13,Georgia,15-24,1500639.0,14.0
 13,Georgia,18+,8209780.0,76.6
 13,Georgia,18-19,308078.0,2.9
@@ -439,9 +461,11 @@ state_fips,state_name,age,population,population_pct
 13,Georgia,80-84,164603.0,1.5
 13,Georgia,85+,153439.0,1.4
 13,Georgia,All,10722325.0,100.0
+15,Hawaii,0-14,257278.0,17.7
 15,Hawaii,0-17,305319.0,21.0
 15,Hawaii,0-9,169535.0,11.7
 15,Hawaii,10-19,166647.0,11.5
+15,Hawaii,15+,1193311.0,82.3
 15,Hawaii,15-24,170782.0,11.8
 15,Hawaii,18+,1145270.0,79.0
 15,Hawaii,18-19,30863.0,2.1
@@ -479,9 +503,11 @@ state_fips,state_name,age,population,population_pct
 15,Hawaii,80-84,30642.0,2.1
 15,Hawaii,85+,41066.0,2.8
 15,Hawaii,All,1450589.0,100.0
+16,Idaho,0-14,373573.0,20.1
 16,Idaho,0-17,454779.0,24.5
 16,Idaho,0-9,237976.0,12.8
 16,Idaho,10-19,277984.0,15.0
+16,Idaho,15+,1480536.0,79.9
 16,Idaho,15-24,268240.0,14.5
 16,Idaho,18+,1399330.0,75.5
 16,Idaho,18-19,61181.0,3.3
@@ -519,9 +545,11 @@ state_fips,state_name,age,population,population_pct
 16,Idaho,80-84,32620.0,1.8
 16,Idaho,85+,30261.0,1.6
 16,Idaho,All,1854109.0,100.0
+17,Illinois,0-14,2312490.0,18.1
 17,Illinois,0-17,2820477.0,22.1
 17,Illinois,0-9,1485516.0,11.6
 17,Illinois,10-19,1676093.0,13.1
+17,Illinois,15+,10445144.0,81.9
 17,Illinois,15-24,1698728.0,13.3
 17,Illinois,18+,9937157.0,77.9
 17,Illinois,18-19,341132.0,2.7
@@ -559,9 +587,11 @@ state_fips,state_name,age,population,population_pct
 17,Illinois,80-84,234731.0,1.8
 17,Illinois,85+,262397.0,2.1
 17,Illinois,All,12757634.0,100.0
+18,Indiana,0-14,1299981.0,19.2
 18,Indiana,0-17,1577461.0,23.3
 18,Indiana,0-9,842340.0,12.4
 18,Indiana,10-19,931419.0,13.7
+18,Indiana,15+,5484422.0,80.8
 18,Indiana,15-24,952331.0,14.0
 18,Indiana,18+,5206942.0,76.7
 18,Indiana,18-19,196298.0,2.9
@@ -599,9 +629,11 @@ state_fips,state_name,age,population,population_pct
 18,Indiana,80-84,121547.0,1.8
 18,Indiana,85+,131403.0,1.9
 18,Indiana,All,6784403.0,100.0
+19,Iowa,0-14,602898.0,18.9
 19,Iowa,0-17,730318.0,22.9
 19,Iowa,0-9,392464.0,12.3
 19,Iowa,10-19,433541.0,13.6
+19,Iowa,15+,2585938.0,81.1
 19,Iowa,15-24,454736.0,14.3
 19,Iowa,18+,2458518.0,77.1
 19,Iowa,18-19,95687.0,3.0
@@ -639,9 +671,11 @@ state_fips,state_name,age,population,population_pct
 19,Iowa,80-84,66934.0,2.1
 19,Iowa,85+,76697.0,2.4
 19,Iowa,All,3188836.0,100.0
+20,Kansas,0-14,579706.0,19.7
 20,Kansas,0-17,701412.0,23.9
 20,Kansas,0-9,375941.0,12.8
 20,Kansas,10-19,414112.0,14.1
+20,Kansas,15+,2356216.0,80.3
 20,Kansas,15-24,429696.0,14.6
 20,Kansas,18+,2234510.0,76.1
 20,Kansas,18-19,88641.0,3.0
@@ -679,9 +713,11 @@ state_fips,state_name,age,population,population_pct
 20,Kansas,80-84,55158.0,1.9
 20,Kansas,85+,63399.0,2.2
 20,Kansas,All,2935922.0,100.0
+21,Kentucky,0-14,836220.0,18.6
 21,Kentucky,0-17,1011480.0,22.5
 21,Kentucky,0-9,544788.0,12.1
 21,Kentucky,10-19,585242.0,13.0
+21,Kentucky,15+,3666715.0,81.4
 21,Kentucky,15-24,599606.0,13.3
 21,Kentucky,18+,3491455.0,77.5
 21,Kentucky,18-19,118550.0,2.6
@@ -719,9 +755,11 @@ state_fips,state_name,age,population,population_pct
 21,Kentucky,80-84,85787.0,1.9
 21,Kentucky,85+,77368.0,1.7
 21,Kentucky,All,4502935.0,100.0
+22,Louisiana,0-14,899426.0,19.4
 22,Louisiana,0-17,1082577.0,23.3
 22,Louisiana,0-9,584130.0,12.6
 22,Louisiana,10-19,621215.0,13.4
+22,Louisiana,15+,3741120.0,80.6
 22,Louisiana,15-24,619974.0,13.4
 22,Louisiana,18+,3557969.0,76.7
 22,Louisiana,18-19,122768.0,2.6
@@ -759,9 +797,11 @@ state_fips,state_name,age,population,population_pct
 22,Louisiana,80-84,79778.0,1.7
 22,Louisiana,85+,80170.0,1.7
 22,Louisiana,All,4640546.0,100.0
+23,Maine,0-14,204553.0,15.0
 23,Maine,0-17,250816.0,18.3
 23,Maine,0-9,132162.0,9.7
 23,Maine,10-19,151778.0,11.1
+23,Maine,15+,1162396.0,85.0
 23,Maine,15-24,156435.0,11.4
 23,Maine,18+,1116133.0,81.7
 23,Maine,18-19,33124.0,2.4
@@ -799,9 +839,11 @@ state_fips,state_name,age,population,population_pct
 23,Maine,80-84,33062.0,2.4
 23,Maine,85+,33918.0,2.5
 23,Maine,All,1366949.0,100.0
+24,Maryland,0-14,1124807.0,18.3
 24,Maryland,0-17,1360294.0,22.1
 24,Maryland,0-9,731603.0,11.9
 24,Maryland,10-19,788149.0,12.8
+24,Maryland,15+,5036900.0,81.7
 24,Maryland,15-24,776805.0,12.6
 24,Maryland,18+,4801413.0,77.9
 24,Maryland,18-19,159458.0,2.6
@@ -839,9 +881,11 @@ state_fips,state_name,age,population,population_pct
 24,Maryland,80-84,111570.0,1.8
 24,Maryland,85+,118634.0,1.9
 24,Maryland,All,6161707.0,100.0
+25,Massachusetts,0-14,1115787.0,16.0
 25,Massachusetts,0-17,1367016.0,19.6
 25,Massachusetts,0-9,715790.0,10.2
 25,Massachusetts,10-19,860719.0,12.3
+25,Massachusetts,15+,5868418.0,84.0
 25,Massachusetts,15-24,948317.0,13.6
 25,Massachusetts,18+,5617189.0,80.4
 25,Massachusetts,18-19,209493.0,3.0
@@ -879,9 +923,11 @@ state_fips,state_name,age,population,population_pct
 25,Massachusetts,80-84,131906.0,1.9
 25,Massachusetts,85+,160539.0,2.3
 25,Massachusetts,All,6984205.0,100.0
+26,Michigan,0-14,1760551.0,17.5
 26,Michigan,0-17,2149464.0,21.4
 26,Michigan,0-9,1138841.0,11.3
 26,Michigan,10-19,1283000.0,12.8
+26,Michigan,15+,8297370.0,82.5
 26,Michigan,15-24,1358931.0,13.5
 26,Michigan,18+,7908457.0,78.6
 26,Michigan,18-19,272377.0,2.7
@@ -919,9 +965,11 @@ state_fips,state_name,age,population,population_pct
 26,Michigan,80-84,197236.0,2.0
 26,Michigan,85+,212636.0,2.1
 26,Michigan,All,10057921.0,100.0
+27,Minnesota,0-14,1081427.0,19.0
 27,Minnesota,0-17,1307084.0,23.0
 27,Minnesota,0-9,705541.0,12.4
 27,Minnesota,10-19,750004.0,13.2
+27,Minnesota,15+,4613865.0,81.0
 27,Minnesota,15-24,739473.0,13.0
 27,Minnesota,18+,4388208.0,77.0
 27,Minnesota,18-19,148461.0,2.6
@@ -959,9 +1007,11 @@ state_fips,state_name,age,population,population_pct
 27,Minnesota,80-84,107595.0,1.9
 27,Minnesota,85+,121124.0,2.1
 27,Minnesota,All,5695292.0,100.0
+28,Mississippi,0-14,569215.0,19.2
 28,Mississippi,0-17,691076.0,23.4
 28,Mississippi,0-9,361306.0,12.2
 28,Mississippi,10-19,421101.0,14.2
+28,Mississippi,15+,2389631.0,80.8
 28,Mississippi,15-24,421309.0,14.2
 28,Mississippi,18+,2267770.0,76.6
 28,Mississippi,18-19,91331.0,3.1
@@ -999,9 +1049,11 @@ state_fips,state_name,age,population,population_pct
 28,Mississippi,80-84,56191.0,1.9
 28,Mississippi,85+,50547.0,1.7
 28,Mississippi,All,2958846.0,100.0
+29,Missouri,0-14,1134116.0,18.4
 29,Missouri,0-17,1374475.0,22.3
 29,Missouri,0-9,735832.0,12.0
 29,Missouri,10-19,804352.0,13.1
+29,Missouri,15+,5020306.0,81.6
 29,Missouri,15-24,821197.0,13.3
 29,Missouri,18+,4779947.0,77.7
 29,Missouri,18-19,165709.0,2.7
@@ -1039,9 +1091,11 @@ state_fips,state_name,age,population,population_pct
 29,Missouri,80-84,125075.0,2.0
 29,Missouri,85+,125872.0,2.0
 29,Missouri,All,6154422.0,100.0
+30,Montana,0-14,191094.0,17.5
 30,Montana,0-17,231347.0,21.2
 30,Montana,0-9,122293.0,11.2
 30,Montana,10-19,136974.0,12.5
+30,Montana,15+,900746.0,82.5
 30,Montana,15-24,142546.0,13.1
 30,Montana,18+,860493.0,78.8
 30,Montana,18-19,27920.0,2.6
@@ -1079,9 +1133,11 @@ state_fips,state_name,age,population,population_pct
 30,Montana,80-84,22441.0,2.1
 30,Montana,85+,21128.0,1.9
 30,Montana,All,1091840.0,100.0
+31,Nebraska,0-14,398585.0,20.3
 31,Nebraska,0-17,480435.0,24.5
 31,Nebraska,0-9,260324.0,13.3
 31,Nebraska,10-19,276784.0,14.1
+31,Nebraska,15+,1560354.0,79.7
 31,Nebraska,15-24,277069.0,14.1
 31,Nebraska,18+,1478504.0,75.5
 31,Nebraska,18-19,56673.0,2.9
@@ -1119,9 +1175,11 @@ state_fips,state_name,age,population,population_pct
 31,Nebraska,80-84,36830.0,1.9
 31,Nebraska,85+,42470.0,2.2
 31,Nebraska,All,1958939.0,100.0
+32,Nevada,0-14,570895.0,18.4
 32,Nevada,0-17,689692.0,22.2
 32,Nevada,0-9,366500.0,11.8
 32,Nevada,10-19,394032.0,12.7
+32,Nevada,15+,2533922.0,81.6
 32,Nevada,15-24,379435.0,12.2
 32,Nevada,18+,2415125.0,77.8
 32,Nevada,18-19,70840.0,2.3
@@ -1159,9 +1217,11 @@ state_fips,state_name,age,population,population_pct
 32,Nevada,80-84,53134.0,1.7
 32,Nevada,85+,45790.0,1.5
 32,Nevada,All,3104817.0,100.0
+33,New Hampshire,0-14,207337.0,15.0
 33,New Hampshire,0-17,256188.0,18.6
 33,New Hampshire,0-9,131479.0,9.5
 33,New Hampshire,10-19,162096.0,11.7
+33,New Hampshire,15+,1172273.0,85.0
 33,New Hampshire,15-24,174920.0,12.7
 33,New Hampshire,18+,1123422.0,81.4
 33,New Hampshire,18-19,37387.0,2.7
@@ -1199,9 +1259,11 @@ state_fips,state_name,age,population,population_pct
 33,New Hampshire,80-84,28274.0,2.0
 33,New Hampshire,85+,29544.0,2.1
 33,New Hampshire,All,1379610.0,100.0
+34,New Jersey,0-14,1656384.0,17.9
 34,New Jersey,0-17,2015561.0,21.8
 34,New Jersey,0-9,1071994.0,11.6
 34,New Jersey,10-19,1174268.0,12.7
+34,New Jersey,15+,7592679.0,82.1
 34,New Jersey,15-24,1165676.0,12.6
 34,New Jersey,18+,7233502.0,78.2
 34,New Jersey,18-19,230701.0,2.5
@@ -1239,9 +1301,11 @@ state_fips,state_name,age,population,population_pct
 34,New Jersey,80-84,178604.0,1.9
 34,New Jersey,85+,201120.0,2.2
 34,New Jersey,All,9249063.0,100.0
+35,New Mexico,0-14,388739.0,18.4
 35,New Mexico,0-17,473478.0,22.4
 35,New Mexico,0-9,245511.0,11.6
 35,New Mexico,10-19,287214.0,13.6
+35,New Mexico,15+,1723724.0,81.6
 35,New Mexico,15-24,289816.0,13.7
 35,New Mexico,18+,1638985.0,77.6
 35,New Mexico,18-19,59247.0,2.8
@@ -1279,9 +1343,11 @@ state_fips,state_name,age,population,population_pct
 35,New Mexico,80-84,43819.0,2.1
 35,New Mexico,85+,42629.0,2.0
 35,New Mexico,All,2112463.0,100.0
+36,New York,0-14,3417232.0,17.1
 36,New York,0-17,4128443.0,20.6
 36,New York,0-9,2226863.0,11.1
 36,New York,10-19,2428519.0,12.1
+36,New York,15+,16577147.0,82.9
 36,New York,15-24,2555339.0,12.8
 36,New York,18+,15865936.0,79.4
 36,New York,18-19,526939.0,2.6
@@ -1319,9 +1385,11 @@ state_fips,state_name,age,population,population_pct
 36,New York,80-84,400702.0,2.0
 36,New York,85+,454358.0,2.3
 36,New York,All,19994379.0,100.0
+37,North Carolina,0-14,1879039.0,17.9
 37,North Carolina,0-17,2283888.0,21.8
 37,North Carolina,0-9,1208319.0,11.5
 37,North Carolina,10-19,1375754.0,13.1
+37,North Carolina,15+,8591175.0,82.1
 37,North Carolina,15-24,1419063.0,13.6
 37,North Carolina,18+,8186326.0,78.2
 37,North Carolina,18-19,300185.0,2.9
@@ -1359,9 +1427,11 @@ state_fips,state_name,age,population,population_pct
 37,North Carolina,80-84,191208.0,1.8
 37,North Carolina,85+,187942.0,1.8
 37,North Carolina,All,10470214.0,100.0
+38,North Dakota,0-14,154785.0,19.9
 38,North Dakota,0-17,182733.0,23.5
 38,North Dakota,0-9,103358.0,13.3
 38,North Dakota,10-19,104054.0,13.4
+38,North Dakota,15+,622089.0,80.1
 38,North Dakota,15-24,115833.0,14.9
 38,North Dakota,18+,594141.0,76.5
 38,North Dakota,18-19,24679.0,3.2
@@ -1399,9 +1469,11 @@ state_fips,state_name,age,population,population_pct
 38,North Dakota,80-84,14915.0,1.9
 38,North Dakota,85+,17899.0,2.3
 38,North Dakota,All,776874.0,100.0
+39,Ohio,0-14,2134149.0,18.1
 39,Ohio,0-17,2593322.0,22.0
 39,Ohio,0-9,1379417.0,11.7
 39,Ohio,10-19,1529438.0,13.0
+39,Ohio,15+,9640534.0,81.9
 39,Ohio,15-24,1542830.0,13.1
 39,Ohio,18+,9181361.0,78.0
 39,Ohio,18-19,315533.0,2.7
@@ -1439,9 +1511,11 @@ state_fips,state_name,age,population,population_pct
 39,Ohio,80-84,235341.0,2.0
 39,Ohio,85+,249294.0,2.1
 39,Ohio,All,11774683.0,100.0
+40,Oklahoma,0-14,788061.0,19.8
 40,Oklahoma,0-17,950444.0,23.9
 40,Oklahoma,0-9,510720.0,12.9
 40,Oklahoma,10-19,553521.0,13.9
+40,Oklahoma,15+,3182436.0,80.2
 40,Oklahoma,15-24,561161.0,14.1
 40,Oklahoma,18+,3020053.0,76.1
 40,Oklahoma,18-19,113797.0,2.9
@@ -1479,9 +1553,11 @@ state_fips,state_name,age,population,population_pct
 40,Oklahoma,80-84,75605.0,1.9
 40,Oklahoma,85+,68356.0,1.7
 40,Oklahoma,All,3970497.0,100.0
+41,Oregon,0-14,705391.0,16.7
 41,Oregon,0-17,855978.0,20.2
 41,Oregon,0-9,451070.0,10.7
 41,Oregon,10-19,508250.0,12.0
+41,Oregon,15+,3523983.0,83.3
 41,Oregon,15-24,524887.0,12.4
 41,Oregon,18+,3373396.0,79.8
 41,Oregon,18-19,103342.0,2.4
@@ -1519,9 +1595,11 @@ state_fips,state_name,age,population,population_pct
 41,Oregon,80-84,79375.0,1.9
 41,Oregon,85+,87583.0,2.1
 41,Oregon,All,4229374.0,100.0
+42,Pennsylvania,0-14,2189906.0,16.9
 42,Pennsylvania,0-17,2664562.0,20.5
 42,Pennsylvania,0-9,1414507.0,10.9
 42,Pennsylvania,10-19,1618552.0,12.5
+42,Pennsylvania,15+,10799302.0,83.1
 42,Pennsylvania,15-24,1671219.0,12.9
 42,Pennsylvania,18+,10324646.0,79.5
 42,Pennsylvania,18-19,368497.0,2.8
@@ -1559,9 +1637,11 @@ state_fips,state_name,age,population,population_pct
 42,Pennsylvania,80-84,280926.0,2.2
 42,Pennsylvania,85+,324956.0,2.5
 42,Pennsylvania,All,12989208.0,100.0
+44,Rhode Island,0-14,170199.0,15.6
 44,Rhode Island,0-17,208324.0,19.0
 44,Rhode Island,0-9,110241.0,10.1
 44,Rhode Island,10-19,134426.0,12.3
+44,Rhode Island,15+,924051.0,84.4
 44,Rhode Island,15-24,152767.0,14.0
 44,Rhode Island,18+,885926.0,81.0
 44,Rhode Island,18-19,36343.0,3.3
@@ -1599,9 +1679,11 @@ state_fips,state_name,age,population,population_pct
 44,Rhode Island,80-84,21999.0,2.0
 44,Rhode Island,85+,25802.0,2.4
 44,Rhode Island,All,1094250.0,100.0
+45,South Carolina,0-14,910800.0,17.7
 45,South Carolina,0-17,1103927.0,21.5
 45,South Carolina,0-9,587537.0,11.4
 45,South Carolina,10-19,665055.0,12.9
+45,South Carolina,15+,4231950.0,82.3
 45,South Carolina,15-24,678629.0,13.2
 45,South Carolina,18+,4038823.0,78.5
 45,South Carolina,18-19,148665.0,2.9
@@ -1639,9 +1721,11 @@ state_fips,state_name,age,population,population_pct
 45,South Carolina,80-84,101716.0,2.0
 45,South Carolina,85+,92293.0,1.8
 45,South Carolina,All,5142750.0,100.0
+46,South Dakota,0-14,181064.0,20.3
 46,South Dakota,0-17,216612.0,24.3
 46,South Dakota,0-9,119122.0,13.4
 46,South Dakota,10-19,121809.0,13.7
+46,South Dakota,15+,709278.0,79.7
 46,South Dakota,15-24,120291.0,13.5
 46,South Dakota,18+,673730.0,75.7
 46,South Dakota,18-19,24319.0,2.7
@@ -1679,9 +1763,11 @@ state_fips,state_name,age,population,population_pct
 46,South Dakota,80-84,17127.0,1.9
 46,South Dakota,85+,20152.0,2.3
 46,South Dakota,All,890342.0,100.0
+47,Tennessee,0-14,1260759.0,18.2
 47,Tennessee,0-17,1526480.0,22.0
 47,Tennessee,0-9,817684.0,11.8
 47,Tennessee,10-19,886386.0,12.8
+47,Tennessee,15+,5663013.0,81.8
 47,Tennessee,15-24,904301.0,13.1
 47,Tennessee,18+,5397292.0,78.0
 47,Tennessee,18-19,177590.0,2.6
@@ -1719,9 +1805,11 @@ state_fips,state_name,age,population,population_pct
 47,Tennessee,80-84,132895.0,1.9
 47,Tennessee,85+,114595.0,1.7
 47,Tennessee,All,6923772.0,100.0
+48,Texas,0-14,6120762.0,20.9
 48,Texas,0-17,7396128.0,25.3
 48,Texas,0-9,3951159.0,13.5
 48,Texas,10-19,4302184.0,14.7
+48,Texas,15+,23122580.0,79.1
 48,Texas,15-24,4211632.0,14.4
 48,Texas,18+,21847214.0,74.7
 48,Texas,18-19,857215.0,2.9
@@ -1759,9 +1847,11 @@ state_fips,state_name,age,population,population_pct
 48,Texas,80-84,411413.0,1.4
 48,Texas,85+,402708.0,1.4
 48,Texas,All,29243342.0,100.0
+49,Utah,0-14,772844.0,23.5
 49,Utah,0-17,935997.0,28.5
 49,Utah,0-9,501180.0,15.3
 49,Utah,10-19,541186.0,16.5
+49,Utah,15+,2510965.0,76.5
 49,Utah,15-24,551046.0,16.8
 49,Utah,18+,2347812.0,71.5
 49,Utah,18-19,106369.0,3.2
@@ -1799,9 +1889,11 @@ state_fips,state_name,age,population,population_pct
 49,Utah,80-84,43796.0,1.3
 49,Utah,85+,37359.0,1.1
 49,Utah,All,3283809.0,100.0
+50,Vermont,0-14,94926.0,14.7
 50,Vermont,0-17,116817.0,18.1
 50,Vermont,0-9,60286.0,9.4
 50,Vermont,10-19,77696.0,12.1
+50,Vermont,15+,548890.0,85.3
 50,Vermont,15-24,89857.0,14.0
 50,Vermont,18+,526999.0,81.9
 50,Vermont,18-19,21165.0,3.3
@@ -1839,9 +1931,11 @@ state_fips,state_name,age,population,population_pct
 50,Vermont,80-84,14313.0,2.2
 50,Vermont,85+,14273.0,2.2
 50,Vermont,All,643816.0,100.0
+51,Virginia,0-14,1551708.0,18.0
 51,Virginia,0-17,1876826.0,21.8
 51,Virginia,0-9,1006113.0,11.7
 51,Virginia,10-19,1119237.0,13.0
+51,Virginia,15+,7072803.0,82.0
 51,Virginia,15-24,1153661.0,13.4
 51,Virginia,18+,6747685.0,78.2
 51,Virginia,18-19,248524.0,2.9
@@ -1879,9 +1973,11 @@ state_fips,state_name,age,population,population_pct
 51,Virginia,80-84,158796.0,1.8
 51,Virginia,85+,151301.0,1.8
 51,Virginia,All,8624511.0,100.0
+53,Washington,0-14,1383452.0,18.0
 53,Washington,0-17,1662997.0,21.6
 53,Washington,0-9,906054.0,11.8
 53,Washington,10-19,941540.0,12.2
+53,Washington,15+,6305097.0,82.0
 53,Washington,15-24,957783.0,12.5
 53,Washington,18+,6025552.0,78.4
 53,Washington,18-19,184597.0,2.4
@@ -1919,9 +2015,11 @@ state_fips,state_name,age,population,population_pct
 53,Washington,80-84,130016.0,1.7
 53,Washington,85+,137582.0,1.8
 53,Washington,All,7688549.0,100.0
+54,West Virginia,0-14,295071.0,16.5
 54,West Virginia,0-17,359784.0,20.1
 54,West Virginia,0-9,188943.0,10.5
 54,West Virginia,10-19,218804.0,12.2
+54,West Virginia,15+,1497896.0,83.5
 54,West Virginia,15-24,226367.0,12.6
 54,West Virginia,18+,1433183.0,79.9
 54,West Virginia,18-19,47963.0,2.7
@@ -1959,9 +2057,11 @@ state_fips,state_name,age,population,population_pct
 54,West Virginia,80-84,41634.0,2.3
 54,West Virginia,85+,39516.0,2.2
 54,West Virginia,All,1792967.0,100.0
+55,Wisconsin,0-14,1040587.0,17.7
 55,Wisconsin,0-17,1269141.0,21.6
 55,Wisconsin,0-9,667363.0,11.3
 55,Wisconsin,10-19,762645.0,13.0
+55,Wisconsin,15+,4841541.0,82.3
 55,Wisconsin,15-24,793710.0,13.5
 55,Wisconsin,18+,4612987.0,78.4
 55,Wisconsin,18-19,160867.0,2.7
@@ -1999,9 +2099,11 @@ state_fips,state_name,age,population,population_pct
 55,Wisconsin,80-84,118954.0,2.0
 55,Wisconsin,85+,127919.0,2.2
 55,Wisconsin,All,5882128.0,100.0
+56,Wyoming,0-14,109155.0,18.9
 56,Wyoming,0-17,132353.0,22.9
 56,Wyoming,0-9,69778.0,12.1
 56,Wyoming,10-19,77958.0,13.5
+56,Wyoming,15+,468774.0,81.1
 56,Wyoming,15-24,76972.0,13.3
 56,Wyoming,18+,445576.0,77.1
 56,Wyoming,18-19,15383.0,2.7
@@ -2039,9 +2141,11 @@ state_fips,state_name,age,population,population_pct
 56,Wyoming,80-84,10552.0,1.8
 56,Wyoming,85+,9749.0,1.7
 56,Wyoming,All,577929.0,100.0
+72,Puerto Rico,0-14,448748.0,13.7
 72,Puerto Rico,0-17,566176.0,17.3
 72,Puerto Rico,0-9,264105.0,8.1
 72,Puerto Rico,10-19,386511.0,11.8
+72,Puerto Rico,15+,2823634.0,86.3
 72,Puerto Rico,15-24,423241.0,12.9
 72,Puerto Rico,18+,2706206.0,82.7
 72,Puerto Rico,18-19,84440.0,2.6

@@ -2,7 +2,7 @@
 // so ALL related topic data is contained in a single object
 
 import { type ColorScheme } from 'vega'
-import { LESS_THAN_1 } from '../utils/Constants'
+import { LESS_THAN_1, LESS_THAN_POINT_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
   type BehavioralHealthMetricId,
@@ -222,7 +222,7 @@ export function formatFieldValue(
   }
 
   // if values are 100k but rounded down to 0, instead replace with "less than 1"
-  if (value === 0 && metricType === 'per100k') return LESS_THAN_1
+  if (value === 0 && metricType === 'per100k') return LESS_THAN_POINT_1
 
   const isRatio = metricType === 'age_adjusted_ratio'
   // only pct_share should get a decimal; others like pct_rate, 100k, index should be rounded as ints

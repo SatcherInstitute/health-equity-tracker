@@ -4,7 +4,8 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
-export const LESS_THAN_1 = '< 0.1'
+export const LESS_THAN_1 = '< 1'
+export const LESS_THAN_POINT_1 = '< 0.1'
 
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = 'race_and_ethnicity'
@@ -198,6 +199,7 @@ export const DECADE_AGE_BUCKETS = [
 ] as const
 
 export const DECADE_PLUS_5_AGE_BUCKETS = [
+  '0-14',
   '15-24',
   '25-34',
   '35-44',
@@ -208,9 +210,10 @@ export const DECADE_PLUS_5_AGE_BUCKETS = [
   '85+',
 ] as const
 
-export const BROAD_AGE_BUCKETS = ['18-44', '45-64', '65+'] as const
+export const BROAD_AGE_BUCKETS = ['0-17', '18-44', '45-64', '65+'] as const
 
 export const VOTER_AGE_BUCKETS = [
+  '0-17',
   '18-24',
   '25-34',
   '35-44',

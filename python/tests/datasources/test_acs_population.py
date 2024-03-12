@@ -17,6 +17,7 @@ GOLDEN_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_population', 'golden
 MOCK_CACHE_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'acs_population', 'mock_cache')
 
 # single year golden data
+GOLDEN_DATA_AGE_NATIONAL_2009 = os.path.join(GOLDEN_DIR, 'age_national.csv')
 GOLDEN_DATA_RACE = os.path.join(GOLDEN_DIR, 'table_by_race_state.csv')
 GOLDEN_DATA_SEX_AGE = os.path.join(GOLDEN_DIR, 'table_by_sex_age.csv')
 GOLDEN_DATA_SEX = os.path.join(GOLDEN_DIR, 'table_by_sex.csv')
@@ -160,6 +161,11 @@ def testOverWriteToBqStateNationalCalls2009(
         'by_race_national_time_series',
         'by_sex_national_time_series',
     ]
+
+    df_age_national_2009_overwrite = mock_bq.call_args_list[5][0][0]
+    expected_df_age_national_2009_overwrite = pd.read_csv(GOLDEN_DATA_AGE_NATIONAL_2009, dtype=DTYPE)
+
+    assert_frame_equal(df_age_national_2009_overwrite, expected_df_age_national_2009_overwrite, check_like=True)
 
 
 @mock.patch('ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022))

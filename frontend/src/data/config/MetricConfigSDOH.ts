@@ -35,6 +35,7 @@ export type SDOHDataTypeId =
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
   | 'fatal_population_pct'
+  | 'fatal_population'
   | 'gun_violence_homicide_estimated_total'
   | 'gun_violence_homicide_per_100k'
   | 'gun_violence_homicide_pct_relative_inequity'
@@ -65,6 +66,8 @@ export type SDOHDataTypeId =
   | 'poverty_population_pct'
   | 'preventable_hospitalizations_per_100k'
   | 'preventable_hospitalizations_pct_share'
+  | 'non_fatal_population_pct'
+  | 'non_fatal_population'
   | 'uninsured_estimated_total'
   | 'uninsured_pop_estimated_total'
   | 'uninsured_pct_rate'
@@ -93,6 +96,12 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'uninsured_pop_estimated_total',
+        shortLabel: 'Total Population for Insurance Rate',
+        type: 'count',
+      },
       pct_rate: {
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
@@ -153,6 +162,12 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'poverty_pop_estimated_total',
+        shortLabel: 'Total Population for Poverty Rate',
+        type: 'count',
+      },
       pct_rate: {
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
@@ -301,9 +316,9 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       sub_population_count: {
-        chartTitle: 'Estimated total of gun homicides amongst adults',
-        metricId: 'gun_violence_homicide_estimated_total',
-        shortLabel: 'estimated total',
+        chartTitle: '',
+        metricId: 'fatal_population',
+        shortLabel: 'Total Population for Gun Homicide Rates',
         type: 'count',
       },
       pct_relative_inequity: {
@@ -335,7 +350,20 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         shortLabel: 'homicides per 100k',
         trendsCardTitleName: 'Rates of gun homicides amongst adults over time',
         type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_violence_homicide_estimated_total',
+          shortLabel: 'Gun homicides',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        }
       },
+
     },
   },
   {
@@ -355,9 +383,9 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       sub_population_count: {
-        chartTitle: 'Estimated total of non-fatal gun injuries amongst adults',
-        metricId: 'gun_violence_injuries_estimated_total',
-        shortLabel: 'estimated total',
+        chartTitle: '',
+        metricId: 'non_fatal_population',
+        shortLabel: 'Total Population for Gun Non-Fatal Rates',
         type: 'count',
       },
       pct_relative_inequity: {
@@ -390,6 +418,18 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         trendsCardTitleName:
           'Rates of non-fatal gun injuries amongst adults over time',
         type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_violence_injuries_estimated_total',
+          shortLabel: 'Non-fatal gun injuries',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'non_fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        }
       },
     },
   },
@@ -410,10 +450,9 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       sub_population_count: {
-        chartTitle:
-          'Estimated total of gun-related deaths by legal intervention amongst adults',
-        metricId: 'gun_violence_legal_intervention_estimated_total',
-        shortLabel: 'estimated total',
+        chartTitle: '',
+        metricId: 'fatal_population',
+        shortLabel: 'Total Population for Gun Deaths by Legal Intervention',
         type: 'count',
       },
       pct_relative_inequity: {
@@ -450,6 +489,18 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         trendsCardTitleName:
           'Rates of gun-related deaths by legal intervention amongst adults over time',
         type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_violence_legal_intervention_estimated_total',
+          shortLabel: 'Gun deaths by legal intervention',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        }
       },
     },
   },
@@ -469,9 +520,9 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       sub_population_count: {
-        chartTitle: 'Estimated total of gun suicides amongst adults',
-        metricId: 'gun_violence_suicide_estimated_total',
-        shortLabel: 'estimated total',
+        chartTitle: '',
+        metricId: 'fatal_population',
+        shortLabel: 'Total Population for Gun Suicide Rates',
         type: 'count',
       },
       pct_relative_inequity: {
@@ -503,6 +554,18 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         shortLabel: 'suicides per 100k',
         trendsCardTitleName: 'Rates of gun suicides amongst adults over time',
         type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_violence_suicide_estimated_total',
+          shortLabel: 'Gun suicides',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        }
       },
     },
   },

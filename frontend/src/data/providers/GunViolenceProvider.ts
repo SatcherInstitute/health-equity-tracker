@@ -44,7 +44,9 @@ export const GUN_VIOLENCE_SUICIDE_METRICS: MetricId[] = [
 
 export const POPULATION_METRICS: MetricId[] = [
   'fatal_population_pct',
+  'fatal_population',
   'non_fatal_population_pct',
+  'non_fatal_population',
 ]
 
 const GUN_VIOLENCE_METRICS: MetricId[] = [

@@ -22,12 +22,12 @@ AHR_RACE_GROUPS = [
 ]
 
 # COPD, Diabetes, Depression, Frequent Mental Distress, Excessive Drinking
-BROAD_AGE_GROUPS = ['18-44', '45-64', '65+']
+BROAD_AGE_GROUPS = ['0-17', '18-44', '45-64', '65+']
 
-SUICIDE_AGE_GROUPS = ['15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
+SUICIDE_AGE_GROUPS = ['0-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65-74', '75-84', '85+']
 
 
-VOTER_AGE_GROUPS = ['18-24 ', '25-34', '35-44', '45-64']  # NOTE csv has typo extra space which we remove later
+VOTER_AGE_GROUPS = ['0-17', '18-24', '25-34', '35-44', '45-64']  # NOTE csv has typo extra space which we remove later
 
 # single list of all unique age group options
 AHR_AGE_GROUPS = list(dict.fromkeys([std_col.ALL_VALUE, *SUICIDE_AGE_GROUPS, *VOTER_AGE_GROUPS, *BROAD_AGE_GROUPS]))
@@ -96,7 +96,6 @@ BREAKDOWN_MAP = {
 
 
 class AHRData(DataSource):
-
     @staticmethod
     def get_id():
         return 'AHR_DATA'
@@ -112,6 +111,9 @@ class AHRData(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'ahr', 'ahr_annual_2022.csv', dtype={'StateCode': str, "Measure": str, "Value": float}
         )
+
+        # remove typo trailing spaces from source data
+        df['Measure'] = df['Measure'].str.strip()
 
         df.rename(columns={'StateCode': std_col.STATE_POSTAL_COL}, inplace=True)
         df[std_col.STATE_POSTAL_COL].replace('ALL', constants.US_ABBR, inplace=True)
@@ -181,13 +183,6 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
                 per_100k_col_name = std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
                 pct_rate_col_name = std_col.generate_column_name(prefix, std_col.PCT_RATE_SUFFIX)
                 pct_share_col_name = std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
-
-                # replace extra space to match 65+ column correctly
-                df.replace(
-                    'Voter Participation (Presidential) - Ages 65+ ',
-                    'Voter Participation (Presidential) - Ages 65+',
-                    inplace=True,
-                )
 
                 matched_row = get_matched_row(df, state, topic, breakdown_value, breakdown)
 
