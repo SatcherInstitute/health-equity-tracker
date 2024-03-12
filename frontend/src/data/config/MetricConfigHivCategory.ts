@@ -611,7 +611,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for PrEP coverage',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'hiv_prep_population',
         shortLabel: 'Total PrEP-Eligible Population',
