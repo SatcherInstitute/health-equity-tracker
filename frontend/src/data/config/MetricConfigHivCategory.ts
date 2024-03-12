@@ -96,6 +96,12 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for linkage to HIV care',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'hiv_care_population',
+        shortLabel: 'Total Population (Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total linkage to HIV care',
         metricId: 'hiv_care_pct_share',
@@ -158,6 +164,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV prevalence',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'hiv_population',
+        shortLabel: 'Total Population (Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total HIV prevalence',
         metricId: 'hiv_prevalence_pct_share',
@@ -216,6 +228,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV diagnoses',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'hiv_population',
+        shortLabel: 'Total Population (Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total HIV diagnoses',
         metricId: 'hiv_diagnoses_pct_share',
@@ -273,6 +291,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV deaths',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'hiv_population',
+        shortLabel: 'Total Population (Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total HIV deaths',
         metricId: 'hiv_deaths_pct_share',
@@ -342,6 +366,7 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV stigma',
     metrics: {
+
       index: {
         metricId: 'hiv_stigma_index',
         chartTitle: 'HIV stigma',
@@ -382,6 +407,12 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV prevalence for Black (NH) women',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'black_women_population_count',
+        shortLabel: 'Total Population (Black Women, Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total HIV prevalence for Black (NH) women',
         metricId: 'hiv_prevalence_black_women_pct_share',
@@ -443,6 +474,12 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     dataTableTitle:
       'Breakdown summary for new HIV diagnoses for Black (NH) women',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'black_women_population_count',
+        shortLabel: 'Total Population (Black Women, Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total new HIV diagnoses for Black (NH) women',
         metricId: 'hiv_diagnoses_black_women_pct_share',
@@ -504,6 +541,12 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'black_women_population_count',
+        shortLabel: 'Total Population (Black Women, Ages 13+)',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total HIV deaths for Black (NH) Women',
         metricId: 'hiv_deaths_black_women_pct_share',
@@ -568,6 +611,12 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for PrEP coverage',
     metrics: {
+            sub_population_count: {
+        chartTitle: '',
+        metricId: 'hiv_prep_population',
+        shortLabel: 'Total PrEP-Eligible Population',
+        type: 'count',
+      },
       pct_share: {
         chartTitle: 'Share of total PrEP prescriptions',
         metricId: 'hiv_prep_pct_share',
