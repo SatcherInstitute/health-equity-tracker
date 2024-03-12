@@ -25,7 +25,7 @@ export async function ensureCorrectDatasetsDownloaded(
     // If these aren't sent as args, default to []
     metricIds = metricIds || []
   
-    const gunViolenceProvider = new GunViolenceYouthProvider()
+    const gunViolenceYouthProvider = new GunViolenceYouthProvider()
     const specificDatasetId = appendFipsIfNeeded(
       gunViolenceDatasetId,
       baseBreakdown
@@ -33,7 +33,7 @@ export async function ensureCorrectDatasetsDownloaded(
     dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
   
     // Evaluate the response by requesting "All" field
-    const responseIncludingAll = await gunViolenceProvider.getData(
+    const responseIncludingAll = await gunViolenceYouthProvider.getData(
       new MetricQuery(
         metricIds,
         baseBreakdown.addBreakdown(demographicType),

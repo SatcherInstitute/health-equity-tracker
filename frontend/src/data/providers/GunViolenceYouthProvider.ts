@@ -13,6 +13,8 @@ export const GUN_VIOLENCE_YOUTH_METRICS: MetricId[] = [
     'gun_violence_youth_deaths_pct_relative_inequity',
     'gun_violence_youth_deaths_pct_share', 
     'gun_violence_youth_deaths_per_100k',
+    'youth_population',
+    'youth_population_pct',
     'population_pct',
 ]
 

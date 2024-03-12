@@ -74,6 +74,8 @@ export type SDOHDataTypeId =
   | 'uninsured_pct_relative_inequity'
   | 'uninsured_pct_share'
   | 'uninsured_population_pct'
+  | 'youth_population'
+  | 'youth_population_pct'
 
 export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
@@ -628,7 +630,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           chartTitle: '',
-          metricId: 'fatal_population',
+          metricId: 'youth_population',
           shortLabel: 'Total Population',
           type: 'count',
         }
