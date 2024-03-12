@@ -225,6 +225,8 @@ class CDCHIVData(DataSource):
             table_name = f"{demographic}_{geo_level}_{table_type}"
             if demographic == std_col.BLACK_WOMEN:
                 df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
+            else:
+                df_for_bq.rename(columns={std_col.POPULATION_COL: std_col.HIV_POPULATION}, inplace=True)
 
             col_types = get_bq_col_types(demographic, geo_level, table_type)
 
@@ -649,6 +651,9 @@ def get_bq_col_types(demo, geo, table_type):
                 "hiv_diagnoses": BQ_FLOAT,
                 "hiv_prep": BQ_FLOAT,
                 "hiv_prevalence": BQ_FLOAT,
+                std_col.HIV_POPULATION: BQ_FLOAT,
+                std_col.HIV_CARE_POPULATION: BQ_FLOAT,
+                std_col.HIV_PREP_POPULATION: BQ_FLOAT,
             }
         )
     elif table_type == HISTORICAL:
