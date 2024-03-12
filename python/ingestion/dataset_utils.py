@@ -349,26 +349,6 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val, breakdo
     return result
 
 
-def estimate_total(row, condition_name_per_100k):
-    """Returns an estimate of the total number of people with a given condition.
-    Parameters:
-        row: a dataframe row containing a "per_100k" column with values for the incidence rate
-            and a "population" column containing the total number of people
-        condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc
-    Returns:
-        float value representing the estimated raw total for the row
-    """
-
-    if (
-        pd.isna(row[condition_name_per_100k])
-        or pd.isna(row[std_col.POPULATION_COL])
-        or int(row[std_col.POPULATION_COL]) == 0
-    ):
-        return None
-
-    return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
-
-
 def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) -> pd.DataFrame:
     """
     Ensure a column contains values of a certain digit length, adding leading zeros as needed.
