@@ -446,7 +446,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
         metricId: 'fatal_population',
-        shortLabel: 'Total Population for Gun Death by Legal Intervention',
+        shortLabel: 'Total Population for Gun Deaths by Legal Intervention',
         type: 'count',
       },
       pct_relative_inequity: {
