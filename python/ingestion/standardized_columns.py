@@ -143,6 +143,7 @@ PRISON_PCT_INEQUITY = "prison_relative_inequity"
 BLACK_WOMEN = 'black_women'
 HIV_BW_POPULATION_PCT = 'black_women_population_pct'
 
+HIV_POPULATION = 'hiv_population'
 HIV_POPULATION_PCT = 'hiv_population_pct'
 
 
