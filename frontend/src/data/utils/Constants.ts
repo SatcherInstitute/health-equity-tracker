@@ -4,7 +4,8 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
-export const LESS_THAN_1 = '< 0.1'
+export const LESS_THAN_1 = '< 1'
+export const LESS_THAN_POINT_1 = '< 0.1'
 
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = 'race_and_ethnicity'
