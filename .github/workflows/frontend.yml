@@ -71,7 +71,7 @@ jobs:
     name: Run E2E tests on deploy preview
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -84,7 +84,7 @@ jobs:
       - name: Install playwright deps
         run: npx playwright install --with-deps chromium
       - name: run E2E on DEPLOY_PREVIEW
-        run: npx playwright test --project=E2E_NIGHTLY --workers 4
+        run: npx playwright test --project=E2E_NIGHTLY --workers 5
         # base url based on the GITHUB_PR_NUMBER + NETLIFY_SITE_NAME
         env:
           E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
