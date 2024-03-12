@@ -88,6 +88,12 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'uninsured_pop_estimated_total',
+        shortLabel: 'Total Population for Insurance Rate',
+        type: 'count',
+      },
       pct_rate: {
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
@@ -148,6 +154,12 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'poverty_pop_estimated_total',
+        shortLabel: 'Total Population for Poverty Rate',
+        type: 'count',
+      },
       pct_rate: {
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
