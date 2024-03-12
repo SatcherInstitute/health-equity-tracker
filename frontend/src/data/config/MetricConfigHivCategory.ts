@@ -29,6 +29,7 @@ export type HivCategoryMetricId =
   | 'hiv_care_pct_relative_inequity'
   | 'hiv_care_pct_share'
   | 'hiv_care_population_pct'
+  | 'hiv_care_population'
   | 'hiv_care'
   | 'hiv_deaths_black_women_pct_relative_inequity'
   | 'hiv_deaths_black_women_pct_share'
@@ -48,10 +49,12 @@ export type HivCategoryMetricId =
   | 'hiv_diagnoses_per_100k'
   | 'hiv_diagnoses'
   | 'hiv_population_pct'
+  | 'hiv_population'
   | 'hiv_prep_coverage'
   | 'hiv_prep_pct_relative_inequity'
   | 'hiv_prep_pct_share'
   | 'hiv_prep_population_pct'
+  | 'hiv_prep_population'
   | 'hiv_prep'
   | 'hiv_prevalence_black_women_pct_relative_inequity'
   | 'hiv_prevalence_black_women_pct_share'
@@ -86,7 +89,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Linkage to HIV care',
     fullDisplayNameInline: 'linkage to HIV care',
     definition: {
-      text: `Individuals ages 13+ with linkage to HIV care in a particular year.`,
+      text: `Individuals ages 13+ with linkage to HIV care in a particular year. The per 100k rate is the number with linkage to HIV care per 100,000 HIV diagnoses in a particular year.`,
     },
     description: {
       text: 'Access to quality HIV care is essential for ensuring that people living with HIV can live long and healthy lives. However, not everyone with HIV has access to quality care. Studying HIV care in regard to health equity can help us to understand why these disparities exist and how to improve access to quality care for all people living with HIV.',
@@ -120,6 +123,12 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         rateNumeratorMetric: {
             metricId: 'hiv_care',
             shortLabel: 'Individuals with linkage to HIV care',
+            chartTitle: '',
+            type: 'count',
+          },
+          rateDenominatorMetric: {
+            metricId: 'hiv_care_population',
+            shortLabel: 'Total HIV diagnoses',
             chartTitle: '',
             type: 'count',
           },
@@ -177,6 +186,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
           chartTitle: '',
           type: 'count',
         },
+        rateDenominatorMetric: {
+          metricId: 'hiv_population',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for HIV prevalence',
@@ -226,6 +241,12 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         rateNumeratorMetric: {
           metricId: 'hiv_diagnoses',
           shortLabel: 'HIV diagnoses',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'hiv_population',
+          shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
         }
@@ -278,6 +299,13 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         rateNumeratorMetric: {
           metricId: 'hiv_deaths',
           shortLabel: 'HIV deaths',
+          chartTitle: '',
+          type: 'count',
+        }
+        ,
+        rateDenominatorMetric: {
+          metricId: 'hiv_population',
+          shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
         }
@@ -567,6 +595,12 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
         rateNumeratorMetric: {
           metricId: 'hiv_prep',
           shortLabel: 'PrEP prescriptions',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'hiv_prep_population',
+          shortLabel: 'PrEP-eligible population',
           chartTitle: '',
           type: 'count',
         },

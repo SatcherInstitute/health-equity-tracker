@@ -42,7 +42,9 @@ export const CARE_METRICS: MetricId[] = [
   'hiv_care_pct_relative_inequity',
   'hiv_care_pct_share',
   'hiv_care_population_pct',
+  'hiv_care_population',
   'hiv_care'
+
 ]
 
 export const DEATHS_METRICS: MetricId[] = [
@@ -65,6 +67,7 @@ export const PREP_METRICS: MetricId[] = [
   'hiv_prep_pct_relative_inequity',
   'hiv_prep_pct_share',
   'hiv_prep_population_pct',
+  'hiv_prep_population',
   'hiv_prep'
 ]
 
@@ -104,7 +107,9 @@ export const HIV_METRICS: MetricId[] = [
   ...PREVALENCE_METRICS,
   ...GENDER_METRICS,
   ...STIGMA_METRICS,
-  'hiv_population_pct', // population shares of 13+
+  // population shares and counts of 13+
+  'hiv_population_pct',
+  'hiv_population',
 ]
 
 const reason = 'unavailable for intersectional Black women topics'
