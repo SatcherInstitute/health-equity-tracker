@@ -1,4 +1,4 @@
-name: Restart Composer on Infra Test
+name: Recreate Composer (Airflow) on Infra Test
 
 on:
   # push:
@@ -24,4 +24,4 @@ jobs:
         id: turn-off-composer
         continue-on-error: true
         run: |
-          gcloud composer environments start data-ingestion-environment --location=us-central1
+          gcloud composer environments create data-ingestion-environment --location=us-central1
