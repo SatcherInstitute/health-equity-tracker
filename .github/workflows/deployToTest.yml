@@ -203,6 +203,12 @@ jobs:
             echo "Composer environment already exists."
           fi
 
+          echo "Waiting for Composer environment to be in RUNNING state... this can take up to 40 minutes."
+          while [[ "$(gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION --format='value(state)')" != "RUNNING" ]]; do
+            sleep 10
+          done
+          echo "Composer environment is now in RUNNING state."
+
           gcloud composer environments update $ENVIRONMENT_NAME \
           --update-env-variables=AIRFLOW_VAR_DUMMY=${{ github.run_id }} \
           --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${{ steps.terraform.outputs.ingestion_url }} \
