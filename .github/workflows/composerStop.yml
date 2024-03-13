@@ -1,0 +1,27 @@
+name: Stop Composer on Infra Test
+
+on:
+  # push:
+    # branches: [infra-test]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    name: Terraform / Airflow Configs
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+      - name: Turn off Composer
+        id: turn-off-composer
+        continue-on-error: true
+        run: |
+          gcloud composer environments stop data-ingestion-environment --location=us-central1
