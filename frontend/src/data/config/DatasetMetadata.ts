@@ -106,6 +106,10 @@ export type DatasetId =
   | 'cdc_wisqars_data-sex_national_historical'
   | 'cdc_wisqars_data-sex_state_current'
   | 'cdc_wisqars_data-sex_state_historical'
+  | 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current'
+  | 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical'
+  | 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current'
+  | 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical'
   | 'census_pop_estimates-race_and_ethnicity'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
@@ -907,4 +911,24 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2021',
     source_id: 'cdc_wisqars_data',
   },
+  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current': {
+    name: 'Gun-related Youth Deaths, by race and ethnicity, nationally',
+    original_data_sourced: '2021', 
+    source_id: 'cdc_wisqars_data'
+  },
+  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical': {
+    name: 'Gun-related Youth Deaths, by race and ethnicity, nationally',
+    original_data_sourced: '2018-2021 [Fatal (single race)]', 
+    source_id: 'cdc_wisqars_data'
+  },
+  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current': {
+    name: 'Gun-related Youth Deaths, by race and ethnicity and state',
+    original_data_sourced: '2021', 
+    source_id: 'cdc_wisqars_data'
+  },
+  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical': {
+    name: 'Gun-related Youth Deaths, by race and ethnicity and state',
+    original_data_sourced: '2018-2021 [Fatal (single race)]', 
+    source_id: 'cdc_wisqars_data'
+  }
 }

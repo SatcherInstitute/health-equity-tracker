@@ -10,6 +10,7 @@ import {
   CAWP_DATA_TYPES,
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
+import { GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunViolenceYouthProvider'
 import {
   BLACK_WOMEN_DATATYPES,
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -84,6 +85,15 @@ export function getAllDemographicOptions(
   // DEFAULT ENABLED AND DISABLED DEMOGRAPHIC OPTIONS
   let enabledDemographicOptionsMap = DEMOGRAPHIC_TYPES_MAP
   const disabledDemographicOptionsWithRepeats: string[][] = []
+
+  // GUN VIOLENCE YOUTH 
+  if (configsContainsMatchingId(configs,  ['gun_violence_youth']))  {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
+
 
   // BLACK WOMEN HIV
   if (configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES)) {

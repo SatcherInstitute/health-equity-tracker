@@ -65,6 +65,7 @@ import {
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
   GUN_VIOLENCE_METRICS,
+  GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigSDOH'
 import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
 
@@ -298,6 +299,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   excessive_drinking: EXCESSIVE_DRINKING_METRICS,
   frequent_mental_distress: FREQUENT_MENTAL_DISTRESS_METRICS,
   gun_violence: GUN_VIOLENCE_METRICS,
+  gun_violence_youth: GUN_VIOLENCE_YOUTH_METRICS,
   substance: SUBSTANCE_MISUSE_METRICS,
   suicide: SUICIDE_METRICS,
   diabetes: DIABETES_METRICS,

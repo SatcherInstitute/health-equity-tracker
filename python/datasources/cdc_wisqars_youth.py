@@ -63,8 +63,8 @@ TIME_MAP = {
         std_col.GUN_VIOLENCE_DEATHS_RAW,
         std_col.GUN_VIOLENCE_DEATHS_PER_100K,
         std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-        std_col.POPULATION_PCT_COL,
-        std_col.POPULATION_COL,
+        std_col.YOUTH_POPULATION_PCT,
+        std_col.YOUTH_POPULATION,
     ],
     HISTORICAL: [
         std_col.GUN_VIOLENCE_DEATHS_PER_100K,
@@ -107,7 +107,7 @@ class CDCWisqarsYouthData(DataSource):
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,
             "race": std_col.RACE_CATEGORY_ID_COL,
-            "population": std_col.POPULATION_COL,
+            "population": std_col.YOUTH_POPULATION,
             "deaths": std_col.GUN_VIOLENCE_DEATHS_RAW,
             "crude rate": std_col.GUN_VIOLENCE_DEATHS_PER_100K,
         }
@@ -126,7 +126,7 @@ class CDCWisqarsYouthData(DataSource):
             df,
             {
                 std_col.GUN_VIOLENCE_DEATHS_RAW: std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-                std_col.POPULATION_COL: std_col.POPULATION_PCT_COL,
+                std_col.YOUTH_POPULATION: std_col.YOUTH_POPULATION_PCT,
             },
             std_col.RACE_OR_HISPANIC_COL,
             std_col.ALL_VALUE,
@@ -136,7 +136,7 @@ class CDCWisqarsYouthData(DataSource):
         df = generate_pct_rel_inequity_col(
             df,
             std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-            std_col.POPULATION_PCT_COL,
+            std_col.YOUTH_POPULATION_PCT,
             std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
         )
 
@@ -147,10 +147,10 @@ class CDCWisqarsYouthData(DataSource):
             std_col.RACE_OR_HISPANIC_COL,
             std_col.RACE_CATEGORY_ID_COL,
             std_col.GUN_VIOLENCE_DEATHS_RAW,
-            std_col.POPULATION_COL,
+            std_col.YOUTH_POPULATION,
             std_col.GUN_VIOLENCE_DEATHS_PER_100K,
             std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-            std_col.POPULATION_PCT_COL,
+            std_col.YOUTH_POPULATION_PCT,
             std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
         ]
 
