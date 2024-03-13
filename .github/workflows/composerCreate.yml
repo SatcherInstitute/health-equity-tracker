@@ -1,4 +1,4 @@
-name: Stop Composer on Infra Test
+name: Recreate Composer (Airflow) on Infra Test
 
 on:
   # push:
@@ -20,8 +20,8 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
-      - name: Turn off Composer
-        id: turn-off-composer
+      - name: Recreate Composer Environment
+        id: turn-on-composer
         continue-on-error: true
         run: |
-          gcloud composer environments stop data-ingestion-environment --location=us-central1
+          gcloud composer environments create data-ingestion-environment --location=us-central1
