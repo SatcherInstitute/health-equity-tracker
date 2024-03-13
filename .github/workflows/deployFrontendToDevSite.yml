@@ -1,6 +1,8 @@
 name: Deploy `dev-site` branch frontend to dev.healthequitytracker.org
 
 on:
+  push:
+    branches: [dev-site]
   workflow_dispatch:
 
 jobs:
