@@ -24,4 +24,4 @@ jobs:
         id: turn-off-composer
         continue-on-error: true
         run: |
-          gcloud composer environments delete data-ingestion-environment --location=us-central1
+          gcloud composer environments delete data-ingestion-environment --quiet --location=us-central1
