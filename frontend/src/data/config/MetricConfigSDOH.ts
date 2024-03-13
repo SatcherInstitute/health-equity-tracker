@@ -14,8 +14,7 @@ console.log('Gun violence preview enabled')
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
   'health_insurance',
-  ...(SHOW_GUN_VIOLENCE ? ['gun_violence'] : []),
-  'gun_violence_youth',
+  ...(SHOW_GUN_VIOLENCE ? ['gun_violence', 'gun_violence_youth'] : []),
   'poverty',
   'preventable_hospitalizations',
 ] as const
@@ -576,7 +575,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
 export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh', 
-    dataTableTitle: 'Breakdown summary of gun deaths amongst youth', 
+    dataTableTitle: 'Breakdown summary of gun deaths among youth', 
     dataTypeId: 'gun_violence_youth', 
     dataTypeShortLabel: 'Gun Deaths', 
     definition: {
@@ -596,17 +595,17 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         type: 'count',
       }, 
       pct_relative_inequity: {
-        chartTitle: 'Historical realative inequity of gun deaths amongst youth', 
+        chartTitle: 'Historical realative inequity of gun deaths among youth', 
         metricId: 'gun_violence_youth_deaths_pct_relative_inequity', 
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       }, 
       pct_share: {
-        chartTitle: 'Share of total gun deaths agmonst youth', 
-        columnTitleHeader: 'Share of total gun deaths amongst youth', 
+        chartTitle: 'Share of total gun deaths among youth', 
+        columnTitleHeader: 'Share of total gun deaths among youth', 
         metricId: 'gun_violence_youth_deaths_pct_share',
         populationComparisonMetric: {
-          chartTitle: 'Population vs. distribution of total gun deaths amongst youth', 
+          chartTitle: 'Population vs. distribution of total gun deaths among youth', 
           columnTitleHeader: `${populationPctTitle} (ages 0-25)`, 
           metricId: 'population_pct', 
           shortLabel: populationPctShortLabel, 
@@ -616,11 +615,11 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Rates of gun deaths amonst youth',
-        columnTitleHeader: 'Gun deaths amongst youth per 100k people',
+        chartTitle: 'Rates of gun deaths among youth',
+        columnTitleHeader: 'Gun deaths among youth per 100k people',
         metricId: 'gun_violence_youth_deaths_per_100k', 
         shortLabel: 'deaths per 100k',
-        trendsCardTitleName: 'Rates of gun deaths amongst youth over time', 
+        trendsCardTitleName: 'Rates of gun deaths among youth over time', 
         type: 'per100k',
         rateNumeratorMetric: {
           chartTitle: '',
