@@ -1,4 +1,4 @@
-state_name,state_fips,race_and_ethnicity,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,population_pct,population
+state_name,state_fips,race_and_ethnicity,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,youth_population_pct,youth_population
 United States,00,American Indian and Alaska Native (NH),740.0,83.83,1.8,0.8,882778.0
 United States,00,Asian (NH),855.0,14.39,2.1,5.5,5940330.0
 United States,00,Black or African American (NH),11178.0,74.91,27.8,13.8,14921868.0

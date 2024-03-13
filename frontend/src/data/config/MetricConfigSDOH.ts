@@ -14,7 +14,7 @@ console.log('Gun violence preview enabled')
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
   'health_insurance',
-  ...(SHOW_GUN_VIOLENCE ? ['gun_violence'] : []),
+  ...(SHOW_GUN_VIOLENCE ? ['gun_violence', 'gun_violence_youth'] : []),
   'poverty',
   'preventable_hospitalizations',
 ] as const
@@ -29,45 +29,52 @@ export type SDOHDataTypeId =
   | 'preventable_hospitalizations'
   | 'avoided_care'
 
-export type SDOHMetricId =
+  export type SDOHMetricId =
   | 'ahr_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
   | 'fatal_population_pct'
   | 'fatal_population'
   | 'gun_violence_homicide_estimated_total'
-  | 'gun_violence_injuries_estimated_total'
-  | 'gun_violence_legal_intervention_estimated_total'
-  | 'gun_violence_suicide_estimated_total'
   | 'gun_violence_homicide_per_100k'
-  | 'gun_violence_injuries_per_100k'
-  | 'gun_violence_legal_intervention_per_100k'
-  | 'gun_violence_suicide_per_100k'
   | 'gun_violence_homicide_pct_relative_inequity'
-  | 'gun_violence_injuries_pct_relative_inequity'
-  | 'gun_violence_legal_intervention_pct_relative_inequity'
-  | 'gun_violence_suicide_pct_relative_inequity'
   | 'gun_violence_homicide_pct_share'
+  | 'gun_violence_injuries_estimated_total'
+  | 'gun_violence_injuries_per_100k'
+  | 'gun_violence_injuries_pct_relative_inequity'
   | 'gun_violence_injuries_pct_share'
+  | 'gun_violence_legal_intervention_estimated_total'
+  | 'gun_violence_legal_intervention_per_100k'
+  | 'gun_violence_legal_intervention_pct_relative_inequity'
   | 'gun_violence_legal_intervention_pct_share'
+  | 'gun_violence_suicide_estimated_total'
+  | 'gun_violence_suicide_per_100k'
+  | 'gun_violence_suicide_pct_relative_inequity'
   | 'gun_violence_suicide_pct_share'
+  | 'gun_violence_youth_deaths_estimated_total'
+  | 'gun_violence_youth_deaths_per_100k'
+  | 'gun_violence_youth_deaths_pct_relative_inequity'
+  | 'gun_violence_youth_deaths_pct_share'
+  | 'non_fatal_population_pct'
   | 'poverty_count'
-  | 'poverty_pct_share'
-  | 'poverty_pct_rate'
-  | 'poverty_population_pct'
-  | 'poverty_pct_relative_inequity'
   | 'poverty_estimated_total'
+  | 'poverty_pct_rate'
+  | 'poverty_pct_relative_inequity'
+  | 'poverty_pct_share'
   | 'poverty_pop_estimated_total'
-  | 'preventable_hospitalizations_pct_share'
+  | 'poverty_population_pct'
   | 'preventable_hospitalizations_per_100k'
+  | 'preventable_hospitalizations_pct_share'
   | 'non_fatal_population_pct'
   | 'non_fatal_population'
-  | 'uninsured_pct_share'
-  | 'uninsured_pct_rate'
-  | 'uninsured_population_pct'
-  | 'uninsured_pct_relative_inequity'
   | 'uninsured_estimated_total'
   | 'uninsured_pop_estimated_total'
+  | 'uninsured_pct_rate'
+  | 'uninsured_pct_relative_inequity'
+  | 'uninsured_pct_share'
+  | 'uninsured_population_pct'
+  | 'youth_population'
+  | 'youth_population_pct'
 
 export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
@@ -367,7 +374,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'gun_violence_injuries',
     dataTypeShortLabel: 'Non-Fatal Injuries',
     definition: {
-      text: 'These injuries refer to physical harm caused by firearms that do not result in death. They can range from minor to severe, potentially leading to long-term disabilities.',
+      text: 'Injuries that do not result in death, caused by the discharge of firearms, including both intentional acts and accidents.',
     },
     description: {
       text: 'Non-fatal gun injuries are significant in health equity as they disproportionately affect certain demographics, particularly in communities with higher poverty rates. Addressing these injuries is crucial for reducing healthcare disparities and improving community health.',
@@ -563,4 +570,70 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       },
     },
   },
+]
+
+export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
+  {
+    categoryId: 'sdoh', 
+    dataTableTitle: 'Breakdown summary of gun deaths among youth', 
+    dataTypeId: 'gun_violence_youth', 
+    dataTypeShortLabel: 'Gun Deaths', 
+    definition: {
+      text: 'Deaths of individuals under the age of 26 caused by firearms.'
+    }, 
+    description: { 
+      text: 'Measuring gun deaths among youth is crucial because it helps us understand the impact of firearm violence on younger populations, guiding the development of targeted interventions and policies to protect our most vulnerable citizens and prevent future tragedies.'
+    },
+    fullDisplayName: 'Gun deaths', 
+    fullDisplayNameInline: 'gun deaths',
+    mapConfig: defaultHigherIsWorseMapConfig, 
+    metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'gun_violence_youth_deaths_estimated_total',
+        shortLabel: 'Total Population for Gun Deaths (Youth)', 
+        type: 'count',
+      }, 
+      pct_relative_inequity: {
+        chartTitle: 'Historical realative inequity of gun deaths among youth', 
+        metricId: 'gun_violence_youth_deaths_pct_relative_inequity', 
+        shortLabel: '% relative inequity',
+        type: 'pct_relative_inequity',
+      }, 
+      pct_share: {
+        chartTitle: 'Share of total gun deaths among youth', 
+        columnTitleHeader: 'Share of total gun deaths among youth', 
+        metricId: 'gun_violence_youth_deaths_pct_share',
+        populationComparisonMetric: {
+          chartTitle: 'Population vs. distribution of total gun deaths among youth', 
+          columnTitleHeader: `${populationPctTitle} (ages 0-25)`, 
+          metricId: 'population_pct', 
+          shortLabel: populationPctShortLabel, 
+          type: 'pct_share'
+        },
+        shortLabel: '% of gun deaths', 
+        type: 'pct_share',
+      },
+      per100k: {
+        chartTitle: 'Rates of gun deaths among youth',
+        columnTitleHeader: 'Gun deaths among youth per 100k people',
+        metricId: 'gun_violence_youth_deaths_per_100k', 
+        shortLabel: 'deaths per 100k',
+        trendsCardTitleName: 'Rates of gun deaths among youth over time', 
+        type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_violence_youth_deaths_estimated_total',
+          shortLabel: 'Gun deaths (youth)',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'youth_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        }
+      },
+    }
+  }
 ]

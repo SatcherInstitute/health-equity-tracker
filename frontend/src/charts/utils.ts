@@ -13,6 +13,7 @@ import { type Fips } from '../data/utils/Fips'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
+import { GUN_VIOLENCE_YOUTH_METRICS } from '../data/providers/GunViolenceYouthProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
@@ -132,6 +133,15 @@ export function generateSubtitle(
     }
   }
 
+  if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
+    const youthTitle = 'Ages 0-25'
+    if (subtitle === '') {
+      subtitle = youthTitle
+    } else {
+      subtitle += `, ${youthTitle}`
+    }
+  }
+
   const medicareMetricIds: MetricId[] = [
     ...PHRMA_METRICS,
     'preventable_hospitalizations_per_100k',
@@ -154,7 +164,10 @@ export function getAltGroupLabel(
   demographicType: DemographicType
 ) {
   if (CAWP_METRICS.includes(metricId)) {
-    return getWomenRaceLabel(group)
+      return getWomenRaceLabel(group)
+  }
+  if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
+      return `${group} (0-25)`
   }
   if (group === ALL && demographicType === AGE) {
     if (metricId.includes('prep')) {

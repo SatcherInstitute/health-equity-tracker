@@ -204,6 +204,8 @@ FATAL_POPULATION = "fatal_population"
 NON_FATAL_POPULATION = "non_fatal_population"
 FATAL_POPULATION_PCT = "fatal_population_pct"
 NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
+YOUTH_POPULATION = "youth_population"
+YOUTH_POPULATION_PCT = "youth_population_pct"
 
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])
