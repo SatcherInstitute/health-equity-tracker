@@ -1,8 +1,8 @@
 name: Delete Composer (Airflow) on Infra Test
 
 on:
-  # push:
-    # branches: [infra-test]
+  schedule:
+    - cron: '0 1 * * 2-6'  # At 01:00 UTC, Tuesday to Saturday, which corresponds to Monday to Friday 6 PM MST
   workflow_dispatch:
 
 jobs:
