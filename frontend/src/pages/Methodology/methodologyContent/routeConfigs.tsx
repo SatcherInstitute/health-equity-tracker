@@ -36,7 +36,8 @@ import TopicCategoriesLink from '../methodologySections/TopicCategoriesLink';
 import LimitationsLink from '../methodologySections/LimitationsLink';
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink';
 import GlossaryLink from '../methodologySections/GlossaryLink';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions';
 
 export type RouteConfig = {
 	isTopLevel?: boolean;
@@ -383,58 +384,7 @@ export const routeConfigs: RouteConfig[] = [
 		subLinks: [
 			{ label: 'Races and Ethnicities', path: '#races-and-ethnicities' },
 			{ label: 'Addressing Data Gaps', path: '#data-gaps' },
-			{
-				label: 'All',
-				path: '#all',
-			},
-
-			{
-				label: 'American Indian and Alaska Native (NH)',
-				path: '#aian_nh',
-			},
-
-			{
-				label: 'Asian (NH)',
-				path: '#api_nh',
-			},
-
-			{
-				label: 'Black or African American (NH)',
-				path: '#black_nh',
-			},
-			{
-				label: 'Hispanic/Latino',
-				path: '#hispanic',
-			},
-
-			{
-				label: 'Middle Eastern / North African (MENA)',
-				path: '#mena',
-			},
-			{
-				label: 'Native Hawaiian or Other Pacific Islander (NH)',
-				path: '#nhpi_nh',
-			},
-			{
-				label: 'NH',
-				path: '#nh',
-			},
-			{
-				label: 'Unrepresented race (NH)',
-				path: '#other_nonstandard_nh',
-			},
-			{
-				label: 'Two or more races (NH)',
-				path: '#multi_or_other_standard',
-			},
-			{
-				label: 'Two or more races & Unrepresented race (NH)',
-				path: '#multi_or_other_standard_nh',
-			},
-			{
-				label: 'White (NH)',
-				path: '#white',
-			},
+			...raceAndEthnicitySublinks,
 		],
 	},
 	{
