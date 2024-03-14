@@ -66,6 +66,42 @@ pre-commit install
 Note: If you have existing git hooks (like from Husky) you need to force install:
 `pre-commit install -f`
 
+### Install Pre-Commit on Windows
+
+1. Install Python: Make sure Python is installed on your system. You can download and install Python from the official website: https://www.python.org/downloads/.
+
+2. Install pre-commit package: Open the command prompt and run the following command to install the pre-commit package using pip:
+
+`pip install pre-commit`
+
+3. Add Python Scripts directory to PATH: If Python Scripts directory is not added to your PATH environment variable, you need to add it. The Python Scripts directory is usually located at C:\Python<version>\Scripts. You can add it to your PATH by following these steps:
+
+a. Right-click on "This PC" or "My Computer" and select "Properties".
+
+b. Click on "Advanced system settings" on the left side.
+
+c. In the System Properties window, click on the "Environment Variables" button.
+
+d. In the Environment Variables window, under "System variables", select the "Path" variable and click on "Edit".
+
+e. Click on "New" and add the path to the Python Scripts directory (e.g., C:\Python<version>\Scripts).
+
+f. Click "OK" on all windows to save the changes.
+
+4. Verify installation: To verify that pre-commit is installed correctly, you can run the following command:
+
+`pre-commit --version`
+
+This should display the version of pre-commit installed on your system. Now pre-commit should be installed system-wide on your Windows machine.
+
+5. Run pre-commit install to set up the git hook scripts:
+
+`pre-commit install`.
+
+Your output should look something like this:
+
+`pre-commit installed at .git/hooks/pre-commit`
+
 ### Setting Up the Frontend Locally (One Time Setup)
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
