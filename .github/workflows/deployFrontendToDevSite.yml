@@ -77,7 +77,7 @@ jobs:
         working-directory: ./config
         run: |
           terraform apply -auto-approve \
-          -var-file=common-frontend.tfvars \
+          -config=frontend_config \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
           -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
