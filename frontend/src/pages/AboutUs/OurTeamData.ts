@@ -27,7 +27,7 @@ export const LEADERSHIP_TEAM = [
   },
   {
     name: 'Ben Hammond, BMus',
-    role: 'Senior Software Engineer',
+    role: 'Senior Software Engineer, Team Lead',
     imageUrl: Ben,
   },
   {
