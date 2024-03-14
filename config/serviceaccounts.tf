@@ -34,10 +34,12 @@ resource "google_project_iam_custom_role" "gcs_to_bq_runner_role" {
   role_id     = var.gcs_to_bq_runner_role_id
   title       = "GCS-to-BQ Runner"
   description = "Allows reading data from GCS bucket and writing and reading BQ datasets."
-  permissions = ["storage.objects.get", "storage.objects.list", "storage.buckets.get",
+  permissions = [
+    "storage.objects.get", "storage.objects.list", "storage.buckets.get",
     "bigquery.datasets.get", "bigquery.tables.create", "bigquery.tables.delete",
     "bigquery.tables.get", "bigquery.tables.getData", "bigquery.tables.list",
-    "bigquery.tables.update", "bigquery.tables.updateData", "bigquery.jobs.create"]
+    "bigquery.tables.update", "bigquery.tables.updateData", "bigquery.jobs.create"
+  ]
 }
 
 resource "google_project_iam_member" "gcs_to_bq_runner_binding" {
@@ -114,8 +116,8 @@ resource "google_cloud_run_service_iam_member" "data_server_invoker_binding" {
 # Make the frontend service public
 resource "google_cloud_run_service_iam_member" "frontend_invoker_binding" {
   location = google_cloud_run_service.frontend_service.location
-  project = google_cloud_run_service.frontend_service.project
-  service = google_cloud_run_service.frontend_service.name
-  role = "roles/run.invoker"
-  member = "allUsers"
+  project  = google_cloud_run_service.frontend_service.project
+  service  = google_cloud_run_service.frontend_service.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
 }

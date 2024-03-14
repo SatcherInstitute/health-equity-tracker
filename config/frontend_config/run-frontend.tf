@@ -18,7 +18,7 @@ resource "google_cloud_run_service" "frontend_service" {
         resources {
           limits = {
             memory = "8Gi"
-            cpu = 4
+            cpu    = 4
           }
         }
 
