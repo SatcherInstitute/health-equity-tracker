@@ -1,4 +1,4 @@
-name: Delete Composer (Airflow) on Infra Test
+name: Delete Infra Test Composer Every Weeknight
 
 on:
   schedule:
