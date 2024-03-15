@@ -11,19 +11,24 @@ import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'
 import { useAtomValue } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
 import { type DropdownVarId } from '../../data/config/MetricConfig'
-import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
+import { CategoryTypeId, getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 
 export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
     useParamState(TOPIC_INFO_PARAM_KEY)
 
-  const selectedDataTypeId = useAtomValue(
+  const selectedDataTypeConfig = useAtomValue(
     selectedDataTypeConfig1Atom
-  )?.dataTypeId
+  )
 
-  const dropdownVarId: DropdownVarId | '' = selectedDataTypeId
-    ? getParentDropdownFromDataTypeId(selectedDataTypeId)
-    : ''
+  const category: CategoryTypeId | undefined = selectedDataTypeConfig?.categoryId
+  let methodologyLink = `${METHODOLOGY_PAGE_LINK}/topic-categories/`
+  // TODO: refactor to sync CategoryTypeId and Methodology Category Link Routes (they're close but not identical)
+  if (category === 'medicare') methodologyLink += 'medication-utilization'
+  else methodologyLink += category ?? ''
+
+
+
 
   return (
     <Dialog
@@ -50,7 +55,7 @@ export default function TopicInfoModal() {
       <DialogContent dividers={true} className='text-smallest'>
         For specific calculations and more detailed information, visit our{' '}
         <HashLink
-          to={`${METHODOLOGY_PAGE_LINK as string}#${dropdownVarId}`}
+          to={methodologyLink}
         >
           methodology
         </HashLink>
