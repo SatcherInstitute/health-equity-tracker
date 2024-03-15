@@ -1,6 +1,6 @@
 import { HashLink } from 'react-router-hash-link'
 import { type DataTypeId } from '../../data/config/MetricConfig'
-import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
@@ -35,7 +35,7 @@ export default function PopulationSubsetAlert({
     <HetNotice>
       All values presented for <HetTerm>{variable}</HetTerm> are calculated on
       the population of individuals {ageGroup}. Read more on our{' '}
-      <HashLink to={OLD_METHODOLOGY_PAGE_LINK}>methodology.</HashLink>
+      <HashLink to={METHODOLOGY_PAGE_LINK}>methodology.</HashLink>
     </HetNotice>
   )
 }
