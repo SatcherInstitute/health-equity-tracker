@@ -1,4 +1,4 @@
-name: Python Type Checks
+name: RUN Python Type Checks
 on:
   pull_request:
     branches:

@@ -1,4 +1,4 @@
-name: 'Check spelling on changed files'
+name: RUN Spellcheck
 on: # rebuild any PRs and main branch changes
   pull_request:
   push:

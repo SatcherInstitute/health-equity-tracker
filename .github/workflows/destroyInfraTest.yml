@@ -1,4 +1,4 @@
-name: Terraform Destroy on Test
+name: RUN Terraform Destroy DEV Environment
 
 on:
   workflow_dispatch:
