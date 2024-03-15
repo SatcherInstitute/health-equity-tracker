@@ -1,8 +1,22 @@
-name: Deploy to Test Without Composer
+name: Deploy Infra Test (Without Composer)
 
 on:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      # Don't run if data pipeline services change; deployToTest.yml runs instead
+      - '!airflow/**'
+      - '!config/**'
+      - '!data/**'
+      - '!data_server/**'
+      - '!e2e_tests/**'
+      - '!exporter/**'
+      - '!frontend_server/**'
+      - '!python/**'
+      - '!requirements/**'
+      - '!run_gcs_to_bq/**'
+      - '!run_ingestion/**'
   workflow_dispatch:
 
 jobs:
