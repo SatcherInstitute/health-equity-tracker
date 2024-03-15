@@ -1,4 +1,4 @@
-name: Delete Infra Test Composer Every Weeknight
+name: CRON Delete Composer Weeknightly
 
 on:
   schedule:

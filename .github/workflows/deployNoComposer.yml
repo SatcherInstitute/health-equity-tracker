@@ -1,4 +1,4 @@
-name: Deploy Infra Test (Without Composer)
+name: DEPLOY Without Composer
 
 on:
   push:

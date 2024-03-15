@@ -1,7 +1,4 @@
-name: Deploy Backend to Infra Test
-
-# TODO: Currently this deploys ALL of the microservices including the frontend and data server
-# TODO: ideally we should reduce this to the minimum services needed for backend
+name: DEPLOY Data Pipeline from `infra-test`
 
 on:
   push:
