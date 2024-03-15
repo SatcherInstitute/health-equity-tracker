@@ -189,15 +189,15 @@ jobs:
           echo "exporter_url=$exporter_url" >> "$GITHUB_OUTPUT"
           frontend_url=$(terraform output frontend_url)
           echo "frontend_url=$frontend_url" >> "$GITHUB_OUTPUT"
-      # - name: Set up Python
-      #   uses: actions/setup-python@v5
-      #   with:
-      #     python-version: 3.9
-      # - name: Run Python E2E Tests
-      #   run: |
-      #     pip install -r e2e_tests/requirements.txt
-      #     pytest e2e_tests/data_serving.py
-      #   env:
-      #     SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
-      #     FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
-      #     PATH_TO_SA_CREDS: config/creds.json
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+      - name: Run Python E2E Tests
+        run: |
+          pip install -r e2e_tests/requirements.txt
+          pytest e2e_tests/data_serving.py
+        env:
+          SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+          FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
+          PATH_TO_SA_CREDS: config/creds.json
