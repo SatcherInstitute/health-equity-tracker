@@ -79,25 +79,25 @@ Note: If you have existing git hooks (like from Husky) you need to force install
 
    `pip install pre-commit`
 
-1. Add Python Scripts directory to PATH: If Python Scripts directory is not added to your PATH environment variable, you need to add it. The Python Scripts directory is usually located at C:\Python<version>\Scripts. You can add it to your PATH by following these steps:
+1. Add Python Scripts directory to PATH: If Python Scripts directory is not added to your PATH environment variable, you need to add it. The Python Scripts directory is usually located at `C:\Python<version>\Scripts`. You can add it to your PATH by following these steps:
    - Right-click on "This PC" or "My Computer" and select "Properties".
    - Click on "Advanced system settings" on the left side.
    - In the System Properties window, click on the "Environment Variables" button.
    - In the Environment Variables window, under "System variables", select the "Path" variable and click on "Edit".
-   - Click on "New" and add the path to the Python Scripts directory (e.g., C:\Python<version>\Scripts).
+   - Click on "New" and add the path to the Python Scripts directory (e.g., `C:\Python<version>\Scripts`).
    - Click "OK" on all windows to save the changes.
 
 1. Verify installation: To verify that pre-commit is installed correctly, you can run the following command:
 
    `pre-commit --version`
 
-This should display the version of pre-commit installed on your system. Now pre-commit should be installed system-wide on your Windows machine.
+   This should display the version of pre-commit installed on your system. Now pre-commit should be installed system-wide on your Windows machine.
 
 1. Run pre-commit install to set up the git hook scripts:
 
    `pre-commit install`.
 
-Your output should look something like this:
+   Your output should look something like this:
 
    `pre-commit installed at .git/hooks/pre-commit`
 
