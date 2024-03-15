@@ -1,4 +1,4 @@
-name: Deploy to Test With Composer
+name: DEPLOY With Composer
 
 on:
   push:

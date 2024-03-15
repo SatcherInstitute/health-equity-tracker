@@ -1,4 +1,4 @@
-name: SuperLinter
+name: RUN SuperLinter
 on:
   pull_request:
     branches: [main]
