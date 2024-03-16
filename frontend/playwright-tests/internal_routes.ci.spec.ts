@@ -4,9 +4,8 @@ import AxeBuilder from '@axe-core/playwright';
 test.describe.configure({ mode: 'parallel' });
 
 
-test('Methodology Page Loads', async ({ page }) => {
-    // TODO: update this route once we switch over to newer methodology version
-    await page.goto('/new-methodology', { waitUntil: "commit" });
+test('Methodology Hub Loads', async ({ page }) => {
+    await page.goto('/methodology', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Methodology Introduction']);
     const accessibilityScanResults = await new AxeBuilder({ page })
@@ -15,9 +14,13 @@ test('Methodology Page Loads', async ({ page }) => {
 
 });
 
-test('Age-Adjustment Tab Loads', async ({ page }) => {
-    // TODO: update this once we switch over to newer methodology version
+test('Age-Adjustment Redirects to Age-Adjustment Page of Methodology Hub', async ({ page }) => {
     await page.goto('/ageadjustment', { waitUntil: "commit" });
+
+    await page.getByRole('heading', { name: 'Age-Adjustment', exact: true }).click();
+    const accessibilityScanResults = await new AxeBuilder({ page })
+        .analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
 
 
 });
