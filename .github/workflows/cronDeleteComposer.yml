@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ENV_NAME: "data-ingestion-environment-${{ secrets.TEST_PROJECT_ID }}"
+      ENV_NAME: "data-ingestion-environment"
       LOCATION: "us-central1"
 
     steps:
