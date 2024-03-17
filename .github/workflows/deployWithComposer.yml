@@ -208,7 +208,7 @@ jobs:
         run: |
           ENVIRONMENT_NAME=data-ingestion-environment
           LOCATION=us-central1
-          BUCKET=us-central1-data-ingestion-bucket
+          BUCKET="us-central1-data-ingestion-bucket-${{ secrets.TEST_PROJECT_ID }}"
 
           if ! gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION &>/dev/null; then
             echo "Composer environment does not exist. Creating..."
