@@ -10,6 +10,10 @@ jobs:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     runs-on: ubuntu-latest
 
+    env:
+      ENV_NAME: "data-ingestion-environment"
+      LOCATION: "us-central1"
+
     steps:
       - id: auth
         uses: google-github-actions/auth@v2
@@ -19,7 +23,12 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
-      - name: Delete Composer
-        id: turn-off-composer
+      - name: Ensure Composer Environment Is Deleted
+        id: ensure-composer-deleted
         run: |
-          gcloud composer environments delete data-ingestion-environment --quiet --location=us-central1
+          if gcloud composer environments describe $ENV_NAME --location=$LOCATION &>/dev/null; then
+            echo "Composer environment exists. Deleting..."
+            gcloud composer environments delete $ENV_NAME --quiet --location=$LOCATION
+          else
+            echo "DEV Composer environment doesn't exist."
+          fi
