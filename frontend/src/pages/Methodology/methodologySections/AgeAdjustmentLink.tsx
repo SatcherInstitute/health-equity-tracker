@@ -27,8 +27,6 @@ const ageAdjustTerms = [
   termDefinitions['Edge cases'],
 ]
 
-//
-
 const AGE_ADJUSTED_RESOURCES = [
   {
     heading: 'Age-Adjustment',
