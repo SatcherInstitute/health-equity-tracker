@@ -461,6 +461,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_diagnoses_black_women',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New Diagnoses for Black Women',
@@ -529,6 +530,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_deaths_black_women',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths for Black women',

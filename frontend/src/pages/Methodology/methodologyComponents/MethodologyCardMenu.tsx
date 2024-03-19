@@ -1,26 +1,6 @@
 import { Link } from 'react-router-dom';
-import {
-	SOURCES_LINK,
-	TOPIC_CATEGORIES_LINK,
-	BEHAVIORAL_HEALTH_LINK,
-	CHRONIC_DISEASE_LINK,
-	COVID_19_LINK,
-	HIV_LINK,
-	PDOH_LINK,
-	SDOH_LINK,
-	DATA_METHOD_DEFINITIONS_LINK,
-	METRICS_LINK,
-	TOPIC_DEFINITIONS_LINK,
-	RACES_AND_ETHNICITIES_LINK,
-	RECOMMENDED_CITATION_LINK,
-	NEW_AGE_ADJUSTMENT_LINK,
-	NEW_METHODOLOGY_PAGE_LINK,
-	GLOSSARY_LINK,
-	MEDICATION_UTILIZATION_LINK,
-} from '../../../utils/internalRoutes';
 import HetListItemButton from '../../../styles/HetComponents/HetListItemButton';
 import HetDivider from '../../../styles/HetComponents/HetDivider';
-import { ReactNode } from 'react';
 import { RouteConfig, routeConfigs } from '../methodologyContent/routeConfigs';
 
 interface MethodologyCardMenuProps {

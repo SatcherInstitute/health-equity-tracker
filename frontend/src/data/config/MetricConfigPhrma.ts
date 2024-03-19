@@ -83,6 +83,7 @@ export type PhrmaMetricId =
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'medicare',
     dataTypeId: 'bb_ami_adherence',
     dataTableTitle:
       'Breakdown summary for persistance of beta blockers post AMI',
@@ -150,6 +151,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'statins_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTableTitle: 'Breakdown summary for adherence to statins',
@@ -222,6 +224,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'beta_blockers_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTableTitle: 'Breakdown summary for adherence to beta blockers',
@@ -287,6 +290,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
 
   {
+    categoryId: 'medicare',
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
@@ -353,6 +357,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'ccb_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
@@ -418,6 +423,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'doac_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
@@ -486,6 +492,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'medicare_ami',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
@@ -555,6 +562,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
 export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'medicare',
     dataTypeId: 'arv_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
@@ -622,6 +630,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'medicare_hiv',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'HIV Cases',
@@ -690,6 +699,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
 
 export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'medicare',
     dataTypeId: 'anti_psychotics_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Anti-Psychotics',
@@ -742,6 +752,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'medicare',
     dataTypeId: 'medicare_schizophrenia',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Schizophrenia',

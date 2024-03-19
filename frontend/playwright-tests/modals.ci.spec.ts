@@ -11,14 +11,9 @@ test('Topic Info Modal from Sidebar', async ({ page }) => {
   await page.getByRole('button', { name: 'open the topic info modal' }).click()
   await expect(page).toHaveURL(/.*topic-info=true/)
 
-  // clicking methodology link takes directly to #hiv section
+  // clicking methodology link takes directly to PDOH subpage in Methodology Hub
   await page.getByRole('link', { name: 'methodology' }).click()
-  const IncarcerationSubheading = page.getByRole('heading', {
-    name: 'Incarceration',
-    exact: true,
-  })
-  await expect(IncarcerationSubheading).toBeInViewport()
-  await expect(page).toHaveURL(/.*methodology#incarceration/)
+  await expect(page).toHaveURL(/.*methodology\/topic-categories\/pdoh/)
 
   // browser back button takes you back to the open topic modal
   page.goBack()

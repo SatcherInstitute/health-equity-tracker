@@ -1,5 +1,5 @@
 import FlagIcon from '@mui/icons-material/Flag'
-import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { HashLink } from 'react-router-hash-link'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 
@@ -21,7 +21,7 @@ export default function DisclaimerAlert(props: DisclaimerAlertProps) {
         working to close these known gaps which, in turn, will help create more
         effective health policies in the United States. Read more about missing
         and misidentified people on our{' '}
-        <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}`}>methodology</HashLink>.
+        <HashLink to={`${METHODOLOGY_PAGE_LINK}`}>methodology</HashLink>.
       </HetNotice>
     </div>
   )
