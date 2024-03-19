@@ -28,7 +28,7 @@ import {
   type RaceAndEthnicityGroup,
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
-import { OLD_AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
+import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -200,7 +200,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               per age group. By normalizing for age, we can paint a more
               accurate picture of undue burden of disease and death between
               populations. More details can be found in our{' '}
-              <Link to={OLD_AGE_ADJUSTMENT_LINK}>
+              <Link to={AGE_ADJUSTMENT_LINK}>
                 age-adjustment methodology
               </Link>
               .

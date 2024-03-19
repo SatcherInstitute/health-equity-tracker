@@ -6,7 +6,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
-  OLD_METHODOLOGY_PAGE_LINK,
+  METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './internalRoutes'
 import { type MadLibId, type PhraseSelections } from './MadLibs'
@@ -84,7 +84,7 @@ export const PAGE_URL_TO_NAMES: Record<string, string> = {
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [NEWS_PAGE_LINK]: 'News',
   [DATA_CATALOG_PAGE_LINK]: 'Downloads',
-  [OLD_METHODOLOGY_PAGE_LINK]: 'Methodology',
+  [METHODOLOGY_PAGE_LINK]: 'Methodology',
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 

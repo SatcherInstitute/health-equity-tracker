@@ -34,9 +34,9 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
-  OLD_METHODOLOGY_PAGE_LINK,
   OLD_AGE_ADJUSTMENT_LINK,
-  NEW_METHODOLOGY_PAGE_LINK,
+  METHODOLOGY_PAGE_LINK,
+  AGE_ADJUSTMENT_LINK,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
@@ -49,7 +49,6 @@ import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
-import OldMethodologyPage from './pages/DataCatalog/OldMethodologyPage'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
 import HetAppBar from './styles/HetComponents/HetAppBar'
 
@@ -124,19 +123,7 @@ export default function App() {
                           <DataCatalogPage />
                         </Route>
 
-                        {/* VISIBLE - OLDER METHODOLOGY CONTENT */}
-
-                        <Route path={OLD_METHODOLOGY_PAGE_LINK}>
-                          <OldMethodologyPage />
-                        </Route>
-
-                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
-                          <OldMethodologyPage />
-                        </Route>
-
-                        {/* HIDDEN FOR NOW - NEWER METHODOLOGY REWRITE CONTENT */}
-
-                        <Route path={NEW_METHODOLOGY_PAGE_LINK}>
+                        <Route path={METHODOLOGY_PAGE_LINK}>
                           <MethodologyPage />
                         </Route>
 
@@ -171,6 +158,10 @@ export default function App() {
                         {/* redirect the old URL for possible outside links */}
                         <Route path={'/termsofservice'}>
                           <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                        </Route>
+
+                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
+                        <Redirect to={AGE_ADJUSTMENT_LINK} />
                         </Route>
 
                         <Route path='/'>
