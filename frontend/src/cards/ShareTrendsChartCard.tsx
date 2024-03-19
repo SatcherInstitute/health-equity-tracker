@@ -23,7 +23,7 @@ import {
   getNestedUnknowns,
 } from '../data/utils/DatasetTimeUtils'
 import { HashLink } from 'react-router-hash-link'
-import { OLD_METHODOLOGY_PAGE_LINK } from '../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../utils/internalRoutes'
 import AltTableView from './ui/AltTableView'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
@@ -265,7 +265,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 {props.dataTypeConfig.fullDisplayName} as experienced by
                 different demographic groups compared to their relative shares
                 of the total population. Read more about this calculation in our{' '}
-                <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}#metrics`}>
+                <HashLink to={`${METHODOLOGY_PAGE_LINK}#metrics`}>
                   methodology
                 </HashLink>
                 .

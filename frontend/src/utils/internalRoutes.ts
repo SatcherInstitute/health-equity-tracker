@@ -11,38 +11,36 @@ export const CONTACT_TAB_LINK = '/contact';
 export const OURTEAM_TAB_LINK = '/ourteam';
 export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory';
 
-// OLD METHODOLOGY SECTIONS
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment';
-export const OLD_METHODOLOGY_PAGE_LINK = '/methodology';
 
 // NEW METHODOLOGY SECTIONS
-export const NEW_METHODOLOGY_PAGE_LINK = '/new-methodology';
+export const METHODOLOGY_PAGE_LINK = '/methodology';
 
-export const NEW_AGE_ADJUSTMENT_LINK =
-	NEW_METHODOLOGY_PAGE_LINK + '/age-adjustment';
-export const SOURCES_LINK = NEW_METHODOLOGY_PAGE_LINK + '/data-sources';
+export const AGE_ADJUSTMENT_LINK =
+	METHODOLOGY_PAGE_LINK + '/age-adjustment';
+export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources';
 export const TOPIC_CATEGORIES_LINK =
-	NEW_METHODOLOGY_PAGE_LINK + '/topic-categories';
-export const LIMITATIONS_LINK = NEW_METHODOLOGY_PAGE_LINK + '/limitations';
+	METHODOLOGY_PAGE_LINK + '/topic-categories';
+export const LIMITATIONS_LINK = METHODOLOGY_PAGE_LINK + '/limitations';
 export const BEHAVIORAL_HEALTH_LINK =
 	TOPIC_CATEGORIES_LINK + '/behavioral-health';
 export const CHRONIC_DISEASE_LINK = TOPIC_CATEGORIES_LINK + '/chronic-disease';
 export const COVID_19_LINK = TOPIC_CATEGORIES_LINK + '/covid';
-export const GLOSSARY_LINK = NEW_METHODOLOGY_PAGE_LINK + '/glossary';
+export const GLOSSARY_LINK = METHODOLOGY_PAGE_LINK + '/glossary';
 export const HIV_LINK = TOPIC_CATEGORIES_LINK + '/hiv';
 export const PDOH_LINK = TOPIC_CATEGORIES_LINK + '/pdoh';
 export const SDOH_LINK = TOPIC_CATEGORIES_LINK + '/sdoh';
 export const MEDICATION_UTILIZATION_LINK =
 	TOPIC_CATEGORIES_LINK + '/medication-utilization';
 export const DATA_METHOD_DEFINITIONS_LINK =
-	NEW_METHODOLOGY_PAGE_LINK + '/definitions';
+	METHODOLOGY_PAGE_LINK + '/definitions';
 export const METRICS_LINK = DATA_METHOD_DEFINITIONS_LINK + '/metrics';
 export const TOPIC_DEFINITIONS_LINK =
 	DATA_METHOD_DEFINITIONS_LINK + '/topic-definitions';
 export const RACES_AND_ETHNICITIES_LINK =
 	DATA_METHOD_DEFINITIONS_LINK + '/races-and-ethnicities';
 export const RECOMMENDED_CITATION_LINK =
-	NEW_METHODOLOGY_PAGE_LINK + '/recommended-citation';
+	METHODOLOGY_PAGE_LINK + '/recommended-citation';
 
 // TRACKER SETTINGS
 export const AGE_ADJUST_HIV_DEATHS_US_SETTING =
