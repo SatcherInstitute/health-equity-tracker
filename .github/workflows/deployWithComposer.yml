@@ -1,10 +1,10 @@
-name: DEPLOY With Composer
+name: DEPLOY STAGING With Composer
 
 on:
   push:
-    branches: [main]
+    branches: [main, infra-test]
     paths:
-      # Run this only if any data pipeline services change
+      # Run only if data pipeline services change
       - 'airflow/**'
       - 'config/**'
       - 'data/**'
@@ -17,7 +17,14 @@ on:
       - 'run_gcs_to_bq/**'
       - 'run_ingestion/**'
   workflow_dispatch:
-
+    inputs:
+      branch:
+        description: 'Branch code to deploy'
+        default: 'main' #if not specified by the user
+        type: 'choice'
+        options:
+          - main
+          - infra-test
 jobs:
   build-ingestion:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
@@ -28,6 +35,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -51,6 +60,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -74,6 +85,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -97,6 +110,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -120,6 +135,9 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
+        # frontend code from 'main' even while testing pipeline changes via infra-test branch
+        with:
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -153,6 +171,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -203,25 +223,23 @@ jobs:
           echo "frontend_url=$frontend_url" >> "$GITHUB_OUTPUT"
       - name: Composer / Airflow Environment Variables
         id: airflow-environment-variables
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        continue-on-error: true
         run: |
           ENVIRONMENT_NAME=data-ingestion-environment
           LOCATION=us-central1
-          BUCKET=us-central1-data-ingestion-bucket
+          BUCKET="us-central1-data-ingestion-bucket-${{ secrets.TEST_PROJECT_ID }}"
 
           if ! gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION &>/dev/null; then
-            echo "Composer environment does not exist. Creating..."
+            echo "INFRA-TEST Composer environment does not exist. Creating..."
             gcloud composer environments create $ENVIRONMENT_NAME --location=$LOCATION --storage-bucket=$BUCKET
           else
-            echo "Composer environment already exists."
+            echo "INFRA-TEST Composer environment already exists."
           fi
 
           echo "Waiting for Composer environment to be in RUNNING state... this can take up to 40 minutes."
           while [[ "$(gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION --format='value(state)')" != "RUNNING" ]]; do
             sleep 10
           done
-          echo "Composer environment is now in RUNNING state."
+          echo "INFRA-TEST Composer environment is now in RUNNING state."
 
           gcloud composer environments update $ENVIRONMENT_NAME \
           --update-env-variables=AIRFLOW_VAR_DUMMY=${{ github.run_id }} \
@@ -232,7 +250,6 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=$LOCATION
       - name: Upload Airflow DAGs and utility file
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
