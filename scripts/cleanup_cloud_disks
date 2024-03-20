@@ -29,7 +29,7 @@ shift $((OPTIND -1))
 project_id=$1
 
 # Warn the user if disks are to be deleted
-echo "WARNING: This script will delete disks within the specified project that match the kind auto-created by Google Cloud Composer: pd-standard, 2GB, prefix of 'pvc-', and which are not in use."
+echo "WARNING: This script will unused delete disks within the specified project that match the kind auto-created by Google Cloud Composer: pd-standard, 2GB, and prefixed with 'pvc-'."
 if [ "$delete_disks" = true ]; then
     echo "This cannot be undone! Ctrl+C to cancel."
     echo "Proceeding with deletion in 3 seconds..."
