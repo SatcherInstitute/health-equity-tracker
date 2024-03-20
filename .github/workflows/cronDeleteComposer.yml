@@ -29,7 +29,7 @@ jobs:
           if gcloud composer environments describe $ENV_NAME --location=$LOCATION &>/dev/null; then
             echo "Composer environment exists. Deleting..."
             gcloud composer environments delete $ENV_NAME --quiet --location=$LOCATION
-            echo "::set-output name=composer-deleted::true"
+            echo "composer-deleted=true" >> $GITHUB_ENV
           else
             echo "DEV Composer environment doesn't exist."
           fi
