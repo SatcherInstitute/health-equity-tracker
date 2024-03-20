@@ -26,9 +26,9 @@ jobs:
       - name: Ensure Composer Environment Is Deleted
         id: ensure-composer-deleted
         run: |
-          if gcloud composer environments describe $ENV_NAME --location=$LOCATION &>/dev/null; then
+          if gcloud composer environments describe "$ENV_NAME" --location="$LOCATION" &>/dev/null; then
             echo "Composer environment exists. Deleting..."
-            gcloud composer environments delete $ENV_NAME --quiet --location=$LOCATION
+            gcloud composer environments delete "$ENV_NAME" --quiet --location="$LOCATION"
             echo "composer-deleted=true" >> $GITHUB_ENV
           else
             echo "DEV Composer environment doesn't exist."
@@ -37,4 +37,4 @@ jobs:
         if: steps.ensure-composer-deleted.outputs.composer-deleted == 'true'
         working-directory: ./scripts
         run: |
-          bash ./cleanup_cloud_disks -D "${{ secrets.TEST_PROJECT_ID }}"
+          bash ./cleanup_cloud_disks -D ${{ secrets.TEST_PROJECT_ID }}
