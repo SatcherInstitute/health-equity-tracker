@@ -37,4 +37,4 @@ jobs:
         if: steps.ensure-composer-deleted.outputs.composer-deleted == 'true'
         working-directory: ./scripts
         run: |
-          bash ./cleanup_cloud_disks -D ${{ secrets.TEST_PROJECT_ID }}
+          bash ./cleanup_cloud_disks -D "${{ secrets.TEST_PROJECT_ID }}"
