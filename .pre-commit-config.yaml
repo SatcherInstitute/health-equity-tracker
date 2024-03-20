@@ -32,6 +32,11 @@ repos:
         entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched --changed
         language: system
         types: [text]
+  # LINT/FORMAT SHELL AND GITHUB ACTIONS
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
   # WARN IF TOO MANY FILES IN ONE COMMIT
   - repo: local
     hooks:
