@@ -35,4 +35,4 @@ jobs:
       - name: Run Disk Cleanup Script
         working-directory: ./scripts
         run: |
-          bash ./cleanup_cloud_disks -D ${{ secrets.TEST_PROJECT_ID }}
+          ./cleanup_cloud_disks.sh -D ${{ secrets.TEST_PROJECT_ID }}
