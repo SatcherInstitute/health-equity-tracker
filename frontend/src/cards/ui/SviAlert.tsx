@@ -2,7 +2,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Fips } from '../../data/utils/Fips'
 import { urlMap } from '../../utils/externalUrls'
 import { HashLink } from 'react-router-hash-link'
-import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
@@ -60,7 +60,7 @@ function SviAlert(props: SviAlertProps) {
           This county has a <HetTerm>social vulnerability index</HetTerm> of{' '}
           <strong>{props.svi}</strong>; which indicates a{' '}
           <HashLink
-            to={`${OLD_METHODOLOGY_PAGE_LINK as string}#svi`}
+            to={`${METHODOLOGY_PAGE_LINK as string}#svi`}
             className={color}
           >
             <span>{rating} level of vulnerability.</span>

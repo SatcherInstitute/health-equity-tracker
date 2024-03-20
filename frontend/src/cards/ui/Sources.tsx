@@ -1,5 +1,5 @@
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
-import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
@@ -26,6 +26,7 @@ import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
 import {
   getParentDropdownFromDataTypeId,
   getConfigFromDataTypeId,
+  CategoryTypeId,
 } from '../../utils/MadLibs'
 
 interface SourcesProps {
@@ -64,13 +65,17 @@ export function Sources(props: SourcesProps) {
     ? selectedDataTypeConfig2Atom
     : selectedDataTypeConfig1Atom
 
-  const selectedDataTypeId = useAtomValue(
+  const selectedDataTypeConfig = useAtomValue(
     selectedDataTypeConfigAtom
-  )?.dataTypeId
+  )
 
-  const methodologyHashId: DropdownVarId | '' = selectedDataTypeId
-    ? getParentDropdownFromDataTypeId(selectedDataTypeId)
-    : ''
+  const selectedDataTypeId = selectedDataTypeConfig?.dataTypeId
+
+  const category: CategoryTypeId | undefined = selectedDataTypeConfig?.categoryId
+  let methodologyLink = `${METHODOLOGY_PAGE_LINK}/topic-categories/`
+  // TODO: refactor to sync CategoryTypeId and Methodology Category Link Routes (they're close but not identical)
+  if (category === 'medicare') methodologyLink += 'medication-utilization'
+  else methodologyLink += category ?? ''
 
   let optionalDefinition = ''
 
@@ -99,7 +104,7 @@ export function Sources(props: SourcesProps) {
       <p className='w-full'>
         <>{optionalDefinition}</>
         View{' '}
-        <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
+        <HashLink to={methodologyLink}>
           methodology
         </HashLink>
         .

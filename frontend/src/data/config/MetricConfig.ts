@@ -187,7 +187,7 @@ export interface DataTypeConfig {
   surveyCollectedData?: boolean
   dataTableTitle: string
   mapConfig: MapConfig
-  categoryId?: CategoryTypeId
+  categoryId: CategoryTypeId
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

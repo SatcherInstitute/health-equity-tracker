@@ -1,4 +1,4 @@
-import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 import HetNotice from '../../styles/HetComponents/HetNotice'
@@ -24,7 +24,7 @@ function IncarceratedChildrenLongAlert() {
           incarceration, we highlight the{' '}
           <HetTerm>total number of confined children</HetTerm> in adult
           facilities. Read more in{' '}
-          <Link to={OLD_METHODOLOGY_PAGE_LINK}>our methodology</Link>.
+          <Link to={METHODOLOGY_PAGE_LINK}>our methodology</Link>.
         </p>
       </HetNotice>
     </div>

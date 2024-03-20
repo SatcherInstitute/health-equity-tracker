@@ -5,7 +5,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 > Prompted by the COVID-19 pandemic, the Health Equity Tracker was created in 2020 to aggregate up-to-date demographic data from the hardest-hit communities. The Health Equity Tracker aims to give a detailed view of health outcomes by race, ethnicity, sex, socioeconomic status, and other critical factors. Our hope is that it will help policymakers understand what resources and support affected communities need to be able to improve their outcomes.
 
 [![Run Playwright E2E Nightly Against PROD](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/e2eScheduled.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/e2eScheduled.yml)
-[![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/urlsScheduled.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/urlsScheduled.yml)
+[![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml)
 [![GitHub Super-Linter](https://github.com/SatcherInstitute/health-equity-tracker/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## Frontend Quick-Start

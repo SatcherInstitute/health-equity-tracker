@@ -14,8 +14,8 @@ import {
 	MEDICATION_UTILIZATION_LINK,
 	SOURCES_LINK,
 	TOPIC_CATEGORIES_LINK,
-	NEW_METHODOLOGY_PAGE_LINK,
-	NEW_AGE_ADJUSTMENT_LINK,
+	METHODOLOGY_PAGE_LINK,
+	AGE_ADJUSTMENT_LINK,
 	LIMITATIONS_LINK,
 } from '../../../utils/internalRoutes';
 import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink';
@@ -51,7 +51,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Methodology Introduction',
-		path: NEW_METHODOLOGY_PAGE_LINK,
+		path: METHODOLOGY_PAGE_LINK,
 		component: MethodologyHomeLink,
 		subLinks: [],
 	},
@@ -390,7 +390,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Age-Adjustment',
-		path: NEW_AGE_ADJUSTMENT_LINK,
+		path: AGE_ADJUSTMENT_LINK,
 		component: AgeAdjustmentLink,
 		subLinks: [
 			{ label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
