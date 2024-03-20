@@ -37,6 +37,7 @@ repos:
     rev: v0.10.0
     hooks:
       - id: shellcheck
+        name: 🐚 shell and github actions format + lint with shellcheck
   # WARN IF TOO MANY FILES IN ONE COMMIT
   - repo: local
     hooks:
