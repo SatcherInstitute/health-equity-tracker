@@ -41,7 +41,7 @@ fi
 # Find all persistent disks in the specified project along with their zones in CSV format
 disks_zones=$(gcloud compute disks list --project="$project_id" --format="csv(name,zone,size_gb,type)" | tail -n +2)
 
-# Iterate over the pairs of disk names, zones, sizes, and types
+# Iterate over the rows of disk details
 while IFS=',' read -r disk_name full_zone size_gb disk_type; do
 
     # Extract the short zone string from the full zone URL
@@ -55,6 +55,7 @@ while IFS=',' read -r disk_name full_zone size_gb disk_type; do
             echo "Disk $disk_name in zone $zone is in use by:"
             echo "$disk_info"
         else
+						# Warn or delete the disk based on the -D flag
             if [ "$delete_disks" = true ]; then
                 echo "Deleting unused disk $disk_name in zone $zone."
                 gcloud compute disks delete "$disk_name" --zone="$zone" --project="$project_id" --quiet
