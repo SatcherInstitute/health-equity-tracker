@@ -256,9 +256,8 @@ function MapCardWithKey(props: MapCardProps) {
     metricId
   )
   if (highestLowestGeosMode)
-    subtitle += ` (only ${
-      props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-    } with highest/lowest rates)`
+    subtitle += ` (only ${props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
+      } with highest/lowest rates)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   function handleScaleChange(domain: number[], range: number[]) {

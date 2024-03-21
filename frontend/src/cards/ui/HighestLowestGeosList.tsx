@@ -1,7 +1,5 @@
 import AnimateHeight from 'react-animate-height'
-import { Grid, IconButton } from '@mui/material'
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import { Grid } from '@mui/material'
 import {
   type MetricConfig,
   type DataTypeConfig,
@@ -45,7 +43,7 @@ interface HighestLowestGeosListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
-  const placesType = props.fips.getPluralChildFipsTypeDisplayName()
+  const placesType = props.fips.getChildFipsTypeDisplayName()
   const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
@@ -66,7 +64,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
       className='mt-4 rounded-md bg-listboxColor text-left'
     >
       <HetExpandableBoxButton
-        expandBoxLabel={`${placesType} with highest and lowest rates`}
+        expandBoxLabel={`${placesType} rate extremes`}
         expanded={props.isOpen}
         setExpanded={() => {
           props.setIsOpen(!props.isOpen)
