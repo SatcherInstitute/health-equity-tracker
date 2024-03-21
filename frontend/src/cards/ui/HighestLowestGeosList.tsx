@@ -16,6 +16,7 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import ExtremeList from './ExtremeList'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
 
 interface HighestLowestGeosListProps {
   // MetricConfig for data
@@ -64,6 +65,10 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className='mt-4 rounded-md bg-standardInfo text-left'
     >
+      {/* <HetExpandableBoxButton
+        expandBoxLabel=''
+
+      /> */}
       <div className='float-right'>
         <IconButton
           aria-label={
@@ -85,11 +90,10 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
         onClick={() => {
           props.setIsOpen(!props.isOpen)
         }}
-        className={`cursor-pointer pl-4 text-left bg-standardInfo border-none text-smallest sm:text-text ${
-          props.isOpen
+        className={`cursor-pointer pl-4 text-left bg-standardInfo border-none text-smallest sm:text-text ${props.isOpen
             ? 'px-0 py-4'
             : 'text-ellipsis whitespace-nowrap leading-lhListBoxTitle sm:overflow-hidden'
-        } `}
+          } `}
       >
         {!props.isOpen ? 'See ' : 'Viewing '}
         <span className='sr-only sm:not-sr-only'>
