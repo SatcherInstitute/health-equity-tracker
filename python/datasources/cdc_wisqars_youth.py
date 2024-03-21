@@ -4,6 +4,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
     convert_columns_to_numeric,
+    generate_cols_map,
     DATA_DIR,
     RACE_NAMES_MAPPING,
     WISQARS_COLS,
@@ -60,18 +61,34 @@ Last Updated: 2/24
 
 TIME_MAP = {
     CURRENT: [
-        std_col.GUN_VIOLENCE_DEATHS_RAW,
-        std_col.GUN_VIOLENCE_DEATHS_PER_100K,
-        std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-        std_col.YOUTH_POPULATION_PCT,
-        std_col.YOUTH_POPULATION,
+        'gun_deaths_young_adults_estimated_total',
+        'gun_deaths_young_adults_pct_share',
+        'gun_deaths_young_adults_per_100k',
+        'gun_deaths_young_adults_population',
+        'gun_deaths_young_adults_population_pct',
+        'gun_deaths_youth_estimated_total',
+        'gun_deaths_youth_pct_share',
+        'gun_deaths_youth_per_100k',
+        'gun_deaths_youth_population',
+        'gun_deaths_youth_population_pct',
     ],
     HISTORICAL: [
-        std_col.GUN_VIOLENCE_DEATHS_PER_100K,
-        std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
-        std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
+        'gun_deaths_young_adults_pct_relative_inequity',
+        'gun_deaths_young_adults_pct_share',
+        'gun_deaths_young_adults_per_100k',
+        'gun_deaths_youth_pct_relative_inequity',
+        'gun_deaths_youth_pct_share',
+        'gun_deaths_youth_per_100k',
     ],
 }
+
+CATEGORIES_LIST = ['gun_deaths_young_adults', 'gun_deaths_youth']
+ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
+PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
+PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
+PCT_SHARE_MAP['gun_deaths_young_adults_population'] = 'gun_deaths_young_adults_population_pct'
+PCT_SHARE_MAP['gun_deaths_youth_population'] = 'gun_deaths_youth_population_pct'
+PER_100K_MAP = generate_cols_map(CATEGORIES_LIST, std_col.PER_100K_SUFFIX)
 
 
 class CDCWisqarsYouthData(DataSource):
@@ -107,9 +124,6 @@ class CDCWisqarsYouthData(DataSource):
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,
             "race": std_col.RACE_CATEGORY_ID_COL,
-            "population": std_col.YOUTH_POPULATION,
-            "deaths": std_col.GUN_VIOLENCE_DEATHS_RAW,
-            "crude rate": std_col.GUN_VIOLENCE_DEATHS_PER_100K,
         }
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
@@ -124,21 +138,19 @@ class CDCWisqarsYouthData(DataSource):
 
         df = generate_pct_share_col_with_unknowns(
             df,
-            {
-                std_col.GUN_VIOLENCE_DEATHS_RAW: std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-                std_col.YOUTH_POPULATION: std_col.YOUTH_POPULATION_PCT,
-            },
+            PCT_SHARE_MAP,
             std_col.RACE_OR_HISPANIC_COL,
             std_col.ALL_VALUE,
             'Unknown race',
         )
 
-        df = generate_pct_rel_inequity_col(
-            df,
-            std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-            std_col.YOUTH_POPULATION_PCT,
-            std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
-        )
+        for col in ESTIMATED_TOTALS_MAP.values():
+            pop_col = (
+                'gun_deaths_young_adults_population'
+                if col == 'gun_deaths_young_adults'
+                else 'gun_deaths_youth_population'
+            )
+            df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col])
 
         gun_deaths_column_order = [
             std_col.TIME_PERIOD_COL,
@@ -146,12 +158,18 @@ class CDCWisqarsYouthData(DataSource):
             std_col.STATE_FIPS_COL,
             std_col.RACE_OR_HISPANIC_COL,
             std_col.RACE_CATEGORY_ID_COL,
-            std_col.GUN_VIOLENCE_DEATHS_RAW,
-            std_col.YOUTH_POPULATION,
-            std_col.GUN_VIOLENCE_DEATHS_PER_100K,
-            std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
-            std_col.YOUTH_POPULATION_PCT,
-            std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
+            'gun_deaths_young_adults_estimated_total',
+            'gun_deaths_young_adults_pct_relative_inequity',
+            'gun_deaths_young_adults_pct_share',
+            'gun_deaths_young_adults_per_100k',
+            'gun_deaths_young_adults_population',
+            'gun_deaths_young_adults_population_pct',
+            'gun_deaths_youth_estimated_total',
+            'gun_deaths_youth_pct_relative_inequity',
+            'gun_deaths_youth_pct_share',
+            'gun_deaths_youth_per_100k',
+            'gun_deaths_youth_population',
+            'gun_deaths_youth_population_pct',
         ]
 
         df = (
@@ -162,40 +180,45 @@ class CDCWisqarsYouthData(DataSource):
             )
             .reset_index(drop=True)
         )
+        df.to_csv('testing_output.csv', index=False)
 
         return df
 
 
 def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
-    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        DATA_DIR,
-        f"fatal_gun_injuries_youth-{geo_level}-{breakdown}.csv",
-        na_values=["--", "**"],
-        usecols=lambda x: x not in WISQARS_COLS,
-        thousands=",",
-        dtype={"Year": str},
-    )
+    output_df = pd.DataFrame(columns=['year', 'state', 'race'])
 
-    df.columns = df.columns.str.lower()
+    for variable_string in ['gun_deaths_young_adults', 'gun_deaths_youth']:
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            DATA_DIR,
+            f"{variable_string}-{geo_level}-{breakdown}.csv",
+            na_values=["--", "**"],
+            usecols=lambda x: x not in WISQARS_COLS,
+            thousands=",",
+            dtype={"Year": str},
+        )
 
-    # removes the metadata section from the csv
-    metadata_start_index = df[df["year"] == "Total"].index
-    metadata_start_index = metadata_start_index[0]
-    df = df.iloc[:metadata_start_index]
+        # Convert column names to lowercase
+        df.columns = df.columns.str.lower()
 
-    # cleans data frame
-    columns_to_convert = ["deaths", "crude rate"]
-    convert_columns_to_numeric(df, columns_to_convert)
+        # removes the metadata section from the csv
+        metadata_start_index = df[df["year"] == "Total"].index
+        metadata_start_index = metadata_start_index[0]
+        df = df.iloc[:metadata_start_index]
 
-    if geo_level == NATIONAL_LEVEL:
-        df.insert(1, "state", US_NAME)
+        # cleans data frame
+        columns_to_convert = ["deaths", "crude rate"]
+        convert_columns_to_numeric(df, columns_to_convert)
 
-    if breakdown == "all":
-        df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
+        if geo_level == NATIONAL_LEVEL:
+            df.insert(1, "state", US_NAME)
 
-    if std_col.ETH_COL in df.columns.to_list():
-        df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
-        df = df.rename(columns={'race_ethnicity_combined': 'race'})
+        if breakdown == "all":
+            df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
+
+        if std_col.ETH_COL in df.columns.to_list():
+            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
+            df = df.rename(columns={'race_ethnicity_combined': 'race'})
 
         # Combines the unknown and hispanic rows
         df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
@@ -212,4 +235,15 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         # Update the original DataFrame with the results for the 'crude rate' column
         df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
 
-    return df
+        df.rename(
+            columns={
+                'deaths': f'{variable_string}_estimated_total',
+                'population': f'{variable_string}_population',
+                'crude rate': f'{variable_string}_per_100k',
+            },
+            inplace=True,
+        )
+
+        output_df = output_df.merge(df, how='outer')
+
+    return output_df
