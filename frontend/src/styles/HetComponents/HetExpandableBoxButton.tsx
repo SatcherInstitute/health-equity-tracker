@@ -20,9 +20,9 @@ export default function HetExpandableBoxButton(props: HetExpandableBoxButtonProp
         : 'text-ellipsis whitespace-nowrap  sm:overflow-hidden'
         } `}
     >
-      <span className="flex-grow">
+      <span className="flex-grow font-medium">
         {!props.expanded ? 'Expand' : 'Collapse'}{' '}
-        <HetTerm>{props.expandBoxLabel}</HetTerm> table
+        {props.expandBoxLabel}
       </span>
 
       {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
