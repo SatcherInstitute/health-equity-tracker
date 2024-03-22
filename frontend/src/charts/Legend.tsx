@@ -77,7 +77,6 @@ interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_METRICS.includes(props.metric.metricId)
-  const isLowRate100k = props.metric.metricId === 'gun_violence_legal_intervention_per_100k'
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
@@ -129,8 +128,7 @@ export function Legend(props: LegendProps) {
       isPct ? '%' : ''
     }' + '${overallPhrase}'`
 
-    const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : isLowRate100k ? 'preventM' : 'truncateWithK'
-
+    const legendFormatterType: LegendNumberFormat = isPct ? 'pct'  : 'truncateWithK'
     const legendList: LegendType[] = []
 
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS

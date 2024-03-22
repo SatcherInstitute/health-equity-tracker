@@ -121,8 +121,7 @@ export function formatPreventZero100k(
 ) {
 
   const isPct = isPctType(metricType)
-  const isLowRate100k = metricId === 'gun_violence_legal_intervention_per_100k'
-  const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : isLowRate100k ? 'preventM' : 'truncateWithK'
+  const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : 'truncateWithK'
   const d3Format = formatterMap[legendFormatterType]
 
 
