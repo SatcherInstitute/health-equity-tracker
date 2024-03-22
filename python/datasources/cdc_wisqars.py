@@ -1,13 +1,7 @@
 import pandas as pd
 import numpy as np
 from datasources.data_source import DataSource
-from ingestion.constants import (
-    CURRENT,
-    HISTORICAL,
-    US_NAME,
-    NATIONAL_LEVEL,
-    STATE_LEVEL,
-)
+from ingestion.constants import CURRENT, HISTORICAL, US_NAME, NATIONAL_LEVEL, STATE_LEVEL, Sex
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.dataset_utils import (
     combine_race_ethnicity,
@@ -136,6 +130,9 @@ class CDCWisqarsData(DataSource):
         }
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
+
+        # replace "Females" with "Female" and "Males" with "Male"
+        breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
