@@ -7,9 +7,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
       'Map showing Excessive drinking cases in the United States : including data from 50 states/territories'
     )
     .getByRole('img')
-  await page
-    .getByText('See the states/territories with the highest and lowest rates.')
-    .click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page.getByRole('heading', { name: 'Highest:' }).click()
   await page.getByRole('heading', { name: 'Lowest:' }).click()
   await page.getByRole('heading', { name: 'National overall:' }).click()
@@ -18,7 +16,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
     .getByText('Excessive drinking cases')
     .click()
   await page.getByText('Consider the possible impact').click()
-  await page.getByLabel('hide lists of states/').click()
+  await page.getByRole('button', { name: 'Collapse state/territory rate' }).click();
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
   await page
     .getByRole('heading', {

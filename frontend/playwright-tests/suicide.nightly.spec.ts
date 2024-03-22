@@ -13,7 +13,7 @@ test('Suicide Flow', async ({ page }) => {
   await page.getByText('Demographic', { exact: true }).nth(2).click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
-  await page.getByText('See the states/territories').click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page.getByText('Consider the possible impact').click()
   await page
     .locator('#rate-chart')

@@ -16,8 +16,8 @@ test('Covid Cases', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Monthly COVID-19 cases per' })
     .click()
-  await page.getByText('rates over time', { exact: true }).click()
-  await page.getByLabel('Collapse data table view of').click()
+  await page.getByRole('button', { name: 'Expand rates over time' }).click();
+  await page.getByRole('button', { name: 'Collapse rates over time' }).click();
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Rates of COVID-19 cases since' })

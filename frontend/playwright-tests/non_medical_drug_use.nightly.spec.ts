@@ -11,7 +11,7 @@ test('Non Medical Drug Use', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Non-medical drug use in the' })
     .click()
-  await page.getByText('See the states/territories').click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page.getByText('Consider the possible impact').click()
   await page
     .locator('#rate-chart')

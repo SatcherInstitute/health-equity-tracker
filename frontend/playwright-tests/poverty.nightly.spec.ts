@@ -13,9 +13,7 @@ test('Poverty', async ({ page }) => {
       name: 'People below the poverty line in the United States',
     })
     .click()
-  await page
-    .getByText('See the states/territories with the highest and lowest rates.')
-    .click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page
     .getByText(
       'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.'
