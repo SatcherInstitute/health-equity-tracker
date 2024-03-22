@@ -28,6 +28,7 @@ import {
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -68,44 +69,20 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 rounded-md bg-listboxColor text-left'
+      className='mt-4 mx-2 rounded-md bg-listboxColor text-left'
       id={
         props.isCompareCard
           ? ALT_TABLE_VIEW_2_PARAM_KEY
           : ALT_TABLE_VIEW_1_PARAM_KEY
       }
     >
-      <div className='float-right'>
-        <IconButton
-          aria-label={`${
-            !props.expanded ? 'Expand' : 'Collapse'
-          } data table view of ${props.expandBoxLabel}`}
-          aria-expanded={props.expanded}
-          onClick={() => {
-            props.setExpanded(!props.expanded)
-          }}
-          color='primary'
-          size='large'
-        >
-          {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
-        </IconButton>
-      </div>
-      <button
-        type='button'
-        onClick={() => {
-          props.setExpanded(!props.expanded)
-        }}
-        className={`cursor-pointer pl-4 text-left border-none bg-listboxColor text-smallest sm:text-text ${
-          props.expanded
-            ? 'px-0 py-4'
-            : 'text-ellipsis whitespace-nowrap leading-lhListBoxTitle sm:overflow-hidden'
-        } `}
-      >
-        <span>
-          {!props.expanded ? 'Expand' : 'Collapse'}{' '}
-          <HetTerm>{props.expandBoxLabel}</HetTerm> table
-        </span>
-      </button>
+      <HetExpandableBoxButton
+        expanded={props.expanded}
+        setExpanded={props.setExpanded}
+        expandBoxLabel={props.expandBoxLabel}
+
+
+      />
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.expanded && (

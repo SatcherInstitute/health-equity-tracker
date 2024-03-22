@@ -19,9 +19,7 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Medicare beneficiaries' })
     .click()
-  await page
-    .getByText('See the states/territories with the highest and lowest rates.')
-    .click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page
     .getByText(
       'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.'
