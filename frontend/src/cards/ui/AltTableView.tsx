@@ -12,7 +12,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
-import { type MetricConfig } from '../../data/config/MetricConfig'
+import { formatFieldValue, isPctType, type MetricConfig } from '../../data/config/MetricConfig'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
@@ -146,11 +146,7 @@ export default function AltTableView(props: AltTableViewProps) {
 
                         const appendPct =
                           key.includes('with unknown ') ||
-                          [
-                            'pct_relative_inequity',
-                            'pct_share',
-                            'pct_rate',
-                          ].includes(props.knownMetricConfig.type)
+                          isPctType(props.knownMetricConfig.type)
                         return (
                           <TableCell
                             key={key}
@@ -170,8 +166,11 @@ export default function AltTableView(props: AltTableViewProps) {
                               </>
                             ) : (
                               <>
-                                {isTimePeriod ? row[key] : Math.round(row[key])}
-                                {!isTimePeriod && appendPct ? '%' : ''}
+                                {isTimePeriod ? row[key] : formatFieldValue(
+                                  props.knownMetricConfig.type,
+                                  row[key],
+                                  !appendPct
+                                )}
                               </>
                             )}
                           </TableCell>
