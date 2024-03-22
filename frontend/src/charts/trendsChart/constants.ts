@@ -176,7 +176,7 @@ const FORMATTERS = {
   dateFromString_MM_YYYY: (str: string) =>
     str && utcFormat('%B %Y')(new Date(str)),
   num: format('.2~f'),
-  num100k: (d: number) => d < 1 ? format('.2~f')(d) : d < 10 ? format('.1~f')(d) : format('.0~f')(d),
+  num100k: (d: number) => d < 10 ? format('.1~f')(d) : format('.0~f')(d), // show single decimal if less than 10, remove trailling zeros
   plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }

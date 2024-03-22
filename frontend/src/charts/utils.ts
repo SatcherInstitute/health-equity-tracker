@@ -190,7 +190,7 @@ export function removeLastS(inputString: string) {
 
 // Returns an options object for toLocaleString() that will round larger 100k numbers to whole numbers, but allow 1 decimal place for numbers under 10 and 2 decimal places for numbers under 1
 export const getFormatterPer100k = (value: number) => {
-  const numDecimalPlaces = value < 1 ? 2 : value < 10 ? 1 : 0
+  const numDecimalPlaces = value < 10 ? 1 : 0
   return {
     minimumFractionDigits: numDecimalPlaces,
     maximumFractionDigits: numDecimalPlaces
