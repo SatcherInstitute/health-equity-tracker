@@ -10,7 +10,7 @@ import { type FieldRange } from '../data/utils/DatasetTypes'
 import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
-import { LESS_THAN_1 } from '../data/utils/Constants'
+import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import {
   COLOR_SCALE,
   DATASET_VALUES,
@@ -199,7 +199,7 @@ export function Legend(props: LegendProps) {
               zero:
                 isCawp || props.isPhrmaAdherence
                   ? ZERO_BUCKET_LABEL
-                  : LESS_THAN_1,
+                  : LESS_THAN_POINT_1,
             },
           ],
         },

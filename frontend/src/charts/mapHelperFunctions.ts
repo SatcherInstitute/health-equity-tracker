@@ -4,7 +4,6 @@ import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
 import {
   type DemographicGroup,
-  LESS_THAN_1,
   raceNameToCodeMap,
   ALL,
   RACE,
@@ -128,7 +127,7 @@ export function formatPreventZero100k(
 
 
   if (metricType === 'per100k') {
-    return `if (datum.${metricId} > 0, format(datum.${metricId}, '${d3Format}'), '${LESS_THAN_POINT_1}') + ' per 100k'`
+    return `if (datum.${metricId} >= .1, format(datum.${metricId}, '${d3Format}'), '${LESS_THAN_POINT_1}') + ' per 100k'`
   }
   if (isPctType(metricType)) {
     return `format(datum.${metricId}, ',') + '%'`

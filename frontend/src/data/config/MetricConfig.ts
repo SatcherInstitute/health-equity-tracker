@@ -2,7 +2,7 @@
 // so ALL related topic data is contained in a single object
 
 import { type ColorScheme } from 'vega'
-import { LESS_THAN_1, LESS_THAN_POINT_1 } from '../utils/Constants'
+import { LESS_THAN_POINT_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
   type BehavioralHealthMetricId,
