@@ -67,6 +67,12 @@ export function setupUnknownsLegend(width: number, isPct?: boolean): Legend {
   return unknownsLegend
 }
 
+export const formatterMap: Record<LegendNumberFormat, string> = {
+  truncateWithK: ',.2s', // simplify large 100k legend breakpoints: e.g. 8,123 -> 8.1k
+  preventM: ',.2r', // ensure values well below 1 dont render with m like 100m - 200m
+  pct: 'd', // pct style
+}
+
 export type LegendNumberFormat = 'truncateWithK' | 'preventM' | 'pct'
 /* To make the discrete style legend where each color bucket is its own distinct shape */
 export function setupNonZeroDiscreteLegend(
@@ -77,12 +83,7 @@ export function setupNonZeroDiscreteLegend(
 
 ): Legend {
 
-  const formatterMap: Record<LegendNumberFormat, string> = {
-    truncateWithK: ',.2r', // simplify large 100k legend breakpoints: e.g. 8,123 -> 8.1k
-    preventM: ',.2r', // ensure values well below 1 dont render with m like 100m - 200m
-    pct: 'd', // pct style
 
-  }
 
   return {
     fill: COLOR_SCALE,

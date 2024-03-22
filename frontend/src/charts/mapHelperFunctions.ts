@@ -32,6 +32,7 @@ import {
   type CountColsMap,
 } from './mapGlobals'
 import { het } from '../styles/DesignTokens'
+import { formatterMap, LegendNumberFormat } from './legendHelperFunctions'
 
 /*
 
@@ -119,8 +120,15 @@ export function formatPreventZero100k(
   metricType: MetricType,
   metricId: MetricId
 ) {
+
+  const isPct = isPctType(metricType)
+  const isLowRate100k = metricId === 'gun_violence_legal_intervention_per_100k'
+  const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : isLowRate100k ? 'preventM' : 'truncateWithK'
+  const d3Format = formatterMap[legendFormatterType]
+
+
   if (metricType === 'per100k') {
-    return `if (datum.${metricId} > 0, format(datum.${metricId}, '0.1r'), '${LESS_THAN_POINT_1}') + ' per 100k'`
+    return `if (datum.${metricId} > 0, format(datum.${metricId}, '${d3Format}'), '${LESS_THAN_POINT_1}') + ' per 100k'`
   }
   if (isPctType(metricType)) {
     return `format(datum.${metricId}, ',') + '%'`
