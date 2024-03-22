@@ -1,4 +1,4 @@
-import { type MetricId, type MetricType } from '../data/config/MetricConfig'
+import { isPctType, type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
@@ -112,6 +112,8 @@ export function addCountsTooltipInfo(
 
 /*
  formatted tooltip hover 100k values that round to zero should display as <1, otherwise should get pretty commas
+ percent types get a single decimal place and the %
+ every else gets passed through with commas for thousands
 */
 export function formatPreventZero100k(
   metricType: MetricType,
@@ -120,7 +122,7 @@ export function formatPreventZero100k(
   if (metricType === 'per100k') {
     return `if (datum.${metricId} > 0, format(datum.${metricId}, '0.1r'), '${LESS_THAN_POINT_1}') + ' per 100k'`
   }
-  if (['pct_share', 'pct_rate', 'pct_relative_inequity'].includes(metricType)) {
+  if (isPctType(metricType)) {
     return `format(datum.${metricId}, ',') + '%'`
   }
   return `format(datum.${metricId}, ',')`
