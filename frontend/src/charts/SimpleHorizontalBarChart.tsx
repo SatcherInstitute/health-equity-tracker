@@ -277,6 +277,7 @@ interface SimpleHorizontalBarChartProps {
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
+
   const [ref, width] = useResponsiveWidth()
 
   const altLabelMetrics = [...CAWP_METRICS, ...HIV_METRICS]

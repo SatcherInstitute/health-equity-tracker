@@ -52,7 +52,7 @@ export function TrendsTooltip({
       UNIT: isSkinny ? '' : ' per 100k',
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
-      formatter: F.num,
+      formatter: F.num100k,
     },
     [TYPES.PCT_RATE]: {
       UNIT: '',
@@ -76,7 +76,7 @@ export function TrendsTooltip({
       UNIT: '',
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
-      formatter: F.num,
+      formatter: F.num100k,
     },
   }
 

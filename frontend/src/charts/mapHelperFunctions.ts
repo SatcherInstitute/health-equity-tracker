@@ -9,6 +9,7 @@ import {
   ALL,
   RACE,
   AGE,
+  LESS_THAN_POINT_1,
 } from '../data/utils/Constants'
 import { type ScaleType, type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
@@ -84,17 +85,17 @@ export function addCountsTooltipInfo(
   const numeratorPhrase = isCawp
     ? getCawpMapGroupNumeratorLabel(countColsMap, activeDemographicGroup)
     : getMapGroupLabel(
-        demographicType,
-        activeDemographicGroup,
-        countColsMap?.numeratorConfig?.shortLabel ?? ''
-      )
+      demographicType,
+      activeDemographicGroup,
+      countColsMap?.numeratorConfig?.shortLabel ?? ''
+    )
   const denominatorPhrase = isCawp
     ? getCawpMapGroupDenominatorLabel(countColsMap)
     : getMapGroupLabel(
-        demographicType,
-        activeDemographicGroup,
-        countColsMap?.denominatorConfig?.shortLabel ?? ''
-      )
+      demographicType,
+      activeDemographicGroup,
+      countColsMap?.denominatorConfig?.shortLabel ?? ''
+    )
 
   if (countColsMap?.numeratorConfig) {
     tooltipPairs[`# ${numeratorPhrase}`] =
@@ -117,12 +118,12 @@ export function formatPreventZero100k(
   metricId: MetricId
 ) {
   if (metricType === 'per100k') {
-    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
-  } else if (metricType === 'index') {
-    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ''`
-  } else {
+    return `if (datum.${metricId} > 0, format(datum.${metricId}, '0.1r'), '${LESS_THAN_POINT_1}') + ' per 100k'`
+  }
+  if (['pct_share', 'pct_rate', 'pct_relative_inequity'].includes(metricType)) {
     return `format(datum.${metricId}, ',') + '%'`
   }
+  return `format(datum.${metricId}, ',')`
 }
 
 /*
@@ -250,9 +251,8 @@ export function makeAltText(
     : `Map showing ${filename}`
 
   if (!fips.isCounty() && !overrideShapeWithCircle) {
-    altText += `: including data from ${
-      data.length
-    } ${fips.getPluralChildFipsTypeDisplayName()}`
+    altText += `: including data from ${data.length
+      } ${fips.getPluralChildFipsTypeDisplayName()}`
   }
 
   return altText
@@ -267,22 +267,22 @@ export function getProjection(
 ) {
   return overrideShapeWithCircle
     ? {
-        name: CIRCLE_PROJECTION,
-        type: 'albersUsa',
-        scale: 1100,
-        translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
-      }
+      name: CIRCLE_PROJECTION,
+      type: 'albersUsa',
+      scale: 1100,
+      translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
+    }
     : {
-        name: US_PROJECTION,
-        type:
-          fips.isTerritory() || fips.getParentFips().isTerritory()
-            ? 'albers'
-            : 'albersUsa',
-        fit: { signal: "data('" + GEO_DATASET + "')" },
-        size: {
-          signal: '[' + width + ', ' + width * heightWidthRatio + ']',
-        },
-      }
+      name: US_PROJECTION,
+      type:
+        fips.isTerritory() || fips.getParentFips().isTerritory()
+          ? 'albers'
+          : 'albersUsa',
+      fit: { signal: "data('" + GEO_DATASET + "')" },
+      size: {
+        signal: '[' + width + ', ' + width * heightWidthRatio + ']',
+      },
+    }
 }
 
 /*
@@ -386,7 +386,7 @@ export function getHighestLowestGroupsByFips(
       fipsToGroup[fips] = {
         highest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[
-            ascendingGroups.length - 1
+          ascendingGroups.length - 1
           ],
           /* demographicType:  */ demographicType,
           metricId
