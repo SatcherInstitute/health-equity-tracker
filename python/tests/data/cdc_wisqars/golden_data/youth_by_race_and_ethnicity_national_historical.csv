@@ -31,7 +31,7 @@ time_period,state_name,state_fips,race_and_ethnicity,gun_deaths_young_adults_pct
 2019,United States,00,Unknown race,,,,,,
 2020,United States,00,Unknown race,,,,,,
 2021,United States,00,Unknown race,,,,,,
-2018,United States,00,All,-100.0,-100.0,100.0,100.0,20.35,2.36
-2019,United States,00,All,-100.0,-100.0,100.0,100.0,20.45,2.37
-2020,United States,00,All,-100.0,-100.0,100.0,100.0,26.36,3.07
 2021,United States,00,All,-100.0,-100.0,100.0,100.0,27.73,3.52
+2020,United States,00,All,-100.0,-100.0,100.0,100.0,26.36,3.07
+2019,United States,00,All,-100.0,-100.0,100.0,100.0,20.45,2.37
+2018,United States,00,All,-100.0,-100.0,100.0,100.0,20.35,2.36

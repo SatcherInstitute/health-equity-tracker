@@ -175,23 +175,20 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
             df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
             df = df.rename(columns={'race_ethnicity_combined': 'race'})
 
-        # Combines the unknown and hispanic rows
-        df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
+            # Combines the unknown and hispanic rows
+            df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
 
-        print('--')
-        print(df)
+            # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
+            subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
 
-        # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
-        subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
+            # Create a temporary DataFrame with just the subset
+            temp_df = df[subset_mask].copy()
 
-        # Create a temporary DataFrame with just the subset
-        temp_df = df[subset_mask].copy()
+            # Apply the function to the temporary DataFrame
+            temp_df = generate_per_100k_col(temp_df, 'deaths', 'population', 'crude rate')
 
-        # Apply the function to the temporary DataFrame
-        temp_df = generate_per_100k_col(temp_df, 'deaths', 'population', 'crude rate')
-
-        # Update the original DataFrame with the results for the 'crude rate' column
-        df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
+            # Update the original DataFrame with the results for the 'crude rate' column
+            df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
 
         df.rename(
             columns={
