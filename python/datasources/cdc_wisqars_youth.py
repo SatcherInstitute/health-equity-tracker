@@ -184,6 +184,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         # Create a temporary DataFrame with just the subset
         temp_df = df[subset_mask].copy()
 
+        print('--')
+        print(temp_df)
+
         # Apply the function to the temporary DataFrame
         temp_df = generate_per_100k_col(temp_df, 'deaths', 'population', 'crude rate')
 
