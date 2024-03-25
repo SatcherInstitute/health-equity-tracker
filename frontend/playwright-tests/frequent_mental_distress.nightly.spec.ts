@@ -11,7 +11,7 @@ test('Frequent Mental Distress', async ({ page }) => {
   await page.getByText('Demographic').nth(2).click()
   await page.getByText('Off').nth(2).click()
   await page.locator('#menu- div').first().click()
-  await page.getByText('See the states/territories').click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page.getByText('Consider the possible impact').click()
   await page
     .locator('#rate-chart')
