@@ -94,11 +94,10 @@ export function generateChartTitle(
   fips: Fips,
   demographicType?: DemographicType
 ): string {
-  return `${chartTitle}${
-    demographicType
-      ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
-      : ''
-  } in ${fips.getSentenceDisplayName()}`
+  return `${chartTitle}${demographicType
+    ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
+    : ''
+    } in ${fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(
@@ -164,10 +163,10 @@ export function getAltGroupLabel(
   demographicType: DemographicType
 ) {
   if (CAWP_METRICS.includes(metricId)) {
-      return getWomenRaceLabel(group)
+    return getWomenRaceLabel(group)
   }
   if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
-      return `${group} (0-25)`
+    return `${group} (0-25)`
   }
   if (group === ALL && demographicType === AGE) {
     if (metricId.includes('prep')) {
@@ -186,4 +185,15 @@ export function getAltGroupLabel(
 export function removeLastS(inputString: string) {
   // Use a regular expression to replace the last "s" with an empty string
   return inputString.replace(/s$/, '')
+}
+
+
+// Returns an options object for toLocaleString() that will round larger 100k numbers to whole numbers, but allow 1 decimal place for numbers under 10 and 2 decimal places for numbers under 1
+export const getFormatterPer100k = (value: number) => {
+  const numDecimalPlaces = value < 10 ? 1 : 0
+  return {
+    minimumFractionDigits: numDecimalPlaces,
+    maximumFractionDigits: numDecimalPlaces
+  }
+
 }

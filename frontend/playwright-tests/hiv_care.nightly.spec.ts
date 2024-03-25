@@ -37,7 +37,7 @@ test('HIV Linkage To Care', async ({ page }) => {
   await page.getByRole('columnheader', { name: 'All % linkage' }).click()
   await page.getByRole('columnheader', { name: 'Ages 13-24 % linkage' }).click()
   await page.getByText('Add or remove columns by').click()
-  await page.getByLabel('Collapse data table view of').click()
+  await page.getByRole('button', { name: 'Collapse rates over time' }).click();
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Linkage to HIV care in the' })

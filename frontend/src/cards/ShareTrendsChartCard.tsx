@@ -72,11 +72,11 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const inequityQuery = metricConfigInequitable?.metricId
     ? new MetricQuery(
-        metricConfigInequitable.metricId,
-        breakdowns,
+      metricConfigInequitable.metricId,
+      breakdowns,
         /* dataTypeId */ props.dataTypeConfig.dataTypeId,
         /* timeView */ 'historical'
-      )
+    )
     : null
 
   const pctShareQuery =
@@ -131,20 +131,20 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         // swap race labels if applicable
         const inequityDataLabelled = isCawp
           ? inequityData.map((row: Row) => {
-              const altRow = { ...row }
-              altRow.race_and_ethnicity = getWomenRaceLabel(
-                row.race_and_ethnicity
-              )
-              return altRow
-            })
+            const altRow = { ...row }
+            altRow.race_and_ethnicity = getWomenRaceLabel(
+              row.race_and_ethnicity
+            )
+            return altRow
+          })
           : inequityData
 
         const [knownInequityData] = isCawp
           ? [inequityDataLabelled]
           : splitIntoKnownsAndUnknowns(
-              inequityDataLabelled,
-              props.demographicType
-            )
+            inequityDataLabelled,
+            props.demographicType
+          )
 
         const pctShareData =
           metricConfigPctShares &&
@@ -169,8 +169,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         const demographicGroupsLabelled = isCawp
           ? demographicGroups.map((group: DemographicGroup) =>
-              getWomenRaceLabel(group)
-            )
+            getWomenRaceLabel(group)
+          )
           : demographicGroups
 
         const nestedInequityData = getNestedData(
@@ -216,7 +216,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     type: metricConfigInequitable.type,
                     groupLabel:
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
+                      props.demographicType
                       ],
                     xAxisIsMonthly: metricConfigInequitable.isMonthly,
                   }}
@@ -243,10 +243,9 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <AltTableView
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
-                  expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                  tableCaption={`${chartTitle} by ${
-                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                  }`}
+                  expandBoxLabel={`${cardHeaderTitle.toLowerCase()} table`}
+                  tableCaption={`${chartTitle} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                    }`}
                   knownsData={knownInequityData}
                   unknownsData={unknownPctShareData}
                   demographicType={props.demographicType}

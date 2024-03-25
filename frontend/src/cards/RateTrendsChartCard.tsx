@@ -97,9 +97,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   pctShareQuery && queries.push(pctShareQuery)
 
   function getTitleText() {
-    return `${
-      metricConfigRates?.trendsCardTitleName ?? 'Data'
-    } in ${props.fips.getSentenceDisplayName()}`
+    return `${metricConfigRates?.trendsCardTitleName ?? 'Data'
+      } in ${props.fips.getSentenceDisplayName()}`
   }
 
   const isCawp = CAWP_METRICS.includes(metricConfigRates.metricId)
@@ -132,19 +131,19 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const pctShareData = isCawp
           ? ratesData
           : metricConfigPctShares &&
-            queryResponsePctShares.getValidRowsForField(
-              metricConfigPctShares.metricId
-            )
+          queryResponsePctShares.getValidRowsForField(
+            metricConfigPctShares.metricId
+          )
 
         // swap race labels if applicable
         const ratesDataLabelled = isCawp
           ? ratesData.map((row: Row) => {
-              const altRow = { ...row }
-              altRow.race_and_ethnicity = getWomenRaceLabel(
-                row.race_and_ethnicity
-              )
-              return altRow
-            })
+            const altRow = { ...row }
+            altRow.race_and_ethnicity = getWomenRaceLabel(
+              row.race_and_ethnicity
+            )
+            return altRow
+          })
           : ratesData
 
         // retrieve list of all present demographic groups
@@ -216,15 +215,13 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     type: metricConfigRates.type,
                     groupLabel:
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
+                      props.demographicType
                       ],
-                    yAxisLabel: `${metricConfigRates.shortLabel} ${
-                      props.fips.isUsa() ? '' : 'from'
-                    } ${
-                      props.fips.isUsa()
+                    yAxisLabel: `${metricConfigRates.shortLabel} ${props.fips.isUsa() ? '' : 'from'
+                      } ${props.fips.isUsa()
                         ? ''
                         : props.fips.getSentenceDisplayName()
-                    }`,
+                      }`,
                     xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   demographicType={props.demographicType}
@@ -249,10 +246,9 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 <AltTableView
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
-                  expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                  tableCaption={`${getTitleText()} by ${
-                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                  }`}
+                  expandBoxLabel={`${cardHeaderTitle.toLowerCase()} table`}
+                  tableCaption={`${getTitleText()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                    }`}
                   knownsData={knownRatesData}
                   unknownsData={unknownPctShareData}
                   demographicType={props.demographicType}

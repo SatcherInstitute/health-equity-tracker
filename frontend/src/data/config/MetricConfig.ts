@@ -2,7 +2,7 @@
 // so ALL related topic data is contained in a single object
 
 import { type ColorScheme } from 'vega'
-import { LESS_THAN_1, LESS_THAN_POINT_1 } from '../utils/Constants'
+import { LESS_THAN_POINT_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
   type BehavioralHealthMetricId,
@@ -68,6 +68,7 @@ import {
   GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigSDOH'
 import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
+import { getFormatterPer100k } from '../../charts/utils'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -229,7 +230,7 @@ export function formatFieldValue(
   const formatOptions =
     metricType === 'pct_share' || metricType === 'age_adjusted_ratio'
       ? { minimumFractionDigits: 1 }
-      : { maximumFractionDigits: 0 }
+      : getFormatterPer100k(value)
   const formattedValue: string =
     typeof value === 'number'
       ? value.toLocaleString('en', formatOptions)
