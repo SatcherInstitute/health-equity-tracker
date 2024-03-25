@@ -6,6 +6,7 @@ import {
   addCountsTooltipInfo,
   buildTooltipTemplate,
   createBarLabel,
+  formatPreventZero100k,
   getCawpMapGroupDenominatorLabel,
   getCawpMapGroupNumeratorLabel,
   getCountyAddOn,
@@ -360,3 +361,4 @@ describe('Test createBarLabel()', () => {
     expect(result).toEqual('datum.asthma_per_100k__DISPLAY_true + " per 100k"')
   })
 })
+

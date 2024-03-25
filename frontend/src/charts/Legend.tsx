@@ -10,7 +10,7 @@ import { type FieldRange } from '../data/utils/DatasetTypes'
 import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
-import { LESS_THAN_1 } from '../data/utils/Constants'
+import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import {
   COLOR_SCALE,
   DATASET_VALUES,
@@ -36,6 +36,7 @@ import {
 } from './mapGlobals'
 import ClickableLegendHeader from './ClickableLegendHeader'
 import {
+  LegendNumberFormat,
   setupLegendScaleSpec,
   setupNonZeroContinuousPctLegend,
   setupNonZeroDiscreteLegend,
@@ -127,6 +128,7 @@ export function Legend(props: LegendProps) {
       isPct ? '%' : ''
     }' + '${overallPhrase}'`
 
+    const legendFormatterType: LegendNumberFormat = isPct ? 'pct'  : 'truncateWithK'
     const legendList: LegendType[] = []
 
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
@@ -140,7 +142,7 @@ export function Legend(props: LegendProps) {
     } else if (uniqueNonZeroValueCount > 0) {
       const nonZeroLegend = setupNonZeroDiscreteLegend(
         legendBucketLabel,
-        isPct,
+        legendFormatterType,
         props.stackingDirection,
         props.columns
       )
@@ -195,7 +197,7 @@ export function Legend(props: LegendProps) {
               zero:
                 isCawp || props.isPhrmaAdherence
                   ? ZERO_BUCKET_LABEL
-                  : LESS_THAN_1,
+                  : LESS_THAN_POINT_1,
             },
           ],
         },
