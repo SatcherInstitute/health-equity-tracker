@@ -62,50 +62,50 @@ def test_write_to_bq_youth_by_race_national(
         geographic=NATIONAL_LEVEL,
     )
 
-    # (mock_current, mock_historical) = mock_bq.call_args_list
+    (mock_current, mock_historical) = mock_bq.call_args_list
 
-    # actual_current_df, _, table_name = mock_current[0]
-    # expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
-    # assert table_name == "youth_by_race_and_ethnicity_national_current"
+    actual_current_df, _, table_name = mock_current[0]
+    expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    assert table_name == "youth_by_race_and_ethnicity_national_current"
 
-    # actual_historical_df, _, table_name = mock_historical[0]
-    # expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
-    # assert table_name == "youth_by_race_and_ethnicity_national_historical"
+    actual_historical_df, _, table_name = mock_historical[0]
+    expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    assert table_name == "youth_by_race_and_ethnicity_national_historical"
 
-    # assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 2
 
-    # assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
-    # assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
+    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+    assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
 
 
-# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-# @mock.patch(
-#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-#     side_effect=_load_csv_as_df_from_data_dir,
-# )
-# def test_write_to_bq_youth_by_race_state(
-#     mock_data_dir: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-# ):
-#     datasource = CDCWisqarsYouthData()
-#     datasource.write_to_bq(
-#         "dataset",
-#         "gcs_bucket",
-#         demographic=std_col.RACE_OR_HISPANIC_COL,
-#         geographic=STATE_LEVEL,
-#     )
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+    side_effect=_load_csv_as_df_from_data_dir,
+)
+def test_write_to_bq_youth_by_race_state(
+    mock_data_dir: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+):
+    datasource = CDCWisqarsYouthData()
+    datasource.write_to_bq(
+        "dataset",
+        "gcs_bucket",
+        demographic=std_col.RACE_OR_HISPANIC_COL,
+        geographic=STATE_LEVEL,
+    )
 
-#     (mock_current, mock_historical) = mock_bq.call_args_list
+    (mock_current, mock_historical) = mock_bq.call_args_list
 
-#     actual_current_df, _, table_name = mock_current[0]
-#     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
-#     assert table_name == "youth_by_race_and_ethnicity_state_current"
+    actual_current_df, _, table_name = mock_current[0]
+    expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    assert table_name == "youth_by_race_and_ethnicity_state_current"
 
-#     actual_historical_df, _, table_name = mock_historical[0]
-#     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
-#     assert table_name == "youth_by_race_and_ethnicity_state_historical"
+    actual_historical_df, _, table_name = mock_historical[0]
+    expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    assert table_name == "youth_by_race_and_ethnicity_state_historical"
 
-#     assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 2
 
-#     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
-#     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
+    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+    assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)

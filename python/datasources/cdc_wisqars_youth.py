@@ -59,36 +59,21 @@ Notes:
 Last Updated: 2/24
 """
 
-TIME_MAP = {
-    CURRENT: [
-        'gun_deaths_young_adults_estimated_total',
-        'gun_deaths_young_adults_pct_share',
-        'gun_deaths_young_adults_per_100k',
-        'gun_deaths_young_adults_population',
-        'gun_deaths_young_adults_population_pct',
-        'gun_deaths_youth_estimated_total',
-        'gun_deaths_youth_pct_share',
-        'gun_deaths_youth_per_100k',
-        'gun_deaths_youth_population',
-        'gun_deaths_youth_population_pct',
-    ],
-    HISTORICAL: [
-        'gun_deaths_young_adults_pct_relative_inequity',
-        'gun_deaths_young_adults_pct_share',
-        'gun_deaths_young_adults_per_100k',
-        'gun_deaths_youth_pct_relative_inequity',
-        'gun_deaths_youth_pct_share',
-        'gun_deaths_youth_per_100k',
-    ],
-}
-
-CATEGORIES_LIST = ['gun_deaths_young_adults', 'gun_deaths_youth']
+CATEGORIES_LIST = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
 ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
-PCT_SHARE_MAP['gun_deaths_young_adults_population'] = 'gun_deaths_young_adults_population_pct'
-PCT_SHARE_MAP['gun_deaths_youth_population'] = 'gun_deaths_youth_population_pct'
+PCT_SHARE_MAP[std_col.GUN_DEATHS_YOUNG_ADULTS_POPULATION] = std_col.GUN_DEATHS_YOUNG_ADULTS_POP_PCT
+PCT_SHARE_MAP[std_col.GUN_DEATHS_YOUTH_POPULATION] = std_col.GUN_DEATHS_YOUTH_POP_PCT
 PER_100K_MAP = generate_cols_map(CATEGORIES_LIST, std_col.PER_100K_SUFFIX)
+
+TIME_MAP = {
+    CURRENT: list(ESTIMATED_TOTALS_MAP.values())
+    + list(PCT_SHARE_MAP.values())
+    + list(PER_100K_MAP.values())
+    + [std_col.GUN_DEATHS_YOUNG_ADULTS_POPULATION, std_col.GUN_DEATHS_YOUTH_POPULATION],
+    HISTORICAL: list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()) + list(PER_100K_MAP.values()),
+}
 
 
 class CDCWisqarsYouthData(DataSource):
@@ -146,41 +131,11 @@ class CDCWisqarsYouthData(DataSource):
 
         for col in ESTIMATED_TOTALS_MAP.values():
             pop_col = (
-                'gun_deaths_young_adults_population'
-                if col == 'gun_deaths_young_adults'
-                else 'gun_deaths_youth_population'
+                std_col.GUN_DEATHS_YOUNG_ADULTS_POPULATION
+                if col == std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX
+                else std_col.GUN_DEATHS_YOUTH_POPULATION
             )
             df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col])
-
-        gun_deaths_column_order = [
-            std_col.TIME_PERIOD_COL,
-            std_col.STATE_NAME_COL,
-            std_col.STATE_FIPS_COL,
-            std_col.RACE_OR_HISPANIC_COL,
-            std_col.RACE_CATEGORY_ID_COL,
-            'gun_deaths_young_adults_estimated_total',
-            'gun_deaths_young_adults_pct_relative_inequity',
-            'gun_deaths_young_adults_pct_share',
-            'gun_deaths_young_adults_per_100k',
-            'gun_deaths_young_adults_population',
-            'gun_deaths_young_adults_population_pct',
-            'gun_deaths_youth_estimated_total',
-            'gun_deaths_youth_pct_relative_inequity',
-            'gun_deaths_youth_pct_share',
-            'gun_deaths_youth_per_100k',
-            'gun_deaths_youth_population',
-            'gun_deaths_youth_population_pct',
-        ]
-
-        df = (
-            df[gun_deaths_column_order]
-            .sort_values(
-                by=[std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL],
-                ascending=[False, True],
-            )
-            .reset_index(drop=True)
-        )
-        df.to_csv('testing_output.csv', index=False)
 
         return df
 
@@ -188,7 +143,7 @@ class CDCWisqarsYouthData(DataSource):
 def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     output_df = pd.DataFrame(columns=['year', 'state', 'race'])
 
-    for variable_string in ['gun_deaths_young_adults', 'gun_deaths_youth']:
+    for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             DATA_DIR,
             f"{variable_string}-{geo_level}-{breakdown}.csv",
@@ -237,9 +192,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
         df.rename(
             columns={
-                'deaths': f'{variable_string}_estimated_total',
-                'population': f'{variable_string}_population',
-                'crude rate': f'{variable_string}_per_100k',
+                'deaths': f'{variable_string}_{std_col.RAW_SUFFIX}',
+                'population': f'{variable_string}_{std_col.POPULATION_COL}',
+                'crude rate': f'{variable_string}_{std_col.PER_100K_SUFFIX}',
             },
             inplace=True,
         )
