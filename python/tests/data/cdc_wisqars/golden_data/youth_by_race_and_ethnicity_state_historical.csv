@@ -1,872 +1,1677 @@
-time_period,state_name,state_fips,race_and_ethnicity,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_relative_inequity,gun_violence_youth_deaths_pct_share
-2021,Alabama,01,American Indian and Alaska Native (NH),,,
-2021,Alabama,01,Asian (NH),,,
-2021,Alabama,01,Black or African American (NH),86.4,76.5,51.7
-2021,Alabama,01,Hispanic or Latino,20.0,-59.2,3.1
-2021,Alabama,01,Two or more races (NH),,,
-2021,Alabama,01,Native Hawaiian and Pacific Islander (NH),,,
-2021,Alabama,01,White (NH),38.33,-21.8,45.2
-2021,Alabama,01,Unknown race,,,
-2021,Alabama,01,All,50.68,0.0,100.0
-2021,Alaska,02,American Indian and Alaska Native (NH),144.29,213.8,56.8
-2021,Alaska,02,Asian (NH),,,
-2021,Alaska,02,Black or African American (NH),,,
-2021,Alaska,02,Hispanic or Latino,,,
-2021,Alaska,02,Two or more races (NH),,,
-2021,Alaska,02,Native Hawaiian and Pacific Islander (NH),,,
-2021,Alaska,02,White (NH),41.1,-10.6,43.2
-2021,Alaska,02,Unknown race,,,
-2021,Alaska,02,All,57.64,0.0,100.0
-2021,Arizona,04,American Indian and Alaska Native (NH),103.37,121.7,10.2
-2021,Arizona,04,Asian (NH),,,
-2021,Arizona,04,Black or African American (NH),95.09,107.7,10.8
-2021,Arizona,04,Hispanic or Latino,42.0,-8.9,40.1
-2021,Arizona,04,Two or more races (NH),52.81,15.4,4.5
-2021,Arizona,04,Native Hawaiian and Pacific Islander (NH),,,
-2021,Arizona,04,White (NH),40.81,-11.3,34.4
-2021,Arizona,04,Unknown race,,,
-2021,Arizona,04,All,49.29,0.0,100.0
-2021,Arkansas,05,American Indian and Alaska Native (NH),,,
-2021,Arkansas,05,Asian (NH),,,
-2021,Arkansas,05,Black or African American (NH),85.71,97.2,35.3
-2021,Arkansas,05,Hispanic or Latino,26.0,-39.5,7.5
-2021,Arkansas,05,Two or more races (NH),,,
-2021,Arkansas,05,Native Hawaiian and Pacific Islander (NH),,,
-2021,Arkansas,05,White (NH),39.44,-9.1,57.2
-2021,Arkansas,05,Unknown race,,,
-2021,Arkansas,05,All,45.51,0.0,100.0
-2021,California,06,American Indian and Alaska Native (NH),67.85,125.0,0.9
-2021,California,06,Asian (NH),13.28,-55.1,5.7
-2021,California,06,Black or African American (NH),72.82,144.2,12.7
-2021,California,06,Hispanic or Latino,29.0,-1.8,50.2
-2021,California,06,Two or more races (NH),26.02,-12.2,4.3
-2021,California,06,Native Hawaiian and Pacific Islander (NH),60.51,75.0,0.7
-2021,California,06,White (NH),30.12,1.2,25.6
-2021,California,06,Unknown race,,,
-2021,California,06,All,30.12,0.0,100.0
-2021,Colorado,08,American Indian and Alaska Native (NH),,,
-2021,Colorado,08,Asian (NH),,,
-2021,Colorado,08,Black or African American (NH),86.92,113.6,9.4
-2021,Colorado,08,Hispanic or Latino,50.0,22.3,37.8
-2021,Colorado,08,Two or more races (NH),,,
-2021,Colorado,08,Native Hawaiian and Pacific Islander (NH),,,
-2021,Colorado,08,White (NH),38.14,-5.9,52.8
-2021,Colorado,08,Unknown race,,,
-2021,Colorado,08,All,43.85,0.0,100.0
-2021,Connecticut,09,American Indian and Alaska Native (NH),,,
-2021,Connecticut,09,Asian (NH),,,
-2021,Connecticut,09,Black or African American (NH),52.86,112.8,24.9
-2021,Connecticut,09,Hispanic or Latino,23.0,-6.5,23.1
-2021,Connecticut,09,Two or more races (NH),,,
-2021,Connecticut,09,Native Hawaiian and Pacific Islander (NH),,,
-2021,Connecticut,09,White (NH),23.81,-4.2,52.0
-2021,Connecticut,09,All,26.2,0.0,100.0
-2021,Delaware,10,American Indian and Alaska Native (NH),,,
-2021,Delaware,10,Asian (NH),,,
-2021,Delaware,10,Black or African American (NH),77.24,107.7,54.0
-2021,Delaware,10,Hispanic or Latino,,,
-2021,Delaware,10,Two or more races (NH),,,
-2021,Delaware,10,Native Hawaiian and Pacific Islander (NH),,,
-2021,Delaware,10,White (NH),35.58,-4.4,46.0
-2021,Delaware,10,All,42.82,0.0,100.0
-2021,District of Columbia,11,American Indian and Alaska Native (NH),,,
-2021,District of Columbia,11,Asian (NH),,,
-2021,District of Columbia,11,Black or African American (NH),90.86,112.8,100.0
-2021,District of Columbia,11,Hispanic or Latino,,,
-2021,District of Columbia,11,Two or more races (NH),,,
-2021,District of Columbia,11,Native Hawaiian and Pacific Islander (NH),,,
-2021,District of Columbia,11,White (NH),,,
-2021,District of Columbia,11,All,54.48,0.0,100.0
-2021,Florida,12,American Indian and Alaska Native (NH),,,
-2021,Florida,12,Asian (NH),17.88,-55.2,1.3
-2021,Florida,12,Black or African American (NH),58.82,52.3,30.0
-2021,Florida,12,Hispanic or Latino,33.0,-15.9,26.4
-2021,Florida,12,Two or more races (NH),23.13,-41.7,2.1
-2021,Florida,12,Native Hawaiian and Pacific Islander (NH),,,
-2021,Florida,12,White (NH),36.72,-5.0,40.1
-2021,Florida,12,Unknown race,,,
-2021,Florida,12,All,39.07,0.0,100.0
-2021,Georgia,13,American Indian and Alaska Native (NH),,,
-2021,Georgia,13,Asian (NH),18.48,-54.8,1.9
-2021,Georgia,13,Black or African American (NH),61.23,47.6,50.2
-2021,Georgia,13,Hispanic or Latino,28.0,-31.5,9.8
-2021,Georgia,13,Two or more races (NH),,,
-2021,Georgia,13,Native Hawaiian and Pacific Islander (NH),,,
-2021,Georgia,13,White (NH),36.41,-12.2,38.1
-2021,Georgia,13,Unknown race,,,
-2021,Georgia,13,All,42.48,0.0,100.0
-2021,Hawaii,15,American Indian and Alaska Native (NH),,,
-2021,Hawaii,15,Asian (NH),,,
-2021,Hawaii,15,Black or African American (NH),,,
-2021,Hawaii,15,Hispanic or Latino,,,
-2021,Hawaii,15,Two or more races (NH),23.05,239.0,100.0
-2021,Hawaii,15,Native Hawaiian and Pacific Islander (NH),,,
-2021,Hawaii,15,White (NH),,,
-2021,Hawaii,15,Unknown race,,,
-2021,Hawaii,15,All,19.51,0.0,100.0
-2021,Idaho,16,American Indian and Alaska Native (NH),,,
-2021,Idaho,16,Asian (NH),,,
-2021,Idaho,16,Black or African American (NH),,,
-2021,Idaho,16,Hispanic or Latino,33.0,-2.7,18.1
-2021,Idaho,16,Two or more races (NH),,,
-2021,Idaho,16,Native Hawaiian and Pacific Islander (NH),,,
-2021,Idaho,16,White (NH),37.45,10.1,81.9
-2021,Idaho,16,All,36.41,0.0,100.0
-2021,Illinois,17,American Indian and Alaska Native (NH),,,
-2021,Illinois,17,Asian (NH),9.88,-73.7,1.5
-2021,Illinois,17,Black or African American (NH),109.5,192.9,45.1
-2021,Illinois,17,Hispanic or Latino,28.0,-25.8,18.1
-2021,Illinois,17,Two or more races (NH),,,
-2021,Illinois,17,Native Hawaiian and Pacific Islander (NH),,,
-2021,Illinois,17,White (NH),25.8,-30.8,35.3
-2021,Illinois,17,All,38.02,0.0,100.0
-2021,Indiana,18,American Indian and Alaska Native (NH),,,
-2021,Indiana,18,Asian (NH),,,
-2021,Indiana,18,Black or African American (NH),106.23,134.5,26.5
-2021,Indiana,18,Hispanic or Latino,33.0,-27.7,8.1
-2021,Indiana,18,Two or more races (NH),25.64,-42.5,2.3
-2021,Indiana,18,Native Hawaiian and Pacific Islander (NH),,,
-2021,Indiana,18,White (NH),40.83,-10.0,63.1
-2021,Indiana,18,All,46.52,0.0,100.0
-2021,Iowa,19,American Indian and Alaska Native (NH),,,
-2021,Iowa,19,Asian (NH),,,
-2021,Iowa,19,Black or African American (NH),62.68,161.8,14.4
-2021,Iowa,19,Hispanic or Latino,22.0,-7.8,9.5
-2021,Iowa,19,Two or more races (NH),,,
-2021,Iowa,19,Native Hawaiian and Pacific Islander (NH),,,
-2021,Iowa,19,White (NH),23.9,-0.8,76.0
-2021,Iowa,19,All,25.26,0.0,100.0
-2021,Kansas,20,American Indian and Alaska Native (NH),,,
-2021,Kansas,20,Asian (NH),,,
-2021,Kansas,20,Black or African American (NH),97.83,165.1,16.7
-2021,Kansas,20,Hispanic or Latino,43.0,14.7,21.1
-2021,Kansas,20,Two or more races (NH),,,
-2021,Kansas,20,Native Hawaiian and Pacific Islander (NH),,,
-2021,Kansas,20,White (NH),34.76,-6.1,62.1
-2021,Kansas,20,Unknown race,,,
-2021,Kansas,20,All,39.99,0.0,100.0
-2021,Kentucky,21,American Indian and Alaska Native (NH),,,
-2021,Kentucky,21,Asian (NH),,,
-2021,Kentucky,21,Black or African American (NH),122.96,161.9,25.4
-2021,Kentucky,21,Hispanic or Latino,40.0,-15.6,5.4
-2021,Kentucky,21,Two or more races (NH),,,
-2021,Kentucky,21,Native Hawaiian and Pacific Islander (NH),,,
-2021,Kentucky,21,White (NH),41.99,-10.9,69.2
-2021,Kentucky,21,All,48.5,0.0,100.0
-2021,Louisiana,22,American Indian and Alaska Native (NH),,,
-2021,Louisiana,22,Asian (NH),,,
-2021,Louisiana,22,Black or African American (NH),104.25,59.7,58.6
-2021,Louisiana,22,Hispanic or Latino,34.0,-49.3,3.7
-2021,Louisiana,22,Two or more races (NH),,,
-2021,Louisiana,22,Native Hawaiian and Pacific Islander (NH),,,
-2021,Louisiana,22,White (NH),48.5,-25.6,37.7
-2021,Louisiana,22,All,66.84,0.0,100.0
-2021,Maine,23,American Indian and Alaska Native (NH),,,
-2021,Maine,23,Asian (NH),,,
-2021,Maine,23,Black or African American (NH),,,
-2021,Maine,23,Hispanic or Latino,,,
-2021,Maine,23,Two or more races (NH),,,
-2021,Maine,23,Native Hawaiian and Pacific Islander (NH),,,
-2021,Maine,23,White (NH),38.69,14.0,100.0
-2021,Maine,23,Unknown race,,,
-2021,Maine,23,All,36.34,0.0,100.0
-2021,Maryland,24,American Indian and Alaska Native (NH),,,
-2021,Maryland,24,Asian (NH),,,
-2021,Maryland,24,Black or African American (NH),59.79,80.6,56.0
-2021,Maryland,24,Hispanic or Latino,26.0,-20.4,12.5
-2021,Maryland,24,Two or more races (NH),,,
-2021,Maryland,24,Native Hawaiian and Pacific Islander (NH),,,
-2021,Maryland,24,White (NH),25.04,-24.3,31.5
-2021,Maryland,24,All,35.04,0.0,100.0
-2021,Massachusetts,25,American Indian and Alaska Native (NH),,,
-2021,Massachusetts,25,Asian (NH),,,
-2021,Massachusetts,25,Black or African American (NH),31.27,72.4,15.0
-2021,Massachusetts,25,Hispanic or Latino,21.0,17.5,21.5
-2021,Massachusetts,25,Two or more races (NH),,,
-2021,Massachusetts,25,Native Hawaiian and Pacific Islander (NH),,,
-2021,Massachusetts,25,White (NH),18.75,4.1,63.5
-2021,Massachusetts,25,Unknown race,,,
-2021,Massachusetts,25,All,19.37,0.0,100.0
-2021,Michigan,26,American Indian and Alaska Native (NH),,,
-2021,Michigan,26,Asian (NH),,,
-2021,Michigan,26,Black or African American (NH),81.1,135.7,37.0
-2021,Michigan,26,Hispanic or Latino,30.0,-14.1,7.3
-2021,Michigan,26,Two or more races (NH),14.68,-57.4,2.0
-2021,Michigan,26,Native Hawaiian and Pacific Islander (NH),,,
-2021,Michigan,26,White (NH),27.68,-19.6,53.7
-2021,Michigan,26,Unknown race,,,
-2021,Michigan,26,All,35.99,0.0,100.0
-2021,Minnesota,27,American Indian and Alaska Native (NH),173.43,435.7,7.5
-2021,Minnesota,27,Asian (NH),19.8,-37.5,4.0
-2021,Minnesota,27,Black or African American (NH),74.73,134.0,23.4
-2021,Minnesota,27,Hispanic or Latino,31.0,-2.2,8.8
-2021,Minnesota,27,Two or more races (NH),39.05,22.4,6.0
-2021,Minnesota,27,Native Hawaiian and Pacific Islander (NH),,,
-2021,Minnesota,27,White (NH),23.62,-26.2,50.4
-2021,Minnesota,27,Unknown race,,,
-2021,Minnesota,27,All,32.88,0.0,100.0
-2021,Mississippi,28,American Indian and Alaska Native (NH),,,
-2021,Mississippi,28,Asian (NH),,,
-2021,Mississippi,28,Black or African American (NH),91.96,43.3,59.6
-2021,Mississippi,28,Hispanic or Latino,,,
-2021,Mississippi,28,Two or more races (NH),,,
-2021,Mississippi,28,Native Hawaiian and Pacific Islander (NH),,,
-2021,Mississippi,28,White (NH),52.43,-18.2,40.4
-2021,Mississippi,28,All,68.01,0.0,100.0
-2021,Missouri,29,American Indian and Alaska Native (NH),,,
-2021,Missouri,29,Asian (NH),,,
-2021,Missouri,29,Black or African American (NH),114.37,130.8,30.7
-2021,Missouri,29,Hispanic or Latino,25.0,-48.6,3.6
-2021,Missouri,29,Two or more races (NH),24.65,-50.0,2.2
-2021,Missouri,29,Native Hawaiian and Pacific Islander (NH),,,
-2021,Missouri,29,White (NH),43.42,-12.3,63.5
-2021,Missouri,29,Unknown race,,,
-2021,Missouri,29,All,50.13,0.0,100.0
-2021,Montana,30,American Indian and Alaska Native (NH),129.99,150.0,21.5
-2021,Montana,30,Asian (NH),,,
-2021,Montana,30,Black or African American (NH),,,
-2021,Montana,30,Hispanic or Latino,,,
-2021,Montana,30,Two or more races (NH),,,
-2021,Montana,30,Native Hawaiian and Pacific Islander (NH),,,
-2021,Montana,30,White (NH),51.85,0.0,78.5
-2021,Montana,30,All,55.86,0.0,100.0
-2021,Nebraska,31,American Indian and Alaska Native (NH),,,
-2021,Nebraska,31,Asian (NH),,,
-2021,Nebraska,31,Black or African American (NH),72.47,154.2,15.0
-2021,Nebraska,31,Hispanic or Latino,26.0,-9.6,16.0
-2021,Nebraska,31,Two or more races (NH),,,
-2021,Nebraska,31,Native Hawaiian and Pacific Islander (NH),,,
-2021,Nebraska,31,White (NH),28.82,0.9,69.0
-2021,Nebraska,31,All,30.58,0.0,100.0
-2021,Nevada,32,American Indian and Alaska Native (NH),,,
-2021,Nevada,32,Asian (NH),,,
-2021,Nevada,32,Black or African American (NH),85.25,145.4,26.5
-2021,Nevada,32,Hispanic or Latino,27.0,-22.3,32.1
-2021,Nevada,32,Two or more races (NH),,,
-2021,Nevada,32,Native Hawaiian and Pacific Islander (NH),,,
-2021,Nevada,32,White (NH),42.9,24.0,41.4
-2021,Nevada,32,All,40.35,0.0,100.0
-2021,New Hampshire,33,American Indian and Alaska Native (NH),,,
-2021,New Hampshire,33,Asian (NH),,,
-2021,New Hampshire,33,Black or African American (NH),,,
-2021,New Hampshire,33,Hispanic or Latino,,,
-2021,New Hampshire,33,Two or more races (NH),,,
-2021,New Hampshire,33,Native Hawaiian and Pacific Islander (NH),,,
-2021,New Hampshire,33,White (NH),24.03,18.9,100.0
-2021,New Hampshire,33,All,22.98,0.0,100.0
-2021,New Jersey,34,American Indian and Alaska Native (NH),,,
-2021,New Jersey,34,Asian (NH),12.2,-41.4,5.8
-2021,New Jersey,34,Black or African American (NH),44.0,111.7,29.0
-2021,New Jersey,34,Hispanic or Latino,19.0,-10.3,24.4
-2021,New Jersey,34,Two or more races (NH),,,
-2021,New Jersey,34,Native Hawaiian and Pacific Islander (NH),,,
-2021,New Jersey,34,White (NH),18.58,-10.9,40.9
-2021,New Jersey,34,All,22.0,0.0,100.0
-2021,New Mexico,35,American Indian and Alaska Native (NH),108.72,86.7,18.3
-2021,New Mexico,35,Asian (NH),,,
-2021,New Mexico,35,Black or African American (NH),,,
-2021,New Mexico,35,Hispanic or Latino,57.0,-1.3,60.1
-2021,New Mexico,35,Two or more races (NH),,,
-2021,New Mexico,35,Native Hawaiian and Pacific Islander (NH),,,
-2021,New Mexico,35,White (NH),53.12,-8.5,21.5
-2021,New Mexico,35,Unknown race,,,
-2021,New Mexico,35,All,62.97,0.0,100.0
-2021,New York,36,American Indian and Alaska Native (NH),,,
-2021,New York,36,Asian (NH),12.67,-37.5,5.5
-2021,New York,36,Black or African American (NH),38.43,89.2,28.0
-2021,New York,36,Hispanic or Latino,18.0,-13.4,20.7
-2021,New York,36,Two or more races (NH),12.56,-37.1,2.2
-2021,New York,36,Native Hawaiian and Pacific Islander (NH),,,
-2021,New York,36,White (NH),18.23,-10.3,43.6
-2021,New York,36,Unknown race,,,
-2021,New York,36,All,20.66,0.0,100.0
-2021,North Carolina,37,American Indian and Alaska Native (NH),67.19,54.5,1.7
-2021,North Carolina,37,Asian (NH),,,
-2021,North Carolina,37,Black or African American (NH),76.31,68.7,38.3
-2021,North Carolina,37,Hispanic or Latino,33.0,-27.5,11.6
-2021,North Carolina,37,Two or more races (NH),19.57,-57.1,1.8
-2021,North Carolina,37,Native Hawaiian and Pacific Islander (NH),,,
-2021,North Carolina,37,White (NH),40.2,-11.3,46.5
-2021,North Carolina,37,All,46.39,0.0,100.0
-2021,North Dakota,38,American Indian and Alaska Native (NH),117.88,265.7,25.6
-2021,North Dakota,38,Asian (NH),,,
-2021,North Dakota,38,Black or African American (NH),,,
-2021,North Dakota,38,Hispanic or Latino,,,
-2021,North Dakota,38,Two or more races (NH),,,
-2021,North Dakota,38,Native Hawaiian and Pacific Islander (NH),,,
-2021,North Dakota,38,White (NH),31.33,-2.5,74.4
-2021,North Dakota,38,Unknown race,,,
-2021,North Dakota,38,All,40.67,0.0,100.0
-2021,Ohio,39,American Indian and Alaska Native (NH),,,
-2021,Ohio,39,Asian (NH),23.93,-41.4,1.7
-2021,Ohio,39,Black or African American (NH),93.43,134.7,35.2
-2021,Ohio,39,Hispanic or Latino,27.0,-32.3,4.4
-2021,Ohio,39,Two or more races (NH),17.32,-57.4,2.0
-2021,Ohio,39,Native Hawaiian and Pacific Islander (NH),,,
-2021,Ohio,39,White (NH),31.83,-19.9,56.6
-2021,Ohio,39,All,40.07,0.0,100.0
-2021,Oklahoma,40,American Indian and Alaska Native (NH),64.68,58.0,15.8
-2021,Oklahoma,40,Asian (NH),,,
-2021,Oklahoma,40,Black or African American (NH),84.51,108.7,16.7
-2021,Oklahoma,40,Hispanic or Latino,25.0,-37.7,10.9
-2021,Oklahoma,40,Two or more races (NH),30.4,-25.5,7.0
-2021,Oklahoma,40,Native Hawaiian and Pacific Islander (NH),,,
-2021,Oklahoma,40,White (NH),38.52,-5.3,49.6
-2021,Oklahoma,40,All,42.01,0.0,100.0
-2021,Oregon,41,American Indian and Alaska Native (NH),,,
-2021,Oregon,41,Asian (NH),,,
-2021,Oregon,41,Black or African American (NH),101.15,226.1,7.5
-2021,Oregon,41,Hispanic or Latino,28.0,-9.5,20.1
-2021,Oregon,41,Two or more races (NH),26.43,-14.5,5.3
-2021,Oregon,41,Native Hawaiian and Pacific Islander (NH),,,
-2021,Oregon,41,White (NH),33.44,6.8,67.2
-2021,Oregon,41,Unknown race,,,
-2021,Oregon,41,All,33.83,0.0,100.0
-2021,Pennsylvania,42,American Indian and Alaska Native (NH),,,
-2021,Pennsylvania,42,Asian (NH),13.63,-62.8,1.6
-2021,Pennsylvania,42,Black or African American (NH),86.14,144.2,31.5
-2021,Pennsylvania,42,Hispanic or Latino,27.0,-25.0,9.6
-2021,Pennsylvania,42,Two or more races (NH),18.41,-47.4,2.0
-2021,Pennsylvania,42,Native Hawaiian and Pacific Islander (NH),,,
-2021,Pennsylvania,42,White (NH),29.59,-16.4,55.2
-2021,Pennsylvania,42,Unknown race,,,
-2021,Pennsylvania,42,All,36.0,0.0,100.0
-2021,Rhode Island,44,American Indian and Alaska Native (NH),,,
-2021,Rhode Island,44,Asian (NH),,,
-2021,Rhode Island,44,Black or African American (NH),,,
-2021,Rhode Island,44,Hispanic or Latino,27.0,21.3,30.7
-2021,Rhode Island,44,Two or more races (NH),,,
-2021,Rhode Island,44,Native Hawaiian and Pacific Islander (NH),,,
-2021,Rhode Island,44,White (NH),26.72,18.7,69.3
-2021,Rhode Island,44,All,25.8,0.0,100.0
-2021,South Carolina,45,American Indian and Alaska Native (NH),,,
-2021,South Carolina,45,Asian (NH),,,
-2021,South Carolina,45,Black or African American (NH),79.12,49.0,43.2
-2021,South Carolina,45,Hispanic or Latino,30.0,-44.3,5.4
-2021,South Carolina,45,Two or more races (NH),,,
-2021,South Carolina,45,Native Hawaiian and Pacific Islander (NH),,,
-2021,South Carolina,45,White (NH),49.48,-6.9,51.4
-2021,South Carolina,45,All,54.71,0.0,100.0
-2021,South Dakota,46,American Indian and Alaska Native (NH),173.66,320.5,49.2
-2021,South Dakota,46,Asian (NH),,,
-2021,South Dakota,46,Black or African American (NH),,,
-2021,South Dakota,46,Hispanic or Latino,,,
-2021,South Dakota,46,Two or more races (NH),,,
-2021,South Dakota,46,Native Hawaiian and Pacific Islander (NH),,,
-2021,South Dakota,46,White (NH),29.24,-29.1,50.8
-2021,South Dakota,46,All,45.44,0.0,100.0
-2021,Tennessee,47,American Indian and Alaska Native (NH),,,
-2021,Tennessee,47,Asian (NH),,,
-2021,Tennessee,47,Black or African American (NH),108.1,98.9,37.6
-2021,Tennessee,47,Hispanic or Latino,42.0,-23.7,7.4
-2021,Tennessee,47,Two or more races (NH),27.4,-48.6,1.9
-2021,Tennessee,47,Native Hawaiian and Pacific Islander (NH),,,
-2021,Tennessee,47,White (NH),44.36,-18.7,53.1
-2021,Tennessee,47,Unknown race,,,
-2021,Tennessee,47,All,55.45,0.0,100.0
-2021,Texas,48,American Indian and Alaska Native (NH),,,
-2021,Texas,48,Asian (NH),16.95,-51.1,2.3
-2021,Texas,48,Black or African American (NH),63.86,82.3,22.6
-2021,Texas,48,Hispanic or Latino,30.0,-15.2,41.2
-2021,Texas,48,Two or more races (NH),12.61,-65.4,0.9
-2021,Texas,48,Native Hawaiian and Pacific Islander (NH),,,
-2021,Texas,48,White (NH),36.71,4.8,32.9
-2021,Texas,48,Unknown race,,,
-2021,Texas,48,All,35.15,0.0,100.0
-2021,Utah,49,American Indian and Alaska Native (NH),,,
-2021,Utah,49,Asian (NH),,,
-2021,Utah,49,Black or African American (NH),,,
-2021,Utah,49,Hispanic or Latino,24.0,3.9,18.6
-2021,Utah,49,Two or more races (NH),,,
-2021,Utah,49,Native Hawaiian and Pacific Islander (NH),,,
-2021,Utah,49,White (NH),25.6,11.5,81.4
-2021,Utah,49,All,26.6,0.0,100.0
-2021,Vermont,50,American Indian and Alaska Native (NH),,,
-2021,Vermont,50,Asian (NH),,,
-2021,Vermont,50,Black or African American (NH),,,
-2021,Vermont,50,Hispanic or Latino,,,
-2021,Vermont,50,Two or more races (NH),,,
-2021,Vermont,50,Native Hawaiian and Pacific Islander (NH),,,
-2021,Vermont,50,White (NH),32.68,13.3,100.0
-2021,Vermont,50,All,31.48,0.0,100.0
-2021,Virginia,51,American Indian and Alaska Native (NH),,,
-2021,Virginia,51,Asian (NH),,,
-2021,Virginia,51,Black or African American (NH),65.36,92.5,38.7
-2021,Virginia,51,Hispanic or Latino,19.0,-43.3,8.0
-2021,Virginia,51,Two or more races (NH),21.34,-36.4,3.5
-2021,Virginia,51,Native Hawaiian and Pacific Islander (NH),,,
-2021,Virginia,51,White (NH),31.76,-6.4,49.8
-2021,Virginia,51,Unknown race,,,
-2021,Virginia,51,All,35.42,0.0,100.0
-2021,Washington,53,American Indian and Alaska Native (NH),143.12,353.8,5.9
-2021,Washington,53,Asian (NH),16.59,-47.2,4.7
-2021,Washington,53,Black or African American (NH),64.23,100.0,9.0
-2021,Washington,53,Hispanic or Latino,28.0,-12.1,18.9
-2021,Washington,53,Two or more races (NH),32.56,2.5,8.3
-2021,Washington,53,Native Hawaiian and Pacific Islander (NH),,,
-2021,Washington,53,White (NH),30.88,-2.9,53.2
-2021,Washington,53,Unknown race,,,
-2021,Washington,53,All,33.57,0.0,100.0
-2021,West Virginia,54,American Indian and Alaska Native (NH),,,
-2021,West Virginia,54,Asian (NH),,,
-2021,West Virginia,54,Black or African American (NH),106.08,153.7,10.4
-2021,West Virginia,54,Hispanic or Latino,,,
-2021,West Virginia,54,Two or more races (NH),,,
-2021,West Virginia,54,Native Hawaiian and Pacific Islander (NH),,,
-2021,West Virginia,54,White (NH),42.15,1.7,89.6
-2021,West Virginia,54,All,43.5,0.0,100.0
-2021,Wisconsin,55,American Indian and Alaska Native (NH),,,
-2021,Wisconsin,55,Asian (NH),,,
-2021,Wisconsin,55,Black or African American (NH),100.6,217.6,27.0
-2021,Wisconsin,55,Hispanic or Latino,27.0,-13.4,10.3
-2021,Wisconsin,55,Two or more races (NH),,,
-2021,Wisconsin,55,Native Hawaiian and Pacific Islander (NH),,,
-2021,Wisconsin,55,White (NH),28.13,-11.2,62.7
-2021,Wisconsin,55,All,34.25,0.0,100.0
-2021,Wyoming,56,American Indian and Alaska Native (NH),,,
-2021,Wyoming,56,Asian (NH),,,
-2021,Wyoming,56,Black or African American (NH),,,
-2021,Wyoming,56,Hispanic or Latino,,,
-2021,Wyoming,56,Two or more races (NH),,,
-2021,Wyoming,56,Native Hawaiian and Pacific Islander (NH),,,
-2021,Wyoming,56,White (NH),54.32,30.0,100.0
-2021,Wyoming,56,All,50.64,0.0,100.0
-2018,Alabama,01,American Indian and Alaska Native (NH),,,
-2018,Alabama,01,Asian (NH),,,
-2018,Alabama,01,Black or African American (NH),63.25,50.7,44.9
-2018,Alabama,01,Hispanic or Latino,,,
-2018,Alabama,01,Two or more races (NH),,,
-2018,Alabama,01,Native Hawaiian and Pacific Islander (NH),,,
-2018,Alabama,01,White (NH),39.65,-5.5,55.1
-2018,Alabama,01,All,44.16,0.0,100.0
-2018,Alaska,02,American Indian and Alaska Native (NH),98.09,220.9,56.8
-2018,Alaska,02,Asian (NH),,,
-2018,Alaska,02,Black or African American (NH),,,
-2018,Alaska,02,Hispanic or Latino,,,
-2018,Alaska,02,Two or more races (NH),,,
-2018,Alaska,02,Native Hawaiian and Pacific Islander (NH),,,
-2018,Alaska,02,White (NH),26.91,-12.0,43.2
-2018,Alaska,02,Unknown race,,,
-2018,Alaska,02,All,44.16,0.0,100.0
-2018,Arizona,04,American Indian and Alaska Native (NH),77.6,112.5,10.2
-2018,Arizona,04,Asian (NH),,,
-2018,Arizona,04,Black or African American (NH),56.0,54.0,7.7
-2018,Arizona,04,Hispanic or Latino,31.0,-15.4,36.7
-2018,Arizona,04,Two or more races (NH),46.08,27.0,4.7
-2018,Arizona,04,Native Hawaiian and Pacific Islander (NH),,,
-2018,Arizona,04,White (NH),36.98,2.0,40.6
-2018,Arizona,04,Unknown race,,,
-2018,Arizona,04,All,38.7,0.0,100.0
-2018,Arkansas,05,American Indian and Alaska Native (NH),,,
-2018,Arkansas,05,Asian (NH),,,
-2018,Arkansas,05,Black or African American (NH),63.94,65.4,30.1
-2018,Arkansas,05,Hispanic or Latino,19.0,-50.0,5.8
-2018,Arkansas,05,Two or more races (NH),,,
-2018,Arkansas,05,Native Hawaiian and Pacific Islander (NH),,,
-2018,Arkansas,05,White (NH),38.74,0.6,64.1
-2018,Arkansas,05,All,39.34,0.0,100.0
-2018,California,06,American Indian and Alaska Native (NH),66.26,200.0,1.2
-2018,California,06,Asian (NH),11.22,-48.0,6.5
-2018,California,06,Black or African American (NH),46.32,117.0,11.5
-2018,California,06,Hispanic or Latino,20.0,-4.6,48.1
-2018,California,06,Two or more races (NH),16.39,-23.4,3.6
-2018,California,06,Native Hawaiian and Pacific Islander (NH),,,
-2018,California,06,White (NH),23.65,10.2,29.1
-2018,California,06,Unknown race,,,
-2018,California,06,All,21.75,0.0,100.0
-2018,Colorado,08,American Indian and Alaska Native (NH),,,
-2018,Colorado,08,Asian (NH),,,
-2018,Colorado,08,Black or African American (NH),61.6,93.2,8.5
-2018,Colorado,08,Hispanic or Latino,34.0,5.6,31.8
-2018,Colorado,08,Two or more races (NH),,,
-2018,Colorado,08,Native Hawaiian and Pacific Islander (NH),,,
-2018,Colorado,08,White (NH),33.27,4.4,59.7
-2018,Colorado,08,All,34.6,0.0,100.0
-2018,Connecticut,09,American Indian and Alaska Native (NH),,,
-2018,Connecticut,09,Asian (NH),,,
-2018,Connecticut,09,Black or African American (NH),35.39,69.6,19.5
-2018,Connecticut,09,Hispanic or Latino,15.0,-26.8,16.9
-2018,Connecticut,09,Two or more races (NH),,,
-2018,Connecticut,09,Native Hawaiian and Pacific Islander (NH),,,
-2018,Connecticut,09,White (NH),23.57,12.8,63.6
-2018,Connecticut,09,All,21.97,0.0,100.0
-2018,Delaware,10,American Indian and Alaska Native (NH),,,
-2018,Delaware,10,Asian (NH),,,
-2018,Delaware,10,Black or African American (NH),56.76,76.0,45.4
-2018,Delaware,10,Hispanic or Latino,,,
-2018,Delaware,10,Two or more races (NH),,,
-2018,Delaware,10,Native Hawaiian and Pacific Islander (NH),,,
-2018,Delaware,10,White (NH),35.54,9.9,54.6
-2018,Delaware,10,Unknown race,,,
-2018,Delaware,10,All,36.0,0.0,100.0
-2018,District of Columbia,11,American Indian and Alaska Native (NH),,,
-2018,District of Columbia,11,Asian (NH),,,
-2018,District of Columbia,11,Black or African American (NH),80.28,104.1,100.0
-2018,District of Columbia,11,Hispanic or Latino,,,
-2018,District of Columbia,11,Two or more races (NH),,,
-2018,District of Columbia,11,Native Hawaiian and Pacific Islander (NH),,,
-2018,District of Columbia,11,White (NH),,,
-2018,District of Columbia,11,All,44.0,0.0,100.0
-2018,Florida,12,American Indian and Alaska Native (NH),,,
-2018,Florida,12,Asian (NH),14.81,-53.6,1.3
-2018,Florida,12,Black or African American (NH),46.19,38.8,27.9
-2018,Florida,12,Hispanic or Latino,25.0,-23.6,23.3
-2018,Florida,12,Two or more races (NH),13.45,-60.6,1.3
-2018,Florida,12,Native Hawaiian and Pacific Islander (NH),,,
-2018,Florida,12,White (NH),35.77,7.4,46.2
-2018,Florida,12,Unknown race,,,
-2018,Florida,12,All,33.62,0.0,100.0
-2018,Georgia,13,American Indian and Alaska Native (NH),,,
-2018,Georgia,13,Asian (NH),16.6,-46.3,2.2
-2018,Georgia,13,Black or African American (NH),41.21,32.6,45.2
-2018,Georgia,13,Hispanic or Latino,16.0,-48.9,6.9
-2018,Georgia,13,Two or more races (NH),,,
-2018,Georgia,13,Native Hawaiian and Pacific Islander (NH),,,
-2018,Georgia,13,White (NH),31.93,2.5,45.7
-2018,Georgia,13,Unknown race,,,
-2018,Georgia,13,All,31.73,0.0,100.0
-2018,Hawaii,15,American Indian and Alaska Native (NH),,,
-2018,Hawaii,15,Asian (NH),,,
-2018,Hawaii,15,Black or African American (NH),,,
-2018,Hawaii,15,Hispanic or Latino,,,
-2018,Hawaii,15,Two or more races (NH),23.45,247.2,100.0
-2018,Hawaii,15,Native Hawaiian and Pacific Islander (NH),,,
-2018,Hawaii,15,White (NH),,,
-2018,Hawaii,15,Unknown race,,,
-2018,Hawaii,15,All,16.66,0.0,100.0
-2018,Idaho,16,American Indian and Alaska Native (NH),,,
-2018,Idaho,16,Asian (NH),,,
-2018,Idaho,16,Black or African American (NH),,,
-2018,Idaho,16,Hispanic or Latino,34.0,-2.7,17.7
-2018,Idaho,16,Two or more races (NH),,,
-2018,Idaho,16,Native Hawaiian and Pacific Islander (NH),,,
-2018,Idaho,16,White (NH),38.16,9.6,82.3
-2018,Idaho,16,All,38.63,0.0,100.0
-2018,Illinois,17,American Indian and Alaska Native (NH),,,
-2018,Illinois,17,Asian (NH),,,
-2018,Illinois,17,Black or African American (NH),69.99,137.6,37.3
-2018,Illinois,17,Hispanic or Latino,20.0,-31.4,16.2
-2018,Illinois,17,Two or more races (NH),,,
-2018,Illinois,17,Native Hawaiian and Pacific Islander (NH),,,
-2018,Illinois,17,White (NH),26.4,-10.2,46.5
-2018,Illinois,17,Unknown race,,,
-2018,Illinois,17,All,30.36,0.0,100.0
-2018,Indiana,18,American Indian and Alaska Native (NH),,,
-2018,Indiana,18,Asian (NH),,,
-2018,Indiana,18,Black or African American (NH),73.68,100.0,22.4
-2018,Indiana,18,Hispanic or Latino,20.0,-46.7,5.6
-2018,Indiana,18,Two or more races (NH),,,
-2018,Indiana,18,Native Hawaiian and Pacific Islander (NH),,,
-2018,Indiana,18,White (NH),36.88,0.7,71.9
-2018,Indiana,18,Unknown race,,,
-2018,Indiana,18,All,37.7,0.0,100.0
-2018,Iowa,19,American Indian and Alaska Native (NH),,,
-2018,Iowa,19,Asian (NH),,,
-2018,Iowa,19,Black or African American (NH),43.14,88.7,10.0
-2018,Iowa,19,Hispanic or Latino,20.0,-12.5,8.4
-2018,Iowa,19,Two or more races (NH),,,
-2018,Iowa,19,Native Hawaiian and Pacific Islander (NH),,,
-2018,Iowa,19,White (NH),24.0,4.9,81.5
-2018,Iowa,19,Unknown race,,,
-2018,Iowa,19,All,24.35,0.0,100.0
-2018,Kansas,20,American Indian and Alaska Native (NH),,,
-2018,Kansas,20,Asian (NH),,,
-2018,Kansas,20,Black or African American (NH),70.11,126.6,14.5
-2018,Kansas,20,Hispanic or Latino,29.0,-6.2,16.6
-2018,Kansas,20,Two or more races (NH),,,
-2018,Kansas,20,Native Hawaiian and Pacific Islander (NH),,,
-2018,Kansas,20,White (NH),32.1,3.0,68.9
-2018,Kansas,20,Unknown race,,,
-2018,Kansas,20,All,34.42,0.0,100.0
-2018,Kentucky,21,American Indian and Alaska Native (NH),,,
-2018,Kentucky,21,Asian (NH),,,
-2018,Kentucky,21,Black or African American (NH),55.17,64.6,15.8
-2018,Kentucky,21,Hispanic or Latino,,,
-2018,Kentucky,21,Two or more races (NH),,,
-2018,Kentucky,21,Native Hawaiian and Pacific Islander (NH),,,
-2018,Kentucky,21,White (NH),35.92,7.0,84.2
-2018,Kentucky,21,All,35.86,0.0,100.0
-2018,Louisiana,22,American Indian and Alaska Native (NH),,,
-2018,Louisiana,22,Asian (NH),,,
-2018,Louisiana,22,Black or African American (NH),59.62,31.5,48.8
-2018,Louisiana,22,Hispanic or Latino,25.0,-44.6,3.6
-2018,Louisiana,22,Two or more races (NH),,,
-2018,Louisiana,22,Native Hawaiian and Pacific Islander (NH),,,
-2018,Louisiana,22,White (NH),42.18,-7.0,47.6
-2018,Louisiana,22,All,46.11,0.0,100.0
-2018,Maine,23,American Indian and Alaska Native (NH),,,
-2018,Maine,23,Asian (NH),,,
-2018,Maine,23,Black or African American (NH),,,
-2018,Maine,23,Hispanic or Latino,,,
-2018,Maine,23,Two or more races (NH),,,
-2018,Maine,23,Native Hawaiian and Pacific Islander (NH),,,
-2018,Maine,23,White (NH),27.74,12.9,100.0
-2018,Maine,23,Unknown race,,,
-2018,Maine,23,All,27.25,0.0,100.0
-2018,Maryland,24,American Indian and Alaska Native (NH),,,
-2018,Maryland,24,Asian (NH),,,
-2018,Maryland,24,Black or African American (NH),43.02,46.0,45.7
-2018,Maryland,24,Hispanic or Latino,18.0,-40.6,8.5
-2018,Maryland,24,Two or more races (NH),,,
-2018,Maryland,24,Native Hawaiian and Pacific Islander (NH),,,
-2018,Maryland,24,White (NH),31.38,6.3,45.8
-2018,Maryland,24,Unknown race,,,
-2018,Maryland,24,All,31.08,0.0,100.0
-2018,Massachusetts,25,American Indian and Alaska Native (NH),,,
-2018,Massachusetts,25,Asian (NH),,,
-2018,Massachusetts,25,Black or African American (NH),24.84,36.0,11.7
-2018,Massachusetts,25,Hispanic or Latino,18.0,-2.9,16.8
-2018,Massachusetts,25,Two or more races (NH),,,
-2018,Massachusetts,25,Native Hawaiian and Pacific Islander (NH),,,
-2018,Massachusetts,25,White (NH),20.69,14.2,71.4
-2018,Massachusetts,25,Unknown race,,,
-2018,Massachusetts,25,All,19.69,0.0,100.0
-2018,Michigan,26,American Indian and Alaska Native (NH),,,
-2018,Michigan,26,Asian (NH),,,
-2018,Michigan,26,Black or African American (NH),61.67,91.2,30.4
-2018,Michigan,26,Hispanic or Latino,28.0,-12.5,7.0
-2018,Michigan,26,Two or more races (NH),19.04,-39.5,2.6
-2018,Michigan,26,Native Hawaiian and Pacific Islander (NH),,,
-2018,Michigan,26,White (NH),28.7,-10.8,60.1
-2018,Michigan,26,Unknown race,,,
-2018,Michigan,26,All,33.22,0.0,100.0
-2018,Minnesota,27,American Indian and Alaska Native (NH),104.41,392.9,6.9
-2018,Minnesota,27,Asian (NH),,,
-2018,Minnesota,27,Black or African American (NH),35.75,71.3,16.1
-2018,Minnesota,27,Hispanic or Latino,16.0,-23.3,6.6
-2018,Minnesota,27,Two or more races (NH),,,
-2018,Minnesota,27,Native Hawaiian and Pacific Islander (NH),,,
-2018,Minnesota,27,White (NH),21.05,1.0,70.3
-2018,Minnesota,27,Unknown race,,,
-2018,Minnesota,27,All,22.79,0.0,100.0
-2018,Mississippi,28,American Indian and Alaska Native (NH),,,
-2018,Mississippi,28,Asian (NH),,,
-2018,Mississippi,28,Black or African American (NH),51.01,24.6,52.6
-2018,Mississippi,28,Hispanic or Latino,,,
-2018,Mississippi,28,Two or more races (NH),,,
-2018,Mississippi,28,Native Hawaiian and Pacific Islander (NH),,,
-2018,Mississippi,28,White (NH),39.22,-4.2,47.4
-2018,Mississippi,28,Unknown race,,,
-2018,Mississippi,28,All,43.04,0.0,100.0
-2018,Missouri,29,American Indian and Alaska Native (NH),,,
-2018,Missouri,29,Asian (NH),,,
-2018,Missouri,29,Black or African American (NH),95.0,116.2,29.4
-2018,Missouri,29,Hispanic or Latino,28.0,-35.4,4.2
-2018,Missouri,29,Two or more races (NH),,,
-2018,Missouri,29,Native Hawaiian and Pacific Islander (NH),,,
-2018,Missouri,29,White (NH),40.01,-8.9,66.4
-2018,Missouri,29,Unknown race,,,
-2018,Missouri,29,All,45.69,0.0,100.0
-2018,Montana,30,American Indian and Alaska Native (NH),120.47,242.5,29.8
-2018,Montana,30,Asian (NH),,,
-2018,Montana,30,Black or African American (NH),,,
-2018,Montana,30,Hispanic or Latino,,,
-2018,Montana,30,Two or more races (NH),,,
-2018,Montana,30,Native Hawaiian and Pacific Islander (NH),,,
-2018,Montana,30,White (NH),31.48,-11.0,70.2
-2018,Montana,30,All,40.63,0.0,100.0
-2018,Nebraska,31,American Indian and Alaska Native (NH),,,
-2018,Nebraska,31,Asian (NH),,,
-2018,Nebraska,31,Black or African American (NH),,,
-2018,Nebraska,31,Hispanic or Latino,,,
-2018,Nebraska,31,Two or more races (NH),,,
-2018,Nebraska,31,Native Hawaiian and Pacific Islander (NH),,,
-2018,Nebraska,31,White (NH),23.87,43.9,100.0
-2018,Nebraska,31,Unknown race,,,
-2018,Nebraska,31,All,22.8,0.0,100.0
-2018,Nevada,32,American Indian and Alaska Native (NH),,,
-2018,Nevada,32,Asian (NH),,,
-2018,Nevada,32,Black or African American (NH),60.58,110.6,21.9
-2018,Nevada,32,Hispanic or Latino,25.0,-11.9,35.7
-2018,Nevada,32,Two or more races (NH),,,
-2018,Nevada,32,Native Hawaiian and Pacific Islander (NH),,,
-2018,Nevada,32,White (NH),34.86,20.8,42.4
-2018,Nevada,32,All,32.46,0.0,100.0
-2018,New Hampshire,33,American Indian and Alaska Native (NH),,,
-2018,New Hampshire,33,Asian (NH),,,
-2018,New Hampshire,33,Black or African American (NH),,,
-2018,New Hampshire,33,Hispanic or Latino,,,
-2018,New Hampshire,33,Two or more races (NH),,,
-2018,New Hampshire,33,Native Hawaiian and Pacific Islander (NH),,,
-2018,New Hampshire,33,White (NH),34.57,17.5,100.0
-2018,New Hampshire,33,Unknown race,,,
-2018,New Hampshire,33,All,31.92,0.0,100.0
-2018,New Jersey,34,American Indian and Alaska Native (NH),,,
-2018,New Jersey,34,Asian (NH),12.05,-47.4,5.1
-2018,New Jersey,34,Black or African American (NH),36.44,60.0,22.4
-2018,New Jersey,34,Hispanic or Latino,19.0,-15.1,21.9
-2018,New Jersey,34,Two or more races (NH),,,
-2018,New Jersey,34,Native Hawaiian and Pacific Islander (NH),,,
-2018,New Jersey,34,White (NH),24.28,6.8,50.6
-2018,New Jersey,34,All,23.44,0.0,100.0
-2018,New Mexico,35,American Indian and Alaska Native (NH),82.66,101.0,19.9
-2018,New Mexico,35,Asian (NH),,,
-2018,New Mexico,35,Black or African American (NH),,,
-2018,New Mexico,35,Hispanic or Latino,37.0,-10.0,54.3
-2018,New Mexico,35,Two or more races (NH),,,
-2018,New Mexico,35,Native Hawaiian and Pacific Islander (NH),,,
-2018,New Mexico,35,White (NH),43.73,6.6,25.8
-2018,New Mexico,35,All,45.42,0.0,100.0
-2018,New York,36,American Indian and Alaska Native (NH),,,
-2018,New York,36,Asian (NH),8.67,-50.0,4.3
-2018,New York,36,Black or African American (NH),23.41,36.4,20.6
-2018,New York,36,Hispanic or Latino,13.0,-27.2,17.1
-2018,New York,36,Two or more races (NH),,,
-2018,New York,36,Native Hawaiian and Pacific Islander (NH),,,
-2018,New York,36,White (NH),20.29,18.1,58.0
-2018,New York,36,Unknown race,,,
-2018,New York,36,All,18.03,0.0,100.0
-2018,North Carolina,37,American Indian and Alaska Native (NH),89.07,183.3,3.4
-2018,North Carolina,37,Asian (NH),,,
-2018,North Carolina,37,Black or African American (NH),46.56,51.9,35.1
-2018,North Carolina,37,Hispanic or Latino,16.0,-49.3,7.6
-2018,North Carolina,37,Two or more races (NH),,,
-2018,North Carolina,37,Native Hawaiian and Pacific Islander (NH),,,
-2018,North Carolina,37,White (NH),30.92,0.7,53.9
-2018,North Carolina,37,Unknown race,,,
-2018,North Carolina,37,All,32.48,0.0,100.0
-2018,North Dakota,38,American Indian and Alaska Native (NH),,,
-2018,North Dakota,38,Asian (NH),,,
-2018,North Dakota,38,Black or African American (NH),,,
-2018,North Dakota,38,Hispanic or Latino,,,
-2018,North Dakota,38,Two or more races (NH),,,
-2018,North Dakota,38,Native Hawaiian and Pacific Islander (NH),,,
-2018,North Dakota,38,White (NH),23.94,29.7,100.0
-2018,North Dakota,38,Unknown race,,,
-2018,North Dakota,38,All,28.6,0.0,100.0
-2018,Ohio,39,American Indian and Alaska Native (NH),,,
-2018,Ohio,39,Asian (NH),,,
-2018,Ohio,39,Black or African American (NH),64.33,86.7,28.0
-2018,Ohio,39,Hispanic or Latino,23.0,-33.3,4.0
-2018,Ohio,39,Two or more races (NH),,,
-2018,Ohio,39,Native Hawaiian and Pacific Islander (NH),,,
-2018,Ohio,39,White (NH),32.6,-5.3,68.0
-2018,Ohio,39,Unknown race,,,
-2018,Ohio,39,All,35.34,0.0,100.0
-2018,Oklahoma,40,American Indian and Alaska Native (NH),34.34,3.9,10.7
-2018,Oklahoma,40,Asian (NH),,,
-2018,Oklahoma,40,Black or African American (NH),55.46,67.1,13.7
-2018,Oklahoma,40,Hispanic or Latino,22.0,-33.1,11.1
-2018,Oklahoma,40,Two or more races (NH),30.88,-5.7,8.3
-2018,Oklahoma,40,Native Hawaiian and Pacific Islander (NH),,,
-2018,Oklahoma,40,White (NH),34.71,5.2,56.2
-2018,Oklahoma,40,Unknown race,,,
-2018,Oklahoma,40,All,34.01,0.0,100.0
-2018,Oregon,41,American Indian and Alaska Native (NH),,,
-2018,Oregon,41,Asian (NH),,,
-2018,Oregon,41,Black or African American (NH),,,
-2018,Oregon,41,Hispanic or Latino,18.0,-18.3,17.4
-2018,Oregon,41,Two or more races (NH),,,
-2018,Oregon,41,Native Hawaiian and Pacific Islander (NH),,,
-2018,Oregon,41,White (NH),28.77,28.9,82.6
-2018,Oregon,41,Unknown race,,,
-2018,Oregon,41,All,25.64,0.0,100.0
-2018,Pennsylvania,42,American Indian and Alaska Native (NH),,,
-2018,Pennsylvania,42,Asian (NH),17.91,-46.3,2.2
-2018,Pennsylvania,42,Black or African American (NH),57.68,75.6,23.0
-2018,Pennsylvania,42,Hispanic or Latino,22.0,-32.2,8.0
-2018,Pennsylvania,42,Two or more races (NH),,,
-2018,Pennsylvania,42,Native Hawaiian and Pacific Islander (NH),,,
-2018,Pennsylvania,42,White (NH),32.56,-0.9,66.7
-2018,Pennsylvania,42,Unknown race,,,
-2018,Pennsylvania,42,All,33.61,0.0,100.0
-2018,Rhode Island,44,American Indian and Alaska Native (NH),,,
-2018,Rhode Island,44,Asian (NH),,,
-2018,Rhode Island,44,Black or African American (NH),,,
-2018,Rhode Island,44,Hispanic or Latino,,,
-2018,Rhode Island,44,Two or more races (NH),,,
-2018,Rhode Island,44,Native Hawaiian and Pacific Islander (NH),,,
-2018,Rhode Island,44,White (NH),21.07,66.7,100.0
-2018,Rhode Island,44,Unknown race,,,
-2018,Rhode Island,44,All,18.37,0.0,100.0
-2018,South Carolina,45,American Indian and Alaska Native (NH),,,
-2018,South Carolina,45,Asian (NH),,,
-2018,South Carolina,45,Black or African American (NH),56.78,30.1,38.9
-2018,South Carolina,45,Hispanic or Latino,29.0,-33.0,5.9
-2018,South Carolina,45,Two or more races (NH),,,
-2018,South Carolina,45,Native Hawaiian and Pacific Islander (NH),,,
-2018,South Carolina,45,White (NH),43.35,-0.5,55.2
-2018,South Carolina,45,All,45.23,0.0,100.0
-2018,South Dakota,46,American Indian and Alaska Native (NH),141.16,265.0,43.8
-2018,South Dakota,46,Asian (NH),,,
-2018,South Dakota,46,Black or African American (NH),,,
-2018,South Dakota,46,Hispanic or Latino,,,
-2018,South Dakota,46,Two or more races (NH),,,
-2018,South Dakota,46,Native Hawaiian and Pacific Islander (NH),,,
-2018,South Dakota,46,White (NH),30.06,-22.5,56.2
-2018,South Dakota,46,All,42.62,0.0,100.0
-2018,Tennessee,47,American Indian and Alaska Native (NH),,,
-2018,Tennessee,47,Asian (NH),,,
-2018,Tennessee,47,Black or African American (NH),66.2,71.1,33.2
-2018,Tennessee,47,Hispanic or Latino,22.0,-42.7,5.1
-2018,Tennessee,47,Two or more races (NH),,,
-2018,Tennessee,47,Native Hawaiian and Pacific Islander (NH),,,
-2018,Tennessee,47,White (NH),36.22,-6.5,61.7
-2018,Tennessee,47,Unknown race,,,
-2018,Tennessee,47,All,40.37,0.0,100.0
-2018,Texas,48,American Indian and Alaska Native (NH),,,
-2018,Texas,48,Asian (NH),14.81,-44.4,2.5
-2018,Texas,48,Black or African American (NH),39.7,49.6,18.4
-2018,Texas,48,Hispanic or Latino,22.0,-15.8,40.6
-2018,Texas,48,Two or more races (NH),,,
-2018,Texas,48,Native Hawaiian and Pacific Islander (NH),,,
-2018,Texas,48,White (NH),31.56,19.3,38.4
-2018,Texas,48,Unknown race,,,
-2018,Texas,48,All,26.97,0.0,100.0
-2018,Utah,49,American Indian and Alaska Native (NH),,,
-2018,Utah,49,Asian (NH),,,
-2018,Utah,49,Black or African American (NH),,,
-2018,Utah,49,Hispanic or Latino,25.0,10.5,19.0
-2018,Utah,49,Two or more races (NH),,,
-2018,Utah,49,Native Hawaiian and Pacific Islander (NH),,,
-2018,Utah,49,White (NH),24.95,9.3,81.0
-2018,Utah,49,All,25.82,0.0,100.0
-2018,Vermont,50,American Indian and Alaska Native (NH),,,
-2018,Vermont,50,Asian (NH),,,
-2018,Vermont,50,Black or African American (NH),,,
-2018,Vermont,50,Hispanic or Latino,,,
-2018,Vermont,50,Two or more races (NH),,,
-2018,Vermont,50,Native Hawaiian and Pacific Islander (NH),,,
-2018,Vermont,50,White (NH),27.87,12.7,100.0
-2018,Vermont,50,All,27.37,0.0,100.0
-2018,Virginia,51,American Indian and Alaska Native (NH),,,
-2018,Virginia,51,Asian (NH),11.99,-56.1,2.9
-2018,Virginia,51,Black or African American (NH),42.67,55.7,31.6
-2018,Virginia,51,Hispanic or Latino,20.0,-26.7,9.6
-2018,Virginia,51,Two or more races (NH),,,
-2018,Virginia,51,Native Hawaiian and Pacific Islander (NH),,,
-2018,Virginia,51,White (NH),28.18,2.6,55.9
-2018,Virginia,51,Unknown race,,,
-2018,Virginia,51,All,28.28,0.0,100.0
-2018,Washington,53,American Indian and Alaska Native (NH),66.46,142.9,3.4
-2018,Washington,53,Asian (NH),16.92,-36.5,5.4
-2018,Washington,53,Black or African American (NH),40.36,52.3,6.7
-2018,Washington,53,Hispanic or Latino,24.0,-9.3,18.6
-2018,Washington,53,Two or more races (NH),24.19,-9.1,7.0
-2018,Washington,53,Native Hawaiian and Pacific Islander (NH),,,
-2018,Washington,53,White (NH),27.61,3.9,58.9
-2018,Washington,53,All,27.82,0.0,100.0
-2018,West Virginia,54,American Indian and Alaska Native (NH),,,
-2018,West Virginia,54,Asian (NH),,,
-2018,West Virginia,54,Black or African American (NH),,,
-2018,West Virginia,54,Hispanic or Latino,,,
-2018,West Virginia,54,Two or more races (NH),,,
-2018,West Virginia,54,Native Hawaiian and Pacific Islander (NH),,,
-2018,West Virginia,54,White (NH),43.54,12.6,100.0
-2018,West Virginia,54,All,43.06,0.0,100.0
-2018,Wisconsin,55,American Indian and Alaska Native (NH),,,
-2018,Wisconsin,55,Asian (NH),,,
-2018,Wisconsin,55,Black or African American (NH),56.06,123.3,19.2
-2018,Wisconsin,55,Hispanic or Latino,18.0,-27.4,8.2
-2018,Wisconsin,55,Two or more races (NH),,,
-2018,Wisconsin,55,Native Hawaiian and Pacific Islander (NH),,,
-2018,Wisconsin,55,White (NH),25.49,1.7,72.6
-2018,Wisconsin,55,All,27.08,0.0,100.0
-2018,Wyoming,56,American Indian and Alaska Native (NH),,,
-2018,Wyoming,56,Asian (NH),,,
-2018,Wyoming,56,Black or African American (NH),,,
-2018,Wyoming,56,Hispanic or Latino,,,
-2018,Wyoming,56,Two or more races (NH),,,
-2018,Wyoming,56,Native Hawaiian and Pacific Islander (NH),,,
-2018,Wyoming,56,White (NH),35.13,29.2,100.0
-2018,Wyoming,56,All,33.85,0.0,100.0
+time_period,state_name,state_fips,race_and_ethnicity,gun_deaths_young_adults_pct_relative_inequity,gun_deaths_youth_pct_relative_inequity,gun_deaths_young_adults_pct_share,gun_deaths_youth_pct_share,gun_deaths_young_adults_per_100k,gun_deaths_youth_per_100k
+2018,Alabama,01,American Indian and Alaska Native (NH),,,,,,
+2018,Alabama,01,Asian (NH),,,,,,
+2018,Alabama,01,Black or African American (NH),-100.0,,65.3,,80.76,
+2018,Alabama,01,Hispanic or Latino,,,,,,
+2018,Alabama,01,Two or more races (NH),,,,,,
+2018,Alabama,01,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Alabama,01,White (NH),-100.0,-100.0,34.7,100.0,22.7,4.27
+2018,Alaska,02,American Indian and Alaska Native (NH),,,,,,
+2018,Alaska,02,Asian (NH),,,,,,
+2018,Alaska,02,Black or African American (NH),,,,,,
+2018,Alaska,02,Hispanic or Latino,,,,,,
+2018,Alaska,02,Two or more races (NH),,,,,,
+2018,Alaska,02,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Alaska,02,White (NH),,,,,,
+2018,Arizona,04,American Indian and Alaska Native (NH),,,,,,
+2018,Arizona,04,Asian (NH),,,,,,
+2018,Arizona,04,Black or African American (NH),-100.0,,17.3,,65.77,
+2018,Arizona,04,Hispanic or Latino,-100.0,,45.5,,22.0,
+2018,Arizona,04,Two or more races (NH),,,,,,
+2018,Arizona,04,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Arizona,04,White (NH),-100.0,,37.2,,17.43,
+2018,Arkansas,05,American Indian and Alaska Native (NH),,,,,,
+2018,Arkansas,05,Asian (NH),,,,,,
+2018,Arkansas,05,Black or African American (NH),-100.0,,52.7,,81.25,
+2018,Arkansas,05,Hispanic or Latino,,,,,,
+2018,Arkansas,05,Two or more races (NH),,,,,,
+2018,Arkansas,05,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Arkansas,05,White (NH),-100.0,,47.3,,20.9,
+2018,California,06,American Indian and Alaska Native (NH),,,,,,
+2018,California,06,Asian (NH),,,,,,
+2018,California,06,Black or African American (NH),-100.0,,22.5,,42.21,
+2018,California,06,Hispanic or Latino,-100.0,-100.0,53.4,63.8,12.0,1.0
+2018,California,06,Two or more races (NH),-100.0,,4.8,,14.14,
+2018,California,06,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,California,06,White (NH),-100.0,-100.0,19.3,36.2,7.52,1.1
+2018,Colorado,08,American Indian and Alaska Native (NH),,,,,,
+2018,Colorado,08,Asian (NH),,,,,,
+2018,Colorado,08,Black or African American (NH),-100.0,,16.8,,77.5,
+2018,Colorado,08,Hispanic or Latino,-100.0,,29.8,,23.0,
+2018,Colorado,08,Two or more races (NH),,,,,,
+2018,Colorado,08,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Colorado,08,White (NH),-100.0,-100.0,53.4,100.0,19.02,3.12
+2018,Connecticut,09,American Indian and Alaska Native (NH),,,,,,
+2018,Connecticut,09,Asian (NH),,,,,,
+2018,Connecticut,09,Black or African American (NH),,,,,,
+2018,Connecticut,09,Hispanic or Latino,,,,,,
+2018,Connecticut,09,Two or more races (NH),,,,,,
+2018,Connecticut,09,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Connecticut,09,White (NH),,,,,,
+2018,Delaware,10,American Indian and Alaska Native (NH),,,,,,
+2018,Delaware,10,Asian (NH),,,,,,
+2018,Delaware,10,Black or African American (NH),,,,,,
+2018,Delaware,10,Hispanic or Latino,,,,,,
+2018,Delaware,10,Two or more races (NH),,,,,,
+2018,Delaware,10,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Delaware,10,White (NH),,,,,,
+2018,District of Columbia,11,American Indian and Alaska Native (NH),,,,,,
+2018,District of Columbia,11,Asian (NH),,,,,,
+2018,District of Columbia,11,Black or African American (NH),-99.9,,100.0,,127.94,
+2018,District of Columbia,11,Hispanic or Latino,,,,,,
+2018,District of Columbia,11,Two or more races (NH),,,,,,
+2018,District of Columbia,11,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,District of Columbia,11,White (NH),,,,,,
+2018,Florida,12,American Indian and Alaska Native (NH),,,,,,
+2018,Florida,12,Asian (NH),,,,,,
+2018,Florida,12,Black or African American (NH),-100.0,-100.0,49.6,32.9,50.15,3.28
+2018,Florida,12,Hispanic or Latino,-100.0,-100.0,18.8,24.7,13.0,2.0
+2018,Florida,12,Two or more races (NH),,,,,,
+2018,Florida,12,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Florida,12,White (NH),-100.0,-100.0,31.5,42.4,14.41,2.01
+2018,Georgia,13,American Indian and Alaska Native (NH),,,,,,
+2018,Georgia,13,Asian (NH),,,,,,
+2018,Georgia,13,Black or African American (NH),-100.0,-100.0,69.9,63.2,47.99,5.7
+2018,Georgia,13,Hispanic or Latino,,,,,,
+2018,Georgia,13,Two or more races (NH),,,,,,
+2018,Georgia,13,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Georgia,13,White (NH),-100.0,-100.0,30.1,36.8,15.76,2.56
+2018,Hawaii,15,American Indian and Alaska Native (NH),,,,,,
+2018,Hawaii,15,Asian (NH),,,,,,
+2018,Hawaii,15,Black or African American (NH),,,,,,
+2018,Hawaii,15,Hispanic or Latino,,,,,,
+2018,Hawaii,15,Two or more races (NH),,,,,,
+2018,Hawaii,15,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Hawaii,15,White (NH),,,,,,
+2018,Idaho,16,American Indian and Alaska Native (NH),,,,,,
+2018,Idaho,16,Asian (NH),,,,,,
+2018,Idaho,16,Black or African American (NH),,,,,,
+2018,Idaho,16,Hispanic or Latino,,,,,,
+2018,Idaho,16,Two or more races (NH),,,,,,
+2018,Idaho,16,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Idaho,16,White (NH),-100.0,,100.0,,26.26,
+2018,Illinois,17,American Indian and Alaska Native (NH),,,,,,
+2018,Illinois,17,Asian (NH),,,,,,
+2018,Illinois,17,Black or African American (NH),-100.0,-100.0,70.0,100.0,101.97,13.91
+2018,Illinois,17,Hispanic or Latino,-100.0,,13.6,,15.0,
+2018,Illinois,17,Two or more races (NH),,,,,,
+2018,Illinois,17,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Illinois,17,White (NH),-100.0,,16.4,,7.33,
+2018,Indiana,18,American Indian and Alaska Native (NH),,,,,,
+2018,Indiana,18,Asian (NH),,,,,,
+2018,Indiana,18,Black or African American (NH),-100.0,-100.0,49.2,52.0,107.81,14.64
+2018,Indiana,18,Hispanic or Latino,,,,,,
+2018,Indiana,18,Two or more races (NH),,,,,,
+2018,Indiana,18,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Indiana,18,White (NH),-100.0,-100.0,50.8,48.0,16.51,2.17
+2018,Iowa,19,American Indian and Alaska Native (NH),,,,,,
+2018,Iowa,19,Asian (NH),,,,,,
+2018,Iowa,19,Black or African American (NH),,,,,,
+2018,Iowa,19,Hispanic or Latino,,,,,,
+2018,Iowa,19,Two or more races (NH),,,,,,
+2018,Iowa,19,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Iowa,19,White (NH),-100.0,,100.0,,13.01,
+2018,Kansas,20,American Indian and Alaska Native (NH),,,,,,
+2018,Kansas,20,Asian (NH),,,,,,
+2018,Kansas,20,Black or African American (NH),,,,,,
+2018,Kansas,20,Hispanic or Latino,,,,,,
+2018,Kansas,20,Two or more races (NH),,,,,,
+2018,Kansas,20,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Kansas,20,White (NH),-100.0,,100.0,,16.92,
+2018,Kentucky,21,American Indian and Alaska Native (NH),,,,,,
+2018,Kentucky,21,Asian (NH),,,,,,
+2018,Kentucky,21,Black or African American (NH),-100.0,,35.0,,70.52,
+2018,Kentucky,21,Hispanic or Latino,,,,,,
+2018,Kentucky,21,Two or more races (NH),,,,,,
+2018,Kentucky,21,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Kentucky,21,White (NH),-100.0,,65.0,,17.54,
+2018,Louisiana,22,American Indian and Alaska Native (NH),,,,,,
+2018,Louisiana,22,Asian (NH),,,,,,
+2018,Louisiana,22,Black or African American (NH),-100.0,-100.0,73.1,60.4,82.61,7.95
+2018,Louisiana,22,Hispanic or Latino,,,,,,
+2018,Louisiana,22,Two or more races (NH),,,,,,
+2018,Louisiana,22,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Louisiana,22,White (NH),-100.0,-100.0,26.9,39.6,22.46,3.75
+2018,Maine,23,American Indian and Alaska Native (NH),,,,,,
+2018,Maine,23,Asian (NH),,,,,,
+2018,Maine,23,Black or African American (NH),,,,,,
+2018,Maine,23,Hispanic or Latino,,,,,,
+2018,Maine,23,Two or more races (NH),,,,,,
+2018,Maine,23,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Maine,23,White (NH),,,,,,
+2018,Maryland,24,American Indian and Alaska Native (NH),,,,,,
+2018,Maryland,24,Asian (NH),,,,,,
+2018,Maryland,24,Black or African American (NH),-100.0,,79.7,,53.3,
+2018,Maryland,24,Hispanic or Latino,,,,,,
+2018,Maryland,24,Two or more races (NH),,,,,,
+2018,Maryland,24,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Maryland,24,White (NH),-100.0,,20.3,,9.57,
+2018,Massachusetts,25,American Indian and Alaska Native (NH),,,,,,
+2018,Massachusetts,25,Asian (NH),,,,,,
+2018,Massachusetts,25,Black or African American (NH),,,,,,
+2018,Massachusetts,25,Hispanic or Latino,,,,,,
+2018,Massachusetts,25,Two or more races (NH),,,,,,
+2018,Massachusetts,25,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Massachusetts,25,White (NH),,,,,,
+2018,Michigan,26,American Indian and Alaska Native (NH),,,,,,
+2018,Michigan,26,Asian (NH),,,,,,
+2018,Michigan,26,Black or African American (NH),-100.0,-100.0,57.3,46.7,73.4,6.08
+2018,Michigan,26,Hispanic or Latino,,,,,,
+2018,Michigan,26,Two or more races (NH),,,,,,
+2018,Michigan,26,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Michigan,26,White (NH),-100.0,-100.0,42.7,53.3,12.4,1.67
+2018,Minnesota,27,American Indian and Alaska Native (NH),,,,,,
+2018,Minnesota,27,Asian (NH),,,,,,
+2018,Minnesota,27,Black or African American (NH),,,,,,
+2018,Minnesota,27,Hispanic or Latino,,,,,,
+2018,Minnesota,27,Two or more races (NH),,,,,,
+2018,Minnesota,27,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Minnesota,27,White (NH),-100.0,,100.0,,10.45,
+2018,Mississippi,28,American Indian and Alaska Native (NH),,,,,,
+2018,Mississippi,28,Asian (NH),,,,,,
+2018,Mississippi,28,Black or African American (NH),-100.0,-100.0,70.4,100.0,70.59,8.46
+2018,Mississippi,28,Hispanic or Latino,,,,,,
+2018,Mississippi,28,Two or more races (NH),,,,,,
+2018,Mississippi,28,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Mississippi,28,White (NH),-100.0,,29.6,,25.63,
+2018,Missouri,29,American Indian and Alaska Native (NH),,,,,,
+2018,Missouri,29,Asian (NH),,,,,,
+2018,Missouri,29,Black or African American (NH),-100.0,-100.0,59.2,45.3,135.62,15.61
+2018,Missouri,29,Hispanic or Latino,,,,,,
+2018,Missouri,29,Two or more races (NH),,,,,,
+2018,Missouri,29,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Missouri,29,White (NH),-100.0,-100.0,40.8,54.7,17.47,3.51
+2018,Montana,30,American Indian and Alaska Native (NH),,,,,,
+2018,Montana,30,Asian (NH),,,,,,
+2018,Montana,30,Black or African American (NH),,,,,,
+2018,Montana,30,Hispanic or Latino,,,,,,
+2018,Montana,30,Two or more races (NH),,,,,,
+2018,Montana,30,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Montana,30,White (NH),,,,,,
+2018,Nebraska,31,American Indian and Alaska Native (NH),,,,,,
+2018,Nebraska,31,Asian (NH),,,,,,
+2018,Nebraska,31,Black or African American (NH),,,,,,
+2018,Nebraska,31,Hispanic or Latino,,,,,,
+2018,Nebraska,31,Two or more races (NH),,,,,,
+2018,Nebraska,31,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Nebraska,31,White (NH),,,,,,
+2018,Nevada,32,American Indian and Alaska Native (NH),,,,,,
+2018,Nevada,32,Asian (NH),,,,,,
+2018,Nevada,32,Black or African American (NH),-100.0,,29.7,,70.82,
+2018,Nevada,32,Hispanic or Latino,-100.0,,35.1,,23.0,
+2018,Nevada,32,Two or more races (NH),,,,,,
+2018,Nevada,32,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Nevada,32,White (NH),-100.0,,35.1,,24.63,
+2018,New Hampshire,33,American Indian and Alaska Native (NH),,,,,,
+2018,New Hampshire,33,Asian (NH),,,,,,
+2018,New Hampshire,33,Black or African American (NH),,,,,,
+2018,New Hampshire,33,Hispanic or Latino,,,,,,
+2018,New Hampshire,33,Two or more races (NH),,,,,,
+2018,New Hampshire,33,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,New Hampshire,33,White (NH),,,,,,
+2018,New Jersey,34,American Indian and Alaska Native (NH),,,,,,
+2018,New Jersey,34,Asian (NH),,,,,,
+2018,New Jersey,34,Black or African American (NH),-100.0,,100.0,,35.93,
+2018,New Jersey,34,Hispanic or Latino,,,,,,
+2018,New Jersey,34,Two or more races (NH),,,,,,
+2018,New Jersey,34,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,New Jersey,34,White (NH),,,,,,
+2018,New Mexico,35,American Indian and Alaska Native (NH),,,,,,
+2018,New Mexico,35,Asian (NH),,,,,,
+2018,New Mexico,35,Black or African American (NH),,,,,,
+2018,New Mexico,35,Hispanic or Latino,-100.0,,71.2,,40.0,
+2018,New Mexico,35,Two or more races (NH),,,,,,
+2018,New Mexico,35,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,New Mexico,35,White (NH),-100.0,,28.8,,34.88,
+2018,New York,36,American Indian and Alaska Native (NH),,,,,,
+2018,New York,36,Asian (NH),,,,,,
+2018,New York,36,Black or African American (NH),-100.0,,51.4,,22.95,
+2018,New York,36,Hispanic or Latino,-100.0,,16.4,,5.0,
+2018,New York,36,Two or more races (NH),,,,,,
+2018,New York,36,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,New York,36,White (NH),-100.0,,32.2,,4.43,
+2018,North Carolina,37,American Indian and Alaska Native (NH),,,,,,
+2018,North Carolina,37,Asian (NH),,,,,,
+2018,North Carolina,37,Black or African American (NH),-100.0,-100.0,61.1,48.1,48.82,5.02
+2018,North Carolina,37,Hispanic or Latino,,,,,,
+2018,North Carolina,37,Two or more races (NH),,,,,,
+2018,North Carolina,37,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,North Carolina,37,White (NH),-100.0,-100.0,38.9,51.9,13.4,2.34
+2018,North Dakota,38,American Indian and Alaska Native (NH),,,,,,
+2018,North Dakota,38,Asian (NH),,,,,,
+2018,North Dakota,38,Black or African American (NH),,,,,,
+2018,North Dakota,38,Hispanic or Latino,,,,,,
+2018,North Dakota,38,Two or more races (NH),,,,,,
+2018,North Dakota,38,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,North Dakota,38,White (NH),,,,,,
+2018,Ohio,39,American Indian and Alaska Native (NH),,,,,,
+2018,Ohio,39,Asian (NH),,,,,,
+2018,Ohio,39,Black or African American (NH),-100.0,-100.0,50.2,44.4,76.03,8.17
+2018,Ohio,39,Hispanic or Latino,,,,,,
+2018,Ohio,39,Two or more races (NH),,,,,,
+2018,Ohio,39,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Ohio,39,White (NH),-100.0,-100.0,49.8,55.6,15.05,2.18
+2018,Oklahoma,40,American Indian and Alaska Native (NH),,,,,,
+2018,Oklahoma,40,Asian (NH),,,,,,
+2018,Oklahoma,40,Black or African American (NH),-100.0,,35.5,,54.51,
+2018,Oklahoma,40,Hispanic or Latino,,,,,,
+2018,Oklahoma,40,Two or more races (NH),,,,,,
+2018,Oklahoma,40,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Oklahoma,40,White (NH),-100.0,,64.5,,16.35,
+2018,Oregon,41,American Indian and Alaska Native (NH),,,,,,
+2018,Oregon,41,Asian (NH),,,,,,
+2018,Oregon,41,Black or African American (NH),,,,,,
+2018,Oregon,41,Hispanic or Latino,,,,,,
+2018,Oregon,41,Two or more races (NH),,,,,,
+2018,Oregon,41,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Oregon,41,White (NH),-100.0,,100.0,,16.25,
+2018,Pennsylvania,42,American Indian and Alaska Native (NH),,,,,,
+2018,Pennsylvania,42,Asian (NH),,,,,,
+2018,Pennsylvania,42,Black or African American (NH),-100.0,-100.0,49.8,100.0,84.74,8.16
+2018,Pennsylvania,42,Hispanic or Latino,-100.0,,9.3,,21.0,
+2018,Pennsylvania,42,Two or more races (NH),,,,,,
+2018,Pennsylvania,42,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Pennsylvania,42,White (NH),-100.0,,40.9,,13.37,
+2018,Rhode Island,44,American Indian and Alaska Native (NH),,,,,,
+2018,Rhode Island,44,Asian (NH),,,,,,
+2018,Rhode Island,44,Black or African American (NH),,,,,,
+2018,Rhode Island,44,Hispanic or Latino,,,,,,
+2018,Rhode Island,44,Two or more races (NH),,,,,,
+2018,Rhode Island,44,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Rhode Island,44,White (NH),,,,,,
+2018,South Carolina,45,American Indian and Alaska Native (NH),,,,,,
+2018,South Carolina,45,Asian (NH),,,,,,
+2018,South Carolina,45,Black or African American (NH),-100.0,-100.0,56.2,100.0,60.41,8.86
+2018,South Carolina,45,Hispanic or Latino,,,,,,
+2018,South Carolina,45,Two or more races (NH),,,,,,
+2018,South Carolina,45,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,South Carolina,45,White (NH),-100.0,,43.8,,24.98,
+2018,South Dakota,46,American Indian and Alaska Native (NH),,,,,,
+2018,South Dakota,46,Asian (NH),,,,,,
+2018,South Dakota,46,Black or African American (NH),,,,,,
+2018,South Dakota,46,Hispanic or Latino,,,,,,
+2018,South Dakota,46,Two or more races (NH),,,,,,
+2018,South Dakota,46,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,South Dakota,46,White (NH),,,,,,
+2018,Tennessee,47,American Indian and Alaska Native (NH),,,,,,
+2018,Tennessee,47,Asian (NH),,,,,,
+2018,Tennessee,47,Black or African American (NH),-100.0,-100.0,62.8,46.3,103.14,8.72
+2018,Tennessee,47,Hispanic or Latino,,,,,,
+2018,Tennessee,47,Two or more races (NH),,,,,,
+2018,Tennessee,47,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Tennessee,47,White (NH),-100.0,-100.0,37.2,53.7,18.37,2.95
+2018,Texas,48,American Indian and Alaska Native (NH),,,,,,
+2018,Texas,48,Asian (NH),,,,,,
+2018,Texas,48,Black or African American (NH),-100.0,-100.0,33.1,19.1,47.27,3.86
+2018,Texas,48,Hispanic or Latino,-100.0,-100.0,36.8,44.4,15.0,2.0
+2018,Texas,48,Two or more races (NH),,,,,,
+2018,Texas,48,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Texas,48,White (NH),-100.0,-100.0,30.1,36.5,16.45,2.81
+2018,Utah,49,American Indian and Alaska Native (NH),,,,,,
+2018,Utah,49,Asian (NH),,,,,,
+2018,Utah,49,Black or African American (NH),,,,,,
+2018,Utah,49,Hispanic or Latino,,,,,,
+2018,Utah,49,Two or more races (NH),,,,,,
+2018,Utah,49,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Utah,49,White (NH),-100.0,,100.0,,14.54,
+2018,Vermont,50,American Indian and Alaska Native (NH),,,,,,
+2018,Vermont,50,Asian (NH),,,,,,
+2018,Vermont,50,Black or African American (NH),,,,,,
+2018,Vermont,50,Hispanic or Latino,,,,,,
+2018,Vermont,50,Two or more races (NH),,,,,,
+2018,Vermont,50,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Vermont,50,White (NH),,,,,,
+2018,Virginia,51,American Indian and Alaska Native (NH),,,,,,
+2018,Virginia,51,Asian (NH),,,,,,
+2018,Virginia,51,Black or African American (NH),-100.0,,53.5,,54.18,
+2018,Virginia,51,Hispanic or Latino,,,,,,
+2018,Virginia,51,Two or more races (NH),,,,,,
+2018,Virginia,51,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Virginia,51,White (NH),-100.0,-100.0,46.5,100.0,17.5,2.11
+2018,Washington,53,American Indian and Alaska Native (NH),,,,,,
+2018,Washington,53,Asian (NH),,,,,,
+2018,Washington,53,Black or African American (NH),,,,,,
+2018,Washington,53,Hispanic or Latino,-100.0,,29.6,,23.0,
+2018,Washington,53,Two or more races (NH),,,,,,
+2018,Washington,53,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Washington,53,White (NH),-100.0,,70.4,,16.65,
+2018,West Virginia,54,American Indian and Alaska Native (NH),,,,,,
+2018,West Virginia,54,Asian (NH),,,,,,
+2018,West Virginia,54,Black or African American (NH),,,,,,
+2018,West Virginia,54,Hispanic or Latino,,,,,,
+2018,West Virginia,54,Two or more races (NH),,,,,,
+2018,West Virginia,54,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,West Virginia,54,White (NH),-100.0,,100.0,,20.23,
+2018,Wisconsin,55,American Indian and Alaska Native (NH),,,,,,
+2018,Wisconsin,55,Asian (NH),,,,,,
+2018,Wisconsin,55,Black or African American (NH),-100.0,,41.8,,75.35,
+2018,Wisconsin,55,Hispanic or Latino,,,,,,
+2018,Wisconsin,55,Two or more races (NH),,,,,,
+2018,Wisconsin,55,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Wisconsin,55,White (NH),-100.0,,58.2,,11.17,
+2018,Wyoming,56,American Indian and Alaska Native (NH),,,,,,
+2018,Wyoming,56,Asian (NH),,,,,,
+2018,Wyoming,56,Black or African American (NH),,,,,,
+2018,Wyoming,56,Hispanic or Latino,,,,,,
+2018,Wyoming,56,Two or more races (NH),,,,,,
+2018,Wyoming,56,Native Hawaiian and Pacific Islander (NH),,,,,,
+2018,Wyoming,56,White (NH),,,,,,
+2019,Alabama,01,American Indian and Alaska Native (NH),,,,,,
+2019,Alabama,01,Asian (NH),,,,,,
+2019,Alabama,01,Black or African American (NH),-100.0,,67.0,,80.03,
+2019,Alabama,01,Hispanic or Latino,,,,,,
+2019,Alabama,01,Two or more races (NH),,,,,,
+2019,Alabama,01,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Alabama,01,White (NH),-100.0,,33.0,,20.5,
+2019,Alaska,02,American Indian and Alaska Native (NH),,,,,,
+2019,Alaska,02,Asian (NH),,,,,,
+2019,Alaska,02,Black or African American (NH),,,,,,
+2019,Alaska,02,Hispanic or Latino,,,,,,
+2019,Alaska,02,Two or more races (NH),,,,,,
+2019,Alaska,02,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Alaska,02,White (NH),,,,,,
+2019,Arizona,04,American Indian and Alaska Native (NH),,,,,,
+2019,Arizona,04,Asian (NH),,,,,,
+2019,Arizona,04,Black or African American (NH),,,,,,
+2019,Arizona,04,Hispanic or Latino,-100.0,,55.3,,22.0,
+2019,Arizona,04,Two or more races (NH),,,,,,
+2019,Arizona,04,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Arizona,04,White (NH),-100.0,,44.7,,17.64,
+2019,Arkansas,05,American Indian and Alaska Native (NH),,,,,,
+2019,Arkansas,05,Asian (NH),,,,,,
+2019,Arkansas,05,Black or African American (NH),-100.0,,45.9,,84.05,
+2019,Arkansas,05,Hispanic or Latino,,,,,,
+2019,Arkansas,05,Two or more races (NH),,,,,,
+2019,Arkansas,05,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Arkansas,05,White (NH),-100.0,,54.1,,28.31,
+2019,California,06,American Indian and Alaska Native (NH),,,,,,
+2019,California,06,Asian (NH),,,,,,
+2019,California,06,Black or African American (NH),-100.0,,25.0,,44.05,
+2019,California,06,Hispanic or Latino,-100.0,-100.0,55.5,100.0,12.0,1.0
+2019,California,06,Two or more races (NH),,,,,,
+2019,California,06,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,California,06,White (NH),-100.0,,19.5,,7.09,
+2019,Colorado,08,American Indian and Alaska Native (NH),,,,,,
+2019,Colorado,08,Asian (NH),,,,,,
+2019,Colorado,08,Black or African American (NH),,,,,,
+2019,Colorado,08,Hispanic or Latino,-100.0,,29.0,,18.0,
+2019,Colorado,08,Two or more races (NH),,,,,,
+2019,Colorado,08,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Colorado,08,White (NH),-100.0,,71.0,,20.73,
+2019,Connecticut,09,American Indian and Alaska Native (NH),,,,,,
+2019,Connecticut,09,Asian (NH),,,,,,
+2019,Connecticut,09,Black or African American (NH),,,,,,
+2019,Connecticut,09,Hispanic or Latino,,,,,,
+2019,Connecticut,09,Two or more races (NH),,,,,,
+2019,Connecticut,09,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Connecticut,09,White (NH),,,,,,
+2019,Delaware,10,American Indian and Alaska Native (NH),,,,,,
+2019,Delaware,10,Asian (NH),,,,,,
+2019,Delaware,10,Black or African American (NH),,,,,,
+2019,Delaware,10,Hispanic or Latino,,,,,,
+2019,Delaware,10,Two or more races (NH),,,,,,
+2019,Delaware,10,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Delaware,10,White (NH),,,,,,
+2019,District of Columbia,11,American Indian and Alaska Native (NH),,,,,,
+2019,District of Columbia,11,Asian (NH),,,,,,
+2019,District of Columbia,11,Black or African American (NH),-99.9,,100.0,,165.05,
+2019,District of Columbia,11,Hispanic or Latino,,,,,,
+2019,District of Columbia,11,Two or more races (NH),,,,,,
+2019,District of Columbia,11,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,District of Columbia,11,White (NH),,,,,,
+2019,Florida,12,American Indian and Alaska Native (NH),,,,,,
+2019,Florida,12,Asian (NH),,,,,,
+2019,Florida,12,Black or African American (NH),-100.0,-100.0,54.4,60.0,57.07,5.29
+2019,Florida,12,Hispanic or Latino,-100.0,,16.9,,12.0,
+2019,Florida,12,Two or more races (NH),,,,,,
+2019,Florida,12,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Florida,12,White (NH),-100.0,-100.0,28.6,40.0,13.56,1.69
+2019,Georgia,13,American Indian and Alaska Native (NH),,,,,,
+2019,Georgia,13,Asian (NH),,,,,,
+2019,Georgia,13,Black or African American (NH),-100.0,-100.0,73.9,58.5,57.33,4.51
+2019,Georgia,13,Hispanic or Latino,,,,,,
+2019,Georgia,13,Two or more races (NH),,,,,,
+2019,Georgia,13,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Georgia,13,White (NH),-100.0,-100.0,26.1,41.5,15.35,2.5
+2019,Hawaii,15,American Indian and Alaska Native (NH),,,,,,
+2019,Hawaii,15,Asian (NH),,,,,,
+2019,Hawaii,15,Black or African American (NH),,,,,,
+2019,Hawaii,15,Hispanic or Latino,,,,,,
+2019,Hawaii,15,Two or more races (NH),,,,,,
+2019,Hawaii,15,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Hawaii,15,White (NH),,,,,,
+2019,Idaho,16,American Indian and Alaska Native (NH),,,,,,
+2019,Idaho,16,Asian (NH),,,,,,
+2019,Idaho,16,Black or African American (NH),,,,,,
+2019,Idaho,16,Hispanic or Latino,,,,,,
+2019,Idaho,16,Two or more races (NH),,,,,,
+2019,Idaho,16,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Idaho,16,White (NH),-100.0,,100.0,,22.43,
+2019,Illinois,17,American Indian and Alaska Native (NH),,,,,,
+2019,Illinois,17,Asian (NH),,,,,,
+2019,Illinois,17,Black or African American (NH),-100.0,-100.0,70.9,100.0,103.78,14.83
+2019,Illinois,17,Hispanic or Latino,-100.0,,14.4,,15.0,
+2019,Illinois,17,Two or more races (NH),,,,,,
+2019,Illinois,17,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Illinois,17,White (NH),-100.0,,14.7,,6.5,
+2019,Indiana,18,American Indian and Alaska Native (NH),,,,,,
+2019,Indiana,18,Asian (NH),,,,,,
+2019,Indiana,18,Black or African American (NH),-100.0,-99.9,56.0,100.0,126.57,13.46
+2019,Indiana,18,Hispanic or Latino,,,,,,
+2019,Indiana,18,Two or more races (NH),,,,,,
+2019,Indiana,18,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Indiana,18,White (NH),-100.0,,44.0,,14.82,
+2019,Iowa,19,American Indian and Alaska Native (NH),,,,,,
+2019,Iowa,19,Asian (NH),,,,,,
+2019,Iowa,19,Black or African American (NH),,,,,,
+2019,Iowa,19,Hispanic or Latino,,,,,,
+2019,Iowa,19,Two or more races (NH),,,,,,
+2019,Iowa,19,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Iowa,19,White (NH),-100.0,,100.0,,13.51,
+2019,Kansas,20,American Indian and Alaska Native (NH),,,,,,
+2019,Kansas,20,Asian (NH),,,,,,
+2019,Kansas,20,Black or African American (NH),,,,,,
+2019,Kansas,20,Hispanic or Latino,,,,,,
+2019,Kansas,20,Two or more races (NH),,,,,,
+2019,Kansas,20,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Kansas,20,White (NH),-100.0,,100.0,,19.81,
+2019,Kentucky,21,American Indian and Alaska Native (NH),,,,,,
+2019,Kentucky,21,Asian (NH),,,,,,
+2019,Kentucky,21,Black or African American (NH),-99.9,,46.8,,86.57,
+2019,Kentucky,21,Hispanic or Latino,,,,,,
+2019,Kentucky,21,Two or more races (NH),,,,,,
+2019,Kentucky,21,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Kentucky,21,White (NH),-100.0,,53.2,,13.19,
+2019,Louisiana,22,American Indian and Alaska Native (NH),,,,,,
+2019,Louisiana,22,Asian (NH),,,,,,
+2019,Louisiana,22,Black or African American (NH),-100.0,-100.0,74.0,100.0,82.02,9.3
+2019,Louisiana,22,Hispanic or Latino,,,,,,
+2019,Louisiana,22,Two or more races (NH),,,,,,
+2019,Louisiana,22,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Louisiana,22,White (NH),-100.0,,26.0,,21.18,
+2019,Maine,23,American Indian and Alaska Native (NH),,,,,,
+2019,Maine,23,Asian (NH),,,,,,
+2019,Maine,23,Black or African American (NH),,,,,,
+2019,Maine,23,Hispanic or Latino,,,,,,
+2019,Maine,23,Two or more races (NH),,,,,,
+2019,Maine,23,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Maine,23,White (NH),,,,,,
+2019,Maryland,24,American Indian and Alaska Native (NH),,,,,,
+2019,Maryland,24,Asian (NH),,,,,,
+2019,Maryland,24,Black or African American (NH),-100.0,,100.0,,77.28,
+2019,Maryland,24,Hispanic or Latino,,,,,,
+2019,Maryland,24,Two or more races (NH),,,,,,
+2019,Maryland,24,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Maryland,24,White (NH),,,,,,
+2019,Massachusetts,25,American Indian and Alaska Native (NH),,,,,,
+2019,Massachusetts,25,Asian (NH),,,,,,
+2019,Massachusetts,25,Black or African American (NH),,,,,,
+2019,Massachusetts,25,Hispanic or Latino,,,,,,
+2019,Massachusetts,25,Two or more races (NH),,,,,,
+2019,Massachusetts,25,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Massachusetts,25,White (NH),,,,,,
+2019,Michigan,26,American Indian and Alaska Native (NH),,,,,,
+2019,Michigan,26,Asian (NH),,,,,,
+2019,Michigan,26,Black or African American (NH),-100.0,-100.0,66.7,100.0,74.75,6.41
+2019,Michigan,26,Hispanic or Latino,,,,,,
+2019,Michigan,26,Two or more races (NH),,,,,,
+2019,Michigan,26,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Michigan,26,White (NH),-100.0,,33.3,,8.32,
+2019,Minnesota,27,American Indian and Alaska Native (NH),,,,,,
+2019,Minnesota,27,Asian (NH),,,,,,
+2019,Minnesota,27,Black or African American (NH),-100.0,,39.7,,53.75,
+2019,Minnesota,27,Hispanic or Latino,,,,,,
+2019,Minnesota,27,Two or more races (NH),,,,,,
+2019,Minnesota,27,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Minnesota,27,White (NH),-100.0,,60.3,,9.15,
+2019,Mississippi,28,American Indian and Alaska Native (NH),,,,,,
+2019,Mississippi,28,Asian (NH),,,,,,
+2019,Mississippi,28,Black or African American (NH),-100.0,,72.5,,74.44,
+2019,Mississippi,28,Hispanic or Latino,,,,,,
+2019,Mississippi,28,Two or more races (NH),,,,,,
+2019,Mississippi,28,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Mississippi,28,White (NH),-100.0,,27.5,,24.01,
+2019,Missouri,29,American Indian and Alaska Native (NH),,,,,,
+2019,Missouri,29,Asian (NH),,,,,,
+2019,Missouri,29,Black or African American (NH),-100.0,-99.9,57.6,100.0,157.16,22.68
+2019,Missouri,29,Hispanic or Latino,,,,,,
+2019,Missouri,29,Two or more races (NH),,,,,,
+2019,Missouri,29,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Missouri,29,White (NH),-100.0,,42.4,,21.19,
+2019,Montana,30,American Indian and Alaska Native (NH),,,,,,
+2019,Montana,30,Asian (NH),,,,,,
+2019,Montana,30,Black or African American (NH),,,,,,
+2019,Montana,30,Hispanic or Latino,,,,,,
+2019,Montana,30,Two or more races (NH),,,,,,
+2019,Montana,30,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Montana,30,White (NH),,,,,,
+2019,Nebraska,31,American Indian and Alaska Native (NH),,,,,,
+2019,Nebraska,31,Asian (NH),,,,,,
+2019,Nebraska,31,Black or African American (NH),,,,,,
+2019,Nebraska,31,Hispanic or Latino,,,,,,
+2019,Nebraska,31,Two or more races (NH),,,,,,
+2019,Nebraska,31,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Nebraska,31,White (NH),-100.0,,100.0,,13.46,
+2019,Nevada,32,American Indian and Alaska Native (NH),,,,,,
+2019,Nevada,32,Asian (NH),,,,,,
+2019,Nevada,32,Black or African American (NH),,,,,,
+2019,Nevada,32,Hispanic or Latino,,,,,,
+2019,Nevada,32,Two or more races (NH),,,,,,
+2019,Nevada,32,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Nevada,32,White (NH),-100.0,,100.0,,28.6,
+2019,New Hampshire,33,American Indian and Alaska Native (NH),,,,,,
+2019,New Hampshire,33,Asian (NH),,,,,,
+2019,New Hampshire,33,Black or African American (NH),,,,,,
+2019,New Hampshire,33,Hispanic or Latino,,,,,,
+2019,New Hampshire,33,Two or more races (NH),,,,,,
+2019,New Hampshire,33,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,New Hampshire,33,White (NH),,,,,,
+2019,New Jersey,34,American Indian and Alaska Native (NH),,,,,,
+2019,New Jersey,34,Asian (NH),,,,,,
+2019,New Jersey,34,Black or African American (NH),-100.0,,100.0,,38.36,
+2019,New Jersey,34,Hispanic or Latino,,,,,,
+2019,New Jersey,34,Two or more races (NH),,,,,,
+2019,New Jersey,34,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,New Jersey,34,White (NH),,,,,,
+2019,New Mexico,35,American Indian and Alaska Native (NH),,,,,,
+2019,New Mexico,35,Asian (NH),,,,,,
+2019,New Mexico,35,Black or African American (NH),,,,,,
+2019,New Mexico,35,Hispanic or Latino,-100.0,,100.0,,34.0,
+2019,New Mexico,35,Two or more races (NH),,,,,,
+2019,New Mexico,35,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,New Mexico,35,White (NH),,,,,,
+2019,New York,36,American Indian and Alaska Native (NH),,,,,,
+2019,New York,36,Asian (NH),,,,,,
+2019,New York,36,Black or African American (NH),-100.0,,63.8,,21.17,
+2019,New York,36,Hispanic or Latino,,,,,,
+2019,New York,36,Two or more races (NH),,,,,,
+2019,New York,36,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,New York,36,White (NH),-100.0,,36.2,,3.65,
+2019,North Carolina,37,American Indian and Alaska Native (NH),,,,,,
+2019,North Carolina,37,Asian (NH),,,,,,
+2019,North Carolina,37,Black or African American (NH),-100.0,-100.0,62.9,100.0,57.85,6.38
+2019,North Carolina,37,Hispanic or Latino,,,,,,
+2019,North Carolina,37,Two or more races (NH),,,,,,
+2019,North Carolina,37,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,North Carolina,37,White (NH),-100.0,,37.1,,14.48,
+2019,North Dakota,38,American Indian and Alaska Native (NH),,,,,,
+2019,North Dakota,38,Asian (NH),,,,,,
+2019,North Dakota,38,Black or African American (NH),,,,,,
+2019,North Dakota,38,Hispanic or Latino,,,,,,
+2019,North Dakota,38,Two or more races (NH),,,,,,
+2019,North Dakota,38,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,North Dakota,38,White (NH),,,,,,
+2019,Ohio,39,American Indian and Alaska Native (NH),,,,,,
+2019,Ohio,39,Asian (NH),,,,,,
+2019,Ohio,39,Black or African American (NH),-100.0,-100.0,56.6,47.7,87.79,7.92
+2019,Ohio,39,Hispanic or Latino,,,,,,
+2019,Ohio,39,Two or more races (NH),,,,,,
+2019,Ohio,39,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Ohio,39,White (NH),-100.0,-100.0,43.4,52.3,13.3,1.87
+2019,Oklahoma,40,American Indian and Alaska Native (NH),,,,,,
+2019,Oklahoma,40,Asian (NH),,,,,,
+2019,Oklahoma,40,Black or African American (NH),-99.9,,42.4,,90.63,
+2019,Oklahoma,40,Hispanic or Latino,,,,,,
+2019,Oklahoma,40,Two or more races (NH),,,,,,
+2019,Oklahoma,40,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Oklahoma,40,White (NH),-100.0,-100.0,57.6,100.0,20.17,5.26
+2019,Oregon,41,American Indian and Alaska Native (NH),,,,,,
+2019,Oregon,41,Asian (NH),,,,,,
+2019,Oregon,41,Black or African American (NH),,,,,,
+2019,Oregon,41,Hispanic or Latino,,,,,,
+2019,Oregon,41,Two or more races (NH),,,,,,
+2019,Oregon,41,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Oregon,41,White (NH),-100.0,,100.0,,20.47,
+2019,Pennsylvania,42,American Indian and Alaska Native (NH),,,,,,
+2019,Pennsylvania,42,Asian (NH),,,,,,
+2019,Pennsylvania,42,Black or African American (NH),-100.0,-100.0,55.6,51.2,83.07,6.45
+2019,Pennsylvania,42,Hispanic or Latino,-100.0,,9.3,,18.0,
+2019,Pennsylvania,42,Two or more races (NH),,,,,,
+2019,Pennsylvania,42,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Pennsylvania,42,White (NH),-100.0,-100.0,35.0,48.8,10.0,1.21
+2019,Rhode Island,44,American Indian and Alaska Native (NH),,,,,,
+2019,Rhode Island,44,Asian (NH),,,,,,
+2019,Rhode Island,44,Black or African American (NH),,,,,,
+2019,Rhode Island,44,Hispanic or Latino,,,,,,
+2019,Rhode Island,44,Two or more races (NH),,,,,,
+2019,Rhode Island,44,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Rhode Island,44,White (NH),,,,,,
+2019,South Carolina,45,American Indian and Alaska Native (NH),,,,,,
+2019,South Carolina,45,Asian (NH),,,,,,
+2019,South Carolina,45,Black or African American (NH),-100.0,,69.6,,88.36,
+2019,South Carolina,45,Hispanic or Latino,,,,,,
+2019,South Carolina,45,Two or more races (NH),,,,,,
+2019,South Carolina,45,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,South Carolina,45,White (NH),-100.0,-100.0,30.4,100.0,20.13,4.13
+2019,South Dakota,46,American Indian and Alaska Native (NH),,,,,,
+2019,South Dakota,46,Asian (NH),,,,,,
+2019,South Dakota,46,Black or African American (NH),,,,,,
+2019,South Dakota,46,Hispanic or Latino,,,,,,
+2019,South Dakota,46,Two or more races (NH),,,,,,
+2019,South Dakota,46,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,South Dakota,46,White (NH),,,,,,
+2019,Tennessee,47,American Indian and Alaska Native (NH),,,,,,
+2019,Tennessee,47,Asian (NH),,,,,,
+2019,Tennessee,47,Black or African American (NH),-100.0,-100.0,58.4,48.8,82.99,7.35
+2019,Tennessee,47,Hispanic or Latino,,,,,,
+2019,Tennessee,47,Two or more races (NH),,,,,,
+2019,Tennessee,47,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Tennessee,47,White (NH),-100.0,-100.0,41.6,51.2,17.43,2.25
+2019,Texas,48,American Indian and Alaska Native (NH),,,,,,
+2019,Texas,48,Asian (NH),,,,,,
+2019,Texas,48,Black or African American (NH),-100.0,-100.0,32.0,29.6,49.34,6.74
+2019,Texas,48,Hispanic or Latino,-100.0,-100.0,36.2,31.0,16.0,2.0
+2019,Texas,48,Two or more races (NH),,,,,,
+2019,Texas,48,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Texas,48,White (NH),-100.0,-100.0,31.8,39.4,18.8,3.47
+2019,Utah,49,American Indian and Alaska Native (NH),,,,,,
+2019,Utah,49,Asian (NH),,,,,,
+2019,Utah,49,Black or African American (NH),,,,,,
+2019,Utah,49,Hispanic or Latino,,,,,,
+2019,Utah,49,Two or more races (NH),,,,,,
+2019,Utah,49,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Utah,49,White (NH),-100.0,,100.0,,17.22,
+2019,Vermont,50,American Indian and Alaska Native (NH),,,,,,
+2019,Vermont,50,Asian (NH),,,,,,
+2019,Vermont,50,Black or African American (NH),,,,,,
+2019,Vermont,50,Hispanic or Latino,,,,,,
+2019,Vermont,50,Two or more races (NH),,,,,,
+2019,Vermont,50,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Vermont,50,White (NH),,,,,,
+2019,Virginia,51,American Indian and Alaska Native (NH),,,,,,
+2019,Virginia,51,Asian (NH),,,,,,
+2019,Virginia,51,Black or African American (NH),-100.0,-100.0,56.6,100.0,51.53,7.01
+2019,Virginia,51,Hispanic or Latino,,,,,,
+2019,Virginia,51,Two or more races (NH),,,,,,
+2019,Virginia,51,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Virginia,51,White (NH),-100.0,,43.4,,14.59,
+2019,Washington,53,American Indian and Alaska Native (NH),,,,,,
+2019,Washington,53,Asian (NH),,,,,,
+2019,Washington,53,Black or African American (NH),,,,,,
+2019,Washington,53,Hispanic or Latino,-100.0,,28.2,,16.0,
+2019,Washington,53,Two or more races (NH),,,,,,
+2019,Washington,53,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Washington,53,White (NH),-100.0,,71.8,,12.44,
+2019,West Virginia,54,American Indian and Alaska Native (NH),,,,,,
+2019,West Virginia,54,Asian (NH),,,,,,
+2019,West Virginia,54,Black or African American (NH),,,,,,
+2019,West Virginia,54,Hispanic or Latino,,,,,,
+2019,West Virginia,54,Two or more races (NH),,,,,,
+2019,West Virginia,54,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,West Virginia,54,White (NH),-100.0,,100.0,,20.5,
+2019,Wisconsin,55,American Indian and Alaska Native (NH),,,,,,
+2019,Wisconsin,55,Asian (NH),,,,,,
+2019,Wisconsin,55,Black or African American (NH),-100.0,,39.4,,56.74,
+2019,Wisconsin,55,Hispanic or Latino,,,,,,
+2019,Wisconsin,55,Two or more races (NH),,,,,,
+2019,Wisconsin,55,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Wisconsin,55,White (NH),-100.0,,60.6,,9.19,
+2019,Wyoming,56,American Indian and Alaska Native (NH),,,,,,
+2019,Wyoming,56,Asian (NH),,,,,,
+2019,Wyoming,56,Black or African American (NH),,,,,,
+2019,Wyoming,56,Hispanic or Latino,,,,,,
+2019,Wyoming,56,Two or more races (NH),,,,,,
+2019,Wyoming,56,Native Hawaiian and Pacific Islander (NH),,,,,,
+2019,Wyoming,56,White (NH),,,,,,
+2020,Alabama,01,American Indian and Alaska Native (NH),,,,,,
+2020,Alabama,01,Asian (NH),,,,,,
+2020,Alabama,01,Black or African American (NH),-100.0,,68.7,,107.61,
+2020,Alabama,01,Hispanic or Latino,,,,,,
+2020,Alabama,01,Two or more races (NH),,,,,,
+2020,Alabama,01,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Alabama,01,White (NH),-100.0,,31.3,,25.29,
+2020,Alaska,02,American Indian and Alaska Native (NH),,,,,,
+2020,Alaska,02,Asian (NH),,,,,,
+2020,Alaska,02,Black or African American (NH),,,,,,
+2020,Alaska,02,Hispanic or Latino,,,,,,
+2020,Alaska,02,Two or more races (NH),,,,,,
+2020,Alaska,02,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Alaska,02,White (NH),,,,,,
+2020,Arizona,04,American Indian and Alaska Native (NH),,,,,,
+2020,Arizona,04,Asian (NH),,,,,,
+2020,Arizona,04,Black or African American (NH),-100.0,,19.4,,76.96,
+2020,Arizona,04,Hispanic or Latino,-100.0,,41.9,,21.0,
+2020,Arizona,04,Two or more races (NH),,,,,,
+2020,Arizona,04,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Arizona,04,White (NH),-100.0,,38.8,,19.28,
+2020,Arkansas,05,American Indian and Alaska Native (NH),,,,,,
+2020,Arkansas,05,Asian (NH),,,,,,
+2020,Arkansas,05,Black or African American (NH),-100.0,-99.9,56.5,100.0,120.92,19.16
+2020,Arkansas,05,Hispanic or Latino,,,,,,
+2020,Arkansas,05,Two or more races (NH),,,,,,
+2020,Arkansas,05,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Arkansas,05,White (NH),-100.0,,43.5,,26.43,
+2020,California,06,American Indian and Alaska Native (NH),,,,,,
+2020,California,06,Asian (NH),-100.0,,3.5,,3.95,
+2020,California,06,Black or African American (NH),-100.0,-100.0,25.2,24.6,64.5,6.73
+2020,California,06,Hispanic or Latino,-100.0,-100.0,51.5,52.5,15.0,1.0
+2020,California,06,Two or more races (NH),-100.0,,4.8,,17.78,
+2020,California,06,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,California,06,White (NH),-100.0,-100.0,15.0,23.0,7.89,1.27
+2020,Colorado,08,American Indian and Alaska Native (NH),,,,,,
+2020,Colorado,08,Asian (NH),,,,,,
+2020,Colorado,08,Black or African American (NH),-100.0,,17.0,,87.66,
+2020,Colorado,08,Hispanic or Latino,-100.0,,29.8,,25.0,
+2020,Colorado,08,Two or more races (NH),,,,,,
+2020,Colorado,08,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Colorado,08,White (NH),-100.0,-100.0,53.2,100.0,20.88,3.16
+2020,Connecticut,09,American Indian and Alaska Native (NH),,,,,,
+2020,Connecticut,09,Asian (NH),,,,,,
+2020,Connecticut,09,Black or African American (NH),-99.9,,100.0,,57.16,
+2020,Connecticut,09,Hispanic or Latino,,,,,,
+2020,Connecticut,09,Two or more races (NH),,,,,,
+2020,Connecticut,09,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Connecticut,09,White (NH),,,,,,
+2020,Delaware,10,American Indian and Alaska Native (NH),,,,,,
+2020,Delaware,10,Asian (NH),,,,,,
+2020,Delaware,10,Black or African American (NH),-99.8,,100.0,,101.99,
+2020,Delaware,10,Hispanic or Latino,,,,,,
+2020,Delaware,10,Two or more races (NH),,,,,,
+2020,Delaware,10,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Delaware,10,White (NH),,,,,,
+2020,District of Columbia,11,American Indian and Alaska Native (NH),,,,,,
+2020,District of Columbia,11,Asian (NH),,,,,,
+2020,District of Columbia,11,Black or African American (NH),-99.8,,100.0,,178.18,
+2020,District of Columbia,11,Hispanic or Latino,,,,,,
+2020,District of Columbia,11,Two or more races (NH),,,,,,
+2020,District of Columbia,11,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,District of Columbia,11,White (NH),,,,,,
+2020,Florida,12,American Indian and Alaska Native (NH),,,,,,
+2020,Florida,12,Asian (NH),,,,,,
+2020,Florida,12,Black or African American (NH),-100.0,-100.0,56.9,40.5,76.42,5.73
+2020,Florida,12,Hispanic or Latino,-100.0,-100.0,14.9,22.3,13.0,2.0
+2020,Florida,12,Two or more races (NH),,,,,,
+2020,Florida,12,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Florida,12,White (NH),-100.0,-100.0,28.2,37.2,17.01,2.52
+2020,Georgia,13,American Indian and Alaska Native (NH),,,,,,
+2020,Georgia,13,Asian (NH),,,,,,
+2020,Georgia,13,Black or African American (NH),-100.0,-100.0,74.8,71.7,71.21,7.73
+2020,Georgia,13,Hispanic or Latino,,,,,,
+2020,Georgia,13,Two or more races (NH),,,,,,
+2020,Georgia,13,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Georgia,13,White (NH),-100.0,-100.0,25.2,28.3,18.18,2.4
+2020,Hawaii,15,American Indian and Alaska Native (NH),,,,,,
+2020,Hawaii,15,Asian (NH),,,,,,
+2020,Hawaii,15,Black or African American (NH),,,,,,
+2020,Hawaii,15,Hispanic or Latino,,,,,,
+2020,Hawaii,15,Two or more races (NH),,,,,,
+2020,Hawaii,15,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Hawaii,15,White (NH),,,,,,
+2020,Idaho,16,American Indian and Alaska Native (NH),,,,,,
+2020,Idaho,16,Asian (NH),,,,,,
+2020,Idaho,16,Black or African American (NH),,,,,,
+2020,Idaho,16,Hispanic or Latino,,,,,,
+2020,Idaho,16,Two or more races (NH),,,,,,
+2020,Idaho,16,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Idaho,16,White (NH),-100.0,,100.0,,22.15,
+2020,Illinois,17,American Indian and Alaska Native (NH),,,,,,
+2020,Illinois,17,Asian (NH),,,,,,
+2020,Illinois,17,Black or African American (NH),-100.0,-100.0,71.8,75.0,145.68,14.4
+2020,Illinois,17,Hispanic or Latino,-100.0,-100.0,15.9,25.0,22.0,3.0
+2020,Illinois,17,Two or more races (NH),,,,,,
+2020,Illinois,17,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Illinois,17,White (NH),-100.0,,12.3,,7.48,
+2020,Indiana,18,American Indian and Alaska Native (NH),,,,,,
+2020,Indiana,18,Asian (NH),,,,,,
+2020,Indiana,18,Black or African American (NH),-100.0,-100.0,56.3,46.8,183.92,15.94
+2020,Indiana,18,Hispanic or Latino,,,,,,
+2020,Indiana,18,Two or more races (NH),,,,,,
+2020,Indiana,18,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Indiana,18,White (NH),-100.0,-100.0,43.7,53.2,21.33,2.97
+2020,Iowa,19,American Indian and Alaska Native (NH),,,,,,
+2020,Iowa,19,Asian (NH),,,,,,
+2020,Iowa,19,Black or African American (NH),,,,,,
+2020,Iowa,19,Hispanic or Latino,,,,,,
+2020,Iowa,19,Two or more races (NH),,,,,,
+2020,Iowa,19,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Iowa,19,White (NH),-100.0,,100.0,,12.2,
+2020,Kansas,20,American Indian and Alaska Native (NH),,,,,,
+2020,Kansas,20,Asian (NH),,,,,,
+2020,Kansas,20,Black or African American (NH),-100.0,,20.8,,93.66,
+2020,Kansas,20,Hispanic or Latino,-100.0,,25.7,,48.0,
+2020,Kansas,20,Two or more races (NH),,,,,,
+2020,Kansas,20,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Kansas,20,White (NH),-100.0,,53.5,,24.01,
+2020,Kentucky,21,American Indian and Alaska Native (NH),,,,,,
+2020,Kentucky,21,Asian (NH),,,,,,
+2020,Kentucky,21,Black or African American (NH),-100.0,-100.0,45.5,45.1,139.3,24.41
+2020,Kentucky,21,Hispanic or Latino,,,,,,
+2020,Kentucky,21,Two or more races (NH),,,,,,
+2020,Kentucky,21,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Kentucky,21,White (NH),-100.0,-100.0,54.5,54.9,22.47,3.54
+2020,Louisiana,22,American Indian and Alaska Native (NH),,,,,,
+2020,Louisiana,22,Asian (NH),,,,,,
+2020,Louisiana,22,Black or African American (NH),-100.0,-100.0,87.2,100.0,148.12,13.28
+2020,Louisiana,22,Hispanic or Latino,,,,,,
+2020,Louisiana,22,Two or more races (NH),,,,,,
+2020,Louisiana,22,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Louisiana,22,White (NH),-100.0,,12.8,,15.92,
+2020,Maine,23,American Indian and Alaska Native (NH),,,,,,
+2020,Maine,23,Asian (NH),,,,,,
+2020,Maine,23,Black or African American (NH),,,,,,
+2020,Maine,23,Hispanic or Latino,,,,,,
+2020,Maine,23,Two or more races (NH),,,,,,
+2020,Maine,23,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Maine,23,White (NH),,,,,,
+2020,Maryland,24,American Indian and Alaska Native (NH),,,,,,
+2020,Maryland,24,Asian (NH),,,,,,
+2020,Maryland,24,Black or African American (NH),-100.0,,88.7,,88.78,
+2020,Maryland,24,Hispanic or Latino,,,,,,
+2020,Maryland,24,Two or more races (NH),,,,,,
+2020,Maryland,24,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Maryland,24,White (NH),-100.0,,11.3,,8.03,
+2020,Massachusetts,25,American Indian and Alaska Native (NH),,,,,,
+2020,Massachusetts,25,Asian (NH),,,,,,
+2020,Massachusetts,25,Black or African American (NH),-99.9,,100.0,,40.28,
+2020,Massachusetts,25,Hispanic or Latino,,,,,,
+2020,Massachusetts,25,Two or more races (NH),,,,,,
+2020,Massachusetts,25,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Massachusetts,25,White (NH),,,,,,
+2020,Michigan,26,American Indian and Alaska Native (NH),,,,,,
+2020,Michigan,26,Asian (NH),,,,,,
+2020,Michigan,26,Black or African American (NH),-100.0,-100.0,66.0,100.0,106.59,10.3
+2020,Michigan,26,Hispanic or Latino,,,,,,
+2020,Michigan,26,Two or more races (NH),,,,,,
+2020,Michigan,26,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Michigan,26,White (NH),-100.0,,34.0,,12.01,
+2020,Minnesota,27,American Indian and Alaska Native (NH),,,,,,
+2020,Minnesota,27,Asian (NH),,,,,,
+2020,Minnesota,27,Black or African American (NH),-100.0,,48.4,,63.33,
+2020,Minnesota,27,Hispanic or Latino,,,,,,
+2020,Minnesota,27,Two or more races (NH),,,,,,
+2020,Minnesota,27,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Minnesota,27,White (NH),-100.0,,51.6,,7.82,
+2020,Mississippi,28,American Indian and Alaska Native (NH),,,,,,
+2020,Mississippi,28,Asian (NH),,,,,,
+2020,Mississippi,28,Black or African American (NH),-100.0,-100.0,79.4,100.0,101.03,11.69
+2020,Mississippi,28,Hispanic or Latino,,,,,,
+2020,Mississippi,28,Two or more races (NH),,,,,,
+2020,Mississippi,28,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Mississippi,28,White (NH),-100.0,,20.6,,22.08,
+2020,Missouri,29,American Indian and Alaska Native (NH),,,,,,
+2020,Missouri,29,Asian (NH),,,,,,
+2020,Missouri,29,Black or African American (NH),-100.0,-100.0,59.2,61.1,194.62,23.52
+2020,Missouri,29,Hispanic or Latino,,,,,,
+2020,Missouri,29,Two or more races (NH),,,,,,
+2020,Missouri,29,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Missouri,29,White (NH),-100.0,-100.0,40.8,38.9,24.1,2.8
+2020,Montana,30,American Indian and Alaska Native (NH),,,,,,
+2020,Montana,30,Asian (NH),,,,,,
+2020,Montana,30,Black or African American (NH),,,,,,
+2020,Montana,30,Hispanic or Latino,,,,,,
+2020,Montana,30,Two or more races (NH),,,,,,
+2020,Montana,30,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Montana,30,White (NH),-99.9,,100.0,,36.53,
+2020,Nebraska,31,American Indian and Alaska Native (NH),,,,,,
+2020,Nebraska,31,Asian (NH),,,,,,
+2020,Nebraska,31,Black or African American (NH),,,,,,
+2020,Nebraska,31,Hispanic or Latino,,,,,,
+2020,Nebraska,31,Two or more races (NH),,,,,,
+2020,Nebraska,31,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Nebraska,31,White (NH),,,,,,
+2020,Nevada,32,American Indian and Alaska Native (NH),,,,,,
+2020,Nevada,32,Asian (NH),,,,,,
+2020,Nevada,32,Black or African American (NH),-99.9,,42.9,,68.74,
+2020,Nevada,32,Hispanic or Latino,,,,,,
+2020,Nevada,32,Two or more races (NH),,,,,,
+2020,Nevada,32,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Nevada,32,White (NH),-100.0,,57.1,,27.52,
+2020,New Hampshire,33,American Indian and Alaska Native (NH),,,,,,
+2020,New Hampshire,33,Asian (NH),,,,,,
+2020,New Hampshire,33,Black or African American (NH),,,,,,
+2020,New Hampshire,33,Hispanic or Latino,,,,,,
+2020,New Hampshire,33,Two or more races (NH),,,,,,
+2020,New Hampshire,33,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,New Hampshire,33,White (NH),,,,,,
+2020,New Jersey,34,American Indian and Alaska Native (NH),,,,,,
+2020,New Jersey,34,Asian (NH),,,,,,
+2020,New Jersey,34,Black or African American (NH),-100.0,,100.0,,46.99,
+2020,New Jersey,34,Hispanic or Latino,,,,,,
+2020,New Jersey,34,Two or more races (NH),,,,,,
+2020,New Jersey,34,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,New Jersey,34,White (NH),,,,,,
+2020,New Mexico,35,American Indian and Alaska Native (NH),,,,,,
+2020,New Mexico,35,Asian (NH),,,,,,
+2020,New Mexico,35,Black or African American (NH),,,,,,
+2020,New Mexico,35,Hispanic or Latino,-100.0,,100.0,,37.0,
+2020,New Mexico,35,Two or more races (NH),,,,,,
+2020,New Mexico,35,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,New Mexico,35,White (NH),,,,,,
+2020,New York,36,American Indian and Alaska Native (NH),,,,,,
+2020,New York,36,Asian (NH),,,,,,
+2020,New York,36,Black or African American (NH),-100.0,,62.8,,44.28,
+2020,New York,36,Hispanic or Latino,-100.0,,15.2,,8.0,
+2020,New York,36,Two or more races (NH),,,,,,
+2020,New York,36,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,New York,36,White (NH),-100.0,,22.0,,4.66,
+2020,North Carolina,37,American Indian and Alaska Native (NH),,,,,,
+2020,North Carolina,37,Asian (NH),,,,,,
+2020,North Carolina,37,Black or African American (NH),-100.0,-100.0,61.1,53.8,74.44,9.67
+2020,North Carolina,37,Hispanic or Latino,,,,,,
+2020,North Carolina,37,Two or more races (NH),,,,,,
+2020,North Carolina,37,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,North Carolina,37,White (NH),-100.0,-100.0,38.9,46.2,20.0,3.65
+2020,North Dakota,38,American Indian and Alaska Native (NH),,,,,,
+2020,North Dakota,38,Asian (NH),,,,,,
+2020,North Dakota,38,Black or African American (NH),,,,,,
+2020,North Dakota,38,Hispanic or Latino,,,,,,
+2020,North Dakota,38,Two or more races (NH),,,,,,
+2020,North Dakota,38,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,North Dakota,38,White (NH),,,,,,
+2020,Ohio,39,American Indian and Alaska Native (NH),,,,,,
+2020,Ohio,39,Asian (NH),,,,,,
+2020,Ohio,39,Black or African American (NH),-100.0,-100.0,65.8,61.1,140.93,14.52
+2020,Ohio,39,Hispanic or Latino,,,,,,
+2020,Ohio,39,Two or more races (NH),,,,,,
+2020,Ohio,39,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Ohio,39,White (NH),-100.0,-100.0,34.2,38.9,14.41,2.01
+2020,Oklahoma,40,American Indian and Alaska Native (NH),,,,,,
+2020,Oklahoma,40,Asian (NH),,,,,,
+2020,Oklahoma,40,Black or African American (NH),-100.0,,28.6,,82.41,
+2020,Oklahoma,40,Hispanic or Latino,,,,,,
+2020,Oklahoma,40,Two or more races (NH),,,,,,
+2020,Oklahoma,40,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Oklahoma,40,White (NH),-100.0,,71.4,,33.54,
+2020,Oregon,41,American Indian and Alaska Native (NH),,,,,,
+2020,Oregon,41,Asian (NH),,,,,,
+2020,Oregon,41,Black or African American (NH),,,,,,
+2020,Oregon,41,Hispanic or Latino,-100.0,,33.3,,26.0,
+2020,Oregon,41,Two or more races (NH),,,,,,
+2020,Oregon,41,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Oregon,41,White (NH),-100.0,,66.7,,16.45,
+2020,Pennsylvania,42,American Indian and Alaska Native (NH),,,,,,
+2020,Pennsylvania,42,Asian (NH),,,,,,
+2020,Pennsylvania,42,Black or African American (NH),-100.0,-100.0,64.7,59.7,131.86,12.33
+2020,Pennsylvania,42,Hispanic or Latino,-100.0,,8.7,,21.0,
+2020,Pennsylvania,42,Two or more races (NH),,,,,,
+2020,Pennsylvania,42,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Pennsylvania,42,White (NH),-100.0,-100.0,26.6,40.3,10.32,1.65
+2020,Rhode Island,44,American Indian and Alaska Native (NH),,,,,,
+2020,Rhode Island,44,Asian (NH),,,,,,
+2020,Rhode Island,44,Black or African American (NH),,,,,,
+2020,Rhode Island,44,Hispanic or Latino,,,,,,
+2020,Rhode Island,44,Two or more races (NH),,,,,,
+2020,Rhode Island,44,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Rhode Island,44,White (NH),,,,,,
+2020,South Carolina,45,American Indian and Alaska Native (NH),,,,,,
+2020,South Carolina,45,Asian (NH),,,,,,
+2020,South Carolina,45,Black or African American (NH),-100.0,-100.0,66.8,63.5,105.8,12.3
+2020,South Carolina,45,Hispanic or Latino,,,,,,
+2020,South Carolina,45,Two or more races (NH),,,,,,
+2020,South Carolina,45,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,South Carolina,45,White (NH),-100.0,-100.0,33.2,36.5,26.94,3.81
+2020,South Dakota,46,American Indian and Alaska Native (NH),,,,,,
+2020,South Dakota,46,Asian (NH),,,,,,
+2020,South Dakota,46,Black or African American (NH),,,,,,
+2020,South Dakota,46,Hispanic or Latino,,,,,,
+2020,South Dakota,46,Two or more races (NH),,,,,,
+2020,South Dakota,46,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,South Dakota,46,White (NH),,,,,,
+2020,Tennessee,47,American Indian and Alaska Native (NH),,,,,,
+2020,Tennessee,47,Asian (NH),,,,,,
+2020,Tennessee,47,Black or African American (NH),-100.0,-100.0,66.0,65.6,117.04,14.45
+2020,Tennessee,47,Hispanic or Latino,,,,,,
+2020,Tennessee,47,Two or more races (NH),,,,,,
+2020,Tennessee,47,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Tennessee,47,White (NH),-100.0,-100.0,34.0,34.4,17.54,2.22
+2020,Texas,48,American Indian and Alaska Native (NH),,,,,,
+2020,Texas,48,Asian (NH),,,,,,
+2020,Texas,48,Black or African American (NH),-100.0,-100.0,34.2,24.1,70.11,6.73
+2020,Texas,48,Hispanic or Latino,-100.0,-100.0,36.6,39.1,21.0,3.0
+2020,Texas,48,Two or more races (NH),,,,,,
+2020,Texas,48,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Texas,48,White (NH),-100.0,-100.0,29.2,36.8,23.07,4.03
+2020,Utah,49,American Indian and Alaska Native (NH),,,,,,
+2020,Utah,49,Asian (NH),,,,,,
+2020,Utah,49,Black or African American (NH),,,,,,
+2020,Utah,49,Hispanic or Latino,-100.0,,33.8,,33.0,
+2020,Utah,49,Two or more races (NH),,,,,,
+2020,Utah,49,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Utah,49,White (NH),-100.0,,66.2,,14.46,
+2020,Vermont,50,American Indian and Alaska Native (NH),,,,,,
+2020,Vermont,50,Asian (NH),,,,,,
+2020,Vermont,50,Black or African American (NH),,,,,,
+2020,Vermont,50,Hispanic or Latino,,,,,,
+2020,Vermont,50,Two or more races (NH),,,,,,
+2020,Vermont,50,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Vermont,50,White (NH),,,,,,
+2020,Virginia,51,American Indian and Alaska Native (NH),,,,,,
+2020,Virginia,51,Asian (NH),,,,,,
+2020,Virginia,51,Black or African American (NH),-100.0,-100.0,64.1,55.0,74.82,8.75
+2020,Virginia,51,Hispanic or Latino,,,,,,
+2020,Virginia,51,Two or more races (NH),,,,,,
+2020,Virginia,51,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Virginia,51,White (NH),-100.0,-100.0,35.9,45.0,15.37,2.71
+2020,Washington,53,American Indian and Alaska Native (NH),,,,,,
+2020,Washington,53,Asian (NH),,,,,,
+2020,Washington,53,Black or African American (NH),-100.0,,18.0,,65.68,
+2020,Washington,53,Hispanic or Latino,-100.0,,27.1,,25.0,
+2020,Washington,53,Two or more races (NH),,,,,,
+2020,Washington,53,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Washington,53,White (NH),-100.0,,54.9,,16.58,
+2020,West Virginia,54,American Indian and Alaska Native (NH),,,,,,
+2020,West Virginia,54,Asian (NH),,,,,,
+2020,West Virginia,54,Black or African American (NH),,,,,,
+2020,West Virginia,54,Hispanic or Latino,,,,,,
+2020,West Virginia,54,Two or more races (NH),,,,,,
+2020,West Virginia,54,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,West Virginia,54,White (NH),-100.0,,100.0,,22.11,
+2020,Wisconsin,55,American Indian and Alaska Native (NH),,,,,,
+2020,Wisconsin,55,Asian (NH),,,,,,
+2020,Wisconsin,55,Black or African American (NH),-100.0,,49.6,,115.54,
+2020,Wisconsin,55,Hispanic or Latino,,,,,,
+2020,Wisconsin,55,Two or more races (NH),,,,,,
+2020,Wisconsin,55,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Wisconsin,55,White (NH),-100.0,,50.4,,12.31,
+2020,Wyoming,56,American Indian and Alaska Native (NH),,,,,,
+2020,Wyoming,56,Asian (NH),,,,,,
+2020,Wyoming,56,Black or African American (NH),,,,,,
+2020,Wyoming,56,Hispanic or Latino,,,,,,
+2020,Wyoming,56,Two or more races (NH),,,,,,
+2020,Wyoming,56,Native Hawaiian and Pacific Islander (NH),,,,,,
+2020,Wyoming,56,White (NH),,,,,,
+2021,Alabama,01,American Indian and Alaska Native (NH),,,,,,
+2021,Alabama,01,Asian (NH),,,,,,
+2021,Alabama,01,Black or African American (NH),-100.0,-100.0,79.0,67.5,126.74,16.03
+2021,Alabama,01,Hispanic or Latino,,,,,,
+2021,Alabama,01,Two or more races (NH),,,,,,
+2021,Alabama,01,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Alabama,01,White (NH),-100.0,-100.0,21.0,32.5,17.15,3.9
+2021,Alaska,02,American Indian and Alaska Native (NH),,,,,,
+2021,Alaska,02,Asian (NH),,,,,,
+2021,Alaska,02,Black or African American (NH),,,,,,
+2021,Alaska,02,Hispanic or Latino,,,,,,
+2021,Alaska,02,Two or more races (NH),,,,,,
+2021,Alaska,02,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Alaska,02,White (NH),,,,,,
+2021,Arizona,04,American Indian and Alaska Native (NH),,,,,,
+2021,Arizona,04,Asian (NH),,,,,,
+2021,Arizona,04,Black or African American (NH),-100.0,,18.0,,80.93,
+2021,Arizona,04,Hispanic or Latino,-100.0,-100.0,45.9,100.0,26.0,4.0
+2021,Arizona,04,Two or more races (NH),,,,,,
+2021,Arizona,04,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Arizona,04,White (NH),-100.0,,36.1,,20.39,
+2021,Arkansas,05,American Indian and Alaska Native (NH),,,,,,
+2021,Arkansas,05,Asian (NH),,,,,,
+2021,Arkansas,05,Black or African American (NH),-100.0,,58.9,,126.85,
+2021,Arkansas,05,Hispanic or Latino,,,,,,
+2021,Arkansas,05,Two or more races (NH),,,,,,
+2021,Arkansas,05,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Arkansas,05,White (NH),-100.0,,41.1,,24.85,
+2021,California,06,American Indian and Alaska Native (NH),,,,,,
+2021,California,06,Asian (NH),-100.0,,4.1,,4.99,
+2021,California,06,Black or African American (NH),-100.0,-100.0,29.2,29.9,80.64,7.31
+2021,California,06,Hispanic or Latino,-100.0,-100.0,51.8,70.1,16.0,2.0
+2021,California,06,Two or more races (NH),,,,,,
+2021,California,06,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,California,06,White (NH),-100.0,,14.8,,8.44,
+2021,Colorado,08,American Indian and Alaska Native (NH),,,,,,
+2021,Colorado,08,Asian (NH),,,,,,
+2021,Colorado,08,Black or African American (NH),,,,,,
+2021,Colorado,08,Hispanic or Latino,-100.0,,44.3,,35.0,
+2021,Colorado,08,Two or more races (NH),,,,,,
+2021,Colorado,08,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Colorado,08,White (NH),-100.0,,55.7,,21.79,
+2021,Connecticut,09,American Indian and Alaska Native (NH),,,,,,
+2021,Connecticut,09,Asian (NH),,,,,,
+2021,Connecticut,09,Black or African American (NH),-99.9,,100.0,,70.58,
+2021,Connecticut,09,Hispanic or Latino,,,,,,
+2021,Connecticut,09,Two or more races (NH),,,,,,
+2021,Connecticut,09,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Connecticut,09,White (NH),,,,,,
+2021,Delaware,10,American Indian and Alaska Native (NH),,,,,,
+2021,Delaware,10,Asian (NH),,,,,,
+2021,Delaware,10,Black or African American (NH),-99.8,,100.0,,121.23,
+2021,Delaware,10,Hispanic or Latino,,,,,,
+2021,Delaware,10,Two or more races (NH),,,,,,
+2021,Delaware,10,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Delaware,10,White (NH),,,,,,
+2021,District of Columbia,11,American Indian and Alaska Native (NH),,,,,,
+2021,District of Columbia,11,Asian (NH),,,,,,
+2021,District of Columbia,11,Black or African American (NH),-99.8,,100.0,,144.34,
+2021,District of Columbia,11,Hispanic or Latino,,,,,,
+2021,District of Columbia,11,Two or more races (NH),,,,,,
+2021,District of Columbia,11,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,District of Columbia,11,White (NH),,,,,,
+2021,Florida,12,American Indian and Alaska Native (NH),,,,,,
+2021,Florida,12,Asian (NH),,,,,,
+2021,Florida,12,Black or African American (NH),-100.0,-100.0,55.2,63.2,70.08,7.04
+2021,Florida,12,Hispanic or Latino,-100.0,,16.6,,13.0,
+2021,Florida,12,Two or more races (NH),,,,,,
+2021,Florida,12,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Florida,12,White (NH),-100.0,-100.0,28.2,36.8,15.98,1.96
+2021,Georgia,13,American Indian and Alaska Native (NH),,,,,,
+2021,Georgia,13,Asian (NH),,,,,,
+2021,Georgia,13,Black or African American (NH),-100.0,-100.0,70.1,68.0,75.9,9.96
+2021,Georgia,13,Hispanic or Latino,-100.0,,7.1,,21.0,
+2021,Georgia,13,Two or more races (NH),,,,,,
+2021,Georgia,13,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Georgia,13,White (NH),-100.0,-100.0,22.8,32.0,18.7,3.74
+2021,Hawaii,15,American Indian and Alaska Native (NH),,,,,,
+2021,Hawaii,15,Asian (NH),,,,,,
+2021,Hawaii,15,Black or African American (NH),,,,,,
+2021,Hawaii,15,Hispanic or Latino,,,,,,
+2021,Hawaii,15,Two or more races (NH),,,,,,
+2021,Hawaii,15,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Hawaii,15,White (NH),,,,,,
+2021,Idaho,16,American Indian and Alaska Native (NH),,,,,,
+2021,Idaho,16,Asian (NH),,,,,,
+2021,Idaho,16,Black or African American (NH),,,,,,
+2021,Idaho,16,Hispanic or Latino,,,,,,
+2021,Idaho,16,Two or more races (NH),,,,,,
+2021,Idaho,16,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Idaho,16,White (NH),-100.0,,100.0,,18.85,
+2021,Illinois,17,American Indian and Alaska Native (NH),,,,,,
+2021,Illinois,17,Asian (NH),,,,,,
+2021,Illinois,17,Black or African American (NH),-100.0,-100.0,71.7,79.6,166.8,20.98
+2021,Illinois,17,Hispanic or Latino,-100.0,,16.0,,24.0,
+2021,Illinois,17,Two or more races (NH),,,,,,
+2021,Illinois,17,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Illinois,17,White (NH),-100.0,-100.0,12.3,20.4,8.51,1.63
+2021,Indiana,18,American Indian and Alaska Native (NH),,,,,,
+2021,Indiana,18,Asian (NH),,,,,,
+2021,Indiana,18,Black or African American (NH),-100.0,,52.4,,162.46,
+2021,Indiana,18,Hispanic or Latino,,,,,,
+2021,Indiana,18,Two or more races (NH),,,,,,
+2021,Indiana,18,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Indiana,18,White (NH),-100.0,-100.0,47.6,100.0,22.11,3.28
+2021,Iowa,19,American Indian and Alaska Native (NH),,,,,,
+2021,Iowa,19,Asian (NH),,,,,,
+2021,Iowa,19,Black or African American (NH),,,,,,
+2021,Iowa,19,Hispanic or Latino,,,,,,
+2021,Iowa,19,Two or more races (NH),,,,,,
+2021,Iowa,19,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Iowa,19,White (NH),-100.0,,100.0,,12.57,
+2021,Kansas,20,American Indian and Alaska Native (NH),,,,,,
+2021,Kansas,20,Asian (NH),,,,,,
+2021,Kansas,20,Black or African American (NH),,,,,,
+2021,Kansas,20,Hispanic or Latino,-100.0,,30.4,,38.0,
+2021,Kansas,20,Two or more races (NH),,,,,,
+2021,Kansas,20,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Kansas,20,White (NH),-100.0,,69.6,,21.41,
+2021,Kentucky,21,American Indian and Alaska Native (NH),,,,,,
+2021,Kentucky,21,Asian (NH),,,,,,
+2021,Kentucky,21,Black or African American (NH),-100.0,-99.9,46.1,54.2,152.9,27.54
+2021,Kentucky,21,Hispanic or Latino,,,,,,
+2021,Kentucky,21,Two or more races (NH),,,,,,
+2021,Kentucky,21,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Kentucky,21,White (NH),-100.0,-100.0,53.9,45.8,24.08,2.81
+2021,Louisiana,22,American Indian and Alaska Native (NH),,,,,,
+2021,Louisiana,22,Asian (NH),,,,,,
+2021,Louisiana,22,Black or African American (NH),-100.0,-100.0,83.0,79.8,148.93,22.16
+2021,Louisiana,22,Hispanic or Latino,,,,,,
+2021,Louisiana,22,Two or more races (NH),,,,,,
+2021,Louisiana,22,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Louisiana,22,White (NH),-100.0,-100.0,17.0,20.2,22.2,4.04
+2021,Maine,23,American Indian and Alaska Native (NH),,,,,,
+2021,Maine,23,Asian (NH),,,,,,
+2021,Maine,23,Black or African American (NH),,,,,,
+2021,Maine,23,Hispanic or Latino,,,,,,
+2021,Maine,23,Two or more races (NH),,,,,,
+2021,Maine,23,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Maine,23,White (NH),,,,,,
+2021,Maryland,24,American Indian and Alaska Native (NH),,,,,,
+2021,Maryland,24,Asian (NH),,,,,,
+2021,Maryland,24,Black or African American (NH),-100.0,-100.0,87.2,100.0,85.01,5.27
+2021,Maryland,24,Hispanic or Latino,,,,,,
+2021,Maryland,24,Two or more races (NH),,,,,,
+2021,Maryland,24,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Maryland,24,White (NH),-100.0,,12.8,,8.86,
+2021,Massachusetts,25,American Indian and Alaska Native (NH),,,,,,
+2021,Massachusetts,25,Asian (NH),,,,,,
+2021,Massachusetts,25,Black or African American (NH),,,,,,
+2021,Massachusetts,25,Hispanic or Latino,,,,,,
+2021,Massachusetts,25,Two or more races (NH),,,,,,
+2021,Massachusetts,25,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Massachusetts,25,White (NH),,,,,,
+2021,Michigan,26,American Indian and Alaska Native (NH),,,,,,
+2021,Michigan,26,Asian (NH),,,,,,
+2021,Michigan,26,Black or African American (NH),-100.0,-100.0,67.8,46.4,116.6,7.49
+2021,Michigan,26,Hispanic or Latino,,,,,,
+2021,Michigan,26,Two or more races (NH),,,,,,
+2021,Michigan,26,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Michigan,26,White (NH),-100.0,-100.0,32.2,53.6,11.97,2.11
+2021,Minnesota,27,American Indian and Alaska Native (NH),,,,,,
+2021,Minnesota,27,Asian (NH),,,,,,
+2021,Minnesota,27,Black or African American (NH),-100.0,,51.3,,82.37,
+2021,Minnesota,27,Hispanic or Latino,,,,,,
+2021,Minnesota,27,Two or more races (NH),,,,,,
+2021,Minnesota,27,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Minnesota,27,White (NH),-100.0,,48.7,,9.35,
+2021,Mississippi,28,American Indian and Alaska Native (NH),,,,,,
+2021,Mississippi,28,Asian (NH),,,,,,
+2021,Mississippi,28,Black or African American (NH),-100.0,-100.0,81.3,100.0,132.21,17.07
+2021,Mississippi,28,Hispanic or Latino,,,,,,
+2021,Mississippi,28,Two or more races (NH),,,,,,
+2021,Mississippi,28,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Mississippi,28,White (NH),-100.0,,18.7,,25.23,
+2021,Missouri,29,American Indian and Alaska Native (NH),,,,,,
+2021,Missouri,29,Asian (NH),,,,,,
+2021,Missouri,29,Black or African American (NH),-100.0,-100.0,54.6,54.9,163.46,24.3
+2021,Missouri,29,Hispanic or Latino,,,,,,
+2021,Missouri,29,Two or more races (NH),,,,,,
+2021,Missouri,29,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Missouri,29,White (NH),-100.0,-100.0,45.4,45.1,24.06,3.73
+2021,Montana,30,American Indian and Alaska Native (NH),,,,,,
+2021,Montana,30,Asian (NH),,,,,,
+2021,Montana,30,Black or African American (NH),,,,,,
+2021,Montana,30,Hispanic or Latino,,,,,,
+2021,Montana,30,Two or more races (NH),,,,,,
+2021,Montana,30,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Montana,30,White (NH),-99.9,,100.0,,38.09,
+2021,Nebraska,31,American Indian and Alaska Native (NH),,,,,,
+2021,Nebraska,31,Asian (NH),,,,,,
+2021,Nebraska,31,Black or African American (NH),,,,,,
+2021,Nebraska,31,Hispanic or Latino,,,,,,
+2021,Nebraska,31,Two or more races (NH),,,,,,
+2021,Nebraska,31,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Nebraska,31,White (NH),-100.0,,100.0,,13.48,
+2021,Nevada,32,American Indian and Alaska Native (NH),,,,,,
+2021,Nevada,32,Asian (NH),,,,,,
+2021,Nevada,32,Black or African American (NH),-99.9,,38.9,,120.86,
+2021,Nevada,32,Hispanic or Latino,-100.0,,31.6,,25.0,
+2021,Nevada,32,Two or more races (NH),,,,,,
+2021,Nevada,32,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Nevada,32,White (NH),-100.0,,29.5,,27.86,
+2021,New Hampshire,33,American Indian and Alaska Native (NH),,,,,,
+2021,New Hampshire,33,Asian (NH),,,,,,
+2021,New Hampshire,33,Black or African American (NH),,,,,,
+2021,New Hampshire,33,Hispanic or Latino,,,,,,
+2021,New Hampshire,33,Two or more races (NH),,,,,,
+2021,New Hampshire,33,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,New Hampshire,33,White (NH),,,,,,
+2021,New Jersey,34,American Indian and Alaska Native (NH),,,,,,
+2021,New Jersey,34,Asian (NH),,,,,,
+2021,New Jersey,34,Black or African American (NH),-100.0,,100.0,,45.42,
+2021,New Jersey,34,Hispanic or Latino,,,,,,
+2021,New Jersey,34,Two or more races (NH),,,,,,
+2021,New Jersey,34,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,New Jersey,34,White (NH),,,,,,
+2021,New Mexico,35,American Indian and Alaska Native (NH),,,,,,
+2021,New Mexico,35,Asian (NH),,,,,,
+2021,New Mexico,35,Black or African American (NH),,,,,,
+2021,New Mexico,35,Hispanic or Latino,-100.0,,100.0,,52.0,
+2021,New Mexico,35,Two or more races (NH),,,,,,
+2021,New Mexico,35,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,New Mexico,35,White (NH),,,,,,
+2021,New York,36,American Indian and Alaska Native (NH),,,,,,
+2021,New York,36,Asian (NH),,,,,,
+2021,New York,36,Black or African American (NH),-100.0,-100.0,66.3,100.0,40.21,4.98
+2021,New York,36,Hispanic or Latino,-100.0,,17.9,,7.0,
+2021,New York,36,Two or more races (NH),,,,,,
+2021,New York,36,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,New York,36,White (NH),-100.0,,15.8,,2.84,
+2021,North Carolina,37,American Indian and Alaska Native (NH),,,,,,
+2021,North Carolina,37,Asian (NH),,,,,,
+2021,North Carolina,37,Black or African American (NH),-100.0,-100.0,58.5,69.7,83.93,13.37
+2021,North Carolina,37,Hispanic or Latino,-100.0,,9.0,,23.0,
+2021,North Carolina,37,Two or more races (NH),,,,,,
+2021,North Carolina,37,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,North Carolina,37,White (NH),-100.0,-100.0,32.4,30.3,19.44,2.57
+2021,North Dakota,38,American Indian and Alaska Native (NH),,,,,,
+2021,North Dakota,38,Asian (NH),,,,,,
+2021,North Dakota,38,Black or African American (NH),,,,,,
+2021,North Dakota,38,Hispanic or Latino,,,,,,
+2021,North Dakota,38,Two or more races (NH),,,,,,
+2021,North Dakota,38,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,North Dakota,38,White (NH),,,,,,
+2021,Ohio,39,American Indian and Alaska Native (NH),,,,,,
+2021,Ohio,39,Asian (NH),,,,,,
+2021,Ohio,39,Black or African American (NH),-100.0,-100.0,61.3,68.8,131.17,18.8
+2021,Ohio,39,Hispanic or Latino,,,,,,
+2021,Ohio,39,Two or more races (NH),,,,,,
+2021,Ohio,39,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Ohio,39,White (NH),-100.0,-100.0,38.7,31.2,16.18,1.87
+2021,Oklahoma,40,American Indian and Alaska Native (NH),,,,,,
+2021,Oklahoma,40,Asian (NH),,,,,,
+2021,Oklahoma,40,Black or African American (NH),-100.0,,34.8,,80.07,
+2021,Oklahoma,40,Hispanic or Latino,,,,,,
+2021,Oklahoma,40,Two or more races (NH),,,,,,
+2021,Oklahoma,40,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Oklahoma,40,White (NH),-100.0,,65.2,,24.15,
+2021,Oregon,41,American Indian and Alaska Native (NH),,,,,,
+2021,Oregon,41,Asian (NH),,,,,,
+2021,Oregon,41,Black or African American (NH),,,,,,
+2021,Oregon,41,Hispanic or Latino,-100.0,,30.9,,25.0,
+2021,Oregon,41,Two or more races (NH),,,,,,
+2021,Oregon,41,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Oregon,41,White (NH),-100.0,,69.1,,17.79,
+2021,Pennsylvania,42,American Indian and Alaska Native (NH),,,,,,
+2021,Pennsylvania,42,Asian (NH),,,,,,
+2021,Pennsylvania,42,Black or African American (NH),-100.0,-100.0,63.9,60.6,133.19,17.42
+2021,Pennsylvania,42,Hispanic or Latino,-100.0,,9.2,,22.0,
+2021,Pennsylvania,42,Two or more races (NH),,,,,,
+2021,Pennsylvania,42,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Pennsylvania,42,White (NH),-100.0,-100.0,26.9,39.4,10.64,2.25
+2021,Rhode Island,44,American Indian and Alaska Native (NH),,,,,,
+2021,Rhode Island,44,Asian (NH),,,,,,
+2021,Rhode Island,44,Black or African American (NH),,,,,,
+2021,Rhode Island,44,Hispanic or Latino,,,,,,
+2021,Rhode Island,44,Two or more races (NH),,,,,,
+2021,Rhode Island,44,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Rhode Island,44,White (NH),,,,,,
+2021,South Carolina,45,American Indian and Alaska Native (NH),,,,,,
+2021,South Carolina,45,Asian (NH),,,,,,
+2021,South Carolina,45,Black or African American (NH),-100.0,-100.0,70.0,67.2,105.22,13.29
+2021,South Carolina,45,Hispanic or Latino,,,,,,
+2021,South Carolina,45,Two or more races (NH),,,,,,
+2021,South Carolina,45,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,South Carolina,45,White (NH),-100.0,-100.0,30.0,32.8,22.7,3.48
+2021,South Dakota,46,American Indian and Alaska Native (NH),,,,,,
+2021,South Dakota,46,Asian (NH),,,,,,
+2021,South Dakota,46,Black or African American (NH),,,,,,
+2021,South Dakota,46,Hispanic or Latino,,,,,,
+2021,South Dakota,46,Two or more races (NH),,,,,,
+2021,South Dakota,46,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,South Dakota,46,White (NH),,,,,,
+2021,Tennessee,47,American Indian and Alaska Native (NH),,,,,,
+2021,Tennessee,47,Asian (NH),,,,,,
+2021,Tennessee,47,Black or African American (NH),-100.0,-100.0,64.7,70.7,126.42,20.08
+2021,Tennessee,47,Hispanic or Latino,,,,,,
+2021,Tennessee,47,Two or more races (NH),,,,,,
+2021,Tennessee,47,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Tennessee,47,White (NH),-100.0,-100.0,35.3,29.3,19.74,2.43
+2021,Texas,48,American Indian and Alaska Native (NH),,,,,,
+2021,Texas,48,Asian (NH),-100.0,,2.5,,16.63,
+2021,Texas,48,Black or African American (NH),-100.0,-100.0,35.6,30.6,82.46,8.53
+2021,Texas,48,Hispanic or Latino,-100.0,-100.0,34.7,41.6,22.0,3.0
+2021,Texas,48,Two or more races (NH),,,,,,
+2021,Texas,48,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Texas,48,White (NH),-100.0,-100.0,27.2,27.8,24.39,3.1
+2021,Utah,49,American Indian and Alaska Native (NH),,,,,,
+2021,Utah,49,Asian (NH),,,,,,
+2021,Utah,49,Black or African American (NH),,,,,,
+2021,Utah,49,Hispanic or Latino,,,,,,
+2021,Utah,49,Two or more races (NH),,,,,,
+2021,Utah,49,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Utah,49,White (NH),-100.0,,100.0,,16.26,
+2021,Vermont,50,American Indian and Alaska Native (NH),,,,,,
+2021,Vermont,50,Asian (NH),,,,,,
+2021,Vermont,50,Black or African American (NH),,,,,,
+2021,Vermont,50,Hispanic or Latino,,,,,,
+2021,Vermont,50,Two or more races (NH),,,,,,
+2021,Vermont,50,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Vermont,50,White (NH),,,,,,
+2021,Virginia,51,American Indian and Alaska Native (NH),,,,,,
+2021,Virginia,51,Asian (NH),,,,,,
+2021,Virginia,51,Black or African American (NH),-100.0,-100.0,65.4,63.3,81.88,10.14
+2021,Virginia,51,Hispanic or Latino,,,,,,
+2021,Virginia,51,Two or more races (NH),,,,,,
+2021,Virginia,51,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Virginia,51,White (NH),-100.0,-100.0,34.6,36.7,15.88,2.25
+2021,Washington,53,American Indian and Alaska Native (NH),,,,,,
+2021,Washington,53,Asian (NH),,,,,,
+2021,Washington,53,Black or African American (NH),,,,,,
+2021,Washington,53,Hispanic or Latino,-100.0,,26.9,,17.0,
+2021,Washington,53,Two or more races (NH),,,,,,
+2021,Washington,53,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Washington,53,White (NH),-100.0,-100.0,73.1,100.0,15.73,2.66
+2021,West Virginia,54,American Indian and Alaska Native (NH),,,,,,
+2021,West Virginia,54,Asian (NH),,,,,,
+2021,West Virginia,54,Black or African American (NH),,,,,,
+2021,West Virginia,54,Hispanic or Latino,,,,,,
+2021,West Virginia,54,Two or more races (NH),,,,,,
+2021,West Virginia,54,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,West Virginia,54,White (NH),-100.0,,100.0,,17.57,
+2021,Wisconsin,55,American Indian and Alaska Native (NH),,,,,,
+2021,Wisconsin,55,Asian (NH),,,,,,
+2021,Wisconsin,55,Black or African American (NH),-100.0,-99.9,55.1,100.0,156.53,23.87
+2021,Wisconsin,55,Hispanic or Latino,,,,,,
+2021,Wisconsin,55,Two or more races (NH),,,,,,
+2021,Wisconsin,55,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Wisconsin,55,White (NH),-100.0,,44.9,,13.19,
+2021,Wyoming,56,American Indian and Alaska Native (NH),,,,,,
+2021,Wyoming,56,Asian (NH),,,,,,
+2021,Wyoming,56,Black or African American (NH),,,,,,
+2021,Wyoming,56,Hispanic or Latino,,,,,,
+2021,Wyoming,56,Two or more races (NH),,,,,,
+2021,Wyoming,56,Native Hawaiian and Pacific Islander (NH),,,,,,
+2021,Wyoming,56,White (NH),,,,,,
+2018,Arizona,04,Unknown race,,,,,,
+2018,California,06,Unknown race,,,,,,
+2018,Florida,12,Unknown race,,,,,,
+2018,Illinois,17,Unknown race,,,,,,
+2018,Indiana,18,Unknown race,,,,,,
+2018,Iowa,19,Unknown race,,,,,,
+2018,Kansas,20,Unknown race,,,,,,
+2018,Massachusetts,25,Unknown race,,,,,,
+2018,Mississippi,28,Unknown race,,,,,,
+2018,Missouri,29,Unknown race,,,,,,
+2018,New York,36,Unknown race,,,,,,
+2018,North Carolina,37,Unknown race,,,,,,
+2018,Ohio,39,Unknown race,,,,,,
+2018,Rhode Island,44,Unknown race,,,,,,
+2019,Alabama,01,Unknown race,,,,,,
+2019,California,06,Unknown race,,,,,,
+2019,Colorado,08,Unknown race,,,,,,
+2019,Delaware,10,Unknown race,,,,,,
+2019,Kansas,20,Unknown race,,,,,,
+2019,Maryland,24,Unknown race,,,,,,
+2019,Massachusetts,25,Unknown race,,,,,,
+2019,New York,36,Unknown race,,,,,,
+2019,Pennsylvania,42,Unknown race,,,,,,
+2019,Texas,48,Unknown race,,,,,,
+2020,Alabama,01,Unknown race,,,,,,
+2020,Colorado,08,Unknown race,,,,,,
+2020,District of Columbia,11,Unknown race,,,,,,
+2020,Illinois,17,Unknown race,,,,,,
+2020,Kansas,20,Unknown race,,,,,,
+2020,Michigan,26,Unknown race,,,,,,
+2020,Minnesota,27,Unknown race,,,,,,
+2020,New York,36,Unknown race,,,,,,
+2020,Pennsylvania,42,Unknown race,,,,,,
+2020,Virginia,51,Unknown race,,,,,,
+2021,Arizona,04,Unknown race,,,,,,
+2021,Arkansas,05,Unknown race,,,,,,
+2021,Kansas,20,Unknown race,,,,,,
+2021,New York,36,Unknown race,,,,,,
+2021,Pennsylvania,42,Unknown race,,,,,,
+2018,Oklahoma,40,Unknown race,,,,,,
+2019,Virginia,51,Unknown race,,,,,,
+2021,California,06,Unknown race,,,,,,
+2021,Minnesota,27,Unknown race,,,,,,
+2021,Virginia,51,Unknown race,,,,,,
+2021,Alabama,01,All,-100.0,-100.0,100.0,100.0,50.64,7.22
+2021,Alaska,02,All,-99.9,-99.9,100.0,100.0,58.14,
+2021,Arizona,04,All,-100.0,-100.0,100.0,100.0,28.45,3.53
+2021,Arkansas,05,All,-100.0,-100.0,100.0,100.0,43.0,4.83
+2021,California,06,All,-100.0,-100.0,100.0,100.0,16.64,1.65
+2021,Colorado,08,All,-100.0,-100.0,100.0,100.0,28.5,3.78
+2021,Connecticut,09,All,-100.0,-100.0,100.0,100.0,14.29,
+2021,Delaware,10,All,-100.0,-100.0,100.0,100.0,47.23,
+2021,District of Columbia,11,All,-99.9,-99.9,100.0,100.0,60.31,
+2021,Florida,12,All,-100.0,-100.0,100.0,100.0,26.12,2.87
+2021,Georgia,13,All,-100.0,-100.0,100.0,100.0,39.17,5.31
+2021,Hawaii,15,All,-100.0,-100.0,100.0,100.0,,
+2021,Idaho,16,All,-100.0,-100.0,100.0,100.0,19.16,
+2021,Illinois,17,All,-100.0,-100.0,100.0,100.0,36.63,4.64
+2021,Indiana,18,All,-100.0,-100.0,100.0,100.0,37.34,4.03
+2021,Iowa,19,All,-100.0,-100.0,100.0,100.0,14.04,
+2021,Kansas,20,All,-100.0,-100.0,100.0,100.0,29.2,5.97
+2021,Kentucky,21,All,-100.0,-100.0,100.0,100.0,38.07,5.32
+2021,Louisiana,22,All,-100.0,-100.0,100.0,100.0,69.76,10.25
+2021,Maine,23,All,-100.0,-100.0,100.0,100.0,,
+2021,Maryland,24,All,-100.0,-100.0,100.0,100.0,34.65,2.64
+2021,Massachusetts,25,All,-100.0,-100.0,100.0,100.0,5.25,
+2021,Michigan,26,All,-100.0,-100.0,100.0,100.0,28.25,2.97
+2021,Minnesota,27,All,-100.0,-100.0,100.0,100.0,17.43,1.67
+2021,Mississippi,28,All,-100.0,-100.0,100.0,100.0,69.35,9.96
+2021,Missouri,29,All,-100.0,-100.0,100.0,100.0,40.55,6.28
+2021,Montana,30,All,-100.0,-100.0,100.0,100.0,42.09,
+2021,Nebraska,31,All,-100.0,-100.0,100.0,100.0,15.67,
+2021,Nevada,32,All,-100.0,-100.0,100.0,100.0,36.23,
+2021,New Hampshire,33,All,-100.0,-100.0,100.0,100.0,,
+2021,New Jersey,34,All,-100.0,-100.0,100.0,100.0,11.18,1.24
+2021,New Mexico,35,All,-100.0,-100.0,100.0,100.0,45.55,5.07
+2021,New York,36,All,-100.0,-100.0,100.0,100.0,10.32,1.26
+2021,North Carolina,37,All,-100.0,-100.0,100.0,100.0,35.24,5.17
+2021,North Dakota,38,All,-99.9,-99.9,100.0,100.0,,
+2021,Ohio,39,All,-100.0,-100.0,100.0,100.0,32.32,4.68
+2021,Oklahoma,40,All,-100.0,-100.0,100.0,100.0,31.21,4.99
+2021,Oregon,41,All,-100.0,-100.0,100.0,100.0,21.09,
+2021,Pennsylvania,42,All,-100.0,-100.0,100.0,100.0,28.13,4.15
+2021,Rhode Island,44,All,-100.0,-100.0,100.0,100.0,,
+2021,South Carolina,45,All,-100.0,-100.0,100.0,100.0,45.85,6.36
+2021,South Dakota,46,All,-100.0,-100.0,100.0,100.0,29.7,
+2021,Tennessee,47,All,-100.0,-100.0,100.0,100.0,41.98,5.58
+2021,Texas,48,All,-100.0,-100.0,100.0,100.0,30.63,3.48
+2021,Utah,49,All,-100.0,-100.0,100.0,100.0,18.27,
+2021,Vermont,50,All,-99.9,-99.9,100.0,100.0,,
+2021,Virginia,51,All,-100.0,-100.0,100.0,100.0,29.69,4.03
+2021,Washington,53,All,-100.0,-100.0,100.0,100.0,18.34,2.69
+2021,West Virginia,54,All,-100.0,-100.0,100.0,100.0,20.66,
+2021,Wisconsin,55,All,-100.0,-100.0,100.0,100.0,26.17,3.69
+2021,Wyoming,56,All,-99.9,-99.9,100.0,100.0,,
+2020,Alabama,01,All,-100.0,-100.0,100.0,100.0,49.95,3.38
+2020,Alaska,02,All,-99.9,-99.9,100.0,100.0,46.41,
+2020,Arizona,04,All,-100.0,-100.0,100.0,100.0,25.2,3.4
+2020,Arkansas,05,All,-100.0,-100.0,100.0,100.0,42.37,6.39
+2020,California,06,All,-100.0,-100.0,100.0,100.0,15.17,1.6
+2020,Colorado,08,All,-100.0,-100.0,100.0,100.0,24.55,4.2
+2020,Connecticut,09,All,-100.0,-100.0,100.0,100.0,10.4,
+2020,Delaware,10,All,-100.0,-100.0,100.0,100.0,34.84,
+2020,District of Columbia,11,All,-99.9,-99.9,100.0,100.0,71.97,
+2020,Florida,12,All,-100.0,-100.0,100.0,100.0,27.22,3.08
+2020,Georgia,13,All,-100.0,-100.0,100.0,100.0,35.44,3.87
+2020,Hawaii,15,All,-100.0,-100.0,100.0,100.0,,
+2020,Idaho,16,All,-100.0,-100.0,100.0,100.0,23.38,
+2020,Illinois,17,All,-100.0,-100.0,100.0,100.0,32.71,3.57
+2020,Indiana,18,All,-100.0,-100.0,100.0,100.0,38.44,4.27
+2020,Iowa,19,All,-100.0,-100.0,100.0,100.0,16.62,
+2020,Kansas,20,All,-100.0,-100.0,100.0,100.0,33.48,4.78
+2020,Kentucky,21,All,-100.0,-100.0,100.0,100.0,34.79,5.29
+2020,Louisiana,22,All,-100.0,-100.0,100.0,100.0,66.1,6.39
+2020,Maine,23,All,-100.0,-100.0,100.0,100.0,,
+2020,Maryland,24,All,-100.0,-100.0,100.0,100.0,34.72,1.89
+2020,Massachusetts,25,All,-100.0,-100.0,100.0,100.0,8.6,
+2020,Michigan,26,All,-100.0,-100.0,100.0,100.0,26.66,2.89
+2020,Minnesota,27,All,-100.0,-100.0,100.0,100.0,13.91,2.11
+2020,Mississippi,28,All,-100.0,-100.0,100.0,100.0,55.14,7.15
+2020,Missouri,29,All,-100.0,-100.0,100.0,100.0,46.94,5.39
+2020,Montana,30,All,-100.0,-100.0,100.0,100.0,36.67,
+2020,Nebraska,31,All,-100.0,-100.0,100.0,100.0,13.9,
+2020,Nevada,32,All,-100.0,-100.0,100.0,100.0,27.11,3.57
+2020,New Hampshire,33,All,-100.0,-100.0,100.0,100.0,,
+2020,New Jersey,34,All,-100.0,-100.0,100.0,100.0,11.15,
+2020,New Mexico,35,All,-100.0,-100.0,100.0,100.0,36.14,5.19
+2020,New York,36,All,-100.0,-100.0,100.0,100.0,11.23,0.76
+2020,North Carolina,37,All,-100.0,-100.0,100.0,100.0,31.79,4.73
+2020,North Dakota,38,All,-99.9,-99.9,100.0,100.0,,
+2020,Ohio,39,All,-100.0,-100.0,100.0,100.0,32.18,3.69
+2020,Oklahoma,40,All,-100.0,-100.0,100.0,100.0,35.99,4.16
+2020,Oregon,41,All,-100.0,-100.0,100.0,100.0,19.31,
+2020,Pennsylvania,42,All,-100.0,-100.0,100.0,100.0,27.47,3.04
+2020,Rhode Island,44,All,-100.0,-100.0,100.0,100.0,,
+2020,South Carolina,45,All,-100.0,-100.0,100.0,100.0,48.4,5.92
+2020,South Dakota,46,All,-100.0,-100.0,100.0,100.0,25.78,
+2020,Tennessee,47,All,-100.0,-100.0,100.0,100.0,38.29,4.54
+2020,Texas,48,All,-100.0,-100.0,100.0,100.0,27.51,3.5
+2020,Utah,49,All,-100.0,-100.0,100.0,100.0,18.79,3.27
+2020,Vermont,50,All,-99.9,-99.9,100.0,100.0,,
+2020,Virginia,51,All,-100.0,-100.0,100.0,100.0,28.01,3.53
+2020,Washington,53,All,-100.0,-100.0,100.0,100.0,20.56,1.65
+2020,West Virginia,54,All,-100.0,-100.0,100.0,100.0,22.99,
+2020,Wisconsin,55,All,-100.0,-100.0,100.0,100.0,19.65,2.72
+2020,Wyoming,56,All,-99.9,-99.9,100.0,100.0,,
+2019,Alabama,01,All,-100.0,-100.0,100.0,100.0,38.15,3.95
+2019,Alaska,02,All,-99.9,-99.9,100.0,100.0,42.54,
+2019,Arizona,04,All,-100.0,-100.0,100.0,100.0,22.4,2.13
+2019,Arkansas,05,All,-100.0,-100.0,100.0,100.0,36.68,3.28
+2019,California,06,All,-100.0,-100.0,100.0,100.0,11.59,1.25
+2019,Colorado,08,All,-100.0,-100.0,100.0,100.0,21.67,3.42
+2019,Connecticut,09,All,-100.0,-100.0,100.0,100.0,6.45,
+2019,Delaware,10,All,-100.0,-100.0,100.0,100.0,,
+2019,District of Columbia,11,All,-99.9,-99.9,100.0,100.0,68.32,
+2019,Florida,12,All,-100.0,-100.0,100.0,100.0,21.79,2.22
+2019,Georgia,13,All,-100.0,-100.0,100.0,100.0,29.4,3.11
+2019,Hawaii,15,All,-100.0,-100.0,100.0,100.0,,
+2019,Idaho,16,All,-100.0,-100.0,100.0,100.0,20.6,
+2019,Illinois,17,All,-100.0,-100.0,100.0,100.0,24.16,3.51
+2019,Indiana,18,All,-100.0,-100.0,100.0,100.0,26.93,3.06
+2019,Iowa,19,All,-100.0,-100.0,100.0,100.0,13.17,
+2019,Kansas,20,All,-100.0,-100.0,100.0,100.0,22.53,3.56
+2019,Kentucky,21,All,-100.0,-100.0,100.0,100.0,21.63,3.09
+2019,Louisiana,22,All,-100.0,-100.0,100.0,100.0,44.36,5.14
+2019,Maine,23,All,-100.0,-100.0,100.0,100.0,,
+2019,Maryland,24,All,-100.0,-100.0,100.0,100.0,29.05,1.79
+2019,Massachusetts,25,All,-100.0,-100.0,100.0,100.0,6.06,
+2019,Michigan,26,All,-100.0,-100.0,100.0,100.0,19.22,2.15
+2019,Minnesota,27,All,-100.0,-100.0,100.0,100.0,12.77,1.61
+2019,Mississippi,28,All,-100.0,-100.0,100.0,100.0,45.35,5.14
+2019,Missouri,29,All,-100.0,-100.0,100.0,100.0,39.43,5.17
+2019,Montana,30,All,-100.0,-100.0,100.0,100.0,24.94,
+2019,Nebraska,31,All,-100.0,-100.0,100.0,100.0,16.72,
+2019,Nevada,32,All,-100.0,-100.0,100.0,100.0,24.12,
+2019,New Hampshire,33,All,-100.0,-100.0,100.0,100.0,,
+2019,New Jersey,34,All,-100.0,-100.0,100.0,100.0,8.18,
+2019,New Mexico,35,All,-100.0,-100.0,100.0,100.0,36.86,5.24
+2019,New York,36,All,-100.0,-100.0,100.0,100.0,6.37,0.69
+2019,North Carolina,37,All,-100.0,-100.0,100.0,100.0,24.78,2.43
+2019,North Dakota,38,All,-99.9,-99.9,100.0,100.0,,
+2019,Ohio,39,All,-100.0,-100.0,100.0,100.0,23.93,2.75
+2019,Oklahoma,40,All,-100.0,-100.0,100.0,100.0,25.53,4.19
+2019,Oregon,41,All,-100.0,-100.0,100.0,100.0,17.84,
+2019,Pennsylvania,42,All,-100.0,-100.0,100.0,100.0,20.43,2.05
+2019,Rhode Island,44,All,-100.0,-100.0,100.0,100.0,,
+2019,South Carolina,45,All,-100.0,-100.0,100.0,100.0,40.33,4.31
+2019,South Dakota,46,All,-100.0,-100.0,100.0,100.0,24.22,
+2019,Tennessee,47,All,-100.0,-100.0,100.0,100.0,30.64,3.04
+2019,Texas,48,All,-100.0,-100.0,100.0,100.0,20.9,2.85
+2019,Utah,49,All,-100.0,-100.0,100.0,100.0,17.39,
+2019,Vermont,50,All,-99.9,-99.9,100.0,100.0,,
+2019,Virginia,51,All,-100.0,-100.0,100.0,100.0,21.18,2.25
+2019,Washington,53,All,-100.0,-100.0,100.0,100.0,15.19,1.63
+2019,West Virginia,54,All,-100.0,-100.0,100.0,100.0,22.71,
+2019,Wisconsin,55,All,-100.0,-100.0,100.0,100.0,14.74,1.81
+2019,Wyoming,56,All,-99.9,-99.9,100.0,100.0,,
+2018,Alabama,01,All,-100.0,-100.0,100.0,100.0,39.83,4.3
+2018,Alaska,02,All,-99.9,-99.9,100.0,100.0,42.81,
+2018,Arizona,04,All,-100.0,-100.0,100.0,100.0,23.54,2.56
+2018,Arkansas,05,All,-100.0,-100.0,100.0,100.0,30.86,3.27
+2018,California,06,All,-100.0,-100.0,100.0,100.0,12.31,1.2
+2018,Colorado,08,All,-100.0,-100.0,100.0,100.0,23.55,3.4
+2018,Connecticut,09,All,-100.0,-100.0,100.0,100.0,,
+2018,Delaware,10,All,-100.0,-100.0,100.0,100.0,28.18,
+2018,District of Columbia,11,All,-99.9,-99.9,100.0,100.0,53.81,
+2018,Florida,12,All,-100.0,-100.0,100.0,100.0,21.21,2.2
+2018,Georgia,13,All,-100.0,-100.0,100.0,100.0,26.67,3.11
+2018,Hawaii,15,All,-100.0,-100.0,100.0,100.0,,
+2018,Idaho,16,All,-100.0,-100.0,100.0,100.0,27.33,
+2018,Illinois,17,All,-100.0,-100.0,100.0,100.0,24.34,2.98
+2018,Indiana,18,All,-100.0,-100.0,100.0,100.0,25.56,3.43
+2018,Iowa,19,All,-100.0,-100.0,100.0,100.0,12.56,
+2018,Kansas,20,All,-100.0,-100.0,100.0,100.0,24.07,
+2018,Kentucky,21,All,-100.0,-100.0,100.0,100.0,22.58,2.88
+2018,Louisiana,22,All,-100.0,-100.0,100.0,100.0,43.95,4.83
+2018,Maine,23,All,-100.0,-100.0,100.0,100.0,,
+2018,Maryland,24,All,-100.0,-100.0,100.0,100.0,23.87,2.09
+2018,Massachusetts,25,All,-100.0,-100.0,100.0,100.0,6.02,
+2018,Michigan,26,All,-100.0,-100.0,100.0,100.0,21.37,2.31
+2018,Minnesota,27,All,-100.0,-100.0,100.0,100.0,13.74,
+2018,Mississippi,28,All,-100.0,-100.0,100.0,100.0,45.04,4.95
+2018,Missouri,29,All,-100.0,-100.0,100.0,100.0,33.7,5.29
+2018,Montana,30,All,-100.0,-100.0,100.0,100.0,18.6,
+2018,Nebraska,31,All,-100.0,-100.0,100.0,100.0,12.94,
+2018,Nevada,32,All,-100.0,-100.0,100.0,100.0,27.16,3.19
+2018,New Hampshire,33,All,-100.0,-100.0,100.0,100.0,,
+2018,New Jersey,34,All,-100.0,-100.0,100.0,100.0,8.99,
+2018,New Mexico,35,All,-100.0,-100.0,100.0,100.0,39.29,
+2018,New York,36,All,-100.0,-100.0,100.0,100.0,7.63,0.81
+2018,North Carolina,37,All,-100.0,-100.0,100.0,100.0,22.01,2.69
+2018,North Dakota,38,All,-99.9,-99.9,100.0,100.0,,
+2018,Ohio,39,All,-100.0,-100.0,100.0,100.0,23.36,2.89
+2018,Oklahoma,40,All,-100.0,-100.0,100.0,100.0,19.08,3.45
+2018,Oregon,41,All,-100.0,-100.0,100.0,100.0,15.41,2.76
+2018,Pennsylvania,42,All,-100.0,-100.0,100.0,100.0,23.4,2.07
+2018,Rhode Island,44,All,-100.0,-100.0,100.0,100.0,,
+2018,South Carolina,45,All,-100.0,-100.0,100.0,100.0,34.86,3.88
+2018,South Dakota,46,All,-100.0,-100.0,100.0,100.0,28.31,
+2018,Tennessee,47,All,-100.0,-100.0,100.0,100.0,35.71,4.24
+2018,Texas,48,All,-100.0,-100.0,100.0,100.0,19.37,2.52
+2018,Utah,49,All,-100.0,-100.0,100.0,100.0,15.52,3.01
+2018,Vermont,50,All,-99.9,-99.9,100.0,100.0,,
+2018,Virginia,51,All,-100.0,-100.0,100.0,100.0,24.04,2.51
+2018,Washington,53,All,-100.0,-100.0,100.0,100.0,17.95,2.05
+2018,West Virginia,54,All,-100.0,-100.0,100.0,100.0,21.31,
+2018,Wisconsin,55,All,-100.0,-100.0,100.0,100.0,16.68,
+2018,Wyoming,56,All,-99.9,-99.9,100.0,100.0,36.49,

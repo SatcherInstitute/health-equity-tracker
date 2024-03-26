@@ -111,6 +111,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           shortLabel:
             'American Heart Association/American College of Cardiology Foundation',
           longerTitle:
+
             'Smith, S. C., Jr, Benjamin, E. J., Bonow, R. O., Braun, L. T., Creager, M. A., Franklin, B. A., Gibbons, R. J., Grundy, S. M., Hiratzka, L. F., Jones, D. W., Lloyd-Jones, D. M., Minissian, M., Mosca, L., Peterson, E. D., Sacco, R. L., Spertus, J., Stein, J. H., Taubert, K. A., & World Heart Federation and the Preventive Cardiovascular Nurses Association (2011). AHA/ACCF Secondary Prevention and Risk Reduction Therapy for Patients with Coronary and other Atherosclerotic Vascular Disease: 2011 update: a guideline from the American Heart Association and American College of Cardiology Foundation. Circulation, 124(22), 2458–2473. https://doi.org/10.1161/CIR.0b013e318235eb4d',
           url: 'https://doi.org/10.1161/CIR.0b013e318235eb4d',
         },

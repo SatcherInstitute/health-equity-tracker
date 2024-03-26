@@ -39,12 +39,7 @@ def export_dataset_tables():
     # process only the single demographic tables (if present in payload)
     elif demographic is not None:
         tables = [
-            table
-            for table in tables
-            if (
-                not has_multi_demographics(table.table_id)
-                and demographic in table.table_id
-            )
+            table for table in tables if (not has_multi_demographics(table.table_id) and demographic in table.table_id)
         ]
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
@@ -76,9 +71,7 @@ def export_dataset_tables():
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """Run the extract job to export the given table to the given destination and wait for completion"""
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
-    extract_job = bq_client.extract_table(
-        table_ref, dest_uri, location='US', job_config=job_config
-    )
+    extract_job = bq_client.extract_table(table_ref, dest_uri, location='US', job_config=job_config)
     extract_job.result()
     logging.info(f'Exported {table_ref.table_id} to {dest_uri}')
 
@@ -91,9 +84,7 @@ def export_split_county_tables(bq_client, table, export_bucket):
     if "county" not in table_name:
         return
 
-    logging.info(
-        f'Exporting county-level data from {table_name} into additional files, split by state/territory.'
-    )
+    logging.info(f'Exporting county-level data from {table_name} into additional files, split by state/territory.')
     bucket = prepare_bucket(export_bucket)
 
     for fips in STATE_LEVEL_FIPS_LIST:
@@ -128,7 +119,7 @@ def has_multi_demographics(table_id: str):
     RETURNS:
     boolean of whether there is more than one demographic substring found"""
 
-    # Age adjusted tables are stil just by race/eth.
+    # Age adjusted tables are still just by race/eth.
     if table_id.endswith('with_age_adjust'):
         return False
 
