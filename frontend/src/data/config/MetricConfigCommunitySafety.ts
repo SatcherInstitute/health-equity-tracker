@@ -193,7 +193,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
                 type: 'count',
             },
             pct_relative_inequity: {
-                chartTitle: 'Historical realative inequity of gun deaths among youth',
+                chartTitle: 'Historical relative inequity of gun deaths among youth',
                 metricId: 'gun_deaths_youth_pct_relative_inequity',
                 shortLabel: '% relative inequity',
                 type: 'pct_relative_inequity',
