@@ -1,21 +1,21 @@
 name: DEPLOY STAGING With Composer
 
 on:
-  push:
-    branches: [main, infra-test]
-    paths:
-      # Run only if data pipeline services change
-      - 'airflow/**'
-      - 'config/**'
-      - 'data/**'
-      - 'data_server/**'
-      - 'e2e_tests/**'
-      - 'exporter/**'
-      - 'frontend_server/**'
-      - 'python/**'
-      - 'requirements/**'
-      - 'run_gcs_to_bq/**'
-      - 'run_ingestion/**'
+  # push:
+  #   branches: [main, infra-test]
+  #   paths:
+  #     # Run only if data pipeline services change
+  #     - 'airflow/**'
+  #     - 'config/**'
+  #     - 'data/**'
+  #     - 'data_server/**'
+  #     - 'e2e_tests/**'
+  #     - 'exporter/**'
+  #     - 'frontend_server/**'
+  #     - 'python/**'
+  #     - 'requirements/**'
+  #     - 'run_gcs_to_bq/**'
+  #     - 'run_ingestion/**'
   workflow_dispatch:
     inputs:
       branch:
