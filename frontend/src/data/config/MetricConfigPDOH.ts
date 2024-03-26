@@ -1,3 +1,5 @@
+// testing change to frontend
+
 import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
