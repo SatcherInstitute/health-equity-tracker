@@ -158,7 +158,7 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     "acs_condition_exporter_sex", acs_condition_exporter_payload_sex, data_ingestion_dag
 )
 
-# NOTE: running these gcs "cache" steps in parralel causes issues, so run in series
+# NOTE: running these gcs "cache" steps in parallel causes issues, so run in series
 (
     # CACHING STEP
     acs_condition_gcs_operator_2012

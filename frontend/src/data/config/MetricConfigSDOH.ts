@@ -29,7 +29,7 @@ export type SDOHDataTypeId =
   | 'preventable_hospitalizations'
   | 'avoided_care'
 
-  export type SDOHMetricId =
+export type SDOHMetricId =
   | 'ahr_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
@@ -303,7 +303,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
 export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
-    dataTableTitle: 'Breakdown summary of gun homicides amongst adults',
+    dataTableTitle: 'Breakdown summary of gun homicides',
     dataTypeId: 'gun_violence_homicide',
     dataTypeShortLabel: 'Homicides',
     definition: {
@@ -324,18 +324,18 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       },
       pct_relative_inequity: {
         chartTitle:
-          'Historical relative inequity of gun homicides amongst adults',
+          'Historical relative inequity of gun homicides',
         metricId: 'gun_violence_homicide_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },
       pct_share: {
-        chartTitle: 'Share of total gun homicides amongst adults',
-        columnTitleHeader: 'Share of total gun homicides amongst adults',
+        chartTitle: 'Share of total gun homicides',
+        columnTitleHeader: 'Share of total gun homicides',
         metricId: 'gun_violence_homicide_pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total gun homicides amongst adults',
+            'Population vs. distribution of total gun homicides',
           columnTitleHeader: populationPctTitle,
           metricId: 'fatal_population_pct',
           shortLabel: populationPctShortLabel,
@@ -345,11 +345,11 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Rates of gun homicides amongst adults',
+        chartTitle: 'Rates of gun homicides',
         columnTitleHeader: 'Gun homicides per 100k people',
         metricId: 'gun_violence_homicide_per_100k',
         shortLabel: 'homicides per 100k',
-        trendsCardTitleName: 'Rates of gun homicides amongst adults over time',
+        trendsCardTitleName: 'Rates of gun homicides over time',
         type: 'per100k',
         rateNumeratorMetric: {
           chartTitle: '',
@@ -370,7 +370,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTableTitle:
-      'Breakdown summary of non-fatal gun injuries amongst adults',
+      'Breakdown summary of non-fatal gun injuries',
     dataTypeId: 'gun_violence_injuries',
     dataTypeShortLabel: 'Non-Fatal Injuries',
     definition: {
@@ -391,18 +391,18 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       },
       pct_relative_inequity: {
         chartTitle:
-          'Historical relative inequity of non-fatal gun injuries amongst adults',
+          'Historical relative inequity of non-fatal gun injuries',
         metricId: 'gun_violence_injuries_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },
       pct_share: {
-        chartTitle: 'Share of total non-fatal gun injuries amongst adults',
+        chartTitle: 'Share of total non-fatal gun injuries',
         columnTitleHeader: 'Share of total non-fatal gun injuries',
         metricId: 'gun_violence_injuries_pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total non-fatal gun injuries amongst adults',
+            'Population vs. distribution of total non-fatal gun injuries',
           columnTitleHeader: populationPctTitle,
           metricId: 'fatal_population_pct',
           shortLabel: populationPctShortLabel,
@@ -412,12 +412,12 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Rates of non-fatal gun injuries amongst adults',
+        chartTitle: 'Rates of non-fatal gun injuries',
         columnTitleHeader: 'Non-fatal gun injuries per 100k people',
         metricId: 'gun_violence_injuries_per_100k',
         shortLabel: 'non-fatal injuries per 100k',
         trendsCardTitleName:
-          'Rates of non-fatal gun injuries amongst adults over time',
+          'Rates of non-fatal gun injuries over time',
         type: 'per100k',
         rateNumeratorMetric: {
           chartTitle: '',
@@ -458,20 +458,20 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       },
       pct_relative_inequity: {
         chartTitle:
-          'Historical relative inequity of gun-related deaths by legal intervention amongst adults',
+          'Historical relative inequity of gun-related deaths by legal intervention',
         metricId: 'gun_violence_legal_intervention_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },
       pct_share: {
         chartTitle:
-          'Share of total gun-related deaths by legal intervention amongst adults',
+          'Share of total gun-related deaths by legal intervention',
         columnTitleHeader:
           'Share of total gun-related deaths by legal intervention',
         metricId: 'gun_violence_legal_intervention_pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of gun-related deaths by legal intervention amongst adults',
+            'Population vs. distribution of gun-related deaths by legal intervention',
           columnTitleHeader: populationPctTitle,
           metricId: 'fatal_population_pct',
           shortLabel: populationPctShortLabel,
@@ -482,13 +482,13 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         chartTitle:
-          'Rates of gun-related deaths by legal intervention amongst adults',
+          'Rates of gun-related deaths by legal intervention',
         columnTitleHeader:
           'Gun-related deaths by legal intervention per 100k people',
         metricId: 'gun_violence_legal_intervention_per_100k',
         shortLabel: 'legal interventions per 100k',
         trendsCardTitleName:
-          'Rates of gun-related deaths by legal intervention amongst adults over time',
+          'Rates of gun-related deaths by legal intervention over time',
         type: 'per100k',
         rateNumeratorMetric: {
           chartTitle: '',
@@ -507,7 +507,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   },
   {
     categoryId: 'sdoh',
-    dataTableTitle: 'Breakdown summary for gun suicides amongst adults',
+    dataTableTitle: 'Breakdown summary for gun suicides',
     dataTypeId: 'gun_violence_suicide',
     dataTypeShortLabel: 'Suicides',
     definition: {
@@ -528,18 +528,18 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
       },
       pct_relative_inequity: {
         chartTitle:
-          'Historical relative inequity of gun suicides amongst adults',
+          'Historical relative inequity of gun suicides',
         metricId: 'gun_violence_suicide_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },
       pct_share: {
-        chartTitle: 'Share of total gun suicides amongst adults',
+        chartTitle: 'Share of total gun suicides',
         columnTitleHeader: 'Share of total gun suicides',
         metricId: 'gun_violence_suicide_pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of gun suicides amongst adults',
+            'Population vs. distribution of gun suicides',
           columnTitleHeader: populationPctTitle,
           metricId: 'fatal_population_pct',
           shortLabel: populationPctShortLabel,
@@ -549,11 +549,11 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Rates of gun suicides amongst adults',
+        chartTitle: 'Rates of gun suicides',
         columnTitleHeader: 'Gun suicides per 100k people',
         metricId: 'gun_violence_suicide_per_100k',
         shortLabel: 'suicides per 100k',
-        trendsCardTitleName: 'Rates of gun suicides amongst adults over time',
+        trendsCardTitleName: 'Rates of gun suicides over time',
         type: 'per100k',
         rateNumeratorMetric: {
           chartTitle: '',
@@ -574,52 +574,52 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
 
 export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
   {
-    categoryId: 'sdoh', 
-    dataTableTitle: 'Breakdown summary of gun deaths among youth', 
-    dataTypeId: 'gun_violence_youth', 
-    dataTypeShortLabel: 'Gun Deaths', 
+    categoryId: 'sdoh',
+    dataTableTitle: 'Breakdown summary of gun deaths among youth',
+    dataTypeId: 'gun_violence_youth',
+    dataTypeShortLabel: 'Gun Deaths',
     definition: {
       text: 'Deaths of individuals under the age of 26 caused by firearms.'
-    }, 
-    description: { 
+    },
+    description: {
       text: 'Measuring gun deaths among youth is crucial because it helps us understand the impact of firearm violence on younger populations, guiding the development of targeted interventions and policies to protect our most vulnerable citizens and prevent future tragedies.'
     },
-    fullDisplayName: 'Gun deaths', 
+    fullDisplayName: 'Gun deaths',
     fullDisplayNameInline: 'gun deaths',
-    mapConfig: defaultHigherIsWorseMapConfig, 
+    mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       sub_population_count: {
         chartTitle: '',
         metricId: 'gun_violence_youth_deaths_estimated_total',
-        shortLabel: 'Total Population for Gun Deaths (Youth)', 
+        shortLabel: 'Total Population for Gun Deaths (Youth)',
         type: 'count',
-      }, 
+      },
       pct_relative_inequity: {
-        chartTitle: 'Historical realative inequity of gun deaths among youth', 
-        metricId: 'gun_violence_youth_deaths_pct_relative_inequity', 
+        chartTitle: 'Historical relative inequity of gun deaths among youth',
+        metricId: 'gun_violence_youth_deaths_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
-      }, 
+      },
       pct_share: {
-        chartTitle: 'Share of total gun deaths among youth', 
-        columnTitleHeader: 'Share of total gun deaths among youth', 
+        chartTitle: 'Share of total gun deaths among youth',
+        columnTitleHeader: 'Share of total gun deaths among youth',
         metricId: 'gun_violence_youth_deaths_pct_share',
         populationComparisonMetric: {
-          chartTitle: 'Population vs. distribution of total gun deaths among youth', 
-          columnTitleHeader: `${populationPctTitle} (ages 0-25)`, 
-          metricId: 'population_pct', 
-          shortLabel: populationPctShortLabel, 
+          chartTitle: 'Population vs. distribution of total gun deaths among youth',
+          columnTitleHeader: `${populationPctTitle} (ages 0-25)`,
+          metricId: 'population_pct',
+          shortLabel: populationPctShortLabel,
           type: 'pct_share'
         },
-        shortLabel: '% of gun deaths', 
+        shortLabel: '% of gun deaths',
         type: 'pct_share',
       },
       per100k: {
         chartTitle: 'Rates of gun deaths among youth',
         columnTitleHeader: 'Gun deaths among youth per 100k people',
-        metricId: 'gun_violence_youth_deaths_per_100k', 
+        metricId: 'gun_violence_youth_deaths_per_100k',
         shortLabel: 'deaths per 100k',
-        trendsCardTitleName: 'Rates of gun deaths among youth over time', 
+        trendsCardTitleName: 'Rates of gun deaths among youth over time',
         type: 'per100k',
         rateNumeratorMetric: {
           chartTitle: '',

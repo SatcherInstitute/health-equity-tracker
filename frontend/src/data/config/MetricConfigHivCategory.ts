@@ -96,10 +96,10 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for linkage to HIV care',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'hiv_care_population',
-        shortLabel: 'Total Population (Ages 13+)',
+        shortLabel: 'Total Population (Ages 13+ with HIV Diagnoses)',
         type: 'count',
       },
       pct_share: {
@@ -127,17 +127,17 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         shortLabel: '% linkage',
         type: 'pct_rate',
         rateNumeratorMetric: {
-            metricId: 'hiv_care',
-            shortLabel: 'Individuals with linkage to HIV care',
-            chartTitle: '',
-            type: 'count',
-          },
-          rateDenominatorMetric: {
-            metricId: 'hiv_care_population',
-            shortLabel: 'Total HIV diagnoses',
-            chartTitle: '',
-            type: 'count',
-          },
+          metricId: 'hiv_care',
+          shortLabel: 'Individuals with linkage to HIV care',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'hiv_care_population',
+          shortLabel: 'Total HIV diagnoses',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity in linkage to HIV care',
@@ -164,7 +164,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV prevalence',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'hiv_population',
         shortLabel: 'Total Population (Ages 13+)',
@@ -228,7 +228,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV diagnoses',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'hiv_population',
         shortLabel: 'Total Population (Ages 13+)',
@@ -291,7 +291,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV deaths',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'hiv_population',
         shortLabel: 'Total Population (Ages 13+)',
@@ -407,7 +407,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV prevalence for Black (NH) women',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'black_women_population_count',
         shortLabel: 'Total Population (Black Women, Ages 13+)',
@@ -475,7 +475,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     dataTableTitle:
       'Breakdown summary for new HIV diagnoses for Black (NH) women',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'black_women_population_count',
         shortLabel: 'Total Population (Black Women, Ages 13+)',
@@ -543,7 +543,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
     metrics: {
-            sub_population_count: {
+      sub_population_count: {
         chartTitle: '',
         metricId: 'black_women_population_count',
         shortLabel: 'Total Population (Black Women, Ages 13+)',
