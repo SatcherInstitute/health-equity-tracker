@@ -1,4 +1,4 @@
-import { MetricId } from "../config/MetricConfig";
+import { DataTypeId, MetricId } from "../config/MetricConfig";
 import { getDataManager } from '../../utils/globals';
 import { type Breakdowns, type TimeView } from '../query/Breakdowns'
 import { type DatasetId } from "../config/DatasetMetadata";
@@ -25,7 +25,7 @@ class GunViolenceYouthProvider extends VariableProvider {
         super('gun_violence_youth_provider', GUN_VIOLENCE_YOUTH_METRICS)
     }
 
-    getDatasetId(breakdowns: Breakdowns, timeView?: TimeView): DatasetId | undefined {
+    getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId, timeView?: TimeView): DatasetId | undefined {
         if (timeView === 'current') {
             if (breakdowns.hasOnlyRace()) {
                 if (breakdowns.geography == 'national')
@@ -47,9 +47,9 @@ class GunViolenceYouthProvider extends VariableProvider {
 
     async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
         try {
-            const { breakdowns, timeView } = metricQuery
-            console.log(breakdowns)
-            const datasetId = this.getDatasetId(breakdowns, timeView)
+            const { breakdowns, dataTypeId, timeView } = metricQuery
+
+            const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
 
             if (!datasetId) {
                 throw new Error('DatasetId is undefined.')
