@@ -1,3 +1,5 @@
+// TEST FRONTEND CHANGE
+
 import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
