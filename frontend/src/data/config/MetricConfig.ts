@@ -64,11 +64,16 @@ import {
   CARE_AVOIDANCE_METRICS,
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
-  GUN_VIOLENCE_METRICS,
-  GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigSDOH'
 import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
 import { getFormatterPer100k } from '../../charts/utils'
+import {
+  COMMUNITY_SAFETY_DROPDOWNIDS,
+  CommunitySafetyDataTypeId,
+  CommunitySafetyMetricId,
+  GUN_VIOLENCE_METRICS,
+  GUN_VIOLENCE_YOUTH_METRICS
+} from './MetricConfigCommunitySafety'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -78,6 +83,7 @@ const dropdownVarIds = [
   ...HIV_CATEGORY_DROPDOWNIDS,
   ...COVID_CATEGORY_DROPDOWNIDS,
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
+  ...COMMUNITY_SAFETY_DROPDOWNIDS,
 ] as const
 
 export type DropdownVarId = (typeof dropdownVarIds)[number]
@@ -101,6 +107,7 @@ export type DataTypeId =
   | PhrmaDataTypeId
   | PDOHDataTypeId
   | SDOHDataTypeId
+  | CommunitySafetyDataTypeId
 
 export type MetricId =
   | CovidCategoryMetricId
@@ -110,6 +117,7 @@ export type MetricId =
   | PDOHMetricId
   | SDOHMetricId
   | ChronicDiseaseMetricId
+  | CommunitySafetyMetricId
   | 'geo_context'
   | 'population_pct'
   | 'population'
