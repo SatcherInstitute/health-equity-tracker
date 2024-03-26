@@ -6,6 +6,7 @@ import {
 } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
@@ -45,6 +46,7 @@ export const CategoryMap = {
   medicare: 'Medication Utilization',
   pdoh: 'Political Determinants of Health',
   sdoh: 'Social Determinants of Health',
+  'community-safety': 'Community Safety',
 }
 
 export type CategoryTypeId = keyof typeof CategoryMap
@@ -218,6 +220,11 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: COVID_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
+  {
+    title: 'Community Safety',
+    definition: '',
+    options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
+  }
 ]
 
 const MADLIB_LIST: MadLib[] = [

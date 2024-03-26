@@ -9,8 +9,6 @@ export const SHOW_GUN_VIOLENCE = import.meta.env.VITE_SHOW_GUN_VIOLENCE
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
   'gun_violence_homicide',
-  'gun_violence_injuries',
-  'gun_violence_legal_intervention',
   'gun_violence_suicide',
 ]
 
@@ -19,20 +17,6 @@ export const GUN_VIOLENCE_HOMICIDE_METRICS: MetricId[] = [
   'gun_violence_homicide_pct_relative_inequity',
   'gun_violence_homicide_pct_share',
   'gun_violence_homicide_per_100k',
-]
-
-export const GUN_VIOLENCE_INJURIES_METRICS: MetricId[] = [
-  'gun_violence_injuries_estimated_total',
-  'gun_violence_injuries_pct_relative_inequity',
-  'gun_violence_injuries_pct_share',
-  'gun_violence_injuries_per_100k',
-]
-
-export const GUN_VIOLENCE_LEGAL_INTERVENTION_METRICS: MetricId[] = [
-  'gun_violence_legal_intervention_estimated_total',
-  'gun_violence_legal_intervention_pct_relative_inequity',
-  'gun_violence_legal_intervention_pct_share',
-  'gun_violence_legal_intervention_per_100k',
 ]
 
 export const GUN_VIOLENCE_SUICIDE_METRICS: MetricId[] = [
@@ -45,14 +29,10 @@ export const GUN_VIOLENCE_SUICIDE_METRICS: MetricId[] = [
 export const POPULATION_METRICS: MetricId[] = [
   'fatal_population_pct',
   'fatal_population',
-  'non_fatal_population_pct',
-  'non_fatal_population',
 ]
 
 const GUN_VIOLENCE_METRICS: MetricId[] = [
   ...GUN_VIOLENCE_HOMICIDE_METRICS,
-  ...GUN_VIOLENCE_INJURIES_METRICS,
-  ...GUN_VIOLENCE_LEGAL_INTERVENTION_METRICS,
   ...GUN_VIOLENCE_SUICIDE_METRICS,
   ...POPULATION_METRICS,
 ]

@@ -7,7 +7,7 @@ import { DATATYPES_NEEDING_13PLUS } from '../../data/providers/HivProvider'
 const prepSuffix = ' (16+)'
 const hivSuffix = ' (13+)'
 const stigmaSuffix = ' (18+)'
-const youthGunViolenceSuffix = '(0-25)'
+const youthGunViolenceSuffix = '(0-17)'
 
 export function useHIVLabelSuffix(
   demographic: DemographicType,
