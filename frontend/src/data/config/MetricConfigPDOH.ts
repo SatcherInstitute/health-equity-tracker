@@ -1,4 +1,4 @@
-// testing change to frontend more
+// testing change
 
 import {
   defaultHigherIsBetterMapConfig,
