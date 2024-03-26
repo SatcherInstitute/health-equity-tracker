@@ -133,7 +133,7 @@ export function generateSubtitle(
   }
 
   if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
-    const youthTitle = 'Ages 0-25'
+    const youthTitle = 'Ages 0-17'
     if (subtitle === '') {
       subtitle = youthTitle
     } else {
