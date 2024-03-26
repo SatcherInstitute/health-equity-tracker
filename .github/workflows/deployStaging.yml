@@ -164,6 +164,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check Out Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
       - name: Check for Data Pipeline Changes
         id: check_pipeline_changes
         run: |
