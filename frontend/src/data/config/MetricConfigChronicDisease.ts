@@ -92,7 +92,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
     },
     description: {
-      text: `Cardiovascular diseases are a leading cause of death in the United States. Cardiovascular diseases exhibit higher prevalence among men, older adults aged 65 and above, American Indian/Alaska Native individuals, those with lower education levels and household incomes, residents of non-metropolitan areas, individuals with disablities experiencing difficulty with self-care, and veterans. Studying cardiovascular diseases can help us understand why these disparities exist and how to address them.`,
+      text: `Cardiovascular diseases are a leading cause of death in the United States. Cardiovascular diseases exhibit higher prevalence among men, older adults aged 65 and above, American Indian/Alaska Native individuals, those with lower education levels and household incomes, residents of non-metropolitan areas, individuals with disabilities experiencing difficulty with self-care, and veterans. Studying cardiovascular diseases can help us understand why these disparities exist and how to address them.`,
       citations: [
         {
           url: 'https://www.americashealthrankings.org/explore/measures/CVD',
@@ -142,7 +142,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
     },
     description: {
-      text: `Chronic kidney disease is a serious condition that can lead to kidney failure. Chronic kidney disease exhibits a higher prevalence among women, adults aged 65 and older, American Indian/Alaska Native and Black individuals, those with lower educational attainment and household income, residents of non-metropolitan areas, individuals with disabilties experiencing difficulty with self-care, and veterans. Studying chronic kidney disease can help us understand why these disparities exist and how to address them.`,
+      text: `Chronic kidney disease is a serious condition that can lead to kidney failure. Chronic kidney disease exhibits a higher prevalence among women, adults aged 65 and older, American Indian/Alaska Native and Black individuals, those with lower educational attainment and household income, residents of non-metropolitan areas, individuals with disabilities experiencing difficulty with self-care, and veterans. Studying chronic kidney disease can help us understand why these disparities exist and how to address them.`,
       citations: [
         {
           url: 'https://www.americashealthrankings.org/explore/measures/CKD',
@@ -233,7 +233,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
     },
     description: {
-      text: `COPD is a lung disease that makes it difficult to breathe. Populations with a higher prevalence of COPD include women, adults aged 65 and older, American Indian/Alaska Native and multiracial individuals, those with lower educational attainment and household income, residents of non-metropolitan areas, individuals with disablities experiencing difficulty with self-care, and veterans. Studying COPD can help us understand why these disparities exist and how to address them.`,
+      text: `COPD is a lung disease that makes it difficult to breathe. Populations with a higher prevalence of COPD include women, adults aged 65 and older, American Indian/Alaska Native and multiracial individuals, those with lower educational attainment and household income, residents of non-metropolitan areas, individuals with disabilities experiencing difficulty with self-care, and veterans. Studying COPD can help us understand why these disparities exist and how to address them.`,
       citations: [
         {
           url: 'https://www.americashealthrankings.org/explore/measures/COPD',
