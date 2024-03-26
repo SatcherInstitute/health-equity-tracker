@@ -162,7 +162,6 @@ jobs:
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest
-
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
@@ -171,7 +170,7 @@ jobs:
       - name: Check for Data Pipeline Changes
         id: check_pipeline_changes
         run: |
-          if git diff --quiet HEAD^ -- 'airflow/' 'config/' 'data/' \
+          if git diff --quiet main -- 'airflow/' 'config/' 'data/' \
             'data_server/' 'e2e_tests/' 'exporter/' 'frontend_server/' \
             'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/'; then
             echo "No changes found in data pipeline directories."
