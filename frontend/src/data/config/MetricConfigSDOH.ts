@@ -21,7 +21,6 @@ export const SDOH_CATEGORY_DROPDOWNIDS = [
 
 export type SDOHDataTypeId =
   | 'gun_violence_homicide'
-  | 'gun_violence_injuries'
   | 'gun_violence_suicide'
   | 'gun_violence_legal_intervention'
   | 'poverty'
@@ -29,7 +28,7 @@ export type SDOHDataTypeId =
   | 'preventable_hospitalizations'
   | 'avoided_care'
 
-  export type SDOHMetricId =
+export type SDOHMetricId =
   | 'ahr_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
@@ -39,10 +38,6 @@ export type SDOHDataTypeId =
   | 'gun_violence_homicide_per_100k'
   | 'gun_violence_homicide_pct_relative_inequity'
   | 'gun_violence_homicide_pct_share'
-  | 'gun_violence_injuries_estimated_total'
-  | 'gun_violence_injuries_per_100k'
-  | 'gun_violence_injuries_pct_relative_inequity'
-  | 'gun_violence_injuries_pct_share'
   | 'gun_violence_legal_intervention_estimated_total'
   | 'gun_violence_legal_intervention_per_100k'
   | 'gun_violence_legal_intervention_pct_relative_inequity'
@@ -365,73 +360,6 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         }
       },
 
-    },
-  },
-  {
-    categoryId: 'sdoh',
-    dataTableTitle:
-      'Breakdown summary of non-fatal gun injuries amongst adults',
-    dataTypeId: 'gun_violence_injuries',
-    dataTypeShortLabel: 'Non-Fatal Injuries',
-    definition: {
-      text: 'Injuries that do not result in death, caused by the discharge of firearms, including both intentional acts and accidents.',
-    },
-    description: {
-      text: 'Non-fatal gun injuries are significant in health equity as they disproportionately affect certain demographics, particularly in communities with higher poverty rates. Addressing these injuries is crucial for reducing healthcare disparities and improving community health.',
-    },
-    fullDisplayName: 'Non-fatal gun injuries',
-    fullDisplayNameInline: 'Non-fatal gun injuries',
-    mapConfig: defaultHigherIsWorseMapConfig,
-    metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'non_fatal_population',
-        shortLabel: 'Total Population for Gun Non-Fatal Rates',
-        type: 'count',
-      },
-      pct_relative_inequity: {
-        chartTitle:
-          'Historical relative inequity of non-fatal gun injuries amongst adults',
-        metricId: 'gun_violence_injuries_pct_relative_inequity',
-        shortLabel: '% relative inequity',
-        type: 'pct_relative_inequity',
-      },
-      pct_share: {
-        chartTitle: 'Share of total non-fatal gun injuries amongst adults',
-        columnTitleHeader: 'Share of total non-fatal gun injuries',
-        metricId: 'gun_violence_injuries_pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Population vs. distribution of total non-fatal gun injuries amongst adults',
-          columnTitleHeader: populationPctTitle,
-          metricId: 'fatal_population_pct',
-          shortLabel: populationPctShortLabel,
-          type: 'pct_share',
-        },
-        shortLabel: '% of non-fatal gun injuries',
-        type: 'pct_share',
-      },
-      per100k: {
-        chartTitle: 'Rates of non-fatal gun injuries amongst adults',
-        columnTitleHeader: 'Non-fatal gun injuries per 100k people',
-        metricId: 'gun_violence_injuries_per_100k',
-        shortLabel: 'non-fatal injuries per 100k',
-        trendsCardTitleName:
-          'Rates of non-fatal gun injuries amongst adults over time',
-        type: 'per100k',
-        rateNumeratorMetric: {
-          chartTitle: '',
-          metricId: 'gun_violence_injuries_estimated_total',
-          shortLabel: 'Non-fatal gun injuries',
-          type: 'count',
-        },
-        rateDenominatorMetric: {
-          chartTitle: '',
-          metricId: 'non_fatal_population',
-          shortLabel: 'Total Population',
-          type: 'count',
-        }
-      },
     },
   },
   {
