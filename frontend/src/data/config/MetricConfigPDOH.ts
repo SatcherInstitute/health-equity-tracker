@@ -1,5 +1,3 @@
-// testing change
-
 import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
