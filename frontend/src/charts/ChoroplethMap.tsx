@@ -324,6 +324,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     colorScale.domain = props.scaleConfig?.domain
   }
 
+
   const projection = getProjection(
     /* fips */ props.fips,
     /* width */ width,
