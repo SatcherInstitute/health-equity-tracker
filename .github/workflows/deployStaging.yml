@@ -178,6 +178,7 @@ jobs:
             echo "Changes found in data pipeline directories."
             echo "PIPELINE_CHANGED=true" >> "$GITHUB_ENV"
           fi
+          echo "PIPELINE_CHANGED status: $PIPELINE_CHANGED"
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
