@@ -149,13 +149,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const dataWithHighestLowest =
     !props.isUnknownsMap && !props.isMulti
       ? useMemo(
-          () =>
-            embedHighestLowestGroups(
-              suppressedData,
-              props.highestLowestGroupsByFips
-            ),
-          [suppressedData, props.highestLowestGroupsByFips]
-        )
+        () =>
+          embedHighestLowestGroups(
+            suppressedData,
+            props.highestLowestGroupsByFips
+          ),
+        [suppressedData, props.highestLowestGroupsByFips]
+      )
       : suppressedData
 
   const [ref, width] = useResponsiveWidth()
@@ -232,10 +232,10 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const mapGroupLabel = isCawp
     ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
     : getMapGroupLabel(
-        props.demographicType,
-        props.activeDemographicGroup,
-        props.metric.type === 'index' ? 'Score' : 'Rate'
-      )
+      props.demographicType,
+      props.activeDemographicGroup,
+      props.metric.type === 'index' ? 'Score' : 'Rate'
+    )
   const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
   // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
@@ -306,19 +306,24 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* legendData */ props.data,
         /* metricId */ props.metric.metricId,
         /* scaleType */ props.isUnknownsMap
-          ? UNKNOWNS_MAP_SCALE
-          : RATE_MAP_SCALE,
+        ? UNKNOWNS_MAP_SCALE
+        : RATE_MAP_SCALE,
         /* fieldRange? */ props.fieldRange,
         /* scaleColorScheme? */ props.mapConfig.scheme,
         /* isTerritoryCircle? */ props.fips.isTerritory(),
         /* reverse? */ !props.mapConfig.higherIsBetter && !props.isUnknownsMap
-      )
+    )
 
-  if (props.isMulti ?? props.highestLowestGeosMode) {
+  if (props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain
     colorScale.range = props.scaleConfig?.range
     colorScale.reverse = false
   }
+
+  if (props.isMulti) {
+    colorScale.domain = props.scaleConfig?.domain
+  }
+
 
   const projection = getProjection(
     /* fips */ props.fips,
@@ -359,7 +364,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     // NON-ZERO
     createShapeMarks(
       /* datasetName= */ VALID_DATASET,
-      /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+      /* fillColor= */[{ scale: COLOR_SCALE, field: props.metric.metricId }],
       /* hoverColor= */ DARK_BLUE,
       /* tooltipExpression= */ tooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
