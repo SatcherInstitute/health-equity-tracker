@@ -11,9 +11,8 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
 	return (
 		<nav
 			aria-label='methodology sections'
-			className={`flex flex-col rounded-sm py-0 tracking-normal shadow-raised-tighter ${
-				props.className ?? ''
-			} `}
+			className={`flex flex-col rounded-sm py-0 tracking-normal shadow-raised-tighter ${props.className ?? ''
+				} `}
 		>
 			{routeConfigs.map((config) => (
 				<HetDesktopMenuItem key={config.path} routeConfig={config} />
