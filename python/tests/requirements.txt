@@ -13,7 +13,7 @@ cffi==1.14.4
 chardet==4.0.0
     # via requests
 freezegun==1.0.0
-    # via -r python/tests/requirements.in
+    # via -r tests/requirements.in
 google-api-core[grpc]==1.24.1
     # via
     #   google-cloud-bigquery
@@ -23,19 +23,19 @@ google-auth==1.24.0
     # via
     #   google-api-core
     #   google-cloud-storage
+google-cloud==0.34.0
+    # via -r tests/../ingestion/requirements.in
 google-cloud-bigquery==2.6.1
-    # via -r python/tests/../ingestion/requirements.in
+    # via -r tests/../ingestion/requirements.in
 google-cloud-core==1.5.0
     # via
-    #   -r python/tests/../ingestion/requirements.in
+    #   -r tests/../ingestion/requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
 google-cloud-pubsub==2.2.0
-    # via -r python/tests/../ingestion/requirements.in
+    # via -r tests/../ingestion/requirements.in
 google-cloud-storage==1.35.0
-    # via -r python/tests/../ingestion/requirements.in
-google-cloud==0.34.0
-    # via -r python/tests/../ingestion/requirements.in
+    # via -r tests/../ingestion/requirements.in
 google-crc32c==1.1.0
     # via google-resumable-media
 google-resumable-media==1.2.0
@@ -59,12 +59,12 @@ libcst==0.3.16
     # via google-cloud-pubsub
 mypy-extensions==0.4.3
     # via typing-inspect
-numpy==1.19.4
+numpy==1.26.4
     # via pandas
-pandas==1.1.5
+pandas==2.2.1
     # via
-    #   -r python/tests/../ingestion/requirements.in
-    #   -r python/tests/requirements.in
+    #   -r tests/../ingestion/requirements.in
+    #   -r tests/requirements.in
 proto-plus==1.13.0
     # via
     #   google-cloud-bigquery
@@ -75,15 +75,15 @@ protobuf==3.14.0
     #   google-cloud-bigquery
     #   googleapis-common-protos
     #   proto-plus
-pyasn1-modules==0.2.8
-    # via google-auth
 pyasn1==0.4.8
     # via
     #   pyasn1-modules
     #   rsa
+pyasn1-modules==0.2.8
+    # via google-auth
 pycparser==2.20
     # via cffi
-python-dateutil==2.8.1
+python-dateutil==2.9.0.post0
     # via
     #   freezegun
     #   pandas
@@ -95,7 +95,7 @@ pyyaml==5.3.1
     # via libcst
 requests==2.25.1
     # via
-    #   -r python/tests/../ingestion/requirements.in
+    #   -r tests/../ingestion/requirements.in
     #   google-api-core
     #   google-cloud-storage
 rsa==4.6
@@ -116,10 +116,12 @@ typing-extensions==3.7.4.3
     #   typing-inspect
 typing-inspect==0.6.0
     # via libcst
+tzdata==2024.1
+    # via pandas
 urllib3==1.26.2
     # via requests
 xlrd==2.0.1
-    # via -r python/tests/../ingestion/requirements.in
+    # via -r tests/../ingestion/requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
