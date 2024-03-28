@@ -12,7 +12,7 @@
 	},
 	"dependencies": {
 		"@axe-core/playwright": "^4.8.5",
-		"@babel/plugin-syntax-jsx": "^7.22.5",
+		"@babel/plugin-syntax-jsx": "^7.24.1",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.0",
 		"@fontsource-variable/dm-sans": "^5.0.3",
