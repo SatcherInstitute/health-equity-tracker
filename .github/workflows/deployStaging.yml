@@ -163,7 +163,7 @@ jobs:
       - name: Check for Data Pipeline Changes
         id: check_pipeline_changes
         run: |
-          if git diff --quiet --name-only \
+          if git diff --name-only \
             ${{ github.event.before }} ${{ github.event.after }} \
             -- 'airflow/' 'config/' 'data/' 'data_server/' \
             'e2e_tests/' 'exporter/' 'frontend_server/' \
