@@ -22,8 +22,6 @@ const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
 
 export default function HetListItemButton(props: HetListItemButtonProps) {
 
-  console.log(props.option);
-
   return (
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
