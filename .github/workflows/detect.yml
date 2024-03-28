@@ -13,4 +13,7 @@ jobs:
         with:
           fetch-depth: 2
       - name: Get changes
-        run: git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+        run: git diff --name-only ${{ github.event.before }} ${{ github.event.after }} \
+          -- 'airflow/' 'config/' 'data/' 'data_server/' \
+          'e2e_tests/' 'exporter/' 'frontend_server/' \
+          'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/'
