@@ -151,8 +151,11 @@ jobs:
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     outputs:
       pipeline_changed: ${{ steps.git_diff.outputs.pipeline_changed }}
+=======
+>>>>>>> 43a19c8be (yml)
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
@@ -162,6 +165,7 @@ jobs:
       - name: Get diff of pipeline code (comparing the merged branch against old main)
         id: git_diff
         run: |
+<<<<<<< HEAD
           diff_output=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} \
             -- 'airflow/' 'config/' 'data/' 'data_server/' \
             'e2e_tests/' 'exporter/' 'frontend_server/' \
@@ -176,6 +180,17 @@ jobs:
           fi
         shell: bash
 
+=======
+          if git diff --quiet main -- 'airflow/' 'config/' 'data/' \
+            'data_server/' 'e2e_tests/' 'exporter/' 'frontend_server/' \
+            'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/'; then
+            echo "No changes found in data pipeline directories."
+          else
+            echo "Changes found in data pipeline directories."
+            echo "PIPELINE_CHANGED=true" >> "$GITHUB_ENV"
+          fi
+          echo "PIPELINE_CHANGED status: $PIPELINE_CHANGED"
+>>>>>>> 43a19c8be (yml)
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
