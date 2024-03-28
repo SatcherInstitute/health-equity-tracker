@@ -1,0 +1,16 @@
+name: TEST CHANGES
+
+on:
+  push:
+    branches: [main, infra-test]
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Get changes
+        run: git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
