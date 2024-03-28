@@ -5,7 +5,7 @@ const compression = require('compression')
 const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-// To make non-proxied request to metadata server for service account token..
+// To make non-proxied request to metadata server for service account token...
 const fetch = require('node-fetch');
 
 function assertEnvVar(name) {
