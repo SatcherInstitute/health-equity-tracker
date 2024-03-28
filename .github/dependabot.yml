@@ -1,0 +1,21 @@
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "frontend/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm"
+    directory: "frontend_server/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "python/"
+    schedule:
+      interval: "weekly"
