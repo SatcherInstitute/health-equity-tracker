@@ -2,7 +2,7 @@ name: DEPLOY STAGING
 
 on:
   push:
-    branches: [main, infra-test]
+    branches: [main]
     paths:
       # Run only if data pipeline services or the frontend/ changes
       - 'airflow/**'
@@ -18,14 +18,6 @@ on:
       - 'run_ingestion/**'
       - 'frontend/**'
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch code to deploy'
-        default: 'main' #if not specified by the user
-        type: 'choice'
-        options:
-          - main
-          - infra-test
 
 env:
   PIPELINE_CHANGED: false
@@ -41,7 +33,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -66,7 +58,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -91,7 +83,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -116,7 +108,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v2
         with:
@@ -166,7 +158,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          ref: main
           fetch-depth: 2
       - name: Check for Data Pipeline Changes
         id: check_pipeline_changes
@@ -200,7 +192,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v2
         with:
