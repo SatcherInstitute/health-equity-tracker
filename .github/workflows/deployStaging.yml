@@ -172,7 +172,8 @@ jobs:
         run: |
           if git diff --quiet --name-only \
             ${{ github.event.before }} ${{ github.event.after }} \
-            -- 'airflow/' 'config/' 'data/' 'data_server/' 'e2e_tests/' 'exporter/' 'frontend_server/' \
+            -- 'airflow/' 'config/' 'data/' 'data_server/' \
+            'e2e_tests/' 'exporter/' 'frontend_server/' \
             'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/'; then
             echo "No changes found in data pipeline directories."
           else
