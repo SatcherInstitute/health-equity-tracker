@@ -7,12 +7,12 @@ on:
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
-    - name: Check Out Code
-    uses: actions/checkout@v4
-    with:
-      ref: main
-      fetch-depth: 2
     steps:
+      - name: Check Out Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
       - name: Get changes
         id: git_diff
         run: |
