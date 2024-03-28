@@ -21,17 +21,20 @@ const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
 }
 
 export default function HetListItemButton(props: HetListItemButtonProps) {
+
+  console.log(props.option);
+
   return (
     <ListItemButton
+      tabIndex={props.onClick ? undefined : -1}
       className='p-0'
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}
     >
       <span
-        className={`${optionsToClasses[props.option ?? 'boldGreen']} ${
-          props.className ?? ''
-        }`}
+        className={`${optionsToClasses[props.option ?? 'boldGreen']} ${props.className ?? ''
+          }`}
       >
         {props.children}
       </span>
