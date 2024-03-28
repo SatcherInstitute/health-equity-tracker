@@ -3,6 +3,8 @@ name: TEST CHANGES
 on:
   push:
     branches: [main, infra-test]
+env:
+  PIPELINE_CHANGED: false
 
 jobs:
   detect-changes:
@@ -20,23 +22,18 @@ jobs:
             -- 'airflow/' 'config/' 'data/' 'data_server/' \
             'e2e_tests/' 'exporter/' 'frontend_server/' \
             'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/')
-          echo "::set-output name=diff_output::$diff_output"
-
-      - name: Check if diff exists
-        id: check_diff
-        run: |
-          if [ -n "${{ steps.git_diff.outputs.diff_output }}" ]; then
-            echo "Diff exists"
-            echo "::set-output name=diff_exists::true"
+          if [ -n "$diff_output" ]; then
+            echo "Changes detected."
+            echo "PIPELINE_CHANGED=true" >> $GITHUB_ENV
           else
-            echo "No diff exists"
-            echo "::set-output name=diff_exists::false"
+            echo "No changes detected."
+            echo "PIPELINE_CHANGED=false" >> $GITHUB_ENV
           fi
 
       - name: Use the diff status
         run: |
-          if [ "${{ steps.check_diff.outputs.diff_exists }}" = "true" ]; then
-            echo "There are changes in pipeline folders"
+          if [ "${{ env.PIPELINE_CHANGED }}" = "true" ]; then
+            echo "There are changes"
           else
-            echo "No changes in pipeline folders"
+            echo "No changes"
           fi
