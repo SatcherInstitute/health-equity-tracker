@@ -1,5 +1,4 @@
 'use strict';
-// test
 
 const express = require('express');
 const compression = require('compression')
