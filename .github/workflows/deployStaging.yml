@@ -175,8 +175,7 @@ jobs:
             echo "No pipeline changes detected."
             echo "PIPELINE_CHANGED=false" >> $GITHUB_ENV
           fi
-          echo "Changed?"
-          echo ${{ env.PIPELINE_CHANGED}}
+          echo "Changed? $PIPELINE_CHANGED"
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
