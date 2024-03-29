@@ -169,11 +169,11 @@ jobs:
             'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/')
           if [ -n "$diff_output" ]; then
             echo "Pipeline changes detected."
-            echo "PIPELINE_CHANGED=true" >> $GITHUB_ENV
+            echo "PIPELINE_CHANGED=true" >> "$GITHUB_ENV"
 
           else
             echo "No pipeline changes detected."
-            echo "PIPELINE_CHANGED=false" >> $GITHUB_ENV
+            echo "PIPELINE_CHANGED=false" >> "$GITHUB_ENV"
           fi
           echo "Changed? $PIPELINE_CHANGED"
   deploy:
