@@ -19,9 +19,6 @@ on:
       - 'frontend/**'
   workflow_dispatch:
 
-env:
-  PIPELINE_CHANGED: ""
-
 jobs:
   build-ingestion:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
@@ -154,6 +151,8 @@ jobs:
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest
+    outputs:
+      pipeline_changed: ${{ steps.git_diff.outputs.pipeline_changed }}
     steps:
       - name: Check Out Code
         uses: actions/checkout@v4
@@ -169,13 +168,14 @@ jobs:
             'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/')
           if [ -n "$diff_output" ]; then
             echo "Pipeline changes detected."
-            echo "PIPELINE_CHANGED=true" >> "$GITHUB_ENV"
+            echo "::set-output name=pipeline_changed::true"
 
           else
             echo "No pipeline changes detected."
-            echo "PIPELINE_CHANGED=false" >> "$GITHUB_ENV"
+            echo "::set-output name=pipeline_changed::false"
           fi
-          echo "Changed? $PIPELINE_CHANGED ? ${{ env.PIPELINE_CHANGED }}"
+        shell: bash
+
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
@@ -224,7 +224,7 @@ jobs:
         working-directory: ./config
         # only include composer if pipeline code has changed
         run: |
-          if [[ "${{ env.PIPELINE_CHANGED }}" == "true" ]]; then
+          if [[ "${{ needs.check_for_pipeline_changes.outputs.pipeline_changed }}" == "true" ]]; then
             terraform apply -auto-approve -var-file=test/test.tfvars \
               -var-file=common.tfvars \
               -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
@@ -260,7 +260,7 @@ jobs:
 
         # only run this step if pipeline files were changed
       - name: Composer / Airflow Environment Variables
-        if: ${{ env.PIPELINE_CHANGED == 'true' }}
+        if: needs.check_for_pipeline_changes.outputs.pipeline_changed == 'true'
         id: airflow-environment-variables
         run: |
           ENVIRONMENT_NAME=data-ingestion-environment
@@ -291,7 +291,7 @@ jobs:
 
         # only run this step if pipeline files were changed
       - name: Upload Airflow DAGs and utility file
-        if: ${{ env.PIPELINE_CHANGED == 'true' }}
+        if: needs.check_for_pipeline_changes.outputs.pipeline_changed == 'true'
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
