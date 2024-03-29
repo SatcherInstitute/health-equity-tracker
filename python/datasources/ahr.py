@@ -1,6 +1,6 @@
 import pandas as pd
 
-#  ch- changes
+#  changes
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import ingestion.constants as constants
