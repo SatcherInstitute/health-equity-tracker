@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
 
 env:
-  PIPELINE_CHANGED: false
+  PIPELINE_CHANGED: ""
 
 jobs:
   build-ingestion:
