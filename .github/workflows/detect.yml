@@ -1,0 +1,39 @@
+name: TEST CHANGES
+
+on:
+  push:
+    branches: [main, infra-test]
+env:
+  PIPELINE_CHANGED: false
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - name: Get changes
+        id: git_diff
+        run: |
+          diff_output=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} \
+            -- 'airflow/' 'config/' 'data/' 'data_server/' \
+            'e2e_tests/' 'exporter/' 'frontend_server/' \
+            'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/')
+          if [ -n "$diff_output" ]; then
+            echo "Changes detected."
+            echo "PIPELINE_CHANGED=true" >> $GITHUB_ENV
+          else
+            echo "No changes detected."
+            echo "PIPELINE_CHANGED=false" >> $GITHUB_ENV
+          fi
+
+      - name: Use the diff status
+        run: |
+          if [ "${{ env.PIPELINE_CHANGED }}" = "true" ]; then
+            echo "There are changes"
+          else
+            echo "No changes"
+          fi
