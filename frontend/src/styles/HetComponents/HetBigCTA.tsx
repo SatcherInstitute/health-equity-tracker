@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import { type ReactNode } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 interface HetBigCTAProps {
@@ -12,7 +12,7 @@ interface HetBigCTAProps {
 
 export default function HetBigCTA(props: HetBigCTAProps) {
 
-  const history = useHistory();
+  const navigateTo = useNavigate();
 
   return (
     <Button
@@ -20,7 +20,7 @@ export default function HetBigCTA(props: HetBigCTAProps) {
       variant='contained'
       className={`rounded-2xl px-8 py-5 ${props.className ?? ''}`}
       onClick={() => {
-        history.push(props.href)
+        navigateTo(props.href)
       }}
     >
       <span className='text-exploreButton text-white'>{props.children}</span>

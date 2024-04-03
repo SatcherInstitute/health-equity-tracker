@@ -1,6 +1,6 @@
 import Toolbar from '@mui/material/Toolbar';
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { routeConfigs } from '../methodologyContent/routeConfigs';
 
 interface MethodologyCardMenuMobileProps {
@@ -10,18 +10,17 @@ interface MethodologyCardMenuMobileProps {
 export default function MethodologyCardMenuMobile(
 	props: MethodologyCardMenuMobileProps,
 ) {
-	const history = useHistory();
+	const navigateTo = useNavigate();
 
 	const handleSelected = (event: any) => {
-		history.push(event.target.value);
+		navigateTo(event.target.value);
 	};
 
 	return (
 		<>
 			<div
-				className={`top-0 z-almostTop flex items-center rounded-sm bg-white p-1 sm:items-start sm:justify-start md:justify-center ${
-					props.className ?? ''
-				}`}
+				className={`top-0 z-almostTop flex items-center rounded-sm bg-white p-1 sm:items-start sm:justify-start md:justify-center ${props.className ?? ''
+					}`}
 			>
 				<Toolbar className='w-full'>
 					<FormControl sx={{ minWidth: '90vw' }} size='medium'>

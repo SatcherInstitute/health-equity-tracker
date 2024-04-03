@@ -1,7 +1,7 @@
 import { HET_URL } from '../../../utils/internalRoutes';
 import { Helmet } from 'react-helmet-async';
 import { currentYear } from '../../../cards/ui/SourcesHelpers';
-import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import { Route, Routes, useLocation, useMatch } from 'react-router-dom';
 import MethodologyCardMenu from './MethodologyCardMenu';
 import { routeConfigs } from '.././methodologyContent/routeConfigs';
 import MethodologyPagination from './MethodologyPagination';
@@ -38,9 +38,8 @@ export default function MethodologyPage() {
 							{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
 							<div className='px-12 md:hidden'>
 								{routeConfigs.map((routeConfig) => {
-									const match = useRouteMatch({
+									const match = useMatch({
 										path: routeConfig.path,
-										exact: true,
 									});
 									const hasSublinks =
 										routeConfig.subLinks && routeConfig.subLinks.length > 0;
@@ -59,7 +58,7 @@ export default function MethodologyPage() {
 									{activeRoute?.label}
 								</h2>
 
-								<Switch>
+								<Routes>
 									<>
 										{/* TEXT */}
 										{routeConfigs.map((route) => (
@@ -73,16 +72,15 @@ export default function MethodologyPage() {
 										{/* PREV / NEXT */}
 										<MethodologyPagination />
 									</>
-								</Switch>
+								</Routes>
 							</article>
 						</div>
 
 						{/* ON THIS PAGE SUB-MENU - DESKTOP */}
 						<div className='hidden min-w-fit md:block'>
 							{routeConfigs.map((routeConfig) => {
-								const match = useRouteMatch({
+								const match = useMatch({
 									path: routeConfig.path,
-									exact: true,
 								});
 								const hasSublinks =
 									routeConfig.subLinks && routeConfig.subLinks.length > 0;

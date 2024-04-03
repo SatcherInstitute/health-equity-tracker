@@ -6,7 +6,7 @@ import {
   FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { Link, Redirect, Route, Switch } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 
 // can't lazy load (yet) due to loading issues
 import EquityTab from './EquityTab'
@@ -27,7 +27,7 @@ export default function WhatIsHealthEquityPage() {
     <div>
       {/*  intercept old FAQ via query params for backwards compatible links */}
       {useUrlSearchParams().get('tab') === '1' && (
-        <Redirect
+        <Navigate
           to={{
             pathname: FAQ_TAB_LINK,
           }}
@@ -55,14 +55,10 @@ export default function WhatIsHealthEquityPage() {
         </Tabs>
       </Route>
 
-      <Switch>
-        <Route path={`${FAQ_TAB_LINK}/`}>
-          <FaqTab />
-        </Route>
-        <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}>
-          <EquityTab />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path={`${FAQ_TAB_LINK}/`} element={<FaqTab />} />
+        <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`} element={<EquityTab />} />
+      </Routes>
     </div>
   )
 }

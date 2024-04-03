@@ -16,9 +16,9 @@ import { ThemeProvider } from '@mui/material/styles'
 import React, { Suspense, useEffect } from 'react'
 import {
   BrowserRouter as Router,
-  Redirect,
+  Navigate,
   Route,
-  Switch,
+  Routes,
   useLocation,
 } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie'
@@ -106,73 +106,34 @@ export default function App() {
                     }
                   >
                     <main className='scroll-smooth'>
-                      <Switch>
-                        <Route path={ABOUT_US_PAGE_LINK}>
-                          <AboutUsPage />
-                        </Route>
+                      <Routes>
+                        <Route path={ABOUT_US_PAGE_LINK} element={<AboutUsPage />} />
+                        <Route path={OURTEAM_TAB_LINK} element={<AboutUsPage />} />
+                        <Route path={CONTACT_TAB_LINK} element={<AboutUsPage />} />
+                        <Route path={DATA_CATALOG_PAGE_LINK} element={<DataCatalogPage />} />
+                        <Route path={METHODOLOGY_PAGE_LINK} element={<MethodologyPage />} />
 
-                        <Route path={OURTEAM_TAB_LINK}>
-                          <AboutUsPage />
-                        </Route>
+                        <Route path={EXPLORE_DATA_PAGE_LINK} element={<ErrorBoundaryDropParams
+                          fallback={<ExploreDataFallback />}
+                        >
+                          <ExploreDataPage isMobile={isSm} />
+                        </ErrorBoundaryDropParams>} />
 
-                        <Route path={CONTACT_TAB_LINK}>
-                          <AboutUsPage />
-                        </Route>
+                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK} element={<WhatIsHealthEquityPage />} />
+                        <Route path={FAQ_TAB_LINK} element={<WhatIsHealthEquityPage />} />
+                        <Route path={NEWS_PAGE_LINK} element={<NewsPage isMobile={isSm} />} />
+                        <Route path={SHARE_YOUR_STORY_TAB_LINK} element={<NewsPage isMobile={isSm} />} />
+                        <Route path={TERMS_OF_USE_PAGE_LINK} element={<TermsOfUsePage />} />
 
-                        <Route path={DATA_CATALOG_PAGE_LINK}>
-                          <DataCatalogPage />
-                        </Route>
+                        {/* Navigate the old URL for possible outside links */}
+                        <Route path={'/termsofservice'} element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />} />
+                        <Route path={OLD_AGE_ADJUSTMENT_LINK} element={<Navigate to={AGE_ADJUSTMENT_LINK} />} />
 
-                        <Route path={METHODOLOGY_PAGE_LINK}>
-                          <MethodologyPage />
-                        </Route>
-
-                        <Route path={EXPLORE_DATA_PAGE_LINK}>
-                          <ErrorBoundaryDropParams
-                            fallback={<ExploreDataFallback />}
-                          >
-                            <ExploreDataPage isMobile={isSm} />
-                          </ErrorBoundaryDropParams>
-                        </Route>
-
-                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
-
-                        <Route path={FAQ_TAB_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
-
-                        <Route path={NEWS_PAGE_LINK}>
-                          <NewsPage isMobile={isSm} />
-                        </Route>
-
-                        <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                          <NewsPage isMobile={isSm} />
-                        </Route>
-
-                        <Route path={TERMS_OF_USE_PAGE_LINK}>
-                          <TermsOfUsePage />
-                        </Route>
-
-                        {/* redirect the old URL for possible outside links */}
-                        <Route path={'/termsofservice'}>
-                          <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                        </Route>
-
-                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
-                        <Redirect to={AGE_ADJUSTMENT_LINK} />
-                        </Route>
-
-                        <Route path='/'>
-                          <LandingPage />
-                        </Route>
+                        <Route path="/" element={<LandingPage />} />
 
                         {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                        <Route>
-                          <NotFoundPage />
-                        </Route>
-                      </Switch>
+                        <Route path="*" element={<NotFoundPage />} />
+                      </Routes>
                     </main>
                   </Suspense>
                 </Router>
@@ -186,6 +147,6 @@ export default function App() {
           </CookiesProvider>
         </ThemeProvider>
       </StyledEngineProvider>
-    </HelmetProvider>
+    </HelmetProvider >
   )
 }
