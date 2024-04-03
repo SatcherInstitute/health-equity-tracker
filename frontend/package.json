@@ -27,7 +27,7 @@
 		"@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
 		"@vitejs/plugin-react": "^4.2.1",
 		"axios": "^1.5.0",
-		"cspell": "^6.31.3",
+		"cspell": "^8.6.1",
 		"d3": "^7.8.5",
 		"data-forge": "^1.10.2",
 		"env-cmd": "^10.1.0",
