@@ -20,7 +20,7 @@
 		"@fontsource/roboto": "^5.0.8",
 		"@fontsource/roboto-condensed": "^5.0.14",
 		"@fontsource/taviraj": "^5.0.18",
-		"@mui/icons-material": "^5.15.6",
+		"@mui/icons-material": "^5.15.14",
 		"@mui/lab": "^5.0.0-alpha.124",
 		"@mui/material": "^5.14.9",
 		"@popperjs/core": "^2.11.8",
