@@ -63,7 +63,6 @@ RAW_TOTALS_MAP = generate_cols_map(INJ_INTENTS, std_col.RAW_SUFFIX)
 RAW_POPULATIONS_MAP = generate_cols_map(INJ_OUTCOMES, std_col.POPULATION_COL)
 PCT_SHARE_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
 PCT_SHARE_MAP[std_col.FATAL_POPULATION] = std_col.FATAL_POPULATION_PCT
-PCT_SHARE_MAP[std_col.NON_FATAL_POPULATION] = std_col.NON_FATAL_POPULATION_PCT
 PCT_REL_INEQUITY_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 
 PIVOT_DEM_COLS = {
@@ -164,10 +163,9 @@ class CDCWisqarsData(DataSource):
             df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
 
         for col in RAW_TOTALS_MAP.values():
-            pop_col = std_col.FATAL_POPULATION_PCT
-            if col == std_col.GUN_VIOLENCE_INJURIES_RAW:
-                pop_col = std_col.NON_FATAL_POPULATION_PCT
-            df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col])
+            df = generate_pct_rel_inequity_col(
+                df, PCT_SHARE_MAP[col], std_col.FATAL_POPULATION_PCT, PCT_REL_INEQUITY_MAP[col]
+            )
 
         return df
 
@@ -183,92 +181,84 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     """
     output_df = pd.DataFrame(columns=["year"])
 
-    for outcome in INJ_OUTCOMES:
-        data_metric = 'deaths'
-        data_column_name = 'intent'
+    data_metric = 'deaths'
+    data_column_name = 'intent'
 
-        if outcome == std_col.NON_FATAL_PREFIX:
-            data_metric = 'estimated number'
-            data_column_name = 'year'
-            if geo_level == STATE_LEVEL or breakdown == std_col.RACE_OR_HISPANIC_COL:
-                continue
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        DATA_DIR,
+        f"fatal_gun_injuries-{geo_level}-{breakdown}.csv",
+        na_values=["--", "**"],
+        usecols=lambda x: x not in WISQARS_COLS,
+        thousands=",",
+        dtype={"Year": str},
+    )
 
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            DATA_DIR,
-            f"{outcome}_gun_injuries-{geo_level}-{breakdown}.csv",
-            na_values=["--", "**"],
-            usecols=lambda x: x not in WISQARS_COLS,
-            thousands=",",
-            dtype={"Year": str},
+    df.columns = df.columns.str.lower()
+
+    # removes the metadata section from the csv
+    metadata_start_index = df[df[data_column_name] == "Total"].index
+    metadata_start_index = metadata_start_index[0]
+    df = df.iloc[:metadata_start_index]
+
+    # cleans data frame
+    columns_to_convert = [data_metric, 'crude rate']
+    convert_columns_to_numeric(df, columns_to_convert)
+
+    if geo_level == NATIONAL_LEVEL:
+        df.insert(1, "state", US_NAME)
+
+    df = df[
+        (df['intent'] != 'Unintentional') & (df['intent'] != 'Undetermined') & (df['intent'] != 'Legal Intervention')
+    ]
+
+    # reshapes df to add the intent rows as columns
+    pivot_df = df.pivot(
+        index=PIVOT_DEM_COLS.get(breakdown, []),
+        columns="intent",
+        values=['deaths', 'crude rate'],
+    )
+
+    pivot_df.columns = [
+        (
+            f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
+            if col[0] == 'deaths'
+            else f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
         )
+        for col in pivot_df.columns
+    ]
 
-        df.columns = df.columns.str.lower()
+    df = pivot_df.reset_index()
 
-        # removes the metadata section from the csv
-        metadata_start_index = df[df[data_column_name] == "Total"].index
-        metadata_start_index = metadata_start_index[0]
-        df = df.iloc[:metadata_start_index]
+    df.rename(
+        columns={
+            "age group": std_col.AGE_COL,
+            'population': 'fatal_population',
+            'sex': std_col.SEX_COL,
+        },
+        inplace=True,
+    )
 
-        # cleans data frame
-        columns_to_convert = [data_metric, 'crude rate']
-        convert_columns_to_numeric(df, columns_to_convert)
+    if std_col.ETH_COL in df.columns.to_list():
+        df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
+        df = df.rename(columns={'race_ethnicity_combined': 'race'})
 
-        if geo_level == NATIONAL_LEVEL:
-            df.insert(1, "state", US_NAME)
+        # Combines the unknown and hispanic rows
+        df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
 
-        if outcome == std_col.FATAL_PREFIX:
-            df = df[(df['intent'] != 'Unintentional') & (df['intent'] != 'Undetermined')]
+        # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
+        subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
 
-            # reshapes df to add the intent rows as columns
-            pivot_df = df.pivot(
-                index=PIVOT_DEM_COLS.get(breakdown, []),
-                columns="intent",
-                values=['deaths', 'crude rate'],
-            )
+        # Create a temporary DataFrame with just the subset
+        temp_df = df[subset_mask].copy()
 
-            pivot_df.columns = [
-                (
-                    f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
-                    if col[0] == 'deaths'
-                    else f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
-                )
-                for col in pivot_df.columns
-            ]
+        # Apply the function to the temporary DataFrame
+        for raw_total in RAW_TOTALS_MAP.values():
+            if raw_total in df.columns:
+                temp_df = generate_per_100k_col(temp_df, raw_total, 'fatal_population', 'crude rate')
 
-            df = pivot_df.reset_index()
+        # Update the original DataFrame with the results for the 'crude rate' column
+        df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
 
-        df.rename(
-            columns={
-                "age group": std_col.AGE_COL,
-                'estimated number': std_col.GUN_VIOLENCE_INJURIES_RAW,
-                'population': f'{outcome}_population',
-                'crude rate': std_col.GUN_VIOLENCE_INJURIES_PER_100K,
-                'sex': std_col.SEX_COL,
-            },
-            inplace=True,
-        )
-
-        if std_col.ETH_COL in df.columns.to_list():
-            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
-            df = df.rename(columns={'race_ethnicity_combined': 'race'})
-
-            # Combines the unknown and hispanic rows
-            df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
-
-            # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
-            subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
-
-            # Create a temporary DataFrame with just the subset
-            temp_df = df[subset_mask].copy()
-
-            # Apply the function to the temporary DataFrame
-            for raw_total in RAW_TOTALS_MAP.values():
-                if raw_total in df.columns:
-                    temp_df = generate_per_100k_col(temp_df, raw_total, f'{outcome}_population', 'crude rate')
-
-            # Update the original DataFrame with the results for the 'crude rate' column
-            df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
-
-        output_df = output_df.merge(df, how="outer")
+    output_df = output_df.merge(df, how="outer")
 
     return output_df

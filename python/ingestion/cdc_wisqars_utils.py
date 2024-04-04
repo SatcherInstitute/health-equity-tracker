@@ -5,13 +5,11 @@ from ingestion import standardized_columns as std_col
 
 DATA_DIR = "cdc_wisqars"
 
-INJ_OUTCOMES = [std_col.FATAL_PREFIX, std_col.NON_FATAL_PREFIX]
+INJ_OUTCOMES = [std_col.FATAL_PREFIX]
 
 INJ_INTENTS = [
     std_col.GUN_VIOLENCE_HOMICIDE_PREFIX,
-    std_col.GUN_VIOLENCE_LEGAL_INTERVENTION_PREFIX,
     std_col.GUN_VIOLENCE_SUICIDE_PREFIX,
-    std_col.GUN_VIOLENCE_INJURIES_PREFIX,
 ]
 
 
@@ -57,10 +55,7 @@ def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
 
 
 def generate_cols_map(prefixes, suffix):
-    return {
-        prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}"
-        for prefix in prefixes
-    }
+    return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
 
 
 def contains_unknown(x):
