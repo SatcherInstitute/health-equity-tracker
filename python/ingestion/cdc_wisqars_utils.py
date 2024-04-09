@@ -62,6 +62,23 @@ def clean_numeric(val):
     return val
 
 
+def contains_unknown(x):
+    """
+    Check if the input contains the word 'unknown' (case insensitive) and return True
+    if it does, False otherwise.
+
+    Args:
+        x: The input to be checked for the presence of the word 'unknown'.
+
+    Returns:
+        bool: True if the input contains the word 'unknown', False otherwise.
+    """
+    if isinstance(x, str) and 'unknown' in x.lower():
+        return True
+
+    return False
+
+
 def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
     """
     Convert the specified columns in the DataFrame to numeric type.
@@ -92,20 +109,3 @@ def generate_cols_map(prefixes, suffix):
     specified suffix.
     """
     return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
-
-
-def contains_unknown(x):
-    """
-    Check if the input contains the word 'unknown' (case insensitive) and return True
-    if it does, False otherwise.
-
-    Args:
-        x: The input to be checked for the presence of the word 'unknown'.
-
-    Returns:
-        bool: True if the input contains the word 'unknown', False otherwise.
-    """
-    if isinstance(x, str) and 'unknown' in x.lower():
-        return True
-
-    return False

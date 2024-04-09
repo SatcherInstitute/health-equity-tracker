@@ -40,13 +40,13 @@ PIVOT_DEM_COLS = {
 }
 
 TIME_MAP = {
-    'CURRENT': (
+    CURRENT: (
         list(PER_100K_MAP.values())
         + list(PCT_SHARE_MAP.values())
         + list(RAW_TOTALS_MAP.values())
         + list(RAW_POPULATIONS_MAP.values())
     ),
-    'HISTORICAL': (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
+    HISTORICAL: (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
 }
 
 
