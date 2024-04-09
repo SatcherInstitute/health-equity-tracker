@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from datasources.data_source import DataSource
-from ingestion.constants import CURRENT, HISTORICAL, US_NAME, NATIONAL_LEVEL, STATE_LEVEL, Sex
+from ingestion.constants import CURRENT, HISTORICAL, US_NAME, NATIONAL_LEVEL, Sex
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.dataset_utils import (
     combine_race_ethnicity,
@@ -24,39 +24,6 @@ from ingestion.cdc_wisqars_utils import (
     INJ_OUTCOMES,
 )
 
-"""
-Data Source: CDC WISQARS (data on gun violence)
-
-Description:
-- The data on gun violence (general population) is downloaded from the CDC WISQARS database.
-- The downloaded data is stored locally in our data/cdc_wisqars directory for subsequent use.
-
-Instructions for Downloading Data:
-1. Visit the WISQARS website: https://wisqars.cdc.gov/reports/
-2. Select the injury outcome:
-    - `Fatal` or `Nonfatal`
-3. Select the desired data years:
-    - `2001-2021`
-4. Select the geography:
-    - `United States`
-5. Select the intent:
-    - `All Intents`
-6. Select the mechanism:
-    - `Firearm`
-7. Select the demographic selections:
-   - `All ages`, `Both Sexes`, `All Races`
-8. Select appropriate report layout:
-   - For fatal_gun_injuries-national-all: `Intent`, `None`, `None`, `None`
-   - For fatal_gun_injuries-national-race: `Intent`, `Race`, `Ethnicity`, `None`
-   - For non_fatal_gun_injuries--state-all: `Intent`, `State`, `None`, `None`
-   - For non_fatal_gun_injuries-state-age: `Intent`, `State`, `Age Group`, `None`
-
-Notes:
-- There is no state-level data on non-fatal injury outcomes
-- Race data is only available for fatal data and is available from 2018-2021
-
-Last Updated: 2/24
-"""
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
 RAW_TOTALS_MAP = generate_cols_map(INJ_INTENTS, std_col.RAW_SUFFIX)
@@ -73,15 +40,42 @@ PIVOT_DEM_COLS = {
 }
 
 TIME_MAP = {
-    CURRENT: list(PER_100K_MAP.values())
-    + list(PCT_SHARE_MAP.values())
-    + list(RAW_TOTALS_MAP.values())
-    + list(RAW_POPULATIONS_MAP.values()),
-    HISTORICAL: list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()),
+    'CURRENT': (
+        list(PER_100K_MAP.values())
+        + list(PCT_SHARE_MAP.values())
+        + list(RAW_TOTALS_MAP.values())
+        + list(RAW_POPULATIONS_MAP.values())
+    ),
+    'HISTORICAL': (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
 }
 
 
 class CDCWisqarsData(DataSource):
+    """
+    Description:
+    The data on gun violence for the general population is sourced from the CDC WISQARS
+    database. Once downloaded, this data is stored locally within the `data/cdc_wisqars`
+    directory, ready for subsequent processing and analysis.
+
+    Instructions for Downloading Data:
+    1. Navigate to the WISQARS website at https://wisqars.cdc.gov/reports/.
+    2. Choose the `Fatal` injury outcome from the injury outcome selection.
+    3. Select the data years of interest, which range from `2001-2021`.
+    4. For geography, opt for `United States`.
+    5. Choose `All Intents` under the intent selection.
+    6. Under the mechanism category, select `Firearm`.
+    7. For demographic details, select `All ages`, `Both Sexes`, `All Races`.
+    8. Choose the appropriate report layout depending on your needs:
+        - For fatal_gun_injuries-national-all: `Intent`, `None`, `None`, `None`
+        - For fatal_gun_injuries-national-race: `Intent`, `Race`, `Ethnicity`, `None`
+
+    Notes:
+        - Please note that state-level data for non-fatal injury outcomes is not available.
+        - Race data is available only for fatal data outcomes and spans from 2018-2021.
+
+    Last Updated: 2/24
+    """
+
     @staticmethod
     def get_id():
         return "CDC_WISQARS_DATA"
@@ -130,7 +124,7 @@ class CDCWisqarsData(DataSource):
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
 
-        # replace "Females" with "Female" and "Males" with "Male"
+        # Replace "Females" with "Female" and "Males" with "Male"
         breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
@@ -142,7 +136,7 @@ class CDCWisqarsData(DataSource):
 
         df = merge_state_ids(df)
 
-        # adds missing columns
+        # Adds missing columns
         combined_cols = list(PER_100K_MAP.values()) + list(RAW_TOTALS_MAP.values())
         for col in combined_cols:
             if col not in df.columns:
@@ -151,7 +145,7 @@ class CDCWisqarsData(DataSource):
         if std_col.NON_FATAL_POPULATION not in df.columns:
             df[std_col.NON_FATAL_POPULATION] = np.nan
 
-        # detect if data frame has unknown values
+        # Detect if data frame has unknown values
         has_unknown = df.applymap(contains_unknown).any().any()
 
         if has_unknown:
@@ -159,6 +153,7 @@ class CDCWisqarsData(DataSource):
             if breakdown == std_col.RACE_OR_HISPANIC_COL:
                 unknown = 'Unknown race'
             df = generate_pct_share_col_with_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown)
+
         else:
             df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
 
@@ -195,12 +190,12 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
     df.columns = df.columns.str.lower()
 
-    # removes the metadata section from the csv
+    # Removes the metadata section from the csv
     metadata_start_index = df[df[data_column_name] == "Total"].index
     metadata_start_index = metadata_start_index[0]
     df = df.iloc[:metadata_start_index]
 
-    # cleans data frame
+    # Cleans data frame
     columns_to_convert = [data_metric, 'crude rate']
     convert_columns_to_numeric(df, columns_to_convert)
 
@@ -211,7 +206,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         (df['intent'] != 'Unintentional') & (df['intent'] != 'Undetermined') & (df['intent'] != 'Legal Intervention')
     ]
 
-    # reshapes df to add the intent rows as columns
+    # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
         index=PIVOT_DEM_COLS.get(breakdown, []),
         columns="intent",
