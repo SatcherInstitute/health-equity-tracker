@@ -33,7 +33,7 @@ google-cloud-core==1.7.3
     #   -r tests/../ingestion/requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-pubsub==2.2.0
+google-cloud-pubsub==2.6.0
     # via -r tests/../ingestion/requirements.in
 google-cloud-storage==1.35.0
     # via -r tests/../ingestion/requirements.in
