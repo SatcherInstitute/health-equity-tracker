@@ -1,3 +1,16 @@
+"""
+This module defines utilities for processing and analyzing CDC WISQARS data,
+focusing on injury outcomes and intents, particularly gun violence incidents.
+It includes functions for data cleaning, conversion to numeric types, and
+mapping of column names based on specific prefixes and suffixes.
+
+Features include:
+- Cleaning numeric values in the dataset, including handling of special markers and commas.
+- Converting specified columns in a DataFrame to numeric types.
+- Generating mappings for column names based on given prefixes and a specified suffix.
+- Checking for the presence of 'unknown' values in a dataset.
+"""
+
 from typing import List
 
 import pandas as pd
