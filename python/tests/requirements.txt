@@ -22,12 +22,13 @@ google-api-core[grpc]==1.24.1
 google-auth==1.24.0
     # via
     #   google-api-core
+    #   google-cloud-core
     #   google-cloud-storage
 google-cloud==0.34.0
     # via -r tests/../ingestion/requirements.in
 google-cloud-bigquery==2.6.1
     # via -r tests/../ingestion/requirements.in
-google-cloud-core==1.5.0
+google-cloud-core==1.7.3
     # via
     #   -r tests/../ingestion/requirements.in
     #   google-cloud-bigquery
