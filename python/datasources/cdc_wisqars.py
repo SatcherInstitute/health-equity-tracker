@@ -1,3 +1,27 @@
+"""
+This documentation outlines the procedure for acquiring gun violence data for the general 
+population from the CDC WISQARS database. The data, once downloaded, is stored locally in 
+the `data/cdc_wisqars` directory for further processing and analysis.
+
+Instructions for Downloading Data:
+1. Access the WISQARS website at https://wisqars.cdc.gov/reports/.
+2. Select `Fatal` as the injury outcome.
+3. Specify the data years of interest, from `2001-2021`.
+4. Set geography to `United States`.
+5. Choose `All Intents` for the intent.
+6. Under mechanism, opt for `Firearm`.
+7. For demographics, select `All ages`, `Both Sexes`, `All Races`.
+8. Decide on the report layout based on your requirements:
+   - For fatal_gun_injuries-national-all: `Intent`, `None`, `None`, `None`
+   - For fatal_gun_injuries-national-race: `Intent`, `Race`, `Ethnicity`, `None`
+
+Notes:
+- State-level data for non-fatal injury outcomes is not available.
+- Race data is provided only for fatal data outcomes and covers the period from 2018-2021.
+
+Last Updated: 2/24
+"""
+
 import pandas as pd
 import numpy as np
 from datasources.data_source import DataSource
@@ -46,34 +70,26 @@ TIME_MAP = {
         + list(RAW_TOTALS_MAP.values())
         + list(RAW_POPULATIONS_MAP.values())
     ),
-    HISTORICAL: (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
+    HISTORICAL: (
+        list(PER_100K_MAP.values())
+        + list(PCT_REL_INEQUITY_MAP.values())
+        + list(PCT_SHARE_MAP.values())
+    ),
 }
 
 
 class CDCWisqarsData(DataSource):
     """
-    Description:
-    The data on gun violence for the general population is sourced from the CDC WISQARS
-    database. Once downloaded, this data is stored locally within the `data/cdc_wisqars`
-    directory, ready for subsequent processing and analysis.
+    Class for handling CDC WISQARS data.
 
-    Instructions for Downloading Data:
-    1. Navigate to the WISQARS website at https://wisqars.cdc.gov/reports/.
-    2. Choose the `Fatal` injury outcome from the injury outcome selection.
-    3. Select the data years of interest, which range from `2001-2021`.
-    4. For geography, opt for `United States`.
-    5. Choose `All Intents` under the intent selection.
-    6. Under the mechanism category, select `Firearm`.
-    7. For demographic details, select `All ages`, `Both Sexes`, `All Races`.
-    8. Choose the appropriate report layout depending on your needs:
-        - For fatal_gun_injuries-national-all: `Intent`, `None`, `None`, `None`
-        - For fatal_gun_injuries-national-race: `Intent`, `Race`, `Ethnicity`, `None`
+    Methods:
+        get_id(): Retrieves the ID for CDC WISQARS data.
+        get_table_name(): Retrieves the table name for CDC WISQARS data.
+        upload_to_gcs(gcs_bucket, **attrs): Uploads data to Google Cloud Storage.
+        write_to_bq(dataset, gcs_bucket, **attrs): Writes data to BigQuery.
+        generate_breakdown_df(breakdown, geo_level, alls_df): Generates a data frame
+        by breakdown and geographic level.
 
-    Notes:
-        - Please note that state-level data for non-fatal injury outcomes is not available.
-        - Race data is available only for fatal data outcomes and spans from 2018-2021.
-
-    Last Updated: 2/24
     """
 
     @staticmethod
@@ -104,7 +120,9 @@ class CDCWisqarsData(DataSource):
             table_name = f"{demographic}_{geo_level}_{table_type}"
             time_cols = TIME_MAP[table_type]
 
-            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(
+                df, time_cols, table_type, demographic
+            )
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -125,7 +143,9 @@ class CDCWisqarsData(DataSource):
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
 
         # Replace "Females" with "Female" and "Males" with "Male"
-        breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
+        breakdown_group_df = breakdown_group_df.replace({
+            breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}
+        })
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -152,10 +172,14 @@ class CDCWisqarsData(DataSource):
             unknown = 'Unknown'
             if breakdown == std_col.RACE_OR_HISPANIC_COL:
                 unknown = 'Unknown race'
-            df = generate_pct_share_col_with_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown)
+            df = generate_pct_share_col_with_unknowns(
+                df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown
+            )
 
         else:
-            df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
+            df = generate_pct_share_col_without_unknowns(
+                df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE
+            )
 
         for col in RAW_TOTALS_MAP.values():
             df = generate_pct_rel_inequity_col(
@@ -203,7 +227,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         df.insert(1, "state", US_NAME)
 
     df = df[
-        (df['intent'] != 'Unintentional') & (df['intent'] != 'Undetermined') & (df['intent'] != 'Legal Intervention')
+        ~df['intent'].isin(['Unintentional', 'Undetermined', 'Legal Intervention'])
     ]
 
     # Reshapes df to add the intent rows as columns
@@ -249,7 +273,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         # Apply the function to the temporary DataFrame
         for raw_total in RAW_TOTALS_MAP.values():
             if raw_total in df.columns:
-                temp_df = generate_per_100k_col(temp_df, raw_total, 'fatal_population', 'crude rate')
+                temp_df = generate_per_100k_col(
+                    temp_df, raw_total, 'fatal_population', 'crude rate'
+                )
 
         # Update the original DataFrame with the results for the 'crude rate' column
         df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
