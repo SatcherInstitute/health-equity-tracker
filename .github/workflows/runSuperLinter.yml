@@ -17,13 +17,12 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files
           fetch-depth: 0
-      # Lint changed files of these languages using Super Linter shared action
+        # Lint changed files of these langauges using Super Linter shared action
       - name: Lint Code Base
         uses: super-linter/super-linter/slim@v6.0.0
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false
-          VALIDATE: true  # Set to true to validate code
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_DOCKERFILE: true
           VALIDATE_TSX: true
