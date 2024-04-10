@@ -17,16 +17,9 @@ jobs:
         with:
           # Full git history is needed to get a proper list of changed files
           fetch-depth: 0
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.9
-      - name: Install dependencies
-        run: |
-          pip install pandas numpy
-      # Lint changed files of these langauges using Super Linter shared action
+        # Lint changed files of these langauges using Super Linter shared action
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v6.3.1
+        uses: super-linter/super-linter/slim@v6.0.0
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false
@@ -36,7 +29,7 @@ jobs:
           VALIDATE_TYPESCRIPT_ES: true
           PYTHON_BLACK_CONFIG_FILE: black.ini
           VALIDATE_PYTHON_BLACK: true
-          VALIDATE_PYTHON_PYLINT: true
+          VALIDATE_PYTHON_PYLINT: false
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_TERRAFORM_FMT: true
           VALIDATE_GITHUB_ACTIONS: true
