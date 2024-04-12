@@ -143,9 +143,9 @@ class CDCWisqarsData(DataSource):
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
 
         # Replace "Females" with "Female" and "Males" with "Male"
-        breakdown_group_df = breakdown_group_df.replace({
-            breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}
-        })
+        breakdown_group_df = breakdown_group_df.replace(
+            {breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}}
+        )
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -226,9 +226,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     if geo_level == NATIONAL_LEVEL:
         df.insert(1, "state", US_NAME)
 
-    df = df[
-        ~df['intent'].isin(['Unintentional', 'Undetermined', 'Legal Intervention'])
-    ]
+    df = df[~df['intent'].isin(['Unintentional', 'Undetermined', 'Legal Intervention'])]
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(

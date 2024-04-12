@@ -108,4 +108,6 @@ def generate_cols_map(prefixes, suffix):
     dict: A dictionary mapping the original prefixes to the modified prefixes with the
     specified suffix.
     """
-    return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
+    return {
+        prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes
+    }
