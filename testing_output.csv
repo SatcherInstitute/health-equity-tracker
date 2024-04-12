@@ -1,0 +1,205 @@
+year,state,sex,fatal_population,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k
+2018,Alabama,Females,2526183.0,74.0,94.0,2.93,3.72
+2018,Alabama,Males,2365445.0,394.0,458.0,16.66,19.36
+2018,Alaska,Females,352320.0,,,,
+2018,Alaska,Males,384304.0,30.0,89.0,7.81,23.16
+2018,Arizona,Females,3604059.0,45.0,100.0,1.25,2.78
+2018,Arizona,Males,3560169.0,248.0,702.0,6.97,19.72
+2018,Arkansas,Females,1533071.0,36.0,56.0,2.35,3.65
+2018,Arkansas,Males,1479090.0,158.0,289.0,10.68,19.54
+2018,California,Females,19829641.0,183.0,172.0,0.92,0.87
+2018,California,Males,19607822.0,1092.0,1457.0,5.57,7.43
+2018,Colorado,Females,2828980.0,28.0,97.0,0.99,3.43
+2018,Colorado,Males,2868175.0,160.0,563.0,5.58,19.63
+2018,Connecticut,Females,1831360.0,,,,
+2018,Connecticut,Males,1743201.0,45.0,115.0,2.58,6.6
+2018,Delaware,Females,499426.0,,,,
+2018,Delaware,Males,467559.0,35.0,53.0,7.49,11.34
+2018,District of Columbia,Females,369821.0,,,,
+2018,District of Columbia,Males,334326.0,105.0,,31.41,
+2018,Florida,Females,10863662.0,183.0,241.0,1.69,2.22
+2018,Florida,Males,10391264.0,794.0,1628.0,7.64,15.67
+2018,Georgia,Females,5403773.0,110.0,172.0,2.04,3.18
+2018,Georgia,Males,5115616.0,534.0,815.0,10.44,15.93
+2018,Hawaii,Females,709720.0,,,,
+2018,Hawaii,Males,713382.0,,26.0,,3.65
+2018,Idaho,Females,873726.0,,41.0,,4.69
+2018,Idaho,Males,878348.0,22.0,209.0,2.51,23.8
+2018,Illinois,Females,6472590.0,87.0,71.0,1.34,1.1
+2018,Illinois,Males,6252095.0,697.0,502.0,11.15,8.03
+2018,Indiana,Females,3395350.0,63.0,104.0,1.86,3.06
+2018,Indiana,Males,3303131.0,301.0,484.0,9.11,14.65
+2018,Iowa,Females,1582600.0,,23.0,,1.45
+2018,Iowa,Males,1567300.0,31.0,208.0,1.98,13.27
+2018,Kansas,Females,1461321.0,26.0,33.0,1.78,2.26
+2018,Kansas,Males,1451427.0,97.0,259.0,6.68,17.85
+2018,Kentucky,Females,2265345.0,45.0,68.0,1.99,3.0
+2018,Kentucky,Males,2198928.0,162.0,441.0,7.37,20.06
+2018,Louisiana,Females,2387863.0,66.0,81.0,2.76,3.39
+2018,Louisiana,Males,2276587.0,431.0,386.0,18.93,16.96
+2018,Maine,Females,683920.0,,,,
+2018,Maine,Males,656203.0,,134.0,,20.42
+2018,Maryland,Females,3115060.0,48.0,34.0,1.54,1.09
+2018,Maryland,Males,2927093.0,378.0,232.0,12.91,7.93
+2018,Massachusetts,Females,3544419.0,,,,
+2018,Massachusetts,Males,3341301.0,95.0,137.0,2.84,4.1
+2018,Michigan,Females,5068797.0,85.0,99.0,1.68,1.95
+2018,Michigan,Males,4918489.0,394.0,707.0,8.01,14.37
+2018,Minnesota,Females,2815323.0,,23.0,,0.82
+2018,Minnesota,Males,2793439.0,60.0,333.0,2.15,11.92
+2018,Mississippi,Females,1536005.0,61.0,55.0,3.97,3.58
+2018,Mississippi,Males,1446874.0,259.0,258.0,17.9,17.83
+2018,Missouri,Females,3119006.0,106.0,112.0,3.4,3.59
+2018,Missouri,Males,3006980.0,450.0,614.0,14.97,20.42
+2018,Montana,Females,527421.0,,,,
+2018,Montana,Males,534397.0,,140.0,,26.2
+2018,Nebraska,Females,964575.0,,,,
+2018,Nebraska,Males,960937.0,,133.0,,13.84
+2018,Nevada,Females,1510460.0,34.0,61.0,2.25,4.04
+2018,Nevada,Males,1520265.0,124.0,306.0,8.16,20.13
+2018,New Hampshire,Females,683488.0,,,,
+2018,New Hampshire,Males,671576.0,,118.0,,17.57
+2018,New Jersey,Females,4547534.0,24.0,,0.53,
+2018,New Jersey,Males,4344196.0,194.0,181.0,4.47,4.17
+2018,New Mexico,Females,1057418.0,27.0,38.0,2.55,3.59
+2018,New Mexico,Males,1036336.0,109.0,243.0,10.52,23.45
+2018,New York,Females,10053544.0,54.0,32.0,0.54,0.32
+2018,New York,Males,9490554.0,302.0,413.0,3.18,4.35
+2018,North Carolina,Females,5336021.0,85.0,131.0,1.59,2.46
+2018,North Carolina,Males,5055337.0,404.0,742.0,7.99,14.68
+2018,North Dakota,Females,370951.0,,,,
+2018,North Dakota,Males,389111.0,,64.0,,16.45
+2018,Ohio,Females,5956223.0,92.0,128.0,1.55,2.15
+2018,Ohio,Males,5724669.0,456.0,834.0,7.97,14.57
+2018,Oklahoma,Females,1990175.0,36.0,71.0,1.81,3.57
+2018,Oklahoma,Males,1953313.0,149.0,394.0,7.63,20.17
+2018,Oregon,Females,2109387.0,,68.0,,3.22
+2018,Oregon,Males,2074151.0,58.0,359.0,2.8,17.31
+2018,Pennsylvania,Females,6532496.0,89.0,119.0,1.36,1.82
+2018,Pennsylvania,Males,6276611.0,492.0,906.0,7.84,14.44
+2018,Rhode Island,Females,543905.0,,,,
+2018,Rhode Island,Males,515433.0,,22.0,,4.27
+2018,South Carolina,Females,2623668.0,62.0,77.0,2.36,2.94
+2018,South Carolina,Males,2468034.0,311.0,416.0,12.6,16.86
+2018,South Dakota,Females,435837.0,,,,
+2018,South Dakota,Males,443549.0,,81.0,,18.26
+2018,Tennessee,Females,3470870.0,84.0,116.0,2.42,3.34
+2018,Tennessee,Males,3307310.0,420.0,574.0,12.7,17.36
+2018,Texas,Females,14409326.0,209.0,333.0,1.45,2.31
+2018,Texas,Males,14215238.0,936.0,1930.0,6.58,13.58
+2018,Utah,Females,1566159.0,,47.0,,3.0
+2018,Utah,Males,1588994.0,28.0,292.0,1.76,18.38
+2018,Vermont,Females,316353.0,,,,
+2018,Vermont,Males,308449.0,,63.0,,20.43
+2018,Virginia,Females,4323072.0,59.0,107.0,1.37,2.48
+2018,Virginia,Males,4187848.0,275.0,572.0,6.57,13.66
+2018,Washington,Females,3760779.0,39.0,80.0,1.04,2.13
+2018,Washington,Males,3766014.0,134.0,519.0,3.56,13.78
+2018,West Virginia,Females,912019.0,,44.0,,4.82
+2018,West Virginia,Males,893934.0,50.0,213.0,5.59,23.83
+2018,Wisconsin,Females,2918734.0,32.0,25.0,1.1,0.86
+2018,Wisconsin,Males,2890585.0,121.0,395.0,4.19,13.67
+2018,Wyoming,Females,283930.0,,25.0,,8.81
+2018,Wyoming,Males,295124.0,,83.0,,28.12
+2021,Alabama,Females,2591778.0,96.0,90.0,3.7,3.47
+2021,Alabama,Males,2448099.0,554.0,533.0,22.63,21.77
+2021,Alaska,Females,348469.0,,23.0,,6.6
+2021,Alaska,Males,384204.0,22.0,119.0,5.73,30.97
+2021,Arizona,Females,3642602.0,73.0,123.0,2.0,3.38
+2021,Arizona,Males,3633714.0,357.0,756.0,9.83,20.81
+2021,Arkansas,Females,1532713.0,48.0,66.0,3.13,4.31
+2021,Arkansas,Males,1493178.0,233.0,325.0,15.6,21.77
+2021,California,Females,19620646.0,202.0,157.0,1.03,0.8
+2021,California,Males,19617190.0,1659.0,1418.0,8.46,7.23
+2021,Colorado,Females,2867419.0,63.0,98.0,2.2,3.42
+2021,Colorado,Males,2944650.0,213.0,647.0,7.23,21.97
+2021,Connecticut,Females,1836010.0,,,,
+2021,Connecticut,Males,1769587.0,99.0,114.0,5.6,6.44
+2021,Delaware,Females,516048.0,,,,
+2021,Delaware,Males,487336.0,65.0,66.0,13.34,13.54
+2021,District of Columbia,Females,351146.0,21.0,,5.98,
+2021,District of Columbia,Males,318904.0,148.0,,46.41,
+2021,Florida,Females,11070771.0,206.0,326.0,1.86,2.95
+2021,Florida,Males,10710357.0,944.0,1602.0,8.81,14.96
+2021,Georgia,Females,5529805.0,191.0,184.0,3.45,3.33
+2021,Georgia,Males,5269761.0,830.0,931.0,15.75,17.67
+2021,Hawaii,Females,716220.0,,,,
+2021,Hawaii,Males,725333.0,,35.0,,4.83
+2021,Idaho,Females,942307.0,,29.0,,3.08
+2021,Idaho,Males,958616.0,21.0,233.0,2.19,24.31
+2021,Illinois,Females,6406387.0,152.0,82.0,2.37,1.28
+2021,Illinois,Males,6265082.0,1140.0,574.0,18.2,9.16
+2021,Indiana,Females,3428315.0,116.0,77.0,3.38,2.25
+2021,Indiana,Males,3377670.0,401.0,618.0,11.87,18.3
+2021,Iowa,Females,1591695.0,,22.0,,1.38
+2021,Iowa,Males,1601384.0,49.0,271.0,3.06,16.92
+2021,Kansas,Females,1464091.0,30.0,29.0,2.05,1.98
+2021,Kansas,Males,1470491.0,115.0,316.0,7.82,21.49
+2021,Kentucky,Females,2275505.0,64.0,58.0,2.81,2.55
+2021,Kentucky,Males,2233889.0,300.0,476.0,13.43,21.31
+2021,Louisiana,Females,2358856.0,118.0,86.0,5.0,3.65
+2021,Louisiana,Males,2265191.0,686.0,377.0,30.28,16.64
+2021,Maine,Females,695754.0,,,,
+2021,Maine,Males,676493.0,,143.0,,21.14
+2021,Maryland,Females,3162705.0,81.0,31.0,2.56,0.98
+2021,Maryland,Males,3002424.0,511.0,279.0,17.02,9.29
+2021,Massachusetts,Females,3572631.0,,,,
+2021,Massachusetts,Males,3412092.0,81.0,127.0,2.37,3.72
+2021,Michigan,Females,5070232.0,116.0,75.0,2.29,1.48
+2021,Michigan,Males,4980579.0,585.0,735.0,11.75,14.76
+2021,Minnesota,Females,2846977.0,38.0,35.0,1.34,1.23
+2021,Minnesota,Males,2860413.0,126.0,358.0,4.41,12.52
+2021,Mississippi,Females,1514629.0,93.0,59.0,6.14,3.9
+2021,Mississippi,Males,1435336.0,490.0,274.0,34.14,19.09
+2021,Missouri,Females,3123522.0,103.0,84.0,3.3,2.69
+2021,Missouri,Males,3044665.0,506.0,663.0,16.62,21.78
+2021,Montana,Females,545001.0,,31.0,,5.69
+2021,Montana,Males,559270.0,25.0,208.0,4.47,37.19
+2021,Nebraska,Females,976900.0,,,,
+2021,Nebraska,Males,986792.0,36.0,129.0,3.65,13.07
+2021,Nevada,Females,1559894.0,30.0,58.0,1.92,3.72
+2021,Nevada,Males,1584097.0,169.0,355.0,10.67,22.41
+2021,New Hampshire,Females,695860.0,,,,
+2021,New Hampshire,Males,693132.0,,99.0,,14.28
+2021,New Jersey,Females,4705188.0,32.0,,0.68,
+2021,New Jersey,Males,4561942.0,244.0,183.0,5.35,4.01
+2021,New Mexico,Females,1063180.0,35.0,42.0,3.29,3.95
+2021,New Mexico,Males,1052697.0,195.0,263.0,18.52,24.98
+2021,New York,Females,10140611.0,65.0,22.0,0.64,0.22
+2021,New York,Males,9695302.0,548.0,417.0,5.65,4.3
+2021,North Carolina,Females,5394907.0,145.0,123.0,2.69,2.28
+2021,North Carolina,Males,5156255.0,705.0,793.0,13.67,15.38
+2021,North Dakota,Females,376539.0,,,,
+2021,North Dakota,Males,398409.0,,91.0,,22.84
+2021,Ohio,Females,5967819.0,159.0,127.0,2.66,2.13
+2021,Ohio,Males,5812198.0,713.0,864.0,12.27,14.87
+2021,Oklahoma,Females,2002339.0,56.0,83.0,2.8,4.15
+2021,Oklahoma,Males,1984300.0,201.0,468.0,10.13,23.59
+2021,Oregon,Females,2129317.0,25.0,76.0,1.17,3.57
+2021,Oregon,Males,2116838.0,121.0,429.0,5.72,20.27
+2021,Pennsylvania,Females,6564246.0,131.0,117.0,2.0,1.78
+2021,Pennsylvania,Males,6399810.0,730.0,880.0,11.41,13.75
+2021,Rhode Island,Females,558649.0,,,,
+2021,Rhode Island,Males,536961.0,23.0,32.0,4.28,5.96
+2021,South Carolina,Females,2666990.0,99.0,70.0,3.71,2.63
+2021,South Carolina,Males,2523715.0,459.0,476.0,18.19,18.86
+2021,South Dakota,Females,440534.0,,,,
+2021,South Dakota,Males,454842.0,,88.0,,19.35
+2021,Tennessee,Females,3555217.0,143.0,131.0,4.02,3.69
+2021,Tennessee,Males,3420001.0,571.0,683.0,16.7,19.97
+2021,Texas,Females,14791971.0,298.0,352.0,2.02,2.38
+2021,Texas,Males,14735970.0,1644.0,2176.0,11.16,14.77
+2021,Utah,Females,1647906.0,,41.0,,2.49
+2021,Utah,Males,1690069.0,55.0,323.0,3.25,19.11
+2021,Vermont,Females,324720.0,,,,
+2021,Vermont,Males,320850.0,,69.0,,21.51
+2021,Virginia,Females,4365073.0,82.0,90.0,1.88,2.06
+2021,Virginia,Males,4277201.0,423.0,619.0,9.89,14.47
+2021,Washington,Females,3840425.0,36.0,67.0,0.94,1.75
+2021,Washington,Males,3898267.0,218.0,550.0,5.59,14.11
+2021,West Virginia,Females,893861.0,,29.0,,3.24
+2021,West Virginia,Males,889098.0,66.0,198.0,7.42,22.27
+2021,Wisconsin,Females,2942034.0,54.0,56.0,1.84,1.9
+2021,Wisconsin,Males,2953874.0,236.0,428.0,7.99,14.49
+2021,Wyoming,Females,282589.0,,23.0,,8.14
+2021,Wyoming,Males,296214.0,,114.0,,38.49
