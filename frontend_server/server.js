@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: change over to use ESModules with import() instead of require() ?
 const express = require('express');
 const compression = require('compression')
 const path = require('path');
