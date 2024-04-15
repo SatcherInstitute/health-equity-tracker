@@ -6,7 +6,7 @@ const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 // To make non-proxied request to metadata server for service account token
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch'); // node 18+ has built in fetch()
 
 function assertEnvVar(name) {
   const value = process.env[name];
