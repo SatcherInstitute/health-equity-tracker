@@ -1,12 +1,13 @@
 'use strict';
 
+// TODO: change over to use ESModules with import() instead of require() ?
 const express = require('express');
 const compression = require('compression')
 const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 // To make non-proxied request to metadata server for service account token
-const fetch = require('node-fetch');
+const fetch = require('node-fetch'); // TODO: remove; node 18+ has built in fetch()
 
 function assertEnvVar(name) {
   const value = process.env[name];
