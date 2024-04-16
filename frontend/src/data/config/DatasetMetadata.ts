@@ -327,11 +327,11 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'cdc_atlas',
   },
   'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory',
-      original_data_sourced: '2010',
-      source_id: 'decia_2010_territory_population',
-    },
+  {
+    name: 'Population by race/ethnicity and Census Island Area territory',
+    original_data_sourced: '2010',
+    source_id: 'decia_2010_territory_population',
+  },
   'decia_2010_territory_population-by_sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2010',
@@ -343,11 +343,11 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'decia_2010_territory_population',
   },
   'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory',
-      original_data_sourced: '2020',
-      source_id: 'decia_2020_territory_population',
-    },
+  {
+    name: 'Population by race/ethnicity and Census Island Area territory',
+    original_data_sourced: '2020',
+    source_id: 'decia_2020_territory_population',
+  },
   'decia_2020_territory_population-by_sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2020',
@@ -359,11 +359,11 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'decia_2020_territory_population',
   },
   'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
-      original_data_sourced: '2020',
-      source_id: 'decia_2020_territory_population',
-    },
+  {
+    name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
+    original_data_sourced: '2020',
+    source_id: 'decia_2020_territory_population',
+  },
   'decia_2020_territory_population-by_sex_territory_county_level': {
     name: 'Population by sex and Census Island Area territory county-equivalent',
     original_data_sourced: '2020',
@@ -495,98 +495,98 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
 
   'cdc_restricted_data-by_race_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
-    original_data_sourced: 'January 2020 - February 2024',
+    original_data_sourced: 'January 2020 - March 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_svi_county-age': {
