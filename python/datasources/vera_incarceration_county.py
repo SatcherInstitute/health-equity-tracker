@@ -208,7 +208,7 @@ class VeraIncarcerationCounty(DataSource):
             demo_short = demo_type
 
         # dict of desired metric col name to its
-        # mapping of group metric cols to HET groups
+        # mapping of group  metric cols to HET groups
         melt_map = {
             std_col.RACE_OR_HISPANIC_COL: {
                 std_col.POPULATION_COL: {**RACE_POP_TO_STANDARD, POP_ALL: all_val},
