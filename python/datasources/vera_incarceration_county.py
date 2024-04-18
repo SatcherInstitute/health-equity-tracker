@@ -183,7 +183,7 @@ class VeraIncarcerationCounty(DataSource):
             std_col.CHILDREN,
             *PCT_SHARE_COL_MAP.values(),
             *RAW_COL_MAP.values(),
-            std_col.POPULATION_COL,
+            std_col.INCARCERATION_POP_RAW,
             PCT_SHARE_COL_MAP[std_col.POPULATION_COL],
             *PCT_REL_INEQUITY_COL_MAP.values(),
         ]
@@ -286,6 +286,9 @@ class VeraIncarcerationCounty(DataSource):
         for data_type in [std_col.PRISON_PREFIX, std_col.JAIL_PREFIX]:
             breakdown_df[RAW_COL_MAP[data_type]] = breakdown_df[RAW_COL_MAP[data_type]].dropna().round()
 
+        # rename pop column
+        breakdown_df = breakdown_df.rename(columns={std_col.POPULATION_COL: std_col.INCARCERATION_POP_RAW})
+
         needed_cols = [
             std_col.TIME_PERIOD_COL,
             *GEO_COLS_TO_STANDARD.values(),
@@ -294,7 +297,7 @@ class VeraIncarcerationCounty(DataSource):
             *PCT_SHARE_COL_MAP.values(),
             *PCT_REL_INEQUITY_COL_MAP.values(),
             *RAW_COL_MAP.values(),
-            std_col.POPULATION_COL,
+            std_col.INCARCERATION_POP_RAW,
             std_col.CHILDREN,
         ]
 

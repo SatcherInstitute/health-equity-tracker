@@ -1,4 +1,4 @@
-time_period,county_fips,county_name,race_and_ethnicity,jail_per_100k,prison_per_100k,jail_pct_share,prison_pct_share,incarceration_population_pct,jail_pct_relative_inequity,prison_relative_inequity,jail_estimated_total,prison_estimated_total,population,total_confined_children,race_category_id
+time_period,county_fips,county_name,race_and_ethnicity,jail_per_100k,prison_per_100k,jail_pct_share,prison_pct_share,incarceration_population_pct,jail_pct_relative_inequity,prison_relative_inequity,jail_estimated_total,prison_estimated_total,incarceration_population_estimate_total,total_confined_children,race_category_id
 2010,01001,Autauga County,All,438.0,531.0,100.0,100.0,100.0,0.0,0.0,136.0,193.0,36323.0,0.0,ALL
 2010,01001,Autauga County,American Indian and Alaska Native (NH),556.0,0.0,0.7,0.0,0.4,75.0,-100.0,1.0,0.0,160.0,,AIAN_NH
 2010,01001,Autauga County,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,0.0,0.0,0.0,1.1,-100.0,-100.0,0.0,0.0,400.0,,API_NH

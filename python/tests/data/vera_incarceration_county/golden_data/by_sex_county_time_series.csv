@@ -1,4 +1,4 @@
-time_period,county_fips,county_name,sex,jail_per_100k,prison_per_100k,jail_pct_share,prison_pct_share,incarceration_population_pct,jail_pct_relative_inequity,prison_relative_inequity,jail_estimated_total,prison_estimated_total,population,total_confined_children
+time_period,county_fips,county_name,sex,jail_per_100k,prison_per_100k,jail_pct_share,prison_pct_share,incarceration_population_pct,jail_pct_relative_inequity,prison_relative_inequity,jail_estimated_total,prison_estimated_total,incarceration_population_estimate_total,total_confined_children
 2010,01001,Autauga County,All,438.0,531.0,100.0,100.0,100.0,0.0,0.0,152.0,193.0,36323.0,0.0
 2010,01001,Autauga County,Female,135.0,81.0,16.4,7.8,51.0,-67.8,-84.7,25.0,15.0,18515.0,
 2010,01001,Autauga County,Male,713.0,1000.0,83.6,92.2,49.0,70.6,88.2,127.0,178.0,17808.0,

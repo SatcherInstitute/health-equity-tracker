@@ -40,7 +40,7 @@ dtypes = {
     "prison_relative_inequity": float,
     "jail_estimated_total": float,
     "prison_estimated_total": float,
-    "population": float,
+    "incarceration_population_estimated_total": float,
     "total_confined_children": float,
 }
 
