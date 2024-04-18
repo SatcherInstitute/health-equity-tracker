@@ -39,9 +39,14 @@ def testWriteToBq(
     # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED FOR NATIONAL AND STATE DATA
     assert mock_csv.call_count == 2
 
-    for call in mock_bq.call_args_list:
-        print("**")
-        # print(call[0])
-        df, _, table_name = call[0]
-        print(table_name)
-        print(df)
+    # STATE LEVEL
+    df_state, _, state_table_name = mock_bq.call_args_list[0][0]
+    assert state_table_name == 'by_race_state_historical'
+    print(df_state)
+    # TODO: assert that the df_state is the same as the golden data file loaded via pd.read_csv
+
+    # NATIONAL LEVEL
+    df_national, _, national_table_name = mock_bq.call_args_list[1][0]
+    assert national_table_name == 'by_race_national_historical'
+    print(df_national)
+    # TODO: assert that the df_national is the same as the golden data file loaded via pd.read_csv
