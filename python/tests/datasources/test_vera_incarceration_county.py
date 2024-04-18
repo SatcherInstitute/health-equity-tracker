@@ -7,7 +7,7 @@ from datasources.vera_incarceration_county import (
     VERA_COL_TYPES,
 )
 
-# Current working directory.
+# Current working directory .
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "vera_incarceration_county")
 
