@@ -136,6 +136,7 @@ PRISON_RATE = "prison_per_100k"
 JAIL_PCT_SHARE = "jail_pct_share"
 PRISON_PCT_SHARE = "prison_pct_share"
 INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
+INCARCERATION_POP_RAW = "incarceration_population_estimate_total"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 
