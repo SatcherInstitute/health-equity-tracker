@@ -1,11 +1,17 @@
-[tool]
-python = "3.9"
-# configuration settings for python linters when run locally / pre-commit
+# Configuration settings for python linters when run locally / pre-commit
+# SUPER LINTER settings are stored in .github/workflows/
 [tool.black]
 skip-string-normalization = true
 line-length = 120
+
 [tool.pytest.ini_options]
 filterwarnings = [
     "ignore:Deprecated call to `pkg_resources\\.declare_namespace\\('.*'\\):DeprecationWarning",
     "ignore::DeprecationWarning:google.rpc",
 ]
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = "C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103,R0201"
+
+[tool.pylint."FORMAT"]
+max-line-length = 120
