@@ -62,7 +62,7 @@ mypy-extensions==0.4.3
     # via typing-inspect
 numpy==1.26.4
     # via pandas
-pandas==2.2.1
+pandas==2.2.2
     # via
     #   -r tests/../ingestion/requirements.in
     #   -r tests/requirements.in
