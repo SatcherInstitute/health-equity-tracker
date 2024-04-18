@@ -1,6 +1,11 @@
 import { Helmet } from 'react-helmet-async'
+import { DatasetMetadataMap } from '../../../data/config/DatasetMetadata'
 
-const DataMethodDefinitionsLink = () => {
+export default function DataMethodDefinitionsLink() {
+
+  const acsYear = DatasetMetadataMap["acs_population-by_race_national"].original_data_sourced
+  const sviYear = DatasetMetadataMap["cdc_svi_county-age"].original_data_sourced
+
   return (
     <section id='#data-methods'>
       <article>
@@ -16,8 +21,7 @@ const DataMethodDefinitionsLink = () => {
           estimates. Wherever possible, we utilize source data population
           counts, and when those are unavilable we match historical condition
           numerators with population denominators from the same years. For
-          current, single-year reports, we utilize the 2019 ACS 5-year
-          estimates.
+          current, single-year reports, we utilize the ACS 5-year estimates from {acsYear}.
         </p>
 
         <h3 className='mt-12 text-title font-medium'>
@@ -26,7 +30,7 @@ const DataMethodDefinitionsLink = () => {
         <p>
           To provide context when viewing county-level reports, SVI rankings are
           obtained from the CDC and incorporated into our alerting system where
-          available.
+          available. We use the most recent SVI data which is from {sviYear}.
         </p>
         <p>
           The Social Vulnerability Index uses percentile ranking values ranging
@@ -57,4 +61,3 @@ const DataMethodDefinitionsLink = () => {
   )
 }
 
-export default DataMethodDefinitionsLink
