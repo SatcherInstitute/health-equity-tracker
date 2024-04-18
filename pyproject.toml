@@ -9,3 +9,7 @@ filterwarnings = [
     "ignore:Deprecated call to `pkg_resources\\.declare_namespace\\('.*'\\):DeprecationWarning",
     "ignore::DeprecationWarning:google.rpc",
 ]
+[tool.pylint.'MESSAGES CONTROL']
+disable=C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103
+[tool.pylint.'FORMAT']
+max-line-length=120
