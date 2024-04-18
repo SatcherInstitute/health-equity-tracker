@@ -108,6 +108,7 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_count == 1
 
     df, _, table_name = mock_bq.call_args_list[0][0]
+
     assert table_name == "by_race_and_ethnicity_county_time_series"
 
     expected_df = pd.read_csv(GOLDEN_DATA['race_and_ethnicity_county'], dtype=dtypes)
