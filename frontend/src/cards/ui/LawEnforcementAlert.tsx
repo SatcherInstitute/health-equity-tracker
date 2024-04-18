@@ -17,8 +17,6 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
         (row) => row[props.demographicType] === ALL || row[props.demographicType] === 'All'
     )
 
-    console.log({dataAlls})
-    
     const dataBlack: Row[] = props.queryResponse.data.filter(
         (row) => row[props.demographicType] === BLACK_NH
     )
@@ -33,12 +31,12 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
     if (totalCount === undefined) {
         return null
     }
-    
+
     return (
         <div>
             <HetNotice title="Law Enforcement Impact" kind="health-crisis" className="m-2 border border-reportAlert">
                 <p>
-                    In {locationName}, law enforcement actions resulted in <strong>{totalCount}</strong> fatalities last year.
+                    In addition to the gun death rates visualized for {locationName} above, law enforcement actions resulted in {totalCount} fatalities last year.
                     {blackCount !== undefined && (
                         <> Black individuals, who are disproportionately affected nationally, accounted for <strong>{blackCount}</strong> of these legal intervention gun fatalities.</>
                     )}
@@ -47,7 +45,7 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
             </HetNotice>
         </div>
     );
-    
+
 }
 
 export default LawEnforcementAlert
