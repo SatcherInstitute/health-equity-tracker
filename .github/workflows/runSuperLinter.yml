@@ -30,8 +30,8 @@ jobs:
           PYTHON_BLACK_CONFIG_FILE: black.ini
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_PYTHON_PYLINT: true
-          PYTHON_PYLINT_CONFIG_FILE: .pylintrc
-          # PYTHON_PYLINT_CONFIG_FILE: ../pyproject.toml
+          # PYTHON_PYLINT_CONFIG_FILE: .pylintrc
+          PYTHON_PYLINT_CONFIG_FILE: ../pyproject.toml
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_TERRAFORM_FMT: true
           # VALIDATE_GITHUB_ACTIONS: true # TODO: figure out how to just ignore the set-output deprecation warning then re-enable
