@@ -31,21 +31,19 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
     if (totalCount === undefined) {
         return null
     }
-
-    let alertText = `In ${locationName}, law enforcement actions resulted in ${totalCount} fatalities last year.`
-
-    if (blackCount !== undefined) {
-        alertText += ` With Black individuals disproportionately affected, accounting for ${blackCount} of these lives. This stark disparity highlights the need for comprehensive reforms and accountability to ensure a justice system that equitably protects every community.`;
-    }
-
-    return (<div>
-        <HetNotice title="Law Enforcement Impact" kind="health-crisis" className="m-2 border border-reportAlert">
-            <p>
-                {alertText}
-            </p>
-        </HetNotice>
-
-    </div>)
+    return (
+        <div>
+            <HetNotice title="Law Enforcement Impact" kind="health-crisis" className="m-2 border border-reportAlert">
+                <p>
+                    In {locationName}, law enforcement actions resulted in <strong>{totalCount}</strong> fatalities last year.
+                    {blackCount !== undefined && (
+                        <span> With Black individuals disproportionately affected, accounting for <strong>{blackCount}</strong> of these lives.</span>
+                    )}
+                    This issue highlights the need for comprehensive reforms and accountability to ensure a justice system that equitably protects every community.
+                </p>
+            </HetNotice>
+        </div>
+    )
 }
 
 export default LawEnforcementAlert
