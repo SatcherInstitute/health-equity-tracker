@@ -25,12 +25,14 @@ export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
 
 export const JAIL_METRIC_IDS: MetricId[] = [
   'jail_pct_share',
+  'jail_estimated_total',
   'jail_per_100k',
   'jail_pct_relative_inequity',
 ]
 
 export const PRISON_METRIC_IDS: MetricId[] = [
   'prison_pct_share',
+  'prison_estimated_total',
   'prison_per_100k',
   'prison_pct_relative_inequity',
 ]
@@ -40,6 +42,7 @@ const INCARCERATION_METRIC_IDS: MetricId[] = [
   ...PRISON_METRIC_IDS,
   'total_confined_children',
   'incarceration_population_pct',
+  'incarceration_population_estimated_total',
 ]
 
 class IncarcerationProvider extends VariableProvider {

@@ -26,6 +26,8 @@ export type PDOHMetricId =
   | 'ahr_population_pct'
   | 'cawp_population_pct'
   | 'incarceration_population_pct'
+  | 'incarceration_population_estimated_total'
+  | 'jail_estimated_total'
   | 'jail_pct_relative_inequity'
   | 'jail_pct_share'
   | 'jail_per_100k'
@@ -33,6 +35,7 @@ export type PDOHMetricId =
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
+  | 'prison_estimated_total'
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
@@ -241,6 +244,18 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People in prison per 100k',
         shortLabel: 'prison per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'prison_estimated_total',
+          shortLabel: 'in prison',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'incarceration_population_estimated_total',
+          shortLabel: 'Total population (Ages 15-64)',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total prison population',
@@ -296,6 +311,18 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People in jail per 100k',
         shortLabel: 'jail per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'jail_estimated_total',
+          shortLabel: 'in jail',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'incarceration_population_estimated_total',
+          shortLabel: 'Total population (Ages 15-64)',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total jail population',
