@@ -212,6 +212,8 @@ NON_FATAL_PREFIX = "non_fatal"
 
 # MATERNAL MORTALITY
 MM_PER_100K = "maternal_mortality_per_100k"
+MATERNAL_DEATHS_RAW = "maternal_deaths_estimated_total"
+LIVE_BIRTHS_RAW = "live_births_estimated_total"
 
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])

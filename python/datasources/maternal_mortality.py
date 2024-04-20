@@ -5,6 +5,8 @@ from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, US_NAME
 import pandas as pd
 
+NATIONAL = "National"
+
 RACE_GROUPS_TO_STANDARD = {
     'Non-Hispanic American Indian and Alaska Native': std_col.Race.AIAN_NH.value,
     'Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander': std_col.Race.API_NH.value,
@@ -19,6 +21,12 @@ RACE_GROUPS_TO_STANDARD = {
 
 COLS_TO_STANDARD = {
     'val': std_col.MM_PER_100K,
+    'race_group': std_col.RACE_CATEGORY_ID_COL,
+    'location_name': std_col.STATE_NAME_COL,
+    'year_id': std_col.TIME_PERIOD_COL,
+}
+
+COUNT_COLS_TO_STANDARD = {
     'race_group': std_col.RACE_CATEGORY_ID_COL,
     'location_name': std_col.STATE_NAME_COL,
     'year_id': std_col.TIME_PERIOD_COL,
@@ -40,9 +48,12 @@ class MaternalMortalityData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         # load source data once
-        source_df = preprocess_source_data()
+        source_df = preprocess_source_rates()
 
-        for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
+        for geo_level in [
+            # STATE_LEVEL,
+            NATIONAL_LEVEL
+        ]:
 
             # filter source data rows for states or national
             df = source_df.copy()
@@ -63,36 +74,88 @@ class MaternalMortalityData(DataSource):
                 std_col.RACE_OR_HISPANIC_COL,
             ]
 
-            keep_number_cols = [
-                std_col.MM_PER_100K,
-                std_col.POPULATION_PCT_COL,
-            ]
+            keep_number_cols = [std_col.MM_PER_100K, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
             df = df[keep_string_cols + keep_number_cols]
             # get list of all columns expected to contain numbers
+
+            if geo_level == NATIONAL_LEVEL:
+                df = merge_counts(df)
+                keep_number_cols.extend[
+                    std_col.MATERNAL_DEATHS_RAW,
+                    std_col.LIVE_BIRTHS_RAW,
+                ]
+
             col_types = gcs_to_bq_util.get_bq_column_types(df, keep_number_cols)
             table_name = f'by_race_{geo_level}_historical'
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
 
-def preprocess_source_data() -> pd.DataFrame:
+def preprocess_source_rates() -> pd.DataFrame:
     """Load and preprocess source data.
     Returns:
         pandas.DataFrame: preprocessed source data including state and national rows
     """
-    source_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+    source_rates_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'maternal_mortality',
         'IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV',
         dtype={'year_id': str},
         usecols=COLS_TO_STANDARD.keys(),
     )
 
-    source_df = source_df.rename(columns=COLS_TO_STANDARD)
-    source_df = source_df.replace({'National': US_NAME})
-    source_df = source_df.replace(RACE_GROUPS_TO_STANDARD)
-    std_col.add_race_columns_from_category_id(source_df)
+    source_rates_df = source_rates_df.rename(columns=COLS_TO_STANDARD)
+    source_rates_df = source_rates_df.replace({NATIONAL: US_NAME})
+    source_rates_df = source_rates_df.replace(RACE_GROUPS_TO_STANDARD)
+    std_col.add_race_columns_from_category_id(source_rates_df)
 
     # round rate to whole numbers
-    source_df[std_col.MM_PER_100K] = source_df[std_col.MM_PER_100K].round(0)
+    source_rates_df[std_col.MM_PER_100K] = source_rates_df[std_col.MM_PER_100K].round(0)
 
-    return source_df
+    return source_rates_df
+
+
+def merge_counts(df: pd.DataFrame) -> pd.DataFrame:
+    """Merges columns for live births and maternal deaths onto the df.
+    These are manually input from a png image titled 'Table' within the original study
+
+    TODO: There are also regional counts available (the South, Mid-Atlantic, etc.)
+    which we could consider using in place of missing state level counts."""
+
+    source_counts_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        'maternal_mortality',
+        'Table.csv',
+        dtype={'year_id': str},
+        usecols=[
+            'race_group',
+            'location_name',
+            'year_id',
+            'maternal_deaths_estimated_total',
+            'live_births_estimated_total',
+        ],
+    )
+
+    source_counts_df = source_counts_df.rename(columns=COUNT_COLS_TO_STANDARD)
+    source_counts_df = source_counts_df.replace({NATIONAL: US_NAME})
+    source_counts_df = source_counts_df.replace(RACE_GROUPS_TO_STANDARD)
+    std_col.add_race_columns_from_category_id(source_counts_df)
+
+    print("df")
+    print(df)
+    print("source_counts_df")
+    print(source_counts_df)
+
+    df = df.merge(
+        source_counts_df,
+        on=[
+            std_col.TIME_PERIOD_COL,
+            std_col.STATE_NAME_COL,
+            std_col.RACE_OR_HISPANIC_COL,
+            std_col.RACE_CATEGORY_ID_COL,
+        ],
+        how="left",
+    )
+
+    print("merged")
+    print(df.to_string())
+
+    return df
