@@ -75,15 +75,24 @@ class MaternalMortalityData(DataSource):
 
             if geo_level == NATIONAL_LEVEL:
                 df = merge_counts(df)
-
                 df = dataset_utils.generate_pct_share_col_without_unknowns(
                     df,
                     {std_col.MATERNAL_DEATHS_RAW: std_col.MM_PCT_SHARE},
                     std_col.RACE_OR_HISPANIC_COL,
                     std_col.ALL_VALUE,
                 )
+                df = dataset_utils.generate_pct_rel_inequity_col(
+                    df, std_col.MM_PCT_SHARE, std_col.POPULATION_PCT_COL, std_col.MM_PCT_REL_INEQUITY
+                )
 
-                keep_number_cols.extend([std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW, std_col.MM_PCT_SHARE])
+                keep_number_cols.extend(
+                    [
+                        std_col.MATERNAL_DEATHS_RAW,
+                        std_col.LIVE_BIRTHS_RAW,
+                        std_col.MM_PCT_SHARE,
+                        std_col.MM_PCT_REL_INEQUITY,
+                    ]
+                )
 
             col_types = gcs_to_bq_util.get_bq_column_types(df, keep_number_cols)
             table_name = f'by_race_{geo_level}_historical'
