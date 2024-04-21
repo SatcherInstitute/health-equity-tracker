@@ -2,9 +2,10 @@ from ingestion import gcs_to_bq_util
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, US_NAME
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, US_NAME, CURRENT, HISTORICAL
 from ingestion import dataset_utils
 import pandas as pd
+from typing import List
 
 NATIONAL = "National"
 
@@ -68,10 +69,9 @@ class MaternalMortalityData(DataSource):
                 std_col.RACE_OR_HISPANIC_COL,
             ]
 
-            keep_number_cols = [std_col.MM_PER_100K, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
+            # keep_number_cols = [std_col.MM_PER_100K, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
-            df = df[keep_string_cols + keep_number_cols]
-            # get list of all columns expected to contain numbers
+            # df = df[keep_string_cols + keep_number_cols]
 
             if geo_level == NATIONAL_LEVEL:
                 df = merge_counts(df)
@@ -85,18 +85,31 @@ class MaternalMortalityData(DataSource):
                     df, std_col.MM_PCT_SHARE, std_col.POPULATION_PCT_COL, std_col.MM_PCT_REL_INEQUITY
                 )
 
-                keep_number_cols.extend(
-                    [
-                        std_col.MATERNAL_DEATHS_RAW,
-                        std_col.LIVE_BIRTHS_RAW,
-                        std_col.MM_PCT_SHARE,
-                        std_col.MM_PCT_REL_INEQUITY,
-                    ]
-                )
+                # keep_number_cols.extend(
+                #     [
+                #         std_col.MATERNAL_DEATHS_RAW,
+                #         std_col.LIVE_BIRTHS_RAW,
+                #         std_col.MM_PCT_SHARE,
+                #         std_col.MM_PCT_REL_INEQUITY,
+                #     ]
+                # )
 
-            col_types = gcs_to_bq_util.get_bq_column_types(df, keep_number_cols)
-            table_name = f'by_race_{geo_level}_historical'
-            gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
+            # col_types = gcs_to_bq_util.get_bq_column_types(df, keep_number_cols)
+            # table_name = f'by_race_{geo_level}_historical'
+
+            for time_type in [HISTORICAL, CURRENT]:
+                table_name = f'by_race_{geo_level}_{time_type}'
+
+                float_cols = get_float_cols(time_type, geo_level)
+
+                df_for_bq = df.copy()[keep_string_cols + float_cols]
+
+                if time_type == CURRENT:
+                    df_for_bq = dataset_utils.preserve_only_current_time_period_rows(df_for_bq, std_col.TIME_PERIOD_COL)
+
+                col_types = gcs_to_bq_util.get_bq_column_types(df_for_bq, float_cols)
+
+                gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
 
 def preprocess_source_rates() -> pd.DataFrame:
@@ -159,3 +172,29 @@ def merge_counts(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     return df
+
+
+def get_float_cols(time_type: str, geo_level: str) -> List[str]:
+    """Get the float columns for the given time type and geo level
+    Until we can load regional counts from Table as state, most metrics are only national
+    Args:
+        time_type (str): time type
+        geo_level (str): geo level
+    Returns:
+        List[str]: list of float columns
+    """
+
+    cols = [std_col.MM_PER_100K, std_col.POPULATION_PCT_COL]
+
+    if time_type == HISTORICAL:
+        if geo_level == NATIONAL_LEVEL:
+            cols.extend([std_col.MM_PCT_REL_INEQUITY])
+    if time_type == CURRENT:
+        if geo_level == NATIONAL_LEVEL:
+            cols.extend([std_col.MM_PCT_SHARE, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW])
+
+    print(f'Float cols: {cols}')
+    print(f'Geo level: {geo_level}')
+    print(f'Time type: {time_type}')
+
+    return cols
