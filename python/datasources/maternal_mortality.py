@@ -85,18 +85,6 @@ class MaternalMortalityData(DataSource):
                     df, std_col.MM_PCT_SHARE, std_col.POPULATION_PCT_COL, std_col.MM_PCT_REL_INEQUITY
                 )
 
-                # keep_number_cols.extend(
-                #     [
-                #         std_col.MATERNAL_DEATHS_RAW,
-                #         std_col.LIVE_BIRTHS_RAW,
-                #         std_col.MM_PCT_SHARE,
-                #         std_col.MM_PCT_REL_INEQUITY,
-                #     ]
-                # )
-
-            # col_types = gcs_to_bq_util.get_bq_column_types(df, keep_number_cols)
-            # table_name = f'by_race_{geo_level}_historical'
-
             for time_type in [HISTORICAL, CURRENT]:
                 table_name = f'by_race_{geo_level}_{time_type}'
 
@@ -181,20 +169,18 @@ def get_float_cols(time_type: str, geo_level: str) -> List[str]:
         time_type (str): time type
         geo_level (str): geo level
     Returns:
-        List[str]: list of float columns
+        List[str]: list of numerical columns
     """
 
-    cols = [std_col.MM_PER_100K, std_col.POPULATION_PCT_COL]
+    cols = [std_col.MM_PER_100K]
 
     if time_type == HISTORICAL:
         if geo_level == NATIONAL_LEVEL:
             cols.extend([std_col.MM_PCT_REL_INEQUITY])
     if time_type == CURRENT:
         if geo_level == NATIONAL_LEVEL:
-            cols.extend([std_col.MM_PCT_SHARE, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW])
-
-    print(f'Float cols: {cols}')
-    print(f'Geo level: {geo_level}')
-    print(f'Time type: {time_type}')
+            cols.extend(
+                [std_col.POPULATION_PCT_COL, std_col.MM_PCT_SHARE, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW]
+            )
 
     return cols
