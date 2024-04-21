@@ -49,5 +49,5 @@ def testWriteToBq(
     # NATIONAL LEVEL
     df_national, _, national_table_name = mock_bq.call_args_list[1][0]
     assert national_table_name == 'by_race_national_historical'
-    print(df_national)
+    print(df_national.to_string())
     # TODO: assert that the df_national is the same as the golden data file loaded via pd.read_csv

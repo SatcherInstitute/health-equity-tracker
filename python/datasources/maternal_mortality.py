@@ -3,6 +3,7 @@ from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, US_NAME
+from ingestion import dataset_utils
 import pandas as pd
 
 NATIONAL = "National"
@@ -74,12 +75,15 @@ class MaternalMortalityData(DataSource):
 
             if geo_level == NATIONAL_LEVEL:
                 df = merge_counts(df)
-                keep_number_cols.extend(
-                    [
-                        std_col.MATERNAL_DEATHS_RAW,
-                        std_col.LIVE_BIRTHS_RAW,
-                    ]
+
+                df = dataset_utils.generate_pct_share_col_without_unknowns(
+                    df,
+                    {std_col.MATERNAL_DEATHS_RAW: std_col.MM_PCT_SHARE},
+                    std_col.RACE_OR_HISPANIC_COL,
+                    std_col.ALL_VALUE,
                 )
+
+                keep_number_cols.extend([std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW, std_col.MM_PCT_SHARE])
 
             col_types = gcs_to_bq_util.get_bq_column_types(df, keep_number_cols)
             table_name = f'by_race_{geo_level}_historical'
