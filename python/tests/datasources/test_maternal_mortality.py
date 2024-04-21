@@ -12,7 +12,7 @@ GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 def get_test_data_as_df(*args, **kwargs):
     print("Reading test input data rather than actual /data dir")
     print(args[1])
-    print("key word args:", kwargs)
+    print(kwargs)
     df = pd.read_csv(os.path.join(TEST_DIR, args[1]))
     return df
 
@@ -37,8 +37,8 @@ def testWriteToBq(
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED ONCE
-    assert mock_csv.call_count == 1
+    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED FOR THE SOURCE RATES AND THE SOURCE COUNTS TABLES
+    assert mock_csv.call_count == 2
 
     # STATE LEVEL
     df_state, _, state_table_name = mock_bq.call_args_list[0][0]

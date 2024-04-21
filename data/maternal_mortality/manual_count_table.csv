@@ -1,53 +1,53 @@
-Census region,Maternal death No. (95% UI) estimates,,Live birth estimates in thousands,,year_id,race_group
-US,7 (5-11),,37.8 (32.0-44.5),,1999,American Indian and Alaska Native
-Midwest,1 (1-3),,7 (5.2-9.4),,1999,American Indian and Alaska Native
-Northeast,0 (0-1),,1.6 (1.2-2.1),,1999,American Indian and Alaska Native
-South,1 (1-3),,9.6 (7.8-12.0),,1999,American Indian and Alaska Native
-West,4 (2-8),,19.6 (14.6-25.8),,1999,American Indian and Alaska Native
-US,23 (16-35),,33.3 (29.9-37.4),,2019,American Indian and Alaska Native
-Midwest,6 (3-12),,6.5 (4.8-8.8),,2019,American Indian and Alaska Native
-Northeast,0 (0-2),,1.1 (0.9-1.3),,2019,American Indian and Alaska Native
-South,3 (2-6),,9.8 (7.4-12.8),,2019,American Indian and Alaska Native
-West,13 (7-24),,15.9 (14.1-18.0),,2019,American Indian and Alaska Native
-US,17 (12-23),,177.9 (161.7-198.3),,1999,"Asian, Native Hawaiian, or Other Pacific Islander"
-Midwest,2 (1-3),,23.2 (20.3-27),,1999,"Asian, Native Hawaiian, or Other Pacific Islander"
-Northeast,3 (1-6),,36.4 (32.0-40.9),,1999,"Asian, Native Hawaiian, or Other Pacific Islander"
-South,4 (2-6),,33.6 (29.2-38.5),,1999,"Asian, Native Hawaiian, or Other Pacific Islander"
-West,9 (5-14),,84.8 (68.6-103.9),,1999,"Asian, Native Hawaiian, or Other Pacific Islander"
-US,56 (42-76),,268.6 (257.8-280),,2019,"Asian, Native Hawaiian, or Other Pacific Islander"
-Midwest,5 (3-10),,36.1 (32.6-40.3),,2019,"Asian, Native Hawaiian, or Other Pacific Islander"
-Northeast,6 (4-11),,53 (48.8-57.7),,2019,"Asian, Native Hawaiian, or Other Pacific Islander"
-South,17 (10-25),,64.9 (60.1-69.8),,2019,"Asian, Native Hawaiian, or Other Pacific Islander"
-West,28 (17-44),,114.6 (107.6-122.2),,2019,"Asian, Native Hawaiian, or Other Pacific Islander"
-US,186 (152-225),,593.2 (543.2-648.3),,1999,Black
-Midwest,30 (20-42),,116.4 (103.3-130.5),,1999,Black
-Northeast,29 (18-45),,100.3 (88.7-112.7),,1999,Black
-South,113 (87-143),,328.5 (291.8-371.1),,1999,Black
-West,14 (9-20),,47.9 (39.1-58.8),,1999,Black
-US,393 (334-463),,581.4 (556.4-609.4),,2019,Black
-Midwest,50 (32-73),,118 (106.6-131.8),,2019,Black
-Northeast,73 (51-100),,81.2 (74.3-88.6),,2019,Black
-South,245 (196-298),,332.1 (312.3-353.1),,2019,Black
-West,26 (15-42),,50 (43.1-57.4),,2019,Black
-US,74 (59-93),,764.1 (695.1-844.2),,1999,Hispanic
-Midwest,6 (3-10),,69.2 (60.7-79.1),,1999,Hispanic
-Northeast,12 (7-19),,99 (87.9-111.2),,1999,Hispanic
-South,25 (18-34),,246.4 (210.2-293.3),,1999,Hispanic
-West,31 (21-44),,349.5 (286.0-424.4),,1999,Hispanic
-US,184 (151-230),,886.9 (847.1-930.3),,2019,Hispanic
-Midwest,13 (8-22),,84.8 (75.2-95.4),,2019,Hispanic
-Northeast,37 (24-55),,121.4 (111.9-132.6),,2019,Hispanic
-South,76 (54-99),,357.7 (326.9-388.9),,2019,Hispanic
-West,59 (39-91),,323 (299.8-345.3),,2019,Hispanic
-US,220 (181-264),,2392.2 (2225.1-2579.6),,1999,White
-Midwest,62 (45-84),,667.6 (597.2-744.6),,1999,White
-Northeast,36 (22-55),,449.7 (399.2-502.5),,1999,White
-South,86 (64-110),,822 (732.2-920.6),,1999,White
-West,36 (25-52),,452.9 (369.3-552.2),,1999,White
-US,551 (465-635),,1979 (1918.7-2041.5),,2019,White
-Midwest,147 (109-190),,539.6 (511.1-572.1),,2019,White
-Northeast,80 (56-111),,341.3 (319.3-364.1),,2019,White
-South,237 (189-293),,715.2 (676.9-753.9),,2019,White
-West,87 (60-122),,382.9 (359.3-409.0),,2019,White
-US,505 (424-593),,3965.2 (3709.0-4267.2),,1999,All racial and ethnic groups
-US,1210 (1060-1370),,3749.1 (3646.8-3854.9),,2019,All racial and ethnic groups
+Census region,Maternal death No. (95% UI) estimates,Live birth estimates in thousands,year_id,race_group
+US,7 (5-11),37.8 (32.0-44.5),1999,American Indian and Alaska Native
+Midwest,1 (1-3),7 (5.2-9.4),1999,American Indian and Alaska Native
+Northeast,0 (0-1),1.6 (1.2-2.1),1999,American Indian and Alaska Native
+South,1 (1-3),9.6 (7.8-12.0),1999,American Indian and Alaska Native
+West,4 (2-8),19.6 (14.6-25.8),1999,American Indian and Alaska Native
+US,23 (16-35),33.3 (29.9-37.4),2019,American Indian and Alaska Native
+Midwest,6 (3-12),6.5 (4.8-8.8),2019,American Indian and Alaska Native
+Northeast,0 (0-2),1.1 (0.9-1.3),2019,American Indian and Alaska Native
+South,3 (2-6),9.8 (7.4-12.8),2019,American Indian and Alaska Native
+West,13 (7-24),15.9 (14.1-18.0),2019,American Indian and Alaska Native
+US,17 (12-23),177.9 (161.7-198.3),1999,"Asian, Native Hawaiian, or Other Pacific Islander"
+Midwest,2 (1-3),23.2 (20.3-27),1999,"Asian, Native Hawaiian, or Other Pacific Islander"
+Northeast,3 (1-6),36.4 (32.0-40.9),1999,"Asian, Native Hawaiian, or Other Pacific Islander"
+South,4 (2-6),33.6 (29.2-38.5),1999,"Asian, Native Hawaiian, or Other Pacific Islander"
+West,9 (5-14),84.8 (68.6-103.9),1999,"Asian, Native Hawaiian, or Other Pacific Islander"
+US,56 (42-76),268.6 (257.8-280),2019,"Asian, Native Hawaiian, or Other Pacific Islander"
+Midwest,5 (3-10),36.1 (32.6-40.3),2019,"Asian, Native Hawaiian, or Other Pacific Islander"
+Northeast,6 (4-11),53 (48.8-57.7),2019,"Asian, Native Hawaiian, or Other Pacific Islander"
+South,17 (10-25),64.9 (60.1-69.8),2019,"Asian, Native Hawaiian, or Other Pacific Islander"
+West,28 (17-44),114.6 (107.6-122.2),2019,"Asian, Native Hawaiian, or Other Pacific Islander"
+US,186 (152-225),593.2 (543.2-648.3),1999,Black
+Midwest,30 (20-42),116.4 (103.3-130.5),1999,Black
+Northeast,29 (18-45),100.3 (88.7-112.7),1999,Black
+South,113 (87-143),328.5 (291.8-371.1),1999,Black
+West,14 (9-20),47.9 (39.1-58.8),1999,Black
+US,393 (334-463),581.4 (556.4-609.4),2019,Black
+Midwest,50 (32-73),118 (106.6-131.8),2019,Black
+Northeast,73 (51-100),81.2 (74.3-88.6),2019,Black
+South,245 (196-298),332.1 (312.3-353.1),2019,Black
+West,26 (15-42),50 (43.1-57.4),2019,Black
+US,74 (59-93),764.1 (695.1-844.2),1999,Hispanic
+Midwest,6 (3-10),69.2 (60.7-79.1),1999,Hispanic
+Northeast,12 (7-19),99 (87.9-111.2),1999,Hispanic
+South,25 (18-34),246.4 (210.2-293.3),1999,Hispanic
+West,31 (21-44),349.5 (286.0-424.4),1999,Hispanic
+US,184 (151-230),886.9 (847.1-930.3),2019,Hispanic
+Midwest,13 (8-22),84.8 (75.2-95.4),2019,Hispanic
+Northeast,37 (24-55),121.4 (111.9-132.6),2019,Hispanic
+South,76 (54-99),357.7 (326.9-388.9),2019,Hispanic
+West,59 (39-91),323 (299.8-345.3),2019,Hispanic
+US,220 (181-264),2392.2 (2225.1-2579.6),1999,White
+Midwest,62 (45-84),667.6 (597.2-744.6),1999,White
+Northeast,36 (22-55),449.7 (399.2-502.5),1999,White
+South,86 (64-110),822 (732.2-920.6),1999,White
+West,36 (25-52),452.9 (369.3-552.2),1999,White
+US,551 (465-635),1979 (1918.7-2041.5),2019,White
+Midwest,147 (109-190),539.6 (511.1-572.1),2019,White
+Northeast,80 (56-111),341.3 (319.3-364.1),2019,White
+South,237 (189-293),715.2 (676.9-753.9),2019,White
+West,87 (60-122),382.9 (359.3-409.0),2019,White
+US,505 (424-593),3965.2 (3709.0-4267.2),1999,All racial and ethnic groups
+US,1210 (1060-1370),3749.1 (3646.8-3854.9),2019,All racial and ethnic groups
