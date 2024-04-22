@@ -35,7 +35,6 @@
 		"html2canvas": "^1.4.1",
 		"jotai": "^2.4.2",
 		"jotai-location": "^0.5.1",
-		"jsdom": "^21.1.2",
 		"lint-staged": "^15.2.2",
 		"lru-cache": "^6.0.0",
 		"mini-css-extract-plugin": "^2.7.2",
@@ -118,7 +117,11 @@
 		"npm": ">=10.2.4"
 	},
 	"browserslist": {
-		"production": [">0.2%", "not dead", "not op_mini all"],
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
 		"development": [
 			"last 1 chrome version",
 			"last 1 firefox version",
