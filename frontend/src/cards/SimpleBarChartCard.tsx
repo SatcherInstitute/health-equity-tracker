@@ -123,7 +123,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
     >
-      {([queryResponse]) => {
+      {([queryResponse], metadata) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
 
         const hideChart =
@@ -177,6 +177,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   <LawEnforcementAlert
                     fips={props.fips}
                     demographicType={props.demographicType}
+                    metadata={metadata}
                     queryResponse={queryResponse}
                   />
                 )}
