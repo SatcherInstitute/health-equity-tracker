@@ -28,6 +28,7 @@ export type CommunitySafetyMetricId =
     | 'gun_violence_homicide_per_100k'
     | 'gun_violence_homicide_pct_relative_inequity'
     | 'gun_violence_homicide_pct_share'
+    | 'gun_violence_legal_intervention_estimated_total'
     | 'gun_violence_suicide_estimated_total'
     | 'gun_violence_suicide_per_100k'
     | 'gun_violence_suicide_pct_relative_inequity'
