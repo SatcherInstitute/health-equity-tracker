@@ -207,7 +207,7 @@ export function makeA11yTableData(
     if (hasUnknowns && unknownMetric) {
       a11yRow[`${unknownMetric.shortLabel} with unknown ${demographicType}`] =
         unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
-          unknownMetric.metricId
+        unknownMetric.metricId
         ]
     }
 
@@ -289,7 +289,7 @@ export function getMostRecentYearAsString(
   if (!df.getColumnNames().includes(TIME_PERIOD)) return
 
   const filteredRows = df
-    .where((row) => row?.[metricId] !== undefined)
+    .where((row) => row?.[metricId] != null)
     .select((row) => ({
       time_period: row.time_period,
       metricId: row?.[metricId],
