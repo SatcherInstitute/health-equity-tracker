@@ -56,14 +56,14 @@ medicare_schizophrenia_estimated_total,Column containing the total counts of ben
 ,
 ADHERENCE RATES
 ,
-arv_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to antiretrovirals (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-beta_blockers_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to beta blockers (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-ccb_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to calcium channel blockers (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-doac_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to direct oral anticoagulants (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-bb_ami_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries with persistent use of beta blockers after a heart attack (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-ras_antagonists_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to renin angiotensin system antagonists (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-statins_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to statins (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
-anti_psychotics_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to anti-psychotics (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+arv_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to antiretrovirals (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+beta_blockers_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to beta blockers (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+ccb_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to calcium channel blockers (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+doac_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to direct oral anticoagulants (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+bb_ami_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries with persistent use of beta blockers after a heart attack (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+ras_antagonists_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to renin angiotensin system antagonists (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+statins_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to statins (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
+anti_psychotics_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to anti-psychotics (calculated as the _adherence estimated_total column / _beneficiaries_estimated_total column)
 ,
 ,
 CONDITION RATES
