@@ -9,15 +9,18 @@ GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 
 
 # RUN THIS TO LOAD FAKE TEST DATA INSTEAD OF THE REAL /data
-def get_test_data_as_df():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV'))
+def get_test_data_as_df(*args, **kwargs):
+    print("Reading test input data rather than actual /data dir")
+    print(args[1])
+    print("key word args:", kwargs)
+    df = pd.read_csv(os.path.join(TEST_DIR, args[1]))
     return df
 
 
 # READ IN FAKE TEST DATA INSTEAD OF REAL /data
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-    return_value=get_test_data_as_df(),
+    side_effect=get_test_data_as_df,
 )
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBq(
@@ -36,3 +39,15 @@ def testWriteToBq(
 
     # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED ONCE
     assert mock_csv.call_count == 1
+
+    # STATE LEVEL
+    df_state, _, state_table_name = mock_bq.call_args_list[0][0]
+    assert state_table_name == 'by_race_state_historical'
+    print(df_state)
+    # TODO: assert that the df_state is the same as the golden data file loaded via pd.read_csv
+
+    # NATIONAL LEVEL
+    df_national, _, national_table_name = mock_bq.call_args_list[1][0]
+    assert national_table_name == 'by_race_national_historical'
+    print(df_national)
+    # TODO: assert that the df_national is the same as the golden data file loaded via pd.read_csv
