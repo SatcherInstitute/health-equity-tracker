@@ -37,7 +37,6 @@ import LocationSelector from './LocationSelector'
 interface MadLibUIProps {
   madLib: MadLib
   setMadLibWithParam: (updatedMadLib: MadLib) => void
-  isSticking: boolean
 }
 
 export default function MadLibUI(props: MadLibUIProps) {

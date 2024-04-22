@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy } from 'react'
+import { useCallback, useEffect, useState, lazy } from 'react'
 import { STATUS } from 'react-joyride'
 import ReportProvider from '../../reports/ReportProvider'
 import {
@@ -34,7 +34,6 @@ import {
   DataTypeId,
 } from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
-import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
 import DefaultHelperBox from './DefaultHelperBox'
@@ -216,15 +215,21 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   // Set up sticky madlib behavior
   const [isSticking, setIsSticking] = useState<boolean>(false)
-  useScrollPosition(
-    ({ pageYOffset, stickyBarOffsetFromTop }) => {
-      const topOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
-      if (topOfMadLibContainer && !noTopicChosen) setIsSticking(true)
-      else setIsSticking(false)
-    },
-    [isSticking],
-    300
-  )
+  const madlibRef = useCallback((node: HTMLDivElement | null) => {
+    if (node) {
+      // https://stackoverflow.com/a/61115077/7902371
+      const observer = new IntersectionObserver(
+        ([e]) => setIsSticking(e.intersectionRatio < 1),
+        {
+          rootMargin: '-1px 0px 0px 0px',
+          threshold: [1],
+        }
+      );
+
+      observer.observe(node);
+    }
+  }, [])
+  const isStickyEnabled = !noTopicChosen && isSticking;
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = madLib.id === 'disparity'
@@ -293,7 +298,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   const headerScrollMargin = useHeaderScrollMargin(
     'madlib-container',
-    isSticking,
+    isStickyEnabled,
     [
       madLib,
       showIncarceratedChildrenAlert,
@@ -317,28 +322,24 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         className={'h-full bg-exploreBgColor'}
       >
         <div
-          className={`z-almostTop mb-1 bg-white p-4 shadow-raised-tighter  transition-all duration-200 ease-in-out md:top-0 md:w-full
-            ${isSticking ? 'md:fixed' : ''}
+          ref={madlibRef}
+          className={`z-almostTop mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full
+            ${!noTopicChosen ? 'md:sticky' : ''}
           `}
           id='madlib-container'
         >
           <MadLibUI
-            isSticking={isSticking}
             madLib={madLib}
             setMadLibWithParam={setMadLibWithParam}
           />
 
-          {showStickyLifeline && isSticking && (
+          {showStickyLifeline && isStickyEnabled && (
             <p className='flex justify-center '>
               <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
         </div>
-        <div
-          className={`w-full pt-0 transition-all duration-200 ${
-            isSticking ? 'md:pt-[150px]' : ''
-          }`}
-        >
+        <div className='w-full pt-0'>
           {noTopicChosen ? (
             <DefaultHelperBox />
           ) : (
