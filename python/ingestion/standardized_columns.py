@@ -210,6 +210,10 @@ NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
 NON_FATAL_PREFIX = "non_fatal"
 
 
+# MATERNAL MORTALITY
+MM_PER_100K = "maternal_mortality_per_100k"
+
+
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])
 
 RACE_COLUMNS = RaceTuple._fields
