@@ -35,7 +35,7 @@
 		"html2canvas": "^1.4.1",
 		"jotai": "^2.4.2",
 		"jotai-location": "^0.5.1",
-		"jsdom": "^21.1.2",
+		"jsdom": "^24.0.0",
 		"lint-staged": "^15.2.2",
 		"lru-cache": "^6.0.0",
 		"mini-css-extract-plugin": "^2.7.2",
