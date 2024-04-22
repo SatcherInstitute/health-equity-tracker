@@ -27,7 +27,7 @@ export default defineConfig(({ }) => {
 				'playwright-tests/*'
 			],
 			globals: true,
-			environment: 'jsdom',
+			environment: 'jsdom', // allows Vitest access to DOM stuff like window and render
 			setupFiles: './src/setupTests.ts',
 			coverage: {
 				reporter: ['text', 'html'],
