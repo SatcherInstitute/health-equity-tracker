@@ -237,7 +237,12 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people in prison',
     metrics: {
-
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'incarceration_population_estimated_total',
+        shortLabel: 'Total Population (Ages 15-64)',
+        type: 'count',
+      },
       per100k: {
         metricId: 'prison_per_100k',
         chartTitle: 'Prison incarceration',
@@ -245,7 +250,18 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People in prison per 100k',
         shortLabel: 'prison per 100k',
         type: 'per100k',
-
+        rateNumeratorMetric: {
+          metricId: 'prison_estimated_total',
+          shortLabel: 'in prison',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'incarceration_population_estimated_total',
+          shortLabel: 'Total population (Ages 15-64)',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total prison population',
