@@ -1,0 +1,13 @@
+year_id,race_group,location_name,maternal_deaths_estimated_total,live_births_estimated_total,val
+1999,Non-Hispanic American Indian and Alaska Native,United States,7,37800,19.0
+2019,Non-Hispanic American Indian and Alaska Native,United States,23,33300,69.3
+1999,"Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander",United States,17,177900,9.6
+2019,"Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander",United States,56,268600,20.8
+1999,Non-Hispanic Black,United States,186,593200,31.4
+2019,Non-Hispanic Black,United States,393,581400,67.6
+1999,Non-Hispanic White,United States,74,764100,9.6
+2019,Non-Hispanic White,United States,184,886900,20.8
+1999,Hispanic and any race,United States,220,2392200,9.2
+2019,Hispanic and any race,United States,551,1979000,27.9
+1999,All racial and ethnic groups,United States,505,3965200,12.7
+2019,All racial and ethnic groups,United States,1210,3749100,32.2

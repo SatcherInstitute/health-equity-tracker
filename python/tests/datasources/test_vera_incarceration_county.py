@@ -7,7 +7,7 @@ from datasources.vera_incarceration_county import (
     VERA_COL_TYPES,
 )
 
-# Current working directory.
+# Current working directory .
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "vera_incarceration_county")
 
@@ -40,7 +40,7 @@ dtypes = {
     "prison_relative_inequity": float,
     "jail_estimated_total": float,
     "prison_estimated_total": float,
-    "population": float,
+    "incarceration_population_estimated_total": float,
     "total_confined_children": float,
 }
 
@@ -108,6 +108,7 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_count == 1
 
     df, _, table_name = mock_bq.call_args_list[0][0]
+
     assert table_name == "by_race_and_ethnicity_county_time_series"
 
     expected_df = pd.read_csv(GOLDEN_DATA['race_and_ethnicity_county'], dtype=dtypes)

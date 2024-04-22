@@ -18,9 +18,9 @@ maternal_mortality_bq_payload = util.generate_bq_payload(_MM_WORKFLOW_ID, _MM_DA
 maternal_mortality_bq_operator = util.create_bq_ingest_operator(
     'maternal_mortality_to_bq', maternal_mortality_bq_payload, data_ingestion_dag
 )
-maternal_mortality_exporter_payload_race = {'dataset_name': _MM_DATASET_NAME, 'demographic': "race_and_ethnicity"}
+maternal_mortality_exporter_payload_race = {'dataset_name': _MM_DATASET_NAME}
 maternal_mortality_exporter_operator_race = util.create_exporter_operator(
     'maternal_mortality_exporter_race', maternal_mortality_exporter_payload_race, data_ingestion_dag
 )
 # Ingestion DAG
-(maternal_mortality_bq_operator >> maternal_mortality_exporter_operator_race,)
+(maternal_mortality_bq_operator >> maternal_mortality_exporter_operator_race)

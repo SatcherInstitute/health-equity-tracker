@@ -18,12 +18,24 @@ repos:
       - id: check-added-large-files
         name: 🐳 check for files over 100mb
         args: ["--maxkb=100_000", "--enforce-all"]
-  # LINT/FORMAT PYTHON WITH BLACK
+  # FORMAT PYTHON WITH BLACK
   - repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
       - id: black
-        name: 🐍 python format + lint with black
+        name: 🖤 python format with black
+  # LINT PYTHON WITH PYLINT
+  - repo: local
+    hooks:
+      - id: pylint
+        name: 🐍 python lint with pylint
+        entry: pylint
+        language: system
+        types: [python]
+        args: [
+            "-rn", # Only display messages
+            "-sn", # Don't display the score
+          ]
   # LINT/FORMAT JS/TS/JSON WITH BIOME
   - repo: local
     hooks:
