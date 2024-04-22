@@ -11,6 +11,7 @@ updates:
     directory: "frontend_server/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 0 # TODO: re-enable dependbot for frontend_server once we have test coverage #3152
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
