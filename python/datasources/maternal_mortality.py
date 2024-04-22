@@ -21,6 +21,8 @@ RACE_GROUPS_TO_STANDARD = {
 # ZIP FILE CONTAINING STATE-LEVEL CSV FOR /data
 # https://ghdx.healthdata.org/record/ihme-data/united-states-maternal-mortality-by-state-race-ethnicity-1999-2019
 
+# DATA FOR NATIONAL AND REGIONAL COUNTS ARE FROM THE IMAGE IN THE
+# ORIGINAL STUDY LABELED "Table" AND MANUALLY INPUTTED TO /data
 
 COLS_TO_STANDARD = {
     'race_group': std_col.RACE_CATEGORY_ID_COL,
@@ -68,10 +70,6 @@ class MaternalMortalityData(DataSource):
                 std_col.STATE_NAME_COL,
                 std_col.RACE_OR_HISPANIC_COL,
             ]
-
-            # keep_number_cols = [std_col.MM_PER_100K, std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
-
-            # df = df[keep_string_cols + keep_number_cols]
 
             if geo_level == NATIONAL_LEVEL:
                 df = merge_counts(df)
