@@ -86,7 +86,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     categoryId: 'medicare',
     dataTypeId: 'bb_ami_adherence',
     dataTableTitle:
-      'Breakdown summary for persistance of beta blockers post AMI',
+      'Breakdown summary for persistence of beta blockers post AMI',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
