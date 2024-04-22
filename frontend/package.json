@@ -12,7 +12,6 @@
 	},
 	"dependencies": {
 		"@axe-core/playwright": "^4.9.0",
-		"@babel/plugin-syntax-jsx": "^7.24.1",
 		"@emotion/react": "^11.11.1",
 		"@emotion/styled": "^11.11.5",
 		"@fontsource-variable/dm-sans": "^5.0.3",
@@ -21,10 +20,7 @@
 		"@fontsource/roboto-condensed": "^5.0.14",
 		"@fontsource/taviraj": "^5.0.18",
 		"@mui/icons-material": "^5.15.14",
-		"@mui/lab": "^5.0.0-alpha.124",
 		"@mui/material": "^5.14.9",
-		"@popperjs/core": "^2.11.8",
-		"@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
 		"@vitejs/plugin-react": "^4.2.1",
 		"axios": "^1.5.0",
 		"cspell": "^8.6.1",
