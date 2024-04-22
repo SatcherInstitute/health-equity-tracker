@@ -35,6 +35,7 @@ const GUN_VIOLENCE_METRICS: MetricId[] = [
   ...GUN_VIOLENCE_HOMICIDE_METRICS,
   ...GUN_VIOLENCE_SUICIDE_METRICS,
   ...POPULATION_METRICS,
+  'gun_violence_legal_intervention_estimated_total',
 ]
 
 class GunViolenceProvider extends VariableProvider {

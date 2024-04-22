@@ -9,9 +9,10 @@ GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 
 
 # RUN THIS TO LOAD FAKE TEST DATA INSTEAD OF THE REAL /data
-def get_test_data_as_df(*args):
+def get_test_data_as_df(*args, **kwargs):
     print("Reading test input data rather than actual /data dir")
     print(args[1])
+    print("key word args:", kwargs)
     df = pd.read_csv(os.path.join(TEST_DIR, args[1]))
     return df
 
@@ -36,8 +37,8 @@ def testWriteToBq(
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED FOR NATIONAL AND STATE DATA
-    assert mock_csv.call_count == 2
+    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED ONCE
+    assert mock_csv.call_count == 1
 
     # STATE LEVEL
     df_state, _, state_table_name = mock_bq.call_args_list[0][0]
