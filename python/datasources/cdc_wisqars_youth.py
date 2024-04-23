@@ -1,5 +1,5 @@
 """
-This documentation outlines the procedure for acquiring gun violence data for the general
+This documentation outlines the procedure for acquiring gun violence data for the youth/young adult
 population from the CDC WISQARS database. The data, once downloaded, is stored locally in
 the `data/cdc_wisqars` directory for further processing and analysis.
 
