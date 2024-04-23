@@ -1,3 +1,30 @@
+"""
+This documentation outlines the procedure for acquiring gun violence data for the general
+population from the CDC WISQARS database. The data, once downloaded, is stored locally in
+the `data/cdc_wisqars` directory for further processing and analysis.
+
+Instructions for Downloading Data:
+1. Access the WISQARS website at https://wisqars.cdc.gov/reports/.
+2. Select `Fatal` as the injury outcome.
+3. Specify the data years of interest, from `2018-2021 by Single Race`.
+4. Set geography to `United States`.
+5. Choose `All Intents` for the intent.
+6. Under mechanism, opt for `Firearm`.
+7. For youth demographics, select `Custom Age Range: <1 to 17`, `Both Sexes`, `All Races`.
+8. For youth demographics, select `Custom Age Range: 18 to 25`, `Both Sexes`, `All Races`.
+9. Decide on the report layout based on your requirements:
+   - For youth-national-all: `Intent`, `None`, `None`, `None`
+   - For youth-national-race: `Intent`, `Race`, `Ethnicity`, `None`
+   - For youth-state-all: `Intent`, `State`, `None`, `None`
+   - For youth-state-race: `Intent`, `State`, `Race`, `Ethnicity`
+
+Notes:
+- There is no county-level data.
+- Race data is provided only for fatal data outcomes and covers the period from 2018-2021.
+
+Last Updated: 4/23
+"""
+
 import pandas as pd
 
 from datasources.data_source import DataSource
@@ -23,41 +50,6 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-
-"""
-Data Source: CDC WISQARS Youth (data on gun violence)
-
-Description:
-- The data on gun violence by youth and race is downloaded from the CDC WISQARS database.
-- The downloaded data is stored locally in our data/cdc_wisqars directory for subsequent use.
-
-Instructions for Downloading Data:
-1. Visit the WISQARS website: https://wisqars.cdc.gov/reports/
-2. Select the injury outcome:
-    - `Fatal`
-3. Select the year and race options:
-    - `2018-2021 by Single Race`
-4. Select the desired data years:
-    - `2018-2021`
-5. Select the geography:
-    - `United States`
-6. Select the intent:
-    - `All Intents`
-7. Select the mechanism:
-    - `Firearm`
-8. Select the demographic selections:
-   - `Custom Age Range: <1 to Unknown`, `Both Sexes`, `All Races`
-5. Select appropriate report layout:
-   - For youth-national-all: `Intent`, `None`, `None`, `None`
-   - For youth-national-race: `Intent`, `Race`, `Ethnicity`, `None`
-   - For youth-state-all: `Intent`, `State`, `None`, `None`
-   - For youth-state-race: `Intent`, `State`, `Race`, `Ethnicity`
-Notes:
-- There is no county-level data.
-- Race data is only available for fatal data and is available from 2018-2021.
-
-Last Updated: 2/24
-"""
 
 CATEGORIES_LIST = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
 ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
@@ -131,9 +123,9 @@ class CDCWisqarsYouthData(DataSource):
 
         for col in ESTIMATED_TOTALS_MAP.values():
             pop_col = (
-                std_col.GUN_DEATHS_YOUNG_ADULTS_POPULATION
+                std_col.GUN_DEATHS_YOUNG_ADULTS_POP_PCT
                 if col == std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX
-                else std_col.GUN_DEATHS_YOUTH_POPULATION
+                else std_col.GUN_DEATHS_YOUTH_POP_PCT
             )
             df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col])
 
