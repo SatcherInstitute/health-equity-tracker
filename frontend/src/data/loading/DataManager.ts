@@ -27,7 +27,7 @@ const MAX_CACHE_SIZE_QUERIES = 10000
 // We only expect one metadata entry so we can set cache size to 1.
 const MAX_CACHE_SIZE_METADATA = 1
 
-export abstract class ResourceCache<K, R> {
+export abstract class ResourceCache<K, R extends {}> {
   private readonly lruCache: LRU<string, R>
   private loadingResources: Record<string, Promise<R>>
   private failedResources: Set<string>
@@ -39,31 +39,16 @@ export abstract class ResourceCache<K, R> {
   }
 
   private createLruCache(maxSize: number): LRU<string, R> {
-    const onDispose = (key: string, resource: R) => {
-      getLogger().debugLog('Dropping ' + key + ' from cache.')
-      if (this.getResourceSize(resource, key) > maxSize) {
-        // It is recommended that if a single entry is larger than cache size,
-        // it get split up into smaller chunks to avoid poor performance when
-        // multiple cards try to use the same large resource.
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        getLogger().logError(
-          new Error(
-            'Resource loaded that is larger than the maximum cache size: ' + key
-          ),
-          'WARNING'
-        )
-      }
-    }
 
     const options = {
       max: maxSize,
-      length: this.getResourceSize,
-      dispose: onDispose,
+      size: this.getResourceSize,
+      // dispose: onDispose,
       // If it has been more than 24 hours, the next time the resource is
       // requested it will trigger a new load to make sure the data doesn't get
       // stale. Note that max age is evaluated lazily, so this will not generate
       // additional QPS unless the user actually interacts with the page.
-      maxAge: 1000 * 60 * 60 * 24,
+      ttl: 1000 * 60 * 60 * 24,
     }
     return new LRU<string, R>(options)
   }
@@ -71,7 +56,7 @@ export abstract class ResourceCache<K, R> {
   resetCache() {
     // There's no way to cancel in-flight promises, so we don't clear the
     // loading resources.
-    this.lruCache.reset()
+    this.lruCache.clear()
     this.failedResources = new Set()
   }
 
@@ -124,7 +109,7 @@ export abstract class ResourceCache<K, R> {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId]
       getLogger().debugLog(
-        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.length
+        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.size
       )
 
       return result
