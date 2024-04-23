@@ -1,9 +1,12 @@
+# This action is triggered when a local branch is force-pushed to `infra-test` branch
+# It deploys backend changes from the local branch to test them out, without commiting those changes to `main`
+# The frontend code from `main` gets pushed to `infra-test`
+
 name: TEST BACKEND CHANGES ON INFRA-TEST
 
 on:
   push:
     branches: [infra-test]
-  workflow_dispatch:
 
 jobs:
   build-ingestion:
