@@ -86,7 +86,7 @@ class CDCWisqarsYouthData(DataSource):
         return "cdc_wisqars_youth_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError("upload_to_gcs should not be called for CDCHIVData")
+        raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsYouthData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")

@@ -1,0 +1,150 @@
+state_name,state_fips,urbanicity,gun_homicides_and_legal_black_men_estimated_total,gun_homicides_and_legal_black_men_pct_share,gun_homicides_and_legal_black_men_population_pct,gun_homicides_and_legal_black_men_per_100k,gun_homicides_and_legal_black_men_population_estimated_total
+Alabama,01,Metro,368.0,81.8,80.0,73.93,497798.0
+Alabama,01,Non-Metro,82.0,18.2,20.0,65.99,124266.0
+Alaska,02,Metro,,,84.8,,11465.0
+Alaska,02,Non-Metro,,,15.2,,2055.0
+Arizona,04,Metro,79.0,100.0,99.0,45.36,174149.0
+Arizona,04,Non-Metro,,,1.0,,1788.0
+Arkansas,05,Metro,109.0,70.3,67.8,72.31,150746.0
+Arkansas,05,Non-Metro,46.0,29.7,32.2,64.34,71499.0
+California,06,Metro,525.0,99.6,99.1,47.98,1094311.0
+California,06,Non-Metro,,,0.9,,9866.0
+Colorado,08,Metro,49.0,100.0,93.8,40.58,120738.0
+Colorado,08,Non-Metro,,,6.2,,7964.0
+Connecticut,09,Metro,66.0,100.0,98.9,36.33,181684.0
+Connecticut,09,Non-Metro,,,1.1,,2033.0
+Delaware,10,Metro,55.0,100.0,100.0,51.88,106019.0
+District of Columbia,11,Metro,140.0,100.0,100.0,104.09,134497.0
+Florida,12,Metro,605.0,97.3,96.2,38.43,1574324.0
+Florida,12,Non-Metro,,,3.8,,61684.0
+Georgia,13,Metro,623.0,89.5,86.3,44.7,1393700.0
+Georgia,13,Non-Metro,73.0,10.5,13.7,32.92,221722.0
+Hawaii,15,Metro,,,93.0,,15858.0
+Hawaii,15,Non-Metro,,,7.0,,1192.0
+Idaho,16,Metro,,,72.7,,6116.0
+Idaho,16,Non-Metro,,,27.3,,2302.0
+Illinois,17,Metro,909.0,99.1,95.4,112.65,806936.0
+Illinois,17,Non-Metro,,,4.6,,38563.0
+Indiana,18,Metro,254.0,98.4,95.4,82.21,308961.0
+Indiana,18,Non-Metro,,,4.6,,14789.0
+Iowa,19,Metro,,,80.4,,56727.0
+Iowa,19,Non-Metro,,,19.6,,13820.0
+Kansas,20,Metro,30.0,93.8,83.4,40.8,73532.0
+Kansas,20,Non-Metro,,,16.6,,14609.0
+Kentucky,21,Metro,181.0,96.3,81.2,118.26,153050.0
+Kentucky,21,Non-Metro,,,18.8,,35339.0
+Louisiana,22,Metro,556.0,90.4,84.0,92.95,598173.0
+Louisiana,22,Non-Metro,59.0,9.6,16.0,51.85,113797.0
+Maine,23,Metro,,,81.3,,10607.0
+Maine,23,Non-Metro,,,18.7,,2432.0
+Maryland,24,Metro,438.0,98.4,98.9,50.75,862979.0
+Maryland,24,Non-Metro,,,1.1,,9847.0
+Massachusetts,25,Metro,46.0,100.0,99.3,18.14,253632.0
+Massachusetts,25,Non-Metro,,,0.7,,1865.0
+Michigan,26,Metro,465.0,99.8,96.5,73.08,636251.0
+Michigan,26,Non-Metro,,,3.5,,22751.0
+Minnesota,27,Metro,88.0,96.7,94.1,44.58,197402.0
+Minnesota,27,Non-Metro,,,5.9,,12395.0
+Mississippi,28,Metro,198.0,47.5,45.5,83.4,237410.0
+Mississippi,28,Non-Metro,219.0,52.5,54.5,77.07,284167.0
+Missouri,29,Metro,365.0,97.3,91.2,118.04,309231.0
+Missouri,29,Non-Metro,,,8.8,,29857.0
+Montana,30,Metro,,,49.8,,1834.0
+Montana,30,Non-Metro,,,50.2,,1851.0
+Nebraska,31,Metro,,,89.9,,45626.0
+Nebraska,31,Non-Metro,,,10.1,,5151.0
+Nevada,32,Metro,83.0,100.0,97.6,56.8,146135.0
+Nevada,32,Non-Metro,,,2.4,,3566.0
+New Hampshire,33,Metro,,,73.8,,8856.0
+New Hampshire,33,Non-Metro,,,26.2,,3139.0
+New Jersey,34,Metro,182.0,100.0,100.0,31.68,574463.0
+New Mexico,35,Metro,,,68.5,,16096.0
+New Mexico,35,Non-Metro,,,31.5,,7399.0
+New York,36,Metro,395.0,100.0,97.8,30.03,1315520.0
+New York,36,Non-Metro,,,2.2,,29158.0
+North Carolina,37,Metro,362.0,73.1,79.5,43.17,838515.0
+North Carolina,37,Non-Metro,133.0,26.9,20.5,61.5,216255.0
+North Dakota,38,Metro,,,66.0,,9620.0
+North Dakota,38,Non-Metro,,,34.0,,4964.0
+Ohio,39,Metro,534.0,98.2,95.7,76.7,696220.0
+Ohio,39,Non-Metro,,,4.3,,31612.0
+Oklahoma,40,Metro,69.0,92.0,83.3,55.47,124394.0
+Oklahoma,40,Non-Metro,,,16.7,,24961.0
+Oregon,41,Metro,27.0,96.4,93.6,62.59,43137.0
+Oregon,41,Non-Metro,,,6.4,,2964.0
+Pennsylvania,42,Metro,542.0,98.9,96.2,82.01,660910.0
+Pennsylvania,42,Non-Metro,,,3.8,,26190.0
+Rhode Island,44,Metro,,,100.0,,34329.0
+South Carolina,45,Metro,277.0,80.1,79.6,55.07,503039.0
+South Carolina,45,Non-Metro,69.0,19.9,20.4,53.47,129038.0
+South Dakota,46,Metro,,,77.1,,9478.0
+South Dakota,46,Non-Metro,,,22.9,,2813.0
+Tennessee,47,Metro,390.0,94.7,90.9,78.27,498281.0
+Tennessee,47,Non-Metro,22.0,5.3,9.1,43.88,50141.0
+Texas,48,Metro,717.0,94.0,92.6,43.95,1631328.0
+Texas,48,Non-Metro,46.0,6.0,7.4,35.44,129789.0
+Utah,49,Metro,,,94.6,,21699.0
+Utah,49,Non-Metro,,,5.4,,1234.0
+Vermont,50,Metro,,,50.5,,2549.0
+Vermont,50,Non-Metro,,,49.5,,2498.0
+Virginia,51,Metro,296.0,91.4,87.7,42.15,702264.0
+Virginia,51,Non-Metro,28.0,8.6,12.3,28.56,98044.0
+Washington,53,Metro,55.0,100.0,96.2,33.0,166647.0
+Washington,53,Non-Metro,,,3.8,,6550.0
+West Virginia,54,Metro,,,76.0,,26587.0
+West Virginia,54,Non-Metro,,,24.0,,8410.0
+Wisconsin,55,Metro,190.0,100.0,93.5,108.51,175092.0
+Wisconsin,55,Non-Metro,,,6.5,,12269.0
+Wyoming,56,Metro,,,48.6,,1744.0
+Wyoming,56,Non-Metro,,,51.4,,1847.0
+Alabama,01,All,450.0,100.0,100.0,72.34,622064.0
+Alaska,02,All,,,100.0,,13520.0
+Arizona,04,All,79.0,100.0,100.0,44.9,175937.0
+Arkansas,05,All,155.0,100.0,100.0,69.74,222245.0
+California,06,All,527.0,100.0,100.0,47.73,1104177.0
+Colorado,08,All,49.0,100.0,100.0,38.07,128702.0
+Connecticut,09,All,66.0,100.0,100.0,35.93,183717.0
+Delaware,10,All,55.0,100.0,100.0,51.88,106019.0
+District of Columbia,11,All,140.0,100.0,100.0,104.09,134497.0
+Florida,12,All,622.0,100.0,100.0,38.02,1636008.0
+Georgia,13,All,696.0,100.0,100.0,43.09,1615422.0
+Hawaii,15,All,,,100.0,,17050.0
+Idaho,16,All,,,100.0,,8418.0
+Illinois,17,All,917.0,100.0,100.0,108.46,845499.0
+Indiana,18,All,258.0,100.0,100.0,79.69,323750.0
+Iowa,19,All,25.0,100.0,100.0,35.44,70547.0
+Kansas,20,All,32.0,100.0,100.0,36.31,88141.0
+Kentucky,21,All,188.0,100.0,100.0,99.79,188389.0
+Louisiana,22,All,615.0,100.0,100.0,86.38,711970.0
+Maine,23,All,,,100.0,,13039.0
+Maryland,24,All,445.0,100.0,100.0,50.98,872826.0
+Massachusetts,25,All,46.0,100.0,100.0,18.0,255497.0
+Michigan,26,All,466.0,100.0,100.0,70.71,659002.0
+Minnesota,27,All,91.0,100.0,100.0,43.38,209797.0
+Mississippi,28,All,417.0,100.0,100.0,79.95,521577.0
+Missouri,29,All,375.0,100.0,100.0,110.59,339088.0
+Montana,30,All,,,100.0,,3685.0
+Nebraska,31,All,,,100.0,,50777.0
+Nevada,32,All,83.0,100.0,100.0,55.44,149701.0
+New Hampshire,33,All,,,100.0,,11995.0
+New Jersey,34,All,182.0,100.0,100.0,31.68,574463.0
+New Mexico,35,All,,,100.0,,23495.0
+New York,36,All,395.0,100.0,100.0,29.38,1344678.0
+North Carolina,37,All,495.0,100.0,100.0,46.93,1054770.0
+North Dakota,38,All,,,100.0,,14584.0
+Ohio,39,All,544.0,100.0,100.0,74.74,727832.0
+Oklahoma,40,All,75.0,100.0,100.0,50.22,149355.0
+Oregon,41,All,28.0,100.0,100.0,60.74,46101.0
+Pennsylvania,42,All,548.0,100.0,100.0,79.76,687100.0
+Rhode Island,44,All,,,100.0,,34329.0
+South Carolina,45,All,346.0,100.0,100.0,54.74,632077.0
+South Dakota,46,All,,,100.0,,12291.0
+Tennessee,47,All,412.0,100.0,100.0,75.13,548422.0
+Texas,48,All,763.0,100.0,100.0,43.33,1761117.0
+Utah,49,All,,,100.0,,22933.0
+Vermont,50,All,,,100.0,,5047.0
+Virginia,51,All,324.0,100.0,100.0,40.48,800308.0
+Washington,53,All,55.0,100.0,100.0,31.76,173197.0
+West Virginia,54,All,,,100.0,,34997.0
+Wisconsin,55,All,190.0,100.0,100.0,101.41,187361.0
+Wyoming,56,All,,,100.0,,3591.0

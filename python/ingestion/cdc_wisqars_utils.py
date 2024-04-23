@@ -28,6 +28,14 @@ INJ_INTENTS = [
     std_col.GUN_VIOLENCE_SUICIDE_PREFIX,
 ]
 
+WISQARS_URBANICITY = "Metro / Non-Metro"
+WISQARS_YEAR = "Year"
+WISQARS_STATE = "State"
+WISQARS_DEATHS = "Deaths"
+WISQARS_CRUDE_RATE = "Crude Rate"
+WISQARS_POP = "Population"
+
+WISQARS_ALL = 'all'
 
 WISQARS_COLS = [
     "Age-Adjusted Rate",
@@ -108,6 +116,4 @@ def generate_cols_map(prefixes, suffix):
     dict: A dictionary mapping the original prefixes to the modified prefixes with the
     specified suffix.
     """
-    return {
-        prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes
-    }
+    return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
