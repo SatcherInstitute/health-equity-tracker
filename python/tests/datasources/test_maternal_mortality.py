@@ -12,7 +12,7 @@ GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 def get_test_data_as_df(*args, **kwargs):
     print("Reading test input data rather than actual /data dir")
     print(args[1])
-    print("key word args:", kwargs)
+    print(kwargs)
     df = pd.read_csv(os.path.join(TEST_DIR, args[1]))
     return df
 
@@ -37,17 +37,29 @@ def testWriteToBq(
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED ONCE
-    assert mock_csv.call_count == 1
+    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED FOR THE SOURCE RATES AND THE SOURCE COUNTS TABLES
+    assert mock_csv.call_count == 2
 
-    # STATE LEVEL
-    df_state, _, state_table_name = mock_bq.call_args_list[0][0]
-    assert state_table_name == 'by_race_state_historical'
-    print(df_state)
+    # STATE + HISTORICAL
+    df_state_historical, _, table_name = mock_bq.call_args_list[0][0]
+    assert table_name == 'by_race_state_historical'
+    print(df_state_historical)
     # TODO: assert that the df_state is the same as the golden data file loaded via pd.read_csv
 
-    # NATIONAL LEVEL
-    df_national, _, national_table_name = mock_bq.call_args_list[1][0]
-    assert national_table_name == 'by_race_national_historical'
-    print(df_national)
+    # STATE + CURRENT
+    df_state_current, _, table_name = mock_bq.call_args_list[1][0]
+    assert table_name == 'by_race_state_current'
+    print(df_state_current)
+    # TODO: assert that the df_state is the same as the golden data file loaded via pd.read_csv
+
+    # NATIONAL + HISTORICAL
+    df_national_historical, _, table_name = mock_bq.call_args_list[2][0]
+    assert table_name == 'by_race_national_historical'
+    print(df_national_historical.to_string())
+    # TODO: assert that the df_national is the same as the golden data file loaded via pd.read_csv
+
+    # NATIONAL + CURRENT
+    df_national_current, _, table_name = mock_bq.call_args_list[3][0]
+    assert table_name == 'by_race_national_current'
+    print(df_national_current.to_string())
     # TODO: assert that the df_national is the same as the golden data file loaded via pd.read_csv
