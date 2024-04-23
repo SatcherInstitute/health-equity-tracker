@@ -1,5 +1,5 @@
 import { DataFrame, type IDataFrame } from 'data-forge'
-import LRU from 'lru-cache'
+import { LRUCache } from 'lru-cache'
 import { getDataFetcher, getDataManager, getLogger } from '../../utils/globals'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
@@ -28,7 +28,7 @@ const MAX_CACHE_SIZE_QUERIES = 10000
 const MAX_CACHE_SIZE_METADATA = 1
 
 export abstract class ResourceCache<K, R extends {}> {
-  private readonly lruCache: LRU<string, R>
+  private readonly lruCache: LRUCache<string, R>
   private loadingResources: Record<string, Promise<R>>
   private failedResources: Set<string>
 
@@ -38,7 +38,7 @@ export abstract class ResourceCache<K, R extends {}> {
     this.failedResources = new Set()
   }
 
-  private createLruCache(maxSize: number): LRU<string, R> {
+  private createLruCache(maxSize: number): LRUCache<string, R> {
 
     const options = {
       max: maxSize,
@@ -50,7 +50,7 @@ export abstract class ResourceCache<K, R extends {}> {
       // additional QPS unless the user actually interacts with the page.
       ttl: 1000 * 60 * 60 * 24,
     }
-    return new LRU<string, R>(options)
+    return new LRUCache<string, R>(options)
   }
 
   resetCache() {
