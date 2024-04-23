@@ -57,7 +57,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.5.3",
 		"@playwright/test": "^1.43.1",
-		"@testing-library/jest-dom": "^4.2.4",
+		"@testing-library/jest-dom": "^6.4.2",
 		"@testing-library/react": "^14.2.2",
 		"@types/d3": "^7.4.0",
 		"@types/lodash": "^4.14.199",
