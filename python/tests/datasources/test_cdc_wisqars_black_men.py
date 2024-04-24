@@ -149,20 +149,20 @@ def test_write_to_bq_black_men_by_age_national(
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
-    # expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "black_men_by_age_national_current"
-    actual_current_df.to_csv(table_name, index=False)
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
-    # expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "black_men_by_age_national_historical"
-    actual_historical_df.to_csv(table_name, index=False)
+    # actual_historical_df.to_csv(table_name, index=False)
 
     # calls writing NATIONAL + STATE to bq
     assert mock_bq.call_count == 2
 
-    # assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
-    # assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
+    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+    assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -188,17 +188,17 @@ def test_write_to_bq_black_men_by_age_state(
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
-    # expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "black_men_by_age_state_current"
-    actual_current_df.to_csv(table_name, index=False)
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
-    # expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
+    expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "black_men_by_age_state_historical"
-    actual_historical_df.to_csv(table_name, index=False)
+    # actual_historical_df.to_csv(table_name, index=False)
 
     # calls writing NATIONAL + STATE to bq
     assert mock_bq.call_count == 2
 
-    # assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
-    # assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
+    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+    assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
