@@ -29,7 +29,7 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import merge_state_ids
 
 """
-Data Source: CDC WISQARS Black Men (data on gun homicides and law enforcement deaths)
+Data Source: CDC WISQARS
 
 Description:
 - The data is downloaded from the CDC WISQARS database.
@@ -53,9 +53,12 @@ Instructions for Downloading Data:
    - `All Ages`, `Males`, `Black`
 5. Select appropriate report layout:
    - For black_men-national-all: `Year`, `None`, `None`, `None`
-   - For black_men-national-urban: `Year`, `None`, `Metro / Non-Metro`,`None`
+   - For black_men-national-urbanicity: `Year`, `None`, `Metro / Non-Metro`,`None`
+   - For black_men-national-age: `Year`, `None`, `Age Group`,`None`
    - For black_men-state-all: `Year`, `State`, `None`, `None`
-   - For black_men-state-urban: `Year`, `State`, `Metro / Non-Metro`,`None`
+   - For black_men-state-urbanicity: `Year`, `State`, `Metro / Non-Metro`,`None`
+   - For black_men-state-age: `Year`, `State`, `Age Group`,`None`
+
 Notes:
 - There is no county-level data.
 - Single-race data is only available from 2018-2021.
