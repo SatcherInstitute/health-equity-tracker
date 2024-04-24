@@ -143,8 +143,9 @@ export const DROPDOWN_TOPIC_MAP: Record<
   diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
-  gun_violence: 'Gun Violence (General Population)',
+  gun_violence: 'Gun Homicides and Suicides',
   gun_violence_youth: 'Gun Deaths (Youth)',
+  gun_deaths_black_men: 'Gun Homicides and Fatal Legal Interventions (Black Men)',
   health_insurance: 'Uninsured Individuals',
   hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',
@@ -172,7 +173,8 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
-  gun_violence: 'Gun Violence',
+  gun_violence: 'Gun',
+  gun_violence_youth: 'All Youth Gun Deaths',
 }
 
 export interface Category {

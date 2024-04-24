@@ -122,6 +122,9 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '55-64': timeYellow,
   '65-74': mapLight,
   '75+': mapLighter,
+  // urbanicity
+  "Metro": timePurple,
+  "Non-Metro": timeYellow,
 }
 
 // domain for color scale

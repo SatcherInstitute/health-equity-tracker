@@ -10,6 +10,7 @@ import {
   CAWP_DATA_TYPES,
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
+import { BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunDeathsBlackMenProvider'
 import { GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunViolenceYouthProvider'
 import {
   BLACK_WOMEN_DATATYPES,
@@ -50,6 +51,10 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
+const ONLY_URBANICITY_TYPE_MAP: Partial<Record<string, DemographicType>> = {
+  Urbanicity: 'urbanicity',
+}
+
 export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
   return (
     Boolean(fips1?.isStateOrTerritory()) ||
@@ -86,8 +91,8 @@ export function getAllDemographicOptions(
   let enabledDemographicOptionsMap = DEMOGRAPHIC_TYPES_MAP
   const disabledDemographicOptionsWithRepeats: string[][] = []
 
-  // GUN VIOLENCE YOUTH 
-  if (configsContainsMatchingId(configs,  ['gun_violence_youth']))  {
+  // GUN VIOLENCE YOUTH
+  if (configsContainsMatchingId(configs, ['gun_violence_youth'])) {
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
       ...GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS
@@ -126,7 +131,7 @@ export function getAllDemographicOptions(
     dataTypeConfig1?.dataTypeId &&
     dataTypeConfig2?.dataTypeId &&
     Boolean(PHRMA_DATATYPES.includes(dataTypeConfig1.dataTypeId)) !==
-      Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
+    Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
   exactlyOneReportIsPhrma &&
     disabledDemographicOptionsWithRepeats.push(
       ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS
@@ -143,6 +148,14 @@ export function getAllDemographicOptions(
     )
   }
 
+  // GUN HOMICIDES BLACK MEN BY URBANICITY
+  if (
+    configsContainsMatchingId(configs, ['gun_deaths_black_men'])) {
+    enabledDemographicOptionsMap = ONLY_URBANICITY_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
   // remove any duplicates
   const disabledDemographicOptions = Array.from(
     new Set(disabledDemographicOptionsWithRepeats)
