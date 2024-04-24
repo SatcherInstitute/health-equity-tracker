@@ -111,8 +111,11 @@ export function generateSubtitle(
     subtitle = ''
   } else if (demographicType === AGE) {
     subtitle = `Ages ${activeDemographicGroup}`
+  } else if (demographicType === 'urbanicity') {
+    subtitle = `Living in ${activeDemographicGroup} areas`
+
   } else {
-    subtitle = `${activeDemographicGroup}`
+    subtitle = activeDemographicGroup
   }
 
   if (HIV_METRICS.includes(metricId)) {

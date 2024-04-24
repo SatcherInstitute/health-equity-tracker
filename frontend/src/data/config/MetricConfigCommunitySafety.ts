@@ -1,5 +1,5 @@
 
-import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import { defaultHigherIsWorseMapConfig, menHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 import { DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils'
@@ -259,7 +259,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         // },
         fullDisplayName: 'Gun homicides and fatal legal interventions (Black Men)',
         fullDisplayNameInline: 'gun homicides and fatal legal interventions (Black Men)',
-        mapConfig: defaultHigherIsWorseMapConfig,
+        mapConfig: menHigherIsWorseMapConfig,
         metrics: {
             sub_population_count: {
                 chartTitle: '',
