@@ -14,6 +14,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_CRUDE_RATE,
     WISQARS_ALL,
     WISQARS_POP,
+    WISQARS_AGE_GROUP,
 )
 from ingestion.constants import (
     CURRENT,
@@ -64,22 +65,22 @@ Notes:
 - Single-race data is only available from 2018-2021.
 - We could consider using the bridged-race from 2001-2018 to supplement the single-race data.
 
-Last Updated: 4/24
+Last Updated: April 24
 """
 
-GUN_HOMICIDES_LEGAL_BM_PREFIX = "gun_homicides_and_legal_black_men"
+GUN_HOMICIDES_BM_PREFIX = "gun_homicides_black_men"
 
-ESTIMATED_TOTALS_MAP = generate_cols_map([GUN_HOMICIDES_LEGAL_BM_PREFIX], std_col.RAW_SUFFIX)
+ESTIMATED_TOTALS_MAP = generate_cols_map([GUN_HOMICIDES_BM_PREFIX], std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
-PCT_SHARE_MAP[std_col.GUN_HOMICIDE_LEGAL_BM_POP_RAW] = std_col.GUN_HOMICIDE_LEGAL_BM_POP_PCT
-PER_100K_MAP = generate_cols_map([GUN_HOMICIDES_LEGAL_BM_PREFIX], std_col.PER_100K_SUFFIX)
+PCT_SHARE_MAP[std_col.GUN_HOMICIDES_BM_POP_RAW] = std_col.GUN_HOMICIDES_BM_POP_PCT
+PER_100K_MAP = generate_cols_map([GUN_HOMICIDES_BM_PREFIX], std_col.PER_100K_SUFFIX)
 
 TIME_MAP = {
     CURRENT: list(ESTIMATED_TOTALS_MAP.values())
     + list(PCT_SHARE_MAP.values())
     + list(PER_100K_MAP.values())
-    + [std_col.GUN_HOMICIDE_LEGAL_BM_POP_RAW],
+    + [std_col.GUN_HOMICIDES_BM_POP_RAW],
     HISTORICAL: list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()) + list(PER_100K_MAP.values()),
 }
 
@@ -117,6 +118,7 @@ class CDCWisqarsBlackMenData(DataSource):
             WISQARS_YEAR: std_col.TIME_PERIOD_COL,
             WISQARS_STATE: std_col.STATE_NAME_COL,
             WISQARS_URBANICITY: std_col.URBANICITY_COL,
+            WISQARS_AGE_GROUP: std_col.AGE_COL,
         }
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
@@ -128,14 +130,14 @@ class CDCWisqarsBlackMenData(DataSource):
         df = generate_pct_share_col_without_unknowns(
             df,
             PCT_SHARE_MAP,
-            std_col.URBANICITY_COL,
+            breakdown,
             std_col.ALL_VALUE,
         )
 
         for col in ESTIMATED_TOTALS_MAP.values():
 
             df = generate_pct_rel_inequity_col(
-                df, PCT_SHARE_MAP[col], std_col.GUN_HOMICIDE_LEGAL_BM_POP_PCT, PCT_REL_INEQUITY_MAP[col]
+                df, PCT_SHARE_MAP[col], std_col.GUN_HOMICIDES_BM_POP_PCT, PCT_REL_INEQUITY_MAP[col]
             )
 
         return df
@@ -144,7 +146,7 @@ class CDCWisqarsBlackMenData(DataSource):
 def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     output_df = pd.DataFrame(columns=[WISQARS_YEAR, WISQARS_STATE, WISQARS_URBANICITY])
 
-    for variable_string in [GUN_HOMICIDES_LEGAL_BM_PREFIX]:
+    for variable_string in [GUN_HOMICIDES_BM_PREFIX]:
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             DATA_DIR,
             f"{variable_string}-{geo_level}_{breakdown}.csv",
@@ -168,12 +170,13 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
         if breakdown == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
+            df.insert(3, WISQARS_AGE_GROUP, std_col.ALL_VALUE)
 
         df.rename(
             columns={
-                WISQARS_DEATHS: std_col.GUN_HOMICIDE_LEGAL_BM_RAW,
-                WISQARS_POP: std_col.GUN_HOMICIDE_LEGAL_BM_POP_RAW,
-                WISQARS_CRUDE_RATE: std_col.GUN_HOMICIDE_LEGAL_BM_PER_100K,
+                WISQARS_DEATHS: std_col.GUN_HOMICIDES_BM_RAW,
+                WISQARS_POP: std_col.GUN_HOMICIDES_BM_POP_RAW,
+                WISQARS_CRUDE_RATE: std_col.GUN_HOMICIDES_BM_PER_100K,
             },
             inplace=True,
         )

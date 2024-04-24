@@ -29,6 +29,7 @@ INJ_INTENTS = [
 ]
 
 WISQARS_URBANICITY = "Metro / Non-Metro"
+WISQARS_AGE_GROUP = "Age Group"
 WISQARS_YEAR = "Year"
 WISQARS_STATE = "State"
 WISQARS_DEATHS = "Deaths"

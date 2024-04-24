@@ -218,12 +218,12 @@ GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population"
 GUN_DEATHS_YOUTH_PREFIX = "gun_deaths_youth"
 
 # BLACK MEN - HOMICIDES AND LAW ENFORCEMENT DEATHS
-GUN_HOMICIDE_LEGAL_BM_RAW = "gun_homicides_and_legal_black_men_estimated_total"
-GUN_HOMICIDE_LEGAL_BM_POP_PCT = "gun_homicides_and_legal_black_men_population_pct"
-GUN_HOMICIDE_LEGAL_BM_POP_RAW = "gun_homicides_and_legal_black_men_population_estimated_total"
-GUN_HOMICIDE_LEGAL_BM_PER_100K = "gun_homicides_and_legal_black_men_per_100k"
-GUN_HOMICIDE_LEGAL_BM_PCT_SHARE = "gun_homicides_and_legal_black_men_percent_share"
-GUN_HOMICIDE_LEGAL_BM_PCT_REL_INEQUITY = "gun_homicides_and_legal_black_men_pct_relative_inequity"
+GUN_HOMICIDES_BM_RAW = "gun_homicides_black_men_estimated_total"
+GUN_HOMICIDES_BM_POP_PCT = "gun_homicides_black_men_population_pct"
+GUN_HOMICIDES_BM_POP_RAW = "gun_homicides_black_men_population_estimated_total"
+GUN_HOMICIDES_BM_PER_100K = "gun_homicides_black_men_per_100k"
+GUN_HOMICIDES_BM_PCT_SHARE = "gun_homicides_black_men_percent_share"
+GUN_HOMICIDES_BM_PCT_REL_INEQUITY = "gun_homicides_black_men_pct_relative_inequity"
 
 
 # MATERNAL MORTALITY
