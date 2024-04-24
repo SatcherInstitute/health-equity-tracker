@@ -135,7 +135,6 @@ class CDCWisqarsBlackMenData(DataSource):
         )
 
         for col in ESTIMATED_TOTALS_MAP.values():
-
             df = generate_pct_rel_inequity_col(
                 df, PCT_SHARE_MAP[col], std_col.GUN_HOMICIDES_BM_POP_PCT, PCT_REL_INEQUITY_MAP[col]
             )
@@ -171,6 +170,8 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         if breakdown == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
             df.insert(3, WISQARS_AGE_GROUP, std_col.ALL_VALUE)
+        elif breakdown == std_col.AGE_COL:
+            df[WISQARS_AGE_GROUP] = df[WISQARS_AGE_GROUP].str.replace(' to ', '-')
 
         df.rename(
             columns={
