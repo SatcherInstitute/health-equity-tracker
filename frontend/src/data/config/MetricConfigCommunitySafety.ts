@@ -254,9 +254,6 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         definition: {
             text: 'Deaths of Black or African-American males, caused by homicide.'
         },
-        // description: {
-        //     text: ''
-        // },
         fullDisplayName: 'Gun homicides (Black Men)',
         fullDisplayNameInline: 'gun homicides (Black Men)',
         mapConfig: menHigherIsWorseMapConfig,
@@ -291,7 +288,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
                 chartTitle: 'Rates of gun homicides among Black men',
                 columnTitleHeader: 'Gun homicides per 100k Black men',
                 metricId: 'gun_homicides_black_men_per_100k',
-                shortLabel: 'deaths per 100k',
+                shortLabel: 'homicides per 100k',
                 trendsCardTitleName: 'Rates of gun homicides among Black men over time',
                 type: 'per100k',
                 rateNumeratorMetric: {
