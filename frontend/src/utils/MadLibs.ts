@@ -175,6 +175,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   women_in_gov: 'Women Serving in',
   gun_violence: 'Gun',
   gun_violence_youth: 'All Youth Gun Deaths',
+  gun_deaths_black_men: 'Gun Homicides of Black Men',
 }
 
 export interface Category {
