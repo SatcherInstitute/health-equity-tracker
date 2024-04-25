@@ -11,7 +11,7 @@ import {
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
 import { BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunDeathsBlackMenProvider'
-import { GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunViolenceYouthProvider'
+import { GUN_VIOLENCE_DATATYPES, GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunViolenceYouthProvider'
 import {
   BLACK_WOMEN_DATATYPES,
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -93,7 +93,7 @@ export function getAllDemographicOptions(
   const disabledDemographicOptionsWithRepeats: string[][] = []
 
   // GUN VIOLENCE YOUTH
-  if (configsContainsMatchingId(configs, ['gun_violence_youth'])) {
+  if (configsContainsMatchingId(configs, GUN_VIOLENCE_DATATYPES)) {
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
       ...GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS

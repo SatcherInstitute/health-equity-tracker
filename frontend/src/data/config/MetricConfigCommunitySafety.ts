@@ -199,7 +199,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         metrics: {
             sub_population_count: {
                 chartTitle: '',
-                metricId: 'gun_deaths_youth_estimated_total',
+                metricId: 'gun_deaths_youth_population',
                 shortLabel: 'Total Population for Gun Deaths (Children)',
                 type: 'count',
             },
@@ -262,7 +262,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         metrics: {
             sub_population_count: {
                 chartTitle: '',
-                metricId: 'gun_deaths_young_adults_estimated_total',
+                metricId: 'gun_deaths_young_adults_population',
                 shortLabel: 'Total Population for Gun Deaths (Young Adults)',
                 type: 'count',
             },
