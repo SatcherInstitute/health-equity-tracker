@@ -60,7 +60,7 @@ RACE_NAMES_MAPPING = {
 
 def clean_numeric(val):
     """
-    Function to clean numeric values by removing commas and converting '**' to NaN.
+    Function to clean numeric string values by removing commas and converting '**' to NaN.
     Takes a single parameter 'val' and returns the cleaned value.
     """
     if isinstance(val, str):
