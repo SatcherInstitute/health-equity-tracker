@@ -41,6 +41,7 @@ import {
   UNKNOWN_W,
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
   ACS_POVERTY_AGE_BUCKETS,
+  AIAN_API,
 } from './Constants'
 import { type Row } from './DatasetTypes'
 import { type Fips } from './Fips'
@@ -234,9 +235,14 @@ export function getExclusionList(
       )
     }
   }
+  if (currentDataTypeId === 'gun_violence_youth' || 'gun_violence_young_adults') {
+    if (demographicType === RACE) {
+      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH, AIAN_API, NHPI_NH, API_NH)
+    }
+  }
   if (DATATYPES_NEEDING_13PLUS.includes(currentDataTypeId)) {
     if (demographicType === RACE) {
-      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
+      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH,)
     }
     if (demographicType === AGE) {
       exclusionList.push(

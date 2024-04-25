@@ -5,7 +5,7 @@ import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils
 
 
 console.log('Gun violence preview enabled')
-export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth'] as const
+export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth', 'gun_violence_young_adults'] as const
 
 export type CommunitySafetyDataTypeId =
     | 'gun_violence_homicide'
@@ -174,37 +174,37 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
 export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
     {
         categoryId: 'community-safety',
-        dataTableTitle: 'Breakdown summary of gun deaths among youth',
+        dataTableTitle: 'Breakdown summary of gun deaths among children',
         dataTypeId: 'gun_violence_youth',
-        dataTypeShortLabel: 'Gun Deaths (youth)',
+        dataTypeShortLabel: 'Gun Deaths (children)',
         definition: {
             text: 'Deaths of individuals under the age of 18 caused by firearms.'
         },
         description: {
-            text: 'Measuring gun deaths among youth is crucial because it helps us understand the impact of firearm violence on younger populations, guiding the development of targeted interventions and policies to protect our most vulnerable citizens and prevent future tragedies.'
+            text: 'Measuring gun deaths among children is crucial because it helps us understand the impact of firearm violence on younger populations, guiding the development of targeted interventions and policies to protect our most vulnerable citizens and prevent future tragedies.'
         },
-        fullDisplayName: 'Gun deaths (youth)',
-        fullDisplayNameInline: 'gun deaths (youth)',
+        fullDisplayName: 'Gun deaths (children)',
+        fullDisplayNameInline: 'gun deaths (children)',
         mapConfig: defaultHigherIsWorseMapConfig,
         metrics: {
             sub_population_count: {
                 chartTitle: '',
                 metricId: 'gun_deaths_youth_estimated_total',
-                shortLabel: 'Total Population for Gun Deaths (Youth)',
+                shortLabel: 'Total Population for Gun Deaths (Children)',
                 type: 'count',
             },
             pct_relative_inequity: {
-                chartTitle: 'Historical relative inequity of gun deaths among youth',
+                chartTitle: 'Historical relative inequity of gun deaths among children',
                 metricId: 'gun_deaths_youth_pct_relative_inequity',
                 shortLabel: '% relative inequity',
                 type: 'pct_relative_inequity',
             },
             pct_share: {
-                chartTitle: 'Share of total gun deaths among youth',
-                columnTitleHeader: 'Share of total gun deaths among youth',
+                chartTitle: 'Share of total gun deaths among children',
+                columnTitleHeader: 'Share of total gun deaths among children',
                 metricId: 'gun_deaths_youth_pct_share',
                 populationComparisonMetric: {
-                    chartTitle: 'Population vs. distribution of total gun deaths among youth',
+                    chartTitle: 'Population vs. distribution of total gun deaths among children',
                     columnTitleHeader: `${populationPctTitle} (ages 0-17)`,
                     metricId: 'population_pct',
                     shortLabel: populationPctShortLabel,
@@ -214,21 +214,84 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
                 type: 'pct_share',
             },
             per100k: {
-                chartTitle: 'Rates of gun deaths among youth',
-                columnTitleHeader: 'Gun deaths among youth per 100k people',
+                chartTitle: 'Rates of gun deaths among children',
+                columnTitleHeader: 'Gun deaths among children per 100k people',
                 metricId: 'gun_deaths_youth_per_100k',
                 shortLabel: 'deaths per 100k',
-                trendsCardTitleName: 'Rates of gun deaths among youth over time',
+                trendsCardTitleName: 'Rates of gun deaths among children over time',
                 type: 'per100k',
                 rateNumeratorMetric: {
                     chartTitle: '',
                     metricId: 'gun_deaths_youth_estimated_total',
-                    shortLabel: 'Gun deaths (youth)',
+                    shortLabel: 'Gun deaths (children)',
                     type: 'count',
                 },
                 rateDenominatorMetric: {
                     chartTitle: '',
                     metricId: 'gun_deaths_youth_population',
+                    shortLabel: 'Total Population',
+                    type: 'count',
+                }
+            },
+        }
+    },
+    {
+        categoryId: 'community-safety',
+        dataTableTitle: 'Breakdown summary of gun deaths among young adults',
+        dataTypeId: 'gun_violence_young_adults',
+        dataTypeShortLabel: 'Gun Deaths (youth adults)',
+        definition: {
+            text: 'Deaths of individuals aged 18-25 caused by firearms.'
+        },
+        description: {
+            text: 'Measuring gun deaths among young adults is crucial because it helps us understand the impact of firearm violence on younger populations, guiding the development of targeted interventions and policies to protect our most vulnerable citizens and prevent future tragedies.'
+        },
+        fullDisplayName: 'Gun deaths (young adults)',
+        fullDisplayNameInline: 'gun deaths (young adults)',
+        mapConfig: defaultHigherIsWorseMapConfig,
+        metrics: {
+            sub_population_count: {
+                chartTitle: '',
+                metricId: 'gun_deaths_young_adults_estimated_total',
+                shortLabel: 'Total Population for Gun Deaths (Young Adults)',
+                type: 'count',
+            },
+            pct_relative_inequity: {
+                chartTitle: 'Historical relative inequity of gun deaths among young adults',
+                metricId: 'gun_deaths_young_adults_pct_relative_inequity',
+                shortLabel: '% relative inequity',
+                type: 'pct_relative_inequity',
+            },
+            pct_share: {
+                chartTitle: 'Share of total gun deaths among young adults',
+                columnTitleHeader: 'Share of total gun deaths among young adults',
+                metricId: 'gun_deaths_young_adults_pct_share',
+                populationComparisonMetric: {
+                    chartTitle: 'Population vs. distribution of total gun deaths among young adults',
+                    columnTitleHeader: `${populationPctTitle} (ages 18-25)`,
+                    metricId: 'population_pct',
+                    shortLabel: populationPctShortLabel,
+                    type: 'pct_share'
+                },
+                shortLabel: '% of gun deaths',
+                type: 'pct_share',
+            },
+            per100k: {
+                chartTitle: 'Rates of gun deaths among young adults',
+                columnTitleHeader: 'Gun deaths among young adults per 100k people',
+                metricId: 'gun_deaths_young_adults_per_100k',
+                shortLabel: 'deaths per 100k',
+                trendsCardTitleName: 'Rates of gun deaths among young adults over time',
+                type: 'per100k',
+                rateNumeratorMetric: {
+                    chartTitle: '',
+                    metricId: 'gun_deaths_young_adults_estimated_total',
+                    shortLabel: 'Gun deaths (youth)',
+                    type: 'count',
+                },
+                rateDenominatorMetric: {
+                    chartTitle: '',
+                    metricId: 'gun_deaths_young_adults_population',
                     shortLabel: 'Total Population',
                     type: 'count',
                 }

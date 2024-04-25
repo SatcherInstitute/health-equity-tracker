@@ -15,6 +15,20 @@ export const GUN_VIOLENCE_YOUTH_METRICS: MetricId[] = [
     'gun_deaths_youth_population_pct',
 ]
 
+export const GUN_VIOLENCE_YOUNG_ADULTS_METRICS: MetricId[] = [
+    'gun_deaths_young_adults_estimated_total',
+    'gun_deaths_young_adults_pct_relative_inequity',
+    'gun_deaths_young_adults_pct_share',
+    'gun_deaths_young_adults_per_100k',
+    'gun_deaths_young_adults_population',
+    'gun_deaths_young_adults_population_pct',
+]
+
+export const GUN_VIOLENCE_YOUTH_RESTRICTED_METRICS: MetricId[] = [
+    ...GUN_VIOLENCE_YOUTH_METRICS,
+    ...GUN_VIOLENCE_YOUNG_ADULTS_METRICS,
+]
+
 export const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
     ['Age', 'unavailable for Gun Deaths (Youth)'],
     ['Sex', 'unavailable for Gun Deaths (Youth)'],
@@ -22,7 +36,7 @@ export const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 
 class GunViolenceYouthProvider extends VariableProvider {
     constructor() {
-        super('gun_violence_youth_provider', GUN_VIOLENCE_YOUTH_METRICS)
+        super('gun_violence_youth_provider', GUN_VIOLENCE_YOUTH_RESTRICTED_METRICS)
     }
 
     getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId, timeView?: TimeView): DatasetId | undefined {

@@ -1,5 +1,5 @@
 import { DataFrame, type IDataFrame } from 'data-forge'
-import { LRUCache } from 'lru-cache'
+import LRUCache from 'lru-cache'
 import { getDataFetcher, getDataManager, getLogger } from '../../utils/globals'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
