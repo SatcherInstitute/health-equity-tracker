@@ -25,60 +25,17 @@ export default function MethodologyPage() {
 			<div className='flex w-full justify-center'>
 				<h2 className='sr-only'>Methodology</h2>
 
-				<section className='m-[2%] flex max-w-lgXl justify-start'>
-					<div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-2 md:gap-12'>
-						{/* MAIN METHODOLOGY PAGES MENU */}
-						<div className='min-w-fit'>
-							<MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-							<MethodologyCardMenuMobile className='m-3 smMd:hidden' />
-						</div>
+				<section className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row smMd:gap-2 md:gap-12'>
+					{/* MAIN METHODOLOGY PAGES MENU */}
+					<div className='min-w-fit'>
+						<MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
+						<MethodologyCardMenuMobile className='m-3 smMd:hidden' />
+					</div>
 
-						{/* CONTENT */}
-						<div className='flex flex-wrap p-1'>
-							{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
-							<div className='px-12 md:hidden'>
-								{routeConfigs.map((routeConfig) => {
-									const match = useRouteMatch({
-										path: routeConfig.path,
-										exact: true,
-									});
-									const hasSublinks =
-										routeConfig.subLinks && routeConfig.subLinks.length > 0;
-									return match && hasSublinks ? (
-										<HetOnThisPageMenu
-											key={routeConfig.path}
-											links={routeConfig.subLinks}
-										/>
-									) : null;
-								})}
-							</div>
-
-							<article className='flex w-full flex-col p-8 text-left md:p-0 '>
-								{/* HEADING */}
-								<h2 className='font-serif text-header font-light' id='main'>
-									{activeRoute?.label}
-								</h2>
-
-								<Switch>
-									<>
-										{/* TEXT */}
-										{routeConfigs.map((route) => (
-											<Route
-												key={route.path}
-												exact
-												path={route.path}
-												component={route.component}
-											/>
-										))}
-										{/* PREV / NEXT */}
-										<MethodologyPagination />
-									</>
-								</Switch>
-							</article>
-						</div>
-
-						{/* ON THIS PAGE SUB-MENU - DESKTOP */}
-						<div className='hidden min-w-fit md:block'>
+					{/* CONTENT */}
+					<div className='flex flex-wrap grow p-1'>
+						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
+						<div className='px-12 md:hidden'>
 							{routeConfigs.map((routeConfig) => {
 								const match = useRouteMatch({
 									path: routeConfig.path,
@@ -90,11 +47,52 @@ export default function MethodologyPage() {
 									<HetOnThisPageMenu
 										key={routeConfig.path}
 										links={routeConfig.subLinks}
-										className='sticky right-0 top-4  z-top h-min'
 									/>
 								) : null;
 							})}
 						</div>
+
+						<article className='flex w-full flex-col p-8 text-left md:p-0 '>
+							{/* HEADING */}
+							<h2 className='font-serif text-header font-light' id='main'>
+								{activeRoute?.label}
+							</h2>
+
+							<Switch>
+								<>
+									{/* TEXT */}
+									{routeConfigs.map((route) => (
+										<Route
+											key={route.path}
+											exact
+											path={route.path}
+											component={route.component}
+										/>
+									))}
+									{/* PREV / NEXT */}
+									<MethodologyPagination />
+								</>
+							</Switch>
+						</article>
+					</div>
+
+					{/* ON THIS PAGE SUB-MENU - DESKTOP */}
+					<div className='hidden min-w-fit md:block'>
+						{routeConfigs.map((routeConfig) => {
+							const match = useRouteMatch({
+								path: routeConfig.path,
+								exact: true,
+							});
+							const hasSublinks =
+								routeConfig.subLinks && routeConfig.subLinks.length > 0;
+							return match && hasSublinks ? (
+								<HetOnThisPageMenu
+									key={routeConfig.path}
+									links={routeConfig.subLinks}
+									className='sticky right-0 top-4  z-top h-min'
+								/>
+							) : null;
+						})}
 					</div>
 				</section>
 			</div>
