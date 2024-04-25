@@ -79,12 +79,12 @@ class GunViolenceBlackMenProvider extends VariableProvider {
             const consumedDatasetIds = [datasetId]
             return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
         } catch (error) {
-            console.error('Error fetching gun violence data:', error)
+            console.error('Error fetching gun homicides of Black men data:', error)
             throw error
         }
     }
 
-    allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
+    allowsBreakdowns(breakdowns: Breakdowns): boolean {
         const validDemographicBreakdownRequest = breakdowns.hasExactlyOneDemographic()
 
         return (breakdowns.geography === 'state' || breakdowns.geography === 'national') && validDemographicBreakdownRequest

@@ -13,7 +13,7 @@ import { type Fips } from '../data/utils/Fips'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { GUN_VIOLENCE_YOUTH_METRICS } from '../data/providers/GunViolenceYouthProvider'
+import { GUN_DEATH_YOUTH_METRIC_IDS } from '../data/providers/GunViolenceYouthProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
@@ -135,7 +135,7 @@ export function generateSubtitle(
     }
   }
 
-  if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
+  if (GUN_DEATH_YOUTH_METRIC_IDS.includes(metricId)) {
     const youthTitle = 'Ages 0-17'
     if (subtitle === '') {
       subtitle = youthTitle
@@ -168,7 +168,7 @@ export function getAltGroupLabel(
   if (CAWP_METRICS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
-  if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
+  if (GUN_DEATH_YOUTH_METRIC_IDS.includes(metricId)) {
     return `${group} (0-25)`
   }
   if (group === ALL && demographicType === AGE) {
