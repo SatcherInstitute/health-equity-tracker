@@ -114,6 +114,10 @@ export type DatasetId =
   | 'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current'
   | 'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical'
   | 'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical'
+  | 'cdc_wisqars_black_men_data-black_men_by_age_national_current'
+  | 'cdc_wisqars_black_men_data-black_men_by_age_state_current'
+  | 'cdc_wisqars_black_men_data-black_men_by_age_national_historical'
+  | 'cdc_wisqars_black_men_data-black_men_by_age_state_historical'
   | 'census_pop_estimates-race_and_ethnicity'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
@@ -936,22 +940,43 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'cdc_wisqars_data'
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current': {
-    name: 'Gun homicides and fatal legal interventions in Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
+    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
     original_data_sourced: '2021',
     source_id: 'cdc_wisqars_data'
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical': {
-    name: 'Gun homicides and fatal legal interventions in Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
+    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
     original_data_sourced: '2018-2021 [Fatal (single race)]',
     source_id: 'cdc_wisqars_data'
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current': {
-    name: 'Gun homicides and fatal legal interventions in Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
+    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
     original_data_sourced: '2021',
     source_id: 'cdc_wisqars_data'
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical': {
-    name: 'Gun homicides and fatal legal interventions in Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
+    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
+    original_data_sourced: '2018-2021 [Fatal (single race)]',
+    source_id: 'cdc_wisqars_data'
+  },
+
+  'cdc_wisqars_black_men_data-black_men_by_age_national_current': {
+    name: 'Gun homicides for Black men, by age, nationally',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data'
+  },
+  'cdc_wisqars_black_men_data-black_men_by_age_national_historical': {
+    name: 'Gun homicides for Black men, by age, nationally',
+    original_data_sourced: '2018-2021 [Fatal (single race)]',
+    source_id: 'cdc_wisqars_data'
+  },
+  'cdc_wisqars_black_men_data-black_men_by_age_state_current': {
+    name: 'Gun homicides for Black men, by age and state',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wisqars_data'
+  },
+  'cdc_wisqars_black_men_data-black_men_by_age_state_historical': {
+    name: 'Gun homicides for Black men, by age and state',
     original_data_sourced: '2018-2021 [Fatal (single race)]',
     source_id: 'cdc_wisqars_data'
   }

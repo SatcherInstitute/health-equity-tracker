@@ -51,8 +51,9 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
-const ONLY_URBANICITY_TYPE_MAP: Partial<Record<string, DemographicType>> = {
+const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   Urbanicity: 'urbanicity',
+  Age: 'age',
 }
 
 export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
@@ -151,7 +152,7 @@ export function getAllDemographicOptions(
   // GUN HOMICIDES BLACK MEN BY URBANICITY
   if (
     configsContainsMatchingId(configs, ['gun_deaths_black_men'])) {
-    enabledDemographicOptionsMap = ONLY_URBANICITY_TYPE_MAP
+    enabledDemographicOptionsMap = BLACK_MEN_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
       ...BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS
     )

@@ -145,7 +145,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   frequent_mental_distress: 'Frequent Mental Distress',
   gun_violence: 'Gun Homicides and Suicides',
   gun_violence_youth: 'Gun Deaths (Youth)',
-  gun_deaths_black_men: 'Gun Homicides and Fatal Legal Interventions (Black Men)',
+  gun_deaths_black_men: 'Gun Homicides (Black Men)',
   health_insurance: 'Uninsured Individuals',
   hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',

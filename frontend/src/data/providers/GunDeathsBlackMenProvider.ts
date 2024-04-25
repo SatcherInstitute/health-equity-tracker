@@ -7,19 +7,18 @@ import VariableProvider from './VariableProvider';
 
 
 export const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
-    'gun_homicides_and_legal_black_men_estimated_total',
-    'gun_homicides_and_legal_black_men_pct_relative_inequity',
-    'gun_homicides_and_legal_black_men_pct_share',
-    'gun_homicides_and_legal_black_men_per_100k',
-    'gun_homicides_and_legal_black_men_population_estimated_total',
-    'gun_homicides_and_legal_black_men_population_pct',
+    'gun_homicides_black_men_estimated_total',
+    'gun_homicides_black_men_pct_relative_inequity',
+    'gun_homicides_black_men_pct_share',
+    'gun_homicides_black_men_per_100k',
+    'gun_homicides_black_men_population_estimated_total',
+    'gun_homicides_black_men_population_pct',
 ]
 
 const reason = 'unavailable for intersectional Black men topics'
 export const BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
     ['Race/Ethnicity', reason],
     ['Sex', reason],
-    ['Age', reason],
 ]
 
 class GunViolenceBlackMenProvider extends VariableProvider {
@@ -35,6 +34,12 @@ class GunViolenceBlackMenProvider extends VariableProvider {
                 if (breakdowns.geography == 'state')
                     return 'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current'
             }
+            if (breakdowns.hasOnlyAge()) {
+                if (breakdowns.geography == 'national')
+                    return 'cdc_wisqars_black_men_data-black_men_by_age_national_current'
+                if (breakdowns.geography == 'state')
+                    return 'cdc_wisqars_black_men_data-black_men_by_age_state_current'
+            }
         }
 
         if (timeView === 'historical') {
@@ -43,6 +48,12 @@ class GunViolenceBlackMenProvider extends VariableProvider {
                     return 'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical'
                 if (breakdowns.geography == 'state')
                     return 'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical'
+            }
+            if (breakdowns.hasOnlyAge()) {
+                if (breakdowns.geography == 'national')
+                    return 'cdc_wisqars_black_men_data-black_men_by_age_national_historical'
+                if (breakdowns.geography == 'state')
+                    return 'cdc_wisqars_black_men_data-black_men_by_age_state_historical'
             }
         }
     }
