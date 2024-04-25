@@ -70,11 +70,7 @@ TIME_MAP = {
         + list(RAW_TOTALS_MAP.values())
         + list(RAW_POPULATIONS_MAP.values())
     ),
-    HISTORICAL: (
-        list(PER_100K_MAP.values())
-        + list(PCT_REL_INEQUITY_MAP.values())
-        + list(PCT_SHARE_MAP.values())
-    ),
+    HISTORICAL: (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
 }
 
 
@@ -120,9 +116,7 @@ class CDCWisqarsData(DataSource):
             table_name = f"{demographic}_{geo_level}_{table_type}"
             time_cols = TIME_MAP[table_type]
 
-            df_for_bq, col_types = generate_time_df_with_cols_and_types(
-                df, time_cols, table_type, demographic
-            )
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -142,10 +136,10 @@ class CDCWisqarsData(DataSource):
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
 
-        # Replace "Females" with "Female" and "Males" with "Male"
-        breakdown_group_df = breakdown_group_df.replace(
-            {breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}}
-        )
+        # Replace WISQARS group labels with HET group labels
+        breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
+        if breakdown == std_col.AGE_COL:
+            breakdown_group_df[std_col.AGE_COL] = breakdown_group_df[std_col.AGE_COL].str.replace(' to ', '-')
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -172,14 +166,10 @@ class CDCWisqarsData(DataSource):
             unknown = 'Unknown'
             if breakdown == std_col.RACE_OR_HISPANIC_COL:
                 unknown = 'Unknown race'
-            df = generate_pct_share_col_with_unknowns(
-                df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown
-            )
+            df = generate_pct_share_col_with_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown)
 
         else:
-            df = generate_pct_share_col_without_unknowns(
-                df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE
-            )
+            df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
 
         for col in RAW_TOTALS_MAP.values():
             df = generate_pct_rel_inequity_col(
@@ -271,9 +261,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         # Apply the function to the temporary DataFrame
         for raw_total in RAW_TOTALS_MAP.values():
             if raw_total in df.columns:
-                temp_df = generate_per_100k_col(
-                    temp_df, raw_total, 'fatal_population', 'crude rate'
-                )
+                temp_df = generate_per_100k_col(temp_df, raw_total, 'fatal_population', 'crude rate')
 
         # Update the original DataFrame with the results for the 'crude rate' column
         df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
