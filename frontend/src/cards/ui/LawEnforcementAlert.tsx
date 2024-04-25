@@ -25,14 +25,14 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
     )
 
     const unstrippedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> =
-    getDatasetIdsFromResponses([props.queryResponse])
+        getDatasetIdsFromResponses([props.queryResponse])
 
     let datasetIds: DatasetId[] = stripCountyFips(unstrippedDatasetIds)
 
     const dataSourceMap = getDataSourceMapFromDatasetIds(
         datasetIds,
         props.metadata
-      )
+    )
 
     const dataSourceId = Object.keys(dataSourceMap)[0]
 
@@ -53,7 +53,7 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
         <div>
             <HetNotice title="Law Enforcement Impact" kind="health-crisis" className="m-2 border border-reportAlert">
                 <p>
-                    Law enforcement actions results in an additional <strong>{totalCount}</strong> fatalities in {location} in {mostRecentYear},
+                    The CDC reports that law enforcement actions resulted in an additional <strong>{totalCount}</strong> fatalities in {location} in {mostRecentYear},
                     beyond the deaths visualized above.
                     {blackCount !== undefined && (
                         <> Black individuals, who are disproportionately affected nationally, accounted for <strong>{blackCount}</strong> of

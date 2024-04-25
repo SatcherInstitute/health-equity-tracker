@@ -6,7 +6,7 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery';
 import VariableProvider from './VariableProvider';
 
 
-export const GUN_VIOLENCE_YOUTH_METRICS: MetricId[] = [
+export const GUN_DEATH_YOUTH_METRIC_IDS: MetricId[] = [
     'gun_deaths_youth_estimated_total',
     'gun_deaths_youth_pct_relative_inequity',
     'gun_deaths_youth_pct_share',
@@ -80,12 +80,12 @@ class GunViolenceYouthProvider extends VariableProvider {
             const consumedDatasetIds = [datasetId]
             return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
         } catch (error) {
-            console.error('Error fetching gun violence data:', error)
+            console.error('Error fetching gun deaths of youth data:', error)
             throw error
         }
     }
 
-    allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
+    allowsBreakdowns(breakdowns: Breakdowns): boolean {
         const validDemographicBreakdownRequest = breakdowns.hasExactlyOneDemographic()
 
         return (breakdowns.geography === 'state' || breakdowns.geography === 'national') && validDemographicBreakdownRequest
