@@ -5,6 +5,9 @@ import { type DatasetId } from "../config/DatasetMetadata";
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery';
 import VariableProvider from './VariableProvider';
 
+export const GUN_DEATHS_BLACK_MEN_DATATYPES: DataTypeId[] = [
+    "gun_deaths_black_men"
+]
 
 export const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
     'gun_homicides_black_men_estimated_total',

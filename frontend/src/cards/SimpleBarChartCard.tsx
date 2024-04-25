@@ -35,6 +35,7 @@ import {
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
+import { GUN_DEATHS_BLACK_MEN_DATATYPES } from '../data/providers/GunDeathsBlackMenProvider'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -73,7 +74,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     props.dataTypeConfig.dataTypeId
   )
 
-  const isGunDeaths = GUN_VIOLENCE_DATATYPES.includes(props.dataTypeConfig.dataTypeId)
+  const isGunDeaths = [...GUN_VIOLENCE_DATATYPES, ...GUN_DEATHS_BLACK_MEN_DATATYPES].includes(props.dataTypeConfig.dataTypeId)
 
   const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
