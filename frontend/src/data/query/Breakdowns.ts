@@ -17,6 +17,7 @@ export type DemographicType =
   | 'fips'
   | 'lis'
   | 'eligibility'
+  | 'urbanicity'
 
 export const DEMOGRAPHIC_TYPES = [
   'race_and_ethnicity',
@@ -24,6 +25,7 @@ export const DEMOGRAPHIC_TYPES = [
   'age',
   'lis',
   'eligibility',
+  'urbanicity'
 ] as const
 
 // union type of array
@@ -36,6 +38,7 @@ export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   fips: 'FIPS Code',
   lis: 'Low income subsidy',
   eligibility: 'Medicare eligibility',
+  urbanicity: 'Urbanicity'
 } as const
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
@@ -52,6 +55,7 @@ export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
   fips: 'FIPs codes',
   lis: 'Low income subsidy',
   eligibility: 'eligibility',
+  urbanicity: 'urbanicity'
 }
 
 interface DemographicBreakdown {
@@ -108,12 +112,13 @@ export class Breakdowns {
     this.demographicBreakdowns = demographicBreakdowns
       ? { ...demographicBreakdowns }
       : {
-          race_and_ethnicity: createDemographicBreakdown('race_and_ethnicity'),
-          age: createDemographicBreakdown('age'),
-          sex: createDemographicBreakdown('sex'),
-          lis: createDemographicBreakdown('lis'),
-          eligibility: createDemographicBreakdown('eligibility'),
-        }
+        race_and_ethnicity: createDemographicBreakdown('race_and_ethnicity'),
+        age: createDemographicBreakdown('age'),
+        sex: createDemographicBreakdown('sex'),
+        lis: createDemographicBreakdown('lis'),
+        eligibility: createDemographicBreakdown('eligibility'),
+        urbanicity: createDemographicBreakdown('urbanicity'),
+      }
     this.filterFips = filterFips
   }
 
@@ -198,6 +203,7 @@ export class Breakdowns {
       case 'sex':
       case 'lis':
       case 'eligibility':
+      case 'urbanicity':
         // Column name is the same as key
         this.demographicBreakdowns[demographicType] =
           createDemographicBreakdown(demographicType, true, filter)
@@ -275,6 +281,13 @@ export class Breakdowns {
     return (
       this.hasExactlyOneDemographic() &&
       this.demographicBreakdowns.eligibility.enabled
+    )
+  }
+
+  hasOnlyUrbanicity() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.urbanicity.enabled
     )
   }
 

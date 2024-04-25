@@ -462,7 +462,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
     data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
     geographic_level: 'National, State',
-    demographic_granularity: 'Race/ethnicity, sex, age',
+    demographic_granularity: 'Race/ethnicity, sex, age, urbanicity',
     update_frequency: 'Yearly',
     description: `The CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting System) dataset includes a wide range of information related to gun-related injuries, providing a holistic perspective on the impact of gun-related incidents.`,
     dataset_ids: [
@@ -482,6 +482,14 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical',
       'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current',
       'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_current',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_state_current',
+      'cdc_wisqars_black_men_data-black_men_by_age_state_historical',
 
     ],
     downloadable: true,

@@ -1,15 +1,17 @@
-import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+
+import { defaultHigherIsWorseMapConfig, menHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 import { DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils'
 
 
 console.log('Gun violence preview enabled')
-export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth'] as const
+export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth', 'gun_deaths_black_men'] as const
 
 export type CommunitySafetyDataTypeId =
     | 'gun_violence_homicide'
     | 'gun_violence_suicide'
+    | 'gun_deaths_black_men'
 
 export type CommunitySafetyMetricId =
     | 'gun_deaths_youth_estimated_total'
@@ -35,6 +37,12 @@ export type CommunitySafetyMetricId =
     | 'gun_violence_suicide_pct_share'
     | 'fatal_population'
     | 'fatal_population_pct'
+    | 'gun_homicides_black_men_estimated_total'
+    | 'gun_homicides_black_men_pct_relative_inequity'
+    | 'gun_homicides_black_men_pct_share'
+    | 'gun_homicides_black_men_per_100k'
+    | 'gun_homicides_black_men_population_estimated_total'
+    | 'gun_homicides_black_men_population_pct'
 
 export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     {
@@ -230,6 +238,70 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
                     chartTitle: '',
                     metricId: 'gun_deaths_youth_population',
                     shortLabel: 'Total Population',
+                    type: 'count',
+                }
+            },
+        }
+    }
+]
+
+
+export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
+    {
+        categoryId: 'community-safety',
+        dataTableTitle: 'Breakdown summary of gun homicides among Black men',
+        dataTypeId: 'gun_deaths_black_men',
+        dataTypeShortLabel: 'Gun Homicides (Black Men)',
+        definition: {
+            text: 'Deaths of Black or African-American males, caused by homicide.'
+        },
+        fullDisplayName: 'Gun homicides (Black Men)',
+        fullDisplayNameInline: 'gun homicides (Black Men)',
+        mapConfig: menHigherIsWorseMapConfig,
+        metrics: {
+            sub_population_count: {
+                chartTitle: '',
+                metricId: 'gun_homicides_black_men_population_estimated_total',
+                shortLabel: 'Total Population (Black Men)',
+                type: 'count',
+            },
+            pct_relative_inequity: {
+                chartTitle: 'Historical relative inequity of gun homicides among Black men',
+                metricId: 'gun_homicides_black_men_pct_relative_inequity',
+                shortLabel: '% relative inequity',
+                type: 'pct_relative_inequity',
+            },
+            pct_share: {
+                chartTitle: 'Share of total gun homicides among Black men',
+                columnTitleHeader: 'Share of total gun homicides among Black men',
+                metricId: 'gun_homicides_black_men_pct_share',
+                populationComparisonMetric: {
+                    chartTitle: 'Population vs. distribution of total gun homicides among Black men',
+                    columnTitleHeader: `${populationPctTitle} (Black NH, Male)`,
+                    metricId: 'gun_homicides_black_men_population_pct',
+                    shortLabel: populationPctShortLabel,
+                    type: 'pct_share'
+                },
+                shortLabel: '% of gun deaths',
+                type: 'pct_share',
+            },
+            per100k: {
+                chartTitle: 'Rates of gun homicides among Black men',
+                columnTitleHeader: 'Gun homicides per 100k Black men',
+                metricId: 'gun_homicides_black_men_per_100k',
+                shortLabel: 'homicides per 100k',
+                trendsCardTitleName: 'Rates of gun homicides among Black men over time',
+                type: 'per100k',
+                rateNumeratorMetric: {
+                    chartTitle: '',
+                    metricId: 'gun_homicides_black_men_estimated_total',
+                    shortLabel: 'Gun homicides (Black Men)',
+                    type: 'count',
+                },
+                rateDenominatorMetric: {
+                    chartTitle: '',
+                    metricId: 'gun_homicides_black_men_population_estimated_total',
+                    shortLabel: 'Total Population (Black Men)',
                     type: 'count',
                 }
             },
