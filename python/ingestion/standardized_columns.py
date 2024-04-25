@@ -21,8 +21,12 @@ RACE_ETH_COL = "race_ethnicity_combined"
 AGE_COL = "age"
 SEX_COL = "sex"
 
+# DEMOGRAPHICS FOR PHRMA
 LIS_COL = "lis"
 ELIGIBILITY_COL = "eligibility"
+
+# DEMOGRAPHICS FOR WISQARS
+URBANICITY_COL = "urbanicity"
 
 
 STATE_FIPS_COL = "state_fips"
@@ -190,12 +194,7 @@ FATAL_PREFIX = "fatal"
 FATAL_POPULATION = "fatal_population"
 FATAL_POPULATION_PCT = "fatal_population_pct"
 FATAL_PREFIX = "fatal"
-GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
-GUN_DEATHS_YOUNG_ADULTS_POPULATION = "gun_deaths_young_adults_population"
-GUN_DEATHS_YOUNG_ADULTS_PREFIX = "gun_deaths_young_adults"
-GUN_DEATHS_YOUTH_POP_PCT = "gun_deaths_youth_population_pct"
-GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population"
-GUN_DEATHS_YOUTH_PREFIX = "gun_deaths_youth"
+
 GUN_VIOLENCE_HOMICIDE_PREFIX = "gun_violence_homicide"
 GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimtated_total"
 GUN_VIOLENCE_INJURIES_PER_100K = "gun_violence_injuries_per_100k"
@@ -208,6 +207,23 @@ GUN_VIOLENCE_SUICIDES_RAW = "gun_violence_suicide_estimated_total"
 NON_FATAL_POPULATION = "non_fatal_population"
 NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
 NON_FATAL_PREFIX = "non_fatal"
+
+
+# YOUNG ADULTS AND YOUTH
+GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
+GUN_DEATHS_YOUNG_ADULTS_POPULATION = "gun_deaths_young_adults_population"
+GUN_DEATHS_YOUNG_ADULTS_PREFIX = "gun_deaths_young_adults"
+GUN_DEATHS_YOUTH_POP_PCT = "gun_deaths_youth_population_pct"
+GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population"
+GUN_DEATHS_YOUTH_PREFIX = "gun_deaths_youth"
+
+# BLACK MEN - HOMICIDES AND LAW ENFORCEMENT DEATHS
+GUN_HOMICIDES_BM_RAW = "gun_homicides_black_men_estimated_total"
+GUN_HOMICIDES_BM_POP_PCT = "gun_homicides_black_men_population_pct"
+GUN_HOMICIDES_BM_POP_RAW = "gun_homicides_black_men_population_estimated_total"
+GUN_HOMICIDES_BM_PER_100K = "gun_homicides_black_men_per_100k"
+GUN_HOMICIDES_BM_PCT_SHARE = "gun_homicides_black_men_percent_share"
+GUN_HOMICIDES_BM_PCT_REL_INEQUITY = "gun_homicides_black_men_pct_relative_inequity"
 
 
 # MATERNAL MORTALITY
