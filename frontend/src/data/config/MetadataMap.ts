@@ -486,6 +486,10 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical',
       'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current',
       'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_current',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_state_current',
+      'cdc_wisqars_black_men_data-black_men_by_age_state_historical',
 
     ],
     downloadable: true,
