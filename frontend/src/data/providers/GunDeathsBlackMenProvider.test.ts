@@ -1,4 +1,3 @@
-import { RACE } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import {
   autoInitGlobals,
@@ -12,12 +11,11 @@ import { Fips } from '../utils/Fips'
 import { MetricId } from '../config/MetricConfig'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
-import GunViolenceYouthProvider from './GunViolenceYouthProvider'
+import GunDeathsBlackMenProvider from './GunDeathsBlackMenProvider'
 import {
   expect,
   describe, test, beforeEach
 } from 'vitest'
-
 
 
 export async function ensureCorrectDatasetsDownloaded(
@@ -31,15 +29,16 @@ export async function ensureCorrectDatasetsDownloaded(
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
 
-  const gunViolenceYouthProvider = new GunViolenceYouthProvider()
+  const gunDeathsBlackMenProvider = new GunDeathsBlackMenProvider()
   const specificDatasetId = appendFipsIfNeeded(
     gunViolenceDatasetId,
     baseBreakdown
   )
+
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
   // Evaluate the response by requesting "All" field
-  const responseIncludingAll = await gunViolenceYouthProvider.getData(
+  const responseIncludingAll = await gunDeathsBlackMenProvider.getData(
     new MetricQuery(
       metricIds,
       baseBreakdown.addBreakdown(demographicType),
@@ -60,7 +59,7 @@ export async function ensureCorrectDatasetsDownloaded(
 autoInitGlobals()
 const dataFetcher = getDataFetcher() as FakeDataFetcher
 
-describe('GunViolenceYouthProvider', () => {
+describe('GunDeathsBlackMenProvider', () => {
   beforeEach(() => {
     resetCacheDebug()
     dataFetcher.resetState()
@@ -69,20 +68,20 @@ describe('GunViolenceYouthProvider', () => {
 
   test('Historical National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_historical',
       Breakdowns.forFips(new Fips('00')),
-      RACE,
-      'gun_violence_youth',
+      'age',
+      'gun_deaths_black_men',
       'historical'
     )
   })
 
-  test('Current State and Race Breakdown', async () => {
+  test('Current State and Urbanicity Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current',
       Breakdowns.forFips(new Fips('01')),
-      RACE,
-      'gun_violence_youth',
+      'urbanicity',
+      'gun_deaths_black_men',
       'current'
     )
   })

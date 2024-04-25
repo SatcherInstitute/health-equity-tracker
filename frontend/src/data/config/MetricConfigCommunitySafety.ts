@@ -11,6 +11,7 @@ export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth
 export type CommunitySafetyDataTypeId =
     | 'gun_violence_homicide'
     | 'gun_violence_suicide'
+    | 'gun_deaths_black_men'
 
 export type CommunitySafetyMetricId =
     | 'gun_deaths_youth_estimated_total'
