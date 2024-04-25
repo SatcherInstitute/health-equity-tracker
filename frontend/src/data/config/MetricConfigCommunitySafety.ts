@@ -1,5 +1,5 @@
 
-import { defaultHigherIsWorseMapConfig, menHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import { defaultHigherIsWorseMapConfig, menHigherIsWorseMapConfig, youthHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 import { DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils'
@@ -195,7 +195,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         },
         fullDisplayName: 'Gun deaths (children)',
         fullDisplayNameInline: 'gun deaths (children)',
-        mapConfig: defaultHigherIsWorseMapConfig,
+        mapConfig: youthHigherIsWorseMapConfig,
         metrics: {
             sub_population_count: {
                 chartTitle: '',
@@ -258,7 +258,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         },
         fullDisplayName: 'Gun deaths (young adults)',
         fullDisplayNameInline: 'gun deaths (young adults)',
-        mapConfig: defaultHigherIsWorseMapConfig,
+        mapConfig: youthHigherIsWorseMapConfig,
         metrics: {
             sub_population_count: {
                 chartTitle: '',
