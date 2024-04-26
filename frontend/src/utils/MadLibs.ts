@@ -174,7 +174,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
   gun_violence: 'Gun',
-  gun_violence_youth: 'All Youth Gun Deaths',
+  gun_violence_youth: 'All Gun Deaths for',
   gun_deaths_black_men: 'Gun Homicides of Black Men',
 }
 

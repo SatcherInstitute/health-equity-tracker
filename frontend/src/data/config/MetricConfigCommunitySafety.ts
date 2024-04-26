@@ -318,7 +318,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         dataTypeId: 'gun_deaths_black_men',
         dataTypeShortLabel: 'Gun Homicides (Black Men)',
         definition: {
-            text: 'Deaths of Black or African-American males, caused by homicide.'
+            text: 'Deaths of Black or African-American males, caused by gun homicides.'
         },
         fullDisplayName: 'Gun homicides (Black Men)',
         fullDisplayNameInline: 'gun homicides (Black Men)',
