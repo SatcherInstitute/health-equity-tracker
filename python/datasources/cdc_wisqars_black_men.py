@@ -47,18 +47,30 @@ Instructions for Downloading Data:
 5. Select the geography:
     - `United States`
 6. Select the intent:
-    - `Homicide and Legal Intervention`
+    - `Homicide`
 7. Select the mechanism:
     - `Firearm`
 8. Select the demographic selections:
-   - `All Ages`, `Males`, `Black`
+   - `All Ages`, `Males`, `Black`, `All Ethnicities`
 5. Select appropriate report layout:
-   - For black_men-national-all: `Year`, `None`, `None`, `None`
-   - For black_men-national-urbanicity: `Year`, `None`, `Metro / Non-Metro`,`None`
-   - For black_men-national-age: `Year`, `None`, `Age Group`,`None`
-   - For black_men-state-all: `Year`, `State`, `None`, `None`
-   - For black_men-state-urbanicity: `Year`, `State`, `Metro / Non-Metro`,`None`
-   - For black_men-state-age: `Year`, `State`, `Age Group`,`None`
+   - For black_men-national-all: `Year`, `None`, `None`, `None`:
+   wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2021&t=0&i=3&m=20890&g=00&me=0&s=1&r=2&ry=2&e=0&yp=65
+   &a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=NONE&r3=NONE&r4=NONE
+   - For black_men-national-urbanicity: `Year`, `Metro / Non-Metro`, `None`,`None`:
+   wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2021&t=0&d=&i=3&m=20890&g=00&me=0&s=1&r=2&ry=2&e=0&yp=65
+   &a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=UR2013&r3=NONE&r4=NONE
+   - For black_men-national-age: `Year`,`Age Group`,`None`, `None`:
+   wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2021&t=0&d=&i=3&m=20890&g=00&me=0&s=1&r=2&ry=2&e=0&yp=65
+   &a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=AGEGP&r3=NONE&r4=NONE
+   - For black_men-state-all: `Year`, `State`, `None`, `None`:
+   wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2021&t=0&d=&i=3&m=20890&g=00&me=0&s=1&r=2&ry=2&e=0&yp=65
+   &a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=NONE&r4=NONE
+   - For black_men-state-urbanicity: `Year`, `State`, `Metro / Non-Metro`,`None`:
+   wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2021&t=0&d=&i=3&m=20890&g=00&me=0&s=1&r=2&ry=2&e=0&yp=65
+   &a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=UR2013&r4=NONE
+   - For black_men-state-age: `Year`, `State`, `Age Group`,`None`:
+   wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2021&t=0&d=&i=3&m=20890&g=00&me=0&s=1&r=2&ry=2&e=0&yp=65
+   &a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=AGEGP&r4=NONE
 
 Notes:
 - There is no county-level data.
