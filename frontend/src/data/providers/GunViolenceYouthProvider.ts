@@ -5,8 +5,12 @@ import { type DatasetId } from "../config/DatasetMetadata";
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery';
 import VariableProvider from './VariableProvider';
 
+export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
+    'gun_deaths_youth',
+    'gun_deaths_young_adults',
+]
 
-export const GUN_VIOLENCE_YOUTH_METRICS: MetricId[] = [
+export const GUN_DEATH_YOUTH_METRIC_IDS: MetricId[] = [
     'gun_deaths_youth_estimated_total',
     'gun_deaths_youth_pct_relative_inequity',
     'gun_deaths_youth_pct_share',
@@ -15,9 +19,23 @@ export const GUN_VIOLENCE_YOUTH_METRICS: MetricId[] = [
     'gun_deaths_youth_population_pct',
 ]
 
+export const GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS: MetricId[] = [
+    'gun_deaths_young_adults_estimated_total',
+    'gun_deaths_young_adults_pct_relative_inequity',
+    'gun_deaths_young_adults_pct_share',
+    'gun_deaths_young_adults_per_100k',
+    'gun_deaths_young_adults_population',
+    'gun_deaths_young_adults_population_pct'
+]
+
 export const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
     ['Age', 'unavailable for Gun Deaths (Youth)'],
     ['Sex', 'unavailable for Gun Deaths (Youth)'],
+]
+
+export const GUN_VIOLENCE_YOUTH_METRICS = [
+    ...GUN_DEATH_YOUTH_METRIC_IDS,
+    ...GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS
 ]
 
 class GunViolenceYouthProvider extends VariableProvider {
@@ -66,12 +84,12 @@ class GunViolenceYouthProvider extends VariableProvider {
             const consumedDatasetIds = [datasetId]
             return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
         } catch (error) {
-            console.error('Error fetching gun violence data:', error)
+            console.error('Error fetching gun deaths of youth data:', error)
             throw error
         }
     }
 
-    allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
+    allowsBreakdowns(breakdowns: Breakdowns): boolean {
         const validDemographicBreakdownRequest = breakdowns.hasExactlyOneDemographic()
 
         return (breakdowns.geography === 'state' || breakdowns.geography === 'national') && validDemographicBreakdownRequest
