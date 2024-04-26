@@ -57,9 +57,9 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
                     beyond the deaths visualized above.
                     {blackCount !== undefined && (
                         <> Black individuals, who are disproportionately affected nationally, accounted for <strong>{blackCount}</strong> of
-                            these legal intervention gun fatalities.</>
+                            these reported legal intervention gun fatalities.</>
                     )}
-                    <> This issue highlights the need for comprehensive reforms and accountability to ensure a justice system that equitably
+                    <> It is important to note that these numbers are considered to be vastly underreported due to issues with data reporting, classification, and availability. These problems combined highlight the need for comprehensive reforms and accountability to ensure a justice system that equitably
                         protects every community.</>
                 </p>
             </HetNotice>
