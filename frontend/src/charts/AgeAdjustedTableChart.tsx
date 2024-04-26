@@ -140,7 +140,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       {props.data.length <= 0 || props.metricConfigs.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
-        <figure>
+        <figure className='m-3'>
           <figcaption>
             <ChartTitle title={props.title} />
           </figcaption>
