@@ -1,13 +1,13 @@
 time_period,state_name,state_fips,urbanicity,gun_homicides_black_men_pct_relative_inequity,gun_homicides_black_men_pct_share,gun_homicides_black_men_per_100k
-2021,United States,00,Metro,1.8,92.2,56.21
-2021,United States,00,Non-Metro,-17.0,7.8,45.73
-2020,United States,00,Metro,1.8,92.2,53.27
-2020,United States,00,Non-Metro,-17.0,7.8,43.11
-2019,United States,00,Metro,2.1,92.2,39.14
-2019,United States,00,Non-Metro,-19.6,7.8,30.73
-2018,United States,00,Metro,2.5,92.5,36.69
-2018,United States,00,Non-Metro,-23.5,7.5,27.5
-2021,United States,00,All,0.0,100.0,55.22
-2020,United States,00,All,0.0,100.0,52.31
-2019,United States,00,All,0.0,100.0,38.32
-2018,United States,00,All,0.0,100.0,35.79
+2021,United States,00,Metro,1.4,92.2,52.77
+2021,United States,00,Non-Metro,-14.3,7.8,44.17
+2020,United States,00,Metro,1.5,92.3,49.82
+2020,United States,00,Non-Metro,-15.4,7.7,41.59
+2019,United States,00,Metro,1.9,92.3,36.67
+2019,United States,00,Non-Metro,-18.1,7.7,29.79
+2018,United States,00,Metro,2.2,92.5,34.44
+2018,United States,00,Non-Metro,-21.1,7.5,26.72
+2021,United States,00,All,0.0,100.0,51.98
+2020,United States,00,All,0.0,100.0,49.07
+2019,United States,00,All,0.0,100.0,36.02
+2018,United States,00,All,0.0,100.0,33.71
