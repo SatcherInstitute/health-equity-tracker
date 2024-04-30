@@ -1,7 +1,7 @@
 [FORMAT]
 max-line-length=120
 [MESSAGES CONTROL]
-disable=C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103,R0201,W0104,W0105,R0801,R0913
+disable=C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103,R0201,W0104,W0105,R0801,R0913,R0022
 
 ; C0114 (missing-module-docstring): Missing module docstring.
 ; E0401 (import-error): Unable to import a module.
@@ -18,3 +18,4 @@ disable=C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103,R0201,W0104,
 ; W0105 (pointless-string-statement): Pointless string statement.
 ; R0801 similarities: Similar lines in 2 files
 ; R0913: Too many arguments
+; R0022: Useless option value for '--disable', 'R0201' was moved to an optional extension

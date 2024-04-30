@@ -11,13 +11,11 @@ class DataSource(ABC):
     @staticmethod
     def get_id():
         """Returns the data source's unique id."""
-        ...
 
     @staticmethod
     def get_table_name():
         """Returns the BigQuery base table name where the data source's data will
         stored."""
-        ...
 
     def get_attr(self, attributes, key):
         attr = attributes.get(key)
