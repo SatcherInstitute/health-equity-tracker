@@ -70,6 +70,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   let hasUnknowns = Boolean(metricConfigPctShares)
 
+  const isWisqars = props.dataTypeConfig.categoryId === 'community-safety'
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
     exclude(NON_HISPANIC, AIAN_API)
@@ -231,6 +233,13 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                   hasUnknowns={hasUnknowns}
                 />
+                {isWisqars && <MissingDataAlert
+                  dataName={`single-race historical data earlier than 2018 for ${metricConfigRates.chartTitle}`}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }
+                  fips={props.fips}
+                />}
                 {hasUnknowns && (
                   <UnknownBubblesAlert
                     demographicType={props.demographicType}
