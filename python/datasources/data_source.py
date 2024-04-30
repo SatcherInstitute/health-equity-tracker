@@ -11,18 +11,18 @@ class DataSource(ABC):
     @staticmethod
     def get_id():
         """Returns the data source's unique id."""
-        pass
+        ...
 
     @staticmethod
     def get_table_name():
         """Returns the BigQuery base table name where the data source's data will
         stored."""
-        pass
+        ...
 
     def get_attr(self, attributes, key):
         attr = attributes.get(key)
         if attr is None:
-            raise RuntimeError("Attribute: {} not found on payload".format(key))
+            raise RuntimeError(f"Attribute: {key} not found on payload")
         return attr
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
@@ -43,13 +43,16 @@ class DataSource(ABC):
             self.get_attr(attrs, 'url'), None, gcs_bucket, self.get_attr(attrs, 'filename')
         )
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
         gcs_bucket: The name of the gcs bucket to read the data from
+        write_local_instead_of_bq: If true, writes the data to a local file. Default False
         attrs: Additional message attributes such as url and filename that are
                needed for this data source."""
+        if write_local_instead_of_bq:
+            print("TODO: Writing to local file instead of BigQuery")
         self.write_to_bq_table(dataset, gcs_bucket, self.get_attr(attrs, 'filename'), self.get_table_name())
 
     def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None):
