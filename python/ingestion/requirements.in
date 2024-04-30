@@ -4,5 +4,6 @@ google-cloud-core
 google-cloud-pubsub
 google-cloud-storage
 pandas
+pylint
 requests
 xlrd  # This is implicitly required for pandas.read_excel
