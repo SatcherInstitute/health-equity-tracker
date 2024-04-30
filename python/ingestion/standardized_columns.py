@@ -101,6 +101,7 @@ VOTER_PARTICIPATION_PREFIX = "voter_participation"
 AHR_POPULATION_PCT = "ahr_population_pct"
 
 # Vaccination columns
+VACCINATED_RAW = "vaccinated_estimated_total"
 VACCINATED_PER_100K = "vaccinated_per_100k"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 VACCINATED_POP_PCT = 'vaccinated_pop_pct'
