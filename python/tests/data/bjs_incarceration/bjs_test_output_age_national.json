@@ -1,7 +1,7 @@
 [
 	{
 		"state_name": "United States",
-		"population": 334369975.0,
+		"incarceration_population_estimated_total": 334369975.0,
 		"jail_estimated_total": 734470.0,
 		"prison_estimated_total": 1182166.0,
 		"age": "All",
@@ -15,7 +15,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 9127757.0,
+		"incarceration_population_estimated_total": 9127757.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 7092.996,
 		"age": "18-19",
@@ -29,7 +29,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 22460952.0,
+		"incarceration_population_estimated_total": 22460952.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 88662.45,
 		"age": "20-24",
@@ -43,7 +43,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 22896149.0,
+		"incarceration_population_estimated_total": 22896149.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 171414.07,
 		"age": "25-29",
@@ -57,7 +57,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 22912922.0,
+		"incarceration_population_estimated_total": 22912922.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 192693.05800000002,
 		"age": "30-34",
@@ -71,7 +71,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 22194899.0,
+		"incarceration_population_estimated_total": 22194899.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 186782.228,
 		"age": "35-39",
@@ -85,7 +85,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 21009103.0,
+		"incarceration_population_estimated_total": 21009103.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 153681.58,
 		"age": "40-44",
@@ -99,7 +99,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 20452744.0,
+		"incarceration_population_estimated_total": 20452744.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 119398.766,
 		"age": "45-49",
@@ -113,7 +113,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 21056198.0,
+		"incarceration_population_estimated_total": 21056198.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 95755.446,
 		"age": "50-54",
@@ -127,7 +127,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 21755039.0,
+		"incarceration_population_estimated_total": 21755039.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 76840.79,
 		"age": "55-59",
@@ -141,7 +141,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 21263749.0,
+		"incarceration_population_estimated_total": 21263749.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 47286.64,
 		"age": "60-64",
@@ -155,7 +155,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 55460582.0,
+		"incarceration_population_estimated_total": 55460582.0,
 		"jail_estimated_total": null,
 		"prison_estimated_total": 41375.81,
 		"age": "65+",
@@ -169,7 +169,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 73779881.0,
+		"incarceration_population_estimated_total": 73779881.0,
 		"jail_estimated_total": 2880.0,
 		"prison_estimated_total": null,
 		"age": "0-17",
@@ -183,7 +183,7 @@
 	},
 	{
 		"state_name": "United States",
-		"population": 260590094.0,
+		"incarceration_population_estimated_total": 260590094.0,
 		"jail_estimated_total": 731580.0,
 		"prison_estimated_total": null,
 		"age": "18+",
