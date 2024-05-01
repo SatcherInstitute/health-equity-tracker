@@ -159,13 +159,13 @@ expected_dtype = {
 expected_dtype_age = {
     **expected_dtype,
     'age': str,
-    'population': float,
+    'incarceration_population_estimated_total': float,
 }
 expected_dtype_race = {
     **expected_dtype,
     'race_and_ethnicity': str,
     'race_category_id': str,
-    'population': float,
+    'incarceration_population_estimated_total': float,
     'prison_estimated_total': float,
     'jail_estimated_total': float,
 }
@@ -173,7 +173,7 @@ expected_dtype_race = {
 expected_dtype_sex = {
     **expected_dtype,
     'sex': str,
-    'population': float,
+    'incarceration_population_estimated_total': float,
     'prison_estimated_total': float,
     'jail_estimated_total': float,
 }

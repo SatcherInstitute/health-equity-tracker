@@ -46,8 +46,6 @@ from ingestion.bjs_utils import (
     load_tables,
 )
 
-INCARCERATION_POP_PCT_COL = "incarceration_population_pct"
-
 
 def generate_raw_breakdown(demo, geo_level, table_list):
     """
@@ -271,7 +269,12 @@ def post_process(df, breakdown, geo, children_tables):
     df = pd.merge(df, df_confined, how="left", on=[std_col.STATE_NAME_COL, group_col])
 
     # give unique pop col name for this source
-    df = df.rename(columns={std_col.POPULATION_PCT_COL: INCARCERATION_POP_PCT_COL})
+    df = df.rename(
+        columns={
+            std_col.POPULATION_PCT_COL: std_col.INCARCERATION_POP_PCT_SHARE,
+            std_col.POPULATION_COL: std_col.INCARCERATION_POP_RAW,
+        }
+    )
 
     return df
 
@@ -325,7 +328,12 @@ class BJSIncarcerationData(DataSource):
 
                 df = self.generate_breakdown_df(breakdown, geo_level, table_lookup[table_name], children_tables)
 
-                float_cols = [INCARCERATION_POP_PCT_COL, std_col.POPULATION_COL, RAW_JAIL_COL, RAW_PRISON_COL]
+                float_cols = [
+                    std_col.INCARCERATION_POP_PCT_SHARE,
+                    std_col.INCARCERATION_POP_RAW,
+                    RAW_JAIL_COL,
+                    RAW_PRISON_COL,
+                ]
                 for prefix in BJS_DATA_TYPES:
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
                         float_cols.append(std_col.generate_column_name(prefix, suffix))
