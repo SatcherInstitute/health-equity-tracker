@@ -4,6 +4,7 @@ import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
 } from './GeoContext'
+import { describe, test, expect } from 'vitest'
 
 describe('test getTotalACSPopulationPhrase()', () => {
   const nationalACSPopData: Row[] = [
@@ -18,7 +19,7 @@ describe('test getTotalACSPopulationPhrase()', () => {
     const normalPopPhrase = getTotalACSPopulationPhrase(
       /* data */ nationalACSPopData
     )
-    expect(normalPopPhrase).toEqual('Total Population: 328,016,242')
+    expect(normalPopPhrase).toEqual('Total Population (from 2022 ACS): 328,016,242')
   })
 })
 

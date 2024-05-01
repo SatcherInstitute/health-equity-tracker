@@ -23,6 +23,7 @@ class VaccineProvider extends VariableProvider {
       'vaccinated_pct_share',
       'vaccinated_per_100k',
       'vaccinated_pop_pct',
+      'vaccinated_estimated_total'
     ])
     this.acsProvider = acsProvider
   }
