@@ -240,7 +240,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
         metricId: 'incarceration_population_estimated_total',
-        shortLabel: 'Total Population (Ages 15-64)',
+        shortLabel: 'Total Population (from rate data)',
         type: 'count',
       },
       per100k: {
@@ -258,7 +258,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'incarceration_population_estimated_total',
-          shortLabel: 'Total population (Ages 15-64)',
+          shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
         },
@@ -314,7 +314,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
         metricId: 'incarceration_population_estimated_total',
-        shortLabel: 'Total Population (Ages 15-64)',
+        shortLabel: 'Total Population (from rate data)',
         type: 'count',
       },
       per100k: {
@@ -332,7 +332,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'incarceration_population_estimated_total',
-          shortLabel: 'Total population (Ages 15-64)',
+          shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
         },

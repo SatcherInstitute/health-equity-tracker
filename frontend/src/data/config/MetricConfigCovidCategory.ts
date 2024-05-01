@@ -49,6 +49,7 @@ export type CovidCategoryMetricId =
   | 'vaccinated_per_100k'
   | 'vaccinated_pop_pct'
   | 'vaccinated_share_of_known'
+  | 'vaccinated_estimated_total'
 
 export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
@@ -234,6 +235,12 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'COVID-19 vaccinations per 100k people',
         shortLabel: 'COVID-19 vaccinations per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'vaccinated_estimated_total',
+          shortLabel: 'vaccinated',
+          chartTitle: '',
+          type: 'count',
+        }
       },
       pct_share: {
         chartTitle: 'Share of total COVID-19 vaccinations',
