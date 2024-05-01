@@ -14,7 +14,7 @@ from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 from ingestion.constants import STATE_LEVEL, RACE
 
 BASE_KFF_URL_TOTALS_STATE = (
-    'https://raw.githubusercontent.com/KFFData/COVID-19-Data/' 'kff_master/State%20Trend%20Data/State_Trend_Data.csv'
+    'https://raw.githubusercontent.com/KFFData/COVID-19-Data/kff_master/State%20Trend%20Data/State_Trend_Data.csv'
 )
 
 BASE_GITHUB_API_URL = "https://api.github.com/repos/KFFData/COVID-19-Data/git/trees/kff_master?recursive=1"
@@ -97,21 +97,21 @@ def get_data_url(data_type):
     urls = df.loc[df['path'] == df['path'].max()].url
 
     if len(urls) != 1:
-        raise ValueError("Found %d urls, should have only found 1" % len(urls))
+        raise ValueError(f"Found {len(urls)} urls, should have only found 1")
 
     return urls.values[0]
 
 
 def generate_total_pct_key(race):
-    return '%% of Total %s Population Vaccinated' % race
+    return f'% of Total {race} Population Vaccinated'
 
 
 def generate_pct_share_key(race):
-    return '%s %% of Vaccinations' % race
+    return f'{race} % of Vaccinations'
 
 
 def generate_pct_of_population_key(race):
-    return '%s Percent of Total Population' % race
+    return f'{race} Percent of Total Population'
 
 
 def get_unknown_rows(df, state):
@@ -279,7 +279,14 @@ class KFFVaccination(DataSource):
         df = df.drop(columns=std_col.POPULATION_PCT_COL)
 
         df = merge_pop_numbers(df, RACE, STATE_LEVEL)
-        df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.ACS_VACCINATED_POP_PCT})
+        df = df.rename(
+            columns={
+                std_col.POPULATION_PCT_COL: std_col.ACS_VACCINATED_POP_PCT,
+                VACCINATED_FIRST_DOSE: std_col.VACCINATED_RAW,
+            }
+        )
+
+        df[std_col.VACCINATED_RAW] = df[std_col.VACCINATED_RAW].astype(float)
 
         df = df[
             [
@@ -290,12 +297,13 @@ class KFFVaccination(DataSource):
                 std_col.VACCINATED_PER_100K,
                 std_col.VACCINATED_POP_PCT,
                 std_col.ACS_VACCINATED_POP_PCT,
+                std_col.VACCINATED_RAW,
             ]
         ]
 
         return df
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         df = self.parse_data()
         df = self.post_process(df)
 
@@ -304,6 +312,7 @@ class KFFVaccination(DataSource):
             std_col.VACCINATED_PER_100K,
             std_col.VACCINATED_POP_PCT,
             std_col.ACS_VACCINATED_POP_PCT,
+            std_col.VACCINATED_RAW,
         ]
 
         # WRITE RACE TABLE
