@@ -108,7 +108,7 @@ def _get_prison_app2():
 
 def _get_jail_6():
     header_line = (
-        "state_name,jail_estimated_total,0-17,18+," "Male 0-17,Male 18+,Female 0-17,Female 18+,Male Pct,Female Pct"
+        "state_name,jail_estimated_total,0-17,18+,Male 0-17,Male 18+,Female 0-17,Female 18+,Male Pct,Female Pct"
     )
 
     table_6_data = StringIO(
@@ -159,16 +159,23 @@ expected_dtype = {
 expected_dtype_age = {
     **expected_dtype,
     'age': str,
+    'population': float,
 }
 expected_dtype_race = {
     **expected_dtype,
     'race_and_ethnicity': str,
     'race_category_id': str,
+    'population': float,
+    'prison_estimated_total': float,
+    'jail_estimated_total': float,
 }
 
 expected_dtype_sex = {
     **expected_dtype,
     'sex': str,
+    'population': float,
+    'prison_estimated_total': float,
+    'jail_estimated_total': float,
 }
 
 # --- INTEGRATION TESTS NATIONAL LEVEL
@@ -205,7 +212,6 @@ def testGenerateBreakdownRaceNational():
     )
 
     expected_df_race_national = pd.read_json(GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
-
     assert_frame_equal(df, expected_df_race_national, check_like=True)
 
 
@@ -222,7 +228,6 @@ def testGenerateBreakdownSexNational():
     df = datasource.generate_breakdown_df("sex", "national", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
     expected_df_sex_national = pd.read_json(GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
-
     assert_frame_equal(df, expected_df_sex_national, check_like=True)
 
 
@@ -230,6 +235,8 @@ def testGenerateBreakdownSexNational():
 
 
 # - SEX
+
+
 def testGenerateBreakdownSexState():
     prison_2 = _get_prison_2()
     prison_23 = _get_prison_23()
@@ -240,7 +247,6 @@ def testGenerateBreakdownSexState():
     df = datasource.generate_breakdown_df("sex", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
     expected_df_sex_state = pd.read_json(GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
-
     assert_frame_equal(df, expected_df_sex_state, check_like=True)
 
 
@@ -255,11 +261,10 @@ def testGenerateBreakdownAgeState():
     df = datasource.generate_breakdown_df("age", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
     expected_df_age_state = pd.read_json(GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
-
     assert_frame_equal(df, expected_df_age_state, check_like=True)
 
 
-# - RACE
+# # - RACE
 def testGenerateBreakdownRaceState():
     prison_app_2 = _get_prison_app2()
     prison_23 = _get_prison_23()
