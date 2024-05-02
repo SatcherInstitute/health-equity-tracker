@@ -6,7 +6,7 @@ import { urlMap } from '../../utils/externalUrls'
 export default function AnnouncementBanner() {
   return (
     <HetNotice
-      className='my-4 mx-8 border border-secondaryMain text-left text-small'
+      className='my-4 xl:mb-3 mx-8 border border-secondaryMain text-left text-small'
       icon={<LightbulbIcon color='primary' />}
       title='Did You Know?'
       kind='text-only'
