@@ -117,6 +117,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -190,6 +191,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -256,6 +258,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -324,6 +327,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -390,6 +394,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -459,6 +464,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
       */
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -516,6 +522,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -597,6 +604,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
 
       */
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -653,6 +661,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -719,6 +728,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -764,6 +774,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     definition: {
       text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of schizophrenia during the measurement period.`,
     },
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       sub_population_count: {
         chartTitle: '',

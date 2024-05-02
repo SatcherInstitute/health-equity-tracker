@@ -52,6 +52,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for depression',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total adult depression cases',
@@ -102,6 +103,7 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for excessive drinking cases',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
         chartTitle: 'Share of all adult excessive drinking cases',
@@ -154,6 +156,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
     surveyCollectedData: true,
     dataTableTitle:
       'Breakdown summary for opioid and other non-medical drug use',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total adult non-medical drug use',
@@ -204,6 +207,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for frequent mental distress',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
         chartTitle: 'Share of all adult frequent mental distress cases',

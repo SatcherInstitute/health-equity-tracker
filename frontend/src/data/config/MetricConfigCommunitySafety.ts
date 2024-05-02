@@ -5,7 +5,7 @@ import { DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils'
 
 
-console.log('Gun violence preview enabled')
+SHOW_GUN_VIOLENCE && console.log('Gun violence preview enabled')
 export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth', 'gun_deaths_black_men'] as const
 
 export type CommunitySafetyDataTypeId =
@@ -196,6 +196,8 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         fullDisplayName: 'Gun deaths (children)',
         fullDisplayNameInline: 'gun deaths (children)',
         mapConfig: youthHigherIsWorseMapConfig,
+        ageSubPopulationLabel: 'Ages 0-17',
+
         metrics: {
             sub_population_count: {
                 chartTitle: '',
@@ -259,6 +261,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         fullDisplayName: 'Gun deaths (young adults)',
         fullDisplayNameInline: 'gun deaths (young adults)',
         mapConfig: youthHigherIsWorseMapConfig,
+        ageSubPopulationLabel: 'Ages 18-25',
         metrics: {
             sub_population_count: {
                 chartTitle: '',
@@ -323,6 +326,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         fullDisplayName: 'Gun homicides (Black Men)',
         fullDisplayNameInline: 'gun homicides (Black Men)',
         mapConfig: menHigherIsWorseMapConfig,
+        otherSubPopulationLabel: 'Black Men',
         metrics: {
             sub_population_count: {
                 chartTitle: '',

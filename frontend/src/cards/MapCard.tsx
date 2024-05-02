@@ -42,7 +42,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, {
@@ -253,7 +253,7 @@ function MapCardWithKey(props: MapCardProps) {
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
-    metricId
+    props.dataTypeConfig
   )
   if (highestLowestGeosMode)
     subtitle += ` (only ${props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
@@ -417,9 +417,10 @@ function MapCardWithKey(props: MapCardProps) {
           )
 
         const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
+          props.dataTypeConfig,
           mapQueryResponse.data,
           props.demographicType,
-          metricId
+          metricId,
         )
 
         const isPhrmaAdherence =

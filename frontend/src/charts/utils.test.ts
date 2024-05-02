@@ -1,5 +1,9 @@
+import { HIV_DISEASE_METRICS } from '../data/config/MetricConfigHivCategory'
+import { PHRMA_CARDIOVASCULAR_METRICS } from '../data/config/MetricConfigPhrma'
+import { PREVENTABLE_HOSP_METRICS, UNINSURANCE_METRICS } from '../data/config/MetricConfigSDOH'
 import { Fips } from '../data/utils/Fips'
-import { generateChartTitle, generateSubtitle, getAltGroupLabel } from './utils'
+import { generateChartTitle, generateSubtitle } from './utils'
+import { describe, test, expect } from 'vitest'
 
 describe('Tests generateChartTitle()', () => {
   test('Chart title (standard state)', () => {
@@ -24,52 +28,34 @@ describe('Tests generateChartTitle()', () => {
   })
 
   test('preventable hosp. subtitle', () => {
+
     const subTitle = generateSubtitle(
       'Male',
       'sex',
-      'preventable_hospitalizations_per_100k'
+      PREVENTABLE_HOSP_METRICS[0]
     )
-    expect(subTitle).toEqual('Male, Medicare beneficiaries')
+    expect(subTitle).toEqual('Medicare beneficiaries, Male')
   })
 
   test('PHRMA subtitle', () => {
     const subTitle = generateSubtitle(
       'Male',
       'sex',
-      'statins_adherence_pct_rate'
+      PHRMA_CARDIOVASCULAR_METRICS[0]
     )
-    expect(subTitle).toEqual('Male, Medicare beneficiaries')
+    expect(subTitle).toEqual('Medicare beneficiaries, Male')
   })
 
   test('Standard subtitle', () => {
-    const subTitle = generateSubtitle('Male', 'sex', 'uninsured_pct_rate')
+    const subTitle = generateSubtitle('Male', 'sex', UNINSURANCE_METRICS[0])
     expect(subTitle).toEqual('Male')
   })
 })
 
 describe('Tests generateSubtitle()', () => {
   test('HIV subtitle', () => {
-    const subTitle = generateSubtitle('Male', 'sex', 'hiv_deaths_per_100k')
+    const subTitle = generateSubtitle('Male', 'sex', HIV_DISEASE_METRICS[2])
     expect(subTitle).toEqual('Male, Ages 13+')
   })
 })
 
-describe('Tests getAltGroupLabel()', () => {
-  test('All by age prep', () => {
-    const groupLabel = getAltGroupLabel(
-      'All',
-      'pct_share_of_women_us_congress',
-      'race_and_ethnicity'
-    )
-    expect(groupLabel).toEqual('All women')
-  })
-  test('All by age prep', () => {
-    const groupLabel = getAltGroupLabel('All', 'hiv_prep_coverage', 'age')
-    expect(groupLabel).toEqual('All (16+)')
-  })
-
-  test('Standard group pass through', () => {
-    const groupLabel = getAltGroupLabel('Some group', 'prison_pct_share', 'sex')
-    expect(groupLabel).toEqual('Some group')
-  })
-})

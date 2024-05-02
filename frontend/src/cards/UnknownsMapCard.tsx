@@ -108,7 +108,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    metricConfig.metricId
+    props.dataTypeConfig
+
   )
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'

@@ -92,14 +92,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const chartTitle = generateChartTitle(
     /* chartTitle: */
     metricConfig?.populationComparisonMetric?.chartTitle ??
-      metricConfig.chartTitle,
+    metricConfig.chartTitle,
     /* fips:  */ props.fips
   )
 
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    metricConfig.metricId
+    props.dataTypeConfig
   )
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
