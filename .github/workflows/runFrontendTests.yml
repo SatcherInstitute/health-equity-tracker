@@ -59,9 +59,15 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - name: Waiting for Netlify Preview
-        uses: josephduffy/wait-for-netlify-action@v1
-        id: wait-for-netlify-preview
+      # - name: Waiting for Netlify Preview
+      #   uses: josephduffy/wait-for-netlify-action@v1
+      #   id: wait-for-netlify-preview
+      #   with:
+      #     site_name: ${{env.NETLIFY_SITE_NAME}}
+      #     max_timeout: 90
+      - name: Waiting for "Success" from Netlify Preview
+        uses: jakepartusch/wait-for-netlify-action@v1.4
+        id: waitFor200
         with:
           site_name: ${{env.NETLIFY_SITE_NAME}}
           max_timeout: 90
@@ -85,7 +91,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: run E2E on DEPLOY_PREVIEW
         run: npx playwright test --project=E2E_NIGHTLY --workers 4
-        # base url based on the GITHUB_PR_NUMBER + NETLIFY_SITE_NAME
+        # base url based on the GITHUB_PR_NUMBER +  NETLIFY_SITE_NAME
         env:
           E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
       # store test run reports if they fail
