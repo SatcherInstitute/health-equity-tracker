@@ -459,7 +459,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_wisqars_data: {
     hideFromUser: !SHOW_GUN_VIOLENCE,
     id: 'cdc_wisqars_data',
-    data_source_name: `CDC's WISQARS™ Web-based Injury Statistics Query and Reporting System`,
+    data_source_name: `CDC WISQARS`,
     data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
     data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
     geographic_level: 'National, State',
