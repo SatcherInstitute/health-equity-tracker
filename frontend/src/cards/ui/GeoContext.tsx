@@ -7,6 +7,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
+import { DatasetId, DatasetMetadataMap } from '../../data/config/DatasetMetadata'
+import { dataSourceMetadataMap, getDataSourceMetadataByDatasetId } from '../../data/config/MetadataMap'
 
 interface GeoContextProps {
   fips: Fips
@@ -49,18 +51,23 @@ const POP_MISSING_VALUE = 'unavailable'
 
 export function getTotalACSPopulationPhrase(populationData: Row[]): string {
   const popAllCount: string = populationData[0].population.toLocaleString()
-  return `Total Population (from 2022 ACS): ${popAllCount ?? POP_MISSING_VALUE}`
+  return `Total population: ${popAllCount ?? POP_MISSING_VALUE} (from ACS 2022)`
 }
 
 export function getSubPopulationPhrase(
   subPopulationData: Row[],
+  subPopulationSourceLabel: string,
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig
 ): string {
-  const subPopConfig = dataTypeConfig.metrics?.sub_population_count
-  if (!subPopConfig) return ''
+
+  const subPopConfig = dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
+  if (!subPopConfig?.rateDenominatorMetric) return ''
   const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
   const popAllCount: string =
-    allRow?.[subPopConfig.metricId]?.toLocaleString() ?? POP_MISSING_VALUE
-  return `${subPopConfig.shortLabel}: ${popAllCount}`
+    allRow?.[subPopConfig.rateDenominatorMetric?.metricId]?.toLocaleString('en-US', { maximumFractionDigits: 0 }) ?? POP_MISSING_VALUE
+
+  const combinedSubPop = [dataTypeConfig.otherSubPopulationLabel, dataTypeConfig.ageSubPopulationLabel].filter(Boolean).join(', ')
+
+  return `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''}${combinedSubPop ? ' ' + combinedSubPop : ''}: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
 }

@@ -1,4 +1,5 @@
 import {
+  DataTypeConfig,
   formatFieldValue,
   type MetricConfig,
   type MetricId,
@@ -13,7 +14,7 @@ import { type Fips } from '../data/utils/Fips'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { GUN_DEATH_YOUTH_METRIC_IDS, GUN_VIOLENCE_YOUTH_METRICS } from '../data/providers/GunViolenceYouthProvider'
+import { GUN_DEATHS_CHILDREN_METRIC_IDS, GUN_VIOLENCE_YOUTH_METRICS } from '../data/providers/GunViolenceYouthProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
@@ -103,89 +104,29 @@ export function generateChartTitle(
 export function generateSubtitle(
   activeDemographicGroup: DemographicGroup,
   demographicType: DemographicType,
-  metricId: MetricId
+  dataTypeConfig: DataTypeConfig
 ) {
-  let subtitle = ''
-
+  // active group label, if any
+  let activeGroupLabel = ''
   if (activeDemographicGroup === ALL) {
-    subtitle = ''
+    activeGroupLabel = ''
   } else if (demographicType === AGE) {
-    subtitle = `Ages ${activeDemographicGroup}`
+    activeGroupLabel = `Ages ${activeDemographicGroup}`
   } else if (demographicType === 'urbanicity') {
-    subtitle = `Living in ${activeDemographicGroup} areas`
-
-  } else {
-    subtitle = activeDemographicGroup
+    activeGroupLabel = `Living in ${activeDemographicGroup} areas`
+  }
+  else {
+    activeGroupLabel = activeDemographicGroup
   }
 
-  if (HIV_METRICS.includes(metricId)) {
-    let ageTitle = ''
-    if (metricId === 'hiv_prep_coverage') {
-      ageTitle = 'Ages 16+'
-    } else if (metricId === 'hiv_stigma_index') {
-      ageTitle = 'Ages 18+'
-    } else {
-      ageTitle = 'Ages 13+'
-    }
+  // age and any other subpopulations, if any
+  const ageSubPop = demographicType === AGE && activeDemographicGroup !== ALL ? '' : dataTypeConfig?.ageSubPopulationLabel ?? ''
+  const otherSubPop = dataTypeConfig?.otherSubPopulationLabel ?? ''
 
-    if (subtitle === '') {
-      subtitle = ageTitle
-    } else if (demographicType !== AGE) {
-      subtitle += `, ${ageTitle}`
-    }
-  }
-
-  if (GUN_VIOLENCE_YOUTH_METRICS.includes(metricId)) {
-    let youthTitle = 'Ages 18-25'
-    if (GUN_DEATH_YOUTH_METRIC_IDS.includes(metricId)) {
-      youthTitle = 'Ages 0-17'
-    }
-    if (subtitle === '') {
-      subtitle = youthTitle
-    } else {
-      subtitle += `, ${youthTitle}`
-    }
-  }
-
-  const medicareMetricIds: MetricId[] = [
-    ...PHRMA_METRICS,
-    'preventable_hospitalizations_per_100k',
-  ]
-  if (medicareMetricIds.includes(metricId)) {
-    const beneficiariesTitle = 'Medicare beneficiaries'
-    if (subtitle === '') {
-      subtitle = beneficiariesTitle
-    } else {
-      subtitle += `, ${beneficiariesTitle}`
-    }
-  }
+  // combine as needed to create specific population subtitle
+  const subtitle = [otherSubPop, activeGroupLabel, ageSubPop].filter(Boolean).join(', ')
 
   return subtitle
-}
-
-export function getAltGroupLabel(
-  group: DemographicGroup,
-  metricId: MetricId,
-  demographicType: DemographicType
-) {
-  if (CAWP_METRICS.includes(metricId)) {
-    return getWomenRaceLabel(group)
-  }
-  if (GUN_DEATH_YOUTH_METRIC_IDS.includes(metricId)) {
-    return `${group} (0-25)`
-  }
-  if (group === ALL && demographicType === AGE) {
-    if (metricId.includes('prep')) {
-      return `${group} (16+)`
-    }
-    if (metricId.includes('stigma')) {
-      return `${group} (18+)`
-    }
-    if (metricId.includes('hiv')) {
-      return `${group} (13+)`
-    }
-  }
-  return group
 }
 
 export function removeLastS(inputString: string) {

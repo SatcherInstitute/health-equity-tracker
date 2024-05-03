@@ -5,12 +5,15 @@ import { type DatasetId } from "../config/DatasetMetadata";
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery';
 import VariableProvider from './VariableProvider';
 
-export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
+// TODO: ideally we should fix on the backend to clarify: `youth` is the parent category, that combines both `children` (ages 0-17) and `young_adults` (ages 18-25)
+
+export const GUN_VIOLENCE_YOUTH_DATATYPES: DataTypeId[] = [
     'gun_deaths_youth',
     'gun_deaths_young_adults',
 ]
 
-export const GUN_DEATH_YOUTH_METRIC_IDS: MetricId[] = [
+
+export const GUN_DEATHS_CHILDREN_METRIC_IDS: MetricId[] = [
     'gun_deaths_youth_estimated_total',
     'gun_deaths_youth_pct_relative_inequity',
     'gun_deaths_youth_pct_share',
@@ -34,7 +37,7 @@ export const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 ]
 
 export const GUN_VIOLENCE_YOUTH_METRICS = [
-    ...GUN_DEATH_YOUTH_METRIC_IDS,
+    ...GUN_DEATHS_CHILDREN_METRIC_IDS,
     ...GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS
 ]
 

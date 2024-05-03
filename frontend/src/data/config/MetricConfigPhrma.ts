@@ -117,13 +117,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare Beta-Blocker Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'bb_ami_adherence_estimated_total',
@@ -190,13 +186,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare Statins Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
       pct_rate: {
         metricId: 'statins_adherence_pct_rate',
         chartTitle: 'Population adherent to statins',
@@ -256,13 +248,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare Beta Blockers Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'beta_blockers_adherence_estimated_total',
@@ -324,13 +313,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare RASA Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'ras_antagonists_adherence_estimated_total',
@@ -390,13 +376,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare CCBs Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'ccb_adherence_estimated_total',
@@ -459,13 +442,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
       */
     },
+    otherSubPopulationLabel: 'Medicare DOACs Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'doac_adherence_estimated_total',
@@ -516,13 +496,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare Beneficiaries diagnosed with AMI',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       per100k: {
         metricId: 'medicare_ami_per_100k',
         chartTitle: 'Rates of Acute MI',
@@ -592,18 +569,11 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
           url: 'https://health.gov/healthypeople/tools-action/browse-evidence-based-resources/recommendations-hiv-prevention-adults-and-adolescents-hiv-united-states-2014',
         },
       ],
-      /*
-
-
-      */
     },
+    otherSubPopulationLabel: 'Medicare ARV Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'arv_adherence_estimated_total',
@@ -653,13 +623,9 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare Beneficiaries Diagnosed with HIV',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
       per100k: {
         metricId: 'medicare_hiv_per_100k',
         chartTitle: 'Rates of HIV cases',
@@ -719,13 +685,10 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    otherSubPopulationLabel: 'Medicare Antipsychotics Beneficiaries',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'anti_psychotics_adherence_estimated_total',
@@ -758,19 +721,15 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Schizophrenia',
     dataTableTitle: 'Breakdown summary for schizophrenia cases',
-
     fullDisplayName: 'Cases of Schizophrenia',
     surveyCollectedData: true,
     definition: {
       text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of schizophrenia during the measurement period.`,
     },
+    otherSubPopulationLabel: 'Medicare Beneficiaries Diagnosed with Schizophrenia',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       per100k: {
         metricId: 'medicare_schizophrenia_per_100k',
         chartTitle: 'Rates of schizophrenia',

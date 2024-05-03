@@ -75,6 +75,7 @@ import {
   GUN_VIOLENCE_METRICS,
   GUN_VIOLENCE_YOUTH_METRICS
 } from './MetricConfigCommunitySafety'
+import { DemographicType } from '../query/Breakdowns'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -175,6 +176,7 @@ export interface InfoWithCitations {
   citations?: Citation[]
 }
 
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
@@ -192,12 +194,13 @@ export interface DataTypeConfig {
     index?: MetricConfig
     ratio?: MetricConfig
     age_adjusted_ratio?: MetricConfig
-    sub_population_count?: MetricConfig
   }
   surveyCollectedData?: boolean
   dataTableTitle: string
   mapConfig: MapConfig
   categoryId: CategoryTypeId
+  ageSubPopulationLabel?: string
+  otherSubPopulationLabel?: string
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

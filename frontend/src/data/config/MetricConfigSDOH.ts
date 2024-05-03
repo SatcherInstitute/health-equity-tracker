@@ -62,12 +62,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'uninsured_pop_estimated_total',
-        shortLabel: 'Total Population for Insurance Rate',
-        type: 'count',
-      },
+
       pct_rate: {
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
@@ -128,12 +123,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'poverty_pop_estimated_total',
-        shortLabel: 'Total Population for Poverty Rate',
-        type: 'count',
-      },
+
       pct_rate: {
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
@@ -195,6 +185,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for care avoidance due to cost',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_rate: {
         metricId: 'avoided_care_pct_rate',
@@ -237,6 +228,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
       text: 'Studying preventable hospitalizations can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for preventable hospitalizations',
+    otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
       per100k: {
         metricId: 'preventable_hospitalizations_per_100k',

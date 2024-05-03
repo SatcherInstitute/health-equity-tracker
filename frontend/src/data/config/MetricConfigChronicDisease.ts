@@ -52,6 +52,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
         metricId: 'asthma_per_100k',
@@ -101,6 +102,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
         },
       ],
     },
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
         metricId: 'cardiovascular_diseases_per_100k',
@@ -152,6 +154,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
       ],
     },
     dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
         metricId: 'chronic_kidney_disease_per_100k',
@@ -195,6 +198,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for diabetes',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total adult diabetes cases',
@@ -244,6 +248,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for COPD',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total adult COPD cases',

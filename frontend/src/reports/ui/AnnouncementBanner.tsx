@@ -6,7 +6,7 @@ import { urlMap } from '../../utils/externalUrls'
 export default function AnnouncementBanner() {
   return (
     <HetNotice
-      className='my-8 mx-8 border border-secondaryMain text-left text-small'
+      className='my-4 xl:mb-3 mx-8 border border-secondaryMain text-left text-small'
       icon={<LightbulbIcon color='primary' />}
       title='Did You Know?'
       kind='text-only'
@@ -22,7 +22,7 @@ export default function AnnouncementBanner() {
 
       <IconButton
         href={'/exploredata?mls=1.women_in_gov-3.00&group1=All'}
-        className='mx-0 my-2 px-0 text-left text-text rounded-xs'
+        className='mx-0 my-0 px-0 text-left text-text rounded-xs'
       >
         Explore the Women in Government Data →
       </IconButton>
