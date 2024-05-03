@@ -621,9 +621,11 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
-                {percentRateTooHigh && metricId === 'vaccinated_pct_rate' && (
+                {percentRateTooHigh && (
                   <HetNotice title="Percentages Over 100%" kind="data-integrity" >
-                    <>In some locations, the <HetTerm>percent rates</HetTerm> exceed 100%, which can be confusing to understand. In the case of COVID-19 vaccinations, the number of administered first-dose vaccines administered in a location could have been higher than the population of that location if individuals came from other locations to receive the vaccine, and also if individuals chose to receive more than a single "first-dose" vaccine.</>
+                    <>In some locations, the <HetTerm>percent rates</HetTerm> exceed 100%, which can be confusing and may indicate inconsistency in our source data.</>
+                    {metricId === 'vaccinated_pct_rate' && <>
+                      {" "}In the case of <HetTerm>COVID-19 vaccinations</HetTerm>, the number of first-dose vaccines administered in a location could have been higher than the population of that location if individuals came from other locations to receive the vaccine, and also if individuals chose to receive more than a single "first-dose" vaccine.</>}
                   </HetNotice>
                 )}
               </div>
