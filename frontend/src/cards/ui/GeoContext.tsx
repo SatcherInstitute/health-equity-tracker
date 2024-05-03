@@ -7,6 +7,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
+import { DatasetId, DatasetMetadataMap } from '../../data/config/DatasetMetadata'
+import { dataSourceMetadataMap, getDataSourceMetadataByDatasetId } from '../../data/config/MetadataMap'
 
 interface GeoContextProps {
   fips: Fips
@@ -49,18 +51,27 @@ const POP_MISSING_VALUE = 'unavailable'
 
 export function getTotalACSPopulationPhrase(populationData: Row[]): string {
   const popAllCount: string = populationData[0].population.toLocaleString()
-  return `Total Population (from 2022 ACS): ${popAllCount ?? POP_MISSING_VALUE}`
+  return `Total population: ${popAllCount ?? POP_MISSING_VALUE} (from ACS 2022)`
 }
 
 export function getSubPopulationPhrase(
-  subPopulationData: Row[],
+  subPopulationResponse: MetricQueryResponse,
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig
 ): string {
-  const subPopConfig = dataTypeConfig.metrics?.sub_population_count
+
+  const subPopulationData = subPopulationResponse.data
+
+  const subPopConfig = dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
   if (!subPopConfig) return ''
   const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
   const popAllCount: string =
-    allRow?.[subPopConfig.metricId]?.toLocaleString() ?? POP_MISSING_VALUE
-  return `${subPopConfig.shortLabel}: ${popAllCount}`
+    allRow?.[subPopConfig.rateDenominatorMetric?.metricId ?? 0]?.toLocaleString('en-US', { maximumFractionDigits: 0 }) ?? POP_MISSING_VALUE
+
+  const combinedSubPop = [dataTypeConfig.otherSubPopulationLabel, dataTypeConfig.ageSubPopulationLabel].filter(Boolean).join(', ')
+
+  const subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(subPopulationResponse.consumedDatasetIds[0] as DatasetId))?.data_source_name
+
+
+  return `Total ${combinedSubPop} population: ${popAllCount}${subPopSourceLabel ? ' (from ' + subPopSourceLabel + ') ' : ''}`
 }

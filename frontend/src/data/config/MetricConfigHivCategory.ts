@@ -99,12 +99,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
       'Ages 13+',
 
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'hiv_care_population',
-        shortLabel: 'Total Population (Ages 13+ with HIV Diagnoses)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total linkage to HIV care',
         metricId: 'hiv_care_pct_share',
@@ -170,12 +165,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
       'Ages 13+',
 
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'hiv_population',
-        shortLabel: 'Total Population (Ages 13+)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total HIV prevalence',
         metricId: 'hiv_prevalence_pct_share',
@@ -237,12 +227,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
       'Ages 13+',
 
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'hiv_population',
-        shortLabel: 'Total Population (Ages 13+)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total HIV diagnoses',
         metricId: 'hiv_diagnoses_pct_share',
@@ -303,12 +288,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
       'Ages 13+',
 
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'hiv_population',
-        shortLabel: 'Total Population (Ages 13+)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total HIV deaths',
         metricId: 'hiv_deaths_pct_share',
@@ -424,12 +404,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'black_women_population_count',
-        shortLabel: 'Total Population (Black Women, Ages 13+)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total HIV prevalence for Black (NH) women',
         metricId: 'hiv_prevalence_black_women_pct_share',
@@ -496,12 +471,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'black_women_population_count',
-        shortLabel: 'Total Population (Black Women, Ages 13+)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total new HIV diagnoses for Black (NH) women',
         metricId: 'hiv_diagnoses_black_women_pct_share',
@@ -567,12 +537,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'black_women_population_count',
-        shortLabel: 'Total Population (Black Women, Ages 13+)',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total HIV deaths for Black (NH) Women',
         metricId: 'hiv_deaths_black_women_pct_share',
@@ -638,12 +603,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Breakdown summary for PrEP coverage',
     ageSubPopulationLabel: 'Ages 16+',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'hiv_prep_population',
-        shortLabel: 'Total PrEP-Eligible Population',
-        type: 'count',
-      },
+
       pct_share: {
         chartTitle: 'Share of total PrEP prescriptions',
         metricId: 'hiv_prep_pct_share',

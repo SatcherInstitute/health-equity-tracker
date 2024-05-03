@@ -119,12 +119,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'bb_ami_adherence_estimated_total',
@@ -193,12 +188,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         metricId: 'statins_adherence_pct_rate',
         chartTitle: 'Population adherent to statins',
@@ -260,12 +250,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'beta_blockers_adherence_estimated_total',
@@ -329,12 +314,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'ras_antagonists_adherence_estimated_total',
@@ -396,12 +376,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'ccb_adherence_estimated_total',
@@ -466,12 +441,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'doac_adherence_estimated_total',
@@ -524,12 +494,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       per100k: {
         metricId: 'medicare_ami_per_100k',
         chartTitle: 'Rates of Acute MI',
@@ -606,12 +571,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'arv_adherence_estimated_total',
@@ -663,12 +623,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       per100k: {
         metricId: 'medicare_hiv_per_100k',
         chartTitle: 'Rates of HIV cases',
@@ -730,12 +685,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'anti_psychotics_adherence_estimated_total',
@@ -776,12 +726,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Medicare beneficiaries',
     metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'medicare_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
+
       per100k: {
         metricId: 'medicare_schizophrenia_per_100k',
         chartTitle: 'Rates of schizophrenia',

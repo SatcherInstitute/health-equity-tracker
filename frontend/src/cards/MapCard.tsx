@@ -207,8 +207,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const initialMetridIds = [metricConfig.metricId]
 
-  const subPopulationId =
-    props.dataTypeConfig.metrics.sub_population_count?.metricId
+  const subPopulationId = metricConfig?.rateDenominatorMetric?.metricId
   if (subPopulationId) initialMetridIds.push(subPopulationId)
 
   const queries = [
@@ -278,6 +277,7 @@ function MapCardWithKey(props: MapCardProps) {
       isCompareCard={props.isCompareCard}
     >
       {(queryResponses, metadata, geoData) => {
+
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
@@ -297,7 +297,7 @@ function MapCardWithKey(props: MapCardProps) {
           acsPopulationQueryResponse.data
         )
         const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse.data,
+          parentGeoQueryResponse,
           demographicType,
           props.dataTypeConfig
         )

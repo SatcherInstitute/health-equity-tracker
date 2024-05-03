@@ -62,12 +62,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         fullDisplayNameInline: 'gun homicides',
         mapConfig: defaultHigherIsWorseMapConfig,
         metrics: {
-            sub_population_count: {
-                chartTitle: '',
-                metricId: 'fatal_population',
-                shortLabel: 'Total Population for Gun Homicide Rates',
-                type: 'count',
-            },
+
             pct_relative_inequity: {
                 chartTitle:
                     'Historical relative inequity of gun homicides',
@@ -128,12 +123,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         fullDisplayNameInline: 'gun suicides',
         mapConfig: defaultHigherIsWorseMapConfig,
         metrics: {
-            sub_population_count: {
-                chartTitle: '',
-                metricId: 'fatal_population',
-                shortLabel: 'Total Population for Gun Suicide Rates',
-                type: 'count',
-            },
+
             pct_relative_inequity: {
                 chartTitle:
                     'Historical relative inequity of gun suicides',
@@ -199,12 +189,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         ageSubPopulationLabel: 'Ages 0-17',
 
         metrics: {
-            sub_population_count: {
-                chartTitle: '',
-                metricId: 'gun_deaths_youth_population',
-                shortLabel: 'Total Population for Gun Deaths (Children)',
-                type: 'count',
-            },
+
             pct_relative_inequity: {
                 chartTitle: 'Historical relative inequity of gun deaths among children',
                 metricId: 'gun_deaths_youth_pct_relative_inequity',
@@ -263,12 +248,6 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         mapConfig: youthHigherIsWorseMapConfig,
         ageSubPopulationLabel: 'Ages 18-25',
         metrics: {
-            sub_population_count: {
-                chartTitle: '',
-                metricId: 'gun_deaths_young_adults_population',
-                shortLabel: 'Total Population for Gun Deaths (Young Adults)',
-                type: 'count',
-            },
             pct_relative_inequity: {
                 chartTitle: 'Historical relative inequity of gun deaths among young adults',
                 metricId: 'gun_deaths_young_adults_pct_relative_inequity',
@@ -328,12 +307,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         mapConfig: menHigherIsWorseMapConfig,
         otherSubPopulationLabel: 'Black Men',
         metrics: {
-            sub_population_count: {
-                chartTitle: '',
-                metricId: 'gun_homicides_black_men_population_estimated_total',
-                shortLabel: 'Total Population (Black Men)',
-                type: 'count',
-            },
+
             pct_relative_inequity: {
                 chartTitle: 'Historical relative inequity of gun homicides among Black men',
                 metricId: 'gun_homicides_black_men_pct_relative_inequity',

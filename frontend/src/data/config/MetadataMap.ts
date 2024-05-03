@@ -1,5 +1,6 @@
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
 import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
+import { DatasetId } from './DatasetMetadata'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
 
@@ -388,7 +389,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   phrma: {
     id: 'phrma',
     data_source_name:
-      'Medication Utilization and Disease Rates in the Medicare Population',
+      'CMS',
     data_source_pretty_site_name: 'cms.gov',
     data_source_link:
       'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
@@ -495,4 +496,11 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: true,
     time_period_range: '2001 - current',
   },
+}
+
+
+export function getDataSourceMetadataByDatasetId(id: DatasetId): DataSourceMetadata | undefined {
+  return Object.values(dataSourceMetadataMap).find((metadata) => {
+    return metadata.dataset_ids.includes(id)
+  })
 }
