@@ -55,23 +55,19 @@ export function getTotalACSPopulationPhrase(populationData: Row[]): string {
 }
 
 export function getSubPopulationPhrase(
-  subPopulationResponse: MetricQueryResponse,
+  subPopulationData: Row[],
+  subPopulationSourceLabel: string,
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig
 ): string {
 
-  const subPopulationData = subPopulationResponse.data
-
   const subPopConfig = dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
-  if (!subPopConfig) return ''
+  if (!subPopConfig?.rateDenominatorMetric) return ''
   const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
   const popAllCount: string =
-    allRow?.[subPopConfig.rateDenominatorMetric?.metricId ?? 0]?.toLocaleString('en-US', { maximumFractionDigits: 0 }) ?? POP_MISSING_VALUE
+    allRow?.[subPopConfig.rateDenominatorMetric?.metricId]?.toLocaleString('en-US', { maximumFractionDigits: 0 }) ?? POP_MISSING_VALUE
 
   const combinedSubPop = [dataTypeConfig.otherSubPopulationLabel, dataTypeConfig.ageSubPopulationLabel].filter(Boolean).join(', ')
 
-  const subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(subPopulationResponse.consumedDatasetIds[0] as DatasetId))?.data_source_name
-
-
-  return `Total ${combinedSubPop} population: ${popAllCount}${subPopSourceLabel ? ' (from ' + subPopSourceLabel + ') ' : ''}`
+  return `Total ${combinedSubPop ? combinedSubPop + ' ' : ''}population: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
 }

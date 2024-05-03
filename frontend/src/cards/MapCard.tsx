@@ -73,6 +73,8 @@ import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetDivider from '../styles/HetComponents/HetDivider'
+import { dataSourceMetadataMap } from '../data/config/MetadataMap'
+import { DatasetId } from '../data/config/DatasetMetadata'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -296,8 +298,13 @@ function MapCardWithKey(props: MapCardProps) {
         const totalPopulationPhrase = getTotalACSPopulationPhrase(
           acsPopulationQueryResponse.data
         )
+
+        const subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(parentGeoQueryResponse.consumedDatasetIds[0] as DatasetId))?.data_source_name ?? ''
+
+
         const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse,
+          parentGeoQueryResponse.data,
+          subPopSourceLabel,
           demographicType,
           props.dataTypeConfig
         )

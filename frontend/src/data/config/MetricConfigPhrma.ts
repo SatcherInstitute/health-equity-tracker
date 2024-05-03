@@ -117,9 +117,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Beta-Blocker Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
-
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'bb_ami_adherence_estimated_total',
@@ -186,9 +186,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Statins Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
-
       pct_rate: {
         metricId: 'statins_adherence_pct_rate',
         chartTitle: 'Population adherent to statins',
@@ -248,7 +248,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Beta Blockers Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       pct_rate: {
@@ -312,7 +313,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare RASA Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       pct_rate: {
@@ -374,7 +376,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare CCBs Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       pct_rate: {
@@ -439,7 +442,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
       */
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare DOACs Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       pct_rate: {
@@ -492,7 +496,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Beneficiaries diagnosed with AMI',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       per100k: {
@@ -564,12 +569,9 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
           url: 'https://health.gov/healthypeople/tools-action/browse-evidence-based-resources/recommendations-hiv-prevention-adults-and-adolescents-hiv-united-states-2014',
         },
       ],
-      /*
-
-
-      */
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare ARV Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       pct_rate: {
@@ -621,9 +623,9 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Beneficiaries Diagnosed with HIV',
+    ageSubPopulationLabel: '18+',
     metrics: {
-
       per100k: {
         metricId: 'medicare_hiv_per_100k',
         chartTitle: 'Rates of HIV cases',
@@ -683,7 +685,8 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Antipsychotics Beneficiaries',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       pct_rate: {
@@ -718,13 +721,13 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Schizophrenia',
     dataTableTitle: 'Breakdown summary for schizophrenia cases',
-
     fullDisplayName: 'Cases of Schizophrenia',
     surveyCollectedData: true,
     definition: {
       text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of schizophrenia during the measurement period.`,
     },
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare Beneficiaries Diagnosed with Schizophrenia',
+    ageSubPopulationLabel: '18+',
     metrics: {
 
       per100k: {

@@ -3,9 +3,9 @@ import { test } from '@playwright/test';
 test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.goto('/exploredata?mls=1.medicare_cardiovascular-3.12&group1=85PLUS&dt1=medicare_ami&demo=age');
   await page.locator('#rate-map').getByRole('heading', { name: 'Rates of Acute MI in Florida' }).click();
-  await page.getByRole('heading', { name: 'Medicare beneficiaries, Ages 85+' }).click();
+  await page.getByRole('heading', { name: 'Medicare Beneficiaries diagnosed with AMI, Ages 85+' }).click();
   await page.getByLabel('Legend for rate map').getByRole('img').click();
-  await page.locator('li').filter({ hasText: 'Total Medicare beneficiaries population:' }).click();
+  await page.locator('li').filter({ hasText: 'Total Medicare Beneficiaries diagnosed with AMI, 18+ population:' }).click();
   await page.locator('#rate-chart').getByText('CMS (data from 2020)').click();
   await page.locator('#unknown-demographic-map').getByRole('note').click();
   await page.getByRole('button', { name: 'Population vs. distribution' }).click();
