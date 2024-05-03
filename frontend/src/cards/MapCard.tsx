@@ -306,7 +306,6 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel = '@unitedstates'
         }
 
-
         const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse.data,
           subPopSourceLabel,
