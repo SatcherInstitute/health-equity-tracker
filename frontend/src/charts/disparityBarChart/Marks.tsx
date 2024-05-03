@@ -194,9 +194,11 @@ export function Marks({
   ]
 
   if (hasAltPop) {
-    LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR)
+    // Add "alt light measure" bars and legend entries
     LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`
-    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName)
+    LEGEND_DOMAINS[2] = altLightMeasureDisplayName
+    LEGEND_COLORS[2] = ALT_LIGHT_MEASURE_COLOR
+
     marks.push({
       name: 'altLightMeasure_bars',
       aria: false, // this data accessible in alt_text_labels
