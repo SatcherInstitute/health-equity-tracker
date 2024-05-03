@@ -50,7 +50,7 @@ export default class VariableProviderMap {
       new HivProvider(),
       new IncarcerationProvider(),
       new PhrmaProvider(),
-      new VaccineProvider(acsProvider),
+      new VaccineProvider(),
     ]
     this.providersById = this.getProvidersById()
     this.metricsToProviderIds = this.getMetricsToProviderIdsMap()

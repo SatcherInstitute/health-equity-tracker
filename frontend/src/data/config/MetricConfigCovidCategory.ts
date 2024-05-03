@@ -222,7 +222,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',
     definition: {
-      text: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      text: `For the national and county levels, and for most states, this indicates people who have received at least one dose of a COVID-19 vaccine.`,
     },
     description: {
       text: 'COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations. Studying COVID-19 vaccinations in regard to health equity can help us to understand why these disparities exist and how to increase vaccination rates among all populations.',
@@ -233,7 +233,8 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
         metricId: 'vaccinated_pct_rate',
         chartTitle: 'COVID-19 vaccination rates',
         columnTitleHeader: 'COVID-19 vaccination rates',
-        shortLabel: '% vaccinated',
+        trendsCardTitleName: 'Rates of COVID-19 vaccination over time',
+        shortLabel: '% vaccinated (at least one dose)',
         type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'vaccinated_estimated_total',

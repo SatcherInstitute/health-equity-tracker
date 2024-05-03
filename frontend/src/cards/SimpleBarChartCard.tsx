@@ -35,6 +35,8 @@ import {
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import { urlMap } from '../utils/externalUrls'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -130,6 +132,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
           data.length === 0 ||
           queryResponse.shouldShowMissingDataMessage([metricConfig.metricId])
 
+
         return (
           <>
             {hideChart ? (
@@ -181,6 +184,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     queryResponse={queryResponse}
                   />
                 )}
+
               </>
             )}
           </>
