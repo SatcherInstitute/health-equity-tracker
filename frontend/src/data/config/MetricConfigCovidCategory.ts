@@ -46,7 +46,7 @@ export type CovidCategoryMetricId =
   | 'covid_population_pct'
   | 'death_ratio_age_adjusted'
   | 'vaccinated_pct_share'
-  | 'vaccinated_per_100k'
+  | 'vaccinated_pct_rate'
   | 'vaccinated_pop_pct'
   | 'vaccinated_share_of_known'
   | 'vaccinated_estimated_total'
@@ -229,12 +229,12 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
     metrics: {
-      per100k: {
-        metricId: 'vaccinated_per_100k',
-        chartTitle: 'COVID-19 vaccinations per 100k people',
-        columnTitleHeader: 'COVID-19 vaccinations per 100k people',
-        shortLabel: 'COVID-19 vaccinations per 100k',
-        type: 'per100k',
+      pct_rate: {
+        metricId: 'vaccinated_pct_rate',
+        chartTitle: 'COVID-19 vaccination rates',
+        columnTitleHeader: 'COVID-19 vaccination rates',
+        shortLabel: '% vaccinated',
+        type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'vaccinated_estimated_total',
           shortLabel: 'vaccinated',
@@ -247,7 +247,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
         metricId: 'vaccinated_pct_share',
         columnTitleHeader: 'Share of total COVID-19 vaccinations',
         unknownsVegaLabel: '% unknown',
-        shortLabel: '% of vaccinations',
+        shortLabel: '% of all vaccinations',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -261,7 +261,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
           chartTitle: '',
           metricId: 'vaccinated_pct_share',
           columnTitleHeader: 'Share of total COVID-19 vaccinations',
-          shortLabel: '% of vaccinations',
+          shortLabel: '% of all vaccinations',
           type: 'pct_share',
         },
         secondaryPopulationComparisonMetric: {
