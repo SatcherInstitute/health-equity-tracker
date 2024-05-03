@@ -62,7 +62,7 @@ test('HIV PrEP', async ({ page }) => {
   await page.getByRole('heading', { name: 'Share of total PrEP' }).click()
   await page
     .locator('#unknown-demographic-map')
-    .getByRole('heading', { name: 'Ages 13+' })
+    .getByRole('heading', { name: 'Ages 16+' })
     .click()
   await page.getByText('No unknown values for sex').click()
   await page
@@ -98,7 +98,7 @@ test('HIV PrEP', async ({ page }) => {
     .click()
   await page
     .locator('#population-vs-distribution')
-    .getByRole('heading', { name: 'Ages 13+' })
+    .getByRole('heading', { name: 'Ages 16+' })
     .click()
   await page
     .getByRole('heading', { name: 'Breakdown summary for PrEP' })
