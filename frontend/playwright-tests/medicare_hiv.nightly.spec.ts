@@ -12,7 +12,7 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
 
     await page.locator('#rate-chart').getByRole('heading', { name: 'Rates of HIV cases in the United States' }).click()
     await page.locator('#rate-chart').getByRole('heading', { name: 'Medicare beneficiaries' }).click()
-    await page.locator('#rate-chart').getByText('Sources: Medication').click()
+    await page.locator('#rate-chart').getByText('Sources: CMS').click()
 
     await page.locator('#unknown-demographic-map').getByRole('heading', { name: 'Share of total beneficiaries living with HIV with unknown race and ethnicity in the United States' }).click()
     await page.locator('#unknown-demographic-map').getByRole('heading', { name: 'Medicare beneficiaries' }).click()
