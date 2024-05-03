@@ -237,26 +237,6 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     return df.reset_index(drop=True)
 
 
-def generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col):
-    """Returns a df with a `_pct_rate` col
-
-    df: incoming df that will get the new column
-    raw_count_col: str col name that contains the raw count
-    of individuals with the condition. this will be the numerator
-    pop_col: str col name with the total population number.
-    this will be the denominator
-    pct_rate_col: str col name to place the generated
-    pct_rate data in"""
-
-    df[pct_rate_col] = df[raw_count_col] / df[pop_col]
-    df[pct_rate_col] = df[pct_rate_col].mul(100).round()
-
-    # div by zero results in inf, cast these as nan
-    df.replace([np.inf, -np.inf], np.nan, inplace=True)
-
-    return df
-
-
 def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     """Returns a dataframe with a `per_100k` column
 
@@ -273,6 +253,31 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
         return np.nan
 
     df[per_100k_col] = df.apply(calc_per_100k, axis=1)
+    return df
+
+
+def generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col):
+    """Returns a df with a `_pct_rate` col
+
+    df: incoming df that will get the new column
+    raw_count_col: str col name that contains the raw count
+    of individuals with the condition. this will be the numerator
+    pop_col: str col name with the total population number.
+    this will be the denominator
+    pct_rate_col: str col name to place the generated
+    pct_rate data in.
+
+
+    In general, we prefer using PCT_RATE for more frequently occurring,
+    non-medical conditions like voting, poverty, etc. and use PER_100K
+    for diagnoses of diseases that occur less frequently like COPD."""
+
+    df[pct_rate_col] = df[raw_count_col].astype(float) / df[pop_col]
+    df[pct_rate_col] = df[pct_rate_col].mul(100).round()
+
+    # div by zero results in inf, cast these as nan
+    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+
     return df
 
 
@@ -460,7 +465,8 @@ def zero_out_pct_rel_inequity(
 
     # optionally preserve null pct_inequity for race rows that have no population info
     if pop_pct_col:
-        df.loc[df[pop_pct_col].isnull(), pct_inequity_col] = np.nan
+        for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
+            df.loc[df[pop_pct_col].isnull(), pct_inequity_col] = np.nan
 
     return df
 
@@ -536,7 +542,7 @@ def combine_race_ethnicity(
 
 def generate_time_df_with_cols_and_types(
     df: pd.DataFrame,
-    numerical_cols_to_keep: list[str],
+    numerical_cols_to_keep: List[str],
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
 ):
