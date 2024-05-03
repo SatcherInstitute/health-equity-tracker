@@ -95,7 +95,7 @@ class CDCVaccinationNational(DataSource):
                     breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
                 )
             else:
-                float_cols = [std_col.VACCINATED_PER_100K, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
+                float_cols = [std_col.VACCINATED_PCT_RATE, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
                 col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
                 gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
 
@@ -116,8 +116,7 @@ class CDCVaccinationNational(DataSource):
         unknown_df = unknown_df.rename(columns={'administered_dose1_pct_us': std_col.VACCINATED_PCT_SHARE})
         df = pd.concat([known_df, unknown_df])
 
-        # convert source pct_rate to per_100k
-        df[std_col.VACCINATED_PER_100K] = df['administered_dose1_pct'].mul(1000)
+        df[std_col.VACCINATED_PCT_RATE] = df['administered_dose1_pct']
 
         df.loc[df[demo_col].isin(ALLS), std_col.VACCINATED_PCT_SHARE] = 100.0
 
@@ -138,7 +137,7 @@ class CDCVaccinationNational(DataSource):
                 demo_col,
                 std_col.VACCINATED_PCT_SHARE,
                 std_col.VACCINATED_POP_PCT,
-                std_col.VACCINATED_PER_100K,
+                std_col.VACCINATED_PCT_RATE,
                 std_col.VACCINATED_RAW,
             ]
         ]
