@@ -69,5 +69,5 @@ export function getSubPopulationPhrase(
 
   const combinedSubPop = [dataTypeConfig.otherSubPopulationLabel, dataTypeConfig.ageSubPopulationLabel].filter(Boolean).join(', ')
 
-  return `Total ${combinedSubPop ? combinedSubPop + ' ' : ''}population: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
+  return `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''}${combinedSubPop ? ' ' + combinedSubPop : ''}: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
 }

@@ -33,6 +33,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_restricted: {
     id: 'cdc_restricted',
     data_source_name: 'CDC Case Surveillance Restricted Access Detailed Data',
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'data.cdc.gov',
     data_source_link:
       'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
@@ -67,6 +68,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   acs: {
     id: 'acs',
     data_source_name: 'American Community Survey (ACS) 5-year estimates',
+    data_source_acronym: 'ACS',
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/developers/data-sets/acs-5year.html',
@@ -110,7 +112,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   decia_2010_territory_population: {
     id: 'decia_2010_territory_population',
-    data_source_name: 'Census 2010 Decennial Island Areas',
+    data_source_name: 'Census 2010 Decennial Island Areas (DECIA)',
+    data_source_acronym: 'DECIA',
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/datasets/2010/dec/virgin-islands.html',
@@ -129,7 +132,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   decia_2020_territory_population: {
     id: 'decia_2020_territory_population',
-    data_source_name: 'Census 2020 Decennial Island Areas',
+    data_source_name: 'Census 2020 Decennial Island Areas (DECIA)',
+    data_source_acronym: 'DECIA',
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/tables/2020/dec/2020-us-virgin-islands.html',
@@ -152,6 +156,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   census_pop_estimates: {
     id: 'census_pop_estimates',
     data_source_name: 'County Population by Characteristics: 2010-2019',
+    data_source_acronym: 'Census',
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html',
@@ -167,6 +172,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_svi_county: {
     id: 'cdc_svi_county',
     data_source_name: 'CDC SVI County Rankings',
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'atsdr.cdc.gov',
     data_source_link:
       'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/SVI_documentation_2018.html',
@@ -182,6 +188,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_vaccination_county: {
     id: 'cdc_vaccination_county',
     data_source_name: 'CDC COVID-19 Vaccinations in the United States, County',
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'data.cdc.gov',
     data_source_link:
       'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
@@ -198,6 +205,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     id: 'cdc_vaccination_national',
     data_source_name:
       'CDC COVID-19 Vaccination Demographics in the United States, National',
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'data.cdc.gov',
     data_source_link:
       'https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb',
@@ -217,6 +225,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_atlas: {
     id: 'cdc_atlas',
     data_source_name: 'CDC NCHHSTP AtlasPlus',
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'cdc.gov',
     data_source_link: 'https://www.cdc.gov/nchhstp/atlas/index.htm',
     geographic_level: 'National, State, County',
@@ -255,7 +264,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   kff_vaccination: {
     id: 'kff_vaccination',
-    data_source_name: 'Kaiser Family Foundation COVID-19 Indicators',
+    data_source_name: 'Kaiser Family Foundation (KFF) COVID-19 Indicators',
+    data_source_acronym: 'KFF',
     data_source_pretty_site_name: 'kff.org',
     data_source_link: 'https://www.kff.org/state-category/covid-19/',
     geographic_level: 'State',
@@ -272,7 +282,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   ahr: {
     id: 'ahr',
-    data_source_name: "America's Health Rankings",
+    data_source_name: "America's Health Rankings (AHR)",
+    data_source_acronym: 'AHR',
     data_source_pretty_site_name: 'americashealthrankings.org',
     data_source_link:
       'https://www.americashealthrankings.org/explore/measures/CHC',
@@ -295,6 +306,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   bjs: {
     id: 'bjs',
     data_source_name: 'Bureau of Justice Statistics (BJS)',
+    data_source_acronym: 'BJS',
     data_source_pretty_site_name: 'bjs.ojp.gov',
     data_source_link: 'https://bjs.ojp.gov',
     geographic_level: 'National, State',
@@ -316,6 +328,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   vera: {
     id: 'vera',
     data_source_name: 'Vera Institute of Justice',
+    data_source_acronym: 'Vera',
     data_source_pretty_site_name: 'vera.org',
     data_source_link: 'https://www.vera.org/projects/incarceration-trends',
     geographic_level: 'County',
@@ -334,6 +347,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cawp: {
     id: 'cawp',
     data_source_name: 'Center for American Women in Politics (CAWP)',
+    data_source_acronym: 'CAWP',
     data_source_pretty_site_name: 'cawpdata.rutgers.edu',
     data_source_link: 'https://cawpdata.rutgers.edu/',
     geographic_level: 'National, State',
@@ -355,6 +369,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   the_unitedstates_project: {
     id: 'the_unitedstates_project',
     data_source_name: 'The @unitedstates Project',
+    data_source_acronym: '@unitedstates',
     data_source_pretty_site_name: 'theunitedstates.io',
     data_source_link: 'https://github.com/unitedstates/congress-legislators',
     geographic_level: 'National, State',
@@ -369,6 +384,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   geo_context: {
     id: 'geo_context',
     data_source_name: 'Geographic Context - Composite Dataset',
+    data_source_acronym: 'CDC, ACS',
     data_source_pretty_site_name:
       'github.com/SatcherInstitute/health-equity-tracker',
     data_source_link:
@@ -389,7 +405,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   phrma: {
     id: 'phrma',
     data_source_name:
-      'CMS',
+      'Medicare Administrative Data',
+    data_source_acronym: 'CMS',
     data_source_pretty_site_name: 'cms.gov',
     data_source_link:
       'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
@@ -424,7 +441,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   covid_tracking_project: {
     id: 'covid_tracking_project',
-    data_source_name: 'Covid Tracking Project’s Racial Data Tracker',
+    data_source_name: 'Covid Tracking Project’s (CTP) Racial Data Tracker',
+    data_source_acronym: 'CTP',
     data_source_pretty_site_name: 'covidtracking.com',
     data_source_link: 'https://covidtracking.com/race',
     geographic_level: 'State',
@@ -444,6 +462,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   geographies_source: {
     id: 'geographies_source',
     data_source_name: 'Map Data',
+    data_source_acronym: 'TopoJSON',
     data_source_pretty_site_name:
       'github.com/SatcherInstitute/health-equity-tracker',
     data_source_link: 'https://github.com/topojson/us-atlas#counties-10m.json',
@@ -460,6 +479,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     hideFromUser: !SHOW_GUN_VIOLENCE,
     id: 'cdc_wisqars_data',
     data_source_name: `CDC WISQARS`,
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
     data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
     geographic_level: 'National, State',

@@ -77,11 +77,11 @@ describe('test getSubPopulationPhrase()', () => {
 
     const medicarePopPhrase = getSubPopulationPhrase(
       /* data */ nationalPhrmaData,
-      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_name,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
-    expect(medicarePopPhrase).toEqual('Total Medicare Statins Beneficiaries, Ages 18+ population: 41,816,007 (from CMS)')
+    expect(medicarePopPhrase).toEqual('Total population of Medicare Statins Beneficiaries, Ages 18+: 41,816,007 (from CMS)')
   })
 
   const countyPhrmaData: Row[] = [
@@ -111,11 +111,11 @@ describe('test getSubPopulationPhrase()', () => {
   test('phrma medicare metric expects extra subpop breadcrumb, but pop data is unavailable', () => {
     const medicarePopPhrase = getSubPopulationPhrase(
       /* data */ countyPhrmaData,
-      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_name,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_acronym,
       /* demographicType */ 'sex',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
-    expect(medicarePopPhrase).toEqual('Total Medicare Statins Beneficiaries, Ages 18+ population: unavailable (from CMS)')
+    expect(medicarePopPhrase).toEqual('Total population of Medicare Statins Beneficiaries, Ages 18+: unavailable (from CMS)')
   })
 
   const nationalCovidData: Row[] = [
@@ -168,7 +168,7 @@ describe('test getSubPopulationPhrase()', () => {
   test('covid should not get a subpopulation', () => {
     const emptyCovidSubPopPhrase = getSubPopulationPhrase(
       /* data */ nationalCovidData,
-      /* subPopulationSourceLabel */ dataSourceMetadataMap.cdc_restricted.data_source_name,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.cdc_restricted.data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ covidCasesConfig
     )

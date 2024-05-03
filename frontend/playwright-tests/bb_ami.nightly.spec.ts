@@ -9,7 +9,7 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
   await page.locator('#rate-map').getByRole('heading', { name: 'Population Persistent to Beta' }).click();
   await page.getByRole('heading', { name: 'Medicare Beta-Blocker Beneficiaries, Eligible due to disability, Ages 18+' }).click();
   await page.getByLabel('Legend for rate map').getByRole('img').click();
-  await page.locator('li').filter({ hasText: 'Total Medicare Beta-Blocker Beneficiaries, Ages 18+ population:' }).click();
+  await page.locator('li').filter({ hasText: 'Total population of Medicare Beta-Blocker Beneficiaries, Ages 18+:' }).click();
   await page.locator('#rate-chart').getByRole('heading', { name: 'Population Persistent to Beta' }).click();
   await page.getByRole('button', { name: 'Unknown demographic map' }).click();
   await page.getByText('No unknown values for').click();

@@ -299,7 +299,12 @@ function MapCardWithKey(props: MapCardProps) {
           acsPopulationQueryResponse.data
         )
 
-        const subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(parentGeoQueryResponse.consumedDatasetIds[0] as DatasetId))?.data_source_name ?? ''
+        let subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(parentGeoQueryResponse.consumedDatasetIds[0] as DatasetId))?.data_source_acronym ?? ''
+
+        // US Congress denominators come from @unitestedstates not CAWP
+        if (props.dataTypeConfig.dataTypeId === 'women_in_us_congress') {
+          subPopSourceLabel = '@unitedstates'
+        }
 
 
         const subPopulationPhrase = getSubPopulationPhrase(
