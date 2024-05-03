@@ -118,7 +118,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare Beta-Blocker Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_rate: {
         rateNumeratorMetric: {
@@ -187,7 +187,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare Statins Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_rate: {
         metricId: 'statins_adherence_pct_rate',
@@ -249,7 +249,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare Beta Blockers Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       pct_rate: {
@@ -314,7 +314,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare RASA Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       pct_rate: {
@@ -377,7 +377,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare CCBs Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       pct_rate: {
@@ -443,7 +443,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       */
     },
     otherSubPopulationLabel: 'Medicare DOACs Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       pct_rate: {
@@ -497,7 +497,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare Beneficiaries diagnosed with AMI',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       per100k: {
@@ -571,7 +571,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare ARV Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       pct_rate: {
@@ -624,7 +624,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare Beneficiaries Diagnosed with HIV',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
         metricId: 'medicare_hiv_per_100k',
@@ -686,7 +686,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
       ],
     },
     otherSubPopulationLabel: 'Medicare Antipsychotics Beneficiaries',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       pct_rate: {
@@ -727,7 +727,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
       text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of schizophrenia during the measurement period.`,
     },
     otherSubPopulationLabel: 'Medicare Beneficiaries Diagnosed with Schizophrenia',
-    ageSubPopulationLabel: '18+',
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
 
       per100k: {

@@ -5,7 +5,7 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.locator('#rate-map').getByRole('heading', { name: 'Rates of Acute MI in Florida' }).click();
   await page.getByRole('heading', { name: 'Medicare Beneficiaries diagnosed with AMI, Ages 85+' }).click();
   await page.getByLabel('Legend for rate map').getByRole('img').click();
-  await page.locator('li').filter({ hasText: 'Total Medicare Beneficiaries diagnosed with AMI, 18+ population:' }).click();
+  await page.locator('li').filter({ hasText: 'Total Medicare Beneficiaries diagnosed with AMI, Ages 18+ population:' }).click();
   await page.locator('#rate-chart').getByText('CMS (data from 2020)').click();
   await page.locator('#unknown-demographic-map').getByRole('note').click();
   await page.getByRole('button', { name: 'Population vs. distribution' }).click();

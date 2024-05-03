@@ -43,7 +43,7 @@ describe('Tests generateChartTitle()', () => {
       'sex',
       PHRMA_CARDIOVASCULAR_METRICS[0]
     )
-    expect(subTitle).toEqual('Medicare Beta-Blocker Beneficiaries, Male, 18+')
+    expect(subTitle).toEqual('Medicare Beta-Blocker Beneficiaries, Male, Ages 18+')
   })
 
   test('Standard subtitle', () => {

@@ -108,7 +108,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    /* dataTypeConfig: */ props.dataTypeConfig
+    props.dataTypeConfig
   )
 
   const isCawp = CAWP_METRICS.includes(metricConfigRates.metricId)

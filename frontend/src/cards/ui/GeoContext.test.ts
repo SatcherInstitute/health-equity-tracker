@@ -81,7 +81,7 @@ describe('test getSubPopulationPhrase()', () => {
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
-    expect(medicarePopPhrase).toEqual('Total Medicare Statins Beneficiaries, 18+ population: 41,816,007 (from CMS)')
+    expect(medicarePopPhrase).toEqual('Total Medicare Statins Beneficiaries, Ages 18+ population: 41,816,007 (from CMS)')
   })
 
   const countyPhrmaData: Row[] = [
@@ -115,7 +115,7 @@ describe('test getSubPopulationPhrase()', () => {
       /* demographicType */ 'sex',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
-    expect(medicarePopPhrase).toEqual('Total Medicare Statins Beneficiaries, 18+ population: unavailable (from CMS)')
+    expect(medicarePopPhrase).toEqual('Total Medicare Statins Beneficiaries, Ages 18+ population: unavailable (from CMS)')
   })
 
   const nationalCovidData: Row[] = [

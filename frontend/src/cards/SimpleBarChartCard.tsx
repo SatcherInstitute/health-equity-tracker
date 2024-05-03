@@ -103,7 +103,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    /* dataTypeConfig: */ props.dataTypeConfig
+    props.dataTypeConfig
   )
   const filename = `${chartTitle}, by ${DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
     }`

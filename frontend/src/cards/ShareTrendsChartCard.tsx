@@ -96,7 +96,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    /* dataTypeConfig: */ props.dataTypeConfig
+    props.dataTypeConfig
   )
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
