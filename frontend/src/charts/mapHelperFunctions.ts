@@ -1,4 +1,4 @@
-import { isPctType, type MetricId, type MetricType } from '../data/config/MetricConfig'
+import { DataTypeConfig, isPctType, type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
@@ -362,6 +362,7 @@ export function setupColorScale(
 }
 
 export function getHighestLowestGroupsByFips(
+  dataTypeConfig: DataTypeConfig,
   fullData?: Row[],
   demographicType?: DemographicType,
   metricId?: MetricId
@@ -397,12 +398,12 @@ export function getHighestLowestGroupsByFips(
           ascendingGroups.length - 1
           ],
           /* demographicType:  */ demographicType,
-          metricId
+          dataTypeConfig
         ),
         lowest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[0],
           /* demographicType:  */ demographicType,
-          metricId
+          dataTypeConfig
         ),
       }
       // TIE OVERRIDES

@@ -1,7 +1,7 @@
-import { MetricId } from '../data/config/MetricConfig'
+import { DataTypeConfig, DataTypeId, MetricId } from '../data/config/MetricConfig'
 import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
-import { CountColsMap } from './mapGlobals'
+import { CountColsMap, defaultHigherIsBetterMapConfig } from './mapGlobals'
 import {
   addCountsTooltipInfo,
   buildTooltipTemplate,
@@ -13,6 +13,8 @@ import {
   getHighestLowestGroupsByFips,
   getMapGroupLabel,
 } from './mapHelperFunctions'
+
+import { describe, test, expect } from 'vitest'
 
 describe('Test addCountsTooltipInfo()', () => {
   const phrmaCountColsMap: CountColsMap = {
@@ -265,7 +267,21 @@ describe('Test getHighestLowestGroupsByFips()', () => {
       { fips: '07', sex: 'D', condition_per_100k: 0 },
     ]
 
+    const testDataTypeConfig: DataTypeConfig = {
+      dataTypeId: 'some_datatype_id' as DataTypeId,
+      dataTypeShortLabel: '',
+      fullDisplayName: '',
+      metrics: {
+      },
+      dataTableTitle: '',
+      mapConfig: defaultHigherIsBetterMapConfig,
+      categoryId: 'covid',
+      subPopulationPrefixMap: {
+      }
+    }
+
     const highLowSex = getHighestLowestGroupsByFips(
+      /* dataTypeConfig */testDataTypeConfig,
       /* fullData */ normalData,
       /* demographicType */ 'sex',
       /* metricId */ 'condition_per_100k' as MetricId

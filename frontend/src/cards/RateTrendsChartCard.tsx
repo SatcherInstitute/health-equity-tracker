@@ -14,6 +14,7 @@ import {
   type DemographicGroup,
   NON_HISPANIC,
   AIAN_API,
+  ALL,
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -33,6 +34,7 @@ import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
+import { generateSubtitle } from '../charts/utils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -70,7 +72,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   let hasUnknowns = Boolean(metricConfigPctShares)
 
-  const isWisqars = props.dataTypeConfig.categoryId === 'community-safety'
+  const isWisqarsByRace = props.dataTypeConfig.categoryId === 'community-safety' && props.demographicType === 'race_and_ethnicity'
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
@@ -102,6 +104,12 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     return `${metricConfigRates?.trendsCardTitleName ?? 'Data'
       } in ${props.fips.getSentenceDisplayName()}`
   }
+
+  const subtitle = generateSubtitle(
+    ALL,
+    props.demographicType,
+    props.dataTypeConfig
+  )
 
   const isCawp = CAWP_METRICS.includes(metricConfigRates.metricId)
   const isCawpStateLeg = metricConfigRates.metricId === 'pct_share_of_state_leg'
@@ -212,6 +220,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 <TrendsChart
                   data={nestedRatesData}
                   chartTitle={getTitleText()}
+                  chartSubTitle={subtitle}
                   unknown={nestedUnknownPctShareData}
                   axisConfig={{
                     type: metricConfigRates.type,
@@ -233,7 +242,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                   hasUnknowns={hasUnknowns}
                 />
-                {isWisqars && <MissingDataAlert
+                {isWisqarsByRace && <MissingDataAlert
                   dataName={`single-race historical data earlier than 2018 for ${metricConfigRates.chartTitle}`}
                   demographicTypeString={
                     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]

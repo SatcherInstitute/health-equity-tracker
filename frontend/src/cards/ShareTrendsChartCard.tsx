@@ -31,7 +31,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
-import { generateChartTitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
@@ -93,6 +93,11 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     /* fips: */ props.fips
   )
 
+  const subtitle = generateSubtitle(
+    ALL,
+    props.demographicType,
+    props.dataTypeConfig
+  )
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
@@ -211,6 +216,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <TrendsChart
                   data={nestedInequityData}
                   chartTitle={chartTitle}
+                  chartSubTitle={subtitle}
                   unknown={nestedUnknowns}
                   axisConfig={{
                     type: metricConfigInequitable.type,

@@ -46,6 +46,7 @@ export interface TrendsChartProps {
   unknown: UnknownData
   axisConfig: AxisConfig
   chartTitle: string
+  chartSubTitle: string
   demographicType: DemographicType
   setSelectedTableGroups: (selectedTableGroups: any[]) => void
   isCompareCard: boolean
@@ -60,6 +61,7 @@ export function TrendsChart({
   unknown,
   axisConfig,
   chartTitle,
+  chartSubTitle,
   demographicType,
   setSelectedTableGroups,
   isCompareCard,
@@ -234,9 +236,8 @@ export function TrendsChart({
     [dates, xScale]
   )
 
-  const chartTitleId = `chart-title-label-${axisConfig.type}-${
-    isCompareCard ? '2' : '1'
-  }`
+  const chartTitleId = `chart-title-label-${axisConfig.type}-${isCompareCard ? '2' : '1'
+    }`
 
   return (
     // Container
@@ -244,7 +245,7 @@ export function TrendsChart({
       <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
         {isSm && (
           // Render Chart Title DESKTOP ABOVE LEGEND
-          <ChartTitle title={chartTitle} />
+          <ChartTitle title={chartTitle} subtitle={chartSubTitle} />
         )}
         {/* Filter */}
         {data && (
@@ -257,14 +258,13 @@ export function TrendsChart({
             isSkinny={isSkinny}
             chartWidth={width}
             demographicType={demographicType}
-            legendId={`legend-filter-label-${axisConfig.type}-${
-              isCompareCard ? '2' : '1'
-            }`}
+            legendId={`legend-filter-label-${axisConfig.type}-${isCompareCard ? '2' : '1'
+              }`}
           />
         )}
         {!isSm && (
           // Render Chart Title MOBILE BELOW LEGEND
-          <ChartTitle title={chartTitle} />
+          <ChartTitle title={chartTitle} subtitle={chartSubTitle} />
         )}
       </div>
       {/* Tooltip */}
@@ -272,9 +272,8 @@ export function TrendsChart({
         className='pointer-events-none absolute transition-transform duration-300 ease-linear'
         // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
-          transform: `translate(${xScale(new Date(hoveredDate ?? ''))}px, ${
-            MARGIN.top
-          }px)`,
+          transform: `translate(${xScale(new Date(hoveredDate ?? ''))}px, ${MARGIN.top
+            }px)`,
           opacity: hoveredDate ? 1 : 0,
         }}
       >
@@ -282,11 +281,10 @@ export function TrendsChart({
           className='transition-transform duration-300 ease-linear'
           ref={toolTipRef}
           style={{
-            transform: `translateX(${
-              xScale(new Date(hoveredDate ?? '')) > width / 2
-                ? -tooltipWidth - 10
-                : 10
-            }px)`,
+            transform: `translateX(${xScale(new Date(hoveredDate ?? '')) > width / 2
+              ? -tooltipWidth - 10
+              : 10
+              }px)`,
           }}
         >
           <TrendsTooltip
