@@ -127,7 +127,7 @@ def generate_pct_share_col_without_unknowns(
     all_demo_values = set(df[breakdown_col].to_list())
     if Race.UNKNOWN.value in all_demo_values or 'Unknown' in all_demo_values:
         raise ValueError(
-            ('This dataset contains unknowns, use the' 'generate_pct_share_col_with_unknowns function instead')
+            ('This dataset contains unknowns, use the `generate_pct_share_col_with_unknowns` function instead')
         )
 
     return _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
