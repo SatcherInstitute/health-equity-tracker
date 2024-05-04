@@ -2,7 +2,7 @@ name: CRON Delete Composer Weeknightly
 
 on:
   schedule:
-    - cron: '0 1 * * 2-6'  # At 01:00 UTC, Tues-Sat, which is Mon-Fri 6 PM MST
+    - cron: '0 1 * * *'  # At 01:00 UTC, which is every night 6PM MST
   workflow_dispatch:
 
 jobs:
