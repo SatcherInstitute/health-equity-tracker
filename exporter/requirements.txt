@@ -6,16 +6,16 @@
 #
 cachetools==5.2.0
     # via google-auth
-certifi==2022.6.15
+certifi==2023.7.22
     # via requests
 charset-normalizer==2.1.1
     # via requests
 click==8.1.3
     # via flask
 db-dtypes==1.0.3
-    # via -r exporter/requirements.in
+    # via -r requirements.in
 flask==2.2.2
-    # via -r exporter/requirements.in
+    # via -r requirements.in
 google-api-core[grpc]==2.8.2
     # via
     #   google-cloud-bigquery
@@ -29,20 +29,20 @@ google-auth==2.11.0
     #   google-cloud-core
     #   google-cloud-storage
 google-cloud==0.34.0
-    # via -r exporter/requirements.in
+    # via -r requirements.in
 google-cloud-bigquery==3.3.2
-    # via -r exporter/requirements.in
+    # via -r requirements.in
 google-cloud-bigquery-storage==2.14.2
     # via google-cloud-bigquery
 google-cloud-core==2.3.2
     # via
-    #   -r exporter/requirements.in
+    #   -r requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
 google-cloud-pubsub==2.13.6
-    # via -r exporter/requirements.in
+    # via -r requirements.in
 google-cloud-storage==2.5.0
-    # via -r exporter/requirements.in
+    # via -r requirements.in
 google-crc32c==1.3.0
     # via google-resumable-media
 google-resumable-media==2.3.3
@@ -56,7 +56,7 @@ googleapis-common-protos[grpc]==1.56.4
     #   grpcio-status
 grpc-google-iam-v1==0.12.4
     # via google-cloud-pubsub
-grpcio==1.47.0
+grpcio==1.53.2
     # via
     #   google-api-core
     #   google-cloud-bigquery
@@ -68,15 +68,15 @@ grpcio-status==1.47.0
     # via
     #   google-api-core
     #   google-cloud-pubsub
-gunicorn==20.1.0
-    # via -r exporter/requirements.in
-idna==3.3
+gunicorn==22.0.0
+    # via -r requirements.in
+idna==3.7
     # via requests
 importlib-metadata==4.12.0
     # via flask
 itsdangerous==2.1.2
     # via flask
-jinja2==3.1.2
+jinja2==3.1.4
     # via flask
 markupsafe==2.1.1
     # via
@@ -91,9 +91,10 @@ packaging==21.3
     # via
     #   db-dtypes
     #   google-cloud-bigquery
+    #   gunicorn
 pandas==1.4.3
     # via
-    #   -r exporter/requirements.in
+    #   -r requirements.in
     #   db-dtypes
 proto-plus==1.22.0
     # via
@@ -127,9 +128,9 @@ python-dateutil==2.8.2
     #   pandas
 pytz==2022.2.1
     # via pandas
-requests==2.28.1
+requests==2.31.0
     # via
-    #   -r exporter/requirements.in
+    #   -r requirements.in
     #   google-api-core
     #   google-cloud-bigquery
     #   google-cloud-storage
@@ -138,14 +139,10 @@ rsa==4.9
 six==1.16.0
     # via
     #   google-auth
-    #   grpcio
     #   python-dateutil
-urllib3==1.26.12
+urllib3==1.26.18
     # via requests
-werkzeug==2.2.2
+werkzeug==3.0.3
     # via flask
 zipp==3.8.1
     # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
