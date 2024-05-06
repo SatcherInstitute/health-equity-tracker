@@ -1,5 +1,5 @@
 # in case the infra-test pipeline is being weird, run this manually to tear it down and then rebuil with another gh action
-name: Terraform Destroy on INFRA TEST
+name: DESTROY Terraform on INFRA TEST
 
 on:
   workflow_dispatch:
@@ -160,7 +160,7 @@ jobs:
         id: terraform
         working-directory: ./config
         run: |
-          terraform destroy -var-file=test/test.tfvars \
+          terraform destroy -auto-approve -var-file=test/test.tfvars \
           -var-file=common.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
