@@ -12,7 +12,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
   - package-ecosystem: "npm"
     directory: "frontend_server/"
     schedule:
@@ -42,7 +42,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "exporter/"
     schedule:
@@ -52,7 +52,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "run_gcs_to_bq/"
     schedule:
@@ -62,7 +62,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "run_ingestion/"
     schedule:
@@ -72,7 +72,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "data_server/"
     schedule:
@@ -82,7 +82,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "e2e_tests/"
     schedule:
@@ -92,4 +92,4 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 1
