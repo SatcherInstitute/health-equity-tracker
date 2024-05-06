@@ -46,7 +46,7 @@ export type CovidCategoryMetricId =
   | 'covid_population_pct'
   | 'death_ratio_age_adjusted'
   | 'vaccinated_pct_share'
-  | 'vaccinated_per_100k'
+  | 'vaccinated_pct_rate'
   | 'vaccinated_pop_pct'
   | 'vaccinated_share_of_known'
   | 'vaccinated_estimated_total'
@@ -222,19 +222,20 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',
     definition: {
-      text: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      text: `For the national and county levels, and for most states, this indicates people who have received at least one dose of a COVID-19 vaccine.`,
     },
     description: {
       text: 'COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations. Studying COVID-19 vaccinations in regard to health equity can help us to understand why these disparities exist and how to increase vaccination rates among all populations.',
     },
     dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
     metrics: {
-      per100k: {
-        metricId: 'vaccinated_per_100k',
-        chartTitle: 'COVID-19 vaccinations per 100k people',
-        columnTitleHeader: 'COVID-19 vaccinations per 100k people',
-        shortLabel: 'COVID-19 vaccinations per 100k',
-        type: 'per100k',
+      pct_rate: {
+        metricId: 'vaccinated_pct_rate',
+        chartTitle: 'COVID-19 vaccination rates',
+        columnTitleHeader: 'COVID-19 vaccination rates',
+        trendsCardTitleName: 'Rates of COVID-19 vaccination over time',
+        shortLabel: '% vaccinated (at least one dose)',
+        type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'vaccinated_estimated_total',
           shortLabel: 'vaccinated',
@@ -247,7 +248,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
         metricId: 'vaccinated_pct_share',
         columnTitleHeader: 'Share of total COVID-19 vaccinations',
         unknownsVegaLabel: '% unknown',
-        shortLabel: '% of vaccinations',
+        shortLabel: '% of all vaccinations',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -261,7 +262,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
           chartTitle: '',
           metricId: 'vaccinated_pct_share',
           columnTitleHeader: 'Share of total COVID-19 vaccinations',
-          shortLabel: '% of vaccinations',
+          shortLabel: '% of all vaccinations',
           type: 'pct_share',
         },
         secondaryPopulationComparisonMetric: {
