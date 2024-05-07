@@ -131,7 +131,7 @@ class GraphQlAHRData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geographic = self.get_attr(attrs, "geographic")
-        
+
         response_data = gcs_to_bq_util.fetch_ahr_data_from_graphql()
 
         df = graphql_response_to_dataframe(response_data, geographic)

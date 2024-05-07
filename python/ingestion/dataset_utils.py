@@ -355,7 +355,7 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val, breakdo
     result = result.reset_index(drop=True)
     return result
 
-  
+
 def add_estimated_total_columns(df: pd.DataFrame, per_100k_to_raw_count: dict, population_col: str):
     """
     Returns a DataFrame with added `estimated_total` columns for each given condition, based
@@ -383,7 +383,7 @@ def add_estimated_total_columns(df: pd.DataFrame, per_100k_to_raw_count: dict, p
 
     return df
 
-  
+
 def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) -> pd.DataFrame:
     """
     Ensure a column contains values of a certain digit length, adding leading zeros as needed.
