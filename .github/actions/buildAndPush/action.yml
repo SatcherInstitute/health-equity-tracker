@@ -20,9 +20,6 @@ inputs:
   basic-auth-password:
     description: "Password for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
     required: false
-  ahr-api-key:
-    description: "Authentication token for GraphQL AHR server. Required if DISABLE_BASIC_AUTH environment variable is false"
-    required: false
 outputs:
   image-digest:
     description: "Digest of image pushed to GCR"
@@ -42,8 +39,7 @@ runs:
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
-        --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}" \
-        --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}"
+        --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash

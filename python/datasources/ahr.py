@@ -187,8 +187,6 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
 
                 matched_row = get_matched_row(df, state, topic, breakdown_value, breakdown)
 
-                # pct share needs to be added to this
-
                 if len(matched_row) > 0:
                     output_row[pct_share_col_name] = matched_row['CaseShare'].values[0]
 
