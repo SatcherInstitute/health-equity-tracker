@@ -20,7 +20,7 @@ flask==1.1.2
     # via
     #   -r requirements.in
     #   flask-cors
-flask-cors==4.0.1
+flask-cors==3.0.10
     # via -r requirements.in
 google-api-core==1.23.0
     # via google-cloud-core
@@ -38,18 +38,16 @@ google-resumable-media==1.1.0
     # via google-cloud-storage
 googleapis-common-protos==1.52.0
     # via google-api-core
-gunicorn==22.0.0
+gunicorn==20.0.4
     # via -r requirements.in
 idna==2.10
     # via requests
 itsdangerous==1.1.0
     # via flask
-jinja2==3.1.4
+jinja2==2.11.2
     # via flask
-markupsafe==2.1.5
+markupsafe==1.1.1
     # via jinja2
-packaging==24.0
-    # via gunicorn
 protobuf==3.13.0
     # via
     #   google-api-core
@@ -72,6 +70,7 @@ rsa==4.6
     # via google-auth
 six==1.15.0
     # via
+    #   flask-cors
     #   google-api-core
     #   google-auth
     #   google-resumable-media
