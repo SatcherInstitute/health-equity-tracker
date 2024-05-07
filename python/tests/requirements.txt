@@ -8,7 +8,7 @@ astroid==3.1.0
     # via pylint
 cachetools==4.2.4
     # via google-auth
-certifi==2023.7.22
+certifi==2024.2.2
     # via requests
 cffi==1.14.4
     # via google-crc32c
@@ -53,7 +53,7 @@ googleapis-common-protos[grpc]==1.52.0
     #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-grpcio==1.53.2
+grpcio==1.63.0
     # via
     #   google-api-core
     #   googleapis-common-protos
@@ -80,7 +80,7 @@ proto-plus==1.13.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.18.3
+protobuf==5.26.1
     # via
     #   google-api-core
     #   google-cloud-bigquery
@@ -111,7 +111,7 @@ requests==2.31.0
     #   -r ../ingestion/requirements.in
     #   google-api-core
     #   google-cloud-storage
-rsa==4.7
+rsa==4.9
     # via google-auth
 six==1.15.0
     # via
@@ -131,7 +131,7 @@ typing-inspect==0.6.0
     # via libcst
 tzdata==2024.1
     # via pandas
-urllib3==1.26.18
+urllib3==2.2.1
     # via requests
 xlrd==2.0.1
     # via -r ../ingestion/requirements.in
