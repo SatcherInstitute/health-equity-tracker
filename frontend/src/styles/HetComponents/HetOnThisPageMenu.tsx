@@ -1,29 +1,7 @@
-import React, { useState, useEffect, type ReactNode } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { RouteConfig } from '../../pages/Methodology/methodologyContent/routeConfigs';
 
-interface CombinedLinkProps {
-	to: string;
-	isScrollLink: boolean;
-	children: ReactNode;
-	[x: string]: any;
-}
-
-const CombinedLink: React.FC<CombinedLinkProps> = ({
-	to,
-	isScrollLink,
-	children,
-	...rest
-}) => {
-	if (isScrollLink) {
-		return (
-			<ScrollLink to={to} {...rest}>
-				{children}
-			</ScrollLink>
-		);
-	}
-	return null;
-};
 
 interface HetOnThisPageMenuProps {
 	links?: RouteConfig[];
@@ -62,6 +40,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
 				<ul className='my-1 list-none space-y-1 pl-0 leading-lhTight lg:space-y-2'>
 					{props.links?.map((link) => (
 						<li key={link.path}>
+							{/* TODO: Keyboard navigation not working */}
 							<CombinedLink
 								to={link.path}
 								isScrollLink
@@ -71,6 +50,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
 								hashSpy
 								onClick={() => {
 									handleClick(link.path);
+
 								}}
 								className={
 									activeLink === link.path ? 'font-semibold text-altGreen' : ''
@@ -87,3 +67,31 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
 		</>
 	);
 }
+
+
+
+interface CombinedLinkProps {
+	to: string;
+	isScrollLink: boolean;
+	children: ReactNode;
+	[x: string]: any;
+}
+
+function CombinedLink(props: CombinedLinkProps) {
+
+	const {
+		to,
+		isScrollLink,
+		children,
+		...rest
+	} = props
+
+	if (isScrollLink) {
+		return (
+			<ScrollLink to={to} {...rest}>
+				{children}
+			</ScrollLink>
+		);
+	}
+	return null;
+};

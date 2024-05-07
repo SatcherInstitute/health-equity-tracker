@@ -1,12 +1,13 @@
 'use strict';
 
+// TODO: change over to use ESModules with import() instead of require() ?
 const express = require('express');
 const compression = require('compression')
 const path = require('path');
 const basicAuth = require('express-basic-auth');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-// To make non-proxied request to metadata server for service account token.
-const fetch = require('node-fetch');
+// To make non-proxied request to metadata server for service account token
+const fetch = require('node-fetch'); // TODO: remove; node 18+ has built in fetch()
 
 function assertEnvVar(name) {
   const value = process.env[name];
@@ -56,8 +57,8 @@ app.use('/api', (req, res, next) => {
       .then(token => {
         // Set the bearer token temporarily to Authorization_DataServer header. If BasicAuth is enabled,
         // it will overwrite the Authorization header after the token is fetched. Right before the proxy
-        // request is sent, overwrite the Authorization header with the bearer token from the service 
-        // account and delete the Authorization_DataServer header. 
+        // request is sent, overwrite the Authorization header with the bearer token from the service
+        // account and delete the Authorization_DataServer header.
         req.headers["Authorization_DataServer"] = `bearer ${token}`;
         next();
       })

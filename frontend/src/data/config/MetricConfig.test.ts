@@ -21,6 +21,7 @@ describe('Test Metric Config Functions', () => {
     expect(formatFieldValue('pct_share', 3, false)).toBe('3.0%')
     expect(formatFieldValue('per100k', 30_000, false)).toBe('30,000')
     expect(formatFieldValue('per100k', 0, false)).toBe('< 0.1')
+    expect(formatFieldValue('per100k', 3.33, false)).toBe('3.3')
   })
 
   test('Test buildTopicsString(): Topics without sub DataTypes', () => {

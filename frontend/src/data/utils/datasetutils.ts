@@ -41,6 +41,8 @@ import {
   UNKNOWN_W,
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
   ACS_POVERTY_AGE_BUCKETS,
+  AIAN_API,
+  API
 } from './Constants'
 import { type Row } from './DatasetTypes'
 import { type Fips } from './Fips'
@@ -257,6 +259,18 @@ export function getExclusionList(
           (bucket) => bucket === '13-24' || bucket === '16-24'
         )
       )
+    }
+  }
+
+  if (currentDataTypeId === 'gun_deaths_youth') {
+    if (demographicType === RACE) {
+      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH, AIAN_API, API_NH, NHPI_NH)
+    }
+  }
+
+  if (currentDataTypeId === 'gun_deaths_young_adults') {
+    if (demographicType === RACE) {
+      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH, AIAN_API, API_NH)
     }
   }
 

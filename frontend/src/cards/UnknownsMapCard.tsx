@@ -108,7 +108,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    metricConfig.metricId
+    props.dataTypeConfig
+
   )
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
@@ -149,12 +150,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           unknownEthnicities.length === 0
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
-                return unknownRaceRow[metricConfig.metricId] >
-                  unknownEthnicities[index][metricConfig.metricId] ||
-                  unknownEthnicities[index][metricConfig.metricId] == null
-                  ? unknownRaceRow
-                  : unknownEthnicities[index]
-              })
+              return unknownRaceRow[metricConfig.metricId] >
+                unknownEthnicities[index][metricConfig.metricId] ||
+                unknownEthnicities[index][metricConfig.metricId] == null
+                ? unknownRaceRow
+                : unknownEthnicities[index]
+            })
 
         const dataIsMissing = mapQueryResponse.dataIsMissing()
         const unknownsArrayEmpty = unknowns.length === 0
@@ -208,7 +209,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           <>
             <ChartTitle title={chartTitle} subtitle={subtitle} />
             {showingVisualization && (
-              <>
+              <div className={props.fips.isUsa() ? 'mr-2 md:mr-16 xl:mr-24' : 'm-2'}>
                 <ChoroplethMap
                   demographicType={demographicType}
                   activeDemographicGroup={UNKNOWN}
@@ -243,7 +244,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     highestLowestGeosMode={false}
                   />
                 )}
-              </>
+              </div>
             )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             {!unknownsAllZero && (

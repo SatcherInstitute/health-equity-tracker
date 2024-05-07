@@ -31,13 +31,15 @@ export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
 export const ORDINAL = 'ordinal'
 
-export type PopulationSubset = 'default' | 'women' | 'medicare' | 'unknown'
+export type PopulationSubset = 'default' | 'women' | 'men' | 'medicare' | 'unknown' | 'youth'
 
 export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
   default: 'darkgreen',
   women: 'plasma',
+  men: 'inferno',
   medicare: 'viridis',
   unknown: 'greenblue',
+  youth: 'darkred',
 }
 
 export const defaultHigherIsBetterMapConfig: MapConfig = {
@@ -68,6 +70,13 @@ export const womenHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
+export const menHigherIsWorseMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.men,
+  min: het.mapLightZero,
+  mid: het.mapMid,
+  higherIsBetter: false,
+}
+
 export const medicareHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
   min: het.mapMedicareDarkZero,
@@ -79,6 +88,13 @@ export const medicareHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
   min: het.mapMedicareLightZero,
   mid: het.mapMedicareMid,
+  higherIsBetter: false,
+}
+
+export const youthHigherIsWorseMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.youth,
+  min: het.mapLightZero,
+  mid: het.mapMid,
   higherIsBetter: false,
 }
 

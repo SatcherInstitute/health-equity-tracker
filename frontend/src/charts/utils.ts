@@ -1,4 +1,5 @@
 import {
+  DataTypeConfig,
   formatFieldValue,
   type MetricConfig,
   type MetricId,
@@ -13,6 +14,7 @@ import { type Fips } from '../data/utils/Fips'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
+import { GUN_DEATHS_CHILDREN_METRIC_IDS, GUN_VIOLENCE_YOUTH_METRICS } from '../data/providers/GunViolenceYouthProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
@@ -93,84 +95,52 @@ export function generateChartTitle(
   fips: Fips,
   demographicType?: DemographicType
 ): string {
-  return `${chartTitle}${
-    demographicType
-      ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
-      : ''
-  } in ${fips.getSentenceDisplayName()}`
+  return `${chartTitle}${demographicType
+    ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
+    : ''
+    } in ${fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(
   activeDemographicGroup: DemographicGroup,
   demographicType: DemographicType,
-  metricId: MetricId
+  dataTypeConfig: DataTypeConfig
 ) {
-  let subtitle = ''
-
+  // active group label, if any
+  let activeGroupLabel = ''
   if (activeDemographicGroup === ALL) {
-    subtitle = ''
+    activeGroupLabel = ''
   } else if (demographicType === AGE) {
-    subtitle = `Ages ${activeDemographicGroup}`
-  } else {
-    subtitle = `${activeDemographicGroup}`
+    activeGroupLabel = `Ages ${activeDemographicGroup}`
+  } else if (demographicType === 'urbanicity') {
+    activeGroupLabel = `Living in ${activeDemographicGroup} areas`
+  }
+  else {
+    activeGroupLabel = activeDemographicGroup
   }
 
-  if (HIV_METRICS.includes(metricId)) {
-    let ageTitle = ''
-    if (metricId === 'hiv_prep_coverage') {
-      ageTitle = 'Ages 16+'
-    } else if (metricId === 'hiv_stigma_index') {
-      ageTitle = 'Ages 18+'
-    } else {
-      ageTitle = 'Ages 13+'
-    }
+  // age and any other subpopulations, if any
+  const ageSubPop = demographicType === AGE && activeDemographicGroup !== ALL ? '' : dataTypeConfig?.ageSubPopulationLabel ?? ''
+  const otherSubPop = dataTypeConfig?.otherSubPopulationLabel ?? ''
 
-    if (subtitle === '') {
-      subtitle = ageTitle
-    } else if (demographicType !== AGE) {
-      subtitle += `, ${ageTitle}`
-    }
-  }
-
-  const medicareMetricIds: MetricId[] = [
-    ...PHRMA_METRICS,
-    'preventable_hospitalizations_per_100k',
-  ]
-  if (medicareMetricIds.includes(metricId)) {
-    const beneficiariesTitle = 'Medicare beneficiaries'
-    if (subtitle === '') {
-      subtitle = beneficiariesTitle
-    } else {
-      subtitle += `, ${beneficiariesTitle}`
-    }
-  }
+  // combine as needed to create specific population subtitle
+  const subtitle = [otherSubPop, activeGroupLabel, ageSubPop].filter(Boolean).join(', ')
 
   return subtitle
-}
-
-export function getAltGroupLabel(
-  group: DemographicGroup,
-  metricId: MetricId,
-  demographicType: DemographicType
-) {
-  if (CAWP_METRICS.includes(metricId)) {
-    return getWomenRaceLabel(group)
-  }
-  if (group === ALL && demographicType === AGE) {
-    if (metricId.includes('prep')) {
-      return `${group} (16+)`
-    }
-    if (metricId.includes('stigma')) {
-      return `${group} (18+)`
-    }
-    if (metricId.includes('hiv')) {
-      return `${group} (13+)`
-    }
-  }
-  return group
 }
 
 export function removeLastS(inputString: string) {
   // Use a regular expression to replace the last "s" with an empty string
   return inputString.replace(/s$/, '')
+}
+
+
+// Returns an options object for toLocaleString() that will round larger 100k numbers to whole numbers, but allow 1 decimal place for numbers under 10 and 2 decimal places for numbers under 1
+export const getFormatterPer100k = (value: number) => {
+  const numDecimalPlaces = value < 10 ? 1 : 0
+  return {
+    minimumFractionDigits: numDecimalPlaces,
+    maximumFractionDigits: numDecimalPlaces
+  }
+
 }

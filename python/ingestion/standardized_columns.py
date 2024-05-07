@@ -21,8 +21,12 @@ RACE_ETH_COL = "race_ethnicity_combined"
 AGE_COL = "age"
 SEX_COL = "sex"
 
+# DEMOGRAPHICS FOR PHRMA
 LIS_COL = "lis"
 ELIGIBILITY_COL = "eligibility"
+
+# DEMOGRAPHICS FOR WISQARS
+URBANICITY_COL = "urbanicity"
 
 
 STATE_FIPS_COL = "state_fips"
@@ -97,7 +101,8 @@ VOTER_PARTICIPATION_PREFIX = "voter_participation"
 AHR_POPULATION_PCT = "ahr_population_pct"
 
 # Vaccination columns
-VACCINATED_PER_100K = "vaccinated_per_100k"
+VACCINATED_RAW = "vaccinated_estimated_total"
+VACCINATED_PCT_RATE = "vaccinated_pct_rate"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
 VACCINATED_POP_PCT = 'vaccinated_pop_pct'
 ACS_VACCINATED_POP_PCT = 'acs_vaccinated_pop_pct'
@@ -136,6 +141,7 @@ PRISON_RATE = "prison_per_100k"
 JAIL_PCT_SHARE = "jail_pct_share"
 PRISON_PCT_SHARE = "prison_pct_share"
 INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
+INCARCERATION_POP_RAW = "incarceration_population_estimated_total"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 
@@ -143,6 +149,7 @@ PRISON_PCT_INEQUITY = "prison_relative_inequity"
 BLACK_WOMEN = 'black_women'
 HIV_BW_POPULATION_PCT = 'black_women_population_pct'
 
+HIV_POPULATION = 'hiv_population'
 HIV_POPULATION_PCT = 'hiv_population_pct'
 
 
@@ -185,24 +192,47 @@ STATINS_PREFIX = "statins"
 
 # Gun violence
 FATAL_PREFIX = "fatal"
-NON_FATAL_PREFIX = "non_fatal"
-GUN_VIOLENCE_HOMICIDE_PREFIX = "gun_violence_homicide"
-GUN_VIOLENCE_LEGAL_INTERVENTION_PREFIX = "gun_violence_legal_intervention"
-GUN_VIOLENCE_SUICIDE_PREFIX = "gun_violence_suicide"
-GUN_VIOLENCE_INJURIES_PREFIX = "gun_violence_injuries"
-GUN_VIOLENCE_DEATHS_RAW = 'gun_violence_youth_deaths_estimated_total'
-GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimtated_total"
-GUN_VIOLENCE_LEGAL_INTERVENTION_RAW = "gun_violence_legal_intervention_estimated_total"
-GUN_VIOLENCE_SUICIDES_RAW = "gun_violence_suicide_estimated_total"
-GUN_VIOLENCE_INJURIES_RAW = "gun_violence_injuries_estimated_total"
-GUN_VIOLENCE_DEATHS_PER_100K = "gun_violence_youth_deaths_per_100k"
-GUN_VIOLENCE_DEATHS_PCT_SHARE = "gun_violence_youth_deaths_pct_share"
-GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY = "gun_violence_youth_deaths_pct_relative_inequity"
-GUN_VIOLENCE_INJURIES_PER_100K = "gun_violence_injuries_per_100k"
 FATAL_POPULATION = "fatal_population"
-NON_FATAL_POPULATION = "non_fatal_population"
 FATAL_POPULATION_PCT = "fatal_population_pct"
+FATAL_PREFIX = "fatal"
+
+GUN_VIOLENCE_HOMICIDE_PREFIX = "gun_violence_homicide"
+GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimtated_total"
+GUN_VIOLENCE_INJURIES_PER_100K = "gun_violence_injuries_per_100k"
+GUN_VIOLENCE_INJURIES_PREFIX = "gun_violence_injuries"
+GUN_VIOLENCE_INJURIES_RAW = "gun_violence_injuries_estimated_total"
+GUN_VIOLENCE_LEGAL_INTERVENTION_PREFIX = "gun_violence_legal_intervention"
+GUN_VIOLENCE_LEGAL_INTERVENTION_RAW = "gun_violence_legal_intervention_estimated_total"
+GUN_VIOLENCE_SUICIDE_PREFIX = "gun_violence_suicide"
+GUN_VIOLENCE_SUICIDES_RAW = "gun_violence_suicide_estimated_total"
+NON_FATAL_POPULATION = "non_fatal_population"
 NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
+NON_FATAL_PREFIX = "non_fatal"
+
+
+# YOUNG ADULTS AND YOUTH
+GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
+GUN_DEATHS_YOUNG_ADULTS_POPULATION = "gun_deaths_young_adults_population"
+GUN_DEATHS_YOUNG_ADULTS_PREFIX = "gun_deaths_young_adults"
+GUN_DEATHS_YOUTH_POP_PCT = "gun_deaths_youth_population_pct"
+GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population"
+GUN_DEATHS_YOUTH_PREFIX = "gun_deaths_youth"
+
+# BLACK MEN - HOMICIDES AND LAW ENFORCEMENT DEATHS
+GUN_HOMICIDES_BM_RAW = "gun_homicides_black_men_estimated_total"
+GUN_HOMICIDES_BM_POP_PCT = "gun_homicides_black_men_population_pct"
+GUN_HOMICIDES_BM_POP_RAW = "gun_homicides_black_men_population_estimated_total"
+GUN_HOMICIDES_BM_PER_100K = "gun_homicides_black_men_per_100k"
+GUN_HOMICIDES_BM_PCT_SHARE = "gun_homicides_black_men_percent_share"
+GUN_HOMICIDES_BM_PCT_REL_INEQUITY = "gun_homicides_black_men_pct_relative_inequity"
+
+
+# MATERNAL MORTALITY
+MM_PER_100K = "maternal_mortality_per_100k"
+MATERNAL_DEATHS_RAW = "maternal_deaths_estimated_total"
+LIVE_BIRTHS_RAW = "live_births_estimated_total"
+MM_PCT_SHARE = "maternal_mortality_pct_share"
+MM_PCT_REL_INEQUITY = "maternal_mortality_pct_relative_inequity"
 
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])

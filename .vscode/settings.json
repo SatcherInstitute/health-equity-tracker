@@ -7,13 +7,13 @@
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[json]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[typescript]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.typescript-language-features"
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.typescript-language-features"
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
@@ -31,5 +31,47 @@
 		".env.example": "dotenv",
 		".env.staging": "dotenv",
 		".env.prod": "dotenv"
-	}
+	},
+	"cSpell.enabledLanguageIds": [
+		"asciidoc",
+		"c",
+		"cpp",
+		"csharp",
+		"css",
+		"elixir",
+		"erlang",
+		"git-commit",
+		"go",
+		"graphql",
+		"handlebars",
+		"haskell",
+		"html",
+		"jade",
+		"java",
+		"javascript",
+		"javascriptreact",
+		"json",
+		"jsonc",
+		"jupyter",
+		"latex",
+		"less",
+		"markdown",
+		"php",
+		"plaintext",
+		"python",
+		"pug",
+		"restructuredtext",
+		"rust",
+		"scala",
+		"scss",
+		"scminput",
+		"swift",
+		"text",
+		"typescript",
+		"typescriptreact",
+		"vue",
+		"yaml",
+		"yml",
+		"dockercompose"
+	]
 }

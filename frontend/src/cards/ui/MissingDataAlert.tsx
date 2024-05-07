@@ -2,7 +2,6 @@ import { WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from '../../utils/internalRoutes'
 import { type DemographicTypeDisplayName } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import {
-  type DropdownVarId,
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { LinkWithStickyParams } from '../../utils/urlutils'
@@ -20,7 +19,6 @@ interface MissingDataAlertProps {
   noDemographicInfo?: boolean
   isMapCard?: boolean
   fips: Fips
-  dropdownVarId?: DropdownVarId
   ageAdjustedDataTypes?: DataTypeConfig[]
 }
 

@@ -35,6 +35,7 @@ import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
+import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -146,13 +147,13 @@ export function TableChart(props: TableChartProps) {
   function TableDataRow({ row }: { row: Row<any> }) {
     const numeratorCount = props.countColsMap.numeratorConfig?.metricId
       ? row.original[
-          props.countColsMap.numeratorConfig.metricId
-        ]?.toLocaleString()
+        props.countColsMap.numeratorConfig.metricId
+      ]?.toLocaleString()
       : ''
     const denominatorCount = props.countColsMap.denominatorConfig?.metricId
       ? row.original[
-          props.countColsMap.denominatorConfig.metricId
-        ]?.toLocaleString()
+        props.countColsMap.denominatorConfig.metricId
+      ]?.toLocaleString()
       : ''
     let numeratorLabel = props.countColsMap.numeratorConfig?.shortLabel ?? ''
     if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)
@@ -183,7 +184,7 @@ export function TableChart(props: TableChartProps) {
               key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              {cell.render('Cell')}
+              {(cell.value < .1 && cell.value > 0 && index === 1) ? LESS_THAN_POINT_1 : cell.render('Cell')}
               <Units column={index} metric={props.metrics} />
               {index === 1 && numeratorCount && denominatorCount ? (
                 <HetUnitLabel>
@@ -206,12 +207,11 @@ export function TableChart(props: TableChartProps) {
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>Insufficient Data</h1>
       ) : (
-        <figure>
+        <figure className='m-3'>
           <figcaption>
             <ChartTitle
-              title={`${
-                props.dataTableTitle
-              } in ${props.fips.getSentenceDisplayName()}`}
+              title={`${props.dataTableTitle
+                } in ${props.fips.getSentenceDisplayName()}`}
               subtitle={props.subtitle}
             />
           </figcaption>

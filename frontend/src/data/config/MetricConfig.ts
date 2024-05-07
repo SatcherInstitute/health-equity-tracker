@@ -2,7 +2,7 @@
 // so ALL related topic data is contained in a single object
 
 import { type ColorScheme } from 'vega'
-import { LESS_THAN_1 } from '../utils/Constants'
+import { LESS_THAN_POINT_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
   type BehavioralHealthMetricId,
@@ -64,9 +64,18 @@ import {
   CARE_AVOIDANCE_METRICS,
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
-  GUN_VIOLENCE_METRICS,
 } from './MetricConfigSDOH'
 import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
+import { getFormatterPer100k } from '../../charts/utils'
+import {
+  COMMUNITY_SAFETY_DROPDOWNIDS,
+  CommunitySafetyDataTypeId,
+  CommunitySafetyMetricId,
+  GUN_DEATHS_BLACK_MEN_METRICS,
+  GUN_VIOLENCE_METRICS,
+  GUN_VIOLENCE_YOUTH_METRICS
+} from './MetricConfigCommunitySafety'
+import { DemographicType } from '../query/Breakdowns'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -76,6 +85,7 @@ const dropdownVarIds = [
   ...HIV_CATEGORY_DROPDOWNIDS,
   ...COVID_CATEGORY_DROPDOWNIDS,
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
+  ...COMMUNITY_SAFETY_DROPDOWNIDS,
 ] as const
 
 export type DropdownVarId = (typeof dropdownVarIds)[number]
@@ -99,6 +109,7 @@ export type DataTypeId =
   | PhrmaDataTypeId
   | PDOHDataTypeId
   | SDOHDataTypeId
+  | CommunitySafetyDataTypeId
 
 export type MetricId =
   | CovidCategoryMetricId
@@ -108,6 +119,7 @@ export type MetricId =
   | PDOHMetricId
   | SDOHMetricId
   | ChronicDiseaseMetricId
+  | CommunitySafetyMetricId
   | 'geo_context'
   | 'population_pct'
   | 'population'
@@ -164,6 +176,7 @@ export interface InfoWithCitations {
   citations?: Citation[]
 }
 
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
@@ -181,12 +194,13 @@ export interface DataTypeConfig {
     index?: MetricConfig
     ratio?: MetricConfig
     age_adjusted_ratio?: MetricConfig
-    sub_population_count?: MetricConfig
   }
   surveyCollectedData?: boolean
   dataTableTitle: string
   mapConfig: MapConfig
-  categoryId?: CategoryTypeId
+  categoryId: CategoryTypeId
+  ageSubPopulationLabel?: string
+  otherSubPopulationLabel?: string
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
@@ -221,14 +235,14 @@ export function formatFieldValue(
   }
 
   // if values are 100k but rounded down to 0, instead replace with "less than 1"
-  if (value === 0 && metricType === 'per100k') return LESS_THAN_1
+  if (value === 0 && metricType === 'per100k') return LESS_THAN_POINT_1
 
   const isRatio = metricType === 'age_adjusted_ratio'
   // only pct_share should get a decimal; others like pct_rate, 100k, index should be rounded as ints
   const formatOptions =
     metricType === 'pct_share' || metricType === 'age_adjusted_ratio'
       ? { minimumFractionDigits: 1 }
-      : { maximumFractionDigits: 0 }
+      : getFormatterPer100k(value)
   const formattedValue: string =
     typeof value === 'number'
       ? value.toLocaleString('en', formatOptions)
@@ -298,6 +312,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   excessive_drinking: EXCESSIVE_DRINKING_METRICS,
   frequent_mental_distress: FREQUENT_MENTAL_DISTRESS_METRICS,
   gun_violence: GUN_VIOLENCE_METRICS,
+  gun_violence_youth: GUN_VIOLENCE_YOUTH_METRICS,
+  gun_deaths_black_men: GUN_DEATHS_BLACK_MEN_METRICS,
   substance: SUBSTANCE_MISUSE_METRICS,
   suicide: SUICIDE_METRICS,
   diabetes: DIABETES_METRICS,

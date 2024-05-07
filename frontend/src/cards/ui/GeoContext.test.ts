@@ -1,9 +1,12 @@
+import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { DataTypeConfig, METRIC_CONFIG } from '../../data/config/MetricConfig'
+import { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { Row } from '../../data/utils/DatasetTypes'
 import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
 } from './GeoContext'
+import { describe, test, expect } from 'vitest'
 
 describe('test getTotalACSPopulationPhrase()', () => {
   const nationalACSPopData: Row[] = [
@@ -18,65 +21,67 @@ describe('test getTotalACSPopulationPhrase()', () => {
     const normalPopPhrase = getTotalACSPopulationPhrase(
       /* data */ nationalACSPopData
     )
-    expect(normalPopPhrase).toEqual('Total Population: 328,016,242')
+    expect(normalPopPhrase).toEqual('Total population: 328,016,242 (from ACS 2022)')
   })
 })
 
 describe('test getSubPopulationPhrase()', () => {
   const nationalPhrmaData: Row[] = [
     {
-      medicare_population: 41816007,
+      statins_beneficiaries_estimated_total: 41816007,
       race_and_ethnicity: 'All',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      medicare_population: 216860,
+      statins_beneficiaries_estimated_total: 216860,
       race_and_ethnicity: 'American Indian and Alaska Native (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      medicare_population: 1209171,
+      statins_beneficiaries_estimated_total: 1209171,
       race_and_ethnicity: 'Asian, Native Hawaiian, and Pacific Islander (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      medicare_population: 4330893,
+      statins_beneficiaries_estimated_total: 4330893,
       race_and_ethnicity: 'Black or African American (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      medicare_population: 2987102,
+      statins_beneficiaries_estimated_total: 2987102,
       race_and_ethnicity: 'Hispanic or Latino',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      medicare_population: 332663,
+      statins_beneficiaries_estimated_total: 332663,
       race_and_ethnicity: 'Two or more races & Unrepresented race (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      medicare_population: 32003930,
+      statins_beneficiaries_estimated_total: 32003930,
       race_and_ethnicity: 'White (NH)',
       fips: '00',
       fips_name: 'United States',
     },
   ]
   const statinsAdherenceConfig: DataTypeConfig =
-    METRIC_CONFIG.medicare_cardiovascular[0]
+    METRIC_CONFIG.medicare_cardiovascular[1]
 
   test('phrma medicare national population', () => {
+
     const medicarePopPhrase = getSubPopulationPhrase(
       /* data */ nationalPhrmaData,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
-    expect(medicarePopPhrase).toEqual('Total Medicare Population: 41,816,007')
+    expect(medicarePopPhrase).toEqual('Total population of Medicare Statins Beneficiaries, Ages 18+: 41,816,007 (from CMS)')
   })
 
   const countyPhrmaData: Row[] = [
@@ -106,10 +111,11 @@ describe('test getSubPopulationPhrase()', () => {
   test('phrma medicare metric expects extra subpop breadcrumb, but pop data is unavailable', () => {
     const medicarePopPhrase = getSubPopulationPhrase(
       /* data */ countyPhrmaData,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_acronym,
       /* demographicType */ 'sex',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
-    expect(medicarePopPhrase).toEqual('Total Medicare Population: unavailable')
+    expect(medicarePopPhrase).toEqual('Total population of Medicare Statins Beneficiaries, Ages 18+: unavailable (from CMS)')
   })
 
   const nationalCovidData: Row[] = [
@@ -162,6 +168,7 @@ describe('test getSubPopulationPhrase()', () => {
   test('covid should not get a subpopulation', () => {
     const emptyCovidSubPopPhrase = getSubPopulationPhrase(
       /* data */ nationalCovidData,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.cdc_restricted.data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ covidCasesConfig
     )

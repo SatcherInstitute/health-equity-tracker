@@ -11,7 +11,7 @@ test('ARV Adherence', async ({ page }) => {
       name: 'Population adherent to antiretrovirals in the United States',
     })
     .click()
-  await page.locator('#rate-map').getByRole('heading', { name: 'Medicare beneficiaries' }).click();
+  await page.locator('#rate-map').getByRole('heading', { name: 'Medicare ARV Beneficiaries, Ages 18+' }).click();
   await page.getByText('Demographic', { exact: true }).nth(2).click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()

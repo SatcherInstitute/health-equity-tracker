@@ -9,9 +9,10 @@ test('Voter Participation Flow', async ({ page }) => {
       'Map showing Voter participation in the United States : including data from 51 states/territories'
     )
     .getByRole('img')
-  await page
-    .getByText('See the states/territories with the highest and lowest rates.')
-    .click()
+    await page.getByRole('button', { name: 'Rate map' }).click();
+    await page.locator('li').filter({ hasText: 'United States' }).click();
+    await page.locator('li').filter({ hasText: 'Total Population:' }).click();
+    await page.getByRole('button', { name: 'Rate chart' }).click();
   await page
     .getByLabel(
       'Bar Chart showing Voter participation in the United States, by Race and Ethnicity'

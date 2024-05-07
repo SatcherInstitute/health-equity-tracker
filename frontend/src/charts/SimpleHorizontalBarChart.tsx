@@ -14,11 +14,8 @@ import {
   oneLineLabel,
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
-  getAltGroupLabel,
   LABEL_HEIGHT,
 } from './utils'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
-import { HIV_METRICS } from '../data/providers/HivProvider'
 import { createBarLabel } from './mapHelperFunctions'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
 
@@ -63,12 +60,12 @@ function getSpec(
 
   const legends = showLegend
     ? [
-        {
-          fill: 'variables',
-          orient: 'top',
-          padding: 4,
-        },
-      ]
+      {
+        fill: 'variables',
+        orient: 'top',
+        padding: 4,
+      },
+    ]
     : []
 
   const onlyZeros = data.every((row) => {
@@ -164,9 +161,8 @@ function getSpec(
             },
             baseline: { value: 'middle' },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
-                width > 250 ? '5' : '1'
-              })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? '5' : '1'
+                })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
@@ -277,25 +273,11 @@ interface SimpleHorizontalBarChartProps {
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
+
   const [ref, width] = useResponsiveWidth()
 
-  const altLabelMetrics = [...CAWP_METRICS, ...HIV_METRICS]
-
-  // swap race labels if applicable
-  const dataLabelled = altLabelMetrics.includes(props.metric.metricId)
-    ? props.data.map((row: Row) => {
-        const altRow = { ...row }
-        altRow[props.demographicType] = getAltGroupLabel(
-          row[props.demographicType],
-          props.metric.metricId,
-          props.demographicType
-        )
-        return altRow
-      })
-    : props.data
-
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
-    dataLabelled,
+    props.data,
     props.demographicType
   )
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
@@ -315,18 +297,16 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer='svg'
-        downloadFileName={`${
-          props.filename ?? 'Data Download'
-        } - Health Equity Tracker`}
+        downloadFileName={`${props.filename ?? 'Data Download'
+          } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${
-            props.filename ?? 'Data Download'
+          /* altText  */ `Bar Chart showing ${props.filename ?? 'Data Download'
           }`,
           /* data  */ data,
           /* width  */ width,
           /* demographicType  */ props.demographicType,
           /* demographicTypeDisplayName  */ DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-            props.demographicType
+          props.demographicType
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,

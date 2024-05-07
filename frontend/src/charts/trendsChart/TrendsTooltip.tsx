@@ -7,10 +7,10 @@
  * returns jsx of a div with a grid of names, bar chart viz, and amounts
 
 /* External Imports */
-import React, { Fragment } from 'react'
+import  { Fragment } from 'react'
 
 /* Local Imports */
-import { LESS_THAN_1, raceNameToCodeMap } from '../../data/utils/Constants'
+import { LESS_THAN_POINT_1, raceNameToCodeMap } from '../../data/utils/Constants'
 
 /* Constants */
 import {
@@ -52,7 +52,7 @@ export function TrendsTooltip({
       UNIT: isSkinny ? '' : ' per 100k',
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
-      formatter: F.num,
+      formatter: F.num100k,
     },
     [TYPES.PCT_RATE]: {
       UNIT: '',
@@ -76,7 +76,7 @@ export function TrendsTooltip({
       UNIT: '',
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
-      formatter: F.num,
+      formatter: F.num100k,
     },
   }
 
@@ -107,12 +107,14 @@ export function TrendsTooltip({
         {data &&
           sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
-              // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
+
+              // get value or "<.1" to prevent potentially misleading "0 per 100k" on rates
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
               )
+
               if (value === '0' && axisConfig.type === 'per100k')
-                value = LESS_THAN_1
+                value = LESS_THAN_POINT_1
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>

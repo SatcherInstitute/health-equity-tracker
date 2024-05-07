@@ -1,7 +1,7 @@
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../utils/externalUrls'
 import {
-  OLD_AGE_ADJUSTMENT_LINK,
+  AGE_ADJUSTMENT_LINK,
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 
@@ -153,7 +153,7 @@ function AnswerHowDidYouAcquire() {
           morbidity and mortality among different races and ethnic groups
           throughout the U.S. in comparison to the white (non-Hispanic)
           population. To learn more, please view our{' '}
-          <a href={OLD_AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
+          <a href={AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
         </li>
         <li>Sources are refreshed when update notifications are received</li>
         <li>

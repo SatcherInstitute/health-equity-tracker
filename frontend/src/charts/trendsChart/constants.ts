@@ -49,6 +49,15 @@ const {
   timeYellow,
   mapLight,
   mapLighter,
+  mapMedicareMid,
+  mapMedicareLight,
+  mapMedicareLighter,
+  mapMedicareLightest,
+  altGrey,
+  altOrange,
+  mapMedicareDarkest,
+  mapMedicareDark,
+
 } = het
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
@@ -122,6 +131,29 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '55-64': timeYellow,
   '65-74': mapLight,
   '75+': mapLighter,
+  // age for WISQARS
+  '0-4': timeCyanBlue,
+  '5-9': timePastelGreen,
+  '10-14': darkBlue,
+  '15-19': timePurple,
+  '20-24': timePink,
+  '25-29': timeDarkRed,
+  '30-34': redOrange,
+  '35-39': timeYellow,
+  '40-44': mapLight,
+  '45-49': mapLighter,
+  '50-54': altOrange,
+  '55-59': mapMedicareDarkest,
+  '60-64': mapMedicareDark,
+  '65-69': mapMedicareMid,
+  '70-74': mapMedicareLight,
+  '75-79': mapMedicareLighter,
+  '80-84': mapMedicareLightest,
+  '85+': altGrey,
+
+  // urbanicity
+  "Metro": timePurple,
+  "Non-Metro": timeYellow,
 }
 
 // domain for color scale
@@ -175,7 +207,8 @@ const FORMATTERS = {
   dateFromString_YYYY: (str: string) => str && utcFormat('%Y')(new Date(str)),
   dateFromString_MM_YYYY: (str: string) =>
     str && utcFormat('%B %Y')(new Date(str)),
-  num: format('.1~f'),
+  num: format('.2~f'),
+  num100k: (d: number) => d < 10 ? format('.1~f')(d) : format('.0~f')(d), // show single decimal if less than 10, remove trailling zeros
   plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }

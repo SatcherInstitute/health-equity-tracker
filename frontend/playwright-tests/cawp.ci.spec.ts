@@ -4,9 +4,7 @@ test('CAWP: Congress', async ({ page }) => {
   await page.goto(
     '/exploredata?mls=1.women_in_gov-3.00&group1=All'
   )
-  await page
-    .getByText('See the states/territories with the highest and lowest rates.')
-    .click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page.getByText('U.S. Virgin Islands,').click()
   await page.getByText('U.S. Virgin Islands,').click()
   await page.getByText('Puerto Rico,').click()

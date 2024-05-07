@@ -33,6 +33,10 @@ import {
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import LawEnforcementAlert from './ui/LawEnforcementAlert'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import { urlMap } from '../utils/externalUrls'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -71,6 +75,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     props.dataTypeConfig.dataTypeId
   )
 
+  const isGunDeaths = GUN_VIOLENCE_DATATYPES.includes(props.dataTypeConfig.dataTypeId)
+
   const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
   isIncarceration && metricIdsToFetch.push('total_confined_children')
@@ -99,11 +105,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    metricConfig.metricId
+    props.dataTypeConfig
   )
-  const filename = `${chartTitle}, by ${
-    DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
-  }`
+  const filename = `${chartTitle}, by ${DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
+    }`
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
@@ -120,12 +125,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
     >
-      {([queryResponse]) => {
+      {([queryResponse], metadata) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
 
         const hideChart =
           data.length === 0 ||
           queryResponse.shouldShowMissingDataMessage([metricConfig.metricId])
+
 
         return (
           <>
@@ -170,6 +176,15 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     dataTypeId={props.dataTypeConfig.dataTypeId}
                   />
                 )}
+                {isGunDeaths && (
+                  <LawEnforcementAlert
+                    fips={props.fips}
+                    demographicType={props.demographicType}
+                    metadata={metadata}
+                    queryResponse={queryResponse}
+                  />
+                )}
+
               </>
             )}
           </>

@@ -42,7 +42,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, {
@@ -73,6 +73,10 @@ import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetDivider from '../styles/HetComponents/HetDivider'
+import { dataSourceMetadataMap } from '../data/config/MetadataMap'
+import { DatasetId } from '../data/config/DatasetMetadata'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import HetTerm from '../styles/HetComponents/HetTerm'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -207,8 +211,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const initialMetridIds = [metricConfig.metricId]
 
-  const subPopulationId =
-    props.dataTypeConfig.metrics.sub_population_count?.metricId
+  const subPopulationId = metricConfig?.rateDenominatorMetric?.metricId
   if (subPopulationId) initialMetridIds.push(subPopulationId)
 
   const queries = [
@@ -253,12 +256,11 @@ function MapCardWithKey(props: MapCardProps) {
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
-    metricId
+    props.dataTypeConfig
   )
   if (highestLowestGeosMode)
-    subtitle += ` (only ${
-      props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-    } with highest/lowest rates)`
+    subtitle += ` (only ${props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
+      } with highest/lowest rates)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   function handleScaleChange(domain: number[], range: number[]) {
@@ -279,6 +281,7 @@ function MapCardWithKey(props: MapCardProps) {
       isCompareCard={props.isCompareCard}
     >
       {(queryResponses, metadata, geoData) => {
+
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
@@ -297,8 +300,17 @@ function MapCardWithKey(props: MapCardProps) {
         const totalPopulationPhrase = getTotalACSPopulationPhrase(
           acsPopulationQueryResponse.data
         )
+
+        let subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(parentGeoQueryResponse.consumedDatasetIds[0] as DatasetId))?.data_source_acronym ?? ''
+
+        // US Congress denominators come from @unitestedstates not CAWP
+        if (props.dataTypeConfig.dataTypeId === 'women_in_us_congress') {
+          subPopSourceLabel = '@unitedstates'
+        }
+
         const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse.data,
+          subPopSourceLabel,
           demographicType,
           props.dataTypeConfig
         )
@@ -418,13 +430,17 @@ function MapCardWithKey(props: MapCardProps) {
           )
 
         const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
+          props.dataTypeConfig,
           mapQueryResponse.data,
           props.demographicType,
-          metricId
+          metricId,
         )
 
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
+
+        const percentRateTooHigh = mapQueryResponse.data.some((row) => row[metricConfig.metricId] > 100)
+
 
         return (
           <>
@@ -605,6 +621,13 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
+                {percentRateTooHigh && (
+                  <HetNotice title="Percentages Over 100%" kind="data-integrity" >
+                    <>In some locations, the <HetTerm>percent rates</HetTerm> exceed 100%, which can be confusing and may indicate inconsistency in our source data.</>
+                    {metricId === 'vaccinated_pct_rate' && <>
+                      {" "}In the case of <HetTerm>COVID-19 vaccinations</HetTerm>, the number of first-dose vaccines administered in a location could have been higher than the population of that location if individuals came from other locations to receive the vaccine, and also if individuals chose to receive more than a single "first-dose" vaccine.</>}
+                  </HetNotice>
+                )}
               </div>
             </div>
           </>
@@ -613,3 +636,4 @@ function MapCardWithKey(props: MapCardProps) {
     </CardWrapper>
   )
 }
+

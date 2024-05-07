@@ -3,7 +3,6 @@ import { type DatasetId } from '../config/DatasetMetadata'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type AcsPopulationProvider from './AcsPopulationProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 
@@ -15,16 +14,15 @@ export const COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 ]
 
 class VaccineProvider extends VariableProvider {
-  private readonly acsProvider: AcsPopulationProvider
 
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor() {
     super('vaccine_provider', [
       'acs_vaccinated_pop_pct',
       'vaccinated_pct_share',
-      'vaccinated_per_100k',
+      'vaccinated_pct_rate',
       'vaccinated_pop_pct',
+      'vaccinated_estimated_total'
     ])
-    this.acsProvider = acsProvider
   }
 
   getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {

@@ -18,7 +18,7 @@ GOLDEN_DATA = {
 def get_state_test_data_as_df():
     return pd.read_json(
         os.path.join(TEST_DIR, 'cdc_vaccination_national_test.json'),
-        dtype={'state_fips': str, 'administered_dose1_pct': float},
+        dtype={'state_fips': str, 'administered_dose1_pct': float, 'administered_dose1': float},
     )
 
 
@@ -37,16 +37,17 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
 
     cdcVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+
+    assert mock_csv.call_count == 1
     assert mock_bq.call_count == 3
 
     expected_df = pd.read_csv(GOLDEN_DATA['race'], dtype={'population_pct': str, 'state_fips': str})
 
     df = mock_bq.call_args_list[0].args[0]
-    sort_cols = list(df.columns)
 
     assert_frame_equal(
-        df.sort_values(by=sort_cols).reset_index(drop=True),
-        expected_df.sort_values(by=sort_cols).reset_index(drop=True),
+        df,
+        expected_df,
         check_like=True,
     )
 
@@ -66,16 +67,16 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
 
     cdcVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    assert mock_csv.call_count == 1
     assert mock_bq.call_count == 3
 
     expected_df = pd.read_csv(GOLDEN_DATA['sex'], dtype={'population_pct': str, 'state_fips': str})
 
     df = mock_bq.call_args_list[1].args[0]
-    sort_cols = list(df.columns)
 
     assert_frame_equal(
-        df.sort_values(by=sort_cols).reset_index(drop=True),
-        expected_df.sort_values(by=sort_cols).reset_index(drop=True),
+        df,
+        expected_df,
         check_like=True,
     )
 
@@ -95,15 +96,15 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
 
     cdcVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    assert mock_csv.call_count == 1
     assert mock_bq.call_count == 3
 
     expected_df = pd.read_csv(GOLDEN_DATA['age'], dtype={'vaccinated_pop_pct': str, 'state_fips': str})
 
     df = mock_bq.call_args_list[2].args[0]
-    sort_cols = list(df.columns)
 
     assert_frame_equal(
-        df.sort_values(by=sort_cols).reset_index(drop=True),
-        expected_df.sort_values(by=sort_cols).reset_index(drop=True),
+        df,
+        expected_df,
         check_like=True,
     )

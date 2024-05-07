@@ -1,4 +1,4 @@
-name: Python application
+name: RUN Python Tests
 
 on:
   push:
@@ -46,3 +46,9 @@ jobs:
 
       - name: Run pytest tests in exporter directory
         run: pytest exporter/
+
+      - name: Run pytest tests in run_gcs_to_bq directory
+        run: pytest run_gcs_to_bq/
+
+      - name: Run pytest tests in run_ingestion directory
+        run: pytest run_ingestion/

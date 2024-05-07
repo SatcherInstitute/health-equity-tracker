@@ -12,19 +12,13 @@ US_TOTAL = "U.S. total"
 STATE = "State"
 FED = "Federal"
 
-RAW_PRISON_COL = std_col.generate_column_name(
-    std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
-PRISON_PER_100K_COL = std_col.generate_column_name(
-    std_col.PRISON_PREFIX, std_col.PER_100K_SUFFIX)
-PRISON_PCT_SHARE_COL = std_col.generate_column_name(
-    std_col.PRISON_PREFIX, std_col.PCT_SHARE_SUFFIX)
+RAW_PRISON_COL = std_col.generate_column_name(std_col.PRISON_PREFIX, std_col.RAW_SUFFIX)
+PRISON_PER_100K_COL = std_col.generate_column_name(std_col.PRISON_PREFIX, std_col.PER_100K_SUFFIX)
+PRISON_PCT_SHARE_COL = std_col.generate_column_name(std_col.PRISON_PREFIX, std_col.PCT_SHARE_SUFFIX)
 
-RAW_JAIL_COL = std_col.generate_column_name(
-    std_col.JAIL_PREFIX, std_col.RAW_SUFFIX)
-JAIL_PER_100K_COL = std_col.generate_column_name(
-    std_col.JAIL_PREFIX, std_col.PER_100K_SUFFIX)
-JAIL_PCT_SHARE_COL = std_col.generate_column_name(
-    std_col.JAIL_PREFIX, std_col.PCT_SHARE_SUFFIX)
+RAW_JAIL_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.RAW_SUFFIX)
+JAIL_PER_100K_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.PER_100K_SUFFIX)
+JAIL_PCT_SHARE_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.PCT_SHARE_SUFFIX)
 
 
 TOTAL_CHILDREN_COL = "total_confined_children"
@@ -42,15 +36,26 @@ BJS_RACE_GROUPS_TO_STANDARD = {
     'Other': Race.OTHER_STANDARD_NH,
     'Unknown': Race.UNKNOWN,
     # 'Unknown' + 'Did not report' -> "Unknown"
-    'Total': Race.ALL
+    'Total': Race.ALL,
 }
 
-STANDARD_RACE_CODES = [
-    race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
+STANDARD_RACE_CODES = [race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
 
 BJS_JAIL_AGE_GROUPS = [std_col.ALL_VALUE, "0-17", "18+"]
-BJS_PRISON_AGE_GROUPS = [std_col.ALL_VALUE, "18-19", "20-24", "25-29", "30-34",
-                         "35-39", "40-44", "45-49", "50-54", "55-59", "60-64", "65+"]
+BJS_PRISON_AGE_GROUPS = [
+    std_col.ALL_VALUE,
+    "18-19",
+    "20-24",
+    "25-29",
+    "30-34",
+    "35-39",
+    "40-44",
+    "45-49",
+    "50-54",
+    "55-59",
+    "60-64",
+    "65+",
+]
 
 BJS_SEX_GROUPS = [constants.Sex.FEMALE, constants.Sex.MALE, std_col.ALL_VALUE]
 
@@ -71,10 +76,16 @@ APPENDIX_PRISON_2 = "p20stat02.csv"  # RAW# JURISDICTION / STATE+FED / RACE
 # BJS tables include excess header and footer rows that need to be trimmed
 bjs_prisoners_tables = {
     APPENDIX_PRISON_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
-    PRISON_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
-    PRISON_10: {"header_rows": [*list(range(11))], "footer_rows": 8, },
+    PRISON_2: {
+        "header_rows": [*list(range(11))],
+        "footer_rows": 10,
+    },
+    PRISON_10: {
+        "header_rows": [*list(range(11))],
+        "footer_rows": 8,
+    },
     PRISON_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
-    PRISON_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
+    PRISON_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10},
 }
 
 # BJS Census of Jails Report
@@ -86,15 +97,21 @@ JAIL_7 = "cj0519stt07.csv"  # Raw Total by State with Pct Share Breakdown by Rac
 # BJS tables include excess header and footer rows that need to be trimmed
 BJS_PRISONERS_CROPS = {
     APPENDIX_PRISON_2: {"header_rows": [*list(range(10)), 12], "footer_rows": 13},
-    PRISON_2: {"header_rows": [*list(range(11))], "footer_rows": 10, },
-    PRISON_10: {"header_rows": [*list(range(11))], "footer_rows": 8, },
+    PRISON_2: {
+        "header_rows": [*list(range(11))],
+        "footer_rows": 10,
+    },
+    PRISON_10: {
+        "header_rows": [*list(range(11))],
+        "footer_rows": 8,
+    },
     PRISON_13: {"header_rows": [*list(range(11)), 13, 14], "footer_rows": 6},
-    PRISON_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10}
+    PRISON_23: {"header_rows": [*list(range(11)), 12], "footer_rows": 10},
 }
 
 BJS_CENSUS_OF_JAILS_CROPS = {
     JAIL_6: {"header_rows": [*list(range(11))], "footer_rows": 7},
-    JAIL_7: {"header_rows": [*list(range(10))], "footer_rows": 6}
+    JAIL_7: {"header_rows": [*list(range(10))], "footer_rows": 6},
 }
 
 
@@ -113,14 +130,15 @@ def load_tables(zip_url: str, table_crops):
     files = fetch_zip_as_files(zip_url)
     for file in files.namelist():
         if file in table_crops:
-            source_df = pd.read_csv(
-                files.open(file),
-                encoding="ISO-8859-1",
-                skiprows=table_crops[file]["header_rows"],
-                skipfooter=table_crops[file]["footer_rows"],
-                thousands=',',
-                engine="python",
-            )
+            with files.open(file) as f:
+                source_df = pd.read_csv(
+                    f,
+                    encoding="ISO-8859-1",
+                    skiprows=table_crops[file]["header_rows"],
+                    skipfooter=table_crops[file]["footer_rows"],
+                    thousands=',',
+                    engine="python",
+                )
 
             source_df = strip_footnote_refs_from_df(source_df)
             source_df = missing_data_to_none(source_df)
@@ -143,7 +161,7 @@ def strip_footnote_refs_from_df(df):
 
     Returns:
         the same df with footnote refs removed from every string cell
-     """
+    """
 
     def strip_footnote_refs(cell_value):
         return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
@@ -172,8 +190,7 @@ def missing_data_to_none(df):
 
     symbols_to_null = ["/", "~", "^"]
 
-    df = df.applymap(lambda datum: np.nan if datum in symbols_to_null
-                     else datum)
+    df = df.applymap(lambda datum: np.nan if datum in symbols_to_null else datum)
 
     return df
 
@@ -194,13 +211,11 @@ def set_state_col(df):
         return df
 
     elif 'Jurisdiction' in list(df.columns):
-        df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(
-            df["Unnamed: 1"])
+        df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(df["Unnamed: 1"])
         return df
 
     elif 'State' in list(df.columns):
-        df[std_col.STATE_NAME_COL] = df['State'].combine_first(
-            df["Unnamed: 1"])
+        df[std_col.STATE_NAME_COL] = df['State'].combine_first(df["Unnamed: 1"])
         return df
 
     return df
@@ -223,12 +238,11 @@ def filter_cols(df, demo_type):
         std_col.SEX_COL: BJS_SEX_GROUPS,
     }
     if demo_type not in cols_to_keep.keys():
-        raise ValueError(
-            f'{demo_type} is not a demographic option, must be one of: {list(cols_to_keep.keys())} ')
-    df = df[df.columns.intersection(
-        [std_col.STATE_NAME_COL, *cols_to_keep[demo_type]])]
+        raise ValueError(f'{demo_type} is not a demographic option, must be one of: {list(cols_to_keep.keys())} ')
+    df = df[df.columns.intersection([std_col.STATE_NAME_COL, *cols_to_keep[demo_type]])]
     df[df.columns.intersection(cols_to_keep[demo_type])] = df[df.columns.intersection(cols_to_keep[demo_type])].astype(
-        float)
+        float
+    )
 
     return df
 
@@ -251,8 +265,7 @@ def swap_race_col_names_to_codes(df):
         else:
             return col_name
 
-    df.columns = [swap_race_col_name_to_code(col_name)
-                  for col_name in df.columns]
+    df.columns = [swap_race_col_name_to_code(col_name) for col_name in df.columns]
     return df
 
 
@@ -270,11 +283,14 @@ def standardize_table_2_df(df):
     """
 
     df = df.rename(
-        columns={'Total.1': std_col.ALL_VALUE,
-                 "Male": "Male-2019",
-                 "Female": "Female-2019",
-                 "Male.1": constants.Sex.MALE,
-                 "Female.1": constants.Sex.FEMALE})
+        columns={
+            'Total.1': std_col.ALL_VALUE,
+            "Male": "Male-2019",
+            "Female": "Female-2019",
+            "Male.1": constants.Sex.MALE,
+            "Female.1": constants.Sex.FEMALE,
+        }
+    )
     df = filter_cols(df, std_col.SEX_COL)
 
     return df
@@ -294,12 +310,10 @@ def standardize_table_10_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df[std_col.AGE_COL] = df['Age'].combine_first(
-        df["Unnamed: 1"])
+    df[std_col.AGE_COL] = df['Age'].combine_first(df["Unnamed: 1"])
 
     # replace all weird characters (specifically EN-DASH –) with normal hyphen
-    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(
-        lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
+    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
 
     df = df[[std_col.AGE_COL, "Total"]]
 
@@ -325,8 +339,7 @@ def standardize_table_13_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = df.rename(
-        columns={'Total': RAW_PRISON_COL})
+    df = df.rename(columns={'Total': RAW_PRISON_COL})
     df = df[[std_col.STATE_NAME_COL, RAW_PRISON_COL]]
     df = df.replace("U.S. total", constants.US_NAME)
     df[std_col.AGE_COL] = "0-17"
@@ -346,12 +359,10 @@ def standardize_table_23_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = df.rename(
-        columns={'Total': Race.ALL.value})
+    df = df.rename(columns={'Total': Race.ALL.value})
     # since American Samoa reports numbers differently,
     # we will use their Custody # instead of the null jurisdiction #
-    df[Race.ALL.value] = df[Race.ALL.value].combine_first(
-        df["Total custody population"])
+    df[Race.ALL.value] = df[Race.ALL.value].combine_first(df["Total custody population"])
 
     # use RACE because we need ALL not All
     df = filter_cols(df, std_col.RACE_COL)
@@ -377,10 +388,8 @@ def standardize_appendix_table_2_df(df):
 
     df = swap_race_col_names_to_codes(df)
 
-    df[[Race.UNKNOWN.value, "Did not report"]] = df[[
-        Race.UNKNOWN.value, "Did not report"]].astype(float)
-    df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value,
-                                 "Did not report"]].sum(axis="columns", min_count=1)
+    df[[Race.UNKNOWN.value, "Did not report"]] = df[[Race.UNKNOWN.value, "Did not report"]].astype(float)
+    df[Race.UNKNOWN.value] = df[[Race.UNKNOWN.value, "Did not report"]].sum(axis="columns", min_count=1)
     df = filter_cols(df, std_col.RACE_COL)
 
     return df
@@ -400,18 +409,33 @@ def standardize_jail_6(df):
     """
 
     df = df.rename(
-        columns={'Total inmates in custody': RAW_JAIL_COL,
-                 "Total": "18+",
-                 "Male": "Male 18+",
-                 "Female": "Female 18+",
-                 "Total.1": "0-17",
-                 "Male.1": "Male 0-17",
-                 "Female.1": "Female 0-17",
-                 "Male.2": "Male Pct",
-                 "Female.2": "Female Pct"})
+        columns={
+            'Total inmates in custody': RAW_JAIL_COL,
+            "Total": "18+",
+            "Male": "Male 18+",
+            "Female": "Female 18+",
+            "Total.1": "0-17",
+            "Male.1": "Male 0-17",
+            "Female.1": "Female 0-17",
+            "Male.2": "Male Pct",
+            "Female.2": "Female Pct",
+        }
+    )
 
-    df = df[[std_col.STATE_NAME_COL, RAW_JAIL_COL, "0-17", "18+", "Male 0-17",
-             "Male 18+", "Female 0-17", "Female 18+", "Male Pct", "Female Pct"]]
+    df = df[
+        [
+            std_col.STATE_NAME_COL,
+            RAW_JAIL_COL,
+            "0-17",
+            "18+",
+            "Male 0-17",
+            "Male 18+",
+            "Female 0-17",
+            "Female 18+",
+            "Male Pct",
+            "Female Pct",
+        ]
+    ]
 
     df = df.replace("U.S. total", constants.US_NAME)
 
@@ -434,8 +458,10 @@ def standardize_jail_7(df):
 
     df = swap_race_col_names_to_codes(df)
     df = df.rename(
-        columns={'Total inmates in custody': Race.ALL.value,
-                 })
+        columns={
+            'Total inmates in custody': Race.ALL.value,
+        }
+    )
 
     df = filter_cols(df, std_col.RACE_COL)
 
@@ -452,7 +478,7 @@ def keep_only_states(df):
 
     Returns:
         a pandas df with a single row per state (or territory) with "state_name" column and their values
-     """
+    """
     return df[df[std_col.STATE_NAME_COL].isin(STATE_NAMES)]
 
 
@@ -468,14 +494,13 @@ def keep_only_national(df, demo_group_cols):
 
     Returns:
         a pandas df with a single row with state_name: "United States" and the correlating values
-     """
+    """
 
     # see if there is a US total row
-    df_us = df.loc[df[std_col.STATE_NAME_COL].isin(
-        [US_TOTAL, constants.US_NAME])]
+    df_us = df.loc[df[std_col.STATE_NAME_COL].isin([US_TOTAL, constants.US_NAME])].copy()
 
     if len(df_us.index) == 1:
-        df_us.loc[:, std_col.STATE_NAME_COL] = constants.US_NAME
+        df_us[std_col.STATE_NAME_COL] = constants.US_NAME
         return df_us
 
     if len(df_us.index) > 1:
@@ -515,11 +540,9 @@ def cols_to_rows(df, demographic_groups, demographic_col, value_col):
         A HET-style "melted" or "un-pivoted" long table, where each row contains a
         unique place/ demographic group pair
 
-"""
-    represented_groups = [
-        group for group in demographic_groups if group in df.columns]
+    """
+    represented_groups = [group for group in demographic_groups if group in df.columns]
 
-    return df.melt(id_vars=[std_col.STATE_NAME_COL],
-                   value_vars=represented_groups,
-                   var_name=demographic_col,
-                   value_name=value_col)
+    return df.melt(
+        id_vars=[std_col.STATE_NAME_COL], value_vars=represented_groups, var_name=demographic_col, value_name=value_col
+    )

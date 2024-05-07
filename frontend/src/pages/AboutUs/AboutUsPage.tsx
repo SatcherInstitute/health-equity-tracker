@@ -145,7 +145,7 @@ export default function AboutUsPage() {
 
         <section className='flex flex-col pt-8'>
           <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
-            HET Development Program
+            HET Software Engineering and Education Development (SEED) Program
           </h3>
 
           <ul className='grid list-none grid-cols-1 justify-between gap-5 md:grid-cols-2 lg:grid-cols-3'>

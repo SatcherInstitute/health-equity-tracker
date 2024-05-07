@@ -7,9 +7,7 @@ test('Depression Flow', async ({ page }) => {
       'Map showing Depression in the United States : including data from 50 states/territories'
     )
     .getByRole('img')
-  await page
-    .getByText('See the states/territories with the highest and lowest rates.')
-    .click()
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
   await page
     .getByLabel(
       'Bar Chart showing Depression in the United States, by Race and Ethnicity'

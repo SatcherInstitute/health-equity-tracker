@@ -1,13 +1,11 @@
 import pandas as pd  # type: ignore
-from ingestion.standardized_columns import Race
-import ingestion.standardized_columns as std_col
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, local_pipeline_utils
+from ingestion.standardized_columns import Race
+from ingestion import standardized_columns as std_col
 from ingestion.merge_utils import merge_pop_numbers
-
 from ingestion.constants import Sex, NATIONAL_LEVEL, US_FIPS, US_NAME, RACE, AGE, SEX, UNKNOWN
-
 
 CDC_SEX_GROUPS_TO_STANDARD = {
     'Sex_Female': Sex.FEMALE,
@@ -83,7 +81,7 @@ class CDCVaccinationNational(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         df = gcs_to_bq_util.load_json_as_df_from_web(
-            BASE_CDC_URL, dtype={'administered_dose1_pct': float, 'population_pct': str}
+            BASE_CDC_URL, dtype={'administered_dose1_pct': float, 'administered_dose1': float}
         )
 
         latest_date = df['date'].max()
@@ -97,7 +95,7 @@ class CDCVaccinationNational(DataSource):
                     breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
                 )
             else:
-                float_cols = [std_col.VACCINATED_PER_100K, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
+                float_cols = [std_col.VACCINATED_PCT_RATE, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
                 col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
                 gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
 
@@ -105,7 +103,7 @@ class CDCVaccinationNational(DataSource):
         demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == RACE else breakdown
         unknown = Race.UNKNOWN.value if breakdown == RACE else UNKNOWN
 
-        df = df.rename(columns={'demographic_category': demo_col})
+        df = df.rename(columns={'demographic_category': demo_col, 'administered_dose1': std_col.VACCINATED_RAW})
 
         demo_rows = set(BREAKDOWN_MAP[breakdown].keys())
         df = df.loc[df[demo_col].isin(demo_rows)].reset_index(drop=True)
@@ -118,12 +116,13 @@ class CDCVaccinationNational(DataSource):
         unknown_df = unknown_df.rename(columns={'administered_dose1_pct_us': std_col.VACCINATED_PCT_SHARE})
         df = pd.concat([known_df, unknown_df])
 
-        df[std_col.VACCINATED_PER_100K] = df['administered_dose1_pct'].apply(calc_per_100k)
+        df[std_col.VACCINATED_PCT_RATE] = df['administered_dose1_pct']
 
         df.loc[df[demo_col].isin(ALLS), std_col.VACCINATED_PCT_SHARE] = 100.0
 
         if breakdown == AGE:
             df[std_col.VACCINATED_POP_PCT] = df[demo_col].map(AGE_GROUPS_TO_POP_PCT)
+            df = df.reset_index(drop=True)
         else:
             df = merge_pop_numbers(df, breakdown, NATIONAL_LEVEL)
             df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.VACCINATED_POP_PCT})
@@ -138,7 +137,8 @@ class CDCVaccinationNational(DataSource):
                 demo_col,
                 std_col.VACCINATED_PCT_SHARE,
                 std_col.VACCINATED_POP_PCT,
-                std_col.VACCINATED_PER_100K,
+                std_col.VACCINATED_PCT_RATE,
+                std_col.VACCINATED_RAW,
             ]
         ]
 
@@ -146,7 +146,3 @@ class CDCVaccinationNational(DataSource):
             std_col.add_race_columns_from_category_id(df)
 
         return df
-
-
-def calc_per_100k(pct_value):
-    return pct_value * 1000 if not pd.isnull(pct_value) else None

@@ -121,9 +121,9 @@ const AgeAdjustmentLink = () => {
             </a>
             .
           </p>
-          <h4 id='#data-sourcing' className='mt-20 text-title font-medium'>
+          <h3 id='#data-sourcing' className='mt-20 text-title font-medium'>
             Data Sourcing
-          </h4>
+          </h3>
           <p>
             In order to do an age-adjustment, we needed the following pieces of
             information:
@@ -174,9 +174,9 @@ const AgeAdjustmentLink = () => {
               </ul>
             </li>
           </ol>
-          <h4 id='#algorithm' className='mt-20 text-title font-medium'>
+          <h3 id='#algorithm' className='mt-20 text-title font-medium'>
             Algorithm
-          </h4>
+          </h3>
           <p>
             In order to generate the age-adjusted ratios, we do the following
           </p>

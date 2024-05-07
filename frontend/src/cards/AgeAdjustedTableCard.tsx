@@ -28,7 +28,7 @@ import {
   type RaceAndEthnicityGroup,
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
-import { OLD_AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
+import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -104,9 +104,9 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
   const ageAdjustedDataTypes: DataTypeConfig[] = dropdownId
     ? METRIC_CONFIG[dropdownId].filter((dataType) => {
-        // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
-        return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
-      })
+      // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
+      return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
+    })
     : []
 
   const HASH_ID: ScrollableHashId = 'age-adjusted-ratios'
@@ -152,7 +152,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 queryResponse={raceQueryResponse}
                 demographicType={
                   props.demographicType === AGE ||
-                  props.demographicType === RACE
+                    props.demographicType === RACE
                     ? RACE
                     : props.demographicType
                 }
@@ -169,16 +169,15 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               isWrongDemographicType ||
               raceQueryResponse.dataIsMissing() ||
               raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
-              <MissingDataAlert
-                dataName={chartTitle}
-                demographicTypeString={
-                  DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
-                }
-                dropdownVarId={props.dropdownVarId}
-                ageAdjustedDataTypes={ageAdjustedDataTypes}
-                fips={props.fips}
-              />
-            )}
+                <MissingDataAlert
+                  dataName={chartTitle}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
+                  }
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
+                  fips={props.fips}
+                />
+              )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&
@@ -200,7 +199,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               per age group. By normalizing for age, we can paint a more
               accurate picture of undue burden of disease and death between
               populations. More details can be found in our{' '}
-              <Link to={OLD_AGE_ADJUSTMENT_LINK}>
+              <Link to={AGE_ADJUSTMENT_LINK}>
                 age-adjustment methodology
               </Link>
               .

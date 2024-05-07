@@ -90,11 +90,9 @@ interface MultiMapDialogProps {
     value in a given demographicType for a particular metric.
 */
 export default function MultiMapDialog(props: MultiMapDialogProps) {
-  const title = `${
-    props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all ${
-    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-  } groups`
+  const title = `${props.metricConfig.chartTitle
+    } in ${props.fips.getSentenceDisplayName()} across all ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+    } groups`
 
   const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
     '#multi-map-close-button1',
@@ -161,7 +159,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <div className='col-span-full flex w-full justify-between'>
             {/* Modal Title */}
             <h2
-              className='m-2 w-full font-sansTitle text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
+              className='m-2 w-full text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
               id='modalTitle'
             >
               {title}
@@ -180,6 +178,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               const dataForValue = props.data.filter(
                 (row: Row) => row[props.demographicType] === demographicGroup
               )
+
               return (
                 <li
                   key={`${demographicGroup}-grid-item`}

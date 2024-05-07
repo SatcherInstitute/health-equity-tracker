@@ -7,14 +7,14 @@ import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, github_util
 
-from ingestion.dataset_utils import generate_per_100k_col
+from ingestion.dataset_utils import generate_pct_rate_col
 
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 
 from ingestion.constants import STATE_LEVEL, RACE
 
 BASE_KFF_URL_TOTALS_STATE = (
-    'https://raw.githubusercontent.com/KFFData/COVID-19-Data/' 'kff_master/State%20Trend%20Data/State_Trend_Data.csv'
+    'https://raw.githubusercontent.com/KFFData/COVID-19-Data/kff_master/State%20Trend%20Data/State_Trend_Data.csv'
 )
 
 BASE_GITHUB_API_URL = "https://api.github.com/repos/KFFData/COVID-19-Data/git/trees/kff_master?recursive=1"
@@ -97,21 +97,21 @@ def get_data_url(data_type):
     urls = df.loc[df['path'] == df['path'].max()].url
 
     if len(urls) != 1:
-        raise ValueError("Found %d urls, should have only found 1" % len(urls))
+        raise ValueError(f"Found {len(urls)} urls, should have only found 1")
 
     return urls.values[0]
 
 
 def generate_total_pct_key(race):
-    return '%% of Total %s Population Vaccinated' % race
+    return f'% of Total {race} Population Vaccinated'
 
 
 def generate_pct_share_key(race):
-    return '%s %% of Vaccinations' % race
+    return f'{race} % of Vaccinations'
 
 
 def generate_pct_of_population_key(race):
-    return '%s Percent of Total Population' % race
+    return f'{race} Percent of Total Population'
 
 
 def get_unknown_rows(df, state):
@@ -153,7 +153,7 @@ def generate_output_row(state_row_pct_share, state_row_pct_total, state_row_pct_
     output_row[std_col.VACCINATED_PCT_SHARE] = str(state_row_pct_share[generate_pct_share_key(race)].values[0])
 
     if race in KFF_RACES_PCT_TOTAL:
-        output_row[std_col.VACCINATED_PER_100K] = str(state_row_pct_total[generate_total_pct_key(race)].values[0])
+        output_row[std_col.VACCINATED_PCT_RATE] = str(state_row_pct_total[generate_total_pct_key(race)].values[0])
         output_row[std_col.VACCINATED_POP_PCT] = str(
             state_row_pct_population[generate_pct_of_population_key(race)].values[0]
         )
@@ -215,7 +215,7 @@ class KFFVaccination(DataSource):
             std_col.STATE_NAME_COL,
             std_col.RACE_CATEGORY_ID_COL,
             std_col.VACCINATED_PCT_SHARE,
-            std_col.VACCINATED_PER_100K,
+            std_col.VACCINATED_PCT_RATE,
             VACCINATED_FIRST_DOSE,
             std_col.VACCINATED_POP_PCT,
         ]
@@ -264,13 +264,13 @@ class KFFVaccination(DataSource):
         df = clean_row(df, std_col.VACCINATED_POP_PCT)
         df[std_col.VACCINATED_POP_PCT] = df[std_col.VACCINATED_POP_PCT] * 100
 
-        df = clean_row(df, std_col.VACCINATED_PER_100K)
-        df[std_col.VACCINATED_PER_100K] = df[std_col.VACCINATED_PER_100K] * 1000 * 100
+        df = clean_row(df, std_col.VACCINATED_PCT_RATE)
+        df[std_col.VACCINATED_PCT_RATE] = df[std_col.VACCINATED_PCT_RATE] * 100
 
         total_df = df.loc[~df[VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
         total_df = merge_pop_numbers(total_df, RACE, STATE_LEVEL)
-        total_df = generate_per_100k_col(
-            total_df, VACCINATED_FIRST_DOSE, std_col.POPULATION_COL, std_col.VACCINATED_PER_100K
+        total_df = generate_pct_rate_col(
+            total_df, VACCINATED_FIRST_DOSE, std_col.POPULATION_COL, std_col.VACCINATED_PCT_RATE
         )
 
         df = df.loc[df[VACCINATED_FIRST_DOSE].isnull()].reset_index(drop=True)
@@ -279,7 +279,14 @@ class KFFVaccination(DataSource):
         df = df.drop(columns=std_col.POPULATION_PCT_COL)
 
         df = merge_pop_numbers(df, RACE, STATE_LEVEL)
-        df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.ACS_VACCINATED_POP_PCT})
+        df = df.rename(
+            columns={
+                std_col.POPULATION_PCT_COL: std_col.ACS_VACCINATED_POP_PCT,
+                VACCINATED_FIRST_DOSE: std_col.VACCINATED_RAW,
+            }
+        )
+
+        df[std_col.VACCINATED_RAW] = df[std_col.VACCINATED_RAW].astype(float)
 
         df = df[
             [
@@ -287,23 +294,25 @@ class KFFVaccination(DataSource):
                 std_col.STATE_FIPS_COL,
                 std_col.RACE_CATEGORY_ID_COL,
                 std_col.VACCINATED_PCT_SHARE,
-                std_col.VACCINATED_PER_100K,
+                std_col.VACCINATED_PCT_RATE,
                 std_col.VACCINATED_POP_PCT,
                 std_col.ACS_VACCINATED_POP_PCT,
+                std_col.VACCINATED_RAW,
             ]
         ]
 
         return df
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         df = self.parse_data()
         df = self.post_process(df)
 
         float_cols = [
             std_col.VACCINATED_PCT_SHARE,
-            std_col.VACCINATED_PER_100K,
+            std_col.VACCINATED_PCT_RATE,
             std_col.VACCINATED_POP_PCT,
             std_col.ACS_VACCINATED_POP_PCT,
+            std_col.VACCINATED_RAW,
         ]
 
         # WRITE RACE TABLE
@@ -312,9 +321,10 @@ class KFFVaccination(DataSource):
         gcs_to_bq_util.add_df_to_bq(df, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_state', column_types=col_types)
 
         # WRITE ALLS TABLE FOR SEX/AGE (get just the All rows from the race table and add needed cols)
+        df = df.copy()
         df = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value]
-        df[std_col.SEX_COL] = std_col.ALL_VALUE
-        df[std_col.AGE_COL] = std_col.ALL_VALUE
+        df.loc[:, std_col.SEX_COL] = std_col.ALL_VALUE
+        df.loc[:, std_col.AGE_COL] = std_col.ALL_VALUE
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
         gcs_to_bq_util.add_df_to_bq(df, dataset, 'alls_state', column_types=col_types)
 

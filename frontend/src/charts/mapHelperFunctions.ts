@@ -1,14 +1,14 @@
-import { type MetricId, type MetricType } from '../data/config/MetricConfig'
+import { DataTypeConfig, isPctType, type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
 import {
   type DemographicGroup,
-  LESS_THAN_1,
   raceNameToCodeMap,
   ALL,
   RACE,
   AGE,
+  LESS_THAN_POINT_1,
 } from '../data/utils/Constants'
 import { type ScaleType, type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
@@ -31,6 +31,7 @@ import {
   type CountColsMap,
 } from './mapGlobals'
 import { het } from '../styles/DesignTokens'
+import { formatterMap, LegendNumberFormat } from './legendHelperFunctions'
 
 /*
 
@@ -84,17 +85,17 @@ export function addCountsTooltipInfo(
   const numeratorPhrase = isCawp
     ? getCawpMapGroupNumeratorLabel(countColsMap, activeDemographicGroup)
     : getMapGroupLabel(
-        demographicType,
-        activeDemographicGroup,
-        countColsMap?.numeratorConfig?.shortLabel ?? ''
-      )
+      demographicType,
+      activeDemographicGroup,
+      countColsMap?.numeratorConfig?.shortLabel ?? ''
+    )
   const denominatorPhrase = isCawp
     ? getCawpMapGroupDenominatorLabel(countColsMap)
     : getMapGroupLabel(
-        demographicType,
-        activeDemographicGroup,
-        countColsMap?.denominatorConfig?.shortLabel ?? ''
-      )
+      demographicType,
+      activeDemographicGroup,
+      countColsMap?.denominatorConfig?.shortLabel ?? ''
+    )
 
   if (countColsMap?.numeratorConfig) {
     tooltipPairs[`# ${numeratorPhrase}`] =
@@ -111,18 +112,26 @@ export function addCountsTooltipInfo(
 
 /*
  formatted tooltip hover 100k values that round to zero should display as <1, otherwise should get pretty commas
+ percent types get a single decimal place and the %
+ every else gets passed through with commas for thousands
 */
 export function formatPreventZero100k(
   metricType: MetricType,
   metricId: MetricId
 ) {
+
+  const isPct = isPctType(metricType)
+  const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : 'truncateWithK'
+  const d3Format = formatterMap[legendFormatterType]
+
+
   if (metricType === 'per100k') {
-    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
-  } else if (metricType === 'index') {
-    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ''`
-  } else {
+    return `if (datum.${metricId} >= .1, format(datum.${metricId}, '${d3Format}'), '${LESS_THAN_POINT_1}') + ' per 100k'`
+  }
+  if (isPctType(metricType)) {
     return `format(datum.${metricId}, ',') + '%'`
   }
+  return `format(datum.${metricId}, ',')`
 }
 
 /*
@@ -250,9 +259,8 @@ export function makeAltText(
     : `Map showing ${filename}`
 
   if (!fips.isCounty() && !overrideShapeWithCircle) {
-    altText += `: including data from ${
-      data.length
-    } ${fips.getPluralChildFipsTypeDisplayName()}`
+    altText += `: including data from ${data.length
+      } ${fips.getPluralChildFipsTypeDisplayName()}`
   }
 
   return altText
@@ -267,22 +275,22 @@ export function getProjection(
 ) {
   return overrideShapeWithCircle
     ? {
-        name: CIRCLE_PROJECTION,
-        type: 'albersUsa',
-        scale: 1100,
-        translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
-      }
+      name: CIRCLE_PROJECTION,
+      type: 'albersUsa',
+      scale: 1100,
+      translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
+    }
     : {
-        name: US_PROJECTION,
-        type:
-          fips.isTerritory() || fips.getParentFips().isTerritory()
-            ? 'albers'
-            : 'albersUsa',
-        fit: { signal: "data('" + GEO_DATASET + "')" },
-        size: {
-          signal: '[' + width + ', ' + width * heightWidthRatio + ']',
-        },
-      }
+      name: US_PROJECTION,
+      type:
+        fips.isTerritory() || fips.getParentFips().isTerritory()
+          ? 'albers'
+          : 'albersUsa',
+      fit: { signal: "data('" + GEO_DATASET + "')" },
+      size: {
+        signal: '[' + width + ', ' + width * heightWidthRatio + ']',
+      },
+    }
 }
 
 /*
@@ -354,6 +362,7 @@ export function setupColorScale(
 }
 
 export function getHighestLowestGroupsByFips(
+  dataTypeConfig: DataTypeConfig,
   fullData?: Row[],
   demographicType?: DemographicType,
   metricId?: MetricId
@@ -386,15 +395,15 @@ export function getHighestLowestGroupsByFips(
       fipsToGroup[fips] = {
         highest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[
-            ascendingGroups.length - 1
+          ascendingGroups.length - 1
           ],
           /* demographicType:  */ demographicType,
-          metricId
+          dataTypeConfig
         ),
         lowest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[0],
           /* demographicType:  */ demographicType,
-          metricId
+          dataTypeConfig
         ),
       }
       // TIE OVERRIDES

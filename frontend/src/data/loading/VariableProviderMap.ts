@@ -11,6 +11,8 @@ import VaccineProvider from '../providers/VaccineProvider'
 import PhrmaProvider from '../providers/PhrmaProvider'
 import GeoContextProvider from '../providers/GeoContextProvider'
 import GunViolenceProvider from '../providers/GunViolenceProvider'
+import GunViolenceYouthProvider from '../providers/GunViolenceYouthProvider'
+import GunViolenceBlackMenProvider from '../providers/GunDeathsBlackMenProvider'
 
 export type ProviderId =
   | 'acs_condition_provider'
@@ -21,6 +23,8 @@ export type ProviderId =
   | 'covid_provider'
   | 'geo_context_provider'
   | 'gun_violence_provider'
+  | 'gun_violence_youth_provider'
+  | 'gun_violence_black_men_provider'
   | 'hiv_provider'
   | 'incarceration_provider'
   | 'phrma_provider'
@@ -41,10 +45,12 @@ export default class VariableProviderMap {
       new CdcCovidProvider(acsProvider),
       new GeoContextProvider(),
       new GunViolenceProvider(),
+      new GunViolenceYouthProvider(),
+      new GunViolenceBlackMenProvider(),
       new HivProvider(),
       new IncarcerationProvider(),
       new PhrmaProvider(),
-      new VaccineProvider(acsProvider),
+      new VaccineProvider(),
     ]
     this.providersById = this.getProvidersById()
     this.metricsToProviderIds = this.getMetricsToProviderIdsMap()

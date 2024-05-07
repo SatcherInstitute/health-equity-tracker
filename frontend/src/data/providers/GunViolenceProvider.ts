@@ -1,4 +1,3 @@
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type Breakdowns } from '../query/Breakdowns'
 import { DataTypeId, MetricId } from '../config/MetricConfig'
 import { type DatasetId } from '../config/DatasetMetadata'
@@ -10,55 +9,38 @@ export const SHOW_GUN_VIOLENCE = import.meta.env.VITE_SHOW_GUN_VIOLENCE
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
   'gun_violence_homicide',
-  'gun_violence_injuries',
-  'gun_violence_legal_intervention',
   'gun_violence_suicide',
 ]
 
-export const GUN_VIOLENCE_HOMICIDE_METRICS: MetricId[] = [
+export const GUN_HOMICIDE_METRIC_IDS: MetricId[] = [
   'gun_violence_homicide_estimated_total',
   'gun_violence_homicide_pct_relative_inequity',
   'gun_violence_homicide_pct_share',
   'gun_violence_homicide_per_100k',
 ]
 
-export const GUN_VIOLENCE_INJURIES_METRICS: MetricId[] = [
-  'gun_violence_injuries_estimated_total',
-  'gun_violence_injuries_pct_relative_inequity',
-  'gun_violence_injuries_pct_share',
-  'gun_violence_injuries_per_100k',
-]
-
-export const GUN_VIOLENCE_LEGAL_INTERVENTION_METRICS: MetricId[] = [
-  'gun_violence_legal_intervention_estimated_total',
-  'gun_violence_legal_intervention_pct_relative_inequity',
-  'gun_violence_legal_intervention_pct_share',
-  'gun_violence_legal_intervention_per_100k',
-]
-
-export const GUN_VIOLENCE_SUICIDE_METRICS: MetricId[] = [
+export const GUN_SUICIDE_METRIC_IDS: MetricId[] = [
   'gun_violence_suicide_estimated_total',
   'gun_violence_suicide_pct_relative_inequity',
   'gun_violence_suicide_pct_share',
   'gun_violence_suicide_per_100k',
 ]
 
-export const POPULATION_METRICS: MetricId[] = [
+export const POPULATION_METRIC_IDS: MetricId[] = [
   'fatal_population_pct',
-  'non_fatal_population_pct',
+  'fatal_population',
 ]
 
-const GUN_VIOLENCE_METRICS: MetricId[] = [
-  ...GUN_VIOLENCE_HOMICIDE_METRICS,
-  ...GUN_VIOLENCE_INJURIES_METRICS,
-  ...GUN_VIOLENCE_LEGAL_INTERVENTION_METRICS,
-  ...GUN_VIOLENCE_SUICIDE_METRICS,
-  ...POPULATION_METRICS,
+const GUN_DEATH_METRIC_IDS: MetricId[] = [
+  ...GUN_HOMICIDE_METRIC_IDS,
+  ...GUN_SUICIDE_METRIC_IDS,
+  ...POPULATION_METRIC_IDS,
+  'gun_violence_legal_intervention_estimated_total',
 ]
 
 class GunViolenceProvider extends VariableProvider {
   constructor() {
-    super('gun_violence_provider', GUN_VIOLENCE_METRICS)
+    super('gun_violence_provider', GUN_DEATH_METRIC_IDS)
   }
 
   getDatasetId(
@@ -131,14 +113,13 @@ class GunViolenceProvider extends VariableProvider {
       const consumedDatasetIds = [datasetId]
       return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
     } catch (error) {
-      console.error('Error fetching gun violence data:', error)
+      console.error('Error fetching gun deaths data:', error)
       throw error
     }
   }
 
   allowsBreakdowns(
     breakdowns: Breakdowns,
-    metricIds?: MetricId[] | undefined
   ): boolean {
     const validDemographicBreakdownRequest =
       breakdowns.hasExactlyOneDemographic()

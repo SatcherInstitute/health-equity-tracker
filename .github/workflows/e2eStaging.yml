@@ -1,4 +1,4 @@
-name: Run E2Es Against Staging CI
+name: RUN Frontend E2Es Against Dev Site
 
 on:
   push:

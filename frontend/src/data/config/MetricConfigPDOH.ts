@@ -1,3 +1,4 @@
+// 123
 import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
@@ -25,6 +26,8 @@ export type PDOHMetricId =
   | 'ahr_population_pct'
   | 'cawp_population_pct'
   | 'incarceration_population_pct'
+  | 'incarceration_population_estimated_total'
+  | 'jail_estimated_total'
   | 'jail_pct_relative_inequity'
   | 'jail_pct_share'
   | 'jail_per_100k'
@@ -32,6 +35,7 @@ export type PDOHMetricId =
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
+  | 'prison_estimated_total'
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
@@ -64,6 +68,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
     definition: {
       text: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
     },
+    ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_rate: {
         metricId: 'voter_participation_pct_rate',
@@ -106,6 +111,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
       text: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
     },
     dataTableTitle: 'Breakdown summary for Women in US Congress',
+    otherSubPopulationLabel: 'US Congress members incl. Territorial Delegates',
     metrics: {
       pct_rate: {
         metricId: 'pct_share_of_us_congress',
@@ -165,7 +171,10 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
       text: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
     },
     dataTableTitle: 'Breakdown summary for Women in state legislatures',
+    otherSubPopulationLabel: 'State and Territorial Legislators',
+
     metrics: {
+
       pct_rate: {
         metricId: 'pct_share_of_state_leg',
         chartTitle: 'Percentage of state legislators identifying as women',
@@ -233,6 +242,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people in prison',
     metrics: {
+
       per100k: {
         metricId: 'prison_per_100k',
         chartTitle: 'Prison incarceration',
@@ -240,6 +250,18 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People in prison per 100k',
         shortLabel: 'prison per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'prison_estimated_total',
+          shortLabel: 'in prison',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'incarceration_population_estimated_total',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total prison population',
@@ -288,6 +310,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people in jail',
     metrics: {
+
       per100k: {
         metricId: 'jail_per_100k',
         chartTitle: 'Jail incarceration',
@@ -295,6 +318,18 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'People in jail per 100k',
         shortLabel: 'jail per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'jail_estimated_total',
+          shortLabel: 'in jail',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'incarceration_population_estimated_total',
+          shortLabel: 'Total population',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total jail population',

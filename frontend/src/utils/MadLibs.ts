@@ -6,6 +6,7 @@ import {
 } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
@@ -15,6 +16,7 @@ import {
 } from '../data/config/MetricConfigPhrma'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
+import { SHOW_GUN_VIOLENCE } from '../data/providers/GunViolenceProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { FIPS_MAP } from '../data/utils/FipsData'
 
@@ -45,6 +47,7 @@ export const CategoryMap = {
   medicare: 'Medication Utilization',
   pdoh: 'Political Determinants of Health',
   sdoh: 'Social Determinants of Health',
+  'community-safety': 'Community Safety',
 }
 
 export type CategoryTypeId = keyof typeof CategoryMap
@@ -140,7 +143,9 @@ export const DROPDOWN_TOPIC_MAP: Record<
   diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
-  gun_violence: 'Gun Violence (General Population)',
+  gun_violence: 'Gun Homicides and Suicides',
+  gun_violence_youth: 'Gun Deaths (Youth)',
+  gun_deaths_black_men: 'Gun Homicides (Black Men)',
   health_insurance: 'Uninsured Individuals',
   hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',
@@ -168,7 +173,9 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
-  gun_violence: 'Gun Violence',
+  gun_violence: 'Gun',
+  gun_violence_youth: 'All Gun Deaths for',
+  gun_deaths_black_men: 'Gun Homicides of Black Men',
 }
 
 export interface Category {
@@ -191,8 +198,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Behavioral Health',
     definition: '',
-    options:
-      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+    options: BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Political Determinants of Health',
@@ -217,7 +223,15 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: COVID_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-]
+  ...(SHOW_GUN_VIOLENCE ? [
+    {
+      title: 'Community Safety',
+      definition: '',
+      options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
+    }
+  ] : [])
+];
+
 
 const MADLIB_LIST: MadLib[] = [
   {
