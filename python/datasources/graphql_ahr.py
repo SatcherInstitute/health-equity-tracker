@@ -111,7 +111,9 @@ AHR_AGE_STRINGS = list(AGE_GROUPS_TO_STANDARD.keys())
 AHR_RACE_STRINGS = list(RACE_GROUPS_TO_STANDARD.keys())
 AHR_SEX_STRINGS = ['Female', 'Male']
 
-CURRENT_COLS = list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values())
+TIME_MAP = {
+    CURRENT: list(RAW_TOTALS_MAP.values()) + list(AHR_BASE_MEASURES.values()) + list(PCT_SHARE_MAP.values()),
+}
 
 
 class GraphQlAHRData(DataSource):
@@ -129,17 +131,18 @@ class GraphQlAHRData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geographic = self.get_attr(attrs, "geographic")
-        table_name = f"{demographic}_{geographic}"
-
+        
         response_data = gcs_to_bq_util.fetch_ahr_data_from_graphql()
 
         df = graphql_response_to_dataframe(response_data, geographic)
 
         df = self.generate_breakdown_df(df, demographic, geographic)
 
-        df_for_bq, col_types = generate_time_df_with_cols_and_types(
-            df, CURRENT_COLS, CURRENT, demographic, current_year='2021'
-        )
+        for table_type in [CURRENT]:
+            table_name = f"{demographic}_{geographic}_{table_type}"
+            time_cols = TIME_MAP[table_type]
+
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -246,6 +249,10 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geographic: GEO_
     breakdown_df = breakdown_df.sort_values(
         by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
     )
+
+    breakdown_df['time_period'] = pd.to_datetime(breakdown_df['time_period'])
+    breakdown_df['time_period'] = breakdown_df['time_period'].dt.year
+    breakdown_df = breakdown_df[breakdown_df['time_period'] <= 2021]
 
     return breakdown_df
 
