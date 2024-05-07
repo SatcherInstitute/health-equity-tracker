@@ -128,7 +128,7 @@ class GraphQlAHRData(DataSource):
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError('upload_to_gcs should not be called for AHRData')
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geographic = self.get_attr(attrs, "geographic")
 
@@ -261,21 +261,21 @@ def create_measure_map():
     measure_map = {std_col.AGE_COL: [], std_col.RACE_OR_HISPANIC_COL: [], std_col.SEX_COL: []}
 
     for base_measure in AHR_BASE_MEASURES:
-        for category in measure_map:
-            measure_map[category].append(base_measure)
+        for category, measures_list in measure_map.items():
+            measures_list.append(base_measure)
 
-    for category in measure_map:
+    for category, measures_list in measure_map.items():
         for base_measure in AHR_BASE_MEASURES:
             if base_measure == 'Non-Medical Drug Use - Past Year':
                 base_measure = 'Non-Medical Drug Use'
             if category is std_col.AGE_COL:
                 for demographic in AHR_AGE_STRINGS:
-                    measure_map[category].append(f"{base_measure} - {demographic}")
+                    measures_list.append(f"{base_measure} - {demographic}")
             if category is std_col.RACE_OR_HISPANIC_COL:
                 for demographic in AHR_RACE_STRINGS:
-                    measure_map[category].append(f"{base_measure} - {demographic}")
+                    measures_list.append(f"{base_measure} - {demographic}")
             if category is std_col.SEX_COL:
                 for demographic in AHR_SEX_STRINGS:
-                    measure_map[category].append(f"{base_measure} - {demographic}")
+                    measures_list.append(f"{base_measure} - {demographic}")
 
     return measure_map
