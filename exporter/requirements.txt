@@ -105,7 +105,7 @@ protobuf==4.25.3
     #   googleapis-common-protos
     #   grpcio-status
     #   proto-plus
-pyarrow==9.0.0
+pyarrow==14.0.1
     # via db-dtypes
 pyasn1==0.4.8
     # via
