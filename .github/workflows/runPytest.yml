@@ -42,13 +42,21 @@ jobs:
         run: pytest python/
 
       - name: Run pytest tests in data_server/ directory
-        run: pytest data_server/
+        run: |
+          pip install -r data_server/requirements.txt
+          pytest data_server/
 
       - name: Run pytest tests in exporter directory
-        run: pytest exporter/
+        run: |
+          pip install -r exporter/requirements.txt
+          pytest exporter/
 
       - name: Run pytest tests in run_gcs_to_bq directory
-        run: pytest run_gcs_to_bq/
+        run: |
+          pip install -r run_gcs_to_bq/requirements.txt
+          pytest run_gcs_to_bq/
 
       - name: Run pytest tests in run_ingestion directory
-        run: pytest run_ingestion/
+        run: |
+          pip install -r run_ingestion/requirements.txt
+          pytest run_ingestion/
