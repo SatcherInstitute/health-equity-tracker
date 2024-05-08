@@ -9,8 +9,7 @@ from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
-AHR_API_KEY = 'TGSG5RI-3Z5U6JQ-SFBSMKA-6JPIG3A'
-api_key = os.getenv("AHR_API_KEY")
+ahr_api_key = os.getenv("AHR_API_KEY")
 
 
 def __convert_frame_to_json(frame):
@@ -423,7 +422,7 @@ def fetch_ahr_data_from_graphql():
     """
 
     graphql_url = 'https://api.americashealthrankings.org/graphql'
-    headers = {'Content-Type': 'application/json', 'x-api-key': AHR_API_KEY}
+    headers = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
     all_responses = []
 
     query = """
@@ -474,8 +473,6 @@ def fetch_ahr_data_from_graphql():
 
         if response.status_code == 200:
             # Collect each successful responses
-            print('--')
-            print(api_key)
             all_responses.append(response.json().get('data')['measures_A'])
         else:
             print("HTTP Error:", response.status_code)
