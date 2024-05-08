@@ -126,7 +126,7 @@ export const RESOURCES: ResourceGroup = {
 
     {
       name: 'Medical Justice In Advocacy Fellowship',
-      url: 'https://www.ama-assn.org/delivering-care/health-equity/medical-justice-advocacy-fellowship',
+      url: 'https://www.ama-assn.org/about/ama-center-health-equity/medical-justice-advocacy-fellowship'
     },
   ],
 }

@@ -75,6 +75,8 @@ import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import { DatasetId } from '../data/config/DatasetMetadata'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import HetTerm from '../styles/HetComponents/HetTerm'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -437,6 +439,9 @@ function MapCardWithKey(props: MapCardProps) {
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
+        const percentRateTooHigh = metricConfig.type === 'pct_rate' && mapQueryResponse.data.some((row) => row[metricConfig.metricId] > 100)
+
+
         return (
           <>
             <MultiMapDialog
@@ -616,6 +621,13 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
+                {percentRateTooHigh && (
+                  <HetNotice title="Percentages Over 100%" kind="data-integrity" >
+                    <>In some locations, the <HetTerm>percent rates</HetTerm> exceed 100%, which can be confusing and may indicate inconsistency in the source data.</>
+                    {metricId === 'vaccinated_pct_rate' && <>
+                      {" "}In the case of <HetTerm>COVID-19 vaccinations</HetTerm>, the number of first-dose vaccines administered in a location could have been higher than the population of that location if individuals came from other locations to receive the vaccine, and also if individuals chose to receive more than a single "first-dose" vaccine.</>}
+                  </HetNotice>
+                )}
               </div>
             </div>
           </>
@@ -624,3 +636,4 @@ function MapCardWithKey(props: MapCardProps) {
     </CardWrapper>
   )
 }
+
