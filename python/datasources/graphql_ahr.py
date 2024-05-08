@@ -176,9 +176,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
 
         # Extracts the breakdown from the 'Measure' column and placies it in the 'breakdown_col'
         breakdown_df.loc[is_topic_present, breakdown_col] = (
-            breakdown_df.loc[is_topic_present, 'Measure']
-            .str.replace(ahr_topic, "", regex=False)
-            .str.strip(" - ")
+            breakdown_df.loc[is_topic_present, 'Measure'].str.replace(ahr_topic, "", regex=False).str.strip(" - ")
         )
 
         # Fills any empty breakdown_col rows with the 'ALL' value
