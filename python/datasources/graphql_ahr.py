@@ -174,7 +174,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
         # Check if the ahr topic, e.g Asthma, is present in the `Measure` column
         is_topic_present = breakdown_df['Measure'].str.contains(ahr_topic, regex=False)
 
-        # Extracts the breakdown from the 'Measure' column and placies it in the 'breakdown_col'
+        # Extracts the breakdown from the 'Measure' column and places it in the 'breakdown_col'
         breakdown_df.loc[is_topic_present, breakdown_col] = (
             breakdown_df.loc[is_topic_present, 'Measure'].str.replace(ahr_topic, "", regex=False).str.strip(" - ")
         )
