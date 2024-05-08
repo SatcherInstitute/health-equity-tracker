@@ -48,7 +48,11 @@ jobs:
         run: pytest exporter/
 
       - name: Run pytest tests in run_gcs_to_bq directory
-        run: pytest run_gcs_to_bq/
+        run: |
+          pip install -r run_gcs_to_bq/requirements.txt
+          pytest run_gcs_to_bq/
 
       - name: Run pytest tests in run_ingestion directory
-        run: pytest run_ingestion/
+        run: |
+          pip install -r run_ingestion/requirements.txt
+          pytest run_ingestion/
