@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Function to display usage information
+usage() {
+  echo "Usage: $0 [--prod|--test]"
+  echo "Example that uploads the locally preprocessed COVID data to secure cloud storage for further DAG processing"
+  echo "$0 --test"
+  exit 1
+}
+
+# Check if an argument is provided
+if [ "$#" -ne 1 ]; then
+  usage
+fi
+
+# Check if the argument is either --prod or --test
+if [ "$1" != "--prod" ] && [ "$1" != "--test" ]; then
+  usage
+fi
+
+# Set the bucket destination based on the provided argument
+if [ "$1" == "--prod" ]; then
+  bucket="gs://prod-manual-data-bucket"
+else
+  bucket="gs://msm-test-manual-data-bucket"
+fi
+
+# Navigate up three directories to reach the local parent directory (the CDC and HET repos need to be neighbors)
+repos_parent_dir=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
+
+# Locate the data directory
+data_dir="${repos_parent_dir}/covid_case_restricted_detailed/data"
+
+# Find the most recently created directory within the data_dir
+most_recent_dir=""
+latest_date=""
+for dir in "${data_dir}"/*; do
+    if [[ -d "$dir" && "$dir" =~ /[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+        date_str=$(basename "$dir")
+        if [[ "$date_str" > "$latest_date" ]]; then
+            latest_date="$date_str"
+            most_recent_dir="$dir"
+        fi
+    fi
+done
+
+if [ -z "$most_recent_dir" ]; then
+  echo "No directories found in ${data_dir}"
+  exit 1
+fi
+
+# List csv files starting with "cdc_restricted_by_" in the most recently created directory
+csv_files=$(ls "${most_recent_dir}"/cdc_restricted_by_*.csv 2>/dev/null)
+
+if [ -z "$csv_files" ]; then
+  echo "No CSV files found."
+else
+  total_files=$(echo "$csv_files" | wc -w)
+  current_file_index=0
+
+  # Upload csv files to the specified bucket
+  for csv_file in $csv_files; do
+    current_file_index=$((current_file_index + 1))
+    gsutil cp "$csv_file" "$bucket/" && \
+    echo "File $current_file_index of $total_files uploaded: $csv_file"
+  done
+fi
