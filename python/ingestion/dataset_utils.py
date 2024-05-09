@@ -356,34 +356,6 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val, breakdo
     return result
 
 
-def add_estimated_total_columns(df: pd.DataFrame, per_100k_to_raw_count: dict, population_col: str):
-    """
-    Returns a DataFrame with added `estimated_total` columns for each given condition, based
-    on a mapping of condition per 100k columns to te new column names for estimated totals.
-
-    Parameters:
-        df: The DataFrame to be processed.
-        per_100k_to_raw_count: Dictionary mapping for conditions per 100k people
-                               to the new column names for the estimated totals.
-        population_col: Column name for population data.
-
-    Returns:
-        A DataFrame with added columns for each condition's estimated total.
-    """
-    for condition_per_100k, estimated_total_col in per_100k_to_raw_count.items():
-        condition_rate = df[condition_per_100k].fillna(0)
-        population = df[population_col].fillna(0)
-        estimated_total = (condition_rate / 100_000) * population
-
-        # Replace zeros back with NaN where original condition rates or populations were NaN
-        is_missing_or_zero = (df[condition_per_100k].isna()) | (df[population_col].isna()) | (df[population_col] == 0)
-        estimated_total[is_missing_or_zero] = np.nan
-
-        df[estimated_total_col] = round(estimated_total)
-
-    return df
-
-
 def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) -> pd.DataFrame:
     """
     Ensure a column contains values of a certain digit length, adding leading zeros as needed.
