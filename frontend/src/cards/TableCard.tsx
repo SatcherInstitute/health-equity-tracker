@@ -130,13 +130,12 @@ export default function TableCard(props: TableCardProps) {
     '#card-options-menu',
   ]
 
-  const subtitle = generateSubtitle(ALL, props.demographicType, metricIds[0])
+  const subtitle = generateSubtitle(ALL, props.demographicType, props.dataTypeConfig)
 
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${
-        props.dataTypeConfig.fullDisplayName
-      } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${props.dataTypeConfig.fullDisplayName
+        } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
