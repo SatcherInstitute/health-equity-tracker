@@ -216,7 +216,7 @@ def generate_national_dataset(state_df, groupby_cols):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby(groupby_cols).sum().reset_index()
+    df = state_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
