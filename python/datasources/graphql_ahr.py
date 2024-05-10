@@ -8,7 +8,12 @@ from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import generate_time_df_with_cols_and_types
-from ingestion.graphql_ahr_utils import generate_cols_map, AHR_BASE_MEASURES, PCT_RATE_TO_PER_100K_TOPICS
+from ingestion.graphql_ahr_utils import (
+    generate_cols_map,
+    fetch_ahr_data_from_graphql,
+    AHR_BASE_MEASURES,
+    PCT_RATE_TO_PER_100K_TOPICS,
+)
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
 
@@ -82,7 +87,7 @@ class GraphQlAHRData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        response_data = gcs_to_bq_util.fetch_ahr_data_from_graphql()
+        response_data = fetch_ahr_data_from_graphql()
 
         df = graphql_response_to_dataframe(response_data, geo_level)
 
