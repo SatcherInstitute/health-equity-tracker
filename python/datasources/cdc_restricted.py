@@ -3,40 +3,22 @@ import pandas as pd  # type: ignore
 import time
 
 import ingestion.standardized_columns as std_col
-from ingestion.standardized_columns import (
-    generate_column_name,
-    Race)
+from ingestion.standardized_columns import generate_column_name, Race
 
-from ingestion.constants import (
-    US_FIPS,
-    US_NAME,
-    NATIONAL_LEVEL,
-    STATE_LEVEL,
-    COUNTY_LEVEL,
-    RACE,
-    AGE,
-    SEX,
-    UNKNOWN)
+from ingestion.constants import US_FIPS, US_NAME, NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL, RACE, AGE, SEX, UNKNOWN
 
 from datasources.data_source import DataSource
-from datasources.cdc_restricted_local import (
-    RACE_NAMES_MAPPING,
-    SEX_NAMES_MAPPING,
-    AGE_NAMES_MAPPING)
+from datasources.cdc_restricted_local import RACE_NAMES_MAPPING, SEX_NAMES_MAPPING, AGE_NAMES_MAPPING
 
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
     generate_pct_rel_inequity_col,
-    zero_out_pct_rel_inequity
+    zero_out_pct_rel_inequity,
 )
 
-from ingestion.merge_utils import (
-    merge_state_ids,
-    merge_pop_numbers,
-    merge_multiple_pop_cols,
-    merge_county_names)
+from ingestion.merge_utils import merge_state_ids, merge_pop_numbers, merge_multiple_pop_cols, merge_county_names
 
 DC_COUNTY_FIPS = '11001'
 
@@ -53,13 +35,8 @@ COVID_CONDITION_TO_PREFIX = {
 
 COVID_RATES_TO_PCT_REL_INEQUITY_MAP = {}
 for prefix in COVID_CONDITION_TO_PREFIX.values():
-    COVID_RATES_TO_PCT_REL_INEQUITY_MAP[
-        generate_column_name(
-            prefix,
-            std_col.PER_100K_SUFFIX
-        )] = generate_column_name(
-        prefix,
-        std_col.PCT_REL_INEQUITY_SUFFIX
+    COVID_RATES_TO_PCT_REL_INEQUITY_MAP[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = generate_column_name(
+        prefix, std_col.PCT_REL_INEQUITY_SUFFIX
     )
 
 DEMO_COL_MAPPING = {
@@ -72,7 +49,6 @@ POPULATION_SUFFIX = 'population'
 
 
 class CDCRestrictedData(DataSource):
-
     @staticmethod
     def get_id():
         return 'CDC_RESTRICTED_DATA'
@@ -82,8 +58,7 @@ class CDCRestrictedData(DataSource):
         return 'cdc_restricted_data'
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError(
-            'upload_to_gcs should not be called for CDCRestrictedData')
+        raise NotImplementedError('upload_to_gcs should not be called for CDCRestrictedData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo = self.get_attr(attrs, 'demographic')
@@ -92,23 +67,20 @@ class CDCRestrictedData(DataSource):
             geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
             filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
 
-            df = gcs_to_bq_util.load_csv_as_df(
-                gcs_bucket, filename, dtype={'county_fips': str})
+            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename, dtype={'county_fips': str})
 
             df = self.generate_breakdown(df, demo, geo, time_series)
 
             if demo == RACE:
                 std_col.add_race_columns_from_category_id(df)
 
-            column_types = get_col_types(
-                df, add_rel_inequality_col=time_series)
+            column_types = get_col_types(df, add_rel_inequality_col=time_series)
 
             table_name = f'by_{demo}_{geo}_processed'
             if time_series:
                 table_name += '_time_series'
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=column_types)
+            gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
         if demo == RACE:
@@ -121,10 +93,15 @@ class CDCRestrictedData(DataSource):
 
                 self.clean_frame_column_names(df)
 
-                int_cols = [std_col.COVID_CASES, std_col.COVID_HOSP_Y,
-                            std_col.COVID_HOSP_N, std_col.COVID_HOSP_UNKNOWN,
-                            std_col.COVID_DEATH_Y, std_col.COVID_DEATH_N,
-                            std_col.COVID_DEATH_UNKNOWN]
+                int_cols = [
+                    std_col.COVID_CASES,
+                    std_col.COVID_HOSP_Y,
+                    std_col.COVID_HOSP_N,
+                    std_col.COVID_HOSP_UNKNOWN,
+                    std_col.COVID_DEATH_Y,
+                    std_col.COVID_DEATH_N,
+                    std_col.COVID_DEATH_UNKNOWN,
+                ]
 
                 # Add race metadata columns.
                 if std_col.RACE_CATEGORY_ID_COL in df.columns:
@@ -136,8 +113,7 @@ class CDCRestrictedData(DataSource):
                         column_types[col] = 'FLOAT'
 
                 print(f'uploading {table_name}')
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=column_types)
+                gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
     def generate_breakdown(self, df, demo, geo, time_series):
         print(f'processing {demo} {geo} time_series = {time_series}')
@@ -164,10 +140,9 @@ class CDCRestrictedData(DataSource):
             ]
 
             if geo == COUNTY_LEVEL:
-                groupby_cols.extend(
-                    [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+                groupby_cols.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
-            df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
+            df = df.groupby(groupby_cols).sum(min_count=1, numeric_only=True).reset_index()
 
         else:
             all_columns.append(std_col.TIME_PERIOD_COL)
@@ -175,8 +150,7 @@ class CDCRestrictedData(DataSource):
         df = merge_state_ids(df, keep_postal=True)
 
         if geo == COUNTY_LEVEL:
-            all_columns.extend(
-                [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
+            all_columns.extend([std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
             df = merge_county_names(df)
 
         if geo == NATIONAL_LEVEL:
@@ -201,42 +175,36 @@ class CDCRestrictedData(DataSource):
             df = remove_bad_fips_cols(df)
 
         df = merge_pop_numbers(df, demo, geo)
-        df = df.rename(
-            columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
+        df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.COVID_POPULATION_PCT})
 
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            per_100k_col = generate_column_name(
-                prefix, std_col.PER_100K_SUFFIX)
+            per_100k_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
             all_columns.append(per_100k_col)
 
             pop_col = std_col.POPULATION_COL
             if geo == NATIONAL_LEVEL:
-                pop_col = generate_column_name(
-                    raw_count_col, POPULATION_SUFFIX)
-            df = generate_per_100k_col(
-                df, raw_count_col, pop_col, per_100k_col)
+                pop_col = generate_column_name(raw_count_col, POPULATION_SUFFIX)
+            df = generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col)
 
         raw_count_to_pct_share = {}
         for raw_count_col, prefix in COVID_CONDITION_TO_PREFIX.items():
-            raw_count_to_pct_share[raw_count_col] = generate_column_name(
-                prefix, std_col.SHARE_SUFFIX)
+            raw_count_to_pct_share[raw_count_col] = generate_column_name(prefix, std_col.SHARE_SUFFIX)
 
         all_columns.extend(list(raw_count_to_pct_share.values()))
-        df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
-                                                  demo_col, all_val, unknown_val)
+        df = generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share, demo_col, all_val, unknown_val)
 
         if time_series and geo != NATIONAL_LEVEL:
             df = remove_or_set_to_zero(df, geo, demo)
 
         if time_series:
             for prefix in COVID_CONDITION_TO_PREFIX.values():
-                pct_relative_inequity_col = generate_column_name(
-
-                    prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
+                pct_relative_inequity_col = generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
                 df = generate_pct_rel_inequity_col(
-                    df, generate_column_name(prefix, std_col.SHARE_SUFFIX),
+                    df,
+                    generate_column_name(prefix, std_col.SHARE_SUFFIX),
                     std_col.COVID_POPULATION_PCT,
-                    pct_relative_inequity_col)
+                    pct_relative_inequity_col,
+                )
 
                 all_columns.append(pct_relative_inequity_col)
 
@@ -247,8 +215,7 @@ class CDCRestrictedData(DataSource):
             null_out_all_unknown_deaths_hosps(df)
 
         if time_series:
-            df = zero_out_pct_rel_inequity(
-                df, geo, demo, COVID_RATES_TO_PCT_REL_INEQUITY_MAP)
+            df = zero_out_pct_rel_inequity(df, geo, demo, COVID_RATES_TO_PCT_REL_INEQUITY_MAP)
 
         df = df[all_columns]
         self.clean_frame_column_names(df)
@@ -257,45 +224,42 @@ class CDCRestrictedData(DataSource):
         df = df.sort_values(by=sortby_cols).reset_index(drop=True)
 
         end = time.time()
-        print("took", round(end - start, 2),
-              f"seconds to process {demo} {geo}")
+        print("took", round(end - start, 2), f"seconds to process {demo} {geo}")
         return df
 
 
 def null_out_dc_county_rows(df):
     """Clear all county-level DC data. See issue for more details:
-       https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
+    https://github.com/SatcherInstitute/health-equity-tracker/issues/872.
 
-       Note: This is an in place function so it doesnt return anything
+    Note: This is an in place function so it doesnt return anything
 
-       df: DataFrame to remove DC info from"""
+    df: DataFrame to remove DC info from"""
     for prefix in COVID_CONDITION_TO_PREFIX.values():
-        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
-               generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = np.nan
-        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
-               generate_column_name(prefix, std_col.SHARE_SUFFIX)] = np.nan
+        df.loc[
+            df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+        ] = np.nan
+        df.loc[
+            df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, generate_column_name(prefix, std_col.SHARE_SUFFIX)
+        ] = np.nan
 
-    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS,
-           std_col.COVID_POPULATION_PCT] = np.nan
+    df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_POPULATION_PCT] = np.nan
 
 
 def get_col_types(df, add_rel_inequality_col=False):
     """Returns a dict of column types to send to bigquery
 
-      df: DataFrame to generate column types dict for
-      add_rel_inequality_col: Optional boolean paramater to add the
-                              `rel_inequality` parameter, defaults
-                              to False"""
+    df: DataFrame to generate column types dict for
+    add_rel_inequality_col: Optional boolean paramater to add the
+                            `rel_inequality` parameter, defaults
+                            to False"""
     column_types = {c: 'STRING' for c in df.columns}
     for prefix in COVID_CONDITION_TO_PREFIX.values():
-        column_types[generate_column_name(
-            prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(
-            prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
 
         if add_rel_inequality_col:
-            column_types[generate_column_name(
-                prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
+            column_types[generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
 
     column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
 
@@ -304,10 +268,11 @@ def get_col_types(df, add_rel_inequality_col=False):
 
 def remove_bad_fips_cols(df):
     """Throws out any row where the first two digits of the county fips do not
-       equal the state fips. This is a mistake in the dataset and we can not
-       tell where the cases are from.
+    equal the state fips. This is a mistake in the dataset and we can not
+    tell where the cases are from.
 
-       df: The DataFrame to toss rows out of."""
+    df: The DataFrame to toss rows out of."""
+
     def fips_code_is_good(row):
         return row[std_col.COUNTY_FIPS_COL][0:2] == row[std_col.STATE_FIPS_COL]
 
@@ -333,7 +298,7 @@ def generate_national_dataset(state_df, demo_col, time_series):
     groupby_cols = [demo_col]
     if time_series:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
-    df = state_df.groupby(groupby_cols).sum().reset_index()
+    df = state_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
     df[std_col.STATE_FIPS_COL] = US_FIPS
     df[std_col.STATE_NAME_COL] = US_NAME
@@ -375,12 +340,13 @@ def add_missing_demographic_values(df, geo, demographic):
     demog_col = DEMO_COL_MAPPING[demographic][0]
     all_demos = DEMO_COL_MAPPING[demographic][1]
     unknown_values = ["Unknown", std_col.Race.UNKNOWN.value]
-    all_demos = set([v for v in all_demos if v not in unknown_values])
+    all_demos = {v for v in all_demos if v not in unknown_values}
 
     # Map from each geo to the demographic values present. Note that multiple
     # values/columns may define each geo.
-    geo_demo_map = df.loc[:, geo_cols + [
-        demog_col, std_col.TIME_PERIOD_COL]].groupby(geo_cols + [std_col.TIME_PERIOD_COL])
+    geo_demo_map = df.loc[:, geo_cols + [demog_col, std_col.TIME_PERIOD_COL]].groupby(
+        geo_cols + [std_col.TIME_PERIOD_COL]
+    )
 
     geo_demo_map = geo_demo_map.agg({demog_col: list}).to_dict()[demog_col]
 
@@ -409,8 +375,7 @@ def add_missing_demographic_values(df, geo, demographic):
                 row.append(np.NaN)
         df_to_append.append(row)
 
-    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)],
-                     ignore_index=True)
+    return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)], ignore_index=True)
 
 
 def remove_or_set_to_zero(df, geo, demographic):
@@ -437,17 +402,13 @@ def remove_or_set_to_zero(df, geo, demographic):
     geo_cols = geo_col_mapping[geo]
     demog_col = DEMO_COL_MAPPING[demographic][0]
 
-    grouped_df = df.groupby(
-
-        geo_cols + [demog_col]).sum(min_count=1).reset_index()
-    grouped_df = grouped_df.rename(
-
-        columns={std_col.COVID_CASES: 'grouped_cases'})
+    grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1, numeric_only=True).reset_index()
+    grouped_df = grouped_df.rename(columns={std_col.COVID_CASES: 'grouped_cases'})
     grouped_df = grouped_df[geo_cols + [demog_col, 'grouped_cases']]
 
     # Remove all rows that have zero cases throughout the pandemic
     df = pd.merge(df, grouped_df, how='left', on=geo_cols + [demog_col])
-    df = df[~pd.isna(df['grouped_cases'])]
+    df = df[pd.notna(df['grouped_cases'])]
     df = df.drop(columns='grouped_cases')
 
     # Unknowns are a special case, we want to keep the per_100k values
@@ -470,17 +431,25 @@ def remove_or_set_to_zero(df, geo, demographic):
 
 def null_out_all_unknown_deaths_hosps(df):
     """If a given geo x breakdown has all unknown hospitalizations or deaths,
-       we treat it as if it has "no data," i.e. we clear the hosp/death fields.
-       Note: This is an in place function so it doesnt return anything
+    we treat it as if it has "no data," i.e. we clear the hosp/death fields.
+    Note: This is an in place function so it doesnt return anything
 
-       df: DataFrame to null out rows on"""
+    df: DataFrame to null out rows on"""
 
-    df.loc[df[std_col.COVID_DEATH_UNKNOWN] ==
-           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
-    df.loc[df[std_col.COVID_DEATH_UNKNOWN] ==
-           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
+    df.loc[
+        df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES],
+        generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.PER_100K_SUFFIX),
+    ] = np.nan
+    df.loc[
+        df[std_col.COVID_DEATH_UNKNOWN] == df[std_col.COVID_CASES],
+        generate_column_name(std_col.COVID_DEATH_PREFIX, std_col.SHARE_SUFFIX),
+    ] = np.nan
 
-    df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
-           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX)] = np.nan
-    df.loc[df[std_col.COVID_HOSP_UNKNOWN] ==
-           df[std_col.COVID_CASES], generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX)] = np.nan
+    df.loc[
+        df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES],
+        generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.PER_100K_SUFFIX),
+    ] = np.nan
+    df.loc[
+        df[std_col.COVID_HOSP_UNKNOWN] == df[std_col.COVID_CASES],
+        generate_column_name(std_col.COVID_HOSP_PREFIX, std_col.SHARE_SUFFIX),
+    ] = np.nan

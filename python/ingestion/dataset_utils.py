@@ -181,7 +181,7 @@ def generate_pct_share_col_with_unknowns(
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     # Calculate an all demographic based on the known cases.
-    alls = df.groupby(groupby_cols).sum().reset_index()
+    alls = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
     alls[breakdown_col] = all_val
     df = pd.concat([df, alls]).reset_index(drop=True)
 
@@ -348,7 +348,7 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val, breakdo
         for col in value_col:
             group_by_cols.remove(col)
 
-    sums = filtered_df.groupby(group_by_cols).sum().reset_index()
+    sums = filtered_df.groupby(group_by_cols).sum(numeric_only=True).reset_index()
     sums[breakdown_col] = new_row_breakdown_val
 
     result = pd.concat([df, sums])
@@ -452,7 +452,11 @@ def zero_out_pct_rel_inequity(
     df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
     df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
 
-    grouped_df = df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
+    grouped_df = (
+        df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL])
+        .sum(min_count=1, numeric_only=True)
+        .reset_index()
+    )
     grouped_df = grouped_df.rename(columns=per_100k_col_names)
     grouped_df = grouped_df[geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
 
