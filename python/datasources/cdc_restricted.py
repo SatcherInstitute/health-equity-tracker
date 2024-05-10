@@ -236,12 +236,11 @@ def null_out_dc_county_rows(df):
 
     df: DataFrame to remove DC info from"""
     for prefix in COVID_CONDITION_TO_PREFIX.values():
-        df.loc[
-            df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, generate_column_name(prefix, std_col.PER_100K_SUFFIX)
-        ] = np.nan
-        df.loc[
-            df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, generate_column_name(prefix, std_col.SHARE_SUFFIX)
-        ] = np.nan
+        rate_col = generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+        share_col = generate_column_name(prefix, std_col.SHARE_SUFFIX)
+
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, rate_col] = np.nan
+        df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, share_col] = np.nan
 
     df.loc[df[std_col.COUNTY_FIPS_COL] == DC_COUNTY_FIPS, std_col.COVID_POPULATION_PCT] = np.nan
 
