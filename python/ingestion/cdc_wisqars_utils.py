@@ -104,17 +104,23 @@ def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
         df[column] = pd.to_numeric(df[column], errors='coerce')
 
 
-def generate_cols_map(prefixes, suffix):
+def generate_cols_map(prefixes: List[str], suffix: str):
     """
-    Generates a mapping of columns with given prefixes to their corresponding columns
-    with specified suffix.
+    Generates a mapping of column prefixes to new column names, based on incoming list of prefixes and incoming
+    suffix. Note: if any of the incoming prefixes are in the count column format (ending in `_estimated_total`), the
+    resulting dict will use the original count col as the key, but will swap `_estimated_total`
+    for the new suffix in the column name value.
 
     Parameters:
-    prefixes (list): A list of prefixes to generate the mapping for.
-    suffix (str): The suffix to add to the columns.
+        estimated_total_cols (List[str]): A list of column prefix strings.
+        suffix (str): The new suffix that will be applied to the incoming list of prefixes
+        for the generated column names.
 
     Returns:
-    dict: A dictionary mapping the original prefixes to the modified prefixes with the
-    specified suffix.
+        dict: A dictionary mapping original prefixes to new column names with the specified suffix.
     """
-    return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
+
+    return {
+        estimated_total_col: estimated_total_col.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}"
+        for estimated_total_col in prefixes
+    }
