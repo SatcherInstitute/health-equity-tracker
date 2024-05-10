@@ -18,6 +18,7 @@ from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
 from datasources.decia_2010_territory_population import Decia2010TerritoryPopulationData
 from datasources.decia_2020_territory_population import Decia2020TerritoryPopulationData
 from datasources.geo_context import GeoContext
+from datasources.graphql_ahr import GraphQlAHRData
 from datasources.kff_vaccination import KFFVaccination
 from datasources.phrma import PhrmaData
 from datasources.maternal_mortality import MaternalMortalityData
@@ -46,6 +47,7 @@ DATA_SOURCES_DICT = {
     Decia2010TerritoryPopulationData.get_id(): Decia2010TerritoryPopulationData(),
     Decia2020TerritoryPopulationData.get_id(): Decia2020TerritoryPopulationData(),
     GeoContext.get_id(): GeoContext(),
+    GraphQlAHRData.get_id(): GraphQlAHRData(),
     KFFVaccination.get_id(): KFFVaccination(),
     PhrmaData.get_id(): PhrmaData(),
     MaternalMortalityData.get_id(): MaternalMortalityData(),

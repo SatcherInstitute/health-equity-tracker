@@ -22,6 +22,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      AHR_API_KEY: 'TGSG5RI-3Z5U6JQ-SFBSMKA-6JPIG3A'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,6 +40,9 @@ jobs:
           pip install pytest
           pip install -r requirements/tests.txt
           pip install python/ingestion python/data_server python/datasources
+
+      - name: Verify AHR_API_KEY is set
+        run: echo "AHR_API_KEY is set to $AHR_API_KEY"
 
       - name: Run pytest tests in python/ directory
         run: pytest python/
@@ -60,3 +66,4 @@ jobs:
         run: |
           pip install -r run_ingestion/requirements.txt
           pytest run_ingestion/
+

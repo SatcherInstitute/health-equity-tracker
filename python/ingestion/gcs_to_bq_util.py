@@ -299,7 +299,7 @@ def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_lis
     """
 
     file_path = os.path.join(DATA_DIR, directory, filename)
-    with open(file_path, 'r') as data_file:
+    with open(file_path, 'r', encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
     df = pd.json_normalize(data, key_list)
     return df
