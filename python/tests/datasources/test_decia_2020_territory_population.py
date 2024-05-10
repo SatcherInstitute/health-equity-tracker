@@ -12,6 +12,7 @@ GOLDEN_DIR = os.path.join(TEST_DIR, 'decia_2020_territory_population', 'golden_d
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
+    print("kwargs:", kwargs)
     df = pd.read_csv(os.path.join(TEST_DIR, directory, filename))
     return df
 
@@ -63,6 +64,9 @@ def testGenerateRaceTerritory(
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
     assert table_name == "by_race_and_ethnicity_territory_state_level"
     expected_df = pd.read_csv(os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
+
+    df = df.sort_values(by=['state_fips', 'race_category_id']).reset_index(drop=True)
+    expected_df = expected_df.sort_values(by=['state_fips', 'race_category_id']).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df, check_dtype=False, check_like=True)
 

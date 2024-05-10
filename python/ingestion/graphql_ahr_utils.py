@@ -110,7 +110,7 @@ def fetch_ahr_data_from_graphql():
         """
         variables = json.loads(variables_str)
         graphql_request = {'query': query, 'variables': variables}
-        response = requests.post(graphql_url, json=graphql_request, headers=headers)
+        response = requests.post(graphql_url, json=graphql_request, headers=headers, timeout=10)
 
         if response.status_code == 200:
             # Collect each successful responses
