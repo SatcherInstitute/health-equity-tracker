@@ -41,6 +41,9 @@ jobs:
           pip install -r requirements/tests.txt
           pip install python/ingestion python/data_server python/datasources
 
+      - name: Verify AHR_API_KEY is set
+        run: echo "AHR_API_KEY is set to $AHR_API_KEY"
+
       - name: Run pytest tests in python/ directory
         run: pytest python/
 
@@ -64,5 +67,3 @@ jobs:
           pip install -r run_ingestion/requirements.txt
           pytest run_ingestion/
 
-      - name: Verify AHR_API_KEY is set
-        run: echo "AHR_API_KEY is set to $AHR_API_KEY"
