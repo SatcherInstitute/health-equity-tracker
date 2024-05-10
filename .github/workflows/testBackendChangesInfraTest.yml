@@ -11,24 +11,16 @@ on:
 jobs:
   extract-api-key:
     runs-on: ubuntu-latest
-    outputs:
-      api-key: ${{ steps.extract.outputs.api-key }}
+    env:
+      AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
     steps:
-      - name: Extract API key
-        id: extract
-        run: echo "${{ secrets.AHR_API_KEY }}" > api_key.txt
       - name: Set API key as environment variable
-        shell: bash
-        run: echo "API_KEY=$(cat api_key.txt)" >> $GITHUB_ENV
+        run: echo "AHR_API_KEY=${{ secrets.AHR_API_KEY }}" >> $GITHUB_ENV
 
   build-ingestion:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push Data Ingestion Image
     runs-on: ubuntu-latest
-    needs: extract-api-key
-    env:
-      # Reference the API key output from extract-api-key job
-      API_KEY: ${{ needs.extract-api-key.outputs.api-key }}
     outputs:
       image-digest: ${{ steps.ingestion.outputs.image-digest }}
     steps:
