@@ -454,7 +454,7 @@ def zero_out_pct_rel_inequity(
 
     grouped_df = (
         df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL])
-        .sum(min_count=1, numeric_only=True)
+        .sum(min_count=1, numeric_only=False)
         .reset_index()
     )
     grouped_df = grouped_df.rename(columns=per_100k_col_names)
