@@ -110,7 +110,7 @@ def get_schema(frame, column_types, col_modes):
     input_cols = column_types.keys()
 
     if len(input_cols) != len(frame.columns) or set(input_cols) != set(frame.columns):
-        raise Exception('Column types did not match frame columns')
+        raise ValueError('Column types did not match frame columns')
 
     def create_field(col):
         return bigquery.SchemaField(col, column_types[col], mode=(col_modes[col] if col in col_modes else 'NULLABLE'))
@@ -294,7 +294,7 @@ def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_lis
     """
 
     file_path = os.path.join(DATA_DIR, directory, filename)
-    with open(file_path, 'r') as data_file:
+    with open(file_path, 'r', encoding='utf-8') as data_file:
         data = json.loads(data_file.read())
     df = pd.json_normalize(data, key_list)
     return df
@@ -327,7 +327,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None) -> 
     dataset: The BigQuery dataset to write to.
     table_name: The BigQuery table to write to."""
     client = bigquery.Client()
-    table_id = 'bigquery-public-data.%s.%s' % (dataset, table_name)
+    table_id = f"bigquery-public-data.{dataset}.{table_name}"
 
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
@@ -358,7 +358,7 @@ def load_values_as_json(gcs_bucket, filename):
 
 
 def local_file_path(filename):
-    return '/tmp/{}'.format(filename)
+    return f"/tmp/{filename}"
 
 
 def list_bucket_files(bucket_name: str) -> list:
@@ -378,8 +378,8 @@ def fetch_zip_as_files(url):
     with the listed internal files
     """
     response = requests.get(url)
-    files = ZipFile(BytesIO(response.content))
-    return files
+    with ZipFile(BytesIO(response.content)) as files:
+        return files
 
 
 def fetch_json_from_web(url):
