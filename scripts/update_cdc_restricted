@@ -1,67 +1,95 @@
 #!/bin/bash
 
-# Function to display usage information
-usage() {
-  echo "Usage: $0 [--prod|--test]"
-  echo "Example that uploads the locally preprocessed COVID data to secure cloud storage for further DAG processing"
-  echo "$0 --test"
-  exit 1
-}
+# Define the bucket destinations
+test_bucket="gs://msm-test-manual-data-bucket"
+prod_bucket="gs://prod-manual-data-bucket"
 
-# Check if an argument is provided
-if [ "$#" -ne 1 ]; then
-  usage
-fi
+# Define the path to the covid_case_restricted_detailed repository
+repo_path="$(dirname "$(dirname "$(realpath "$0")")")/covid_case_restricted_detailed"
 
-# Check if the argument is either --prod or --test
-if [ "$1" != "--prod" ] && [ "$1" != "--test" ]; then
-  usage
-fi
-
-# Set the bucket destination based on the provided argument
-if [ "$1" == "--prod" ]; then
-  bucket="gs://prod-manual-data-bucket"
+# Clone or pull the repository
+if [ ! -d "$repo_path" ]; then
+  echo "Repository directory not found. Cloning the repository..."
+  git clone https://github.com/cdc-data/covid_case_restricted_detailed.git "$repo_path" || {
+    echo "Failed to clone repository"
+    exit 1
+  }
 else
-  bucket="gs://msm-test-manual-data-bucket"
+  echo "Repository directory found. Pulling latest changes..."
+  cd "$repo_path" || {
+    echo "Failed to navigate to repository directory"
+    exit 1
+  }
+  git pull origin master || {
+    echo "Failed to pull latest changes"
+    exit 1
+  }
 fi
 
-# Navigate up three directories to reach the local parent directory (the CDC and HET repos need to be neighbors)
-repos_parent_dir=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
+# Define the path to the data directory
+data_dir="$repo_path/data"
 
-# Locate the data directory
-data_dir="${repos_parent_dir}/covid_case_restricted_detailed/data"
+# Check if the data directory exists
+if [ ! -d "$data_dir" ]; then
+  echo "Data directory not found"
+  exit 1
+fi
 
 # Find the most recently created directory within the data_dir
-most_recent_dir=""
-latest_date=""
-for dir in "${data_dir}"/*; do
-    if [[ -d "$dir" && "$dir" =~ /[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-        date_str=$(basename "$dir")
-        if [[ "$date_str" > "$latest_date" ]]; then
-            latest_date="$date_str"
-            most_recent_dir="$dir"
-        fi
-    fi
-done
+# shellcheck disable=SC2012
+most_recent_dir=$(ls -td "$data_dir"/*/ | head -n 1)
 
 if [ -z "$most_recent_dir" ]; then
   echo "No directories found in ${data_dir}"
   exit 1
 fi
 
-# List csv files starting with "cdc_restricted_by_" in the most recently created directory
-csv_files=$(ls "${most_recent_dir}"/cdc_restricted_by_*.csv 2>/dev/null)
+# Navigate to the most recently created directory within the data_dir
+cd "$most_recent_dir" || {
+  echo "Failed to navigate to most recent directory"
+  exit 1
+}
 
-if [ -z "$csv_files" ]; then
-  echo "No CSV files found."
-else
-  total_files=$(echo "$csv_files" | wc -w)
-  current_file_index=0
+# Unzip all zip files in the most recent directory
+unzip '*.zip' || {
+  echo "Failed to unzip files"
+  exit 1
+}
 
-  # Upload csv files to the specified bucket
-  for csv_file in $csv_files; do
-    current_file_index=$((current_file_index + 1))
-    gsutil cp "$csv_file" "$bucket/" && \
-    echo "File $current_file_index of $total_files uploaded: $csv_file"
-  done
-fi
+# Navigate to the health-equity-tracker directory
+cd ../../health-equity-tracker || {
+  echo "Failed to navigate to health-equity-tracker directory"
+  exit 1
+}
+
+# shellcheck disable=SC1091
+source .venv/bin/activate || {
+  echo "Failed to activate virtual environment"
+  exit 1
+}
+
+# Run the local module to generate non-restricted files
+python python/datasources/cdc_restricted_local.py -dir "$most_recent_dir" -prefix spark_part || {
+  echo "Failed to run cdc_restricted_local.py"
+  exit 1
+}
+
+# Upload CSV files to the test bucket
+for csv_file in "$most_recent_dir"/cdc_restricted_by_*.csv; do
+  gsutil cp "$csv_file" "$test_bucket/" || {
+    echo "Failed to upload $csv_file to $test_bucket"
+    exit 1
+  }
+  echo "Uploaded $csv_file to $test_bucket"
+done
+
+# If the upload to the test bucket succeeded, upload to the prod bucket
+for csv_file in "$most_recent_dir"/cdc_restricted_by_*.csv; do
+  gsutil cp "$csv_file" "$prod_bucket/" || {
+    echo "Failed to upload $csv_file to $prod_bucket"
+    exit 1
+  }
+  echo "Uploaded $csv_file to $prod_bucket"
+done
+
+exit 0
