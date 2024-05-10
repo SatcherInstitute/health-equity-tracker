@@ -1,3 +1,6 @@
+# pylint: disable=no-member
+# NOTE: pylint not treating output from read_json as a df, despite trying chunksize None
+
 from unittest import mock
 import os
 from io import StringIO
@@ -189,8 +192,10 @@ def testGenerateBreakdownAgeNational():
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df("age", "national", [df_prison_10, df_jail_6], [df_prison_13, df_jail_6])
-
     expected_df_age_national = pd.read_json(GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
+
+    df = df.sort_values(by=['state_name', 'age']).reset_index(drop=True)
+    expected_df_age_national = expected_df_age_national.sort_values(by=['state_name', 'age']).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df_age_national, check_like=True)
 
@@ -212,6 +217,11 @@ def testGenerateBreakdownRaceNational():
     )
 
     expected_df_race_national = pd.read_json(GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
+    df = df.sort_values(by=['state_name', 'race_and_ethnicity']).reset_index(drop=True)
+    expected_df_race_national = expected_df_race_national.sort_values(
+        by=['state_name', 'race_and_ethnicity']
+    ).reset_index(drop=True)
+
     assert_frame_equal(df, expected_df_race_national, check_like=True)
 
 
@@ -228,6 +238,10 @@ def testGenerateBreakdownSexNational():
     df = datasource.generate_breakdown_df("sex", "national", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
     expected_df_sex_national = pd.read_json(GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
+
+    df = df.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
+    expected_df_sex_national = expected_df_sex_national.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
+
     assert_frame_equal(df, expected_df_sex_national, check_like=True)
 
 
@@ -247,6 +261,10 @@ def testGenerateBreakdownSexState():
     df = datasource.generate_breakdown_df("sex", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
     expected_df_sex_state = pd.read_json(GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
+
+    df = df.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
+    expected_df_sex_state = expected_df_sex_state.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
+
     assert_frame_equal(df, expected_df_sex_state, check_like=True)
 
 
@@ -261,6 +279,10 @@ def testGenerateBreakdownAgeState():
     df = datasource.generate_breakdown_df("age", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
     expected_df_age_state = pd.read_json(GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
+
+    df = df.sort_values(by=['state_name', 'age']).reset_index(drop=True)
+    expected_df_age_state = expected_df_age_state.sort_values(by=['state_name', 'age']).reset_index(drop=True)
+
     assert_frame_equal(df, expected_df_age_state, check_like=True)
 
 
@@ -281,6 +303,12 @@ def testGenerateBreakdownRaceState():
     )
 
     expected_df_race_state = pd.read_json(GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
+
+    df = df.sort_values(by=['state_name', 'race_and_ethnicity']).reset_index(drop=True)
+    expected_df_race_state = expected_df_race_state.sort_values(by=['state_name', 'race_and_ethnicity']).reset_index(
+        drop=True
+    )
+
     assert_frame_equal(df, expected_df_race_state, check_like=True)
 
 

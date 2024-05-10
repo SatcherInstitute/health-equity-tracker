@@ -88,7 +88,7 @@ numpy==1.23.2
     # via pandas
 packaging==20.4
     # via pytest
-pandas==2.1.0
+pandas==2.2.0
     # via
     #   -r requirements/../python/tests/../ingestion/requirements.in
     #   -r requirements/../python/tests/requirements.in

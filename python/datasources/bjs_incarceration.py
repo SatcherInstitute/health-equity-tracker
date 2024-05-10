@@ -243,8 +243,6 @@ def post_process(df, breakdown, geo, children_tables):
             all_val,
         )
 
-    # df = df.drop(columns=[std_col.POPULATION_COL, RAW_JAIL_COL, RAW_PRISON_COL])
-
     # generate the confined children combined value
     prison_13, jail_6 = children_tables
 
@@ -261,7 +259,7 @@ def post_process(df, breakdown, geo, children_tables):
     # sum confined children in prison+jail
     df_confined = pd.merge(jail_6, prison_13, how="outer", on=[std_col.STATE_NAME_COL, group_col])
     df_confined[TOTAL_CHILDREN_COL] = df_confined[[f'{TOTAL_CHILDREN_COL}_jail', f'{TOTAL_CHILDREN_COL}_prison']].sum(
-        axis="columns"
+        axis="columns", numeric_only=True
     )
     df_confined = df_confined[[std_col.STATE_NAME_COL, TOTAL_CHILDREN_COL, group_col]]
 
