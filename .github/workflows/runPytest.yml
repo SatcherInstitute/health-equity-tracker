@@ -19,6 +19,14 @@ on:
       - 'run_ingestion/**'
 
 jobs:
+  extract-api-key:
+    runs-on: ubuntu-latest
+    env:
+      AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+    steps:
+      - name: Set API key as environment variable
+        run: echo "AHR_API_KEY=${{ secrets.AHR_API_KEY }}" >> $GITHUB_ENV
+
   build:
     runs-on: ubuntu-latest
 
