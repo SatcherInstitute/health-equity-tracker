@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+      AHR_API_KEY: 'TGSG5RI-3Z5U6JQ-SFBSMKA-6JPIG3A'
 
     steps:
       - name: Checkout code
