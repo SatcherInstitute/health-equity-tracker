@@ -167,7 +167,7 @@ def strip_footnote_refs_from_df(df):
         return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
 
     df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
-    df = df.applymap(strip_footnote_refs)
+    df = df.map(strip_footnote_refs)
 
     return df
 
@@ -190,7 +190,7 @@ def missing_data_to_none(df):
 
     symbols_to_null = ["/", "~", "^"]
 
-    df = df.applymap(lambda datum: np.nan if datum in symbols_to_null else datum)
+    df = df.replace(symbols_to_null, np.nan)
 
     return df
 
@@ -240,6 +240,7 @@ def filter_cols(df, demo_type):
     if demo_type not in cols_to_keep.keys():
         raise ValueError(f'{demo_type} is not a demographic option, must be one of: {list(cols_to_keep.keys())} ')
     df = df[df.columns.intersection([std_col.STATE_NAME_COL, *cols_to_keep[demo_type]])]
+    df = df.copy()
     df[df.columns.intersection(cols_to_keep[demo_type])] = df[df.columns.intersection(cols_to_keep[demo_type])].astype(
         float
     )

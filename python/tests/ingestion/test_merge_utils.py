@@ -1,4 +1,8 @@
+# pylint: disable=no-member
+# NOTE: pylint not treating output from read_json as a df, despite trying chunksize None
+
 import json
+from io import StringIO
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
 import ingestion.standardized_columns as std_col
@@ -197,11 +201,13 @@ _expected_merge_with_pop_numbers_multiple_rows = [
 
 def testStandardizeCountyNames():
 
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_bad_county_names), dtype=str).reset_index(drop=True)
-
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_good_county_names), dtype=str).reset_index(
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_data_with_bad_county_names)), dtype=str).reset_index(
         drop=True
     )
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_data_with_good_county_names)), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_county_names(df)
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
@@ -209,11 +215,13 @@ def testStandardizeCountyNames():
 
 def testMergeFipsCodesCounty():
 
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
-
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips_county), dtype=str).reset_index(
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_data_with_good_county_names)), dtype=str).reset_index(
         drop=True
     )
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_expected_merged_fips_county)), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -221,11 +229,15 @@ def testMergeFipsCodesCounty():
 
 
 def testMergeStateInfoByName():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_data_without_fips_codes)), dtype=str).reset_index(
+        drop=True
+    )
 
     df = df[['state_name', 'other_col']]
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_merged_fips)), dtype=str).reset_index(
+        drop=True
+    )
 
     df = merge_utils.merge_state_ids(df)
 
@@ -233,11 +245,15 @@ def testMergeStateInfoByName():
 
 
 def testMergeStateInfoByPostal():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_data_without_fips_codes)), dtype=str).reset_index(
+        drop=True
+    )
 
     df = df[['state_postal', 'other_col']]
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_merged_fips)), dtype=str).reset_index(
+        drop=True
+    )
 
     df = merge_utils.merge_state_ids(df)
 
@@ -245,13 +261,15 @@ def testMergeStateInfoByPostal():
 
 
 def testMergeStateInfoByFips():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_only_fips_codes), dtype=str).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_data_with_only_fips_codes)), dtype=str).reset_index(
+        drop=True
+    )
 
     df = df[['state_fips', 'other_col']]
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_names_from_fips), dtype=str).reset_index(
-        drop=True
-    )
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_expected_merged_names_from_fips)), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -260,11 +278,11 @@ def testMergeStateInfoByFips():
 
 def testMergePopNumbersState():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_pop_numbers), dtype={std_col.STATE_FIPS_COL: str}
+        StringIO(json.dumps(_data_without_pop_numbers)), dtype={std_col.STATE_FIPS_COL: str}
     ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_with_pop_numbers),
+        StringIO(json.dumps(_expected_merged_with_pop_numbers)),
         dtype={std_col.STATE_FIPS_COL: str},
     ).reset_index(drop=True)
 
@@ -275,12 +293,12 @@ def testMergePopNumbersState():
 
 def testMergePopNumbersCounty():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_pop_numbers_county),
+        StringIO(json.dumps(_data_without_pop_numbers_county)),
         dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str},
     ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_with_pop_numbers_county),
+        StringIO(json.dumps(_expected_merged_with_pop_numbers_county)),
         dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str},
     ).reset_index(drop=True)
 
@@ -291,14 +309,14 @@ def testMergePopNumbersCounty():
 
 def testMergeYearlyPopNumbers():
     df_no_pop = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_time_series_without_pop_numbers),
+        StringIO(json.dumps(_data_time_series_without_pop_numbers)),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
     ).reset_index(drop=True)
 
     df = merge_utils.merge_yearly_pop_numbers(df_no_pop, 'race', 'state')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_time_series_merged_with_pop_numbers),
+        StringIO(json.dumps(_expected_time_series_merged_with_pop_numbers)),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
     ).reset_index(drop=True)
 
@@ -307,12 +325,12 @@ def testMergeYearlyPopNumbers():
 
 def testMergeMultiplePopCols():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_pop_numbers_multiple_rows),
+        StringIO(json.dumps(_data_without_pop_numbers_multiple_rows)),
         dtype={std_col.STATE_FIPS_COL: str},
     ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merge_with_pop_numbers_multiple_rows),
+        StringIO(json.dumps(_expected_merge_with_pop_numbers_multiple_rows)),
         dtype={std_col.STATE_FIPS_COL: str},
     ).reset_index(drop=True)
 

@@ -114,7 +114,7 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     if geo_level == STATE_LEVEL:
         df_jail = keep_only_states(df_jail)
         df_prison = keep_only_states(df_prison)
-        df_prison = pd.concat([df_prison, df_territories])
+        df_prison = pd.concat([df_prison, df_territories]).reset_index(drop=True)
 
         # `ALL` vs `All`
         if demo == std_col.SEX_COL or demo == std_col.AGE_COL:

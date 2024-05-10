@@ -160,7 +160,7 @@ class CDCWisqarsData(DataSource):
             df[std_col.NON_FATAL_POPULATION] = np.nan
 
         # Detect if data frame has unknown values
-        has_unknown = df.applymap(contains_unknown).any().any()
+        has_unknown = df.map(contains_unknown).any().any()
 
         if has_unknown:
             unknown = 'Unknown'
