@@ -4,8 +4,15 @@
 test_bucket="gs://msm-test-manual-data-bucket"
 prod_bucket="gs://prod-manual-data-bucket"
 
+
+# Define the name of the repository directory
+cdc_repo_name="covid_case_restricted_detailed"
+
+# Find the parent directory of the health-equity-tracker directory
+parent_dir=$(dirname "$(dirname "$(dirname "$(realpath "$0")")")")
+
 # Define the path to the covid_case_restricted_detailed repository
-repo_path="$(dirname "$(dirname "$(realpath "$0")")")/covid_case_restricted_detailed"
+repo_path="$parent_dir/$cdc_repo_name"
 
 # Clone or pull the repository
 if [ ! -d "$repo_path" ]; then
