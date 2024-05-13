@@ -1,6 +1,11 @@
+# pylint: disable=no-member
+# NOTE: pylint not treating output from read_json as a df, despite trying chunksize None
+
 import unittest
 import json
 from pandas.testing import assert_frame_equal
+from io import StringIO
+
 # pylint: disable=no-name-in-module
 from ingestion import census, gcs_to_bq_util
 
@@ -53,13 +58,12 @@ class GcsToBqTest(unittest.TestCase):
                 "label": "Estimate!!Total:!!Female:!!65 to 74 years",
                 "concept": "SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
                 "group": "B01001B",
-            }
+            },
         }
     }
 
     _fake_sex_by_age_data = [
-        ["NAME", "B01001_011E", "B01001_012E",
-            "B01001_042E", "B01001_041E", "state"],
+        ["NAME", "B01001_011E", "B01001_012E", "B01001_042E", "B01001_041E", "state"],
         ["Alabama", "20", "15", "42", "70", "01"],
         ["Alaska", "5", "8", "19", "100", "02"],
         ["Arizona", "26", "200", "83", "123", "04"],
@@ -103,58 +107,55 @@ class GcsToBqTest(unittest.TestCase):
 
     def testAcsMetadata(self):
         """Tests parsing ACS metadata and retrieving group variables from it"""
-        metadata = census.parse_acs_metadata(
-            self._fake_metadata, ["B02001", "B01001"])
-        self.assertEqual(
-            "Estimate!!Total:!!Male:!!25 to 29 years",
-            metadata["B01001_011E"]["label"])
-        self.assertEqual(
-            "Estimate!!Total:!!Two or more races:",
-            metadata["B02001_008E"]["label"])
+        metadata = census.parse_acs_metadata(self._fake_metadata, ["B02001", "B01001"])
+        self.assertEqual("Estimate!!Total:!!Male:!!25 to 29 years", metadata["B01001_011E"]["label"])
+        self.assertEqual("Estimate!!Total:!!Two or more races:", metadata["B02001_008E"]["label"])
         # Wasn't specified in the groups to include.
         self.assertIsNone(metadata.get("B01001B_029E"))
 
         group_vars = census.get_vars_for_group("SEX BY AGE", metadata, 2)
-        self.assertDictEqual({
-            "B01001_011E": ["Male", "25 to 29 years"],
-            "B01001_012E": ["Male", "30 to 34 years"],
-            "B01001_041E": ["Female", "55 to 59 years"],
-            "B01001_042E": ["Female", "60 and 61 years"]
-        }, group_vars)
+        self.assertDictEqual(
+            {
+                "B01001_011E": ["Male", "25 to 29 years"],
+                "B01001_012E": ["Male", "30 to 34 years"],
+                "B01001_041E": ["Female", "55 to 59 years"],
+                "B01001_042E": ["Female", "60 and 61 years"],
+            },
+            group_vars,
+        )
 
         group_vars = census.get_vars_for_group("RACE", metadata, 1)
-        self.assertDictEqual({
-            "B02001_005E": ["Asian alone"],
-            "B02001_007E": ["Some other race alone"],
-            "B02001_008E": ["Two or more races"]
-        }, group_vars)
+        self.assertDictEqual(
+            {
+                "B02001_005E": ["Asian alone"],
+                "B02001_007E": ["Some other race alone"],
+                "B02001_008E": ["Two or more races"],
+            },
+            group_vars,
+        )
 
     def testStandardizeFrameOneDim(self):
         """Tests standardizing an ACS DataFrame"""
-        metadata = census.parse_acs_metadata(
-            self._fake_metadata, ["B02001", "B01001"])
+        metadata = census.parse_acs_metadata(self._fake_metadata, ["B02001", "B01001"])
         group_vars = census.get_vars_for_group("RACE", metadata, 1)
 
-        df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(self._fake_race_data))
-        df = census.standardize_frame(
-            df, group_vars, ["race"], False, "population")
-        expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(self._expected_race_data)).reset_index(drop=True)
+        df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(self._fake_race_data)))
+        df = census.standardize_frame(df, group_vars, ["race"], False, "population")
+        expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(self._expected_race_data))).reset_index(
+            drop=True
+        )
         assert_frame_equal(expected_df, df)
 
     def testStandardizeFrameTwoDims(self):
         """Tests standardizing an ACS DataFrame"""
-        metadata = census.parse_acs_metadata(
-            self._fake_metadata, ["B02001", "B01001"])
+        metadata = census.parse_acs_metadata(self._fake_metadata, ["B02001", "B01001"])
         group_vars = census.get_vars_for_group("SEX BY AGE", metadata, 2)
 
-        df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(self._fake_sex_by_age_data))
-        df = census.standardize_frame(
-            df, group_vars, ["sex", "age"], False, "population")
+        df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(self._fake_sex_by_age_data)))
+        df = census.standardize_frame(df, group_vars, ["sex", "age"], False, "population")
         expected_df = gcs_to_bq_util.values_json_to_df(
-            json.dumps(self._expected_sex_by_age_data)).reset_index(drop=True)
+            StringIO(json.dumps(self._expected_sex_by_age_data))
+        ).reset_index(drop=True)
         assert_frame_equal(expected_df, df)
 
 

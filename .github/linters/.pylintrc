@@ -1,25 +1,4 @@
 [FORMAT]
 max-line-length=120
 [MESSAGES CONTROL]
-disable=C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103,R0201,W0104,W0105,R0801,R0913,R0022,C0412,R0914,R0915,W0621
-
-; C0114 (missing-module-docstring): Missing module docstring.
-; E0401 (import-error): Unable to import a module.
-; C0201 (consider-iterating-dictionary): Consider iterating the dictionary directly instead of calling .keys().
-; C0115 (missing-class-docstring): Missing class docstring.
-; R1714 (consider-using-in): Consider merging these comparisons with "in" to "x in {a, b, c}".
-; C0411 (wrong-import-order): Import order is incorrect according to PEP 8.
-; W0511 (fixme): Warning for TODO or FIXME comments.
-; R1705 (no-else-return): Unnecessary "else" after "return".
-; C0116 (missing-function-docstring): Missing function or method docstring.
-; C0103 (invalid-name): Naming convention is not followed.
-; R0201 (no-self-use): Method could be a function.
-; W0104 (pointless): Pointless statement.
-; W0105 (pointless-string-statement): Pointless string statement.
-; R0801 similarities: Similar lines in 2 files
-; R0913: Too many arguments
-; R0022: Useless option value for '--disable', 'R0201' was moved to an optional extension
-; C0412: ungrouped-imports
-; R0914: Too many local variables
-; R0915: Too many statements
-; W0621: Redefine builtin
+disable=C0114,E0401,C0201,C0115,R1714,C0411,W0511,R1705,C0116,C0103,R0201,W0104,W0105,R0801,R0913,R0022,C0412,R0914,R0915,W0621,R0903,W0237,W0221,W0201,R0911,R1710,R0902,R0912,W0622,W1514

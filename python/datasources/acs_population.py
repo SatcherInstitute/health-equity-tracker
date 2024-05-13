@@ -1,8 +1,7 @@
 import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
-import ingestion.constants as constants
 from ingestion.standardized_columns import Race
-from ingestion import url_file_to_gcs, gcs_to_bq_util, census
+from ingestion import url_file_to_gcs, gcs_to_bq_util, census, constants
 from datasources.data_source import DataSource
 from ingestion.census import (
     get_census_params,
@@ -464,7 +463,7 @@ class ACSPopulationIngester:
             self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(var_map, sex_by_age_frames),
         }
 
-        frames['by_sex_age_%s' % self.get_geo_name()] = self.get_by_sex_age(
+        frames[f'by_sex_age_{self.get_geo_name()}'] = self.get_by_sex_age(
             frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket
         )
 
@@ -499,8 +498,8 @@ class ACSPopulationIngester:
             )
             by_sex_phrma_age = self.get_by_sex_age(frames[self.get_table_name_by_sex_age_race()], get_phrma_age_bucket)
 
-        frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
-            frames['by_sex_age_%s' % self.get_geo_name()],
+        frames[f'by_age_{self.get_geo_name()}'] = self.get_by_age(
+            frames[f'by_sex_age_{self.get_geo_name()}'],
             by_sex_standard_age_ahr,
             by_sex_suicide_denominator_ahr,
             by_sex_decade_plus_5_age_ahr,
@@ -510,7 +509,7 @@ class ACSPopulationIngester:
             by_sex_phrma_age,
         )
 
-        frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
+        frames[f'by_sex_{self.get_geo_name()}'] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
 
         # Generate national level datasets based on state datasets
         if not self.county_level:
@@ -591,7 +590,7 @@ class ACSPopulationIngester:
 
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.RACE_CATEGORY_ID_COL)
-        standardized_race = standardized_race.groupby(group_by_cols).sum().reset_index()
+        standardized_race = standardized_race.groupby(group_by_cols).sum(numeric_only=True).reset_index()
         return standardized_race
 
     def standardize_race_include_hispanic(self, df):
@@ -601,7 +600,7 @@ class ACSPopulationIngester:
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.HISPANIC_COL)
-        by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
+        by_hispanic = by_hispanic.groupby(group_by_cols).sum(numeric_only=True).reset_index()
         if not by_hispanic.empty:
             by_hispanic[std_col.RACE_CATEGORY_ID_COL] = by_hispanic.apply(
                 lambda r: (Race.HISP.value if r[std_col.HISPANIC_COL] == 'Hispanic or Latino' else Race.NH.value),
@@ -611,7 +610,7 @@ class ACSPopulationIngester:
         by_race = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.RACE_COL)
-        by_race = by_race.groupby(group_by_cols).sum().reset_index()
+        by_race = by_race.groupby(group_by_cols).sum(numeric_only=True).reset_index()
         if not by_race.empty:
             by_race[std_col.RACE_CATEGORY_ID_COL] = by_race.apply(
                 lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[std_col.RACE_COL]],
@@ -729,7 +728,7 @@ class ACSPopulationIngester:
         by_sex_age[std_col.AGE_COL] = by_sex_age[std_col.AGE_COL].apply(age_aggregator_func)
 
         groupby_cols = cols[:-1] if self.county_level else cols[1:-1]
-        by_sex_age = by_sex_age.groupby(groupby_cols)[std_col.POPULATION_COL].sum().reset_index()
+        by_sex_age = by_sex_age.groupby(groupby_cols)[std_col.POPULATION_COL].sum(numeric_only=True).reset_index()
 
         return by_sex_age
 
@@ -883,7 +882,7 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
         'sex': std_col.SEX_COL,
     }
 
-    df = df.groupby(breakdown_map[demographic_breakdown_category]).sum().reset_index()
+    df = df.groupby(breakdown_map[demographic_breakdown_category]).sum(numeric_only=True).reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME

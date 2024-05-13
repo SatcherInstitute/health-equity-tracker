@@ -10,7 +10,7 @@ import filecmp
 
 
 def local_file_path(filename):
-    return '/tmp/{}'.format(filename)
+    return f'/tmp/{filename}'
 
 
 def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
@@ -27,14 +27,13 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
 
     Returns: A boolean indication of a file diff
     """
-    return download_first_url_to_gcs(
-        [url], gcs_bucket, dest_filename, url_params)
+    return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params)
 
 
 def get_first_response(url_list, url_params):
     for url in url_list:
         try:
-            file_from_url = requests.get(url, params=url_params)
+            file_from_url = requests.get(url, params=url_params, timeout=10)
             file_from_url.raise_for_status()
             return file_from_url
         except requests.HTTPError as err:
@@ -42,8 +41,7 @@ def get_first_response(url_list, url_params):
     return None
 
 
-def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
-                              url_params={}):
+def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=None):
     """
     Iterates over the list of potential URLs that may point to the data
     source until one of the URLs succeeds in downloading. If no URL succeeds,
@@ -58,7 +56,9 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
 
       Returns:
         files_are_diff: A boolean indication of a file diff
-      """
+    """
+    if url_params is None:
+        url_params = {}
 
     # Establish connection to valid GCS bucket
     try:
@@ -71,9 +71,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
     # Find a valid file in the URL list or exit
     file_from_url = get_first_response(url_list, url_params)
     if file_from_url is None:
-        logging.error(
-            "No file could be found for intended destination: %s",
-            dest_filename)
+        logging.error("No file could be found for intended destination: %s", dest_filename)
         return
 
     # Download the contents of the URL to a local file
@@ -90,15 +88,13 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
             files_are_diff = True
         else:
             # Compare the file contents for a diff
-            files_are_diff = not filecmp.cmp(
-                old_file_local_path, new_file_local_path)
+            files_are_diff = not filecmp.cmp(old_file_local_path, new_file_local_path)
 
     # Only update the bucket if the files are diff
     if files_are_diff:
         # Upload the contents to the bucket
         bucket.blob(dest_filename).upload_from_filename(new_file_local_path)
-        print(
-            f'Uploading to Gcs_Bucket: {gcs_bucket}, FileName: {dest_filename}')
+        print(f'Uploading to Gcs_Bucket: {gcs_bucket}, FileName: {dest_filename}')
     # Remove local files
     os.remove(new_file_local_path)
     os.remove(old_file_local_path)
