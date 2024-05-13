@@ -58,13 +58,13 @@ cd "$most_recent_dir" || {
 }
 
 # Unzip all zip files in the most recent directory
-unzip '*.zip' || {
+unzip -n '*.zip' || {
   echo "Failed to unzip files"
   exit 1
 }
 
 # Navigate to the health-equity-tracker directory
-cd ../../health-equity-tracker || {
+cd ../../../health-equity-tracker || {
   echo "Failed to navigate to health-equity-tracker directory"
   exit 1
 }
@@ -98,5 +98,29 @@ for csv_file in "$most_recent_dir"/cdc_restricted_by_*.csv; do
   }
   echo "Uploaded $csv_file to $prod_bucket"
 done
+
+echo "🙌 Done!
+
+Next steps for you:
+  1. Make a new PR updating 'original_data_sourced' fields entries starting with 'cdc_restricted_data-' in frontend/src/data/config/DatasetMetadata.ts
+    - NOTE: the most recent data is from the previous month, so if you're updating from the CDC's May release, the new data will be sourced from April.
+
+  2. Run the cdc_restricted DAG from the HET Infra TEST Composer https://console.cloud.google.com/composer/environments?project=het-infra-test-05
+    - If you see Composer exists at that link, click Airflow, and then the play button for the cdc_restricted DAG.
+    - If Composer doesn't exist, you can restart it by adding an empty comment to any file inside python/ to the PR you just made. Then, merging that PR to main will automatically rebuild Composer on the test environment allowing Airflow usage. You can also force push your updated, local main branch to 'infra-test' to trigger.
+    - Once the DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets. Once you merge the PR from Step 1, the updated data should show on the dev site: https://dev.healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All#rates-over-time
+
+  3. If all looks good on staging, cut a new release: https://www.notion.so/healthequitytracker/Cut-and-Deploy-New-Release-to-Production-18f7e04e42f444ad83a5c857d4007090?pvs=4
+    - Make sure you select 'True' when asked if the release includes changes to the data pipeline and require Composer.
+
+  4. Run the cdc_restricted DAG from the HET Prod TEST Composer https://console.cloud.google.com/composer/environments?project=het-infra-prod-f6
+
+  5. Once DAG completes successfully, you should be able to see the results on the real production site: https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All#rates-over-time
+
+  6. Don't forget to turn off both Composers once you're done using them.
+    - https://github.com/SatcherInstitute/setup-cloud-platform/actions/workflows/cronDeleteComposer.yml
+    - https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronDeleteComposer.yml
+
+"
 
 exit 0
