@@ -16,7 +16,7 @@ charset-normalizer==3.3.2
     # via requests
 dill==0.3.8
     # via pylint
-freezegun==1.5.0
+freezegun==1.5.1
     # via -r tests/requirements.in
 google-api-core[grpc]==1.24.1
     # via
@@ -95,7 +95,7 @@ pyasn1-modules==0.2.8
     # via google-auth
 pycparser==2.20
     # via cffi
-pylint==3.1.0
+pylint==3.1.1
     # via -r tests/../ingestion/requirements.in
 python-dateutil==2.9.0.post0
     # via
