@@ -16,12 +16,10 @@ import argparse
 import os
 import sys
 import time
-
 import ingestion.standardized_columns as std_col
-import ingestion.constants as constants
+from ingestion import constants
 import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
-
 from ingestion.dataset_utils import combine_race_ethnicity
 
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -31,9 +29,7 @@ CHUNK_SIZE = 5_000_000
 # Command line flags for the dir and file name prefix for the data.
 parser = argparse.ArgumentParser()
 parser.add_argument("-dir", "--dir", help="Path to the CDC restricted data CSV files")
-parser.add_argument(
-    "-prefix", "--prefix", help="Prefix for the CDC restricted CSV files"
-)
+parser.add_argument("-prefix", "--prefix", help="Prefix for the CDC restricted CSV files")
 
 # These are the columns that we want to keep from the data.
 # Geo columns (state, county) - we aggregate or groupby either state or county.
@@ -150,25 +146,13 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # covered all the data and drop the original hospitalization/death columns.
     df[std_col.COVID_HOSP_Y] = df['hosp_yn'] == 'Yes'
     df[std_col.COVID_HOSP_N] = df['hosp_yn'] == 'No'
-    df[std_col.COVID_HOSP_UNKNOWN] = (df['hosp_yn'] == 'Unknown') | (
-        df['hosp_yn'] == 'Missing'
-    )
+    df[std_col.COVID_HOSP_UNKNOWN] = (df['hosp_yn'] == 'Unknown') | (df['hosp_yn'] == 'Missing')
     df[std_col.COVID_DEATH_Y] = df['death_yn'] == 'Yes'
     df[std_col.COVID_DEATH_N] = df['death_yn'] == 'No'
-    df[std_col.COVID_DEATH_UNKNOWN] = (df['death_yn'] == 'Unknown') | (
-        df['death_yn'] == 'Missing'
-    )
+    df[std_col.COVID_DEATH_UNKNOWN] = (df['death_yn'] == 'Unknown') | (df['death_yn'] == 'Missing')
 
-    check_hosp = (
-        df[std_col.COVID_HOSP_Y]
-        | df[std_col.COVID_HOSP_N]
-        | df[std_col.COVID_HOSP_UNKNOWN]
-    ).all()
-    check_deaths = (
-        df[std_col.COVID_DEATH_Y]
-        | df[std_col.COVID_DEATH_N]
-        | df[std_col.COVID_DEATH_UNKNOWN]
-    ).all()
+    check_hosp = (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] | df[std_col.COVID_HOSP_UNKNOWN]).all()
+    check_deaths = (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] | df[std_col.COVID_DEATH_UNKNOWN]).all()
 
     assert check_hosp, "All possible hosp_yn values are not accounted for"
     assert check_deaths, "All possible death_yn values are not accounted for"
@@ -194,7 +178,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     total_groupby_cols = total_groupby_cols + [CASE_DATE_COL]
 
     df = df.groupby(groupby_cols).sum().reset_index()
-    totals = df.groupby(total_groupby_cols).sum().reset_index()
+    totals = df.groupby(total_groupby_cols).sum(numeric_only=True).reset_index()
 
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
@@ -214,16 +198,8 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
 def sanity_check_data(df):
     # Perform some simple sanity checks that we are covering all the data.
     cases = df[std_col.COVID_CASES]
-    assert cases.equals(
-        df[std_col.COVID_HOSP_Y]
-        + df[std_col.COVID_HOSP_N]
-        + df[std_col.COVID_HOSP_UNKNOWN]
-    )
-    assert cases.equals(
-        df[std_col.COVID_DEATH_Y]
-        + df[std_col.COVID_DEATH_N]
-        + df[std_col.COVID_DEATH_UNKNOWN]
-    )
+    assert cases.equals(df[std_col.COVID_HOSP_Y] + df[std_col.COVID_HOSP_N] + df[std_col.COVID_HOSP_UNKNOWN])
+    assert cases.equals(df[std_col.COVID_DEATH_Y] + df[std_col.COVID_DEATH_N] + df[std_col.COVID_DEATH_UNKNOWN])
 
 
 def generate_national_dataset(state_df, groupby_cols):
@@ -240,7 +216,7 @@ def generate_national_dataset(state_df, groupby_cols):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby(groupby_cols).sum().reset_index()
+    df = state_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
@@ -303,9 +279,7 @@ def process_data(dir, files):
 
             # For county fips, we make sure they are strings of length 5 as per
             # our standardization (ignoring empty values).
-            df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
-                lambda x: x.zfill(5) if len(x) > 0 else x
-            )
+            df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(lambda x: x.zfill(5) if len(x) > 0 else x)
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
@@ -336,7 +310,7 @@ def process_data(dir, files):
 
     # Post-processing of the data.
     for key in all_dfs.copy():
-        geo, demographic = key
+        geo, _demographic = key
 
         # Some brief sanity checks to make sure the data is OK.
         sanity_check_data(all_dfs[key])
@@ -367,11 +341,7 @@ def main():
     files = [f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
     for f in files:
         filename_parts = f.split('.')
-        if (
-            len(filename_parts) == 2
-            and prefix in filename_parts[0]
-            and filename_parts[1] == 'csv'
-        ):
+        if len(filename_parts) == 2 and prefix in filename_parts[0] and filename_parts[1] == 'csv':
             matching_files.append(f)
 
     if len(matching_files) == 0:

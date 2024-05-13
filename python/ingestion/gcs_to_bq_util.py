@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from google.cloud import bigquery, storage
 from zipfile import ZipFile
-from io import BytesIO
+from io import BytesIO, StringIO
 from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
 
@@ -131,10 +131,15 @@ def load_values_as_df(gcs_bucket, filename):
     return load_values_blob_as_df(blob)
 
 
-def values_json_to_df(json_string, dtype=None):
-    frame = pd.read_json(json_string, orient='values', dtype=dtype)
-    frame.rename(columns=frame.iloc[0], inplace=True)
-    frame.drop([0], inplace=True)
+def values_json_to_df(values_json, dtype=None) -> pd.DataFrame:
+    """Loads data from the provided json file (or file name string) to a DataFrame.
+    NOTE: Passing json as a literal string like we did in tests is no longer directly supported.
+    NOTE: To test without needing a real json file, wrap the json string in StringIO()
+    """
+
+    frame = pd.read_json(values_json, orient='values', dtype=dtype)
+    frame.rename(columns=frame.iloc[0], inplace=True)  # pylint: disable=E1101
+    frame.drop([0], inplace=True)  # pylint: disable=E1101
     return frame
 
 
@@ -146,7 +151,7 @@ def load_values_blob_as_df(blob):
     blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
     json_string = json_string.decode('utf-8')
-    return values_json_to_df(json_string)
+    return values_json_to_df(StringIO(json_string))
 
 
 def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates=False, thousands=None):
@@ -314,7 +319,7 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None) -> pd.DataFrame:
 
     url: url to download the json from
     key: key in the json in which all data underneath will be loaded into the dataframe"""
-    r = requests.get(url)
+    r = requests.get(url, timeout=10)
     jsn = json.loads(r.text)
     return pd.DataFrame(jsn[key], dtype=dtype)
 
@@ -327,7 +332,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None) -> 
     dataset: The BigQuery dataset to write to.
     table_name: The BigQuery table to write to."""
     client = bigquery.Client()
-    table_id = f"bigquery-public-data.{dataset}.{table_name}"
+    table_id = f'bigquery-public-data.{dataset}.{table_name}'
 
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
@@ -358,7 +363,7 @@ def load_values_as_json(gcs_bucket, filename):
 
 
 def local_file_path(filename):
-    return f"/tmp/{filename}"
+    return f'/tmp/{filename}'
 
 
 def list_bucket_files(bucket_name: str) -> list:
@@ -377,7 +382,7 @@ def fetch_zip_as_files(url):
     Fetches a .zip files from the given url and returns a zip object
     with the listed internal files
     """
-    response = requests.get(url)
+    response = requests.get(url, timeout=10)
     with ZipFile(BytesIO(response.content)) as files:
         return files
 
@@ -386,7 +391,7 @@ def fetch_json_from_web(url):
     """
     fetches json from a URL
     """
-    r = requests.get(url)
+    r = requests.get(url, timeout=10)
     return json.loads(r.text)
 
 

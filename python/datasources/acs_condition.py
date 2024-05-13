@@ -271,7 +271,6 @@ def update_col_types(df):
 
 
 class AcsCondition(DataSource):
-
     def get_filename_race(self, measure, race, is_county, year):
         geo = 'COUNTY' if is_county else 'STATE'
         race = race.replace(" ", "_").upper()
@@ -594,7 +593,7 @@ class AcsCondition(DataSource):
             if demo != RACE:
                 groupby_cols.append(std_col.SEX_COL)
 
-            df = df.groupby(groupby_cols).sum().reset_index()
+            df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
         groupby_cols = [std_col.STATE_FIPS_COL]
@@ -606,7 +605,7 @@ class AcsCondition(DataSource):
         elif demo == SEX:
             groupby_cols.append(std_col.SEX_COL)
 
-        df = df.groupby(groupby_cols).sum().reset_index()
+        df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
         # Rename age column and combine needed age ranges
         if demo == AGE:
@@ -614,7 +613,7 @@ class AcsCondition(DataSource):
 
             if measure == POVERTY_MEASURE:
                 df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(get_poverty_age_range)
-                df = df.groupby(groupby_cols).sum().reset_index()
+                df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
         return df
 

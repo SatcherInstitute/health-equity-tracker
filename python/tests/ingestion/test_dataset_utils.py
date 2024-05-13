@@ -1,3 +1,6 @@
+# pylint: disable=no-member
+# NOTE: pylint not treating output from read_json as a df, despite trying chunksize None
+
 import json
 import pytest
 import re
@@ -6,7 +9,7 @@ from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.dataset_utils import combine_race_ethnicity, generate_time_df_with_cols_and_types
-
+from io import StringIO
 
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
@@ -240,12 +243,14 @@ def testPercentAvoidRoundingToZero():
 
 
 def testAddSumOfRows():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data_without_totals))).reset_index(drop=True)
 
     df['population'] = df['population'].astype(int)
     df = dataset_utils.add_sum_of_rows(df, 'race', 'population', 'ALL')
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_race_data_with_totals)).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_race_data_with_totals))).reset_index(
+        drop=True
+    )
 
     expected_df['population'] = expected_df['population'].astype(int)
 
@@ -253,14 +258,14 @@ def testAddSumOfRows():
 
 
 def testGeneratePctShareColWithoutUnknowns():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data))).reset_index(drop=True)
 
     df = df.loc[df['race'] != 'UNKNOWN']
     df['population'] = df['population'].astype(float)
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_pct_share_data_without_unknowns)).reset_index(
-        drop=True
-    )
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_expected_pct_share_data_without_unknowns))
+    ).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(float)
 
@@ -272,13 +277,13 @@ def testGeneratePctShareColWithoutUnknowns():
 
 
 def testGeneratePctShareColWithUnknowns():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data))).reset_index(drop=True)
 
     df['population'] = df['population'].astype(float)
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_pct_share_data_with_unknowns)).reset_index(
-        drop=True
-    )
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_expected_pct_share_data_with_unknowns))
+    ).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(float)
 
@@ -291,7 +296,7 @@ def testGeneratePctShareColWithUnknowns():
 
 
 def testGeneratePctShareColExtraTotalError():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data))).reset_index(drop=True)
 
     extra_row = pd.DataFrame(
         [
@@ -315,13 +320,13 @@ def testGeneratePctShareColExtraTotalError():
 
 
 def testGeneratePer100kCol():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_condition_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_condition_data))).reset_index(drop=True)
 
     df = dataset_utils.generate_per_100k_col(df, 'some_condition_total', 'population', 'condition_per_100k')
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_condition_data_with_per_100k)).reset_index(
-        drop=True
-    )
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_fake_condition_data_with_per_100k))
+    ).reset_index(drop=True)
 
     expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
 
@@ -357,22 +362,24 @@ def test_generate_pct_rate_col():
 
 def test_ensure_leading_zeros():
 
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_data_missing_zeros)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_data_missing_zeros))).reset_index(drop=True)
     df = dataset_utils.ensure_leading_zeros(df, "state_fips", 2)
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data_without_totals))).reset_index(
+        drop=True
+    )
 
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 def testGeneratePctRelInequityCol():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_data_without_pct_relative_inequity_col)).reset_index(
-        drop=True
-    )
+    df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_fake_data_without_pct_relative_inequity_col))
+    ).reset_index(drop=True)
     df = dataset_utils.generate_pct_rel_inequity_col(df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_data_with_pct_relative_inequity_col)
+        StringIO(json.dumps(_expected_data_with_pct_relative_inequity_col))
     ).reset_index(drop=True)
     expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(float)
 
@@ -380,16 +387,17 @@ def testGeneratePctRelInequityCol():
 
 
 def testZeroOutPctRelInequity():
-    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates)).reset_index(
-        drop=True
-    )
+    df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates))
+    ).reset_index(drop=True)
     rate_to_inequity_cols_map = {"something_per_100k": "something_pct_relative_inequity"}
     df = dataset_utils.zero_out_pct_rel_inequity(
         df, 'state', 'race', rate_to_inequity_cols_map, pop_pct_col="something_pop_pct"
     )
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)
+        StringIO(json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity))
     ).reset_index(drop=True)
+
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
 
 
@@ -424,7 +432,9 @@ _expected_HET_style_data = [
 
 def test_melt_to_het_style_df():
 
-    source_df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_wide_short_source_data)).reset_index(drop=True)
+    source_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_wide_short_source_data))).reset_index(
+        drop=True
+    )
 
     df = dataset_utils.melt_to_het_style_df(
         source_df,
@@ -436,7 +446,9 @@ def test_melt_to_het_style_df():
         },
     )
 
-    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_HET_style_data)).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_HET_style_data))).reset_index(
+        drop=True
+    )
 
     assert_frame_equal(df, expected_df, check_dtype=False)
 
@@ -454,7 +466,7 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'black', 101, 998],
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
-    time_df = gcs_to_bq_util.values_json_to_df(json.dumps(_time_data)).reset_index(drop=True)
+    time_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_time_data))).reset_index(drop=True)
 
     # normal mode: drop time_period
     current_df = dataset_utils.preserve_only_current_time_period_rows(time_df)
@@ -465,7 +477,9 @@ def test_preserve_only_current_time_period_rows():
         ['99', 'South Somestate', 'black', 101, 998],
         ['99', 'South Somestate', 'white', 51, 2221],
     ]
-    expected_current_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_current_data)).reset_index(drop=True)
+    expected_current_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_current_data))).reset_index(
+        drop=True
+    )
 
     assert_frame_equal(current_df, expected_current_df, check_like=True)
 
@@ -479,8 +493,9 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df_with_time = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_current_data), dtype={"time_period": str}
+        StringIO(json.dumps(_expected_current_data)), dtype={"time_period": str}
     ).reset_index(drop=True)
+
     assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
 
     # optional alt name for time_period column
@@ -502,7 +517,7 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'black', 101, 998],
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
-    time_alt_col_df = gcs_to_bq_util.values_json_to_df(json.dumps(_time_alt_col_data)).reset_index(drop=True)
+    time_alt_col_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_time_alt_col_data))).reset_index(drop=True)
 
     current_df_with_alt_col = dataset_utils.preserve_only_current_time_period_rows(
         time_alt_col_df, time_period_col="some_other_datetime_col"
@@ -515,7 +530,7 @@ def test_preserve_only_current_time_period_rows():
         ['99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_alt_col_current_data)
+        StringIO(json.dumps(_expected_alt_col_current_data))
     ).reset_index(drop=True)
     assert_frame_equal(current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True)
 
@@ -531,9 +546,11 @@ def test_combine_race_ethnicity():
         test_data = [['ethnicity', 'race'], [ethnicity, race]]
         expected_data = [['race_ethnicity_combined'], [expected_combined_value]]
 
-        df = gcs_to_bq_util.values_json_to_df(json.dumps(test_data), dtype=str).reset_index(drop=True)
+        df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(test_data)), dtype=str).reset_index(drop=True)
 
-        expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(expected_data), dtype=str).reset_index(drop=True)
+        expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(expected_data)), dtype=str).reset_index(
+            drop=True
+        )
 
         if ethnicity_value:
             df = combine_race_ethnicity(df, RACE_NAMES_MAPPING, ethnicity_value)
