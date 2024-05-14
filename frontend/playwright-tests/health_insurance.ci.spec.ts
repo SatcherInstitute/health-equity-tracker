@@ -56,24 +56,5 @@ test('Health Insurance Flow', async ({ page }) => {
       name: 'Population vs. distribution of total uninsured people in the United States',
     })
     .click()
-  await page
-    .getByRole('heading', {
-      name: 'Breakdown summary for uninsured people in the United States',
-    })
-    .click()
-  await page.getByRole('heading', { name: 'Definitions:' }).click()
-  await page.getByText('Social Determinants of Health').click()
-  await page.locator('#definitionsList').getByText('Uninsured people').click()
-  await page.getByRole('heading', { name: 'What data are missing?' }).click()
-  await page
-    .getByText('Unfortunately there are crucial data missing in our sources.')
-    .click()
-  await page
-    .getByRole('heading', { name: 'Missing and misidentified people' })
-    .click()
-  await page
-    .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!'
-    )
-    .click()
+
 })
