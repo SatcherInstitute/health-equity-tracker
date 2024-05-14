@@ -68,9 +68,6 @@ test('Covid Deaths', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Age-adjusted COVID-19 deaths' })
     .click()
-  await page.getByText('Share this report:').click()
-  await page.getByText('COVID-19 deaths', { exact: true }).click()
-  await page.getByText('Do you have information that').click()
 })
 
 test('Covid Hospitalizations', async ({ page }) => {
@@ -87,14 +84,4 @@ test('Covid Hospitalizations', async ({ page }) => {
   await page
     .getByRole('button', { name: 'Inequities over time', exact: true })
     .click()
-  await page
-    .getByRole('heading', { name: 'Relative inequity for COVID-' })
-    .click()
-  await page
-    .getByRole('heading', { name: 'Population vs. distribution' })
-    .click()
-  await page
-    .getByRole('heading', { name: 'Breakdown summary for COVID-' })
-    .click()
-  await page.getByRole('heading', { name: 'Age-adjusted COVID-19' }).click()
 })

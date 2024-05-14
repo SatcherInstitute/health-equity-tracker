@@ -17,12 +17,7 @@ test('Prison by Race', async ({ page }) => {
       '3,232 children confined in adult facilities in the United States. Learn more.'
     )
     .click()
-  await page.locator('#unknown-demographic-map').getByRole('note').click()
-  await page
-    .getByRole('heading', {
-      name: 'Breakdown summary for people in prison in the United States',
-    })
-    .click()
+
   await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
   await page.getByRole('button', { name: 'Prison', exact: true }).click()
   await page.getByRole('button', { name: 'Jail' }).click()

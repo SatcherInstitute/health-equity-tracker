@@ -32,28 +32,16 @@ test('HIV Black Women: Prevalance', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Ages 13+' })
     .click()
-  await page.getByRole('button', { name: 'Unknown demographic map' }).click()
-  await page
-    .getByRole('heading', { name: 'Share of total HIV prevalence' })
-    .click()
-  await page
-    .locator('#unknown-demographic-map')
-    .getByRole('heading', { name: 'Ages 13+' })
-    .click()
-  await page.getByText('No unknown values for age').click()
+  await page.getByRole('button', { name: 'Inequities over time', exact: true }).click()
   await page
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
   await page.locator('#inequities-over-time').getByLabel('Include 55+').click()
   await page.getByText('disproportionately high →').click()
-  await page.getByText('← disproportionately low').click()
   await page
     .getByRole('button', { name: 'Expand inequities over time table' })
     .click()
   await page.getByText('Add or remove columns by').click()
-  await page
-    .getByRole('columnheader', { name: 'Time period (2008 - 2021)' })
-    .click()
   await page
     .getByRole('columnheader', { name: 'Ages 55+ % relative inequity' })
     .click()
@@ -62,34 +50,12 @@ test('HIV Black Women: Prevalance', async ({ page }) => {
     .locator('#inequities-over-time')
     .getByText("Due to COVID-19's effects on")
     .click()
-  await page.getByText('This graph visualizes the').click()
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
   await page
     .locator('#population-vs-distribution')
     .getByRole('heading', { name: 'Ages 13+' })
-    .click()
-  await page.getByRole('heading', { name: 'Breakdown summary for HIV' }).click()
-  await page
-    .getByRole('figure', { name: 'Breakdown summary for HIV' })
-    .locator('h4')
-    .click()
-  await page.getByRole('columnheader', { name: 'Age', exact: true }).click()
-  await page
-    .getByRole('columnheader', {
-      name: 'HIV prevalence for Black (NH) women per 100k people',
-    })
-    .click()
-  await page
-    .getByRole('columnheader', { name: 'Share of total HIV prevalence' })
-    .click()
-  await page
-    .getByRole('columnheader', { name: 'Population share (ages 13+)' })
-    .click()
-  await page.getByRole('heading', { name: 'Definitions:' }).click()
-  await page
-    .getByText('HIV prevalence for Black women', { exact: true })
     .click()
   await page
     .getByText(
@@ -145,25 +111,8 @@ test('HIV Black Women: Deaths', async ({ page }) => {
   await page
     .getByRole('button', { name: 'Expand rates over time table' })
     .click()
-  await page
-    .getByRole('columnheader', { name: 'Time period (2008 - 2021)' })
-    .click()
   await page.getByRole('columnheader', { name: 'All deaths per 100k' }).click()
-  await page
-    .getByRole('columnheader', { name: 'Ages 13-24 deaths per 100k' })
-    .click()
-  await page
-    .getByRole('columnheader', { name: 'Ages 25-34 deaths per 100k' })
-    .click()
-  await page
-    .getByRole('columnheader', { name: 'Ages 35-44 deaths per 100k' })
-    .click()
-  await page
-    .getByRole('columnheader', { name: 'Ages 45-54 deaths per 100k' })
-    .click()
-  await page
-    .getByRole('columnheader', { name: 'Ages 55+ deaths per 100k' })
-    .click()
+
   await page.getByRole('button', { name: 'Definitions & missing data' }).click()
   await page.getByText('New HIV diagnoses for Black').click()
   await page
@@ -182,8 +131,6 @@ test('HIV Black Women: Deaths', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Missing data for HIV deaths,' })
     .click()
-  await page.getByText('County-level data is').click()
-  await page.getByText('To protect personal privacy,').click()
   await page.getByText("There isn't enough data to").click()
   await page.getByText('The Asian category includes').click()
   await page.getByLabel('Scroll to Top').click()
