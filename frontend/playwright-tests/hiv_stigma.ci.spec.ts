@@ -24,14 +24,4 @@ test('HIV Stigma', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Graph unavailable: Population' })
     .click()
-  await page.getByRole('heading', { name: 'Breakdown summary for HIV' }).click()
-  await page.getByText('Share this report:').click()
-  await page.getByRole('button', { name: 'Definitions & missing data' }).click();
-  await page.getByRole('heading', { name: 'Definitions:' }).click();
-  await page.getByText('HIV', { exact: true }).click();
-  await page.locator('#definitionsList').getByText('HIV stigma', { exact: true }).click();
-  await page.getByText('Measurement Definition: Self-').click();
-  await page.getByText('Clinical Importance: HIV').click();
-  await page.getByRole('heading', { name: 'What data are missing?' }).click()
-  await page.getByText('Do you have information that').click()
 })

@@ -4,6 +4,8 @@
 #
 #    pip-compile --output-file=data_server/requirements.txt data_server/requirements.in
 #
+blinker==1.8.2
+    # via flask
 cachetools==4.2.4
     # via
     #   -r ../python/data_server/requirements.in
@@ -16,7 +18,7 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via flask
-flask==2.2.5
+flask==3.0.3
     # via
     #   -r requirements.in
     #   flask-cors

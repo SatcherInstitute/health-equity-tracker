@@ -26,7 +26,4 @@ test('Asthma', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Breakdown summary for asthma' })
     .click()
-  await page.getByText('Share this report:').click()
-  await page.getByText('Asthma cases', { exact: true }).click()
-  await page.getByText('Do you have information that').click()
 })

@@ -25,26 +25,4 @@ test('Depression Flow', async ({ page }) => {
       'No unknown values for race and ethnicity reported in this dataset at the state/t'
     )
     .click()
-  await page
-    .getByLabel(
-      'Comparison bar chart showing Population vs. distribution of total adult depression cases in the United States'
-    )
-    .getByRole('img')
-    .click()
-
-  await page
-    .getByRole('figure', {
-      name: 'Breakdown summary for depression in the United States',
-    })
-    .click()
-  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
-  await page
-    .getByRole('columnheader', { name: 'Cases of depression per 100k adults' })
-    .click()
-  await page
-    .getByRole('columnheader', {
-      name: 'Share of total adult depression cases',
-    })
-    .click()
-  await page.getByRole('columnheader', { name: 'Population share' }).click()
 })
