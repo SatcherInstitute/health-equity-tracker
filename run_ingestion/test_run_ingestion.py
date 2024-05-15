@@ -13,7 +13,7 @@ def client():
 
 def test_ingest_data_no_json(client):
     response = client.post('/')
-    assert response.status_code == HTTPStatus.BAD_REQUEST
+    assert response.status_code == HTTPStatus.UNSUPPORTED_MEDIA_TYPE
 
 
 def test_ingest_data_invalid_format(client):
