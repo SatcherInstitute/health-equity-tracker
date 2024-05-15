@@ -22,7 +22,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 0 # TODO: re-enable by increasing limit once we have test coverage #3152
+    open-pull-requests-limit: 1
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
