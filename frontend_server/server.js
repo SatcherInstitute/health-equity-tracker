@@ -61,7 +61,7 @@ app.use('/api', (req, res, next) => {
         // it will overwrite the Authorization header after the token is fetched. Right before the proxy
         // request is sent, overwrite the Authorization header with the bearer token from the service
         // account and delete the Authorization_DataServer header.
-        req.headers["Authorization_DataServer"] = `Bearer ${token}`;
+        req.headers["Authorization_DataServer"] = `bearer ${token}`;
         next();
       })
       .catch(next);

@@ -2,7 +2,7 @@ import request from 'supertest'
 import { test, expect } from 'vitest'
 import { assertEnvVar, getBooleanEnvVar } from './server.js'
 
-// UNIT TESTS OF HELPER FUNCTIONS
+// UNIT TESTS OF ENV VAR FUNCTIONS
 
 test('assertEnvVar should return the value of the environment variable if it exists', () => {
   process.env['EXISTING_VAR'] = 'some_value';
