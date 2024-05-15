@@ -27,6 +27,7 @@ jobs:
           VALIDATE_DOCKERFILE: true
           VALIDATE_TSX: true
           VALIDATE_TYPESCRIPT_ES: true
+          VALIDATE_JAVASCRIPT_ES: true
           PYTHON_BLACK_CONFIG_FILE: black.ini
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_PYTHON_PYLINT: true
