@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements.in
 #
-astroid==3.1.0
+astroid==3.2.0
     # via pylint
 cachetools==4.1.1
     # via google-auth
@@ -102,7 +102,7 @@ pyasn1-modules==0.2.8
     # via google-auth
 pycparser==2.20
     # via cffi
-pylint==3.1.1
+pylint==3.2.0
     # via -r ../python/ingestion/requirements.in
 python-dateutil==2.9.0.post0
     # via pandas
