@@ -8,7 +8,7 @@ astroid==3.1.0
     # via pylint
 cachetools==4.1.1
     # via google-auth
-certifi==2020.6.20
+certifi==2023.7.22
     # via requests
 cffi==1.15.1
     # via google-crc32c
@@ -54,14 +54,14 @@ googleapis-common-protos[grpc]==1.52.0
     #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-grpcio==1.47.0
+grpcio==1.53.2
     # via
     #   google-api-core
     #   googleapis-common-protos
     #   grpc-google-iam-v1
-gunicorn==20.0.4
+gunicorn==22.0.0
     # via -r requirements.in
-idna==2.10
+idna==3.7
     # via requests
 isort==5.13.2
     # via pylint
@@ -73,14 +73,18 @@ libcst==0.3.10
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-markupsafe==1.1.1
-    # via jinja2
+markupsafe==2.1.5
+    # via
+    #   jinja2
+    #   werkzeug
 mccabe==0.7.0
     # via pylint
 mypy-extensions==0.4.3
     # via typing-inspect
 numpy==1.26.4
     # via pandas
+packaging==24.0
+    # via gunicorn
 pandas==2.2.2
     # via -r ../python/ingestion/requirements.in
 platformdirs==4.2.1
@@ -89,7 +93,7 @@ proto-plus==1.10.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.13.0
+protobuf==3.18.3
     # via
     #   google-api-core
     #   googleapis-common-protos
@@ -116,7 +120,7 @@ requests==2.31.0
     # via
     #   -r ../python/ingestion/requirements.in
     #   google-api-core
-rsa==4.6
+rsa==4.7
     # via google-auth
 six==1.15.0
     # via
@@ -124,8 +128,6 @@ six==1.15.0
     #   google-auth
     #   google-cloud-bigquery
     #   google-resumable-media
-    #   grpcio
-    #   protobuf
     #   python-dateutil
 tomlkit==0.12.4
     # via pylint
@@ -137,9 +139,9 @@ typing-inspect==0.6.0
     # via libcst
 tzdata==2024.1
     # via pandas
-urllib3==1.25.10
+urllib3==1.26.18
     # via requests
-werkzeug==1.0.1
+werkzeug==3.0.3
     # via flask
 xlrd==1.2.0
     # via -r ../python/ingestion/requirements.in
