@@ -1,17 +1,20 @@
 'use strict';
 
 // TODO: change over to use ESModules with import() instead of require() ?
-const express = require('express');
-const compression = require('compression')
-const path = require('path');
-const basicAuth = require('express-basic-auth');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-// To make non-proxied request to metadata server for service account token
-const fetch = require('node-fetch'); // TODO: remove; node 18+ has built in fetch()
+import express from 'express';
+import compression from 'compression';
+import basicAuth from 'express-basic-auth';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
 
-function assertEnvVar(name) {
+const buildDir = process.env['BUILD_DIR'] || 'build';
+console.log(`Build directory: ${buildDir}`);
+
+export function assertEnvVar(name) {
   const value = process.env[name];
   console.log(`Environment variable ${name}: ${value}`);
+  if (value === "NULL") return ""
   if (!value) {
     throw new Error(
       `Invalid environment variable. Name: ${name}, value: ${value}`);
@@ -19,7 +22,7 @@ function assertEnvVar(name) {
   return value;
 }
 
-function getBooleanEnvVar(name) {
+export function getBooleanEnvVar(name) {
   const value = process.env[name];
   console.log(`Environment variable ${name}: ${value}`);
   if (value && value !== "true" && value !== "false") {
@@ -33,7 +36,6 @@ function getBooleanEnvVar(name) {
 // because it's good practice not to hard-code this kind of configuration.
 const PORT = 8080;
 const HOST = '0.0.0.0';
-
 const app = express();
 
 app.use(compression())
@@ -44,7 +46,7 @@ app.use('/api', (req, res, next) => {
   if (assertEnvVar("NODE_ENV") === 'production') {
     // Set up metadata server request
     // See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
-    const metadataServerTokenURL = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience=';
+    const metadataServerTokenURL = assertEnvVar("METADATA_SERVER_TOKEN_URL");
     const targetUrl = assertEnvVar("DATA_SERVER_URL");
     const fetchUrl = metadataServerTokenURL + targetUrl;
     const options = {
@@ -59,7 +61,7 @@ app.use('/api', (req, res, next) => {
         // it will overwrite the Authorization header after the token is fetched. Right before the proxy
         // request is sent, overwrite the Authorization header with the bearer token from the service
         // account and delete the Authorization_DataServer header.
-        req.headers["Authorization_DataServer"] = `bearer ${token}`;
+        req.headers["Authorization_DataServer"] = `Bearer ${token}`;
         next();
       })
       .catch(next);
@@ -103,13 +105,14 @@ if (!getBooleanEnvVar("DISABLE_BASIC_AUTH")) {
 app.use(compression())
 
 // Serve static files from the build directory.
-app.use(express.static(path.join(__dirname, 'build')));
+const __dirname = dirname(fileURLToPath(import.meta.url));
+app.use(express.static(path.join(__dirname, buildDir)));
 
 // Route all other paths to index.html. The "*" must be used otherwise
 // client-side routing wil fail due to missing exact matches. For more info, see
 // https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, buildDir, 'index.html'));
 });
 
 app.listen(PORT, HOST);
