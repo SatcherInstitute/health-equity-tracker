@@ -6,7 +6,7 @@
 #
 blinker==1.8.2
     # via flask
-cachetools==4.2.4
+cachetools==5.3.3
     # via
     #   -r ../python/data_server/requirements.in
     #   google-auth
