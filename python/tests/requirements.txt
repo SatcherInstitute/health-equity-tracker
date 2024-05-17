@@ -124,7 +124,7 @@ six==1.15.0
     #   python-dateutil
 tomlkit==0.12.4
     # via pylint
-typing-extensions==3.7.4.3
+typing-extensions==4
     # via
     #   libcst
     #   typing-inspect
