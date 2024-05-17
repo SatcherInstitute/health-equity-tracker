@@ -12,7 +12,6 @@ on:
       - 'python/**'
       - 'run_gcs_to_bq/**'
       - 'run_ingestion/**'
-      - 'run_ingestion/**'
   workflow_dispatch:
 
 jobs:
