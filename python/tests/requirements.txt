@@ -105,7 +105,7 @@ pytz==2020.4
     # via
     #   google-api-core
     #   pandas
-pyyaml==5.3.1
+pyyaml==5.4
     # via libcst
 requests==2.31.0
     # via
@@ -124,7 +124,7 @@ six==1.15.0
     #   python-dateutil
 tomlkit==0.12.4
     # via pylint
-typing-extensions==3.7.4.3
+typing-extensions==4
     # via
     #   libcst
     #   typing-inspect
