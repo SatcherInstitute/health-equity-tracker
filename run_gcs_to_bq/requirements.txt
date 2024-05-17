@@ -38,7 +38,7 @@ pyasn1==0.4.8             # via pyasn1-modules, rsa
 pycparser==2.20           # via cffi
 python-dateutil==2.8.1    # via pandas
 pytz==2020.1              # via google-api-core, pandas
-pyyaml==5.3.1             # via libcst
+pyyaml==5.4             # via libcst
 requests==2.24.0          # via -r ../python/ingestion/requirements.in, google-api-core, google-cloud-storage
 rsa==4.6                  # via google-auth
 six==1.15.0               # via google-api-core, google-auth, google-cloud-bigquery, google-resumable-media, grpcio, protobuf, python-dateutil
