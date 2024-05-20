@@ -14,8 +14,8 @@ export default function HetSocialIconLinks(props: HetSocialIconLinksProps) {
     <div className={`flex justify-center ${props.className ?? ''}`}>
       <a
         className={`mx-[7px] my-0 ${colorClass}`}
-        href={urlMap.shliLinkedIn}
-        aria-label='Satcher Health on LinkedIn'
+        href={urlMap.hetLinkedIn}
+        aria-label='Health Equity Tracker on LinkedIn'
       >
         <LinkedIn />
       </a>
@@ -28,8 +28,8 @@ export default function HetSocialIconLinks(props: HetSocialIconLinksProps) {
       </a>
       <a
         className={`mx-[7px] my-0 ${colorClass}`}
-        href={urlMap.shliYoutube}
-        aria-label='Satcher Health on YouTube'
+        href={urlMap.hetYouTubeShorts}
+        aria-label='Health Equity Tracker on YouTube Shorts'
       >
         <YouTube />
       </a>
