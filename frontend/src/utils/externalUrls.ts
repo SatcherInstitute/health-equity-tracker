@@ -43,11 +43,15 @@ export type LinkName =
   | 'unitedStatesIo'
   | 'cdcTrans'
   | 'hetTikTok'
+  | 'hetYouTubeShorts'
+  | 'hetLinkedIn'
   | 'msm'
   | 'whoWomenVoting'
 
 export const urlMap: Record<LinkName, string> = {
   hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
+  hetYouTubeShorts: 'https://www.youtube.com/@HealthEquityTracker/shorts',
+  hetLinkedIn: 'https://www.linkedin.com/company/healthequitytracker/',
   cdcTrans: 'https://www.cdc.gov/hiv/clinicians/transforming-health/index.html',
   veraGithub: 'https://github.com/vera-institute/incarceration-trends',
   bjsPrisoners:
