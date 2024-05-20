@@ -43,8 +43,3 @@ def test_write_to_bq_race_national(
     assert mock_data_dir.call_count == 1
 
     assert mock_bq.call_count == 0
-    # (
-    #     mock_bq_race_age_national,
-    #     mock_bq_race_national_current,
-    #     mock_bq_race_national_historical,
-    # ) = mock_bq.call_args_list
