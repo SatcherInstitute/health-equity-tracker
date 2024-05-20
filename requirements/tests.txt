@@ -6,8 +6,6 @@
 #
 astroid==3.2.2
     # via pylint
-attrs==20.2.0
-    # via pytest
 blinker==1.8.2
     # via flask
 cachetools==4.1.1
@@ -108,7 +106,7 @@ pandas==2.2.2
     #   -r ../python/tests/requirements.in
 platformdirs==4.2.1
     # via pylint
-pluggy==0.13.1
+pluggy==1.5.0
     # via pytest
 proto-plus==1.11.0
     # via
@@ -120,8 +118,6 @@ protobuf==3.18.3
     #   google-cloud-bigquery
     #   googleapis-common-protos
     #   proto-plus
-py==1.11.0
-    # via pytest
 pyasn1==0.4.8
     # via
     #   pyasn1-modules
@@ -134,7 +130,7 @@ pylint==3.2.2
     # via -r ../python/tests/../ingestion/requirements.in
 pyparsing==2.4.7
     # via packaging
-pytest==6.1.1
+pytest==8.2.1
     # via -r tests.in
 python-dateutil==2.8.2
     # via
@@ -161,8 +157,6 @@ six==1.15.0
     #   google-resumable-media
     #   packaging
     #   python-dateutil
-toml==0.10.1
-    # via pytest
 tomlkit==0.12.5
     # via pylint
 typing-extensions==4.0.0
