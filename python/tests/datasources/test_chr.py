@@ -18,12 +18,24 @@ GOLDEN_DATA = {
 EXP_DTYPE = {"state_fips": str, "county_fips": str, "time_period": str}
 
 
-def _load_csv_as_df_from_data_dir(*args):
+def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
+    use_cols = kwargs["usecols"]
+    dtype = kwargs["dtype"]
+    skiprows = kwargs["skiprows"]
+
+    print("use_cols:", use_cols)
 
     print("MOCKING FILE READ:", directory, filename)
     df = pd.read_csv(
-        os.path.join(TEST_DIR, directory, filename),
+        os.path.join(
+            TEST_DIR,
+            directory,
+            filename,
+        ),
+        usecols=use_cols,
+        dtype=dtype,
+        skiprows=skiprows,
     )
     return df
 
@@ -33,12 +45,12 @@ def _load_csv_as_df_from_data_dir(*args):
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_data_dir,
 )
-def test_write_to_bq_race_national(
+def test_write_to_bq_race_county(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
     datasource = CHRData()
-    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race", geographic="national")
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race")
 
     assert mock_data_dir.call_count == 1
 
