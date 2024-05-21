@@ -25,9 +25,11 @@ source_topic_cols = [
 ]
 
 source_dtypes = {
-    **{col: float for col in source_topic_cols},
-    **{col: str for col in source_cols},
+    **{topic_col: 'float64' for topic_col in source_topic_cols},
+    **{col: 'str' for col in source_cols},
 }
+
+print(source_dtypes)
 
 melt_map = {
     "preventable_hospitalization_per_100k": {
@@ -80,7 +82,7 @@ class CHRData(DataSource):
         table_name = f"{demographic}_county"
 
         print(table_name)
-        print(df.to_string())
+        # print(df.to_string())
         print(df)
 
         # gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
