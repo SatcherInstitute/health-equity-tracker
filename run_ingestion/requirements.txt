@@ -4,7 +4,7 @@
 #
 #    pip-compile requirements.in
 #
-astroid==3.2.0
+astroid==3.2.2
     # via pylint
 cachetools==4.1.1
     # via google-auth
@@ -102,7 +102,7 @@ pyasn1-modules==0.2.8
     # via google-auth
 pycparser==2.20
     # via cffi
-pylint==3.2.0
+pylint==3.2.2
     # via -r ../python/ingestion/requirements.in
 python-dateutil==2.9.0.post0
     # via pandas
@@ -112,7 +112,7 @@ pytz==2020.1
     #   pandas
 pyyaml==5.4
     # via libcst
-requests==2.31.0
+requests==2.32.0
     # via
     #   -r ../python/ingestion/requirements.in
     #   google-api-core
@@ -129,7 +129,7 @@ six==1.15.0
     #   python-dateutil
 tomlkit==0.12.4
     # via pylint
-typing-extensions==4
+typing-extensions==4.0.0
     # via
     #   libcst
     #   typing-inspect

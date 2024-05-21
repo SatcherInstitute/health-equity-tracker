@@ -4,10 +4,8 @@
 #
 #    pip-compile --output-file=requirements/tests.txt requirements/tests.in
 #
-astroid==3.2.0
+astroid==3.2.2
     # via pylint
-attrs==20.2.0
-    # via pytest
 blinker==1.8.2
     # via flask
 cachetools==4.1.1
@@ -31,7 +29,7 @@ flask==3.0.3
     #   flask-cors
 flask-cors==4.0.1
     # via -r ../data_server/requirements.in
-freezegun==1.0.0
+freezegun==1.5.1
     # via -r ../python/tests/requirements.in
 google-api-core[grpc]==1.23.0
     # via
@@ -102,13 +100,13 @@ packaging==20.4
     # via
     #   gunicorn
     #   pytest
-pandas==2.2.0
+pandas==2.2.2
     # via
     #   -r ../python/tests/../ingestion/requirements.in
     #   -r ../python/tests/requirements.in
 platformdirs==4.2.1
     # via pylint
-pluggy==0.13.1
+pluggy==1.5.0
     # via pytest
 proto-plus==1.11.0
     # via
@@ -120,8 +118,6 @@ protobuf==3.18.3
     #   google-cloud-bigquery
     #   googleapis-common-protos
     #   proto-plus
-py==1.11.0
-    # via pytest
 pyasn1==0.4.8
     # via
     #   pyasn1-modules
@@ -130,11 +126,11 @@ pyasn1-modules==0.2.8
     # via google-auth
 pycparser==2.20
     # via cffi
-pylint==3.2.0
+pylint==3.2.2
     # via -r ../python/tests/../ingestion/requirements.in
 pyparsing==2.4.7
     # via packaging
-pytest==6.1.1
+pytest==8.2.1
     # via -r tests.in
 python-dateutil==2.8.2
     # via
@@ -146,7 +142,7 @@ pytz==2020.1
     #   pandas
 pyyaml==5.4
     # via libcst
-requests==2.31.0
+requests==2.32.0
     # via
     #   -r ../python/tests/../ingestion/requirements.in
     #   google-api-core
@@ -161,11 +157,9 @@ six==1.15.0
     #   google-resumable-media
     #   packaging
     #   python-dateutil
-toml==0.10.1
-    # via pytest
 tomlkit==0.12.5
     # via pylint
-typing-extensions==4
+typing-extensions==4.0.0
     # via
     #   libcst
     #   typing-inspect
