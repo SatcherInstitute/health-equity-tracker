@@ -43,7 +43,7 @@ class MaternalMortalityProvider extends VariableProvider {
   const consumedDatasetIds = [datasetId];
   let df = maternalMortalityDataset.toDataFrame();
 
-
+  // Filter by geography
   df = this.filterByGeo(df, breakdowns);
 
   if (df.toArray().length === 0) {
@@ -51,6 +51,7 @@ class MaternalMortalityProvider extends VariableProvider {
   }
   df = this.renameGeoColumns(df, breakdowns);
 
+  // Apply demographic breakdown filters
   df = this.applyDemographicBreakdownFilters(df, breakdowns);
   df = this.removeUnrequestedColumns(df, metricQuery);
 
