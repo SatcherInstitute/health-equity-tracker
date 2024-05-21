@@ -11,6 +11,10 @@ class MaternalMortalityProvider extends VariableProvider {
   super('maternal_mortality_provider', [
    'maternal_mortality_per_100k',
    'maternal_mortality_estimated_total',
+   'maternal_deaths_raw',
+   'live_births_raw',
+   'mm_pct_share',
+   'mm_pct_relative_inequity',
   ]);
  }
 
