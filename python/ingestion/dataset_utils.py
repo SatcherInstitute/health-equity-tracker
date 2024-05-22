@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict
+from typing import Literal, List, Dict, Optional
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -551,6 +551,7 @@ def generate_time_df_with_cols_and_types(
     numerical_cols_to_keep: List[str],
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
+    is_county_level: Optional[bool] = None,
 ):
     """
     Accepts a DataFrame along with list of column names for either current or
@@ -566,6 +567,7 @@ def generate_time_df_with_cols_and_types(
         pct_relative_inequity
     - table_type: `current` or `historical`.
     - dem_col: The name of the demographic column to be included in the DataFrame.
+    - is_county: Optionally for a county level table.
 
     Returns:
     - A tuple containing the processed DataFrame and a dict mapping column names
@@ -577,9 +579,15 @@ def generate_time_df_with_cols_and_types(
     DataFrame.
     """
     df = df.copy()
-    mandatory_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL]
+    str_cols_to_keep = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, dem_col]
 
-    all_cols = mandatory_cols + [dem_col] + numerical_cols_to_keep
+    if is_county_level:
+        str_cols_to_keep.append(std_col.COUNTY_NAME_COL)
+        str_cols_to_keep.append(std_col.COUNTY_FIPS_COL)
+    if dem_col == 'race_and_ethnicity':
+        str_cols_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
+
+    all_cols = str_cols_to_keep + numerical_cols_to_keep
     df = df[all_cols]
 
     if table_type == CURRENT:

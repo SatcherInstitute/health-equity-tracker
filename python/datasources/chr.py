@@ -1,9 +1,8 @@
 from datasources.data_source import DataSource
 from ingestion import dataset_utils, merge_utils, gcs_to_bq_util, standardized_columns as std_col
-from ingestion.constants import COUNTY_LEVEL
+from ingestion.constants import COUNTY_LEVEL, CURRENT
 
 CHR = 'chr'
-
 source_state_fips = 'State FIPS Code'
 source_county_fips = '5-digit FIPS Code'
 source_time_period = 'Release Year'
@@ -34,6 +33,11 @@ source_topic_cols = list(melt_map[prev_hosp_per_100k_col].keys())
 source_dtypes = {
     **{topic_col: 'float64' for topic_col in source_topic_cols},
     **{col: 'str' for col in source_cols},
+}
+
+
+TIME_MAP = {
+    CURRENT: [prev_hosp_per_100k_col, std_col.POPULATION_PCT_COL, std_col.POPULATION_COL],
 }
 
 
@@ -69,8 +73,6 @@ class CHRData(DataSource):
 
         df = dataset_utils.melt_to_het_style_df(df, std_col.RACE_CATEGORY_ID_COL, source_cols, melt_map)
 
-        std_col.add_race_columns_from_category_id(df)
-
         df = df.rename(
             columns={
                 source_county_fips: std_col.COUNTY_FIPS_COL,
@@ -79,14 +81,18 @@ class CHRData(DataSource):
             }
         )
 
-        df = merge_utils.merge_yearly_pop_numbers(df, std_col.RACE_COL, COUNTY_LEVEL)
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
+        df = merge_utils.merge_yearly_pop_numbers(df, std_col.RACE_COL, COUNTY_LEVEL)
+        std_col.add_race_columns_from_category_id(df)
 
-        table_name = f"{demographic}_{COUNTY_LEVEL}"
+        for table_type in [CURRENT]:
+            df = df.copy()
+            table_name = f"{demographic}_{COUNTY_LEVEL}_{table_type}"
+            time_cols = TIME_MAP[table_type]
 
-        print(table_name)
-        # df.to_csv(table_name, index=False)
-        print(df)
+            df_for_bq, col_types = dataset_utils.generate_time_df_with_cols_and_types(
+                df, time_cols, table_type, demographic, is_county_level=True
+            )
 
-        # gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
