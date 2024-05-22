@@ -179,7 +179,9 @@ def merge_yearly_pop_numbers(
     if len(post_acs_rows_df) > 0:
         # temporarily save the original SOURCE years in a new column
         _tmp_src_yr_col = "temp_source_year_col"
-        post_acs_rows_df[_tmp_src_yr_col] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
+        post_acs_rows_df = post_acs_rows_df.copy()
+        post_acs_rows_df.loc[:, _tmp_src_yr_col] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
+
         # set the mergeable column year to the most recent to merge that data from ACS
         post_acs_rows_df[std_col.TIME_PERIOD_COL] = ACS_CURRENT_YEAR
         # merge that recent year pop data
