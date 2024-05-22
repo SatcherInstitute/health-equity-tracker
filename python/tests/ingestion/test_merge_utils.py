@@ -202,13 +202,13 @@ _expected_county_time_series_merged_with_pop_numbers = [
     #  Pre-2009 rows should not get population data
     ['2008', '01', '01001', 'ALL', np.nan, np.nan, 'something_cool'],
     ['2008', '78', '78030', 'ALL', np.nan, np.nan, 'something_else_entirely'],
-    # Territories / Years 2009-2015 should merge against 2010 Decennial (decia_2010)
+    # Territory Counties / Years 2009-2015 should merge against 2020 Decennial (decia_2020) since 2010 has no counties
     ["2010", '78', '78030', 'ALL', 42261, 100.0, 'something_something'],
     # States / Years within ACS range should merge directly onto ACS years
     ['2019', '01', '01001', 'ALL', 55380, 100.0, 'something_cool'],
-    # Territories / Years 2016-current should merge against 2020 Decennial (decia_2020)
+    # Territory Counties / Years 2016-current should merge against 2020 Decennial (decia_2020)
     ['2019', '78', '78030', 'ALL', 42261, 100.0, 'something_else_entirely'],
-    # States / Years within ACS range should merge directly onto ACS years
+    # Counties / Years within ACS range should merge directly onto ACS years
     ["2021", '01', '01001', 'ALL', 58239, 100.0, 'something_cool'],
     # Territories / Years 2016-current should merge against 2020 Decennial (decia_2020)
     ["2021", '78', '78030', 'ALL', 42261, 100.0, 'something_else_entirely'],
