@@ -1,6 +1,6 @@
 import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
-import ingestion.constants as constants
+from ingestion import constants
 from typing import Literal, List
 import os
 
@@ -155,33 +155,43 @@ def merge_yearly_pop_numbers(
     if std_col.TIME_PERIOD_COL not in df.columns:
         raise ValueError("Cannot merge by year as the provided df does not contain a `time_period` col")
 
+    # list to collect pre-acs, acs, and post-acs df sections
+    sub_dfs: List[pd.DataFrame] = []
+
     _tmp_time_period_col = "temp_time_period_col_as_int"
     df[_tmp_time_period_col] = df[std_col.TIME_PERIOD_COL].astype(int)
 
     # dont merge pre-2009 years
     pre_acs_rows_df = df[df[_tmp_time_period_col] < int(ACS_EARLIEST_YEAR)]
+    if len(pre_acs_rows_df) > 0:
+        sub_dfs.append(pre_acs_rows_df)
 
     # merge matchable years directly
     acs_rows_df = df.loc[
         (df[_tmp_time_period_col] >= int(ACS_EARLIEST_YEAR)) & (df[_tmp_time_period_col] <= int(ACS_CURRENT_YEAR))
     ]
-    acs_rows_df = _merge_pop(acs_rows_df, demo, geo_level, on_time_period=True)
+    if len(acs_rows_df) > 0:
+        acs_rows_df = _merge_pop(acs_rows_df, demo, geo_level, on_time_period=True)
+        sub_dfs.append(acs_rows_df)
 
     # merge most recent SOURCE data (without equiv years from ACS) with most recent ACS data
     post_acs_rows_df = df[df[_tmp_time_period_col] > int(ACS_CURRENT_YEAR)]
-    # temporarily save the original SOURCE years in a new column
-    _tmp_src_yr_col = "temp_source_year_col"
-    post_acs_rows_df[_tmp_src_yr_col] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
-    # set the mergeable column year to the most recent to merge that data from ACS
-    post_acs_rows_df[std_col.TIME_PERIOD_COL] = ACS_CURRENT_YEAR
-    # merge that recent year pop data
-    post_acs_rows_df = _merge_pop(post_acs_rows_df, demo, geo_level, on_time_period=True)
-    # swap back to the real year data
-    post_acs_rows_df[std_col.TIME_PERIOD_COL] = post_acs_rows_df[_tmp_src_yr_col]
-    post_acs_rows_df = post_acs_rows_df.drop(columns=[_tmp_src_yr_col])
+    if len(post_acs_rows_df) > 0:
+        # temporarily save the original SOURCE years in a new column
+        _tmp_src_yr_col = "temp_source_year_col"
+        post_acs_rows_df[_tmp_src_yr_col] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
+        # set the mergeable column year to the most recent to merge that data from ACS
+        post_acs_rows_df[std_col.TIME_PERIOD_COL] = ACS_CURRENT_YEAR
+        # merge that recent year pop data
+        post_acs_rows_df = _merge_pop(post_acs_rows_df, demo, geo_level, on_time_period=True)
+
+        # swap back to the real year data
+        post_acs_rows_df[std_col.TIME_PERIOD_COL] = post_acs_rows_df[_tmp_src_yr_col]
+        post_acs_rows_df = post_acs_rows_df.drop(columns=[_tmp_src_yr_col])
+        sub_dfs.append(post_acs_rows_df)
 
     # combine the three sub-dfs
-    df = pd.concat([pre_acs_rows_df, acs_rows_df, post_acs_rows_df], axis=0).reset_index(drop=True)
+    df = pd.concat(sub_dfs, axis=0).reset_index(drop=True)
     df = df.drop(columns=[_tmp_time_period_col])
 
     return df
@@ -198,7 +208,7 @@ def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'
       condition_cols: a list of strings which will serve as the col names to be added e.g.:
     ['condition_a_population', 'condition_b_population']"""
 
-    df = _merge_pop(df, demo, 'state')
+    df = _merge_pop(df, demo, constants.STATE_LEVEL)
 
     for col in condition_cols:
         df[col] = df[std_col.POPULATION_COL]
@@ -220,7 +230,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         std_col.POPULATION_PCT_COL: float,
     }
 
-    if loc == 'county':
+    if loc == constants.COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
     if demo not in on_col_map:
@@ -242,7 +252,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
     if std_col.STATE_FIPS_COL in df.columns:
         needed_cols.append(std_col.STATE_FIPS_COL)
 
-    if loc == 'county':
+    if loc == constants.COUNTY_LEVEL:
         needed_cols.append(std_col.COUNTY_FIPS_COL)
 
     keep_cols = [*needed_cols, std_col.TIME_PERIOD_COL] if on_time_period else needed_cols
@@ -251,8 +261,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
     # merge pop data for other territories/county-equivalents
     # from DECIA_2020 (VI, GU, AS, MP)
-    if loc != 'national':
-        verbose_demo = "race_and_ethnicity" if demo == 'race' else demo
+    if loc != constants.NATIONAL_LEVEL:
+        verbose_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
         pop_terr_table_name = f'by_{verbose_demo}_territory_{loc}_level'
 
         terr_pop_dtype = {
@@ -261,7 +271,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             std_col.POPULATION_PCT_COL: float,
         }
 
-        if loc == 'county':
+        if loc == constants.COUNTY_LEVEL:
             terr_pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
         pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
@@ -271,8 +281,12 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
         if on_time_period:
             # re-use 2020 territory populations in every ACS year 2016-current
-            # load and use 2010 territory populations in every ACS year 2009-2015
-            pop_terr_2010_file = os.path.join(DECIA_2010_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
+            # load and use 2010 territory populations in every ACS year 2009-2015, only state not county level
+            pop_terr_2010_file = (
+                pop_terr_2020_file
+                if loc == constants.COUNTY_LEVEL
+                else os.path.join(DECIA_2010_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
+            )
             pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
 
             pop_terr_2010_df = pop_terr_2010_df[needed_cols]
