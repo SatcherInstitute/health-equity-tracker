@@ -173,6 +173,50 @@ _expected_time_series_merged_with_pop_numbers = [
     ['9999', '78', 'BLACK_NH', 55936, 64.2, 'something_else_entirely'],
 ]
 
+_data_county_time_series_without_pop_numbers = [
+    ['time_period', 'state_fips', 'county_fips', 'race_category_id', 'other_col'],
+    ['2008', '01', '01001', 'ALL', 'something_cool'],
+    ['2008', '78', '78030', 'ALL', 'something_else_entirely'],
+    ["2010", '78', '78030', 'ALL', 'something_something'],
+    ['2019', '01', '01001', 'ALL', 'something_cool'],
+    ['2019', '78', '78030', 'ALL', 'something_else_entirely'],
+    ["2021", '01', '01001', 'ALL', 'something_cool'],
+    ["2021", '78', '78030', 'ALL', 'something_else_entirely'],
+    ['9999', '01', '01001', 'ALL', 'something_cool'],
+    ['9999', '78', '78030', 'ALL', 'something_else_entirely'],
+]
+
+# 2008 should not get pop data because it's too early for the ACS range
+# 2009-RECENT_YEAR should get pop data that matches year for year
+# After RECENT_YEAR should get the same pop data as RECENT_YEAR
+_expected_county_time_series_merged_with_pop_numbers = [
+    [
+        'time_period',
+        'state_fips',
+        'county_fips',
+        'race_category_id',
+        'population',
+        'population_pct',
+        'other_col',
+    ],
+    #  Pre-2009 rows should not get population data
+    ['2008', '01', '01001', 'ALL', np.nan, np.nan, 'something_cool'],
+    ['2008', '78', '78030', 'ALL', np.nan, np.nan, 'something_else_entirely'],
+    # Territories / Years 2009-2015 should merge against 2010 Decennial (decia_2010)
+    ["2010", '78', '78030', 'ALL', 42261, 100.0, 'something_something'],
+    # States / Years within ACS range should merge directly onto ACS years
+    ['2019', '01', '01001', 'ALL', 55380, 100.0, 'something_cool'],
+    # Territories / Years 2016-current should merge against 2020 Decennial (decia_2020)
+    ['2019', '78', '78030', 'ALL', 42261, 100.0, 'something_else_entirely'],
+    # States / Years within ACS range should merge directly onto ACS years
+    ["2021", '01', '01001', 'ALL', 58239, 100.0, 'something_cool'],
+    # Territories / Years 2016-current should merge against 2020 Decennial (decia_2020)
+    ["2021", '78', '78030', 'ALL', 42261, 100.0, 'something_else_entirely'],
+    # Years AFTER ACS range should merge against the most recent ACS year
+    ['9999', '01', '01001', 'ALL', 58761, 100.0, 'something_cool'],
+    ['9999', '78', '78030', 'ALL', 42261, 100.0, 'something_else_entirely'],
+]
+
 _data_without_pop_numbers_multiple_rows = [
     ['state_fips', 'race_category_id', 'cases', 'deaths'],
     ['01', 'BLACK_NH', 10, 1],
@@ -318,6 +362,22 @@ def testMergeYearlyPopNumbers():
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_time_series_merged_with_pop_numbers)),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
+    ).reset_index(drop=True)
+
+    assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
+
+
+def testMergeYearlyCountyPopNumbers():
+    df_no_pop = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_data_county_time_series_without_pop_numbers)),
+        dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
+    ).reset_index(drop=True)
+
+    df = merge_utils.merge_yearly_pop_numbers(df_no_pop, 'race', 'county')
+
+    expected_df = gcs_to_bq_util.values_json_to_df(
+        StringIO(json.dumps(_expected_county_time_series_merged_with_pop_numbers)),
+        dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
     ).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
