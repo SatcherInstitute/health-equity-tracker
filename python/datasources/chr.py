@@ -92,7 +92,7 @@ class CHRData(DataSource):
             time_cols = TIME_MAP[table_type]
 
             df_for_bq, col_types = dataset_utils.generate_time_df_with_cols_and_types(
-                df, time_cols, table_type, demographic, is_county_level=True
+                df, time_cols, table_type, demographic
             )
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
