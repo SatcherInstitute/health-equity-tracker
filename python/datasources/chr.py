@@ -85,8 +85,8 @@ class CHRData(DataSource):
 
         table_name = f"{demographic}_{COUNTY_LEVEL}"
 
-        # print(table_name)
-        df.to_csv(table_name, index=False)
+        print(table_name)
+        # df.to_csv(table_name, index=False)
         print(df)
 
         # gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
