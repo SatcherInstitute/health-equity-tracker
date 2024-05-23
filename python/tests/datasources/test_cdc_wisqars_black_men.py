@@ -1,9 +1,7 @@
 import os
 from unittest import mock
-
 import pandas as pd
 from pandas._testing import assert_frame_equal
-
 from datasources.cdc_wisqars_black_men import CDCWisqarsBlackMenData
 from ingestion import standardized_columns as std_col
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL

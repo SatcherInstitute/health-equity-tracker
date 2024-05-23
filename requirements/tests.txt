@@ -142,7 +142,7 @@ pytz==2020.1
     #   pandas
 pyyaml==5.4
     # via libcst
-requests==2.32.0
+requests==2.32.2
     # via
     #   -r ../python/tests/../ingestion/requirements.in
     #   google-api-core

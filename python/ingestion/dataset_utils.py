@@ -577,9 +577,14 @@ def generate_time_df_with_cols_and_types(
     DataFrame.
     """
     df = df.copy()
-    mandatory_cols = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL]
+    str_cols_to_keep = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL, std_col.STATE_FIPS_COL, dem_col]
 
-    all_cols = mandatory_cols + [dem_col] + numerical_cols_to_keep
+    if std_col.COUNTY_NAME_COL in df.columns:
+        str_cols_to_keep.append(std_col.COUNTY_NAME_COL)
+    if std_col.COUNTY_FIPS_COL in df.columns:
+        str_cols_to_keep.append(std_col.COUNTY_FIPS_COL)
+
+    all_cols = str_cols_to_keep + numerical_cols_to_keep
     df = df[all_cols]
 
     if table_type == CURRENT:
