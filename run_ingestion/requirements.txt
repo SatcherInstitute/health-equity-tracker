@@ -143,6 +143,7 @@ werkzeug==1.0.1
     # via flask
 xlrd==1.2.0
     # via -r ../python/ingestion/requirements.in
+openpyxl==3.1.2
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
