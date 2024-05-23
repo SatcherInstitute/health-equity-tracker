@@ -125,16 +125,16 @@ def get_float_cols() -> Dict[str, List[str]]:
         dict: A dictionary that maps the time period string to a list of needed numerical column names .
     """
 
-    TIME_MAP = {
-        CURRENT: [std_col.POPULATION_PCT_COL, std_col.POPULATION_COL],
-        HISTORICAL: [],
-    }
+    current_float_cols = [std_col.POPULATION_PCT_COL, std_col.POPULATION_COL]
+    historical_float_cols = []
 
     # include all numerical columns in the time map
     for topic_prefix in het_to_source_topic_all_to_race_prefix_map.keys():
         topic_per_100k = f'{topic_prefix}_{std_col.PER_100K_SUFFIX}'
-        TIME_MAP[CURRENT].insert(0, topic_per_100k)
-        TIME_MAP[HISTORICAL].insert(0, topic_per_100k)
+        current_float_cols.append(topic_per_100k)
+        historical_float_cols.append(topic_per_100k)
+
+    TIME_MAP = {CURRENT: current_float_cols, HISTORICAL: historical_float_cols}
 
     return TIME_MAP
 
