@@ -175,7 +175,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'atsdr.cdc.gov',
     data_source_link:
-      'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/SVI_documentation_2018.html',
+      'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/SVI_documentation_2022.html',
     geographic_level: 'County',
     demographic_granularity: 'None',
     update_frequency: 'Biannual',

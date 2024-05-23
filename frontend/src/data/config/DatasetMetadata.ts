@@ -599,7 +599,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_svi_county-age': {
     name: 'National SVI (Social Vulnerability Index) by county',
-    original_data_sourced: '2020',
+    original_data_sourced: '2022',
     source_id: 'cdc_svi_county',
   },
   'cdc_vaccination_county-alls_county': {
