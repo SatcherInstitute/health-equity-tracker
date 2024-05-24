@@ -217,7 +217,10 @@ def get_float_cols() -> Dict[str, List[str]]:
             **het_to_source_select_topic_all_to_race_prefix_map,
             **het_to_source_additional_topic_all_to_race_prefix_map,
         }.get(topic_prefix)
-        source_all_col = list(source_dict.keys())[0] if source_dict is not None else None
+
+        if source_dict is None:
+            continue
+        source_all_col = list(source_dict.keys())[0]
 
         rate_suffix = ''
         if source_per_100k in source_all_col:
