@@ -4,7 +4,7 @@ from ingestion.constants import COUNTY_LEVEL, CURRENT, HISTORICAL
 from typing import List, Dict, Optional
 import pandas as pd
 
-# NOTE: cols for numerator and denominator are all NULL
+# NOTE: col values for numerator and denominator are NULL
 
 CHR_DIR = 'chr'
 
