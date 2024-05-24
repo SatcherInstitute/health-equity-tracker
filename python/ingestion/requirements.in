@@ -6,4 +6,5 @@ google-cloud-storage
 pandas
 pylint
 requests
-xlrd  # This is implicitly required for pandas.read_excel
+xlrd  # This is implicitly required for pandas.read_
+openpyxl
