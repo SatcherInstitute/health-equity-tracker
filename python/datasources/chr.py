@@ -1,7 +1,7 @@
 from datasources.data_source import DataSource
 from ingestion import dataset_utils, merge_utils, gcs_to_bq_util, standardized_columns as std_col
 from ingestion.constants import COUNTY_LEVEL, CURRENT, HISTORICAL
-from typing import List, Dict
+from typing import List, Dict, Optional
 import pandas as pd
 
 # NOTE: cols for numerator and denominator are all NULL
@@ -9,12 +9,12 @@ import pandas as pd
 CHR_DIR = 'chr'
 
 
-het_to_source_select_topic_all_to_race_prefix_map = {
+het_to_source_select_topic_all_to_race_prefix_map: Dict[str, Dict[str, Optional[str]]] = {
     std_col.PREVENTABLE_HOSP_PREFIX: {'Preventable Hospitalization Rate': 'Preventable Hosp. Rate'},
     std_col.EXCESSIVE_DRINKING_PREFIX: {'% Excessive Drinking': None},
 }
 
-het_to_source_additional_topic_all_to_race_prefix_map = {
+het_to_source_additional_topic_all_to_race_prefix_map: Dict[str, Dict[str, Optional[str]]] = {
     std_col.SUICIDE_PREFIX: {'Crude Rate': 'Suicide Rate'},
     std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: {'% Frequent Mental Distress': None},
     std_col.DIABETES_PREFIX: {'% Adults with Diabetes': None},
@@ -116,8 +116,8 @@ def get_source_usecols(sheet_name: str) -> List[str]:
 
     source_usecols = [source_fips_col]
 
-    sheet_topic_map = {}
-    sheet_race_map = {}
+    sheet_topic_map: Dict[str, Dict[str, Optional[str]]] = {}
+    sheet_race_map: Dict[str, str] = {}
     if sheet_name == 'Select Measure Data':
         sheet_topic_map = het_to_source_select_topic_all_to_race_prefix_map
         sheet_race_map = source_race_to_id_map
@@ -145,18 +145,18 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
     Returns:
         dict: A nested dict
     """
-    melt_map = {}
+    melt_map: Dict[str, Dict[str, str]] = {}
     # each topic get its own sub-mapping
     for het_prefix, source_all_race_map in het_to_source_select_topic_all_to_race_prefix_map.items():
-        topic_melt_map = {}
+        select_topic_melt_map: Dict[str, str] = {}
         # maps the sources by race topic column name to the needed HET race column values
         for source_all, source_race_prefix in source_all_race_map.items():
-            topic_melt_map[source_all] = std_col.Race.ALL.value
+            select_topic_melt_map[source_all] = std_col.Race.ALL.value
 
             # some topics only have ALLs
             if source_race_prefix is not None:
                 for source_race_suffix, het_race_id in source_race_to_id_map.items():
-                    topic_melt_map[f'{source_race_prefix} {source_race_suffix}'] = het_race_id
+                    select_topic_melt_map[f'{source_race_prefix} {source_race_suffix}'] = het_race_id
 
         # assign 100k or pct_rate as needed
         rate_suffix = ''
@@ -167,18 +167,18 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
             rate_suffix = std_col.PCT_RATE_SUFFIX
 
         # set this metrics sub melt map
-        melt_map[f'{het_prefix}_{rate_suffix}'] = topic_melt_map
+        melt_map[f'{het_prefix}_{rate_suffix}'] = select_topic_melt_map
 
     for het_prefix, source_all_race_map in het_to_source_additional_topic_all_to_race_prefix_map.items():
-        topic_melt_map = {}
+        additional_topic_melt_map: Dict[str, str] = {}
         # maps the sources by race topic column name to the needed HET race column values
         for source_all, source_race_prefix in source_all_race_map.items():
-            topic_melt_map[source_all] = std_col.Race.ALL.value
+            additional_topic_melt_map[source_all] = std_col.Race.ALL.value
 
             # some topics only have ALLs
             if source_race_prefix is not None:
                 for source_race_suffix, het_race_id in source_nh_race_to_id_map.items():
-                    topic_melt_map[f'{source_race_prefix} {source_race_suffix}'] = het_race_id
+                    additional_topic_melt_map[f'{source_race_prefix} {source_race_suffix}'] = het_race_id
 
         # assign 100k or pct_rate as needed
         rate_suffix = ''
@@ -189,7 +189,7 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
             rate_suffix = std_col.PCT_RATE_SUFFIX
 
         # set this metrics sub melt map
-        melt_map[f'{het_prefix}_{rate_suffix}'] = topic_melt_map
+        melt_map[f'{het_prefix}_{rate_suffix}'] = additional_topic_melt_map
 
     return melt_map
 
