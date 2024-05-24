@@ -160,7 +160,7 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
 
         # assign 100k or pct_rate as needed
         rate_suffix = ''
-        source_all_col = next(iter(source_all_race_map))
+        source_all_col = list(source_all_race_map.keys())[0]
         if source_per_100k in source_all_col:
             rate_suffix = std_col.PER_100K_SUFFIX
         if source_pct_rate in source_all_col:
@@ -182,7 +182,7 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
 
         # assign 100k or pct_rate as needed
         rate_suffix = ''
-        source_all_col = next(iter(source_all_race_map))
+        source_all_col = list(source_all_race_map.keys())[0]
         if source_per_100k in source_all_col:
             rate_suffix = std_col.PER_100K_SUFFIX
         if source_pct_rate in source_all_col:
@@ -213,14 +213,11 @@ def get_float_cols() -> Dict[str, List[str]]:
     for topic_prefix in all_topics:
 
         # assign 100k or pct_rate as needed based on the source col name
-        source_all_col = next(
-            iter(
-                {
-                    **het_to_source_select_topic_all_to_race_prefix_map,
-                    **het_to_source_additional_topic_all_to_race_prefix_map,
-                }.get(topic_prefix)
-            )
-        )
+        source_dict = {
+            **het_to_source_select_topic_all_to_race_prefix_map,
+            **het_to_source_additional_topic_all_to_race_prefix_map,
+        }.get(topic_prefix)
+        source_all_col = list(source_dict.keys())[0]
 
         rate_suffix = ''
         if source_per_100k in source_all_col:
