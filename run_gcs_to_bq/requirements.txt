@@ -30,6 +30,7 @@ libcst==0.3.12            # via google-cloud-pubsub
 markupsafe==1.1.1         # via jinja2
 mypy-extensions==0.4.3    # via typing-inspect
 numpy==1.23.2             # via pandas
+openpyxl==3.1.2
 pandas==1.4.3             # via -r ../python/ingestion/requirements.in
 proto-plus==1.10.0        # via google-cloud-pubsub
 protobuf==3.13.0          # via google-api-core, googleapis-common-protos, proto-plus
