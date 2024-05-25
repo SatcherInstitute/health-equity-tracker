@@ -96,11 +96,11 @@ class CHRData(DataSource):
             timeview_float_cols_map = get_float_cols()
             float_cols = timeview_float_cols_map[timeview]
 
-            df_for_bq, col_types = dataset_utils.generate_time_df_with_cols_and_types(
-                df, float_cols, timeview, demographic
-            )
+            df_for_bq, float_cols = convert_some_pct_rate_to_100k(df, float_cols)
 
-            df_for_bq, col_types = convert_some_pct_rate_to_100k(df_for_bq, col_types)
+            df_for_bq, col_types = dataset_utils.generate_time_df_with_cols_and_types(
+                df_for_bq, float_cols, timeview, demographic
+            )
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -265,18 +265,18 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> tu
         'diabetes_pct_rate': 'diabetes_per_100k',
     }
 
+    # swap col names in df and float cols
+    float_cols = [cols_conversion_map.get(col, col) for col in float_cols]
+    df = df.rename(columns=cols_conversion_map)
+
     # convert per 100 to per 100,000
-    for col in cols_conversion_map.keys():
+    for col in cols_conversion_map.values():
         df[col] = df[col] * 1000
 
     # round 100k to whole numbers and pct_rate to one decimal
     for col in df.columns:
         if col in float_cols:
-            num_decimal_places = 0 if col.endswith(std_col.PER_100K_SUFFIX) else 1
+            num_decimal_places = 1 if "_pct" in col else 0
             df[col] = df[col].round(num_decimal_places)
-
-    # swap col names in df and float cols
-    df = df.rename(columns=cols_conversion_map)
-    float_cols = [cols_conversion_map.get(col, col) for col in float_cols]
 
     return (df, float_cols)
