@@ -18,6 +18,8 @@ click==7.1.2
     # via flask
 dill==0.3.8
     # via pylint
+et-xmlfile==1.1.0
+    # via openpyxl
 flask==1.1.2
     # via -r requirements.in
 google-api-core[grpc]==1.22.2
@@ -81,6 +83,10 @@ mypy-extensions==0.4.3
     # via typing-inspect
 numpy==1.26.4
     # via pandas
+openpyxl==3.1.2
+    # via
+    #   -r ../python/ingestion/requirements.in
+    #   -r requirements.in
 pandas==2.2.2
     # via -r ../python/ingestion/requirements.in
 platformdirs==4.2.1
@@ -141,9 +147,8 @@ urllib3==1.25.10
     # via requests
 werkzeug==1.0.1
     # via flask
-xlrd==1.2.0
+xlrd==2.0.1
     # via -r ../python/ingestion/requirements.in
-openpyxl==3.1.2
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
