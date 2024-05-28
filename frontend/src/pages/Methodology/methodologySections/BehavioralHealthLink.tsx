@@ -14,11 +14,13 @@ import {
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
+import { urlMap } from '../../../utils/externalUrls'
 
 // All data _sources_ used for Behavioral Health category
 const behavioralHealthDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.chr,
 ]
 
 // All metric configs used for Behavioral Health category topics
@@ -64,15 +66,14 @@ export default function BehavioralHealthLink() {
         <p>
           The data on behavioral health conditions such as frequent mental
           distress, depression, and excessive drinking, featured in the Health
-          Equity Tracker, primarily comes from{' '}
-          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>. AHR
-          primarily relies on the{' '}
-          <a href={'urlMap.cdcBrfss'}>
+          Equity Tracker, come from{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}
           survey conducted by the CDC, supplemented by data from{' '}
-          <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
-          <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
+          <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
+          <a href={urlMap.censusVoting}>U.S. Census</a>.{' '}
         </p>
         <NoteBrfss />
 

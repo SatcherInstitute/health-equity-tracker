@@ -23,8 +23,9 @@ export type LinkName =
   | 'cdcVaxCounty'
   | 'cdcCovidRestricted'
   | 'kffCovid'
-  | 'amr'
-  | 'amrMethodology'
+  | 'ahr'
+  | 'chr'
+  | 'ahrMethodology'
   | 'lifeline'
   | 'doi1'
   | 'doi2'
@@ -96,8 +97,9 @@ export const urlMap: Record<LinkName, string> = {
   kffCovid: 'https://www.kff.org/state-category/covid-19/',
   cdcVaxCounty:
     'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
-  amr: 'https://www.americashealthrankings.org/explore/measures',
-  amrMethodology:
+  ahr: 'https://www.americashealthrankings.org/explore/measures',
+  chr: 'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
+  ahrMethodology:
     'https://www.americashealthrankings.org/about/methodology/data-sources-and-measures',
   cdcCovidRestricted:
     'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
@@ -112,5 +114,5 @@ export const urlMap: Record<LinkName, string> = {
   msm: 'https://www.msm.edu/',
   whoWomenVoting:
     'https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality',
-    censusRaceEthnicity: 'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html'
+  censusRaceEthnicity: 'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html'
 }
