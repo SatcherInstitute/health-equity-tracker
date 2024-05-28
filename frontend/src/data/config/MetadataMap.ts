@@ -19,6 +19,7 @@ export type DataSourceId =
   | 'cdc_vaccination_national'
   | 'cdc_wisqars_data'
   | 'census_pop_estimates'
+  | 'chr'
   | 'covid_tracking_project'
   | 'decia_2010_territory_population'
   | 'decia_2020_territory_population'
@@ -365,6 +366,25 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cawp_time_data-race_and_ethnicity_state_historical_names',
     ],
     downloadable: true,
+  },
+
+  chr: {
+    id: 'chr',
+    data_source_name: "County Health Rankings (CHR)",
+    data_source_acronym: 'CHR',
+    data_source_pretty_site_name: 'countyhealthrankings.org',
+    data_source_link:
+      'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
+    geographic_level: 'County',
+    demographic_granularity: 'Race/ethnicity (partial)',
+    update_frequency: 'Annual',
+    description:
+      'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), and other determinants of health (preventable hospitalizations).',
+    dataset_ids: [
+      'chr_data-race_and_ethnicity_county_current',
+    ],
+    downloadable: true,
+    time_period_range: null,
   },
   the_unitedstates_project: {
     id: 'the_unitedstates_project',

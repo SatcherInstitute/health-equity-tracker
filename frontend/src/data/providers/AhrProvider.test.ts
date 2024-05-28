@@ -14,6 +14,7 @@ import {
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
+import { expect, describe, test, beforeEach } from 'vitest'
 
 export async function ensureCorrectDatasetsDownloaded(
   ahrDatasetId: DatasetId | DatasetIdWithStateFIPSCode,
@@ -93,6 +94,23 @@ describe('AhrProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'ahr_data-sex_national',
       Breakdowns.forFips(new Fips('00')),
+      SEX
+    )
+  })
+
+  test('County and Race Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'chr_data-race_and_ethnicity_county_current',
+      Breakdowns.forFips(new Fips('01001')),
+      RACE
+    )
+  })
+
+
+  test('County and Sex Breakdown (should just get the ALLs)', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'chr_data-race_and_ethnicity_county_current',
+      Breakdowns.forFips(new Fips('01001')),
       SEX
     )
   })
