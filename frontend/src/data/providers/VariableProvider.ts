@@ -24,9 +24,9 @@ abstract class VariableProvider {
     if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
       return createMissingDataResponse(
         'Breakdowns not supported for provider ' +
-          this.providerId +
-          ': ' +
-          metricQuery.breakdowns.getUniqueKey()
+        this.providerId +
+        ': ' +
+        metricQuery.breakdowns.getUniqueKey()
       )
     }
 
