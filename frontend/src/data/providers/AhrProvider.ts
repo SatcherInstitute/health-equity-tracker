@@ -139,7 +139,7 @@ class AhrProvider extends VariableProvider {
     }
     // some county data is available via CHR
     if (breakdowns.geography === 'county' && dataTypeId && CHR_DATATYPE_IDS.includes(dataTypeId)) {
-      if (breakdowns.hasOnlyRace() || breakdowns.hasOnlySex() || breakdowns.hasOnlyAge()) return 'chr_data-race_and_ethnicity_county_current'
+      if (breakdowns.hasExactlyOneDemographic()) return 'chr_data-race_and_ethnicity_county_current'
     }
   }
 
