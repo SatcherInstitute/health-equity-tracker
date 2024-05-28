@@ -21,10 +21,9 @@ def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
     filename = "test_" + filename
     use_cols = kwargs["usecols"]
     dtype = kwargs["dtype"]
-    # skiprows = kwargs["skiprows"]
     header = kwargs["header"]
 
-    print("MOCKING XLSX FILE SHEET READ:", directory, filename, sheetname)
+    print("MOCKING XLSX SHEET READ:", directory, filename, sheetname)
     df = pd.read_excel(
         os.path.join(
             TEST_DIR,
@@ -51,7 +50,7 @@ def test_write_to_bq_race_county(
     datasource = CHRData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="race")
 
-    assert mock_xlsx_data_dir.call_count == 1
+    assert mock_xlsx_data_dir.call_count == 2
 
     # calls writing COUNTY CURRENT to bq
     assert mock_bq.call_count == 1
