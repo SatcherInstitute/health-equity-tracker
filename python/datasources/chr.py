@@ -87,6 +87,12 @@ class CHRData(DataSource):
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
         df = merge_utils.merge_yearly_pop_numbers(df, std_col.RACE_COL, COUNTY_LEVEL)
+        df = df.rename(
+            columns={
+                std_col.POPULATION_PCT_COL: std_col.CHR_POPULATION_PCT,
+                std_col.POPULATION_COL: std_col.CHR_POPULATION_RAW,
+            }
+        )
         std_col.add_race_columns_from_category_id(df)
 
         for timeview in [CURRENT]:
@@ -203,7 +209,7 @@ def get_float_cols() -> Dict[str, List[str]]:
         dict: A dictionary that maps the time period string to a list of needed numerical column names .
     """
 
-    current_float_cols = [std_col.POPULATION_PCT_COL, std_col.POPULATION_COL]
+    current_float_cols = [std_col.CHR_POPULATION_RAW, std_col.CHR_POPULATION_PCT]
     historical_float_cols = []
 
     # include all numerical columns in the time map

@@ -94,7 +94,7 @@ packaging==21.3
     #   db-dtypes
     #   google-cloud-bigquery
     #   gunicorn
-pandas==2.0.3
+pandas==2.2.2
     # via
     #   -r requirements.in
     #   db-dtypes

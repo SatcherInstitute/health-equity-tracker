@@ -99,6 +99,8 @@ ASTHMA_PREFIX = "asthma"
 VOTER_PARTICIPATION_PREFIX = "voter_participation"
 
 AHR_POPULATION_PCT = "ahr_population_pct"
+CHR_POPULATION_PCT = "chr_population_pct"
+CHR_POPULATION_RAW = "chr_population_estimated_total"
 
 # Vaccination columns
 VACCINATED_RAW = "vaccinated_estimated_total"
