@@ -7,9 +7,9 @@
       "esnext"
     ],
     "types": [
-      "vitest/globals",
       "vite-plugin-svgr/client",
       "vite/client",
+      "vitest/globals",
     ],
     "typeRoots": [
       "./node_modules"
@@ -31,9 +31,7 @@
     "src",
   ],
   "exclude": [
-    "**/*.test.tsx",
     "src/assets",
-    "**/*.test.ts",
     "node_modules"
   ]
 }

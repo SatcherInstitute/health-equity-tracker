@@ -56,6 +56,7 @@ abstract class VariableProvider {
     timeView: TimeView,
     sourceCurrentTimePeriod?: string
   ): IDataFrame {
+    // TODO: this should probably be deprecated, and we should rely on distinct _current or _historical tables on the backend
     // This method should only be used when the current year  dataset is a recent subset of the historical D3 dataset
     // For other sources like COVID, the TIME_SERIES set is in a distinct table that doesn't need the added filtering
 
