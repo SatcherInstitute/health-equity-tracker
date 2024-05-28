@@ -1,541 +1,811 @@
-state_name,state_fips,race_and_ethnicity,county_name,county_fips,preventable_hospitalizations_per_100k,population_pct,population
-Alabama,01,All,Autauga County,01001,3915.0,100.0,58761.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Autauga County,01001,,1.1,636.0
-Alabama,01,White (NH),Autauga County,01001,3633.0,72.6,42635.0
-Alabama,01,Hispanic or Latino,Autauga County,01001,,3.2,1864.0
-Alabama,01,Black or African American (NH),Autauga County,01001,6203.0,19.6,11496.0
-Alabama,01,American Indian and Alaska Native (NH),Autauga County,01001,,0.1,59.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Baldwin County,01003,,0.9,2068.0
-Alabama,01,Hispanic or Latino,Baldwin County,01003,,4.8,11210.0
-Alabama,01,Black or African American (NH),Baldwin County,01003,5376.0,8.3,19318.0
-Alabama,01,American Indian and Alaska Native (NH),Baldwin County,01003,,0.2,512.0
-Alabama,01,White (NH),Baldwin County,01003,2680.0,82.3,192161.0
-Alabama,01,All,Baldwin County,01003,2799.0,100.0,233420.0
-Alabama,01,American Indian and Alaska Native (NH),Barbour County,01005,,0.3,63.0
-Alabama,01,Hispanic or Latino,Barbour County,01005,,4.8,1202.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Barbour County,01005,,0.5,129.0
-Alabama,01,White (NH),Barbour County,01005,2448.0,44.6,11084.0
-Alabama,01,Black or African American (NH),Barbour County,01005,4814.0,46.9,11662.0
-Alabama,01,All,Barbour County,01005,3040.0,100.0,24877.0
-Alabama,01,American Indian and Alaska Native (NH),Bibb County,01007,,0.1,15.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Bibb County,01007,,0.3,69.0
-Alabama,01,Hispanic or Latino,Bibb County,01007,,2.9,650.0
-Alabama,01,Black or African American (NH),Bibb County,01007,8207.0,20.7,4598.0
-Alabama,01,White (NH),Bibb County,01007,4150.0,74.2,16520.0
-Alabama,01,All,Bibb County,01007,4651.0,100.0,22251.0
-Alabama,01,White (NH),Blount County,01009,,85.7,50614.0
-Alabama,01,All,Blount County,01009,2499.0,100.0,59077.0
-Alabama,01,Black or African American (NH),Blount County,01009,,1.2,729.0
-Alabama,01,American Indian and Alaska Native (NH),Blount County,01009,,0.1,75.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Blount County,01009,,0.4,217.0
-Alabama,01,Hispanic or Latino,Blount County,01009,,9.7,5721.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Bullock County,01011,,0.4,43.0
-Alabama,01,All,Bullock County,01011,2268.0,100.0,10328.0
-Alabama,01,White (NH),Bullock County,01011,2343.0,20.6,2125.0
-Alabama,01,Black or African American (NH),Bullock County,01011,2091.0,68.9,7117.0
-Alabama,01,American Indian and Alaska Native (NH),Bullock County,01011,,0.0,0.0
-Alabama,01,Hispanic or Latino,Bullock County,01011,,8.8,907.0
-Alabama,01,American Indian and Alaska Native (NH),Butler County,01013,,0.4,69.0
-Alabama,01,White (NH),Butler County,01013,3596.0,50.9,9655.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Butler County,01013,,1.3,243.0
-Alabama,01,Black or African American (NH),Butler County,01013,3058.0,44.6,8462.0
-Alabama,01,Hispanic or Latino,Butler County,01013,,1.7000000000000002,322.0
-Alabama,01,All,Butler County,01013,3396.0,100.0,18981.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Calhoun County,01015,,0.8,915.0
-Alabama,01,American Indian and Alaska Native (NH),Calhoun County,01015,,0.1,174.0
-Alabama,01,Black or African American (NH),Calhoun County,01015,3836.0,21.7,25204.0
-Alabama,01,White (NH),Calhoun County,01015,3474.0,70.5,81851.0
-Alabama,01,Hispanic or Latino,Calhoun County,01015,,4.1,4736.0
-Alabama,01,All,Calhoun County,01015,3491.0,100.0,116162.0
-Alabama,01,Black or African American (NH),Chambers County,01017,3615.0,40.8,14107.0
-Alabama,01,American Indian and Alaska Native (NH),Chambers County,01017,,0.03,10.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Chambers County,01017,,0.2,63.0
-Alabama,01,All,Chambers County,01017,3163.0,100.0,34612.0
-Alabama,01,Hispanic or Latino,Chambers County,01017,,3.3,1129.0
-Alabama,01,White (NH),Chambers County,01017,3123.0,54.3,18794.0
-Alabama,01,Black or African American (NH),Cherokee County,01019,,4.0,1000.0
-Alabama,01,All,Cherokee County,01019,4153.0,100.0,25069.0
-Alabama,01,Hispanic or Latino,Cherokee County,01019,,1.9,479.0
-Alabama,01,White (NH),Cherokee County,01019,,90.7,22749.0
-Alabama,01,American Indian and Alaska Native (NH),Cherokee County,01019,,0.5,113.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Cherokee County,01019,,0.1,21.0
-Alabama,01,All,Chilton County,01021,3581.0,100.0,45140.0
-Alabama,01,American Indian and Alaska Native (NH),Chilton County,01021,,0.04,17.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Chilton County,01021,,0.5,244.0
-Alabama,01,White (NH),Chilton County,01021,3447.0,79.1,35714.0
-Alabama,01,Hispanic or Latino,Chilton County,01021,,8.1,3664.0
-Alabama,01,Black or African American (NH),Chilton County,01021,3904.0,9.4,4254.0
-Alabama,01,All,Choctaw County,01023,2712.0,100.0,12669.0
-Alabama,01,American Indian and Alaska Native (NH),Choctaw County,01023,,0.2,28.0
-Alabama,01,Hispanic or Latino,Choctaw County,01023,,1.1,143.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Choctaw County,01023,,0.1,15.0
-Alabama,01,White (NH),Choctaw County,01023,2233.0,56.5,7162.0
-Alabama,01,Black or African American (NH),Choctaw County,01023,3932.0,39.9,5055.0
-Alabama,01,All,Clarke County,01025,3623.0,100.0,23058.0
-Alabama,01,American Indian and Alaska Native (NH),Clarke County,01025,,0.1,15.0
-Alabama,01,Black or African American (NH),Clarke County,01025,5508.0,45.4,10479.0
-Alabama,01,Hispanic or Latino,Clarke County,01025,,1.5,335.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Clarke County,01025,,0.4,90.0
-Alabama,01,White (NH),Clarke County,01025,3076.0,51.2,11809.0
-Alabama,01,American Indian and Alaska Native (NH),Clay County,01027,,0.0,0.0
-Alabama,01,Hispanic or Latino,Clay County,01027,,3.1,437.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Clay County,01027,,0.3,36.0
-Alabama,01,Black or African American (NH),Clay County,01027,1040.0,12.6,1790.0
-Alabama,01,White (NH),Clay County,01027,2530.0,80.1,11385.0
-Alabama,01,All,Clay County,01027,2559.0,100.0,14209.0
-Alabama,01,White (NH),Cleburne County,01029,,92.2,13964.0
-Alabama,01,Black or African American (NH),Cleburne County,01029,,2.7,411.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Cleburne County,01029,,0.1,15.0
-Alabama,01,Hispanic or Latino,Cleburne County,01029,,2.6,401.0
-Alabama,01,All,Cleburne County,01029,2478.0,100.0,15144.0
-Alabama,01,American Indian and Alaska Native (NH),Cleburne County,01029,,0.1,22.0
-Alabama,01,Black or African American (NH),Coffee County,01031,4572.0,16.1,8598.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Coffee County,01031,,1.1,571.0
-Alabama,01,All,Coffee County,01031,3752.0,100.0,53559.0
-Alabama,01,American Indian and Alaska Native (NH),Coffee County,01031,,0.5,277.0
-Alabama,01,Hispanic or Latino,Coffee County,01031,,8.4,4500.0
-Alabama,01,White (NH),Coffee County,01031,3712.0,68.8,36875.0
-Alabama,01,All,Colbert County,01033,3697.0,100.0,57270.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Colbert County,01033,,0.5,267.0
-Alabama,01,American Indian and Alaska Native (NH),Colbert County,01033,,0.3,170.0
-Alabama,01,White (NH),Colbert County,01033,3486.0,77.7,44485.0
-Alabama,01,Hispanic or Latino,Colbert County,01033,,3.2,1837.0
-Alabama,01,Black or African American (NH),Colbert County,01033,5473.0,16.0,9171.0
-Alabama,01,Black or African American (NH),Conecuh County,01035,9831.0,48.0,5553.0
-Alabama,01,Hispanic or Latino,Conecuh County,01035,,0.7000000000000001,80.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Conecuh County,01035,,0.3,36.0
-Alabama,01,American Indian and Alaska Native (NH),Conecuh County,01035,,0.3,33.0
-Alabama,01,All,Conecuh County,01035,7136.0,100.0,11576.0
-Alabama,01,White (NH),Conecuh County,01035,6349.0,49.7,5751.0
-Alabama,01,Hispanic or Latino,Coosa County,01037,,2.7,284.0
-Alabama,01,Black or African American (NH),Coosa County,01037,2734.0,30.2,3120.0
-Alabama,01,American Indian and Alaska Native (NH),Coosa County,01037,,0.1,9.0
-Alabama,01,All,Coosa County,01037,2862.0,100.0,10329.0
-Alabama,01,White (NH),Coosa County,01037,2721.0,64.2,6632.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Coosa County,01037,,0.0,0.0
-Alabama,01,Hispanic or Latino,Covington County,01039,,2.0,749.0
-Alabama,01,American Indian and Alaska Native (NH),Covington County,01039,,0.3,101.0
-Alabama,01,All,Covington County,01039,4800.0,100.0,37542.0
-Alabama,01,White (NH),Covington County,01039,4707.0,82.5,30958.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Covington County,01039,,0.6000000000000001,218.0
-Alabama,01,Black or African American (NH),Covington County,01039,6901.0,12.3,4606.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Crenshaw County,01041,,1.2,160.0
-Alabama,01,Hispanic or Latino,Crenshaw County,01041,,2.5,335.0
-Alabama,01,White (NH),Crenshaw County,01041,3492.0,69.9,9226.0
-Alabama,01,All,Crenshaw County,01041,3895.0,100.0,13205.0
-Alabama,01,Black or African American (NH),Crenshaw County,01041,6879.0,22.9,3026.0
-Alabama,01,American Indian and Alaska Native (NH),Crenshaw County,01041,,0.1,10.0
-Alabama,01,Hispanic or Latino,Cullman County,01043,,4.6,4056.0
-Alabama,01,Black or African American (NH),Cullman County,01043,13632.0,1.1,959.0
-Alabama,01,All,Cullman County,01043,3896.0,100.0,88284.0
-Alabama,01,American Indian and Alaska Native (NH),Cullman County,01043,,0.3,243.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Cullman County,01043,,0.3,305.0
-Alabama,01,White (NH),Cullman County,01043,3851.0,90.8,80170.0
-Alabama,01,American Indian and Alaska Native (NH),Dale County,01045,,0.4,218.0
-Alabama,01,All,Dale County,01045,3253.0,100.0,49455.0
-Alabama,01,White (NH),Dale County,01045,3258.0,67.3,33286.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Dale County,01045,,1.3,623.0
-Alabama,01,Hispanic or Latino,Dale County,01045,,7.0,3467.0
-Alabama,01,Black or African American (NH),Dale County,01045,3687.0,20.4,10087.0
-Alabama,01,American Indian and Alaska Native (NH),Dallas County,01047,,0.5,208.0
-Alabama,01,White (NH),Dallas County,01047,3021.0,27.0,10365.0
-Alabama,01,Hispanic or Latino,Dallas County,01047,,1.1,430.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Dallas County,01047,,0.6000000000000001,240.0
-Alabama,01,Black or African American (NH),Dallas County,01047,5442.0,68.7,26311.0
-Alabama,01,All,Dallas County,01047,4280.0,100.0,38326.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",DeKalb County,01049,,0.1,99.0
-Alabama,01,White (NH),DeKalb County,01049,3257.0,79.1,56705.0
-Alabama,01,All,DeKalb County,01049,3215.0,100.0,71680.0
-Alabama,01,Hispanic or Latino,DeKalb County,01049,,15.4,11021.0
-Alabama,01,Black or African American (NH),DeKalb County,01049,1060.0,1.5,1043.0
-Alabama,01,American Indian and Alaska Native (NH),DeKalb County,01049,,0.5,354.0
-Alabama,01,Hispanic or Latino,Elmore County,01051,,3.1,2739.0
-Alabama,01,American Indian and Alaska Native (NH),Elmore County,01051,,0.2,210.0
-Alabama,01,White (NH),Elmore County,01051,3473.0,72.4,63533.0
-Alabama,01,Black or African American (NH),Elmore County,01051,5928.0,20.8,18224.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Elmore County,01051,,0.7000000000000001,602.0
-Alabama,01,All,Elmore County,01051,3726.0,100.0,87694.0
-Alabama,01,Hispanic or Latino,Escambia County,01053,,2.6,940.0
-Alabama,01,American Indian and Alaska Native (NH),Escambia County,01053,8271.0,3.0,1118.0
-Alabama,01,All,Escambia County,01053,4624.0,100.0,36755.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Escambia County,01053,,0.2,90.0
-Alabama,01,White (NH),Escambia County,01053,4519.0,60.2,22117.0
-Alabama,01,Black or African American (NH),Escambia County,01053,5336.0,30.2,11115.0
-Alabama,01,American Indian and Alaska Native (NH),Etowah County,01055,,0.1,127.0
-Alabama,01,Black or African American (NH),Etowah County,01055,6735.0,15.0,15507.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Etowah County,01055,,0.7000000000000001,745.0
-Alabama,01,All,Etowah County,01055,4350.0,100.0,103348.0
-Alabama,01,White (NH),Etowah County,01055,4164.0,77.1,79648.0
-Alabama,01,Hispanic or Latino,Etowah County,01055,,4.4,4561.0
-Alabama,01,American Indian and Alaska Native (NH),Fayette County,01057,,0.1,24.0
-Alabama,01,Hispanic or Latino,Fayette County,01057,,0.4,61.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Fayette County,01057,,0.5,76.0
-Alabama,01,Black or African American (NH),Fayette County,01057,4553.0,12.7,2074.0
-Alabama,01,All,Fayette County,01057,3932.0,100.0,16297.0
-Alabama,01,White (NH),Fayette County,01057,3736.0,83.9,13666.0
-Alabama,01,American Indian and Alaska Native (NH),Franklin County,01059,,0.2,57.0
-Alabama,01,Hispanic or Latino,Franklin County,01059,2080.0,18.4,5892.0
-Alabama,01,Black or African American (NH),Franklin County,01059,1004.0,4.2,1360.0
-Alabama,01,All,Franklin County,01059,4590.0,100.0,32011.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Franklin County,01059,,0.2,49.0
-Alabama,01,White (NH),Franklin County,01059,4630.0,75.2,24088.0
-Alabama,01,American Indian and Alaska Native (NH),Geneva County,01061,,0.2,61.0
-Alabama,01,All,Geneva County,01061,3206.0,100.0,26647.0
-Alabama,01,White (NH),Geneva County,01061,3164.0,80.8,21535.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Geneva County,01061,,0.6000000000000001,149.0
-Alabama,01,Hispanic or Latino,Geneva County,01061,,4.4,1185.0
-Alabama,01,Black or African American (NH),Geneva County,01061,4355.0,8.9,2377.0
-Alabama,01,White (NH),Greene County,01063,2533.0,17.1,1321.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Greene County,01063,,0.0,0.0
-Alabama,01,American Indian and Alaska Native (NH),Greene County,01063,,0.1,7.0
-Alabama,01,Hispanic or Latino,Greene County,01063,,0.3,24.0
-Alabama,01,Black or African American (NH),Greene County,01063,5609.0,81.8,6305.0
-Alabama,01,All,Greene County,01063,4840.0,100.0,7706.0
-Alabama,01,American Indian and Alaska Native (NH),Hale County,01065,,0.3,42.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Hale County,01065,,0.1,9.0
-Alabama,01,All,Hale County,01065,5196.0,100.0,14742.0
-Alabama,01,Hispanic or Latino,Hale County,01065,,0.2,25.0
-Alabama,01,White (NH),Hale County,01065,5524.0,38.4,5663.0
-Alabama,01,Black or African American (NH),Hale County,01065,4729.0,56.8,8373.0
-Alabama,01,All,Henry County,01067,3304.0,100.0,17282.0
-Alabama,01,White (NH),Henry County,01067,3198.0,69.5,12012.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Henry County,01067,,0.6000000000000001,104.0
-Alabama,01,Hispanic or Latino,Henry County,01067,,2.7,469.0
-Alabama,01,American Indian and Alaska Native (NH),Henry County,01067,,0.3,60.0
-Alabama,01,Black or African American (NH),Henry County,01067,3135.0,25.1,4344.0
-Alabama,01,All,Houston County,01069,3448.0,100.0,107040.0
-Alabama,01,Black or African American (NH),Houston County,01069,6612.0,27.1,29026.0
-Alabama,01,White (NH),Houston County,01069,2931.0,64.9,69420.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Houston County,01069,,0.9,993.0
-Alabama,01,Hispanic or Latino,Houston County,01069,,3.6,3844.0
-Alabama,01,American Indian and Alaska Native (NH),Houston County,01069,,0.2,248.0
-Alabama,01,Black or African American (NH),Jackson County,01071,5459.0,3.2,1708.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Jackson County,01071,,0.4,230.0
-Alabama,01,American Indian and Alaska Native (NH),Jackson County,01071,,0.8,397.0
-Alabama,01,White (NH),Jackson County,01071,2442.0,88.8,46699.0
-Alabama,01,All,Jackson County,01071,2484.0,100.0,52618.0
-Alabama,01,Hispanic or Latino,Jackson County,01071,,3.2,1685.0
-Alabama,01,American Indian and Alaska Native (NH),Jefferson County,01073,,0.1,570.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Jefferson County,01073,559.0,1.8,11850.0
-Alabama,01,White (NH),Jefferson County,01073,2558.0,48.9,328951.0
-Alabama,01,All,Jefferson County,01073,2957.0,100.0,672265.0
-Alabama,01,Hispanic or Latino,Jefferson County,01073,1074.0,4.2,27950.0
-Alabama,01,Black or African American (NH),Jefferson County,01073,3772.0,42.6,286423.0
-Alabama,01,American Indian and Alaska Native (NH),Lamar County,01075,,0.4,49.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lamar County,01075,,0.2,23.0
-Alabama,01,All,Lamar County,01075,3265.0,100.0,13885.0
-Alabama,01,White (NH),Lamar County,01075,3143.0,85.7,11900.0
-Alabama,01,Black or African American (NH),Lamar County,01075,2992.0,11.0,1527.0
-Alabama,01,Hispanic or Latino,Lamar County,01075,,0.5,76.0
-Alabama,01,White (NH),Lauderdale County,01077,2348.0,83.4,78667.0
-Alabama,01,Black or African American (NH),Lauderdale County,01077,3226.0,9.7,9197.0
-Alabama,01,American Indian and Alaska Native (NH),Lauderdale County,01077,,0.2,213.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lauderdale County,01077,,0.7000000000000001,638.0
-Alabama,01,Hispanic or Latino,Lauderdale County,01077,,3.0,2803.0
-Alabama,01,All,Lauderdale County,01077,2400.0,100.0,94329.0
-Alabama,01,American Indian and Alaska Native (NH),Lawrence County,01079,,5.0,1669.0
-Alabama,01,Black or African American (NH),Lawrence County,01079,2821.0,10.2,3366.0
-Alabama,01,White (NH),Lawrence County,01079,4400.0,76.3,25273.0
-Alabama,01,All,Lawrence County,01079,4215.0,100.0,33116.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lawrence County,01079,,0.3,114.0
-Alabama,01,Hispanic or Latino,Lawrence County,01079,,2.5,829.0
-Alabama,01,All,Lee County,01081,2325.0,100.0,175126.0
-Alabama,01,Black or African American (NH),Lee County,01081,3879.0,22.1,38635.0
-Alabama,01,Hispanic or Latino,Lee County,01081,,3.9,6780.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lee County,01081,,4.3,7579.0
-Alabama,01,American Indian and Alaska Native (NH),Lee County,01081,,0.1,224.0
-Alabama,01,White (NH),Lee County,01081,1980.0,66.9,117221.0
-Alabama,01,Hispanic or Latino,Limestone County,01083,,6.3,6588.0
-Alabama,01,Black or African American (NH),Limestone County,01083,5532.0,13.0,13547.0
-Alabama,01,All,Limestone County,01083,2746.0,100.0,104199.0
-Alabama,01,American Indian and Alaska Native (NH),Limestone County,01083,,0.4,438.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Limestone County,01083,,1.9,1933.0
-Alabama,01,White (NH),Limestone County,01083,2556.0,74.7,77842.0
-Alabama,01,Hispanic or Latino,Lowndes County,01085,,0.2,19.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lowndes County,01085,,0.0,0.0
-Alabama,01,American Indian and Alaska Native (NH),Lowndes County,01085,,0.0,0.0
-Alabama,01,All,Lowndes County,01085,3583.0,100.0,10153.0
-Alabama,01,Black or African American (NH),Lowndes County,01085,2930.0,74.8,7595.0
-Alabama,01,White (NH),Lowndes County,01085,3159.0,24.6,2493.0
-Alabama,01,White (NH),Macon County,01087,2521.0,16.1,3098.0
-Alabama,01,All,Macon County,01087,2803.0,100.0,19198.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Macon County,01087,,0.4,73.0
-Alabama,01,American Indian and Alaska Native (NH),Macon County,01087,,0.04,7.0
-Alabama,01,Black or African American (NH),Macon County,01087,2791.0,78.8,15130.0
-Alabama,01,Hispanic or Latino,Macon County,01087,,2.4,453.0
-Alabama,01,All,Madison County,01089,2629.0,100.0,389781.0
-Alabama,01,Black or African American (NH),Madison County,01089,3434.0,24.3,94612.0
-Alabama,01,American Indian and Alaska Native (NH),Madison County,01089,,0.4,1699.0
-Alabama,01,Hispanic or Latino,Madison County,01089,2654.0,5.3,20611.0
-Alabama,01,White (NH),Madison County,01089,2486.0,63.5,247345.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Madison County,01089,1130.0,2.5,9740.0
-Alabama,01,American Indian and Alaska Native (NH),Marengo County,01091,,0.2,36.0
-Alabama,01,Hispanic or Latino,Marengo County,01091,,2.8,542.0
-Alabama,01,White (NH),Marengo County,01091,2247.0,44.5,8539.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Marengo County,01091,,0.8,151.0
-Alabama,01,Black or African American (NH),Marengo County,01091,6064.0,50.8,9749.0
-Alabama,01,All,Marengo County,01091,3688.0,100.0,19180.0
-Alabama,01,All,Marion County,01093,3984.0,100.0,29203.0
-Alabama,01,White (NH),Marion County,01093,4014.0,90.8,26508.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Marion County,01093,,0.3,93.0
-Alabama,01,American Indian and Alaska Native (NH),Marion County,01093,,0.1,23.0
-Alabama,01,Black or African American (NH),Marion County,01093,634.0,3.8,1113.0
-Alabama,01,Hispanic or Latino,Marion County,01093,,2.7,790.0
-Alabama,01,Black or African American (NH),Marshall County,01095,,2.7,2672.0
-Alabama,01,Hispanic or Latino,Marshall County,01095,,15.1,14751.0
-Alabama,01,White (NH),Marshall County,01095,,79.1,77450.0
-Alabama,01,All,Marshall County,01095,2877.0,100.0,97923.0
-Alabama,01,American Indian and Alaska Native (NH),Marshall County,01095,,0.1,129.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Marshall County,01095,,0.7000000000000001,673.0
-Alabama,01,Black or African American (NH),Mobile County,01097,4237.0,36.0,149056.0
-Alabama,01,Hispanic or Latino,Mobile County,01097,2159.0,3.0,12565.0
-Alabama,01,All,Mobile County,01097,3376.0,100.0,413878.0
-Alabama,01,American Indian and Alaska Native (NH),Mobile County,01097,,0.4,1589.0
-Alabama,01,White (NH),Mobile County,01097,3102.0,55.8,231005.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Mobile County,01097,,2.0,8392.0
-Alabama,01,Hispanic or Latino,Monroe County,01099,,0.2,44.0
-Alabama,01,American Indian and Alaska Native (NH),Monroe County,01099,,1.3,260.0
-Alabama,01,Black or African American (NH),Monroe County,01099,2586.0,42.3,8384.0
-Alabama,01,White (NH),Monroe County,01099,2998.0,53.7,10632.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Monroe County,01099,,0.3,60.0
-Alabama,01,All,Monroe County,01099,2955.0,100.0,19816.0
-Alabama,01,Black or African American (NH),Montgomery County,01101,4672.0,58.9,134336.0
-Alabama,01,Hispanic or Latino,Montgomery County,01101,,3.8,8597.0
-Alabama,01,American Indian and Alaska Native (NH),Montgomery County,01101,,0.1,156.0
-Alabama,01,White (NH),Montgomery County,01101,2982.0,31.6,72150.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Montgomery County,01101,,3.3,7601.0
-Alabama,01,All,Montgomery County,01101,3612.0,100.0,228132.0
-Alabama,01,Black or African American (NH),Morgan County,01103,4066.0,12.9,15886.0
-Alabama,01,American Indian and Alaska Native (NH),Morgan County,01103,,0.2,272.0
-Alabama,01,All,Morgan County,01103,3209.0,100.0,123102.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Morgan County,01103,,0.5,607.0
-Alabama,01,Hispanic or Latino,Morgan County,01103,,8.8,10845.0
-Alabama,01,White (NH),Morgan County,01103,3155.0,74.3,91445.0
-Alabama,01,Hispanic or Latino,Perry County,01105,,1.0,82.0
-Alabama,01,White (NH),Perry County,01105,3316.0,28.4,2405.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Perry County,01105,,0.0,0.0
-Alabama,01,Black or African American (NH),Perry County,01105,5549.0,70.1,5943.0
-Alabama,01,All,Perry County,01105,4687.0,100.0,8479.0
-Alabama,01,American Indian and Alaska Native (NH),Perry County,01105,,0.01,1.0
-Alabama,01,White (NH),Pickens County,01107,3234.0,53.6,10141.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Pickens County,01107,,0.1,10.0
-Alabama,01,American Indian and Alaska Native (NH),Pickens County,01107,,0.2,33.0
-Alabama,01,Black or African American (NH),Pickens County,01107,5337.0,39.2,7416.0
-Alabama,01,Hispanic or Latino,Pickens County,01107,,5.2,987.0
-Alabama,01,All,Pickens County,01107,3912.0,100.0,18925.0
-Alabama,01,White (NH),Pike County,01109,3021.0,55.3,18245.0
-Alabama,01,Hispanic or Latino,Pike County,01109,,2.4,799.0
-Alabama,01,American Indian and Alaska Native (NH),Pike County,01109,,0.3,112.0
-Alabama,01,All,Pike County,01109,3056.0,100.0,32997.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Pike County,01109,,2.0,658.0
-Alabama,01,Black or African American (NH),Pike County,01109,2795.0,37.2,12282.0
-Alabama,01,All,Randolph County,01111,2921.0,100.0,22179.0
-Alabama,01,Black or African American (NH),Randolph County,01111,2106.0,19.0,4203.0
-Alabama,01,White (NH),Randolph County,01111,2833.0,74.6,16553.0
-Alabama,01,Hispanic or Latino,Randolph County,01111,,3.0,669.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Randolph County,01111,,0.3,62.0
-Alabama,01,American Indian and Alaska Native (NH),Randolph County,01111,,0.1,21.0
-Alabama,01,White (NH),Russell County,01113,3150.0,44.1,25923.0
-Alabama,01,All,Russell County,01113,3205.0,100.0,58849.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Russell County,01113,,0.9,517.0
-Alabama,01,American Indian and Alaska Native (NH),Russell County,01113,,0.1,88.0
-Alabama,01,Black or African American (NH),Russell County,01113,3718.0,44.5,26170.0
-Alabama,01,Hispanic or Latino,Russell County,01113,,5.9,3451.0
-Alabama,01,White (NH),St. Clair County,01115,2959.0,84.6,77572.0
-Alabama,01,Black or African American (NH),St. Clair County,01115,6093.0,9.6,8839.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",St. Clair County,01115,,0.5,434.0
-Alabama,01,American Indian and Alaska Native (NH),St. Clair County,01115,,0.3,290.0
-Alabama,01,All,St. Clair County,01115,3045.0,100.0,91719.0
-Alabama,01,Hispanic or Latino,St. Clair County,01115,,2.5,2325.0
-Alabama,01,Hispanic or Latino,Shelby County,01117,,5.9,13195.0
-Alabama,01,All,Shelby County,01117,2801.0,100.0,223916.0
-Alabama,01,American Indian and Alaska Native (NH),Shelby County,01117,,0.1,331.0
-Alabama,01,White (NH),Shelby County,01117,2718.0,75.9,169919.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Shelby County,01117,,2.0,4505.0
-Alabama,01,Black or African American (NH),Shelby County,01117,3909.0,13.0,29071.0
-Alabama,01,Black or African American (NH),Sumter County,01119,3695.0,72.3,8813.0
-Alabama,01,Hispanic or Latino,Sumter County,01119,,0.7000000000000001,85.0
-Alabama,01,American Indian and Alaska Native (NH),Sumter County,01119,,0.1,10.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sumter County,01119,,0.3,41.0
-Alabama,01,White (NH),Sumter County,01119,3491.0,25.2,3069.0
-Alabama,01,All,Sumter County,01119,3788.0,100.0,12196.0
-Alabama,01,Hispanic or Latino,Talladega County,01121,,2.5,1997.0
-Alabama,01,American Indian and Alaska Native (NH),Talladega County,01121,,0.2,124.0
-Alabama,01,All,Talladega County,01121,3432.0,100.0,81105.0
-Alabama,01,White (NH),Talladega County,01121,3410.0,62.3,50504.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Talladega County,01121,,0.5,371.0
-Alabama,01,Black or African American (NH),Talladega County,01121,3783.0,31.8,25788.0
-Alabama,01,White (NH),Tallapoosa County,01123,1915.0,68.6,28305.0
-Alabama,01,Hispanic or Latino,Tallapoosa County,01123,,2.4,1010.0
-Alabama,01,All,Tallapoosa County,01123,1987.0,100.0,41251.0
-Alabama,01,American Indian and Alaska Native (NH),Tallapoosa County,01123,,0.1,26.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Tallapoosa County,01123,,0.5,190.0
-Alabama,01,Black or African American (NH),Tallapoosa County,01123,2050.0,26.5,10927.0
-Alabama,01,American Indian and Alaska Native (NH),Tuscaloosa County,01125,,0.1,156.0
-Alabama,01,White (NH),Tuscaloosa County,01125,3673.0,60.5,140053.0
-Alabama,01,All,Tuscaloosa County,01125,4030.0,100.0,231558.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Tuscaloosa County,01125,,1.6,3678.0
-Alabama,01,Hispanic or Latino,Tuscaloosa County,01125,5051.0,4.0,9261.0
-Alabama,01,Black or African American (NH),Tuscaloosa County,01125,5334.0,32.0,74051.0
-Alabama,01,Black or African American (NH),Walker County,01127,2072.0,6.0,3890.0
-Alabama,01,American Indian and Alaska Native (NH),Walker County,01127,,0.2,100.0
-Alabama,01,Hispanic or Latino,Walker County,01127,,2.9,1868.0
-Alabama,01,All,Walker County,01127,4225.0,100.0,64978.0
-Alabama,01,White (NH),Walker County,01127,4281.0,87.6,56899.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Walker County,01127,,0.2,122.0
-Alabama,01,All,Washington County,01129,2280.0,100.0,15434.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Washington County,01129,,0.4,62.0
-Alabama,01,Hispanic or Latino,Washington County,01129,,1.7000000000000002,261.0
-Alabama,01,White (NH),Washington County,01129,1997.0,65.3,10084.0
-Alabama,01,American Indian and Alaska Native (NH),Washington County,01129,,6.8,1042.0
-Alabama,01,Black or African American (NH),Washington County,01129,2668.0,23.4,3607.0
-Alabama,01,All,Wilcox County,01131,3111.0,100.0,10441.0
-Alabama,01,Hispanic or Latino,Wilcox County,01131,,0.2,22.0
-Alabama,01,White (NH),Wilcox County,01131,2453.0,27.4,2860.0
-Alabama,01,American Indian and Alaska Native (NH),Wilcox County,01131,,0.1,7.0
-Alabama,01,Black or African American (NH),Wilcox County,01131,3341.0,70.2,7328.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Wilcox County,01131,,0.04,4.0
-Alabama,01,All,Winston County,01133,6652.0,100.0,23655.0
-Alabama,01,Hispanic or Latino,Winston County,01133,,3.2,768.0
-Alabama,01,American Indian and Alaska Native (NH),Winston County,01133,,0.2,43.0
-Alabama,01,White (NH),Winston County,01133,,92.3,21834.0
-Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Winston County,01133,,0.4,105.0
-Alabama,01,Black or African American (NH),Winston County,01133,,1.1,263.0
-Wyoming,56,White (NH),Albany County,56001,,81.0,30382.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Albany County,56001,,3.8,1439.0
-Wyoming,56,All,Albany County,56001,1462.0,100.0,37525.0
-Wyoming,56,Black or African American (NH),Albany County,56001,,0.8,314.0
-Wyoming,56,American Indian and Alaska Native (NH),Albany County,56001,,0.4,143.0
-Wyoming,56,Hispanic or Latino,Albany County,56001,,9.9,3719.0
-Wyoming,56,American Indian and Alaska Native (NH),Big Horn County,56003,,0.4,50.0
-Wyoming,56,All,Big Horn County,56003,2671.0,100.0,11690.0
-Wyoming,56,Black or African American (NH),Big Horn County,56003,,0.4,52.0
-Wyoming,56,Hispanic or Latino,Big Horn County,56003,,9.7,1132.0
-Wyoming,56,White (NH),Big Horn County,56003,,86.1,10065.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Big Horn County,56003,,0.9,110.0
-Wyoming,56,Black or African American (NH),Campbell County,56005,,0.4,178.0
-Wyoming,56,White (NH),Campbell County,56005,,86.1,40339.0
-Wyoming,56,American Indian and Alaska Native (NH),Campbell County,56005,,1.0,457.0
-Wyoming,56,All,Campbell County,56005,1472.0,100.0,46857.0
-Wyoming,56,Hispanic or Latino,Campbell County,56005,,8.9,4147.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Campbell County,56005,,0.1,49.0
-Wyoming,56,Hispanic or Latino,Carbon County,56007,1663.0,18.7,2726.0
-Wyoming,56,Black or African American (NH),Carbon County,56007,,1.4,205.0
-Wyoming,56,White (NH),Carbon County,56007,1729.0,76.2,11133.0
-Wyoming,56,American Indian and Alaska Native (NH),Carbon County,56007,,1.3,194.0
-Wyoming,56,All,Carbon County,56007,1729.0,100.0,14609.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Carbon County,56007,,0.5,75.0
-Wyoming,56,All,Converse County,56009,2751.0,100.0,13729.0
-Wyoming,56,Hispanic or Latino,Converse County,56009,,8.5,1162.0
-Wyoming,56,Black or African American (NH),Converse County,56009,,0.2,32.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Converse County,56009,,0.1,19.0
-Wyoming,56,American Indian and Alaska Native (NH),Converse County,56009,,0.1,10.0
-Wyoming,56,White (NH),Converse County,56009,,88.1,12099.0
-Wyoming,56,Black or African American (NH),Crook County,56011,,0.0,0.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Crook County,56011,,0.5,34.0
-Wyoming,56,Hispanic or Latino,Crook County,56011,,2.8,206.0
-Wyoming,56,American Indian and Alaska Native (NH),Crook County,56011,,0.3,19.0
-Wyoming,56,White (NH),Crook County,56011,,92.6,6719.0
-Wyoming,56,All,Crook County,56011,1606.0,100.0,7258.0
-Wyoming,56,White (NH),Fremont County,56013,1732.0,68.9,27163.0
-Wyoming,56,All,Fremont County,56013,2165.0,100.0,39402.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Fremont County,56013,,0.5,208.0
-Wyoming,56,American Indian and Alaska Native (NH),Fremont County,56013,5558.0,18.1,7127.0
-Wyoming,56,Hispanic or Latino,Fremont County,56013,,7.8,3061.0
-Wyoming,56,Black or African American (NH),Fremont County,56013,,0.5,216.0
-Wyoming,56,American Indian and Alaska Native (NH),Goshen County,56015,,1.2,157.0
-Wyoming,56,All,Goshen County,56015,2414.0,100.0,12592.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Goshen County,56015,,0.9,110.0
-Wyoming,56,White (NH),Goshen County,56015,2300.0,84.3,10612.0
-Wyoming,56,Black or African American (NH),Goshen County,56015,,0.5,58.0
-Wyoming,56,Hispanic or Latino,Goshen County,56015,3125.0,11.2,1410.0
-Wyoming,56,All,Hot Springs County,56017,241.0,100.0,4616.0
-Wyoming,56,American Indian and Alaska Native (NH),Hot Springs County,56017,,2.1,99.0
-Wyoming,56,Hispanic or Latino,Hot Springs County,56017,,4.1,190.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Hot Springs County,56017,,0.1,6.0
-Wyoming,56,Black or African American (NH),Hot Springs County,56017,,0.0,0.0
-Wyoming,56,White (NH),Hot Springs County,56017,,89.3,4120.0
-Wyoming,56,White (NH),Johnson County,56019,,88.8,7583.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Johnson County,56019,,0.7000000000000001,57.0
-Wyoming,56,American Indian and Alaska Native (NH),Johnson County,56019,,2.2,187.0
-Wyoming,56,Hispanic or Latino,Johnson County,56019,,5.5,469.0
-Wyoming,56,Black or African American (NH),Johnson County,56019,,0.2,16.0
-Wyoming,56,All,Johnson County,56019,1989.0,100.0,8536.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Laramie County,56021,,1.1,1152.0
-Wyoming,56,Hispanic or Latino,Laramie County,56021,3082.0,15.5,15560.0
-Wyoming,56,Black or African American (NH),Laramie County,56021,3355.0,2.1,2094.0
-Wyoming,56,American Indian and Alaska Native (NH),Laramie County,56021,4270.0,0.6000000000000001,582.0
-Wyoming,56,All,Laramie County,56021,2786.0,100.0,100316.0
-Wyoming,56,White (NH),Laramie County,56021,2709.0,77.0,77215.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lincoln County,56023,,0.3,57.0
-Wyoming,56,Black or African American (NH),Lincoln County,56023,,0.1,11.0
-Wyoming,56,American Indian and Alaska Native (NH),Lincoln County,56023,,0.3,61.0
-Wyoming,56,Hispanic or Latino,Lincoln County,56023,,5.0,998.0
-Wyoming,56,White (NH),Lincoln County,56023,,91.4,18098.0
-Wyoming,56,All,Lincoln County,56023,2425.0,100.0,19794.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Natrona County,56025,,0.7000000000000001,521.0
-Wyoming,56,White (NH),Natrona County,56025,2632.0,85.4,67904.0
-Wyoming,56,Black or African American (NH),Natrona County,56025,,0.4,308.0
-Wyoming,56,American Indian and Alaska Native (NH),Natrona County,56025,,0.8,659.0
-Wyoming,56,Hispanic or Latino,Natrona County,56025,2859.0,9.1,7263.0
-Wyoming,56,All,Natrona County,56025,2661.0,100.0,79506.0
-Wyoming,56,American Indian and Alaska Native (NH),Niobrara County,56027,,2.2,55.0
-Wyoming,56,All,Niobrara County,56027,797.0,100.0,2460.0
-Wyoming,56,Black or African American (NH),Niobrara County,56027,,0.2,4.0
-Wyoming,56,Hispanic or Latino,Niobrara County,56027,,5.0,123.0
-Wyoming,56,White (NH),Niobrara County,56027,,89.3,2198.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Niobrara County,56027,,1.2,29.0
-Wyoming,56,American Indian and Alaska Native (NH),Park County,56029,,0.2,62.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Park County,56029,,0.3,81.0
-Wyoming,56,Hispanic or Latino,Park County,56029,,6.0,1797.0
-Wyoming,56,Black or African American (NH),Park County,56029,,0.6000000000000001,169.0
-Wyoming,56,White (NH),Park County,56029,,88.3,26383.0
-Wyoming,56,All,Park County,56029,2033.0,100.0,29878.0
-Wyoming,56,Hispanic or Latino,Platte County,56031,,8.4,727.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Platte County,56031,,0.5,42.0
-Wyoming,56,Black or African American (NH),Platte County,56031,,0.5,47.0
-Wyoming,56,All,Platte County,56031,3120.0,100.0,8618.0
-Wyoming,56,White (NH),Platte County,56031,,85.3,7352.0
-Wyoming,56,American Indian and Alaska Native (NH),Platte County,56031,,0.1,6.0
-Wyoming,56,White (NH),Sheridan County,56033,,90.6,28235.0
-Wyoming,56,American Indian and Alaska Native (NH),Sheridan County,56033,,1.2,365.0
-Wyoming,56,Black or African American (NH),Sheridan County,56033,,0.3,88.0
-Wyoming,56,Hispanic or Latino,Sheridan County,56033,,4.7,1472.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sheridan County,56033,,1.0,317.0
-Wyoming,56,All,Sheridan County,56033,2740.0,100.0,31176.0
-Wyoming,56,Hispanic or Latino,Sublette County,56035,,7.0,617.0
-Wyoming,56,All,Sublette County,56035,1354.0,100.0,8801.0
-Wyoming,56,White (NH),Sublette County,56035,,90.6,7971.0
-Wyoming,56,Black or African American (NH),Sublette County,56035,,0.02,2.0
-Wyoming,56,American Indian and Alaska Native (NH),Sublette County,56035,,0.0,0.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sublette County,56035,,0.0,0.0
-Wyoming,56,White (NH),Sweetwater County,56037,,77.8,32751.0
-Wyoming,56,All,Sweetwater County,56037,1167.0,100.0,42079.0
-Wyoming,56,Black or African American (NH),Sweetwater County,56037,,1.2,492.0
-Wyoming,56,American Indian and Alaska Native (NH),Sweetwater County,56037,,0.9,374.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sweetwater County,56037,,0.8,334.0
-Wyoming,56,Hispanic or Latino,Sweetwater County,56037,,16.2,6820.0
-Wyoming,56,All,Teton County,56039,1772.0,100.0,23346.0
-Wyoming,56,American Indian and Alaska Native (NH),Teton County,56039,,0.1,29.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Teton County,56039,,1.4,316.0
-Wyoming,56,Black or African American (NH),Teton County,56039,,0.6000000000000001,146.0
-Wyoming,56,Hispanic or Latino,Teton County,56039,,15.2,3548.0
-Wyoming,56,White (NH),Teton County,56039,,79.7,18598.0
-Wyoming,56,American Indian and Alaska Native (NH),Uinta County,56041,,0.1,19.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Uinta County,56041,,0.2,33.0
-Wyoming,56,White (NH),Uinta County,56041,,86.8,17826.0
-Wyoming,56,All,Uinta County,56041,2196.0,100.0,20546.0
-Wyoming,56,Black or African American (NH),Uinta County,56041,,0.2,49.0
-Wyoming,56,Hispanic or Latino,Uinta County,56041,,9.9,2025.0
-Wyoming,56,American Indian and Alaska Native (NH),Washakie County,56043,,0.3,23.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Washakie County,56043,,0.4,32.0
-Wyoming,56,White (NH),Washakie County,56043,,81.6,6301.0
-Wyoming,56,All,Washakie County,56043,2261.0,100.0,7725.0
-Wyoming,56,Black or African American (NH),Washakie County,56043,,0.01,1.0
-Wyoming,56,Hispanic or Latino,Washakie County,56043,,14.3,1103.0
-Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Weston County,56045,,0.9,64.0
-Wyoming,56,Black or African American (NH),Weston County,56045,,0.1,6.0
-Wyoming,56,American Indian and Alaska Native (NH),Weston County,56045,,1.5,104.0
-Wyoming,56,All,Weston County,56045,2045.0,100.0,6870.0
-Wyoming,56,Hispanic or Latino,Weston County,56045,,3.5,243.0
-Wyoming,56,White (NH),Weston County,56045,,85.5,5874.0
+state_name,state_fips,race_and_ethnicity,county_name,county_fips,chr_population_estimated_total,chr_population_pct,preventable_hospitalizations_per_100k,excessive_drinking_per_100k,suicide_per_100k,frequent_mental_distress_per_100k,diabetes_per_100k,voter_participation_pct_rate
+Alabama,01,American Indian and Alaska Native (NH),Autauga County,01001,59.0,0.1,,,,,,
+Alabama,01,All,Autauga County,01001,58761.0,100.0,3915.0,15238.0,18.0,18000.0,10700.0,66.2
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Autauga County,01001,636.0,1.1,,,,,,
+Alabama,01,Asian (NH),Autauga County,01001,636.0,1.1,,,,,,
+Alabama,01,Black or African American (NH),Autauga County,01001,11496.0,19.6,6203.0,,,,,
+Alabama,01,Hispanic or Latino,Autauga County,01001,1864.0,3.2,,,,,,
+Alabama,01,Two or more races (NH),Autauga County,01001,1930.0,3.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Autauga County,01001,0.0,0.0,,,,,,
+Alabama,01,White (NH),Autauga County,01001,42635.0,72.6,3633.0,,,,,
+Alabama,01,White (NH),Baldwin County,01003,192161.0,82.3,2680.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Baldwin County,01003,22.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Baldwin County,01003,7159.0,3.1,,,,,,
+Alabama,01,Hispanic or Latino,Baldwin County,01003,11210.0,4.8,,,,,,
+Alabama,01,All,Baldwin County,01003,233420.0,100.0,2799.0,16423.0,19.0,17300.0,9800.0,65.3
+Alabama,01,Asian (NH),Baldwin County,01003,2046.0,0.9,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Baldwin County,01003,2068.0,0.9,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Baldwin County,01003,512.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Baldwin County,01003,19318.0,8.3,5376.0,,,,,
+Alabama,01,Hispanic or Latino,Barbour County,01005,1202.0,4.8,,,,,,
+Alabama,01,White (NH),Barbour County,01005,11084.0,44.6,2448.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Barbour County,01005,3.0,0.0,,,,,,
+Alabama,01,Black or African American (NH),Barbour County,01005,11662.0,46.9,4814.0,,,,,
+Alabama,01,Two or more races (NH),Barbour County,01005,447.0,1.8,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Barbour County,01005,129.0,0.5,,,,,,
+Alabama,01,Asian (NH),Barbour County,01005,126.0,0.5,,,,,,
+Alabama,01,All,Barbour County,01005,24877.0,100.0,3040.0,12277.0,14.0,20500.0,15600.0,54.0
+Alabama,01,American Indian and Alaska Native (NH),Barbour County,01005,63.0,0.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Bibb County,01007,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Bibb County,01007,382.0,1.7,,,,,,
+Alabama,01,Hispanic or Latino,Bibb County,01007,650.0,2.9,,,,,,
+Alabama,01,Black or African American (NH),Bibb County,01007,4598.0,20.7,8207.0,,,,,
+Alabama,01,White (NH),Bibb County,01007,16520.0,74.2,4150.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Bibb County,01007,69.0,0.3,,,,,,
+Alabama,01,All,Bibb County,01007,22251.0,100.0,4651.0,14786.0,16.0,19400.0,12400.0,54.6
+Alabama,01,American Indian and Alaska Native (NH),Bibb County,01007,15.0,0.1,,,,,,
+Alabama,01,Asian (NH),Bibb County,01007,69.0,0.3,,,,,,
+Alabama,01,White (NH),Blount County,01009,50614.0,85.7,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Blount County,01009,117.0,0.2,,,,,,
+Alabama,01,Two or more races (NH),Blount County,01009,1634.0,2.8,,,,,,
+Alabama,01,Hispanic or Latino,Blount County,01009,5721.0,9.7,,,,,,
+Alabama,01,Black or African American (NH),Blount County,01009,729.0,1.2,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Blount County,01009,217.0,0.4,,,,,,
+Alabama,01,All,Blount County,01009,59077.0,100.0,2499.0,14946.0,22.0,18800.0,10500.0,64.2
+Alabama,01,American Indian and Alaska Native (NH),Blount County,01009,75.0,0.1,,,,,,
+Alabama,01,Asian (NH),Blount County,01009,100.0,0.2,,,,,,
+Alabama,01,Hispanic or Latino,Bullock County,01011,907.0,8.8,,,,,,
+Alabama,01,White (NH),Bullock County,01011,2125.0,20.6,2343.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Bullock County,01011,0.0,0.0,,,,,,
+Alabama,01,Black or African American (NH),Bullock County,01011,7117.0,68.9,2091.0,,,,,
+Alabama,01,Two or more races (NH),Bullock County,01011,136.0,1.3,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Bullock County,01011,43.0,0.4,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Bullock County,01011,0.0,0.0,,,,,,
+Alabama,01,Asian (NH),Bullock County,01011,43.0,0.4,,,,,,
+Alabama,01,All,Bullock County,01011,10328.0,100.0,2268.0,11529.0,,20500.0,18700.0,59.1
+Alabama,01,White (NH),Butler County,01013,9655.0,50.9,3596.0,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Butler County,01013,69.0,0.4,,,,,,
+Alabama,01,All,Butler County,01013,18981.0,100.0,3396.0,12821.0,11.0,19900.0,14000.0,62.9
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Butler County,01013,243.0,1.3,,,,,,
+Alabama,01,Asian (NH),Butler County,01013,243.0,1.3,,,,,,
+Alabama,01,Black or African American (NH),Butler County,01013,8462.0,44.6,3058.0,,,,,
+Alabama,01,Hispanic or Latino,Butler County,01013,322.0,1.7,,,,,,
+Alabama,01,Two or more races (NH),Butler County,01013,222.0,1.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Butler County,01013,0.0,0.0,,,,,,
+Alabama,01,White (NH),Calhoun County,01015,81851.0,70.5,3474.0,,25.0,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Calhoun County,01015,207.0,0.2,,,,,,
+Alabama,01,Two or more races (NH),Calhoun County,01015,2855.0,2.5,,,,,,
+Alabama,01,Hispanic or Latino,Calhoun County,01015,4736.0,4.1,,,,,,
+Alabama,01,All,Calhoun County,01015,116162.0,100.0,3491.0,13540.0,22.0,19100.0,12000.0,57.9
+Alabama,01,Asian (NH),Calhoun County,01015,708.0,0.6,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Calhoun County,01015,915.0,0.8,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Calhoun County,01015,174.0,0.1,,,,,,
+Alabama,01,Black or African American (NH),Calhoun County,01015,25204.0,21.7,3836.0,,11.0,,,
+Alabama,01,Hispanic or Latino,Chambers County,01017,1129.0,3.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Chambers County,01017,3.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Chambers County,01017,446.0,1.3,,,,,,
+Alabama,01,White (NH),Chambers County,01017,18794.0,54.3,3123.0,,,,,
+Alabama,01,Black or African American (NH),Chambers County,01017,14107.0,40.8,3615.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Chambers County,01017,63.0,0.2,,,,,,
+Alabama,01,All,Chambers County,01017,34612.0,100.0,3163.0,12813.0,20.0,19500.0,13400.0,58.5
+Alabama,01,American Indian and Alaska Native (NH),Chambers County,01017,10.0,0.0,,,,,,
+Alabama,01,Asian (NH),Chambers County,01017,60.0,0.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Cherokee County,01019,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Cherokee County,01019,691.0,2.8,,,,,,
+Alabama,01,Hispanic or Latino,Cherokee County,01019,479.0,1.9,,,,,,
+Alabama,01,Black or African American (NH),Cherokee County,01019,1000.0,4.0,,,,,,
+Alabama,01,White (NH),Cherokee County,01019,22749.0,90.7,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Cherokee County,01019,21.0,0.1,,,,,,
+Alabama,01,All,Cherokee County,01019,25069.0,100.0,4153.0,14357.0,25.0,20100.0,11100.0,59.5
+Alabama,01,American Indian and Alaska Native (NH),Cherokee County,01019,113.0,0.5,,,,,,
+Alabama,01,Asian (NH),Cherokee County,01019,21.0,0.1,,,,,,
+Alabama,01,White (NH),Chilton County,01021,35714.0,79.1,3447.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Chilton County,01021,15.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Chilton County,01021,929.0,2.1,,,,,,
+Alabama,01,Hispanic or Latino,Chilton County,01021,3664.0,8.1,,,,,,
+Alabama,01,Black or African American (NH),Chilton County,01021,4254.0,9.4,3904.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Chilton County,01021,244.0,0.5,,,,,,
+Alabama,01,All,Chilton County,01021,45140.0,100.0,3581.0,15132.0,16.0,19700.0,11500.0,59.5
+Alabama,01,American Indian and Alaska Native (NH),Chilton County,01021,17.0,0.0,,,,,,
+Alabama,01,Asian (NH),Chilton County,01021,229.0,0.5,,,,,,
+Alabama,01,Two or more races (NH),Choctaw County,01023,266.0,2.1,,,,,,
+Alabama,01,White (NH),Choctaw County,01023,7162.0,56.5,2233.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Choctaw County,01023,0.0,0.0,,,,,,
+Alabama,01,Hispanic or Latino,Choctaw County,01023,143.0,1.1,,,,,,
+Alabama,01,All,Choctaw County,01023,12669.0,100.0,2712.0,11892.0,,20500.0,14400.0,73.3
+Alabama,01,Asian (NH),Choctaw County,01023,15.0,0.1,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Choctaw County,01023,15.0,0.1,,,,,,
+Alabama,01,Black or African American (NH),Choctaw County,01023,5055.0,39.9,3932.0,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Choctaw County,01023,28.0,0.2,,,,,,
+Alabama,01,White (NH),Clarke County,01025,11809.0,51.2,3076.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Clarke County,01025,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Clarke County,01025,184.0,0.8,,,,,,
+Alabama,01,Hispanic or Latino,Clarke County,01025,335.0,1.5,,,,,,
+Alabama,01,Black or African American (NH),Clarke County,01025,10479.0,45.4,5508.0,,,,,
+Alabama,01,Asian (NH),Clarke County,01025,90.0,0.4,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Clarke County,01025,90.0,0.4,,,,,,
+Alabama,01,All,Clarke County,01025,23058.0,100.0,3623.0,12290.0,16.0,19700.0,14300.0,70.3
+Alabama,01,American Indian and Alaska Native (NH),Clarke County,01025,15.0,0.1,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Clay County,01027,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Clay County,01027,549.0,3.9,,,,,,
+Alabama,01,Hispanic or Latino,Clay County,01027,437.0,3.1,,,,,,
+Alabama,01,Black or African American (NH),Clay County,01027,1790.0,12.6,1040.0,,,,,
+Alabama,01,White (NH),Clay County,01027,11385.0,80.1,2530.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Clay County,01027,36.0,0.3,,,,,,
+Alabama,01,All,Clay County,01027,14209.0,100.0,2559.0,13698.0,27.0,20000.0,11900.0,66.4
+Alabama,01,American Indian and Alaska Native (NH),Clay County,01027,0.0,0.0,,,,,,
+Alabama,01,Asian (NH),Clay County,01027,36.0,0.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Cleburne County,01029,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Cleburne County,01029,303.0,2.0,,,,,,
+Alabama,01,Hispanic or Latino,Cleburne County,01029,401.0,2.6,,,,,,
+Alabama,01,Black or African American (NH),Cleburne County,01029,411.0,2.7,,,,,,
+Alabama,01,White (NH),Cleburne County,01029,13964.0,92.2,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Cleburne County,01029,15.0,0.1,,,,,,
+Alabama,01,All,Cleburne County,01029,15144.0,100.0,2478.0,14569.0,20.0,19900.0,11000.0,63.1
+Alabama,01,American Indian and Alaska Native (NH),Cleburne County,01029,22.0,0.1,,,,,,
+Alabama,01,Asian (NH),Cleburne County,01029,15.0,0.1,,,,,,
+Alabama,01,White (NH),Coffee County,01031,36875.0,68.8,3712.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Coffee County,01031,8.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Coffee County,01031,2667.0,5.0,,,,,,
+Alabama,01,Hispanic or Latino,Coffee County,01031,4500.0,8.4,,,,,,
+Alabama,01,Black or African American (NH),Coffee County,01031,8598.0,16.1,4572.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Coffee County,01031,571.0,1.1,,,,,,
+Alabama,01,All,Coffee County,01031,53559.0,100.0,3752.0,14615.0,16.0,18800.0,11300.0,57.2
+Alabama,01,American Indian and Alaska Native (NH),Coffee County,01031,277.0,0.5,,,,,,
+Alabama,01,Asian (NH),Coffee County,01031,563.0,1.1,,,,,,
+Alabama,01,Hispanic or Latino,Colbert County,01033,1837.0,3.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Colbert County,01033,53.0,0.1,,,,,,
+Alabama,01,Two or more races (NH),Colbert County,01033,1262.0,2.2,,,,,,
+Alabama,01,Black or African American (NH),Colbert County,01033,9171.0,16.0,5473.0,,,,,
+Alabama,01,White (NH),Colbert County,01033,44485.0,77.7,3486.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Colbert County,01033,267.0,0.5,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Colbert County,01033,170.0,0.3,,,,,,
+Alabama,01,Asian (NH),Colbert County,01033,214.0,0.4,,,,,,
+Alabama,01,All,Colbert County,01033,57270.0,100.0,3697.0,14672.0,19.0,19100.0,10900.0,64.8
+Alabama,01,White (NH),Conecuh County,01035,5751.0,49.7,6349.0,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Conecuh County,01035,33.0,0.3,,,,,,
+Alabama,01,All,Conecuh County,01035,11576.0,100.0,7136.0,11853.0,,20000.0,14800.0,66.6
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Conecuh County,01035,36.0,0.3,,,,,,
+Alabama,01,Asian (NH),Conecuh County,01035,36.0,0.3,,,,,,
+Alabama,01,Black or African American (NH),Conecuh County,01035,5553.0,48.0,9831.0,,,,,
+Alabama,01,Hispanic or Latino,Conecuh County,01035,80.0,0.7,,,,,,
+Alabama,01,Two or more races (NH),Conecuh County,01035,111.0,1.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Conecuh County,01035,0.0,0.0,,,,,,
+Alabama,01,White (NH),Coosa County,01037,6632.0,64.2,2721.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Coosa County,01037,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Coosa County,01037,227.0,2.2,,,,,,
+Alabama,01,Hispanic or Latino,Coosa County,01037,284.0,2.7,,,,,,
+Alabama,01,All,Coosa County,01037,10329.0,100.0,2862.0,13354.0,,19000.0,12000.0,61.7
+Alabama,01,Asian (NH),Coosa County,01037,0.0,0.0,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Coosa County,01037,0.0,0.0,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Coosa County,01037,9.0,0.1,,,,,,
+Alabama,01,Black or African American (NH),Coosa County,01037,3120.0,30.2,2734.0,,,,,
+Alabama,01,Hispanic or Latino,Covington County,01039,749.0,2.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Covington County,01039,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Covington County,01039,825.0,2.2,,,,,,
+Alabama,01,White (NH),Covington County,01039,30958.0,82.5,4707.0,,,,,
+Alabama,01,Black or African American (NH),Covington County,01039,4606.0,12.3,6901.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Covington County,01039,218.0,0.6,,,,,,
+Alabama,01,All,Covington County,01039,37542.0,100.0,4800.0,13469.0,20.0,19800.0,11800.0,60.3
+Alabama,01,American Indian and Alaska Native (NH),Covington County,01039,101.0,0.3,,,,,,
+Alabama,01,Asian (NH),Covington County,01039,218.0,0.6,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Crenshaw County,01041,6.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Crenshaw County,01041,448.0,3.4,,,,,,
+Alabama,01,Hispanic or Latino,Crenshaw County,01041,335.0,2.5,,,,,,
+Alabama,01,Black or African American (NH),Crenshaw County,01041,3026.0,22.9,6879.0,,,,,
+Alabama,01,White (NH),Crenshaw County,01041,9226.0,69.9,3492.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Crenshaw County,01041,160.0,1.2,,,,,,
+Alabama,01,All,Crenshaw County,01041,13205.0,100.0,3895.0,13703.0,,19500.0,12200.0,62.5
+Alabama,01,American Indian and Alaska Native (NH),Crenshaw County,01041,10.0,0.1,,,,,,
+Alabama,01,Asian (NH),Crenshaw County,01041,154.0,1.2,,,,,,
+Alabama,01,White (NH),Cullman County,01043,80170.0,90.8,3851.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Cullman County,01043,27.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Cullman County,01043,2467.0,2.8,,,,,,
+Alabama,01,Hispanic or Latino,Cullman County,01043,4056.0,4.6,,,,,,
+Alabama,01,Black or African American (NH),Cullman County,01043,959.0,1.1,13632.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Cullman County,01043,305.0,0.3,,,,,,
+Alabama,01,All,Cullman County,01043,88284.0,100.0,3896.0,15768.0,22.0,18800.0,10300.0,65.8
+Alabama,01,American Indian and Alaska Native (NH),Cullman County,01043,243.0,0.3,,,,,,
+Alabama,01,Asian (NH),Cullman County,01043,278.0,0.3,,,,,,
+Alabama,01,Two or more races (NH),Dale County,01045,1581.0,3.2,,,,,,
+Alabama,01,White (NH),Dale County,01045,33286.0,67.3,3258.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Dale County,01045,12.0,0.0,,,,,,
+Alabama,01,Hispanic or Latino,Dale County,01045,3467.0,7.0,,,,,,
+Alabama,01,All,Dale County,01045,49455.0,100.0,3253.0,15170.0,23.0,19400.0,12300.0,52.9
+Alabama,01,Asian (NH),Dale County,01045,611.0,1.2,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Dale County,01045,218.0,0.4,,,,,,
+Alabama,01,Black or African American (NH),Dale County,01045,10087.0,20.4,3687.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Dale County,01045,623.0,1.3,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Dallas County,01047,208.0,0.5,,,,,,
+Alabama,01,All,Dallas County,01047,38326.0,100.0,4280.0,11202.0,13.0,20400.0,16300.0,62.2
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Dallas County,01047,240.0,0.6,,,,,,
+Alabama,01,Asian (NH),Dallas County,01047,240.0,0.6,,,,,,
+Alabama,01,Black or African American (NH),Dallas County,01047,26311.0,68.7,5442.0,,,,,
+Alabama,01,Hispanic or Latino,Dallas County,01047,430.0,1.1,,,,,,
+Alabama,01,Two or more races (NH),Dallas County,01047,761.0,2.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Dallas County,01047,0.0,0.0,,,,,,
+Alabama,01,White (NH),Dallas County,01047,10365.0,27.0,3021.0,,,,,
+Alabama,01,White (NH),DeKalb County,01049,56705.0,79.1,3257.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),DeKalb County,01049,33.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),DeKalb County,01049,2064.0,2.9,,,,,,
+Alabama,01,Hispanic or Latino,DeKalb County,01049,11021.0,15.4,,,,,,
+Alabama,01,All,DeKalb County,01049,71680.0,100.0,3215.0,14180.0,23.0,20700.0,12500.0,58.9
+Alabama,01,Asian (NH),DeKalb County,01049,66.0,0.1,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",DeKalb County,01049,99.0,0.1,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),DeKalb County,01049,354.0,0.5,,,,,,
+Alabama,01,Black or African American (NH),DeKalb County,01049,1043.0,1.5,1060.0,,,,,
+Alabama,01,Two or more races (NH),Elmore County,01051,2356.0,2.7,,,,,,
+Alabama,01,White (NH),Elmore County,01051,63533.0,72.4,3473.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Elmore County,01051,0.0,0.0,,,,,,
+Alabama,01,Hispanic or Latino,Elmore County,01051,2739.0,3.1,,,,,,
+Alabama,01,All,Elmore County,01051,87694.0,100.0,3726.0,15399.0,20.0,17800.0,10600.0,65.7
+Alabama,01,Asian (NH),Elmore County,01051,602.0,0.7,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Elmore County,01051,602.0,0.7,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Elmore County,01051,210.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Elmore County,01051,18224.0,20.8,5928.0,,,,,
+Alabama,01,White (NH),Escambia County,01053,22117.0,60.2,4519.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Escambia County,01053,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Escambia County,01053,1312.0,3.6,,,,,,
+Alabama,01,Hispanic or Latino,Escambia County,01053,940.0,2.6,,,,,,
+Alabama,01,Black or African American (NH),Escambia County,01053,11115.0,30.2,5336.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Escambia County,01053,90.0,0.2,,,,,,
+Alabama,01,All,Escambia County,01053,36755.0,100.0,4624.0,13007.0,26.0,20900.0,14300.0,55.9
+Alabama,01,American Indian and Alaska Native (NH),Escambia County,01053,1118.0,3.0,8271.0,,,,,
+Alabama,01,Asian (NH),Escambia County,01053,90.0,0.2,,,,,,
+Alabama,01,Hispanic or Latino,Etowah County,01055,4561.0,4.4,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Etowah County,01055,2.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Etowah County,01055,2365.0,2.3,,,,,,
+Alabama,01,Black or African American (NH),Etowah County,01055,15507.0,15.0,6735.0,,,,,
+Alabama,01,White (NH),Etowah County,01055,79648.0,77.1,4164.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Etowah County,01055,745.0,0.7,,,,,,
+Alabama,01,All,Etowah County,01055,103348.0,100.0,4350.0,14060.0,20.0,19900.0,11400.0,60.3
+Alabama,01,American Indian and Alaska Native (NH),Etowah County,01055,127.0,0.1,,,,,,
+Alabama,01,Asian (NH),Etowah County,01055,743.0,0.7,,,,,,
+Alabama,01,White (NH),Fayette County,01057,13666.0,83.9,3736.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Fayette County,01057,40.0,0.2,,,,,,
+Alabama,01,Two or more races (NH),Fayette County,01057,368.0,2.3,,,,,,
+Alabama,01,Hispanic or Latino,Fayette County,01057,61.0,0.4,,,,,,
+Alabama,01,All,Fayette County,01057,16297.0,100.0,3932.0,13634.0,22.0,20600.0,12200.0,68.0
+Alabama,01,Asian (NH),Fayette County,01057,36.0,0.2,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Fayette County,01057,76.0,0.5,,,,,,
+Alabama,01,Black or African American (NH),Fayette County,01057,2074.0,12.7,4553.0,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Fayette County,01057,24.0,0.1,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Franklin County,01059,57.0,0.2,,,,,,
+Alabama,01,All,Franklin County,01059,32011.0,100.0,4590.0,14062.0,12.0,19900.0,12600.0,57.3
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Franklin County,01059,49.0,0.2,,,,,,
+Alabama,01,Asian (NH),Franklin County,01059,35.0,0.1,,,,,,
+Alabama,01,Black or African American (NH),Franklin County,01059,1360.0,4.2,1004.0,,,,,
+Alabama,01,Hispanic or Latino,Franklin County,01059,5892.0,18.4,2080.0,,,,,
+Alabama,01,Two or more races (NH),Franklin County,01059,492.0,1.5,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Franklin County,01059,14.0,0.0,,,,,,
+Alabama,01,White (NH),Franklin County,01059,24088.0,75.2,4630.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Geneva County,01061,6.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Geneva County,01061,837.0,3.1,,,,,,
+Alabama,01,Hispanic or Latino,Geneva County,01061,1185.0,4.4,,,,,,
+Alabama,01,White (NH),Geneva County,01061,21535.0,80.8,3164.0,,,,,
+Alabama,01,Black or African American (NH),Geneva County,01061,2377.0,8.9,4355.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Geneva County,01061,149.0,0.6,,,,,,
+Alabama,01,All,Geneva County,01061,26647.0,100.0,3206.0,13452.0,18.0,20700.0,12600.0,61.5
+Alabama,01,American Indian and Alaska Native (NH),Geneva County,01061,61.0,0.2,,,,,,
+Alabama,01,Asian (NH),Geneva County,01061,143.0,0.5,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Greene County,01063,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Greene County,01063,49.0,0.6,,,,,,
+Alabama,01,Hispanic or Latino,Greene County,01063,24.0,0.3,,,,,,
+Alabama,01,Black or African American (NH),Greene County,01063,6305.0,81.8,5609.0,,,,,
+Alabama,01,White (NH),Greene County,01063,1321.0,17.1,2533.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Greene County,01063,0.0,0.0,,,,,,
+Alabama,01,All,Greene County,01063,7706.0,100.0,4840.0,9444.0,,22000.0,20300.0,74.1
+Alabama,01,American Indian and Alaska Native (NH),Greene County,01063,7.0,0.1,,,,,,
+Alabama,01,Asian (NH),Greene County,01063,0.0,0.0,,,,,,
+Alabama,01,White (NH),Hale County,01065,5663.0,38.4,5524.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Hale County,01065,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Hale County,01065,630.0,4.3,,,,,,
+Alabama,01,Hispanic or Latino,Hale County,01065,25.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Hale County,01065,8373.0,56.8,4729.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Hale County,01065,9.0,0.1,,,,,,
+Alabama,01,All,Hale County,01065,14742.0,100.0,5196.0,11581.0,16.0,20500.0,15700.0,69.8
+Alabama,01,American Indian and Alaska Native (NH),Hale County,01065,42.0,0.3,,,,,,
+Alabama,01,Asian (NH),Hale County,01065,9.0,0.1,,,,,,
+Alabama,01,White (NH),Henry County,01067,12012.0,69.5,3198.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Henry County,01067,8.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Henry County,01067,293.0,1.7,,,,,,
+Alabama,01,Hispanic or Latino,Henry County,01067,469.0,2.7,,,,,,
+Alabama,01,Black or African American (NH),Henry County,01067,4344.0,25.1,3135.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Henry County,01067,104.0,0.6,,,,,,
+Alabama,01,All,Henry County,01067,17282.0,100.0,3304.0,13407.0,27.0,19100.0,11800.0,68.8
+Alabama,01,American Indian and Alaska Native (NH),Henry County,01067,60.0,0.3,,,,,,
+Alabama,01,Asian (NH),Henry County,01067,96.0,0.6,,,,,,
+Alabama,01,White (NH),Houston County,01069,69420.0,64.9,2931.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Houston County,01069,17.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Houston County,01069,3052.0,2.9,,,,,,
+Alabama,01,Hispanic or Latino,Houston County,01069,3844.0,3.6,,,,,,
+Alabama,01,Black or African American (NH),Houston County,01069,29026.0,27.1,6612.0,,,,,
+Alabama,01,Asian (NH),Houston County,01069,976.0,0.9,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Houston County,01069,993.0,0.9,,,,,,
+Alabama,01,All,Houston County,01069,107040.0,100.0,3448.0,13888.0,19.0,18900.0,11700.0,57.8
+Alabama,01,American Indian and Alaska Native (NH),Houston County,01069,248.0,0.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Jackson County,01071,17.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Jackson County,01071,1840.0,3.5,,,,,,
+Alabama,01,Hispanic or Latino,Jackson County,01071,1685.0,3.2,,,,,,
+Alabama,01,Black or African American (NH),Jackson County,01071,1708.0,3.2,5459.0,,,,,
+Alabama,01,White (NH),Jackson County,01071,46699.0,88.8,2442.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Jackson County,01071,230.0,0.4,,,,,,
+Alabama,01,All,Jackson County,01071,52618.0,100.0,2484.0,14001.0,21.0,20100.0,11600.0,58.4
+Alabama,01,American Indian and Alaska Native (NH),Jackson County,01071,397.0,0.8,,,,,,
+Alabama,01,Asian (NH),Jackson County,01071,213.0,0.4,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Jefferson County,01073,160.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Jefferson County,01073,13608.0,2.0,,,,,,
+Alabama,01,Hispanic or Latino,Jefferson County,01073,27950.0,4.2,1074.0,,10.0,,,
+Alabama,01,Black or African American (NH),Jefferson County,01073,286423.0,42.6,3772.0,,8.0,,,
+Alabama,01,White (NH),Jefferson County,01073,328951.0,48.9,2558.0,,20.0,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Jefferson County,01073,11850.0,1.8,559.0,,,,,
+Alabama,01,All,Jefferson County,01073,672265.0,100.0,2957.0,14720.0,14.0,17700.0,12600.0,66.0
+Alabama,01,American Indian and Alaska Native (NH),Jefferson County,01073,570.0,0.1,,,,,,
+Alabama,01,Asian (NH),Jefferson County,01073,11690.0,1.7,,,,,,
+Alabama,01,White (NH),Lamar County,01075,11900.0,85.7,3143.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Lamar County,01075,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Lamar County,01075,273.0,2.0,,,,,,
+Alabama,01,Hispanic or Latino,Lamar County,01075,76.0,0.5,,,,,,
+Alabama,01,Black or African American (NH),Lamar County,01075,1527.0,11.0,2992.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lamar County,01075,23.0,0.2,,,,,,
+Alabama,01,All,Lamar County,01075,13885.0,100.0,3265.0,13812.0,,20100.0,11500.0,67.0
+Alabama,01,American Indian and Alaska Native (NH),Lamar County,01075,49.0,0.4,,,,,,
+Alabama,01,Asian (NH),Lamar County,01075,23.0,0.2,,,,,,
+Alabama,01,Hispanic or Latino,Lauderdale County,01077,2803.0,3.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Lauderdale County,01077,64.0,0.1,,,,,,
+Alabama,01,Two or more races (NH),Lauderdale County,01077,2686.0,2.8,,,,,,
+Alabama,01,Black or African American (NH),Lauderdale County,01077,9197.0,9.7,3226.0,,,,,
+Alabama,01,White (NH),Lauderdale County,01077,78667.0,83.4,2348.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lauderdale County,01077,638.0,0.7,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Lauderdale County,01077,213.0,0.2,,,,,,
+Alabama,01,Asian (NH),Lauderdale County,01077,574.0,0.6,,,,,,
+Alabama,01,All,Lauderdale County,01077,94329.0,100.0,2400.0,15331.0,14.0,18500.0,10800.0,60.4
+Alabama,01,White (NH),Lawrence County,01079,25273.0,76.3,4400.0,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Lawrence County,01079,1669.0,5.0,,,,,,
+Alabama,01,All,Lawrence County,01079,33116.0,100.0,4215.0,14398.0,22.0,19900.0,11800.0,62.6
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lawrence County,01079,114.0,0.3,,,,,,
+Alabama,01,Asian (NH),Lawrence County,01079,97.0,0.3,,,,,,
+Alabama,01,Black or African American (NH),Lawrence County,01079,3366.0,10.2,2821.0,,,,,
+Alabama,01,Hispanic or Latino,Lawrence County,01079,829.0,2.5,,,,,,
+Alabama,01,Two or more races (NH),Lawrence County,01079,1852.0,5.6,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Lawrence County,01079,17.0,0.1,,,,,,
+Alabama,01,White (NH),Lee County,01081,117221.0,66.9,1980.0,,15.0,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Lee County,01081,49.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Lee County,01081,4106.0,2.3,,,,,,
+Alabama,01,Hispanic or Latino,Lee County,01081,6780.0,3.9,,,,,,
+Alabama,01,All,Lee County,01081,175126.0,100.0,2325.0,16242.0,13.0,17200.0,11300.0,57.7
+Alabama,01,Asian (NH),Lee County,01081,7530.0,4.3,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lee County,01081,7579.0,4.3,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Lee County,01081,224.0,0.1,,,,,,
+Alabama,01,Black or African American (NH),Lee County,01081,38635.0,22.1,3879.0,,8.0,,,
+Alabama,01,Hispanic or Latino,Limestone County,01083,6588.0,6.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Limestone County,01083,61.0,0.1,,,,,,
+Alabama,01,Two or more races (NH),Limestone County,01083,3765.0,3.6,,,,,,
+Alabama,01,White (NH),Limestone County,01083,77842.0,74.7,2556.0,,,,,
+Alabama,01,Black or African American (NH),Limestone County,01083,13547.0,13.0,5532.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Limestone County,01083,1933.0,1.9,,,,,,
+Alabama,01,All,Limestone County,01083,104199.0,100.0,2746.0,15130.0,16.0,17600.0,10500.0,67.0
+Alabama,01,American Indian and Alaska Native (NH),Limestone County,01083,438.0,0.4,,,,,,
+Alabama,01,Asian (NH),Limestone County,01083,1872.0,1.8,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Lowndes County,01085,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Lowndes County,01085,46.0,0.5,,,,,,
+Alabama,01,Hispanic or Latino,Lowndes County,01085,19.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Lowndes County,01085,7595.0,74.8,2930.0,,,,,
+Alabama,01,White (NH),Lowndes County,01085,2493.0,24.6,3159.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lowndes County,01085,0.0,0.0,,,,,,
+Alabama,01,All,Lowndes County,01085,10153.0,100.0,3583.0,10652.0,,20400.0,17300.0,89.2
+Alabama,01,American Indian and Alaska Native (NH),Lowndes County,01085,0.0,0.0,,,,,,
+Alabama,01,Asian (NH),Lowndes County,01085,0.0,0.0,,,,,,
+Alabama,01,White (NH),Macon County,01087,3098.0,16.1,2521.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Macon County,01087,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Macon County,01087,426.0,2.2,,,,,,
+Alabama,01,Hispanic or Latino,Macon County,01087,453.0,2.4,,,,,,
+Alabama,01,Black or African American (NH),Macon County,01087,15130.0,78.8,2791.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Macon County,01087,73.0,0.4,,,,,,
+Alabama,01,All,Macon County,01087,19198.0,100.0,2803.0,11589.0,,19500.0,16500.0,57.4
+Alabama,01,American Indian and Alaska Native (NH),Macon County,01087,7.0,0.0,,,,,,
+Alabama,01,Asian (NH),Macon County,01087,73.0,0.4,,,,,,
+Alabama,01,Hispanic or Latino,Madison County,01089,20611.0,5.3,2654.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Madison County,01089,193.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Madison County,01089,14750.0,3.8,,,,,,
+Alabama,01,Black or African American (NH),Madison County,01089,94612.0,24.3,3434.0,,7.0,,,
+Alabama,01,White (NH),Madison County,01089,247345.0,63.5,2486.0,,19.0,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Madison County,01089,9740.0,2.5,1130.0,,,,,
+Alabama,01,All,Madison County,01089,389781.0,100.0,2629.0,13953.0,16.0,16400.0,10200.0,69.9
+Alabama,01,American Indian and Alaska Native (NH),Madison County,01089,1699.0,0.4,,,,,,
+Alabama,01,Asian (NH),Madison County,01089,9547.0,2.4,,,,,,
+Alabama,01,White (NH),Marengo County,01091,8539.0,44.5,2247.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Marengo County,01091,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Marengo County,01091,163.0,0.8,,,,,,
+Alabama,01,Hispanic or Latino,Marengo County,01091,542.0,2.8,,,,,,
+Alabama,01,Black or African American (NH),Marengo County,01091,9749.0,50.8,6064.0,,,,,
+Alabama,01,Asian (NH),Marengo County,01091,151.0,0.8,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Marengo County,01091,151.0,0.8,,,,,,
+Alabama,01,All,Marengo County,01091,19180.0,100.0,3688.0,11711.0,14.0,19500.0,14900.0,74.6
+Alabama,01,American Indian and Alaska Native (NH),Marengo County,01091,36.0,0.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Marion County,01093,8.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Marion County,01093,676.0,2.3,,,,,,
+Alabama,01,Hispanic or Latino,Marion County,01093,790.0,2.7,,,,,,
+Alabama,01,Black or African American (NH),Marion County,01093,1113.0,3.8,634.0,,,,,
+Alabama,01,White (NH),Marion County,01093,26508.0,90.8,4014.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Marion County,01093,93.0,0.3,,,,,,
+Alabama,01,All,Marion County,01093,29203.0,100.0,3984.0,14553.0,21.0,20300.0,11400.0,59.1
+Alabama,01,American Indian and Alaska Native (NH),Marion County,01093,23.0,0.1,,,,,,
+Alabama,01,Asian (NH),Marion County,01093,85.0,0.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Marshall County,01095,78.0,0.1,,,,,,
+Alabama,01,Two or more races (NH),Marshall County,01095,2062.0,2.1,,,,,,
+Alabama,01,Hispanic or Latino,Marshall County,01095,14751.0,15.1,,,,,,
+Alabama,01,Black or African American (NH),Marshall County,01095,2672.0,2.7,,,,,,
+Alabama,01,White (NH),Marshall County,01095,77450.0,79.1,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Marshall County,01095,673.0,0.7,,,,,,
+Alabama,01,All,Marshall County,01095,97923.0,100.0,2877.0,14978.0,17.0,19500.0,11300.0,59.1
+Alabama,01,American Indian and Alaska Native (NH),Marshall County,01095,129.0,0.1,,,,,,
+Alabama,01,Asian (NH),Marshall County,01095,595.0,0.6,,,,,,
+Alabama,01,White (NH),Mobile County,01097,231005.0,55.8,3102.0,,21.0,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Mobile County,01097,95.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Mobile County,01097,9986.0,2.4,,,,,,
+Alabama,01,Hispanic or Latino,Mobile County,01097,12565.0,3.0,2159.0,,,,,
+Alabama,01,Black or African American (NH),Mobile County,01097,149056.0,36.0,4237.0,,7.0,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Mobile County,01097,8392.0,2.0,,,,,,
+Alabama,01,All,Mobile County,01097,413878.0,100.0,3376.0,15173.0,15.0,19500.0,13500.0,58.7
+Alabama,01,American Indian and Alaska Native (NH),Mobile County,01097,1589.0,0.4,,,,,,
+Alabama,01,Asian (NH),Mobile County,01097,8297.0,2.0,,,,,,
+Alabama,01,Hispanic or Latino,Monroe County,01099,44.0,0.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Monroe County,01099,13.0,0.1,,,,,,
+Alabama,01,Two or more races (NH),Monroe County,01099,436.0,2.2,,,,,,
+Alabama,01,Black or African American (NH),Monroe County,01099,8384.0,42.3,2586.0,,,,,
+Alabama,01,White (NH),Monroe County,01099,10632.0,53.7,2998.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Monroe County,01099,60.0,0.3,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Monroe County,01099,260.0,1.3,,,,,,
+Alabama,01,Asian (NH),Monroe County,01099,47.0,0.2,,,,,,
+Alabama,01,All,Monroe County,01099,19816.0,100.0,2955.0,12513.0,13.0,20900.0,14700.0,65.1
+Alabama,01,White (NH),Montgomery County,01101,72150.0,31.6,2982.0,,18.0,,,
+Alabama,01,American Indian and Alaska Native (NH),Montgomery County,01101,156.0,0.1,,,,,,
+Alabama,01,All,Montgomery County,01101,228132.0,100.0,3612.0,14513.0,11.0,18100.0,14500.0,59.2
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Montgomery County,01101,7601.0,3.3,,,,,,
+Alabama,01,Asian (NH),Montgomery County,01101,7593.0,3.3,,,,,,
+Alabama,01,Black or African American (NH),Montgomery County,01101,134336.0,58.9,4672.0,,7.0,,,
+Alabama,01,Hispanic or Latino,Montgomery County,01101,8597.0,3.8,,,,,,
+Alabama,01,Two or more races (NH),Montgomery County,01101,5029.0,2.2,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Montgomery County,01101,8.0,0.0,,,,,,
+Alabama,01,White (NH),Morgan County,01103,91445.0,74.3,3155.0,,26.0,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Morgan County,01103,15.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Morgan County,01103,3713.0,3.0,,,,,,
+Alabama,01,Hispanic or Latino,Morgan County,01103,10845.0,8.8,,,,,,
+Alabama,01,All,Morgan County,01103,123102.0,100.0,3209.0,14454.0,23.0,18900.0,11400.0,60.8
+Alabama,01,Asian (NH),Morgan County,01103,592.0,0.5,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Morgan County,01103,607.0,0.5,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Morgan County,01103,272.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Morgan County,01103,15886.0,12.9,4066.0,,14.0,,,
+Alabama,01,Hispanic or Latino,Perry County,01105,82.0,1.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Perry County,01105,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Perry County,01105,48.0,0.6,,,,,,
+Alabama,01,White (NH),Perry County,01105,2405.0,28.4,3316.0,,,,,
+Alabama,01,Black or African American (NH),Perry County,01105,5943.0,70.1,5549.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Perry County,01105,0.0,0.0,,,,,,
+Alabama,01,All,Perry County,01105,8479.0,100.0,4687.0,10649.0,,22100.0,19400.0,73.6
+Alabama,01,American Indian and Alaska Native (NH),Perry County,01105,1.0,0.0,,,,,,
+Alabama,01,Asian (NH),Perry County,01105,0.0,0.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Pickens County,01107,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Pickens County,01107,319.0,1.7,,,,,,
+Alabama,01,Hispanic or Latino,Pickens County,01107,987.0,5.2,,,,,,
+Alabama,01,Black or African American (NH),Pickens County,01107,7416.0,39.2,5337.0,,,,,
+Alabama,01,White (NH),Pickens County,01107,10141.0,53.6,3234.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Pickens County,01107,10.0,0.1,,,,,,
+Alabama,01,All,Pickens County,01107,18925.0,100.0,3912.0,12584.0,10.0,19800.0,14200.0,62.6
+Alabama,01,American Indian and Alaska Native (NH),Pickens County,01107,33.0,0.2,,,,,,
+Alabama,01,Asian (NH),Pickens County,01107,10.0,0.1,,,,,,
+Alabama,01,White (NH),Pike County,01109,18245.0,55.3,3021.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Pike County,01109,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Pike County,01109,901.0,2.7,,,,,,
+Alabama,01,Hispanic or Latino,Pike County,01109,799.0,2.4,,,,,,
+Alabama,01,Black or African American (NH),Pike County,01109,12282.0,37.2,2795.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Pike County,01109,658.0,2.0,,,,,,
+Alabama,01,All,Pike County,01109,32997.0,100.0,3056.0,13780.0,14.0,19300.0,13500.0,53.3
+Alabama,01,American Indian and Alaska Native (NH),Pike County,01109,112.0,0.3,,,,,,
+Alabama,01,Asian (NH),Pike County,01109,658.0,2.0,,,,,,
+Alabama,01,Hispanic or Latino,Randolph County,01111,669.0,3.0,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Randolph County,01111,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Randolph County,01111,584.0,2.6,,,,,,
+Alabama,01,Black or African American (NH),Randolph County,01111,4203.0,19.0,2106.0,,,,,
+Alabama,01,White (NH),Randolph County,01111,16553.0,74.6,2833.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Randolph County,01111,62.0,0.3,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Randolph County,01111,21.0,0.1,,,,,,
+Alabama,01,Asian (NH),Randolph County,01111,62.0,0.3,,,,,,
+Alabama,01,All,Randolph County,01111,22179.0,100.0,2921.0,13450.0,26.0,19900.0,12000.0,61.0
+Alabama,01,American Indian and Alaska Native (NH),Russell County,01113,88.0,0.1,,,,,,
+Alabama,01,All,Russell County,01113,58849.0,100.0,3205.0,13902.0,21.0,19500.0,14200.0,49.3
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Russell County,01113,517.0,0.9,,,,,,
+Alabama,01,Asian (NH),Russell County,01113,459.0,0.8,,,,,,
+Alabama,01,Black or African American (NH),Russell County,01113,26170.0,44.5,3718.0,,,,,
+Alabama,01,Hispanic or Latino,Russell County,01113,3451.0,5.9,,,,,,
+Alabama,01,Two or more races (NH),Russell County,01113,2110.0,3.6,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Russell County,01113,58.0,0.1,,,,,,
+Alabama,01,White (NH),Russell County,01113,25923.0,44.1,3150.0,,,,,
+Alabama,01,White (NH),St. Clair County,01115,77572.0,84.6,2959.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),St. Clair County,01115,61.0,0.1,,,,,,
+Alabama,01,Two or more races (NH),St. Clair County,01115,1949.0,2.1,,,,,,
+Alabama,01,Hispanic or Latino,St. Clair County,01115,2325.0,2.5,,,,,,
+Alabama,01,All,St. Clair County,01115,91719.0,100.0,3045.0,14817.0,19.0,18400.0,10400.0,65.3
+Alabama,01,Asian (NH),St. Clair County,01115,373.0,0.4,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",St. Clair County,01115,434.0,0.5,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),St. Clair County,01115,290.0,0.3,,,,,,
+Alabama,01,Black or African American (NH),St. Clair County,01115,8839.0,9.6,6093.0,,,,,
+Alabama,01,Two or more races (NH),Shelby County,01117,5775.0,2.6,,,,,,
+Alabama,01,White (NH),Shelby County,01117,169919.0,75.9,2718.0,,15.0,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Shelby County,01117,22.0,0.0,,,,,,
+Alabama,01,Hispanic or Latino,Shelby County,01117,13195.0,5.9,,,,,,
+Alabama,01,Black or African American (NH),Shelby County,01117,29071.0,13.0,3909.0,,7.0,,,
+Alabama,01,Asian (NH),Shelby County,01117,4483.0,2.0,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Shelby County,01117,4505.0,2.0,,,,,,
+Alabama,01,All,Shelby County,01117,223916.0,100.0,2801.0,16842.0,14.0,15600.0,8900.0,71.7
+Alabama,01,American Indian and Alaska Native (NH),Shelby County,01117,331.0,0.1,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Sumter County,01119,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Sumter County,01119,178.0,1.5,,,,,,
+Alabama,01,Hispanic or Latino,Sumter County,01119,85.0,0.7,,,,,,
+Alabama,01,Black or African American (NH),Sumter County,01119,8813.0,72.3,3695.0,,,,,
+Alabama,01,White (NH),Sumter County,01119,3069.0,25.2,3491.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sumter County,01119,41.0,0.3,,,,,,
+Alabama,01,All,Sumter County,01119,12196.0,100.0,3788.0,11230.0,,20400.0,18200.0,63.4
+Alabama,01,American Indian and Alaska Native (NH),Sumter County,01119,10.0,0.1,,,,,,
+Alabama,01,Asian (NH),Sumter County,01119,41.0,0.3,,,,,,
+Alabama,01,White (NH),Talladega County,01121,50504.0,62.3,3410.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Talladega County,01121,21.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Talladega County,01121,2287.0,2.8,,,,,,
+Alabama,01,Hispanic or Latino,Talladega County,01121,1997.0,2.5,,,,,,
+Alabama,01,Black or African American (NH),Talladega County,01121,25788.0,31.8,3783.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Talladega County,01121,371.0,0.5,,,,,,
+Alabama,01,All,Talladega County,01121,81105.0,100.0,3432.0,13440.0,18.0,20300.0,13400.0,57.3
+Alabama,01,American Indian and Alaska Native (NH),Talladega County,01121,124.0,0.2,,,,,,
+Alabama,01,Asian (NH),Talladega County,01121,350.0,0.4,,,,,,
+Alabama,01,Hispanic or Latino,Tallapoosa County,01123,1010.0,2.4,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Tallapoosa County,01123,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Tallapoosa County,01123,734.0,1.8,,,,,,
+Alabama,01,White (NH),Tallapoosa County,01123,28305.0,68.6,1915.0,,,,,
+Alabama,01,Black or African American (NH),Tallapoosa County,01123,10927.0,26.5,2050.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Tallapoosa County,01123,190.0,0.5,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Tallapoosa County,01123,26.0,0.1,,,,,,
+Alabama,01,Asian (NH),Tallapoosa County,01123,190.0,0.5,,,,,,
+Alabama,01,All,Tallapoosa County,01123,41251.0,100.0,1987.0,13506.0,20.0,19100.0,12300.0,66.2
+Alabama,01,White (NH),Tuscaloosa County,01125,140053.0,60.5,3673.0,,17.0,,,
+Alabama,01,American Indian and Alaska Native (NH),Tuscaloosa County,01125,156.0,0.1,,,,,,
+Alabama,01,All,Tuscaloosa County,01125,231558.0,100.0,4030.0,16498.0,13.0,18300.0,12400.0,56.2
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Tuscaloosa County,01125,3678.0,1.6,,,,,,
+Alabama,01,Asian (NH),Tuscaloosa County,01125,3654.0,1.6,,,,,,
+Alabama,01,Black or African American (NH),Tuscaloosa County,01125,74051.0,32.0,5334.0,,4.0,,,
+Alabama,01,Hispanic or Latino,Tuscaloosa County,01125,9261.0,4.0,5051.0,,,,,
+Alabama,01,Two or more races (NH),Tuscaloosa County,01125,4130.0,1.8,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Tuscaloosa County,01125,24.0,0.0,,,,,,
+Alabama,01,White (NH),Walker County,01127,56899.0,87.6,4281.0,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Walker County,01127,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Walker County,01127,1839.0,2.8,,,,,,
+Alabama,01,Hispanic or Latino,Walker County,01127,1868.0,2.9,,,,,,
+Alabama,01,All,Walker County,01127,64978.0,100.0,4225.0,13878.0,23.0,20500.0,11300.0,63.4
+Alabama,01,Asian (NH),Walker County,01127,122.0,0.2,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Walker County,01127,122.0,0.2,,,,,,
+Alabama,01,American Indian and Alaska Native (NH),Walker County,01127,100.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Walker County,01127,3890.0,6.0,2072.0,,,,,
+Alabama,01,Hispanic or Latino,Washington County,01129,261.0,1.7,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Washington County,01129,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Washington County,01129,358.0,2.3,,,,,,
+Alabama,01,White (NH),Washington County,01129,10084.0,65.3,1997.0,,,,,
+Alabama,01,Black or African American (NH),Washington County,01129,3607.0,23.4,2668.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Washington County,01129,62.0,0.4,,,,,,
+Alabama,01,All,Washington County,01129,15434.0,100.0,2280.0,13138.0,19.0,20300.0,13400.0,69.2
+Alabama,01,American Indian and Alaska Native (NH),Washington County,01129,1042.0,6.8,,,,,,
+Alabama,01,Asian (NH),Washington County,01129,62.0,0.4,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Wilcox County,01131,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Wilcox County,01131,220.0,2.1,,,,,,
+Alabama,01,Hispanic or Latino,Wilcox County,01131,22.0,0.2,,,,,,
+Alabama,01,Black or African American (NH),Wilcox County,01131,7328.0,70.2,3341.0,,,,,
+Alabama,01,White (NH),Wilcox County,01131,2860.0,27.4,2453.0,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Wilcox County,01131,4.0,0.0,,,,,,
+Alabama,01,All,Wilcox County,01131,10441.0,100.0,3111.0,10592.0,,21400.0,18000.0,73.8
+Alabama,01,American Indian and Alaska Native (NH),Wilcox County,01131,7.0,0.1,,,,,,
+Alabama,01,Asian (NH),Wilcox County,01131,4.0,0.0,,,,,,
+Alabama,01,White (NH),Winston County,01133,21834.0,92.3,,,,,,
+Alabama,01,Native Hawaiian and Pacific Islander (NH),Winston County,01133,0.0,0.0,,,,,,
+Alabama,01,Two or more races (NH),Winston County,01133,642.0,2.7,,,,,,
+Alabama,01,Hispanic or Latino,Winston County,01133,768.0,3.2,,,,,,
+Alabama,01,Black or African American (NH),Winston County,01133,263.0,1.1,,,,,,
+Alabama,01,"Asian, Native Hawaiian, and Pacific Islander (NH)",Winston County,01133,105.0,0.4,,,,,,
+Alabama,01,All,Winston County,01133,23655.0,100.0,6652.0,14018.0,19.0,20500.0,11400.0,60.7
+Alabama,01,American Indian and Alaska Native (NH),Winston County,01133,43.0,0.2,,,,,,
+Alabama,01,Asian (NH),Winston County,01133,105.0,0.4,,,,,,
+Wyoming,56,White (NH),Albany County,56001,30382.0,81.0,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Albany County,56001,50.0,0.1,,,,,,
+Wyoming,56,Two or more races (NH),Albany County,56001,1506.0,4.0,,,,,,
+Wyoming,56,Hispanic or Latino,Albany County,56001,3719.0,9.9,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Albany County,56001,1439.0,3.8,,,,,,
+Wyoming,56,Asian (NH),Albany County,56001,1389.0,3.7,,,,,,
+Wyoming,56,All,Albany County,56001,37525.0,100.0,1462.0,22310.0,23.0,15400.0,8800.0,60.8
+Wyoming,56,American Indian and Alaska Native (NH),Albany County,56001,143.0,0.4,,,,,,
+Wyoming,56,Black or African American (NH),Albany County,56001,314.0,0.8,,,,,,
+Wyoming,56,White (NH),Big Horn County,56003,10065.0,86.1,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Big Horn County,56003,30.0,0.3,,,,,,
+Wyoming,56,Two or more races (NH),Big Horn County,56003,254.0,2.2,,,,,,
+Wyoming,56,Hispanic or Latino,Big Horn County,56003,1132.0,9.7,,,,,,
+Wyoming,56,Black or African American (NH),Big Horn County,56003,52.0,0.4,,,,,,
+Wyoming,56,Asian (NH),Big Horn County,56003,80.0,0.7,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Big Horn County,56003,110.0,0.9,,,,,,
+Wyoming,56,All,Big Horn County,56003,11690.0,100.0,2671.0,16689.0,32.0,15900.0,8900.0,67.3
+Wyoming,56,American Indian and Alaska Native (NH),Big Horn County,56003,50.0,0.4,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Campbell County,56005,15.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Campbell County,56005,1666.0,3.6,,,,,,
+Wyoming,56,Hispanic or Latino,Campbell County,56005,4147.0,8.9,,,,,,
+Wyoming,56,Black or African American (NH),Campbell County,56005,178.0,0.4,,,,,,
+Wyoming,56,White (NH),Campbell County,56005,40339.0,86.1,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Campbell County,56005,49.0,0.1,,,,,,
+Wyoming,56,All,Campbell County,56005,46857.0,100.0,1472.0,19609.0,23.0,15300.0,8100.0,58.9
+Wyoming,56,American Indian and Alaska Native (NH),Campbell County,56005,457.0,1.0,,,,,,
+Wyoming,56,Asian (NH),Campbell County,56005,34.0,0.1,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Carbon County,56007,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Carbon County,56007,267.0,1.8,,,,,,
+Wyoming,56,Hispanic or Latino,Carbon County,56007,2726.0,18.7,1663.0,,,,,
+Wyoming,56,Black or African American (NH),Carbon County,56007,205.0,1.4,,,,,,
+Wyoming,56,White (NH),Carbon County,56007,11133.0,76.2,1729.0,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Carbon County,56007,75.0,0.5,,,,,,
+Wyoming,56,All,Carbon County,56007,14609.0,100.0,1729.0,17072.0,38.0,15800.0,9400.0,60.2
+Wyoming,56,American Indian and Alaska Native (NH),Carbon County,56007,194.0,1.3,,,,,,
+Wyoming,56,Asian (NH),Carbon County,56007,75.0,0.5,,,,,,
+Wyoming,56,White (NH),Converse County,56009,12099.0,88.1,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Converse County,56009,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Converse County,56009,407.0,3.0,,,,,,
+Wyoming,56,Hispanic or Latino,Converse County,56009,1162.0,8.5,,,,,,
+Wyoming,56,Black or African American (NH),Converse County,56009,32.0,0.2,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Converse County,56009,19.0,0.1,,,,,,
+Wyoming,56,All,Converse County,56009,13729.0,100.0,2751.0,19031.0,29.0,15600.0,8300.0,68.9
+Wyoming,56,American Indian and Alaska Native (NH),Converse County,56009,10.0,0.1,,,,,,
+Wyoming,56,Asian (NH),Converse County,56009,19.0,0.1,,,,,,
+Wyoming,56,Hispanic or Latino,Crook County,56011,206.0,2.8,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Crook County,56011,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Crook County,56011,267.0,3.7,,,,,,
+Wyoming,56,Black or African American (NH),Crook County,56011,0.0,0.0,,,,,,
+Wyoming,56,White (NH),Crook County,56011,6719.0,92.6,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Crook County,56011,34.0,0.5,,,,,,
+Wyoming,56,American Indian and Alaska Native (NH),Crook County,56011,19.0,0.3,,,,,,
+Wyoming,56,Asian (NH),Crook County,56011,34.0,0.5,,,,,,
+Wyoming,56,All,Crook County,56011,7258.0,100.0,1606.0,16539.0,32.0,15200.0,7300.0,75.0
+Wyoming,56,White (NH),Fremont County,56013,27163.0,68.9,1732.0,,34.0,,,
+Wyoming,56,American Indian and Alaska Native (NH),Fremont County,56013,7127.0,18.1,5558.0,,48.0,,,
+Wyoming,56,All,Fremont County,56013,39402.0,100.0,2165.0,16865.0,34.0,16600.0,9600.0,61.6
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Fremont County,56013,208.0,0.5,,,,,,
+Wyoming,56,Asian (NH),Fremont County,56013,180.0,0.5,,,,,,
+Wyoming,56,Black or African American (NH),Fremont County,56013,216.0,0.5,,,,,,
+Wyoming,56,Hispanic or Latino,Fremont County,56013,3061.0,7.8,,,,,,
+Wyoming,56,Two or more races (NH),Fremont County,56013,1557.0,4.0,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Fremont County,56013,28.0,0.1,,,,,,
+Wyoming,56,White (NH),Goshen County,56015,10612.0,84.3,2300.0,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Goshen County,56015,30.0,0.2,,,,,,
+Wyoming,56,Two or more races (NH),Goshen County,56015,205.0,1.6,,,,,,
+Wyoming,56,Hispanic or Latino,Goshen County,56015,1410.0,11.2,3125.0,,,,,
+Wyoming,56,All,Goshen County,56015,12592.0,100.0,2414.0,17824.0,24.0,15200.0,8600.0,60.0
+Wyoming,56,Asian (NH),Goshen County,56015,80.0,0.6,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Goshen County,56015,110.0,0.9,,,,,,
+Wyoming,56,American Indian and Alaska Native (NH),Goshen County,56015,157.0,1.2,,,,,,
+Wyoming,56,Black or African American (NH),Goshen County,56015,58.0,0.5,,,,,,
+Wyoming,56,Hispanic or Latino,Hot Springs County,56017,190.0,4.1,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Hot Springs County,56017,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Hot Springs County,56017,160.0,3.5,,,,,,
+Wyoming,56,White (NH),Hot Springs County,56017,4120.0,89.3,,,,,,
+Wyoming,56,Black or African American (NH),Hot Springs County,56017,0.0,0.0,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Hot Springs County,56017,6.0,0.1,,,,,,
+Wyoming,56,All,Hot Springs County,56017,4616.0,100.0,241.0,14674.0,79.0,16400.0,8800.0,70.6
+Wyoming,56,American Indian and Alaska Native (NH),Hot Springs County,56017,99.0,2.1,,,,,,
+Wyoming,56,Asian (NH),Hot Springs County,56017,6.0,0.1,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Johnson County,56019,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Johnson County,56019,165.0,1.9,,,,,,
+Wyoming,56,Hispanic or Latino,Johnson County,56019,469.0,5.5,,,,,,
+Wyoming,56,Black or African American (NH),Johnson County,56019,16.0,0.2,,,,,,
+Wyoming,56,White (NH),Johnson County,56019,7583.0,88.8,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Johnson County,56019,57.0,0.7,,,,,,
+Wyoming,56,All,Johnson County,56019,8536.0,100.0,1989.0,14989.0,38.0,15800.0,8300.0,73.2
+Wyoming,56,American Indian and Alaska Native (NH),Johnson County,56019,187.0,2.2,,,,,,
+Wyoming,56,Asian (NH),Johnson County,56019,57.0,0.7,,,,,,
+Wyoming,56,White (NH),Laramie County,56021,77215.0,77.0,2709.0,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Laramie County,56021,115.0,0.1,,,,,,
+Wyoming,56,Two or more races (NH),Laramie County,56021,2936.0,2.9,,,,,,
+Wyoming,56,Hispanic or Latino,Laramie County,56021,15560.0,15.5,3082.0,,,,,
+Wyoming,56,Black or African American (NH),Laramie County,56021,2094.0,2.1,3355.0,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Laramie County,56021,1152.0,1.1,,,,,,
+Wyoming,56,All,Laramie County,56021,100316.0,100.0,2786.0,15961.0,29.0,14500.0,8300.0,60.3
+Wyoming,56,American Indian and Alaska Native (NH),Laramie County,56021,582.0,0.6,4270.0,,,,,
+Wyoming,56,Asian (NH),Laramie County,56021,1037.0,1.0,,,,,,
+Wyoming,56,Hispanic or Latino,Lincoln County,56023,998.0,5.0,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Lincoln County,56023,0.0,0.0,,,,,,
+Wyoming,56,White (NH),Lincoln County,56023,18098.0,91.4,,,,,,
+Wyoming,56,Black or African American (NH),Lincoln County,56023,11.0,0.1,,,,,,
+Wyoming,56,Two or more races (NH),Lincoln County,56023,532.0,2.7,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Lincoln County,56023,57.0,0.3,,,,,,
+Wyoming,56,American Indian and Alaska Native (NH),Lincoln County,56023,61.0,0.3,,,,,,
+Wyoming,56,Asian (NH),Lincoln County,56023,57.0,0.3,,,,,,
+Wyoming,56,All,Lincoln County,56023,19794.0,100.0,2425.0,16967.0,25.0,14900.0,7600.0,75.2
+Wyoming,56,White (NH),Natrona County,56025,67904.0,85.4,2632.0,,,,,
+Wyoming,56,American Indian and Alaska Native (NH),Natrona County,56025,659.0,0.8,,,,,,
+Wyoming,56,All,Natrona County,56025,79506.0,100.0,2661.0,19611.0,32.0,16100.0,8000.0,59.0
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Natrona County,56025,521.0,0.7,,,,,,
+Wyoming,56,Asian (NH),Natrona County,56025,411.0,0.5,,,,,,
+Wyoming,56,Black or African American (NH),Natrona County,56025,308.0,0.4,,,,,,
+Wyoming,56,Hispanic or Latino,Natrona County,56025,7263.0,9.1,2859.0,,,,,
+Wyoming,56,Two or more races (NH),Natrona County,56025,2533.0,3.2,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Natrona County,56025,110.0,0.1,,,,,,
+Wyoming,56,White (NH),Niobrara County,56027,2198.0,89.3,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Niobrara County,56027,29.0,1.2,,,,,,
+Wyoming,56,Two or more races (NH),Niobrara County,56027,51.0,2.1,,,,,,
+Wyoming,56,Hispanic or Latino,Niobrara County,56027,123.0,5.0,,,,,,
+Wyoming,56,All,Niobrara County,56027,2460.0,100.0,797.0,15157.0,,17900.0,9300.0,70.7
+Wyoming,56,Asian (NH),Niobrara County,56027,0.0,0.0,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Niobrara County,56027,29.0,1.2,,,,,,
+Wyoming,56,American Indian and Alaska Native (NH),Niobrara County,56027,55.0,2.2,,,,,,
+Wyoming,56,Black or African American (NH),Niobrara County,56027,4.0,0.2,,,,,,
+Wyoming,56,Hispanic or Latino,Park County,56029,1797.0,6.0,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Park County,56029,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Park County,56029,993.0,3.3,,,,,,
+Wyoming,56,White (NH),Park County,56029,26383.0,88.3,,,,,,
+Wyoming,56,Black or African American (NH),Park County,56029,169.0,0.6,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Park County,56029,81.0,0.3,,,,,,
+Wyoming,56,All,Park County,56029,29878.0,100.0,2033.0,16506.0,33.0,14700.0,7600.0,73.3
+Wyoming,56,American Indian and Alaska Native (NH),Park County,56029,62.0,0.2,,,,,,
+Wyoming,56,Asian (NH),Park County,56029,81.0,0.3,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Platte County,56031,42.0,0.5,,,,,,
+Wyoming,56,Two or more races (NH),Platte County,56031,434.0,5.0,,,,,,
+Wyoming,56,Hispanic or Latino,Platte County,56031,727.0,8.4,,,,,,
+Wyoming,56,Black or African American (NH),Platte County,56031,47.0,0.5,,,,,,
+Wyoming,56,White (NH),Platte County,56031,7352.0,85.3,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Platte County,56031,42.0,0.5,,,,,,
+Wyoming,56,All,Platte County,56031,8618.0,100.0,3120.0,16147.0,40.0,15700.0,8400.0,71.9
+Wyoming,56,American Indian and Alaska Native (NH),Platte County,56031,6.0,0.1,,,,,,
+Wyoming,56,Asian (NH),Platte County,56031,0.0,0.0,,,,,,
+Wyoming,56,White (NH),Sheridan County,56033,28235.0,90.6,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Sheridan County,56033,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Sheridan County,56033,593.0,1.9,,,,,,
+Wyoming,56,Hispanic or Latino,Sheridan County,56033,1472.0,4.7,,,,,,
+Wyoming,56,Black or African American (NH),Sheridan County,56033,88.0,0.3,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sheridan County,56033,317.0,1.0,,,,,,
+Wyoming,56,All,Sheridan County,56033,31176.0,100.0,2740.0,17917.0,25.0,15400.0,7700.0,69.9
+Wyoming,56,American Indian and Alaska Native (NH),Sheridan County,56033,365.0,1.2,,,,,,
+Wyoming,56,Asian (NH),Sheridan County,56033,317.0,1.0,,,,,,
+Wyoming,56,White (NH),Sublette County,56035,7971.0,90.6,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Sublette County,56035,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Sublette County,56035,169.0,1.9,,,,,,
+Wyoming,56,Hispanic or Latino,Sublette County,56035,617.0,7.0,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sublette County,56035,0.0,0.0,,,,,,
+Wyoming,56,Asian (NH),Sublette County,56035,0.0,0.0,,,,,,
+Wyoming,56,All,Sublette County,56035,8801.0,100.0,1354.0,18727.0,21.0,14900.0,7600.0,67.5
+Wyoming,56,American Indian and Alaska Native (NH),Sublette County,56035,0.0,0.0,,,,,,
+Wyoming,56,Black or African American (NH),Sublette County,56035,2.0,0.0,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Sweetwater County,56037,23.0,0.1,,,,,,
+Wyoming,56,Two or more races (NH),Sweetwater County,56037,927.0,2.2,,,,,,
+Wyoming,56,Hispanic or Latino,Sweetwater County,56037,6820.0,16.2,,,,,,
+Wyoming,56,Black or African American (NH),Sweetwater County,56037,492.0,1.2,,,,,,
+Wyoming,56,White (NH),Sweetwater County,56037,32751.0,77.8,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Sweetwater County,56037,334.0,0.8,,,,,,
+Wyoming,56,All,Sweetwater County,56037,42079.0,100.0,1167.0,19345.0,35.0,16100.0,8800.0,54.4
+Wyoming,56,American Indian and Alaska Native (NH),Sweetwater County,56037,374.0,0.9,,,,,,
+Wyoming,56,Asian (NH),Sweetwater County,56037,311.0,0.7,,,,,,
+Wyoming,56,White (NH),Teton County,56039,18598.0,79.7,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Teton County,56039,14.0,0.1,,,,,,
+Wyoming,56,Two or more races (NH),Teton County,56039,539.0,2.3,,,,,,
+Wyoming,56,Hispanic or Latino,Teton County,56039,3548.0,15.2,,,,,,
+Wyoming,56,Black or African American (NH),Teton County,56039,146.0,0.6,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Teton County,56039,316.0,1.4,,,,,,
+Wyoming,56,All,Teton County,56039,23346.0,100.0,1772.0,23096.0,16.0,12700.0,6600.0,86.2
+Wyoming,56,American Indian and Alaska Native (NH),Teton County,56039,29.0,0.1,,,,,,
+Wyoming,56,Asian (NH),Teton County,56039,302.0,1.3,,,,,,
+Wyoming,56,White (NH),Uinta County,56041,17826.0,86.8,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Uinta County,56041,0.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Uinta County,56041,594.0,2.9,,,,,,
+Wyoming,56,Hispanic or Latino,Uinta County,56041,2025.0,9.9,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Uinta County,56041,33.0,0.2,,,,,,
+Wyoming,56,Asian (NH),Uinta County,56041,33.0,0.2,,,,,,
+Wyoming,56,All,Uinta County,56041,20546.0,100.0,2196.0,16666.0,29.0,15700.0,8300.0,67.0
+Wyoming,56,American Indian and Alaska Native (NH),Uinta County,56041,19.0,0.1,,,,,,
+Wyoming,56,Black or African American (NH),Uinta County,56041,49.0,0.2,,,,,,
+Wyoming,56,White (NH),Washakie County,56043,6301.0,81.6,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Washakie County,56043,0.0,0.0,,,,,,
+Wyoming,56,Hispanic or Latino,Washakie County,56043,1103.0,14.3,,,,,,
+Wyoming,56,Black or African American (NH),Washakie County,56043,1.0,0.0,,,,,,
+Wyoming,56,Two or more races (NH),Washakie County,56043,245.0,3.2,,,,,,
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Washakie County,56043,32.0,0.4,,,,,,
+Wyoming,56,All,Washakie County,56043,7725.0,100.0,2261.0,15902.0,,15300.0,8400.0,67.5
+Wyoming,56,American Indian and Alaska Native (NH),Washakie County,56043,23.0,0.3,,,,,,
+Wyoming,56,Asian (NH),Washakie County,56043,32.0,0.4,,,,,,
+Wyoming,56,Native Hawaiian and Pacific Islander (NH),Weston County,56045,48.0,0.7,,,,,,
+Wyoming,56,American Indian and Alaska Native (NH),Weston County,56045,104.0,1.5,,,,,,
+Wyoming,56,All,Weston County,56045,6870.0,100.0,2045.0,17244.0,,16000.0,9000.0,64.7
+Wyoming,56,"Asian, Native Hawaiian, and Pacific Islander (NH)",Weston County,56045,64.0,0.9,,,,,,
+Wyoming,56,Asian (NH),Weston County,56045,16.0,0.2,,,,,,
+Wyoming,56,Black or African American (NH),Weston County,56045,6.0,0.1,,,,,,
+Wyoming,56,Hispanic or Latino,Weston County,56045,243.0,3.5,,,,,,
+Wyoming,56,Two or more races (NH),Weston County,56045,571.0,8.3,,,,,,
+Wyoming,56,White (NH),Weston County,56045,5874.0,85.5,,,,,,

@@ -94,7 +94,7 @@ packaging==21.3
     #   db-dtypes
     #   google-cloud-bigquery
     #   gunicorn
-pandas==2.0.3
+pandas==2.2.2
     # via
     #   -r requirements.in
     #   db-dtypes
@@ -117,7 +117,7 @@ pyasn1-modules==0.2.8
     # via google-auth
 pyparsing==3.0.9
     # via packaging
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via
     #   google-cloud-bigquery
     #   pandas

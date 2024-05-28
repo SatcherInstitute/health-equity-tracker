@@ -551,7 +551,7 @@ def generate_time_df_with_cols_and_types(
     numerical_cols_to_keep: List[str],
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
-):
+) -> tuple[pd.DataFrame, Dict[str, str]]:
     """
     Accepts a DataFrame along with list of column names for either current or
     historical data and generates the appropiate BQ types for each column.
