@@ -276,8 +276,7 @@ describe('Test getHighestLowestGroupsByFips()', () => {
       dataTableTitle: '',
       mapConfig: defaultHigherIsBetterMapConfig,
       categoryId: 'covid',
-      subPopulationPrefixMap: {
-      }
+
     }
 
     const highLowSex = getHighestLowestGroupsByFips(

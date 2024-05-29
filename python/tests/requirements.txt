@@ -107,7 +107,7 @@ pytz==2020.4
     #   pandas
 pyyaml==5.4
     # via libcst
-requests==2.32.0
+requests==2.32.2
     # via
     #   -r tests/../ingestion/requirements.in
     #   google-api-core
@@ -136,6 +136,7 @@ urllib3==2.2.1
     # via requests
 xlrd==2.0.1
     # via -r tests/../ingestion/requirements.in
+
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

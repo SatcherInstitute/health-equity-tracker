@@ -33,7 +33,7 @@ google-auth==2.29.0
     #   google-cloud-storage
 google-cloud==0.34.0
     # via -r requirements.in
-google-cloud-bigquery==3.23.0
+google-cloud-bigquery==3.23.1
     # via -r requirements.in
 google-cloud-core==2.4.1
     # via
@@ -94,7 +94,7 @@ packaging==21.3
     #   db-dtypes
     #   google-cloud-bigquery
     #   gunicorn
-pandas==2.0.3
+pandas==2.2.2
     # via
     #   -r requirements.in
     #   db-dtypes
@@ -117,13 +117,13 @@ pyasn1-modules==0.2.8
     # via google-auth
 pyparsing==3.0.9
     # via packaging
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via
     #   google-cloud-bigquery
     #   pandas
 pytz==2022.2.1
     # via pandas
-requests==2.32.0
+requests==2.32.2
     # via
     #   -r requirements.in
     #   google-api-core

@@ -220,7 +220,7 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None) -> pd.D
 
 
 def load_xlsx_as_df_from_data_dir(
-    directory: str, filename: str, sheet_name: str, dtype=None, na_values=None
+    directory: str, filename: str, sheet_name: str, dtype=None, na_values=None, header=None, usecols=None
 ) -> pd.DataFrame:
     """Loads a single sheet of a .xlsx file within target
      directory and outputs as a pandas dataframe
@@ -228,11 +228,17 @@ def load_xlsx_as_df_from_data_dir(
     directory: string dir name to load from
     filename: string file name to load from
     sheet_name: string sheet name to load from
-    dtype: optional dict of column types"""
+    dtype: optional dict of column types
+    na_values: optional list of strings to recognize as NA/NaN
+    header: optional row number to use as the column names
+    usecols: optional lambda or list of column names to load (skip the rest)
+    """
 
     file_path = os.path.join(DATA_DIR, directory, filename)
 
-    sheet_df = pd.read_excel(file_path, sheet_name=sheet_name, dtype=dtype, na_values=na_values)
+    sheet_df = pd.read_excel(
+        file_path, sheet_name=sheet_name, dtype=dtype, na_values=na_values, header=header, usecols=usecols
+    )
     return sheet_df
 
 

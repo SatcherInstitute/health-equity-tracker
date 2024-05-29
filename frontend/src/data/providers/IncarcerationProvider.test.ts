@@ -11,6 +11,7 @@ import {
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
 import { MetricId, DataTypeId } from '../config/MetricConfig'
+import { expect, describe, test, beforeEach } from 'vitest'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(

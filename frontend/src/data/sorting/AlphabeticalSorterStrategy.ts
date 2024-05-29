@@ -47,6 +47,6 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
       return diff
     }
 
-    return lVal.localeCompare(rVal)
+    return lVal?.localeCompare(rVal)
   }
 }

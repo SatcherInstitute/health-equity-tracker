@@ -13,10 +13,13 @@ import {
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { urlMap } from '../../../utils/externalUrls'
 
 const sdohDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.chr,
   dataSourceMetadataMap.cdc_svi_county,
 ]
 
@@ -68,16 +71,14 @@ function SdohLink() {
           Data Sourcing
         </h3>
         <p>
-          Our tracker's data on social determinants of health, such as
-          uninsurance rates and poverty levels, is largely sourced from{' '}
-          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>. AHR itself
-          gathers most of its data from the{' '}
-          <a href={'urlMap.cdcBrfss'}>
+          Our tracker's data on some social determinants of health including <HetTerm>preventable hospitalizations</HetTerm> are sourced from{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}
           survey run by the CDC, augmented by{' '}
-          <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
-          <a href={'urlMap.censusVoting'}>U.S. Census</a>.
+          <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
+          <a href={urlMap.censusVoting}>U.S. Census</a>.
         </p>
         <NoteBrfss />
 
