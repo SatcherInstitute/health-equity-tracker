@@ -28,6 +28,7 @@ export type ProviderId =
   | 'gun_violence_black_men_provider'
   | 'hiv_provider'
   | 'incarceration_provider'
+  | 'maternal_mortality_provider'
   | 'phrma_provider'
   | 'vaccine_provider'
 

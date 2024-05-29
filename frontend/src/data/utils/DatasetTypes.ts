@@ -65,7 +65,7 @@ export class Dataset {
     this.metadata = metadata
   }
 
-  toDataFrame(): IDataFrame {
+  toDataFrame(): IDataFrame | DataFrame {
     return new DataFrame(this.rows)
   }
 

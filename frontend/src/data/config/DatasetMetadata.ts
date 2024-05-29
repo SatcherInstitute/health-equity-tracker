@@ -138,6 +138,10 @@ export type DatasetId =
   | 'geo_context-county'
   | 'kff_vaccination-alls_state'
   | 'kff_vaccination-race_and_ethnicity_state'
+  | 'maternal_mortality_data-by_race_national_current'
+  | 'maternal_mortality_data-by_race_national_historical'
+  | 'maternal_mortality_data-by_race_state_current'
+  | 'maternal_mortality_data-by_race_state_historical'
   | 'phrma_data-age_county'
   | 'phrma_data-age_national'
   | 'phrma_data-age_state'
@@ -979,5 +983,26 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     name: 'Gun homicides for Black men, by age and state',
     original_data_sourced: '2018-2021',
     source_id: 'cdc_wisqars_data'
-  }
+  },
+  "maternal_mortality_data-by_race_national_current": {
+    name: "Maternal Mortality, by race, nationally",
+    original_data_sourced: "2019",
+    source_id: "maternal_health",
+  },
+  "maternal_mortality_data-by_race_national_historical": {
+    name: "Maternal Mortality, by race, nationally",
+    original_data_sourced: "1999 - 2019",
+    source_id: "maternal_health",
+  },
+  "maternal_mortality_data-by_race_state_current": {
+    name: "Maternal Mortality, by race and state",
+    original_data_sourced: "2019",
+    source_id: "maternal_health",
+  },
+  "maternal_mortality_data-by_race_state_historical": {
+    name: "Maternal Mortality, by race and state",
+    original_data_sourced: "1999 - 2019",
+    source_id: "maternal_health",
+  },
+
 }
