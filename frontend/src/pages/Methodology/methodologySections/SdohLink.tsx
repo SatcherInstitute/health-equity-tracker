@@ -20,7 +20,7 @@ const sdohDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
   dataSourceMetadataMap.chr,
-  dataSourceMetadataMap.cdc_svi_county,
+  dataSourceMetadataMap.geo_context,
 ]
 
 // delete this, load from missingDataBlurbs instead

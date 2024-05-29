@@ -25,6 +25,7 @@ class GeoContextProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(breakdowns)
     if (!datasetId) throw Error('DatasetId undefined')
+
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const geoContext = await getDataManager().loadDataset(specificDatasetId)
 
@@ -36,9 +37,8 @@ class GeoContextProvider extends VariableProvider {
     // handles both SVI and/or POPULATION requests, need to dynamically infer the consumed datasets for footer
     const consumedDatasetIds: DatasetId[] = []
 
-    if (metricQuery.metricIds.includes(SVI)) {
-      //  TODO: refactor SVI to not use pretend AGE demographic type, use ALL demographic type like in covid vaxx by county
-      consumedDatasetIds.push('cdc_svi_county-age')
+    if (breakdowns.geography === 'county') {
+      consumedDatasetIds.push('geo_context-county')
     }
 
     const acsDatasetMap: Record<GeographicBreakdown, DatasetId> = {
