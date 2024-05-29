@@ -91,6 +91,7 @@
 		"e2e:prod": "npm run e2e-prod",
 		"e2e:staging": "npm run e2e-staging",
 		"e2e:new": "npm run e2e-new",
+		"e2e:nightly": "npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 2",
 		"e2e:watch": "npx playwright install chromium && cross-env PWTEST_WATCH=1 npx playwright test --project=E2E_NIGHTLY --workers 2",
 		"preview": "npm run build:development && vite preview",
 		"start:deploy_preview": "env-cmd -f .env.deploy_preview npm run start",

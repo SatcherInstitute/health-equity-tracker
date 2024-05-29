@@ -132,8 +132,9 @@ export function TableChart(props: TableChartProps) {
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
+    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps();
     return (
-      <TableRow {...group.getHeaderGroupProps()}>
+      <TableRow key={key} {...restHeaderGroupProps}>
         {group.headers.map((col, index) => (
           <TableCell key={col.id} style={headerCellStyle}>
             {col.render('Header')}
@@ -164,8 +165,11 @@ export function TableChart(props: TableChartProps) {
       // skip a row if the only non-null item is the demographic group
       return <></>
     }
+
+    const { key, ...restRowProps } = row.getRowProps();
+
     return (
-      <TableRow {...row.getRowProps()}>
+      <TableRow key={key} {...restRowProps}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
             <TableCell

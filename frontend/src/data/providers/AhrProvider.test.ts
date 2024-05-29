@@ -14,19 +14,24 @@ import {
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
+import { expect, describe, test, beforeEach } from 'vitest'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(
-  ahrDatasetId: DatasetId | DatasetIdWithStateFIPSCode,
+  ahrDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType
 ) {
   const ahrProvider = new AhrProvider()
+  const specificId = appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
 
-  dataFetcher.setFakeDatasetLoaded(ahrDatasetId, [])
+
+  dataFetcher.setFakeDatasetLoaded(specificId, [])
+
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await ahrProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
+    new MetricQuery(['suicide_per_100k'], baseBreakdown.addBreakdown(demographicType), 'suicide', 'current')
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -93,6 +98,23 @@ describe('AhrProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'ahr_data-sex_national',
       Breakdowns.forFips(new Fips('00')),
+      SEX
+    )
+  })
+
+  test('County and Race Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'chr_data-race_and_ethnicity_county_current',
+      Breakdowns.forFips(new Fips('01001')),
+      RACE
+    )
+  })
+
+
+  test('County and Sex Breakdown (should just get the ALLs)', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'chr_data-race_and_ethnicity_county_current',
+      Breakdowns.forFips(new Fips('01001')),
       SEX
     )
   })

@@ -1,5 +1,4 @@
 import VaccineProvider from './VaccineProvider'
-import AcsPopulationProvider from './AcsPopulationProvider'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
@@ -19,8 +18,7 @@ export async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   demographicType: DemographicType
 ) {
-  const acsProvider = new AcsPopulationProvider()
-  const vaccineProvider = new VaccineProvider(acsProvider)
+  const vaccineProvider = new VaccineProvider()
   const specificDatasetId = appendFipsIfNeeded(
     vaccinationDatasetId,
     baseBreakdown

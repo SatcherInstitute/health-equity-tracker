@@ -40,8 +40,8 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
       return diff
     }
 
-    const leftUnbounded = lAge.includes('+')
-    const rightUnbounded = rAge.includes('+')
+    const leftUnbounded = lAge?.includes('+')
+    const rightUnbounded = rAge?.includes('+')
 
     if (leftUnbounded && rightUnbounded) {
       return 0
@@ -51,8 +51,8 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
       return -1
     }
 
-    const lMin = lAge.split('-')[0]
-    const rMin = rAge.split('-')[0]
+    const lMin = lAge?.split('-')?.[0]
+    const rMin = rAge?.split('-')?.[0]
     return Number(lMin) - Number(rMin)
   }
 }

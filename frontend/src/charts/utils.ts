@@ -43,7 +43,9 @@ export function addLineBreakDelimitersToField(
   return rawData.map((data) => {
     const lines = []
     let currentLine = ''
-    for (const word of data[field].split(' ')) {
+    const words = data[field]?.split(' ') ?? []
+
+    for (const word of words) {
       if (word.length + currentLine.length >= MAX_LINE_LENGTH) {
         lines.push(currentLine.trim())
         currentLine = word + ' '
