@@ -83,6 +83,8 @@ class MaternalMortalityData(DataSource):
                     df, std_col.MM_PCT_SHARE, std_col.POPULATION_PCT_COL, std_col.MM_PCT_REL_INEQUITY
                 )
 
+                df = df.rename(columns={std_col.POPULATION_PCT_COL: std_col.MM_POP_PCT})
+
             for time_type in [HISTORICAL, CURRENT]:
                 table_name = f'by_race_{geo_level}_{time_type}'
 
@@ -178,7 +180,7 @@ def get_float_cols(time_type: str, geo_level: str) -> List[str]:
     if time_type == CURRENT:
         if geo_level == NATIONAL_LEVEL:
             cols.extend(
-                [std_col.POPULATION_PCT_COL, std_col.MM_PCT_SHARE, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW]
+                [std_col.MM_POP_PCT, std_col.MM_PCT_SHARE, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW]
             )
 
     return cols
