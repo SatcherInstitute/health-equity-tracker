@@ -5,6 +5,8 @@ import {
 import {
   AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
   AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
+  CHR_DATATYPE_IDS,
+  CHR_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/AhrProvider'
 import {
   CAWP_DATA_TYPES,
@@ -57,12 +59,18 @@ const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 }
 
 export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
+  return isStateLevel(fips1, fips2) || isCountyLevel(fips1, fips2)
+
+}
+
+export function isStateLevel(fips1?: Fips, fips2?: Fips) {
   return (
-    Boolean(fips1?.isStateOrTerritory()) ||
-    Boolean(fips2?.isStateOrTerritory()) ||
-    Boolean(fips1?.isCounty()) ||
-    Boolean(fips2?.isCounty())
+    Boolean(fips1?.isStateOrTerritory()) || Boolean(fips2?.isStateOrTerritory())
   )
+}
+
+export function isCountyLevel(fips1?: Fips, fips2?: Fips) {
+  return Boolean(fips1?.isCounty()) || Boolean(fips2?.isCounty())
 }
 
 /*
@@ -110,10 +118,18 @@ export function getAllDemographicOptions(
   }
 
   // SELECT AHR CONDITIONS
-  if (configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO)) {
+  if (configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO) && !isCountyLevel(fips1, fips2)) {
     enabledDemographicOptionsMap = ONLY_SEX_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
       ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
+
+  // CHR CONDITIONS WITH ONLY RACE
+  if (configsContainsMatchingId(configs, CHR_DATATYPE_IDS) && isCountyLevel(fips1, fips2)) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...CHR_RESTRICTED_DEMOGRAPHIC_DETAILS
     )
   }
 

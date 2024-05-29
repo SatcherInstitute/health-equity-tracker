@@ -17,6 +17,7 @@ export const pdohDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.decia_2020_territory_population,
   dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.chr,
   dataSourceMetadataMap.vera,
   dataSourceMetadataMap.cawp,
   dataSourceMetadataMap.the_unitedstates_project,

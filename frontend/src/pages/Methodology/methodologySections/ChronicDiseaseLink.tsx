@@ -11,10 +11,12 @@ import {
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
+import { urlMap } from '../../../utils/externalUrls'
 
 export const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.chr,
 ]
 
 const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.flatMap(
@@ -59,13 +61,12 @@ const ChronicDiseaseLink = () => {
         <p>
           For chronic diseases like COPD and diabetes, our tracker sources data
           primarily from{' '}
-          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>, which
-          predominantly obtains its data from the CDC's{' '}
-          <a href={'urlMap.cdcBrfss'}>
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}
-          , complemented by <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
-          <a href={'urlMap.censusVoting'}>U.S. Census</a> data. Given that BRFSS
+          , complemented by <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
+          <a href={urlMap.censusVoting}>U.S. Census</a> data. Given that BRFSS
           is survey-based, data availability can sometimes be limited,
           especially for smaller and marginalized racial and ethnic groups.
         </p>
