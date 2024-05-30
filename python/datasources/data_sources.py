@@ -7,7 +7,6 @@ from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.cawp_time import CAWPTimeData
 from datasources.cdc_hiv import CDCHIVData
 from datasources.cdc_restricted import CDCRestrictedData
-from datasources.cdc_svi_county import CDCSviCounty
 from datasources.cdc_vaccination_county import CDCVaccinationCounty
 from datasources.cdc_vaccination_national import CDCVaccinationNational
 from datasources.cdc_wisqars import CDCWisqarsData
@@ -37,7 +36,6 @@ DATA_SOURCES_DICT = {
     CAWPTimeData.get_id(): CAWPTimeData(),
     CDCHIVData.get_id(): CDCHIVData(),
     CDCRestrictedData.get_id(): CDCRestrictedData(),
-    CDCSviCounty.get_id(): CDCSviCounty(),
     CDCVaccinationCounty.get_id(): CDCVaccinationCounty(),
     CDCVaccinationNational.get_id(): CDCVaccinationNational(),
     CDCWisqarsData.get_id(): CDCWisqarsData(),

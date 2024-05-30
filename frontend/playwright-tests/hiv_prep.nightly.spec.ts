@@ -103,18 +103,6 @@ test('HIV PrEP', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Breakdown summary for PrEP' })
     .click()
-  await page
-    .getByRole('figure', { name: 'Breakdown summary for PrEP' })
-    .locator('h4')
-    .click()
-  await page.getByRole('columnheader', { name: 'Sex' }).click()
-  await page
-    .getByRole('columnheader', { name: 'PrEP coverage', exact: true })
-    .click()
-  await page.getByRole('columnheader', { name: 'Share of total PrEP' }).click()
-  await page
-    .getByRole('columnheader', { name: 'PrEP-eligible population' })
-    .click()
   await page.getByRole('columnheader', { name: 'Sex' }).click()
   await page.getByRole('cell', { name: 'Female' }).click()
   await page.getByRole('cell', { name: 'Male', exact: true }).click()

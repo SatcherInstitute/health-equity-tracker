@@ -53,7 +53,7 @@ describe('GeoContextProvider', () => {
       new Fips('06037'),
       ['svi', 'population'],
       'geo_context-county',
-      ['cdc_svi_county-age', 'acs_population-by_sex_county']
+      ['geo_context-county', 'acs_population-by_sex_county']
     )
   })
 
@@ -62,7 +62,7 @@ describe('GeoContextProvider', () => {
       new Fips('06037'),
       ['svi'],
       'geo_context-county',
-      ['cdc_svi_county-age']
+      ['geo_context-county']
     )
   })
 
@@ -71,7 +71,7 @@ describe('GeoContextProvider', () => {
       new Fips('72123'),
       ['svi', 'population'],
       'geo_context-county',
-      ['cdc_svi_county-age', 'acs_population-by_sex_county']
+      ['geo_context-county', 'acs_population-by_sex_county']
     )
   })
 
@@ -81,7 +81,7 @@ describe('GeoContextProvider', () => {
       ['svi', 'population'],
       'geo_context-county',
       [
-        'cdc_svi_county-age',
+        'geo_context-county',
         'decia_2020_territory_population-by_sex_territory_county_level',
       ]
     )

@@ -89,7 +89,6 @@ export type DatasetId =
   | 'cdc_restricted_data-by_sex_national_processed'
   | 'cdc_restricted_data-by_sex_state_processed_time_series'
   | 'cdc_restricted_data-by_sex_state_processed'
-  | 'cdc_svi_county-age'
   | 'cdc_vaccination_county-alls_county'
   | 'cdc_vaccination_national-age_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
   | 'cdc_vaccination_national-race_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
@@ -598,11 +597,6 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: 'January 2020 - April 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_svi_county-age': {
-    name: 'National SVI (Social Vulnerability Index) by county',
-    original_data_sourced: '2022',
-    source_id: 'cdc_svi_county',
-  },
   'cdc_vaccination_county-alls_county': {
     name: 'COVID-19 vaccinations by county',
     contains_nh: true,
@@ -760,18 +754,18 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'geo_context-national': {
     name: 'Population from ACS nationally',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'geo_context-state': {
     name: 'Population from ACS by state',
-    original_data_sourced: '2019',
+    original_data_sourced: '2022',
     source_id: 'acs',
   },
   'geo_context-county': {
-    name: 'Population from ACS by county; SVI from CDC',
-    original_data_sourced: '2019',
-    source_id: 'acs',
+    name: 'SVI from CDC, Population from ACS by county',
+    original_data_sourced: '2022',
+    source_id: 'geo_context',
   },
   [GEOGRAPHIES_DATASET_ID]: {
     name: 'U.S. Geographic Data',
