@@ -42,7 +42,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, {
@@ -441,6 +441,9 @@ function MapCardWithKey(props: MapCardProps) {
 
         const percentRateTooHigh = metricConfig.type === 'pct_rate' && mapQueryResponse.data.some((row) => row[metricConfig.metricId] > 100)
 
+        const fieldRange = useMemo(() => {
+          return mapQueryResponse.getFieldRange(metricConfig.metricId)
+        }, [mapQueryResponse.data, metricConfig.metricId])
 
         return (
           <>
@@ -451,7 +454,7 @@ function MapCardWithKey(props: MapCardProps) {
               demographicGroupsNoData={fieldValues.noData}
               countColsMap={countColsMap}
               data={mapQueryResponse.data}
-              fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
+              fieldRange={fieldRange}
               fips={props.fips}
               geoData={geoData}
               handleClose={() => {
