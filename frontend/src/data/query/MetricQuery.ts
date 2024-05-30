@@ -56,7 +56,7 @@ function getInvalidValues(rows: Row[]) {
 export function createMissingDataResponse(missingDataMessage: string) {
   return new MetricQueryResponse(
     [],
-    /* consumedDatasetIds= */ [],
+    /* consumedDatasetIds= */[],
     missingDataMessage
   )
 }
@@ -92,11 +92,12 @@ export class MetricQueryResponse {
   // Calculate numerical range for a field or return undefined if not applicable
   getFieldRange(fieldName: MetricId): FieldRange | undefined {
     const fieldValues = this.data
-      .filter((row) => !isNaN(row[fieldName]))
+      .filter((row) => !isNaN(row[fieldName]) && row[fieldName] != null)
       .map((row) => row[fieldName])
     if (fieldValues.length === 0) {
       return undefined
     }
+
     return {
       min: Math.min(...fieldValues),
       max: Math.max(...fieldValues),
