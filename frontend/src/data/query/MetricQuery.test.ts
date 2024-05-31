@@ -31,18 +31,21 @@ describe('MetricQueryResponse', () => {
           fips: '01',
           race_and_ethnicity: 'Asian (NH)',
           covid_cases: undefined,
+          covid_hosp: null, // null should also be ignored as invalid
           invalid: undefined,
         },
         {
           fips: '01',
           race_and_ethnicity: 'Native Hawaiian and Pacific Islander (NH)',
-          covid_cases: 0,
+          covid_cases: 0, // 0 should be the min
+          covid_hosp: 1, // 1 should be the min
           invalid: undefined,
         },
         {
           fips: '02',
           race_and_ethnicity: 'White',
           covid_cases: 12,
+          covid_hosp: 12,
           invalid: undefined,
         },
         {
@@ -59,6 +62,10 @@ describe('MetricQueryResponse', () => {
   test('getFieldRange()', async () => {
     expect(metricQueryResponse.getFieldRange('covid_cases')).toEqual({
       min: 0,
+      max: 12,
+    })
+    expect(metricQueryResponse.getFieldRange('covid_hosp')).toEqual({
+      min: 1,
       max: 12,
     })
     expect(metricQueryResponse.getFieldRange(RACE as MetricId)).toEqual(
@@ -83,6 +90,7 @@ describe('MetricQueryResponse', () => {
   test('fieldHasMissingValues()', async () => {
     expect(metricQueryResponse.invalidValues).toEqual({
       covid_cases: 1,
+      covid_hosp: 1,
       invalid: 7,
     })
     expect(metricQueryResponse.isFieldMissing('covid_cases')).toEqual(false)

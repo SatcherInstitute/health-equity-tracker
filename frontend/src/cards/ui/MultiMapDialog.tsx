@@ -188,7 +188,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                     {mapLabel}
                   </h4>
                   <div>
-                    {props.metricConfig && dataForValue.length > 0 && (
+                    {props.metricConfig && dataForValue?.length > 0 && (
                       <ChoroplethMap
                         demographicType={props.demographicType}
                         activeDemographicGroup={demographicGroup}
