@@ -24,11 +24,11 @@ import {
 import { autoInitGlobals } from './utils/globals'
 import {
   ABOUT_US_PAGE_LINK,
-  CONTACT_TAB_LINK,
+  CONTACT_SECTION_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   FAQ_TAB_LINK,
-  OURTEAM_TAB_LINK,
+  OURTEAM_SECTION_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -109,11 +109,11 @@ export default function App() {
                         <AboutUsPage />
                       </Route>
 
-                      <Route path={OURTEAM_TAB_LINK}>
+                      <Route path={OURTEAM_SECTION_LINK}>
                         <AboutUsPage />
                       </Route>
 
-                      <Route path={CONTACT_TAB_LINK}>
+                      <Route path={CONTACT_SECTION_LINK}>
                         <AboutUsPage />
                       </Route>
 

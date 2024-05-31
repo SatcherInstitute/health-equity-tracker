@@ -1,5 +1,5 @@
 import {
-  CONTACT_TAB_LINK,
+  CONTACT_SECTION_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from '../../utils/internalRoutes'
 import { LinkWithStickyParams } from '../../utils/urlutils'
@@ -11,7 +11,7 @@ export default function SignupSection() {
     <section className='m-5 flex w-11/12 max-w-sm flex-col sm:m-20'>
       <p>
         Please{' '}
-        <LinkWithStickyParams to={CONTACT_TAB_LINK}>
+        <LinkWithStickyParams to={CONTACT_SECTION_LINK}>
           contact us
         </LinkWithStickyParams>{' '}
         with any questions or concerns, and{' '}
