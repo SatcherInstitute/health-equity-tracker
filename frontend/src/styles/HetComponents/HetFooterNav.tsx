@@ -2,7 +2,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   TERMS_OF_USE_PAGE_LINK,
   FAQ_TAB_LINK,
-  CONTACT_TAB_LINK,
+  ABOUT_US_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import HetCopyright from './HetCopywright'
@@ -17,9 +17,9 @@ export default function HetFooterLinks() {
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', METHODOLOGY_PAGE_LINK],
-          ['FAQs', `${FAQ_TAB_LINK}`, 'Frequently Asked Questions'],
-          ['Contact Us', `${CONTACT_TAB_LINK}`],
-          ['Terms of Use', `${TERMS_OF_USE_PAGE_LINK}`],
+          ['FAQs', FAQ_TAB_LINK, 'Frequently Asked Questions'],
+          ['Contact Us', ABOUT_US_PAGE_LINK],
+          ['Terms of Use', TERMS_OF_USE_PAGE_LINK],
         ].map(([label, url, ariaLabel]) => (
           <li key={url} className='grid lg:place-content-end'>
             <HetLinkButton
