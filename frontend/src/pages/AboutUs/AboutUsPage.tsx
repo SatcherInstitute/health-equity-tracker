@@ -13,7 +13,6 @@ import {
 import { urlMap } from '../../utils/externalUrls'
 import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
 import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
-import { CONTACT_SECTION_LINK, OURTEAM_SECTION_LINK } from '../../utils/internalRoutes'
 
 export default function AboutUsPage() {
   return (
@@ -21,7 +20,7 @@ export default function AboutUsPage() {
       <Helmet>
         <title>About Us - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only' id={CONTACT_SECTION_LINK}>Contact Us</h2>
+      <h2 className='sr-only'>Contact Us</h2>
       <header className=' flex w-full flex-col content-center items-center'>
         <div className=' flex  w-full '>
           <div className='hidden w-full  place-content-center border-0 border-b border-borderColor md:grid md:w-5/12 md:border-solid'>
@@ -122,7 +121,7 @@ export default function AboutUsPage() {
 
       <div className='flex w-full  flex-col p-10'>
         <section className='flex flex-col pt-8'>
-          <h3 id={OURTEAM_SECTION_LINK} className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>

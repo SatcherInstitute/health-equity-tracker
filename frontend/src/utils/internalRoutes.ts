@@ -8,9 +8,8 @@ export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity';
 export const FAQ_TAB_LINK = '/faqs';
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse';
 export const ABOUT_US_PAGE_LINK = '/aboutus';
-export const CONTACT_SECTION_LINK = ABOUT_US_PAGE_LINK + '#contact';
-export const OURTEAM_SECTION_LINK = ABOUT_US_PAGE_LINK + '#ourteam';
-
+export const OLD_CONTACT_LINK = '/contact';
+export const OLD_OURTEAM_LINK = '/ourteam';
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment';
 
 // NEW METHODOLOGY SECTIONS

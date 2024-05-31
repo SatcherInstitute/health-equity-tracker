@@ -1,4 +1,4 @@
-import { CONTACT_SECTION_LINK } from '../../utils/internalRoutes'
+import { ABOUT_US_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
@@ -229,7 +229,7 @@ function FaqTab() {
                       media
                     </li>
                     <li>
-                      <a href={`${CONTACT_SECTION_LINK}`}>
+                      <a href={`${ABOUT_US_PAGE_LINK}`}>
                         Share your health equity story
                       </a>
                     </li>

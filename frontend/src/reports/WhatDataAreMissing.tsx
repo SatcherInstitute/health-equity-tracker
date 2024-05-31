@@ -1,4 +1,4 @@
-import { CONTACT_SECTION_LINK } from '../utils/internalRoutes'
+import { ABOUT_US_PAGE_LINK } from '../utils/internalRoutes'
 import { LinkWithStickyParams } from '../utils/urlutils'
 import {
   MissingCovidData,
@@ -73,7 +73,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
       <div className='mt-8 rounded-md bg-infobarColor px-2 py-1'>
         <p className='px-8 py-4 text-center'>
           Do you have information that belongs on the Health Equity Tracker?{' '}
-          <LinkWithStickyParams to={`${CONTACT_SECTION_LINK}`}>
+          <LinkWithStickyParams to={ABOUT_US_PAGE_LINK}>
             We would love to hear from you!
           </LinkWithStickyParams>
         </p>
