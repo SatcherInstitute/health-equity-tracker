@@ -256,9 +256,9 @@ function MapCardWithKey(props: MapCardProps) {
     demographicType,
     props.dataTypeConfig
   )
+  const pluralChildFips = props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
   if (extremesMode)
-    subtitle += ` (only ${props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-      } with rate extremes)`
+    subtitle += ` (only ${pluralChildFips} with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   function handleScaleChange(domain: number[], range: number[]) {
@@ -510,8 +510,7 @@ function MapCardWithKey(props: MapCardProps) {
             <div className='pt-0'>
               <div className='flex flex-wrap'>
                 <div className='w-full'>
-                  <ChartTitle title={title} subtitle={subtitle} />
-                  {extremesMode && <HetLinkButton onClick={() => setExtremesMode(false)} >Show all locations</HetLinkButton>}
+                  <ChartTitle title={title} subtitle={subtitle} filterButton={extremesMode ?<HetLinkButton buttonClassName='py-0 mx-0' onClick={() => setExtremesMode(false)} >Reset to show all {pluralChildFips}</HetLinkButton> : null} />
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
