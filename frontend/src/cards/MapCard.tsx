@@ -511,7 +511,7 @@ function MapCardWithKey(props: MapCardProps) {
               <div className='flex flex-wrap'>
                 <div className='w-full'>
                   <ChartTitle title={title} subtitle={subtitle} />
-                  {extremesMode && <HetLinkButton onClick={() => setExtremesMode(false)} >Reset map filter</HetLinkButton>}
+                  {extremesMode && <HetLinkButton onClick={() => setExtremesMode(false)} >Show all locations</HetLinkButton>}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>

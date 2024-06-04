@@ -94,7 +94,7 @@ test('Including the Extremes Mode Param in URL should load report with Extremes 
   await page.getByRole('heading', { name: '(only states/territories with' }).click();
   await page.getByRole('heading', { name: 'Highest:' }).click();
   await page.getByRole('heading', { name: 'Lowest:' }).click();
-  await page.getByRole('button', { name: 'Reset map filter' }).click();
+  await page.getByRole('button', { name: 'Show all locations' }).click();
   await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
 });
 
@@ -111,6 +111,6 @@ test('Extremes Mode Param in URL should work for both sides of Compare mode repo
 
 	// map 2 in extremes mode to start
   await page.locator('#rate-map2').getByRole('heading', { name: 'Ages 13+ (only counties with' }).click();
-  await page.locator('#rate-map2').getByRole('button', { name: 'Reset map filter' }).click();
+  await page.locator('#rate-map2').getByRole('button', { name: 'Show all locations' }).click();
   await page.locator('#rate-map2').getByRole('heading', { name: 'Ages 13+' }).click();
 });
