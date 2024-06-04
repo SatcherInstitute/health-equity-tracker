@@ -20,7 +20,7 @@ interface TerritoryCirclesProps {
   signalListeners: any
   metricConfig: MetricConfig
   dataTypeConfig: DataTypeConfig
-  highestLowestGeosMode: boolean
+  extremesMode: boolean
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
@@ -53,7 +53,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
               data={props.data}
-              hideMissingDataTooltip={props.highestLowestGeosMode}
+              hideMissingDataTooltip={props.extremesMode}
               legendData={props.legendData}
               hideLegend={true}
               showCounties={false}
@@ -65,7 +65,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               mapConfig={mapConfig}
               scaleConfig={props.scaleConfig}
               isMulti={props.isMulti}
-              highestLowestGeosMode={props.highestLowestGeosMode}
+              extremesMode={props.extremesMode}
               isPhrmaAdherence={props.isPhrmaAdherence}
             />
             <figcaption className='-mt-1 mb-1 text-center text-smallest leading-lhTight tracking-tighter'>

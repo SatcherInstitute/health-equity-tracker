@@ -272,7 +272,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       {
         name: MADLIB_PHRASE_PARAM,
         value: MADLIB_LIST[modeIndex].id,
-      },
+      }
     ])
     location.hash = ''
     window.scrollTo({ top: 0, behavior: 'smooth' })

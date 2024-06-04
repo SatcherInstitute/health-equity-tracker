@@ -227,7 +227,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoData={geoData}
                   filename={chartTitle}
                   mapConfig={unknownMapConfig}
-                  highestLowestGeosMode={false}
+                  extremesMode={false}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles
@@ -241,7 +241,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     signalListeners={signalListeners}
                     geoData={geoData}
                     isUnknownsMap={true}
-                    highestLowestGeosMode={false}
+                    extremesMode={false}
                   />
                 )}
               </div>

@@ -36,7 +36,6 @@ import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
-import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
@@ -210,7 +209,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         mapConfig={mapConfig}
                         isMulti={true}
                         scaleConfig={scale}
-                        highestLowestGeosMode={false}
+                        extremesMode={false}
                       />
                     )}
                   </div>
@@ -231,7 +230,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         scaleConfig={scale}
                         isMulti={true}
                         activeDemographicGroup={demographicGroup}
-                        highestLowestGeosMode={false}
+                        extremesMode={false}
                       />
                     )}
                 </li>

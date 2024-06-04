@@ -1,6 +1,7 @@
 interface ChartTitleProps {
   title: string
   subtitle?: string
+  filterButton?: React.ReactNode
 }
 
 export default function ChartTitle(props: ChartTitleProps) {
@@ -12,6 +13,7 @@ export default function ChartTitle(props: ChartTitleProps) {
           {props.subtitle}
         </h4>
       )}
+      {props.filterButton}
     </div>
   )
 }
