@@ -13,8 +13,6 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import CircularProgress from '@mui/material/CircularProgress'
 import ListItemText from '@mui/material/ListItemText'
-import { IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
@@ -24,6 +22,7 @@ import {
 } from '../../data/config/DatasetMetadata'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
+import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -203,16 +202,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 {props.source_metadata.data_source_name}
               </h3>
             </header>
-
-            <IconButton
-              aria-label='close dialogue'
-              onClick={() => {
-                setDialogIsOpen(false)
-              }}
-              size='large'
-            >
-              <CloseIcon />
-            </IconButton>
+            <HetCloseButton onClick={() => setDialogIsOpen(false)} ariaLabel='close dialogue' />
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (

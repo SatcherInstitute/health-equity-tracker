@@ -16,7 +16,7 @@ import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
 
-interface HighestLowestGeosListProps {
+interface ExtremesListBoxProps {
   // MetricConfig for data
   metricConfig: MetricConfig
   // DataTypeConfig for data
@@ -42,7 +42,7 @@ interface HighestLowestGeosListProps {
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
-export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
+export function ExtremesListBox(props: ExtremesListBoxProps) {
   const placesType = props.fips.getChildFipsTypeDisplayName()
   const { type: metricType } = props.metricConfig
 

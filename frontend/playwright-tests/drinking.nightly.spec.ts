@@ -12,7 +12,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
   await page.getByRole('heading', { name: 'Lowest:' }).click()
   await page.getByRole('heading', { name: 'National overall:' }).click()
   await page
-    .locator('#highest-lowest-geos')
+    .locator('#extremes')
     .getByText('Excessive drinking cases')
     .click()
   await page.getByText('Consider the possible impact').click()

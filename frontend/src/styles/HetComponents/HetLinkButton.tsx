@@ -7,6 +7,7 @@ interface HetLinkButtonProps {
   onClick?: () => void
   id?: string
   className?: string
+  buttonClassName?: string
   ariaLabel?: string
   underline?: boolean
 }
@@ -18,6 +19,7 @@ export default function HetLinkButton(props: HetLinkButtonProps) {
       href={props.href}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
+      className={props.buttonClassName}
     >
       <span className={`px-6 text-altGreen ${props.className ?? ''}`}>
         {props.children}
