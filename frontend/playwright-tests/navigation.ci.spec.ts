@@ -84,3 +84,33 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
 	await expect(unknownMapCard).toBeVisible();
 
 });
+
+
+
+
+test('Including the Extremes Mode Param in URL should load report with Extremes Mode Enabled', async ({ page }) => {
+
+	await page.goto('/exploredata?mls=1.incarceration-3.00&mlp=disparity&dt1=hiv_prevalence&extremes=true', { waitUntil: "commit" });
+  await page.getByRole('heading', { name: '(only states/territories with' }).click();
+  await page.getByRole('heading', { name: 'Highest:' }).click();
+  await page.getByRole('heading', { name: 'Lowest:' }).click();
+  await page.getByRole('button', { name: 'Reset to show all states/territories' }).click();
+  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
+});
+
+
+
+
+test('Extremes Mode Param in URL should work for both sides of Compare mode report', async ({ page }) => {
+
+	await page.goto('exploredata?mls=1.hiv-3.00-5.13&mlp=comparegeos&dt1=hiv_prevalence&extremes2=true', { waitUntil: "commit" });
+
+	// map 1 in normal mode to start
+	await page.locator('#rate-map').getByRole('heading', { name: 'Ages 13+' }).click();
+  await page.locator('#rate-map').getByRole('button', { name: 'Expand state/territory rate' }).click();
+
+	// map 2 in extremes mode to start
+  await page.locator('#rate-map2').getByRole('heading', { name: 'Ages 13+ (only counties with' }).click();
+  await page.locator('#rate-map2').getByRole('button', { name: 'Reset to show all counties' }).click();
+  await page.locator('#rate-map2').getByRole('heading', { name: 'Ages 13+' }).click();
+});
