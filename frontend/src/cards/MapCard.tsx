@@ -34,7 +34,7 @@ import {
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
-import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
+import { ExtremesListBox } from './ui/ExtremesListBox'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
@@ -52,8 +52,8 @@ import GeoContext, {
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
-  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
-  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
+  EXTREMES_1_PARAM_KEY,
+  EXTREMES_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
@@ -77,6 +77,7 @@ import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import { DatasetId } from '../data/config/DatasetMetadata'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
+import HetCloseButton from '../styles/HetComponents/HetCloseButton'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -116,15 +117,12 @@ function MapCardWithKey(props: MapCardProps) {
   // HOOKS MUST NOT BE CALLED CONDITIONALLY.
   const preloadHeight = useGuessPreloadHeight([750, 1050])
   const location = useLocation()
-  const highestLowestGeosParamKey = props.isCompareCard
-    ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
-    : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
+  const extremesParamsKey = props.isCompareCard
+    ? EXTREMES_2_PARAM_KEY
+    : EXTREMES_1_PARAM_KEY
 
-  const [highestLowestGeosMode, setHighestLowestGeosMode] =
-    useParamState<boolean>(highestLowestGeosParamKey, false)
-  useEffect(() => {
-    setHighestLowestGeosMode(false)
-  }, [props.reportTitle, props.trackerMode])
+  const [extremesMode, setExtremesMode] =
+    useParamState<boolean>(extremesParamsKey, false)
   const MULTIMAP_PARAM_KEY = props.isCompareCard
     ? MULTIPLE_MAPS_2_PARAM_KEY
     : MULTIPLE_MAPS_1_PARAM_KEY
@@ -258,9 +256,9 @@ function MapCardWithKey(props: MapCardProps) {
     demographicType,
     props.dataTypeConfig
   )
-  if (highestLowestGeosMode)
+  if (extremesMode)
     subtitle += ` (only ${props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-      } with highest/lowest rates)`
+      } with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   function handleScaleChange(domain: number[], range: number[]) {
@@ -277,7 +275,7 @@ function MapCardWithKey(props: MapCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
-      expanded={highestLowestGeosMode}
+      expanded={extremesMode}
       isCompareCard={props.isCompareCard}
     >
       {(queryResponses, metadata, geoData) => {
@@ -396,7 +394,7 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, groupCode)
         }
 
-        const displayData = highestLowestGeosMode
+        const displayData = extremesMode
           ? highestValues.concat(lowestValues)
           : dataForActiveDemographicGroup
 
@@ -407,7 +405,7 @@ function MapCardWithKey(props: MapCardProps) {
         if (isSummaryLegend) mapConfig.min = mapConfig.mid
 
         if (dataForActiveDemographicGroup?.length <= 1)
-          setHighestLowestGeosMode(false)
+          setExtremesMode(false)
 
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
@@ -513,6 +511,7 @@ function MapCardWithKey(props: MapCardProps) {
               <div className='flex flex-wrap'>
                 <div className='w-full'>
                   <ChartTitle title={title} subtitle={subtitle} />
+                  {extremesMode && <HetLinkButton onClick={() => setExtremesMode(false)} >Reset map filter</HetLinkButton>}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -530,10 +529,10 @@ function MapCardWithKey(props: MapCardProps) {
                       fips={props.fips}
                       geoData={geoData}
                       hideLegend={true}
-                      hideMissingDataTooltip={highestLowestGeosMode}
+                      hideMissingDataTooltip={extremesMode}
                       legendData={dataForActiveDemographicGroup}
                       legendTitle={metricConfig.shortLabel.toLowerCase()}
-                      highestLowestGeosMode={highestLowestGeosMode}
+                      extremesMode={extremesMode}
                       metric={metricConfig}
                       showCounties={
                         !props.fips.isUsa() && !hasSelfButNotChildGeoData
@@ -554,7 +553,7 @@ function MapCardWithKey(props: MapCardProps) {
                         data={displayData}
                         fullData={mapQueryResponse.data}
                         geoData={geoData}
-                        highestLowestGeosMode={highestLowestGeosMode}
+                        extremesMode={extremesMode}
                         highestLowestGroupsByFips={highestLowestGroupsByFips}
                         mapIsWide={mapIsWide}
                         metricConfig={metricConfig}
@@ -602,18 +601,18 @@ function MapCardWithKey(props: MapCardProps) {
               <div
                 id={
                   props.isCompareCard
-                    ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
-                    : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
+                    ? EXTREMES_2_PARAM_KEY
+                    : EXTREMES_1_PARAM_KEY
                 }
               >
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveDemographicGroup.length > 1 && (
-                    <HighestLowestGeosList
+                    <ExtremesListBox
                       dataTypeConfig={props.dataTypeConfig}
                       selectedRaceSuffix={selectedRaceSuffix}
                       metricConfig={metricConfig}
-                      isOpen={highestLowestGeosMode}
-                      setIsOpen={setHighestLowestGeosMode}
+                      isOpen={extremesMode}
+                      setIsOpen={setExtremesMode}
                       highestValues={highestValues}
                       lowestValues={lowestValues}
                       parentGeoQueryResponse={parentGeoQueryResponse}

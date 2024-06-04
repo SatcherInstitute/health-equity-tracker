@@ -5,16 +5,16 @@ import { type ScrollableHashId } from './useStepObserver'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
-  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
-  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
+  EXTREMES_1_PARAM_KEY,
+  EXTREMES_2_PARAM_KEY,
 } from '../urlutils'
 import { het } from '../../styles/DesignTokens'
 
 const DROPDOWN_ELEMENT_IDS = [
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
-  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
-  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
+  EXTREMES_1_PARAM_KEY,
+  EXTREMES_2_PARAM_KEY,
 ]
 
 const LOGO_FONT_COLOR = het.altGreen
@@ -175,9 +175,9 @@ export function useDownloadCardImage(
 
       const footerCanvas = footerContentRef
         ? await html2canvas(footerContentRef.current as HTMLElement, {
-            logging: true,
-            useCORS: true,
-          })
+          logging: true,
+          useCORS: true,
+        })
         : null
 
       const combinedCanvasHeight =
