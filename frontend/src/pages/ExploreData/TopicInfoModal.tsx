@@ -1,5 +1,4 @@
-import { Button, Dialog, DialogContent } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { Dialog, DialogContent } from '@mui/material'
 import { HashLink } from 'react-router-hash-link'
 import {
   DATA_CATALOG_PAGE_LINK,
@@ -10,8 +9,8 @@ import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'
 import { useAtomValue } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
-import { type DropdownVarId } from '../../data/config/MetricConfig'
-import { CategoryTypeId, getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
+import { CategoryTypeId } from '../../utils/MadLibs'
+import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 
 export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
@@ -40,16 +39,7 @@ export default function TopicInfoModal() {
       scroll='paper'
     >
       <DialogContent dividers={true}>
-        <Button
-          sx={{ float: 'right' }}
-          onClick={() => {
-            setTopicInfoModalIsOpen(false)
-          }}
-          color='primary'
-          aria-label='close topic info modal'
-        >
-          <CloseIcon />
-        </Button>
+        <HetCloseButton onClick={() => setTopicInfoModalIsOpen(false)} ariaLabel='close topic info modal' />
         <DataTypeDefinitionsList />
       </DialogContent>
       <DialogContent dividers={true} className='text-smallest'>
