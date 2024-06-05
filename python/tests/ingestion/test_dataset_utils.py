@@ -13,6 +13,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
+    sum_age_groups,
 )
 from io import StringIO
 
@@ -678,8 +679,8 @@ fake_data_with_rates_pop_18plus_and_counts = {
     'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
     'state_fips': ['01', '01', '01', '02', '02', '02'],
     'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-    'population': [1722276.0, 1877481.0, 3599757.0, 270854.0, 240850.0, 511704.0],
-    'topic_estimated_total': [344.0, 1126.0, 1440.0, 135.0, 120.0, 256.0],
+    'population': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    'topic_estimated_total': [376.0, 1223.0, 1567.0, 147.0, 131.0, 278.0],
 }
 
 fake_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share = {
@@ -687,9 +688,9 @@ fake_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share = {
     'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
     'state_fips': ['01', '01', '01', '02', '02', '02'],
     'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-    'population': [1722276.0, 1877481.0, 3599757.0, 270854.0, 240850.0, 511704.0],
-    'topic_estimated_total': [344.0, 1126.0, 1470.0, 135.0, 120.0, 255.0],  # note the new summed Alls
-    'topic_pct_share': [23.4, 76.6, 100.0, 52.9, 47.1, 100.0],
+    'population': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    'topic_estimated_total': [376.0, 1223.0, 1599.0, 147.0, 131.0, 278.0],  # note the new summed Alls
+    'topic_pct_share': [23.5, 76.5, 100.0, 52.9, 47.1, 100.0],
 }
 
 
@@ -707,3 +708,60 @@ def test_generate_pct_share_col_of_summed_alls():
     assert_frame_equal(
         df, pd.DataFrame(fake_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share), check_like=True
     )
+
+
+"""
+0-4,5-9,10-14,15-17,18-19,20-20,21-21,22-24,25-29,30-34,35-39,40-44,
+45-49,50-54,55-59,60-61,62-64,65-66,67-69,70-74,75-79,80-84,85+,All
+"""
+
+fake_pop_data_all_ages = {
+    'county_fips': ['01001'] * 23,
+    'state_name': ['Autuga '] * 23,
+    'race_and_ethnicity': ['Black or African American (NH)'] * 23,
+    'race_category_id': ['BLACK_NH'] * 23,
+    'sex': ['All'] * 23,
+    'age': [
+        '0-4',
+        '5-9',
+        '10-14',
+        '15-17',
+        '18-19',
+        '20-20',
+        '21-21',
+        '22-24',
+        '25-29',
+        '30-34',
+        '35-39',
+        '40-44',
+        '45-49',
+        '50-54',
+        '55-59',
+        '60-61',
+        '62-64',
+        '65-66',
+        '67-69',
+        '70-74',
+        '75-79',
+        '80-84',
+        '85+',
+    ],
+    'population': [100] * 23,
+}
+
+fake_pop_data_summed_18plus = {
+    'county_fips': ['01001'] * 5,
+    'state_name': ['Autuga '] * 5,
+    'race_and_ethnicity': ['Black or African American (NH)'] * 5,
+    'race_category_id': ['BLACK_NH'] * 5,
+    'sex': ['All'] * 5,
+    'age': ['0-4', '5-9', '10-14', '15-17', '18+'],
+    'population': [100, 100, 100, 100, 1900],
+}
+
+
+def test_sum_age_groups():
+    pop_df = pd.DataFrame(fake_pop_data_all_ages)
+    pop_df = sum_age_groups(pop_df, '18+')
+    expected_summed_pop_df = pd.DataFrame(fake_pop_data_summed_18plus)
+    assert_frame_equal(pop_df, expected_summed_pop_df, check_like=True)

@@ -780,6 +780,7 @@ def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFr
             '35-39',
             '40-44',
             '45-49',
+            '50-54',
             '55-59',
             '60-61',
             '62-64',
@@ -796,27 +797,32 @@ def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFr
     if age_group not in summed_age_groups_map:
         raise ValueError(f'age_group kwarg must be one of {summed_age_groups_map.keys()}')
 
-    groupby_cols = [
+    possible_geo_cols = [
         std_col.STATE_FIPS_COL,
         std_col.STATE_NAME_COL,
-        std_col.SEX_COL,
-        std_col.RACE_OR_HISPANIC_COL,
-        std_col.RACE_CATEGORY_ID_COL,
+        std_col.COUNTY_FIPS_COL,
+        std_col.COUNTY_NAME_COL,
     ]
 
-    if std_col.COUNTY_FIPS_COL in pop_df.columns:
-        groupby_cols.append(std_col.COUNTY_FIPS_COL)
-        groupby_cols.append(std_col.COUNTY_NAME_COL)
+    groupby_cols = [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL, std_col.RACE_CATEGORY_ID_COL]
 
-    pop_df = pop_df[pop_df[std_col.AGE_COL].isin(summed_age_groups_map[age_group])]
+    for geo_col in possible_geo_cols:
+        if geo_col in pop_df.columns:
+            groupby_cols.append(geo_col)
+
+    summed_pop_df = pop_df[pop_df[std_col.AGE_COL].isin(summed_age_groups_map[age_group])]
+    rest_of_pop_df = pop_df[~pop_df[std_col.AGE_COL].isin(summed_age_groups_map[age_group])]
 
     # Group by 'state_fips' and 'time_period', and sum the 'population' for the filtered age groups
-    pop_df = pop_df.groupby(
+    summed_pop_df = summed_pop_df.groupby(
         groupby_cols,
         as_index=False,
     )[std_col.POPULATION_COL].sum()
 
-    # Add the new age group to the grouped DataFrame
-    pop_df[std_col.AGE_COL] = age_group
+    # Label the new age group
+    summed_pop_df[std_col.AGE_COL] = age_group
 
-    return pop_df
+    # Add the rest of the population
+    df = pd.concat([rest_of_pop_df, summed_pop_df], axis=0).reset_index(drop=True)
+
+    return df
