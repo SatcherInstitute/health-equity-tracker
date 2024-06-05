@@ -48,6 +48,7 @@ export const CategoryMap = {
   pdoh: 'Political Determinants of Health',
   sdoh: 'Social Determinants of Health',
   'community-safety': 'Community Safety',
+  maternal_health: 'Maternal Health',
 }
 
 export type CategoryTypeId = keyof typeof CategoryMap
@@ -154,6 +155,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   hiv: 'HIV',
   incarceration: 'Incarceration',
   poverty: 'Poverty',
+  maternal_mortality: 'Maternal Mortality',
   medicare_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
   medicare_hiv: 'HIV Conditions and Medication Adherence',
   medicare_mental_health: 'Mental Health Conditions and Medication Adherence',

@@ -13,6 +13,7 @@ import GeoContextProvider from '../providers/GeoContextProvider'
 import GunViolenceProvider from '../providers/GunViolenceProvider'
 import GunViolenceYouthProvider from '../providers/GunViolenceYouthProvider'
 import GunViolenceBlackMenProvider from '../providers/GunDeathsBlackMenProvider'
+import MaternalMortalityProvider from '../providers/MaternalMortalityProvider'
 
 export type ProviderId =
   | 'acs_condition_provider'
@@ -27,6 +28,7 @@ export type ProviderId =
   | 'gun_violence_black_men_provider'
   | 'hiv_provider'
   | 'incarceration_provider'
+  | 'maternal_mortality_provider'
   | 'phrma_provider'
   | 'vaccine_provider'
 
