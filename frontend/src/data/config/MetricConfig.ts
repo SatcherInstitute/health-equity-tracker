@@ -76,6 +76,7 @@ import {
   GUN_VIOLENCE_YOUTH_METRICS
 } from './MetricConfigCommunitySafety'
 import { DemographicType } from '../query/Breakdowns'
+import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS, MATERNAL_HEALTH_METRICS, MaternalHealthMetricId } from './MetricConfigMaternalHealth'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -86,6 +87,7 @@ const dropdownVarIds = [
   ...COVID_CATEGORY_DROPDOWNIDS,
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
   ...COMMUNITY_SAFETY_DROPDOWNIDS,
+  ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS
 ] as const
 
 export type DropdownVarId = (typeof dropdownVarIds)[number]
@@ -120,6 +122,7 @@ export type MetricId =
   | SDOHMetricId
   | ChronicDiseaseMetricId
   | CommunitySafetyMetricId
+  | MaternalHealthMetricId
   | 'geo_context'
   | 'population_pct'
   | 'population'
@@ -331,6 +334,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_cardiovascular: PHRMA_CARDIOVASCULAR_METRICS,
   medicare_hiv: PHRMA_HIV_METRICS,
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
+  maternal_mortality: MATERNAL_HEALTH_METRICS,
 }
 
 export function buildTopicsString(topics: readonly DropdownVarId[]): string {
