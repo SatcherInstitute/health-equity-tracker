@@ -654,7 +654,7 @@ def generate_time_df_with_cols_and_types(
 def generate_estimated_total_col(
     df: pd.DataFrame,
     rate_to_raw_col_map: Dict[str, str],
-    geo_level: Literal['county', 'state'],
+    geo_level: Literal['state', 'county'],
     primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex'],
     race_specific_group: str = None,
     age_specific_group: str = None,
@@ -666,7 +666,7 @@ def generate_estimated_total_col(
     Parameters:
     - df: The DataFrame to be processed.
     - rate_col: The name of the rate column to be applied against the reference population.
-    - geo_level: The geo level of the DataFrame, either 'county' or 'state'.
+    - geo_level: The geo level of the DataFrame, e.g. 'state'.
     - primary_demo_col: The name of the disaggregated demographic column to be included in the DataFrame,
     e.g. 'race_and_ethnicity' with one row per race group.
     - race_specific_group: The name of the race-specific sub-group to use from the reference population.
@@ -684,15 +684,15 @@ def generate_estimated_total_col(
     """
 
     pop_dtype = {
-        std_col.STATE_FIPS_COL: str,
         std_col.POPULATION_COL: float,
-        std_col.POPULATION_PCT_COL: float,
     }
 
     if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
+    if geo_level == STATE_LEVEL:
+        pop_dtype[std_col.STATE_FIPS_COL] = str
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, 'by_sex_age_race_state.csv')
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_level}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     # the primary demographic breakdown can't use a specific group
@@ -730,13 +730,32 @@ def generate_estimated_total_col(
         pop_df = pop_df.drop(columns=secondary_demo_col).reset_index(drop=True)
 
     # merge the population column onto the original df
-    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
-    if std_col.COUNTY_FIPS_COL in df.columns:
-        merge_cols.append(std_col.COUNTY_FIPS_COL)
-        merge_cols.append(std_col.COUNTY_NAME_COL)
-    merge_cols.append(primary_demo_col)
+    potential_geo_cols = [std_col.COUNTY_FIPS_COL, std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    merge_cols = []
+
+    for col in potential_geo_cols:
+        if col in df.columns:
+            merge_cols.append(col)
+
     if primary_demo_col == 'race_and_ethnicity':
         merge_cols.append('race_category_id')
+    else:
+        merge_cols.append(primary_demo_col)
+
+    # the sex/race/age/county ACS data only has NH for White
+    # we can approximate the other race groups using the non-NH race codes
+    if primary_demo_col == 'race_and_ethnicity':
+        # string "_NH" off race_category_id on evrything except "WHITE_NH"
+        race_replace_map = {
+            'AIAN': 'AIAN_NH',
+            'ASIAN': 'ASIAN_NH',
+            'BLACK': 'BLACK_NH',
+            'NHPI': 'NHPI_NH',
+            'MULTI': 'MULTI_NH',
+            'OTHER_STANDARD': 'OTHER_STANDARD_NH',
+        }
+        pop_df['race_category_id'] = pop_df['race_category_id'].replace(race_replace_map)
+
     df = df.merge(pop_df, on=merge_cols, how='left')
 
     # calculate the estimated_total
