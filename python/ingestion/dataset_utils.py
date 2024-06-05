@@ -279,7 +279,6 @@ def generate_pct_share_col_of_summed_alls(
 
         # Overwrite the "topic_estimated_total" value where demographic group is "All"
         df.loc[df[demo_col] == ALL_VALUE, raw_col] = df[sum_raw_col]
-        # df.loc[df[demo_col] == ALL_VALUE, [raw_col, demo_col]] = df[sum_raw_col], "Summed All"
 
         # Drop the auxiliary sum column
         df.drop(columns=[sum_raw_col], inplace=True)
@@ -707,12 +706,12 @@ def generate_estimated_total_col(
         pop_df = sum_age_groups(pop_df, '18+')
 
     specific_group_map = {}
-    specific_group_map["race_and_ethnicity"] = ALL_VALUE if race_specific_group is None else race_specific_group
-    specific_group_map["age"] = ALL_VALUE if age_specific_group is None else age_specific_group
-    specific_group_map["sex"] = ALL_VALUE if sex_specific_group is None else sex_specific_group
+    specific_group_map[std_col.RACE_OR_HISPANIC_COL] = ALL_VALUE if race_specific_group is None else race_specific_group
+    specific_group_map[std_col.AGE_COL] = ALL_VALUE if age_specific_group is None else age_specific_group
+    specific_group_map[std_col.SEX_COL] = ALL_VALUE if sex_specific_group is None else sex_specific_group
 
     # scope the pop df to the specific intersectional subgroup (e.g. Black Women, ages 65+)
-    for demo in ['age', 'race_and_ethnicity', 'sex']:
+    for demo in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
 
         # keep all rows and columns for the main demographic breakdown
         if demo == primary_demo_col:
@@ -723,8 +722,8 @@ def generate_estimated_total_col(
 
         secondary_demo_col = [demo]
 
-        if demo == 'race_and_ethnicity':
-            secondary_demo_col.append('race_category_id')
+        if demo == std_col.RACE_OR_HISPANIC_COL:
+            secondary_demo_col.append(std_col.RACE_CATEGORY_ID_COL)
 
         # drop the secondary demographic columns
         pop_df = pop_df.drop(columns=secondary_demo_col).reset_index(drop=True)
@@ -737,14 +736,14 @@ def generate_estimated_total_col(
         if col in df.columns:
             merge_cols.append(col)
 
-    if primary_demo_col == 'race_and_ethnicity':
-        merge_cols.append('race_category_id')
+    if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
+        merge_cols.append(std_col.RACE_CATEGORY_ID_COL)
     else:
         merge_cols.append(primary_demo_col)
 
     # the sex/race/age/county ACS data only has NH for White
     # we can approximate the other race groups using the non-NH race codes
-    if primary_demo_col == 'race_and_ethnicity':
+    if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
         # string "_NH" off race_category_id on evrything except "WHITE_NH"
         race_replace_map = {
             'AIAN': 'AIAN_NH',
@@ -754,7 +753,7 @@ def generate_estimated_total_col(
             'MULTI': 'MULTI_NH',
             'OTHER_STANDARD': 'OTHER_STANDARD_NH',
         }
-        pop_df['race_category_id'] = pop_df['race_category_id'].replace(race_replace_map)
+        pop_df[std_col.RACE_CATEGORY_ID_COL] = pop_df[std_col.RACE_CATEGORY_ID_COL].replace(race_replace_map)
 
     df = df.merge(pop_df, on=merge_cols, how='left')
 
