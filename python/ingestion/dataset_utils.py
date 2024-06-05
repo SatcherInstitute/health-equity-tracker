@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict
+from typing import Literal, List, Dict, Union, Type
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -682,7 +682,7 @@ def generate_estimated_total_col(
     - A DataFrame with the estimated_total column added.
     """
 
-    pop_dtype = {
+    pop_dtype: dict[str, Union[Type[float], Type[str]]] = {
         std_col.POPULATION_COL: float,
     }
 
