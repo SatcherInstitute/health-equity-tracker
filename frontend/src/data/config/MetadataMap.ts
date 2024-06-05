@@ -14,7 +14,6 @@ export type DataSourceId =
   | 'cawp'
   | 'cdc_atlas'
   | 'cdc_restricted'
-  | 'cdc_svi_county'
   | 'cdc_vaccination_county'
   | 'cdc_vaccination_national'
   | 'cdc_wisqars_data'
@@ -168,22 +167,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Population percentage estimates by race/ethnicity, age, and sex to the county level provided by the U.S Census Bureau. We use the single year estimates from 2019.',
     dataset_ids: ['census_pop_estimates-race_and_ethnicity'],
-    downloadable: true,
-    time_period_range: null,
-  },
-  cdc_svi_county: {
-    id: 'cdc_svi_county',
-    data_source_name: 'CDC SVI County Rankings',
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'atsdr.cdc.gov',
-    data_source_link:
-      'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/SVI_documentation_2022.html',
-    geographic_level: 'County',
-    demographic_granularity: 'None',
-    update_frequency: 'Biannual',
-    description:
-      'Every community must prepare for and respond to hazardous events, whether a natural disaster like a tornado or a disease outbreak, or an anthropogenic event such as a harmful chemical spill. The degree to which a community exhibits certain social conditions, including high poverty, low percentage of vehicle access, or crowded households, may affect that community’s ability to prevent human suffering and financial loss in the event of disaster. These factors describe a community’s social vulnerability.',
-    dataset_ids: ['cdc_svi_county-age'],
     downloadable: true,
     time_period_range: null,
   },
@@ -404,17 +387,17 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   geo_context: {
     id: 'geo_context',
-    data_source_name: 'Geographic Context - Composite Dataset',
-    data_source_acronym: 'CDC, ACS',
+    data_source_name: 'CDC SVI Rankings',
+    data_source_acronym: 'CDC',
     data_source_pretty_site_name:
-      'github.com/SatcherInstitute/health-equity-tracker',
+      'atsdr.cdc.gov',
     data_source_link:
-      'https://github.com/SatcherInstitute/health-equity-tracker',
-    geographic_level: 'National, State, County',
+      'https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html',
+    geographic_level: 'County',
     demographic_granularity: 'N/A',
-    update_frequency: 'Yearly',
+    update_frequency: 'Every 2 Years',
     description:
-      'This is a composite dataset we create for faster loading; it includes population data from ACS and SVI data at the county level from the CDC.',
+      'This is a composite dataset we create for faster loading; it includes population data from ACS and SVI data at the county level from the CDC. SVI: Every community must prepare for and respond to hazardous events, whether a natural disaster like a tornado or a disease outbreak, or an anthropogenic event such as a harmful chemical spill. The degree to which a community exhibits certain social conditions, including high poverty, low percentage of vehicle access, or crowded households, may affect that community’s ability to prevent human suffering and financial loss in the event of disaster. These factors describe a community’s social vulnerability.',
     dataset_ids: [
       'geo_context-county',
       'geo_context-state',

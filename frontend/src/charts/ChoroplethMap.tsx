@@ -103,7 +103,7 @@ interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  highestLowestGeosMode: boolean
+  extremesMode: boolean
   countColsMap: CountColsMap
   mapConfig: MapConfig
   isSummaryLegend?: boolean
@@ -197,7 +197,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     },
   ]
   // Null SVI was showing
-  if (!props.highestLowestGeosMode) {
+  if (!props.extremesMode) {
     geoTransformers[0].values.push('rating')
   }
 
@@ -314,7 +314,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* reverse? */ !props.mapConfig.higherIsBetter && !props.isUnknownsMap
     )
 
-  if (props.highestLowestGeosMode) {
+  if (props.extremesMode) {
     colorScale.domain = props.scaleConfig?.domain
     colorScale.range = props.scaleConfig?.range
     colorScale.reverse = false
@@ -343,7 +343,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* tooltipExpression= */ zeroTooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-      /* outlineGeos */ props.highestLowestGeosMode,
+      /* outlineGeos */ props.extremesMode,
       /* is multimap */ props.isMulti,
       /* is mobile device */ isMobile
     ),
@@ -351,13 +351,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     createShapeMarks(
       /* datasetName= */ MISSING_DATASET,
       /* fillColor= */ {
-        value: props.highestLowestGeosMode ? het.white : UNKNOWN_GREY,
+        value: props.extremesMode ? het.white : UNKNOWN_GREY,
       },
-      /* hoverColor= */ props.highestLowestGeosMode ? het.white : RED_ORANGE,
+      /* hoverColor= */ props.extremesMode ? het.white : RED_ORANGE,
       /* tooltipExpression= */ missingDataTooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-      /* outlineGeos */ props.highestLowestGeosMode,
+      /* outlineGeos */ props.extremesMode,
       props.isMulti,
       /* is mobile device */ isMobile
     ),
@@ -369,7 +369,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* tooltipExpression= */ tooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-      /* outlineGeos */ props.highestLowestGeosMode,
+      /* outlineGeos */ props.extremesMode,
       props.isMulti,
       /* is mobile device */ isMobile
     ),
