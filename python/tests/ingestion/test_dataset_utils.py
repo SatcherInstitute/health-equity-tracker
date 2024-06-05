@@ -8,7 +8,12 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
-from ingestion.dataset_utils import combine_race_ethnicity, generate_time_df_with_cols_and_types
+from ingestion.dataset_utils import (
+    combine_race_ethnicity,
+    generate_time_df_with_cols_and_types,
+    generate_estimated_total_col,
+    generate_pct_share_col_of_summed_alls,
+)
 from io import StringIO
 
 _fake_race_data = [
@@ -659,3 +664,46 @@ def test_generate_time_df_with_cols_and_types():
 
     assert current_col_types == expected_current_col_types
     assert expected_historical_col_types == historical_col_types
+
+
+fake_data_with_only_rates = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+    'state_fips': ['01', '01', '01', '02', '02', '02'],
+    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+}
+
+fake_data_with_rates_pop_18plus_and_counts = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+    'state_fips': ['01', '01', '01', '02', '02', '02'],
+    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+    'population': [1722276.0, 1877481.0, 3599757.0, 270854.0, 240850.0, 511704.0],
+    'topic_estimated_total': [344.0, 1126.0, 1440.0, 135.0, 120.0, 256.0],
+}
+
+fake_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+    'state_fips': ['01', '01', '01', '02', '02', '02'],
+    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+    'population': [1722276.0, 1877481.0, 3599757.0, 270854.0, 240850.0, 511704.0],
+    'topic_estimated_total': [344.0, 1126.0, 1470.0, 135.0, 120.0, 255.0],  # note the new summed Alls
+    'topic_pct_share': [23.4, 76.6, 100.0, 52.9, 47.1, 100.0],
+}
+
+
+def test_generate_estimated_total_col():
+    df = pd.DataFrame(fake_data_with_only_rates)
+    df = generate_estimated_total_col(
+        df, {'topic_per_100k': 'topic_estimated_total'}, 'state', 'sex', age_specific_group='18+'
+    )
+    assert_frame_equal(df, pd.DataFrame(fake_data_with_rates_pop_18plus_and_counts), check_like=True)
+
+
+def test_generate_pct_share_col_of_summed_alls():
+    df = pd.DataFrame(fake_data_with_rates_pop_18plus_and_counts)
+    df = generate_pct_share_col_of_summed_alls(df, {'topic_estimated_total': 'topic_pct_share'}, 'sex')
+    assert_frame_equal(
+        df, pd.DataFrame(fake_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share), check_like=True
+    )
