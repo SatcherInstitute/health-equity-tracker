@@ -540,10 +540,10 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   maternal_health: {
 
     id: "maternal_health",
-    data_source_name: `JAMA`,
+    data_source_name: `Trends in State-Level Maternal Mortality by Racial and Ethnic Group in the United States`,
     data_source_acronym: 'JAMA',
-    data_source_pretty_site_name: '',
-    data_source_link: '',
+    data_source_pretty_site_name: 'JAMA Network',
+    data_source_link: 'https://jamanetwork.com/journals/jama/fullarticle/2806661',
     geographic_level: 'National, State',
     demographic_granularity: 'Race/ethnicity',
     update_frequency: 'N/A',
