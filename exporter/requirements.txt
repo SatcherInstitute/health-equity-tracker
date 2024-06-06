@@ -40,7 +40,7 @@ google-cloud-core==2.4.1
     #   -r requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-pubsub==2.21.1
+google-cloud-pubsub==2.21.2
     # via -r requirements.in
 google-cloud-storage==2.16.0
     # via -r requirements.in
@@ -94,7 +94,7 @@ packaging==21.3
     #   db-dtypes
     #   google-cloud-bigquery
     #   gunicorn
-pandas==2.2.2
+pandas==2.0.3
     # via
     #   -r requirements.in
     #   db-dtypes
@@ -123,7 +123,7 @@ python-dateutil==2.9.0.post0
     #   pandas
 pytz==2022.2.1
     # via pandas
-requests==2.32.2
+requests==2.32.3
     # via
     #   -r requirements.in
     #   google-api-core

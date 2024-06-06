@@ -25,6 +25,7 @@ export type DataSourceId =
   | 'geographies_source'
   | 'geo_context'
   | 'kff_vaccination'
+  | 'maternal_health'
   | 'phrma'
   | 'the_unitedstates_project'
   | 'vera'
@@ -518,6 +519,27 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     ],
     downloadable: true,
     time_period_range: '2001 - current',
+  },
+  maternal_health: {
+
+    id: "maternal_health",
+    data_source_name: `Trends in State-Level Maternal Mortality by Racial and Ethnic Group in the United States`,
+    data_source_acronym: 'JAMA',
+    data_source_pretty_site_name: 'JAMA Network',
+    data_source_link: 'https://jamanetwork.com/journals/jama/fullarticle/2806661',
+    geographic_level: 'National, State',
+    demographic_granularity: 'Race/ethnicity',
+    update_frequency: 'N/A',
+    description: ``,
+    dataset_ids: [
+      'maternal_mortality_data-by_race_national_current',
+      'maternal_mortality_data-by_race_national_historical',
+      'maternal_mortality_data-by_race_state_current',
+      'maternal_mortality_data-by_race_state_historical',
+
+    ],
+    downloadable: true,
+    time_period_range: '1999 - 2019',
   },
 }
 
