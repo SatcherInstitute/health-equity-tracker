@@ -8,7 +8,13 @@ import pandas as pd
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
-from ingestion.dataset_utils import combine_race_ethnicity, generate_time_df_with_cols_and_types
+from ingestion.dataset_utils import (
+    combine_race_ethnicity,
+    generate_time_df_with_cols_and_types,
+    generate_estimated_total_col,
+    generate_pct_share_col_of_summed_alls,
+    sum_age_groups,
+)
 from io import StringIO
 
 _fake_race_data = [
@@ -659,3 +665,186 @@ def test_generate_time_df_with_cols_and_types():
 
     assert current_col_types == expected_current_col_types
     assert expected_historical_col_types == historical_col_types
+
+
+# STATE BY SEX DATA
+
+fake_state_by_sex_data_with_only_rates = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+    'state_fips': ['01', '01', '01', '02', '02', '02'],
+    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+}
+
+fake_state_by_sex_data_with_rates_pop_18plus_and_counts = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+    'state_fips': ['01', '01', '01', '02', '02', '02'],
+    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+    'population': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    'topic_estimated_total': [376.0, 1223.0, 1567.0, 147.0, 131.0, 278.0],
+}
+
+fake_state_by_sex_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+    'state_fips': ['01', '01', '01', '02', '02', '02'],
+    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+    'population': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    'topic_estimated_total': [376.0, 1223.0, 1599.0, 147.0, 131.0, 278.0],  # note the new summed Alls
+    'topic_pct_share': [23.5, 76.5, 100.0, 52.9, 47.1, 100.0],
+}
+
+# COUNTY BY RACE DATA
+
+fake_county_by_race_data_with_only_rates = {
+    'topic_per_100k': [100, 10, 20, 50, 50, 50],
+    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
+    'race_and_ethnicity': [
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+    ],
+    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
+    'county_name': [
+        'Autuga County',
+        'Autuga County',
+        'Autuga County',
+        'Baldwin County',
+        'Baldwin County',
+        'Baldwin County',
+    ],
+}
+
+fake_county_by_race_data_with_rates_and_counts = {
+    'topic_per_100k': [100, 10, 20, 50, 50, 50],
+    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
+    'race_and_ethnicity': [
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+    ],
+    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
+    'county_name': [
+        'Autuga County',
+        'Autuga County',
+        'Autuga County',
+        'Baldwin County',
+        'Baldwin County',
+        'Baldwin County',
+    ],
+    'population': [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
+    'topic_estimated_total': [11.0, 4.0, 12.0, 10.0, 96.0, 117.0],
+}
+
+fake_county_by_race_data_with_rates_adjusted_all_counts_and_pct_share = {
+    'topic_per_100k': [20, 60, 40, 50, 50, 50],
+    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
+    'race_and_ethnicity': [
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+    ],
+    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
+    'county_name': [
+        'Autuga County',
+        'Autuga County',
+        'Autuga County',
+        'Baldwin County',
+        'Baldwin County',
+        'Baldwin County',
+    ],
+    'population': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    'topic_estimated_total': [376.0, 1223.0, 1599.0, 147.0, 131.0, 278.0],  # note the new summed Alls
+    'topic_pct_share': [23.5, 76.5, 100.0, 52.9, 47.1, 100.0],
+}
+
+# STATE BY SEX TESTS
+
+
+def test_state_sex_generate_estimated_total_col():
+    df = pd.DataFrame(fake_state_by_sex_data_with_only_rates)
+    df = generate_estimated_total_col(
+        df, {'topic_per_100k': 'topic_estimated_total'}, 'state', 'sex', age_specific_group='18+'
+    )
+    assert_frame_equal(df, pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus_and_counts), check_like=True)
+
+
+def test_state_sex_generate_pct_share_col_of_summed_alls():
+    df = pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus_and_counts)
+    df = generate_pct_share_col_of_summed_alls(df, {'topic_estimated_total': 'topic_pct_share'}, 'sex')
+    assert_frame_equal(
+        df,
+        pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share),
+        check_like=True,
+    )
+
+
+# COUNTY BY RACE TESTS
+
+
+def test_county_race_generate_estimated_total_col():
+    df = pd.DataFrame(fake_county_by_race_data_with_only_rates)
+    df = generate_estimated_total_col(df, {'topic_per_100k': 'topic_estimated_total'}, 'county', 'race_and_ethnicity')
+    assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_counts), check_like=True)
+
+
+fake_pop_data_all_ages = {
+    'county_fips': ['01001'] * 23,
+    'county_name': ['Autuga County '] * 23,
+    'race_and_ethnicity': ['Black or African American (NH)'] * 23,
+    'race_category_id': ['BLACK_NH'] * 23,
+    'sex': ['All'] * 23,
+    'age': [
+        '0-4',
+        '5-9',
+        '10-14',
+        '15-17',
+        '18-19',
+        '20-20',
+        '21-21',
+        '22-24',
+        '25-29',
+        '30-34',
+        '35-39',
+        '40-44',
+        '45-49',
+        '50-54',
+        '55-59',
+        '60-61',
+        '62-64',
+        '65-66',
+        '67-69',
+        '70-74',
+        '75-79',
+        '80-84',
+        '85+',
+    ],
+    'population': [100] * 23,
+}
+
+fake_pop_data_summed_18plus = {
+    'county_fips': ['01001'] * 5,
+    'county_name': ['Autuga County '] * 5,
+    'race_and_ethnicity': ['Black or African American (NH)'] * 5,
+    'race_category_id': ['BLACK_NH'] * 5,
+    'sex': ['All'] * 5,
+    'age': ['0-4', '5-9', '10-14', '15-17', '18+'],
+    'population': [100, 100, 100, 100, 1900],
+}
+
+
+def test_sum_age_groups():
+    pop_df = pd.DataFrame(fake_pop_data_all_ages)
+    pop_df = sum_age_groups(pop_df, '18+')
+    expected_summed_pop_df = pd.DataFrame(fake_pop_data_summed_18plus)
+    assert_frame_equal(pop_df, expected_summed_pop_df, check_like=True)
