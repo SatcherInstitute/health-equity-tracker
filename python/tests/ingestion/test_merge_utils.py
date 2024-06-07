@@ -400,10 +400,10 @@ def testMergeMultiplePopCols():
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
 
 
-# STATE BY SEXX
+# STATE BY SEX (18+)
 
 
-def test_state_sex_generate_estimated_total_col():
+def test_state_sex_merge_intersectional_pop():
 
     fake_state_by_sex_data_with_only_rates = {
         'topic_per_100k': [20, 60, 40, 50, 50, 50],
@@ -420,9 +420,8 @@ def test_state_sex_generate_estimated_total_col():
         'population_18+': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
     }
     df = pd.DataFrame(fake_state_by_sex_data_with_only_rates)
-    df = merge_utils.generate_estimated_total_col(
-        df, {'topic_per_100k': 'topic_estimated_total'}, 'state', 'sex', age_specific_group='18+'
-    )
+    (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(df, 'state', 'sex', age_specific_group='18+')
+    assert intersectional_pop_col == 'population_18+'
     assert_frame_equal(df, pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus), check_like=True)
 
 
@@ -450,7 +449,7 @@ fake_county_by_race_data_with_only_rates = {
     ],
 }
 
-fake_county_by_race_data_with_rates_and_counts = {
+fake_county_by_race_data_with_rates_and_female_pop = {
     'topic_per_100k': [100, 10, 20, 50, 50, 50],
     'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
     'race_and_ethnicity': [
@@ -470,20 +469,23 @@ fake_county_by_race_data_with_rates_and_counts = {
         'Baldwin County',
         'Baldwin County',
     ],
-    'population': [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
-    'topic_estimated_total': [11.0, 4.0, 12.0, 10.0, 96.0, 117.0],
+    'population_female': [6030.0, 21625.0, 30098.0, 10284.0, 98154.0, 119343.0],
 }
 
 
-# COUNTY BY RACE TESTS
+# COUNTY BY RACE (Female) TESTS
 
 
 def test_county_race_generate_estimated_total_col():
     df = pd.DataFrame(fake_county_by_race_data_with_only_rates)
-    df = merge_utils.generate_estimated_total_col(
-        df, {'topic_per_100k': 'topic_estimated_total'}, 'county', 'race_and_ethnicity'
+    (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(
+        df, 'county', 'race_and_ethnicity', sex_specific_group='Female'
     )
-    assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_counts), check_like=True)
+    assert intersectional_pop_col == 'population_female'
+    assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_female_pop), check_like=True)
+
+
+# SUM AGE GROUPS TESTS
 
 
 def test_sum_age_groups():

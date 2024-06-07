@@ -383,7 +383,9 @@ def merge_intersectional_pop(
     pop_col = std_col.POPULATION_COL
     for group in specific_group_map.values():
         if group != ALL_VALUE:
-            pop_col += f'_{group}'
+            pop_col += f'_{group.lower()}'
+
+    pop_df = pop_df.rename(columns={std_col.POPULATION_COL: pop_col})
 
     # scope the pop df to the specific intersectional subgroup (e.g. Black Women, ages 65+)
     for demo in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
