@@ -657,12 +657,12 @@ def generate_estimated_total_col(
 ) -> pd.DataFrame:
     """
     Generates the estimated_total column by applying the given rate col against the intersectional population.
+    Note: the needed 'intersectional_pop_col' is obtained from the output of merge_utils.merge_intersectional_pop()
 
     Parameters:
     - df: The DataFrame to be processed.
     - intersectional_pop_col: The str col name of the incoming df's specific intersectional population,
-    e.g. 'population_18+' or 'population_18+_Male'. These will be be generated from the out put of the
-    merge_utils.merge_intersectional_pop() function
+    e.g. 'population_18+' or 'population_18+_Male'.
     - rate_to_raw_col_map: A dict of rate column names to their corresponding raw count column names.
 
     Returns:

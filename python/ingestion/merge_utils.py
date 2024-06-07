@@ -333,7 +333,7 @@ def merge_intersectional_pop(
     sex_specific_group: str = None,
 ) -> tuple[pd.DataFrame, str]:
     """
-    Merges the specific cross-sectional population from ACS.
+    Merges specific cross-section pop from ACS, for later use with dataset_utils.generate_estimated_total_col()
 
     Parameters:
     - df: The DataFrame to be processed.
