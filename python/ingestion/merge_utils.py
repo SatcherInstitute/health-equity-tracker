@@ -356,12 +356,16 @@ def merge_intersectional_pop(
         std_col.POPULATION_COL: float,
     }
 
+    geo_file = ''
+
     if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
+        geo_file = 'county'
     if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
         pop_dtype[std_col.STATE_FIPS_COL] = str
+        geo_file = 'state'
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_level}.csv')
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_file}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     if geo_level == NATIONAL_LEVEL:

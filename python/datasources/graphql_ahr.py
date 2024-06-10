@@ -6,7 +6,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
 from ingestion import standardized_columns as std_col
-from ingestion.constants import US_ABBR, NATIONAL_LEVEL, STATE_LEVEL, CURRENT, Sex
+from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import generate_time_df_with_cols_and_types
 from ingestion.graphql_ahr_utils import (
     generate_cols_map,
@@ -94,10 +94,6 @@ class GraphQlAHRData(DataSource):
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
             time_cols = TIME_MAP[table_type]
-
-            # TODO make new util handle national as well
-            if geo_level == STATE_LEVEL and demographic != std_col.AGE_COL:
-                time_cols.extend(['population_18+'])
 
             df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
 
@@ -220,14 +216,15 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     - pd.DataFrame: A processed DataFrame containing the post-processed data.
 
     This function performs the following steps:
-    1. Standardizes demographic breakdowns based on the specified demographic type.
-    2. Merges state IDs with the DataFrame.
-    3. Merges yearly population numbers based on the demographic breakdown and geographic level.
-    4. Adds estimated total columns based on specified mappings.
-    # 5. Generates percentage share columns without unknowns based on specified mappings.
-    # 6. Drops the 'Population' column from the DataFrame.
-    7. Sorts the DataFrame by state FIPS code and time period in descending order.
-    8. Converts the 'Time Period' column to datetime and filters data up to the year 2021.
+    - Standardizes demographic breakdowns based on the specified demographic type.
+    - Merges state IDs with the DataFrame.
+    - Merges yearly population numbers based on the demographic breakdown and geographic level.
+    - Merges intersection population col for adult populations for race and sex breakdowns.
+    - TODO: Adds estimated total columns based on specified mappings.
+    - TODO: Generates percentage share columns without unknowns based on specified mappings.
+    - TODO: Drops the 'Population' column from the DataFrame.
+    - Sorts the DataFrame by state FIPS code and time period in descending order.
+    - Converts the 'Time Period' column to datetime and filters data up to the year 2021.
     """
     breakdown_df = df.copy()
 
@@ -243,10 +240,9 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
 
     # merge general population by primary demographic
     breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
-    # breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
 
-    # merge another col with 18+ population by race or by sex
-    if breakdown != std_col.AGE_COL and geo_level == STATE_LEVEL:
+    # merge another col with 18+ population if by race or by sex
+    if breakdown != std_col.AGE_COL:
         breakdown_df, pop_18plus_col = merge_intersectional_pop(
             breakdown_df, geo_level, breakdown, age_specific_group='18+'
         )
@@ -256,10 +252,6 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(breakdown_df)
-
-    # print(breakdown, geo_level)
-    # print(breakdown_df.columns)
-    # print(breakdown_df)
 
     breakdown_df = breakdown_df.sort_values(
         by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
