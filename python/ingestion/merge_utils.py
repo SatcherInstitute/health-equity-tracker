@@ -327,7 +327,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 def merge_intersectional_pop(
     df: pd.DataFrame,
     geo_level: Literal['national', 'state', 'county'],
-    primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex'],
+    primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex', 'race'],
     race_specific_group: str = None,
     age_specific_group: str = None,
     sex_specific_group: str = None,
@@ -351,6 +351,9 @@ def merge_intersectional_pop(
     Returns:
     - tuple containing the merged DataFrame and the string name of the added intersectional population column.
     """
+
+    if primary_demo_col == std_col.RACE_COL:
+        primary_demo_col = std_col.RACE_OR_HISPANIC_COL
 
     pop_dtype: dict[str, Union[Type[float], Type[str]]] = {
         std_col.POPULATION_COL: float,
