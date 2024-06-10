@@ -7,6 +7,7 @@ from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
 import ingestion.standardized_columns as std_col
 import numpy as np
+import pandas as pd
 
 
 _data_with_bad_county_names = [
@@ -397,3 +398,143 @@ def testMergeMultiplePopCols():
     df = merge_utils.merge_multiple_pop_cols(df, 'race', ['cases_population', 'deaths_population'])
 
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
+
+
+# STATE BY SEX (18+)
+
+
+def test_state_sex_merge_intersectional_pop():
+
+    fake_state_by_sex_data_with_only_rates = {
+        'topic_per_100k': [20, 60, 40, 50, 50, 50],
+        'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+        'state_fips': ['01', '01', '01', '02', '02', '02'],
+        'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+    }
+
+    fake_state_by_sex_data_with_rates_pop_18plus = {
+        'topic_per_100k': [20, 60, 40, 50, 50, 50],
+        'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
+        'state_fips': ['01', '01', '01', '02', '02', '02'],
+        'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
+        'population_18+': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    }
+    df = pd.DataFrame(fake_state_by_sex_data_with_only_rates)
+    (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(df, 'state', 'sex', age_specific_group='18+')
+    assert intersectional_pop_col == 'population_18+'
+    assert_frame_equal(df, pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus), check_like=True)
+
+
+# COUNTY BY RACE DATA
+
+fake_county_by_race_data_with_only_rates = {
+    'topic_per_100k': [100, 10, 20, 50, 50, 50],
+    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
+    'race_and_ethnicity': [
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+    ],
+    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
+    'county_name': [
+        'Autuga County',
+        'Autuga County',
+        'Autuga County',
+        'Baldwin County',
+        'Baldwin County',
+        'Baldwin County',
+    ],
+}
+
+fake_county_by_race_data_with_rates_and_female_pop = {
+    'topic_per_100k': [100, 10, 20, 50, 50, 50],
+    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
+    'race_and_ethnicity': [
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+        'Black or African American (NH)',
+        'White (NH)',
+        'All',
+    ],
+    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
+    'county_name': [
+        'Autuga County',
+        'Autuga County',
+        'Autuga County',
+        'Baldwin County',
+        'Baldwin County',
+        'Baldwin County',
+    ],
+    'population_female': [6030.0, 21625.0, 30098.0, 10284.0, 98154.0, 119343.0],
+}
+
+
+# COUNTY BY RACE (Female) TESTS
+
+
+def test_county_race_generate_estimated_total_col():
+    df = pd.DataFrame(fake_county_by_race_data_with_only_rates)
+    (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(
+        df, 'county', 'race_and_ethnicity', sex_specific_group='Female'
+    )
+    assert intersectional_pop_col == 'population_female'
+    assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_female_pop), check_like=True)
+
+
+# SUM AGE GROUPS TESTS
+
+
+def test_sum_age_groups():
+
+    fake_pop_data_all_ages = {
+        'county_fips': ['01001'] * 23,
+        'county_name': ['Autuga County '] * 23,
+        'race_and_ethnicity': ['Black or African American (NH)'] * 23,
+        'race_category_id': ['BLACK_NH'] * 23,
+        'sex': ['All'] * 23,
+        'age': [
+            '0-4',
+            '5-9',
+            '10-14',
+            '15-17',
+            '18-19',
+            '20-20',
+            '21-21',
+            '22-24',
+            '25-29',
+            '30-34',
+            '35-39',
+            '40-44',
+            '45-49',
+            '50-54',
+            '55-59',
+            '60-61',
+            '62-64',
+            '65-66',
+            '67-69',
+            '70-74',
+            '75-79',
+            '80-84',
+            '85+',
+        ],
+        'population': [100] * 23,
+    }
+
+    fake_pop_data_summed_18plus = {
+        'county_fips': ['01001'] * 5,
+        'county_name': ['Autuga County '] * 5,
+        'race_and_ethnicity': ['Black or African American (NH)'] * 5,
+        'race_category_id': ['BLACK_NH'] * 5,
+        'sex': ['All'] * 5,
+        'age': ['0-4', '5-9', '10-14', '15-17', '18+'],
+        'population': [100, 100, 100, 100, 1900],
+    }
+
+    pop_df = pd.DataFrame(fake_pop_data_all_ages)
+    pop_df = merge_utils.sum_age_groups(pop_df, '18+')
+    expected_summed_pop_df = pd.DataFrame(fake_pop_data_summed_18plus)
+    assert_frame_equal(pop_df, expected_summed_pop_df, check_like=True)
