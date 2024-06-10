@@ -593,7 +593,4 @@ def test_sum_states_to_national():
     df = pd.DataFrame(fake_pop_data_state_level_by_sex_by_race)
     df = merge_utils.sum_states_to_national(df)
     expected_national_df = pd.DataFrame(fake_pop_data_national_by_sex_by_race)
-
-    print("national_df\n\n", df)
-    print("expected_national_df\n\n", expected_national_df)
     assert_frame_equal(df, expected_national_df, check_like=True)

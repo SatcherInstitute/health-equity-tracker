@@ -60,18 +60,6 @@ def testWriteToBqRaceState(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.
 
     # actual_df.to_csv(table_name, index=False)
 
-    # tmp = [
-    #     'state_fips',
-    #     'race_and_ethnicity',
-    #     'suicide_per_100k',
-    #     'population',
-    #     'population_pct',
-    #     'population_18+',
-    # ]
-
-    # print(actual_df[tmp].to_string())
-    # print(expected_df[tmp].to_string())
-
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
 
