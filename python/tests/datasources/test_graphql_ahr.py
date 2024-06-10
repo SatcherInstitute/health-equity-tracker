@@ -56,7 +56,7 @@ def testWriteToBqRaceState(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.
     assert table_name == f"{RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}"
     assert mock_add_df_to_bq.call_count == 1
 
-    actual_df.to_csv(table_name, index=False)
+    # actual_df.to_csv(table_name, index=False)
 
     # tmp = [
     #     'state_fips',
