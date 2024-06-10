@@ -41,7 +41,7 @@ def testWriteToBqAgeNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: moc
     assert table_name == f"{AGE}_{NATIONAL_LEVEL}_{CURRENT}"
     assert mock_add_df_to_bq.call_count == 1
 
-    actual_df.to_csv(table_name, index=False)
+    # actual_df.to_csv(table_name, index=False)
 
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
@@ -75,6 +75,6 @@ def testWriteToBqSexNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: moc
     assert table_name == f"{SEX}_{NATIONAL_LEVEL}_{CURRENT}"
     assert mock_add_df_to_bq.call_count == 1
 
-    actual_df.to_csv(table_name, index=False)
+    # actual_df.to_csv(table_name, index=False)
 
     assert_frame_equal(actual_df, expected_df, check_like=True)
