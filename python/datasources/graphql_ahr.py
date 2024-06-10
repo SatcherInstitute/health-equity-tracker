@@ -250,7 +250,9 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
         breakdown_df, pop_18plus_col = merge_intersectional_pop(
             breakdown_df, geo_level, breakdown, age_specific_group='18+'
         )
-        # print("new col name: ", pop_18plus_col)
+        # add 18+ column to TIME_MAP
+        if pop_18plus_col not in TIME_MAP[CURRENT]:
+            TIME_MAP[CURRENT].append(pop_18plus_col)
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(breakdown_df)

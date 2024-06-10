@@ -538,3 +538,62 @@ def test_sum_age_groups():
     pop_df = merge_utils.sum_age_groups(pop_df, '18+')
     expected_summed_pop_df = pd.DataFrame(fake_pop_data_summed_18plus)
     assert_frame_equal(pop_df, expected_summed_pop_df, check_like=True)
+
+
+def test_sum_states_to_national():
+
+    fake_pop_data_state_level_by_sex_by_race = {
+        'state_fips': ['01', '01', '01', '01', '02', '02', '02', '02'],
+        'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska', 'Alaska'],
+        'race_and_ethnicity': [
+            'Black or African American (NH)',
+            'White (NH)',
+            'Black or African American (NH)',
+            'White (NH)',
+            'Black or African American (NH)',
+            'White (NH)',
+            'Black or African American (NH)',
+            'White (NH)',
+        ],
+        'race_category_id': [
+            'BLACK_NH',
+            'WHITE_NH',
+            'BLACK_NH',
+            'WHITE_NH',
+            'BLACK_NH',
+            'WHITE_NH',
+            'BLACK_NH',
+            'WHITE_NH',
+        ],
+        'sex': ['Male', 'Male', 'Female', 'Female', 'Male', 'Male', 'Female', 'Female'],
+        'age': ['All', 'All', 'All', 'All', 'All', 'All', 'All', 'All'],
+        'population': [100, 100, 100, 100, 100, 100, 100, 100],
+    }
+
+    fake_pop_data_national_by_sex_by_race = {
+        'state_fips': ['00', '00', '00', '00'],
+        'state_name': ['United States', 'United States', 'United States', 'United States'],
+        'race_and_ethnicity': [
+            'Black or African American (NH)',
+            'White (NH)',
+            'Black or African American (NH)',
+            'White (NH)',
+        ],
+        'race_category_id': [
+            'BLACK_NH',
+            'WHITE_NH',
+            'BLACK_NH',
+            'WHITE_NH',
+        ],
+        'sex': ['Female', 'Female', 'Male', 'Male'],
+        'age': ['All', 'All', 'All', 'All'],
+        'population': [200, 200, 200, 200],
+    }
+
+    df = pd.DataFrame(fake_pop_data_state_level_by_sex_by_race)
+    df = merge_utils.sum_states_to_national(df)
+    expected_national_df = pd.DataFrame(fake_pop_data_national_by_sex_by_race)
+
+    print("national_df\n\n", df)
+    print("expected_national_df\n\n", expected_national_df)
+    assert_frame_equal(df, expected_national_df, check_like=True)

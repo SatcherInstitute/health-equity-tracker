@@ -326,7 +326,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
 def merge_intersectional_pop(
     df: pd.DataFrame,
-    geo_level: Literal['state', 'county'],
+    geo_level: Literal['national', 'state', 'county'],
     primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex'],
     race_specific_group: str = None,
     age_specific_group: str = None,
@@ -358,11 +358,14 @@ def merge_intersectional_pop(
 
     if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
-    if geo_level == STATE_LEVEL:
+    if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
         pop_dtype[std_col.STATE_FIPS_COL] = str
 
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_level}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
+
+    if geo_level == NATIONAL_LEVEL:
+        pop_df = sum_states_to_national(pop_df)
 
     # the primary demographic breakdown can't use a specific group
     if primary_demo_col == 'race_and_ethnicity' and race_specific_group:
@@ -435,6 +438,37 @@ def merge_intersectional_pop(
     df = df.merge(pop_df, on=merge_cols, how='left')
 
     return (df, pop_col)
+
+
+def sum_states_to_national(pop_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Sums rows from each race across all states together to generate new rows for national level
+
+    Parameters:
+    - pop_df: The DataFrame to be processed.
+
+    Returns:
+    - A DataFrame with the same columns as the state level df, summed across states to a national level
+    """
+
+    pop_df = pop_df.copy()
+    groupby_cols = [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL, std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
+
+    # add pop from all states together per race/sex/age combination
+    pop_df = (
+        pop_df.groupby(
+            groupby_cols,
+            as_index=False,
+        )[std_col.POPULATION_COL]
+        .sum()
+        .reset_index(drop=True)
+    )
+
+    # Fill in the new geo cols
+    pop_df[std_col.STATE_FIPS_COL] = US_FIPS
+    pop_df[std_col.STATE_NAME_COL] = US_NAME
+
+    return pop_df
 
 
 def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFrame:
