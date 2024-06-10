@@ -6,7 +6,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 
 from ingestion import standardized_columns as std_col
-from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
+from ingestion.constants import US_ABBR, NATIONAL_LEVEL, STATE_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import generate_time_df_with_cols_and_types
 from ingestion.graphql_ahr_utils import (
     generate_cols_map,
@@ -14,7 +14,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_BASE_MEASURES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )
-from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers
+from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
 
 AGE_GROUPS_TO_STANDARD = {
@@ -66,9 +66,7 @@ PER_100K_TOPICS = [
 PCT_RATE_MAP = generate_cols_map(PCT_RATE_TOPICS, std_col.PCT_RATE_SUFFIX)
 PER_100K_MAP = generate_cols_map(PER_100K_TOPICS, std_col.PER_100K_SUFFIX)
 
-TIME_MAP = {
-    CURRENT: list(AHR_BASE_MEASURES.values()),
-}
+TIME_MAP = {CURRENT: list(AHR_BASE_MEASURES.values()) + [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]}
 
 
 class GraphQlAHRData(DataSource):
@@ -96,6 +94,10 @@ class GraphQlAHRData(DataSource):
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
             time_cols = TIME_MAP[table_type]
+
+            # TODO make new util handle national as well
+            if geo_level == STATE_LEVEL and demographic != std_col.AGE_COL:
+                time_cols.extend(['population_18+'])
 
             df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
 
@@ -147,7 +149,7 @@ def graphql_response_to_dataframe(response_data, geo_level: GEO_TYPE):
 
     df = pd.DataFrame(flattened_data)
 
-    df[std_col.STATE_POSTAL_COL].replace('ALL', US_ABBR, inplace=True)
+    df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace('ALL', US_ABBR)
 
     if geo_level == NATIONAL_LEVEL:
         df = df.loc[df[std_col.STATE_POSTAL_COL] == US_ABBR]
@@ -222,8 +224,8 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     2. Merges state IDs with the DataFrame.
     3. Merges yearly population numbers based on the demographic breakdown and geographic level.
     4. Adds estimated total columns based on specified mappings.
-    5. Generates percentage share columns without unknowns based on specified mappings.
-    6. Drops the 'Population' column from the DataFrame.
+    # 5. Generates percentage share columns without unknowns based on specified mappings.
+    # 6. Drops the 'Population' column from the DataFrame.
     7. Sorts the DataFrame by state FIPS code and time period in descending order.
     8. Converts the 'Time Period' column to datetime and filters data up to the year 2021.
     """
@@ -234,19 +236,34 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
         breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
-        std_col.add_race_columns_from_category_id(breakdown_df)
 
     pop_breakdown = std_col.RACE_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
     breakdown_df = merge_state_ids(breakdown_df)
-    breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
 
-    breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
+    # merge general population by primary demographic
+    breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
+    # breakdown_df = breakdown_df.drop(columns=std_col.POPULATION_COL)
+
+    # merge another col with 18+ population by race or by sex
+    if breakdown != std_col.AGE_COL and geo_level == STATE_LEVEL:
+        breakdown_df, pop_18plus_col = merge_intersectional_pop(
+            breakdown_df, geo_level, breakdown, age_specific_group='18+'
+        )
+        # print("new col name: ", pop_18plus_col)
+
+    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        std_col.add_race_columns_from_category_id(breakdown_df)
+
+    # print(breakdown, geo_level)
+    # print(breakdown_df.columns)
+    # print(breakdown_df)
 
     breakdown_df = breakdown_df.sort_values(
         by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
     )
 
+    # TODO: GitHub 3358 - should keep most recent data post-2021 somehow
     breakdown_df[std_col.TIME_PERIOD_COL] = pd.to_datetime(breakdown_df[std_col.TIME_PERIOD_COL])
     breakdown_df[std_col.TIME_PERIOD_COL] = breakdown_df[std_col.TIME_PERIOD_COL].dt.year
     breakdown_df = breakdown_df[breakdown_df[std_col.TIME_PERIOD_COL] <= 2021]
