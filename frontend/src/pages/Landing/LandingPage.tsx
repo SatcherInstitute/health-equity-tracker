@@ -14,10 +14,9 @@ import { useQuery } from 'react-query'
 import type { Article } from '../News/NewsPage'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
-import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
+import { ArrowRightAlt } from '@mui/icons-material'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -38,6 +37,7 @@ function LandingPage() {
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
+
   return (
     <>
 
@@ -51,18 +51,18 @@ function LandingPage() {
       <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
         <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
-        <div className='relative lg:w-1/2 md:w-full sm:w-full'>
-          <div className='text-black text-left font-normal font-sm'>#HEALTHEQUITY
+        <div className='relative lg:w-1/2 md:w-full sm:w-full text-left'>
 
-            <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
-              <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
-            <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
-              Explore the data
-            </HetBigCTA >
-            <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
-              <p className='py-0 my-0 z-1'>Data sourced from major public health agencies
-              </p>
-            </div>
+
+          <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
+            <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
+          <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+            Explore the data
+          </HetBigCTA >
+          <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
+            <p className='py-0 my-0 z-1'>Data sourced from major public health agencies
+            </p>
+
           </div>
           <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
@@ -116,12 +116,12 @@ function LandingPage() {
             </h3>
           </div>
           <div className='w-full'>
-            <p className='m-0 pb-16 text-title'>
+            <p className='mt-4 pb-16 text-title'>
               Stories and updates from Morehouse School of Medicine and beyond
             </p>
           </div>
           <div className='w-full'>
-            <div className='flex flex-wrap justify-around px-4'>
+            <div className='flex flex-wrap px-4 '>
               {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
                   return (
@@ -141,13 +141,17 @@ function LandingPage() {
                 />
               )}
             </div>
+            <div>
+              <div className='flex items-center justify-center my-4 mx-auto hover:translate-x-1 hover:transition-transform hover:duration-300 w-max h-full'>
 
-            <HetLinkButton
-              href={NEWS_PAGE_LINK}
-              className='mb-4  mt-10 text-smallestHeader underline'
-            >
-              View all articles
-            </HetLinkButton>
+                <a
+                  href={NEWS_PAGE_LINK}
+                  className='m-8 px-24 py-4 xs:px-8 no-underline h-auto font-sansTitle text-smallestHeader font-bold tracking-wide text-altGreen lg:w-80 xs:w-auto xs:text-title'
+                >
+                  <span className='mr-4 xs:mr-2'> View all articles </span> <ArrowRightAlt />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
