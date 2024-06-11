@@ -39,6 +39,9 @@ function LandingPage() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 464c16be (how to use revisions)
   interface ListItemProps {
     title: string;
     description: string;
@@ -57,6 +60,7 @@ function LandingPage() {
           <p className="md:text-left mb-8 sm:text-small xs:text-small">
             {description}
           </p>
+<<<<<<< HEAD
           <div className='flex items-center justify-start p-0 m-0  hover:translate-x-1 hover:transition-transform hover:duration-300 '>
             <a
               href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}
@@ -65,6 +69,8 @@ function LandingPage() {
               <p className='mr-2 p-0 my-0'> Take a guided tour</p> <ArrowRightAlt />
             </a>
           </div>
+=======
+>>>>>>> 464c16be (how to use revisions)
         </div>
         <div className="w-full md:w-2/3 ">
           {iframeSrc ? (
@@ -95,8 +101,11 @@ function LandingPage() {
     );
   };
 
+<<<<<<< HEAD
 =======
 >>>>>>> bcfcb135 (news section refresh)
+=======
+>>>>>>> 464c16be (how to use revisions)
 
   return (
     <>
@@ -200,6 +209,7 @@ function LandingPage() {
 
           <div className='flex w-full flex-col justify-center items-center md:block sm:block'>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center'>
               Advancing Health Justice
             </h2>
@@ -214,6 +224,13 @@ function LandingPage() {
             </h3>
             <p className='lg:text-left lg:text-title'>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
+=======
+            <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center'>
+              Advancing Health Justice
+            </h2>
+
+            <p className='lg:text-left lg:text-title mt-4 mb-16 text-title'>
+>>>>>>> 464c16be (how to use revisions)
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -234,10 +251,14 @@ function LandingPage() {
           </div>
           <div className='w-full'>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <p className='mt-4 mb-16 text-text'>
 =======
             <p className='mt-4 pb-16 text-title'>
 >>>>>>> bcfcb135 (news section refresh)
+=======
+            <p className='mt-4 mb-16 text-text'>
+>>>>>>> 464c16be (how to use revisions)
               Stories and updates from Morehouse School of Medicine and beyond
             </p>
           </div>
@@ -279,10 +300,14 @@ function LandingPage() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 464c16be (how to use revisions)
         <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 bg-footerColor">
           <div className="w-full">
 
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
+<<<<<<< HEAD
 =======
         <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-56 pb-32 pt-20'>
 =======
@@ -294,11 +319,16 @@ function LandingPage() {
           <div className='w-full'>
             <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
+=======
+>>>>>>> 464c16be (how to use revisions)
               How do I use the Health Equity Tracker?
             </h3>
           </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 464c16be (how to use revisions)
           <ul className="flex flex-col items-center justify-center p-0">
             <ListItem
               title="Take a Tour of the Data"
@@ -316,6 +346,7 @@ function LandingPage() {
               title="Explore maps and graphs"
               description="The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there’s no data currently available."
               videoSrc="videos/explore-map.mp4" iframeSrc={undefined} />
+<<<<<<< HEAD
           </ul>
 
 <<<<<<< HEAD
@@ -426,6 +457,11 @@ function LandingPage() {
 
           <div className='mt-14'>
 >>>>>>> 9465dd5b (news section revisions)
+=======
+          </ul>
+
+          <div className="mt-14">
+>>>>>>> 464c16be (how to use revisions)
             <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
             </HetBigCTA>
