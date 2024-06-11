@@ -40,7 +40,6 @@ function LandingPage() {
 
   return (
     <>
-
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
@@ -48,10 +47,10 @@ function LandingPage() {
 
       <h2 className='sr-only'>Home Page</h2>
       {/* Refresh */}
-      <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
+      <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16 min-h-5/6' >
         <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
-        <div className='relative lg:w-1/2 md:w-full sm:w-full text-left'>
+        <div className='p-0 m-0relative lg:w-1/2 md:w-full sm:w-full text-left'>
 
 
           <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
@@ -81,7 +80,7 @@ function LandingPage() {
       {/* Refresh */}
 
       <div className='flex w-full flex-wrap items-center justify-center '>
-        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-ashgray30 mx-auto my-0 w-full space-8 lg:space-24'>
+        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
 
           <img
             src='/img/graphics/banner.png'
@@ -109,7 +108,7 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className='flex flex-wrap border-0 border-b border-solid px-8 py-20'>
+        <div className='flex flex-wrap px-56 pt-24 md:px-32 sm:px-24 xs:px-16'>
           <div className='w-full'>
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
               Recent news
@@ -155,7 +154,7 @@ function LandingPage() {
           </div>
         </div>
 
-        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid p-24'>
+        <article className='flex flex-wrap items-center justify-center py-24 px-56 md:px-32 sm:px-24 xs:px-16 bg-footerColor'>
           <div className='w-full'>
             <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
               How do I use the Health Equity Tracker?
@@ -163,7 +162,7 @@ function LandingPage() {
           </div>
 
           <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
                   Take a Tour of the Data
@@ -186,7 +185,7 @@ function LandingPage() {
                 ></iframe>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                   Search by completing the sentence
@@ -210,7 +209,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
@@ -236,7 +235,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
@@ -265,14 +264,12 @@ function LandingPage() {
             </li>
           </ul>
 
+          <div className='mt-14'>
+            <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
+              Explore the data
+            </HetBigCTA>
+          </div>
         </article>
-        <div className='mt-14'>
-          <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
-            Explore the data
-          </HetBigCTA>
-        </div>
-
-
       </div>
     </>
   )
