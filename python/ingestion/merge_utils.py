@@ -353,7 +353,7 @@ def merge_intersectional_pop(
     """
 
     if primary_demo_col == std_col.RACE_COL:
-        primary_demo_col = std_col.RACE_OR_HISPANIC_COL
+        primary_demo_col = 'race_and_ethnicity'
 
     pop_dtype: dict[str, Union[Type[float], Type[str]]] = {
         std_col.POPULATION_COL: float,
