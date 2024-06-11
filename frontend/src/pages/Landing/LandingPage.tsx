@@ -38,6 +38,7 @@ function LandingPage() {
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
+<<<<<<< HEAD
   interface ListItemProps {
     title: string;
     description: string;
@@ -94,6 +95,8 @@ function LandingPage() {
     );
   };
 
+=======
+>>>>>>> bcfcb135 (news section refresh)
 
   return (
     <>
@@ -135,18 +138,18 @@ function LandingPage() {
       <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
         <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
-        <div className='relative lg:w-1/2 md:w-full sm:w-full'>
-          <div className='text-black text-left font-normal font-sm'>#HEALTHEQUITY
+        <div className='relative lg:w-1/2 md:w-full sm:w-full text-left'>
 
-            <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
-              <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
-            <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
-              Explore the data
-            </HetBigCTA >
-            <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
-              <p className='py-0 my-0 z-1'>Data sourced from major public health agencies
-              </p>
-            </div>
+
+          <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
+            <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
+          <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+            Explore the data
+          </HetBigCTA >
+          <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
+            <p className='py-0 my-0 z-1'>Data sourced from major public health agencies
+            </p>
+
           </div>
           <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
 <<<<<<< HEAD
@@ -224,7 +227,11 @@ function LandingPage() {
             </h3>
           </div>
           <div className='w-full'>
+<<<<<<< HEAD
             <p className='mt-4 mb-16 text-text'>
+=======
+            <p className='mt-4 pb-16 text-title'>
+>>>>>>> bcfcb135 (news section refresh)
               Stories and updates from Morehouse School of Medicine and beyond
             </p>
           </div>
