@@ -7,7 +7,7 @@ from ingestion import gcs_to_bq_util
 
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
-from ingestion.dataset_utils import generate_time_df_with_cols_and_types
+from ingestion.dataset_utils import generate_time_df_with_cols_and_types, generate_estimated_total_col
 from ingestion.graphql_ahr_utils import (
     generate_cols_map,
     fetch_ahr_data_from_graphql,
@@ -241,6 +241,8 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     # merge general population by primary demographic
     breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
 
+    # get estimated total for suicide from general population
+
     # merge another col with 18+ population if by race or by sex
     if breakdown != std_col.AGE_COL:
         breakdown_df, pop_18plus_col = merge_intersectional_pop(
@@ -249,6 +251,28 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
         # add 18+ column to TIME_MAP
         if pop_18plus_col not in TIME_MAP[CURRENT]:
             TIME_MAP[CURRENT].append(pop_18plus_col)
+
+        breakdown_df = generate_estimated_total_col(
+            breakdown_df,
+            pop_18plus_col,
+            # topics that are 18+ only
+            {
+                'asthma_per_100k': 'asthma_estimated_total',
+                'avoided_care_pct_rate': 'avoided_care_estimated_total',
+                'cardiovascular_diseases_per_100k': 'cardiovascular_estimated_total',
+                'chronic_kidney_disease_per_100k': 'chronic_kidney_disease_estimated_total',
+                'copd_per_100k': 'copd_estimated_total',
+                'depression_per_100k': 'depression_estimated_total',
+                'diabetes_per_100k': 'diabetes_estimated_total',
+                'excessive_drinking_per_100k': 'excessive_drinking_estimated_total',
+                'frequent_mental_distress_per_100k': 'frequent_mental_distress_estimated_total',
+                'non_medical_drug_use_per_100k': 'non_medical_drug_use_estimated_total',
+                'preventable_hospitalizations_per_100k': 'preventable_hospitalizations_estimated_total',
+            },
+        )
+
+        print(breakdown_df.columns)
+        print(breakdown_df.to_string())
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(breakdown_df)
