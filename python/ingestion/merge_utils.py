@@ -2,7 +2,7 @@ import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
 
 from ingestion.constants import US_FIPS, US_NAME, US_ABBR, COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL, ALL_VALUE
-from typing import Literal, List, Union, Type
+from typing import Literal, List, Union, Type, Optional
 import os
 
 ACS_EARLIEST_YEAR = '2009'
@@ -220,7 +220,7 @@ def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'
     return df
 
 
-def _merge_pop(df, demo, loc, on_time_period: bool = None):
+def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
@@ -313,7 +313,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
     if std_col.STATE_FIPS_COL in df.columns:
         on_cols.append(std_col.STATE_FIPS_COL)
 
-    if loc == 'county':
+    if loc == COUNTY_LEVEL:
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
     if on_time_period:
@@ -328,9 +328,9 @@ def merge_intersectional_pop(
     df: pd.DataFrame,
     geo_level: Literal['national', 'state', 'county'],
     primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex', 'race'],
-    race_specific_group: str = None,
-    age_specific_group: str = None,
-    sex_specific_group: str = None,
+    race_specific_group: Optional[str] = None,
+    age_specific_group: Optional[str] = None,
+    sex_specific_group: Optional[str] = None,
 ) -> tuple[pd.DataFrame, str]:
     """
     Merges specific cross-section pop from ACS, for later use with dataset_utils.generate_estimated_total_col()
@@ -363,10 +363,10 @@ def merge_intersectional_pop(
 
     if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
-        geo_file = 'county'
+        geo_file = COUNTY_LEVEL
     if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
         pop_dtype[std_col.STATE_FIPS_COL] = str
-        geo_file = 'state'
+        geo_file = STATE_LEVEL
 
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_file}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)

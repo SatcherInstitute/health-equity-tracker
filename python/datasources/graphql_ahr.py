@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # type: ignore
 from datetime import datetime
 from typing import cast
 
@@ -14,8 +14,14 @@ from ingestion.graphql_ahr_utils import (
     AHR_BASE_MEASURES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )
-from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
+
+# pylint: disable=no-name-in-module
+from ingestion.merge_utils import (
+    merge_state_ids,
+    merge_yearly_pop_numbers,
+    merge_intersectional_pop,
+)
 
 AGE_GROUPS_TO_STANDARD = {
     'Ages 15-24': '15-24',
@@ -241,7 +247,7 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     # merge general population by primary demographic
     breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
 
-    # get estimated total for suicide from general population
+    # TODO: get estimated total for suicide from general population
 
     # merge another col with 18+ population if by race or by sex
     if breakdown != std_col.AGE_COL:
