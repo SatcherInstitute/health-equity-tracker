@@ -97,6 +97,7 @@ function LandingPage() {
 
   return (
     <>
+
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
@@ -104,6 +105,7 @@ function LandingPage() {
 
       <h2 className='sr-only'>Home Page</h2>
       {/* Refresh */}
+<<<<<<< HEAD
       <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16 min-h-5/6' >
         <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
@@ -129,6 +131,33 @@ function LandingPage() {
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
+=======
+      <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
+        <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35'>
+        </img>
+        <div className='relative lg:w-1/2 md:w-full sm:w-full'>
+          <div className='text-black text-left font-normal font-sm'>#HEALTHEQUITY
+
+            <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
+              <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
+            <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+              Browse our data catalog
+            </HetBigCTA >
+            <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
+              <p className='py-0 my-0 z-1'>Data sourced by major public health agencies
+              </p>
+            </div>
+          </div>
+          <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_census.png' alt='US Census logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_bjs.png' alt='BJS logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cawp.png' alt='CAWP logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_ahr.png' alt='AHR logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
+>>>>>>> 1a1887f9 (add new hero and update landing page headers)
 
           </div>
         </div>
@@ -137,7 +166,11 @@ function LandingPage() {
       {/* Refresh */}
 
       <div className='flex w-full flex-wrap items-center justify-center '>
+<<<<<<< HEAD
         <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
+=======
+        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-ashgray30 mx-auto my-0 w-full space-8 lg:space-24'>
+>>>>>>> 1a1887f9 (add new hero and update landing page headers)
 
           <img
             src='/img/graphics/banner.png'
@@ -146,11 +179,21 @@ function LandingPage() {
           />
 
           <div className='flex w-full flex-col justify-center items-center md:block sm:block'>
+<<<<<<< HEAD
             <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center'>
               Advancing Health Justice
             </h2>
 
             <p className='lg:text-left lg:text-title mt-4 mb-16 text-title'>
+=======
+            <h3
+              id='main'
+              className='mb-4 mt-0 pb-4 pt-12 text-header font-sansTitle font-bold text-altGreen leading-lhModalHeading lg:text-left lg:text-bigHeader'
+            >
+              Advancing Health Justice
+            </h3>
+            <p className='lg:text-left lg:text-title'>
+>>>>>>> 1a1887f9 (add new hero and update landing page headers)
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -209,10 +252,16 @@ function LandingPage() {
           </div>
         </div>
 
+<<<<<<< HEAD
         <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 bg-footerColor">
           <div className="w-full">
 
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
+=======
+        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-56 pb-32 pt-20'>
+          <div className='w-full'>
+            <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
+>>>>>>> 1a1887f9 (add new hero and update landing page headers)
               How do I use the Health Equity Tracker?
             </h3>
           </div>
@@ -242,6 +291,22 @@ function LandingPage() {
             </HetBigCTA>
           </div>
         </article>
+<<<<<<< HEAD
+=======
+
+        <aside className='flex w-full items-center justify-center px-8 pb-2.5 pt-24'>
+
+          <section>
+            <div className='w-full'>
+              <h3 className='mb-4 mt-8 font-sansTitle text-header text-altGreen'>
+                Sign up for our newsletter:
+              </h3>
+            </div>
+
+            <HetEmailSignup id='landing-email-signup' />
+          </section>
+        </aside>
+>>>>>>> 1a1887f9 (add new hero and update landing page headers)
       </div>
     </>
   )
