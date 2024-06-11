@@ -100,7 +100,6 @@ function LandingPage() {
 
   return (
     <>
-
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
@@ -109,6 +108,9 @@ function LandingPage() {
       <h2 className='sr-only'>Home Page</h2>
       {/* Refresh */}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9465dd5b (news section revisions)
       <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16 min-h-5/6' >
         <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
@@ -181,10 +183,14 @@ function LandingPage() {
 
       <div className='flex w-full flex-wrap items-center justify-center '>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
 =======
         <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-ashgray30 mx-auto my-0 w-full space-8 lg:space-24'>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
+=======
+        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
+>>>>>>> 9465dd5b (news section revisions)
 
           <img
             src='/img/graphics/banner.png'
@@ -272,6 +278,7 @@ function LandingPage() {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 bg-footerColor">
           <div className="w-full">
 
@@ -281,6 +288,9 @@ function LandingPage() {
 =======
         <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid p-24'>
 >>>>>>> 1e69bb24 (landing page revisions)
+=======
+        <article className='flex flex-wrap items-center justify-center py-24 px-56 md:px-32 sm:px-24 xs:px-16 bg-footerColor'>
+>>>>>>> 9465dd5b (news section revisions)
           <div className='w-full'>
             <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
@@ -288,6 +298,7 @@ function LandingPage() {
             </h3>
           </div>
 
+<<<<<<< HEAD
           <ul className="flex flex-col items-center justify-center p-0">
             <ListItem
               title="Take a Tour of the Data"
@@ -309,10 +320,117 @@ function LandingPage() {
 
 <<<<<<< HEAD
           <div className="mt-14">
+=======
+          <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white md:flex'>
+              <div className='w-full md:w-1/4'>
+                <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
+                  Take a Tour of the Data
+                </h4>
+                <p className='md:text-left'>
+                  New to the Health Equity Tracker? Watch a short video demo
+                  that highlights major features of the platform.
+                </p>
+              </div>
+              <div className='w-full md:w-2/3'>
+                <iframe
+                  className='w-full rounded-md'
+                  height='420px'
+                  src='https://www.youtube.com/embed/XBoqT9Jjc8w'
+                  title='YouTube video player'
+                  loading='lazy'
+                  allow='accelerometer; autoplay; clipboard-write;
+                encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </li>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
+                <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
+                  Search by completing the sentence
+                </h4>
+                <p className='md:text-left'>
+                  Select topics and locations you’re interested in to complete
+                  the sentence and explore the data.
+                </p>
+              </div>
+              <div className='w-full md:w-2/3'>
+                <LazyLoad offset={300} once>
+                  <video
+                    autoPlay={!prefersReducedMotion}
+                    loop
+                    muted
+                    playsInline
+                    className='h-full w-full p-2.5'
+                  >
+                    <source src='videos/search-by.mp4' type='video/mp4' />
+                  </video>
+                </LazyLoad>
+              </div>
+            </li>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
+                <div>
+                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
+                    Use filters to go deeper
+                  </h4>
+                  <p className='md:text-left'>
+                    Where available, the tracker offers breakdowns by race and
+                    ethnicity, sex, and age.
+                  </p>
+                </div>
+              </div>
+              <div className='w-full md:w-2/3'>
+                <LazyLoad offset={300} once>
+                  <video
+                    autoPlay={!prefersReducedMotion}
+                    loop
+                    muted
+                    playsInline
+                    className='h-full w-full p-2.5'
+                  >
+                    <source src='videos/filters.mp4' />
+                  </video>
+                </LazyLoad>
+              </div>
+            </li>
+            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
+                <div>
+                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
+                    Explore maps and graphs
+                  </h4>
+                  <p className='md:text-left'>
+                    The interactive maps and graphs are a great way to
+                    investigate the data more closely. If a state or county is
+                    gray, that means there’s no data currently available.
+                  </p>
+                </div>
+              </div>
+              <div className='w-full md:w-2/3'>
+                <LazyLoad offset={300} once>
+                  <video
+                    autoPlay={!prefersReducedMotion}
+                    loop
+                    muted
+                    playsInline
+                    className='h-full w-full p-2.5'
+                  >
+                    <source src='videos/explore-map.mp4' />
+                  </video>
+                </LazyLoad>
+              </div>
+            </li>
+          </ul>
+
+          <div className='mt-14'>
+>>>>>>> 9465dd5b (news section revisions)
             <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
             </HetBigCTA>
           </div>
+<<<<<<< HEAD
         </article>
 <<<<<<< HEAD
 =======
@@ -340,6 +458,9 @@ function LandingPage() {
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
 =======
 >>>>>>> 1e69bb24 (landing page revisions)
+=======
+        </article>
+>>>>>>> 9465dd5b (news section revisions)
       </div>
     </>
   )
