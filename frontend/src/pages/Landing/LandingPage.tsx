@@ -133,7 +133,7 @@ function LandingPage() {
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
 =======
       <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
-        <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35'>
+        <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
         <div className='relative lg:w-1/2 md:w-full sm:w-full'>
           <div className='text-black text-left font-normal font-sm'>#HEALTHEQUITY
@@ -141,14 +141,15 @@ function LandingPage() {
             <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
               <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
             <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
-              Browse our data catalog
+              Explore the data
             </HetBigCTA >
             <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
-              <p className='py-0 my-0 z-1'>Data sourced by major public health agencies
+              <p className='py-0 my-0 z-1'>Data sourced from major public health agencies
               </p>
             </div>
           </div>
           <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
+<<<<<<< HEAD
             <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_census.png' alt='US Census logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_bjs.png' alt='BJS logo'></img></div>
@@ -158,6 +159,16 @@ function LandingPage() {
             <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
+=======
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_census.png' alt='US Census logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_bjs.png' alt='BJS logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cawp.png' alt='CAWP logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_ahr.png' alt='AHR logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
+>>>>>>> 1e69bb24 (landing page revisions)
 
           </div>
         </div>
@@ -253,12 +264,16 @@ function LandingPage() {
         </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 bg-footerColor">
           <div className="w-full">
 
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
 =======
         <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-56 pb-32 pt-20'>
+=======
+        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid p-24'>
+>>>>>>> 1e69bb24 (landing page revisions)
           <div className='w-full'>
             <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
@@ -285,6 +300,7 @@ function LandingPage() {
               videoSrc="videos/explore-map.mp4" iframeSrc={undefined} />
           </ul>
 
+<<<<<<< HEAD
           <div className="mt-14">
             <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
@@ -293,9 +309,17 @@ function LandingPage() {
         </article>
 <<<<<<< HEAD
 =======
+=======
+        </article>
+        <div className='mt-14'>
+          <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
+            Explore the data
+          </HetBigCTA>
+        </div>
+>>>>>>> 1e69bb24 (landing page revisions)
 
-        <aside className='flex w-full items-center justify-center px-8 pb-2.5 pt-24'>
 
+<<<<<<< HEAD
           <section>
             <div className='w-full'>
               <h3 className='mb-4 mt-8 font-sansTitle text-header text-altGreen'>
@@ -307,6 +331,8 @@ function LandingPage() {
           </section>
         </aside>
 >>>>>>> 1a1887f9 (add new hero and update landing page headers)
+=======
+>>>>>>> 1e69bb24 (landing page revisions)
       </div>
     </>
   )
