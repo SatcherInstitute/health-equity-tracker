@@ -37,6 +37,54 @@ function LandingPage() {
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
+  interface ListItemProps {
+    title: string;
+    description: string;
+    videoSrc?: string;
+    iframeSrc?: string;
+  }
+
+  function ListItem({ title, description, videoSrc, iframeSrc }: ListItemProps) {
+    return (
+
+      <li className="mt-8 py-16 px-8 sm:p-8 xs:py-2 xs:px-4 w-full list-none flex items-center justify-around rounded-xl border border-altGrey bg-white md:flex sm:block xs:block">
+        <div className="w-full md:w-1/4">
+          <h4 className="font-sansTitle text-smallestHeader xs:text-title font-medium md:text-left my-2">
+            {title}
+          </h4>
+          <p className="md:text-left mb-8 sm:text-small xs:text-small">
+            {description}
+          </p>
+        </div>
+        <div className="w-full md:w-2/3 ">
+          {iframeSrc ? (
+            <iframe
+              className="w-full rounded-md"
+              height="420px"
+              src={iframeSrc}
+              title="YouTube video player"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          ) : (
+            <LazyLoad offset={300} once>
+              <video
+                autoPlay={!prefersReducedMotion}
+                loop
+                muted
+                playsInline
+                className="h-full w-full p-2.5"
+              >
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+            </LazyLoad>
+          )}
+        </div>
+      </li>
+    );
+  };
+
 
   return (
     <>
@@ -89,13 +137,11 @@ function LandingPage() {
           />
 
           <div className='flex w-full flex-col justify-center items-center md:block sm:block'>
-            <h3
-              id='main'
-              className='mb-4 mt-0 pb-4 pt-12 text-header font-sansTitle font-bold text-altGreen leading-lhModalHeading lg:text-left lg:text-bigHeader'
-            >
+            <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center'>
               Advancing Health Justice
-            </h3>
-            <p className='lg:text-left lg:text-title'>
+            </h2>
+
+            <p className='lg:text-left lg:text-title mt-4 mb-16 text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -115,7 +161,7 @@ function LandingPage() {
             </h3>
           </div>
           <div className='w-full'>
-            <p className='mt-4 pb-16 text-title'>
+            <p className='mt-4 mb-16 text-text'>
               Stories and updates from Morehouse School of Medicine and beyond
             </p>
           </div>
@@ -154,117 +200,34 @@ function LandingPage() {
           </div>
         </div>
 
-        <article className='flex flex-wrap items-center justify-center py-24 px-56 md:px-32 sm:px-24 xs:px-16 bg-footerColor'>
-          <div className='w-full'>
-            <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
+        <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 bg-footerColor">
+          <div className="w-full">
+
+            <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
               How do I use the Health Equity Tracker?
             </h3>
           </div>
 
-          <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white md:flex'>
-              <div className='w-full md:w-1/4'>
-                <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
-                  Take a Tour of the Data
-                </h4>
-                <p className='md:text-left'>
-                  New to the Health Equity Tracker? Watch a short video demo
-                  that highlights major features of the platform.
-                </p>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <iframe
-                  className='w-full rounded-md'
-                  height='420px'
-                  src='https://www.youtube.com/embed/XBoqT9Jjc8w'
-                  title='YouTube video player'
-                  loading='lazy'
-                  allow='accelerometer; autoplay; clipboard-write;
-                encrypted-media; gyroscope; picture-in-picture'
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </li>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
-              <div className='w-full md:w-1/4'>
-                <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
-                  Search by completing the sentence
-                </h4>
-                <p className='md:text-left'>
-                  Select topics and locations you’re interested in to complete
-                  the sentence and explore the data.
-                </p>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <LazyLoad offset={300} once>
-                  <video
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    muted
-                    playsInline
-                    className='h-full w-full p-2.5'
-                  >
-                    <source src='videos/search-by.mp4' type='video/mp4' />
-                  </video>
-                </LazyLoad>
-              </div>
-            </li>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
-              <div className='w-full md:w-1/4'>
-                <div>
-                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
-                    Use filters to go deeper
-                  </h4>
-                  <p className='md:text-left'>
-                    Where available, the tracker offers breakdowns by race and
-                    ethnicity, sex, and age.
-                  </p>
-                </div>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <LazyLoad offset={300} once>
-                  <video
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    muted
-                    playsInline
-                    className='h-full w-full p-2.5'
-                  >
-                    <source src='videos/filters.mp4' />
-                  </video>
-                </LazyLoad>
-              </div>
-            </li>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
-              <div className='w-full md:w-1/4'>
-                <div>
-                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
-                    Explore maps and graphs
-                  </h4>
-                  <p className='md:text-left'>
-                    The interactive maps and graphs are a great way to
-                    investigate the data more closely. If a state or county is
-                    gray, that means there’s no data currently available.
-                  </p>
-                </div>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <LazyLoad offset={300} once>
-                  <video
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    muted
-                    playsInline
-                    className='h-full w-full p-2.5'
-                  >
-                    <source src='videos/explore-map.mp4' />
-                  </video>
-                </LazyLoad>
-              </div>
-            </li>
+          <ul className="flex flex-col items-center justify-center p-0">
+            <ListItem
+              title="Take a Tour of the Data"
+              description="New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform."
+              iframeSrc="https://www.youtube.com/embed/XBoqT9Jjc8w" videoSrc={undefined} />
+            <ListItem
+              title="Search by completing the sentence"
+              description="Select topics and locations you’re interested in to complete the sentence and explore the data."
+              videoSrc="videos/search-by.mp4" iframeSrc={undefined} />
+            <ListItem
+              title="Use filters to go deeper"
+              description="Where available, the tracker offers breakdowns by race and ethnicity, sex, and age."
+              videoSrc="videos/filters.mp4" iframeSrc={undefined} />
+            <ListItem
+              title="Explore maps and graphs"
+              description="The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there’s no data currently available."
+              videoSrc="videos/explore-map.mp4" iframeSrc={undefined} />
           </ul>
 
-          <div className='mt-14'>
+          <div className="mt-14">
             <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
             </HetBigCTA>
