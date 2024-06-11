@@ -33,7 +33,7 @@ google-auth==2.29.0
     #   google-cloud-storage
 google-cloud==0.34.0
     # via -r requirements.in
-google-cloud-bigquery==3.23.1
+google-cloud-bigquery==3.24.0
     # via -r requirements.in
 google-cloud-core==2.4.1
     # via
