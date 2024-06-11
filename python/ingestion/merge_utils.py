@@ -2,7 +2,7 @@ import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
 
 from ingestion.constants import US_FIPS, US_NAME, US_ABBR, COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL, ALL_VALUE
-from typing import Literal, List, Union, Type
+from typing import Literal, List, Union, Type, Optional
 import os
 
 ACS_EARLIEST_YEAR = '2009'
@@ -220,7 +220,7 @@ def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'
     return df
 
 
-def _merge_pop(df, demo, loc, on_time_period: bool = None):
+def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     on_col_map = {
         'age': std_col.AGE_COL,
         'race': std_col.RACE_CATEGORY_ID_COL,
@@ -313,7 +313,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
     if std_col.STATE_FIPS_COL in df.columns:
         on_cols.append(std_col.STATE_FIPS_COL)
 
-    if loc == 'county':
+    if loc == COUNTY_LEVEL:
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
     if on_time_period:
@@ -326,11 +326,11 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
 
 def merge_intersectional_pop(
     df: pd.DataFrame,
-    geo_level: Literal['state', 'county'],
-    primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex'],
-    race_specific_group: str = None,
-    age_specific_group: str = None,
-    sex_specific_group: str = None,
+    geo_level: Literal['national', 'state', 'county'],
+    primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex', 'race'],
+    race_specific_group: Optional[str] = None,
+    age_specific_group: Optional[str] = None,
+    sex_specific_group: Optional[str] = None,
 ) -> tuple[pd.DataFrame, str]:
     """
     Merges specific cross-section pop from ACS, for later use with dataset_utils.generate_estimated_total_col()
@@ -352,17 +352,27 @@ def merge_intersectional_pop(
     - tuple containing the merged DataFrame and the string name of the added intersectional population column.
     """
 
+    if primary_demo_col == std_col.RACE_COL:
+        primary_demo_col = 'race_and_ethnicity'
+
     pop_dtype: dict[str, Union[Type[float], Type[str]]] = {
         std_col.POPULATION_COL: float,
     }
 
+    geo_file = ''
+
     if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
-    if geo_level == STATE_LEVEL:
+        geo_file = COUNTY_LEVEL
+    if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
         pop_dtype[std_col.STATE_FIPS_COL] = str
+        geo_file = STATE_LEVEL
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_level}.csv')
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_file}.csv')
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
+
+    if geo_level == NATIONAL_LEVEL:
+        pop_df = sum_states_to_national(pop_df)
 
     # the primary demographic breakdown can't use a specific group
     if primary_demo_col == 'race_and_ethnicity' and race_specific_group:
@@ -435,6 +445,37 @@ def merge_intersectional_pop(
     df = df.merge(pop_df, on=merge_cols, how='left')
 
     return (df, pop_col)
+
+
+def sum_states_to_national(pop_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Sums rows from each race across all states together to generate new rows for national level
+
+    Parameters:
+    - pop_df: The DataFrame to be processed.
+
+    Returns:
+    - A DataFrame with the same columns as the state level df, summed across states to a national level
+    """
+
+    pop_df = pop_df.copy()
+    groupby_cols = [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL, std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
+
+    # add pop from all states together per race/sex/age combination
+    pop_df = (
+        pop_df.groupby(
+            groupby_cols,
+            as_index=False,
+        )[std_col.POPULATION_COL]
+        .sum()
+        .reset_index(drop=True)
+    )
+
+    # Fill in the new geo cols
+    pop_df[std_col.STATE_FIPS_COL] = US_FIPS
+    pop_df[std_col.STATE_NAME_COL] = US_NAME
+
+    return pop_df
 
 
 def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFrame:
