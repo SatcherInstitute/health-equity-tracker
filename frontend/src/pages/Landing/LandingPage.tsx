@@ -40,30 +40,63 @@ function LandingPage() {
 
   return (
     <>
+
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
 
       <h2 className='sr-only'>Home Page</h2>
-      <div className='m-auto flex w-full max-w-lgXl flex-wrap justify-center'>
-        <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid pb-8 pt-4'>
-          <div className='flex w-full flex-col items-center px-12 py-4 md:w-7/12'>
+      {/* Refresh */}
+      <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
+        <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35'>
+        </img>
+        <div className='relative lg:w-1/2 md:w-full sm:w-full'>
+          <div className='text-black text-left font-normal font-sm'>#HEALTHEQUITY
+
+            <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
+              <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
+            <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+              Browse our data catalog
+            </HetBigCTA >
+            <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
+              <p className='py-0 my-0 z-1'>Data sourced by major public health agencies
+              </p>
+            </div>
+          </div>
+          <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_census.png' alt='US Census logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_bjs.png' alt='BJS logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cawp.png' alt='CAWP logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_ahr.png' alt='AHR logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
+            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
+
+          </div>
+        </div>
+
+      </section>
+      {/* Refresh */}
+
+      <div className='flex w-full flex-wrap items-center justify-center '>
+        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-ashgray30 mx-auto my-0 w-full space-8 lg:space-24'>
+
+          <img
+            src='/img/graphics/banner.png'
+            className='md:w-2/5 w-full'
+            alt='phone and laptop mockups displaying the health equity tracker'
+          />
+
+          <div className='flex w-full flex-col justify-center items-center md:block sm:block'>
             <h3
               id='main'
-              className='
-              mb-4 mt-0
-              pb-4 pt-12
-              font-serif
-              text-header font-light
-              leading-lhModalHeading
-              text-altGreen
-              lg:text-left
-              lg:text-bigHeader'
+              className='mb-4 mt-0 pb-4 pt-12 text-header font-sansTitle font-bold text-altGreen leading-lhModalHeading lg:text-left lg:text-bigHeader'
             >
               Advancing Health Justice
             </h3>
-            <p className='mt-0 max-w-sm text-left lg:text-title'>
+            <p className='lg:text-left lg:text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -72,25 +105,13 @@ function LandingPage() {
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
             </p>
-            <div className=' my-5 '>
-              <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
-                Explore the data
-              </HetBigCTA>
-            </div>
-          </div>
-          <div className='hidden w-full border-0 border-solid px-12 py-4 tiny:block md:w-5/12 md:border-l'>
-            {/* image is actually rounded */}
-            <img
-              src='/img/stock/family-laughing.png'
-              className='h-auto max-h-tiny w-full max-w-sm rounded-xl	object-cover p-2.5'
-              alt=''
-            />
+
           </div>
         </div>
 
         <div className='flex flex-wrap border-0 border-b border-solid px-8 py-20'>
           <div className='w-full'>
-            <h3 className='m-0 font-serif text-header font-light leading-lhModalHeading text-altGreen'>
+            <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
               Recent news
             </h3>
           </div>
@@ -130,9 +151,9 @@ function LandingPage() {
           </div>
         </div>
 
-        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-8 pb-32 pt-20'>
+        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-56 pb-32 pt-20'>
           <div className='w-full'>
-            <h3 className='m-0 pb-16 text-center font-serif text-header font-light text-altGreen'>
+            <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
               How do I use the Health Equity Tracker?
             </h3>
           </div>
@@ -248,9 +269,10 @@ function LandingPage() {
         </article>
 
         <aside className='flex w-full items-center justify-center px-8 pb-2.5 pt-24'>
+
           <section>
             <div className='w-full'>
-              <h3 className='mb-4 mt-8 font-serif text-header font-light text-altGreen'>
+              <h3 className='mb-4 mt-8 font-sansTitle text-header text-altGreen'>
                 Sign up for our newsletter:
               </h3>
             </div>
