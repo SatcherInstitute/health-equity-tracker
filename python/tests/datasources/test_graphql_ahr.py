@@ -1,11 +1,10 @@
 import json
 import os
-import pandas as pd
-
-from datasources.graphql_ahr import GraphQlAHRData
-from ingestion.constants import AGE, CURRENT, NATIONAL_LEVEL, SEX, STATE_LEVEL
-from ingestion.standardized_columns import RACE_OR_HISPANIC_COL, STATE_FIPS_COL
-from pandas._testing import assert_frame_equal
+import pandas as pd  # type: ignore
+from pandas._testing import assert_frame_equal  # type: ignore
+from datasources.graphql_ahr import GraphQlAHRData  # type: ignore
+from ingestion.constants import AGE, CURRENT, NATIONAL_LEVEL, SEX, STATE_LEVEL  # type: ignore
+from ingestion.standardized_columns import RACE_OR_HISPANIC_COL, STATE_FIPS_COL  # type: ignore
 from unittest import mock
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))

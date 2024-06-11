@@ -72,7 +72,26 @@ PER_100K_TOPICS = [
 PCT_RATE_MAP = generate_cols_map(PCT_RATE_TOPICS, std_col.PCT_RATE_SUFFIX)
 PER_100K_MAP = generate_cols_map(PER_100K_TOPICS, std_col.PER_100K_SUFFIX)
 
-TIME_MAP = {CURRENT: list(AHR_BASE_MEASURES.values()) + [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]}
+TIME_MAP = {
+    CURRENT: list(AHR_BASE_MEASURES.values())
+    + [
+        std_col.POPULATION_COL,
+        std_col.POPULATION_PCT_COL,
+        # all ages
+        # 'suicide_estimated_total',
+        # 18+
+        # 'asthma_estimated_total',
+        # 'avoided_care_estimated_total',
+        # 'cardiovascular_estimated_total',
+        # 'chronic_kidney_disease_estimated_total',
+        # 'copd_estimated_total',
+        # 'depression_estimated_total',
+        # 'diabetes_estimated_total',
+        # 'excessive_drinking_estimated_total',
+        # 'frequent_mental_distress_estimated_total',
+        # 'non_medical_drug_use_estimated_total',
+    ]
+}
 
 
 class GraphQlAHRData(DataSource):
@@ -232,6 +251,7 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     - Sorts the DataFrame by state FIPS code and time period in descending order.
     - Converts the 'Time Period' column to datetime and filters data up to the year 2021.
     """
+
     breakdown_df = df.copy()
 
     if breakdown == std_col.AGE_COL:
@@ -247,7 +267,10 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
     # merge general population by primary demographic
     breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
 
-    # TODO: get estimated total for suicide from general population
+    # suicide is all ages
+    breakdown_df = generate_estimated_total_col(
+        breakdown_df, std_col.POPULATION_COL, {'suicide_per_100k': 'suicide_estimated_total'}
+    )
 
     # merge another col with 18+ population if by race or by sex
     if breakdown != std_col.AGE_COL:
@@ -273,12 +296,27 @@ def post_process(df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_T
                 'excessive_drinking_per_100k': 'excessive_drinking_estimated_total',
                 'frequent_mental_distress_per_100k': 'frequent_mental_distress_estimated_total',
                 'non_medical_drug_use_per_100k': 'non_medical_drug_use_estimated_total',
-                'preventable_hospitalizations_per_100k': 'preventable_hospitalizations_estimated_total',
             },
         )
 
-        print(breakdown_df.columns)
-        print(breakdown_df.to_string())
+        for est_total_col in [
+            'asthma_estimated_total',
+            'avoided_care_estimated_total',
+            'cardiovascular_estimated_total',
+            'chronic_kidney_disease_estimated_total',
+            'copd_estimated_total',
+            'depression_estimated_total',
+            'diabetes_estimated_total',
+            'excessive_drinking_estimated_total',
+            'frequent_mental_distress_estimated_total',
+            'non_medical_drug_use_estimated_total',
+            # ,
+        ]:
+            if est_total_col not in TIME_MAP[CURRENT]:
+                TIME_MAP[CURRENT].append(est_total_col)
+
+    if 'suicide_estimated_total' not in TIME_MAP[CURRENT]:
+        TIME_MAP[CURRENT].append('suicide_estimated_total')
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(breakdown_df)
