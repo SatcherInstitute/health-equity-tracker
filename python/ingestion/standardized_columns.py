@@ -446,4 +446,4 @@ def extract_prefix(col_name: str) -> str:
             prefix = col_name[: -len(underscore_suffix)]
             return prefix
 
-    raise ValueError(f"Column {col_name} does not contain a standard suffix")
+    raise ValueError(f"Column {col_name} does not contain a standard suffix from {SUFFIXES}")
