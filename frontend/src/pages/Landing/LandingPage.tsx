@@ -61,6 +61,9 @@ function LandingPage() {
             {description}
           </p>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ec2c9b65 (add CTA to take a guided tour within how-to boxes)
           <div className='flex items-center justify-start p-0 m-0  hover:translate-x-1 hover:transition-transform hover:duration-300 '>
             <a
               href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}
@@ -69,8 +72,11 @@ function LandingPage() {
               <p className='mr-2 p-0 my-0'> Take a guided tour</p> <ArrowRightAlt />
             </a>
           </div>
+<<<<<<< HEAD
 =======
 >>>>>>> 464c16be (how to use revisions)
+=======
+>>>>>>> ec2c9b65 (add CTA to take a guided tour within how-to boxes)
         </div>
         <div className="w-full md:w-2/3 ">
           {iframeSrc ? (
