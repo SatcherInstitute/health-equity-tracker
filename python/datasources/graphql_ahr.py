@@ -99,6 +99,11 @@ RAW_TO_SHARE_ALL_AGES_MAP = {
     for rate_col in AHR_MEASURES_TO_RATES_MAP_ALL_AGES.values()
 }
 
+RAW_TO_SHARE_18PLUS_MAP = {
+    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    for rate_col in AHR_MEASURES_TO_RATES_MAP_18PLUS.values()
+}
+
 
 class GraphQlAHRData(DataSource):
     def __init__(self) -> None:
@@ -178,17 +183,16 @@ class GraphQlAHRData(DataSource):
         # merge general population by primary demographic
         breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
 
-        # suicide is all ages
+        # all ages counts
         breakdown_df = generate_estimated_total_col(breakdown_df, std_col.POPULATION_COL, RATE_TO_RAW_ALL_AGES_MAP)
 
         if demographic in [std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL]:
             std_col.add_race_columns_from_category_id(breakdown_df)
 
+        # all ages share cols
         breakdown_df = generate_pct_share_col_of_summed_alls(
             breakdown_df, RAW_TO_SHARE_ALL_AGES_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
         )
-
-        # print("cols", breakdown_df.columns)
 
         # merge another col with 18+ population if by race or by sex
         if demographic != std_col.AGE_COL:
@@ -196,8 +200,6 @@ class GraphQlAHRData(DataSource):
             breakdown_df, pop_18plus_col = merge_intersectional_pop(
                 breakdown_df, geo_level, demographic, age_specific_group='18+'
             )
-
-            # print("cols", breakdown_df.columns)
 
             breakdown_df = generate_estimated_total_col(
                 breakdown_df,
@@ -208,6 +210,11 @@ class GraphQlAHRData(DataSource):
 
             # save the generated intersectional population column for later use writing to bq
             self.intersectional_pop_cols.append(pop_18plus_col)
+
+            # share cols for 18+
+            breakdown_df = generate_pct_share_col_of_summed_alls(
+                breakdown_df, RAW_TO_SHARE_18PLUS_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
+            )
 
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
@@ -376,11 +383,11 @@ def get_float_cols(
         float_cols.extend(list(RATE_TO_RAW_ALL_AGES_MAP.values()))
         float_cols.extend(list(RAW_TO_SHARE_ALL_AGES_MAP.values()))
 
-        # race/sex get age 18+ topic counts
+        # race/sex get age 18+ pop, topic counts, and shares
         if demo_col != std_col.AGE_COL:
             float_cols.extend(intersectional_pop_cols)
             float_cols.extend(list(RATE_TO_RAW_18PLUS_MAP.values()))
-            # TODO: add pct_share cols for 18+ age topics
+            float_cols.extend(list(RAW_TO_SHARE_18PLUS_MAP.values()))
 
     # TODO: historical tables will get pct_relative_inequity cols
 
