@@ -1,13 +1,13 @@
-state_name,state_fips,age,voter_participation_pct_rate,asthma_per_100k,avoided_care_pct_rate,cardiovascular_diseases_per_100k,chronic_kidney_disease_per_100k,copd_per_100k,depression_per_100k,diabetes_per_100k,excessive_drinking_per_100k,frequent_mental_distress_per_100k,preventable_hospitalizations_per_100k,non_medical_drug_use_per_100k,suicide_per_100k,population,population_pct,suicide_estimated_total
-United States,00,45-64,,10100.0,9.6,9100.0,3200.0,7700.0,19100.0,15100.0,15100.0,13500.0,,,,85333288.0,25.6,
-United States,00,15-24,,,,,,,,,,,,,15.2,43666116.0,13.1,6637.0
-United States,00,18-44,,9900.0,13.1,1900.0,1100.0,2700.0,22200.0,3400.0,23200.0,18400.0,,,,119279569.0,35.8,
-United States,00,24-34,,,,,,,,,,,,,19.5,,,
-United States,00,35-44,,,,,,,,,,,,,18.1,42845441.0,12.9,7755.0
-United States,00,45-54,,,,,,,,,,,,,18.2,42062109.0,12.6,7655.0
-United States,00,55-64,,,,,,,,,,,,,17.0,43271179.0,13.0,7356.0
-United States,00,65+,,8600.0,3.4,20600.0,7100.0,12300.0,14600.0,22600.0,7000.0,8500.0,,,16.9,53592546.0,16.1,9057.0
-United States,00,65-74,,,,,,,,,,,,,15.3,31968856.0,9.6,4891.0
-United States,00,75-84,,,,,,,,,,,,,19.6,15235011.0,4.6,2986.0
-United States,00,85+,,,,,,,,,,,,,22.4,6388679.0,1.9,1431.0
-United States,00,All,,9800.0,8.8,8000.0,3000.0,6200.0,20500.0,10900.0,17300.0,14700.0,2681.0,12.0,14.5,333036755.0,100.0,48290.0
+state_name,state_fips,age,asthma_per_100k,avoided_care_pct_rate,cardiovascular_diseases_per_100k,chronic_kidney_disease_per_100k,copd_per_100k,depression_per_100k,diabetes_per_100k,excessive_drinking_per_100k,frequent_mental_distress_per_100k,non_medical_drug_use_per_100k,voter_participation_pct_rate,preventable_hospitalizations_per_100k,suicide_per_100k,population,population_pct,suicide_estimated_total,suicide_pct_share
+United States,00,45-64,10100.0,9.6,9100.0,3200.0,7700.0,19100.0,15100.0,15100.0,13500.0,,,,,85333288.0,25.6,,
+United States,00,15-24,,,,,,,,,,,,,15.2,43666116.0,13.1,6637.0,0.8
+United States,00,18-44,9900.0,13.1,1900.0,1100.0,2700.0,22200.0,3400.0,23200.0,18400.0,,,,,119279569.0,35.8,,
+United States,00,24-34,,,,,,,,,,,,,19.5,,,,1.0
+United States,00,35-44,,,,,,,,,,,,,18.1,42845441.0,12.9,7755.0,0.9
+United States,00,45-54,,,,,,,,,,,,,18.2,42062109.0,12.6,7655.0,0.9
+United States,00,55-64,,,,,,,,,,,,,17.0,43271179.0,13.0,7356.0,0.9
+United States,00,65+,8600.0,3.4,20600.0,7100.0,12300.0,14600.0,22600.0,7000.0,8500.0,,,,16.9,53592546.0,16.1,9057.0,0.9
+United States,00,65-74,,,,,,,,,,,,,15.3,31968856.0,9.6,4891.0,0.8
+United States,00,75-84,,,,,,,,,,,,,19.6,15235011.0,4.6,2986.0,1.0
+United States,00,85+,,,,,,,,,,,,,22.4,6388679.0,1.9,1431.0,1.2
+United States,00,All,9800.0,8.8,8000.0,3000.0,6200.0,20500.0,10900.0,17300.0,14700.0,12.0,,2681.0,1917.6,333036755.0,100.0,48290.0,100.0

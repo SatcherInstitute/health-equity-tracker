@@ -7,7 +7,11 @@ from ingestion import gcs_to_bq_util
 
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
-from ingestion.dataset_utils import generate_time_df_with_cols_and_types, generate_estimated_total_col
+from ingestion.dataset_utils import (
+    generate_time_df_with_cols_and_types,
+    generate_estimated_total_col,
+    generate_pct_share_col_of_summed_alls,
+)
 from ingestion.graphql_ahr_utils import (
     generate_cols_map,
     fetch_ahr_data_from_graphql,
@@ -16,7 +20,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )  # type: ignore
-from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
+from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
 
 # pylint: disable=no-name-in-module
 from ingestion.merge_utils import (
@@ -90,6 +94,11 @@ RATE_TO_RAW_ALL_AGES_MAP = {
     for rate_col in AHR_MEASURES_TO_RATES_MAP_ALL_AGES.values()
 }
 
+RAW_TO_SHARE_ALL_AGES_MAP = {
+    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    for rate_col in AHR_MEASURES_TO_RATES_MAP_ALL_AGES.values()
+}
+
 
 class GraphQlAHRData(DataSource):
     def __init__(self) -> None:
@@ -116,6 +125,7 @@ class GraphQlAHRData(DataSource):
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
             float_cols = get_float_cols(table_type, demographic, self.intersectional_pop_cols)
+            # print("cols before generate_time_df_with_cols_and_types", df.columns)
             df_for_bq, col_types = generate_time_df_with_cols_and_types(df, float_cols, table_type, demographic)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
@@ -129,13 +139,13 @@ class GraphQlAHRData(DataSource):
 
         return breakdown_df
 
-    def post_process(self, df: pd.DataFrame, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_TYPE):
+    def post_process(self, df: pd.DataFrame, demographic: DEMOGRAPHIC_TYPE, geo_level: GEO_TYPE):
         """
         Post-processes a DataFrame containing demographic data.
 
         Args:
         - df (pd.DataFrame): The DataFrame containing the raw demographic data.
-        - breakdown_col (DEMOGRAPHIC_TYPE): The type of demographic breakdown to be standardized.
+        - breakdown_col (DEMOGRAPHIC_TYPE): The type of demographic to be standardized.
         - geo_level (GEO_TYPE): The geographic level of the data.
 
         Returns:
@@ -144,24 +154,25 @@ class GraphQlAHRData(DataSource):
         This function performs the following steps:
         - Standardizes demographic breakdowns based on the specified demographic type.
         - Merges state IDs with the DataFrame.
-        - Merges yearly population numbers based on the demographic breakdown and geographic level.
+        - Merges yearly population numbers based on the demographic and geographic level.
         - Merges intersection population col for adult populations for race and sex breakdowns.
         - Adds estimated total columns based on specified mappings.
-        - TODO: Generates percentage share columns without unknowns based on specified mappings.
-        - TODO: Drops the 'Population' column from the DataFrame.
+        - Generates percentage share (of summed groups) columns.
         - Sorts the DataFrame by state FIPS code and time period in descending order.
         - Converts the 'Time Period' column to datetime and filters data up to the year 2021.
         """
 
         breakdown_df = df.copy()
 
-        if breakdown == std_col.AGE_COL:
+        if demographic == std_col.AGE_COL:
             breakdown_df = breakdown_df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        if demographic == std_col.RACE_OR_HISPANIC_COL:
             breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
             breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
 
-        pop_breakdown = std_col.RACE_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
+        pop_breakdown = std_col.RACE_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+        share_demo = std_col.RACE_OR_HISPANIC_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+
         breakdown_df = merge_state_ids(breakdown_df)
 
         # merge general population by primary demographic
@@ -170,11 +181,23 @@ class GraphQlAHRData(DataSource):
         # suicide is all ages
         breakdown_df = generate_estimated_total_col(breakdown_df, std_col.POPULATION_COL, RATE_TO_RAW_ALL_AGES_MAP)
 
+        if demographic in [std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL]:
+            std_col.add_race_columns_from_category_id(breakdown_df)
+
+        breakdown_df = generate_pct_share_col_of_summed_alls(
+            breakdown_df, RAW_TO_SHARE_ALL_AGES_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
+        )
+
+        # print("cols", breakdown_df.columns)
+
         # merge another col with 18+ population if by race or by sex
-        if breakdown != std_col.AGE_COL:
+        if demographic != std_col.AGE_COL:
+
             breakdown_df, pop_18plus_col = merge_intersectional_pop(
-                breakdown_df, geo_level, breakdown, age_specific_group='18+'
+                breakdown_df, geo_level, demographic, age_specific_group='18+'
             )
+
+            # print("cols", breakdown_df.columns)
 
             breakdown_df = generate_estimated_total_col(
                 breakdown_df,
@@ -185,9 +208,6 @@ class GraphQlAHRData(DataSource):
 
             # save the generated intersectional population column for later use writing to bq
             self.intersectional_pop_cols.append(pop_18plus_col)
-
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(breakdown_df)
 
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
@@ -353,13 +373,14 @@ def get_float_cols(
             ]
         )
 
-        # all breakdowns get all ages counts
         float_cols.extend(list(RATE_TO_RAW_ALL_AGES_MAP.values()))
+        float_cols.extend(list(RAW_TO_SHARE_ALL_AGES_MAP.values()))
 
         # race/sex get age 18+ topic counts
         if demo_col != std_col.AGE_COL:
             float_cols.extend(intersectional_pop_cols)
             float_cols.extend(list(RATE_TO_RAW_18PLUS_MAP.values()))
+            # TODO: add pct_share cols for 18+ age topics
 
     # TODO: historical tables will get pct_relative_inequity cols
 

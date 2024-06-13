@@ -425,6 +425,8 @@ def merge_intersectional_pop(
 
     if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
         merge_cols.append(std_col.RACE_CATEGORY_ID_COL)
+        if std_col.RACE_OR_HISPANIC_COL in df.columns:
+            merge_cols.append(std_col.RACE_OR_HISPANIC_COL)
     else:
         merge_cols.append(primary_demo_col)
 
