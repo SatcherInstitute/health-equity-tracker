@@ -6,6 +6,7 @@ import {
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
+  WARM_WELCOME_DEMO_SETTING,
 } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
@@ -55,6 +56,14 @@ function LandingPage() {
           <p className="md:text-left mb-8 sm:text-small xs:text-small">
             {description}
           </p>
+          <div className='flex items-center justify-start p-0 m-0  hover:translate-x-1 hover:transition-transform hover:duration-300 '>
+            <a
+              href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}
+              className=' no-underline h-auto font-sansTitle text-small p-0 m-0 text-altGreen font-bold flex items-center justify-start'
+            >
+              <p className='mr-2 p-0 my-0'> Take a guided tour</p> <ArrowRightAlt />
+            </a>
+          </div>
         </div>
         <div className="w-full md:w-2/3 ">
           {iframeSrc ? (
