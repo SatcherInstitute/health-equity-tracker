@@ -1,10 +1,8 @@
-import pandas as pd  # type: ignore
+import pandas as pd
 from datetime import datetime
 from typing import cast, Literal, List
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import generate_time_df_with_cols_and_types, generate_estimated_total_col
@@ -15,10 +13,8 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_18PLUS,
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
-)  # type: ignore
+)
 from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
-
-# pylint: disable=no-name-in-module
 from ingestion.merge_utils import (
     merge_state_ids,
     merge_yearly_pop_numbers,
