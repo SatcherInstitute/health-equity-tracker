@@ -80,7 +80,7 @@ requests==2.32.0
     #   google-cloud-storage
 rsa==4.7
     # via google-auth
-urllib3==1.26.18
+urllib3==1.26.19
     # via requests
 werkzeug==3.0.3
     # via flask
