@@ -1,7 +1,6 @@
 import json
 import os
 import pandas as pd
-
 from datasources.graphql_ahr import GraphQlAHRData
 from ingestion.constants import AGE, CURRENT, NATIONAL_LEVEL, SEX, STATE_LEVEL
 from ingestion.standardized_columns import RACE_OR_HISPANIC_COL, STATE_FIPS_COL
