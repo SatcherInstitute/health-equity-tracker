@@ -89,7 +89,7 @@ export default function App() {
           <div className='relative min-h-full bg-white text-center'>
             <SkipLink />
 
-            <div className='h-full pb-footer'>
+            <div className='h-full'>
               <Router>
                 <HetAppBar />
                 <ScrollToTop />
