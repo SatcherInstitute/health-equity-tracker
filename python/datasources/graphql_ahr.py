@@ -1,10 +1,9 @@
-import pandas as pd  # type: ignore
+import pandas as pd
 from datetime import datetime
 from typing import cast, Literal, List
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
-
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import (
