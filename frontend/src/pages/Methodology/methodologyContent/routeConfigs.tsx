@@ -17,6 +17,7 @@ import {
 	METHODOLOGY_PAGE_LINK,
 	AGE_ADJUSTMENT_LINK,
 	LIMITATIONS_LINK,
+	COMMUNITY_SAFETY_LINK,
 } from '../../../utils/internalRoutes';
 import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink';
 import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink';
@@ -38,6 +39,7 @@ import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink';
 import GlossaryLink from '../methodologySections/GlossaryLink';
 import type { ReactNode } from 'react';
 import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions';
+import CommunitySafetyLink from '../methodologySections/CommunitySafetyLink';
 
 export type RouteConfig = {
 	isTopLevel?: boolean;
@@ -140,6 +142,16 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Data Sources', path: '#chronic-diseases-data-sources' },
 			{ label: 'Key Terms', path: '#chronic-diseases-key-terms' },
 		],
+	},
+	{
+		label: 'Community Safety',
+		path: COMMUNITY_SAFETY_LINK,
+		component: CommunitySafetyLink,
+		subLinks: [
+			{ label: 'Data Sourcing', path: '#community-safety-data-sourcing' },
+			{ label: 'Data Sources', path: '#community-safety-data-sources' },
+			{ label: 'Key Terms', path: '#community-safety-key-terms' },
+		]
 	},
 	{
 		label: 'COVID-19',

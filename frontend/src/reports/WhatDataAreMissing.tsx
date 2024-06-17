@@ -9,6 +9,7 @@ import {
   MissingPrepData,
   MissingPhrmaData,
   MissingIslandAreaPopulationData,
+  MissingWisqarsData,
 } from '../pages/Methodology/methodologyContent/missingDataBlurbs'
 import {
   type DropdownVarId,
@@ -43,6 +44,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
   const isPhrma = currentDropDownIds.some((condition) =>
     PHRMA_CONDITIONS.includes(condition)
   )
+  const isWisqars = currentDropDownIds.includes('gun_violence')
 
   return (
     <>
@@ -69,6 +71,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
       {isHivPrep && <MissingPrepData />}
       {isPhrma && <MissingPhrmaData />}
       {isAHR && <MissingAHRData />}
+      {isWisqars && <MissingWisqarsData />}
 
       <div className='mt-8 rounded-md bg-infobarColor px-2 py-1'>
         <p className='px-8 py-4 text-center'>
