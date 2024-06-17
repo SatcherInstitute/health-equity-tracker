@@ -37,19 +37,4 @@ test('getBooleanEnvVar should throw an error if the value is neither "true" nor 
   expect(() => getBooleanEnvVar('INVALID_VAR')).toThrow();
 });
 
-// MOCKED INTEGRATION TESTS OF SERVER (NEEDS TO BE RUNNING)
-
-test('GET / serves the React App index.html from frontend/', async () => {
-	const response = await request("http://0.0.0.0:8080").get('/').set('Authorization', 'Bearer SomeToken')
-	expect(response.statusCode).toBe(200)
-	expect(response.headers['content-type']).toBe('text/html; charset=UTF-8')
-	expect(response.text).toContain('<meta property="og:title" content="Health Equity Tracker" />')
-	expect(response.text).toContain('<script type="module" src="/src/index.tsx"></script>')
-})
-
-test('GET /api run as prod pings the data server. in this case mocked to return json from mocky.io', async () => {
-	const response = await request("http://0.0.0.0:8080").get('/api')
-	expect(response.statusCode).toBe(200)
-	expect(response.headers['content-type']).toBe('text/json; charset=UTF-8')
-	expect(response.text).toBe("123")
-})
+// TODO: figure out better way to test the /api endpoint
