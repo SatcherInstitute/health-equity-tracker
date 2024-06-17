@@ -6,7 +6,6 @@ import StripedTable from "../methodologyComponents/StripedTable"
 import { DATA_CATALOG_PAGE_LINK } from "../../../utils/internalRoutes"
 import { DATA_SOURCE_PRE_FILTERS } from "../../../utils/urlutils"
 import KeyTermsTopicsAccordion from "../methodologyComponents/KeyTermsTopicsAccordion"
-import { urlMap } from "../../../utils/externalUrls"
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
@@ -50,18 +49,21 @@ const CommunitySafetyLink = () => {
                     Data Sourcing
                 </h3>
                 <p>
-                    The CDC’s Web-based Injury Statistics Query and Reporting System (WISQARS) collects and provides data
-                    on gun deaths in the United States. This information is gathered from state and local injury surveillance
-                    programs and is used to understand the impact of firearm-related injuries across the country. WISQARS™ allows
-                    users to explore data by intent of injury, mechanism, geographic location, and demographics, supporting
-                    public health and policy decisions.
+                    The CDC’s Web-based Injury Statistics Query and Reporting System (WISQARS)
+                    collects and provides data on gun deaths in the United States. This information
+                    is gathered from state and local injury surveillance programs and is used to
+                    understand the impact of firearm-related injuries across the country. WISQARS™
+                    allows users to explore data by intent of injury, mechanism, geographic location,
+                    and demographics, supporting public health and policy decisions.
                 </p>
                 <HetNotice className='my-12' title='A note about CDC WISQARS'>
-                    The CDC’s WISQARS limit data released at state and county levels to protect privacy. Mortality data,
-                    collected from death certificates and processed by the National Center for Health Statistics, takes
-                    approximately 13 months to become official. Provisional data and annual updates mean that reported
-                    numbers may change and should be interpreted with caution. Additionally, postcensal population estimates
-                    are updated annually, affecting fatal injury rates over time.
+                    The CDC’s WISQARS limit data released at state and county levels to protect
+                    privacy. Mortality data, collected from death certificates and processed
+                    by the National Center for Health Statistics, takes approximately 13 months
+                    to become official. Provisional data and annual updates mean that reported
+                    numbers may change and should be interpreted with caution. Additionally,
+                    postcensal population estimates are updated annually, affecting fatal injury
+                    rates over time.
                 </HetNotice>
 
                 <section>
