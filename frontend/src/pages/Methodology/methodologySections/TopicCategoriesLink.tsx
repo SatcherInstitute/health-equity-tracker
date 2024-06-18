@@ -7,6 +7,7 @@ import { pdohTopicsString } from './PdohLink';
 import { hivTopicsString } from './HivLink';
 import { chronicDiseaseTopicsString } from './ChronicDiseaseLink';
 import { sdohTopicsString } from './SdohLink';
+import { communitySafetyTopicsString } from './CommunitySafetyLink';
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length;
 
@@ -63,6 +64,10 @@ export default function TopicCategoriesLink() {
 						{
 							category: 'Chronic Diseases',
 							topic: chronicDiseaseTopicsString,
+						},
+						{
+							category: 'Community Safety',
+							topic: communitySafetyTopicsString,
 						},
 						{
 							category: 'COVID-19',

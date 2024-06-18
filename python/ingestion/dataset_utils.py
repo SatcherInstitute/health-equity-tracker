@@ -246,7 +246,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share: dict[str, str], breakdow
 
 def generate_pct_share_col_of_summed_alls(
     df: pd.DataFrame, raw_count_to_pct_share: dict[str, str], demo_col: Literal['age', 'sex', 'race_and_ethnicity']
-):
+) -> pd.DataFrame:
     """
     Adds a `pct_share` column for each raw_count_to_pct_share item. Rather than using the "All" row's
     estimate_total values, this recalculates the "All" rows' values as the sum of the groups' rows.
