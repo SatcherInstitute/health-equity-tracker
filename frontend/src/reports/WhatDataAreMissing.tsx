@@ -19,6 +19,7 @@ import { type Fips } from '../data/utils/Fips'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 import HetTerm from '../styles/HetComponents/HetTerm'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 
 interface WhatDataAreMissingProps {
   metricConfigSubset: Array<[DropdownVarId, DataTypeConfig[]]>
@@ -38,13 +39,9 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
   const isHivOutcome = currentDropDownIds.includes('hiv')
   const isHivBWOutcome = currentDropDownIds.includes('hiv_black_women')
   const isHivPrep = currentDropDownIds.includes('hiv_prep')
-  const isAHR = currentDropDownIds.some((condition) =>
-    AHR_CONDITIONS.includes(condition)
-  )
-  const isPhrma = currentDropDownIds.some((condition) =>
-    PHRMA_CONDITIONS.includes(condition)
-  )
-  const isWisqars = currentDropDownIds.includes('gun_violence')
+  const isAHR = currentDropDownIds.some((condition) => AHR_CONDITIONS.includes(condition))
+  const isPhrma = currentDropDownIds.some((condition) => PHRMA_CONDITIONS.includes(condition))
+  const isWisqars = COMMUNITY_SAFETY_DROPDOWNIDS.some(condition => currentDropDownIds.includes(condition))
 
   return (
     <>

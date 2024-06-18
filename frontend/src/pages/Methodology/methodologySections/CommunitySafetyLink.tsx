@@ -57,7 +57,7 @@ const CommunitySafetyLink = () => {
                     and demographics, supporting public health and policy decisions.
                 </p>
                 <HetNotice className='my-12' title='A note about CDC WISQARS'>
-                    The CDC’s WISQARS limit data released at state and county levels to protect
+                    The CDC’s WISQARS limits data released at state and county levels to protect
                     privacy. Mortality data, collected from death certificates and processed
                     by the National Center for Health Statistics, takes approximately 13 months
                     to become official. Provisional data and annual updates mean that reported
@@ -73,19 +73,19 @@ const CommunitySafetyLink = () => {
                         <h5 className='my-2'>Conditions</h5>
                         <ul className='list-inside list-disc pl-4'>
                             <li>
-                                <HetTerm>Gun-Related deaths by Homicides</HetTerm>
+                                <HetTerm>Gun-Related Deaths by Homicides</HetTerm>
                             </li>
                             <li>
-                                <HetTerm>Gun-Related deaths by Suicides</HetTerm>
+                                <HetTerm>Gun-Related Deaths by Suicides</HetTerm>
                             </li>
                             <li>
-                                <HetTerm>Gun-Related deaths for Children</HetTerm>
+                                <HetTerm>Gun-Related Deaths for Children</HetTerm>
                             </li>
                             <li>
-                                <HetTerm>Gun-Related deaths for Young Adults</HetTerm>
+                                <HetTerm>Gun-Related Deaths for Young Adults</HetTerm>
                             </li>
                             <li>
-                                <HetTerm>Gun-Related deaths for Black Men</HetTerm>
+                                <HetTerm>Gun-Related Deaths for Black Men</HetTerm>
                             </li>
                         </ul>
 

@@ -258,6 +258,8 @@ export function MissingWisqarsData() {
           intervention in states where the data is available. This approach ensures
           that the information presented is accurate and reflective of the available data
           without making potentially misleading calculations based on incomplete information.
+          It is important to note that the number of deaths from legal intervention
+          available from the CDC is widely considered to be underreported.
         </li>
         <li>
           <b>Data suppression:</b> WISQARS suppresses data where the value is between
