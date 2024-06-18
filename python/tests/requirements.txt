@@ -1,4 +1,4 @@
--r ../shared_requirements/requirements.txt
+-r ../../shared_requirements/requirements.txt
 astroid==3.2.2
     # via pylint
 cachetools==4.2.4
