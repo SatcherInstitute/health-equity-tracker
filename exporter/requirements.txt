@@ -135,7 +135,7 @@ six==1.16.0
     # via python-dateutil
 tzdata==2024.1
     # via pandas
-urllib3==1.26.18
+urllib3==1.26.19
     # via requests
 werkzeug==3.0.3
     # via flask
