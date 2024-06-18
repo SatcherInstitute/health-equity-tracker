@@ -244,3 +244,29 @@ export function MissingAHRData() {
     </>
   )
 }
+
+export function MissingWisqarsData() {
+  return (
+    <>
+      <h4 className='text-text font-light'>
+        Missing WISQARS Data
+      </h4>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+        <li>
+          <b>Legal intervention data:</b> Data on deaths caused by legal intervention
+          is limited. Therefore, we choose to show raw counts of deaths caused by legal
+          intervention in states where the data is available. This approach ensures
+          that the information presented is accurate and reflective of the available data
+          without making potentially misleading calculations based on incomplete information.
+          It is important to note that the number of deaths from legal intervention
+          available from the CDC is widely considered to be underreported.
+        </li>
+        <li>
+          <b>Data suppression:</b> WISQARS suppresses data where the value is between
+          one to nine deaths. This suppression is done to protect the privacy of
+          individuals and ensure the confidentiality of sensitive information.
+        </li>
+      </ul>
+    </>
+  );
+}

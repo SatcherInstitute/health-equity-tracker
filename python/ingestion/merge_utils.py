@@ -2,7 +2,7 @@ import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
 
 from ingestion.constants import US_FIPS, US_NAME, US_ABBR, COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL, ALL_VALUE
-from typing import Literal, List, Union, Type, Optional
+from typing import Literal, List, Union, Type, Optional, Tuple, Dict
 import os
 
 ACS_EARLIEST_YEAR = '2009'
@@ -331,7 +331,7 @@ def merge_intersectional_pop(
     race_specific_group: Optional[str] = None,
     age_specific_group: Optional[str] = None,
     sex_specific_group: Optional[str] = None,
-) -> tuple[pd.DataFrame, str]:
+) -> Tuple[pd.DataFrame, str]:
     """
     Merges specific cross-section pop from ACS, for later use with dataset_utils.generate_estimated_total_col()
 
@@ -355,7 +355,7 @@ def merge_intersectional_pop(
     if primary_demo_col == std_col.RACE_COL:
         primary_demo_col = 'race_and_ethnicity'
 
-    pop_dtype: dict[str, Union[Type[float], Type[str]]] = {
+    pop_dtype: Dict[str, Union[Type[float], Type[str]]] = {
         std_col.POPULATION_COL: float,
     }
 
@@ -425,6 +425,8 @@ def merge_intersectional_pop(
 
     if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
         merge_cols.append(std_col.RACE_CATEGORY_ID_COL)
+        if std_col.RACE_OR_HISPANIC_COL in df.columns and std_col.RACE_OR_HISPANIC_COL in pop_df.columns:
+            merge_cols.append(std_col.RACE_OR_HISPANIC_COL)
     else:
         merge_cols.append(primary_demo_col)
 
