@@ -3,11 +3,11 @@
 
 import json
 from io import StringIO
-from pandas.testing import assert_frame_equal
-from ingestion import gcs_to_bq_util, merge_utils
-import ingestion.standardized_columns as std_col
-import numpy as np
-import pandas as pd
+from pandas.testing import assert_frame_equal  # type: ignore
+from ingestion import gcs_to_bq_util, merge_utils  # type: ignore
+import ingestion.standardized_columns as std_col  # type: ignore
+import numpy as np  # type: ignore
+import pandas as pd  # type: ignore
 
 
 _data_with_bad_county_names = [
