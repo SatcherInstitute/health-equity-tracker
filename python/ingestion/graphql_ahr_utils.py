@@ -1,7 +1,7 @@
 import json
 import os
 import ingestion.standardized_columns as std_col
-import requests
+import requests  # type: ignore
 
 ahr_api_key = os.getenv("AHR_API_KEY")
 
