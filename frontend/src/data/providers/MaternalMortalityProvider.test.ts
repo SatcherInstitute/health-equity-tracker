@@ -10,6 +10,7 @@ import {
 } from "../../utils/globals";
 import FakeDataFetcher from "../../testing/FakeDataFetcher";
 import { RACE } from "../utils/Constants";
+import { expect, describe, test, beforeEach } from 'vitest'
 import { MetricId } from "../config/MetricConfig";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 
