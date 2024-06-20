@@ -1,3 +1,4 @@
+flask
 urllib3
 werkzeug
 numpy==1.26.4

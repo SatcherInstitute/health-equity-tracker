@@ -19,11 +19,6 @@ dill==0.3.8
     # via pylint
 et-xmlfile==1.1.0
     # via openpyxl
-flask==3.0.3
-    # via
-    #   -r ../data_server/requirements.in
-    #   -r tests.in
-    #   flask-cors
 flask-cors==4.0.1
     # via -r ../data_server/requirements.in
 freezegun==1.5.1

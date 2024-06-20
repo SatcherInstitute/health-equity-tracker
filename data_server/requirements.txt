@@ -13,10 +13,6 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via flask
-flask==3.0.3
-    # via
-    #   -r requirements.in
-    #   flask-cors
 flask-cors==4.0.1
     # via -r requirements.in
 google-auth==2.29.0

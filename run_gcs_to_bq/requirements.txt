@@ -4,7 +4,6 @@ certifi==2020.6.20        # via requests
 cffi==1.15.1              # via google-crc32c
 chardet==3.0.4            # via requests
 click==7.1.2              # via flask
-flask==1.1.2              # via -r requirements.in
 google-auth==1.21.2       # via google-api-core, google-cloud-storage
 google-cloud-core==1.4.1  # via -r ../python/ingestion/requirements.in, google-cloud-bigquery, google-cloud-storage
 google-cloud-storage==1.31.1  # via -r ../python/ingestion/requirements.in
