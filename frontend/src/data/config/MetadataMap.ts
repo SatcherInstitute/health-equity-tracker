@@ -16,7 +16,7 @@ export type DataSourceId =
   | 'cdc_restricted'
   | 'cdc_vaccination_county'
   | 'cdc_vaccination_national'
-  | 'cdc_wisqars_data'
+  | 'cdc_wisqars'
   | 'census_pop_estimates'
   | 'chr'
   | 'covid_tracking_project'
@@ -479,9 +479,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: false,
     time_period_range: null,
   },
-  cdc_wisqars_data: {
+  cdc_wisqars: {
     hideFromUser: !SHOW_GUN_VIOLENCE,
-    id: 'cdc_wisqars_data',
+    id: 'cdc_wisqars',
     data_source_name: `CDC WISQARS`,
     data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
