@@ -8,6 +8,6 @@ google-cloud-pubsub
 certifi==2023.7.22
 grpcio==1.53.2
 gunicorn==22.0.0
-protobuf==5.26.1
+protobuf
 rsa==4.9
-idna==3.7
+idna
