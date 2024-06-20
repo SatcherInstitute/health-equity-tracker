@@ -19,10 +19,6 @@ flask==3.0.3
     #   flask-cors
 flask-cors==4.0.1
     # via -r requirements.in
-google-api-core==2.19.0
-    # via
-    #   google-cloud-core
-    #   google-cloud-storage
 google-auth==2.29.0
     # via
     #   google-api-core
@@ -75,5 +71,3 @@ requests==2.32.0
     #   google-cloud-storage
 rsa==4.7
     # via google-auth
-werkzeug==3.0.3
-    # via flask

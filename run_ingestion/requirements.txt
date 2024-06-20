@@ -28,8 +28,6 @@ google-auth==1.21.1
     #   google-cloud-storage
 google-cloud==0.34.0
     # via -r ../python/ingestion/requirements.in
-google-cloud-bigquery==2.0.0
-    # via -r ../python/ingestion/requirements.in
 google-cloud-core==1.4.1
     # via
     #   -r ../python/ingestion/requirements.in
@@ -76,8 +74,6 @@ mccabe==0.7.0
     # via pylint
 mypy-extensions==0.4.3
     # via typing-inspect
-numpy==1.26.4
-    # via pandas
 openpyxl==3.1.4
     # via
     #   -r ../python/ingestion/requirements.in
@@ -138,8 +134,6 @@ typing-inspect==0.6.0
     # via libcst
 tzdata==2024.1
     # via pandas
-werkzeug==1.0.1
-    # via flask
 xlrd==2.0.1
     # via -r ../python/ingestion/requirements.in
 

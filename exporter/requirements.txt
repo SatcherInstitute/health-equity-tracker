@@ -28,8 +28,6 @@ google-auth==2.29.0
     #   google-cloud-storage
 google-cloud==0.34.0
     # via -r requirements.in
-google-cloud-bigquery==3.24.0
-    # via -r requirements.in
 google-cloud-core==2.4.1
     # via
     #   -r requirements.in
@@ -79,11 +77,6 @@ markupsafe==2.1.1
     # via
     #   jinja2
     #   werkzeug
-numpy==1.23.2
-    # via
-    #   db-dtypes
-    #   pandas
-    #   pyarrow
 packaging==21.3
     # via
     #   db-dtypes
@@ -130,7 +123,5 @@ six==1.16.0
     # via python-dateutil
 tzdata==2024.1
     # via pandas
-werkzeug==3.0.3
-    # via flask
 zipp==3.8.1
     # via importlib-metadata
