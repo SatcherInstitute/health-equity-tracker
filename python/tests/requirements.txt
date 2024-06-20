@@ -39,8 +39,6 @@ googleapis-common-protos[grpc]==1.52.0
     #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-idna==3.7
-    # via requests
 isort==5.13.2
     # via pylint
 libcst==0.3.16

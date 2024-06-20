@@ -11,7 +11,6 @@ google-crc32c==1.0.0      # via google-resumable-media
 google-resumable-media==1.0.0  # via google-cloud-bigquery, google-cloud-storage
 googleapis-common-protos[grpc]==1.52.0  # via google-api-core, grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3  # via google-cloud-pubsub
-idna==2.10                # via requests
 itsdangerous==1.1.0       # via flask
 jinja2==2.11.2            # via flask
 libcst==0.3.12            # via google-cloud-pubsub

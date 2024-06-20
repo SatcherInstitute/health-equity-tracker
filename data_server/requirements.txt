@@ -30,8 +30,6 @@ google-resumable-media==2.7.0
     # via google-cloud-storage
 googleapis-common-protos==1.63.0
     # via google-api-core
-idna==3.7
-    # via requests
 itsdangerous==2.2.0
     # via flask
 jinja2==3.1.4
