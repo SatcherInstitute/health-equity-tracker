@@ -16,7 +16,9 @@ GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by
 GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_national_cumulative.json')
 
 
-def get_cdc_numbers_as_df(*args):
+def get_cdc_numbers_as_df(*args, **kwargs):
+
+    print("KWARGS: ", kwargs)
 
     if args[1] == 'cdc_restricted_by_race_and_age_state.csv':
         # We dont test this, just need to return something here
