@@ -28,11 +28,6 @@ flask-cors==4.0.1
     # via -r ../data_server/requirements.in
 freezegun==1.5.1
     # via -r ../python/tests/requirements.in
-google-api-core[grpc]==1.23.0
-    # via
-    #   google-cloud-bigquery
-    #   google-cloud-core
-    #   google-cloud-pubsub
 google-auth==1.22.1
     # via
     #   google-api-core
@@ -44,8 +39,6 @@ google-cloud-core==1.4.3
     #   -r ../python/tests/../ingestion/requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-pubsub==2.1.0
-    # via -r ../python/tests/../ingestion/requirements.in
 google-cloud-storage==1.32.0
     # via
     #   -r ../data_server/../python/data_server/requirements.in

@@ -15,11 +15,6 @@ et-xmlfile==1.1.0
     # via openpyxl
 freezegun==1.5.1
     # via -r requirements.in
-google-api-core[grpc]==1.24.1
-    # via
-    #   google-cloud-bigquery
-    #   google-cloud-core
-    #   google-cloud-pubsub
 google-auth==1.24.0
     # via
     #   google-api-core
@@ -32,8 +27,6 @@ google-cloud-core==1.7.3
     #   -r ../ingestion/requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-pubsub==2.6.1
-    # via -r ../ingestion/requirements.in
 google-cloud-storage==1.38.0
     # via -r ../ingestion/requirements.in
 google-crc32c==1.1.0

@@ -13,12 +13,6 @@ db-dtypes==1.2.0
     # via -r requirements.in
 flask==3.0.3
     # via -r requirements.in
-google-api-core[grpc]==2.17.1
-    # via
-    #   google-cloud-bigquery
-    #   google-cloud-core
-    #   google-cloud-pubsub
-    #   google-cloud-storage
 google-auth==2.29.0
     # via
     #   google-api-core
@@ -33,8 +27,6 @@ google-cloud-core==2.4.1
     #   -r requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-pubsub==2.21.3
-    # via -r requirements.in
 google-cloud-storage==2.17.0
     # via -r requirements.in
 google-crc32c==1.3.0
