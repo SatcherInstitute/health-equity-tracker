@@ -9,7 +9,7 @@ import KeyTermsTopicsAccordion from "../methodologyComponents/KeyTermsTopicsAcco
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
-export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars_data]
+export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
 
 export const communitySafetyTopicsString = buildTopicsString(
     COMMUNITY_SAFETY_DROPDOWNIDS
