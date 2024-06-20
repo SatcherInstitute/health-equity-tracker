@@ -38,13 +38,6 @@ googleapis-common-protos[grpc]==1.52.0
     #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-grpcio==1.47.0
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
-    #   grpc-google-iam-v1
-gunicorn==20.0.4
-    # via -r requirements.in
 idna==2.10
     # via requests
 isort==5.13.2
@@ -75,11 +68,6 @@ proto-plus==1.10.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.13.0
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
-    #   proto-plus
 pyasn1==0.4.8
     # via
     #   pyasn1-modules
@@ -102,8 +90,6 @@ requests==2.32.3
     # via
     #   -r ../python/ingestion/requirements.in
     #   google-api-core
-rsa==4.6
-    # via google-auth
 six==1.15.0
     # via
     #   google-api-core

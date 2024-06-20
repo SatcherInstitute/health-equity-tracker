@@ -30,8 +30,6 @@ google-resumable-media==2.7.0
     # via google-cloud-storage
 googleapis-common-protos==1.63.0
     # via google-api-core
-gunicorn==22.0.0
-    # via -r requirements.in
 idna==3.7
     # via requests
 itsdangerous==2.2.0
@@ -46,11 +44,6 @@ packaging==24.0
     # via gunicorn
 proto-plus==1.23.0
     # via google-api-core
-protobuf==4.25.3
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
-    #   proto-plus
 pyasn1==0.4.8
     # via
     #   pyasn1-modules
@@ -63,5 +56,3 @@ requests==2.32.0
     # via
     #   google-api-core
     #   google-cloud-storage
-rsa==4.7
-    # via google-auth

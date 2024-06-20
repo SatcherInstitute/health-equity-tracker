@@ -40,19 +40,10 @@ googleapis-common-protos[grpc]==1.56.4
     #   grpcio-status
 grpc-google-iam-v1==0.12.4
     # via google-cloud-pubsub
-grpcio==1.63.0
-    # via
-    #   google-api-core
-    #   google-cloud-pubsub
-    #   googleapis-common-protos
-    #   grpc-google-iam-v1
-    #   grpcio-status
 grpcio-status==1.47.0
     # via
     #   google-api-core
     #   google-cloud-pubsub
-gunicorn==22.0.0
-    # via -r requirements.in
 idna==3.7
     # via requests
 importlib-metadata==4.12.0
@@ -76,13 +67,6 @@ pandas==2.0.3
     #   db-dtypes
 proto-plus==1.22.0
     # via google-cloud-pubsub
-protobuf==4.25.3
-    # via
-    #   google-api-core
-    #   google-cloud-pubsub
-    #   googleapis-common-protos
-    #   grpcio-status
-    #   proto-plus
 pyarrow==14.0.1
     # via db-dtypes
 pyasn1==0.4.8
@@ -105,8 +89,6 @@ requests==2.32.3
     #   google-api-core
     #   google-cloud-bigquery
     #   google-cloud-storage
-rsa==4.9
-    # via google-auth
 six==1.16.0
     # via python-dateutil
 tzdata==2024.1
