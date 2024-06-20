@@ -7,8 +7,6 @@ cachetools==4.1.1
     # via
     #   -r ../data_server/../python/data_server/requirements.in
     #   google-auth
-certifi==2023.7.22
-    # via requests
 cffi==1.14.3
     # via google-crc32c
 charset-normalizer==3.3.2
@@ -50,15 +48,6 @@ googleapis-common-protos[grpc]==1.52.0
     #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
-grpcio==1.53.2
-    # via
-    #   google-api-core
-    #   googleapis-common-protos
-    #   grpc-google-iam-v1
-gunicorn==22.0.0
-    # via -r ../data_server/requirements.in
-idna==3.7
-    # via requests
 iniconfig==1.1.1
     # via pytest
 isort==5.13.2
@@ -97,12 +86,6 @@ proto-plus==1.11.0
     # via
     #   google-cloud-bigquery
     #   google-cloud-pubsub
-protobuf==3.18.3
-    # via
-    #   google-api-core
-    #   google-cloud-bigquery
-    #   googleapis-common-protos
-    #   proto-plus
 pyasn1==0.4.8
     # via
     #   pyasn1-modules
@@ -132,8 +115,6 @@ requests==2.32.3
     #   -r ../python/tests/../ingestion/requirements.in
     #   google-api-core
     #   google-cloud-storage
-rsa==4.7
-    # via google-auth
 six==1.15.0
     # via
     #   google-api-core
