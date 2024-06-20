@@ -8,8 +8,9 @@ import { DATA_SOURCE_PRE_FILTERS } from "../../../utils/urlutils"
 import KeyTermsTopicsAccordion from "../methodologyComponents/KeyTermsTopicsAccordion"
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { SHOW_GUN_VIOLENCE } from "../../../data/providers/GunViolenceProvider"
 
-export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars_data]
+export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
 
 export const communitySafetyTopicsString = buildTopicsString(
     COMMUNITY_SAFETY_DROPDOWNIDS
@@ -69,24 +70,29 @@ const CommunitySafetyLink = () => {
                 <section>
                     <div className='py-5'>
                         <h4 className='text-text font-normal'>WISQARS Injuries Measures</h4>
-
                         <h5 className='my-2'>Conditions</h5>
                         <ul className='list-inside list-disc pl-4'>
-                            <li>
-                                <HetTerm>Gun-Related Deaths by Homicides</HetTerm>
-                            </li>
-                            <li>
-                                <HetTerm>Gun-Related Deaths by Suicides</HetTerm>
-                            </li>
+                            {SHOW_GUN_VIOLENCE && (
+                                <>
+                                    <li>
+                                        <HetTerm>Gun-Related Deaths by Homicides</HetTerm>
+                                    </li>
+                                    <li>
+                                        <HetTerm>Gun-Related Deaths by Suicides</HetTerm>
+                                    </li>
+                                </>
+                            )}
                             <li>
                                 <HetTerm>Gun-Related Deaths for Children</HetTerm>
                             </li>
                             <li>
                                 <HetTerm>Gun-Related Deaths for Young Adults</HetTerm>
                             </li>
-                            <li>
-                                <HetTerm>Gun-Related Deaths for Black Men</HetTerm>
-                            </li>
+                            {SHOW_GUN_VIOLENCE && (
+                                <li>
+                                    <HetTerm>Gun-Related Deaths for Black Men</HetTerm>
+                                </li>
+                            )}
                         </ul>
 
                         <h5 className='my-2'>Metrics</h5>
