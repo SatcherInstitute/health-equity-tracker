@@ -63,27 +63,26 @@ class CDCRestrictedData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo = self.get_attr(attrs, 'demographic')
         geo = self.get_attr(attrs, 'geographic')
+        geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
+        filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+
+        df_from_gcs = gcs_to_bq_util.load_csv_as_df(
+            gcs_bucket,
+            filename,
+            dtype={
+                'county_fips': str,
+                'cases': 'uint32',
+                'hosp_y': 'uint32',
+                'hosp_n': 'uint32',
+                'hosp_unknown': 'uint32',
+                'death_y': 'uint32',
+                'death_n': 'uint32',
+                'death_unknown': 'uint32',
+            },
+        )
+
         for time_series in [False, True]:
-            geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
-            filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
-
-            df = gcs_to_bq_util.load_csv_as_df(
-                gcs_bucket,
-                filename,
-                dtype={
-                    'county_fips': str,
-                    'cases': 'uint32',
-                    'hosp_y': 'uint32',
-                    'hosp_n': 'uint32',
-                    'hosp_unknown': 'uint32',
-                    'death_y': 'uint32',
-                    'death_n': 'uint32',
-                    'death_unknown': 'uint32',
-                },
-            )
-
-            df = self.generate_breakdown(df, demo, geo, time_series)
-
+            df = self.generate_breakdown(df_from_gcs, demo, geo, time_series)
             if demo == RACE:
                 std_col.add_race_columns_from_category_id(df)
 

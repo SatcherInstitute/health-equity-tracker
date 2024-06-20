@@ -1,7 +1,7 @@
 from unittest import mock
 import os
-import pandas as pd  # type: ignore
-from pandas._testing import assert_frame_equal  # type: ignore
+import pandas as pd
+from pandas._testing import assert_frame_equal
 from datasources.cdc_restricted import CDCRestrictedData  # type: ignore
 
 # Current working directory.
@@ -9,19 +9,15 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_restricted")
 
 GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES = os.path.join(TEST_DIR, 'golden_data', 'by_sex_state_time_series.json')
-
 GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES = os.path.join(TEST_DIR, 'golden_data', 'by_sex_county_time_series.json')
-
 GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES = os.path.join(TEST_DIR, 'golden_data', 'by_sex_national_time_series.json')
-
 GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_state_cumulative.json')
-
 GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_county_cumulative.json')
-
 GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(TEST_DIR, 'golden_data', 'by_sex_national_cumulative.json')
 
 
-def get_cdc_numbers_as_df(*args, **kwargs):
+def get_cdc_numbers_as_df(*args):
+
     if args[1] == 'cdc_restricted_by_race_and_age_state.csv':
         # We dont test this, just need to return something here
         return pd.read_csv(
@@ -63,6 +59,7 @@ def testGenerateBreakdownSexStateTimeSeries():
     cdc_restricted = CDCRestrictedData()
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', True)
+    # pylint: disable=no-member
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES,
         dtype={
@@ -87,6 +84,7 @@ def testGenerateBreakdownSexCountyTimeSeries():
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', True)
 
+    # pylint: disable=no-member
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES,
         dtype={
@@ -112,6 +110,7 @@ def testGenerateBreakdownSexNationalTimeSeries():
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True)
 
+    # pylint: disable=no-member
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES,
         dtype={
@@ -136,6 +135,7 @@ def testGenerateBreakdownSexStateCumulative():
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
 
+    # pylint: disable=no-member
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE,
         dtype={
@@ -160,6 +160,7 @@ def testGenerateBreakdownSexNationalCumulative():
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
 
+    # pylint: disable=no-member
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE,
         dtype={
@@ -184,6 +185,7 @@ def testGenerateBreakdownSexCountyCumulative():
 
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_county_as_df(), 'sex', 'county', False)
 
+    # pylint: disable=no-member
     expected_df = pd.read_json(
         GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE,
         dtype={
@@ -218,9 +220,8 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 2
+    assert mock_csv.call_count == 1
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_state.csv'
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_national_processed'
@@ -241,9 +242,8 @@ def testWriteToBqAgeState(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 2
+    assert mock_csv.call_count == 1
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_state.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_state.csv'
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_state_processed'
@@ -264,9 +264,8 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 2
+    assert mock_csv.call_count == 1
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_age_county.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_age_county.csv'
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_county_processed'
@@ -287,9 +286,8 @@ def testWriteToBqSexCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     }
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 2
+    assert mock_csv.call_count == 1
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_sex_county.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_sex_county.csv'
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_sex_county_processed'
@@ -310,10 +308,9 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
     }
     cdc_restricted.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    assert mock_csv.call_count == 3
+    assert mock_csv.call_count == 2
     assert mock_csv.call_args_list[0].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_state.csv'
-    assert mock_csv.call_args_list[2].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
+    assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
 
     assert mock_bq.call_count == 3
     assert mock_bq.call_args_list[0].args[2] == 'by_race_national_processed'
