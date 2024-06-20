@@ -67,7 +67,20 @@ class CDCRestrictedData(DataSource):
             geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
             filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
 
-            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename, dtype={'county_fips': str})
+            df = gcs_to_bq_util.load_csv_as_df(
+                gcs_bucket,
+                filename,
+                dtype={
+                    'county_fips': str,
+                    'cases': 'uint32',
+                    'hosp_y': 'uint32',
+                    'hosp_n': 'uint32',
+                    'hosp_unknown': 'uint32',
+                    'death_y': 'uint32',
+                    'death_n': 'uint32',
+                    'death_unknown': 'uint32',
+                },
+            )
 
             df = self.generate_breakdown(df, demo, geo, time_series)
 
@@ -271,12 +284,9 @@ def remove_bad_fips_cols(df):
     tell where the cases are from.
 
     df: The DataFrame to toss rows out of."""
-
-    def fips_code_is_good(row):
-        return row[std_col.COUNTY_FIPS_COL][0:2] == row[std_col.STATE_FIPS_COL]
-
-    df = df[df.apply(fips_code_is_good, axis=1)]
-    return df.reset_index(drop=True)
+    # Use vectorized string operations to compare the first two digits of COUNTY_FIPS_COL with STATE_FIPS_COL
+    mask = df[std_col.COUNTY_FIPS_COL].str[:2] == df[std_col.STATE_FIPS_COL]
+    return df[mask].reset_index(drop=True)
 
 
 def generate_national_dataset(state_df, demo_col, time_series):
