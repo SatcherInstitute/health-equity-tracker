@@ -6,7 +6,14 @@ import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils
 
 
 SHOW_GUN_VIOLENCE && console.log('Gun violence preview enabled')
-export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth', 'gun_deaths_black_men'] as const
+
+const ALWAYS_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence_youth'] as const
+const CONDITIONALLY_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_deaths_black_men'] as const
+
+export const COMMUNITY_SAFETY_DROPDOWNIDS = [
+    ...ALWAYS_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS,
+    ...(SHOW_GUN_VIOLENCE ? CONDITIONALLY_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS : [])
+] as const;
 
 export type CommunitySafetyDataTypeId =
     | 'gun_violence_homicide'
