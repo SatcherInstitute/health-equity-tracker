@@ -3,8 +3,6 @@ astroid==3.2.2
     # via pylint
 cachetools==4.2.4
     # via google-auth
-certifi==2024.2.2
-    # via requests
 cffi==1.14.4
     # via google-crc32c
 charset-normalizer==3.3.2

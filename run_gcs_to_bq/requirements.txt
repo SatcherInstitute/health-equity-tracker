@@ -1,6 +1,5 @@
 -r ../shared_requirements/requirements.txt
 cachetools==4.1.1         # via google-auth
-certifi==2020.6.20        # via requests
 cffi==1.15.1              # via google-crc32c
 chardet==3.0.4            # via requests
 click==7.1.2              # via flask

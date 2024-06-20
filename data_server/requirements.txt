@@ -5,8 +5,6 @@ cachetools==5.3.3
     # via
     #   -r ../python/data_server/requirements.in
     #   google-auth
-certifi==2023.7.22
-    # via requests
 cffi==1.14.3
     # via google-crc32c
 charset-normalizer==3.3.2

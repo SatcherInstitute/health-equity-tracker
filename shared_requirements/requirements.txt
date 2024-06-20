@@ -5,3 +5,9 @@ numpy==1.26.4
 google-api-core[grpc]
 google-cloud-bigquery
 google-cloud-pubsub
+certifi==2023.7.22
+grpcio==1.53.2
+gunicorn==22.0.0
+protobuf==3.18.3
+rsa==4.7
+idna==3.7
