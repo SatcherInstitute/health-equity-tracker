@@ -21,11 +21,10 @@ def get_program_name():
 def get_metadata():
     """Downloads and returns metadata about available download files."""
     try:
-        metadata = cache.getDataset(os.environ.get('GCS_BUCKET'),
-                                    os.environ.get('METADATA_FILENAME'))
+        metadata = cache.getDataset(os.environ.get('GCS_BUCKET'), os.environ.get('METADATA_FILENAME'))
     except Exception as err:
         logging.error(err)
-        return 'Internal server error: {}'.format(err), 500
+        return f'Internal server error: {err}', 500
 
     def generate_response(data: bytes):
         next_row = b'['
@@ -33,12 +32,11 @@ def get_metadata():
             yield next_row
             next_row = row + b','
         yield next_row.rstrip(b',') + b']'
+
     headers = Headers()
-    headers.add('Content-Disposition', 'attachment',
-                filename=os.environ.get('METADATA_FILENAME'))
+    headers.add('Content-Disposition', 'attachment', filename=os.environ.get('METADATA_FILENAME'))
     headers.add('Vary', 'Accept-Encoding')
-    return Response(generate_response(metadata), mimetype='application/json',
-                    headers=headers)
+    return Response(generate_response(metadata), mimetype='application/json', headers=headers)
 
 
 @app.route('/dataset', methods=['GET'])
@@ -52,14 +50,15 @@ def get_dataset():
         dataset = cache.getDataset(os.environ.get('GCS_BUCKET'), dataset_name)
     except Exception as err:
         logging.error(err)
-        return 'Internal server error: {}'.format(err), 500
+        return f'Internal server error: {err}', 500
 
-    def generate_response(data: bytes):
+    def generate_response():
         next_row = b'['
         for row in dataset.splitlines():
             yield next_row
             next_row = row + b','
         yield next_row.rstrip(b',') + b']'
+
     headers = Headers()
     headers.add('Content-Disposition', 'attachment', filename=dataset_name)
     headers.add('Vary', 'Accept-Encoding')
@@ -71,8 +70,7 @@ def get_dataset():
     if dataset_name.endswith('.csv'):
         return Response(dataset, mimetype='text/csv', headers=headers)
 
-    return Response(generate_response(dataset), mimetype='application/json',
-                    headers=headers)
+    return Response(generate_response(), mimetype='application/json', headers=headers)
 
 
 if __name__ == "__main__":

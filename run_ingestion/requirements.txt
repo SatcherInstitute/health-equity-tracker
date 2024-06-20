@@ -15,28 +15,17 @@ dill==0.3.8
     # via pylint
 et-xmlfile==1.1.0
     # via openpyxl
-flask==1.1.2
-    # via -r requirements.in
-google-api-core[grpc]==1.22.2
-    # via
-    #   google-cloud-bigquery
-    #   google-cloud-core
-    #   google-cloud-pubsub
 google-auth==1.21.1
     # via
     #   google-api-core
     #   google-cloud-storage
 google-cloud==0.34.0
     # via -r ../python/ingestion/requirements.in
-google-cloud-bigquery==2.0.0
-    # via -r ../python/ingestion/requirements.in
 google-cloud-core==1.4.1
     # via
     #   -r ../python/ingestion/requirements.in
     #   google-cloud-bigquery
     #   google-cloud-storage
-google-cloud-pubsub==2.1.0
-    # via -r ../python/ingestion/requirements.in
 google-cloud-storage==1.31.0
     # via -r ../python/ingestion/requirements.in
 google-crc32c==1.0.0
@@ -76,8 +65,6 @@ mccabe==0.7.0
     # via pylint
 mypy-extensions==0.4.3
     # via typing-inspect
-numpy==1.26.4
-    # via pandas
 openpyxl==3.1.4
     # via
     #   -r ../python/ingestion/requirements.in
@@ -138,8 +125,6 @@ typing-inspect==0.6.0
     # via libcst
 tzdata==2024.1
     # via pandas
-werkzeug==1.0.1
-    # via flask
 xlrd==2.0.1
     # via -r ../python/ingestion/requirements.in
 
