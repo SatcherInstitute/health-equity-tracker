@@ -207,13 +207,29 @@ class GraphQlAHRData(DataSource):
                 RATE_TO_RAW_18PLUS_MAP,
             )
 
+            # all columns need to be provider-specific for the frontend
+            ahr_pop18plus_col = 'ahr_' + pop_18plus_col
+            breakdown_df = breakdown_df.rename(
+                columns={
+                    pop_18plus_col: ahr_pop18plus_col,
+                }
+            )
+
             # save the generated intersectional population column for later use writing to bq
-            self.intersectional_pop_cols.append(pop_18plus_col)
+            self.intersectional_pop_cols.append(ahr_pop18plus_col)
 
             # share cols for 18+
             breakdown_df = generate_pct_share_col_of_summed_alls(
                 breakdown_df, RAW_TO_SHARE_18PLUS_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
             )
+
+        # need unique pop col names per provider
+        breakdown_df = breakdown_df.rename(
+            columns={
+                std_col.POPULATION_COL: std_col.AHR_POPULATION_RAW,
+                std_col.POPULATION_PCT_COL: std_col.AHR_POPULATION_PCT,
+            }
+        )
 
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
@@ -374,8 +390,8 @@ def get_float_cols(
     if time_type == CURRENT:
         float_cols.extend(
             [
-                std_col.POPULATION_COL,
-                std_col.POPULATION_PCT_COL,
+                std_col.AHR_POPULATION_RAW,
+                std_col.AHR_POPULATION_PCT,
             ]
         )
 
