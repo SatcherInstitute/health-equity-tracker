@@ -7,13 +7,13 @@ from ingestion.constants import US_FIPS, US_NAME, NATIONAL_LEVEL, STATE_LEVEL, C
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import RACE_NAMES_MAPPING, SEX_NAMES_MAPPING, AGE_NAMES_MAPPING
 from ingestion import gcs_to_bq_util
+from ingestion.merge_utils import merge_state_ids, merge_pop_numbers, merge_multiple_pop_cols, merge_county_names
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
     generate_pct_rel_inequity_col,
     zero_out_pct_rel_inequity,
 )
-from ingestion.merge_utils import merge_state_ids, merge_pop_numbers, merge_multiple_pop_cols, merge_county_names
 
 DC_COUNTY_FIPS = '11001'
 
