@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict, Union, Type
+from typing import Literal, List, Dict
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -246,7 +246,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share: dict[str, str], breakdow
 
 def generate_pct_share_col_of_summed_alls(
     df: pd.DataFrame, raw_count_to_pct_share: dict[str, str], demo_col: Literal['age', 'sex', 'race_and_ethnicity']
-):
+) -> pd.DataFrame:
     """
     Adds a `pct_share` column for each raw_count_to_pct_share item. Rather than using the "All" row's
     estimate_total values, this recalculates the "All" rows' values as the sum of the groups' rows.
@@ -652,110 +652,22 @@ def generate_time_df_with_cols_and_types(
 
 def generate_estimated_total_col(
     df: pd.DataFrame,
+    intersectional_pop_col: str,
     rate_to_raw_col_map: Dict[str, str],
-    geo_level: Literal['state', 'county'],
-    primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex'],
-    race_specific_group: str = None,
-    age_specific_group: str = None,
-    sex_specific_group: str = None,
 ) -> pd.DataFrame:
     """
-    Generates the estimated_total column by applying the given rate col against the ACS reference population.
+    Generates the estimated_total column by applying the given rate col against the intersectional population.
+    Note: the needed 'intersectional_pop_col' is obtained from the output of merge_utils.merge_intersectional_pop()
 
     Parameters:
     - df: The DataFrame to be processed.
-    - rate_col: The name of the rate column to be applied against the reference population.
-    - geo_level: The geo level of the DataFrame, e.g. 'state'.
-    - primary_demo_col: The name of the disaggregated demographic column to be included in the DataFrame,
-    e.g. 'race_and_ethnicity' with one row per race group.
-    - race_specific_group: The name of the race-specific sub-group to use from the reference population.
-    - age_specific_group: The name of the age-specific sub-group to use from the reference population.
-    - sex_specific_group: The name of the sex-specific sub-group to use from the reference population.
-
-    NOTE: the specific group kwargs above are useful when the df breakdown is for a specific population,
-    like "adults by race",
-    or "black women by age". In this case, we must use this specific subset population for our estimate calculation,
-    rather than
-    the entire reference population.
+    - intersectional_pop_col: The str col name of the incoming df's specific intersectional population,
+    e.g. 'population_18+' or 'population_18+_Male'.
+    - rate_to_raw_col_map: A dict of rate column names to their corresponding raw count column names.
 
     Returns:
-    - A DataFrame with the estimated_total column added.
+    - A DataFrame with the estimated_total column(s) added.
     """
-
-    pop_dtype: dict[str, Union[Type[float], Type[str]]] = {
-        std_col.POPULATION_COL: float,
-    }
-
-    if geo_level == COUNTY_LEVEL:
-        pop_dtype[std_col.COUNTY_FIPS_COL] = str
-    if geo_level == STATE_LEVEL:
-        pop_dtype[std_col.STATE_FIPS_COL] = str
-
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_level}.csv')
-    pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
-
-    # the primary demographic breakdown can't use a specific group
-    if primary_demo_col == 'race_and_ethnicity' and race_specific_group:
-        raise ValueError('race_specific_group kwarg is not applicable when primary_demo_col is race.')
-    if primary_demo_col == 'age' and age_specific_group:
-        raise ValueError('age_specific_group kwarg is not applicable when primary_demo_col is age.')
-    if primary_demo_col == 'sex' and sex_specific_group:
-        raise ValueError('sex_specific_group kwarg is not applicable when primary_demo_col is sex.')
-
-    if age_specific_group == '18+':
-        pop_df = sum_age_groups(pop_df, '18+')
-
-    specific_group_map = {}
-    specific_group_map[std_col.RACE_OR_HISPANIC_COL] = ALL_VALUE if race_specific_group is None else race_specific_group
-    specific_group_map[std_col.AGE_COL] = ALL_VALUE if age_specific_group is None else age_specific_group
-    specific_group_map[std_col.SEX_COL] = ALL_VALUE if sex_specific_group is None else sex_specific_group
-
-    # scope the pop df to the specific intersectional subgroup (e.g. Black Women, ages 65+)
-    for demo in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-
-        # keep all rows and columns for the main demographic breakdown
-        if demo == primary_demo_col:
-            continue
-
-        # drop the rows that don't match the specific group
-        pop_df = pop_df[pop_df[demo] == specific_group_map[demo]]
-
-        secondary_demo_col = [demo]
-
-        if demo == std_col.RACE_OR_HISPANIC_COL:
-            secondary_demo_col.append(std_col.RACE_CATEGORY_ID_COL)
-
-        # drop the secondary demographic columns
-        pop_df = pop_df.drop(columns=secondary_demo_col).reset_index(drop=True)
-
-    # merge the population column onto the original df
-    potential_geo_cols = [std_col.COUNTY_FIPS_COL, std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
-    merge_cols = []
-
-    for col in potential_geo_cols:
-        if col in df.columns:
-            merge_cols.append(col)
-
-    if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
-        merge_cols.append(std_col.RACE_CATEGORY_ID_COL)
-    else:
-        merge_cols.append(primary_demo_col)
-
-    # the sex/race/age/county ACS data only has NH for White
-    # we can approximate the other race groups using the non-NH race codes
-    if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
-        # string "_NH" off race_category_id on evrything except "WHITE_NH"
-        race_replace_map = {
-            'AIAN': 'AIAN_NH',
-            'ASIAN': 'ASIAN_NH',
-            'BLACK': 'BLACK_NH',
-            'NHPI': 'NHPI_NH',
-            'MULTI': 'MULTI_NH',
-            'OTHER_STANDARD': 'OTHER_STANDARD_NH',
-        }
-        pop_df[std_col.RACE_CATEGORY_ID_COL] = pop_df[std_col.RACE_CATEGORY_ID_COL].replace(race_replace_map)
-
-    df = df.merge(pop_df, on=merge_cols, how='left')
 
     # calculate the estimated_total
     conversion_factor = 1
@@ -769,78 +681,7 @@ def generate_estimated_total_col(
         else:
             raise ValueError(f'{rate_col} must have a suffix of _pct_rate or _per_100k.')
 
-        df[raw_col] = df[rate_col] / conversion_factor * df[std_col.POPULATION_COL]
+        df[raw_col] = df[rate_col] / conversion_factor * df[intersectional_pop_col]
         df[raw_col] = df[raw_col].round()
-
-    return df
-
-
-def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFrame:
-    """
-    Sums rows of smaller age groups together to generate new rows for target age group
-
-    Parameters:
-    - pop_df: The DataFrame to be processed.
-    - age_group: The name of the needed age group.
-
-    Returns:
-    - A DataFrame with the rows for the target age group replacing the rows for the smaller summed age groups.
-    """
-
-    summed_age_groups_map = {
-        '18+': [
-            '18-19',
-            '20-20',
-            '21-21',
-            '22-24',
-            '25-29',
-            '30-34',
-            '35-39',
-            '40-44',
-            '45-49',
-            '50-54',
-            '55-59',
-            '60-61',
-            '62-64',
-            '65-66',
-            '67-69',
-            '70-74',
-            '75-79',
-            '80-84',
-            '85+',
-        ],
-    }
-
-    # throw an error is user supplies an age group that isn't in the summed_age_groups_map
-    if age_group not in summed_age_groups_map:
-        raise ValueError(f'age_group kwarg must be one of {summed_age_groups_map.keys()}')
-
-    possible_geo_cols = [
-        std_col.STATE_FIPS_COL,
-        std_col.STATE_NAME_COL,
-        std_col.COUNTY_FIPS_COL,
-        std_col.COUNTY_NAME_COL,
-    ]
-
-    groupby_cols = [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL, std_col.RACE_CATEGORY_ID_COL]
-
-    for geo_col in possible_geo_cols:
-        if geo_col in pop_df.columns:
-            groupby_cols.append(geo_col)
-
-    summed_pop_df = pop_df[pop_df[std_col.AGE_COL].isin(summed_age_groups_map[age_group])]
-    rest_of_pop_df = pop_df[~pop_df[std_col.AGE_COL].isin(summed_age_groups_map[age_group])]
-
-    # Group by 'state_fips' and 'time_period', and sum the 'population' for the filtered age groups
-    summed_pop_df = summed_pop_df.groupby(
-        groupby_cols,
-        as_index=False,
-    )[std_col.POPULATION_COL].sum()
-
-    # Label the new age group
-    summed_pop_df[std_col.AGE_COL] = age_group
-
-    # Add the rest of the population
-    df = pd.concat([rest_of_pop_df, summed_pop_df], axis=0).reset_index(drop=True)
 
     return df

@@ -1,7 +1,7 @@
 import json
 import os
 import ingestion.standardized_columns as std_col
-import requests
+import requests  # type: ignore
 
 ahr_api_key = os.getenv("AHR_API_KEY")
 
@@ -22,8 +22,7 @@ def generate_cols_map(prefixes: list[str], suffix: str):
     return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
 
 
-AHR_BASE_MEASURES = {
-    'Voter Participation (Presidential)': 'voter_participation_pct_rate',
+AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     'Asthma': 'asthma_per_100k',
     'Avoided Care Due to Cost': 'avoided_care_pct_rate',
     'Cardiovascular Diseases': 'cardiovascular_diseases_per_100k',
@@ -33,11 +32,30 @@ AHR_BASE_MEASURES = {
     'Diabetes': 'diabetes_per_100k',
     'Excessive Drinking': 'excessive_drinking_per_100k',
     'Frequent Mental Distress': 'frequent_mental_distress_per_100k',
-    'Preventable Hospitalizations': 'preventable_hospitalizations_per_100k',
     'Non-Medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
+}
+
+AHR_MEASURES_TO_RATES_MAP_ALL_AGES = {
     'Suicide': 'suicide_per_100k',
 }
 
+AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS = {
+    'Voter Participation (Presidential)': 'voter_participation_pct_rate',
+}
+
+AHR_MEASURES_TO_RATES_MAP_MEDICARE_18PLUS = {
+    'Preventable Hospitalizations': 'preventable_hospitalizations_per_100k',
+}
+
+
+AHR_BASE_MEASURES_TO_RATES_MAP = {
+    **AHR_MEASURES_TO_RATES_MAP_18PLUS,
+    **AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS,
+    **AHR_MEASURES_TO_RATES_MAP_MEDICARE_18PLUS,
+    **AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
+}
+
+# AHR provides case per 100; HET needs per 100k
 PCT_RATE_TO_PER_100K_TOPICS = [
     "Asthma",
     "Cardiovascular Diseases",

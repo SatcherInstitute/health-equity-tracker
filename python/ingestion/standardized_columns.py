@@ -61,6 +61,20 @@ SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 PCT_REL_INEQUITY_SUFFIX = "pct_relative_inequity"
 RAW_SUFFIX = "estimated_total"
 POP_PCT_SUFFIX = 'population_pct'
+RATIO_AGE_ADJUSTED_SUFFIX = "ratio_age_adjusted"
+INDEX_SUFFIX = "index"
+
+SUFFIXES = [
+    PER_100K_SUFFIX,
+    PCT_RATE_SUFFIX,
+    PCT_SHARE_SUFFIX,
+    PCT_REL_INEQUITY_SUFFIX,
+    SHARE_OF_KNOWN_SUFFIX,
+    RAW_SUFFIX,
+    POP_PCT_SUFFIX,
+    RATIO_AGE_ADJUSTED_SUFFIX,
+    INDEX_SUFFIX,
+]
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"
@@ -98,9 +112,10 @@ CARDIOVASCULAR_PREFIX = "cardiovascular_diseases"
 ASTHMA_PREFIX = "asthma"
 VOTER_PARTICIPATION_PREFIX = "voter_participation"
 
+AHR_POPULATION_RAW = "ahr_population_estimated_total"
 AHR_POPULATION_PCT = "ahr_population_pct"
-CHR_POPULATION_PCT = "chr_population_pct"
 CHR_POPULATION_RAW = "chr_population_estimated_total"
+CHR_POPULATION_PCT = "chr_population_pct"
 
 # Vaccination columns
 VACCINATED_RAW = "vaccinated_estimated_total"
@@ -421,3 +436,15 @@ def generate_column_name(prefix, suffix):
     suffix: a type of measurement (pct_share, per_100k)"""
 
     return f'{prefix}_{suffix}'
+
+
+def extract_prefix(col_name: str) -> str:
+    """Extracts the prefix from a column name that contains one of out standard HET suffixes."""
+
+    for suffix in SUFFIXES:
+        underscore_suffix = f'_{suffix}'
+        if col_name.endswith(underscore_suffix):
+            prefix = col_name[: -len(underscore_suffix)]
+            return prefix
+
+    raise ValueError(f"Column {col_name} does not contain a standard suffix from {SUFFIXES}")

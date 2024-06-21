@@ -9,6 +9,7 @@ ENV PYTHONUNBUFFERED True
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY ./exporter ./exporter
+COPY ./shared_requirements ./shared_requirements
 
 # Install production dependencies.
 RUN python -m pip install --upgrade pip

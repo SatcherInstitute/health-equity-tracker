@@ -1,7 +1,6 @@
 import json
 import os
 import pandas as pd
-
 from datasources.graphql_ahr import GraphQlAHRData
 from ingestion.constants import AGE, CURRENT, NATIONAL_LEVEL, SEX, STATE_LEVEL
 from ingestion.standardized_columns import RACE_OR_HISPANIC_COL, STATE_FIPS_COL
@@ -41,12 +40,14 @@ def testWriteToBqAgeNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: moc
     assert table_name == f"{AGE}_{NATIONAL_LEVEL}_{CURRENT}"
     assert mock_add_df_to_bq.call_count == 1
 
+    # actual_df.to_csv(table_name, index=False)
+
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('datasources.graphql_ahr.fetch_ahr_data_from_graphql', side_effect=_fetch_ahr_data_from_graphql)
-def testWriteToBqRaceNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.MagicMock):
+def testWriteToBqRaceState(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.MagicMock):
     datasource = GraphQlAHRData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic=RACE_OR_HISPANIC_COL, geographic=STATE_LEVEL)
 
@@ -55,6 +56,8 @@ def testWriteToBqRaceNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mo
 
     assert table_name == f"{RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}"
     assert mock_add_df_to_bq.call_count == 1
+
+    # actual_df.to_csv(table_name, index=False)
 
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
@@ -70,5 +73,7 @@ def testWriteToBqSexNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: moc
 
     assert table_name == f"{SEX}_{NATIONAL_LEVEL}_{CURRENT}"
     assert mock_add_df_to_bq.call_count == 1
+
+    # actual_df.to_csv(table_name, index=False)
 
     assert_frame_equal(actual_df, expected_df, check_like=True)

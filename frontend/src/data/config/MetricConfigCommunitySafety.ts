@@ -6,7 +6,14 @@ import { populationPctShortLabel, populationPctTitle } from './MetricConfigUtils
 
 
 SHOW_GUN_VIOLENCE && console.log('Gun violence preview enabled')
-export const COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_violence_youth', 'gun_deaths_black_men'] as const
+
+const ALWAYS_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence_youth'] as const
+const CONDITIONALLY_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS = ['gun_violence', 'gun_deaths_black_men'] as const
+
+export const COMMUNITY_SAFETY_DROPDOWNIDS = [
+    ...ALWAYS_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS,
+    ...(SHOW_GUN_VIOLENCE ? CONDITIONALLY_VISIBLE_COMMUNITY_SAFETY_DROPDOWNIDS : [])
+] as const;
 
 export type CommunitySafetyDataTypeId =
     | 'gun_violence_homicide'
@@ -296,30 +303,28 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
 export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
     {
         categoryId: 'community-safety',
-        dataTableTitle: 'Breakdown summary of gun homicides among Black men',
+        dataTableTitle: 'Breakdown summary of gun homicides among Black (NH) men',
         dataTypeId: 'gun_deaths_black_men',
         dataTypeShortLabel: 'Gun Homicides (Black Men)',
         definition: {
-            text: 'Deaths of Black or African-American males, caused by gun homicides.'
+            text: 'Deaths of Black or African-American (NH) males, caused by gun homicides.'
         },
         fullDisplayName: 'Gun homicides (Black Men)',
         fullDisplayNameInline: 'gun homicides (Black Men)',
         mapConfig: menHigherIsWorseMapConfig,
-        otherSubPopulationLabel: 'Black Men',
         metrics: {
-
             pct_relative_inequity: {
-                chartTitle: 'Historical relative inequity of gun homicides among Black men',
+                chartTitle: 'Historical relative inequity of gun homicides among Black (NH) men',
                 metricId: 'gun_homicides_black_men_pct_relative_inequity',
                 shortLabel: '% relative inequity',
                 type: 'pct_relative_inequity',
             },
             pct_share: {
-                chartTitle: 'Share of total gun homicides among Black men',
-                columnTitleHeader: 'Share of total gun homicides among Black men',
+                chartTitle: 'Share of total gun homicides among Black (NH) men',
+                columnTitleHeader: 'Share of total gun homicides among Black (NH) men',
                 metricId: 'gun_homicides_black_men_pct_share',
                 populationComparisonMetric: {
-                    chartTitle: 'Population vs. distribution of total gun homicides among Black men',
+                    chartTitle: 'Population vs. distribution of total gun homicides among Black (NH) men',
                     columnTitleHeader: `${populationPctTitle} (Black NH, Male)`,
                     metricId: 'gun_homicides_black_men_population_pct',
                     shortLabel: populationPctShortLabel,
@@ -329,11 +334,11 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
                 type: 'pct_share',
             },
             per100k: {
-                chartTitle: 'Rates of gun homicides among Black men',
-                columnTitleHeader: 'Gun homicides per 100k Black men',
+                chartTitle: 'Rates of gun homicides among Black (NH) men',
+                columnTitleHeader: 'Gun homicides per 100k Black (NH) men',
                 metricId: 'gun_homicides_black_men_per_100k',
                 shortLabel: 'homicides per 100k',
-                trendsCardTitleName: 'Rates of gun homicides among Black men over time',
+                trendsCardTitleName: 'Rates of gun homicides among Black (NH) men over time',
                 type: 'per100k',
                 rateNumeratorMetric: {
                     chartTitle: '',
@@ -348,7 +353,8 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
                     type: 'count',
                 }
             },
-        }
+        },
+        otherSubPopulationLabel: 'Black Men',
     }
 ]
 

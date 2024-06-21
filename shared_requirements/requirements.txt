@@ -1,0 +1,13 @@
+flask
+urllib3
+werkzeug
+numpy==1.26.4
+google-api-core[grpc]
+google-cloud-bigquery
+google-cloud-pubsub
+certifi==2023.7.22
+grpcio==1.53.2
+gunicorn==22.0.0
+protobuf
+rsa==4.9
+idna
