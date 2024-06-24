@@ -201,7 +201,9 @@ def generate_pct_share_col_with_unknowns(
     return df
 
 
-def _generate_pct_share_col(df, raw_count_to_pct_share: dict[str, str], breakdown_col: str, all_val: str):
+def _generate_pct_share_col(
+    df, raw_count_to_pct_share: dict[str, str], breakdown_col: str, all_val: str
+):  # pylint: disable=unsubscriptable-object
     def calc_pct_share(record, raw_count_col):
         return percent_avoid_rounding_to_zero(record[raw_count_col], record[f'{raw_count_col}_all'])
 
@@ -244,6 +246,7 @@ def _generate_pct_share_col(df, raw_count_to_pct_share: dict[str, str], breakdow
     return df.reset_index(drop=True)
 
 
+# pylint: disable=unsubscriptable-object
 def generate_pct_share_col_of_summed_alls(
     df: pd.DataFrame, raw_count_to_pct_share: dict[str, str], demo_col: Literal['age', 'sex', 'race_and_ethnicity']
 ) -> pd.DataFrame:
@@ -297,13 +300,19 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     pop_col: String column name with the population number.
     per_100k_col: String column name to place the generated row in."""
 
-    def calc_per_100k(record):
-        per_100k = percent_avoid_rounding_to_zero(1000 * float(record[raw_count_col]), float(record[pop_col]), 0, 0)
-        if not pd.isna(per_100k):
-            return round(per_100k, 0)
-        return np.nan
+    # Convert columns to float to ensure proper division
+    raw_count = df[raw_count_col].astype(float)
+    population = df[pop_col].astype(float)
 
-    df[per_100k_col] = df.apply(calc_per_100k, axis=1)
+    # Calculate per 100k rate
+    per_100k = 100_000 * raw_count / population
+
+    # Handle division by zero and invalid results
+    per_100k = per_100k.where((population != 0) & (per_100k.notnull()) & (per_100k != np.inf), np.nan)
+
+    # Round to nearest whole number
+    df[per_100k_col] = per_100k.round(0)
+
     return df
 
 
@@ -435,14 +444,25 @@ def generate_pct_rel_inequity_col(
                            inequitable shares in.
     """
 
-    def calc_pct_relative_inequity(row):
-        if pd.isna(row[pct_share_col]) or pd.isna(row[pct_pop_col]) or (row[pct_pop_col] == 0):
-            return np.NaN
+    # Ensure input columns are float
+    df[pct_share_col] = pd.to_numeric(df[pct_share_col], errors='coerce')
+    df[pct_pop_col] = pd.to_numeric(df[pct_pop_col], errors='coerce')
 
-        pct_relative_inequity_ratio = (row[pct_share_col] - row[pct_pop_col]) / row[pct_pop_col]
-        return round(pct_relative_inequity_ratio * 100, 1)
+    # Create a mask for valid calculations
+    valid_mask = (~df[pct_share_col].isna()) & (~df[pct_pop_col].isna()) & (df[pct_pop_col] != 0)
 
-    df[pct_relative_inequity_col] = df.apply(calc_pct_relative_inequity, axis=1)
+    # Initialize the new column with NaN
+    df[pct_relative_inequity_col] = np.nan
+
+    # Perform the calculation only where valid
+    df.loc[valid_mask, pct_relative_inequity_col] = (
+        (df.loc[valid_mask, pct_share_col] - df.loc[valid_mask, pct_pop_col]) / df.loc[valid_mask, pct_pop_col] * 100
+    )
+
+    # Round the results
+    df[pct_relative_inequity_col] = df[pct_relative_inequity_col].round(1)
+    df[pct_relative_inequity_col] = df[pct_relative_inequity_col].astype(float)
+
     return df
 
 
@@ -600,7 +620,7 @@ def generate_time_df_with_cols_and_types(
     numerical_cols_to_keep: List[str],
     table_type: Literal['current', 'historical'],
     dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
-) -> tuple[pd.DataFrame, Dict[str, str]]:
+) -> tuple[pd.DataFrame, Dict[str, str]]:  # pylint: disable=unsubscriptable-object
     """
     Accepts a DataFrame along with list of column names for either current or
     historical data and generates the appropiate BQ types for each column.

@@ -1,24 +1,19 @@
-import numpy as np  # type: ignore
-import pandas as pd  # type: ignore
+import numpy as np
+import pandas as pd
 import time
-
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import generate_column_name, Race
-
 from ingestion.constants import US_FIPS, US_NAME, NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL, RACE, AGE, SEX, UNKNOWN
-
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import RACE_NAMES_MAPPING, SEX_NAMES_MAPPING, AGE_NAMES_MAPPING
-
 from ingestion import gcs_to_bq_util
+from ingestion.merge_utils import merge_state_ids, merge_pop_numbers, merge_multiple_pop_cols, merge_county_names
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
     generate_pct_rel_inequity_col,
     zero_out_pct_rel_inequity,
 )
-
-from ingestion.merge_utils import merge_state_ids, merge_pop_numbers, merge_multiple_pop_cols, merge_county_names
 
 DC_COUNTY_FIPS = '11001'
 
@@ -63,14 +58,26 @@ class CDCRestrictedData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo = self.get_attr(attrs, 'demographic')
         geo = self.get_attr(attrs, 'geographic')
+        geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
+        filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+
+        df_from_gcs = gcs_to_bq_util.load_csv_as_df(
+            gcs_bucket,
+            filename,
+            dtype={
+                'county_fips': str,
+                'cases': 'uint32',
+                'hosp_y': 'uint32',
+                'hosp_n': 'uint32',
+                'hosp_unknown': 'uint32',
+                'death_y': 'uint32',
+                'death_n': 'uint32',
+                'death_unknown': 'uint32',
+            },
+        )
+
         for time_series in [False, True]:
-            geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
-            filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
-
-            df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename, dtype={'county_fips': str})
-
-            df = self.generate_breakdown(df, demo, geo, time_series)
-
+            df = self.generate_breakdown(df_from_gcs, demo, geo, time_series)
             if demo == RACE:
                 std_col.add_race_columns_from_category_id(df)
 
@@ -271,12 +278,9 @@ def remove_bad_fips_cols(df):
     tell where the cases are from.
 
     df: The DataFrame to toss rows out of."""
-
-    def fips_code_is_good(row):
-        return row[std_col.COUNTY_FIPS_COL][0:2] == row[std_col.STATE_FIPS_COL]
-
-    df = df[df.apply(fips_code_is_good, axis=1)]
-    return df.reset_index(drop=True)
+    # Use vectorized string operations to compare the first two digits of COUNTY_FIPS_COL with STATE_FIPS_COL
+    mask = df[std_col.COUNTY_FIPS_COL].str[:2] == df[std_col.STATE_FIPS_COL]
+    return df[mask].reset_index(drop=True)
 
 
 def generate_national_dataset(state_df, demo_col, time_series):
