@@ -5,7 +5,7 @@ numpy==1.26.4
 google-api-core[grpc]
 google-cloud-bigquery
 google-cloud-pubsub
-certifi==2023.7.22
+certifi==2024.6.2
 grpcio==1.53.2
 gunicorn==22.0.0
 protobuf
