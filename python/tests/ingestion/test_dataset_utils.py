@@ -5,6 +5,7 @@ import json
 import pytest
 import re
 import pandas as pd
+import numpy as np
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
@@ -75,12 +76,11 @@ _expected_pct_share_data_with_unknowns = [
 
 _fake_data_without_pct_relative_inequity_col = [
     ['state_fips', 'state_name', 'race', 'pct_share', 'pct_pop'],
-    ['01', 'Alabama', 'Race 1', 0, 10.0],
-    ['01', 'Alabama', 'Race 2', 10.001, 10.0],
-    ['01', 'Alabama', 'Race 3', 60.0, 10.0],
-    ['01', 'Alabama', 'Race 4', 60.0, None],
-    ['01', 'Alabama', 'Race 5', None, 10.0],
-    ['01', 'Alabama', 'Race 6', 100.0, 0],
+    ['01', 'Alabama', 'Race 1', 0, 0.0],
+    ['01', 'Alabama', 'Race 2', 10.0, 10.0],
+    ['01', 'Alabama', 'Race 3', 45.0, 80.0],
+    ['01', 'Alabama', 'Race 4', 45.0, 10.0],
+    ['01', 'Alabama', 'Race 5', None, None],
 ]
 
 _expected_data_with_pct_relative_inequity_col = [
@@ -92,12 +92,11 @@ _expected_data_with_pct_relative_inequity_col = [
         'pct_pop',
         'pct_relative_inequity',
     ],
-    ['01', 'Alabama', 'Race 1', 0, 10.0, -100.0],
-    ['01', 'Alabama', 'Race 2', 10.001, 10.0, 0.0],
-    ['01', 'Alabama', 'Race 3', 60.0, 10.0, 500.0],
-    ['01', 'Alabama', 'Race 4', 60.0, None, None],
-    ['01', 'Alabama', 'Race 5', None, 10.0, None],
-    ['01', 'Alabama', 'Race 6', 100.0, 0, None],
+    ['01', 'Alabama', 'Race 1', 0, 0.0, np.nan],
+    ['01', 'Alabama', 'Race 2', 10.0, 10.0, 0.0],
+    ['01', 'Alabama', 'Race 3', 45.0, 80.0, -43.8],
+    ['01', 'Alabama', 'Race 4', 45.0, 10.0, 350.0],
+    ['01', 'Alabama', 'Race 5', None, None, np.nan],
 ]
 
 _fake_data_with_pct_rel_inequity_with_zero_rates = [
@@ -386,7 +385,9 @@ def testGeneratePctRelInequityCol():
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_data_with_pct_relative_inequity_col))
     ).reset_index(drop=True)
-    expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(float)
+    expected_df[['pct_relative_inequity', 'pct_share', 'pct_pop']] = expected_df[
+        ['pct_relative_inequity', 'pct_share', 'pct_pop']
+    ].astype(float)
 
     assert_frame_equal(df, expected_df, check_like=True)
 
