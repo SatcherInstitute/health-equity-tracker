@@ -305,6 +305,7 @@ The backend consists of:
 1. (One-time) Create a virtual environment in your project directory, for example: `python3 -m venv .venv`
 1. (Every time you develop on Python code) Activate the venv (every time you want to update Python ): `source .venv/bin/activate`
 1. (One-time) Install pip-tools and other packages as needed: `pip install pip-tools`
+1. (One-time) Install all dependencies across all Python services on your local machine: `./install-all-python.sh`
 
 Note: If you are using VSCode, ensure you install the recommend extensions, including Black which is used for linting/formatting.
 
