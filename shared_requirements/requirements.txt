@@ -11,3 +11,4 @@ gunicorn==22.0.0
 protobuf
 rsa==4.9
 idna
+pyarrow
