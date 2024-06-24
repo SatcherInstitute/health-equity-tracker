@@ -1,7 +1,7 @@
 flask
 urllib3
 werkzeug
-numpy==2.0.0
+numpy==1.26.4
 google-api-core[grpc]
 google-cloud-bigquery
 google-cloud-pubsub
