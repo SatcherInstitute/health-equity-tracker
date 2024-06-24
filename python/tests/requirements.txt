@@ -67,8 +67,6 @@ pyasn1-modules==0.2.8
     # via google-auth
 pycparser==2.20
     # via cffi
-pylint==3.2.2
-    # via -r ../ingestion/requirements.in
 python-dateutil==2.9.0.post0
     # via
     #   freezegun
@@ -79,11 +77,6 @@ pytz==2020.4
     #   pandas
 pyyaml==5.4
     # via libcst
-requests==2.32.2
-    # via
-    #   -r ../ingestion/requirements.in
-    #   google-api-core
-    #   google-cloud-storage
 six==1.15.0
     # via
     #   google-api-core

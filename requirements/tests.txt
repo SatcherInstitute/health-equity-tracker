@@ -94,8 +94,6 @@ pyasn1-modules==0.2.8
     # via google-auth
 pycparser==2.20
     # via cffi
-pylint==3.2.3
-    # via -r ../python/tests/../ingestion/requirements.in
 pyparsing==2.4.7
     # via packaging
 pytest==8.2.2
@@ -110,11 +108,6 @@ pytz==2020.1
     #   pandas
 pyyaml==5.4
     # via libcst
-requests==2.32.3
-    # via
-    #   -r ../python/tests/../ingestion/requirements.in
-    #   google-api-core
-    #   google-cloud-storage
 six==1.15.0
     # via
     #   google-api-core

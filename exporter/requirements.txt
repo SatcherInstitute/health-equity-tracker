@@ -81,12 +81,6 @@ python-dateutil==2.9.0.post0
     #   pandas
 pytz==2022.2.1
     # via pandas
-requests==2.32.3
-    # via
-    #   -r requirements.in
-    #   google-api-core
-    #   google-cloud-bigquery
-    #   google-cloud-storage
 six==1.16.0
     # via python-dateutil
 tzdata==2024.1
