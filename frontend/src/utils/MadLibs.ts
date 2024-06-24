@@ -225,14 +225,12 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: COVID_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-  ...(SHOW_GUN_VIOLENCE ? [
-    {
-      title: 'Community Safety',
-      definition: '',
-      options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
-    }
-  ] : [])
-];
+  {
+    title: 'Community Safety',
+    definition: '',
+    options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
+  }
+]
 
 
 const MADLIB_LIST: MadLib[] = [
