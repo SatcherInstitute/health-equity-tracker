@@ -375,7 +375,7 @@ def add_missing_demographic_values(df, geo, demographic):
             elif col == std_col.TIME_PERIOD_COL:
                 row.append(geo_demo[-2])
             else:
-                row.append(np.NaN)
+                row.append(np.nan)
         df_to_append.append(row)
 
     return pd.concat([df, pd.DataFrame(df_to_append, columns=columns)], ignore_index=True)
