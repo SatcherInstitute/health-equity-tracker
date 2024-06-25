@@ -30,3 +30,4 @@ google-cloud-storage==2.17.0
 google-cloud==0.34.0
 proto-plus==1.23.0
 google-cloud-core==2.4.1
+google-resumable-media==2.7.0

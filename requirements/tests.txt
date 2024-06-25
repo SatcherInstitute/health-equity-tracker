@@ -19,10 +19,6 @@ freezegun==1.5.1
     # via -r ../python/tests/requirements.in
 google-crc32c==1.0.0
     # via google-resumable-media
-google-resumable-media==1.1.0
-    # via
-    #   google-cloud-bigquery
-    #   google-cloud-storage
 googleapis-common-protos[grpc]==1.52.0
     # via
     #   google-api-core
