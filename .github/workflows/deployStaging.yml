@@ -67,6 +67,7 @@ jobs:
       - id: gcstobq
         uses: ./.github/actions/buildAndPush
         with:
+          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
 
@@ -148,6 +149,7 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest

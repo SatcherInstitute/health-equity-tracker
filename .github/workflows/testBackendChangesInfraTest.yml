@@ -64,6 +64,7 @@ jobs:
       - id: gcstobq
         uses: ./.github/actions/buildAndPush
         with:
+          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
 
