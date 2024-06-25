@@ -3,7 +3,6 @@ cffi==1.15.1              # via google-crc32c
 chardet==3.0.4            # via requests
 click==7.1.2              # via flask
 google-crc32c==1.0.0      # via google-resumable-media
-googleapis-common-protos[grpc]==1.52.0  # via google-api-core, grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3  # via google-cloud-pubsub
 libcst==0.3.12            # via google-cloud-pubsub
 pyasn1-modules==0.2.8     # via google-auth

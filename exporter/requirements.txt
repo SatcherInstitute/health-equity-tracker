@@ -11,11 +11,6 @@ google-crc32c==1.3.0
     # via
     #   google-cloud-storage
     #   google-resumable-media
-googleapis-common-protos[grpc]==1.56.4
-    # via
-    #   google-api-core
-    #   grpc-google-iam-v1
-    #   grpcio-status
 grpc-google-iam-v1==0.12.4
     # via google-cloud-pubsub
 grpcio-status==1.47.0

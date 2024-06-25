@@ -13,10 +13,6 @@ et-xmlfile==1.1.0
     # via openpyxl
 google-crc32c==1.0.0
     # via google-resumable-media
-googleapis-common-protos[grpc]==1.52.0
-    # via
-    #   google-api-core
-    #   grpc-google-iam-v1
 grpc-google-iam-v1==0.12.3
     # via google-cloud-pubsub
 isort==5.13.2
