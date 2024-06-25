@@ -48,7 +48,7 @@ jobs:
           yes | mypy --install-types airflow/dags/
 
       - name: Set AHR_API_KEY environment variable
-        run: echo "AHR_API_KEY=${{ secrets.BASIC_AUTH_PASSWORD }}" >> $GITHUB_ENV
+        run: echo "AHR_API_KEY=${{ secrets.AHR_API_KEY }}" >> $GITHUB_ENV
 
       - name: Run mypy
         run: |
