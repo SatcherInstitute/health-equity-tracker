@@ -42,7 +42,7 @@ runs:
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
-        --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}"
+        --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}" \
         --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
