@@ -3,7 +3,7 @@
 
 import logging
 import os
-from google.cloud import storage
+from google.cloud import storage  # type: ignore
 import google.cloud.exceptions
 import requests
 import filecmp

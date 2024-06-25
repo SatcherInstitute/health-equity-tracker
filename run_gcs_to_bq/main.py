@@ -1,6 +1,5 @@
 import logging
 import os
-
 from datasources.data_sources import DATA_SOURCES_DICT
 from flask import Flask, request
 
