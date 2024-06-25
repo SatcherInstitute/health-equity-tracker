@@ -30,5 +30,5 @@ requests==2.32.3
 rsa==4.9
 six==1.16.0
 urllib3
-Werkzeug==2.2.2
+Werkzeug==3.0.3
 xlrd==2.0.1
