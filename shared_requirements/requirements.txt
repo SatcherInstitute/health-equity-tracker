@@ -4,8 +4,12 @@ werkzeug
 numpy==1.26.4
 google-auth==2.29.0
 google-api-core[grpc]
+google-cloud
 google-cloud-bigquery
 google-cloud-pubsub
+google-cloud-core
+google-resumable-media
+google-cloud-storage
 certifi==2024.6.2
 grpcio==1.64.1
 gunicorn==22.0.0
@@ -26,8 +30,4 @@ six==1.16.0
 markupsafe==2.1.5
 pytz==2022.2.1
 cachetools==5.3.3
-google-cloud-storage==2.17.0
-google-cloud==0.34.0
 proto-plus==1.23.0
-google-cloud-core==2.4.1
-google-resumable-media==2.7.0
