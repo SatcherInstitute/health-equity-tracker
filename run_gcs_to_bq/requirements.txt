@@ -1,15 +1,4 @@
 -r ../shared_requirements/requirements.txt
-cffi==1.15.1              # via google-crc32c
-chardet==3.0.4            # via requests
-google-crc32c==1.0.0      # via google-resumable-media
-grpc-google-iam-v1==0.12.3  # via google-cloud-pubsub
-libcst==0.3.12            # via google-cloud-pubsub
-pyasn1-modules==0.2.8     # via google-auth
-pyasn1==0.4.8             # via pyasn1-modules, rsa
-pycparser==2.20           # via cffi
-python-dateutil==2.9.0.post0    # via pandas
-typing-extensions==4  # via libcst, typing-inspect
-typing-inspect==0.6.0     # via libcst
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
