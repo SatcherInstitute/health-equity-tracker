@@ -1,5 +1,4 @@
 name: RUN Python Type Checks
-
 on:
   pull_request:
     branches:
@@ -48,13 +47,11 @@ jobs:
           yes | mypy --install-types run_gcs_to_bq/ python/ingestion/
           yes | mypy --install-types airflow/dags/
 
-      - name: Print all environment variables for debugging
-        run: printenv
+      - name: Set AHR_API_KEY environment variable
+        run: echo "AHR_API_KEY=${{ secrets.AHR_API_KEY }}" >> $GITHUB_ENV
 
       - name: Print AHR_API_KEY for debugging
         run: echo "AHR_API_KEY is $AHR_API_KEY"
-        env:
-          AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
       - name: Run mypy
         run: |
@@ -62,5 +59,6 @@ jobs:
           mypy --config-file=.github/linters/mypy.ini run_ingestion/ python/ingestion/
           mypy --config-file=.github/linters/mypy.ini run_gcs_to_bq/ python/ingestion/
           mypy --config-file=.github/linters/mypy.ini airflow/dags/
-        env:
-          AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+
+          env:
+            AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
