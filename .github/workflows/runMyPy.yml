@@ -50,9 +50,6 @@ jobs:
       - name: Set AHR_API_KEY environment variable
         run: echo "AHR_API_KEY=${{ secrets.BASIC_AUTH_PASSWORD }}" >> $GITHUB_ENV
 
-      - name: Print AHR_API_KEY for debugging
-        run: echo "AHR_API_KEY is $AHR_API_KEY"
-
       - name: Run mypy
         run: |
           mypy --config-file=.github/linters/mypy.ini data_server/ python/data_server/
