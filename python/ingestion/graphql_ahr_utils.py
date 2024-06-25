@@ -81,6 +81,10 @@ def fetch_ahr_data_from_graphql():
     """
 
     graphql_url = 'https://api.americashealthrankings.org/graphql'
+
+    if not ahr_api_key:
+        raise ValueError("No API key found. Please set the AHR_API_KEY environment variable.")
+
     headers = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
     all_responses = []
 
