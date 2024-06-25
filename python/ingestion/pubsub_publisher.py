@@ -1,15 +1,15 @@
 import logging
-from google.cloud import pubsub_v1
+from google.cloud import pubsub_v1  # type: ignore
 
 
 def notify_topic(project_id, topic, **attrs):
     """Publishes a notification on the specified topic using the provided attributes.
-      Attributes should include the id of the source that was ingested and the name of
-      the bucket the data is located in.
+    Attributes should include the id of the source that was ingested and the name of
+    the bucket the data is located in.
 
-      project_id: The id of the project
-      topic: The name of the topic to notify on
-      attrs: The attributes to pass through to the message"""
+    project_id: The id of the project
+    topic: The name of the topic to notify on
+    attrs: The attributes to pass through to the message"""
     publisher = pubsub_v1.PublisherClient()
     # For some reason topic_path doesn't show up as a member, but is used in the
     # official documentation:
@@ -26,5 +26,4 @@ def notify_topic(project_id, topic, **attrs):
     try:
         future.result()
     except Exception as e:
-        logging.warning(
-            'Error publishing message on topic {}: {}'.format(topic, e))
+        logging.warning('Error publishing message on topic %s: %s', topic, e)
