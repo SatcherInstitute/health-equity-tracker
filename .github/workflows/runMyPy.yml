@@ -48,7 +48,10 @@ jobs:
           yes | mypy --install-types run_gcs_to_bq/ python/ingestion/
           yes | mypy --install-types airflow/dags/
 
-      - name: Print AHR_API_KEY
+      - name: Print all environment variables for debugging
+        run: printenv
+
+      - name: Print AHR_API_KEY for debugging
         run: echo "AHR_API_KEY is $AHR_API_KEY"
         env:
           AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
