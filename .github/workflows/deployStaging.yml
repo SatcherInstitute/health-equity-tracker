@@ -44,6 +44,8 @@ jobs:
         with:
           dockerfile: 'run_ingestion/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'
+          env:
+            AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
   build-gcs-to-bq:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
@@ -69,6 +71,8 @@ jobs:
         with:
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
+          env:
+            AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
   build-exporter:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
@@ -94,6 +98,8 @@ jobs:
         with:
           dockerfile: 'exporter/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
+          env:
+            AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
   build-data-server:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
@@ -119,6 +125,8 @@ jobs:
         with:
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
+          env:
+            AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
   build-frontend:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
@@ -148,6 +156,8 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          env:
+            AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest
