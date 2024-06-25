@@ -3,10 +3,6 @@ blinker==1.8.2
     # via flask
 cffi==1.14.3
     # via google-crc32c
-charset-normalizer==3.3.2
-    # via requests
-click==8.1.7
-    # via flask
 flask-cors==4.0.1
     # via -r requirements.in
 google-crc32c==1.0.0

@@ -5,10 +5,6 @@ blinker==1.8.2
     # via flask
 cffi==1.14.3
     # via google-crc32c
-charset-normalizer==3.3.2
-    # via requests
-click==8.1.7
-    # via flask
 dill==0.3.8
     # via pylint
 et-xmlfile==1.1.0

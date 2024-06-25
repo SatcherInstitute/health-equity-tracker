@@ -3,10 +3,6 @@ astroid==3.2.2
     # via pylint
 cffi==1.15.1
     # via google-crc32c
-charset-normalizer==3.3.2
-    # via requests
-click==7.1.2
-    # via flask
 dill==0.3.8
     # via pylint
 et-xmlfile==1.1.0
