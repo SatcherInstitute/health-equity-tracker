@@ -263,3 +263,4 @@ jobs:
           SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
           FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
           PATH_TO_SA_CREDS: config/creds.json
+          AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
