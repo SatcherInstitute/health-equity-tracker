@@ -128,14 +128,14 @@ class AhrProvider extends VariableProvider {
 
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
-        return 'ahr_data-race_and_ethnicity_national'
-      if (breakdowns.hasOnlySex()) return 'ahr_data-sex_national'
-      if (breakdowns.hasOnlyAge()) return 'ahr_data-age_national'
+        return 'graphql_ahr_data-race_and_ethnicity_national_current'
+      if (breakdowns.hasOnlySex()) return 'graphql_ahr_data-sex_national_current'
+      if (breakdowns.hasOnlyAge()) return 'graphql_ahr_data-age_national_current'
     }
     if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace()) return 'ahr_data-race_and_ethnicity_state'
-      if (breakdowns.hasOnlySex()) return 'ahr_data-sex_state'
-      if (breakdowns.hasOnlyAge()) return 'ahr_data-age_state'
+      if (breakdowns.hasOnlyRace()) return 'graphql_ahr_data-race_and_ethnicity_state_current'
+      if (breakdowns.hasOnlySex()) return 'graphql_ahr_data-sex_state_current'
+      if (breakdowns.hasOnlyAge()) return 'graphql_ahr_data-age_state_current'
     }
     // some county data is available via CHR
     if (breakdowns.geography === 'county' && dataTypeId && CHR_DATATYPE_IDS.includes(dataTypeId)) {
