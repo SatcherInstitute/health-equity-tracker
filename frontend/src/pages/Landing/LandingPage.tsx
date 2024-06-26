@@ -38,10 +38,6 @@ function LandingPage() {
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 464c16be (how to use revisions)
   interface ListItemProps {
     title: string;
     description: string;
@@ -57,26 +53,17 @@ function LandingPage() {
           <h4 className="font-sansTitle text-smallestHeader xs:text-title font-medium md:text-left my-2">
             {title}
           </h4>
-          <p className="md:text-left mb-8 sm:text-small xs:text-small">
+          <p className="md:text-left mb-8 sm:text-small xs:text-small xs:mb-4">
             {description}
           </p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ec2c9b65 (add CTA to take a guided tour within how-to boxes)
           <div className='flex items-center justify-start p-0 m-0  hover:translate-x-1 hover:transition-transform hover:duration-300 '>
             <a
               href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}
-              className=' no-underline h-auto font-sansTitle text-small p-0 m-0 text-altGreen font-bold flex items-center justify-start'
+              className=' no-underline h-auto font-sansTitle text-small p-0 m-0 text-altGreen font-bold flex items-center justify-start xs:mb-4 sm:m-[auto] xs:m-[auto] '
             >
-              <p className='mr-2 p-0 my-0'> Take a guided tour</p> <ArrowRightAlt />
+              <p className=' mr-2 p-0 my-0 '> Take a guided tour</p> <ArrowRightAlt />
             </a>
           </div>
-<<<<<<< HEAD
-=======
->>>>>>> 464c16be (how to use revisions)
-=======
->>>>>>> ec2c9b65 (add CTA to take a guided tour within how-to boxes)
         </div>
         <div className="w-full md:w-2/3 ">
           {iframeSrc ? (
@@ -107,11 +94,6 @@ function LandingPage() {
     );
   };
 
-<<<<<<< HEAD
-=======
->>>>>>> bcfcb135 (news section refresh)
-=======
->>>>>>> 464c16be (how to use revisions)
 
   return (
     <>
@@ -121,18 +103,14 @@ function LandingPage() {
       </Helmet>
 
       <h2 className='sr-only'>Home Page</h2>
-      {/* Refresh */}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9465dd5b (news section revisions)
+
       <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16 min-h-5/6' >
         <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
         </img>
         <div className='p-0 m-0relative lg:w-1/2 md:w-full sm:w-full text-left'>
 
 
-          <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
+          <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0 xs:text-header'>Where will the <br />
             <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
           <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
@@ -151,61 +129,15 @@ function LandingPage() {
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
             <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
-=======
-      <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16' >
-        <img src='/img/graphics/het-hero.png' alt='various charts from the health equity tracker' className='z-0 absolute max-w-4xl top-0 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'>
-        </img>
-        <div className='relative lg:w-1/2 md:w-full sm:w-full text-left'>
-
-
-          <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0'>Where will the <br />
-            <span className='text-altGreen'>Health Equity Tracker</span><br /> take you?</h1>
-          <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
-            Explore the data
-          </HetBigCTA >
-          <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
-            <p className='py-0 my-0 z-1'>Data sourced from major public health agencies
-            </p>
-
-          </div>
-          <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
-<<<<<<< HEAD
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_census.png' alt='US Census logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_bjs.png' alt='BJS logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cawp.png' alt='CAWP logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_ahr.png' alt='AHR logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/public/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
->>>>>>> 1a1887f9 (add new hero and update landing page headers)
-=======
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cdc.png' alt='US CDC logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_census.png' alt='US Census logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_bjs.png' alt='BJS logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cawp.png' alt='CAWP logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_ahr.png' alt='AHR logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_cms.png' alt='CMS logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_vera.png' alt='VERA logo'></img></div>
-            <div className='max-h-4'><img className='h-4' src='/img/graphics/logo_kff.png' alt='Kaiser Family Foundation logo'></img></div>
->>>>>>> 1e69bb24 (landing page revisions)
 
           </div>
         </div>
 
       </section>
-      {/* Refresh */}
+
 
       <div className='flex w-full flex-wrap items-center justify-center '>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
-=======
-        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-ashgray30 mx-auto my-0 w-full space-8 lg:space-24'>
->>>>>>> 1a1887f9 (add new hero and update landing page headers)
-=======
-        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
->>>>>>> 9465dd5b (news section revisions)
 
           <img
             src='/img/graphics/banner.png'
@@ -214,29 +146,11 @@ function LandingPage() {
           />
 
           <div className='flex w-full flex-col justify-center items-center md:block sm:block'>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center'>
+            <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
               Advancing Health Justice
             </h2>
 
             <p className='lg:text-left lg:text-title mt-4 mb-16 text-title'>
-=======
-            <h3
-              id='main'
-              className='mb-4 mt-0 pb-4 pt-12 text-header font-sansTitle font-bold text-altGreen leading-lhModalHeading lg:text-left lg:text-bigHeader'
-            >
-              Advancing Health Justice
-            </h3>
-            <p className='lg:text-left lg:text-title'>
->>>>>>> 1a1887f9 (add new hero and update landing page headers)
-=======
-            <h2 id='main' className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center'>
-              Advancing Health Justice
-            </h2>
-
-            <p className='lg:text-left lg:text-title mt-4 mb-16 text-title'>
->>>>>>> 464c16be (how to use revisions)
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -256,15 +170,7 @@ function LandingPage() {
             </h3>
           </div>
           <div className='w-full'>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <p className='mt-4 mb-16 text-text'>
-=======
-            <p className='mt-4 pb-16 text-title'>
->>>>>>> bcfcb135 (news section refresh)
-=======
-            <p className='mt-4 mb-16 text-text'>
->>>>>>> 464c16be (how to use revisions)
               Stories and updates from Morehouse School of Medicine and beyond
             </p>
           </div>
@@ -303,38 +209,14 @@ function LandingPage() {
           </div>
         </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 464c16be (how to use revisions)
-        <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 bg-footerColor">
+        <article className="flex flex-wrap items-center justify-center py-24 px-16 sm:px-24 md:px-32 lg:px-56 xs:mx-0 xs:px-8 bg-footerColor">
           <div className="w-full">
 
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
-<<<<<<< HEAD
-=======
-        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-56 pb-32 pt-20'>
-=======
-        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid p-24'>
->>>>>>> 1e69bb24 (landing page revisions)
-=======
-        <article className='flex flex-wrap items-center justify-center py-24 px-56 md:px-32 sm:px-24 xs:px-16 bg-footerColor'>
->>>>>>> 9465dd5b (news section revisions)
-          <div className='w-full'>
-            <h3 className='m-0 pb-16 text-center font-sansTitle text-header text-altGreen'>
->>>>>>> 1a1887f9 (add new hero and update landing page headers)
-=======
->>>>>>> 464c16be (how to use revisions)
               How do I use the Health Equity Tracker?
             </h3>
           </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 464c16be (how to use revisions)
           <ul className="flex flex-col items-center justify-center p-0">
             <ListItem
               title="Take a Tour of the Data"
@@ -352,157 +234,14 @@ function LandingPage() {
               title="Explore maps and graphs"
               description="The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there’s no data currently available."
               videoSrc="videos/explore-map.mp4" iframeSrc={undefined} />
-<<<<<<< HEAD
-          </ul>
-
-<<<<<<< HEAD
-          <div className="mt-14">
-=======
-          <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white md:flex'>
-              <div className='w-full md:w-1/4'>
-                <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
-                  Take a Tour of the Data
-                </h4>
-                <p className='md:text-left'>
-                  New to the Health Equity Tracker? Watch a short video demo
-                  that highlights major features of the platform.
-                </p>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <iframe
-                  className='w-full rounded-md'
-                  height='420px'
-                  src='https://www.youtube.com/embed/XBoqT9Jjc8w'
-                  title='YouTube video player'
-                  loading='lazy'
-                  allow='accelerometer; autoplay; clipboard-write;
-                encrypted-media; gyroscope; picture-in-picture'
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </li>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
-              <div className='w-full md:w-1/4'>
-                <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
-                  Search by completing the sentence
-                </h4>
-                <p className='md:text-left'>
-                  Select topics and locations you’re interested in to complete
-                  the sentence and explore the data.
-                </p>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <LazyLoad offset={300} once>
-                  <video
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    muted
-                    playsInline
-                    className='h-full w-full p-2.5'
-                  >
-                    <source src='videos/search-by.mp4' type='video/mp4' />
-                  </video>
-                </LazyLoad>
-              </div>
-            </li>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
-              <div className='w-full md:w-1/4'>
-                <div>
-                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
-                    Use filters to go deeper
-                  </h4>
-                  <p className='md:text-left'>
-                    Where available, the tracker offers breakdowns by race and
-                    ethnicity, sex, and age.
-                  </p>
-                </div>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <LazyLoad offset={300} once>
-                  <video
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    muted
-                    playsInline
-                    className='h-full w-full p-2.5'
-                  >
-                    <source src='videos/filters.mp4' />
-                  </video>
-                </LazyLoad>
-              </div>
-            </li>
-            <li className='mt-8 py-16 w-full list-none items-center justify-around rounded-xl border border-solid border-altGrey bg-white p-2.5 md:flex'>
-              <div className='w-full md:w-1/4'>
-                <div>
-                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
-                    Explore maps and graphs
-                  </h4>
-                  <p className='md:text-left'>
-                    The interactive maps and graphs are a great way to
-                    investigate the data more closely. If a state or county is
-                    gray, that means there’s no data currently available.
-                  </p>
-                </div>
-              </div>
-              <div className='w-full md:w-2/3'>
-                <LazyLoad offset={300} once>
-                  <video
-                    autoPlay={!prefersReducedMotion}
-                    loop
-                    muted
-                    playsInline
-                    className='h-full w-full p-2.5'
-                  >
-                    <source src='videos/explore-map.mp4' />
-                  </video>
-                </LazyLoad>
-              </div>
-            </li>
-          </ul>
-
-          <div className='mt-14'>
->>>>>>> 9465dd5b (news section revisions)
-=======
           </ul>
 
           <div className="mt-14">
->>>>>>> 464c16be (how to use revisions)
             <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
             </HetBigCTA>
           </div>
-<<<<<<< HEAD
         </article>
-<<<<<<< HEAD
-=======
-=======
-        </article>
-        <div className='mt-14'>
-          <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
-            Explore the data
-          </HetBigCTA>
-        </div>
->>>>>>> 1e69bb24 (landing page revisions)
-
-
-<<<<<<< HEAD
-          <section>
-            <div className='w-full'>
-              <h3 className='mb-4 mt-8 font-sansTitle text-header text-altGreen'>
-                Sign up for our newsletter:
-              </h3>
-            </div>
-
-            <HetEmailSignup id='landing-email-signup' />
-          </section>
-        </aside>
->>>>>>> 1a1887f9 (add new hero and update landing page headers)
-=======
->>>>>>> 1e69bb24 (landing page revisions)
-=======
-        </article>
->>>>>>> 9465dd5b (news section revisions)
       </div>
     </>
   )
