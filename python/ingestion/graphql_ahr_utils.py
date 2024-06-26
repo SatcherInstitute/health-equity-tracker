@@ -116,7 +116,7 @@ def fetch_ahr_data_from_graphql():
         'Discharges following hospitalization',
         'prescription drugs non-medically',
         "self-harm",
-        'presidential national election',
+        'presidential',
     ]
 
     # Iterate over each description in the list
