@@ -270,7 +270,6 @@ def load_phrma_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_
         geo_level with data columns loaded from multiple Phrma source tables"""
 
     sheet_name = get_sheet_name(geo_level, breakdown)
-
     merge_cols = []
 
     if geo_level == COUNTY_LEVEL:
@@ -293,7 +292,7 @@ def load_phrma_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_
 
     # only read certain columns from source data
     keep_cols = []
-    fips_length = None
+    fips_length = 0
 
     if breakdown != TMP_ALL:
         keep_cols.append(breakdown_het_to_source_type[breakdown])

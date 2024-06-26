@@ -195,7 +195,7 @@ class Decia2020TerritoryPopulationData(DataSource):
         breakdown: string for type of demographic disaggregation
         geo_level: string for geographic level (state = territory, county = territory county equivalent)"""
 
-        geo_col = None
+        geo_col = ""
 
         if geo_level == COUNTY_LEVEL:
             geo_col = std_col.COUNTY_FIPS_COL
