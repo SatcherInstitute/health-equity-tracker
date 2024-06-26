@@ -18,6 +18,7 @@ import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import { ArrowRightAlt } from '@mui/icons-material'
+import TextLink from '../../reports/ui/TextLink'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -56,14 +57,10 @@ function LandingPage() {
           <p className="md:text-left mb-8 sm:text-small xs:text-small xs:mb-4">
             {description}
           </p>
-          <div className='flex items-center justify-start p-0 m-0  hover:translate-x-1 hover:transition-transform hover:duration-300 '>
-            <a
-              href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}
-              className=' no-underline h-auto font-sansTitle text-small p-0 m-0 text-altGreen font-bold flex items-center justify-start xs:mb-4 sm:m-[auto] xs:m-[auto] '
-            >
-              <p className=' mr-2 p-0 my-0 '> Take a guided tour</p> <ArrowRightAlt />
-            </a>
-          </div>
+          <TextLink
+            link={`${EXPLORE_DATA_PAGE_LINK}${WARM_WELCOME_DEMO_SETTING}`}
+            linkText='Take a guided tour'
+          />
         </div>
         <div className="w-full md:w-2/3 ">
           {iframeSrc ? (
@@ -163,7 +160,7 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className='flex flex-wrap px-56 pt-24 md:px-32 sm:px-24 xs:px-16'>
+        <div className='flex flex-wrap px-56 py-24 md:px-32 sm:px-24 xs:px-16'>
           <div className='w-full'>
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
               Recent news
@@ -196,15 +193,13 @@ function LandingPage() {
               )}
             </div>
             <div>
-              <div className='flex items-center justify-center my-4 mx-auto hover:translate-x-1 hover:transition-transform hover:duration-300 w-max h-full'>
+              <TextLink
+                link={NEWS_PAGE_LINK}
+                linkText='View all articles'
+                containerClassName='flex items-center justify-center mt-16 mx-auto '
+                linkClassName='font-sansTitle text-smallestHeader'
 
-                <a
-                  href={NEWS_PAGE_LINK}
-                  className='m-8 px-24 py-4 xs:px-8 no-underline h-auto font-sansTitle text-smallestHeader font-bold tracking-wide text-altGreen lg:w-80 xs:w-auto xs:text-title'
-                >
-                  <span className='mr-4 xs:mr-2'> View all articles </span> <ArrowRightAlt />
-                </a>
-              </div>
+              />
             </div>
           </div>
         </div>

@@ -50,6 +50,10 @@ import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
 import HetAppBar from './styles/HetComponents/HetAppBar'
+import { HashLink } from 'react-router-hash-link'
+import HetNotice from './styles/HetComponents/HetNotice'
+import Banner from './reports/ui/Banner'
+
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -91,6 +95,7 @@ export default function App() {
 
             <div className='h-full'>
               <Router>
+                <Banner />
                 <HetAppBar />
                 <ScrollToTop />
                 <Suspense
