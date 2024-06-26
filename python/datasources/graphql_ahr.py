@@ -19,7 +19,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )  # type: ignore
-from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
+from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
 
 # pylint: disable=no-name-in-module
 from ingestion.merge_utils import (
@@ -215,6 +215,10 @@ class GraphQlAHRData(DataSource):
                 }
             )
 
+            # Debugging: Check if column is already in the list
+            if ahr_pop18plus_col in self.intersectional_pop_cols:
+                print(f"Warning: {ahr_pop18plus_col} is already in intersectional_pop_cols")
+
             # save the generated intersectional population column for later use writing to bq
             self.intersectional_pop_cols.append(ahr_pop18plus_col)
 
@@ -239,6 +243,9 @@ class GraphQlAHRData(DataSource):
         breakdown_df[std_col.TIME_PERIOD_COL] = pd.to_datetime(breakdown_df[std_col.TIME_PERIOD_COL])
         breakdown_df[std_col.TIME_PERIOD_COL] = breakdown_df[std_col.TIME_PERIOD_COL].dt.year
         breakdown_df = breakdown_df[breakdown_df[std_col.TIME_PERIOD_COL] <= 2021]
+
+        # Debugging: Print columns after processing
+        print("Post-process columns:", breakdown_df.columns)
 
         return breakdown_df
 
