@@ -623,7 +623,7 @@ def generate_time_df_with_cols_and_types(
 ) -> tuple[pd.DataFrame, Dict[str, str]]:  # pylint: disable=unsubscriptable-object
     """
     Accepts a DataFrame along with list of column names for either current or
-    historical data and generates the appropiate BQ types for each column.
+    historical data and generates the appropriate BQ types for each column.
 
     Parameters:
     - df: The DataFrame to be processed.
@@ -662,7 +662,12 @@ def generate_time_df_with_cols_and_types(
         df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
         df = df[[col for col in df.columns if std_col.RAW_SUFFIX not in col]]
 
-    float_cols = [col for col in numerical_cols_to_keep if col in df.columns]
+    # Remove duplicate columns in the DataFrame
+    df = df.loc[:, ~df.columns.duplicated()]
+
+    # Remove duplicate columns in float_cols
+    float_cols = list(dict.fromkeys([col for col in numerical_cols_to_keep if col in df.columns]))
+
     df[float_cols] = df[float_cols].astype(float)
 
     column_types = {c: (BQ_FLOAT if c in float_cols else BQ_STRING) for c in df.columns}
