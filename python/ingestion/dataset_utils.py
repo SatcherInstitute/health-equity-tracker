@@ -662,10 +662,11 @@ def generate_time_df_with_cols_and_types(
         df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
         df = df[[col for col in df.columns if std_col.RAW_SUFFIX not in col]]
 
-    # Remove duplicate columns
+    # Remove duplicate columns in the DataFrame
     df = df.loc[:, ~df.columns.duplicated()]
 
-    float_cols = [col for col in numerical_cols_to_keep if col in df.columns]
+    # Remove duplicate columns in float_cols
+    float_cols = list(dict.fromkeys([col for col in numerical_cols_to_keep if col in df.columns]))
 
     # Debugging: Print shapes and column names before type conversion
     print("DataFrame shape before type conversion:", df.shape)
