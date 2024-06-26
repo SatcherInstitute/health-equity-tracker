@@ -18,7 +18,7 @@ from ingestion.dataset_utils import (
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.merge_utils import merge_county_names
-from ingestion.types import HIV_BREAKDOWN_TYPE
+from ingestion.het_types import HIV_BREAKDOWN_TYPE
 from typing import cast
 
 
@@ -447,12 +447,23 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
         if no_black_women_data or no_deaths_data or no_prep_data or no_stigma_data:
             continue
 
+        if breakdown == std_col.BLACK_WOMEN:
+            filename = f"{datatype}-{geo_level}-{breakdown}-age.csv"
         else:
-            if breakdown == std_col.BLACK_WOMEN:
-                filename = f"{datatype}-{geo_level}-{breakdown}-age.csv"
-            else:
-                filename = f"{datatype}-{geo_level}-{breakdown}.csv"
-            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            filename = f"{datatype}-{geo_level}-{breakdown}.csv"
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            hiv_directory,
+            filename,
+            subdirectory=datatype,
+            na_values=NA_VALUES,
+            usecols=lambda x: x not in atlas_cols_to_exclude,
+            thousands=",",
+            dtype=DTYPE,
+        )
+
+        if (datatype in BASE_COLS_NO_PREP) and (breakdown == "all") and (geo_level == NATIONAL_LEVEL):
+            filename = f"{datatype}-{geo_level}-gender.csv"
+            all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 hiv_directory,
                 filename,
                 subdirectory=datatype,
@@ -462,66 +473,54 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 dtype=DTYPE,
             )
 
-            if (datatype in BASE_COLS_NO_PREP) and (breakdown == "all") and (geo_level == NATIONAL_LEVEL):
-                filename = f"{datatype}-{geo_level}-gender.csv"
-                all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                    hiv_directory,
-                    filename,
-                    subdirectory=datatype,
-                    na_values=NA_VALUES,
-                    usecols=lambda x: x not in atlas_cols_to_exclude,
-                    thousands=",",
-                    dtype=DTYPE,
-                )
+            national_gender_cases_pivot = all_national_gender_df.pivot_table(
+                index="Year", columns="Sex", values="Cases", aggfunc="sum"
+            ).reset_index()
 
-                national_gender_cases_pivot = all_national_gender_df.pivot_table(
-                    index="Year", columns="Sex", values="Cases", aggfunc="sum"
-                ).reset_index()
+            national_gender_cases_pivot.columns = [
+                "Year",
+                f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
+                f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
+                f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
+            ]
 
-                national_gender_cases_pivot.columns = [
-                    "Year",
-                    f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
-                    f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
-                    f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
-                ]
+            df = pd.merge(df, national_gender_cases_pivot, on="Year")
 
-                df = pd.merge(df, national_gender_cases_pivot, on="Year")
+        if datatype in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
+            cols_to_standard = {
+                "Cases": datatype,
+                "Percent": CARE_PREP_MAP[datatype],
+                "Population": POP_MAP[datatype],
+            }
+        elif datatype == std_col.HIV_STIGMA_INDEX:
+            cols_to_standard = {
+                "Rate per 100000": std_col.HIV_STIGMA_INDEX,
+                "Population": POP_MAP[datatype],
+            }
+        else:
+            cols_to_standard = {
+                "Cases": datatype,
+                "Rate per 100000": PER_100K_MAP[datatype],
+                "Population": POP_MAP[datatype],
+            }
 
-            if datatype in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
-                cols_to_standard = {
-                    "Cases": datatype,
-                    "Percent": CARE_PREP_MAP[datatype],
-                    "Population": POP_MAP[datatype],
-                }
-            elif datatype == std_col.HIV_STIGMA_INDEX:
-                cols_to_standard = {
-                    "Rate per 100000": std_col.HIV_STIGMA_INDEX,
-                    "Population": POP_MAP[datatype],
-                }
-            else:
-                cols_to_standard = {
-                    "Cases": datatype,
-                    "Rate per 100000": PER_100K_MAP[datatype],
-                    "Population": POP_MAP[datatype],
-                }
+        if datatype == std_col.HIV_PREP_PREFIX:
+            df = df.replace({"13-24": "16-24"})
+        elif datatype == std_col.HIV_STIGMA_INDEX:
+            df = df.replace({"13-24": "18-24"})
 
-            if datatype == std_col.HIV_PREP_PREFIX:
-                df = df.replace({"13-24": "16-24"})
-            elif datatype == std_col.HIV_STIGMA_INDEX:
-                df = df.replace({"13-24": "18-24"})
+        df["Geography"] = df["Geography"].str.replace("^", "", regex=False)
+        df["Year"] = df["Year"].str.replace("2020 (COVID-19 Pandemic)", "2020", regex=False)
 
-            df["Geography"] = df["Geography"].str.replace("^", "", regex=False)
-            df["Year"] = df["Year"].str.replace("2020 (COVID-19 Pandemic)", "2020", regex=False)
+        df = df.rename(columns=cols_to_standard)
 
-            df = df.rename(columns=cols_to_standard)
+        if datatype == std_col.HIV_STIGMA_INDEX:
+            df = df.drop(columns=["Cases", "population"])
 
-            if datatype == std_col.HIV_STIGMA_INDEX:
-                df = df.drop(columns=["Cases", "population"])
-
-            # TODO: GitHub #2907 this is causing FutureWarning: not sure how to fix
-            # In a future version, the Index constructor will not infer
-            # numeric dtypes when passed object-dtype sequences (matching Series behavior)
-            output_df = output_df.merge(df, how="outer")
+        # TODO: GitHub #2907 this is causing FutureWarning: not sure how to fix
+        # In a future version, the Index constructor will not infer
+        # numeric dtypes when passed object-dtype sequences (matching Series behavior)
+        output_df = output_df.merge(df, how="outer")
 
     return output_df
 
