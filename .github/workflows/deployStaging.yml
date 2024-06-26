@@ -42,7 +42,6 @@ jobs:
       - id: ingestion
         uses: ./.github/actions/buildAndPush
         with:
-          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'run_ingestion/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'
 
@@ -94,7 +93,6 @@ jobs:
       - id: exporter
         uses: ./.github/actions/buildAndPush
         with:
-          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'exporter/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
 
@@ -120,7 +118,6 @@ jobs:
       - id: serving
         uses: ./.github/actions/buildAndPush
         with:
-          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
 
@@ -147,7 +144,6 @@ jobs:
       - id: frontend
         uses: ./.github/actions/buildAndPush
         with:
-          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
           deploy-context: 'staging'
@@ -239,8 +235,7 @@ jobs:
               -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
               -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
               -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
-              -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
-              -var 'ahr_api_key=${{ secrets.AHR_API_KEY }}'
+              -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
           else
             terraform apply -auto-approve -var-file=test/test.tfvars \
               -var-file=common.tfvars \
@@ -251,8 +246,8 @@ jobs:
               -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
               -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
               -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
-              -var 'include_composer=false' \
-              -var 'ahr_api_key=${{ secrets.AHR_API_KEY }}'
+              -var 'include_composer=false'
+
           fi
 
           data_server_url=$(terraform output data_server_url)
@@ -265,8 +260,6 @@ jobs:
           echo "exporter_url=$exporter_url" >> "$GITHUB_OUTPUT"
           frontend_url=$(terraform output frontend_url)
           echo "frontend_url=$frontend_url" >> "$GITHUB_OUTPUT"
-          ahr_api_key=$(terraform output ahr_api_key)
-          echo "ahr_api_key=$ahr_api_key" >> "$GITHUB_OUTPUT"
 
         # only run this step if pipeline files were changed
       - name: Composer / Airflow Environment Variables

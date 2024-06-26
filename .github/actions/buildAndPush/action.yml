@@ -2,7 +2,7 @@ name: "Build and Push"
 description: "Build a docker image and push the image to GCR"
 inputs:
   ahr-api-key: 
-    description: "AHR API key"
+    description: "AHR API key used to fetch AHR data from the GraphQL endpoint"
     required: false
   dockerfile:
     description: "Relative path to dockerfile"
