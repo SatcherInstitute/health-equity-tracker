@@ -1,12 +1,10 @@
 import pandas as pd
-
-#  ch - - - changes##12345
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 import ingestion.constants as constants
 from ingestion.merge_utils import merge_pop_numbers, merge_state_ids
 import ingestion.standardized_columns as std_col
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
+from ingestion.het_types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
 from typing import cast
 
 AHR_RACE_GROUPS = [
