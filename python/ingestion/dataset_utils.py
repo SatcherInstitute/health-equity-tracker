@@ -668,16 +668,7 @@ def generate_time_df_with_cols_and_types(
     # Remove duplicate columns in float_cols
     float_cols = list(dict.fromkeys([col for col in numerical_cols_to_keep if col in df.columns]))
 
-    # Debugging: Print shapes and column names before type conversion
-    print("DataFrame shape before type conversion:", df.shape)
-    print("Float columns:", float_cols)
-    print("DataFrame columns before type conversion:", df.columns)
-
     df[float_cols] = df[float_cols].astype(float)
-
-    # Debugging: Print shapes and column names after type conversion
-    print("DataFrame shape after type conversion:", df.shape)
-    print("DataFrame columns after type conversion:", df.columns)
 
     column_types = {c: (BQ_FLOAT if c in float_cols else BQ_STRING) for c in df.columns}
 
