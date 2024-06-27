@@ -20,14 +20,20 @@ export type ChronicDiseaseMetricId =
   | 'ahr_population_pct'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
+  | 'asthma_estimated_total'
   | 'cardiovascular_diseases_pct_share'
   | 'cardiovascular_diseases_per_100k'
+  | 'cardiovascular_diseases_estimated_total'
   | 'chronic_kidney_disease_pct_share'
   | 'chronic_kidney_disease_per_100k'
+  | 'chronic_kidney_disease_estimated_total'
   | 'copd_pct_share'
   | 'copd_per_100k'
+  | 'copd_estimated_total'
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
+  | 'diabetes_estimated_total'
+
 
 export const ASTHMA_METRICS: DataTypeConfig[] = [
   {
@@ -60,6 +66,12 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Asthma cases per 100k adults',
         shortLabel: 'asthma per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'asthma_estimated_total',
+          shortLabel: 'asthma',
+          chartTitle: '',
+          type: 'count',
+        }
       },
       pct_share: {
         chartTitle: 'Share of all adult asthma cases',

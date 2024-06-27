@@ -46,6 +46,8 @@ export const AHR_CONDITIONS: DropdownVarId[] = [
 
 export const AHR_METRICS: MetricId[] = [
   'ahr_population_pct',
+  'ahr_population_estimated_total',
+  'ahr_population_18+',
   'asthma_pct_share',
   'asthma_per_100k',
   'avoided_care_pct_share',
