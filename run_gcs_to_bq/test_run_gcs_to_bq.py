@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+
 import pytest
 from unittest import mock
 import main
