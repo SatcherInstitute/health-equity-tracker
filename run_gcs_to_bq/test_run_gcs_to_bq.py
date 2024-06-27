@@ -11,7 +11,7 @@ def client():
 
 
 def test_ingest_bucket_to_bq_no_json(client):
-    response = client.post('/')
+    response = client.post('/', content_type='application/json')
     assert response.status_code == 400
 
 
