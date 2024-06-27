@@ -19,6 +19,7 @@ import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import { ArrowRightAlt } from '@mui/icons-material'
 import TextLink from '../../reports/ui/TextLink'
+import MadLibAnimation from '../../reports/ui/MadLibAnimation'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -210,6 +211,7 @@ function LandingPage() {
             <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
               How do I use the Health Equity Tracker?
             </h3>
+            <MadLibAnimation />
           </div>
 
           <ul className="flex flex-col items-center justify-center p-0">
