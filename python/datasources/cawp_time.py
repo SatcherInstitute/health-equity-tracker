@@ -52,7 +52,7 @@ from ingestion.constants import (
     TERRITORY_POSTALS,
 )
 from typing import cast, List
-from ingestion.types import GEO_TYPE, SEX_RACE_AGE_TYPE
+from ingestion.het_types import GEO_TYPE, SEX_RACE_AGE_TYPE
 
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
@@ -688,6 +688,9 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 
     needed_cols = groupby_cols[:]
     needed_cols.append(NAME)
+
+    names_col = None
+    count_col = None
 
     if preserve_races:
         df = handle_other_and_multi_races(df)
