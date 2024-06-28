@@ -60,7 +60,7 @@ function LandingPage() {
           <p className="font-sansTitle text-small font-bold text-left text-altGreen">
             {itemNumber}/4
           </p>
-          <div className="w-full min-w-1/2 ">
+          <div className="w-full min-w-1/2 mb-4">
             <h4 className="font-sansTitle text-smallestHeader xs:text-title font-medium md:text-left my-2">
               {title}
             </h4>
@@ -73,11 +73,10 @@ function LandingPage() {
             />
           </div>
         </div>
-        <div className="w-full md:w-2/3 h-auto">
+        <div className="w-full h-auto">
           {iframeSrc ? (
             <iframe
-              className="w-full rounded-md xs:h-[200px]"
-              height="480px"
+              className="min-h-[480px] w-full rounded-md"
               src={iframeSrc}
               title="YouTube video player"
               loading="lazy"
@@ -91,7 +90,7 @@ function LandingPage() {
                 loop
                 muted
                 playsInline
-                className="w-1/2 p-2.5 h-[400px] sm:w-full xs:hidden"
+                className="w-full p-2.5"
               >
                 <source src={videoSrc} type="video/mp4" />
               </video>
