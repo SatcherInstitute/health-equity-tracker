@@ -17,8 +17,12 @@ const MadLibAnimation: React.FC = () => {
       <p className="duration-200 ease-in-out leading-lhModalHeading lg:text-smallerHeader opacity-100 overflow-hidden m-0 pb-4 rotate-0 scale-100 skew-0 sm:text-smallestHeader text-center text-sansTitle transform transition-all transition-transform translate-z-0 w-full xs:text-smallest xs:pb-2 xs:mb-4">
         Investigate rates of{" "}
         <span
-          className="inline-flex top-[0.8rem] left-0 relative w-56 h-10 bg-white rounded-md
-        pt-1 mx-4 my-1 min-w-[100px] border border-solid border-altGreen  py-0 pl-3 pr-1 text-title font-medium text-altGreen shadow-raised-tighter sm:text-smallestHeader lg:text-smallerHeader xs:text-smallest xs:h-8 xs:mt-0 xs:mb-4 xs:w-32 xs:top-[1.2rem] xs:w-auto items-center justify-center
+          className="inline-flex top-[0.8rem] left-0 relative w-full h-10 bg-white rounded-md
+          pt-1 mx-4 my-1 min-w-[100px] border border-solid border-altGreen  py-0 pl-3 pr-1 text-title font-medium text-altGreen overflow-hidden  shadow-raised-tighter 
+          xl:text-smallestHeader lg:text-smallerHeader 
+          md:text-smallestHeader
+          sm:text-smallestHeader 
+          xs:text-smallest xs:h-8 xs:mt-0 xs:mb-4 xs:w-32 xs:top-[1.2rem] xs:w-auto items-center justify-center
         
         "
         >
@@ -26,7 +30,7 @@ const MadLibAnimation: React.FC = () => {
             topics.map((topic, index) => (
               <span
                 key={index}
-                className={`absolute bg-white mx-auto p-0 topic w-48 text-center flex items-center justify-around xs:text-smallest xs:w-24`}
+                className={`absolute bg-white m-0 p-0 topic  text-center flex items-center justify-around xs:text-smallest xs:w-24`}
               >
                 {topic}
                 <ArrowDropDownIcon />
@@ -34,7 +38,7 @@ const MadLibAnimation: React.FC = () => {
             ))
           ) : (
             <span
-              className="absolute pr-4 w-full text-center flex items-center justify-around xs:text-smallest
+              className="absolute pr-4 w-full text-center flex items-center justify-around xs:text-smallest pb-2
             "
             >
               select a topic <ArrowDropDownIcon />{" "}
