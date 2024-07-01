@@ -36,7 +36,6 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-
 from ingestion.cdc_wisqars_utils import (
     generate_cols_map,
     DATA_DIR,
