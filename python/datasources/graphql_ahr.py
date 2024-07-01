@@ -94,13 +94,13 @@ RATE_TO_RAW_ALL_AGES_MAP = {
 }
 
 RAW_TO_SHARE_ALL_AGES_MAP = {
-    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.PCT_SHARE_SUFFIX}'
-    for rate_col in RATE_TO_RAW_ALL_AGES_MAP.values()
+    raw_col: f'{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    for raw_col in RATE_TO_RAW_ALL_AGES_MAP.values()
 }
 
 RAW_TO_SHARE_18PLUS_MAP = {
-    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.PCT_SHARE_SUFFIX}'
-    for rate_col in RATE_TO_RAW_18PLUS_MAP.values()
+    raw_col: f'{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    for raw_col in RATE_TO_RAW_18PLUS_MAP.values()
 }
 
 
