@@ -11,12 +11,12 @@ Features include:
 - Checking for the presence of 'unknown' values in a dataset.
 """
 
-from typing import List, Tuple
+from typing import List
 import pandas as pd
 import numpy as np
 from ingestion import standardized_columns as std_col
 from ingestion.dataset_utils import generate_per_100k_col
-
+from ingestion.het_types import RATE_CALC_COLS_TYPE
 
 DATA_DIR = "cdc_wisqars"
 
@@ -125,14 +125,13 @@ def generate_cols_map(prefixes: List[str], suffix: str):
     }
 
 
-def condense_age_groups(df: pd.DataFrame, col_tuples: List[Tuple[str, str, str]]) -> pd.DataFrame:
+def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) -> pd.DataFrame:
     """
     Combines source's numerous 5-year age groups into fewer, larger age group combo buckets
 
     Args:
         df: The data frame to operate on
-        col_tuples: List of column string tuples to combine, where each tuple is
-        (condition_numerator, condition_denominator, condition_100k_col)
+        col_dicts: List of column name mappings per topic (numerator, denominator, rate)
         NOTE: this function doesn't handle pct_rate columns currently.
 
     Returns:
@@ -175,21 +174,21 @@ def condense_age_groups(df: pd.DataFrame, col_tuples: List[Tuple[str, str, str]]
         het_bucket_df = df.copy()
         het_bucket_df = het_bucket_df[het_bucket_df[std_col.AGE_COL].isin(source_bucket)]
 
+        # some source buckets don't get combined, so only process combo ones
         if len(source_bucket) > 1:
 
-            # create a list from the first members of each tuple in col_tuples
-            count_cols = [col_tuple[0] for col_tuple in col_tuples]
-            count_cols.append('fatal_population')
-            agg_map = {count_col: 'sum' for count_col in count_cols}
+            # create a list of all count cols
+            numerator_cols = [col_dict['numerator_col'] for col_dict in col_dicts]
+            denominator_cols = [col_dict['denominator_col'] for col_dict in col_dicts]
+            count_cols = list(set(numerator_cols + denominator_cols))
 
             # aggregate by state and year, summing count cols and dropping source rate cols
+            agg_map = {count_col: 'sum' for count_col in count_cols}
             het_bucket_df = het_bucket_df.groupby(['year', 'state']).agg(agg_map).reset_index()
 
-            # recalculate rates with summed numerators/denominators
-            for col_tuple in col_tuples:
-
-                numerator_col, denominator_col, rate_col = col_tuple
-
+            # recalculate each 100k rate with summed numerators/denominators
+            for col_dict in col_dicts:
+                numerator_col, denominator_col, rate_col = col_dict.values()
                 het_bucket_df = generate_per_100k_col(
                     het_bucket_df,
                     numerator_col,
@@ -198,13 +197,10 @@ def condense_age_groups(df: pd.DataFrame, col_tuples: List[Tuple[str, str, str]]
                     decimal_places=2,
                 )
 
-        # set the new age bucket label
         het_bucket_df[std_col.AGE_COL] = het_bucket
-
-        # save this chunk df for later
         het_bucket_dfs.append(het_bucket_df)
 
-    # combine the summed and kept original df chunks
+    # combine the df chunks for each condensed age group
     df_condensed_age_groups = pd.concat(het_bucket_dfs).reset_index(drop=True)
 
     return df_condensed_age_groups

@@ -48,6 +48,8 @@ from ingestion.cdc_wisqars_utils import (
     INJ_OUTCOMES,
     condense_age_groups,
 )
+from typing import List
+from ingestion.het_types import RATE_CALC_COLS_TYPE
 
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
@@ -74,17 +76,17 @@ TIME_MAP = {
     HISTORICAL: (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
 }
 
-COL_TUPLES = [
-    (
-        'gun_violence_homicide_estimated_total',
-        'fatal_population',
-        'gun_violence_homicide_per_100k',
-    ),
-    (
-        'gun_violence_suicide_estimated_total',
-        'fatal_population',
-        'gun_violence_suicide_per_100k',
-    ),
+COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
+    {
+        'numerator_col': 'gun_violence_homicide_estimated_total',
+        'denominator_col': 'fatal_population',
+        'rate_col': 'gun_violence_homicide_per_100k',
+    },
+    {
+        'numerator_col': 'gun_violence_suicide_estimated_total',
+        'denominator_col': 'fatal_population',
+        'rate_col': 'gun_violence_suicide_per_100k',
+    },
 ]
 
 
@@ -154,7 +156,7 @@ class CDCWisqarsData(DataSource):
         breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
         if breakdown == std_col.AGE_COL:
             breakdown_group_df[std_col.AGE_COL] = breakdown_group_df[std_col.AGE_COL].str.replace(' to ', '-')
-            breakdown_group_df = condense_age_groups(breakdown_group_df, COL_TUPLES)
+            breakdown_group_df = condense_age_groups(breakdown_group_df, COL_DICTS)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
