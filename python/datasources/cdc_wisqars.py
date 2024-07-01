@@ -46,6 +46,7 @@ from ingestion.cdc_wisqars_utils import (
     RACE_NAMES_MAPPING,
     INJ_INTENTS,
     INJ_OUTCOMES,
+    condense_age_groups,
 )
 
 
@@ -72,6 +73,19 @@ TIME_MAP = {
     ),
     HISTORICAL: (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
 }
+
+COL_TUPLES = [
+    (
+        'gun_violence_homicide_estimated_total',
+        'fatal_population',
+        'gun_violence_homicide_per_100k',
+    ),
+    (
+        'gun_violence_suicide_estimated_total',
+        'fatal_population',
+        'gun_violence_suicide_per_100k',
+    ),
+]
 
 
 class CDCWisqarsData(DataSource):
@@ -140,7 +154,7 @@ class CDCWisqarsData(DataSource):
         breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
         if breakdown == std_col.AGE_COL:
             breakdown_group_df[std_col.AGE_COL] = breakdown_group_df[std_col.AGE_COL].str.replace(' to ', '-')
-            breakdown_group_df = condense_age_groups(breakdown_group_df)
+            breakdown_group_df = condense_age_groups(breakdown_group_df, COL_TUPLES)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -262,7 +276,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         # Apply the function to the temporary DataFrame
         for raw_total in RAW_TOTALS_MAP.values():
             if raw_total in df.columns:
-                temp_df = generate_per_100k_col(temp_df, raw_total, 'fatal_population', 'crude rate')
+                temp_df = generate_per_100k_col(temp_df, raw_total, 'fatal_population', 'crude rate', decimal_places=2)
 
         # Update the original DataFrame with the results for the 'crude rate' column
         df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
@@ -270,84 +284,3 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     output_df = output_df.merge(df, how="outer")
 
     return output_df
-
-
-def condense_age_groups(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Combines source's numerous 5-year age groups into fewer, larger age group combo buckets
-    """
-
-    bucket_map = {
-        ('Unknown',): 'Unknown',
-        (
-            '0-4',
-            '5-9',
-            '10-14',
-        ): '0-14',
-        ('15-19',): '15-19',
-        ('20-24',): '20-24',
-        ('25-29',): '25-29',
-        ('30-34',): '30-34',
-        (
-            '35-39',
-            '40-44',
-        ): '35-44',
-        (
-            '45-49',
-            '50-54',
-            '55-59',
-            '60-64',
-        ): '45-64',
-        (
-            '65-69',
-            '70-74',
-            '75-79',
-            '80-84',
-            '85+',
-        ): '65+',
-    }
-
-    het_bucket_dfs = []
-
-    for source_bucket, het_bucket in bucket_map.items():
-        het_bucket_df = df.copy()
-        het_bucket_df = het_bucket_df[het_bucket_df['age'].isin(source_bucket)]
-
-        if len(source_bucket) > 1:
-            # aggregate by state and year, summing count cols and dropping source rate cols
-            het_bucket_df = (
-                het_bucket_df.groupby(['year', 'state'])
-                .agg(
-                    {
-                        'fatal_population': 'sum',
-                        'gun_violence_homicide_estimated_total': 'sum',
-                        'gun_violence_suicide_estimated_total': 'sum',
-                    }
-                )
-                .reset_index()
-            )
-
-            # recalculate rates with summed numerators/denominators
-            het_bucket_df = generate_per_100k_col(
-                het_bucket_df,
-                'gun_violence_homicide_estimated_total',
-                'fatal_population',
-                'gun_violence_homicide_per_100k',
-            )
-            het_bucket_df = generate_per_100k_col(
-                het_bucket_df,
-                'gun_violence_suicide_estimated_total',
-                'fatal_population',
-                'gun_violence_suicide_per_100k',
-            )
-
-        # set the new age bucket label
-        het_bucket_df['age'] = het_bucket
-
-        # save this chunk df for later
-        het_bucket_dfs.append(het_bucket_df)
-
-    # combine the summed and kept original df chunks
-    df_condensed_age_groups = pd.concat(het_bucket_dfs).reset_index(drop=True)
-
-    return df_condensed_age_groups
