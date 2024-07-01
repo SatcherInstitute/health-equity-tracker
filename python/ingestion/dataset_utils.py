@@ -262,23 +262,27 @@ def generate_pct_share_col_of_summed_alls(
     - breakdown_col: String column name with the group of the raw count
     """
 
-    geo_cols = []
+    group_by_cols = []
     for col in [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL]:
         if col in df.columns:
-            geo_cols.append(col)
+            group_by_cols.append(col)
+
+    # Include the time period column for grouping
+    if std_col.TIME_PERIOD_COL in df.columns:
+        group_by_cols.append(std_col.TIME_PERIOD_COL)
 
     for raw_col in raw_count_to_pct_share.keys():
 
         # replace the estimated_total "All" with the sum of the groups' estimated_totals
         # Calculate the sum of "topic_estimated_total" for each state where demographic group is not "All"
-        sums_df = df[df[demo_col] != ALL_VALUE].groupby(geo_cols)[raw_col].sum().reset_index()
+        sums_df = df[df[demo_col] != ALL_VALUE].groupby(group_by_cols)[raw_col].sum().reset_index()
 
         # Rename the column to avoid conflict when merging
         sum_raw_col = f'sum_{raw_col}'
         sums_df.rename(columns={raw_col: sum_raw_col}, inplace=True)
 
         # Merge the sums back into the original DataFrame
-        df = df.merge(sums_df, on=geo_cols, how='left')
+        df = df.merge(sums_df, on=group_by_cols, how='left')
 
         # Overwrite the "topic_estimated_total" value where demographic group is "All"
         df.loc[df[demo_col] == ALL_VALUE, raw_col] = df[sum_raw_col]
