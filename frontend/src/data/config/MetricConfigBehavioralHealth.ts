@@ -20,14 +20,20 @@ export type BehavioralHealthMetricId =
   | 'ahr_population_pct'
   | 'depression_pct_share'
   | 'depression_per_100k'
+  | 'depression_estimated_total'
   | 'excessive_drinking_pct_share'
   | 'excessive_drinking_per_100k'
+  | 'excessive_drinking_estimated_total'
   | 'frequent_mental_distress_pct_share'
   | 'frequent_mental_distress_per_100k'
+  | 'frequent_mental_distress_estimated_total'
   | 'non_medical_drug_use_pct_share'
   | 'non_medical_drug_use_per_100k'
+  | 'non_medical_drug_use_estimated_total'
   | 'suicide_pct_share'
   | 'suicide_per_100k'
+  | 'suicide_estimated_total'
+
 
 export const DEPRESSION_METRICS: DataTypeConfig[] = [
   {
@@ -75,6 +81,20 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Cases of depression per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'depression_estimated_total',
+          chartTitle: 'Cases of depression',
+          columnTitleHeader: 'Cases of depression',
+          shortLabel: 'cases',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18+',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
+
       },
     },
   },
@@ -126,6 +146,20 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
         chartTitle: 'Excessive drinking cases',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'excessive_drinking_estimated_total',
+          chartTitle: 'Cases of excessive drinking',
+          columnTitleHeader: 'Cases of excessive drinking',
+          shortLabel: 'cases',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18+',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
+
       },
     },
   },
@@ -179,6 +213,20 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Non-medical drug use',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+
+        rateNumeratorMetric: {
+          metricId: 'non_medical_drug_use_estimated_total',
+          chartTitle: 'Cases of non medical drug use',
+          columnTitleHeader: 'Cases of non medical drug use',
+          shortLabel: 'cases',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18+',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
     },
   },
@@ -230,6 +278,20 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Frequent mental distress cases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+
+        rateNumeratorMetric: {
+          metricId: 'frequent_mental_distress_estimated_total',
+          chartTitle: 'Cases of frequent mental distress',
+          columnTitleHeader: 'Cases of frequent mental distress',
+          shortLabel: 'cases',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18+',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
     },
   },
@@ -272,7 +334,23 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Suicides per 100k people',
         shortLabel: 'suicides per 100k',
         type: 'per100k',
+
+        rateNumeratorMetric: {
+          metricId: 'suicide_estimated_total',
+          chartTitle: '',
+          columnTitleHeader: 'Deaths by suicide',
+          shortLabel: 'deaths',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_estimated_total',
+          chartTitle: '',
+          shortLabel: 'Total population',
+          type: 'count',
+        },
       },
+
+
     },
   },
 ]

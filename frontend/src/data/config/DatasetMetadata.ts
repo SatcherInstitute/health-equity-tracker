@@ -30,12 +30,12 @@ export type DatasetId =
   | 'acs_population-by_sex_county'
   | 'acs_population-by_sex_national'
   | 'acs_population-by_sex_state'
-  | 'ahr_data-age_national'
-  | 'ahr_data-age_state'
-  | 'ahr_data-race_and_ethnicity_national'
-  | 'ahr_data-race_and_ethnicity_state'
-  | 'ahr_data-sex_national'
-  | 'ahr_data-sex_state'
+  | 'graphql_ahr_data-age_national_current'
+  | 'graphql_ahr_data-age_state_current'
+  | 'graphql_ahr_data-race_and_ethnicity_national_current'
+  | 'graphql_ahr_data-race_and_ethnicity_state_current'
+  | 'graphql_ahr_data-sex_national_current'
+  | 'graphql_ahr_data-sex_state_current'
   | 'bjs_incarceration_data-age_national'
   | 'bjs_incarceration_data-age_state'
   | 'bjs_incarceration_data-race_and_ethnicity_national'
@@ -635,34 +635,34 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     contains_nh: true,
     source_id: 'kff_vaccination',
   },
-  'ahr_data-age_national': {
+  'graphql_ahr_data-age_national_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, nationally',
     original_data_sourced: '2021',
     source_id: 'ahr',
   },
-  'ahr_data-race_and_ethnicity_national': {
+  'graphql_ahr_data-race_and_ethnicity_national_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, nationally',
     original_data_sourced: '2021',
     contains_nh: true,
     source_id: 'ahr',
   },
-  'ahr_data-sex_national': {
+  'graphql_ahr_data-sex_national_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, nationally',
     original_data_sourced: '2021',
     source_id: 'ahr',
   },
-  'ahr_data-age_state': {
+  'graphql_ahr_data-age_state_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age and state',
     original_data_sourced: '2021',
     source_id: 'ahr',
   },
-  'ahr_data-race_and_ethnicity_state': {
+  'graphql_ahr_data-race_and_ethnicity_state_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity and state',
     original_data_sourced: '2021',
     contains_nh: true,
     source_id: 'ahr',
   },
-  'ahr_data-sex_state': {
+  'graphql_ahr_data-sex_state_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex and state',
     original_data_sourced: '2021',
     source_id: 'ahr',
