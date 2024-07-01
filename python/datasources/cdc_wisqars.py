@@ -99,7 +99,7 @@ class CDCWisqarsData(DataSource):
         get_table_name(): Retrieves the table name for CDC WISQARS data.
         upload_to_gcs(gcs_bucket, **attrs): Uploads data to Google Cloud Storage.
         write_to_bq(dataset, gcs_bucket, **attrs): Writes data to BigQuery.
-        generate_breakdown_df(breakdown, geo_level, alls_df): Generates a data frame
+        generate_breakdown_df(demographic, geo_level, alls_df): Generates a data frame
         by breakdown and geographic level.
 
     """
@@ -136,13 +136,13 @@ class CDCWisqarsData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
-        """generate_breakdown_df generates a gun violence data frame by breakdown and geo_level
+    def generate_breakdown_df(self, demographic: str, geo_level: str, alls_df: pd.DataFrame):
+        """generate_breakdown_df generates a gun violence data frame by demographic and geo_level
 
-        breakdown: string equal to `age`, `race_and_ethnicity, or `sex`
+        demographic: string equal to `age`, `race_and_ethnicity, or `sex`
         geo_level: string equal to `national` or `state`
-        alls_df: the data frame containing the all values for each demographic breakdown
-        return: a data frame of national time-based WISQARS data by breakdown"""
+        alls_df: the data frame containing the all values for each demographic demographic
+        return: a data frame of national time-based WISQARS data by demographic"""
 
         cols_to_standard = {
             "race": std_col.RACE_CATEGORY_ID_COL,
@@ -150,19 +150,17 @@ class CDCWisqarsData(DataSource):
             "year": std_col.TIME_PERIOD_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
+        breakdown_group_df = load_wisqars_df_from_data_dir(demographic, geo_level)
 
         # Replace WISQARS group labels with HET group labels
-        breakdown_group_df = breakdown_group_df.replace({breakdown: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
-        if breakdown == std_col.AGE_COL:
-            breakdown_group_df[std_col.AGE_COL] = breakdown_group_df[std_col.AGE_COL].str.replace(' to ', '-')
-            breakdown_group_df = condense_age_groups(breakdown_group_df, COL_DICTS)
+        breakdown_group_df = breakdown_group_df.replace({demographic: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
 
-        combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
+        df = pd.concat([breakdown_group_df, alls_df], axis=0)
+        df = df.rename(columns=cols_to_standard)
 
-        df = combined_group_df.rename(columns=cols_to_standard)
-
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        if demographic == std_col.AGE_COL:
+            df = condense_age_groups(df, COL_DICTS)
+        if demographic == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
         df = merge_state_ids(df)
@@ -181,12 +179,12 @@ class CDCWisqarsData(DataSource):
 
         if has_unknown:
             unknown = 'Unknown'
-            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            if demographic == std_col.RACE_OR_HISPANIC_COL:
                 unknown = 'Unknown race'
-            df = generate_pct_share_col_with_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown)
+            df = generate_pct_share_col_with_unknowns(df, PCT_SHARE_MAP, demographic, std_col.ALL_VALUE, unknown)
 
         else:
-            df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE)
+            df = generate_pct_share_col_without_unknowns(df, PCT_SHARE_MAP, demographic, std_col.ALL_VALUE)
 
         for col in RAW_TOTALS_MAP.values():
             df = generate_pct_rel_inequity_col(
@@ -196,13 +194,13 @@ class CDCWisqarsData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
+def load_wisqars_df_from_data_dir(demographic: str, geo_level: str):
     """
-    load_wisqars_df_from_data_dir generates WISQARS data by breakdown and geo_level
+    load_wisqars_df_from_data_dir generates WISQARS data by demographic and geo_level
 
-    breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
+    demographic: string equal to `age`, `race_and_ethnicity`, or `sex`
     geo_level: string equal to `national`, or `state`
-    return: a data frame of time-based WISQARS data by breakdown and geo_level with
+    return: a data frame of time-based WISQARS data by demographic and geo_level with
     WISQARS columns
     """
     output_df = pd.DataFrame(columns=["year"])
@@ -212,7 +210,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         DATA_DIR,
-        f"fatal_gun_injuries-{geo_level}-{breakdown}.csv",
+        f"fatal_gun_injuries-{geo_level}-{demographic}.csv",
         na_values=["--", "**"],
         usecols=lambda x: x not in WISQARS_COLS,
         thousands=",",
@@ -237,7 +235,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
-        index=PIVOT_DEM_COLS.get(breakdown, []),
+        index=PIVOT_DEM_COLS.get(demographic, []),
         columns="intent",
         values=['deaths', 'crude rate'],
     )
@@ -261,6 +259,8 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         },
         inplace=True,
     )
+    if demographic == std_col.AGE_COL:
+        df[std_col.AGE_COL] = df[std_col.AGE_COL].str.replace(' to ', '-')
 
     if std_col.ETH_COL in df.columns.to_list():
         df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
