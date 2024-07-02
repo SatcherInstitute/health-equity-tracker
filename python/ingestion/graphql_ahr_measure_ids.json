@@ -1,0 +1,627 @@
+{
+    "All": {
+        "Asthma": [
+            "16388"
+        ],
+        "Avoided Care Due to Cost": [
+            "16348",
+            "18353"
+        ],
+        "Cardiovascular Diseases": [
+            "16578"
+        ],
+        "Chronic Kidney Disease": [
+            "16679"
+        ],
+        "Chronic Obstructive Pulmonary Disease": [
+            "16657"
+        ],
+        "Depression": [
+            "16512"
+        ],
+        "Diabetes": [
+            "115",
+            "176"
+        ],
+        "Excessive Drinking": [
+            "772"
+        ],
+        "Frequent Mental Distress": [
+            "2858"
+        ],
+        "Non-Medical Drug Use - Past Year": [
+            "16161"
+        ],
+        "Preventable Hospitalizations": [
+            "150",
+            "16440",
+            "18328"
+        ],
+        "Suicide": [
+            "194"
+        ],
+        "Voter Participation (Presidential)": [
+            "17542"
+        ]
+    },
+    "Age": {
+        "Asthma - Age 65+": [
+            "16374"
+        ],
+        "Asthma - Ages 18-44": [
+            "16372"
+        ],
+        "Asthma - Ages 45-64": [
+            "16373"
+        ],
+        "Avoided Care Due to Cost - Age 65+": [
+            "15969",
+            "16369",
+            "18358",
+            "18389"
+        ],
+        "Avoided Care Due to Cost - Ages 18-44": [
+            "16367",
+            "18356"
+        ],
+        "Avoided Care Due to Cost - Ages 45-64": [
+            "16368",
+            "18357"
+        ],
+        "Cardiovascular Diseases - Age 65+": [
+            "16583"
+        ],
+        "Cardiovascular Diseases - Ages 18-44": [
+            "16581"
+        ],
+        "Cardiovascular Diseases - Ages 45-64": [
+            "16582"
+        ],
+        "Chronic Kidney Disease - Age 65+": [
+            "16684"
+        ],
+        "Chronic Kidney Disease - Ages 18-44": [
+            "16682"
+        ],
+        "Chronic Kidney Disease - Ages 45-64": [
+            "16683"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Age 65+": [
+            "16662"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Ages 18-44": [
+            "16660"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Ages 45-64": [
+            "16661"
+        ],
+        "Depression - Age 65+": [
+            "237",
+            "16517"
+        ],
+        "Depression - Ages 18-44": [
+            "16515"
+        ],
+        "Depression - Ages 45-64": [
+            "16516"
+        ],
+        "Diabetes - Age 65+": [
+            "408"
+        ],
+        "Diabetes - Ages 18-44": [
+            "406"
+        ],
+        "Diabetes - Ages 45-64": [
+            "407"
+        ],
+        "Excessive Drinking - Age 65+": [
+            "778",
+            "1483"
+        ],
+        "Excessive Drinking - Ages 18-44": [
+            "776"
+        ],
+        "Excessive Drinking - Ages 45-64": [
+            "777"
+        ],
+        "Frequent Mental Distress - Age 65+": [
+            "1503",
+            "2863"
+        ],
+        "Frequent Mental Distress - Ages 18-44": [
+            "2861"
+        ],
+        "Frequent Mental Distress - Ages 45-64": [
+            "2862"
+        ],
+        "Preventable Hospitalizations - Ages 65-74": [
+            "16541",
+            "17944"
+        ],
+        "Suicide - Age 65+": [
+            "16777",
+            "17687"
+        ],
+        "Suicide - Age 85+": [
+            "15966",
+            "16789"
+        ],
+        "Suicide - Ages 15-24": [
+            "15959"
+        ],
+        "Suicide - Ages 25-34": [
+            "15960"
+        ],
+        "Suicide - Ages 35-44": [
+            "15961"
+        ],
+        "Suicide - Ages 45-54": [
+            "15962"
+        ],
+        "Suicide - Ages 55-64": [
+            "15963"
+        ],
+        "Suicide - Ages 65-74": [
+            "15964",
+            "16787"
+        ],
+        "Suicide - Ages 75-84": [
+            "15965",
+            "16788"
+        ],
+        "Voter Participation (Presidential) - Age 65+": [
+            "17863"
+        ],
+        "Voter Participation (Presidential) - Ages 18-24": [
+            "17545"
+        ],
+        "Voter Participation (Presidential) - Ages 25-34": [
+            "17546"
+        ],
+        "Voter Participation (Presidential) - Ages 35-44": [
+            "17547"
+        ],
+        "Voter Participation (Presidential) - Ages 45-64": [
+            "17548"
+        ]
+    },
+    "Race/Ethnicity": {
+        "Asthma - American Indian/Alaska Native": [
+            "16380",
+            "19992"
+        ],
+        "Asthma - Asian": [
+            "16378",
+            "19990"
+        ],
+        "Asthma - Black": [
+            "16376",
+            "19988"
+        ],
+        "Asthma - Hawaiian/Pacific Islander": [
+            "16379",
+            "19991"
+        ],
+        "Asthma - Hispanic": [
+            "16377",
+            "19989"
+        ],
+        "Asthma - Multiracial": [
+            "16381",
+            "19993"
+        ],
+        "Asthma - Other Race": [
+            "16382"
+        ],
+        "Asthma - White": [
+            "16375",
+            "19987"
+        ],
+        "Avoided Care Due to Cost - American Indian/Alaska Native": [
+            "16353",
+            "18361",
+            "20167"
+        ],
+        "Avoided Care Due to Cost - Asian": [
+            "16355",
+            "18363",
+            "20169"
+        ],
+        "Avoided Care Due to Cost - Black": [
+            "16357",
+            "18365",
+            "20171"
+        ],
+        "Avoided Care Due to Cost - Hawaiian/Pacific Islander": [
+            "16354",
+            "18362",
+            "20168"
+        ],
+        "Avoided Care Due to Cost - Hispanic": [
+            "16356",
+            "18364",
+            "20170"
+        ],
+        "Avoided Care Due to Cost - Multiracial": [
+            "16352",
+            "18360",
+            "20166"
+        ],
+        "Avoided Care Due to Cost - Other Race": [
+            "16351",
+            "18359"
+        ],
+        "Avoided Care Due to Cost - White": [
+            "16358",
+            "18366",
+            "20172"
+        ],
+        "Cardiovascular Diseases - American Indian/Alaska Native": [
+            "16589",
+            "20015"
+        ],
+        "Cardiovascular Diseases - Asian": [
+            "16587",
+            "20013"
+        ],
+        "Cardiovascular Diseases - Black": [
+            "16585",
+            "20011"
+        ],
+        "Cardiovascular Diseases - Hawaiian/Pacific Islander": [
+            "16588",
+            "20014"
+        ],
+        "Cardiovascular Diseases - Hispanic": [
+            "16586",
+            "20012"
+        ],
+        "Cardiovascular Diseases - Multiracial": [
+            "16590",
+            "20016"
+        ],
+        "Cardiovascular Diseases - Other Race": [
+            "16591"
+        ],
+        "Cardiovascular Diseases - White": [
+            "16584",
+            "20010"
+        ],
+        "Chronic Kidney Disease - American Indian/Alaska Native": [
+            "16690",
+            "20047"
+        ],
+        "Chronic Kidney Disease - Asian": [
+            "16688",
+            "20045"
+        ],
+        "Chronic Kidney Disease - Black": [
+            "16686",
+            "20043"
+        ],
+        "Chronic Kidney Disease - Hawaiian/Pacific Islander": [
+            "16689",
+            "20046"
+        ],
+        "Chronic Kidney Disease - Hispanic": [
+            "16687",
+            "20044"
+        ],
+        "Chronic Kidney Disease - Multiracial": [
+            "16691",
+            "20048"
+        ],
+        "Chronic Kidney Disease - Other Race": [
+            "16692"
+        ],
+        "Chronic Kidney Disease - White": [
+            "16685",
+            "20042"
+        ],
+        "Chronic Obstructive Pulmonary Disease - American Indian/Alaska Native": [
+            "16668",
+            "20040"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Asian": [
+            "16666",
+            "20038"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Black": [
+            "16664",
+            "20036"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Hawaiian/Pacific Islander": [
+            "16667",
+            "20039"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Hispanic": [
+            "16665",
+            "20037"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Multiracial": [
+            "16669",
+            "20041"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Other Race": [
+            "16670"
+        ],
+        "Chronic Obstructive Pulmonary Disease - White": [
+            "16663",
+            "20035"
+        ],
+        "Depression - American Indian/Alaska Native": [
+            "16523",
+            "20007"
+        ],
+        "Depression - Asian": [
+            "16521",
+            "20005"
+        ],
+        "Depression - Black": [
+            "16519",
+            "20003"
+        ],
+        "Depression - Hawaiian/Pacific Islander": [
+            "16522",
+            "20006"
+        ],
+        "Depression - Hispanic": [
+            "16520",
+            "20004"
+        ],
+        "Depression - Multiracial": [
+            "16524",
+            "20008"
+        ],
+        "Depression - Other Race": [
+            "16525"
+        ],
+        "Depression - White": [
+            "16518",
+            "20002"
+        ],
+        "Diabetes - American Indian/Alaska Native": [
+            "414",
+            "436",
+            "19747"
+        ],
+        "Diabetes - Asian": [
+            "412",
+            "434",
+            "19745"
+        ],
+        "Diabetes - Black": [
+            "410",
+            "432",
+            "19743"
+        ],
+        "Diabetes - Hawaiian/Pacific Islander": [
+            "413",
+            "435",
+            "19746"
+        ],
+        "Diabetes - Hispanic": [
+            "411",
+            "433",
+            "19744"
+        ],
+        "Diabetes - Multiracial": [
+            "3753",
+            "19927"
+        ],
+        "Diabetes - Other Race": [
+            "3774"
+        ],
+        "Diabetes - White": [
+            "409",
+            "431",
+            "19742"
+        ],
+        "Excessive Drinking - American Indian/Alaska Native": [
+            "779",
+            "19803"
+        ],
+        "Excessive Drinking - Asian": [
+            "780",
+            "19804"
+        ],
+        "Excessive Drinking - Black": [
+            "781",
+            "19805"
+        ],
+        "Excessive Drinking - Hawaiian/Pacific Islander": [
+            "784",
+            "19806"
+        ],
+        "Excessive Drinking - Hispanic": [
+            "786",
+            "19807"
+        ],
+        "Excessive Drinking - Multiracial": [
+            "3758",
+            "19926"
+        ],
+        "Excessive Drinking - Other Race": [
+            "3779"
+        ],
+        "Excessive Drinking - White": [
+            "794",
+            "19808"
+        ],
+        "Frequent Mental Distress - American Indian/Alaska Native": [
+            "19905",
+            "2868"
+        ],
+        "Frequent Mental Distress - Asian": [
+            "19906",
+            "2866"
+        ],
+        "Frequent Mental Distress - Black": [
+            "19907",
+            "2865"
+        ],
+        "Frequent Mental Distress - Hawaiian/Pacific Islander": [
+            "19908",
+            "2867"
+        ],
+        "Frequent Mental Distress - Hispanic": [
+            "19909",
+            "2869"
+        ],
+        "Frequent Mental Distress - Multiracial": [
+            "19928",
+            "3768"
+        ],
+        "Frequent Mental Distress - Other Race": [
+            "3789"
+        ],
+        "Frequent Mental Distress - White": [
+            "19910",
+            "2864"
+        ],
+        "Preventable Hospitalizations - American Indian/Alaska Native": [
+            "16448",
+            "18326"
+        ],
+        "Preventable Hospitalizations - Asian/Pacific Islander": [],
+        "Preventable Hospitalizations - Black": [
+            "16446",
+            "18324"
+        ],
+        "Preventable Hospitalizations - Hispanic": [
+            "16449",
+            "18327"
+        ],
+        "Preventable Hospitalizations - Other Race": [
+            "16445",
+            "18323"
+        ],
+        "Preventable Hospitalizations - White": [
+            "16444",
+            "18322"
+        ],
+        "Suicide - American Indian/Alaska Native": [
+            "1277",
+            "18284"
+        ],
+        "Suicide - Asian": [
+            "18285"
+        ],
+        "Suicide - Black": [
+            "1274",
+            "18286"
+        ],
+        "Suicide - Hawaiian/Pacific Islander": [
+            "18290"
+        ],
+        "Suicide - Hispanic": [
+            "1271",
+            "18287"
+        ],
+        "Suicide - Multiracial": [
+            "18289"
+        ],
+        "Suicide - White": [
+            "1275",
+            "18288"
+        ],
+        "Voter Participation (Presidential) - Asian": [
+            "17549"
+        ],
+        "Voter Participation (Presidential) - Black": [
+            "17550"
+        ],
+        "Voter Participation (Presidential) - Hispanic": [
+            "17552"
+        ],
+        "Voter Participation (Presidential) - White": [
+            "17551"
+        ]
+    },
+    "Sex": {
+        "Asthma - Female": [
+            "16371"
+        ],
+        "Asthma - Male": [
+            "16370"
+        ],
+        "Avoided Care Due to Cost - Female": [
+            "16349",
+            "18354"
+        ],
+        "Avoided Care Due to Cost - Male": [
+            "16350",
+            "18355"
+        ],
+        "Cardiovascular Diseases - Female": [
+            "16580"
+        ],
+        "Cardiovascular Diseases - Male": [
+            "16579"
+        ],
+        "Chronic Kidney Disease - Female": [
+            "16681"
+        ],
+        "Chronic Kidney Disease - Male": [
+            "16680"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Female": [
+            "16659"
+        ],
+        "Chronic Obstructive Pulmonary Disease - Male": [
+            "16658"
+        ],
+        "Depression - Female": [
+            "16514"
+        ],
+        "Depression - Male": [
+            "16513"
+        ],
+        "Diabetes - Female": [
+            "405",
+            "427"
+        ],
+        "Diabetes - Male": [
+            "404",
+            "426"
+        ],
+        "Excessive Drinking - Female": [
+            "783"
+        ],
+        "Excessive Drinking - Male": [
+            "789"
+        ],
+        "Frequent Mental Distress - Female": [
+            "2860"
+        ],
+        "Frequent Mental Distress - Male": [
+            "2859"
+        ],
+        "Non-Medical Drug Use - Female": [
+            "16188"
+        ],
+        "Non-Medical Drug Use - Male": [
+            "16187"
+        ],
+        "Preventable Hospitalizations - Female": [
+            "16450",
+            "18321"
+        ],
+        "Preventable Hospitalizations - Male": [
+            "16441",
+            "18320"
+        ],
+        "Suicide - Female": [
+            "1273"
+        ],
+        "Suicide - Male": [
+            "1272"
+        ],
+        "Voter Participation (Presidential) - Female": [
+            "17543"
+        ],
+        "Voter Participation (Presidential) - Male": [
+            "17544"
+        ]
+    }
+}
