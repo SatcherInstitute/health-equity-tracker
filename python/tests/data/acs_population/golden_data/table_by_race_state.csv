@@ -1,7 +1,7 @@
 state_fips,state_name,population,race_category_id,population_pct,race_and_ethnicity
-01,Alabama,21122,AIAN,0.4,American Indian and Alaska Native
+01,Alabama,21122,AIAN,0.4,Indigenous
 01,Alabama,93183,AIAN_API,1.9,"American Indian, Alaska Native, Asian & Pacific Islander"
-01,Alabama,14864,AIAN_NH,0.3,American Indian and Alaska Native (NH)
+01,Alabama,14864,AIAN_NH,0.3,Indigenous (NH)
 01,Alabama,5028092,ALL,100.0,All
 01,Alabama,70656,API_NH,1.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 01,Alabama,69808,ASIAN,1.4,Asian
@@ -20,9 +20,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 01,Alabama,14724,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 01,Alabama,3329012,WHITE,66.2,White
 01,Alabama,3247262,WHITE_NH,64.6,White (NH)
-02,Alaska,104957,AIAN,14.3,American Indian and Alaska Native
+02,Alaska,104957,AIAN,14.3,Indigenous
 02,Alaska,163630,AIAN_API,22.3,"American Indian, Alaska Native, Asian & Pacific Islander"
-02,Alaska,102445,AIAN_NH,13.9,American Indian and Alaska Native (NH)
+02,Alaska,102445,AIAN_NH,13.9,Indigenous (NH)
 02,Alaska,734821,ALL,100.0,All
 02,Alaska,57447,API_NH,7.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 02,Alaska,47464,ASIAN,6.5,Asian
@@ -41,9 +41,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 02,Alaska,3808,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 02,Alaska,450472,WHITE,61.3,White
 02,Alaska,428802,WHITE_NH,58.4,White (NH)
-04,Arizona,297590,AIAN,4.1,American Indian and Alaska Native
+04,Arizona,297590,AIAN,4.1,Indigenous
 04,Arizona,552348,AIAN_API,7.7,"American Indian, Alaska Native, Asian & Pacific Islander"
-04,Arizona,249047,AIAN_NH,3.5,American Indian and Alaska Native (NH)
+04,Arizona,249047,AIAN_NH,3.5,Indigenous (NH)
 04,Arizona,7172282,ALL,100.0,All
 04,Arizona,246628,API_NH,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 04,Arizona,240642,ASIAN,3.4,Asian
@@ -62,9 +62,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 04,Arizona,23071,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 04,Arizona,4781702,WHITE,66.7,White
 04,Arizona,3801121,WHITE_NH,53.0,White (NH)
-05,Arkansas,16840,AIAN,0.6,American Indian and Alaska Native
+05,Arkansas,16840,AIAN,0.6,Indigenous
 05,Arkansas,75370,AIAN_API,2.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-05,Arkansas,11851,AIAN_NH,0.4,American Indian and Alaska Native (NH)
+05,Arkansas,11851,AIAN_NH,0.4,Indigenous (NH)
 05,Arkansas,3018669,ALL,100.0,All
 05,Arkansas,57616,API_NH,1.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 05,Arkansas,47413,ASIAN,1.6,Asian
@@ -83,9 +83,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 05,Arkansas,7194,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 05,Arkansas,2193348,WHITE,72.7,White
 05,Arkansas,2103784,WHITE_NH,69.7,White (NH)
-06,California,394188,AIAN,1.0,American Indian and Alaska Native
+06,California,394188,AIAN,1.0,Indigenous
 06,California,6493855,AIAN_API,16.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-06,California,114271,AIAN_NH,0.3,American Indian and Alaska Native (NH)
+06,California,114271,AIAN_NH,0.3,Indigenous (NH)
 06,California,39356104,ALL,100.0,All
 06,California,5997109,API_NH,15.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 06,California,5949136,ASIAN,15.1,Asian
@@ -104,9 +104,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 06,California,176652,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 06,California,18943660,WHITE,48.1,White
 06,California,13848294,WHITE_NH,35.2,White (NH)
-08,Colorado,57022,AIAN,1.0,American Indian and Alaska Native
+08,Colorado,57022,AIAN,1.0,Indigenous
 08,Colorado,250547,AIAN_API,4.3,"American Indian, Alaska Native, Asian & Pacific Islander"
-08,Colorado,24781,AIAN_NH,0.4,American Indian and Alaska Native (NH)
+08,Colorado,24781,AIAN_NH,0.4,Indigenous (NH)
 08,Colorado,5770790,ALL,100.0,All
 08,Colorado,188568,API_NH,3.3,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 08,Colorado,185431,ASIAN,3.2,Asian
@@ -125,9 +125,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 08,Colorado,21903,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 08,Colorado,4393409,WHITE,76.1,White
 08,Colorado,3821584,WHITE_NH,66.2,White (NH)
-09,Connecticut,9043,AIAN,0.3,American Indian and Alaska Native
+09,Connecticut,9043,AIAN,0.3,Indigenous
 09,Connecticut,181333,AIAN_API,5.0,"American Indian, Alaska Native, Asian & Pacific Islander"
-09,Connecticut,3565,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+09,Connecticut,3565,AIAN_NH,0.1,Indigenous (NH)
 09,Connecticut,3611317,ALL,100.0,All
 09,Connecticut,170244,API_NH,4.7,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 09,Connecticut,170945,ASIAN,4.7,Asian
@@ -146,9 +146,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 09,Connecticut,22228,OTHER_STANDARD_NH,0.6,Unrepresented race (NH)
 09,Connecticut,2522166,WHITE,69.8,White
 09,Connecticut,2308644,WHITE_NH,63.9,White (NH)
-10,Delaware,3309,AIAN,0.3,American Indian and Alaska Native
+10,Delaware,3309,AIAN,0.3,Indigenous
 10,Delaware,44244,AIAN_API,4.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-10,Delaware,1799,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+10,Delaware,1799,AIAN_NH,0.2,Indigenous (NH)
 10,Delaware,993635,ALL,100.0,All
 10,Delaware,40647,API_NH,4.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 10,Delaware,40570,ASIAN,4.1,Asian
@@ -167,9 +167,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 10,Delaware,4305,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 10,Delaware,634244,WHITE,63.8,White
 10,Delaware,597532,WHITE_NH,60.1,White (NH)
-11,District of Columbia,2209,AIAN,0.3,American Indian and Alaska Native
+11,District of Columbia,2209,AIAN,0.3,Indigenous
 11,District of Columbia,29696,AIAN_API,4.4,"American Indian, Alaska Native, Asian & Pacific Islander"
-11,District of Columbia,829,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+11,District of Columbia,829,AIAN_NH,0.1,Indigenous (NH)
 11,District of Columbia,670587,ALL,100.0,All
 11,District of Columbia,26868,API_NH,4.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 11,District of Columbia,27067,ASIAN,4.0,Asian
@@ -188,9 +188,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 11,District of Columbia,3720,OTHER_STANDARD_NH,0.6,Unrepresented race (NH)
 11,District of Columbia,265633,WHITE,39.6,White
 11,District of Columbia,243730,WHITE_NH,36.3,White (NH)
-12,Florida,59197,AIAN,0.3,American Indian and Alaska Native
+12,Florida,59197,AIAN,0.3,Indigenous
 12,Florida,682387,AIAN_API,3.2,"American Indian, Alaska Native, Asian & Pacific Islander"
-12,Florida,26405,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+12,Florida,26405,AIAN_NH,0.1,Indigenous (NH)
 12,Florida,21634529,ALL,100.0,All
 12,Florida,607761,API_NH,2.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 12,Florida,609990,ASIAN,2.8,Asian
@@ -209,9 +209,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 12,Florida,117096,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 12,Florida,13807410,WHITE,63.8,White
 12,Florida,11242515,WHITE_NH,52.0,White (NH)
-13,Georgia,37920,AIAN,0.4,American Indian and Alaska Native
+13,Georgia,37920,AIAN,0.4,Indigenous
 13,Georgia,510818,AIAN_API,4.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-13,Georgia,11377,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+13,Georgia,11377,AIAN_NH,0.1,Indigenous (NH)
 13,Georgia,10722325,ALL,100.0,All
 13,Georgia,466832,API_NH,4.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 13,Georgia,465487,ASIAN,4.3,Asian
@@ -230,9 +230,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 13,Georgia,50126,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 13,Georgia,5820019,WHITE,54.3,White
 13,Georgia,5445155,WHITE_NH,50.8,White (NH)
-15,Hawaii,4210,AIAN,0.3,American Indian and Alaska Native
+15,Hawaii,4210,AIAN,0.3,Indigenous
 15,Hawaii,693977,AIAN_API,47.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-15,Hawaii,2056,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+15,Hawaii,2056,AIAN_NH,0.1,Indigenous (NH)
 15,Hawaii,1450589,ALL,100.0,All
 15,Hawaii,670151,API_NH,46.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 15,Hawaii,538970,ASIAN,37.2,Asian
@@ -251,9 +251,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 15,Hawaii,3861,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 15,Hawaii,333296,WHITE,23.0,White
 15,Hawaii,305224,WHITE_NH,21.0,White (NH)
-16,Idaho,22297,AIAN,1.2,American Indian and Alaska Native
+16,Idaho,22297,AIAN,1.2,Indigenous
 16,Idaho,50005,AIAN_API,2.7,"American Indian, Alaska Native, Asian & Pacific Islander"
-16,Idaho,16217,AIAN_NH,0.9,American Indian and Alaska Native (NH)
+16,Idaho,16217,AIAN_NH,0.9,Indigenous (NH)
 16,Idaho,1854109,ALL,100.0,All
 16,Idaho,26546,API_NH,1.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 16,Idaho,24987,ASIAN,1.3,Asian
@@ -272,9 +272,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 16,Idaho,7677,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 16,Idaho,1574859,WHITE,84.9,White
 16,Idaho,1484468,WHITE_NH,80.1,White (NH)
-17,Illinois,55819,AIAN,0.4,American Indian and Alaska Native
+17,Illinois,55819,AIAN,0.4,Indigenous
 17,Illinois,799366,AIAN_API,6.3,"American Indian, Alaska Native, Asian & Pacific Islander"
-17,Illinois,10119,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+17,Illinois,10119,AIAN_NH,0.1,Indigenous (NH)
 17,Illinois,12757634,ALL,100.0,All
 17,Illinois,734176,API_NH,5.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 17,Illinois,738071,ASIAN,5.8,Asian
@@ -293,9 +293,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 17,Illinois,40167,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 17,Illinois,8388659,WHITE,65.8,White
 17,Illinois,7601615,WHITE_NH,59.6,White (NH)
-18,Indiana,12465,AIAN,0.2,American Indian and Alaska Native
+18,Indiana,12465,AIAN,0.2,Indigenous
 18,Indiana,183854,AIAN_API,2.7,"American Indian, Alaska Native, Asian & Pacific Islander"
-18,Indiana,5085,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+18,Indiana,5085,AIAN_NH,0.1,Indigenous (NH)
 18,Indiana,6784403,ALL,100.0,All
 18,Indiana,169853,API_NH,2.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 18,Indiana,168899,ASIAN,2.5,Asian
@@ -314,9 +314,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 18,Indiana,23790,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 18,Indiana,5426227,WHITE,80.0,White
 18,Indiana,5238582,WHITE_NH,77.2,White (NH)
-19,Iowa,10111,AIAN,0.3,American Indian and Alaska Native
+19,Iowa,10111,AIAN,0.3,Indigenous
 19,Iowa,93633,AIAN_API,2.9,"American Indian, Alaska Native, Asian & Pacific Islander"
-19,Iowa,6472,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+19,Iowa,6472,AIAN_NH,0.2,Indigenous (NH)
 19,Iowa,3188836,ALL,100.0,All
 19,Iowa,82596,API_NH,2.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 19,Iowa,78940,ASIAN,2.5,Asian
@@ -335,9 +335,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 19,Iowa,6683,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 19,Iowa,2769619,WHITE,86.9,White
 19,Iowa,2672930,WHITE_NH,83.8,White (NH)
-20,Kansas,22015,AIAN,0.7,American Indian and Alaska Native
+20,Kansas,22015,AIAN,0.7,Indigenous
 20,Kansas,113257,AIAN_API,3.9,"American Indian, Alaska Native, Asian & Pacific Islander"
-20,Kansas,14025,AIAN_NH,0.5,American Indian and Alaska Native (NH)
+20,Kansas,14025,AIAN_NH,0.5,Indigenous (NH)
 20,Kansas,2935922,ALL,100.0,All
 20,Kansas,89390,API_NH,3.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 20,Kansas,88513,ASIAN,3.0,Asian
@@ -356,9 +356,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 20,Kansas,9033,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 20,Kansas,2341473,WHITE,79.8,White
 20,Kansas,2179129,WHITE_NH,74.2,White (NH)
-21,Kentucky,6821,AIAN,0.2,American Indian and Alaska Native
+21,Kentucky,6821,AIAN,0.2,Indigenous
 21,Kentucky,79813,AIAN_API,1.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-21,Kentucky,3902,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+21,Kentucky,3902,AIAN_NH,0.1,Indigenous (NH)
 21,Kentucky,4502935,ALL,100.0,All
 21,Kentucky,71736,API_NH,1.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 21,Kentucky,69187,ASIAN,1.5,Asian
@@ -377,9 +377,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 21,Kentucky,10744,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 21,Kentucky,3816997,WHITE,84.8,White
 21,Kentucky,3748657,WHITE_NH,83.2,White (NH)
-22,Louisiana,24952,AIAN,0.5,American Indian and Alaska Native
+22,Louisiana,24952,AIAN,0.5,Indigenous
 22,Louisiana,107676,AIAN_API,2.3,"American Indian, Alaska Native, Asian & Pacific Islander"
-22,Louisiana,19612,AIAN_NH,0.4,American Indian and Alaska Native (NH)
+22,Louisiana,19612,AIAN_NH,0.4,Indigenous (NH)
 22,Louisiana,4640546,ALL,100.0,All
 22,Louisiana,81764,API_NH,1.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 22,Louisiana,80363,ASIAN,1.7,Asian
@@ -398,9 +398,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 22,Louisiana,18696,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 22,Louisiana,2758714,WHITE,59.4,White
 22,Louisiana,2669166,WHITE_NH,57.5,White (NH)
-23,Maine,6722,AIAN,0.5,American Indian and Alaska Native
+23,Maine,6722,AIAN,0.5,Indigenous
 23,Maine,22058,AIAN_API,1.6,"American Indian, Alaska Native, Asian & Pacific Islander"
-23,Maine,6072,AIAN_NH,0.4,American Indian and Alaska Native (NH)
+23,Maine,6072,AIAN_NH,0.4,Indigenous (NH)
 23,Maine,1366949,ALL,100.0,All
 23,Maine,15178,API_NH,1.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 23,Maine,15071,ASIAN,1.1,Asian
@@ -419,9 +419,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 23,Maine,4143,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 23,Maine,1261284,WHITE,92.3,White
 23,Maine,1249638,WHITE_NH,91.4,White (NH)
-24,Maryland,18343,AIAN,0.3,American Indian and Alaska Native
+24,Maryland,18343,AIAN,0.3,Indigenous
 24,Maryland,421199,AIAN_API,6.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-24,Maryland,8480,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+24,Maryland,8480,AIAN_NH,0.1,Indigenous (NH)
 24,Maryland,6161707,ALL,100.0,All
 24,Maryland,399088,API_NH,6.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 24,Maryland,399736,ASIAN,6.5,Asian
@@ -440,9 +440,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 24,Maryland,32532,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 24,Maryland,3154247,WHITE,51.2,White
 24,Maryland,2989005,WHITE_NH,48.5,White (NH)
-25,Massachusetts,14740,AIAN,0.2,American Indian and Alaska Native
+25,Massachusetts,14740,AIAN,0.2,Indigenous
 25,Massachusetts,505106,AIAN_API,7.2,"American Indian, Alaska Native, Asian & Pacific Islander"
-25,Massachusetts,6760,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+25,Massachusetts,6760,AIAN_NH,0.1,Indigenous (NH)
 25,Massachusetts,6984205,ALL,100.0,All
 25,Massachusetts,486503,API_NH,7.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 25,Massachusetts,487600,ASIAN,7.0,Asian
@@ -461,9 +461,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 25,Massachusetts,70860,OTHER_STANDARD_NH,1.0,Unrepresented race (NH)
 25,Massachusetts,5075525,WHITE,72.7,White
 25,Massachusetts,4809687,WHITE_NH,68.9,White (NH)
-26,Michigan,45662,AIAN,0.5,American Indian and Alaska Native
+26,Michigan,45662,AIAN,0.5,Indigenous
 26,Michigan,375993,AIAN_API,3.7,"American Indian, Alaska Native, Asian & Pacific Islander"
-26,Michigan,35080,AIAN_NH,0.3,American Indian and Alaska Native (NH)
+26,Michigan,35080,AIAN_NH,0.3,Indigenous (NH)
 26,Michigan,10057921,ALL,100.0,All
 26,Michigan,327936,API_NH,3.3,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 26,Michigan,327551,ASIAN,3.3,Asian
@@ -482,9 +482,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 26,Michigan,33783,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 26,Michigan,7617085,WHITE,75.7,White
 26,Michigan,7394140,WHITE_NH,73.5,White (NH)
-27,Minnesota,51434,AIAN,0.9,American Indian and Alaska Native
+27,Minnesota,51434,AIAN,0.9,Indigenous
 27,Minnesota,339904,AIAN_API,6.0,"American Indian, Alaska Native, Asian & Pacific Islander"
-27,Minnesota,43877,AIAN_NH,0.8,American Indian and Alaska Native (NH)
+27,Minnesota,43877,AIAN_NH,0.8,Indigenous (NH)
 27,Minnesota,5695292,ALL,100.0,All
 27,Minnesota,286351,API_NH,5.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 27,Minnesota,286146,ASIAN,5.0,Asian
@@ -503,9 +503,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 27,Minnesota,22008,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 27,Minnesota,4537219,WHITE,79.7,White
 27,Minnesota,4423442,WHITE_NH,77.7,White (NH)
-28,Mississippi,12777,AIAN,0.4,American Indian and Alaska Native
+28,Mississippi,12777,AIAN,0.4,Indigenous
 28,Mississippi,43018,AIAN_API,1.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-28,Mississippi,10704,AIAN_NH,0.4,American Indian and Alaska Native (NH)
+28,Mississippi,10704,AIAN_NH,0.4,Indigenous (NH)
 28,Mississippi,2958846,ALL,100.0,All
 28,Mississippi,29568,API_NH,1.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 28,Mississippi,29041,ASIAN,1.0,Asian
@@ -524,9 +524,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 28,Mississippi,7793,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 28,Mississippi,1685024,WHITE,56.9,White
 28,Mississippi,1653172,WHITE_NH,55.9,White (NH)
-29,Missouri,17559,AIAN,0.3,American Indian and Alaska Native
+29,Missouri,17559,AIAN,0.3,Indigenous
 29,Missouri,153434,AIAN_API,2.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-29,Missouri,12789,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+29,Missouri,12789,AIAN_NH,0.2,Indigenous (NH)
 29,Missouri,6154422,ALL,100.0,All
 29,Missouri,134075,API_NH,2.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 29,Missouri,127044,ASIAN,2.1,Asian
@@ -545,9 +545,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 29,Missouri,20236,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 29,Missouri,4884165,WHITE,79.4,White
 29,Missouri,4774137,WHITE_NH,77.6,White (NH)
-30,Montana,63493,AIAN,5.8,American Indian and Alaska Native
+30,Montana,63493,AIAN,5.8,Indigenous
 30,Montana,73385,AIAN_API,6.7,"American Indian, Alaska Native, Asian & Pacific Islander"
-30,Montana,61081,AIAN_NH,5.6,American Indian and Alaska Native (NH)
+30,Montana,61081,AIAN_NH,5.6,Indigenous (NH)
 30,Montana,1091840,ALL,100.0,All
 30,Montana,9660,API_NH,0.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 30,Montana,9211,ASIAN,0.8,Asian
@@ -566,9 +566,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 30,Montana,3960,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 30,Montana,943827,WHITE,86.4,White
 30,Montana,923663,WHITE_NH,84.6,White (NH)
-31,Nebraska,18550,AIAN,0.9,American Indian and Alaska Native
+31,Nebraska,18550,AIAN,0.9,Indigenous
 31,Nebraska,68742,AIAN_API,3.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-31,Nebraska,12132,AIAN_NH,0.6,American Indian and Alaska Native (NH)
+31,Nebraska,12132,AIAN_NH,0.6,Indigenous (NH)
 31,Nebraska,1958939,ALL,100.0,All
 31,Nebraska,49489,API_NH,2.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 31,Nebraska,48874,ASIAN,2.5,Asian
@@ -587,9 +587,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 31,Nebraska,4940,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 31,Nebraska,1603239,WHITE,81.8,White
 31,Nebraska,1509776,WHITE_NH,77.1,White (NH)
-32,Nevada,40745,AIAN,1.3,American Indian and Alaska Native
+32,Nevada,40745,AIAN,1.3,Indigenous
 32,Nevada,325692,AIAN_API,10.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-32,Nevada,22068,AIAN_NH,0.7,American Indian and Alaska Native (NH)
+32,Nevada,22068,AIAN_NH,0.7,Indigenous (NH)
 32,Nevada,3104817,ALL,100.0,All
 32,Nevada,276652,API_NH,8.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 32,Nevada,263063,ASIAN,8.5,Asian
@@ -608,9 +608,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 32,Nevada,15375,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 32,Nevada,1732783,WHITE,55.8,White
 32,Nevada,1439924,WHITE_NH,46.4,White (NH)
-33,New Hampshire,2070,AIAN,0.2,American Indian and Alaska Native
+33,New Hampshire,2070,AIAN,0.2,Indigenous
 33,New Hampshire,38770,AIAN_API,2.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-33,New Hampshire,1332,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+33,New Hampshire,1332,AIAN_NH,0.1,Indigenous (NH)
 33,New Hampshire,1379610,ALL,100.0,All
 33,New Hampshire,36557,API_NH,2.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 33,New Hampshire,36352,ASIAN,2.6,Asian
@@ -629,9 +629,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 33,New Hampshire,3974,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 33,New Hampshire,1241594,WHITE,90.0,White
 33,New Hampshire,1217710,WHITE_NH,88.3,White (NH)
-34,New Jersey,29780,AIAN,0.3,American Indian and Alaska Native
+34,New Jersey,29780,AIAN,0.3,Indigenous
 34,New Jersey,945698,AIAN_API,10.2,"American Indian, Alaska Native, Asian & Pacific Islander"
-34,New Jersey,7905,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+34,New Jersey,7905,AIAN_NH,0.1,Indigenous (NH)
 34,New Jersey,9249063,ALL,100.0,All
 34,New Jersey,907551,API_NH,9.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 34,New Jersey,913364,ASIAN,9.9,Asian
@@ -650,9 +650,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 34,New Jersey,63188,OTHER_STANDARD_NH,0.7,Unrepresented race (NH)
 34,New Jersey,5528604,WHITE,59.8,White
 34,New Jersey,4900415,WHITE_NH,53.0,White (NH)
-35,New Mexico,198140,AIAN,9.4,American Indian and Alaska Native
+35,New Mexico,198140,AIAN,9.4,Indigenous
 35,New Mexico,234389,AIAN_API,11.1,"American Indian, Alaska Native, Asian & Pacific Islander"
-35,New Mexico,178608,AIAN_NH,8.5,American Indian and Alaska Native (NH)
+35,New Mexico,178608,AIAN_NH,8.5,Indigenous (NH)
 35,New Mexico,2112463,ALL,100.0,All
 35,New Mexico,33331,API_NH,1.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 35,New Mexico,34400,ASIAN,1.6,Asian
@@ -671,9 +671,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 35,New Mexico,7680,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 35,New Mexico,1250614,WHITE,59.2,White
 35,New Mexico,752424,WHITE_NH,35.6,White (NH)
-36,New York,93384,AIAN,0.5,American Indian and Alaska Native
+36,New York,93384,AIAN,0.5,Indigenous
 36,New York,1870102,AIAN_API,9.4,"American Indian, Alaska Native, Asian & Pacific Islander"
-36,New York,38481,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+36,New York,38481,AIAN_NH,0.2,Indigenous (NH)
 36,New York,19994379,ALL,100.0,All
 36,New York,1758202,API_NH,8.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 36,New York,1767598,ASIAN,8.8,Asian
@@ -692,9 +692,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 36,New York,159321,OTHER_STANDARD_NH,0.8,Unrepresented race (NH)
 36,New York,11749652,WHITE,58.8,White
 36,New York,10761815,WHITE_NH,53.8,White (NH)
-37,North Carolina,109600,AIAN,1.0,American Indian and Alaska Native
+37,North Carolina,109600,AIAN,1.0,Indigenous
 37,North Carolina,442218,AIAN_API,4.2,"American Indian, Alaska Native, Asian & Pacific Islander"
-37,North Carolina,91599,AIAN_NH,0.9,American Indian and Alaska Native (NH)
+37,North Carolina,91599,AIAN_NH,0.9,Indigenous (NH)
 37,North Carolina,10470214,ALL,100.0,All
 37,North Carolina,329009,API_NH,3.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 37,North Carolina,325670,ASIAN,3.1,Asian
@@ -713,9 +713,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 37,North Carolina,38864,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 37,North Carolina,6800458,WHITE,65.0,White
 37,North Carolina,6455988,WHITE_NH,61.7,White (NH)
-38,North Dakota,36284,AIAN,4.7,American Indian and Alaska Native
+38,North Dakota,36284,AIAN,4.7,Indigenous
 38,North Dakota,50217,AIAN_API,6.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-38,North Dakota,34275,AIAN_NH,4.4,American Indian and Alaska Native (NH)
+38,North Dakota,34275,AIAN_NH,4.4,Indigenous (NH)
 38,North Dakota,776874,ALL,100.0,All
 38,North Dakota,13829,API_NH,1.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 38,North Dakota,12474,ASIAN,1.6,Asian
@@ -734,9 +734,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 38,North Dakota,1651,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 38,North Dakota,656425,WHITE,84.5,White
 38,North Dakota,644419,WHITE_NH,83.0,White (NH)
-39,Ohio,17094,AIAN,0.1,American Indian and Alaska Native
+39,Ohio,17094,AIAN,0.1,Indigenous
 39,Ohio,304409,AIAN_API,2.6,"American Indian, Alaska Native, Asian & Pacific Islander"
-39,Ohio,9032,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+39,Ohio,9032,AIAN_NH,0.1,Indigenous (NH)
 39,Ohio,11774683,ALL,100.0,All
 39,Ohio,284812,API_NH,2.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 39,Ohio,283278,ASIAN,2.4,Asian
@@ -755,9 +755,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 39,Ohio,37838,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 39,Ohio,9281702,WHITE,78.8,White
 39,Ohio,9094774,WHITE_NH,77.2,White (NH)
-40,Oklahoma,298628,AIAN,7.5,American Indian and Alaska Native
+40,Oklahoma,298628,AIAN,7.5,Indigenous
 40,Oklahoma,397661,AIAN_API,10.0,"American Indian, Alaska Native, Asian & Pacific Islander"
-40,Oklahoma,277945,AIAN_NH,7.0,American Indian and Alaska Native (NH)
+40,Oklahoma,277945,AIAN_NH,7.0,Indigenous (NH)
 40,Oklahoma,3970497,ALL,100.0,All
 40,Oklahoma,96876,API_NH,2.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 40,Oklahoma,91720,ASIAN,2.3,Asian
@@ -776,9 +776,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 40,Oklahoma,10368,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 40,Oklahoma,2716667,WHITE,68.4,White
 40,Oklahoma,2529927,WHITE_NH,63.7,White (NH)
-41,Oregon,46880,AIAN,1.1,American Indian and Alaska Native
+41,Oregon,46880,AIAN,1.1,Indigenous
 41,Oregon,251871,AIAN_API,6.0,"American Indian, Alaska Native, Asian & Pacific Islander"
-41,Oregon,31339,AIAN_NH,0.7,American Indian and Alaska Native (NH)
+41,Oregon,31339,AIAN_NH,0.7,Indigenous (NH)
 41,Oregon,4229374,ALL,100.0,All
 41,Oregon,201149,API_NH,4.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 41,Oregon,187852,ASIAN,4.4,Asian
@@ -797,9 +797,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 41,Oregon,17376,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 41,Oregon,3328095,WHITE,78.7,White
 41,Oregon,3100790,WHITE_NH,73.3,White (NH)
-42,Pennsylvania,20570,AIAN,0.2,American Indian and Alaska Native
+42,Pennsylvania,20570,AIAN,0.2,Indigenous
 42,Pennsylvania,498018,AIAN_API,3.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-42,Pennsylvania,8215,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+42,Pennsylvania,8215,AIAN_NH,0.1,Indigenous (NH)
 42,Pennsylvania,12989208,ALL,100.0,All
 42,Pennsylvania,472096,API_NH,3.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 42,Pennsylvania,473192,ASIAN,3.6,Asian
@@ -818,9 +818,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 42,Pennsylvania,48071,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 42,Pennsylvania,10010379,WHITE,77.1,White
 42,Pennsylvania,9671148,WHITE_NH,74.5,White (NH)
-44,Rhode Island,4072,AIAN,0.4,American Indian and Alaska Native
+44,Rhode Island,4072,AIAN,0.4,Indigenous
 44,Rhode Island,42714,AIAN_API,3.9,"American Indian, Alaska Native, Asian & Pacific Islander"
-44,Rhode Island,2061,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+44,Rhode Island,2061,AIAN_NH,0.2,Indigenous (NH)
 44,Rhode Island,1094250,ALL,100.0,All
 44,Rhode Island,37623,API_NH,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 44,Rhode Island,37881,ASIAN,3.5,Asian
@@ -839,9 +839,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 44,Rhode Island,8442,OTHER_STANDARD_NH,0.8,Unrepresented race (NH)
 44,Rhode Island,816308,WHITE,74.6,White
 44,Rhode Island,764160,WHITE_NH,69.8,White (NH)
-45,South Carolina,15617,AIAN,0.3,American Indian and Alaska Native
+45,South Carolina,15617,AIAN,0.3,Indigenous
 45,South Carolina,104173,AIAN_API,2.0,"American Indian, Alaska Native, Asian & Pacific Islander"
-45,South Carolina,10304,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+45,South Carolina,10304,AIAN_NH,0.2,Indigenous (NH)
 45,South Carolina,5142750,ALL,100.0,All
 45,South Carolina,87415,API_NH,1.7,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 45,South Carolina,85834,ASIAN,1.7,Asian
@@ -860,9 +860,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 45,South Carolina,19361,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 45,South Carolina,3342861,WHITE,65.0,White
 45,South Carolina,3240171,WHITE_NH,63.0,White (NH)
-46,South Dakota,70948,AIAN,8.0,American Indian and Alaska Native
+46,South Dakota,70948,AIAN,8.0,Indigenous
 46,South Dakota,84196,AIAN_API,9.5,"American Indian, Alaska Native, Asian & Pacific Islander"
-46,South Dakota,67419,AIAN_NH,7.6,American Indian and Alaska Native (NH)
+46,South Dakota,67419,AIAN_NH,7.6,Indigenous (NH)
 46,South Dakota,890342,ALL,100.0,All
 46,South Dakota,13168,API_NH,1.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 46,South Dakota,12754,ASIAN,1.4,Asian
@@ -881,9 +881,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 46,South Dakota,1920,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 46,South Dakota,731624,WHITE,82.2,White
 46,South Dakota,718056,WHITE_NH,80.6,White (NH)
-47,Tennessee,14118,AIAN,0.2,American Indian and Alaska Native
+47,Tennessee,14118,AIAN,0.2,Indigenous
 47,Tennessee,147432,AIAN_API,2.1,"American Indian, Alaska Native, Asian & Pacific Islander"
-47,Tennessee,8159,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+47,Tennessee,8159,AIAN_NH,0.1,Indigenous (NH)
 47,Tennessee,6923772,ALL,100.0,All
 47,Tennessee,130540,API_NH,1.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 47,Tennessee,128630,ASIAN,1.9,Asian
@@ -902,9 +902,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 47,Tennessee,23185,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 47,Tennessee,5182736,WHITE,74.9,White
 47,Tennessee,5024964,WHITE_NH,72.6,White (NH)
-48,Texas,169576,AIAN,0.6,American Indian and Alaska Native
+48,Texas,169576,AIAN,0.6,Indigenous
 48,Texas,1707995,AIAN_API,5.8,"American Indian, Alaska Native, Asian & Pacific Islander"
-48,Texas,49329,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+48,Texas,49329,AIAN_NH,0.2,Indigenous (NH)
 48,Texas,29243342,ALL,100.0,All
 48,Texas,1510412,API_NH,5.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 48,Texas,1511069,ASIAN,5.2,Asian
@@ -923,9 +923,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 48,Texas,86899,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 48,Texas,17293460,WHITE,59.1,White
 48,Texas,11732834,WHITE_NH,40.1,White (NH)
-49,Utah,32948,AIAN,1.0,American Indian and Alaska Native
+49,Utah,32948,AIAN,1.0,Indigenous
 49,Utah,141457,AIAN_API,4.3,"American Indian, Alaska Native, Asian & Pacific Islander"
-49,Utah,23449,AIAN_NH,0.7,American Indian and Alaska Native (NH)
+49,Utah,23449,AIAN_NH,0.7,Indigenous (NH)
 49,Utah,3283809,ALL,100.0,All
 49,Utah,106354,API_NH,3.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 49,Utah,77761,ASIAN,2.4,Asian
@@ -944,9 +944,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 49,Utah,10595,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
 49,Utah,2705194,WHITE,82.4,White
 49,Utah,2521231,WHITE_NH,76.8,White (NH)
-50,Vermont,1336,AIAN,0.2,American Indian and Alaska Native
+50,Vermont,1336,AIAN,0.2,Indigenous
 50,Vermont,12308,AIAN_API,1.9,"American Indian, Alaska Native, Asian & Pacific Islander"
-50,Vermont,999,AIAN_NH,0.2,American Indian and Alaska Native (NH)
+50,Vermont,999,AIAN_NH,0.2,Indigenous (NH)
 50,Vermont,643816,ALL,100.0,All
 50,Vermont,10811,API_NH,1.7,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 50,Vermont,10824,ASIAN,1.7,Asian
@@ -965,9 +965,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 50,Vermont,1543,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 50,Vermont,594131,WHITE,92.3,White
 50,Vermont,588638,WHITE_NH,91.4,White (NH)
-51,Virginia,23728,AIAN,0.3,American Indian and Alaska Native
+51,Virginia,23728,AIAN,0.3,Indigenous
 51,Virginia,621001,AIAN_API,7.2,"American Indian, Alaska Native, Asian & Pacific Islander"
-51,Virginia,11625,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+51,Virginia,11625,AIAN_NH,0.1,Indigenous (NH)
 51,Virginia,8624511,ALL,100.0,All
 51,Virginia,591951,API_NH,6.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 51,Virginia,591088,ASIAN,6.9,Asian
@@ -986,9 +986,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 51,Virginia,40648,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 51,Virginia,5473610,WHITE,63.5,White
 51,Virginia,5172397,WHITE_NH,60.0,White (NH)
-53,Washington,91698,AIAN,1.2,American Indian and Alaska Native
+53,Washington,91698,AIAN,1.2,Indigenous
 53,Washington,853348,AIAN_API,11.1,"American Indian, Alaska Native, Asian & Pacific Islander"
-53,Washington,67829,AIAN_NH,0.9,American Indian and Alaska Native (NH)
+53,Washington,67829,AIAN_NH,0.9,Indigenous (NH)
 53,Washington,7688549,ALL,100.0,All
 53,Washington,753639,API_NH,9.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 53,Washington,708647,ASIAN,9.2,Asian
@@ -1007,9 +1007,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 53,Washington,35220,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
 53,Washington,5374874,WHITE,69.9,White
 53,Washington,5038521,WHITE_NH,65.5,White (NH)
-54,West Virginia,1730,AIAN,0.1,American Indian and Alaska Native
+54,West Virginia,1730,AIAN,0.1,Indigenous
 54,West Virginia,15989,AIAN_API,0.9,"American Indian, Alaska Native, Asian & Pacific Islander"
-54,West Virginia,1465,AIAN_NH,0.1,American Indian and Alaska Native (NH)
+54,West Virginia,1465,AIAN_NH,0.1,Indigenous (NH)
 54,West Virginia,1792967,ALL,100.0,All
 54,West Virginia,14091,API_NH,0.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 54,West Virginia,13602,ASIAN,0.8,Asian
@@ -1028,9 +1028,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 54,West Virginia,4004,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 54,West Virginia,1639342,WHITE,91.4,White
 54,West Virginia,1625416,WHITE_NH,90.7,White (NH)
-55,Wisconsin,43759,AIAN,0.7,American Indian and Alaska Native
+55,Wisconsin,43759,AIAN,0.7,Indigenous
 55,Wisconsin,215072,AIAN_API,3.7,"American Indian, Alaska Native, Asian & Pacific Islander"
-55,Wisconsin,36369,AIAN_NH,0.6,American Indian and Alaska Native (NH)
+55,Wisconsin,36369,AIAN_NH,0.6,Indigenous (NH)
 55,Wisconsin,5882128,ALL,100.0,All
 55,Wisconsin,169414,API_NH,2.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 55,Wisconsin,169052,ASIAN,2.9,Asian
@@ -1049,9 +1049,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 55,Wisconsin,14661,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
 55,Wisconsin,4854979,WHITE,82.5,White
 55,Wisconsin,4698967,WHITE_NH,79.9,White (NH)
-56,Wyoming,12359,AIAN,2.1,American Indian and Alaska Native
+56,Wyoming,12359,AIAN,2.1,Indigenous
 56,Wyoming,17712,AIAN_API,3.1,"American Indian, Alaska Native, Asian & Pacific Islander"
-56,Wyoming,10782,AIAN_NH,1.9,American Indian and Alaska Native (NH)
+56,Wyoming,10782,AIAN_NH,1.9,Indigenous (NH)
 56,Wyoming,577929,ALL,100.0,All
 56,Wyoming,5085,API_NH,0.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 56,Wyoming,4717,ASIAN,0.8,Asian
@@ -1070,9 +1070,9 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 56,Wyoming,2564,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
 56,Wyoming,504798,WHITE,87.3,White
 56,Wyoming,476921,WHITE_NH,82.5,White (NH)
-72,Puerto Rico,5066,AIAN,0.2,American Indian and Alaska Native
+72,Puerto Rico,5066,AIAN,0.2,Indigenous
 72,Puerto Rico,11640,AIAN_API,0.4,"American Indian, Alaska Native, Asian & Pacific Islander"
-72,Puerto Rico,112,AIAN_NH,0.0,American Indian and Alaska Native (NH)
+72,Puerto Rico,112,AIAN_NH,0.0,Indigenous (NH)
 72,Puerto Rico,3272382,ALL,100.0,All
 72,Puerto Rico,2526,API_NH,0.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 72,Puerto Rico,6295,ASIAN,0.2,Asian

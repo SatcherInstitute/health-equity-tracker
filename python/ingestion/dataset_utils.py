@@ -295,14 +295,16 @@ def generate_pct_share_col_of_summed_alls(
     return df
 
 
-def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
+def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col, decimal_places=0):
     """Returns a dataframe with a `per_100k` column
 
     df: DataFrame to generate the `per_100k_col` for.
     raw_count_col: String column name with the total number of people
                    who have the given condition.
     pop_col: String column name with the population number.
-    per_100k_col: String column name to place the generated row in."""
+    per_100k_col: String column name to place the generated row in.
+    num_of_decimal_places: Number of decimal places to round to, defaults to 0 (whole numbers)
+    """
 
     # Convert columns to float to ensure proper division
     raw_count = df[raw_count_col].astype(float)
@@ -314,8 +316,8 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     # Handle division by zero and invalid results
     per_100k = per_100k.where((population != 0) & (per_100k.notnull()) & (per_100k != np.inf), np.nan)
 
-    # Round to nearest whole number
-    df[per_100k_col] = per_100k.round(0)
+    # Round
+    df[per_100k_col] = per_100k.round(decimal_places)
 
     return df
 

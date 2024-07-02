@@ -1,7 +1,7 @@
 state_fips,state_name,population,population_pct,race_category_id,race_and_ethnicity,time_period
-00,United States,2791497,0.8,AIAN,American Indian and Alaska Native,2022
+00,United States,2791497,0.8,AIAN,Indigenous,2022
 00,United States,22535913,6.7,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",2022
-00,United States,1826398,0.5,AIAN_NH,American Indian and Alaska Native (NH),2022
+00,United States,1826398,0.5,AIAN_NH,Indigenous (NH),2022
 00,United States,334369975,100.0,ALL,All,2022
 00,United States,19437529,5.8,API_NH,"Asian, Native Hawaiian, and Pacific Islander (NH)",2022
 00,United States,19119274,5.7,ASIAN,Asian,2022
