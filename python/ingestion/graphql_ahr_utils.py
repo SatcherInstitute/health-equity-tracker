@@ -5,6 +5,12 @@ import requests  # type: ignore
 
 ahr_api_key = os.getenv("AHR_API_KEY")
 
+ingestion_dir = os.path.join('python', 'ingestion')
+config_file_path = os.path.join(ingestion_dir, 'graphql_ahr_measure_ids.json')
+
+with open(config_file_path, 'r') as file:
+    data = json.load(file)
+
 
 def generate_cols_map(prefixes: list[str], suffix: str):
     """
@@ -141,3 +147,28 @@ def fetch_ahr_data_from_graphql():
             raise requests.exceptions.HTTPError(f"HTTP Error: {response.status_code}")
 
     return all_responses
+
+
+def get_measure_ids(demographic: str, data=data):
+    """
+    Retrieve all measure IDs based on the specified demographic.
+
+    Args:
+    demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
+    data (dict): The dataset to use for fetching the measure IDs.
+
+    Returns:
+    list: A list of all measure IDs for the specified demographic.
+    """
+    demographic_measures = data.get(demographic)
+
+    all_ids = []
+
+    for measure in demographic_measures:
+        ids = measure.get('ids') or measure.get('demographics')
+        if isinstance(ids, dict):
+            # Flatten the dictionary values into a single list
+            ids = [item for sublist in ids.values() for item in sublist]
+        all_ids.extend(ids)
+
+    return all_ids
