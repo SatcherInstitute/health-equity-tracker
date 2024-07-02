@@ -35,7 +35,7 @@ describe('test getSubPopulationPhrase()', () => {
     },
     {
       statins_beneficiaries_estimated_total: 216860,
-      race_and_ethnicity: 'American Indian and Alaska Native (NH)',
+      race_and_ethnicity: 'Indigenous (NH)',
       fips: '00',
       fips_name: 'United States',
     },
@@ -127,7 +127,7 @@ describe('test getSubPopulationPhrase()', () => {
     },
     {
       covid_estimated_total: 216860,
-      race_and_ethnicity: 'American Indian and Alaska Native (NH)',
+      race_and_ethnicity: 'Indigenous (NH)',
       fips: '00',
       fips_name: 'United States',
     },

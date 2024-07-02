@@ -464,7 +464,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#hiv-resources',
 			},
 			{
-				label: 'American Indian and Alaska Native Resources',
+				label: 'Indigenous Resources',
 				path: '#aian-resources',
 			},
 			{

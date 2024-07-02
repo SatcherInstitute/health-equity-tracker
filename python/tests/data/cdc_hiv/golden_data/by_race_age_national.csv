@@ -6,7 +6,7 @@ time_period,state_name,state_fips,age,race_category_id,hiv_deaths_estimated_tota
 2021,United States,00,All,HISP,3498,49289880,Hispanic or Latino
 2021,United States,00,All,BLACK_NH,8402,34715303,Black or African American (NH)
 2021,United States,00,All,ASIAN_NH,125,16816427,Asian (NH)
-2021,United States,00,All,AIAN_NH,80,2040452,American Indian and Alaska Native (NH)
+2021,United States,00,All,AIAN_NH,80,2040452,Indigenous (NH)
 2021,United States,00,55+,ALL,12124,98651017,All
 2021,United States,00,45-54,ALL,3783,40688436,All
 2021,United States,00,35-44,ALL,2247,43403854,All
@@ -42,8 +42,8 @@ time_period,state_name,state_fips,age,race_category_id,hiv_deaths_estimated_tota
 2021,United States,00,35-44,ASIAN_NH,17,3199693,Asian (NH)
 2021,United States,00,25-34,ASIAN_NH,12,3150525,Asian (NH)
 2021,United States,00,13-24,ASIAN_NH,0,2799174,Asian (NH)
-2021,United States,00,55+,AIAN_NH,33,629835,American Indian and Alaska Native (NH)
-2021,United States,00,45-54,AIAN_NH,15,282998,American Indian and Alaska Native (NH)
-2021,United States,00,35-44,AIAN_NH,20,315125,American Indian and Alaska Native (NH)
-2021,United States,00,25-34,AIAN_NH,12,376674,American Indian and Alaska Native (NH)
-2021,United States,00,13-24,AIAN_NH,0,435820,American Indian and Alaska Native (NH)
+2021,United States,00,55+,AIAN_NH,33,629835,Indigenous (NH)
+2021,United States,00,45-54,AIAN_NH,15,282998,Indigenous (NH)
+2021,United States,00,35-44,AIAN_NH,20,315125,Indigenous (NH)
+2021,United States,00,25-34,AIAN_NH,12,376674,Indigenous (NH)
+2021,United States,00,13-24,AIAN_NH,0,435820,Indigenous (NH)

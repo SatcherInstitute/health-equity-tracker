@@ -1,49 +1,49 @@
 time_period,state_fips,state_name,sex,age,population,race_category_id,race_and_ethnicity
-"2009",01,Alabama,All,0-4,1106,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,10-14,1562,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,15-17,1526,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,18-19,640,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,20-24,1585,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,25-29,1874,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,30-34,1784,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,35-44,3322,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,45-54,3914,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,5-9,1096,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,55-64,3748,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,65-74,2331,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,75-84,792,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,85+,285,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,All,All,25565,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,0-4,571,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,10-14,742,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,15-17,865,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,18-19,450,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,20-24,831,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,25-29,737,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,30-34,855,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,35-44,1459,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,45-54,2247,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,5-9,716,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,55-64,1910,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,65-74,1256,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,75-84,362,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,85+,97,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Female,All,13098,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,0-4,535,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,10-14,820,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,15-17,661,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,18-19,190,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,20-24,754,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,25-29,1137,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,30-34,929,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,35-44,1863,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,45-54,1667,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,5-9,380,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,55-64,1838,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,65-74,1075,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,75-84,430,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,85+,188,AIAN,American Indian and Alaska Native
-"2009",01,Alabama,Male,All,12467,AIAN,American Indian and Alaska Native
+"2009",01,Alabama,All,0-4,1106,AIAN,Indigenous
+"2009",01,Alabama,All,10-14,1562,AIAN,Indigenous
+"2009",01,Alabama,All,15-17,1526,AIAN,Indigenous
+"2009",01,Alabama,All,18-19,640,AIAN,Indigenous
+"2009",01,Alabama,All,20-24,1585,AIAN,Indigenous
+"2009",01,Alabama,All,25-29,1874,AIAN,Indigenous
+"2009",01,Alabama,All,30-34,1784,AIAN,Indigenous
+"2009",01,Alabama,All,35-44,3322,AIAN,Indigenous
+"2009",01,Alabama,All,45-54,3914,AIAN,Indigenous
+"2009",01,Alabama,All,5-9,1096,AIAN,Indigenous
+"2009",01,Alabama,All,55-64,3748,AIAN,Indigenous
+"2009",01,Alabama,All,65-74,2331,AIAN,Indigenous
+"2009",01,Alabama,All,75-84,792,AIAN,Indigenous
+"2009",01,Alabama,All,85+,285,AIAN,Indigenous
+"2009",01,Alabama,All,All,25565,AIAN,Indigenous
+"2009",01,Alabama,Female,0-4,571,AIAN,Indigenous
+"2009",01,Alabama,Female,10-14,742,AIAN,Indigenous
+"2009",01,Alabama,Female,15-17,865,AIAN,Indigenous
+"2009",01,Alabama,Female,18-19,450,AIAN,Indigenous
+"2009",01,Alabama,Female,20-24,831,AIAN,Indigenous
+"2009",01,Alabama,Female,25-29,737,AIAN,Indigenous
+"2009",01,Alabama,Female,30-34,855,AIAN,Indigenous
+"2009",01,Alabama,Female,35-44,1459,AIAN,Indigenous
+"2009",01,Alabama,Female,45-54,2247,AIAN,Indigenous
+"2009",01,Alabama,Female,5-9,716,AIAN,Indigenous
+"2009",01,Alabama,Female,55-64,1910,AIAN,Indigenous
+"2009",01,Alabama,Female,65-74,1256,AIAN,Indigenous
+"2009",01,Alabama,Female,75-84,362,AIAN,Indigenous
+"2009",01,Alabama,Female,85+,97,AIAN,Indigenous
+"2009",01,Alabama,Female,All,13098,AIAN,Indigenous
+"2009",01,Alabama,Male,0-4,535,AIAN,Indigenous
+"2009",01,Alabama,Male,10-14,820,AIAN,Indigenous
+"2009",01,Alabama,Male,15-17,661,AIAN,Indigenous
+"2009",01,Alabama,Male,18-19,190,AIAN,Indigenous
+"2009",01,Alabama,Male,20-24,754,AIAN,Indigenous
+"2009",01,Alabama,Male,25-29,1137,AIAN,Indigenous
+"2009",01,Alabama,Male,30-34,929,AIAN,Indigenous
+"2009",01,Alabama,Male,35-44,1863,AIAN,Indigenous
+"2009",01,Alabama,Male,45-54,1667,AIAN,Indigenous
+"2009",01,Alabama,Male,5-9,380,AIAN,Indigenous
+"2009",01,Alabama,Male,55-64,1838,AIAN,Indigenous
+"2009",01,Alabama,Male,65-74,1075,AIAN,Indigenous
+"2009",01,Alabama,Male,75-84,430,AIAN,Indigenous
+"2009",01,Alabama,Male,85+,188,AIAN,Indigenous
+"2009",01,Alabama,Male,All,12467,AIAN,Indigenous
 "2009",01,Alabama,All,0-4,293187,ALL,All
 "2009",01,Alabama,All,10-14,310456,ALL,All
 "2009",01,Alabama,All,15-17,191669,ALL,All
@@ -476,51 +476,51 @@ time_period,state_fips,state_name,sex,age,population,race_category_id,race_and_e
 "2009",01,Alabama,Male,75-84,83731,WHITE_NH,White (NH)
 "2009",01,Alabama,Male,85+,23397,WHITE_NH,White (NH)
 "2009",01,Alabama,Male,All,1561657,WHITE_NH,White (NH)
-"2009",72,Puerto Rico,All,0-4,208,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,10-14,302,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,15-17,217,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,18-19,134,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,20-24,391,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,25-29,513,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,30-34,339,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,35-44,1072,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,45-54,1078,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,5-9,512,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,55-64,968,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,65-74,679,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,75-84,289,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,85+,136,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,All,All,6838,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,0-4,93,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,10-14,142,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,15-17,150,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,18-19,35,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,20-24,276,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,25-29,186,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,30-34,176,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,35-44,469,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,45-54,572,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,5-9,221,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,55-64,477,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,65-74,376,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,75-84,144,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,85+,79,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Female,All,3396,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,0-4,115,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,10-14,160,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,15-17,67,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,18-19,99,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,20-24,115,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,25-29,327,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,30-34,163,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,35-44,603,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,45-54,506,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,5-9,291,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,55-64,491,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,65-74,303,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,75-84,145,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,85+,57,AIAN,American Indian and Alaska Native
-"2009",72,Puerto Rico,Male,All,3442,AIAN,American Indian and Alaska Native
+"2009",72,Puerto Rico,All,0-4,208,AIAN,Indigenous
+"2009",72,Puerto Rico,All,10-14,302,AIAN,Indigenous
+"2009",72,Puerto Rico,All,15-17,217,AIAN,Indigenous
+"2009",72,Puerto Rico,All,18-19,134,AIAN,Indigenous
+"2009",72,Puerto Rico,All,20-24,391,AIAN,Indigenous
+"2009",72,Puerto Rico,All,25-29,513,AIAN,Indigenous
+"2009",72,Puerto Rico,All,30-34,339,AIAN,Indigenous
+"2009",72,Puerto Rico,All,35-44,1072,AIAN,Indigenous
+"2009",72,Puerto Rico,All,45-54,1078,AIAN,Indigenous
+"2009",72,Puerto Rico,All,5-9,512,AIAN,Indigenous
+"2009",72,Puerto Rico,All,55-64,968,AIAN,Indigenous
+"2009",72,Puerto Rico,All,65-74,679,AIAN,Indigenous
+"2009",72,Puerto Rico,All,75-84,289,AIAN,Indigenous
+"2009",72,Puerto Rico,All,85+,136,AIAN,Indigenous
+"2009",72,Puerto Rico,All,All,6838,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,0-4,93,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,10-14,142,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,15-17,150,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,18-19,35,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,20-24,276,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,25-29,186,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,30-34,176,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,35-44,469,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,45-54,572,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,5-9,221,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,55-64,477,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,65-74,376,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,75-84,144,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,85+,79,AIAN,Indigenous
+"2009",72,Puerto Rico,Female,All,3396,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,0-4,115,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,10-14,160,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,15-17,67,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,18-19,99,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,20-24,115,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,25-29,327,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,30-34,163,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,35-44,603,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,45-54,506,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,5-9,291,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,55-64,491,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,65-74,303,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,75-84,145,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,85+,57,AIAN,Indigenous
+"2009",72,Puerto Rico,Male,All,3442,AIAN,Indigenous
 "2009",72,Puerto Rico,All,0-4,143623,ALL,All
 "2009",72,Puerto Rico,All,10-14,199508,ALL,All
 "2009",72,Puerto Rico,All,15-17,130008,ALL,All

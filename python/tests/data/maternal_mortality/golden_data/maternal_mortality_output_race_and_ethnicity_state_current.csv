@@ -1,276 +1,276 @@
 state_fips,race_category_id,state_name,race_and_ethnicity,maternal_mortality_per_100k
 01,HISP,Alabama,Hispanic or Latino,16.0
-01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
+01,AIAN_NH,Alabama,Indigenous (NH),4.0
 01,API_NH,Alabama,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0
 01,BLACK_NH,Alabama,Black or African American (NH),78.0
 01,WHITE_NH,Alabama,White (NH),47.0
 02,HISP,Alaska,Hispanic or Latino,9.0
-02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),59.0
+02,AIAN_NH,Alaska,Indigenous (NH),59.0
 02,API_NH,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0
 02,BLACK_NH,Alaska,Black or African American (NH),33.0
 02,WHITE_NH,Alaska,White (NH),26.0
 04,HISP,Arizona,Hispanic or Latino,32.0
-04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),93.0
+04,AIAN_NH,Arizona,Indigenous (NH),93.0
 04,API_NH,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0
 04,BLACK_NH,Arizona,Black or African American (NH),123.0
 04,WHITE_NH,Arizona,White (NH),25.0
 05,HISP,Arkansas,Hispanic or Latino,29.0
-05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),4.0
+05,AIAN_NH,Arkansas,Indigenous (NH),4.0
 05,API_NH,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",39.0
 05,BLACK_NH,Arkansas,Black or African American (NH),89.0
 05,WHITE_NH,Arkansas,White (NH),45.0
 06,HISP,California,Hispanic or Latino,15.0
-06,AIAN_NH,California,American Indian and Alaska Native (NH),40.0
+06,AIAN_NH,California,Indigenous (NH),40.0
 06,API_NH,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 06,BLACK_NH,California,Black or African American (NH),49.0
 06,WHITE_NH,California,White (NH),17.0
 08,HISP,Colorado,Hispanic or Latino,30.0
-08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),33.0
+08,AIAN_NH,Colorado,Indigenous (NH),33.0
 08,API_NH,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 08,BLACK_NH,Colorado,Black or African American (NH),29.0
 08,WHITE_NH,Colorado,White (NH),16.0
 09,HISP,Connecticut,Hispanic or Latino,22.0
-09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),10.0
+09,AIAN_NH,Connecticut,Indigenous (NH),10.0
 09,API_NH,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 09,BLACK_NH,Connecticut,Black or African American (NH),51.0
 09,WHITE_NH,Connecticut,White (NH),23.0
 10,HISP,Delaware,Hispanic or Latino,2.0
-10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),16.0
+10,AIAN_NH,Delaware,Indigenous (NH),16.0
 10,API_NH,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 10,BLACK_NH,Delaware,Black or African American (NH),57.0
 10,WHITE_NH,Delaware,White (NH),18.0
 11,HISP,District of Columbia,Hispanic or Latino,6.0
-11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),8.0
+11,AIAN_NH,District of Columbia,Indigenous (NH),8.0
 11,API_NH,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",26.0
 11,BLACK_NH,District of Columbia,Black or African American (NH),107.0
 11,WHITE_NH,District of Columbia,White (NH),9.0
 12,HISP,Florida,Hispanic or Latino,19.0
-12,AIAN_NH,Florida,American Indian and Alaska Native (NH),63.0
+12,AIAN_NH,Florida,Indigenous (NH),63.0
 12,API_NH,Florida,"Asian, Native Hawaiian, and Pacific Islander (NH)",30.0
 12,BLACK_NH,Florida,Black or African American (NH),66.0
 12,WHITE_NH,Florida,White (NH),35.0
 13,HISP,Georgia,Hispanic or Latino,22.0
-13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),76.0
+13,AIAN_NH,Georgia,Indigenous (NH),76.0
 13,API_NH,Georgia,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0
 13,BLACK_NH,Georgia,Black or African American (NH),101.0
 13,WHITE_NH,Georgia,White (NH),40.0
 15,HISP,Hawaii,Hispanic or Latino,14.0
-15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),15.0
+15,AIAN_NH,Hawaii,Indigenous (NH),15.0
 15,API_NH,Hawaii,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0
 15,BLACK_NH,Hawaii,Black or African American (NH),4.0
 15,WHITE_NH,Hawaii,White (NH),19.0
 16,HISP,Idaho,Hispanic or Latino,22.0
-16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),286.0
+16,AIAN_NH,Idaho,Indigenous (NH),286.0
 16,API_NH,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0
 16,BLACK_NH,Idaho,Black or African American (NH),74.0
 16,WHITE_NH,Idaho,White (NH),24.0
 17,HISP,Illinois,Hispanic or Latino,12.0
-17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),11.0
+17,AIAN_NH,Illinois,Indigenous (NH),11.0
 17,API_NH,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 17,BLACK_NH,Illinois,Black or African American (NH),22.0
 17,WHITE_NH,Illinois,White (NH),20.0
 18,HISP,Indiana,Hispanic or Latino,20.0
-18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),89.0
+18,AIAN_NH,Indiana,Indigenous (NH),89.0
 18,API_NH,Indiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 18,BLACK_NH,Indiana,Black or African American (NH),39.0
 18,WHITE_NH,Indiana,White (NH),43.0
 19,HISP,Iowa,Hispanic or Latino,22.0
-19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),139.0
+19,AIAN_NH,Iowa,Indigenous (NH),139.0
 19,API_NH,Iowa,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 19,BLACK_NH,Iowa,Black or African American (NH),24.0
 19,WHITE_NH,Iowa,White (NH),18.0
 20,HISP,Kansas,Hispanic or Latino,19.0
-20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),55.0
+20,AIAN_NH,Kansas,Indigenous (NH),55.0
 20,API_NH,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 20,BLACK_NH,Kansas,Black or African American (NH),92.0
 20,WHITE_NH,Kansas,White (NH),33.0
 21,HISP,Kentucky,Hispanic or Latino,11.0
-21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),8.0
+21,AIAN_NH,Kentucky,Indigenous (NH),8.0
 21,API_NH,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0
 21,BLACK_NH,Kentucky,Black or African American (NH),75.0
 21,WHITE_NH,Kentucky,White (NH),44.0
 22,HISP,Louisiana,Hispanic or Latino,19.0
-22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),53.0
+22,AIAN_NH,Louisiana,Indigenous (NH),53.0
 22,API_NH,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",35.0
 22,BLACK_NH,Louisiana,Black or African American (NH),71.0
 22,WHITE_NH,Louisiana,White (NH),32.0
 23,HISP,Maine,Hispanic or Latino,6.0
-23,AIAN_NH,Maine,American Indian and Alaska Native (NH),6.0
+23,AIAN_NH,Maine,Indigenous (NH),6.0
 23,API_NH,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 23,BLACK_NH,Maine,Black or African American (NH),60.0
 23,WHITE_NH,Maine,White (NH),13.0
 24,HISP,Maryland,Hispanic or Latino,17.0
-24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),8.0
+24,AIAN_NH,Maryland,Indigenous (NH),8.0
 24,API_NH,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 24,BLACK_NH,Maryland,Black or African American (NH),61.0
 24,WHITE_NH,Maryland,White (NH),29.0
 25,HISP,Massachusetts,Hispanic or Latino,16.0
-25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),133.0
+25,AIAN_NH,Massachusetts,Indigenous (NH),133.0
 25,API_NH,Massachusetts,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 25,BLACK_NH,Massachusetts,Black or African American (NH),24.0
 25,WHITE_NH,Massachusetts,White (NH),13.0
 26,HISP,Michigan,Hispanic or Latino,23.0
-26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),96.0
+26,AIAN_NH,Michigan,Indigenous (NH),96.0
 26,API_NH,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 26,BLACK_NH,Michigan,Black or African American (NH),55.0
 26,WHITE_NH,Michigan,White (NH),30.0
 ,HISP,Midwest Census Region,Hispanic or Latino,15.0
-,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),94.0
+,AIAN_NH,Midwest Census Region,Indigenous (NH),94.0
 ,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 ,BLACK_NH,Midwest Census Region,Black or African American (NH),42.0
 ,WHITE_NH,Midwest Census Region,White (NH),27.0
 27,HISP,Minnesota,Hispanic or Latino,10.0
-27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),78.0
+27,AIAN_NH,Minnesota,Indigenous (NH),78.0
 27,API_NH,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 27,BLACK_NH,Minnesota,Black or African American (NH),25.0
 27,WHITE_NH,Minnesota,White (NH),16.0
 28,HISP,Mississippi,Hispanic or Latino,26.0
-28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),8.0
+28,AIAN_NH,Mississippi,Indigenous (NH),8.0
 28,API_NH,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 28,BLACK_NH,Mississippi,Black or African American (NH),97.0
 28,WHITE_NH,Mississippi,White (NH),37.0
 29,HISP,Missouri,Hispanic or Latino,30.0
-29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),65.0
+29,AIAN_NH,Missouri,Indigenous (NH),65.0
 29,API_NH,Missouri,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0
 29,BLACK_NH,Missouri,Black or African American (NH),38.0
 29,WHITE_NH,Missouri,White (NH),24.0
 30,HISP,Montana,Hispanic or Latino,11.0
-30,AIAN_NH,Montana,American Indian and Alaska Native (NH),85.0
+30,AIAN_NH,Montana,Indigenous (NH),85.0
 30,API_NH,Montana,"Asian, Native Hawaiian, and Pacific Islander (NH)",53.0
 30,BLACK_NH,Montana,Black or African American (NH),95.0
 30,WHITE_NH,Montana,White (NH),32.0
 31,HISP,Nebraska,Hispanic or Latino,16.0
-31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),180.0
+31,AIAN_NH,Nebraska,Indigenous (NH),180.0
 31,API_NH,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 31,BLACK_NH,Nebraska,Black or African American (NH),30.0
 31,WHITE_NH,Nebraska,White (NH),32.0
 32,HISP,Nevada,Hispanic or Latino,11.0
-32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),59.0
+32,AIAN_NH,Nevada,Indigenous (NH),59.0
 32,API_NH,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0
 32,BLACK_NH,Nevada,Black or African American (NH),30.0
 32,WHITE_NH,Nevada,White (NH),24.0
 33,HISP,New Hampshire,Hispanic or Latino,3.0
-33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),270.0
+33,AIAN_NH,New Hampshire,Indigenous (NH),270.0
 33,API_NH,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 33,BLACK_NH,New Hampshire,Black or African American (NH),33.0
 33,WHITE_NH,New Hampshire,White (NH),19.0
 34,HISP,New Jersey,Hispanic or Latino,41.0
-34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),49.0
+34,AIAN_NH,New Jersey,Indigenous (NH),49.0
 34,API_NH,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 34,BLACK_NH,New Jersey,Black or African American (NH),120.0
 34,WHITE_NH,New Jersey,White (NH),21.0
 35,HISP,New Mexico,Hispanic or Latino,25.0
-35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),35.0
+35,AIAN_NH,New Mexico,Indigenous (NH),35.0
 35,API_NH,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 35,BLACK_NH,New Mexico,Black or African American (NH),58.0
 35,WHITE_NH,New Mexico,White (NH),40.0
 36,HISP,New York,Hispanic or Latino,32.0
-36,AIAN_NH,New York,American Indian and Alaska Native (NH),14.0
+36,AIAN_NH,New York,Indigenous (NH),14.0
 36,API_NH,New York,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 36,BLACK_NH,New York,Black or African American (NH),110.0
 36,WHITE_NH,New York,White (NH),27.0
 37,HISP,North Carolina,Hispanic or Latino,19.0
-37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),43.0
+37,AIAN_NH,North Carolina,Indigenous (NH),43.0
 37,API_NH,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0
 37,BLACK_NH,North Carolina,Black or African American (NH),74.0
 37,WHITE_NH,North Carolina,White (NH),28.0
 38,HISP,North Dakota,Hispanic or Latino,29.0
-38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),104.0
+38,AIAN_NH,North Dakota,Indigenous (NH),104.0
 38,API_NH,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 38,BLACK_NH,North Dakota,Black or African American (NH),13.0
 38,WHITE_NH,North Dakota,White (NH),22.0
 ,HISP,Northeast Census Region,Hispanic or Latino,30.0
-,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),34.0
+,AIAN_NH,Northeast Census Region,Indigenous (NH),34.0
 ,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 ,BLACK_NH,Northeast Census Region,Black or African American (NH),89.0
 ,WHITE_NH,Northeast Census Region,White (NH),23.0
 39,HISP,Ohio,Hispanic or Latino,11.0
-39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),11.0
+39,AIAN_NH,Ohio,Indigenous (NH),11.0
 39,API_NH,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 39,BLACK_NH,Ohio,Black or African American (NH),60.0
 39,WHITE_NH,Ohio,White (NH),33.0
 40,HISP,Oklahoma,Hispanic or Latino,30.0
-40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),32.0
+40,AIAN_NH,Oklahoma,Indigenous (NH),32.0
 40,API_NH,Oklahoma,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0
 40,BLACK_NH,Oklahoma,Black or African American (NH),61.0
 40,WHITE_NH,Oklahoma,White (NH),36.0
 41,HISP,Oregon,Hispanic or Latino,14.0
-41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),25.0
+41,AIAN_NH,Oregon,Indigenous (NH),25.0
 41,API_NH,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0
 41,BLACK_NH,Oregon,Black or African American (NH),28.0
 41,WHITE_NH,Oregon,White (NH),19.0
 42,HISP,Pennsylvania,Hispanic or Latino,25.0
-42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),25.0
+42,AIAN_NH,Pennsylvania,Indigenous (NH),25.0
 42,API_NH,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 42,BLACK_NH,Pennsylvania,Black or African American (NH),72.0
 42,WHITE_NH,Pennsylvania,White (NH),26.0
 44,HISP,Rhode Island,Hispanic or Latino,23.0
-44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),11.0
+44,AIAN_NH,Rhode Island,Indigenous (NH),11.0
 44,API_NH,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
 44,BLACK_NH,Rhode Island,Black or African American (NH),22.0
 44,WHITE_NH,Rhode Island,White (NH),26.0
 ,HISP,South Census Region,Hispanic or Latino,21.0
-,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),34.0
+,AIAN_NH,South Census Region,Indigenous (NH),34.0
 ,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",25.0
 ,BLACK_NH,South Census Region,Black or African American (NH),74.0
 ,WHITE_NH,South Census Region,White (NH),33.0
 45,HISP,South Carolina,Hispanic or Latino,16.0
-45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),57.0
+45,AIAN_NH,South Carolina,Indigenous (NH),57.0
 45,API_NH,South Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",37.0
 45,BLACK_NH,South Carolina,Black or African American (NH),75.0
 45,WHITE_NH,South Carolina,White (NH),35.0
 46,HISP,South Dakota,Hispanic or Latino,25.0
-46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),130.0
+46,AIAN_NH,South Dakota,Indigenous (NH),130.0
 46,API_NH,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",43.0
 46,BLACK_NH,South Dakota,Black or African American (NH),45.0
 46,WHITE_NH,South Dakota,White (NH),22.0
 47,HISP,Tennessee,Hispanic or Latino,32.0
-47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),87.0
+47,AIAN_NH,Tennessee,Indigenous (NH),87.0
 47,API_NH,Tennessee,"Asian, Native Hawaiian, and Pacific Islander (NH)",65.0
 47,BLACK_NH,Tennessee,Black or African American (NH),76.0
 47,WHITE_NH,Tennessee,White (NH),25.0
 48,HISP,Texas,Hispanic or Latino,22.0
-48,AIAN_NH,Texas,American Indian and Alaska Native (NH),24.0
+48,AIAN_NH,Texas,Indigenous (NH),24.0
 48,API_NH,Texas,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 48,BLACK_NH,Texas,Black or African American (NH),54.0
 48,WHITE_NH,Texas,White (NH),30.0
 49,HISP,Utah,Hispanic or Latino,18.0
-49,AIAN_NH,Utah,American Indian and Alaska Native (NH),301.0
+49,AIAN_NH,Utah,Indigenous (NH),301.0
 49,API_NH,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0
 49,BLACK_NH,Utah,Black or African American (NH),34.0
 49,WHITE_NH,Utah,White (NH),29.0
 50,HISP,Vermont,Hispanic or Latino,7.0
-50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),5.0
+50,AIAN_NH,Vermont,Indigenous (NH),5.0
 50,API_NH,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0
 50,BLACK_NH,Vermont,Black or African American (NH),6.0
 50,WHITE_NH,Vermont,White (NH),21.0
 51,HISP,Virginia,Hispanic or Latino,24.0
-51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),49.0
+51,AIAN_NH,Virginia,Indigenous (NH),49.0
 51,API_NH,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 51,BLACK_NH,Virginia,Black or African American (NH),63.0
 51,WHITE_NH,Virginia,White (NH),22.0
 53,HISP,Washington,Hispanic or Latino,20.0
-53,AIAN_NH,Washington,American Indian and Alaska Native (NH),194.0
+53,AIAN_NH,Washington,Indigenous (NH),194.0
 53,API_NH,Washington,"Asian, Native Hawaiian, and Pacific Islander (NH)",40.0
 53,BLACK_NH,Washington,Black or African American (NH),45.0
 53,WHITE_NH,Washington,White (NH),32.0
 ,HISP,West Census Region,Hispanic or Latino,18.0
-,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),83.0
+,AIAN_NH,West Census Region,Indigenous (NH),83.0
 ,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0
 ,BLACK_NH,West Census Region,Black or African American (NH),52.0
 ,WHITE_NH,West Census Region,White (NH),23.0
 54,HISP,West Virginia,Hispanic or Latino,6.0
-54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),20.0
+54,AIAN_NH,West Virginia,Indigenous (NH),20.0
 54,API_NH,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 54,BLACK_NH,West Virginia,Black or African American (NH),53.0
 54,WHITE_NH,West Virginia,White (NH),42.0
 55,HISP,Wisconsin,Hispanic or Latino,8.0
-55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),27.0
+55,AIAN_NH,Wisconsin,Indigenous (NH),27.0
 55,API_NH,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 55,BLACK_NH,Wisconsin,Black or African American (NH),40.0
 55,WHITE_NH,Wisconsin,White (NH),19.0
 56,HISP,Wyoming,Hispanic or Latino,25.0
-56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),100.0
+56,AIAN_NH,Wyoming,Indigenous (NH),100.0
 56,API_NH,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",88.0
 56,BLACK_NH,Wyoming,Black or African American (NH),15.0
 56,WHITE_NH,Wyoming,White (NH),47.0

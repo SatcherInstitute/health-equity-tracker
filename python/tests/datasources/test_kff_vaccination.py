@@ -41,6 +41,8 @@ def get_kff_population_numbers_as_df():
     return_value=get_github_file_list_as_df(),
 )
 def testGetDataUrlPctTotal(mock_json: mock.MagicMock):
+    assert mock_json.call_count == 0
+
     assert get_data_url('pct_total') == "some-up-to-date-url"
 
 
@@ -49,6 +51,8 @@ def testGetDataUrlPctTotal(mock_json: mock.MagicMock):
     return_value=get_github_file_list_as_df(),
 )
 def testGetDataUrlPctShare(mock_json: mock.MagicMock):
+    assert mock_json.call_count == 0
+
     assert get_data_url('pct_share') == "some-other-up-to-date-url"
 
 
@@ -82,6 +86,8 @@ def testWriteToBq(
     }
 
     kffVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    assert mock_json.call_count == 3
+    assert mock_csv_web.call_count == 1
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'race_and_ethnicity_state'
     assert mock_bq.call_args_list[1].args[2] == 'alls_state'

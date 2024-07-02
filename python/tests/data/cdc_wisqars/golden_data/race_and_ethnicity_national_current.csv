@@ -1,5 +1,5 @@
 state_name,state_fips,race_and_ethnicity,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,fatal_population
-United States,00,American Indian and Alaska Native (NH),7.55,9.83,0.9,0.9,0.7,185.0,241.0,2451916.0
+United States,00,Indigenous (NH),7.55,9.83,0.9,0.9,0.7,185.0,241.0,2451916.0
 United States,00,Asian (NH),1.04,1.79,1.0,1.3,5.9,204.0,352.0,19685901.0
 United States,00,Black or African American (NH),30.39,5.17,60.8,8.3,12.6,12721.0,2165.0,41858536.0
 United States,00,Hispanic or Latino,16.68,6.55,16.4,7.6,18.9,3440.0,1995.0,62647044.0

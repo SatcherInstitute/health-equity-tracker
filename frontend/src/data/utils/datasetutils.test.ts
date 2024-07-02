@@ -122,7 +122,7 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
       'Unknown ethnicity',
       'Unknown race',
       'Not Hispanic or Latino',
-      'American Indian and Alaska Native',
+      'Indigenous',
       'Asian',
       'Black or African American',
       'Native Hawaiian and Pacific Islander',

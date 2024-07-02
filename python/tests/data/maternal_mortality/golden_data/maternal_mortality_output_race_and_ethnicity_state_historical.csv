@@ -20,27 +20,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,01,HISP,Alabama,Hispanic or Latino,15.0
 2018,01,HISP,Alabama,Hispanic or Latino,16.0
 2019,01,HISP,Alabama,Hispanic or Latino,16.0
-1999,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),2.0
-2000,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),1.0
-2001,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),1.0
-2002,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),2.0
-2003,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),2.0
-2004,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),3.0
-2005,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),2.0
-2006,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),3.0
-2007,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),3.0
-2008,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
-2009,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
-2010,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
-2011,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
-2012,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
-2013,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
-2014,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),5.0
-2015,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),6.0
-2016,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),6.0
-2017,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),6.0
-2018,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),5.0
-2019,01,AIAN_NH,Alabama,American Indian and Alaska Native (NH),4.0
+1999,01,AIAN_NH,Alabama,Indigenous (NH),2.0
+2000,01,AIAN_NH,Alabama,Indigenous (NH),1.0
+2001,01,AIAN_NH,Alabama,Indigenous (NH),1.0
+2002,01,AIAN_NH,Alabama,Indigenous (NH),2.0
+2003,01,AIAN_NH,Alabama,Indigenous (NH),2.0
+2004,01,AIAN_NH,Alabama,Indigenous (NH),3.0
+2005,01,AIAN_NH,Alabama,Indigenous (NH),2.0
+2006,01,AIAN_NH,Alabama,Indigenous (NH),3.0
+2007,01,AIAN_NH,Alabama,Indigenous (NH),3.0
+2008,01,AIAN_NH,Alabama,Indigenous (NH),4.0
+2009,01,AIAN_NH,Alabama,Indigenous (NH),4.0
+2010,01,AIAN_NH,Alabama,Indigenous (NH),4.0
+2011,01,AIAN_NH,Alabama,Indigenous (NH),4.0
+2012,01,AIAN_NH,Alabama,Indigenous (NH),4.0
+2013,01,AIAN_NH,Alabama,Indigenous (NH),4.0
+2014,01,AIAN_NH,Alabama,Indigenous (NH),5.0
+2015,01,AIAN_NH,Alabama,Indigenous (NH),6.0
+2016,01,AIAN_NH,Alabama,Indigenous (NH),6.0
+2017,01,AIAN_NH,Alabama,Indigenous (NH),6.0
+2018,01,AIAN_NH,Alabama,Indigenous (NH),5.0
+2019,01,AIAN_NH,Alabama,Indigenous (NH),4.0
 1999,01,API_NH,Alabama,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2000,01,API_NH,Alabama,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2001,01,API_NH,Alabama,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
@@ -125,27 +125,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,02,HISP,Alaska,Hispanic or Latino,11.0
 2018,02,HISP,Alaska,Hispanic or Latino,11.0
 2019,02,HISP,Alaska,Hispanic or Latino,9.0
-1999,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),12.0
-2000,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),7.0
-2001,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),5.0
-2002,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),6.0
-2003,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),8.0
-2004,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),9.0
-2005,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),11.0
-2006,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),14.0
-2007,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),20.0
-2008,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),28.0
-2009,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),32.0
-2010,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),28.0
-2011,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),20.0
-2012,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),16.0
-2013,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),16.0
-2014,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),17.0
-2015,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),24.0
-2016,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),42.0
-2017,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),71.0
-2018,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),82.0
-2019,02,AIAN_NH,Alaska,American Indian and Alaska Native (NH),59.0
+1999,02,AIAN_NH,Alaska,Indigenous (NH),12.0
+2000,02,AIAN_NH,Alaska,Indigenous (NH),7.0
+2001,02,AIAN_NH,Alaska,Indigenous (NH),5.0
+2002,02,AIAN_NH,Alaska,Indigenous (NH),6.0
+2003,02,AIAN_NH,Alaska,Indigenous (NH),8.0
+2004,02,AIAN_NH,Alaska,Indigenous (NH),9.0
+2005,02,AIAN_NH,Alaska,Indigenous (NH),11.0
+2006,02,AIAN_NH,Alaska,Indigenous (NH),14.0
+2007,02,AIAN_NH,Alaska,Indigenous (NH),20.0
+2008,02,AIAN_NH,Alaska,Indigenous (NH),28.0
+2009,02,AIAN_NH,Alaska,Indigenous (NH),32.0
+2010,02,AIAN_NH,Alaska,Indigenous (NH),28.0
+2011,02,AIAN_NH,Alaska,Indigenous (NH),20.0
+2012,02,AIAN_NH,Alaska,Indigenous (NH),16.0
+2013,02,AIAN_NH,Alaska,Indigenous (NH),16.0
+2014,02,AIAN_NH,Alaska,Indigenous (NH),17.0
+2015,02,AIAN_NH,Alaska,Indigenous (NH),24.0
+2016,02,AIAN_NH,Alaska,Indigenous (NH),42.0
+2017,02,AIAN_NH,Alaska,Indigenous (NH),71.0
+2018,02,AIAN_NH,Alaska,Indigenous (NH),82.0
+2019,02,AIAN_NH,Alaska,Indigenous (NH),59.0
 1999,02,API_NH,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2000,02,API_NH,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2001,02,API_NH,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
@@ -230,27 +230,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,04,HISP,Arizona,Hispanic or Latino,26.0
 2018,04,HISP,Arizona,Hispanic or Latino,29.0
 2019,04,HISP,Arizona,Hispanic or Latino,32.0
-1999,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),29.0
-2000,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),22.0
-2001,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),18.0
-2002,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),17.0
-2003,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),18.0
-2004,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),20.0
-2005,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),27.0
-2006,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),33.0
-2007,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),33.0
-2008,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),29.0
-2009,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),30.0
-2010,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),42.0
-2011,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),67.0
-2012,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),84.0
-2013,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),86.0
-2014,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),73.0
-2015,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),62.0
-2016,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),50.0
-2017,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),42.0
-2018,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),53.0
-2019,04,AIAN_NH,Arizona,American Indian and Alaska Native (NH),93.0
+1999,04,AIAN_NH,Arizona,Indigenous (NH),29.0
+2000,04,AIAN_NH,Arizona,Indigenous (NH),22.0
+2001,04,AIAN_NH,Arizona,Indigenous (NH),18.0
+2002,04,AIAN_NH,Arizona,Indigenous (NH),17.0
+2003,04,AIAN_NH,Arizona,Indigenous (NH),18.0
+2004,04,AIAN_NH,Arizona,Indigenous (NH),20.0
+2005,04,AIAN_NH,Arizona,Indigenous (NH),27.0
+2006,04,AIAN_NH,Arizona,Indigenous (NH),33.0
+2007,04,AIAN_NH,Arizona,Indigenous (NH),33.0
+2008,04,AIAN_NH,Arizona,Indigenous (NH),29.0
+2009,04,AIAN_NH,Arizona,Indigenous (NH),30.0
+2010,04,AIAN_NH,Arizona,Indigenous (NH),42.0
+2011,04,AIAN_NH,Arizona,Indigenous (NH),67.0
+2012,04,AIAN_NH,Arizona,Indigenous (NH),84.0
+2013,04,AIAN_NH,Arizona,Indigenous (NH),86.0
+2014,04,AIAN_NH,Arizona,Indigenous (NH),73.0
+2015,04,AIAN_NH,Arizona,Indigenous (NH),62.0
+2016,04,AIAN_NH,Arizona,Indigenous (NH),50.0
+2017,04,AIAN_NH,Arizona,Indigenous (NH),42.0
+2018,04,AIAN_NH,Arizona,Indigenous (NH),53.0
+2019,04,AIAN_NH,Arizona,Indigenous (NH),93.0
 1999,04,API_NH,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2000,04,API_NH,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2001,04,API_NH,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
@@ -335,27 +335,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,05,HISP,Arkansas,Hispanic or Latino,30.0
 2018,05,HISP,Arkansas,Hispanic or Latino,30.0
 2019,05,HISP,Arkansas,Hispanic or Latino,29.0
-1999,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),1.0
-2000,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),1.0
-2001,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),1.0
-2002,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),1.0
-2003,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),2.0
-2004,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),2.0
-2005,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),2.0
-2006,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),2.0
-2007,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),2.0
-2008,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2009,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2010,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2011,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2012,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2013,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2014,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),3.0
-2015,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),4.0
-2016,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),4.0
-2017,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),4.0
-2018,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),4.0
-2019,05,AIAN_NH,Arkansas,American Indian and Alaska Native (NH),4.0
+1999,05,AIAN_NH,Arkansas,Indigenous (NH),1.0
+2000,05,AIAN_NH,Arkansas,Indigenous (NH),1.0
+2001,05,AIAN_NH,Arkansas,Indigenous (NH),1.0
+2002,05,AIAN_NH,Arkansas,Indigenous (NH),1.0
+2003,05,AIAN_NH,Arkansas,Indigenous (NH),2.0
+2004,05,AIAN_NH,Arkansas,Indigenous (NH),2.0
+2005,05,AIAN_NH,Arkansas,Indigenous (NH),2.0
+2006,05,AIAN_NH,Arkansas,Indigenous (NH),2.0
+2007,05,AIAN_NH,Arkansas,Indigenous (NH),2.0
+2008,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2009,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2010,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2011,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2012,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2013,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2014,05,AIAN_NH,Arkansas,Indigenous (NH),3.0
+2015,05,AIAN_NH,Arkansas,Indigenous (NH),4.0
+2016,05,AIAN_NH,Arkansas,Indigenous (NH),4.0
+2017,05,AIAN_NH,Arkansas,Indigenous (NH),4.0
+2018,05,AIAN_NH,Arkansas,Indigenous (NH),4.0
+2019,05,AIAN_NH,Arkansas,Indigenous (NH),4.0
 1999,05,API_NH,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2000,05,API_NH,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2001,05,API_NH,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
@@ -440,27 +440,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,06,HISP,California,Hispanic or Latino,20.0
 2018,06,HISP,California,Hispanic or Latino,19.0
 2019,06,HISP,California,Hispanic or Latino,15.0
-1999,06,AIAN_NH,California,American Indian and Alaska Native (NH),14.0
-2000,06,AIAN_NH,California,American Indian and Alaska Native (NH),8.0
-2001,06,AIAN_NH,California,American Indian and Alaska Native (NH),7.0
-2002,06,AIAN_NH,California,American Indian and Alaska Native (NH),12.0
-2003,06,AIAN_NH,California,American Indian and Alaska Native (NH),21.0
-2004,06,AIAN_NH,California,American Indian and Alaska Native (NH),35.0
-2005,06,AIAN_NH,California,American Indian and Alaska Native (NH),52.0
-2006,06,AIAN_NH,California,American Indian and Alaska Native (NH),60.0
-2007,06,AIAN_NH,California,American Indian and Alaska Native (NH),52.0
-2008,06,AIAN_NH,California,American Indian and Alaska Native (NH),34.0
-2009,06,AIAN_NH,California,American Indian and Alaska Native (NH),26.0
-2010,06,AIAN_NH,California,American Indian and Alaska Native (NH),26.0
-2011,06,AIAN_NH,California,American Indian and Alaska Native (NH),27.0
-2012,06,AIAN_NH,California,American Indian and Alaska Native (NH),25.0
-2013,06,AIAN_NH,California,American Indian and Alaska Native (NH),21.0
-2014,06,AIAN_NH,California,American Indian and Alaska Native (NH),17.0
-2015,06,AIAN_NH,California,American Indian and Alaska Native (NH),14.0
-2016,06,AIAN_NH,California,American Indian and Alaska Native (NH),14.0
-2017,06,AIAN_NH,California,American Indian and Alaska Native (NH),15.0
-2018,06,AIAN_NH,California,American Indian and Alaska Native (NH),22.0
-2019,06,AIAN_NH,California,American Indian and Alaska Native (NH),40.0
+1999,06,AIAN_NH,California,Indigenous (NH),14.0
+2000,06,AIAN_NH,California,Indigenous (NH),8.0
+2001,06,AIAN_NH,California,Indigenous (NH),7.0
+2002,06,AIAN_NH,California,Indigenous (NH),12.0
+2003,06,AIAN_NH,California,Indigenous (NH),21.0
+2004,06,AIAN_NH,California,Indigenous (NH),35.0
+2005,06,AIAN_NH,California,Indigenous (NH),52.0
+2006,06,AIAN_NH,California,Indigenous (NH),60.0
+2007,06,AIAN_NH,California,Indigenous (NH),52.0
+2008,06,AIAN_NH,California,Indigenous (NH),34.0
+2009,06,AIAN_NH,California,Indigenous (NH),26.0
+2010,06,AIAN_NH,California,Indigenous (NH),26.0
+2011,06,AIAN_NH,California,Indigenous (NH),27.0
+2012,06,AIAN_NH,California,Indigenous (NH),25.0
+2013,06,AIAN_NH,California,Indigenous (NH),21.0
+2014,06,AIAN_NH,California,Indigenous (NH),17.0
+2015,06,AIAN_NH,California,Indigenous (NH),14.0
+2016,06,AIAN_NH,California,Indigenous (NH),14.0
+2017,06,AIAN_NH,California,Indigenous (NH),15.0
+2018,06,AIAN_NH,California,Indigenous (NH),22.0
+2019,06,AIAN_NH,California,Indigenous (NH),40.0
 1999,06,API_NH,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2000,06,API_NH,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2001,06,API_NH,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
@@ -545,27 +545,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,08,HISP,Colorado,Hispanic or Latino,20.0
 2018,08,HISP,Colorado,Hispanic or Latino,25.0
 2019,08,HISP,Colorado,Hispanic or Latino,30.0
-1999,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),11.0
-2000,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),8.0
-2001,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),7.0
-2002,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),8.0
-2003,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),10.0
-2004,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),14.0
-2005,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),19.0
-2006,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),22.0
-2007,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),20.0
-2008,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),16.0
-2009,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),15.0
-2010,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),18.0
-2011,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),22.0
-2012,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),28.0
-2013,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),37.0
-2014,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),50.0
-2015,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),54.0
-2016,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),48.0
-2017,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),37.0
-2018,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),33.0
-2019,08,AIAN_NH,Colorado,American Indian and Alaska Native (NH),33.0
+1999,08,AIAN_NH,Colorado,Indigenous (NH),11.0
+2000,08,AIAN_NH,Colorado,Indigenous (NH),8.0
+2001,08,AIAN_NH,Colorado,Indigenous (NH),7.0
+2002,08,AIAN_NH,Colorado,Indigenous (NH),8.0
+2003,08,AIAN_NH,Colorado,Indigenous (NH),10.0
+2004,08,AIAN_NH,Colorado,Indigenous (NH),14.0
+2005,08,AIAN_NH,Colorado,Indigenous (NH),19.0
+2006,08,AIAN_NH,Colorado,Indigenous (NH),22.0
+2007,08,AIAN_NH,Colorado,Indigenous (NH),20.0
+2008,08,AIAN_NH,Colorado,Indigenous (NH),16.0
+2009,08,AIAN_NH,Colorado,Indigenous (NH),15.0
+2010,08,AIAN_NH,Colorado,Indigenous (NH),18.0
+2011,08,AIAN_NH,Colorado,Indigenous (NH),22.0
+2012,08,AIAN_NH,Colorado,Indigenous (NH),28.0
+2013,08,AIAN_NH,Colorado,Indigenous (NH),37.0
+2014,08,AIAN_NH,Colorado,Indigenous (NH),50.0
+2015,08,AIAN_NH,Colorado,Indigenous (NH),54.0
+2016,08,AIAN_NH,Colorado,Indigenous (NH),48.0
+2017,08,AIAN_NH,Colorado,Indigenous (NH),37.0
+2018,08,AIAN_NH,Colorado,Indigenous (NH),33.0
+2019,08,AIAN_NH,Colorado,Indigenous (NH),33.0
 1999,08,API_NH,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2000,08,API_NH,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2001,08,API_NH,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
@@ -650,27 +650,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,09,HISP,Connecticut,Hispanic or Latino,19.0
 2018,09,HISP,Connecticut,Hispanic or Latino,21.0
 2019,09,HISP,Connecticut,Hispanic or Latino,22.0
-1999,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),3.0
-2000,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),2.0
-2001,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2002,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2003,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2004,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2005,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2006,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2007,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2008,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2009,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),2.0
-2010,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),2.0
-2011,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),2.0
-2012,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2013,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),1.0
-2014,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),2.0
-2015,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),4.0
-2016,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),7.0
-2017,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),7.0
-2018,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),7.0
-2019,09,AIAN_NH,Connecticut,American Indian and Alaska Native (NH),10.0
+1999,09,AIAN_NH,Connecticut,Indigenous (NH),3.0
+2000,09,AIAN_NH,Connecticut,Indigenous (NH),2.0
+2001,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2002,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2003,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2004,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2005,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2006,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2007,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2008,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2009,09,AIAN_NH,Connecticut,Indigenous (NH),2.0
+2010,09,AIAN_NH,Connecticut,Indigenous (NH),2.0
+2011,09,AIAN_NH,Connecticut,Indigenous (NH),2.0
+2012,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2013,09,AIAN_NH,Connecticut,Indigenous (NH),1.0
+2014,09,AIAN_NH,Connecticut,Indigenous (NH),2.0
+2015,09,AIAN_NH,Connecticut,Indigenous (NH),4.0
+2016,09,AIAN_NH,Connecticut,Indigenous (NH),7.0
+2017,09,AIAN_NH,Connecticut,Indigenous (NH),7.0
+2018,09,AIAN_NH,Connecticut,Indigenous (NH),7.0
+2019,09,AIAN_NH,Connecticut,Indigenous (NH),10.0
 1999,09,API_NH,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 2000,09,API_NH,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0
 2001,09,API_NH,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0
@@ -755,27 +755,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,10,HISP,Delaware,Hispanic or Latino,2.0
 2018,10,HISP,Delaware,Hispanic or Latino,2.0
 2019,10,HISP,Delaware,Hispanic or Latino,2.0
-1999,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),5.0
-2000,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),3.0
-2001,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),4.0
-2002,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),5.0
-2003,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),6.0
-2004,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),6.0
-2005,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),6.0
-2006,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),8.0
-2007,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),13.0
-2008,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),19.0
-2009,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),24.0
-2010,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),23.0
-2011,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),19.0
-2012,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),17.0
-2013,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),17.0
-2014,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),18.0
-2015,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),21.0
-2016,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),24.0
-2017,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),23.0
-2018,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),19.0
-2019,10,AIAN_NH,Delaware,American Indian and Alaska Native (NH),16.0
+1999,10,AIAN_NH,Delaware,Indigenous (NH),5.0
+2000,10,AIAN_NH,Delaware,Indigenous (NH),3.0
+2001,10,AIAN_NH,Delaware,Indigenous (NH),4.0
+2002,10,AIAN_NH,Delaware,Indigenous (NH),5.0
+2003,10,AIAN_NH,Delaware,Indigenous (NH),6.0
+2004,10,AIAN_NH,Delaware,Indigenous (NH),6.0
+2005,10,AIAN_NH,Delaware,Indigenous (NH),6.0
+2006,10,AIAN_NH,Delaware,Indigenous (NH),8.0
+2007,10,AIAN_NH,Delaware,Indigenous (NH),13.0
+2008,10,AIAN_NH,Delaware,Indigenous (NH),19.0
+2009,10,AIAN_NH,Delaware,Indigenous (NH),24.0
+2010,10,AIAN_NH,Delaware,Indigenous (NH),23.0
+2011,10,AIAN_NH,Delaware,Indigenous (NH),19.0
+2012,10,AIAN_NH,Delaware,Indigenous (NH),17.0
+2013,10,AIAN_NH,Delaware,Indigenous (NH),17.0
+2014,10,AIAN_NH,Delaware,Indigenous (NH),18.0
+2015,10,AIAN_NH,Delaware,Indigenous (NH),21.0
+2016,10,AIAN_NH,Delaware,Indigenous (NH),24.0
+2017,10,AIAN_NH,Delaware,Indigenous (NH),23.0
+2018,10,AIAN_NH,Delaware,Indigenous (NH),19.0
+2019,10,AIAN_NH,Delaware,Indigenous (NH),16.0
 1999,10,API_NH,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2000,10,API_NH,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,10,API_NH,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
@@ -860,27 +860,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,11,HISP,District of Columbia,Hispanic or Latino,6.0
 2018,11,HISP,District of Columbia,Hispanic or Latino,6.0
 2019,11,HISP,District of Columbia,Hispanic or Latino,6.0
-1999,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),10.0
-2000,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),6.0
-2001,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),7.0
-2002,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),10.0
-2003,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),13.0
-2004,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),14.0
-2005,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),15.0
-2006,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),20.0
-2007,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),26.0
-2008,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),25.0
-2009,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),16.0
-2010,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),10.0
-2011,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),9.0
-2012,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),15.0
-2013,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),27.0
-2014,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),32.0
-2015,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),26.0
-2016,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),18.0
-2017,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),14.0
-2018,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),11.0
-2019,11,AIAN_NH,District of Columbia,American Indian and Alaska Native (NH),8.0
+1999,11,AIAN_NH,District of Columbia,Indigenous (NH),10.0
+2000,11,AIAN_NH,District of Columbia,Indigenous (NH),6.0
+2001,11,AIAN_NH,District of Columbia,Indigenous (NH),7.0
+2002,11,AIAN_NH,District of Columbia,Indigenous (NH),10.0
+2003,11,AIAN_NH,District of Columbia,Indigenous (NH),13.0
+2004,11,AIAN_NH,District of Columbia,Indigenous (NH),14.0
+2005,11,AIAN_NH,District of Columbia,Indigenous (NH),15.0
+2006,11,AIAN_NH,District of Columbia,Indigenous (NH),20.0
+2007,11,AIAN_NH,District of Columbia,Indigenous (NH),26.0
+2008,11,AIAN_NH,District of Columbia,Indigenous (NH),25.0
+2009,11,AIAN_NH,District of Columbia,Indigenous (NH),16.0
+2010,11,AIAN_NH,District of Columbia,Indigenous (NH),10.0
+2011,11,AIAN_NH,District of Columbia,Indigenous (NH),9.0
+2012,11,AIAN_NH,District of Columbia,Indigenous (NH),15.0
+2013,11,AIAN_NH,District of Columbia,Indigenous (NH),27.0
+2014,11,AIAN_NH,District of Columbia,Indigenous (NH),32.0
+2015,11,AIAN_NH,District of Columbia,Indigenous (NH),26.0
+2016,11,AIAN_NH,District of Columbia,Indigenous (NH),18.0
+2017,11,AIAN_NH,District of Columbia,Indigenous (NH),14.0
+2018,11,AIAN_NH,District of Columbia,Indigenous (NH),11.0
+2019,11,AIAN_NH,District of Columbia,Indigenous (NH),8.0
 1999,11,API_NH,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2000,11,API_NH,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2001,11,API_NH,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
@@ -965,27 +965,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,12,HISP,Florida,Hispanic or Latino,16.0
 2018,12,HISP,Florida,Hispanic or Latino,16.0
 2019,12,HISP,Florida,Hispanic or Latino,19.0
-1999,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),11.0
-2000,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),6.0
-2001,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),5.0
-2002,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),6.0
-2003,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),9.0
-2004,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),11.0
-2005,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),11.0
-2006,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),11.0
-2007,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),13.0
-2008,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),20.0
-2009,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),33.0
-2010,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),47.0
-2011,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),55.0
-2012,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),53.0
-2013,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),46.0
-2014,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),41.0
-2015,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),46.0
-2016,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),58.0
-2017,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),70.0
-2018,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),68.0
-2019,12,AIAN_NH,Florida,American Indian and Alaska Native (NH),63.0
+1999,12,AIAN_NH,Florida,Indigenous (NH),11.0
+2000,12,AIAN_NH,Florida,Indigenous (NH),6.0
+2001,12,AIAN_NH,Florida,Indigenous (NH),5.0
+2002,12,AIAN_NH,Florida,Indigenous (NH),6.0
+2003,12,AIAN_NH,Florida,Indigenous (NH),9.0
+2004,12,AIAN_NH,Florida,Indigenous (NH),11.0
+2005,12,AIAN_NH,Florida,Indigenous (NH),11.0
+2006,12,AIAN_NH,Florida,Indigenous (NH),11.0
+2007,12,AIAN_NH,Florida,Indigenous (NH),13.0
+2008,12,AIAN_NH,Florida,Indigenous (NH),20.0
+2009,12,AIAN_NH,Florida,Indigenous (NH),33.0
+2010,12,AIAN_NH,Florida,Indigenous (NH),47.0
+2011,12,AIAN_NH,Florida,Indigenous (NH),55.0
+2012,12,AIAN_NH,Florida,Indigenous (NH),53.0
+2013,12,AIAN_NH,Florida,Indigenous (NH),46.0
+2014,12,AIAN_NH,Florida,Indigenous (NH),41.0
+2015,12,AIAN_NH,Florida,Indigenous (NH),46.0
+2016,12,AIAN_NH,Florida,Indigenous (NH),58.0
+2017,12,AIAN_NH,Florida,Indigenous (NH),70.0
+2018,12,AIAN_NH,Florida,Indigenous (NH),68.0
+2019,12,AIAN_NH,Florida,Indigenous (NH),63.0
 1999,12,API_NH,Florida,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2000,12,API_NH,Florida,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2001,12,API_NH,Florida,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
@@ -1070,27 +1070,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,13,HISP,Georgia,Hispanic or Latino,21.0
 2018,13,HISP,Georgia,Hispanic or Latino,21.0
 2019,13,HISP,Georgia,Hispanic or Latino,22.0
-1999,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),21.0
-2000,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),18.0
-2001,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),21.0
-2002,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),33.0
-2003,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),49.0
-2004,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),50.0
-2005,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),37.0
-2006,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),31.0
-2007,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),36.0
-2008,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),56.0
-2009,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),79.0
-2010,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),88.0
-2011,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),79.0
-2012,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),69.0
-2013,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),64.0
-2014,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),62.0
-2015,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),63.0
-2016,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),68.0
-2017,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),74.0
-2018,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),77.0
-2019,13,AIAN_NH,Georgia,American Indian and Alaska Native (NH),76.0
+1999,13,AIAN_NH,Georgia,Indigenous (NH),21.0
+2000,13,AIAN_NH,Georgia,Indigenous (NH),18.0
+2001,13,AIAN_NH,Georgia,Indigenous (NH),21.0
+2002,13,AIAN_NH,Georgia,Indigenous (NH),33.0
+2003,13,AIAN_NH,Georgia,Indigenous (NH),49.0
+2004,13,AIAN_NH,Georgia,Indigenous (NH),50.0
+2005,13,AIAN_NH,Georgia,Indigenous (NH),37.0
+2006,13,AIAN_NH,Georgia,Indigenous (NH),31.0
+2007,13,AIAN_NH,Georgia,Indigenous (NH),36.0
+2008,13,AIAN_NH,Georgia,Indigenous (NH),56.0
+2009,13,AIAN_NH,Georgia,Indigenous (NH),79.0
+2010,13,AIAN_NH,Georgia,Indigenous (NH),88.0
+2011,13,AIAN_NH,Georgia,Indigenous (NH),79.0
+2012,13,AIAN_NH,Georgia,Indigenous (NH),69.0
+2013,13,AIAN_NH,Georgia,Indigenous (NH),64.0
+2014,13,AIAN_NH,Georgia,Indigenous (NH),62.0
+2015,13,AIAN_NH,Georgia,Indigenous (NH),63.0
+2016,13,AIAN_NH,Georgia,Indigenous (NH),68.0
+2017,13,AIAN_NH,Georgia,Indigenous (NH),74.0
+2018,13,AIAN_NH,Georgia,Indigenous (NH),77.0
+2019,13,AIAN_NH,Georgia,Indigenous (NH),76.0
 1999,13,API_NH,Georgia,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2000,13,API_NH,Georgia,"Asian, Native Hawaiian, and Pacific Islander (NH)",25.0
 2001,13,API_NH,Georgia,"Asian, Native Hawaiian, and Pacific Islander (NH)",31.0
@@ -1175,27 +1175,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,15,HISP,Hawaii,Hispanic or Latino,15.0
 2018,15,HISP,Hawaii,Hispanic or Latino,15.0
 2019,15,HISP,Hawaii,Hispanic or Latino,14.0
-1999,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),1.0
-2000,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),1.0
-2001,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),1.0
-2002,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),2.0
-2003,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),3.0
-2004,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),4.0
-2005,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),6.0
-2006,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),7.0
-2007,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),7.0
-2008,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),6.0
-2009,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),5.0
-2010,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),5.0
-2011,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),6.0
-2012,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),8.0
-2013,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),10.0
-2014,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),12.0
-2015,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),12.0
-2016,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),10.0
-2017,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),8.0
-2018,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),8.0
-2019,15,AIAN_NH,Hawaii,American Indian and Alaska Native (NH),15.0
+1999,15,AIAN_NH,Hawaii,Indigenous (NH),1.0
+2000,15,AIAN_NH,Hawaii,Indigenous (NH),1.0
+2001,15,AIAN_NH,Hawaii,Indigenous (NH),1.0
+2002,15,AIAN_NH,Hawaii,Indigenous (NH),2.0
+2003,15,AIAN_NH,Hawaii,Indigenous (NH),3.0
+2004,15,AIAN_NH,Hawaii,Indigenous (NH),4.0
+2005,15,AIAN_NH,Hawaii,Indigenous (NH),6.0
+2006,15,AIAN_NH,Hawaii,Indigenous (NH),7.0
+2007,15,AIAN_NH,Hawaii,Indigenous (NH),7.0
+2008,15,AIAN_NH,Hawaii,Indigenous (NH),6.0
+2009,15,AIAN_NH,Hawaii,Indigenous (NH),5.0
+2010,15,AIAN_NH,Hawaii,Indigenous (NH),5.0
+2011,15,AIAN_NH,Hawaii,Indigenous (NH),6.0
+2012,15,AIAN_NH,Hawaii,Indigenous (NH),8.0
+2013,15,AIAN_NH,Hawaii,Indigenous (NH),10.0
+2014,15,AIAN_NH,Hawaii,Indigenous (NH),12.0
+2015,15,AIAN_NH,Hawaii,Indigenous (NH),12.0
+2016,15,AIAN_NH,Hawaii,Indigenous (NH),10.0
+2017,15,AIAN_NH,Hawaii,Indigenous (NH),8.0
+2018,15,AIAN_NH,Hawaii,Indigenous (NH),8.0
+2019,15,AIAN_NH,Hawaii,Indigenous (NH),15.0
 1999,15,API_NH,Hawaii,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2000,15,API_NH,Hawaii,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2001,15,API_NH,Hawaii,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
@@ -1280,27 +1280,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,16,HISP,Idaho,Hispanic or Latino,31.0
 2018,16,HISP,Idaho,Hispanic or Latino,30.0
 2019,16,HISP,Idaho,Hispanic or Latino,22.0
-1999,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),50.0
-2000,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),31.0
-2001,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),22.0
-2002,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),22.0
-2003,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),30.0
-2004,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),50.0
-2005,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),101.0
-2006,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),155.0
-2007,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),163.0
-2008,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),121.0
-2009,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),89.0
-2010,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),72.0
-2011,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),58.0
-2012,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),51.0
-2013,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),51.0
-2014,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),55.0
-2015,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),64.0
-2016,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),77.0
-2017,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),99.0
-2018,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),156.0
-2019,16,AIAN_NH,Idaho,American Indian and Alaska Native (NH),286.0
+1999,16,AIAN_NH,Idaho,Indigenous (NH),50.0
+2000,16,AIAN_NH,Idaho,Indigenous (NH),31.0
+2001,16,AIAN_NH,Idaho,Indigenous (NH),22.0
+2002,16,AIAN_NH,Idaho,Indigenous (NH),22.0
+2003,16,AIAN_NH,Idaho,Indigenous (NH),30.0
+2004,16,AIAN_NH,Idaho,Indigenous (NH),50.0
+2005,16,AIAN_NH,Idaho,Indigenous (NH),101.0
+2006,16,AIAN_NH,Idaho,Indigenous (NH),155.0
+2007,16,AIAN_NH,Idaho,Indigenous (NH),163.0
+2008,16,AIAN_NH,Idaho,Indigenous (NH),121.0
+2009,16,AIAN_NH,Idaho,Indigenous (NH),89.0
+2010,16,AIAN_NH,Idaho,Indigenous (NH),72.0
+2011,16,AIAN_NH,Idaho,Indigenous (NH),58.0
+2012,16,AIAN_NH,Idaho,Indigenous (NH),51.0
+2013,16,AIAN_NH,Idaho,Indigenous (NH),51.0
+2014,16,AIAN_NH,Idaho,Indigenous (NH),55.0
+2015,16,AIAN_NH,Idaho,Indigenous (NH),64.0
+2016,16,AIAN_NH,Idaho,Indigenous (NH),77.0
+2017,16,AIAN_NH,Idaho,Indigenous (NH),99.0
+2018,16,AIAN_NH,Idaho,Indigenous (NH),156.0
+2019,16,AIAN_NH,Idaho,Indigenous (NH),286.0
 1999,16,API_NH,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 2000,16,API_NH,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 2001,16,API_NH,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
@@ -1385,27 +1385,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,17,HISP,Illinois,Hispanic or Latino,20.0
 2018,17,HISP,Illinois,Hispanic or Latino,18.0
 2019,17,HISP,Illinois,Hispanic or Latino,12.0
-1999,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),2.0
-2000,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),1.0
-2001,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),1.0
-2002,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),1.0
-2003,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),1.0
-2004,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),1.0
-2005,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),1.0
-2006,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),2.0
-2007,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),2.0
-2008,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),3.0
-2009,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),4.0
-2010,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),5.0
-2011,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),6.0
-2012,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),6.0
-2013,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),5.0
-2014,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),4.0
-2015,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),4.0
-2016,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),4.0
-2017,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),5.0
-2018,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),6.0
-2019,17,AIAN_NH,Illinois,American Indian and Alaska Native (NH),11.0
+1999,17,AIAN_NH,Illinois,Indigenous (NH),2.0
+2000,17,AIAN_NH,Illinois,Indigenous (NH),1.0
+2001,17,AIAN_NH,Illinois,Indigenous (NH),1.0
+2002,17,AIAN_NH,Illinois,Indigenous (NH),1.0
+2003,17,AIAN_NH,Illinois,Indigenous (NH),1.0
+2004,17,AIAN_NH,Illinois,Indigenous (NH),1.0
+2005,17,AIAN_NH,Illinois,Indigenous (NH),1.0
+2006,17,AIAN_NH,Illinois,Indigenous (NH),2.0
+2007,17,AIAN_NH,Illinois,Indigenous (NH),2.0
+2008,17,AIAN_NH,Illinois,Indigenous (NH),3.0
+2009,17,AIAN_NH,Illinois,Indigenous (NH),4.0
+2010,17,AIAN_NH,Illinois,Indigenous (NH),5.0
+2011,17,AIAN_NH,Illinois,Indigenous (NH),6.0
+2012,17,AIAN_NH,Illinois,Indigenous (NH),6.0
+2013,17,AIAN_NH,Illinois,Indigenous (NH),5.0
+2014,17,AIAN_NH,Illinois,Indigenous (NH),4.0
+2015,17,AIAN_NH,Illinois,Indigenous (NH),4.0
+2016,17,AIAN_NH,Illinois,Indigenous (NH),4.0
+2017,17,AIAN_NH,Illinois,Indigenous (NH),5.0
+2018,17,AIAN_NH,Illinois,Indigenous (NH),6.0
+2019,17,AIAN_NH,Illinois,Indigenous (NH),11.0
 1999,17,API_NH,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2000,17,API_NH,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,17,API_NH,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
@@ -1490,27 +1490,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,18,HISP,Indiana,Hispanic or Latino,27.0
 2018,18,HISP,Indiana,Hispanic or Latino,25.0
 2019,18,HISP,Indiana,Hispanic or Latino,20.0
-1999,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),25.0
-2000,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),12.0
-2001,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),9.0
-2002,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),10.0
-2003,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),10.0
-2004,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),12.0
-2005,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),17.0
-2006,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),24.0
-2007,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),35.0
-2008,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),49.0
-2009,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),63.0
-2010,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),80.0
-2011,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),101.0
-2012,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),105.0
-2013,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),86.0
-2014,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),59.0
-2015,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),49.0
-2016,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),47.0
-2017,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),47.0
-2018,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),56.0
-2019,18,AIAN_NH,Indiana,American Indian and Alaska Native (NH),89.0
+1999,18,AIAN_NH,Indiana,Indigenous (NH),25.0
+2000,18,AIAN_NH,Indiana,Indigenous (NH),12.0
+2001,18,AIAN_NH,Indiana,Indigenous (NH),9.0
+2002,18,AIAN_NH,Indiana,Indigenous (NH),10.0
+2003,18,AIAN_NH,Indiana,Indigenous (NH),10.0
+2004,18,AIAN_NH,Indiana,Indigenous (NH),12.0
+2005,18,AIAN_NH,Indiana,Indigenous (NH),17.0
+2006,18,AIAN_NH,Indiana,Indigenous (NH),24.0
+2007,18,AIAN_NH,Indiana,Indigenous (NH),35.0
+2008,18,AIAN_NH,Indiana,Indigenous (NH),49.0
+2009,18,AIAN_NH,Indiana,Indigenous (NH),63.0
+2010,18,AIAN_NH,Indiana,Indigenous (NH),80.0
+2011,18,AIAN_NH,Indiana,Indigenous (NH),101.0
+2012,18,AIAN_NH,Indiana,Indigenous (NH),105.0
+2013,18,AIAN_NH,Indiana,Indigenous (NH),86.0
+2014,18,AIAN_NH,Indiana,Indigenous (NH),59.0
+2015,18,AIAN_NH,Indiana,Indigenous (NH),49.0
+2016,18,AIAN_NH,Indiana,Indigenous (NH),47.0
+2017,18,AIAN_NH,Indiana,Indigenous (NH),47.0
+2018,18,AIAN_NH,Indiana,Indigenous (NH),56.0
+2019,18,AIAN_NH,Indiana,Indigenous (NH),89.0
 1999,18,API_NH,Indiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2000,18,API_NH,Indiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2001,18,API_NH,Indiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
@@ -1595,27 +1595,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,19,HISP,Iowa,Hispanic or Latino,28.0
 2018,19,HISP,Iowa,Hispanic or Latino,28.0
 2019,19,HISP,Iowa,Hispanic or Latino,22.0
-1999,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),27.0
-2000,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),19.0
-2001,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),15.0
-2002,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),13.0
-2003,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),14.0
-2004,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),20.0
-2005,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),37.0
-2006,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),58.0
-2007,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),71.0
-2008,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),69.0
-2009,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),66.0
-2010,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),67.0
-2011,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),70.0
-2012,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),65.0
-2013,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),55.0
-2014,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),46.0
-2015,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),49.0
-2016,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),64.0
-2017,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),82.0
-2018,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),103.0
-2019,19,AIAN_NH,Iowa,American Indian and Alaska Native (NH),139.0
+1999,19,AIAN_NH,Iowa,Indigenous (NH),27.0
+2000,19,AIAN_NH,Iowa,Indigenous (NH),19.0
+2001,19,AIAN_NH,Iowa,Indigenous (NH),15.0
+2002,19,AIAN_NH,Iowa,Indigenous (NH),13.0
+2003,19,AIAN_NH,Iowa,Indigenous (NH),14.0
+2004,19,AIAN_NH,Iowa,Indigenous (NH),20.0
+2005,19,AIAN_NH,Iowa,Indigenous (NH),37.0
+2006,19,AIAN_NH,Iowa,Indigenous (NH),58.0
+2007,19,AIAN_NH,Iowa,Indigenous (NH),71.0
+2008,19,AIAN_NH,Iowa,Indigenous (NH),69.0
+2009,19,AIAN_NH,Iowa,Indigenous (NH),66.0
+2010,19,AIAN_NH,Iowa,Indigenous (NH),67.0
+2011,19,AIAN_NH,Iowa,Indigenous (NH),70.0
+2012,19,AIAN_NH,Iowa,Indigenous (NH),65.0
+2013,19,AIAN_NH,Iowa,Indigenous (NH),55.0
+2014,19,AIAN_NH,Iowa,Indigenous (NH),46.0
+2015,19,AIAN_NH,Iowa,Indigenous (NH),49.0
+2016,19,AIAN_NH,Iowa,Indigenous (NH),64.0
+2017,19,AIAN_NH,Iowa,Indigenous (NH),82.0
+2018,19,AIAN_NH,Iowa,Indigenous (NH),103.0
+2019,19,AIAN_NH,Iowa,Indigenous (NH),139.0
 1999,19,API_NH,Iowa,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2000,19,API_NH,Iowa,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2001,19,API_NH,Iowa,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
@@ -1700,27 +1700,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,20,HISP,Kansas,Hispanic or Latino,44.0
 2018,20,HISP,Kansas,Hispanic or Latino,38.0
 2019,20,HISP,Kansas,Hispanic or Latino,19.0
-1999,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),11.0
-2000,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),7.0
-2001,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),5.0
-2002,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),5.0
-2003,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),5.0
-2004,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),7.0
-2005,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),11.0
-2006,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),16.0
-2007,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),21.0
-2008,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),26.0
-2009,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),29.0
-2010,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),34.0
-2011,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),41.0
-2012,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),49.0
-2013,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),55.0
-2014,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),56.0
-2015,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),53.0
-2016,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),45.0
-2017,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),36.0
-2018,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),38.0
-2019,20,AIAN_NH,Kansas,American Indian and Alaska Native (NH),55.0
+1999,20,AIAN_NH,Kansas,Indigenous (NH),11.0
+2000,20,AIAN_NH,Kansas,Indigenous (NH),7.0
+2001,20,AIAN_NH,Kansas,Indigenous (NH),5.0
+2002,20,AIAN_NH,Kansas,Indigenous (NH),5.0
+2003,20,AIAN_NH,Kansas,Indigenous (NH),5.0
+2004,20,AIAN_NH,Kansas,Indigenous (NH),7.0
+2005,20,AIAN_NH,Kansas,Indigenous (NH),11.0
+2006,20,AIAN_NH,Kansas,Indigenous (NH),16.0
+2007,20,AIAN_NH,Kansas,Indigenous (NH),21.0
+2008,20,AIAN_NH,Kansas,Indigenous (NH),26.0
+2009,20,AIAN_NH,Kansas,Indigenous (NH),29.0
+2010,20,AIAN_NH,Kansas,Indigenous (NH),34.0
+2011,20,AIAN_NH,Kansas,Indigenous (NH),41.0
+2012,20,AIAN_NH,Kansas,Indigenous (NH),49.0
+2013,20,AIAN_NH,Kansas,Indigenous (NH),55.0
+2014,20,AIAN_NH,Kansas,Indigenous (NH),56.0
+2015,20,AIAN_NH,Kansas,Indigenous (NH),53.0
+2016,20,AIAN_NH,Kansas,Indigenous (NH),45.0
+2017,20,AIAN_NH,Kansas,Indigenous (NH),36.0
+2018,20,AIAN_NH,Kansas,Indigenous (NH),38.0
+2019,20,AIAN_NH,Kansas,Indigenous (NH),55.0
 1999,20,API_NH,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2000,20,API_NH,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",4.0
 2001,20,API_NH,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
@@ -1805,27 +1805,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,21,HISP,Kentucky,Hispanic or Latino,13.0
 2018,21,HISP,Kentucky,Hispanic or Latino,12.0
 2019,21,HISP,Kentucky,Hispanic or Latino,11.0
-1999,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),2.0
-2000,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),3.0
-2001,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),2.0
-2002,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),2.0
-2003,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),3.0
-2004,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),4.0
-2005,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),5.0
-2006,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),5.0
-2007,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),6.0
-2008,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),7.0
-2009,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),8.0
-2010,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),9.0
-2011,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),9.0
-2012,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),9.0
-2013,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),9.0
-2014,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),10.0
-2015,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),10.0
-2016,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),10.0
-2017,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),9.0
-2018,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),8.0
-2019,21,AIAN_NH,Kentucky,American Indian and Alaska Native (NH),8.0
+1999,21,AIAN_NH,Kentucky,Indigenous (NH),2.0
+2000,21,AIAN_NH,Kentucky,Indigenous (NH),3.0
+2001,21,AIAN_NH,Kentucky,Indigenous (NH),2.0
+2002,21,AIAN_NH,Kentucky,Indigenous (NH),2.0
+2003,21,AIAN_NH,Kentucky,Indigenous (NH),3.0
+2004,21,AIAN_NH,Kentucky,Indigenous (NH),4.0
+2005,21,AIAN_NH,Kentucky,Indigenous (NH),5.0
+2006,21,AIAN_NH,Kentucky,Indigenous (NH),5.0
+2007,21,AIAN_NH,Kentucky,Indigenous (NH),6.0
+2008,21,AIAN_NH,Kentucky,Indigenous (NH),7.0
+2009,21,AIAN_NH,Kentucky,Indigenous (NH),8.0
+2010,21,AIAN_NH,Kentucky,Indigenous (NH),9.0
+2011,21,AIAN_NH,Kentucky,Indigenous (NH),9.0
+2012,21,AIAN_NH,Kentucky,Indigenous (NH),9.0
+2013,21,AIAN_NH,Kentucky,Indigenous (NH),9.0
+2014,21,AIAN_NH,Kentucky,Indigenous (NH),10.0
+2015,21,AIAN_NH,Kentucky,Indigenous (NH),10.0
+2016,21,AIAN_NH,Kentucky,Indigenous (NH),10.0
+2017,21,AIAN_NH,Kentucky,Indigenous (NH),9.0
+2018,21,AIAN_NH,Kentucky,Indigenous (NH),8.0
+2019,21,AIAN_NH,Kentucky,Indigenous (NH),8.0
 1999,21,API_NH,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2000,21,API_NH,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2001,21,API_NH,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
@@ -1910,27 +1910,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,22,HISP,Louisiana,Hispanic or Latino,25.0
 2018,22,HISP,Louisiana,Hispanic or Latino,22.0
 2019,22,HISP,Louisiana,Hispanic or Latino,19.0
-1999,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),26.0
-2000,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),15.0
-2001,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),13.0
-2002,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),15.0
-2003,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),19.0
-2004,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),21.0
-2005,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),19.0
-2006,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),18.0
-2007,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),19.0
-2008,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),24.0
-2009,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),31.0
-2010,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),39.0
-2011,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),48.0
-2012,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),62.0
-2013,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),87.0
-2014,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),122.0
-2015,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),150.0
-2016,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),166.0
-2017,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),154.0
-2018,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),106.0
-2019,22,AIAN_NH,Louisiana,American Indian and Alaska Native (NH),53.0
+1999,22,AIAN_NH,Louisiana,Indigenous (NH),26.0
+2000,22,AIAN_NH,Louisiana,Indigenous (NH),15.0
+2001,22,AIAN_NH,Louisiana,Indigenous (NH),13.0
+2002,22,AIAN_NH,Louisiana,Indigenous (NH),15.0
+2003,22,AIAN_NH,Louisiana,Indigenous (NH),19.0
+2004,22,AIAN_NH,Louisiana,Indigenous (NH),21.0
+2005,22,AIAN_NH,Louisiana,Indigenous (NH),19.0
+2006,22,AIAN_NH,Louisiana,Indigenous (NH),18.0
+2007,22,AIAN_NH,Louisiana,Indigenous (NH),19.0
+2008,22,AIAN_NH,Louisiana,Indigenous (NH),24.0
+2009,22,AIAN_NH,Louisiana,Indigenous (NH),31.0
+2010,22,AIAN_NH,Louisiana,Indigenous (NH),39.0
+2011,22,AIAN_NH,Louisiana,Indigenous (NH),48.0
+2012,22,AIAN_NH,Louisiana,Indigenous (NH),62.0
+2013,22,AIAN_NH,Louisiana,Indigenous (NH),87.0
+2014,22,AIAN_NH,Louisiana,Indigenous (NH),122.0
+2015,22,AIAN_NH,Louisiana,Indigenous (NH),150.0
+2016,22,AIAN_NH,Louisiana,Indigenous (NH),166.0
+2017,22,AIAN_NH,Louisiana,Indigenous (NH),154.0
+2018,22,AIAN_NH,Louisiana,Indigenous (NH),106.0
+2019,22,AIAN_NH,Louisiana,Indigenous (NH),53.0
 1999,22,API_NH,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2000,22,API_NH,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2001,22,API_NH,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
@@ -2015,27 +2015,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,23,HISP,Maine,Hispanic or Latino,5.0
 2018,23,HISP,Maine,Hispanic or Latino,6.0
 2019,23,HISP,Maine,Hispanic or Latino,6.0
-1999,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),3.0
-2000,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),2.0
-2001,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),2.0
-2002,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),3.0
-2003,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2004,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2005,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2006,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2007,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),3.0
-2008,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2009,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2010,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2011,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2012,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2013,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2014,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2015,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),4.0
-2016,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2017,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2018,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),5.0
-2019,23,AIAN_NH,Maine,American Indian and Alaska Native (NH),6.0
+1999,23,AIAN_NH,Maine,Indigenous (NH),3.0
+2000,23,AIAN_NH,Maine,Indigenous (NH),2.0
+2001,23,AIAN_NH,Maine,Indigenous (NH),2.0
+2002,23,AIAN_NH,Maine,Indigenous (NH),3.0
+2003,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2004,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2005,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2006,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2007,23,AIAN_NH,Maine,Indigenous (NH),3.0
+2008,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2009,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2010,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2011,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2012,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2013,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2014,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2015,23,AIAN_NH,Maine,Indigenous (NH),4.0
+2016,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2017,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2018,23,AIAN_NH,Maine,Indigenous (NH),5.0
+2019,23,AIAN_NH,Maine,Indigenous (NH),6.0
 1999,23,API_NH,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
 2000,23,API_NH,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
 2001,23,API_NH,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
@@ -2120,27 +2120,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,24,HISP,Maryland,Hispanic or Latino,19.0
 2018,24,HISP,Maryland,Hispanic or Latino,18.0
 2019,24,HISP,Maryland,Hispanic or Latino,17.0
-1999,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),3.0
-2000,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),2.0
-2001,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),2.0
-2002,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),2.0
-2003,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),3.0
-2004,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),4.0
-2005,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),4.0
-2006,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),4.0
-2007,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),5.0
-2008,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),6.0
-2009,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),7.0
-2010,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),7.0
-2011,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),7.0
-2012,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),7.0
-2013,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),7.0
-2014,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),8.0
-2015,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),8.0
-2016,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),9.0
-2017,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),9.0
-2018,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),9.0
-2019,24,AIAN_NH,Maryland,American Indian and Alaska Native (NH),8.0
+1999,24,AIAN_NH,Maryland,Indigenous (NH),3.0
+2000,24,AIAN_NH,Maryland,Indigenous (NH),2.0
+2001,24,AIAN_NH,Maryland,Indigenous (NH),2.0
+2002,24,AIAN_NH,Maryland,Indigenous (NH),2.0
+2003,24,AIAN_NH,Maryland,Indigenous (NH),3.0
+2004,24,AIAN_NH,Maryland,Indigenous (NH),4.0
+2005,24,AIAN_NH,Maryland,Indigenous (NH),4.0
+2006,24,AIAN_NH,Maryland,Indigenous (NH),4.0
+2007,24,AIAN_NH,Maryland,Indigenous (NH),5.0
+2008,24,AIAN_NH,Maryland,Indigenous (NH),6.0
+2009,24,AIAN_NH,Maryland,Indigenous (NH),7.0
+2010,24,AIAN_NH,Maryland,Indigenous (NH),7.0
+2011,24,AIAN_NH,Maryland,Indigenous (NH),7.0
+2012,24,AIAN_NH,Maryland,Indigenous (NH),7.0
+2013,24,AIAN_NH,Maryland,Indigenous (NH),7.0
+2014,24,AIAN_NH,Maryland,Indigenous (NH),8.0
+2015,24,AIAN_NH,Maryland,Indigenous (NH),8.0
+2016,24,AIAN_NH,Maryland,Indigenous (NH),9.0
+2017,24,AIAN_NH,Maryland,Indigenous (NH),9.0
+2018,24,AIAN_NH,Maryland,Indigenous (NH),9.0
+2019,24,AIAN_NH,Maryland,Indigenous (NH),8.0
 1999,24,API_NH,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2000,24,API_NH,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2001,24,API_NH,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
@@ -2225,27 +2225,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,25,HISP,Massachusetts,Hispanic or Latino,19.0
 2018,25,HISP,Massachusetts,Hispanic or Latino,19.0
 2019,25,HISP,Massachusetts,Hispanic or Latino,16.0
-1999,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),23.0
-2000,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),14.0
-2001,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),9.0
-2002,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),13.0
-2003,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),18.0
-2004,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),19.0
-2005,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),19.0
-2006,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),17.0
-2007,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),16.0
-2008,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),16.0
-2009,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),19.0
-2010,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),23.0
-2011,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),25.0
-2012,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),26.0
-2013,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),27.0
-2014,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),25.0
-2015,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),37.0
-2016,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),83.0
-2017,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),149.0
-2018,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),168.0
-2019,25,AIAN_NH,Massachusetts,American Indian and Alaska Native (NH),133.0
+1999,25,AIAN_NH,Massachusetts,Indigenous (NH),23.0
+2000,25,AIAN_NH,Massachusetts,Indigenous (NH),14.0
+2001,25,AIAN_NH,Massachusetts,Indigenous (NH),9.0
+2002,25,AIAN_NH,Massachusetts,Indigenous (NH),13.0
+2003,25,AIAN_NH,Massachusetts,Indigenous (NH),18.0
+2004,25,AIAN_NH,Massachusetts,Indigenous (NH),19.0
+2005,25,AIAN_NH,Massachusetts,Indigenous (NH),19.0
+2006,25,AIAN_NH,Massachusetts,Indigenous (NH),17.0
+2007,25,AIAN_NH,Massachusetts,Indigenous (NH),16.0
+2008,25,AIAN_NH,Massachusetts,Indigenous (NH),16.0
+2009,25,AIAN_NH,Massachusetts,Indigenous (NH),19.0
+2010,25,AIAN_NH,Massachusetts,Indigenous (NH),23.0
+2011,25,AIAN_NH,Massachusetts,Indigenous (NH),25.0
+2012,25,AIAN_NH,Massachusetts,Indigenous (NH),26.0
+2013,25,AIAN_NH,Massachusetts,Indigenous (NH),27.0
+2014,25,AIAN_NH,Massachusetts,Indigenous (NH),25.0
+2015,25,AIAN_NH,Massachusetts,Indigenous (NH),37.0
+2016,25,AIAN_NH,Massachusetts,Indigenous (NH),83.0
+2017,25,AIAN_NH,Massachusetts,Indigenous (NH),149.0
+2018,25,AIAN_NH,Massachusetts,Indigenous (NH),168.0
+2019,25,AIAN_NH,Massachusetts,Indigenous (NH),133.0
 1999,25,API_NH,Massachusetts,"Asian, Native Hawaiian, and Pacific Islander (NH)",4.0
 2000,25,API_NH,Massachusetts,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2001,25,API_NH,Massachusetts,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
@@ -2330,27 +2330,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,26,HISP,Michigan,Hispanic or Latino,32.0
 2018,26,HISP,Michigan,Hispanic or Latino,31.0
 2019,26,HISP,Michigan,Hispanic or Latino,23.0
-1999,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),18.0
-2000,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),11.0
-2001,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),8.0
-2002,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),7.0
-2003,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),8.0
-2004,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),13.0
-2005,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),29.0
-2006,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),52.0
-2007,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),62.0
-2008,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),52.0
-2009,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),45.0
-2010,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),44.0
-2011,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),49.0
-2012,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),47.0
-2013,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),36.0
-2014,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),24.0
-2015,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),19.0
-2016,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),19.0
-2017,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),23.0
-2018,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),40.0
-2019,26,AIAN_NH,Michigan,American Indian and Alaska Native (NH),96.0
+1999,26,AIAN_NH,Michigan,Indigenous (NH),18.0
+2000,26,AIAN_NH,Michigan,Indigenous (NH),11.0
+2001,26,AIAN_NH,Michigan,Indigenous (NH),8.0
+2002,26,AIAN_NH,Michigan,Indigenous (NH),7.0
+2003,26,AIAN_NH,Michigan,Indigenous (NH),8.0
+2004,26,AIAN_NH,Michigan,Indigenous (NH),13.0
+2005,26,AIAN_NH,Michigan,Indigenous (NH),29.0
+2006,26,AIAN_NH,Michigan,Indigenous (NH),52.0
+2007,26,AIAN_NH,Michigan,Indigenous (NH),62.0
+2008,26,AIAN_NH,Michigan,Indigenous (NH),52.0
+2009,26,AIAN_NH,Michigan,Indigenous (NH),45.0
+2010,26,AIAN_NH,Michigan,Indigenous (NH),44.0
+2011,26,AIAN_NH,Michigan,Indigenous (NH),49.0
+2012,26,AIAN_NH,Michigan,Indigenous (NH),47.0
+2013,26,AIAN_NH,Michigan,Indigenous (NH),36.0
+2014,26,AIAN_NH,Michigan,Indigenous (NH),24.0
+2015,26,AIAN_NH,Michigan,Indigenous (NH),19.0
+2016,26,AIAN_NH,Michigan,Indigenous (NH),19.0
+2017,26,AIAN_NH,Michigan,Indigenous (NH),23.0
+2018,26,AIAN_NH,Michigan,Indigenous (NH),40.0
+2019,26,AIAN_NH,Michigan,Indigenous (NH),96.0
 1999,26,API_NH,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2000,26,API_NH,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 2001,26,API_NH,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",4.0
@@ -2415,107 +2415,107 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2018,26,WHITE_NH,Michigan,White (NH),30.0
 2019,26,WHITE_NH,Michigan,White (NH),30.0
 1999,,HISP,Midwest Census Region,Hispanic or Latino,9.0
-1999,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),20.0
+1999,,AIAN_NH,Midwest Census Region,Indigenous (NH),20.0
 1999,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 1999,,BLACK_NH,Midwest Census Region,Black or African American (NH),26.0
 1999,,WHITE_NH,Midwest Census Region,White (NH),9.0
 2000,,HISP,Midwest Census Region,Hispanic or Latino,10.0
-2000,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),15.0
+2000,,AIAN_NH,Midwest Census Region,Indigenous (NH),15.0
 2000,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2000,,BLACK_NH,Midwest Census Region,Black or African American (NH),22.0
 2000,,WHITE_NH,Midwest Census Region,White (NH),8.0
 2001,,HISP,Midwest Census Region,Hispanic or Latino,9.0
-2001,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),12.0
+2001,,AIAN_NH,Midwest Census Region,Indigenous (NH),12.0
 2001,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2001,,BLACK_NH,Midwest Census Region,Black or African American (NH),24.0
 2001,,WHITE_NH,Midwest Census Region,White (NH),8.0
 2002,,HISP,Midwest Census Region,Hispanic or Latino,7.0
-2002,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),10.0
+2002,,AIAN_NH,Midwest Census Region,Indigenous (NH),10.0
 2002,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2002,,BLACK_NH,Midwest Census Region,Black or African American (NH),30.0
 2002,,WHITE_NH,Midwest Census Region,White (NH),8.0
 2003,,HISP,Midwest Census Region,Hispanic or Latino,6.0
-2003,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),10.0
+2003,,AIAN_NH,Midwest Census Region,Indigenous (NH),10.0
 2003,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2003,,BLACK_NH,Midwest Census Region,Black or African American (NH),37.0
 2003,,WHITE_NH,Midwest Census Region,White (NH),10.0
 2004,,HISP,Midwest Census Region,Hispanic or Latino,6.0
-2004,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),12.0
+2004,,AIAN_NH,Midwest Census Region,Indigenous (NH),12.0
 2004,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2004,,BLACK_NH,Midwest Census Region,Black or African American (NH),42.0
 2004,,WHITE_NH,Midwest Census Region,White (NH),11.0
 2005,,HISP,Midwest Census Region,Hispanic or Latino,8.0
-2005,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),17.0
+2005,,AIAN_NH,Midwest Census Region,Indigenous (NH),17.0
 2005,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2005,,BLACK_NH,Midwest Census Region,Black or African American (NH),45.0
 2005,,WHITE_NH,Midwest Census Region,White (NH),13.0
 2006,,HISP,Midwest Census Region,Hispanic or Latino,10.0
-2006,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),25.0
+2006,,AIAN_NH,Midwest Census Region,Indigenous (NH),25.0
 2006,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2006,,BLACK_NH,Midwest Census Region,Black or African American (NH),46.0
 2006,,WHITE_NH,Midwest Census Region,White (NH),15.0
 2007,,HISP,Midwest Census Region,Hispanic or Latino,12.0
-2007,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),32.0
+2007,,AIAN_NH,Midwest Census Region,Indigenous (NH),32.0
 2007,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2007,,BLACK_NH,Midwest Census Region,Black or African American (NH),46.0
 2007,,WHITE_NH,Midwest Census Region,White (NH),17.0
 2008,,HISP,Midwest Census Region,Hispanic or Latino,12.0
-2008,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),40.0
+2008,,AIAN_NH,Midwest Census Region,Indigenous (NH),40.0
 2008,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2008,,BLACK_NH,Midwest Census Region,Black or African American (NH),46.0
 2008,,WHITE_NH,Midwest Census Region,White (NH),20.0
 2009,,HISP,Midwest Census Region,Hispanic or Latino,13.0
-2009,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),49.0
+2009,,AIAN_NH,Midwest Census Region,Indigenous (NH),49.0
 2009,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2009,,BLACK_NH,Midwest Census Region,Black or African American (NH),48.0
 2009,,WHITE_NH,Midwest Census Region,White (NH),23.0
 2010,,HISP,Midwest Census Region,Hispanic or Latino,15.0
-2010,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),60.0
+2010,,AIAN_NH,Midwest Census Region,Indigenous (NH),60.0
 2010,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2010,,BLACK_NH,Midwest Census Region,Black or African American (NH),51.0
 2010,,WHITE_NH,Midwest Census Region,White (NH),25.0
 2011,,HISP,Midwest Census Region,Hispanic or Latino,16.0
-2011,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),72.0
+2011,,AIAN_NH,Midwest Census Region,Indigenous (NH),72.0
 2011,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2011,,BLACK_NH,Midwest Census Region,Black or African American (NH),54.0
 2011,,WHITE_NH,Midwest Census Region,White (NH),26.0
 2012,,HISP,Midwest Census Region,Hispanic or Latino,16.0
-2012,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),73.0
+2012,,AIAN_NH,Midwest Census Region,Indigenous (NH),73.0
 2012,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2012,,BLACK_NH,Midwest Census Region,Black or African American (NH),55.0
 2012,,WHITE_NH,Midwest Census Region,White (NH),27.0
 2013,,HISP,Midwest Census Region,Hispanic or Latino,16.0
-2013,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),64.0
+2013,,AIAN_NH,Midwest Census Region,Indigenous (NH),64.0
 2013,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2013,,BLACK_NH,Midwest Census Region,Black or African American (NH),57.0
 2013,,WHITE_NH,Midwest Census Region,White (NH),27.0
 2014,,HISP,Midwest Census Region,Hispanic or Latino,16.0
-2014,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),51.0
+2014,,AIAN_NH,Midwest Census Region,Indigenous (NH),51.0
 2014,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2014,,BLACK_NH,Midwest Census Region,Black or African American (NH),58.0
 2014,,WHITE_NH,Midwest Census Region,White (NH),28.0
 2015,,HISP,Midwest Census Region,Hispanic or Latino,18.0
-2015,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),46.0
+2015,,AIAN_NH,Midwest Census Region,Indigenous (NH),46.0
 2015,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2015,,BLACK_NH,Midwest Census Region,Black or African American (NH),58.0
 2015,,WHITE_NH,Midwest Census Region,White (NH),28.0
 2016,,HISP,Midwest Census Region,Hispanic or Latino,21.0
-2016,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),46.0
+2016,,AIAN_NH,Midwest Census Region,Indigenous (NH),46.0
 2016,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2016,,BLACK_NH,Midwest Census Region,Black or African American (NH),56.0
 2016,,WHITE_NH,Midwest Census Region,White (NH),28.0
 2017,,HISP,Midwest Census Region,Hispanic or Latino,25.0
-2017,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),51.0
+2017,,AIAN_NH,Midwest Census Region,Indigenous (NH),51.0
 2017,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2017,,BLACK_NH,Midwest Census Region,Black or African American (NH),53.0
 2017,,WHITE_NH,Midwest Census Region,White (NH),28.0
 2018,,HISP,Midwest Census Region,Hispanic or Latino,23.0
-2018,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),66.0
+2018,,AIAN_NH,Midwest Census Region,Indigenous (NH),66.0
 2018,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2018,,BLACK_NH,Midwest Census Region,Black or African American (NH),48.0
 2018,,WHITE_NH,Midwest Census Region,White (NH),28.0
 2019,,HISP,Midwest Census Region,Hispanic or Latino,15.0
-2019,,AIAN_NH,Midwest Census Region,American Indian and Alaska Native (NH),94.0
+2019,,AIAN_NH,Midwest Census Region,Indigenous (NH),94.0
 2019,,API_NH,Midwest Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2019,,BLACK_NH,Midwest Census Region,Black or African American (NH),42.0
 2019,,WHITE_NH,Midwest Census Region,White (NH),27.0
@@ -2540,27 +2540,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,27,HISP,Minnesota,Hispanic or Latino,16.0
 2018,27,HISP,Minnesota,Hispanic or Latino,15.0
 2019,27,HISP,Minnesota,Hispanic or Latino,10.0
-1999,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),22.0
-2000,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),11.0
-2001,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),7.0
-2002,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),7.0
-2003,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),8.0
-2004,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),10.0
-2005,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),15.0
-2006,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),21.0
-2007,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),32.0
-2008,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),49.0
-2009,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),67.0
-2010,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),81.0
-2011,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),85.0
-2012,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),84.0
-2013,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),78.0
-2014,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),68.0
-2015,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),62.0
-2016,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),57.0
-2017,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),51.0
-2018,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),56.0
-2019,27,AIAN_NH,Minnesota,American Indian and Alaska Native (NH),78.0
+1999,27,AIAN_NH,Minnesota,Indigenous (NH),22.0
+2000,27,AIAN_NH,Minnesota,Indigenous (NH),11.0
+2001,27,AIAN_NH,Minnesota,Indigenous (NH),7.0
+2002,27,AIAN_NH,Minnesota,Indigenous (NH),7.0
+2003,27,AIAN_NH,Minnesota,Indigenous (NH),8.0
+2004,27,AIAN_NH,Minnesota,Indigenous (NH),10.0
+2005,27,AIAN_NH,Minnesota,Indigenous (NH),15.0
+2006,27,AIAN_NH,Minnesota,Indigenous (NH),21.0
+2007,27,AIAN_NH,Minnesota,Indigenous (NH),32.0
+2008,27,AIAN_NH,Minnesota,Indigenous (NH),49.0
+2009,27,AIAN_NH,Minnesota,Indigenous (NH),67.0
+2010,27,AIAN_NH,Minnesota,Indigenous (NH),81.0
+2011,27,AIAN_NH,Minnesota,Indigenous (NH),85.0
+2012,27,AIAN_NH,Minnesota,Indigenous (NH),84.0
+2013,27,AIAN_NH,Minnesota,Indigenous (NH),78.0
+2014,27,AIAN_NH,Minnesota,Indigenous (NH),68.0
+2015,27,AIAN_NH,Minnesota,Indigenous (NH),62.0
+2016,27,AIAN_NH,Minnesota,Indigenous (NH),57.0
+2017,27,AIAN_NH,Minnesota,Indigenous (NH),51.0
+2018,27,AIAN_NH,Minnesota,Indigenous (NH),56.0
+2019,27,AIAN_NH,Minnesota,Indigenous (NH),78.0
 1999,27,API_NH,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2000,27,API_NH,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2001,27,API_NH,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
@@ -2645,27 +2645,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,28,HISP,Mississippi,Hispanic or Latino,22.0
 2018,28,HISP,Mississippi,Hispanic or Latino,23.0
 2019,28,HISP,Mississippi,Hispanic or Latino,26.0
-1999,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),3.0
-2000,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),2.0
-2001,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),2.0
-2002,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),3.0
-2003,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),3.0
-2004,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),3.0
-2005,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),3.0
-2006,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),3.0
-2007,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),4.0
-2008,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),5.0
-2009,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),6.0
-2010,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),7.0
-2011,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),7.0
-2012,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),8.0
-2013,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),9.0
-2014,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),10.0
-2015,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),11.0
-2016,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),11.0
-2017,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),11.0
-2018,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),10.0
-2019,28,AIAN_NH,Mississippi,American Indian and Alaska Native (NH),8.0
+1999,28,AIAN_NH,Mississippi,Indigenous (NH),3.0
+2000,28,AIAN_NH,Mississippi,Indigenous (NH),2.0
+2001,28,AIAN_NH,Mississippi,Indigenous (NH),2.0
+2002,28,AIAN_NH,Mississippi,Indigenous (NH),3.0
+2003,28,AIAN_NH,Mississippi,Indigenous (NH),3.0
+2004,28,AIAN_NH,Mississippi,Indigenous (NH),3.0
+2005,28,AIAN_NH,Mississippi,Indigenous (NH),3.0
+2006,28,AIAN_NH,Mississippi,Indigenous (NH),3.0
+2007,28,AIAN_NH,Mississippi,Indigenous (NH),4.0
+2008,28,AIAN_NH,Mississippi,Indigenous (NH),5.0
+2009,28,AIAN_NH,Mississippi,Indigenous (NH),6.0
+2010,28,AIAN_NH,Mississippi,Indigenous (NH),7.0
+2011,28,AIAN_NH,Mississippi,Indigenous (NH),7.0
+2012,28,AIAN_NH,Mississippi,Indigenous (NH),8.0
+2013,28,AIAN_NH,Mississippi,Indigenous (NH),9.0
+2014,28,AIAN_NH,Mississippi,Indigenous (NH),10.0
+2015,28,AIAN_NH,Mississippi,Indigenous (NH),11.0
+2016,28,AIAN_NH,Mississippi,Indigenous (NH),11.0
+2017,28,AIAN_NH,Mississippi,Indigenous (NH),11.0
+2018,28,AIAN_NH,Mississippi,Indigenous (NH),10.0
+2019,28,AIAN_NH,Mississippi,Indigenous (NH),8.0
 1999,28,API_NH,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2000,28,API_NH,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,28,API_NH,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
@@ -2750,27 +2750,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,29,HISP,Missouri,Hispanic or Latino,30.0
 2018,29,HISP,Missouri,Hispanic or Latino,30.0
 2019,29,HISP,Missouri,Hispanic or Latino,30.0
-1999,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),18.0
-2000,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),12.0
-2001,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),13.0
-2002,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),20.0
-2003,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),29.0
-2004,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),33.0
-2005,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),30.0
-2006,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),26.0
-2007,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),25.0
-2008,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),26.0
-2009,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),29.0
-2010,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),36.0
-2011,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),45.0
-2012,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),52.0
-2013,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),57.0
-2014,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),58.0
-2015,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),56.0
-2016,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),47.0
-2017,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),35.0
-2018,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),37.0
-2019,29,AIAN_NH,Missouri,American Indian and Alaska Native (NH),65.0
+1999,29,AIAN_NH,Missouri,Indigenous (NH),18.0
+2000,29,AIAN_NH,Missouri,Indigenous (NH),12.0
+2001,29,AIAN_NH,Missouri,Indigenous (NH),13.0
+2002,29,AIAN_NH,Missouri,Indigenous (NH),20.0
+2003,29,AIAN_NH,Missouri,Indigenous (NH),29.0
+2004,29,AIAN_NH,Missouri,Indigenous (NH),33.0
+2005,29,AIAN_NH,Missouri,Indigenous (NH),30.0
+2006,29,AIAN_NH,Missouri,Indigenous (NH),26.0
+2007,29,AIAN_NH,Missouri,Indigenous (NH),25.0
+2008,29,AIAN_NH,Missouri,Indigenous (NH),26.0
+2009,29,AIAN_NH,Missouri,Indigenous (NH),29.0
+2010,29,AIAN_NH,Missouri,Indigenous (NH),36.0
+2011,29,AIAN_NH,Missouri,Indigenous (NH),45.0
+2012,29,AIAN_NH,Missouri,Indigenous (NH),52.0
+2013,29,AIAN_NH,Missouri,Indigenous (NH),57.0
+2014,29,AIAN_NH,Missouri,Indigenous (NH),58.0
+2015,29,AIAN_NH,Missouri,Indigenous (NH),56.0
+2016,29,AIAN_NH,Missouri,Indigenous (NH),47.0
+2017,29,AIAN_NH,Missouri,Indigenous (NH),35.0
+2018,29,AIAN_NH,Missouri,Indigenous (NH),37.0
+2019,29,AIAN_NH,Missouri,Indigenous (NH),65.0
 1999,29,API_NH,Missouri,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2000,29,API_NH,Missouri,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2001,29,API_NH,Missouri,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
@@ -2855,27 +2855,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,30,HISP,Montana,Hispanic or Latino,14.0
 2018,30,HISP,Montana,Hispanic or Latino,14.0
 2019,30,HISP,Montana,Hispanic or Latino,11.0
-1999,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),34.0
-2000,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),15.0
-2001,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),12.0
-2002,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),17.0
-2003,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),27.0
-2004,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),41.0
-2005,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),59.0
-2006,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),70.0
-2007,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),64.0
-2008,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),47.0
-2009,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),44.0
-2010,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),58.0
-2011,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),90.0
-2012,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),122.0
-2013,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),152.0
-2014,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),168.0
-2015,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),153.0
-2016,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),115.0
-2017,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),82.0
-2018,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),76.0
-2019,30,AIAN_NH,Montana,American Indian and Alaska Native (NH),85.0
+1999,30,AIAN_NH,Montana,Indigenous (NH),34.0
+2000,30,AIAN_NH,Montana,Indigenous (NH),15.0
+2001,30,AIAN_NH,Montana,Indigenous (NH),12.0
+2002,30,AIAN_NH,Montana,Indigenous (NH),17.0
+2003,30,AIAN_NH,Montana,Indigenous (NH),27.0
+2004,30,AIAN_NH,Montana,Indigenous (NH),41.0
+2005,30,AIAN_NH,Montana,Indigenous (NH),59.0
+2006,30,AIAN_NH,Montana,Indigenous (NH),70.0
+2007,30,AIAN_NH,Montana,Indigenous (NH),64.0
+2008,30,AIAN_NH,Montana,Indigenous (NH),47.0
+2009,30,AIAN_NH,Montana,Indigenous (NH),44.0
+2010,30,AIAN_NH,Montana,Indigenous (NH),58.0
+2011,30,AIAN_NH,Montana,Indigenous (NH),90.0
+2012,30,AIAN_NH,Montana,Indigenous (NH),122.0
+2013,30,AIAN_NH,Montana,Indigenous (NH),152.0
+2014,30,AIAN_NH,Montana,Indigenous (NH),168.0
+2015,30,AIAN_NH,Montana,Indigenous (NH),153.0
+2016,30,AIAN_NH,Montana,Indigenous (NH),115.0
+2017,30,AIAN_NH,Montana,Indigenous (NH),82.0
+2018,30,AIAN_NH,Montana,Indigenous (NH),76.0
+2019,30,AIAN_NH,Montana,Indigenous (NH),85.0
 1999,30,API_NH,Montana,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2000,30,API_NH,Montana,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2001,30,API_NH,Montana,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
@@ -2960,27 +2960,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,31,HISP,Nebraska,Hispanic or Latino,30.0
 2018,31,HISP,Nebraska,Hispanic or Latino,28.0
 2019,31,HISP,Nebraska,Hispanic or Latino,16.0
-1999,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),19.0
-2000,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),35.0
-2001,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),35.0
-2002,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),23.0
-2003,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),14.0
-2004,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),13.0
-2005,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),15.0
-2006,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),19.0
-2007,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),23.0
-2008,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),27.0
-2009,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),32.0
-2010,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),39.0
-2011,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),45.0
-2012,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),45.0
-2013,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),40.0
-2014,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),33.0
-2015,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),34.0
-2016,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),43.0
-2017,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),59.0
-2018,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),93.0
-2019,31,AIAN_NH,Nebraska,American Indian and Alaska Native (NH),180.0
+1999,31,AIAN_NH,Nebraska,Indigenous (NH),19.0
+2000,31,AIAN_NH,Nebraska,Indigenous (NH),35.0
+2001,31,AIAN_NH,Nebraska,Indigenous (NH),35.0
+2002,31,AIAN_NH,Nebraska,Indigenous (NH),23.0
+2003,31,AIAN_NH,Nebraska,Indigenous (NH),14.0
+2004,31,AIAN_NH,Nebraska,Indigenous (NH),13.0
+2005,31,AIAN_NH,Nebraska,Indigenous (NH),15.0
+2006,31,AIAN_NH,Nebraska,Indigenous (NH),19.0
+2007,31,AIAN_NH,Nebraska,Indigenous (NH),23.0
+2008,31,AIAN_NH,Nebraska,Indigenous (NH),27.0
+2009,31,AIAN_NH,Nebraska,Indigenous (NH),32.0
+2010,31,AIAN_NH,Nebraska,Indigenous (NH),39.0
+2011,31,AIAN_NH,Nebraska,Indigenous (NH),45.0
+2012,31,AIAN_NH,Nebraska,Indigenous (NH),45.0
+2013,31,AIAN_NH,Nebraska,Indigenous (NH),40.0
+2014,31,AIAN_NH,Nebraska,Indigenous (NH),33.0
+2015,31,AIAN_NH,Nebraska,Indigenous (NH),34.0
+2016,31,AIAN_NH,Nebraska,Indigenous (NH),43.0
+2017,31,AIAN_NH,Nebraska,Indigenous (NH),59.0
+2018,31,AIAN_NH,Nebraska,Indigenous (NH),93.0
+2019,31,AIAN_NH,Nebraska,Indigenous (NH),180.0
 1999,31,API_NH,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2000,31,API_NH,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,31,API_NH,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
@@ -3065,27 +3065,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,32,HISP,Nevada,Hispanic or Latino,10.0
 2018,32,HISP,Nevada,Hispanic or Latino,11.0
 2019,32,HISP,Nevada,Hispanic or Latino,11.0
-1999,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),20.0
-2000,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),14.0
-2001,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),11.0
-2002,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),12.0
-2003,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),15.0
-2004,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),20.0
-2005,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),29.0
-2006,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),35.0
-2007,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),38.0
-2008,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),36.0
-2009,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),37.0
-2010,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),38.0
-2011,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),37.0
-2012,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),40.0
-2013,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),52.0
-2014,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),75.0
-2015,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),89.0
-2016,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),85.0
-2017,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),69.0
-2018,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),63.0
-2019,32,AIAN_NH,Nevada,American Indian and Alaska Native (NH),59.0
+1999,32,AIAN_NH,Nevada,Indigenous (NH),20.0
+2000,32,AIAN_NH,Nevada,Indigenous (NH),14.0
+2001,32,AIAN_NH,Nevada,Indigenous (NH),11.0
+2002,32,AIAN_NH,Nevada,Indigenous (NH),12.0
+2003,32,AIAN_NH,Nevada,Indigenous (NH),15.0
+2004,32,AIAN_NH,Nevada,Indigenous (NH),20.0
+2005,32,AIAN_NH,Nevada,Indigenous (NH),29.0
+2006,32,AIAN_NH,Nevada,Indigenous (NH),35.0
+2007,32,AIAN_NH,Nevada,Indigenous (NH),38.0
+2008,32,AIAN_NH,Nevada,Indigenous (NH),36.0
+2009,32,AIAN_NH,Nevada,Indigenous (NH),37.0
+2010,32,AIAN_NH,Nevada,Indigenous (NH),38.0
+2011,32,AIAN_NH,Nevada,Indigenous (NH),37.0
+2012,32,AIAN_NH,Nevada,Indigenous (NH),40.0
+2013,32,AIAN_NH,Nevada,Indigenous (NH),52.0
+2014,32,AIAN_NH,Nevada,Indigenous (NH),75.0
+2015,32,AIAN_NH,Nevada,Indigenous (NH),89.0
+2016,32,AIAN_NH,Nevada,Indigenous (NH),85.0
+2017,32,AIAN_NH,Nevada,Indigenous (NH),69.0
+2018,32,AIAN_NH,Nevada,Indigenous (NH),63.0
+2019,32,AIAN_NH,Nevada,Indigenous (NH),59.0
 1999,32,API_NH,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2000,32,API_NH,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2001,32,API_NH,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",25.0
@@ -3170,27 +3170,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,33,HISP,New Hampshire,Hispanic or Latino,2.0
 2018,33,HISP,New Hampshire,Hispanic or Latino,2.0
 2019,33,HISP,New Hampshire,Hispanic or Latino,3.0
-1999,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),92.0
-2000,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),441.0
-2001,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),429.0
-2002,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),215.0
-2003,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),99.0
-2004,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),75.0
-2005,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),90.0
-2006,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),100.0
-2007,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),100.0
-2008,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),105.0
-2009,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),124.0
-2010,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),144.0
-2011,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),139.0
-2012,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),129.0
-2013,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),129.0
-2014,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),125.0
-2015,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),148.0
-2016,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),192.0
-2017,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),183.0
-2018,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),188.0
-2019,33,AIAN_NH,New Hampshire,American Indian and Alaska Native (NH),270.0
+1999,33,AIAN_NH,New Hampshire,Indigenous (NH),92.0
+2000,33,AIAN_NH,New Hampshire,Indigenous (NH),441.0
+2001,33,AIAN_NH,New Hampshire,Indigenous (NH),429.0
+2002,33,AIAN_NH,New Hampshire,Indigenous (NH),215.0
+2003,33,AIAN_NH,New Hampshire,Indigenous (NH),99.0
+2004,33,AIAN_NH,New Hampshire,Indigenous (NH),75.0
+2005,33,AIAN_NH,New Hampshire,Indigenous (NH),90.0
+2006,33,AIAN_NH,New Hampshire,Indigenous (NH),100.0
+2007,33,AIAN_NH,New Hampshire,Indigenous (NH),100.0
+2008,33,AIAN_NH,New Hampshire,Indigenous (NH),105.0
+2009,33,AIAN_NH,New Hampshire,Indigenous (NH),124.0
+2010,33,AIAN_NH,New Hampshire,Indigenous (NH),144.0
+2011,33,AIAN_NH,New Hampshire,Indigenous (NH),139.0
+2012,33,AIAN_NH,New Hampshire,Indigenous (NH),129.0
+2013,33,AIAN_NH,New Hampshire,Indigenous (NH),129.0
+2014,33,AIAN_NH,New Hampshire,Indigenous (NH),125.0
+2015,33,AIAN_NH,New Hampshire,Indigenous (NH),148.0
+2016,33,AIAN_NH,New Hampshire,Indigenous (NH),192.0
+2017,33,AIAN_NH,New Hampshire,Indigenous (NH),183.0
+2018,33,AIAN_NH,New Hampshire,Indigenous (NH),188.0
+2019,33,AIAN_NH,New Hampshire,Indigenous (NH),270.0
 1999,33,API_NH,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2000,33,API_NH,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",4.0
 2001,33,API_NH,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
@@ -3275,27 +3275,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,34,HISP,New Jersey,Hispanic or Latino,36.0
 2018,34,HISP,New Jersey,Hispanic or Latino,39.0
 2019,34,HISP,New Jersey,Hispanic or Latino,41.0
-1999,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),16.0
-2000,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),13.0
-2001,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),11.0
-2002,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),17.0
-2003,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),21.0
-2004,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),19.0
-2005,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),17.0
-2006,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),17.0
-2007,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),22.0
-2008,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),35.0
-2009,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),60.0
-2010,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),101.0
-2011,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),143.0
-2012,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),140.0
-2013,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),90.0
-2014,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),39.0
-2015,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),28.0
-2016,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),34.0
-2017,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),44.0
-2018,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),53.0
-2019,34,AIAN_NH,New Jersey,American Indian and Alaska Native (NH),49.0
+1999,34,AIAN_NH,New Jersey,Indigenous (NH),16.0
+2000,34,AIAN_NH,New Jersey,Indigenous (NH),13.0
+2001,34,AIAN_NH,New Jersey,Indigenous (NH),11.0
+2002,34,AIAN_NH,New Jersey,Indigenous (NH),17.0
+2003,34,AIAN_NH,New Jersey,Indigenous (NH),21.0
+2004,34,AIAN_NH,New Jersey,Indigenous (NH),19.0
+2005,34,AIAN_NH,New Jersey,Indigenous (NH),17.0
+2006,34,AIAN_NH,New Jersey,Indigenous (NH),17.0
+2007,34,AIAN_NH,New Jersey,Indigenous (NH),22.0
+2008,34,AIAN_NH,New Jersey,Indigenous (NH),35.0
+2009,34,AIAN_NH,New Jersey,Indigenous (NH),60.0
+2010,34,AIAN_NH,New Jersey,Indigenous (NH),101.0
+2011,34,AIAN_NH,New Jersey,Indigenous (NH),143.0
+2012,34,AIAN_NH,New Jersey,Indigenous (NH),140.0
+2013,34,AIAN_NH,New Jersey,Indigenous (NH),90.0
+2014,34,AIAN_NH,New Jersey,Indigenous (NH),39.0
+2015,34,AIAN_NH,New Jersey,Indigenous (NH),28.0
+2016,34,AIAN_NH,New Jersey,Indigenous (NH),34.0
+2017,34,AIAN_NH,New Jersey,Indigenous (NH),44.0
+2018,34,AIAN_NH,New Jersey,Indigenous (NH),53.0
+2019,34,AIAN_NH,New Jersey,Indigenous (NH),49.0
 1999,34,API_NH,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2000,34,API_NH,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",4.0
 2001,34,API_NH,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",4.0
@@ -3380,27 +3380,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,35,HISP,New Mexico,Hispanic or Latino,35.0
 2018,35,HISP,New Mexico,Hispanic or Latino,33.0
 2019,35,HISP,New Mexico,Hispanic or Latino,25.0
-1999,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),17.0
-2000,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),10.0
-2001,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),9.0
-2002,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),12.0
-2003,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),17.0
-2004,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),23.0
-2005,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),30.0
-2006,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),35.0
-2007,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),36.0
-2008,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),33.0
-2009,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),32.0
-2010,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),33.0
-2011,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),33.0
-2012,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),36.0
-2013,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),44.0
-2014,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),57.0
-2015,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),63.0
-2016,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),58.0
-2017,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),46.0
-2018,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),40.0
-2019,35,AIAN_NH,New Mexico,American Indian and Alaska Native (NH),35.0
+1999,35,AIAN_NH,New Mexico,Indigenous (NH),17.0
+2000,35,AIAN_NH,New Mexico,Indigenous (NH),10.0
+2001,35,AIAN_NH,New Mexico,Indigenous (NH),9.0
+2002,35,AIAN_NH,New Mexico,Indigenous (NH),12.0
+2003,35,AIAN_NH,New Mexico,Indigenous (NH),17.0
+2004,35,AIAN_NH,New Mexico,Indigenous (NH),23.0
+2005,35,AIAN_NH,New Mexico,Indigenous (NH),30.0
+2006,35,AIAN_NH,New Mexico,Indigenous (NH),35.0
+2007,35,AIAN_NH,New Mexico,Indigenous (NH),36.0
+2008,35,AIAN_NH,New Mexico,Indigenous (NH),33.0
+2009,35,AIAN_NH,New Mexico,Indigenous (NH),32.0
+2010,35,AIAN_NH,New Mexico,Indigenous (NH),33.0
+2011,35,AIAN_NH,New Mexico,Indigenous (NH),33.0
+2012,35,AIAN_NH,New Mexico,Indigenous (NH),36.0
+2013,35,AIAN_NH,New Mexico,Indigenous (NH),44.0
+2014,35,AIAN_NH,New Mexico,Indigenous (NH),57.0
+2015,35,AIAN_NH,New Mexico,Indigenous (NH),63.0
+2016,35,AIAN_NH,New Mexico,Indigenous (NH),58.0
+2017,35,AIAN_NH,New Mexico,Indigenous (NH),46.0
+2018,35,AIAN_NH,New Mexico,Indigenous (NH),40.0
+2019,35,AIAN_NH,New Mexico,Indigenous (NH),35.0
 1999,35,API_NH,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 2000,35,API_NH,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 2001,35,API_NH,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
@@ -3485,27 +3485,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,36,HISP,New York,Hispanic or Latino,19.0
 2018,36,HISP,New York,Hispanic or Latino,23.0
 2019,36,HISP,New York,Hispanic or Latino,32.0
-1999,36,AIAN_NH,New York,American Indian and Alaska Native (NH),8.0
-2000,36,AIAN_NH,New York,American Indian and Alaska Native (NH),4.0
-2001,36,AIAN_NH,New York,American Indian and Alaska Native (NH),3.0
-2002,36,AIAN_NH,New York,American Indian and Alaska Native (NH),5.0
-2003,36,AIAN_NH,New York,American Indian and Alaska Native (NH),7.0
-2004,36,AIAN_NH,New York,American Indian and Alaska Native (NH),10.0
-2005,36,AIAN_NH,New York,American Indian and Alaska Native (NH),16.0
-2006,36,AIAN_NH,New York,American Indian and Alaska Native (NH),24.0
-2007,36,AIAN_NH,New York,American Indian and Alaska Native (NH),31.0
-2008,36,AIAN_NH,New York,American Indian and Alaska Native (NH),36.0
-2009,36,AIAN_NH,New York,American Indian and Alaska Native (NH),35.0
-2010,36,AIAN_NH,New York,American Indian and Alaska Native (NH),27.0
-2011,36,AIAN_NH,New York,American Indian and Alaska Native (NH),15.0
-2012,36,AIAN_NH,New York,American Indian and Alaska Native (NH),12.0
-2013,36,AIAN_NH,New York,American Indian and Alaska Native (NH),12.0
-2014,36,AIAN_NH,New York,American Indian and Alaska Native (NH),12.0
-2015,36,AIAN_NH,New York,American Indian and Alaska Native (NH),13.0
-2016,36,AIAN_NH,New York,American Indian and Alaska Native (NH),15.0
-2017,36,AIAN_NH,New York,American Indian and Alaska Native (NH),13.0
-2018,36,AIAN_NH,New York,American Indian and Alaska Native (NH),12.0
-2019,36,AIAN_NH,New York,American Indian and Alaska Native (NH),14.0
+1999,36,AIAN_NH,New York,Indigenous (NH),8.0
+2000,36,AIAN_NH,New York,Indigenous (NH),4.0
+2001,36,AIAN_NH,New York,Indigenous (NH),3.0
+2002,36,AIAN_NH,New York,Indigenous (NH),5.0
+2003,36,AIAN_NH,New York,Indigenous (NH),7.0
+2004,36,AIAN_NH,New York,Indigenous (NH),10.0
+2005,36,AIAN_NH,New York,Indigenous (NH),16.0
+2006,36,AIAN_NH,New York,Indigenous (NH),24.0
+2007,36,AIAN_NH,New York,Indigenous (NH),31.0
+2008,36,AIAN_NH,New York,Indigenous (NH),36.0
+2009,36,AIAN_NH,New York,Indigenous (NH),35.0
+2010,36,AIAN_NH,New York,Indigenous (NH),27.0
+2011,36,AIAN_NH,New York,Indigenous (NH),15.0
+2012,36,AIAN_NH,New York,Indigenous (NH),12.0
+2013,36,AIAN_NH,New York,Indigenous (NH),12.0
+2014,36,AIAN_NH,New York,Indigenous (NH),12.0
+2015,36,AIAN_NH,New York,Indigenous (NH),13.0
+2016,36,AIAN_NH,New York,Indigenous (NH),15.0
+2017,36,AIAN_NH,New York,Indigenous (NH),13.0
+2018,36,AIAN_NH,New York,Indigenous (NH),12.0
+2019,36,AIAN_NH,New York,Indigenous (NH),14.0
 1999,36,API_NH,New York,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2000,36,API_NH,New York,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,36,API_NH,New York,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
@@ -3590,27 +3590,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,37,HISP,North Carolina,Hispanic or Latino,13.0
 2018,37,HISP,North Carolina,Hispanic or Latino,14.0
 2019,37,HISP,North Carolina,Hispanic or Latino,19.0
-1999,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),12.0
-2000,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),7.0
-2001,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),6.0
-2002,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),7.0
-2003,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),9.0
-2004,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),10.0
-2005,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),9.0
-2006,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),9.0
-2007,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),11.0
-2008,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),17.0
-2009,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),24.0
-2010,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),29.0
-2011,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),29.0
-2012,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),32.0
-2013,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),40.0
-2014,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),51.0
-2015,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),56.0
-2016,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),50.0
-2017,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),43.0
-2018,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),41.0
-2019,37,AIAN_NH,North Carolina,American Indian and Alaska Native (NH),43.0
+1999,37,AIAN_NH,North Carolina,Indigenous (NH),12.0
+2000,37,AIAN_NH,North Carolina,Indigenous (NH),7.0
+2001,37,AIAN_NH,North Carolina,Indigenous (NH),6.0
+2002,37,AIAN_NH,North Carolina,Indigenous (NH),7.0
+2003,37,AIAN_NH,North Carolina,Indigenous (NH),9.0
+2004,37,AIAN_NH,North Carolina,Indigenous (NH),10.0
+2005,37,AIAN_NH,North Carolina,Indigenous (NH),9.0
+2006,37,AIAN_NH,North Carolina,Indigenous (NH),9.0
+2007,37,AIAN_NH,North Carolina,Indigenous (NH),11.0
+2008,37,AIAN_NH,North Carolina,Indigenous (NH),17.0
+2009,37,AIAN_NH,North Carolina,Indigenous (NH),24.0
+2010,37,AIAN_NH,North Carolina,Indigenous (NH),29.0
+2011,37,AIAN_NH,North Carolina,Indigenous (NH),29.0
+2012,37,AIAN_NH,North Carolina,Indigenous (NH),32.0
+2013,37,AIAN_NH,North Carolina,Indigenous (NH),40.0
+2014,37,AIAN_NH,North Carolina,Indigenous (NH),51.0
+2015,37,AIAN_NH,North Carolina,Indigenous (NH),56.0
+2016,37,AIAN_NH,North Carolina,Indigenous (NH),50.0
+2017,37,AIAN_NH,North Carolina,Indigenous (NH),43.0
+2018,37,AIAN_NH,North Carolina,Indigenous (NH),41.0
+2019,37,AIAN_NH,North Carolina,Indigenous (NH),43.0
 1999,37,API_NH,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2000,37,API_NH,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2001,37,API_NH,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
@@ -3695,27 +3695,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,38,HISP,North Dakota,Hispanic or Latino,23.0
 2018,38,HISP,North Dakota,Hispanic or Latino,27.0
 2019,38,HISP,North Dakota,Hispanic or Latino,29.0
-1999,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),34.0
-2000,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),18.0
-2001,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),12.0
-2002,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),11.0
-2003,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),11.0
-2004,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),13.0
-2005,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),17.0
-2006,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),23.0
-2007,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),36.0
-2008,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),59.0
-2009,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),85.0
-2010,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),112.0
-2011,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),135.0
-2012,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),149.0
-2013,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),149.0
-2014,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),132.0
-2015,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),110.0
-2016,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),83.0
-2017,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),60.0
-2018,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),63.0
-2019,38,AIAN_NH,North Dakota,American Indian and Alaska Native (NH),104.0
+1999,38,AIAN_NH,North Dakota,Indigenous (NH),34.0
+2000,38,AIAN_NH,North Dakota,Indigenous (NH),18.0
+2001,38,AIAN_NH,North Dakota,Indigenous (NH),12.0
+2002,38,AIAN_NH,North Dakota,Indigenous (NH),11.0
+2003,38,AIAN_NH,North Dakota,Indigenous (NH),11.0
+2004,38,AIAN_NH,North Dakota,Indigenous (NH),13.0
+2005,38,AIAN_NH,North Dakota,Indigenous (NH),17.0
+2006,38,AIAN_NH,North Dakota,Indigenous (NH),23.0
+2007,38,AIAN_NH,North Dakota,Indigenous (NH),36.0
+2008,38,AIAN_NH,North Dakota,Indigenous (NH),59.0
+2009,38,AIAN_NH,North Dakota,Indigenous (NH),85.0
+2010,38,AIAN_NH,North Dakota,Indigenous (NH),112.0
+2011,38,AIAN_NH,North Dakota,Indigenous (NH),135.0
+2012,38,AIAN_NH,North Dakota,Indigenous (NH),149.0
+2013,38,AIAN_NH,North Dakota,Indigenous (NH),149.0
+2014,38,AIAN_NH,North Dakota,Indigenous (NH),132.0
+2015,38,AIAN_NH,North Dakota,Indigenous (NH),110.0
+2016,38,AIAN_NH,North Dakota,Indigenous (NH),83.0
+2017,38,AIAN_NH,North Dakota,Indigenous (NH),60.0
+2018,38,AIAN_NH,North Dakota,Indigenous (NH),63.0
+2019,38,AIAN_NH,North Dakota,Indigenous (NH),104.0
 1999,38,API_NH,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2000,38,API_NH,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2001,38,API_NH,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
@@ -3780,107 +3780,107 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2018,38,WHITE_NH,North Dakota,White (NH),22.0
 2019,38,WHITE_NH,North Dakota,White (NH),22.0
 1999,,HISP,Northeast Census Region,Hispanic or Latino,12.0
-1999,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),10.0
+1999,,AIAN_NH,Northeast Census Region,Indigenous (NH),10.0
 1999,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 1999,,BLACK_NH,Northeast Census Region,Black or African American (NH),29.0
 1999,,WHITE_NH,Northeast Census Region,White (NH),8.0
 2000,,HISP,Northeast Census Region,Hispanic or Latino,12.0
-2000,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),13.0
+2000,,AIAN_NH,Northeast Census Region,Indigenous (NH),13.0
 2000,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2000,,BLACK_NH,Northeast Census Region,Black or African American (NH),30.0
 2000,,WHITE_NH,Northeast Census Region,White (NH),6.0
 2001,,HISP,Northeast Census Region,Hispanic or Latino,13.0
-2001,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),13.0
+2001,,AIAN_NH,Northeast Census Region,Indigenous (NH),13.0
 2001,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,,BLACK_NH,Northeast Census Region,Black or African American (NH),34.0
 2001,,WHITE_NH,Northeast Census Region,White (NH),7.0
 2002,,HISP,Northeast Census Region,Hispanic or Latino,15.0
-2002,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),11.0
+2002,,AIAN_NH,Northeast Census Region,Indigenous (NH),11.0
 2002,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2002,,BLACK_NH,Northeast Census Region,Black or African American (NH),43.0
 2002,,WHITE_NH,Northeast Census Region,White (NH),9.0
 2003,,HISP,Northeast Census Region,Hispanic or Latino,16.0
-2003,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),10.0
+2003,,AIAN_NH,Northeast Census Region,Indigenous (NH),10.0
 2003,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2003,,BLACK_NH,Northeast Census Region,Black or African American (NH),52.0
 2003,,WHITE_NH,Northeast Census Region,White (NH),12.0
 2004,,HISP,Northeast Census Region,Hispanic or Latino,17.0
-2004,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),10.0
+2004,,AIAN_NH,Northeast Census Region,Indigenous (NH),10.0
 2004,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2004,,BLACK_NH,Northeast Census Region,Black or African American (NH),58.0
 2004,,WHITE_NH,Northeast Census Region,White (NH),15.0
 2005,,HISP,Northeast Census Region,Hispanic or Latino,16.0
-2005,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),12.0
+2005,,AIAN_NH,Northeast Census Region,Indigenous (NH),12.0
 2005,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2005,,BLACK_NH,Northeast Census Region,Black or African American (NH),61.0
 2005,,WHITE_NH,Northeast Census Region,White (NH),16.0
 2006,,HISP,Northeast Census Region,Hispanic or Latino,16.0
-2006,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),15.0
+2006,,AIAN_NH,Northeast Census Region,Indigenous (NH),15.0
 2006,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2006,,BLACK_NH,Northeast Census Region,Black or African American (NH),62.0
 2006,,WHITE_NH,Northeast Census Region,White (NH),17.0
 2007,,HISP,Northeast Census Region,Hispanic or Latino,18.0
-2007,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),17.0
+2007,,AIAN_NH,Northeast Census Region,Indigenous (NH),17.0
 2007,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",22.0
 2007,,BLACK_NH,Northeast Census Region,Black or African American (NH),64.0
 2007,,WHITE_NH,Northeast Census Region,White (NH),18.0
 2008,,HISP,Northeast Census Region,Hispanic or Latino,21.0
-2008,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),21.0
+2008,,AIAN_NH,Northeast Census Region,Indigenous (NH),21.0
 2008,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2008,,BLACK_NH,Northeast Census Region,Black or African American (NH),68.0
 2008,,WHITE_NH,Northeast Census Region,White (NH),18.0
 2009,,HISP,Northeast Census Region,Hispanic or Latino,23.0
-2009,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),24.0
+2009,,AIAN_NH,Northeast Census Region,Indigenous (NH),24.0
 2009,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2009,,BLACK_NH,Northeast Census Region,Black or African American (NH),70.0
 2009,,WHITE_NH,Northeast Census Region,White (NH),18.0
 2010,,HISP,Northeast Census Region,Hispanic or Latino,23.0
-2010,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),26.0
+2010,,AIAN_NH,Northeast Census Region,Indigenous (NH),26.0
 2010,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2010,,BLACK_NH,Northeast Census Region,Black or African American (NH),69.0
 2010,,WHITE_NH,Northeast Census Region,White (NH),19.0
 2011,,HISP,Northeast Census Region,Hispanic or Latino,22.0
-2011,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),26.0
+2011,,AIAN_NH,Northeast Census Region,Indigenous (NH),26.0
 2011,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2011,,BLACK_NH,Northeast Census Region,Black or African American (NH),66.0
 2011,,WHITE_NH,Northeast Census Region,White (NH),20.0
 2012,,HISP,Northeast Census Region,Hispanic or Latino,22.0
-2012,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),25.0
+2012,,AIAN_NH,Northeast Census Region,Indigenous (NH),25.0
 2012,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2012,,BLACK_NH,Northeast Census Region,Black or African American (NH),65.0
 2012,,WHITE_NH,Northeast Census Region,White (NH),21.0
 2013,,HISP,Northeast Census Region,Hispanic or Latino,23.0
-2013,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),25.0
+2013,,AIAN_NH,Northeast Census Region,Indigenous (NH),25.0
 2013,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2013,,BLACK_NH,Northeast Census Region,Black or African American (NH),69.0
 2013,,WHITE_NH,Northeast Census Region,White (NH),23.0
 2014,,HISP,Northeast Census Region,Hispanic or Latino,24.0
-2014,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),26.0
+2014,,AIAN_NH,Northeast Census Region,Indigenous (NH),26.0
 2014,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2014,,BLACK_NH,Northeast Census Region,Black or African American (NH),75.0
 2014,,WHITE_NH,Northeast Census Region,White (NH),25.0
 2015,,HISP,Northeast Census Region,Hispanic or Latino,24.0
-2015,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),28.0
+2015,,AIAN_NH,Northeast Census Region,Indigenous (NH),28.0
 2015,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2015,,BLACK_NH,Northeast Census Region,Black or African American (NH),76.0
 2015,,WHITE_NH,Northeast Census Region,White (NH),26.0
 2016,,HISP,Northeast Census Region,Hispanic or Latino,23.0
-2016,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),30.0
+2016,,AIAN_NH,Northeast Census Region,Indigenous (NH),30.0
 2016,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2016,,BLACK_NH,Northeast Census Region,Black or African American (NH),72.0
 2016,,WHITE_NH,Northeast Census Region,White (NH),26.0
 2017,,HISP,Northeast Census Region,Hispanic or Latino,23.0
-2017,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),31.0
+2017,,AIAN_NH,Northeast Census Region,Indigenous (NH),31.0
 2017,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2017,,BLACK_NH,Northeast Census Region,Black or African American (NH),68.0
 2017,,WHITE_NH,Northeast Census Region,White (NH),25.0
 2018,,HISP,Northeast Census Region,Hispanic or Latino,25.0
-2018,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),32.0
+2018,,AIAN_NH,Northeast Census Region,Indigenous (NH),32.0
 2018,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2018,,BLACK_NH,Northeast Census Region,Black or African American (NH),73.0
 2018,,WHITE_NH,Northeast Census Region,White (NH),25.0
 2019,,HISP,Northeast Census Region,Hispanic or Latino,30.0
-2019,,AIAN_NH,Northeast Census Region,American Indian and Alaska Native (NH),34.0
+2019,,AIAN_NH,Northeast Census Region,Indigenous (NH),34.0
 2019,,API_NH,Northeast Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2019,,BLACK_NH,Northeast Census Region,Black or African American (NH),89.0
 2019,,WHITE_NH,Northeast Census Region,White (NH),23.0
@@ -3905,27 +3905,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,39,HISP,Ohio,Hispanic or Latino,28.0
 2018,39,HISP,Ohio,Hispanic or Latino,20.0
 2019,39,HISP,Ohio,Hispanic or Latino,11.0
-1999,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),3.0
-2000,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),2.0
-2001,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),1.0
-2002,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),1.0
-2003,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),1.0
-2004,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),2.0
-2005,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),2.0
-2006,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),3.0
-2007,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),5.0
-2008,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),6.0
-2009,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),7.0
-2010,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),7.0
-2011,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),8.0
-2012,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),8.0
-2013,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),7.0
-2014,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),6.0
-2015,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),6.0
-2016,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),6.0
-2017,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),7.0
-2018,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),8.0
-2019,39,AIAN_NH,Ohio,American Indian and Alaska Native (NH),11.0
+1999,39,AIAN_NH,Ohio,Indigenous (NH),3.0
+2000,39,AIAN_NH,Ohio,Indigenous (NH),2.0
+2001,39,AIAN_NH,Ohio,Indigenous (NH),1.0
+2002,39,AIAN_NH,Ohio,Indigenous (NH),1.0
+2003,39,AIAN_NH,Ohio,Indigenous (NH),1.0
+2004,39,AIAN_NH,Ohio,Indigenous (NH),2.0
+2005,39,AIAN_NH,Ohio,Indigenous (NH),2.0
+2006,39,AIAN_NH,Ohio,Indigenous (NH),3.0
+2007,39,AIAN_NH,Ohio,Indigenous (NH),5.0
+2008,39,AIAN_NH,Ohio,Indigenous (NH),6.0
+2009,39,AIAN_NH,Ohio,Indigenous (NH),7.0
+2010,39,AIAN_NH,Ohio,Indigenous (NH),7.0
+2011,39,AIAN_NH,Ohio,Indigenous (NH),8.0
+2012,39,AIAN_NH,Ohio,Indigenous (NH),8.0
+2013,39,AIAN_NH,Ohio,Indigenous (NH),7.0
+2014,39,AIAN_NH,Ohio,Indigenous (NH),6.0
+2015,39,AIAN_NH,Ohio,Indigenous (NH),6.0
+2016,39,AIAN_NH,Ohio,Indigenous (NH),6.0
+2017,39,AIAN_NH,Ohio,Indigenous (NH),7.0
+2018,39,AIAN_NH,Ohio,Indigenous (NH),8.0
+2019,39,AIAN_NH,Ohio,Indigenous (NH),11.0
 1999,39,API_NH,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2000,39,API_NH,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2001,39,API_NH,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
@@ -4010,27 +4010,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,40,HISP,Oklahoma,Hispanic or Latino,17.0
 2018,40,HISP,Oklahoma,Hispanic or Latino,20.0
 2019,40,HISP,Oklahoma,Hispanic or Latino,30.0
-1999,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),17.0
-2000,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),14.0
-2001,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),14.0
-2002,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),16.0
-2003,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),19.0
-2004,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),22.0
-2005,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),25.0
-2006,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),28.0
-2007,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),32.0
-2008,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),38.0
-2009,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),40.0
-2010,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),38.0
-2011,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),32.0
-2012,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),30.0
-2013,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),31.0
-2014,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),35.0
-2015,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),38.0
-2016,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),43.0
-2017,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),45.0
-2018,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),42.0
-2019,40,AIAN_NH,Oklahoma,American Indian and Alaska Native (NH),32.0
+1999,40,AIAN_NH,Oklahoma,Indigenous (NH),17.0
+2000,40,AIAN_NH,Oklahoma,Indigenous (NH),14.0
+2001,40,AIAN_NH,Oklahoma,Indigenous (NH),14.0
+2002,40,AIAN_NH,Oklahoma,Indigenous (NH),16.0
+2003,40,AIAN_NH,Oklahoma,Indigenous (NH),19.0
+2004,40,AIAN_NH,Oklahoma,Indigenous (NH),22.0
+2005,40,AIAN_NH,Oklahoma,Indigenous (NH),25.0
+2006,40,AIAN_NH,Oklahoma,Indigenous (NH),28.0
+2007,40,AIAN_NH,Oklahoma,Indigenous (NH),32.0
+2008,40,AIAN_NH,Oklahoma,Indigenous (NH),38.0
+2009,40,AIAN_NH,Oklahoma,Indigenous (NH),40.0
+2010,40,AIAN_NH,Oklahoma,Indigenous (NH),38.0
+2011,40,AIAN_NH,Oklahoma,Indigenous (NH),32.0
+2012,40,AIAN_NH,Oklahoma,Indigenous (NH),30.0
+2013,40,AIAN_NH,Oklahoma,Indigenous (NH),31.0
+2014,40,AIAN_NH,Oklahoma,Indigenous (NH),35.0
+2015,40,AIAN_NH,Oklahoma,Indigenous (NH),38.0
+2016,40,AIAN_NH,Oklahoma,Indigenous (NH),43.0
+2017,40,AIAN_NH,Oklahoma,Indigenous (NH),45.0
+2018,40,AIAN_NH,Oklahoma,Indigenous (NH),42.0
+2019,40,AIAN_NH,Oklahoma,Indigenous (NH),32.0
 1999,40,API_NH,Oklahoma,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2000,40,API_NH,Oklahoma,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2001,40,API_NH,Oklahoma,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
@@ -4115,27 +4115,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,41,HISP,Oregon,Hispanic or Latino,16.0
 2018,41,HISP,Oregon,Hispanic or Latino,16.0
 2019,41,HISP,Oregon,Hispanic or Latino,14.0
-1999,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),9.0
-2000,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),15.0
-2001,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),17.0
-2002,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),15.0
-2003,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),12.0
-2004,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),11.0
-2005,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),13.0
-2006,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),14.0
-2007,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),13.0
-2008,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),11.0
-2009,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),12.0
-2010,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),17.0
-2011,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),25.0
-2012,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),29.0
-2013,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),26.0
-2014,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),21.0
-2015,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),18.0
-2016,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),17.0
-2017,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),16.0
-2018,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),18.0
-2019,41,AIAN_NH,Oregon,American Indian and Alaska Native (NH),25.0
+1999,41,AIAN_NH,Oregon,Indigenous (NH),9.0
+2000,41,AIAN_NH,Oregon,Indigenous (NH),15.0
+2001,41,AIAN_NH,Oregon,Indigenous (NH),17.0
+2002,41,AIAN_NH,Oregon,Indigenous (NH),15.0
+2003,41,AIAN_NH,Oregon,Indigenous (NH),12.0
+2004,41,AIAN_NH,Oregon,Indigenous (NH),11.0
+2005,41,AIAN_NH,Oregon,Indigenous (NH),13.0
+2006,41,AIAN_NH,Oregon,Indigenous (NH),14.0
+2007,41,AIAN_NH,Oregon,Indigenous (NH),13.0
+2008,41,AIAN_NH,Oregon,Indigenous (NH),11.0
+2009,41,AIAN_NH,Oregon,Indigenous (NH),12.0
+2010,41,AIAN_NH,Oregon,Indigenous (NH),17.0
+2011,41,AIAN_NH,Oregon,Indigenous (NH),25.0
+2012,41,AIAN_NH,Oregon,Indigenous (NH),29.0
+2013,41,AIAN_NH,Oregon,Indigenous (NH),26.0
+2014,41,AIAN_NH,Oregon,Indigenous (NH),21.0
+2015,41,AIAN_NH,Oregon,Indigenous (NH),18.0
+2016,41,AIAN_NH,Oregon,Indigenous (NH),17.0
+2017,41,AIAN_NH,Oregon,Indigenous (NH),16.0
+2018,41,AIAN_NH,Oregon,Indigenous (NH),18.0
+2019,41,AIAN_NH,Oregon,Indigenous (NH),25.0
 1999,41,API_NH,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2000,41,API_NH,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2001,41,API_NH,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
@@ -4220,27 +4220,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,42,HISP,Pennsylvania,Hispanic or Latino,17.0
 2018,42,HISP,Pennsylvania,Hispanic or Latino,18.0
 2019,42,HISP,Pennsylvania,Hispanic or Latino,25.0
-1999,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),7.0
-2000,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),4.0
-2001,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),3.0
-2002,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),6.0
-2003,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),8.0
-2004,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),9.0
-2005,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),9.0
-2006,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),8.0
-2007,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),8.0
-2008,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),9.0
-2009,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),12.0
-2010,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),18.0
-2011,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),24.0
-2012,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),36.0
-2013,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),61.0
-2014,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),90.0
-2015,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),92.0
-2016,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),57.0
-2017,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),22.0
-2018,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),15.0
-2019,42,AIAN_NH,Pennsylvania,American Indian and Alaska Native (NH),25.0
+1999,42,AIAN_NH,Pennsylvania,Indigenous (NH),7.0
+2000,42,AIAN_NH,Pennsylvania,Indigenous (NH),4.0
+2001,42,AIAN_NH,Pennsylvania,Indigenous (NH),3.0
+2002,42,AIAN_NH,Pennsylvania,Indigenous (NH),6.0
+2003,42,AIAN_NH,Pennsylvania,Indigenous (NH),8.0
+2004,42,AIAN_NH,Pennsylvania,Indigenous (NH),9.0
+2005,42,AIAN_NH,Pennsylvania,Indigenous (NH),9.0
+2006,42,AIAN_NH,Pennsylvania,Indigenous (NH),8.0
+2007,42,AIAN_NH,Pennsylvania,Indigenous (NH),8.0
+2008,42,AIAN_NH,Pennsylvania,Indigenous (NH),9.0
+2009,42,AIAN_NH,Pennsylvania,Indigenous (NH),12.0
+2010,42,AIAN_NH,Pennsylvania,Indigenous (NH),18.0
+2011,42,AIAN_NH,Pennsylvania,Indigenous (NH),24.0
+2012,42,AIAN_NH,Pennsylvania,Indigenous (NH),36.0
+2013,42,AIAN_NH,Pennsylvania,Indigenous (NH),61.0
+2014,42,AIAN_NH,Pennsylvania,Indigenous (NH),90.0
+2015,42,AIAN_NH,Pennsylvania,Indigenous (NH),92.0
+2016,42,AIAN_NH,Pennsylvania,Indigenous (NH),57.0
+2017,42,AIAN_NH,Pennsylvania,Indigenous (NH),22.0
+2018,42,AIAN_NH,Pennsylvania,Indigenous (NH),15.0
+2019,42,AIAN_NH,Pennsylvania,Indigenous (NH),25.0
 1999,42,API_NH,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2000,42,API_NH,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2001,42,API_NH,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
@@ -4325,27 +4325,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,44,HISP,Rhode Island,Hispanic or Latino,22.0
 2018,44,HISP,Rhode Island,Hispanic or Latino,21.0
 2019,44,HISP,Rhode Island,Hispanic or Latino,23.0
-1999,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2000,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),1.0
-2001,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),1.0
-2002,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2003,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2004,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2005,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2006,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2007,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),2.0
-2008,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),3.0
-2009,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),4.0
-2010,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),5.0
-2011,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),5.0
-2012,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),5.0
-2013,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),5.0
-2014,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),5.0
-2015,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),5.0
-2016,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),7.0
-2017,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),6.0
-2018,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),7.0
-2019,44,AIAN_NH,Rhode Island,American Indian and Alaska Native (NH),11.0
+1999,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2000,44,AIAN_NH,Rhode Island,Indigenous (NH),1.0
+2001,44,AIAN_NH,Rhode Island,Indigenous (NH),1.0
+2002,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2003,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2004,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2005,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2006,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2007,44,AIAN_NH,Rhode Island,Indigenous (NH),2.0
+2008,44,AIAN_NH,Rhode Island,Indigenous (NH),3.0
+2009,44,AIAN_NH,Rhode Island,Indigenous (NH),4.0
+2010,44,AIAN_NH,Rhode Island,Indigenous (NH),5.0
+2011,44,AIAN_NH,Rhode Island,Indigenous (NH),5.0
+2012,44,AIAN_NH,Rhode Island,Indigenous (NH),5.0
+2013,44,AIAN_NH,Rhode Island,Indigenous (NH),5.0
+2014,44,AIAN_NH,Rhode Island,Indigenous (NH),5.0
+2015,44,AIAN_NH,Rhode Island,Indigenous (NH),5.0
+2016,44,AIAN_NH,Rhode Island,Indigenous (NH),7.0
+2017,44,AIAN_NH,Rhode Island,Indigenous (NH),6.0
+2018,44,AIAN_NH,Rhode Island,Indigenous (NH),7.0
+2019,44,AIAN_NH,Rhode Island,Indigenous (NH),11.0
 1999,44,API_NH,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
 2000,44,API_NH,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
 2001,44,API_NH,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
@@ -4410,107 +4410,107 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2018,44,WHITE_NH,Rhode Island,White (NH),20.0
 2019,44,WHITE_NH,Rhode Island,White (NH),26.0
 1999,,HISP,South Census Region,Hispanic or Latino,10.0
-1999,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),15.0
+1999,,AIAN_NH,South Census Region,Indigenous (NH),15.0
 1999,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 1999,,BLACK_NH,South Census Region,Black or African American (NH),34.0
 1999,,WHITE_NH,South Census Region,White (NH),10.0
 2000,,HISP,South Census Region,Hispanic or Latino,10.0
-2000,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),11.0
+2000,,AIAN_NH,South Census Region,Indigenous (NH),11.0
 2000,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2000,,BLACK_NH,South Census Region,Black or African American (NH),31.0
 2000,,WHITE_NH,South Census Region,White (NH),10.0
 2001,,HISP,South Census Region,Hispanic or Latino,10.0
-2001,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),11.0
+2001,,AIAN_NH,South Census Region,Indigenous (NH),11.0
 2001,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2001,,BLACK_NH,South Census Region,Black or African American (NH),31.0
 2001,,WHITE_NH,South Census Region,White (NH),10.0
 2002,,HISP,South Census Region,Hispanic or Latino,10.0
-2002,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),13.0
+2002,,AIAN_NH,South Census Region,Indigenous (NH),13.0
 2002,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2002,,BLACK_NH,South Census Region,Black or African American (NH),36.0
 2002,,WHITE_NH,South Census Region,White (NH),12.0
 2003,,HISP,South Census Region,Hispanic or Latino,10.0
-2003,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),17.0
+2003,,AIAN_NH,South Census Region,Indigenous (NH),17.0
 2003,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2003,,BLACK_NH,South Census Region,Black or African American (NH),40.0
 2003,,WHITE_NH,South Census Region,White (NH),13.0
 2004,,HISP,South Census Region,Hispanic or Latino,11.0
-2004,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),19.0
+2004,,AIAN_NH,South Census Region,Indigenous (NH),19.0
 2004,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2004,,BLACK_NH,South Census Region,Black or African American (NH),43.0
 2004,,WHITE_NH,South Census Region,White (NH),15.0
 2005,,HISP,South Census Region,Hispanic or Latino,12.0
-2005,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),20.0
+2005,,AIAN_NH,South Census Region,Indigenous (NH),20.0
 2005,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2005,,BLACK_NH,South Census Region,Black or African American (NH),44.0
 2005,,WHITE_NH,South Census Region,White (NH),16.0
 2006,,HISP,South Census Region,Hispanic or Latino,13.0
-2006,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),22.0
+2006,,AIAN_NH,South Census Region,Indigenous (NH),22.0
 2006,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2006,,BLACK_NH,South Census Region,Black or African American (NH),44.0
 2006,,WHITE_NH,South Census Region,White (NH),17.0
 2007,,HISP,South Census Region,Hispanic or Latino,14.0
-2007,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),25.0
+2007,,AIAN_NH,South Census Region,Indigenous (NH),25.0
 2007,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2007,,BLACK_NH,South Census Region,Black or African American (NH),43.0
 2007,,WHITE_NH,South Census Region,White (NH),19.0
 2008,,HISP,South Census Region,Hispanic or Latino,15.0
-2008,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),31.0
+2008,,AIAN_NH,South Census Region,Indigenous (NH),31.0
 2008,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2008,,BLACK_NH,South Census Region,Black or African American (NH),43.0
 2008,,WHITE_NH,South Census Region,White (NH),20.0
 2009,,HISP,South Census Region,Hispanic or Latino,17.0
-2009,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),35.0
+2009,,AIAN_NH,South Census Region,Indigenous (NH),35.0
 2009,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2009,,BLACK_NH,South Census Region,Black or African American (NH),46.0
 2009,,WHITE_NH,South Census Region,White (NH),22.0
 2010,,HISP,South Census Region,Hispanic or Latino,18.0
-2010,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),36.0
+2010,,AIAN_NH,South Census Region,Indigenous (NH),36.0
 2010,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2010,,BLACK_NH,South Census Region,Black or African American (NH),51.0
 2010,,WHITE_NH,South Census Region,White (NH),25.0
 2011,,HISP,South Census Region,Hispanic or Latino,19.0
-2011,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),32.0
+2011,,AIAN_NH,South Census Region,Indigenous (NH),32.0
 2011,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2011,,BLACK_NH,South Census Region,Black or African American (NH),58.0
 2011,,WHITE_NH,South Census Region,White (NH),27.0
 2012,,HISP,South Census Region,Hispanic or Latino,20.0
-2012,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),32.0
+2012,,AIAN_NH,South Census Region,Indigenous (NH),32.0
 2012,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2012,,BLACK_NH,South Census Region,Black or African American (NH),64.0
 2012,,WHITE_NH,South Census Region,White (NH),29.0
 2013,,HISP,South Census Region,Hispanic or Latino,22.0
-2013,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),34.0
+2013,,AIAN_NH,South Census Region,Indigenous (NH),34.0
 2013,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2013,,BLACK_NH,South Census Region,Black or African American (NH),70.0
 2013,,WHITE_NH,South Census Region,White (NH),32.0
 2014,,HISP,South Census Region,Hispanic or Latino,25.0
-2014,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),38.0
+2014,,AIAN_NH,South Census Region,Indigenous (NH),38.0
 2014,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2014,,BLACK_NH,South Census Region,Black or African American (NH),75.0
 2014,,WHITE_NH,South Census Region,White (NH),36.0
 2015,,HISP,South Census Region,Hispanic or Latino,25.0
-2015,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),43.0
+2015,,AIAN_NH,South Census Region,Indigenous (NH),43.0
 2015,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2015,,BLACK_NH,South Census Region,Black or African American (NH),78.0
 2015,,WHITE_NH,South Census Region,White (NH),38.0
 2016,,HISP,South Census Region,Hispanic or Latino,24.0
-2016,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),46.0
+2016,,AIAN_NH,South Census Region,Indigenous (NH),46.0
 2016,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",23.0
 2016,,BLACK_NH,South Census Region,Black or African American (NH),76.0
 2016,,WHITE_NH,South Census Region,White (NH),38.0
 2017,,HISP,South Census Region,Hispanic or Latino,23.0
-2017,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),46.0
+2017,,AIAN_NH,South Census Region,Indigenous (NH),46.0
 2017,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",25.0
 2017,,BLACK_NH,South Census Region,Black or African American (NH),73.0
 2017,,WHITE_NH,South Census Region,White (NH),37.0
 2018,,HISP,South Census Region,Hispanic or Latino,22.0
-2018,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),42.0
+2018,,AIAN_NH,South Census Region,Indigenous (NH),42.0
 2018,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",26.0
 2018,,BLACK_NH,South Census Region,Black or African American (NH),72.0
 2018,,WHITE_NH,South Census Region,White (NH),36.0
 2019,,HISP,South Census Region,Hispanic or Latino,21.0
-2019,,AIAN_NH,South Census Region,American Indian and Alaska Native (NH),34.0
+2019,,AIAN_NH,South Census Region,Indigenous (NH),34.0
 2019,,API_NH,South Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",25.0
 2019,,BLACK_NH,South Census Region,Black or African American (NH),74.0
 2019,,WHITE_NH,South Census Region,White (NH),33.0
@@ -4535,27 +4535,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,45,HISP,South Carolina,Hispanic or Latino,16.0
 2018,45,HISP,South Carolina,Hispanic or Latino,16.0
 2019,45,HISP,South Carolina,Hispanic or Latino,16.0
-1999,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),15.0
-2000,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),11.0
-2001,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),10.0
-2002,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),14.0
-2003,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),17.0
-2004,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),18.0
-2005,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),17.0
-2006,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),17.0
-2007,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),20.0
-2008,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),27.0
-2009,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),32.0
-2010,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),34.0
-2011,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),33.0
-2012,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),33.0
-2013,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),35.0
-2014,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),37.0
-2015,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),43.0
-2016,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),55.0
-2017,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),72.0
-2018,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),74.0
-2019,45,AIAN_NH,South Carolina,American Indian and Alaska Native (NH),57.0
+1999,45,AIAN_NH,South Carolina,Indigenous (NH),15.0
+2000,45,AIAN_NH,South Carolina,Indigenous (NH),11.0
+2001,45,AIAN_NH,South Carolina,Indigenous (NH),10.0
+2002,45,AIAN_NH,South Carolina,Indigenous (NH),14.0
+2003,45,AIAN_NH,South Carolina,Indigenous (NH),17.0
+2004,45,AIAN_NH,South Carolina,Indigenous (NH),18.0
+2005,45,AIAN_NH,South Carolina,Indigenous (NH),17.0
+2006,45,AIAN_NH,South Carolina,Indigenous (NH),17.0
+2007,45,AIAN_NH,South Carolina,Indigenous (NH),20.0
+2008,45,AIAN_NH,South Carolina,Indigenous (NH),27.0
+2009,45,AIAN_NH,South Carolina,Indigenous (NH),32.0
+2010,45,AIAN_NH,South Carolina,Indigenous (NH),34.0
+2011,45,AIAN_NH,South Carolina,Indigenous (NH),33.0
+2012,45,AIAN_NH,South Carolina,Indigenous (NH),33.0
+2013,45,AIAN_NH,South Carolina,Indigenous (NH),35.0
+2014,45,AIAN_NH,South Carolina,Indigenous (NH),37.0
+2015,45,AIAN_NH,South Carolina,Indigenous (NH),43.0
+2016,45,AIAN_NH,South Carolina,Indigenous (NH),55.0
+2017,45,AIAN_NH,South Carolina,Indigenous (NH),72.0
+2018,45,AIAN_NH,South Carolina,Indigenous (NH),74.0
+2019,45,AIAN_NH,South Carolina,Indigenous (NH),57.0
 1999,45,API_NH,South Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2000,45,API_NH,South Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2001,45,API_NH,South Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",25.0
@@ -4640,27 +4640,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,46,HISP,South Dakota,Hispanic or Latino,40.0
 2018,46,HISP,South Dakota,Hispanic or Latino,35.0
 2019,46,HISP,South Dakota,Hispanic or Latino,25.0
-1999,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),25.0
-2000,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),26.0
-2001,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),21.0
-2002,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),15.0
-2003,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),13.0
-2004,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),14.0
-2005,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),23.0
-2006,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),33.0
-2007,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),43.0
-2008,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),49.0
-2009,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),58.0
-2010,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),72.0
-2011,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),88.0
-2012,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),81.0
-2013,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),54.0
-2014,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),32.0
-2015,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),30.0
-2016,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),46.0
-2017,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),79.0
-2018,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),110.0
-2019,46,AIAN_NH,South Dakota,American Indian and Alaska Native (NH),130.0
+1999,46,AIAN_NH,South Dakota,Indigenous (NH),25.0
+2000,46,AIAN_NH,South Dakota,Indigenous (NH),26.0
+2001,46,AIAN_NH,South Dakota,Indigenous (NH),21.0
+2002,46,AIAN_NH,South Dakota,Indigenous (NH),15.0
+2003,46,AIAN_NH,South Dakota,Indigenous (NH),13.0
+2004,46,AIAN_NH,South Dakota,Indigenous (NH),14.0
+2005,46,AIAN_NH,South Dakota,Indigenous (NH),23.0
+2006,46,AIAN_NH,South Dakota,Indigenous (NH),33.0
+2007,46,AIAN_NH,South Dakota,Indigenous (NH),43.0
+2008,46,AIAN_NH,South Dakota,Indigenous (NH),49.0
+2009,46,AIAN_NH,South Dakota,Indigenous (NH),58.0
+2010,46,AIAN_NH,South Dakota,Indigenous (NH),72.0
+2011,46,AIAN_NH,South Dakota,Indigenous (NH),88.0
+2012,46,AIAN_NH,South Dakota,Indigenous (NH),81.0
+2013,46,AIAN_NH,South Dakota,Indigenous (NH),54.0
+2014,46,AIAN_NH,South Dakota,Indigenous (NH),32.0
+2015,46,AIAN_NH,South Dakota,Indigenous (NH),30.0
+2016,46,AIAN_NH,South Dakota,Indigenous (NH),46.0
+2017,46,AIAN_NH,South Dakota,Indigenous (NH),79.0
+2018,46,AIAN_NH,South Dakota,Indigenous (NH),110.0
+2019,46,AIAN_NH,South Dakota,Indigenous (NH),130.0
 1999,46,API_NH,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0
 2000,46,API_NH,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2001,46,API_NH,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
@@ -4745,27 +4745,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,47,HISP,Tennessee,Hispanic or Latino,26.0
 2018,47,HISP,Tennessee,Hispanic or Latino,28.0
 2019,47,HISP,Tennessee,Hispanic or Latino,32.0
-1999,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),33.0
-2000,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),21.0
-2001,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),18.0
-2002,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),22.0
-2003,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),29.0
-2004,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),37.0
-2005,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),40.0
-2006,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),47.0
-2007,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),64.0
-2008,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),100.0
-2009,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),131.0
-2010,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),133.0
-2011,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),112.0
-2012,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),104.0
-2013,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),113.0
-2014,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),132.0
-2015,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),137.0
-2016,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),128.0
-2017,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),113.0
-2018,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),102.0
-2019,47,AIAN_NH,Tennessee,American Indian and Alaska Native (NH),87.0
+1999,47,AIAN_NH,Tennessee,Indigenous (NH),33.0
+2000,47,AIAN_NH,Tennessee,Indigenous (NH),21.0
+2001,47,AIAN_NH,Tennessee,Indigenous (NH),18.0
+2002,47,AIAN_NH,Tennessee,Indigenous (NH),22.0
+2003,47,AIAN_NH,Tennessee,Indigenous (NH),29.0
+2004,47,AIAN_NH,Tennessee,Indigenous (NH),37.0
+2005,47,AIAN_NH,Tennessee,Indigenous (NH),40.0
+2006,47,AIAN_NH,Tennessee,Indigenous (NH),47.0
+2007,47,AIAN_NH,Tennessee,Indigenous (NH),64.0
+2008,47,AIAN_NH,Tennessee,Indigenous (NH),100.0
+2009,47,AIAN_NH,Tennessee,Indigenous (NH),131.0
+2010,47,AIAN_NH,Tennessee,Indigenous (NH),133.0
+2011,47,AIAN_NH,Tennessee,Indigenous (NH),112.0
+2012,47,AIAN_NH,Tennessee,Indigenous (NH),104.0
+2013,47,AIAN_NH,Tennessee,Indigenous (NH),113.0
+2014,47,AIAN_NH,Tennessee,Indigenous (NH),132.0
+2015,47,AIAN_NH,Tennessee,Indigenous (NH),137.0
+2016,47,AIAN_NH,Tennessee,Indigenous (NH),128.0
+2017,47,AIAN_NH,Tennessee,Indigenous (NH),113.0
+2018,47,AIAN_NH,Tennessee,Indigenous (NH),102.0
+2019,47,AIAN_NH,Tennessee,Indigenous (NH),87.0
 1999,47,API_NH,Tennessee,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2000,47,API_NH,Tennessee,"Asian, Native Hawaiian, and Pacific Islander (NH)",31.0
 2001,47,API_NH,Tennessee,"Asian, Native Hawaiian, and Pacific Islander (NH)",39.0
@@ -4850,27 +4850,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,48,HISP,Texas,Hispanic or Latino,28.0
 2018,48,HISP,Texas,Hispanic or Latino,26.0
 2019,48,HISP,Texas,Hispanic or Latino,22.0
-1999,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),14.0
-2000,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),11.0
-2001,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),12.0
-2002,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),18.0
-2003,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),27.0
-2004,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),34.0
-2005,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),33.0
-2006,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),31.0
-2007,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),32.0
-2008,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),36.0
-2009,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),38.0
-2010,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),39.0
-2011,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),37.0
-2012,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),34.0
-2013,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),29.0
-2014,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),25.0
-2015,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),23.0
-2016,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),22.0
-2017,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),24.0
-2018,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),25.0
-2019,48,AIAN_NH,Texas,American Indian and Alaska Native (NH),24.0
+1999,48,AIAN_NH,Texas,Indigenous (NH),14.0
+2000,48,AIAN_NH,Texas,Indigenous (NH),11.0
+2001,48,AIAN_NH,Texas,Indigenous (NH),12.0
+2002,48,AIAN_NH,Texas,Indigenous (NH),18.0
+2003,48,AIAN_NH,Texas,Indigenous (NH),27.0
+2004,48,AIAN_NH,Texas,Indigenous (NH),34.0
+2005,48,AIAN_NH,Texas,Indigenous (NH),33.0
+2006,48,AIAN_NH,Texas,Indigenous (NH),31.0
+2007,48,AIAN_NH,Texas,Indigenous (NH),32.0
+2008,48,AIAN_NH,Texas,Indigenous (NH),36.0
+2009,48,AIAN_NH,Texas,Indigenous (NH),38.0
+2010,48,AIAN_NH,Texas,Indigenous (NH),39.0
+2011,48,AIAN_NH,Texas,Indigenous (NH),37.0
+2012,48,AIAN_NH,Texas,Indigenous (NH),34.0
+2013,48,AIAN_NH,Texas,Indigenous (NH),29.0
+2014,48,AIAN_NH,Texas,Indigenous (NH),25.0
+2015,48,AIAN_NH,Texas,Indigenous (NH),23.0
+2016,48,AIAN_NH,Texas,Indigenous (NH),22.0
+2017,48,AIAN_NH,Texas,Indigenous (NH),24.0
+2018,48,AIAN_NH,Texas,Indigenous (NH),25.0
+2019,48,AIAN_NH,Texas,Indigenous (NH),24.0
 1999,48,API_NH,Texas,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2000,48,API_NH,Texas,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2001,48,API_NH,Texas,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
@@ -4955,27 +4955,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,49,HISP,Utah,Hispanic or Latino,24.0
 2018,49,HISP,Utah,Hispanic or Latino,21.0
 2019,49,HISP,Utah,Hispanic or Latino,18.0
-1999,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),30.0
-2000,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),19.0
-2001,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),18.0
-2002,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),25.0
-2003,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),36.0
-2004,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),46.0
-2005,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),55.0
-2006,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),57.0
-2007,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),52.0
-2008,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),44.0
-2009,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),43.0
-2010,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),49.0
-2011,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),56.0
-2012,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),53.0
-2013,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),47.0
-2014,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),41.0
-2015,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),42.0
-2016,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),50.0
-2017,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),66.0
-2018,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),119.0
-2019,49,AIAN_NH,Utah,American Indian and Alaska Native (NH),301.0
+1999,49,AIAN_NH,Utah,Indigenous (NH),30.0
+2000,49,AIAN_NH,Utah,Indigenous (NH),19.0
+2001,49,AIAN_NH,Utah,Indigenous (NH),18.0
+2002,49,AIAN_NH,Utah,Indigenous (NH),25.0
+2003,49,AIAN_NH,Utah,Indigenous (NH),36.0
+2004,49,AIAN_NH,Utah,Indigenous (NH),46.0
+2005,49,AIAN_NH,Utah,Indigenous (NH),55.0
+2006,49,AIAN_NH,Utah,Indigenous (NH),57.0
+2007,49,AIAN_NH,Utah,Indigenous (NH),52.0
+2008,49,AIAN_NH,Utah,Indigenous (NH),44.0
+2009,49,AIAN_NH,Utah,Indigenous (NH),43.0
+2010,49,AIAN_NH,Utah,Indigenous (NH),49.0
+2011,49,AIAN_NH,Utah,Indigenous (NH),56.0
+2012,49,AIAN_NH,Utah,Indigenous (NH),53.0
+2013,49,AIAN_NH,Utah,Indigenous (NH),47.0
+2014,49,AIAN_NH,Utah,Indigenous (NH),41.0
+2015,49,AIAN_NH,Utah,Indigenous (NH),42.0
+2016,49,AIAN_NH,Utah,Indigenous (NH),50.0
+2017,49,AIAN_NH,Utah,Indigenous (NH),66.0
+2018,49,AIAN_NH,Utah,Indigenous (NH),119.0
+2019,49,AIAN_NH,Utah,Indigenous (NH),301.0
 1999,49,API_NH,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2000,49,API_NH,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2001,49,API_NH,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
@@ -5060,27 +5060,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,50,HISP,Vermont,Hispanic or Latino,5.0
 2018,50,HISP,Vermont,Hispanic or Latino,6.0
 2019,50,HISP,Vermont,Hispanic or Latino,7.0
-1999,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2000,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),2.0
-2001,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),3.0
-2002,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),6.0
-2003,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),6.0
-2004,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),5.0
-2005,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2006,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2007,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),5.0
-2008,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),5.0
-2009,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2010,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2011,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2012,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2013,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2014,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2015,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),3.0
-2016,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),3.0
-2017,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),3.0
-2018,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),4.0
-2019,50,AIAN_NH,Vermont,American Indian and Alaska Native (NH),5.0
+1999,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2000,50,AIAN_NH,Vermont,Indigenous (NH),2.0
+2001,50,AIAN_NH,Vermont,Indigenous (NH),3.0
+2002,50,AIAN_NH,Vermont,Indigenous (NH),6.0
+2003,50,AIAN_NH,Vermont,Indigenous (NH),6.0
+2004,50,AIAN_NH,Vermont,Indigenous (NH),5.0
+2005,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2006,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2007,50,AIAN_NH,Vermont,Indigenous (NH),5.0
+2008,50,AIAN_NH,Vermont,Indigenous (NH),5.0
+2009,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2010,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2011,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2012,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2013,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2014,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2015,50,AIAN_NH,Vermont,Indigenous (NH),3.0
+2016,50,AIAN_NH,Vermont,Indigenous (NH),3.0
+2017,50,AIAN_NH,Vermont,Indigenous (NH),3.0
+2018,50,AIAN_NH,Vermont,Indigenous (NH),4.0
+2019,50,AIAN_NH,Vermont,Indigenous (NH),5.0
 1999,50,API_NH,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",30.0
 2000,50,API_NH,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2001,50,API_NH,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
@@ -5165,27 +5165,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,51,HISP,Virginia,Hispanic or Latino,15.0
 2018,51,HISP,Virginia,Hispanic or Latino,17.0
 2019,51,HISP,Virginia,Hispanic or Latino,24.0
-1999,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),19.0
-2000,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),19.0
-2001,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),16.0
-2002,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),17.0
-2003,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),20.0
-2004,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),23.0
-2005,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),22.0
-2006,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),21.0
-2007,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),23.0
-2008,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),29.0
-2009,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),37.0
-2010,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),41.0
-2011,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),37.0
-2012,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),31.0
-2013,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),29.0
-2014,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),31.0
-2015,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),41.0
-2016,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),57.0
-2017,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),67.0
-2018,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),60.0
-2019,51,AIAN_NH,Virginia,American Indian and Alaska Native (NH),49.0
+1999,51,AIAN_NH,Virginia,Indigenous (NH),19.0
+2000,51,AIAN_NH,Virginia,Indigenous (NH),19.0
+2001,51,AIAN_NH,Virginia,Indigenous (NH),16.0
+2002,51,AIAN_NH,Virginia,Indigenous (NH),17.0
+2003,51,AIAN_NH,Virginia,Indigenous (NH),20.0
+2004,51,AIAN_NH,Virginia,Indigenous (NH),23.0
+2005,51,AIAN_NH,Virginia,Indigenous (NH),22.0
+2006,51,AIAN_NH,Virginia,Indigenous (NH),21.0
+2007,51,AIAN_NH,Virginia,Indigenous (NH),23.0
+2008,51,AIAN_NH,Virginia,Indigenous (NH),29.0
+2009,51,AIAN_NH,Virginia,Indigenous (NH),37.0
+2010,51,AIAN_NH,Virginia,Indigenous (NH),41.0
+2011,51,AIAN_NH,Virginia,Indigenous (NH),37.0
+2012,51,AIAN_NH,Virginia,Indigenous (NH),31.0
+2013,51,AIAN_NH,Virginia,Indigenous (NH),29.0
+2014,51,AIAN_NH,Virginia,Indigenous (NH),31.0
+2015,51,AIAN_NH,Virginia,Indigenous (NH),41.0
+2016,51,AIAN_NH,Virginia,Indigenous (NH),57.0
+2017,51,AIAN_NH,Virginia,Indigenous (NH),67.0
+2018,51,AIAN_NH,Virginia,Indigenous (NH),60.0
+2019,51,AIAN_NH,Virginia,Indigenous (NH),49.0
 1999,51,API_NH,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",6.0
 2000,51,API_NH,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2001,51,API_NH,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
@@ -5270,27 +5270,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,53,HISP,Washington,Hispanic or Latino,23.0
 2018,53,HISP,Washington,Hispanic or Latino,22.0
 2019,53,HISP,Washington,Hispanic or Latino,20.0
-1999,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),26.0
-2000,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),32.0
-2001,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),35.0
-2002,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),35.0
-2003,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),36.0
-2004,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),41.0
-2005,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),55.0
-2006,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),61.0
-2007,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),53.0
-2008,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),37.0
-2009,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),32.0
-2010,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),35.0
-2011,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),45.0
-2012,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),51.0
-2013,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),51.0
-2014,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),47.0
-2015,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),47.0
-2016,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),50.0
-2017,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),59.0
-2018,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),94.0
-2019,53,AIAN_NH,Washington,American Indian and Alaska Native (NH),194.0
+1999,53,AIAN_NH,Washington,Indigenous (NH),26.0
+2000,53,AIAN_NH,Washington,Indigenous (NH),32.0
+2001,53,AIAN_NH,Washington,Indigenous (NH),35.0
+2002,53,AIAN_NH,Washington,Indigenous (NH),35.0
+2003,53,AIAN_NH,Washington,Indigenous (NH),36.0
+2004,53,AIAN_NH,Washington,Indigenous (NH),41.0
+2005,53,AIAN_NH,Washington,Indigenous (NH),55.0
+2006,53,AIAN_NH,Washington,Indigenous (NH),61.0
+2007,53,AIAN_NH,Washington,Indigenous (NH),53.0
+2008,53,AIAN_NH,Washington,Indigenous (NH),37.0
+2009,53,AIAN_NH,Washington,Indigenous (NH),32.0
+2010,53,AIAN_NH,Washington,Indigenous (NH),35.0
+2011,53,AIAN_NH,Washington,Indigenous (NH),45.0
+2012,53,AIAN_NH,Washington,Indigenous (NH),51.0
+2013,53,AIAN_NH,Washington,Indigenous (NH),51.0
+2014,53,AIAN_NH,Washington,Indigenous (NH),47.0
+2015,53,AIAN_NH,Washington,Indigenous (NH),47.0
+2016,53,AIAN_NH,Washington,Indigenous (NH),50.0
+2017,53,AIAN_NH,Washington,Indigenous (NH),59.0
+2018,53,AIAN_NH,Washington,Indigenous (NH),94.0
+2019,53,AIAN_NH,Washington,Indigenous (NH),194.0
 1999,53,API_NH,Washington,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0
 2000,53,API_NH,Washington,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2001,53,API_NH,Washington,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
@@ -5355,107 +5355,107 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2018,53,WHITE_NH,Washington,White (NH),26.0
 2019,53,WHITE_NH,Washington,White (NH),32.0
 1999,,HISP,West Census Region,Hispanic or Latino,9.0
-1999,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),22.0
+1999,,AIAN_NH,West Census Region,Indigenous (NH),22.0
 1999,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 1999,,BLACK_NH,West Census Region,Black or African American (NH),29.0
 1999,,WHITE_NH,West Census Region,White (NH),8.0
 2000,,HISP,West Census Region,Hispanic or Latino,9.0
-2000,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),16.0
+2000,,AIAN_NH,West Census Region,Indigenous (NH),16.0
 2000,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2000,,BLACK_NH,West Census Region,Black or African American (NH),25.0
 2000,,WHITE_NH,West Census Region,White (NH),8.0
 2001,,HISP,West Census Region,Hispanic or Latino,11.0
-2001,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),14.0
+2001,,AIAN_NH,West Census Region,Indigenous (NH),14.0
 2001,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2001,,BLACK_NH,West Census Region,Black or African American (NH),27.0
 2001,,WHITE_NH,West Census Region,White (NH),10.0
 2002,,HISP,West Census Region,Hispanic or Latino,12.0
-2002,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),16.0
+2002,,AIAN_NH,West Census Region,Indigenous (NH),16.0
 2002,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",11.0
 2002,,BLACK_NH,West Census Region,Black or African American (NH),36.0
 2002,,WHITE_NH,West Census Region,White (NH),13.0
 2003,,HISP,West Census Region,Hispanic or Latino,14.0
-2003,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),19.0
+2003,,AIAN_NH,West Census Region,Indigenous (NH),19.0
 2003,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2003,,BLACK_NH,West Census Region,Black or African American (NH),48.0
 2003,,WHITE_NH,West Census Region,White (NH),17.0
 2004,,HISP,West Census Region,Hispanic or Latino,15.0
-2004,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),25.0
+2004,,AIAN_NH,West Census Region,Indigenous (NH),25.0
 2004,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2004,,BLACK_NH,West Census Region,Black or African American (NH),55.0
 2004,,WHITE_NH,West Census Region,White (NH),19.0
 2005,,HISP,West Census Region,Hispanic or Latino,16.0
-2005,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),35.0
+2005,,AIAN_NH,West Census Region,Indigenous (NH),35.0
 2005,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2005,,BLACK_NH,West Census Region,Black or African American (NH),57.0
 2005,,WHITE_NH,West Census Region,White (NH),20.0
 2006,,HISP,West Census Region,Hispanic or Latino,17.0
-2006,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),41.0
+2006,,AIAN_NH,West Census Region,Indigenous (NH),41.0
 2006,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2006,,BLACK_NH,West Census Region,Black or African American (NH),54.0
 2006,,WHITE_NH,West Census Region,White (NH),19.0
 2007,,HISP,West Census Region,Hispanic or Latino,17.0
-2007,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),40.0
+2007,,AIAN_NH,West Census Region,Indigenous (NH),40.0
 2007,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2007,,BLACK_NH,West Census Region,Black or African American (NH),50.0
 2007,,WHITE_NH,West Census Region,White (NH),18.0
 2008,,HISP,West Census Region,Hispanic or Latino,17.0
-2008,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),34.0
+2008,,AIAN_NH,West Census Region,Indigenous (NH),34.0
 2008,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2008,,BLACK_NH,West Census Region,Black or African American (NH),45.0
 2008,,WHITE_NH,West Census Region,White (NH),16.0
 2009,,HISP,West Census Region,Hispanic or Latino,17.0
-2009,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),32.0
+2009,,AIAN_NH,West Census Region,Indigenous (NH),32.0
 2009,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2009,,BLACK_NH,West Census Region,Black or African American (NH),43.0
 2009,,WHITE_NH,West Census Region,White (NH),15.0
 2010,,HISP,West Census Region,Hispanic or Latino,17.0
-2010,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),36.0
+2010,,AIAN_NH,West Census Region,Indigenous (NH),36.0
 2010,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2010,,BLACK_NH,West Census Region,Black or African American (NH),44.0
 2010,,WHITE_NH,West Census Region,White (NH),16.0
 2011,,HISP,West Census Region,Hispanic or Latino,15.0
-2011,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),46.0
+2011,,AIAN_NH,West Census Region,Indigenous (NH),46.0
 2011,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2011,,BLACK_NH,West Census Region,Black or African American (NH),46.0
 2011,,WHITE_NH,West Census Region,White (NH),18.0
 2012,,HISP,West Census Region,Hispanic or Latino,14.0
-2012,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),54.0
+2012,,AIAN_NH,West Census Region,Indigenous (NH),54.0
 2012,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2012,,BLACK_NH,West Census Region,Black or African American (NH),48.0
 2012,,WHITE_NH,West Census Region,White (NH),19.0
 2013,,HISP,West Census Region,Hispanic or Latino,15.0
-2013,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),57.0
+2013,,AIAN_NH,West Census Region,Indigenous (NH),57.0
 2013,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2013,,BLACK_NH,West Census Region,Black or African American (NH),48.0
 2013,,WHITE_NH,West Census Region,White (NH),21.0
 2014,,HISP,West Census Region,Hispanic or Latino,16.0
-2014,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),58.0
+2014,,AIAN_NH,West Census Region,Indigenous (NH),58.0
 2014,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",17.0
 2014,,BLACK_NH,West Census Region,Black or African American (NH),50.0
 2014,,WHITE_NH,West Census Region,White (NH),22.0
 2015,,HISP,West Census Region,Hispanic or Latino,17.0
-2015,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),56.0
+2015,,AIAN_NH,West Census Region,Indigenous (NH),56.0
 2015,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2015,,BLACK_NH,West Census Region,Black or African American (NH),52.0
 2015,,WHITE_NH,West Census Region,White (NH),23.0
 2016,,HISP,West Census Region,Hispanic or Latino,19.0
-2016,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),52.0
+2016,,AIAN_NH,West Census Region,Indigenous (NH),52.0
 2016,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2016,,BLACK_NH,West Census Region,Black or African American (NH),55.0
 2016,,WHITE_NH,West Census Region,White (NH),22.0
 2017,,HISP,West Census Region,Hispanic or Latino,21.0
-2017,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),50.0
+2017,,AIAN_NH,West Census Region,Indigenous (NH),50.0
 2017,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0
 2017,,BLACK_NH,West Census Region,Black or African American (NH),58.0
 2017,,WHITE_NH,West Census Region,White (NH),22.0
 2018,,HISP,West Census Region,Hispanic or Latino,21.0
-2018,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),59.0
+2018,,AIAN_NH,West Census Region,Indigenous (NH),59.0
 2018,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2018,,BLACK_NH,West Census Region,Black or African American (NH),57.0
 2018,,WHITE_NH,West Census Region,White (NH),22.0
 2019,,HISP,West Census Region,Hispanic or Latino,18.0
-2019,,AIAN_NH,West Census Region,American Indian and Alaska Native (NH),83.0
+2019,,AIAN_NH,West Census Region,Indigenous (NH),83.0
 2019,,API_NH,West Census Region,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0
 2019,,BLACK_NH,West Census Region,Black or African American (NH),52.0
 2019,,WHITE_NH,West Census Region,White (NH),23.0
@@ -5480,27 +5480,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,54,HISP,West Virginia,Hispanic or Latino,5.0
 2018,54,HISP,West Virginia,Hispanic or Latino,5.0
 2019,54,HISP,West Virginia,Hispanic or Latino,6.0
-1999,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),7.0
-2000,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),6.0
-2001,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),5.0
-2002,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),5.0
-2003,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),6.0
-2004,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),8.0
-2005,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),8.0
-2006,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),8.0
-2007,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),8.0
-2008,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),10.0
-2009,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2010,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2011,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2012,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2013,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2014,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2015,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2016,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2017,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),11.0
-2018,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),13.0
-2019,54,AIAN_NH,West Virginia,American Indian and Alaska Native (NH),20.0
+1999,54,AIAN_NH,West Virginia,Indigenous (NH),7.0
+2000,54,AIAN_NH,West Virginia,Indigenous (NH),6.0
+2001,54,AIAN_NH,West Virginia,Indigenous (NH),5.0
+2002,54,AIAN_NH,West Virginia,Indigenous (NH),5.0
+2003,54,AIAN_NH,West Virginia,Indigenous (NH),6.0
+2004,54,AIAN_NH,West Virginia,Indigenous (NH),8.0
+2005,54,AIAN_NH,West Virginia,Indigenous (NH),8.0
+2006,54,AIAN_NH,West Virginia,Indigenous (NH),8.0
+2007,54,AIAN_NH,West Virginia,Indigenous (NH),8.0
+2008,54,AIAN_NH,West Virginia,Indigenous (NH),10.0
+2009,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2010,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2011,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2012,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2013,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2014,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2015,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2016,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2017,54,AIAN_NH,West Virginia,Indigenous (NH),11.0
+2018,54,AIAN_NH,West Virginia,Indigenous (NH),13.0
+2019,54,AIAN_NH,West Virginia,Indigenous (NH),20.0
 1999,54,API_NH,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 2000,54,API_NH,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0
 2001,54,API_NH,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0
@@ -5585,27 +5585,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,55,HISP,Wisconsin,Hispanic or Latino,19.0
 2018,55,HISP,Wisconsin,Hispanic or Latino,16.0
 2019,55,HISP,Wisconsin,Hispanic or Latino,8.0
-1999,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),7.0
-2000,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),6.0
-2001,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),4.0
-2002,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),4.0
-2003,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),4.0
-2004,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),5.0
-2005,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),6.0
-2006,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),7.0
-2007,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),8.0
-2008,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),10.0
-2009,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),14.0
-2010,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),19.0
-2011,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),26.0
-2012,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),32.0
-2013,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),33.0
-2014,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),31.0
-2015,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),28.0
-2016,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),25.0
-2017,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),21.0
-2018,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),21.0
-2019,55,AIAN_NH,Wisconsin,American Indian and Alaska Native (NH),27.0
+1999,55,AIAN_NH,Wisconsin,Indigenous (NH),7.0
+2000,55,AIAN_NH,Wisconsin,Indigenous (NH),6.0
+2001,55,AIAN_NH,Wisconsin,Indigenous (NH),4.0
+2002,55,AIAN_NH,Wisconsin,Indigenous (NH),4.0
+2003,55,AIAN_NH,Wisconsin,Indigenous (NH),4.0
+2004,55,AIAN_NH,Wisconsin,Indigenous (NH),5.0
+2005,55,AIAN_NH,Wisconsin,Indigenous (NH),6.0
+2006,55,AIAN_NH,Wisconsin,Indigenous (NH),7.0
+2007,55,AIAN_NH,Wisconsin,Indigenous (NH),8.0
+2008,55,AIAN_NH,Wisconsin,Indigenous (NH),10.0
+2009,55,AIAN_NH,Wisconsin,Indigenous (NH),14.0
+2010,55,AIAN_NH,Wisconsin,Indigenous (NH),19.0
+2011,55,AIAN_NH,Wisconsin,Indigenous (NH),26.0
+2012,55,AIAN_NH,Wisconsin,Indigenous (NH),32.0
+2013,55,AIAN_NH,Wisconsin,Indigenous (NH),33.0
+2014,55,AIAN_NH,Wisconsin,Indigenous (NH),31.0
+2015,55,AIAN_NH,Wisconsin,Indigenous (NH),28.0
+2016,55,AIAN_NH,Wisconsin,Indigenous (NH),25.0
+2017,55,AIAN_NH,Wisconsin,Indigenous (NH),21.0
+2018,55,AIAN_NH,Wisconsin,Indigenous (NH),21.0
+2019,55,AIAN_NH,Wisconsin,Indigenous (NH),27.0
 1999,55,API_NH,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",5.0
 2000,55,API_NH,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 2001,55,API_NH,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
@@ -5690,27 +5690,27 @@ time_period,state_fips,race_category_id,state_name,race_and_ethnicity,maternal_m
 2017,56,HISP,Wyoming,Hispanic or Latino,30.0
 2018,56,HISP,Wyoming,Hispanic or Latino,31.0
 2019,56,HISP,Wyoming,Hispanic or Latino,25.0
-1999,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),31.0
-2000,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),20.0
-2001,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),17.0
-2002,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),19.0
-2003,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),26.0
-2004,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),38.0
-2005,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),69.0
-2006,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),100.0
-2007,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),101.0
-2008,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),70.0
-2009,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),52.0
-2010,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),45.0
-2011,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),44.0
-2012,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),43.0
-2013,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),47.0
-2014,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),56.0
-2015,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),70.0
-2016,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),87.0
-2017,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),95.0
-2018,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),98.0
-2019,56,AIAN_NH,Wyoming,American Indian and Alaska Native (NH),100.0
+1999,56,AIAN_NH,Wyoming,Indigenous (NH),31.0
+2000,56,AIAN_NH,Wyoming,Indigenous (NH),20.0
+2001,56,AIAN_NH,Wyoming,Indigenous (NH),17.0
+2002,56,AIAN_NH,Wyoming,Indigenous (NH),19.0
+2003,56,AIAN_NH,Wyoming,Indigenous (NH),26.0
+2004,56,AIAN_NH,Wyoming,Indigenous (NH),38.0
+2005,56,AIAN_NH,Wyoming,Indigenous (NH),69.0
+2006,56,AIAN_NH,Wyoming,Indigenous (NH),100.0
+2007,56,AIAN_NH,Wyoming,Indigenous (NH),101.0
+2008,56,AIAN_NH,Wyoming,Indigenous (NH),70.0
+2009,56,AIAN_NH,Wyoming,Indigenous (NH),52.0
+2010,56,AIAN_NH,Wyoming,Indigenous (NH),45.0
+2011,56,AIAN_NH,Wyoming,Indigenous (NH),44.0
+2012,56,AIAN_NH,Wyoming,Indigenous (NH),43.0
+2013,56,AIAN_NH,Wyoming,Indigenous (NH),47.0
+2014,56,AIAN_NH,Wyoming,Indigenous (NH),56.0
+2015,56,AIAN_NH,Wyoming,Indigenous (NH),70.0
+2016,56,AIAN_NH,Wyoming,Indigenous (NH),87.0
+2017,56,AIAN_NH,Wyoming,Indigenous (NH),95.0
+2018,56,AIAN_NH,Wyoming,Indigenous (NH),98.0
+2019,56,AIAN_NH,Wyoming,Indigenous (NH),100.0
 1999,56,API_NH,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",38.0
 2000,56,API_NH,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",31.0
 2001,56,API_NH,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",30.0

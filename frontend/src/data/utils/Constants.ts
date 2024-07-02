@@ -31,7 +31,7 @@ export const UNKNOWN_LABELS = [
 ]
 
 // STANDARD RACE GROUPS AND ARRAY
-export const AIAN_NH = 'American Indian and Alaska Native (NH)'
+export const AIAN_NH = 'Indigenous (NH)'
 export const ASIAN_NH = 'Asian (NH)'
 export const BLACK_NH = 'Black or African American (NH)'
 export const HISPANIC = 'Hispanic or Latino'
@@ -53,7 +53,7 @@ export const STANDARD_RACES = [
 ] as const
 
 // NON-STANDARD RACE GROUPS AND ARRAY
-export const AIAN = 'American Indian and Alaska Native'
+export const AIAN = 'Indigenous'
 export const ASIAN = 'Asian'
 export const BLACK = 'Black or African American'
 export const NHPI = 'Native Hawaiian and Pacific Islander'
