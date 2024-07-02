@@ -1,70 +1,52 @@
-import json
-import os
+from ingestion.graphql_ahr_utils import get_measure_ids
 
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_DIR = os.path.join(THIS_DIR, os.pardir, os.pardir, 'ingestion')
-CONFIG_FILE_PATH = os.path.join(BASE_DIR, 'graphql_ahr_measure_ids.json')
-
-with open(CONFIG_FILE_PATH, 'r') as file:
-    data = json.load(file)
-
-
-def get_measure_ids(demographic: str, measure_name: str, flatten=False):
-    """
-    Retrieve measure IDs based on demographic and measure name.
-
-    Args:
-    demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
-    measure_name (str): The name of the measure (e.g., 'Asthma', 'Diabetes').
-    flatten (bool): Whether to flatten the list of IDs if the result is a dictionary.
-
-    Returns:
-    list: A list of measure IDs.
-    """
-    if demographic in data:
-        for measure in data[demographic]:
-            if measure['measure'] == measure_name:
-                ids = measure.get('ids') or measure.get('demographics')
-                if flatten and isinstance(ids, dict):
-                    # Flatten the dictionary values into a single list
-                    return [item for sublist in ids.values() for item in sublist]
-                return ids
-    return None
+test_data = {
+    "all": [
+        {"measure": "Asthma", "ids": ["16388"]},
+        {"measure": "Avoided Care Due to Cost", "ids": ["16348", "18353"]},
+        {"measure": "Diabetes", "ids": ["115", "176"]},
+    ],
+    "age": [
+        {"measure": "Asthma", "demographics": {"Age 65+": ["16374"], "Ages 18-44": ["16372"], "Ages 45-64": ["16373"]}},
+        {
+            "measure": "Avoided Care Due to Cost",
+            "demographics": {
+                "Age 65+": ["15969", "16369", "18358", "18389"],
+                "Ages 18-44": ["16367", "18356"],
+                "Ages 45-64": ["16368", "18357"],
+            },
+        },
+    ],
+    "race_and_ethnicity": [
+        {"measure": "Asthma", "demographics": {"Black": ["16376", "19988"], "White": ["16375", "19987"]}},
+        {"measure": "Diabetes", "demographics": {"Black": ["410", "432", "19743"], "White": ["409", "431", "19742"]}},
+    ],
+    "sex": [
+        {"measure": "Asthma", "demographics": {"Female": ["16371"], "Male": ["16370"]}},
+        {"measure": "Diabetes", "demographics": {"Female": ["405", "427"], "Male": ["404", "426"]}},
+    ],
+}
 
 
-def run_test(demographic, measure_name, expected_ids, flatten=False):
-    actual_ids = get_measure_ids(demographic, measure_name, flatten=flatten)
-    assert actual_ids == expected_ids
+def test_all_demographic():
+    result = get_measure_ids("all", data=test_data)
+    expected_ids = ["16388", "16348", "18353", "115", "176"]
+    assert result == expected_ids
 
 
-def test_config_all():
-    expected_all_asthma_ids = ["16388"]
-    run_test('all', 'Asthma', expected_all_asthma_ids)
+def test_age_demographic():
+    result = get_measure_ids("age", data=test_data)
+    expected_ids = ["16374", "16372", "16373", "15969", "16369", "18358", "18389", "16367", "18356", "16368", "18357"]
+    assert result == expected_ids
 
 
-def test_config_age():
-    expected_age_diabetes_ids = ["408", "406", "407"]
-    run_test('age', 'Diabetes', expected_age_diabetes_ids, flatten=True)
+def test_race_and_ethnicity_demographic():
+    result = get_measure_ids("race_and_ethnicity", data=test_data)
+    expected_ids = ["16376", "19988", "16375", "19987", "410", "432", "19743", "409", "431", "19742"]
+    assert result == expected_ids
 
 
-def test_config_race_and_ethnicity():
-    expected_race_preventable_hosp_ids = [
-        "16448",
-        "18326",
-        "16447",
-        "18325",
-        "16446",
-        "18324",
-        "16449",
-        "18327",
-        "16445",
-        "18323",
-        "16444",
-        "18322",
-    ]
-    run_test('race_and_ethnicity', 'Preventable Hospitalizations', expected_race_preventable_hosp_ids, flatten=True)
-
-
-def test_config_sex():
-    expected_sex_suicide_ids = ["1273", "1272"]
-    run_test('sex', 'Suicide', expected_sex_suicide_ids, flatten=True)
+def test_sex_demographic():
+    result = get_measure_ids("sex", data=test_data)
+    expected_ids = ["16371", "16370", "405", "427", "404", "426"]
+    assert result == expected_ids
