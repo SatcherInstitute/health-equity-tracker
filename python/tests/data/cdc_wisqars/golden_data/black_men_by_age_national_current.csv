@@ -1,20 +1,10 @@
 state_name,state_fips,age,gun_homicides_black_men_estimated_total,gun_homicides_black_men_pct_share,gun_homicides_black_men_population_pct,gun_homicides_black_men_per_100k,gun_homicides_black_men_population_estimated_total
-United States,00,0-4,29.0,0.3,6.6,2.17,1334343.0
-United States,00,5-9,32.0,0.3,7.0,2.27,1407555.0
-United States,00,10-14,114.0,1.0,7.5,7.57,1506253.0
+United States,00,All,11110.0,100.0,100.0,55.22,20121104.0
+United States,00,0-14,175.0,1.6,21.1,4.12,4248151.0
 United States,00,15-19,1544.0,13.9,7.4,104.22,1481523.0
 United States,00,20-24,2181.0,19.6,7.6,142.91,1526119.0
 United States,00,25-29,2111.0,19.0,8.2,128.25,1645986.0
 United States,00,30-34,1726.0,15.5,8.0,106.7,1617641.0
-United States,00,35-39,1165.0,10.5,6.9,83.87,1389062.0
-United States,00,40-44,817.0,7.4,6.4,63.21,1292454.0
-United States,00,45-49,521.0,4.7,5.9,44.12,1180757.0
-United States,00,50-54,324.0,2.9,6.1,26.61,1217518.0
-United States,00,55-59,249.0,2.2,6.1,20.32,1225274.0
-United States,00,60-64,176.0,1.6,5.6,15.61,1127301.0
-United States,00,65-69,67.0,0.6,4.3,7.79,860401.0
-United States,00,70-74,38.0,0.3,3.1,6.18,614962.0
-United States,00,75-79,,,1.7,,344967.0
-United States,00,80-84,,,1.0,,200559.0
-United States,00,85+,,,0.7,,148429.0
-United States,00,All,11110.0,100.0,100.0,55.22,20121104.0
+United States,00,35-44,1982.0,17.8,13.3,73.91,2681516.0
+United States,00,45-64,1270.0,11.4,23.6,26.73,4750850.0
+United States,00,65+,105.0,0.9,10.8,4.84,2169318.0

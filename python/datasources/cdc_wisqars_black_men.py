@@ -1,5 +1,4 @@
 import pandas as pd
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
@@ -15,6 +14,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_ALL,
     WISQARS_POP,
     WISQARS_AGE_GROUP,
+    condense_age_groups,
 )
 from ingestion.constants import (
     CURRENT,
@@ -28,6 +28,8 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
+from ingestion.het_types import RATE_CALC_COLS_TYPE
+from typing import List
 
 """
 Data Source: CDC WISQARS
@@ -65,11 +67,10 @@ Notes:
 - Single-race data is only available from 2018-2021.
 - We could consider using the bridged-race from 2001-2018 to supplement the single-race data.
 
-Last Updated: April 24
+Last Updated: April 2024
 """
 
 GUN_HOMICIDES_BM_PREFIX = "gun_homicides_black_men"
-
 ESTIMATED_TOTALS_MAP = generate_cols_map([GUN_HOMICIDES_BM_PREFIX], std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
@@ -83,6 +84,15 @@ TIME_MAP = {
     + [std_col.GUN_HOMICIDES_BM_POP_RAW],
     HISTORICAL: list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()) + list(PER_100K_MAP.values()),
 }
+
+
+COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
+    {
+        'numerator_col': 'gun_homicides_black_men_estimated_total',
+        'denominator_col': 'gun_homicides_black_men_population_estimated_total',
+        'rate_col': 'gun_homicides_black_men_per_100k',
+    }
+]
 
 
 class CDCWisqarsBlackMenData(DataSource):
@@ -113,7 +123,7 @@ class CDCWisqarsBlackMenData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(self, demographic: str, geo_level: str, alls_df: pd.DataFrame):
         cols_to_standard = {
             WISQARS_YEAR: std_col.TIME_PERIOD_COL,
             WISQARS_STATE: std_col.STATE_NAME_COL,
@@ -121,16 +131,18 @@ class CDCWisqarsBlackMenData(DataSource):
             WISQARS_AGE_GROUP: std_col.AGE_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
+        breakdown_group_df = load_wisqars_df_from_data_dir(demographic, geo_level)
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
         df = combined_group_df.rename(columns=cols_to_standard)
+        if demographic == std_col.AGE_COL:
+            df = condense_age_groups(df, COL_DICTS)
 
         df = merge_state_ids(df)
 
         df = generate_pct_share_col_without_unknowns(
             df,
             PCT_SHARE_MAP,
-            breakdown,
+            demographic,
             std_col.ALL_VALUE,
         )
 
@@ -142,13 +154,13 @@ class CDCWisqarsBlackMenData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
+def load_wisqars_df_from_data_dir(demographic: str, geo_level: str):
     output_df = pd.DataFrame(columns=[WISQARS_YEAR, WISQARS_STATE, WISQARS_URBANICITY])
 
     for variable_string in [GUN_HOMICIDES_BM_PREFIX]:
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             DATA_DIR,
-            f"{variable_string}-{geo_level}_{breakdown}.csv",
+            f"{variable_string}-{geo_level}_{demographic}.csv",
             na_values=["--", "**"],
             usecols=lambda x: x not in WISQARS_COLS,
             thousands=",",
@@ -167,10 +179,10 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         if geo_level == NATIONAL_LEVEL:
             df.insert(1, WISQARS_STATE, US_NAME)
 
-        if breakdown == WISQARS_ALL:
+        if demographic == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
             df.insert(3, WISQARS_AGE_GROUP, std_col.ALL_VALUE)
-        elif breakdown == std_col.AGE_COL:
+        elif demographic == std_col.AGE_COL:
             df[WISQARS_AGE_GROUP] = df[WISQARS_AGE_GROUP].str.replace(' to ', '-')
 
         df.rename(

@@ -139,6 +139,7 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
     """
 
     bucket_map = {
+        ('All',): 'All',
         ('Unknown',): 'Unknown',
         (
             '0-4',
@@ -184,7 +185,9 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
 
             # aggregate by state and year, summing count cols and dropping source rate cols
             agg_map = {count_col: 'sum' for count_col in count_cols}
-            het_bucket_df = het_bucket_df.groupby(['year', 'state']).agg(agg_map).reset_index()
+            het_bucket_df = (
+                het_bucket_df.groupby([std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL]).agg(agg_map).reset_index()
+            )
 
             # recalculate each 100k rate with summed numerators/denominators
             for col_dict in col_dicts:
