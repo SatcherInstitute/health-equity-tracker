@@ -43,5 +43,6 @@ python/ingestion/build/
 *.json
 # Exception: Dont ignore these specific JSON files
 !frontend/cspell.config.json
+!python/ingestion/graphql_ahr_measure_ids.json
 
 
