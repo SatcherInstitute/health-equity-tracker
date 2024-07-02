@@ -262,23 +262,27 @@ def generate_pct_share_col_of_summed_alls(
     - breakdown_col: String column name with the group of the raw count
     """
 
-    geo_cols = []
+    group_by_cols = []
     for col in [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL]:
         if col in df.columns:
-            geo_cols.append(col)
+            group_by_cols.append(col)
+
+    # Include the time period column for grouping
+    if std_col.TIME_PERIOD_COL in df.columns:
+        group_by_cols.append(std_col.TIME_PERIOD_COL)
 
     for raw_col in raw_count_to_pct_share.keys():
 
         # replace the estimated_total "All" with the sum of the groups' estimated_totals
         # Calculate the sum of "topic_estimated_total" for each state where demographic group is not "All"
-        sums_df = df[df[demo_col] != ALL_VALUE].groupby(geo_cols)[raw_col].sum().reset_index()
+        sums_df = df[df[demo_col] != ALL_VALUE].groupby(group_by_cols)[raw_col].sum().reset_index()
 
         # Rename the column to avoid conflict when merging
         sum_raw_col = f'sum_{raw_col}'
         sums_df.rename(columns={raw_col: sum_raw_col}, inplace=True)
 
         # Merge the sums back into the original DataFrame
-        df = df.merge(sums_df, on=geo_cols, how='left')
+        df = df.merge(sums_df, on=group_by_cols, how='left')
 
         # Overwrite the "topic_estimated_total" value where demographic group is "All"
         df.loc[df[demo_col] == ALL_VALUE, raw_col] = df[sum_raw_col]
@@ -291,14 +295,16 @@ def generate_pct_share_col_of_summed_alls(
     return df
 
 
-def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
+def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col, decimal_places=0):
     """Returns a dataframe with a `per_100k` column
 
     df: DataFrame to generate the `per_100k_col` for.
     raw_count_col: String column name with the total number of people
                    who have the given condition.
     pop_col: String column name with the population number.
-    per_100k_col: String column name to place the generated row in."""
+    per_100k_col: String column name to place the generated row in.
+    num_of_decimal_places: Number of decimal places to round to, defaults to 0 (whole numbers)
+    """
 
     # Convert columns to float to ensure proper division
     raw_count = df[raw_count_col].astype(float)
@@ -310,8 +316,8 @@ def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     # Handle division by zero and invalid results
     per_100k = per_100k.where((population != 0) & (per_100k.notnull()) & (per_100k != np.inf), np.nan)
 
-    # Round to nearest whole number
-    df[per_100k_col] = per_100k.round(0)
+    # Round
+    df[per_100k_col] = per_100k.round(decimal_places)
 
     return df
 
@@ -623,7 +629,7 @@ def generate_time_df_with_cols_and_types(
 ) -> tuple[pd.DataFrame, Dict[str, str]]:  # pylint: disable=unsubscriptable-object
     """
     Accepts a DataFrame along with list of column names for either current or
-    historical data and generates the appropiate BQ types for each column.
+    historical data and generates the appropriate BQ types for each column.
 
     Parameters:
     - df: The DataFrame to be processed.
@@ -662,7 +668,12 @@ def generate_time_df_with_cols_and_types(
         df = df[[col for col in df.columns if std_col.POP_PCT_SUFFIX not in col]]
         df = df[[col for col in df.columns if std_col.RAW_SUFFIX not in col]]
 
-    float_cols = [col for col in numerical_cols_to_keep if col in df.columns]
+    # Remove duplicate columns in the DataFrame
+    df = df.loc[:, ~df.columns.duplicated()]
+
+    # Remove duplicate columns in float_cols
+    float_cols = list(dict.fromkeys([col for col in numerical_cols_to_keep if col in df.columns]))
+
     df[float_cols] = df[float_cols].astype(float)
 
     column_types = {c: (BQ_FLOAT if c in float_cols else BQ_STRING) for c in df.columns}

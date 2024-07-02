@@ -66,19 +66,19 @@ def test_write_to_bq_age_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="age", geographic="national")
 
+    assert mock_data_dir.call_count == 2
+    assert mock_bq.call_count == 2
+
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "age_national_current"
+    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "age_national_historical"
-
-    assert mock_bq.call_count == 2
-
-    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
 
 
@@ -93,6 +93,8 @@ def test_write_to_bq_race_national(
 ):
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national")
+
+    assert mock_data_dir.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -122,6 +124,8 @@ def test_write_to_bq_sex_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="national")
 
+    assert mock_data_dir.call_count == 2
+
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
@@ -149,6 +153,8 @@ def test_write_to_bq_sex_state(
 ):
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="state")
+
+    assert mock_data_dir.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 

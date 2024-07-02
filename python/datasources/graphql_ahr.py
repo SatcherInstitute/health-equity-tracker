@@ -19,7 +19,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )  # type: ignore
-from ingestion.types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
+from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
 
 # pylint: disable=no-name-in-module
 from ingestion.merge_utils import (
@@ -94,13 +94,13 @@ RATE_TO_RAW_ALL_AGES_MAP = {
 }
 
 RAW_TO_SHARE_ALL_AGES_MAP = {
-    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.PCT_SHARE_SUFFIX}'
-    for rate_col in AHR_MEASURES_TO_RATES_MAP_ALL_AGES.values()
+    raw_col: f'{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    for raw_col in RATE_TO_RAW_ALL_AGES_MAP.values()
 }
 
 RAW_TO_SHARE_18PLUS_MAP = {
-    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.PCT_SHARE_SUFFIX}'
-    for rate_col in AHR_MEASURES_TO_RATES_MAP_18PLUS.values()
+    raw_col: f'{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    for raw_col in RATE_TO_RAW_18PLUS_MAP.values()
 }
 
 
