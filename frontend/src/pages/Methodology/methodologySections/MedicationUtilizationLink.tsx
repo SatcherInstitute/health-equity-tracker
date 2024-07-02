@@ -312,7 +312,7 @@ export default function MedicareMedicationLink() {
               <li>
                 <i>American Indian / Alaska Native</i> we represent as{' '}
                 <HetTerm>
-                  American Indian and Alaska Native (Non-Hispanic)
+                  Indigenous (Non-Hispanic)
                 </HetTerm>
               </li>
               <li>

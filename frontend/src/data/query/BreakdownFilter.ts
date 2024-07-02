@@ -16,7 +16,7 @@ export default interface BreakdownFilter {
 }
 
 const STANDARD_RACES: RaceAndEthnicityGroup[] = [
-  'American Indian and Alaska Native (NH)',
+  'Indigenous (NH)',
   'Asian (NH)',
   'Black or African American (NH)',
   'Hispanic or Latino',
