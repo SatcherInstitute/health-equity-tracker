@@ -67,6 +67,7 @@ jobs:
       - id: gcstobq
         uses: ./.github/actions/buildAndPush
         with:
+          ahr-api-key: ${{ secrets.AHR_API_KEY }}
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
 
@@ -148,6 +149,7 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest
@@ -245,6 +247,7 @@ jobs:
               -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
               -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
               -var 'include_composer=false'
+
           fi
 
           data_server_url=$(terraform output data_server_url)
@@ -309,3 +312,4 @@ jobs:
           SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
           FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
           PATH_TO_SA_CREDS: config/creds.json
+          AHR_API_KEY: ${{ secrets.AHR_API_KEY }}

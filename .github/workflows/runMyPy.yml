@@ -53,3 +53,4 @@ jobs:
           mypy --config-file=.github/linters/mypy.ini run_ingestion/ python/ingestion/
           mypy --config-file=.github/linters/mypy.ini run_gcs_to_bq/ python/ingestion/
           mypy --config-file=.github/linters/mypy.ini airflow/dags/
+

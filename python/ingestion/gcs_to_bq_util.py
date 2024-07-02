@@ -2,7 +2,7 @@ import requests  # type: ignore
 import json
 import os
 import pandas as pd
-from google.cloud import bigquery, storage
+from google.cloud import bigquery, storage  # type: ignore
 from zipfile import ZipFile
 from io import BytesIO, StringIO
 from typing import List
