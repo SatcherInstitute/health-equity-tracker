@@ -168,7 +168,7 @@ export const EQUITY_INDEX_RESOURCES: ResourceGroup = {
 }
 
 export const AIAN_RESOURCES: ResourceGroup = {
-  heading: 'American Indian and Alaska Native',
+  heading: 'Indigenous',
   resources: [
     {
       name: 'American Indian Health Equity/Disparities',
