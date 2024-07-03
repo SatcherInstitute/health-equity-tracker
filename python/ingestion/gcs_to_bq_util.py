@@ -383,14 +383,15 @@ def list_bucket_files(bucket_name: str) -> list:
     return list(map(lambda blob: blob.name, blobs))
 
 
-def fetch_zip_as_files(url):
+def fetch_zip_as_files(url: str) -> ZipFile:
     """
     Fetches a .zip files from the given url and returns a zip object
-    with the listed internal files
+    with the listed internal files.
     """
     response = requests.get(url, timeout=10)
-    with ZipFile(BytesIO(response.content)) as files:
-        return files
+    response.raise_for_status()  # Ensure we notice bad responses
+    zip_file = BytesIO(response.content)
+    return ZipFile(zip_file)
 
 
 def fetch_json_from_web(url):
