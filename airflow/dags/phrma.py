@@ -242,5 +242,5 @@ phrma_exporter_operator_eligibility = util.create_exporter_operator(
         phrma_exporter_operator_lis,
         phrma_exporter_operator_sex,
     ]
-    >> phrma_exporter_operator_age,
+    >> phrma_exporter_operator_age
 )
