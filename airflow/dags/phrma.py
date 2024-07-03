@@ -1,6 +1,5 @@
 from airflow import DAG  # pylint: disable=no-name-in-module
 from airflow.utils.dates import days_ago  # pylint: disable=no-name-in-module
-
 import util
 
 _PHRMA_WORKFLOW_ID = 'PHRMA_DATA'
