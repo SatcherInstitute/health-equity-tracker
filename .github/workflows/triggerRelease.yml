@@ -1,0 +1,21 @@
+name: Release Event Handler
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify-github-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch event
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # Personal Access Token with repo scope
+          repository: SatcherInstiture/setup-cloud-platform
+          event-type: release-triggered
+          client-payload: |
+            {
+              "release_tag": "${{ github.event.release.tag_name }}",
+              "release_id": "${{ github.event.release.id }}"
+            }
