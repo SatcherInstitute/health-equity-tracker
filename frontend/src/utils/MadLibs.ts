@@ -19,6 +19,8 @@ import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
 import { SHOW_GUN_VIOLENCE } from '../data/providers/GunViolenceProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { FIPS_MAP } from '../data/utils/FipsData'
+import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
+import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -229,8 +231,16 @@ const CATEGORIES_LIST: Category[] = [
     title: 'Community Safety',
     definition: '',
     options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
-  }
+  },
 ]
+
+if (SHOW_NEW_MATERNAL_MORTALITY) {
+  CATEGORIES_LIST.push({
+    title: 'Maternal Health',
+    definition: '',
+    options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+  });
+}
 
 
 const MADLIB_LIST: MadLib[] = [

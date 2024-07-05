@@ -12,12 +12,11 @@ Features include:
 """
 
 from typing import List
-
 import pandas as pd
 import numpy as np
-
 from ingestion import standardized_columns as std_col
-
+from ingestion.dataset_utils import generate_per_100k_col
+from ingestion.het_types import RATE_CALC_COLS_TYPE
 
 DATA_DIR = "cdc_wisqars"
 
@@ -124,3 +123,87 @@ def generate_cols_map(prefixes: List[str], suffix: str):
         estimated_total_col: estimated_total_col.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}"
         for estimated_total_col in prefixes
     }
+
+
+def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) -> pd.DataFrame:
+    """
+    Combines source's numerous 5-year age groups into fewer, larger age group combo buckets
+
+    Args:
+        df: The data frame to operate on
+        col_dicts: List of column name mappings per topic (numerator, denominator, rate)
+        NOTE: this function doesn't handle pct_rate columns currently.
+
+    Returns:
+        The data frame with the condensed age groups
+    """
+
+    bucket_map = {
+        ('All',): 'All',
+        ('Unknown',): 'Unknown',
+        (
+            '0-4',
+            '5-9',
+            '10-14',
+        ): '0-14',
+        ('15-19',): '15-19',
+        ('20-24',): '20-24',
+        ('25-29',): '25-29',
+        ('30-34',): '30-34',
+        (
+            '35-39',
+            '40-44',
+        ): '35-44',
+        (
+            '45-49',
+            '50-54',
+            '55-59',
+            '60-64',
+        ): '45-64',
+        (
+            '65-69',
+            '70-74',
+            '75-79',
+            '80-84',
+            '85+',
+        ): '65+',
+    }
+
+    het_bucket_dfs = []
+
+    for source_bucket, het_bucket in bucket_map.items():
+        het_bucket_df = df.copy()
+        het_bucket_df = het_bucket_df[het_bucket_df[std_col.AGE_COL].isin(source_bucket)]
+
+        # some source buckets don't get combined, so only process combo ones
+        if len(source_bucket) > 1:
+
+            # create a list of all count cols
+            numerator_cols = [col_dict['numerator_col'] for col_dict in col_dicts]
+            denominator_cols = [col_dict['denominator_col'] for col_dict in col_dicts]
+            count_cols = list(set(numerator_cols + denominator_cols))
+
+            # aggregate by state and year, summing count cols and dropping source rate cols
+            agg_map = {count_col: 'sum' for count_col in count_cols}
+            het_bucket_df = (
+                het_bucket_df.groupby([std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL]).agg(agg_map).reset_index()
+            )
+
+            # recalculate each 100k rate with summed numerators/denominators
+            for col_dict in col_dicts:
+                numerator_col, denominator_col, rate_col = col_dict.values()
+                het_bucket_df = generate_per_100k_col(
+                    het_bucket_df,
+                    numerator_col,
+                    denominator_col,
+                    rate_col,
+                    decimal_places=2,
+                )
+
+        het_bucket_df[std_col.AGE_COL] = het_bucket
+        het_bucket_dfs.append(het_bucket_df)
+
+    # combine the df chunks for each condensed age group
+    df_condensed_age_groups = pd.concat(het_bucket_dfs).reset_index(drop=True)
+
+    return df_condensed_age_groups

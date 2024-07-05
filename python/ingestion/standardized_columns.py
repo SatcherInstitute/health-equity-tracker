@@ -265,7 +265,7 @@ class Race(Enum):
     # Hispanic/Latino. The sum of these values is equal to the total population.
     # OTHER_STANDARD is defined as anyone who does not fall into one of the
     # other categories in this format.
-    AIAN = ("AIAN", "American Indian and Alaska Native", True)
+    AIAN = ("AIAN", "Indigenous", True)
     ASIAN = ("ASIAN", "Asian", True)
     BLACK = ("BLACK", "Black or African American", True)
     NHPI = ("NHPI", "Native Hawaiian and Pacific Islander", True)
@@ -279,7 +279,7 @@ class Race(Enum):
     # of its counterpart in the above format. OTHER_STANDARD_NH is defined as
     # anyone who does not fall into one of the other categories in this format.
     # Where possible, this format is preferred.
-    AIAN_NH = ("AIAN_NH", "American Indian and Alaska Native", False)
+    AIAN_NH = ("AIAN_NH", "Indigenous", False)
     ASIAN_NH = ("ASIAN_NH", "Asian", False)
     BLACK_NH = ("BLACK_NH", "Black or African American", False)
     NHPI_NH = ("NHPI_NH", "Native Hawaiian and Pacific Islander", False)
@@ -339,8 +339,6 @@ class Race(Enum):
     # Combines AIAN_NH and NHPI_NH
     API_NH = ("API_NH", "Asian, Native Hawaiian, and Pacific Islander", False)
 
-    INDIGENOUS = ("INDIGENOUS", "Indigenous", True)
-    INDIGENOUS_NH = ("INDIGENOUS_NH", "Indigenous", False)
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
         "Two or more races & Unrepresented race",

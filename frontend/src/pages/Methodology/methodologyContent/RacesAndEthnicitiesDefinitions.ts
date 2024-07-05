@@ -51,7 +51,7 @@ export const raceDefinitions: DataItem =
   definitions: [
 
     {
-      key: 'American Indian and Alaska Native',
+      key: 'Indigenous',
       path: '#race-eth-aian',
       description:
         'A person having origins in any of the original peoples of North and South America (including Central America), who maintains tribal affiliation or community attachment.',
@@ -61,7 +61,7 @@ export const raceDefinitions: DataItem =
         {
           title: 'General Considerations',
           points: [
-            'Many states do not record data for the American Indian and Alaska Native racial categories, often grouping these individuals into other categories.',
+            'Many states do not record data for the Indigenous racial categories, often grouping these individuals into other categories.',
           ],
         },
       ],

@@ -5,98 +5,98 @@ time_period,state_name,state_fips,race_and_ethnicity,race_category_id,hiv_stigma
 2021,United States,00,Hispanic or Latino,HISP,31.5,7.1,20.4,517.6,84.5,20.4,3.2,1.1,60.2,-31.9,35.2
 2021,United States,00,Black or African American (NH),BLACK_NH,27.8,24.2,41.8,1245.1,79.8,11.0,-2.7,245.2,228.2,-63.4,225.8
 2021,United States,00,Asian (NH),ASIAN_NH,33.1,0.7,4.4,98.9,87.0,,4.8,-90.0,-65.0,,-73.3
-2021,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.9,10.9,160.3,82.7,,0.0,-42.9,-14.3,,-57.1
+2021,United States,00,Indigenous (NH),AIAN_NH,,3.9,10.9,160.3,82.7,,0.0,-42.9,-14.3,,-57.1
 2020,United States,00,Two or more races (NH),MULTI_NH,29.4,26.1,19.8,1107.4,83.7,,0.0,283.3,83.3,,194.4
 2020,United States,00,White (NH),WHITE_NH,25.6,3.3,4.5,176.3,83.6,64.3,1.6,-51.0,-58.6,160.3,-53.2
 2020,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.2,12.5,175.8,85.7,,0.0,-50.0,0.0,,-50.0
 2020,United States,00,Hispanic or Latino,HISP,29.9,7.1,16.6,511.1,85.1,16.4,3.0,4.6,53.2,-33.5,35.8
 2020,United States,00,Black or African American (NH),BLACK_NH,28.7,24.2,36.7,1233.6,79.7,9.2,-3.3,252.4,237.1,-62.6,225.8
 2020,United States,00,Asian (NH),ASIAN_NH,32.9,0.6,3.7,95.6,87.9,,4.5,-91.7,-66.7,,-75.0
-2020,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,4.1,9.3,154.4,80.0,,0.0,-42.9,-14.3,,-57.1
+2020,United States,00,Indigenous (NH),AIAN_NH,,4.1,9.3,154.4,80.0,,0.0,-42.9,-14.3,,-57.1
 2019,United States,00,Two or more races (NH),MULTI_NH,35.3,22.4,27.0,1158.9,81.3,,0.0,272.2,100.0,,200.0
 2019,United States,00,White (NH),WHITE_NH,29.0,3.1,5.2,175.4,82.6,59.9,1.6,-48.1,-60.2,165.2,-53.3
 2019,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.8,12.0,169.7,80.3,,0.0,-50.0,0.0,,-50.0
 2019,United States,00,Hispanic or Latino,HISP,32.7,5.9,21.0,514.9,84.4,14.5,3.9,0.0,58.8,-35.8,37.1
 2019,United States,00,Black or African American (NH),BLACK_NH,30.8,20.6,45.0,1237.1,78.4,8.0,-3.6,249.6,241.5,-64.7,229.3
 2019,United States,00,Asian (NH),ASIAN_NH,32.4,0.6,4.4,93.9,83.0,,5.0,-89.8,-66.1,,-74.6
-2019,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,2.9,9.7,151.0,83.5,,0.0,-57.1,-28.6,,-57.1
+2019,United States,00,Indigenous (NH),AIAN_NH,,2.9,9.7,151.0,83.5,,0.0,-57.1,-28.6,,-57.1
 2018,United States,00,Two or more races (NH),MULTI_NH,35.7,23.3,29.6,1191.4,82.0,,0.0,300.0,117.6,,223.5
 2018,United States,00,White (NH),WHITE_NH,28.2,3.0,5.4,173.1,82.6,48.4,3.2,-49.1,-60.0,168.0,-53.3
 2018,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.7,11.8,163.6,87.7,,0.0,-50.0,0.0,,-50.0
 2018,United States,00,Hispanic or Latino,HISP,32.2,6.2,21.6,508.3,82.4,11.3,2.7,4.2,58.3,-37.4,36.9
 2018,United States,00,Black or African American (NH),BLACK_NH,33.3,20.7,46.3,1221.5,77.1,6.2,-3.9,250.4,239.8,-65.7,228.5
 2018,United States,00,Asian (NH),ASIAN_NH,26.1,0.5,5.3,91.1,84.2,,8.7,-91.4,-60.3,,-75.9
-2018,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,2.5,8.6,145.4,77.9,,0.0,-57.1,-28.6,,-57.1
+2018,United States,00,Indigenous (NH),AIAN_NH,,2.5,8.6,145.4,77.9,,0.0,-57.1,-28.6,,-57.1
 2017,United States,00,Two or more races (NH),MULTI_NH,,23.7,33.7,1224.2,80.0,,3.3,288.2,135.3,,229.4
 2017,United States,00,White (NH),WHITE_NH,,3.1,5.6,170.6,81.0,33.7,4.0,-49.2,-60.5,165.1,-53.3
 2017,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.9,9.8,157.4,80.5,,0.0,-50.0,-50.0,,-50.0
 2017,United States,00,Hispanic or Latino,HISP,,6.0,22.2,502.3,78.4,7.9,0.8,0.0,58.2,-38.0,37.6
 2017,United States,00,Black or African American (NH),BLACK_NH,,21.6,48.3,1204.7,75.3,4.1,-3.2,260.7,244.3,-67.4,231.1
 2017,United States,00,Asian (NH),ASIAN_NH,,0.6,5.9,87.5,81.1,,4.0,-91.2,-57.9,,-75.4
-2017,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,2.4,9.9,140.6,83.3,,0.0,-57.1,-28.6,,-57.1
+2017,United States,00,Indigenous (NH),AIAN_NH,,2.4,9.9,140.6,83.3,,0.0,-57.1,-28.6,,-57.1
 2016,United States,00,Two or more races (NH),MULTI_NH,,23.6,39.4,1255.0,,,,293.7,175.0,,256.2
 2016,United States,00,White (NH),WHITE_NH,,3.1,5.7,168.1,,,,-48.9,-60.9,,-53.2
 2016,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,3.0,8.2,153.4,,,,-50.0,-50.0,,-50.0
 2016,United States,00,Hispanic or Latino,HISP,,6.0,23.1,495.8,,,,-0.6,59.3,,38.3
 2016,United States,00,Black or African American (NH),BLACK_NH,,21.8,50.3,1187.8,,,,261.5,245.1,,231.1
 2016,United States,00,Asian (NH),ASIAN_NH,,0.7,6.0,83.7,,,,-89.3,-58.9,,-76.8
-2016,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,2.4,10.6,134.2,,,,-57.1,-28.6,,-57.1
+2016,United States,00,Indigenous (NH),AIAN_NH,,2.4,10.6,134.2,,,,-57.1,-28.6,,-57.1
 2015,United States,00,Two or more races (NH),MULTI_NH,,24.2,44.1,1281.4,,,,306.2,193.8,,262.5
 2015,United States,00,White (NH),WHITE_NH,,2.9,5.9,165.6,,,,-50.5,-60.4,,-53.1
 2015,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.6,13.6,151.7,,,,-80.0,0.0,,-50.0
 2015,United States,00,Hispanic or Latino,HISP,,5.9,23.1,489.1,,,,-0.6,56.2,,38.7
 2015,United States,00,Black or African American (NH),BLACK_NH,,21.8,51.3,1169.9,,,,268.9,245.9,,231.1
 2015,United States,00,Asian (NH),ASIAN_NH,,0.6,6.2,80.3,,,,-90.9,-58.2,,-78.2
-2015,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.2,8.2,127.2,,,,-42.9,-42.9,,-57.1
+2015,United States,00,Indigenous (NH),AIAN_NH,,3.2,8.2,127.2,,,,-42.9,-42.9,,-57.1
 2014,United States,00,Two or more races (NH),MULTI_NH,,24.4,48.8,1304.3,,,,313.3,233.3,,286.7
 2014,United States,00,White (NH),WHITE_NH,,2.9,6.0,162.7,,,,-51.8,-60.2,,-53.0
 2014,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.0,8.9,142.7,,,,-50.0,-50.0,,-50.0
 2014,United States,00,Hispanic or Latino,HISP,,6.4,23.3,482.4,,,,5.1,56.1,,39.5
 2014,United States,00,Black or African American (NH),BLACK_NH,,22.7,52.1,1151.7,,,,273.0,245.9,,231.1
 2014,United States,00,Asian (NH),ASIAN_NH,,0.4,6.2,76.7,,,,-92.5,-58.5,,-77.4
-2014,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.3,8.8,123.2,,,,-42.9,-42.9,,-57.1
+2014,United States,00,Indigenous (NH),AIAN_NH,,3.3,8.8,123.2,,,,-42.9,-42.9,,-57.1
 2013,United States,00,Two or more races (NH),MULTI_NH,,24.6,55.6,1324.5,,,,306.7,273.3,,293.3
 2013,United States,00,White (NH),WHITE_NH,,2.8,6.0,160.0,,,,-52.9,-59.6,,-52.9
 2013,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.3,10.0,138.7,,,,-50.0,-50.0,,-50.0
 2013,United States,00,Hispanic or Latino,HISP,,6.3,22.6,475.9,,,,3.9,52.3,,40.0
 2013,United States,00,Black or African American (NH),BLACK_NH,,23.1,51.7,1134.6,,,,282.6,248.8,,233.9
 2013,United States,00,Asian (NH),ASIAN_NH,,0.5,5.4,73.1,,,,-92.3,-63.5,,-78.8
-2013,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.4,7.2,119.0,,,,-42.9,-57.1,,-71.4
+2013,United States,00,Indigenous (NH),AIAN_NH,,3.4,7.2,119.0,,,,-42.9,-57.1,,-71.4
 2012,United States,00,Two or more races (NH),MULTI_NH,,23.4,59.1,1339.3,,,,273.3,273.3,,293.3
 2012,United States,00,White (NH),WHITE_NH,,2.9,6.2,157.1,,,,-52.5,-59.7,,-52.9
 2012,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.7,9.3,134.4,,,,-80.0,-50.0,,-50.0
 2012,United States,00,Hispanic or Latino,HISP,,6.2,23.4,470.0,,,,0.7,51.0,,40.5
 2012,United States,00,Black or African American (NH),BLACK_NH,,23.8,54.7,1118.8,,,,288.4,252.9,,233.9
 2012,United States,00,Asian (NH),ASIAN_NH,,0.5,5.5,70.2,,,,-90.2,-64.7,,-78.4
-2012,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,2.9,8.5,116.6,,,,-57.1,-42.9,,-71.4
+2012,United States,00,Indigenous (NH),AIAN_NH,,2.9,8.5,116.6,,,,-57.1,-42.9,,-71.4
 2011,United States,00,Two or more races (NH),MULTI_NH,,23.5,61.9,1350.3,,,,285.7,300.0,,321.4
 2011,United States,00,White (NH),WHITE_NH,,2.8,6.3,154.1,,,,-54.9,-60.4,,-53.0
 2011,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.7,10.5,129.9,,,,-80.0,-50.0,,-50.0
 2011,United States,00,Hispanic or Latino,HISP,,6.9,23.6,462.6,,,,9.3,48.3,,41.1
 2011,United States,00,Black or African American (NH),BLACK_NH,,24.8,58.1,1101.0,,,,296.7,266.7,,237.5
 2011,United States,00,Asian (NH),ASIAN_NH,,0.7,5.3,67.2,,,,-90.0,-66.0,,-80.0
-2011,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.0,7.0,112.4,,,,-57.1,-57.1,,-71.4
+2011,United States,00,Indigenous (NH),AIAN_NH,,3.0,7.0,112.4,,,,-57.1,-57.1,,-71.4
 2010,United States,00,Two or more races (NH),MULTI_NH,,25.0,69.5,1357.9,,,,278.6,314.3,,321.4
 2010,United States,00,White (NH),WHITE_NH,,2.9,6.6,150.9,,,,-55.1,-60.5,,-52.8
 2010,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.5,11.3,124.0,,,,-80.0,-50.0,,-50.0
 2010,United States,00,Hispanic or Latino,HISP,,6.9,24.9,456.0,,,,6.8,49.3,,42.6
 2010,United States,00,Black or African American (NH),BLACK_NH,,26.2,61.5,1080.1,,,,301.7,267.5,,236.7
 2010,United States,00,Asian (NH),ASIAN_NH,,0.6,5.1,64.4,,,,-91.7,-68.8,,-79.2
-2010,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.9,8.0,109.8,,,,-42.9,-57.1,,-71.4
+2010,United States,00,Indigenous (NH),AIAN_NH,,3.9,8.0,109.8,,,,-42.9,-57.1,,-71.4
 2009,United States,00,Two or more races (NH),MULTI_NH,,30.6,88.5,1597.8,,,,316.7,383.3,,391.7
 2009,United States,00,White (NH),WHITE_NH,,3.0,6.8,145.9,,,,-57.9,-61.4,,-53.3
 2009,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.0,12.0,128.2,,,,-60.0,0.0,,0.0
 2009,United States,00,Hispanic or Latino,HISP,,7.9,27.0,463.3,,,,11.3,53.9,,48.2
 2009,United States,00,Black or African American (NH),BLACK_NH,,29.6,65.5,1055.4,,,,317.5,271.7,,236.7
 2009,United States,00,Asian (NH),ASIAN_NH,,0.6,5.6,64.8,,,,-91.1,-68.9,,-80.0
-2009,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.4,7.0,101.4,,,,-42.9,-57.1,,-71.4
+2009,United States,00,Indigenous (NH),AIAN_NH,,3.4,7.0,101.4,,,,-42.9,-57.1,,-71.4
 2008,United States,00,Two or more races (NH),MULTI_NH,,26.1,95.3,1585.9,,,,263.6,427.3,,436.4
 2008,United States,00,White (NH),WHITE_NH,,3.1,7.2,142.5,,,,-57.9,-61.3,,-53.3
 2008,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,3.7,12.9,120.5,,,,0.0,0.0,,0.0
 2008,United States,00,Hispanic or Latino,HISP,,8.3,28.7,457.3,,,,13.0,53.6,,50.0
 2008,United States,00,Black or African American (NH),BLACK_NH,,31.2,70.5,1029.8,,,,326.1,278.2,,239.5
 2008,United States,00,Asian (NH),ASIAN_NH,,0.9,5.7,61.4,,,,-88.6,-70.5,,-79.5
-2008,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,4.5,7.5,99.0,,,,-28.6,-57.1,,-71.4
+2008,United States,00,Indigenous (NH),AIAN_NH,,4.5,7.5,99.0,,,,-28.6,-57.1,,-71.4
 2021,United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,12.0,,,,-60.2,
 2020,United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,9.7,,,,-60.2,
 2019,United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,9.3,,,,-59.3,

@@ -6,6 +6,8 @@ import { appendFipsIfNeeded } from '../utils/datasetutils';
 import { type DatasetId } from '../config/DatasetMetadata';
 import { DataTypeId } from '../config/MetricConfig';
 
+export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env.VITE_SHOW_NEW_MATERNAL_MORTALITY;
+
 class MaternalMortalityProvider extends VariableProvider {
     constructor() {
         super('maternal_mortality_provider', [

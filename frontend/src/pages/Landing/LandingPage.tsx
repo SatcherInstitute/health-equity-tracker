@@ -101,6 +101,7 @@ function LandingPage() {
     );
   }
 
+
   return (
     <main className="relative">
       <Helmet>
@@ -216,9 +217,9 @@ function LandingPage() {
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
             </p>
-          </div>
-        </div>
-      </section>
+          </div >
+        </div >
+      </section >
 
       <section className="py-8 ">
         <div className=" py-0 m-0">
@@ -316,11 +317,11 @@ function LandingPage() {
                 containerClassName="flex items-center justify-center mt-16 mx-auto "
                 linkClassName="font-sansTitle text-smallestHeader"
               />
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+            </div >
+          </div >
+        </div >
+      </section >
+    </main >
   );
 }
 
