@@ -1,4 +1,3 @@
-import HetLinkButton from "../../styles/HetComponents/HetLinkButton";
 import HetTerm from "../../styles/HetComponents/HetTerm";
 
 export function RaceRelabelingsList() {
