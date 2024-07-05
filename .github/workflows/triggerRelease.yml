@@ -12,12 +12,11 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.PAT_RELEASE_TRIGGER }}  # Personal Access Token with repo scope
-          repository: SatcherInstiture/setup-cloud-platform
+          repository: SatcherInstitute/setup-cloud-platform
           event-type: release-triggered
           client-payload: |
             {
-              "release_tag": "${{ github.event.release.tag_name }}",
-              "release_id": "${{ github.event.release.id }}",
+              "release": "${{ github.event.release.tag_name }}",
               "project_id": "het-infra-prod-f6",
               "needs-composer": "true"
             }
