@@ -2,12 +2,11 @@ import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
-  type DatasetId,
   DatasetMetadataMap,
+  type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import {
-  type DropdownVarId,
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { useAtomValue } from 'jotai'
@@ -24,7 +23,6 @@ import {
 import SourcesInfo from './SourcesInfo'
 import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
 import {
-  getParentDropdownFromDataTypeId,
   getConfigFromDataTypeId,
   CategoryTypeId,
 } from '../../utils/MadLibs'
@@ -103,6 +101,7 @@ export function Sources(props: SourcesProps) {
     <footer className='px-1 py-0 text-left text-smallest'>
       <p className='w-full'>
         <>{optionalDefinition}</>
+        <>{showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}</>
         View{' '}
         <HashLink to={methodologyLink}>
           methodology
@@ -110,24 +109,12 @@ export function Sources(props: SourcesProps) {
         .
       </p>
 
-      {/* NH note (if needed) listed first, full-width */}
-      <div className='w-full'>
-        {showNhFootnote && (
-          <p className='mb-0 mt-1'>
-            Note. NH: Non-Hispanic. To promote inclusion, we replace the source
-            data labels <i>‘Multiracial’</i> with <i>‘Two or more races’</i>,
-            and <i>‘Some other’</i> with <i>‘Unrepresented’</i>.{' '}
-          </p>
-        )}
-      </div>
-
       <div
-        className={`${
-          props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
-        }`}
+        className={`${props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
+          }`}
       >
         <SourcesInfo dataSourceMap={dataSourceMap} />
       </div>
-    </footer>
+    </footer >
   )
 }
