@@ -15,13 +15,13 @@ import {
 } from '../data/config/MetricConfig'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
-import LazyLoad from 'react-lazyload'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import WhatDataAreMissing from './WhatDataAreMissing'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
-import { DATA_CATALOG_PAGE_LINK } from '../utils/internalRoutes'
+import { DATA_CATALOG_PAGE_LINK, RACES_AND_ETHNICITIES_LINK } from '../utils/internalRoutes'
 import AnnouncementBanner from './ui/AnnouncementBanner'
+import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -166,11 +166,10 @@ function ReportProvider(props: ReportProviderProps) {
   return (
     <>
       <div
-        className={`mx-auto my-0 w-full ${
-          props.isSingleColumn
-            ? ' max-w-exploreDataPage'
-            : 'max-w-exploreDataTwoColumnPage'
-        }`}
+        className={`mx-auto my-0 w-full ${props.isSingleColumn
+          ? ' max-w-exploreDataPage'
+          : 'max-w-exploreDataTwoColumnPage'
+          }`}
       >
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showAnnouncementBanner && <AnnouncementBanner />}
@@ -192,9 +191,12 @@ function ReportProvider(props: ReportProviderProps) {
               >
                 Definitions:
               </h3>
-              <LazyLoad offset={300} height={181} once>
-                <DefinitionsList dataTypesToDefine={metricConfigSubset} />
-              </LazyLoad>
+              <DefinitionsList dataTypesToDefine={metricConfigSubset} />
+              <RaceRelabelingsList />
+
+              <HetLinkButton href={RACES_AND_ETHNICITIES_LINK}>
+                See our methodology →
+              </HetLinkButton>
             </div>
           )}
 
@@ -203,7 +205,7 @@ function ReportProvider(props: ReportProviderProps) {
           <p>Unfortunately there are crucial data missing in our sources.</p>
 
           <HetLinkButton href={DATA_CATALOG_PAGE_LINK}>
-            See Our Data Sources →
+            See our data sources →
           </HetLinkButton>
 
           <WhatDataAreMissing
