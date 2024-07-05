@@ -16,8 +16,7 @@ jobs:
           event-type: release-triggered
           client-payload: |
             {
-              "release_tag": "${{ github.event.release.tag_name }}",
-              "release_id": "${{ github.event.release.id }}",
+              "release": "${{ github.event.release.tag_name }}",
               "project_id": "het-infra-prod-f6",
               "needs-composer": "true"
             }
