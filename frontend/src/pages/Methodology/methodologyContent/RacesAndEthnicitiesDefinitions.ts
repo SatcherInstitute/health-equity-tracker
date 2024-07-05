@@ -1,8 +1,4 @@
-import { Helmet } from 'react-helmet-async'
 import { GLOSSARY_LINK } from '../../../utils/internalRoutes'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
-import { urlMap } from '../../../utils/externalUrls'
 
 export interface DataItem {
   topic: string
@@ -54,14 +50,14 @@ export const raceDefinitions: DataItem =
       key: 'Indigenous',
       path: '#race-eth-aian',
       description:
-        'A person having origins in any of the original peoples of North and South America (including Central America), who maintains tribal affiliation or community attachment.',
+        'A person having origins in any of the original peoples of North and South America (including Central America), who maintains tribal affiliation or community attachment. Many of our data sources report this category as “American Indian and Alaska Native”.',
       resource: GLOSSARY_LINK + '#aian-resources',
       considerations: [
 
         {
           title: 'General Considerations',
           points: [
-            'Many states do not record data for the Indigenous racial categories, often grouping these individuals into other categories.',
+            'Many states do not record data for “Indigenous” or “American Indian and Alaska Native”, often grouping these individuals into other categories.',
           ],
         },
       ],
@@ -104,9 +100,6 @@ export const raceDefinitions: DataItem =
       description:
         'A person having origins in any of the Black racial groups of Africa.',
     },
-
-
-
 
     {
       key: 'Unrepresented race',
