@@ -74,7 +74,7 @@ function CardWrapper(props: {
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <Sources
-                hideNH={props.hideNH}
+
                 isCensusNotAcs={props.isCensusNotAcs}
                 metadata={metadata}
                 queryResponses={queryResponses}
