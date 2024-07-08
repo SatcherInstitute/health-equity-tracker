@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send repository_dispatch event
-        uses: peter-evans/repository-dispatch@v1
+        uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT_RELEASE_TRIGGER }}  # Personal Access Token with repo scope
           repository: SatcherInstitute/setup-cloud-platform
