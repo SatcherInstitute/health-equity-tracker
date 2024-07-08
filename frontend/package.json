@@ -76,7 +76,7 @@
 		"postcss": "^8.4.39",
 		"tailwindcss": "^3.4.4",
 		"typescript": "^5.5.2",
-		"vitest": "^1.6.0"
+		"vitest": "^2.0.1"
 	},
 	"scripts": {
 		"build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
