@@ -223,6 +223,8 @@ class GraphQlAHRData(DataSource):
                 breakdown_df, RAW_TO_SHARE_18PLUS_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
             )
 
+            breakdown_df.to_json('x', orient='records')
+
         # need unique pop col names per provider
         breakdown_df = breakdown_df.rename(
             columns={
