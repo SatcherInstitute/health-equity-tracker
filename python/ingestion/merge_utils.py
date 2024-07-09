@@ -425,16 +425,20 @@ def merge_intersectional_pop(
 
     if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
         merge_cols.append(std_col.RACE_CATEGORY_ID_COL)
-        if std_col.RACE_OR_HISPANIC_COL in df.columns and std_col.RACE_OR_HISPANIC_COL in pop_df.columns:
-            merge_cols.append(std_col.RACE_OR_HISPANIC_COL)
+
+        # for race, merge only on the ID col; need to get names back later
+        if std_col.RACE_OR_HISPANIC_COL in df.columns:
+            df.drop(columns=[std_col.RACE_OR_HISPANIC_COL], inplace=True)
+        if std_col.RACE_OR_HISPANIC_COL in pop_df.columns:
+            pop_df.drop(columns=[std_col.RACE_OR_HISPANIC_COL], inplace=True)
     else:
         merge_cols.append(primary_demo_col)
 
     # the sex/race/age/county ACS data only has NH for White
     # we can approximate the other race groups using the non-NH race codes
     if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
-        # string "_NH" off race_category_id on evrything except "WHITE_NH"
-        race_replace_map = {
+        # string "_NH" off race_category_id on everything except "WHITE_NH"
+        race_id_replace_map = {
             'AIAN': 'AIAN_NH',
             'ASIAN': 'ASIAN_NH',
             'BLACK': 'BLACK_NH',
@@ -442,9 +446,13 @@ def merge_intersectional_pop(
             'MULTI': 'MULTI_NH',
             'OTHER_STANDARD': 'OTHER_STANDARD_NH',
         }
-        pop_df[std_col.RACE_CATEGORY_ID_COL] = pop_df[std_col.RACE_CATEGORY_ID_COL].replace(race_replace_map)
+
+        pop_df[std_col.RACE_CATEGORY_ID_COL] = pop_df[std_col.RACE_CATEGORY_ID_COL].replace(race_id_replace_map)
 
     df = df.merge(pop_df, on=merge_cols, how='left')
+
+    if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
+        std_col.add_race_columns_from_category_id(df)
 
     return (df, pop_col)
 
