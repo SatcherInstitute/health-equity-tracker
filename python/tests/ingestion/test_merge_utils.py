@@ -417,11 +417,11 @@ def test_state_sex_merge_intersectional_pop():
         'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
         'state_fips': ['01', '01', '01', '02', '02', '02'],
         'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-        'population_18+': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+        'population_18plus': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
     }
     df = pd.DataFrame(fake_state_by_sex_data_with_only_rates)
     (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(df, 'state', 'sex', age_specific_group='18+')
-    assert intersectional_pop_col == 'population_18+'
+    assert intersectional_pop_col == 'population_18plus'
     assert_frame_equal(df, pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus), check_like=True)
 
 
@@ -482,6 +482,7 @@ def test_county_race_generate_estimated_total_col():
         df, 'county', 'race_and_ethnicity', sex_specific_group='Female'
     )
     assert intersectional_pop_col == 'population_female'
+
     assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_female_pop), check_like=True)
 
 

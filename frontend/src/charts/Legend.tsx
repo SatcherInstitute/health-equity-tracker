@@ -124,11 +124,10 @@ export function Legend(props: LegendProps) {
     const overallPhrase = props.isSummaryLegend
       ? ` (${props.fipsTypeDisplayName ?? 'area'} overall)`
       : ''
-    const legendBucketLabel = `datum.label + '${
-      isPct ? '%' : ''
-    }' + '${overallPhrase}'`
+    const legendBucketLabel = `datum.label + '${isPct ? '%' : ''
+      }' + '${overallPhrase}'`
 
-    const legendFormatterType: LegendNumberFormat = isPct ? 'pct'  : 'truncateWithK'
+    const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : 'truncateWithK'
     const legendList: LegendType[] = []
 
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
@@ -163,22 +162,22 @@ export function Legend(props: LegendProps) {
     const legendColorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
-          props.scaleType,
-          props.metric.metricId,
-          props.mapConfig.scheme,
-          legendColorCount,
-          props.isSummaryLegend,
+        props.scaleType,
+        props.metric.metricId,
+        props.mapConfig.scheme,
+        legendColorCount,
+        props.isSummaryLegend,
           /* reverse?: boolean */ !props.mapConfig.higherIsBetter
-        )
+      )
 
     const dotSizeScale = props.isPhrmaAdherence
       ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
       : setupLegendScaleSpec(
-          dotRange,
-          props.metric.metricId,
-          props.scaleType,
-          props.isSummaryLegend
-        )
+        dotRange,
+        props.metric.metricId,
+        props.scaleType,
+        props.isSummaryLegend
+      )
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -302,7 +301,7 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <section className='mx-4 text-left'>
+    <section className='mx-4 text-left flex flex-col items-center'>
       {props.isMulti ? (
         <span className='inline-flex items-center break-words text-start text-smallest leading-lhSomeMoreSpace text-black'>
           {props.legendTitle}
@@ -315,7 +314,7 @@ export function Legend(props: LegendProps) {
       )}
 
       {spec && (
-        <div>
+        <div className=''>
           <Vega
             renderer='svg'
             spec={spec}

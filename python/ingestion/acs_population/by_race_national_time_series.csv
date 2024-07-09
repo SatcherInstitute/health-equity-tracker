@@ -181,20 +181,20 @@ state_fips,state_name,population,population_pct,race_category_id,race_and_ethnic
 00,United States,40200000.0,12.1,BLACK_NH,Black or African American (NH),2021
 00,United States,39980733.0,12.2,BLACK_NH,Black or African American (NH),2019
 00,United States,40150435.0,12.0,BLACK_NH,Black or African American (NH),2022
-00,United States,2431350.0,0.8,AIAN,American Indian and Alaska Native,2009
-00,United States,2576622.0,0.8,AIAN,American Indian and Alaska Native,2014
-00,United States,2510207.0,0.8,AIAN,American Indian and Alaska Native,2011
-00,United States,2487880.0,0.8,AIAN,American Indian and Alaska Native,2010
-00,United States,2537708.0,0.8,AIAN,American Indian and Alaska Native,2012
-00,United States,2642951.0,0.8,AIAN,American Indian and Alaska Native,2017
-00,United States,2694311.0,0.8,AIAN,American Indian and Alaska Native,2020
-00,United States,2550780.0,0.8,AIAN,American Indian and Alaska Native,2013
-00,United States,2609631.0,0.8,AIAN,American Indian and Alaska Native,2016
-00,United States,2707577.0,0.8,AIAN,American Indian and Alaska Native,2018
-00,United States,2580945.0,0.8,AIAN,American Indian and Alaska Native,2015
-00,United States,2728068.0,0.8,AIAN,American Indian and Alaska Native,2021
-00,United States,2756981.0,0.8,AIAN,American Indian and Alaska Native,2019
-00,United States,2791497.0,0.8,AIAN,American Indian and Alaska Native,2022
+00,United States,2431350.0,0.8,AIAN,Indigenous,2009
+00,United States,2576622.0,0.8,AIAN,Indigenous,2014
+00,United States,2510207.0,0.8,AIAN,Indigenous,2011
+00,United States,2487880.0,0.8,AIAN,Indigenous,2010
+00,United States,2537708.0,0.8,AIAN,Indigenous,2012
+00,United States,2642951.0,0.8,AIAN,Indigenous,2017
+00,United States,2694311.0,0.8,AIAN,Indigenous,2020
+00,United States,2550780.0,0.8,AIAN,Indigenous,2013
+00,United States,2609631.0,0.8,AIAN,Indigenous,2016
+00,United States,2707577.0,0.8,AIAN,Indigenous,2018
+00,United States,2580945.0,0.8,AIAN,Indigenous,2015
+00,United States,2728068.0,0.8,AIAN,Indigenous,2021
+00,United States,2756981.0,0.8,AIAN,Indigenous,2019
+00,United States,2791497.0,0.8,AIAN,Indigenous,2022
 00,United States,447769.0,0.1,NHPI,Native Hawaiian and Pacific Islander,2009
 00,United States,535890.0,0.2,NHPI,Native Hawaiian and Pacific Islander,2014
 00,United States,500669.0,0.2,NHPI,Native Hawaiian and Pacific Islander,2011
@@ -209,20 +209,20 @@ state_fips,state_name,population,population_pct,race_category_id,race_and_ethnic
 00,United States,615802.0,0.2,NHPI,Native Hawaiian and Pacific Islander,2021
 00,United States,600137.0,0.2,NHPI,Native Hawaiian and Pacific Islander,2019
 00,United States,625142.0,0.2,NHPI,Native Hawaiian and Pacific Islander,2022
-00,United States,2030500.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2009
-00,United States,2082867.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2014
-00,United States,2049195.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2011
-00,United States,2048832.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2010
-00,United States,2050841.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2012
-00,United States,2098847.0,0.6,AIAN_NH,American Indian and Alaska Native (NH),2017
-00,United States,2076003.0,0.6,AIAN_NH,American Indian and Alaska Native (NH),2020
-00,United States,2061854.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2013
-00,United States,2084416.0,0.6,AIAN_NH,American Indian and Alaska Native (NH),2016
-00,United States,2135538.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2018
-00,United States,2078689.0,0.6,AIAN_NH,American Indian and Alaska Native (NH),2015
-00,United States,1936966.0,0.6,AIAN_NH,American Indian and Alaska Native (NH),2021
-00,United States,2160496.0,0.7,AIAN_NH,American Indian and Alaska Native (NH),2019
-00,United States,1826398.0,0.5,AIAN_NH,American Indian and Alaska Native (NH),2022
+00,United States,2030500.0,0.7,AIAN_NH,Indigenous (NH),2009
+00,United States,2082867.0,0.7,AIAN_NH,Indigenous (NH),2014
+00,United States,2049195.0,0.7,AIAN_NH,Indigenous (NH),2011
+00,United States,2048832.0,0.7,AIAN_NH,Indigenous (NH),2010
+00,United States,2050841.0,0.7,AIAN_NH,Indigenous (NH),2012
+00,United States,2098847.0,0.6,AIAN_NH,Indigenous (NH),2017
+00,United States,2076003.0,0.6,AIAN_NH,Indigenous (NH),2020
+00,United States,2061854.0,0.7,AIAN_NH,Indigenous (NH),2013
+00,United States,2084416.0,0.6,AIAN_NH,Indigenous (NH),2016
+00,United States,2135538.0,0.7,AIAN_NH,Indigenous (NH),2018
+00,United States,2078689.0,0.6,AIAN_NH,Indigenous (NH),2015
+00,United States,1936966.0,0.6,AIAN_NH,Indigenous (NH),2021
+00,United States,2160496.0,0.7,AIAN_NH,Indigenous (NH),2019
+00,United States,1826398.0,0.5,AIAN_NH,Indigenous (NH),2022
 00,United States,24325035.0,8.0,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race,2009
 00,United States,24672316.0,7.8,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race,2014
 00,United States,24293612.0,7.8,MULTI_OR_OTHER_STANDARD,Two or more races & Unrepresented race,2011
