@@ -129,7 +129,6 @@ class GraphQlAHRData(DataSource):
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
             float_cols = get_float_cols(table_type, demographic, self.intersectional_pop_cols)
-            # print("cols before generate_time_df_with_cols_and_types", df.columns)
             df_for_bq, col_types = generate_time_df_with_cols_and_types(df, float_cols, table_type, demographic)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)

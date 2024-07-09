@@ -103,58 +103,58 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 55,Wisconsin,5882128.0,ALL,100.0,All
 56,Wyoming,577929.0,ALL,100.0,All
 72,Puerto Rico,3272382.0,ALL,100.0,All
-01,Alabama,21122.0,AIAN,0.4,American Indian and Alaska Native
-02,Alaska,104957.0,AIAN,14.3,American Indian and Alaska Native
-04,Arizona,297590.0,AIAN,4.1,American Indian and Alaska Native
-05,Arkansas,16840.0,AIAN,0.6,American Indian and Alaska Native
-06,California,394188.0,AIAN,1.0,American Indian and Alaska Native
-08,Colorado,57022.0,AIAN,1.0,American Indian and Alaska Native
-09,Connecticut,9043.0,AIAN,0.3,American Indian and Alaska Native
-10,Delaware,3309.0,AIAN,0.3,American Indian and Alaska Native
-11,District of Columbia,2209.0,AIAN,0.3,American Indian and Alaska Native
-12,Florida,59197.0,AIAN,0.3,American Indian and Alaska Native
-13,Georgia,37920.0,AIAN,0.4,American Indian and Alaska Native
-15,Hawaii,4210.0,AIAN,0.3,American Indian and Alaska Native
-16,Idaho,22297.0,AIAN,1.2,American Indian and Alaska Native
-17,Illinois,55819.0,AIAN,0.4,American Indian and Alaska Native
-18,Indiana,12465.0,AIAN,0.2,American Indian and Alaska Native
-19,Iowa,10111.0,AIAN,0.3,American Indian and Alaska Native
-20,Kansas,22015.0,AIAN,0.7,American Indian and Alaska Native
-21,Kentucky,6821.0,AIAN,0.2,American Indian and Alaska Native
-22,Louisiana,24952.0,AIAN,0.5,American Indian and Alaska Native
-23,Maine,6722.0,AIAN,0.5,American Indian and Alaska Native
-24,Maryland,18343.0,AIAN,0.3,American Indian and Alaska Native
-25,Massachusetts,14740.0,AIAN,0.2,American Indian and Alaska Native
-26,Michigan,45662.0,AIAN,0.5,American Indian and Alaska Native
-27,Minnesota,51434.0,AIAN,0.9,American Indian and Alaska Native
-28,Mississippi,12777.0,AIAN,0.4,American Indian and Alaska Native
-29,Missouri,17559.0,AIAN,0.3,American Indian and Alaska Native
-30,Montana,63493.0,AIAN,5.8,American Indian and Alaska Native
-31,Nebraska,18550.0,AIAN,0.9,American Indian and Alaska Native
-32,Nevada,40745.0,AIAN,1.3,American Indian and Alaska Native
-33,New Hampshire,2070.0,AIAN,0.2,American Indian and Alaska Native
-34,New Jersey,29780.0,AIAN,0.3,American Indian and Alaska Native
-35,New Mexico,198140.0,AIAN,9.4,American Indian and Alaska Native
-36,New York,93384.0,AIAN,0.5,American Indian and Alaska Native
-37,North Carolina,109600.0,AIAN,1.0,American Indian and Alaska Native
-38,North Dakota,36284.0,AIAN,4.7,American Indian and Alaska Native
-39,Ohio,17094.0,AIAN,0.1,American Indian and Alaska Native
-40,Oklahoma,298628.0,AIAN,7.5,American Indian and Alaska Native
-41,Oregon,46880.0,AIAN,1.1,American Indian and Alaska Native
-42,Pennsylvania,20570.0,AIAN,0.2,American Indian and Alaska Native
-44,Rhode Island,4072.0,AIAN,0.4,American Indian and Alaska Native
-45,South Carolina,15617.0,AIAN,0.3,American Indian and Alaska Native
-46,South Dakota,70948.0,AIAN,8.0,American Indian and Alaska Native
-47,Tennessee,14118.0,AIAN,0.2,American Indian and Alaska Native
-48,Texas,169576.0,AIAN,0.6,American Indian and Alaska Native
-49,Utah,32948.0,AIAN,1.0,American Indian and Alaska Native
-50,Vermont,1336.0,AIAN,0.2,American Indian and Alaska Native
-51,Virginia,23728.0,AIAN,0.3,American Indian and Alaska Native
-53,Washington,91698.0,AIAN,1.2,American Indian and Alaska Native
-54,West Virginia,1730.0,AIAN,0.1,American Indian and Alaska Native
-55,Wisconsin,43759.0,AIAN,0.7,American Indian and Alaska Native
-56,Wyoming,12359.0,AIAN,2.1,American Indian and Alaska Native
-72,Puerto Rico,5066.0,AIAN,0.2,American Indian and Alaska Native
+01,Alabama,21122.0,AIAN,0.4,Indigenous
+02,Alaska,104957.0,AIAN,14.3,Indigenous
+04,Arizona,297590.0,AIAN,4.1,Indigenous
+05,Arkansas,16840.0,AIAN,0.6,Indigenous
+06,California,394188.0,AIAN,1.0,Indigenous
+08,Colorado,57022.0,AIAN,1.0,Indigenous
+09,Connecticut,9043.0,AIAN,0.3,Indigenous
+10,Delaware,3309.0,AIAN,0.3,Indigenous
+11,District of Columbia,2209.0,AIAN,0.3,Indigenous
+12,Florida,59197.0,AIAN,0.3,Indigenous
+13,Georgia,37920.0,AIAN,0.4,Indigenous
+15,Hawaii,4210.0,AIAN,0.3,Indigenous
+16,Idaho,22297.0,AIAN,1.2,Indigenous
+17,Illinois,55819.0,AIAN,0.4,Indigenous
+18,Indiana,12465.0,AIAN,0.2,Indigenous
+19,Iowa,10111.0,AIAN,0.3,Indigenous
+20,Kansas,22015.0,AIAN,0.7,Indigenous
+21,Kentucky,6821.0,AIAN,0.2,Indigenous
+22,Louisiana,24952.0,AIAN,0.5,Indigenous
+23,Maine,6722.0,AIAN,0.5,Indigenous
+24,Maryland,18343.0,AIAN,0.3,Indigenous
+25,Massachusetts,14740.0,AIAN,0.2,Indigenous
+26,Michigan,45662.0,AIAN,0.5,Indigenous
+27,Minnesota,51434.0,AIAN,0.9,Indigenous
+28,Mississippi,12777.0,AIAN,0.4,Indigenous
+29,Missouri,17559.0,AIAN,0.3,Indigenous
+30,Montana,63493.0,AIAN,5.8,Indigenous
+31,Nebraska,18550.0,AIAN,0.9,Indigenous
+32,Nevada,40745.0,AIAN,1.3,Indigenous
+33,New Hampshire,2070.0,AIAN,0.2,Indigenous
+34,New Jersey,29780.0,AIAN,0.3,Indigenous
+35,New Mexico,198140.0,AIAN,9.4,Indigenous
+36,New York,93384.0,AIAN,0.5,Indigenous
+37,North Carolina,109600.0,AIAN,1.0,Indigenous
+38,North Dakota,36284.0,AIAN,4.7,Indigenous
+39,Ohio,17094.0,AIAN,0.1,Indigenous
+40,Oklahoma,298628.0,AIAN,7.5,Indigenous
+41,Oregon,46880.0,AIAN,1.1,Indigenous
+42,Pennsylvania,20570.0,AIAN,0.2,Indigenous
+44,Rhode Island,4072.0,AIAN,0.4,Indigenous
+45,South Carolina,15617.0,AIAN,0.3,Indigenous
+46,South Dakota,70948.0,AIAN,8.0,Indigenous
+47,Tennessee,14118.0,AIAN,0.2,Indigenous
+48,Texas,169576.0,AIAN,0.6,Indigenous
+49,Utah,32948.0,AIAN,1.0,Indigenous
+50,Vermont,1336.0,AIAN,0.2,Indigenous
+51,Virginia,23728.0,AIAN,0.3,Indigenous
+53,Washington,91698.0,AIAN,1.2,Indigenous
+54,West Virginia,1730.0,AIAN,0.1,Indigenous
+55,Wisconsin,43759.0,AIAN,0.7,Indigenous
+56,Wyoming,12359.0,AIAN,2.1,Indigenous
+72,Puerto Rico,5066.0,AIAN,0.2,Indigenous
 01,Alabama,232407.0,HISP,4.6,Hispanic or Latino
 02,Alaska,54890.0,HISP,7.5,Hispanic or Latino
 04,Arizona,2297513.0,HISP,32.0,Hispanic or Latino
@@ -519,58 +519,58 @@ state_fips,state_name,population,race_category_id,population_pct,race_and_ethnic
 55,Wisconsin,169414.0,API_NH,2.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 56,Wyoming,5085.0,API_NH,0.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
 72,Puerto Rico,2526.0,API_NH,0.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
-01,Alabama,14864.0,AIAN_NH,0.3,American Indian and Alaska Native (NH)
-02,Alaska,102445.0,AIAN_NH,13.9,American Indian and Alaska Native (NH)
-04,Arizona,249047.0,AIAN_NH,3.5,American Indian and Alaska Native (NH)
-05,Arkansas,11851.0,AIAN_NH,0.4,American Indian and Alaska Native (NH)
-06,California,114271.0,AIAN_NH,0.3,American Indian and Alaska Native (NH)
-08,Colorado,24781.0,AIAN_NH,0.4,American Indian and Alaska Native (NH)
-09,Connecticut,3565.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-10,Delaware,1799.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-11,District of Columbia,829.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-12,Florida,26405.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-13,Georgia,11377.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-15,Hawaii,2056.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-16,Idaho,16217.0,AIAN_NH,0.9,American Indian and Alaska Native (NH)
-17,Illinois,10119.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-18,Indiana,5085.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-19,Iowa,6472.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-20,Kansas,14025.0,AIAN_NH,0.5,American Indian and Alaska Native (NH)
-21,Kentucky,3902.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-22,Louisiana,19612.0,AIAN_NH,0.4,American Indian and Alaska Native (NH)
-23,Maine,6072.0,AIAN_NH,0.4,American Indian and Alaska Native (NH)
-24,Maryland,8480.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-25,Massachusetts,6760.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-26,Michigan,35080.0,AIAN_NH,0.3,American Indian and Alaska Native (NH)
-27,Minnesota,43877.0,AIAN_NH,0.8,American Indian and Alaska Native (NH)
-28,Mississippi,10704.0,AIAN_NH,0.4,American Indian and Alaska Native (NH)
-29,Missouri,12789.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-30,Montana,61081.0,AIAN_NH,5.6,American Indian and Alaska Native (NH)
-31,Nebraska,12132.0,AIAN_NH,0.6,American Indian and Alaska Native (NH)
-32,Nevada,22068.0,AIAN_NH,0.7,American Indian and Alaska Native (NH)
-33,New Hampshire,1332.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-34,New Jersey,7905.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-35,New Mexico,178608.0,AIAN_NH,8.5,American Indian and Alaska Native (NH)
-36,New York,38481.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-37,North Carolina,91599.0,AIAN_NH,0.9,American Indian and Alaska Native (NH)
-38,North Dakota,34275.0,AIAN_NH,4.4,American Indian and Alaska Native (NH)
-39,Ohio,9032.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-40,Oklahoma,277945.0,AIAN_NH,7.0,American Indian and Alaska Native (NH)
-41,Oregon,31339.0,AIAN_NH,0.7,American Indian and Alaska Native (NH)
-42,Pennsylvania,8215.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-44,Rhode Island,2061.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-45,South Carolina,10304.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-46,South Dakota,67419.0,AIAN_NH,7.6,American Indian and Alaska Native (NH)
-47,Tennessee,8159.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-48,Texas,49329.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-49,Utah,23449.0,AIAN_NH,0.7,American Indian and Alaska Native (NH)
-50,Vermont,999.0,AIAN_NH,0.2,American Indian and Alaska Native (NH)
-51,Virginia,11625.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-53,Washington,67829.0,AIAN_NH,0.9,American Indian and Alaska Native (NH)
-54,West Virginia,1465.0,AIAN_NH,0.1,American Indian and Alaska Native (NH)
-55,Wisconsin,36369.0,AIAN_NH,0.6,American Indian and Alaska Native (NH)
-56,Wyoming,10782.0,AIAN_NH,1.9,American Indian and Alaska Native (NH)
-72,Puerto Rico,112.0,AIAN_NH,0.0,American Indian and Alaska Native (NH)
+01,Alabama,14864.0,AIAN_NH,0.3,Indigenous (NH)
+02,Alaska,102445.0,AIAN_NH,13.9,Indigenous (NH)
+04,Arizona,249047.0,AIAN_NH,3.5,Indigenous (NH)
+05,Arkansas,11851.0,AIAN_NH,0.4,Indigenous (NH)
+06,California,114271.0,AIAN_NH,0.3,Indigenous (NH)
+08,Colorado,24781.0,AIAN_NH,0.4,Indigenous (NH)
+09,Connecticut,3565.0,AIAN_NH,0.1,Indigenous (NH)
+10,Delaware,1799.0,AIAN_NH,0.2,Indigenous (NH)
+11,District of Columbia,829.0,AIAN_NH,0.1,Indigenous (NH)
+12,Florida,26405.0,AIAN_NH,0.1,Indigenous (NH)
+13,Georgia,11377.0,AIAN_NH,0.1,Indigenous (NH)
+15,Hawaii,2056.0,AIAN_NH,0.1,Indigenous (NH)
+16,Idaho,16217.0,AIAN_NH,0.9,Indigenous (NH)
+17,Illinois,10119.0,AIAN_NH,0.1,Indigenous (NH)
+18,Indiana,5085.0,AIAN_NH,0.1,Indigenous (NH)
+19,Iowa,6472.0,AIAN_NH,0.2,Indigenous (NH)
+20,Kansas,14025.0,AIAN_NH,0.5,Indigenous (NH)
+21,Kentucky,3902.0,AIAN_NH,0.1,Indigenous (NH)
+22,Louisiana,19612.0,AIAN_NH,0.4,Indigenous (NH)
+23,Maine,6072.0,AIAN_NH,0.4,Indigenous (NH)
+24,Maryland,8480.0,AIAN_NH,0.1,Indigenous (NH)
+25,Massachusetts,6760.0,AIAN_NH,0.1,Indigenous (NH)
+26,Michigan,35080.0,AIAN_NH,0.3,Indigenous (NH)
+27,Minnesota,43877.0,AIAN_NH,0.8,Indigenous (NH)
+28,Mississippi,10704.0,AIAN_NH,0.4,Indigenous (NH)
+29,Missouri,12789.0,AIAN_NH,0.2,Indigenous (NH)
+30,Montana,61081.0,AIAN_NH,5.6,Indigenous (NH)
+31,Nebraska,12132.0,AIAN_NH,0.6,Indigenous (NH)
+32,Nevada,22068.0,AIAN_NH,0.7,Indigenous (NH)
+33,New Hampshire,1332.0,AIAN_NH,0.1,Indigenous (NH)
+34,New Jersey,7905.0,AIAN_NH,0.1,Indigenous (NH)
+35,New Mexico,178608.0,AIAN_NH,8.5,Indigenous (NH)
+36,New York,38481.0,AIAN_NH,0.2,Indigenous (NH)
+37,North Carolina,91599.0,AIAN_NH,0.9,Indigenous (NH)
+38,North Dakota,34275.0,AIAN_NH,4.4,Indigenous (NH)
+39,Ohio,9032.0,AIAN_NH,0.1,Indigenous (NH)
+40,Oklahoma,277945.0,AIAN_NH,7.0,Indigenous (NH)
+41,Oregon,31339.0,AIAN_NH,0.7,Indigenous (NH)
+42,Pennsylvania,8215.0,AIAN_NH,0.1,Indigenous (NH)
+44,Rhode Island,2061.0,AIAN_NH,0.2,Indigenous (NH)
+45,South Carolina,10304.0,AIAN_NH,0.2,Indigenous (NH)
+46,South Dakota,67419.0,AIAN_NH,7.6,Indigenous (NH)
+47,Tennessee,8159.0,AIAN_NH,0.1,Indigenous (NH)
+48,Texas,49329.0,AIAN_NH,0.2,Indigenous (NH)
+49,Utah,23449.0,AIAN_NH,0.7,Indigenous (NH)
+50,Vermont,999.0,AIAN_NH,0.2,Indigenous (NH)
+51,Virginia,11625.0,AIAN_NH,0.1,Indigenous (NH)
+53,Washington,67829.0,AIAN_NH,0.9,Indigenous (NH)
+54,West Virginia,1465.0,AIAN_NH,0.1,Indigenous (NH)
+55,Wisconsin,36369.0,AIAN_NH,0.6,Indigenous (NH)
+56,Wyoming,10782.0,AIAN_NH,1.9,Indigenous (NH)
+72,Puerto Rico,112.0,AIAN_NH,0.0,Indigenous (NH)
 01,Alabama,1557.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
 02,Alaska,10940.0,NHPI_NH,1.5,Native Hawaiian and Pacific Islander (NH)
 04,Arizona,12764.0,NHPI_NH,0.2,Native Hawaiian and Pacific Islander (NH)

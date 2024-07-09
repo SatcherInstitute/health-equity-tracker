@@ -482,6 +482,7 @@ def test_county_race_generate_estimated_total_col():
         df, 'county', 'race_and_ethnicity', sex_specific_group='Female'
     )
     assert intersectional_pop_col == 'population_female'
+
     assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_female_pop), check_like=True)
 
 
