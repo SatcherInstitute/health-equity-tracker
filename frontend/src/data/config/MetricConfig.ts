@@ -128,7 +128,7 @@ export type MetricId =
   | 'population'
   | 'svi'
   | 'ahr_population_estimated_total'
-  | 'ahr_population_18+'
+  | 'ahr_population_18plus'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.

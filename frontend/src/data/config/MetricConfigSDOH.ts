@@ -201,7 +201,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18+',
+          metricId: 'ahr_population_18plus',
           shortLabel: 'Total pop. 18+',
           chartTitle: '',
           type: 'count',
