@@ -393,7 +393,10 @@ def merge_intersectional_pop(
     pop_col = std_col.POPULATION_COL
     for group in specific_group_map.values():
         if group != ALL_VALUE:
-            pop_col += f'_{group.lower()}'
+            group = group.replace('+', 'plus')
+            group = group.replace("-", '_')
+            group = group.lower()
+            pop_col += f'_{group}'
 
     pop_df = pop_df.rename(columns={std_col.POPULATION_COL: pop_col})
 
