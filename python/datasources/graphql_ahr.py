@@ -6,10 +6,8 @@ from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex, BQ_FLOAT, BQ_STRING
 from ingestion.dataset_utils import (
-    generate_time_df_with_cols_and_types,
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
-    preserve_only_current_time_period_rows,
 )
 from ingestion.graphql_ahr_utils import (
     fetch_ahr_data_from_graphql,
@@ -101,12 +99,6 @@ class GraphQlAHRData(DataSource):
         response_data = fetch_ahr_data_from_graphql()
         df = graphql_response_to_dataframe(response_data, geo_level)
         df = self.generate_breakdown_df(demographic, geo_level, df)
-        df.to_json('x.json', orient='records')
-
-        base_cols = [std_col.STATE_FIPS_COL, demographic] + self.intersectional_pop_cols
-
-        if std_col.STATE_NAME_COL in df.columns:
-            base_cols.append(std_col.STATE_NAME_COL)
 
         for time_view in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{time_view}"
@@ -406,7 +398,7 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE) -> pd.
 
     # remove unneeded rows
     if time_view == 'current':
-        df = preserve_only_current_time_period_rows(df)
+        df = preserve_most_recent_year_rows_per_topic(df)
 
     # build BigQuery types dict
     bq_col_types: Dict[str, str] = {}
@@ -420,8 +412,12 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE) -> pd.
 
 def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame):
 
-    # collect base cols
-    base_cols = [col for col in df.columns if not std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES)]
+    # collect base_cols (non-metric id columns like state_name, race_and_ethnicity, etc.)
+    base_cols = [
+        col
+        for col in df.columns
+        if not std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) and col != std_col.TIME_PERIOD_COL
+    ]
 
     # split df based on data recency
     recent_year_to_rate_col_map: Dict[str, List[str]] = {}
@@ -429,25 +425,19 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame):
     for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values():
         # find the most recent time_period value where the rate_col is not null
         most_recent_time_period = df[df[rate_col].notnull()][std_col.TIME_PERIOD_COL].max()
-        # print(f"Most recent time_period for { rate_col}: {most_recent_time_period}")
-        # add this rate_col to the recent_year_to_rate_col_map
-        # making a new entry for the year if it doesn't exist
-        # or adding the rate col to the list if it already exists
 
-        col_prefix = std_col.extract_prefix(rate_col)
         # create a list of all df columns that start with the col_prefix
-
+        col_prefix = std_col.extract_prefix(rate_col)
         col_list = list(df.columns[df.columns.str.startswith(col_prefix)])
 
+        # build the mapping of string year to list of topics where that year is the most recent data
         if most_recent_time_period in recent_year_to_rate_col_map:
             recent_year_to_rate_col_map[most_recent_time_period].extend(col_list)
         else:
             recent_year_to_rate_col_map[most_recent_time_period] = col_list
 
     # iterate over the recent_year_to_rate_col_map and extract the most recent year rows data per rate_col
-
     dfs_by_recent_year: List[pd.DataFrame] = []
-
     for year, topic_cols in recent_year_to_rate_col_map.items():
         keep_cols = base_cols + topic_cols
 
