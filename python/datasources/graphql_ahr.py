@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from typing import cast, Literal, List
+from typing import cast, Literal, List, Dict
 
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
@@ -12,7 +12,6 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_of_summed_alls,
 )
 from ingestion.graphql_ahr_utils import (
-    generate_cols_map,
     fetch_ahr_data_from_graphql,
     AHR_BASE_MEASURES_TO_RATES_MAP,
     AHR_MEASURES_TO_RATES_MAP_18PLUS,
@@ -22,11 +21,7 @@ from ingestion.graphql_ahr_utils import (
 from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
 
 # pylint: disable=no-name-in-module
-from ingestion.merge_utils import (
-    merge_state_ids,
-    merge_yearly_pop_numbers,
-    merge_intersectional_pop,
-)
+from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop, merge_dfs_list
 
 # String constants from AHR source data
 AHR_MEASURE = 'Measure'
@@ -63,25 +58,6 @@ RACE_GROUPS_TO_STANDARD = {
 AHR_AGE_GROUPS = list(AGE_GROUPS_TO_STANDARD.keys())
 AHR_RACE_GROUPS = list(RACE_GROUPS_TO_STANDARD.keys())
 AHR_SEX_GROUPS = [Sex.FEMALE, Sex.MALE]
-
-PCT_RATE_TOPICS = [std_col.AVOIDED_CARE_PREFIX, std_col.VOTER_PARTICIPATION_PREFIX]
-PER_100K_TOPICS = [
-    std_col.ASTHMA_PREFIX,
-    std_col.CARDIOVASCULAR_PREFIX,
-    std_col.CHRONIC_KIDNEY_PREFIX,
-    std_col.COPD_PREFIX,
-    std_col.DEPRESSION_PREFIX,
-    std_col.DIABETES_PREFIX,
-    std_col.EXCESSIVE_DRINKING_PREFIX,
-    std_col.FREQUENT_MENTAL_DISTRESS_PREFIX,
-    std_col.NON_MEDICAL_DRUG_USE_PREFIX,
-    std_col.PREVENTABLE_HOSP_PREFIX,
-    std_col.SUICIDE_PREFIX,
-]
-
-PCT_RATE_MAP = generate_cols_map(PCT_RATE_TOPICS, std_col.PCT_RATE_SUFFIX)
-PER_100K_MAP = generate_cols_map(PER_100K_TOPICS, std_col.PER_100K_SUFFIX)
-
 
 RATE_TO_RAW_18PLUS_MAP = {
     rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.RAW_SUFFIX}'
@@ -125,11 +101,62 @@ class GraphQlAHRData(DataSource):
         response_data = fetch_ahr_data_from_graphql()
         df = graphql_response_to_dataframe(response_data, geo_level)
         df = self.generate_breakdown_df(demographic, geo_level, df)
+        df.to_json('x.json', orient='records')
+
+        base_cols = [std_col.STATE_FIPS_COL, demographic] + self.intersectional_pop_cols
+
+        if std_col.STATE_NAME_COL in df.columns:
+            base_cols.append(std_col.STATE_NAME_COL)
 
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
             float_cols = get_float_cols(table_type, demographic, self.intersectional_pop_cols)
-            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, float_cols, table_type, demographic)
+
+            # split df based on data recency
+            recent_year_to_rate_col_map: Dict[str, List[str]] = {}
+
+            for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values():
+                # find the most recent time_period value where the rate_col is not null
+                most_recent_time_period = df[df[rate_col].notnull()][std_col.TIME_PERIOD_COL].max()
+                # print(f"Most recent time_period for { rate_col}: {most_recent_time_period}")
+                # add this rate_col to the recent_year_to_rate_col_map
+                # making a new entry for the year if it doesn't exist
+                # or adding the rate col to the list if it already exists
+
+                col_prefix = std_col.extract_prefix(rate_col)
+                # create a list of all df columns that start with the col_prefix
+
+                col_list = list(df.columns[df.columns.str.startswith(col_prefix)])
+
+                if most_recent_time_period in recent_year_to_rate_col_map:
+                    recent_year_to_rate_col_map[most_recent_time_period].extend(col_list)
+                else:
+                    recent_year_to_rate_col_map[most_recent_time_period] = col_list
+
+            # print("=")
+            # print(recent_year_to_rate_col_map)
+
+            # iterate over the recent_year_to_rate_col_map and extract the most recent year rows data per rate_col
+
+            dfs_by_recent_year: List[pd.DataFrame] = []
+
+            for year, topic_cols in recent_year_to_rate_col_map.items():
+                keep_cols = base_cols + topic_cols
+
+                # get a subset df with the keep_cols and only the rows where time_period == year
+                df_for_year = df[df[std_col.TIME_PERIOD_COL] == year][keep_cols]
+                print("*&*&*&*&*&*&*&*&*&*&*\n")
+                print(year)
+                print(df_for_year.to_string())
+                dfs_by_recent_year.append(df_for_year)
+
+            print("base cols", base_cols)
+            merged_df = merge_dfs_list(dfs_by_recent_year, base_cols)
+
+            print(merged_df.columns)
+            merged_df.to_json('x.json', orient='records')
+
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(merged_df, float_cols, table_type, demographic)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -235,9 +262,9 @@ class GraphQlAHRData(DataSource):
         )
 
         # TODO: GitHub 3358 - should keep most recent data post-2021 somehow
-        breakdown_df[std_col.TIME_PERIOD_COL] = pd.to_datetime(breakdown_df[std_col.TIME_PERIOD_COL])
-        breakdown_df[std_col.TIME_PERIOD_COL] = breakdown_df[std_col.TIME_PERIOD_COL].dt.year
-        breakdown_df = breakdown_df[breakdown_df[std_col.TIME_PERIOD_COL] <= 2021]
+        # breakdown_df[std_col.TIME_PERIOD_COL] = pd.to_datetime(breakdown_df[std_col.TIME_PERIOD_COL])
+        # breakdown_df[std_col.TIME_PERIOD_COL] = breakdown_df[std_col.TIME_PERIOD_COL].dt.year
+        # breakdown_df = breakdown_df[breakdown_df[std_col.TIME_PERIOD_COL] <= 2021]
 
         return breakdown_df
 
@@ -385,7 +412,7 @@ def get_float_cols(
     # All tables get rate cols
     float_cols = list(AHR_BASE_MEASURES_TO_RATES_MAP.values())
 
-    # Current tables get counts and shares
+    # Current tables get pop counts and shares
     if time_type == CURRENT:
         float_cols.extend(
             [
@@ -394,6 +421,7 @@ def get_float_cols(
             ]
         )
 
+        # and topic counts / shares
         float_cols.extend(list(RATE_TO_RAW_ALL_AGES_MAP.values()))
         float_cols.extend(list(RAW_TO_SHARE_ALL_AGES_MAP.values()))
 
