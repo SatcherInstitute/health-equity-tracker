@@ -3,6 +3,7 @@ import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import Race
+from ingestion.merge_utils import merge_dfs_list
 from ingestion.constants import (
     NATIONAL_LEVEL,
     STATE_LEVEL,
@@ -552,6 +553,60 @@ def zero_out_pct_rel_inequity(
     return df
 
 
+def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, rate_cols: List[str]) -> pd.DataFrame:
+    """Takes a dataframe with a 'time_period' col of string dates like 'YYYY' or 'YYYY-MM',
+    and returns a new dataframe that contains only rows with the most recent 'time_period'
+    for each topic's rate column.
+
+    Parameters:
+        df: dataframe with a 'time_period' col of string dates like 'YYYY' or 'YYYY-MM'
+        rate_cols: list of string column name representing the rate columns for all topics
+        (rate cols are either per_100k, pct_rate, or index); for each topic rate col this util will
+        calculate its most recent 'time_period'
+
+    Returns:
+        new dataframe with only each topic's most recent rows; the time_period col is dropped
+
+    """
+
+    # collect base_cols (non-metric id columns like state_name, race_and_ethnicity, etc.)
+    base_cols = [
+        col
+        for col in df.columns
+        if not std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) and col != std_col.TIME_PERIOD_COL
+    ]
+
+    # split df based on data recency
+    recent_year_to_rate_col_map: Dict[str, List[str]] = {}
+
+    for rate_col in rate_cols:
+        most_recent_time_period = df[df[rate_col].notnull()][std_col.TIME_PERIOD_COL].max()
+
+        # create a list of all topic cols associated with the current rate_col iteration
+        col_prefix = std_col.extract_prefix(rate_col)
+        col_list = list(df.columns[df.columns.str.startswith(col_prefix)])
+
+        # build the mapping of string year to list of topics where that year is the most recent
+        if most_recent_time_period in recent_year_to_rate_col_map:
+            recent_year_to_rate_col_map[most_recent_time_period].extend(col_list)
+        else:
+            recent_year_to_rate_col_map[most_recent_time_period] = col_list
+
+    # iterate over the recent_year_to_rate_col_map and extract the most recent year rows data per rate_col
+    dfs_by_recent_year: List[pd.DataFrame] = []
+    for year, topic_cols in recent_year_to_rate_col_map.items():
+        keep_cols = base_cols + topic_cols
+
+        # get a subset df with the keep_cols and only the rows where time_period == year
+        df_for_year = df[df[std_col.TIME_PERIOD_COL] == year][keep_cols]
+        dfs_by_recent_year.append(df_for_year)
+
+    # merge all subset dfs
+    merged_df = merge_dfs_list(dfs_by_recent_year, base_cols)
+    return merged_df.reset_index(drop=True)
+
+
+# TODO: Remove this in favor of preserve_most_recent_year_rows_per_topic above
 def preserve_only_current_time_period_rows(
     df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False
 ):
