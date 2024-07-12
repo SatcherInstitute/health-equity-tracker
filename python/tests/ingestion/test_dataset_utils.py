@@ -856,7 +856,7 @@ df = pd.DataFrame(
 rate_cols = ['example_per_100k', 'example_pct_rate']
 
 
-def test_current_time_view(self):
+def test_current_time_view():
 
     expected_current_df = pd.DataFrame(
         {
@@ -879,10 +879,10 @@ def test_current_time_view(self):
     result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', rate_cols)
 
     pd.testing.assert_frame_equal(result_df, expected_current_df)
-    self.assertEqual(result_bq_col_types, expected_bq_col_types)
+    assert result_bq_col_types == expected_bq_col_types
 
 
-def test_historical_time_view(self):
+def test_historical_time_view():
 
     expected_df = pd.DataFrame(
         {
@@ -903,10 +903,10 @@ def test_historical_time_view(self):
     result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'historical', rate_cols)
 
     pd.testing.assert_frame_equal(result_df, expected_df)
-    self.assertEqual(result_bq_col_types, expected_bq_col_types)
+    assert result_bq_col_types == expected_bq_col_types
 
 
-def test_invalid_time_view(self):
+def test_invalid_time_view():
     df = pd.DataFrame(
         {
             'time_period': ['2020', '2021', '2022'],
@@ -919,5 +919,5 @@ def test_invalid_time_view(self):
     )
     rate_cols = ['example_per_100k', 'example_pct_relative_inequity']
 
-    with self.assertRaises(ValueError):
+    with pytest.raises(ValueError):
         get_timeview_df_and_cols(df, 'invalid', rate_cols)
