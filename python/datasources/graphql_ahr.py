@@ -399,7 +399,8 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE) -> pd.
 
     # remove unneeded rows
     if time_view == 'current':
-        df = preserve_most_recent_year_rows_per_topic(df, AHR_BASE_MEASURES_TO_RATES_MAP.values())
+        rate_cols = list(AHR_BASE_MEASURES_TO_RATES_MAP.values())
+        df = preserve_most_recent_year_rows_per_topic(df, rate_cols)
 
     # build BigQuery types dict
     bq_col_types: Dict[str, str] = {}
