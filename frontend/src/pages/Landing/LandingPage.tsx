@@ -44,6 +44,7 @@ function LandingPage() {
     videoSrc?: string;
     iframeSrc?: string;
     itemNumber?: number;
+    customClassName?: string;
   }
 
   function ListItem({
@@ -52,14 +53,17 @@ function LandingPage() {
     videoSrc,
     iframeSrc,
     itemNumber,
+    customClassName,
   }: ListItemProps) {
     return (
-      <li className="p-16 px-8 sm:p-8 xs:py-2 xs:px-4 list-none flex xl:flex-row lg:flex-row sm:flex-col xs:flex-col items-center justify-around rounded-xl shadow-raised-tighter bg-white mx-24 min-h-[45vh] min-w-[80vw] w-auto max-w-[80vw] sticky top-[0]">
-        <div className="flex flex-col justify-between w-1/3 mx-4 md:w-auto sm:w-auto xs:w-auto">
-          <p className="font-sansTitle text-small font-bold text-left text-altGreen">
+      <li
+        className={`p-8 sm:p-8 xs:py-2 xs:px-4 list-none flex xl:flex-row lg:flex-row sm:flex-col xs:flex-col items-center justify-around rounded-xl shadow-raised-tighter bg-white mx-24 h-auto min-h-[55vh] xs:h-[auto] sticky top-[0] my-[3rem] min-w-full ${customClassName}`}
+      >
+        <div className="flex flex-col justify-between w-1/3 mx-4 md:w-auto sm:w-auto xs:w-auto ">
+          <p className="font-sansTitle text-small font-bold text-left text-altGreen xs:my-0 xs:py-0">
             {itemNumber}/4
           </p>
-          <div className="w-full min-w-1/2 mb-4">
+          <div className="w-full min-w-1/2 mb-4 xs:mb-0">
             <h4 className="font-sansTitle text-smallestHeader xs:text-title font-medium md:text-left my-2">
               {title}
             </h4>
@@ -75,7 +79,7 @@ function LandingPage() {
         <div className="w-full h-auto">
           {iframeSrc ? (
             <iframe
-              className="min-h-[480px] w-full rounded-md"
+              className="xl:min-h-[40vh] lg:min-h-[40vh] max-h-[40vh] md:h-[25vh] sm:h-[25vh] xs:h-[25vh] max-w-[60vw] w-full rounded-md"
               src={iframeSrc}
               title="YouTube video player"
               loading="lazy"
@@ -89,7 +93,7 @@ function LandingPage() {
                 loop
                 muted
                 playsInline
-                className="w-full p-2.5"
+                className="w-full h-auto min-h-[30vh] max-h-[40vh]"
               >
                 <source src={videoSrc} type="video/mp4" />
               </video>
@@ -219,7 +223,7 @@ function LandingPage() {
         </div>
       </section>
 
-      <section className="py-8 ">
+      <section className="pt-8 pb-0 h-full xs:px-4">
         <div className=" py-0 m-0">
           <div className="flex flex-col items-center justify-center m-0 p-0 ">
             <div className="w-full">
@@ -227,14 +231,13 @@ function LandingPage() {
                 How do I use the Health Equity Tracker?
               </h3>
             </div>
-
             <p className="text-text">
               Scroll down to learn more about the platform.
             </p>
           </div>
 
-          <div className="flex flex-col items-center justify-center h-[55vh] min-h-[55vh] overflow-y-auto relative">
-            <ul className="w-full flex flex-col items-center justify-center p-0 scrollbar-hide absolute top-[0] ">
+          <div className="flex flex-col items-center justify-center xs:max-h-[75vh] xs:min-h-[75vh] overflow-y-auto relative py-[1rem]">
+            <ul className="w-full flex flex-col items-center justify-center py-0 px-8 scrollbar-hide absolute top-[0] xs:px-4 pb-8">
               <ListItem
                 title="Take a tour of the data"
                 description="New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform."
@@ -265,11 +268,12 @@ function LandingPage() {
                 videoSrc="videos/explore-map.mp4"
                 iframeSrc={undefined}
                 itemNumber={4}
+                customClassName="xs:mt-[1rem] xs:mb-[3rem]"
               />
             </ul>
           </div>
         </div>
-        <div className="mt-8">
+        <div className="my-0 py-0 xs:py-0">
           <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetBigCTA>
         </div>
       </section>
