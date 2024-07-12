@@ -686,7 +686,7 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, rate_c
     - rate_cols: The list of rate cols (per_100k, pct_rate, index, etc) to determine most recent data
 
     Returns:
-    - A dataframe with only the rows and columns that are needed for the given time view.
+    - A tuple containing the processed DataFrame and a dict mapping column names needed by BigQuery
     """
 
     if time_view not in ['current', 'historical']:
