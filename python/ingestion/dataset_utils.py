@@ -20,6 +20,7 @@ from ingestion.constants import (
 )
 from functools import reduce
 import os
+from ingestion.het_types import TIME_VIEW_TYPE  # pylint: disable=no-name-in-module
 
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
@@ -676,6 +677,46 @@ def combine_race_ethnicity(
     return df
 
 
+def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, rate_cols: List[str]) -> pd.DataFrame:
+    """Returns a dataframe with only the rows and columns that are needed for the given time view.
+
+    Parameters:
+    - df: The dataframe to process.
+    - time_view: The time view to process for. Can be 'current' or 'historical'.
+    - rate_cols: The list of rate cols (per_100k, pct_rate, index, etc) to determine most recent data
+
+    Returns:
+    - A dataframe with only the rows and columns that are needed for the given time view.
+    """
+
+    if time_view not in ['current', 'historical']:
+        raise ValueError('time_view must be either "current" or "historical"')
+
+    df = df.copy()
+
+    # remove unneeded columns
+    unwanted_suffixes = (
+        std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == 'historical' else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
+    )
+    for col in df.columns:
+        if std_col.ends_with_suffix_from_list(col, unwanted_suffixes):
+            df.drop(columns=[col], inplace=True)
+
+    # remove unneeded rows
+    if time_view == 'current':
+        df = preserve_most_recent_year_rows_per_topic(df, rate_cols)
+
+    # build BigQuery types dict
+    bq_col_types: Dict[str, str] = {}
+    for kept_col in df.columns:
+        bq_col_types[kept_col] = (
+            BQ_FLOAT if std_col.ends_with_suffix_from_list(kept_col, std_col.SUFFIXES) else BQ_STRING
+        )
+
+    return (df, bq_col_types)
+
+
+# TODO: Remove in favor of new function get_timeview_df_and_cols() above
 def generate_time_df_with_cols_and_types(
     df: pd.DataFrame,
     numerical_cols_to_keep: List[str],

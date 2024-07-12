@@ -7,9 +7,9 @@ from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
 from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import (
-    generate_time_df_with_cols_and_types,
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
+    get_timeview_df_and_cols,
 )
 from ingestion.graphql_ahr_utils import (
     generate_cols_map,
@@ -128,8 +128,8 @@ class GraphQlAHRData(DataSource):
 
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
-            float_cols = get_float_cols(table_type, demographic, self.intersectional_pop_cols)
-            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, float_cols, table_type, demographic)
+            rate_cols = list(AHR_BASE_MEASURES_TO_RATES_MAP.values())
+            df_for_bq, col_types = get_timeview_df_and_cols(df, table_type, rate_cols)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
