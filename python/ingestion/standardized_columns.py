@@ -457,10 +457,5 @@ def extract_prefix(col_name: str) -> str:
 
 
 def ends_with_suffix_from_list(col: str, suffixes: List[str]) -> bool:
-    """Detects whether the given col name ends with any of the provided metric col suffixes"""
-
-    for suffix in suffixes:
-        if col.endswith(suffix):
-            return True
-
-    return False
+    """Detects whether the given col name ends with ANY of the provided metric col suffixes"""
+    return any(col.endswith(suffix) for suffix in suffixes)

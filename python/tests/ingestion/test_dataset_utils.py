@@ -14,6 +14,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
+    preserve_most_recent_year_rows_per_topic,
 )
 from io import StringIO
 
@@ -811,3 +812,26 @@ def test_county_race_generate_pct_share_col_of_summed_alls():
         pd.DataFrame(fake_county_by_race_data_with_rates_pop_adjusted_all_counts_and_pct_share),
         check_like=True,
     )
+
+
+def test_preserve_most_recent_year_rows_per_topic_normal_case():
+    test_data = {
+        'race_and_ethnicity': ['Black', 'Black', 'Black', 'White', 'White', 'White'],
+        'time_period': ['2021', '2022', '2023', '2021', '2022', '2023'],
+        'topic1_per_100k': [10.0, 15.0, 20.0, None, 25.0, 30.0],
+        'topic2_pct_rate': [5.0, None, 10.0, 20.0, 25.0, None],
+        'topic3_index': [None, 1.0, 2.0, 3.0, None, 4.0],
+    }
+    expected_data = {
+        'race_and_ethnicity': ['Black', 'White'],
+        'topic1_per_100k': [20.0, 30.0],
+        'topic2_pct_rate': [10.0, None],
+        'topic3_index': [2.0, 4.0],
+    }
+
+    test_df = pd.DataFrame(test_data)
+    expected_df = pd.DataFrame(expected_data)
+
+    rate_cols = ['topic1_per_100k', 'topic2_pct_rate', 'topic3_index']
+    test_df = preserve_most_recent_year_rows_per_topic(test_df, rate_cols)
+    pd.testing.assert_frame_equal(test_df, expected_df)
