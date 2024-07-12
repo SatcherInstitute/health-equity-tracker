@@ -18,7 +18,6 @@ import HetBigCTA from "../../styles/HetComponents/HetBigCTA";
 import { useIsBreakpointAndUp } from "../../utils/hooks/useIsBreakpointAndUp";
 import HetPostsLoading from "../../styles/HetComponents/HetPostsLoading";
 import TextLink from "../../reports/ui/TextLink";
-import MadLibAnimation from "../../reports/ui/MadLibAnimation";
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -100,7 +99,6 @@ function LandingPage() {
       </li>
     );
   }
-
 
   return (
     <main className="relative">
@@ -217,9 +215,9 @@ function LandingPage() {
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
             </p>
-          </div >
-        </div >
-      </section >
+          </div>
+        </div>
+      </section>
 
       <section className="py-8 ">
         <div className=" py-0 m-0">
@@ -233,7 +231,6 @@ function LandingPage() {
             <p className="text-text">
               Scroll down to learn more about the platform.
             </p>
-            <MadLibAnimation />
           </div>
 
           <div className="flex flex-col items-center justify-center h-[55vh] min-h-[55vh] overflow-y-auto relative">
@@ -317,11 +314,11 @@ function LandingPage() {
                 containerClassName="flex items-center justify-center mt-16 mx-auto "
                 linkClassName="font-sansTitle text-smallestHeader"
               />
-            </div >
-          </div >
-        </div >
-      </section >
-    </main >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
 
