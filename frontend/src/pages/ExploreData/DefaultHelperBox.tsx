@@ -122,8 +122,6 @@ export default function DefaultHelperBox() {
             ))}
           </ul>
         </div>
-
-        <DisclaimerAlert className="col-span-5 m-7 hidden smMd:block" />
       </section>
     </div>
   );
