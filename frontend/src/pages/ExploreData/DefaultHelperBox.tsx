@@ -9,7 +9,6 @@ import {
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
   WARM_WELCOME_DEMO_SETTING,
 } from "../../utils/internalRoutes";
-import DisclaimerAlert from "../../reports/ui/DisclaimerAlert";
 
 const reportMapping = [
   {
@@ -19,6 +18,8 @@ const reportMapping = [
     description:
       "Uncover disparities in HIV prevalence across different racial and ethnic groups in the U.S. Understanding these patterns is vital for targeted interventions and improved health equity.",
     categories: ["HIV", "Prevalence", "Race/Ethnicity", "National-Level"],
+    iframeSrc:
+      "https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence#rate-map",
   },
   {
     setting: COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
@@ -27,6 +28,8 @@ const reportMapping = [
     description:
       "Analyze COVID-19 mortality in Fulton County, GA, by age. Highlighting vulnerable populations helps to inform public health strategies and resource allocation.",
     categories: ["COVID-19", "Deaths", "Age", "County-Level"],
+    iframeSrc:
+      "https://healthequitytracker.org/exploredata?mls=1.covid-3.13121&group1=All&group2=All&dt1=covid_deaths&demo=age#population-vs-distribution",
   },
   {
     setting: PRISON_VS_POVERTY_RACE_GA_SETTING,
@@ -41,6 +44,8 @@ const reportMapping = [
       "State-Level",
       "Compare Topics",
     ],
+    iframeSrc:
+      "https://healthequitytracker.org/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison#rate-map",
   },
   {
     setting: UNINSURANCE_SEX_FL_VS_CA_SETTING,
@@ -54,6 +59,8 @@ const reportMapping = [
       "Sex",
       "Compare Places",
     ],
+    iframeSrc:
+      "https://healthequitytracker.org/exploredata?mls=1.health_insurance-3.12-5.06&mlp=comparegeos&demo=sex#rates-over-time",
   },
   {
     setting: PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
@@ -68,6 +75,8 @@ const reportMapping = [
       "National-Level",
     ],
     icon: <FiberNewIcon />,
+    iframeSrc:
+      "https://healthequitytracker.org/exploredata?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true",
   },
 ];
 
@@ -90,11 +99,36 @@ const CategoryNames: React.FC<CategoryNamesProps> = ({ categories }) => {
   );
 };
 
+const EmbeddedIframe: React.FC<{ src: string }> = ({ src }) => {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "500px",
+        marginTop: "1rem",
+        overflow: "hidden",
+      }}
+    >
+      <iframe
+        src={src}
+        style={{
+          width: "200%",
+          height: "165%",
+          transform: "scale(0.5)",
+          transformOrigin: "0 0",
+          border: "none",
+        }}
+        title="Embedded Report"
+      />
+    </div>
+  );
+};
+
 export default function DefaultHelperBox() {
   return (
     <div className="flex w-full items-center justify-center px-12 pb-0 pt-4 sm:px-20 sm:pt-8">
       <section className="m-0 mb-5  w-full max-w-helperBox content-center items-center justify-evenly justify-items-center rounded-md pb-0 ">
-        <div className=" px-10 py-0 text-left smMd:px-0 md:px-10">
+        <div className=" px-10 py-0 text-left smMd:px-0 md:px-10 xs:px-2">
           <h3 className="mt-4 pr-4 text-small sm:mt-8 sm:text-smallestHeader md:mt-0 lg:text-header">
             Select a topic above...
           </h3>
@@ -104,7 +138,7 @@ export default function DefaultHelperBox() {
 
           <ul className="my-0 list-none pl-0 text-left">
             {reportMapping.map((report, index) => (
-              <li className="my-4 flex" key={index}>
+              <li className="my-4 flex flex-col xs:my-2" key={index}>
                 <a
                   href={EXPLORE_DATA_PAGE_LINK + report.setting}
                   className="no-underline block w-full text-left p-4 bg-white rounded-md transition-transform duration-300 hover:scale-105 hover:shadow-raised-tighter group"
@@ -114,9 +148,7 @@ export default function DefaultHelperBox() {
                     {report.title} {report.icon && report.icon}
                   </h1>
                   <p className="text-black">{report.description}</p>
-                  <p className="p-0 m-0 no-underline opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    View More
-                  </p>
+                  <EmbeddedIframe src={report.iframeSrc} />
                 </a>
               </li>
             ))}
