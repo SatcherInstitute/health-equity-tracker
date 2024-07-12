@@ -849,22 +849,48 @@ df = pd.DataFrame(
         'example_per_100k': [10, 20, 30],
         'example_estimated_total': [100, 200, 300],
         'example_pct_relative_inequity': [0.1, 0.2, 0.3],
-        'example_pct_rate': [1, 2, 3],
         'example_pct_share': [0.5, 0.6, 0.7],
+        'other_pct_rate': [1, 2, 3],
     }
 )
-rate_cols = ['example_per_100k', 'example_pct_rate']
+rate_cols = ['example_per_100k', 'other_pct_rate']
 
 
 def test_current_time_view():
 
     expected_current_df = pd.DataFrame(
         {
-            'time_period': ['2022'],
             'state_fips': ['03'],
             'example_per_100k': [30],
-            'example_pct_rate': [3],
             'example_estimated_total': [300],
+            'example_pct_share': [0.7],
+            'other_pct_rate': [3],
+        }
+    )
+
+    expected_current_bq_col_types = {
+        'state_fips': BQ_STRING,
+        'example_per_100k': BQ_FLOAT,
+        'example_estimated_total': BQ_FLOAT,
+        'example_pct_share': BQ_FLOAT,
+        'other_pct_rate': BQ_FLOAT,
+    }
+
+    result_current_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', rate_cols)
+
+    pd.testing.assert_frame_equal(result_current_df, expected_current_df)
+    assert result_bq_col_types == expected_current_bq_col_types
+
+
+def test_historical_time_view():
+
+    expected_historical_df = pd.DataFrame(
+        {
+            'time_period': ['2020', '2021', '2022'],
+            'state_fips': ['01', '02', '03'],
+            'example_per_100k': [10, 20, 30],
+            'example_pct_relative_inequity': [0.1, 0.2, 0.3],
+            'other_pct_rate': [1, 2, 3],
         }
     )
 
@@ -872,37 +898,12 @@ def test_current_time_view():
         'time_period': BQ_STRING,
         'state_fips': BQ_STRING,
         'example_per_100k': BQ_FLOAT,
-        'example_pct_rate': BQ_FLOAT,
-        'example_estimated_total': BQ_FLOAT,
-    }
-
-    result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', rate_cols)
-
-    pd.testing.assert_frame_equal(result_df, expected_current_df)
-    assert result_bq_col_types == expected_bq_col_types
-
-
-def test_historical_time_view():
-
-    expected_df = pd.DataFrame(
-        {
-            'time_period': ['2020', '2021', '2022'],
-            'state_fips': ['01', '02', '03'],
-            'example_pct_rate': [1, 2, 3],
-            'example_pct_share': [0.5, 0.6, 0.7],
-        }
-    )
-
-    expected_bq_col_types = {
-        'time_period': BQ_STRING,
-        'state_fips': BQ_STRING,
-        'example_pct_rate': BQ_FLOAT,
-        'example_pct_share': BQ_FLOAT,
+        'example_pct_relative_inequity': BQ_FLOAT,
+        'other_pct_rate': BQ_FLOAT,
     }
 
     result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'historical', rate_cols)
-
-    pd.testing.assert_frame_equal(result_df, expected_df)
+    pd.testing.assert_frame_equal(result_df, expected_historical_df)
     assert result_bq_col_types == expected_bq_col_types
 
 
@@ -913,11 +914,11 @@ def test_invalid_time_view():
             'state_fips': ['01', '02', '03'],
             'example_per_100k': [10, 20, 30],
             'example_pct_relative_inequity': [0.1, 0.2, 0.3],
-            'example_pct_rate': [1, 2, 3],
+            'other_pct_rate': [1, 2, 3],
             'example_pct_share': [0.5, 0.6, 0.7],
         }
     )
     rate_cols = ['example_per_100k', 'example_pct_relative_inequity']
 
     with pytest.raises(ValueError):
-        get_timeview_df_and_cols(df, 'invalid', rate_cols)
+        get_timeview_df_and_cols(df, 'some_invalid_time_view', rate_cols)
