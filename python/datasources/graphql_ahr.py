@@ -8,6 +8,7 @@ from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex, BQ_FLOAT,
 from ingestion.dataset_utils import (
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
+    preserve_most_recent_year_rows_per_topic,
 )
 from ingestion.graphql_ahr_utils import (
     fetch_ahr_data_from_graphql,
@@ -19,7 +20,7 @@ from ingestion.graphql_ahr_utils import (
 from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, TIME_VIEW_TYPE
 
 # pylint: disable=no-name-in-module
-from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop, merge_dfs_list
+from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 
 # String constants from AHR source data
 AHR_MEASURE = 'Measure'
@@ -398,7 +399,7 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE) -> pd.
 
     # remove unneeded rows
     if time_view == 'current':
-        df = preserve_most_recent_year_rows_per_topic(df)
+        df = preserve_most_recent_year_rows_per_topic(df, AHR_BASE_MEASURES_TO_RATES_MAP.values())
 
     # build BigQuery types dict
     bq_col_types: Dict[str, str] = {}
@@ -408,42 +409,3 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE) -> pd.
         )
 
     return (df, bq_col_types)
-
-
-def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame):
-
-    # collect base_cols (non-metric id columns like state_name, race_and_ethnicity, etc.)
-    base_cols = [
-        col
-        for col in df.columns
-        if not std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) and col != std_col.TIME_PERIOD_COL
-    ]
-
-    # split df based on data recency
-    recent_year_to_rate_col_map: Dict[str, List[str]] = {}
-
-    for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values():
-        # find the most recent time_period value where the rate_col is not null
-        most_recent_time_period = df[df[rate_col].notnull()][std_col.TIME_PERIOD_COL].max()
-
-        # create a list of all df columns that start with the col_prefix
-        col_prefix = std_col.extract_prefix(rate_col)
-        col_list = list(df.columns[df.columns.str.startswith(col_prefix)])
-
-        # build the mapping of string year to list of topics where that year is the most recent data
-        if most_recent_time_period in recent_year_to_rate_col_map:
-            recent_year_to_rate_col_map[most_recent_time_period].extend(col_list)
-        else:
-            recent_year_to_rate_col_map[most_recent_time_period] = col_list
-
-    # iterate over the recent_year_to_rate_col_map and extract the most recent year rows data per rate_col
-    dfs_by_recent_year: List[pd.DataFrame] = []
-    for year, topic_cols in recent_year_to_rate_col_map.items():
-        keep_cols = base_cols + topic_cols
-
-        # get a subset df with the keep_cols and only the rows where time_period == year
-        df_for_year = df[df[std_col.TIME_PERIOD_COL] == year][keep_cols]
-        dfs_by_recent_year.append(df_for_year)
-
-    merged_df = merge_dfs_list(dfs_by_recent_year, base_cols)
-    return merged_df
