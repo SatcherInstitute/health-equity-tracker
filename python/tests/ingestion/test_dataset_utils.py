@@ -834,8 +834,8 @@ def test_preserve_most_recent_year_rows_per_topic_normal_case():
     test_df = pd.DataFrame(test_data)
     expected_df = pd.DataFrame(expected_data)
 
-    rate_cols = ['topic1_per_100k', 'topic2_pct_rate', 'topic3_index']
-    test_df = preserve_most_recent_year_rows_per_topic(test_df, rate_cols)
+    topic_prefixes = ['topic1', 'topic2', 'topic3']
+    test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
     pd.testing.assert_frame_equal(test_df, expected_df)
 
 
@@ -854,7 +854,7 @@ df = pd.DataFrame(
         'some_population_pct': [99, 100, 100],
     }
 )
-rate_cols = ['example_per_100k', 'other_pct_rate']
+topic_prefixes = ['example', 'other', 'some']
 
 
 def test_current_time_view():
@@ -879,10 +879,7 @@ def test_current_time_view():
         'some_population_pct': BQ_FLOAT,
     }
 
-    result_current_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', rate_cols)
-
-    print(result_current_df)
-    print(expected_current_df)
+    result_current_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', topic_prefixes)
 
     pd.testing.assert_frame_equal(result_current_df, expected_current_df)
     assert result_bq_col_types == expected_current_bq_col_types
@@ -908,23 +905,12 @@ def test_historical_time_view():
         'other_pct_rate': BQ_FLOAT,
     }
 
-    result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'historical', rate_cols)
+    result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'historical', topic_prefixes)
     pd.testing.assert_frame_equal(result_df, expected_historical_df)
     assert result_bq_col_types == expected_bq_col_types
 
 
 def test_invalid_time_view():
-    df = pd.DataFrame(
-        {
-            'time_period': ['2020', '2021', '2022'],
-            'state_fips': ['01', '02', '03'],
-            'example_per_100k': [10, 20, 30],
-            'example_pct_relative_inequity': [0.1, 0.2, 0.3],
-            'other_pct_rate': [1, 2, 3],
-            'example_pct_share': [0.5, 0.6, 0.7],
-        }
-    )
-    rate_cols = ['example_per_100k', 'example_pct_relative_inequity']
 
     with pytest.raises(ValueError):
-        get_timeview_df_and_cols(df, 'some_invalid_time_viewπ', rate_cols)
+        get_timeview_df_and_cols(df, 'some_invalid_time_viewπ', topic_prefixes)
