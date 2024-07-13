@@ -577,6 +577,9 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, rate_cols: List[s
         if not std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) and col != std_col.TIME_PERIOD_COL
     ]
 
+    # TODO: Need to somehow add in columns that are NOT represented by a rate_col that still need to be kept,
+    #  like ahr_population_pct and other population columns
+
     # split df based on data recency
     recent_year_to_rate_col_map: Dict[str, List[str]] = {}
 
