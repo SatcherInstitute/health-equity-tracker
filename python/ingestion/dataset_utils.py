@@ -610,7 +610,9 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
 def get_topic_primary_col(topic_prefix: str, df: pd.DataFrame) -> str:
     """Given a topic prefix, returns the 'primary' col for that topic;
     typically the primary col will be a rate like 'per_100k' or 'pct_rate'
-    but could also be a population like ahr_population
+    but could also be a population like 'ahr_population_pct'. We consider these
+    columns 'primary' because they are more likely to have solid data than the
+    other suffixes like 'pct_relative_inequity' or 'pct_share'
 
     Parameters:
         topic_prefix: str topic prefix
@@ -702,13 +704,13 @@ def combine_race_ethnicity(
     return df
 
 
-def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, rate_cols: List[str]) -> pd.DataFrame:
+def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]) -> pd.DataFrame:
     """Returns a dataframe with only the rows and columns that are needed for the given time view.
 
     Parameters:
     - df: The dataframe to process.
     - time_view: The time view to process for. Can be 'current' or 'historical'.
-    - rate_cols: The list of rate cols (per_100k, pct_rate, index, etc) to determine most recent data
+    - topic_prefixes: The list of str topic prefixes e.g. ['covid', 'diabetes', 'population_pct]
 
     Returns:
     - A tuple containing the processed DataFrame and a dict mapping column names needed by BigQuery
@@ -729,7 +731,7 @@ def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, rate_c
 
     # remove unneeded rows
     if time_view == 'current':
-        df = preserve_most_recent_year_rows_per_topic(df, rate_cols)
+        df = preserve_most_recent_year_rows_per_topic(df, topic_prefixes)
 
     # build BigQuery types dict
     bq_col_types: Dict[str, str] = {}

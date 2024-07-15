@@ -128,8 +128,10 @@ class GraphQlAHRData(DataSource):
 
         for table_type in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{table_type}"
-            rate_cols = list(AHR_BASE_MEASURES_TO_RATES_MAP.values())
-            df_for_bq, col_types = get_timeview_df_and_cols(df, table_type, rate_cols)
+            topic_prefixes = [std_col.extract_prefix(rate_col) for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()]
+            topic_prefixes.append('ahr')
+            # topic_prefixes.extend(self.intersectional_pop_cols)
+            df_for_bq, col_types = get_timeview_df_and_cols(df, table_type, topic_prefixes)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
