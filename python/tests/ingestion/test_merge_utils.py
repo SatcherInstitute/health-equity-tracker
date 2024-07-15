@@ -595,3 +595,26 @@ def test_sum_states_to_national():
     df = merge_utils.sum_states_to_national(df)
     expected_national_df = pd.DataFrame(fake_pop_data_national_by_sex_by_race)
     assert_frame_equal(df, expected_national_df, check_like=True)
+
+
+def test_merge_dfs_list():
+
+    # Test case: Normal case
+    df1 = pd.DataFrame({'STATE': ['STATE1', 'STATE2'], 'RACE': ['RACE1', 'RACE2'], 'C': ['C1', 'C2']})
+
+    df2 = pd.DataFrame({'STATE': ['STATE1', 'STATE2'], 'RACE': ['RACE1', 'RACE2'], 'D': ['D1', 'D2']})
+
+    df3 = pd.DataFrame({'STATE': ['STATE1', 'STATE2'], 'RACE': ['RACE1', 'RACE2'], 'E': ['E1', 'E2']})
+
+    expected_df = pd.DataFrame(
+        {
+            'STATE': ['STATE1', 'STATE2'],
+            'RACE': ['RACE1', 'RACE2'],
+            'C': ['C1', 'C2'],
+            'D': ['D1', 'D2'],
+            'E': ['E1', 'E2'],
+        }
+    )
+
+    result_df = merge_utils.merge_dfs_list([df1, df2, df3], ['STATE', 'RACE'])
+    pd.testing.assert_frame_equal(result_df, expected_df)
