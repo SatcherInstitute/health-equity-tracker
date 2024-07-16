@@ -1,14 +1,14 @@
 import pandas as pd
 from datetime import datetime
-from typing import cast, Literal, List, Dict
+from typing import cast, Literal, List
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
-from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex, BQ_FLOAT, BQ_STRING
+from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
 from ingestion.dataset_utils import (
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
-    preserve_most_recent_year_rows_per_topic,
+    get_timeview_df_and_cols,
 )
 from ingestion.graphql_ahr_utils import (
     fetch_ahr_data_from_graphql,
@@ -17,7 +17,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )  # type: ignore
-from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, TIME_VIEW_TYPE
+from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
 
 # pylint: disable=no-name-in-module
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
@@ -103,9 +103,9 @@ class GraphQlAHRData(DataSource):
 
         for time_view in [CURRENT]:
             table_name = f"{demographic}_{geo_level}_{time_view}"
-
-            # df_for_bq, col_types = generate_time_df_with_cols_and_types(merged_df, float_cols, time_view, demographic)
-            df_for_bq, col_types = get_timeview_df_and_cols(df, time_view)
+            topic_prefixes = [std_col.extract_prefix(rate_col) for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()]
+            topic_prefixes.append('ahr')
+            df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -383,30 +383,3 @@ def get_float_cols(
     # TODO: historical tables will get pct_relative_inequity cols
 
     return float_cols
-
-
-def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE) -> pd.DataFrame:
-
-    df = df.copy()
-
-    # remove unneeded columns
-    unwanted_suffixes = (
-        std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == 'historical' else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
-    )
-    for col in df.columns:
-        if std_col.ends_with_suffix_from_list(col, unwanted_suffixes):
-            df.drop(columns=[col], inplace=True)
-
-    # remove unneeded rows
-    if time_view == 'current':
-        rate_cols = list(AHR_BASE_MEASURES_TO_RATES_MAP.values())
-        df = preserve_most_recent_year_rows_per_topic(df, rate_cols)
-
-    # build BigQuery types dict
-    bq_col_types: Dict[str, str] = {}
-    for kept_col in df.columns:
-        bq_col_types[kept_col] = (
-            BQ_FLOAT if std_col.ends_with_suffix_from_list(kept_col, std_col.SUFFIXES) else BQ_STRING
-        )
-
-    return (df, bq_col_types)
