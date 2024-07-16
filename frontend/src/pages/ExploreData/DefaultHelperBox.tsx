@@ -48,7 +48,7 @@ const reportMapping = [
       "State-Level",
       "Compare Topics",
     ],
-    previewImg: "/img/screenshots/sample-report_ga-poverty.png",
+    previewImg: "/img/screenshots/sample-report_ga.png",
     iframeSrc:
       "https://healthequitytracker.org/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison#rate-map",
   },
@@ -156,7 +156,7 @@ export default function DefaultHelperBox() {
           <ul className="my-0 list-none pl-0 text-left flex flex-wrap">
             {reportMapping.map((report, index) => (
               <li
-                className="my-4 xs:my-2 w-full mx-8 md:mx-0 sm:mx-0 xs:mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out"
+                className="my-4 xs:my-2 w-full mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out"
                 key={index}
               >
                 <div className="no-underline block text-left p-4 text-altGreen flex flex-row">
