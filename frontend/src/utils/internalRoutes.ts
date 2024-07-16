@@ -59,7 +59,7 @@ export const POVERTY_US_SETTING = '?mls=1.poverty-3.00';
 export const OPIOID_US_SETTING =
 	'?dt1=non_medical_drug_use&mls=1.substance-3.00';
 
-export const HIV_PREVALANCE_RACE_USA_SETTING =
+export const HIV_PREVALENCE_RACE_USA_SETTING =
 	'?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence';
 export const PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING =
 	'?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true';
