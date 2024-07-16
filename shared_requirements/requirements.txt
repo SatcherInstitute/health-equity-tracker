@@ -53,7 +53,7 @@ pyparsing==3.1.2
 pytest==8.2.2
 python-dateutil==2.9.0.post0
 pytz==2022.2.1
-pyyaml==5.4
+pyyaml==6.0.1
 requests==2.32.3
 rsa==4.9
 six==1.16.0
