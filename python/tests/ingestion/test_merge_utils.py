@@ -417,11 +417,11 @@ def test_state_sex_merge_intersectional_pop():
         'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
         'state_fips': ['01', '01', '01', '02', '02', '02'],
         'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-        'population_18plus': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+        '18plus_population': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
     }
     df = pd.DataFrame(fake_state_by_sex_data_with_only_rates)
     (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(df, 'state', 'sex', age_specific_group='18+')
-    assert intersectional_pop_col == 'population_18plus'
+    assert intersectional_pop_col == '18plus_population'
     assert_frame_equal(df, pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus), check_like=True)
 
 
@@ -469,7 +469,7 @@ fake_county_by_race_data_with_rates_and_female_pop = {
         'Baldwin County',
         'Baldwin County',
     ],
-    'population_female': [6030.0, 21625.0, 30098.0, 10284.0, 98154.0, 119343.0],
+    'female_population': [6030.0, 21625.0, 30098.0, 10284.0, 98154.0, 119343.0],
 }
 
 
@@ -481,7 +481,7 @@ def test_county_race_generate_estimated_total_col():
     (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(
         df, 'county', 'race_and_ethnicity', sex_specific_group='Female'
     )
-    assert intersectional_pop_col == 'population_female'
+    assert intersectional_pop_col == 'female_population'
 
     assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_and_female_pop), check_like=True)
 
@@ -595,3 +595,26 @@ def test_sum_states_to_national():
     df = merge_utils.sum_states_to_national(df)
     expected_national_df = pd.DataFrame(fake_pop_data_national_by_sex_by_race)
     assert_frame_equal(df, expected_national_df, check_like=True)
+
+
+def test_merge_dfs_list():
+
+    # Test case: Normal case
+    df1 = pd.DataFrame({'STATE': ['STATE1', 'STATE2'], 'RACE': ['RACE1', 'RACE2'], 'C': ['C1', 'C2']})
+
+    df2 = pd.DataFrame({'STATE': ['STATE1', 'STATE2'], 'RACE': ['RACE1', 'RACE2'], 'D': ['D1', 'D2']})
+
+    df3 = pd.DataFrame({'STATE': ['STATE1', 'STATE2'], 'RACE': ['RACE1', 'RACE2'], 'E': ['E1', 'E2']})
+
+    expected_df = pd.DataFrame(
+        {
+            'STATE': ['STATE1', 'STATE2'],
+            'RACE': ['RACE1', 'RACE2'],
+            'C': ['C1', 'C2'],
+            'D': ['D1', 'D2'],
+            'E': ['E1', 'E2'],
+        }
+    )
+
+    result_df = merge_utils.merge_dfs_list([df1, df2, df3], ['STATE', 'RACE'])
+    pd.testing.assert_frame_equal(result_df, expected_df)

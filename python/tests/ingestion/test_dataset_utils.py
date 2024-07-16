@@ -7,6 +7,7 @@ import re
 import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal
+from ingestion.constants import BQ_STRING, BQ_FLOAT
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.dataset_utils import (
@@ -14,6 +15,8 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
+    preserve_most_recent_year_rows_per_topic,
+    get_timeview_df_and_cols,
 )
 from io import StringIO
 
@@ -811,3 +814,103 @@ def test_county_race_generate_pct_share_col_of_summed_alls():
         pd.DataFrame(fake_county_by_race_data_with_rates_pop_adjusted_all_counts_and_pct_share),
         check_like=True,
     )
+
+
+def test_preserve_most_recent_year_rows_per_topic_normal_case():
+    test_data = {
+        'race_and_ethnicity': ['Black', 'Black', 'Black', 'White', 'White', 'White'],
+        'time_period': ['2021', '2022', '2023', '2021', '2022', '2023'],
+        'topic1_per_100k': [10.0, 15.0, 20.0, None, 25.0, 30.0],
+        'topic2_pct_rate': [5.0, None, 10.0, 20.0, 25.0, None],
+        'topic3_index': [None, 1.0, 2.0, 3.0, None, 4.0],
+    }
+    expected_data = {
+        'race_and_ethnicity': ['Black', 'White'],
+        'topic1_per_100k': [20.0, 30.0],
+        'topic2_pct_rate': [10.0, None],
+        'topic3_index': [2.0, 4.0],
+    }
+
+    test_df = pd.DataFrame(test_data)
+    expected_df = pd.DataFrame(expected_data)
+
+    topic_prefixes = ['topic1', 'topic2', 'topic3']
+    test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
+    pd.testing.assert_frame_equal(test_df, expected_df)
+
+
+# GET TIME VIEW TESTS
+
+# SHARED TEST DATA
+df = pd.DataFrame(
+    {
+        'time_period': ['2020', '2021', '2022'],
+        'state_fips': ['01', '02', '03'],
+        'example_per_100k': [10, 20, 30],
+        'example_estimated_total': [100, 200, 300],
+        'example_pct_relative_inequity': [0.1, 0.2, 0.3],
+        'example_pct_share': [0.5, 0.6, 0.7],
+        'other_pct_rate': [1, 2, 3],
+        'some_population_pct': [99, 100, 100],
+    }
+)
+topic_prefixes = ['example', 'other', 'some']
+
+
+def test_current_time_view():
+
+    expected_current_df = pd.DataFrame(
+        {
+            'state_fips': ['03'],
+            'example_per_100k': [30],
+            'example_estimated_total': [300],
+            'example_pct_share': [0.7],
+            'other_pct_rate': [3],
+            'some_population_pct': [100],
+        }
+    )
+
+    expected_current_bq_col_types = {
+        'state_fips': BQ_STRING,
+        'example_per_100k': BQ_FLOAT,
+        'example_estimated_total': BQ_FLOAT,
+        'example_pct_share': BQ_FLOAT,
+        'other_pct_rate': BQ_FLOAT,
+        'some_population_pct': BQ_FLOAT,
+    }
+
+    result_current_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', topic_prefixes)
+
+    pd.testing.assert_frame_equal(result_current_df, expected_current_df)
+    assert result_bq_col_types == expected_current_bq_col_types
+
+
+def test_historical_time_view():
+
+    expected_historical_df = pd.DataFrame(
+        {
+            'time_period': ['2020', '2021', '2022'],
+            'state_fips': ['01', '02', '03'],
+            'example_per_100k': [10, 20, 30],
+            'example_pct_relative_inequity': [0.1, 0.2, 0.3],
+            'other_pct_rate': [1, 2, 3],
+        }
+    )
+
+    expected_bq_col_types = {
+        'time_period': BQ_STRING,
+        'state_fips': BQ_STRING,
+        'example_per_100k': BQ_FLOAT,
+        'example_pct_relative_inequity': BQ_FLOAT,
+        'other_pct_rate': BQ_FLOAT,
+    }
+
+    result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'historical', topic_prefixes)
+    pd.testing.assert_frame_equal(result_df, expected_historical_df)
+    assert result_bq_col_types == expected_bq_col_types
+
+
+def test_invalid_time_view():
+
+    with pytest.raises(ValueError):
+        get_timeview_df_and_cols(df, 'some_invalid_time_viewπ', topic_prefixes)
