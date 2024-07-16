@@ -1,4 +1,3 @@
-from functools import reduce
 import pandas as pd
 from typing import Dict, cast
 from datasources.data_source import DataSource
@@ -17,7 +16,7 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
 )
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_county_names, merge_state_ids
+from ingestion.merge_utils import merge_county_names, merge_state_ids, merge_dfs_list
 from ingestion.het_types import (
     GEO_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
@@ -342,7 +341,7 @@ def load_phrma_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_
 
         topic_dfs.append(topic_df)
 
-    df_merged = reduce(lambda df_a, df_b: pd.merge(df_a, df_b, on=merge_cols, how='outer'), topic_dfs)
+    df_merged = merge_dfs_list(topic_dfs, merge_cols)
 
     # drop rows that dont include FIPS and DEMO values
     df_merged = df_merged[df_merged[fips_col].notna()]
