@@ -211,7 +211,7 @@ export default function DefaultHelperBox() {
 					  ></div>
 					  <div className='flex flex-col xl:max-w-[55%] lg:max-w-[55%] md:max-w-[55%] size-auto'>
 						<CategoryNames categories={report.categories} />
-						<h2 id={`report-title-${index}`} className='text-lg font-medium my-4 text-base'>
+						<h2 role='heading' aria-label={report.title} id={`report-title-${index}`} className='text-lg font-medium my-4 text-base'>
 						  {report.title} {report.icon && report.icon}
 						</h2>
 						<p className='text-black xl:visible lg:visible md:visible sm:collapse xs:collapse'>
