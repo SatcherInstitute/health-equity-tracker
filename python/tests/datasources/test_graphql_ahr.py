@@ -42,9 +42,6 @@ def testWriteToBqAgeNational(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: moc
 
     # actual_df.to_csv(table_name, index=False)
 
-    # print(actual_df.columns)
-    # print(expected_df.columns)
-
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
 
@@ -61,9 +58,6 @@ def testWriteToBqRaceState(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.
     assert mock_add_df_to_bq.call_count == 1
 
     # actual_df.to_csv(table_name, index=False)
-
-    # print(actual_df)
-    # print(expected_df)
 
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
