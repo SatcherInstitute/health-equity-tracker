@@ -341,7 +341,6 @@ def load_phrma_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_
 
         topic_dfs.append(topic_df)
 
-    # df_merged = reduce(lambda df_a, df_b: pd.merge(df_a, df_b, on=merge_cols, how='outer'), topic_dfs)
     df_merged = merge_dfs_list(topic_dfs, merge_cols)
 
     # drop rows that dont include FIPS and DEMO values

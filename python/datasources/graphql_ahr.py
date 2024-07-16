@@ -138,7 +138,7 @@ class GraphQlAHRData(DataSource):
         - Adds estimated total columns based on specified mappings.
         - Generates percentage share (of summed groups) columns.
         - Sorts the DataFrame by state FIPS code and time period in descending order.
-        - Converts the 'Time Period' column to datetime and filters data up to the year 2021.
+        - Converts the `time_period` column to datetime and filters data up to the year 2021.
         """
 
         breakdown_df = df.copy()
@@ -209,11 +209,6 @@ class GraphQlAHRData(DataSource):
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
         )
-
-        # TODO: GitHub 3358 - should keep most recent data post-2021 somehow
-        # breakdown_df[std_col.TIME_PERIOD_COL] = pd.to_datetime(breakdown_df[std_col.TIME_PERIOD_COL])
-        # breakdown_df[std_col.TIME_PERIOD_COL] = breakdown_df[std_col.TIME_PERIOD_COL].dt.year
-        # breakdown_df = breakdown_df[breakdown_df[std_col.TIME_PERIOD_COL] <= 2021]
 
         return breakdown_df
 

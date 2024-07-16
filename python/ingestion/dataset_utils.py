@@ -18,7 +18,6 @@ from ingestion.constants import (
     BQ_FLOAT,
     ALL_VALUE,
 )
-from functools import reduce
 import os
 from ingestion.het_types import TIME_VIEW_TYPE  # pylint: disable=no-name-in-module
 
@@ -83,7 +82,9 @@ def melt_to_het_style_df(
         partial_dfs.append(df)
 
     # merge all partial_dfs
-    result_df = reduce(lambda x, y: pd.merge(x, y, how="outer", on=[*keep_cols, demo_col]), partial_dfs)
+    # result_df = reduce(lambda x, y: pd.merge(x, y, how="outer", on=[*keep_cols, demo_col]), partial_dfs)
+    merge_cols = [*keep_cols, demo_col]
+    result_df = merge_dfs_list(partial_dfs, merge_cols)
 
     return result_df.sort_values(by=keep_cols).reset_index(drop=True)
 
