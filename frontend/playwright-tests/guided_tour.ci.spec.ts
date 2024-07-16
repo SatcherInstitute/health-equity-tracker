@@ -10,10 +10,6 @@ test.describe('Guided tour of COVID-19 from Tracker Default Helper Box', () => {
         await page.goto('/exploredata', { waitUntil: "commit" });
         await expect(page.getByRole('heading', { name: 'Select a topic above' })).toBeVisible();
 
-        // Clicking small link under the video starts the joyride guided tour
-        const tourLink = page.locator('a:has-text("guided tour of a COVID-19 report.")')
-        await tourLink.click();
-
         // First panel displays correct heading
         await expect(page.getByRole('heading', { name: 'Start Your Search', exact: true })).toBeVisible();
 

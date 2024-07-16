@@ -27,7 +27,7 @@ test('Topic Info Modal from Map Legend', async ({ page }) => {
   await page.goto('/', { waitUntil: 'commit' })
   await page.locator('#landingPageCTA').click()
   await page
-    .getByRole('link', { name: 'Uninsurance in FL & CA, by sex' })
+    .getByRole('link', { name: 'Social Determinants of Health State-Level Sex Compare Places Uninsurance in FL' })
     .click()
   await page
     .locator('#rate-map2')

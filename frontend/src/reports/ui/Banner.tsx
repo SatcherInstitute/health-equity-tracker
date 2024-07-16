@@ -37,7 +37,7 @@ const Banner: React.FC = () => {
       <div className="flex items-center sm:items-start xs:items-start px-8 mx-8 justify-between">
         <div className="m-auto pr-16">
           <div className="items-flex-start xl:inline-flex lg:inline-flex md:block sm:block xs:block">
-            <FlagIcon className="xl:inline lg:inline md:hidden mr-2 text-[#d85c47] sm:hidden xs:hidden" />
+            <FlagIcon className="xl:inline lg:inline md:hidden mr-2 text-alertColor sm:hidden xs:hidden" />
             <p className="text-text p-0 m-0 text-left">
               <span className="font-sansTitle text-title font-bold">
                 Major gaps in the data:

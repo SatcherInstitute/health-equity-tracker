@@ -57,7 +57,7 @@ function LandingPage() {
   }: ListItemProps) {
     return (
       <li
-        className={`p-8 sm:p-8 xs:py-2 xs:px-4 list-none flex xl:flex-row lg:flex-row sm:flex-col xs:flex-col items-center justify-around rounded-xl shadow-raised-tighter bg-white mx-24 h-auto min-h-[55vh] xs:h-[auto] sticky top-[0] my-[3rem] min-w-full ${customClassName}`}
+        className={`p-8 sm:p-8 xs:py-2 xs:px-4 list-none flex xl:flex-row lg:flex-row sm:flex-col xs:flex-col items-center justify-around rounded-xl shadow-raised bg-white mx-24 h-auto min-h-[55vh] xs:h-[auto] sticky top-[0] my-[3rem] min-w-full ${customClassName}`}
       >
         <div className="flex flex-col justify-between w-1/3 mx-4 md:w-auto sm:w-auto xs:w-auto ">
           <p className="font-sansTitle text-small font-bold text-left text-altGreen xs:my-0 xs:py-0">
@@ -105,7 +105,7 @@ function LandingPage() {
   }
 
   return (
-    <main className="relative">
+    <main className="relative" aria-label="Main Content">
       <Helmet>
         <title>Home - Health Equity Tracker</title>
         <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
