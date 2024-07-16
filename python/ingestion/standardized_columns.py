@@ -76,6 +76,7 @@ SUFFIXES_CURRENT_TIME_VIEWS = [
     POP_PCT_SUFFIX,
     SHARE_OF_KNOWN_SUFFIX,
     RATIO_AGE_ADJUSTED_SUFFIX,
+    POPULATION_COL,  # TODO: ideally we should refactor so all population count cols end with estimate_total
 ]
 
 SUFFIXES_HISTORICAL_TIME_VIEWS = [

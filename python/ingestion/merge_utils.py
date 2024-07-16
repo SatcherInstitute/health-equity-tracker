@@ -396,7 +396,7 @@ def merge_intersectional_pop(
             group = group.replace('+', 'plus')
             group = group.replace("-", '_')
             group = group.lower()
-            pop_col += f'_{group}'
+            pop_col = f'{group}_{pop_col}'
 
     pop_df = pop_df.rename(columns={std_col.POPULATION_COL: pop_col})
 
