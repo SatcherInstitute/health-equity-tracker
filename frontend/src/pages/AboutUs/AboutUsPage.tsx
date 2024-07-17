@@ -21,6 +21,7 @@ export default function AboutUsPage() {
         <title>About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Contact Us</h2>
+      <div>testing</div>
       <header className=' flex w-full flex-col content-center items-center'>
         <div className=' flex  w-full '>
           <div className='hidden w-full  place-content-center border-0 border-b border-borderColor md:grid md:w-5/12 md:border-solid'>
