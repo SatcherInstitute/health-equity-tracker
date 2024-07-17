@@ -1,5 +1,5 @@
-import LazyLoad from 'react-lazyload'
-import covidClick from '../../assets/screengrabs/covidClick.mp4'
+import LazyLoad from 'react-lazyload';
+import covidClick from '../../assets/screengrabs/covidClick.mp4';
 
 export function getOnboardingSteps(pageIsWide: boolean) {
   const steps = [
@@ -94,8 +94,8 @@ export function getOnboardingSteps(pageIsWide: boolean) {
       /* hideCloseButton= */ false,
       /* placement= */ undefined
     ),
-  ]
-  return steps
+  ];
+  return steps;
 }
 
 function onboardingStep(
@@ -126,10 +126,10 @@ function onboardingStep(
     placement,
     content: (
       <div style={{ textAlign: 'left' }}>
-        <h4>{title}</h4>
+        <h4 role="heading" aria-label={title}>{title}</h4>
         {content}
       </div>
     ),
     disableBeacon: true,
-  }
+  };
 }

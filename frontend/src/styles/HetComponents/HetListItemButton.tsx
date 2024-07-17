@@ -11,6 +11,8 @@ interface HetListItemButtonProps {
   ariaLabel?: string
   selected?: boolean
   option?: HetListItemButtonOptionType
+  style?: React.CSSProperties;
+  hoverStyle?: React.CSSProperties;
 }
 
 const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
