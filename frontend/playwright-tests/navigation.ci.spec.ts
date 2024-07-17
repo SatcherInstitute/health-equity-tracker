@@ -59,7 +59,8 @@ test('Clear selections button from Compare Topics mode returns tracker to defaul
 	await page.goto('/exploredata', { waitUntil: "commit" });
 
 	// choose sample compare mode report
-	await page.getByRole('link', { name: 'Prison & poverty in Georgia, by race' }).click();
+	const section = await page.getByRole('heading', { name: 'Prison & Poverty in Georgia by Race' }).locator('..');
+	await section.locator('text=Explore this report').click();
 
 	// clear topic
 	await page.getByRole('button', { name: 'Poverty', exact: true }).click();
