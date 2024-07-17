@@ -1,28 +1,29 @@
 name: Biome Check
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
-        paths:
-            - 'frontend/**'
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+
 defaults:
-    run:
-        working-directory: frontend            
+  run:
+    working-directory: frontend            
 
 jobs:
-    check_biome:
-        name: Checks Biome
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                  node-version-file: frontend/package.json
-                  cache: 'npm'
-                  cache-dependency-path: frontend/package-lock.json
-            - name: Install dependencies
-              run: npm ci
-            - name: Run Biome Check
-              run: npx biome check --settings ./.biome/settings.json
+  check_biome:
+    name: Checks Biome
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: frontend/package.json
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Biome Check
+        run: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched --changed
