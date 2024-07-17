@@ -307,10 +307,13 @@ export function Legend(props: LegendProps) {
           {props.legendTitle}
         </span>
       ) : (
-        <ClickableLegendHeader
-          legendTitle={props.legendTitle}
-          dataTypeConfig={props.dataTypeConfig}
-        />
+        <div>
+          <ClickableLegendHeader
+            legendTitle={props.legendTitle}
+            dataTypeConfig={props.dataTypeConfig}
+          />
+        </div>
+
       )}
 
       {spec && (
