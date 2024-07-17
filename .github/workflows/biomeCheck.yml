@@ -26,4 +26,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Biome Check
-        run: npx biome check --write --files-ignore-unknown=true --no-errors-on-unmatched --changed --config ./frontend/biome.json
+        run: npx biome check --write --files-ignore-unknown=true --no-errors-on-unmatched --changed
