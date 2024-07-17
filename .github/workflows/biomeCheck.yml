@@ -5,6 +5,11 @@ on:
         branches: [main]
     pull_request:
         branches: [main]
+        paths:
+            - 'frontend/**'
+defaults:
+    run:
+        working-directory: frontend            
 
 jobs:
     check_biome:
