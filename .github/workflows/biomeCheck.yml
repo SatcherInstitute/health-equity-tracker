@@ -1,0 +1,30 @@
+name: Biome Check
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+
+jobs:
+  biome-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify the Node.js version you use
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Biome Check
+        run: npx biome check --settings ./.biome/settings.json
