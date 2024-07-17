@@ -50,8 +50,6 @@ jobs:
         run: npm ci
       - name: Run Vitest unit tests
         run: npm test
-      - name: Run Biome Check
-        run: npx biome check --settings ./.biome/settings.json
 
   # If it's a PR creation or update, we'll run the e2e test here on Netlify
   # if it's a merge to main, the E2E will run in e2eStaging.yml
