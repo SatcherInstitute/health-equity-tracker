@@ -34,7 +34,6 @@ export default function DefaultHelperBox() {
 										style={{
 											backgroundImage: `url(${report.previewImg})`,
 										}}
-										role='img'
 										aria-label={`${report.title} preview image`}
 									></a>
 									<div className='flex flex-col w-full md:items-start'>
