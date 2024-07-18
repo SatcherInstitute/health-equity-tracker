@@ -92,7 +92,7 @@ interface CategoryNamesProps {
 
 const CategoryNames: React.FC<CategoryNamesProps> = ({ categories }) => {
 	return (
-		<div className="flex flex-wrap mt-2 xl:visible lg:visible md:visible sm:collapse xs:collapse">
+		<div className="md:flex md:flex-wrap mt-2 hidden">
 			{categories.map((name, index) => (
 				<span
 					aria-label={name}
@@ -192,29 +192,31 @@ export default function DefaultHelperBox() {
 					<p className='text-text text-center'>
 						or explore one of the following reports:
 					</p>
-
 					<ul className='my-0 list-none pl-0 text-left flex flex-wrap' role="list" aria-labelledby="reports-heading">
 						{reportMapping.map((report, index) => (
 							<li
-								className='my-4 xs:my-2 mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out'
+								className='my-4 xs:my-2 mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out w-full'
 								key={index}
 								role="listitem"
 							>
-								<article className='text-left p-4 text-altGreen flex xl:flex-row lg:flex-row md:flex-row xs:flex-wrap' aria-labelledby={`report-title-${index}`}>
-									<div
-										className='bg-cover bg-no-repeat xl:mr-8 lg:mr-8 md:mr-8 sm:mb-4 xs:mb-4 xl:w-[40%] lg:w-[40%] md:w-[40%] sm:w-[100%] xs:w-[100%] h-[18rem]'
+								<article className='text-left p-4 text-altGreen grid gap-4 md:items-start place-items-center md:grid-cols-[40%_60%] w-full' aria-labelledby={`report-title-${index}`}>
+									<a
+										href={EXPLORE_DATA_PAGE_LINK + report.setting}
+										className='bg-cover bg-no-repeat ml-6 px-4 w-full h-[18rem] transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
 										style={{
 											backgroundImage: `url(${report.previewImg})`,
 										}}
 										role='img'
 										aria-label={`${report.title} preview image`}
-									></div>
-									<div className='flex flex-col xl:max-w-[55%] lg:max-w-[55%] md:max-w-[55%] size-auto'>
+									></a>
+									<div className='flex flex-col w-full md:items-start'>
 										<CategoryNames categories={report.categories} />
-										<h2 role='heading' aria-label={report.title} id={`report-title-${index}`} className='text-lg font-medium my-4 text-base text-center md:text-left'>
-											{report.title} {report.icon && report.icon}
+										<h2 role='heading' aria-label={report.title} id={`report-title-${index}`} className='font-medium my-2 md:my-4 text-center md:text-left text-title'>
+											<a href={EXPLORE_DATA_PAGE_LINK + report.setting} className='no-underline'>
+												{report.title} {report.icon && report.icon}
+											</a>
 										</h2>
-										<p className='text-black xl:visible lg:visible md:visible sm:collapse xs:collapse'>
+										<p className='text-black md:block hidden my-0 md:mb-4'>
 											{report.description}
 										</p>
 										<TextLink
@@ -227,8 +229,11 @@ export default function DefaultHelperBox() {
 							</li>
 						))}
 					</ul>
+
+
+
 				</div>
 			</div>
-		</div>
+		</div >
 	);
 }
