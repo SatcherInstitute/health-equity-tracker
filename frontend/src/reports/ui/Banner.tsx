@@ -31,12 +31,12 @@ const Banner: React.FC = () => {
   return (
     <section className="bg-infobarColor text-center p-4" aria-labelledby="banner-heading">
       <div className="flex justify-between">
-        <div className="flex xl:flex-row lg:flex-row md:flex-col sm:flex-col xs:flex-col items-center md:items-start sm:items-start xs:items-start m-0 p-0">
+        <div className="flex lg:flex-row flex-col items-center xs:items-start m-0 p-0">
           <FlagIcon
-            className="xl:visible lg:visible md:collapse sm:collapse xs:collapse mr-2 text-alertColor"
+            className="lg:visible collapse mr-2 text-alertColor"
             aria-hidden="true"
           />
-          <p className="text-text p-0 my-0 text-left xl:mr-8 lg:mr-8" id="banner-heading">
+          <p className="text-text p-0 my-0 text-left lg:mr-8" id="banner-heading">
             <span className="font-sansTitle text-title font-bold m-0 p-0">
               Major gaps in the data:
             </span>{' '}
@@ -51,7 +51,7 @@ const Banner: React.FC = () => {
         </div>
         <IconButton
           onClick={handleClose}
-          className="banner-close-button p-0 xl:my-auto lg:my-auto md:my-auto sm:mb-auto xs:mb-auto xs:mt-[2px]"
+          className="banner-close-button p-0 md:my-auto mb-auto xs:mt-[2px]"
           aria-label="Close banner"
         >
           <div className="icon-small w-embed">
