@@ -2,7 +2,7 @@ import { EXPLORE_DATA_PAGE_LINK } from "../../utils/internalRoutes";
 import HetTextArrowLink from "../../styles/HetComponents/HetTextArrowLink";
 import { HetTags } from "../../styles/HetComponents/HetTags";
 import { reportMapping } from "./DefaultHelperBoxData";
-import { ToggleIframeComponent } from "./ToggleIframeComponent";
+import TogglePreview from "./TogglePreview";
 
 export default function DefaultHelperBox() {
 	return (
@@ -68,7 +68,7 @@ export default function DefaultHelperBox() {
 										/>
 									</div>
 								</article>
-								<ToggleIframeComponent index={index} report={report} />
+								<TogglePreview index={index} report={report} />
 							</li>
 						))}
 					</ul>
