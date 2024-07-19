@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FlagIcon from '@mui/icons-material/Flag';
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes';
 import { IconButton } from '@mui/material';
-import TextLink from '../../styles/HetComponents/HetTextArrowLink';
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink';
 
 const Banner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -42,7 +42,7 @@ const Banner: React.FC = () => {
             </span>{' '}
             Structural racism causes health inequities. We’re closing these gaps to improve U.S. health policies.
           </p>
-          <TextLink
+          <HetTextArrowLink
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
             linkText="Learn more"
             containerClassName="block"
