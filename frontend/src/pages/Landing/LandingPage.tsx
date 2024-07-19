@@ -17,7 +17,7 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
-import TextLink from '../../reports/ui/TextLink'
+import TextLink from '../../styles/HetComponents/HetTextArrowLink'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(

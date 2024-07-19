@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
-import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
 import {
 	EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import TextLink from '../../reports/ui/TextLink'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { reportMapping } from './DefaultHelperBoxData'
 import { ToggleIframeComponent } from './ToggleIframeComponent'
@@ -46,7 +44,7 @@ export default function DefaultHelperBox() {
 										<p className='text-black md:block hidden my-0 md:mb-4'>
 											{report.description}
 										</p>
-										<TextLink
+										<HetTextArrowLink
 											link={EXPLORE_DATA_PAGE_LINK + report.setting}
 											linkText='Explore this report'
 										/>
