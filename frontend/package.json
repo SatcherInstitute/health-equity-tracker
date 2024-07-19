@@ -23,6 +23,7 @@
 		"@mui/material": "^5.16.1",
 		"@vitejs/plugin-react": "^4.3.1",
 		"axios": "^1.7.2",
+		"biome": "^0.3.3",
 		"d3": "^7.8.5",
 		"data-forge": "^1.10.2",
 		"dataframe-js": "^1.4.4",
