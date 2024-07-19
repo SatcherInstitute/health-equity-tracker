@@ -3,6 +3,23 @@ import FiberNewIcon from '@mui/icons-material/FiberNew'
 
 export const reportMapping = [
 	{
+		setting: PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
+		title: 'HIV Disparity Maps by Medicare Eligibility',
+		preview: 'Medicare HIV Cases',
+		description:
+			'Visualize HIV disparities among Medicare beneficiaries. These insights are essential for optimizing treatment and reducing health inequities.',
+		categories: [
+			'HIV',
+			'Medication Utilization in the Medicare Population',
+			'Multiple Maps',
+			'National-Level',
+		],
+		icon: <FiberNewIcon />,
+		previewImg: '/img/screenshots/sample-report_medicare.png',
+		iframeSrc:
+			'https://healthequitytracker.org/exploredata?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true',
+	},
+	{
 		setting: HIV_PREVALENCE_RACE_USA_SETTING,
 		title: 'HIV by Race/Ethnicity',
 		preview: 'HIV Cases',
@@ -57,21 +74,5 @@ export const reportMapping = [
 		iframeSrc:
 			'https://healthequitytracker.org/exploredata?mls=1.health_insurance-3.12-5.06&mlp=comparegeos&demo=sex#rates-over-time',
 	},
-	{
-		setting: PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
-		title: 'HIV Disparity Maps by Medicare Eligibility',
-		preview: 'Medicare HIV Cases',
-		description:
-			'Visualize HIV disparities among Medicare beneficiaries. These insights are essential for optimizing treatment and reducing health inequities.',
-		categories: [
-			'HIV',
-			'Medication Utilization in the Medicare Population',
-			'Multiple Maps',
-			'National-Level',
-		],
-		icon: <FiberNewIcon />,
-		previewImg: '/img/screenshots/sample-report_medicare.png',
-		iframeSrc:
-			'https://healthequitytracker.org/exploredata?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true',
-	},
+
 ]
