@@ -24,9 +24,7 @@ const HetTextArrowLink: React.FC<HetTextArrowLinkProps> = ({
 				href={link}
 				className={`no-underline h-auto font-sansTitle text-small p-0 m-0 text-altGreen font-bold flex items-center justify-start xs:mb-4 xl:m-0 lg:m-0 md:m-0 sm:m-auto xs:m-auto ${linkClassName}`}
 			>
-				<article>
-					<p className={`mr-2 p-0 my-0 ${textClassName}`}>{linkText}</p>
-				</article>
+				<p className={`mr-2 p-0 my-0 ${textClassName}`}>{linkText}</p>
 				<ArrowRightAlt className='p-0 m-0' />
 			</a>
 		</div>
