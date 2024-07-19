@@ -2,7 +2,10 @@ import { ArrowDropUp, ArrowDropDown } from "@mui/icons-material";
 import { useState } from "react";
 import { EmbeddedIframe } from "./EmbeddedIframe";
 
-export const ToggleIframeComponent: React.FC<{ index: number, report: any }> = ({ index, report }) => {
+export const ToggleIframeComponent: React.FC<{
+	index: number;
+	report: any;
+}> = ({ index, report }) => {
 	const [showIframe, setShowIframe] = useState<{ [key: number]: boolean }>({});
 
 	const toggleIframe = (index: number) => {
@@ -20,7 +23,7 @@ export const ToggleIframeComponent: React.FC<{ index: number, report: any }> = (
 					toggleIframe(index);
 				}}
 				className="text-text text-black font-medium no-underline border-none w-auto cursor-pointer bg-methodologyGreen rounded-md py-4"
-				aria-expanded={showIframe[index] ? 'true' : 'false'}
+				aria-expanded={showIframe[index] ? "true" : "false"}
 				aria-controls={`iframe-${index}`}
 			>
 				<span className="mx-1">

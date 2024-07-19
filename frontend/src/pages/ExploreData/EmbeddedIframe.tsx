@@ -12,7 +12,11 @@ interface EmbeddedIframeProps {
  * @param {string} id - The id attribute of the iframe.
  * @return {JSX.Element} The embedded iframe element.
  */
-export const EmbeddedIframe: React.FC<EmbeddedIframeProps> = ({ src, title, id }) => {
+export const EmbeddedIframe: React.FC<EmbeddedIframeProps> = ({
+	src,
+	title,
+	id,
+}) => {
 	return (
 		<div
 			className="px-8 p-2 my-0 bg-methodologyGreen"
