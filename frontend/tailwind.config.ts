@@ -43,6 +43,7 @@ export default {
       serif: ['Taviraj', 'serif'],
     },
     fontSize: {
+      tinyTag: '0.625rem',
       smallest: '0.75rem',
       small: '0.875rem',
       text: '1rem',

@@ -15,8 +15,7 @@
 			"jsxQuoteStyle": "single",
 			"semicolons": "asNeeded",
 			"indentStyle": "space",
-			"indentWidth": 2,
-			"trailingComma": "es5"
+			"indentWidth": 2
 		}
 	},
 	"linter": {
@@ -41,8 +40,7 @@
 				"noInferrableTypes": "off",
 				"noParameterAssign": "off",
 				"noUselessElse": "off",
-				"useDefaultParameterLast": "off",
-				"useImportTypes": "off"
+				"useDefaultParameterLast": "off"
 			},
 			"complexity": {
 				"noForEach": "off",

@@ -17,7 +17,7 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
-import TextLink from '../../reports/ui/TextLink'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -70,7 +70,7 @@ function LandingPage() {
             <p className='md:text-left mb-8 sm:text-small xs:text-small xs:mb-4'>
               {description}
             </p>
-            <TextLink
+            <HetTextArrowLink
               link={`${EXPLORE_DATA_PAGE_LINK}${WARM_WELCOME_DEMO_SETTING}`}
               linkText='Take a guided tour'
             />
@@ -312,7 +312,7 @@ function LandingPage() {
               )}
             </div>
             <div>
-              <TextLink
+              <HetTextArrowLink
                 link={NEWS_PAGE_LINK}
                 linkText='View all articles'
                 containerClassName='flex items-center justify-center mt-16 mx-auto '

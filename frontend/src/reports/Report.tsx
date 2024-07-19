@@ -12,7 +12,7 @@ import {
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import { AGE, RACE } from '../data/utils/Constants'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
@@ -23,7 +23,7 @@ import {
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import { reportProviderSteps } from './ReportProviderSteps'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
 import {
   type DemographicType,
@@ -31,7 +31,7 @@ import {
 } from '../data/query/Breakdowns'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
-import { type MadLibId } from '../utils/MadLibs'
+import type { MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
