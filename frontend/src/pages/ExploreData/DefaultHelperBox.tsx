@@ -34,7 +34,7 @@ export default function DefaultHelperBox() {
 										}}
 										aria-label={`${report.title} preview image`}
 									></a>
-									<div className='flex flex-col w-full md:items-start'>
+									<div className='flex flex-col w-full md:items-start px-4 md:px-12'>
 										<HetTags tags={report.categories} />
 										<h2 role='heading' aria-label={report.title} id={`report-title-${index}`} className='font-medium my-2 md:my-4 text-center md:text-left text-title'>
 											<a href={EXPLORE_DATA_PAGE_LINK + report.setting} className='no-underline'>
