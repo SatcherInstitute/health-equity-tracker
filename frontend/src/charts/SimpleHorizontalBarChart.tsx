@@ -1,12 +1,12 @@
 import { Vega } from 'react-vega'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import {
   type DemographicType,
   type DemographicTypeDisplayName,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfig'
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -21,6 +21,12 @@ import { het, ThemeZIndexValues } from '../styles/DesignTokens'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
+const CORNER_RADIUS = 5
+const MEASURE_GROUP_COLOR = het.altGreen
+const MEASURE_ALL_COLOR = het.methodologyGreen
+const BAR_HEIGHT = 60
+const BAR_PADDING = 0.2
+const DATASET = 'DATASET'
 
 function getSpec(
   altText: string,
@@ -38,10 +44,6 @@ function getSpec(
   barLabelBreakpoint: number,
   usePercentSuffix: boolean
 ): any {
-  const MEASURE_COLOR = het.altGreen
-  const BAR_HEIGHT = 60
-  const BAR_PADDING = 0.2
-  const DATASET = 'DATASET'
   const chartIsSmall = width < 400
 
   const createAxisTitle = () => {
@@ -60,12 +62,12 @@ function getSpec(
 
   const legends = showLegend
     ? [
-      {
-        fill: 'variables',
-        orient: 'top',
-        padding: 4,
-      },
-    ]
+        {
+          fill: 'variables',
+          orient: 'top',
+          padding: 4,
+        },
+      ]
     : []
 
   const onlyZeros = data.every((row) => {
@@ -112,7 +114,15 @@ function getSpec(
             },
           },
           update: {
-            fill: { value: MEASURE_COLOR },
+            cornerRadiusTopRight: {
+              value: CORNER_RADIUS,
+            },
+            cornerRadiusBottomRight: {
+              value: CORNER_RADIUS,
+            },
+            fill: {
+              signal: `datum.${demographicType} === 'All' ? '${MEASURE_ALL_COLOR}' : '${MEASURE_GROUP_COLOR}'`,
+            },
             x: { scale: 'x', field: measure },
             x2: { scale: 'x', value: 0 },
             y: { scale: 'y', field: demographicType },
@@ -140,12 +150,13 @@ function getSpec(
           },
         },
       },
+      // Labels on Bars
       {
         name: 'measure_text_labels',
         type: 'text',
         style: ['text'],
         from: { data: DATASET },
-        aria: false, // this data accessible in alt_text_labels
+        aria: false, // this data already accessible in alt_text_labels above
         encode: {
           enter: {
             tooltip: {
@@ -161,14 +172,15 @@ function getSpec(
             },
             baseline: { value: 'middle' },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? '5' : '1'
-                })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
+                width > 250 ? '5' : '1'
+              })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
             },
             fill: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}  && datum.${demographicType} !== 'All', '${het.white}', '${het.black}')`,
             },
             x: { scale: 'x', field: measure },
             y: { scale: 'y', field: demographicType, band: 0.8 },
@@ -202,13 +214,14 @@ function getSpec(
           field: demographicType,
         },
         range: { step: { signal: 'y_step' } },
+        paddingOuter: 0.1,
         paddingInner: BAR_PADDING,
       },
       {
         name: 'variables',
         type: 'ordinal',
         domain: [measureDisplayName],
-        range: [MEASURE_COLOR],
+        range: [MEASURE_GROUP_COLOR, MEASURE_ALL_COLOR],
       },
     ],
     axes: [
@@ -273,7 +286,6 @@ interface SimpleHorizontalBarChartProps {
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
-
   const [ref, width] = useResponsiveWidth()
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
@@ -297,16 +309,18 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer='svg'
-        downloadFileName={`${props.filename ?? 'Data Download'
-          } - Health Equity Tracker`}
+        downloadFileName={`${
+          props.filename ?? 'Data Download'
+        } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${props.filename ?? 'Data Download'
+          /* altText  */ `Bar Chart showing ${
+            props.filename ?? 'Data Download'
           }`,
           /* data  */ data,
           /* width  */ width,
           /* demographicType  */ props.demographicType,
           /* demographicTypeDisplayName  */ DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-          props.demographicType
+            props.demographicType
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,
