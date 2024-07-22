@@ -1,5 +1,5 @@
 import { ListItemButton } from '@mui/material'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 type HetListItemButtonOptionType = 'boldGreen' | 'normalBlack' | 'topicOption'
 
@@ -11,8 +11,8 @@ interface HetListItemButtonProps {
   ariaLabel?: string
   selected?: boolean
   option?: HetListItemButtonOptionType
-  style?: React.CSSProperties;
-  hoverStyle?: React.CSSProperties;
+  style?: React.CSSProperties
+  hoverStyle?: React.CSSProperties
 }
 
 const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
@@ -23,7 +23,6 @@ const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
 }
 
 export default function HetListItemButton(props: HetListItemButtonProps) {
-
   return (
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
@@ -33,8 +32,9 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
       selected={props.selected}
     >
       <span
-        className={`${optionsToClasses[props.option ?? 'boldGreen']} ${props.className ?? ''
-          }`}
+        className={`${optionsToClasses[props.option ?? 'boldGreen']} ${
+          props.className ?? ''
+        }`}
       >
         {props.children}
       </span>
