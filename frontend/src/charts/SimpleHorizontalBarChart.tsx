@@ -23,7 +23,7 @@ import { het, ThemeZIndexValues } from '../styles/DesignTokens'
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
 const MEASURE_GROUP_COLOR = het.altGreen
-const MEASURE_ALL_COLOR = het.methodologyGreen
+const MEASURE_ALL_COLOR = het.timeYellow
 const BAR_HEIGHT = 60
 const BAR_PADDING = 0.2
 const DATASET = 'DATASET'
