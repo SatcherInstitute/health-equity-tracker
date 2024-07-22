@@ -15,13 +15,13 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
   LABEL_HEIGHT,
+  CORNER_RADIUS,
 } from './utils'
 import { createBarLabel } from './mapHelperFunctions'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
-const CORNER_RADIUS = 5
 const MEASURE_GROUP_COLOR = het.altGreen
 const MEASURE_ALL_COLOR = het.methodologyGreen
 const BAR_HEIGHT = 60
@@ -42,7 +42,7 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean,
   barLabelBreakpoint: number,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
 ): any {
   const chartIsSmall = width < 400
 
@@ -57,7 +57,7 @@ function getSpec(
     chartIsSmall,
     measure,
     tooltipMetricDisplayColumnName,
-    usePercentSuffix
+    usePercentSuffix,
   )
 
   const legends = showLegend
@@ -109,7 +109,7 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -144,7 +144,7 @@ function getSpec(
             fontSize: { value: 0 },
             text: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
             },
           },
@@ -161,7 +161,7 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -290,7 +290,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
-    props.demographicType
+    props.demographicType,
   )
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
     addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter)
@@ -298,7 +298,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
     dataWithDisplayCol,
-    /* omitPctSymbol= */ true
+    /* omitPctSymbol= */ true,
   )
 
   const barLabelBreakpoint =
@@ -328,7 +328,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
           /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
-          /* usePercentSuffix  */ props.usePercentSuffix ?? false
+          /* usePercentSuffix  */ props.usePercentSuffix ?? false,
         )}
         actions={false}
       />
