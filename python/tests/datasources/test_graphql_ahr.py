@@ -11,8 +11,6 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "graphql_ahr")
 GOLDEN_DIR = os.path.join(TEST_DIR, "golden_data")
 
-EXPECTED_AHR_API_RESPONSE_DATA = os.path.join(TEST_DIR, 'response_data.json')
-
 GOLDEN_DATA = {
     'age_national_current': os.path.join(GOLDEN_DIR, 'age_national_current.csv'),
     'sex_national_current': os.path.join(GOLDEN_DIR, 'sex_national_current.csv'),
@@ -20,9 +18,9 @@ GOLDEN_DATA = {
 }
 
 
-def _fetch_ahr_data_from_graphql():
+def _fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
     print("MOCK - AHR GraphQL API response")
-    with open(EXPECTED_AHR_API_RESPONSE_DATA, 'r', encoding='utf-8') as file:
+    with open(os.path.join(TEST_DIR, f'{demographic}_{geo_level}_response.json'), 'r', encoding='utf-8') as file:
         data = json.load(file)
 
     return data
