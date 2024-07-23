@@ -1,12 +1,18 @@
 import json
 import os
+import pandas as pd
 import ingestion.standardized_columns as std_col
 import requests  # type: ignore
+from ingestion.constants import NATIONAL_LEVEL, US_ABBR
 
 # Environment variable
 ahr_api_key = os.getenv("AHR_API_KEY")
 
 # Constants
+AHR_US = 'ALL'
+GRAPHQL_URL = 'https://api.americashealthrankings.org/graphql'
+GRAPHQL_HEADERS = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
+
 AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     'Asthma': 'asthma_per_100k',
     'Avoided Care Due to Cost': 'avoided_care_pct_rate',
@@ -106,75 +112,75 @@ def generate_cols_map(prefixes: list[str], suffix: str):
     return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
 
 
-def fetch_ahr_data_from_graphql():
-    """
-    Fetches data from AmericasHealthRankings GraphQL API.
-
-    Parameters:
-        query (str): The GraphQL query to be executed.
-        variables (dict): Variables to be passed with the query.
-    Returns:
-        a dictionary containing the data retrieved from the API.
-    """
-
-    graphql_url = 'https://api.americashealthrankings.org/graphql'
+def fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
+    measure_ids = get_measure_ids('all') + get_measure_ids(demographic)
+    results = []
+    state_filter = '{eq: "ALL"}' if geo_level == NATIONAL_LEVEL else '{neq: "ALL"}'
 
     if not ahr_api_key:
         raise ValueError("No API key found. Please set the AHR_API_KEY environment variable.")
 
-    headers = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
-    all_responses = []
-
-    query = """
-    query Data_A($where: MeasureFilterInput_A) {
-        measures_A(where: $where) {
-            data {
-                endDate
-                state
-                value
-                measure {
-                    name
-                }
-            }
-        }
-    }
-    """
-
-    descriptions_list = [
-        'asthma',
-        'cost',
-        'angina or coronary heart disease, a heart attack or myocardial infarction, or a stroke',
-        'kidney disease',
-        'chronic obstructive pulmonary disease',
-        'depression',
-        'diabetes',
-        'binge drinking',
-        'mental health',
-        'Discharges following hospitalization',
-        'prescription drugs non-medically',
-        "self-harm",
-        'presidential',
-    ]
-
-    # Iterate over each description in the list
-    for description in descriptions_list:
-        variables_str = f"""
-        {{
-            "where": {{
-                "description": {{
-                    "contains": "{description}"
-                }}
+    for measure_id in measure_ids:
+        graphql_query = f"""
+        query getDatum {{
+          measure_A(metricId: {measure_id}) {{
+            data(where: {{state: {state_filter}}}) {{
+              endDate
+              state
+              value
+              measure {{
+                name
+              }}
             }}
+          }}
         }}
         """
-        variables = json.loads(variables_str)
-        graphql_request = {'query': query, 'variables': variables}
-        response = requests.post(graphql_url, json=graphql_request, headers=headers, timeout=10)
+
+        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=30)
 
         if response.status_code == 200:
-            # Collect each successful responses
-            all_responses.append(response.json().get('data')['measures_A'])
-        else:
-            raise requests.exceptions.HTTPError(f"HTTP Error: {response.status_code}")
+            results.append(response.json().get('data')['measure_A'])
 
-    return all_responses
+        else:
+            print(f"Query failed to run with a {response.status_code} for metricId: {measure_id}")
+
+    return results
+
+
+def graphql_response_to_dataframe(response_data):
+    """
+    Converts a GraphQL API response containing nested data into a flattened Pandas DataFrame.
+
+    Args:
+    - response_data (dict): The GraphQL API response data.
+    - geo_level (str): The geographic level of the data (e.g., 'national', 'state').
+
+    Returns:
+    - pd.DataFrame: A Pandas DataFrame containing the flattened data.
+
+    The function flattens the nested response_data structure, extracts relevant fields,
+    and creates a DataFrame. It also standardizes the state codes and filters the data
+    based on the geographic level.
+    """
+    flattened_data = []
+
+    for dataset in response_data:
+        for row in dataset['data']:
+            time_period = row['endDate'][:4]
+            measure = row['measure']['name']
+            state_postal = row['state']
+            value = row['value']
+
+            flattened_data.append(
+                {
+                    std_col.TIME_PERIOD_COL: time_period,
+                    'measure': measure,
+                    std_col.STATE_POSTAL_COL: state_postal,
+                    'value': value,
+                }
+            )
+
+    df = pd.DataFrame(flattened_data)
+    df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace(AHR_US, US_ABBR)
+
+    return df
