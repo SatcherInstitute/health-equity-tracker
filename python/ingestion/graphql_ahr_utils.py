@@ -113,6 +113,16 @@ def generate_cols_map(prefixes: list[str], suffix: str):
 
 
 def fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
+    """
+    Fetches data from AmericasHealthRankings GraphQL API.
+
+    Parameters:
+        demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
+        geo_level (str): The geographic level of the data (e.g., 'national', 'state').
+
+    Returns:
+        a list containing the data retrieved from the API.
+    """
     measure_ids = get_measure_ids('all') + get_measure_ids(demographic)
     results = []
     state_filter = '{eq: "ALL"}' if geo_level == NATIONAL_LEVEL else '{neq: "ALL"}'
@@ -152,7 +162,7 @@ def graphql_response_to_dataframe(response_data):
     Converts a GraphQL API response containing nested data into a flattened Pandas DataFrame.
 
     Args:
-    - response_data (dict): The GraphQL API response data.
+    - response_data (list): The GraphQL API response data.
     - geo_level (str): The geographic level of the data (e.g., 'national', 'state').
 
     Returns:
