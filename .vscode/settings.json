@@ -10,6 +10,9 @@
 		"--line-length",
 		"120"
 	],
+	"editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit"
+  },
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
