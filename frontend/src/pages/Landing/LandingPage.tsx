@@ -23,7 +23,7 @@ function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,
     fetchLandingPageNewsData,
-    REACT_QUERY_OPTIONS
+    REACT_QUERY_OPTIONS,
   )
 
   const isSm = useIsBreakpointAndUp('sm')
@@ -108,7 +108,6 @@ function LandingPage() {
     <main className='relative' aria-label='Main Content'>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
-        <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
 
       <h2 className='sr-only'>Home Page</h2>
