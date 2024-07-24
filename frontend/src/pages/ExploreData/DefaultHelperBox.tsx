@@ -1,103 +1,79 @@
-import FiberNewIcon from '@mui/icons-material/FiberNew'
-import {
-  COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
-  EXPLORE_DATA_PAGE_LINK,
-  HIV_PREVALANCE_RACE_USA_SETTING,
-  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
-  PRISON_VS_POVERTY_RACE_GA_SETTING,
-  UNINSURANCE_SEX_FL_VS_CA_SETTING,
-  WARM_WELCOME_DEMO_SETTING,
-} from '../../utils/internalRoutes'
-import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
+import { EXPLORE_DATA_PAGE_LINK } from "../../utils/internalRoutes";
+import HetTextArrowLink from "../../styles/HetComponents/HetTextArrowLink";
+import { HetTags } from "../../styles/HetComponents/HetTags";
+import { reportMapping } from "./DefaultHelperBoxData";
+import { ToggleIframeComponent } from "./ToggleIframeComponent";
 
 export default function DefaultHelperBox() {
-  return (
-    <div className='flex w-full items-center justify-center bg-white px-12 pb-0 pt-4 sm:px-20 sm:pt-8'>
-      <section className='m-0 mb-5  grid w-full max-w-helperBox grid-cols-1 content-center  items-center justify-evenly justify-items-center rounded-md bg-standardInfo pb-0 smMd:grid-cols-5'>
-        <div className='col-span-3 px-10 py-0 text-left smMd:px-0 md:px-10 xl:col-span-2'>
-          <h3 className='mt-4 pr-4 text-small sm:mt-8 sm:text-smallestHeader md:mt-0 lg:text-header'>
-            Select a topic above...
-          </h3>
-
-          <h3 className='text-smallest sm:text-title xl:text-exploreButton'>
-            or explore one of the following reports:
-          </h3>
-
-          <ul className='my-0 list-none pl-0 text-left'>
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
-                href={EXPLORE_DATA_PAGE_LINK + HIV_PREVALANCE_RACE_USA_SETTING}
-              >
-                HIV by race/ethnicity
-              </a>
-            </li>
-
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
-                href={
-                  EXPLORE_DATA_PAGE_LINK +
-                  COVID_DEATHS_AGE_FULTON_COUNTY_SETTING
-                }
-              >
-                COVID-19 in Fulton County, Georgia, by age
-              </a>
-            </li>
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
-                href={
-                  EXPLORE_DATA_PAGE_LINK + PRISON_VS_POVERTY_RACE_GA_SETTING
-                }
-              >
-                Prison & poverty in Georgia, by race
-              </a>
-            </li>
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
-                href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING}
-              >
-                Uninsurance in FL & CA, by sex
-              </a>
-            </li>
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
-                href={
-                  EXPLORE_DATA_PAGE_LINK +
-                  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING
-                }
-              >
-                HIV disparity maps by Medicare eligibility <FiberNewIcon />
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div className='col-span-2 w-full pt-8 smMd:px-12 xl:col-span-3'>
-          <DisclaimerAlert className='mb-5 mt-1 smMd:hidden' />
-          <div className='flex w-full justify-center '>
-            <iframe
-              loading='lazy'
-              className=' h-[157px] w-[250px] max-w-[80vw] rounded-lg lg:h-[252px] lg:w-[400px] xl:h-[346px] xl:w-[550px]'
-              src='https://www.youtube.com/embed/XBoqT9Jjc8w'
-              title='YouTube video player'
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-              allowFullScreen
-            ></iframe>
-          </div>
-          <p className='px-4 pb-4 text-small italic md:px-4'>
-            New to the tracker? Watch the video demo, or take a{' '}
-            <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
-              guided tour of a COVID-19 report.
-            </a>
-          </p>
-        </div>
-
-        <DisclaimerAlert className='col-span-5 m-7 hidden smMd:block' />
-      </section>
-    </div>
-  )
+	return (
+		<div
+			className="flex w-full items-center justify-center px-12 pb-0 pt-4 sm:px-20 sm:pt-8"
+			aria-labelledby="main-heading"
+		>
+			<div className="m-0 mb-5 w-full max-w-helperBox content-center items-center justify-evenly justify-items-center rounded-md pb-0">
+				<div className="px-10 py-0 text-left smMd:px-0 md:px-10 xs:px-2">
+					<h1
+						id="main-heading"
+						className="m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen text-base text-center"
+					>
+						Select a topic above
+					</h1>
+					<p className="text-text text-center">
+						or explore one of the following reports:
+					</p>
+					<ul
+						className="my-0 list-none pl-0 text-left flex flex-wrap"
+						role="list"
+						aria-labelledby="reports-heading"
+					>
+						{reportMapping.map((report, index) => (
+							<li
+								className="my-4 xs:my-2 mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out w-full"
+								key={index}
+								role="listitem"
+							>
+								<article
+									className="text-left p-4 text-altGreen grid gap-4 md:items-start place-items-center md:grid-cols-[40%_60%] w-full"
+									aria-labelledby={`report-title-${index}`}
+								>
+									<a
+										href={EXPLORE_DATA_PAGE_LINK + report.setting}
+										className="bg-cover bg-no-repeat ml-6 px-4 w-full h-[18rem] transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg"
+										style={{
+											backgroundImage: `url(${report.previewImg})`,
+										}}
+										aria-label={`${report.title} preview image`}
+									></a>
+									<div className="flex flex-col w-full md:items-start px-4 md:px-12">
+										<HetTags tags={report.categories} />
+										<h2
+											role="heading"
+											aria-label={report.title}
+											id={`report-title-${index}`}
+											className="font-medium my-2 md:my-4 text-center md:text-left text-title"
+										>
+											<a
+												href={EXPLORE_DATA_PAGE_LINK + report.setting}
+												className="no-underline"
+											>
+												{report.title} {report.icon && report.icon}
+											</a>
+										</h2>
+										<p className="text-black md:block hidden my-0 md:mb-4">
+											{report.description}
+										</p>
+										<HetTextArrowLink
+											link={EXPLORE_DATA_PAGE_LINK + report.setting}
+											linkText="Explore this report"
+										/>
+									</div>
+								</article>
+								<ToggleIframeComponent index={index} report={report} />
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		</div>
+	);
 }

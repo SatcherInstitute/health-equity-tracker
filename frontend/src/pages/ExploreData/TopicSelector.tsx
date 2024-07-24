@@ -7,10 +7,7 @@ import {
   type DefaultDropdownVarId,
   DROPDOWN_TOPIC_MAP,
 } from '../../utils/MadLibs'
-import {
-  type DropdownVarId,
-  type DataTypeId,
-} from '../../data/config/MetricConfig'
+import type { DropdownVarId, DataTypeId } from '../../data/config/MetricConfig'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
@@ -25,7 +22,7 @@ interface TopicSelectorProps {
 
 export default function TopicSelector(props: TopicSelectorProps) {
   const options = Object.entries(props.phraseSegment).sort((a, b) =>
-    a[0].localeCompare(b[0])
+    a[0].localeCompare(b[0]),
   ) as Array<[DropdownVarId, string]>
 
   const chosenOption = options.find((i) => i[0] === props.newValue)
@@ -41,13 +38,13 @@ export default function TopicSelector(props: TopicSelectorProps) {
   const noTopic = props.newValue === DEFAULT
   const dropdownTarget = `${props.newValue}-dropdown-topic`
 
-  // TODO: this isn't efficient, these should be stored in an ordered way
-
   return (
     <>
       <span ref={popoverRef}>
         <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
-          <span className={dropdownTarget}>{currentDisplayName}</span>
+          <span className={dropdownTarget + ' text-altGreen'}>
+            {currentDisplayName}
+          </span>
         </HetMadLibButton>
 
         <HetPopover popover={popover}>
@@ -57,7 +54,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mb-1 mr-4 p-0 text-small font-semibold leading-lhSomeMoreSpace sm:text-text'
+                    className='m-0 mb-1 mr-4 p-0 text-small font-semibold leading-lhSomeMoreSpace sm:text-text text-black'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
@@ -85,16 +82,13 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='no-underline hover:bg-standardInfo'
+                  className='no-underline hover:bg-standardInfo text-black bg-white'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <KeyboardBackspaceIcon
-                    style={{
-                      fontSize: 'small',
-                      paddingBottom: '3px',
-                    }}
-                  />{' '}
-                  <span className='p-1 text-smallest'>Clear selections</span>
+                  <KeyboardBackspaceIcon className='text-black text-small pb-[3px]' />{' '}
+                  <span className='p-1 text-smallest text-black'>
+                    Clear selections
+                  </span>
                 </a>
               )}
             </div>
