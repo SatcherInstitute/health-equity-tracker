@@ -1,3 +1,4 @@
+import { HIV_PREVALENCE_RACE_USA_SETTING, COVID_DEATHS_AGE_FULTON_COUNTY_SETTING, PRISON_VS_POVERTY_RACE_GA_SETTING, UNINSURANCE_SEX_FL_VS_CA_SETTING, PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING } from "../../utils/internalRoutes";
 import Custom100kBarChartCompare from "../../reports/Custom100kBarChartCompare";
 import Custom100kMap from "../../reports/Custom100kMap";
 import CustomDisparityBarChartCompare from "../../reports/CustomDisparityBarChartCompare";
@@ -7,7 +8,7 @@ import FiberNewIcon from '@mui/icons-material/FiberNew'
 
 export const reportMapping = [
 	{
-		setting: "medicare-hiv",
+		setting: PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
 		title: "HIV Disparity Maps by Medicare Eligibility",
 		preview: "Medicare HIV Cases",
 		description:
@@ -23,7 +24,7 @@ export const reportMapping = [
 		customCard: <Custom100kMap openMultiMap={false} />,
 	},
 	{
-		setting: "hiv",
+		setting: HIV_PREVALENCE_RACE_USA_SETTING,
 		title: "HIV by Race/Ethnicity",
 		preview: "HIV Cases",
 		description:
@@ -33,7 +34,7 @@ export const reportMapping = [
 		customCard: <CustomRateTrendsLineChart />,
 	},
 	{
-		setting: "covid",
+		setting: COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
 		title: "COVID-19 Deaths in Fulton County by Age",
 		preview: "COVID-19 Deaths",
 		description:
@@ -43,7 +44,7 @@ export const reportMapping = [
 		customCard: <CustomShareTrendsLineChart />,
 	},
 	{
-		setting: "prison-poverty",
+		setting: PRISON_VS_POVERTY_RACE_GA_SETTING,
 		title: "Prison & Poverty in Georgia by Race",
 		preview: "Prison + Poverty",
 		description:
@@ -59,7 +60,7 @@ export const reportMapping = [
 		customCard: <Custom100kBarChartCompare />,
 	},
 	{
-		setting: "uninsurance",
+		setting: UNINSURANCE_SEX_FL_VS_CA_SETTING,
 		title: "Uninsurance in FL & CA by Sex",
 		preview: "Uninsured",
 		description:
