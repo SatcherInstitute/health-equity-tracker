@@ -63,8 +63,6 @@ PCT_RATE_TO_PER_100K_TOPICS = [
 def load_ahr_measures_json():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     config_file_path = os.path.join(current_dir, 'ahr_config', 'graphql_ahr_measure_ids.json')
-    # ingestion_dir = os.path.join('python', 'ingestion', 'ahr_config')
-    # config_file_path = os.path.join(ingestion_dir, 'graphql_ahr_measure_ids.json')
 
     with open(config_file_path, 'r') as file:
         return json.load(file)

@@ -19,7 +19,7 @@ GOLDEN_DATA = {
 
 
 def _fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
-    print("MOCK - AHR GraphQL API response")
+    print(f"MOCK - AHR GraphQL API response for {demographic}_{geo_level}")
     with open(os.path.join(TEST_DIR, f'{demographic}_{geo_level}_response.json'), 'r', encoding='utf-8') as file:
         data = json.load(file)
 
