@@ -1,19 +1,17 @@
 import { getDataManager } from '../../utils/globals'
-import { type Breakdowns, type TimeView } from '../query/Breakdowns'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import type AcsPopulationProvider from './AcsPopulationProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { type DatasetId } from '../config/DatasetMetadata'
-import {
-  type DataTypeId,
-  type AgeAdjustedDataTypeId,
-} from '../config/MetricConfig'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, AgeAdjustedDataTypeId } from '../config/MetricConfig'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
 } from '../../utils/internalRoutes'
+import type { IDataFrame } from 'data-forge'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {
@@ -52,7 +50,7 @@ class CdcCovidProvider extends VariableProvider {
   getDatasetId(
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ): DatasetId | undefined {
     if (timeView === 'current') {
       if (breakdowns.hasOnlyRace()) {
@@ -109,7 +107,7 @@ class CdcCovidProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
@@ -129,6 +127,10 @@ class CdcCovidProvider extends VariableProvider {
     }
     df = this.renameGeoColumns(df, breakdowns)
 
+    if (timeView === 'historical') {
+      df = dropRecentPartialMonth(df)
+    }
+
     /* We use DECIA_2020 populations OR ACS on the backend; add the correct id so footer is correct */
     const isIslandArea = breakdowns.filterFips?.isIslandArea()
 
@@ -137,12 +139,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
+            'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level'
+            'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level',
           )
         }
       }
@@ -150,12 +152,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlySex()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_sex_territory_state_level'
+            'decia_2020_territory_population-by_sex_territory_state_level',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_sex_territory_county_level'
+            'decia_2020_territory_population-by_sex_territory_county_level',
           )
         }
       }
@@ -163,12 +165,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_age_territory_state_level'
+            'decia_2020_territory_population-by_age_territory_state_level',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_age_territory_county_level'
+            'decia_2020_territory_population-by_age_territory_county_level',
           )
         }
       }
@@ -187,5 +189,26 @@ class CdcCovidProvider extends VariableProvider {
     return breakdowns.hasExactlyOneDemographic()
   }
 }
-
 export default CdcCovidProvider
+
+export function dropRecentPartialMonth(df: IDataFrame): IDataFrame {
+  const partialMonth = getMostRecentMonth(df)
+  return df.where((row) => row.time_period !== partialMonth)
+}
+
+function getMostRecentMonth(df: IDataFrame): string {
+  // Convert YYYY-MM strings to Date objects
+  const dates = df
+    .getSeries('time_period')
+    .toArray()
+    .map((period) => new Date(`${period}-01`).getTime()) // Get timestamp
+
+  // Find the maximum date
+  const maxTimestamp = Math.max(...dates)
+  const maxDate = new Date(maxTimestamp)
+
+  // Convert the maximum date back to YYYY-MM format
+  const year = maxDate.getUTCFullYear()
+  const month = String(maxDate.getUTCMonth() + 1).padStart(2, '0') // getUTCMonth is zero-indexed
+  return `${year}-${month}`
+}
