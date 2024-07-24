@@ -1,6 +1,6 @@
-astroid==3.2.3
+astroid==3.2.4
 blinker==1.8.2
-cachetools==5.3.3
+cachetools==5.4.0
 certifi==2024.7.4
 cffi==1.16.0
 chardet==5.2.0
@@ -23,8 +23,8 @@ google-crc32c==1.5.0
 google-resumable-media
 googleapis-common-protos[grpc]==1.63.2
 grpc-google-iam-v1==0.13.1
-grpcio-status==1.64.1
-grpcio==1.64.1
+grpcio-status==1.65.1
+grpcio==1.65.1
 gunicorn==22.0.0
 idna
 importlib-metadata==8.0.0
@@ -48,9 +48,9 @@ pyarrow==16.1.0
 pyasn1-modules==0.4.0
 pyasn1==0.6.0
 pycparser==2.22
-pylint==3.2.5
+pylint==3.2.6
 pyparsing==3.1.2
-pytest==8.2.2
+pytest==8.3.1
 python-dateutil==2.9.0.post0
 pytz==2024.1
 pyyaml==6.0.1
