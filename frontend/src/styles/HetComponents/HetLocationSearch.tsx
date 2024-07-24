@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
-import { type Fips } from '../../data/utils/Fips'
-import { type PopoverElements } from '../../utils/hooks/usePopover'
+import type { Fips } from '../../data/utils/Fips'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 
 interface HetLocationSearchProps {
