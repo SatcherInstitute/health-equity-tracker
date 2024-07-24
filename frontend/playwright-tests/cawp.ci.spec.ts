@@ -16,9 +16,8 @@ test('CAWP: Congress', async ({ page }) => {
   await page.getByRole('cell', { name: '1951' }).click();
   await page.getByRole('cell', { name: '1952' }).click();
 
-
-  await page.waitForSelector('text=No unknown values for race and ethnicity reported in this dataset at the state/territory level.', { timeout: 1200000 });
-
+  await page.waitForSelector('div[role="note"] >> text=No unknown values for race and ethnicity reported in this dataset at the state/territory level.', { timeout: 1200000 });
+  
   await page.getByText('No unknown values for race and ethnicity reported in this dataset at the state/territory level.').click();
   await page.locator('#inequities-over-time').getByLabel('Include Black or African American women').click();
   await page.getByText('Expand inequities over time table').click();
