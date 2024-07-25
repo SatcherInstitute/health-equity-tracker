@@ -228,23 +228,27 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     """
     breakdown_df = df.copy()
 
+    breakdown_df = breakdown_df.replace(" - Past Year", "")
+
     for ahr_topic, ahr_measure_type in AHR_BASE_MEASURES_TO_RATES_MAP.items():
         # Check if the ahr topic, e.g Asthma, is present in the `Measure` column
-        is_topic_present = breakdown_df[AHR_MEASURE].str.contains(ahr_topic, regex=False)
+        is_topic_present_mask = breakdown_df[AHR_MEASURE].str.contains(ahr_topic, case=False)
 
         # Extracts the breakdown from the AHR_MEASURE column and places it in the 'breakdown_col'
-        breakdown_df.loc[is_topic_present, breakdown_col] = (
-            breakdown_df.loc[is_topic_present, AHR_MEASURE].str.replace(ahr_topic, "", regex=False).str.strip(" - ")
+        breakdown_df.loc[is_topic_present_mask, breakdown_col] = (
+            breakdown_df.loc[is_topic_present_mask, AHR_MEASURE]
+            .str.replace(ahr_topic, "", regex=False)
+            .str.strip(" - ")
         )
 
         # Fills any empty breakdown_col rows with the 'ALL' value
         breakdown_df.loc[breakdown_df[breakdown_col] == "", breakdown_col] = std_col.ALL_VALUE
 
         # Set measure type for the topics
-        breakdown_df.loc[is_topic_present, AHR_MEASURE] = ahr_measure_type
+        breakdown_df.loc[is_topic_present_mask, AHR_MEASURE] = ahr_measure_type
 
         if ahr_topic in PCT_RATE_TO_PER_100K_TOPICS:
-            breakdown_df.loc[is_topic_present, AHR_VALUE] *= 1000
+            breakdown_df.loc[is_topic_present_mask, AHR_VALUE] *= 1000
 
     pivot_df = breakdown_df.pivot_table(
         index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown_col],

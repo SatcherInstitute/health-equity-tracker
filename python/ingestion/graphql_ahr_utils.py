@@ -23,7 +23,8 @@ AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     'Diabetes': 'diabetes_per_100k',
     'Excessive Drinking': 'excessive_drinking_per_100k',
     'Frequent Mental Distress': 'frequent_mental_distress_per_100k',
-    'Non-Medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
+    # 'Non-medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
+    'Non-medical Drug Use': 'non_medical_drug_use_per_100k',
 }
 
 AHR_MEASURES_TO_RATES_MAP_ALL_AGES = {
