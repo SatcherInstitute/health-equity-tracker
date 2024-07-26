@@ -95,8 +95,6 @@ interface MapCardProps {
   isCompareCard?: boolean
   reportTitle: string
   trackerMode: MadLibId
-  multimapOpen?: boolean
-  setMultimapOpen?: (open: boolean) => void
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -127,7 +125,14 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
-  const [multimapOpen, setMultimapOpen] = useState(props.multimapOpen || false)
+  const MULTIMAP_PARAM_KEY = props.isCompareCard
+    ? MULTIPLE_MAPS_2_PARAM_KEY
+    : MULTIPLE_MAPS_1_PARAM_KEY
+
+  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
+    MULTIMAP_PARAM_KEY,
+    false,
+  )
   const MAP_GROUP_PARAM = props.isCompareCard
     ? MAP2_GROUP_PARAM
     : MAP1_GROUP_PARAM
@@ -459,7 +464,6 @@ function MapCardWithKey(props: MapCardProps) {
               fips={props.fips}
               geoData={geoData}
               handleClose={() => {
-                if (props.setMultimapOpen) props.setMultimapOpen(false)
                 setMultimapOpen(false)
               }}
               handleMapGroupClick={handleMapGroupClick}
