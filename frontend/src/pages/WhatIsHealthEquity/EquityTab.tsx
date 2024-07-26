@@ -348,13 +348,10 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import LazyLoad from 'react-lazyload';
 import FaqSection from '../ui/FaqSection';
-import NewsPreviewCard from '../News/NewsPreviewCard';
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading';
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink';
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes';
-import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion';
 import { urlMap } from '../../utils/externalUrls';
-import { Article } from '../News/NewsPage';
 import { EquityTabNewsCard } from './EquityTabNewsCard';
 
 const NEWS_ARTICLES = [
@@ -400,6 +397,7 @@ const NEWS_ARTICLES = [
 ];
 
 
+<<<<<<< HEAD
 function NewsSection({ isLoading, error, numberOfArticlePreviews }) {
   return (
     <section className="flex w-full flex-wrap items-center justify-center">
@@ -456,14 +454,14 @@ function NewsSection({ isLoading, error, numberOfArticlePreviews }) {
 export default EquityTab
 >>>>>>> eb0c33fa (rm unsuable how do i join the movement section with links to fellowship, newsletter, helping community and bottom border of faq section)
 =======
+=======
+>>>>>>> d543211e (updates ckd nightly test, rm bottom border of FAQ section)
 
 export default function EquityTab({
-	recentArticles,
 	isLoading,
 	error,
 	numberOfArticlePreviews,
 }) {
-	const prefersReducedMotion = usePrefersReducedMotion();
 
 	return (
 		<>
@@ -552,7 +550,7 @@ export default function EquityTab({
 				<div className="flex w-full flex-col flex-wrap items-center justify-center">
 					<div className="flex w-full flex-wrap justify-center py-5">
 						<section>
-							<h3 className="m-0 text-center font-serif text-header font-light leading-lhLoose text-altGreen sm:text-bigHeader md:text-biggerHeader">
+							<h3 className="m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen">
 								Health equity learning
 							</h3>
 						</section>
@@ -626,53 +624,71 @@ export default function EquityTab({
 						</div>
 					</div>
 
-						<section>
-							<div className="mx-0 flex flex-wrap">
-								<div className="w-full mt-4 mb-16 ">
-									<h3 className="m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen">
-										News and stories
-									</h3>
-									<p className="text-text">
-										Read the{" "}
-										<Link to={NEWS_PAGE_LINK}>
-											latest news, posts, and stories
-										</Link>{" "}
-										related to health equity, or learn more from the articles
-										below.
-									</p>
-								</div>
-										<LazyLoad offset={300} height={700} once>
-											<div className="grid md:grid-cols-2 gap-6 xs:grid-cols-1">
-												{isLoading ? (
-													<HetPostsLoading
-														className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
-														doPulse={!error}
-														numberLoading={numberOfArticlePreviews}
-													/>
-												) : (
-													NEWS_ARTICLES.map((article, index) => (
-														<EquityTabNewsCard
-															key={index}
-															href={article.href}
-															ariaLabel={article.ariaLabel}
-															imgSrc={article.imgSrc}
-															imgAlt={article.imgAlt}
-															title={article.title}
-															description={article.description}
-															readMoreHref={article.readMoreHref}
-														/>
-													))
-												)}
-											</div>
-										</LazyLoad>								
+					<section className='bg-[#F0F1EF]/[0.8] py-16'>
+						<div className="mx-0 flex flex-wrap">
+							<div className="w-full mt-4 mb-16 ">
+								<h3 className="m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen">
+									News and stories
+								</h3>
+								<p className="text-text">
+									Read the{" "}
+									<Link to={NEWS_PAGE_LINK}>
+										latest news, posts, and stories
+									</Link>{" "}
+									related to health equity, or learn more from the articles
+									below.
+								</p>
 							</div>
-              <HetTextArrowLink
-                link={NEWS_PAGE_LINK}
-                linkText='View all articles'
-                containerClassName='flex items-center justify-center mt-16 mx-auto '
-                linkClassName='font-sansTitle text-smallestHeader'
-              />
-						</section>
+							<LazyLoad offset={300} height={700} once>
+								<div className="grid gap-6">
+									{isLoading ? (
+										<HetPostsLoading
+											className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4"
+											doPulse={!error}
+											numberLoading={numberOfArticlePreviews}
+										/>
+									) : (
+										<>
+											<div className="grid md:grid-cols-2 gap-6 xs:grid-cols-1">
+												{NEWS_ARTICLES.slice(0, 2).map((article, index) => (
+													<EquityTabNewsCard
+														key={index}
+														href={article.href}
+														ariaLabel={article.ariaLabel}
+														imgSrc={article.imgSrc}
+														imgAlt={article.imgAlt}
+														title={article.title}
+														description={article.description}
+														readMoreHref={article.readMoreHref}
+													/>
+												))}
+											</div>
+											<div className="grid md:grid-cols-3 gap-6 xs:grid-cols-1 mt-6">
+												{NEWS_ARTICLES.slice(2).map((article, index) => (
+													<EquityTabNewsCard
+														key={index}
+														href={article.href}
+														ariaLabel={article.ariaLabel}
+														imgSrc={article.imgSrc}
+														imgAlt={article.imgAlt}
+														title={article.title}
+														description={article.description}
+														readMoreHref={article.readMoreHref}
+													/>
+												))}
+											</div>
+										</>
+									)}
+								</div>
+							</LazyLoad>
+						</div>
+						<HetTextArrowLink
+							link={NEWS_PAGE_LINK}
+							linkText="View all articles"
+							containerClassName="flex items-center justify-center mt-16 mx-auto "
+							linkClassName="font-sansTitle text-smallestHeader"
+						/>
+					</section>
 				</div>
 			</div>
 
