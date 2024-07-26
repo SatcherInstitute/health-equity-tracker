@@ -3,8 +3,11 @@ import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { reportMappings } from './DefaultHelperBoxData'
 import TogglePreview from './TogglePreview'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function DefaultHelperBox() {
+  const isMobile = !useIsBreakpointAndUp('md')
+
   return (
     <div
       className='flex w-full items-center justify-center px-12 pb-0 pt-4 sm:px-20 sm:pt-8'
@@ -69,7 +72,7 @@ export default function DefaultHelperBox() {
                     />
                   </div>
                 </article>
-                {report.customCard && (
+                {report.customCard && !isMobile && (
                   <TogglePreview index={index} report={report} />
                 )}
               </li>
