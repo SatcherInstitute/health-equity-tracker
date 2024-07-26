@@ -12,6 +12,9 @@ export const OLD_CONTACT_LINK = '/contact';
 export const OLD_OURTEAM_LINK = '/ourteam';
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment';
 
+// CONTEXT TABS
+export const OVERVIEW_LINK = '/overview';
+
 // NEW METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology';
 
