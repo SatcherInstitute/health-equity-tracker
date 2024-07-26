@@ -4,15 +4,21 @@ import { HetTags } from '../../styles/HetComponents/HetTags'
 import { reportMappings } from './DefaultHelperBoxData'
 import TogglePreview from './TogglePreview'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7f8d3e34 (Removes preview cards on mobile (#3501))
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function DefaultHelperBox() {
   const isMobile = !useIsBreakpointAndUp('md')
 
+<<<<<<< HEAD
 =======
 
 export default function DefaultHelperBox() {
 >>>>>>> 36d1f9b4 (Continues adding custom report cards for explore data page  (#3481))
+=======
+>>>>>>> 7f8d3e34 (Removes preview cards on mobile (#3501))
   return (
     <div
       className='flex w-full items-center justify-center px-12 pb-0 pt-4 sm:px-20 sm:pt-8'
@@ -78,10 +84,14 @@ export default function DefaultHelperBox() {
                   </div>
                 </article>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 {report.customCard && !isMobile && (
 =======
                 {report.customCard && (
 >>>>>>> 36d1f9b4 (Continues adding custom report cards for explore data page  (#3481))
+=======
+                {report.customCard && !isMobile && (
+>>>>>>> 7f8d3e34 (Removes preview cards on mobile (#3501))
                   <TogglePreview index={index} report={report} />
                 )}
               </li>
