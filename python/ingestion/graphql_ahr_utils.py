@@ -146,7 +146,7 @@ def fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
         }}
         """
 
-        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=30)
+        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=300)
 
         if response.status_code == 200:
             results.append(response.json().get('data')['measure_A'])

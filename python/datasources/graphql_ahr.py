@@ -107,6 +107,9 @@ class GraphQlAHRData(DataSource):
             topic_prefixes.append('ahr')
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
 
+            first_two_columns = df_for_bq.columns[:2].tolist()
+            df_for_bq = df_for_bq.sort_values(by=first_two_columns, ascending=True).reset_index(drop=True)
+
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_TYPE, df: pd.DataFrame):
