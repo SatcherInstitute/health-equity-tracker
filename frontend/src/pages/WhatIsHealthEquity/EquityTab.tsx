@@ -368,105 +368,11 @@ function EquityTab() {
               </LazyLoad>
             </div>
           </div>
-          <div className='flex w-full items-center justify-center border-0 border-b border-solid py-12'>
+          <div className='flex w-full items-center justify-center py-12'>
             <section className='w-full md:w-5/6'>
               <FaqSection />
             </section>
           </div>
-        </div>
-
-        <div className='flex w-full flex-col items-center justify-center px-8'>
-          <section className='flex w-full flex-col items-center justify-center py-16'>
-            <h3
-              id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-              className='m-0 mb-4 text-center font-serif text-header font-light leading-lhModalHeading text-altGreen sm:text-bigHeader md:text-biggerHeader'
-            >
-              How do I join the movement?
-            </h3>
-            <span className='text-left font-sansText text-title font-normal leading-lhLoose'>
-              To advance health equity, we need smart, talented, passionate
-              folks like you on board.
-            </span>
-          </section>
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? 'img/HET-lines-no-motion.gif'
-                : 'img/animations/HET-lines.gif'
-            }
-            imageBackground='bg-joinEffortBg1'
-            imageAlt=''
-            textTitle='Learn to create actionable solutions'
-            content={
-              <>
-                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
-                  Apply to our Political Determinants of Health Learning
-                  Laboratory Fellowship. We seek to partner and support diverse
-                  groups in building equitable and sustainable pathways for
-                  healthy communities.
-                </p>
-                <p>
-                  <HetLinkButton
-                    className='text-smallestHeader underline'
-                    href={urlMap.shliPdohLab}
-                  >
-                    Apply to Fellowship
-                  </HetLinkButton>
-                </p>
-              </>
-            }
-          />
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? 'img/HET-fields-no-motion.gif'
-                : 'img/animations/HET-fields.gif'
-            }
-            imageBackground='bg-joinEffortBg2'
-            imageAlt=''
-            textTitle='Give back to your community'
-            content={
-              <>
-                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
-                  Are you a community leader interested in expanding
-                  transportation access to vaccine sites within your community?
-                  Complete our inquiry form to receive information on our
-                  vaccine rideshare efforts and opportunities.
-                </p>
-                <p>
-                  <HetLinkButton
-                    className='text-smallestHeader underline'
-                    aria-label='Sign Up - vaccine rideshare program'
-                    href='https://satcherinstitute.org/uberrideshare/'
-                  >
-                    Sign Up
-                  </HetLinkButton>
-                </p>
-              </>
-            }
-          />
-
-          <JoinTheEffortContainer
-            imageUrl={
-              prefersReducedMotion
-                ? 'img/HET-dots-no-motion.gif'
-                : 'img/animations/HET-dots.gif'
-            }
-            imageBackground='bg-joinEffortBg3'
-            imageAlt=''
-            textTitle='Sign up for our newsletter'
-            content={
-              <div className='flex flex-col items-start'>
-                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
-                  Want updates on the latest news in health equity? Sign up for
-                  our Satcher Health Leadership Institute newsletter.
-                </p>
-                <HetEmailSignup id='wihe-email-signup' />
-              </div>
-            }
-          />
         </div>
       </div>
     </>
