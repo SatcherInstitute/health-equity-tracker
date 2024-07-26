@@ -238,7 +238,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
         )
 
         # Fills any empty breakdown_col rows with the 'ALL' value
-        breakdown_df.loc[breakdown_df[breakdown_col] == "", breakdown_col] = std_col.ALL_VALUE
+        breakdown_df.loc[breakdown_df[breakdown_col].isin(["", "Past Year"]), breakdown_col] = std_col.ALL_VALUE
 
         # Set measure type for the topics
         breakdown_df.loc[is_topic_present, AHR_MEASURE] = ahr_measure_type

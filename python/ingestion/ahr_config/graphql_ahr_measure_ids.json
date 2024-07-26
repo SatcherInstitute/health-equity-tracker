@@ -276,6 +276,18 @@
 			}
 		},
 		{
+			"measure": "Non-Medical Drug Use",
+			"demographics": {
+				"American Indian/Alaska Native": ["16194"],
+				"Asian": ["16192"],
+				"Black": ["16190"],
+				"Hawaiian/Pacific Islander": ["16193"],
+				"Hispanic": ["16191"],
+				"Other Race": ["16195"],
+				"White": ["16189"]
+			}
+		},
+		{
 			"measure": "Preventable Hospitalizations",
 			"demographics": {
 				"American Indian/Alaska Native": ["16448", "18326"],
