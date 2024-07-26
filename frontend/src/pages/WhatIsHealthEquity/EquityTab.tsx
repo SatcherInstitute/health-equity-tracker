@@ -22,7 +22,7 @@ export default function EquityTab() {
 			<Helmet>
 				<title>What is Health Equity? - Health Equity Tracker</title>
 			</Helmet>
-			<div className='m-auto flex w-full max-w-lgXl flex-wrap'>
+			<div className='m-auto flex w-full max-w-lgXl flex-wrap xs:px-8 sm:px-24'>
 				<div className='flex w-full items-center justify-center border-0 border-b border-solid border-borderColor'>
 					<figure className='mx-auto mt-0 hidden p-2 text-left md:block md:w-1/3'>
 						<LazyLoad
@@ -42,7 +42,7 @@ export default function EquityTab() {
 						<header className='mb-10'>
 							<h2
 								id='main'
-								className='mb-4 mt-0 text-left font-serif text-header font-light leading-lhNormal text-altGreen sm:text-bigHeader md:text-biggerHeader'
+								className='mb-4 mt-0 font-serif text-header font-light leading-lhNormal text-altGreen sm:text-bigHeader md:text-biggerHeader md:text-left xs:text-center'
 							>
 								What is Health Equity?
 							</h2>
@@ -134,7 +134,7 @@ export default function EquityTab() {
 									<aside className='flex flex-col items-start p-4 text-left'>
 										<iframe
 											aria-label={`Jessica's Story Video`}
-											className='h-44 w-full rounded-md'
+											className='md:h-44 xs:h-80 w-full rounded-md'
 											src='https://www.youtube.com/embed/cmMutvgQIcU'
 											title={`YouTube video player - Jessica's Story`}
 											loading='lazy'
@@ -156,7 +156,7 @@ export default function EquityTab() {
 										<a href={urlMap.ncrn} className='text-black no-underline'>
 											<LazyLoad offset={300} height={200} once>
 												<img
-													className='h-44 w-full rounded-md'
+													className='md:h-44 sm:h-80 xs:h-40 w-full rounded-md'
 													src='/img/graphics/NCRN.png'
 													alt='Header for Morehouse School of Medicine National COVID-19 Resiliency Network'
 												/>
@@ -199,6 +199,7 @@ export default function EquityTab() {
 										<HetPostsLoading
 											className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
 											doPulse={!error}
+											
 										/>
 									) : (
 										<>
