@@ -1,16 +1,16 @@
 import pandas as pd
-from datetime import datetime
 from typing import cast, Literal, List
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
-from ingestion.constants import US_ABBR, NATIONAL_LEVEL, CURRENT, Sex
+from ingestion.constants import CURRENT, Sex
 from ingestion.dataset_utils import (
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
     get_timeview_df_and_cols,
 )
 from ingestion.graphql_ahr_utils import (
+    graphql_response_to_dataframe,
     fetch_ahr_data_from_graphql,
     AHR_BASE_MEASURES_TO_RATES_MAP,
     AHR_MEASURES_TO_RATES_MAP_18PLUS,
@@ -23,22 +23,22 @@ from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, S
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 
 # String constants from AHR source data
-AHR_MEASURE = 'Measure'
-AHR_US = 'ALL'
-AHR_VALUE = 'Value'
+AHR_MEASURE = 'measure'
+AHR_VALUE = 'value'
 
 AGE_GROUPS_TO_STANDARD = {
     'Ages 15-24': '15-24',
+    'Ages 18-24': '18-24',
     'Ages 18-44': '18-44',
     'Ages 25-34': '24-34',
     'Ages 35-44': '35-44',
     'Ages 45-54': '45-54',
     'Ages 45-64': '45-64',
     'Ages 55-64': '55-64',
-    'Ages 65+': '65+',
+    'Age 65+': '65+',
     'Ages 65-74': '65-74',
     'Ages 75-84': '75-84',
-    'Ages 85+': '85+',
+    'Age 85+': '85+',
 }
 
 RACE_GROUPS_TO_STANDARD = {
@@ -97,8 +97,8 @@ class GraphQlAHRData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
-        response_data = fetch_ahr_data_from_graphql()
-        df = graphql_response_to_dataframe(response_data, geo_level)
+        response_data = fetch_ahr_data_from_graphql(demographic, geo_level)
+        df = graphql_response_to_dataframe(response_data)
         df = self.generate_breakdown_df(demographic, geo_level, df)
 
         for time_view in [CURRENT]:
@@ -110,10 +110,7 @@ class GraphQlAHRData(DataSource):
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_TYPE, df: pd.DataFrame):
-        measure_map = create_measure_map()
-        measures_for_demographic = measure_map[breakdown]
-        filtered_df = df[df[AHR_MEASURE].isin(measures_for_demographic)]
-        breakdown_df = parse_raw_data(filtered_df, breakdown)
+        breakdown_df = parse_raw_data(df, breakdown)
         breakdown_df = self.post_process(breakdown_df, breakdown, geo_level)
 
         return breakdown_df
@@ -213,49 +210,6 @@ class GraphQlAHRData(DataSource):
         return breakdown_df
 
 
-def graphql_response_to_dataframe(response_data, geo_level: GEO_TYPE):
-    """
-    Converts a GraphQL API response containing nested data into a flattened Pandas DataFrame.
-
-    Args:
-    - response_data (dict): The GraphQL API response data.
-    - geo_level (str): The geographic level of the data (e.g., 'national', 'state').
-
-    Returns:
-    - pd.DataFrame: A Pandas DataFrame containing the flattened data.
-
-    The function flattens the nested response_data structure, extracts relevant fields,
-    and creates a DataFrame. It also standardizes the state codes and filters the data
-    based on the geographic level.
-    """
-    flattened_data = []
-
-    for dataset in response_data:
-        for data in dataset:
-            for row in data['data']:
-                dt_obj = datetime.strptime(row['endDate'], '%Y-%m-%dT%H:%M:%S.%fZ')
-                row['time_period'] = str(dt_obj.year)
-                row[AHR_MEASURE] = row['measure']['name']
-                row['state_postal'] = row['state']
-                row[AHR_VALUE] = row['value']
-                del row['endDate']
-                del row['value']
-                del row['measure']
-                del row['state']
-                flattened_data.append(row)
-
-    df = pd.DataFrame(flattened_data)
-
-    df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace(AHR_US, US_ABBR)
-
-    if geo_level == NATIONAL_LEVEL:
-        df = df.loc[df[std_col.STATE_POSTAL_COL] == US_ABBR]
-    else:
-        df = df.loc[df[std_col.STATE_POSTAL_COL] != US_ABBR]
-
-    return df
-
-
 def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     """
     Parses raw data in a DataFrame to extract breakdown information and create a pivot table.
@@ -302,42 +256,6 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     pivot_df = pivot_df.sort_values(by=std_col.TIME_PERIOD_COL, ascending=False)
 
     return pivot_df
-
-
-def create_measure_map():
-    """
-    Creates a map of measures based on demographic categories.
-
-    Returns:
-    - dict: A dictionary mapping demographic categories to lists of measures.
-
-    This function iterates over the AHR_BASE_MEASURES_TO_RATES_MAP dictionary and generates a map
-    containing the base measures and their breakdowns for age, race or ethnicity,
-    and sex categories.
-    """
-    measure_map = {std_col.AGE_COL: [], std_col.RACE_OR_HISPANIC_COL: [], std_col.SEX_COL: []}
-
-    # Add base measures to each category
-    for base_measure in AHR_BASE_MEASURES_TO_RATES_MAP:
-        for category, measures_list in measure_map.items():
-            measures_list.append(base_measure)
-
-    # Add breakdowns for each base measure
-    for category, measures_list in measure_map.items():
-        for base_measure in AHR_BASE_MEASURES_TO_RATES_MAP:
-            if base_measure == 'Non-Medical Drug Use - Past Year':
-                base_measure = 'Non-Medical Drug Use'
-            if category is std_col.AGE_COL:
-                for demographic in AHR_AGE_GROUPS:
-                    measures_list.append(f"{base_measure} - {demographic}")
-            if category is std_col.RACE_OR_HISPANIC_COL:
-                for demographic in AHR_RACE_GROUPS:
-                    measures_list.append(f"{base_measure} - {demographic}")
-            if category is std_col.SEX_COL:
-                for demographic in AHR_SEX_GROUPS:
-                    measures_list.append(f"{base_measure} - {demographic}")
-
-    return measure_map
 
 
 def get_float_cols(

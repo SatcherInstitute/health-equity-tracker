@@ -45,4 +45,3 @@ python/ingestion/build/
 !frontend/cspell.config.json
 !python/ingestion/ahr_config/graphql_ahr_measure_ids.json
 
-
