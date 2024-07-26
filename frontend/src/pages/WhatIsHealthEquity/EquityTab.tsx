@@ -133,10 +133,10 @@ export default function EquityTab() {
 								<div className='flex w-full flex-col flex-wrap items-center justify-evenly'>
 									<aside className='flex flex-col items-start p-4 text-left'>
 										<iframe
-											aria-label='Jessica's Story Video'
+											aria-label={`Jessica's Story Video`}
 											className='h-44 w-full rounded-md'
 											src='https://www.youtube.com/embed/cmMutvgQIcU'
-											title='YouTube video player - Jessica's Story'
+											title={`YouTube video player - Jessica's Story`}
 											loading='lazy'
 											allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
 											allowFullScreen
@@ -199,7 +199,6 @@ export default function EquityTab() {
 										<HetPostsLoading
 											className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
 											doPulse={!error}
-											numberLoading={numberOfArticlePreviews}
 										/>
 									) : (
 										<>
