@@ -178,7 +178,7 @@ export default function EquityTab() {
 						</div>
 					</div>
 
-					<section className='bg-[#F0F1EF]/[0.8] py-16'>
+					<section className='bg-whiteSmoke80 py-16'>
 						<div className='mx-0 flex flex-wrap'>
 							<div className='w-full mt-4 mb-16 '>
 								<h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
