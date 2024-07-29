@@ -116,6 +116,8 @@ const het = {
   unknownMapMore: '#47a8cb',
   unknownMapMost: '#0b61a2',
   white: '#fff',
+  whiteSmoke: '#F0F1EF',
+  whiteSmoke80: 'rgba(240, 241, 239, 0.8)',
   whyBoxColor: '#d8ebe5',
 }
 
