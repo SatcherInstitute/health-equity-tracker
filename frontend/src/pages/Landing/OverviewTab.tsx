@@ -1,4 +1,4 @@
-export default function TabOne(){
+export default function OverviewTab(){
     return(
         <div>
             Tab One

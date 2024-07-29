@@ -13,7 +13,7 @@ export const OLD_OURTEAM_LINK = '/ourteam';
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment';
 
 // CONTEXT TABS
-export const OVERVIEW_LINK = '/overview';
+export const OVERVIEW_TAB = '/overview';
 
 // NEW METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology';

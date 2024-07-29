@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7d959343 (reformats quotes and semicolons, moves equity tab news section data to separate component)
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
@@ -14,7 +10,6 @@ import { EquityTabNewsCard } from './EquityTabNewsCard'
 import { NEWS_ARTICLES } from './EquityTabNewsCardData'
 import { useQuery } from 'react-query'
 import { ARTICLES_KEY_4, fetchLandingPageNewsData, REACT_QUERY_OPTIONS } from '../../utils/blogUtils'
-<<<<<<< HEAD
 
 export default function EquityTab() {
 	const { isLoading, error, data }: any = useQuery(
@@ -255,7 +250,6 @@ export default function EquityTab() {
 				</div>
 			</div>
 
-<<<<<<< HEAD
 			<div className='flex w-full items-center justify-center py-12'>
 				<section className='w-full md:w-5/6'>
 					<FaqSection />
@@ -263,6 +257,7 @@ export default function EquityTab() {
 			</div>
 		</>
 	)
+<<<<<<< HEAD
 }
 =======
             <div className='w-full border-0 px-15p py-8 md:w-2/3 md:border-l md:border-solid md:px-16 md:py-28'>
@@ -718,3 +713,6 @@ export default function EquityTab() {
 	)
 }
 >>>>>>> 7d959343 (reformats quotes and semicolons, moves equity tab news section data to separate component)
+=======
+}
+>>>>>>> 01de16d0 (includes new unreleased equity tab files, adds routeconfigs file for tab nav, updates internal routes, updates ckd playwright test)

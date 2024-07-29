@@ -4,6 +4,7 @@ import ContextSectionTabs from './ContextSectionTabs'
 export default function ContextSection() {
 	return (
 		<>
+		<ContextSectionTabs/>
 			<section className='px-80 max-w-screen'>
 				<p  className='my-3 text-center font-roboto text-smallest font-semibold uppercase text-black'>
 					In Focus

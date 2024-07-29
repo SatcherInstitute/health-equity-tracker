@@ -53,6 +53,7 @@ import HetAppBar from "./styles/HetComponents/HetAppBar";
 import { HashLink } from "react-router-hash-link";
 import HetNotice from "./styles/HetComponents/HetNotice";
 import Banner from "./reports/ui/Banner";
+import ContextSection from "./pages/Landing/ContextSection";
 
 const ExploreDataPage = React.lazy(
 	async () => await import("./pages/ExploreData/ExploreDataPage"),
@@ -167,6 +168,7 @@ export default function App() {
 											</Route>
 
 											<Route path="/">
+											<ContextSection/>
 												<LandingPage />
 											</Route>
 

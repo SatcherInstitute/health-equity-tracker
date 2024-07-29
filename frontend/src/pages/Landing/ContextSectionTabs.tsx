@@ -1,8 +1,8 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import TabOne from './TabOne'
 import { Box, Typography } from '@mui/material'
 import React from 'react'
+import OverviewTab from './OverviewTab'
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -60,7 +60,7 @@ setValue(newValue);
 
         </Tabs>
         <TabPanel value={value} index={0}>
-          <TabOne/>
+          <OverviewTab/>
         </TabPanel>
 
       </Box>
