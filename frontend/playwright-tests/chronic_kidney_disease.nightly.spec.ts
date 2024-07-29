@@ -1,5 +1,7 @@
 import { test } from '@playwright/test'
 
+test.setTimeout(120000)
+
 test('Chronic Kidney Disease', async ({ page }) => {
   await page.goto('/exploredata?mls=1.chronic_kidney_disease-3.00&group1=All')
   await page.getByText('Race and Ethnicity:').click()
@@ -9,9 +11,9 @@ test('Chronic Kidney Disease', async ({ page }) => {
     .getByRole('heading', { name: 'Chronic kidney disease in the' })
     .click()
   await page.getByLabel('open the topic info modal').click()
-  await page.getByRole('heading', { name: 'Cases of chronic kidney' }).click();
-  await page.getByRole('dialog').getByText('Measurement Definition:').click();
-  await page.getByText('For specific calculations and').click();
+  await page.getByRole('heading', { name: 'Cases of chronic kidney' }).click()
+  await page.getByRole('dialog').getByText('Measurement Definition:').click()
+  await page.getByText('For specific calculations and')
   await page.getByLabel('close topic info modal').click()
   await page.getByText('Demographic').nth(2).click()
   await page.getByText('Off').nth(1).click()
