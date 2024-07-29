@@ -25,6 +25,7 @@ from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, mer
 # String constants from AHR source data
 AHR_MEASURE = 'measure'
 AHR_VALUE = 'value'
+LAST_COMPLETE_DATA_YEAR = 2022
 
 AGE_GROUPS_TO_STANDARD = {
     'Ages 15-24': '15-24',
@@ -105,7 +106,7 @@ class GraphQlAHRData(DataSource):
             table_name = f"{demographic}_{geo_level}_{time_view}"
             topic_prefixes = [std_col.extract_prefix(rate_col) for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()]
             topic_prefixes.append('ahr')
-            df = df[df['time_period'].astype(int) <= 2022]
+            df = df[df['time_period'].astype(int) <= LAST_COMPLETE_DATA_YEAR]
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
 
             first_two_columns = df_for_bq.columns[:2].tolist()
