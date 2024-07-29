@@ -25,6 +25,7 @@ from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, mer
 # String constants from AHR source data
 AHR_MEASURE = 'measure'
 AHR_VALUE = 'value'
+LAST_COMPLETE_DATA_YEAR = 2022
 
 AGE_GROUPS_TO_STANDARD = {
     'Ages 15-24': '15-24',
@@ -105,7 +106,11 @@ class GraphQlAHRData(DataSource):
             table_name = f"{demographic}_{geo_level}_{time_view}"
             topic_prefixes = [std_col.extract_prefix(rate_col) for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()]
             topic_prefixes.append('ahr')
+            df = df[df['time_period'].astype(int) <= LAST_COMPLETE_DATA_YEAR]
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
+
+            first_two_columns = df_for_bq.columns[:2].tolist()
+            df_for_bq = df_for_bq.sort_values(by=first_two_columns, ascending=True).reset_index(drop=True)
 
         gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
@@ -238,7 +243,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
         )
 
         # Fills any empty breakdown_col rows with the 'ALL' value
-        breakdown_df.loc[breakdown_df[breakdown_col] == "", breakdown_col] = std_col.ALL_VALUE
+        breakdown_df.loc[breakdown_df[breakdown_col].isin(["", "Past Year"]), breakdown_col] = std_col.ALL_VALUE
 
         # Set measure type for the topics
         breakdown_df.loc[is_topic_present, AHR_MEASURE] = ahr_measure_type
