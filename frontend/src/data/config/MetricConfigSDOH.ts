@@ -2,7 +2,7 @@ import {
   medicareHigherIsWorseMapConfig,
   defaultHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -62,7 +62,6 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
     metrics: {
-
       pct_rate: {
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
@@ -123,7 +122,6 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
     metrics: {
-
       pct_rate: {
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
@@ -228,7 +226,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
       text: 'Studying preventable hospitalizations can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for preventable hospitalizations',
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare beneficiaries, Ages 18+',
     metrics: {
       per100k: {
         metricId: 'preventable_hospitalizations_per_100k',
@@ -256,4 +254,3 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
     },
   },
 ]
-
