@@ -1,5 +1,5 @@
 import ChoroplethMap from '../charts/ChoroplethMap'
-import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -23,7 +23,7 @@ import {
   RACE,
   AGE,
 } from '../data/utils/Constants'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
 import {
@@ -41,8 +41,8 @@ import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useMemo, useState } from 'react'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { useMemo, useState } from 'react'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, {
@@ -67,17 +67,16 @@ import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { type MadLibId } from '../utils/MadLibs'
+import type { MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
-import { DatasetId } from '../data/config/DatasetMetadata'
+import type { DatasetId } from '../data/config/DatasetMetadata'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
-import HetCloseButton from '../styles/HetComponents/HetCloseButton'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -121,14 +120,18 @@ function MapCardWithKey(props: MapCardProps) {
     ? EXTREMES_2_PARAM_KEY
     : EXTREMES_1_PARAM_KEY
 
-  const [extremesMode, setExtremesMode] =
-    useParamState<boolean>(extremesParamsKey, false)
+  const [extremesMode, setExtremesMode] = useParamState<boolean>(
+    extremesParamsKey,
+    false,
+  )
+
   const MULTIMAP_PARAM_KEY = props.isCompareCard
     ? MULTIPLE_MAPS_2_PARAM_KEY
     : MULTIPLE_MAPS_1_PARAM_KEY
+
   const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
     MULTIMAP_PARAM_KEY,
-    false
+    false,
   )
   const MAP_GROUP_PARAM = props.isCompareCard
     ? MAP2_GROUP_PARAM
@@ -180,7 +183,7 @@ function MapCardWithKey(props: MapCardProps) {
   const metricQuery = (
     metricIds: MetricId[],
     geographyBreakdown: Breakdowns,
-    countColsMap?: CountColsMap
+    countColsMap?: CountColsMap,
   ) => {
     countColsMap?.numeratorConfig &&
       metricIds.push(countColsMap.numeratorConfig.metricId)
@@ -195,10 +198,10 @@ function MapCardWithKey(props: MapCardProps) {
           demographicType,
           demographicType === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
-            : exclude(UNKNOWN)
+            : exclude(UNKNOWN),
         ),
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ 'current'
+      /* timeView */ 'current',
     )
   }
 
@@ -216,7 +219,7 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(
       initialMetridIds,
       Breakdowns.forChildrenFips(props.fips),
-      countColsMap
+      countColsMap,
     ),
     metricQuery(initialMetridIds, Breakdowns.forFips(props.fips)),
   ]
@@ -254,11 +257,11 @@ function MapCardWithKey(props: MapCardProps) {
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
-    props.dataTypeConfig
+    props.dataTypeConfig,
   )
-  const pluralChildFips = props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-  if (extremesMode)
-    subtitle += ` (only ${pluralChildFips} with rate extremes)`
+  const pluralChildFips =
+    props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
+  if (extremesMode) subtitle += ` (only ${pluralChildFips} with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   function handleScaleChange(domain: number[], range: number[]) {
@@ -279,7 +282,6 @@ function MapCardWithKey(props: MapCardProps) {
       isCompareCard={props.isCompareCard}
     >
       {(queryResponses, metadata, geoData) => {
-
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
@@ -289,17 +291,22 @@ function MapCardWithKey(props: MapCardProps) {
           childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
             .length === 0 &&
           parentGeoQueryResponse.data.filter(
-            (row) => row[metricConfig.metricId]
+            (row) => row[metricConfig.metricId],
           ).length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
         const totalPopulationPhrase = getTotalACSPopulationPhrase(
-          acsPopulationQueryResponse.data
+          acsPopulationQueryResponse.data,
         )
 
-        let subPopSourceLabel = Object.values(dataSourceMetadataMap).find((metadata) => metadata.dataset_ids.includes(parentGeoQueryResponse.consumedDatasetIds[0] as DatasetId))?.data_source_acronym ?? ''
+        let subPopSourceLabel =
+          Object.values(dataSourceMetadataMap).find((metadata) =>
+            metadata.dataset_ids.includes(
+              parentGeoQueryResponse.consumedDatasetIds[0] as DatasetId,
+            ),
+          )?.data_source_acronym ?? ''
 
         // US Congress denominators come from @unitestedstates not CAWP
         if (props.dataTypeConfig.dataTypeId === 'women_in_us_congress') {
@@ -310,7 +317,7 @@ function MapCardWithKey(props: MapCardProps) {
           parentGeoQueryResponse.data,
           subPopSourceLabel,
           demographicType,
-          props.dataTypeConfig
+          props.dataTypeConfig,
         )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
@@ -321,7 +328,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         const fieldValues = mapQueryResponse.getFieldValues(
           /* fieldName: DemographicType */ demographicType,
-          /* relevantMetric: MetricId */ metricConfig.metricId
+          /* relevantMetric: MetricId */ metricConfig.metricId,
         )
 
         const demographicGroups: DemographicGroup[] =
@@ -332,7 +339,7 @@ function MapCardWithKey(props: MapCardProps) {
           .filter((row: Row) => row[demographicType] === activeDemographicGroup)
 
         const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
-          (row: Row) => row[demographicType] === activeDemographicGroup
+          (row: Row) => row[demographicType] === activeDemographicGroup,
         )
 
         const dataForSvi: Row[] =
@@ -340,28 +347,28 @@ function MapCardWithKey(props: MapCardProps) {
             ?.getValidRowsForField(SVI)
             ?.filter((row) =>
               dataForActiveDemographicGroup.find(
-                ({ fips }) => row.fips === fips
-              )
+                ({ fips }) => row.fips === fips,
+              ),
             ) || []
 
         if (!props.fips.isUsa()) {
           dataForActiveDemographicGroup = dataForActiveDemographicGroup.map(
             (row) => {
               const thisCountySviRow = dataForSvi.find(
-                (sviRow) => sviRow.fips === row.fips
+                (sviRow) => sviRow.fips === row.fips,
               )
               return {
                 ...row,
                 rating: findVerboseRating(thisCountySviRow?.svi),
               }
-            }
+            },
           )
         }
 
         const { highestValues, lowestValues } = getExtremeValues(
           dataForActiveDemographicGroup,
           metricConfig.metricId,
-          SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST
+          SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST,
         )
 
         // Create and populate a map of demographicType display name to options
@@ -379,7 +386,7 @@ function MapCardWithKey(props: MapCardProps) {
         let dropdownValue = ALL
         if (
           filterOptions[DEMOGRAPHIC_DISPLAY_TYPES[demographicType]].includes(
-            activeDemographicGroup
+            activeDemographicGroup,
           )
         ) {
           dropdownValue = activeDemographicGroup
@@ -404,8 +411,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapConfig = props.dataTypeConfig.mapConfig
         if (isSummaryLegend) mapConfig.min = mapConfig.mid
 
-        if (dataForActiveDemographicGroup?.length <= 1)
-          setExtremesMode(false)
+        if (dataForActiveDemographicGroup?.length <= 1) setExtremesMode(false)
 
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
@@ -437,7 +443,9 @@ function MapCardWithKey(props: MapCardProps) {
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
-        const percentRateTooHigh = metricConfig.type === 'pct_rate' && mapQueryResponse.data.some((row) => row[metricConfig.metricId] > 100)
+        const percentRateTooHigh =
+          metricConfig.type === 'pct_rate' &&
+          mapQueryResponse.data.some((row) => row[metricConfig.metricId] > 100)
 
         const fieldRange = useMemo(() => {
           return mapQueryResponse.getFieldRange(metricConfig.metricId)
@@ -462,7 +470,7 @@ function MapCardWithKey(props: MapCardProps) {
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
               metadata={metadata}
               metricConfig={metricConfig}
-              open={Boolean(multimapOpen)}
+              open={Boolean(multimapOpen)} // Use local state for multimapOpen
               queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}
@@ -510,7 +518,20 @@ function MapCardWithKey(props: MapCardProps) {
             <div className='pt-0'>
               <div className='flex flex-wrap'>
                 <div className='w-full'>
-                  <ChartTitle title={title} subtitle={subtitle} filterButton={extremesMode ?<HetLinkButton buttonClassName='py-0 mx-0' onClick={() => setExtremesMode(false)} >Reset to show all {pluralChildFips}</HetLinkButton> : null} />
+                  <ChartTitle
+                    title={title}
+                    subtitle={subtitle}
+                    filterButton={
+                      extremesMode ? (
+                        <HetLinkButton
+                          buttonClassName='py-0 mx-0'
+                          onClick={() => setExtremesMode(false)}
+                        >
+                          Reset to show all {pluralChildFips}
+                        </HetLinkButton>
+                      ) : null
+                    }
+                  />
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -623,10 +644,26 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   )}
                 {percentRateTooHigh && (
-                  <HetNotice title="Percentages Over 100%" kind="data-integrity" >
-                    <>In some locations, the <HetTerm>percent rates</HetTerm> exceed 100%, which can be confusing and may indicate inconsistency in the source data.</>
-                    {metricId === 'vaccinated_pct_rate' && <>
-                      {" "}In the case of <HetTerm>COVID-19 vaccinations</HetTerm>, the number of first-dose vaccines administered in a location could have been higher than the population of that location if individuals came from other locations to receive the vaccine, and also if individuals chose to receive more than a single "first-dose" vaccine.</>}
+                  <HetNotice
+                    title='Percentages Over 100%'
+                    kind='data-integrity'
+                  >
+                    <>
+                      In some locations, the <HetTerm>percent rates</HetTerm>{' '}
+                      exceed 100%, which can be confusing and may indicate
+                      inconsistency in the source data.
+                    </>
+                    {metricId === 'vaccinated_pct_rate' && (
+                      <>
+                        {' '}
+                        In the case of <HetTerm>COVID-19 vaccinations</HetTerm>,
+                        the number of first-dose vaccines administered in a
+                        location could have been higher than the population of
+                        that location if individuals came from other locations
+                        to receive the vaccine, and also if individuals chose to
+                        receive more than a single "first-dose" vaccine.
+                      </>
+                    )}
                   </HetNotice>
                 )}
               </div>
@@ -637,4 +674,3 @@ function MapCardWithKey(props: MapCardProps) {
     </CardWrapper>
   )
 }
-

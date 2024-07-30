@@ -14,19 +14,14 @@
  **/
 
 /* External Imports */
-import React, { useRef, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { axisLeft, axisBottom, select } from 'd3'
 
 /* Local Imports */
 
 /* Constants */
 import { CONFIG, TYPES, FORMATTERS as F } from './constants'
-import {
-  type TrendsData,
-  type XScale,
-  type YScale,
-  type AxisConfig,
-} from './types'
+import type { TrendsData, XScale, YScale, AxisConfig } from './types'
 
 /* Helpers */
 import { getMinNumber, getMaxNumber, getDates } from './helpers'
@@ -142,7 +137,7 @@ export function Axes({
           g
             .selectAll('.tick line')
             .attr('opacity', 0.2)
-            .attr('stroke-dasharray', 5)
+            .attr('stroke-dasharray', 5),
         )
     }
   }, [data, xScale, yScale, xAxis, yAxis])

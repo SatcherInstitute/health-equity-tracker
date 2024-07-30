@@ -6,7 +6,7 @@ import HivProvider from '../providers/HivProvider'
 import AhrProvider from '../providers/AhrProvider'
 import CawpProvider from '../providers/CawpProvider'
 import IncarcerationProvider from '../providers/IncarcerationProvider'
-import { type MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfig'
 import VaccineProvider from '../providers/VaccineProvider'
 import PhrmaProvider from '../providers/PhrmaProvider'
 import GeoContextProvider from '../providers/GeoContextProvider'
@@ -53,6 +53,7 @@ export default class VariableProviderMap {
       new IncarcerationProvider(),
       new PhrmaProvider(),
       new VaccineProvider(),
+      new MaternalMortalityProvider(),
     ]
     this.providersById = this.getProvidersById()
     this.metricsToProviderIds = this.getMetricsToProviderIdsMap()

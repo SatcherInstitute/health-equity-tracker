@@ -1,854 +1,416 @@
 {
-    "all": [
-        {
-            "measure": "Asthma",
-            "ids": [
-                "16388"
-            ]
-        },
-        {
-            "measure": "Avoided Care Due to Cost",
-            "ids": [
-                "16348",
-                "18353"
-            ]
-        },
-        {
-            "measure": "Cardiovascular Diseases",
-            "ids": [
-                "16578"
-            ]
-        },
-        {
-            "measure": "Chronic Kidney Disease",
-            "ids": [
-                "16679"
-            ]
-        },
-        {
-            "measure": "Chronic Obstructive Pulmonary Disease",
-            "ids": [
-                "16657"
-            ]
-        },
-        {
-            "measure": "Depression",
-            "ids": [
-                "16512"
-            ]
-        },
-        {
-            "measure": "Diabetes",
-            "ids": [
-                "115",
-                "176"
-            ]
-        },
-        {
-            "measure": "Excessive Drinking",
-            "ids": [
-                "772"
-            ]
-        },
-        {
-            "measure": "Frequent Mental Distress",
-            "ids": [
-                "2858"
-            ]
-        },
-        {
-            "measure": "Non-Medical Drug Use - Past Year",
-            "ids": [
-                "16161"
-            ]
-        },
-        {
-            "measure": "Preventable Hospitalizations",
-            "ids": [
-                "150",
-                "16440",
-                "18328"
-            ]
-        },
-        {
-            "measure": "Suicide",
-            "ids": [
-                "194"
-            ]
-        },
-        {
-            "measure": "Voter Participation (Presidential)",
-            "ids": [
-                "17542"
-            ]
-        }
-    ],
-    "age": [
-        {
-            "measure": "Asthma",
-            "demographics": {
-                "Age 65+": [
-                    "16374"
-                ],
-                "Ages 18-44": [
-                    "16372"
-                ],
-                "Ages 45-64": [
-                    "16373"
-                ]
-            }
-        },
-        {
-            "measure": "Avoided Care Due to Cost",
-            "demographics": {
-                "Age 65+": [
-                    "15969",
-                    "16369",
-                    "18358",
-                    "18389"
-                ],
-                "Ages 18-44": [
-                    "16367",
-                    "18356"
-                ],
-                "Ages 45-64": [
-                    "16368",
-                    "18357"
-                ]
-            }
-        },
-        {
-            "measure": "Cardiovascular Diseases",
-            "demographics": {
-                "Age 65+": [
-                    "16583"
-                ],
-                "Ages 18-44": [
-                    "16581"
-                ],
-                "Ages 45-64": [
-                    "16582"
-                ]
-            }
-        },
-        {
-            "measure": "Chronic Kidney Disease",
-            "demographics": {
-                "Age 65+": [
-                    "16684"
-                ],
-                "Ages 18-44": [
-                    "16682"
-                ],
-                "Ages 45-64": [
-                    "16683"
-                ]
-            }
-        },
-        {
-            "measure": "Chronic Obstructive Pulmonary Disease",
-            "demographics": {
-                "Age 65+": [
-                    "16662"
-                ],
-                "Ages 18-44": [
-                    "16660"
-                ],
-                "Ages 45-64": [
-                    "16661"
-                ]
-            }
-        },
-        {
-            "measure": "Depression",
-            "demographics": {
-                "Age 65+": [
-                    "237",
-                    "16517"
-                ],
-                "Ages 18-44": [
-                    "16515"
-                ],
-                "Ages 45-64": [
-                    "16516"
-                ]
-            }
-        },
-        {
-            "measure": "Diabetes",
-            "demographics": {
-                "Age 65+": [
-                    "408"
-                ],
-                "Ages 18-44": [
-                    "406"
-                ],
-                "Ages 45-64": [
-                    "407"
-                ]
-            }
-        },
-        {
-            "measure": "Excessive Drinking",
-            "demographics": {
-                "Age 65+": [
-                    "778",
-                    "1483"
-                ],
-                "Ages 18-44": [
-                    "776"
-                ],
-                "Ages 45-64": [
-                    "777"
-                ]
-            }
-        },
-        {
-            "measure": "Frequent Mental Distress",
-            "demographics": {
-                "Age 65+": [
-                    "1503",
-                    "2863"
-                ],
-                "Ages 18-44": [
-                    "2861"
-                ],
-                "Ages 45-64": [
-                    "2862"
-                ]
-            }
-        },
-        {
-            "measure": "Preventable Hospitalizations",
-            "demographics": {
-                "Ages 65-74": [
-                    "16541",
-                    "17944"
-                ]
-            }
-        },
-        {
-            "measure": "Suicide",
-            "demographics": {
-                "Age 65+": [
-                    "16777",
-                    "17687"
-                ],
-                "Age 85+": [
-                    "15966",
-                    "16789"
-                ],
-                "Ages 15-24": [
-                    "15959"
-                ],
-                "Ages 25-34": [
-                    "15960"
-                ],
-                "Ages 35-44": [
-                    "15961"
-                ],
-                "Ages 45-54": [
-                    "15962"
-                ],
-                "Ages 55-64": [
-                    "15963"
-                ],
-                "Ages 65-74": [
-                    "15964",
-                    "16787"
-                ],
-                "Ages 75-84": [
-                    "15965",
-                    "16788"
-                ]
-            }
-        },
-        {
-            "measure": "Voter Participation (Presidential)",
-            "demographics": {
-                "Age 65+": [
-                    "17863"
-                ],
-                "Ages 18-24": [
-                    "17545"
-                ],
-                "Ages 25-34": [
-                    "17546"
-                ],
-                "Ages 35-44": [
-                    "17547"
-                ],
-                "Ages 45-64": [
-                    "17548"
-                ]
-            }
-        }
-    ],
-    "race_and_ethnicity": [
-        {
-            "measure": "Asthma",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16380",
-                    "19992"
-                ],
-                "Asian": [
-                    "16378",
-                    "19990"
-                ],
-                "Black": [
-                    "16376",
-                    "19988"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "16379",
-                    "19991"
-                ],
-                "Hispanic": [
-                    "16377",
-                    "19989"
-                ],
-                "Multiracial": [
-                    "16381",
-                    "19993"
-                ],
-                "Other Race": [
-                    "16382"
-                ],
-                "White": [
-                    "16375",
-                    "19987"
-                ]
-            }
-        },
-        {
-            "measure": "Avoided Care Due to Cost",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16353",
-                    "18361",
-                    "20167"
-                ],
-                "Asian": [
-                    "16355",
-                    "18363",
-                    "20169"
-                ],
-                "Black": [
-                    "16357",
-                    "18365",
-                    "20171"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "16354",
-                    "18362",
-                    "20168"
-                ],
-                "Hispanic": [
-                    "16356",
-                    "18364",
-                    "20170"
-                ],
-                "Multiracial": [
-                    "16352",
-                    "18360",
-                    "20166"
-                ],
-                "Other Race": [
-                    "16351",
-                    "18359"
-                ],
-                "White": [
-                    "16358",
-                    "18366",
-                    "20172"
-                ]
-            }
-        },
-        {
-            "measure": "Cardiovascular Diseases",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16589",
-                    "20015"
-                ],
-                "Asian": [
-                    "16587",
-                    "20013"
-                ],
-                "Black": [
-                    "16585",
-                    "20011"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "16588",
-                    "20014"
-                ],
-                "Hispanic": [
-                    "16586",
-                    "20012"
-                ],
-                "Multiracial": [
-                    "16590",
-                    "20016"
-                ],
-                "Other Race": [
-                    "16591"
-                ],
-                "White": [
-                    "16584",
-                    "20010"
-                ]
-            }
-        },
-        {
-            "measure": "Chronic Kidney Disease",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16690",
-                    "20047"
-                ],
-                "Asian": [
-                    "16688",
-                    "20045"
-                ],
-                "Black": [
-                    "16686",
-                    "20043"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "16689",
-                    "20046"
-                ],
-                "Hispanic": [
-                    "16687",
-                    "20044"
-                ],
-                "Multiracial": [
-                    "16691",
-                    "20048"
-                ],
-                "Other Race": [
-                    "16692"
-                ],
-                "White": [
-                    "16685",
-                    "20042"
-                ]
-            }
-        },
-        {
-            "measure": "Chronic Obstructive Pulmonary Disease",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16668",
-                    "20040"
-                ],
-                "Asian": [
-                    "16666",
-                    "20038"
-                ],
-                "Black": [
-                    "16664",
-                    "20036"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "16667",
-                    "20039"
-                ],
-                "Hispanic": [
-                    "16665",
-                    "20037"
-                ],
-                "Multiracial": [
-                    "16669",
-                    "20041"
-                ],
-                "Other Race": [
-                    "16670"
-                ],
-                "White": [
-                    "16663",
-                    "20035"
-                ]
-            }
-        },
-        {
-            "measure": "Depression",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16523",
-                    "20007"
-                ],
-                "Asian": [
-                    "16521",
-                    "20005"
-                ],
-                "Black": [
-                    "16519",
-                    "20003"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "16522",
-                    "20006"
-                ],
-                "Hispanic": [
-                    "16520",
-                    "20004"
-                ],
-                "Multiracial": [
-                    "16524",
-                    "20008"
-                ],
-                "Other Race": [
-                    "16525"
-                ],
-                "White": [
-                    "16518",
-                    "20002"
-                ]
-            }
-        },
-        {
-            "measure": "Diabetes",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "414",
-                    "436",
-                    "19747"
-                ],
-                "Asian": [
-                    "412",
-                    "434",
-                    "19745"
-                ],
-                "Black": [
-                    "410",
-                    "432",
-                    "19743"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "413",
-                    "435",
-                    "19746"
-                ],
-                "Hispanic": [
-                    "411",
-                    "433",
-                    "19744"
-                ],
-                "Multiracial": [
-                    "3753",
-                    "19927"
-                ],
-                "Other Race": [
-                    "3774"
-                ],
-                "White": [
-                    "409",
-                    "431",
-                    "19742"
-                ]
-            }
-        },
-        {
-            "measure": "Excessive Drinking",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "779",
-                    "19803"
-                ],
-                "Asian": [
-                    "780",
-                    "19804"
-                ],
-                "Black": [
-                    "781",
-                    "19805"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "784",
-                    "19806"
-                ],
-                "Hispanic": [
-                    "786",
-                    "19807"
-                ],
-                "Multiracial": [
-                    "3758",
-                    "19926"
-                ],
-                "Other Race": [
-                    "3779"
-                ],
-                "White": [
-                    "794",
-                    "19808"
-                ]
-            }
-        },
-        {
-            "measure": "Frequent Mental Distress",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "19905",
-                    "2868"
-                ],
-                "Asian": [
-                    "19906",
-                    "2866"
-                ],
-                "Black": [
-                    "19907",
-                    "2865"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "19908",
-                    "2867"
-                ],
-                "Hispanic": [
-                    "19909",
-                    "2869"
-                ],
-                "Multiracial": [
-                    "19928",
-                    "3768"
-                ],
-                "Other Race": [
-                    "3789"
-                ],
-                "White": [
-                    "19910",
-                    "2864"
-                ]
-            }
-        },
-        {
-            "measure": "Preventable Hospitalizations",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "16448",
-                    "18326"
-                ],
-                "Asian/Pacific Islander": [
-                    "16447",
-                    "18325"
-                ],
-                "Black": [
-                    "16446",
-                    "18324"
-                ],
-                "Hispanic": [
-                    "16449",
-                    "18327"
-                ],
-                "Other Race": [
-                    "16445",
-                    "18323"
-                ],
-                "White": [
-                    "16444",
-                    "18322"
-                ]
-            }
-        },
-        {
-            "measure": "Suicide",
-            "demographics": {
-                "American Indian/Alaska Native": [
-                    "1277",
-                    "18284"
-                ],
-                "Asian": [
-                    "18285"
-                ],
-                "Black": [
-                    "1274",
-                    "18286"
-                ],
-                "Hawaiian/Pacific Islander": [
-                    "18290"
-                ],
-                "Hispanic": [
-                    "1271",
-                    "18287"
-                ],
-                "Multiracial": [
-                    "18289"
-                ],
-                "White": [
-                    "1275",
-                    "18288"
-                ]
-            }
-        },
-        {
-            "measure": "Voter Participation (Presidential)",
-            "demographics": {
-                "Asian": [
-                    "17549"
-                ],
-                "Black": [
-                    "17550"
-                ],
-                "Hispanic": [
-                    "17552"
-                ],
-                "White": [
-                    "17551"
-                ]
-            }
-        }
-    ],
-    "sex": [
-        {
-            "measure": "Asthma",
-            "demographics": {
-                "Female": [
-                    "16371"
-                ],
-                "Male": [
-                    "16370"
-                ]
-            }
-        },
-        {
-            "measure": "Avoided Care Due to Cost",
-            "demographics": {
-                "Female": [
-                    "16349",
-                    "18354"
-                ],
-                "Male": [
-                    "16350",
-                    "18355"
-                ]
-            }
-        },
-        {
-            "measure": "Cardiovascular Diseases",
-            "demographics": {
-                "Female": [
-                    "16580"
-                ],
-                "Male": [
-                    "16579"
-                ]
-            }
-        },
-        {
-            "measure": "Chronic Kidney Disease",
-            "demographics": {
-                "Female": [
-                    "16681"
-                ],
-                "Male": [
-                    "16680"
-                ]
-            }
-        },
-        {
-            "measure": "Chronic Obstructive Pulmonary Disease",
-            "demographics": {
-                "Female": [
-                    "16659"
-                ],
-                "Male": [
-                    "16658"
-                ]
-            }
-        },
-        {
-            "measure": "Depression",
-            "demographics": {
-                "Female": [
-                    "16514"
-                ],
-                "Male": [
-                    "16513"
-                ]
-            }
-        },
-        {
-            "measure": "Diabetes",
-            "demographics": {
-                "Female": [
-                    "405",
-                    "427"
-                ],
-                "Male": [
-                    "404",
-                    "426"
-                ]
-            }
-        },
-        {
-            "measure": "Excessive Drinking",
-            "demographics": {
-                "Female": [
-                    "783"
-                ],
-                "Male": [
-                    "789"
-                ]
-            }
-        },
-        {
-            "measure": "Frequent Mental Distress",
-            "demographics": {
-                "Female": [
-                    "2860"
-                ],
-                "Male": [
-                    "2859"
-                ]
-            }
-        },
-        {
-            "measure": "Non-Medical Drug Use",
-            "demographics": {
-                "Female": [
-                    "16188"
-                ],
-                "Male": [
-                    "16187"
-                ]
-            }
-        },
-        {
-            "measure": "Preventable Hospitalizations",
-            "demographics": {
-                "Female": [
-                    "16450",
-                    "18321"
-                ],
-                "Male": [
-                    "16441",
-                    "18320"
-                ]
-            }
-        },
-        {
-            "measure": "Suicide",
-            "demographics": {
-                "Female": [
-                    "1273"
-                ],
-                "Male": [
-                    "1272"
-                ]
-            }
-        },
-        {
-            "measure": "Voter Participation (Presidential)",
-            "demographics": {
-                "Female": [
-                    "17543"
-                ],
-                "Male": [
-                    "17544"
-                ]
-            }
-        }
-    ]
+	"all": [
+		{
+			"measure": "Asthma",
+			"ids": ["16388"]
+		},
+		{
+			"measure": "Avoided Care Due to Cost",
+			"ids": ["16348", "18353"]
+		},
+		{
+			"measure": "Cardiovascular Diseases",
+			"ids": ["16578"]
+		},
+		{
+			"measure": "Chronic Kidney Disease",
+			"ids": ["16679"]
+		},
+		{
+			"measure": "Chronic Obstructive Pulmonary Disease",
+			"ids": ["16657"]
+		},
+		{
+			"measure": "Depression",
+			"ids": ["16512"]
+		},
+		{
+			"measure": "Diabetes",
+			"ids": ["115", "176"]
+		},
+		{
+			"measure": "Excessive Drinking",
+			"ids": ["772"]
+		},
+		{
+			"measure": "Frequent Mental Distress",
+			"ids": ["2858"]
+		},
+		{
+			"measure": "Non-Medical Drug Use - Past Year",
+			"ids": ["16161"]
+		},
+		{
+			"measure": "Preventable Hospitalizations",
+			"ids": ["150", "16440", "18328"]
+		},
+		{
+			"measure": "Suicide",
+			"ids": ["194"]
+		},
+		{
+			"measure": "Voter Participation (Presidential)",
+			"ids": ["17542"]
+		}
+	],
+	"age": [
+		{
+			"measure": "Asthma",
+			"demographics": {
+				"Age 65+": ["16374"],
+				"Ages 18-44": ["16372"],
+				"Ages 45-64": ["16373"]
+			}
+		},
+		{
+			"measure": "Avoided Care Due to Cost",
+			"demographics": {
+				"Age 65+": ["15969", "16369", "18358", "18389"],
+				"Ages 18-44": ["16367", "18356"],
+				"Ages 45-64": ["16368", "18357"]
+			}
+		},
+		{
+			"measure": "Cardiovascular Diseases",
+			"demographics": {
+				"Age 65+": ["16583"],
+				"Ages 18-44": ["16581"],
+				"Ages 45-64": ["16582"]
+			}
+		},
+		{
+			"measure": "Chronic Kidney Disease",
+			"demographics": {
+				"Age 65+": ["16684"],
+				"Ages 18-44": ["16682"],
+				"Ages 45-64": ["16683"]
+			}
+		},
+		{
+			"measure": "Chronic Obstructive Pulmonary Disease",
+			"demographics": {
+				"Age 65+": ["16662"],
+				"Ages 18-44": ["16660"],
+				"Ages 45-64": ["16661"]
+			}
+		},
+		{
+			"measure": "Depression",
+			"demographics": {
+				"Age 65+": ["237", "16517"],
+				"Ages 18-44": ["16515"],
+				"Ages 45-64": ["16516"]
+			}
+		},
+		{
+			"measure": "Diabetes",
+			"demographics": {
+				"Age 65+": ["408"],
+				"Ages 18-44": ["406"],
+				"Ages 45-64": ["407"]
+			}
+		},
+		{
+			"measure": "Excessive Drinking",
+			"demographics": {
+				"Age 65+": ["778", "1483"],
+				"Ages 18-44": ["776"],
+				"Ages 45-64": ["777"]
+			}
+		},
+		{
+			"measure": "Frequent Mental Distress",
+			"demographics": {
+				"Age 65+": ["1503", "2863"],
+				"Ages 18-44": ["2861"],
+				"Ages 45-64": ["2862"]
+			}
+		},
+		{
+			"measure": "Preventable Hospitalizations",
+			"demographics": {
+				"Ages 65-74": ["16541", "17944"]
+			}
+		},
+		{
+			"measure": "Suicide",
+			"demographics": {
+				"Age 65+": ["16777", "17687"],
+				"Age 85+": ["15966", "16789"],
+				"Ages 15-24": ["15959"],
+				"Ages 25-34": ["15960"],
+				"Ages 35-44": ["15961"],
+				"Ages 45-54": ["15962"],
+				"Ages 55-64": ["15963"],
+				"Ages 65-74": ["15964", "16787"],
+				"Ages 75-84": ["15965", "16788"]
+			}
+		},
+		{
+			"measure": "Voter Participation (Presidential)",
+			"demographics": {
+				"Age 65+": ["17863"],
+				"Ages 18-24": ["17545"],
+				"Ages 25-34": ["17546"],
+				"Ages 35-44": ["17547"],
+				"Ages 45-64": ["17548"]
+			}
+		}
+	],
+	"race_and_ethnicity": [
+		{
+			"measure": "Asthma",
+			"demographics": {
+				"American Indian/Alaska Native": ["16380", "19992"],
+				"Asian": ["16378", "19990"],
+				"Black": ["16376", "19988"],
+				"Hawaiian/Pacific Islander": ["16379", "19991"],
+				"Hispanic": ["16377", "19989"],
+				"Multiracial": ["16381", "19993"],
+				"Other Race": ["16382"],
+				"White": ["16375", "19987"]
+			}
+		},
+		{
+			"measure": "Avoided Care Due to Cost",
+			"demographics": {
+				"American Indian/Alaska Native": ["16353", "18361", "20167"],
+				"Asian": ["16355", "18363", "20169"],
+				"Black": ["16357", "18365", "20171"],
+				"Hawaiian/Pacific Islander": ["16354", "18362", "20168"],
+				"Hispanic": ["16356", "18364", "20170"],
+				"Multiracial": ["16352", "18360", "20166"],
+				"Other Race": ["16351", "18359"],
+				"White": ["16358", "18366", "20172"]
+			}
+		},
+		{
+			"measure": "Cardiovascular Diseases",
+			"demographics": {
+				"American Indian/Alaska Native": ["16589", "20015"],
+				"Asian": ["16587", "20013"],
+				"Black": ["16585", "20011"],
+				"Hawaiian/Pacific Islander": ["16588", "20014"],
+				"Hispanic": ["16586", "20012"],
+				"Multiracial": ["16590", "20016"],
+				"Other Race": ["16591"],
+				"White": ["16584", "20010"]
+			}
+		},
+		{
+			"measure": "Chronic Kidney Disease",
+			"demographics": {
+				"American Indian/Alaska Native": ["16690", "20047"],
+				"Asian": ["16688", "20045"],
+				"Black": ["16686", "20043"],
+				"Hawaiian/Pacific Islander": ["16689", "20046"],
+				"Hispanic": ["16687", "20044"],
+				"Multiracial": ["16691", "20048"],
+				"Other Race": ["16692"],
+				"White": ["16685", "20042"]
+			}
+		},
+		{
+			"measure": "Chronic Obstructive Pulmonary Disease",
+			"demographics": {
+				"American Indian/Alaska Native": ["16668", "20040"],
+				"Asian": ["16666", "20038"],
+				"Black": ["16664", "20036"],
+				"Hawaiian/Pacific Islander": ["16667", "20039"],
+				"Hispanic": ["16665", "20037"],
+				"Multiracial": ["16669", "20041"],
+				"Other Race": ["16670"],
+				"White": ["16663", "20035"]
+			}
+		},
+		{
+			"measure": "Depression",
+			"demographics": {
+				"American Indian/Alaska Native": ["16523", "20007"],
+				"Asian": ["16521", "20005"],
+				"Black": ["16519", "20003"],
+				"Hawaiian/Pacific Islander": ["16522", "20006"],
+				"Hispanic": ["16520", "20004"],
+				"Multiracial": ["16524", "20008"],
+				"Other Race": ["16525"],
+				"White": ["16518", "20002"]
+			}
+		},
+		{
+			"measure": "Diabetes",
+			"demographics": {
+				"American Indian/Alaska Native": ["414", "436", "19747"],
+				"Asian": ["412", "434", "19745"],
+				"Black": ["410", "432", "19743"],
+				"Hawaiian/Pacific Islander": ["413", "435", "19746"],
+				"Hispanic": ["411", "433", "19744"],
+				"Multiracial": ["3753", "19927"],
+				"Other Race": ["3774"],
+				"White": ["409", "431", "19742"]
+			}
+		},
+		{
+			"measure": "Excessive Drinking",
+			"demographics": {
+				"American Indian/Alaska Native": ["779", "19803"],
+				"Asian": ["780", "19804"],
+				"Black": ["781", "19805"],
+				"Hawaiian/Pacific Islander": ["784", "19806"],
+				"Hispanic": ["786", "19807"],
+				"Multiracial": ["3758", "19926"],
+				"Other Race": ["3779"],
+				"White": ["794", "19808"]
+			}
+		},
+		{
+			"measure": "Frequent Mental Distress",
+			"demographics": {
+				"American Indian/Alaska Native": ["19905", "2868"],
+				"Asian": ["19906", "2866"],
+				"Black": ["19907", "2865"],
+				"Hawaiian/Pacific Islander": ["19908", "2867"],
+				"Hispanic": ["19909", "2869"],
+				"Multiracial": ["19928", "3768"],
+				"Other Race": ["3789"],
+				"White": ["19910", "2864"]
+			}
+		},
+		{
+			"measure": "Non-Medical Drug Use",
+			"demographics": {
+				"American Indian/Alaska Native": ["16194"],
+				"Asian": ["16192"],
+				"Black": ["16190"],
+				"Hawaiian/Pacific Islander": ["16193"],
+				"Hispanic": ["16191"],
+				"Other Race": ["16195"],
+				"White": ["16189"]
+			}
+		},
+		{
+			"measure": "Preventable Hospitalizations",
+			"demographics": {
+				"American Indian/Alaska Native": ["16448", "18326"],
+				"Asian/Pacific Islander": ["16447", "18325"],
+				"Black": ["16446", "18324"],
+				"Hispanic": ["16449", "18327"],
+				"Other Race": ["16445", "18323"],
+				"White": ["16444", "18322"]
+			}
+		},
+		{
+			"measure": "Suicide",
+			"demographics": {
+				"American Indian/Alaska Native": ["1277", "18284"],
+				"Asian": ["18285"],
+				"Black": ["1274", "18286"],
+				"Hawaiian/Pacific Islander": ["18290"],
+				"Hispanic": ["1271", "18287"],
+				"Multiracial": ["18289"],
+				"White": ["1275", "18288"]
+			}
+		},
+		{
+			"measure": "Voter Participation (Presidential)",
+			"demographics": {
+				"Asian": ["17549"],
+				"Black": ["17550"],
+				"Hispanic": ["17552"],
+				"White": ["17551"]
+			}
+		}
+	],
+	"sex": [
+		{
+			"measure": "Asthma",
+			"demographics": {
+				"Female": ["16371"],
+				"Male": ["16370"]
+			}
+		},
+		{
+			"measure": "Avoided Care Due to Cost",
+			"demographics": {
+				"Female": ["16349", "18354"],
+				"Male": ["16350", "18355"]
+			}
+		},
+		{
+			"measure": "Cardiovascular Diseases",
+			"demographics": {
+				"Female": ["16580"],
+				"Male": ["16579"]
+			}
+		},
+		{
+			"measure": "Chronic Kidney Disease",
+			"demographics": {
+				"Female": ["16681"],
+				"Male": ["16680"]
+			}
+		},
+		{
+			"measure": "Chronic Obstructive Pulmonary Disease",
+			"demographics": {
+				"Female": ["16659"],
+				"Male": ["16658"]
+			}
+		},
+		{
+			"measure": "Depression",
+			"demographics": {
+				"Female": ["16514"],
+				"Male": ["16513"]
+			}
+		},
+		{
+			"measure": "Diabetes",
+			"demographics": {
+				"Female": ["405", "427"],
+				"Male": ["404", "426"]
+			}
+		},
+		{
+			"measure": "Excessive Drinking",
+			"demographics": {
+				"Female": ["783"],
+				"Male": ["789"]
+			}
+		},
+		{
+			"measure": "Frequent Mental Distress",
+			"demographics": {
+				"Female": ["2860"],
+				"Male": ["2859"]
+			}
+		},
+		{
+			"measure": "Non-Medical Drug Use",
+			"demographics": {
+				"Female": ["16188"],
+				"Male": ["16187"]
+			}
+		},
+		{
+			"measure": "Preventable Hospitalizations",
+			"demographics": {
+				"Female": ["16450", "18321"],
+				"Male": ["16441", "18320"]
+			}
+		},
+		{
+			"measure": "Suicide",
+			"demographics": {
+				"Female": ["1273"],
+				"Male": ["1272"]
+			}
+		},
+		{
+			"measure": "Voter Participation (Presidential)",
+			"demographics": {
+				"Female": ["17543"],
+				"Male": ["17544"]
+			}
+		}
+	]
 }
