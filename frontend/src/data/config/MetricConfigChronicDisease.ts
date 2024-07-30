@@ -1,5 +1,5 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -33,7 +33,6 @@ export type ChronicDiseaseMetricId =
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
   | 'diabetes_estimated_total'
-
 
 export const ASTHMA_METRICS: DataTypeConfig[] = [
   {
@@ -71,7 +70,13 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
           shortLabel: 'asthma',
           chartTitle: '',
           type: 'count',
-        }
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of all adult asthma cases',
@@ -122,6 +127,18 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Cases of cardiovascular diseases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'cardiovascular_diseases_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of all cases of cardiovascular diseases',
@@ -174,6 +191,18 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Chronic kidney disease per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'chronic_kidney_disease_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of all chronic kidney disease cases',
@@ -233,6 +262,18 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Diabetes cases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'diabetes_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
     },
   },
@@ -282,6 +323,18 @@ export const COPD_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'COPD cases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'copd_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
     },
   },

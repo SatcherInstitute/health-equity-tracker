@@ -1,5 +1,5 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -33,7 +33,6 @@ export type BehavioralHealthMetricId =
   | 'suicide_pct_share'
   | 'suicide_per_100k'
   | 'suicide_estimated_total'
-
 
 export const DEPRESSION_METRICS: DataTypeConfig[] = [
   {
@@ -94,7 +93,6 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
           shortLabel: 'Total pop. 18+',
           type: 'count',
         },
-
       },
     },
   },
@@ -159,7 +157,6 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
           shortLabel: 'Total pop. 18+',
           type: 'count',
         },
-
       },
     },
   },
@@ -349,8 +346,6 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
       },
-
-
     },
   },
 ]
