@@ -168,7 +168,6 @@ export default function App() {
 											</Route>
 
 											<Route path="/">
-											<ContextSection/>
 												<LandingPage />
 											</Route>
 

@@ -1,11 +1,7 @@
-import type React from 'react'
-import ContextSectionTabs from './ContextSectionTabs'
-
 export default function ContextSection() {
 	return (
 		<>
-		<ContextSectionTabs/>
-			<section className='px-80 max-w-screen'>
+			<section className='py-4 xs:px-8 md:px-24 lg:px-80 max-w-screen'>
 				<p  className='my-3 text-center font-roboto text-smallest font-semibold uppercase text-black'>
 					In Focus
 				</p>
@@ -42,8 +38,6 @@ export default function ContextSection() {
 						</p>
 					</p>
 				</div>
-<ContextSectionTabs/>
-
 			</section>
 		</>
 	)
