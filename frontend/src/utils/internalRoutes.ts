@@ -78,4 +78,4 @@ export const WARM_WELCOME_DEMO_SETTING =
 export const WHAT_DATA_ARE_MISSING_ID = 'definitions-missing-data';
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
 	EXPLORE_DATA_PAGE_LINK + '#' + WHAT_DATA_ARE_MISSING_ID;
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = 'join';
+

@@ -23,7 +23,7 @@ AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     'Diabetes': 'diabetes_per_100k',
     'Excessive Drinking': 'excessive_drinking_per_100k',
     'Frequent Mental Distress': 'frequent_mental_distress_per_100k',
-    'Non-Medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
+    'Non-Medical Drug Use': 'non_medical_drug_use_per_100k',
 }
 
 AHR_MEASURES_TO_RATES_MAP_ALL_AGES = {
@@ -146,7 +146,7 @@ def fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
         }}
         """
 
-        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=30)
+        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=300)
 
         if response.status_code == 200:
             results.append(response.json().get('data')['measure_A'])
