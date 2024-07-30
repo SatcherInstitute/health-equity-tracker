@@ -1,0 +1,107 @@
+version: '3.8'
+services:
+    ingest_to_gcs:
+        image: het/ingest_to_gcs:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+            # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=example-project-id)
+            - PROJECT_ID=het-infra-test-05
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
+
+    gcs_to_bq:
+        image: het/gcs_to_bq:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+            - DATASET_NAME=${DATASET_NAME}
+            - MANUAL_UPLOADS_DATASET=${MANUAL_UPLOADS_DATASET}
+            - MANUAL_UPLOADS_PROJECT=${MANUAL_UPLOADS_PROJECT}
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
+        ports:
+            - "8008:8080" #exposes port 8008 on the executing machine for manual triggering
+
+    exporter:
+        image: het/exporter:latest
+        depends_on:
+            - scheduler
+            - webserver
+        environment:
+            - PORT=8080
+            - PROJECT_ID=het-infra-test-05
+            # Ensure that the executing shell sets an EXPORT_BUCKET value. (export EXPORT_BUCKET=my-test-bucket)
+            - EXPORT_BUCKET=${EXPORT_BUCKET}
+            - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
+        volumes:
+            # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
+            - ${GCP_KEY_PATH}:/root/keys/keyfile.json:ro
+
+    postgres:
+        image: postgres:9.6
+        environment:
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"
+
+    scheduler:
+        image: apache/airflow:v1-10-stable-python3.6
+        restart: always
+        depends_on:
+            - postgres
+            - webserver
+        env_file:
+            - .env
+        ports:
+            - "8793:8793"
+        volumes:
+            - ../dags:/opt/airflow/dags
+            - ./airflow-logs:/opt/airflow/logs
+        command: scheduler
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "[ -f /usr/local/airflow/airflow-webserver.pid ]"
+                ]
+            interval: 30s
+            timeout: 30s
+            retries: 3
+
+    webserver:
+        image: apache/airflow:v1-10-stable-python3.6
+        hostname: webserver
+        restart: always
+        depends_on:
+            - postgres
+        env_file:
+            - .env
+        volumes:
+            - ../dags:/opt/airflow/dags
+            - ./scripts:/opt/airflow/scripts
+            - ./airflow-logs:/opt/airflow/logs
+        ports:
+            - "8080:8080"
+        entrypoint: ./scripts/airflow-entrypoint.sh
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "[ -f /usr/local/airflow/airflow-webserver.pid ]"
+                ]
+            interval: 30s
+            timeout: 30s
+            retries: 32
