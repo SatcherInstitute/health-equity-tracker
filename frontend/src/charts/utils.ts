@@ -1,24 +1,21 @@
 import {
-  DataTypeConfig,
+  type DataTypeConfig,
   formatFieldValue,
   type MetricConfig,
-  type MetricId,
 } from '../data/config/MetricConfig'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
-import { type Row } from '../data/utils/DatasetTypes'
-import { type Fips } from '../data/utils/Fips'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import { HIV_METRICS } from '../data/providers/HivProvider'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { GUN_DEATHS_CHILDREN_METRIC_IDS, GUN_VIOLENCE_YOUTH_METRICS } from '../data/providers/GunViolenceYouthProvider'
+import type { Row } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
 const MAX_LINE_LENGTH = 20
+
+export const CORNER_RADIUS = 2
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
 export const DELIMITER = '  '
@@ -38,7 +35,7 @@ export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`
 
 export function addLineBreakDelimitersToField(
   rawData: Row[],
-  field: DemographicType
+  field: DemographicType,
 ): Row[] {
   return rawData.map((data) => {
     const lines = []
@@ -75,7 +72,7 @@ export function addLineBreakDelimitersToField(
 export function addMetricDisplayColumn(
   metric: MetricConfig,
   data: Row[],
-  omitPctSymbol: boolean = false
+  omitPctSymbol: boolean = false,
 ): [Row[], string] {
   const displayColName = metric.metricId + '__DISPLAY_' + String(omitPctSymbol)
   const newData = data.map((row) => {
@@ -84,7 +81,7 @@ export function addMetricDisplayColumn(
       [displayColName]: formatFieldValue(
         metric.type,
         row[metric.metricId],
-        omitPctSymbol
+        omitPctSymbol,
       ),
     }
   })
@@ -95,18 +92,19 @@ export function addMetricDisplayColumn(
 export function generateChartTitle(
   chartTitle: string,
   fips: Fips,
-  demographicType?: DemographicType
+  demographicType?: DemographicType,
 ): string {
-  return `${chartTitle}${demographicType
-    ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
-    : ''
-    } in ${fips.getSentenceDisplayName()}`
+  return `${chartTitle}${
+    demographicType
+      ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
+      : ''
+  } in ${fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(
   activeDemographicGroup: DemographicGroup,
   demographicType: DemographicType,
-  dataTypeConfig: DataTypeConfig
+  dataTypeConfig: DataTypeConfig,
 ) {
   // active group label, if any
   let activeGroupLabel = ''
@@ -116,17 +114,21 @@ export function generateSubtitle(
     activeGroupLabel = `Ages ${activeDemographicGroup}`
   } else if (demographicType === 'urbanicity') {
     activeGroupLabel = `Living in ${activeDemographicGroup} areas`
-  }
-  else {
+  } else {
     activeGroupLabel = activeDemographicGroup
   }
 
   // age and any other subpopulations, if any
-  const ageSubPop = demographicType === AGE && activeDemographicGroup !== ALL ? '' : dataTypeConfig?.ageSubPopulationLabel ?? ''
+  const ageSubPop =
+    demographicType === AGE && activeDemographicGroup !== ALL
+      ? ''
+      : dataTypeConfig?.ageSubPopulationLabel ?? ''
   const otherSubPop = dataTypeConfig?.otherSubPopulationLabel ?? ''
 
   // combine as needed to create specific population subtitle
-  const subtitle = [otherSubPop, activeGroupLabel, ageSubPop].filter(Boolean).join(', ')
+  const subtitle = [otherSubPop, activeGroupLabel, ageSubPop]
+    .filter(Boolean)
+    .join(', ')
 
   return subtitle
 }
@@ -136,13 +138,11 @@ export function removeLastS(inputString: string) {
   return inputString.replace(/s$/, '')
 }
 
-
 // Returns an options object for toLocaleString() that will round larger 100k numbers to whole numbers, but allow 1 decimal place for numbers under 10 and 2 decimal places for numbers under 1
 export const getFormatterPer100k = (value: number) => {
   const numDecimalPlaces = value < 10 ? 1 : 0
   return {
     minimumFractionDigits: numDecimalPlaces,
-    maximumFractionDigits: numDecimalPlaces
+    maximumFractionDigits: numDecimalPlaces,
   }
-
 }

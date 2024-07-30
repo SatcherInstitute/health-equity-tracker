@@ -1,5 +1,5 @@
-import { type Mark, type RectMark, type TextMark } from 'vega'
-import { oneLineLabel } from '../utils'
+import type { Mark, RectMark, TextMark } from 'vega'
+import { CORNER_RADIUS, oneLineLabel } from '../utils'
 import {
   ALT_LIGHT_MEASURE_COLOR,
   ALT_LIGHT_MEASURE_OPACITY,
@@ -16,7 +16,7 @@ import {
   SIDE_BY_SIDE_OFFSET,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
 } from './constants'
-import { type MarkProps } from './types'
+import type { MarkProps } from './types'
 
 export function Marks({
   barLabelBreakpoint,
@@ -92,11 +92,17 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            demographicType
+            demographicType,
           )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
         },
       },
       update: {
+        cornerRadiusTopRight: {
+          value: CORNER_RADIUS,
+        },
+        cornerRadiusBottomRight: {
+          value: CORNER_RADIUS,
+        },
         fill: { value: LIGHT_MEASURE_COLOR },
         ariaRoleDescription: { value: 'bar' },
         x: { scale: 'x', field: lightMeasure },
@@ -125,11 +131,17 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            demographicType
+            demographicType,
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
       update: {
+        cornerRadiusTopRight: {
+          value: CORNER_RADIUS,
+        },
+        cornerRadiusBottomRight: {
+          value: CORNER_RADIUS,
+        },
         fill: { value: DARK_MEASURE_COLOR },
         ariaRoleDescription: { value: 'bar' },
         x: { scale: 'x', field: darkMeasure },
@@ -157,7 +169,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            demographicType
+            demographicType,
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -209,7 +221,7 @@ export function Marks({
         enter: {
           tooltip: {
             signal: `${oneLineLabel(
-              demographicType
+              demographicType,
             )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
           },
         },
