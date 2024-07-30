@@ -20,7 +20,9 @@ test('HIV PrEP', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'PrEP coverage in the United' })
     .click()
-  await page.getByRole('heading', { name: 'Male, Ages 16+' }).click()
+  await page
+    .getByRole('heading', { name: 'Male, PrEP-eligible population, Ages 16+' })
+    .click()
   await page
     .getByRole('button', { name: 'Rates over time', exact: true })
     .click()
@@ -85,7 +87,7 @@ test('HIV PrEP', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'Historical relative inequity for PrEP coverage in the United States by sex'
+      'Historical relative inequity for PrEP coverage in the United States by sex',
     )
     .click()
   await page
