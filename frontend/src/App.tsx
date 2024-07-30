@@ -169,6 +169,7 @@ export default function App() {
 
 											<Route path="/">
 												<LandingPage />
+												<ContextSection/>
 											</Route>
 
 											{/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}

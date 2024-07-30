@@ -1,3 +1,5 @@
+import ContextSectionTabs from "./ContextSectionTabs";
+
 export default function ContextSection() {
 	return (
 		<>
@@ -39,6 +41,7 @@ export default function ContextSection() {
 					</p>
 				</div>
 			</section>
+			<ContextSectionTabs/>
 		</>
 	)
 }
