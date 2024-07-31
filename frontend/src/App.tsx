@@ -36,6 +36,7 @@ import {
 	OLD_AGE_ADJUSTMENT_LINK,
 	METHODOLOGY_PAGE_LINK,
 	AGE_ADJUSTMENT_LINK,
+	POLICY_PAGE_LINK,
 } from "./utils/internalRoutes";
 import { HelmetProvider } from "react-helmet-async";
 import { useIsBreakpointAndUp } from "./utils/hooks/useIsBreakpointAndUp";
@@ -53,7 +54,7 @@ import HetAppBar from "./styles/HetComponents/HetAppBar";
 import { HashLink } from "react-router-hash-link";
 import HetNotice from "./styles/HetComponents/HetNotice";
 import Banner from "./reports/ui/Banner";
-import ContextSection from "./pages/Landing/ContextSection";
+import PolicyPage from "./pages/Policy/policyComponents/PolicyPage";
 
 const ExploreDataPage = React.lazy(
 	async () => await import("./pages/ExploreData/ExploreDataPage"),
@@ -153,6 +154,10 @@ export default function App() {
 											<Route path={SHARE_YOUR_STORY_TAB_LINK}>
 												<NewsPage isMobile={isSm} />
 											</Route>
+											
+											<Route path={POLICY_PAGE_LINK}>
+												<PolicyPage />
+											</Route>
 
 											<Route path={TERMS_OF_USE_PAGE_LINK}>
 												<TermsOfUsePage />
@@ -169,7 +174,6 @@ export default function App() {
 
 											<Route path="/">
 												<LandingPage />
-												<ContextSection/>
 											</Route>
 
 											{/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}

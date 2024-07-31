@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
-import { OVERVIEW_TAB } from "../../utils/internalRoutes";
-import OverviewTab from "./OverviewTab";
-
+import { POLICY_PAGE_LINK } from "../../../utils/internalRoutes";
+import PolicyPage from "../policyComponents/PolicyPage";
 
 export type RouteConfig = {
 	isTopLevel?: boolean;
@@ -14,9 +13,9 @@ export type RouteConfig = {
 export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
-		label: 'Crisis Overview',
-		path: OVERVIEW_TAB,
-		component: OverviewTab,
+		label: 'Policy Context Overview',
+		path: POLICY_PAGE_LINK,
+		component: PolicyPage,
 		subLinks: [],
 	},
 ];

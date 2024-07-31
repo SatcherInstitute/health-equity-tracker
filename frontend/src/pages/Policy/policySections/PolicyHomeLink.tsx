@@ -1,8 +1,7 @@
-import ContextSectionTabs from "./ContextSectionTabs";
-
-export default function ContextSection() {
+export default function PolicyHomeLink() {
 	return (
 		<>
+		<h1>Policy Context Overview</h1>
 			<section className='py-4 xs:px-8 md:px-24 lg:px-80 max-w-screen'>
 				<p  className='my-3 text-center font-roboto text-smallest font-semibold uppercase text-black'>
 					In Focus
@@ -41,7 +40,6 @@ export default function ContextSection() {
 					</p>
 				</div>
 			</section>
-			<ContextSectionTabs/>
 		</>
 	)
 }

@@ -18,7 +18,6 @@ import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import ContextSection from './ContextSection'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
