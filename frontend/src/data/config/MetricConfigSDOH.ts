@@ -25,6 +25,7 @@ export type SDOHMetricId =
   | 'ahr_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
+  | 'avoided_care_estimated_total'
   | 'poverty_count'
   | 'poverty_estimated_total'
   | 'poverty_pct_rate'
@@ -191,6 +192,18 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Care avoidance due to cost',
         shortLabel: '% avoided care',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'avoided_care_estimated_total',
+          shortLabel: 'Avoided care',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          shortLabel: 'Total pop. 18+',
+          chartTitle: '',
+          type: 'count',
+        }
       },
       pct_share: {
         chartTitle: 'Share of all care avoidance due to cost',
