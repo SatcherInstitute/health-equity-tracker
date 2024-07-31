@@ -6,7 +6,7 @@ export default function PolicyHomeLink() {
 				<p  className='my-3 text-center font-roboto text-smallest font-semibold uppercase text-black'>
 					In Focus
 				</p>
-				<div className='flex w-full flex-col justify-center items-center md:block sm:block'>
+				<div className='flex w-full flex-col justify-center items-center'>
 					<h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
 						The Scourge of Gun Violence in Atlanta
 					</h2>
@@ -19,7 +19,7 @@ export default function PolicyHomeLink() {
 					</p>
 					<img
 						src='/img/graphics/DrSatcher.png'
-						alt='image of David Satcher, MD, PhD'
+						alt='David Satcher, MD, PhD'
 					></img>
 
 					<p className='text-center text-smallestHeader my-0'>
