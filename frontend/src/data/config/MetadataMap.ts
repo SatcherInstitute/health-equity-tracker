@@ -278,12 +278,12 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).',
     dataset_ids: [
-      'ahr_data-age_national',
-      'ahr_data-race_and_ethnicity_national',
-      'ahr_data-sex_national',
-      'ahr_data-age_state',
-      'ahr_data-race_and_ethnicity_state',
-      'ahr_data-sex_state',
+      'graphql_ahr_data-age_national_current',
+      'graphql_ahr_data-race_and_ethnicity_national_current',
+      'graphql_ahr_data-sex_national_current',
+      'graphql_ahr_data-age_state_current',
+      'graphql_ahr_data-race_and_ethnicity_state_current',
+      'graphql_ahr_data-sex_state_current',
     ],
     downloadable: true,
     time_period_range: null,

@@ -7,8 +7,6 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { DatasetId, DatasetMetadataMap } from '../../data/config/DatasetMetadata'
-import { dataSourceMetadataMap, getDataSourceMetadataByDatasetId } from '../../data/config/MetadataMap'
 
 interface GeoContextProps {
   fips: Fips
