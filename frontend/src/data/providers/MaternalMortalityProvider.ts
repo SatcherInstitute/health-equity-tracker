@@ -23,17 +23,21 @@ class MaternalMortalityProvider extends VariableProvider {
     getDatasetId(breakdowns: Breakdowns,
         dataTypeId?: DataTypeId,
         timeView?: TimeView): DatasetId | undefined {
-        if (breakdowns.hasOnlyRace()) {
-            if (timeView === 'current') {
+        if (timeView === 'current') {
+            if (breakdowns.hasOnlyRace()) {
                 if (breakdowns.geography === 'state') return "maternal_mortality_data-by_race_state_current";
                 if (breakdowns.geography === 'national') return 'maternal_mortality_data-by_race_national_current';
             }
-            if (timeView === 'historical') {
-                if (breakdowns.geography === 'state') return "maternal_mortality_data-by_race_state_historical";
+        }
+        if (timeView === 'historical') {
+               if(breakdowns.hasOnlyRace()) {
+                   if (breakdowns.geography === 'state') return "maternal_mortality_data-by_race_state_historical";
                 if (breakdowns.geography === 'national') return 'maternal_mortality_data-by_race_national_historical';
+               }
+                
             }
         }
-    }
+    
 
     async getDataInternal(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
         const breakdowns = metricQuery.breakdowns;
