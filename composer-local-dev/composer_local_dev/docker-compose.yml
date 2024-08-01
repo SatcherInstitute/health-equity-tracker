@@ -8,7 +8,7 @@ services:
         environment:
             - PORT=8080
             # Ensure that the executing shell sets a PROJECT_ID value. (export PROJECT_ID=example-project-id)
-            - PROJECT_ID=het-infra-test-05
+            - PROJECT_ID=${PROJECT_ID}
             - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
         volumes:
             # Ensure that the executing shell sets a GCP_KEY_PATH value. (export GCP_KEY_PATH=/absolute/path/to/service/account/key.json)
@@ -38,7 +38,7 @@ services:
             - webserver
         environment:
             - PORT=8080
-            - PROJECT_ID=het-infra-test-05
+            - PROJECT_ID=${PROJECT_ID}
             # Ensure that the executing shell sets an EXPORT_BUCKET value. (export EXPORT_BUCKET=my-test-bucket)
             - EXPORT_BUCKET=${EXPORT_BUCKET}
             - GOOGLE_APPLICATION_CREDENTIALS=/root/keys/keyfile.json
