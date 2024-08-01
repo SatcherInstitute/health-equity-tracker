@@ -66,7 +66,7 @@ describe('WithLoadingOrErrorUI', () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded('acs_population-by_race_state', []);
-      dataFetcher.setFakeDatasetLoaded('ahr_data-race_and_ethnicity_state', [
+      dataFetcher.setFakeDatasetLoaded('graphql_ahr_data-race_and_ethnicity_state_current', [
         {
           state_name: 'Alabama',
           race_and_ethnicity: 'AmIn',
@@ -101,7 +101,7 @@ describe('WithLoadingOrErrorUI', () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata);
       dataFetcher.setFakeDatasetLoaded('acs_population-by_race_national', []);
-      dataFetcher.setFakeDatasetLoaded('ahr_data-race_and_ethnicity_national', []);
+      dataFetcher.setFakeDatasetLoaded('graphql_ahr_data-race_and_ethnicity_national_current', []);
     });
 
     const element = await findByTestId('MetricQueryResponseReturned');

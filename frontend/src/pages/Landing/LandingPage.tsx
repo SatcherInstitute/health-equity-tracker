@@ -194,7 +194,7 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
+        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-whiteSmoke80 mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
           <img
             src='/img/graphics/banner.png'
             className='md:w-2/5 w-full'
