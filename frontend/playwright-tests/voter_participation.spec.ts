@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test } from '@playwright/test'
 
 test('Voter Participation Flow', async ({ page }) => {
   await page.goto('/exploredata?mls=1.voter_participation-3.00&group1=All')
