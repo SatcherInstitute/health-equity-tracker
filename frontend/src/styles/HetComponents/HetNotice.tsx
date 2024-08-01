@@ -37,7 +37,11 @@ export default function HetNotice(props: HetNoticeProps) {
     >
       {props.title && (
         <AlertTitle
-          className={props.kind === 'quote' ? 'italic text-title' : ''}
+          className={
+            props.kind === 'quote'
+              ? 'italic text-small md:text-title font-bold'
+              : ''
+          }
         >
           {props.title}
         </AlertTitle>
