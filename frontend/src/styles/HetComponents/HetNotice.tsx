@@ -1,5 +1,5 @@
 import { Alert, AlertTitle, type AlertColor } from '@mui/material'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import FlagIcon from '@mui/icons-material/Flag'
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
@@ -11,6 +11,7 @@ export type HetNoticeKind =
   | 'text-only'
   | 'helpful-info'
   | 'technical-error'
+  | 'quote'
 
 interface HetNoticeProps {
   children: ReactNode
@@ -34,7 +35,13 @@ export default function HetNotice(props: HetNoticeProps) {
       icon={props.icon ?? icon}
       variant={variant}
     >
-      {props.title && <AlertTitle>{props.title}</AlertTitle>}
+      {props.title && (
+        <AlertTitle
+          className={props.kind === 'quote' ? 'italic text-title' : ''}
+        >
+          {props.title}
+        </AlertTitle>
+      )}
       {props.children}
     </Alert>
   )
@@ -51,6 +58,8 @@ function getMuiAlertProps(kind: HetNoticeKind | undefined): AlertProps {
   switch (kind) {
     case 'text-only':
       return { severity: 'success', icon: <></>, variant: 'outlined' }
+    case 'quote':
+      return { severity: 'info', icon: <></>, variant: 'outlined' }
     case 'data-integrity':
       return { severity: 'warning', icon: <ReportProblemOutlinedIcon /> }
     case 'health-crisis':
