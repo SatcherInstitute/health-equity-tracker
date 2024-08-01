@@ -22,7 +22,9 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
 
   await page
     .locator('#rate-chart')
-    .getByRole('heading', { name: 'Rates of HIV cases in the United States' })
+    .getByRole('heading', {
+      name: 'Rates of HIV diagnoses in the United States',
+    })
     .click()
   await page
     .locator('#rate-chart')
@@ -36,24 +38,21 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
   await page
     .locator('#unknown-demographic-map')
     .getByRole('heading', {
-      name: 'Share of total beneficiaries living with HIV with unknown race and ethnicity in the United States',
+      name: 'Share of total HIV incidence with unknown race and ethnicity in the United States',
     })
     .click()
-  await page
-    .locator('#unknown-demographic-map')
-    .getByRole('heading', { name: 'Medicare beneficiaries' })
-    .click()
+
   await page
     .locator('#unknown-demographic-map')
     .getByText(
-      '% of beneficiary pop. living with HIV reported an unknown race or ethnicity in the United States overall. This map displays data for cases where either race or ethnicity was unknown.',
+      '% of beneficiary pop. diagnosed with HIV reported an unknown race or ethnicity in the United States overall. This map displays data for cases where either race or ethnicity was unknown.',
     )
     .click()
 
   await page
     .locator('#population-vs-distribution')
     .getByRole('heading', {
-      name: 'Share of beneficiary population vs. share of total HIV cases in the United States',
+      name: 'Share of beneficiary population vs. share of total HIV diagnoses in the United States',
     })
     .click()
   await page
@@ -85,14 +84,11 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
   await page.getByRole('combobox', { name: 'Demographic Subsidy' }).click()
   await page.getByRole('option', { name: 'Eligibility' }).click()
 
-  await await page
-    .locator('#rate-map')
-    .getByText('Medicare eligibility:')
-    .hover()
+  await page.locator('#rate-map').getByText('Medicare eligibility:').hover()
   await page
     .locator('#unknown-demographic-map')
     .getByRole('heading', {
-      name: 'Share of total beneficiaries living with HIV with unknown eligibility',
+      name: 'Share of total HIV incidence with unknown eligibility in the United States',
     })
     .click()
   await page.getByRole('cell', { name: 'Eligible due to age' }).click()
