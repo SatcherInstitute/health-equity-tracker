@@ -18,7 +18,7 @@ export default function VoteDotOrgBanner() {
       kind='quote'
     >
       <HetLinkButton
-        className='text-black font-semibold '
+        className='text-black font-semibold hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
         <span className='sm:hidden text-smallest'>
