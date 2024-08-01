@@ -1,11 +1,7 @@
-import HowToVoteIcon from '@mui/icons-material/HowToVote'
 import HetNotice from '../../styles/HetComponents/HetNotice'
-import type { DataTypeId } from '../../data/config/MetricConfig'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-
-export const LIFELINE_IDS: DataTypeId[] = ['suicide', 'gun_violence_suicide']
 
 export default function VoteDotOrgBanner() {
   const [_, setModalIsOpen] = useParamState(VOTE_DOT_ORG_PARAM_KEY)
@@ -21,9 +17,11 @@ export default function VoteDotOrgBanner() {
         className='text-black font-semibold hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
+        {/* Mobile */}
         <span className='sm:hidden text-smallest'>
           Check your registration →
         </span>
+        {/* Tablet/Desktop */}
         <span className='hidden sm:inline '>
           Check your voter registration now →
         </span>
