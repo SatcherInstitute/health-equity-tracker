@@ -14,6 +14,7 @@ import {
   GUN_VIOLENCE_YOUTH_DATATYPES,
   GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/GunViolenceYouthProvider'
+import { MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/MaternalMortalityProvider'
 import {
   BLACK_WOMEN_DATATYPES,
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -119,6 +120,15 @@ export function getAllDemographicOptions(
     )
   }
 
+  // MATERNAL MORTALITY
+
+  if (configsContainsMatchingId(configs, ['maternal_mortality'])) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
+    )
+  }
+
   // BLACK WOMEN HIV
   if (configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES)) {
     enabledDemographicOptionsMap = ONLY_AGE_TYPE_MAP
@@ -168,20 +178,6 @@ export function getAllDemographicOptions(
   exactlyOneReportIsPhrma &&
     disabledDemographicOptionsWithRepeats.push(
       ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
-    )
-
-  // PHRMA  BRFSS(ENABLED OPTIONS WHEN ALL REPORTS ARE PHRMA)
-  if (configsContainsMatchingId(configs, PHRMA_BRFSS_DATATYPES, true))
-    enabledDemographicOptionsMap = PHRMA_BRFSS_TYPES_MAP
-  // PHRMA BRFSS (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS PHRMA)
-  const exactlyOneReportIsPhrmaBrfss =
-    dataTypeConfig1?.dataTypeId &&
-    dataTypeConfig2?.dataTypeId &&
-    Boolean(PHRMA_BRFSS_DATATYPES.includes(dataTypeConfig1.dataTypeId)) !==
-      Boolean(PHRMA_BRFSS_DATATYPES.includes(dataTypeConfig2.dataTypeId))
-  exactlyOneReportIsPhrmaBrfss &&
-    disabledDemographicOptionsWithRepeats.push(
-      ...PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
 
   // COVID VACCINATIONS
