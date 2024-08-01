@@ -56,7 +56,7 @@ describe('AhrProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-race_and_ethnicity_state',
+      'graphql_ahr_data-race_and_ethnicity_state_current',
       Breakdowns.forFips(new Fips('37')),
       RACE
     )
@@ -64,7 +64,7 @@ describe('AhrProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-race_and_ethnicity_national',
+      'graphql_ahr_data-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips('00')),
       RACE
     )
@@ -72,7 +72,7 @@ describe('AhrProvider', () => {
 
   test('State and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-age_state',
+      'graphql_ahr_data-age_state_current',
       Breakdowns.forFips(new Fips('37')),
       AGE
     )
@@ -80,7 +80,7 @@ describe('AhrProvider', () => {
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-age_national',
+      'graphql_ahr_data-age_national_current',
       Breakdowns.forFips(new Fips('00')),
       AGE
     )
@@ -88,7 +88,7 @@ describe('AhrProvider', () => {
 
   test('State and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-sex_state',
+      'graphql_ahr_data-sex_state_current',
       Breakdowns.forFips(new Fips('37')),
       SEX
     )
@@ -96,7 +96,7 @@ describe('AhrProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-sex_national',
+      'graphql_ahr_data-sex_national_current',
       Breakdowns.forFips(new Fips('00')),
       SEX
     )
