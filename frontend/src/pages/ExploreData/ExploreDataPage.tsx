@@ -47,6 +47,7 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
+import VoteDotOrgModal from './VoteDotOrgModal'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -58,7 +59,7 @@ interface ExploreDataPageProps {
 
 function ExploreDataPage(props: ExploreDataPageProps) {
   const location: any = useLocation()
-  const [showAnnouncementBanner, setShowAnnouncementBanner] = useState(false)
+  const [showVoteDotOrgBanner, setShowVoteDotOrgBanner] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false)
 
@@ -282,10 +283,15 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   useEffect(() => {
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`)
-    setShowAnnouncementBanner(
+    setShowVoteDotOrgBanner(
       getSelectedConditions(madLib)?.some(
         (condition: DataTypeConfig) =>
-          condition?.dataTypeId === 'voter_participation'
+          [
+            'voter_participation',
+            'women_in_state_legislature',
+            'women_in_us_congress'
+          ]
+            .includes(condition?.dataTypeId)
       )
     )
 
@@ -303,13 +309,15 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       madLib,
       showIncarceratedChildrenAlert,
       showStickyLifeline,
-      showAnnouncementBanner,
+      showVoteDotOrgBanner,
     ]
   )
 
   return (
     <>
+      {/* Conditional Modals */}
       <TopicInfoModal />
+      <VoteDotOrgModal />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
@@ -350,7 +358,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
               selectedConditions={getSelectedConditions(madLib)}
               showLifeLineAlert={showStickyLifeline}
               showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
-              showAnnouncementBanner={showAnnouncementBanner}
+              showVoteDotOrgBanner={showVoteDotOrgBanner}
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
