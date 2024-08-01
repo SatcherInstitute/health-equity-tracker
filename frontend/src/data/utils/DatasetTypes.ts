@@ -1,6 +1,6 @@
 import { DataFrame, type IDataFrame } from 'data-forge'
-import { type DatasetId } from '../config/DatasetMetadata'
-import { type DataSourceId } from '../config/MetadataMap'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataSourceId } from '../config/MetadataMap'
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {

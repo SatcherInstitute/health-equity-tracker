@@ -1,10 +1,7 @@
-import { type IDataFrame } from 'data-forge'
-import {
-  type TimeSeries,
-  type TrendsData,
-} from '../../charts/trendsChart/types'
-import { type MetricConfig, type MetricId } from '../config/MetricConfig'
-import { type DemographicType } from '../query/Breakdowns'
+import type { IDataFrame } from 'data-forge'
+import type { TimeSeries, TrendsData } from '../../charts/trendsChart/types'
+import type { MetricConfig, MetricId } from '../config/MetricConfig'
+import type { DemographicType } from '../query/Breakdowns'
 import {
   ALL,
   ALL_W,
@@ -12,7 +9,7 @@ import {
   TIME_PERIOD,
   TIME_PERIOD_LABEL,
 } from './Constants'
-import { type Row } from './DatasetTypes'
+import type { Row } from './DatasetTypes'
 
 const MONTHLY_LENGTH = 7
 const YEARLY_LENGTH = 4
@@ -84,7 +81,7 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
   // can only plot based on the least specific time periods.
   // However, all "time_periods" should already be same TimeUnit from backend
   const leastPeriodChars = Math.min(
-    ...(shippedTimePeriods.map((period) => period.length) as number[])
+    ...(shippedTimePeriods.map((period) => period.length) as number[]),
   )
 
   if (leastPeriodChars === MONTHLY_LENGTH) {
@@ -135,7 +132,7 @@ export function getNestedData(
   data: Row[],
   demographicGroups: DemographicGroup[],
   demographicType: DemographicType,
-  metricId: MetricId
+  metricId: MetricId,
 ): TrendsData {
   if (!data.some((row) => row[TIME_PERIOD])) return []
 
@@ -149,6 +146,7 @@ export function getNestedData(
     ])
     return [group, groupTimeSeries]
   })
+
   return nestedRates as TrendsData
 }
 
@@ -157,7 +155,7 @@ Accepts fetched, prefiltered data that only contains rows with unknown pct_share
 */
 export function getNestedUnknowns(
   unknownsData?: Row[],
-  metricId?: MetricId
+  metricId?: MetricId,
 ): TimeSeries {
   if (!metricId || !unknownsData) return []
   if (!unknownsData.some((row) => row[TIME_PERIOD])) return []
@@ -175,14 +173,14 @@ export function makeA11yTableData(
   knownMetric: MetricConfig,
   unknownMetric: MetricConfig | undefined,
   selectedGroups: DemographicGroup[],
-  hasUnknowns: boolean
+  hasUnknowns: boolean,
 ): Row[] {
   const allTimePeriods = Array.from(
-    new Set(knownsData.map((row) => row[TIME_PERIOD]))
+    new Set(knownsData.map((row) => row[TIME_PERIOD])),
   ).sort((a, b) => b.localeCompare(a))
 
   const allDemographicGroups = Array.from(
-    new Set(knownsData.map((row) => row[demographicType]))
+    new Set(knownsData.map((row) => row[demographicType])),
   )
 
   const filteredDemographicGroups =
@@ -198,7 +196,7 @@ export function makeA11yTableData(
     for (const group of filteredDemographicGroups) {
       const rowForGroupTimePeriod = knownsData.find(
         (row) =>
-          row[demographicType] === group && row[TIME_PERIOD] === timePeriod
+          row[demographicType] === group && row[TIME_PERIOD] === timePeriod,
       )
       a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId]
     }
@@ -207,7 +205,7 @@ export function makeA11yTableData(
     if (hasUnknowns && unknownMetric) {
       a11yRow[`${unknownMetric.shortLabel} with unknown ${demographicType}`] =
         unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
-        unknownMetric.metricId
+          unknownMetric.metricId
         ]
     }
 
@@ -228,7 +226,10 @@ export function getPrettyDate(timePeriod: string): string {
     const [year, monthNum] = timePeriod?.split('-') || ['', '']
 
     // skip if non-numerical input
-    if (Number.isNaN(parseInt(year)) || Number.isNaN(parseInt(monthNum)))
+    if (
+      Number.isNaN(Number.parseInt(year)) ||
+      Number.isNaN(Number.parseInt(monthNum))
+    )
       return timePeriod
 
     return `${MONTHS[monthNum]} ${year}`
@@ -246,7 +247,7 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
     }
 
     const nonNullGroupData = groupData[1].filter(
-      (dataPoint) => dataPoint[1] != null
+      (dataPoint) => dataPoint[1] != null,
     )
 
     const nonNullGroupValues = nonNullGroupData.map((dataPoint) => dataPoint[1])
@@ -284,7 +285,7 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
 
 export function getMostRecentYearAsString(
   df: IDataFrame,
-  metricId: MetricId
+  metricId: MetricId,
 ): string | undefined {
   if (!df.getColumnNames().includes(TIME_PERIOD)) return
 

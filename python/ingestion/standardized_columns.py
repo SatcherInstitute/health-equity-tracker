@@ -1,6 +1,7 @@
 from enum import Enum, unique
 from collections import namedtuple
 import pandas as pd  # type: ignore
+from typing import List
 
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.
@@ -64,17 +65,25 @@ POP_PCT_SUFFIX = 'population_pct'
 RATIO_AGE_ADJUSTED_SUFFIX = "ratio_age_adjusted"
 INDEX_SUFFIX = "index"
 
-SUFFIXES = [
+SUFFIXES_ALL_TIME_VIEWS = [
     PER_100K_SUFFIX,
     PCT_RATE_SUFFIX,
-    PCT_SHARE_SUFFIX,
-    PCT_REL_INEQUITY_SUFFIX,
-    SHARE_OF_KNOWN_SUFFIX,
-    RAW_SUFFIX,
-    POP_PCT_SUFFIX,
-    RATIO_AGE_ADJUSTED_SUFFIX,
     INDEX_SUFFIX,
 ]
+SUFFIXES_CURRENT_TIME_VIEWS = [
+    PCT_SHARE_SUFFIX,
+    RAW_SUFFIX,
+    POP_PCT_SUFFIX,
+    SHARE_OF_KNOWN_SUFFIX,
+    RATIO_AGE_ADJUSTED_SUFFIX,
+    POPULATION_COL,  # TODO: ideally we should refactor so all population count cols end with estimate_total
+]
+
+SUFFIXES_HISTORICAL_TIME_VIEWS = [
+    PCT_REL_INEQUITY_SUFFIX,
+]
+
+SUFFIXES = SUFFIXES_ALL_TIME_VIEWS + SUFFIXES_CURRENT_TIME_VIEWS + SUFFIXES_HISTORICAL_TIME_VIEWS
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"
@@ -446,3 +455,8 @@ def extract_prefix(col_name: str) -> str:
             return prefix
 
     raise ValueError(f"Column {col_name} does not contain a standard suffix from {SUFFIXES}")
+
+
+def ends_with_suffix_from_list(col: str, suffixes: List[str]) -> bool:
+    """Detects whether the given col name ends with ANY of the provided metric col suffixes"""
+    return any(col.endswith(suffix) for suffix in suffixes)

@@ -1,5 +1,5 @@
-import { type DatasetMetadata } from '../utils/DatasetTypes'
-import { type StateFipsCode } from '../utils/FipsData'
+import type { DatasetMetadata } from '../utils/DatasetTypes'
+import type { StateFipsCode } from '../utils/FipsData'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
 export type DatasetId =
@@ -30,12 +30,12 @@ export type DatasetId =
   | 'acs_population-by_sex_county'
   | 'acs_population-by_sex_national'
   | 'acs_population-by_sex_state'
-  | 'ahr_data-age_national'
-  | 'ahr_data-age_state'
-  | 'ahr_data-race_and_ethnicity_national'
-  | 'ahr_data-race_and_ethnicity_state'
-  | 'ahr_data-sex_national'
-  | 'ahr_data-sex_state'
+  | 'graphql_ahr_data-age_national_current'
+  | 'graphql_ahr_data-age_state_current'
+  | 'graphql_ahr_data-race_and_ethnicity_national_current'
+  | 'graphql_ahr_data-race_and_ethnicity_state_current'
+  | 'graphql_ahr_data-sex_national_current'
+  | 'graphql_ahr_data-sex_state_current'
   | 'bjs_incarceration_data-age_national'
   | 'bjs_incarceration_data-age_state'
   | 'bjs_incarceration_data-race_and_ethnicity_national'
@@ -339,11 +339,11 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'cdc_atlas',
   },
   'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level':
-  {
-    name: 'Population by race/ethnicity and Census Island Area territory',
-    original_data_sourced: '2010',
-    source_id: 'decia_2010_territory_population',
-  },
+    {
+      name: 'Population by race/ethnicity and Census Island Area territory',
+      original_data_sourced: '2010',
+      source_id: 'decia_2010_territory_population',
+    },
   'decia_2010_territory_population-by_sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2010',
@@ -355,11 +355,11 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'decia_2010_territory_population',
   },
   'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level':
-  {
-    name: 'Population by race/ethnicity and Census Island Area territory',
-    original_data_sourced: '2020',
-    source_id: 'decia_2020_territory_population',
-  },
+    {
+      name: 'Population by race/ethnicity and Census Island Area territory',
+      original_data_sourced: '2020',
+      source_id: 'decia_2020_territory_population',
+    },
   'decia_2020_territory_population-by_sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2020',
@@ -371,11 +371,11 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'decia_2020_territory_population',
   },
   'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level':
-  {
-    name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
-    original_data_sourced: '2020',
-    source_id: 'decia_2020_territory_population',
-  },
+    {
+      name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
+      original_data_sourced: '2020',
+      source_id: 'decia_2020_territory_population',
+    },
   'decia_2020_territory_population-by_sex_territory_county_level': {
     name: 'Population by sex and Census Island Area territory county-equivalent',
     original_data_sourced: '2020',
@@ -635,34 +635,34 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     contains_nh: true,
     source_id: 'kff_vaccination',
   },
-  'ahr_data-age_national': {
+  'graphql_ahr_data-age_national_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, nationally',
     original_data_sourced: '2021',
     source_id: 'ahr',
   },
-  'ahr_data-race_and_ethnicity_national': {
+  'graphql_ahr_data-race_and_ethnicity_national_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, nationally',
     original_data_sourced: '2021',
     contains_nh: true,
     source_id: 'ahr',
   },
-  'ahr_data-sex_national': {
+  'graphql_ahr_data-sex_national_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, nationally',
     original_data_sourced: '2021',
     source_id: 'ahr',
   },
-  'ahr_data-age_state': {
+  'graphql_ahr_data-age_state_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age and state',
     original_data_sourced: '2021',
     source_id: 'ahr',
   },
-  'ahr_data-race_and_ethnicity_state': {
+  'graphql_ahr_data-race_and_ethnicity_state_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity and state',
     original_data_sourced: '2021',
     contains_nh: true,
     source_id: 'ahr',
   },
-  'ahr_data-sex_state': {
+  'graphql_ahr_data-sex_state_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex and state',
     original_data_sourced: '2021',
     source_id: 'ahr',
@@ -862,8 +862,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_wisqars_data-age_state_historical': {
     name: 'Gun-related Deaths, by age and state',
-    original_data_sourced:
-      '2018-2021',
+    original_data_sourced: '2018-2021',
     source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_data-race_and_ethnicity_state_historical': {
@@ -874,8 +873,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_wisqars_data-sex_state_historical': {
     name: 'Gun-related Deaths, by sex and state',
-    original_data_sourced:
-      '2018-2021',
+    original_data_sourced: '2018-2021',
     source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_data-age_state_current': {
@@ -896,8 +894,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_wisqars_data-age_national_historical': {
     name: 'Gun-related Deaths, by age, nationally',
-    original_data_sourced:
-      '2018-2021',
+    original_data_sourced: '2018-2021',
     source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_data-race_and_ethnicity_national_historical': {
@@ -908,8 +905,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_wisqars_data-sex_national_historical': {
     name: 'Gun-related Deaths, by sex, nationally',
-    original_data_sourced:
-      '2018-2021',
+    original_data_sourced: '2018-2021',
     source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_data-age_national_current': {
@@ -931,93 +927,92 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current': {
     name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity, nationally',
     original_data_sourced: '2021',
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical': {
     name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity, nationally',
     original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current': {
     name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity and state',
     original_data_sourced: '2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical': {
     name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity and state',
     original_data_sourced: '2018-2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current': {
     name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
     original_data_sourced: '2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical': {
     name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
     original_data_sourced: '2018-2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current': {
     name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
     original_data_sourced: '2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical': {
     name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
     original_data_sourced: '2018-2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
 
   'cdc_wisqars_black_men_data-black_men_by_age_national_current': {
     name: 'Gun homicides for Black men, by age, nationally',
     original_data_sourced: '2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_age_national_historical': {
     name: 'Gun homicides for Black men, by age, nationally',
     original_data_sourced: '2018-2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_age_state_current': {
     name: 'Gun homicides for Black men, by age and state',
     original_data_sourced: '2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
   'cdc_wisqars_black_men_data-black_men_by_age_state_historical': {
     name: 'Gun homicides for Black men, by age and state',
     original_data_sourced: '2018-2021',
     contains_nh: true,
-    source_id: 'cdc_wisqars'
+    source_id: 'cdc_wisqars',
   },
-  "maternal_mortality_data-by_race_national_current": {
-    name: "Maternal Mortality, by race, nationally",
-    original_data_sourced: "2019",
-    source_id: "maternal_health",
+  'maternal_mortality_data-by_race_national_current': {
+    name: 'Maternal Mortality, by race, nationally',
+    original_data_sourced: '2019',
+    source_id: 'maternal_health',
   },
-  "maternal_mortality_data-by_race_national_historical": {
-    name: "Maternal Mortality, by race, nationally",
-    original_data_sourced: "1999 - 2019",
-    source_id: "maternal_health",
+  'maternal_mortality_data-by_race_national_historical': {
+    name: 'Maternal Mortality, by race, nationally',
+    original_data_sourced: '1999 - 2019',
+    source_id: 'maternal_health',
   },
-  "maternal_mortality_data-by_race_state_current": {
-    name: "Maternal Mortality, by race and state",
-    original_data_sourced: "2019",
-    source_id: "maternal_health",
+  'maternal_mortality_data-by_race_state_current': {
+    name: 'Maternal Mortality, by race and state',
+    original_data_sourced: '2019',
+    source_id: 'maternal_health',
   },
-  "maternal_mortality_data-by_race_state_historical": {
-    name: "Maternal Mortality, by race and state",
-    original_data_sourced: "1999 - 2019",
-    source_id: "maternal_health",
+  'maternal_mortality_data-by_race_state_historical': {
+    name: 'Maternal Mortality, by race and state',
+    original_data_sourced: '1999 - 2019',
+    source_id: 'maternal_health',
   },
-
 }

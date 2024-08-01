@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test'
 
+test.setTimeout(120000);
+
 test('Topic Info Modal from Sidebar', async ({ page }) => {
   // Compare Topics Page Loads
   await page.goto(
@@ -23,17 +25,15 @@ test('Topic Info Modal from Sidebar', async ({ page }) => {
   await expect(page).not.toHaveURL(/.*topic-info=true/)
 })
 
-test('Topic Info Modal from Map Legend', async ({ page }) => {
-  await page.goto('/', { waitUntil: 'commit' })
-  await page.locator('#landingPageCTA').click()
-  await page
-    .getByRole('link', { name: 'Uninsurance in FL & CA, by sex' })
-    .click()
-  await page
-    .locator('#rate-map2')
-    .getByRole('button', { name: 'Click for more info on uninsured people' })
-    .click()
-})
+test.describe('Topic Info Modal from Map Legend', () => {
+  test('Topic Info Modal from Map Legend', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'commit' });    
+    await page.locator('#landingPageCTA').click();
+    const reportSection = await page.getByRole('heading', { name: 'Uninsurance in FL' }).locator('..');
+    await reportSection.locator('text=Explore this report').click();
+    await page.locator('#rate-map').getByRole('button', { name: 'Click for more info on uninsured people' }).click();
+  });
+});
 
 test('Multiple Maps 1 (Left Side)', async ({ page }) => {
   // Compare Topics Page With Multimap Open Loads

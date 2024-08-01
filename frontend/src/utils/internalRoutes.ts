@@ -59,7 +59,7 @@ export const POVERTY_US_SETTING = '?mls=1.poverty-3.00';
 export const OPIOID_US_SETTING =
 	'?dt1=non_medical_drug_use&mls=1.substance-3.00';
 
-export const HIV_PREVALANCE_RACE_USA_SETTING =
+export const HIV_PREVALENCE_RACE_USA_SETTING =
 	'?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence';
 export const PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING =
 	'?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true';
@@ -78,4 +78,4 @@ export const WARM_WELCOME_DEMO_SETTING =
 export const WHAT_DATA_ARE_MISSING_ID = 'definitions-missing-data';
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
 	EXPLORE_DATA_PAGE_LINK + '#' + WHAT_DATA_ARE_MISSING_ID;
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = 'join';
+

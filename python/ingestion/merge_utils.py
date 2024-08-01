@@ -1,6 +1,6 @@
 import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
-
+from functools import reduce
 from ingestion.constants import US_FIPS, US_NAME, US_ABBR, COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL, ALL_VALUE
 from typing import Literal, List, Union, Type, Optional, Tuple, Dict
 import os
@@ -396,7 +396,7 @@ def merge_intersectional_pop(
             group = group.replace('+', 'plus')
             group = group.replace("-", '_')
             group = group.lower()
-            pop_col += f'_{group}'
+            pop_col = f'{group}_{pop_col}'
 
     pop_df = pop_df.rename(columns={std_col.POPULATION_COL: pop_col})
 
@@ -560,3 +560,19 @@ def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFr
     df = pd.concat([rest_of_pop_df, summed_pop_df], axis=0).reset_index(drop=True)
 
     return df
+
+
+def merge_dfs_list(df_list: List[pd.DataFrame], merge_cols: List[str]) -> pd.DataFrame:
+    """Merges a list of dataframes into a single dataframe.
+
+    Parameters:
+    - df_list: A list of dataframes to be merged.
+    - merge_cols: A list of columns to be used for merging.
+
+    Returns:
+    - A single dataframe containing the merged data.
+    """
+
+    merged_df = reduce(lambda left, right: pd.merge(left, right, on=merge_cols, how='outer'), df_list)
+
+    return merged_df

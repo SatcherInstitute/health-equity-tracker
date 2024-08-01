@@ -4,7 +4,7 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsBetterMapConfig,
 } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -68,7 +68,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
     definition: {
       text: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
     },
-    ageSubPopulationLabel: 'Ages 18+',
+    ageSubPopulationLabel: 'U.S. citizens, Ages 18+',
     metrics: {
       pct_rate: {
         metricId: 'voter_participation_pct_rate',
@@ -174,7 +174,6 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     otherSubPopulationLabel: 'State and Territorial Legislators',
 
     metrics: {
-
       pct_rate: {
         metricId: 'pct_share_of_state_leg',
         chartTitle: 'Percentage of state legislators identifying as women',
@@ -242,7 +241,6 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people in prison',
     metrics: {
-
       per100k: {
         metricId: 'prison_per_100k',
         chartTitle: 'Prison incarceration',
@@ -310,7 +308,6 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people in jail',
     metrics: {
-
       per100k: {
         metricId: 'jail_per_100k',
         chartTitle: 'Jail incarceration',

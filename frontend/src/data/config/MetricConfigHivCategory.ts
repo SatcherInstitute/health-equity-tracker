@@ -3,7 +3,7 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
 export const HIV_CATEGORY_DROPDOWNIDS = [
@@ -95,11 +95,9 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
       text: 'Access to quality HIV care is essential for ensuring that people living with HIV can live long and healthy lives. However, not everyone with HIV has access to quality care. Studying HIV care in regard to health equity can help us to understand why these disparities exist and how to improve access to quality care for all people living with HIV.',
     },
     dataTableTitle: 'Breakdown summary for linkage to HIV care',
-    ageSubPopulationLabel:
-      'Ages 13+',
+    ageSubPopulationLabel: 'People diagnosed with HIV, Ages 13+',
 
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total linkage to HIV care',
         metricId: 'hiv_care_pct_share',
@@ -161,11 +159,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
     dataTableTitle: 'Breakdown summary for HIV prevalence',
-    ageSubPopulationLabel:
-      'Ages 13+',
+    ageSubPopulationLabel: 'Ages 13+',
 
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total HIV prevalence',
         metricId: 'hiv_prevalence_pct_share',
@@ -223,11 +219,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
     dataTableTitle: 'Breakdown summary for HIV diagnoses',
-    ageSubPopulationLabel:
-      'Ages 13+',
+    ageSubPopulationLabel: 'Ages 13+',
 
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total HIV diagnoses',
         metricId: 'hiv_diagnoses_pct_share',
@@ -261,7 +255,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
           shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
-        }
+        },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for new HIV diagnoses',
@@ -284,11 +278,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
     dataTableTitle: 'Breakdown summary for HIV deaths',
-    ageSubPopulationLabel:
-      'Ages 13+',
+    ageSubPopulationLabel: 'Ages 13+',
 
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total HIV deaths',
         metricId: 'hiv_deaths_pct_share',
@@ -317,14 +309,13 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
           shortLabel: 'HIV deaths',
           chartTitle: '',
           type: 'count',
-        }
-        ,
+        },
         rateDenominatorMetric: {
           metricId: 'hiv_population',
           shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
-        }
+        },
       },
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity for HIV deaths',
@@ -357,10 +348,9 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
       text: 'HIV stigma often intersects with other forms of stigma and discrimination, such as racism, homophobia, and sexism. Studying HIV stigma can shed light on broader issues of social injustice and inequality.',
     },
     dataTableTitle: 'Breakdown summary for HIV stigma',
-    ageSubPopulationLabel: 'Ages 18+',
+    ageSubPopulationLabel: 'People living with HIV, Ages 18+',
 
     metrics: {
-
       index: {
         metricId: 'hiv_stigma_index',
         chartTitle: 'HIV stigma',
@@ -404,7 +394,6 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total HIV prevalence for Black (NH) women',
         metricId: 'hiv_prevalence_black_women_pct_share',
@@ -471,7 +460,6 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total new HIV diagnoses for Black (NH) women',
         metricId: 'hiv_diagnoses_black_women_pct_share',
@@ -537,7 +525,6 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total HIV deaths for Black (NH) Women',
         metricId: 'hiv_deaths_black_women_pct_share',
@@ -595,15 +582,14 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'PrEP coverage',
     fullDisplayName: 'PrEP coverage',
     definition: {
-      text: `Individuals ages 16+ prescribed PrEP medication in a particular year.`,
+      text: `Individuals ages 16+ prescribed PrEP medication in a particular year. The rate percentage is calculated as the percentage of PrEP-eligible individuals who were prescribed PrEP.`,
     },
     description: {
       text: 'HIV PrEP is a medication that can help to prevent HIV infection. PrEP is highly effective when taken as prescribed. Studying HIV PrEP in regard to health equity can help us to understand why certain populations are more likely to use PrEP and why others are less likely to use it.',
     },
     dataTableTitle: 'Breakdown summary for PrEP coverage',
-    ageSubPopulationLabel: 'Ages 16+',
+    ageSubPopulationLabel: 'PrEP-eligible population, Ages 16+',
     metrics: {
-
       pct_share: {
         chartTitle: 'Share of total PrEP prescriptions',
         metricId: 'hiv_prep_pct_share',

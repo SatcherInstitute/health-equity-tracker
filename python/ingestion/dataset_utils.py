@@ -3,6 +3,7 @@ import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import Race
+from ingestion.merge_utils import merge_dfs_list
 from ingestion.constants import (
     NATIONAL_LEVEL,
     STATE_LEVEL,
@@ -17,8 +18,8 @@ from ingestion.constants import (
     BQ_FLOAT,
     ALL_VALUE,
 )
-from functools import reduce
 import os
+from ingestion.het_types import TIME_VIEW_TYPE  # pylint: disable=no-name-in-module
 
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
@@ -81,7 +82,8 @@ def melt_to_het_style_df(
         partial_dfs.append(df)
 
     # merge all partial_dfs
-    result_df = reduce(lambda x, y: pd.merge(x, y, how="outer", on=[*keep_cols, demo_col]), partial_dfs)
+    merge_cols = [*keep_cols, demo_col]
+    result_df = merge_dfs_list(partial_dfs, merge_cols)
 
     return result_df.sort_values(by=keep_cols).reset_index(drop=True)
 
@@ -552,6 +554,87 @@ def zero_out_pct_rel_inequity(
     return df
 
 
+def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: List[str]) -> pd.DataFrame:
+    """Takes a dataframe with a 'time_period' col of string dates like 'YYYY' or 'YYYY-MM',
+    and returns a new dataframe that contains only rows with the most recent 'time_period'
+    for each topic's rate column.
+
+    Parameters:
+        df: dataframe with a 'time_period' col of string dates like 'YYYY' or 'YYYY-MM'
+        topic_prefixes: list of topic prefixes, used to identify the rate cols for determining
+            the most recent 'time_period' per topic, and also to identify all metric cols
+            for time view sorting
+
+    Returns:
+        new dataframe with only each topic's most recent rows; the time_period col is dropped
+
+    """
+
+    # collect base_cols (non-metric id columns like state_name, race_and_ethnicity, etc.)
+    base_cols = [
+        col
+        for col in df.columns
+        if not std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) and col != std_col.TIME_PERIOD_COL
+    ]
+
+    # split df based on data recency
+    recent_year_to_rate_col_map: Dict[str, List[str]] = {}
+
+    for topic_prefix in topic_prefixes:
+        topic_primary_col = get_topic_primary_col(topic_prefix, df)
+
+        most_recent_time_period = df[df[topic_primary_col].notnull()][std_col.TIME_PERIOD_COL].max()
+
+        col_list = list(df.columns[df.columns.str.startswith(topic_prefix)])
+
+        # build the mapping of string year to list of topics where that year is the most recent
+        if most_recent_time_period in recent_year_to_rate_col_map:
+            recent_year_to_rate_col_map[most_recent_time_period].extend(col_list)
+        else:
+            recent_year_to_rate_col_map[most_recent_time_period] = col_list
+
+    # iterate over the recent_year_to_rate_col_map and extract the most recent year rows data per rate_col
+    dfs_by_recent_year: List[pd.DataFrame] = []
+    for year, topic_cols in recent_year_to_rate_col_map.items():
+        keep_cols = base_cols + topic_cols
+
+        # get a subset df with the keep_cols and only the rows where time_period == year
+        df_for_year = df[df[std_col.TIME_PERIOD_COL] == year][keep_cols]
+        dfs_by_recent_year.append(df_for_year)
+
+    # merge all subset dfs
+    merged_df = merge_dfs_list(dfs_by_recent_year, base_cols)
+    return merged_df.reset_index(drop=True)
+
+
+def get_topic_primary_col(topic_prefix: str, df: pd.DataFrame) -> str:
+    """Given a topic prefix, returns the 'primary' col for that topic;
+    typically the primary col will be a rate like 'per_100k' or 'pct_rate'
+    but could also be a population like 'ahr_population_pct'. We consider these
+    columns 'primary' because they are more likely to have solid data than the
+    other suffixes like 'pct_relative_inequity' or 'pct_share'
+
+    Parameters:
+        topic_prefix: str topic prefix
+        df: dataframe
+
+    Returns:
+        the primary col for that topic
+    """
+    for primary_col_suffix in [
+        std_col.PER_100K_SUFFIX,
+        std_col.PCT_RATE_SUFFIX,
+        std_col.INDEX_SUFFIX,
+        std_col.POP_PCT_SUFFIX,
+    ]:
+        possible_primary_col = f'{topic_prefix}_{primary_col_suffix}'
+        if possible_primary_col in df.columns:
+            return possible_primary_col
+
+    raise ValueError(f'Could not find primary column (e.g. rate or pop. share) for topic prefix: {topic_prefix}')
+
+
+# TODO: Remove this in favor of preserve_most_recent_year_rows_per_topic above
 def preserve_only_current_time_period_rows(
     df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False
 ):
@@ -621,6 +704,46 @@ def combine_race_ethnicity(
     return df
 
 
+def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]) -> pd.DataFrame:
+    """Returns a dataframe with only the rows and columns that are needed for the given time view.
+
+    Parameters:
+    - df: The dataframe to process.
+    - time_view: The time view to process for. Can be 'current' or 'historical'.
+    - topic_prefixes: The list of str topic prefixes e.g. ['covid', 'diabetes', 'population_pct]
+
+    Returns:
+    - A tuple containing the processed DataFrame and a dict mapping column names needed by BigQuery
+    """
+
+    if time_view not in ['current', 'historical']:
+        raise ValueError('time_view must be either "current" or "historical"')
+
+    df = df.copy()
+
+    # remove unneeded columns
+    unwanted_suffixes = (
+        std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == 'historical' else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
+    )
+    for col in df.columns:
+        if std_col.ends_with_suffix_from_list(col, unwanted_suffixes):
+            df.drop(columns=[col], inplace=True)
+
+    # remove unneeded rows
+    if time_view == 'current':
+        df = preserve_most_recent_year_rows_per_topic(df, topic_prefixes)
+
+    # build BigQuery types dict
+    bq_col_types: Dict[str, str] = {}
+    for kept_col in df.columns:
+        bq_col_types[kept_col] = (
+            BQ_FLOAT if std_col.ends_with_suffix_from_list(kept_col, std_col.SUFFIXES) else BQ_STRING
+        )
+
+    return (df, bq_col_types)
+
+
+# TODO: Remove in favor of new function get_timeview_df_and_cols() above
 def generate_time_df_with_cols_and_types(
     df: pd.DataFrame,
     numerical_cols_to_keep: List[str],

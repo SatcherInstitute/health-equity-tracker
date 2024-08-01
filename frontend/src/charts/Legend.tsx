@@ -311,6 +311,7 @@ export function Legend(props: LegendProps) {
           legendTitle={props.legendTitle}
           dataTypeConfig={props.dataTypeConfig}
         />
+
       )}
 
       {spec && (
