@@ -20,13 +20,6 @@ TOPIC_CATEGORY_TYPE = Literal[
     'non-behavioral_health',  # TODO: delete this once AHR is split across all categories properly
     'all',
     'behavioral_health',
-    'chronic_disease',
-    'sdoh',
-    'pdoh',
-    'hiv',
-    'covid-19',
-    'community_safety',
-    'maternal_health',
 ]
 
 
