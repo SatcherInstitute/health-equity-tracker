@@ -56,6 +56,9 @@ export const FAQS_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/faqs'
 >>>>>>> 89b1e5a2 (creates internal routes)
 >>>>>>> 528a001f (creates internal routes)
 
+// CONTEXT TABS
+export const POLICY_PAGE_LINK = '/policy';
+
 // NEW METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology'
 
