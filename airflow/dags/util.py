@@ -9,7 +9,6 @@ from airflow import DAG  # pylint: disable=no-name-in-module
 from airflow.models import Variable  # pylint: disable=no-name-in-module
 from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
 from google.cloud import bigquery
-from ingestion.het_types import TOPIC_CATEGORY_TYPE
 from sanity_check import check_pct_values
 
 
@@ -58,7 +57,7 @@ def generate_bq_payload(
     url: str = None,
     demographic: str = None,
     geographic: str = None,
-    category: TOPIC_CATEGORY_TYPE = None,
+    category: str = None,
     year: str = None,
 ) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
