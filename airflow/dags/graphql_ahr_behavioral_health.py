@@ -10,10 +10,10 @@ default_args = {
 }
 
 data_ingestion_dag = DAG(
-    'graphql_ahr_ingestion_dag',
+    'graphql_ahr_behavioral_health_ingestion_dag',
     default_args=default_args,
     schedule_interval=None,
-    description='Ingestion configuration for GRAPHQL AHR',
+    description='Ingestion configuration for all behavioral health topics fromGRAPHQL AHR',
 )
 
 # AGE NATIONAL
