@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+<<<<<<< HEAD
 import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, HOW_TO_USE_THE_DATA_TAB, POLICY_PAGE_LINK, REFORM_OPPORTUNITIES_TAB } from "../../../utils/internalRoutes";
 import PolicyPage from "../policyComponents/PolicyPage";
 import CrisisOverviewTab from "../policySections/CrisisOverviewTab";
@@ -8,6 +9,10 @@ import CurrentEffortsTab from "../policySections/CurrentEffortsTab";
 import ReformOpportunitiesTab from "../policySections/ReformOpportunitiesTab";
 import HowToUseTheDataTab from "../policySections/HowToUseTheDataTab";
 import FaqsTab from "../policySections/FaqsTab";
+=======
+import { POLICY_PAGE_LINK } from "../../../utils/internalRoutes";
+import PolicyPage from "../policyComponents/PolicyPage";
+>>>>>>> 153d99c9 (adds policy context section (#3503))
 
 export type RouteConfig = {
 	isTopLevel?: boolean;
@@ -25,6 +30,7 @@ export const routeConfigs: RouteConfig[] = [
 		component: PolicyPage,
 		subLinks: [],
 	},
+<<<<<<< HEAD
 	{
 		isTopLevel: true,
 		label: 'Crisis Overview',
@@ -192,4 +198,6 @@ export const routeConfigs: RouteConfig[] = [
 		component: FaqsTab,
 		subLinks: [],
 	},
+=======
+>>>>>>> 153d99c9 (adds policy context section (#3503))
 ];
