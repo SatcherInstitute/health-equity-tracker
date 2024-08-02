@@ -11,6 +11,7 @@ export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const OLD_CONTACT_LINK = '/contact'
 export const OLD_OURTEAM_LINK = '/ourteam'
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
+<<<<<<< HEAD
 
 // CONTEXT TABS
 export const POLICY_PAGE_LINK = '/policy'
@@ -25,6 +26,35 @@ export const FAQS_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/faqs'
 
 // CONTEXT TABS
 export const POLICY_PAGE_LINK = '/policy';
+=======
+
+// CONTEXT TABS
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+export const POLICY_PAGE_LINK = '/policy';
+=======
+export const OVERVIEW_LINK = '/overview';
+>>>>>>> bedbd8d6 (adds context section vertical tabs)
+=======
+export const OVERVIEW_TAB = '/overview';
+>>>>>>> d669dcbd (includes new unreleased equity tab files, adds routeconfigs file for tab nav, updates internal routes, updates ckd playwright test)
+=======
+export const POLICY_PAGE_LINK = '/policy';
+>>>>>>> 6824d0b4 (scaffolds policy dirs)
+=======
+export const POLICY_PAGE_LINK = '/policy'
+export const GUN_VIOLENCE_CONTEXT_LINK = '/gun-violence'
+export const CRISIS_OVERVIEW_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/crisis-overview'
+export const DATA_COLLECTION_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/data-collection'
+export const ADDRESSING_INEQUITIES_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/addressing-inequities'
+export const CURRENT_EFFORTS_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/current-efforts'
+export const REFORM_OPPORTUNITIES_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/reform-opportunities'
+export const HOW_TO_USE_THE_DATA_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/how-to-use-the-data'
+export const FAQS_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/faqs'
+>>>>>>> 89b1e5a2 (creates internal routes)
+>>>>>>> 528a001f (creates internal routes)
 
 // NEW METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology'
