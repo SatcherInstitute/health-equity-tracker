@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { POLICY_PAGE_LINK } from "../../../utils/internalRoutes";
+import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, HOW_TO_USE_THE_DATA_TAB, POLICY_PAGE_LINK, REFORM_OPPORTUNITIES_TAB } from "../../../utils/internalRoutes";
 import PolicyPage from "../policyComponents/PolicyPage";
 
 export type RouteConfig = {
@@ -21,7 +21,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Crisis Overview',
-		path: ,
+		path: CRISIS_OVERVIEW_TAB,
 		component: ,
 		subLinks: [
 			{
@@ -37,7 +37,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Data Collection',
-		path: ,
+		path: DATA_COLLECTION_TAB,
 		component: ,
 		subLinks: [
 			{
@@ -65,7 +65,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Addressing Inequities',
-		path: ,
+		path: ADDRESSING_INEQUITIES_TAB,
 		component: ,
 		subLinks: [
 			{
@@ -109,7 +109,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Current Efforts',
-		path: ,
+		path: CURRENT_EFFORTS_TAB,
 		component: ,
 		subLinks: [
 			{
@@ -125,7 +125,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'Reform Opportunities',
-		path: ,
+		path: REFORM_OPPORTUNITIES_TAB,
 		component: ,
 		subLinks: [
 			{
@@ -141,7 +141,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'How to Use the Data',
-		path: ,
+		path: HOW_TO_USE_THE_DATA_TAB,
 		component: ,
 		subLinks: [
 			{
@@ -181,7 +181,7 @@ export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
 		label: 'FAQs',
-		path: ,
+		path: FAQS_TAB,
 		component: ,
 		subLinks: [],
 	},
