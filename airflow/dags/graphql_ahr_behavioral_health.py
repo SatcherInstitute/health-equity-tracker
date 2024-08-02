@@ -18,7 +18,11 @@ data_ingestion_dag = DAG(
 
 # AGE NATIONAL
 graphql_ahr_bq_payload_age_national = util.generate_bq_payload(
-    _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='age', geographic='national'
+    _GRAPHQL_AHR_WORKFLOW_ID,
+    _GRAPHQL_AHR_DATASET_NAME,
+    category='behavioral_health',
+    demographic='age',
+    geographic='national',
 )
 graphql_ahr_bq_operator_age_national = util.create_bq_ingest_operator(
     'graphql_ahr_to_bq_age_national', graphql_ahr_bq_payload_age_national, data_ingestion_dag
@@ -26,7 +30,11 @@ graphql_ahr_bq_operator_age_national = util.create_bq_ingest_operator(
 
 # AGE STATE
 graphql_ahr_bq_payload_age_state = util.generate_bq_payload(
-    _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='age', geographic='state'
+    _GRAPHQL_AHR_WORKFLOW_ID,
+    _GRAPHQL_AHR_DATASET_NAME,
+    category='behavioral_health',
+    demographic='age',
+    geographic='state',
 )
 graphql_ahr_bq_operator_age_state = util.create_bq_ingest_operator(
     'graphql_ahr_to_bq_age_state', graphql_ahr_bq_payload_age_state, data_ingestion_dag
@@ -34,15 +42,24 @@ graphql_ahr_bq_operator_age_state = util.create_bq_ingest_operator(
 
 # RACE NATIONAL
 graphql_ahr_bq_payload_race_national = util.generate_bq_payload(
-    _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='race_and_ethnicity', geographic='national'
+    _GRAPHQL_AHR_WORKFLOW_ID,
+    _GRAPHQL_AHR_DATASET_NAME,
+    category='behavioral_health',
+    demographic='race_and_ethnicity',
+    geographic='national',
 )
 graphql_ahr_bq_operator_race_national = util.create_bq_ingest_operator(
     'graphql_ahr_to_bq_race_national', graphql_ahr_bq_payload_race_national, data_ingestion_dag
 )
 
+
 # RACE STATE
 graphql_ahr_bq_payload_race_state = util.generate_bq_payload(
-    _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='race_and_ethnicity', geographic='state'
+    _GRAPHQL_AHR_WORKFLOW_ID,
+    _GRAPHQL_AHR_DATASET_NAME,
+    category='behavioral_health',
+    demographic='race_and_ethnicity',
+    geographic='state',
 )
 graphql_ahr_bq_operator_race_state = util.create_bq_ingest_operator(
     'graphql_ahr_to_bq_race_state', graphql_ahr_bq_payload_race_state, data_ingestion_dag
@@ -50,7 +67,11 @@ graphql_ahr_bq_operator_race_state = util.create_bq_ingest_operator(
 
 # SEX NATIONAL
 graphql_ahr_bq_payload_sex_national = util.generate_bq_payload(
-    _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='sex', geographic='national'
+    _GRAPHQL_AHR_WORKFLOW_ID,
+    _GRAPHQL_AHR_DATASET_NAME,
+    category='behavioral_health',
+    demographic='sex',
+    geographic='national',
 )
 graphql_ahr_bq_operator_sex_national = util.create_bq_ingest_operator(
     'graphql_ahr_to_bq_sex_national', graphql_ahr_bq_payload_sex_national, data_ingestion_dag
@@ -58,7 +79,11 @@ graphql_ahr_bq_operator_sex_national = util.create_bq_ingest_operator(
 
 # SEX STATE
 graphql_ahr_bq_payload_sex_state = util.generate_bq_payload(
-    _GRAPHQL_AHR_WORKFLOW_ID, _GRAPHQL_AHR_DATASET_NAME, demographic='sex', geographic='state'
+    _GRAPHQL_AHR_WORKFLOW_ID,
+    _GRAPHQL_AHR_DATASET_NAME,
+    category='behavioral_health',
+    demographic='sex',
+    geographic='state',
 )
 graphql_ahr_bq_operator_sex_state = util.create_bq_ingest_operator(
     'graphql_ahr_to_bq_sex_state', graphql_ahr_bq_payload_sex_state, data_ingestion_dag

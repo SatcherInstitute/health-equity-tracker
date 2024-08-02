@@ -17,7 +17,13 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
 )  # type: ignore
-from ingestion.het_types import DEMOGRAPHIC_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE
+from ingestion.het_types import (
+    DEMOGRAPHIC_TYPE,
+    GEO_TYPE,
+    SEX_RACE_AGE_TYPE,
+    SEX_RACE_ETH_AGE_TYPE,
+    TOPIC_CATEGORY_TYPE,
+)
 
 # pylint: disable=no-name-in-module
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
@@ -98,7 +104,9 @@ class GraphQlAHRData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
-        response_data = fetch_ahr_data_from_graphql(demographic, geo_level)
+        category: TOPIC_CATEGORY_TYPE = self.get_attr(attrs, "category")
+
+        response_data = fetch_ahr_data_from_graphql(demographic, geo_level, category)
         df = graphql_response_to_dataframe(response_data)
         df = self.generate_breakdown_df(demographic, geo_level, df)
 

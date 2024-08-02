@@ -16,6 +16,17 @@ PHRMA_BREAKDOWN_TYPE = Literal['age', 'sex', 'race_and_ethnicity', 'lis', 'eligi
 PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal['age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'all']
 HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
 TIME_VIEW_TYPE = Literal['historical', 'current']
+TOPIC_CATEGORY_TYPE = Literal[
+    'non-behavioral_health',  # TODO: delete this once AHR is split across all categories properly
+    'behavioral_health',
+    'chronic_disease',
+    'sdoh',
+    'pdoh',
+    'hiv',
+    'covid-19',
+    'community_safety',
+    'maternal_health',
+]
 
 
 class RATE_CALC_COLS_TYPE(TypedDict):
