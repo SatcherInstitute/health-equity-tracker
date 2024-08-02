@@ -20,34 +20,17 @@
 			"measure": "Chronic Obstructive Pulmonary Disease",
 			"ids": ["16657"]
 		},
-		{
-			"measure": "Depression",
-			"ids": ["16512"]
-		},
+
 		{
 			"measure": "Diabetes",
 			"ids": ["115", "176"]
 		},
-		{
-			"measure": "Excessive Drinking",
-			"ids": ["772"]
-		},
-		{
-			"measure": "Frequent Mental Distress",
-			"ids": ["2858"]
-		},
-		{
-			"measure": "Non-Medical Drug Use - Past Year",
-			"ids": ["16161"]
-		},
+
 		{
 			"measure": "Preventable Hospitalizations",
 			"ids": ["150", "16440", "18328"]
 		},
-		{
-			"measure": "Suicide",
-			"ids": ["194"]
-		},
+
 		{
 			"measure": "Voter Participation (Presidential)",
 			"ids": ["17542"]
@@ -94,14 +77,7 @@
 				"Ages 45-64": ["16661"]
 			}
 		},
-		{
-			"measure": "Depression",
-			"demographics": {
-				"Age 65+": ["237", "16517"],
-				"Ages 18-44": ["16515"],
-				"Ages 45-64": ["16516"]
-			}
-		},
+
 		{
 			"measure": "Diabetes",
 			"demographics": {
@@ -110,42 +86,14 @@
 				"Ages 45-64": ["407"]
 			}
 		},
-		{
-			"measure": "Excessive Drinking",
-			"demographics": {
-				"Age 65+": ["778", "1483"],
-				"Ages 18-44": ["776"],
-				"Ages 45-64": ["777"]
-			}
-		},
-		{
-			"measure": "Frequent Mental Distress",
-			"demographics": {
-				"Age 65+": ["1503", "2863"],
-				"Ages 18-44": ["2861"],
-				"Ages 45-64": ["2862"]
-			}
-		},
+
 		{
 			"measure": "Preventable Hospitalizations",
 			"demographics": {
 				"Ages 65-74": ["16541", "17944"]
 			}
 		},
-		{
-			"measure": "Suicide",
-			"demographics": {
-				"Age 65+": ["16777", "17687"],
-				"Age 85+": ["15966", "16789"],
-				"Ages 15-24": ["15959"],
-				"Ages 25-34": ["15960"],
-				"Ages 35-44": ["15961"],
-				"Ages 45-54": ["15962"],
-				"Ages 55-64": ["15963"],
-				"Ages 65-74": ["15964", "16787"],
-				"Ages 75-84": ["15965", "16788"]
-			}
-		},
+
 		{
 			"measure": "Voter Participation (Presidential)",
 			"demographics": {
@@ -223,19 +171,7 @@
 				"White": ["16663", "20035"]
 			}
 		},
-		{
-			"measure": "Depression",
-			"demographics": {
-				"American Indian/Alaska Native": ["16523", "20007"],
-				"Asian": ["16521", "20005"],
-				"Black": ["16519", "20003"],
-				"Hawaiian/Pacific Islander": ["16522", "20006"],
-				"Hispanic": ["16520", "20004"],
-				"Multiracial": ["16524", "20008"],
-				"Other Race": ["16525"],
-				"White": ["16518", "20002"]
-			}
-		},
+
 		{
 			"measure": "Diabetes",
 			"demographics": {
@@ -249,44 +185,7 @@
 				"White": ["409", "431", "19742"]
 			}
 		},
-		{
-			"measure": "Excessive Drinking",
-			"demographics": {
-				"American Indian/Alaska Native": ["779", "19803"],
-				"Asian": ["780", "19804"],
-				"Black": ["781", "19805"],
-				"Hawaiian/Pacific Islander": ["784", "19806"],
-				"Hispanic": ["786", "19807"],
-				"Multiracial": ["3758", "19926"],
-				"Other Race": ["3779"],
-				"White": ["794", "19808"]
-			}
-		},
-		{
-			"measure": "Frequent Mental Distress",
-			"demographics": {
-				"American Indian/Alaska Native": ["19905", "2868"],
-				"Asian": ["19906", "2866"],
-				"Black": ["19907", "2865"],
-				"Hawaiian/Pacific Islander": ["19908", "2867"],
-				"Hispanic": ["19909", "2869"],
-				"Multiracial": ["19928", "3768"],
-				"Other Race": ["3789"],
-				"White": ["19910", "2864"]
-			}
-		},
-		{
-			"measure": "Non-Medical Drug Use",
-			"demographics": {
-				"American Indian/Alaska Native": ["16194"],
-				"Asian": ["16192"],
-				"Black": ["16190"],
-				"Hawaiian/Pacific Islander": ["16193"],
-				"Hispanic": ["16191"],
-				"Other Race": ["16195"],
-				"White": ["16189"]
-			}
-		},
+
 		{
 			"measure": "Preventable Hospitalizations",
 			"demographics": {
@@ -298,18 +197,7 @@
 				"White": ["16444", "18322"]
 			}
 		},
-		{
-			"measure": "Suicide",
-			"demographics": {
-				"American Indian/Alaska Native": ["1277", "18284"],
-				"Asian": ["18285"],
-				"Black": ["1274", "18286"],
-				"Hawaiian/Pacific Islander": ["18290"],
-				"Hispanic": ["1271", "18287"],
-				"Multiracial": ["18289"],
-				"White": ["1275", "18288"]
-			}
-		},
+
 		{
 			"measure": "Voter Participation (Presidential)",
 			"demographics": {
@@ -356,13 +244,7 @@
 				"Male": ["16658"]
 			}
 		},
-		{
-			"measure": "Depression",
-			"demographics": {
-				"Female": ["16514"],
-				"Male": ["16513"]
-			}
-		},
+
 		{
 			"measure": "Diabetes",
 			"demographics": {
@@ -370,39 +252,12 @@
 				"Male": ["404", "426"]
 			}
 		},
-		{
-			"measure": "Excessive Drinking",
-			"demographics": {
-				"Female": ["783"],
-				"Male": ["789"]
-			}
-		},
-		{
-			"measure": "Frequent Mental Distress",
-			"demographics": {
-				"Female": ["2860"],
-				"Male": ["2859"]
-			}
-		},
-		{
-			"measure": "Non-Medical Drug Use",
-			"demographics": {
-				"Female": ["16188"],
-				"Male": ["16187"]
-			}
-		},
+
 		{
 			"measure": "Preventable Hospitalizations",
 			"demographics": {
 				"Female": ["16450", "18321"],
 				"Male": ["16441", "18320"]
-			}
-		},
-		{
-			"measure": "Suicide",
-			"demographics": {
-				"Female": ["1273"],
-				"Male": ["1272"]
 			}
 		},
 		{
