@@ -1,6 +1,13 @@
 import { ReactNode } from "react";
 import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, HOW_TO_USE_THE_DATA_TAB, POLICY_PAGE_LINK, REFORM_OPPORTUNITIES_TAB } from "../../../utils/internalRoutes";
 import PolicyPage from "../policyComponents/PolicyPage";
+import CrisisOverviewTab from "../policySections/CrisisOverviewTab";
+import DataCollectionTab from "../policySections/DataCollectionTab";
+import AddressingInequitiesTab from "../policySections/AddressingInequitiesTab";
+import CurrentEffortsTab from "../policySections/CurrentEffortsTab";
+import ReformOpportunitiesTab from "../policySections/ReformOpportunitiesTab";
+import HowToUseTheDataTab from "../policySections/HowToUseTheDataTab";
+import FaqsTab from "../policySections/FaqsTab";
 
 export type RouteConfig = {
 	isTopLevel?: boolean;
@@ -22,7 +29,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'Crisis Overview',
 		path: CRISIS_OVERVIEW_TAB,
-		component: ,
+		component: CrisisOverviewTab,
 		subLinks: [
 			{
 				label: 'Understanding the Crisis of Gun Violence in Atlanta',
@@ -38,7 +45,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'Data Collection',
 		path: DATA_COLLECTION_TAB,
-		component: ,
+		component: DataCollectionTab,
 		subLinks: [
 			{
 				label: `CDC's WISQARS™`,
@@ -66,7 +73,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'Addressing Inequities',
 		path: ADDRESSING_INEQUITIES_TAB,
-		component: ,
+		component: AddressingInequitiesTab,
 		subLinks: [
 			{
 				label: 'Health Inequities Defined',
@@ -110,7 +117,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'Current Efforts',
 		path: CURRENT_EFFORTS_TAB,
-		component: ,
+		component: CurrentEffortsTab,
 		subLinks: [
 			{
 				label: 'Intervention Efforts at the City Level',
@@ -126,7 +133,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'Reform Opportunities',
 		path: REFORM_OPPORTUNITIES_TAB,
-		component: ,
+		component: ReformOpportunitiesTab,
 		subLinks: [
 			{
 				label: 'Reform Opportunities at the County and City Levels',
@@ -142,7 +149,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'How to Use the Data',
 		path: HOW_TO_USE_THE_DATA_TAB,
-		component: ,
+		component: HowToUseTheDataTab,
 		subLinks: [
 			{
 				label: 'HET Data Visualization Maps and Charts',
@@ -182,7 +189,7 @@ export const routeConfigs: RouteConfig[] = [
 		isTopLevel: true,
 		label: 'FAQs',
 		path: FAQS_TAB,
-		component: ,
+		component: FaqsTab,
 		subLinks: [],
 	},
 ];
