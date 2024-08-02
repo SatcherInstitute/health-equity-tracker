@@ -75,6 +75,7 @@ def get_measure_ids(demographic: str, category: TOPIC_CATEGORY_TYPE, data=None):
 
     Args:
     demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
+    category (str): The category topics to fetch. Use 'all' to not filter by category
     data (dict, optional): The dataset to use for fetching the measure IDs.
     If not provided, the function will load the data from the JSON file.
 

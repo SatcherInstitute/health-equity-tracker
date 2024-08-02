@@ -18,6 +18,7 @@ HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_
 TIME_VIEW_TYPE = Literal['historical', 'current']
 TOPIC_CATEGORY_TYPE = Literal[
     'non-behavioral_health',  # TODO: delete this once AHR is split across all categories properly
+    'all',
     'behavioral_health',
     'chronic_disease',
     'sdoh',
