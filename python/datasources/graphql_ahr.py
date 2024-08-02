@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import Literal, List
+from typing import Literal, List, cast
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
@@ -163,11 +163,12 @@ class GraphQlAHRData(DataSource):
             breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
             breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
 
-        pop_breakdown: SEX_RACE_AGE_TYPE = (
-            std_col.RACE_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+        pop_breakdown = cast(
+            SEX_RACE_AGE_TYPE, std_col.RACE_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
         )
-        share_demo: SEX_RACE_ETH_AGE_TYPE = (
-            std_col.RACE_OR_HISPANIC_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+        share_demo = cast(
+            SEX_RACE_ETH_AGE_TYPE,
+            std_col.RACE_OR_HISPANIC_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic,
         )
 
         breakdown_df = merge_state_ids(breakdown_df)
