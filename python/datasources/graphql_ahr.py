@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import cast, Literal, List
+from typing import Literal, List
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
@@ -112,7 +112,11 @@ class GraphQlAHRData(DataSource):
 
         for time_view in [CURRENT]:
             table_name = f"{category}_{demographic}_{geo_level}_{time_view}"
-            topic_prefixes = [std_col.extract_prefix(rate_col) for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()]
+            topic_prefixes = [
+                std_col.extract_prefix(rate_col)
+                for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()
+                if rate_col in df.columns
+            ]
             topic_prefixes.append('ahr')
             df = df[df[std_col.TIME_PERIOD_COL].astype(int) <= LAST_COMPLETE_DATA_YEAR]
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
@@ -159,24 +163,37 @@ class GraphQlAHRData(DataSource):
             breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
             breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
 
-        pop_breakdown = std_col.RACE_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
-        share_demo = std_col.RACE_OR_HISPANIC_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+        pop_breakdown: SEX_RACE_AGE_TYPE = (
+            std_col.RACE_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+        )
+        share_demo: SEX_RACE_ETH_AGE_TYPE = (
+            std_col.RACE_OR_HISPANIC_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+        )
 
         breakdown_df = merge_state_ids(breakdown_df)
 
         # merge general population by primary demographic
-        breakdown_df = merge_yearly_pop_numbers(breakdown_df, cast(SEX_RACE_AGE_TYPE, pop_breakdown), geo_level)
+        breakdown_df = merge_yearly_pop_numbers(breakdown_df, pop_breakdown, geo_level)
 
         # all ages counts
-        breakdown_df = generate_estimated_total_col(breakdown_df, std_col.POPULATION_COL, RATE_TO_RAW_ALL_AGES_MAP)
+        rate_to_raw_map_all_ages = {
+            rate_col: raw_col
+            for rate_col, raw_col in RATE_TO_RAW_ALL_AGES_MAP.items()
+            if rate_col in breakdown_df.columns
+        }
+
+        breakdown_df = generate_estimated_total_col(breakdown_df, std_col.POPULATION_COL, rate_to_raw_map_all_ages)
 
         if demographic in [std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL]:
             std_col.add_race_columns_from_category_id(breakdown_df)
 
         # all ages share cols
-        breakdown_df = generate_pct_share_col_of_summed_alls(
-            breakdown_df, RAW_TO_SHARE_ALL_AGES_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
-        )
+        raw_to_share_all_ages_map = {
+            raw_col: share_col
+            for raw_col, share_col in RAW_TO_SHARE_ALL_AGES_MAP.items()
+            if raw_col in breakdown_df.columns
+        }
+        breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_all_ages_map, share_demo)
 
         # merge another col with 18+ population if by race or by sex
         if demographic != std_col.AGE_COL:
@@ -185,11 +202,17 @@ class GraphQlAHRData(DataSource):
                 breakdown_df, geo_level, demographic, age_specific_group='18+'
             )
 
+            rate_to_raw_18plus_map = {
+                rate_col: raw_col
+                for rate_col, raw_col in RATE_TO_RAW_18PLUS_MAP.items()
+                if rate_col in breakdown_df.columns
+            }
+
             breakdown_df = generate_estimated_total_col(
                 breakdown_df,
                 pop_18plus_col,
                 # topics that are 18+ only
-                RATE_TO_RAW_18PLUS_MAP,
+                rate_to_raw_18plus_map,
             )
 
             # all columns need to be provider-specific for the frontend
@@ -204,9 +227,12 @@ class GraphQlAHRData(DataSource):
             self.intersectional_pop_cols.append(ahr_pop18plus_col)
 
             # share cols for 18+
-            breakdown_df = generate_pct_share_col_of_summed_alls(
-                breakdown_df, RAW_TO_SHARE_18PLUS_MAP, cast(SEX_RACE_ETH_AGE_TYPE, share_demo)
-            )
+            raw_to_share_18plus_map = {
+                raw_col: share_col
+                for raw_col, share_col in RAW_TO_SHARE_18PLUS_MAP.items()
+                if raw_col in breakdown_df.columns
+            }
+            breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_18plus_map, share_demo)
 
         # need unique pop col names per provider
         breakdown_df = breakdown_df.rename(

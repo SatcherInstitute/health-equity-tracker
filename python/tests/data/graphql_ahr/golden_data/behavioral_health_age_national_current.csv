@@ -1,0 +1,14 @@
+age,state_fips,state_name,asthma_per_100k,avoided_care_pct_rate,cardiovascular_diseases_per_100k,chronic_kidney_disease_per_100k,copd_per_100k,depression_per_100k,diabetes_per_100k,excessive_drinking_per_100k,frequent_mental_distress_per_100k,non_medical_drug_use_per_100k,preventable_hospitalizations_per_100k,suicide_per_100k,suicide_estimated_total,suicide_pct_share,ahr_population_estimated_total,ahr_population_pct,voter_participation_pct_rate
+15-24,00,United States,,,,,,,,,,,,,,,,,
+18-24,00,United States,,,,,,,,,,,,,,,,,51.4
+18-44,00,United States,9800.0,15.2,2300.0,1300.0,2800.0,23700.0,3600.0,24400.0,20100.0,,,,,,120601782.0,36.1,
+24-34,00,United States,,,,,,,,,,,,,,,,,60.3
+35-44,00,United States,,,,,,,,,,,,,,,,,65.1
+45-54,00,United States,,,,,,,,,,,,,,,,,
+45-64,00,United States,10600.0,10.6,9900.0,3800.0,7900.0,20000.0,15700.0,16500.0,14100.0,,,,,,84527730.0,25.3,71.0
+55-64,00,United States,,,,,,,,,,,,,,,,,
+65+,00,United States,9200.0,3.7,22400.0,8300.0,13100.0,15500.0,23900.0,7700.0,9400.0,,,17.3,9595.0,50.0,55460582.0,16.6,74.5
+65-74,00,United States,,,,,,,,,,,1452.0,15.3,4994.0,26.0,32641489.0,9.8,
+75-84,00,United States,,,,,,,,,,,,19.4,3146.0,16.4,16215371.0,4.8,
+85+,00,United States,,,,,,,,,,,,22.1,1459.0,7.6,6603722.0,2.0,
+All,00,United States,10400.0,10.1,9100.0,3500.0,6800.0,21700.0,11500.0,18400.0,15900.0,15.5,,,19194.0,100.0,334369975.0,100.0,66.8
