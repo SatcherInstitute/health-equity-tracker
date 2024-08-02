@@ -24,6 +24,7 @@ import rich_click as click
 from composer_local_dev import console, constants
 from composer_local_dev import environment as composer_environment
 from composer_local_dev import errors, files, utils, version
+import subprocess
 
 LOG = logging.getLogger(__name__)
 
@@ -326,6 +327,16 @@ def start(
         env_path, web_server_port
     )
     console.get_console().print(f"Starting {env.name} composer environment...")
+
+    subprocess.run(
+        [
+            "bash",
+            "composer_local_dev/docker_files/update-environment-variables.sh",
+            "start",
+        ],
+        check=True,
+    )
+
     env.start()
 
 
@@ -343,6 +354,16 @@ def stop(environment: Optional[str], verbose: bool, debug: bool):
     utils.setup_logging(verbose, debug)
     env_path = files.resolve_environment_path(environment)
     env = composer_environment.Environment.load_from_config(env_path, None)
+
+    subprocess.run(
+        [
+            "bash",
+            "composer_local_dev/docker_files/update-environment-variables.sh",
+            "stop",
+        ],
+        check=True,
+    )
+
     env.stop()
     console.get_console().print("Stopped composer local environment.")
 
@@ -370,6 +391,16 @@ def restart(
     env = composer_environment.Environment.load_from_config(
         env_path, web_server_port
     )
+
+    subprocess.run(
+        [
+            "bash",
+            "composer_local_dev/docker_files/update-environment-variables.sh",
+            "restart",
+        ],
+        check=True,
+    )
+
     env.restart()
 
 
