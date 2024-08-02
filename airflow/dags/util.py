@@ -109,7 +109,7 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
     return create_request_operator(task_id, Variable.get('EXPORTER_SERVICE_ENDPOINT'), payload, dag)
 
 
-def service_request(url: str, data: dict, **kwargs):
+def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-argument
     receiving_service_headers = {}
     if os.getenv('ENV') != 'dev':
         # Set up metadata server request
@@ -120,14 +120,14 @@ def service_request(url: str, data: dict, **kwargs):
         token_request_headers = {'Metadata-Flavor': 'Google'}
 
         # Fetch the token for the default compute service account
-        token_response = requests.get(token_request_url, headers=token_request_headers)
+        token_response = requests.get(token_request_url, headers=token_request_headers, timeout=100)
         jwt = token_response.content.decode("utf-8")
 
         # Provide the token in the request to the receiving service
         receiving_service_headers = {'Authorization': f'bearer {jwt}'}
 
     try:
-        resp = requests.post(url, json=data, headers=receiving_service_headers)
+        resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=100)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
         # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
@@ -155,8 +155,7 @@ def sanity_check_request(dataset_id: str):
     if len(failing_tables) > 0:
         raise RuntimeError(f'These percent share values do not equal 100% {failing_tables}')
 
-    else:
-        print('All checks have passed. No errors detected.')
+    print('All checks have passed. No errors detected.')
 
 
 def create_request_operator(
