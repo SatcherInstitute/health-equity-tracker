@@ -111,10 +111,10 @@ class GraphQlAHRData(DataSource):
         df = self.generate_breakdown_df(demographic, geo_level, df)
 
         for time_view in [CURRENT]:
-            table_name = f"{demographic}_{geo_level}_{time_view}"
+            table_name = f"{category}_{demographic}_{geo_level}_{time_view}"
             topic_prefixes = [std_col.extract_prefix(rate_col) for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()]
             topic_prefixes.append('ahr')
-            df = df[df['time_period'].astype(int) <= LAST_COMPLETE_DATA_YEAR]
+            df = df[df[std_col.TIME_PERIOD_COL].astype(int) <= LAST_COMPLETE_DATA_YEAR]
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
 
             first_two_columns = df_for_bq.columns[:2].tolist()

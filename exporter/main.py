@@ -23,6 +23,10 @@ def export_dataset_tables():
     if data.get('demographic') is not None:
         demographic = data.get('demographic')
 
+    category = None
+    if data.get('category') is not None:
+        category = data.get('category')
+
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
@@ -41,6 +45,13 @@ def export_dataset_tables():
         tables = [
             table for table in tables if (not has_multi_demographics(table.table_id) and demographic in table.table_id)
         ]
+
+    # filter out non-category tables if category arg is present
+    if category is not None:
+        tables = [table for table in tables if category in table.table_id]
+
+    if not tables:
+        return (f'Dataset has no tables with "{demographic}" and "{category}" in the table_id.', 500)
 
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.

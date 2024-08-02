@@ -90,20 +90,21 @@ graphql_ahr_bq_operator_sex_state = util.create_bq_ingest_operator(
 )
 
 # EXPORTERS
-payload_age = {'dataset_name': _GRAPHQL_AHR_DATASET_NAME, 'demographic': "age"}
+payload_age = {'dataset_name': _GRAPHQL_AHR_DATASET_NAME, 'category': 'behavioral_health', 'demographic': "age"}
 graphql_ahr_exporter_operator_age = util.create_exporter_operator(
     'graphql_ahr_exporter_age', payload_age, data_ingestion_dag
 )
 
 payload_race = {
     'dataset_name': _GRAPHQL_AHR_DATASET_NAME,
+    'category': 'behavioral_health',
     'demographic': "race_and_ethnicity",
 }
 graphql_ahr_exporter_operator_race = util.create_exporter_operator(
     'graphql_ahr_exporter_race', payload_race, data_ingestion_dag
 )
 
-payload_sex = {'dataset_name': _GRAPHQL_AHR_DATASET_NAME, 'demographic': "sex"}
+payload_sex = {'dataset_name': _GRAPHQL_AHR_DATASET_NAME, 'category': 'behavioral_health', 'demographic': "sex"}
 graphql_ahr_exporter_operator_sex = util.create_exporter_operator(
     'graphql_ahr_exporter_sex', payload_sex, data_ingestion_dag
 )
