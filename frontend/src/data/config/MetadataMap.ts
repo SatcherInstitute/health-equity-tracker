@@ -1,6 +1,6 @@
-import { type DataSourceMetadata } from '../utils/DatasetTypes'
+import type { DataSourceMetadata } from '../utils/DatasetTypes'
 import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
-import { DatasetId } from './DatasetMetadata'
+import type { DatasetId } from './DatasetMetadata'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
 
@@ -278,12 +278,18 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).',
     dataset_ids: [
-      'graphql_ahr_data-age_national_current',
-      'graphql_ahr_data-race_and_ethnicity_national_current',
-      'graphql_ahr_data-sex_national_current',
-      'graphql_ahr_data-age_state_current',
-      'graphql_ahr_data-race_and_ethnicity_state_current',
-      'graphql_ahr_data-sex_state_current',
+      'graphql_ahr_data-behavioral_health_age_national_current',
+      'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current',
+      'graphql_ahr_data-behavioral_health_sex_national_current',
+      'graphql_ahr_data-behavioral_health_age_state_current',
+      'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current',
+      'graphql_ahr_data-behavioral_health_sex_state_current',
+      'graphql_ahr_data-non-behavioral_health_age_national_current',
+      'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current',
+      'graphql_ahr_data-non-behavioral_health_sex_national_current',
+      'graphql_ahr_data-non-behavioral_health_age_state_current',
+      'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current',
+      'graphql_ahr_data-non-behavioral_health_sex_state_current',
     ],
     downloadable: true,
     time_period_range: null,
@@ -354,7 +360,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
 
   chr: {
     id: 'chr',
-    data_source_name: "County Health Rankings (CHR)",
+    data_source_name: 'County Health Rankings (CHR)',
     data_source_acronym: 'CHR',
     data_source_pretty_site_name: 'countyhealthrankings.org',
     data_source_link:
@@ -364,9 +370,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     update_frequency: 'Annual',
     description:
       'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), and other determinants of health (preventable hospitalizations).',
-    dataset_ids: [
-      'chr_data-race_and_ethnicity_county_current',
-    ],
+    dataset_ids: ['chr_data-race_and_ethnicity_county_current'],
     downloadable: true,
     time_period_range: null,
   },
@@ -389,8 +393,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     id: 'geo_context',
     data_source_name: 'CDC SVI Rankings',
     data_source_acronym: 'CDC',
-    data_source_pretty_site_name:
-      'atsdr.cdc.gov',
+    data_source_pretty_site_name: 'atsdr.cdc.gov',
     data_source_link:
       'https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html',
     geographic_level: 'County',
@@ -408,8 +411,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   phrma: {
     id: 'phrma',
-    data_source_name:
-      'Medicare Administrative Data',
+    data_source_name: 'Medicare Administrative Data',
     data_source_acronym: 'CMS',
     data_source_pretty_site_name: 'cms.gov',
     data_source_link:
@@ -515,18 +517,17 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'cdc_wisqars_black_men_data-black_men_by_age_national_historical',
       'cdc_wisqars_black_men_data-black_men_by_age_state_current',
       'cdc_wisqars_black_men_data-black_men_by_age_state_historical',
-
     ],
     downloadable: true,
     time_period_range: '2001 - current',
   },
   maternal_health: {
-
-    id: "maternal_health",
+    id: 'maternal_health',
     data_source_name: `Trends in State-Level Maternal Mortality by Racial and Ethnic Group in the United States`,
     data_source_acronym: 'JAMA',
     data_source_pretty_site_name: 'JAMA Network',
-    data_source_link: 'https://jamanetwork.com/journals/jama/fullarticle/2806661',
+    data_source_link:
+      'https://jamanetwork.com/journals/jama/fullarticle/2806661',
     geographic_level: 'National, State',
     demographic_granularity: 'Race/ethnicity',
     update_frequency: 'N/A',
@@ -536,15 +537,15 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'maternal_mortality_data-by_race_national_historical',
       'maternal_mortality_data-by_race_state_current',
       'maternal_mortality_data-by_race_state_historical',
-
     ],
     downloadable: true,
     time_period_range: '1999 - 2019',
   },
 }
 
-
-export function getDataSourceMetadataByDatasetId(id: DatasetId): DataSourceMetadata | undefined {
+export function getDataSourceMetadataByDatasetId(
+  id: DatasetId,
+): DataSourceMetadata | undefined {
   return Object.values(dataSourceMetadataMap).find((metadata) => {
     return metadata.dataset_ids.includes(id)
   })
