@@ -1,7 +1,7 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
-import type { ColorScheme } from 'vega'
+import { type ColorScheme } from 'vega'
 import { LESS_THAN_POINT_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
@@ -21,7 +21,7 @@ import {
   type ChronicDiseaseMetricId,
   COPD_METRICS,
   CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
-  type ChronicDiseaseDataTypeId,
+  ChronicDiseaseDataTypeId,
 } from './MetricConfigChronicDisease'
 import {
   COVID_CATEGORY_DROPDOWNIDS,
@@ -69,18 +69,14 @@ import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
 import { getFormatterPer100k } from '../../charts/utils'
 import {
   COMMUNITY_SAFETY_DROPDOWNIDS,
-  type CommunitySafetyDataTypeId,
-  type CommunitySafetyMetricId,
+  CommunitySafetyDataTypeId,
+  CommunitySafetyMetricId,
   GUN_DEATHS_BLACK_MEN_METRICS,
   GUN_VIOLENCE_METRICS,
-  GUN_VIOLENCE_YOUTH_METRICS,
+  GUN_VIOLENCE_YOUTH_METRICS
 } from './MetricConfigCommunitySafety'
 import { DemographicType } from '../query/Breakdowns'
-import {
-  MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
-  MATERNAL_HEALTH_METRICS,
-  type MaternalHealthMetricId,
-} from './MetricConfigMaternalHealth'
+import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS, MATERNAL_HEALTH_METRICS, MaternalHealthMetricId } from './MetricConfigMaternalHealth'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -91,7 +87,7 @@ const dropdownVarIds = [
   ...COVID_CATEGORY_DROPDOWNIDS,
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
   ...COMMUNITY_SAFETY_DROPDOWNIDS,
-  ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
+  ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS
 ] as const
 
 export type DropdownVarId = (typeof dropdownVarIds)[number]
@@ -185,6 +181,7 @@ export interface InfoWithCitations {
   citations?: Citation[]
 }
 
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
@@ -236,7 +233,7 @@ export function isPctType(metricType: MetricType) {
 export function formatFieldValue(
   metricType: MetricType,
   value: any,
-  omitPctSymbol: boolean = false,
+  omitPctSymbol: boolean = false
 ): string {
   if (value === null || value === undefined) {
     return ''
@@ -261,7 +258,7 @@ export function formatFieldValue(
 }
 
 export function getRateAndPctShareMetrics(
-  dataTypeConfig: DataTypeConfig,
+  dataTypeConfig: DataTypeConfig
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
   if (dataTypeConfig) {
@@ -278,7 +275,7 @@ export function getRateAndPctShareMetrics(
       tableFields.push(dataTypeConfig.metrics.pct_share)
       if (dataTypeConfig.metrics.pct_share.populationComparisonMetric) {
         tableFields.push(
-          dataTypeConfig.metrics.pct_share.populationComparisonMetric,
+          dataTypeConfig.metrics.pct_share.populationComparisonMetric
         )
       }
     }
@@ -287,7 +284,7 @@ export function getRateAndPctShareMetrics(
 }
 
 export function getAgeAdjustedRatioMetric(
-  dataTypeConfig: DataTypeConfig,
+  dataTypeConfig: DataTypeConfig
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
   if (dataTypeConfig) {
