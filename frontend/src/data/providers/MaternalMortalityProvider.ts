@@ -52,13 +52,14 @@ class MaternalMortalityProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
+    try {
+     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(
       breakdowns,
       undefined,
       metricQuery.timeView,
     )
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) throw Error('DatasetId is undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const maternalMortalityDataset =
       await getDataManager().loadDataset(specificDatasetId)
@@ -78,6 +79,10 @@ class MaternalMortalityProvider extends VariableProvider {
     df = this.removeUnrequestedColumns(df, metricQuery)
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+} catch (error) {
+      console.error('Error fetching maternal mortality data:', error)
+      throw error
+    }
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
