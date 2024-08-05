@@ -6,16 +6,15 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
   .VITE_SHOW_NEW_MATERNAL_MORTALITY
 
 export const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
   'maternal_mortality_per_100k',
-      'maternal_mortality_pct_share',
-      'maternal_mortality_population_pct',
-      'maternal_deaths_estimated_total',
-      'live_births_estimated_total',
+  'maternal_mortality_pct_share',
+  'maternal_mortality_population_pct',
+  'maternal_deaths_estimated_total',
+  'live_births_estimated_total',
 ]
 
 export const MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
@@ -25,9 +24,7 @@ export const MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 
 class MaternalMortalityProvider extends VariableProvider {
   constructor() {
-    super('maternal_mortality_provider', [
-      ...MATERNAL_MORTALITY_METRIC_IDS
-    ])
+    super('maternal_mortality_provider', MATERNAL_MORTALITY_METRIC_IDS)
   }
 
   getDatasetId(
@@ -58,40 +55,47 @@ class MaternalMortalityProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-     const breakdowns = metricQuery.breakdowns
-    const datasetId = this.getDatasetId(
-      breakdowns,
-      undefined,
-      metricQuery.timeView,
-    )
-    if (!datasetId) throw Error('DatasetId is undefined')
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
-    const maternalMortalityDataset =
-      await getDataManager().loadDataset(specificDatasetId)
-    const consumedDatasetIds = [datasetId]
-    let df = maternalMortalityDataset.toDataFrame()
+      const breakdowns = metricQuery.breakdowns
+      const datasetId = this.getDatasetId(
+        breakdowns,
+        undefined,
+        metricQuery.timeView,
+      )
+      if (!datasetId) throw Error('DatasetId is undefined')
+      const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+      const maternalMortalityDataset =
+        await getDataManager().loadDataset(specificDatasetId)
+      const consumedDatasetIds = [datasetId]
+      let df = maternalMortalityDataset.toDataFrame()
 
-    // Filter by geography
-    df = this.filterByGeo(df, breakdowns)
+      // Filter by geography
+      df = this.filterByGeo(df, breakdowns)
 
-    if (df.toArray().length === 0) {
-      return new MetricQueryResponse([], consumedDatasetIds)
-    }
-    df = this.renameGeoColumns(df, breakdowns)
+      if (df.toArray().length === 0) {
+        return new MetricQueryResponse([], consumedDatasetIds)
+      }
+      df = this.renameGeoColumns(df, breakdowns)
 
-    // Apply demographic breakdown filters
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+      // Apply demographic breakdown filters
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
-} catch (error) {
+      return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    } catch (error) {
       console.error('Error fetching maternal mortality data:', error)
       throw error
     }
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return breakdowns.hasExactlyOneDemographic()
+    const validDemographicBreakdownRequest =
+      breakdowns.hasExactlyOneDemographic()
+
+    return (
+      (breakdowns.geography === 'state' ||
+        breakdowns.geography === 'national') &&
+      validDemographicBreakdownRequest
+    )
   }
 }
 
