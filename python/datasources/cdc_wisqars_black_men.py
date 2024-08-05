@@ -4,8 +4,6 @@ from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
     convert_columns_to_numeric,
     generate_cols_map,
-    DATA_DIR,
-    WISQARS_COLS,
     WISQARS_YEAR,
     WISQARS_URBANICITY,
     WISQARS_STATE,
@@ -15,7 +13,8 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_POP,
     WISQARS_AGE_GROUP,
     condense_age_groups,
-)
+    load_wisqars_as_df_from_data_dir,
+)  # pylint: disable=no-name-in-module
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
@@ -111,7 +110,7 @@ class CDCWisqarsBlackMenData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        alls_df = load_wisqars_df_from_data_dir(WISQARS_ALL, geo_level)
+        alls_df = process_wisqars_black_men_df(WISQARS_ALL, geo_level)
 
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
@@ -131,7 +130,7 @@ class CDCWisqarsBlackMenData(DataSource):
             WISQARS_AGE_GROUP: std_col.AGE_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(demographic, geo_level)
+        breakdown_group_df = process_wisqars_black_men_df(demographic, geo_level)
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
         df = combined_group_df.rename(columns=cols_to_standard)
         if demographic == std_col.AGE_COL:
@@ -154,18 +153,11 @@ class CDCWisqarsBlackMenData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(demographic: str, geo_level: str):
+def process_wisqars_black_men_df(demographic: str, geo_level: str):
     output_df = pd.DataFrame(columns=[WISQARS_YEAR, WISQARS_STATE, WISQARS_URBANICITY])
 
     for variable_string in [GUN_HOMICIDES_BM_PREFIX]:
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            DATA_DIR,
-            f"{variable_string}-{geo_level}_{demographic}.csv",
-            na_values=["--", "**"],
-            usecols=lambda x: x not in WISQARS_COLS,
-            thousands=",",
-            dtype={WISQARS_YEAR: str},
-        )
+        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
 
         # removes the metadata section from the csv
         metadata_start_index = df[df[WISQARS_YEAR] == "Total"].index

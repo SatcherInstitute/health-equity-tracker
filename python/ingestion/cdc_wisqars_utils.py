@@ -14,7 +14,7 @@ Features include:
 from typing import List
 import pandas as pd
 import numpy as np
-from ingestion import standardized_columns as std_col
+from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
 from ingestion.het_types import RATE_CALC_COLS_TYPE
 
@@ -207,3 +207,30 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
     df_condensed_age_groups = pd.concat(het_bucket_dfs).reset_index(drop=True)
 
     return df_condensed_age_groups
+
+
+def load_wisqars_as_df_from_data_dir(variable_string: str, geo_level: str, demographic: str) -> pd.DataFrame:
+    """
+    Loads wisqars data from data directory
+
+    Args:
+        variable_string: The wisqars variable string
+        geo_level: e.g. "state" or "national"
+        demographic: e.g. "race_and_ethnicity" or "sex"
+
+    Returns:
+        The wisqars data frame
+    """
+
+    csv_filename = f"{variable_string}-{geo_level}-{demographic}.csv"
+
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        DATA_DIR,
+        csv_filename,
+        na_values=["--", "**"],
+        usecols=lambda x: x not in WISQARS_COLS,
+        thousands=",",
+        dtype={WISQARS_YEAR: str},
+    )
+
+    return df

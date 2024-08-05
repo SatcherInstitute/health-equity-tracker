@@ -32,10 +32,9 @@ from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
     convert_columns_to_numeric,
     generate_cols_map,
-    DATA_DIR,
     RACE_NAMES_MAPPING,
-    WISQARS_COLS,
-)
+    load_wisqars_as_df_from_data_dir,
+)  # pylint: disable=no-name-in-module
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
@@ -84,7 +83,7 @@ class CDCWisqarsYouthData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        national_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
+        national_totals_by_intent_df = process_wisqars_youth_df("all", geo_level)
 
         df = self.generate_breakdown_df(demographic, geo_level, national_totals_by_intent_df)
 
@@ -103,7 +102,7 @@ class CDCWisqarsYouthData(DataSource):
             "race": std_col.RACE_CATEGORY_ID_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
+        breakdown_group_df = process_wisqars_youth_df(breakdown, geo_level)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -132,18 +131,12 @@ class CDCWisqarsYouthData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
+def process_wisqars_youth_df(demographic: str, geo_level: str):
     output_df = pd.DataFrame(columns=['year', 'state', 'race'])
 
     for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            DATA_DIR,
-            f"{variable_string}-{geo_level}-{breakdown}.csv",
-            na_values=["--", "**"],
-            usecols=lambda x: x not in WISQARS_COLS,
-            thousands=",",
-            dtype={"Year": str},
-        )
+
+        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
 
         # Convert column names to lowercase
         df.columns = df.columns.str.lower()
@@ -160,7 +153,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         if geo_level == NATIONAL_LEVEL:
             df.insert(1, "state", US_NAME)
 
-        if breakdown == "all":
+        if demographic == "all":
             df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
 
         if std_col.ETH_COL in df.columns.to_list():

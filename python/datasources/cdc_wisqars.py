@@ -38,15 +38,14 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import merge_state_ids
 from ingestion.cdc_wisqars_utils import (
     generate_cols_map,
-    DATA_DIR,
-    WISQARS_COLS,
     convert_columns_to_numeric,
     contains_unknown,
     RACE_NAMES_MAPPING,
     INJ_INTENTS,
     INJ_OUTCOMES,
     condense_age_groups,
-)
+    load_wisqars_as_df_from_data_dir,
+)  # pylint: disable=no-name-in-module
 from typing import List
 from ingestion.het_types import RATE_CALC_COLS_TYPE
 
@@ -118,7 +117,7 @@ class CDCWisqarsData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        national_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
+        national_totals_by_intent_df = process_wisqars_df("all", geo_level)
 
         if demographic == std_col.RACE_OR_HISPANIC_COL:
             national_totals_by_intent_df.insert(2, 'race', std_col.Race.ALL.value)
@@ -149,7 +148,7 @@ class CDCWisqarsData(DataSource):
             "year": std_col.TIME_PERIOD_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(demographic, geo_level)
+        breakdown_group_df = process_wisqars_df(demographic, geo_level)
 
         # Replace WISQARS group labels with HET group labels
         breakdown_group_df = breakdown_group_df.replace({demographic: {"Females": Sex.FEMALE, "Males": Sex.MALE}})
@@ -193,9 +192,9 @@ class CDCWisqarsData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(demographic: str, geo_level: str):
+def process_wisqars_df(demographic: str, geo_level: str):
     """
-    load_wisqars_df_from_data_dir generates WISQARS data by demographic and geo_level
+    generates WISQARS data by demographic and geo_level
 
     demographic: string equal to `age`, `race_and_ethnicity`, or `sex`
     geo_level: string equal to `national`, or `state`
@@ -207,14 +206,7 @@ def load_wisqars_df_from_data_dir(demographic: str, geo_level: str):
     data_metric = 'deaths'
     data_column_name = 'intent'
 
-    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        DATA_DIR,
-        f"fatal_gun_injuries-{geo_level}-{demographic}.csv",
-        na_values=["--", "**"],
-        usecols=lambda x: x not in WISQARS_COLS,
-        thousands=",",
-        dtype={"Year": str},
-    )
+    df = load_wisqars_as_df_from_data_dir('fatal_gun_injuries', geo_level, demographic)
 
     df.columns = df.columns.str.lower()
 
