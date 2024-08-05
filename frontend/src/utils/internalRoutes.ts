@@ -12,6 +12,9 @@ export const OLD_CONTACT_LINK = '/contact';
 export const OLD_OURTEAM_LINK = '/ourteam';
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment';
 
+// CONTEXT TABS
+export const POLICY_PAGE_LINK = '/policy';
+
 // NEW METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology';
 
@@ -78,4 +81,4 @@ export const WARM_WELCOME_DEMO_SETTING =
 export const WHAT_DATA_ARE_MISSING_ID = 'definitions-missing-data';
 export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
 	EXPLORE_DATA_PAGE_LINK + '#' + WHAT_DATA_ARE_MISSING_ID;
-export const WIHE_JOIN_THE_EFFORT_SECTION_ID = 'join';
+

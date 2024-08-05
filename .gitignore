@@ -16,6 +16,7 @@ airflow-logs
 ~$*
 tig
 .cspellcache
+.DS_Store
 
 node_modules/
 /frontend_server/build/

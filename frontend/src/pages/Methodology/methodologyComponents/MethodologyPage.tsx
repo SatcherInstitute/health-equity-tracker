@@ -8,7 +8,7 @@ import MethodologyPagination from './MethodologyPagination';
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile';
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu';
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
-////
+
 export default function MethodologyPage() {
 	const location = useLocation();
 

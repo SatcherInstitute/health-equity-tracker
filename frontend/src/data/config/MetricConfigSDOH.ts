@@ -2,7 +2,7 @@ import {
   medicareHigherIsWorseMapConfig,
   defaultHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -25,6 +25,7 @@ export type SDOHMetricId =
   | 'ahr_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
+  | 'avoided_care_estimated_total'
   | 'poverty_count'
   | 'poverty_estimated_total'
   | 'poverty_pct_rate'
@@ -62,7 +63,6 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for uninsured people',
     metrics: {
-
       pct_rate: {
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
@@ -123,7 +123,6 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
     metrics: {
-
       pct_rate: {
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
@@ -193,6 +192,18 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Care avoidance due to cost',
         shortLabel: '% avoided care',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'avoided_care_estimated_total',
+          shortLabel: 'Avoided care',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          shortLabel: 'Total pop. 18+',
+          chartTitle: '',
+          type: 'count',
+        }
       },
       pct_share: {
         chartTitle: 'Share of all care avoidance due to cost',
@@ -228,7 +239,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
       text: 'Studying preventable hospitalizations can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for preventable hospitalizations',
-    otherSubPopulationLabel: 'Medicare beneficiaries',
+    otherSubPopulationLabel: 'Medicare beneficiaries, Ages 18+',
     metrics: {
       per100k: {
         metricId: 'preventable_hospitalizations_per_100k',
@@ -256,4 +267,3 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
     },
   },
 ]
-

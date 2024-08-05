@@ -11,7 +11,9 @@ test('Non Medical Drug Use', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Non-medical drug use in the' })
     .click()
-  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
+  await page
+    .getByRole('button', { name: 'Expand state/territory rate' })
+    .click()
   await page.getByText('Consider the possible impact').click()
   await page
     .locator('#rate-chart')
@@ -23,16 +25,6 @@ test('Non Medical Drug Use', async ({ page }) => {
     })
     .click()
   await page.getByText('No unknown values for race').click()
-  await page
-    .getByRole('heading', {
-      name: 'Graph unavailable: Population vs. distribution of total adult non-medical drug use in the United States',
-    })
-    .click()
-  await page
-    .getByText(
-      'Our data sources do not have Population vs. distribution of total adult non-medical'
-    )
-    .click()
   await page
     .getByRole('heading', {
       name: 'Breakdown summary for opioid and other non-medical drug use in the United States',
@@ -47,7 +39,7 @@ test('Non Medical Drug Use', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love'
+      'Do you have information that belongs on the Health Equity Tracker? We would love',
     )
     .click()
 })

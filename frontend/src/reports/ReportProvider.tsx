@@ -20,8 +20,8 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import WhatDataAreMissing from './WhatDataAreMissing'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import { DATA_CATALOG_PAGE_LINK, RACES_AND_ETHNICITIES_LINK } from '../utils/internalRoutes'
-import AnnouncementBanner from './ui/AnnouncementBanner'
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
+import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -33,7 +33,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean
   setMadLib: (madLib: MadLib) => void
   showIncarceratedChildrenAlert: boolean
-  showAnnouncementBanner: boolean
+  showVoteDotOrgBanner: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
   isMobile: boolean
@@ -172,7 +172,7 @@ function ReportProvider(props: ReportProviderProps) {
           }`}
       >
         {props.showLifeLineAlert && <LifelineAlert />}
-        {props.showAnnouncementBanner && <AnnouncementBanner />}
+        {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}

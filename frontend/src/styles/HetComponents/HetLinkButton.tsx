@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface HetLinkButtonProps {
   children: ReactNode

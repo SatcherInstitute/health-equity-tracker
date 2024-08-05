@@ -16,7 +16,6 @@ import {
 } from '../data/config/MetricConfigPhrma'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
-import { SHOW_GUN_VIOLENCE } from '../data/providers/GunViolenceProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { FIPS_MAP } from '../data/utils/FipsData'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'

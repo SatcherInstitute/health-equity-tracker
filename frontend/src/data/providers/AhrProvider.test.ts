@@ -1,10 +1,10 @@
 import AhrProvider from './AhrProvider'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import {
-  DatasetId,
-  DatasetIdWithStateFIPSCode,
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
   DatasetMetadataMap,
 } from '../config/DatasetMetadata'
 import {
@@ -12,26 +12,29 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
 import { expect, describe, test, beforeEach } from 'vitest'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   ahrDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
-  demographicType: DemographicType
+  demographicType: DemographicType,
 ) {
   const ahrProvider = new AhrProvider()
   const specificId = appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
 
-
   dataFetcher.setFakeDatasetLoaded(specificId, [])
-
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await ahrProvider.getData(
-    new MetricQuery(['suicide_per_100k'], baseBreakdown.addBreakdown(demographicType), 'suicide', 'current')
+    new MetricQuery(
+      ['suicide_per_100k'],
+      baseBreakdown.addBreakdown(demographicType),
+      'suicide',
+      'current',
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -40,7 +43,7 @@ export async function ensureCorrectDatasetsDownloaded(
     ahrDatasetId,
   ]
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds)
+    new MetricQueryResponse([], consumedDatasetIds),
   )
 }
 
@@ -56,49 +59,49 @@ describe('AhrProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-race_and_ethnicity_state',
+      'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current',
       Breakdowns.forFips(new Fips('37')),
-      RACE
+      RACE,
     )
   })
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-race_and_ethnicity_national',
+      'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips('00')),
-      RACE
+      RACE,
     )
   })
 
   test('State and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-age_state',
+      'graphql_ahr_data-behavioral_health_age_state_current',
       Breakdowns.forFips(new Fips('37')),
-      AGE
+      AGE,
     )
   })
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-age_national',
+      'graphql_ahr_data-behavioral_health_age_national_current',
       Breakdowns.forFips(new Fips('00')),
-      AGE
+      AGE,
     )
   })
 
   test('State and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-sex_state',
+      'graphql_ahr_data-behavioral_health_sex_state_current',
       Breakdowns.forFips(new Fips('37')),
-      SEX
+      SEX,
     )
   })
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'ahr_data-sex_national',
+      'graphql_ahr_data-behavioral_health_sex_national_current',
       Breakdowns.forFips(new Fips('00')),
-      SEX
+      SEX,
     )
   })
 
@@ -106,16 +109,15 @@ describe('AhrProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'chr_data-race_and_ethnicity_county_current',
       Breakdowns.forFips(new Fips('01001')),
-      RACE
+      RACE,
     )
   })
-
 
   test('County and Sex Breakdown (should just get the ALLs)', async () => {
     await ensureCorrectDatasetsDownloaded(
       'chr_data-race_and_ethnicity_county_current',
       Breakdowns.forFips(new Fips('01001')),
-      SEX
+      SEX,
     )
   })
 })

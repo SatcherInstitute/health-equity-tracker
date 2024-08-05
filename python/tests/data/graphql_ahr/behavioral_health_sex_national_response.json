@@ -1,0 +1,1310 @@
+[
+    {
+        "data": [
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.6,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.9,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.5,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.9,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.4,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.5,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.7,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.5,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.5,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21.7,
+                "measure": {
+                    "name": "Depression"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.2,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.6,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.7,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.4,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.5,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.2,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.6,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.8,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.6,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.3,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.4,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.2,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.3,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.7,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.4,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.7,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.7,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.8,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.2,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.7,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 15.9,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.9,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Past Year"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.3,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Past Year"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Past Year"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 15.5,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Past Year"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 15.9,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Past Year"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.8,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2010-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.4,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.5,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2009-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.9,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.9,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.7,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.7,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.4,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.5,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.5,
+                "measure": {
+                    "name": "Suicide"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.6,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21.9,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.8,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.9,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.2,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.4,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 24.4,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 26.1,
+                "measure": {
+                    "name": "Depression - Female"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.3,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.7,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.1,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.2,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.1,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.1,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.3,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.9,
+                "measure": {
+                    "name": "Depression - Male"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.9,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.7,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.1,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.9,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.4,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.1,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.6,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.4,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.5,
+                "measure": {
+                    "name": "Excessive Drinking - Female"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.2,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.4,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.7,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 25.6,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.9,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.2,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.3,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.9,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.7,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21.3,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.8,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21.8,
+                "measure": {
+                    "name": "Excessive Drinking - Male"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.6,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.2,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.2,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.3,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.6,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 15.5,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 16,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.8,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.6,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.2,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.3,
+                "measure": {
+                    "name": "Frequent Mental Distress - Female"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.7,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.8,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.6,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.5,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.4,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.6,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.6,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.9,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.2,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.2,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13,
+                "measure": {
+                    "name": "Frequent Mental Distress - Male"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.2,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Female"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.9,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Female"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.1,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Female"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.4,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Female"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.5,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Female"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.7,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Male"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.8,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Male"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Male"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 16.8,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Male"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.3,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Male"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.3,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.9,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2009-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.5,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2010-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.1,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.3,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.4,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.2,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.2,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.6,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.1,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.6,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 5.9,
+                "measure": {
+                    "name": "Suicide - Female"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2009-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.7,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.2,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21.6,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.3,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21.9,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2010-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.4,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.8,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 21,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.6,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.4,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.9,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.7,
+                "measure": {
+                    "name": "Suicide - Male"
+                }
+            }
+        ]
+    }
+]

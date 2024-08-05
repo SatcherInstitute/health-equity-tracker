@@ -1,6 +1,9 @@
 import { HIV_DISEASE_METRICS } from '../data/config/MetricConfigHivCategory'
 import { PHRMA_CARDIOVASCULAR_METRICS } from '../data/config/MetricConfigPhrma'
-import { PREVENTABLE_HOSP_METRICS, UNINSURANCE_METRICS } from '../data/config/MetricConfigSDOH'
+import {
+  PREVENTABLE_HOSP_METRICS,
+  UNINSURANCE_METRICS,
+} from '../data/config/MetricConfigSDOH'
 import { Fips } from '../data/utils/Fips'
 import { generateChartTitle, generateSubtitle } from './utils'
 import { describe, test, expect } from 'vitest'
@@ -20,30 +23,31 @@ describe('Tests generateChartTitle()', () => {
     const titleForUnknown = generateChartTitle(
       'Some title XYZ',
       new Fips('00'),
-      'sex'
+      'sex',
     )
     expect(titleForUnknown).toEqual(
-      'Some title XYZ with unknown sex in the United States'
+      'Some title XYZ with unknown sex in the United States',
     )
   })
 
   test('preventable hosp. subtitle', () => {
-
     const subTitle = generateSubtitle(
       'Male',
       'sex',
-      PREVENTABLE_HOSP_METRICS[0]
+      PREVENTABLE_HOSP_METRICS[0],
     )
-    expect(subTitle).toEqual('Medicare beneficiaries, Male')
+    expect(subTitle).toEqual('Medicare beneficiaries, Ages 18+, Male')
   })
 
   test('PHRMA subtitle', () => {
     const subTitle = generateSubtitle(
       'Male',
       'sex',
-      PHRMA_CARDIOVASCULAR_METRICS[0]
+      PHRMA_CARDIOVASCULAR_METRICS[0],
     )
-    expect(subTitle).toEqual('Medicare Beta-Blocker Beneficiaries, Male, Ages 18+')
+    expect(subTitle).toEqual(
+      'Medicare Beta-Blocker Beneficiaries, Male, Ages 18+',
+    )
   })
 
   test('Standard subtitle', () => {
@@ -58,4 +62,3 @@ describe('Tests generateSubtitle()', () => {
     expect(subTitle).toEqual('Male, Ages 13+')
   })
 })
-
