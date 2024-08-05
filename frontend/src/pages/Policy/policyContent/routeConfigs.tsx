@@ -9,7 +9,7 @@ import FaqsTab from "../policySections/FaqsTab";
 import HowToUseTheDataTab from "../policySections/HowToUseTheDataTab";
 import ReformOpportunitiesTab from "../policySections/ReformOpportunitiesTab";
 import AddressingInequitiesTab from "../policySections/AddressingInequitiesTab";
-import PolicyHomeLink from "../policySections/PolicyHomeLink";
+import GunViolencePolicyHomeLink from "../policySections/GunViolencePolicyHomeLink";
 
 
 export type RouteConfig = {
@@ -23,16 +23,9 @@ export type RouteConfig = {
 export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
-		label: 'Policy Context Overview',
-		path: POLICY_PAGE_LINK,
-		component: PolicyPage,
-		subLinks: [],
-	},
-	{
-		isTopLevel: true,
-		label: 'Gun Violence Intro',
+		label: `Georgia's Gun Violence Policy Context Overview`,
 		path: GUN_VIOLENCE_POLICY,
-		component: PolicyHomeLink,
+		component: GunViolencePolicyHomeLink,
 		subLinks: [],
 	},
 	{

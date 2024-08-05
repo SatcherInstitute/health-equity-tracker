@@ -1,27 +1,27 @@
-import "@fontsource/taviraj/200.css";
-import "@fontsource/taviraj/300.css";
-import "@fontsource/taviraj/400.css";
-import "@fontsource/taviraj/500.css";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/dm-sans";
-import "@fontsource/roboto";
-import "@fontsource/roboto-condensed";
+import '@fontsource/taviraj/200.css'
+import '@fontsource/taviraj/300.css'
+import '@fontsource/taviraj/400.css'
+import '@fontsource/taviraj/500.css'
+import '@fontsource-variable/inter'
+import '@fontsource-variable/dm-sans'
+import '@fontsource/roboto'
+import '@fontsource/roboto-condensed'
 
 // TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
-import CssBaseline from "@mui/material/CssBaseline";
-import MaterialTheme from "./styles/MaterialTheme";
-import { CircularProgress, StyledEngineProvider } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from '@mui/material/CssBaseline'
+import MaterialTheme from './styles/MaterialTheme'
+import { CircularProgress, StyledEngineProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect } from 'react'
 import {
 	BrowserRouter as Router,
 	Redirect,
 	Route,
 	Switch,
 	useLocation,
-} from "react-router-dom";
-import { autoInitGlobals } from "./utils/globals";
+} from 'react-router-dom'
+import { autoInitGlobals } from './utils/globals'
 import {
 	ABOUT_US_PAGE_LINK,
 	OLD_CONTACT_LINK,
@@ -36,80 +36,82 @@ import {
 	OLD_AGE_ADJUSTMENT_LINK,
 	METHODOLOGY_PAGE_LINK,
 	AGE_ADJUSTMENT_LINK,
+	GUN_VIOLENCE_POLICY,
 	POLICY_PAGE_LINK,
-} from "./utils/internalRoutes";
-import { HelmetProvider } from "react-helmet-async";
-import { useIsBreakpointAndUp } from "./utils/hooks/useIsBreakpointAndUp";
+} from './utils/internalRoutes'
+import { HelmetProvider } from 'react-helmet-async'
+import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
-import AboutUsPage from "./pages/AboutUs/AboutUsPage";
-import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import ErrorBoundaryDropParams from "./ErrorBoundaryDropParams";
-import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
-import NewsPage from "./pages/News/NewsPage";
-import SkipLink from "./SkipLink";
-import MethodologyPage from "./pages/Methodology/methodologyComponents/MethodologyPage";
-import HetAppBar from "./styles/HetComponents/HetAppBar";
-import { HashLink } from "react-router-hash-link";
-import HetNotice from "./styles/HetComponents/HetNotice";
-import Banner from "./reports/ui/Banner";
-import PolicyPage from "./pages/Policy/policyComponents/PolicyPage";
+import AboutUsPage from './pages/AboutUs/AboutUsPage'
+import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquityPage'
+import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
+import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
+import NewsPage from './pages/News/NewsPage'
+import SkipLink from './SkipLink'
+import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
+import HetAppBar from './styles/HetComponents/HetAppBar'
+import { HashLink } from 'react-router-hash-link'
+import HetNotice from './styles/HetComponents/HetNotice'
+import Banner from './reports/ui/Banner'
+import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
+import GunViolencePolicyHomeLink from './pages/Policy/policySections/GunViolencePolicyHomeLink'
 
 const ExploreDataPage = React.lazy(
-	async () => await import("./pages/ExploreData/ExploreDataPage"),
-);
-const Footer = React.lazy(async () => await import("./Footer"));
+	async () => await import('./pages/ExploreData/ExploreDataPage'),
+)
+const Footer = React.lazy(async () => await import('./Footer'))
 const LandingPage = React.lazy(
-	async () => await import("./pages/Landing/LandingPage"),
-);
+	async () => await import('./pages/Landing/LandingPage'),
+)
 const NotFoundPage = React.lazy(
-	async () => await import("./pages/NotFoundPage"),
-);
+	async () => await import('./pages/NotFoundPage'),
+)
 const TermsOfUsePage = React.lazy(
-	async () => await import("./pages/TermsOfUsePage/TermsOfUsePage"),
-);
+	async () => await import('./pages/TermsOfUsePage/TermsOfUsePage'),
+)
 const DataCatalogPage = React.lazy(
-	async () => await import("./pages/DataCatalog/DataCatalogPage"),
-);
+	async () => await import('./pages/DataCatalog/DataCatalogPage'),
+)
 
-autoInitGlobals();
+autoInitGlobals()
 
 function ScrollToTop() {
-	const { pathname } = useLocation();
+	const { pathname } = useLocation()
 	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [pathname]);
-	return null;
+		window.scrollTo(0, 0)
+	}, [pathname])
+	return null
 }
 
 export default function App() {
-	const isSm = useIsBreakpointAndUp("sm");
+	const isSm = useIsBreakpointAndUp('sm')
 
 	return (
 		<HelmetProvider>
 			<StyledEngineProvider injectFirst>
 				<ThemeProvider theme={MaterialTheme}>
 					<CssBaseline />
-					<div className="relative min-h-full bg-white text-center">
+					<div className='relative min-h-full bg-white text-center'>
 						<SkipLink />
 
-						<div className="h-full">
+						<div className='h-full'>
 							<Router>
 								<Banner />
 								<HetAppBar />
 								<ScrollToTop />
 								<Suspense
 									fallback={
-										<main className="min-h-screen">
+										<main className='min-h-screen'>
 											<CircularProgress
-												className="mt-10"
-												aria-label="loading"
+												className='mt-10'
+												aria-label='loading'
 											/>
 										</main>
 									}
 								>
-									<main className="scroll-smooth">
+									<main className='scroll-smooth'>
 										<Switch>
 											<Route path={ABOUT_US_PAGE_LINK}>
 												<AboutUsPage />
@@ -154,17 +156,21 @@ export default function App() {
 											<Route path={SHARE_YOUR_STORY_TAB_LINK}>
 												<NewsPage isMobile={isSm} />
 											</Route>
-											
+
 											<Route path={POLICY_PAGE_LINK}>
 												<PolicyPage />
 											</Route>
 
+											<Route path={GUN_VIOLENCE_POLICY}>
+												<GunViolencePolicyHomeLink />
+											</Route>
+											
 											<Route path={TERMS_OF_USE_PAGE_LINK}>
 												<TermsOfUsePage />
 											</Route>
 
 											{/* redirect the old URL for possible outside links */}
-											<Route path={"/termsofservice"}>
+											<Route path={'/termsofservice'}>
 												<Redirect to={TERMS_OF_USE_PAGE_LINK} />
 											</Route>
 
@@ -172,7 +178,7 @@ export default function App() {
 												<Redirect to={AGE_ADJUSTMENT_LINK} />
 											</Route>
 
-											<Route path="/">
+											<Route path='/'>
 												<LandingPage />
 											</Route>
 
@@ -194,5 +200,5 @@ export default function App() {
 				</ThemeProvider>
 			</StyledEngineProvider>
 		</HelmetProvider>
-	);
+	)
 }

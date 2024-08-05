@@ -1,6 +1,6 @@
-import { CRISIS_OVERVIEW_TAB, DATA_COLLECTION_TAB, ADDRESSING_INEQUITIES_TAB, CURRENT_EFFORTS_TAB, REFORM_OPPORTUNITIES_TAB, HOW_TO_USE_THE_DATA_TAB, FAQS_TAB } from "../../../utils/internalRoutes";
+import { CRISIS_OVERVIEW_TAB, DATA_COLLECTION_TAB, ADDRESSING_INEQUITIES_TAB, CURRENT_EFFORTS_TAB, REFORM_OPPORTUNITIES_TAB, HOW_TO_USE_THE_DATA_TAB, FAQS_TAB, POLICY_PAGE_LINK } from "../../../utils/internalRoutes";
 
-export default function PolicyHomeLink() {
+export default function GunViolencePolicyHomeLink() {
 	return (
 		<>
 			<ul>
@@ -11,8 +11,9 @@ export default function PolicyHomeLink() {
 				<li><a href={REFORM_OPPORTUNITIES_TAB}>REFORM_OPPORTUNITIES_TAB</a></li>
 				<li><a href={HOW_TO_USE_THE_DATA_TAB}>HOW_TO_USE_THE_DATA_TAB</a></li>
 				<li><a href={FAQS_TAB}>FAQS_TAB</a></li>
+				<li><a href={POLICY_PAGE_LINK}>POLICY_PAGE_LINK</a></li>
 			</ul>
-			<h1>Policy Context Overview</h1>
+			<h1>Gun Violence Policy Context Overview</h1>
 			<section className='py-4 xs:px-8 md:px-24 lg:px-80 max-w-screen'>
 				<p className='my-3 text-center font-roboto text-smallest font-semibold uppercase text-black'>
 					In Focus

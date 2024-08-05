@@ -17,7 +17,7 @@ export default function PolicyPage() {
 				</Helmet>
 
 				<div className='flex w-full justify-center'>
-					<h2 className='sr-only'>Policy Page</h2>
+					<h2 className='sr-only'>Policy Context Page</h2>
 
 					<a href={GUN_VIOLENCE_POLICY}>
 						Gun Violence Section
