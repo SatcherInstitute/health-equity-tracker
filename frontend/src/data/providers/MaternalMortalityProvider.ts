@@ -1,13 +1,22 @@
+import type { DataTypeId, MetricId } from '../config/MetricConfig'
 import { getDataManager } from '../../utils/globals'
 import type { TimeView, Breakdowns } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfig'
+
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
   .VITE_SHOW_NEW_MATERNAL_MORTALITY
+
+export const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
+  'maternal_mortality_per_100k',
+      'maternal_mortality_pct_share',
+      'maternal_mortality_population_pct',
+      'maternal_deaths_estimated_total',
+      'live_births_estimated_total',
+]
 
 export const MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Age', 'unavailable for Maternal Mortality'],
@@ -17,11 +26,7 @@ export const MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 class MaternalMortalityProvider extends VariableProvider {
   constructor() {
     super('maternal_mortality_provider', [
-      'maternal_mortality_per_100k',
-      'maternal_mortality_pct_share',
-      'maternal_mortality_population_pct',
-      'maternal_deaths_estimated_total',
-      'live_births_estimated_total',
+      ...MATERNAL_MORTALITY_METRIC_IDS
     ])
   }
 
