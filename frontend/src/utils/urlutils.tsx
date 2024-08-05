@@ -40,6 +40,7 @@ export const SHOW_ONBOARDING_PARAM = 'onboard'
 
 export const DEMOGRAPHIC_PARAM = 'demo'
 export const TOPIC_INFO_PARAM_KEY = 'topic-info'
+export const VOTE_DOT_ORG_PARAM_KEY = 'vote-dot-org'
 export const MULTIPLE_MAPS_1_PARAM_KEY = 'multiple-maps'
 export const MULTIPLE_MAPS_2_PARAM_KEY = 'multiple-maps2'
 export const EXTREMES_1_PARAM_KEY = 'extremes'
