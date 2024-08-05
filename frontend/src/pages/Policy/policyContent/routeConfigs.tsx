@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, HOW_TO_USE_THE_DATA_TAB, POLICY_PAGE_LINK, REFORM_OPPORTUNITIES_TAB } from "../../../utils/internalRoutes";
+import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, GUN_VIOLENCE_POLICY, HOW_TO_USE_THE_DATA_TAB, POLICY_PAGE_LINK, REFORM_OPPORTUNITIES_TAB } from "../../../utils/internalRoutes";
 import PolicyPage from "../policyComponents/PolicyPage";
 import CrisisOverviewTab from "../policySections/CrisisOverviewTab";
 import CurrentEffortsTab from "../policySections/CurrentEffortsTab";
@@ -9,6 +9,7 @@ import FaqsTab from "../policySections/FaqsTab";
 import HowToUseTheDataTab from "../policySections/HowToUseTheDataTab";
 import ReformOpportunitiesTab from "../policySections/ReformOpportunitiesTab";
 import AddressingInequitiesTab from "../policySections/AddressingInequitiesTab";
+import PolicyHomeLink from "../policySections/PolicyHomeLink";
 
 
 export type RouteConfig = {
@@ -27,7 +28,13 @@ export const routeConfigs: RouteConfig[] = [
 		component: PolicyPage,
 		subLinks: [],
 	},
-
+	{
+		isTopLevel: true,
+		label: 'Gun Violence Intro',
+		path: GUN_VIOLENCE_POLICY,
+		component: PolicyHomeLink,
+		subLinks: [],
+	},
 	{
 		isTopLevel: true,
 		label: 'Crisis Overview',

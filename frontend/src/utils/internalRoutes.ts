@@ -16,13 +16,14 @@ export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
 // CONTEXT TABS
 export const POLICY_PAGE_LINK = '/policy'
 export const GUN_VIOLENCE_CONTEXT_LINK = '/gun-violence'
-export const CRISIS_OVERVIEW_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/crisis-overview'
-export const DATA_COLLECTION_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/data-collection'
-export const ADDRESSING_INEQUITIES_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/addressing-inequities'
-export const CURRENT_EFFORTS_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/current-efforts'
-export const REFORM_OPPORTUNITIES_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/reform-opportunities'
-export const HOW_TO_USE_THE_DATA_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/how-to-use-the-data'
-export const FAQS_TAB = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK + '/faqs'
+export const GUN_VIOLENCE_POLICY = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK
+export const CRISIS_OVERVIEW_TAB = GUN_VIOLENCE_POLICY + '/crisis-overview'
+export const DATA_COLLECTION_TAB = GUN_VIOLENCE_POLICY + '/data-collection'
+export const ADDRESSING_INEQUITIES_TAB = GUN_VIOLENCE_POLICY + '/addressing-inequities'
+export const CURRENT_EFFORTS_TAB = GUN_VIOLENCE_POLICY + '/current-efforts'
+export const REFORM_OPPORTUNITIES_TAB = GUN_VIOLENCE_POLICY + '/reform-opportunities'
+export const HOW_TO_USE_THE_DATA_TAB = GUN_VIOLENCE_POLICY + '/how-to-use-the-data'
+export const FAQS_TAB = GUN_VIOLENCE_POLICY + '/faqs'
 
 // NEW METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology'
