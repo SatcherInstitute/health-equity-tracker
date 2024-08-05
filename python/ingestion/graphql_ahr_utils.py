@@ -4,6 +4,7 @@ import pandas as pd
 import ingestion.standardized_columns as std_col
 import requests  # type: ignore
 from ingestion.constants import NATIONAL_LEVEL, US_ABBR
+from ingestion.het_types import TOPIC_CATEGORY_TYPE
 
 # Environment variable
 ahr_api_key = os.getenv("AHR_API_KEY")
@@ -60,20 +61,21 @@ PCT_RATE_TO_PER_100K_TOPICS = [
 
 
 # Utility functions
-def load_ahr_measures_json():
+def load_ahr_measures_json(category: TOPIC_CATEGORY_TYPE):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    config_file_path = os.path.join(current_dir, 'ahr_config', 'graphql_ahr_measure_ids.json')
+    config_file_path = os.path.join(current_dir, 'ahr_config', f'graphql_ahr_measure_ids_{category}.json')
 
     with open(config_file_path, 'r') as file:
         return json.load(file)
 
 
-def get_measure_ids(demographic: str, data=None):
+def get_measure_ids(demographic: str, category: TOPIC_CATEGORY_TYPE, data=None):
     """
     Retrieve all measure IDs based on the specified demographic.
 
     Args:
     demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
+    category (str): The category topics to fetch. Use 'all' to not filter by category
     data (dict, optional): The dataset to use for fetching the measure IDs.
     If not provided, the function will load the data from the JSON file.
 
@@ -81,7 +83,7 @@ def get_measure_ids(demographic: str, data=None):
     list: A list of all measure IDs for the specified demographic.
     """
     if data is None:
-        data = load_ahr_measures_json()
+        data = load_ahr_measures_json(category)
 
     all_ids = []
     demographic_measures = data.get(demographic)
@@ -112,18 +114,19 @@ def generate_cols_map(prefixes: list[str], suffix: str):
     return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
 
 
-def fetch_ahr_data_from_graphql(demographic: str, geo_level: str):
+def fetch_ahr_data_from_graphql(demographic: str, geo_level: str, category: TOPIC_CATEGORY_TYPE):
     """
     Fetches data from AmericasHealthRankings GraphQL API.
 
     Parameters:
         demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
         geo_level (str): The geographic level of the data (e.g., 'national', 'state').
+        category (str): The topic category of the data topics to fetch.
 
     Returns:
         a list containing the data retrieved from the API.
     """
-    measure_ids = get_measure_ids('all') + get_measure_ids(demographic)
+    measure_ids = get_measure_ids('all', category) + get_measure_ids(demographic, category)
     results = []
     state_filter = '{eq: "ALL"}' if geo_level == NATIONAL_LEVEL else '{neq: "ALL"}'
 
