@@ -27,7 +27,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-from ingestion.het_types import RATE_CALC_COLS_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE
 from typing import List
 
 """
@@ -69,7 +69,7 @@ Notes:
 Last Updated: April 2024
 """
 
-GUN_HOMICIDES_BM_PREFIX = "gun_homicides_black_men"
+GUN_HOMICIDES_BM_PREFIX: WISQARS_VAR_TYPE = "gun_homicides_black_men"
 ESTIMATED_TOTALS_MAP = generate_cols_map([GUN_HOMICIDES_BM_PREFIX], std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
@@ -107,8 +107,8 @@ class CDCWisqarsBlackMenData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsBlackMenData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic = self.get_attr(attrs, "demographic")
-        geo_level = self.get_attr(attrs, "geographic")
+        demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
         alls_df = process_wisqars_black_men_df(WISQARS_ALL, geo_level)
 
@@ -153,7 +153,7 @@ class CDCWisqarsBlackMenData(DataSource):
         return df
 
 
-def process_wisqars_black_men_df(demographic: str, geo_level: str):
+def process_wisqars_black_men_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE):
     output_df = pd.DataFrame(columns=[WISQARS_YEAR, WISQARS_STATE, WISQARS_URBANICITY])
 
     for variable_string in [GUN_HOMICIDES_BM_PREFIX]:

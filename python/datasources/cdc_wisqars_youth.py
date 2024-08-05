@@ -49,6 +49,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
+from ingestion.het_types import SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE
 
 CATEGORIES_LIST = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
 ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
@@ -80,8 +81,8 @@ class CDCWisqarsYouthData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsYouthData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic = self.get_attr(attrs, "demographic")
-        geo_level = self.get_attr(attrs, "geographic")
+        demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
         national_totals_by_intent_df = process_wisqars_youth_df("all", geo_level)
 
@@ -131,7 +132,7 @@ class CDCWisqarsYouthData(DataSource):
         return df
 
 
-def process_wisqars_youth_df(demographic: str, geo_level: str):
+def process_wisqars_youth_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE):
     output_df = pd.DataFrame(columns=['year', 'state', 'race'])
 
     for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:

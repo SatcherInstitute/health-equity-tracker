@@ -2,6 +2,7 @@ from enum import Enum, unique
 from collections import namedtuple
 import pandas as pd  # type: ignore
 from typing import List
+from ingestion.het_types import WISQARS_VAR_TYPE
 
 # The name of the column for a unique string id for the race category. Should be
 # semi-human readable. See Race enum below for values.
@@ -239,10 +240,10 @@ NON_FATAL_PREFIX = "non_fatal"
 # YOUNG ADULTS AND YOUTH
 GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
 GUN_DEATHS_YOUNG_ADULTS_POPULATION = "gun_deaths_young_adults_population"
-GUN_DEATHS_YOUNG_ADULTS_PREFIX = "gun_deaths_young_adults"
+GUN_DEATHS_YOUNG_ADULTS_PREFIX: WISQARS_VAR_TYPE = "gun_deaths_young_adults"
 GUN_DEATHS_YOUTH_POP_PCT = "gun_deaths_youth_population_pct"
 GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population"
-GUN_DEATHS_YOUTH_PREFIX = "gun_deaths_youth"
+GUN_DEATHS_YOUTH_PREFIX: WISQARS_VAR_TYPE = "gun_deaths_youth"
 
 # BLACK MEN - HOMICIDES AND LAW ENFORCEMENT DEATHS
 GUN_HOMICIDES_BM_RAW = "gun_homicides_black_men_estimated_total"

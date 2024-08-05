@@ -47,7 +47,7 @@ from ingestion.cdc_wisqars_utils import (
     load_wisqars_as_df_from_data_dir,
 )  # pylint: disable=no-name-in-module
 from typing import List
-from ingestion.het_types import RATE_CALC_COLS_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE
 
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
@@ -114,8 +114,8 @@ class CDCWisqarsData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWISQARS")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic = self.get_attr(attrs, "demographic")
-        geo_level = self.get_attr(attrs, "geographic")
+        demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
         national_totals_by_intent_df = process_wisqars_df("all", geo_level)
 
@@ -206,7 +206,9 @@ def process_wisqars_df(demographic: str, geo_level: str):
     data_metric = 'deaths'
     data_column_name = 'intent'
 
-    df = load_wisqars_as_df_from_data_dir('fatal_gun_injuries', geo_level, demographic)
+    fatal_gun_injuries: WISQARS_VAR_TYPE = 'fatal_gun_injuries'
+
+    df = load_wisqars_as_df_from_data_dir(fatal_gun_injuries, geo_level, demographic)
 
     df.columns = df.columns.str.lower()
 

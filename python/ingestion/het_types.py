@@ -8,6 +8,7 @@ it seems that (at least VSCODE) can't interpret these TYPE variables as the unde
 
 SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
 SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
+SEX_RACE_ETH_AGE_TYPE_OR_ALL = Literal["sex", "age", "race_and_ethnicity", "all"]
 DEMOGRAPHIC_TYPE = Literal["sex", "age", "race", "race_and_ethnicity"]
 INCARCERATION_TYPE = Literal["jail", "prison"]
 VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "total_confined_children"]
@@ -20,6 +21,10 @@ TOPIC_CATEGORY_TYPE = Literal[
     'non-behavioral_health',  # TODO: delete this once AHR is split across all categories properly
     'all',
     'behavioral_health',
+]
+
+WISQARS_VAR_TYPE = Literal[
+    "fatal_gun_injuries", "gun_deaths_young_adults", "gun_deaths_youth", "gun_homicides_black_men"
 ]
 
 
