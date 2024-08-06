@@ -214,10 +214,13 @@ def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO
 
     df.columns = df.columns.str.lower()
 
-    # Removes the metadata section from the csv
-    metadata_start_index = df[df[data_column_name] == "Total"].index
-    metadata_start_index = metadata_start_index[0]
-    df = df.iloc[:metadata_start_index]
+    # Removes the metadata section from the CSV
+    metadata_start_indices = df[df[data_column_name] == "Total"].index
+
+    # Ensure that there is at least one index found
+    if not metadata_start_indices.empty:
+        metadata_start_index = int(metadata_start_indices[0])
+        df = df.iloc[:metadata_start_index]
 
     # Cleans data frame
     columns_to_convert = [data_metric, 'crude rate']
@@ -235,7 +238,8 @@ def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO
         values=['deaths', 'crude rate'],
     )
 
-    pivot_df.columns = [
+    # Create a list of new column names
+    new_columns = [
         (
             f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
             if col[0] == 'deaths'
@@ -244,6 +248,10 @@ def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO
         for col in pivot_df.columns
     ]
 
+    # Convert the list of new column names to a pandas Index object
+    pivot_df.columns = pd.Index(new_columns)
+
+    # Reset the index to turn the pivot table back into a DataFrame
     df = pivot_df.reset_index()
 
     df.rename(

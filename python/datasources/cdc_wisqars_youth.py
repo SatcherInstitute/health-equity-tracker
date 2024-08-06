@@ -144,10 +144,13 @@ def process_wisqars_youth_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_leve
         # Convert column names to lowercase
         df.columns = df.columns.str.lower()
 
-        # removes the metadata section from the csv
-        metadata_start_index = df[df["year"] == "Total"].index
-        metadata_start_index = metadata_start_index[0]
-        df = df.iloc[:metadata_start_index]
+        # Remove the metadata section from the CSV
+        metadata_start_indices = df[df["year"] == "Total"].index
+
+        # Ensure that there is at least one index found
+        if not metadata_start_indices.empty:
+            metadata_start_index = int(metadata_start_indices[0])
+            df = df.iloc[:metadata_start_index]
 
         # cleans data frame
         columns_to_convert = ["deaths", "crude rate"]

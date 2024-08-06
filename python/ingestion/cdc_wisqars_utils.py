@@ -103,7 +103,7 @@ def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
         df[column] = pd.to_numeric(df[column], errors='coerce')
 
 
-def generate_cols_map(prefixes: List[str], suffix: str):
+def generate_cols_map(prefixes: List[WISQARS_VAR_TYPE], suffix: str):
     """
     Generates a mapping of column prefixes to new column names, based on incoming list of prefixes and incoming
     suffix. Note: if any of the incoming prefixes are in the count column format (ending in `_estimated_total`), the
@@ -111,7 +111,7 @@ def generate_cols_map(prefixes: List[str], suffix: str):
     for the new suffix in the column name value.
 
     Parameters:
-        estimated_total_cols (List[str]): A list of column prefix strings.
+        estimated_total_cols: A list of column prefix strings.
         suffix (str): The new suffix that will be applied to the incoming list of prefixes
         for the generated column names.
 

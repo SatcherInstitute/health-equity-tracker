@@ -17,6 +17,7 @@ PHRMA_BREAKDOWN_TYPE = Literal['age', 'sex', 'race_and_ethnicity', 'lis', 'eligi
 PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal['age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'all']
 HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
 TIME_VIEW_TYPE = Literal['historical', 'current']
+
 TOPIC_CATEGORY_TYPE = Literal[
     'non-behavioral_health',  # TODO: delete this once AHR is split across all categories properly
     'all',
@@ -24,8 +25,16 @@ TOPIC_CATEGORY_TYPE = Literal[
 ]
 
 WISQARS_VAR_TYPE = Literal[
-    "fatal_gun_injuries", "gun_deaths_young_adults", "gun_deaths_youth", "gun_homicides_black_men"
+    "fatal_gun_injuries",
+    "gun_violence_homicide",
+    "gun_violence_suicide",
+    "gun_deaths_young_adults",
+    "gun_deaths_youth",
+    "gun_homicides_black_men",
+    "fatal",
 ]
+
+SUFFIX_TYPE = Literal["count", "pct_share", "per_100k", "estimated_total", "pct_relative_inequity", "pct_rate", "index"]
 
 
 class RATE_CALC_COLS_TYPE(TypedDict):
