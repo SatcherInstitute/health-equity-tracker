@@ -2,7 +2,6 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
-    convert_columns_to_numeric,
     generate_cols_map,
     WISQARS_YEAR,
     WISQARS_URBANICITY,
@@ -18,8 +17,6 @@ from ingestion.cdc_wisqars_utils import (
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
-    NATIONAL_LEVEL,
-    US_NAME,
 )
 from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
@@ -168,13 +165,6 @@ def process_wisqars_black_men_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_
         if not metadata_start_indices.empty:
             metadata_start_index = int(metadata_start_indices[0])
             df = df.iloc[:metadata_start_index]
-
-        # cleans data frame
-        columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
-        convert_columns_to_numeric(df, columns_to_convert)
-
-        if geo_level == NATIONAL_LEVEL:
-            df.insert(1, WISQARS_STATE, US_NAME)
 
         if demographic == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)

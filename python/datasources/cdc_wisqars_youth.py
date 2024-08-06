@@ -29,7 +29,6 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
-    convert_columns_to_numeric,
     generate_cols_map,
     RACE_NAMES_MAPPING,
     load_wisqars_as_df_from_data_dir,
@@ -37,8 +36,6 @@ from ingestion.cdc_wisqars_utils import (
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
-    NATIONAL_LEVEL,
-    US_NAME,
 )
 from ingestion.dataset_utils import (
     combine_race_ethnicity,
@@ -151,13 +148,6 @@ def process_wisqars_youth_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_leve
         if not metadata_start_indices.empty:
             metadata_start_index = int(metadata_start_indices[0])
             df = df.iloc[:metadata_start_index]
-
-        # cleans data frame
-        columns_to_convert = ["deaths", "crude rate"]
-        convert_columns_to_numeric(df, columns_to_convert)
-
-        if geo_level == NATIONAL_LEVEL:
-            df.insert(1, "state", US_NAME)
 
         if demographic == "all":
             df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)

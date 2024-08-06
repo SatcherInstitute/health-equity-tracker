@@ -17,6 +17,7 @@ import numpy as np
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, SEX_RACE_ETH_AGE_TYPE_OR_ALL
+from ingestion.constants import NATIONAL_LEVEL, US_NAME
 
 DATA_DIR = "cdc_wisqars"
 
@@ -234,5 +235,11 @@ def load_wisqars_as_df_from_data_dir(
         thousands=",",
         dtype={WISQARS_YEAR: str},
     )
+
+    if geo_level == NATIONAL_LEVEL:
+        df.insert(1, WISQARS_STATE, US_NAME)
+
+    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
+    convert_columns_to_numeric(df, columns_to_convert)
 
     return df

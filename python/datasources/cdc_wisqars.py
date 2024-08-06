@@ -25,7 +25,7 @@ Last Updated: 2/24
 import pandas as pd
 import numpy as np
 from datasources.data_source import DataSource
-from ingestion.constants import CURRENT, HISTORICAL, US_NAME, NATIONAL_LEVEL, Sex
+from ingestion.constants import CURRENT, HISTORICAL, Sex
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.dataset_utils import (
     combine_race_ethnicity,
@@ -38,7 +38,6 @@ from ingestion.dataset_utils import (
 from ingestion.merge_utils import merge_state_ids
 from ingestion.cdc_wisqars_utils import (
     generate_cols_map,
-    convert_columns_to_numeric,
     contains_unknown,
     RACE_NAMES_MAPPING,
     INJ_INTENTS,
@@ -205,7 +204,6 @@ def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO
     """
     output_df = pd.DataFrame(columns=["year"])
 
-    data_metric = 'deaths'
     data_column_name = 'intent'
 
     fatal_gun_injuries: WISQARS_VAR_TYPE = 'fatal_gun_injuries'
@@ -221,13 +219,6 @@ def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO
     if not metadata_start_indices.empty:
         metadata_start_index = int(metadata_start_indices[0])
         df = df.iloc[:metadata_start_index]
-
-    # Cleans data frame
-    columns_to_convert = [data_metric, 'crude rate']
-    convert_columns_to_numeric(df, columns_to_convert)
-
-    if geo_level == NATIONAL_LEVEL:
-        df.insert(1, "state", US_NAME)
 
     df = df[~df['intent'].isin(['Unintentional', 'Undetermined', 'Legal Intervention'])]
 
