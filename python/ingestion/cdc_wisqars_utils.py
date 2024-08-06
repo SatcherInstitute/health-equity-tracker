@@ -16,7 +16,7 @@ import pandas as pd
 import numpy as np
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
-from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, SEX_RACE_ETH_AGE_TYPE_OR_ALL
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, WISQARS_DEMO_TYPE
 from ingestion.constants import NATIONAL_LEVEL, US_NAME
 
 DATA_DIR = "cdc_wisqars"
@@ -36,7 +36,7 @@ WISQARS_DEATHS = "Deaths"
 WISQARS_CRUDE_RATE = "Crude Rate"
 WISQARS_POP = "Population"
 
-WISQARS_ALL: SEX_RACE_ETH_AGE_TYPE_OR_ALL = 'all'
+WISQARS_ALL: WISQARS_DEMO_TYPE = 'all'
 
 WISQARS_COLS = [
     "Age-Adjusted Rate",
@@ -211,7 +211,7 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
 
 
 def load_wisqars_as_df_from_data_dir(
-    variable_string: WISQARS_VAR_TYPE, geo_level: GEO_TYPE, demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL
+    variable_string: WISQARS_VAR_TYPE, geo_level: GEO_TYPE, demographic: WISQARS_DEMO_TYPE
 ) -> pd.DataFrame:
     """
     Loads wisqars data from data directory

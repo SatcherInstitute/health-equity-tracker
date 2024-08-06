@@ -33,7 +33,7 @@ from ingestion.cdc_wisqars_utils import (
     RACE_NAMES_MAPPING,
     load_wisqars_as_df_from_data_dir,
     WISQARS_ALL,
-)  # pylint: disable=no-name-in-module
+)
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
@@ -46,7 +46,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-from ingestion.het_types import SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE, WISQARS_VAR_TYPE
+from ingestion.het_types import WISQARS_DEMO_TYPE, GEO_TYPE, WISQARS_VAR_TYPE
 from typing import List
 
 CATEGORIES_LIST: List[WISQARS_VAR_TYPE] = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
@@ -79,7 +79,7 @@ class CDCWisqarsYouthData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsYouthData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
+        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")
         geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
         national_totals_by_intent_df = process_wisqars_youth_df(WISQARS_ALL, geo_level)
@@ -94,9 +94,7 @@ class CDCWisqarsYouthData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(
-        self, breakdown: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE, alls_df: pd.DataFrame
-    ):
+    def generate_breakdown_df(self, breakdown: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
         cols_to_standard = {
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,
@@ -132,7 +130,7 @@ class CDCWisqarsYouthData(DataSource):
         return df
 
 
-def process_wisqars_youth_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE):
+def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     output_df = pd.DataFrame(columns=['year', 'state', 'race'])
 
     for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:

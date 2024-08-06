@@ -45,9 +45,9 @@ from ingestion.cdc_wisqars_utils import (
     condense_age_groups,
     load_wisqars_as_df_from_data_dir,
     WISQARS_ALL,
-)  # pylint: disable=no-name-in-module
+)
 from typing import List
-from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
 
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
@@ -114,7 +114,7 @@ class CDCWisqarsData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWISQARS")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
+        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")
         geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
         national_totals_by_intent_df = process_wisqars_df(WISQARS_ALL, geo_level)
@@ -134,9 +134,7 @@ class CDCWisqarsData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(
-        self, demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE, alls_df: pd.DataFrame
-    ):
+    def generate_breakdown_df(self, demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a gun violence data frame by demographic and geo_level
 
         demographic: string equal to `age`, `race_and_ethnicity, or `sex`
@@ -194,7 +192,7 @@ class CDCWisqarsData(DataSource):
         return df
 
 
-def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE):
+def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     """
     generates WISQARS data by demographic and geo_level
 
