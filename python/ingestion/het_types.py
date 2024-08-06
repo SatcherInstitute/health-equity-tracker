@@ -38,6 +38,7 @@ WISQARS_VAR_TYPE = Literal[
     "fatal",
 ]
 
+#
 SUFFIX_TYPE = Literal["count", "pct_share", "per_100k", "estimated_total", "pct_relative_inequity", "pct_rate", "index"]
 
 
