@@ -218,7 +218,6 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
         values=['deaths', 'crude rate'],
     )
 
-    # Create a list of new column names
     new_columns = [
         (
             f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
@@ -228,10 +227,8 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
         for col in pivot_df.columns
     ]
 
-    # Convert the list of new column names to a pandas Index object
+    # need to be an Index to pass linter
     pivot_df.columns = pd.Index(new_columns)
-
-    # Reset the index to turn the pivot table back into a DataFrame
     df = pivot_df.reset_index()
 
     df.rename(
