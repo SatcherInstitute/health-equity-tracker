@@ -12,5 +12,5 @@ fi
 # Install mypy types and run mypy for each changed file
 for file in $changed_files; do
   echo -e "Checking $file"
-  mypy --install-types --non-interactive --config-file=.github/linters/mypy.ini --show-error-codes --ignore-missing-imports --follow-imports=silent --pretty "$file"
+  mypy --install-types --non-interactive --config-file=.github/linters/mypy.ini --show-error-codes --ignore-missing-imports --incremental --follow-imports=silent --pretty "$file"
 done
