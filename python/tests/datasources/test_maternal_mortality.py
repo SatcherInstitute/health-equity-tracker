@@ -2,7 +2,7 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from datasources.maternal_mortality import MaternalMortalityData
+from datasources.maternal_mortality import MaternalMortalityData, CDC_STATE_FIPS
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "maternal_mortality")
@@ -31,6 +31,18 @@ def get_test_data_as_df(*args, **kwargs):
     return df
 
 
+def get_test_tsv_data_as_df(*args, **kwargs):
+    print(kwargs)
+    df = pd.read_csv(
+        os.path.join(TEST_DIR, args[1]), delimiter='\t', skipinitialspace=True, dtype={CDC_STATE_FIPS: str}
+    )
+    return df
+
+
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_tsv_as_df_from_data_dir',
+    side_effect=get_test_tsv_data_as_df,
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     side_effect=get_test_data_as_df,
@@ -39,6 +51,7 @@ def get_test_data_as_df(*args, **kwargs):
 def testWriteToBq(
     mock_bq: mock.MagicMock,
     mock_csv: mock.MagicMock,
+    mock_tsv: mock.MagicMock,
 ):
     datasource = MaternalMortalityData()
 
@@ -51,6 +64,7 @@ def testWriteToBq(
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_csv.call_count == 2
+    assert mock_tsv.call_count == 1
 
     df_state_historical, _, table_name = mock_bq.call_args_list[0][0]
     assert table_name == 'by_race_state_historical'

@@ -3,11 +3,16 @@ from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, US_NAME, CURRENT, HISTORICAL
+from ingestion.dataset_utils import ensure_leading_zeros
 from ingestion import dataset_utils
 import pandas as pd
 from typing import List
 
-NATIONAL = "National"
+JAMA_NATIONAL = "National"
+CDC_STATE_FIPS = "State of Residence Code"
+CDC_RACE = "Mother's Single Race 6"
+CDC_ETH = "Mother's Hispanic Origin"
+CDC_BIRTHS = "Births"
 
 RACE_GROUPS_TO_STANDARD = {
     'Non-Hispanic American Indian and Alaska Native': std_col.Race.AIAN_NH.value,
@@ -46,6 +51,11 @@ class MaternalMortalityData(DataSource):
         raise NotImplementedError('upload_to_gcs should not be called for MaternalMortalityData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+
+        births_df = read_live_births_denominators()
+        print(births_df)
+        print(births_df.columns)
+        # print(births_df.to_string())
 
         # load source data once
         source_df = preprocess_source_rates()
@@ -113,7 +123,7 @@ def preprocess_source_rates() -> pd.DataFrame:
     )
 
     source_rates_df = source_rates_df.rename(columns=RATE_COLS_TO_STANDARD)
-    source_rates_df = source_rates_df.replace({NATIONAL: US_NAME})
+    source_rates_df = source_rates_df.replace({JAMA_NATIONAL: US_NAME})
     source_rates_df = source_rates_df.replace(RACE_GROUPS_TO_STANDARD)
     std_col.add_race_columns_from_category_id(source_rates_df)
 
@@ -144,7 +154,7 @@ def merge_counts(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     source_counts_df = source_counts_df.rename(columns=COLS_TO_STANDARD)
-    source_counts_df = source_counts_df.replace({NATIONAL: US_NAME})
+    source_counts_df = source_counts_df.replace({JAMA_NATIONAL: US_NAME})
     source_counts_df = source_counts_df.replace(RACE_GROUPS_TO_STANDARD)
     std_col.add_race_columns_from_category_id(source_counts_df)
 
@@ -184,3 +194,34 @@ def get_float_cols(time_type: str, geo_level: str) -> List[str]:
             )
 
     return cols
+
+
+def read_live_births_denominators() -> pd.DataFrame:
+    """Reads the denominators for live births
+    Returns:
+        pandas.DataFrame: denominators
+    """
+
+    df = gcs_to_bq_util.load_tsv_as_df_from_data_dir(
+        'maternal_mortality',
+        'Natality, 2016-2022 expanded.txt',
+        delimiter='\t',
+        skipinitialspace=True,
+        dtype={CDC_STATE_FIPS: str},
+    )
+    df[CDC_STATE_FIPS] = df[CDC_STATE_FIPS].astype(str)
+
+    # Find the index of the first row containing the metadata marker
+    metadata_marker = "---"
+    metadata_index = df.apply(lambda row: row.astype(str).str.contains(metadata_marker).any(), axis=1).idxmax()
+
+    # Filter the DataFrame to remove the metadata row and everything below it
+    if metadata_index != -1:
+        df = df.loc[: metadata_index - 1]
+
+    df = df[[CDC_RACE, CDC_ETH, CDC_BIRTHS, CDC_STATE_FIPS]]
+    df = ensure_leading_zeros(df, CDC_STATE_FIPS, 2)
+
+    df = df.rename(columns={CDC_STATE_FIPS: std_col.STATE_FIPS_COL, CDC_BIRTHS: std_col.LIVE_BIRTHS_RAW})
+
+    return df
