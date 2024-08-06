@@ -134,7 +134,9 @@ class CDCWisqarsData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, demographic: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(
+        self, demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE, alls_df: pd.DataFrame
+    ):
         """generate_breakdown_df generates a gun violence data frame by demographic and geo_level
 
         demographic: string equal to `age`, `race_and_ethnicity, or `sex`
@@ -192,7 +194,7 @@ class CDCWisqarsData(DataSource):
         return df
 
 
-def process_wisqars_df(demographic: str, geo_level: str):
+def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE):
     """
     generates WISQARS data by demographic and geo_level
 

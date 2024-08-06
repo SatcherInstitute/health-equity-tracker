@@ -49,9 +49,9 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-from ingestion.het_types import SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE
+from ingestion.het_types import SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE, WISQARS_VAR_TYPE
 
-CATEGORIES_LIST = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
+CATEGORIES_LIST: WISQARS_VAR_TYPE = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
 ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
@@ -96,7 +96,9 @@ class CDCWisqarsYouthData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(
+        self, breakdown: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE, alls_df: pd.DataFrame
+    ):
         cols_to_standard = {
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,

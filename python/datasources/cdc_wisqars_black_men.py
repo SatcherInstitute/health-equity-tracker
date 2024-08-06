@@ -122,7 +122,9 @@ class CDCWisqarsBlackMenData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, demographic: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(
+        self, demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO_TYPE, alls_df: pd.DataFrame
+    ):
         cols_to_standard = {
             WISQARS_YEAR: std_col.TIME_PERIOD_COL,
             WISQARS_STATE: std_col.STATE_NAME_COL,
