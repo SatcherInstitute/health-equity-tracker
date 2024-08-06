@@ -44,10 +44,10 @@ export default function PolicyPage() {
 						</div>
 						</div>
 					
-					<section className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row smMd:gap-2 md:gap-12'>
+					<section className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row smMd:gap-2 md:gap-12' id='main'>
 						<div className='flex flex-wrap grow p-1'>
 							<article className='flex w-full flex-col p-8 text-left md:p-0 '>
-								<h2 className='font-serif text-header font-light' id='main'>
+								<h2 className='font-serif text-header font-light' >
 									{activeRoute?.label}
 								</h2>
 
