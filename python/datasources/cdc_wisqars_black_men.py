@@ -2,10 +2,7 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
-    convert_columns_to_numeric,
     generate_cols_map,
-    DATA_DIR,
-    WISQARS_COLS,
     WISQARS_YEAR,
     WISQARS_URBANICITY,
     WISQARS_STATE,
@@ -15,12 +12,11 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_POP,
     WISQARS_AGE_GROUP,
     condense_age_groups,
+    load_wisqars_as_df_from_data_dir,
 )
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
-    NATIONAL_LEVEL,
-    US_NAME,
 )
 from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
@@ -28,7 +24,7 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
-from ingestion.het_types import RATE_CALC_COLS_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
 from typing import List
 
 """
@@ -70,7 +66,7 @@ Notes:
 Last Updated: April 2024
 """
 
-GUN_HOMICIDES_BM_PREFIX = "gun_homicides_black_men"
+GUN_HOMICIDES_BM_PREFIX: WISQARS_VAR_TYPE = "gun_homicides_black_men"
 ESTIMATED_TOTALS_MAP = generate_cols_map([GUN_HOMICIDES_BM_PREFIX], std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
@@ -108,10 +104,10 @@ class CDCWisqarsBlackMenData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsBlackMenData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic = self.get_attr(attrs, "demographic")
-        geo_level = self.get_attr(attrs, "geographic")
+        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
-        alls_df = load_wisqars_df_from_data_dir(WISQARS_ALL, geo_level)
+        alls_df = process_wisqars_black_men_df(WISQARS_ALL, geo_level)
 
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
@@ -123,7 +119,7 @@ class CDCWisqarsBlackMenData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, demographic: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(self, demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
         cols_to_standard = {
             WISQARS_YEAR: std_col.TIME_PERIOD_COL,
             WISQARS_STATE: std_col.STATE_NAME_COL,
@@ -131,7 +127,7 @@ class CDCWisqarsBlackMenData(DataSource):
             WISQARS_AGE_GROUP: std_col.AGE_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(demographic, geo_level)
+        breakdown_group_df = process_wisqars_black_men_df(demographic, geo_level)
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
         df = combined_group_df.rename(columns=cols_to_standard)
         if demographic == std_col.AGE_COL:
@@ -154,30 +150,11 @@ class CDCWisqarsBlackMenData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(demographic: str, geo_level: str):
+def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     output_df = pd.DataFrame(columns=[WISQARS_YEAR, WISQARS_STATE, WISQARS_URBANICITY])
 
     for variable_string in [GUN_HOMICIDES_BM_PREFIX]:
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            DATA_DIR,
-            f"{variable_string}-{geo_level}_{demographic}.csv",
-            na_values=["--", "**"],
-            usecols=lambda x: x not in WISQARS_COLS,
-            thousands=",",
-            dtype={WISQARS_YEAR: str},
-        )
-
-        # removes the metadata section from the csv
-        metadata_start_index = df[df[WISQARS_YEAR] == "Total"].index
-        metadata_start_index = metadata_start_index[0]
-        df = df.iloc[:metadata_start_index]
-
-        # cleans data frame
-        columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
-        convert_columns_to_numeric(df, columns_to_convert)
-
-        if geo_level == NATIONAL_LEVEL:
-            df.insert(1, WISQARS_STATE, US_NAME)
+        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
 
         if demographic == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
