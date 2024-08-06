@@ -1,10 +1,12 @@
 import { getDataManager } from '../../utils/globals'
+import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type {
   DataTypeId,
   DropdownVarId,
   MetricId,
 } from '../config/MetricConfig'
+import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
 import type { DemographicBreakdownKey, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
@@ -140,19 +142,39 @@ class AhrProvider extends VariableProvider {
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
   ): DatasetId | undefined {
+    const currentDropdown: DropdownVarId | undefined =
+      dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
+    const isBehavioralHealth =
+      currentDropdown &&
+      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
+
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
-        return 'graphql_ahr_data-race_and_ethnicity_national_current'
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
+          : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
       if (breakdowns.hasOnlySex())
-        return 'graphql_ahr_data-sex_national_current'
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_sex_national_current'
+          : 'graphql_ahr_data-non-behavioral_health_sex_national_current'
       if (breakdowns.hasOnlyAge())
-        return 'graphql_ahr_data-age_national_current'
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_age_national_current'
+          : 'graphql_ahr_data-non-behavioral_health_age_national_current'
     }
     if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace())
-        return 'graphql_ahr_data-race_and_ethnicity_state_current'
-      if (breakdowns.hasOnlySex()) return 'graphql_ahr_data-sex_state_current'
-      if (breakdowns.hasOnlyAge()) return 'graphql_ahr_data-age_state_current'
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
+          : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
+      if (breakdowns.hasOnlySex())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_sex_state_current'
+          : 'graphql_ahr_data-non-behavioral_health_sex_state_current'
+      if (breakdowns.hasOnlyAge())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_age_state_current'
+          : 'graphql_ahr_data-non-behavioral_health_age_state_current'
     }
     // some county data is available via CHR
     if (
