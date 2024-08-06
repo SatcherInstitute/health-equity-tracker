@@ -1,4 +1,4 @@
-astroid==3.3.0
+astroid
 blinker==1.8.2
 cachetools==5.4.0
 certifi==2024.7.4
