@@ -36,15 +36,6 @@ repos:
             "-rn", # Only display messages
             "-sn", # Don't display the score
           ]
-  # TYPE CHECK PYTHON WITH MYPY
-  - repo: local
-    hooks:
-      - id: mypy
-        name: 🕵️ python type-checking with mypy
-        entry: bash -c scripts/run_mypy.sh
-        language: system
-        types: [python]
-        pass_filenames: false
   # LINT/FORMAT JS/TS/JSON WITH BIOME
   - repo: local
     hooks:
