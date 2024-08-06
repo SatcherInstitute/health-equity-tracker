@@ -9,13 +9,8 @@ if [ -z "$changed_files" ]; then
   exit 0
 fi
 
-# Install mypy types for the changed files
+# Install mypy types and run mypy for each changed file
 for file in $changed_files; do
-  yes | mypy --install-types "$file"
-done
-
-# Run mypy against the changed files and print each file being checked
-for file in $changed_files; do
-  echo -e "\n********\nChecking $file"
-  mypy --config-file=.github/linters/mypy.ini --show-error-codes --ignore-missing-imports --follow-imports=silent --pretty "$file"
+  echo -e "Checking $file"
+  mypy --install-types --non-interactive --config-file=.github/linters/mypy.ini --show-error-codes --ignore-missing-imports --follow-imports=silent --pretty "$file"
 done
