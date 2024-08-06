@@ -236,10 +236,32 @@ def load_wisqars_as_df_from_data_dir(
         dtype={WISQARS_YEAR: str},
     )
 
+    df = remove_metadata(df)
+
     if geo_level == NATIONAL_LEVEL:
         df.insert(1, WISQARS_STATE, US_NAME)
 
     columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
     convert_columns_to_numeric(df, columns_to_convert)
+
+    return df
+
+
+def remove_metadata(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Removes metadata from the wisqars data frame
+
+    Args:
+        df: The wisqars data frame
+
+    Returns:
+        The wisqars data frame with metadata removed
+    """
+
+    leftmost_column = df.columns[0]
+    metadata_start_indices = df[df[leftmost_column] == "Total"].index
+    if not metadata_start_indices.empty:
+        metadata_start_index = int(metadata_start_indices[0])
+        df = df.iloc[:metadata_start_index]
 
     return df

@@ -204,21 +204,11 @@ def process_wisqars_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_level: GEO
     """
     output_df = pd.DataFrame(columns=["year"])
 
-    data_column_name = 'intent'
-
     fatal_gun_injuries: WISQARS_VAR_TYPE = 'fatal_gun_injuries'
 
     df = load_wisqars_as_df_from_data_dir(fatal_gun_injuries, geo_level, demographic)
 
     df.columns = df.columns.str.lower()
-
-    # Removes the metadata section from the CSV
-    metadata_start_indices = df[df[data_column_name] == "Total"].index
-
-    # Ensure that there is at least one index found
-    if not metadata_start_indices.empty:
-        metadata_start_index = int(metadata_start_indices[0])
-        df = df.iloc[:metadata_start_index]
 
     df = df[~df['intent'].isin(['Unintentional', 'Undetermined', 'Legal Intervention'])]
 

@@ -158,14 +158,6 @@ def process_wisqars_black_men_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_
     for variable_string in [GUN_HOMICIDES_BM_PREFIX]:
         df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
 
-        # Remove the metadata section from the CSV
-        metadata_start_indices = df[df[WISQARS_YEAR] == "Total"].index
-
-        # Ensure that there is at least one index found
-        if not metadata_start_indices.empty:
-            metadata_start_index = int(metadata_start_indices[0])
-            df = df.iloc[:metadata_start_index]
-
         if demographic == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
             df.insert(3, WISQARS_AGE_GROUP, std_col.ALL_VALUE)
