@@ -3,6 +3,8 @@ import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import { routeConfigs } from '../policyContent/routeConfigs'
 import { GUN_VIOLENCE_POLICY } from '../../../utils/internalRoutes'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
+import HetCardMenu from '../../../styles/HetComponents/HetCardMenu'
+import HetCardMenuMobile from '../../../styles/HetComponents/HetCardMenuMobile'
 
 export default function PolicyPage() {
   const location = useLocation()
@@ -19,10 +21,11 @@ export default function PolicyPage() {
 
 				<div className='flex w-full justify-center'>
 					<h2 className='sr-only'>Policy Context Page</h2>
-
-					<a href={GUN_VIOLENCE_POLICY}>
-						Gun Violence Section
-					</a>
+					{/* MAIN METHODOLOGY PAGES MENU */}
+					<div className='min-w-fit'>
+						<HetCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
+						<HetCardMenuMobile className='m-3 smMd:hidden' />
+					</div>
 
 					<div className='flex flex-wrap grow p-1'>
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
