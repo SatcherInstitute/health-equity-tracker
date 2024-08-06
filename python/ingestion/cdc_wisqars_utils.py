@@ -36,7 +36,7 @@ WISQARS_DEATHS = "Deaths"
 WISQARS_CRUDE_RATE = "Crude Rate"
 WISQARS_POP = "Population"
 
-WISQARS_ALL = 'all'
+WISQARS_ALL: SEX_RACE_ETH_AGE_TYPE_OR_ALL = 'all'
 
 WISQARS_COLS = [
     "Age-Adjusted Rate",

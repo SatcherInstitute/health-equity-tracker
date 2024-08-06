@@ -32,6 +32,7 @@ from ingestion.cdc_wisqars_utils import (
     generate_cols_map,
     RACE_NAMES_MAPPING,
     load_wisqars_as_df_from_data_dir,
+    WISQARS_ALL,
 )  # pylint: disable=no-name-in-module
 from ingestion.constants import (
     CURRENT,
@@ -81,7 +82,7 @@ class CDCWisqarsYouthData(DataSource):
         demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
         geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
-        national_totals_by_intent_df = process_wisqars_youth_df("all", geo_level)
+        national_totals_by_intent_df = process_wisqars_youth_df(WISQARS_ALL, geo_level)
 
         df = self.generate_breakdown_df(demographic, geo_level, national_totals_by_intent_df)
 
@@ -141,7 +142,7 @@ def process_wisqars_youth_df(demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL, geo_leve
         # Convert column names to lowercase
         df.columns = df.columns.str.lower()
 
-        if demographic == "all":
+        if demographic == WISQARS_ALL:
             df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
 
         if std_col.ETH_COL in df.columns.to_list():

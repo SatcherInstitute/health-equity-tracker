@@ -44,6 +44,7 @@ from ingestion.cdc_wisqars_utils import (
     INJ_OUTCOMES,
     condense_age_groups,
     load_wisqars_as_df_from_data_dir,
+    WISQARS_ALL,
 )  # pylint: disable=no-name-in-module
 from typing import List
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, SEX_RACE_ETH_AGE_TYPE_OR_ALL, GEO_TYPE
@@ -60,7 +61,7 @@ PIVOT_DEM_COLS = {
     std_col.AGE_COL: ["year", "state", "age group", "population"],
     std_col.RACE_OR_HISPANIC_COL: ["year", "state", "race", "ethnicity", "population"],
     std_col.SEX_COL: ["year", "state", "sex", "population"],
-    "all": ["year", "state", "population"],
+    WISQARS_ALL: ["year", "state", "population"],
 }
 
 TIME_MAP = {
@@ -116,7 +117,7 @@ class CDCWisqarsData(DataSource):
         demographic: SEX_RACE_ETH_AGE_TYPE_OR_ALL = self.get_attr(attrs, "demographic")
         geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
-        national_totals_by_intent_df = process_wisqars_df("all", geo_level)
+        national_totals_by_intent_df = process_wisqars_df(WISQARS_ALL, geo_level)
 
         if demographic == std_col.RACE_OR_HISPANIC_COL:
             national_totals_by_intent_df.insert(2, 'race', std_col.Race.ALL.value)
