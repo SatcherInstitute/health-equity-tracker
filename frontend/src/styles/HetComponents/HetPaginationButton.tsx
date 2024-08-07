@@ -30,9 +30,6 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
         ) : (
           <span className='flex align-center'>
             <span>Up Next</span> <ArrowForward />
-            <span className='text-sansText'>
-arrow_right_alt
-</span>
           </span>
         )}
       </span>
