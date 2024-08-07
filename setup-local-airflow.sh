@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Set variables
-IMAGE_VERSION="composer-2.8.7-airflow-2.7.3"
 LOCAL_ENV_NAME="local-data-ingestion-environment"
+SOURCE_ENV_NAME="data-ingestion-environment"
 PROJECT_ID=$(gcloud config get-value project)
 LOCATION="us-central1"
 DAG_PATH="../airflow/dags"
@@ -28,12 +28,12 @@ if composer-dev list 2>/dev/null | grep -q "$LOCAL_ENV_NAME"; then
 else
     echo "Creating local Airflow environment '$LOCAL_ENV_NAME'..."
     cd composer-local-dev || exit
-    composer-dev create \
-        --from-image-version "$IMAGE_VERSION" \
+    composer-dev create "$LOCAL_ENV_NAME" \
+        --from-source-environment "$SOURCE_ENV_NAME" \
+        --location "$LOCATION" \
         --project "$PROJECT_ID" \
         --port "$PORT" \
-        --dags-path "$DAG_PATH" \
-        "$LOCAL_ENV_NAME"
+        --dags-path "$DAG_PATH"    
     echo "Local Airflow environment setup complete!"
 fi
 
