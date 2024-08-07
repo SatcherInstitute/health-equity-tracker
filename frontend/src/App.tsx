@@ -37,7 +37,6 @@ import {
 	METHODOLOGY_PAGE_LINK,
 	AGE_ADJUSTMENT_LINK,
 	GUN_VIOLENCE_POLICY,
-	POLICY_PAGE_LINK,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
@@ -56,7 +55,6 @@ import { HashLink } from 'react-router-hash-link'
 import HetNotice from './styles/HetComponents/HetNotice'
 import Banner from './reports/ui/Banner'
 import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
-import GunViolencePolicyHomeLink from './pages/Policy/policySections/GunViolencePolicyHomeLink'
 
 const ExploreDataPage = React.lazy(
 	async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -157,8 +155,12 @@ export default function App() {
 												<NewsPage isMobile={isSm} />
 											</Route>
 
-											<Route path={POLICY_PAGE_LINK}>
+											<Route path={GUN_VIOLENCE_POLICY}>
 												<PolicyPage />
+											</Route>
+
+											<Route path={'/policy'}>
+												<Redirect to={GUN_VIOLENCE_POLICY} />
 											</Route>
 											
 											<Route path={TERMS_OF_USE_PAGE_LINK}>
