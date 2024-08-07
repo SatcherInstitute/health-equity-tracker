@@ -160,10 +160,6 @@ export default function App() {
 											<Route path={POLICY_PAGE_LINK}>
 												<PolicyPage />
 											</Route>
-
-											<Route path={GUN_VIOLENCE_POLICY}>
-												<GunViolencePolicyHomeLink />
-											</Route>
 											
 											<Route path={TERMS_OF_USE_PAGE_LINK}>
 												<TermsOfUsePage />

@@ -1,91 +1,91 @@
 import { Helmet } from 'react-helmet-async'
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import { routeConfigs } from '../policyContent/routeConfigs'
-import { GUN_VIOLENCE_POLICY } from '../../../utils/internalRoutes'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import HetCardMenu from '../../../styles/HetComponents/HetCardMenu'
 import HetCardMenuMobile from '../../../styles/HetComponents/HetCardMenuMobile'
+import PolicyPagination from './PolicyPagination'
 
 export default function PolicyPage() {
-  const location = useLocation()
+	const location = useLocation()
 
-  const activeRoute = routeConfigs.find(
-    (route) => route.path === location.pathname,
-  )
+	const activeRoute = routeConfigs.find(
+		(route) => route.path === location.pathname,
+	)
 
-  return (
-			<>
-				<Helmet>
-					<title>Policy Context - Health Equity Tracker</title>
-				</Helmet>
+	return (
+		<>
+			<Helmet>
+				<title>Policy Context - Health Equity Tracker</title>
+			</Helmet>
+			<section className='flex w-full justify-center text-left' id='main'>
+				<div className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row'>
+					<h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
-				<div className='flex w-full justify-center'>
-					<h2 className='sr-only'>Policy Context Page</h2>
-					{/* MAIN METHODOLOGY PAGES MENU */}
 					<div className='min-w-fit'>
 						<HetCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
 						<HetCardMenuMobile className='m-3 smMd:hidden' />
 					</div>
-
-					<div className='flex flex-wrap grow p-1'>
+					<div>
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
 						<div className='px-12 md:hidden'>
 							{routeConfigs.map((routeConfig) => {
 								const match = useRouteMatch({
 									path: routeConfig.path,
 									exact: true,
-								});
+								})
 								const hasSublinks =
-									routeConfig.subLinks && routeConfig.subLinks.length > 0;
+									routeConfig.subLinks && routeConfig.subLinks.length > 0
 								return match && hasSublinks ? (
 									<HetOnThisPageMenu
 										key={routeConfig.path}
 										links={routeConfig.subLinks}
 									/>
-								) : null;
+								) : null
 							})}
 						</div>
-						</div>
-					
-					<section className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row smMd:gap-2 md:gap-12' id='main'>
-						<div className='flex flex-wrap grow p-1'>
-							<article className='flex w-full flex-col p-8 text-left md:p-0 '>
-								<h2 className='font-serif text-header font-light' >
-									{activeRoute?.label}
-								</h2>
+					</div>
 
-								<Switch>
-									{routeConfigs.map((route) => (
-										<Route
-											key={route.path}
-											exact
-											path={route.path}
-											component={route.component}
-										/>
-									))}
-								</Switch>
-							</article>
-						</div>
+					<section className='flex flex-col justify-end grow mx-12'>
+						<h1 className='sr-only'>{activeRoute?.label}</h1>
+
+						<Switch>
+							<>
+								{/* TEXT */}
+								{routeConfigs.map((route) => (
+									<Route
+										key={route.path}
+										exact
+										path={route.path}
+										component={route.component}
+									/>
+								))}
+								{/* PREV / NEXT */}
+								<PolicyPagination />
+							</>
+						</Switch>
 					</section>
+
 					{/* ON THIS PAGE SUB-MENU - DESKTOP */}
 					<div className='hidden min-w-fit md:block'>
 						{routeConfigs.map((routeConfig) => {
 							const match = useRouteMatch({
 								path: routeConfig.path,
 								exact: true,
-							});
+							})
 							const hasSublinks =
-								routeConfig.subLinks && routeConfig.subLinks.length > 0;
+								routeConfig.subLinks && routeConfig.subLinks.length > 0
 							return match && hasSublinks ? (
 								<HetOnThisPageMenu
 									key={routeConfig.path}
 									links={routeConfig.subLinks}
 									className='sticky right-0 top-4  z-top h-min'
 								/>
-							) : null;
+							) : null
 						})}
 					</div>
 				</div>
-			</>
-		)
+			</section>
+		</>
+	)
 }

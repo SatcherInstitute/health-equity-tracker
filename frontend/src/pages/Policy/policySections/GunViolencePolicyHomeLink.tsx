@@ -1,11 +1,8 @@
-import { CRISIS_OVERVIEW_TAB, DATA_COLLECTION_TAB, ADDRESSING_INEQUITIES_TAB, CURRENT_EFFORTS_TAB, REFORM_OPPORTUNITIES_TAB, HOW_TO_USE_THE_DATA_TAB, FAQS_TAB, POLICY_PAGE_LINK } from "../../../utils/internalRoutes";
-
 export default function GunViolencePolicyHomeLink() {
 	return (
 		<>
-			<h1>Gun Violence Policy Context Overview</h1>
-			<section className='py-4 xs:px-8 md:px-24 lg:px-80 max-w-screen'>
-				<p className='my-3 text-center font-roboto text-smallest font-semibold uppercase text-black'>
+			<section>
+				<p className='mb-3 mt-0 text-center font-roboto text-smallest font-semibold uppercase text-black'>
 					In Focus
 				</p>
 				<div className='flex w-full flex-col justify-center items-center'>
