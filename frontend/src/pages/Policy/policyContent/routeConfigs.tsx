@@ -23,7 +23,7 @@ export type RouteConfig = {
 export const routeConfigs: RouteConfig[] = [
 	{
 		isTopLevel: true,
-		label: `Georgia's Gun Violence Policy Context Overview`,
+		label: 'Policy Context Introduction',
 		path: GUN_VIOLENCE_POLICY,
 		component: GunViolencePolicyHomeLink,
 		subLinks: [],
