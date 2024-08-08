@@ -14,9 +14,7 @@ export const OLD_OURTEAM_LINK = '/ourteam'
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
 
 // CONTEXT TABS
-export const POLICY_PAGE_LINK = '/policy'
-export const GUN_VIOLENCE_CONTEXT_LINK = '/gun-violence'
-export const GUN_VIOLENCE_POLICY = POLICY_PAGE_LINK + GUN_VIOLENCE_CONTEXT_LINK
+export const GUN_VIOLENCE_POLICY = '/policy' + '/gun-violence'
 export const CRISIS_OVERVIEW_TAB = GUN_VIOLENCE_POLICY + '/crisis-overview'
 export const DATA_COLLECTION_TAB = GUN_VIOLENCE_POLICY + '/data-collection'
 export const ADDRESSING_INEQUITIES_TAB = GUN_VIOLENCE_POLICY + '/addressing-inequities'

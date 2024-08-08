@@ -31,13 +31,13 @@ const Banner: React.FC = () => {
   return (
     <section className="bg-infobarColor text-center p-4" aria-labelledby="banner-heading">
       <div className="flex justify-between">
-        <div className="flex lg:flex-row flex-col items-center xs:items-start m-0 p-0">
+        <div className="flex lg:flex-row flex-wrap items-center justify-start md:items-center lg:justify-start m-0 px-2">
           <FlagIcon
-            className="lg:visible collapse mr-2 text-alertColor"
+            className="lg:visible hidden mr-2 text-alertColor"
             aria-hidden="true"
           />
-          <p className="text-text p-0 my-0 text-left lg:mr-8" id="banner-heading">
-            <span className="font-sansTitle text-title font-bold m-0 p-0">
+          <p className="text-small p-0 my-0 text-left lg:mr-8" id="banner-heading">
+            <span className="font-sansTitle text-small lg:text-text font-bold m-0 p-0">
               Major gaps in the data:
             </span>{' '}
             Structural racism causes health inequities. We’re closing these gaps to improve U.S. health policies.
@@ -45,13 +45,13 @@ const Banner: React.FC = () => {
           <HetTextArrowLink
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
             linkText="Learn more"
-            containerClassName="block"
+            containerClassName="block md:mx-2 md:my-0 mx-0 my-4"
             linkClassName="text-black"
           />
         </div>
         <IconButton
           onClick={handleClose}
-          className="banner-close-button p-0 md:my-auto mb-auto xs:mt-[2px]"
+          className="banner-close-button p-2.5 md:my-auto mb-auto xs:mt-[2px]"
           aria-label="Close banner"
         >
           <div className="icon-small w-embed">
