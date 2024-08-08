@@ -1,4 +1,6 @@
 import { Helmet } from 'react-helmet-async'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { FormatQuote } from '@mui/icons-material'
 
 export default function CrisisOverviewTab() {
 	return (
@@ -26,36 +28,36 @@ export default function CrisisOverviewTab() {
 						affected youth have unfortunately faced in their adolescence.
 					</p>
 				</section>
-				<section className='my-2' id='#background'>
-					<div className='mb-2'>
+				<section id='#background'>
+					<div className='mb-0'>
 					<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 						BY THE NUMBERS
 					</p>
 					<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-						SOURCE: GUN VIOLENCE ARCHIVE
+						SOURCE: GUN VIOLENCE ARCHIVE{' '}<a href='https://www.gunviolencearchive.org/'><span>[<FormatQuote className='text-text'></FormatQuote>]</span></a>
 					</p>
 					</div>
 					<h3 className='my-0 text-title font-medium text-altGreen'>Background</h3>
-					<p></p>
-					<ul className='list-disc pl-4'>
-						<li>
+					
+					<ul className='list-none px-4 grid gap-8 md:grid-cols-2 grid-cols-1 py-4 my-0'>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 px-4 py-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80'>
 							Only four months into 2024, Georgia has already witnessed a
-							staggering toll of over 92 lives lost to firearm-related incidents.
+							staggering toll of over <HetTerm>92 lives lost to firearm-related incidents</HetTerm>.
 						</li>
-						<li>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 px-4 py-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80'>
 							In 2023, Atlanta experienced no fewer than six mass shootings, with
-							each event tragically claiming six lives and injuring 22 others,
+							each event tragically <HetTerm>claiming six lives and injuring 22 others</HetTerm>,
 							marking a series of deliberate, targeted attacks that shook the
 							community.
 						</li>
-						<li>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 px-4 py-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80'>
 							As of April 2024, firearms have injured four children in Atlanta,
-							raising the total to 53 children injured since 2021, underscoring an
+							raising the total to <HetTerm>53 children injured</HetTerm> since 2021, underscoring an
 							urgent need for protective measures.
 						</li>
-						<li>
-							Since 2015, firearms have tragically claimed the lives of 22
-							children in Atlanta.
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 px-4 py-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80'>
+							Since 2015, firearms have tragically <HetTerm>claimed the lives of 22
+							children</HetTerm> in Atlanta.
 						</li>
 					</ul>
 					<p>
