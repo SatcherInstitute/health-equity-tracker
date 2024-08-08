@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict
+from typing import Literal, List, Dict, Union
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -674,17 +674,25 @@ def combine_race_ethnicity(
     df: pd.DataFrame,
     RACE_NAMES_MAPPING: Dict[str, str],
     ethnicity_value: str = 'Hispanic',
+    unknown_values: Union[List[str], None] = None,
 ):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
     We will keep this in place until we can figure out a plan on how to display
     the race and ethnicity to our users in a disaggregated way."""
 
+    # require std_col.RACE_COL and std_col.ETH_COL
+    if std_col.RACE_COL not in df.columns or std_col.ETH_COL not in df.columns:
+        raise ValueError('df must contain columns: std_col.RACE_COL and std_col.ETH_COL')
+
+    if unknown_values is None:
+        unknown_values = ['NA', 'Missing', 'Unknown']
+
     # Create a mask for Hispanic/Latino
     hispanic_mask = df[std_col.ETH_COL].isin([ethnicity_value])
 
     # Create masks for 'NA', 'Missing', 'Unknown'
-    race_missing_mask = df[std_col.RACE_COL].isin({'NA', 'Missing', 'Unknown'})
-    eth_missing_mask = df[std_col.ETH_COL].isin({'NA', 'Missing', 'Unknown'})
+    race_missing_mask = df[std_col.RACE_COL].isin(unknown_values)
+    eth_missing_mask = df[std_col.ETH_COL].isin(unknown_values)
 
     # Create a mask for other cases
     other_mask = ~race_missing_mask & ~eth_missing_mask
@@ -694,6 +702,9 @@ def combine_race_ethnicity(
 
     # Overwrite specific race if given
     df.loc[other_mask, std_col.RACE_ETH_COL] = df.loc[other_mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING)
+
+    print("\n in combine_race_ethnicity()")
+    print(df)
 
     # overwrite with Hispanic if given
     df.loc[hispanic_mask, std_col.RACE_ETH_COL] = std_col.Race.HISP.value
