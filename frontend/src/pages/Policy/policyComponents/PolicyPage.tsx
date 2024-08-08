@@ -24,11 +24,11 @@ export default function PolicyPage() {
 
 					<div className='min-w-fit'>
 						<HetCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-						<HetCardMenuMobile className='m-3 smMd:hidden' />
+						<HetCardMenuMobile className='m-3 smMd:hidden w-auto' />
 					</div>
-					<div>
+					
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
-						<div className='px-12 md:hidden'>
+						<div className='flex grow px-12 smMd:hidden'>
 							{routeConfigs.map((routeConfig) => {
 								const match = useRouteMatch({
 									path: routeConfig.path,
@@ -40,13 +40,14 @@ export default function PolicyPage() {
 									<HetOnThisPageMenu
 										key={routeConfig.path}
 										links={routeConfig.subLinks}
+										className=''
 									/>
 								) : null
 							})}
 						</div>
-					</div>
+					
 
-					<section className='flex flex-col justify-end grow mx-12'>
+					<section className='flex flex-col justify-end grow mx-12 my-0'>
 						<h1 className='sr-only'>{activeRoute?.label}</h1>
 
 						<Switch>
@@ -79,7 +80,7 @@ export default function PolicyPage() {
 								<HetOnThisPageMenu
 									key={routeConfig.path}
 									links={routeConfig.subLinks}
-									className='sticky right-0 top-4  z-top h-min'
+									className='sticky right-0 top-4 z-top h-min'
 								/>
 							) : null
 						})}
