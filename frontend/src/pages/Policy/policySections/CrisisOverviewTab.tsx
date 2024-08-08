@@ -13,7 +13,7 @@ export default function CrisisOverviewTab() {
 			</h2>
 			<div className='flex flex-col gap-2'>
 				<h2>Understanding the Crisis of Gun Violence in Atlanta</h2>
-				<section className='my-2' id='#introduction'>
+				<section id='#introduction'>
 					<h3 className='text-title font-medium'>Introduction</h3>
 					<p>
 						The Health Equity Tracker (HET) in partnership with The Annie E.
