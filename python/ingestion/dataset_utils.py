@@ -716,11 +716,28 @@ def combine_race_ethnicity(
         df.loc[mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING).fillna(std_col.Race.UNKNOWN.value)
     )
 
-    # Aggregate the data
-    group_cols = [std_col.STATE_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
-    agg_cols = {count_col: 'sum' for count_col in count_cols_to_sum}
+    df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
 
-    df_aggregated = df.groupby(group_cols).agg(agg_cols).reset_index()
+    # Aggregate the data by whichever breakdown cols are present
+    group_cols = []
+    possible_group_cols = [
+        std_col.TIME_PERIOD_COL,
+        std_col.STATE_FIPS_COL,
+        std_col.STATE_NAME_COL,
+        std_col.COUNTY_FIPS_COL,
+        std_col.COUNTY_NAME_COL,
+        std_col.RACE_CATEGORY_ID_COL,
+    ]
+    for col in possible_group_cols:
+        if col in df.columns:
+            group_cols.append(col)
+    agg_col_map = {count_col: 'sum' for count_col in count_cols_to_sum}
+
+    if not count_cols_to_sum:
+        return df
+
+    # if count cols were provided, we need the new HISP rows to sum the various Hispanic+Race groups
+    df_aggregated = df.groupby(group_cols).agg(agg_col_map).reset_index()
 
     return df_aggregated
 
