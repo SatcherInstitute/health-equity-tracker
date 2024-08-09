@@ -673,20 +673,25 @@ def preserve_only_current_time_period_rows(
 def combine_race_ethnicity(
     df: pd.DataFrame,
     count_cols_to_sum: List[str],
-    RACE_NAMES_MAPPING: Dict[str, str],
-    ethnicity_value: str = 'Hispanic or Latino',
+    race_alone_to_het_code_map: Dict[str, str],
+    ethnicity_value: str = std_col.Race.HISP.race,
     unknown_values: Union[List[str], None] = None,
+    additional_group_cols: Union[List[str], None] = None,
+    race_eth_output_col: str = std_col.RACE_CATEGORY_ID_COL,
 ):
     """Combines the `race` and `ethnicity` columns into a single `race_and_ethnicity` col.
 
     Parameters:
-    - df: The DataFrame to be processed.
+    - df: must have cols for `race` and `ethnicity`, and any supplied `count_cols_to_sum`, and `additional_group_cols`.
     - count_cols_to_sum: A list of column names with topic counts that will be summed.
-         (All Hispanic cases across various race groups will sum to be a new row with race_category_id='HISP').
-    - RACE_NAMES_MAPPING: A dictionary mapping race names to their corresponding
-      race and ethnicity names.
-    - ethnicity_value: The value of the `ethnicity` column to be considered as Hispanic
-    - unknown_values: List of values to be considered as unknown ethnicity or race
+         (All Hispanic cases across various race groups will sum to be a new row with race_category_id='HISP'
+         same for the sum of various types of unknown race/ethnicity).
+    - race_alone_to_het_code_map: A dict of source race names to their race_category_id code including `_NH` as needed.
+    Optional parameters:
+    - ethnicity_value (optional default='Hispanic or Latino'): str value of `ethnicity` col representing Hispanic
+    - unknown_values (optional): List of values to be considered as unknown ethnicity or race
+    - additional_group_cols (optional): List of additional columns to group by
+    - race_eth_output_col (optional default='race_and_ethnicity'): str name of the added combination race and eth col
     """
 
     # Require std_col.RACE_COL and std_col.ETH_COL
@@ -701,10 +706,10 @@ def combine_race_ethnicity(
 
     # LOGIC HERE
     # Create the race_and_ethnicity column
-    df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.UNKNOWN.value
+    df[race_eth_output_col] = std_col.Race.UNKNOWN.value
 
     # Set to 'HISP' where ethnicity matches ethnicity_value
-    df.loc[df[std_col.ETH_COL] == ethnicity_value, std_col.RACE_CATEGORY_ID_COL] = std_col.Race.HISP.value
+    df.loc[df[std_col.ETH_COL] == ethnicity_value, race_eth_output_col] = std_col.Race.HISP.value
 
     # Set to mapped race value where ethnicity is not ethnicity_value and neither race nor ethnicity is unknown
     mask = (
@@ -712,8 +717,8 @@ def combine_race_ethnicity(
         & (~df[std_col.RACE_COL].isin(unknown_values))
         & (~df[std_col.ETH_COL].isin(unknown_values))
     )
-    df.loc[mask, std_col.RACE_CATEGORY_ID_COL] = (
-        df.loc[mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING).fillna(std_col.Race.UNKNOWN.value)
+    df.loc[mask, race_eth_output_col] = (
+        df.loc[mask, std_col.RACE_COL].map(race_alone_to_het_code_map).fillna(std_col.Race.UNKNOWN.value)
     )
 
     df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
@@ -726,8 +731,12 @@ def combine_race_ethnicity(
         std_col.STATE_NAME_COL,
         std_col.COUNTY_FIPS_COL,
         std_col.COUNTY_NAME_COL,
-        std_col.RACE_CATEGORY_ID_COL,
+        race_eth_output_col,
     ]
+
+    if additional_group_cols is not None:
+        possible_group_cols.extend(additional_group_cols)
+
     for col in possible_group_cols:
         if col in df.columns:
             group_cols.append(col)
