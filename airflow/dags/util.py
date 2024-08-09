@@ -10,6 +10,7 @@ from airflow.models import Variable  # pylint: disable=no-name-in-module
 from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
 from google.cloud import bigquery
 from sanity_check import check_pct_values
+import subprocess
 
 
 def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
@@ -110,7 +111,14 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
 
 def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-argument
     receiving_service_headers = {}
-    if os.getenv('ENV') != 'dev':
+    environment = os.getenv('ENV')
+
+    if environment == 'local':
+        # Obtain the identity token for local environment using the gcloud command
+        identity_token = subprocess.check_output(["gcloud", "auth", "print-identity-token"]).strip().decode("utf-8")
+        receiving_service_headers = {'Authorization': f'Bearer {identity_token}'}
+
+    elif environment != 'dev':
         # Set up metadata server request
         # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
         token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
@@ -122,8 +130,7 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
         token_response = requests.get(token_request_url, headers=token_request_headers, timeout=100)
         jwt = token_response.content.decode("utf-8")
 
-        # Provide the token in the request to the receiving service
-        receiving_service_headers = {'Authorization': f'bearer {jwt}'}
+        receiving_service_headers = {'Authorization': f'Bearer {jwt}'}
 
     try:
         resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=100)
