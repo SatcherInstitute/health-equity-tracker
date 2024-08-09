@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
 import { BlockRounded, CheckRounded } from '@mui/icons-material'
+import { Tooltip, Typography } from '@mui/material'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 export default function DataCollectionTab() {
 	return (
@@ -59,9 +61,19 @@ export default function DataCollectionTab() {
 					<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 						OUR METHODS
 					</p>
-					<h4 className='my-0 text-title font-medium text-altGreen'>
-						Key Metrics
-					</h4>
+					<Tooltip
+						placement='bottom-start'
+						title={
+							<Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
+								Metrics are quantifiable indicators used to measure and analyze
+								various aspects of public health data.
+							</Typography>
+						}
+					>
+						<h4 className='my-0 text-title font-medium text-altGreen underline decoration-dotted'>
+							Key Metrics
+						</h4>
+					</Tooltip>
 				</div>
 				<p>
 					Our key metrics encompass data on fatal gun-related incidents, with a
@@ -91,30 +103,30 @@ export default function DataCollectionTab() {
 				<div className='grid grid-cols-1 md:grid-cols-2'>
 					<div>
 						<p className='text-smallest'>
-							What’s included in our{' '}<HetTerm>youth (0-17)</HetTerm>{' '}dataset:
+							What’s included in our <HetTerm>youth (0-17)</HetTerm> dataset:
 						</p>
 						<ul className='list-none p-0 text-smallest'>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 								<p className='my-0 ml-2'>National- and state-level data</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 
 								<p className='my-0 ml-2'>Breakdowns by race/ethnicity</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<BlockRounded className='text-text text-redOrange'/>
+								<BlockRounded className='text-text text-redOrange' />
 
 								<p className='my-0 ml-2'>Breakdowns by age</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<BlockRounded className='text-text text-redOrange'/>
+								<BlockRounded className='text-text text-redOrange' />
 
 								<p className='my-0 ml-2'>Breakdowns by sex</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<BlockRounded className='text-text text-redOrange'/>
+								<BlockRounded className='text-text text-redOrange' />
 
 								<p className='my-0 ml-2'>Breakdowns by cause of death</p>
 							</li>
@@ -123,31 +135,31 @@ export default function DataCollectionTab() {
 
 					<div>
 						<p className='text-smallest'>
-							What’s included in our{' '}<HetTerm>general population</HetTerm>
-							{' '}dataset:
+							What’s included in our <HetTerm>general population</HetTerm>{' '}
+							dataset:
 						</p>
 						<ul className='list-none p-0 text-smallest'>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 								<p className='my-0 ml-2'>National- and state-level data</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 
 								<p className='my-0 ml-2'>Breakdowns by race/ethnicity</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 
 								<p className='my-0 ml-2'>Breakdowns by age</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 
 								<p className='my-0 ml-2'>Breakdowns by sex</p>
 							</li>
 							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen'/>
+								<CheckRounded className='text-text text-altGreen' />
 
 								<p className='my-0 ml-2'>Breakdowns by cause of death</p>
 							</li>
