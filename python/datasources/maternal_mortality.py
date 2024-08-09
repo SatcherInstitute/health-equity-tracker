@@ -16,7 +16,7 @@ from typing import List
 # Constants from the JAMA study data
 
 JAMA_NATIONAL = "National"
-JAMA_CURRENT_YEAR_INT = 2019
+JAMA_CURRENT_YEAR = "2019"
 
 JAMA_RACE_GROUPS_TO_STANDARD = {
     'Non-Hispanic American Indian and Alaska Native': std_col.Race.AIAN_NH.value,
@@ -86,6 +86,10 @@ class MaternalMortalityData(DataSource):
             )
 
             df = merge_state_ids(df)
+
+            # drop rows without FIPS codes (including multi-state regions)
+            df = df.dropna(subset=[std_col.STATE_FIPS_COL])
+
             df = merge_pop_numbers(df, std_col.RACE_COL, geo_level)
 
             keep_string_cols = [
@@ -113,6 +117,10 @@ class MaternalMortalityData(DataSource):
             elif geo_level == STATE_LEVEL:
                 df = merge_state_counts(df)
 
+            df = df.sort_values(
+                [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
+            ).reset_index(drop=True)
+
             for time_type in [HISTORICAL, CURRENT]:
                 table_name = f'by_race_{geo_level}_{time_type}'
 
@@ -133,22 +141,22 @@ def preprocess_source_rates() -> pd.DataFrame:
     Returns:
         pandas.DataFrame: preprocessed source data including state and national rows
     """
-    source_rates_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'maternal_mortality',
         'IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV',
         dtype={'year_id': str},
         usecols=RATE_COLS_TO_STANDARD.keys(),
     )
 
-    source_rates_df = source_rates_df.rename(columns=RATE_COLS_TO_STANDARD)
-    source_rates_df = source_rates_df.replace({JAMA_NATIONAL: US_NAME})
-    source_rates_df = source_rates_df.replace(JAMA_RACE_GROUPS_TO_STANDARD)
-    std_col.add_race_columns_from_category_id(source_rates_df)
+    df = df.rename(columns=RATE_COLS_TO_STANDARD)
+    df = df.replace({JAMA_NATIONAL: US_NAME})
+    df = df.replace(JAMA_RACE_GROUPS_TO_STANDARD)
+    std_col.add_race_columns_from_category_id(df)
 
-    # round rate to whole numbers
-    source_rates_df[std_col.MM_PER_100K] = source_rates_df[std_col.MM_PER_100K].round(0)
+    df[std_col.MM_PER_100K] = df[std_col.MM_PER_100K].round(0)
+    df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
 
-    return source_rates_df
+    return df
 
 
 def merge_national_counts(df: pd.DataFrame) -> pd.DataFrame:
@@ -204,18 +212,37 @@ def get_float_cols(time_type: str, geo_level: str) -> List[str]:
         if geo_level == NATIONAL_LEVEL:
             cols.extend([std_col.MM_PCT_REL_INEQUITY])
     if time_type == CURRENT:
+        cols.extend([std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW])
         if geo_level == NATIONAL_LEVEL:
-            cols.extend(
-                [std_col.MM_POP_PCT, std_col.MM_PCT_SHARE, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW]
-            )
+            cols.extend([std_col.MM_POP_PCT, std_col.MM_PCT_SHARE])
 
     return cols
 
 
 def read_live_births_denominators() -> pd.DataFrame:
-    """Reads the denominators for live births
-    Returns:
-        pandas.DataFrame: denominators
+    """Returns a df with the live birth denominators from https://wonder.cdc.gov/controller/datarequest/D149
+
+    To recreate table sected the following options.
+    Section 1.
+    In "Group Results By", choose in order:
+    - State of Residence
+    - Mother's Single Race 6
+    - Mother's Hispanic Origin
+
+    Section 3.
+    In "Mother's Single Race 6", multi-select all race options except "All Races"
+    In "Mother's Hispanic Origin", multi-select all options except "All Origins"
+
+    Section 10.
+    In "Year", choose "2019"
+
+    Section 15.
+    In "Other Options", ensure the following are checked:
+    - "Export Results"
+    - "Show Totals"
+    - "Precision" = "2" Decimal Places
+
+    Click "Send" and when the file populates, save it to data/maternal_mortality/Natality, 2016-2022 expanded.txt
     """
 
     df = gcs_to_bq_util.load_tsv_as_df_from_data_dir(
@@ -246,13 +273,14 @@ def read_live_births_denominators() -> pd.DataFrame:
         }
     )
 
+    df = df.sort_values(by=[std_col.STATE_FIPS_COL, std_col.RACE_COL, std_col.ETH_COL])
     df = combine_race_ethnicity(
         df,
+        [std_col.LIVE_BIRTHS_RAW],
         CDC_NATALITY_RACE_NAMES_TO_HET_RACE_CODES,
         ethnicity_value="Hispanic or Latino",
         unknown_values=["Unknown or Not Stated"],
     )
-
     df = df.rename(columns={std_col.RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL})
 
     return df
@@ -264,7 +292,10 @@ def merge_state_counts(df: pd.DataFrame) -> pd.DataFrame:
     state per race/eth group for the most recent year"""
 
     live_births_df = read_live_births_denominators()
-    live_births_df[std_col.TIME_PERIOD_COL] = JAMA_CURRENT_YEAR_INT
+    live_births_df = live_births_df.sort_values(by=[std_col.STATE_FIPS_COL, std_col.RACE_CATEGORY_ID_COL])
+
+    live_births_df[std_col.TIME_PERIOD_COL] = JAMA_CURRENT_YEAR
+
     df = pd.merge(
         df,
         live_births_df,
@@ -276,7 +307,7 @@ def merge_state_counts(df: pd.DataFrame) -> pd.DataFrame:
     df = generate_estimated_total_col(df, std_col.LIVE_BIRTHS_RAW, {std_col.MM_PER_100K: std_col.MATERNAL_DEATHS_RAW})
 
     # only calc ALL rates for current year (for now)
-    current_alls_df = df[df[std_col.TIME_PERIOD_COL] == JAMA_CURRENT_YEAR_INT]
+    current_alls_df = df[df[std_col.TIME_PERIOD_COL] == JAMA_CURRENT_YEAR]
     current_alls_df = current_alls_df[
         [
             std_col.TIME_PERIOD_COL,
@@ -291,25 +322,16 @@ def merge_state_counts(df: pd.DataFrame) -> pd.DataFrame:
         .sum()
         .reset_index()
     )
-    current_alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
+    current_alls_df[[std_col.RACE_CATEGORY_ID_COL, std_col.RACE_OR_HISPANIC_COL]] = [
+        std_col.Race.ALL.value,
+        std_col.ALL_VALUE,
+    ]
+
     current_alls_df = generate_per_100k_col(
         current_alls_df, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW, std_col.MM_PER_100K
     )
 
     # Append the current_alls_df to the df as new rows; fill in missing values with None
     df = pd.concat([df, current_alls_df], ignore_index=True)
-    print("df after merge_state_counts()")
-    print(
-        df[
-            [
-                std_col.STATE_NAME_COL,
-                "time_period",
-                std_col.RACE_CATEGORY_ID_COL,
-                std_col.LIVE_BIRTHS_RAW,
-                std_col.MATERNAL_DEATHS_RAW,
-                std_col.MM_PER_100K,
-            ]
-        ].to_string()
-    )
 
     return df
