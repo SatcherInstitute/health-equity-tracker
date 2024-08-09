@@ -67,24 +67,32 @@ export default function PolicyPage() {
 						</Switch>
 					</section>
 
-					{/* ON THIS PAGE SUB-MENU - DESKTOP */}
-					<div className='hidden min-w-fit md:block'>
-						{routeConfigs.map((routeConfig) => {
-							const match = useRouteMatch({
-								path: routeConfig.path,
-								exact: true,
-							})
-							const hasSublinks =
-								routeConfig.subLinks && routeConfig.subLinks.length > 0
-							return match && hasSublinks ? (
-								<HetOnThisPageMenu
-									key={routeConfig.path}
-									links={routeConfig.subLinks}
-									className='sticky right-0 top-4 z-top h-min'
-								/>
-							) : null
-						})}
-					</div>
+				{/* ON THIS PAGE SUB-MENU - DESKTOP */}
+				<div className='hidden min-w-fit md:block'>
+	{routeConfigs.map((routeConfig) => {
+		const match = useRouteMatch({
+			path: routeConfig.path,
+			exact: true,
+		})
+		const hasSublinks = routeConfig.subLinks && routeConfig.subLinks.length > 0
+		return match && hasSublinks ? (
+			<div className='min-w-40 w-48 max-w-40 sticky top-4 z-top hidden h-min max-w-menu smMd:block' key={routeConfig.path}>
+				<div className='flex flex-col'>
+				<p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
+					On this page
+				</p>
+				<h4 className='mt-2 mb-4 font-sansTitle text-smallestHeader leading-lhNormal'>{routeConfig.label}</h4>
+				</div>
+
+				
+				<HetOnThisPageMenu
+					links={routeConfig.subLinks}
+					className='sticky right-0 top-4 z-top h-min'
+				/>
+			</div>
+		) : null
+	})}
+</div>
 				</div>
 			</section>
 		</>

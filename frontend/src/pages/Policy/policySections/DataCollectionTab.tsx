@@ -91,7 +91,7 @@ export default function DataCollectionTab() {
 				<div className='grid grid-cols-1 md:grid-cols-2'>
 					<div>
 						<p className='text-smallest'>
-							What’s included in our <HetTerm>youth (0-17)</HetTerm> dataset:
+							What’s included in our{' '}<HetTerm>youth (0-17)</HetTerm>{' '}dataset:
 						</p>
 						<ul className='list-none p-0 text-smallest'>
 							<li className='flex flex-row align-center'>
@@ -123,8 +123,8 @@ export default function DataCollectionTab() {
 
 					<div>
 						<p className='text-smallest'>
-							What’s included in our <HetTerm>general population</HetTerm>
-							 dataset:
+							What’s included in our{' '}<HetTerm>general population</HetTerm>
+							{' '}dataset:
 						</p>
 						<ul className='list-none p-0 text-smallest'>
 							<li className='flex flex-row align-center'>

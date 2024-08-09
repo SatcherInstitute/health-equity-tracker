@@ -42,11 +42,8 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
 		<>
 			<nav
 				aria-label='on this page quick navigation'
-				className={`m-2 min-w-40 w-48 max-w-40 text-left flex flex-col grow align-center${props.className ?? ''}`}
+				className={`my-2 min-w-40 w-48 max-w-40 text-left flex flex-col grow align-center${props.className ?? ''}`}
 			>
-				<h4 className='my-3 text-left font-roboto text-smallest font-semibold uppercase text-black'>
-					On this page
-				</h4>
 				<ul className='my-1 list-none space-y-1 pl-0 leading-lhTight lg:space-y-2 font-roboto text-smallest '>
 					{props.links?.map((link) => (
 						<li key={link.path}>

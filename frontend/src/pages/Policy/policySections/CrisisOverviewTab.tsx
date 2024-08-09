@@ -46,15 +46,15 @@ export default function CrisisOverviewTab() {
 					</h3>
 
 					<ul className='list-none px-4 grid gap-8 md:grid-cols-2 grid-cols-1 py-4 my-0'>
-						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center'>
-							<p className='group-hover:text-exploreButton duration-100 ease-in-out text-center content-center'>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center text-exploreButton'>
+							<p className='group-hover:duration-100 ease-in-out text-center content-center'>
 								Only four months into 2024, Georgia has already witnessed a
 								staggering toll of over{' '}
 								<HetTerm>92 lives lost to firearm-related incidents</HetTerm>.
 							</p>
 						</li>
-						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center'>
-							<p className='group-hover:text-exploreButton duration-100 ease-in-out text-center content-center'>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center text-exploreButton'>
+							<p className='group-hover:duration-100 ease-in-out text-center content-center'>
 								In 2023, Atlanta experienced no fewer than six mass shootings,
 								with each event tragically{' '}
 								<HetTerm>claiming six lives and injuring 22 others</HetTerm>,
@@ -62,16 +62,16 @@ export default function CrisisOverviewTab() {
 								community.
 							</p>
 						</li>
-						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center'>
-							<p className='group-hover:text-exploreButton duration-100 ease-in-out text-center content-center'>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center text-exploreButton'>
+							<p className='group-hover:duration-100 ease-in-out text-center content-center'>
 								As of April 2024, firearms have injured four children in
 								Atlanta, raising the total to{' '}
 								<HetTerm>53 children injured</HetTerm> since 2021, underscoring
 								an urgent need for protective measures.
 							</p>
 						</li>
-						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center'>
-							<p className='group-hover:text-exploreButton duration-100 ease-in-out text-center content-center'>
+						<li className='rounded-xl border border-solid border-altGreen md:mx-2 m-2 p-8 duration-300 ease-in-out hover:shadow-raised group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row align-center text-exploreButton'>
+							<p className='group-hover:duration-100 ease-in-out text-center content-center'>
 								Since 2015, firearms have tragically{' '}
 								<HetTerm>claimed the lives of 22 children</HetTerm> in Atlanta.
 							</p>
