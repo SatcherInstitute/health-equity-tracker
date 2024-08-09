@@ -103,6 +103,7 @@ def test_write_to_bq_race_national(
     assert table_name == "race_and_ethnicity_national_current"
 
     actual_historical_df, _, table_name = mock_historical[0]
+    actual_historical_df.to_csv(table_name, index=False)
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "race_and_ethnicity_national_historical"
 

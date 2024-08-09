@@ -678,6 +678,7 @@ def combine_race_ethnicity(
     unknown_values: Union[List[str], None] = None,
     additional_group_cols: Union[List[str], None] = None,
     race_eth_output_col: str = std_col.RACE_CATEGORY_ID_COL,
+    treat_zero_count_as_missing: bool = False,
 ):
     """Combines the `race` and `ethnicity` columns into a single `race_and_ethnicity` col.
 
@@ -692,6 +693,7 @@ def combine_race_ethnicity(
     - unknown_values (optional): List of values to be considered as unknown ethnicity or race
     - additional_group_cols (optional): List of additional columns to group by
     - race_eth_output_col (optional default='race_and_ethnicity'): str name of the added combination race and eth col
+    - treat_zero_count_as_missing (optional default=False): if True, sum gets min_count=1 argument
     """
 
     # Require std_col.RACE_COL and std_col.ETH_COL
@@ -740,7 +742,12 @@ def combine_race_ethnicity(
     for col in possible_group_cols:
         if col in df.columns:
             group_cols.append(col)
-    agg_col_map = {count_col: 'sum' for count_col in count_cols_to_sum}
+    # agg_col_map =
+    agg_col_map = (
+        {count_col: lambda x: x.sum(min_count=1) for count_col in count_cols_to_sum}
+        if treat_zero_count_as_missing
+        else {count_col: 'sum' for count_col in count_cols_to_sum}
+    )
 
     if not count_cols_to_sum:
         return df

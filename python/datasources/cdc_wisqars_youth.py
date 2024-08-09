@@ -94,21 +94,16 @@ class CDCWisqarsYouthData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, breakdown: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
+    def generate_breakdown_df(self, demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
         cols_to_standard = {
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,
-            "race": std_col.RACE_CATEGORY_ID_COL,
         }
 
-        breakdown_group_df = process_wisqars_youth_df(breakdown, geo_level)
-
+        breakdown_group_df = process_wisqars_youth_df(demographic, geo_level)
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
-
         df = combined_group_df.rename(columns=cols_to_standard)
-
         std_col.add_race_columns_from_category_id(df)
-
         df = merge_state_ids(df)
 
         df = generate_pct_share_col_with_unknowns(
@@ -141,17 +136,20 @@ def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE
         df.columns = df.columns.str.lower()
 
         if demographic == WISQARS_ALL:
-            df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
+            df.insert(2, std_col.RACE_CATEGORY_ID_COL, std_col.Race.ALL.value)
 
         if std_col.ETH_COL in df.columns.to_list():
-            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
-            df = df.rename(columns={'race_ethnicity_combined': 'race'})
-
-            # Combines the unknown and hispanic rows
-            df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
+            df = combine_race_ethnicity(
+                df,
+                ['deaths', 'population', 'crude rate'],
+                RACE_NAMES_MAPPING,
+                ethnicity_value='Hispanic',
+                additional_group_cols=['year', 'state'],
+                treat_zero_count_as_missing=True,
+            )
 
             # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
-            subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
+            subset_mask = df[std_col.RACE_CATEGORY_ID_COL].isin(['HISP', 'UNKNOWN'])
 
             # Create a temporary DataFrame with just the subset
             temp_df = df[subset_mask].copy()
