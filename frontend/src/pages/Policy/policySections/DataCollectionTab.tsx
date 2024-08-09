@@ -13,15 +13,15 @@ export default function DataCollectionTab() {
 			</Helmet>
 			<h2 className='sr-only'>Data Collection</h2>
 			<section id='#source-profile'>
-				<div className='mb-0'>
+				<article className='mb-8 rounded-md shadow-raised-tighter p-8'>
 					<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 						SOURCE PROFILE
 					</p>
-					<h3 className='my-0 text-title font-medium text-altGreen'>
+					<h3 className='my-0 text-title font-medium'>
 						CDC's WISQARS™(Web-based Injury Statistics Query and Reporting
 						System)
 					</h3>
-				</div>
+				
 				<p>
 					The{' '}
 					<a href='https://www.cdc.gov/injury/wisqars/index.html'>
@@ -54,7 +54,7 @@ export default function DataCollectionTab() {
 						<p className='my-0'>Yearly</p>
 					</li>
 				</ul>
-				<hr className='my-8' />
+				</article>
 			</section>
 			<section id='#key-metrics'>
 				<div className='mb-0'>
@@ -70,7 +70,7 @@ export default function DataCollectionTab() {
 							</Typography>
 						}
 					>
-						<h4 className='my-0 text-title font-medium text-altGreen underline decoration-dotted'>
+						<h4 className='my-0 text-title font-medium text-altGreen underline decoration-dotted inline'>
 							Key Metrics
 						</h4>
 					</Tooltip>

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import { ArrowDownwardRounded, AttachMoneyRounded, Diversity3Rounded, GavelRounded, PsychologyRounded, SchoolRounded } from '@mui/icons-material'
 
 export default function AddressingInequitiesTab() {
 	return (
@@ -20,12 +21,78 @@ export default function AddressingInequitiesTab() {
 					Addressing the root causes of gun violence involves a comprehensive
 					approach that includes:
 				</p>
-				<div>
-					<HetTextArrowLink link={""} linkText={"Economic Inequality"} />
-					<HetTextArrowLink link={""} linkText={"Educational Opportunities"} />
-					<HetTextArrowLink link={""} linkText={"Racial and Social Justice"} />
-					<HetTextArrowLink link={""} linkText={"Mental Health Services"} />
-					<HetTextArrowLink link={""} linkText={"Community Engagement"} />
+				<div className="mb-8 grid md:grid-cols-5 gap-4 grid-cols-3">
+					<a
+						href=""
+						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
+					>
+						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
+							<AttachMoneyRounded />
+						</div>
+						<p className="text-text font-semibold leading-lhNormal text-black">
+							Economic Inequality
+						</p>
+						<p className="text-smallest font-semibold tracking-normal">
+							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+						</p>
+					</a>
+					<a
+						href=""
+						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
+					>
+						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
+						<SchoolRounded />
+						</div>
+						<p className="text-text font-semibold leading-lhNormal text-black">
+							Educational Opportunities
+						</p>
+						<p className="text-smallest font-semibold tracking-normal">
+							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+						</p>
+					</a>
+					<a
+						href=""
+						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
+					>
+						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
+						<GavelRounded />
+						</div>
+						<p className="text-text font-semibold leading-lhNormal text-black">
+							Racial and Social Justice
+						</p>
+						<p className="text-smallest font-semibold tracking-normal">
+							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+						</p>
+					</a>
+					<a
+						href=""
+						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
+					>
+						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
+						<PsychologyRounded />
+						</div>
+						<p className="text-text font-semibold leading-lhNormal text-black">
+							Mental Health Services
+						</p>
+						<p className="text-smallest font-semibold tracking-normal">
+							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+						</p>
+					</a>
+					<a
+						href=""
+						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
+					>
+						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
+						<Diversity3Rounded />
+						</div>
+						<p className="text-text font-semibold leading-lhNormal text-black">
+							Community Engagement
+						</p>
+						<p className="text-smallest font-semibold tracking-normal">
+							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+						</p>
+					</a>
+					
 				</div>
 
 				<p>
@@ -133,7 +200,8 @@ export default function AddressingInequitiesTab() {
 						<p>
 							<a className="font-semibold" href="">
 								Atlanta Community Food Bank
-							</a>: This organization helps address food insecurity, which is a
+							</a>
+							: This organization helps address food insecurity, which is a
 							critical aspect of economic hardship. By providing access to basic
 							needs, they indirectly help in reducing stressors that can lead to
 							violence.

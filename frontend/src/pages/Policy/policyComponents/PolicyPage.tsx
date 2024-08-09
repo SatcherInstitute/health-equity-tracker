@@ -23,7 +23,7 @@ export default function PolicyPage() {
 					<h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
 					<div className='min-w-fit w-fit max-w-screen'>
-						<HetCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
+						<HetCardMenu className='sticky top-24 z-top hidden h-min max-w-menu smMd:block' />
 						<HetCardMenuMobile className='p-3 smMd:hidden max-w-screen' />
 					</div>
 					
@@ -55,8 +55,8 @@ export default function PolicyPage() {
 					
 
 					<section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
-						<h1 className='sm:Md:sr-only font-serif text-bigHeader font-light mt-0'>{activeRoute?.label}</h1>
-
+						<h1 className='sr-only'>{activeRoute?.label}</h1>
+						<h1 className='md:hidden font-serif text-bigHeader font-light mt-0'>{activeRoute?.label}</h1>
 						<Switch>
 							<>
 								{/* TEXT */}
