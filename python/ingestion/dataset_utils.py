@@ -672,47 +672,57 @@ def preserve_only_current_time_period_rows(
 
 def combine_race_ethnicity(
     df: pd.DataFrame,
+    count_cols_to_sum: List[str],
     RACE_NAMES_MAPPING: Dict[str, str],
-    ethnicity_value: str = 'Hispanic',
+    ethnicity_value: str = 'Hispanic or Latino',
     unknown_values: Union[List[str], None] = None,
 ):
-    """Combines the race and ethnicity fields into the legacy race/ethnicity category.
-    We will keep this in place until we can figure out a plan on how to display
-    the race and ethnicity to our users in a disaggregated way."""
+    """Combines the `race` and `ethnicity` columns into a single `race_and_ethnicity` col.
 
-    # require std_col.RACE_COL and std_col.ETH_COL
+    Parameters:
+    - df: The DataFrame to be processed.
+    - count_cols_to_sum: A list of column names with topic counts that will be summed.
+         (All Hispanic cases across various race groups will sum to be a new row with race_category_id='HISP').
+    - RACE_NAMES_MAPPING: A dictionary mapping race names to their corresponding
+      race and ethnicity names.
+    - ethnicity_value: The value of the `ethnicity` column to be considered as Hispanic
+    - unknown_values: List of values to be considered as unknown ethnicity or race
+    """
+
+    # Require std_col.RACE_COL and std_col.ETH_COL
     if std_col.RACE_COL not in df.columns or std_col.ETH_COL not in df.columns:
         raise ValueError('df must contain columns: std_col.RACE_COL and std_col.ETH_COL')
 
     if unknown_values is None:
         unknown_values = ['NA', 'Missing', 'Unknown']
 
-    # Create a mask for Hispanic/Latino
-    hispanic_mask = df[std_col.ETH_COL].isin([ethnicity_value])
+    # Create a copy of the DataFrame to avoid SettingWithCopyWarning
+    df = df.copy()
 
-    # Create masks for 'NA', 'Missing', 'Unknown'
-    race_missing_mask = df[std_col.RACE_COL].isin(unknown_values)
-    eth_missing_mask = df[std_col.ETH_COL].isin(unknown_values)
+    # LOGIC HERE
+    # Create the race_and_ethnicity column
+    df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.UNKNOWN.value
 
-    # Create a mask for other cases
-    other_mask = ~race_missing_mask & ~eth_missing_mask
+    # Set to 'HISP' where ethnicity matches ethnicity_value
+    df.loc[df[std_col.ETH_COL] == ethnicity_value, std_col.RACE_CATEGORY_ID_COL] = std_col.Race.HISP.value
 
-    # Create a new combined race/eth column Initialize with UNKNOWN
-    df[std_col.RACE_ETH_COL] = std_col.Race.UNKNOWN.value
+    # Set to mapped race value where ethnicity is not ethnicity_value and neither race nor ethnicity is unknown
+    mask = (
+        (df[std_col.ETH_COL] != ethnicity_value)
+        & (~df[std_col.RACE_COL].isin(unknown_values))
+        & (~df[std_col.ETH_COL].isin(unknown_values))
+    )
+    df.loc[mask, std_col.RACE_CATEGORY_ID_COL] = (
+        df.loc[mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING).fillna(std_col.Race.UNKNOWN.value)
+    )
 
-    # Overwrite specific race if given
-    df.loc[other_mask, std_col.RACE_ETH_COL] = df.loc[other_mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING)
+    # Aggregate the data
+    group_cols = [std_col.STATE_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
+    agg_cols = {count_col: 'sum' for count_col in count_cols_to_sum}
 
-    print("\n in combine_race_ethnicity()")
-    print(df)
+    df_aggregated = df.groupby(group_cols).agg(agg_cols).reset_index()
 
-    # overwrite with Hispanic if given
-    df.loc[hispanic_mask, std_col.RACE_ETH_COL] = std_col.Race.HISP.value
-
-    # Drop unnecessary columns
-    df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
-
-    return df
+    return df_aggregated
 
 
 def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]) -> pd.DataFrame:
