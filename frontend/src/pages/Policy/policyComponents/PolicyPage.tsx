@@ -18,13 +18,13 @@ export default function PolicyPage() {
 			<Helmet>
 				<title>Policy Context - Health Equity Tracker</title>
 			</Helmet>
-			<section className='flex w-full justify-center text-left' id='main'>
+			<section className='flex w-full justify-center text-left max-w-screen' id='main'>
 				<div className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row'>
 					<h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
-					<div className='min-w-fit'>
+					<div className='min-w-fit w-fit max-w-screen'>
 						<HetCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-						<HetCardMenuMobile className='m-3 smMd:hidden w-auto' />
+						<HetCardMenuMobile className='p-3 smMd:hidden max-w-screen' />
 					</div>
 					
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
@@ -76,14 +76,12 @@ export default function PolicyPage() {
 		})
 		const hasSublinks = routeConfig.subLinks && routeConfig.subLinks.length > 0
 		return match && hasSublinks ? (
-			<div className='min-w-40 w-48 max-w-40 sticky top-4 z-top hidden h-min max-w-menu smMd:block' key={routeConfig.path}>
-				<div className='flex flex-col'>
+			<div className='min-w-40 w-48 max-w-40 sticky top-4 z-top hidden h-min max-w-menu smMd:block flex flex-col' key={routeConfig.path}>
+				
 				<p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
 					On this page
 				</p>
 				<h4 className='mt-2 mb-4 font-sansTitle text-smallestHeader leading-lhNormal'>{routeConfig.label}</h4>
-				</div>
-
 				
 				<HetOnThisPageMenu
 					links={routeConfig.subLinks}

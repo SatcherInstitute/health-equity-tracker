@@ -15,7 +15,7 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
   return (
     <Button
       onClick={props.onClick}
-      className='mt-auto lg:mb-0 flex md:w-full sm:w-auto flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle  font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack shadow-raised-tighter hover:shadow-raised lg:w-80 min-h-24 max-h-32 h-24'
+      className='my-2 lg:mb-0 flex md:w-full sm:w-auto flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle  font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack shadow-raised-tighter hover:shadow-raised lg:w-80 min-h-24 max-h-32 h-24'
     >
       {/* ARROW AND DIRECTION WORD */}
       <span
