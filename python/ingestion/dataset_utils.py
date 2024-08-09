@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict, Union
+from typing import Literal, List, Dict, Union, Tuple
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -636,15 +636,13 @@ def get_topic_primary_col(topic_prefix: str, df: pd.DataFrame) -> str:
 
 # TODO: Remove this in favor of preserve_most_recent_year_rows_per_topic above
 def preserve_only_current_time_period_rows(
-    df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False
+    df: pd.DataFrame, time_period_col: str = std_col.TIME_PERIOD_COL, keep_time_period_col: bool = False
 ):
     """Takes a dataframe with a time col (default `time_period`) that contains datatime strings
     in formats like `YYYY` or `YYYY-MM`,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
     and removes (or optionally keeps) the original string time_period col"""
-    if time_period_col is None:
-        time_period_col = std_col.TIME_PERIOD_COL
 
     if time_period_col not in df.columns:
         raise ValueError(f'df does not contain column: {time_period_col}.')
@@ -746,7 +744,7 @@ def combine_race_ethnicity(
     agg_col_map = (
         {count_col: lambda x: x.sum(min_count=1) for count_col in count_cols_to_sum}
         if treat_zero_count_as_missing
-        else {count_col: 'sum' for count_col in count_cols_to_sum}
+        else {count_col: sum for count_col in count_cols_to_sum}
     )
 
     if not count_cols_to_sum:
@@ -758,7 +756,9 @@ def combine_race_ethnicity(
     return df_aggregated
 
 
-def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]) -> pd.DataFrame:
+def get_timeview_df_and_cols(
+    df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]
+) -> Tuple[pd.DataFrame, Dict[str, str]]:
     """Returns a dataframe with only the rows and columns that are needed for the given time view.
 
     Parameters:
