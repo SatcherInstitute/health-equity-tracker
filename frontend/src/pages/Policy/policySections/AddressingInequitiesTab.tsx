@@ -10,7 +10,7 @@ export default function AddressingInequitiesTab() {
 				<title>Addressing Inequities - Health Equity Tracker</title>
 			</Helmet>
 			<h2 className="sr-only">Addressing Inequities</h2>
-			<section id="#">
+			<section id="#health-inequities-definition">
 				<p>
 					{" "}
 					<HetTerm>Health inequities</HetTerm> <em>(noun)</em>: Unfair and
@@ -23,7 +23,7 @@ export default function AddressingInequitiesTab() {
 				</p>
 				<div className="mb-8 grid md:grid-cols-5 gap-4 grid-cols-3">
 					<a
-						href=""
+						href="#economic-inequality"
 						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
 					>
 						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
@@ -33,66 +33,65 @@ export default function AddressingInequitiesTab() {
 							Economic Inequality
 						</p>
 						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+							Jump to section <ArrowDownwardRounded className="text-text" />
 						</p>
 					</a>
 					<a
-						href=""
+						href="#educational-opportunities"
 						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
 					>
 						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-						<SchoolRounded />
+							<SchoolRounded />
 						</div>
 						<p className="text-text font-semibold leading-lhNormal text-black">
 							Educational Opportunities
 						</p>
 						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+							Jump to section <ArrowDownwardRounded className="text-text" />
 						</p>
 					</a>
 					<a
-						href=""
+						href="#racial-and-social-justice"
 						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
 					>
 						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-						<GavelRounded />
+							<GavelRounded />
 						</div>
 						<p className="text-text font-semibold leading-lhNormal text-black">
 							Racial and Social Justice
 						</p>
 						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+							Jump to section <ArrowDownwardRounded className="text-text" />
 						</p>
 					</a>
 					<a
-						href=""
+						href="#mental-health-services"
 						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
 					>
 						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-						<PsychologyRounded />
+							<PsychologyRounded />
 						</div>
 						<p className="text-text font-semibold leading-lhNormal text-black">
 							Mental Health Services
 						</p>
 						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+							Jump to section <ArrowDownwardRounded className="text-text" />
 						</p>
 					</a>
 					<a
-						href=""
+						href="#community-engagement"
 						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
 					>
 						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-						<Diversity3Rounded />
+							<Diversity3Rounded />
 						</div>
 						<p className="text-text font-semibold leading-lhNormal text-black">
 							Community Engagement
 						</p>
 						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section{' '}<ArrowDownwardRounded className="text-text" /> 
+							Jump to section <ArrowDownwardRounded className="text-text" />
 						</p>
 					</a>
-					
 				</div>
 
 				<p>
@@ -109,9 +108,9 @@ export default function AddressingInequitiesTab() {
 					in violence exposure.
 				</p>
 			</section>
-			<section id="#">
+			<section id="#ga-youth-fatalities">
 				<div className="mb-0">
-					<p className="my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
 						OUR FINDINGS
 					</p>
 					<h3 className="my-0 text-title font-medium text-altGreen">
@@ -143,9 +142,9 @@ export default function AddressingInequitiesTab() {
 					</ul>
 				</div>
 			</section>
-			<section id="#">
+			<section id="#ga-homicides">
 				<div className="mb-0">
-					<p className="my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
 						OUR FINDINGS
 					</p>
 					<h3 className="my-0 text-title font-medium text-altGreen">
@@ -186,7 +185,10 @@ export default function AddressingInequitiesTab() {
 					</ul>
 				</div>
 			</section>
-			<section id="#">
+			<section id="#economic-inequality">
+				<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					INTERCONNECTIONS
+				</p>
 				<h3 className="my-0 text-title font-medium text-altGreen">
 					Economic Inequality
 				</h3>
@@ -197,8 +199,8 @@ export default function AddressingInequitiesTab() {
 				</p>
 				<ul className="list-none">
 					<li className="flex flex-row align-center">
-						<p>
-							<a className="font-semibold" href="">
+						<p className="p-0 mt-0 mb-4">
+							<a className="font-semibold no-underline text-black" href="">
 								Atlanta Community Food Bank
 							</a>
 							: This organization helps address food insecurity, which is a
@@ -207,11 +209,77 @@ export default function AddressingInequitiesTab() {
 							violence.
 						</p>
 					</li>
+					<li className="flex flex-row align-center">
+						<p className="p-0 mt-0 mb-4">
+							<a className="font-semibold no-underline text-black" href="">
+							WorkSource Atlanta
+							</a>
+							: Offers job training and employment assistance, helping to bridge the gap in economic opportunities and reduce unemployment, a key factor in economic disparities.
+						</p>
+					</li>
 				</ul>
 			</section>
-			<section id="#">
+			<section id="#educational-opportunities">
+				<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					INTERCONNECTIONS
+				</p>
+				<h3 className="my-0 text-title font-medium text-altGreen">
+					Educational Opportunities
+				</h3>
+				<p>
+				Improving access to education is a vital step in preventing gun violence.
+				</p>
+				<ul className="list-none">
+					<li className="flex flex-row align-center">
+						<p className="p-0 mt-0 mb-4">
+							<a className="font-semibold no-underline text-black" href="">
+							Communities In Schools of Atlanta
+							</a>
+							: This group works within local schools to provide resources and support, ensuring that children stay in school and have access to quality education and after-school programs.
+						</p>
+					</li>
+					<li className="flex flex-row align-center">
+						<p className="p-0 mt-0 mb-4">
+							<a className="font-semibold no-underline text-black" href="">
+							The Atlanta Educational Telecommunications Collaborative (AETC)
+							</a>
+							: Focuses on educational programming and initiatives, aiming to enrich educational experiences in the community.
+						</p>
+					</li>
+				</ul>
+			</section>
+			<section id="#racial-and-social-justice">
+				<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					INTERCONNECTIONS
+				</p>
+				<h3 className="my-0 text-title font-medium text-altGreen">
+					Racial and Social Justice
+				</h3>
+				<p>
+				Tackling systemic racial and social injustice is a fundamental aspect of addressing the root causes of gun violence.
+				</p>
+				<ul className='list-none'>
+					<li className='flex flex-row align-center'>
+						<p className='p-0 mt-0 mb-4'>
+							<a className='font-semibold no-underline text-black' href=''>
+							The King Center
+							</a>: Educates on the philosophy and methods of nonviolence and social change, addressing racial injustice as a core element of reducing violence.						
+						</p>
+						
+					</li>
+					<li className='flex flex-row align-center'>
+						<p className='p-0 mt-0 mb-4'>
+							<a className='font-semibold no-underline text-black' href=''>
+							Southern Center for Human Rights
+							</a>: Works for equality, dignity, and justice for people impacted by the criminal legal system in the South, including addressing issues that lead to violence.
+						</p>
+						
+					</li>
+				</ul>
+			</section>
+			<section id="#ga-suicides">
 				<div className="mb-0">
-					<p className="my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
 						OUR FINDINGS
 					</p>
 					<h3 className="my-0 text-title font-medium text-altGreen">
@@ -243,25 +311,69 @@ export default function AddressingInequitiesTab() {
 					</ul>
 				</div>
 			</section>
-			<section id="#">
-				<h3 className="my-0 text-title font-medium text-altGreen">
-					Educational Opportunities
-				</h3>
-			</section>
-			<section id="#">
-				<h3 className="my-0 text-title font-medium text-altGreen">
-					Racial and Social Justice
-				</h3>
-			</section>
-			<section id="#">
+			<section id="#mental-health-services">
+				<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					INTERCONNECTIONS
+				</p>
 				<h3 className="my-0 text-title font-medium text-altGreen">
 					Mental Health Services
 				</h3>
+				<p>
+				Expanded access to mental health services is essential in addressing the trauma and stress that can lead to violence.
+				</p>
+				<ul className='list-none'>
+					<li className='flex flex-row align-center'>
+						<p className='p-0 mt-0 mb-4'>
+							<a className='font-semibold no-underline text-black' href=''>
+							NAMI Atlanta/Auburn
+							</a>: Offers resources, support, and education on mental health, helping to destigmatize and provide critical mental health services in the community.						
+						</p>
+						
+					</li>
+					<li className='flex flex-row align-center'>
+						<p className='p-0 mt-0 mb-4'>
+							<a className='font-semibold no-underline text-black' href=''>
+							CHRIS 180
+							</a>: This organization focuses on healing and recovery from trauma, which is particularly important in communities affected by gun violence.
+						</p>
+						
+					</li>
+				</ul>
 			</section>
-			<section id="#">
+			<section id="#community-engagement">
+				<p className="mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest">
+					INTERCONNECTIONS
+				</p>
 				<h3 className="my-0 text-title font-medium text-altGreen">
 					Community Engagement
 				</h3>
+				<p>
+					Organizations that encourage community involvement in safety and
+					prevention initiatives are key players.
+				</p>
+				<ul className="list-none">
+					<li className="flex flex-row align-center">
+						<p className="p-0 mt-0 mb-4">
+							<a className="font-semibold no-underline text-black" href="">
+								Cure Violence Atlanta
+							</a>
+							: Works to stop the spread of violence in communities by using
+							methods and strategies associated with disease control – detecting
+							and interrupting conflicts, identifying and treating high-risk
+							individuals, and changing social norms.
+						</p>
+					</li>
+					<li className="flex flex-row align-center">
+						<p className="p-0 mt-0 mb-4">
+							<a className="font-semibold no-underline text-black" href="">
+								Atlanta Police Foundation
+							</a>
+							: While it's a law enforcement-related entity, they often engage
+							in community-based programs and partnerships to promote safety and
+							prevent violence.
+						</p>
+					</li>
+				</ul>
 			</section>
 		</>
 	);
