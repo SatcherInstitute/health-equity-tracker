@@ -159,10 +159,35 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
 
     df = df.drop(columns=['hosp_yn', 'death_yn'])
 
+    counts_cols_to_sum = [
+        std_col.COVID_CASES,
+        std_col.COVID_HOSP_Y,
+        std_col.COVID_HOSP_N,
+        std_col.COVID_HOSP_UNKNOWN,
+        std_col.COVID_DEATH_Y,
+        std_col.COVID_DEATH_N,
+        std_col.COVID_DEATH_UNKNOWN,
+    ]
+
+    source_groupby_cols = [
+        STATE_COL,
+        COUNTY_FIPS_COL,
+        COUNTY_COL,
+        AGE_COL,
+        CASE_DATE_COL,
+    ]
+
     # Standardize the values in demog_col using names_mapping.
     for demog_col in demog_cols:
         if demog_col == RACE_ETH_COL:
-            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING, 'Hispanic/Latino')
+            df = combine_race_ethnicity(
+                df,
+                counts_cols_to_sum,
+                RACE_NAMES_MAPPING,
+                ethnicity_value='Hispanic/Latino',
+                additional_group_cols=source_groupby_cols,
+                race_eth_output_col=std_col.RACE_ETH_COL,
+            )
         else:
             df = df.replace({demog_col: names_mapping})
 
@@ -173,7 +198,6 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # cases/hospitalizations/deaths. Add total rows and add to overall_df.
     groupby_cols = geo_cols + demog_cols
     total_groupby_cols = geo_cols
-
     groupby_cols = groupby_cols + [CASE_DATE_COL]
     total_groupby_cols = total_groupby_cols + [CASE_DATE_COL]
 

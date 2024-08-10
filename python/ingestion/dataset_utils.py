@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict
+from typing import Literal, List, Dict, Union, Tuple
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -636,15 +636,13 @@ def get_topic_primary_col(topic_prefix: str, df: pd.DataFrame) -> str:
 
 # TODO: Remove this in favor of preserve_most_recent_year_rows_per_topic above
 def preserve_only_current_time_period_rows(
-    df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False
+    df: pd.DataFrame, time_period_col: str = std_col.TIME_PERIOD_COL, keep_time_period_col: bool = False
 ):
     """Takes a dataframe with a time col (default `time_period`) that contains datatime strings
     in formats like `YYYY` or `YYYY-MM`,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
     and removes (or optionally keeps) the original string time_period col"""
-    if time_period_col is None:
-        time_period_col = std_col.TIME_PERIOD_COL
 
     if time_period_col not in df.columns:
         raise ValueError(f'df does not contain column: {time_period_col}.')
@@ -672,39 +670,95 @@ def preserve_only_current_time_period_rows(
 
 def combine_race_ethnicity(
     df: pd.DataFrame,
-    RACE_NAMES_MAPPING: Dict[str, str],
-    ethnicity_value: str = 'Hispanic',
+    count_cols_to_sum: List[str],
+    race_alone_to_het_code_map: Dict[str, str],
+    ethnicity_value: str = std_col.Race.HISP.race,
+    unknown_values: Union[List[str], None] = None,
+    additional_group_cols: Union[List[str], None] = None,
+    race_eth_output_col: str = std_col.RACE_CATEGORY_ID_COL,
+    treat_zero_count_as_missing: bool = False,
 ):
-    """Combines the race and ethnicity fields into the legacy race/ethnicity category.
-    We will keep this in place until we can figure out a plan on how to display
-    the race and ethnicity to our users in a disaggregated way."""
+    """Combines the `race` and `ethnicity` columns into a single `race_and_ethnicity` col.
 
-    # Create a mask for Hispanic/Latino
-    hispanic_mask = df[std_col.ETH_COL].isin([ethnicity_value])
+    Parameters:
+    - df: must have cols for `race` and `ethnicity`, and any supplied `count_cols_to_sum`, and `additional_group_cols`.
+    - count_cols_to_sum: A list of column names with topic counts that will be summed.
+         (All Hispanic cases across various race groups will sum to be a new row with race_category_id='HISP'
+         same for the sum of various types of unknown race/ethnicity).
+    - race_alone_to_het_code_map: A dict of source race names to their race_category_id code including `_NH` as needed.
+    Optional parameters:
+    - ethnicity_value (optional default='Hispanic or Latino'): str value of `ethnicity` col representing Hispanic
+    - unknown_values (optional): List of values to be considered as unknown ethnicity or race
+    - additional_group_cols (optional): List of additional columns to group by
+    - race_eth_output_col (optional default='race_and_ethnicity'): str name of the added combination race and eth col
+    - treat_zero_count_as_missing (optional default=False): if True, sum gets min_count=1 argument
+    """
 
-    # Create masks for 'NA', 'Missing', 'Unknown'
-    race_missing_mask = df[std_col.RACE_COL].isin({'NA', 'Missing', 'Unknown'})
-    eth_missing_mask = df[std_col.ETH_COL].isin({'NA', 'Missing', 'Unknown'})
+    # Require std_col.RACE_COL and std_col.ETH_COL
+    if std_col.RACE_COL not in df.columns or std_col.ETH_COL not in df.columns:
+        raise ValueError('df must contain columns: std_col.RACE_COL and std_col.ETH_COL')
 
-    # Create a mask for other cases
-    other_mask = ~race_missing_mask & ~eth_missing_mask
+    if unknown_values is None:
+        unknown_values = ['NA', 'Missing', 'Unknown']
 
-    # Create a new combined race/eth column Initialize with UNKNOWN
-    df[std_col.RACE_ETH_COL] = std_col.Race.UNKNOWN.value
+    # Create a copy of the DataFrame to avoid SettingWithCopyWarning
+    df = df.copy()
 
-    # Overwrite specific race if given
-    df.loc[other_mask, std_col.RACE_ETH_COL] = df.loc[other_mask, std_col.RACE_COL].map(RACE_NAMES_MAPPING)
+    # LOGIC HERE
+    # Create the race_and_ethnicity column
+    df[race_eth_output_col] = std_col.Race.UNKNOWN.value
 
-    # overwrite with Hispanic if given
-    df.loc[hispanic_mask, std_col.RACE_ETH_COL] = std_col.Race.HISP.value
+    # Set to 'HISP' where ethnicity matches ethnicity_value
+    df.loc[df[std_col.ETH_COL] == ethnicity_value, race_eth_output_col] = std_col.Race.HISP.value
 
-    # Drop unnecessary columns
+    # Set to mapped race value where ethnicity is not ethnicity_value and neither race nor ethnicity is unknown
+    mask = (
+        (df[std_col.ETH_COL] != ethnicity_value)
+        & (~df[std_col.RACE_COL].isin(unknown_values))
+        & (~df[std_col.ETH_COL].isin(unknown_values))
+    )
+    df.loc[mask, race_eth_output_col] = (
+        df.loc[mask, std_col.RACE_COL].map(race_alone_to_het_code_map).fillna(std_col.Race.UNKNOWN.value)
+    )
+
     df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
 
-    return df
+    # Aggregate the data by whichever breakdown cols are present
+    group_cols = []
+    possible_group_cols = [
+        std_col.TIME_PERIOD_COL,
+        std_col.STATE_FIPS_COL,
+        std_col.STATE_NAME_COL,
+        std_col.COUNTY_FIPS_COL,
+        std_col.COUNTY_NAME_COL,
+        race_eth_output_col,
+    ]
+
+    if additional_group_cols is not None:
+        possible_group_cols.extend(additional_group_cols)
+
+    for col in possible_group_cols:
+        if col in df.columns:
+            group_cols.append(col)
+    # agg_col_map =
+    agg_col_map = (
+        {count_col: lambda x: x.sum(min_count=1) for count_col in count_cols_to_sum}
+        if treat_zero_count_as_missing
+        else {count_col: sum for count_col in count_cols_to_sum}
+    )
+
+    if not count_cols_to_sum:
+        return df
+
+    # if count cols were provided, we need the new HISP rows to sum the various Hispanic+Race groups
+    df_aggregated = df.groupby(group_cols).agg(agg_col_map).reset_index()
+
+    return df_aggregated
 
 
-def get_timeview_df_and_cols(df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]) -> pd.DataFrame:
+def get_timeview_df_and_cols(
+    df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]
+) -> Tuple[pd.DataFrame, Dict[str, str]]:
     """Returns a dataframe with only the rows and columns that are needed for the given time view.
 
     Parameters:
