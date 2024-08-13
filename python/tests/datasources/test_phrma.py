@@ -26,7 +26,7 @@ GOLDEN_DATA = {
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
-    print("ACTUALLY LOADING FROM /data", directory, filename)
+    print("MOCKING FILE READ FROM /data", directory, filename)
     dtype = kwargs['dtype']
     na_values = kwargs['na_values']
     subdirectory = kwargs['subdirectory']
