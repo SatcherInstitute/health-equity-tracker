@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { ArrowDownwardRounded, AttachMoneyRounded, Diversity3Rounded, GavelRounded, PsychologyRounded, SchoolRounded } from '@mui/icons-material'
 import { Link as ScrollLink, Events } from 'react-scroll';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 
 export default function AddressingInequitiesTab() {
 	const [activeLink, setActiveLink] = useState<string | null>(null);
