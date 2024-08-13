@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import Dict, cast
+from typing import cast
 from datasources.data_source import DataSource
 from ingestion.constants import (
     STATE_LEVEL,
@@ -16,7 +16,21 @@ from ingestion.het_types import (
     SEX_RACE_ETH_AGE_TYPE,
     PHRMA_BREAKDOWN_TYPE_OR_ALL,
 )
-from ingestion.phrma_utils import TMP_ALL, PHRMA_DIR, get_sheet_name
+from ingestion.phrma_utils import (
+    TMP_ALL,
+    PHRMA_DIR,
+    get_sheet_name,
+    ADHERENCE_RATE_LOWER,
+    COUNT_TOTAL_LOWER,
+    COUNT_YES_LOWER,
+    RACE_NAME_LOWER,
+    AGE_GROUP_LOWER,
+    INSURANCE_STATUS_LOWER,
+    INCOME_GROUP_LOWER,
+    EDUCATION_GROUP_LOWER,
+    PHRMA_CANCER_PCT_CONDITIONS,
+    rename_cols,
+)
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -29,20 +43,6 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 # constants
 
 DTYPE = {'STATE_FIPS': str}
-
-PHRMA_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
-
-
-# CONSTANTS USED BY DATA SOURCE
-COUNT_TOTAL_LOWER = "total_bene"
-COUNT_YES_LOWER = "bene_yes"
-COUNT_NO_LOWER = "bene_no"
-ADHERENCE_RATE_LOWER = "bene_yes_pct"
-RACE_NAME_LOWER = "race_name"
-AGE_GROUP_LOWER = "age_group"
-INSURANCE_STATUS_LOWER = "insurance_status"
-INCOME_GROUP_LOWER = "income_group"
-EDUCATION_GROUP_LOWER = "education_group"
 
 
 # # a nested dictionary that contains values swaps per column name
@@ -182,8 +182,8 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
     topic_dfs = []
     condition_keep_cols = []
 
-    for condition in PHRMA_PCT_CONDITIONS:
-        if condition in PHRMA_PCT_CONDITIONS:
+    for condition in PHRMA_CANCER_PCT_CONDITIONS:
+        if condition in PHRMA_CANCER_PCT_CONDITIONS:
             condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
 
         condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
@@ -216,31 +216,3 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
     df_merged = ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, fips_length)
 
     return df_merged
-
-
-def rename_cols(
-    df: pd.DataFrame,
-    geo_level: GEO_TYPE,
-    breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
-    condition: str,
-) -> pd.DataFrame:
-    """Renames columns based on the demo/geo breakdown"""
-
-    rename_cols_map: Dict[str, str] = {
-        COUNT_YES_LOWER: f'{condition}_{COUNT_YES_LOWER}',
-        COUNT_TOTAL_LOWER: f'{condition}_{COUNT_TOTAL_LOWER}',
-        ADHERENCE_RATE_LOWER: f'{condition}_{ADHERENCE_RATE_LOWER}',
-    }
-
-    if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
-        rename_cols_map[std_col.STATE_FIPS_COL] = std_col.STATE_FIPS_COL
-
-    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        rename_cols_map[RACE_NAME_LOWER] = std_col.RACE_CATEGORY_ID_COL
-
-    if breakdown == std_col.AGE_COL:
-        rename_cols_map[AGE_GROUP_LOWER] = std_col.AGE_COL
-
-    df = df.rename(columns=rename_cols_map)
-
-    return df
