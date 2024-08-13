@@ -704,8 +704,7 @@ def combine_race_ethnicity(
     # Create a copy of the DataFrame to avoid SettingWithCopyWarning
     df = df.copy()
 
-    # LOGIC HERE
-    # Create the race_and_ethnicity column
+    # Create the race_and_ethnicity column defaulting to unknown
     df[race_eth_output_col] = std_col.Race.UNKNOWN.value
 
     # Set to 'HISP' where ethnicity matches ethnicity_value
@@ -740,7 +739,6 @@ def combine_race_ethnicity(
     for col in possible_group_cols:
         if col in df.columns:
             group_cols.append(col)
-    # agg_col_map =
     agg_col_map = (
         {count_col: lambda x: x.sum(min_count=1) for count_col in count_cols_to_sum}
         if treat_zero_count_as_missing
