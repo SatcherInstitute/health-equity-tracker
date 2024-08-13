@@ -23,6 +23,11 @@ RACE_ETH_COL = "race_ethnicity_combined"
 AGE_COL = "age"
 SEX_COL = "sex"
 
+# DEMOGRAPHICS FOR BRFSS
+INCOME_COL = "income"
+EDUCATION_COL = "education"
+INSURANCE_COL = "insurance_status"
+
 # DEMOGRAPHICS FOR PHRMA
 LIS_COL = "lis"
 ELIGIBILITY_COL = "eligibility"
