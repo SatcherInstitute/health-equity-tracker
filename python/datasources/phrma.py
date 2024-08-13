@@ -26,10 +26,10 @@ from ingestion.het_types import (
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
-We need to first convert these to csv files as pandas is VERY slow on excel files
+We need to first convert these to csv files as pandas is VERY slow on excel files,
+using the `scripts/extract_excel_sheets_to_csvs` script.
 
-Ensure Gnumeric is installed with Homebrew or similar, and run this for each excel source file:
-ssconvert --export-type=Gnumeric_stf:stf_csv -S beta_blockers.xlsx beta_blockers-%s.csv
+`./scripts/extract_excel_sheets_to_csvs --directory ../data/phrma`
 """
 
 # constants
