@@ -13,7 +13,7 @@ export default function DataCollectionTab() {
 			</Helmet>
 			<h2 className='sr-only'>Data Collection</h2>
 			<section id='#source-profile'>
-				<article className='mb-8 rounded-md shadow-raised-tighter p-8'>
+				<article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8'>
 					<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 						SOURCE PROFILE
 					</p>

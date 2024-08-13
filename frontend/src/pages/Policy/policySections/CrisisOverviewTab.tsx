@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { FormatQuote } from '@mui/icons-material'
+import { gvaFacts } from '../policyContent/CrisisOverviewContent'
+import FactCard from '../policyComponents/FactCard'
 
 export default function CrisisOverviewTab() {
 	return (
@@ -44,38 +45,10 @@ export default function CrisisOverviewTab() {
 					<h3 className='my-0 text-title font-medium text-altGreen'>
 						Background
 					</h3>
-
-					<ul className='list-none px-4 grid gap-8 md:grid-cols-2 grid-cols-1 py-4 my-0'>
-						<li className='justify-center rounded-md bg-white p-4 shadow-raised group flex align-center text-text md:text-exploreButton'>
-							<p className='text-center content-center'>
-								Only four months into 2024, Georgia has already witnessed a
-								staggering toll of over{' '}
-								<HetTerm>92 lives lost to firearm-related incidents</HetTerm>.
-							</p>
-						</li>
-						<li className='justify-center rounded-md bg-white p-4 shadow-raised group flex align-center text-text md:text-exploreButton'>
-							<p className='text-center content-center'>
-								In 2023, Atlanta experienced no fewer than six mass shootings,
-								with each event tragically{' '}
-								<HetTerm>claiming six lives and injuring 22 others</HetTerm>,
-								marking a series of deliberate, targeted attacks that shook the
-								community.
-							</p>
-						</li>
-						<li className='justify-center rounded-md bg-white p-4 shadow-raised group flex align-center text-text md:text-exploreButton'>
-						<p className='text-center content-center'>
-								As of April 2024, firearms have injured four children in
-								Atlanta, raising the total to{' '}
-								<HetTerm>53 children injured</HetTerm> since 2021, underscoring
-								an urgent need for protective measures.
-							</p>
-						</li>
-						<li className='justify-center rounded-md bg-white p-4 shadow-raised group flex align-center text-text md:text-exploreButton'>
-						<p className='text-center content-center'>
-								Since 2015, firearms have tragically{' '}
-								<HetTerm>claimed the lives of 22 children</HetTerm> in Atlanta.
-							</p>
-						</li>
+					<ul className='list-none px-4 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
+						{gvaFacts.map((gvaFact, index) => (
+							<FactCard key={index} content={gvaFact.content} />
+						))}
 					</ul>
 					<p>
 						By expanding the Health Equity Tracker to include gun violence data,
