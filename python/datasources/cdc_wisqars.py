@@ -119,8 +119,9 @@ class CDCWisqarsData(DataSource):
 
         national_totals_by_intent_df = process_wisqars_df(WISQARS_ALL, geo_level)
 
+        # set demographic col to respective "All" value
         if demographic == std_col.RACE_OR_HISPANIC_COL:
-            national_totals_by_intent_df.insert(2, 'race', std_col.Race.ALL.value)
+            national_totals_by_intent_df.insert(2, std_col.RACE_CATEGORY_ID_COL, std_col.Race.ALL.value)
         else:
             national_totals_by_intent_df.insert(2, demographic, std_col.ALL_VALUE)
 
@@ -158,6 +159,7 @@ class CDCWisqarsData(DataSource):
 
         if demographic == std_col.AGE_COL:
             df = condense_age_groups(df, COL_DICTS)
+
         if demographic == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
@@ -243,25 +245,23 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
         df[std_col.AGE_COL] = df[std_col.AGE_COL].str.replace(' to ', '-')
 
     if std_col.ETH_COL in df.columns.to_list():
-        df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
-        df = df.rename(columns={'race_ethnicity_combined': 'race'})
 
-        # Combines the unknown and hispanic rows
-        df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
+        count_cols_to_sum = list(RAW_TOTALS_MAP.values()) + ['fatal_population']
 
-        # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
-        subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
+        df = combine_race_ethnicity(
+            df,
+            count_cols_to_sum,
+            RACE_NAMES_MAPPING,
+            ethnicity_value='Hispanic',
+            additional_group_cols=['year', 'state'],
+        )
 
-        # Create a temporary DataFrame with just the subset
-        temp_df = df[subset_mask].copy()
+        for raw_total_col in RAW_TOTALS_MAP.values():
 
-        # Apply the function to the temporary DataFrame
-        for raw_total in RAW_TOTALS_MAP.values():
-            if raw_total in df.columns:
-                temp_df = generate_per_100k_col(temp_df, raw_total, 'fatal_population', 'crude rate', decimal_places=2)
-
-        # Update the original DataFrame with the results for the 'crude rate' column
-        df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
+            if raw_total_col in df.columns:
+                topic_prefix = std_col.extract_prefix(raw_total_col)
+                topic_rate_col = PER_100K_MAP[topic_prefix]
+                df = generate_per_100k_col(df, raw_total_col, 'fatal_population', topic_rate_col, decimal_places=2)
 
     output_df = output_df.merge(df, how="outer")
 
