@@ -34,17 +34,15 @@ PHRMA_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
 
 
 # CONSTANTS USED BY DATA SOURCE
-COUNT_TOTAL = "total_bene"
-COUNT_YES = "bene_yes"
-COUNT_NO = "bene_no"
-ADHERENCE_RATE = "bene_yes_pct"
-STATE_NAME = "state_name"
-STATE_FIPS = "state_fips"
-RACE_NAME = "race_name"
-AGE_GROUP = "age_group"
-INSURANCE_STATUS = "insurance_status"
-INCOME_GROUP = "income_group"
-EDUCATION_GROUP = "education_group"
+COUNT_TOTAL_LOWER = "total_bene"
+COUNT_YES_LOWER = "bene_yes"
+COUNT_NO_LOWER = "bene_no"
+ADHERENCE_RATE_LOWER = "bene_yes_pct"
+RACE_NAME_LOWER = "race_name"
+AGE_GROUP_LOWER = "age_group"
+INSURANCE_STATUS_LOWER = "insurance_status"
+INCOME_GROUP_LOWER = "income_group"
+EDUCATION_GROUP_LOWER = "education_group"
 
 
 # # a nested dictionary that contains values swaps per column name
@@ -161,11 +159,11 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
         merge_cols.append(breakdown_col)
 
     breakdown_het_to_source_type = {
-        "age": AGE_GROUP,
-        "race_and_ethnicity": RACE_NAME,
-        "income": INCOME_GROUP,
-        "education": EDUCATION_GROUP,
-        'insurance_status': INSURANCE_STATUS,
+        "age": AGE_GROUP_LOWER,
+        "race_and_ethnicity": RACE_NAME_LOWER,
+        "income": INCOME_GROUP_LOWER,
+        "education": EDUCATION_GROUP_LOWER,
+        'insurance_status': INSURANCE_STATUS_LOWER,
     }
 
     # only read certain columns from source data
@@ -177,7 +175,7 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
 
     if geo_level == STATE_LEVEL:
         fips_length = 2
-        keep_cols.append(STATE_FIPS)
+        keep_cols.append(std_col.STATE_FIPS_COL)
     if geo_level == NATIONAL_LEVEL:
         fips_length = 2
 
@@ -186,7 +184,7 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
 
     for condition in PHRMA_PCT_CONDITIONS:
         if condition in PHRMA_PCT_CONDITIONS:
-            condition_keep_cols = [*keep_cols, COUNT_YES, COUNT_TOTAL, ADHERENCE_RATE]
+            condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
 
         condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
 
@@ -200,7 +198,7 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
         )
 
         if geo_level == NATIONAL_LEVEL:
-            topic_df[STATE_FIPS] = US_FIPS
+            topic_df[std_col.STATE_FIPS_COL] = US_FIPS
 
         topic_df = rename_cols(
             topic_df,
@@ -229,19 +227,19 @@ def rename_cols(
     """Renames columns based on the demo/geo breakdown"""
 
     rename_cols_map: Dict[str, str] = {
-        COUNT_YES: f'{condition}_{COUNT_YES}',
-        COUNT_TOTAL: f'{condition}_{COUNT_TOTAL}',
-        ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
+        COUNT_YES_LOWER: f'{condition}_{COUNT_YES_LOWER}',
+        COUNT_TOTAL_LOWER: f'{condition}_{COUNT_TOTAL_LOWER}',
+        ADHERENCE_RATE_LOWER: f'{condition}_{ADHERENCE_RATE_LOWER}',
     }
 
     if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
-        rename_cols_map[STATE_FIPS] = std_col.STATE_FIPS_COL
+        rename_cols_map[std_col.STATE_FIPS_COL] = std_col.STATE_FIPS_COL
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        rename_cols_map[RACE_NAME] = std_col.RACE_CATEGORY_ID_COL
+        rename_cols_map[RACE_NAME_LOWER] = std_col.RACE_CATEGORY_ID_COL
 
     if breakdown == std_col.AGE_COL:
-        rename_cols_map[AGE_GROUP] = std_col.AGE_COL
+        rename_cols_map[AGE_GROUP_LOWER] = std_col.AGE_COL
 
     df = df.rename(columns=rename_cols_map)
 
