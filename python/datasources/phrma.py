@@ -23,6 +23,7 @@ from ingestion.het_types import (
     PHRMA_BREAKDOWN_TYPE_OR_ALL,
     PHRMA_BREAKDOWN_TYPE,
 )
+from ingestion.phrma_utils import TMP_ALL, PHRMA_DIR
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -33,12 +34,9 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 """
 
 # constants
-PHRMA_DIR = 'phrma'
 ELIGIBILITY = "eligibility"
 ADHERENCE = 'adherence'
 BENEFICIARIES = 'beneficiaries'
-TMP_ALL = 'all'
-
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
 PHRMA_PCT_CONDITIONS = [

@@ -16,6 +16,7 @@ from ingestion.het_types import (
     SEX_RACE_ETH_AGE_TYPE,
     PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
 )
+from ingestion.phrma_utils import TMP_ALL, PHRMA_DIR
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -26,8 +27,7 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 """
 
 # constants
-TMP_ALL = 'all'
-PHRMA_DIR = 'phrma'
+
 DTYPE = {'STATE_FIPS': str}
 
 PHRMA_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
