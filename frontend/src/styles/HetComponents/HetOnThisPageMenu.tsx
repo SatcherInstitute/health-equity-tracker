@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { Link as ScrollLink, Events } from 'react-scroll';
 import { RouteConfig } from '../../pages/Methodology/methodologyContent/routeConfigs';
+import HetReturnToTopFloating from '../../pages/Policy/policyComponents/HetReturnToTopFloating';
 
 interface HetOnThisPageMenuProps {
 	links?: RouteConfig[];
@@ -67,6 +68,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
 						</li>
 					))}
 				</ul>
+				<HetReturnToTopFloating/>
 			</nav>
 		</>
 	);

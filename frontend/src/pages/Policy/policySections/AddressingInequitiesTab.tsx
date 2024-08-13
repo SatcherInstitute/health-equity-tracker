@@ -1,9 +1,47 @@
 import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
-import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import { ArrowDownwardRounded, AttachMoneyRounded, Diversity3Rounded, GavelRounded, PsychologyRounded, SchoolRounded } from '@mui/icons-material'
+import { Link as ScrollLink, Events } from 'react-scroll';
+import { useState, useEffect } from 'react';
 
 export default function AddressingInequitiesTab() {
+	const [activeLink, setActiveLink] = useState<string | null>(null);
+
+useEffect(() => {
+	const storedActiveLink = sessionStorage.getItem('activeLink');
+	if (storedActiveLink) {
+		setActiveLink(storedActiveLink);
+	}
+
+	// Scroll event listener
+	Events.scrollEvent.register('end', () => {
+		const activeLinkElement = document.querySelector('.active');
+		if (activeLinkElement) {
+			const newActiveLink = activeLinkElement.getAttribute('to');
+			if (newActiveLink) {
+				setActiveLink(newActiveLink);
+				sessionStorage.setItem('activeLink', newActiveLink);
+			}
+		}
+	});
+
+	// Cleanup scroll event listener
+	return () => {
+		Events.scrollEvent.remove('end');
+	};
+}, []);
+
+const handleClick = (path: string) => {
+	setActiveLink(path);
+	sessionStorage.setItem('activeLink', path);
+};
+const links = [
+	{ path: '#economic-inequality', label: 'Economic Inequality' },
+	{ path: '#educational-opportunities', label: 'Educational Opportunities' },
+	{ path: '#racial-and-social-justice', label: 'Racial and Social Justice' },
+	{ path: '#mental-health-services', label: 'Mental Health Services' },
+	{ path: '#community-engagement', label: 'Community Engagement' },
+];
 	return (
 		<>
 			<Helmet>
@@ -12,7 +50,6 @@ export default function AddressingInequitiesTab() {
 			<h2 className="sr-only">Addressing Inequities</h2>
 			<section id="#health-inequities-definition">
 				<p>
-					{" "}
 					<HetTerm>Health inequities</HetTerm> <em>(noun)</em>: Unfair and
 					avoidable differences in health status across various groups,
 					influenced by social, economic, and environmental factors.
@@ -22,77 +59,43 @@ export default function AddressingInequitiesTab() {
 					approach that includes:
 				</p>
 				<div className="mb-8 grid md:grid-cols-5 gap-4 grid-cols-3">
-					<a
-						href="#economic-inequality"
-						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
-					>
-						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-							<AttachMoneyRounded />
-						</div>
-						<p className="text-text font-semibold leading-lhNormal text-black">
-							Economic Inequality
-						</p>
-						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section <ArrowDownwardRounded className="text-text" />
-						</p>
-					</a>
-					<a
-						href="#educational-opportunities"
-						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
-					>
-						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-							<SchoolRounded />
-						</div>
-						<p className="text-text font-semibold leading-lhNormal text-black">
-							Educational Opportunities
-						</p>
-						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section <ArrowDownwardRounded className="text-text" />
-						</p>
-					</a>
-					<a
-						href="#racial-and-social-justice"
-						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
-					>
-						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-							<GavelRounded />
-						</div>
-						<p className="text-text font-semibold leading-lhNormal text-black">
-							Racial and Social Justice
-						</p>
-						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section <ArrowDownwardRounded className="text-text" />
-						</p>
-					</a>
-					<a
-						href="#mental-health-services"
-						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
-					>
-						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-							<PsychologyRounded />
-						</div>
-						<p className="text-text font-semibold leading-lhNormal text-black">
-							Mental Health Services
-						</p>
-						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section <ArrowDownwardRounded className="text-text" />
-						</p>
-					</a>
-					<a
-						href="#community-engagement"
-						className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 "
-					>
-						<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110 ">
-							<Diversity3Rounded />
-						</div>
-						<p className="text-text font-semibold leading-lhNormal text-black">
-							Community Engagement
-						</p>
-						<p className="text-smallest font-semibold tracking-normal">
-							Jump to section <ArrowDownwardRounded className="text-text" />
-						</p>
-					</a>
+		{links.map(link => (
+			<CombinedLink
+				key={link.path}
+				to={link.path}
+				isScrollLink
+				smooth
+				duration={200}
+				spy
+				hashSpy
+				onClick={() => handleClick(link.path)}
+				tabIndex={0}
+				className={
+					activeLink === link.path
+						? 'font-semibold text-altGreen'
+						: 'hover:cursor-pointer text-altBlack'
+				}
+			>
+				<div className="rounded-md shadow-raised p-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30">
+					{/* Icon and text content */}
+					<div className="bg-hoverAltGreen p-2 w-fit rounded-sm text-altGreen group-hover:scale-110">
+						{/* Example Icon: replace with the appropriate icon */}
+						{link.path === '#economic-inequality' && <AttachMoneyRounded />}
+						{link.path === '#educational-opportunities' && <SchoolRounded />}
+						{link.path === '#racial-and-social-justice' && <GavelRounded />}
+						{link.path === '#mental-health-services' && <PsychologyRounded />}
+						{link.path === '#community-engagement' && <Diversity3Rounded />}
+					</div>
+					<p className="text-text font-semibold leading-lhNormal text-black">
+						{link.label}
+					</p>
+					<p className="text-smallest font-semibold tracking-normal">
+						Jump to section <ArrowDownwardRounded className="text-text" />
+					</p>
 				</div>
+			</CombinedLink>
+		))}
+	</div>
 
 				<p>
 					By recognizing these interconnections, the Health Equity Tracker not
@@ -378,3 +381,23 @@ export default function AddressingInequitiesTab() {
 		</>
 	);
 }
+
+interface CombinedLinkProps {
+	to: string;
+	isScrollLink: boolean;
+	children: ReactNode;
+	[x: string]: any;
+}
+
+function CombinedLink(props: CombinedLinkProps) {
+	const { to, isScrollLink, children, ...rest } = props;
+
+	if (isScrollLink) {
+		return (
+			<ScrollLink to={to} {...rest}>
+				{children}
+			</ScrollLink>
+		);
+	}
+	return null;
+};
