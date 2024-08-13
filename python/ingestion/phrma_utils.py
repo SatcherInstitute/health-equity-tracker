@@ -1,4 +1,4 @@
-from ingestion.het_types import GEO_TYPE, PHRMA_BREAKDOWN_TYPE
+from ingestion.het_types import GEO_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL
 import ingestion.standardized_columns as std_col
 from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, NATIONAL_LEVEL
 
@@ -6,7 +6,7 @@ TMP_ALL = 'all'
 PHRMA_DIR = 'phrma'
 
 
-def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE) -> str:
+def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> str:
     """geo_level: string equal to `county`, `national`, or `state`
     breakdown: string demographic breakdown type
     return: a string sheet name based on the provided args"""
