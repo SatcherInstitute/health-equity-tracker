@@ -2,26 +2,19 @@ import pandas as pd
 from typing import Dict, cast
 from datasources.data_source import DataSource
 from ingestion.constants import (
-    COUNTY_LEVEL,
     STATE_LEVEL,
     NATIONAL_LEVEL,
-    ALL_VALUE,
     US_FIPS,
-    US_NAME,
-    UNKNOWN,
 )
 from ingestion.dataset_utils import (
     ensure_leading_zeros,
-    generate_pct_share_col_with_unknowns,
-    generate_pct_share_col_without_unknowns,
 )
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_county_names, merge_state_ids, merge_dfs_list
+from ingestion.merge_utils import merge_dfs_list
 from ingestion.het_types import (
     GEO_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
-    PHRMA_BREAKDOWN_TYPE_OR_ALL,
-    PHRMA_BREAKDOWN_TYPE,
+    PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
 )
 
 """
@@ -145,44 +138,36 @@ class PhrmaBrfssData(DataSource):
         demo_type = self.get_attr(attrs, 'demographic')
         geo_level = self.get_attr(attrs, 'geographic')
 
-        alls_df = load_phrma_brfss_df_from_data_dir(geo_level, TMP_ALL)
-
         table_name = f'{demo_type}_{geo_level}'
-        # df = self.generate_breakdown_df(demo_type, geo_level, alls_df)
 
-        print(table_name)
-        print(df)
-
-        # col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-        # gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
+        df = load_phrma_brfss_df_from_data_dir(geo_level, demo_type)
+        float_cols = []
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
 
-def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> pd.DataFrame:
+def load_phrma_brfss_df_from_data_dir(
+    geo_level: GEO_TYPE, breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL
+) -> pd.DataFrame:
     """Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `lis`, `eligibility`, or `all`
+    breakdown: string equal to 'age', 'race_and_ethnicity', 'insurance_status', 'education', 'income', 'all'
     return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables"""
 
     sheet_name = get_sheet_name(geo_level, breakdown)
-    merge_cols = []
-
-    if geo_level == COUNTY_LEVEL:
-        merge_cols.append(std_col.COUNTY_FIPS_COL)
-    else:
-        merge_cols.append(std_col.STATE_FIPS_COL)
+    merge_cols = [std_col.STATE_FIPS_COL]
 
     if breakdown != TMP_ALL:
         breakdown_col = std_col.RACE_CATEGORY_ID_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
         merge_cols.append(breakdown_col)
-    fips_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
     breakdown_het_to_source_type = {
-        # "age": AGE_GROUP,
+        "age": AGE_GROUP,
         "race_and_ethnicity": RACE_NAME,
-        # "income": INCOME_GROUP,
-        # "education": EDUCATION_GROUP,
-        # 'insurance_status': INSURANCE_STATUS,
+        "income": INCOME_GROUP,
+        "education": EDUCATION_GROUP,
+        'insurance_status': INSURANCE_STATUS,
     }
 
     # only read certain columns from source data
@@ -231,13 +216,13 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
     df_merged = merge_dfs_list(topic_dfs, merge_cols)
 
     # drop rows that dont include FIPS and DEMO values
-    df_merged = df_merged[df_merged[fips_col].notna()]
-    df_merged = ensure_leading_zeros(df_merged, fips_col, fips_length)
+    df_merged = df_merged[df_merged[std_col.STATE_FIPS_COL].notna()]
+    df_merged = ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, fips_length)
 
     return df_merged
 
 
-def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> str:
+def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL) -> str:
     """geo_level: string equal to `county`, `national`, or `state`
     breakdown: string demographic breakdown type
     return: a string sheet name based on the provided args"""
@@ -245,13 +230,16 @@ def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) 
     sheet_map = {
         (TMP_ALL, NATIONAL_LEVEL): "US",
         (TMP_ALL, STATE_LEVEL): "State",
-        (TMP_ALL, COUNTY_LEVEL): "County",
         (std_col.RACE_OR_HISPANIC_COL, NATIONAL_LEVEL): "Race_US",
         (std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL): "Race_State",
-        (std_col.RACE_OR_HISPANIC_COL, COUNTY_LEVEL): "Race_County",
         (std_col.AGE_COL, NATIONAL_LEVEL): "Age_US",
         (std_col.AGE_COL, STATE_LEVEL): "Age_State",
-        (std_col.AGE_COL, COUNTY_LEVEL): "Age_County",
+        (std_col.EDUCATION_COL, NATIONAL_LEVEL): "Education_US",
+        (std_col.EDUCATION_COL, STATE_LEVEL): "Education_State",
+        (std_col.INSURANCE_COL, NATIONAL_LEVEL): "Insurance_US",
+        (std_col.INSURANCE_COL, STATE_LEVEL): "Insurance_State",
+        (std_col.INCOME_COL, NATIONAL_LEVEL): "Income_US",
+        (std_col.INCOME_COL, STATE_LEVEL): "Income_State",
     }
 
     return sheet_map[(breakdown, geo_level)]
@@ -260,7 +248,7 @@ def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) 
 def rename_cols(
     df: pd.DataFrame,
     geo_level: GEO_TYPE,
-    breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
+    breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
     condition: str,
 ) -> pd.DataFrame:
     """Renames columns based on the demo/geo breakdown"""
