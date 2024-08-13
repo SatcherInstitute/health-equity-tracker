@@ -10,11 +10,20 @@ SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
 SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
 DEMOGRAPHIC_TYPE = Literal["sex", "age", "race", "race_and_ethnicity"]
 
-PHRMA_BREAKDOWN_TYPE = Literal['age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility']
-PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal['age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'all']
-PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL = Literal[
-    'age', 'race_and_ethnicity', 'insurance_status', 'education', 'income', 'all'
+PHRMA_BREAKDOWN_TYPE = Literal[
+    'age',
+    'sex',
+    'race_and_ethnicity',
+    'lis',
+    'eligibility',
+    'insurance_status',
+    'education',
+    'income',
 ]
+PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal[
+    'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income', 'all'
+]
+
 HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
 WISQARS_DEMO_TYPE = Literal["sex", "age", "race_and_ethnicity", "urbanicty", "all"]
 

@@ -14,9 +14,9 @@ from ingestion.merge_utils import merge_dfs_list
 from ingestion.het_types import (
     GEO_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
-    PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
+    PHRMA_BREAKDOWN_TYPE_OR_ALL,
 )
-from ingestion.phrma_utils import TMP_ALL, PHRMA_DIR
+from ingestion.phrma_utils import TMP_ALL, PHRMA_DIR, get_sheet_name
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -146,9 +146,7 @@ class PhrmaBrfssData(DataSource):
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
 
-def load_phrma_brfss_df_from_data_dir(
-    geo_level: GEO_TYPE, breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL
-) -> pd.DataFrame:
+def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> pd.DataFrame:
     """Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
     breakdown: string equal to 'age', 'race_and_ethnicity', 'insurance_status', 'education', 'income', 'all'
@@ -222,33 +220,10 @@ def load_phrma_brfss_df_from_data_dir(
     return df_merged
 
 
-def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL) -> str:
-    """geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string demographic breakdown type
-    return: a string sheet name based on the provided args"""
-
-    sheet_map = {
-        (TMP_ALL, NATIONAL_LEVEL): "US",
-        (TMP_ALL, STATE_LEVEL): "State",
-        (std_col.RACE_OR_HISPANIC_COL, NATIONAL_LEVEL): "Race_US",
-        (std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL): "Race_State",
-        (std_col.AGE_COL, NATIONAL_LEVEL): "Age_US",
-        (std_col.AGE_COL, STATE_LEVEL): "Age_State",
-        (std_col.EDUCATION_COL, NATIONAL_LEVEL): "Education_US",
-        (std_col.EDUCATION_COL, STATE_LEVEL): "Education_State",
-        (std_col.INSURANCE_COL, NATIONAL_LEVEL): "Insurance_US",
-        (std_col.INSURANCE_COL, STATE_LEVEL): "Insurance_State",
-        (std_col.INCOME_COL, NATIONAL_LEVEL): "Income_US",
-        (std_col.INCOME_COL, STATE_LEVEL): "Income_State",
-    }
-
-    return sheet_map[(breakdown, geo_level)]
-
-
 def rename_cols(
     df: pd.DataFrame,
     geo_level: GEO_TYPE,
-    breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
+    breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
     condition: str,
 ) -> pd.DataFrame:
     """Renames columns based on the demo/geo breakdown"""
