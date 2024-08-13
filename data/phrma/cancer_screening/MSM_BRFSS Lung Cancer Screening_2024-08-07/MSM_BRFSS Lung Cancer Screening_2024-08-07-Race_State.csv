@@ -1,0 +1,416 @@
+race_name,state_name,state_fips,bene_yes,bene_no,total_bene,bene_yes_pct,bene_yes_pct_lcl,bene_yes_pct_ucl,age_adjusted_pct,age_adjusted_pct_lcl,age_adjusted_pct_ucl
+"American Indian or Alaskan Native",Alabama,1,0,7,7,.,.,.,.,.,.
+Asian,Alabama,1,.,.,.,.,.,.,.,.,.
+Black,Alabama,1,13,25,38,34.9855491299172,14.5741156427925,55.3969826170419,.,.,.
+Hispanic,Alabama,1,0,1,1,.,.,.,.,.,.
+Multiracial,Alabama,1,1,4,5,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Alabama,1,.,.,.,.,.,.,.,.,.
+White,Alabama,1,52,104,156,35.424905783676,25.9753824995932,44.8744290677589,34.8584571822858,22.8532048694696,46.863709495102
+"American Indian or Alaskan Native",Alaska,2,5,18,23,.,.,.,.,.,.
+Asian,Alaska,2,0,3,3,.,.,.,.,.,.
+Black,Alaska,2,0,5,5,.,.,.,.,.,.
+Hispanic,Alaska,2,1,4,5,.,.,.,.,.,.
+Multiracial,Alaska,2,4,10,14,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Alaska,2,1,0,1,.,.,.,.,.,.
+White,Alaska,2,38,127,165,23.685152383329,15.6269071459019,31.7433976207562,23.2826020517327,9.85118299775694,36.7140211057086
+"American Indian or Alaskan Native",Arizona,4,2,2,4,.,.,.,.,.,.
+Asian,Arizona,4,.,.,.,.,.,.,.,.,.
+Black,Arizona,4,0,2,2,.,.,.,.,.,.
+Hispanic,Arizona,4,5,16,21,28.1039616294103,21.5261106704947,34.6818125883258,35.1037937896422,33.0779776075857,37.1296099716986
+Multiracial,Arizona,4,3,9,12,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Arizona,4,0,1,1,.,.,.,.,.,.
+White,Arizona,4,77,260,337,23.9467835846803,17.4225021870302,30.4710649823303,22.448587157939,12.1230929476213,32.7740813682567
+"American Indian or Alaskan Native",Arkansas,5,2,6,8,.,.,.,.,.,.
+Asian,Arkansas,5,.,.,.,.,.,.,.,.,.
+Black,Arkansas,5,7,17,24,38.5658599035953,14.602223976065,62.5294958311256,41.2179329674104,28.5991815432745,53.8366843915464
+Hispanic,Arkansas,5,2,2,4,16.5367097482852,0,51.1900652785434,100,100,100
+Multiracial,Arkansas,5,3,7,10,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Arkansas,5,.,.,.,.,.,.,.,.,.
+White,Arkansas,5,69,180,249,24.5648074110574,18.2206543520384,30.9089604700765,23.7264452720147,13.8989237666405,33.553966777389
+"American Indian or Alaskan Native",California,6,0,3,3,.,.,.,.,.,.
+Asian,California,6,2,3,5,.,.,.,.,.,.
+Black,California,6,4,11,15,.,.,.,.,.,.
+Hispanic,California,6,4,19,23,.,.,.,.,.,.
+Multiracial,California,6,1,5,6,7.32333704908881,4.42555012244941,10.2211239757282,.,.,.
+"Native Hawaiian or other Pacific
+Islander",California,6,0,1,1,.,.,.,.,.,.
+White,California,6,38,120,158,24.0657459147188,14.94085141431,33.1906404151276,22.2976234298571,9.96235599731759,34.6328908623967
+"American Indian or Alaskan Native",Colorado,8,0,2,2,.,.,.,.,.,.
+Asian,Colorado,8,1,1,2,.,.,.,.,.,.
+Black,Colorado,8,4,5,9,73.778865051893,45.0899168426569,100,89.7686103454531,85.6752457560005,93.8619749349058
+Hispanic,Colorado,8,3,15,18,21.1983327500229,8.455813525771,33.9408519742748,37.9194335999246,18.0801938502551,57.7586733495942
+Multiracial,Colorado,8,0,2,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Colorado,8,.,.,.,.,.,.,.,.,.
+White,Colorado,8,35,134,169,16.1878379042976,10.6231202566551,21.7525555519401,16.2697996459461,7.92639676307991,24.6132025288122
+"American Indian or Alaskan Native",Connecticut,9,0,3,3,.,.,.,.,.,.
+Asian,Connecticut,9,0,2,2,.,.,.,.,.,.
+Black,Connecticut,9,2,8,10,24.8785006883345,12.5931011023441,37.1639002743249,.,.,.
+Hispanic,Connecticut,9,4,8,12,61.770151313442,17.0141757411765,100,47.9048952784736,26.7441809255029,69.0656096314444
+Multiracial,Connecticut,9,0,2,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Connecticut,9,.,.,.,.,.,.,.,.,.
+White,Connecticut,9,104,146,250,45.113172380899,36.4555259314029,53.7708188303952,45.8280088419378,32.3247407648451,59.3312769190304
+"American Indian or Alaskan Native",Delaware,10,.,.,.,.,.,.,.,.,.
+Asian,Delaware,10,0,1,1,.,.,.,.,.,.
+Black,Delaware,10,8,12,20,.,.,.,.,.,.
+Hispanic,Delaware,10,1,3,4,.,.,.,.,.,.
+Multiracial,Delaware,10,1,1,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Delaware,10,0,1,1,.,.,.,.,.,.
+White,Delaware,10,47,96,143,35.9028541830302,25.9000215155824,45.9056868504779,33.4888807495145,16.5497625344168,50.4279989646122
+"American Indian or Alaskan Native","District of
+Columbia",11,1,0,1,.,.,.,.,.,.
+Asian,"District of
+Columbia",11,1,1,2,.,.,.,.,.,.
+Black,"District of
+Columbia",11,15,23,38,31.9659680843475,15.1049462261656,48.8269899425295,.,.,.
+Hispanic,"District of
+Columbia",11,.,.,.,.,.,.,.,.,.
+Multiracial,"District of
+Columbia",11,0,2,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","District of
+Columbia",11,.,.,.,.,.,.,.,.,.
+White,"District of
+Columbia",11,4,10,14,.,.,.,.,.,.
+"American Indian or Alaskan Native",Florida,12,0,4,4,.,.,.,.,.,.
+Asian,Florida,12,1,1,2,.,.,.,.,.,.
+Black,Florida,12,8,19,27,43.0706648795583,33.1524548973892,52.9888748617274,39.5392433788013,25.4740043690375,53.6044823885651
+Hispanic,Florida,12,8,21,29,28.7079262336137,8.71297896260373,48.7028735046238,27.0314669953101,26.9677158620727,27.0952181285475
+Multiracial,Florida,12,6,14,20,14.8920376289493,11.6737226220986,18.1103526358,24.0061388281152,22.2084794724788,25.8037981837515
+"Native Hawaiian or other Pacific
+Islander",Florida,12,.,.,.,.,.,.,.,.,.
+White,Florida,12,170,425,595,23.9442733207745,18.8658843106571,29.0226623308919,23.33632904769,16.8179466994803,29.8547113958997
+"American Indian or Alaskan Native",Georgia,13,2,2,4,.,.,.,.,.,.
+Asian,Georgia,13,.,.,.,.,.,.,.,.,.
+Black,Georgia,13,11,32,43,.,.,.,.,.,.
+Hispanic,Georgia,13,0,2,2,.,.,.,.,.,.
+Multiracial,Georgia,13,1,9,10,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Georgia,13,0,3,3,.,.,.,.,.,.
+White,Georgia,13,72,200,272,24.6859507152708,18.0641618247715,31.3077396057701,22.6928192508872,14.752764531642,30.6328739701323
+"American Indian or Alaskan Native",Hawaii,15,1,0,1,.,.,.,.,.,.
+Asian,Hawaii,15,6,24,30,.,.,.,.,.,.
+Black,Hawaii,15,0,1,1,.,.,.,.,.,.
+Hispanic,Hawaii,15,5,8,13,62.9775409653746,47.0391501856983,78.9159317450509,72.7629043102731,60.7660263987222,84.759782221824
+Multiracial,Hawaii,15,9,34,43,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Hawaii,15,5,23,28,.,.,.,.,.,.
+White,Hawaii,15,24,74,98,27.0016326841331,11.9997203357084,42.0035450325579,.,.,.
+"American Indian or Alaskan Native",Idaho,16,1,2,3,.,.,.,.,.,.
+Asian,Idaho,16,.,.,.,.,.,.,.,.,.
+Black,Idaho,16,0,1,1,.,.,.,.,.,.
+Hispanic,Idaho,16,0,3,3,.,.,.,.,.,.
+Multiracial,Idaho,16,1,8,9,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Idaho,16,.,.,.,.,.,.,.,.,.
+White,Idaho,16,35,97,132,28.7501188786791,19.4150724207171,38.0851653366411,29.4728933122899,12.4645026367421,46.4812839878377
+"American Indian or Alaskan Native",Illinois,17,.,.,.,.,.,.,.,.,.
+Asian,Illinois,17,0,1,1,.,.,.,.,.,.
+Black,Illinois,17,4,11,15,.,.,.,.,.,.
+Hispanic,Illinois,17,1,5,6,.,.,.,.,.,.
+Multiracial,Illinois,17,1,1,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Illinois,17,.,.,.,.,.,.,.,.,.
+White,Illinois,17,27,76,103,30.3520214812867,18.2072619884277,42.4967809741457,.,.,.
+"American Indian or Alaskan Native",Indiana,18,3,2,5,.,.,.,.,.,.
+Asian,Indiana,18,0,2,2,.,.,.,.,.,.
+Black,Indiana,18,13,38,51,.,.,.,.,.,.
+Hispanic,Indiana,18,2,2,4,.,.,.,.,.,.
+Multiracial,Indiana,18,4,5,9,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Indiana,18,.,.,.,.,.,.,.,.,.
+White,Indiana,18,138,317,455,29.4595727655537,24.6095331387149,34.3096123923925,29.063700135763,21.1438126060327,36.9835876654934
+"American Indian or Alaskan Native",Iowa,19,0,3,3,.,.,.,.,.,.
+Asian,Iowa,19,.,.,.,.,.,.,.,.,.
+Black,Iowa,19,1,5,6,20.3416520014627,16.6563677913732,24.0269362115523,.,.,.
+Hispanic,Iowa,19,1,0,1,.,.,.,.,.,.
+Multiracial,Iowa,19,0,6,6,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Iowa,19,0,1,1,.,.,.,.,.,.
+White,Iowa,19,106,244,350,32.0509718500652,25.8919683713858,38.2099753287445,31.1740800448723,21.1486950939897,41.199464995755
+"American Indian or Alaskan Native",Kansas,20,3,4,7,86.985028341954,78.1007400837578,95.8693166001501,.,.,.
+Asian,Kansas,20,1,2,3,.,.,.,.,.,.
+Black,Kansas,20,7,8,15,54.6583709236581,35.0357175665447,74.2810242807714,44.0747039913246,39.1400962536914,49.0093117289579
+Hispanic,Kansas,20,4,5,9,.,.,.,.,.,.
+Multiracial,Kansas,20,3,7,10,38.623803005897,37.2324931415374,40.0151128702566,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Kansas,20,.,.,.,.,.,.,.,.,.
+White,Kansas,20,128,306,434,29.2770827398732,23.9449766987257,34.6091887810207,27.7714007080655,19.8921181067396,35.6506833093915
+"American Indian or Alaskan Native",Kentucky,21,0,3,3,.,.,.,.,.,.
+Asian,Kentucky,21,0,2,2,.,.,.,.,.,.
+Black,Kentucky,21,7,18,25,11.8620114802164,7.94202579872087,15.781997161712,42.1466290425406,40.3123433982623,43.9809146868188
+Hispanic,Kentucky,21,2,1,3,.,.,.,.,.,.
+Multiracial,Kentucky,21,1,4,5,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Kentucky,21,.,.,.,.,.,.,.,.,.
+White,Kentucky,21,76,135,211,32.7420448983969,25.0248576196388,40.4592321771551,32.9294251442029,21.8974517255187,43.961398562887
+"American Indian or Alaskan Native",Louisiana,22,1,5,6,.,.,.,.,.,.
+Asian,Louisiana,22,.,.,.,.,.,.,.,.,.
+Black,Louisiana,22,11,33,44,27.9054434803175,13.9877532288866,41.8231337317485,31.6786109333611,16.0037805078854,47.3534413588368
+Hispanic,Louisiana,22,0,4,4,.,.,.,.,.,.
+Multiracial,Louisiana,22,3,5,8,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Louisiana,22,0,2,2,.,.,.,.,.,.
+White,Louisiana,22,60,139,199,26.8721769527883,19.284925367392,34.4594285381846,25.1480680993872,14.5451304278327,35.7510057709418
+"American Indian or Alaskan Native",Maine,23,1,4,5,.,.,.,.,.,.
+Asian,Maine,23,.,.,.,.,.,.,.,.,.
+Black,Maine,23,.,.,.,.,.,.,.,.,.
+Hispanic,Maine,23,3,1,4,.,.,.,.,.,.
+Multiracial,Maine,23,3,6,9,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Maine,23,.,.,.,.,.,.,.,.,.
+White,Maine,23,182,300,482,39.0008284768205,33.2562751163047,44.7453818373362,37.65572892031,29.4657247379565,45.8457331026636
+"American Indian or Alaskan Native",Maryland,24,1,4,5,.,.,.,.,.,.
+Asian,Maryland,24,3,3,6,57.9172652666761,0,100,.,.,.
+Black,Maryland,24,18,42,60,28.443212268253,12.6809526964285,44.2054718400776,.,.,.
+Hispanic,Maryland,24,4,6,10,17.4388966296181,3.6312437368305,31.2465495224057,26.3716985049577,25.9249739942276,26.8184230156878
+Multiracial,Maryland,24,3,5,8,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Maryland,24,.,.,.,.,.,.,.,.,.
+White,Maryland,24,138,290,428,28.8392706169917,22.6767160007419,35.0018252332416,27.0061364361503,17.8071074211752,36.2051654511254
+"American Indian or Alaskan Native",Massachusetts,25,2,3,5,.,.,.,.,.,.
+Asian,Massachusetts,25,.,.,.,.,.,.,.,.,.
+Black,Massachusetts,25,3,9,12,.,.,.,.,.,.
+Hispanic,Massachusetts,25,4,11,15,17.8997058010226,4.0566908559264,31.7427207461188,17.5023794196323,13.7968542229884,21.2079046162762
+Multiracial,Massachusetts,25,1,3,4,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Massachusetts,25,0,1,1,.,.,.,.,.,.
+White,Massachusetts,25,103,171,274,42.2177208929131,33.7599315475168,50.6755102383095,38.7701104097258,24.8394657619722,52.7007550574795
+"American Indian or Alaskan Native",Michigan,26,1,6,7,20.6136508958158,7.52356964583001,33.7037321458016,.,.,.
+Asian,Michigan,26,.,.,.,.,.,.,.,.,.
+Black,Michigan,26,6,23,29,.,.,.,.,.,.
+Hispanic,Michigan,26,1,2,3,.,.,.,.,.,.
+Multiracial,Michigan,26,2,13,15,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Michigan,26,.,.,.,.,.,.,.,.,.
+White,Michigan,26,132,247,379,34.5769214225024,28.8396536389381,40.3141892060668,32.6220997243568,23.8740053145578,41.3701941341558
+"American Indian or Alaskan Native",Minnesota,27,3,9,12,.,.,.,.,.,.
+Asian,Minnesota,27,1,1,2,.,.,.,.,.,.
+Black,Minnesota,27,1,14,15,.,.,.,.,.,.
+Hispanic,Minnesota,27,0,6,6,.,.,.,.,.,.
+Multiracial,Minnesota,27,3,7,10,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Minnesota,27,0,1,1,.,.,.,.,.,.
+White,Minnesota,27,150,332,482,30.4447754737275,25.0167579528287,35.8727929946263,29.9042609960863,20.8830413195294,38.9254806726432
+"American Indian or Alaskan Native",Mississippi,28,0,1,1,.,.,.,.,.,.
+Asian,Mississippi,28,.,.,.,.,.,.,.,.,.
+Black,Mississippi,28,11,30,41,27.7705782061347,13.0603653171284,42.480791095141,27.2283273168216,11.6509483244769,42.8057063091662
+Hispanic,Mississippi,28,0,3,3,.,.,.,.,.,.
+Multiracial,Mississippi,28,1,1,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Mississippi,28,.,.,.,.,.,.,.,.,.
+White,Mississippi,28,29,115,144,19.4325433478118,12.5375491915511,26.3275375040725,21.0040729526369,9.1769385291547,32.8312073761192
+"American Indian or Alaskan Native",Missouri,29,2,3,5,.,.,.,.,.,.
+Asian,Missouri,29,.,.,.,.,.,.,.,.,.
+Black,Missouri,29,16,22,38,47.7875682143536,25.4764294097942,70.098707018913,38.5426105876789,18.7929529151436,58.2922682602142
+Hispanic,Missouri,29,1,3,4,.,.,.,.,.,.
+Multiracial,Missouri,29,1,2,3,36.8795897282908,21.0862783856797,52.672901070902,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Missouri,29,.,.,.,.,.,.,.,.,.
+White,Missouri,29,95,226,321,29.4663470760861,22.8237391108804,36.1089550412918,27.1039930809015,17.7901241405312,36.4178620212718
+"American Indian or Alaskan Native",Montana,30,6,30,36,.,.,.,.,.,.
+Asian,Montana,30,.,.,.,.,.,.,.,.,.
+Black,Montana,30,0,1,1,.,.,.,.,.,.
+Hispanic,Montana,30,1,0,1,.,.,.,.,.,.
+Multiracial,Montana,30,0,13,13,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Montana,30,0,1,1,.,.,.,.,.,.
+White,Montana,30,61,139,200,31.9668487273427,23.4880361963615,40.4456612583239,26.0154940163788,16.1702186055303,35.8607694272273
+"American Indian or Alaskan Native",Nebraska,31,1,3,4,.,.,.,.,.,.
+Asian,Nebraska,31,.,.,.,.,.,.,.,.,.
+Black,Nebraska,31,1,3,4,.,.,.,.,.,.
+Hispanic,Nebraska,31,1,8,9,17.1197535550522,17.1197535550522,17.1197535550522,37.8409889252775,37.8409889252775,37.8409889252775
+Multiracial,Nebraska,31,0,2,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Nebraska,31,1,0,1,.,.,.,.,.,.
+White,Nebraska,31,107,200,307,38.9966198508417,31.6934498723276,46.2997898293557,39.7089858989463,27.7313905214219,51.6865812764706
+"American Indian or Alaskan Native",Nevada,32,.,.,.,.,.,.,.,.,.
+Asian,Nevada,32,0,1,1,.,.,.,.,.,.
+Black,Nevada,32,0,1,1,.,.,.,.,.,.
+Hispanic,Nevada,32,2,4,6,.,.,.,.,.,.
+Multiracial,Nevada,32,0,3,3,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Nevada,32,.,.,.,.,.,.,.,.,.
+White,Nevada,32,29,83,112,26.3174421174693,15.828668824631,36.8062154103076,.,.,.
+"American Indian or Alaskan Native","New Hampshire",33,2,2,4,.,.,.,.,.,.
+Asian,"New Hampshire",33,.,.,.,.,.,.,.,.,.
+Black,"New Hampshire",33,0,3,3,.,.,.,.,.,.
+Hispanic,"New Hampshire",33,0,1,1,.,.,.,.,.,.
+Multiracial,"New Hampshire",33,.,.,.,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","New Hampshire",33,.,.,.,.,.,.,.,.,.
+White,"New Hampshire",33,80,163,243,30.9148047008256,23.1632893992689,38.6663200023823,28.7702336447984,19.7939272583366,37.7465400312602
+"American Indian or Alaskan Native","New Jersey",34,0,1,1,.,.,.,.,.,.
+Asian,"New Jersey",34,.,.,.,.,.,.,.,.,.
+Black,"New Jersey",34,3,6,9,26.5398398677355,20.5397461740109,32.5399335614602,42.8296336185828,42.1339676376005,43.525299599565
+Hispanic,"New Jersey",34,6,8,14,65.0866741332552,43.0290483393808,87.1442999271295,.,.,.
+Multiracial,"New Jersey",34,.,.,.,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","New Jersey",34,.,.,.,.,.,.,.,.,.
+White,"New Jersey",34,41,125,166,25.2700378067121,17.3040627504588,33.2360128629655,25.4295854203846,12.3450720050113,38.5140988357579
+"American Indian or Alaskan Native","New Mexico",35,0,3,3,.,.,.,.,.,.
+Asian,"New Mexico",35,.,.,.,.,.,.,.,.,.
+Black,"New Mexico",35,1,2,3,.,.,.,.,.,.
+Hispanic,"New Mexico",35,6,26,32,.,.,.,.,.,.
+Multiracial,"New Mexico",35,1,1,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","New Mexico",35,.,.,.,.,.,.,.,.,.
+White,"New Mexico",35,28,90,118,27.7511975457121,14.7313973997687,40.7709976916556,.,.,.
+"American Indian or Alaskan Native","New York",36,2,8,10,.,.,.,.,.,.
+Asian,"New York",36,0,2,2,.,.,.,.,.,.
+Black,"New York",36,8,20,28,27.851862296883,12.8504336502338,42.8532909435322,28.574964516664,14.4702361678017,42.6796928655262
+Hispanic,"New York",36,13,30,43,29.0164804149584,11.2956557754123,46.7373050545045,.,.,.
+Multiracial,"New York",36,5,7,12,31.4205929376008,16.505523027789,46.3356628474126,.,.,.
+"Native Hawaiian or other Pacific
+Islander","New York",36,0,1,1,.,.,.,.,.,.
+White,"New York",36,190,320,510,35.4980052670904,29.0588727149067,41.9371378192741,33.9453803221222,22.9427056658025,44.948054978442
+"American Indian or Alaskan Native","North Carolina",37,6,7,13,52.7288356926705,20.5525546745551,84.9051167107858,.,.,.
+Asian,"North Carolina",37,.,.,.,.,.,.,.,.,.
+Black,"North Carolina",37,8,19,27,39.6878231994892,18.9272305346562,60.4484158643223,34.7190849729443,31.3282331909322,38.1099367549565
+Hispanic,"North Carolina",37,1,2,3,.,.,.,.,.,.
+Multiracial,"North Carolina",37,0,1,1,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","North Carolina",37,.,.,.,.,.,.,.,.,.
+White,"North Carolina",37,47,90,137,27.391037520415,18.1302785233052,36.6517965175249,.,.,.
+"American Indian or Alaskan Native","North Dakota",38,3,10,13,.,.,.,.,.,.
+Asian,"North Dakota",38,.,.,.,.,.,.,.,.,.
+Black,"North Dakota",38,.,.,.,.,.,.,.,.,.
+Hispanic,"North Dakota",38,1,3,4,.,.,.,.,.,.
+Multiracial,"North Dakota",38,1,3,4,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","North Dakota",38,.,.,.,.,.,.,.,.,.
+White,"North Dakota",38,54,102,156,34.4908142042528,25.9284240757975,43.053204332708,32.3614953284378,18.7320852820793,45.9909053747964
+"American Indian or Alaskan Native",Ohio,39,4,10,14,10.3868390044708,9.33329143400589,11.4403865749358,15.0106975088725,14.5129215154336,15.5084735023115
+Asian,Ohio,39,.,.,.,.,.,.,.,.,.
+Black,Ohio,39,12,24,36,41.2482917330221,19.2554680261702,63.2411154398741,34.4642276810484,16.6283978673701,52.3000574947267
+Hispanic,Ohio,39,1,7,8,26.733431514244,17.0942416267873,36.3726214017007,.,.,.
+Multiracial,Ohio,39,4,13,17,36.1037197059079,22.7795035779222,49.4279358338935,56.2777838891659,52.8733767416864,59.6821910366454
+"Native Hawaiian or other Pacific
+Islander",Ohio,39,.,.,.,.,.,.,.,.,.
+White,Ohio,39,244,582,826,28.6315586498886,24.1658988498414,33.0972184499358,28.2460806631669,21.5888379779634,34.9033233483704
+"American Indian or Alaskan Native",Oklahoma,40,5,20,25,15.6979382859977,9.83357730859326,21.5622992634021,26.1105214893357,23.4625056577815,28.7585373208899
+Asian,Oklahoma,40,.,.,.,.,.,.,.,.,.
+Black,Oklahoma,40,0,7,7,.,.,.,.,.,.
+Hispanic,Oklahoma,40,0,1,1,.,.,.,.,.,.
+Multiracial,Oklahoma,40,1,16,17,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Oklahoma,40,.,.,.,.,.,.,.,.,.
+White,Oklahoma,40,45,139,184,20.8963790397753,14.5086447807233,27.2841132988273,19.9926034954801,10.4491348099289,29.5360721810312
+"American Indian or Alaskan Native",Oregon,41,0,1,1,.,.,.,.,.,.
+Asian,Oregon,41,.,.,.,.,.,.,.,.,.
+Black,Oregon,41,.,.,.,.,.,.,.,.,.
+Hispanic,Oregon,41,1,3,4,.,.,.,.,.,.
+Multiracial,Oregon,41,1,11,12,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Oregon,41,.,.,.,.,.,.,.,.,.
+White,Oregon,41,41,101,142,23.0055111588153,15.3245761553341,30.6864461622965,21.9128263157622,10.2052854897684,33.6203671417561
+"American Indian or Alaskan Native",Pennsylvania,42,0,1,1,.,.,.,.,.,.
+Asian,Pennsylvania,42,0,1,1,.,.,.,.,.,.
+Black,Pennsylvania,42,9,13,22,36.9470148302138,13.4315668081985,60.4624628522291,.,.,.
+Hispanic,Pennsylvania,42,3,6,9,.,.,.,.,.,.
+Multiracial,Pennsylvania,42,1,1,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Pennsylvania,42,.,.,.,.,.,.,.,.,.
+White,Pennsylvania,42,61,122,183,28.3585923069854,19.744958952483,36.9722256614879,26.181049117576,14.2865670125829,38.0755312225691
+"American Indian or Alaskan Native","Rhode Island",44,3,1,4,.,.,.,.,.,.
+Asian,"Rhode Island",44,0,1,1,.,.,.,.,.,.
+Black,"Rhode Island",44,2,3,5,.,.,.,.,.,.
+Hispanic,"Rhode Island",44,7,5,12,.,.,.,.,.,.
+Multiracial,"Rhode Island",44,0,1,1,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","Rhode Island",44,.,.,.,.,.,.,.,.,.
+White,"Rhode Island",44,101,117,218,46.1153555359774,37.2737681593147,54.9569429126401,44.5137079516282,29.6257412869616,59.4016746162947
+"American Indian or Alaskan Native","South Carolina",45,1,6,7,.,.,.,.,.,.
+Asian,"South Carolina",45,.,.,.,.,.,.,.,.,.
+Black,"South Carolina",45,14,37,51,.,.,.,.,.,.
+Hispanic,"South Carolina",45,0,3,3,.,.,.,.,.,.
+Multiracial,"South Carolina",45,0,11,11,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","South Carolina",45,.,.,.,.,.,.,.,.,.
+White,"South Carolina",45,97,231,328,30.0889523552854,23.6043189528432,36.5735857577276,29.0087906051723,18.5553663961311,39.4622148142135
+"American Indian or Alaskan Native","South Dakota",46,9,49,58,.,.,.,.,.,.
+Asian,"South Dakota",46,.,.,.,.,.,.,.,.,.
+Black,"South Dakota",46,2,0,2,.,.,.,.,.,.
+Hispanic,"South Dakota",46,0,7,7,.,.,.,.,.,.
+Multiracial,"South Dakota",46,0,6,6,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","South Dakota",46,.,.,.,.,.,.,.,.,.
+White,"South Dakota",46,62,155,217,35.6462606806167,17.2466654258653,54.045855935368,.,.,.
+"American Indian or Alaskan Native",Tennessee,47,1,6,7,.,.,.,.,.,.
+Asian,Tennessee,47,.,.,.,.,.,.,.,.,.
+Black,Tennessee,47,1,12,13,.,.,.,.,.,.
+Hispanic,Tennessee,47,0,1,1,.,.,.,.,.,.
+Multiracial,Tennessee,47,4,8,12,26.0967828357825,20.7355628473157,31.4580028242493,41.1106860920505,40.6671352524168,41.5542369316843
+"Native Hawaiian or other Pacific
+Islander",Tennessee,47,.,.,.,.,.,.,.,.,.
+White,Tennessee,47,56,201,257,22.8625053495224,14.9860630289716,30.7389476700731,24.6816938527604,12.023522668882,37.3398650366387
+"American Indian or Alaskan Native",Texas,48,0,4,4,.,.,.,.,.,.
+Asian,Texas,48,.,.,.,.,.,.,.,.,.
+Black,Texas,48,5,30,35,.,.,.,.,.,.
+Hispanic,Texas,48,10,29,39,26.1249330799669,9.84395590752908,42.4059102524047,.,.,.
+Multiracial,Texas,48,0,7,7,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Texas,48,.,.,.,.,.,.,.,.,.
+White,Texas,48,78,301,379,22.5346869952566,13.1493577601603,31.920016230353,.,.,.
+"American Indian or Alaskan Native",Utah,49,.,.,.,.,.,.,.,.,.
+Asian,Utah,49,.,.,.,.,.,.,.,.,.
+Black,Utah,49,.,.,.,.,.,.,.,.,.
+Hispanic,Utah,49,2,4,6,.,.,.,.,.,.
+Multiracial,Utah,49,2,1,3,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Utah,49,0,1,1,.,.,.,.,.,.
+White,Utah,49,30,97,127,21.0169028870182,12.3525632507168,29.6812425233195,.,.,.
+"American Indian or Alaskan Native",Vermont,50,2,1,3,.,.,.,.,.,.
+Asian,Vermont,50,.,.,.,.,.,.,.,.,.
+Black,Vermont,50,0,2,2,.,.,.,.,.,.
+Hispanic,Vermont,50,2,1,3,.,.,.,.,.,.
+Multiracial,Vermont,50,2,2,4,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Vermont,50,1,0,1,.,.,.,.,.,.
+White,Vermont,50,90,171,261,40.2499661770433,30.8774575880437,49.6224747660429,36.8564206192095,27.7807878261268,45.9320534122921
+"American Indian or Alaskan Native",Virginia,51,1,4,5,.,.,.,.,.,.
+Asian,Virginia,51,0,2,2,.,.,.,.,.,.
+Black,Virginia,51,14,27,41,33.5671381190363,19.5457447339922,47.5885315040804,.,.,.
+Hispanic,Virginia,51,0,3,3,.,.,.,.,.,.
+Multiracial,Virginia,51,1,1,2,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Virginia,51,.,.,.,.,.,.,.,.,.
+White,Virginia,51,107,220,327,30.1896942145767,23.7238442955094,36.655544133644,28.6840885147842,19.6364325301783,37.73174449939
+"American Indian or Alaskan Native",Washington,53,4,12,16,.,.,.,.,.,.
+Asian,Washington,53,4,2,6,.,.,.,.,.,.
+Black,Washington,53,3,11,14,.,.,.,.,.,.
+Hispanic,Washington,53,4,20,24,15.2051039756322,7.04008236923134,23.370125582033,18.198446084359,17.5826816966782,18.8142104720398
+Multiracial,Washington,53,5,18,23,18.3938685250187,16.4505528464706,20.3371842035669,21.6103092948343,21.5697255869107,21.650893002758
+"Native Hawaiian or other Pacific
+Islander",Washington,53,0,3,3,.,.,.,.,.,.
+White,Washington,53,188,460,648,27.1444544291419,22.9814394432973,31.3074694149865,25.2680357868699,18.6623288618438,31.8737427118959
+"American Indian or Alaskan Native","West Virginia",54,1,5,6,.,.,.,.,.,.
+Asian,"West Virginia",54,.,.,.,.,.,.,.,.,.
+Black,"West Virginia",54,3,1,4,.,.,.,.,.,.
+Hispanic,"West Virginia",54,0,1,1,.,.,.,.,.,.
+Multiracial,"West Virginia",54,3,5,8,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander","West Virginia",54,.,.,.,.,.,.,.,.,.
+White,"West Virginia",54,75,230,305,22.6684857190452,17.3890517221898,27.9479197159006,24.3362764721405,15.1931188166457,33.4794341276353
+"American Indian or Alaskan Native",Wisconsin,55,4,5,9,.,.,.,.,.,.
+Asian,Wisconsin,55,.,.,.,.,.,.,.,.,.
+Black,Wisconsin,55,1,13,14,.,.,.,.,.,.
+Hispanic,Wisconsin,55,2,6,8,.,.,.,.,.,.
+Multiracial,Wisconsin,55,5,4,9,67.5306203872986,0,100,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Wisconsin,55,1,0,1,.,.,.,.,.,.
+White,Wisconsin,55,152,264,416,36.0164822770991,30.4215799901281,41.6113845640701,34.676569631181,26.5269739107084,42.8261653516536
+"American Indian or Alaskan Native",Wyoming,56,4,2,6,.,.,.,.,.,.
+Asian,Wyoming,56,.,.,.,.,.,.,.,.,.
+Black,Wyoming,56,.,.,.,.,.,.,.,.,.
+Hispanic,Wyoming,56,0,2,2,.,.,.,.,.,.
+Multiracial,Wyoming,56,1,4,5,.,.,.,.,.,.
+"Native Hawaiian or other Pacific
+Islander",Wyoming,56,0,1,1,.,.,.,.,.,.
+White,Wyoming,56,30,145,175,15.2057529151022,9.24427693424425,21.1672288959602,.,.,.

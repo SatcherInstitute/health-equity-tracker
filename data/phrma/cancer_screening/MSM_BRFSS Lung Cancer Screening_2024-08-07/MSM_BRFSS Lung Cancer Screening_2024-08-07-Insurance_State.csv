@@ -1,0 +1,259 @@
+insurance_status,state_name,state_fips,bene_yes,bene_no,total_bene,bene_yes_pct,bene_yes_pct_lcl,bene_yes_pct_ucl,age_adjusted_pct,age_adjusted_pct_lcl,age_adjusted_pct_ucl
+"Have some form of insurance",Alabama,1,64,127,191,34.0901603571305,26.0056159019743,42.1747048122867,33.7492581327675,22.3646806867453,45.1338355787896
+"Do not have some form of health
+insurance",Alabama,1,2,10,12,25.2870667463373,15.9978518853754,34.5762816072991,22.3135973139736,20.8983858534387,23.7288087745084
+"Don´t know, refused or missing
+insurance response",Alabama,1,0,4,4,.,.,.,.,.,.
+"Have some form of insurance",Alaska,2,46,150,196,22.3538505691097,15.2780898909648,29.4296112472545,23.7313119282699,11.5319571171782,35.9306667393617
+"Do not have some form of health
+insurance",Alaska,2,1,13,14,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Alaska,2,2,4,6,.,.,.,.,.,.
+"Have some form of insurance",Arizona,4,83,276,359,24.5622104730481,17.9797012605759,31.1447196855203,23.2270123395338,12.4825343267055,33.9714903523621
+"Do not have some form of health
+insurance",Arizona,4,0,8,8,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Arizona,4,4,6,10,.,.,.,.,.,.
+"Have some form of insurance",Arkansas,5,76,194,270,25.8808213097791,19.4214363980356,32.3402062215225,24.2340610619374,14.8210014710326,33.6471206528422
+"Do not have some form of health
+insurance",Arkansas,5,2,8,10,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Arkansas,5,5,10,15,34.0312056847453,11.5843527142596,56.4780586552311,70.5309206638681,69.012919891155,72.0489214365812
+"Have some form of insurance",California,6,47,151,198,26.1509665226372,17.0506533837263,35.2512796615481,23.7603268109946,11.8320399356276,35.6886136863616
+"Do not have some form of health
+insurance",California,6,0,7,7,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",California,6,2,4,6,.,.,.,.,.,.
+"Have some form of insurance",Colorado,8,39,143,182,21.0558512770537,12.9431642521689,29.1685383019384,.,.,.
+"Do not have some form of health
+insurance",Colorado,8,1,8,9,15.07384606504,1.37564581031429,28.7720463197656,21.2623415168252,17.0581957979318,25.4664872357186
+"Don´t know, refused or missing
+insurance response",Colorado,8,3,8,11,.,.,.,.,.,.
+"Have some form of insurance",Connecticut,9,106,160,266,41.7643712424527,33.2972583777442,50.2314841071612,42.9672755453954,29.6256099496824,56.3089411411085
+"Do not have some form of health
+insurance",Connecticut,9,0,4,4,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Connecticut,9,4,5,9,.,.,.,.,.,.
+"Have some form of insurance",Delaware,10,56,109,165,37.0594302476933,27.0096579326443,47.1092025627422,33.9627649931721,17.4333923080336,50.4921376783105
+"Do not have some form of health
+insurance",Delaware,10,0,5,5,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Delaware,10,1,0,1,.,.,.,.,.,.
+"Have some form of insurance","District of
+Columbia",11,21,36,57,34.1985053734995,16.5779854192738,51.8190253277251,.,.,.
+"Do not have some form of health
+insurance","District of
+Columbia",11,.,.,.,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","District of
+Columbia",11,.,.,.,.,.,.,.,.,.
+"Have some form of insurance",Florida,12,185,433,618,26.6555598231761,20.7443739081137,32.5667457382385,25.8498785140015,19.5437649228952,32.1559921051077
+"Do not have some form of health
+insurance",Florida,12,1,38,39,9.40389443245205,9.19228906917255,9.61549979573155,.,.,.
+"Don´t know, refused or missing
+insurance response",Florida,12,7,13,20,62.5498251673214,60.1593573246154,64.9402930100275,.,.,.
+"Have some form of insurance",Georgia,13,84,216,300,26.5263233087029,19.3322124899169,33.720434127489,21.8880405627662,13.4201988267965,30.355882298736
+"Do not have some form of health
+insurance",Georgia,13,1,21,22,7.09938059837885,4.93546806282357,9.26329313393412,.,.,.
+"Don´t know, refused or missing
+insurance response",Georgia,13,1,11,12,1.63703343375595,0.17132356558726,3.10274330192464,.,.,.
+"Have some form of insurance",Hawaii,15,50,159,209,28.2769960052947,17.2322689399679,39.3217230706215,22.805760303954,10.2404860861275,35.3710345217804
+"Do not have some form of health
+insurance",Hawaii,15,0,5,5,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Hawaii,15,.,.,.,.,.,.,.,.,.
+"Have some form of insurance",Idaho,16,37,99,136,29.8428826312323,19.6628235582884,40.0229417041763,28.978657488927,15.259707374778,42.6976076030759
+"Do not have some form of health
+insurance",Idaho,16,0,6,6,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Idaho,16,0,6,6,.,.,.,.,.,.
+"Have some form of insurance",Illinois,17,32,92,124,30.0004057089396,18.7852886612096,41.2155227566696,.,.,.
+"Do not have some form of health
+insurance",Illinois,17,0,2,2,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Illinois,17,1,0,1,.,.,.,.,.,.
+"Have some form of insurance",Indiana,18,154,338,492,30.5475811191489,25.6902710323978,35.4048912059001,30.2628761492006,22.2366980975013,38.2890542008999
+"Do not have some form of health
+insurance",Indiana,18,2,8,10,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Indiana,18,4,20,24,.,.,.,.,.,.
+"Have some form of insurance",Iowa,19,106,250,356,30.5698368718032,24.5238857494557,36.6157879941507,29.6357451400858,19.7825969443376,39.488893335834
+"Do not have some form of health
+insurance",Iowa,19,0,2,2,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Iowa,19,2,7,9,29.8450342835344,23.1876983304263,36.5023702366425,30.7423722433853,26.917706659262,34.5670378275087
+"Have some form of insurance",Kansas,20,143,309,452,34.649237662522,28.2485734455741,41.0499018794698,33.0798603905994,23.4000068890742,42.7597138921245
+"Do not have some form of health
+insurance",Kansas,20,0,14,14,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Kansas,20,3,9,12,38.290790134629,27.4445421739356,49.1370380953225,50.4337210483741,49.29142532278,51.5760167739682
+"Have some form of insurance",Kentucky,21,84,154,238,32.2796537236408,24.3713629273225,40.1879445199591,32.7258420767705,21.8686180173112,43.5830661362299
+"Do not have some form of health
+insurance",Kentucky,21,0,4,4,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Kentucky,21,2,5,7,.,.,.,.,.,.
+"Have some form of insurance",Louisiana,22,73,172,245,26.9658696107883,20.1333928922228,33.7983463293537,25.9676236874279,15.4754534246174,36.4597939502383
+"Do not have some form of health
+insurance",Louisiana,22,1,9,10,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Louisiana,22,1,7,8,.,.,.,.,.,.
+"Have some form of insurance",Maine,23,185,294,479,40.5043912958965,34.7076570058057,46.3011255859874,39.1595996800198,30.7642230030451,47.5549763569945
+"Do not have some form of health
+insurance",Maine,23,1,15,16,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Maine,23,3,2,5,.,.,.,.,.,.
+"Have some form of insurance",Maryland,24,158,326,484,29.2716778792276,23.1705579368639,35.3727978215914,28.3140912287042,18.7358737855026,37.8923086719058
+"Do not have some form of health
+insurance",Maryland,24,1,10,11,9.03548130407712,6.33342312768995,11.7375394804643,.,.,.
+"Don´t know, refused or missing
+insurance response",Maryland,24,8,14,22,.,.,.,.,.,.
+"Have some form of insurance",Massachusetts,25,111,186,297,40.9959149182822,32.7884717093522,49.2033581272122,37.4496653872921,24.5406791599361,50.3586516146481
+"Do not have some form of health
+insurance",Massachusetts,25,0,2,2,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Massachusetts,25,2,10,12,.,.,.,.,.,.
+"Have some form of insurance",Michigan,26,134,282,416,31.1177999897252,25.8428560925516,36.3927438868988,29.7000549428851,21.6163880149269,37.7837218708433
+"Do not have some form of health
+insurance",Michigan,26,0,2,2,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Michigan,26,8,7,15,61.081092751329,25.1088411983383,97.0533443043196,67.0110805144327,65.9677156954159,68.0544453334496
+"Have some form of insurance",Minnesota,27,153,348,501,29.7729886176001,24.3772841617783,35.1686930734219,29.4856586147928,20.5464180638784,38.4248991657071
+"Do not have some form of health
+insurance",Minnesota,27,1,8,9,4.06792853590618,1.82670495790561,6.30915211390674,4.78106420610525,2.80039770438044,6.76173070783007
+"Don´t know, refused or missing
+insurance response",Minnesota,27,4,14,18,.,.,.,.,.,.
+"Have some form of insurance",Mississippi,28,38,134,172,19.7325631405871,13.3377856139851,26.1273406671892,20.5167123206797,9.46527597118322,31.5681486701763
+"Do not have some form of health
+insurance",Mississippi,28,3,13,16,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Mississippi,28,0,3,3,.,.,.,.,.,.
+"Have some form of insurance",Missouri,29,111,236,347,32.4151301798029,25.6820267015911,39.1482336580146,29.7310612897036,20.0152045438258,39.4469180355813
+"Do not have some form of health
+insurance",Missouri,29,2,14,16,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Missouri,29,2,6,8,30.8400283572469,0,64.632730091849,.,.,.
+"Have some form of insurance",Montana,30,67,171,238,27.8104016947329,19.8012541643705,35.8195492250952,23.9430071435949,14.4035503854547,33.4824639017351
+"Do not have some form of health
+insurance",Montana,30,1,5,6,13.7835804949436,6.89803937499492,20.6691216148923,.,.,.
+"Don´t know, refused or missing
+insurance response",Montana,30,0,8,8,.,.,.,.,.,.
+"Have some form of insurance",Nebraska,31,109,203,312,39.1643257620097,31.9170109883984,46.4116405356209,40.0250071225381,28.3799841853334,51.6700300597428
+"Do not have some form of health
+insurance",Nebraska,31,1,10,11,13.013269660054,10.0856551872668,15.9408841328412,19.4989988741289,17.7938448320077,21.2041529162502
+"Don´t know, refused or missing
+insurance response",Nebraska,31,1,3,4,.,.,.,.,.,.
+"Have some form of insurance",Nevada,32,30,84,114,25.6556771438287,15.0658589212325,36.2454953664249,.,.,.
+"Do not have some form of health
+insurance",Nevada,32,0,4,4,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Nevada,32,1,4,5,17.0546601168934,0,49.7534046492355,.,.,.
+"Have some form of insurance","New Hampshire",33,79,156,235,31.9667548549856,24.1959501039672,39.7375596060039,28.7254972528299,19.5186136503499,37.93238085531
+"Do not have some form of health
+insurance","New Hampshire",33,0,6,6,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","New Hampshire",33,3,7,10,50.3019006094683,47.709333985837,52.8944672330995,77.6720509326257,76.7185285228266,78.6255733424249
+"Have some form of insurance","New Jersey",34,49,132,181,33.9126260643775,22.9192063738136,44.9060457549415,34.5010932477907,18.4227544676801,50.5794320279013
+"Do not have some form of health
+insurance","New Jersey",34,1,2,3,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","New Jersey",34,0,6,6,.,.,.,.,.,.
+"Have some form of insurance","New Mexico",35,36,118,154,22.5898294253528,12.6380934937096,32.541565356996,.,.,.
+"Do not have some form of health
+insurance","New Mexico",35,0,3,3,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","New Mexico",35,0,1,1,.,.,.,.,.,.
+"Have some form of insurance","New York",36,210,367,577,34.1302319064362,28.2573776254286,40.0030861874439,32.1073960531247,22.2487354445272,41.9660566617222
+"Do not have some form of health
+insurance","New York",36,0,7,7,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","New York",36,8,14,22,29.0043368572627,17.9092579742451,40.0994157402804,34.5271142499498,21.9059728102972,47.1482556896023
+"Have some form of insurance","North Carolina",37,60,115,175,29.310108416023,20.4239937218529,38.1962231101931,27.935808098788,12.6049170729882,43.2666991245878
+"Do not have some form of health
+insurance","North Carolina",37,1,3,4,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","North Carolina",37,1,1,2,.,.,.,.,.,.
+"Have some form of insurance","North Dakota",38,59,112,171,36.0549769828642,27.4464026581934,44.6635513075349,33.1990368061387,20.4818701137399,45.9162034985374
+"Do not have some form of health
+insurance","North Dakota",38,0,3,3,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","North Dakota",38,0,3,3,.,.,.,.,.,.
+"Have some form of insurance",Ohio,39,254,598,852,30.4769801503671,25.7931872066002,35.160773094134,29.7732738839357,22.5260583195972,37.0204894482742
+"Do not have some form of health
+insurance",Ohio,39,2,18,20,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Ohio,39,9,20,29,19.671477665487,9.00928374598296,30.333671584991,.,.,.
+"Have some form of insurance",Oklahoma,40,50,176,226,18.4366967766747,13.0626631573475,23.8107303960018,18.3284610366486,10.4521160024602,26.204806070837
+"Do not have some form of health
+insurance",Oklahoma,40,0,4,4,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Oklahoma,40,1,3,4,.,.,.,.,.,.
+"Have some form of insurance",Oregon,41,41,112,153,21.1209635760503,14.0559255580337,28.1860015940669,19.8635536730932,9.51826413814636,30.20884320804
+"Do not have some form of health
+insurance",Oregon,41,0,3,3,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Oregon,41,2,1,3,.,.,.,.,.,.
+"Have some form of insurance",Pennsylvania,42,74,136,210,30.0137962237131,21.7338578174275,38.2937346299987,27.6538930645192,16.2118684568393,39.0959176721991
+"Do not have some form of health
+insurance",Pennsylvania,42,0,4,4,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Pennsylvania,42,0,4,4,.,.,.,.,.,.
+"Have some form of insurance","Rhode Island",44,106,117,223,46.489191537861,37.6831695866805,55.2952134890414,44.3696910927765,29.8534885919178,58.8858935936351
+"Do not have some form of health
+insurance","Rhode Island",44,2,1,3,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","Rhode Island",44,5,10,15,.,.,.,.,.,.
+"Have some form of insurance","South Carolina",45,109,251,360,29.7305657666296,23.4231645979835,36.0379669352756,27.1483635095214,17.8647410774044,36.4319859416383
+"Do not have some form of health
+insurance","South Carolina",45,1,22,23,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","South Carolina",45,2,15,17,20.1908892332554,3.94160074172099,36.4401777247899,.,.,.
+"Have some form of insurance","South Dakota",46,69,196,265,31.6683147880404,13.9029692310453,49.4336603450355,.,.,.
+"Do not have some form of health
+insurance","South Dakota",46,0,15,15,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","South Dakota",46,4,6,10,.,.,.,.,.,.
+"Have some form of insurance",Tennessee,47,59,201,260,23.5164375765929,15.6540295113369,31.378845641849,24.9965476155328,12.4846946124987,37.5084006185669
+"Do not have some form of health
+insurance",Tennessee,47,2,22,24,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Tennessee,47,1,5,6,.,.,.,.,.,.
+"Have some form of insurance",Texas,48,86,327,413,21.5834070505764,13.0819190112324,30.0848950899203,21.5191341274294,8.90003263494171,34.1382356199171
+"Do not have some form of health
+insurance",Texas,48,3,32,35,2.29004915847262,1.43831521778614,3.14178309915909,2.66238307481539,1.82267411813447,3.5020920314963
+"Don´t know, refused or missing
+insurance response",Texas,48,4,12,16,14.2108539336276,8.18124965334486,20.2404582139103,26.3126789135735,24.5450216989822,28.0803361281649
+"Have some form of insurance",Utah,49,31,96,127,20.7816140684663,11.8315199227602,29.7317082141724,.,.,.
+"Do not have some form of health
+insurance",Utah,49,2,6,8,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Utah,49,1,1,2,.,.,.,.,.,.
+"Have some form of insurance",Vermont,50,92,168,260,39.5548225626443,30.1570287811261,48.9526163441625,36.6329472226371,27.6177251094275,45.6481693358467
+"Do not have some form of health
+insurance",Vermont,50,1,5,6,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Vermont,50,4,4,8,.,.,.,.,.,.
+"Have some form of insurance",Virginia,51,119,247,366,29.0905390404357,23.2532231830711,34.9278548978003,28.5350516746005,19.6063188639234,37.4637844852776
+"Do not have some form of health
+insurance",Virginia,51,1,5,6,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Virginia,51,3,5,8,24.9211433657329,0,94.3129482792595,.,.,.
+"Have some form of insurance",Washington,53,199,498,697,27.2614392407771,23.3008445633944,31.2220339181597,25.625507316925,19.2449333026092,32.0060813312409
+"Do not have some form of health
+insurance",Washington,53,3,9,12,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Washington,53,6,19,25,.,.,.,.,.,.
+"Have some form of insurance","West Virginia",54,80,230,310,24.1970367793894,18.8294828963951,29.5645906623837,25.880928202329,16.5846337608667,35.1772226437914
+"Do not have some form of health
+insurance","West Virginia",54,0,3,3,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response","West Virginia",54,2,9,11,.,.,.,.,.,.
+"Have some form of insurance",Wisconsin,55,163,281,444,36.7285329106709,31.2210512065412,42.2360146148007,35.1902957614426,27.4177473603449,42.9628441625403
+"Do not have some form of health
+insurance",Wisconsin,55,1,7,8,13.66813182838,10.9820832831194,16.3541803736405,26.185879256783,23.8997903724873,28.4719681410787
+"Don´t know, refused or missing
+insurance response",Wisconsin,55,1,4,5,.,.,.,.,.,.
+"Have some form of insurance",Wyoming,56,35,134,169,19.2737469405488,12.5900592494949,25.9574346316026,18.5176156854168,8.42056155171052,28.6146698191231
+"Do not have some form of health
+insurance",Wyoming,56,0,15,15,.,.,.,.,.,.
+"Don´t know, refused or missing
+insurance response",Wyoming,56,0,5,5,.,.,.,.,.,.
