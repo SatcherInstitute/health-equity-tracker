@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict, Union, Tuple
+from typing import Literal, List, Dict, Union, Tuple, Callable, Any
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -739,11 +739,15 @@ def combine_race_ethnicity(
     for col in possible_group_cols:
         if col in df.columns:
             group_cols.append(col)
-    agg_col_map = (
-        {count_col: lambda x: x.sum(min_count=1) for count_col in count_cols_to_sum}
-        if treat_zero_count_as_missing
-        else {count_col: sum for count_col in count_cols_to_sum}
-    )
+
+    # needed to satisfy mypy
+    def sum_function(x, min_count: int = 0):
+        return x.sum(min_count=min_count)
+
+    agg_col_map: dict[str, Callable[[Any], Any]] = {
+        count_col: lambda x: sum_function(x, min_count=1 if treat_zero_count_as_missing else 0)
+        for count_col in count_cols_to_sum
+    }
 
     if not count_cols_to_sum:
         return df

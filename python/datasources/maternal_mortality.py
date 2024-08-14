@@ -49,10 +49,14 @@ CDC_NATALITY_RACE_NAMES_TO_HET_RACE_CODES = {
 # DATA FOR NATIONAL AND REGIONAL COUNTS ARE FROM THE IMAGE IN THE
 # ORIGINAL STUDY LABELED "Table" AND MANUALLY INPUTTED TO /data
 
+JAMA_RACE = 'race_group'
+JAMA_STATE_NAME = 'location_name'
+JAMA_TIME_PERIOD = 'year_id'
+
 COLS_TO_STANDARD = {
-    'race_group': std_col.RACE_CATEGORY_ID_COL,
-    'location_name': std_col.STATE_NAME_COL,
-    'year_id': std_col.TIME_PERIOD_COL,
+    JAMA_RACE: std_col.RACE_CATEGORY_ID_COL,
+    JAMA_STATE_NAME: std_col.STATE_NAME_COL,
+    JAMA_TIME_PERIOD: std_col.TIME_PERIOD_COL,
 }
 
 RATE_COLS_TO_STANDARD = {'val': std_col.MM_PER_100K, **COLS_TO_STANDARD}
@@ -72,7 +76,6 @@ class MaternalMortalityData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        # load source data once
         source_df = preprocess_source_rates()
 
         for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
@@ -144,7 +147,7 @@ def preprocess_source_rates() -> pd.DataFrame:
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'maternal_mortality',
         'IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV',
-        dtype={'year_id': str},
+        dtype={JAMA_TIME_PERIOD: str},
         usecols=RATE_COLS_TO_STANDARD.keys(),
     )
 
@@ -167,11 +170,11 @@ def merge_national_counts(df: pd.DataFrame) -> pd.DataFrame:
     jama_national_counts_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         'maternal_mortality',
         'Table.csv',
-        dtype={'year_id': str},
+        dtype={JAMA_TIME_PERIOD: str},
         usecols=[
-            'race_group',
-            'location_name',
-            'year_id',
+            JAMA_RACE,
+            JAMA_STATE_NAME,
+            JAMA_TIME_PERIOD,
             std_col.MATERNAL_DEATHS_RAW,
             std_col.LIVE_BIRTHS_RAW,
         ],
@@ -244,6 +247,7 @@ def read_live_births_denominators() -> pd.DataFrame:
 
     Click "Send" and when the file populates, save it to data/maternal_mortality/Natality, 2016-2022 expanded.txt
     """
+    usecols = [CDC_RACE, CDC_ETH, CDC_BIRTHS, CDC_STATE_FIPS]
 
     df = gcs_to_bq_util.load_tsv_as_df_from_data_dir(
         'maternal_mortality',
@@ -251,17 +255,10 @@ def read_live_births_denominators() -> pd.DataFrame:
         delimiter='\t',
         skipinitialspace=True,
         dtype={CDC_STATE_FIPS: str},
+        usecols=usecols,
     )
-    df[CDC_STATE_FIPS] = df[CDC_STATE_FIPS].astype(str)
+    df = df[df[CDC_STATE_FIPS].notna()]
 
-    # Find the index of the first row containing the metadata marker
-    metadata_marker = "---"
-    metadata_index = df.apply(lambda row: row.astype(str).str.contains(metadata_marker).any(), axis=1).idxmax()
-    # Filter the DataFrame to remove the metadata row and everything below it
-    if metadata_index != -1:
-        df = df.loc[: metadata_index - 1]
-
-    df = df[[CDC_RACE, CDC_ETH, CDC_BIRTHS, CDC_STATE_FIPS]]
     df = ensure_leading_zeros(df, CDC_STATE_FIPS, 2)
 
     df = df.rename(
@@ -278,7 +275,7 @@ def read_live_births_denominators() -> pd.DataFrame:
         df,
         [std_col.LIVE_BIRTHS_RAW],
         CDC_NATALITY_RACE_NAMES_TO_HET_RACE_CODES,
-        ethnicity_value="Hispanic or Latino",
+        ethnicity_value=std_col.Race.HISP.name,
         unknown_values=["Unknown or Not Stated"],
     )
     df = df.rename(columns={std_col.RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL})
