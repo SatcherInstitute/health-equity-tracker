@@ -25,7 +25,7 @@ googleapis-common-protos[grpc]==1.63.2
 grpc-google-iam-v1==0.13.1
 grpcio-status==1.65.4
 grpcio==1.65.4
-gunicorn==23.0.0
+gunicorn==22.0.0
 idna
 importlib-metadata==8.2.0
 iniconfig==2.0.0
