@@ -4,7 +4,6 @@ import ingestion.standardized_columns as std_col
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, US_NAME, CURRENT, HISTORICAL
 from ingestion.dataset_utils import (
-    ensure_leading_zeros,
     combine_race_ethnicity,
     generate_estimated_total_col,
     generate_per_100k_col,
@@ -259,8 +258,6 @@ def read_live_births_denominators() -> pd.DataFrame:
     )
     df = df[df[CDC_STATE_FIPS].notna()]
 
-    df = ensure_leading_zeros(df, CDC_STATE_FIPS, 2)
-
     df = df.rename(
         columns={
             CDC_STATE_FIPS: std_col.STATE_FIPS_COL,
@@ -275,11 +272,11 @@ def read_live_births_denominators() -> pd.DataFrame:
         df,
         [std_col.LIVE_BIRTHS_RAW],
         CDC_NATALITY_RACE_NAMES_TO_HET_RACE_CODES,
-        ethnicity_value=std_col.Race.HISP.name,
+        ethnicity_value=std_col.Race.HISP.race_and_ethnicity,
         unknown_values=["Unknown or Not Stated"],
     )
-    df = df.rename(columns={std_col.RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL})
 
+    df = df.rename(columns={std_col.RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL})
     return df
 
 
