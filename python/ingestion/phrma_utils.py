@@ -21,6 +21,10 @@ INSURANCE_STATUS_LOWER = "insurance_status"
 INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
 
+SCREENING_ADHERENT = 'screening_adherent'
+SCREENING_ELIGIBLE = 'screening_eligible'
+
+
 # PHRMA CMS CONSTANTS
 COUNT_TOTAL = "TOTAL_BENE"
 COUNT_YES = "BENE_YES"

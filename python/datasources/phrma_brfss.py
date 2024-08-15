@@ -27,8 +27,8 @@ from ingestion.phrma_utils import (
     EDUCATION_GROUP_LOWER,
     PHRMA_CANCER_PCT_CONDITIONS,
     rename_cols,
-    ADHERENCE,
-    BENEFICIARIES,
+    SCREENING_ADHERENT,
+    SCREENING_ELIGIBLE,
 )
 
 """
@@ -36,7 +36,7 @@ NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
 We need to first convert these to csv files as pandas is VERY slow on excel files,
 using the `scripts/extract_excel_sheets_to_csvs` script.
 
-`./scripts/extract_excel_sheets_to_csvs --directory ../data/phrma/cancer_screening`
+`./scripts/extract_excel_sheets_to_csvs --directory ../data/phrma/{SCREENING_ADHERENT}`
 """
 
 # constants
@@ -67,7 +67,7 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Black': std_col.Race.BLACK_NH.value,
         'Hispanic': std_col.Race.HISP.value,
         'Multiracial': std_col.Race.MULTI_NH.value,
-        ' Native Hawaiian or other Pacific Islander': std_col.Race.NHPI_NH.value,
+        'Native Hawaiian or other Pacific Islander': std_col.Race.NHPI_NH.value,
         'White': std_col.Race.WHITE_NH.value,
     },
     std_col.INSURANCE_COL: {
@@ -187,8 +187,8 @@ class PhrmaBrfssData(DataSource):
         # ADHERENCE rate
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
             source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
-            het_col_name = f'{condition}_{ADHERENCE}_{std_col.PCT_RATE_SUFFIX}'
-            df[het_col_name] = df[source_col_name].multiply(100).round()
+            het_col_name = f'{condition.lower()}_{SCREENING_ADHERENT}_{std_col.PCT_RATE_SUFFIX}'
+            df[het_col_name] = df[source_col_name].round()
 
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_NAME_COL] = US_NAME
@@ -197,8 +197,12 @@ class PhrmaBrfssData(DataSource):
 
         rename_col_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
-            rename_col_map[f'{condition}_{COUNT_YES_LOWER}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
-            rename_col_map[f'{condition}_{COUNT_TOTAL_LOWER}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
+            rename_col_map[
+                f'{condition}_{COUNT_YES_LOWER}'
+            ] = f'{condition.lower()}_{SCREENING_ADHERENT}_{std_col.RAW_SUFFIX}'
+            rename_col_map[
+                f'{condition}_{COUNT_TOTAL_LOWER}'
+            ] = f'{condition.lower()}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
 
         df = df.rename(columns=rename_col_map)
 
@@ -249,8 +253,7 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
     condition_keep_cols = []
 
     for condition in PHRMA_CANCER_PCT_CONDITIONS:
-        if condition in PHRMA_CANCER_PCT_CONDITIONS:
-            condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
+        condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
 
         condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
 
