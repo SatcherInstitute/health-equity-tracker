@@ -7,6 +7,8 @@ from typing import Dict
 TMP_ALL = 'all'
 PHRMA_DIR = 'phrma'
 
+ADHERENCE = 'adherence'
+BENEFICIARIES = 'beneficiaries'
 
 # PHRMA BRFSS CONSTANTS
 COUNT_TOTAL_LOWER = "total_bene"

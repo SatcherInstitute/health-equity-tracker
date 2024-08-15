@@ -43,6 +43,8 @@ from ingestion.phrma_utils import (
     PHRMA_PCT_CONDITIONS,
     PHRMA_100K_CONDITIONS,
     rename_cols,
+    ADHERENCE,
+    BENEFICIARIES,
 )
 
 
@@ -56,8 +58,6 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 
 # constants
 ELIGIBILITY = "eligibility"
-ADHERENCE = 'adherence'
-BENEFICIARIES = 'beneficiaries'
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
 

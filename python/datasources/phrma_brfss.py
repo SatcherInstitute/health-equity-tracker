@@ -1,19 +1,16 @@
 import pandas as pd
 from typing import cast
 from datasources.data_source import DataSource
-from ingestion.constants import (
-    STATE_LEVEL,
-    NATIONAL_LEVEL,
-    US_FIPS,
-)
+from ingestion.constants import STATE_LEVEL, NATIONAL_LEVEL, US_FIPS, ALL_VALUE, US_NAME
 from ingestion.dataset_utils import (
     ensure_leading_zeros,
 )
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_dfs_list
+from ingestion.merge_utils import merge_dfs_list, merge_state_ids
 from ingestion.het_types import (
     GEO_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
+    PHRMA_BREAKDOWN_TYPE,
     PHRMA_BREAKDOWN_TYPE_OR_ALL,
 )
 from ingestion.phrma_utils import (
@@ -30,6 +27,8 @@ from ingestion.phrma_utils import (
     EDUCATION_GROUP_LOWER,
     PHRMA_CANCER_PCT_CONDITIONS,
     rename_cols,
+    ADHERENCE,
+    BENEFICIARIES,
 )
 
 """
@@ -44,39 +43,58 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 
 DTYPE = {'STATE_FIPS': str}
 
+BREAKDOWN_TO_STANDARD_BY_COL = {
+    std_col.LIS_COL: {
+        "Yes": "Receiving low income subsidy (LIS)",
+        "No": "Not receiving low income subsidy (LIS)",
+    },
+    std_col.ELIGIBILITY_COL: {
+        "Aged": "Eligible due to age",
+        "Disabled": "Eligible due to disability",
+        "ESRD": "Eligible due to end-stage renal disease (ESRD)",
+        "Disabled and ESRD": "Eligible due to disability and end-stage renal disease (ESRD)",
+    },
+    std_col.AGE_COL: {
+        "_50_54": "50-54",
+        "_55_59": "55-59",
+        "_60_64": "60-64",
+        "_65_69": "65-69",
+        "_70_74": "70-74",
+    },
+    std_col.RACE_CATEGORY_ID_COL: {
+        'American Indian or Alaskan Native': std_col.Race.AIAN_NH.value,
+        'Asian': std_col.Race.ASIAN_NH.value,
+        'Black': std_col.Race.BLACK_NH.value,
+        'Hispanic': std_col.Race.HISP.value,
+        'Multiracial': std_col.Race.MULTI_NH.value,
+        ' Native Hawaiian or other Pacific Islander': std_col.Race.NHPI_NH.value,
+        'White': std_col.Race.WHITE_NH.value,
+    },
+    std_col.INSURANCE_COL: {
+        "Have some form of insurance": "Insured",
+        "Do not have some form of health insurance": "Not insured",
+        "Don¬¥t know, refused or missing insurance response": "Unknown",
+    },
+    std_col.EDUCATION_COL: {
+        "Did not graduate High School": "Did not graduate high school",
+        "Graduated High School": "Graduated high school",
+        "Attended College or Technical School": "Attended college or technical school",
+        "Graduated from College or Technical School": "Graduated from college or technical school",
+        "Don¬¥t know/Not sure/Missing": "Unknown",
+    },
+    std_col.INCOME_COL: {
+        "Less than $15,000": "Less than $15,000",
+        "$15,000 to < $25,000": "$15,000 to < $25,000",
+        "$25,000 to < $35,000": "$25,000 to < $35,000",
+        "$35,000 to < $50,000": "$35,000 to < $50,000",
+        "$50,000 to < $75,000": "$50,000 to < $75,000",
+        "$75,000 to < $100,000": "$75,000 to < $100,000",
+        "$100,000 to < $200,000": "$100,000 to < $200,000",
+        "$200,000 or more": "$200,000 or more",
+        "Don‚Äôt know/Not sure/Missing": "Unknown",
+    },
+}
 
-# # a nested dictionary that contains values swaps per column name
-# BREAKDOWN_TO_STANDARD_BY_COL = {
-#     std_col.LIS_COL: {
-#         "Yes": "Receiving low income subsidy (LIS)",
-#         "No": "Not receiving low income subsidy (LIS)",
-#     },
-#     std_col.ELIGIBILITY_COL: {
-#         "Aged": "Eligible due to age",
-#         "Disabled": "Eligible due to disability",
-#         "ESRD": "Eligible due to end-stage renal disease (ESRD)",
-#         "Disabled and ESRD": "Eligible due to disability and end-stage renal disease (ESRD)",
-#     },
-#     std_col.AGE_COL: {
-#         "_18-39": "18-39",
-#         "_40-64": "40-64",
-#         "_65-69": "65-69",
-#         "_70-74": "70-74",
-#         "_75-79": "75-79",
-#         "_80-84": "80-84",
-#         "_85+": "85+",
-#     },
-#     std_col.RACE_CATEGORY_ID_COL: {
-#         'Unknown': std_col.Race.UNKNOWN.value,
-#         'American Indian / Alaska Native': std_col.Race.AIAN_NH.value,
-#         'Asian/Pacific Islander': std_col.Race.API_NH.value,
-#         'Black or African-American': std_col.Race.BLACK_NH.value,
-#         'Hispanic': std_col.Race.HISP.value,
-#         'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
-#         'Non-Hispanic White': std_col.Race.WHITE_NH.value,
-#     },
-#     # SEX source groups already match needed HET groups
-# }
 
 """
 race_name
@@ -138,10 +156,58 @@ class PhrmaBrfssData(DataSource):
 
         table_name = f'{demo_type}_{geo_level}'
 
-        df = load_phrma_brfss_df_from_data_dir(geo_level, demo_type)
+        df = self.generate_breakdown_df(demo_type, geo_level)
+
         float_cols = []
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
+
+    def generate_breakdown_df(
+        self,
+        demo_breakdown: PHRMA_BREAKDOWN_TYPE,
+        geo_level: GEO_TYPE,
+    ) -> pd.DataFrame:
+        """Generates HET-stye dataframe by demo_breakdown and geo_level
+        demo_breakdown: string equal to `lis`, `eligibility`, `age`, `race_and_ethnicity`, or `sex`
+        geo_level: string equal to `county`, `national`, or `state`
+        return: a breakdown df by demographic and geo_level"""
+
+        # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
+        demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
+        all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
+
+        alls_df = load_phrma_brfss_df_from_data_dir(geo_level, 'all')
+        alls_df[demo_col] = all_val
+
+        breakdown_group_df = load_phrma_brfss_df_from_data_dir(geo_level, demo_breakdown)
+
+        df = pd.concat([breakdown_group_df, alls_df], axis=0)
+        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+
+        # ADHERENCE rate
+        for condition in PHRMA_CANCER_PCT_CONDITIONS:
+            source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
+            het_col_name = f'{condition}_{ADHERENCE}_{std_col.PCT_RATE_SUFFIX}'
+            df[het_col_name] = df[source_col_name].multiply(100).round()
+
+        if geo_level == NATIONAL_LEVEL:
+            df[std_col.STATE_NAME_COL] = US_NAME
+        else:
+            df = merge_state_ids(df)
+
+        rename_col_map = {}
+        for condition in PHRMA_CANCER_PCT_CONDITIONS:
+            rename_col_map[f'{condition}_{COUNT_YES_LOWER}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
+            rename_col_map[f'{condition}_{COUNT_TOTAL_LOWER}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
+
+        df = df.rename(columns=rename_col_map)
+
+        if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
+            std_col.add_race_columns_from_category_id(df)
+
+        df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
+
+        return df
 
 
 def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> pd.DataFrame:
