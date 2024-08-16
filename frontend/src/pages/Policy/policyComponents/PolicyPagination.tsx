@@ -26,7 +26,7 @@ export default function PolicyPagination() {
   }
 
   return (
-    <div className='mx-0 mb-0 mt-auto flex w-full flex-col justify-between md:mt-8 md:flex-row md:self-stretch '>
+    <div className='mx-0 smMd:mb-0 mb-8 mt-8 flex w-full flex-col justify-between md:mt-16 md:flex-row gap-4 md:self-stretch '>
       {prevRoute ? (
         <HetPaginationButton direction='previous' onClick={goPrevious}>
           {prevRoute.label}

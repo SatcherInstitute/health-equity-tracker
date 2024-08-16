@@ -4,7 +4,7 @@ import HetMobileToolbar from './HetMobileToolbar'
 
 export default function HetAppBar() {
   return (
-    <AppBar position='static' elevation={0}>
+    <AppBar position='static' elevation={0} className='sticky top-0 z-top'>
       <div className='smMd:hidden'>
         <HetMobileToolbar />
       </div>
