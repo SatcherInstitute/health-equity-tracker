@@ -94,7 +94,7 @@ export default function App() {
 					<div className='relative min-h-full bg-white text-center'>
 						<SkipLink />
 
-						<div className='h-full'>
+						<div className='h-full relative'>
 							<Router>
 								<Banner />
 								<HetAppBar />
