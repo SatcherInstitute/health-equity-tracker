@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import Dict, cast
+from typing import cast
 from datasources.data_source import DataSource
 from ingestion.constants import (
     COUNTY_LEVEL,
@@ -23,6 +23,28 @@ from ingestion.het_types import (
     PHRMA_BREAKDOWN_TYPE_OR_ALL,
     PHRMA_BREAKDOWN_TYPE,
 )
+from ingestion.phrma_utils import (
+    TMP_ALL,
+    PHRMA_DIR,
+    get_sheet_name,
+    ADHERENCE_RATE,
+    PER_100K,
+    MEDICARE_DISEASE_COUNT,
+    COUNT_TOTAL,
+    COUNT_YES,
+    RACE_NAME,
+    AGE_GROUP,
+    MEDICARE_POP_COUNT,
+    SEX_NAME,
+    LIS,
+    ENTLMT_RSN_CURR,
+    STATE_FIPS,
+    COUNTY_FIPS,
+    PHRMA_PCT_CONDITIONS,
+    PHRMA_100K_CONDITIONS,
+    rename_cols,
+)
+
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -33,48 +55,10 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 """
 
 # constants
-PHRMA_DIR = 'phrma'
 ELIGIBILITY = "eligibility"
 ADHERENCE = 'adherence'
 BENEFICIARIES = 'beneficiaries'
-TMP_ALL = 'all'
-
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
-
-PHRMA_PCT_CONDITIONS = [
-    std_col.ARV_PREFIX,
-    std_col.BETA_BLOCKERS_PREFIX,
-    std_col.CCB_PREFIX,
-    std_col.DOAC_PREFIX,
-    std_col.BB_AMI_PREFIX,
-    std_col.RASA_PREFIX,
-    std_col.STATINS_PREFIX,
-    std_col.ANTI_PSYCHOTICS_PREFIX,
-]
-
-PHRMA_100K_CONDITIONS = [
-    std_col.AMI_PREFIX,
-    std_col.PHRMA_HIV_PREFIX,
-    std_col.SCHIZOPHRENIA_PREFIX,
-]
-
-# CONSTANTS USED BY DATA SOURCE
-COUNT_TOTAL = "TOTAL_BENE"
-COUNT_YES = "BENE_YES"
-# COUNT_NO = "BENE_NO"
-MEDICARE_DISEASE_COUNT = "BENE_N"
-MEDICARE_POP_COUNT = "TOTAL_N"
-ADHERENCE_RATE = "BENE_YES_PCT"
-PER_100K = "PER_100K"
-STATE_NAME = "STATE_NAME"
-COUNTY_NAME = "COUNTY_NAME"
-STATE_FIPS = "STATE_FIPS"
-COUNTY_FIPS = "COUNTY_FIPS"
-ENTLMT_RSN_CURR = "ENTLMT_RSN_CURR"
-LIS = "LIS"
-RACE_NAME = "RACE_NAME"
-AGE_GROUP = "AGE_GROUP"
-SEX_NAME = "SEX_NAME"
 
 
 # a nested dictionary that contains values swaps per column name
@@ -348,83 +332,3 @@ def load_phrma_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_
     df_merged = ensure_leading_zeros(df_merged, fips_col, fips_length)
 
     return df_merged
-
-
-def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> str:
-    """geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string demographic breakdown type
-    return: a string sheet name based on the provided args"""
-
-    sheet_map = {
-        (TMP_ALL, NATIONAL_LEVEL): "US",
-        (TMP_ALL, STATE_LEVEL): "State",
-        (TMP_ALL, COUNTY_LEVEL): "County",
-        (std_col.LIS_COL, NATIONAL_LEVEL): "LIS_US",
-        (std_col.LIS_COL, STATE_LEVEL): "LIS_State",
-        (std_col.LIS_COL, COUNTY_LEVEL): "LIS_County",
-        (std_col.ELIGIBILITY_COL, NATIONAL_LEVEL): "Elig_US",
-        (std_col.ELIGIBILITY_COL, STATE_LEVEL): "Elig_State",
-        (std_col.ELIGIBILITY_COL, COUNTY_LEVEL): "Elig_County",
-        (std_col.RACE_OR_HISPANIC_COL, NATIONAL_LEVEL): "Race_US",
-        (std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL): "Race_State",
-        (std_col.RACE_OR_HISPANIC_COL, COUNTY_LEVEL): "Race_County",
-        (std_col.SEX_COL, NATIONAL_LEVEL): "Sex_US",
-        (std_col.SEX_COL, STATE_LEVEL): "Sex_State",
-        (std_col.SEX_COL, COUNTY_LEVEL): "Sex_County",
-        (std_col.AGE_COL, NATIONAL_LEVEL): "Age_US",
-        (std_col.AGE_COL, STATE_LEVEL): "Age_State",
-        (std_col.AGE_COL, COUNTY_LEVEL): "Age_County",
-    }
-
-    return sheet_map[(breakdown, geo_level)]
-
-
-def rename_cols(
-    df: pd.DataFrame,
-    geo_level: GEO_TYPE,
-    breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
-    condition: str,
-) -> pd.DataFrame:
-    """Renames columns based on the demo/geo breakdown"""
-
-    rename_cols_map: Dict[str, str] = (
-        {
-            COUNT_YES: f'{condition}_{COUNT_YES}',
-            COUNT_TOTAL: f'{condition}_{COUNT_TOTAL}',
-            ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
-        }
-        if condition in PHRMA_PCT_CONDITIONS
-        else {
-            MEDICARE_DISEASE_COUNT: f'{condition}_{MEDICARE_DISEASE_COUNT}',
-            PER_100K: f'{condition}_{PER_100K}',
-        }
-    )
-
-    if geo_level == COUNTY_LEVEL:
-        rename_cols_map[COUNTY_FIPS] = std_col.COUNTY_FIPS_COL
-
-    if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
-        rename_cols_map[STATE_FIPS] = std_col.STATE_FIPS_COL
-
-    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        rename_cols_map[RACE_NAME] = std_col.RACE_CATEGORY_ID_COL
-
-    if breakdown == std_col.SEX_COL:
-        rename_cols_map[SEX_NAME] = std_col.SEX_COL
-
-    if breakdown == std_col.AGE_COL:
-        rename_cols_map[AGE_GROUP] = std_col.AGE_COL
-
-    if breakdown == std_col.ELIGIBILITY_COL:
-        rename_cols_map[ENTLMT_RSN_CURR] = std_col.ELIGIBILITY_COL
-
-    if breakdown == std_col.LIS_COL:
-        rename_cols_map[LIS] = std_col.LIS_COL
-
-    df = df.rename(columns=rename_cols_map)
-
-    # only keep the medicare/medicaid raw population for one of the 100k conditions
-    if condition in PHRMA_100K_CONDITIONS and condition != std_col.AMI_PREFIX:
-        df = df.drop(columns=[MEDICARE_POP_COUNT])
-
-    return df

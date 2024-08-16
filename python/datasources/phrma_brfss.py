@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import Dict, cast
+from typing import cast
 from datasources.data_source import DataSource
 from ingestion.constants import (
     STATE_LEVEL,
@@ -14,7 +14,22 @@ from ingestion.merge_utils import merge_dfs_list
 from ingestion.het_types import (
     GEO_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
-    PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
+    PHRMA_BREAKDOWN_TYPE_OR_ALL,
+)
+from ingestion.phrma_utils import (
+    TMP_ALL,
+    PHRMA_DIR,
+    get_sheet_name,
+    ADHERENCE_RATE_LOWER,
+    COUNT_TOTAL_LOWER,
+    COUNT_YES_LOWER,
+    RACE_NAME_LOWER,
+    AGE_GROUP_LOWER,
+    INSURANCE_STATUS_LOWER,
+    INCOME_GROUP_LOWER,
+    EDUCATION_GROUP_LOWER,
+    PHRMA_CANCER_PCT_CONDITIONS,
+    rename_cols,
 )
 
 """
@@ -26,25 +41,8 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 """
 
 # constants
-TMP_ALL = 'all'
-PHRMA_DIR = 'phrma'
+
 DTYPE = {'STATE_FIPS': str}
-
-PHRMA_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
-
-
-# CONSTANTS USED BY DATA SOURCE
-COUNT_TOTAL = "total_bene"
-COUNT_YES = "bene_yes"
-COUNT_NO = "bene_no"
-ADHERENCE_RATE = "bene_yes_pct"
-STATE_NAME = "state_name"
-STATE_FIPS = "state_fips"
-RACE_NAME = "race_name"
-AGE_GROUP = "age_group"
-INSURANCE_STATUS = "insurance_status"
-INCOME_GROUP = "income_group"
-EDUCATION_GROUP = "education_group"
 
 
 # # a nested dictionary that contains values swaps per column name
@@ -146,9 +144,7 @@ class PhrmaBrfssData(DataSource):
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
 
-def load_phrma_brfss_df_from_data_dir(
-    geo_level: GEO_TYPE, breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL
-) -> pd.DataFrame:
+def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> pd.DataFrame:
     """Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
     breakdown: string equal to 'age', 'race_and_ethnicity', 'insurance_status', 'education', 'income', 'all'
@@ -163,11 +159,11 @@ def load_phrma_brfss_df_from_data_dir(
         merge_cols.append(breakdown_col)
 
     breakdown_het_to_source_type = {
-        "age": AGE_GROUP,
-        "race_and_ethnicity": RACE_NAME,
-        "income": INCOME_GROUP,
-        "education": EDUCATION_GROUP,
-        'insurance_status': INSURANCE_STATUS,
+        "age": AGE_GROUP_LOWER,
+        "race_and_ethnicity": RACE_NAME_LOWER,
+        "income": INCOME_GROUP_LOWER,
+        "education": EDUCATION_GROUP_LOWER,
+        'insurance_status': INSURANCE_STATUS_LOWER,
     }
 
     # only read certain columns from source data
@@ -179,16 +175,16 @@ def load_phrma_brfss_df_from_data_dir(
 
     if geo_level == STATE_LEVEL:
         fips_length = 2
-        keep_cols.append(STATE_FIPS)
+        keep_cols.append(std_col.STATE_FIPS_COL)
     if geo_level == NATIONAL_LEVEL:
         fips_length = 2
 
     topic_dfs = []
     condition_keep_cols = []
 
-    for condition in PHRMA_PCT_CONDITIONS:
-        if condition in PHRMA_PCT_CONDITIONS:
-            condition_keep_cols = [*keep_cols, COUNT_YES, COUNT_TOTAL, ADHERENCE_RATE]
+    for condition in PHRMA_CANCER_PCT_CONDITIONS:
+        if condition in PHRMA_CANCER_PCT_CONDITIONS:
+            condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
 
         condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
 
@@ -202,7 +198,7 @@ def load_phrma_brfss_df_from_data_dir(
         )
 
         if geo_level == NATIONAL_LEVEL:
-            topic_df[STATE_FIPS] = US_FIPS
+            topic_df[std_col.STATE_FIPS_COL] = US_FIPS
 
         topic_df = rename_cols(
             topic_df,
@@ -220,54 +216,3 @@ def load_phrma_brfss_df_from_data_dir(
     df_merged = ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, fips_length)
 
     return df_merged
-
-
-def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL) -> str:
-    """geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string demographic breakdown type
-    return: a string sheet name based on the provided args"""
-
-    sheet_map = {
-        (TMP_ALL, NATIONAL_LEVEL): "US",
-        (TMP_ALL, STATE_LEVEL): "State",
-        (std_col.RACE_OR_HISPANIC_COL, NATIONAL_LEVEL): "Race_US",
-        (std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL): "Race_State",
-        (std_col.AGE_COL, NATIONAL_LEVEL): "Age_US",
-        (std_col.AGE_COL, STATE_LEVEL): "Age_State",
-        (std_col.EDUCATION_COL, NATIONAL_LEVEL): "Education_US",
-        (std_col.EDUCATION_COL, STATE_LEVEL): "Education_State",
-        (std_col.INSURANCE_COL, NATIONAL_LEVEL): "Insurance_US",
-        (std_col.INSURANCE_COL, STATE_LEVEL): "Insurance_State",
-        (std_col.INCOME_COL, NATIONAL_LEVEL): "Income_US",
-        (std_col.INCOME_COL, STATE_LEVEL): "Income_State",
-    }
-
-    return sheet_map[(breakdown, geo_level)]
-
-
-def rename_cols(
-    df: pd.DataFrame,
-    geo_level: GEO_TYPE,
-    breakdown: PHRMA_BRFSS_BREAKDOWN_TYPE_OR_ALL,
-    condition: str,
-) -> pd.DataFrame:
-    """Renames columns based on the demo/geo breakdown"""
-
-    rename_cols_map: Dict[str, str] = {
-        COUNT_YES: f'{condition}_{COUNT_YES}',
-        COUNT_TOTAL: f'{condition}_{COUNT_TOTAL}',
-        ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
-    }
-
-    if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
-        rename_cols_map[STATE_FIPS] = std_col.STATE_FIPS_COL
-
-    if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        rename_cols_map[RACE_NAME] = std_col.RACE_CATEGORY_ID_COL
-
-    if breakdown == std_col.AGE_COL:
-        rename_cols_map[AGE_GROUP] = std_col.AGE_COL
-
-    df = df.rename(columns=rename_cols_map)
-
-    return df
