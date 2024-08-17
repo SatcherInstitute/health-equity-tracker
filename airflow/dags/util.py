@@ -162,9 +162,9 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
 
     try:
 
-        (credentials,) = google.auth.default()
+        credentials, project_id = google.auth.default()
         service_account_email = credentials.service_account_email
-        print(f"\n\n*****\nMaking request using service account: {service_account_email}")
+        print(f"\n\n*****\nMaking request in {project_id} using service account: {service_account_email}")
 
         resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=100)
         resp.raise_for_status()
