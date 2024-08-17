@@ -10,9 +10,5 @@ resource "google_composer_environment" "composer_env" {
       image_version = "composer-3-airflow-2.9.1"
     }
 
-    node_config {
-      service_account = "test-auto-deployer@het-infra-test-05.iam.gserviceaccount.com"
-    }
-
   }
 }
