@@ -10,7 +10,6 @@ from airflow.models import Variable  # pylint: disable=no-name-in-module
 from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
 from google.cloud import bigquery
 from sanity_check import check_pct_values
-import google.auth
 
 # import subprocess
 
@@ -146,6 +145,7 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
 def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-argument
     receiving_service_headers = {}
     if os.getenv('ENV') != 'dev':
+        print(os.getenv('ENV'))
         # Set up metadata server request
         # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
         token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
@@ -161,16 +161,12 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
         receiving_service_headers = {'Authorization': f'bearer {jwt}'}
 
     try:
-
-        credentials, project_id = google.auth.default()
-        service_account_email = credentials.service_account_email
-        print(f"\n\n*****\nMaking request in {project_id} using service account: {service_account_email}")
-
         resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=100)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
         # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
     except requests.exceptions.HTTPError as err:
+        print(f'Error: {err.response.text}')
         raise Exception(f'Failed response code: {err}')
 
 
