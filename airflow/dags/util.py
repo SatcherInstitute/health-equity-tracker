@@ -10,6 +10,7 @@ from airflow.models import Variable  # pylint: disable=no-name-in-module
 from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
 from google.cloud import bigquery
 from sanity_check import check_pct_values
+import google.auth
 
 # import subprocess
 
@@ -160,6 +161,11 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
         receiving_service_headers = {'Authorization': f'bearer {jwt}'}
 
     try:
+
+        (credentials,) = google.auth.default()
+        service_account_email = credentials.service_account_email
+        print(f"\n\n*****\nMaking request using service account: {service_account_email}")
+
         resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=100)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
