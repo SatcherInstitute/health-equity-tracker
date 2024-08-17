@@ -157,7 +157,7 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
         token_response = requests.get(token_request_url, headers=token_request_headers, timeout=100)
         jwt = token_response.content.decode("utf-8")
 
-        # Provide the token in the request to the receiving service
+        # Provide the token in  request to the receiving service
         receiving_service_headers = {'Authorization': f'bearer {jwt}'}
 
     try:
