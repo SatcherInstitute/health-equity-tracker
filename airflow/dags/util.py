@@ -1,4 +1,4 @@
-'''Collection of shared Airflow functionality.'''
+'''Collection of n shared Airflow functionality.'''
 
 import os
 import pandas as pd
