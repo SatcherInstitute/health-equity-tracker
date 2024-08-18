@@ -154,14 +154,14 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
         token_request_headers = {'Metadata-Flavor': 'Google'}
 
         # Fetch the token for the default compute service account
-        token_response = requests.get(token_request_url, headers=token_request_headers, timeout=100)
+        token_response = requests.get(token_request_url, headers=token_request_headers, timeout=10_000)
         jwt = token_response.content.decode("utf-8")
 
         # Provide the token in  request to the receiving service
         receiving_service_headers = {'Authorization': f'bearer {jwt}'}
 
     try:
-        resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=100)
+        resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=10_000)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
         # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
