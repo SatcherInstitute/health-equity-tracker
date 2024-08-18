@@ -149,7 +149,7 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
-          
+
 
   check_for_pipeline_changes:
     runs-on: ubuntu-latest
@@ -272,7 +272,7 @@ jobs:
 
           if ! gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION &>/dev/null; then
             echo "INFRA-TEST Composer environment does not exist. Creating..."
-            gcloud composer environments create $ENVIRONMENT_NAME --location=$LOCATION --storage-bucket=$BUCKET
+            gcloud composer environments create $ENVIRONMENT_NAME --location=$LOCATION --storage-bucket=$BUCKET --image-version=composer-3-airflow-2.9.1
           else
             echo "INFRA-TEST Composer environment already exists."
           fi
