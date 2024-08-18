@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import requests  # type: ignore
 
-# Ignore the Airflow module, it is installed in both our dev and prod environments
+# Ignore the Airflow module, its installed in both our dev and prod environments
 from airflow import DAG  # pylint: disable=no-name-in-module
 from airflow.models import Variable  # pylint: disable=no-name-in-module
 from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
