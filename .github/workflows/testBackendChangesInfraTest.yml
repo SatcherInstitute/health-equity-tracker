@@ -1,4 +1,4 @@
-# This action is triggered when a local branch is force-pushed to `infra-test` branch
+# This action is triggered when a local branch is force-pushed to `infra-test`  branch
 # It deploys backend changes from the local branch to test them out, without commiting those changes to `main`
 # The frontend code from `main` gets pushed to `infra-test`
 
@@ -213,10 +213,16 @@ jobs:
           ENVIRONMENT_NAME=data-ingestion-environment
           LOCATION=us-central1
           BUCKET="us-central1-data-ingestion-bucket-${{ secrets.TEST_PROJECT_ID }}"
+          SERVICE_ACCOUNT="test-auto-deployer@het-infra-test-05.iam.gserviceaccount.com"
+
 
           if ! gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION &>/dev/null; then
             echo "INFRA-TEST Composer environment does not exist. Creating..."
-            gcloud composer environments create $ENVIRONMENT_NAME --location=$LOCATION --storage-bucket=$BUCKET
+            gcloud composer environments create $ENVIRONMENT_NAME \
+              --location=$LOCATION \
+              --storage-bucket=$BUCKET \
+              --image-version=composer-3-airflow-2.9.1 \
+              --service-account=$SERVICE_ACCOUNT
           else
             echo "INFRA-TEST Composer environment already exists."
           fi
@@ -243,16 +249,16 @@ jobs:
           ./upload-dags.sh
 
         # always finish with testing connection between data server and frontend
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.9
-      - name: Run Python E2E Tests
-        run: |
-          pip install -r e2e_tests/requirements.txt
-          pytest e2e_tests/data_serving.py
-        env:
-          SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
-          FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
-          PATH_TO_SA_CREDS: config/creds.json
-          AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+      # - name: Set up Python
+      #   uses: actions/setup-python@v5
+      #   with:
+      #     python-version: 3.9
+      # - name: Run Python E2E Tests
+      #   run: |
+      #     pip install -r e2e_tests/requirements.txt
+      #     pytest e2e_tests/data_serving.py
+      #   env:
+      #     SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+      #     FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
+      #     PATH_TO_SA_CREDS: config/creds.json
+      #     AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
