@@ -44,22 +44,21 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 DTYPE = {'STATE_FIPS': str}
 
 BREAKDOWN_TO_STANDARD_BY_COL = {
-    std_col.LIS_COL: {
-        "Yes": "Receiving low income subsidy (LIS)",
-        "No": "Not receiving low income subsidy (LIS)",
-    },
-    std_col.ELIGIBILITY_COL: {
-        "Aged": "Eligible due to age",
-        "Disabled": "Eligible due to disability",
-        "ESRD": "Eligible due to end-stage renal disease (ESRD)",
-        "Disabled and ESRD": "Eligible due to disability and end-stage renal disease (ESRD)",
-    },
     std_col.AGE_COL: {
+        "_21_24": "21-24",
+        "_25_29": "25-29",
+        "_30_34": "30-34",
+        "_35_39": "35-39",
+        "_40_44": "40-44",
+        "_45_49": "45-49",
         "_50_54": "50-54",
         "_55_59": "55-59",
         "_60_64": "60-64",
+        "_60_65": "60-65",
         "_65_69": "65-69",
         "_70_74": "70-74",
+        "_70_75": "70-75",
+        "_75_79": "75-79",
     },
     std_col.RACE_CATEGORY_ID_COL: {
         'American Indian or Alaskan Native': std_col.Race.AIAN_NH.value,
@@ -73,14 +72,15 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
     std_col.INSURANCE_COL: {
         "Have some form of insurance": "Insured",
         "Do not have some form of health insurance": "Not insured",
-        "Don¬¥t know, refused or missing insurance response": "Unknown",
+        "Don't know, refused or missing insurance response": "Unknown",
+        "Don´t know, refused or missing insurance response": "Unknown",
     },
     std_col.EDUCATION_COL: {
         "Did not graduate High School": "Did not graduate high school",
         "Graduated High School": "Graduated high school",
         "Attended College or Technical School": "Attended college or technical school",
         "Graduated from College or Technical School": "Graduated from college or technical school",
-        "Don¬¥t know/Not sure/Missing": "Unknown",
+        "Don’t know/Not sure/Missing": "Unknown",
     },
     std_col.INCOME_COL: {
         "Less than $15,000": "Less than $15,000",
@@ -91,7 +91,7 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         "$75,000 to < $100,000": "$75,000 to < $100,000",
         "$100,000 to < $200,000": "$100,000 to < $200,000",
         "$200,000 or more": "$200,000 or more",
-        "Don‚Äôt know/Not sure/Missing": "Unknown",
+        "Don’t know/Not sure/Missing": "Unknown",
     },
 }
 
@@ -197,17 +197,21 @@ class PhrmaBrfssData(DataSource):
 
         rename_col_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
-            cancer_type = condition + '_cancer'
+            cancer_type = condition.lower()
             rename_col_map[
                 f'{condition}_{COUNT_YES_LOWER}'
-            ] = f'{cancer_type.lower()}_{SCREENING_ADHERENT}_{std_col.RAW_SUFFIX}'
+            ] = f'{cancer_type}_{SCREENING_ADHERENT}_{std_col.RAW_SUFFIX}'
             rename_col_map[
                 f'{condition}_{COUNT_TOTAL_LOWER}'
-            ] = f'{cancer_type.lower()}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
+            ] = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
+            rename_col_map[
+                f'{condition}_{ADHERENCE_RATE_LOWER}'
+            ] = f'{cancer_type}_{SCREENING_ADHERENT}_{std_col.PCT_RATE_SUFFIX}'
 
         df = df.rename(columns=rename_col_map)
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
+            print(df.to_string())
             std_col.add_race_columns_from_category_id(df)
 
         df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
@@ -266,6 +270,9 @@ def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREA
             na_values=["."],
             usecols=condition_keep_cols,
         )
+
+        # replace special characters
+        topic_df = topic_df.replace(['\n', '¬¥', '‚Äô'], [' ', "'", "'"], regex=True)
 
         if geo_level == NATIONAL_LEVEL:
             topic_df[std_col.STATE_FIPS_COL] = US_FIPS

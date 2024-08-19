@@ -21,8 +21,8 @@ INSURANCE_STATUS_LOWER = "insurance_status"
 INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
 
-SCREENING_ADHERENT = 'screening_adherent'
-SCREENING_ELIGIBLE = 'screening_eligible'
+SCREENING_ADHERENT = 'adherent'
+SCREENING_ELIGIBLE = 'eligible'
 
 
 # PHRMA CMS CONSTANTS
