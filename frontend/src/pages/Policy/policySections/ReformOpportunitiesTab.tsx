@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import ResourceItem from '../policyComponents/ResourceItem'
 import { effortsAndInitiatives, legislativeActions } from '../policyContent/ReformOpportunitiesContent'
 import { OpenInNew } from '@mui/icons-material'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 
 export default function ReformOpportunitiesTab() {
 	return (
@@ -49,12 +50,13 @@ export default function ReformOpportunitiesTab() {
 						))}
 					</ul>
 				</p>
-				<div className='rounded-md border border-solid border-methodologyGreen md:mx-2 m-2 duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-col align-center text-exploreButton p-4 group no-underline hover:scale-105 hover:transition-transform hover:duration-30'>
-					<p className='text-smallest font-semibold tracking-normal'>
-						Find and contact your elected officials
-						<OpenInNew className='text-text' />
-					</p>
-				</div>
+				
+				<HetTextArrowLink
+                link={'https://www.usa.gov/elected-officials'}
+                linkText='Find and contact your elected officials'
+                containerClassName='flex items-center justify-center mt-16 mx-auto '
+                linkClassName='font-sansTitle text-smallestHeader'
+              />
 			</section>
 		</>
 	)
