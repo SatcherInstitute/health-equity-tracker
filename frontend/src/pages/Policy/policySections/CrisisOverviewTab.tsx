@@ -13,7 +13,6 @@ export default function CrisisOverviewTab() {
 				Understanding the Crisis of Gun Violence in Atlanta
 			</h2>
 			<div className='flex flex-col gap-2'>
-				<h2>Understanding the Crisis of Gun Violence in Atlanta</h2>
 				<section id='#introduction'>
 					<h3 className='text-title font-medium'>Introduction</h3>
 					<p>
