@@ -197,12 +197,13 @@ class PhrmaBrfssData(DataSource):
 
         rename_col_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
+            cancer_type = condition + '_cancer'
             rename_col_map[
                 f'{condition}_{COUNT_YES_LOWER}'
-            ] = f'{condition.lower()}_{SCREENING_ADHERENT}_{std_col.RAW_SUFFIX}'
+            ] = f'{cancer_type.lower()}_{SCREENING_ADHERENT}_{std_col.RAW_SUFFIX}'
             rename_col_map[
                 f'{condition}_{COUNT_TOTAL_LOWER}'
-            ] = f'{condition.lower()}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
+            ] = f'{cancer_type.lower()}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
 
         df = df.rename(columns=rename_col_map)
 
