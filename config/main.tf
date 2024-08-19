@@ -7,9 +7,9 @@ provider "google" {
 
 # Import data sources config
 module "data_sources" {
-  source                  = "./data_sources"
-  gcs_to_bq_runner_email  = google_service_account.gcs_to_bq_runner_identity.email
-  project_id_var          = var.project_id
+  source                 = "./data_sources"
+  gcs_to_bq_runner_email = google_service_account.gcs_to_bq_runner_identity.email
+  project_id_var         = var.project_id
 }
 
 /* [BEGIN] GCS Resources */
@@ -49,5 +49,6 @@ resource "google_bigquery_dataset" "bq_manual_dataset" {
   dataset_id = var.bq_manual_dataset_name
   location   = "US"
 }
+
 
 /* [END] BigQuery Setup */

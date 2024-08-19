@@ -119,11 +119,3 @@ resource "google_cloud_run_service_iam_member" "frontend_invoker_binding" {
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
-
-
-# Try to fix weird permissions issue
-resource "google_project_iam_member" "composer_service_agent" {
-  project = "585592748590"
-  role    = "roles/composer.ServiceAgentV2Ext"
-  member  = "serviceAccount:service-585592748590@cloudcomposer-accounts.iam.gserviceaccount.com"
-}
