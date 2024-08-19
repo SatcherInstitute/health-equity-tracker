@@ -13,6 +13,8 @@ resource "google_composer_environment" "composer-env" {
     }
 
   }
+
+  # TODO: upgrade terraform locally to suppress this warning
   storage_config {
     # Generate a stable bucket name based on the project ID
     bucket = "us-central1-data-ingestion-bucket-${var.project_id}"
