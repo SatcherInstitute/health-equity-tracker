@@ -115,6 +115,7 @@ export const economicResources = [
 		link: '#',
 	},
 ]
+
 export const educationalResources = [
 	{
 		title: 'Communities In Schools of Atlanta',
