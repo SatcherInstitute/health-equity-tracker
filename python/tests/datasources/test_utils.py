@@ -15,17 +15,27 @@ def get_acs_metadata_as_json(year: int):
         return json.load(f)
 
 
-def _load_csv_as_df_from_real_data_dir(*args, **kwargs):
+def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     """Testing utility function; allows tests to read real input from data/ folder.
     Used as a mock, but only because the loading file structure is different in test vs. via Docker
     """
     directory, filename = args
     print("ACTUALLY LOADING FROM /data", filename)
-    dtype = kwargs['dtype']
-    na_values = kwargs['na_values']
-    subdirectory = kwargs['subdirectory']
-    usecols = kwargs['usecols']
+    dtype = kwargs.get('dtype', None)
+    na_values = kwargs.get('na_values', None)
+    subdirectory = kwargs.get('subdirectory', '')
+    usecols = kwargs.get('usecols', None)
+    delimiter = kwargs.get('delimiter', None)
+    skipinitialspace = kwargs.get('skipinitialspace', None)
+
     file_path = os.path.join(REAL_DATA_DIR, directory, subdirectory, filename)
 
-    df = pd.read_csv(file_path, na_values=na_values, dtype=dtype, usecols=usecols)
+    df = pd.read_csv(
+        file_path,
+        na_values=na_values,
+        dtype=dtype,
+        usecols=usecols,
+        delimiter=delimiter,
+        skipinitialspace=skipinitialspace,
+    )
     return df
