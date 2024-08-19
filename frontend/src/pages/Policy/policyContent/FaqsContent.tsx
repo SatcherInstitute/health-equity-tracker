@@ -4,8 +4,11 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				We derive our definitions from the <a href="https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports" target="_blank" rel="noopener noreferrer">CDC WISQARS Definitions</a> Fatal Injury Intent Categories.
 =======
+=======
+>>>>>>> 41b8f041 (faqs tab)
 				We derive our definitions from the{' '}
 				<a
 					href='https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports'
@@ -15,17 +18,26 @@ export const policyFaqs = [
 					CDC WISQARS Definitions
 				</a>{' '}
 				Fatal Injury Intent Categories.
+<<<<<<< HEAD
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+=======
+				We derive our definitions from the <a href="https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports" target="_blank" rel="noopener noreferrer">CDC WISQARS Definitions</a> Fatal Injury Intent Categories.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
 	{
+<<<<<<< HEAD
 <<<<<<< HEAD
 		question: 'What is the purpose of integrating gun violence data into the Health Equity Tracker?',
 		answer: (
 			<>
 				The integration of gun violence data aims to seamlessly incorporate comprehensive statistics related to gun-related injuries into the Health Equity Tracker platform. This initiative enables users to explore and understand the full spectrum of gun-related incidents and their impacts.
 =======
+=======
+>>>>>>> 41b8f041 (faqs tab)
 		question:
 			'What is the purpose of integrating gun violence data into the Health Equity Tracker?',
 		answer: (
@@ -34,7 +46,16 @@ export const policyFaqs = [
 				comprehensive statistics related to gun-related injuries into the Health
 				Equity Tracker platform. This initiative enables users to explore and
 				understand the full spectrum of gun-related incidents and their impacts.
+<<<<<<< HEAD
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+=======
+		question: 'What is the purpose of integrating gun violence data into the Health Equity Tracker?',
+		answer: (
+			<>
+				The integration of gun violence data aims to seamlessly incorporate comprehensive statistics related to gun-related injuries into the Health Equity Tracker platform. This initiative enables users to explore and understand the full spectrum of gun-related incidents and their impacts.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -43,13 +64,22 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				The primary source of our gun violence data is the CDC's WISQARS dataset, which offers a wide range of information on gun-related injuries, including both fatal and non-fatal incidents. This dataset helps provide a holistic perspective on the effects of gun-related violence.
 =======
+=======
+>>>>>>> 41b8f041 (faqs tab)
 				The primary source of our gun violence data is the CDC's WISQARS
 				dataset, which offers a wide range of information on gun-related
 				injuries and fatal incidents. This dataset helps provide a holistic
 				perspective on the effects of gun-related violence.
+<<<<<<< HEAD
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+=======
+				The primary source of our gun violence data is the CDC's WISQARS dataset, which offers a wide range of information on gun-related injuries, including both fatal and non-fatal incidents. This dataset helps provide a holistic perspective on the effects of gun-related violence.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -58,11 +88,19 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				The dataset includes data on both fatal and non-fatal injuries. Fatal injuries are further categorized into homicide, legal intervention, and suicide.
 =======
 				The dataset includes data on gun-related fatalities. Fatal injuries are
 				further categorized into homicide, legal intervention, and suicide.
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+				The dataset includes data on gun-related fatalities. Fatal injuries are
+				further categorized into homicide, legal intervention, and suicide.
+=======
+				The dataset includes data on both fatal and non-fatal injuries. Fatal injuries are further categorized into homicide, legal intervention, and suicide.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -71,12 +109,21 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<strong>Fatal Injuries:</strong> Data is available at both national and state levels.<br/>
 				<strong>Non-fatal Injuries:</strong> Data is currently available at the national level.
 =======
 				<strong>Fatal Injuries:</strong> Data is available at both national and
 				state levels.
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+				<strong>Fatal Injuries:</strong> Data is available at both national and
+				state levels.
+=======
+				<strong>Fatal Injuries:</strong> Data is available at both national and state levels.<br/>
+				<strong>Non-fatal Injuries:</strong> Data is currently available at the national level.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -85,11 +132,19 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				The dataset covers data from the years 2001 to 2021 without race information, and from 2018 to 2021 with single race information.
 =======
 				The dataset covers data from the years 2001 to 2021 without race
 				information, and from 2018 to 2021 with single race information.
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+				The dataset covers data from the years 2001 to 2021 without race
+				information, and from 2018 to 2021 with single race information.
+=======
+				The dataset covers data from the years 2001 to 2021 without race information, and from 2018 to 2021 with single race information.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -98,11 +153,14 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Users can filter the data by:<br/>
 				<strong>Age Groups:</strong> Available in 5-year increments and single-year groups (ranging from 0 to 85+ years, including unknown ages).<br/>
 				<strong>Sex:</strong> Data can be filtered for male and female demographics.<br/>
 				<strong>Race and Ethnicity (for fatal injuries only):</strong> Options include White, Black, American Indian/Alaska Native, Asian, Hawaiian Native/Pacific Islander, more than one race, unknown race, and Hispanic.
 =======
+=======
+>>>>>>> 41b8f041 (faqs tab)
 				<p className='mb-0 pb-0'>Users can filter the data by:</p> <br />
 				<br />
 				<ol className='py-0 my-0'>
@@ -122,7 +180,16 @@ export const policyFaqs = [
 				<br />
 				<strong>Urbanicity for Black men Homicides:</strong> Options include
 				Metro and Non-Metro.
+<<<<<<< HEAD
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+=======
+				Users can filter the data by:<br/>
+				<strong>Age Groups:</strong> Available in 5-year increments and single-year groups (ranging from 0 to 85+ years, including unknown ages).<br/>
+				<strong>Sex:</strong> Data can be filtered for male and female demographics.<br/>
+				<strong>Race and Ethnicity (for fatal injuries only):</strong> Options include White, Black, American Indian/Alaska Native, Asian, Hawaiian Native/Pacific Islander, more than one race, unknown race, and Hispanic.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -131,12 +198,21 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Youth-related violence is highlighted by categorizing data into specific age groups relevant to youth (0 - 25 years) and race groups, helping users focus on incidents involving younger populations.
 =======
 				Youth-related violence is highlighted by categorizing data into specific
 				age groups relevant to youth (0 - 25 years) and race groups, helping
 				users focus on incidents involving younger populations.
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+				Youth-related violence is highlighted by categorizing data into specific
+				age groups relevant to youth (0 - 25 years) and race groups, helping
+				users focus on incidents involving younger populations.
+=======
+				Youth-related violence is highlighted by categorizing data into specific age groups relevant to youth (0 - 25 years) and race groups, helping users focus on incidents involving younger populations.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
@@ -145,8 +221,11 @@ export const policyFaqs = [
 		answer: (
 			<>
 <<<<<<< HEAD
+<<<<<<< HEAD
 				The upcoming instructional video series will provide clear, concise guidance on how to effectively use the Health Equity Tracker. The videos will be short and digestible, focusing on utilizing gun violence data to demonstrate how to navigate the platform efficiently.
 =======
+=======
+>>>>>>> 41b8f041 (faqs tab)
 				The upcoming instructional video series will offer clear, concise
 				guidance on how to effectively use the Health Equity Tracker. These
 				short, digestible videos focus on utilizing gun violence data to
@@ -159,7 +238,13 @@ export const policyFaqs = [
 					here
 				</a>
 				.
+<<<<<<< HEAD
 >>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
+=======
+=======
+				The upcoming instructional video series will provide clear, concise guidance on how to effectively use the Health Equity Tracker. The videos will be short and digestible, focusing on utilizing gun violence data to demonstrate how to navigate the platform efficiently.
+>>>>>>> 994de894 (faqs tab)
+>>>>>>> 41b8f041 (faqs tab)
 			</>
 		),
 	},
