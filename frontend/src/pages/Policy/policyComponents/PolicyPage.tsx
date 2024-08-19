@@ -46,18 +46,30 @@ export default function PolicyPage() {
 										</p>
 										<HetOnThisPageMenu
 											links={routeConfig.subLinks}
+<<<<<<< HEAD
 											className='w-full'
+=======
+											className=''
+>>>>>>> a3558109 (replace taviraj h1 with dm sans, shows submenu on all breakpoints)
 										/>
 									</div>
 								) : null
 							})}
 						</div>
 
+<<<<<<< HEAD
 							<h1 className='sr-only'>{activeRoute?.label}</h1>
 							<h1 className='md:hidden font-sansTitle text-bigHeader font-bold mt-0 mb-2 px-4 leading-[1]'>
 								{activeRoute?.label}
 							</h1>
 						<section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
+=======
+						<section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
+							<h1 className='sr-only'>{activeRoute?.label}</h1>
+							<h1 className='md:hidden font-sansTitle text-bigHeader font-bold mt-0 leading-tight'>
+								{activeRoute?.label}
+							</h1>
+>>>>>>> a3558109 (replace taviraj h1 with dm sans, shows submenu on all breakpoints)
 							<Switch>
 								<>
 									{/* TEXT */}
