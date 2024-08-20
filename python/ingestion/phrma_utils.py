@@ -1,8 +1,10 @@
-from ingestion.het_types import GEO_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL
+from ingestion.het_types import GEO_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL, SEX_RACE_ETH_AGE_TYPE
+from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
-from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, NATIONAL_LEVEL
+from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, NATIONAL_LEVEL, US_FIPS
 import pandas as pd
-from typing import Dict
+from typing import Dict, Literal, cast
+from ingestion.merge_utils import merge_dfs_list
 
 TMP_ALL = 'all'
 PHRMA_DIR = 'phrma'
@@ -20,6 +22,7 @@ AGE_GROUP_LOWER = "age_group"
 INSURANCE_STATUS_LOWER = "insurance_status"
 INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
+STATE_FIPS_LOWER = "state_fips"
 
 SCREENING_ADHERENT = 'adherent'
 SCREENING_ELIGIBLE = 'eligible'
@@ -74,9 +77,13 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         "_60_64": "60-64",
         "_60_65": "60-65",
         "_65_69": "65-69",
+        "_65-69": "65-69",
         "_70_74": "70-74",
+        "_70-74": "70-74",
         "_70_75": "70-75",
+        "_70-75": "70-75",
         "_75_79": "75-79",
+        "_75-79": "75-79",
         "_18-39": "18-39",
         "_40-64": "40-64",
         "_80-84": "80-84",
@@ -227,3 +234,121 @@ def rename_cols(
         df = df.drop(columns=[MEDICARE_POP_COUNT])
 
     return df
+
+
+DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
+
+
+def load_phrma_df_from_data_dir(
+    geo_level: GEO_TYPE,
+    breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
+    data_type: Literal['standard', 'cancer'],
+) -> pd.DataFrame:
+    """Generates Phrma data by breakdown and geo_level
+    geo_level: string equal to `county`, `national`, or `state`
+    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `lis`, `eligibility`,
+     `insurance_status`, `education`, `income`, or `all`
+    data_type: string equal to 'standard' or 'cancer' to determine which data to process
+    return: a single data frame of data by demographic breakdown and
+        geo_level with data columns loaded from multiple Phrma source tables"""
+
+    sheet_name = get_sheet_name(geo_level, breakdown)
+    merge_cols = []
+
+    if geo_level == COUNTY_LEVEL:
+        merge_cols.append(std_col.COUNTY_FIPS_COL)
+    else:
+        merge_cols.append(std_col.STATE_FIPS_COL)
+
+    if breakdown != TMP_ALL:
+        breakdown_col = std_col.RACE_CATEGORY_ID_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
+        merge_cols.append(breakdown_col)
+    fips_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
+
+    breakdown_het_to_source_type = {
+        "age": AGE_GROUP if data_type == 'standard' else AGE_GROUP_LOWER,
+        "race_and_ethnicity": RACE_NAME if data_type == 'standard' else RACE_NAME_LOWER,
+        "sex": SEX_NAME,
+        "lis": LIS,
+        "eligibility": ENTLMT_RSN_CURR,
+        "income": INCOME_GROUP_LOWER,
+        "education": EDUCATION_GROUP_LOWER,
+        "insurance_status": INSURANCE_STATUS_LOWER,
+    }
+
+    # only read certain columns from source data
+    keep_cols = []
+    fips_length = 0
+
+    if breakdown != TMP_ALL:
+        keep_cols.append(breakdown_het_to_source_type[breakdown])
+
+    if geo_level == COUNTY_LEVEL:
+        fips_length = 5
+        keep_cols.append(COUNTY_FIPS)
+    if geo_level == STATE_LEVEL:
+        fips_length = 2
+        keep_cols.append(STATE_FIPS if data_type == 'standard' else STATE_FIPS_LOWER)
+    if geo_level == NATIONAL_LEVEL:
+        fips_length = 2
+
+    topic_dfs = []
+    condition_keep_cols = []
+
+    if data_type == 'standard':
+        conditions = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
+    else:  # cancer
+        conditions = PHRMA_CANCER_PCT_CONDITIONS
+
+    for condition in conditions:
+        if data_type == 'standard':
+            if condition in PHRMA_PCT_CONDITIONS:
+                condition_keep_cols = [*keep_cols, COUNT_YES, COUNT_TOTAL, ADHERENCE_RATE]
+            elif condition in PHRMA_100K_CONDITIONS:
+                condition_keep_cols = [
+                    *keep_cols,
+                    MEDICARE_DISEASE_COUNT,
+                    MEDICARE_POP_COUNT,
+                    PER_100K,
+                ]
+        else:  # cancer
+            condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
+
+        if data_type == 'standard':
+            file_name = f'{condition}-{sheet_name}.csv'
+            subdirectory = condition
+        else:  # cancer
+            condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
+            file_name = f'{condition_folder}-{sheet_name}.csv'
+            subdirectory = condition_folder
+
+        topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            PHRMA_DIR,
+            file_name,
+            subdirectory=subdirectory,
+            dtype=DTYPE,
+            na_values=["."],
+            usecols=condition_keep_cols,
+        )
+
+        topic_df = topic_df.replace(['\n', '¬¥', '‚Äô'], [' ', "'", "'"], regex=True)
+
+        if geo_level == NATIONAL_LEVEL:
+            topic_df[STATE_FIPS] = US_FIPS
+
+        topic_df = rename_cols(
+            topic_df,
+            cast(GEO_TYPE, geo_level),
+            cast(SEX_RACE_ETH_AGE_TYPE, breakdown),
+            condition,
+        )
+
+        topic_dfs.append(topic_df)
+
+    df_merged = merge_dfs_list(topic_dfs, merge_cols)
+
+    # drop rows that dont include FIPS and DEMO values
+    df_merged = df_merged[df_merged[fips_col].notna()]
+    df_merged = dataset_utils.ensure_leading_zeros(df_merged, fips_col, fips_length)
+
+    return df_merged

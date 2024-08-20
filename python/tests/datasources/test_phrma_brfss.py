@@ -1,5 +1,6 @@
 from unittest import mock
-from datasources.phrma_brfss import PhrmaBrfssData, PHRMA_DIR
+from datasources.phrma_brfss import PhrmaBrfssData
+from ingestion.phrma_utils import PHRMA_DIR
 import os
 from test_utils import _load_csv_as_df_from_real_data_dir
 

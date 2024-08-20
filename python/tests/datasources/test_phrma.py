@@ -1,6 +1,7 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.phrma import PhrmaData, PHRMA_DIR
+from datasources.phrma import PhrmaData
+from ingestion.phrma_utils import PHRMA_DIR
 import pandas as pd
 import os
 

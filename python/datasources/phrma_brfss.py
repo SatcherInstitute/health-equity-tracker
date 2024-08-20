@@ -1,35 +1,22 @@
 import pandas as pd
-from typing import cast
 from datasources.data_source import DataSource
-from ingestion.constants import STATE_LEVEL, NATIONAL_LEVEL, US_FIPS, ALL_VALUE, US_NAME
-from ingestion.dataset_utils import (
-    ensure_leading_zeros,
-)
+from ingestion.constants import NATIONAL_LEVEL, ALL_VALUE, US_NAME
+
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_dfs_list, merge_state_ids
+from ingestion.merge_utils import merge_state_ids
 from ingestion.het_types import (
     GEO_TYPE,
-    SEX_RACE_ETH_AGE_TYPE,
     PHRMA_BREAKDOWN_TYPE,
-    PHRMA_BREAKDOWN_TYPE_OR_ALL,
 )
 from ingestion.phrma_utils import (
-    TMP_ALL,
-    PHRMA_DIR,
-    get_sheet_name,
     ADHERENCE_RATE_LOWER,
     COUNT_TOTAL_LOWER,
     COUNT_YES_LOWER,
-    RACE_NAME_LOWER,
-    AGE_GROUP_LOWER,
-    INSURANCE_STATUS_LOWER,
-    INCOME_GROUP_LOWER,
-    EDUCATION_GROUP_LOWER,
     PHRMA_CANCER_PCT_CONDITIONS,
-    rename_cols,
     SCREENING_ADHERENT,
     SCREENING_ELIGIBLE,
     BREAKDOWN_TO_STANDARD_BY_COL,
+    load_phrma_df_from_data_dir,
 )
 
 """
@@ -39,10 +26,6 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 
 `./scripts/extract_excel_sheets_to_csvs --directory ../data/phrma/{SCREENING_ADHERENT}`
 """
-
-# constants
-
-DTYPE = {'STATE_FIPS': str}
 
 
 class PhrmaBrfssData(DataSource):
@@ -76,17 +59,17 @@ class PhrmaBrfssData(DataSource):
     ) -> pd.DataFrame:
         """Generates HET-stye dataframe by demo_breakdown and geo_level
         demo_breakdown: string equal to `lis`, `eligibility`, `age`, `race_and_ethnicity`, or `sex`
-        geo_level: string equal to `county`, `national`, or `state`
+        geo_level: string equal to `national`, or `state`
         return: a breakdown df by demographic and geo_level"""
 
         # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
 
-        alls_df = load_phrma_brfss_df_from_data_dir(geo_level, 'all')
+        alls_df = load_phrma_df_from_data_dir(geo_level, 'all', 'cancer')
         alls_df[demo_col] = all_val
 
-        breakdown_group_df = load_phrma_brfss_df_from_data_dir(geo_level, demo_breakdown)
+        breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, 'cancer')
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
         df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
@@ -123,77 +106,77 @@ class PhrmaBrfssData(DataSource):
         return df
 
 
-def load_phrma_brfss_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> pd.DataFrame:
-    """Generates Phrma data by breakdown and geo_level
-    geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string equal to 'age', 'race_and_ethnicity', 'insurance_status', 'education', 'income', 'all'
-    return: a single data frame of data by demographic breakdown and
-        geo_level with data columns loaded from multiple Phrma source tables"""
+# def load_phrma_df_from_data_dir(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> pd.DataFrame:
+#     """Generates Phrma data by breakdown and geo_level
+#     geo_level: string equal to `county`, `national`, or `state`
+#     breakdown: string equal to 'age', 'race_and_ethnicity', 'insurance_status', 'education', 'income', 'all'
+#     return: a single data frame of data by demographic breakdown and
+#         geo_level with data columns loaded from multiple Phrma source tables"""
 
-    sheet_name = get_sheet_name(geo_level, breakdown)
-    merge_cols = [std_col.STATE_FIPS_COL]
+#     sheet_name = get_sheet_name(geo_level, breakdown)
+#     merge_cols = [std_col.STATE_FIPS_COL]
 
-    if breakdown != TMP_ALL:
-        breakdown_col = std_col.RACE_CATEGORY_ID_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
-        merge_cols.append(breakdown_col)
+#     if breakdown != TMP_ALL:
+#         breakdown_col = std_col.RACE_CATEGORY_ID_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
+#         merge_cols.append(breakdown_col)
 
-    breakdown_het_to_source_type = {
-        "age": AGE_GROUP_LOWER,
-        "race_and_ethnicity": RACE_NAME_LOWER,
-        "income": INCOME_GROUP_LOWER,
-        "education": EDUCATION_GROUP_LOWER,
-        'insurance_status': INSURANCE_STATUS_LOWER,
-    }
+#     breakdown_het_to_source_type = {
+#         "age": AGE_GROUP_LOWER,
+#         "race_and_ethnicity": RACE_NAME_LOWER,
+#         "income": INCOME_GROUP_LOWER,
+#         "education": EDUCATION_GROUP_LOWER,
+#         'insurance_status': INSURANCE_STATUS_LOWER,
+#     }
 
-    # only read certain columns from source data
-    keep_cols = []
-    fips_length = 0
+#     # only read certain columns from source data
+#     keep_cols = []
+#     fips_length = 0
 
-    if breakdown != TMP_ALL:
-        keep_cols.append(breakdown_het_to_source_type[breakdown])
+#     if breakdown != TMP_ALL:
+#         keep_cols.append(breakdown_het_to_source_type[breakdown])
 
-    if geo_level == STATE_LEVEL:
-        fips_length = 2
-        keep_cols.append(std_col.STATE_FIPS_COL)
-    if geo_level == NATIONAL_LEVEL:
-        fips_length = 2
+#     if geo_level == STATE_LEVEL:
+#         fips_length = 2
+#         keep_cols.append(std_col.STATE_FIPS_COL)
+#     if geo_level == NATIONAL_LEVEL:
+#         fips_length = 2
 
-    topic_dfs = []
-    condition_keep_cols = []
+#     topic_dfs = []
+#     condition_keep_cols = []
 
-    for condition in PHRMA_CANCER_PCT_CONDITIONS:
-        condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
+#     for condition in PHRMA_CANCER_PCT_CONDITIONS:
+#         condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
 
-        condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
+#         condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
 
-        topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            PHRMA_DIR,
-            f'{condition_folder}-{sheet_name}.csv',
-            subdirectory=condition_folder,
-            dtype=DTYPE,
-            na_values=["."],
-            usecols=condition_keep_cols,
-        )
+#         topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+#             PHRMA_DIR,
+#             f'{condition_folder}-{sheet_name}.csv',
+#             subdirectory=condition_folder,
+#             dtype=DTYPE,
+#             na_values=["."],
+#             usecols=condition_keep_cols,
+#         )
 
-        # replace special characters
-        topic_df = topic_df.replace(['\n', '¬¥', '‚Äô'], [' ', "'", "'"], regex=True)
+#         # replace special characters
+#         topic_df = topic_df.replace(['\n', '¬¥', '‚Äô'], [' ', "'", "'"], regex=True)
 
-        if geo_level == NATIONAL_LEVEL:
-            topic_df[std_col.STATE_FIPS_COL] = US_FIPS
+#         if geo_level == NATIONAL_LEVEL:
+#             topic_df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        topic_df = rename_cols(
-            topic_df,
-            cast(GEO_TYPE, geo_level),
-            cast(SEX_RACE_ETH_AGE_TYPE, breakdown),
-            condition,
-        )
+#         topic_df = rename_cols(
+#             topic_df,
+#             cast(GEO_TYPE, geo_level),
+#             cast(SEX_RACE_ETH_AGE_TYPE, breakdown),
+#             condition,
+#         )
 
-        topic_dfs.append(topic_df)
+#         topic_dfs.append(topic_df)
 
-    df_merged = merge_dfs_list(topic_dfs, merge_cols)
+#     df_merged = merge_dfs_list(topic_dfs, merge_cols)
 
-    # drop rows that dont include FIPS and DEMO values
-    df_merged = df_merged[df_merged[std_col.STATE_FIPS_COL].notna()]
-    df_merged = ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, fips_length)
+#     # drop rows that dont include FIPS and DEMO values
+#     df_merged = df_merged[df_merged[std_col.STATE_FIPS_COL].notna()]
+#     df_merged = ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, fips_length)
 
-    return df_merged
+#     return df_merged
