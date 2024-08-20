@@ -29,6 +29,7 @@ from ingestion.phrma_utils import (
     rename_cols,
     SCREENING_ADHERENT,
     SCREENING_ELIGIBLE,
+    BREAKDOWN_TO_STANDARD_BY_COL,
 )
 
 """
@@ -42,58 +43,6 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 # constants
 
 DTYPE = {'STATE_FIPS': str}
-
-BREAKDOWN_TO_STANDARD_BY_COL = {
-    std_col.AGE_COL: {
-        "_21_24": "21-24",
-        "_25_29": "25-29",
-        "_30_34": "30-34",
-        "_35_39": "35-39",
-        "_40_44": "40-44",
-        "_45_49": "45-49",
-        "_50_54": "50-54",
-        "_55_59": "55-59",
-        "_60_64": "60-64",
-        "_60_65": "60-65",
-        "_65_69": "65-69",
-        "_70_74": "70-74",
-        "_70_75": "70-75",
-        "_75_79": "75-79",
-    },
-    std_col.RACE_CATEGORY_ID_COL: {
-        'American Indian or Alaskan Native': std_col.Race.AIAN_NH.value,
-        'Asian': std_col.Race.ASIAN_NH.value,
-        'Black': std_col.Race.BLACK_NH.value,
-        'Hispanic': std_col.Race.HISP.value,
-        'Multiracial': std_col.Race.MULTI_NH.value,
-        'Native Hawaiian or other Pacific Islander': std_col.Race.NHPI_NH.value,
-        'White': std_col.Race.WHITE_NH.value,
-    },
-    std_col.INSURANCE_COL: {
-        "Have some form of insurance": "Insured",
-        "Do not have some form of health insurance": "Not insured",
-        "Don't know, refused or missing insurance response": "Unknown",
-        "Don´t know, refused or missing insurance response": "Unknown",
-    },
-    std_col.EDUCATION_COL: {
-        "Did not graduate High School": "Did not graduate high school",
-        "Graduated High School": "Graduated high school",
-        "Attended College or Technical School": "Attended college or technical school",
-        "Graduated from College or Technical School": "Graduated from college or technical school",
-        "Don’t know/Not sure/Missing": "Unknown",
-    },
-    std_col.INCOME_COL: {
-        "Less than $15,000": "Less than $15,000",
-        "$15,000 to < $25,000": "$15,000 to < $25,000",
-        "$25,000 to < $35,000": "$25,000 to < $35,000",
-        "$35,000 to < $50,000": "$35,000 to < $50,000",
-        "$50,000 to < $75,000": "$50,000 to < $75,000",
-        "$75,000 to < $100,000": "$75,000 to < $100,000",
-        "$100,000 to < $200,000": "$100,000 to < $200,000",
-        "$200,000 or more": "$200,000 or more",
-        "Don’t know/Not sure/Missing": "Unknown",
-    },
-}
 
 
 class PhrmaBrfssData(DataSource):

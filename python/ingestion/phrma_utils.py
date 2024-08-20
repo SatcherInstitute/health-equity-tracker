@@ -61,6 +61,78 @@ PHRMA_100K_CONDITIONS = [
 
 PHRMA_CANCER_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
 
+BREAKDOWN_TO_STANDARD_BY_COL = {
+    std_col.AGE_COL: {
+        "_21_24": "21-24",
+        "_25_29": "25-29",
+        "_30_34": "30-34",
+        "_35_39": "35-39",
+        "_40_44": "40-44",
+        "_45_49": "45-49",
+        "_50_54": "50-54",
+        "_55_59": "55-59",
+        "_60_64": "60-64",
+        "_60_65": "60-65",
+        "_65_69": "65-69",
+        "_70_74": "70-74",
+        "_70_75": "70-75",
+        "_75_79": "75-79",
+        "_18-39": "18-39",
+        "_40-64": "40-64",
+        "_80-84": "80-84",
+        "_85+": "85+",
+    },
+    std_col.RACE_CATEGORY_ID_COL: {
+        'American Indian or Alaskan Native': std_col.Race.AIAN_NH.value,
+        'Asian': std_col.Race.ASIAN_NH.value,
+        'Black': std_col.Race.BLACK_NH.value,
+        'Hispanic': std_col.Race.HISP.value,
+        'Multiracial': std_col.Race.MULTI_NH.value,
+        'Native Hawaiian or other Pacific Islander': std_col.Race.NHPI_NH.value,
+        'White': std_col.Race.WHITE_NH.value,
+        'Unknown': std_col.Race.UNKNOWN.value,
+        'American Indian / Alaska Native': std_col.Race.AIAN_NH.value,
+        'Asian/Pacific Islander': std_col.Race.API_NH.value,
+        'Black or African-American': std_col.Race.BLACK_NH.value,
+        'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
+        'Non-Hispanic White': std_col.Race.WHITE_NH.value,
+    },
+    std_col.INSURANCE_COL: {
+        "Have some form of insurance": "Insured",
+        "Do not have some form of health insurance": "Not insured",
+        "Don´t know, refused or missing insurance response": "Unknown",
+    },
+    std_col.EDUCATION_COL: {
+        "Did not graduate High School": "Did not graduate high school",
+        "Graduated High School": "Graduated high school",
+        "Attended College or Technical School": "Attended college or technical school",
+        "Graduated from College or Technical School": "Graduated from college or technical school",
+        "Don’t know/Not sure/Missing": "Unknown",
+    },
+    std_col.INCOME_COL: {
+        "Less than $15,000": "Less than $15,000",
+        "$15,000 to < $25,000": "$15,000 to < $25,000",
+        "$25,000 to < $35,000": "$25,000 to < $35,000",
+        "$35,000 to < $50,000": "$35,000 to < $50,000",
+        "$50,000 to < $75,000": "$50,000 to < $75,000",
+        "$75,000 to < $100,000": "$75,000 to < $100,000",
+        "$100,000 to < $200,000": "$100,000 to < $200,000",
+        "$200,000 or more": "$200,000 or more",
+        "Don’t know/Not sure/Missing": "Unknown",
+    },
+    std_col.LIS_COL: {
+        "Yes": "Receiving low income subsidy (LIS)",
+        "No": "Not receiving low income subsidy (LIS)",
+    },
+    std_col.ELIGIBILITY_COL: {
+        "Aged": "Eligible due to age",
+        "Disabled": "Eligible due to disability",
+        "ESRD": "Eligible due to end-stage renal disease (ESRD)",
+        "Disabled and ESRD": "Eligible due to disability and end-stage renal disease (ESRD)",
+    },
+    # SEX source groups already match needed HET groups
+}
+
 
 def get_sheet_name(geo_level: GEO_TYPE, breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL) -> str:
     """geo_level: string equal to `county`, `national`, or `state`

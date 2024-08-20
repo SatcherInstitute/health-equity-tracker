@@ -45,6 +45,7 @@ from ingestion.phrma_utils import (
     rename_cols,
     ADHERENCE,
     BENEFICIARIES,
+    BREAKDOWN_TO_STANDARD_BY_COL,
 )
 
 
@@ -59,40 +60,6 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 # constants
 ELIGIBILITY = "eligibility"
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
-
-
-# a nested dictionary that contains values swaps per column name
-BREAKDOWN_TO_STANDARD_BY_COL = {
-    std_col.LIS_COL: {
-        "Yes": "Receiving low income subsidy (LIS)",
-        "No": "Not receiving low income subsidy (LIS)",
-    },
-    std_col.ELIGIBILITY_COL: {
-        "Aged": "Eligible due to age",
-        "Disabled": "Eligible due to disability",
-        "ESRD": "Eligible due to end-stage renal disease (ESRD)",
-        "Disabled and ESRD": "Eligible due to disability and end-stage renal disease (ESRD)",
-    },
-    std_col.AGE_COL: {
-        "_18-39": "18-39",
-        "_40-64": "40-64",
-        "_65-69": "65-69",
-        "_70-74": "70-74",
-        "_75-79": "75-79",
-        "_80-84": "80-84",
-        "_85+": "85+",
-    },
-    std_col.RACE_CATEGORY_ID_COL: {
-        'Unknown': std_col.Race.UNKNOWN.value,
-        'American Indian / Alaska Native': std_col.Race.AIAN_NH.value,
-        'Asian/Pacific Islander': std_col.Race.API_NH.value,
-        'Black or African-American': std_col.Race.BLACK_NH.value,
-        'Hispanic': std_col.Race.HISP.value,
-        'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
-        'Non-Hispanic White': std_col.Race.WHITE_NH.value,
-    },
-    # SEX source groups already match needed HET groups
-}
 
 
 class PhrmaData(DataSource):
