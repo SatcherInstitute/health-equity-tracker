@@ -96,48 +96,6 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
 }
 
 
-"""
-race_name
-American Indian or Alaskan Native
-Asian
-Black
-Hispanic
-Multiracial
-Native Hawaiian or other Pacific Islander
-White
-
-age_group
-_50_54
-_55_59
-_60_64
-_65_69
-_70_74
-
-insurance_status
-Have some form of insurance
-Do not have some form of health insurance
-Don¬¥t know, refused or missing insurance response
-
-income_group
-Less than $15,000
-$15,000 to < $25,000
-$25,000 to < $35,000
-$35,000 to < $50,000
-$50,000 to < $75,000
-$75,000 to < $100,000
-$100,000 to < $200,000
-$200,000 or more
-Don‚Äôt know/Not sure/Missing
-
-education_group
-Did not graduate High School
-Graduated High School
-Attended College or Technical School
-Graduated from College or Technical School
-Don‚Äôt know/Not sure/Missing
-"""
-
-
 class PhrmaBrfssData(DataSource):
     @staticmethod
     def get_id():
