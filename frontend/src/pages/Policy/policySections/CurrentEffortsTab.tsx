@@ -57,6 +57,7 @@ export default function CurrentEffortsTab() {
 				<h3 className='my-0 text-title font-medium text-altGreen'>
 					DeKalb County
 				</h3>
+<<<<<<< HEAD
 
 				<ul className='list-none'>
 					{dekalbCountyEfforts.map((dekalbCountyEffort, index) => (
@@ -68,6 +69,20 @@ export default function CurrentEffortsTab() {
 						/>
 					))}
 				</ul>
+=======
+				<p>
+					<ul className='list-none'>
+						{dekalbCountyEfforts.map((dekalbCountyEffort, index) => (
+							<ResourceItem
+								key={index}
+								title={dekalbCountyEffort.title}
+								description={dekalbCountyEffort.description}
+								link={dekalbCountyEffort.link}
+							/>
+						))}
+					</ul>
+				</p>
+>>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
 			</section>
 		</>
 	)
