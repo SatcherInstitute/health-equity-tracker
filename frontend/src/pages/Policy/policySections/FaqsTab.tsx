@@ -59,7 +59,11 @@ export default function FaqsTab() {
 								</div>
 							</AccordionSummary>
 							<AccordionDetails>
+<<<<<<< HEAD
 								<div className='text-left text-text font-normal text-altBlack'>
+=======
+								<div className='my-0 px-6 py-4 text-left text-text font-normal text-altBlack'>
+>>>>>>> acf07369 (font update, content addition for current efforts, reform opps, and FAQs tabs, and accordion redesign (#3571))
 									{faq.answer}
 								</div>
 							</AccordionDetails>
