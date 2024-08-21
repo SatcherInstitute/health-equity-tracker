@@ -63,29 +63,24 @@ export default function HowToUseTheDataTab() {
 			{dataVisuals.map((dataVisual, index) => (
 				<section key={index} id={dataVisual.sectionId}>
 					<div>
-						<div className='wrap-v-x-small'>
-							<div className='cta-header-info'>
-								<div className='title-wrapper-large'>
+						<div>
+							<div>
+								<div>
 									<p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 										OUR DATA VISUALS
 									</p>
-									<div className='heading-wrap'>
+									<div>
 										<h3 className='my-0 text-title font-medium text-altGreen'>
 											{dataVisual.title}
 										</h3>
-										<a
-											href='#'
-											className='help'
-											data-tippy-content={dataVisual.tooltip || ''}
-										></a>
 									</div>
 									<div className='xs:py-4 xs:w-full md:p-8 md:max-w-[90%]'>
 										{dataVisual.customCard}
 									</div>
-									<p className='cta-header-text'>{dataVisual.description}</p>
+									<p>{dataVisual.description}</p>
 								</div>
 							</div>
-							<div className='map-statistics'>
+							<div>
 								<ul className='list-none grid gap-4 grid-cols-2 p-0 text-smallest'>
 									<li className='flex flex-col'>
 										<p className='my-0 text-altGreen font-semibold'>
@@ -124,7 +119,7 @@ export default function HowToUseTheDataTab() {
 								</ul>
 							</div>
 						</div>
-						<p className='div__data-details'>
+						<p>
 							<h3 className='my-0 text-title font-medium text-altGreen'>
 								How to Use
 							</h3>
