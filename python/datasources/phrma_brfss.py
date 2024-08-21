@@ -97,8 +97,6 @@ class PhrmaBrfssData(DataSource):
 
         df = df.rename(columns=rename_col_map)
 
-        print(df)
-
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
