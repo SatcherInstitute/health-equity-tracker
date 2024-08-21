@@ -1,0 +1,79 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Sex,Sex Code,Count,Population,Crude Rate
+,1999,1999,Colon and Rectum,21041-21052,Female,F,74972,140394214,53.4
+,1999,1999,Colon and Rectum,21041-21052,Male,M,76459,135067134,56.6
+,2000,2000,Colon and Rectum,21041-21052,Female,F,75481,141865770,53.2
+,2000,2000,Colon and Rectum,21041-21052,Male,M,77637,136692444,56.8
+,2001,2001,Colon and Rectum,21041-21052,Female,F,75850,143603977,52.8
+,2001,2001,Colon and Rectum,21041-21052,Male,M,77720,138511984,56.1
+,2002,2002,Colon and Rectum,21041-21052,Female,F,74925,144919222,51.7
+,2002,2002,Colon and Rectum,21041-21052,Male,M,77480,139847290,55.4
+,2003,2003,Colon and Rectum,21041-21052,Female,F,75396,147679036,51.1
+,2003,2003,Colon and Rectum,21041-21052,Male,M,78493,142428897,55.1
+,2004,2004,Colon and Rectum,21041-21052,Female,F,74296,148977286,49.9
+,2004,2004,Colon and Rectum,21041-21052,Male,M,77775,143828012,54.1
+,2005,2005,Colon and Rectum,21041-21052,Female,F,73772,150213467,49.1
+,2005,2005,Colon and Rectum,21041-21052,Male,M,77086,145099195,53.1
+,2006,2006,Colon and Rectum,21041-21052,Female,F,73274,151732647,48.3
+,2006,2006,Colon and Rectum,21041-21052,Male,M,75766,146647265,51.7
+,2007,2007,Colon and Rectum,21041-21052,Female,F,72287,153166353,47.2
+,2007,2007,Colon and Rectum,21041-21052,Male,M,76296,148064854,51.5
+,2008,2008,Colon and Rectum,21041-21052,Female,F,71689,154604015,46.4
+,2008,2008,Colon and Rectum,21041-21052,Male,M,76069,149489951,50.9
+,2009,2009,Colon and Rectum,21041-21052,Female,F,69726,155964075,44.7
+,2009,2009,Colon and Rectum,21041-21052,Male,M,74119,150807454,49.1
+,2010,2010,Colon and Rectum,21041-21052,Female,F,67887,157247406,43.2
+,2010,2010,Colon and Rectum,21041-21052,Male,M,72240,152134841,47.5
+,2011,2011,Colon and Rectum,21041-21052,Female,F,67249,158358565,42.5
+,2011,2011,Colon and Rectum,21041-21052,Male,M,72873,153502059,47.5
+,2012,2012,Colon and Rectum,21041-21052,Female,F,66535,159454409,41.7
+,2012,2012,Colon and Rectum,21041-21052,Male,M,72580,154917037,46.9
+,2013,2013,Colon and Rectum,21041-21052,Female,F,66862,160501695,41.7
+,2013,2013,Colon and Rectum,21041-21052,Male,M,73461,156263353,47
+,2014,2014,Colon and Rectum,21041-21052,Female,F,67950,161623478,42
+,2014,2014,Colon and Rectum,21041-21052,Male,M,75200,157671238,47.7
+,2015,2015,Colon and Rectum,21041-21052,Female,F,68305,162741254,42
+,2015,2015,Colon and Rectum,21041-21052,Male,M,76092,159109267,47.8
+,2016,2016,Colon and Rectum,21041-21052,Female,F,69338,163864557,42.3
+,2016,2016,Colon and Rectum,21041-21052,Male,M,76020,160513350,47.4
+,2017,2017,Colon and Rectum,21041-21052,Female,F,68337,164851027,41.5
+,2017,2017,Colon and Rectum,21041-21052,Male,M,76414,161760158,47.2
+,2018,2018,Colon and Rectum,21041-21052,Female,F,68756,165690421,41.5
+,2018,2018,Colon and Rectum,21041-21052,Male,M,77426,162835512,47.5
+,2019,2019,Colon and Rectum,21041-21052,Female,F,69068,166422836,41.5
+,2019,2019,Colon and Rectum,21041-21052,Male,M,78377,163799172,47.8
+,2020,2020,Colon and Rectum,21041-21052,Female,F,61033,163570448,37.3
+,2020,2020,Colon and Rectum,21041-21052,Male,M,68787,161152265,42.7
+,2021,2021,Colon and Rectum,21041-21052,Female,F,66864,163880835,40.8
+,2021,2021,Colon and Rectum,21041-21052,Male,M,75038,161337187,46.5
+---,,,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
+Query Parameters:,,,,,,,,,
+Leading Cancer Sites: Colon and Rectum,,,,,,,,,
+Group By: Year; Leading Cancer Sites; Sex,,,,,,,,,
+Show Totals: Disabled,,,,,,,,,
+Show Zero Values: False,,,,,,,,,
+Show Suppressed: False,,,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,,,
+---,,,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
+---,,,,,,,,,
+"Query Date: Aug 20, 2024 10:59:31 AM",,,,,,,,,
+---,,,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 10:59:31 AM",,,,,,,,,
+---,,,,,,,,,
+Caveats:,,,,,,,,,
+"1. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
+misleading.,,,,,,,,,
+2. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
+"3. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,
+standard groupings of primary cancer sites.,,,,,,,,,
+"4. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,
