@@ -1,4 +1,11 @@
+import Custom100kBarChart from "../../../reports/Custom100kBarChart";
+import CustomBreakdownSummary from "../../../reports/CustomBreakdownSummary";
+import CustomChoroplethMap from "../../../reports/CustomChoroplethMap";
+import CustomDisparityBarChart from "../../../reports/CustomDisparityBarChart";
 import CustomDisparityBarChartCompare from "../../../reports/CustomDisparityBarChartCompare";
+import CustomRateTrendsLineChart from "../../../reports/CustomRateTrendsLineChart";
+import CustomShareTrendsLineChart from "../../../reports/CustomShareTrendsLineChart";
+import CustomUnknownMap from "../../../reports/CustomUnknownMap";
 
 export const dataVisuals = [
 	{
@@ -25,7 +32,7 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/rate-choropleth-map.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <CustomChoroplethMap/>,
 	},
 	{
 		title: 'Rates Over Time Chart',
@@ -51,7 +58,7 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/rates-over-time-chart.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <CustomRateTrendsLineChart/>,
 	},
 	{
 		title: 'Rate Bar Chart',
@@ -77,7 +84,7 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/rates-bar-chart.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <Custom100kBarChart/>,
 	},
 	{
 		title: 'Unknown Demographic Choropleth Map',
@@ -103,7 +110,7 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/unk-demo-choropleth-map.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <CustomUnknownMap/>,
 	},
 	{
 		title: 'Relative Inequity Chart',
@@ -129,7 +136,7 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/relative-inequity-chart.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <CustomShareTrendsLineChart/>,
 	},
 	{
 		title: 'Population vs. Distribution Stacked Bar Chart',
@@ -155,7 +162,7 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/pop-vs-dist-stack-bar-chart.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <CustomDisparityBarChart/>,
 	},
 	{
 		title: 'Breakdown Summary Data Table',
@@ -181,6 +188,6 @@ export const dataVisuals = [
 			]
 		},
 		imageLink: '/public/img/graphics/breakdown-summary-data-table.png',
-		customCard: <CustomDisparityBarChartCompare/>,
+		customCard: <CustomBreakdownSummary />,
 	}
 ];

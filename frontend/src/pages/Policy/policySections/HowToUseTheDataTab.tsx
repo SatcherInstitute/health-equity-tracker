@@ -55,6 +55,7 @@ export default function HowToUseTheDataTab() {
 									<div className='m-template-info-wrapper map'>
 										<div className='m-cta-info-icon'>{/* Omitted SVG */}</div>
 										<p>Click on the image to expand</p>
+										{dataVisual.customCard}
 									</div>
 									<p className='cta-header-text'>{dataVisual.description}</p>
 								</div>
