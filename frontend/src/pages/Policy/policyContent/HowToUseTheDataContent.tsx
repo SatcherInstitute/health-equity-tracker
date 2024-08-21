@@ -1,3 +1,5 @@
+import CustomDisparityBarChartCompare from "../../../reports/CustomDisparityBarChartCompare";
+
 export const dataVisuals = [
 	{
 		title: 'Rate Choropleth Map',
@@ -22,7 +24,8 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/1-Rate map.png'
+		imageLink: '/public/img/graphics/rate-choropleth-map.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	},
 	{
 		title: 'Rates Over Time Chart',
@@ -47,7 +50,8 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/rates-over-time-chart.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	},
 	{
 		title: 'Rate Bar Chart',
@@ -72,7 +76,8 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/rates-bar-chart.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	},
 	{
 		title: 'Unknown Demographic Choropleth Map',
@@ -97,7 +102,8 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/unk-demo-choropleth-map.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	},
 	{
 		title: 'Relative Inequity Chart',
@@ -122,7 +128,8 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/relative-inequity-chart.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	},
 	{
 		title: 'Population vs. Distribution Stacked Bar Chart',
@@ -147,7 +154,8 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/pop-vs-dist-stack-bar-chart.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	},
 	{
 		title: 'Breakdown Summary Data Table',
@@ -172,6 +180,7 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/breakdown-summary-data-table.png',
+		customCard: <CustomDisparityBarChartCompare/>,
 	}
 ];
