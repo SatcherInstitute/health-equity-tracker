@@ -1,0 +1,29 @@
+name: RUN Biome Check 
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+        paths:
+            - frontend/src/**
+
+defaults: 
+    run: 
+        working-directory: frontend
+    
+jobs:
+    biome_check:
+        name: Runs biome check
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: frontend/package.json
+                  cache: 'npm'
+                  cache-dependency-path: frontend/package-lock.json
+            - name: Install dependencies
+              run: npm ci
+            - name: Run biome check
+              run: npx biome check
