@@ -13,9 +13,7 @@ export default function CrisisOverviewTab() {
 				Understanding the Crisis of Gun Violence in Atlanta
 			</h2>
 			<div className='flex flex-col gap-2'>
-				<h2>Understanding the Crisis of Gun Violence in Atlanta</h2>
 				<section id='#introduction'>
-					<h3 className='text-title font-medium'>Introduction</h3>
 					<p>
 						The Health Equity Tracker (HET) in partnership with The Annie E.
 						Casey Foundation expanded its topics to track and integrate gun
@@ -42,10 +40,7 @@ export default function CrisisOverviewTab() {
 							</a>
 						</p>
 					</div>
-					<h3 className='my-0 text-title font-medium text-altGreen'>
-						Background
-					</h3>
-					<ul className='list-none px-4 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
+					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 						{gvaFacts.map((gvaFact, index) => (
 							<FactCard key={index} content={gvaFact.content} />
 						))}
