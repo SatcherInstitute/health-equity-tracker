@@ -13,7 +13,7 @@ export const dataVisuals = [
 	{
 		title: 'Rate Choropleth Map',
 		description: 'The rate map shows the geographic distribution of gun violence across the United States. Choropleth maps show the racial/ethnic group with the highest disparity.',
-        tooltip: '',
+        sectionId: '#rate-choropleth-map',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
@@ -38,7 +38,7 @@ export const dataVisuals = [
 	{
 		title: 'Rates Over Time Chart',
 		description: 'This visualization tracks the changes in gun violence rates over specified periods.',
-        tooltip: '',
+        sectionId: '#rates-over-time-chart',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
@@ -68,8 +68,8 @@ export const dataVisuals = [
 	{
 		title: 'Rate Bar Chart',
 		description: 'Compares gun violence rates across different demographic groups.',
+		sectionId: '#rate-bar-chart',
 		details: {
-            tooltip: '',
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
 			alternateBreakdowns: 'N/A',
@@ -98,7 +98,7 @@ export const dataVisuals = [
 	{
 		title: 'Unknown Demographic Choropleth Map',
 		description: 'Highlights areas where data on gun violence is incomplete or missing.',
-        tooltip: '',
+        sectionId: '#unknown-demographic-choropleth-map',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
@@ -123,7 +123,7 @@ export const dataVisuals = [
 	{
 		title: 'Relative Inequity Chart',
 		description: 'Shows how disparities in gun violence exposure have evolved among different demographic groups.',
-        tooltip: '',
+        sectionId: '#relative-inequity-chart',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
@@ -154,7 +154,7 @@ export const dataVisuals = [
 	{
 		title: 'Population vs. Distribution Stacked Bar Chart',
 		description: 'Illustrates how the prevalence of gun violence in certain demographics compares to their population size.',
-        tooltip: '',
+        sectionId: '#population-vs-distribution-stacked-bar-chart',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
@@ -184,7 +184,7 @@ export const dataVisuals = [
 	{
 		title: 'Breakdown Summary Data Table',
 		description: `'Rates' show how often something happens within a specific group per 100,000 people. 'Share' tells you what percentage of all cases come from a particular group, while 'Population share' shows the percentage of the total population that the group makes up.`,
-        tooltip: '',
+        sectionId: '#breakdown-summary-data-table',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],

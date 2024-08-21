@@ -42,7 +42,7 @@ export default function HowToUseTheDataTab() {
 				<title>How To Use The Data - Health Equity Tracker</title>
 			</Helmet>
 			<h2 className='sr-only'>How To Use The Data</h2>
-			<section id='#introduction'>
+			<section id='#het-data-visualizations'>
 				<p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 					HOW TO USE THE DATA
 				</p>
@@ -60,9 +60,9 @@ export default function HowToUseTheDataTab() {
 					effectively.
 				</p>
 			</section>
-			<section>
-				{dataVisuals.map((dataVisual, index) => (
-					<div key={index} className='map-profile-div'>
+			{dataVisuals.map((dataVisual, index) => (
+				<section key={index} id={dataVisual.sectionId}>
+					<div>
 						<div className='wrap-v-x-small'>
 							<div className='cta-header-info'>
 								<div className='title-wrapper-large'>
@@ -77,8 +77,7 @@ export default function HowToUseTheDataTab() {
 											href='#'
 											className='help'
 											data-tippy-content={dataVisual.tooltip || ''}
-										>
-										</a>
+										></a>
 									</div>
 									<div className='xs:py-4 xs:w-full md:p-8 md:max-w-[90%]'>
 										{dataVisual.customCard}
@@ -139,8 +138,8 @@ export default function HowToUseTheDataTab() {
 						</p>
 						<div className='mt-8 border border-b-1 border-t-0 border-x-0 border-solid border-altBlack'></div>
 					</div>
-				))}
-			</section>
+				</section>
+			))}
 		</>
 	)
 }
