@@ -16,7 +16,7 @@ export const selectFAQs: FAQ[] = [
     answer: <AnswerWhatIsHealthEquity />,
   },
   {
-    questionText: 'What are health disparities',
+    questionText: 'What are health disparities?',
     answer: <AnswerWhatAreHealthDisparities />,
   },
   {

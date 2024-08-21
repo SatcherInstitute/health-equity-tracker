@@ -7,7 +7,7 @@ export default function GunViolencePolicyHomeLink() {
 				</p>
 				<div className='flex w-full flex-col justify-center items-center'>
 					<h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
-						The Scourge of Gun Violence in Atlanta
+					Understanding the Crisis of Gun Violence in Atlanta
 					</h2>
 
 					<p className='text-center my-4 text-title lg:px-32 px-8 lg:py-8 py-4'>
