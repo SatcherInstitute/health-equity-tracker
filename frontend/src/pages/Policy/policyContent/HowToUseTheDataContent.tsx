@@ -1,11 +1,13 @@
-import Custom100kBarChart from "../../../reports/Custom100kBarChart";
-import CustomBreakdownSummary from "../../../reports/CustomBreakdownSummary";
-import CustomChoroplethMap from "../../../reports/CustomChoroplethMap";
-import CustomDisparityBarChart from "../../../reports/CustomDisparityBarChart";
-import CustomDisparityBarChartCompare from "../../../reports/CustomDisparityBarChartCompare";
-import CustomRateTrendsLineChart from "../../../reports/CustomRateTrendsLineChart";
-import CustomShareTrendsLineChart from "../../../reports/CustomShareTrendsLineChart";
-import CustomUnknownMap from "../../../reports/CustomUnknownMap";
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { RACE } from '../../../data/utils/Constants'
+import { Fips } from '../../../data/utils/Fips'
+import Custom100kBarChart from '../../../reports/Custom100kBarChart'
+import CustomBreakdownSummary from '../../../reports/CustomBreakdownSummary'
+import CustomChoroplethMap from '../../../reports/CustomChoroplethMap'
+import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
+import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
+import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
+import CustomUnknownMap from '../../../reports/CustomUnknownMap'
 
 export const dataVisuals = [
 	{
@@ -31,7 +33,6 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/rate-choropleth-map.png',
 		customCard: <CustomChoroplethMap/>,
 	},
 	{
@@ -57,8 +58,12 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/rates-over-time-chart.png',
-		customCard: <CustomRateTrendsLineChart/>,
+		customCard: <CustomRateTrendsLineChart
+		fips={new Fips('13')} 
+		dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
+		demographicType={RACE}
+		reportTitle='Rates of gun deaths among young adults over time in Georgia'
+	  />,
 	},
 	{
 		title: 'Rate Bar Chart',
@@ -83,8 +88,12 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/rates-bar-chart.png',
-		customCard: <Custom100kBarChart/>,
+		customCard: <Custom100kBarChart
+		  fips={new Fips('13')}
+		  dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
+		  demographicType='race_and_ethnicity'
+		  reportTitle='Rates of gun homicides in Georgia'
+		/>,
 	},
 	{
 		title: 'Unknown Demographic Choropleth Map',
@@ -109,7 +118,6 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/unk-demo-choropleth-map.png',
 		customCard: <CustomUnknownMap/>,
 	},
 	{
@@ -135,8 +143,13 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/relative-inequity-chart.png',
-		customCard: <CustomShareTrendsLineChart/>,
+		customCard: <CustomShareTrendsLineChart
+		fips={new Fips('00')}
+		dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
+		demographicType='age'
+		reportTitle='Historical relative inequity of gun homicides among Black (NH) men in the United States'
+		isCompareCard={false} 
+	  />,
 	},
 	{
 		title: 'Population vs. Distribution Stacked Bar Chart',
@@ -161,12 +174,16 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/pop-vs-dist-stack-bar-chart.png',
-		customCard: <CustomDisparityBarChart/>,
+		customCard: <CustomDisparityBarChart
+		fips={new Fips('00')}  
+		dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]} 
+		demographicType='urbanicity'
+		reportTitle='Population vs. distribution of total gun homicides among Black (NH) men in the United States'
+	  />,
 	},
 	{
 		title: 'Breakdown Summary Data Table',
-		description: '"Rates" show how often something happens within a specific group per 100,000 people. "Share" tells you what percentage of all cases come from a particular group, while "Population share" shows the percentage of the total population that the group makes up.',
+		description: `'Rates' show how often something happens within a specific group per 100,000 people. 'Share' tells you what percentage of all cases come from a particular group, while 'Population share' shows the percentage of the total population that the group makes up.`,
         tooltip: '',
 		details: {
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
@@ -187,7 +204,6 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: '/public/img/graphics/breakdown-summary-data-table.png',
 		customCard: <CustomBreakdownSummary />,
 	}
-];
+]

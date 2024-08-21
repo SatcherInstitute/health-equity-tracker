@@ -1,23 +1,26 @@
 import React from 'react'
 import { Fips } from '../data/utils/Fips'
-import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 import TableCard from '../cards/TableCard'
-import { RACE } from '../data/utils/Constants';
+import {  SEX } from '../data/utils/Constants';
+import { DemographicType } from '../data/query/Breakdowns';
+import { GUN_VIOLENCE_METRICS } from '../data/config/MetricConfigCommunitySafety';
 
 interface CustomBreakdownSummaryProps {
   headerScrollMargin?: string;
   fips?: Fips;
-  demographicType?: string;
+  dataTypeConfig?: DataTypeConfig;
+  demographicType?: DemographicType;
   reportTitle?: string;
 }
 
 const CustomBreakdownSummary: React.FC<CustomBreakdownSummaryProps> = ({
   headerScrollMargin = '50px',
-  fips = new Fips('00'),  // Default FIPS code for the USA
-  demographicType = RACE,
+  fips = new Fips('00'), 
+  demographicType = SEX,
   reportTitle = 'Demographic Breakdown Summary',
 }) => {
-  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['covid'][0]
+  const dataTypeConfig: DataTypeConfig = GUN_VIOLENCE_METRICS[1]
 
   return (
     <div
@@ -31,7 +34,7 @@ const CustomBreakdownSummary: React.FC<CustomBreakdownSummaryProps> = ({
       <TableCard
         fips={fips}
         dataTypeConfig={dataTypeConfig}
-        demographicType={RACE}
+        demographicType={demographicType}
         reportTitle={reportTitle}
       />
     </div>

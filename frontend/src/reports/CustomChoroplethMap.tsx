@@ -5,7 +5,7 @@ import MapCard from '../cards/MapCard'
 
 const CustomChoroplethMap: React.FC = () => {
   const fips = new Fips('00')
-  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['medicare_hiv'][0]
+  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['gun_violence_youth'][0]
   const reportTitle = 'Example Choropleth Rate Map'
 
   return (
