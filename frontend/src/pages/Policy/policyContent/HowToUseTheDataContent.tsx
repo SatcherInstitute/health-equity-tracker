@@ -22,7 +22,7 @@ export const dataVisuals = [
 				}
 			]
 		},
-		imageLink: 'Click on the image to expand'
+		imageLink: '/public/img/graphics/1-Rate map.png'
 	},
 	{
 		title: 'Rates Over Time Chart',
@@ -52,8 +52,8 @@ export const dataVisuals = [
 	{
 		title: 'Rate Bar Chart',
 		description: 'Compares gun violence rates across different demographic groups.',
-        tooltip: '',
 		details: {
+            tooltip: '',
 			demographicGranularities: ['Race/ethnicity', 'sex', 'age'],
 			geographicLevels: ['National', 'states', 'counties', 'territories'],
 			alternateBreakdowns: 'N/A',
