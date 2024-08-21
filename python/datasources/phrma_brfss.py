@@ -79,6 +79,7 @@ class PhrmaBrfssData(DataSource):
             source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
             het_col_name = f'{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
             df[het_col_name] = df[source_col_name].round()
+            df = df.drop(source_col_name, axis=1)
 
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_NAME_COL] = US_NAME
@@ -90,15 +91,16 @@ class PhrmaBrfssData(DataSource):
             cancer_type = condition.lower()
             rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
             rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
-            topic_rate = f'{condition}_{ADHERENCE_RATE_LOWER}'
+            # topic_rate = f'{condition}_{ADHERENCE_RATE_LOWER}'
             rename_col_map[rate_numerator] = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
             rename_col_map[rate_denominator] = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
-            rename_col_map[topic_rate] = f'{cancer_type}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
+            # rename_col_map[topic_rate] = f'{cancer_type}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
 
         df = df.rename(columns=rename_col_map)
 
+        print(df)
+
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
-            print(df.to_string())
             std_col.add_race_columns_from_category_id(df)
 
         df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
