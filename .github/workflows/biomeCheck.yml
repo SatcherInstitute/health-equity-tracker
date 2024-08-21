@@ -1,12 +1,13 @@
 name: RUN Biome Check 
 
 on:
-    push:
-        branches: [main]
-    pull_request:
-        branches: [main]
-        paths:
-            - frontend/src/**
+    workflow_dispatch:
+# push:
+#     branches: [main]
+# pull_request:
+#     branches: [main]
+#     paths:
+#         - frontend/src/**
 
 defaults: 
     run: 
