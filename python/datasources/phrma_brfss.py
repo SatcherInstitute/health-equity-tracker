@@ -86,15 +86,14 @@ class PhrmaBrfssData(DataSource):
         else:
             df = merge_state_ids(df)
 
+        # rename count cols
         rename_col_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
             cancer_type = condition.lower()
             rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
             rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
-            # topic_rate = f'{condition}_{ADHERENCE_RATE_LOWER}'
             rename_col_map[rate_numerator] = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
             rename_col_map[rate_denominator] = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
-            # rename_col_map[topic_rate] = f'{cancer_type}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
 
         df = df.rename(columns=rename_col_map)
 
