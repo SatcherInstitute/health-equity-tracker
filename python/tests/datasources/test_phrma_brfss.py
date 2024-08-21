@@ -35,7 +35,7 @@ def testBreakdownRaceNational(
     assert table_name == 'race_and_ethnicity_national'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -56,7 +56,7 @@ def testBreakdownRaceState(
     assert table_name == 'race_and_ethnicity_state'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -77,7 +77,7 @@ def testBreakdownAgeNational(
     assert table_name == 'age_national'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -98,7 +98,7 @@ def testBreakdownAgeState(
     assert table_name == 'age_state'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -119,7 +119,7 @@ def testBreakdownInsuranceNational(
     assert table_name == 'insurance_status_national'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -140,7 +140,7 @@ def testBreakdownInsuranceState(
     assert table_name == 'insurance_status_state'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -161,7 +161,7 @@ def testBreakdownEducationNational(
     assert table_name == 'education_national'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -182,7 +182,7 @@ def testBreakdownEducationState(
     assert table_name == 'education_state'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -203,7 +203,7 @@ def testBreakdownIncomeNational(
     assert table_name == 'income_national'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
@@ -224,4 +224,4 @@ def testBreakdownIncomeState(
     assert table_name == 'income_state'
     print("\ntable_name:", table_name)
     print(breakdown_df)
-    # breakdown_df.to_csv(table_name, index=False)
+    breakdown_df.to_csv(table_name, index=False)
