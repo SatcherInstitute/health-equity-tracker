@@ -154,7 +154,7 @@ export default function AddressingInequitiesTab() {
 						<h3 className='my-0 text-title font-medium text-altGreen'>
 							Georgia's Youth Fatality Rates
 						</h3>
-						<ul className='list-none px-4 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
+						<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 							{youthFatalitiesFacts.map((youthFatalitiesFact, index) => (
 								<FactCard key={index} content={youthFatalitiesFact.content} />
 							))}
@@ -170,7 +170,7 @@ export default function AddressingInequitiesTab() {
 							Georgia's Homicide Rates
 						</h3>
 
-						<ul className='list-none px-4 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
+						<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 							{homicideFacts.map((homicideFact, index) => (
 								<FactCard key={index} content={homicideFact.content} />
 							))}
@@ -252,7 +252,7 @@ export default function AddressingInequitiesTab() {
 						<h3 className='my-0 text-title font-medium text-altGreen'>
 							Georgia's Suicide Rates
 						</h3>
-						<ul className='list-none px-4 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
+						<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 							{suicideFacts.map((suicideFact, index) => (
 								<FactCard key={index} content={suicideFact.content} />
 							))}

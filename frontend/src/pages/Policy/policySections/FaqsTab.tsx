@@ -49,7 +49,7 @@ export default function FaqsTab() {
 								</div>
 							</AccordionSummary>
 							<AccordionDetails>
-								<div className='text-left text-text font-normal text-altBlack'>
+								<div className='my-0 px-6 py-4 text-left text-text font-normal text-altBlack'>
 									{faq.answer}
 								</div>
 							</AccordionDetails>
