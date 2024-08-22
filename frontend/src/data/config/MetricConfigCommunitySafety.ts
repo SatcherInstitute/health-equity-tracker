@@ -10,7 +10,7 @@ import {
 } from './MetricConfigUtils'
 
 export const COMMUNITY_SAFETY_DROPDOWNIDS = [
-  'gun_violence',
+  'gun_deaths_black_men',
   'gun_violence',
   'gun_violence_youth',
 ] as const
