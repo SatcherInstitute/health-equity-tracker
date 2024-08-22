@@ -1,41 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
-import { useEffect } from 'react'
 
 export default function HowToUseTheDataTab() {
-	useEffect(() => {
-		const vegaEmbedDivs = document.querySelectorAll(
-		  '.vega-embed[role="graphics-document"][aria-roledescription="visualization"][aria-label="Legend for rate map"]'
-		) as NodeListOf<HTMLElement>
-	
-		const mediaQuery = window.matchMedia('(min-width: 992px)')
-
-		function handleViewportChange(e: MediaQueryListEvent) {
-		  vegaEmbedDivs.forEach((vegaEmbedDiv) => {
-			if (e.matches) {
-			  vegaEmbedDiv.style.display = 'flex'
-			} else {
-			  vegaEmbedDiv.style.display = 'none'
-			}
-		  })
-		}
-	
-		vegaEmbedDivs.forEach((vegaEmbedDiv) => {
-		  if (mediaQuery.matches) {
-			vegaEmbedDiv.style.display = 'flex'
-		  } else {
-			vegaEmbedDiv.style.display = 'none'
-		  }
-		})
-	
-		mediaQuery.addEventListener('change', handleViewportChange)
-	
-		return () => {
-		  mediaQuery.removeEventListener('change', handleViewportChange)
-		}
-	  }, [])
-	
-
 	return (
 		<>
 			<Helmet>
@@ -74,7 +40,7 @@ export default function HowToUseTheDataTab() {
 											{dataVisual.title}
 										</h3>
 									</div>
-									<div className='xs:py-4 xs:w-full md:p-8 md:max-w-[90%]'>
+									<div className='xs:py-4 md:p-8 w-[90vw] md:max-w-[90%]'>
 										{dataVisual.customCard}
 									</div>
 									<p>{dataVisual.description}</p>
