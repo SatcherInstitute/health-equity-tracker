@@ -60,17 +60,7 @@ export default function AboutUsPage() {
           Morehouse School of Medicine
         </h3>
         <p className='max-w-md px-6 text-left'>
-          Morehouse School of Medicine (MSM), located in Atlanta, Ga., was
-          founded in 1975 as the Medical Education Program at Morehouse College.
-          In 1981, MSM became an independently chartered institution. MSM is
-          among the nation’s leading educators of primary care physicians and
-          was recently recognized as the top institution among U.S. medical
-          schools for our social mission. We exist to: improve the health and
-          well-being of individuals and communities increase the diversity of
-          the health professional and scientific workforce and address primary
-          health care through programs in education, research, and service, all
-          with an emphasis on people of color and the underserved urban and
-          rural populations in Georgia, the nation, and the world.
+        `Morehouse School of Medicine (MSM), located in Atlanta, Ga., was founded in 1975 as the Medical Education Program at Morehouse College. In 1981, MSM became an independently chartered institution. MSM is among the nation’s leading educators of primary care physicians and was recently recognized as the top institution among U.S. medical schools for our social mission. We exist to: improve the health and well-being of individuals and communities; increase the diversity of the health professional and scientific workforce; and address primary health care through programs in education, research, and service, all with an emphasis on people of color and the underserved urban and rural populations in Georgia, the nation, and the world.`
         </p>
 
         <h3 className='font-sansTitle font-medium'>
@@ -78,28 +68,23 @@ export default function AboutUsPage() {
         </h3>
 
         <p className='max-w-md px-6 text-left'>
-          Rooted in the legacy of our founder, the 16th U.S. Surgeon General,
-          Dr. David Satcher, SHLI’s mission is to create systemic change at the
-          intersection of policy and equity by focusing on three priority areas:
-          the political determinants of health, health system transformation,
-          and mental and behavioral health. In conjunction with key strategic
-          partners, SHLI enhances leadership among diverse learners, conducts
-          forward-thinking research on the drivers of health inequities, and
-          advances evidence-based policies all in an effort to contribute to
-          the achievement of health equity for all population groups.
+       `Rooted in the legacy of our founder, the 16th U.S. Surgeon General, Dr. David Satcher, SHLI’s mission is to create systemic change at the intersection of policy and equity by focusing on three priority areas: the political determinants of health, health system transformation, and mental and behavioral health. In conjunction with key strategic partners, SHLI enhances leadership among diverse learners, conducts forward-thinking research on the drivers of health inequities, and advances evidence-based policies, all in an effort to contribute to the achievement of health equity for all population groups.`
         </p>
 
         <h3 className='font-sansTitle font-medium'>
           Native Land Acknowledgment
         </h3>
 
-        <p className='max-w-md px-6 text-left'>
+        <p className='max-w-md px-6 text-left'>         
           The Health Equity Tracker and Morehouse School of Medicine
           respectfully acknowledge that our work is conducted on the ancestral
           lands of the Mvskoke (Muscogee) people, who have stewarded this land
           since time immemorial. We recognize the enduring relationship between
           the Mvskoke people and these lands and honor their past, present, and
-          future contributions to this region.<br/><br/> In acknowledging this history, we
+          future contributions to this region.
+        </p> 
+        <p className='max-w-md px-6 text-left'>
+            In acknowledging this history, we
           also commit to actions that support Indigenous communities, including
           advocating for health equity, fostering collaborations with
           Indigenous-led organizations, and ensuring that the voices of Native
