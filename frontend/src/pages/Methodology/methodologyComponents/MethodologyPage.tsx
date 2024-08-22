@@ -21,21 +21,24 @@ export default function MethodologyPage() {
 			<Helmet>
 				<title>Methodology - Health Equity Tracker</title>
 			</Helmet>
-
-			<div className='flex w-full justify-center'>
+			<section
+				className='flex w-full justify-center text-left max-w-screen'
+				id='main'
+			>
+			<div className='smMd:m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row'>
 				<h2 className='sr-only'>Methodology</h2>
 
-				<section className='m-[2%] max-w-lgXl flex flex-col grow smMd:flex-row smMd:gap-2 md:gap-12'>
+			
 					{/* MAIN METHODOLOGY PAGES MENU */}
-					<div className='min-w-fit'>
-						<MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-						<MethodologyCardMenuMobile className='m-3 smMd:hidden' />
+					<div className='min-w-fit w-fit max-w-screen'>
+						<MethodologyCardMenu className='sticky top-24 z-top hidden h-min max-w-menu smMd:block' />
+						<MethodologyCardMenuMobile className='p-3 smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-4 flex justify-center'/>
 					</div>
 
 					{/* CONTENT */}
-					<div className='flex flex-wrap grow p-1'>
+					<div className='flex grow smMd:flex-col xs:block'>
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
-						<div className='px-12 md:hidden'>
+						<div className='md:hidden px-8'>
 							{routeConfigs.map((routeConfig) => {
 								const match = useRouteMatch({
 									path: routeConfig.path,
@@ -94,8 +97,9 @@ export default function MethodologyPage() {
 							) : null;
 						})}
 					</div>
-				</section>
+			
 			</div>
+			</section>
 		</>
 	);
 }
