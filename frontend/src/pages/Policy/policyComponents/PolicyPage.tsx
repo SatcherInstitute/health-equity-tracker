@@ -27,7 +27,7 @@ export default function PolicyPage() {
 
 					<div className='min-w-fit w-fit max-w-screen'>
 						<HetCardMenu className='sticky top-24 z-top hidden h-min max-w-menu smMd:block' />
-						<HetCardMenuMobile className='p-3 smMd:hidden max-w-screen' />
+						<HetCardMenuMobile className='p-3 smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-4 flex justify-center' />
 					</div>
 					<div className='flex grow smMd:flex-col xs:block'>
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
@@ -46,18 +46,18 @@ export default function PolicyPage() {
 										</p>
 										<HetOnThisPageMenu
 											links={routeConfig.subLinks}
-											className=''
+											className='w-full'
 										/>
 									</div>
 								) : null
 							})}
 						</div>
 
-						<section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
 							<h1 className='sr-only'>{activeRoute?.label}</h1>
-							<h1 className='md:hidden font-sansTitle text-bigHeader font-bold mt-0 leading-tight'>
+							<h1 className='md:hidden font-sansTitle text-bigHeader font-bold mt-0 mb-2 px-4 leading-[1]'>
 								{activeRoute?.label}
 							</h1>
+						<section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
 							<Switch>
 								<>
 									{/* TEXT */}
