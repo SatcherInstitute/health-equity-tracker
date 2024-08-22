@@ -24,8 +24,8 @@ INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
 STATE_FIPS_LOWER = "state_fips"
 
-SCREENING_ADHERENT = 'adherent'
-SCREENING_ELIGIBLE = 'eligible'
+SCREENED = 'screened'
+SCREENING_ELIGIBLE = 'screening_eligible'
 
 
 # PHRMA CMS CONSTANTS
@@ -106,7 +106,7 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
     },
     std_col.INSURANCE_COL: {
         "Have some form of insurance": "Insured",
-        "Do not have some form of health insurance": "Not insured",
+        "Do not have some form of health insurance": "Uninsured",
         "Don´t know, refused or missing insurance response": "Unknown",
     },
     std_col.EDUCATION_COL: {
@@ -117,14 +117,14 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         "Don’t know/Not sure/Missing": "Unknown",
     },
     std_col.INCOME_COL: {
-        "Less than $15,000": "Less than $15,000",
-        "$15,000 to < $25,000": "$15,000 to < $25,000",
-        "$25,000 to < $35,000": "$25,000 to < $35,000",
-        "$35,000 to < $50,000": "$35,000 to < $50,000",
-        "$50,000 to < $75,000": "$50,000 to < $75,000",
-        "$75,000 to < $100,000": "$75,000 to < $100,000",
-        "$100,000 to < $200,000": "$100,000 to < $200,000",
-        "$200,000 or more": "$200,000 or more",
+        "Less than $15,000": "Under $15k",
+        "$15,000 to < $25,000": "$15k-$25k",
+        "$25,000 to < $35,000": "$25k-$35k",
+        "$35,000 to < $50,000": "$35k-$50k",
+        "$50,000 to < $75,000": "$50k-$75k",
+        "$75,000 to < $100,000": "$75k-$100k",
+        "$100,000 to < $200,000": "$100k-$200k",
+        "$200,000 or more": "$200k+",
         "Don’t know/Not sure/Missing": "Unknown",
     },
     std_col.LIS_COL: {
