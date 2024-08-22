@@ -13,7 +13,7 @@ from ingestion.phrma_utils import (
     COUNT_TOTAL_LOWER,
     COUNT_YES_LOWER,
     PHRMA_CANCER_PCT_CONDITIONS,
-    SCREENING_ADHERENT,
+    SCREENED,
     SCREENING_ELIGIBLE,
     BREAKDOWN_TO_STANDARD_BY_COL,
     load_phrma_df_from_data_dir,
@@ -24,7 +24,7 @@ NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
 We need to first convert these to csv files as pandas is VERY slow on excel files,
 using the `scripts/extract_excel_sheets_to_csvs` script.
 
-`./scripts/extract_excel_sheets_to_csvs --directory ../data/phrma/{SCREENING_ADHERENT}`
+`./scripts/extract_excel_sheets_to_csvs --directory ../data/phrma/{SCREENED}`
 """
 
 
@@ -77,28 +77,27 @@ class PhrmaBrfssData(DataSource):
         # ADHERENCE rate
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
             source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
-            het_col_name = f'{condition.lower()}_{SCREENING_ADHERENT}_{std_col.PCT_RATE_SUFFIX}'
+            het_col_name = f'{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
             df[het_col_name] = df[source_col_name].round()
+            df = df.drop(source_col_name, axis=1)
 
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_NAME_COL] = US_NAME
         else:
             df = merge_state_ids(df)
 
+        # rename count cols
         rename_col_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
             cancer_type = condition.lower()
             rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
             rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
-            topic_rate = f'{condition}_{ADHERENCE_RATE_LOWER}'
-            rename_col_map[rate_numerator] = f'{cancer_type}_{SCREENING_ADHERENT}_{std_col.RAW_SUFFIX}'
+            rename_col_map[rate_numerator] = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
             rename_col_map[rate_denominator] = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
-            rename_col_map[topic_rate] = f'{cancer_type}_{SCREENING_ADHERENT}_{std_col.PCT_RATE_SUFFIX}'
 
         df = df.rename(columns=rename_col_map)
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
-            print(df.to_string())
             std_col.add_race_columns_from_category_id(df)
 
         df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
