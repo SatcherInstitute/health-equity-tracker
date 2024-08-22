@@ -14,9 +14,7 @@ const CustomChoroplethMap: React.FC = () => {
               dataTypeConfig={dataTypeConfig}
               demographicType='race_and_ethnicity'
               fips={fips}
-              reportTitle={reportTitle} updateFipsCallback={function (fips: Fips): void {
-                  throw new Error('Function not implemented.')
-              } } trackerMode={'disparity'}      />
+              reportTitle={reportTitle} updateFipsCallback={ (fips: Fips) => { }} trackerMode={'disparity'}      />
     </div>
   )
 }

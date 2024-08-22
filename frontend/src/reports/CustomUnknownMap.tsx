@@ -17,7 +17,7 @@ interface CustomUnknownMapProps {
 const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
   headerScrollMargin = '50px',
   fips = new Fips('00'), 
-  updateFipsCallback = (fips: Fips) => { console.log('FIPS updated:', fips) },
+  updateFipsCallback = (fips: Fips) => { },
   demographicType = UNKNOWN_RACE,
   shareMetricConfig = true,
   reportTitle = 'Default Report Title',
