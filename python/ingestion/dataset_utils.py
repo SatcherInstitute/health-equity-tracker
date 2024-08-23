@@ -164,8 +164,6 @@ def generate_pct_share_col_with_unknowns(
     all_val: String representing an ALL demographic value in the dataframe.
     unknown_val: String representing an UNKNOWN value in the dataframe."""
 
-    print("all", all_val, "unknown", unknown_val)
-
     # First, only run the _generate_pct_share_col function on the UNKNOWNS
     # in the dataframe, so we only need the ALL and UNKNOWN rows
     unknown_all_df = df.loc[df[breakdown_col].isin({unknown_val, all_val})]
