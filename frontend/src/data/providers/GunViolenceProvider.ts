@@ -1,11 +1,9 @@
-import { type Breakdowns } from '../query/Breakdowns'
-import { DataTypeId, MetricId } from '../config/MetricConfig'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { Breakdowns } from '../query/Breakdowns'
+import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DatasetId } from '../config/DatasetMetadata'
 import { getDataManager } from '../../utils/globals'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
-
-export const SHOW_GUN_VIOLENCE = import.meta.env.VITE_SHOW_GUN_VIOLENCE
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
   'gun_violence_homicide',
@@ -46,7 +44,7 @@ class GunViolenceProvider extends VariableProvider {
   getDatasetId(
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: string
+    timeView?: string,
   ): DatasetId | undefined {
     if (timeView === 'current') {
       if (breakdowns.hasOnlyAge()) {
@@ -92,7 +90,7 @@ class GunViolenceProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
       const { breakdowns, dataTypeId, timeView } = metricQuery
@@ -118,9 +116,7 @@ class GunViolenceProvider extends VariableProvider {
     }
   }
 
-  allowsBreakdowns(
-    breakdowns: Breakdowns,
-  ): boolean {
+  allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
       breakdowns.hasExactlyOneDemographic()
 
