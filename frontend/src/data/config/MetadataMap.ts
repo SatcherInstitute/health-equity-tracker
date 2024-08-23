@@ -27,6 +27,7 @@ export type DataSourceId =
   | 'kff_vaccination'
   | 'maternal_health'
   | 'phrma'
+  | 'phrma_brfss'
   | 'the_unitedstates_project'
   | 'vera'
 
@@ -444,6 +445,32 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Disease rates and medication adherence percentages for multiple HIV, mental health, and cardiovascular conditions within the Medicare beneficiary population.',
     downloadable_data_dictionary: true,
     time_period_range: null,
+  },
+  phrma_brfss: {
+    id: 'phrma_brfss',
+    data_source_name: 'BRFSS 2012',
+    data_source_acronym: 'CDC BRFSS',
+    data_source_pretty_site_name: 'cdc.gov/brfss',
+    data_source_link: 'https://www.cdc.gov/brfss/annual_data/annual_2022.html',
+    geographic_level: 'National, State',
+    demographic_granularity:
+      'Race/ethnicity, sex, age, insurance status, income, education',
+    update_frequency: 'None',
+    description: 'Data Source: BRFSS 2012.',
+    downloadable: true,
+    time_period_range: null,
+    dataset_ids: [
+      'phrma_brfss_data-race_and_ethnicity_national',
+      'phrma_brfss_data-age_national',
+      'phrma_brfss_data-insurance_status_national',
+      'phrma_brfss_data-income_national',
+      'phrma_brfss_data-education_national',
+      'phrma_brfss_data-race_and_ethnicity_state',
+      'phrma_brfss_data-age_state',
+      'phrma_brfss_data-insurance_status_state',
+      'phrma_brfss_data-income_state',
+      'phrma_brfss_data-education_state',
+    ],
   },
   covid_tracking_project: {
     id: 'covid_tracking_project',
