@@ -1,9 +1,9 @@
-race_category_id,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name,race_and_ethnicity
-AIAN_NH,1092,1623,00,875,2264,2081,3546,90,377,9,34,62.0,34.0,57.0,23.0,17.0,United States,Indigenous (NH)
-ALL,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States,All
-ASIAN_NH,1222,1566,00,1208,3667,2356,4061,20,76,7,37,76.0,35.0,55.0,46.0,,United States,Asian (NH)
-BLACK_NH,7266,8682,00,4852,11134,12001,16903,257,906,186,494,83.0,44.0,68.0,28.0,40.0,United States,Black or African American (NH)
-HISP,4097,5482,00,5211,13054,7083,12951,119,451,26,98,74.0,38.0,53.0,29.0,26.0,United States,Hispanic or Latino
-MULTI_NH,1156,1658,00,1365,3074,2467,3848,93,404,21,54,65.0,45.0,63.0,19.0,36.0,United States,Two or more races (NH)
-NHPI_NH,197,259,00,192,514,357,617,9,50,2,5,79.0,41.0,58.0,11.0,,United States,Native Hawaiian and Pacific Islander (NH)
-WHITE_NH,62775,81007,00,42872,84215,126272,175267,4223,13942,1031,2337,77.0,50.0,70.0,28.0,41.0,United States,White (NH)
+race_category_id,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name,race_and_ethnicity,breast_screened_pct_share,cervical_screened_pct_share,colorectal_screened_pct_share,lung_screened_pct_share,prostate_screened_pct_share
+AIAN_NH,1092,1623,00,875,2264,2081,3546,90,377,9,34,62.0,34.0,57.0,23.0,17.0,United States,Indigenous (NH),1.4,1.5,1.4,1.9,0.7
+ALL,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States,All,100.0,100.0,100.0,100.0,100.0
+ASIAN_NH,1222,1566,00,1208,3667,2356,4061,20,76,7,37,76.0,35.0,55.0,46.0,,United States,Asian (NH),1.6,2.1,1.5,0.4,0.5
+BLACK_NH,7266,8682,00,4852,11134,12001,16903,257,906,186,494,83.0,44.0,68.0,28.0,40.0,United States,Black or African American (NH),9.3,8.6,7.9,5.3,14.5
+HISP,4097,5482,00,5211,13054,7083,12951,119,451,26,98,74.0,38.0,53.0,29.0,26.0,United States,Hispanic or Latino,5.3,9.2,4.6,2.5,2.0
+MULTI_NH,1156,1658,00,1365,3074,2467,3848,93,404,21,54,65.0,45.0,63.0,19.0,36.0,United States,Two or more races (NH),1.5,2.4,1.6,1.9,1.6
+NHPI_NH,197,259,00,192,514,357,617,9,50,2,5,79.0,41.0,58.0,11.0,,United States,Native Hawaiian and Pacific Islander (NH),0.3,0.3,0.2,0.2,0.2
+WHITE_NH,62775,81007,00,42872,84215,126272,175267,4223,13942,1031,2337,77.0,50.0,70.0,28.0,41.0,United States,White (NH),80.7,75.8,82.7,87.8,80.4

@@ -1,5 +1,5 @@
-insurance_status,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name
-All,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States
-Insured,74913,95073,00,53661,107638,147200,204314,4642,15242,1235,2811,78.0,48.0,69.0,29.0,39.0,United States
-Uninsured,1035,2717,00,1929,7359,2064,7671,41,491,14,144,38.0,25.0,26.0,9.0,7.0,United States
-Unknown,1857,2487,00,985,2925,3353,5208,128,473,33,104,76.0,29.0,59.0,27.0,38.0,United States
+insurance_status,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name,breast_screened_pct_share,cervical_screened_pct_share,colorectal_screened_pct_share,lung_screened_pct_share,prostate_screened_pct_share
+All,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States,100.0,100.0,100.0,100.0,100.0
+Insured,74913,95073,00,53661,107638,147200,204314,4642,15242,1235,2811,78.0,48.0,69.0,29.0,39.0,United States,98.6,96.5,98.6,99.1,98.9
+Uninsured,1035,2717,00,1929,7359,2064,7671,41,491,14,144,38.0,25.0,26.0,9.0,7.0,United States,1.4,3.5,1.4,0.9,1.1
+Unknown,1857,2487,00,985,2925,3353,5208,128,473,33,104,76.0,29.0,59.0,27.0,38.0,United States,2.4,1.7,2.2,2.7,2.6

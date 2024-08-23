@@ -1,7 +1,7 @@
-education,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name
-All,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States
-Attended college or technical school,22662,29718,00,14902,32768,42791,60553,1667,5565,290,733,77.0,45.0,69.0,29.0,37.0,United States
-Did not graduate high school,3167,4730,00,1784,6272,5899,11105,455,1672,42,228,65.0,29.0,50.0,24.0,17.0,United States
-Graduated from college or technical school,35506,43646,00,31299,55266,71198,95930,986,3190,642,1236,82.0,56.0,71.0,29.0,51.0,United States
-Graduated high school,16315,21966,00,8504,23361,32430,49121,1691,5749,302,846,74.0,36.0,64.0,30.0,30.0,United States
-Unknown,155,217,00,86,255,299,484,12,30,6,16,81.0,40.0,65.0,,50.0,United States
+education,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name,breast_screened_pct_share,cervical_screened_pct_share,colorectal_screened_pct_share,lung_screened_pct_share,prostate_screened_pct_share
+All,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States,100.0,100.0,100.0,100.0,100.0
+Attended college or technical school,22662,29718,00,14902,32768,42791,60553,1667,5565,290,733,77.0,45.0,69.0,29.0,37.0,United States,29.2,26.4,28.1,34.7,22.7
+Did not graduate high school,3167,4730,00,1784,6272,5899,11105,455,1672,42,228,65.0,29.0,50.0,24.0,17.0,United States,4.1,3.2,3.9,9.5,3.3
+Graduated from college or technical school,35506,43646,00,31299,55266,71198,95930,986,3190,642,1236,82.0,56.0,71.0,29.0,51.0,United States,45.7,55.4,46.7,20.5,50.3
+Graduated high school,16315,21966,00,8504,23361,32430,49121,1691,5749,302,846,74.0,36.0,64.0,30.0,30.0,United States,21.0,15.1,21.3,35.2,23.7
+Unknown,155,217,00,86,255,299,484,12,30,6,16,81.0,40.0,65.0,,50.0,United States,0.2,0.2,0.2,0.2,0.5
