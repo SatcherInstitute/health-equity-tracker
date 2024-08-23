@@ -93,21 +93,34 @@ class PhrmaBrfssData(DataSource):
         rename_col_map = {}
         count_to_pct_share_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
-            cancer_type = condition.lower()
+
+            # source cols
             source_rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
             source_rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
+
+            # het cols to make
+            cancer_type = condition.lower()
             het_rate_numerator = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
             het_rate_denominator = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
             het_pct_share = f'{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}'
+            het_pop_pct_share = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.POP_PCT_SUFFIX}'
+
+            # prepare rename mappings
             rename_col_map[source_rate_numerator] = het_rate_numerator
-            count_to_pct_share_map[het_rate_numerator] = het_pct_share
             rename_col_map[source_rate_denominator] = het_rate_denominator
+
+            # prepare _pct_share and _pop_pct_share mappings
+            count_to_pct_share_map[het_rate_numerator] = het_pct_share
+            count_to_pct_share_map[het_rate_denominator] = het_pop_pct_share
+
         df = df.rename(columns=rename_col_map)
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
+        # generate pct share columns
         if demo_breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL]:
+            # all demographics are known
             df = generate_pct_share_col_without_unknowns(
                 df,
                 count_to_pct_share_map,
@@ -115,6 +128,9 @@ class PhrmaBrfssData(DataSource):
                 ALL_VALUE,
             )
         else:
+            # there are rows for Unknown demographic, however the pct_shares for numerator total
+            # and denominator total are both calculated as the share of KNOWN.
+            # Unknowns are added back on to populate the Unknowns Map
             df = generate_pct_share_col_with_unknowns(
                 df,
                 count_to_pct_share_map,
