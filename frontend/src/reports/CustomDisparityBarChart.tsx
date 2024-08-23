@@ -1,25 +1,25 @@
 import type React from 'react'
+import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
-import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import { DemographicType } from '../data/query/Breakdowns';
 
-interface CustomRateTrendsLineChartProps {
+interface CustomDisparityBarChartProps {
   fips?: Fips;
   dataTypeConfig?: DataTypeConfig;
   demographicType?: DemographicType;
   reportTitle?: string;
 }
 
-const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
-  fips = new Fips('00'),
-  dataTypeConfig = METRIC_CONFIG['hiv'][0],  
-  demographicType = 'race_and_ethnicity',
-  reportTitle = 'Custom Rate Trends Line Chart',
+const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
+  fips = new Fips('12'), 
+  dataTypeConfig = METRIC_CONFIG['health_insurance'][0],  
+  demographicType = 'sex',  
+  reportTitle = 'Uninsurance in Florida by Sex', 
 }) => {
   return (
     <div>
-      <RateTrendsChartCard
+      <DisparityBarChartCard
         dataTypeConfig={dataTypeConfig}
         demographicType={demographicType}
         fips={fips}
@@ -29,4 +29,4 @@ const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
   )
 }
 
-export default CustomRateTrendsLineChart
+export default CustomDisparityBarChart

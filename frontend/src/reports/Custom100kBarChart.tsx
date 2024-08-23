@@ -1,25 +1,26 @@
 import type React from 'react'
+import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
-import RateTrendsChartCard from '../cards/RateTrendsChartCard'
+import { RACE } from '../data/utils/Constants';
 import { DemographicType } from '../data/query/Breakdowns';
 
-interface CustomRateTrendsLineChartProps {
+interface Custom100kBarChartProps {
   fips?: Fips;
   dataTypeConfig?: DataTypeConfig;
   demographicType?: DemographicType;
   reportTitle?: string;
 }
 
-const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
-  fips = new Fips('00'),
-  dataTypeConfig = METRIC_CONFIG['hiv'][0],  
-  demographicType = 'race_and_ethnicity',
-  reportTitle = 'Custom Rate Trends Line Chart',
+const Custom100kBarChart: React.FC<Custom100kBarChartProps> = ({
+  fips = new Fips('13'),  // Default to Georgia FIPS code
+  dataTypeConfig = METRIC_CONFIG['poverty'][0],
+  demographicType = RACE, 
+  reportTitle = `Poverty in ${new Fips('13').getFullDisplayName()}`,
 }) => {
   return (
     <div>
-      <RateTrendsChartCard
+      <SimpleBarChartCard
         dataTypeConfig={dataTypeConfig}
         demographicType={demographicType}
         fips={fips}
@@ -29,4 +30,4 @@ const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
   )
 }
 
-export default CustomRateTrendsLineChart
+export default Custom100kBarChart
