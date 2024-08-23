@@ -67,7 +67,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Women',
+    otherSubPopulationLabel: 'Surveyed Females',
     ageSubPopulationLabel: 'Ages 50-74',
     metrics: {
       pct_rate: {
@@ -84,24 +84,24 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'breast_screened_pct_rate',
-        chartTitle: 'Population receiving breast cancer screening',
+        chartTitle: 'Population screened for breast cancer',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'breast_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'breast_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
-          chartTitle: '',
+          chartTitle: 'Eligibility vs. distribution of screenings',
           metricId: 'breast_screening_eligible_population_pct',
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
@@ -139,7 +139,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Men',
+    otherSubPopulationLabel: 'Surveyed Males',
     ageSubPopulationLabel: 'Ages 55-69',
     metrics: {
       pct_rate: {
@@ -156,24 +156,24 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'prostate_screened_pct_rate',
-        chartTitle: 'Population receiving prostate cancer screening',
+        chartTitle: 'Population screened for prostate cancer',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'prostate_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'prostate_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
-          chartTitle: '',
+          chartTitle: 'Eligibility vs. distribution of screenings',
           metricId: 'prostate_screening_eligible_population_pct',
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
@@ -228,24 +228,24 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'colorectal_screened_pct_rate',
-        chartTitle: 'Population receiving colorectal cancer screening',
+        chartTitle: 'Population screened for colorectal cancer',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'colorectal_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'colorectal_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
-          chartTitle: '',
+          chartTitle: 'Eligibility vs. distribution of screenings',
           metricId: 'colorectal_screening_eligible_population_pct',
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
@@ -283,7 +283,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Women',
+    otherSubPopulationLabel: 'Surveyed Females',
     ageSubPopulationLabel: 'Ages 21-65',
     metrics: {
       pct_rate: {
@@ -300,24 +300,24 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'cervical_screened_pct_rate',
-        chartTitle: 'Population receiving cervical cancer screening',
+        chartTitle: 'Population screened for cervical cancer',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'cervical_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'cervical_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
-          chartTitle: '',
+          chartTitle: 'Eligibility vs. distribution of screenings',
           metricId: 'cervical_screening_eligible_population_pct',
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
@@ -354,7 +354,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Smokers',
+    otherSubPopulationLabel: 'Surveyed Smokers',
     ageSubPopulationLabel: 'Ages 50-80',
     metrics: {
       pct_rate: {
@@ -371,24 +371,24 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'lung_screened_pct_rate',
-        chartTitle: 'Population receiving lung cancer screening',
+        chartTitle: 'Population screened for lung cancer',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'lung_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'lung_screened_pct_share',
-        shortLabel: '% of screened pop.',
+        shortLabel: '% share of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
-          chartTitle: '',
+          chartTitle: 'Eligibility vs. distribution of screenings',
           metricId: 'lung_screening_eligible_population_pct',
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
