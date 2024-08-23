@@ -43,7 +43,7 @@ def testBreakdownRaceNational(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'race_and_ethnicity_national'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
     # print(breakdown_df)
 
@@ -67,7 +67,7 @@ def testBreakdownRaceState(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'race_and_ethnicity_state'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -90,7 +90,7 @@ def testBreakdownAgeNational(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'age_national'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -113,7 +113,7 @@ def testBreakdownAgeState(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'age_state'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -136,7 +136,7 @@ def testBreakdownInsuranceNational(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'insurance_status_national'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -159,7 +159,7 @@ def testBreakdownInsuranceState(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'insurance_status_state'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -182,7 +182,7 @@ def testBreakdownEducationNational(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'education_national'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -205,7 +205,7 @@ def testBreakdownEducationState(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'education_state'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -228,7 +228,7 @@ def testBreakdownIncomeNational(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'income_national'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -251,7 +251,7 @@ def testBreakdownIncomeState(
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'income_state'
-    # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
+    breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})

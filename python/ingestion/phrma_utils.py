@@ -17,6 +17,7 @@ COUNT_TOTAL_LOWER = "total_bene"
 COUNT_YES_LOWER = "bene_yes"
 COUNT_NO_LOWER = "bene_no"
 ADHERENCE_RATE_LOWER = "bene_yes_pct"
+AGE_ADJ_RATE_LOWER = "age_adjusted_pct"
 RACE_NAME_LOWER = "race_name"
 AGE_GROUP_LOWER = "age_group"
 INSURANCE_STATUS_LOWER = "insurance_status"
@@ -193,6 +194,7 @@ def rename_cols(
         COUNT_YES_LOWER: f'{condition}_{COUNT_YES_LOWER}',
         COUNT_TOTAL_LOWER: f'{condition}_{COUNT_TOTAL_LOWER}',
         ADHERENCE_RATE_LOWER: f'{condition}_{ADHERENCE_RATE_LOWER}',
+        AGE_ADJ_RATE_LOWER: f'{condition}_{AGE_ADJ_RATE_LOWER}',
     }
 
     if geo_level == COUNTY_LEVEL:
@@ -312,7 +314,17 @@ def load_phrma_df_from_data_dir(
                     PER_100K,
                 ]
         else:  # cancer
-            condition_keep_cols = [*keep_cols, COUNT_YES_LOWER, COUNT_TOTAL_LOWER, ADHERENCE_RATE_LOWER]
+            condition_keep_cols = [
+                *keep_cols,
+                COUNT_YES_LOWER,
+                COUNT_TOTAL_LOWER,
+                ADHERENCE_RATE_LOWER,
+            ]
+
+            # TODO: can we present age-adj ratios for non-race reports somehow?
+            # Only load source age-adj rates for race
+            if breakdown == std_col.RACE_OR_HISPANIC_COL:
+                condition_keep_cols.append(AGE_ADJ_RATE_LOWER)
 
         if data_type == 'standard':
             file_name = f'{condition}-{sheet_name}.csv'
