@@ -94,13 +94,14 @@ class PhrmaBrfssData(DataSource):
         count_to_pct_share_map = {}
         for condition in PHRMA_CANCER_PCT_CONDITIONS:
             cancer_type = condition.lower()
-            rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
-            rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
-            rename_col_map[rate_numerator] = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
-            count_to_pct_share_map[
-                f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
-            ] = f'{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}'
-            rename_col_map[rate_denominator] = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
+            source_rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
+            source_rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
+            het_rate_numerator = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
+            het_rate_denominator = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
+            het_pct_share = f'{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}'
+            rename_col_map[source_rate_numerator] = het_rate_numerator
+            count_to_pct_share_map[het_rate_numerator] = het_pct_share
+            rename_col_map[source_rate_denominator] = het_rate_denominator
         df = df.rename(columns=rename_col_map)
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
