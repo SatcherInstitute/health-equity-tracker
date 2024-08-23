@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import HetListItemButton from './HetListItemButton';
 import HetDivider from './HetDivider';
-import { RouteConfig, routeConfigs } from '../../pages/Policy/policyContent/routeConfigs';
+import { type RouteConfig, routeConfigs } from '../../pages/Policy/policyContent/routeConfigs';
 
 interface HetCardMenuProps {
 	className?: string;

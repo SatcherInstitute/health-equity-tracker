@@ -27,7 +27,7 @@ export default function MethodologyPagination() {
 
   /* When a previous or next step isn't available, render empty div to keep flex alignment working */
   return (
-    <div className='mx-0 mb-0 mt-4 flex w-full flex-col justify-between md:mt-8 md:flex-row md:self-stretch max-h-32'>
+    <div className='mx-0 smMd:mb-0 mb-8 mt-8 flex w-full flex-col justify-between md:mt-16 md:flex-row gap-4 md:self-stretch '>
       {prevRoute ? (
         <HetPaginationButton direction='previous' onClick={goPrevious}>
           {prevRoute.label}

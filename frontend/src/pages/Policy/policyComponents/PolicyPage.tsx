@@ -26,8 +26,8 @@ export default function PolicyPage() {
 					<h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
 					<div className='min-w-fit w-fit max-w-screen'>
-						<HetCardMenu className='sticky top-24 z-top hidden h-min max-w-menu smMd:block' />
-						<HetCardMenuMobile className='p-3 smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-4 flex justify-center' />
+						<HetCardMenu className='sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block' />
+						<HetCardMenuMobile className='smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-0 flex justify-center' />
 					</div>
 					<div className='flex grow smMd:flex-col xs:block'>
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
@@ -86,7 +86,7 @@ export default function PolicyPage() {
 								routeConfig.subLinks && routeConfig.subLinks.length > 0
 							return match && hasSublinks ? (
 								<div
-									className='min-w-40 w-48 max-w-40 sticky top-24 z-top hidden h-min max-w-menu smMd:block flex flex-col'
+									className='min-w-40 w-48 max-w-40 sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block flex flex-col'
 									key={routeConfig.path}
 								>
 									<p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
@@ -98,7 +98,7 @@ export default function PolicyPage() {
 
 									<HetOnThisPageMenu
 										links={routeConfig.subLinks}
-										className='sticky right-0 top-24 z-top h-min'
+										className='sticky right-0 top-24 z-almostTop h-min'
 									/>
 								</div>
 							) : null

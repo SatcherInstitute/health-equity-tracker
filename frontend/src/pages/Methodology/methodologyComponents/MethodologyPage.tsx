@@ -31,7 +31,7 @@ export default function MethodologyPage() {
 			
 					{/* MAIN METHODOLOGY PAGES MENU */}
 					<div className='min-w-fit w-fit max-w-screen'>
-						<MethodologyCardMenu className='sticky top-24 z-top hidden h-min max-w-menu smMd:block' />
+						<MethodologyCardMenu className='sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block' />
 						<MethodologyCardMenuMobile className='p-3 smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-4 flex justify-center'/>
 					</div>
 
@@ -47,20 +47,24 @@ export default function MethodologyPage() {
 								const hasSublinks =
 									routeConfig.subLinks && routeConfig.subLinks.length > 0;
 								return match && hasSublinks ? (
-									<HetOnThisPageMenu
-										key={routeConfig.path}
-										links={routeConfig.subLinks}
-									/>
+									<div className='mt-2 mb-12' key={routeConfig.path}>
+										<p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
+											On this page
+										</p>
+										<HetOnThisPageMenu
+											links={routeConfig.subLinks}
+											className=''
+										/>
+									</div>
 								) : null;
 							})}
 						</div>
 
-						<article className='flex w-full flex-col p-8 text-left md:p-0 '>
-							{/* HEADING */}
-							<h2 className='font-serif text-header font-light' id='main'>
+						<section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
+							<h1 className='sr-only'>{activeRoute?.label}</h1>
+							<h1 className='md:hidden font-sansTitle text-bigHeader font-bold mt-0 leading-tight'>
 								{activeRoute?.label}
-							</h2>
-
+							</h1>
 							<Switch>
 								<>
 									{/* TEXT */}
@@ -76,7 +80,7 @@ export default function MethodologyPage() {
 									<MethodologyPagination />
 								</>
 							</Switch>
-						</article>
+						</section>
 					</div>
 
 					{/* ON THIS PAGE SUB-MENU - DESKTOP */}
@@ -89,11 +93,22 @@ export default function MethodologyPage() {
 							const hasSublinks =
 								routeConfig.subLinks && routeConfig.subLinks.length > 0;
 							return match && hasSublinks ? (
-								<HetOnThisPageMenu
+								<div
+									className='min-w-40 w-48 max-w-40 sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block flex flex-col'
 									key={routeConfig.path}
-									links={routeConfig.subLinks}
-									className='sticky right-0 top-4  z-top h-min'
-								/>
+								>
+									<p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
+										On this page
+									</p>
+									<h4 className='mt-2 mb-4 font-sansTitle text-smallestHeader leading-lhNormal'>
+										{routeConfig.label}
+									</h4>
+
+									<HetOnThisPageMenu
+										links={routeConfig.subLinks}
+										className='sticky right-0 top-24 z-almostTop h-min'
+									/>
+								</div>
 							) : null;
 						})}
 					</div>
