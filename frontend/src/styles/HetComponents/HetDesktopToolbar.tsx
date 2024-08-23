@@ -3,7 +3,6 @@ import { useState } from 'react'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import { PAGE_URL_TO_NAMES } from '../../utils/urlutils'
 import HetNavLink from './HetNavLink'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export default function HetAppToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -35,7 +34,6 @@ export default function HetAppToolbar() {
       </h1>
 
       <nav className='flex max-w-md justify-evenly lg:max-w-lg items-center'>
-        {/* Basic Links */}
         {Object.entries(PAGE_URL_TO_NAMES).map(([pageUrl, pageName]) => (
           <HetNavLink
             key={pageUrl}
@@ -45,54 +43,6 @@ export default function HetAppToolbar() {
             {pageName}
           </HetNavLink>
         ))}
-
-        {/* Example Folder with Dropdown */}
-        {/* <div className='relative'>
-          <Button
-            className='font-sansTitle text-small font-medium text-navlinkColor'
-            onClick={(e) => handleClick(e, 'Data')}
-            endIcon={<ExpandMoreIcon />}
-          >
-            Data
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={activeMenu === 'Data'}
-            onClose={handleClose}
-            classes={{ paper: 'bg-white' }}
-          >
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/data/explore'>Explore Data</HetNavLink>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/data/catalog'>Data Catalog</HetNavLink>
-            </MenuItem>
-          </Menu>
-        </div> */}
-
-        {/* Another Folder Example */}
-        {/* <div className='relative'>
-          <Button
-            className='font-sansTitle text-small font-medium text-navlinkColor'
-            onClick={(e) => handleClick(e, 'About')}
-            endIcon={<ExpandMoreIcon />}
-          >
-            About
-          </Button>
-          <Menu
-            anchorEl={anchorEl}
-            open={activeMenu === 'About'}
-            onClose={handleClose}
-            classes={{ paper: 'bg-white' }}
-          >
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/about/mission'>Our Mission</HetNavLink>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/about/team'>Our Team</HetNavLink>
-            </MenuItem>
-          </Menu>
-        </div> */}
       </nav>
     </Toolbar>
   )

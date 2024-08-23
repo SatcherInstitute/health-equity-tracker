@@ -2,9 +2,9 @@ import { Helmet } from 'react-helmet-async'
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import { routeConfigs } from '../policyContent/routeConfigs'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
-import HetCardMenu from '../../../styles/HetComponents/HetCardMenu'
-import HetCardMenuMobile from '../../../styles/HetComponents/HetCardMenuMobile'
 import PolicyPagination from './PolicyPagination'
+import PolicyCardMenuMobile from './PolicyCardMenuMobile'
+import PolicyCardMenu from './PolicyCardMenu'
 
 export default function PolicyPage() {
 	const location = useLocation()
@@ -26,8 +26,8 @@ export default function PolicyPage() {
 					<h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
 					<div className='min-w-fit w-fit max-w-screen'>
-						<HetCardMenu className='sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block' />
-						<HetCardMenuMobile className='smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-0 flex justify-center' />
+						<PolicyCardMenu/>
+						<PolicyCardMenuMobile/>
 					</div>
 					<div className='flex grow smMd:flex-col xs:block'>
 						{/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}

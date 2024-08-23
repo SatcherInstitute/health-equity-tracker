@@ -31,8 +31,8 @@ export default function MethodologyPage() {
 			
 					{/* MAIN METHODOLOGY PAGES MENU */}
 					<div className='min-w-fit w-fit max-w-screen'>
-						<MethodologyCardMenu className='sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block' />
-						<MethodologyCardMenuMobile className='p-3 smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-4 flex justify-center'/>
+						<MethodologyCardMenu/>
+						<MethodologyCardMenuMobile/>
 					</div>
 
 					{/* CONTENT */}

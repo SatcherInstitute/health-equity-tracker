@@ -1,10 +1,11 @@
 import Toolbar from '@mui/material/Toolbar';
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { routeConfigs } from '../../pages/Policy/policyContent/routeConfigs';
 
 interface HetCardMenuMobileProps {
 	className?: string;
+	routeConfigs: { path: string; label: string }[];
+	label: string;
 }
 
 export default function HetCardMenuMobile(
@@ -26,15 +27,15 @@ export default function HetCardMenuMobile(
 				<Toolbar className='w-screen px-0 flex justify-center'>
 					<FormControl sx={{ minWidth: '90vw' }} size='medium'>
 						<InputLabel id='context-select-label'>
-							Policy Context Pages
+							{props.label}
 						</InputLabel>
 						<Select
 							labelId='context-select-label'
 							value={window.location.pathname}
 							onChange={handleSelected}
-							label='Policy Context Pages'
+							label={props.label}
 						>
-							{routeConfigs.map((config) => (
+							{props.routeConfigs.map((config) => (
 								<MenuItem key={config.path} value={config.path}>
 									{config.label}
 								</MenuItem>
