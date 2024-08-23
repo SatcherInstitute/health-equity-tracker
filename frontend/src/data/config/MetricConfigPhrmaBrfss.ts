@@ -33,6 +33,7 @@ export type PhrmaBrfssMetricId =
   | 'prostate_screened_pct_share'
 
 export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
+  // Breast Cancer Screening
   {
     categoryId: 'cancer',
     dataTypeId: 'breast_cancer_screening',
@@ -79,7 +80,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         metricId: 'breast_screened_pct_rate',
         chartTitle: 'Population receiving breast cancer screening',
-        shortLabel: '% of eligible pop. who receiving screenings',
+        shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
@@ -96,6 +97,8 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       },
     },
   },
+
+  // Prostate Cancer Screening
   {
     categoryId: 'cancer',
     dataTypeId: 'prostate_cancer_screening',
@@ -124,8 +127,8 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    otherSubPopulationLabel: 'Women',
-    ageSubPopulationLabel: 'Ages 50-74',
+    otherSubPopulationLabel: 'Men',
+    ageSubPopulationLabel: 'Ages 55-69',
     metrics: {
       pct_rate: {
         rateNumeratorMetric: {
@@ -142,7 +145,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         metricId: 'prostate_screened_pct_rate',
         chartTitle: 'Population receiving prostate cancer screening',
-        shortLabel: '% of eligible pop. who receiving screenings',
+        shortLabel: '% screened',
         type: 'pct_rate',
       },
       pct_share_unknown: {
@@ -154,6 +157,200 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'prostate_screened_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+
+  // Colorectal Cancer Screening
+  {
+    categoryId: 'cancer',
+    dataTypeId: 'colorectal_cancer_screening',
+    dataTableTitle: 'Breakdown summary for colorectal cancer screening',
+    mapConfig: medicareHigherIsBetterMapConfig,
+    dataTypeShortLabel: 'Colorectal cancer',
+    fullDisplayName: 'colorectal cancer screening',
+    surveyCollectedData: true,
+    definition: {
+      text: ``,
+      citations: [
+        {
+          shortLabel: '',
+          longerTitle: '',
+          url: '',
+        },
+      ],
+    },
+    description: {
+      text: ``,
+      citations: [
+        {
+          shortLabel: '',
+          longerTitle: '',
+          url: '',
+        },
+      ],
+    },
+    otherSubPopulationLabel: '',
+    ageSubPopulationLabel: 'Ages 45-75',
+    metrics: {
+      pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'colorectal_screened_estimated_total',
+          shortLabel: 'screenings',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'colorectal_screening_eligible_estimated_total',
+          shortLabel: 'Total population recommended for screening',
+          chartTitle: '',
+          type: 'count',
+        },
+        metricId: 'colorectal_screened_pct_rate',
+        chartTitle: 'Population receiving colorectal cancer screening',
+        shortLabel: '% screened',
+        type: 'pct_rate',
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'colorectal_screened_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+      pct_share: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'colorectal_screened_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+
+  // Cervical Cancer Screening
+  {
+    categoryId: 'cancer',
+    dataTypeId: 'cervical_cancer_screening',
+    dataTableTitle: 'Breakdown summary for cervical cancer screening',
+    mapConfig: medicareHigherIsBetterMapConfig,
+    dataTypeShortLabel: 'Cervical cancer',
+    fullDisplayName: 'cervical cancer screening',
+    surveyCollectedData: true,
+    definition: {
+      text: ``,
+      citations: [
+        {
+          shortLabel: '',
+          longerTitle: '',
+          url: '',
+        },
+      ],
+    },
+    description: {
+      text: ``,
+      citations: [
+        {
+          shortLabel: '',
+          longerTitle: '',
+          url: '',
+        },
+      ],
+    },
+    otherSubPopulationLabel: 'Women',
+    ageSubPopulationLabel: 'Ages 21-65',
+    metrics: {
+      pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'cervical_screened_estimated_total',
+          shortLabel: 'screenings',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'cervical_screening_eligible_estimated_total',
+          shortLabel: 'Total population recommended for screening',
+          chartTitle: '',
+          type: 'count',
+        },
+        metricId: 'cervical_screened_pct_rate',
+        chartTitle: 'Population receiving cervical cancer screening',
+        shortLabel: '% screened',
+        type: 'pct_rate',
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'cervical_screened_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+      pct_share: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'cervical_screened_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+
+  {
+    categoryId: 'cancer',
+    dataTypeId: 'lung_cancer_screening',
+    dataTableTitle: 'Breakdown summary for lung cancer screening',
+    mapConfig: medicareHigherIsBetterMapConfig,
+    dataTypeShortLabel: 'Lung cancer',
+    fullDisplayName: 'lung cancer screening',
+    surveyCollectedData: true,
+    definition: {
+      text: ``,
+      citations: [
+        {
+          shortLabel: '',
+          longerTitle: '',
+          url: '',
+        },
+      ],
+    },
+    description: {
+      text: ``,
+      citations: [
+        {
+          shortLabel: '',
+          longerTitle: '',
+          url: '',
+        },
+      ],
+    },
+    otherSubPopulationLabel: 'Smokers',
+    ageSubPopulationLabel: 'Ages 50-80',
+    metrics: {
+      pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'lung_screened_estimated_total',
+          shortLabel: 'screenings',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'lung_screening_eligible_estimated_total',
+          shortLabel: 'Total population recommended for screening',
+          chartTitle: '',
+          type: 'count',
+        },
+        metricId: 'lung_screened_pct_rate',
+        chartTitle: 'Population receiving lung cancer screening',
+        shortLabel: '% screened',
+        type: 'pct_rate',
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'lung_screened_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+      pct_share: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'lung_screened_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
       },
