@@ -789,14 +789,17 @@ def get_timeview_df_and_cols(
     if time_view == 'current':
         df = preserve_most_recent_year_rows_per_topic(df, topic_prefixes)
 
-    # build BigQuery types dict
-    bq_col_types: Dict[str, str] = {}
-    for kept_col in df.columns:
-        bq_col_types[kept_col] = (
-            BQ_FLOAT if std_col.ends_with_suffix_from_list(kept_col, std_col.SUFFIXES) else BQ_STRING
-        )
+    bq_col_types = build_bq_col_types(df)
 
     return (df, bq_col_types)
+
+
+def build_bq_col_types(df: pd.DataFrame) -> Dict[str, str]:
+    """Returns a dict mapping column names needed by BigQuery to their BQ types."""
+    bq_col_types: Dict[str, str] = {}
+    for col in df.columns:
+        bq_col_types[col] = BQ_FLOAT if std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) else BQ_STRING
+    return bq_col_types
 
 
 # TODO: Remove in favor of new function get_timeview_df_and_cols() above
