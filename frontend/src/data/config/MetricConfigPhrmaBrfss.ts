@@ -79,7 +79,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'breast_screening_eligible_estimated_total',
-          shortLabel: 'Total population recommended for screening',
+          shortLabel: 'Total eligible',
           chartTitle: '',
           type: 'count',
         },
@@ -91,19 +91,19 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'breast_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'breast_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
           chartTitle: '',
           metricId: 'breast_screening_eligible_population_pct',
-          shortLabel: '',
+          shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
       },
@@ -151,7 +151,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'prostate_screening_eligible_estimated_total',
-          shortLabel: 'Total population recommended for screening',
+          shortLabel: 'Total eligible',
           chartTitle: '',
           type: 'count',
         },
@@ -163,19 +163,19 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'prostate_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'prostate_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
           chartTitle: '',
           metricId: 'prostate_screening_eligible_population_pct',
-          shortLabel: '',
+          shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
       },
@@ -223,7 +223,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'colorectal_screening_eligible_estimated_total',
-          shortLabel: 'Total population recommended for screening',
+          shortLabel: 'Total eligible',
           chartTitle: '',
           type: 'count',
         },
@@ -235,19 +235,19 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'colorectal_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'colorectal_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
           chartTitle: '',
           metricId: 'colorectal_screening_eligible_population_pct',
-          shortLabel: '',
+          shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
       },
@@ -295,7 +295,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'cervical_screening_eligible_estimated_total',
-          shortLabel: 'Total population recommended for screening',
+          shortLabel: 'Total eligible',
           chartTitle: '',
           type: 'count',
         },
@@ -307,19 +307,19 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'cervical_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'cervical_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
           chartTitle: '',
           metricId: 'cervical_screening_eligible_population_pct',
-          shortLabel: '',
+          shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
       },
@@ -366,7 +366,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'lung_screening_eligible_estimated_total',
-          shortLabel: 'Total population recommended for screening',
+          shortLabel: 'Total eligible',
           chartTitle: '',
           type: 'count',
         },
@@ -378,19 +378,19 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'lung_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
       },
       pct_share: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'lung_screened_pct_share',
-        shortLabel: '% of adherent pop.',
+        shortLabel: '% of screened pop.',
         type: 'pct_share',
 
         populationComparisonMetric: {
           chartTitle: '',
           metricId: 'lung_screening_eligible_population_pct',
-          shortLabel: '',
+          shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
       },
