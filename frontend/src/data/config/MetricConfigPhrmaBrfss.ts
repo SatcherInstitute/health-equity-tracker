@@ -15,22 +15,27 @@ export type PhrmaBrfssMetricId =
   | 'breast_screening_eligible_estimated_total'
   | 'breast_screened_pct_rate'
   | 'breast_screened_pct_share'
+  | 'breast_screening_eligible_population_pct'
   | 'cervical_screened_estimated_total'
   | 'cervical_screening_eligible_estimated_total'
   | 'cervical_screened_pct_rate'
   | 'cervical_screened_pct_share'
+  | 'cervical_screening_eligible_population_pct'
   | 'colorectal_screened_estimated_total'
   | 'colorectal_screening_eligible_estimated_total'
   | 'colorectal_screened_pct_rate'
   | 'colorectal_screened_pct_share'
+  | 'colorectal_screening_eligible_population_pct'
   | 'lung_screened_estimated_total'
   | 'lung_screening_eligible_estimated_total'
   | 'lung_screened_pct_rate'
   | 'lung_screened_pct_share'
+  | 'lung_screening_eligible_population_pct'
   | 'prostate_screened_estimated_total'
   | 'prostate_screening_eligible_estimated_total'
   | 'prostate_screened_pct_rate'
   | 'prostate_screened_pct_share'
+  | 'prostate_screening_eligible_population_pct'
 
 export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   // Breast Cancer Screening
@@ -94,6 +99,13 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         metricId: 'breast_screened_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
+
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'breast_screening_eligible_population_pct',
+          shortLabel: '',
+          type: 'pct_share',
+        },
       },
     },
   },
@@ -159,6 +171,13 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         metricId: 'prostate_screened_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
+
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'prostate_screening_eligible_population_pct',
+          shortLabel: '',
+          type: 'pct_share',
+        },
       },
     },
   },
@@ -224,6 +243,13 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         metricId: 'colorectal_screened_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
+
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'colorectal_screening_eligible_population_pct',
+          shortLabel: '',
+          type: 'pct_share',
+        },
       },
     },
   },
@@ -289,6 +315,13 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         metricId: 'cervical_screened_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
+
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'cervical_screening_eligible_population_pct',
+          shortLabel: '',
+          type: 'pct_share',
+        },
       },
     },
   },
@@ -353,6 +386,13 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
         metricId: 'lung_screened_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
+
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'lung_screening_eligible_population_pct',
+          shortLabel: '',
+          type: 'pct_share',
+        },
       },
     },
   },
