@@ -1,11 +1,11 @@
-income,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name
-$100k-$200k,13060,15779,00,14120,23835,29481,41082,388,1425,286,590,82.0,57.0,69.0,28.0,44.0,United States
-$15k-$25k,6024,8724,00,3266,9431,10870,16919,787,2593,81,277,68.0,34.0,59.0,30.0,24.0,United States
-$200k+,3729,4386,00,4772,7379,9938,13805,61,278,114,224,86.0,62.0,70.0,17.0,47.0,United States
-$25k-$35k,7032,9679,00,4246,11174,13340,19770,671,2347,104,284,72.0,37.0,63.0,29.0,44.0,United States
-$35k-$50k,8431,11056,00,5081,11807,15838,22501,664,2075,110,294,76.0,42.0,66.0,32.0,33.0,United States
-$50k-$75k,11622,14615,00,8020,16236,22805,31289,677,2131,183,395,78.0,48.0,70.0,27.0,37.0,United States
-$75k-$100k,9663,11795,00,7925,14584,19387,26352,413,1330,171,352,82.0,53.0,70.0,29.0,45.0,United States
-All,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States
-Under $15k,3664,5659,00,2110,6581,6622,11087,512,1895,34,180,64.0,32.0,56.0,27.0,22.0,United States
-Unknown,14580,18584,00,7035,16895,24336,34388,638,2132,199,463,77.0,36.0,66.0,26.0,33.0,United States
+income,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name,breast_screened_pct_share,cervical_screened_pct_share,colorectal_screened_pct_share,lung_screened_pct_share,prostate_screened_pct_share
+$100k-$200k,13060,15779,00,14120,23835,29481,41082,388,1425,286,590,82.0,57.0,69.0,28.0,44.0,United States,20.7,28.5,23.0,9.3,26.4
+$15k-$25k,6024,8724,00,3266,9431,10870,16919,787,2593,81,277,68.0,34.0,59.0,30.0,24.0,United States,9.5,6.6,8.5,18.9,7.5
+$200k+,3729,4386,00,4772,7379,9938,13805,61,278,114,224,86.0,62.0,70.0,17.0,47.0,United States,5.9,9.6,7.7,1.5,10.5
+$25k-$35k,7032,9679,00,4246,11174,13340,19770,671,2347,104,284,72.0,37.0,63.0,29.0,44.0,United States,11.1,8.6,10.4,16.1,9.6
+$35k-$50k,8431,11056,00,5081,11807,15838,22501,664,2075,110,294,76.0,42.0,66.0,32.0,33.0,United States,13.3,10.3,12.3,15.9,10.2
+$50k-$75k,11622,14615,00,8020,16236,22805,31289,677,2131,183,395,78.0,48.0,70.0,27.0,37.0,United States,18.4,16.2,17.8,16.2,16.9
+$75k-$100k,9663,11795,00,7925,14584,19387,26352,413,1330,171,352,82.0,53.0,70.0,29.0,45.0,United States,15.3,16.0,15.1,9.9,15.8
+All,77805,100277,00,56575,117922,152617,217193,4811,16206,1282,3059,77.0,45.0,66.0,28.0,37.0,United States,100.0,100.0,100.0,100.0,100.0
+Under $15k,3664,5659,00,2110,6581,6622,11087,512,1895,34,180,64.0,32.0,56.0,27.0,22.0,United States,5.8,4.3,5.2,12.3,3.1
+Unknown,14580,18584,00,7035,16895,24336,34388,638,2132,199,463,77.0,36.0,66.0,26.0,33.0,United States,18.7,12.4,15.9,13.3,15.5
