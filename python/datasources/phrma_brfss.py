@@ -142,7 +142,6 @@ class PhrmaBrfssData(DataSource):
             )
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
-            # if demo_breakdown != std_col.AGE_COL:
             df = get_age_adjusted_ratios(df)
 
         df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
