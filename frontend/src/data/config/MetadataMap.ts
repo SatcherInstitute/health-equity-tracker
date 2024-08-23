@@ -1,5 +1,4 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
-import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 import type { DatasetId } from './DatasetMetadata'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -509,7 +508,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     time_period_range: null,
   },
   cdc_wisqars: {
-    hideFromUser: !SHOW_GUN_VIOLENCE,
     id: 'cdc_wisqars',
     data_source_name: `CDC WISQARS`,
     data_source_acronym: 'CDC',
