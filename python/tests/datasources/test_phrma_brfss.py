@@ -45,6 +45,7 @@ def testBreakdownRaceNational(
     assert table_name == 'race_and_ethnicity_national'
     # breakdown_df.to_csv(f'python/tests/data/phrma_brfss/golden_data/expected_{table_name}.csv', index=False)
     # breakdown_df.to_csv(table_name, index=False)
+    # print(breakdown_df)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
