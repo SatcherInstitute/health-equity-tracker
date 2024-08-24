@@ -16,26 +16,31 @@ export type PhrmaBrfssMetricId =
   | 'breast_screened_pct_rate'
   | 'breast_screened_pct_share'
   | 'breast_screening_eligible_population_pct'
+  | 'breast_screened_ratio_age_adjusted'
   | 'cervical_screened_estimated_total'
   | 'cervical_screening_eligible_estimated_total'
   | 'cervical_screened_pct_rate'
   | 'cervical_screened_pct_share'
   | 'cervical_screening_eligible_population_pct'
+  | 'cervical_screened_ratio_age_adjusted'
   | 'colorectal_screened_estimated_total'
   | 'colorectal_screening_eligible_estimated_total'
   | 'colorectal_screened_pct_rate'
   | 'colorectal_screened_pct_share'
   | 'colorectal_screening_eligible_population_pct'
+  | 'colorectal_screened_ratio_age_adjusted'
   | 'lung_screened_estimated_total'
   | 'lung_screening_eligible_estimated_total'
   | 'lung_screened_pct_rate'
   | 'lung_screened_pct_share'
   | 'lung_screening_eligible_population_pct'
+  | 'lung_screened_ratio_age_adjusted'
   | 'prostate_screened_estimated_total'
   | 'prostate_screening_eligible_estimated_total'
   | 'prostate_screened_pct_rate'
   | 'prostate_screened_pct_share'
   | 'prostate_screening_eligible_population_pct'
+  | 'prostate_screened_ratio_age_adjusted'
 
 export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   // Breast Cancer Screening
@@ -84,7 +89,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'breast_screened_pct_rate',
-        chartTitle: 'Population screened for breast cancer',
+        chartTitle: 'Breast Cancer Screening Adherence',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
@@ -106,6 +111,14 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
+      },
+      age_adjusted_ratio: {
+        metricId: 'breast_screened_ratio_age_adjusted',
+        chartTitle:
+          'Age-adjusted breast cancering screening rate compared to White (NH)',
+        shortLabel: 'Ratio compared to White (NH)',
+        type: 'age_adjusted_ratio',
+        ageAdjusted: true,
       },
     },
   },
@@ -156,7 +169,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'prostate_screened_pct_rate',
-        chartTitle: 'Population screened for prostate cancer',
+        chartTitle: 'Prostate Cancer Screening Adherence',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
@@ -178,6 +191,14 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
+      },
+      age_adjusted_ratio: {
+        metricId: 'prostate_screened_ratio_age_adjusted',
+        chartTitle:
+          'Age-adjusted prostate cancer screening rate compared to White (NH)',
+        shortLabel: 'Ratio compared to White (NH)',
+        type: 'age_adjusted_ratio',
+        ageAdjusted: true,
       },
     },
   },
@@ -228,7 +249,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'colorectal_screened_pct_rate',
-        chartTitle: 'Population screened for colorectal cancer',
+        chartTitle: 'Colorectal Cancer Screening Adherence',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
@@ -250,6 +271,14 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
+      },
+      age_adjusted_ratio: {
+        metricId: 'colorectal_screened_ratio_age_adjusted',
+        chartTitle:
+          'Age-adjusted colorectal cancer screening rate compared to White (NH)',
+        shortLabel: 'Ratio compared to White (NH)',
+        type: 'age_adjusted_ratio',
+        ageAdjusted: true,
       },
     },
   },
@@ -300,7 +329,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'cervical_screened_pct_rate',
-        chartTitle: 'Population screened for cervical cancer',
+        chartTitle: 'Cervical Cancer Screening Adherence',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
@@ -322,6 +351,14 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
+      },
+      age_adjusted_ratio: {
+        metricId: 'cervical_screened_ratio_age_adjusted',
+        chartTitle:
+          'Age-adjusted cervical cancer screening rate compared to White (NH)',
+        shortLabel: 'Ratio compared to White (NH)',
+        type: 'age_adjusted_ratio',
+        ageAdjusted: true,
       },
     },
   },
@@ -371,7 +408,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'lung_screened_pct_rate',
-        chartTitle: 'Population screened for lung cancer',
+        chartTitle: 'Lung Cancer Screening Adherence',
         shortLabel: '% screened',
         type: 'pct_rate',
       },
@@ -393,6 +430,14 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
           shortLabel: '% share of eligible pop.',
           type: 'pct_share',
         },
+      },
+      age_adjusted_ratio: {
+        metricId: 'lung_screened_ratio_age_adjusted',
+        chartTitle:
+          'Age-adjusted lung cancer screening rate compared to White (NH)',
+        shortLabel: 'Ratio compared to White (NH)',
+        type: 'age_adjusted_ratio',
+        ageAdjusted: true,
       },
     },
   },
