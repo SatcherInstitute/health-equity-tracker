@@ -37,7 +37,7 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
           {prevRoute.label}
         </HetPaginationButton>
       ) : (
-        <div></div>
+        null
       )}
 
       {nextRoute ? (
