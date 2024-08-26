@@ -109,7 +109,7 @@ export default function App() {
 										</main>
 									}
 								>
-									<main className='scroll-smooth'>
+									<main id='main' className='scroll-smooth'>
 										<Switch>
 											<Route path={ABOUT_US_PAGE_LINK}>
 												<AboutUsPage />
