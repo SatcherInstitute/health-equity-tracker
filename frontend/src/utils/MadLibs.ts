@@ -219,14 +219,7 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-  {
-    title: 'Medication Utilization in the Medicare Population',
-    definition: '',
-    // TODO: clean this up once PHRMA fully launched all topics
-    options: SHOW_PHRMA_MENTAL_HEALTH
-      ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
-      : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
-  },
+
   {
     title: 'COVID-19',
     definition: '',
@@ -236,6 +229,14 @@ const CATEGORIES_LIST: Category[] = [
     title: 'Community Safety',
     definition: '',
     options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
+  },
+  {
+    title: 'Medication Utilization in the Medicare Population',
+    definition: '',
+    // TODO: clean this up once PHRMA fully launched all topics
+    options: SHOW_PHRMA_MENTAL_HEALTH
+      ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
+      : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
   },
 ]
 
