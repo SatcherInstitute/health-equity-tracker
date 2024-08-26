@@ -126,7 +126,7 @@ export const RESOURCES: ResourceGroup = {
 
     {
       name: 'Medical Justice In Advocacy Fellowship',
-      url: 'https://www.ama-assn.org/about/ama-center-health-equity/medical-justice-advocacy-fellowship'
+      url: 'https://www.ama-assn.org/about/ama-center-health-equity/medical-justice-advocacy-fellowship',
     },
   ],
 }
@@ -225,8 +225,8 @@ export const MENTAL_HEALTH_RESOURCES: ResourceGroup = {
       url: 'https://www.samhsa.gov/data/data-we-collect/nsduh-national-survey-drug-use-and-health',
     },
     {
-      name: 'National Strategy for Suicide Prevention Implementation Assessment Report (NSSP)',
-      url: 'https://store.samhsa.gov/product/National-Strategy-for-Suicide-Prevention-Implementation-Assessment-Report/sma17-5051',
+      name: 'National Strategy for Suicide Prevention and Federal Action Plan',
+      url: 'https://store.samhsa.gov/product/national-strategy-suicide-prevention-and-federal-action-plan/pep24-01-005',
     },
   ],
 }
