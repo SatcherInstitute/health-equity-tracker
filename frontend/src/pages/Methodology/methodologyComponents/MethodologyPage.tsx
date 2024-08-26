@@ -21,9 +21,11 @@ export default function MethodologyPage() {
         <Helmet>
           <title>Methodology - Health Equity Tracker</title>
         </Helmet>
-        <h1 className='sr-only' id='page-heading'>
-          {activeRoute?.label}
-        </h1>
+        {activeRoute?.visible && (
+				<h1 className='sr-only' id='page-heading'>
+					{activeRoute?.label}
+				</h1>
+			)}
         <section
           className='flex w-full justify-center text-left max-w-screen'
           aria-labelledby='page-heading'
@@ -61,9 +63,11 @@ export default function MethodologyPage() {
               </div>
 
               <section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
-                <h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-tight'>
-                  {activeRoute?.label}
-                </h1>
+              {activeRoute?.visible && (
+								<h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-tight'>
+									{activeRoute?.label}
+								</h1>
+							)}
                 <h2 className='sr-only'>{activeRoute?.label}</h2>
                 <Switch>
                   <>
