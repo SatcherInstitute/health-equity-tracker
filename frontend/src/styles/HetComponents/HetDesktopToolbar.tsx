@@ -1,8 +1,9 @@
-import { Toolbar, Menu, MenuItem, Button, IconButton } from '@mui/material'
+import { Toolbar, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import { PAGE_URL_TO_NAMES } from '../../utils/urlutils'
 import HetNavLink from './HetNavLink'
+import HetNavButton from './HetNavButton'
 
 export default function HetAppToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -27,22 +28,62 @@ export default function HetAppToolbar() {
             className='h-littleHetLogo w-littleHetLogo'
             alt='Health Equity Tracker logo'
           />
-          <span className='grow pl-5 text-left font-sansTitle text-navBarHeader font-medium leading-lhSomeSpace text-altGreen no-underline lg:inline xs:hidden'>
+          <span className='grow pl-5 text-left font-sansTitle text-navBarHeader font-medium leading-lhSomeSpace text-altGreen no-underline'>
             Health Equity Tracker
           </span>
         </HetNavLink>
       </h1>
 
-      <nav className='flex max-w-md justify-evenly lg:max-w-lg items-center'>
+      <nav className='flex max-w-sm flex-wrap justify-evenly lg:max-w-lg'>
         {Object.entries(PAGE_URL_TO_NAMES).map(([pageUrl, pageName]) => (
           <HetNavLink
             key={pageUrl}
             href={pageUrl}
-            className='my-0 w-fit p-0 font-sansTitle md:text-small sm:text-smallest font-medium text-navlinkColor'
+          
           >
             {pageName}
           </HetNavLink>
         ))}
+        <div className='relative'>
+        <HetNavButton
+            label='Data'
+            onClick={(e) => handleClick(e, 'Data')}
+            isExpanded={activeMenu === 'Data'}
+          />
+          <Menu
+            anchorEl={anchorEl}
+            open={activeMenu === 'Data'}
+            onClose={handleClose}
+            classes={{ paper: 'bg-white' }}
+          >
+            <MenuItem onClick={handleClose}>
+              <HetNavLink href='/data/explore'>Explore Data</HetNavLink>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <HetNavLink href='/data/catalog'>Data Catalog</HetNavLink>
+            </MenuItem>
+          </Menu>
+        </div>
+        <div className='relative'>
+        <HetNavButton
+            label='Data'
+            onClick={(e) => handleClick(e, 'Data')}
+            isExpanded={activeMenu === 'Data'}
+          />
+          <Menu
+            anchorEl={anchorEl}
+            open={activeMenu === 'About'}
+            onClose={handleClose}
+            classes={{ paper: 'bg-white' }}
+          >
+            <MenuItem onClick={handleClose}>
+              <HetNavLink href='/about/mission'>Our Mission</HetNavLink>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <HetNavLink href='/about/team'>Our Team</HetNavLink>
+            </MenuItem>
+          </Menu>
+        </div>
       </nav>
     </Toolbar>
   )

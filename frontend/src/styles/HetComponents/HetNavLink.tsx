@@ -20,7 +20,7 @@ export default function HetNavLink(props: HetNavLinkProps) {
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       className={`no-underline ${props.linkClassName ?? ''}`}>
-      <span className={`px-6 flex items-center justify-center text-altBlack hover:text-altGreen ${props.className ?? ''}`}>
+      <span className={`py-2 px-6 flex items-center justify-center text-altBlack hover:text-altGreen my-0 w-auto font-sansTitle text-small font-medium text-navlinkColor ${props.className ?? ''}`}>
         {props.children}
       </span>
     </Link>
