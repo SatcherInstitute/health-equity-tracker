@@ -10,6 +10,8 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
+export const SHOW_CANCER_SCREENINGS = import.meta.env.VITE_SHOW_CANCER_SCREENINGS
+
 export const PHRMA_BRFSS_CONDITIONS: DropdownVarId[] = ['cancer_screening']
 
 export const PHRMA_BRFSS_DATATYPES: DataTypeId[] = [

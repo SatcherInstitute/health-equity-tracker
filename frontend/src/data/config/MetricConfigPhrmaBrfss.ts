@@ -47,7 +47,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'cancer',
     dataTypeId: 'breast_cancer_screening',
-    dataTableTitle: 'Breakdown summary for breast cancer screening',
+    dataTableTitle: 'Summary for breast cancer screening',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Breast cancer',
     fullDisplayName: 'Breast cancer screening',
@@ -127,7 +127,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'cancer',
     dataTypeId: 'prostate_cancer_screening',
-    dataTableTitle: 'Breakdown summary for prostate cancer screening',
+    dataTableTitle: 'Summary for prostate cancer screening',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Prostate cancer',
     fullDisplayName: 'prostate cancer screening',
@@ -207,7 +207,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'cancer',
     dataTypeId: 'colorectal_cancer_screening',
-    dataTableTitle: 'Breakdown summary for colorectal cancer screening',
+    dataTableTitle: 'Summary for colorectal cancer screening',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Colorectal cancer',
     fullDisplayName: 'colorectal cancer screening',
@@ -287,7 +287,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'cancer',
     dataTypeId: 'cervical_cancer_screening',
-    dataTableTitle: 'Breakdown summary for cervical cancer screening',
+    dataTableTitle: 'Summary for cervical cancer screening',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Cervical cancer',
     fullDisplayName: 'cervical cancer screening',
@@ -366,7 +366,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'cancer',
     dataTypeId: 'lung_cancer_screening',
-    dataTableTitle: 'Breakdown summary for lung cancer screening',
+    dataTableTitle: 'Summary for lung cancer screening',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Lung cancer',
     fullDisplayName: 'lung cancer screening',

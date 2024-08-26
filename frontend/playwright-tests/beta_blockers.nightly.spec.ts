@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 test('Beta Blockers Adherence', async ({ page }) => {
   await page.goto(
-    '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=beta_blockers_adherence'
+    '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=beta_blockers_adherence',
   )
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
@@ -17,7 +17,7 @@ test('Beta Blockers Adherence', async ({ page }) => {
   await page.locator('#menu- div').first().click()
   await page
     .getByText(
-      'Adherence to beta blockers: Pharmacy Quality Alliance measure representing the p'
+      'Adherence to beta blockers: Pharmacy Quality Alliance measure representing the p',
     )
     .click()
   await page
@@ -32,7 +32,9 @@ test('Beta Blockers Adherence', async ({ page }) => {
     })
     .click()
   await page
-    .getByRole('heading', { name: 'Breakdown summary for adherence to beta blockers in the United States' })
+    .getByRole('heading', {
+      name: 'Summary for adherence to beta blockers in the United States',
+    })
     .click()
   await page.locator('div:nth-child(8)').first().click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
@@ -40,7 +42,7 @@ test('Beta Blockers Adherence', async ({ page }) => {
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love'
+      'Do you have information that belongs on the Health Equity Tracker? We would love',
     )
     .click()
 })

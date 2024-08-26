@@ -62,7 +62,7 @@ export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
   age: 'age',
   sex: 'sex',
   fips: 'FIPs codes',
-  lis: 'Low income subsidy',
+  lis: 'low income subsidy',
   eligibility: 'eligibility',
   urbanicity: 'urbanicity',
   income: 'income',

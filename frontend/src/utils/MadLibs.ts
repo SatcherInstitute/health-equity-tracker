@@ -21,6 +21,7 @@ import { FIPS_MAP } from '../data/utils/FipsData'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
 import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
 import { CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
+import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -174,7 +175,6 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
 > = {
   medicare_cardiovascular: 'Medicare Beneficiary',
-  cancer_screening: 'Screening adherence for',
   medicare_hiv: 'Medicare Beneficiary',
   medicare_mental_health: 'Medicare Beneficiary',
   hiv_black_women: 'HIV',
@@ -182,6 +182,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   women_in_gov: 'Women Serving in',
   gun_violence: 'Gun',
   gun_violence_youth: 'All Gun Deaths for',
+  cancer_screening: 'Screening adherence for',
   gun_deaths_black_men: 'Gun Homicides of Black Men',
 }
 
@@ -196,11 +197,6 @@ const CATEGORIES_LIST: Category[] = [
     title: 'HIV',
     definition: '',
     options: HIV_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
-  },
-  {
-    title: 'Cancer',
-    definition: '',
-    options: CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Chronic Disease',
@@ -248,6 +244,14 @@ if (SHOW_NEW_MATERNAL_MORTALITY) {
     title: 'Maternal Health',
     definition: '',
     options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+  })
+}
+
+if (SHOW_CANCER_SCREENINGS) {
+  CATEGORIES_LIST.push({
+    title: 'Cancer',
+    definition: '',
+    options: CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   })
 }
 

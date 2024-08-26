@@ -56,7 +56,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for depression',
+    dataTableTitle: 'Summary for depression',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -120,7 +120,7 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for excessive drinking cases',
+    dataTableTitle: 'Summary for excessive drinking cases',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -185,8 +185,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle:
-      'Breakdown summary for opioid and other non-medical drug use',
+    dataTableTitle: 'Summary for opioid and other non-medical drug use',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -251,7 +250,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for frequent mental distress',
+    dataTableTitle: 'Summary for frequent mental distress',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -309,7 +308,7 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
       text: 'Suicide is a leading cause of death in the United States. Indigenous Americans, people with low incomes, and older people are more likely to die by suicide. Studying suicide can help us understand why these disparities exist and how to address them.',
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for suicides',
+    dataTableTitle: 'Summary for suicides',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total suicides',

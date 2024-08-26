@@ -27,7 +27,7 @@ test('Non Medical Drug Use', async ({ page }) => {
   await page.getByText('No unknown values for race').click()
   await page
     .getByRole('heading', {
-      name: 'Breakdown summary for opioid and other non-medical drug use in the United States',
+      name: 'Summary for opioid and other non-medical drug use in the United States',
     })
     .click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
