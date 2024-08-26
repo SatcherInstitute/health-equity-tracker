@@ -29,6 +29,7 @@ export default function MethodologyPage() {
         <section
           className='flex w-full justify-center text-left max-w-screen'
           aria-labelledby='page-heading'
+          id='main-content'
         >
           <div className='smMd:m-5 max-w-lgXl flex flex-col grow smMd:flex-row'>
             {/* MAIN METHODOLOGY PAGES MENU */}
