@@ -21,7 +21,9 @@ from ingestion.phrma_utils import (
     SCREENING_ELIGIBLE,
     BREAKDOWN_TO_STANDARD_BY_COL,
     load_phrma_df_from_data_dir,
+    AGE_ADJ_RATE_LOWER,
 )
+import numpy as np
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -139,6 +141,40 @@ class PhrmaBrfssData(DataSource):
                 UNKNOWN,
             )
 
+        if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
+            df = get_age_adjusted_ratios(df)
+
         df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
 
         return df
+
+
+def get_age_adjusted_ratios(df: pd.DataFrame) -> pd.DataFrame:
+    """Adds columns for age adjusted ratios (comparing each race's
+    rate to the rate for White NH) for each type of cancer screening."""
+
+    _tmp_white_rates_col = 'WHITE_NH_AGE_ADJ_RATE'
+
+    for condition in PHRMA_CANCER_PCT_CONDITIONS:
+        source_age_adj_rate_col = f'{condition}_{AGE_ADJ_RATE_LOWER}'
+        cancer_type = condition.lower()
+        het_age_adj_ratio_col = f'{cancer_type}_{SCREENED}_{std_col.RATIO_AGE_ADJUSTED_SUFFIX}'
+
+        # Step 1: Filter the DataFrame to get AGE_ADJ_RATE where RACE_ID is 'WHITE_NH'
+        white_nh_rates = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.WHITE_NH.value].set_index(
+            std_col.STATE_FIPS_COL
+        )[source_age_adj_rate_col]
+
+        # Step 2: Map these values back to the original DataFrame based on STATE_FIPS
+        df[_tmp_white_rates_col] = df[std_col.STATE_FIPS_COL].map(white_nh_rates)
+
+        # Step 3: Calculate AGE_ADJ_RATIO by dividing AGE_ADJ_RATE by WHITE_NH_RATE
+        df[het_age_adj_ratio_col] = df[source_age_adj_rate_col] / df[_tmp_white_rates_col]
+        df[het_age_adj_ratio_col] = df[het_age_adj_ratio_col].round(2)
+
+        df = df.drop(columns=[_tmp_white_rates_col, source_age_adj_rate_col])
+
+        # for rows where RACE is ALL set AGE_ADJ_RATIO to np.nan
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value, het_age_adj_ratio_col] = np.nan
+
+    return df
