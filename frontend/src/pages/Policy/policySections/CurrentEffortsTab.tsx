@@ -57,7 +57,6 @@ export default function CurrentEffortsTab() {
 				<h3 className='my-0 text-title font-medium text-altGreen'>
 					DeKalb County
 				</h3>
-<<<<<<< HEAD
 				<p>
 					<ul className='list-none'>
 						{dekalbCountyEfforts.map((dekalbCountyEffort, index) => (
@@ -70,19 +69,6 @@ export default function CurrentEffortsTab() {
 						))}
 					</ul>
 				</p>
-=======
-
-				<ul className='list-none'>
-					{dekalbCountyEfforts.map((dekalbCountyEffort, index) => (
-						<ResourceItem
-							key={index}
-							title={dekalbCountyEffort.title}
-							description={dekalbCountyEffort.description}
-							link={dekalbCountyEffort.link}
-						/>
-					))}
-				</ul>
->>>>>>> 72d2bc72 (current efforts tab and reform opprotunities tab content)
 			</section>
 		</>
 	)
