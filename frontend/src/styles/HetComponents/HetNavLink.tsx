@@ -25,7 +25,6 @@ export default function HetNavLink({
   return (
     <Link
       color='primary'
-<<<<<<< HEAD
       href={href || '#'}
       onClick={onClick}
       aria-label={ariaLabel}
@@ -37,14 +36,6 @@ export default function HetNavLink({
         className={`mx-6 text-altBlack hover:text-altGreen w-auto font-sansTitle text-small font-medium text-navlinkColor ${className ?? ''}`}
       >
         {children}
-=======
-      href={props.href}
-      onClick={props.onClick}
-      aria-label={props.ariaLabel}
-      className={`no-underline ${props.linkClassName ?? ''}`}>
-      <span className={`py-2 px-6 flex items-center justify-center text-altBlack hover:text-altGreen my-0 w-auto font-sansTitle text-small font-medium text-navlinkColor ${props.className ?? ''}`}>
-        {props.children}
->>>>>>> 8bb0b569 (create hetnavbutton, start adding menu folders)
       </span>
     </Link>
   )

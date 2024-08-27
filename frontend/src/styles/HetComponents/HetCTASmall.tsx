@@ -18,7 +18,6 @@ export default function HetCTASmall({ children, href, id, className }: HetCTASma
     }
   }
 
-<<<<<<< HEAD
   const isMailTo = href.startsWith('mailto:')
   const optionalMailTo = isMailTo ? href : undefined
 
@@ -36,21 +35,3 @@ export default function HetCTASmall({ children, href, id, className }: HetCTASma
     </Button>
   )
 }
-=======
-	return (
-		<Button
-			id={props.id}
-			variant='outlined'
-			className={`rounded-2xl my-2 px-8 py-2 w-auto bg-altGreen ${
-				props.className ?? ''
-			}`}
-			href={optionalMailTo}
-			onClick={handleClick}
-		>
-			<span className='text-small text-white font-bold'>
-				{props.children}
-			</span>
-		</Button>
-	)
-}
->>>>>>> 103c1674 (remove shadow from small CTA button)
