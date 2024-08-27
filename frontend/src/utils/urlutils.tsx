@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { type DataTypeId } from '../data/config/MetricConfig'
+import type { DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -11,12 +11,12 @@ import {
   FAQ_TAB_LINK,
   GUN_VIOLENCE_POLICY,
 } from './internalRoutes'
-import { type MadLibId, type PhraseSelections } from './MadLibs'
+import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
   raceNameToCodeMap,
   type DemographicGroup,
 } from '../data/utils/Constants'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { urlMap } from './externalUrls'
 
 // OLDER HANDLING PARAMS
@@ -101,7 +101,7 @@ export const NAVIGATION_STRUCTURE = {
     label: 'About',
     pages: {
       [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-      [GUN_VIOLENCE_POLICY]: 'Policy Context',
+      // [GUN_VIOLENCE_POLICY]: 'Policy Context',
       [ABOUT_US_PAGE_LINK]: 'About Us',
     },
   },

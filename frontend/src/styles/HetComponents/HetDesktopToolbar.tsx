@@ -11,7 +11,10 @@ export default function HetAppToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, menuName: string) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    menuName: string,
+  ) => {
     setAnchorEl(event.currentTarget)
     setActiveMenu(menuName)
   }
@@ -45,7 +48,9 @@ export default function HetAppToolbar() {
             </Menu>
           </div>
         )
-      } else if ('link' in value) {
+      }
+
+      if ('link' in value) {
         return (
           <HetNavLink
             key={key}
@@ -56,6 +61,7 @@ export default function HetAppToolbar() {
           </HetNavLink>
         )
       }
+
       return null
     })
   }
@@ -78,8 +84,8 @@ export default function HetAppToolbar() {
       <nav className='flex flex-wrap justify-evenly'>
         {renderNavItems(NAVIGATION_STRUCTURE)}
         <HetCTASmall id='navigationCTA' href={EXPLORE_DATA_PAGE_LINK}>
-            Explore the data
-          </HetCTASmall>
+          Explore the data
+        </HetCTASmall>
       </nav>
     </Toolbar>
   )
