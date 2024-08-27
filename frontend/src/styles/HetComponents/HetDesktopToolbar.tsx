@@ -4,7 +4,7 @@ import AppBarLogo from '../../assets/AppbarLogo.png'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
 import HetNavLink from './HetNavLink'
 import HetNavButton from './HetNavButton'
-import HetCTABig from './HetCTABig'
+import HetCTASmall from './HetCTASmall'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
 export default function HetAppToolbar() {
@@ -25,7 +25,7 @@ export default function HetAppToolbar() {
     return Object.entries(structure).map(([key, value]) => {
       if ('pages' in value) {
         return (
-          <div className='relative' key={key}>
+          <div className='relative flex items-center' key={key}>
             <HetNavButton
               label={value.label}
               onClick={(e) => handleClick(e, key)}
@@ -69,17 +69,17 @@ export default function HetAppToolbar() {
             className='h-littleHetLogo w-littleHetLogo'
             alt='Health Equity Tracker logo'
           />
-          <span className='grow pl-5 text-left font-sansTitle text-navBarHeader font-medium leading-lhSomeSpace text-altGreen no-underline'>
+          <span className='grow pl-5 text-left font-sansTitle text-navBarHeader font-medium leading-lhSomeSpace text-altGreen no-underline lg:flex xs:hidden'>
             Health Equity Tracker
           </span>
         </HetNavLink>
       </h1>
 
-      <nav className='flex max-w-sm flex-wrap justify-evenly lg:max-w-lg'>
+      <nav className='flex flex-wrap justify-evenly'>
         {renderNavItems(NAVIGATION_STRUCTURE)}
-        <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+        <HetCTASmall id='navigationCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
-          </HetCTABig>
+          </HetCTASmall>
       </nav>
     </Toolbar>
   )

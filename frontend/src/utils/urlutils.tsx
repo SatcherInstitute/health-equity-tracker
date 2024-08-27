@@ -97,7 +97,6 @@ export const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
 }
 
 export const NAVIGATION_STRUCTURE = {
-  home: { label: 'Home', link: '/' },
   about: {
     label: 'About',
     pages: {
