@@ -24,8 +24,8 @@ export default function HetCTASmall(props: HetCTASmallProps) {
 	return (
 		<Button
 			id={props.id}
-			variant='contained'
-			className={`rounded-2xl my-2 px-8 py-2 w-auto ${
+			variant='outlined'
+			className={`rounded-2xl my-2 px-8 py-2 w-auto bg-altGreen ${
 				props.className ?? ''
 			}`}
 			href={optionalMailTo}
