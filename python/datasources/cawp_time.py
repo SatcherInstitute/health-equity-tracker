@@ -455,10 +455,10 @@ class CAWPTimeData(DataSource):
 
         df = df.sort_values(by=sort_cols).reset_index(drop=True)
 
-        # we will only use AIAN_API for the disparity bar chart and
-        # pct_relative_inequity calculations
-        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value][std_col.PCT_OF_CONGRESS] = None
-        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
+        # don't keep pct_rates for AIAN_API
+        mask = df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value
+        df.loc[mask, std_col.PCT_OF_CONGRESS] = None
+        df.loc[mask, std_col.PCT_OF_STLEG] = None
 
         df = df.rename(
             columns={
