@@ -4,6 +4,7 @@ from functools import reduce
 from ingestion.constants import US_FIPS, US_NAME, US_ABBR, COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL, ALL_VALUE
 from typing import Literal, List, Union, Type, Optional, Tuple, Dict
 import os
+import numpy as np
 
 ACS_EARLIEST_YEAR = '2009'
 ACS_CURRENT_YEAR = '2022'
@@ -196,6 +197,9 @@ def merge_yearly_pop_numbers(
     # combine the three sub-dfs
     df = pd.concat(sub_dfs, axis=0).reset_index(drop=True)
     df = df.drop(columns=[_tmp_time_period_col])
+
+    # all missing data should be nan not None
+    df = df.where(pd.notnull(df), np.nan)
 
     return df
 
