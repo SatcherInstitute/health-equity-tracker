@@ -17,7 +17,7 @@ const HetNavButton: React.FC<HetNavButtonProps> = ({
 }) => {
   return (
     <Button
-      className={`font-sansTitle text-small font-medium text-navlinkColor ${className}`}
+      className={`font-sansTitle text-small font-medium text-navlinkColor mx-2 ${className}`}
       onClick={onClick}
       endIcon={<ExpandMore />}
       aria-haspopup='true'

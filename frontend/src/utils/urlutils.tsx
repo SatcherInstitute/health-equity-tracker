@@ -8,6 +8,8 @@ import {
   NEWS_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  FAQ_TAB_LINK,
+  GUN_VIOLENCE_POLICY,
 } from './internalRoutes'
 import { type MadLibId, type PhraseSelections } from './MadLibs'
 import {
@@ -15,6 +17,7 @@ import {
   type DemographicGroup,
 } from '../data/utils/Constants'
 import { type ReactNode } from 'react'
+import { urlMap } from './externalUrls'
 
 // OLDER HANDLING PARAMS
 
@@ -91,6 +94,35 @@ export const PAGE_URL_TO_NAMES: Record<string, string> = {
 
 export const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
+}
+
+export const NAVIGATION_STRUCTURE = {
+  home: { label: 'Home', link: '/' },
+  about: {
+    label: 'About',
+    pages: {
+      [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
+      [GUN_VIOLENCE_POLICY]: 'Policy Context',
+      [ABOUT_US_PAGE_LINK]: 'About Us',
+    },
+  },
+  exploreTheData: {
+    label: 'Explore the Data',
+    pages: {
+      [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
+      [DATA_CATALOG_PAGE_LINK]: 'Data Downloads',
+      [METHODOLOGY_PAGE_LINK]: 'Methodology'
+    },
+  },
+  mediaAndUpdates: {
+    label: 'Media & Updates',
+    pages: {
+      [NEWS_PAGE_LINK]: 'News',
+      [urlMap.hetYouTubeShorts]: 'Videos',
+    },
+  },
+  faqs: { label: 'FAQs', link: FAQ_TAB_LINK },
+  
 }
 
 export function useSearchParams() {

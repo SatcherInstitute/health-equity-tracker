@@ -15,7 +15,7 @@ import NewsPreviewCard from '../News/NewsPreviewCard'
 import { useQuery } from 'react-query'
 import type { Article } from '../News/NewsPage'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
-import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
@@ -125,9 +125,9 @@ function LandingPage() {
             <span className='text-altGreen'>Health Equity Tracker</span>
             <br /> take you?
           </h1>
-          <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+          <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
-          </HetBigCTA>
+          </HetCTABig>
           <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
             <p className='py-0 my-0 z-1'>
               Data sourced from major public health agencies
@@ -274,7 +274,7 @@ function LandingPage() {
           </div>
         </div>
         <div className='my-0 py-0 xs:py-0'>
-          <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetBigCTA>
+          <HetCTABig href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetCTABig>
         </div>
       </section>
 

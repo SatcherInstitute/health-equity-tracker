@@ -11,7 +11,7 @@ import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import { type Article } from './NewsPage'
+import type { Article } from './NewsPage'
 import hetLogo from '../../assets/AppbarLogo.png'
 import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
@@ -19,7 +19,7 @@ import ShareButtons, {
 } from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
-import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -290,7 +290,7 @@ export default function SinglePost(props: SinglePostProps) {
           {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
           {fullArticle?.acf?.full_article_url && (
             <div>
-              <HetBigCTA
+              <HetCTABig
                 href={fullArticle.acf.full_article_url}
                 className='mt-10'
               >
@@ -299,7 +299,7 @@ export default function SinglePost(props: SinglePostProps) {
                   ? ` on ${fullArticle.acf.friendly_site_name}`
                   : ''}{' '}
                 <OpenInNewIcon />
-              </HetBigCTA>
+              </HetCTABig>
             </div>
           )}
 

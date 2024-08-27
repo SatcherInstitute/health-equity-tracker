@@ -1,9 +1,11 @@
-import { Toolbar, Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
+import { Toolbar, Menu, MenuItem } from '@mui/material'
 import AppBarLogo from '../../assets/AppbarLogo.png'
-import { PAGE_URL_TO_NAMES } from '../../utils/urlutils'
+import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
 import HetNavLink from './HetNavLink'
 import HetNavButton from './HetNavButton'
+import HetCTABig from './HetCTABig'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
 export default function HetAppToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -17,6 +19,45 @@ export default function HetAppToolbar() {
   const handleClose = () => {
     setAnchorEl(null)
     setActiveMenu(null)
+  }
+
+  const renderNavItems = (structure: typeof NAVIGATION_STRUCTURE) => {
+    return Object.entries(structure).map(([key, value]) => {
+      if ('pages' in value) {
+        return (
+          <div className='relative' key={key}>
+            <HetNavButton
+              label={value.label}
+              onClick={(e) => handleClick(e, key)}
+              isExpanded={activeMenu === key}
+            />
+            <Menu
+              anchorEl={anchorEl}
+              open={activeMenu === key}
+              onClose={handleClose}
+              classes={{ paper: 'bg-white' }}
+            >
+              {Object.entries(value.pages).map(([subKey, subValue]) => (
+                <MenuItem key={subKey} onClick={handleClose}>
+                  <HetNavLink href={subKey}>{subValue}</HetNavLink>
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
+        )
+      } else if ('link' in value) {
+        return (
+          <HetNavLink
+            key={key}
+            href={value.link}
+            className='my-0 w-auto p-0 font-sansTitle text-small font-medium text-navlinkColor'
+          >
+            {value.label}
+          </HetNavLink>
+        )
+      }
+      return null
+    })
   }
 
   return (
@@ -35,55 +76,10 @@ export default function HetAppToolbar() {
       </h1>
 
       <nav className='flex max-w-sm flex-wrap justify-evenly lg:max-w-lg'>
-        {Object.entries(PAGE_URL_TO_NAMES).map(([pageUrl, pageName]) => (
-          <HetNavLink
-            key={pageUrl}
-            href={pageUrl}
-          
-          >
-            {pageName}
-          </HetNavLink>
-        ))}
-        <div className='relative'>
-        <HetNavButton
-            label='Data'
-            onClick={(e) => handleClick(e, 'Data')}
-            isExpanded={activeMenu === 'Data'}
-          />
-          <Menu
-            anchorEl={anchorEl}
-            open={activeMenu === 'Data'}
-            onClose={handleClose}
-            classes={{ paper: 'bg-white' }}
-          >
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/data/explore'>Explore Data</HetNavLink>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/data/catalog'>Data Catalog</HetNavLink>
-            </MenuItem>
-          </Menu>
-        </div>
-        <div className='relative'>
-        <HetNavButton
-            label='Data'
-            onClick={(e) => handleClick(e, 'Data')}
-            isExpanded={activeMenu === 'Data'}
-          />
-          <Menu
-            anchorEl={anchorEl}
-            open={activeMenu === 'About'}
-            onClose={handleClose}
-            classes={{ paper: 'bg-white' }}
-          >
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/about/mission'>Our Mission</HetNavLink>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <HetNavLink href='/about/team'>Our Team</HetNavLink>
-            </MenuItem>
-          </Menu>
-        </div>
+        {renderNavItems(NAVIGATION_STRUCTURE)}
+        <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+            Explore the data
+          </HetCTABig>
       </nav>
     </Toolbar>
   )

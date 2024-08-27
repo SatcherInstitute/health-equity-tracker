@@ -1,15 +1,15 @@
 import { Button } from '@mui/material'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useHistory } from 'react-router-dom'
 
-interface HetBigCTAProps {
+interface HetCTABigProps {
 	children: ReactNode
 	href: string
 	id?: string
 	className?: string
 }
 
-export default function HetBigCTA(props: HetBigCTAProps) {
+export default function HetCTABig(props: HetCTABigProps) {
 	const history = useHistory()
 
 	let handleClick = () => {
