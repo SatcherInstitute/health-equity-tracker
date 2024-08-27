@@ -353,17 +353,17 @@ class CAWPTimeData(DataSource):
             std_col.W_THIS_RACE_STLEG_NAMES,
         ]
 
-        # replace null name lists with empty list then convert existing lists into list-like strs
         for col in names_cols:
-            df[col].loc[df[col].isnull()] = df[col].loc[df[col].isnull()].apply(lambda x: [])
-            df[col] = [','.join(map(str, item)) for item in df[col]]
+            # Replace nulls with empty lists
+            df.loc[df[col].isnull(), col] = df.loc[df[col].isnull(), col].apply(lambda x: [])
+            # Convert lists to comma-separated strings
+            df[col] = df[col].apply(lambda item: ','.join(map(str, item)))
 
         # remove brackets and inner quotes, leaving just comma separated names
         df[names_cols] = df[names_cols].replace(["'", "[", "]"], "")
 
-        # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
-        # so keep them only on the ALL race and null everything else
-        df[std_col.CONGRESS_NAMES].loc[df[std_col.RACE_CATEGORY_ID_COL] != Race.ALL.value] = None
+        # Set CONGRESS_NAMES to None where RACE_CATEGORY_ID_COL is not ALL
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL] != Race.ALL.value, std_col.CONGRESS_NAMES] = None
 
         return df
 
