@@ -1,17 +1,18 @@
 import {
-  Button,
   Drawer,
   IconButton,
   List,
-  ListItem,
   ListItemText,
   Collapse,
   Toolbar,
+  ListItemButton,
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ExpandLess from '@mui/icons-material/ExpandLess'
-import ExpandMore from '@mui/icons-material/ExpandMore'
+import {
+  Close,
+  ExpandLess,
+  ExpandMore,
+  Menu as MenuIcon,
+} from '@mui/icons-material'
 import { useState } from 'react'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
@@ -30,15 +31,21 @@ export default function HetMobileAppToolbar() {
       if ('pages' in value) {
         return (
           <div key={key}>
-            <ListItem button onClick={() => handleToggle(key)}>
+            <ListItemButton
+              onClick={() => handleToggle(key)}
+              className='w-full'
+            >
               <ListItemText primary={value.label} />
               {expandedMenu === key ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={expandedMenu === key} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
+            </ListItemButton>
+            <Collapse in={expandedMenu === key} timeout='auto' unmountOnExit>
+              <List component='div' disablePadding>
                 {Object.entries(value.pages).map(([subKey, subValue]) => (
                   <ListItemLink href={subKey} key={subKey} sx={{ pl: 4 }}>
-                    <ListItemText primary={subValue} />
+                    <ListItemText
+                      className='text-altBlack'
+                      primary={subValue}
+                    />
                   </ListItemLink>
                 ))}
               </List>
@@ -48,7 +55,7 @@ export default function HetMobileAppToolbar() {
       } else if ('link' in value) {
         return (
           <ListItemLink href={value.link} key={key}>
-            <ListItemText primary={value.label} />
+            <ListItemText className='text-altBlack' primary={value.label} />
           </ListItemLink>
         )
       }
@@ -62,24 +69,43 @@ export default function HetMobileAppToolbar() {
         onClick={() => setOpen(true)}
         aria-label='Expand site navigation'
         size='large'
+        sx={{ borderRadius: 1 }}
       >
         <MenuIcon className='text-white' />
       </IconButton>
-      <Drawer variant='temporary' anchor='left' open={open} onClose={() => setOpen(false)}>
-        <Button
+      <Drawer
+        variant='temporary'
+        anchor='left'
+        open={open}
+        onClose={() => setOpen(false)}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: '16rem',
+            maxWidth: '100%',
+            padding: '0 16px',
+          },
+        }}
+      >
+        <IconButton
           aria-label='Collapse site navigation'
           onClick={() => setOpen(false)}
+          className='p-2.5 ml-auto mx-2 my-4 text-altBlack'
+          sx={{ borderRadius: 1 }}
         >
-          <ChevronLeftIcon />
-        </Button>
+          <Close />
+        </IconButton>
+
         <nav>
-          <List>
+          <List className='flex flex-col justify-center pt-0'>
             {renderNavItems(NAVIGATION_STRUCTURE)}
-            <HetCTASmall id='navigationCTA' href={EXPLORE_DATA_PAGE_LINK}>
-            Explore the data
-          </HetCTASmall>
+            <HetCTASmall
+              className='my-4'
+              id='navigationCTA'
+              href={EXPLORE_DATA_PAGE_LINK}
+            >
+              Explore the data
+            </HetCTASmall>
           </List>
-          
         </nav>
       </Drawer>
     </Toolbar>
@@ -87,5 +113,5 @@ export default function HetMobileAppToolbar() {
 }
 
 function ListItemLink(props: any) {
-  return <ListItem button component='a' {...props} />
+  return <ListItemButton component='a' {...props} />
 }
