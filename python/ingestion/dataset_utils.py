@@ -549,7 +549,7 @@ def zero_out_pct_rel_inequity(
     # optionally preserve null pct_inequity for race rows that have no population info
     if pop_pct_col:
         for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
-            df.loc[df[pop_pct_col].isnull(), pct_inequity_col] = np.nan
+            df.loc[df[pop_pct_col].isnull(), pct_inequity_col] = None
 
     return df
 
