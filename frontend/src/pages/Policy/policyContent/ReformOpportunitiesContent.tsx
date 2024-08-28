@@ -6,7 +6,6 @@ export const effortsAndInitiatives = [
 				Enhance mental health services and broaden social support systems to address the roots of violence, focusing on both prevention and post-trauma care.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Educational and Economic Empowerment',
@@ -15,7 +14,6 @@ export const effortsAndInitiatives = [
 				Implement education and job training programs to tackle economic disparities that often intertwine with violence, offering pathways to stability and prosperity.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Community-Led Violence Prevention',
@@ -24,7 +22,6 @@ export const effortsAndInitiatives = [
 				Adopt programs like the Cure Violence model, involving local residents in preventing violence through initiatives grounded in understanding and addressing community-specific needs.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Progressive Policing Reforms',
@@ -33,7 +30,6 @@ export const effortsAndInitiatives = [
 				Introduce changes in police practices, emphasizing de-escalation techniques and community-oriented policing, to foster trust and diffuse potential conflicts.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Comprehensive Gun Control',
@@ -42,7 +38,6 @@ export const effortsAndInitiatives = [
 				Advocate for and enact stricter gun legislation to limit the accessibility of firearms, thereby directly impacting gun violence rates.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Informed Research and Data Analysis',
@@ -51,7 +46,6 @@ export const effortsAndInitiatives = [
 				Leverage data, perhaps using tools like the Health Equity Tracker, to identify and understand gun violence trends, enabling targeted, effective intervention strategies.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Robust Community Engagement',
@@ -60,7 +54,6 @@ export const effortsAndInitiatives = [
 				Strengthen the bond between law enforcement and the communities they serve, especially in areas most impacted by gun violence, through trust-building and cooperative problem-solving efforts.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Social Services Enhancement',
@@ -69,7 +62,6 @@ export const effortsAndInitiatives = [
 				Invest in services that tackle root causes like poverty, unemployment, and educational gaps, thereby diminishing key factors contributing to violence.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Policy Advocacy for Change',
@@ -78,7 +70,6 @@ export const effortsAndInitiatives = [
 				Push for stronger enforcement of existing laws and advocate for new policies that address both the symptoms and sources of gun violence.
 			</>
 		),
-		link: '#',
 	},
 ]
 
@@ -90,7 +81,6 @@ export const legislativeActions = [
 				This legislation is designed to address gun violence through a comprehensive approach. It likely includes provisions for stricter background checks, restrictions on certain types of firearms and ammunition, and measures to close loopholes in existing gun laws.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'H.R.4283 — Gun Violence Prevention and Safe Communities Act of 2023',
@@ -99,7 +89,6 @@ export const legislativeActions = [
 				This bill probably focuses on similar goals as S.3407 but might differ in specific approaches or legal mechanisms. The aim is to reduce gun violence and ensure safer communities through legislative action.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Legislation Similar to H.R.850',
@@ -108,7 +97,6 @@ export const legislativeActions = [
 				This refers to a proposal to direct the Attorney General to conduct a study on the effectiveness of extreme risk protection orders (ERPOs). ERPOs, also known as "red flag laws," allow for the temporary removal of firearms from individuals deemed to be a risk to themselves or others. This study would assess how effective these orders are in reducing gun violence.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Support for Research Grants Aimed at Informing Firearm-Related Violence and Injury Prevention Strategies',
@@ -117,7 +105,6 @@ export const legislativeActions = [
 				This involves funding research initiatives that explore the causes, effects, and prevention strategies related to gun violence and injuries. Such research could provide critical data for shaping effective public policies.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Legislation for a 7-Day Waiting Period',
@@ -126,6 +113,5 @@ export const legislativeActions = [
 				This proposal suggests a mandatory waiting period of seven days before the transfer of certain firearms and related items, such as semiautomatic firearms, silencers, armor-piercing ammunition, or large capacity ammunition magazines. The waiting period could serve as a cooling-off time to prevent impulsive acts of violence and ensure thorough background checks.
 			</>
 		),
-		link: '#',
 	},
 ]

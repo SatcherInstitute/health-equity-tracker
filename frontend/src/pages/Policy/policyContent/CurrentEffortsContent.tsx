@@ -6,7 +6,6 @@ export const cityEfforts = [
 				The APD has typically been involved in strategies such as increased patrolling in high-crime areas, community policing efforts, and collaborations with federal law enforcement for gun crime investigations.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Community-Based Programs',
@@ -15,7 +14,6 @@ export const cityEfforts = [
 				There have been initiatives that focus on community engagement and violence interruption, which often involve working with local organizations and community leaders to address the root causes of violence.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Legislation and Enforcement',
@@ -24,7 +22,6 @@ export const cityEfforts = [
 				There may be local and state laws that focus on gun control, such as background checks, restrictions on firearm types, and efforts to curb illegal gun trafficking.
 			</>
 		),
-		link: '#',
 	},
 ]
 
@@ -36,7 +33,6 @@ export const fultonCountyEfforts = [
 				A joint effort between the APD and local businesses to increase surveillance and police presence.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Cure Violence Program',
@@ -45,7 +41,6 @@ export const fultonCountyEfforts = [
 				Focuses on treating violence as a public health issue, employing violence interrupters and outreach workers.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Juvenile Diversion Programs',
@@ -54,7 +49,6 @@ export const fultonCountyEfforts = [
 				Aimed at reducing juvenile involvement in the criminal justice system, focusing on rehabilitation and community engagement.
 			</>
 		),
-		link: '#',
 	},
 ]
 
@@ -66,7 +60,6 @@ export const dekalbCountyEfforts = [
 				Encourages residents to turn in firearms in exchange for gift cards, aiming to reduce the number of guns on the street.
 			</>
 		),
-		link: '#',
 	},
 	{
 		title: 'Community Policing Initiatives',
@@ -75,6 +68,5 @@ export const dekalbCountyEfforts = [
 				Focused on building trust between police and communities, including regular community meetings and police involvement in local events.
 			</>
 		),
-		link: '#',
 	},
 ]

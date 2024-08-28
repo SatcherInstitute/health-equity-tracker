@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 import ResourceItem from '../policyComponents/ResourceItem'
 import { effortsAndInitiatives, legislativeActions } from '../policyContent/ReformOpportunitiesContent'
-import { OpenInNew } from '@mui/icons-material'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import ResourceItemCard from '../policyComponents/ResourceItemCard'
 
 export default function ReformOpportunitiesTab() {
 	return (
@@ -21,10 +21,13 @@ export default function ReformOpportunitiesTab() {
 				<h3 className='my-0 text-title font-medium text-altGreen'>
 					Reform Opportunities at the County and City Levels
 				</h3>
+				<div className='grid grid-cols-3 md:grid-cols-4'>
+
+				</div>
 				<p>
 					<ul className='list-none'>
 						{effortsAndInitiatives.map((effortsAndInitiative, index) => (
-							<ResourceItem
+							<ResourceItemCard
 								key={index}
 								title={effortsAndInitiative.title}
 								description={effortsAndInitiative.description}
