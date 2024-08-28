@@ -48,7 +48,6 @@ class MaternalMortalityProvider extends VariableProvider {
           return 'maternal_mortality_data-by_race_national_historical'
       }
     }
-    console.log(breakdowns, timeView)
   }
 
   async getDataInternal(
