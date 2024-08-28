@@ -1,12 +1,12 @@
 import { DisparityBarChart } from '../charts/disparityBarChart/Index'
-import type { Fips } from '../data/utils/Fips'
+import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfig'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -25,11 +25,11 @@ import {
 } from '../data/utils/datasetutils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
 
@@ -44,7 +44,7 @@ interface DisparityBarChartCardProps {
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export default function DisparityBarChartCard(
-  props: DisparityBarChartCardProps,
+  props: DisparityBarChartCardProps
 ) {
   return (
     <DisparityBarChartCardWithKey
@@ -57,14 +57,14 @@ export default function DisparityBarChartCard(
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1000],
-    props.demographicType === SEX,
+    props.demographicType === SEX
   )
 
   const metricConfig = props.dataTypeConfig.metrics?.pct_share
   if (!metricConfig) return <></>
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
-    exclude(ALL, NON_HISPANIC),
+    exclude(ALL, NON_HISPANIC)
   )
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
@@ -86,20 +86,20 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ 'current',
+    /* timeView */ 'current'
   )
 
   const chartTitle = generateChartTitle(
     /* chartTitle: */
     metricConfig?.populationComparisonMetric?.chartTitle ??
-      metricConfig.chartTitle,
-    /* fips:  */ props.fips,
+    metricConfig.chartTitle,
+    /* fips:  */ props.fips
   )
 
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    props.dataTypeConfig,
+    props.dataTypeConfig
   )
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
@@ -119,12 +119,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(
-          metricConfig.metricId,
+          metricConfig.metricId
         )
 
         const [knownData] = splitIntoKnownsAndUnknowns(
           validData,
-          props.demographicType,
+          props.demographicType
         )
 
         const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
@@ -142,7 +142,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           queryResponse.data.every(
             (row) =>
               !row[props.demographicType].includes('(NH)') ||
-              row[props.demographicType] === HISPANIC,
+              row[props.demographicType] === HISPANIC
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId])
 
