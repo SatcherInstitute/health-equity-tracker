@@ -1,8 +1,5 @@
 {
 	"editor.formatOnSave": true,
-	"editor.codeActionsOnSave": {
-    "quickfix.biome": "explicit"
-  },
 	"cSpell.import": [
 		"../cspell.config.json"
 	],
