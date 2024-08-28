@@ -137,20 +137,20 @@ _expected_data_with_properly_zeroed_pct_rel_inequity = [
         'something_pct_relative_inequity',
         'something_pop_pct',
     ],
-    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
+    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, np.nan, np.nan],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
     ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
-    ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
+    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan, 10.0],
+    ['2019', '01', 'Alabama', 'RaceNoPop', 1, np.nan, np.nan],
+    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan, 10.0],
     # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are ZEROED
     # expect for races where the population_pct_share is null
     ['2020', '01', 'Alabama', 'Race1', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race2', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race4', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
+    ['2020', '01', 'Alabama', 'RaceNoPop', 0, np.nan, np.nan],
     ['2020', '01', 'Alabama', 'Race6', 0, 0, 10.0],
     # each PLACE/YEAR is considered independently so the fact Race6
     # has a rate in StateWithRates doesn't prevent the zeroing above

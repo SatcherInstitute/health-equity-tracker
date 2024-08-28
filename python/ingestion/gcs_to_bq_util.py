@@ -7,6 +7,7 @@ from zipfile import ZipFile
 from io import BytesIO, StringIO
 from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
+import numpy as np
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
@@ -140,6 +141,10 @@ def values_json_to_df(values_json, dtype=None) -> pd.DataFrame:
     frame = pd.read_json(values_json, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)  # pylint: disable=E1101
     frame.drop([0], inplace=True)  # pylint: disable=E1101
+    # Fill None values with np.nan TODO: remove after updating to pandas 3
+    with pd.option_context('future.no_silent_downcasting', True):
+        frame = frame.fillna(np.nan)  # pylint: disable=E1101
+
     return frame
 
 
