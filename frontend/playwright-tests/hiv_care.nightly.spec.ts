@@ -37,7 +37,7 @@ test('HIV Linkage To Care', async ({ page }) => {
   await page.getByRole('columnheader', { name: 'All % linkage' }).click()
   await page.getByRole('columnheader', { name: 'Ages 13-24 % linkage' }).click()
   await page.getByText('Add or remove columns by').click()
-  await page.getByRole('button', { name: 'Collapse rates over time' }).click();
+  await page.getByRole('button', { name: 'Collapse rates over time' }).click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Linkage to HIV care in the' })
@@ -72,7 +72,7 @@ test('HIV Linkage To Care', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'Historical relative inequity in linkage to HIV care in the United States by age'
+      'Historical relative inequity in linkage to HIV care in the United States by age',
     )
     .click()
   await page
@@ -86,11 +86,9 @@ test('HIV Linkage To Care', async ({ page }) => {
     .getByRole('heading', { name: 'Ages 13+' })
     .click()
   await page.getByRole('button', { name: 'Data table', exact: true }).click()
+  await page.getByRole('heading', { name: 'Summary for linkage' }).click()
   await page
-    .getByRole('heading', { name: 'Breakdown summary for linkage' })
-    .click()
-  await page
-    .getByRole('figure', { name: 'Breakdown summary for linkage' })
+    .getByRole('figure', { name: 'Summary for linkage' })
     .locator('h4')
     .click()
   await page.getByRole('columnheader', { name: 'Age', exact: true }).click()

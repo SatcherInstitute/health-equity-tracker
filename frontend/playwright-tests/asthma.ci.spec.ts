@@ -23,7 +23,5 @@ test('Asthma', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
-  await page
-    .getByRole('heading', { name: 'Breakdown summary for asthma' })
-    .click()
+  await page.getByRole('heading', { name: 'Summary for asthma' }).click()
 })

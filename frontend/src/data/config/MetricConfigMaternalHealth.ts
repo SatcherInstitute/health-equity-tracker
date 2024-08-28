@@ -1,7 +1,5 @@
-import {
-  defaultHigherIsWorseMapConfig,
-} from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -32,9 +30,8 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
     description: {
       text: '',
     },
-    dataTableTitle: 'Breakdown summary for maternal mortality',
+    dataTableTitle: 'Summary for maternal mortality',
     metrics: {
-
       per100k: {
         metricId: 'maternal_mortality_per_100k',
         chartTitle: 'Maternal mortality',
@@ -72,8 +69,3 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
     },
   },
 ]
-
-
-
-
-

@@ -18,6 +18,9 @@ export type DemographicType =
   | 'lis'
   | 'eligibility'
   | 'urbanicity'
+  | 'income'
+  | 'education'
+  | 'insurance_status'
 
 export const DEMOGRAPHIC_TYPES = [
   'race_and_ethnicity',
@@ -25,7 +28,10 @@ export const DEMOGRAPHIC_TYPES = [
   'age',
   'lis',
   'eligibility',
-  'urbanicity'
+  'urbanicity',
+  'income',
+  'education',
+  'insurance_status',
 ] as const
 
 // union type of array
@@ -38,7 +44,10 @@ export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   fips: 'FIPS Code',
   lis: 'Low income subsidy',
   eligibility: 'Medicare eligibility',
-  urbanicity: 'Urbanicity'
+  income: 'Income',
+  education: 'Education',
+  insurance_status: 'Insurance',
+  urbanicity: 'Urbanicity',
 } as const
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
@@ -53,9 +62,12 @@ export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
   age: 'age',
   sex: 'sex',
   fips: 'FIPs codes',
-  lis: 'Low income subsidy',
+  lis: 'low income subsidy',
   eligibility: 'eligibility',
-  urbanicity: 'urbanicity'
+  urbanicity: 'urbanicity',
+  income: 'income',
+  education: 'education',
+  insurance_status: 'insurance',
 }
 
 interface DemographicBreakdown {
@@ -82,7 +94,7 @@ function stringifyDemographic(breakdown: DemographicBreakdown) {
 function createDemographicBreakdown(
   columnName: DemographicType,
   enabled = false,
-  filter?: BreakdownFilter
+  filter?: BreakdownFilter,
 ): DemographicBreakdown {
   return {
     columnName,
@@ -106,19 +118,22 @@ export class Breakdowns {
       DemographicBreakdownKey,
       DemographicBreakdown
     >,
-    filterFips?: Fips | undefined
+    filterFips?: Fips | undefined,
   ) {
     this.geography = geography
     this.demographicBreakdowns = demographicBreakdowns
       ? { ...demographicBreakdowns }
       : {
-        race_and_ethnicity: createDemographicBreakdown('race_and_ethnicity'),
-        age: createDemographicBreakdown('age'),
-        sex: createDemographicBreakdown('sex'),
-        lis: createDemographicBreakdown('lis'),
-        eligibility: createDemographicBreakdown('eligibility'),
-        urbanicity: createDemographicBreakdown('urbanicity'),
-      }
+          race_and_ethnicity: createDemographicBreakdown('race_and_ethnicity'),
+          age: createDemographicBreakdown('age'),
+          sex: createDemographicBreakdown('sex'),
+          lis: createDemographicBreakdown('lis'),
+          eligibility: createDemographicBreakdown('eligibility'),
+          urbanicity: createDemographicBreakdown('urbanicity'),
+          income: createDemographicBreakdown('income'),
+          education: createDemographicBreakdown('education'),
+          insurance_status: createDemographicBreakdown('insurance_status'),
+        }
     this.filterFips = filterFips
   }
 
@@ -131,7 +146,7 @@ export class Breakdowns {
     Object.entries(this.demographicBreakdowns).forEach(
       ([breakdownKey, breakdown]) => {
         breakdowns[breakdownKey] = stringifyDemographic(breakdown)
-      }
+      },
     )
     // Any fields that are not set will not be included in the string for readability
     // We want to sort these to ensure that it is deterministic so that all breakdowns map to the same key
@@ -147,7 +162,7 @@ export class Breakdowns {
     return new Breakdowns(
       this.geography,
       { ...this.demographicBreakdowns },
-      this.filterFips ? new Fips(this.filterFips.code) : undefined
+      this.filterFips ? new Fips(this.filterFips.code) : undefined,
     )
   }
 
@@ -195,7 +210,7 @@ export class Breakdowns {
 
   addBreakdown(
     demographicType: DemographicType,
-    filter?: BreakdownFilter
+    filter?: BreakdownFilter,
   ): Breakdowns {
     switch (demographicType) {
       case 'race_and_ethnicity':
@@ -204,6 +219,9 @@ export class Breakdowns {
       case 'lis':
       case 'eligibility':
       case 'urbanicity':
+      case 'income':
+      case 'education':
+      case 'insurance_status':
         // Column name is the same as key
         this.demographicBreakdowns[demographicType] =
           createDemographicBreakdown(demographicType, true, filter)
@@ -228,7 +246,7 @@ export class Breakdowns {
   // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
     return Object.entries(this.demographicBreakdowns).filter(
-      ([k, v]) => v.enabled
+      ([k, v]) => v.enabled,
     ).length
   }
 
@@ -247,7 +265,7 @@ export class Breakdowns {
 
     return (
       Object.values(this.demographicBreakdowns).find(
-        (breakdown) => breakdown.enabled
+        (breakdown) => breakdown.enabled,
       ) ?? createDemographicBreakdown('race_and_ethnicity')
     )
   }
@@ -281,6 +299,27 @@ export class Breakdowns {
     return (
       this.hasExactlyOneDemographic() &&
       this.demographicBreakdowns.eligibility.enabled
+    )
+  }
+
+  hasOnlyInsuranceStatus() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.insurance_status.enabled
+    )
+  }
+
+  hasOnlyIncome() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.income.enabled
+    )
+  }
+
+  hasOnlyEducation() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.education.enabled
     )
   }
 
@@ -319,7 +358,7 @@ export class Breakdowns {
         if (demographicBreakdown.enabled) {
           joinCols.push(demographicBreakdown.columnName)
         }
-      }
+      },
     )
     return joinCols.sort()
   }

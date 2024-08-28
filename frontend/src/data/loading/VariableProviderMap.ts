@@ -14,6 +14,7 @@ import GunViolenceProvider from '../providers/GunViolenceProvider'
 import GunViolenceYouthProvider from '../providers/GunViolenceYouthProvider'
 import GunViolenceBlackMenProvider from '../providers/GunDeathsBlackMenProvider'
 import MaternalMortalityProvider from '../providers/MaternalMortalityProvider'
+import PhrmaBrfssProvider from '../providers/PhrmaBrfssProvider'
 
 export type ProviderId =
   | 'acs_condition_provider'
@@ -30,6 +31,7 @@ export type ProviderId =
   | 'incarceration_provider'
   | 'maternal_mortality_provider'
   | 'phrma_provider'
+  | 'phrma_brfss_provider'
   | 'vaccine_provider'
 
 export default class VariableProviderMap {
@@ -52,6 +54,7 @@ export default class VariableProviderMap {
       new HivProvider(),
       new IncarcerationProvider(),
       new PhrmaProvider(),
+      new PhrmaBrfssProvider(),
       new VaccineProvider(),
       new MaternalMortalityProvider(),
     ]
