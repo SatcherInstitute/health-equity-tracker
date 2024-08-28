@@ -94,7 +94,7 @@ function getSpec(
       },
       {
         name: 'height',
-        update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
+        update: "bandspace(domain('y').length, 0.1, 0.05) * y_step + 10",
       },
     ],
     marks: [
@@ -125,7 +125,14 @@ function getSpec(
             },
             x: { scale: 'x', field: measure },
             x2: { scale: 'x', value: 0 },
-            y: { scale: 'y', field: demographicType },
+            y: {
+              scale: 'y',
+              field: demographicType,
+              // band: 1,
+              offset: {
+                signal: `datum.${demographicType} === 'All' ? 0 : 10`,
+              },
+            },
             height: { scale: 'y', band: 1 },
           },
         },
@@ -183,7 +190,14 @@ function getSpec(
               signal: `if(datum.${measure} > ${barLabelBreakpoint}  && datum.${demographicType} !== 'All', '${het.white}', '${het.black}')`,
             },
             x: { scale: 'x', field: measure },
-            y: { scale: 'y', field: demographicType, band: 0.8 },
+            y: {
+              scale: 'y',
+              field: demographicType,
+              band: 0.8,
+              offset: {
+                signal: `datum.${demographicType} === 'All' ? 0 : 10`,
+              },
+            },
             limit: { signal: 'width / 3' },
             text: {
               signal: barLabel,
@@ -217,6 +231,7 @@ function getSpec(
         paddingOuter: 0.1,
         paddingInner: BAR_PADDING,
       },
+
       {
         name: 'variables',
         type: 'ordinal',
@@ -266,7 +281,9 @@ function getSpec(
               baseline: { value: 'bottom' },
               // Limit at which line is truncated with an ellipsis
               limit: { value: 100 },
-              dy: { signal: AXIS_LABEL_Y_DELTA },
+              dy: {
+                signal: `datum.demographicType !== 'All' ? 5 : ${AXIS_LABEL_Y_DELTA}`, // Adjust based on AXIS_LABEL_Y_DELTA
+              },
               lineHeight: { signal: LABEL_HEIGHT },
             },
           },
