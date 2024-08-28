@@ -1,10 +1,7 @@
 import { dataSourceMetadataMap } from './MetadataMap'
-import { DatasetId, DatasetMetadataMap } from './DatasetMetadata'
+import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../providers/PhrmaProvider'
-import {
-  expect,
-  describe, test
-} from 'vitest'
+import { expect, describe, test } from 'vitest'
 
 describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {
@@ -31,14 +28,14 @@ describe('Test Data Source IDs', () => {
 
   test('There are no extra datasetMetadaIds', () => {
     const extraIdsFromDatasetMetadaIds = datasetMetadaIds.filter(
-      (id) => !uniqueDataSourceMetadataIds.includes(id as DatasetId)
+      (id) => !uniqueDataSourceMetadataIds.includes(id as DatasetId),
     )
     if (SHOW_PHRMA_MENTAL_HEALTH)
       expect(extraIdsFromDatasetMetadaIds).toEqual([])
   })
   test('There are no extra dataSourceMetadataIds', () => {
     const extraIdsFromDataSourceMetadaIds = uniqueDataSourceMetadataIds.filter(
-      (id) => !datasetMetadaIds.includes(id as DatasetId)
+      (id) => !datasetMetadaIds.includes(id as DatasetId),
     )
 
     if (SHOW_PHRMA_MENTAL_HEALTH)
