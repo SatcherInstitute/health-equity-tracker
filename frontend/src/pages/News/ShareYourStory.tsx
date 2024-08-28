@@ -1,4 +1,4 @@
-import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
 
 export default function ShareYourStory() {
   return (
@@ -128,9 +128,9 @@ export default function ShareYourStory() {
           more inclusive and informed community.
         </p>
         <div className='mt-20 flex justify-center'>
-          <HetBigCTA href='mailto:info@healthequitytracker.org'>
+          <HetCTABig href='mailto:info@healthequitytracker.org'>
             Share your story
-          </HetBigCTA>
+          </HetCTABig>
         </div>
       </div>
     </div>
