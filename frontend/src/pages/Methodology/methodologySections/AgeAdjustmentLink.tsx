@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import Resources from '../methodologyComponents/Resources'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
-import HetBigCTA from '../../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../../styles/HetComponents/HetCTABig'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
@@ -884,12 +884,12 @@ const AgeAdjustmentLink = () => {
             </table>
 
             <div className='mb-12 mt-24 flex w-full justify-center'>
-              <HetBigCTA
+              <HetCTABig
                 href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
                 id='#age-adjustment-explore'
               >
                 <span>Explore age-adjusted ratios →</span>
-              </HetBigCTA>
+              </HetCTABig>
             </div>
           </div>
         </article>

@@ -47,6 +47,7 @@ export type RouteConfig = {
 	path: string;
 	component?: () => ReactNode;
 	subLinks?: RouteConfig[];
+	visible?: boolean
 };
 
 export const routeConfigs: RouteConfig[] = [
@@ -56,6 +57,7 @@ export const routeConfigs: RouteConfig[] = [
 		path: METHODOLOGY_PAGE_LINK,
 		component: MethodologyHomeLink,
 		subLinks: [],
+		visible: false
 	},
 
 	{
@@ -101,6 +103,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#contact-information',
 			},
 		],
+		visible: true
 	},
 	{
 		isTopLevel: true,
@@ -108,6 +111,7 @@ export const routeConfigs: RouteConfig[] = [
 		path: TOPIC_CATEGORIES_LINK,
 		component: TopicCategoriesLink,
 		subLinks: [],
+		visible: true
 	},
 
 	{
@@ -132,6 +136,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#behavioral-health-resources',
 			},
 		],
+		visible: true
 	},
 	{
 		label: 'Chronic Diseases',
@@ -142,6 +147,7 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Data Sources', path: '#chronic-diseases-data-sources' },
 			{ label: 'Key Terms', path: '#chronic-diseases-key-terms' },
 		],
+		visible: true
 	},
 	{
 		label: 'Community Safety',
@@ -151,7 +157,8 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Data Sourcing', path: '#community-safety-data-sourcing' },
 			{ label: 'Data Sources', path: '#community-safety-data-sources' },
 			{ label: 'Key Terms', path: '#community-safety-key-terms' },
-		]
+		],
+		visible: true
 	},
 	{
 		label: 'COVID-19',
@@ -198,6 +205,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#covid-resources',
 			},
 		],
+		visible: true
 	},
 
 	{
@@ -226,6 +234,7 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Key Terms', path: '#hiv-key-terms' },
 			{ label: 'Resources', path: '#hiv-resources' },
 		],
+		visible: true
 	},
 	{
 		label: 'Political Determinants of Health',
@@ -283,6 +292,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#pdoh-resources',
 			},
 		],
+		visible: true
 	},
 	{
 		label: 'Social Determinants of Health',
@@ -294,6 +304,7 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Key Terms', path: '#sdoh-key-terms' },
 			{ label: 'Resources', path: '#sdoh-resources' },
 		],
+		visible: true
 	},
 	{
 		label: 'Medication Utilization',
@@ -311,6 +322,7 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Key Terms', path: '#medication-utilization-key-terms' },
 			{ label: 'Resources', path: '#medication-utilization-resources' },
 		],
+		visible: true
 	},
 	{
 		isTopLevel: true,
@@ -318,6 +330,7 @@ export const routeConfigs: RouteConfig[] = [
 		path: DATA_METHOD_DEFINITIONS_LINK,
 		component: DataMethodDefinitionsLink,
 		subLinks: [],
+		visible: true
 	},
 	{
 		label: 'Limitations and Missing Data',
@@ -333,6 +346,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#missing-data',
 			},
 		],
+		visible: true
 	},
 	{
 		label: 'Metrics',
@@ -358,6 +372,7 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#percent-share-example',
 			},
 		],
+		visible: true
 	},
 	{
 		label: 'Topic Definitions',
@@ -387,6 +402,7 @@ export const routeConfigs: RouteConfig[] = [
 			},
 			{ label: 'COVID-19 Topics', path: 'covid-19' },
 		],
+		visible: true
 	},
 
 	{
@@ -398,6 +414,7 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Addressing Data Gaps', path: '#data-gaps' },
 			...raceAndEthnicitySublinks,
 		],
+		visible: true
 	},
 	{
 		isTopLevel: true,
@@ -417,6 +434,7 @@ export const routeConfigs: RouteConfig[] = [
 			{ label: 'Key Terms', path: '#age-adjustment-key-terms' },
 			{ label: 'Resources', path: '#age-adjustment-resources' },
 		],
+		visible: true
 	},
 	{
 		isTopLevel: true,
@@ -424,6 +442,7 @@ export const routeConfigs: RouteConfig[] = [
 		path: RECOMMENDED_CITATION_LINK,
 		component: RecommendedCitationLink,
 		subLinks: [],
+		visible: true
 	},
 	{
 		isTopLevel: true,
@@ -480,5 +499,6 @@ export const routeConfigs: RouteConfig[] = [
 				path: '#pdoh-resources',
 			},
 		],
+		visible: true
 	},
 ];

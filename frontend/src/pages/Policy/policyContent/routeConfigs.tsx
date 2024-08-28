@@ -1,14 +1,5 @@
 import type { ReactNode } from 'react'
-import {
-  ADDRESSING_INEQUITIES_TAB,
-  CRISIS_OVERVIEW_TAB,
-  CURRENT_EFFORTS_TAB,
-  DATA_COLLECTION_TAB,
-  FAQS_TAB,
-  GUN_VIOLENCE_POLICY,
-  HOW_TO_USE_THE_DATA_TAB,
-  REFORM_OPPORTUNITIES_TAB,
-} from '../../../utils/internalRoutes'
+import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, GUN_VIOLENCE_POLICY, HOW_TO_USE_THE_DATA_TAB, REFORM_OPPORTUNITIES_TAB } from '../../../utils/internalRoutes'
 import CrisisOverviewTab from '../policySections/CrisisOverviewTab'
 import CurrentEffortsTab from '../policySections/CurrentEffortsTab'
 import DataCollectionTab from '../policySections/DataCollectionTab'
@@ -19,11 +10,12 @@ import AddressingInequitiesTab from '../policySections/AddressingInequitiesTab'
 import GunViolencePolicyHomeLink from '../policySections/GunViolencePolicyHomeLink'
 
 export type RouteConfig = {
-  isTopLevel?: boolean
-  label: string
-  path: string
-  component?: () => ReactNode
-  subLinks?: RouteConfig[]
+	isTopLevel?: boolean
+	label: string
+	path: string
+	component?: () => ReactNode
+	subLinks?: RouteConfig[]
+	visible?: boolean
 }
 
 export const routeConfigs: RouteConfig[] = [
@@ -33,6 +25,7 @@ export const routeConfigs: RouteConfig[] = [
     path: GUN_VIOLENCE_POLICY,
     component: GunViolencePolicyHomeLink,
     subLinks: [],
+    visible: false,
   },
   {
     isTopLevel: true,
@@ -49,6 +42,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#background',
       },
     ],
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -77,6 +71,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#fatality-definitions',
       },
     ],
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -121,6 +116,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#community-engagement',
       },
     ],
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -137,6 +133,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#county-level-interventions',
       },
     ],
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -153,6 +150,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#call-to-action-for-policy-changes',
       },
     ],
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -189,10 +187,11 @@ export const routeConfigs: RouteConfig[] = [
         path: '#population-vs-distribution-stacked-bar-chart',
       },
       {
-        label: 'Summary Data Table',
+        label: 'Breakdown Summary Data Table',
         path: '#breakdown-summary-data-table',
       },
     ],
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -200,5 +199,6 @@ export const routeConfigs: RouteConfig[] = [
     path: FAQS_TAB,
     component: FaqsTab,
     subLinks: [],
+    visible: true,
   },
 ]

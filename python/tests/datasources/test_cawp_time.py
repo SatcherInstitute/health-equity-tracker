@@ -40,13 +40,14 @@ GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
 
 
 def _get_consecutive_time_periods(*args, **kwargs):
-    print("mocking with reduced years")
+    print("mocking with reduced years", args, kwargs)
     # NOTE: ensure this end date is updated to reflect current test data set's last year
     return get_consecutive_time_periods(first_year=2018, last_year=2024)
 
 
 def _fetch_json_from_web(*args):
     [url] = args
+    file_name = ""
     if url == US_CONGRESS_HISTORICAL_URL:
         file_name = "test_legislators-historical.json"
     elif url == US_CONGRESS_CURRENT_URL:
@@ -61,7 +62,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
     [_folder, filename] = args
 
-    print("MOCK READ FROM /data:", filename)
+    print("MOCK READ FROM /data:", filename, kwargs)
 
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
@@ -101,7 +102,7 @@ def _load_csv_as_df_from_web(*args, **kwargs):
     dtype = kwargs.get("dtype", {})
 
     # reverse lookup the FIPS based on the incoming url string arg
-    fips = [i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
+    fips = next(fips for fips, state in FIPS_TO_STATE_TABLE_MAP.items() if state in url)
 
     # mock out a placeholder file for all FIPS not included in our test files
     if fips in FIPS_TO_TEST:
@@ -179,7 +180,7 @@ def testWriteToBq(
         national_historical_call,
         national_current_call,
     ) = mock_bq.call_args_list
-    (df_names, _dataset, table_name_names), _bq_types = names_call
+    (_df_names, _dataset, table_name_names), _bq_types = names_call
     assert table_name_names == "race_and_ethnicity_state_historical_names"
 
     # STATE DATA HISTORICAL OUTPUT
@@ -194,6 +195,8 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
+    # df_state_historical.to_csv(table_name_state_historical, index=False)
 
     assert_frame_equal(
         df_state_historical,
@@ -214,6 +217,8 @@ def testWriteToBq(
         dtype={"state_fips": str, "time_period": str},
     )
 
+    # df_state_current.to_csv(table_name_state_current, index=False)
+
     assert_frame_equal(
         df_state_current,
         expected_df_state_current,
@@ -232,6 +237,8 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
+    # df_national_historical.to_csv(table_name_national_historical, index=False)
 
     assert_frame_equal(
         df_national_historical,
@@ -252,6 +259,8 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_current.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
+    # df_national_current.to_csv(table_name_national_current, index=False)
 
     assert_frame_equal(
         df_national_current,
