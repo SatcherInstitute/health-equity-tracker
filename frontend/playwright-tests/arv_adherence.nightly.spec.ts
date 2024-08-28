@@ -11,7 +11,10 @@ test('ARV Adherence', async ({ page }) => {
       name: 'Population adherent to antiretrovirals in the United States',
     })
     .click()
-  await page.locator('#rate-map').getByRole('heading', { name: 'Medicare ARV Beneficiaries, Ages 18+' }).click();
+  await page
+    .locator('#rate-map')
+    .getByRole('heading', { name: 'Medicare ARV Beneficiaries, Ages 18+' })
+    .click()
   await page.getByText('Demographic', { exact: true }).nth(2).click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
@@ -27,7 +30,9 @@ test('ARV Adherence', async ({ page }) => {
     })
     .click()
   await page
-    .getByRole('heading', { name: 'Breakdown summary for adherence to antiretrovirals in the United States' })
+    .getByRole('heading', {
+      name: 'Summary for adherence to antiretrovirals in the United States',
+    })
     .click()
   await page.getByText('Share this report:').click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
@@ -37,7 +42,7 @@ test('ARV Adherence', async ({ page }) => {
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love'
+      'Do you have information that belongs on the Health Equity Tracker? We would love',
     )
     .click()
 })

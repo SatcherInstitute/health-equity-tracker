@@ -13,11 +13,14 @@
 		"--line-length",
 		"120"
 	],
+	"editor.codeActionsOnSave": {
+		"quickfix.biome": "explicit"
+	},
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[json]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome"
@@ -26,7 +29,7 @@
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[jsonc]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[javascriptreact]": {
 		"editor.defaultFormatter": "biomejs.biome"

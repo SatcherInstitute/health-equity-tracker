@@ -1,7 +1,7 @@
 import { TableChart } from '../charts/TableChart'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
   type DemographicType,
@@ -24,16 +24,16 @@ import {
 } from '../data/utils/datasetutils'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   DATATYPES_NEEDING_13PLUS,
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import { type CountColsMap } from '../charts/mapGlobals'
+import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type { CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
 import HetDivider from '../styles/HetComponents/HetDivider'
@@ -55,7 +55,7 @@ interface TableCardProps {
 export default function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1500],
-    props.demographicType === SEX
+    props.demographicType === SEX,
   )
 
   const metrics = getRateAndPctShareMetrics(props.dataTypeConfig)
@@ -66,9 +66,9 @@ export default function TableCard(props: TableCardProps) {
       ...getExclusionList(
         props.dataTypeConfig,
         props.demographicType,
-        props.fips
-      )
-    )
+        props.fips,
+      ),
+    ),
   )
 
   const metricConfigs: Partial<Record<MetricId, MetricConfig>> = {}
@@ -92,10 +92,10 @@ export default function TableCard(props: TableCardProps) {
     }
   })
   const isIncarceration = INCARCERATION_IDS.includes(
-    props.dataTypeConfig.dataTypeId
+    props.dataTypeConfig.dataTypeId,
   )
   const isHIV = DATATYPES_NEEDING_13PLUS.includes(
-    props.dataTypeConfig.dataTypeId
+    props.dataTypeConfig.dataTypeId,
   )
   const metricIds = Object.keys(metricConfigs) as MetricId[]
   isIncarceration && metricIds.push('total_confined_children')
@@ -117,7 +117,7 @@ export default function TableCard(props: TableCardProps) {
     metricIds,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ 'current'
+    /* timeView */ 'current',
   )
 
   const displayingCovidData = metrics
@@ -130,12 +130,17 @@ export default function TableCard(props: TableCardProps) {
     '#card-options-menu',
   ]
 
-  const subtitle = generateSubtitle(ALL, props.demographicType, props.dataTypeConfig)
+  const subtitle = generateSubtitle(
+    ALL,
+    props.demographicType,
+    props.dataTypeConfig,
+  )
 
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${props.dataTypeConfig.fullDisplayName
-        } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${
+        props.dataTypeConfig.fullDisplayName
+      } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
@@ -150,7 +155,7 @@ export default function TableCard(props: TableCardProps) {
         // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
         if (isIncarceration) {
           normalMetricIds = metricIds.filter(
-            (id) => id !== 'total_confined_children'
+            (id) => id !== 'total_confined_children',
           )
           data = data.filter((row: Row) => row[props.demographicType] !== ALL)
         }
@@ -167,12 +172,12 @@ export default function TableCard(props: TableCardProps) {
                 data={data}
                 demographicType={props.demographicType}
                 metrics={Object.values(metricConfigs).filter(
-                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName),
                 )}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
                 fips={props.fips}
                 dataTableTitle={
-                  props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
+                  props.dataTypeConfig.dataTableTitle ?? 'Summary'
                 }
                 subtitle={subtitle}
               />

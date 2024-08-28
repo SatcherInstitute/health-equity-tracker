@@ -26,21 +26,17 @@ Last Updated: 4/23
 """
 
 import pandas as pd
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
-    convert_columns_to_numeric,
     generate_cols_map,
-    DATA_DIR,
     RACE_NAMES_MAPPING,
-    WISQARS_COLS,
+    load_wisqars_as_df_from_data_dir,
+    WISQARS_ALL,
 )
 from ingestion.constants import (
     CURRENT,
     HISTORICAL,
-    NATIONAL_LEVEL,
-    US_NAME,
 )
 from ingestion.dataset_utils import (
     combine_race_ethnicity,
@@ -50,8 +46,10 @@ from ingestion.dataset_utils import (
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
+from ingestion.het_types import WISQARS_DEMO_TYPE, GEO_TYPE, WISQARS_VAR_TYPE
+from typing import List
 
-CATEGORIES_LIST = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
+CATEGORIES_LIST: List[WISQARS_VAR_TYPE] = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
 ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
 PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
@@ -81,10 +79,10 @@ class CDCWisqarsYouthData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsYouthData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic = self.get_attr(attrs, "demographic")
-        geo_level = self.get_attr(attrs, "geographic")
+        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
 
-        national_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
+        national_totals_by_intent_df = process_wisqars_youth_df(WISQARS_ALL, geo_level)
 
         df = self.generate_breakdown_df(demographic, geo_level, national_totals_by_intent_df)
 
@@ -96,21 +94,16 @@ class CDCWisqarsYouthData(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
-    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(self, demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
         cols_to_standard = {
             "year": std_col.TIME_PERIOD_COL,
             "state": std_col.STATE_NAME_COL,
-            "race": std_col.RACE_CATEGORY_ID_COL,
         }
 
-        breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
-
+        breakdown_group_df = process_wisqars_youth_df(demographic, geo_level)
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
-
         df = combined_group_df.rename(columns=cols_to_standard)
-
         std_col.add_race_columns_from_category_id(df)
-
         df = merge_state_ids(df)
 
         df = generate_pct_share_col_with_unknowns(
@@ -132,46 +125,31 @@ class CDCWisqarsYouthData(DataSource):
         return df
 
 
-def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
+def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     output_df = pd.DataFrame(columns=['year', 'state', 'race'])
 
     for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            DATA_DIR,
-            f"{variable_string}-{geo_level}-{breakdown}.csv",
-            na_values=["--", "**"],
-            usecols=lambda x: x not in WISQARS_COLS,
-            thousands=",",
-            dtype={"Year": str},
-        )
+
+        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
 
         # Convert column names to lowercase
         df.columns = df.columns.str.lower()
 
-        # removes the metadata section from the csv
-        metadata_start_index = df[df["year"] == "Total"].index
-        metadata_start_index = metadata_start_index[0]
-        df = df.iloc[:metadata_start_index]
-
-        # cleans data frame
-        columns_to_convert = ["deaths", "crude rate"]
-        convert_columns_to_numeric(df, columns_to_convert)
-
-        if geo_level == NATIONAL_LEVEL:
-            df.insert(1, "state", US_NAME)
-
-        if breakdown == "all":
-            df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
+        if demographic == WISQARS_ALL:
+            df.insert(2, std_col.RACE_CATEGORY_ID_COL, std_col.Race.ALL.value)
 
         if std_col.ETH_COL in df.columns.to_list():
-            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
-            df = df.rename(columns={'race_ethnicity_combined': 'race'})
-
-            # Combines the unknown and hispanic rows
-            df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
+            df = combine_race_ethnicity(
+                df,
+                ['deaths', 'population', 'crude rate'],
+                RACE_NAMES_MAPPING,
+                ethnicity_value='Hispanic',
+                additional_group_cols=['year', 'state'],
+                treat_zero_count_as_missing=True,
+            )
 
             # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
-            subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
+            subset_mask = df[std_col.RACE_CATEGORY_ID_COL].isin(['HISP', 'UNKNOWN'])
 
             # Create a temporary DataFrame with just the subset
             temp_df = df[subset_mask].copy()

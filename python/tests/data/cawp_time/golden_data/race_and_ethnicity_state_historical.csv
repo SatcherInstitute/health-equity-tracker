@@ -1,6 +1,6 @@
 state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnicity,pct_share_of_us_congress,pct_share_of_state_leg,women_us_congress_pct_relative_inequity,women_state_leg_pct_relative_inequity
 02,2018,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,3.3,,
-02,2018,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",0.0,3.3,-100.0,-52.1
+02,2018,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-52.1
 02,2018,Alaska,AK,ALL,All,33.3,31.7,0.0,0.0
 02,2018,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
 02,2018,Alaska,AK,BLACK,Black or African American,0.0,0.0,-100.0,-100.0
@@ -11,7 +11,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2018,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2018,Alaska,AK,WHITE,White,33.3,28.3,54.3,38.1
 60,2018,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2018,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,7.7,5.8,5.8
+60,2018,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,5.8
 60,2018,American Samoa,AS,ALL,All,100.0,7.7,0.0,0.0
 60,2018,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,7.7,,
 60,2018,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
@@ -22,7 +22,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 60,2018,American Samoa,AS,UNKNOWN,Unknown race,0.0,0.0,,
 60,2018,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
 02,2019,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
-02,2019,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",0.0,1.7,-100.0,-80.8
+02,2019,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-80.8
 02,2019,Alaska,AK,ALL,All,33.3,38.3,0.0,0.0
 02,2019,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
 02,2019,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,163.6
@@ -33,7 +33,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2019,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2019,Alaska,AK,WHITE,White,33.3,33.3,54.8,34.7
 60,2019,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2019,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,2.6,5.8,-47.1
+60,2019,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
 60,2019,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
 60,2019,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
 60,2019,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
@@ -44,7 +44,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 60,2019,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
 60,2019,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
 02,2020,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
-02,2020,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",0.0,1.7,-100.0,-80.8
+02,2020,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-80.8
 02,2020,Alaska,AK,ALL,All,33.3,38.3,0.0,0.0
 02,2020,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
 02,2020,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,171.9
@@ -55,7 +55,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2020,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2020,Alaska,AK,WHITE,White,33.3,33.3,57.7,37.2
 60,2020,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2020,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,2.6,5.8,-47.1
+60,2020,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
 60,2020,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
 60,2020,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
 60,2020,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
@@ -66,7 +66,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 60,2020,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
 60,2020,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
 02,2021,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
-02,2021,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",0.0,1.7,-100.0,-75.1
+02,2021,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-75.1
 02,2021,Alaska,AK,ALL,All,33.3,30.0,0.0,0.0
 02,2021,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
 02,2021,Alaska,AK,BLACK,Black or African American,0.0,1.7,-100.0,75.0
@@ -77,7 +77,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2021,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2021,Alaska,AK,WHITE,White,33.3,26.7,60.5,42.7
 60,2021,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2021,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,2.6,5.8,-47.1
+60,2021,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
 60,2021,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
 60,2021,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
 60,2021,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
@@ -88,7 +88,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 60,2021,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
 60,2021,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
 02,2022,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",25.0,1.7,,
-02,2022,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",25.0,1.7,124.2,-74.9
+02,2022,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-74.9
 02,2022,Alaska,AK,ALL,All,50.0,30.0,0.0,0.0
 02,2022,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
 02,2022,Alaska,AK,BLACK,Black or African American,0.0,1.7,-100.0,75.0
@@ -99,7 +99,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2022,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2022,Alaska,AK,WHITE,White,25.0,26.7,-18.4,45.0
 60,2022,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2022,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,2.6,5.8,-47.1
+60,2022,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
 60,2022,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
 60,2022,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
 60,2022,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
@@ -110,7 +110,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 60,2022,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
 60,2022,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
 02,2023,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
-02,2023,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",33.3,3.3,124.2,-55.2
+02,2023,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
 02,2023,Alaska,AK,ALL,All,66.7,33.3,0.0,0.0
 02,2023,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,1.7,,
 02,2023,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,212.5
@@ -121,7 +121,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2023,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2023,Alaska,AK,WHITE,White,33.3,25.0,-18.4,22.3
 60,2023,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2023,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,0.0,5.8,0.0
+60,2023,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
 60,2023,American Samoa,AS,ALL,All,100.0,0.0,0.0,
 60,2023,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,0.0,,
 60,2023,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,0.0
@@ -132,7 +132,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 60,2023,American Samoa,AS,UNKNOWN,Unknown race,0.0,0.0,,
 60,2023,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,0.0
 02,2024,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
-02,2024,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",33.3,3.3,124.2,-55.2
+02,2024,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
 02,2024,Alaska,AK,ALL,All,66.7,33.3,0.0,0.0
 02,2024,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,1.7,,
 02,2024,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,212.5
@@ -143,7 +143,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2024,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
 02,2024,Alaska,AK,WHITE,White,33.3,25.0,-18.4,22.3
 60,2024,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2024,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",100.0,0.0,5.8,0.0
+60,2024,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
 60,2024,American Samoa,AS,ALL,All,100.0,0.0,0.0,
 60,2024,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,0.0,,
 60,2024,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,0.0

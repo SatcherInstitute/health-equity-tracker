@@ -4,7 +4,8 @@
 		"ms-python.black-formatter",
 		"streetsidesoftware.code-spell-checker",
 		"YoavBls.pretty-ts-errors",
-		"bradlc.vscode-tailwindcss"
+		"bradlc.vscode-tailwindcss",
+		"github.vscode-github-actions"
 	],
 	"unwantedRecommendations": []
 }

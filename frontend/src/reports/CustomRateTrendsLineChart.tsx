@@ -1,33 +1,32 @@
-import React, { useState } from 'react';
-import { Fips } from '../data/utils/Fips';
-import { METRIC_CONFIG, DataTypeConfig } from '../data/config/MetricConfig';
-import RateTrendsChartCard from '../cards/RateTrendsChartCard';
-import { MadLib, MADLIB_LIST, getMadLibWithUpdatedValue } from '../utils/MadLibs';
+import type React from 'react'
+import { Fips } from '../data/utils/Fips'
+import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
+import RateTrendsChartCard from '../cards/RateTrendsChartCard'
+import { DemographicType } from '../data/query/Breakdowns';
 
-const CustomRateTrendsLineChart: React.FC = () => {
-  const [madLib, setMadLib] = useState<MadLib>(() => {
-    const initialMadLib = MADLIB_LIST.find((madLib) => madLib.id === 'disparity')!;
-    return initialMadLib;
-  });
+interface CustomRateTrendsLineChartProps {
+  fips?: Fips;
+  dataTypeConfig?: DataTypeConfig;
+  demographicType?: DemographicType;
+  reportTitle?: string;
+}
 
-  const fips = new Fips('00');
-  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['hiv'][0];
-  const reportTitle = 'Example Report Title';
-
-  const updateFipsCallback = (fips: Fips) => {
-    setMadLib(getMadLibWithUpdatedValue(madLib, 3, fips.code));
-  };
-
+const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
+  fips = new Fips('00'),
+  dataTypeConfig = METRIC_CONFIG['hiv'][0],  
+  demographicType = 'race_and_ethnicity',
+  reportTitle = 'Custom Rate Trends Line Chart',
+}) => {
   return (
     <div>
       <RateTrendsChartCard
         dataTypeConfig={dataTypeConfig}
-        demographicType='race_and_ethnicity'
+        demographicType={demographicType}
         fips={fips}
         reportTitle={reportTitle}
       />
     </div>
-  );
-};
+  )
+}
 
-export default CustomRateTrendsLineChart;
+export default CustomRateTrendsLineChart

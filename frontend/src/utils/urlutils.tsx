@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { type DataTypeId } from '../data/config/MetricConfig'
+import type { DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -8,13 +8,16 @@ import {
   NEWS_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+  FAQ_TAB_LINK,
+  GUN_VIOLENCE_POLICY,
 } from './internalRoutes'
-import { type MadLibId, type PhraseSelections } from './MadLibs'
+import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
   raceNameToCodeMap,
   type DemographicGroup,
 } from '../data/utils/Constants'
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { urlMap } from './externalUrls'
 
 // OLDER HANDLING PARAMS
 
@@ -40,6 +43,7 @@ export const SHOW_ONBOARDING_PARAM = 'onboard'
 
 export const DEMOGRAPHIC_PARAM = 'demo'
 export const TOPIC_INFO_PARAM_KEY = 'topic-info'
+export const VOTE_DOT_ORG_PARAM_KEY = 'vote-dot-org'
 export const MULTIPLE_MAPS_1_PARAM_KEY = 'multiple-maps'
 export const MULTIPLE_MAPS_2_PARAM_KEY = 'multiple-maps2'
 export const EXTREMES_1_PARAM_KEY = 'extremes'
@@ -90,6 +94,34 @@ export const PAGE_URL_TO_NAMES: Record<string, string> = {
 
 export const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
+}
+
+export const NAVIGATION_STRUCTURE = {
+  about: {
+    label: 'About',
+    pages: {
+      [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
+      // [GUN_VIOLENCE_POLICY]: 'Policy Context',
+      [ABOUT_US_PAGE_LINK]: 'About Us',
+    },
+  },
+  exploreTheData: {
+    label: 'Explore the Data',
+    pages: {
+      [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
+      [DATA_CATALOG_PAGE_LINK]: 'Data Downloads',
+      [METHODOLOGY_PAGE_LINK]: 'Methodology'
+    },
+  },
+  mediaAndUpdates: {
+    label: 'Media & Updates',
+    pages: {
+      [NEWS_PAGE_LINK]: 'News',
+      [urlMap.hetYouTubeShorts]: 'Videos',
+    },
+  },
+  faqs: { label: 'FAQs', link: FAQ_TAB_LINK },
+  
 }
 
 export function useSearchParams() {

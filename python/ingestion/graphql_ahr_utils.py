@@ -1,12 +1,19 @@
 import json
 import os
+import pandas as pd
 import ingestion.standardized_columns as std_col
 import requests  # type: ignore
+from ingestion.constants import NATIONAL_LEVEL, US_ABBR
+from ingestion.het_types import TOPIC_CATEGORY_TYPE
 
 # Environment variable
 ahr_api_key = os.getenv("AHR_API_KEY")
 
 # Constants
+AHR_US = 'ALL'
+GRAPHQL_URL = 'https://api.americashealthrankings.org/graphql'
+GRAPHQL_HEADERS = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
+
 AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     'Asthma': 'asthma_per_100k',
     'Avoided Care Due to Cost': 'avoided_care_pct_rate',
@@ -17,7 +24,7 @@ AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     'Diabetes': 'diabetes_per_100k',
     'Excessive Drinking': 'excessive_drinking_per_100k',
     'Frequent Mental Distress': 'frequent_mental_distress_per_100k',
-    'Non-Medical Drug Use - Past Year': 'non_medical_drug_use_per_100k',
+    'Non-Medical Drug Use': 'non_medical_drug_use_per_100k',
 }
 
 AHR_MEASURES_TO_RATES_MAP_ALL_AGES = {
@@ -54,20 +61,21 @@ PCT_RATE_TO_PER_100K_TOPICS = [
 
 
 # Utility functions
-def load_ahr_measures_json():
-    ingestion_dir = os.path.join('python', 'ingestion', 'ahr_config')
-    config_file_path = os.path.join(ingestion_dir, 'graphql_ahr_measure_ids.json')
+def load_ahr_measures_json(category: TOPIC_CATEGORY_TYPE):
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    config_file_path = os.path.join(current_dir, 'ahr_config', f'graphql_ahr_measure_ids_{category}.json')
 
     with open(config_file_path, 'r') as file:
         return json.load(file)
 
 
-def get_measure_ids(demographic: str, data=None):
+def get_measure_ids(demographic: str, category: TOPIC_CATEGORY_TYPE, data=None):
     """
     Retrieve all measure IDs based on the specified demographic.
 
     Args:
     demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
+    category (str): The category topics to fetch. Use 'all' to not filter by category
     data (dict, optional): The dataset to use for fetching the measure IDs.
     If not provided, the function will load the data from the JSON file.
 
@@ -75,7 +83,7 @@ def get_measure_ids(demographic: str, data=None):
     list: A list of all measure IDs for the specified demographic.
     """
     if data is None:
-        data = load_ahr_measures_json()
+        data = load_ahr_measures_json(category)
 
     all_ids = []
     demographic_measures = data.get(demographic)
@@ -106,75 +114,86 @@ def generate_cols_map(prefixes: list[str], suffix: str):
     return {prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}" for prefix in prefixes}
 
 
-def fetch_ahr_data_from_graphql():
+def fetch_ahr_data_from_graphql(demographic: str, geo_level: str, category: TOPIC_CATEGORY_TYPE):
     """
     Fetches data from AmericasHealthRankings GraphQL API.
 
     Parameters:
-        query (str): The GraphQL query to be executed.
-        variables (dict): Variables to be passed with the query.
-    Returns:
-        a dictionary containing the data retrieved from the API.
-    """
+        demographic (str): One of 'all', 'age', 'race_and_ethnicity', 'sex'.
+        geo_level (str): The geographic level of the data (e.g., 'national', 'state').
+        category (str): The topic category of the data topics to fetch.
 
-    graphql_url = 'https://api.americashealthrankings.org/graphql'
+    Returns:
+        a list containing the data retrieved from the API.
+    """
+    measure_ids = get_measure_ids('all', category) + get_measure_ids(demographic, category)
+    results = []
+    state_filter = '{eq: "ALL"}' if geo_level == NATIONAL_LEVEL else '{neq: "ALL"}'
 
     if not ahr_api_key:
         raise ValueError("No API key found. Please set the AHR_API_KEY environment variable.")
 
-    headers = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
-    all_responses = []
-
-    query = """
-    query Data_A($where: MeasureFilterInput_A) {
-        measures_A(where: $where) {
-            data {
-                endDate
-                state
-                value
-                measure {
-                    name
-                }
-            }
-        }
-    }
-    """
-
-    descriptions_list = [
-        'asthma',
-        'cost',
-        'angina or coronary heart disease, a heart attack or myocardial infarction, or a stroke',
-        'kidney disease',
-        'chronic obstructive pulmonary disease',
-        'depression',
-        'diabetes',
-        'binge drinking',
-        'mental health',
-        'Discharges following hospitalization',
-        'prescription drugs non-medically',
-        "self-harm",
-        'presidential',
-    ]
-
-    # Iterate over each description in the list
-    for description in descriptions_list:
-        variables_str = f"""
-        {{
-            "where": {{
-                "description": {{
-                    "contains": "{description}"
-                }}
+    for measure_id in measure_ids:
+        graphql_query = f"""
+        query getDatum {{
+          measure_A(metricId: {measure_id}) {{
+            data(where: {{state: {state_filter}}}) {{
+              endDate
+              state
+              value
+              measure {{
+                name
+              }}
             }}
+          }}
         }}
         """
-        variables = json.loads(variables_str)
-        graphql_request = {'query': query, 'variables': variables}
-        response = requests.post(graphql_url, json=graphql_request, headers=headers, timeout=10)
+
+        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=300)
 
         if response.status_code == 200:
-            # Collect each successful responses
-            all_responses.append(response.json().get('data')['measures_A'])
-        else:
-            raise requests.exceptions.HTTPError(f"HTTP Error: {response.status_code}")
+            results.append(response.json().get('data')['measure_A'])
 
-    return all_responses
+        else:
+            print(f"Query failed to run with a {response.status_code} for metricId: {measure_id}")
+
+    return results
+
+
+def graphql_response_to_dataframe(response_data):
+    """
+    Converts a GraphQL API response containing nested data into a flattened Pandas DataFrame.
+
+    Args:
+    - response_data (list): The GraphQL API response data.
+    - geo_level (str): The geographic level of the data (e.g., 'national', 'state').
+
+    Returns:
+    - pd.DataFrame: A Pandas DataFrame containing the flattened data.
+
+    The function flattens the nested response_data structure, extracts relevant fields,
+    and creates a DataFrame. It also standardizes the state codes and filters the data
+    based on the geographic level.
+    """
+    flattened_data = []
+
+    for dataset in response_data:
+        for row in dataset['data']:
+            time_period = row['endDate'][:4]
+            measure = row['measure']['name']
+            state_postal = row['state']
+            value = row['value']
+
+            flattened_data.append(
+                {
+                    std_col.TIME_PERIOD_COL: time_period,
+                    'measure': measure,
+                    std_col.STATE_POSTAL_COL: state_postal,
+                    'value': value,
+                }
+            )
+
+    df = pd.DataFrame(flattened_data)
+    df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace(AHR_US, US_ABBR)
+
+    return df

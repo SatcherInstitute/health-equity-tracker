@@ -1,11 +1,13 @@
 import { getDataManager } from '../../utils/globals'
-import { type DatasetId } from '../config/DatasetMetadata'
-import {
-  type DataTypeId,
-  type DropdownVarId,
-  type MetricId,
+import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type {
+  DataTypeId,
+  DropdownVarId,
+  MetricId,
 } from '../config/MetricConfig'
-import { DemographicBreakdownKey, type Breakdowns } from '../query/Breakdowns'
+import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
+import type { DemographicBreakdownKey, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
@@ -27,7 +29,6 @@ export const CHR_DATATYPE_IDS: DataTypeId[] = [
   ...CHR_DATATYPE_IDS_BY_RACE,
 ]
 
-
 export const AHR_CONDITIONS: DropdownVarId[] = [
   'asthma',
   'avoided_care',
@@ -46,26 +47,38 @@ export const AHR_CONDITIONS: DropdownVarId[] = [
 
 export const AHR_METRICS: MetricId[] = [
   'ahr_population_pct',
+  'ahr_population_estimated_total',
+  'ahr_population_18plus',
   'asthma_pct_share',
   'asthma_per_100k',
+  'asthma_estimated_total',
   'avoided_care_pct_share',
   'avoided_care_pct_rate',
+  'avoided_care_estimated_total',
   'cardiovascular_diseases_pct_share',
   'cardiovascular_diseases_per_100k',
+  'cardiovascular_diseases_estimated_total',
   'chronic_kidney_disease_pct_share',
   'chronic_kidney_disease_per_100k',
+  'chronic_kidney_disease_estimated_total',
   'copd_pct_share',
   'copd_per_100k',
+  'copd_estimated_total',
   'depression_pct_share',
   'depression_per_100k',
+  'depression_estimated_total',
   'diabetes_pct_share',
   'diabetes_per_100k',
+  'diabetes_estimated_total',
   'excessive_drinking_pct_share',
   'excessive_drinking_per_100k',
+  'excessive_drinking_estimated_total',
   'frequent_mental_distress_pct_share',
   'frequent_mental_distress_per_100k',
+  'frequent_mental_distress_estimated_total',
   'non_medical_drug_use_pct_share',
   'non_medical_drug_use_per_100k',
+  'non_medical_drug_use_estimated_total',
   'preventable_hospitalizations_pct_share',
   'preventable_hospitalizations_per_100k',
 ]
@@ -78,6 +91,7 @@ export const AHR_VOTER_AGE_METRICS: MetricId[] = [
 export const AHR_DECADE_PLUS_5_AGE_METRICS: MetricId[] = [
   'suicide_pct_share',
   'suicide_per_100k',
+  'suicide_estimated_total',
 ]
 
 export const AHR_API_NH_METRICS: MetricId[] = [
@@ -124,27 +138,57 @@ class AhrProvider extends VariableProvider {
     ])
   }
 
-  getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId): DatasetId | undefined {
+  getDatasetId(
+    breakdowns: Breakdowns,
+    dataTypeId?: DataTypeId,
+  ): DatasetId | undefined {
+    const currentDropdown: DropdownVarId | undefined =
+      dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
+    const isBehavioralHealth =
+      currentDropdown &&
+      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
 
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
-        return 'ahr_data-race_and_ethnicity_national'
-      if (breakdowns.hasOnlySex()) return 'ahr_data-sex_national'
-      if (breakdowns.hasOnlyAge()) return 'ahr_data-age_national'
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
+          : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
+      if (breakdowns.hasOnlySex())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_sex_national_current'
+          : 'graphql_ahr_data-non-behavioral_health_sex_national_current'
+      if (breakdowns.hasOnlyAge())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_age_national_current'
+          : 'graphql_ahr_data-non-behavioral_health_age_national_current'
     }
     if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace()) return 'ahr_data-race_and_ethnicity_state'
-      if (breakdowns.hasOnlySex()) return 'ahr_data-sex_state'
-      if (breakdowns.hasOnlyAge()) return 'ahr_data-age_state'
+      if (breakdowns.hasOnlyRace())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
+          : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
+      if (breakdowns.hasOnlySex())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_sex_state_current'
+          : 'graphql_ahr_data-non-behavioral_health_sex_state_current'
+      if (breakdowns.hasOnlyAge())
+        return isBehavioralHealth
+          ? 'graphql_ahr_data-behavioral_health_age_state_current'
+          : 'graphql_ahr_data-non-behavioral_health_age_state_current'
     }
     // some county data is available via CHR
-    if (breakdowns.geography === 'county' && dataTypeId && CHR_DATATYPE_IDS.includes(dataTypeId)) {
-      if (breakdowns.hasExactlyOneDemographic()) return 'chr_data-race_and_ethnicity_county_current'
+    if (
+      breakdowns.geography === 'county' &&
+      dataTypeId &&
+      CHR_DATATYPE_IDS.includes(dataTypeId)
+    ) {
+      if (breakdowns.hasExactlyOneDemographic())
+        return 'chr_data-race_and_ethnicity_county_current'
     }
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const { breakdowns, dataTypeId, timeView } = metricQuery
     const datasetId = this.getDatasetId(breakdowns, dataTypeId)
@@ -160,14 +204,19 @@ class AhrProvider extends VariableProvider {
     df = this.filterByTimeView(df, timeView, '2021')
     df = this.renameGeoColumns(df, breakdowns)
 
-    if (breakdowns.geography === 'county' && dataTypeId && CHR_DATATYPE_IDS.includes(dataTypeId) && !breakdowns.hasOnlyRace()) {
+    if (
+      breakdowns.geography === 'county' &&
+      dataTypeId &&
+      CHR_DATATYPE_IDS.includes(dataTypeId) &&
+      !breakdowns.hasOnlyRace()
+    ) {
       let requestedDemographic: DemographicBreakdownKey = 'race_and_ethnicity'
       // CHR: treat the "All" rows from by race as "All" for sex/age
       df = df.filter((row) => row['race_and_ethnicity'] === 'All')
       if (breakdowns.hasOnlySex()) requestedDemographic = 'sex'
       if (breakdowns.hasOnlyAge()) requestedDemographic = 'age'
       df = df.renameSeries({
-        'race_and_ethnicity': requestedDemographic
+        race_and_ethnicity: requestedDemographic,
       })
     }
 
@@ -178,15 +227,15 @@ class AhrProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
-
-    const isValidCountyRequest = breakdowns.geography === 'county' && metricIds?.some((metricId) => CHR_METRICS.includes(metricId))
+    const isValidCountyRequest =
+      breakdowns.geography === 'county' &&
+      metricIds?.some((metricId) => CHR_METRICS.includes(metricId))
 
     const validDemographicBreakdownRequest =
       breakdowns.hasExactlyOneDemographic()
 
     return (
-      (
-        (isValidCountyRequest) ||
+      (isValidCountyRequest ||
         breakdowns.geography === 'state' ||
         breakdowns.geography === 'national') &&
       validDemographicBreakdownRequest

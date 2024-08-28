@@ -1,14 +1,16 @@
 '''Collection of shared Airflow functionality.'''
+
 import os
 import pandas as pd
 import requests  # type: ignore
-# Ignore the Airflow module, it is installed in both our dev and prod environments
-from airflow import DAG
-from airflow.models import Variable  # type: ignore
-from airflow.operators.python_operator import PythonOperator  # type: ignore
-from google.cloud import bigquery
 
+# Ignore the Airflow module, it is installed in both our dev and prod environments
+from airflow import DAG  # pylint: disable=no-name-in-module
+from airflow.models import Variable  # pylint: disable=no-name-in-module
+from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
+from google.cloud import bigquery
 from sanity_check import check_pct_values
+import subprocess
 
 
 def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
@@ -27,9 +29,9 @@ def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
     }
 
 
-def generate_gcs_payload(workflow_id: str, filename: str = None,
-                         url: str = None, gcs_bucket: str = None,
-                         year: str = None) -> dict:
+def generate_gcs_payload(
+    workflow_id: str, filename: str = None, url: str = None, gcs_bucket: str = None, year: str = None
+) -> dict:
     """Creates the payload object required for the GCS ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -48,11 +50,17 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
     return {'message': message}
 
 
-def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
-                        gcs_bucket: str = None, url: str = None,
-                        demographic: str = None,
-                        geographic: str = None,
-                        year: str = None) -> dict:
+def generate_bq_payload(
+    workflow_id: str,
+    dataset: str,
+    filename: str = None,
+    gcs_bucket: str = None,
+    url: str = None,
+    demographic: str = None,
+    geographic: str = None,
+    category: str = None,
+    year: str = None,
+) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -69,8 +77,9 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
                  Either `race`/`race_and_ethnicity`, `sex` or `age`.
     geographic: The geographic level to generate the bq pipeline for.
                  Either `national`, `state` or `county`.
+    category: The topic category to generate the bq pipeline for.
     year: string 4 digit year that determines which year should be processed
-        """
+    """
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
     if filename is not None:
@@ -83,6 +92,8 @@ def generate_bq_payload(workflow_id: str, dataset: str, filename: str = None,
         message['geographic'] = geographic
     if year is not None:
         message['year'] = year
+    if category is not None:
+        message['category'] = category
     return {'message': message}
 
 
@@ -98,9 +109,16 @@ def create_exporter_operator(task_id: str, payload: dict, dag: DAG) -> PythonOpe
     return create_request_operator(task_id, Variable.get('EXPORTER_SERVICE_ENDPOINT'), payload, dag)
 
 
-def service_request(url: str, data: dict, **kwargs):
+def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-argument
     receiving_service_headers = {}
-    if (os.getenv('ENV') != 'dev'):
+    environment = os.getenv('ENV')
+
+    if environment == 'local':
+        # Obtain the identity token for local environment using the gcloud command
+        identity_token = subprocess.check_output(["gcloud", "auth", "print-identity-token"]).strip().decode("utf-8")
+        receiving_service_headers = {'Authorization': f'Bearer {identity_token}'}
+
+    elif environment != 'dev':
         # Set up metadata server request
         # See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
         token_url = 'http://metadata/computeMetadata/v1/instance/service-accounts/default/identity?audience='
@@ -109,20 +127,18 @@ def service_request(url: str, data: dict, **kwargs):
         token_request_headers = {'Metadata-Flavor': 'Google'}
 
         # Fetch the token for the default compute service account
-        token_response = requests.get(
-            token_request_url, headers=token_request_headers)
+        token_response = requests.get(token_request_url, headers=token_request_headers, timeout=600)
         jwt = token_response.content.decode("utf-8")
 
-        # Provide the token in the request to the receiving service
-        receiving_service_headers = {'Authorization': f'bearer {jwt}'}
+        receiving_service_headers = {'Authorization': f'Bearer {jwt}'}
 
     try:
-        resp = requests.post(url, json=data, headers=receiving_service_headers)
+        resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=600)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
         # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
     except requests.exceptions.HTTPError as err:
-        raise Exception('Failed response code: {}'.format(err))
+        raise Exception(f'Failed response code: {err}')
 
 
 def sanity_check_request(dataset_id: str):
@@ -136,23 +152,21 @@ def sanity_check_request(dataset_id: str):
 
         query_string = f'SELECT * FROM `{table_name}`'
 
-        df: pd.DataFrame = bq_client.query(
-            query_string).result().to_dataframe()
+        df: pd.DataFrame = bq_client.query(query_string).result().to_dataframe()
 
         output = check_pct_values(df, table_name)
         if not output[0]:
             failing_tables.append(output[1])
 
     if len(failing_tables) > 0:
-        raise RuntimeError(
-            f'These percent share values do not equal 100% {failing_tables}')
+        raise RuntimeError(f'These percent share values do not equal 100% {failing_tables}')
 
-    else:
-        print('All checks have passed. No errors detected.')
+    print('All checks have passed. No errors detected.')
 
 
-def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG,
-                            provide_context: bool = True) -> PythonOperator:
+def create_request_operator(
+    task_id: str, url: str, payload: dict, dag: DAG, provide_context: bool = True
+) -> PythonOperator:
     return PythonOperator(
         task_id=task_id,
         provide_context=provide_context,

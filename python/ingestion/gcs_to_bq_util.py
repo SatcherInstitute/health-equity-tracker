@@ -7,6 +7,7 @@ from zipfile import ZipFile
 from io import BytesIO, StringIO
 from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
+import numpy as np
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
@@ -140,6 +141,10 @@ def values_json_to_df(values_json, dtype=None) -> pd.DataFrame:
     frame = pd.read_json(values_json, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)  # pylint: disable=E1101
     frame.drop([0], inplace=True)  # pylint: disable=E1101
+    # Fill None values with np.nan TODO: remove after updating to pandas 3
+    with pd.option_context('future.no_silent_downcasting', True):
+        frame = frame.fillna(np.nan)  # pylint: disable=E1101
+
     return frame
 
 
@@ -263,6 +268,46 @@ def load_csv_as_df_from_data_dir(
 
     return pd.read_csv(
         file_path, dtype=dtype, skiprows=skiprows, na_values=na_values, usecols=usecols, thousands=thousands
+    )
+
+
+def load_tsv_as_df_from_data_dir(
+    directory,
+    filename,
+    subdirectory='',
+    dtype=None,
+    skiprows=None,
+    na_values=None,
+    thousands=None,
+    usecols=None,
+    delimiter='\t',
+    skipinitialspace=True,
+) -> pd.DataFrame:
+    """Loads tsv data from /data/{directory}/{filename} into a DataFrame.
+       Expects the data to be in tsv format, with the first row as the column
+       names.
+
+    directory: directory within data to load from
+    filename: file to load the tsv file from
+    subdirectory: combined directory and filename path
+    skiprows: how many rows to skip when reading tsv
+    na_values: additional strings to recognize as NA/NaN
+    thousands: reads commas in the tsv file as a thousand place indicator
+    usecols: list of columns to use or callable function against column names
+    (using this lambda results in much faster parsing time and lower memory usage)
+    """
+
+    file_path = os.path.join(DATA_DIR, directory, subdirectory, filename)
+
+    return pd.read_csv(
+        file_path,
+        dtype=dtype,
+        skiprows=skiprows,
+        na_values=na_values,
+        usecols=usecols,
+        thousands=thousands,
+        delimiter=delimiter,
+        skipinitialspace=skipinitialspace,
     )
 
 

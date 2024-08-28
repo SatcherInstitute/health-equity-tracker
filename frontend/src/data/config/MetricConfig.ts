@@ -1,7 +1,7 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
-import { type ColorScheme } from 'vega'
+import type { ColorScheme } from 'vega'
 import { LESS_THAN_POINT_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
@@ -21,7 +21,7 @@ import {
   type ChronicDiseaseMetricId,
   COPD_METRICS,
   CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
-  ChronicDiseaseDataTypeId,
+  type ChronicDiseaseDataTypeId,
 } from './MetricConfigChronicDisease'
 import {
   COVID_CATEGORY_DROPDOWNIDS,
@@ -57,6 +57,12 @@ import {
   type PhrmaMetricId,
 } from './MetricConfigPhrma'
 import {
+  CANCER_CATEGORY_DROPDOWNIDS,
+  PHRMA_BRFSS_CANCER_SCREENING_METRICS,
+  type PhrmaBrfssDataTypeId,
+  type PhrmaBrfssMetricId,
+} from './MetricConfigPhrmaBrfss'
+import {
   UNINSURANCE_METRICS,
   type SDOHDataTypeId,
   type SDOHMetricId,
@@ -69,14 +75,17 @@ import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
 import { getFormatterPer100k } from '../../charts/utils'
 import {
   COMMUNITY_SAFETY_DROPDOWNIDS,
-  CommunitySafetyDataTypeId,
-  CommunitySafetyMetricId,
+  type CommunitySafetyDataTypeId,
+  type CommunitySafetyMetricId,
   GUN_DEATHS_BLACK_MEN_METRICS,
   GUN_VIOLENCE_METRICS,
-  GUN_VIOLENCE_YOUTH_METRICS
+  GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigCommunitySafety'
-import { DemographicType } from '../query/Breakdowns'
-import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS, MATERNAL_HEALTH_METRICS, MaternalHealthMetricId } from './MetricConfigMaternalHealth'
+import {
+  MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
+  MATERNAL_HEALTH_METRICS,
+  type MaternalHealthMetricId,
+} from './MetricConfigMaternalHealth'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -87,7 +96,8 @@ const dropdownVarIds = [
   ...COVID_CATEGORY_DROPDOWNIDS,
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
   ...COMMUNITY_SAFETY_DROPDOWNIDS,
-  ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS
+  ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
+  ...CANCER_CATEGORY_DROPDOWNIDS,
 ] as const
 
 export type DropdownVarId = (typeof dropdownVarIds)[number]
@@ -109,6 +119,7 @@ export type DataTypeId =
   | HivCategoryDataTypeId
   | BehavioralHealthDataTypeId
   | PhrmaDataTypeId
+  | PhrmaBrfssDataTypeId
   | PDOHDataTypeId
   | SDOHDataTypeId
   | CommunitySafetyDataTypeId
@@ -118,6 +129,7 @@ export type MetricId =
   | HivCategoryMetricId
   | BehavioralHealthMetricId
   | PhrmaMetricId
+  | PhrmaBrfssMetricId
   | PDOHMetricId
   | SDOHMetricId
   | ChronicDiseaseMetricId
@@ -127,6 +139,8 @@ export type MetricId =
   | 'population_pct'
   | 'population'
   | 'svi'
+  | 'ahr_population_estimated_total'
+  | 'ahr_population_18plus'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -179,7 +193,6 @@ export interface InfoWithCitations {
   citations?: Citation[]
 }
 
-
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
@@ -231,7 +244,7 @@ export function isPctType(metricType: MetricType) {
 export function formatFieldValue(
   metricType: MetricType,
   value: any,
-  omitPctSymbol: boolean = false
+  omitPctSymbol: boolean = false,
 ): string {
   if (value === null || value === undefined) {
     return ''
@@ -256,7 +269,7 @@ export function formatFieldValue(
 }
 
 export function getRateAndPctShareMetrics(
-  dataTypeConfig: DataTypeConfig
+  dataTypeConfig: DataTypeConfig,
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
   if (dataTypeConfig) {
@@ -273,7 +286,7 @@ export function getRateAndPctShareMetrics(
       tableFields.push(dataTypeConfig.metrics.pct_share)
       if (dataTypeConfig.metrics.pct_share.populationComparisonMetric) {
         tableFields.push(
-          dataTypeConfig.metrics.pct_share.populationComparisonMetric
+          dataTypeConfig.metrics.pct_share.populationComparisonMetric,
         )
       }
     }
@@ -282,7 +295,7 @@ export function getRateAndPctShareMetrics(
 }
 
 export function getAgeAdjustedRatioMetric(
-  dataTypeConfig: DataTypeConfig
+  dataTypeConfig: DataTypeConfig,
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
   if (dataTypeConfig) {
@@ -335,6 +348,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_hiv: PHRMA_HIV_METRICS,
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
   maternal_mortality: MATERNAL_HEALTH_METRICS,
+  cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
 }
 
 export function buildTopicsString(topics: readonly DropdownVarId[]): string {

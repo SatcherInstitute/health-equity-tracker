@@ -2,7 +2,6 @@ from datasources.acs_condition import AcsCondition
 from datasources.acs_population import ACSPopulation
 from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
-from datasources.ahr import AHRData
 from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.cawp_time import CAWPTimeData
 from datasources.cdc_hiv import CDCHIVData
@@ -21,6 +20,7 @@ from datasources.geo_context import GeoContext
 from datasources.graphql_ahr import GraphQlAHRData
 from datasources.kff_vaccination import KFFVaccination
 from datasources.phrma import PhrmaData
+from datasources.phrma_brfss import PhrmaBrfssData
 from datasources.maternal_mortality import MaternalMortalityData
 from datasources.vera_incarceration_county import VeraIncarcerationCounty
 
@@ -31,7 +31,6 @@ DATA_SOURCES_DICT = {
     ACSPopulation.get_id(): ACSPopulation(),
     AgeAdjustCDCRestricted.get_id(): AgeAdjustCDCRestricted(),
     AgeAdjustCDCHiv.get_id(): AgeAdjustCDCHiv(),
-    AHRData.get_id(): AHRData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
     CAWPTimeData.get_id(): CAWPTimeData(),
     CDCHIVData.get_id(): CDCHIVData(),
@@ -49,7 +48,8 @@ DATA_SOURCES_DICT = {
     GeoContext.get_id(): GeoContext(),
     GraphQlAHRData.get_id(): GraphQlAHRData(),
     KFFVaccination.get_id(): KFFVaccination(),
-    PhrmaData.get_id(): PhrmaData(),
+    PhrmaData.get_id(): PhrmaData(),  # cv, hiv, mental health
+    PhrmaBrfssData.get_id(): PhrmaBrfssData(),  # cancer screenings
     MaternalMortalityData.get_id(): MaternalMortalityData(),
     VeraIncarcerationCounty.get_id(): VeraIncarcerationCounty(),
 }

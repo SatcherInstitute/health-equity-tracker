@@ -7,6 +7,14 @@ resource "google_composer_environment" "composer-env" {
   name   = "data-ingestion-environment"
   region = var.compute_region
 
+  config {
+    software_config {
+      image_version = "composer-3-airflow-2.9.1"
+    }
+
+  }
+
+  # TODO: upgrade terraform locally to suppress this warning
   storage_config {
     # Generate a stable bucket name based on the project ID
     bucket = "us-central1-data-ingestion-bucket-${var.project_id}"

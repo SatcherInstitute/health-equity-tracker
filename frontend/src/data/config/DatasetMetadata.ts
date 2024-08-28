@@ -30,12 +30,18 @@ export type DatasetId =
   | 'acs_population-by_sex_county'
   | 'acs_population-by_sex_national'
   | 'acs_population-by_sex_state'
-  | 'ahr_data-age_national'
-  | 'ahr_data-age_state'
-  | 'ahr_data-race_and_ethnicity_national'
-  | 'ahr_data-race_and_ethnicity_state'
-  | 'ahr_data-sex_national'
-  | 'ahr_data-sex_state'
+  | 'graphql_ahr_data-behavioral_health_age_national_current'
+  | 'graphql_ahr_data-behavioral_health_age_state_current'
+  | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
+  | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
+  | 'graphql_ahr_data-behavioral_health_sex_national_current'
+  | 'graphql_ahr_data-behavioral_health_sex_state_current'
+  | 'graphql_ahr_data-non-behavioral_health_age_national_current'
+  | 'graphql_ahr_data-non-behavioral_health_age_state_current'
+  | 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
+  | 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
+  | 'graphql_ahr_data-non-behavioral_health_sex_national_current'
+  | 'graphql_ahr_data-non-behavioral_health_sex_state_current'
   | 'bjs_incarceration_data-age_national'
   | 'bjs_incarceration_data-age_state'
   | 'bjs_incarceration_data-race_and_ethnicity_national'
@@ -157,6 +163,16 @@ export type DatasetId =
   | 'phrma_data-sex_county'
   | 'phrma_data-sex_national'
   | 'phrma_data-sex_state'
+  | 'phrma_brfss_data-race_and_ethnicity_national'
+  | 'phrma_brfss_data-age_national'
+  | 'phrma_brfss_data-insurance_status_national'
+  | 'phrma_brfss_data-income_national'
+  | 'phrma_brfss_data-education_national'
+  | 'phrma_brfss_data-race_and_ethnicity_state'
+  | 'phrma_brfss_data-age_state'
+  | 'phrma_brfss_data-insurance_status_state'
+  | 'phrma_brfss_data-income_state'
+  | 'phrma_brfss_data-education_state'
   | 'the_unitedstates_project'
   | 'vera_incarceration_county-by_age_county_time_series'
   | 'vera_incarceration_county-by_race_and_ethnicity_county_time_series'
@@ -507,98 +523,98 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
 
   'cdc_restricted_data-by_race_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
-    original_data_sourced: 'January 2020 - June 2024',
+    original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_vaccination_county-alls_county': {
@@ -635,36 +651,69 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     contains_nh: true,
     source_id: 'kff_vaccination',
   },
-  'ahr_data-age_national': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, nationally',
-    original_data_sourced: '2021',
+  'graphql_ahr_data-behavioral_health_age_national_current': {
+    name: 'Prevalence of multiple chronic diseases and social determinants of health by age, nationally',
+    original_data_sourced: '2022',
     source_id: 'ahr',
   },
-  'ahr_data-race_and_ethnicity_national': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, nationally',
-    original_data_sourced: '2021',
+  'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current': {
+    name: 'Prevalence of multiple chronic diseases and social determinants of health by race/ethnicity, nationally',
+    original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'ahr',
   },
-  'ahr_data-sex_national': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, nationally',
-    original_data_sourced: '2021',
+  'graphql_ahr_data-behavioral_health_sex_national_current': {
+    name: 'Prevalence of multiple chronic diseases and social determinants of health by sex, nationally',
+    original_data_sourced: '2022',
     source_id: 'ahr',
   },
-  'ahr_data-age_state': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age and state',
-    original_data_sourced: '2021',
+  'graphql_ahr_data-behavioral_health_age_state_current': {
+    name: 'Prevalence of multiple chronic diseases and social determinants of health by age and state',
+    original_data_sourced: '2022',
     source_id: 'ahr',
   },
-  'ahr_data-race_and_ethnicity_state': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity and state',
-    original_data_sourced: '2021',
+  'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current': {
+    name: 'Prevalence of multiple chronic diseases and social determinants of health by race/ethnicity and state',
+    original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'ahr',
   },
-  'ahr_data-sex_state': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex and state',
-    original_data_sourced: '2021',
+  'graphql_ahr_data-behavioral_health_sex_state_current': {
+    name: 'Prevalence of multiple chronic diseases and social determinants of health by sex and state',
+    original_data_sourced: '2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_age_national_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by age, nationally',
+    original_data_sourced: '2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current':
+    {
+      name: 'Prevalence of multiple behavioral and mental health conditions by race/ethnicity, nationally',
+      original_data_sourced: '2022',
+      contains_nh: true,
+      source_id: 'ahr',
+    },
+  'graphql_ahr_data-non-behavioral_health_sex_national_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by sex, nationally',
+    original_data_sourced: '2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_age_state_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by age and state',
+    original_data_sourced: '2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by race/ethnicity and state',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_sex_state_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by sex and state',
+    original_data_sourced: '2022',
     source_id: 'ahr',
   },
   'bjs_incarceration_data-age_national': {
@@ -859,6 +908,66 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     name: 'medicare adherence by Medicare eligibility reason, by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
+  },
+  'phrma_brfss_data-race_and_ethnicity_national': {
+    name: 'Screening adherence to multiple types of cancers, by race/ethnicity, nationally',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-age_national': {
+    name: 'Screening adherence to multiple types of cancers, by age, nationally',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-insurance_status_national': {
+    name: 'Screening adherence to multiple types of cancers, by insurance status, nationally',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-income_national': {
+    name: 'Screening adherence to multiple types of cancers, by income, nationally',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-education_national': {
+    name: 'Screening adherence to multiple types of cancers, by education, nationally',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-race_and_ethnicity_state': {
+    name: 'Screening adherence to multiple types of cancers, by race/ethnicity, by state',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-age_state': {
+    name: 'Screening adherence to multiple types of cancers, by age, by state',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-insurance_status_state': {
+    name: 'Screening adherence to multiple types of cancers, by insurance status, by state',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-income_state': {
+    name: 'Screening adherence to multiple types of cancers, by income, by state',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-education_state': {
+    name: 'Screening adherence to multiple types of cancers, by education, by state',
+    original_data_sourced: '2022',
+    contains_nh: true,
+    source_id: 'phrma_brfss',
   },
   'cdc_wisqars_data-age_state_historical': {
     name: 'Gun-related Deaths, by age and state',

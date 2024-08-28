@@ -3,7 +3,7 @@ import {
   type DataSourceId,
   dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
-import { type DataSourceMetadata } from '../../data/utils/DatasetTypes'
+import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
@@ -11,7 +11,7 @@ import {
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
-import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -100,9 +100,9 @@ export default function DataCatalogPage() {
                     </li>
                   ))}
                   {viewingSubsetOfSources && (
-                    <HetBigCTA href={DATA_CATALOG_PAGE_LINK} className='mt-10'>
+                    <HetCTABig href={DATA_CATALOG_PAGE_LINK} className='mt-10'>
                       View All Datasets
-                    </HetBigCTA>
+                    </HetCTABig>
                   )}
                 </>
               )

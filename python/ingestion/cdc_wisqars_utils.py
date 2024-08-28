@@ -14,9 +14,10 @@ Features include:
 from typing import List
 import pandas as pd
 import numpy as np
-from ingestion import standardized_columns as std_col
+from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
-from ingestion.het_types import RATE_CALC_COLS_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, WISQARS_DEMO_TYPE
+from ingestion.constants import NATIONAL_LEVEL, US_NAME
 
 DATA_DIR = "cdc_wisqars"
 
@@ -35,7 +36,7 @@ WISQARS_DEATHS = "Deaths"
 WISQARS_CRUDE_RATE = "Crude Rate"
 WISQARS_POP = "Population"
 
-WISQARS_ALL = 'all'
+WISQARS_ALL: WISQARS_DEMO_TYPE = 'all'
 
 WISQARS_COLS = [
     "Age-Adjusted Rate",
@@ -103,7 +104,7 @@ def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
         df[column] = pd.to_numeric(df[column], errors='coerce')
 
 
-def generate_cols_map(prefixes: List[str], suffix: str):
+def generate_cols_map(prefixes: List[WISQARS_VAR_TYPE], suffix: str):
     """
     Generates a mapping of column prefixes to new column names, based on incoming list of prefixes and incoming
     suffix. Note: if any of the incoming prefixes are in the count column format (ending in `_estimated_total`), the
@@ -111,7 +112,7 @@ def generate_cols_map(prefixes: List[str], suffix: str):
     for the new suffix in the column name value.
 
     Parameters:
-        estimated_total_cols (List[str]): A list of column prefix strings.
+        estimated_total_cols: A list of column prefix strings.
         suffix (str): The new suffix that will be applied to the incoming list of prefixes
         for the generated column names.
 
@@ -207,3 +208,60 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
     df_condensed_age_groups = pd.concat(het_bucket_dfs).reset_index(drop=True)
 
     return df_condensed_age_groups
+
+
+def load_wisqars_as_df_from_data_dir(
+    variable_string: WISQARS_VAR_TYPE, geo_level: GEO_TYPE, demographic: WISQARS_DEMO_TYPE
+) -> pd.DataFrame:
+    """
+    Loads wisqars data from data directory
+
+    Args:
+        variable_string: The wisqars variable string
+        geo_level: e.g. "state" or "national"
+        demographic: e.g. "race_and_ethnicity" or "sex"
+
+    Returns:
+        The wisqars data frame
+    """
+
+    csv_filename = f"{variable_string}-{geo_level}-{demographic}.csv"
+
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        DATA_DIR,
+        csv_filename,
+        na_values=["--", "**"],
+        usecols=lambda x: x not in WISQARS_COLS,
+        thousands=",",
+        dtype={WISQARS_YEAR: str},
+    )
+
+    df = remove_metadata(df)
+
+    if geo_level == NATIONAL_LEVEL:
+        df.insert(1, WISQARS_STATE, US_NAME)
+
+    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
+    convert_columns_to_numeric(df, columns_to_convert)
+
+    return df
+
+
+def remove_metadata(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Removes metadata from the wisqars data frame
+
+    Args:
+        df: The wisqars data frame
+
+    Returns:
+        The wisqars data frame with metadata removed
+    """
+
+    leftmost_column = df.columns[0]
+    metadata_start_indices = df[df[leftmost_column] == "Total"].index
+    if not metadata_start_indices.empty:
+        metadata_start_index = int(metadata_start_indices[0])
+        df = df.iloc[:metadata_start_index]
+
+    return df

@@ -51,11 +51,6 @@ variable "bq_manual_dataset_name" {
   type        = string
 }
 
-variable "bq_cdc_covid_deaths_dataset_name" {
-  description = "BigQuery dataset for CDC covid death data"
-  type        = string
-}
-
 # Ingestion Cloud Run Service vars
 variable "ingestion_service_name" {
   description = "Name of the Cloud Run service for data ingestion"

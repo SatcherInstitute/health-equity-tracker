@@ -31,7 +31,7 @@ import {
   type DataTypeConfig,
   METRIC_CONFIG,
   isDropdownVarId,
-  DataTypeId,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
@@ -47,6 +47,7 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
+import VoteDotOrgModal from './VoteDotOrgModal'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -58,18 +59,18 @@ interface ExploreDataPageProps {
 
 function ExploreDataPage(props: ExploreDataPageProps) {
   const location: any = useLocation()
-  const [showAnnouncementBanner, setShowAnnouncementBanner] = useState(false)
+  const [showVoteDotOrgBanner, setShowVoteDotOrgBanner] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false)
 
   const dtId1: DataTypeId | undefined = useAtomValue(
-    selectedDataTypeConfig1Atom
+    selectedDataTypeConfig1Atom,
   )?.dataTypeId
   const dtId2: DataTypeId | undefined = useAtomValue(
-    selectedDataTypeConfig2Atom
+    selectedDataTypeConfig2Atom,
   )?.dataTypeId
   const showStickyLifeline = LIFELINE_IDS.some(
-    (id) => id === dtId1 || id === dtId2
+    (id) => id === dtId1 || id === dtId2,
   )
 
   // Set up initial mad lib values based on defaults and query params, redirecting from deprecated ones
@@ -77,7 +78,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   // swap out old variable ids for backwards compatibility of outside links
   const foundIndex = MADLIB_LIST.findIndex(
-    (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
+    (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM],
   )
   const initialIndex = foundIndex !== -1 ? foundIndex : 0
   const defaultValuesWithOverrides = MADLIB_LIST[initialIndex].defaultSelections
@@ -109,7 +110,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       const selection = getParameter(
         MADLIB_SELECTIONS_PARAM,
         MADLIB_LIST[index].defaultSelections,
-        parseMls
+        parseMls,
       )
 
       setMadLib({
@@ -223,13 +224,13 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         {
           rootMargin: '-1px 0px 0px 0px',
           threshold: [1],
-        }
-      );
+        },
+      )
 
-      observer.observe(node);
+      observer.observe(node)
     }
   }, [])
-  const isStickyEnabled = !noTopicChosen && isSticking;
+  const isStickyEnabled = !noTopicChosen && isSticking
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = madLib.id === 'disparity'
@@ -272,7 +273,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       {
         name: MADLIB_PHRASE_PARAM,
         value: MADLIB_LIST[modeIndex].id,
-      }
+      },
     ])
     location.hash = ''
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -282,17 +283,20 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   useEffect(() => {
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`)
-    setShowAnnouncementBanner(
-      getSelectedConditions(madLib)?.some(
-        (condition: DataTypeConfig) =>
-          condition?.dataTypeId === 'voter_participation'
-      )
+    setShowVoteDotOrgBanner(
+      getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
+        [
+          'voter_participation',
+          'women_in_state_legislature',
+          'women_in_us_congress',
+        ].includes(condition?.dataTypeId),
+      ),
     )
 
     setShowIncarceratedChildrenAlert(
       getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
-        INCARCERATION_IDS.includes(condition?.dataTypeId)
-      )
+        INCARCERATION_IDS.includes(condition?.dataTypeId),
+      ),
     )
   }, [madLib])
 
@@ -303,13 +307,15 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       madLib,
       showIncarceratedChildrenAlert,
       showStickyLifeline,
-      showAnnouncementBanner,
-    ]
+      showVoteDotOrgBanner,
+    ],
   )
 
   return (
     <>
+      {/* Conditional Modals */}
       <TopicInfoModal />
+      <VoteDotOrgModal />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
@@ -323,15 +329,12 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-almostTop mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full
+          className={`z-stickyMadLib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full
             ${!noTopicChosen ? 'md:sticky' : ''}
           `}
           id='madlib-container'
         >
-          <MadLibUI
-            madLib={madLib}
-            setMadLibWithParam={setMadLibWithParam}
-          />
+          <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && isStickyEnabled && (
             <p className='flex justify-center '>
@@ -350,7 +353,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
               selectedConditions={getSelectedConditions(madLib)}
               showLifeLineAlert={showStickyLifeline}
               showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
-              showAnnouncementBanner={showAnnouncementBanner}
+              showVoteDotOrgBanner={showVoteDotOrgBanner}
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}

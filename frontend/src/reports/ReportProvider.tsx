@@ -8,20 +8,16 @@ import {
   getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
-import {
-  METRIC_CONFIG,
-  type DataTypeConfig,
-  type DropdownVarId,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG, DataTypeConfig, DropdownVarId } from '../data/config/MetricConfig'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import WhatDataAreMissing from './WhatDataAreMissing'
-import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import { DATA_CATALOG_PAGE_LINK, RACES_AND_ETHNICITIES_LINK } from '../utils/internalRoutes'
-import AnnouncementBanner from './ui/AnnouncementBanner'
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
+import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
+import HetTextArrowLink from '../styles/HetComponents/HetTextArrowLink'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -33,7 +29,7 @@ interface ReportProviderProps {
   showLifeLineAlert: boolean
   setMadLib: (madLib: MadLib) => void
   showIncarceratedChildrenAlert: boolean
-  showAnnouncementBanner: boolean
+  showVoteDotOrgBanner: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
   isMobile: boolean
@@ -172,7 +168,7 @@ function ReportProvider(props: ReportProviderProps) {
           }`}
       >
         {props.showLifeLineAlert && <LifelineAlert />}
-        {props.showAnnouncementBanner && <AnnouncementBanner />}
+        {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
@@ -194,20 +190,24 @@ function ReportProvider(props: ReportProviderProps) {
               <DefinitionsList dataTypesToDefine={metricConfigSubset} />
               <RaceRelabelingsList />
 
-              <HetLinkButton href={RACES_AND_ETHNICITIES_LINK}>
-                See our methodology →
-              </HetLinkButton>
+              <HetTextArrowLink
+              link={RACES_AND_ETHNICITIES_LINK}
+              linkText='See our methodology'
+              containerClassName='w-auto ml-8'
+              linkClassName='text-altGreen'
+              />
             </div>
           )}
 
-          <h3 className='mt-12 text-header '>What data are missing?</h3>
+          <h3 className='mt-12 mb-0 text-header '>What data are missing?</h3>
 
           <p>Unfortunately there are crucial data missing in our sources.</p>
-
-          <HetLinkButton href={DATA_CATALOG_PAGE_LINK}>
-            See our data sources →
-          </HetLinkButton>
-
+          <HetTextArrowLink
+            link={DATA_CATALOG_PAGE_LINK}
+            linkText='See our data sources'
+            containerClassName='w-auto ml-8'
+            linkClassName='text-altGreen'
+          />
           <WhatDataAreMissing
             metricConfigSubset={metricConfigSubset}
             fips1={fips1}

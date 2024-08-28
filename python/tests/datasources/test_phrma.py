@@ -1,6 +1,7 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.phrma import PhrmaData, PHRMA_DIR
+from datasources.phrma import PhrmaData
+from ingestion.phrma_utils import PHRMA_DIR
 import pandas as pd
 import os
 
@@ -26,7 +27,7 @@ GOLDEN_DATA = {
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
-    print("MOCKING READ from /data", directory, filename)
+    print("MOCKING FILE READ FROM /data", directory, filename)
     dtype = kwargs['dtype']
     na_values = kwargs['na_values']
     subdirectory = kwargs['subdirectory']
@@ -40,6 +41,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
 def _generate_breakdown_df(*args):
     print("mocking _generate_breakdown_df()")
+    print("args:", args)
     return pd.DataFrame(
         {
             "state_fips": ["01", "02", "03"],
@@ -70,7 +72,7 @@ def testBreakdownLisNational(
     # two calls for each topics (by all + by demographic)
     assert mock_data_dir.call_count == 11 * 2
 
-    (breakdown_df, _dataset, table_name), dtypes = mock_bq_write.call_args
+    (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'lis_national'
 
     expected_df = pd.read_csv(GOLDEN_DATA['lis_national'], dtype={"state_fips": str})
@@ -93,7 +95,7 @@ def testBreakdownEligibilityNational(
     # two calls for each topics (by all + by demographic)
     assert mock_data_dir.call_count == 11 * 2
 
-    (breakdown_df, _dataset, table_name), dtypes = mock_bq_write.call_args
+    (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'eligibility_national'
 
     expected_df = pd.read_csv(GOLDEN_DATA['eligibility_national'], dtype={"state_fips": str})
@@ -116,7 +118,7 @@ def testBreakdownSexNational(
     # two calls for each topics (by all + by demographic)
     assert mock_data_dir.call_count == 11 * 2
 
-    (breakdown_df, _dataset, table_name), dtypes = mock_bq_write.call_args
+    (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'sex_national'
 
     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype={"state_fips": str})
@@ -139,7 +141,7 @@ def testBreakdownSexState(
     # two calls for each topics (by all + by demographic)
     assert mock_data_dir.call_count == 11 * 2
 
-    (breakdown_df, _dataset, table_name), dtypes = mock_bq_write.call_args
+    (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'sex_state'
 
     expected_df = pd.read_csv(GOLDEN_DATA['sex_state'], dtype={"state_fips": str})
@@ -162,7 +164,7 @@ def testBreakdownRaceState(
     # two calls for each topics (by all + by demographic)
     assert mock_data_dir.call_count == 11 * 2
 
-    (breakdown_df, _dataset, table_name), dtypes = mock_bq_write.call_args
+    (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'race_and_ethnicity_state'
 
     expected_df = pd.read_csv(GOLDEN_DATA['race_and_ethnicity_state'], dtype={"state_fips": str})
@@ -185,7 +187,7 @@ def testBreakdownAgeCounty(
     # two calls for each topics (by all + by demographic)
     assert mock_data_dir.call_count == 11 * 2
 
-    (breakdown_df, _dataset, table_name), dtypes = mock_bq_write.call_args
+    (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
     assert table_name == 'age_county'
 
     expected_df = pd.read_csv(GOLDEN_DATA['age_county'], dtype={"county_fips": str, "state_fips": str})

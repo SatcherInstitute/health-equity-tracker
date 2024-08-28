@@ -9,7 +9,6 @@ import numpy as np
 from pandas.testing import assert_frame_equal
 from ingestion.constants import BQ_STRING, BQ_FLOAT
 from ingestion import gcs_to_bq_util, dataset_utils
-import ingestion.standardized_columns as std_col
 from ingestion.dataset_utils import (
     combine_race_ethnicity,
     generate_time_df_with_cols_and_types,
@@ -138,20 +137,20 @@ _expected_data_with_properly_zeroed_pct_rel_inequity = [
         'something_pct_relative_inequity',
         'something_pop_pct',
     ],
-    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
+    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, np.nan, np.nan],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
     ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
-    ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
+    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan, 10.0],
+    ['2019', '01', 'Alabama', 'RaceNoPop', 1, np.nan, np.nan],
+    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan, 10.0],
     # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are ZEROED
     # expect for races where the population_pct_share is null
     ['2020', '01', 'Alabama', 'Race1', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race2', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race4', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
+    ['2020', '01', 'Alabama', 'RaceNoPop', 0, np.nan, np.nan],
     ['2020', '01', 'Alabama', 'Race6', 0, 0, 10.0],
     # each PLACE/YEAR is considered independently so the fact Race6
     # has a rate in StateWithRates doesn't prevent the zeroing above
@@ -226,16 +225,6 @@ _fake_data_missing_zeros = [
     ['4', 'Arizona', 'Some other race alone', '46'],
     ['4', 'Arizona', 'Two or more races', '26'],
 ]
-
-RACE_NAMES_MAPPING = {
-    "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
-    "Asian": std_col.Race.ASIAN_NH.value,
-    "Black": std_col.Race.BLACK_NH.value,
-    "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
-    "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI_NH.value,
-    "White": std_col.Race.WHITE_NH.value,
-    'Hispanic/Latino': std_col.Race.HISP.value,
-}
 
 
 def testRatioRoundToNone():
@@ -548,41 +537,114 @@ def test_preserve_only_current_time_period_rows():
         _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")
 
 
-def test_combine_race_ethnicity():
-    ethnicity_val = 'Hispanic/Latino'
+def test_combine_race_ethnicity_hispanic_default_behavior_with_count():
+    df = pd.DataFrame(
+        {
+            'ethnicity': ['Hispanic or Latino', 'Hispanic or Latino'],
+            'race': ['White', 'Black'],
+            'state_fips': ['99', '99'],
+            'condition_count': [100, 200],
+        }
+    )
+    result_df = combine_race_ethnicity(df, ['condition_count'], {'White': 'WHITE_NH', 'Black': 'BLACK_NH'})
+    expected_df = pd.DataFrame(
+        {'race_category_id': ["HISP"], 'state_fips': ['99'], 'condition_count': [300]}  # Sum of Hispanic counts
+    )
+    assert_frame_equal(result_df, expected_df, check_like=True)
 
-    def test_case(ethnicity, race, expected_combined_value, ethnicity_value=None):
-        test_data = [['ethnicity', 'race'], [ethnicity, race]]
-        expected_data = [['race_ethnicity_combined'], [expected_combined_value]]
 
-        df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(test_data)), dtype=str).reset_index(drop=True)
+def test_combine_race_ethnicity_hispanic_latino_specific_hisp_value_with_count():
+    df = pd.DataFrame(
+        {
+            'ethnicity': ['Hispanic/Latino', 'Hispanic/Latino', 'Not Hispanic/Latino'],
+            'race': ['Black', 'Asian', 'White'],
+            'state_fips': ['99', '99', '99'],
+            'condition_count': [150, 250, 300],
+        }
+    )
+    result_df = combine_race_ethnicity(
+        df,
+        ["condition_count"],
+        {'Black': 'BLACK_NH', 'Asian': 'ASIAN_NH', 'White': 'WHITE_NH'},
+        ethnicity_value='Hispanic/Latino',
+    )
+    expected_df = pd.DataFrame(
+        {
+            'race_category_id': ["HISP", "WHITE_NH"],
+            'state_fips': ['99', '99'],
+            'condition_count': [400, 300],  # Sum of Hispanic counts, Non-Hispanic count
+        }
+    )
+    assert_frame_equal(result_df, expected_df, check_like=True)
 
-        expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(expected_data)), dtype=str).reset_index(
-            drop=True
-        )
 
-        if ethnicity_value:
-            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING, ethnicity_value)
-        else:
-            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
+def test_combine_race_ethnicity_non_hispanic_default_behavior_with_count():
+    df = pd.DataFrame(
+        {
+            'ethnicity': ['Non-Hispanic/Latino', 'Non-Hispanic/Latino', 'Hispanic or Latino'],
+            'race': ['White', 'Black', 'Asian'],
+            'state_fips': ['99', '99', '99'],
+            'condition_count': [200, 100, 300],
+        }
+    )
+    result_df = combine_race_ethnicity(
+        df, ['condition_count'], {'White': 'WHITE_NH', 'Black': 'BLACK_NH', 'Asian': 'ASIAN_NH'}
+    )
+    expected_df = pd.DataFrame(
+        {
+            'race_category_id': ["BLACK_NH", "HISP", "WHITE_NH"],
+            'state_fips': ['99', '99', '99'],
+            'condition_count': [100, 300, 200],
+        }
+    )
+    assert_frame_equal(result_df, expected_df, check_like=True)
 
-        assert_frame_equal(df, expected_df, check_like=True)
 
-    # Default behavior tests (assuming 'Hispanic' as default)
-    test_case('Hispanic', 'White', std_col.Race.HISP.value)
-    test_case('Hispanic', 'Black', std_col.Race.HISP.value)
+def test_combine_race_ethnicity_unknown_and_missing_default_values_with_count():
+    df = pd.DataFrame(
+        {
+            'ethnicity': ['Unknown', 'Missing', 'Hispanic or Latino', 'Hispanic or Latino'],
+            'race': ['Asian', 'Missing', 'White', 'Black'],
+            'state_fips': ['99', '99', '99', '99'],
+            'condition_count': [50, 75, 100, 200],
+        }
+    )
+    result_df = combine_race_ethnicity(
+        df, ['condition_count'], {'Asian': 'ASIAN_NH', 'White': 'WHITE_NH', 'Black': 'BLACK_NH'}
+    )
+    expected_df = pd.DataFrame(
+        {
+            'race_category_id': ["HISP", "UNKNOWN"],
+            'state_fips': ['99', '99'],
+            'condition_count': [300, 125],  # sum Unknown counts, sum Hispanic counts
+        }
+    )
+    assert_frame_equal(result_df, expected_df, check_like=True)
 
-    # Specified behavior tests ('Hispanic/Latino')
-    test_case('Hispanic/Latino', 'White', std_col.Race.HISP.value, ethnicity_val)
-    test_case('Hispanic/Latino', 'Black', std_col.Race.HISP.value, ethnicity_val)
 
-    # Non-Hispanic tests
-    test_case('Non-Hispanic/Latino', 'Black', std_col.Race.BLACK_NH.value)
-    test_case('Non-Hispanic/Latino', 'White', std_col.Race.WHITE_NH.value)
-
-    # Unknown and Missing tests
-    test_case('Unknown', 'Asian', std_col.Race.UNKNOWN.value)
-    test_case('Missing', 'Missing', std_col.Race.UNKNOWN.value)
+def test_combine_race_ethnicity_unknown_and_missing_specific_unknown_value_with_count():
+    df = pd.DataFrame(
+        {
+            'ethnicity': ['Nothing', 'Hispanic or Latino', 'Hispanic or Latino', 'Not Hispanic/Latino'],
+            'race': ['Asian', 'White', 'Black', 'Asian'],
+            'state_fips': ['99', '99', '99', '99'],
+            'condition_count': [25, 150, 250, 100],
+        }
+    )
+    result_df = combine_race_ethnicity(
+        df,
+        ['condition_count'],
+        {'Asian': 'ASIAN_NH', 'White': 'WHITE_NH', 'Black': 'BLACK_NH'},
+        unknown_values=['Nothing'],
+    )
+    expected_df = pd.DataFrame(
+        {
+            'race_category_id': ["ASIAN_NH", "HISP", "UNKNOWN"],
+            'state_fips': ['99', '99', '99'],
+            'condition_count': [100, 400, 25],  # Unknown count, sum of Hispanic counts, Non-Hispanic count
+        }
+    )
+    assert_frame_equal(result_df, expected_df, check_like=True)
 
 
 def test_generate_time_df_with_cols_and_types():

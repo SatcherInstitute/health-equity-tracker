@@ -1,5 +1,5 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -20,14 +20,19 @@ export type ChronicDiseaseMetricId =
   | 'ahr_population_pct'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
+  | 'asthma_estimated_total'
   | 'cardiovascular_diseases_pct_share'
   | 'cardiovascular_diseases_per_100k'
+  | 'cardiovascular_diseases_estimated_total'
   | 'chronic_kidney_disease_pct_share'
   | 'chronic_kidney_disease_per_100k'
+  | 'chronic_kidney_disease_estimated_total'
   | 'copd_pct_share'
   | 'copd_per_100k'
+  | 'copd_estimated_total'
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
+  | 'diabetes_estimated_total'
 
 export const ASTHMA_METRICS: DataTypeConfig[] = [
   {
@@ -38,7 +43,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Asthma cases',
     fullDisplayNameInline: 'asthma cases',
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for asthma cases',
+    dataTableTitle: 'Summary for asthma cases',
     definition: {
       text: `Adults who reported being told by a health professional that they currently have asthma.`,
     },
@@ -60,6 +65,18 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Asthma cases per 100k adults',
         shortLabel: 'asthma per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'asthma_estimated_total',
+          shortLabel: 'asthma',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of all adult asthma cases',
@@ -88,7 +105,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Cases of cardiovascular diseases',
     fullDisplayNameInline: 'cases of cardiovascular diseases',
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for cardiovascular disease',
+    dataTableTitle: 'Summary for cardiovascular disease',
     definition: {
       text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
     },
@@ -110,6 +127,18 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Cases of cardiovascular diseases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'cardiovascular_diseases_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of all cases of cardiovascular diseases',
@@ -153,7 +182,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
+    dataTableTitle: 'Summary for cases of chronic kidney disease',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
@@ -162,6 +191,18 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Chronic kidney disease per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'chronic_kidney_disease_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Share of all chronic kidney disease cases',
@@ -197,7 +238,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
       text: `Diabetes is a chronic condition that affects the way the body uses sugar. It is more common in people of color and people with low incomes. Studying diabetes can help us understand why these disparities exist and how to address them.`,
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for diabetes',
+    dataTableTitle: 'Summary for diabetes',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -221,6 +262,18 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Diabetes cases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'diabetes_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
     },
   },
@@ -247,7 +300,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for COPD',
+    dataTableTitle: 'Summary for COPD',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -270,6 +323,18 @@ export const COPD_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'COPD cases per 100k adults',
         shortLabel: 'cases per 100k adults',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'copd_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ahr_population_18plus',
+          chartTitle: '',
+          shortLabel: 'Total pop. 18+',
+          type: 'count',
+        },
       },
     },
   },

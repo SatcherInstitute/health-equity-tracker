@@ -1,3 +1,4 @@
+//
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
@@ -14,7 +15,7 @@ import NewsPreviewCard from '../News/NewsPreviewCard'
 import { useQuery } from 'react-query'
 import type { Article } from '../News/NewsPage'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
-import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
@@ -23,7 +24,7 @@ function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,
     fetchLandingPageNewsData,
-    REACT_QUERY_OPTIONS
+    REACT_QUERY_OPTIONS,
   )
 
   const isSm = useIsBreakpointAndUp('sm')
@@ -108,7 +109,6 @@ function LandingPage() {
     <main className='relative' aria-label='Main Content'>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
-        <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
 
       <h2 className='sr-only'>Home Page</h2>
@@ -125,9 +125,9 @@ function LandingPage() {
             <span className='text-altGreen'>Health Equity Tracker</span>
             <br /> take you?
           </h1>
-          <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
+          <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
-          </HetBigCTA>
+          </HetCTABig>
           <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
             <p className='py-0 my-0 z-1'>
               Data sourced from major public health agencies
@@ -195,7 +195,7 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-[#F0F1EF]/[0.8] mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
+        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-whiteSmoke80 mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
           <img
             src='/img/graphics/banner.png'
             className='md:w-2/5 w-full'
@@ -274,7 +274,7 @@ function LandingPage() {
           </div>
         </div>
         <div className='my-0 py-0 xs:py-0'>
-          <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetBigCTA>
+          <HetCTABig href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetCTABig>
         </div>
       </section>
 
