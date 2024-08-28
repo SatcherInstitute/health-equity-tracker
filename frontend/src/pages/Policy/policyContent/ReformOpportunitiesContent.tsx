@@ -1,6 +1,6 @@
 export const effortsAndInitiatives = [
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_mental-health_kliwiart.png',
 		title: 'Mental Health and Social Support Expansion',
 		description: (
 			<>
@@ -9,7 +9,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_money-loss_kliwiart.png',
 		title: 'Educational and Economic Empowerment',
 		description: (
 			<>
@@ -18,7 +18,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_video-conference_kliwiart.png',
 		title: 'Community-Led Violence Prevention',
 		description: (
 			<>
@@ -27,7 +27,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_customer_kliwiart.png',
 		title: 'Progressive Policing Reforms',
 		description: (
 			<>
@@ -36,7 +36,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_target_kliwiart.png',
 		title: 'Comprehensive Gun Control',
 		description: (
 			<>
@@ -45,7 +45,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_data-analysis_kliwiart.png',
 		title: 'Informed Research and Data Analysis',
 		description: (
 			<>
@@ -54,7 +54,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_love_kliwiart.png',
 		title: 'Robust Community Engagement',
 		description: (
 			<>
@@ -63,7 +63,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_health-insurance_kliwiart.png',
 		title: 'Social Services Enhancement',
 		description: (
 			<>
@@ -72,7 +72,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '',
+		icon: '/public/img/icons/icon_skill_kliwiart.png',
 		title: 'Policy Advocacy for Change',
 		description: (
 			<>

@@ -7,7 +7,7 @@ interface FactCardProps {
 
 const FactCard: React.FC<FactCardProps> = ({ content, className = '' }) => {
   return (
-            <li className='rounded-md shadow-raised-tighter p-4'>
+            <li className='rounded-md shadow-raised-tighter p-4 h-full'>
 				<p className='text-center content-center'>
 					{content}
 				</p>

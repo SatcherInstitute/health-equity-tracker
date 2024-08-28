@@ -156,7 +156,9 @@ export default function AddressingInequitiesTab() {
 						</h3>
 						<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 							{youthFatalitiesFacts.map((youthFatalitiesFact, index) => (
+								<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
 								<FactCard key={index} content={youthFatalitiesFact.content} />
+								</li>
 							))}
 						</ul>
 					</div>
@@ -172,7 +174,9 @@ export default function AddressingInequitiesTab() {
 
 						<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 							{homicideFacts.map((homicideFact, index) => (
+								<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
 								<FactCard key={index} content={homicideFact.content} />
+								</li>
 							))}
 						</ul>
 					</div>
@@ -254,7 +258,9 @@ export default function AddressingInequitiesTab() {
 						</h3>
 						<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 							{suicideFacts.map((suicideFact, index) => (
+								<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
 								<FactCard key={index} content={suicideFact.content} />
+								</li>
 							))}
 						</ul>
 					</div>

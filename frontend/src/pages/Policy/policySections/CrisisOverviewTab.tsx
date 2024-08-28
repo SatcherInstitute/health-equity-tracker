@@ -42,7 +42,9 @@ export default function CrisisOverviewTab() {
 					</div>
 					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
 						{gvaFacts.map((gvaFact, index) => (
+							<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
 							<FactCard key={index} content={gvaFact.content} />
+							</li>
 						))}
 					</ul>
 					<p>
