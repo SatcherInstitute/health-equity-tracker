@@ -67,7 +67,7 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
   await page
     .locator('#data-table')
     .getByRole('heading', {
-      name: 'Breakdown summary for HIV cases in the United States',
+      name: 'Summary for HIV cases in the United States',
     })
     .click()
   await page

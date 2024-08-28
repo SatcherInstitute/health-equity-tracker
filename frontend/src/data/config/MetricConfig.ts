@@ -57,6 +57,12 @@ import {
   type PhrmaMetricId,
 } from './MetricConfigPhrma'
 import {
+  CANCER_CATEGORY_DROPDOWNIDS,
+  PHRMA_BRFSS_CANCER_SCREENING_METRICS,
+  type PhrmaBrfssDataTypeId,
+  type PhrmaBrfssMetricId,
+} from './MetricConfigPhrmaBrfss'
+import {
   UNINSURANCE_METRICS,
   type SDOHDataTypeId,
   type SDOHMetricId,
@@ -75,7 +81,6 @@ import {
   GUN_VIOLENCE_METRICS,
   GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigCommunitySafety'
-import { DemographicType } from '../query/Breakdowns'
 import {
   MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
   MATERNAL_HEALTH_METRICS,
@@ -92,6 +97,7 @@ const dropdownVarIds = [
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
   ...COMMUNITY_SAFETY_DROPDOWNIDS,
   ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
+  ...CANCER_CATEGORY_DROPDOWNIDS,
 ] as const
 
 export type DropdownVarId = (typeof dropdownVarIds)[number]
@@ -113,6 +119,7 @@ export type DataTypeId =
   | HivCategoryDataTypeId
   | BehavioralHealthDataTypeId
   | PhrmaDataTypeId
+  | PhrmaBrfssDataTypeId
   | PDOHDataTypeId
   | SDOHDataTypeId
   | CommunitySafetyDataTypeId
@@ -122,6 +129,7 @@ export type MetricId =
   | HivCategoryMetricId
   | BehavioralHealthMetricId
   | PhrmaMetricId
+  | PhrmaBrfssMetricId
   | PDOHMetricId
   | SDOHMetricId
   | ChronicDiseaseMetricId
@@ -340,6 +348,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_hiv: PHRMA_HIV_METRICS,
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
   maternal_mortality: MATERNAL_HEALTH_METRICS,
+  cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
 }
 
 export function buildTopicsString(topics: readonly DropdownVarId[]): string {

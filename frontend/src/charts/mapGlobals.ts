@@ -1,9 +1,9 @@
 /*
 To prevent components loading from one another, all exported consts for the map cards should be in this file
 */
-import { type DemographicGroup } from '../data/utils/Constants'
-import { type Scale, type ColorScheme, type Legend } from 'vega'
-import { type MapConfig, type MetricConfig } from '../data/config/MetricConfig'
+import type { DemographicGroup } from '../data/utils/Constants'
+import type { Scale, ColorScheme, Legend } from 'vega'
+import type { MapConfig, MetricConfig } from '../data/config/MetricConfig'
 import { het } from '../styles/DesignTokens'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
@@ -31,7 +31,13 @@ export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
 export const ORDINAL = 'ordinal'
 
-export type PopulationSubset = 'default' | 'women' | 'men' | 'medicare' | 'unknown' | 'youth'
+export type PopulationSubset =
+  | 'default'
+  | 'women'
+  | 'men'
+  | 'medicare'
+  | 'unknown'
+  | 'youth'
 
 export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
   default: 'darkgreen',

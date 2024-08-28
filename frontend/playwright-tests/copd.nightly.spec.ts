@@ -23,9 +23,7 @@ test('COPD Flow', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
-  await page
-    .getByRole('heading', { name: 'Breakdown summary for COPD in' })
-    .click()
+  await page.getByRole('heading', { name: 'Summary for COPD in' }).click()
   await page.getByText('Share this report:').click()
 
   await page.getByRole('button', { name: 'Definitions & missing data' }).click()
@@ -37,7 +35,7 @@ test('COPD Flow', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'Measurement Definition: Adults who reported being told by a health professional'
+      'Measurement Definition: Adults who reported being told by a health professional',
     )
     .click()
   await page.getByText('Clinical Importance: COPD is').click()
