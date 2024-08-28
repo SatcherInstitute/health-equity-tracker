@@ -301,7 +301,7 @@ The backend consists of:
 
 ### Python environment setup
 
-1. (One-time) Ensure you have the right version of Python installed (as found in pyproject.toml). You can install the correct version using Homebrew (on Mac) with `brew install python@3.9`
+1. (One-time) Ensure you have the right version of Python installed (as found in pyproject.toml). You can install the correct version using Homebrew (on Mac) with `brew install python@3.10`
 1. (One-time) Create a virtual environment in your project directory, for example: `python3 -m venv .venv`
 1. (Every time you develop on Python code) Activate the venv (every time you want to update Python ): `source .venv/bin/activate`
 1. (One-time) Install pip-tools and other packages as needed: `pip install pip-tools`
