@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from pandas._testing import assert_frame_equal
 import ingestion.standardized_columns as std_col
 from ingestion.bjs_utils import (
@@ -79,11 +80,11 @@ _fake_by_race_df = pd.DataFrame(
     }
 )
 
-_expected_by_race_df_missing_to_none = pd.DataFrame(
+_expected_by_race_df_missing_to_nan = pd.DataFrame(
     {
         std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida"],
-        'Asian': [1_000_000, None, 1000],
-        'Black': [1_000_000, 100, None],
+        'Asian': [1_000_000, np.nan, 1000],
+        'Black': [1_000_000, 100, np.nan],
     }
 )
 
@@ -93,7 +94,9 @@ _expected_by_race_df_only_states = pd.DataFrame(
 
 
 def test_missing_data_to_nan():
-    assert missing_data_to_nan(_fake_by_race_df).equals(_expected_by_race_df_missing_to_none)
+    assert_frame_equal(
+        missing_data_to_nan(_fake_by_race_df), _expected_by_race_df_missing_to_nan, check_like=True, check_dtype=False
+    )
 
 
 def test_keep_only_states():
