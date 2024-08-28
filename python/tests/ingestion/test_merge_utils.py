@@ -364,8 +364,6 @@ def testMergeYearlyPopNumbers():
         StringIO(json.dumps(_expected_time_series_merged_with_pop_numbers)),
         dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
     ).reset_index(drop=True)
-    # ensure expected_df treats missing data as np.nan not None
-    # expected_df = expected_df.infer_objects(copy=False).fillna(np.nan)
 
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
 
