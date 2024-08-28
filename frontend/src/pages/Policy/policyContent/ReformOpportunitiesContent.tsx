@@ -1,5 +1,6 @@
 export const effortsAndInitiatives = [
 	{
+		icon: '',
 		title: 'Mental Health and Social Support Expansion',
 		description: (
 			<>
@@ -8,6 +9,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Educational and Economic Empowerment',
 		description: (
 			<>
@@ -16,6 +18,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Community-Led Violence Prevention',
 		description: (
 			<>
@@ -24,6 +27,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Progressive Policing Reforms',
 		description: (
 			<>
@@ -32,6 +36,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Comprehensive Gun Control',
 		description: (
 			<>
@@ -40,6 +45,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Informed Research and Data Analysis',
 		description: (
 			<>
@@ -48,6 +54,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Robust Community Engagement',
 		description: (
 			<>
@@ -56,6 +63,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Social Services Enhancement',
 		description: (
 			<>
@@ -64,6 +72,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
+		icon: '',
 		title: 'Policy Advocacy for Change',
 		description: (
 			<>

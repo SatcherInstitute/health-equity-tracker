@@ -4,20 +4,24 @@ interface ResourceItemProps {
   title: string;
   description: React.ReactNode;
   link?: string;
+  icon?: string;
 }
 
-const ResourceItem: React.FC<ResourceItemProps> = ({ title, description, link }) => {
+const ResourceItem: React.FC<ResourceItemProps> = ({ title, description, link, icon }) => {
   return (
-    <li className='flex flex-row align-center'>
-      <p className='p-0 mt-0 mb-4'>
+    <li className='rounded-md shadow-raised-tighter p-4'>
+        {icon && <img src={icon} alt="icon" className="mr-2 w-6 h-6" />}
+      <p className='p-0'>
         {link ? (
-          <a className='font-semibold no-underline text-black' href={link}>
+          <a className='font-semibold no-underline text-black text-exploreButton leading-lhNormal' href={link}>
             {title}
           </a>
         ) : (
-          <span className='font-semibold text-black'>{title}</span>
+          <span className='font-semibold text-black text-exploreButton leading-lhNormal'>{title}</span>
         )}
-        : {description}
+      </p>
+      <p className='text-small'>
+            {description}
       </p>
     </li>
   );

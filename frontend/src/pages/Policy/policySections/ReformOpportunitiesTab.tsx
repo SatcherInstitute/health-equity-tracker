@@ -21,21 +21,16 @@ export default function ReformOpportunitiesTab() {
 				<h3 className='my-0 text-title font-medium text-altGreen'>
 					Reform Opportunities at the County and City Levels
 				</h3>
-				<div className='grid grid-cols-3 md:grid-cols-4'>
-
-				</div>
-				<p>
-					<ul className='list-none'>
+					<ul className='grid grid-cols-3 list-none pl-0 py-4 gap-8'>
 						{effortsAndInitiatives.map((effortsAndInitiative, index) => (
 							<ResourceItemCard
-								key={index}
-								title={effortsAndInitiative.title}
-								description={effortsAndInitiative.description}
-								link={effortsAndInitiative.link}
+							key={index}
+							icon={effortsAndInitiatives.icon}
+							title={effortsAndInitiative.title}
+							description={effortsAndInitiative.description}
 							/>
 						))}
-					</ul>
-				</p>
+					</ul>	
 			</section>
 			<section id='#call-to-action-for-policy-changes'>
 				<h3 className='my-0 text-title font-medium text-altGreen'>
