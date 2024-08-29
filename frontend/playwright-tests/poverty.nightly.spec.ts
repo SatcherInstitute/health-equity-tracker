@@ -13,10 +13,12 @@ test('Poverty', async ({ page }) => {
       name: 'People below the poverty line in the United States',
     })
     .click()
-  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
+  await page
+    .getByRole('button', { name: 'Expand state/territory rate' })
+    .click()
   await page
     .getByText(
-      'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.'
+      'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.',
     )
     .click()
   await page
@@ -42,7 +44,7 @@ test('Poverty', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.'
+      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page
@@ -59,7 +61,7 @@ test('Poverty', async ({ page }) => {
   await page.getByText('Population percentages on').click()
   await page
     .getByRole('heading', {
-      name: 'Breakdown summary for people below the poverty line in the United States',
+      name: 'Summary for people below the poverty line in the United States',
     })
     .click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
@@ -74,7 +76,7 @@ test('Poverty', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!'
+      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!',
     )
     .click()
 })

@@ -33,7 +33,7 @@ test('Cardiovascular Diseases', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Breakdown summary for cardiovascular disease in the United States',
+      name: 'Summary for cardiovascular disease in the United States',
     })
     .click()
   await page
@@ -48,7 +48,7 @@ test('Cardiovascular Diseases', async ({ page }) => {
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love'
+      'Do you have information that belongs on the Health Equity Tracker? We would love',
     )
     .click()
 })

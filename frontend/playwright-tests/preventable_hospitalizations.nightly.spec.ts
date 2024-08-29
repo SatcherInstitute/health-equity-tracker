@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 test('Preventable Hospitalizations', async ({ page }) => {
   await page.goto(
-    '/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All'
+    '/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All',
   )
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
@@ -19,10 +19,12 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Medicare beneficiaries' })
     .click()
-  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
+  await page
+    .getByRole('button', { name: 'Expand state/territory rate' })
+    .click()
   await page
     .getByText(
-      'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.'
+      'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.',
     )
     .click()
   await page
@@ -38,7 +40,7 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.'
+      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page
@@ -52,28 +54,35 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Breakdown summary for preventable hospitalizations in the United States',
+      name: 'Summary for preventable hospitalizations in the United States',
     })
     .click()
-  await page.getByRole('button', { name: 'Definitions & missing data' }).click();
+  await page.getByRole('button', { name: 'Definitions & missing data' }).click()
 
-  await page.getByRole('heading', { name: 'Definitions:' }).click();
-  await page.getByRole('heading', { name: 'Social Determinants of' }).click();
-  await page.locator('#definitionsList').getByText('Preventable hospitalizations', { exact: true }).click();
-  await page.getByText('Measurement Definition:').click();
-  await page.getByText('Measurement Definition: Discharges following hospitalization for diabetes with').click();
-  await page.getByText('Clinical Importance:').click();
-  await page.getByText('Clinical Importance: Studying').click();
-  await page.getByRole('heading', { name: 'What data are missing?' }).click();
-  await page.getByText('Unfortunately there are').click();
-  await page.getByRole('heading', { name: 'Missing and misidentified' }).click();
-  await page.getByText('Native Hawaiian and Pacific').click();
-  await page.getByRole('heading', { name: 'Missing America\'s Health' }).click();
-  await page.getByText('Population data:').click();
-  await page.getByText('Population data: AHR does not').click();
+  await page.getByRole('heading', { name: 'Definitions:' }).click()
+  await page.getByRole('heading', { name: 'Social Determinants of' }).click()
+  await page
+    .locator('#definitionsList')
+    .getByText('Preventable hospitalizations', { exact: true })
+    .click()
+  await page.getByText('Measurement Definition:').click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!'
+      'Measurement Definition: Discharges following hospitalization for diabetes with',
+    )
+    .click()
+  await page.getByText('Clinical Importance:').click()
+  await page.getByText('Clinical Importance: Studying').click()
+  await page.getByRole('heading', { name: 'What data are missing?' }).click()
+  await page.getByText('Unfortunately there are').click()
+  await page.getByRole('heading', { name: 'Missing and misidentified' }).click()
+  await page.getByText('Native Hawaiian and Pacific').click()
+  await page.getByRole('heading', { name: "Missing America's Health" }).click()
+  await page.getByText('Population data:').click()
+  await page.getByText('Population data: AHR does not').click()
+  await page
+    .getByText(
+      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!',
     )
     .click()
 })

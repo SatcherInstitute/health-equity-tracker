@@ -1,24 +1,24 @@
-import React from 'react'
+import type React from 'react'
 import { Fips } from '../data/utils/Fips'
-import { type DataTypeConfig } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfig'
 import TableCard from '../cards/TableCard'
-import {  SEX } from '../data/utils/Constants';
-import { DemographicType } from '../data/query/Breakdowns';
-import { GUN_VIOLENCE_METRICS } from '../data/config/MetricConfigCommunitySafety';
+import { SEX } from '../data/utils/Constants'
+import type { DemographicType } from '../data/query/Breakdowns'
+import { GUN_VIOLENCE_METRICS } from '../data/config/MetricConfigCommunitySafety'
 
 interface CustomBreakdownSummaryProps {
-  headerScrollMargin?: string;
-  fips?: Fips;
-  dataTypeConfig?: DataTypeConfig;
-  demographicType?: DemographicType;
-  reportTitle?: string;
+  headerScrollMargin?: string
+  fips?: Fips
+  dataTypeConfig?: DataTypeConfig
+  demographicType?: DemographicType
+  reportTitle?: string
 }
 
 const CustomBreakdownSummary: React.FC<CustomBreakdownSummaryProps> = ({
   headerScrollMargin = '50px',
-  fips = new Fips('00'), 
+  fips = new Fips('00'),
   demographicType = SEX,
-  reportTitle = 'Demographic Breakdown Summary',
+  reportTitle = 'Demographic Summary',
 }) => {
   const dataTypeConfig: DataTypeConfig = GUN_VIOLENCE_METRICS[1]
 

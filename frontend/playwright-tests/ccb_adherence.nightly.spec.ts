@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 test('calcium channel blocker adherence', async ({ page }) => {
   await page.goto(
-    '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=ccb_adherence'
+    '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=ccb_adherence',
   )
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
@@ -20,7 +20,7 @@ test('calcium channel blocker adherence', async ({ page }) => {
     .getByRole('heading', { name: 'Population adherent to' })
     .click()
   await page.getByRole('heading', { name: 'Adherent beneficiary' }).click()
-  await page.getByRole('heading', { name: 'Breakdown summary for' }).click()
+  await page.getByRole('heading', { name: 'Summary for' }).click()
   await page.getByText('Share this report:').click()
   await page
     .getByText('Adherence to calcium channel blockers', { exact: true })

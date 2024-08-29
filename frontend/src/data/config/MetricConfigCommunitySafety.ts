@@ -56,7 +56,7 @@ export type CommunitySafetyMetricId =
 export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'community-safety',
-    dataTableTitle: 'Breakdown summary of gun homicides',
+    dataTableTitle: 'Summary of gun homicides',
     dataTypeId: 'gun_violence_homicide',
     dataTypeShortLabel: 'Homicides',
     definition: {
@@ -113,7 +113,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   },
   {
     categoryId: 'community-safety',
-    dataTableTitle: 'Breakdown summary for gun suicides',
+    dataTableTitle: 'Summary for gun suicides',
     dataTypeId: 'gun_violence_suicide',
     dataTypeShortLabel: 'Suicides',
     definition: {
@@ -173,7 +173,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
 export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'community-safety',
-    dataTableTitle: 'Breakdown summary of gun deaths among children',
+    dataTableTitle: 'Summary of gun deaths among children',
     dataTypeId: 'gun_deaths_youth',
     dataTypeShortLabel: 'Children',
     definition: {
@@ -233,7 +233,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
   },
   {
     categoryId: 'community-safety',
-    dataTableTitle: 'Breakdown summary of gun deaths among young adults',
+    dataTableTitle: 'Summary of gun deaths among young adults',
     dataTypeId: 'gun_deaths_young_adults',
     dataTypeShortLabel: 'Young Adults',
     definition: {
@@ -296,7 +296,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
 export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'community-safety',
-    dataTableTitle: 'Breakdown summary of gun homicides among Black (NH) men',
+    dataTableTitle: 'Summary of gun homicides among Black (NH) men',
     dataTypeId: 'gun_deaths_black_men',
     dataTypeShortLabel: 'Gun Homicides (Black Men)',
     definition: {
