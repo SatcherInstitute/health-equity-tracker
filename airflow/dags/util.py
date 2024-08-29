@@ -5,9 +5,10 @@ import pandas as pd
 import requests  # type: ignore
 
 # Ignore the Airflow module, it is installed in both our dev and prod environments
-from airflow import DAG  # pylint: disable=no-name-in-module
-from airflow.models import Variable  # pylint: disable=no-name-in-module
-from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module
+from airflow import DAG  # type: ignore
+from airflow.models import Variable  # type: ignore
+from airflow.operators.python_operator import PythonOperator  # type: ignore
 from google.cloud import bigquery
 from sanity_check import check_pct_values
 import subprocess

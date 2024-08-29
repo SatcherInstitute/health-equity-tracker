@@ -25,7 +25,7 @@ from ingestion.het_types import (
     TOPIC_CATEGORY_TYPE,
 )
 
-# pylint: disable=no-name-in-module
+# type: ignore
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 
 # String constants from AHR source data
