@@ -13,7 +13,7 @@ const ResourceItemCard: React.FC<ResourceItemCardProps> = ({ title, description,
     <li
       className={`flex flex-row ${reverse ? 'flex-row-reverse' : ''} gap-4 items-center justify-center`}
     >
-      <div className='rounded-md border border-solid border-methodologyGreen duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter bg-hoverAltGreen hover:bg-whiteSmoke80 text-exploreButton p-4 no-underline hover:scale-105 hover:transition-transform hover:duration-30 flex flex-row items-center justify-start w-full'>
+      <div className='rounded-md border border-solid border-methodologyGreen duration-300 ease-in-out shadow-raised-tighter bg-hoverAltGreen text-exploreButton p-4 no-underline flex flex-row items-center justify-start w-full'>
         {icon && <img src={icon} alt='icon' className='mr-4' />}
         <p className='p-0 leading-lhNormal'>
           {link ? (

@@ -19,7 +19,7 @@ export default function FaqsTab() {
 			</Helmet>
 			<h2 className='sr-only'>FAQs</h2>
 			<article className='grid'>
-				<div className='p-4'>
+				<div className='py-4'>
 					{policyFaqs.map((faq, index) => (
 						<Accordion
 							key={faq.question}
