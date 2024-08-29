@@ -65,9 +65,4 @@ urllib3
 Werkzeug==3.0.4
 xlrd==2.0.1
 zipp==3.20.0
-types-Flask-Cors
-types-Pygments
-types-cachetools
-types-colorama
-types-setuptools
-types-docutils
+types-pkg-resources
