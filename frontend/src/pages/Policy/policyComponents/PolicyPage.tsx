@@ -101,7 +101,7 @@ export default function PolicyPage() {
                 </p>
                 <h4
                   id='on-this-page-policy-header'
-                  className='mt-2 mb-4 font-sansTitle text-smallestHeader leading-lhNormal'
+                  className='mt-2 mb-4 font-sansTitle text-title leading-lhNormal xs:w-full md:w-16'
                 >
                   {routeConfig.label}
                 </h4>

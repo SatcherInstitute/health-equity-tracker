@@ -106,10 +106,10 @@ export const NAVIGATION_STRUCTURE = {
     },
   },
   exploreTheData: {
-    label: 'Explore the Data',
+    label: 'Insight Hub',
     pages: {
-      [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
-      [DATA_CATALOG_PAGE_LINK]: 'Data Downloads',
+      [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
+      [DATA_CATALOG_PAGE_LINK]: 'Source Files',
       [METHODOLOGY_PAGE_LINK]: 'Methodology'
     },
   },

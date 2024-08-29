@@ -1,33 +1,38 @@
-import type React from 'react'
+import type React from 'react';
 
-interface ResourceItemProps {
-  title: string
-  description: React.ReactNode
-  link?: string
-  icon?: string
+interface ResourceItemCardProps {
+  title: string;
+  description: React.ReactNode;
+  link?: string;
+  icon?: string;
+  reverse?: boolean;
 }
 
-const ResourceItem: React.FC<ResourceItemProps> = ({ title, description, link, icon }) => {
+const ResourceItemCard: React.FC<ResourceItemCardProps> = ({ title, description, link, icon, reverse }) => {
   return (
-    <li className='rounded-md shadow-raised-tighter p-4 h-full'>
-      {icon && <img src={icon} alt='icon' className='mx-auto' />}
-      <p className='p-0'>
-        {link ? (
-          <a
-            className='font-semibold no-underline text-black text-exploreButton leading-lhNormal'
-            href={link}
-          >
-            {title}
-          </a>
-        ) : (
-          <span className='font-semibold text-black text-exploreButton leading-lhNormal'>
-            {title}
-          </span>
-        )}
-      </p>
-      <p className='text-small'>{description}</p>
+    <li
+      className={`flex flex-row ${reverse ? 'flex-row-reverse' : ''} gap-4 items-center justify-center`}
+    >
+      <div className='rounded-md border border-solid border-methodologyGreen duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter bg-hoverAltGreen hover:bg-whiteSmoke80 text-exploreButton p-4 no-underline hover:scale-105 hover:transition-transform hover:duration-30 flex flex-row items-center justify-start w-full'>
+        {icon && <img src={icon} alt='icon' className='mr-4' />}
+        <p className='p-0 leading-lhNormal'>
+          {link ? (
+            <a
+              className='font-semibold no-underline text-black text-exploreButton leading-lhNormal'
+              href={link}
+            >
+              {title}
+            </a>
+          ) : (
+            <span className='font-semibold text-black text-exploreButton leading-lhNormal'>
+              {title}
+            </span>
+          )}
+        </p>
+      </div>
+      <p className='text-small w-fit py-0 my-0'>{description}</p>
     </li>
-  )
+  );
 }
 
-export default ResourceItem
+export default ResourceItemCard;

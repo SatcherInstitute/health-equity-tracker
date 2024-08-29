@@ -21,7 +21,7 @@ export default function ReformOpportunitiesTab() {
       <h3 className='my-0 text-title font-medium text-altGreen'>
         Reform Opportunities at the County and City Levels
       </h3>
-      <ul className='grid grid-cols-3 list-none pl-0 py-4 gap-8'>
+      <ul className='grid grid-cols-1 list-none pl-0 py-4 gap-8'>
         {effortsAndInitiatives.map((effortsAndInitiative, index) => (
           <li
             key={index}
@@ -29,11 +29,12 @@ export default function ReformOpportunitiesTab() {
             style={{ animationDelay: `${index * 0.3}s` }}
           >
             <ResourceItemCard
-              key={index}
-              icon={effortsAndInitiative.icon}
-              title={effortsAndInitiative.title}
-              description={effortsAndInitiative.description}
-            />
+        key={index}
+        icon={effortsAndInitiative.icon}
+        title={effortsAndInitiative.title}
+        description={effortsAndInitiative.description}
+        reverse={index % 2 !== 0}
+      />
           </li>
         ))}
       </ul>
@@ -49,7 +50,6 @@ export default function ReformOpportunitiesTab() {
               key={index}
               title={legislativeAction.title}
               description={legislativeAction.description}
-              link={legislativeAction.link}
             />
           ))}
         </ul>

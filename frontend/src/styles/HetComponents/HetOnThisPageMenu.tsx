@@ -65,9 +65,9 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className={`my-2 min-w-40 w-full lg:w-48 lg:max-w-40 text-left flex flex-col grow align-center ${props.className ?? ''}`}
+        className={`my-2 w-full md:w-32 text-left flex flex-col grow align-center ${props.className ?? ''}`}
       >
-        <ul className='my-1 list-none space-y-1 pl-0 leading-lhTight lg:space-y-2 font-roboto text-smallest'>
+        <ul className='my-1 list-none space-y-2 pl-0 leading-lhNormal lg:space-y-2 font-roboto text-smallest'>
           {props.links?.map((link) => (
             <li key={link.path}>
               <CombinedLink

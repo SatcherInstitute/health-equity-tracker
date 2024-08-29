@@ -17,16 +17,18 @@ export default function GunViolencePolicyHomeLink() {
 						exacerbated by racial motives.
 					</p>
 					<article className='rounded-md shadow-raised bg-white flex lg:px-24 px-8 pb-8 pt-0 lg:mt-8 mt-4'>
-						<div className='flex flex-col align-center'>
+						<div className='flex flex-col align-center'
+						>
 							<img
-								className='mx-auto my-0 p-0'
+								className='mx-auto my-0 p-0 fade-in-up-blur'
 								src='/img/graphics/DrSatcher.png'
 								alt='David Satcher, MD, PhD'
+								style={{ animationDelay: `${0.3}s` }}
 							></img>
 
-							<p className='text-center text-text text-altGreen font-bold text-sansText pt-0 mt-0'>
+							<p className='text-center text-text text-altGreen font-bold text-sansText pt-0 mt-0 fade-in-up-blur' style={{ animationDelay: `${0.2}s` }}>
 								David Satcher, M.D., Ph.D.
-								<p className='text-center text-small my-0 text-sansText'>
+								<p className='text-center text-small my-0 text-sansText' >
 									Founding Director & Senior Advisor
 								</p>
 							</p>
@@ -35,7 +37,7 @@ export default function GunViolencePolicyHomeLink() {
 								<span className='absolute xs:top-[-15rem] xs:left-[-2rem] md:top-[-13rem] md:left-[-1rem] lg:top-[-14rem] lg:left-[-5rem] m-0 p-0 text-[20rem] text-hoverAltGreen'>
 									&#10077;
 								</span>
-								<p className='font-roboto text-title my-0 leading-4'>
+								<p className='font-roboto text-title my-0 leading-4  fade-in-up-blur' style={{ animationDelay: `${0.4}s` }}>
 									Our children should be given a personal sense of security.
 									That’s not always there in communities of high poverty.
 									There’s a lot of insecurity. Often children turn to gangs and
