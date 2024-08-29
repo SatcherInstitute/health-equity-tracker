@@ -1,16 +1,27 @@
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { RACE } from '../../../data/utils/Constants'
+import { Fips } from '../../../data/utils/Fips'
+import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
+import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 export const youthFatalitiesFacts = [
 	{
 		content: (
 			<>
-				From 2018 to 2021, the rate of gun deaths among Black youth increased by
-				approximately 75.44% in Georgia, while {' '}
-				<HetTerm>nationally, the rate doubled from 6.0 to 12 per 100k</HetTerm>{' '}
+				From 2018 to 2021, the rate of {''}
+				<HetTerm>gun deaths among Black youth increased by
+				approximately 75.44% in Georgia</HetTerm>{''}, while nationally, the rate doubled from 6.0 to 12 per 100k
 				, indicating a more substantial increase across the US compared to
 				Georgia alone.
 			</>
 		),
+		customCard: ( <CustomRateTrendsLineChart
+			fips={new Fips('13')}
+			dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
+			demographicType={RACE}
+			reportTitle='Rates of gun deaths among children over time in Georgia'
+		  />),
 	},
 	{
 		content: (
@@ -22,7 +33,12 @@ export const youthFatalitiesFacts = [
 				</HetTerm>
 				.
 			</>
-		),
+		), customCard: ( <CustomDisparityBarChart
+			fips={new Fips('13')}
+			dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
+			demographicType={RACE}
+			reportTitle='Population vs. distribution of total gun deaths among children in Georgia'
+		  />),
 	},
 ]
 
@@ -34,7 +50,7 @@ export const homicideFacts = [
 				<HetTerm>overall rates remained disturbingly high</HetTerm>  compared to
 				2019, with persistent elevations particularly among Black individuals.
 			</>
-		),
+		), customCard: '',
 	},
 	{
 		content: (
@@ -47,7 +63,7 @@ export const homicideFacts = [
 				, representing at least 120% of the inequities observed over this
 				period.
 			</>
-		),
+		), customCard: '',
 	},
 	{
 		content: (
@@ -59,7 +75,7 @@ export const homicideFacts = [
 				</HetTerm>
 				.
 			</>
-		),
+		), customCard: '',
 	},
 ]
 
@@ -75,7 +91,7 @@ export const suicideFacts = [
 				, while rates among White individuals slightly decreased from 22 to 21
 				per 100k, highlighting a concerning upward trend in the Black community.
 			</>
-		),
+		), customCard: '',
 	},
 	{
 		content: (
@@ -87,7 +103,7 @@ export const suicideFacts = [
 				</HetTerm>
 				.
 			</>
-		),
+		), customCard: '',
 	},
 ]
 
@@ -101,7 +117,7 @@ export const economicResources = [
 				indirectly help in reducing stressors that can lead to violence.
 			</>
 		),
-		link: '#',
+		
 	},
 	{
 		title: 'WorkSource Atlanta',
@@ -112,7 +128,7 @@ export const economicResources = [
 				economic disparities.
 			</>
 		),
-		link: '#',
+		
 	},
 ]
 

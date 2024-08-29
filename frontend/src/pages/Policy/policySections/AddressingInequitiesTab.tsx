@@ -7,6 +7,12 @@ import { useScrollToAnchor } from '../../../utils/hooks/useScrollToAnchor'
 import FactCard from '../policyComponents/FactCard'
 import { youthFatalitiesFacts, homicideFacts, suicideFacts, economicResources, educationalResources, justiceResources, mentalHealthResources, communityResources } from '../policyContent/AddressingInequitiesContent'
 import ResourceItem from '../policyComponents/ResourceItem'
+import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { RACE } from '../../../data/utils/Constants'
+import { Fips } from '../../../data/utils/Fips'
+import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
+import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
 
 interface CombinedLinkProps {
   to: string
@@ -131,8 +137,9 @@ export default function AddressingInequitiesTab() {
           By recognizing these interconnections, the Health Equity Tracker not
           only provides data but also underscores the multi-faceted nature of
           gun violence.
-          <br />
-          <br />
+          </p>
+          <p>
+          
           This approach advocates for holistic solutions that address the root
           causes of gun violence, which are often found in the systemic
           inequities plaguing these communities.The patterns observed in Atlanta
@@ -157,9 +164,22 @@ export default function AddressingInequitiesTab() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <FactCard key={index} content={youthFatalitiesFact.content} />
+                
               </li>
             ))}
           </ul>
+          <CustomRateTrendsLineChart
+        fips={new Fips('13')}
+        dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
+        demographicType={RACE}
+        reportTitle='Rates of gun deaths among children over time in Georgia'
+      />
+                 <CustomDisparityBarChart
+        fips={new Fips('13')}
+        dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
+        demographicType={RACE}
+        reportTitle='Population vs. distribution of total gun deaths among children in Georgia'
+      />
         </div>
       </section>
       <section id='#ga-homicides'>
