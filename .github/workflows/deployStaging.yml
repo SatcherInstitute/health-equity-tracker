@@ -303,7 +303,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
       - name: Run Python E2E Tests
         run: |
           pip install -r e2e_tests/requirements.txt
