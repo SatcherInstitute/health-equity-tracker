@@ -47,7 +47,7 @@ from ingestion.dataset_utils import (
 )
 from ingestion.merge_utils import merge_state_ids
 from ingestion.het_types import WISQARS_DEMO_TYPE, GEO_TYPE, WISQARS_VAR_TYPE
-from typing import List, cast
+from typing import List
 
 CATEGORIES_LIST: List[WISQARS_VAR_TYPE] = [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]
 ESTIMATED_TOTALS_MAP = generate_cols_map(CATEGORIES_LIST, std_col.RAW_SUFFIX)
@@ -79,8 +79,8 @@ class CDCWisqarsYouthData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWisqarsYouthData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic = cast(WISQARS_DEMO_TYPE, self.get_attr(attrs, "demographic"))
-        geo_level = cast(GEO_TYPE, self.get_attr(attrs, "geographic"))
+        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")  # type: ignore
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")  # type: ignore
 
         national_totals_by_intent_df = process_wisqars_youth_df(WISQARS_ALL, geo_level)
 
