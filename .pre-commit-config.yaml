@@ -30,7 +30,8 @@ repos:
       - id: pylint
         name: 🐍 python lint with pylint
         entry: pylint
-        language: system
+        language: python
+        language_version: python3.10
         types: [python]
         args: [
             "-rn", # Only display messages
