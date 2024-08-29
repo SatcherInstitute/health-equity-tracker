@@ -1,7 +1,7 @@
 # Ignore the Airflow module, it is installed in both dev and prod
-from airflow import DAG  # type: ignore
-from airflow.operators.dummy_operator import DummyOperator  # type: ignore
-from airflow.utils.dates import days_ago  # type: ignore
+from airflow import DAG  # pylint: disable=no-name-in-module
+from airflow.operators.dummy_operator import DummyOperator  # pylint: disable=no-name-in-module
+from airflow.utils.dates import days_ago  # pylint: disable=no-name-in-module
 
 import util
 

@@ -1,5 +1,5 @@
-from airflow import DAG  # type: ignore
-from airflow.utils.dates import days_ago  # type: ignore
+from airflow import DAG  # pylint: disable=no-name-in-module
+from airflow.utils.dates import days_ago  # pylint: disable=no-name-in-module
 import util
 
 _CDC_WISQARS_BLACK_MEN_WORKFLOW_ID = "CDC_WISQARS_BLACK_MEN_DATA"
