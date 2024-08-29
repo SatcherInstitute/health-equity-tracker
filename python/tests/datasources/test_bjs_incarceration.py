@@ -9,7 +9,7 @@ from pandas._testing import assert_frame_equal
 from datasources.bjs_incarceration import BJSIncarcerationData
 from ingestion.bjs_utils import (
     strip_footnote_refs_from_df,
-    missing_data_to_none,
+    missing_data_to_nan,
     set_state_col,
 )
 
@@ -32,7 +32,7 @@ def _get_test_table_files(*args):
             )
 
             source_df = strip_footnote_refs_from_df(source_df)
-            source_df = missing_data_to_none(source_df)
+            source_df = missing_data_to_nan(source_df)
             loaded_tables[file] = set_state_col(source_df)
 
     return loaded_tables
