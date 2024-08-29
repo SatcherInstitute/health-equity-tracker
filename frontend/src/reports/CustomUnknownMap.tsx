@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import LazyLoad from 'react-lazyload'
 import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'

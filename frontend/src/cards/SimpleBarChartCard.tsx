@@ -1,5 +1,5 @@
 import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
   type DemographicType,
@@ -24,7 +24,7 @@ import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
@@ -32,7 +32,7 @@ import {
   DATATYPES_NEEDING_13PLUS,
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
 import HetNotice from '../styles/HetComponents/HetNotice'
@@ -47,6 +47,7 @@ interface SimpleBarChartCardProps {
   dataTypeConfig: DataTypeConfig
   fips: Fips
   reportTitle: string
+  className?: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -54,6 +55,7 @@ interface SimpleBarChartCardProps {
 export default function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
+    className='w-full'
       key={props.dataTypeConfig.dataTypeId + props.demographicType}
       {...props}
     />
@@ -118,6 +120,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   return (
     <CardWrapper
+      className='w-full'
       downloadTitle={filename}
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}
@@ -134,9 +137,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
 
         return (
-          <>
+          <div className='w-full'>
             {hideChart ? (
-              <>
+              <div className='w-full'>
                 <ChartTitle
                   title={'Graph unavailable: ' + chartTitle}
                   subtitle={subtitle}
@@ -149,12 +152,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   }
                   fips={props.fips}
                 />
-              </>
+              </div>
             ) : (
-              <>
+              <div className='w-full'>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
 
                 <SimpleHorizontalBarChart
+                className='w-full'
                   data={data}
                   demographicType={props.demographicType}
                   metric={metricConfig}
@@ -185,9 +189,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   />
                 )}
 
-              </>
+              </div>
             )}
-          </>
+          </div>
         )
       }}
     </CardWrapper>

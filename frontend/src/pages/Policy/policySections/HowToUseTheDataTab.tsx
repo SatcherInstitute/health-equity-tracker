@@ -3,7 +3,7 @@ import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 
 export default function HowToUseTheDataTab() {
 	return (
-		<>
+		<div >
 			<Helmet>
 				<title>How To Use The Data - Health Equity Tracker</title>
 			</Helmet>
@@ -40,7 +40,7 @@ export default function HowToUseTheDataTab() {
 											{dataVisual.title}
 										</h3>
 									</div>
-									<div className='xs:py-4 md:p-8 w-[90vw] md:max-w-[90%]'>
+									<div className='xs:py-4 p-0 m-0 w-full'>
 										{dataVisual.customCard}
 									</div>
 									<p>{dataVisual.description}</p>
@@ -101,6 +101,6 @@ export default function HowToUseTheDataTab() {
 					</div>
 				</section>
 			))}
-		</>
+		</div>
 	)
 }

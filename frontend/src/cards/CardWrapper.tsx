@@ -1,12 +1,12 @@
 import { CircularProgress } from '@mui/material'
-import {
-  type MetricQuery,
-  type MetricQueryResponse,
+import type {
+  MetricQuery,
+  MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import { Sources } from './ui/Sources'
-import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
@@ -35,6 +35,7 @@ function CardWrapper(props: {
   elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
   isCompareCard?: boolean
+  className?: string
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle,
@@ -62,7 +63,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className='rounded relative m-2  bg-white p-3 shadow-raised'
+            className={`rounded relative m-2 bg-white p-3 shadow-raised ${props.className}`}
             ref={screenshotTargetRef}
             tabIndex={-1}
           >

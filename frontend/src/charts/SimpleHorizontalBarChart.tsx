@@ -270,6 +270,7 @@ interface SimpleHorizontalBarChartProps {
   demographicType: DemographicType
   filename?: string
   usePercentSuffix?: boolean
+  className?: string
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -294,7 +295,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     (LABEL_SWAP_CUTOFF_PERCENT / 100)
 
   return (
-    <div ref={ref}>
+    <div className='w-full' ref={ref}>
       <Vega
         renderer='svg'
         downloadFileName={`${props.filename ?? 'Data Download'

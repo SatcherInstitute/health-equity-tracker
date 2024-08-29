@@ -9,12 +9,13 @@ const CustomChoroplethMap: React.FC = () => {
   const reportTitle = 'Example Choropleth Rate Map'
 
   return (
-    <div>
+    <div className='p-0 m-0'>
       <MapCard
               dataTypeConfig={dataTypeConfig}
               demographicType='race_and_ethnicity'
               fips={fips}
-              reportTitle={reportTitle} updateFipsCallback={ (fips: Fips) => { }} trackerMode={'disparity'}      />
+              reportTitle={reportTitle} updateFipsCallback={ (fips: Fips) => { }} trackerMode={'disparity'}      
+              />
     </div>
   )
 }

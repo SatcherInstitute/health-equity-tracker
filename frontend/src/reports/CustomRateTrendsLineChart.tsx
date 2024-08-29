@@ -2,7 +2,7 @@ import type React from 'react'
 import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
-import { DemographicType } from '../data/query/Breakdowns';
+import type { DemographicType } from '../data/query/Breakdowns';
 
 interface CustomRateTrendsLineChartProps {
   fips?: Fips;
