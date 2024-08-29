@@ -474,15 +474,11 @@ def sum_states_to_national(pop_df: pd.DataFrame) -> pd.DataFrame:
     pop_df = pop_df.copy()
     groupby_cols = [std_col.SEX_COL, std_col.RACE_OR_HISPANIC_COL, std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
 
-    # add pop from all states together per race/sex/age combination
-    pop_df = (
-        pop_df.groupby(
-            groupby_cols,
-            as_index=False,
-        )[std_col.POPULATION_COL]
-        .sum()
-        .reset_index(drop=True)
-    )
+    # Group by the necessary columns and sum the population
+    grouped_series = pop_df.groupby(groupby_cols, as_index=False)[std_col.POPULATION_COL].sum().reset_index(drop=True)
+
+    # Reassign pop_df to be the DataFrame version of grouped_series
+    pop_df = pd.DataFrame(grouped_series)
 
     # Fill in the new geo cols
     pop_df[std_col.STATE_FIPS_COL] = US_FIPS
@@ -548,10 +544,12 @@ def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFr
     rest_of_pop_df = pop_df[~pop_df[std_col.AGE_COL].isin(summed_age_groups_map[age_group])]
 
     # Group by 'state_fips' and 'time_period', and sum the 'population' for the filtered age groups
-    summed_pop_df = summed_pop_df.groupby(
-        groupby_cols,
-        as_index=False,
-    )[std_col.POPULATION_COL].sum()
+    summed_pop_df = pd.DataFrame(
+        summed_pop_df.groupby(
+            groupby_cols,
+            as_index=False,
+        )[std_col.POPULATION_COL].sum()
+    )
 
     # Label the new age group
     summed_pop_df[std_col.AGE_COL] = age_group

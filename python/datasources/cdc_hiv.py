@@ -487,12 +487,15 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 index=CDC_YEAR, columns=CDC_SEX, values=CDC_CASES, aggfunc="sum"
             ).reset_index()
 
-            national_gender_cases_pivot.columns = [
-                CDC_YEAR,
-                f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
-                f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
-                f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
-            ]
+            # Convert the list to an Index object
+            national_gender_cases_pivot.columns = pd.Index(
+                [
+                    CDC_YEAR,
+                    f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
+                    f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
+                    f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
+                ]
+            )
 
             df = pd.merge(df, national_gender_cases_pivot, on=CDC_YEAR)
 

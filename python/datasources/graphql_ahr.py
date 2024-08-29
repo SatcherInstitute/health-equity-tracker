@@ -25,7 +25,7 @@ from ingestion.het_types import (
     TOPIC_CATEGORY_TYPE,
 )
 
-# pylint: disable=no-name-in-module
+# type: ignore
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 
 # String constants from AHR source data
@@ -104,7 +104,7 @@ class GraphQlAHRData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
-        category: TOPIC_CATEGORY_TYPE = self.get_attr(attrs, "category")
+        category: TOPIC_CATEGORY_TYPE = self.get_attr(attrs, "category")  # type: ignore
 
         response_data = fetch_ahr_data_from_graphql(demographic, geo_level, category)
         df = graphql_response_to_dataframe(response_data)
