@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 import re
 from typing import Any
 import pandas as pd
@@ -9,12 +9,12 @@ from ingestion import url_file_to_gcs, gcs_to_bq_util
 # Tracker. This also includes default implementations for each of the
 # ingestion methods.
 class DataSource(ABC):
-    @staticmethod
-    def get_id() -> str:
+    @abstractmethod
+    def get_id(self) -> str:
         """Returns the data source's unique id."""
 
-    @staticmethod
-    def get_table_name() -> str:
+    @abstractmethod
+    def get_table_name(self) -> str:
         """Returns the BigQuery base table name where the data source's data will
         stored."""
 
