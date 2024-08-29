@@ -1,7 +1,4 @@
-import {
-  type DataTypeId,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
+import type { DataTypeId, DataTypeConfig } from '../data/config/MetricConfig'
 import {
   AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
   AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -13,18 +10,26 @@ import {
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
 import { BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunDeathsBlackMenProvider'
-import { GUN_VIOLENCE_YOUTH_DATATYPES, GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunViolenceYouthProvider'
+import {
+  GUN_VIOLENCE_YOUTH_DATATYPES,
+  GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS,
+} from '../data/providers/GunViolenceYouthProvider'
+import { MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/MaternalMortalityProvider'
 import {
   BLACK_WOMEN_DATATYPES,
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/HivProvider'
 import {
+  PHRMA_BRFSS_DATATYPES,
+  PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
+} from '../data/providers/PhrmaBrfssProvider'
+import {
   PHRMA_DATATYPES,
   PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/PhrmaProvider'
 import { COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/VaccineProvider'
-import { type DemographicType } from '../data/query/Breakdowns'
-import { type Fips } from '../data/utils/Fips'
+import type { DemographicType } from '../data/query/Breakdowns'
+import type { Fips } from '../data/utils/Fips'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
@@ -53,6 +58,14 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
+const PHRMA_BRFSS_TYPES_MAP: Partial<Record<string, DemographicType>> = {
+  'Race/ethnicity': 'race_and_ethnicity',
+  Age: 'age',
+  'Insurance Status': 'insurance_status',
+  Education: 'education',
+  Income: 'income',
+}
+
 const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   Urbanicity: 'urbanicity',
   Age: 'age',
@@ -60,7 +73,6 @@ const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 
 export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
   return isStateLevel(fips1, fips2) || isCountyLevel(fips1, fips2)
-
 }
 
 export function isStateLevel(fips1?: Fips, fips2?: Fips) {
@@ -79,7 +91,7 @@ Takes an array of DataTypeConfigs (each having an id), and an array of possible 
 export function configsContainsMatchingId(
   configs: DataTypeConfig[],
   ids: DataTypeId[],
-  bothNeedToMatch?: boolean
+  bothNeedToMatch?: boolean,
 ) {
   return bothNeedToMatch
     ? configs.every((config) => ids.includes(config.dataTypeId))
@@ -90,7 +102,7 @@ export function getAllDemographicOptions(
   dataTypeConfig1: DataTypeConfig | null,
   fips1: Fips,
   dataTypeConfig2?: DataTypeConfig | null,
-  fips2?: Fips
+  fips2?: Fips,
 ) {
   const configs: DataTypeConfig[] = []
   dataTypeConfig1 && configs.push(dataTypeConfig1)
@@ -104,32 +116,46 @@ export function getAllDemographicOptions(
   if (configsContainsMatchingId(configs, GUN_VIOLENCE_YOUTH_DATATYPES)) {
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 
+  // MATERNAL MORTALITY
+
+  if (configsContainsMatchingId(configs, ['maternal_mortality'])) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
+    )
+  }
 
   // BLACK WOMEN HIV
   if (configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES)) {
     enabledDemographicOptionsMap = ONLY_AGE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 
   // SELECT AHR CONDITIONS
-  if (configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO) && !isCountyLevel(fips1, fips2)) {
+  if (
+    configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO) &&
+    !isCountyLevel(fips1, fips2)
+  ) {
     enabledDemographicOptionsMap = ONLY_SEX_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 
   // CHR CONDITIONS WITH ONLY RACE
-  if (configsContainsMatchingId(configs, CHR_DATATYPE_IDS) && isCountyLevel(fips1, fips2)) {
+  if (
+    configsContainsMatchingId(configs, CHR_DATATYPE_IDS) &&
+    isCountyLevel(fips1, fips2)
+  ) {
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...CHR_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...CHR_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 
@@ -137,7 +163,7 @@ export function getAllDemographicOptions(
   if (configsContainsMatchingId(configs, CAWP_DATA_TYPES)) {
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
   // PHRMA (ENABLED OPTIONS WHEN ALL REPORTS ARE PHRMA)
@@ -148,10 +174,10 @@ export function getAllDemographicOptions(
     dataTypeConfig1?.dataTypeId &&
     dataTypeConfig2?.dataTypeId &&
     Boolean(PHRMA_DATATYPES.includes(dataTypeConfig1.dataTypeId)) !==
-    Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
+      Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
   exactlyOneReportIsPhrma &&
     disabledDemographicOptionsWithRepeats.push(
-      ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
 
   // COVID VACCINATIONS
@@ -161,21 +187,20 @@ export function getAllDemographicOptions(
   ) {
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 
   // GUN HOMICIDES BLACK MEN BY URBANICITY
-  if (
-    configsContainsMatchingId(configs, ['gun_deaths_black_men'])) {
+  if (configsContainsMatchingId(configs, ['gun_deaths_black_men'])) {
     enabledDemographicOptionsMap = BLACK_MEN_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
-      ...BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS
+      ...BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
   // remove any duplicates
   const disabledDemographicOptions = Array.from(
-    new Set(disabledDemographicOptionsWithRepeats)
+    new Set(disabledDemographicOptionsWithRepeats),
   )
 
   return {

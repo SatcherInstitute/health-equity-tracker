@@ -2,7 +2,7 @@ import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -64,7 +64,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
-    dataTableTitle: 'Breakdown summary for COVID-19 cases',
+    dataTableTitle: 'Summary for COVID-19 cases',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total COVID-19 cases',
@@ -112,7 +112,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
-    dataTableTitle: 'Breakdown summary for COVID-19 deaths',
+    dataTableTitle: 'Summary for COVID-19 deaths',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total COVID-19 deaths',
@@ -167,7 +167,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
-    dataTableTitle: 'Breakdown summary for COVID-19 hospitalizations',
+    dataTableTitle: 'Summary for COVID-19 hospitalizations',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total COVID-19 hospitalizations',
@@ -227,7 +227,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
     description: {
       text: 'COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations. Studying COVID-19 vaccinations in regard to health equity can help us to understand why these disparities exist and how to increase vaccination rates among all populations.',
     },
-    dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
+    dataTableTitle: 'Summary for COVID-19 vaccinations',
     metrics: {
       pct_rate: {
         metricId: 'vaccinated_pct_rate',
@@ -241,7 +241,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
           shortLabel: 'vaccinated',
           chartTitle: '',
           type: 'count',
-        }
+        },
       },
       pct_share: {
         chartTitle: 'Share of total COVID-19 vaccinations',

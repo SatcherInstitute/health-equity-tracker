@@ -20,6 +20,8 @@ import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { FIPS_MAP } from '../data/utils/FipsData'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
 import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
+import { CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
+import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -50,6 +52,7 @@ export const CategoryMap = {
   sdoh: 'Social Determinants of Health',
   'community-safety': 'Community Safety',
   maternal_health: 'Maternal Health',
+  cancer: 'Cancer',
 }
 
 export type CategoryTypeId = keyof typeof CategoryMap
@@ -83,7 +86,7 @@ function getMadLibPhraseText(madLib: MadLib): string {
 export function getMadLibWithUpdatedValue(
   originalMadLib: MadLib,
   phraseSegmentIndex: number,
-  newValue: DropdownVarId | string // condition or numeric-string FIPS code
+  newValue: DropdownVarId | string, // condition or numeric-string FIPS code
 ) {
   const updatePhraseSelections: PhraseSelections = {
     ...originalMadLib.activeSelections,
@@ -98,7 +101,7 @@ export function getMadLibWithUpdatedValue(
 
 export function getPhraseValue(
   madLib: MadLib,
-  segmentIndex: number
+  segmentIndex: number,
 ): string | DropdownVarId {
   const segment = madLib.phrase[segmentIndex]
   return typeof segment === 'string'
@@ -136,6 +139,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   default: 'select a topic',
   asthma: 'Asthma',
   avoided_care: 'Care Avoidance Due to Cost',
+  cancer_screening: 'Cancer Screening',
   cardiovascular_diseases: 'Cardiovascular Diseases',
   chronic_kidney_disease: 'Chronic Kidney Disease',
   copd: 'COPD',
@@ -178,6 +182,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   women_in_gov: 'Women Serving in',
   gun_violence: 'Gun',
   gun_violence_youth: 'All Gun Deaths for',
+  cancer_screening: 'Screening adherence for',
   gun_deaths_black_men: 'Gun Homicides of Black Men',
 }
 
@@ -201,7 +206,8 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Behavioral Health',
     definition: '',
-    options: BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+    options:
+      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Political Determinants of Health',
@@ -213,14 +219,7 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-  {
-    title: 'Medication Utilization in the Medicare Population',
-    definition: '',
-    // TODO: clean this up once PHRMA fully launched all topics
-    options: SHOW_PHRMA_MENTAL_HEALTH
-      ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
-      : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
-  },
+
   {
     title: 'COVID-19',
     definition: '',
@@ -231,6 +230,14 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
+  {
+    title: 'Medication Utilization in the Medicare Population',
+    definition: '',
+    // TODO: clean this up once PHRMA fully launched all topics
+    options: SHOW_PHRMA_MENTAL_HEALTH
+      ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
+      : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
+  },
 ]
 
 if (SHOW_NEW_MATERNAL_MORTALITY) {
@@ -238,9 +245,16 @@ if (SHOW_NEW_MATERNAL_MORTALITY) {
     title: 'Maternal Health',
     definition: '',
     options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
-  });
+  })
 }
 
+if (SHOW_CANCER_SCREENINGS) {
+  CATEGORIES_LIST.push({
+    title: 'Cancer',
+    definition: '',
+    options: CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+  })
+}
 
 const MADLIB_LIST: MadLib[] = [
   {

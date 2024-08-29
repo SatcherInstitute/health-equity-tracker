@@ -26,11 +26,13 @@ test('HIV: Prevalance', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
-  await page.getByRole('button', { name: 'Population vs. distribution' }).click();
+  await page
+    .getByRole('button', { name: 'Population vs. distribution' })
+    .click()
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
-  await page.getByRole('heading', { name: 'Breakdown summary for HIV' }).click()
+  await page.getByRole('heading', { name: 'Summary for HIV' }).click()
   await page.getByText('Share this report:').click()
   await page.getByText('HIV prevalence', { exact: true }).click()
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
@@ -40,9 +42,7 @@ test('HIV: Prevalance', async ({ page }) => {
 })
 
 test('HIV: Diagnoses', async ({ page }) => {
-  await page.goto(
-    '/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_diagnoses'
-  )
+  await page.goto('/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_diagnoses')
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'HIV diagnoses in the United' })
@@ -63,19 +63,16 @@ test('HIV: Diagnoses', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
-  await page.getByRole('heading', { name: 'Breakdown summary for HIV' }).click()
+  await page.getByRole('heading', { name: 'Summary for HIV' }).click()
   await page.getByText('Share this report:').click()
   await page.getByText('New HIV diagnoses', { exact: true }).click()
   await page.getByText('Do you have information that').click()
   await page.getByRole('button', { name: 'New diagnoses' }).click()
   await page.getByRole('button', { name: 'Deaths' }).click()
-
 })
 
 test('HIV: Deaths', async ({ page }) => {
-  await page.goto(
-    '/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths'
-  )
+  await page.goto('/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths')
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'HIV deaths in the United' })
@@ -91,7 +88,7 @@ test('HIV: Deaths', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
-  await page.getByRole('heading', { name: 'Breakdown summary for HIV' }).click()
+  await page.getByRole('heading', { name: 'Summary for HIV' }).click()
   await page.getByRole('heading', { name: 'Age-adjusted HIV deaths' }).click()
   await page.getByText('Share this report:').click()
   await page.getByText('HIV deaths', { exact: true }).click()
