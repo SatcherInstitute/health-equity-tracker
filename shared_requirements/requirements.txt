@@ -70,3 +70,4 @@ types-Pygments
 types-cachetools
 types-colorama
 types-setuptools
+types-docutils
