@@ -1,6 +1,7 @@
 from abc import ABC
 import re
-
+from typing import Any
+import pandas as pd
 from ingestion import url_file_to_gcs, gcs_to_bq_util
 
 
@@ -9,21 +10,21 @@ from ingestion import url_file_to_gcs, gcs_to_bq_util
 # ingestion methods.
 class DataSource(ABC):
     @staticmethod
-    def get_id():
+    def get_id() -> str:
         """Returns the data source's unique id."""
 
     @staticmethod
-    def get_table_name():
+    def get_table_name() -> str:
         """Returns the BigQuery base table name where the data source's data will
         stored."""
 
-    def get_attr(self, attributes, key):
+    def get_attr(self, attributes: dict, key: str) -> Any:
         attr = attributes.get(key)
         if attr is None:
             raise RuntimeError(f"Attribute: {key} not found on payload")
         return attr
 
-    def upload_to_gcs(self, gcs_bucket, **attrs):
+    def upload_to_gcs(self, gcs_bucket: str, **attrs) -> bool:
         """
         Attempts to download a file from a url and upload as a
         blob to the given GCS bucket.
@@ -41,7 +42,7 @@ class DataSource(ABC):
             self.get_attr(attrs, 'url'), None, gcs_bucket, self.get_attr(attrs, 'filename')
         )
 
-    def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
+    def write_to_bq(self, dataset: str, gcs_bucket: str, write_local_instead_of_bq=False, **attrs) -> None:
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
@@ -53,7 +54,7 @@ class DataSource(ABC):
             print("TODO: Writing to local file instead of BigQuery")
         self.write_to_bq_table(dataset, gcs_bucket, self.get_attr(attrs, 'filename'), self.get_table_name())
 
-    def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None):
+    def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None) -> None:
         """Writes source data from GCS bucket to BigQuery
 
         dataset: The BigQuery dataset to write to
@@ -70,7 +71,7 @@ class DataSource(ABC):
             gcs_to_bq_util.add_df_to_bq(chunk, dataset, table_name, project=project, overwrite=overwrite)
             overwrite = False
 
-    def clean_frame_column_names(self, frame):
+    def clean_frame_column_names(self, frame: pd.DataFrame) -> None:
         """Replaces unfitting BigQuery characters and
         makes all column names lower case.
 
