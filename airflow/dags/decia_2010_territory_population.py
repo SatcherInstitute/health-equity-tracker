@@ -1,5 +1,5 @@
 # pylint: disable=no-name-in-module
-from airflow import DAG  # type: ignore
+from airflow import DAG  # type: ignore[attr-defined]
 from airflow.models import Variable  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 
