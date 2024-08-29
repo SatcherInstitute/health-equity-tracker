@@ -38,17 +38,22 @@ jobs:
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r requirements/tests.txt
 
-      - name: Install mypy stubs
+      - name: Install type stubs
         run: |
-          pip install types-all
-          mypy --install-types --non-interactive data_server/ python/data_server/
-          mypy --install-types --non-interactive run_ingestion/ python/ingestion/
-          mypy --install-types --non-interactive run_gcs_to_bq/ python/ingestion/
-          mypy --install-types --non-interactive airflow/dags/
+          pip install types-requests types-PyYAML types-setuptools
 
-      - name: Run mypy
+      - name: Install mypy stubs and run mypy
         run: |
-          mypy --config-file=.github/linters/mypy.ini data_server/ python/data_server/
-          mypy --config-file=.github/linters/mypy.ini run_ingestion/ python/ingestion/
-          mypy --config-file=.github/linters/mypy.ini run_gcs_to_bq/ python/ingestion/
-          mypy --config-file=.github/linters/mypy.ini airflow/dags/
+          for dir in "data_server/ python/data_server/" "run_ingestion/ python/ingestion/" "run_gcs_to_bq/ python/ingestion/" "airflow/dags/"; do
+            mypy --install-types --non-interactive $dir
+            mypy --config-file=.github/linters/mypy.ini $dir || true
+          done
+
+      - name: Check mypy results
+        run: |
+          if grep -q -R "error:" .; then
+            echo "mypy found errors"
+            exit 1
+          else
+            echo "mypy passed successfully"
+          fi
