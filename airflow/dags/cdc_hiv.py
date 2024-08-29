@@ -4,6 +4,13 @@ from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
 
+
+def add_numbers(a: int, b: str) -> int:
+    return a + b
+
+
+q = add_numbers(4, "3")
+
 _CDC_HIV_WORKFLOW_ID = 'CDC_HIV_DATA'
 _CDC_HIV_DATASET_NAME = 'cdc_hiv_data'
 _HIV_AGE_ADJUST_WORKFLOW_ID = 'AGE_ADJUST_CDC_HIV'
