@@ -12,7 +12,6 @@ import {
   MetricQuery,
   type MetricQueryResponse,
 } from '../data/query/MetricQuery'
-import { AgeSorterStrategy } from '../data/sorting/AgeSorterStrategy'
 import {
   ALL,
   NON_HISPANIC,
@@ -321,18 +320,13 @@ function MapCardWithKey(props: MapCardProps) {
         )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
-        const sortArgs =
-          demographicType === AGE
-            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
-            : []
-
         const fieldValues = mapQueryResponse.getFieldValues(
           /* fieldName: DemographicType */ demographicType,
           /* relevantMetric: MetricId */ metricConfig.metricId,
         )
 
         const demographicGroups: DemographicGroup[] =
-          fieldValues.withData.sort.apply(fieldValues.withData, sortArgs)
+          fieldValues.withData.sort.apply(fieldValues.withData)
 
         let dataForActiveDemographicGroup = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
