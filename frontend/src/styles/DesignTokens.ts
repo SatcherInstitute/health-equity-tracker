@@ -20,8 +20,9 @@ const ThemeZIndexValues = {
   bottom: -999,
   middle: 0,
   almostTop: 3,
-  top: 999,
-  stickyMadLib: 1000,
+  top: 99,
+  stickyMadLib: 100,
+  multimapModal: 101,
 }
 
 const ThemeLineHeightValues = {

@@ -4,24 +4,24 @@ import { Dialog, DialogContent } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
-import {
-  type MapOfDatasetMetadata,
-  type Row,
-  type FieldRange,
+import type {
+  MapOfDatasetMetadata,
+  Row,
+  FieldRange,
 } from '../../data/utils/DatasetTypes'
-import {
-  type DataTypeConfig,
-  type MetricConfig,
+import type {
+  DataTypeConfig,
+  MetricConfig,
 } from '../../data/config/MetricConfig'
-import {
-  type MetricQuery,
-  type MetricQueryResponse,
+import type {
+  MetricQuery,
+  MetricQueryResponse,
 } from '../../data/query/MetricQuery'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import type { DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_METRICS,
   getWomenRaceLabel,
@@ -34,7 +34,7 @@ import TerritoryCircles from './TerritoryCircles'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
-import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetNotice from '../../styles/HetComponents/HetNotice'
@@ -89,9 +89,11 @@ interface MultiMapDialogProps {
     value in a given demographicType for a particular metric.
 */
 export default function MultiMapDialog(props: MultiMapDialogProps) {
-  const title = `${props.metricConfig.chartTitle
-    } in ${props.fips.getSentenceDisplayName()} across all ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-    } groups`
+  const title = `${
+    props.metricConfig.chartTitle
+  } in ${props.fips.getSentenceDisplayName()} across all ${
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+  } groups`
 
   const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
     '#multi-map-close-button1',
@@ -108,7 +110,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     elementsToHide,
     scrollToHash,
     false,
-    footerContentRef
+    footerContentRef,
   )
 
   /* handle clicks on sub-geos in multimap view */
@@ -135,7 +137,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   return (
     <Dialog
-      className='z-top'
+      className='z-multiMapModal'
       open={props.open}
       onClose={props.handleClose}
       maxWidth={false}
@@ -170,12 +172,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_METRICS.includes(
-                props.metricConfig.metricId
+                props.metricConfig.metricId,
               )
                 ? getWomenRaceLabel(demographicGroup)
                 : demographicGroup
               const dataForValue = props.data.filter(
-                (row: Row) => row[props.demographicType] === demographicGroup
+                (row: Row) => row[props.demographicType] === demographicGroup,
               )
 
               return (
