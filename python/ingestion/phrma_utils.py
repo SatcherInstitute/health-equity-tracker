@@ -3,7 +3,7 @@ from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, NATIONAL_LEVEL, US_FIPS
 import pandas as pd
-from typing import Dict, Literal, cast
+from typing import Dict, Literal, cast, List
 from ingestion.merge_utils import merge_dfs_list
 
 TMP_ALL = 'all'
@@ -20,6 +20,7 @@ ADHERENCE_RATE_LOWER = "bene_yes_pct"
 AGE_ADJ_RATE_LOWER = "age_adjusted_pct"
 RACE_NAME_LOWER = "race_name"
 AGE_GROUP_LOWER = "age_group"
+SEX_NAME_LOWER = "sex_name"
 INSURANCE_STATUS_LOWER = "insurance_status"
 INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
@@ -63,7 +64,11 @@ PHRMA_100K_CONDITIONS = [
     std_col.SCHIZOPHRENIA_PREFIX,
 ]
 
-PHRMA_CANCER_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
+PHRMA_MEDICARE_CONDITIONS = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
+
+PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN = ["Colorectal", "Lung"]
+PHRMA_CANCER_PCT_CONDITIONS = ["Breast", "Cervical", "Prostate"] + PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN
+
 
 BREAKDOWN_TO_STANDARD_BY_COL = {
     std_col.AGE_COL: {
@@ -213,6 +218,7 @@ def rename_cols(
 
     if breakdown == std_col.SEX_COL:
         rename_cols_map[SEX_NAME] = std_col.SEX_COL
+        rename_cols_map[SEX_NAME_LOWER] = std_col.SEX_COL
 
     if breakdown == std_col.ELIGIBILITY_COL:
         rename_cols_map[ENTLMT_RSN_CURR] = std_col.ELIGIBILITY_COL
@@ -245,6 +251,7 @@ def load_phrma_df_from_data_dir(
     geo_level: GEO_TYPE,
     breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
     data_type: Literal['standard', 'cancer'],
+    conditions: List[str],
 ) -> pd.DataFrame:
     """Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
@@ -270,7 +277,7 @@ def load_phrma_df_from_data_dir(
     breakdown_het_to_source_type = {
         "age": AGE_GROUP if data_type == 'standard' else AGE_GROUP_LOWER,
         "race_and_ethnicity": RACE_NAME if data_type == 'standard' else RACE_NAME_LOWER,
-        "sex": SEX_NAME,
+        "sex": SEX_NAME if data_type == 'standard' else SEX_NAME_LOWER,
         "lis": LIS,
         "eligibility": ENTLMT_RSN_CURR,
         "income": INCOME_GROUP_LOWER,
@@ -297,10 +304,10 @@ def load_phrma_df_from_data_dir(
     topic_dfs = []
     condition_keep_cols = []
 
-    if data_type == 'standard':
-        conditions = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
-    else:  # cancer
-        conditions = PHRMA_CANCER_PCT_CONDITIONS
+    # if data_type == 'standard':
+    #     conditions = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
+    # else:  # cancer
+    #     conditions = PHRMA_CANCER_PCT_CONDITIONS
 
     for condition in conditions:
         if data_type == 'standard':
