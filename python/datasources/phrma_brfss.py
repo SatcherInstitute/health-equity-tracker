@@ -23,6 +23,8 @@ from ingestion.phrma_utils import (
     load_phrma_df_from_data_dir,
     AGE_ADJ_RATE_LOWER,
     PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN,
+    PHRMA_BRFSS,
+    TMP_ALL,
 )
 import numpy as np
 from typing import List
@@ -79,10 +81,10 @@ class PhrmaBrfssData(DataSource):
             else PHRMA_CANCER_PCT_CONDITIONS
         )
 
-        alls_df = load_phrma_df_from_data_dir(geo_level, 'all', 'cancer', conditions)
+        alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, PHRMA_BRFSS, conditions)
         alls_df[demo_col] = all_val
 
-        breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, 'cancer', conditions)
+        breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, PHRMA_BRFSS, conditions)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
         df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)

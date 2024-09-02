@@ -33,6 +33,7 @@ from ingestion.phrma_utils import (
     BREAKDOWN_TO_STANDARD_BY_COL,
     load_phrma_df_from_data_dir,
     PHRMA_MEDICARE_CONDITIONS,
+    PHRMA_MEDICARE,
 )
 
 
@@ -64,7 +65,7 @@ class PhrmaData(DataSource):
         demo_type = self.get_attr(attrs, 'demographic')
         geo_level = self.get_attr(attrs, 'geographic')
 
-        alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, 'standard', PHRMA_MEDICARE_CONDITIONS)
+        alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, PHRMA_MEDICARE, PHRMA_MEDICARE_CONDITIONS)
 
         table_name = f'{demo_type}_{geo_level}'
         df = self.generate_breakdown_df(demo_type, geo_level, alls_df)
@@ -123,7 +124,7 @@ class PhrmaData(DataSource):
         fips_to_use = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
         breakdown_group_df = load_phrma_df_from_data_dir(
-            geo_level, demo_breakdown, 'standard', PHRMA_MEDICARE_CONDITIONS
+            geo_level, demo_breakdown, PHRMA_MEDICARE, PHRMA_MEDICARE_CONDITIONS
         )
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)

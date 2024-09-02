@@ -6,6 +6,9 @@ import pandas as pd
 from typing import Dict, Literal, cast, List
 from ingestion.merge_utils import merge_dfs_list
 
+PHRMA_BRFSS = 'brfss'
+PHRMA_MEDICARE = 'medicare'
+
 TMP_ALL = 'all'
 PHRMA_DIR = 'phrma'
 
@@ -250,14 +253,14 @@ DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 def load_phrma_df_from_data_dir(
     geo_level: GEO_TYPE,
     breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
-    data_type: Literal['standard', 'cancer'],
+    data_type: Literal[PHRMA_MEDICARE, PHRMA_BRFSS],
     conditions: List[str],
 ) -> pd.DataFrame:
     """Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
     breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `lis`, `eligibility`,
      `insurance_status`, `education`, `income`, or `all`
-    data_type: string equal to 'standard' or 'cancer' to determine which data to process
+    data_type: string equal to PHRMA_MEDICARE or PHRMA_BRFSS to determine which data to process
     return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables"""
 
@@ -275,9 +278,9 @@ def load_phrma_df_from_data_dir(
     fips_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
     breakdown_het_to_source_type = {
-        "age": AGE_GROUP if data_type == 'standard' else AGE_GROUP_LOWER,
-        "race_and_ethnicity": RACE_NAME if data_type == 'standard' else RACE_NAME_LOWER,
-        "sex": SEX_NAME if data_type == 'standard' else SEX_NAME_LOWER,
+        "age": AGE_GROUP if data_type == PHRMA_MEDICARE else AGE_GROUP_LOWER,
+        "race_and_ethnicity": RACE_NAME if data_type == PHRMA_MEDICARE else RACE_NAME_LOWER,
+        "sex": SEX_NAME if data_type == PHRMA_MEDICARE else SEX_NAME_LOWER,
         "lis": LIS,
         "eligibility": ENTLMT_RSN_CURR,
         "income": INCOME_GROUP_LOWER,
@@ -297,20 +300,15 @@ def load_phrma_df_from_data_dir(
         keep_cols.append(COUNTY_FIPS)
     if geo_level == STATE_LEVEL:
         fips_length = 2
-        keep_cols.append(STATE_FIPS if data_type == 'standard' else STATE_FIPS_LOWER)
+        keep_cols.append(STATE_FIPS if data_type == PHRMA_MEDICARE else STATE_FIPS_LOWER)
     if geo_level == NATIONAL_LEVEL:
         fips_length = 2
 
     topic_dfs = []
     condition_keep_cols = []
 
-    # if data_type == 'standard':
-    #     conditions = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
-    # else:  # cancer
-    #     conditions = PHRMA_CANCER_PCT_CONDITIONS
-
     for condition in conditions:
-        if data_type == 'standard':
+        if data_type == PHRMA_MEDICARE:
             if condition in PHRMA_PCT_CONDITIONS:
                 condition_keep_cols = [*keep_cols, COUNT_YES, COUNT_TOTAL, ADHERENCE_RATE]
             elif condition in PHRMA_100K_CONDITIONS:
@@ -333,7 +331,7 @@ def load_phrma_df_from_data_dir(
             if breakdown == std_col.RACE_OR_HISPANIC_COL:
                 condition_keep_cols.append(AGE_ADJ_RATE_LOWER)
 
-        if data_type == 'standard':
+        if data_type == PHRMA_MEDICARE:
             file_name = f'{condition}-{sheet_name}.csv'
             subdirectory = condition
         else:  # cancer
