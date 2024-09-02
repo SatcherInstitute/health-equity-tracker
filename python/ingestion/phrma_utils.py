@@ -3,6 +3,7 @@ from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, NATIONAL_LEVEL, US_FIPS
 import pandas as pd
+import numpy as np
 from typing import Dict, Literal, cast, List
 from ingestion.merge_utils import merge_dfs_list
 
@@ -369,3 +370,34 @@ def load_phrma_df_from_data_dir(
     df_merged = dataset_utils.ensure_leading_zeros(df_merged, fips_col, fips_length)
 
     return df_merged
+
+
+def get_age_adjusted_ratios(df: pd.DataFrame, conditions: List[str]) -> pd.DataFrame:
+    """Adds columns for age adjusted ratios (comparing each race's
+    rate to the rate for White NH) for each type of cancer screening."""
+
+    _tmp_white_rates_col = 'WHITE_NH_AGE_ADJ_RATE'
+
+    for condition in conditions:
+        source_age_adj_rate_col = f'{condition}_{AGE_ADJ_RATE_LOWER}'
+        cancer_type = condition.lower()
+        het_age_adj_ratio_col = f'{cancer_type}_{SCREENED}_{std_col.RATIO_AGE_ADJUSTED_SUFFIX}'
+
+        # Step 1: Filter the DataFrame to get AGE_ADJ_RATE where RACE_ID is 'WHITE_NH'
+        white_nh_rates = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.WHITE_NH.value].set_index(
+            std_col.STATE_FIPS_COL
+        )[source_age_adj_rate_col]
+
+        # Step 2: Map these values back to the original DataFrame based on STATE_FIPS
+        df[_tmp_white_rates_col] = df[std_col.STATE_FIPS_COL].map(white_nh_rates)
+
+        # Step 3: Calculate AGE_ADJ_RATIO by dividing AGE_ADJ_RATE by WHITE_NH_RATE
+        df[het_age_adj_ratio_col] = df[source_age_adj_rate_col] / df[_tmp_white_rates_col]
+        df[het_age_adj_ratio_col] = df[het_age_adj_ratio_col].round(2)
+
+        df = df.drop(columns=[_tmp_white_rates_col, source_age_adj_rate_col])
+
+        # for rows where RACE is ALL set AGE_ADJ_RATIO to np.nan
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value, het_age_adj_ratio_col] = np.nan
+
+    return df
