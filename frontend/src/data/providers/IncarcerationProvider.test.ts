@@ -1,16 +1,16 @@
 import IncarcerationProvider from './IncarcerationProvider'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import { MetricId, DataTypeId } from '../config/MetricConfig'
+import { MetricId, type DataTypeId } from '../config/MetricConfig'
 import { expect, describe, test, beforeEach } from 'vitest'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
@@ -19,7 +19,7 @@ export async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   dataTypeId: DataTypeId,
-  acsDatasetIds?: DatasetId[]
+  acsDatasetIds?: DatasetId[],
 ) {
   // if these aren't sent as args, default to []
   acsDatasetIds = acsDatasetIds || []
@@ -32,7 +32,11 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await incarcerationProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType), dataTypeId)
+    new MetricQuery(
+      [],
+      baseBreakdown.addBreakdown(demographicType),
+      dataTypeId,
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -41,7 +45,7 @@ export async function ensureCorrectDatasetsDownloaded(
   consumedDatasetIds.push(...acsDatasetIds)
 
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds)
+    new MetricQueryResponse([], consumedDatasetIds),
   )
 }
 
@@ -57,11 +61,11 @@ describe('IncarcerationProvider', () => {
 
   test('County and Race Breakdown for Prison', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
+      'vera_incarceration_county-by_race_and_ethnicity_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       RACE,
       'prison',
-      []
+      [],
     )
   })
 
@@ -71,7 +75,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       RACE,
       'jail',
-      ['acs_population-by_race_state']
+      ['acs_population-by_race_state'],
     )
   })
 
@@ -81,17 +85,17 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'jail',
-      ['acs_population-by_race_national']
+      ['acs_population-by_race_national'],
     )
   })
 
   test('County and Age Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_age_county_time_series',
+      'vera_incarceration_county-by_age_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       AGE,
       'jail',
-      []
+      [],
     )
   })
 
@@ -101,7 +105,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       AGE,
       'prison',
-      ['acs_population-by_age_state']
+      ['acs_population-by_age_state'],
     )
   })
 
@@ -111,17 +115,17 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       AGE,
       'prison',
-      ['acs_population-by_age_national']
+      ['acs_population-by_age_national'],
     )
   })
 
   test('County and Sex Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_sex_county_time_series',
+      'vera_incarceration_county-by_sex_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       SEX,
       'jail',
-      []
+      [],
     )
   })
 
@@ -131,7 +135,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       SEX,
       'jail',
-      ['acs_population-by_sex_state']
+      ['acs_population-by_sex_state'],
     )
   })
 
@@ -141,7 +145,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       SEX,
       'jail',
-      ['acs_population-by_sex_national']
+      ['acs_population-by_sex_national'],
     )
   })
 })

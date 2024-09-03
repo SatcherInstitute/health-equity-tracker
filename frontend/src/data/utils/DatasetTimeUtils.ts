@@ -282,28 +282,3 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
 
   return lowestAndHighestGroups
 }
-
-export function getMostRecentYearAsString(
-  df: IDataFrame,
-  metricId: MetricId,
-): string | undefined {
-  if (!df.getColumnNames().includes(TIME_PERIOD)) return
-
-  const filteredRows = df
-    .where((row) => row?.[metricId] != null)
-    .select((row) => ({
-      time_period: row.time_period,
-      metricId: row?.[metricId],
-    }))
-
-  if (filteredRows.count() === 0) return
-
-  const distinctYearsWithData = filteredRows
-    .select((row) => row.time_period)
-    .distinct()
-    .toArray()
-
-  const mostRecentYear = Math.max(...distinctYearsWithData)
-
-  return mostRecentYear.toString()
-}
