@@ -68,14 +68,19 @@ class IncarcerationProvider extends VariableProvider {
     }
 
     if (breakdowns.geography === 'county') {
+      // only VERA has time series data; BJS is current only
       if (breakdowns.hasOnlyRace() && timeView === 'historical')
         return 'vera_incarceration_county-by_race_and_ethnicity_county_historical'
       if (breakdowns.hasOnlyRace() && timeView === 'current')
         return 'vera_incarceration_county-by_race_and_ethnicity_county_current'
-      if (breakdowns.hasOnlyAge())
+      if (breakdowns.hasOnlyAge() && timeView === 'historical')
         return 'vera_incarceration_county-by_age_county_historical'
-      if (breakdowns.hasOnlySex())
+      if (breakdowns.hasOnlyAge() && timeView === 'current')
+        return 'vera_incarceration_county-by_age_county_current'
+      if (breakdowns.hasOnlySex() && timeView === 'historical')
         return 'vera_incarceration_county-by_sex_county_historical'
+      if (breakdowns.hasOnlySex() && timeView === 'current')
+        return 'vera_incarceration_county-by_sex_county_current'
     }
   }
 
@@ -84,7 +89,7 @@ class IncarcerationProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns)
+    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const dataSource = await getDataManager().loadDataset(specificDatasetId)

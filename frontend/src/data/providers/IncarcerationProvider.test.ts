@@ -1,5 +1,9 @@
 import IncarcerationProvider from './IncarcerationProvider'
-import { Breakdowns, type DemographicType } from '../query/Breakdowns'
+import {
+  Breakdowns,
+  type TimeView,
+  type DemographicType,
+} from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -14,12 +18,13 @@ import { MetricId, type DataTypeId } from '../config/MetricConfig'
 import { expect, describe, test, beforeEach } from 'vitest'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   dataTypeId: DataTypeId,
   acsDatasetIds?: DatasetId[],
+  timeView?: TimeView,
 ) {
   // if these aren't sent as args, default to []
   acsDatasetIds = acsDatasetIds || []
@@ -36,6 +41,7 @@ export async function ensureCorrectDatasetsDownloaded(
       [],
       baseBreakdown.addBreakdown(demographicType),
       dataTypeId,
+      timeView,
     ),
   )
 
@@ -66,6 +72,7 @@ describe('IncarcerationProvider', () => {
       RACE,
       'prison',
       [],
+      'historical',
     )
   })
 
@@ -91,11 +98,12 @@ describe('IncarcerationProvider', () => {
 
   test('County and Age Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_age_county_historical',
+      'vera_incarceration_county-by_age_county_current',
       Breakdowns.forFips(new Fips('06037')),
       AGE,
       'jail',
       [],
+      'current',
     )
   })
 
@@ -126,6 +134,7 @@ describe('IncarcerationProvider', () => {
       SEX,
       'jail',
       [],
+      'historical',
     )
   })
 
