@@ -166,6 +166,8 @@ CONGRESS_NAMES = "total_us_congress_names"
 # Incarceration columns
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
+CHILDREN_PREFIX = "confined_children"
+INCARCERATION_PREFIX = "incarceration"
 CHILDREN = "confined_children_estimated_total"
 JAIL_RAW = "jail_estimated_total"
 PRISON_RAW = "prison_estimated_total"

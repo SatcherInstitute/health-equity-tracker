@@ -149,18 +149,6 @@ VERA_COL_TYPES = {
     **pop_col_types,  # type: ignore
 }
 
-FLOAT_COLS = {
-    'current': [
-        *PER_100K_COL_MAP.values(),
-        std_col.CHILDREN,
-        *PCT_SHARE_COL_MAP.values(),
-        *RAW_COL_MAP.values(),
-        std_col.INCARCERATION_POP_RAW,
-        PCT_SHARE_COL_MAP[std_col.POPULATION_COL],
-    ],
-    'historical': [*PER_100K_COL_MAP.values(), *PCT_SHARE_COL_MAP.values(), *PCT_REL_INEQUITY_COL_MAP.values()],
-}
-
 
 class VeraIncarcerationCounty(DataSource):
     @staticmethod
@@ -192,7 +180,9 @@ class VeraIncarcerationCounty(DataSource):
         for timeview in [CURRENT, HISTORICAL]:
             timeview_df = df.copy()
             timeview_df, column_types = get_timeview_df_and_cols(
-                timeview_df, timeview, ['prison', 'jail', 'incarceration', 'confined_children']
+                timeview_df,
+                timeview,
+                [std_col.PRISON_PREFIX, std_col.JAIL_PREFIX, std_col.INCARCERATION_PREFIX, std_col.CHILDREN_PREFIX],
             )
             table_name = f'by_{demo_type}_county_{timeview}'
             gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_name, column_types=column_types)
