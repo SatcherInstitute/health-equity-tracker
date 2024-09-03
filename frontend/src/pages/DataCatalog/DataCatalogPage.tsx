@@ -27,12 +27,12 @@ const NAME_FILTER_ID = 'name_filter'
  */
 function getFilteredSources(
   metadata: Record<DataSourceId, DataSourceMetadata>,
-  activeFilter: Filters
+  activeFilter: Filters,
 ): DataSourceId[] {
   const filters = Object.values(activeFilter)
   const reducer = (
     intersection: DataSourceId[],
-    nextFilter: DataSourceId[]
+    nextFilter: DataSourceId[],
   ) => {
     if (nextFilter.length === 0) {
       return intersection
@@ -80,7 +80,7 @@ export default function DataCatalogPage() {
             {(datasetMetadata) => {
               const filteredDatasets = getFilteredSources(
                 dataSourceMetadataMap,
-                activeFilter
+                activeFilter,
               )
               // Check if more than the default filters are enabled to see if you're viewing
               // a subset of sources

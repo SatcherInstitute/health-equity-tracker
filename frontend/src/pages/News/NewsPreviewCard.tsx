@@ -1,7 +1,7 @@
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import { getHtml } from '../../utils/urlutils'
-import { type Article } from './NewsPage'
+import type { Article } from './NewsPage'
 import LazyLoad from 'react-lazyload'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 
@@ -9,15 +9,20 @@ interface NewsPreviewCardProps {
   article: Article
 }
 
-export default function NewsPreviewCard(props: NewsPreviewCardProps): JSX.Element {
+export default function NewsPreviewCard(
+  props: NewsPreviewCardProps,
+): JSX.Element {
   const { article } = props
 
   const getImageSource = (): string => {
-    const imageSource = article?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.full?.source_url
+    const imageSource =
+      article?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.full
+        ?.source_url
     return imageSource || AppbarLogo
   }
 
-  const tagNames = article?._embedded?.['wp:term']?.[0]?.map(term => term.name) || [];
+  const tagNames =
+    article?._embedded?.['wp:term']?.[0]?.map((term) => term.name) || []
 
   return (
     <a
@@ -26,8 +31,10 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps): JSX.Elemen
     >
       <LazyLoad once offset={300}>
         <div className='mx-8 0 flex flex-col items-left rounded-md hover:scale-105 hover:transition-transform hover:duration-30 '>
-          <div className='news-preview-card-image min-h-40 h-56 w-full bg-no-repeat bg-cover bg-center rounded-sm shadow-raised-tighter mb-4 ' style={{ backgroundImage: `url(${getImageSource()})` }} >
-          </div>
+          <div
+            className='news-preview-card-image min-h-40 h-56 w-full bg-no-repeat bg-cover bg-center rounded-sm shadow-raised-tighter mb-4 '
+            style={{ backgroundImage: `url(${getImageSource()})` }}
+          ></div>
 
           <HetTags tags={tagNames} />
           <h3 className='p-0 text-left font-sansText text-text font-bold text-black leading-lhSomeMoreSpace'>
@@ -35,6 +42,6 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps): JSX.Elemen
           </h3>
         </div>
       </LazyLoad>
-    </a >
+    </a>
   )
 }

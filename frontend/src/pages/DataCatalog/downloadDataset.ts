@@ -1,6 +1,6 @@
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import { getDataManager } from '../../utils/globals'
 
@@ -8,7 +8,7 @@ function download(filename: string, content: string) {
   const element = document.createElement('a')
   element.setAttribute(
     'href',
-    'data:text/csv;charset=utf-8,' + encodeURIComponent(content)
+    'data:text/csv;charset=utf-8,' + encodeURIComponent(content),
   )
   element.setAttribute('download', filename)
 
@@ -20,7 +20,7 @@ function download(filename: string, content: string) {
 
 // Returns true if the dataset downloads successfully and otherwise false
 async function downloadDataset(
-  datasetId: DatasetId | DatasetIdWithStateFIPSCode
+  datasetId: DatasetId | DatasetIdWithStateFIPSCode,
 ) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId)

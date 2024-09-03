@@ -14,7 +14,11 @@ const Banner: React.FC = () => {
     const currentSearch = window.location.search
     const bannerClosed = sessionStorage.getItem('bannerClosed')
 
-    if (currentPath === '/exploredata' && currentSearch === '' && !bannerClosed) {
+    if (
+      currentPath === '/exploredata' &&
+      currentSearch === '' &&
+      !bannerClosed
+    ) {
       setIsVisible(true)
     } else {
       setIsVisible(false)
@@ -31,18 +35,25 @@ const Banner: React.FC = () => {
   }
 
   return (
-    <section className='bg-infobarColor text-center p-4' aria-labelledby='banner-heading'>
+    <section
+      className='bg-infobarColor text-center p-4'
+      aria-labelledby='banner-heading'
+    >
       <div className='flex justify-between'>
         <div className='flex lg:flex-row flex-wrap items-center justify-start md:items-center lg:justify-start m-0 px-2'>
           <FlagIcon
             className='lg:visible hidden mr-2 text-alertColor'
             aria-hidden='true'
           />
-          <p className='text-small p-0 my-0 text-left lg:mr-8' id='banner-heading'>
+          <p
+            className='text-small p-0 my-0 text-left lg:mr-8'
+            id='banner-heading'
+          >
             <span className='font-sansTitle text-small lg:text-text font-bold m-0 p-0'>
               Major gaps in the data:
             </span>{' '}
-            Structural racism causes health inequities. We’re closing these gaps to improve U.S. health policies.
+            Structural racism causes health inequities. We’re closing these gaps
+            to improve U.S. health policies.
           </p>
           <HetTextArrowLink
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
@@ -57,7 +68,7 @@ const Banner: React.FC = () => {
           aria-label='Close banner'
           sx={{ borderRadius: 1 }}
         >
-          <Close/>
+          <Close />
         </IconButton>
       </div>
     </section>

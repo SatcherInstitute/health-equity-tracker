@@ -22,11 +22,11 @@ export const chronicDiseaseDataSources = [
 const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.flatMap(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
-  }
+  },
 )
 
 export const chronicDiseaseTopicsString = buildTopicsString(
-  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS
+  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
 )
 
 const ChronicDiseaseLink = () => {
@@ -61,7 +61,9 @@ const ChronicDiseaseLink = () => {
         <p>
           For chronic diseases like COPD and diabetes, our tracker sources data
           primarily from{' '}
-          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and{' '}
+          <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which
+          primarily rely on the{' '}
           <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}

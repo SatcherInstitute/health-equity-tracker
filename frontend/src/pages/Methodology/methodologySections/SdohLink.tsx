@@ -71,8 +71,11 @@ function SdohLink() {
           Data Sourcing
         </h3>
         <p>
-          Our tracker's data on some social determinants of health including <HetTerm>preventable hospitalizations</HetTerm> are sourced from{' '}
-          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          Our tracker's data on some social determinants of health including{' '}
+          <HetTerm>preventable hospitalizations</HetTerm> are sourced from{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and{' '}
+          <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which
+          primarily rely on the{' '}
           <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}

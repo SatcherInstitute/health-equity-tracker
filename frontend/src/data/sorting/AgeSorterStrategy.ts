@@ -1,5 +1,5 @@
-import { type Breakdowns } from '../query/Breakdowns'
-import { type Row } from '../utils/DatasetTypes'
+import type { Breakdowns } from '../query/Breakdowns'
+import type { Row } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
 export class AgeSorterStrategy extends AbstractSortStrategy {

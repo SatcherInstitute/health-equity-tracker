@@ -1,12 +1,12 @@
-import { type Breakdowns, type DemographicType } from '../query/Breakdowns'
+import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import type VariableProvider from './VariableProvider'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { type MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfig'
 import { excludeAll } from '../query/BreakdownFilter'
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
 import { USA_FIPS, USA_DISPLAY_NAME } from '../utils/ConstantsGeography'
 
@@ -54,7 +54,7 @@ export const USA: FipsSpec = {
 export function createWithAndWithoutAllEvaluator(
   metricIds: MetricId | MetricId[],
   dataFetcher: FakeDataFetcher,
-  variableProvider: VariableProvider
+  variableProvider: VariableProvider,
 ) {
   return async (
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
@@ -62,27 +62,27 @@ export function createWithAndWithoutAllEvaluator(
     baseBreakdown: Breakdowns,
     demographicType: DemographicType,
     rowsExcludingAll: any[],
-    rowsIncludingAll: any[]
+    rowsIncludingAll: any[],
   ) => {
     dataFetcher.setFakeDatasetLoaded(datasetId, rawData)
 
     // Evaluate the response with requesting "All" field
     const responseWithAll = await variableProvider.getData(
-      new MetricQuery(metricIds, baseBreakdown.addBreakdown(demographicType))
+      new MetricQuery(metricIds, baseBreakdown.addBreakdown(demographicType)),
     )
     expect(responseWithAll).toEqual(
-      new MetricQueryResponse(rowsIncludingAll, [datasetId])
+      new MetricQueryResponse(rowsIncludingAll, [datasetId]),
     )
 
     // Evaluate the response without requesting "All" field
     const responseWithoutAll = await variableProvider.getData(
       new MetricQuery(
         metricIds,
-        baseBreakdown.addBreakdown(demographicType, excludeAll())
-      )
+        baseBreakdown.addBreakdown(demographicType, excludeAll()),
+      ),
     )
     expect(responseWithoutAll).toEqual(
-      new MetricQueryResponse(rowsExcludingAll, [datasetId])
+      new MetricQueryResponse(rowsExcludingAll, [datasetId]),
     )
   }
 }

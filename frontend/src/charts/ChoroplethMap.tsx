@@ -1,20 +1,20 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import {
   isPctType,
   type MapConfig,
   type MetricConfig,
 } from '../data/config/MetricConfig'
-import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
+import type { Row, FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import { type Legend } from 'vega'
-import { type DemographicGroup } from '../data/utils/Constants'
+import type { Legend } from 'vega'
+import type { DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { type DemographicType } from '../data/query/Breakdowns'
+import type { DemographicType } from '../data/query/Breakdowns'
 import {
   DATA_SUPPRESSED,
   VAR_DATASET,
@@ -149,13 +149,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const dataWithHighestLowest =
     !props.isUnknownsMap && !props.isMulti
       ? useMemo(
-        () =>
-          embedHighestLowestGroups(
-            suppressedData,
-            props.highestLowestGroupsByFips
-          ),
-        [suppressedData, props.highestLowestGroupsByFips]
-      )
+          () =>
+            embedHighestLowestGroups(
+              suppressedData,
+              props.highestLowestGroupsByFips,
+            ),
+          [suppressedData, props.highestLowestGroupsByFips],
+        )
       : suppressedData
 
   const [ref, width] = useResponsiveWidth()
@@ -226,16 +226,16 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   /* SET UP TOOLTIP */
   const tooltipDatum = formatPreventZero100k(
     /* type */ props.metric.type,
-    /* metricId */ props.metric.metricId
+    /* metricId */ props.metric.metricId,
   )
 
   const mapGroupLabel = isCawp
     ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
     : getMapGroupLabel(
-      props.demographicType,
-      props.activeDemographicGroup,
-      props.metric.type === 'index' ? 'Score' : 'Rate'
-    )
+        props.demographicType,
+        props.activeDemographicGroup,
+        props.metric.type === 'index' ? 'Score' : 'Rate',
+      )
   const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
   // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
@@ -247,14 +247,14 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const geographyType = getCountyAddOn(
     /* fips */ props.fips,
-    /* showCounties */ props.showCounties
+    /* showCounties */ props.showCounties,
   )
 
   // Hover tooltip for null/undefined/missing data, using the location name found in geographies.json
   const missingDataTooltipValue = buildTooltipTemplate(
     /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
     /* title */ `datum.properties.name + " ${geographyType}"`,
-    /* includeSvi */ false
+    /* includeSvi */ false,
   )
 
   if (props.countColsMap) {
@@ -263,7 +263,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* tooltipPairs */ tooltipPairs,
       /* countColsMap */ props.countColsMap,
       /* activeDemographicGroup */ props.activeDemographicGroup,
-      /* isCawp */ isCawp
+      /* isCawp */ isCawp,
     )
   }
 
@@ -274,14 +274,14 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroTooltipValue = buildTooltipTemplate(
     /* tooltipPairs */ tooltipPairs,
     /* title */ `datum.properties.name + " ${geographyType}"`,
-    /* includeSvi */ true
+    /* includeSvi */ true,
   )
 
   // Hover tooltip for non-zero data, using source data's location name
   const tooltipValue = buildTooltipTemplate(
     /* tooltipPairs */ tooltipPairs,
     /* title */ `datum.fips_name`,
-    /* includeSvi */ props.showCounties
+    /* includeSvi */ props.showCounties,
   )
 
   const legendList: Legend[] = []
@@ -289,12 +289,12 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
   const unknownsLegend = setupUnknownsLegend(
     /* width */ width,
-    /* isPct */ isPctType(props.metric.type)
+    /* isPct */ isPctType(props.metric.type),
   )
 
   const helperLegend = getHelperLegend(
     /* yOffset */ -35,
-    /* xOffset */ width * 0.35 + 75
+    /* xOffset */ width * 0.35 + 75,
   )
   if (!props.hideLegend) {
     legendList.push(unknownsLegend, helperLegend)
@@ -306,13 +306,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* legendData */ props.data,
         /* metricId */ props.metric.metricId,
         /* scaleType */ props.isUnknownsMap
-        ? UNKNOWNS_MAP_SCALE
-        : RATE_MAP_SCALE,
+          ? UNKNOWNS_MAP_SCALE
+          : RATE_MAP_SCALE,
         /* fieldRange? */ props.fieldRange,
         /* scaleColorScheme? */ props.mapConfig.scheme,
         /* isTerritoryCircle? */ props.fips.isTerritory(),
-        /* reverse? */ !props.mapConfig.higherIsBetter && !props.isUnknownsMap
-    )
+        /* reverse? */ !props.mapConfig.higherIsBetter && !props.isUnknownsMap,
+      )
 
   if (props.extremesMode) {
     colorScale.domain = props.scaleConfig?.domain
@@ -324,12 +324,11 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     colorScale.domain = props.scaleConfig?.domain
   }
 
-
   const projection = getProjection(
     /* fips */ props.fips,
     /* width */ width,
     /* heightWidthRatio */ heightWidthRatio,
-    /* overrideShapeWithCirce */ props.overrideShapeWithCircle
+    /* overrideShapeWithCirce */ props.overrideShapeWithCircle,
   )
 
   const marks = [
@@ -345,7 +344,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.extremesMode,
       /* is multimap */ props.isMulti,
-      /* is mobile device */ isMobile
+      /* is mobile device */ isMobile,
     ),
     // MISSING
     createShapeMarks(
@@ -359,19 +358,19 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.extremesMode,
       props.isMulti,
-      /* is mobile device */ isMobile
+      /* is mobile device */ isMobile,
     ),
     // NON-ZERO
     createShapeMarks(
       /* datasetName= */ VALID_DATASET,
-      /* fillColor= */[{ scale: COLOR_SCALE, field: props.metric.metricId }],
+      /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
       /* hoverColor= */ DARK_BLUE,
       /* tooltipExpression= */ tooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.extremesMode,
       props.isMulti,
-      /* is mobile device */ isMobile
+      /* is mobile device */ isMobile,
     ),
   ]
 
@@ -379,15 +378,15 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     marks.push(
       createInvisibleAltMarks(
         /* tooltipDatum */ tooltipDatum,
-        /*  tooltipLabel */ tooltipLabel
-      )
+        /*  tooltipLabel */ tooltipLabel,
+      ),
     )
 
   const altText = makeAltText(
     /* data */ props.data,
     /* filename */ props.filename ?? '',
     /* fips */ props.fips,
-    /* overrideShapeWithCircle */ props.overrideShapeWithCircle
+    /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
   )
 
   useEffect(() => {
@@ -504,7 +503,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
   const mapIsReady = Boolean(
-    shouldRenderMap && spec && ref.current && props.signalListeners
+    shouldRenderMap && spec && ref.current && props.signalListeners,
   )
 
   return (

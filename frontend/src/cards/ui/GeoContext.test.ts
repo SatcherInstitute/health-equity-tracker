@@ -1,7 +1,10 @@
 import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
-import { DataTypeConfig, METRIC_CONFIG } from '../../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  METRIC_CONFIG,
+} from '../../data/config/MetricConfig'
 import { MetricQueryResponse } from '../../data/query/MetricQuery'
-import { Row } from '../../data/utils/DatasetTypes'
+import type { Row } from '../../data/utils/DatasetTypes'
 import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
@@ -19,9 +22,11 @@ describe('test getTotalACSPopulationPhrase()', () => {
 
   test('normal ACS population', () => {
     const normalPopPhrase = getTotalACSPopulationPhrase(
-      /* data */ nationalACSPopData
+      /* data */ nationalACSPopData,
     )
-    expect(normalPopPhrase).toEqual('Total population: 328,016,242 (from ACS 2022)')
+    expect(normalPopPhrase).toEqual(
+      'Total population: 328,016,242 (from ACS 2022)',
+    )
   })
 })
 
@@ -74,14 +79,16 @@ describe('test getSubPopulationPhrase()', () => {
     METRIC_CONFIG.medicare_cardiovascular[1]
 
   test('phrma medicare national population', () => {
-
     const medicarePopPhrase = getSubPopulationPhrase(
       /* data */ nationalPhrmaData,
-      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_acronym,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma
+        .data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
-      /* dataTypeConfig */ statinsAdherenceConfig
+      /* dataTypeConfig */ statinsAdherenceConfig,
     )
-    expect(medicarePopPhrase).toEqual('Total population of Medicare Statins Beneficiaries, Ages 18+: 41,816,007 (from CMS)')
+    expect(medicarePopPhrase).toEqual(
+      'Total population of Medicare Statins Beneficiaries, Ages 18+: 41,816,007 (from CMS)',
+    )
   })
 
   const countyPhrmaData: Row[] = [
@@ -111,11 +118,14 @@ describe('test getSubPopulationPhrase()', () => {
   test('phrma medicare metric expects extra subpop breadcrumb, but pop data is unavailable', () => {
     const medicarePopPhrase = getSubPopulationPhrase(
       /* data */ countyPhrmaData,
-      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma.data_source_acronym,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.phrma
+        .data_source_acronym,
       /* demographicType */ 'sex',
-      /* dataTypeConfig */ statinsAdherenceConfig
+      /* dataTypeConfig */ statinsAdherenceConfig,
     )
-    expect(medicarePopPhrase).toEqual('Total population of Medicare Statins Beneficiaries, Ages 18+: unavailable (from CMS)')
+    expect(medicarePopPhrase).toEqual(
+      'Total population of Medicare Statins Beneficiaries, Ages 18+: unavailable (from CMS)',
+    )
   })
 
   const nationalCovidData: Row[] = [
@@ -168,9 +178,10 @@ describe('test getSubPopulationPhrase()', () => {
   test('covid should not get a subpopulation', () => {
     const emptyCovidSubPopPhrase = getSubPopulationPhrase(
       /* data */ nationalCovidData,
-      /* subPopulationSourceLabel */ dataSourceMetadataMap.cdc_restricted.data_source_acronym,
+      /* subPopulationSourceLabel */ dataSourceMetadataMap.cdc_restricted
+        .data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
-      /* dataTypeConfig */ covidCasesConfig
+      /* dataTypeConfig */ covidCasesConfig,
     )
     expect(emptyCovidSubPopPhrase).toEqual('')
   })

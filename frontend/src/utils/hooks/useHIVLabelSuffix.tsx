@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import { AGE, ALL, type DemographicGroup } from '../../data/utils/Constants'
-import { type DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfig'
 import { DATATYPES_NEEDING_13PLUS } from '../../data/providers/HivProvider'
 
 const prepSuffix = ' (16+)'
@@ -12,7 +12,7 @@ const youthGunViolenceSuffix = '(0-17)'
 export function useHIVLabelSuffix(
   demographic: DemographicType,
   value: DemographicGroup,
-  dataTypeId: DataTypeId
+  dataTypeId: DataTypeId,
 ): string {
   const suffix = useMemo(() => {
     if (demographic === AGE && value === ALL) {

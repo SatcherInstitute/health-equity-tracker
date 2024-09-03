@@ -13,12 +13,7 @@ import { line, curveMonotoneX } from 'd3'
 /* Local Imports */
 
 /* Constants */
-import {
-  type GroupData,
-  type TrendsData,
-  type XScale,
-  type YScale,
-} from './types'
+import type { GroupData, TrendsData, XScale, YScale } from './types'
 import { COLORS as C } from './constants'
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 import { UNKNOWN_W } from '../../data/utils/Constants'
@@ -46,7 +41,7 @@ export function LineChart({
         date !== null &&
         date !== undefined &&
         amount !== undefined &&
-        amount !== null
+        amount !== null,
     )
     // assigns x-value
     .x(([date]) => xScale(new Date(date)) ?? 0)
@@ -75,9 +70,9 @@ export function LineChart({
         const optionalPct = valuesArePct ? '%' : ''
 
         const groupA11yDescription = `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDatesForGroup.join(
-          ', '
+          ', ',
         )} and highest value ${maxValueForGroup}${optionalPct} in ${highestDatesForGroup.join(
-          ', '
+          ', ',
         )}`
 
         const isUnknownLine = group === UNKNOWN_W

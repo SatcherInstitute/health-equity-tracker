@@ -11,9 +11,9 @@
 /* External Imports */
 
 /* Constants */
-import { type TrendsData } from './types'
+import type { TrendsData } from './types'
 import { COLORS as C } from './constants'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import {
   AGE,
@@ -63,10 +63,11 @@ export function FilterLegend({
           <button
             type='button'
             aria-disabled={groupsAreMinMax}
-            className={`rounded-l-sm border border-altBlack p-4 text-altBlack ${groupsAreMinMax
-              ? 'cursor-default  bg-methodologyGreen font-bold'
-              : 'cursor-pointer  bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
-              }`}
+            className={`rounded-l-sm border border-altBlack p-4 text-altBlack ${
+              groupsAreMinMax
+                ? 'cursor-default  bg-methodologyGreen font-bold'
+                : 'cursor-pointer  bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+            }`}
             aria-label={`Highlight groups with lowest and highest average values over time`}
             onClick={() => {
               handleMinMaxClick(null)
@@ -82,10 +83,11 @@ export function FilterLegend({
             type='button'
             aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
-            className={`rounded-r-sm border-altBlack border p-4 text-altBlack ${noGroupsAreFiltered
-              ? 'cursor-default  bg-methodologyGreen font-bold'
-              : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
-              }`}
+            className={`rounded-r-sm border-altBlack border p-4 text-altBlack ${
+              noGroupsAreFiltered
+                ? 'cursor-default  bg-methodologyGreen font-bold'
+                : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+            }`}
             onClick={() => {
               handleClick(null)
             }} // clear selected groups on click
@@ -98,8 +100,9 @@ export function FilterLegend({
       {/* Legend Items Wrapper */}
       <menu
         aria-labelledby={legendId}
-        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
-          } `}
+        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${
+          isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
+        } `}
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {
