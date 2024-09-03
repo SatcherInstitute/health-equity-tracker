@@ -5,7 +5,8 @@ import {
   Paper,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
@@ -29,7 +30,7 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
 
   const handleAccordionToggle = (
     event: React.SyntheticEvent,
-    newExpanded: boolean
+    newExpanded: boolean,
   ) => {
     setExpanded(newExpanded)
   }

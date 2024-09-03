@@ -1,5 +1,5 @@
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type Fips } from '../../data/utils/Fips'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { Fips } from '../../data/utils/Fips'
 import { urlMap } from '../../utils/externalUrls'
 import { HashLink } from 'react-router-hash-link'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'

@@ -1,4 +1,4 @@
-import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
+import type { GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 export const metricDefinitions: Record<string, GlossaryTermItem> = {
   'Age-adjusted ratios': {

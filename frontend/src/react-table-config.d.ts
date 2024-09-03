@@ -1,13 +1,13 @@
-import {
-  type UsePaginationInstanceProps,
-  type UsePaginationOptions,
-  type UsePaginationState,
-  type UseSortByColumnProps,
-  type UseSortByColumnOptions,
-  type UseSortByHooks,
-  type UseSortByInstanceProps,
-  type UseSortByOptions,
-  type UseSortByState,
+import type {
+  UsePaginationInstanceProps,
+  UsePaginationOptions,
+  UsePaginationState,
+  UseSortByColumnProps,
+  UseSortByColumnOptions,
+  UseSortByHooks,
+  UseSortByInstanceProps,
+  UseSortByOptions,
+  UseSortByState,
 } from 'react-table'
 
 declare module 'react-table' {

@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  type MetricQuery,
-  type MetricQueryResponse,
-} from '../query/MetricQuery'
+import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { getDataManager } from '../../utils/globals'
 
 export type IncompleteLoadStatus = 'loading' | 'error'
@@ -19,7 +16,7 @@ export type IncompleteLoadStatus = 'loading' | 'error'
 export function useResources<K, R>(
   resources: K[],
   loadFn: (resource: K) => Promise<R>,
-  depIdFn: (resource: K) => string
+  depIdFn: (resource: K) => string,
 ): R[] | IncompleteLoadStatus {
   const [resourceState, setResourceState] = useState<
     R[] | IncompleteLoadStatus
@@ -52,12 +49,12 @@ export function useResources<K, R>(
  * @param queries The queries to load the responses for.
  */
 export function useMetrics(
-  queries: MetricQuery[]
+  queries: MetricQuery[],
 ): MetricQueryResponse[] | IncompleteLoadStatus {
   const queryResponses = useResources<MetricQuery, MetricQueryResponse>(
     queries,
     async (query: MetricQuery) => await getDataManager().loadMetrics(query),
-    (query) => query.getUniqueKey()
+    (query) => query.getUniqueKey(),
   )
 
   return queryResponses

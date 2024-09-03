@@ -1,4 +1,4 @@
-import { type DataSourceId } from '../../data/config/MetadataMap'
+import type { DataSourceId } from '../../data/config/MetadataMap'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   LinkWithStickyParams,
@@ -29,7 +29,7 @@ export default function SourcesInfo(props: SourcesInfoProps) {
             <>
               (data from{' '}
               {Array.from(props.dataSourceMap[dataSourceId].updateTimes).join(
-                ', '
+                ', ',
               )}
               )
             </>

@@ -6,9 +6,9 @@ import {
   type MetricConfig,
   type MapConfig,
 } from '../data/config/MetricConfig'
-import { type FieldRange } from '../data/utils/DatasetTypes'
-import { type View, type Legend as LegendType, type Scale } from 'vega'
-import { type GeographicBreakdown } from '../data/query/Breakdowns'
+import type { FieldRange } from '../data/utils/DatasetTypes'
+import type { View, Legend as LegendType, Scale } from 'vega'
+import type { GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import {
@@ -36,7 +36,7 @@ import {
 } from './mapGlobals'
 import ClickableLegendHeader from './ClickableLegendHeader'
 import {
-  LegendNumberFormat,
+  type LegendNumberFormat,
   setupLegendScaleSpec,
   setupNonZeroContinuousPctLegend,
   setupNonZeroDiscreteLegend,
@@ -79,13 +79,13 @@ export function Legend(props: LegendProps) {
   const isCawp = CAWP_METRICS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
-    (row) => row[props.metric.metricId] > 0
+    (row) => row[props.metric.metricId] > 0,
   )
   const uniqueNonZeroValueCount = new Set(
-    nonZeroData?.map((row) => row[props.metric.metricId])
+    nonZeroData?.map((row) => row[props.metric.metricId]),
   ).size
   const missingData = props.data?.filter(
-    (row) => row[props.metric.metricId] == null
+    (row) => row[props.metric.metricId] == null,
   )
   const hasMissingData = Boolean(missingData && missingData.length > 0)
   const hasZeroData = Boolean(zeroData && zeroData.length > 0)
@@ -124,10 +124,13 @@ export function Legend(props: LegendProps) {
     const overallPhrase = props.isSummaryLegend
       ? ` (${props.fipsTypeDisplayName ?? 'area'} overall)`
       : ''
-    const legendBucketLabel = `datum.label + '${isPct ? '%' : ''
-      }' + '${overallPhrase}'`
+    const legendBucketLabel = `datum.label + '${
+      isPct ? '%' : ''
+    }' + '${overallPhrase}'`
 
-    const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : 'truncateWithK'
+    const legendFormatterType: LegendNumberFormat = isPct
+      ? 'pct'
+      : 'truncateWithK'
     const legendList: LegendType[] = []
 
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
@@ -135,7 +138,7 @@ export function Legend(props: LegendProps) {
       const nonZeroContinuousPctLegend = setupNonZeroContinuousPctLegend(
         legendBucketLabel,
         hasMissingData,
-        props.stackingDirection
+        props.stackingDirection,
       )
       legendList.push(nonZeroContinuousPctLegend)
     } else if (uniqueNonZeroValueCount > 0) {
@@ -143,7 +146,7 @@ export function Legend(props: LegendProps) {
         legendBucketLabel,
         legendFormatterType,
         props.stackingDirection,
-        props.columns
+        props.columns,
       )
       legendList.push(nonZeroLegend)
     }
@@ -152,7 +155,7 @@ export function Legend(props: LegendProps) {
     if (hasZeroData) {
       const zeroLegend = setupZeroLegend(
         legendBucketLabel,
-        props.isSummaryLegend
+        props.isSummaryLegend,
       )
       legendList.push(zeroLegend)
     }
@@ -162,22 +165,22 @@ export function Legend(props: LegendProps) {
     const legendColorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
-        props.scaleType,
-        props.metric.metricId,
-        props.mapConfig.scheme,
-        legendColorCount,
-        props.isSummaryLegend,
-          /* reverse?: boolean */ !props.mapConfig.higherIsBetter
-      )
+          props.scaleType,
+          props.metric.metricId,
+          props.mapConfig.scheme,
+          legendColorCount,
+          props.isSummaryLegend,
+          /* reverse?: boolean */ !props.mapConfig.higherIsBetter,
+        )
 
     const dotSizeScale = props.isPhrmaAdherence
       ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
       : setupLegendScaleSpec(
-        dotRange,
-        props.metric.metricId,
-        props.scaleType,
-        props.isSummaryLegend
-      )
+          dotRange,
+          props.metric.metricId,
+          props.scaleType,
+          props.isSummaryLegend,
+        )
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -311,7 +314,6 @@ export function Legend(props: LegendProps) {
           legendTitle={props.legendTitle}
           dataTypeConfig={props.dataTypeConfig}
         />
-
       )}
 
       {spec && (

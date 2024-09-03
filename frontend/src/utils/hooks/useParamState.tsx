@@ -20,7 +20,7 @@ const paramsNotHandledByJotai = [
 
 export function useParamState<ParamStateType>(
   paramKey: string,
-  paramDefaultValue?: ParamStateType
+  paramDefaultValue?: ParamStateType,
 ): [ParamStateType, (newValue: ParamStateType) => void] {
   const [locationState, setLocationState] = useAtom(locationAtom)
 
@@ -59,7 +59,7 @@ export function useParamState<ParamStateType>(
 
 export function useGetParamState<ParamStateType>(
   paramKey: string,
-  paramDefaultValue?: ParamStateType
+  paramDefaultValue?: ParamStateType,
 ): ParamStateType {
   const locationState = useAtomValue(locationAtom)
   const paramState =

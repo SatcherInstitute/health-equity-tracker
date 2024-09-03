@@ -56,7 +56,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
           /*   value: any, */ a.value,
-          /*   omitPctSymbol: boolean = false */ true
+          /*   omitPctSymbol: boolean = false */ true,
         ),
       accessor: metricConfig.metricId,
     }
@@ -88,7 +88,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           ],
         },
       },
-      useSortBy
+      useSortBy,
     )
 
   /** Component for the table's header row **/
@@ -129,7 +129,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
             >
               {cell.render('Cell')}
             </TableCell>
-          )
+          ),
         )}
       </TableRow>
     )

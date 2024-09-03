@@ -22,7 +22,7 @@ const datatypeConfigs = MEDICARE_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
 })
 
 export const medicareTopicsString = buildTopicsString(
-  MEDICARE_CATEGORY_DROPDOWNIDS
+  MEDICARE_CATEGORY_DROPDOWNIDS,
 )
 
 export default function MedicareMedicationLink() {
@@ -311,9 +311,7 @@ export default function MedicareMedicationLink() {
               </li>
               <li>
                 <i>American Indian / Alaska Native</i> we represent as{' '}
-                <HetTerm>
-                  Indigenous (Non-Hispanic)
-                </HetTerm>
+                <HetTerm>Indigenous (Non-Hispanic)</HetTerm>
               </li>
               <li>
                 <i>Non-Hispanic White</i> we represent as{' '}

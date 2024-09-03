@@ -1,4 +1,4 @@
-import { type Mark, type RectMark, type TextMark } from 'vega'
+import type { Mark, RectMark, TextMark } from 'vega'
 import { oneLineLabel } from '../utils'
 import {
   ALT_LIGHT_MEASURE_COLOR,
@@ -16,7 +16,7 @@ import {
   SIDE_BY_SIDE_OFFSET,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
 } from './constants'
-import { type MarkProps } from './types'
+import type { MarkProps } from './types'
 
 export function Marks({
   barLabelBreakpoint,
@@ -92,7 +92,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            demographicType
+            demographicType,
           )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
         },
       },
@@ -125,7 +125,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            demographicType
+            demographicType,
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -157,7 +157,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            demographicType
+            demographicType,
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -209,7 +209,7 @@ export function Marks({
         enter: {
           tooltip: {
             signal: `${oneLineLabel(
-              demographicType
+              demographicType,
             )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
           },
         },

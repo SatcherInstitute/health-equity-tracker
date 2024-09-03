@@ -10,7 +10,9 @@ export default function RecommendedCitationLink() {
       </Helmet>
       <article id='#recommended-citation'>
         <p>
-          The Health Equity Tracker is a testament to Morehouse School of Medicine's commitment to promoting data democratization, health equity, and justice.
+          The Health Equity Tracker is a testament to Morehouse School of
+          Medicine's commitment to promoting data democratization, health
+          equity, and justice.
         </p>
         <h2 className='sr-only'>Recommended Citation</h2>
         <h3 className='mt-12 text-title font-medium'>

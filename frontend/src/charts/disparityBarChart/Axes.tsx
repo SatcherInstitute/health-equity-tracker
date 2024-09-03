@@ -1,7 +1,7 @@
 import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA, LABEL_HEIGHT } from '../utils'
 import { BAR_HEIGHT } from './constants'
-import { type Axis } from 'vega'
-import { type AxesProps } from './types'
+import type { Axis } from 'vega'
+import type { AxesProps } from './types'
 import { ThemeZIndexValues } from '../../styles/DesignTokens'
 
 export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {

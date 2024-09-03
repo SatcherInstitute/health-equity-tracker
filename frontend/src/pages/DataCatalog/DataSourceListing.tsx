@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import {
-  type DataSourceMetadata,
-  type MapOfDatasetMetadata,
-  type DatasetMetadata,
+import type {
+  DataSourceMetadata,
+  MapOfDatasetMetadata,
+  DatasetMetadata,
 } from '../../data/utils/DatasetTypes'
 import { getLogger } from '../../utils/globals'
 import downloadDataset from './downloadDataset'
@@ -16,9 +16,9 @@ import ListItemText from '@mui/material/ListItemText'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
@@ -54,9 +54,9 @@ function DownloadDatasetListItem(props: {
   if (props.datasetMetadata === undefined) {
     void getLogger().logError(
       new Error(
-        'Dataset metadata was missing for dataset with ID: ' + props.datasetId
+        'Dataset metadata was missing for dataset with ID: ' + props.datasetId,
       ),
-      'ERROR'
+      'ERROR',
     )
     return <></>
   }
@@ -202,7 +202,10 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 {props.source_metadata.data_source_name}
               </h3>
             </header>
-            <HetCloseButton onClick={() => setDialogIsOpen(false)} ariaLabel='close dialogue' />
+            <HetCloseButton
+              onClick={() => setDialogIsOpen(false)}
+              ariaLabel='close dialogue'
+            />
           </DialogTitle>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (

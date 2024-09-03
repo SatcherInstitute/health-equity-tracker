@@ -1,5 +1,5 @@
-import { type Legend } from 'vega'
-import { type LegendsProps } from './types'
+import type { Legend } from 'vega'
+import type { LegendsProps } from './types'
 import { LEGEND_TEXT_FONT } from '../mapGlobals'
 
 export const Legends = ({ chartDimensions }: LegendsProps) => {

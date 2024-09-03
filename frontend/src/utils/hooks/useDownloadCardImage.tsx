@@ -1,7 +1,7 @@
 import { createRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
-import { type ScrollableHashId } from './useStepObserver'
+import type { ScrollableHashId } from './useStepObserver'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
@@ -39,7 +39,7 @@ export function useDownloadCardImage(
   hiddenElements: ElementHashIdHiddenOnScreenshot[] = [],
   scrollToHash: ScrollableHashId,
   dropdownOpen?: boolean,
-  footerContentRef?: React.RefObject<HTMLDivElement>
+  footerContentRef?: React.RefObject<HTMLDivElement>,
 ) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
   const [dropdownElement, setDropdownElement] = useState<HTMLElement>()
@@ -49,7 +49,7 @@ export function useDownloadCardImage(
 
   useEffect(() => {
     const element = DROPDOWN_ELEMENT_IDS.map((dropdownId) =>
-      screenshotTargetRef.current?.querySelector(`#${dropdownId}`)
+      screenshotTargetRef.current?.querySelector(`#${dropdownId}`),
     ).find((element) => element !== null) as HTMLElement
 
     setDropdownElement(element)
@@ -57,7 +57,7 @@ export function useDownloadCardImage(
 
   function download(
     canvas: HTMLCanvasElement,
-    { name = cardTitle, extension = 'png' } = {}
+    { name = cardTitle, extension = 'png' } = {},
   ) {
     const combinedCanvas = document.createElement('canvas')
     combinedCanvas.width = canvas.width
@@ -81,7 +81,7 @@ export function useDownloadCardImage(
         0,
         combinedCanvas.height - BOTTOM_PADDING - URL_FONT_SIZE,
         combinedCanvas.width,
-        combinedCanvas.height
+        combinedCanvas.height,
       )
 
       // Draw the screenshot onto the combined canvas
@@ -93,7 +93,7 @@ export function useDownloadCardImage(
         0,
         combinedCanvas.height - urlPaddingHeight,
         combinedCanvas.width,
-        urlPaddingHeight
+        urlPaddingHeight,
       )
 
       // Save the original globalAlpha value
@@ -124,7 +124,7 @@ export function useDownloadCardImage(
         urlWithHash,
         canvas.width / 2,
         urlBaseline,
-        canvas.width - 40
+        canvas.width - 40,
       )
     }
 
@@ -139,8 +139,8 @@ export function useDownloadCardImage(
         {
           month: 'short',
           year: 'numeric',
-        }
-      )}`
+        },
+      )}`,
     )
     a.click()
   }
@@ -170,14 +170,14 @@ export function useDownloadCardImage(
         {
           logging: true,
           useCORS: true,
-        }
+        },
       )
 
       const footerCanvas = footerContentRef
         ? await html2canvas(footerContentRef.current as HTMLElement, {
-          logging: true,
-          useCORS: true,
-        })
+            logging: true,
+            useCORS: true,
+          })
         : null
 
       const combinedCanvasHeight =
@@ -199,7 +199,7 @@ export function useDownloadCardImage(
       if (footerContentRef) {
         hiddenElements.forEach((element) => {
           const elementToHide = footerContentRef.current?.querySelector(
-            element
+            element,
           ) as HTMLElement
           if (elementToHide) elementToHide.style.visibility = 'visible'
         })
@@ -208,7 +208,7 @@ export function useDownloadCardImage(
       // Restore specified elements for the screenshot
       hiddenElements.forEach((element) => {
         const elementToHide = screenshotTargetRef.current?.querySelector(
-          element
+          element,
         ) as HTMLElement
         if (elementToHide) elementToHide.style.visibility = 'visible'
       })

@@ -17,7 +17,7 @@ const EXTRA_HEIGHT_NON_STICKY_HEADER = 60
 export function useHeaderScrollMargin(
   elemId: string,
   sticking: boolean,
-  otherDependencies: any[]
+  otherDependencies: any[],
 ) {
   // ensure header height is remeasured on changes to page width
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import LinkIcon from '@mui/icons-material/Link'
 import MenuItem from '@mui/material/MenuItem'
-import { type PopoverElements } from '../../utils/hooks/usePopover'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
 import HetDialog from '../../styles/HetComponents/HetDialog'
 
 interface CopyLinkButtonProps {
