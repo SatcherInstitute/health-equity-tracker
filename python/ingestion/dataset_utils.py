@@ -564,7 +564,6 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
         topic_prefixes: list of topic prefixes, used to identify the rate cols for determining
             the most recent 'time_period' per topic, and also to identify all metric cols
             for time view sorting
-        unique_cols: optional list of metric cols that don't share a prefix with any other cols
 
     Returns:
         new dataframe with only each topic's most recent rows; the time_period col is dropped
