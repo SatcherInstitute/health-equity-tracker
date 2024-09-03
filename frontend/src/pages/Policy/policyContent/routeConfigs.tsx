@@ -1,12 +1,12 @@
 import type { ReactNode } from 'react'
 import {
-  ADDRESSING_INEQUITIES_TAB,
   CRISIS_OVERVIEW_TAB,
   CURRENT_EFFORTS_TAB,
   DATA_COLLECTION_TAB,
   FAQS_TAB,
   GUN_VIOLENCE_POLICY,
   HOW_TO_USE_THE_DATA_TAB,
+  OUR_FINDINGS_TAB,
   REFORM_OPPORTUNITIES_TAB,
 } from '../../../utils/internalRoutes'
 import CrisisOverviewTab from '../policySections/CrisisOverviewTab'
@@ -15,8 +15,8 @@ import DataCollectionTab from '../policySections/DataCollectionTab'
 import FaqsTab from '../policySections/FaqsTab'
 import HowToUseTheDataTab from '../policySections/HowToUseTheDataTab'
 import ReformOpportunitiesTab from '../policySections/ReformOpportunitiesTab'
-import AddressingInequitiesTab from '../policySections/AddressingInequitiesTab'
 import GunViolencePolicyHomeLink from '../policySections/GunViolencePolicyHomeLink'
+import OurFindingsTab from '../policySections/OurFindingsTab'
 
 export type RouteConfig = {
   isTopLevel?: boolean
@@ -84,14 +84,10 @@ export const routeConfigs: RouteConfig[] = [
   },
   {
     isTopLevel: true,
-    label: 'Addressing Inequities',
-    path: ADDRESSING_INEQUITIES_TAB,
-    component: AddressingInequitiesTab,
+    label: 'Our Findings',
+    path: OUR_FINDINGS_TAB,
+    component: OurFindingsTab,
     subLinks: [
-      {
-        label: 'Health Inequities Defined',
-        path: '#health-inequities-definition',
-      },
       {
         label: `Georgia's Youth Fatality Rates`,
         path: '#ga-youth-fatalities',
@@ -101,28 +97,12 @@ export const routeConfigs: RouteConfig[] = [
         path: '#ga-homicides',
       },
       {
-        label: 'Economic Inequality',
-        path: '#economic-inequality',
-      },
-      {
-        label: 'Educational Opportunities',
-        path: '#educational-opportunities',
-      },
-      {
-        label: 'Racial and Social Justice',
-        path: '#racial-and-social-justice',
-      },
-      {
         label: `Georgia's Suicide Rates`,
         path: '#ga-suicides',
       },
       {
-        label: 'Mental Health Services',
-        path: '#mental-health-services',
-      },
-      {
-        label: 'Community Engagement',
-        path: '#community-engagement',
+        label: `Georgia's Homicide Rates Among Black Men`,
+        path: '#ga-homicides-urbanicity',
       },
     ],
     visible: true,
@@ -134,12 +114,28 @@ export const routeConfigs: RouteConfig[] = [
     component: CurrentEffortsTab,
     subLinks: [
       {
-        label: 'Intervention Efforts at the City Level',
-        path: '#city-level-interventions',
+        label: 'Health Inequities Defined',
+        path: '#health-inequities-definition',
+      },      
+      {
+        label: 'Economic Inequality',
+        path: '#economic-inequality',
       },
       {
-        label: 'Intervention Efforts at the County Level',
-        path: '#county-level-interventions',
+        label: 'Educational Opportunities',
+        path: '#educational-opportunities',
+      },
+      {
+        label: 'Racial and Social Justice',
+        path: '#racial-and-social-justice',
+      },      
+      {
+        label: 'Mental Health Services',
+        path: '#mental-health-services',
+      },
+      {
+        label: 'Community Engagement',
+        path: '#community-engagement',
       },
     ],
     visible: true,

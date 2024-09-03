@@ -50,6 +50,7 @@ interface TableCardProps {
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   reportTitle: string
+  className?: string
 }
 
 export default function TableCard(props: TableCardProps) {
@@ -146,6 +147,7 @@ export default function TableCard(props: TableCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
+      className={props.className}
     >
       {([queryResponse]) => {
         let data = queryResponse.data

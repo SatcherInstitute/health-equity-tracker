@@ -55,7 +55,6 @@ interface SimpleBarChartCardProps {
 export default function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
-    className='w-full'
       key={props.dataTypeConfig.dataTypeId + props.demographicType}
       {...props}
     />
@@ -118,9 +117,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
-      className='w-full'
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
       downloadTitle={filename}
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}

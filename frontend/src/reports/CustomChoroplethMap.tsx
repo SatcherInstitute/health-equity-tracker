@@ -2,21 +2,33 @@ import type React from 'react'
 import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
 import MapCard from '../cards/MapCard'
+import { AGE } from '../data/utils/Constants'
+import { DemographicType } from '../data/query/Breakdowns'
 
-const CustomChoroplethMap: React.FC = () => {
-  const fips = new Fips('00')
-  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['gun_violence_youth'][0]
-  const reportTitle = 'Example Choropleth Rate Map'
+interface CustomChoroplethProps {
+  fips?: Fips
+  dataTypeConfig?: DataTypeConfig
+  demographicType?: DemographicType
+  reportTitle?: string
+  className?: string
+}
 
+const CustomChoroplethMap: React.FC<CustomChoroplethProps> = ({
+  fips = new Fips('00'), 
+  dataTypeConfig = METRIC_CONFIG['gun_violence_youth'][0],
+  demographicType = AGE,
+  reportTitle = 'Custom Choropleth Rate Map',
+  className
+}) => {
   return (
-    <div className='p-0 m-0'>
       <MapCard
               dataTypeConfig={dataTypeConfig}
-              demographicType='race_and_ethnicity'
+              demographicType={demographicType}
               fips={fips}
-              reportTitle={reportTitle} updateFipsCallback={ (fips: Fips) => { }} trackerMode={'disparity'}      
+              reportTitle={reportTitle} updateFipsCallback={ (fips: Fips) => { }} trackerMode={'disparity'}    
+              className={className}
               />
-    </div>
+    
   )
 }
 

@@ -87,6 +87,7 @@ const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
 ]
 
 interface MapCardProps {
+  className?: string
   key?: string
   fips: Fips
   dataTypeConfig: DataTypeConfig
@@ -268,6 +269,7 @@ function MapCardWithKey(props: MapCardProps) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
+  const defaultClasses = 'shadow-raised bg-white'
 
   return (
     <CardWrapper
@@ -280,6 +282,7 @@ function MapCardWithKey(props: MapCardProps) {
       elementsToHide={elementsToHide}
       expanded={extremesMode}
       isCompareCard={props.isCompareCard}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
