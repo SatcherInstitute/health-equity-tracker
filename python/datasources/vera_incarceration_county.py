@@ -7,9 +7,10 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
     generate_pct_rel_inequity_col,
     zero_out_pct_rel_inequity,
+    get_timeview_df_and_cols,
 )
 from ingestion.merge_utils import merge_county_names
-from ingestion.constants import Sex
+from ingestion.constants import Sex, CURRENT, HISTORICAL
 import ingestion.standardized_columns as std_col
 from typing import Literal, cast
 from ingestion.het_types import SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, DEMOGRAPHIC_TYPE, GEO_TYPE
@@ -148,6 +149,18 @@ VERA_COL_TYPES = {
     **pop_col_types,  # type: ignore
 }
 
+FLOAT_COLS = {
+    'current': [
+        *PER_100K_COL_MAP.values(),
+        std_col.CHILDREN,
+        *PCT_SHARE_COL_MAP.values(),
+        *RAW_COL_MAP.values(),
+        std_col.INCARCERATION_POP_RAW,
+        PCT_SHARE_COL_MAP[std_col.POPULATION_COL],
+    ],
+    'historical': [*PER_100K_COL_MAP.values(), *PCT_SHARE_COL_MAP.values(), *PCT_REL_INEQUITY_COL_MAP.values()],
+}
+
 
 class VeraIncarcerationCounty(DataSource):
     @staticmethod
@@ -174,20 +187,15 @@ class VeraIncarcerationCounty(DataSource):
             df = use_sum_of_jail_counts_as_all(df, demo_type)
         df = add_confined_children_col(df)
 
-        table_name = f'by_{demo_type}_county_time_series'
         df = self.generate_for_bq(df, demo_type)
 
-        float_cols = [
-            *PER_100K_COL_MAP.values(),
-            std_col.CHILDREN,
-            *PCT_SHARE_COL_MAP.values(),
-            *RAW_COL_MAP.values(),
-            std_col.INCARCERATION_POP_RAW,
-            PCT_SHARE_COL_MAP[std_col.POPULATION_COL],
-            *PCT_REL_INEQUITY_COL_MAP.values(),
-        ]
-        column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
-        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
+        for timeview in [CURRENT, HISTORICAL]:
+            timeview_df = df.copy()
+            timeview_df, column_types = get_timeview_df_and_cols(
+                timeview_df, timeview, ['prison', 'jail', 'incarceration', 'confined_children']
+            )
+            table_name = f'by_{demo_type}_county_{timeview}'
+            gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_name, column_types=column_types)
 
     def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE):
         """Creates the specific breakdown df needed for bigquery by iterating over needed columns

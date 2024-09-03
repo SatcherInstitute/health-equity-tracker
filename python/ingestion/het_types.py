@@ -28,7 +28,7 @@ HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_
 WISQARS_DEMO_TYPE = Literal["sex", "age", "race_and_ethnicity", "urbanicty", "all"]
 
 INCARCERATION_TYPE = Literal["jail", "prison"]
-VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "total_confined_children"]
+VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "confined_children_estimated_total"]
 GEO_TYPE = Literal["county", "state", "national"]
 
 

@@ -564,6 +564,7 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
         topic_prefixes: list of topic prefixes, used to identify the rate cols for determining
             the most recent 'time_period' per topic, and also to identify all metric cols
             for time view sorting
+        unique_cols: optional list of metric cols that don't share a prefix with any other cols
 
     Returns:
         new dataframe with only each topic's most recent rows; the time_period col is dropped
@@ -580,11 +581,10 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
     # split df based on data recency
     recent_year_to_rate_col_map: Dict[str, List[str]] = {}
 
+    # handle topic prefixes that are shared between cols like topic_pct_share and topic_per_100k
     for topic_prefix in topic_prefixes:
         topic_primary_col = get_topic_primary_col(topic_prefix, df)
-
         most_recent_time_period = df[df[topic_primary_col].notnull()][std_col.TIME_PERIOD_COL].max()
-
         col_list = list(df.columns[df.columns.str.startswith(topic_prefix)])
 
         # build the mapping of string year to list of topics where that year is the most recent
@@ -626,6 +626,7 @@ def get_topic_primary_col(topic_prefix: str, df: pd.DataFrame) -> str:
         std_col.PCT_RATE_SUFFIX,
         std_col.INDEX_SUFFIX,
         std_col.POP_PCT_SUFFIX,
+        std_col.RAW_SUFFIX,
     ]:
         possible_primary_col = f'{topic_prefix}_{primary_col_suffix}'
         if possible_primary_col in df.columns:
@@ -781,6 +782,7 @@ def get_timeview_df_and_cols(
     unwanted_suffixes = (
         std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == 'historical' else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
     )
+
     for col in df.columns:
         if std_col.ends_with_suffix_from_list(col, unwanted_suffixes):
             df.drop(columns=[col], inplace=True)

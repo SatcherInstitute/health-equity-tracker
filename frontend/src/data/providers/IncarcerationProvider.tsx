@@ -39,7 +39,7 @@ export const PRISON_METRIC_IDS: MetricId[] = [
 const INCARCERATION_METRIC_IDS: MetricId[] = [
   ...JAIL_METRIC_IDS,
   ...PRISON_METRIC_IDS,
-  'total_confined_children',
+  'confined_children_estimated_total',
   'incarceration_population_pct',
   'incarceration_population_estimated_total',
 ]

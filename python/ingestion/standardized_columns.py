@@ -67,6 +67,7 @@ SHARE_SUFFIX = "share"
 SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 PCT_REL_INEQUITY_SUFFIX = "pct_relative_inequity"
 RAW_SUFFIX = "estimated_total"
+RAW_POP_SUFFIX = "population_estimated_total"
 POP_PCT_SUFFIX = 'population_pct'
 RATIO_AGE_ADJUSTED_SUFFIX = "ratio_age_adjusted"
 INDEX_SUFFIX = "index"
@@ -165,7 +166,7 @@ CONGRESS_NAMES = "total_us_congress_names"
 # Incarceration columns
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
-CHILDREN = "total_confined_children"
+CHILDREN = "confined_children_estimated_total"
 JAIL_RAW = "jail_estimated_total"
 PRISON_RAW = "prison_estimated_total"
 JAIL_RATE = "jail_per_100k"
@@ -175,7 +176,7 @@ PRISON_PCT_SHARE = "prison_pct_share"
 INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
 INCARCERATION_POP_RAW = "incarceration_population_estimated_total"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
-PRISON_PCT_INEQUITY = "prison_relative_inequity"
+PRISON_PCT_INEQUITY = "prison_pct_relative_inequity"
 
 # HIV
 BLACK_WOMEN = 'black_women'
