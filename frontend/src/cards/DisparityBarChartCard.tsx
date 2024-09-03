@@ -25,11 +25,11 @@ import {
 } from '../data/utils/datasetutils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type {  ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
 
@@ -39,6 +39,7 @@ interface DisparityBarChartCardProps {
   dataTypeConfig: DataTypeConfig
   fips: Fips
   reportTitle: string
+  className?: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -108,6 +109,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+  
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -116,6 +119,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

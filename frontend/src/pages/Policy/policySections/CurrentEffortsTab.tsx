@@ -29,7 +29,7 @@ export default function CurrentEffortsTab() {
 								key={index}
 								title={cityEffort.title}
 								description={cityEffort.description}
-								link={cityEffort.link}
+								
 							/>
 						))}
 					</ul>
@@ -49,7 +49,7 @@ export default function CurrentEffortsTab() {
 								key={index}
 								title={fultonCountyEffort.title}
 								description={fultonCountyEffort.description}
-								link={fultonCountyEffort.link}
+								
 							/>
 						))}
 					</ul>
@@ -64,7 +64,7 @@ export default function CurrentEffortsTab() {
 								key={index}
 								title={dekalbCountyEffort.title}
 								description={dekalbCountyEffort.description}
-								link={dekalbCountyEffort.link}
+								
 							/>
 						))}
 					</ul>

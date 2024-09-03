@@ -1,17 +1,19 @@
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import { RACE } from '../../../data/utils/Constants'
+import { BLACK_NH, RACE } from '../../../data/utils/Constants'
 import { Fips } from '../../../data/utils/Fips'
+import Custom100kBarChart from '../../../reports/Custom100kBarChart'
 import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
 import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
+import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
+import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 
 export const youthFatalitiesFacts = [
 	{
 		content: (
 			<>
 				From 2018 to 2021, the rate of {''}
-				<HetTerm>gun deaths among Black youth increased by
-				approximately 75.44% in Georgia</HetTerm>{''}, while nationally, the rate doubled from 6.0 to 12 per 100k
+				<HetTermUnderline>gun deaths among Black youth increased by
+				approximately 75.44% in Georgia</HetTermUnderline>, while nationally, the rate doubled from 6.0 to 12 per 100k
 				, indicating a more substantial increase across the US compared to
 				Georgia alone.
 			</>
@@ -21,6 +23,7 @@ export const youthFatalitiesFacts = [
 			dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
 			demographicType={RACE}
 			reportTitle='Rates of gun deaths among children over time in Georgia'
+	className='shadow-[none] py-0 my-0'
 		  />),
 	},
 	{
@@ -28,9 +31,9 @@ export const youthFatalitiesFacts = [
 			<>
 				As of 2022, Black Non-Hispanic youth were disproportionately affected by
 				gun violence, accounting for{' '}
-				<HetTerm>
+				<HetTermUnderline>
 					68.0% of gun fatalities while making up only 31.1% of the population
-				</HetTerm>
+				</HetTermUnderline>
 				.
 			</>
 		), customCard: ( <CustomDisparityBarChart
@@ -38,6 +41,7 @@ export const youthFatalitiesFacts = [
 			dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
 			demographicType={RACE}
 			reportTitle='Population vs. distribution of total gun deaths among children in Georgia'
+			className='shadow-[none]'
 		  />),
 	},
 ]
@@ -47,35 +51,36 @@ export const homicideFacts = [
 		content: (
 			<>
 				Despite a decrease in firearm homicide rates for some groups in 2022,{' '}
-				<HetTerm>overall rates remained disturbingly high</HetTerm>  compared to
+				<HetTermUnderline>overall rates remained disturbingly high</HetTermUnderline>  compared to
 				2019, with persistent elevations particularly among Black individuals.
 			</>
-		), customCard: '',
-	},
-	{
-		content: (
-			<>
-				Over the past six years,{' '}
-				<HetTerm>
-					Black individuals have experienced a disproportionately high rate of
-					gun violence homicides
-				</HetTerm>
-				, representing at least 120% of the inequities observed over this
-				period.
-			</>
-		), customCard: '',
+		), customCard: (<CustomShareTrendsLineChart
+        fips={new Fips('13')}
+        dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
+        demographicType={RACE}
+        reportTitle='Historical relative inequity of gun homicides in Georgia'
+        isCompareCard={false}
+		className='shadow-[none]'
+      />),
 	},
 	{
 		content: (
 			<>
 				As of 2021,{' '}
-				<HetTerm>
+				<HetTermUnderline>
 					Black individuals experience a gun homicide rate of 27 per 100,000
 					people
-				</HetTerm>
+				</HetTermUnderline>
 				.
 			</>
-		), customCard: '',
+		), customCard: (
+			<Custom100kBarChart
+        fips={new Fips('13')}
+        dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
+        demographicType={RACE}
+        reportTitle='Rates of gun homicides in Georgia'
+      />
+		  ),
 	},
 ]
 
@@ -84,23 +89,31 @@ export const suicideFacts = [
 		content: (
 			<>
 				From 2018 to 2021,{' '}
-				<HetTerm>
+				<HetTermUnderline>
 					gun-related suicide rates among Black individuals rose significantly
 					from 7.9 to 11 per 100k
-				</HetTerm>
+				</HetTermUnderline>
 				, while rates among White individuals slightly decreased from 22 to 21
 				per 100k, highlighting a concerning upward trend in the Black community.
 			</>
-		), customCard: '',
+		), customCard: ( <CustomRateTrendsLineChart
+			fips={new Fips('13')}
+			dataTypeConfig={METRIC_CONFIG['gun_violence_suicide'][0]}
+			demographicType={RACE}
+			reportTitle='Rates of gun suicides over time in Georgia'
+	className='shadow-[none] py-0 my-0'
+	selectedTableGroups={BLACK_NH}
+	
+		  />),
 	},
 	{
 		content: (
 			<>
 				From 2001 to 2021, the rate of gun-related suicides among females
 				remained below 3.3 per 100,000, while{' '}
-				<HetTerm>
+				<HetTermUnderline>
 					the rate for males consistently exceeded 11 per 100,000
-				</HetTerm>
+				</HetTermUnderline>
 				.
 			</>
 		), customCard: '',

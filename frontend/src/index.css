@@ -256,3 +256,13 @@ button[data-action='back']:focus {
   visibility: hidden;
   animation: fadeInUpBlur 0.5s ease-in-out forwards;
 }
+
+/* Underline Animation */
+@keyframes underlineSlideIn {
+  from {
+    background-size: 0% 8px;
+  }
+  to {
+    background-size: 100% 8px;
+  }
+}

@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { type Fips } from '../data/utils/Fips'
+import type {  Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { type DataTypeConfig } from '../data/config/MetricConfig'
+import type {  DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -25,14 +25,14 @@ import {
 import AltTableView from './ui/AltTableView'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type {  ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import { type Row } from '../data/utils/DatasetTypes'
+import type {  Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type {  ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
 import { generateSubtitle } from '../charts/utils'
 
@@ -40,21 +40,24 @@ import { generateSubtitle } from '../charts/utils'
 const PRELOAD_HEIGHT = 668
 
 interface RateTrendsChartCardProps {
-  key?: string
-  demographicType: DemographicType
-  dataTypeConfig: DataTypeConfig
-  fips: Fips
-  isCompareCard?: boolean
-  reportTitle: string
+  key?: string;
+  demographicType: DemographicType;
+  dataTypeConfig: DataTypeConfig;
+  fips: Fips;
+  isCompareCard?: boolean;
+  reportTitle: string;
+  className?: string;
+  selectedTableGroups?: DemographicGroup[];
+  setSelectedTableGroups?: (groups: DemographicGroup[]) => void;
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<
-    DemographicGroup[]
-  >([])
+  const [internalSelectedTableGroups, setInternalSelectedTableGroups] = useState<DemographicGroup[]>([]);
+  const selectedTableGroups = props.selectedTableGroups ?? internalSelectedTableGroups;
+  const setSelectedTableGroups = props.setSelectedTableGroups ?? setInternalSelectedTableGroups;
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)
@@ -123,6 +126,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -132,6 +137,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(

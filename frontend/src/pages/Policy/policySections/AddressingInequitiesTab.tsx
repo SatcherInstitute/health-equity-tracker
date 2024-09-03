@@ -7,12 +7,6 @@ import { useScrollToAnchor } from '../../../utils/hooks/useScrollToAnchor'
 import FactCard from '../policyComponents/FactCard'
 import { youthFatalitiesFacts, homicideFacts, suicideFacts, economicResources, educationalResources, justiceResources, mentalHealthResources, communityResources } from '../policyContent/AddressingInequitiesContent'
 import ResourceItem from '../policyComponents/ResourceItem'
-import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import { RACE } from '../../../data/utils/Constants'
-import { Fips } from '../../../data/utils/Fips'
-import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
-import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
 
 interface CombinedLinkProps {
   to: string
@@ -156,30 +150,14 @@ export default function AddressingInequitiesTab() {
           <h3 className='my-0 text-title font-medium text-altGreen'>
             Georgia's Youth Fatality Rates
           </h3>
-          <ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
             {youthFatalitiesFacts.map((youthFatalitiesFact, index) => (
-              <li
-                key={index}
-                className={`fade-in-up-blur`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <FactCard key={index} content={youthFatalitiesFact.content} />
-                
-              </li>
+          <div key={index} className='list-none rounded-md shadow-raised my-8 bg-exploreBgColor'>
+              <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+              {youthFatalitiesFact.content} 
+              </p>
+            {youthFatalitiesFact.customCard}
+          </div>
             ))}
-          </ul>
-          <CustomRateTrendsLineChart
-        fips={new Fips('13')}
-        dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
-        demographicType={RACE}
-        reportTitle='Rates of gun deaths among children over time in Georgia'
-      />
-                 <CustomDisparityBarChart
-        fips={new Fips('13')}
-        dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
-        demographicType={RACE}
-        reportTitle='Population vs. distribution of total gun deaths among children in Georgia'
-      />
         </div>
       </section>
       <section id='#ga-homicides'>
@@ -190,18 +168,15 @@ export default function AddressingInequitiesTab() {
           <h3 className='my-0 text-title font-medium text-altGreen'>
             Georgia's Homicide Rates
           </h3>
-
-          <ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
-            {homicideFacts.map((homicideFact, index) => (
-              <li
-                key={index}
-                className={`fade-in-up-blur`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <FactCard key={index} content={homicideFact.content} />
-              </li>
+          {homicideFacts.map((homicideFact, index) => (
+          <div key={index} className='list-none rounded-md shadow-raised my-8 bg-exploreBgColor'>
+              <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+              {homicideFact.content} 
+              </p>
+            {homicideFact.customCard}
+          </div>
             ))}
-          </ul>
+         
         </div>
       </section>
       <section id='#economic-inequality'>
@@ -222,7 +197,7 @@ export default function AddressingInequitiesTab() {
               key={index}
               title={economicResource.title}
               description={economicResource.description}
-              link={economicResource.link}
+              
             />
           ))}
         </ul>

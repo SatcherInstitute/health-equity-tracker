@@ -14,15 +14,13 @@ import {
 import CardOptionsMenu from './ui/CardOptionsMenu'
 
 function CardWrapper(props: {
-  // prevent layout shift as component  loads
+  // prevent layout shift as component loads
   minHeight?: number
   downloadTitle: string
-  // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element
   hideFooter?: boolean
   hideNH?: boolean
   queries: MetricQuery[]
-  // Whether to load the geographies dataset for this card.
   loadGeographies?: boolean
   children: (
     queryResponses: MetricQueryResponse[],
@@ -44,9 +42,11 @@ function CardWrapper(props: {
     props.expanded
   )
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   const loadingComponent = (
     <div
-      className='rounded relative m-2 bg-white p-3 shadow-raised'
+      className={`rounded relative m-2 p-3 ${defaultClasses} ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
@@ -63,7 +63,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className={`rounded relative m-2 bg-white p-3 shadow-raised ${props.className}`}
+            className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
             ref={screenshotTargetRef}
             tabIndex={-1}
           >
@@ -75,7 +75,6 @@ function CardWrapper(props: {
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <Sources
-
                 isCensusNotAcs={props.isCensusNotAcs}
                 metadata={metadata}
                 queryResponses={queryResponses}

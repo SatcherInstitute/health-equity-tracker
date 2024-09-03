@@ -34,6 +34,7 @@
 		"jotai-location": "^0.5.5",
 		"lodash": "^4.17.21",
 		"lru-cache": "^11.0.0",
+		"python": "^0.0.4",
 		"react": "^18.3.1",
 		"react-animate-height": "^3.2.2",
 		"react-dom": "^18.3.1",
