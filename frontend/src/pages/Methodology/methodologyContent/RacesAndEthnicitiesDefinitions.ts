@@ -14,12 +14,9 @@ export interface DataItem {
   }>
 }
 
-
-export const ethnicityDefinitions: DataItem =
-{
+export const ethnicityDefinitions: DataItem = {
   topic: 'Ethnicities',
   definitions: [
-
     {
       key: 'Hispanic/Latino',
       path: '#race-eth-hispanic',
@@ -33,19 +30,14 @@ export const ethnicityDefinitions: DataItem =
             'Individuals who identify as Hispanic/Latino may not be recorded in their respective race category in certain datasets.',
           ],
         },
-
       ],
     },
-
-
   ],
 }
 
-export const raceDefinitions: DataItem =
-{
+export const raceDefinitions: DataItem = {
   topic: 'Races',
   definitions: [
-
     {
       key: 'Indigenous',
       path: '#race-eth-aian',
@@ -53,7 +45,6 @@ export const raceDefinitions: DataItem =
         'A person having origins in any of the original peoples of North and South America (including Central America), who maintains tribal affiliation or community attachment. Many of our data sources report this category as “American Indian and Alaska Native”.',
       resource: GLOSSARY_LINK + '#aian-resources',
       considerations: [
-
         {
           title: 'General Considerations',
           points: [
@@ -69,14 +60,12 @@ export const raceDefinitions: DataItem =
         'A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.',
       resource: GLOSSARY_LINK + '#api-resources',
       considerations: [
-
         {
           title: 'Chronic Diseases',
           points: [
             'The Asian category often includes cases previously classified as "Asian/Pacific Islander" under the pre-1997 Office of Management and Budget (OMB) race/ethnicity classification system when querying HIV prevalence',
           ],
         },
-
       ],
     },
     {
@@ -144,9 +133,7 @@ export const raceDefinitions: DataItem =
   ],
 }
 
-
-export const moreNonStandardDefinitions: DataItem =
-{
+export const moreNonStandardDefinitions: DataItem = {
   topic: 'Additional Groups',
   definitions: [
     {
@@ -162,7 +149,6 @@ export const moreNonStandardDefinitions: DataItem =
             'MENA individuals are counted by the ACS as White.',
           ],
         },
-
       ],
     },
     {
@@ -177,15 +163,14 @@ export const moreNonStandardDefinitions: DataItem =
             'The U.S. Census no longer combines Asian and Pacific Islander into a single group.',
           ],
         },
-
       ],
     },
-
 
     {
       key: 'Unknown',
       path: '#race-eth-unknown',
-      description: 'Cases of a topic condition that were recorded, but which did not provide complete race/ethnicity information.',
+      description:
+        'Cases of a topic condition that were recorded, but which did not provide complete race/ethnicity information.',
       considerations: [
         {
           title: 'General Considerations',
@@ -198,25 +183,26 @@ export const moreNonStandardDefinitions: DataItem =
     {
       key: 'All',
       path: '#race-eth-all',
-      description: 'Any race or ethnicity, including cases of a topic with unknown race/ethnicity.',
+      description:
+        'Any race or ethnicity, including cases of a topic with unknown race/ethnicity.',
       considerations: [
         {
           title: 'General Considerations',
           points: [
             'Rates for this group will not always be an average of the other known race groups, since the ALL category includes cases with unknown race/ethnicity.',
-            'Though it reflect all people regardless of race/ethnicity, this group might only reflect a specific sub-population in terms of other demographics like age (e.g. for topics that only measure cases among adults).'
+            'Though it reflect all people regardless of race/ethnicity, this group might only reflect a specific sub-population in terms of other demographics like age (e.g. for topics that only measure cases among adults).',
           ],
         },
       ],
     },
-
-
-
   ],
 }
 
-
-export const raceAndEthnicitySublinks = [...ethnicityDefinitions.definitions, ...raceDefinitions.definitions, ...moreNonStandardDefinitions.definitions].map((item) => ({
+export const raceAndEthnicitySublinks = [
+  ...ethnicityDefinitions.definitions,
+  ...raceDefinitions.definitions,
+  ...moreNonStandardDefinitions.definitions,
+].map((item) => ({
   label: item.key,
   path: item?.path ?? '',
 }))

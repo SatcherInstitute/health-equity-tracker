@@ -11,10 +11,13 @@ const CustomChoroplethMap: React.FC = () => {
   return (
     <div>
       <MapCard
-              dataTypeConfig={dataTypeConfig}
-              demographicType='race_and_ethnicity'
-              fips={fips}
-              reportTitle={reportTitle} updateFipsCallback={ (fips: Fips) => { }} trackerMode={'disparity'}      />
+        dataTypeConfig={dataTypeConfig}
+        demographicType='race_and_ethnicity'
+        fips={fips}
+        reportTitle={reportTitle}
+        updateFipsCallback={(fips: Fips) => {}}
+        trackerMode={'disparity'}
+      />
     </div>
   )
 }

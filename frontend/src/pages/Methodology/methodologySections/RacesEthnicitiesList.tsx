@@ -1,6 +1,5 @@
-import HetDivider from "../../../styles/HetComponents/HetDivider"
-import type { DataItem } from "../methodologyContent/RacesAndEthnicitiesDefinitions"
-
+import HetDivider from '../../../styles/HetComponents/HetDivider'
+import type { DataItem } from '../methodologyContent/RacesAndEthnicitiesDefinitions'
 
 interface RaceEthnicityListProps {
   dataItem: DataItem
@@ -11,7 +10,6 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
       <h3 className='mt-16 mb-0 font-sansTitle text-center text-exploreButton font-semibold'>
         {props.dataItem.topic}
       </h3>
-
 
       <div id={props.dataItem.topic} key={props.dataItem.topic}>
         {props.dataItem.definitions.map((def) => {
@@ -37,7 +35,9 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
                           {consideration.title}
                         </p>
                         {consideration.points.map((point, idx) => (
-                          <p className='text-small my-2' key={idx}>{point}</p>
+                          <p className='text-small my-2' key={idx}>
+                            {point}
+                          </p>
                         ))}
                       </div>
                     ))}
@@ -56,11 +56,6 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
           )
         })}
       </div>
-
     </>
   )
 }
-
-
-
-

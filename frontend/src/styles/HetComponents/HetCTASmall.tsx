@@ -9,7 +9,12 @@ interface HetCTASmallProps {
   className?: string
 }
 
-export default function HetCTASmall({ children, href, id, className }: HetCTASmallProps) {
+export default function HetCTASmall({
+  children,
+  href,
+  id,
+  className,
+}: HetCTASmallProps) {
   const history = useHistory()
 
   const handleClick = () => {
@@ -29,9 +34,7 @@ export default function HetCTASmall({ children, href, id, className }: HetCTASma
       href={optionalMailTo}
       onClick={isMailTo ? undefined : handleClick}
     >
-      <span className='text-small text-white font-bold'>
-        {children}
-      </span>
+      <span className='text-small text-white font-bold'>{children}</span>
     </Button>
   )
 }

@@ -1,12 +1,12 @@
 import { CircularProgress } from '@mui/material'
-import {
-  type MetricQuery,
-  type MetricQueryResponse,
+import type {
+  MetricQuery,
+  MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import { Sources } from './ui/Sources'
-import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
@@ -27,7 +27,7 @@ function CardWrapper(props: {
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
-    geoData?: Record<string, any>
+    geoData?: Record<string, any>,
   ) => JSX.Element
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
@@ -40,7 +40,7 @@ function CardWrapper(props: {
     props.downloadTitle,
     props.elementsToHide,
     props.scrollToHash,
-    props.expanded
+    props.expanded,
   )
 
   const loadingComponent = (
@@ -74,7 +74,6 @@ function CardWrapper(props: {
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <Sources
-
                 isCensusNotAcs={props.isCensusNotAcs}
                 metadata={metadata}
                 queryResponses={queryResponses}

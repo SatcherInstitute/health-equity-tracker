@@ -75,7 +75,7 @@ export class HetEnvironment implements Environment {
     const apiBaseUrl = this.getEnvVariable('BASE_API_URL')
     if (!apiBaseUrl && this.deployContext === 'development') {
       console.warn(
-        '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. Did you forget to copy the .env.example into an .env.development file? See the repo README for more information.'
+        '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. Did you forget to copy the .env.example into an .env.development file? See the repo README for more information.',
       )
     }
     return apiBaseUrl ?? ''

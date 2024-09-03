@@ -1,7 +1,11 @@
 import { useHistory } from 'react-router-dom'
 import { METRIC_CONFIG, type DataTypeId } from '../../data/config/MetricConfig'
 import { EXPLORE_DATA_PAGE_LINK } from '../internalRoutes'
-import { EXTREMES_1_PARAM_KEY, MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
+import {
+  EXTREMES_1_PARAM_KEY,
+  MADLIB_SELECTIONS_PARAM,
+  useSearchParams,
+} from '../urlutils'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 // NOTE: these redirects will lose any incoming demographic, data type, and card hash settings
@@ -35,10 +39,10 @@ export default function useDeprecatedParamRedirects() {
     if (dropdownIdSwaps[dropdownVarId1]) {
       const newMlsParam = mlsParam.replace(
         dropdownVarId1,
-        dropdownIdSwaps[dropdownVarId1]
+        dropdownIdSwaps[dropdownVarId1],
       )
       history.push(
-        `${EXPLORE_DATA_PAGE_LINK}?${MADLIB_SELECTIONS_PARAM}=${newMlsParam}${extremesParam ? `&${extremesParam}` : ''}`
+        `${EXPLORE_DATA_PAGE_LINK}?${MADLIB_SELECTIONS_PARAM}=${newMlsParam}${extremesParam ? `&${extremesParam}` : ''}`,
       )
     } else if (
       // otherwise handle other malformed ids in param and redirect to helper box

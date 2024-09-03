@@ -1,4 +1,4 @@
-import {
+import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'

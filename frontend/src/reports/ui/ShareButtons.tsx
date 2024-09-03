@@ -9,7 +9,7 @@ import {
   XIcon,
 } from 'react-share'
 import { Tooltip } from '@mui/material'
-import { type Article } from '../../pages/News/NewsPage'
+import type { Article } from '../../pages/News/NewsPage'
 import { getHtml } from '../../utils/urlutils'
 import { het } from '../../styles/DesignTokens'
 

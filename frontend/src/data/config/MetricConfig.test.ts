@@ -1,9 +1,9 @@
 import {
   buildTopicsString,
-  DropdownVarId,
+  type DropdownVarId,
   formatFieldValue,
   isPctType,
-  MetricType,
+  type MetricType,
 } from './MetricConfig'
 
 describe('Test Metric Config Functions', () => {
@@ -31,7 +31,7 @@ describe('Test Metric Config Functions', () => {
   test('Test buildTopicsString(): Topic with sub DataTypes', () => {
     const covidTopic: ReadonlyArray<DropdownVarId> = ['covid']
     expect(buildTopicsString(covidTopic)).toBe(
-      'COVID-19 (Cases, Deaths, Hospitalizations)'
+      'COVID-19 (Cases, Deaths, Hospitalizations)',
     )
   })
 })

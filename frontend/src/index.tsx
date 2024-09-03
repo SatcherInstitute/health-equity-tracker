@@ -33,6 +33,6 @@ if (container !== null) {
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>
-    </StrictMode>
+    </StrictMode>,
   )
 }

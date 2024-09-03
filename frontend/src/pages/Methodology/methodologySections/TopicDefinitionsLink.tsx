@@ -20,7 +20,7 @@ export default function TopicDefinitionsLink() {
           const categoryConfigs = category.options.flatMap(
             (topic: DropdownVarId) => {
               return METRIC_CONFIG[topic]
-            }
+            },
           )
 
           return (

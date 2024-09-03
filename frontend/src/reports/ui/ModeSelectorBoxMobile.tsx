@@ -1,8 +1,8 @@
 import SimpleSelect from '../../pages/ui/SimpleSelect'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
-import { type DemographicType } from '../../data/query/Breakdowns'
-import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
 
 interface ModeSelectorBoxMobileProps {
@@ -21,7 +21,7 @@ for (const [key, value] of Object.entries(reportProviderSteps)) {
 }
 
 export default function ModeSelectorBoxMobile(
-  props: ModeSelectorBoxMobileProps
+  props: ModeSelectorBoxMobileProps,
 ) {
   return (
     <div className='mode-selector-box-mobile m-2 flex justify-start rounded-sm bg-white p-2 shadow-raised md:hidden'>
