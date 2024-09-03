@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-import { type ResourceGroup } from '../methodologyContent/ResourcesData'
+import type { ResourceGroup } from '../methodologyContent/ResourcesData'
 
 interface ResourcesProps {
   resourceGroups: ResourceGroup[]
@@ -38,13 +38,13 @@ export default function Resources(props: ResourcesProps) {
       </Grid>
       <Grid item xs={12} md={resources.length >= 10 ? 6 : 12}>
         {renderResourcesList(
-          resources.slice(0, Math.ceil(resources.length / 2))
+          resources.slice(0, Math.ceil(resources.length / 2)),
         )}
       </Grid>
       {resources.length >= 10 && (
         <Grid item xs={12} md={6}>
           {renderResourcesList(
-            resources.slice(Math.ceil(resources.length / 2))
+            resources.slice(Math.ceil(resources.length / 2)),
           )}
         </Grid>
       )}

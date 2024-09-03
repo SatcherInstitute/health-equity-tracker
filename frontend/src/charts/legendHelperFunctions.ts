@@ -1,4 +1,4 @@
-import { type ScaleType, type Legend } from 'vega'
+import type { ScaleType, Legend } from 'vega'
 import {
   COLOR_SCALE,
   DATASET_VALUES,
@@ -12,11 +12,11 @@ import {
   PHRMA_ADHERENCE_BREAKPOINTS,
   LEGEND_TEXT_FONT,
 } from './mapGlobals'
-import { type MetricId } from '../data/config/MetricConfig'
+import type { MetricId } from '../data/config/MetricConfig'
 
 export function setupZeroLegend(
   legendBucketLabel: string,
-  isSummaryLegend?: boolean
+  isSummaryLegend?: boolean,
 ): Legend {
   return {
     fill: isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
@@ -79,12 +79,8 @@ export function setupNonZeroDiscreteLegend(
   legendBucketLabel: string,
   legendNumberFormat: LegendNumberFormat,
   stackingDirection: StackingDirection,
-  columns: number
-
+  columns: number,
 ): Legend {
-
-
-
   return {
     fill: COLOR_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
@@ -109,7 +105,7 @@ export function setupNonZeroDiscreteLegend(
 export function setupNonZeroContinuousPctLegend(
   legendBucketLabel: string,
   hasMissingData: boolean,
-  stackingDirection: StackingDirection
+  stackingDirection: StackingDirection,
 ): Legend {
   return {
     fill: COLOR_SCALE,
@@ -138,7 +134,7 @@ export function setupStandardColorScaleSpec(
   mapScheme: string,
   legendColorCount: number,
   isSummaryLegend?: boolean,
-  reverse?: boolean
+  reverse?: boolean,
 ) {
   const standardColorScaleSpec = {
     name: COLOR_SCALE,
@@ -169,7 +165,7 @@ export function setupLegendScaleSpec(
   dotRange: number[],
   metricId: MetricId,
   scaleType: ScaleType,
-  isSummaryLegend?: boolean
+  isSummaryLegend?: boolean,
 ) {
   return {
     name: DOT_SIZE_SCALE,

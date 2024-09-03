@@ -3,7 +3,7 @@ import { useIsBreakpointAndUp } from './useIsBreakpointAndUp'
 // calculate page size for responsive layout and minimized CLS
 export function useGuessPreloadHeight(
   minMaxArray: number[],
-  halveHeight?: boolean
+  halveHeight?: boolean,
 ) {
   const [min, max] = minMaxArray
   const isXl = useIsBreakpointAndUp('xl')

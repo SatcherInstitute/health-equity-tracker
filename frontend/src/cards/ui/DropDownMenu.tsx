@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import { usePopover, type PopoverElements } from '../../utils/hooks/usePopover'
 import { Button, List, ListItem, ListItemText } from '@mui/material'
-import { type DemographicGroup } from '../../data/utils/Constants'
-import {
-  type DemographicType,
-  type DemographicTypeDisplayName,
+import type { DemographicGroup } from '../../data/utils/Constants'
+import type {
+  DemographicType,
+  DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
-import { type DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface MenuPopoverProps {
@@ -20,7 +21,7 @@ interface MenuPopoverProps {
     | DemographicGroup[]
   onClick: (
     event: React.MouseEvent<HTMLElement>,
-    value: DemographicGroup
+    value: DemographicGroup,
   ) => void
   // Optional additional actions to do when the popover is closed
   onClose?: () => void
@@ -99,7 +100,7 @@ interface DropDownMenuProps {
   // Update parent component with a newly selected value.
   onOptionUpdate: (
     category: DemographicGroup | undefined,
-    filterSelection: DemographicGroup
+    filterSelection: DemographicGroup,
   ) => void
   idSuffix?: string
   demographicType: DemographicType
@@ -115,7 +116,7 @@ interface DropDownMenuProps {
 */
 function DropDownMenu(props: DropDownMenuProps) {
   const [firstMenuSelection, setFirstMenuSelection] = useState(
-    Object.keys(props.options)[0]
+    Object.keys(props.options)[0],
   )
   const oneLevelMenu = Object.keys(props.options).length === 1
 
@@ -127,7 +128,7 @@ function DropDownMenu(props: DropDownMenuProps) {
   const suffix = useHIVLabelSuffix(
     props.demographicType,
     props.value,
-    props.dataTypeId
+    props.dataTypeId,
   )
 
   return (
@@ -177,7 +178,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         items={props.options[firstMenuSelection]}
         onClick={(
           _unusedEvent: React.MouseEvent<HTMLElement>,
-          value: DemographicGroup
+          value: DemographicGroup,
         ) => {
           firstMenu.close()
           secondMenu.close()

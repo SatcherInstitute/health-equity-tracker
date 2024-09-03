@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import LazyLoad from 'react-lazyload'
 import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
@@ -6,18 +6,18 @@ import UnknownsMapCard from '../cards/UnknownsMapCard'
 import { UNKNOWN_RACE } from '../data/utils/Constants'
 
 interface CustomUnknownMapProps {
-  headerScrollMargin?: string;
-  fips?: Fips;
-  updateFipsCallback?: (fips: Fips) => void;
-  demographicType?: string;
-  shareMetricConfig?: boolean;
-  reportTitle?: string;
+  headerScrollMargin?: string
+  fips?: Fips
+  updateFipsCallback?: (fips: Fips) => void
+  demographicType?: string
+  shareMetricConfig?: boolean
+  reportTitle?: string
 }
 
 const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
   headerScrollMargin = '50px',
-  fips = new Fips('00'), 
-  updateFipsCallback = (fips: Fips) => { },
+  fips = new Fips('00'),
+  updateFipsCallback = (fips: Fips) => {},
   demographicType = UNKNOWN_RACE,
   shareMetricConfig = true,
   reportTitle = 'Default Report Title',

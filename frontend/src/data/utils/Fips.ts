@@ -1,4 +1,4 @@
-import { type GeographicBreakdown } from '../query/Breakdowns'
+import type { GeographicBreakdown } from '../query/Breakdowns'
 import {
   USA_FIPS,
   TERRITORY_CODES,

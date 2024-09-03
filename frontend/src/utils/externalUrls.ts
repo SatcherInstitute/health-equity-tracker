@@ -115,6 +115,8 @@ export const urlMap: Record<LinkName, string> = {
   msm: 'https://www.msm.edu/',
   whoWomenVoting:
     'https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality',
-  censusRaceEthnicity: 'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html',
-  wisqarsMethodology: 'https://wisqars.cdc.gov/about/fatal-injury-data/#resources'
+  censusRaceEthnicity:
+    'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html',
+  wisqarsMethodology:
+    'https://wisqars.cdc.gov/about/fatal-injury-data/#resources',
 }

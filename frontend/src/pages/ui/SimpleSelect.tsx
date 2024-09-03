@@ -15,7 +15,7 @@ interface SimpleSelectProps<ListItemType> {
 }
 
 export default function SimpleSelect<ListItemType>(
-  props: SimpleSelectProps<ListItemType>
+  props: SimpleSelectProps<ListItemType>,
 ) {
   function handleChange(event: SelectChangeEvent) {
     props.setSelected(event.target.value as ListItemType)

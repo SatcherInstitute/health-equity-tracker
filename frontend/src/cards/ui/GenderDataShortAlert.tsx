@@ -1,10 +1,10 @@
 import { urlMap } from '../../utils/externalUrls'
-import { type MetricId, type DataTypeId } from '../../data/config/MetricConfig'
-import { type Fips } from '../../data/utils/Fips'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import type { MetricId, DataTypeId } from '../../data/config/MetricConfig'
+import type { Fips } from '../../data/utils/Fips'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
-import { type Row } from '../../data/utils/DatasetTypes'
+import type { Row } from '../../data/utils/DatasetTypes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
@@ -52,7 +52,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
   }
 
   const dataAlls: Row[] = props.queryResponse.data.filter(
-    (row) => row[props.demographicType] === ALL
+    (row) => row[props.demographicType] === ALL,
   )
 
   const transMenCountId: MetricId | undefined =

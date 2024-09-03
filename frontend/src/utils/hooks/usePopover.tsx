@@ -13,7 +13,7 @@ export interface PopoverElements {
 
 export function usePopover(anchorElement?: any): PopoverElements {
   const [anchor, setAnchor] = useState<HTMLElement | null>(
-    anchorElement || null
+    anchorElement || null,
   )
 
   const open = (event: React.MouseEvent<HTMLElement>) => {

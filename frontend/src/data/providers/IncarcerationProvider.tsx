@@ -1,12 +1,12 @@
 import { getDataManager } from '../../utils/globals'
-import { type Breakdowns } from '../query/Breakdowns'
+import type { Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { type MetricId, type DataTypeId } from '../config/MetricConfig'
+import type { MetricId, DataTypeId } from '../config/MetricConfig'
 import VariableProvider from './VariableProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { DatasetId } from '../config/DatasetMetadata'
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
@@ -75,7 +75,7 @@ class IncarcerationProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
@@ -89,7 +89,7 @@ class IncarcerationProvider extends VariableProvider {
 
     const mostRecentYear = getMostRecentYearAsString(
       df,
-      metricQuery.metricIds[0]
+      metricQuery.metricIds[0],
     )
 
     df = this.filterByTimeView(df, timeView, mostRecentYear)
@@ -109,19 +109,19 @@ class IncarcerationProvider extends VariableProvider {
     // National Level - Map of all states + territory bubbles
     if (breakdowns.geography === 'state' && !breakdowns.filterFips) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-by_sex_territory_state_level'
+        'decia_2020_territory_population-by_sex_territory_state_level',
       )
     }
 
     // Territory Level (Island Areas) - All cards
     if (breakdowns.filterFips?.isIslandArea()) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-by_sex_territory_state_level'
+        'decia_2020_territory_population-by_sex_territory_state_level',
       )
       // only time-series cards use decia 2010
       if (timeView === 'historical') {
         consumedDatasetIds.push(
-          'decia_2010_territory_population-by_sex_territory_state_level'
+          'decia_2010_territory_population-by_sex_territory_state_level',
         )
       }
     }

@@ -1,38 +1,38 @@
 import VaccineProvider from './VaccineProvider'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { NC, USA, MARIN } from './TestUtils'
 import { RACE, SEX, AGE } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   vaccinationDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
-  demographicType: DemographicType
+  demographicType: DemographicType,
 ) {
   const vaccineProvider = new VaccineProvider()
   const specificDatasetId = appendFipsIfNeeded(
     vaccinationDatasetId,
-    baseBreakdown
+    baseBreakdown,
   )
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await vaccineProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
+    new MetricQuery([], baseBreakdown.addBreakdown(demographicType)),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
   expect(responseIncludingAll.consumedDatasetIds).toContain(
-    vaccinationDatasetId
+    vaccinationDatasetId,
   )
 }
 
@@ -50,7 +50,7 @@ describe('VaccineProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'kff_vaccination-race_and_ethnicity_state',
       Breakdowns.forFips(new Fips(NC.code)),
-      RACE
+      RACE,
     )
   })
 
@@ -58,7 +58,7 @@ describe('VaccineProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_vaccination_national-race_processed',
       Breakdowns.forFips(new Fips(USA.code)),
-      RACE
+      RACE,
     )
   })
 
@@ -66,7 +66,7 @@ describe('VaccineProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_vaccination_national-sex_processed',
       Breakdowns.forFips(new Fips(USA.code)),
-      SEX
+      SEX,
     )
   })
 
@@ -74,7 +74,7 @@ describe('VaccineProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_vaccination_national-age_processed',
       Breakdowns.forFips(new Fips(USA.code)),
-      AGE
+      AGE,
     )
   })
 
@@ -82,7 +82,7 @@ describe('VaccineProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_vaccination_county-alls_county',
       Breakdowns.forFips(new Fips(MARIN.code)),
-      RACE
+      RACE,
     )
   })
 })

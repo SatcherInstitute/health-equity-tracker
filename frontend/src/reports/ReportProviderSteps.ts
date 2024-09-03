@@ -1,4 +1,4 @@
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 export interface StepLabelInfo {
   pluralOnCompare: boolean
