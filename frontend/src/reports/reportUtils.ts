@@ -9,7 +9,10 @@ import {
   CAWP_DATA_TYPES,
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
-import { BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/GunDeathsBlackMenProvider'
+import {
+  BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
+  BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY,
+} from '../data/providers/GunDeathsBlackMenProvider'
 import {
   GUN_VIOLENCE_YOUTH_DATATYPES,
   GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -20,8 +23,10 @@ import {
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/HivProvider'
 import {
-  PHRMA_BRFSS_DATATYPES,
+  PHRMA_BRFSS_ALL_SEXES_DATATYPES,
   PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
+  PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
+  PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES,
 } from '../data/providers/PhrmaBrfssProvider'
 import {
   PHRMA_DATATYPES,
@@ -58,13 +63,25 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
-const PHRMA_BRFSS_TYPES_MAP: Partial<Record<string, DemographicType>> = {
+const PHRMA_BRFSS_TYPES_WITHOUT_SEX_MAP: Partial<
+  Record<string, DemographicType>
+> = {
   'Race/ethnicity': 'race_and_ethnicity',
   Age: 'age',
   'Insurance Status': 'insurance_status',
   Education: 'education',
   Income: 'income',
 }
+
+const PHRMA_BRFSS_TYPES_WITH_SEX_MAP: Partial<Record<string, DemographicType>> =
+  {
+    'Race/ethnicity': 'race_and_ethnicity',
+    Age: 'age',
+    'Insurance Status': 'insurance_status',
+    Education: 'education',
+    Income: 'income',
+    Sex: 'sex',
+  }
 
 const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   Urbanicity: 'urbanicity',
@@ -166,6 +183,7 @@ export function getAllDemographicOptions(
       ...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
+
   // PHRMA (ENABLED OPTIONS WHEN ALL REPORTS ARE PHRMA)
   if (configsContainsMatchingId(configs, PHRMA_DATATYPES, true))
     enabledDemographicOptionsMap = PHRMA_TYPES_MAP
@@ -178,6 +196,44 @@ export function getAllDemographicOptions(
   exactlyOneReportIsPhrma &&
     disabledDemographicOptionsWithRepeats.push(
       ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
+    )
+
+  // PHRMA BRFSS SEX SPECIFIC CANCER SCREENINGS (ENABLED OPTIONS WHEN ALL REPORTS ARE SEX SPECIFIC PHRMA BRFSS)
+  if (
+    configsContainsMatchingId(configs, PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES, true)
+  )
+    enabledDemographicOptionsMap = PHRMA_BRFSS_TYPES_WITHOUT_SEX_MAP
+  // PHRMA (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS PHRMA BRFSS)
+  const exactlyOneReportIsPhrmaBrfssSexSpecific =
+    dataTypeConfig1?.dataTypeId &&
+    dataTypeConfig2?.dataTypeId &&
+    Boolean(
+      PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES.includes(dataTypeConfig1.dataTypeId),
+    ) !==
+      Boolean(
+        PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES.includes(dataTypeConfig2.dataTypeId),
+      )
+  exactlyOneReportIsPhrmaBrfssSexSpecific &&
+    disabledDemographicOptionsWithRepeats.push(
+      ...PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
+    )
+
+  // PHRMA BRFSS ALL SEXES CANCER SCREENINGS (ENABLED OPTIONS WHEN ALL REPORTS ARE ALL SEXES PHRMA BRFSS)
+  if (configsContainsMatchingId(configs, PHRMA_BRFSS_ALL_SEXES_DATATYPES, true))
+    enabledDemographicOptionsMap = PHRMA_BRFSS_TYPES_WITH_SEX_MAP
+  // PHRMA (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS PHRMA BRFSS)
+  const exactlyOneReportIsPhrmaBrfssAllSexes =
+    dataTypeConfig1?.dataTypeId &&
+    dataTypeConfig2?.dataTypeId &&
+    Boolean(
+      PHRMA_BRFSS_ALL_SEXES_DATATYPES.includes(dataTypeConfig1.dataTypeId),
+    ) !==
+      Boolean(
+        PHRMA_BRFSS_ALL_SEXES_DATATYPES.includes(dataTypeConfig2.dataTypeId),
+      )
+  exactlyOneReportIsPhrmaBrfssAllSexes &&
+    disabledDemographicOptionsWithRepeats.push(
+      ...PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
 
   // COVID VACCINATIONS
@@ -198,7 +254,20 @@ export function getAllDemographicOptions(
       ...BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
-  // remove any duplicates
+  // DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS BLACK MEN HOMICIDES
+  const exactlyOneReportIsBlackMenHomicides =
+    dataTypeConfig1?.dataTypeId &&
+    dataTypeConfig2?.dataTypeId &&
+    Boolean(['gun_deaths_black_men'].includes(dataTypeConfig1.dataTypeId)) !==
+      Boolean(['gun_deaths_black_men'].includes(dataTypeConfig2.dataTypeId))
+  if (exactlyOneReportIsBlackMenHomicides) {
+    enabledDemographicOptionsMap = ONLY_AGE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY,
+    )
+  }
+
+  // remove duplicates from combined array of above additions
   const disabledDemographicOptions = Array.from(
     new Set(disabledDemographicOptionsWithRepeats),
   )
