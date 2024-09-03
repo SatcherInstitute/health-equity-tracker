@@ -1,6 +1,6 @@
 import { Popover } from '@mui/material'
-import { type ReactNode } from 'react'
-import { type PopoverElements } from '../../utils/hooks/usePopover'
+import type { ReactNode } from 'react'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
 
 interface HetPopoverProps {
   children: ReactNode

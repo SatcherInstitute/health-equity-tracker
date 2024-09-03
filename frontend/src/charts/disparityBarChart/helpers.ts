@@ -1,5 +1,5 @@
-import { type Signal } from 'vega'
-import { type MetricId } from '../../data/config/MetricConfig'
+import type { Signal } from 'vega'
+import type { MetricId } from '../../data/config/MetricConfig'
 import { Y_STEP } from './constants'
 
 function getSignals() {
@@ -19,19 +19,19 @@ function getSignals() {
 
 function maxValueInField(
   data: Array<Readonly<Record<string, any>>>,
-  field: MetricId
+  field: MetricId,
 ) {
   return Math.max(
     ...data
       .map((row) => row[field])
-      .filter((value: number | undefined) => value !== undefined)
+      .filter((value: number | undefined) => value !== undefined),
   )
 }
 
 function getLargerMeasure(
   data: Array<Readonly<Record<string, any>>>,
   lightMetricId: MetricId,
-  darkMetricId: MetricId
+  darkMetricId: MetricId,
 ) {
   const lightValue = maxValueInField(data, lightMetricId)
   const darkValue = maxValueInField(data, darkMetricId)

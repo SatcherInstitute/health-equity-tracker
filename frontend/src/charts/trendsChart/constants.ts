@@ -1,5 +1,5 @@
 import { format, utcFormat, scaleOrdinal } from 'd3'
-import { type MetricType } from '../../data/config/MetricConfig'
+import type { MetricType } from '../../data/config/MetricConfig'
 import {
   AAPI_W,
   AIANNH_W,
@@ -57,7 +57,6 @@ const {
   altOrange,
   mapMedicareDarkest,
   mapMedicareDark,
-
 } = het
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
@@ -152,8 +151,8 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '85+': altGrey,
 
   // urbanicity
-  "Metro": timePurple,
-  "Non-Metro": timeYellow,
+  Metro: timePurple,
+  'Non-Metro': timeYellow,
 }
 
 // domain for color scale
@@ -208,7 +207,7 @@ const FORMATTERS = {
   dateFromString_MM_YYYY: (str: string) =>
     str && utcFormat('%B %Y')(new Date(str)),
   num: format('.2~f'),
-  num100k: (d: number) => d < 10 ? format('.1~f')(d) : format('.0~f')(d), // show single decimal if less than 10, remove trailling zeros
+  num100k: (d: number) => (d < 10 ? format('.1~f')(d) : format('.0~f')(d)), // show single decimal if less than 10, remove trailling zeros
   plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`, // add "+" only to positive numbers (not 0)
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }

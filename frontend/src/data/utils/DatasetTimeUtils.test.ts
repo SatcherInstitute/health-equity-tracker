@@ -1,5 +1,5 @@
 import { DataFrame } from 'data-forge'
-import { TrendsData } from '../../charts/trendsChart/types'
+import type { TrendsData } from '../../charts/trendsChart/types'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import {
   generateConsecutivePeriods,
@@ -11,7 +11,7 @@ import {
   getMinMaxGroups,
   getMostRecentYearAsString,
 } from './DatasetTimeUtils'
-import { Row } from './DatasetTypes'
+import type { Row } from './DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from './datasetutils'
 
 describe('Tests for time_period functions', () => {
@@ -44,7 +44,7 @@ describe('Tests for time_period functions', () => {
     const expectedConsecutivePeriodsMonthly = ['2000-01', '2000-02', '2000-03']
 
     expect(generateConsecutivePeriods(testDataMonthly)).toEqual(
-      expectedConsecutivePeriodsMonthly
+      expectedConsecutivePeriodsMonthly,
     )
 
     const testDataYearly = [
@@ -55,7 +55,7 @@ describe('Tests for time_period functions', () => {
     const expectedConsecutivePeriodsYearly = ['2001', '2002', '2003']
 
     expect(generateConsecutivePeriods(testDataYearly)).toEqual(
-      expectedConsecutivePeriodsYearly
+      expectedConsecutivePeriodsYearly,
     )
   })
 })
@@ -123,14 +123,14 @@ describe('Tests for nesting functions', () => {
         twoYearsOfNormalData,
         ['Male', 'Female'],
         'sex',
-        'jail_per_100k'
-      )
+        'jail_per_100k',
+      ),
     ).toEqual(twoYearsOfNestedData)
   })
 
   test('test getNestedUnknowns()', () => {
     const twoYearsOfUnknownsFromNormalData = twoYearsOfNormalData.filter(
-      (row) => row.sex === 'Unknown'
+      (row) => row.sex === 'Unknown',
     )
     const expectedNestedUnknowns = [
       ['2020', 40],
@@ -138,7 +138,7 @@ describe('Tests for nesting functions', () => {
     ]
 
     expect(
-      getNestedUnknowns(twoYearsOfUnknownsFromNormalData, 'jail_pct_share')
+      getNestedUnknowns(twoYearsOfUnknownsFromNormalData, 'jail_pct_share'),
     ).toEqual(expectedNestedUnknowns)
   })
 
@@ -154,7 +154,7 @@ describe('Tests for A11y Table Data functions', () => {
   test('test makeA11yTableData()', () => {
     const [known, unknown] = splitIntoKnownsAndUnknowns(
       twoYearsOfNormalData,
-      'sex'
+      'sex',
     )
 
     const expectedA11yTableDataOnlyMale: Row[] = [
@@ -183,8 +183,8 @@ describe('Tests for A11y Table Data functions', () => {
         knownMetric!,
         unknownMetric!,
         ['Male'],
-        /* hasUnknowns */ true
-      )
+        /* hasUnknowns */ true,
+      ),
     ).toEqual(expectedA11yTableDataOnlyMale)
   })
 })
@@ -228,11 +228,11 @@ describe('Tests getMostRecentYearAsString()', () => {
   test('correct year string is returned', async () => {
     const mostRecentYearCongress = getMostRecentYearAsString(
       mockDataFrame,
-      'pct_share_of_women_us_congress'
+      'pct_share_of_women_us_congress',
     )
     const mostRecentYearStateLeg = getMostRecentYearAsString(
       mockDataFrame,
-      'pct_share_of_women_state_leg'
+      'pct_share_of_women_state_leg',
     )
     expect(mostRecentYearCongress).toEqual('2017')
     expect(mostRecentYearStateLeg).toEqual('2019')
@@ -240,7 +240,7 @@ describe('Tests getMostRecentYearAsString()', () => {
   test('handles missing metricId', async () => {
     const nonExistentMetricYear = getMostRecentYearAsString(
       mockDataFrame,
-      'hiv_prevalence_per_100k'
+      'hiv_prevalence_per_100k',
     )
     expect(nonExistentMetricYear).toBeUndefined()
   })
@@ -266,7 +266,7 @@ describe('Tests getMostRecentYearAsString()', () => {
   test('df with no time period column returns undefined', async () => {
     const mostRecentYear = getMostRecentYearAsString(
       mockDataFrameNoTime,
-      'pct_share_of_women_us_congress'
+      'pct_share_of_women_us_congress',
     )
     expect(mostRecentYear).toEqual(undefined)
   })

@@ -1,7 +1,7 @@
-import { type IDataFrame } from 'data-forge'
-import { type MetricId, type DataTypeId } from '../config/MetricConfig'
-import { type ProviderId } from '../loading/VariableProviderMap'
-import { type Breakdowns, type TimeView } from '../query/Breakdowns'
+import type { IDataFrame } from 'data-forge'
+import type { MetricId, DataTypeId } from '../config/MetricConfig'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import {
   createMissingDataResponse,
   type MetricQuery,
@@ -9,7 +9,7 @@ import {
 } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { TIME_PERIOD } from '../utils/Constants'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { DatasetId } from '../config/DatasetMetadata'
 
 abstract class VariableProvider {
   readonly providerId: ProviderId
@@ -24,9 +24,9 @@ abstract class VariableProvider {
     if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
       return createMissingDataResponse(
         'Breakdowns not supported for provider ' +
-        this.providerId +
-        ': ' +
-        metricQuery.breakdowns.getUniqueKey()
+          this.providerId +
+          ': ' +
+          metricQuery.breakdowns.getUniqueKey(),
       )
     }
 
@@ -54,7 +54,7 @@ abstract class VariableProvider {
   filterByTimeView(
     df: IDataFrame,
     timeView: TimeView,
-    sourceCurrentTimePeriod?: string
+    sourceCurrentTimePeriod?: string,
   ): IDataFrame {
     // TODO: this should probably be deprecated, and we should rely on distinct _current or _historical tables on the backend
     // This method should only be used when the current year  dataset is a recent subset of the historical D3 dataset
@@ -110,7 +110,7 @@ abstract class VariableProvider {
     requestedColumns = requestedColumns.concat(
       Object.entries(metricQuery.breakdowns.demographicBreakdowns)
         .filter(([unusedKey, breakdown]) => breakdown.enabled)
-        .map(([unusedKey, breakdown]) => breakdown.columnName)
+        .map(([unusedKey, breakdown]) => breakdown.columnName),
     )
 
     const columnsToRemove = dataFrame
@@ -122,7 +122,7 @@ abstract class VariableProvider {
 
   applyDemographicBreakdownFilters(
     df: IDataFrame,
-    breakdowns: Breakdowns
+    breakdowns: Breakdowns,
   ): IDataFrame {
     let dataFrame = df
     Object.values(breakdowns.demographicBreakdowns).forEach((demo) => {
@@ -140,18 +140,18 @@ abstract class VariableProvider {
   }
 
   abstract getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse>
 
   abstract allowsBreakdowns(
     breakdowns: Breakdowns,
-    metricIds?: MetricId[]
+    metricIds?: MetricId[],
   ): boolean
 
   abstract getDatasetId(
     breakdown: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ): DatasetId | undefined
 }
 

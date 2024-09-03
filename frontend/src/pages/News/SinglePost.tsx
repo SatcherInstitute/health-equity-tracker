@@ -55,14 +55,14 @@ export default function SinglePost(props: SinglePostProps) {
   const { data, isLoading, isError } = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
-    REACT_QUERY_OPTIONS
+    REACT_QUERY_OPTIONS,
   )
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
-        (article: Article) => article.slug === slug
+        (article: Article) => article.slug === slug,
       )
       setFullArticle(data.data[fullArticleIndex])
       // previous and next articles wrap around both ends of the array
@@ -71,7 +71,7 @@ export default function SinglePost(props: SinglePostProps) {
           fullArticleIndex - 1 >= 0
             ? fullArticleIndex - 1
             : data.data.length - 1
-        ]
+        ],
       )
       setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length])
     }

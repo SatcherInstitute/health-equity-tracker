@@ -52,18 +52,18 @@ class GunViolenceYouthProvider extends VariableProvider {
   ): DatasetId | undefined {
     if (timeView === 'current') {
       if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography == 'national')
+        if (breakdowns.geography === 'national')
           return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current'
-        if (breakdowns.geography == 'state')
+        if (breakdowns.geography === 'state')
           return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current'
       }
     }
 
     if (timeView === 'historical') {
       if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography == 'national')
+        if (breakdowns.geography === 'national')
           return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical'
-        if (breakdowns.geography == 'state')
+        if (breakdowns.geography === 'state')
           return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical'
       }
     }

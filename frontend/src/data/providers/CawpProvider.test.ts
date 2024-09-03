@@ -2,7 +2,7 @@ import { Breakdowns } from '../query/Breakdowns'
 import {
   HISPANIC,
   RACE,
-  RaceAndEthnicityGroup,
+  type RaceAndEthnicityGroup,
   UNKNOWN_RACE,
   WHITE,
 } from '../utils/Constants'
@@ -15,14 +15,14 @@ describe('CAWP Unit Tests', () => {
   test('Test getDatasetId() National', async () => {
     const national = Breakdowns.forFips(new Fips('00')).addBreakdown(RACE)
     expect(cawp.getDatasetId(national, undefined, 'current')).toEqual(
-      'cawp_time_data-race_and_ethnicity_national_current'
+      'cawp_time_data-race_and_ethnicity_national_current',
     )
   })
 
   test('Test getDatasetId() State', async () => {
     const national = Breakdowns.forFips(new Fips('01')).addBreakdown(RACE)
     expect(cawp.getDatasetId(national, undefined, 'historical')).toEqual(
-      'cawp_time_data-race_and_ethnicity_state_historical'
+      'cawp_time_data-race_and_ethnicity_state_historical',
     )
   })
 
@@ -30,7 +30,7 @@ describe('CAWP Unit Tests', () => {
     expect(getWomenRaceLabel(UNKNOWN_RACE)).toEqual('Women with unknown race')
     expect(getWomenRaceLabel(WHITE)).toEqual('White women')
     expect(
-      getWomenRaceLabel('almost_anything' as RaceAndEthnicityGroup)
+      getWomenRaceLabel('almost_anything' as RaceAndEthnicityGroup),
     ).toEqual('almost_anything women')
     expect(getWomenRaceLabel(HISPANIC)).not.toEqual('Hispanic and Latino women')
   })

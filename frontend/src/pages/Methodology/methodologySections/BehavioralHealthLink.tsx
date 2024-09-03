@@ -27,11 +27,11 @@ const behavioralHealthDataSources = [
 const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.flatMap(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
-  }
+  },
 )
 
 export const behavioralHealthTopicsString = buildTopicsString(
-  BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS
+  BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS,
 )
 
 export default function BehavioralHealthLink() {
@@ -67,7 +67,9 @@ export default function BehavioralHealthLink() {
           The data on behavioral health conditions such as frequent mental
           distress, depression, and excessive drinking, featured in the Health
           Equity Tracker, come from{' '}
-          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and{' '}
+          <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which
+          primarily rely on the{' '}
           <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}
