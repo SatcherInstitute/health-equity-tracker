@@ -1,7 +1,7 @@
 astroid
 blinker==1.8.2
 cachetools==5.5.0
-certifi==2024.7.4
+certifi==2024.8.30
 cffi==1.17.0
 chardet==5.2.0
 charset-normalizer==3.3.2
@@ -21,10 +21,10 @@ google-cloud-pubsub
 google-cloud-storage
 google-crc32c==1.5.0
 google-resumable-media
-googleapis-common-protos[grpc]==1.63.2
+googleapis-common-protos[grpc]==1.65.0
 grpc-google-iam-v1==0.13.1
-grpcio-status==1.66.0
-grpcio==1.66.0
+grpcio-status==1.66.1
+grpcio==1.66.1
 gunicorn==23.0.0
 idna
 importlib-metadata==8.4.0
@@ -36,7 +36,7 @@ libcst==1.4.0
 markupsafe==2.1.5
 mccabe==0.7.0
 mypy-extensions==1.0.0
-numpy==2.0.1
+numpy==2.1.0
 openpyxl==3.1.5
 packaging==24.1
 pandas==2.2.2
@@ -48,7 +48,7 @@ pyarrow==17.0.0
 pyasn1-modules==0.4.0
 pyasn1==0.6.0
 pycparser==2.22
-pylint==3.2.6
+pylint==3.2.7
 pyparsing==3.1.4
 pytest==8.3.2
 python-dateutil==2.9.0.post0
@@ -64,4 +64,4 @@ tzdata==2024.1
 urllib3
 Werkzeug==3.0.4
 xlrd==2.0.1
-zipp==3.20.0
+zipp==3.20.1
