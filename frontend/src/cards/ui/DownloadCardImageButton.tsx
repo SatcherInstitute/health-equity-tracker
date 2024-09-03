@@ -3,7 +3,7 @@ import { SaveAlt } from '@mui/icons-material'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import MenuItem from '@mui/material/MenuItem'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
-import { type PopoverElements } from '../../utils/hooks/usePopover'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
 
 interface DownloadCardImageButtonProps {
   downloadTargetScreenshot: () => Promise<boolean>

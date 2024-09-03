@@ -7,18 +7,16 @@
  * returns jsx of a div with a grid of names, bar chart viz, and amounts
 
 /* External Imports */
-import  { Fragment } from 'react'
+import { Fragment } from 'react'
 
 /* Local Imports */
-import { LESS_THAN_POINT_1, raceNameToCodeMap } from '../../data/utils/Constants'
+import {
+  LESS_THAN_POINT_1,
+  raceNameToCodeMap,
+} from '../../data/utils/Constants'
 
 /* Constants */
-import {
-  type TrendsData,
-  type GroupData,
-  type TimeSeries,
-  type AxisConfig,
-} from './types'
+import type { TrendsData, GroupData, TimeSeries, AxisConfig } from './types'
 import { TYPES, FORMATTERS as F, COLORS as C } from './constants'
 
 /* Helpers */
@@ -107,10 +105,9 @@ export function TrendsTooltip({
         {data &&
           sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
-
               // get value or "<.1" to prevent potentially misleading "0 per 100k" on rates
               let value = TYPE_CONFIG[type]?.formatter(
-                getAmountsByDate(d, selectedDate)
+                getAmountsByDate(d, selectedDate),
               )
 
               if (value === '0' && axisConfig.type === 'per100k')
@@ -128,7 +125,7 @@ export function TrendsTooltip({
                       transform: `translateX(${TYPE_CONFIG[type]?.translate_x(
                         d,
                         selectedDate,
-                        data
+                        data,
                       )}px)`,
                     }}
                     className='h-2.5 transition duration-200 ease-linear'
@@ -143,7 +140,7 @@ export function TrendsTooltip({
                   </div>
                 </Fragment>
               )
-            }
+            },
           )}
       </div>
     </div>

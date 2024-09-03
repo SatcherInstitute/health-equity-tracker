@@ -19,7 +19,7 @@ import {
   UNKNOWN_GROUP_COLOR_EXTENT,
   FORMATTERS as F,
 } from './constants'
-import { type UnknownData, type XScale } from './types'
+import type { UnknownData, XScale } from './types'
 
 /* Define type interface */
 interface CircleChartProps {
@@ -54,12 +54,12 @@ export function CircleChart({
   // radius scale for circles
   const rScale = scaleSqrt(
     unknownGroupExtent as [number, number],
-    isSkinny ? MOBILE.RADIUS_EXTENT : RADIUS_EXTENT
+    isSkinny ? MOBILE.RADIUS_EXTENT : RADIUS_EXTENT,
   )
   // color interpolation scale
   const colors = scaleLinear(
     unknownGroupExtent as [number, number],
-    UNKNOWN_GROUP_COLOR_EXTENT
+    UNKNOWN_GROUP_COLOR_EXTENT,
   )
 
   /* Memoized Values */

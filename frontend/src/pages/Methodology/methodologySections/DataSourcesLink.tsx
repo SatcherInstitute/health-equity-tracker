@@ -12,7 +12,10 @@ export default function DataSourcesLink() {
         <h2 className='sr-only'>Source Acquisition</h2>
         <div>
           <p>
-            The Health Equity Tracker is committed to providing accurate, transparent, and up-to-date information on documented health inequities. This section elaborates on how we acquire, standardize, and present our data.
+            The Health Equity Tracker is committed to providing accurate,
+            transparent, and up-to-date information on documented health
+            inequities. This section elaborates on how we acquire, standardize,
+            and present our data.
           </p>
 
           <h3 className='mt-12 text-title font-medium'>Data Sources</h3>

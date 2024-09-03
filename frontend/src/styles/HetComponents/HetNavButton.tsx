@@ -1,6 +1,6 @@
 import type React from 'react'
 import { Button } from '@mui/material'
-import {ExpandMore} from '@mui/icons-material'
+import { ExpandMore } from '@mui/icons-material'
 
 interface HetNavButtonProps {
   label: string

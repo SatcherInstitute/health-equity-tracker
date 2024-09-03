@@ -1,5 +1,5 @@
 import { HashLink } from 'react-router-hash-link'
-import { type DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfig'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'

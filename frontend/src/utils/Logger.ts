@@ -26,7 +26,7 @@ class Logger {
   async logError(
     error: Error,
     severity: Severity,
-    context?: Record<string, string>
+    context?: Record<string, string>,
   ) {
     const consoleFn = this.getConsoleFn(severity)
     if (this.enableConsoleLogging) {

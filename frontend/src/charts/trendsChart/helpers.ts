@@ -1,10 +1,5 @@
 import { ascending, descending, max, min } from 'd3'
-import {
-  type TrendsData,
-  type GroupData,
-  type TimeSeries,
-  type UnknownData,
-} from './types'
+import type { TrendsData, GroupData, TimeSeries, UnknownData } from './types'
 import { CONFIG } from './constants'
 
 const { BAR_WIDTH } = CONFIG
@@ -36,14 +31,14 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
       .filter(
         ([, data]) =>
           getAmountsByDate(data, selectedDate) ||
-          getAmountsByDate(data, selectedDate) === 0
+          getAmountsByDate(data, selectedDate) === 0,
       )
       // sort remaining data by number for this date, highest number first
       .sort(([, aData]: GroupData, [group, bData]: GroupData) =>
         descending(
           getAmountsByDate(aData, selectedDate),
-          getAmountsByDate(bData, selectedDate)
-        )
+          getAmountsByDate(bData, selectedDate),
+        ),
       ) || d
   )
 }
@@ -55,7 +50,7 @@ function getMaxNumberForDate(data: TrendsData, selectedDate: string | null) {
     d
       .filter(([date]) => date === selectedDate)
       // return the absolute value of the numbers for this date
-      .map(([, number]) => Math.abs(number))
+      .map(([, number]) => Math.abs(number)),
   )
   // return the max number
   return max(numbers)
@@ -79,8 +74,8 @@ function getDates(data: TrendsData) {
   return data?.length
     ? Array.from(
         new Set(
-          data.flatMap(([_, d]) => d.map(([date]: [string, number]) => date))
-        )
+          data.flatMap(([_, d]) => d.map(([date]: [string, number]) => date)),
+        ),
       ).sort((a, b) => ascending(new Date(a), new Date(b)))
     : []
 }
@@ -89,7 +84,7 @@ function getDates(data: TrendsData) {
 function getAmounts(data: TrendsData) {
   return data?.length
     ? data.flatMap(([_, d]) =>
-        d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0]
+        d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0],
       )
     : [0]
 }
@@ -98,7 +93,7 @@ function getAmounts(data: TrendsData) {
 function getWidthPctShare(
   d: TimeSeries,
   selectedDate: string | null,
-  data: TrendsData
+  data: TrendsData,
 ) {
   const width =
     (Math.abs(getAmountsByDate(d, selectedDate)) /
@@ -111,7 +106,7 @@ function getWidthPctShare(
 function getWidthHundredK(
   d: TimeSeries,
   selectedDate: string | null,
-  data: TrendsData
+  data: TrendsData,
 ) {
   const width =
     (getAmountsByDate(d, selectedDate) /
@@ -124,7 +119,7 @@ function getWidthHundredK(
 function translateXPctShare(
   d: TimeSeries,
   selectedDate: string | null,
-  data: TrendsData
+  data: TrendsData,
 ) {
   const translateX =
     getAmountsByDate(d, selectedDate) > 0

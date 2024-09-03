@@ -55,7 +55,7 @@ export default function MadLibUI(props: MadLibUIProps) {
       ])
     } else {
       props.setMadLibWithParam(
-        getMadLibWithUpdatedValue(props.madLib, index, newValue)
+        getMadLibWithUpdatedValue(props.madLib, index, newValue),
       )
     }
     // drop card hash from url and scroll to top
@@ -69,7 +69,7 @@ export default function MadLibUI(props: MadLibUIProps) {
   function handleDataTypeUpdate(
     newDataType: DataTypeId,
     index: number,
-    setConfig: any
+    setConfig: any,
   ) {
     const dtPosition = index === 1 ? DATA_TYPE_1_PARAM : DATA_TYPE_2_PARAM
     const newConfig = getConfigFromDataTypeId(newDataType)
@@ -84,15 +84,15 @@ export default function MadLibUI(props: MadLibUIProps) {
       getParentDropdownFromDataTypeId(newDataType)
     // madlib with updated topic
     props.setMadLibWithParam(
-      getMadLibWithUpdatedValue(props.madLib, index, dropdownId)
+      getMadLibWithUpdatedValue(props.madLib, index, dropdownId),
     )
   }
 
   const [selectedDataTypeConfig1, setSelectedDataTypeConfig1] = useAtom(
-    selectedDataTypeConfig1Atom
+    selectedDataTypeConfig1Atom,
   )
   const [selectedDataTypeConfig2, setSelectedDataTypeConfig2] = useAtom(
-    selectedDataTypeConfig2Atom
+    selectedDataTypeConfig2Atom,
   )
 
   return (
@@ -113,7 +113,7 @@ export default function MadLibUI(props: MadLibUIProps) {
                   (dataTypeConfig: DataTypeConfig) => {
                     const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
                     return [dataTypeId, dataTypeShortLabel]
-                  }
+                  },
                 )
               }
 
@@ -125,7 +125,7 @@ export default function MadLibUI(props: MadLibUIProps) {
                   : setSelectedDataTypeConfig2
 
               const isLocationMadLib = isFipsString(
-                props.madLib.activeSelections[index]
+                props.madLib.activeSelections[index],
               )
 
               return (
@@ -171,7 +171,7 @@ export default function MadLibUI(props: MadLibUIProps) {
                             handleDataTypeUpdate(
                               newValue as DataTypeId,
                               index,
-                              setConfig
+                              setConfig,
                             )
                           }}
                           options={dataTypes}
@@ -181,7 +181,7 @@ export default function MadLibUI(props: MadLibUIProps) {
                   )}
                 </React.Fragment>
               )
-            }
+            },
           )}
         </div>
       </div>

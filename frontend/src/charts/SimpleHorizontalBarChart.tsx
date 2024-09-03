@@ -1,12 +1,12 @@
 import { Vega } from 'react-vega'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import {
   type DemographicType,
   type DemographicTypeDisplayName,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfig'
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -36,7 +36,7 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean,
   barLabelBreakpoint: number,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
 ): any {
   const MEASURE_COLOR = het.altGreen
   const BAR_HEIGHT = 60
@@ -55,17 +55,17 @@ function getSpec(
     chartIsSmall,
     measure,
     tooltipMetricDisplayColumnName,
-    usePercentSuffix
+    usePercentSuffix,
   )
 
   const legends = showLegend
     ? [
-      {
-        fill: 'variables',
-        orient: 'top',
-        padding: 4,
-      },
-    ]
+        {
+          fill: 'variables',
+          orient: 'top',
+          padding: 4,
+        },
+      ]
     : []
 
   const onlyZeros = data.every((row) => {
@@ -107,7 +107,7 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -134,7 +134,7 @@ function getSpec(
             fontSize: { value: 0 },
             text: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
             },
           },
@@ -150,7 +150,7 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -161,8 +161,9 @@ function getSpec(
             },
             baseline: { value: 'middle' },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? '5' : '1'
-                })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
+                width > 250 ? '5' : '1'
+              })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
@@ -273,12 +274,11 @@ interface SimpleHorizontalBarChartProps {
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
-
   const [ref, width] = useResponsiveWidth()
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
-    props.demographicType
+    props.demographicType,
   )
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
     addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter)
@@ -286,7 +286,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
     dataWithDisplayCol,
-    /* omitPctSymbol= */ true
+    /* omitPctSymbol= */ true,
   )
 
   const barLabelBreakpoint =
@@ -297,16 +297,18 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer='svg'
-        downloadFileName={`${props.filename ?? 'Data Download'
-          } - Health Equity Tracker`}
+        downloadFileName={`${
+          props.filename ?? 'Data Download'
+        } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${props.filename ?? 'Data Download'
+          /* altText  */ `Bar Chart showing ${
+            props.filename ?? 'Data Download'
           }`,
           /* data  */ data,
           /* width  */ width,
           /* demographicType  */ props.demographicType,
           /* demographicTypeDisplayName  */ DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-          props.demographicType
+            props.demographicType
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,
@@ -314,7 +316,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
           /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
-          /* usePercentSuffix  */ props.usePercentSuffix ?? false
+          /* usePercentSuffix  */ props.usePercentSuffix ?? false,
         )}
         actions={false}
       />

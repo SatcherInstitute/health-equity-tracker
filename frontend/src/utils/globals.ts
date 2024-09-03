@@ -25,7 +25,7 @@ function assertInitialized() {
 export function resetCacheDebug() {
   if (globals?.environment?.deployContext !== 'test') {
     throw new Error(
-      'resetCacheDebug must only be called from the test environment'
+      'resetCacheDebug must only be called from the test environment',
     )
   }
   globals.dataManager = new DataManager()
@@ -35,7 +35,7 @@ export function initGlobals(
   environment: Environment,
   logger: Logger,
   dataFetcher: DataFetcher,
-  dataManager: DataManager
+  dataManager: DataManager,
 ) {
   if (globals.initialized && !import.meta.env.PROD) {
     // throw new Error('Cannot initialize globals multiple times')
@@ -48,7 +48,7 @@ export function initGlobals(
   globals.dataManager = dataManager
   globals.initialized = true
   logger.debugLog(
-    'Initialized globals for context: ' + environment.deployContext
+    'Initialized globals for context: ' + environment.deployContext,
   )
 }
 
@@ -61,7 +61,7 @@ export function autoInitGlobals() {
   const environment = createEnvironment()
   const logger = new Logger(
     environment.getEnableServerLogging(),
-    environment.getEnableConsoleLogging()
+    environment.getEnableConsoleLogging(),
   )
   // Unit tests shouldn't do any real data fetches. All other deploy contexts
   // rely on real data fetches to function properly.

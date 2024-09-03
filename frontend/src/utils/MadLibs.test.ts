@@ -15,23 +15,21 @@ const usaTwoGeoAlsoDoesNotGetThe = 0
 describe('MadLib Unit Tests', () => {
   test('Test insertOptionalThe()', async () => {
     expect(insertOptionalThe(usaOneVarSelections, usaOneDoesNotGetThe)).toEqual(
-      _no_the
+      _no_the,
     )
 
     expect(insertOptionalThe(usaOneVarSelections, usaOneGetsThe)).toEqual(_the)
 
     expect(
-      insertOptionalThe(usaTwoGeoSelections, usaTwoGeoDoesNotGetThe)
+      insertOptionalThe(usaTwoGeoSelections, usaTwoGeoDoesNotGetThe),
     ).toEqual(_no_the)
 
     expect(insertOptionalThe(usaTwoGeoSelections, usaTwoGeoGetsThe)).toEqual(
-      _the
+      _the,
     )
 
     expect(
-      insertOptionalThe(usaTwoGeoSelections, usaTwoGeoAlsoDoesNotGetThe)
+      insertOptionalThe(usaTwoGeoSelections, usaTwoGeoAlsoDoesNotGetThe),
     ).toEqual(_no_the)
   })
 })
-
-export {}

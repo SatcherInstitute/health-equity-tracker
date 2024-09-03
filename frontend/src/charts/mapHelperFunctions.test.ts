@@ -1,7 +1,11 @@
-import { DataTypeConfig, DataTypeId, MetricId } from '../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+  MetricId,
+} from '../data/config/MetricConfig'
 import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
-import { CountColsMap, defaultHigherIsBetterMapConfig } from './mapGlobals'
+import { type CountColsMap, defaultHigherIsBetterMapConfig } from './mapGlobals'
 import {
   addCountsTooltipInfo,
   buildTooltipTemplate,
@@ -37,7 +41,7 @@ describe('Test addCountsTooltipInfo()', () => {
       'sex',
       {},
       phrmaCountColsMap,
-      'All'
+      'All',
     )
 
     const expectedTooltipPairsSexAll = {
@@ -55,7 +59,7 @@ describe('Test addCountsTooltipInfo()', () => {
       'age',
       {},
       phrmaCountColsMap,
-      '1-100'
+      '1-100',
     )
 
     const expectedTooltipPairsSexAll = {
@@ -73,7 +77,7 @@ describe('Test addCountsTooltipInfo()', () => {
       'race_and_ethnicity',
       {},
       phrmaCountColsMap,
-      BLACK_NH
+      BLACK_NH,
     )
 
     const expectedTooltipPairsSexAll = {
@@ -107,7 +111,7 @@ describe('Test addCountsTooltipInfo()', () => {
       {},
       cawpCountColsMap,
       BLACK,
-      true
+      true,
     )
 
     const expectedTooltipPairsCawpBlack = {
@@ -123,25 +127,25 @@ describe('Test addCountsTooltipInfo()', () => {
 describe('Test getMapGroupLabel()', () => {
   test('All becomes Overall', () => {
     expect(getMapGroupLabel('lis', ALL, 'Some measure')).toEqual(
-      'Some measure overall'
+      'Some measure overall',
     )
   })
 
   test('Race group ', () => {
     expect(getMapGroupLabel(RACE, BLACK_NH, 'Some measure')).toEqual(
-      'Some measure — Black (NH)'
+      'Some measure — Black (NH)',
     )
   })
 
   test('Age group ', () => {
     expect(getMapGroupLabel(AGE, '0-99', 'Some measure')).toEqual(
-      'Some measure — Ages 0-99'
+      'Some measure — Ages 0-99',
     )
   })
 
   test('Sex or anything else passes through', () => {
     expect(getMapGroupLabel(SEX, 'GroupABC', 'Some measure')).toEqual(
-      'Some measure — GroupABC'
+      'Some measure — GroupABC',
     )
   })
 })
@@ -164,19 +168,19 @@ describe('Test getCawpMapGroupNumeratorLabel() and getCawpMapGroupLDenominatorLa
 
   test('NUMERATOR All becomes Overall', () => {
     expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, ALL)).toEqual(
-      'Women legislators overall'
+      'Women legislators overall',
     )
   })
 
   test('NUMERATOR Black', () => {
     expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, BLACK)).toEqual(
-      'Black or African American women legislators'
+      'Black or African American women legislators',
     )
   })
 
   test('DENOMINATOR always overall', () => {
     expect(getCawpMapGroupDenominatorLabel(cawpCountColsMap)).toEqual(
-      'Total legislators'
+      'Total legislators',
     )
   })
 })
@@ -188,10 +192,10 @@ describe('Test buildTooltipTemplate()', () => {
         [`"Some Condition"`]: 'datum.some_condition_per100k',
       },
       /* title? */ `"Some State"`,
-      /* includeSvi */ false
+      /* includeSvi */ false,
     )
     expect(wTitleNoSvi).toEqual(
-      '{title: "Some State",""Some Condition"": datum.some_condition_per100k,}'
+      '{title: "Some State",""Some Condition"": datum.some_condition_per100k,}',
     )
   })
 
@@ -201,10 +205,10 @@ describe('Test buildTooltipTemplate()', () => {
         [`"Some Other Condition"`]: 'datum.some_other_condition_per100k',
       },
       /* title? */ undefined,
-      /* includeSvi */ true
+      /* includeSvi */ true,
     )
     expect(noTitleWithSvi).toEqual(
-      '{""Some Other Condition"": datum.some_other_condition_per100k,"County SVI": datum.rating}'
+      '{""Some Other Condition"": datum.some_other_condition_per100k,"County SVI": datum.rating}',
     )
   })
 })
@@ -213,7 +217,7 @@ describe('Test getCountyAddOn()', () => {
   test('A child FIPS of Alaska should get equiv', () => {
     const alaskaAddOn = getCountyAddOn(
       /* fips */ new Fips('02290'),
-      /* showCounties */ true
+      /* showCounties */ true,
     )
     expect(alaskaAddOn).toEqual('(County Equivalent)')
   })
@@ -221,7 +225,7 @@ describe('Test getCountyAddOn()', () => {
   test('A child FIPS of Louisiana should get parish', () => {
     const louisianaAddOn = getCountyAddOn(
       /* fips */ new Fips('22001'),
-      /* showCounties */ true
+      /* showCounties */ true,
     )
     expect(louisianaAddOn).toEqual('Parish (County Equivalent)')
   })
@@ -229,7 +233,7 @@ describe('Test getCountyAddOn()', () => {
   test('A child FIPS of Puerto Rico should get equiv', () => {
     const puertoRicoAddOn = getCountyAddOn(
       /* fips */ new Fips('72001'),
-      /* showCounties */ true
+      /* showCounties */ true,
     )
     expect(puertoRicoAddOn).toEqual('(County Equivalent)')
   })
@@ -237,7 +241,7 @@ describe('Test getCountyAddOn()', () => {
   test('AL should get blank string', () => {
     const alabamaAddOn = getCountyAddOn(
       /* fips */ new Fips('02'),
-      /* showCounties */ false
+      /* showCounties */ false,
     )
     expect(alabamaAddOn).toEqual('')
   })
@@ -271,19 +275,17 @@ describe('Test getHighestLowestGroupsByFips()', () => {
       dataTypeId: 'some_datatype_id' as DataTypeId,
       dataTypeShortLabel: '',
       fullDisplayName: '',
-      metrics: {
-      },
+      metrics: {},
       dataTableTitle: '',
       mapConfig: defaultHigherIsBetterMapConfig,
       categoryId: 'covid',
-
     }
 
     const highLowSex = getHighestLowestGroupsByFips(
-      /* dataTypeConfig */testDataTypeConfig,
+      /* dataTypeConfig */ testDataTypeConfig,
       /* fullData */ normalData,
       /* demographicType */ 'sex',
-      /* metricId */ 'condition_per_100k' as MetricId
+      /* metricId */ 'condition_per_100k' as MetricId,
     )
 
     expect(highLowSex).toEqual({
@@ -319,11 +321,11 @@ describe('Test createBarLabel()', () => {
       chartIsSmall,
       measure,
       tooltipMetricDisplayColumnName,
-      usePercentSuffix
+      usePercentSuffix,
     )
 
     expect(result).toEqual(
-      '[datum.hiv_prevalence_per_100k__DISPLAY_true, " per 100k"]'
+      '[datum.hiv_prevalence_per_100k__DISPLAY_true, " per 100k"]',
     )
   })
 
@@ -338,7 +340,7 @@ describe('Test createBarLabel()', () => {
       chartIsSmall,
       measure,
       tooltipMetricDisplayColumnName,
-      usePercentSuffix
+      usePercentSuffix,
     )
 
     expect(result).toEqual('datum.pct_share_of_us_congress__DISPLAY_true + "%"')
@@ -354,7 +356,7 @@ describe('Test createBarLabel()', () => {
       chartIsSmall,
       measure,
       tooltipMetricDisplayColumnName,
-      usePercentSuffix
+      usePercentSuffix,
     )
 
     expect(result).toEqual('datum.hiv_stigma_index__DISPLAY_true + ""')
@@ -370,10 +372,9 @@ describe('Test createBarLabel()', () => {
       chartIsSmall,
       measure,
       tooltipMetricDisplayColumnName,
-      usePercentSuffix
+      usePercentSuffix,
     )
 
     expect(result).toEqual('datum.asthma_per_100k__DISPLAY_true + " per 100k"')
   })
 })
-

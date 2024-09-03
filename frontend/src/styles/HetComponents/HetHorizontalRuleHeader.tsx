@@ -3,7 +3,7 @@ interface HetHorizontalRuleHeadingProps {
   id?: string
 }
 export default function HetHorizontalRuleHeading(
-  props: HetHorizontalRuleHeadingProps
+  props: HetHorizontalRuleHeadingProps,
 ) {
   return (
     <div id={props.id} className='mt-5 flex w-full items-center pb-4 pt-20'>

@@ -1,6 +1,11 @@
-import { DataTypeConfig, isPctType, type MetricId, type MetricType } from '../data/config/MetricConfig'
-import { type Fips } from '../data/utils/Fips'
-import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
+import {
+  type DataTypeConfig,
+  isPctType,
+  type MetricId,
+  type MetricType,
+} from '../data/config/MetricConfig'
+import type { Fips } from '../data/utils/Fips'
+import type { FieldRange, Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
 import {
   type DemographicGroup,
@@ -10,8 +15,8 @@ import {
   AGE,
   LESS_THAN_POINT_1,
 } from '../data/utils/Constants'
-import { type ScaleType, type Legend } from 'vega'
-import { type DemographicType } from '../data/query/Breakdowns'
+import type { ScaleType, Legend } from 'vega'
+import type { DemographicType } from '../data/query/Breakdowns'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
 import {
   CIRCLE_PROJECTION,
@@ -31,7 +36,7 @@ import {
   type CountColsMap,
 } from './mapGlobals'
 import { het } from '../styles/DesignTokens'
-import { formatterMap, LegendNumberFormat } from './legendHelperFunctions'
+import { formatterMap, type LegendNumberFormat } from './legendHelperFunctions'
 
 /*
 
@@ -42,7 +47,7 @@ Vega will render incoming strings AS CODE, meaning anything you want to appear a
 export function buildTooltipTemplate(
   tooltipPairs: Record<string, string>,
   title?: string,
-  includeSvi?: boolean
+  includeSvi?: boolean,
 ) {
   let template = `{`
   if (title) template += `title: ${title},`
@@ -80,22 +85,22 @@ export function addCountsTooltipInfo(
   tooltipPairs: Record<string, string>,
   countColsMap: CountColsMap,
   activeDemographicGroup: DemographicGroup,
-  isCawp?: boolean
+  isCawp?: boolean,
 ) {
   const numeratorPhrase = isCawp
     ? getCawpMapGroupNumeratorLabel(countColsMap, activeDemographicGroup)
     : getMapGroupLabel(
-      demographicType,
-      activeDemographicGroup,
-      countColsMap?.numeratorConfig?.shortLabel ?? ''
-    )
+        demographicType,
+        activeDemographicGroup,
+        countColsMap?.numeratorConfig?.shortLabel ?? '',
+      )
   const denominatorPhrase = isCawp
     ? getCawpMapGroupDenominatorLabel(countColsMap)
     : getMapGroupLabel(
-      demographicType,
-      activeDemographicGroup,
-      countColsMap?.denominatorConfig?.shortLabel ?? ''
-    )
+        demographicType,
+        activeDemographicGroup,
+        countColsMap?.denominatorConfig?.shortLabel ?? '',
+      )
 
   if (countColsMap?.numeratorConfig) {
     tooltipPairs[`# ${numeratorPhrase}`] =
@@ -117,13 +122,13 @@ export function addCountsTooltipInfo(
 */
 export function formatPreventZero100k(
   metricType: MetricType,
-  metricId: MetricId
+  metricId: MetricId,
 ) {
-
   const isPct = isPctType(metricType)
-  const legendFormatterType: LegendNumberFormat = isPct ? 'pct' : 'truncateWithK'
+  const legendFormatterType: LegendNumberFormat = isPct
+    ? 'pct'
+    : 'truncateWithK'
   const d3Format = formatterMap[legendFormatterType]
-
 
   if (metricType === 'per100k') {
     return `if (datum.${metricId} >= .1, format(datum.${metricId}, '${d3Format}'), '${LESS_THAN_POINT_1}') + ' per 100k'`
@@ -169,7 +174,7 @@ export function createShapeMarks(
   hideMissingDataTooltip?: boolean,
   outlineGeos?: boolean,
   isMulti?: boolean,
-  isMobile?: boolean
+  isMobile?: boolean,
 ) {
   let territoryBubbleSize = isMulti ? 500 : 1000
   if (isMobile) territoryBubbleSize /= 3
@@ -223,7 +228,7 @@ export function createShapeMarks(
 /* ALT MARKS: verbose, invisible text for screen readers showing valid data (incl territories) */
 export function createInvisibleAltMarks(
   tooltipDatum: string,
-  tooltipLabel: string
+  tooltipLabel: string,
 ) {
   return {
     name: 'alt_text_labels',
@@ -252,15 +257,16 @@ export function makeAltText(
   data: Row[],
   filename: string,
   fips: Fips,
-  overrideShapeWithCircle?: boolean
+  overrideShapeWithCircle?: boolean,
 ) {
   let altText = overrideShapeWithCircle
     ? fips.getDisplayName()
     : `Map showing ${filename}`
 
   if (!fips.isCounty() && !overrideShapeWithCircle) {
-    altText += `: including data from ${data.length
-      } ${fips.getPluralChildFipsTypeDisplayName()}`
+    altText += `: including data from ${
+      data.length
+    } ${fips.getPluralChildFipsTypeDisplayName()}`
   }
 
   return altText
@@ -271,26 +277,26 @@ export function getProjection(
   fips: Fips,
   width: number,
   heightWidthRatio: number,
-  overrideShapeWithCircle?: boolean
+  overrideShapeWithCircle?: boolean,
 ) {
   return overrideShapeWithCircle
     ? {
-      name: CIRCLE_PROJECTION,
-      type: 'albersUsa',
-      scale: 1100,
-      translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
-    }
+        name: CIRCLE_PROJECTION,
+        type: 'albersUsa',
+        scale: 1100,
+        translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
+      }
     : {
-      name: US_PROJECTION,
-      type:
-        fips.isTerritory() || fips.getParentFips().isTerritory()
-          ? 'albers'
-          : 'albersUsa',
-      fit: { signal: "data('" + GEO_DATASET + "')" },
-      size: {
-        signal: '[' + width + ', ' + width * heightWidthRatio + ']',
-      },
-    }
+        name: US_PROJECTION,
+        type:
+          fips.isTerritory() || fips.getParentFips().isTerritory()
+            ? 'albers'
+            : 'albersUsa',
+        fit: { signal: "data('" + GEO_DATASET + "')" },
+        size: {
+          signal: '[' + width + ', ' + width * heightWidthRatio + ']',
+        },
+      }
 }
 
 /*
@@ -306,11 +312,11 @@ export function getLegendDataBounds(data: Row[], metricId: MetricId) {
 /* Figure out if a reduced number of legend color buckets is needed */
 export function calculateLegendColorCount(
   legendData: Row[],
-  metricId: MetricId
+  metricId: MetricId,
 ) {
   const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
   const uniqueNonZeroValueCount = new Set(
-    nonZeroData?.map((row) => row[metricId])
+    nonZeroData?.map((row) => row[metricId]),
   ).size
   return Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
 }
@@ -323,7 +329,7 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string,
   isTerritoryCircle?: boolean,
-  reverse?: boolean
+  reverse?: boolean,
 ) {
   const legendColorCount = calculateLegendColorCount(legendData, metricId)
   const colorScale: any = {
@@ -347,7 +353,7 @@ export function setupColorScale(
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     /* data */ legendData,
-    /* metridId */ metricId
+    /* metridId */ metricId,
   )
 
   if (legendLowerBound < legendUpperBound || Number.isNaN(legendLowerBound)) {
@@ -365,7 +371,7 @@ export function getHighestLowestGroupsByFips(
   dataTypeConfig: DataTypeConfig,
   fullData?: Row[],
   demographicType?: DemographicType,
-  metricId?: MetricId
+  metricId?: MetricId,
 ) {
   const fipsToGroup: Record<string, HighestLowest> = {}
 
@@ -377,33 +383,33 @@ export function getHighestLowestGroupsByFips(
       (row) =>
         row.fips === fips &&
         row[demographicType] !== ALL &&
-        row[metricId] != null
+        row[metricId] != null,
     )
 
     // handle places with limited groups / lots of zeros
     const validUniqueRates = Array.from(
-      new Set(dataForFips.map((row) => row[metricId]))
+      new Set(dataForFips.map((row) => row[metricId])),
     )
     if (validUniqueRates.length > 1) {
       const ascendingRows: Row[] = dataForFips.sort(
-        (a, b) => a[metricId] - b[metricId]
+        (a, b) => a[metricId] - b[metricId],
       )
       const ascendingGroups: DemographicGroup[] = ascendingRows.map(
-        (row) => row[demographicType]
+        (row) => row[demographicType],
       )
 
       fipsToGroup[fips] = {
         highest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[
-          ascendingGroups.length - 1
+            ascendingGroups.length - 1
           ],
           /* demographicType:  */ demographicType,
-          dataTypeConfig
+          dataTypeConfig,
         ),
         lowest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[0],
           /* demographicType:  */ demographicType,
-          dataTypeConfig
+          dataTypeConfig,
         ),
       }
       // TIE OVERRIDES
@@ -422,7 +428,7 @@ export function getHighestLowestGroupsByFips(
 
 export function embedHighestLowestGroups(
   data: any[],
-  highestLowestGroupsByFips?: Record<string, HighestLowest>
+  highestLowestGroupsByFips?: Record<string, HighestLowest>,
 ) {
   return data.map((row) => {
     row.highestGroup = highestLowestGroupsByFips?.[row.fips]?.highest
@@ -434,7 +440,7 @@ export function embedHighestLowestGroups(
 export function getMapGroupLabel(
   demographicType: DemographicType,
   activeDemographicGroup: DemographicGroup,
-  measureType: string
+  measureType: string,
 ) {
   if (activeDemographicGroup === ALL) return `${measureType} overall`
 
@@ -452,7 +458,7 @@ export function getMapGroupLabel(
 
 export function getCawpMapGroupNumeratorLabel(
   countColsMap: CountColsMap,
-  activeDemographicGroup: DemographicGroup
+  activeDemographicGroup: DemographicGroup,
 ) {
   const cases = countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
   if (activeDemographicGroup === ALL) return `Women ${cases} overall`
@@ -470,7 +476,7 @@ export function createBarLabel(
   chartIsSmall: boolean,
   measure: MetricId,
   tooltipMetricDisplayColumnName: string,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
 ) {
   const PER_100K = ' per 100k'
   const PERCENT = '%'

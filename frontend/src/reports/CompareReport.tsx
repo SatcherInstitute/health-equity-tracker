@@ -18,7 +18,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -28,11 +28,11 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-import { type MadLibId } from '../utils/MadLibs'
+import type { MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { useAtom } from 'jotai'
@@ -72,15 +72,15 @@ export default function CompareReport(props: CompareReportProps) {
 
   const [demographicType, setDemographicType] = useParamState<DemographicType>(
     DEMOGRAPHIC_PARAM,
-    defaultDemo
+    defaultDemo,
   )
 
   const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
-    selectedDataTypeConfig1Atom
+    selectedDataTypeConfig1Atom,
   )
 
   const [dataTypeConfig2, setDataTypeConfig2] = useAtom(
-    selectedDataTypeConfig2Atom
+    selectedDataTypeConfig2Atom,
   )
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
@@ -88,13 +88,13 @@ export default function CompareReport(props: CompareReportProps) {
       dataTypeConfig1,
       props.fips1,
       dataTypeConfig2,
-      props.fips2
+      props.fips2,
     )
 
   // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
   if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
     setDemographicType(
-      Object.values(enabledDemographicOptionsMap)[0] as DemographicType
+      Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
     )
   }
 
@@ -106,9 +106,9 @@ export default function CompareReport(props: CompareReportProps) {
         (val: DataTypeId) => {
           val = swapOldDatatypeParams(val)
           return METRIC_CONFIG[props.dropdownVarId1].find(
-            (cfg) => cfg.dataTypeId === val
+            (cfg) => cfg.dataTypeId === val,
           )
-        }
+        },
       )
       const dtParam2 = getParameter(
         DATA_TYPE_2_PARAM,
@@ -117,10 +117,10 @@ export default function CompareReport(props: CompareReportProps) {
           val = swapOldDatatypeParams(val)
           return (
             METRIC_CONFIG[props.dropdownVarId2]?.find(
-              (cfg) => cfg.dataTypeId === val
+              (cfg) => cfg.dataTypeId === val,
             ) ?? METRIC_CONFIG[props.dropdownVarId2][0]
           )
-        }
+        },
       )
 
       const newDtParam1 = dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
@@ -144,7 +144,7 @@ export default function CompareReport(props: CompareReportProps) {
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
-      (key) => document.getElementById(key)?.id !== undefined
+      (key) => document.getElementById(key)?.id !== undefined,
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
@@ -213,7 +213,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 updateFips: (fips: Fips) => void,
                 _dropdown: any,
-                isCompareCard?: boolean
+                isCompareCard?: boolean,
               ) => (
                 <MapCard
                   dataTypeConfig={dataTypeConfig}
@@ -243,7 +243,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void,
                 unusedDropdown: any,
-                isCompareCard: boolean | undefined
+                isCompareCard: boolean | undefined,
               ) => (
                 <RateTrendsChartCard
                   dataTypeConfig={dataTypeConfig}
@@ -268,7 +268,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void
+                unusedUpdateFips: (fips: Fips) => void,
               ) => (
                 <SimpleBarChartCard
                   dataTypeConfig={dataTypeConfig}
@@ -293,7 +293,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                updateFips: (fips: Fips) => void
+                updateFips: (fips: Fips) => void,
               ) => (
                 <UnknownsMapCard
                   overrideAndWithOr={demographicType === RACE}
@@ -323,7 +323,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void,
                 unusedDropdown: any,
-                isCompareCard: boolean | undefined
+                isCompareCard: boolean | undefined,
               ) => (
                 <ShareTrendsChartCard
                   dataTypeConfig={dataTypeConfig}
@@ -347,7 +347,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void
+                unusedUpdateFips: (fips: Fips) => void,
               ) => (
                 <DisparityBarChartCard
                   dataTypeConfig={dataTypeConfig}
@@ -372,7 +372,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                updateFips: (fips: Fips) => void
+                updateFips: (fips: Fips) => void,
               ) => (
                 <TableCard
                   fips={fips}
@@ -405,7 +405,7 @@ export default function CompareReport(props: CompareReportProps) {
                   fips: Fips,
                   updateFips: (fips: Fips) => void,
                   dropdownVarId?: DropdownVarId,
-                  isCompareCard?: boolean
+                  isCompareCard?: boolean,
                 ) => (
                   <AgeAdjustedTableCard
                     fips={fips}

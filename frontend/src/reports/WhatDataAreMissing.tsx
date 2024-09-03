@@ -11,11 +11,8 @@ import {
   MissingIslandAreaPopulationData,
   MissingWisqarsData,
 } from '../pages/Methodology/methodologyContent/missingDataBlurbs'
-import {
-  type DropdownVarId,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
-import { type Fips } from '../data/utils/Fips'
+import type { DropdownVarId, DataTypeConfig } from '../data/config/MetricConfig'
+import type { Fips } from '../data/utils/Fips'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 import HetTerm from '../styles/HetComponents/HetTerm'
@@ -29,7 +26,7 @@ interface WhatDataAreMissingProps {
 
 export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
   const currentDropDownIds: DropdownVarId[] = props.metricConfigSubset.map(
-    (id) => id?.[0]
+    (id) => id?.[0],
   )
   const isIslandArea =
     props.fips1?.isIslandArea() ?? props.fips2?.isIslandArea()
@@ -39,9 +36,15 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
   const isHivOutcome = currentDropDownIds.includes('hiv')
   const isHivBWOutcome = currentDropDownIds.includes('hiv_black_women')
   const isHivPrep = currentDropDownIds.includes('hiv_prep')
-  const isAHR = currentDropDownIds.some((condition) => AHR_CONDITIONS.includes(condition))
-  const isPhrma = currentDropDownIds.some((condition) => PHRMA_CONDITIONS.includes(condition))
-  const isWisqars = COMMUNITY_SAFETY_DROPDOWNIDS.some(condition => currentDropDownIds.includes(condition))
+  const isAHR = currentDropDownIds.some((condition) =>
+    AHR_CONDITIONS.includes(condition),
+  )
+  const isPhrma = currentDropDownIds.some((condition) =>
+    PHRMA_CONDITIONS.includes(condition),
+  )
+  const isWisqars = COMMUNITY_SAFETY_DROPDOWNIDS.some((condition) =>
+    currentDropDownIds.includes(condition),
+  )
 
   return (
     <>
