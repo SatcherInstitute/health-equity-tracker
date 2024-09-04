@@ -21,7 +21,7 @@ JAIL_PER_100K_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.PE
 JAIL_PCT_SHARE_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.PCT_SHARE_SUFFIX)
 
 
-TOTAL_CHILDREN_COL = "total_confined_children"
+TOTAL_CHILDREN_COL = "confined_children_estimated_total"
 
 
 # maps BJS labels to our race CODES

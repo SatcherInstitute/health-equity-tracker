@@ -49,15 +49,11 @@ class VaccineProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-
     const datasetId = this.getDatasetId(breakdowns)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const vaxData = await getDataManager().loadDataset(specificDatasetId)
     let df = vaxData.toDataFrame()
-
-    df = this.filterByTimeView(df, timeView)
 
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)

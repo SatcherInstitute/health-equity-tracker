@@ -1,11 +1,10 @@
 import { getDataManager } from '../../utils/globals'
-import type { Breakdowns } from '../query/Breakdowns'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import type { MetricId, DataTypeId } from '../config/MetricConfig'
 import VariableProvider from './VariableProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 import type { DatasetId } from '../config/DatasetMetadata'
 
 // states with combined prison and jail systems
@@ -40,7 +39,7 @@ export const PRISON_METRIC_IDS: MetricId[] = [
 const INCARCERATION_METRIC_IDS: MetricId[] = [
   ...JAIL_METRIC_IDS,
   ...PRISON_METRIC_IDS,
-  'total_confined_children',
+  'confined_children_estimated_total',
   'incarceration_population_pct',
   'incarceration_population_estimated_total',
 ]
@@ -50,7 +49,11 @@ class IncarcerationProvider extends VariableProvider {
     super('incarceration_provider', INCARCERATION_METRIC_IDS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
+  getDatasetId(
+    breakdowns: Breakdowns,
+    _dataTypeId?: DataTypeId,
+    timeView?: TimeView,
+  ): DatasetId | undefined {
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
         return 'bjs_incarceration_data-race_and_ethnicity_national'
@@ -65,12 +68,19 @@ class IncarcerationProvider extends VariableProvider {
     }
 
     if (breakdowns.geography === 'county') {
-      if (breakdowns.hasOnlyRace())
-        return 'vera_incarceration_county-by_race_and_ethnicity_county_time_series'
-      if (breakdowns.hasOnlyAge())
-        return 'vera_incarceration_county-by_age_county_time_series'
-      if (breakdowns.hasOnlySex())
-        return 'vera_incarceration_county-by_sex_county_time_series'
+      // only VERA has time series data; BJS is only current
+      if (breakdowns.hasOnlyRace() && timeView === 'historical')
+        return 'vera_incarceration_county-by_race_and_ethnicity_county_historical'
+      if (breakdowns.hasOnlyRace() && timeView === 'current')
+        return 'vera_incarceration_county-by_race_and_ethnicity_county_current'
+      if (breakdowns.hasOnlyAge() && timeView === 'historical')
+        return 'vera_incarceration_county-by_age_county_historical'
+      if (breakdowns.hasOnlyAge() && timeView === 'current')
+        return 'vera_incarceration_county-by_age_county_current'
+      if (breakdowns.hasOnlySex() && timeView === 'historical')
+        return 'vera_incarceration_county-by_sex_county_historical'
+      if (breakdowns.hasOnlySex() && timeView === 'current')
+        return 'vera_incarceration_county-by_sex_county_current'
     }
   }
 
@@ -79,20 +89,13 @@ class IncarcerationProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns)
+    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const dataSource = await getDataManager().loadDataset(specificDatasetId)
     let df = dataSource.toDataFrame()
 
     df = this.filterByGeo(df, breakdowns)
-
-    const mostRecentYear = getMostRecentYearAsString(
-      df,
-      metricQuery.metricIds[0],
-    )
-
-    df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
     const consumedDatasetIds = [datasetId]

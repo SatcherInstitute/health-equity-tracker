@@ -17,7 +17,7 @@ function IncarceratedChildrenShortAlert(
 ) {
   let count = props.queryResponse.data.find(
     (row: Row) => row[props.demographicType] === ALL,
-  )?.total_confined_children
+  )?.confined_children_estimated_total
   if (count) count = Number.parseInt(count)
   if (count == null) return <></>
 
