@@ -12,7 +12,7 @@
 		"jail_per_100k": 273.0,
 		"prison_pct_share": 46.2,
 		"jail_pct_share": 53.9,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -27,7 +27,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -42,7 +42,7 @@
 		"jail_per_100k": 539.0,
 		"prison_pct_share": 53.8,
 		"jail_pct_share": 43.2,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -57,7 +57,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -72,7 +72,7 @@
 		"jail_per_100k": 191.0,
 		"prison_pct_share": 0.0,
 		"jail_pct_share": 2.7,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -87,7 +87,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -102,7 +102,7 @@
 		"jail_per_100k": 111.0,
 		"prison_pct_share": 0.01,
 		"jail_pct_share": 0.1,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -117,7 +117,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -132,7 +132,7 @@
 		"jail_per_100k": 24.0,
 		"prison_pct_share": 0.01,
 		"jail_pct_share": 0.1,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -147,7 +147,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -162,7 +162,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": 0.0,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -177,7 +177,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -192,7 +192,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": 0.0,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -207,7 +207,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -222,7 +222,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": 0.0,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -237,7 +237,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -252,7 +252,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": 0.8,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "American Samoa",
@@ -267,7 +267,7 @@
 		"jail_per_100k": null,
 		"prison_pct_share": null,
 		"jail_pct_share": null,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	},
 	{
 		"state_name": "Alabama",
@@ -282,7 +282,7 @@
 		"jail_per_100k": 327.0,
 		"prison_pct_share": 100.0,
 		"jail_pct_share": 100.0,
-		"total_confined_children": 35.0
+		"confined_children_estimated_total": 35.0
 	},
 	{
 		"state_name": "American Samoa",
@@ -297,6 +297,6 @@
 		"jail_per_100k": null,
 		"prison_pct_share": 100.0,
 		"jail_pct_share": 100.0,
-		"total_confined_children": null
+		"confined_children_estimated_total": null
 	}
 ]

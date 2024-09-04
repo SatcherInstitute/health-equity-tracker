@@ -176,9 +176,12 @@ export type DatasetId =
   | 'phrma_brfss_data-income_state'
   | 'phrma_brfss_data-education_state'
   | 'the_unitedstates_project'
-  | 'vera_incarceration_county-by_age_county_time_series'
-  | 'vera_incarceration_county-by_race_and_ethnicity_county_time_series'
-  | 'vera_incarceration_county-by_sex_county_time_series'
+  | 'vera_incarceration_county-by_age_county_current'
+  | 'vera_incarceration_county-by_race_and_ethnicity_county_current'
+  | 'vera_incarceration_county-by_sex_county_current'
+  | 'vera_incarceration_county-by_age_county_historical'
+  | 'vera_incarceration_county-by_race_and_ethnicity_county_historical'
+  | 'vera_incarceration_county-by_sex_county_historical'
 
 export type DatasetIdWithStateFIPSCode = `${DatasetId}-${StateFipsCode}`
 
@@ -750,21 +753,39 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2019 for jail, 2020 for prison',
     source_id: 'bjs',
   },
-  'vera_incarceration_county-by_race_and_ethnicity_county_time_series': {
+  'vera_incarceration_county-by_race_and_ethnicity_county_historical': {
     name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by race/ethnicity',
     original_data_sourced: '1983-2016 for prison, 1970-2018 for jail',
     contains_nh: true,
     source_id: 'vera',
   },
-  'vera_incarceration_county-by_age_county_time_series': {
+  'vera_incarceration_county-by_age_county_historical': {
     name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by age',
     original_data_sourced: '1983-2016 for prison, 1970-2018 for jail',
     contains_nh: true,
     source_id: 'vera',
   },
-  'vera_incarceration_county-by_sex_county_time_series': {
+  'vera_incarceration_county-by_sex_county_historical': {
     name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by sex',
     original_data_sourced: '1983-2016 for prison, 1970-2018 for jail',
+    contains_nh: true,
+    source_id: 'vera',
+  },
+  'vera_incarceration_county-by_race_and_ethnicity_county_current': {
+    name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by race/ethnicity',
+    original_data_sourced: '2016 for prison, 2018 for jail',
+    contains_nh: true,
+    source_id: 'vera',
+  },
+  'vera_incarceration_county-by_age_county_current': {
+    name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by age',
+    original_data_sourced: '2016 for prison, 2018 for jail',
+    contains_nh: true,
+    source_id: 'vera',
+  },
+  'vera_incarceration_county-by_sex_county_current': {
+    name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by sex',
+    original_data_sourced: '2016 for prison, 2018 for jail',
     contains_nh: true,
     source_id: 'vera',
   },

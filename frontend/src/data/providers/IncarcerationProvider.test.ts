@@ -1,5 +1,9 @@
 import IncarcerationProvider from './IncarcerationProvider'
-import { Breakdowns, type DemographicType } from '../query/Breakdowns'
+import {
+  Breakdowns,
+  type TimeView,
+  type DemographicType,
+} from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -20,6 +24,7 @@ async function ensureCorrectDatasetsDownloaded(
   demographicType: DemographicType,
   dataTypeId: DataTypeId,
   acsDatasetIds?: DatasetId[],
+  timeView?: TimeView,
 ) {
   // if these aren't sent as args, default to []
   acsDatasetIds = acsDatasetIds || []
@@ -36,6 +41,7 @@ async function ensureCorrectDatasetsDownloaded(
       [],
       baseBreakdown.addBreakdown(demographicType),
       dataTypeId,
+      timeView,
     ),
   )
 
@@ -61,11 +67,12 @@ describe('IncarcerationProvider', () => {
 
   test('County and Race Breakdown for Prison', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
+      'vera_incarceration_county-by_race_and_ethnicity_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       RACE,
       'prison',
       [],
+      'historical',
     )
   })
 
@@ -91,11 +98,12 @@ describe('IncarcerationProvider', () => {
 
   test('County and Age Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_age_county_time_series',
+      'vera_incarceration_county-by_age_county_current',
       Breakdowns.forFips(new Fips('06037')),
       AGE,
       'jail',
       [],
+      'current',
     )
   })
 
@@ -121,11 +129,12 @@ describe('IncarcerationProvider', () => {
 
   test('County and Sex Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_sex_county_time_series',
+      'vera_incarceration_county-by_sex_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       SEX,
       'jail',
       [],
+      'historical',
     )
   })
 

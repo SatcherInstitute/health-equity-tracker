@@ -98,7 +98,7 @@ export default function TableCard(props: TableCardProps) {
     props.dataTypeConfig.dataTypeId,
   )
   const metricIds = Object.keys(metricConfigs) as MetricId[]
-  isIncarceration && metricIds.push('total_confined_children')
+  isIncarceration && metricIds.push('confined_children_estimated_total')
 
   if (isHIV) {
     metricIds.push(...GENDER_METRICS)
@@ -155,7 +155,7 @@ export default function TableCard(props: TableCardProps) {
         // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
         if (isIncarceration) {
           normalMetricIds = metricIds.filter(
-            (id) => id !== 'total_confined_children',
+            (id) => id !== 'confined_children_estimated_total',
           )
           data = data.filter((row: Row) => row[props.demographicType] !== ALL)
         }
