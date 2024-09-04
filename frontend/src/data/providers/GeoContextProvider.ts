@@ -1,6 +1,6 @@
 import { getDataManager } from '../../utils/globals'
-import { type DatasetId } from '../config/DatasetMetadata'
-import { type Breakdowns, type GeographicBreakdown } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { Breakdowns, GeographicBreakdown } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
@@ -20,7 +20,7 @@ class GeoContextProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(breakdowns)

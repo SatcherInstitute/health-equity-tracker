@@ -1,11 +1,11 @@
-import { DatasetId } from '../config/DatasetMetadata'
-import { DataSourceId } from '../config/MetadataMap'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataSourceId } from '../config/MetadataMap'
 import { convertSpecialCharactersForCsv, Dataset } from './DatasetTypes'
 
 describe('DatasetTypes', () => {
   test('Testing convertSpecialCharactersForCsv()', async () => {
     expect(convertSpecialCharactersForCsv('This, that, and the other')).toEqual(
-      '"This, that, and the other"'
+      '"This, that, and the other"',
     )
     expect(convertSpecialCharactersForCsv('Other')).toEqual('Other')
     expect(convertSpecialCharactersForCsv(1)).toEqual(1)

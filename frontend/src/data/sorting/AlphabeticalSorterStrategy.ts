@@ -1,5 +1,5 @@
-import { type Breakdowns } from '../query/Breakdowns'
-import { type Row } from '../utils/DatasetTypes'
+import type { Breakdowns } from '../query/Breakdowns'
+import type { Row } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
 export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
@@ -10,7 +10,7 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
   constructor(
     reorderCol: string,
     frontValues: string[] = [],
-    backValues: string[] = []
+    backValues: string[] = [],
   ) {
     super()
     this.reorderCol = reorderCol

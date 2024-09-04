@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { type DataTypeConfig } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -25,14 +25,14 @@ import {
 import AltTableView from './ui/AltTableView'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
 import { generateSubtitle } from '../charts/utils'
 
@@ -72,18 +72,20 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   let hasUnknowns = Boolean(metricConfigPctShares)
 
-  const isWisqarsByRace = props.dataTypeConfig.categoryId === 'community-safety' && props.demographicType === 'race_and_ethnicity'
+  const isWisqarsByRace =
+    props.dataTypeConfig.categoryId === 'community-safety' &&
+    props.demographicType === 'race_and_ethnicity'
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
-    exclude(NON_HISPANIC, AIAN_API)
+    exclude(NON_HISPANIC, AIAN_API),
   )
 
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ 'historical'
+    /* timeView */ 'historical',
   )
 
   // get pct_share with unknown demographic for optional bubble chart
@@ -93,7 +95,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       metricConfigPctShares.metricId,
       breakdowns,
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ 'historical'
+      /* timeView */ 'historical',
     )
 
   const queries = [ratesQuery]
@@ -101,14 +103,15 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   pctShareQuery && queries.push(pctShareQuery)
 
   function getTitleText() {
-    return `${metricConfigRates?.trendsCardTitleName ?? 'Data'
-      } in ${props.fips.getSentenceDisplayName()}`
+    return `${
+      metricConfigRates?.trendsCardTitleName ?? 'Data'
+    } in ${props.fips.getSentenceDisplayName()}`
   }
 
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    props.dataTypeConfig
+    props.dataTypeConfig,
   )
 
   const isCawp = CAWP_METRICS.includes(metricConfigRates.metricId)
@@ -135,32 +138,32 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
-          metricConfigRates.metricId
+          metricConfigRates.metricId,
         )
 
         const pctShareData = isCawp
           ? ratesData
           : metricConfigPctShares &&
-          queryResponsePctShares.getValidRowsForField(
-            metricConfigPctShares.metricId
-          )
+            queryResponsePctShares.getValidRowsForField(
+              metricConfigPctShares.metricId,
+            )
 
         // swap race labels if applicable
         const ratesDataLabelled = isCawp
           ? ratesData.map((row: Row) => {
-            const altRow = { ...row }
-            altRow.race_and_ethnicity = getWomenRaceLabel(
-              row.race_and_ethnicity
-            )
-            return altRow
-          })
+              const altRow = { ...row }
+              altRow.race_and_ethnicity = getWomenRaceLabel(
+                row.race_and_ethnicity,
+              )
+              return altRow
+            })
           : ratesData
 
         // retrieve list of all present demographic groups
         const allDemographicGroups: DemographicGroup[] =
           queryResponseRates.getFieldValues(
             props.demographicType,
-            metricConfigRates.metricId
+            metricConfigRates.metricId,
           ).withData
 
         const demographicGroups = isCawpStateLeg
@@ -179,18 +182,18 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         // rates for the unknown bubbles
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
-          props.demographicType
+          props.demographicType,
         )
 
         const nestedRatesData = getNestedData(
           knownRatesData,
           demographicGroupsLabelled,
           props.demographicType,
-          metricConfigRates.metricId
+          metricConfigRates.metricId,
         )
         const nestedUnknownPctShareData = getNestedUnknowns(
           unknownPctShareData,
-          isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId
+          isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId,
         )
 
         hasUnknowns =
@@ -226,13 +229,15 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     type: metricConfigRates.type,
                     groupLabel:
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                      props.demographicType
+                        props.demographicType
                       ],
-                    yAxisLabel: `${metricConfigRates.shortLabel} ${props.fips.isUsa() ? '' : 'from'
-                      } ${props.fips.isUsa()
+                    yAxisLabel: `${metricConfigRates.shortLabel} ${
+                      props.fips.isUsa() ? '' : 'from'
+                    } ${
+                      props.fips.isUsa()
                         ? ''
                         : props.fips.getSentenceDisplayName()
-                      }`,
+                    }`,
                     xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   demographicType={props.demographicType}
@@ -242,13 +247,17 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setUnknownsExpanded}
                   hasUnknowns={hasUnknowns}
                 />
-                {isWisqarsByRace && <MissingDataAlert
-                  dataName={`single-race historical data earlier than 2018 for ${metricConfigRates.chartTitle}`}
-                  demographicTypeString={
-                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                  }
-                  fips={props.fips}
-                />}
+                {isWisqarsByRace && (
+                  <MissingDataAlert
+                    dataName={`single-race historical data earlier than 2018 for ${metricConfigRates.chartTitle}`}
+                    demographicTypeString={
+                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
+                        props.demographicType
+                      ]
+                    }
+                    fips={props.fips}
+                  />
+                )}
                 {hasUnknowns && (
                   <UnknownBubblesAlert
                     demographicType={props.demographicType}
@@ -265,8 +274,9 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   expanded={a11yTableExpanded}
                   setExpanded={setA11yTableExpanded}
                   expandBoxLabel={`${cardHeaderTitle.toLowerCase()} table`}
-                  tableCaption={`${getTitleText()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                    }`}
+                  tableCaption={`${getTitleText()} by ${
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }`}
                   knownsData={knownRatesData}
                   unknownsData={unknownPctShareData}
                   demographicType={props.demographicType}

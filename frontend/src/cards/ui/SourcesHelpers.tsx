@@ -1,10 +1,10 @@
-import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
+import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import { HET_URL } from '../../utils/internalRoutes'
 import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 
 export function currentYear(): number {
@@ -29,17 +29,17 @@ export interface DataSourceInfo {
 }
 
 export function getDatasetIdsFromResponses(
-  queryResponses: MetricQueryResponse[]
+  queryResponses: MetricQueryResponse[],
 ): Array<DatasetId | DatasetIdWithStateFIPSCode> {
   return queryResponses.reduce(
     (accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>, response) =>
       accumulator.concat(response.consumedDatasetIds),
-    []
+    [],
   )
 }
 
 export const stripCountyFips = (
-  datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
+  datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>,
 ): DatasetId[] => {
   const strippedData = datasetIds.map((id) => {
     // uses RegEx to check if datasetId string contains a hyphen followed by any two digits
@@ -53,7 +53,7 @@ export const stripCountyFips = (
 
 export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
-  metadata: MapOfDatasetMetadata
+  metadata: MapOfDatasetMetadata,
 ): Record<string, DataSourceInfo> {
   const dataSourceMap: Record<string, DataSourceInfo> = {}
   datasetIds.forEach((datasetId) => {

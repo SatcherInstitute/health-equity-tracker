@@ -1,4 +1,4 @@
-import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
+import type { GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 interface ConditionVariableProps {
   definitions: Record<string, GlossaryTermItem>

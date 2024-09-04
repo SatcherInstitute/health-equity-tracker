@@ -110,7 +110,7 @@ export const NAVIGATION_STRUCTURE = {
     pages: {
       [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
       [DATA_CATALOG_PAGE_LINK]: 'Data Downloads',
-      [METHODOLOGY_PAGE_LINK]: 'Methodology'
+      [METHODOLOGY_PAGE_LINK]: 'Methodology',
     },
   },
   mediaAndUpdates: {
@@ -121,7 +121,6 @@ export const NAVIGATION_STRUCTURE = {
     },
   },
   faqs: { label: 'FAQs', link: FAQ_TAB_LINK },
-  
 }
 
 export function useSearchParams() {
@@ -134,10 +133,10 @@ export function useSearchParams() {
 export function linkToMadLib(
   madLibId: MadLibId,
   phraseSelections: PhraseSelections,
-  absolute = false
+  absolute = false,
 ) {
   const selectionOverrides = Object.keys(phraseSelections).map(
-    (key) => key + ':' + phraseSelections[Number(key)]
+    (key) => key + ':' + phraseSelections[Number(key)],
   )
 
   const url = [
@@ -156,7 +155,7 @@ export function linkToMadLib(
 
 export function setParameter(
   paramName: string,
-  paramValue: string | null = null
+  paramValue: string | null = null,
 ) {
   setParameters([{ name: paramName, value: paramValue }])
 }
@@ -195,7 +194,7 @@ const defaultHandler = <T,>(input: string | null): T => {
 
 export function removeParamAndReturnValue<T1>(
   paramName: string,
-  defaultValue: T1
+  defaultValue: T1,
 ) {
   setParameter(paramName, null)
   return defaultValue
@@ -204,7 +203,7 @@ export function removeParamAndReturnValue<T1>(
 export function getParameter<T1>(
   paramName: string,
   defaultValue: T1,
-  formatter: (x: any) => T1 = defaultHandler
+  formatter: (x: any) => T1 = defaultHandler,
 ): T1 {
   const searchParams = new URLSearchParams(window.location.search)
   try {
@@ -248,7 +247,7 @@ let psCount: number = 0
 
 export const psSubscribe = (
   handler: PSEventHandler,
-  keyPrefix = 'unk'
+  keyPrefix = 'unk',
 ): { unsubscribe: () => void } => {
   const key = keyPrefix + '_' + psCount
   getLogger().debugLog('Adding PSHandler: ' + key)
@@ -283,6 +282,7 @@ Dumps a string of HTML into a div (or string with optional boolean)
 export function getHtml(item: any, asString?: boolean) {
   // if div is needed
   if (!asString) {
+    // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless Wordpress
     return <div dangerouslySetInnerHTML={{ __html: item || '' }}></div>
   }
 
@@ -294,7 +294,7 @@ export function getHtml(item: any, asString?: boolean) {
 
 /* for converting selected group long name into URL safe param value */
 export function getGroupParamFromDemographicGroup(
-  groupLongName: DemographicGroup
+  groupLongName: DemographicGroup,
 ): string {
   const groupCode = raceNameToCodeMap[groupLongName] ?? groupLongName
 
@@ -307,7 +307,7 @@ export function getGroupParamFromDemographicGroup(
 
 /* for extracting selected group long name from URL safe param value */
 export function getDemographicGroupFromGroupParam(
-  groupParam: string
+  groupParam: string,
 ): DemographicGroup {
   const groupCodeFromParam = groupParam
     ?.replaceAll('.NH', ' (NH)')
@@ -319,7 +319,7 @@ export function getDemographicGroupFromGroupParam(
   // otherwise the age and sex groups are the full names
   const groupName =
     Object.entries(raceNameToCodeMap).find(
-      (entry) => entry[1] === groupCodeFromParam
+      (entry) => entry[1] === groupCodeFromParam,
     )?.[0] ?? groupCodeFromParam
 
   return groupName

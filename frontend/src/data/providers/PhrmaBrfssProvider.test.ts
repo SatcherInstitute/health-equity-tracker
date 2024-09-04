@@ -1,4 +1,4 @@
-import PhrmaProvider from './PhrmaProvider'
+import PhrmaBrfssProvider from './PhrmaBrfssProvider'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
@@ -24,12 +24,12 @@ async function ensureCorrectDatasetsDownloaded(
   metricIds = metricIds || []
   acsDatasetIds = acsDatasetIds || []
 
-  const phrmaProvider = new PhrmaProvider()
+  const phrmaBrfssProvider = new PhrmaBrfssProvider()
   const specificDatasetId = appendFipsIfNeeded(PhrmaDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
   // Evaluate the response with requesting "All" field
-  const responseIncludingAll = await phrmaProvider.getData(
+  const responseIncludingAll = await phrmaBrfssProvider.getData(
     new MetricQuery(
       metricIds,
       baseBreakdown.addBreakdown(demographicType),
@@ -50,7 +50,7 @@ async function ensureCorrectDatasetsDownloaded(
 autoInitGlobals()
 const dataFetcher = getDataFetcher() as FakeDataFetcher
 
-describe('PhrmaProvider', () => {
+describe('PhrmaBrfssProvider', () => {
   beforeEach(() => {
     resetCacheDebug()
     dataFetcher.resetState()
@@ -59,25 +59,33 @@ describe('PhrmaProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_data-race_and_ethnicity_national',
+      'phrma_brfss_data-race_and_ethnicity_national',
       Breakdowns.forFips(new Fips('00')),
-      RACE,
+      'race_and_ethnicity',
     )
   })
 
-  test('State and LIS Breakdown', async () => {
+  test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_data-lis_state',
+      'phrma_brfss_data-sex_national',
+      Breakdowns.forFips(new Fips('00')),
+      'sex',
+    )
+  })
+
+  test('National and Education Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'phrma_brfss_data-education_national',
+      Breakdowns.forFips(new Fips('00')),
+      'education',
+    )
+  })
+
+  test('State and Income Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'phrma_brfss_data-income_state',
       Breakdowns.forFips(new Fips('02')),
-      'lis',
-    )
-  })
-
-  test('County and Age Breakdown', async () => {
-    await ensureCorrectDatasetsDownloaded(
-      'phrma_data-age_county',
-      Breakdowns.forFips(new Fips('02999')),
-      AGE,
+      'income',
     )
   })
 })

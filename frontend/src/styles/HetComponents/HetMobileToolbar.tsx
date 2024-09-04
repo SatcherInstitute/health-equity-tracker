@@ -31,7 +31,10 @@ export default function HetMobileAppToolbar() {
       if ('pages' in value) {
         return (
           <div key={key}>
-            <ListItemButton onClick={() => handleToggle(key)} className='w-full'>
+            <ListItemButton
+              onClick={() => handleToggle(key)}
+              className='w-full'
+            >
               <ListItemText primary={value.label} />
               {expandedMenu === key ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
@@ -39,7 +42,10 @@ export default function HetMobileAppToolbar() {
               <List component='div' disablePadding>
                 {Object.entries(value.pages).map(([subKey, subValue]) => (
                   <ListItemLink href={subKey} key={subKey} sx={{ pl: 4 }}>
-                    <ListItemText className='text-altBlack' primary={subValue} />
+                    <ListItemText
+                      className='text-altBlack'
+                      primary={subValue}
+                    />
                   </ListItemLink>
                 ))}
               </List>
@@ -47,7 +53,7 @@ export default function HetMobileAppToolbar() {
           </div>
         )
       }
-      
+
       if ('link' in value) {
         return (
           <ListItemLink href={value.link} key={key}>

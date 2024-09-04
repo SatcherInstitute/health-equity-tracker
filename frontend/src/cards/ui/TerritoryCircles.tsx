@@ -1,13 +1,13 @@
 import ChoroplethMap from '../../charts/ChoroplethMap'
-import {
-  type DataTypeConfig,
-  type MetricConfig,
+import type {
+  DataTypeConfig,
+  MetricConfig,
 } from '../../data/config/MetricConfig'
 import { Fips } from '../../data/utils/Fips'
 
-import { type DemographicGroup } from '../../data/utils/Constants'
-import { type Row } from '../../data/utils/DatasetTypes'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicGroup } from '../../data/utils/Constants'
+import type { Row } from '../../data/utils/DatasetTypes'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import {
   type HighestLowest,
   type CountColsMap,

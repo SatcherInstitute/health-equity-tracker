@@ -9,7 +9,7 @@ import {
   LinkedinIcon,
   XIcon,
 } from 'react-share'
-import { type PopoverElements } from '../../utils/hooks/usePopover'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
 import { het } from '../../styles/DesignTokens'
 
 const shareIconAttributes = {
