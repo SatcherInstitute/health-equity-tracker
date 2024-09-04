@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { youthFatalitiesFacts, homicideFacts, suicideFacts, urbanicityFacts,  } from '../policyContent/OurFindingsContent'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function OurFindingsTab() {
   return (
@@ -11,9 +12,7 @@ export default function OurFindingsTab() {
       <h2 className='sr-only'>Addressing Inequities</h2>
       <section id='#ga-youth-fatalities'>
         <div className='mb-0'>
-          <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-            OUR FINDINGS
-          </p>
+          <HetOverline text='Our Findings'/>
           <h3 className='my-0 text-title font-medium text-altGreen'>
             Georgia's Youth Fatality Rates
           </h3>
@@ -30,9 +29,7 @@ export default function OurFindingsTab() {
       </section>
       <section id='#ga-homicides'>
         <div className='mb-0'>
-          <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-            OUR FINDINGS
-          </p>
+          <HetOverline text='Our Findings'/>
           <h3 className='my-0 text-title font-medium text-altGreen'>
             Georgia's Homicide Rates
           </h3>
@@ -51,9 +48,7 @@ export default function OurFindingsTab() {
           
       <section id='#ga-suicides'>
         <div className='mb-0'>
-          <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-            OUR FINDINGS
-          </p>
+          <HetOverline text='Our Findings'/>
           <h3 className='my-0 text-title font-medium text-altGreen'>
             Georgia's Suicide Rates
           </h3>
@@ -71,9 +66,7 @@ export default function OurFindingsTab() {
       </section>
       <section id='#ga-homicides-urbanicity'>
         <div className='mb-0'>
-          <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-            OUR FINDINGS
-          </p>
+          <HetOverline text='Our Findings'/>
           <h3 className='my-0 text-title font-medium text-altGreen'>
           Georgia's Homicide Rates Among Black Men
           </h3>

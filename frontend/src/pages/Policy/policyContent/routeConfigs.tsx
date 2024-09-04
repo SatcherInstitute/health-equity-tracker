@@ -46,10 +46,6 @@ export const routeConfigs: RouteConfig[] = [
         label: 'Understanding the Crisis of Gun Violence in Atlanta',
         path: '#introduction',
       },
-      {
-        label: 'Background',
-        path: '#background',
-      },
     ],
     visible: true,
   },

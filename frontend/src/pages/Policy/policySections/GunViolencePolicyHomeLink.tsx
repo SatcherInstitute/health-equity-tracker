@@ -1,10 +1,10 @@
+import { HetOverline } from "../../../styles/HetComponents/HetOverline";
+
 export default function GunViolencePolicyHomeLink() {
 	return (
 		<>
 			<section className='relative'>
-				<p className='mb-3 mt-0 text-center font-roboto text-smallest font-semibold uppercase text-black'>
-					In Focus
-				</p>
+				<HetOverline text='In Focus' className='text-center'/>
 				<div className='flex w-full flex-col justify-center items-center'>
 					<h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
 					Understanding the Crisis of Gun Violence in Atlanta

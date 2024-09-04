@@ -5,6 +5,7 @@ import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import PolicyPagination from './PolicyPagination'
 import PolicyCardMenuMobile from './PolicyCardMenuMobile'
 import PolicyCardMenu from './PolicyCardMenu'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function PolicyPage() {
 	const location = useLocation()
@@ -46,12 +47,9 @@ export default function PolicyPage() {
                 routeConfig.subLinks && routeConfig.subLinks.length > 0
               return match && hasSublinks ? (
                 <div className='mt-2 mb-12' key={routeConfig.path}>
-                  <p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
-                    On this page
-                  </p>
+                  <HetOverline className='mt-0' text='On this Page'/>
                   <HetOnThisPageMenu
                     links={routeConfig.subLinks}
-                    className=''
                   />
                 </div>
               ) : null
@@ -96,9 +94,7 @@ export default function PolicyPage() {
                 className='min-w-40 w-48 max-w-40 sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block flex flex-col'
                 key={routeConfig.path}
               >
-                <p className='my-0 text-left font-roboto text-smallest font-semibold uppercase text-black'>
-                  On this page
-                </p>
+                <HetOverline text='On this Page'/>
                 <h4
                   id='on-this-page-policy-header'
                   className='mt-2 mb-4 font-sansTitle text-title leading-lhNormal mr-16 w-fit'

@@ -25,7 +25,7 @@ export const economicResources = [
 
 export const educationalResources = [
   {
-    title: "Communities In Schools of Atlanta",
+    title: 'Communities In Schools of Atlanta',
     description: (
       <>
         This group works within local schools to provide resources and support,
@@ -33,19 +33,19 @@ export const educationalResources = [
         education and after-school programs.
       </>
     ),
-    link: "https://www.cisatlanta.org/",
+    link: 'https://www.cisatlanta.org/',
   },
   {
-    title: "The Atlanta Educational Telecommunications Collaborative",
+    title: 'The Atlanta Educational Telecommunications Collaborative',
     description: (
       <>
         Focuses on educational programming and initiatives, aiming to enrich
         educational experiences in the community.
       </>
     ),
-    link: "https://www.wabe.org/",
+    link: 'https://www.wabe.org/',
   },
-];
+]
 
 export const justiceResources = [
 	{

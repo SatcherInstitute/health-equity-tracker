@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function HowToUseTheDataTab() {
 	return (
@@ -9,9 +10,7 @@ export default function HowToUseTheDataTab() {
 			</Helmet>
 			<h2 className='sr-only'>How To Use The Data</h2>
 			<section id='#het-data-visualizations'>
-				<p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-					HOW TO USE THE DATA
-				</p>
+				<HetOverline text='How to Use the Data'/>
 				<h3 className='my-0 text-title font-medium text-altGreen'>
 					HET Data Visualization Maps and Charts
 				</h3>
@@ -32,9 +31,7 @@ export default function HowToUseTheDataTab() {
 						<div>
 							<div>
 								<div>
-									<p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-										OUR DATA VISUALS
-									</p>
+									<HetOverline text='Our Data Visuals'/>
 									<div>
 										<h3 className='my-0 text-title font-medium text-altGreen'>
 											{dataVisual.title}
@@ -97,7 +94,7 @@ export default function HowToUseTheDataTab() {
 								))}
 							</div>
 						</p>
-						<div className='mt-8 border border-b-1 border-t-0 border-x-0 border-solid border-altBlack'></div>
+						<div className='mt-8 border border-b-1 border-t-0 border-x-0 border-solid border-methodologyGreen'></div>
 					</div>
 				</section>
 			))}

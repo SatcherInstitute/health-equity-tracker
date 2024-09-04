@@ -1,5 +1,3 @@
-import { Tooltip, Typography } from '@mui/material'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 
 export const gvaFacts = [
