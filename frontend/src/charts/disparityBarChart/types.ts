@@ -1,9 +1,6 @@
-import {
-  type MetricConfig,
-  type MetricId,
-} from '../../data/config/MetricConfig'
-import { type DemographicType } from '../../data/query/Breakdowns'
-import { type ChartDimensionProps } from '../../utils/hooks/useChartDimensions'
+import type { MetricConfig, MetricId } from '../../data/config/MetricConfig'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { ChartDimensionProps } from '../../utils/hooks/useChartDimensions'
 
 type Data = Array<Record<string, any>>
 type Text = string | string[]

@@ -23,7 +23,7 @@ export async function fetchNewsData() {
   return await axios.get(
     `${
       NEWS_URL + WP_API + ALL_POSTS
-    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`,
   )
 }
 
@@ -31,6 +31,6 @@ export async function fetchLandingPageNewsData() {
   return await axios.get(
     `${
       NEWS_URL + WP_API + ALL_POSTS
-    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${4}`
+    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${4}`,
   )
 }

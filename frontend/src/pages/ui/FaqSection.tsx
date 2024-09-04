@@ -8,10 +8,9 @@ export default function FaqSection() {
   return (
     <article className='grid'>
       <div className='pb-5 text-left font-serif text-bigHeader font-light text-altGreen'>
-      <h3 className="m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen text-center">
-									
-        Frequently asked questions
-								</h3>
+        <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen text-center'>
+          Frequently asked questions
+        </h3>
       </div>
 
       <div className='px-0 py-5'>

@@ -1,7 +1,7 @@
 interface EmbeddedIframeProps {
-	src: string;
-	title: string;
-	id: string;
+  src: string
+  title: string
+  id: string
 }
 
 /**
@@ -13,36 +13,36 @@ interface EmbeddedIframeProps {
  * @return {JSX.Element} The embedded iframe element.
  */
 export const EmbeddedIframe: React.FC<EmbeddedIframeProps> = ({
-	src,
-	title,
-	id,
+  src,
+  title,
+  id,
 }) => {
-	return (
-		<div
-			className="px-8 p-2 my-0 bg-methodologyGreen"
-			style={{
-				width: "100%",
-				height: "500px",
-				marginTop: "1rem",
-				overflow: "hidden",
-			}}
-		>
-			<iframe
-				src={src}
-				id={id}
-				style={{
-					width: "200%",
-					height: "165%",
-					transform: "scale(0.5)",
-					transformOrigin: "0 0",
-					border: "none",
-				}}
-				title={title}
-				aria-label={title}
-				role="document"
-			>
-				Your browser does not support an iframe.
-			</iframe>
-		</div>
-	);
-};
+  return (
+    <div
+      className='px-8 p-2 my-0 bg-methodologyGreen'
+      style={{
+        width: '100%',
+        height: '500px',
+        marginTop: '1rem',
+        overflow: 'hidden',
+      }}
+    >
+      <iframe
+        src={src}
+        id={id}
+        style={{
+          width: '200%',
+          height: '165%',
+          transform: 'scale(0.5)',
+          transformOrigin: '0 0',
+          border: 'none',
+        }}
+        title={title}
+        aria-label={title}
+        role='document'
+      >
+        Your browser does not support an iframe.
+      </iframe>
+    </div>
+  )
+}

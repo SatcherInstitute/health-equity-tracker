@@ -60,11 +60,11 @@ export function Report(props: ReportProps) {
 
   const [demographicType, setDemographicType] = useParamState<DemographicType>(
     DEMOGRAPHIC_PARAM,
-    defaultDemo
+    defaultDemo,
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
-    selectedDataTypeConfig1Atom
+    selectedDataTypeConfig1Atom,
   )
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
@@ -73,7 +73,7 @@ export function Report(props: ReportProps) {
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
   if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
     setDemographicType(
-      Object.values(enabledDemographicOptionsMap)[0] as DemographicType
+      Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
     )
   }
 
@@ -85,9 +85,9 @@ export function Report(props: ReportProps) {
         (val: string) => {
           val = swapOldDatatypeParams(val)
           return METRIC_CONFIG[props.dropdownVarId]?.find(
-            (cfg) => cfg.dataTypeId === val
+            (cfg) => cfg.dataTypeId === val,
           )
-        }
+        },
       )
       setDataTypeConfig(dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
     }
@@ -104,7 +104,7 @@ export function Report(props: ReportProps) {
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
-      (key) => document.getElementById(key)?.id !== undefined
+      (key) => document.getElementById(key)?.id !== undefined,
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)

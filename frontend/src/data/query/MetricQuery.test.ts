@@ -1,5 +1,5 @@
-import { DatasetId } from '../config/DatasetMetadata'
-import { MetricId } from '../config/MetricConfig'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { MetricId } from '../config/MetricConfig'
 import { MetricQueryResponse } from '../query/MetricQuery'
 import { RACE } from '../utils/Constants'
 
@@ -55,7 +55,7 @@ describe('MetricQueryResponse', () => {
           invalid: undefined,
         },
       ],
-      ['dataset1' as DatasetId]
+      ['dataset1' as DatasetId],
     )
   })
 
@@ -69,7 +69,7 @@ describe('MetricQueryResponse', () => {
       max: 12,
     })
     expect(metricQueryResponse.getFieldRange(RACE as MetricId)).toEqual(
-      undefined
+      undefined,
     )
   })
 

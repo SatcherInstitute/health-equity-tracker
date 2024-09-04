@@ -7,12 +7,15 @@ interface HetPaginationProps {
   className?: string
 }
 
-export default function HetPagination({ routeConfigs, className }: HetPaginationProps) {
+export default function HetPagination({
+  routeConfigs,
+  className,
+}: HetPaginationProps) {
   const history = useHistory()
   const location = useLocation()
 
   const currentIndex = routeConfigs.findIndex(
-    (route) => route.path === location.pathname
+    (route) => route.path === location.pathname,
   )
 
   const nextRoute = routeConfigs[currentIndex + 1]
@@ -31,14 +34,14 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
   }
 
   return (
-    <div className={`mx-0 smMd:mb-0 mb-8 mt-8 flex w-full flex-col justify-between md:mt-16 md:flex-row gap-4 md:self-stretch ${className ?? ''}`}>
+    <div
+      className={`mx-0 smMd:mb-0 mb-8 mt-8 flex w-full flex-col justify-between md:mt-16 md:flex-row gap-4 md:self-stretch ${className ?? ''}`}
+    >
       {prevRoute ? (
         <HetPaginationButton direction='previous' onClick={goPrevious}>
           {prevRoute.label}
         </HetPaginationButton>
-      ) : (
-        null
-      )}
+      ) : null}
 
       {nextRoute ? (
         <HetPaginationButton

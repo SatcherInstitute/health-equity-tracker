@@ -9,25 +9,21 @@ import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'
 import { useAtomValue } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
-import { CategoryTypeId } from '../../utils/MadLibs'
+import type { CategoryTypeId } from '../../utils/MadLibs'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 
 export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
     useParamState(TOPIC_INFO_PARAM_KEY)
 
-  const selectedDataTypeConfig = useAtomValue(
-    selectedDataTypeConfig1Atom
-  )
+  const selectedDataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
 
-  const category: CategoryTypeId | undefined = selectedDataTypeConfig?.categoryId
+  const category: CategoryTypeId | undefined =
+    selectedDataTypeConfig?.categoryId
   let methodologyLink = `${METHODOLOGY_PAGE_LINK}/topic-categories/`
   // TODO: refactor to sync CategoryTypeId and Methodology Category Link Routes (they're close but not identical)
   if (category === 'medicare') methodologyLink += 'medication-utilization'
   else methodologyLink += category ?? ''
-
-
-
 
   return (
     <Dialog
@@ -39,17 +35,15 @@ export default function TopicInfoModal() {
       scroll='paper'
     >
       <DialogContent dividers={true}>
-        <HetCloseButton onClick={() => setTopicInfoModalIsOpen(false)} ariaLabel='close topic info modal' />
+        <HetCloseButton
+          onClick={() => setTopicInfoModalIsOpen(false)}
+          ariaLabel='close topic info modal'
+        />
         <DataTypeDefinitionsList />
       </DialogContent>
       <DialogContent dividers={true} className='text-smallest'>
         For specific calculations and more detailed information, visit our{' '}
-        <HashLink
-          to={methodologyLink}
-        >
-          methodology
-        </HashLink>
-        , or view the{' '}
+        <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
         <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
       </DialogContent>
     </Dialog>

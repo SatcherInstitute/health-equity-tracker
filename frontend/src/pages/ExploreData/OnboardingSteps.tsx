@@ -1,5 +1,5 @@
-import LazyLoad from 'react-lazyload';
-import covidClick from '../../assets/screengrabs/covidClick.mp4';
+import LazyLoad from 'react-lazyload'
+import covidClick from '../../assets/screengrabs/covidClick.mp4'
 
 export function getOnboardingSteps(pageIsWide: boolean) {
   const steps = [
@@ -27,7 +27,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
         </LazyLoad>
       </>,
       /* hideCloseButton= */ true,
-      /* placement= */ undefined
+      /* placement= */ undefined,
     ),
     onboardingStep(
       pageIsWide ? '.mode-selector-box' : '.mode-selector-box-mobile',
@@ -52,7 +52,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
         </li>
       </ul>,
       /* hideCloseButton= */ true,
-      /* placement= */ undefined
+      /* placement= */ undefined,
     ),
     onboardingStep(
       '#unknown-bubbles-alert',
@@ -69,7 +69,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
         </p>
       </>,
       /* hideCloseButton= */ false,
-      /* placement= */ undefined
+      /* placement= */ undefined,
     ),
     onboardingStep(
       '#root',
@@ -92,10 +92,10 @@ export function getOnboardingSteps(pageIsWide: boolean) {
         </div>
       </>,
       /* hideCloseButton= */ false,
-      /* placement= */ undefined
+      /* placement= */ undefined,
     ),
-  ];
-  return steps;
+  ]
+  return steps
 }
 
 function onboardingStep(
@@ -118,7 +118,7 @@ function onboardingStep(
     | 'right-start'
     | 'right-end'
     | 'center'
-    | undefined
+    | undefined,
 ) {
   return {
     hideCloseButton,
@@ -126,10 +126,10 @@ function onboardingStep(
     placement,
     content: (
       <div style={{ textAlign: 'left' }}>
-        <h4 role="heading" aria-label={title}>{title}</h4>
+        <h4 aria-label={title}>{title}</h4>
         {content}
       </div>
     ),
     disableBeacon: true,
-  };
+  }
 }

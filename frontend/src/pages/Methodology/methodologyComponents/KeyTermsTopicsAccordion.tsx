@@ -5,9 +5,10 @@ import {
   Paper,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import React, { useState } from 'react'
+import type React from 'react'
+import { useState } from 'react'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
-import { type DataTypeConfig } from '../../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../../data/config/MetricConfig'
 import InfoCitations from '../../../reports/ui/InfoCitations'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
@@ -17,7 +18,7 @@ interface KeyTermsTopicsAccordionProps {
 }
 
 export default function KeyTermsTopicsAccordion(
-  props: KeyTermsTopicsAccordionProps
+  props: KeyTermsTopicsAccordionProps,
 ) {
   const isMd = useIsBreakpointAndUp('md')
 
@@ -25,7 +26,7 @@ export default function KeyTermsTopicsAccordion(
 
   const handleAccordionToggle = (
     event: React.SyntheticEvent,
-    newExpanded: boolean
+    newExpanded: boolean,
   ) => {
     setExpanded(newExpanded)
   }

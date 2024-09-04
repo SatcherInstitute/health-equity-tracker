@@ -3,7 +3,7 @@ import {
   type MetricConfig,
   formatFieldValue,
 } from '../../data/config/MetricConfig'
-import { type Row } from '../../data/utils/DatasetTypes'
+import type { Row } from '../../data/utils/DatasetTypes'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 
 interface ExtremeListProps {

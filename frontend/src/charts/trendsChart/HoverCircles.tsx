@@ -11,11 +11,11 @@
 
 /* Constants */
 import { getAmountsByDate } from './helpers'
-import { type TrendsData, type YScale } from './types'
+import type { TrendsData, YScale } from './types'
 
 /* Helpers */
 import { COLORS as C } from './constants'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import type { DemographicGroup } from '../../data/utils/Constants'
 import { het } from '../../styles/DesignTokens'
 
 /* Define type interface */
@@ -58,7 +58,7 @@ export function HoverCircles({
               )}
             </g>
           )
-        }
+        },
       )}
     </g>
   )

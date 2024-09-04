@@ -3,9 +3,9 @@ Receives list of dataType objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
-import {
-  type DropdownVarId,
-  type DataTypeConfig,
+import type {
+  DropdownVarId,
+  DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
@@ -16,13 +16,13 @@ interface DefinitionsListProps {
 }
 
 export default function DefinitionsList(
-  props: DefinitionsListProps
+  props: DefinitionsListProps,
 ): JSX.Element {
   // collect relevant categories
   const relevantCategoriesSet = new Set<Category>()
   props.dataTypesToDefine.forEach((dataType) => {
     const matchingCategory = CATEGORIES_LIST.find((category) =>
-      category.options.includes(dataType[0] as DropdownVarId)
+      category.options.includes(dataType[0] as DropdownVarId),
     )
     matchingCategory && relevantCategoriesSet.add(matchingCategory)
   })
@@ -34,7 +34,7 @@ export default function DefinitionsList(
       {relevantCategories.map((category: Category) => {
         // sort requested dataTypes into their categories
         const dataTypesForThisCategory = props.dataTypesToDefine.filter(
-          (dataType: any) => category.options.includes(dataType[0])
+          (dataType: any) => category.options.includes(dataType[0]),
         )
 
         return (

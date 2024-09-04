@@ -1,12 +1,12 @@
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
-import { type Fips } from '../../data/utils/Fips'
-import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import type { DataTypeConfig } from '../../data/config/MetricConfig'
+import type { Fips } from '../../data/utils/Fips'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import SviAlert from './SviAlert'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
-import { type Row } from '../../data/utils/DatasetTypes'
+import type { Row } from '../../data/utils/DatasetTypes'
 
 interface GeoContextProps {
   fips: Fips
@@ -56,16 +56,24 @@ export function getSubPopulationPhrase(
   subPopulationData: Row[],
   subPopulationSourceLabel: string,
   demographicType: DemographicType,
-  dataTypeConfig: DataTypeConfig
+  dataTypeConfig: DataTypeConfig,
 ): string {
-
-  const subPopConfig = dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
+  const subPopConfig =
+    dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
   if (!subPopConfig?.rateDenominatorMetric) return ''
   const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
   const popAllCount: string =
-    allRow?.[subPopConfig.rateDenominatorMetric?.metricId]?.toLocaleString('en-US', { maximumFractionDigits: 0 }) ?? POP_MISSING_VALUE
+    allRow?.[subPopConfig.rateDenominatorMetric?.metricId]?.toLocaleString(
+      'en-US',
+      { maximumFractionDigits: 0 },
+    ) ?? POP_MISSING_VALUE
 
-  const combinedSubPop = [dataTypeConfig.otherSubPopulationLabel, dataTypeConfig.ageSubPopulationLabel].filter(Boolean).join(', ')
+  const combinedSubPop = [
+    dataTypeConfig.otherSubPopulationLabel,
+    dataTypeConfig.ageSubPopulationLabel,
+  ]
+    .filter(Boolean)
+    .join(', ')
 
   return `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''}${combinedSubPop ? ' ' + combinedSubPop : ''}: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
 }
