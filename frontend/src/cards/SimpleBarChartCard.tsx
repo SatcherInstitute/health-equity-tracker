@@ -22,7 +22,6 @@ import {
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
-
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import ChartTitle from './ChartTitle'
@@ -35,8 +34,6 @@ import {
 import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
-import HetNotice from '../styles/HetComponents/HetNotice'
-import { urlMap } from '../utils/externalUrls'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668

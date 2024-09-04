@@ -68,7 +68,7 @@ class IncarcerationProvider extends VariableProvider {
     }
 
     if (breakdowns.geography === 'county') {
-      // only VERA has time series data; BJS is current only
+      // only VERA has time series data; BJS is only current
       if (breakdowns.hasOnlyRace() && timeView === 'historical')
         return 'vera_incarceration_county-by_race_and_ethnicity_county_historical'
       if (breakdowns.hasOnlyRace() && timeView === 'current')
