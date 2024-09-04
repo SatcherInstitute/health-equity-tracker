@@ -217,7 +217,7 @@ class VeraIncarcerationCounty(DataSource):
                     **RACE_PRISON_RATE_COLS_TO_STANDARD,
                     PRISON_RATE_ALL: all_val,
                 },
-                std_col.CHILDREN: {std_col.CHILDREN: all_val},
+                std_col.CHILDREN_RAW: {std_col.CHILDREN_RAW: all_val},
             },
             std_col.SEX_COL: {
                 std_col.POPULATION_COL: {**SEX_POP_TO_STANDARD, POP_ALL: all_val},
@@ -225,7 +225,7 @@ class VeraIncarcerationCounty(DataSource):
                 PER_100K_COL_MAP[std_col.JAIL_PREFIX]: {**SEX_JAIL_RATE_COLS_TO_STANDARD, JAIL_RATE_ALL: all_val},
                 RAW_COL_MAP[std_col.PRISON_PREFIX]: {**SEX_PRISON_RAW_COLS_TO_STANDARD, PRISON_RAW_ALL: all_val},
                 PER_100K_COL_MAP[std_col.PRISON_PREFIX]: {**SEX_PRISON_RATE_COLS_TO_STANDARD, PRISON_RATE_ALL: all_val},
-                std_col.CHILDREN: {std_col.CHILDREN: all_val},
+                std_col.CHILDREN_RAW: {std_col.CHILDREN_RAW: all_val},
             },
             std_col.AGE_COL: {
                 std_col.POPULATION_COL: {POP_ALL: all_val},
@@ -233,7 +233,7 @@ class VeraIncarcerationCounty(DataSource):
                 PER_100K_COL_MAP[std_col.JAIL_PREFIX]: {JAIL_RATE_ALL: all_val},
                 RAW_COL_MAP[std_col.PRISON_PREFIX]: {PRISON_RAW_ALL: all_val},
                 PER_100K_COL_MAP[std_col.PRISON_PREFIX]: {PRISON_RATE_ALL: all_val},
-                std_col.CHILDREN: {std_col.CHILDREN: all_val},
+                std_col.CHILDREN_RAW: {std_col.CHILDREN_RAW: all_val},
             },
         }
 
@@ -295,7 +295,7 @@ class VeraIncarcerationCounty(DataSource):
             *PCT_REL_INEQUITY_COL_MAP.values(),
             *RAW_COL_MAP.values(),
             std_col.INCARCERATION_POP_RAW,
-            std_col.CHILDREN,
+            std_col.CHILDREN_RAW,
         ]
 
         # by_race gets extra cols
@@ -315,7 +315,7 @@ def add_confined_children_col(df):
     """Parameters: df: pandas df containing the entire Vera csv file.
     Returns same df replacing juvenile cols with a summed, rounded `total_confined_children` col
     """
-    df[std_col.CHILDREN] = df[JUVENILE_COLS].sum(axis="columns", numeric_only=True).round(0)
+    df[std_col.CHILDREN_RAW] = df[JUVENILE_COLS].sum(axis="columns", numeric_only=True).round(0)
     df = df.drop(columns=JUVENILE_COLS)
     return df
 
