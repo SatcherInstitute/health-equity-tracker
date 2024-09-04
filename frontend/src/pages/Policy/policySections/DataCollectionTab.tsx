@@ -4,6 +4,56 @@ import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
 import { BlockRounded, CheckRounded } from '@mui/icons-material'
 import { Tooltip, Typography } from '@mui/material'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import DatasetList from '../policyComponents/DatasetList'
+
+const datasets = [
+    {
+      datasetName: 'Gun Deaths (Children, ages 0-17)',
+      items: [
+        { label: 'Breakdowns by race/ethnicity', included: true },
+        { label: 'Breakdowns by age', included: false },
+        { label: 'Breakdowns by sex', included: false },
+        { label: 'Breakdowns by urbanicity', included: false },
+      ],
+    },
+    {
+      datasetName: 'Gun Deaths (Young adults, ages 18-25)',
+      items: [
+        { label: 'Breakdowns by race/ethnicity', included: true },
+        { label: 'Breakdowns by age', included: false },
+        { label: 'Breakdowns by sex', included: false },
+        { label: 'Breakdowns by urbanicity', included: false },
+      ],
+    },
+    {
+      datasetName: 'Gun Homicides (Black Men-specific)',
+      items: [
+        { label: 'Breakdowns by race/ethnicity', included: false },
+        { label: 'Breakdowns by age', included: true },
+        { label: 'Breakdowns by sex', included: false },
+        { label: 'Breakdowns by urbanicity', included: true },
+      ],
+    },
+    {
+      datasetName: 'Gun Homicides',
+      items: [
+        { label: 'Breakdowns by race/ethnicity', included: true },
+        { label: 'Breakdowns by age', included: true },
+        { label: 'Breakdowns by sex', included: true },
+        { label: 'Breakdowns by urbanicity', included: false },
+      ],
+    },
+    {
+      datasetName: 'Gun Suicides',
+      items: [
+        { label: 'Breakdowns by race/ethnicity', included: true },
+        { label: 'Breakdowns by age', included: true },
+        { label: 'Breakdowns by sex', included: true },
+        { label: 'Breakdowns by urbanicity', included: false },
+      ],
+    },
+  ]
+
 
 export default function DataCollectionTab() {
 	return (
@@ -95,84 +145,12 @@ export default function DataCollectionTab() {
 					the need for ongoing data enhancement.
 				</p>
 			</section>
-
-			<section id='#available-data'>
-				<h3 className='my-0 text-title font-medium text-altGreen'>
-					Available Data
-				</h3>
-				<div className='grid grid-cols-1 md:grid-cols-2'>
-					<div>
-						<p className='text-smallest'>
-							What’s included in our <HetTerm>youth (0-17)</HetTerm> dataset:
-						</p>
-						<ul className='list-none p-0 text-smallest'>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-								<p className='my-0 ml-2'>National- and state-level data</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-
-								<p className='my-0 ml-2'>Breakdowns by race/ethnicity</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<BlockRounded className='text-text text-redOrange' />
-
-								<p className='my-0 ml-2'>Breakdowns by age</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<BlockRounded className='text-text text-redOrange' />
-
-								<p className='my-0 ml-2'>Breakdowns by sex</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<BlockRounded className='text-text text-redOrange' />
-
-								<p className='my-0 ml-2'>Breakdowns by cause of death</p>
-							</li>
-						</ul>
-					</div>
-
-					<div>
-						<p className='text-smallest'>
-							What’s included in our <HetTerm>general population</HetTerm>{' '}
-							dataset:
-						</p>
-						<ul className='list-none p-0 text-smallest'>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-								<p className='my-0 ml-2'>National- and state-level data</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-
-								<p className='my-0 ml-2'>Breakdowns by race/ethnicity</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-
-								<p className='my-0 ml-2'>Breakdowns by age</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-
-								<p className='my-0 ml-2'>Breakdowns by sex</p>
-							</li>
-							<li className='flex flex-row align-center'>
-								<CheckRounded className='text-text text-altGreen' />
-
-								<p className='my-0 ml-2'>Breakdowns by cause of death</p>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</section>
+			
 			<section id='#fatality-definitions'>
 				<h3 className='my-4 text-title font-medium text-altGreen'>
 					Fatality Definitions
 				</h3>
-				<StripedTable
-					id=''
+				<StripedTable					
 					applyThickBorder={false}
 					columns={[
 						{ header: 'Topic', accessor: 'topic' },
@@ -183,9 +161,19 @@ export default function DataCollectionTab() {
 					]}
 					rows={[
 						{
-							topic: 'Gun deaths (youth)',
+							topic: 'Gun deaths (children)',
 							measurementDefinition:
 								'Deaths of individuals under the age of 18 caused by firearms.',
+						},
+						{
+							topic: 'Gun deaths (young adults)',
+							measurementDefinition:
+								'Deaths of individuals between the ages of 18-25 caused by firearms.',
+						},
+						{
+							topic: 'Gun homicides (Black Men)',
+							measurementDefinition:
+								'Deaths of Black or African-American (NH) males, caused by gun homicides.',
 						},
 						{
 							topic: 'Gun homicides',
@@ -200,6 +188,15 @@ export default function DataCollectionTab() {
 					]}
 				/>
 			</section>
+			<section id='#available-data'>
+      <h3 className='mt-6 mb-2 text-title font-medium text-altGreen'>Available Data</h3>
+	  <p className='mb-0'>
+          Currently, all of our gun violence datasets include national- and state-level data. Here is a brief overview of what is included in our data collection.
+        </p>
+					<DatasetList
+      datasets={datasets}
+	  />
+	  </section>
 		</>
 	)
 }

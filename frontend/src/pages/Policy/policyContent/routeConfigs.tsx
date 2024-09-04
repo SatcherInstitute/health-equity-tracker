@@ -72,12 +72,12 @@ export const routeConfigs: RouteConfig[] = [
         path: '#data-limitations',
       },
       {
-        label: 'Available Data',
-        path: '#available-data',
-      },
-      {
         label: 'Fatality Definitions',
         path: '#fatality-definitions',
+      },
+      {
+        label: 'Available Data',
+        path: '#available-data',
       },
     ],
     visible: true,

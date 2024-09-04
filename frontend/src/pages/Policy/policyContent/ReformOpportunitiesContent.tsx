@@ -1,6 +1,8 @@
+import { AttachMoney, CampaignRounded, Diversity3Rounded, HistoryEduRounded, LocalPoliceRounded, PanToolRounded, PsychologyRounded, QueryStatsOutlined, SchoolRounded, VolunteerActivismRounded } from '@mui/icons-material'
+
 export const effortsAndInitiatives = [
 	{
-		icon: '/public/img/icons/icon_mental-health_kliwiart.png',
+		icon: (<PsychologyRounded className='text-title mt-1'/>),
 		title: 'Mental Health and Social Support Expansion',
 		description: (
 			<>
@@ -9,7 +11,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_money-loss_kliwiart.png',
+		icon: (<SchoolRounded className='text-title mt-1'/>),
 		title: 'Educational and Economic Empowerment',
 		description: (
 			<>
@@ -18,7 +20,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_video-conference_kliwiart.png',
+		icon: (<PanToolRounded className='text-title mt-1'/>),
 		title: 'Community-Led Violence Prevention',
 		description: (
 			<>
@@ -27,7 +29,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_customer_kliwiart.png',
+		icon: (<LocalPoliceRounded className='text-title mt-1'/>),
 		title: 'Progressive Policing Reforms',
 		description: (
 			<>
@@ -36,7 +38,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_target_kliwiart.png',
+		icon: (<CampaignRounded className='text-title mt-1'/>),
 		title: 'Comprehensive Gun Control',
 		description: (
 			<>
@@ -45,7 +47,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_data-analysis_kliwiart.png',
+		icon: (<QueryStatsOutlined className='text-title mt-1'/>),
 		title: 'Informed Research and Data Analysis',
 		description: (
 			<>
@@ -54,16 +56,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_love_kliwiart.png',
-		title: 'Robust Community Engagement',
-		description: (
-			<>
-				Strengthen the bond between law enforcement and the communities they serve, especially in areas most impacted by gun violence, through trust-building and cooperative problem-solving efforts.
-			</>
-		),
-	},
-	{
-		icon: '/public/img/icons/icon_health-insurance_kliwiart.png',
+		icon: (<VolunteerActivismRounded className='text-title mt-1'/>),
 		title: 'Social Services Enhancement',
 		description: (
 			<>
@@ -72,7 +65,7 @@ export const effortsAndInitiatives = [
 		),
 	},
 	{
-		icon: '/public/img/icons/icon_skill_kliwiart.png',
+		icon: (<HistoryEduRounded className='text-title mt-1'/>),
 		title: 'Policy Advocacy for Change',
 		description: (
 			<>
@@ -84,12 +77,13 @@ export const effortsAndInitiatives = [
 
 export const legislativeActions = [
 	{
-		title: 'S.3407 - Gun Violence Prevention and Community Safety Act of 2023',
+		title: 'S.3407 — Gun Violence Prevention and Community Safety Act of 2023',
 		description: (
 			<>
 				This legislation is designed to address gun violence through a comprehensive approach. It likely includes provisions for stricter background checks, restrictions on certain types of firearms and ammunition, and measures to close loopholes in existing gun laws.
 			</>
-		),
+		), 
+		liRaised: true
 	},
 	{
 		title: 'H.R.4283 — Gun Violence Prevention and Safe Communities Act of 2023',
@@ -97,15 +91,17 @@ export const legislativeActions = [
 			<>
 				This bill probably focuses on similar goals as S.3407 but might differ in specific approaches or legal mechanisms. The aim is to reduce gun violence and ensure safer communities through legislative action.
 			</>
-		),
+		), 
+		liRaised: false
 	},
 	{
 		title: 'Legislation Similar to H.R.850',
 		description: (
 			<>
-				This refers to a proposal to direct the Attorney General to conduct a study on the effectiveness of extreme risk protection orders (ERPOs). ERPOs, also known as "red flag laws," allow for the temporary removal of firearms from individuals deemed to be a risk to themselves or others. This study would assess how effective these orders are in reducing gun violence.
+				This refers to a proposal to direct the Attorney General to conduct a study on the effectiveness of extreme risk protection orders (ERPOs). ERPOs, also known as 'red flag laws,' allow for the temporary removal of firearms from individuals deemed to be a risk to themselves or others. This study would assess how effective these orders are in reducing gun violence.
 			</>
-		),
+		), 
+		liRaised: true
 	},
 	{
 		title: 'Support for Research Grants Aimed at Informing Firearm-Related Violence and Injury Prevention Strategies',
@@ -113,7 +109,8 @@ export const legislativeActions = [
 			<>
 				This involves funding research initiatives that explore the causes, effects, and prevention strategies related to gun violence and injuries. Such research could provide critical data for shaping effective public policies.
 			</>
-		),
+		), 
+		liRaised: false
 	},
 	{
 		title: 'Legislation for a 7-Day Waiting Period',
@@ -121,6 +118,7 @@ export const legislativeActions = [
 			<>
 				This proposal suggests a mandatory waiting period of seven days before the transfer of certain firearms and related items, such as semiautomatic firearms, silencers, armor-piercing ammunition, or large capacity ammunition magazines. The waiting period could serve as a cooling-off time to prevent impulsive acts of violence and ensure thorough background checks.
 			</>
-		),
+		), 
+		liRaised: true
 	},
 ]

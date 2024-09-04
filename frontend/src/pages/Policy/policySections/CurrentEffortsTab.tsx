@@ -85,7 +85,7 @@ export default function CurrentEffortsTab() {
 			</p>
 			
 			<section id='#health-inequities-definition'>
-			<p className='my-2'>
+			{/* <p className='my-2'>
           Addressing the root causes of gun violence involves understanding:
         </p>
         <div className='flex flex-col'>
@@ -100,7 +100,7 @@ export default function CurrentEffortsTab() {
               tabIndex={0}
 			  className='hover:cursor-pointer'
             >
-              <div className='rounded-md border border-solid border-methodologyGreen my-2 duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row items-center justify-between text-exploreButton py-2 px-2 smMd:px-8 group no-underline hover:scale-105 hover:transition-transform hover:duration-30 fade-in-up-blur'>
+              <div className='rounded-md border border-solid border-methodologyGreen my-2 duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row items-center justify-between text-exploreButton p-4 w-fitgroup no-underline hover:scale-105 hover:transition-transform hover:duration-30 fade-in-up-blur'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen group-hover:scale-110 flex flex-row items-center justify-start gap-1 smMd:gap-4'>
                   {link.path === '#economic-inequality' && (
                     <AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
@@ -132,7 +132,7 @@ export default function CurrentEffortsTab() {
           By recognizing these interconnections, the Health Equity Tracker not
           only provides data but also underscores the multi-faceted nature of
           gun violence.
-          </p>
+          </p> */}
           <p>
           
           This approach advocates for holistic solutions that address the root
@@ -154,9 +154,17 @@ export default function CurrentEffortsTab() {
         <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
           INTERCONNECTIONS
         </p>
+        <div className='flex flex-row w-full items-center'>
+
+        <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+                <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
+                  
+                    <AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
+                  </div></div>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Economic Inequality
         </h3>
+        </div>
         <p>
           Organizations focusing on reducing economic inequality are crucial in
           the fight against gun violence, as poverty and lack of opportunities
@@ -174,12 +182,17 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#educational-opportunities'>
-        <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-          INTERCONNECTIONS
-        </p>
+         <div className='flex flex-row w-full items-center'>
+
+         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+                <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
+                                      <SchoolRounded className='text-title smMd:text-smallestHeader' />
+                  
+                  </div></div>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Educational Opportunities
         </h3>
+         </div>
         <p>
           Improving access to education is a vital step in preventing gun
           violence.
@@ -196,12 +209,16 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#racial-and-social-justice'>
-        <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-          INTERCONNECTIONS
-        </p>
+         <div className='flex flex-row w-full items-center'>
+
+         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+                <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
+                  <GavelRounded className='text-title smMd:text-smallestHeader' />
+                  </div></div>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Racial and Social Justice
         </h3>
+         </div>
         <p>
           Tackling systemic racial and social injustice is a fundamental aspect
           of addressing the root causes of gun violence.
@@ -218,12 +235,16 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#mental-health-services'>
-        <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-          INTERCONNECTIONS
-        </p>
+         <div className='flex flex-row w-full items-center'>
+
+         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+                <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
+                    <PsychologyRounded className='text-title smMd:text-smallestHeader' />
+                  </div></div>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Mental Health Services
         </h3>
+         </div>
         <p>
           Expanded access to mental health services is essential in addressing
           the trauma and stress that can lead to violence.
@@ -240,12 +261,16 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#community-engagement'>
-        <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-          INTERCONNECTIONS
-        </p>
+         <div className='flex flex-row w-full items-center'>
+
+         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+                <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'> <Diversity3Rounded className='text-title smMd:text-smallestHeader' />
+                  </div>
+                  </div>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Community Engagement
         </h3>
+         </div>
         <p>
           Organizations that encourage community involvement in safety and
           prevention initiatives are key players.

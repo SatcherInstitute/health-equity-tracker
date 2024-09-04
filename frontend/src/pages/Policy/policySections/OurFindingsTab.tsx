@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { youthFatalitiesFacts, homicideFacts, suicideFacts, urbanicityFacts,  } from '../policyContent/OurFindingsContent'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 
 export default function OurFindingsTab() {
   return (
@@ -22,6 +23,7 @@ export default function OurFindingsTab() {
               {youthFatalitiesFact.content} 
               </p>
             {youthFatalitiesFact.customCard}
+            <HetTextArrowLink containerClassName='mx-8 mt-8 flex justify-end' link={youthFatalitiesFact.report} linkText={'Learn more'}></HetTextArrowLink>
           </div>
             ))}
         </div>
@@ -40,6 +42,7 @@ export default function OurFindingsTab() {
               {homicideFact.content} 
               </p>
             {homicideFact.customCard}
+            <HetTextArrowLink containerClassName='mx-8 mt-8 flex justify-end' link={homicideFact.report} linkText={'Learn more'}></HetTextArrowLink>
           </div>
             ))}
          
@@ -60,6 +63,7 @@ export default function OurFindingsTab() {
               {suicideFact.content} 
               </p>
             {suicideFact.customCard}
+            <HetTextArrowLink containerClassName='mx-8 mt-8 flex justify-end' link={suicideFact.report} linkText={'Learn more'}></HetTextArrowLink>
           </div>
             ))}
           
@@ -79,6 +83,7 @@ export default function OurFindingsTab() {
               {urbanicityFact.content} 
               </p>
             {urbanicityFact.customCard}
+            <HetTextArrowLink containerClassName='mx-8 mt-8 flex justify-end' link={urbanicityFact.report} linkText={'Learn more'}></HetTextArrowLink>
           </div>
             ))}
           

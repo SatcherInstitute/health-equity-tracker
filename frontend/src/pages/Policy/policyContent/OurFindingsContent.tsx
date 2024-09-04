@@ -9,9 +9,11 @@ import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
 import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
 import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
+import { HET_URL } from '../../../utils/internalRoutes'
 
 export const youthFatalitiesFacts = [
   {
+    report: `${HET_URL}/exploredata?mls=1.gun_violence_youth-3.13&group1=All#rates-over-time`,
     content: (
       <>
         From 2018 to 2021, the rate of {''}
@@ -30,11 +32,12 @@ export const youthFatalitiesFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
         demographicType={RACE}
         reportTitle='Rates of gun deaths among children over time in Georgia'
-        className='shadow-none py-0 mt-0 mb-4'
+        className='shadow-less py-0 mt-0 mb-4'
       />
     ),
   },
   {
+    report: `${HET_URL}/exploredata?mls=1.gun_violence_youth-3.13&group1=All#population-vs-distribution`,
     content: (
       <>
         As of 2022, Black Non-Hispanic youth were disproportionately affected by
@@ -51,7 +54,7 @@ export const youthFatalitiesFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
         demographicType={RACE}
         reportTitle='Population vs. distribution of total gun deaths among children in Georgia'
-        className='shadow-none'
+        className='shadow-less'
       />
     ),
   },
@@ -59,6 +62,7 @@ export const youthFatalitiesFacts = [
 
 export const homicideFacts = [
   {
+    report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All#inequities-over-time`,
     content: (
       <>
         Despite a decrease in firearm homicide rates for some groups in 2022,{' '}
@@ -76,11 +80,12 @@ export const homicideFacts = [
         demographicType={RACE}
         reportTitle='Historical relative inequity of gun homicides in Georgia'
         isCompareCard={false}
-        className='shadow-none'
+        className='shadow-less'
       />
     ),
   },
   {
+    report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All#rate-chart`,
     content: (
       <>
         As of 2021,{' '}
@@ -97,7 +102,7 @@ export const homicideFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
         demographicType={RACE}
         reportTitle='Rates of gun homicides in Georgia'
-		className='shadow-none'
+		className='shadow-less'
       />
     ),
   },
@@ -105,6 +110,7 @@ export const homicideFacts = [
 
 export const suicideFacts = [
   {
+    report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All&dt1=gun_violence_suicide#rates-over-time`,
     content: (
       <>
         From 2018 to 2021,{' '}
@@ -123,11 +129,12 @@ export const suicideFacts = [
         demographicType={RACE}
         reportTitle='Rates of gun suicides over time in Georgia'
         selectedTableGroups={[BLACK_NH, WHITE_NH]}
-        className='shadow-none py-0 mt-0 mb-4'
+        className='shadow-less py-0 mt-0 mb-4'
       />
     ),
   },
   {
+    report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All&dt1=gun_violence_suicide&demo=sex#data-table`,
     content: (
       <>
         From 2001 to 2021, the rate of gun-related suicides among females
@@ -144,7 +151,7 @@ export const suicideFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence'][1]}
         demographicType={SEX}
         reportTitle='Summary for gun suicides in Georgia by sex'
-        className='shadow-none py-0 mt-0 mb-4'
+        className='shadow-less py-0 mt-0 mb-4'
       />
     ),
   },
@@ -152,7 +159,8 @@ export const suicideFacts = [
 
 export const urbanicityFacts = [
 	{
-	  content: (
+	  report: `${HET_URL}/exploredata?mls=1.gun_deaths_black_men-3.13&group1=All&demo=urbanicity#rates-over-time`,
+    content: (
 		<><HetTermUnderline>Black (NH) men in Georgia had higher gun homicide rates in urban areas</HetTermUnderline>{' '}compared to rural areas from 2018 to 2021, reinforcing the perception of urban areas as more dangerous, while rural areas saw much lower or even negative rates.
 		</>
 	  ),
@@ -162,13 +170,14 @@ export const urbanicityFacts = [
 		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
 		  demographicType='urbanicity'
 		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-		  className='shadow-none py-0 mt-0 mb-4'
+		  className='shadow-less py-0 mt-0 mb-4'
 		/>
 
 	  ),
 	},
 	{
-	  content: (
+	  report: `${HET_URL}/exploredata?mls=1.gun_deaths_black_men-3.13&group1=All&demo=urbanicity#rate-map`,
+    content: (
 		<>
 		  From 2018 to 2021,{' '}<HetTermUnderline>young Black (NH) men aged 15-29 in Georgia faced the highest homicide rates</HetTermUnderline>, with the 20-24 age group peaking at 108 per 100,000 in 2020, while rates were very low for children and older adults.
 		</>
@@ -179,7 +188,7 @@ export const urbanicityFacts = [
 		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
 		  demographicType={AGE}
 		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-		  className='shadow-none py-0 mt-0 mb-4'
+		  className='shadow-less py-0 mt-0 mb-4'
 		/>
 
 	  ),

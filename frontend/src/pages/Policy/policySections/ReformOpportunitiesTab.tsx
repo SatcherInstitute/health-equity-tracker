@@ -2,7 +2,9 @@ import { Helmet } from 'react-helmet-async'
 import ResourceItem from '../policyComponents/ResourceItem'
 import { effortsAndInitiatives, legislativeActions } from '../policyContent/ReformOpportunitiesContent'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
-import ResourceItemCard from '../policyComponents/ResourceItemCard'
+import CardLeftIcon from '../policyComponents/CardLeftIcon'
+import { PsychologyRounded } from '@mui/icons-material'
+import CardRoundedBG from '../policyComponents/CardRoundedBG'
 
 export default function ReformOpportunitiesTab() {
 	return (
@@ -21,19 +23,18 @@ export default function ReformOpportunitiesTab() {
       <h3 className='my-0 text-title font-medium text-altGreen'>
         Reform Opportunities at the County and City Levels
       </h3>
-      <ul className='grid grid-cols-1 list-none pl-0 py-4 gap-8'>
+      <ul className='mt-4 mb-8 grid grid-cols-2 list-none pl-0 gap-12'>
         {effortsAndInitiatives.map((effortsAndInitiative, index) => (
           <li
             key={index}
             className={`fade-in-up-blur`}
-            style={{ animationDelay: `${index * 0.3}s` }}
+            style={{ animationDelay: `${index * 0.04}s` }}
           >
-            <ResourceItemCard
+            <CardLeftIcon
         key={index}
         icon={effortsAndInitiative.icon}
         title={effortsAndInitiative.title}
         description={effortsAndInitiative.description}
-        reverse={index % 2 !== 0}
       />
           </li>
         ))}
@@ -43,22 +44,20 @@ export default function ReformOpportunitiesTab() {
       <h3 className='my-0 text-title font-medium text-altGreen'>
         Call to Action for Policy Changes
       </h3>
-      <p>
-        <ul className='list-none'>
+        <ul className='list-none rounded-md bg-exploreBgColor my-4 p-2 grid grid-cols-3 gap-1'>
           {legislativeActions.map((legislativeAction, index) => (
-            <ResourceItem
+            <CardRoundedBG
               key={index}
               title={legislativeAction.title}
               description={legislativeAction.description}
+              liRaised={legislativeAction.liRaised}
             />
           ))}
         </ul>
-      </p>
-
       <HetTextArrowLink
         link={'https://www.usa.gov/elected-officials'}
         linkText='Find and contact your elected officials'
-        containerClassName='flex items-center justify-center mt-16 mx-auto '
+        containerClassName='flex items-center justify-center mt-8 mx-auto '
         linkClassName='font-sansTitle text-smallestHeader'
       />
     </section>

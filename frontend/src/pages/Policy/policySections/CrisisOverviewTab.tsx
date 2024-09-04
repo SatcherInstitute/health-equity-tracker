@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { FormatQuote } from '@mui/icons-material'
-import { gvaFacts } from '../policyContent/CrisisOverviewContent'
+import { gvaFacts, rocketFoundationFacts } from '../policyContent/CrisisOverviewContent'
 import FactCard from '../policyComponents/FactCard'
 
 export default function CrisisOverviewTab() {
@@ -31,16 +31,34 @@ export default function CrisisOverviewTab() {
 						<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
 							BY THE NUMBERS
 						</p>
+						
+					
 						<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-							SOURCE: GUN VIOLENCE ARCHIVE{' '}
-							<a href='https://www.gunviolencearchive.org/'>
+							SOURCE: The Rocket Foundation{' '}
+							<a href='https://www.rocket-foundation.org/'>
 								<span>
 									[<FormatQuote className='text-text'></FormatQuote>]
 								</span>
 							</a>
 						</p>
 					</div>
-					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
+					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+						{rocketFoundationFacts.map((rocketFoundationFact, index) => (
+							<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
+							<FactCard key={index} content={rocketFoundationFact.content} />
+							</li>
+						))}
+					</ul>
+					<p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
+							SOURCE: Gun Violence Archive{' '}
+							<a href='https://www.gunviolencearchive.org/'>
+								<span>
+									[<FormatQuote className='text-text'></FormatQuote>]
+								</span>
+							</a>
+						</p>
+					
+					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
 						{gvaFacts.map((gvaFact, index) => (
 							<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
 							<FactCard key={index} content={gvaFact.content} />
