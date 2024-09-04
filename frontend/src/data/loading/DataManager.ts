@@ -21,8 +21,8 @@ import type {
 // 2. The total site memory usage is reasonable. This is a bit of a judgement
 //    call, but it should be comparable with other applications. This can be
 //    viewed in the browser task manager.
-const MAX_CACHE_SIZE_DATASETS = 100000
-const MAX_CACHE_SIZE_QUERIES = 10000
+const MAX_CACHE_SIZE_DATASETS = 100_000
+const MAX_CACHE_SIZE_QUERIES = 10_000
 
 // We only expect one metadata entry so we can set cache size to 1.
 const MAX_CACHE_SIZE_METADATA = 1

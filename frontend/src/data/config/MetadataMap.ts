@@ -447,7 +447,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
   phrma_brfss: {
     id: 'phrma_brfss',
-    data_source_name: 'BRFSS 2012',
+    data_source_name: 'CDC Behavioral Risk Factor Surveillance System',
     data_source_acronym: 'CDC BRFSS',
     data_source_pretty_site_name: 'cdc.gov/brfss',
     data_source_link: 'https://www.cdc.gov/brfss/annual_data/annual_2022.html',
@@ -455,7 +455,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     demographic_granularity:
       'Race/ethnicity, sex (for lung and colorectal cancers only), age, insurance status, income, education',
     update_frequency: 'None',
-    description: 'Data Source: BRFSS 2012.',
+    description:
+      'The 2022 Behavioral Risk Factor Surveillance System (BRFSS) database from the Centers for Disease Control and Prevention (CDC) was analyzed for five different cancer screening rates. Breast, colorectal, cervical, and lung cancer use data from the 50 states and Washington DC. Prostate cancer screening data is not part of the core BRFSS database so are available only for Arkansas, Delaware, Massachusetts, Mississippi, New Jersey, and South Carolina.',
     downloadable: true,
     time_period_range: null,
     dataset_ids: [
