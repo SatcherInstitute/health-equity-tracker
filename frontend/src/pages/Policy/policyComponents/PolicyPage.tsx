@@ -21,7 +21,7 @@ export default function PolicyPage() {
     </Helmet>
     {activeRoute?.visible && (
 				<h1 className='sr-only' id='page-heading'>
-		{activeRoute?.label}
+					{activeRoute?.label}
 				</h1>
 			)}
     <section
