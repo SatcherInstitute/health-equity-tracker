@@ -122,3 +122,30 @@ export const legislativeActions = [
 		liRaised: true
 	},
 ]
+
+export const advocacyCommunityInsights = [
+	{
+	  title: "Geographic Disparities in Trauma Care",
+	  description: "Advocates emphasized the need for improved access to Level 1 trauma centers in under-resourced areas, such as Wards 7 and 8 in Washington, D.C. This is critical for reducing mortality rates in gun violence cases, especially in neighborhoods with high rates of multiple gunshot wounds."
+	},
+	{
+	  title: "Hospital Violence Intervention Programs",
+	  description: "Data shows that individuals who have been previously injured are at a higher risk of mortality if re-injured. Advocates suggest strengthening hospital-based intervention programs to address this issue and reduce repeat incidents."
+	},
+	{
+	  title: "Emergency Services Response Times",
+	  description: "There are concerns about the distance between where victims are picked up by emergency services and the hospitals they are transferred to, especially in underserved areas. Shortening response times could save lives."
+	},
+	{
+	  title: "Weapon Accessibility",
+	  description: "Advocates raised concerns about the types of weapons most commonly used in violent incidents. They emphasize the need for better data collection on which weapons are more accessible in different communities."
+	},
+	{
+	  title: "Root Causes of Violence",
+	  description: "Efforts should focus on addressing the root causes of violence, such as economic inequality and lack of resources, which are prevalent in gentrified and under-resourced zip codes. The CDC’s work on social determinants of health is highlighted as a key reference for tackling these issues."
+	},
+	{
+	  title: "Data on Violence Disparities",
+	  description: "There is a need for aggregated data that highlights disparities in gun violence across different zip codes. Advocates stress that data should focus on resources and social determinants of health to identify and address disparities."
+	}
+  ];

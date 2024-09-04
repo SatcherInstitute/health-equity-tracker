@@ -9,7 +9,7 @@ interface CardLeftIconProps {
 const CardLeftIcon: React.FC<CardLeftIconProps> = ({ title, description, icon }) => {
   return (
     <li className='fade-in-up-blur flex flex-row gap-2'>
-      <div className='flex flex-col w-full items-center w-2 gap-4'>
+      <div className='flex flex-col w-full items-center w-1 gap-4'>
         {icon}
         <div className='border border-solid border-r-0 border-t-0 border-b-0 border-l-1.2 w-1.2 border-methodologyGreen flex flex-grow py-4'></div>
       </div>
