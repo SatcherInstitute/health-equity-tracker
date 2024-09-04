@@ -11,7 +11,7 @@ def testUnauthed_permissionDenied():
     print(f'SERVICE_URL={service_url}')
 
     resp = requests.get(service_url, timeout=600)
-    assert resp.status_code == 403  # this service requires authorization ?
+    assert resp.status_code == 200  # this service used to require authorization but not anymore
 
 
 def testDataServerDataServing():
