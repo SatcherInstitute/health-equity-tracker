@@ -147,12 +147,12 @@ export const routeConfigs: RouteConfig[] = [
     component: ReformOpportunitiesTab,
     subLinks: [
       {
-        label: 'Reform Opportunities at the County and City Levels',
-        path: '#city-and-county-level-reform-opportunities',
+        label: 'Insights from the Advocacy Community',
+        path: '#where-to-start',
       },
       {
-        label: 'Call to Action for Policy Changes',
-        path: '#call-to-action-for-policy-changes',
+        label: 'Legislative Items to Consider for Policy Changes',
+        path: '#legislative-items',
       },
     ],
     visible: true,

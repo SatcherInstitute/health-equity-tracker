@@ -44,7 +44,7 @@ export default function CrisisOverviewTab() {
 					</div>
 					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
 						{rocketFoundationFacts.map((rocketFoundationFact, index) => (
-							<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
+							<li key={index} className={`fade-in-up-blur ${index % 2 !== 0 ? 'shadow-raised-tighter': null}`} style={{ animationDelay: `${index * 0.1}s` }}>
 							<FactCard key={index} content={rocketFoundationFact.content} />
 							</li>
 						))}
@@ -60,7 +60,7 @@ export default function CrisisOverviewTab() {
 					
 					<ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
 						{gvaFacts.map((gvaFact, index) => (
-							<li key={index} className={`fade-in-up-blur`} style={{ animationDelay: `${index * 0.1}s` }}>
+							<li key={index} className={`fade-in-up-blur ${index % 2 === 0 ? 'shadow-raised-tighter': null}`} style={{ animationDelay: `${index * 0.1}s` }}>
 							<FactCard key={index} content={gvaFact.content} />
 							</li>
 						))}
@@ -71,8 +71,9 @@ export default function CrisisOverviewTab() {
 						information, underpinned by the realities of the crisis in Atlanta.
 						The data aims to foster dialogue, ensuring that stakeholders and the
 						broader community are both informed and involved.
-						<br />
-						<br />
+						</p>
+						<p>
+							
 						We hope this report will equip fellow researchers, policymakers, and
 						other gun violence-prevention organizations with the data necessary
 						to advocate for policy reform that support the work to end the

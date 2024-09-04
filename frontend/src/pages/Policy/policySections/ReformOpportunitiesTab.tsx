@@ -1,79 +1,117 @@
 import { Helmet } from 'react-helmet-async'
-import ResourceItem from '../policyComponents/ResourceItem'
-import { effortsAndInitiatives, legislativeActions, advocacyCommunityInsights } from '../policyContent/ReformOpportunitiesContent'
+import { legislativeActions, effortsAndInsights } from '../policyContent/ReformOpportunitiesContent'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import CardLeftIcon from '../policyComponents/CardLeftIcon'
-import { PsychologyRounded } from '@mui/icons-material'
-import CardRoundedBG from '../policyComponents/CardRoundedBG'
+import HetAccordion from '../../../styles/HetComponents/HetAccordion'
+import { FormatQuote } from '@mui/icons-material'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import { useEffect, useState } from 'react'
+
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  })
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+
+   
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  return windowSize
+}
+
+
 
 export default function ReformOpportunitiesTab() {
-	return (
+  const isMdAndUp = useIsBreakpointAndUp('md')
+  return (
     <>
       <Helmet>
         <title>Reform Opportunities - Health Equity Tracker</title>
       </Helmet>
-      <h2 className="sr-only">Reform Opportunities</h2>
+      <h2 className='sr-only'>Reform Opportunities</h2>
       <p>
         Our data points to several reform opportunities, particularly in
         enhancing community-based interventions, improving data collection on
         race and ethnicity for non-fatal injuries, and addressing the root
         causes of violence through equity-focused policies.
       </p>
-      <section id="#city-and-county-level-reform-opportunities">
-        <h3 className="my-0 text-title font-medium text-altGreen">
-          Reform Opportunities at the County and City Levels
-        </h3>
-        <ul className="mt-4 mb-8 grid grid-cols-2 list-none ml-0 pl-0 gap-12">
-          {effortsAndInitiatives.map((effortsAndInitiative, index) => (
-            <li
-              key={index}
-              className={`fade-in-up-blur`}
-              style={{ animationDelay: `${index * 0.04}s` }}
-            >
-              <CardLeftIcon
-                key={index}
-                icon={effortsAndInitiative.icon}
-                title={effortsAndInitiative.title}
-                description={effortsAndInitiative.description}
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section>
-        <h3 className="my-0 text-title font-medium text-altGreen">
+
+      <section id='#where-to-start'>
+        <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
+          Where to Start
+        </p>
+        <h3 className='my-0 text-title font-medium text-altGreen'>
           Insights from the Advocacy Community
         </h3>
-        <ul>
-          {advocacyCommunityInsights.map((advocacyCommunityInsight, index) => (
-            <div key={index}>
-              <h4>{advocacyCommunityInsight.title}</h4>
-              <p>{advocacyCommunityInsight.description}</p>
-            </div>
-          ))}
-        </ul>
-      </section>
-      <section id="#call-to-action-for-policy-changes">
-        <h3 className="my-0 text-title font-medium text-altGreen">
-          Call to Action for Policy Changes
-        </h3>
-        <ul className="list-none rounded-md bg-exploreBgColor my-4 p-2 grid grid-cols-3 gap-1">
-          {legislativeActions.map((legislativeAction, index) => (
-            <CardRoundedBG
+        <ul className="mt-4 mb-8 grid grid-cols-1 md:grid-cols-2 list-none ml-0 pl-0 gap-2">
+      {effortsAndInsights.map((effortsAndInsight, index) => {
+        
+        const isMobileShadow = !isMdAndUp && index % 2 === 0
+const isDesktopShadow =
+          isMdAndUp &&
+          ((Math.floor(index / 2) % 2 === 0 && index % 2 === 0) || (Math.floor(index / 2) % 2 !== 0 && index % 2 !== 0))
+
+        return (
+          <div
+            key={index}
+            className={`fade-in-up-blur rounded-md p-8 ${isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''}`}
+            style={{ animationDelay: `${index * 0.04}s` }}
+          >
+            <CardLeftIcon
               key={index}
-              title={legislativeAction.title}
-              description={legislativeAction.description}
-              liRaised={legislativeAction.liRaised}
+              icon={effortsAndInsight.icon}
+              title={effortsAndInsight.title}
+              description={effortsAndInsight.description}
+              advice={effortsAndInsight.advice}
             />
-          ))}
-        </ul>
+          </div>
+        )
+      })}
+    </ul>
+      </section>
+
+      <section id='#legislative-items'>
+        <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
+          Call to Action
+        </p>
+        <h3 className='my-0 text-title font-medium text-altGreen'>
+          Legislative Items to Consider for Policy Changes
+        </h3>
+        <p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
+          SOURCE: RAND Foundation{' '}
+          <a href='https://www.rand.org/research/gun-policy.html'>
+            <span>
+              [<FormatQuote className='text-text'></FormatQuote>]
+            </span>
+          </a>
+        </p>
+        <HetAccordion
+          accordionData={legislativeActions}
+          divClassName='py-0 my-0'
+          accordionClassName='my-4'
+          summaryClassName='text-text leading-lhsomeSpace font-medium'
+          detailsClassName='py-0 my-0'
+        />
         <HetTextArrowLink
-          link={"https://www.usa.gov/elected-officials"}
-          linkText="Find and contact your elected officials"
-          containerClassName="flex items-center justify-center mt-8 mx-auto "
-          linkClassName="font-sansTitle text-smallestHeader"
+          link='https://www.usa.gov/elected-officials'
+          linkText='Find and contact your elected officials'
+          containerClassName='flex items-center justify-center mt-8 mx-auto'
+          linkClassName='font-sansTitle text-smallestHeader'
         />
       </section>
     </>
-  );
+  )
 }

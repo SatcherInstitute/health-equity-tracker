@@ -100,7 +100,7 @@ export default function CurrentEffortsTab() {
               tabIndex={0}
 			  className='hover:cursor-pointer'
             >
-              <div className='rounded-md border border-solid border-methodologyGreen my-2 duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter group bg-hoverAltGreen hover:bg-whiteSmoke80 flex flex-row items-center justify-between text-exploreButton p-4 w-fitgroup no-underline hover:scale-105 hover:transition-transform hover:duration-30 fade-in-up-blur'>
+              <div className='rounded-md border border-solid border-methodologyGreen my-2 duration-300 ease-in-out hover:shadow-raised shadow-raised-tighter group hover:bg-whiteSmoke80 flex flex-row items-center justify-between text-exploreButton p-4 w-fitgroup no-underline hover:scale-105 hover:transition-transform hover:duration-30 fade-in-up-blur'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen group-hover:scale-110 flex flex-row items-center justify-start gap-1 smMd:gap-4'>
                   {link.path === '#economic-inequality' && (
                     <AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
@@ -154,9 +154,9 @@ export default function CurrentEffortsTab() {
         <p className='mb-0 mt-8 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
           INTERCONNECTIONS
         </p>
-        <div className='flex flex-row w-full items-center'>
+        <div className='flex flex-row w-full items-center rounded-md border border-solid border-methodologyGreen'>
 
-        <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+        <div className='text-exploreButton p-4 w-fit mr-4'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
                   
                     <AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
@@ -182,9 +182,9 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#educational-opportunities'>
-         <div className='flex flex-row w-full items-center'>
+         <div className='flex flex-row w-full items-center rounded-md border border-solid border-methodologyGreen'>
 
-         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+         <div className='text-exploreButton p-4 w-fit mr-4'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
                                       <SchoolRounded className='text-title smMd:text-smallestHeader' />
                   
@@ -209,9 +209,9 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#racial-and-social-justice'>
-         <div className='flex flex-row w-full items-center'>
+         <div className='flex flex-row w-full items-center rounded-md border border-solid border-methodologyGreen rounded-md border border-solid border-methodologyGreen'>
 
-         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+         <div className='text-exploreButton p-4 w-fit mr-4'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
                   <GavelRounded className='text-title smMd:text-smallestHeader' />
                   </div></div>
@@ -235,9 +235,9 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#mental-health-services'>
-         <div className='flex flex-row w-full items-center'>
+         <div className='flex flex-row w-full items-center rounded-md border border-solid border-methodologyGreen'>
 
-         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+         <div className='text-exploreButton p-4 w-fit mr-4'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'>
                     <PsychologyRounded className='text-title smMd:text-smallestHeader' />
                   </div></div>
@@ -261,9 +261,9 @@ export default function CurrentEffortsTab() {
         </ul>
       </section>
       <section id='#community-engagement'>
-         <div className='flex flex-row w-full items-center'>
+         <div className='flex flex-row w-full items-center rounded-md border border-solid border-methodologyGreen'>
 
-         <div className='rounded-md border border-solid border-methodologyGreen bg-hoverAltGreen text-exploreButton p-4 w-fit mr-4'>
+         <div className='text-exploreButton p-4 w-fit mr-4'>
                 <div className='px-0 py-0 w-fit rounded-sm text-altGreen flex flex-row items-center justify-start gap-1 smMd:gap-4 fade-in-up-blur'> <Diversity3Rounded className='text-title smMd:text-smallestHeader' />
                   </div>
                   </div>
