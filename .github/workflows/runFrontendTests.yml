@@ -1,10 +1,11 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: RUN Frontend Tests
 
 env:
   ## Sets environment variables
   NETLIFY_SITE_NAME: 'health-equity-tracker'
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
-  RETRY_COUNT: 3
 
 on:
   push:
@@ -54,31 +55,17 @@ jobs:
   # if it's a merge to main, the E2E will run in e2eStaging.yml
 
   tests_e2e_netlify_prepare:
-    name: Wait for Netlify deploy (with retries)
+    name: Wait for Netlify deploy
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
       - name: Waiting for "Success" from Netlify Preview
+        uses: jakepartusch/wait-for-netlify-action@v1.4
         id: waitFor200
-        run: |
-          RETRY_COUNT=${{ env.RETRY_COUNT }}
-          RETRY_INTERVAL=${{ env.RETRY_INTERVAL }}
+        with:
+          site_name: ${{env.NETLIFY_SITE_NAME}}
+          max_timeout: 90
 
-          for ((i=1; i<=RETRY_COUNT; i++)); do
-            echo "Attempt $i to check Netlify deploy status..."
-            npx wait-for-netlify --site-name ${{ env.NETLIFY_SITE_NAME }} --timeout 90 && break
-            if [[ $i -lt RETRY_COUNT ]]; then
-              echo "Netlify deploy not ready, retrying in $RETRY_INTERVAL seconds..."
-              sleep $RETRY_INTERVAL
-            else
-              echo "Netlify deploy wait failed after $RETRY_COUNT retries. Failing job."
-              exit 1
-            fi
-          done
-        env:
-          RETRY_COUNT: 3  # Set the number of retries
-          RETRY_INTERVAL: 30  # Wait time between retries in seconds
-          
   tests_e2e_netlify:
     needs: tests_e2e_netlify_prepare
     name: Run E2E tests on deploy preview
