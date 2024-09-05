@@ -10,16 +10,25 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const SHOW_CANCER_SCREENINGS = import.meta.env.VITE_SHOW_CANCER_SCREENINGS
+export const SHOW_CANCER_SCREENINGS = import.meta.env
+  .VITE_SHOW_CANCER_SCREENINGS
 
 export const PHRMA_BRFSS_CONDITIONS: DropdownVarId[] = ['cancer_screening']
 
-export const PHRMA_BRFSS_DATATYPES: DataTypeId[] = [
+export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_screening',
   'cervical_cancer_screening',
+  'prostate_cancer_screening',
+]
+
+export const PHRMA_BRFSS_ALL_SEXES_DATATYPES: DataTypeId[] = [
   'colorectal_cancer_screening',
   'lung_cancer_screening',
-  'prostate_cancer_screening',
+]
+
+export const PHRMA_BRFSS_DATATYPES: DataTypeId[] = [
+  ...PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES,
+  ...PHRMA_BRFSS_ALL_SEXES_DATATYPES,
 ]
 
 export const PHRMA_BRFSS_METRICS: MetricId[] = [
@@ -64,6 +73,16 @@ export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['education', phrmaBrfssReason],
 ]
 
+export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
+  ['income', phrmaBrfssReason],
+  ['insurance_status', phrmaBrfssReason],
+  ['education', phrmaBrfssReason],
+  [
+    'sex',
+    "only available when comparing cancer screening topics that aren't sex-specific",
+  ],
+]
+
 export const SHOW_PHRMA_BRFSS = import.meta.env.VITE_SHOW_PHRMA_BRFSS
 
 class PhrmaBrfssProvider extends VariableProvider {
@@ -76,6 +95,7 @@ class PhrmaBrfssProvider extends VariableProvider {
       if (breakdowns.hasOnlyRace())
         return 'phrma_brfss_data-race_and_ethnicity_national'
       if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_national'
+      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_national'
       if (breakdowns.hasOnlyInsuranceStatus())
         return 'phrma_brfss_data-insurance_status_national'
       if (breakdowns.hasOnlyIncome()) return 'phrma_brfss_data-income_national'
@@ -86,6 +106,7 @@ class PhrmaBrfssProvider extends VariableProvider {
       if (breakdowns.hasOnlyRace())
         return 'phrma_brfss_data-race_and_ethnicity_state'
       if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_state'
+      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_state'
       if (breakdowns.hasOnlyInsuranceStatus())
         return 'phrma_brfss_data-insurance_status_state'
       if (breakdowns.hasOnlyIncome()) return 'phrma_brfss_data-income_state'

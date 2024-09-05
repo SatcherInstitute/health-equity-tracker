@@ -39,7 +39,7 @@ export type PDOHMetricId =
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
-  | 'total_confined_children'
+  | 'confined_children_estimated_total'
   | 'total_state_leg_count'
   | 'total_us_congress_count'
   | 'total_us_congress_names'

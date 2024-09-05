@@ -328,9 +328,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county.',
     dataset_ids: [
-      'vera_incarceration_county-by_sex_county_time_series',
-      'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
-      'vera_incarceration_county-by_age_county_time_series',
+      'vera_incarceration_county-by_sex_county_historical',
+      'vera_incarceration_county-by_race_and_ethnicity_county_historical',
+      'vera_incarceration_county-by_age_county_historical',
     ],
     downloadable: true,
     time_period_range: '1985 - 2016',
@@ -453,7 +453,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link: 'https://www.cdc.gov/brfss/annual_data/annual_2022.html',
     geographic_level: 'National, State',
     demographic_granularity:
-      'Race/ethnicity, sex, age, insurance status, income, education',
+      'Race/ethnicity, sex (for lung and colorectal cancers only), age, insurance status, income, education',
     update_frequency: 'None',
     description: 'Data Source: BRFSS 2012.',
     downloadable: true,
@@ -461,11 +461,13 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     dataset_ids: [
       'phrma_brfss_data-race_and_ethnicity_national',
       'phrma_brfss_data-age_national',
+      'phrma_brfss_data-sex_national',
       'phrma_brfss_data-insurance_status_national',
       'phrma_brfss_data-income_national',
       'phrma_brfss_data-education_national',
       'phrma_brfss_data-race_and_ethnicity_state',
       'phrma_brfss_data-age_state',
+      'phrma_brfss_data-sex_state',
       'phrma_brfss_data-insurance_status_state',
       'phrma_brfss_data-income_state',
       'phrma_brfss_data-education_state',

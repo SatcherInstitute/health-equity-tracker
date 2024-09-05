@@ -5,15 +5,16 @@ import pandas as pd
 import requests  # type: ignore
 
 # Ignore the Airflow module, it is installed in both our dev and prod environments
-from airflow import DAG  # pylint: disable=no-name-in-module
-from airflow.models import Variable  # pylint: disable=no-name-in-module
-from airflow.operators.python_operator import PythonOperator  # pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module
+from airflow import DAG  # type: ignore
+from airflow.models import Variable  # type: ignore
+from airflow.operators.python_operator import PythonOperator  # type: ignore
 from google.cloud import bigquery
 from sanity_check import check_pct_values
 import subprocess
 
 
-def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
+def get_required_attrs(workflow_id: str, gcs_bucket: str | None = None) -> dict:
     """Creates message with required arguments for both GCS and BQ operators
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -30,7 +31,11 @@ def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
 
 
 def generate_gcs_payload(
-    workflow_id: str, filename: str = None, url: str = None, gcs_bucket: str = None, year: str = None
+    workflow_id: str,
+    filename: str | None = None,
+    url: str | None = None,
+    gcs_bucket: str | None = None,
+    year: str | None = None,
 ) -> dict:
     """Creates the payload object required for the GCS ingestion operator.
 
@@ -53,13 +58,13 @@ def generate_gcs_payload(
 def generate_bq_payload(
     workflow_id: str,
     dataset: str,
-    filename: str = None,
-    gcs_bucket: str = None,
-    url: str = None,
-    demographic: str = None,
-    geographic: str = None,
-    category: str = None,
-    year: str = None,
+    filename: str | None = None,
+    gcs_bucket: str | None = None,
+    url: str | None = None,
+    demographic: str | None = None,
+    geographic: str | None = None,
+    category: str | None = None,
+    year: str | None = None,
 ) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 

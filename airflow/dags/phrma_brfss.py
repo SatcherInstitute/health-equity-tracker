@@ -1,5 +1,6 @@
-from airflow import DAG  # pylint: disable=no-name-in-module
-from airflow.utils.dates import days_ago  # pylint: disable=no-name-in-module
+# pylint: disable=no-name-in-module
+from airflow import DAG  # type: ignore
+from airflow.utils.dates import days_ago  # type: ignore
 import util
 
 _PHRMA_BRFSS_WORKFLOW_ID = 'PHRMA_BRFSS_DATA'
@@ -39,6 +40,17 @@ phrma_brfss_bq_payload_age_national = util.generate_bq_payload(
 )
 phrma_brfss_bq_operator_age_national = util.create_bq_ingest_operator(
     'phrma_brfss_to_bq_age_national', phrma_brfss_bq_payload_age_national, data_ingestion_dag
+)
+
+# sex_national
+phrma_brfss_bq_payload_sex_national = util.generate_bq_payload(
+    _PHRMA_BRFSS_WORKFLOW_ID,
+    _PHRMA_BRFSS_DATASET_NAME,
+    demographic='sex',
+    geographic='national',
+)
+phrma_brfss_bq_operator_sex_national = util.create_bq_ingest_operator(
+    'phrma_brfss_to_bq_sex_national', phrma_brfss_bq_payload_sex_national, data_ingestion_dag
 )
 
 # education_national
@@ -97,6 +109,17 @@ phrma_brfss_bq_operator_age_state = util.create_bq_ingest_operator(
     'phrma_brfss_to_bq_age_state', phrma_brfss_bq_payload_age_state, data_ingestion_dag
 )
 
+# sex_state
+phrma_brfss_bq_payload_sex_state = util.generate_bq_payload(
+    _PHRMA_BRFSS_WORKFLOW_ID,
+    _PHRMA_BRFSS_DATASET_NAME,
+    demographic='sex',
+    geographic='state',
+)
+phrma_brfss_bq_operator_sex_state = util.create_bq_ingest_operator(
+    'phrma_brfss_to_bq_sex_state', phrma_brfss_bq_payload_sex_state, data_ingestion_dag
+)
+
 # education_state
 phrma_brfss_bq_payload_education_state = util.generate_bq_payload(
     _PHRMA_BRFSS_WORKFLOW_ID,
@@ -146,6 +169,10 @@ phrma_brfss_exporter_operator_age = util.create_exporter_operator(
     'phrma_brfss_exporter_age', payload_age, data_ingestion_dag
 )
 
+payload_sex = {'dataset_name': _PHRMA_BRFSS_DATASET_NAME, 'demographic': "sex"}
+phrma_brfss_exporter_operator_sex = util.create_exporter_operator(
+    'phrma_brfss_exporter_sex', payload_sex, data_ingestion_dag
+)
 
 payload_insurance_status = {'dataset_name': _PHRMA_BRFSS_DATASET_NAME, 'demographic': "insurance_status"}
 phrma_brfss_exporter_operator_insurance_status = util.create_exporter_operator(
@@ -171,6 +198,7 @@ phrma_brfss_exporter_operator_income = util.create_exporter_operator(
     phrma_brfss_bq_operator_race_national
     >> [
         phrma_brfss_bq_operator_age_national,
+        phrma_brfss_bq_operator_sex_national,
         phrma_brfss_bq_operator_income_national,
         phrma_brfss_bq_operator_education_national,
         phrma_brfss_bq_operator_insurance_status_national,
@@ -178,6 +206,7 @@ phrma_brfss_exporter_operator_income = util.create_exporter_operator(
     >> phrma_brfss_bq_operator_race_state
     >> [
         phrma_brfss_bq_operator_age_state,
+        phrma_brfss_bq_operator_sex_state,
         phrma_brfss_bq_operator_income_state,
         phrma_brfss_bq_operator_education_state,
         phrma_brfss_bq_operator_insurance_status_state,
@@ -189,4 +218,5 @@ phrma_brfss_exporter_operator_income = util.create_exporter_operator(
         phrma_brfss_exporter_operator_insurance_status,
     ]
     >> phrma_brfss_exporter_operator_age
+    >> phrma_brfss_exporter_operator_sex
 )

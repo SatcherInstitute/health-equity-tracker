@@ -138,8 +138,9 @@ def values_json_to_df(values_json, dtype=None) -> pd.DataFrame:
     NOTE: To test without needing a real json file, wrap the json string in StringIO()
     """
 
-    frame = pd.read_json(values_json, orient='values', dtype=dtype)
-    frame.rename(columns=frame.iloc[0], inplace=True)  # pylint: disable=E1101
+    frame = pd.DataFrame(pd.read_json(values_json, orient='values', dtype=dtype))
+    new_column_names = dict(frame.iloc[0])
+    frame.rename(columns=new_column_names, inplace=True)  # pylint: disable=E1101
     frame.drop([0], inplace=True)  # pylint: disable=E1101
     # Fill None values with np.nan TODO: remove after updating to pandas 3
     with pd.option_context('future.no_silent_downcasting', True):

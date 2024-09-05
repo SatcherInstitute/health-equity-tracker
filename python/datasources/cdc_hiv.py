@@ -23,16 +23,26 @@ from typing import cast
 
 
 # constants
-DTYPE = {"FIPS": str, "Year": str}
+CDC_AGE = "Age Group"
+CDC_RACE = "Race/Ethnicity"
+CDC_SEX = "Sex"
+CDC_YEAR = "Year"
+CDC_STATE_FIPS = "FIPS"
+CDC_STATE_NAME = "Geography"
+CDC_POP = "Population"
+CDC_CASES = "Cases"
+CDC_PCT_RATE = "Percent"
+CDC_PER_100K = "Rate per 100000"
+DTYPE = {CDC_STATE_FIPS: str, CDC_YEAR: str}
 ATLAS_COLS = ["Indicator", "Transmission Category", "Rate LCI", "Rate UCI"]
 NA_VALUES = ["Data suppressed", "Data not available"]
-CDC_ATLAS_COLS = ["Year", "Geography", "FIPS"]
-CDC_DEM_COLS = ["Age Group", "Race/Ethnicity", "Sex"]
+CDC_ATLAS_COLS = [CDC_YEAR, CDC_STATE_NAME, CDC_STATE_FIPS]
+CDC_DEM_COLS = [CDC_AGE, CDC_RACE, CDC_SEX]
 
 DEM_COLS_STANDARD = {
-    std_col.AGE_COL: "Age Group",
-    std_col.RACE_OR_HISPANIC_COL: "Race/Ethnicity",
-    std_col.SEX_COL: "Sex",
+    std_col.AGE_COL: CDC_AGE,
+    std_col.RACE_OR_HISPANIC_COL: CDC_RACE,
+    std_col.SEX_COL: CDC_SEX,
 }
 
 HIV_METRICS = {
@@ -252,13 +262,13 @@ class CDCHIVData(DataSource):
         fips_to_use = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
         cols_to_standard = {
-            "Age Group": std_col.AGE_COL,
-            "FIPS": fips_to_use,
-            "Geography": geo_to_use,
-            "Population": std_col.POPULATION_COL,
-            "Race/Ethnicity": std_col.RACE_CATEGORY_ID_COL,
-            "Sex": std_col.SEX_COL,
-            "Year": std_col.TIME_PERIOD_COL,
+            CDC_AGE: std_col.AGE_COL,
+            CDC_STATE_FIPS: fips_to_use,
+            CDC_STATE_NAME: geo_to_use,
+            CDC_POP: std_col.POPULATION_COL,
+            CDC_RACE: std_col.RACE_CATEGORY_ID_COL,
+            CDC_SEX: std_col.SEX_COL,
+            CDC_YEAR: std_col.TIME_PERIOD_COL,
         }
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
@@ -329,13 +339,13 @@ class CDCHIVData(DataSource):
         merge and keep the counts needed for age-adjustment"""
 
         use_cols = [
-            "Year",
-            "Geography",
-            "FIPS",
-            "Age Group",
-            "Race/Ethnicity",
-            "Cases",
-            "Population",
+            CDC_YEAR,
+            CDC_STATE_NAME,
+            CDC_STATE_FIPS,
+            CDC_AGE,
+            CDC_RACE,
+            CDC_CASES,
+            CDC_POP,
         ]
 
         # ALL RACE x ALL AGE
@@ -348,7 +358,7 @@ class CDCHIVData(DataSource):
             thousands=",",
             dtype=DTYPE,
         )
-        alls_df = preserve_only_current_time_period_rows(alls_df, keep_time_period_col=True, time_period_col="Year")
+        alls_df = preserve_only_current_time_period_rows(alls_df, keep_time_period_col=True, time_period_col=CDC_YEAR)
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
@@ -363,7 +373,7 @@ class CDCHIVData(DataSource):
             thousands=",",
             dtype=DTYPE,
         )
-        race_df = preserve_only_current_time_period_rows(race_df, keep_time_period_col=True, time_period_col="Year")
+        race_df = preserve_only_current_time_period_rows(race_df, keep_time_period_col=True, time_period_col=CDC_YEAR)
         race_df[std_col.AGE_COL] = ALL_VALUE
         race_df = race_df[use_cols]
 
@@ -377,7 +387,7 @@ class CDCHIVData(DataSource):
             thousands=",",
             dtype=DTYPE,
         )
-        age_df = preserve_only_current_time_period_rows(age_df, keep_time_period_col=True, time_period_col="Year")
+        age_df = preserve_only_current_time_period_rows(age_df, keep_time_period_col=True, time_period_col=CDC_YEAR)
         age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         age_df = age_df[use_cols]
 
@@ -393,23 +403,23 @@ class CDCHIVData(DataSource):
         )
 
         race_age_df = preserve_only_current_time_period_rows(
-            race_age_df, keep_time_period_col=True, time_period_col="Year"
+            race_age_df, keep_time_period_col=True, time_period_col=CDC_YEAR
         )
         # fix poorly formatted state names
-        race_age_df["Geography"] = race_age_df["Geography"].str.replace("^", "", regex=False)
+        race_age_df[CDC_STATE_NAME] = race_age_df[CDC_STATE_NAME].str.replace("^", "", regex=False)
 
         df = pd.concat([alls_df, race_df, age_df, race_age_df], ignore_index=True)
 
         # rename columns
         df = df.rename(
             columns={
-                "Year": std_col.TIME_PERIOD_COL,
-                "Geography": std_col.STATE_NAME_COL,
-                "FIPS": std_col.STATE_FIPS_COL,
-                "Age Group": std_col.AGE_COL,
-                "Race/Ethnicity": std_col.RACE_CATEGORY_ID_COL,
-                "Cases": TOTAL_DEATHS,
-                "Population": std_col.POPULATION_COL,
+                CDC_YEAR: std_col.TIME_PERIOD_COL,
+                CDC_STATE_NAME: std_col.STATE_NAME_COL,
+                CDC_STATE_FIPS: std_col.STATE_FIPS_COL,
+                CDC_AGE: std_col.AGE_COL,
+                CDC_RACE: std_col.RACE_CATEGORY_ID_COL,
+                CDC_CASES: TOTAL_DEATHS,
+                CDC_POP: std_col.POPULATION_COL,
             }
         )
 
@@ -474,48 +484,52 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             )
 
             national_gender_cases_pivot = all_national_gender_df.pivot_table(
-                index="Year", columns="Sex", values="Cases", aggfunc="sum"
+                index=CDC_YEAR, columns=CDC_SEX, values=CDC_CASES, aggfunc="sum"
             ).reset_index()
 
-            national_gender_cases_pivot.columns = [
-                "Year",
-                f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
-                f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
-                f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
-            ]
+            # Convert the list to an Index object
+            national_gender_cases_pivot.columns = pd.Index(
+                [
+                    CDC_YEAR,
+                    f"{datatype}_{std_col.TOTAL_ADDITIONAL_GENDER}",
+                    f"{datatype}_{std_col.TOTAL_TRANS_MEN}",
+                    f"{datatype}_{std_col.TOTAL_TRANS_WOMEN}",
+                ]
+            )
 
-            df = pd.merge(df, national_gender_cases_pivot, on="Year")
+            df = pd.merge(df, national_gender_cases_pivot, on=CDC_YEAR)
 
         if datatype in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
             cols_to_standard = {
-                "Cases": datatype,
-                "Percent": CARE_PREP_MAP[datatype],
-                "Population": POP_MAP[datatype],
+                CDC_CASES: datatype,
+                CDC_PCT_RATE: CARE_PREP_MAP[datatype],
+                CDC_POP: POP_MAP[datatype],
             }
         elif datatype == std_col.HIV_STIGMA_INDEX:
             cols_to_standard = {
-                "Rate per 100000": std_col.HIV_STIGMA_INDEX,
-                "Population": POP_MAP[datatype],
+                CDC_PER_100K: std_col.HIV_STIGMA_INDEX,
+                CDC_POP: POP_MAP[datatype],
             }
         else:
             cols_to_standard = {
-                "Cases": datatype,
-                "Rate per 100000": PER_100K_MAP[datatype],
-                "Population": POP_MAP[datatype],
+                CDC_CASES: datatype,
+                CDC_PER_100K: PER_100K_MAP[datatype],
+                CDC_POP: POP_MAP[datatype],
             }
 
-        if datatype == std_col.HIV_PREP_PREFIX:
-            df = df.replace({"13-24": "16-24"})
-        elif datatype == std_col.HIV_STIGMA_INDEX:
-            df = df.replace({"13-24": "18-24"})
+        if CDC_AGE in df.columns:
+            if datatype == std_col.HIV_PREP_PREFIX:
+                df[CDC_AGE] = df[CDC_AGE].replace({"13-24": "16-24"})
+            elif datatype == std_col.HIV_STIGMA_INDEX:
+                df[CDC_AGE] = df[CDC_AGE].replace({"13-24": "18-24"})
 
-        df["Geography"] = df["Geography"].str.replace("^", "", regex=False)
-        df["Year"] = df["Year"].str.replace("2020 (COVID-19 Pandemic)", "2020", regex=False)
+        df[CDC_STATE_NAME] = df[CDC_STATE_NAME].str.replace("^", "", regex=False)
+        df[CDC_YEAR] = df[CDC_YEAR].str.replace("2020 (COVID-19 Pandemic)", "2020", regex=False)
 
         df = df.rename(columns=cols_to_standard)
 
         if datatype == std_col.HIV_STIGMA_INDEX:
-            df = df.drop(columns=["Cases", "population"])
+            df = df.drop(columns=[CDC_CASES, "population"])
 
         # TODO: GitHub #2907 this is causing FutureWarning: not sure how to fix
         # In a future version, the Index constructor will not infer
@@ -534,7 +548,7 @@ def generate_atlas_cols_to_exclude(breakdown: str):
     atlas_cols = ["Indicator", "Transmission Category", "Rate LCI", "Rate UCI"]
 
     if breakdown == "race_and_ethnicity-age":
-        atlas_cols.append("Sex")
+        atlas_cols.append(CDC_SEX)
     elif breakdown not in ["all", std_col.BLACK_WOMEN, "black_women_all"]:
         atlas_cols.extend(filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
 

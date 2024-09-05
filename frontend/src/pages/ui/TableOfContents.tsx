@@ -14,7 +14,7 @@ interface TableOfContentsProps {
 export default function TableOfContents(props: TableOfContentsProps) {
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportStepHashIds,
-    props.isScrolledToTop
+    props.isScrolledToTop,
   )
 
   function handleStepClick(stepId: ScrollableHashId) {
@@ -36,7 +36,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
       component={'nav'}
       nonLinear
       activeStep={props.reportStepHashIds?.findIndex(
-        (stepId) => stepId === activeId
+        (stepId) => stepId === activeId,
       )}
       orientation='vertical'
       aria-label='Available cards on this report'

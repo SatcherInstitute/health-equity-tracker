@@ -1,10 +1,10 @@
-import { type IDataFrame } from 'data-forge'
+import type { IDataFrame } from 'data-forge'
 import { getDataManager } from '../../utils/globals'
-import { type Breakdowns } from '../query/Breakdowns'
+import type { Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { DatasetId } from '../config/DatasetMetadata'
 
 export function GetAcsDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
   if (breakdowns.geography === 'national') {
@@ -36,7 +36,7 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
 
@@ -51,7 +51,7 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   private async getDataInternalWithoutPercents(
-    breakdowns: Breakdowns
+    breakdowns: Breakdowns,
   ): Promise<IDataFrame> {
     const datasetId = this.getDatasetId(breakdowns)
     if (!datasetId) throw Error('DatasetId undefined')

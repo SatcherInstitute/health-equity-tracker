@@ -30,7 +30,8 @@ repos:
       - id: pylint
         name: 🐍 python lint with pylint
         entry: pylint
-        language: system
+        language: python
+        language_version: python3.12
         types: [python]
         args: [
             "-rn", # Only display messages
@@ -48,7 +49,7 @@ repos:
   - repo: local
     hooks:
       - id: check-file-count
-        name: 🗄️  check + warn if 100+ files in commit
+        name: 🗄️  check + warn if too many files in commit
         entry: bash -c scripts/.util/warn_many_files_per_commit.sh
         language: system
         types: [text]

@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet-async'
 import ArticleFilters from './ArticleFilters'
 import NewsPreviewCard from './NewsPreviewCard'
 import { useQuery } from 'react-query'
-import { type Article } from './NewsPage'
+import type { Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
 import { Link } from 'react-router-dom'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
@@ -35,7 +35,7 @@ function AllPosts() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
-    REACT_QUERY_OPTIONS
+    REACT_QUERY_OPTIONS,
   )
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function AllPosts() {
       setSelectedCategory(
         categories.find((category: string) => {
           return category === categoryParam
-        }) as string
+        }) as string,
       )
       setSelectedAuthor('')
 
@@ -52,15 +52,15 @@ function AllPosts() {
         setFilteredArticles(
           data.data.filter((article: Article) =>
             article._embedded['wp:term'][0]?.some(
-              (term: { name: string }) => term.name === selectedCategory
-            )
-          )
+              (term: { name: string }) => term.name === selectedCategory,
+            ),
+          ),
         )
       }
     } else {
       if (data?.data?.length > 0) {
         setFilteredArticles(
-          data.data.filter((article: Article) => !article.sticky)
+          data.data.filter((article: Article) => !article.sticky),
         )
       }
       setSelectedCategory('')
@@ -73,7 +73,7 @@ function AllPosts() {
       setSelectedAuthor(
         authors.find((author: string) => {
           return author === authorParam
-        }) as string
+        }) as string,
       )
       setSelectedCategory('')
 
@@ -81,14 +81,14 @@ function AllPosts() {
         setFilteredArticles(
           data?.data.filter(
             (article: Article) =>
-              article.acf.contributing_author === selectedAuthor
-          )
+              article.acf.contributing_author === selectedAuthor,
+          ),
         )
       }
     } else {
       if (data?.data?.length > 0) {
         setFilteredArticles(
-          data.data.filter((article: Article) => !article.sticky)
+          data.data.filter((article: Article) => !article.sticky),
         )
       }
       setSelectedAuthor('')
@@ -102,7 +102,7 @@ function AllPosts() {
     data?.data.forEach(
       (article: Article) =>
         article.acf.contributing_author &&
-        allAuthorsSet.add(article.acf.contributing_author)
+        allAuthorsSet.add(article.acf.contributing_author),
     )
 
     setAuthors(Array.from(allAuthorsSet) as string[])
@@ -115,7 +115,7 @@ function AllPosts() {
     data?.data.forEach((article: Article) => {
       if (article._embedded['wp:term'] !== undefined) {
         article._embedded['wp:term'][0].forEach((term: { name: string }) =>
-          allCategoriesSet.add(term.name)
+          allCategoriesSet.add(term.name),
         )
       }
     })

@@ -1,23 +1,27 @@
 import AcsConditionProvider from './AcsConditionProvider'
-import { Breakdowns, DemographicType, TimeView } from '../query/Breakdowns'
+import {
+  Breakdowns,
+  type DemographicType,
+  type TimeView,
+} from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { CHATAM, NC, USA } from './TestUtils'
 import { RACE, SEX, AGE } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   acsDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
-  timeView: TimeView
+  timeView: TimeView,
 ) {
   const acsProvider = new AcsConditionProvider()
   const specificId = appendFipsIfNeeded(acsDatasetId, baseBreakdown)
@@ -28,8 +32,8 @@ export async function ensureCorrectDatasetsDownloaded(
       [],
       baseBreakdown.addBreakdown(demographicType),
       undefined,
-      timeView
-    )
+      timeView,
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -52,7 +56,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_sex_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
-      'historical'
+      'historical',
     )
   })
 
@@ -61,7 +65,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_age_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
-      'historical'
+      'historical',
     )
   })
 
@@ -70,7 +74,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_race_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
-      'historical'
+      'historical',
     )
   })
 
@@ -79,7 +83,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_age_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
-      'historical'
+      'historical',
     )
   })
 
@@ -88,7 +92,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_sex_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
-      'historical'
+      'historical',
     )
   })
 
@@ -97,7 +101,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_race_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
-      'historical'
+      'historical',
     )
   })
 
@@ -106,7 +110,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_age_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE,
-      'historical'
+      'historical',
     )
   })
 
@@ -115,7 +119,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_sex_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX,
-      'historical'
+      'historical',
     )
   })
 
@@ -124,7 +128,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_race_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
-      'historical'
+      'historical',
     )
   })
 
@@ -133,7 +137,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_sex_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
-      'current'
+      'current',
     )
   })
 
@@ -142,7 +146,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_age_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
-      'current'
+      'current',
     )
   })
 
@@ -151,7 +155,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_race_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
-      'current'
+      'current',
     )
   })
 
@@ -160,7 +164,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_age_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
-      'current'
+      'current',
     )
   })
 
@@ -169,7 +173,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_sex_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
-      'current'
+      'current',
     )
   })
 
@@ -178,7 +182,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_race_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
-      'current'
+      'current',
     )
   })
 
@@ -187,7 +191,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_age_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE,
-      'current'
+      'current',
     )
   })
 
@@ -196,7 +200,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_sex_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX,
-      'current'
+      'current',
     )
   })
 
@@ -205,7 +209,7 @@ describe('acsConditionProvider', () => {
       'acs_condition-by_race_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
-      'current'
+      'current',
     )
   })
 })

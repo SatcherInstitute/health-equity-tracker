@@ -21,7 +21,7 @@ JAIL_PER_100K_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.PE
 JAIL_PCT_SHARE_COL = std_col.generate_column_name(std_col.JAIL_PREFIX, std_col.PCT_SHARE_SUFFIX)
 
 
-TOTAL_CHILDREN_COL = "total_confined_children"
+TOTAL_CHILDREN_COL = "confined_children_estimated_total"
 
 
 # maps BJS labels to our race CODES
@@ -141,7 +141,7 @@ def load_tables(zip_url: str, table_crops):
                 )
 
             source_df = strip_footnote_refs_from_df(source_df)
-            source_df = missing_data_to_none(source_df)
+            source_df = missing_data_to_nan(source_df)
             source_df = set_state_col(source_df)
 
             loaded_tables[file] = source_df
@@ -172,9 +172,9 @@ def strip_footnote_refs_from_df(df):
     return df
 
 
-def missing_data_to_none(df):
+def missing_data_to_nan(df):
     """
-    Replace all missing df values with null.
+    Replace all missing df values with nan.
     BJS Prisoners uses two kinds of missing data:
     `~` N/A. Jurisdiction does not track this race or ethnicity.
     `/` Not reported.
@@ -185,12 +185,14 @@ def missing_data_to_none(df):
             df (Pandas Dataframe): a dataframe with some missing value symbols
 
     Returns:
-            df (Pandas Dataframe): a dataframe with all missing values nulled
+            df (Pandas Dataframe): a dataframe with all missing values as nan
     """
 
     symbols_to_null = ["/", "~", "^"]
 
-    df = df.replace(symbols_to_null, np.nan)
+    # TODO: remove after updating to pandas 3
+    with pd.option_context('future.no_silent_downcasting', True):
+        df = df.replace(symbols_to_null, np.nan)
 
     return df
 

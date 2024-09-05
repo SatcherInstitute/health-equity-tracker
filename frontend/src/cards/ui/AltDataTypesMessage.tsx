@@ -1,7 +1,7 @@
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import {
-  type AgeAdjustedDataTypeId,
-  type DataTypeConfig,
+import type {
+  AgeAdjustedDataTypeId,
+  DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { dataTypeLinkMap } from '../../data/providers/CdcCovidProvider'
 

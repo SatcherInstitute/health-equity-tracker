@@ -21,7 +21,7 @@ export type ScrollableHashId =
 
 export function useStepObserver(
   stepIds: ScrollableHashId[],
-  isScrolledToTop: boolean
+  isScrolledToTop: boolean,
 ) {
   const location: any = useLocation()
 
@@ -60,7 +60,7 @@ export function useStepObserver(
           window.history.replaceState(
             '',
             document.title,
-            window.location.pathname + window.location.search
+            window.location.pathname + window.location.search,
           )
         } else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id

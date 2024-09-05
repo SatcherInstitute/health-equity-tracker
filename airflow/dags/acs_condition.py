@@ -1,4 +1,5 @@
-# Ignore the Airflow module, it is installed in both dev and prod
+# TODO: Rename our airflow/ as it tries to import from that and not the pip airflow
+# pylint: disable=no-name-in-module
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util

@@ -1,24 +1,24 @@
 import PhrmaProvider from './PhrmaProvider'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import { MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfig'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   PhrmaDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   acsDatasetIds?: DatasetId[],
-  metricIds?: MetricId[]
+  metricIds?: MetricId[],
 ) {
   // if these aren't sent as args, default to []
   metricIds = metricIds || []
@@ -33,8 +33,8 @@ export async function ensureCorrectDatasetsDownloaded(
     new MetricQuery(
       metricIds,
       baseBreakdown.addBreakdown(demographicType),
-      undefined
-    )
+      undefined,
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -43,7 +43,7 @@ export async function ensureCorrectDatasetsDownloaded(
   consumedDatasetIds.push(...acsDatasetIds)
 
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds)
+    new MetricQueryResponse([], consumedDatasetIds),
   )
 }
 
@@ -61,7 +61,7 @@ describe('PhrmaProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'phrma_data-race_and_ethnicity_national',
       Breakdowns.forFips(new Fips('00')),
-      RACE
+      RACE,
     )
   })
 
@@ -69,7 +69,7 @@ describe('PhrmaProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'phrma_data-lis_state',
       Breakdowns.forFips(new Fips('02')),
-      'lis'
+      'lis',
     )
   })
 
@@ -77,7 +77,7 @@ describe('PhrmaProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'phrma_data-age_county',
       Breakdowns.forFips(new Fips('02999')),
-      AGE
+      AGE,
     )
   })
 })

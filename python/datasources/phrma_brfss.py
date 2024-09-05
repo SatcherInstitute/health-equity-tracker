@@ -21,9 +21,11 @@ from ingestion.phrma_utils import (
     SCREENING_ELIGIBLE,
     BREAKDOWN_TO_STANDARD_BY_COL,
     load_phrma_df_from_data_dir,
-    AGE_ADJ_RATE_LOWER,
+    PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN,
+    PHRMA_BRFSS,
+    TMP_ALL,
+    get_age_adjusted_ratios,
 )
-import numpy as np
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -71,16 +73,22 @@ class PhrmaBrfssData(DataSource):
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
 
-        alls_df = load_phrma_df_from_data_dir(geo_level, 'all', 'cancer')
+        conditions = (
+            PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN
+            if demo_breakdown == std_col.SEX_COL
+            else PHRMA_CANCER_PCT_CONDITIONS
+        )
+
+        alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, PHRMA_BRFSS, conditions)
         alls_df[demo_col] = all_val
 
-        breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, 'cancer')
+        breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, PHRMA_BRFSS, conditions)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
         df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
         # ADHERENCE rate
-        for condition in PHRMA_CANCER_PCT_CONDITIONS:
+        for condition in conditions:
             source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
             het_col_name = f'{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
             df[het_col_name] = df[source_col_name].round()
@@ -94,7 +102,7 @@ class PhrmaBrfssData(DataSource):
         # rename count cols
         rename_col_map = {}
         count_to_pct_share_map = {}
-        for condition in PHRMA_CANCER_PCT_CONDITIONS:
+        for condition in conditions:
 
             # source cols
             source_rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
@@ -121,7 +129,7 @@ class PhrmaBrfssData(DataSource):
             std_col.add_race_columns_from_category_id(df)
 
         # generate pct share columns
-        if demo_breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL]:
+        if demo_breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             # all demographics are known
             df = generate_pct_share_col_without_unknowns(
                 df,
@@ -142,39 +150,8 @@ class PhrmaBrfssData(DataSource):
             )
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
-            df = get_age_adjusted_ratios(df)
+            df = get_age_adjusted_ratios(df, conditions)
 
         df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
 
         return df
-
-
-def get_age_adjusted_ratios(df: pd.DataFrame) -> pd.DataFrame:
-    """Adds columns for age adjusted ratios (comparing each race's
-    rate to the rate for White NH) for each type of cancer screening."""
-
-    _tmp_white_rates_col = 'WHITE_NH_AGE_ADJ_RATE'
-
-    for condition in PHRMA_CANCER_PCT_CONDITIONS:
-        source_age_adj_rate_col = f'{condition}_{AGE_ADJ_RATE_LOWER}'
-        cancer_type = condition.lower()
-        het_age_adj_ratio_col = f'{cancer_type}_{SCREENED}_{std_col.RATIO_AGE_ADJUSTED_SUFFIX}'
-
-        # Step 1: Filter the DataFrame to get AGE_ADJ_RATE where RACE_ID is 'WHITE_NH'
-        white_nh_rates = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.WHITE_NH.value].set_index(
-            std_col.STATE_FIPS_COL
-        )[source_age_adj_rate_col]
-
-        # Step 2: Map these values back to the original DataFrame based on STATE_FIPS
-        df[_tmp_white_rates_col] = df[std_col.STATE_FIPS_COL].map(white_nh_rates)
-
-        # Step 3: Calculate AGE_ADJ_RATIO by dividing AGE_ADJ_RATE by WHITE_NH_RATE
-        df[het_age_adj_ratio_col] = df[source_age_adj_rate_col] / df[_tmp_white_rates_col]
-        df[het_age_adj_ratio_col] = df[het_age_adj_ratio_col].round(2)
-
-        df = df.drop(columns=[_tmp_white_rates_col, source_age_adj_rate_col])
-
-        # for rows where RACE is ALL set AGE_ADJ_RATIO to np.nan
-        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value, het_age_adj_ratio_col] = np.nan
-
-    return df

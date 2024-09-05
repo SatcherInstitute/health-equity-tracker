@@ -1,12 +1,16 @@
-from ingestion.het_types import GEO_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL, SEX_RACE_ETH_AGE_TYPE
+from ingestion.het_types import GEO_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL, SEX_RACE_ETH_AGE_TYPE, PHRMA_DATASET_TYPE
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.constants import STATE_LEVEL, COUNTY_LEVEL, NATIONAL_LEVEL, US_FIPS
 import pandas as pd
-from typing import Dict, Literal, cast
+import numpy as np
+from typing import Dict, cast, List
 from ingestion.merge_utils import merge_dfs_list
 
-TMP_ALL = 'all'
+PHRMA_BRFSS: PHRMA_DATASET_TYPE = 'brfss'
+PHRMA_MEDICARE: PHRMA_DATASET_TYPE = 'medicare'
+
+TMP_ALL: PHRMA_BREAKDOWN_TYPE_OR_ALL = 'all'
 PHRMA_DIR = 'phrma'
 
 ADHERENCE = 'adherence'
@@ -20,6 +24,7 @@ ADHERENCE_RATE_LOWER = "bene_yes_pct"
 AGE_ADJ_RATE_LOWER = "age_adjusted_pct"
 RACE_NAME_LOWER = "race_name"
 AGE_GROUP_LOWER = "age_group"
+SEX_NAME_LOWER = "sex_name"
 INSURANCE_STATUS_LOWER = "insurance_status"
 INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
@@ -63,7 +68,11 @@ PHRMA_100K_CONDITIONS = [
     std_col.SCHIZOPHRENIA_PREFIX,
 ]
 
-PHRMA_CANCER_PCT_CONDITIONS = ["Breast", "Cervical", "Colorectal", "Lung", "Prostate"]
+PHRMA_MEDICARE_CONDITIONS = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
+
+PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN = ["Colorectal", "Lung"]
+PHRMA_CANCER_PCT_CONDITIONS = ["Breast", "Cervical", "Prostate"] + PHRMA_CANCER_PCT_CONDITIONS_WITH_SEX_BREAKDOWN
+
 
 BREAKDOWN_TO_STANDARD_BY_COL = {
     std_col.AGE_COL: {
@@ -213,6 +222,7 @@ def rename_cols(
 
     if breakdown == std_col.SEX_COL:
         rename_cols_map[SEX_NAME] = std_col.SEX_COL
+        rename_cols_map[SEX_NAME_LOWER] = std_col.SEX_COL
 
     if breakdown == std_col.ELIGIBILITY_COL:
         rename_cols_map[ENTLMT_RSN_CURR] = std_col.ELIGIBILITY_COL
@@ -244,13 +254,14 @@ DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 def load_phrma_df_from_data_dir(
     geo_level: GEO_TYPE,
     breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
-    data_type: Literal['standard', 'cancer'],
+    dataset_type: PHRMA_DATASET_TYPE,
+    conditions: List[str],
 ) -> pd.DataFrame:
     """Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
     breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `lis`, `eligibility`,
      `insurance_status`, `education`, `income`, or `all`
-    data_type: string equal to 'standard' or 'cancer' to determine which data to process
+    dataset_type: string equal to PHRMA_MEDICARE or PHRMA_BRFSS to determine which data to process
     return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables"""
 
@@ -268,9 +279,9 @@ def load_phrma_df_from_data_dir(
     fips_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
     breakdown_het_to_source_type = {
-        "age": AGE_GROUP if data_type == 'standard' else AGE_GROUP_LOWER,
-        "race_and_ethnicity": RACE_NAME if data_type == 'standard' else RACE_NAME_LOWER,
-        "sex": SEX_NAME,
+        "age": AGE_GROUP if dataset_type == PHRMA_MEDICARE else AGE_GROUP_LOWER,
+        "race_and_ethnicity": RACE_NAME if dataset_type == PHRMA_MEDICARE else RACE_NAME_LOWER,
+        "sex": SEX_NAME if dataset_type == PHRMA_MEDICARE else SEX_NAME_LOWER,
         "lis": LIS,
         "eligibility": ENTLMT_RSN_CURR,
         "income": INCOME_GROUP_LOWER,
@@ -290,20 +301,15 @@ def load_phrma_df_from_data_dir(
         keep_cols.append(COUNTY_FIPS)
     if geo_level == STATE_LEVEL:
         fips_length = 2
-        keep_cols.append(STATE_FIPS if data_type == 'standard' else STATE_FIPS_LOWER)
+        keep_cols.append(STATE_FIPS if dataset_type == PHRMA_MEDICARE else STATE_FIPS_LOWER)
     if geo_level == NATIONAL_LEVEL:
         fips_length = 2
 
     topic_dfs = []
     condition_keep_cols = []
 
-    if data_type == 'standard':
-        conditions = [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]
-    else:  # cancer
-        conditions = PHRMA_CANCER_PCT_CONDITIONS
-
     for condition in conditions:
-        if data_type == 'standard':
+        if dataset_type == PHRMA_MEDICARE:
             if condition in PHRMA_PCT_CONDITIONS:
                 condition_keep_cols = [*keep_cols, COUNT_YES, COUNT_TOTAL, ADHERENCE_RATE]
             elif condition in PHRMA_100K_CONDITIONS:
@@ -326,7 +332,7 @@ def load_phrma_df_from_data_dir(
             if breakdown == std_col.RACE_OR_HISPANIC_COL:
                 condition_keep_cols.append(AGE_ADJ_RATE_LOWER)
 
-        if data_type == 'standard':
+        if dataset_type == PHRMA_MEDICARE:
             file_name = f'{condition}-{sheet_name}.csv'
             subdirectory = condition
         else:  # cancer
@@ -364,3 +370,34 @@ def load_phrma_df_from_data_dir(
     df_merged = dataset_utils.ensure_leading_zeros(df_merged, fips_col, fips_length)
 
     return df_merged
+
+
+def get_age_adjusted_ratios(df: pd.DataFrame, conditions: List[str]) -> pd.DataFrame:
+    """Adds columns for age adjusted ratios (comparing each race's
+    rate to the rate for White NH) for each type of cancer screening."""
+
+    _tmp_white_rates_col = 'WHITE_NH_AGE_ADJ_RATE'
+
+    for condition in conditions:
+        source_age_adj_rate_col = f'{condition}_{AGE_ADJ_RATE_LOWER}'
+        cancer_type = condition.lower()
+        het_age_adj_ratio_col = f'{cancer_type}_{SCREENED}_{std_col.RATIO_AGE_ADJUSTED_SUFFIX}'
+
+        # Step 1: Filter the DataFrame to get AGE_ADJ_RATE where RACE_ID is 'WHITE_NH'
+        white_nh_rates = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.WHITE_NH.value].set_index(
+            std_col.STATE_FIPS_COL
+        )[source_age_adj_rate_col]
+
+        # Step 2: Map these values back to the original DataFrame based on STATE_FIPS
+        df[_tmp_white_rates_col] = df[std_col.STATE_FIPS_COL].map(white_nh_rates)
+
+        # Step 3: Calculate AGE_ADJ_RATIO by dividing AGE_ADJ_RATE by WHITE_NH_RATE
+        df[het_age_adj_ratio_col] = df[source_age_adj_rate_col] / df[_tmp_white_rates_col]
+        df[het_age_adj_ratio_col] = df[het_age_adj_ratio_col].round(2)
+
+        df = df.drop(columns=[_tmp_white_rates_col, source_age_adj_rate_col])
+
+        # for rows where RACE is ALL set AGE_ADJ_RATIO to np.nan
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value, het_age_adj_ratio_col] = np.nan
+
+    return df
