@@ -139,7 +139,14 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
           RACE,
         )
 
-        const isWrongDemographicType = props.demographicType === SEX
+        const demosShowingAgeAdjusted: DemographicType[] = [
+          'age',
+          'race_and_ethnicity',
+        ]
+
+        const isWrongDemographicType = !demosShowingAgeAdjusted.includes(
+          props.demographicType,
+        )
         const noRatios = knownRaceData.every(
           (row) => row[ratioId] === undefined,
         )
@@ -182,7 +189,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&
               !noRatios &&
-              props.demographicType !== SEX && (
+              !isWrongDemographicType && (
                 <AgeAdjustedTableChart
                   data={knownRaceData}
                   metricConfigs={ratioConfigs}

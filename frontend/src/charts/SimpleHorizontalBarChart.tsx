@@ -18,7 +18,7 @@ import {
 } from './utils'
 import { createBarLabel } from './mapHelperFunctions'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
-import { sortByIncome } from '../data/sorting/sortingUtils'
+import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
@@ -291,7 +291,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   )
 
   if (props.demographicType === 'income') {
-    data = sortByIncome(data)
+    data = sortForVegaByIncome(data)
   }
 
   const barLabelBreakpoint =
