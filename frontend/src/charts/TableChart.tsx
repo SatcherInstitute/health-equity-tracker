@@ -37,7 +37,6 @@ import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
-import { compareIncome, sortByIncome } from '../data/sorting/sortingUtils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
