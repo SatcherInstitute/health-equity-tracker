@@ -126,7 +126,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       elementsToHide={elementsToHide}
     >
       {([queryResponse], metadata) => {
-        const data = queryResponse.getValidRowsForField(metricConfig.metricId)
+        // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
+        const data = queryResponse
+          .getValidRowsForField(metricConfig.metricId)
+          .filter((row) => row[props.demographicType] !== 'Unknown')
 
         const hideChart =
           data.length === 0 ||

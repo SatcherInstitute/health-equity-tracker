@@ -9,7 +9,6 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { RACE, AGE, SEX } from '../utils/Constants'
 import type { MetricId } from '../config/MetricConfig'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
