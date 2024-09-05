@@ -37,7 +37,7 @@ import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
-import { compareIncome } from '../data/sorting/sortingUtils'
+import { compareIncome, sortByIncome } from '../data/sorting/sortingUtils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -104,6 +104,27 @@ export function TableChart(props: TableChartProps) {
   const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
   const memoData = useMemo(() => data, [data])
 
+  const tableConfig: any = {
+    columns: memoCols,
+    data: memoData,
+    initialState: {
+      pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
+    },
+  }
+
+  // Set initial sort order if data wasn't already custom sorted for income
+  if (demographicType !== 'income') {
+    tableConfig.initialState = {
+      ...tableConfig.initialState,
+      sortBy: [
+        {
+          id: demographicType,
+          desc: false,
+        },
+      ],
+    }
+  }
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -113,23 +134,7 @@ export function TableChart(props: TableChartProps) {
     gotoPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns: memoCols,
-      data: memoData,
-      initialState: {
-        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
-        sortBy: [
-          {
-            id: demographicType,
-            desc: false,
-          },
-        ],
-      },
-    },
-    // useSortBy,
-    usePagination,
-  )
+  } = useTable(tableConfig, useSortBy, usePagination)
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {

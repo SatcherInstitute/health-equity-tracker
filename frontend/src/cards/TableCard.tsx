@@ -165,6 +165,10 @@ export default function TableCard(props: TableCardProps) {
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
 
+        if (props.demographicType === 'income') {
+          data = sortByIncome(data)
+        }
+
         return (
           <>
             {!queryResponse.dataIsMissing() && data.length > 0 && (
