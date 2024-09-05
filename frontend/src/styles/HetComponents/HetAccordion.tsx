@@ -26,7 +26,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({ accordionData, divClassName
     }
 
   return (
-    <article className='grid'>
+    <article className='grid mx-4'>
       <div className={`${divClassName ?? 'py-4'}`}>
         {accordionData.map((data, index) => (
           <Accordion
@@ -50,7 +50,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({ accordionData, divClassName
                 expanded === `panel${index}` ? 'bg-hoverAltGreen rounded-t-md' : 'hover:bg-whiteSmoke80'
               }`}
             >
-              <div className={`my-0 ${summaryClassName ?? 'py-4 text-title font-medium text-altBlack'}`}>
+              <div className={`my-0 ${summaryClassName ?? 'py-4 text-title font-medium text-altBlack leading-lhSomeSpace'}`}>
                 {data.question}
               </div>
             </AccordionSummary>
