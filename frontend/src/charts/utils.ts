@@ -15,7 +15,7 @@ export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
 const MAX_LINE_LENGTH = 20
 
-export const CORNER_RADIUS = 2
+export const CORNER_RADIUS = 3
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
 export const DELIMITER = '  '
