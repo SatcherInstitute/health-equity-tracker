@@ -35,21 +35,7 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
     }
   }
 
-  const nextButtonClassName =
-    !prevRoute && isLargeScreen ? 'ml-auto' : ''
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 960)
-    }
-
-    handleResize()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  const nextButtonClassName = !prevRoute && isMdScreen ? 'ml-auto' : ''
 
   return (
     <div
