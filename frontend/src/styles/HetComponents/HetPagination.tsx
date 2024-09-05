@@ -16,6 +16,8 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
 
   const isMdScreen = useIsBreakpointAndUp('md')
 
+  const isMdScreen = useIsBreakpointAndUp('md')
+
   const currentIndex = routeConfigs.findIndex(
     (route) => route.path === location.pathname
   )
@@ -35,6 +37,7 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
     }
   }
 
+<<<<<<< HEAD
   const nextButtonClassName =
     !prevRoute && isLargeScreen ? 'ml-auto' : ''
 
@@ -50,6 +53,9 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
       window.removeEventListener('resize', handleResize)
     }
   }, [])
+=======
+  const nextButtonClassName = !prevRoute && isMdScreen ? 'ml-auto' : ''
+>>>>>>> 9772118b (Refactored and new HET components (#3623))
 
   return (
     <div
