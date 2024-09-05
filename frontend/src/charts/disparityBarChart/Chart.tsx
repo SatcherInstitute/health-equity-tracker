@@ -21,6 +21,7 @@ import {
 } from '../utils'
 import type { MetricConfig } from '../../data/config/MetricConfig'
 import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
+import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
 
 export const altLightMetric: MetricConfig = {
   chartTitle: 'Population Share (ACS)',
@@ -65,6 +66,10 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
         return itemWithoutACS
       }
     })
+  }
+
+  if (props.demographicType === 'income') {
+    dataFromProps = sortForVegaByIncome(dataFromProps)
   }
 
   // add delimiter for line breaks in column axis labels

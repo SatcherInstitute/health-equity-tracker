@@ -37,6 +37,7 @@ import type { CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
 import HetDivider from '../styles/HetComponents/HetDivider'
+import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -163,6 +164,10 @@ export default function TableCard(props: TableCardProps) {
         const showMissingDataAlert =
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
+
+        if (props.demographicType === 'income') {
+          data = sortForVegaByIncome(data)
+        }
 
         return (
           <>

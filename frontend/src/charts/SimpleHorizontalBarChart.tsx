@@ -18,6 +18,7 @@ import {
 } from './utils'
 import { createBarLabel } from './mapHelperFunctions'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
+import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
@@ -283,11 +284,15 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
     addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter)
   // Omit the % symbol for the tooltip because it's included in shortLabel.
-  const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
+  let [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
     dataWithDisplayCol,
     /* omitPctSymbol= */ true,
   )
+
+  if (props.demographicType === 'income') {
+    data = sortForVegaByIncome(data)
+  }
 
   const barLabelBreakpoint =
     Math.max(...props.data.map((row) => row[props.metric.metricId])) *

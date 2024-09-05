@@ -100,9 +100,29 @@ export function TableChart(props: TableChartProps) {
   ]
 
   // Changes deps array to columns on save, which triggers reload loop
-  // eslint-disable-next-line
   const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
   const memoData = useMemo(() => data, [data])
+
+  const tableConfig: any = {
+    columns: memoCols,
+    data: memoData,
+    initialState: {
+      pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
+    },
+  }
+
+  // Set initial sort order if data wasn't already custom sorted for income
+  if (demographicType !== 'income') {
+    tableConfig.initialState = {
+      ...tableConfig.initialState,
+      sortBy: [
+        {
+          id: demographicType,
+          desc: false,
+        },
+      ],
+    }
+  }
 
   const {
     getTableProps,
@@ -113,23 +133,7 @@ export function TableChart(props: TableChartProps) {
     gotoPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns: memoCols,
-      data: memoData,
-      initialState: {
-        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
-        sortBy: [
-          {
-            id: demographicType,
-            desc: false,
-          },
-        ],
-      },
-    },
-    useSortBy,
-    usePagination,
-  )
+  } = useTable(tableConfig, useSortBy, usePagination)
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
