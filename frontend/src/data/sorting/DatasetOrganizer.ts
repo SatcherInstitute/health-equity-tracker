@@ -4,6 +4,7 @@ import type { Row } from '../utils/DatasetTypes'
 import type { AbstractSortStrategy } from './AbstractDataSorter'
 import { AgeSorterStrategy } from './AgeSorterStrategy'
 import { AlphabeticalSorterStrategy } from './AlphabeticalSorterStrategy'
+import { IncomeSorterStrategy } from './IncomeSorterStrategy'
 
 export class DatasetOrganizer {
   reorderingColumn: string
@@ -36,6 +37,7 @@ export class DatasetOrganizer {
         valuesToBack,
       ),
       new AgeSorterStrategy(valuesToFront, valuesToBack),
+      new IncomeSorterStrategy(valuesToFront, valuesToBack),
     ]
   }
 
