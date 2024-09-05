@@ -2,7 +2,6 @@ import {
   type DataTypeConfig,
   formatFieldValue,
   type MetricConfig,
-  type MetricId,
 } from '../data/config/MetricConfig'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -11,17 +10,12 @@ import {
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { Row } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import { HIV_METRICS } from '../data/providers/HivProvider'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import {
-  GUN_DEATHS_CHILDREN_METRIC_IDS,
-  GUN_VIOLENCE_YOUTH_METRICS,
-} from '../data/providers/GunViolenceYouthProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 export const PADDING_FOR_ACTIONS_MENU = 30
 const MAX_LINE_LENGTH = 20
+
+export const CORNER_RADIUS = 3
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
 export const DELIMITER = '  '
