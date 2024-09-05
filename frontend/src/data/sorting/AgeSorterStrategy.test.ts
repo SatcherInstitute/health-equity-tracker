@@ -1,4 +1,3 @@
-import { Breakdowns } from '../query/Breakdowns'
 import { AgeSorterStrategy } from './AgeSorterStrategy'
 
 describe('dataset utils test', () => {
@@ -7,7 +6,6 @@ describe('dataset utils test', () => {
   const A5_9 = { age: '5-9' }
   const A11_20 = { age: '11-20' }
   const A20P = { age: '20+' }
-  const breakdown = Breakdowns.national().andAge()
 
   beforeEach(() => {})
 

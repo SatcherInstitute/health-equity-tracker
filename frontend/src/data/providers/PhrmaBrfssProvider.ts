@@ -132,7 +132,9 @@ class PhrmaBrfssProvider extends VariableProvider {
     df = this.applyDemographicBreakdownFilters(df, breakdowns)
     df = this.removeUnrequestedColumns(df, metricQuery)
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    const data = df.toArray()
+
+    return new MetricQueryResponse(data, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

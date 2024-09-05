@@ -945,7 +945,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'phrma_brfss',
   },
   'phrma_brfss_data-sex_national': {
-    name: 'Screening adherence for colorectal and lung cancers, by age, nationally',
+    name: 'Screening adherence for colorectal and lung cancers, by sex, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
@@ -981,7 +981,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'phrma_brfss',
   },
   'phrma_brfss_data-sex_state': {
-    name: 'Screening adherence for colorectal and lung cancers, by age, by state',
+    name: 'Screening adherence for colorectal and lung cancers, by sex, by state',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',

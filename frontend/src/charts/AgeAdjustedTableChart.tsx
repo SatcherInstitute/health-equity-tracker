@@ -93,9 +93,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
+    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps()
     return (
-      <TableRow {...group.getHeaderGroupProps()}>
-        {group.headers.map((col, index) => (
+      <TableRow key={key} {...restHeaderGroupProps}>
+        {group.headers.map((col) => (
           <TableCell key={col.id} style={headerCellStyle}>
             {col.render('Header')}
           </TableCell>
@@ -107,8 +108,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
     prepareRow(row)
+    const { key, ...restRowProps } = row.getRowProps()
+
     return (
-      <TableRow {...row.getRowProps()}>
+      <TableRow key={key} {...restRowProps}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
             <TableCell

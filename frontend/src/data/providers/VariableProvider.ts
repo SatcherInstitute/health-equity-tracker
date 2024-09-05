@@ -81,8 +81,8 @@ abstract class VariableProvider {
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(
       Object.entries(metricQuery.breakdowns.demographicBreakdowns)
-        .filter(([unusedKey, breakdown]) => breakdown.enabled)
-        .map(([unusedKey, breakdown]) => breakdown.columnName),
+        .filter(([_, breakdown]) => breakdown.enabled)
+        .map(([_, breakdown]) => breakdown.columnName),
     )
 
     const columnsToRemove = dataFrame
