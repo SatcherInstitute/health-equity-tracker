@@ -8,8 +8,6 @@ describe('dataset utils test - IncomeSorterStrategy', () => {
   const I100_200K = { income: '$100k-$200k' }
   const I200K_PLUS = { income: '$200k+' }
 
-  beforeEach(() => {})
-
   test('empty array', async () => {
     const data: any = []
     new IncomeSorterStrategy(['All'])
