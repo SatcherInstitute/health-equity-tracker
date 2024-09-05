@@ -26,7 +26,7 @@ function FaqTab() {
             <div className='flex flex-wrap'>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[4].questionText}
+                  {selectFAQs[4].question}
                 </h3>
                 <div className='font-sansText font-normal'>
                   {selectFAQs[4].answer}
@@ -34,7 +34,7 @@ function FaqTab() {
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[2].questionText}
+                  {selectFAQs[2].question}
                 </h3>
                 <div className='font-sansText font-normal'>
                   {selectFAQs[2].answer}
@@ -42,7 +42,7 @@ function FaqTab() {
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[3].questionText}
+                  {selectFAQs[3].question}
                 </h3>
                 <div className='font-sansText font-normal'>
                   {selectFAQs[3].answer}
@@ -144,7 +144,7 @@ function FaqTab() {
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[0].questionText}
+                  {selectFAQs[0].question}
                 </h3>
                 <div className='font-sansText font-normal'>
                   {selectFAQs[0].answer}
@@ -152,7 +152,7 @@ function FaqTab() {
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[1].questionText}
+                  {selectFAQs[1].question}
                 </h3>
                 <div className='font-sansText font-normal'>
                   {selectFAQs[1].answer}
