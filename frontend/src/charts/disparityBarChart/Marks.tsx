@@ -1,5 +1,5 @@
 import type { Mark, RectMark, TextMark } from 'vega'
-import { oneLineLabel } from '../utils'
+import { CORNER_RADIUS, oneLineLabel } from '../utils'
 import {
   ALT_LIGHT_MEASURE_COLOR,
   ALT_LIGHT_MEASURE_OPACITY,
@@ -97,6 +97,12 @@ export function Marks({
         },
       },
       update: {
+        cornerRadiusTopRight: {
+          value: CORNER_RADIUS,
+        },
+        cornerRadiusBottomRight: {
+          value: CORNER_RADIUS,
+        },
         fill: { value: LIGHT_MEASURE_COLOR },
         ariaRoleDescription: { value: 'bar' },
         x: { scale: 'x', field: lightMeasure },
@@ -130,6 +136,12 @@ export function Marks({
         },
       },
       update: {
+        cornerRadiusTopRight: {
+          value: CORNER_RADIUS,
+        },
+        cornerRadiusBottomRight: {
+          value: CORNER_RADIUS,
+        },
         fill: { value: DARK_MEASURE_COLOR },
         ariaRoleDescription: { value: 'bar' },
         x: { scale: 'x', field: darkMeasure },
