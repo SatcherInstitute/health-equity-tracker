@@ -37,6 +37,7 @@ import type { CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
 import HetDivider from '../styles/HetComponents/HetDivider'
+import { sortByIncome } from '../data/sorting/sortingUtils'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column

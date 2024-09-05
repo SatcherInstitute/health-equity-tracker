@@ -37,6 +37,7 @@ import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
+import { compareIncome } from '../data/sorting/sortingUtils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -100,7 +101,6 @@ export function TableChart(props: TableChartProps) {
   ]
 
   // Changes deps array to columns on save, which triggers reload loop
-  // eslint-disable-next-line
   const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
   const memoData = useMemo(() => data, [data])
 
@@ -127,7 +127,7 @@ export function TableChart(props: TableChartProps) {
         ],
       },
     },
-    useSortBy,
+    // useSortBy,
     usePagination,
   )
 
