@@ -68,7 +68,8 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
     definition: {
       text: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
     },
-    ageSubPopulationLabel: 'U.S. citizens, Ages 18+',
+    ageSubPopulationLabel: 'Ages 18+',
+    otherSubPopulationLabel: 'U.S. citizens',
     metrics: {
       pct_rate: {
         metricId: 'voter_participation_pct_rate',

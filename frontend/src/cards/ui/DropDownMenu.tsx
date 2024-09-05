@@ -9,9 +9,9 @@ import type {
   DemographicType,
   DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
-import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 import type { DataTypeId } from '../../data/config/MetricConfig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { getConfigFromDataTypeId } from '../../utils/MadLibs'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -125,11 +125,12 @@ function DropDownMenu(props: DropDownMenuProps) {
 
   const demOption = firstMenuSelection
 
-  const suffix = useHIVLabelSuffix(
-    props.demographicType,
-    props.value,
-    props.dataTypeId,
-  )
+  const selectedConfig = getConfigFromDataTypeId(props.dataTypeId)
+  const ageSubPop = selectedConfig?.ageSubPopulationLabel ?? ''
+  const suffix =
+    props.value === 'All' && props.demographicType === 'age'
+      ? ` (${ageSubPop.replace('Ages ', '')})`
+      : ''
 
   return (
     <div className='flex'>
@@ -149,6 +150,7 @@ function DropDownMenu(props: DropDownMenuProps) {
       >
         {props.value}
         {suffix}
+
         <ArrowDropDown
           sx={{
             mb: '2px',
