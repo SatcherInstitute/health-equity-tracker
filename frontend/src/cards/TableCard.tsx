@@ -37,6 +37,7 @@ import type { CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
 import HetDivider from '../styles/HetComponents/HetDivider'
+import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -99,7 +100,7 @@ export default function TableCard(props: TableCardProps) {
     props.dataTypeConfig.dataTypeId,
   )
   const metricIds = Object.keys(metricConfigs) as MetricId[]
-  isIncarceration && metricIds.push('total_confined_children')
+  isIncarceration && metricIds.push('confined_children_estimated_total')
 
   if (isHIV) {
     metricIds.push(...GENDER_METRICS)
@@ -157,7 +158,7 @@ export default function TableCard(props: TableCardProps) {
         // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
         if (isIncarceration) {
           normalMetricIds = metricIds.filter(
-            (id) => id !== 'total_confined_children',
+            (id) => id !== 'confined_children_estimated_total',
           )
           data = data.filter((row: Row) => row[props.demographicType] !== ALL)
         }
@@ -165,6 +166,10 @@ export default function TableCard(props: TableCardProps) {
         const showMissingDataAlert =
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
+
+        if (props.demographicType === 'income') {
+          data = sortForVegaByIncome(data)
+        }
 
         return (
           <>
