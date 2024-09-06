@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { Vega, type VisualizationSpec } from 'react-vega'
-import {
-  type DataTypeConfig,
-  isPctType,
-  type MetricConfig,
-  type MapConfig,
+import type {
+  DataTypeConfig,
+  MetricConfig,
+  MapConfig,
 } from '../data/config/MetricConfig'
 import type { FieldRange } from '../data/utils/DatasetTypes'
 import type { View, Legend as LegendType, Scale } from 'vega'
@@ -45,6 +44,7 @@ import {
   setupZeroLegend,
 } from './legendHelperFunctions'
 import { het } from '../styles/DesignTokens'
+import { isPctType } from '../data/config/MetricConfigUtils'
 
 /*
    Legend renders a vega chart that just contains a legend.

@@ -1,5 +1,4 @@
 import {
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -9,12 +8,10 @@ import {
   Tooltip,
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import {
   formatFieldValue,
-  isPctType,
   type MetricConfig,
 } from '../../data/config/MetricConfig'
 import type { DemographicType } from '../../data/query/Breakdowns'
@@ -31,8 +28,8 @@ import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
-import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
+import { isPctType } from '../../data/config/MetricConfigUtils'
 
 interface AltTableViewProps {
   expanded: boolean

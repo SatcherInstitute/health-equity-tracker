@@ -1,4 +1,11 @@
-import type { DataTypeConfig, MetricConfig, MetricType } from './MetricConfig'
+import { DROPDOWN_TOPIC_MAP } from '../../utils/MadLibs'
+import {
+  type DropdownVarId,
+  METRIC_CONFIG,
+  type DataTypeConfig,
+  type MetricConfig,
+  type MetricType,
+} from './MetricConfig'
 
 export const populationPctTitle = 'Population share'
 export const populationPctShortLabel = '% of population'
@@ -22,4 +29,8 @@ export function metricConfigFromDtConfig(
   return Object.values(dtConfig.metrics).find((metricConfig) =>
     cardToMetricTypesMap[cardType].includes(metricConfig.type),
   )
+}
+
+export function isPctType(metricType: MetricType) {
+  return ['pct_share', 'pct_relative_inequity', 'pct_rate'].includes(metricType)
 }

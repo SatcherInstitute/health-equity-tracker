@@ -86,6 +86,7 @@ import {
   MATERNAL_HEALTH_METRICS,
   type MaternalHealthMetricId,
 } from './MetricConfigMaternalHealth'
+import { isPctType } from './MetricConfigUtils'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -213,18 +214,20 @@ export interface DataTypeConfig {
   otherSubPopulationLabel?: string
 }
 
-export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
-  per100k: 'per 100k',
-  pct_share: '% share',
-  count: 'people',
-  index: '',
-  age_adjusted_ratio: '×',
-  pct_relative_inequity: '%',
-  pct_rate: '%',
-}
-
-export function isPctType(metricType: MetricType) {
-  return ['pct_share', 'pct_relative_inequity', 'pct_rate'].includes(metricType)
+export function buildTopicsString(topics: readonly DropdownVarId[]): string {
+  const mutableTopics = [...topics]
+  return mutableTopics
+    .map((dropdownId) => {
+      let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
+      if (METRIC_CONFIG[dropdownId].length > 1) {
+        const topicDataTypesString = METRIC_CONFIG[dropdownId]
+          .map((config) => config.dataTypeShortLabel)
+          .join(', ')
+        topicString += ` (${topicDataTypesString})`
+      }
+      return topicString
+    })
+    .join(', ')
 }
 
 /**
@@ -260,50 +263,6 @@ export function formatFieldValue(
   const percentSuffix = isPctType(metricType) && !omitPctSymbol ? '%' : ''
   const ratioSuffix = isRatio ? '×' : ''
   return `${formattedValue}${percentSuffix}${ratioSuffix}`
-}
-
-export function getRateAndPctShareMetrics(
-  dataTypeConfig: DataTypeConfig,
-): MetricConfig[] {
-  const tableFields: MetricConfig[] = []
-  if (dataTypeConfig) {
-    if (dataTypeConfig.metrics?.per100k) {
-      tableFields.push(dataTypeConfig.metrics.per100k)
-    }
-    if (dataTypeConfig.metrics?.pct_rate) {
-      tableFields.push(dataTypeConfig.metrics.pct_rate)
-    }
-    if (dataTypeConfig.metrics?.index) {
-      tableFields.push(dataTypeConfig.metrics.index)
-    }
-    if (dataTypeConfig.metrics.pct_share) {
-      tableFields.push(dataTypeConfig.metrics.pct_share)
-      if (dataTypeConfig.metrics.pct_share.populationComparisonMetric) {
-        tableFields.push(
-          dataTypeConfig.metrics.pct_share.populationComparisonMetric,
-        )
-      }
-    }
-  }
-  return tableFields
-}
-
-export function getAgeAdjustedRatioMetric(
-  dataTypeConfig: DataTypeConfig,
-): MetricConfig[] {
-  const tableFields: MetricConfig[] = []
-  if (dataTypeConfig) {
-    if (
-      dataTypeConfig.metrics.age_adjusted_ratio &&
-      dataTypeConfig.metrics.pct_share
-    ) {
-      // Ratios for Table
-      tableFields.push(dataTypeConfig.metrics.age_adjusted_ratio)
-      // pct_share for Unknowns Alert
-      tableFields.push(dataTypeConfig.metrics.pct_share)
-    }
-  }
-  return tableFields
 }
 
 // TODO: count and pct_share metric types should require populationComparisonMetric
@@ -343,20 +302,4 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
   maternal_mortality: MATERNAL_HEALTH_METRICS,
   cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
-}
-
-export function buildTopicsString(topics: readonly DropdownVarId[]): string {
-  const mutableTopics = [...topics]
-  return mutableTopics
-    .map((dropdownId) => {
-      let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
-      if (METRIC_CONFIG[dropdownId].length > 1) {
-        const topicDataTypesString = METRIC_CONFIG[dropdownId]
-          .map((config) => config.dataTypeShortLabel)
-          .join(', ')
-        topicString += ` (${topicDataTypesString})`
-      }
-      return topicString
-    })
-    .join(', ')
 }

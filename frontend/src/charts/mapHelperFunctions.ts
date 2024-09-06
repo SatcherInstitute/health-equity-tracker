@@ -1,8 +1,7 @@
-import {
-  type DataTypeConfig,
-  isPctType,
-  type MetricId,
-  type MetricType,
+import type {
+  DataTypeConfig,
+  MetricId,
+  MetricType,
 } from '../data/config/MetricConfig'
 import type { Fips } from '../data/utils/Fips'
 import type { FieldRange, Row } from '../data/utils/DatasetTypes'
@@ -37,6 +36,7 @@ import {
 } from './mapGlobals'
 import { het } from '../styles/DesignTokens'
 import { formatterMap, type LegendNumberFormat } from './legendHelperFunctions'
+import { isPctType } from '../data/config/MetricConfigUtils'
 
 /*
 

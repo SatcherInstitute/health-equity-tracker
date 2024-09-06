@@ -4,8 +4,9 @@ import type {
   MapConfig,
   MetricConfig,
   MetricId,
+  MetricType,
 } from './MetricConfig'
-import { metricConfigFromDtConfig } from './MetricConfigUtils'
+import { isPctType, metricConfigFromDtConfig } from './MetricConfigUtils'
 
 describe('metricConfigFromDtConfig', () => {
   const fakeDataTypeConfig: DataTypeConfig = {
@@ -57,5 +58,15 @@ describe('metricConfigFromDtConfig', () => {
   test('returns correct metric config for age adjusted ratio card type', () => {
     const result = metricConfigFromDtConfig('ratio', fakeDataTypeConfig)
     expect(result).toEqual(fakeDataTypeConfig.metrics.age_adjusted_ratio)
+  })
+})
+
+describe('Test Metric Config Functions', () => {
+  test('Test Detection of Percent Type', () => {
+    expect(isPctType('pct_rate')).toBe(true)
+    expect(isPctType('pct_relative_inequity')).toBe(true)
+    expect(isPctType('pct_share')).toBe(true)
+    expect(isPctType('per100k')).toBe(false)
+    expect(isPctType('something broken' as MetricType)).toBe(false)
   })
 })

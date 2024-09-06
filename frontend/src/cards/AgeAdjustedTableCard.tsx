@@ -12,7 +12,6 @@ import {
   type MetricConfig,
   type MetricId,
   type DataTypeConfig,
-  getAgeAdjustedRatioMetric,
   type DropdownVarId,
   METRIC_CONFIG,
 } from '../data/config/MetricConfig'
@@ -34,6 +33,7 @@ import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 600
@@ -55,9 +55,6 @@ interface AgeAdjustedTableCardProps {
 }
 
 export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  const metrics = getAgeAdjustedRatioMetric(props?.dataTypeConfig)
-  const metricConfigPctShare = props.dataTypeConfig?.metrics?.pct_share
-
   const raceBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
     exclude(...exclusionList),
@@ -68,12 +65,20 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     exclude(...exclusionList),
   )
 
-  const metricConfigs: Record<string, MetricConfig> = {}
-  metrics.forEach((metricConfig) => {
-    metricConfigs[metricConfig.metricId] = metricConfig
+  const ageAdjustedRatioMetric = metricConfigFromDtConfig(
+    'ratio',
+    props.dataTypeConfig,
+  )
+  const metricPctShare = metricConfigFromDtConfig('share', props.dataTypeConfig)
+  const metricConfigs = [ageAdjustedRatioMetric, metricPctShare]
+
+  const metricIdToConfigMap: Record<string, MetricConfig> = {}
+  metricConfigs.forEach((metricConfig) => {
+    if (metricConfig?.metricId)
+      metricIdToConfigMap[metricConfig.metricId] = metricConfig
   })
 
-  const metricIds = Object.keys(metricConfigs) as MetricId[]
+  const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
   const raceQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ raceBreakdowns,
@@ -91,12 +96,12 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     (query) => query.metricIds.length > 0,
   )
   const ratioId = metricIds[0]
-  const ratioConfigs: MetricConfig[] = Object.values(metricConfigs).filter(
-    (config) => config.type === 'age_adjusted_ratio',
-  )
+  const ratioConfigs: MetricConfig[] = Object.values(
+    metricIdToConfigMap,
+  ).filter((config) => config.type === 'age_adjusted_ratio')
 
-  const chartTitle = metricConfigs?.[ratioId]?.chartTitle
-    ? generateChartTitle(metricConfigs[ratioId].chartTitle, props.fips)
+  const chartTitle = metricIdToConfigMap?.[ratioId]?.chartTitle
+    ? generateChartTitle(metricIdToConfigMap[ratioId].chartTitle, props.fips)
     : `Age-adjusted Ratios for ${props.dataTypeConfig.fullDisplayName}`
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
@@ -155,9 +160,9 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         return (
           <>
-            {metricConfigPctShare && (
+            {metricPctShare && (
               <UnknownsAlert
-                metricConfig={metricConfigPctShare}
+                metricConfig={metricPctShare}
                 queryResponse={raceQueryResponse}
                 demographicType={
                   props.demographicType === AGE ||
