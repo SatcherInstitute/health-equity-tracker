@@ -158,8 +158,25 @@ export default function CompareReport(props: CompareReportProps) {
   }
 
   const showAgeAdjustCardRow =
-    dataTypeConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ??
-    dataTypeConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted
+    dataTypeConfig1?.metrics?.age_adjusted_ratio ??
+    dataTypeConfig2?.metrics?.age_adjusted_ratio
+
+  const rateMetricConfig1 =
+    dataTypeConfig1?.metrics.per100k ??
+    dataTypeConfig1?.metrics.pct_rate ??
+    dataTypeConfig1?.metrics.index
+
+  const rateMetricConfig2 =
+    dataTypeConfig2?.metrics.per100k ??
+    dataTypeConfig2?.metrics.pct_rate ??
+    dataTypeConfig2?.metrics.index
+
+  const showRatesOverTimeCardRow =
+    rateMetricConfig1?.timeSeriesCadence ?? rateMetricConfig2?.timeSeriesCadence
+
+  const showInequitiesOverTimeCardRow =
+    dataTypeConfig1?.metrics.pct_relative_inequity ??
+    dataTypeConfig2?.metrics.pct_relative_inequity
 
   const dt1 = dataTypeConfig1?.fullDisplayName
   const dt2 = dataTypeConfig2?.fullDisplayName
@@ -230,30 +247,32 @@ export default function CompareReport(props: CompareReportProps) {
             />
 
             {/* SIDE-BY-SIDE RATE TREND CARDS */}
-            <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
-              id='rates-over-time'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              headerScrollMargin={props.headerScrollMargin}
-              createCard={(
-                dataTypeConfig: DataTypeConfig,
-                fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void,
-                unusedDropdown: any,
-                isCompareCard: boolean | undefined,
-              ) => (
-                <RateTrendsChartCard
-                  dataTypeConfig={dataTypeConfig}
-                  demographicType={demographicType}
-                  fips={fips}
-                  isCompareCard={isCompareCard}
-                  reportTitle={props.reportTitle}
-                />
-              )}
-            />
+            {showRatesOverTimeCardRow && (
+              <RowOfTwoOptionalMetrics
+                trackerMode={props.trackerMode}
+                id='rates-over-time'
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
+                fips1={props.fips1}
+                fips2={props.fips2}
+                headerScrollMargin={props.headerScrollMargin}
+                createCard={(
+                  dataTypeConfig: DataTypeConfig,
+                  fips: Fips,
+                  unusedUpdateFips: (fips: Fips) => void,
+                  unusedDropdown: any,
+                  isCompareCard: boolean | undefined,
+                ) => (
+                  <RateTrendsChartCard
+                    dataTypeConfig={dataTypeConfig}
+                    demographicType={demographicType}
+                    fips={fips}
+                    isCompareCard={isCompareCard}
+                    reportTitle={props.reportTitle}
+                  />
+                )}
+              />
+            )}
 
             {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
 
@@ -310,30 +329,32 @@ export default function CompareReport(props: CompareReportProps) {
 
             {/* SIDE-BY-SIDE SHARE INEQUITY TREND CARDS */}
 
-            <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
-              id='inequities-over-time'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              headerScrollMargin={props.headerScrollMargin}
-              createCard={(
-                dataTypeConfig: DataTypeConfig,
-                fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void,
-                unusedDropdown: any,
-                isCompareCard: boolean | undefined,
-              ) => (
-                <ShareTrendsChartCard
-                  dataTypeConfig={dataTypeConfig}
-                  demographicType={demographicType}
-                  fips={fips}
-                  isCompareCard={isCompareCard}
-                  reportTitle={props.reportTitle}
-                />
-              )}
-            />
+            {showInequitiesOverTimeCardRow && (
+              <RowOfTwoOptionalMetrics
+                trackerMode={props.trackerMode}
+                id='inequities-over-time'
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
+                fips1={props.fips1}
+                fips2={props.fips2}
+                headerScrollMargin={props.headerScrollMargin}
+                createCard={(
+                  dataTypeConfig: DataTypeConfig,
+                  fips: Fips,
+                  unusedUpdateFips: (fips: Fips) => void,
+                  unusedDropdown: any,
+                  isCompareCard: boolean | undefined,
+                ) => (
+                  <ShareTrendsChartCard
+                    dataTypeConfig={dataTypeConfig}
+                    demographicType={demographicType}
+                    fips={fips}
+                    isCompareCard={isCompareCard}
+                    reportTitle={props.reportTitle}
+                  />
+                )}
+              />
+            )}
 
             {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
             <RowOfTwoOptionalMetrics

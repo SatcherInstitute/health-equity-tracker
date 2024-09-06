@@ -64,6 +64,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for uninsured people',
     metrics: {
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
         trendsCardTitleName: 'Rates of uninsurance over time',
@@ -98,6 +99,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Relative inequity for uninsurance',
         metricId: 'uninsured_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -124,6 +126,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for people below the poverty line',
     metrics: {
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
         trendsCardTitleName: 'Rates of poverty over time',
@@ -159,6 +162,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Relative inequity for poverty',
         metricId: 'poverty_pct_relative_inequity',
         shortLabel: '% relative inequity',

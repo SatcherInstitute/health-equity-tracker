@@ -78,8 +78,8 @@ export function TrendsTooltip({
     },
   }
 
-  const isMonthly = (selectedDate?.length ?? 0) > 4
-  const displayDate = isMonthly
+  const timeSeriesCadence = (selectedDate?.length ?? 0) > 4
+  const displayDate = timeSeriesCadence
     ? F.dateFromString_MM_YYYY(selectedDate ?? '')
     : F.dateFromString_YYYY(selectedDate ?? '')
 

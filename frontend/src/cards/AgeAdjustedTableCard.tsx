@@ -24,7 +24,6 @@ import {
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
-  SEX,
   type RaceAndEthnicityGroup,
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -105,7 +104,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const ageAdjustedDataTypes: DataTypeConfig[] = dropdownId
     ? METRIC_CONFIG[dropdownId].filter((dataType) => {
         // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
-        return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
+        return dataType?.metrics?.age_adjusted_ratio
       })
     : []
 
@@ -134,10 +133,16 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         const [raceQueryResponse, ageQueryResponse] = queries
 
-        const [knownRaceData] = splitIntoKnownsAndUnknowns(
-          raceQueryResponse.data,
-          RACE,
-        )
+        const roundedData = raceQueryResponse.data.map((row) => {
+          const ratioRounded = row[ratioId]?.toFixed(1)
+
+          return {
+            ...row,
+            [ratioId]: ratioRounded,
+          }
+        })
+
+        const [knownRaceData] = splitIntoKnownsAndUnknowns(roundedData, RACE)
 
         const demosShowingAgeAdjusted: DemographicType[] = [
           'age',

@@ -87,7 +87,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'covid_cases_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
-        isMonthly: true,
+        timeSeriesCadence: 'monthly',
       },
       per100k: {
         metricId: 'covid_cases_per_100k',
@@ -96,7 +96,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Rates of COVID-19 cases',
         shortLabel: 'cases per 100k',
         type: 'per100k',
-        isMonthly: true,
+        timeSeriesCadence: 'monthly',
       },
     },
   },
@@ -137,21 +137,20 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         trendsCardTitleName: 'Monthly COVID-19 deaths per 100k',
         shortLabel: 'deaths per 100k',
         type: 'per100k',
-        isMonthly: true,
+        timeSeriesCadence: 'monthly',
       },
       pct_relative_inequity: {
         chartTitle: 'Relative inequity for COVID-19 deaths',
         metricId: 'covid_deaths_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
-        isMonthly: true,
+        timeSeriesCadence: 'monthly',
       },
       age_adjusted_ratio: {
         metricId: 'death_ratio_age_adjusted',
         chartTitle: 'Age-adjusted COVID-19 deaths compared to White (NH)',
         shortLabel: 'Ratio compared to White (NH)', // table header-row label
         type: 'age_adjusted_ratio',
-        ageAdjusted: true,
       },
     },
   },
@@ -191,7 +190,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'covid_hosp_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
-        isMonthly: true,
+        timeSeriesCadence: 'monthly',
       },
       per100k: {
         metricId: 'covid_hosp_per_100k',
@@ -200,7 +199,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         trendsCardTitleName: 'Monthly COVID-19 hospitalizations per 100k',
         shortLabel: 'hospitalizations per 100k',
         type: 'per100k',
-        isMonthly: true,
+        timeSeriesCadence: 'monthly',
       },
       age_adjusted_ratio: {
         metricId: 'hosp_ratio_age_adjusted',
@@ -208,7 +207,6 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
           'Age-adjusted COVID-19 hospitalizations compared to White (NH)',
         shortLabel: 'age-adjusted', // Table header-row label
         type: 'age_adjusted_ratio',
-        ageAdjusted: true,
       },
     },
   },

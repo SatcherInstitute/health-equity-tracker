@@ -117,6 +117,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_care_linkage',
         chartTitle: 'Linkage to HIV care',
         trendsCardTitleName: 'Rates of linkage to HIV care over time',
@@ -137,6 +138,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity in linkage to HIV care',
         metricId: 'hiv_care_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -179,6 +181,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_prevalence_per_100k',
         chartTitle: 'HIV prevalence',
         trendsCardTitleName: 'HIV prevalence over time',
@@ -199,6 +202,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for HIV prevalence',
         metricId: 'hiv_prevalence_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -239,6 +243,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_diagnoses_per_100k',
         chartTitle: 'HIV diagnoses',
         trendsCardTitleName: 'HIV diagnoses over time',
@@ -259,6 +264,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for new HIV diagnoses',
         metricId: 'hiv_diagnoses_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -299,6 +305,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_deaths_per_100k',
         chartTitle: 'HIV deaths',
         trendsCardTitleName: 'Rates of HIV deaths over time',
@@ -319,6 +326,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for HIV deaths',
         metricId: 'hiv_deaths_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -329,7 +337,6 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Age-adjusted HIV deaths compared to White (NH)',
         shortLabel: 'Ratio compared to White (NH)',
         type: 'age_adjusted_ratio',
-        ageAdjusted: true,
       },
     },
   },
@@ -415,6 +422,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_prevalence_black_women_per_100k',
         chartTitle: 'HIV prevalence for Black (NH) women',
         trendsCardTitleName: 'HIV prevalence for Black (NH) women over time',
@@ -436,6 +444,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of HIV prevalence for Black (NH) women',
         metricId: 'hiv_prevalence_black_women_pct_relative_inequity',
@@ -480,6 +489,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_diagnoses_black_women_per_100k',
         chartTitle: 'New HIV diagnoses for Black (NH) women',
         trendsCardTitleName:
@@ -501,6 +511,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of new HIV diagnoses for Black (NH) women',
         metricId: 'hiv_diagnoses_black_women_pct_relative_inequity',
@@ -544,6 +555,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_deaths_black_women_per_100k',
         chartTitle: 'HIV deaths for Black (NH) women',
         trendsCardTitleName:
@@ -565,6 +577,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of HIV deaths for Black (NH) women',
         metricId: 'hiv_deaths_black_women_pct_relative_inequity',
@@ -610,6 +623,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
         },
       },
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_prep_coverage',
         chartTitle: 'PrEP coverage',
         trendsCardTitleName: 'Rates of PrEP coverage over time',
@@ -630,6 +644,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for PrEP coverage',
         metricId: 'hiv_prep_pct_relative_inequity',
         shortLabel: '% relative inequity',
