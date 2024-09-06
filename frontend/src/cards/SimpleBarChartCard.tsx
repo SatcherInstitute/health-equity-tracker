@@ -22,6 +22,7 @@ import {
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import ChartTitle from './ChartTitle'
@@ -44,6 +45,7 @@ interface SimpleBarChartCardProps {
   dataTypeConfig: DataTypeConfig
   fips: Fips
   reportTitle: string
+  className?: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -78,7 +80,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
-  isIncarceration && metricIdsToFetch.push('confined_children_estimated_total')
+  isIncarceration && metricIdsToFetch.push('total_confined_children')
 
   if (isHIV) {
     metricIdsToFetch.push(...GENDER_METRICS)
@@ -116,8 +118,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
       downloadTitle={filename}
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}
@@ -126,19 +131,16 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       elementsToHide={elementsToHide}
     >
       {([queryResponse], metadata) => {
-        // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
-        const data = queryResponse
-          .getValidRowsForField(metricConfig.metricId)
-          .filter((row) => row[props.demographicType] !== 'Unknown')
+        const data = queryResponse.getValidRowsForField(metricConfig.metricId)
 
         const hideChart =
           data.length === 0 ||
           queryResponse.shouldShowMissingDataMessage([metricConfig.metricId])
 
         return (
-          <>
+          <div className='w-full'>
             {hideChart ? (
-              <>
+              <div className='w-full'>
                 <ChartTitle
                   title={'Graph unavailable: ' + chartTitle}
                   subtitle={subtitle}
@@ -151,12 +153,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   }
                   fips={props.fips}
                 />
-              </>
+              </div>
             ) : (
-              <>
+              <div className='w-full'>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
 
                 <SimpleHorizontalBarChart
+                  className='w-full'
                   data={data}
                   demographicType={props.demographicType}
                   metric={metricConfig}
@@ -186,9 +189,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     queryResponse={queryResponse}
                   />
                 )}
-              </>
+              </div>
             )}
-          </>
+          </div>
         )
       }}
     </CardWrapper>
