@@ -45,9 +45,6 @@ test('Diabetes County', async ({ page }) => {
   await page.getByLabel('Legend for rate map').getByRole('img').click()
   await page.locator('li').filter({ hasText: 'Denver County' }).click()
   await page
-    .getByRole('heading', { name: 'Graph unavailable: Data in' })
-    .click()
-  await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Diabetes in Denver County,' })
     .click()

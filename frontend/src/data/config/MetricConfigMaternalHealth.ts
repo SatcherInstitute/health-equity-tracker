@@ -33,6 +33,7 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for maternal mortality',
     metrics: {
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'maternal_mortality_per_100k',
         chartTitle: 'Maternal mortality',
         trendsCardTitleName: 'Rates of maternal mortality over time',

@@ -64,7 +64,7 @@ jobs:
         id: waitFor200
         with:
           site_name: ${{env.NETLIFY_SITE_NAME}}
-          max_timeout: 90
+          max_timeout: 3 * 60
 
   tests_e2e_netlify:
     needs: tests_e2e_netlify_prepare
