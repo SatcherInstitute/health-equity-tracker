@@ -47,20 +47,15 @@ interface RateTrendsChartCardProps {
   isCompareCard?: boolean
   reportTitle: string
   className?: string
-  selectedTableGroups?: DemographicGroup[]
-  setSelectedTableGroups?: (groups: DemographicGroup[]) => void
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [internalSelectedTableGroups, setInternalSelectedTableGroups] =
-    useState<DemographicGroup[]>([])
-  const selectedTableGroups =
-    props.selectedTableGroups ?? internalSelectedTableGroups
-  const setSelectedTableGroups =
-    props.setSelectedTableGroups ?? setInternalSelectedTableGroups
+  const [selectedTableGroups, setSelectedTableGroups] = useState<
+    DemographicGroup[]
+  >([])
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)
@@ -247,7 +242,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                         ? ''
                         : props.fips.getSentenceDisplayName()
                     }`,
-                    xAxisIsMonthly: metricConfigRates.isMonthly,
+                    xAxisIsMonthly:
+                      metricConfigRates.timeSeriesCadence === 'monthly',
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}
