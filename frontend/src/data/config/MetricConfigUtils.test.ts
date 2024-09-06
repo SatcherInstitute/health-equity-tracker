@@ -40,10 +40,6 @@ describe('metricConfigFromDtConfig', () => {
     },
   }
 
-  test('returns undefined when dtConfig is null', () => {
-    expect(metricConfigFromDtConfig('rate', null)).toBeUndefined()
-  })
-
   test('returns correct metric config for rate card type', () => {
     const result = metricConfigFromDtConfig('rate', fakeDataTypeConfig)
     expect(result).toEqual(fakeDataTypeConfig.metrics.pct_rate)

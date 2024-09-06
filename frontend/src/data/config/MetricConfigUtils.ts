@@ -1,9 +1,9 @@
 import { getFormatterPer100k } from '../../charts/utils'
 import { LESS_THAN_POINT_1 } from '../utils/Constants'
-import { DROPDOWN_IDS } from './DropDownIds'
 import type {
   DataTypeConfig,
   MetricConfig,
+  MetricId,
   MetricType,
 } from './MetricConfigTypes'
 
@@ -14,10 +14,8 @@ export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
 
 export function metricConfigFromDtConfig(
   cardType: CardMetricType,
-  dtConfig: DataTypeConfig | null,
-): MetricConfig | undefined {
-  if (!dtConfig) return undefined
-
+  dtConfig: DataTypeConfig,
+): MetricConfig {
   const cardToMetricTypesMap: Record<CardMetricType, MetricType[]> = {
     rate: ['pct_rate', 'per100k', 'index'],
     share: ['pct_share'],
@@ -26,9 +24,13 @@ export function metricConfigFromDtConfig(
   }
 
   // Find the metric config for the given card; e.g. the Rate Map uses either pct_rate, per100k, or index
-  return Object.values(dtConfig.metrics).find((metricConfig) =>
+  const possibleConfigs = Object.values(dtConfig.metrics)
+  const requestedConfig = possibleConfigs.find((metricConfig) =>
     cardToMetricTypesMap[cardType].includes(metricConfig.type),
   )
+
+  // If no config is found, use the first one in the list
+  return requestedConfig ?? possibleConfigs[0]
 }
 
 export function isPctType(metricType: MetricType) {
@@ -68,4 +70,41 @@ export function formatFieldValue(
   const percentSuffix = isPctType(metricType) && !omitPctSymbol ? '%' : ''
   const ratioSuffix = isRatio ? '×' : ''
   return `${formattedValue}${percentSuffix}${ratioSuffix}`
+}
+
+export type MetricIdsAndConfigMapTuple = [
+  MetricId[],
+  Partial<Record<MetricId, MetricConfig>>,
+]
+
+// Returns an array of metric ids and a map of metric ids to their config,
+// after filling in relevant sub configs like "knownBreakdownComparisonMetric"
+export function getMetricIdToConfigMap(
+  metricConfigs: MetricConfig[],
+): MetricIdsAndConfigMapTuple {
+  const metricIdToConfigMap: Partial<Record<MetricId, MetricConfig>> = {}
+
+  metricConfigs.forEach((metricConfig) => {
+    if (!metricConfig) return
+
+    const configs: MetricConfig[] = [metricConfig]
+    const possibleConfigs: (keyof MetricConfig)[] = [
+      'knownBreakdownComparisonMetric',
+      'populationComparisonMetric',
+      'secondaryPopulationComparisonMetric',
+    ]
+
+    for (const possibleConfig of possibleConfigs) {
+      if (metricConfig[possibleConfig]) {
+        configs.push(metricConfig[possibleConfig] as MetricConfig)
+      }
+    }
+    configs.forEach((metric) => {
+      if (metric && !metricIdToConfigMap[metric.metricId]) {
+        metricIdToConfigMap[metric.metricId] = metric
+      }
+    })
+  })
+
+  return [Object.keys(metricIdToConfigMap) as MetricId[], metricIdToConfigMap]
 }

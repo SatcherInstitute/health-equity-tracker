@@ -121,12 +121,12 @@ export function Report(props: ReportProps) {
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
 
-  const rateMetricConfig = metricConfigFromDtConfig('rate', dataTypeConfig)
-  const shareMetricConfig = metricConfigFromDtConfig('share', dataTypeConfig)
-  const inequityOverTimeConfig = metricConfigFromDtConfig(
-    'inequity',
-    dataTypeConfig,
-  )
+  const rateMetricConfig =
+    dataTypeConfig && metricConfigFromDtConfig('rate', dataTypeConfig)
+  const shareMetricConfig =
+    dataTypeConfig && metricConfigFromDtConfig('share', dataTypeConfig)
+  const inequityOverTimeConfig =
+    dataTypeConfig && metricConfigFromDtConfig('inequity', dataTypeConfig)
 
   return (
     <>

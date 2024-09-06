@@ -77,7 +77,6 @@ export default function CompareReport(props: CompareReportProps) {
   )
 
   const [dataTypeConfig1, setDtConfig1] = useAtom(selectedDataTypeConfig1Atom)
-
   const [dataTypeConfig2, setDtConfig2] = useAtom(selectedDataTypeConfig2Atom)
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =

@@ -32,7 +32,10 @@ import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
-import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import {
+  getMetricIdToConfigMap,
+  metricConfigFromDtConfig,
+} from '../data/config/MetricConfigUtils'
 import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
 import type {
   DataTypeConfig,
@@ -75,36 +78,15 @@ export default function TableCard(props: TableCardProps) {
   const shareConfig = metricConfigFromDtConfig('share', props.dataTypeConfig)
   const metricConfigs = [rateConfig, shareConfig]
 
-  const metricIdToConfigMap: Partial<Record<MetricId, MetricConfig>> = {}
-  metricConfigs.forEach((metricConfig) => {
-    if (!metricConfig) return
-    // We prefer known breakdown metric if available.
-    if (metricConfig?.knownBreakdownComparisonMetric) {
-      metricIdToConfigMap[
-        metricConfig.knownBreakdownComparisonMetric.metricId
-      ] = metricConfig.knownBreakdownComparisonMetric
-    } else {
-      metricIdToConfigMap[metricConfig.metricId] = metricConfig
-    }
+  const [metricIds, metricIdToConfigMap] = getMetricIdToConfigMap(metricConfigs)
 
-    if (metricConfig.populationComparisonMetric) {
-      metricIdToConfigMap[metricConfig.populationComparisonMetric.metricId] =
-        metricConfig.populationComparisonMetric
-    }
 
-    if (metricConfig.secondaryPopulationComparisonMetric) {
-      metricIdToConfigMap[
-        metricConfig.secondaryPopulationComparisonMetric.metricId
-      ] = metricConfig.secondaryPopulationComparisonMetric
-    }
-  })
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId,
   )
   const isHIV = DATATYPES_NEEDING_13PLUS.includes(
     props.dataTypeConfig.dataTypeId,
   )
-  const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
   isIncarceration && metricIds.push('confined_children_estimated_total')
 
   if (isHIV) {
@@ -175,7 +157,7 @@ export default function TableCard(props: TableCardProps) {
           data = sortForVegaByIncome(data)
         }
 
-        const metricConfigsToShow = Object.values(metricIdToConfigMap).filter(
+        const metricConfigsToShow = metricConfigs.filter(
           (colName) => !NEVER_SHOW_PROPERTIES.includes(colName),
         )
 
