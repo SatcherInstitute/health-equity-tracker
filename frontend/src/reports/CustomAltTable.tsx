@@ -3,9 +3,18 @@ import type { Fips } from '../data/utils/Fips'
 import { Breakdowns } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import CardWrapper from '../cards/CardWrapper'
-import { type DemographicGroup, ALL, TIME_PERIOD_LABEL, AGE } from '../data/utils/Constants'
+import {
+  type DemographicGroup,
+  ALL,
+  TIME_PERIOD_LABEL,
+  AGE,
+} from '../data/utils/Constants'
 import type { DemographicType } from '../data/query/Breakdowns'
-import { type DataTypeConfig, formatFieldValue, isPctType } from '../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  formatFieldValue,
+  isPctType,
+} from '../data/config/MetricConfig'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
 import type { Row } from '../data/utils/DatasetTypes'
@@ -19,6 +28,10 @@ import {
   Tooltip,
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+
+const HASH_ID_RATES_OVER_TIME: ScrollableHashId = 'rates-over-time'
+const HASH_ID_INEQUITIES_OVER_TIME: ScrollableHashId = 'inequities-over-time'
 
 interface CustomAltTableProps {
   fips: Fips
@@ -30,17 +43,24 @@ interface CustomAltTableProps {
 }
 
 export default function CustomAltTable(props: CustomAltTableProps) {
-  const metricConfigRates = props.dataTypeConfig.metrics?.per100k ?? props.dataTypeConfig.metrics?.pct_rate ?? props.dataTypeConfig.metrics?.index
+  const metricConfigRates =
+    props.dataTypeConfig.metrics?.per100k ??
+    props.dataTypeConfig.metrics?.pct_rate ??
+    props.dataTypeConfig.metrics?.index
+
+  if (!metricConfigRates) {
+    return <div>No metrics available for this configuration.</div>
+  }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-    props.demographicType
+    props.demographicType,
   )
 
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
     props.dataTypeConfig.dataTypeId,
-    'historical'
+    'historical',
   )
 
   const queries = [ratesQuery]
@@ -51,17 +71,16 @@ export default function CustomAltTable(props: CustomAltTableProps) {
       queries={queries}
       minHeight={400}
       reportTitle={props.reportTitle}
+      scrollToHash={HASH_ID_RATES_OVER_TIME}
       className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
     >
       {([queryResponseRates]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
-          metricConfigRates.metricId
+          metricConfigRates.metricId,
         )
 
-        const [knownRatesData, unknownPctShareData] = splitIntoKnownsAndUnknowns(
-          ratesData,
-          props.demographicType
-        )
+        const [knownRatesData, unknownPctShareData] =
+          splitIntoKnownsAndUnknowns(ratesData, props.demographicType)
 
         const accessibleData = makeA11yTableData(
           knownRatesData as Row[],
@@ -70,7 +89,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
           metricConfigRates,
           undefined,
           props.selectedTableGroups ?? [ALL],
-          false
+          false,
         )
 
         const latestTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
@@ -92,10 +111,8 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                 size='small'
                 stickyHeader
               >
-
                 <TableHead>
                   <TableRow>
-            
                     {Object.keys(accessibleData[0]).map((key) => {
                       const isTimeCol = key === TIME_PERIOD_LABEL
                       const isUnknownPctCol = key.includes('with unknown ')
@@ -130,13 +147,11 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                 <TableBody>
                   {accessibleData.map((row) => {
                     const keys = Object.keys(row)
-                    const demographicGroup = row[props.demographicType] // Assumes demographicType is used as a key for the group
                     return (
                       <TableRow
                         key={row[TIME_PERIOD_LABEL]}
                         className='odd:bg-tableZebra even:bg-white'
                       >
-          
                         {keys.map((key) => {
                           const isTimePeriod = key === TIME_PERIOD_LABEL
 
@@ -162,11 +177,13 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                                 </>
                               ) : (
                                 <>
-                                  {isTimePeriod ? row[key] : formatFieldValue(
-                                    metricConfigRates.type,
-                                    row[key],
-                                    !appendPct
-                                  )}
+                                  {isTimePeriod
+                                    ? row[key]
+                                    : formatFieldValue(
+                                        metricConfigRates.type,
+                                        row[key],
+                                        !appendPct,
+                                      )}
                                 </>
                               )}
                             </TableCell>
@@ -178,7 +195,6 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                 </TableBody>
               </Table>
             </TableContainer>
-           
           </>
         )
       }}
