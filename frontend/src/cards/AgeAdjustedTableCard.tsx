@@ -133,14 +133,11 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         const [raceQueryResponse, ageQueryResponse] = queries
 
-        const roundedData = raceQueryResponse.data.map((row) => {
-          const ratioRounded = row[ratioId]?.toFixed(1)
-
-          return {
-            ...row,
-            [ratioId]: ratioRounded,
-          }
-        })
+        // round ratios to 1 decimal place
+        const roundedData = raceQueryResponse.data.map((row) => ({
+          ...row,
+          [ratioId]: row[ratioId]?.toFixed(1) ?? null,
+        }))
 
         const [knownRaceData] = splitIntoKnownsAndUnknowns(roundedData, RACE)
 
