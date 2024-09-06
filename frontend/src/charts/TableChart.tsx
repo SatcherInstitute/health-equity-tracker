@@ -14,11 +14,10 @@ import TableRow from '@mui/material/TableRow'
 import TableFooter from '@mui/material/TableFooter'
 import TablePagination from '@mui/material/TablePagination'
 import Paper from '@mui/material/Paper'
-import {
-  type MetricConfig,
-  type MetricId,
-  formatFieldValue,
-  type DataTypeId,
+import type {
+  MetricConfig,
+  MetricId,
+  DataTypeId,
 } from '../data/config/MetricConfig'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
@@ -37,6 +36,7 @@ import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
