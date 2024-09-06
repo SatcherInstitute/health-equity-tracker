@@ -21,7 +21,7 @@ import {
   justiceResources,
   mentalHealthResources,
   communityResources,
-} from '../policyContent/AddressingInequitiesContent'
+} from '../policyContent/OurFindingsContent'
 import ResourceItem from '../policyComponents/ResourceItem'
 
 interface CombinedLinkProps {
@@ -44,7 +44,7 @@ function CombinedLink(props: CombinedLinkProps) {
   return null
 }
 
-export default function AddressingInequitiesTab() {
+export default function OurFindingsTab() {
   const [activeLink, setActiveLink] = useState<string | null>(null)
   const scrollToAnchor = useScrollToAnchor()
 
