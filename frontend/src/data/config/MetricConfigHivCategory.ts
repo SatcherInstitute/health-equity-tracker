@@ -361,6 +361,7 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
 
     metrics: {
       index: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_stigma_index',
         chartTitle: 'HIV stigma',
         trendsCardTitleName: 'Rates of HIV stigma over time',
