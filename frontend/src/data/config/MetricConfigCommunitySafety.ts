@@ -70,6 +70,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity of gun homicides',
         metricId: 'gun_violence_homicide_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -90,6 +91,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Rates of gun homicides',
         columnTitleHeader: 'Gun homicides per 100k people',
         metricId: 'gun_violence_homicide_per_100k',
@@ -127,6 +129,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity of gun suicides',
         metricId: 'gun_violence_suicide_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -147,6 +150,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Rates of gun suicides',
         columnTitleHeader: 'Gun suicides per 100k people',
         metricId: 'gun_violence_suicide_per_100k',
@@ -189,6 +193,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
 
     metrics: {
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity of gun deaths among children',
         metricId: 'gun_deaths_youth_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -210,6 +215,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Rates of gun deaths among children',
         columnTitleHeader: 'Gun deaths among children per 100k people',
         metricId: 'gun_deaths_youth_per_100k',
@@ -248,6 +254,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 18-25',
     metrics: {
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of gun deaths among young adults',
         metricId: 'gun_deaths_young_adults_pct_relative_inequity',
@@ -270,6 +277,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Rates of gun deaths among young adults',
         columnTitleHeader: 'Gun deaths among young adults per 100k people',
         metricId: 'gun_deaths_young_adults_per_100k',
@@ -307,6 +315,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
     mapConfig: menHigherIsWorseMapConfig,
     metrics: {
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of gun homicides among Black (NH) men',
         metricId: 'gun_homicides_black_men_pct_relative_inequity',
@@ -329,6 +338,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Rates of gun homicides among Black (NH) men',
         columnTitleHeader: 'Gun homicides per 100k Black (NH) men',
         metricId: 'gun_homicides_black_men_per_100k',

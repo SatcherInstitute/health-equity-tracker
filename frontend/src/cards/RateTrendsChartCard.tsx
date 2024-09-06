@@ -238,7 +238,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                         ? ''
                         : props.fips.getSentenceDisplayName()
                     }`,
-                    xAxisIsMonthly: metricConfigRates.isMonthly,
+                    xAxisIsMonthly:
+                      metricConfigRates.timeSeriesCadence === 'monthly',
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}

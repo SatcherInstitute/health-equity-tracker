@@ -122,9 +122,16 @@ export function Report(props: ReportProps) {
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
 
+  const rateMetricConfig =
+    dataTypeConfig?.metrics.per100k ??
+    dataTypeConfig?.metrics.pct_rate ??
+    dataTypeConfig?.metrics.index
+
   const shareMetricConfig =
     dataTypeConfig?.metrics.pct_share_unknown ??
     dataTypeConfig?.metrics.pct_share
+
+  const inequityOverTimeConfig = dataTypeConfig?.metrics.pct_relative_inequity
 
   return (
     <>
@@ -170,18 +177,20 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* RATE TRENDS LINE CHART CARD */}
-                <div
-                  tabIndex={-1}
-                  className='w-full scroll-m-0 md:scroll-mt-24'
-                  id='rates-over-time'
-                >
-                  <RateTrendsChartCard
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    fips={props.fips}
-                    reportTitle={props.reportTitle}
-                  />
-                </div>
+                {rateMetricConfig?.timeSeriesCadence && (
+                  <div
+                    tabIndex={-1}
+                    className='w-full scroll-m-0 md:scroll-mt-24'
+                    id='rates-over-time'
+                  >
+                    <RateTrendsChartCard
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      fips={props.fips}
+                      reportTitle={props.reportTitle}
+                    />
+                  </div>
+                )}
 
                 {/* 100K BAR CHART CARD */}
                 <div
@@ -226,20 +235,22 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* SHARE TRENDS LINE CHART CARD */}
-                <div
-                  tabIndex={-1}
-                  id='inequities-over-time'
-                  className='w-full scroll-m-0 md:scroll-mt-24'
-                >
-                  <LazyLoad offset={600} height={750} once>
-                    <ShareTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
-                      demographicType={demographicType}
-                      fips={props.fips}
-                      reportTitle={props.reportTitle}
-                    />
-                  </LazyLoad>
-                </div>
+                {inequityOverTimeConfig?.timeSeriesCadence && (
+                  <div
+                    tabIndex={-1}
+                    id='inequities-over-time'
+                    className='w-full scroll-m-0 md:scroll-mt-24'
+                  >
+                    <LazyLoad offset={600} height={750} once>
+                      <ShareTrendsChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={props.fips}
+                        reportTitle={props.reportTitle}
+                      />
+                    </LazyLoad>
+                  </div>
+                )}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
                 <div
@@ -280,7 +291,7 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {dataTypeConfig.metrics.age_adjusted_ratio?.ageAdjusted && (
+                {dataTypeConfig.metrics?.age_adjusted_ratio && (
                   <div
                     tabIndex={-1}
                     className='w-full'

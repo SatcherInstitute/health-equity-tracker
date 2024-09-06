@@ -106,11 +106,6 @@ export function isDropdownVarId(str: string): str is DropdownVarId {
   return !!dropdownVarIds.find((dropdown) => str === dropdown)
 }
 
-export type AgeAdjustedDataTypeId =
-  | 'covid_deaths'
-  | 'covid_hospitalizations'
-  | 'hiv_deaths'
-
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
   | DropdownVarId
@@ -164,8 +159,7 @@ export interface MetricConfig {
   populationComparisonMetric?: MetricConfig
   rateNumeratorMetric?: MetricConfig
   rateDenominatorMetric?: MetricConfig
-  ageAdjusted?: boolean
-  isMonthly?: boolean
+  timeSeriesCadence?: 'yearly' | 'monthly'
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US

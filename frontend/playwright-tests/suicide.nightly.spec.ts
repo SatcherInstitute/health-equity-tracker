@@ -63,9 +63,6 @@ test('Suicide Los Angeles County', async ({ page }) => {
     .click()
   await page.getByText('social vulnerability index').click()
   await page
-    .getByRole('heading', { name: 'Graph unavailable: Data in' })
-    .click()
-  await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Suicides in Los Angeles County,' })
     .click()

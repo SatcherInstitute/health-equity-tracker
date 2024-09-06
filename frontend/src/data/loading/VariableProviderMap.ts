@@ -46,7 +46,7 @@ export default class VariableProviderMap {
       new AcsConditionProvider(),
       new AhrProvider(),
       new CawpProvider(),
-      new CdcCovidProvider(acsProvider),
+      new CdcCovidProvider(),
       new GeoContextProvider(),
       new GunViolenceProvider(),
       new GunViolenceYouthProvider(),
