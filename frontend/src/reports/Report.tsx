@@ -37,6 +37,7 @@ import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 
 interface ReportProps {
   key: string
@@ -122,16 +123,12 @@ export function Report(props: ReportProps) {
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
 
-  const rateMetricConfig =
-    dataTypeConfig?.metrics.per100k ??
-    dataTypeConfig?.metrics.pct_rate ??
-    dataTypeConfig?.metrics.index
-
-  const shareMetricConfig =
-    dataTypeConfig?.metrics.pct_share_unknown ??
-    dataTypeConfig?.metrics.pct_share
-
-  const inequityOverTimeConfig = dataTypeConfig?.metrics.pct_relative_inequity
+  const rateMetricConfig = metricConfigFromDtConfig('rate', dataTypeConfig)
+  const shareMetricConfig = metricConfigFromDtConfig('share', dataTypeConfig)
+  const inequityOverTimeConfig = metricConfigFromDtConfig(
+    'inequity',
+    dataTypeConfig,
+  )
 
   return (
     <>
