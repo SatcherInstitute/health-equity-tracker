@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import type React from 'react'
 import { useState } from 'react'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
-import type { DataTypeConfig } from '../../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
 import InfoCitations from '../../../reports/ui/InfoCitations'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 

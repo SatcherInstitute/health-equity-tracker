@@ -2,7 +2,7 @@ import type {
   DataTypeConfig,
   MetricId,
   MetricType,
-} from '../data/config/MetricConfig'
+} from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
 import type { FieldRange, Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'

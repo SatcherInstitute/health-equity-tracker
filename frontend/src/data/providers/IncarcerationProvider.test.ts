@@ -14,9 +14,9 @@ import {
 } from '../../utils/globals'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import { MetricId, type DataTypeId } from '../config/MetricConfig'
 import { expect, describe, test, beforeEach } from 'vitest'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 
 async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: DatasetId,

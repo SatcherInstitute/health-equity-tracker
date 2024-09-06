@@ -1,4 +1,4 @@
-import type { DropdownVarId } from '../../../data/config/MetricConfig'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
 import { buildTopicsString } from './linkUtils'
 
 test('Test buildTopicsString(): Topics without sub DataTypes', () => {

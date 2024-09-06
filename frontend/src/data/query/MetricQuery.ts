@@ -1,6 +1,6 @@
 import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
 import type { Row, FieldRange } from '../utils/DatasetTypes'
-import type { MetricId, DataTypeId } from '../config/MetricConfig'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
 import type { DemographicGroup } from '../utils/Constants'
 import type {
   DatasetIdWithStateFIPSCode,

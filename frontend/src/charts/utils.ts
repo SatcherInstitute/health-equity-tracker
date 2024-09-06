@@ -1,4 +1,7 @@
-import type { DataTypeConfig, MetricConfig } from '../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+} from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,

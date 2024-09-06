@@ -2,7 +2,7 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import type { MetricId } from '../../data/config/MetricConfig'
+import type { MetricId } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { ALL, BLACK_NH } from '../../data/utils/Constants'

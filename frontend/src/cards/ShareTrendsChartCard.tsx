@@ -6,7 +6,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { DataTypeConfig } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -224,7 +224,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
                         props.demographicType
                       ],
-                    xAxisIsMonthly: metricConfigInequitable.timeSeriesCadence === 'monthly',
+                    xAxisIsMonthly:
+                      metricConfigInequitable.timeSeriesCadence === 'monthly',
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}

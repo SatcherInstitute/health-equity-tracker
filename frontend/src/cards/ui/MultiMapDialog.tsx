@@ -12,7 +12,7 @@ import type {
 import type {
   DataTypeConfig,
   MetricConfig,
-} from '../../data/config/MetricConfig'
+} from '../../data/config/MetricConfigTypes'
 import type {
   MetricQuery,
   MetricQueryResponse,

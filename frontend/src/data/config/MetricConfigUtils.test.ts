@@ -5,7 +5,7 @@ import type {
   MetricConfig,
   MetricId,
   MetricType,
-} from './MetricConfig'
+} from './MetricConfigTypes'
 import {
   formatFieldValue,
   isPctType,

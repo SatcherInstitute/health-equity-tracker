@@ -1,4 +1,4 @@
-import type { MetricConfig, MetricType } from '../data/config/MetricConfig'
+import type { MetricConfig, MetricType } from '../data/config/MetricConfigTypes'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 
 const metricTypeLabelMap: Record<MetricType, string> = {

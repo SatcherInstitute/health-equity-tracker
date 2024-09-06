@@ -10,7 +10,7 @@ import {
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
-import type { MetricConfig } from '../../data/config/MetricConfig'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,

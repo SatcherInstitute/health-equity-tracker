@@ -1,6 +1,11 @@
 import { getFormatterPer100k } from '../../charts/utils'
 import { LESS_THAN_POINT_1 } from '../utils/Constants'
-import type { DataTypeConfig, MetricConfig, MetricType } from './MetricConfig'
+import { DROPDOWN_IDS } from './DropDownIds'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+  MetricType,
+} from './MetricConfigTypes'
 
 export const populationPctTitle = 'Population share'
 export const populationPctShortLabel = '% of population'

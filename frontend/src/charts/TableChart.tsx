@@ -18,7 +18,7 @@ import type {
   MetricConfig,
   MetricId,
   DataTypeId,
-} from '../data/config/MetricConfig'
+} from '../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,

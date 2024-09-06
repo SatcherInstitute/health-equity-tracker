@@ -7,12 +7,7 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import {
-  METRIC_CONFIG,
-  type MetricConfig,
-  type MetricId,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -39,6 +34,11 @@ import HetDivider from '../styles/HetComponents/HetDivider'
 import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
+import type {
+  DataTypeConfig,
+  MetricId,
+  MetricConfig,
+} from '../data/config/MetricConfigTypes'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column

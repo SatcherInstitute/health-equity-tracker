@@ -7,12 +7,7 @@ import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-  type DataTypeId,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -43,6 +38,11 @@ import {
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import type {
+  DataTypeId,
+  DataTypeConfig,
+} from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */

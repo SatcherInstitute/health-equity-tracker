@@ -1,4 +1,4 @@
-import type { DataTypeConfig } from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { Fips } from '../../data/utils/Fips'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'

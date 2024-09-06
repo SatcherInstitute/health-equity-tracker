@@ -8,13 +8,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import {
-  type MetricConfig,
-  type MetricId,
-  type DataTypeConfig,
-  type DropdownVarId,
-  METRIC_CONFIG,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   NON_HISPANIC,
@@ -34,6 +28,12 @@ import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+  MetricId,
+} from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 600

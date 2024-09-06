@@ -1,7 +1,8 @@
 import type React from 'react'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import { Fips } from '../data/utils/Fips'
-import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 
 const CustomDisparityBarChartCompare: React.FC = () => {
   const fipsFlorida = new Fips('12')

@@ -1,7 +1,5 @@
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-} from '../../../data/config/MetricConfig'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export function buildTopicsString(topics: readonly DropdownVarId[]): string {

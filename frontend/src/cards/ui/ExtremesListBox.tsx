@@ -3,7 +3,7 @@ import { Grid } from '@mui/material'
 import type {
   MetricConfig,
   DataTypeConfig,
-} from '../../data/config/MetricConfig'
+} from '../../data/config/MetricConfigTypes'
 import type { Row } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'

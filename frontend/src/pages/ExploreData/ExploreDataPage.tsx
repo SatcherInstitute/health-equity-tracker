@@ -27,12 +27,7 @@ import {
 } from '../../utils/urlutils'
 import { srSpeak } from '../../utils/a11yutils'
 import { urlMap } from '../../utils/externalUrls'
-import {
-  type DataTypeConfig,
-  METRIC_CONFIG,
-  isDropdownVarId,
-  type DataTypeId,
-} from '../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
@@ -42,12 +37,17 @@ import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
 import TopicInfoModal from './TopicInfoModal'
 import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
 import VoteDotOrgModal from './VoteDotOrgModal'
+import type {
+  DataTypeId,
+  DataTypeConfig,
+} from '../../data/config/MetricConfigTypes'
+import { isDropdownVarId } from '../../data/config/DropDownIds'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 

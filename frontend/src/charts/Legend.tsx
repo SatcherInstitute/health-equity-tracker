@@ -4,7 +4,7 @@ import type {
   DataTypeConfig,
   MetricConfig,
   MapConfig,
-} from '../data/config/MetricConfig'
+} from '../data/config/MetricConfigTypes'
 import type { FieldRange } from '../data/utils/DatasetTypes'
 import type { View, Legend as LegendType, Scale } from 'vega'
 import type { GeographicBreakdown } from '../data/query/Breakdowns'

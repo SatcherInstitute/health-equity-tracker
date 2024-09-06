@@ -7,7 +7,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
 import CardWrapper from './CardWrapper'
 import { exclude } from '../data/query/BreakdownFilter'
 import {

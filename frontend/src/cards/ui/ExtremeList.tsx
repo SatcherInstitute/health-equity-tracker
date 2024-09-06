@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import type { MetricConfig } from '../../data/config/MetricConfig'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { Row } from '../../data/utils/DatasetTypes'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 import { formatFieldValue } from '../../data/config/MetricConfigUtils'
