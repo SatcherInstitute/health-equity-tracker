@@ -46,15 +46,21 @@ interface RateTrendsChartCardProps {
   fips: Fips
   isCompareCard?: boolean
   reportTitle: string
+  className?: string
+  selectedTableGroups?: DemographicGroup[]
+  setSelectedTableGroups?: (groups: DemographicGroup[]) => void
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<
-    DemographicGroup[]
-  >([])
+  const [internalSelectedTableGroups, setInternalSelectedTableGroups] =
+    useState<DemographicGroup[]>([])
+  const selectedTableGroups =
+    props.selectedTableGroups ?? internalSelectedTableGroups
+  const setSelectedTableGroups =
+    props.setSelectedTableGroups ?? setInternalSelectedTableGroups
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)
@@ -126,6 +132,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -135,6 +143,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -238,8 +247,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                         ? ''
                         : props.fips.getSentenceDisplayName()
                     }`,
-                    xAxisIsMonthly:
-                      metricConfigRates.timeSeriesCadence === 'monthly',
+                    xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}
