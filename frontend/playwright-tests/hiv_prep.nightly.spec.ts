@@ -21,7 +21,7 @@ test('HIV PrEP', async ({ page }) => {
     .getByRole('heading', { name: 'PrEP coverage in the United' })
     .click()
   await page
-    .getByRole('heading', { name: 'Male, PrEP-eligible population, Ages 16+' })
+    .getByRole('heading', { name: 'PrEP-eligible population, Male, Ages 16+' })
     .click()
   await page
     .getByRole('button', { name: 'Rates over time', exact: true })
