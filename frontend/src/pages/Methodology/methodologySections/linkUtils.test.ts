@@ -1,9 +1,5 @@
-import {
-  buildTopicsString,
-  type DropdownVarId,
-} from './MetricConfig'
-
-
+import type { DropdownVarId } from '../../../data/config/MetricConfig'
+import { buildTopicsString } from './linkUtils'
 
 test('Test buildTopicsString(): Topics without sub DataTypes', () => {
   const chronicTopics: ReadonlyArray<DropdownVarId> = ['diabetes', 'copd']

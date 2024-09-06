@@ -214,22 +214,6 @@ export interface DataTypeConfig {
   otherSubPopulationLabel?: string
 }
 
-export function buildTopicsString(topics: readonly DropdownVarId[]): string {
-  const mutableTopics = [...topics]
-  return mutableTopics
-    .map((dropdownId) => {
-      let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
-      if (METRIC_CONFIG[dropdownId].length > 1) {
-        const topicDataTypesString = METRIC_CONFIG[dropdownId]
-          .map((config) => config.dataTypeShortLabel)
-          .join(', ')
-        topicString += ` (${topicDataTypesString})`
-      }
-      return topicString
-    })
-    .join(', ')
-}
-
 // TODO: count and pct_share metric types should require populationComparisonMetric
 // Note: metrics must be declared in a consistent order because the UI relies
 // on this to build data type toggles.
