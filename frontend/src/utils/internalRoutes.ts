@@ -17,17 +17,8 @@ export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
 export const GUN_VIOLENCE_POLICY = '/policy' + '/gun-violence'
 export const CRISIS_OVERVIEW_TAB = GUN_VIOLENCE_POLICY + '/crisis-overview'
 export const DATA_COLLECTION_TAB = GUN_VIOLENCE_POLICY + '/data-collection'
-<<<<<<< HEAD
 export const OUR_FINDINGS_TAB =
   GUN_VIOLENCE_POLICY + '/our-findings'
-=======
-<<<<<<< HEAD
-export const ADDRESSING_INEQUITIES_TAB = GUN_VIOLENCE_POLICY + '/addressing-inequities'
-=======
-export const OUR_FINDINGS_TAB =
-  GUN_VIOLENCE_POLICY + '/our-findings'
->>>>>>> ad9403cb (Policy hub content enhancements and route config updates (#3625))
->>>>>>> 34fdfbcf (Policy hub content enhancements and route config updates (#3625))
 export const CURRENT_EFFORTS_TAB = GUN_VIOLENCE_POLICY + '/current-efforts'
 export const REFORM_OPPORTUNITIES_TAB =
   GUN_VIOLENCE_POLICY + '/reform-opportunities'
