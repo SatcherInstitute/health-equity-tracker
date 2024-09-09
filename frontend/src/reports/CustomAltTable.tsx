@@ -31,7 +31,6 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const HASH_ID_RATES_OVER_TIME: ScrollableHashId = 'rates-over-time'
-const HASH_ID_INEQUITIES_OVER_TIME: ScrollableHashId = 'inequities-over-time'
 
 interface CustomAltTableProps {
   fips: Fips
