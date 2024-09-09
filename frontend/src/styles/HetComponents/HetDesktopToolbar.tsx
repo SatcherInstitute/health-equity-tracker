@@ -83,7 +83,7 @@ export default function HetAppToolbar() {
 
       <nav className='flex flex-wrap justify-evenly'>
         {renderNavItems(NAVIGATION_STRUCTURE)}
-        <HetCTASmall id='navigationCTA' href={EXPLORE_DATA_PAGE_LINK}>
+        <HetCTASmall id='navigationCTA' href={EXPLORE_DATA_PAGE_LINK} className='ml-4'>
           Explore the data
         </HetCTASmall>
       </nav>
