@@ -209,7 +209,9 @@ class HivProvider extends VariableProvider {
       metricQuery.dataTypeId,
       timeView,
     )
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const hiv = await getDataManager().loadDataset(specificDatasetId)
     let df = hiv.toDataFrame()

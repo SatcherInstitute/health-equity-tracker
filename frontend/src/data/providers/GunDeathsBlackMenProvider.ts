@@ -78,7 +78,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
       const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
 
       if (!datasetId) {
-        throw new Error('DatasetId is undefined.')
+        return new MetricQueryResponse([], [])
       }
 
       const gunViolenceBlackMenData =

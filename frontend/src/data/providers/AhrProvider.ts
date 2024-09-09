@@ -190,10 +190,12 @@ class AhrProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const { breakdowns, dataTypeId, timeView } = metricQuery
+    const { breakdowns, dataTypeId } = metricQuery
     const datasetId = this.getDatasetId(breakdowns, dataTypeId)
 
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const ahr = await getDataManager().loadDataset(specificDatasetId)
     let df = ahr.toDataFrame()
