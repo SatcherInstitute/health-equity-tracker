@@ -41,7 +41,7 @@ export const youthFatalitiesFacts = [
     content: (
       <>
         As of 2022, Black Non-Hispanic youth were disproportionately affected by
-        gun violence, accounting for{' '}
+        gun violence, accounting for 
         <HetTermUnderline>
           68.0% of gun fatalities while making up only 31.1% of the population
         </HetTermUnderline>
@@ -65,11 +65,7 @@ export const homicideFacts = [
     report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All#inequities-over-time`,
     content: (
       <>
-        Despite a decrease in firearm homicide rates for some groups in 2022,{' '}
-        <HetTermUnderline>
-          overall rates remained disturbingly high
-        </HetTermUnderline>{' '}
-         compared to 2019, with persistent elevations particularly among Black
+        Despite a decrease in firearm homicide rates for some groups in 2022, <HetTermUnderline>overall rates remained disturbingly high</HetTermUnderline> compared to 2019, with persistent elevations particularly among Black
         individuals.
       </>
     ),
@@ -88,12 +84,7 @@ export const homicideFacts = [
     report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All#rate-chart`,
     content: (
       <>
-        As of 2021,{' '}
-        <HetTermUnderline>
-          Black individuals experience a gun homicide rate of 27 per 100,000
-          people
-        </HetTermUnderline>
-        .
+        As of 2021, <HetTermUnderline>Black individuals experience a gun homicide rate of 27 per 100,000 people</HetTermUnderline>.
       </>
     ),
     customCard: (
@@ -113,13 +104,7 @@ export const suicideFacts = [
     report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All&dt1=gun_violence_suicide#rates-over-time`,
     content: (
       <>
-        From 2018 to 2021,{' '}
-        <HetTermUnderline>
-          gun-related suicide rates among Black individuals rose significantly
-          from 7.9 to 11 per 100k
-        </HetTermUnderline>
-        , while rates among White individuals slightly decreased from 22 to 21
-        per 100k, highlighting a concerning upward trend in the Black community.
+        From 2018 to 2021, <HetTermUnderline>gun-related suicide rates among Black individuals rose significantly from 7.9 to 11 per 100k</HetTermUnderline>, while rates among White individuals slightly decreased from 22 to 21 per 100k, highlighting a concerning upward trend in the Black community.
       </>
     ),
     customCard: (
@@ -137,12 +122,7 @@ export const suicideFacts = [
     report: `${HET_URL}/exploredata?mls=1.gun_violence-3.13&group1=All&dt1=gun_violence_suicide&demo=sex#data-table`,
     content: (
       <>
-        From 2001 to 2021, the rate of gun-related suicides among females
-        remained below 3.3 per 100,000, while{' '}
-        <HetTermUnderline>
-          the rate for males consistently exceeded 11 per 100,000
-        </HetTermUnderline>
-        .
+        From 2001 to 2021, the rate of gun-related suicides among females remained below 3.3 per 100,000, while <HetTermUnderline>the rate for males consistently exceeded 11 per 100,000</HetTermUnderline>.
       </>
     ),
     customCard: (
@@ -161,7 +141,7 @@ export const urbanicityFacts = [
 	{
 	  report: `${HET_URL}/exploredata?mls=1.gun_deaths_black_men-3.13&group1=All&demo=urbanicity#rates-over-time`,
     content: (
-		<><HetTermUnderline>Black (NH) men in Georgia had higher gun homicide rates in urban areas</HetTermUnderline>{' '}compared to rural areas from 2018 to 2021, reinforcing the perception of urban areas as more dangerous, while rural areas saw much lower or even negative rates.
+		<><HetTermUnderline>Black (NH) men in Georgia had higher gun homicide rates in urban areas</HetTermUnderline> compared to rural areas from 2018 to 2021, reinforcing the perception of urban areas as more dangerous, while rural areas saw much lower or even negative rates.
 		</>
 	  ),
 	  customCard: (
@@ -179,7 +159,7 @@ export const urbanicityFacts = [
 	  report: `${HET_URL}/exploredata?mls=1.gun_deaths_black_men-3.13&group1=All&demo=urbanicity#rate-map`,
     content: (
 		<>
-		  From 2018 to 2021,{' '}<HetTermUnderline>young Black (NH) men aged 15-29 in Georgia faced the highest homicide rates</HetTermUnderline>, with the 20-24 age group peaking at 108 per 100,000 in 2020, while rates were very low for children and older adults.
+		  From 2018 to 2021, <HetTermUnderline>young Black (NH) men aged 15-29 in Georgia faced the highest homicide rates</HetTermUnderline>, with the 20-24 age group peaking at 108 per 100,000 in 2020, while rates were very low for children and older adults.
 		</>
 	  ),
 	  customCard: (
