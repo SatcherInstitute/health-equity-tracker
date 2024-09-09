@@ -301,6 +301,7 @@ interface SimpleHorizontalBarChartProps {
   demographicType: DemographicType
   filename?: string
   usePercentSuffix?: boolean
+  className?: string
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {

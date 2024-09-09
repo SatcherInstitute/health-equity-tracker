@@ -21,7 +21,7 @@ const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
   updateFipsCallback = (fips: Fips) => {},
   demographicType = UNKNOWN_RACE,
   shareMetricConfig = true,
-  reportTitle = 'Default Report Title',
+  reportTitle = 'Custom Unknown Map Report',
 }) => {
   const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['covid'][0]
 

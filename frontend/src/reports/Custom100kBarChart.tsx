@@ -11,23 +11,24 @@ interface Custom100kBarChartProps {
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
   reportTitle?: string
+  className?: string
 }
 
 const Custom100kBarChart: React.FC<Custom100kBarChartProps> = ({
-  fips = new Fips('13'), // Default to Georgia FIPS code
+  fips = new Fips('13'),
   dataTypeConfig = METRIC_CONFIG['poverty'][0],
   demographicType = RACE,
   reportTitle = `Poverty in ${new Fips('13').getFullDisplayName()}`,
+  className,
 }) => {
   return (
-    <div>
-      <SimpleBarChartCard
-        dataTypeConfig={dataTypeConfig}
-        demographicType={demographicType}
-        fips={fips}
-        reportTitle={reportTitle}
-      />
-    </div>
+    <SimpleBarChartCard
+      className={className}
+      dataTypeConfig={dataTypeConfig}
+      demographicType={demographicType}
+      fips={fips}
+      reportTitle={reportTitle}
+    />
   )
 }
 

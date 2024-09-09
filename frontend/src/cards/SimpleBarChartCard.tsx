@@ -41,6 +41,7 @@ interface SimpleBarChartCardProps {
   dataTypeConfig: DataTypeConfig
   fips: Fips
   reportTitle: string
+  className?: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -113,6 +114,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -121,6 +124,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {([queryResponse], metadata) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)

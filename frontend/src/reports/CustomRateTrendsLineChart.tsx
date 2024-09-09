@@ -10,6 +10,7 @@ interface CustomRateTrendsLineChartProps {
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
   reportTitle?: string
+  className?: string
 }
 
 const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
@@ -17,16 +18,16 @@ const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
   dataTypeConfig = METRIC_CONFIG['hiv'][0],
   demographicType = 'race_and_ethnicity',
   reportTitle = 'Custom Rate Trends Line Chart',
+  className,
 }) => {
   return (
-    <div>
-      <RateTrendsChartCard
-        dataTypeConfig={dataTypeConfig}
-        demographicType={demographicType}
-        fips={fips}
-        reportTitle={reportTitle}
-      />
-    </div>
+    <RateTrendsChartCard
+      dataTypeConfig={dataTypeConfig}
+      demographicType={demographicType}
+      fips={fips}
+      reportTitle={reportTitle}
+      className={className}
+    />
   )
 }
 
