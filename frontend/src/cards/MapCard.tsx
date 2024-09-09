@@ -12,7 +12,6 @@ import {
   MetricQuery,
   type MetricQueryResponse,
 } from '../data/query/MetricQuery'
-import { AgeSorterStrategy } from '../data/sorting/AgeSorterStrategy'
 import {
   ALL,
   NON_HISPANIC,
@@ -21,7 +20,6 @@ import {
   UNKNOWN_ETHNICITY,
   type DemographicGroup,
   RACE,
-  AGE,
 } from '../data/utils/Constants'
 import type { Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
@@ -33,7 +31,7 @@ import {
 } from '../data/providers/IncarcerationProvider'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import CardWrapper from './CardWrapper'
-import DropDownMenu from './ui/DropDownMenu'
+import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
@@ -487,7 +485,7 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <div id='map-group-dropdown' className='pb-1 pt-0 text-left'>
-                <DropDownMenu
+                <DemographicGroupMenu
                   idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                   demographicType={demographicType}
                   dataTypeId={props.dataTypeConfig.dataTypeId}
