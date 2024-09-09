@@ -1,9 +1,6 @@
 import type { DatasetId } from '../config/DatasetMetadata'
-import {
-  type MetricId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-} from '../config/MetricConfig'
+import { METRIC_CONFIG } from '../config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../config/MetricConfigTypes'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import {
   appendFipsIfNeeded,

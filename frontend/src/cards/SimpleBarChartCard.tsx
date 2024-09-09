@@ -7,11 +7,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import {
-  isPctType,
-  type MetricId,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
 import CardWrapper from './CardWrapper'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
@@ -34,6 +30,7 @@ import {
 import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
+import { isPctType } from '../data/config/MetricConfigUtils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668

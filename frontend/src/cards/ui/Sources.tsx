@@ -6,7 +6,7 @@ import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import type { DataTypeConfig } from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { useAtomValue } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,

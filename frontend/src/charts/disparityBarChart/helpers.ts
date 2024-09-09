@@ -1,5 +1,5 @@
 import type { Signal } from 'vega'
-import type { MetricId } from '../../data/config/MetricConfig'
+import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { Y_STEP } from './constants'
 
 function getSignals() {

@@ -1,5 +1,6 @@
 import { getDataManager } from '../../utils/globals'
-import type { MetricId, DataTypeId } from '../config/MetricConfig'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+
 import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { GetAcsDatasetId } from './AcsPopulationProvider'

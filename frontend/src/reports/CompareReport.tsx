@@ -7,12 +7,7 @@ import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-  type DataTypeId,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -42,6 +37,12 @@ import {
 } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import type {
+  DataTypeId,
+  DataTypeConfig,
+} from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -75,13 +76,8 @@ export default function CompareReport(props: CompareReportProps) {
     defaultDemo,
   )
 
-  const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
-    selectedDataTypeConfig1Atom,
-  )
-
-  const [dataTypeConfig2, setDataTypeConfig2] = useAtom(
-    selectedDataTypeConfig2Atom,
-  )
+  const [dataTypeConfig1, setDtConfig1] = useAtom(selectedDataTypeConfig1Atom)
+  const [dataTypeConfig2, setDtConfig2] = useAtom(selectedDataTypeConfig2Atom)
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(
@@ -124,13 +120,13 @@ export default function CompareReport(props: CompareReportProps) {
       )
 
       const newDtParam1 = dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      setDataTypeConfig1(newDtParam1)
+      setDtConfig1(newDtParam1)
 
       const newDtParam2 =
         props.trackerMode === 'comparegeos'
           ? newDtParam1
           : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
-      setDataTypeConfig2(newDtParam2)
+      setDtConfig2(newDtParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')
     readParams()
@@ -150,33 +146,27 @@ export default function CompareReport(props: CompareReportProps) {
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
   }, [dataTypeConfig1, dataTypeConfig2])
 
-  if (dataTypeConfig1 === null) {
-    return <></>
-  }
-  if (dataTypeConfig2 === null) {
+  if (dataTypeConfig1 === null || dataTypeConfig2 === null) {
     return <></>
   }
 
-  const showAgeAdjustCardRow =
-    dataTypeConfig1?.metrics?.age_adjusted_ratio ??
-    dataTypeConfig2?.metrics?.age_adjusted_ratio
-
-  const rateMetricConfig1 =
-    dataTypeConfig1?.metrics.per100k ??
-    dataTypeConfig1?.metrics.pct_rate ??
-    dataTypeConfig1?.metrics.index
-
-  const rateMetricConfig2 =
-    dataTypeConfig2?.metrics.per100k ??
-    dataTypeConfig2?.metrics.pct_rate ??
-    dataTypeConfig2?.metrics.index
-
+  const rateConfig1 = metricConfigFromDtConfig('rate', dataTypeConfig1)
+  const rateConfig2 = metricConfigFromDtConfig('rate', dataTypeConfig2)
+  const inequityConfig1 = metricConfigFromDtConfig('inequity', dataTypeConfig1)
+  const inequityConfig2 = metricConfigFromDtConfig('inequity', dataTypeConfig2)
+  const ageAdjustedRatioConfig1 = metricConfigFromDtConfig(
+    'ratio',
+    dataTypeConfig1,
+  )
+  const ageAdjustedRatioConfig2 = metricConfigFromDtConfig(
+    'ratio',
+    dataTypeConfig2,
+  )
   const showRatesOverTimeCardRow =
-    rateMetricConfig1?.timeSeriesCadence ?? rateMetricConfig2?.timeSeriesCadence
-
-  const showInequitiesOverTimeCardRow =
-    dataTypeConfig1?.metrics.pct_relative_inequity ??
-    dataTypeConfig2?.metrics.pct_relative_inequity
+    rateConfig1?.timeSeriesCadence || rateConfig2?.timeSeriesCadence
+  const showInequitiesOverTimeCardRow = inequityConfig1 || inequityConfig2
+  const showAgeAdjustCardRow =
+    ageAdjustedRatioConfig1 || ageAdjustedRatioConfig2
 
   const dt1 = dataTypeConfig1?.fullDisplayName
   const dt2 = dataTypeConfig2?.fullDisplayName

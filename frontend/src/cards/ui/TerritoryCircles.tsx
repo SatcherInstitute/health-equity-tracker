@@ -2,7 +2,7 @@ import ChoroplethMap from '../../charts/ChoroplethMap'
 import type {
   DataTypeConfig,
   MetricConfig,
-} from '../../data/config/MetricConfig'
+} from '../../data/config/MetricConfigTypes'
 import { Fips } from '../../data/utils/Fips'
 
 import type { DemographicGroup } from '../../data/utils/Constants'

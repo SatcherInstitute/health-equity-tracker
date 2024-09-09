@@ -1,9 +1,6 @@
 import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
-import {
-  type DataTypeConfig,
-  METRIC_CONFIG,
-} from '../../data/config/MetricConfig'
-import { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { Row } from '../../data/utils/DatasetTypes'
 import {
   getSubPopulationPhrase,
