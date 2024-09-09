@@ -75,6 +75,7 @@ import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
+import { getSortArgs } from '../data/sorting/sortingUtils'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -322,10 +323,7 @@ function MapCardWithKey(props: MapCardProps) {
         )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
-        const sortArgs =
-          demographicType === AGE
-            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
-            : []
+        const sortArgs = getSortArgs(demographicType)
 
         const fieldValues = mapQueryResponse.getFieldValues(
           /* fieldName: DemographicType */ demographicType,
