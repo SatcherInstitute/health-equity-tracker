@@ -14,12 +14,11 @@ import TableRow from '@mui/material/TableRow'
 import TableFooter from '@mui/material/TableFooter'
 import TablePagination from '@mui/material/TablePagination'
 import Paper from '@mui/material/Paper'
-import {
-  type MetricConfig,
-  type MetricId,
-  formatFieldValue,
-  type DataTypeId,
-} from '../data/config/MetricConfig'
+import type {
+  MetricConfig,
+  MetricId,
+  DataTypeId,
+} from '../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -37,6 +36,7 @@ import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -58,7 +58,7 @@ interface TableChartProps {
   countColsMap: CountColsMap
   data: Array<Readonly<Record<string, any>>>
   demographicType: DemographicType
-  metrics: MetricConfig[]
+  metricConfigs: MetricConfig[]
   dataTypeId: DataTypeId
   fips: Fips
   dataTableTitle: string
@@ -66,14 +66,17 @@ interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
-  const { data, metrics, demographicType } = props
+  const { data, metricConfigs, demographicType } = props
 
   let columns:
     | Array<{ Header: string; Cell: (a: any) => string; accessor: MetricId }>
     | Array<Column<any>> = []
 
-  if (metrics.length > 0 && metrics[0].metricId === 'hiv_stigma_index') {
-    const firstMetricConfig = metrics[0]
+  if (
+    metricConfigs.length > 0 &&
+    metricConfigs[0].metricId === 'hiv_stigma_index'
+  ) {
+    const firstMetricConfig = metricConfigs[0]
     columns.push({
       Header:
         firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
@@ -81,7 +84,7 @@ export function TableChart(props: TableChartProps) {
       accessor: firstMetricConfig.metricId,
     })
   } else {
-    columns = metrics.map((metricConfig) => {
+    columns = metricConfigs.map((metricConfig) => {
       return {
         Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
         Cell: (a: any) => formatFieldValue(metricConfig.type, a.value, true),
@@ -100,7 +103,7 @@ export function TableChart(props: TableChartProps) {
   ]
 
   // Changes deps array to columns on save, which triggers reload loop
-  const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
+  const memoCols = useMemo<Column<any>[]>(() => columns, [metricConfigs])
   const memoData = useMemo(() => data, [data])
 
   const tableConfig: any = {
@@ -196,7 +199,7 @@ export function TableChart(props: TableChartProps) {
               {cell.value < 0.1 && cell.value > 0 && index === 1
                 ? LESS_THAN_POINT_1
                 : cell.render('Cell')}
-              <Units column={index} metric={props.metrics} />
+              <Units column={index} metric={props.metricConfigs} />
               {index === 1 && numeratorCount && denominatorCount ? (
                 <HetUnitLabel>
                   {' '}
@@ -215,7 +218,7 @@ export function TableChart(props: TableChartProps) {
 
   return (
     <>
-      {props.data.length <= 0 || props.metrics.length <= 0 ? (
+      {props.data.length <= 0 || props.metricConfigs.length <= 0 ? (
         <h1>Insufficient Data</h1>
       ) : (
         <figure className='m-3'>

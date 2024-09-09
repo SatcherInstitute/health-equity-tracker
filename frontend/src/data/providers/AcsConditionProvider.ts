@@ -3,7 +3,7 @@ import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DatasetId } from '../config/DatasetMetadata'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [

@@ -2,7 +2,7 @@ import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import type VariableProvider from './VariableProvider'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfigTypes'
 import { excludeAll } from '../query/BreakdownFilter'
 import type {
   DatasetId,

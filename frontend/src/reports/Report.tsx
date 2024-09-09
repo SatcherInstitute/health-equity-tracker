@@ -6,11 +6,7 @@ import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import TableCard from '../cards/TableCard'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import {
@@ -37,6 +33,9 @@ import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 interface ReportProps {
   key: string
@@ -123,15 +122,11 @@ export function Report(props: ReportProps) {
   ].includes(props.dropdownVarId)
 
   const rateMetricConfig =
-    dataTypeConfig?.metrics.per100k ??
-    dataTypeConfig?.metrics.pct_rate ??
-    dataTypeConfig?.metrics.index
-
+    dataTypeConfig && metricConfigFromDtConfig('rate', dataTypeConfig)
   const shareMetricConfig =
-    dataTypeConfig?.metrics.pct_share_unknown ??
-    dataTypeConfig?.metrics.pct_share
-
-  const inequityOverTimeConfig = dataTypeConfig?.metrics.pct_relative_inequity
+    dataTypeConfig && metricConfigFromDtConfig('share', dataTypeConfig)
+  const inequityOverTimeConfig =
+    dataTypeConfig && metricConfigFromDtConfig('inequity', dataTypeConfig)
 
   return (
     <>

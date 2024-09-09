@@ -9,7 +9,7 @@ import type {
   DemographicType,
   DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
-import type { DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getConfigFromDataTypeId } from '../../utils/MadLibs'
 

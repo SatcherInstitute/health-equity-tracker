@@ -1,5 +1,6 @@
 import type { IDataFrame } from 'data-forge'
-import type { MetricId, DataTypeId } from '../config/MetricConfig'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import {

@@ -1,4 +1,7 @@
-import type { DataTypeId, DataTypeConfig } from '../data/config/MetricConfig'
+import type {
+  DataTypeId,
+  DataTypeConfig,
+} from '../data/config/MetricConfigTypes'
 import {
   AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
   AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,

@@ -10,11 +10,7 @@ import {
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
-import {
-  formatFieldValue,
-  isPctType,
-  type MetricConfig,
-} from '../../data/config/MetricConfig'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
@@ -30,6 +26,10 @@ import {
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
 import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
+import {
+  formatFieldValue,
+  isPctType,
+} from '../../data/config/MetricConfigUtils'
 
 interface AltTableViewProps {
   expanded: boolean

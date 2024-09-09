@@ -10,11 +10,6 @@ import {
   AGE,
 } from '../data/utils/Constants'
 import type { DemographicType } from '../data/query/Breakdowns'
-import {
-  type DataTypeConfig,
-  formatFieldValue,
-  isPctType,
-} from '../data/config/MetricConfig'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
 import type { Row } from '../data/utils/DatasetTypes'
@@ -29,6 +24,8 @@ import {
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { isPctType, formatFieldValue } from '../data/config/MetricConfigUtils'
 
 const HASH_ID_RATES_OVER_TIME: ScrollableHashId = 'rates-over-time'
 

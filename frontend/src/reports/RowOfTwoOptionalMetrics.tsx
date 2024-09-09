@@ -1,4 +1,5 @@
-import type { DataTypeConfig, DropdownVarId } from '../data/config/MetricConfig'
+import type { DropdownVarId } from '../data/config/DropDownIds'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
