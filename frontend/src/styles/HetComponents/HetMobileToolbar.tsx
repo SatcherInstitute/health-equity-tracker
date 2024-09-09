@@ -17,6 +17,8 @@ import { useState } from 'react'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import HetNavLink from './HetNavLink'
+import AppBarLogo from '../../assets/AppbarLogo.png'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
@@ -89,14 +91,23 @@ export default function HetMobileAppToolbar() {
           },
         }}
       >
-        <IconButton
-          aria-label='Collapse site navigation'
-          onClick={() => setOpen(false)}
-          className='p-2.5 ml-auto mx-2 my-4 text-altBlack'
-          sx={{ borderRadius: 1 }}
-        >
-          <Close />
-        </IconButton>
+        <div className='flex flex-row items-center'>
+          <HetNavLink className='flex items-center pl-0' href='/'>
+            <img
+              src={AppBarLogo}
+              className='h-littleHetLogo w-littleHetLogo ml-2 mr-auto'
+              alt='Health Equity Tracker logo'
+            />
+          </HetNavLink>
+          <IconButton
+            aria-label='Collapse site navigation'
+            onClick={() => setOpen(false)}
+            className='p-2.5 ml-auto mx-2 my-4 text-altBlack'
+            sx={{ borderRadius: 1 }}
+          >
+            <Close />
+          </IconButton>
+        </div>
 
         <nav>
           <List className='flex flex-col justify-center pt-0'>
