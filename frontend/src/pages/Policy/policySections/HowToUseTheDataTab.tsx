@@ -4,12 +4,12 @@ import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function HowToUseTheDataTab() {
 	return (
-		<div >
+		<div className='max-w-svw w-full mx-0 px-0'>
 			<Helmet>
 				<title>How To Use The Data - Health Equity Tracker</title>
 			</Helmet>
 			<h2 className='sr-only'>How To Use The Data</h2>
-			<section id='#het-data-visualizations'>
+			<section id='#het-data-visualizations' className='max-w-svw w-fit mx-0 px-0'>
 				<HetOverline text='How to Use the Data'/>
 				<h3 className='my-0 text-title font-medium text-altGreen'>
 					HET Data Visualization Maps and Charts
@@ -26,23 +26,21 @@ export default function HowToUseTheDataTab() {
 				</p>
 			</section>
 			{dataVisuals.map((dataVisual, index) => (
-				<section key={index} id={dataVisual.sectionId}>
-					<div>
-						<div>
-							<div>
-								<div>
+				<section key={index} id={dataVisual.sectionId} className='max-w-svw w-auto mx-0 px-0'>
+					<div className='max-w-svw w-auto'>
+						
 									<HetOverline text='Our Data Visuals'/>
-									<div>
+									
 										<h3 className='my-0 text-title font-medium text-altGreen'>
 											{dataVisual.title}
 										</h3>
-									</div>
-									<div className='xs:py-4 p-0 m-0 w-full'>
+									
+									<div className='py-4 sm:p-0 sm:m-0 max-w-svw w-auto'>
 										{dataVisual.customCard}
-									</div>
+									
 									<p>{dataVisual.description}</p>
 								</div>
-							</div>
+							
 							<div>
 								<ul className='list-none grid gap-4 grid-cols-2 p-0 text-smallest'>
 									<li className='flex flex-col'>
@@ -80,7 +78,7 @@ export default function HowToUseTheDataTab() {
 										</li>
 									)}
 								</ul>
-							</div>
+							
 						</div>
 						<p>
 							<h3 className='my-0 text-title font-medium text-altGreen'>

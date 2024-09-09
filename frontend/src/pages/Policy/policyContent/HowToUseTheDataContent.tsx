@@ -51,7 +51,7 @@ export const dataVisuals = [
 		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
 		  demographicType={AGE}
 		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-		  className='shadow-none py-0 mt-0 mb-4'
+		  className='py-0 mt-0 mb-4'
 		/>),
   },
   {

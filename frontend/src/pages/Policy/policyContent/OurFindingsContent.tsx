@@ -32,7 +32,7 @@ export const youthFatalitiesFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
         demographicType={RACE}
         reportTitle='Rates of gun deaths among children over time in Georgia'
-        className='shadow-less py-0 mt-0 mb-4'
+        className='max-w-svw shadow-[none] py-0 mt-0 mb-4'
       />
     ),
   },
@@ -54,7 +54,7 @@ export const youthFatalitiesFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
         demographicType={RACE}
         reportTitle='Population vs. distribution of total gun deaths among children in Georgia'
-        className='shadow-less'
+        className='max-w-svw shadow-[none]'
       />
     ),
   },
@@ -80,7 +80,7 @@ export const homicideFacts = [
         demographicType={RACE}
         reportTitle='Historical relative inequity of gun homicides in Georgia'
         isCompareCard={false}
-        className='shadow-less'
+        className='max-w-svw shadow-[none]'
       />
     ),
   },
@@ -102,7 +102,7 @@ export const homicideFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
         demographicType={RACE}
         reportTitle='Rates of gun homicides in Georgia'
-		className='shadow-less'
+		className='max-w-svw shadow-[none]'
       />
     ),
   },
@@ -129,7 +129,7 @@ export const suicideFacts = [
         demographicType={RACE}
         reportTitle='Rates of gun suicides over time in Georgia'
         selectedTableGroups={[BLACK_NH, WHITE_NH]}
-        className='shadow-less py-0 mt-0 mb-4'
+        className='max-w-svw shadow-[none] py-0 mt-0 mb-4'
       />
     ),
   },
@@ -151,7 +151,7 @@ export const suicideFacts = [
         dataTypeConfig={METRIC_CONFIG['gun_violence'][1]}
         demographicType={SEX}
         reportTitle='Summary for gun suicides in Georgia by sex'
-        className='shadow-less py-0 mt-0 mb-4'
+        className='max-w-svw shadow-[none] py-0 mt-0 mb-4'
       />
     ),
   },
@@ -170,7 +170,7 @@ export const urbanicityFacts = [
 		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
 		  demographicType='urbanicity'
 		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-		  className='shadow-less py-0 mt-0 mb-4'
+		  className='max-w-svw shadow-[none] py-0 mt-0 mb-4'
 		/>
 
 	  ),
@@ -188,7 +188,7 @@ export const urbanicityFacts = [
 		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
 		  demographicType={AGE}
 		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-		  className='shadow-less py-0 mt-0 mb-4'
+		  className='max-w-svw shadow-[none] py-0 mt-0 mb-4'
 		/>
 
 	  ),
