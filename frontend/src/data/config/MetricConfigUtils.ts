@@ -72,28 +72,39 @@ export function formatFieldValue(
   return `${formattedValue}${percentSuffix}${ratioSuffix}`
 }
 
-function addConfigToMap(
-  map: Record<MetricId, MetricConfig>,
-  metricConfig: MetricConfig | undefined,
-) {
-  if (metricConfig) {
-    map[metricConfig.metricId] = metricConfig
-  }
-  return map
-}
+export type MetricIdsAndConfigMapTuple = [
+  MetricId[],
+  Partial<Record<MetricId, MetricConfig>>,
+]
 
+// Returns an array of metric ids and a map of metric ids to their config,
+// after filling in relevant sub configs like "knownBreakdownComparisonMetric"
 export function getMetricIdToConfigMap(
   metricConfigs: MetricConfig[],
-): Record<MetricId, MetricConfig> {
-  return metricConfigs.reduce(
-    (metricMap, config) => {
-      // We prefer known breakdown metric if available.
-      addConfigToMap(metricMap, config.knownBreakdownComparisonMetric ?? config)
-      addConfigToMap(metricMap, config.populationComparisonMetric)
-      addConfigToMap(metricMap, config.secondaryPopulationComparisonMetric)
+): MetricIdsAndConfigMapTuple {
+  const metricIdToConfigMap: Partial<Record<MetricId, MetricConfig>> = {}
 
-      return metricMap
-    },
-    {} as Record<MetricId, MetricConfig>,
-  )
+  metricConfigs.forEach((metricConfig) => {
+    if (!metricConfig) return
+
+    const configs: MetricConfig[] = [metricConfig]
+    const possibleConfigs: (keyof MetricConfig)[] = [
+      'knownBreakdownComparisonMetric',
+      'populationComparisonMetric',
+      'secondaryPopulationComparisonMetric',
+    ]
+
+    for (const possibleConfig of possibleConfigs) {
+      if (metricConfig[possibleConfig]) {
+        configs.push(metricConfig[possibleConfig] as MetricConfig)
+      }
+    }
+    configs.forEach((metric) => {
+      if (metric && !metricIdToConfigMap[metric.metricId]) {
+        metricIdToConfigMap[metric.metricId] = metric
+      }
+    })
+  })
+
+  return [Object.keys(metricIdToConfigMap) as MetricId[], metricIdToConfigMap]
 }
