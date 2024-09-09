@@ -10,12 +10,10 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { buildTopicsString } from './linkUtils'
 
 export const covidDataSources = [
   dataSourceMetadataMap.cdc_restricted,

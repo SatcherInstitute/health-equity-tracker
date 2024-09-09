@@ -8,11 +8,7 @@ import {
   getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
-import {
-  METRIC_CONFIG,
-  type DataTypeConfig,
-  type DropdownVarId,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
@@ -25,6 +21,8 @@ import {
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
 import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
 import HetTextArrowLink from '../styles/HetComponents/HetTextArrowLink'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 export const SINGLE_COLUMN_WIDTH = 12
 

@@ -3,7 +3,7 @@ To prevent components loading from one another, all exported consts for the map 
 */
 import type { DemographicGroup } from '../data/utils/Constants'
 import type { Scale, ColorScheme, Legend } from 'vega'
-import type { MapConfig, MetricConfig } from '../data/config/MetricConfig'
+import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 import { het } from '../styles/DesignTokens'
 
 export const DATA_SUPPRESSED = 'Data suppressed'

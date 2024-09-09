@@ -11,12 +11,13 @@ import {
   MissingIslandAreaPopulationData,
   MissingWisqarsData,
 } from '../pages/Methodology/methodologyContent/missingDataBlurbs'
-import type { DropdownVarId, DataTypeConfig } from '../data/config/MetricConfig'
 import type { Fips } from '../data/utils/Fips'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 import HetTerm from '../styles/HetComponents/HetTerm'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 interface WhatDataAreMissingProps {
   metricConfigSubset: Array<[DropdownVarId, DataTypeConfig[]]>

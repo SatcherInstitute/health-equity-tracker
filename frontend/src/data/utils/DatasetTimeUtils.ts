@@ -1,6 +1,5 @@
-import type { IDataFrame } from 'data-forge'
 import type { TimeSeries, TrendsData } from '../../charts/trendsChart/types'
-import type { MetricConfig, MetricId } from '../config/MetricConfig'
+import type { MetricConfig, MetricId } from '../config/MetricConfigTypes'
 import type { DemographicType } from '../query/Breakdowns'
 import {
   ALL,

@@ -7,13 +7,7 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import {
-  METRIC_CONFIG,
-  type MetricConfig,
-  type MetricId,
-  type DataTypeConfig,
-  getRateAndPctShareMetrics,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -38,11 +32,21 @@ import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
+import {
+  getMetricIdToConfigMap,
+  metricConfigFromDtConfig,
+} from '../data/config/MetricConfigUtils'
+import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
+import type {
+  DataTypeConfig,
+  MetricId,
+  MetricConfig,
+} from '../data/config/MetricConfigTypes'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
 export const NEVER_SHOW_PROPERTIES = [
-  METRIC_CONFIG.covid_vaccinations[0]?.metrics?.pct_share
+  METRIC_CONFIG.covid_vaccinations[0]?.metrics.pct_share
     ?.secondaryPopulationComparisonMetric,
 ]
 
@@ -60,8 +64,6 @@ export default function TableCard(props: TableCardProps) {
     props.demographicType === SEX,
   )
 
-  const metrics = getRateAndPctShareMetrics(props.dataTypeConfig)
-
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
     exclude(
@@ -73,33 +75,19 @@ export default function TableCard(props: TableCardProps) {
     ),
   )
 
-  const metricConfigs: Partial<Record<MetricId, MetricConfig>> = {}
-  metrics.forEach((metricConfig) => {
-    // We prefer known breakdown metric if available.
-    if (metricConfig.knownBreakdownComparisonMetric) {
-      metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
-        metricConfig.knownBreakdownComparisonMetric
-    } else {
-      metricConfigs[metricConfig.metricId] = metricConfig
-    }
+  const rateConfig = metricConfigFromDtConfig('rate', props.dataTypeConfig)
+  const shareConfig = metricConfigFromDtConfig('share', props.dataTypeConfig)
+  const metricConfigs = [rateConfig, shareConfig]
 
-    if (metricConfig.populationComparisonMetric) {
-      metricConfigs[metricConfig.populationComparisonMetric.metricId] =
-        metricConfig.populationComparisonMetric
-    }
+  const [metricIds, metricIdToConfigMap] = getMetricIdToConfigMap(metricConfigs)
 
-    if (metricConfig.secondaryPopulationComparisonMetric) {
-      metricConfigs[metricConfig.secondaryPopulationComparisonMetric.metricId] =
-        metricConfig.secondaryPopulationComparisonMetric
-    }
-  })
+
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId,
   )
   const isHIV = DATATYPES_NEEDING_13PLUS.includes(
     props.dataTypeConfig.dataTypeId,
   )
-  const metricIds = Object.keys(metricConfigs) as MetricId[]
   isIncarceration && metricIds.push('confined_children_estimated_total')
 
   if (isHIV) {
@@ -107,8 +95,8 @@ export default function TableCard(props: TableCardProps) {
   }
 
   const countColsMap: CountColsMap = {
-    numeratorConfig: metrics[0]?.rateNumeratorMetric,
-    denominatorConfig: metrics[0]?.rateDenominatorMetric,
+    numeratorConfig: metricConfigs[0]?.rateNumeratorMetric,
+    denominatorConfig: metricConfigs[0]?.rateDenominatorMetric,
   }
   countColsMap?.numeratorConfig &&
     metricIds.push(countColsMap.numeratorConfig.metricId)
@@ -122,9 +110,9 @@ export default function TableCard(props: TableCardProps) {
     /* timeView */ 'current',
   )
 
-  const displayingCovidData = metrics
-    .map((config) => config.metricId)
-    .some((metricId) => metricId.includes('covid_'))
+  const displayingCovidData = COVID_DISEASE_METRICS.includes(
+    props.dataTypeConfig,
+  )
 
   const HASH_ID: ScrollableHashId = 'data-table'
 
@@ -171,6 +159,10 @@ export default function TableCard(props: TableCardProps) {
           data = sortForVegaByIncome(data)
         }
 
+        const metricConfigsToShow = metricConfigs.filter(
+          (colName) => !NEVER_SHOW_PROPERTIES.includes(colName),
+        )
+
         return (
           <>
             {!queryResponse.dataIsMissing() && data.length > 0 && (
@@ -178,9 +170,7 @@ export default function TableCard(props: TableCardProps) {
                 countColsMap={countColsMap}
                 data={data}
                 demographicType={props.demographicType}
-                metrics={Object.values(metricConfigs).filter(
-                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName),
-                )}
+                metricConfigs={metricConfigsToShow}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
                 fips={props.fips}
                 dataTableTitle={

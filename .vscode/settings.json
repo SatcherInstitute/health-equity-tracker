@@ -11,7 +11,8 @@
 		"120"
 	],
 	"editor.codeActionsOnSave": {
-		"quickfix.biome": "explicit"
+		"quickfix.biome": "explicit",
+		"source.addMissingImports": "always"
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "biomejs.biome"
