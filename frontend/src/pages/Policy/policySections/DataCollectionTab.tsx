@@ -1,11 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
-import { Tooltip, Typography } from '@mui/material'
 import DatasetList from '../policyComponents/DatasetList'
-import {
-  datasets,
-  gvDefinitions,
-} from '../policyContent/DataCollectionContent'
+import { datasets, gvDefinitions } from '../policyContent/DataCollectionContent'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function DataCollectionTab() {
@@ -17,7 +13,7 @@ export default function DataCollectionTab() {
       <h2 className='sr-only'>Data Collection</h2>
       <section id='#source-profile'>
         <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8 mt-4'>
-          <HetOverline className='my-0' text='Source Profile'/>
+          <HetOverline className='my-0' text='Source Profile' />
           <h3 className='my-0 text-title font-medium'>
             CDC's WISQARS™(Web-based Injury Statistics Query and Reporting
             System)
@@ -63,20 +59,10 @@ export default function DataCollectionTab() {
       </section>
       <section id='#key-metrics'>
         <div className='mb-0'>
-          <HetOverline text='Our Methods'/>
-          <Tooltip
-            placement='bottom-start'
-            title={
-              <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
-                Metrics are quantifiable indicators used to measure and analyze
-                various aspects of public health data.
-              </Typography>
-            }
-          >
-            <h4 className='my-0 text-title font-medium text-altGreen underline decoration-dotted inline'>
-              Key Metrics
-            </h4>
-          </Tooltip>
+          <HetOverline text='Our Methods' />
+          <h4 className='my-0 text-title font-medium text-altGreen'>
+            Key Metrics
+          </h4>
         </div>
         <p>
           Our key metrics encompass data on fatal gun-related incidents, with a
