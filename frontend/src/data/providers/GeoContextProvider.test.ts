@@ -9,7 +9,7 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import type { MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfigTypes'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 /* Given the geocontext id */

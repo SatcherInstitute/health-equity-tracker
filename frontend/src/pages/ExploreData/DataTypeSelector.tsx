@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { usePopover } from '../../utils/hooks/usePopover'
-import type { DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'

@@ -4,16 +4,14 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPhrma'
 import { MEDICARE_MEDICATION_RESOURCES } from '../methodologyContent/ResourcesData'
 import { HashLink } from 'react-router-hash-link'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../../../data/providers/PhrmaProvider'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { buildTopicsString } from './linkUtils'
 
 export const medicareMedicationDataSources = [dataSourceMetadataMap.phrma]
 

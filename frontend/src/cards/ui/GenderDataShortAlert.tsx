@@ -1,5 +1,5 @@
 import { urlMap } from '../../utils/externalUrls'
-import type { MetricId, DataTypeId } from '../../data/config/MetricConfig'
+import type { MetricId, DataTypeId } from '../../data/config/MetricConfigTypes'
 import type { Fips } from '../../data/utils/Fips'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { DemographicType } from '../../data/query/Breakdowns'

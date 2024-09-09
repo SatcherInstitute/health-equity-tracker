@@ -3,7 +3,7 @@ import type {
   MetricId,
   DataTypeConfig,
   DataTypeId,
-} from '../config/MetricConfig'
+} from '../config/MetricConfigTypes'
 import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
   AHR_API_NH_METRICS,

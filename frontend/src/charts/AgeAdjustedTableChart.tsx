@@ -12,11 +12,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableFooter from '@mui/material/TableFooter'
 import Paper from '@mui/material/Paper'
-import {
-  type MetricConfig,
-  type MetricId,
-  formatFieldValue,
-} from '../data/config/MetricConfig'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
@@ -25,6 +21,7 @@ import Table from '@mui/material/Table'
 import { RACE } from '../data/utils/Constants'
 import ChartTitle from '../cards/ChartTitle'
 import { het } from '../styles/DesignTokens'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 
 const headerCellStyle = {
   width: '200px',

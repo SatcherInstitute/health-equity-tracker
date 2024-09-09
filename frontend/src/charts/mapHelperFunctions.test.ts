@@ -2,7 +2,7 @@ import type {
   DataTypeConfig,
   DataTypeId,
   MetricId,
-} from '../data/config/MetricConfig'
+} from '../data/config/MetricConfigTypes'
 import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 import { type CountColsMap, defaultHigherIsBetterMapConfig } from './mapGlobals'
