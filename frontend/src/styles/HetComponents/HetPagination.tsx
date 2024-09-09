@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import HetPaginationButton from './HetPaginationButton'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -11,6 +12,7 @@ interface HetPaginationProps {
 export default function HetPagination({ routeConfigs, className }: HetPaginationProps) {
   const history = useHistory()
   const location = useLocation()
+  const [isLargeScreen, setIsLargeScreen] = useState(false)
 
   const isMdScreen = useIsBreakpointAndUp('md')
 
@@ -33,7 +35,21 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
     }
   }
 
-  const nextButtonClassName = !prevRoute && isMdScreen ? 'ml-auto' : ''
+  const nextButtonClassName =
+    !prevRoute && isLargeScreen ? 'ml-auto' : ''
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 960)
+    }
+
+    handleResize()
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <div

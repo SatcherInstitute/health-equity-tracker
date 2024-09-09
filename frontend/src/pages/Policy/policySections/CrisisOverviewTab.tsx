@@ -1,9 +1,13 @@
 import { Helmet } from 'react-helmet-async'
 import { FormatQuote } from '@mui/icons-material'
-import { gvaFacts } from '../policyContent/CrisisOverviewContent'
+import { gvaFacts, rocketFoundationFacts } from '../policyContent/CrisisOverviewContent'
 import FactCard from '../policyComponents/FactCard'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 
 export default function CrisisOverviewTab() {
+  const isMdAndUp = useIsBreakpointAndUp('md')
+
   return (
     <>
       <Helmet>
@@ -26,33 +30,60 @@ export default function CrisisOverviewTab() {
             faced in their adolescence.
           </p>
         </section>
-        <section id='#background'>
+
+        <section>
           <div className='mb-0'>
-            <p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-              BY THE NUMBERS
-            </p>
-            <p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-              SOURCE: GUN VIOLENCE ARCHIVE{' '}
-              <a href='https://www.gunviolencearchive.org/'>
-                <span>
-                  [<FormatQuote className='text-text'></FormatQuote>]
-                </span>
-              </a>
-            </p>
+            <HetOverline className='mb-0' text='By the Numbers' />
+            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} />
+            <a href='https://www.rocket-foundation.org/'>
+              <span>
+                [<FormatQuote className='text-text'></FormatQuote>]
+              </span>
+            </a>
           </div>
-          <ul className='list-none pl-0 grid gap-4 sm:grid-cols-2 grid-cols-1 py-4 my-0'>
-            {gvaFacts.map((gvaFact, index) => (
-              <FactCard key={index} content={gvaFact.content} />
-            ))}
+          
+          <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+            {rocketFoundationFacts.map((rocketFoundationFact, index) => {
+              const isMobileShadow = !isMdAndUp && index % 2 === 0 
+              const isDesktopShadow = isMdAndUp && index % 2 !== 0 
+
+              return (
+                <li
+                  key={index}
+                  className={`fade-in-up-blur rounded-md p-8 ${isMobileShadow || isDesktopShadow ? 'shadow-raised-tighter' : ''}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <FactCard key={index} content={rocketFoundationFact.content} />
+                </li>
+              )
+            })}
           </ul>
+
+          <HetOverline className='mt-0 inline' text={`SOURCE: Gun Violence Archive `} />
+          <a href='https://www.gunviolencearchive.org/'>
+            <span>
+              [<FormatQuote className='text-text'></FormatQuote>]
+            </span>
+          </a>
+          
+          <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+            {gvaFacts.map((gvaFact, index) => {
+              return (
+                <li key={index} className={`fade-in-up-blur ${index % 2 === 0 ? 'shadow-raised-tighter': null}`} style={{ animationDelay: `${index * 0.1}s` }}>
+                  <FactCard key={index} content={gvaFact.content} />
+                </li>
+              )
+            })}
+          </ul>
+
           <p>
             By expanding the Health Equity Tracker to include gun violence data,
             the project aims to offer informed insights and actionable
             information, underpinned by the realities of the crisis in Atlanta.
             The data aims to foster dialogue, ensuring that stakeholders and the
             broader community are both informed and involved.
-            <br />
-            <br />
+          </p>
+          <p>
             We hope this report will equip fellow researchers, policymakers, and
             other gun violence-prevention organizations with the data necessary
             to advocate for policy reform that support the work to end the
