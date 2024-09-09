@@ -1,5 +1,5 @@
 import ChoroplethMap from '../charts/ChoroplethMap'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,

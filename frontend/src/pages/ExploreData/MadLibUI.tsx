@@ -19,13 +19,7 @@ import {
   stringifyMls,
 } from '../../utils/urlutils'
 import DataTypeSelector from './DataTypeSelector'
-import {
-  type DropdownVarId,
-  isDropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-  type DataTypeId,
-} from '../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { useAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
@@ -33,6 +27,14 @@ import {
 } from '../../utils/sharedSettingsState'
 import TopicSelector from './TopicSelector'
 import LocationSelector from './LocationSelector'
+import type {
+  DataTypeId,
+  DataTypeConfig,
+} from '../../data/config/MetricConfigTypes'
+import {
+  type DropdownVarId,
+  isDropdownVarId,
+} from '../../data/config/DropDownIds'
 
 interface MadLibUIProps {
   madLib: MadLib

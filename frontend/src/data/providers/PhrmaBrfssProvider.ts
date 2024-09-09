@@ -1,10 +1,7 @@
 import { getDataManager } from '../../utils/globals'
 import type { DatasetId } from '../config/DatasetMetadata'
-import type {
-  DropdownVarId,
-  DataTypeId,
-  MetricId,
-} from '../config/MetricConfig'
+import type { DropdownVarId } from '../config/DropDownIds'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'

@@ -1,5 +1,5 @@
 import type { Breakdowns } from '../query/Breakdowns'
-import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DatasetId } from '../config/DatasetMetadata'
 import { getDataManager } from '../../utils/globals'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'

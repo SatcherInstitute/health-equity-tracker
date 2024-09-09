@@ -5,7 +5,7 @@ import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfig'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,

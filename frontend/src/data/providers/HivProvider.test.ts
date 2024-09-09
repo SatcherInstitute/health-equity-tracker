@@ -14,7 +14,7 @@ import {
 } from '../../utils/globals'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import type { DataTypeId } from '../config/MetricConfig'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 describe('Unit tests for method getDatasetId()', () => {
