@@ -9,6 +9,7 @@ interface CustomDisparityBarChartProps {
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
   reportTitle?: string
+  className?: string
 }
 
 const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
@@ -16,16 +17,16 @@ const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
   dataTypeConfig = METRIC_CONFIG['health_insurance'][0],
   demographicType = 'sex',
   reportTitle = 'Uninsurance in Florida by Sex',
+  className,
 }) => {
   return (
-    <div>
-      <DisparityBarChartCard
-        dataTypeConfig={dataTypeConfig}
-        demographicType={demographicType}
-        fips={fips}
-        reportTitle={reportTitle}
-      />
-    </div>
+    <DisparityBarChartCard
+      dataTypeConfig={dataTypeConfig}
+      demographicType={demographicType}
+      fips={fips}
+      reportTitle={reportTitle}
+      className={className}
+    />
   )
 }
 
