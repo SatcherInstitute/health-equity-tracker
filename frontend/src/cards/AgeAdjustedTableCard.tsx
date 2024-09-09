@@ -27,10 +27,7 @@ import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
 import HetNotice from '../styles/HetComponents/HetNotice'
-import {
-  getMetricIdToConfigMap,
-  metricConfigFromDtConfig,
-} from '../data/config/MetricConfigUtils'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import type {
   DataTypeConfig,
   MetricConfig,
@@ -74,9 +71,14 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   )
   const metricPctShare = metricConfigFromDtConfig('share', props.dataTypeConfig)
   const metricConfigs = [ageAdjustedRatioMetric, metricPctShare]
-  const metricIdToConfigMap = getMetricIdToConfigMap(metricConfigs)
-  const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
 
+  const metricIdToConfigMap: Record<string, MetricConfig> = {}
+  metricConfigs.forEach((metricConfig) => {
+    if (metricConfig?.metricId)
+      metricIdToConfigMap[metricConfig.metricId] = metricConfig
+  })
+
+  const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
   const raceQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ raceBreakdowns,

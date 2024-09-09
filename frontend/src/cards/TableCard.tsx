@@ -7,6 +7,7 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -36,7 +37,18 @@ import {
   metricConfigFromDtConfig,
 } from '../data/config/MetricConfigUtils'
 import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
-import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricId,
+  MetricConfig,
+} from '../data/config/MetricConfigTypes'
+
+// We need to get this property, but we want to show it as
+// part of the "population_pct" column, and not as its own column
+export const NEVER_SHOW_PROPERTIES = [
+  METRIC_CONFIG.covid_vaccinations[0]?.metrics.pct_share
+    ?.secondaryPopulationComparisonMetric,
+]
 
 interface TableCardProps {
   fips: Fips
@@ -65,11 +77,10 @@ export default function TableCard(props: TableCardProps) {
 
   const rateConfig = metricConfigFromDtConfig('rate', props.dataTypeConfig)
   const shareConfig = metricConfigFromDtConfig('share', props.dataTypeConfig)
-  const initialMetricConfigs = [rateConfig, shareConfig]
+  const metricConfigs = [rateConfig, shareConfig]
 
-  const metricIdToConfigMap = getMetricIdToConfigMap(initialMetricConfigs)
-  const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
-  const metricConfigs = Object.values(metricIdToConfigMap)
+  const [metricIds, metricIdToConfigMap] = getMetricIdToConfigMap(metricConfigs)
+
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId,
@@ -84,8 +95,8 @@ export default function TableCard(props: TableCardProps) {
   }
 
   const countColsMap: CountColsMap = {
-    numeratorConfig: rateConfig?.rateNumeratorMetric,
-    denominatorConfig: rateConfig?.rateDenominatorMetric,
+    numeratorConfig: metricConfigs[0]?.rateNumeratorMetric,
+    denominatorConfig: metricConfigs[0]?.rateDenominatorMetric,
   }
   countColsMap?.numeratorConfig &&
     metricIds.push(countColsMap.numeratorConfig.metricId)
@@ -148,6 +159,10 @@ export default function TableCard(props: TableCardProps) {
           data = sortForVegaByIncome(data)
         }
 
+        const metricConfigsToShow = metricConfigs.filter(
+          (colName) => !NEVER_SHOW_PROPERTIES.includes(colName),
+        )
+
         return (
           <>
             {!queryResponse.dataIsMissing() && data.length > 0 && (
@@ -155,7 +170,7 @@ export default function TableCard(props: TableCardProps) {
                 countColsMap={countColsMap}
                 data={data}
                 demographicType={props.demographicType}
-                metricConfigs={metricConfigs}
+                metricConfigs={metricConfigsToShow}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
                 fips={props.fips}
                 dataTableTitle={
