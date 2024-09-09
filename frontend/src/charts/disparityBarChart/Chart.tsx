@@ -19,7 +19,7 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
 } from '../utils'
-import type { MetricConfig } from '../../data/config/MetricConfig'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
 import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
 

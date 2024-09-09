@@ -1,5 +1,5 @@
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import type { DataTypeConfig } from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { dataTypeLinkMap } from '../../data/providers/CdcCovidProvider'
 
 interface AltDataTypesMessageProps {

@@ -1,4 +1,7 @@
-import type { MetricConfig, MetricId } from '../../data/config/MetricConfig'
+import type {
+  MetricConfig,
+  MetricId,
+} from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { ChartDimensionProps } from '../../utils/hooks/useChartDimensions'
 

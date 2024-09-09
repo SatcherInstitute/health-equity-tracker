@@ -1,9 +1,4 @@
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-  type DataTypeId,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
@@ -22,6 +17,11 @@ import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfi
 import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
 import { CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
 import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>

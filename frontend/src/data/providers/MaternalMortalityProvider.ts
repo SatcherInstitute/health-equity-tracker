@@ -1,4 +1,4 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
 import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'

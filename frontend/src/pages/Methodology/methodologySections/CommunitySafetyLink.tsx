@@ -1,7 +1,4 @@
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { Helmet } from 'react-helmet-async'
@@ -11,6 +8,7 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { buildTopicsString } from './linkUtils'
 
 export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
 

@@ -7,12 +7,13 @@ import {
   type DefaultDropdownVarId,
   DROPDOWN_TOPIC_MAP,
 } from '../../utils/MadLibs'
-import type { DropdownVarId, DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
+import type { DropdownVarId } from '../../data/config/DropDownIds'
 
 interface TopicSelectorProps {
   newValue: DataTypeId | DefaultDropdownVarId // DataTypeId OR default setting with no topic selected

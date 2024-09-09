@@ -1,5 +1,5 @@
 import { format, utcFormat, scaleOrdinal } from 'd3'
-import type { MetricType } from '../../data/config/MetricConfig'
+import type { MetricType } from '../../data/config/MetricConfigTypes'
 import {
   AAPI_W,
   AIANNH_W,

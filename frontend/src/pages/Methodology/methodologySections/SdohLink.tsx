@@ -6,15 +6,13 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../../utils/externalUrls'
+import { buildTopicsString } from './linkUtils'
 
 const sdohDataSources = [
   dataSourceMetadataMap.acs,

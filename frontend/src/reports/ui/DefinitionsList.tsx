@@ -3,10 +3,8 @@ Receives list of dataType objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
-import type {
-  DropdownVarId,
-  DataTypeConfig,
-} from '../../data/config/MetricConfig'
+import type { DropdownVarId } from '../../data/config/DropDownIds'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 import InfoCitations from './InfoCitations'

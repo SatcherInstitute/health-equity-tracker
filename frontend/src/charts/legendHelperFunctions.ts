@@ -12,7 +12,7 @@ import {
   PHRMA_ADHERENCE_BREAKPOINTS,
   LEGEND_TEXT_FONT,
 } from './mapGlobals'
-import type { MetricId } from '../data/config/MetricConfig'
+import type { MetricId } from '../data/config/MetricConfigTypes'
 
 export function setupZeroLegend(
   legendBucketLabel: string,

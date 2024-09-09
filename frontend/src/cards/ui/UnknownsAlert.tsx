@@ -1,6 +1,6 @@
 import type { Row } from '../../data/utils/DatasetTypes'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
-import type { MetricConfig } from '../../data/config/MetricConfig'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,

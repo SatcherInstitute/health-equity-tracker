@@ -1,5 +1,5 @@
 import { medicareHigherIsBetterMapConfig } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const CANCER_CATEGORY_DROPDOWNIDS = ['cancer_screening']
 
