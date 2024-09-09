@@ -12,32 +12,25 @@ interface CustomBreakdownSummaryProps {
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
   reportTitle?: string
+  className?: string
 }
 
 const CustomBreakdownSummary: React.FC<CustomBreakdownSummaryProps> = ({
-  headerScrollMargin = '50px',
   fips = new Fips('00'),
   demographicType = SEX,
   reportTitle = 'Demographic Summary',
+  className,
 }) => {
   const dataTypeConfig: DataTypeConfig = GUN_VIOLENCE_METRICS[1]
 
   return (
-    <div
-      tabIndex={-1}
-      className='w-full'
-      id='data-table'
-      style={{
-        scrollMarginTop: headerScrollMargin,
-      }}
-    >
-      <TableCard
-        fips={fips}
-        dataTypeConfig={dataTypeConfig}
-        demographicType={demographicType}
-        reportTitle={reportTitle}
-      />
-    </div>
+    <TableCard
+      fips={fips}
+      dataTypeConfig={dataTypeConfig}
+      demographicType={demographicType}
+      reportTitle={reportTitle}
+      className={className}
+    />
   )
 }
 

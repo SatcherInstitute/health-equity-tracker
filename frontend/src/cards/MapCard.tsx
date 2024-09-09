@@ -75,7 +75,6 @@ import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
-import { getSortArgs } from '../data/sorting/sortingUtils'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -86,6 +85,7 @@ const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
 ]
 
 interface MapCardProps {
+  className?: string
   key?: string
   fips: Fips
   dataTypeConfig: DataTypeConfig
@@ -267,6 +267,7 @@ function MapCardWithKey(props: MapCardProps) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
+  const defaultClasses = 'shadow-raised bg-white'
 
   return (
     <CardWrapper
@@ -279,6 +280,7 @@ function MapCardWithKey(props: MapCardProps) {
       elementsToHide={elementsToHide}
       expanded={extremesMode}
       isCompareCard={props.isCompareCard}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
@@ -320,7 +322,10 @@ function MapCardWithKey(props: MapCardProps) {
         )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
-        const sortArgs = getSortArgs(demographicType)
+        const sortArgs =
+          demographicType === AGE
+            ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
+            : []
 
         const fieldValues = mapQueryResponse.getFieldValues(
           /* fieldName: DemographicType */ demographicType,
