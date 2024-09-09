@@ -24,7 +24,8 @@ export default function ReformOpportunitiesTab() {
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Reform Opportunities at the County and City Levels
         </h3>
-        <p className='my-4'>
+
+        <ul className='list-none my-4'>
           {effortsAndInitiatives.map((effortsAndInitiative, index) => (
             <ResourceItem
               key={index}
@@ -33,13 +34,14 @@ export default function ReformOpportunitiesTab() {
               link={effortsAndInitiative.link}
             />
           ))}
-        </p>
+        </ul>
       </section>
       <section id='#call-to-action-for-policy-changes'>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Call to Action for Policy Changes
         </h3>
-        <p className='my-4'>
+
+        <ul className='list-none my-4'>
           {legislativeActions.map((legislativeAction, index) => (
             <ResourceItem
               key={index}
@@ -48,7 +50,7 @@ export default function ReformOpportunitiesTab() {
               link={legislativeAction.link}
             />
           ))}
-        </p>
+        </ul>
 
         <HetTextArrowLink
           link={'https://www.usa.gov/elected-officials'}
