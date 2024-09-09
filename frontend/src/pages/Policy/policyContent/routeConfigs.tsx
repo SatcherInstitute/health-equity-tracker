@@ -1,10 +1,4 @@
 import type { ReactNode } from 'react'
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import { ADDRESSING_INEQUITIES_TAB, CRISIS_OVERVIEW_TAB, CURRENT_EFFORTS_TAB, DATA_COLLECTION_TAB, FAQS_TAB, GUN_VIOLENCE_POLICY, HOW_TO_USE_THE_DATA_TAB, REFORM_OPPORTUNITIES_TAB } from '../../../utils/internalRoutes'
-=======
->>>>>>> 3e96a4af (Policy hub content enhancements and route config updates (#3625))
 import {
   CRISIS_OVERVIEW_TAB,
   CURRENT_EFFORTS_TAB,
@@ -15,10 +9,6 @@ import {
   OUR_FINDINGS_TAB,
   REFORM_OPPORTUNITIES_TAB,
 } from '../../../utils/internalRoutes'
-<<<<<<< HEAD
-=======
->>>>>>> ad9403cb (Policy hub content enhancements and route config updates (#3625))
->>>>>>> 3e96a4af (Policy hub content enhancements and route config updates (#3625))
 import CrisisOverviewTab from '../policySections/CrisisOverviewTab'
 import CurrentEffortsTab from '../policySections/CurrentEffortsTab'
 import DataCollectionTab from '../policySections/DataCollectionTab'
@@ -27,10 +17,6 @@ import HowToUseTheDataTab from '../policySections/HowToUseTheDataTab'
 import ReformOpportunitiesTab from '../policySections/ReformOpportunitiesTab'
 import GunViolencePolicyHomeLink from '../policySections/GunViolencePolicyHomeLink'
 import OurFindingsTab from '../policySections/OurFindingsTab'
-<<<<<<< HEAD
-=======
-
->>>>>>> 3e96a4af (Policy hub content enhancements and route config updates (#3625))
 
 export type RouteConfig = {
   isTopLevel?: boolean

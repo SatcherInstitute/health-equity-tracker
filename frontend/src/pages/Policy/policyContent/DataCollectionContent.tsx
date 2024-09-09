@@ -1,6 +1,6 @@
 export const datasets = [
     {
-      datasetName: 'Gun Deaths (Children, ages 0-17)',
+      datasetName: 'Gun Deaths (Children, 0-17)',
       items: [
         { label: 'Breakdowns by race/ethnicity', included: true },
         { label: 'Breakdowns by age', included: false },
@@ -9,7 +9,7 @@ export const datasets = [
       ],
     },
     {
-      datasetName: 'Gun Deaths (Young adults, ages 18-25)',
+      datasetName: 'Gun Deaths (Young adults, 18-25)',
       items: [
         { label: 'Breakdowns by race/ethnicity', included: true },
         { label: 'Breakdowns by age', included: false },

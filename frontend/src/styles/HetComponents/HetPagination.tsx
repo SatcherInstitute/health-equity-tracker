@@ -13,11 +13,8 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
   const history = useHistory()
   const location = useLocation()
   const [isLargeScreen, setIsLargeScreen] = useState(false)
-<<<<<<< HEAD
 
   const isMdScreen = useIsBreakpointAndUp('md')
-=======
->>>>>>> 3e96a4af (Policy hub content enhancements and route config updates (#3625))
 
   const currentIndex = routeConfigs.findIndex(
     (route) => route.path === location.pathname
@@ -38,11 +35,6 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
     }
   }
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 3e96a4af (Policy hub content enhancements and route config updates (#3625))
   const nextButtonClassName =
     !prevRoute && isLargeScreen ? 'ml-auto' : ''
 
@@ -59,10 +51,6 @@ export default function HetPagination({ routeConfigs, className }: HetPagination
     }
   }, [])
 
-<<<<<<< HEAD
-=======
->>>>>>> ad9403cb (Policy hub content enhancements and route config updates (#3625))
->>>>>>> 3e96a4af (Policy hub content enhancements and route config updates (#3625))
   return (
     <div
       className={`mx-0 smMd:mb-0 mb-8 mt-8 flex w-full flex-col justify-between md:mt-16 md:flex-row gap-4 md:self-stretch ${className ?? ''}`}

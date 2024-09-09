@@ -16,11 +16,7 @@ export const selectFAQs: FAQ[] = [
     answer: <AnswerWhatIsHealthEquity />,
   },
   {
-<<<<<<< HEAD
     question: 'What are health disparities?',
-=======
-    questionText: 'What are health disparities?',
->>>>>>> f760344d (faqs tab)
     answer: <AnswerWhatAreHealthDisparities />,
   },
   {
