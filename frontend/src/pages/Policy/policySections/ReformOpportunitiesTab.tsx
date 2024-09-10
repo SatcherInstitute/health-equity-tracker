@@ -24,40 +24,6 @@ export default function ReformOpportunitiesTab() {
         race and ethnicity for non-fatal injuries, and addressing the root
         causes of violence through equity-focused policies.
       </p>
-<<<<<<< HEAD
-=======
-      <section id='#city-and-county-level-reform-opportunities'>
-        <h3 className='my-0 text-title font-medium text-altGreen'>
-          Reform Opportunities at the County and City Levels
-        </h3>
-
-        <ul className='list-none my-4'>
-          {effortsAndInitiatives.map((effortsAndInitiative) => (
-            <ResourceItem
-              key={effortsAndInitiative.title}
-              title={effortsAndInitiative.title}
-              description={effortsAndInitiative.description}
-              link={effortsAndInitiative.link}
-            />
-          ))}
-        </ul>
-      </section>
-      <section id='#call-to-action-for-policy-changes'>
-        <h3 className='my-0 text-title font-medium text-altGreen'>
-          Call to Action for Policy Changes
-        </h3>
-
-        <ul className='list-none my-4'>
-          {legislativeActions.map((legislativeAction) => (
-            <ResourceItem
-              key={legislativeAction.title}
-              title={legislativeAction.title}
-              description={legislativeAction.description}
-              link={legislativeAction.link}
-            />
-          ))}
-        </ul>
->>>>>>> 8c0462e4 (Data collection tab and Our Findings tab refinements (#3638))
 
       <section id='#where-to-start'>
         <HetOverline text='Where to Start'/>
@@ -74,14 +40,14 @@ export default function ReformOpportunitiesTab() {
 
             return (
               <div
-                key={index}
+                key={effortsAndInsight.title}
                 className={`fade-in-up-blur rounded-md p-8 ${
                   isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
                 }`}
                 style={{ animationDelay: `${index * 0.04}s` }}
               >
                 <CardLeftIcon
-                  key={index}
+                  key={effortsAndInsight.title}
                   icon={effortsAndInsight.icon}
                   title={effortsAndInsight.title}
                   description={effortsAndInsight.description}
