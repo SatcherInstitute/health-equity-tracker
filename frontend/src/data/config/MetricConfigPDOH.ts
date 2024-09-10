@@ -1,4 +1,3 @@
-// 123
 import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
