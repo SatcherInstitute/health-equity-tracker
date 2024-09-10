@@ -1,13 +1,17 @@
 import { Helmet } from 'react-helmet-async'
-import ResourceItem from '../policyComponents/ResourceItem'
 import {
-  effortsAndInsights,
   legislativeActions,
+  effortsAndInsights,
 } from '../policyContent/ReformOpportunitiesContent'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import CardLeftIcon from '../policyComponents/CardLeftIcon'
+import HetAccordion from '../../../styles/HetComponents/HetAccordion'
+import { FormatQuote } from '@mui/icons-material'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function ReformOpportunitiesTab() {
+  const isMdAndUp = useIsBreakpointAndUp('md')
   return (
     <>
       <Helmet>
@@ -20,42 +24,71 @@ export default function ReformOpportunitiesTab() {
         race and ethnicity for non-fatal injuries, and addressing the root
         causes of violence through equity-focused policies.
       </p>
-      <section id='#city-and-county-level-reform-opportunities'>
-        <h3 className='my-0 text-title font-medium text-altGreen'>
-          Reform Opportunities at the County and City Levels
-        </h3>
 
-        <ul className='list-none my-4'>
-          {effortsAndInsights.map((effortsAndInsight) => (
-            <ResourceItem
-              key={effortsAndInsight.title}
-              title={effortsAndInsight.title}
-              description={effortsAndInsight.description}
-            />
-          ))}
+      <section id='#where-to-start'>
+        <HetOverline text='Where to Start' />
+        <h3 className='my-0 text-title font-medium text-altGreen'>
+          Insights from the Advocacy Community
+        </h3>
+        <ul className='mt-4 mb-8 grid grid-cols-1 md:grid-cols-2 list-none ml-0 pl-0 gap-2'>
+          {effortsAndInsights.map((effortsAndInsight, index) => {
+            const isMobileShadow = !isMdAndUp && index % 2 === 0
+            const isDesktopShadow =
+              isMdAndUp &&
+              ((Math.floor(index / 2) % 2 === 0 && index % 2 === 0) ||
+                (Math.floor(index / 2) % 2 !== 0 && index % 2 !== 0))
+
+            return (
+              <div
+                key={index}
+                className={`fade-in-up-blur rounded-md p-8 ${
+                  isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
+                }`}
+                style={{ animationDelay: `${index * 0.04}s` }}
+              >
+                <CardLeftIcon
+                  key={index}
+                  icon={effortsAndInsight.icon}
+                  title={effortsAndInsight.title}
+                  description={effortsAndInsight.description}
+                  advice={effortsAndInsight.advice}
+                />
+              </div>
+            )
+          })}
         </ul>
       </section>
 
       <section id='#legislative-items'>
-        <HetOverline text='Call to Action' />
+        <HetOverline
+          text='
+
+          Call to Action
+'
+        />
+
         <h3 className='my-0 text-title font-medium text-altGreen'>
-          Call to Action for Policy Changes
+          Legislative Items to Consider for Policy Changes
         </h3>
+        <HetOverline text={`SOURCE: RAND Foundation `} className='inline' />
 
-        <ul className='list-none my-4'>
-          {legislativeActions.map((legislativeAction) => (
-            <ResourceItem
-              key={legislativeAction.question}
-              title={legislativeAction.question}
-              description={legislativeAction.answer}
-            />
-          ))}
-        </ul>
+        <a href='https://www.rand.org/research/gun-policy.html'>
+          <span>
+            [<FormatQuote className='text-text'></FormatQuote>]
+          </span>
+        </a>
 
+        <HetAccordion
+          accordionData={legislativeActions}
+          divClassName='py-0 my-0'
+          accordionClassName='my-4'
+          summaryClassName='text-text leading-lhsomeSpace font-medium'
+          detailsClassName='py-0 my-0'
+        />
         <HetTextArrowLink
-          link={'https://www.usa.gov/elected-officials'}
+          link='https://www.usa.gov/elected-officials'
           linkText='Find and contact your elected officials'
-          containerClassName='flex items-center justify-center mt-16 mx-auto '
+          containerClassName='flex items-center justify-center mt-8 mx-auto'
           linkClassName='font-sansTitle text-smallestHeader'
         />
       </section>
