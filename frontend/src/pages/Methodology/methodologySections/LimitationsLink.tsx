@@ -3,12 +3,10 @@ import { Helmet } from 'react-helmet-async'
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 
 import WhatDataAreMissing from '../../../reports/WhatDataAreMissing'
-import {
-  type DataTypeConfig,
-  type DropdownVarId,
-  METRIC_CONFIG,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
 import { Fips } from '../../../data/utils/Fips'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
 
 export default function LimitationsLink() {
   return (

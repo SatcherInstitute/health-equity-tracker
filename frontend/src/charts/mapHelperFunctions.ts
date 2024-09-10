@@ -1,9 +1,8 @@
-import {
-  type DataTypeConfig,
-  isPctType,
-  type MetricId,
-  type MetricType,
-} from '../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  MetricId,
+  MetricType,
+} from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
 import type { FieldRange, Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
@@ -37,6 +36,7 @@ import {
 } from './mapGlobals'
 import { het } from '../styles/DesignTokens'
 import { formatterMap, type LegendNumberFormat } from './legendHelperFunctions'
+import { isPctType } from '../data/config/MetricConfigUtils'
 
 /*
 
@@ -462,10 +462,7 @@ export function getCawpMapGroupNumeratorLabel(
 ) {
   const cases = countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
   if (activeDemographicGroup === ALL) return `Women ${cases} overall`
-  return (
-    `${getWomenRaceLabel(activeDemographicGroup)} ${cases}` ??
-    'for selected group'
-  )
+  return `${getWomenRaceLabel(activeDemographicGroup)} ${cases}`
 }
 
 export function getCawpMapGroupDenominatorLabel(countColsMap: CountColsMap) {

@@ -1,4 +1,4 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
 import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'
@@ -60,7 +60,9 @@ class MaternalMortalityProvider extends VariableProvider {
         undefined,
         metricQuery.timeView,
       )
-      if (!datasetId) throw Error('DatasetId is undefined')
+      if (!datasetId) {
+        return new MetricQueryResponse([], [])
+      }
       const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
       const maternalMortalityDataset =
         await getDataManager().loadDataset(specificDatasetId)

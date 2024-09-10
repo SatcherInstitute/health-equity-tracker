@@ -3,7 +3,7 @@ import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DatasetId } from '../config/DatasetMetadata'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
@@ -97,7 +97,9 @@ class AcsConditionProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const acsDataset = await getDataManager().loadDataset(specificDatasetId)
 

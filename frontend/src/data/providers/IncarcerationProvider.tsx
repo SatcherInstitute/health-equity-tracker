@@ -1,7 +1,8 @@
 import { getDataManager } from '../../utils/globals'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId, DataTypeId } from '../config/MetricConfig'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+
 import VariableProvider from './VariableProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
@@ -90,7 +91,9 @@ class IncarcerationProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const dataSource = await getDataManager().loadDataset(specificDatasetId)
     let df = dataSource.toDataFrame()

@@ -1,5 +1,5 @@
 import type { DatasetId } from '../config/DatasetMetadata'
-import type { MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfigTypes'
 import { MetricQueryResponse } from '../query/MetricQuery'
 import { RACE } from '../utils/Constants'
 

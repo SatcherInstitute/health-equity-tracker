@@ -8,11 +8,9 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import { buildTopicsString } from './linkUtils'
 
 export const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,

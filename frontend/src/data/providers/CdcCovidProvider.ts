@@ -5,7 +5,7 @@ import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfig'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
@@ -108,7 +108,9 @@ class CdcCovidProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const covidDataset = await getDataManager().loadDataset(specificDatasetId)
     const consumedDatasetIds = [datasetId]

@@ -1,4 +1,4 @@
-import type { DataTypeId } from '../data/config/MetricConfig'
+import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import {
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,

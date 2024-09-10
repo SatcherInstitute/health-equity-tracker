@@ -6,7 +6,7 @@ import {
   type DemographicTypeDisplayName,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import type { MetricConfig, MetricId } from '../data/config/MetricConfig'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -301,6 +301,7 @@ interface SimpleHorizontalBarChartProps {
   demographicType: DemographicType
   filename?: string
   usePercentSuffix?: boolean
+  className?: string
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {

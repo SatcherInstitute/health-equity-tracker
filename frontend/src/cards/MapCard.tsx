@@ -1,5 +1,5 @@
 import ChoroplethMap from '../charts/ChoroplethMap'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -12,7 +12,6 @@ import {
   MetricQuery,
   type MetricQueryResponse,
 } from '../data/query/MetricQuery'
-import { AgeSorterStrategy } from '../data/sorting/AgeSorterStrategy'
 import {
   ALL,
   NON_HISPANIC,
@@ -21,7 +20,6 @@ import {
   UNKNOWN_ETHNICITY,
   type DemographicGroup,
   RACE,
-  AGE,
 } from '../data/utils/Constants'
 import type { Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
@@ -33,7 +31,7 @@ import {
 } from '../data/providers/IncarcerationProvider'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import CardWrapper from './CardWrapper'
-import DropDownMenu from './ui/DropDownMenu'
+import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
@@ -88,6 +86,7 @@ const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
 ]
 
 interface MapCardProps {
+  className?: string
   key?: string
   fips: Fips
   dataTypeConfig: DataTypeConfig
@@ -269,6 +268,7 @@ function MapCardWithKey(props: MapCardProps) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
+  const defaultClasses = 'shadow-raised bg-white'
 
   return (
     <CardWrapper
@@ -281,6 +281,7 @@ function MapCardWithKey(props: MapCardProps) {
       elementsToHide={elementsToHide}
       expanded={extremesMode}
       isCompareCard={props.isCompareCard}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
@@ -487,7 +488,7 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <div id='map-group-dropdown' className='pb-1 pt-0 text-left'>
-                <DropDownMenu
+                <DemographicGroupMenu
                   idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                   demographicType={demographicType}
                   dataTypeId={props.dataTypeConfig.dataTypeId}

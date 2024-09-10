@@ -1,16 +1,13 @@
 import { getDataManager } from '../../utils/globals'
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { DatasetId } from '../config/DatasetMetadata'
-import type {
-  DataTypeId,
-  DropdownVarId,
-  MetricId,
-} from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
 import type { DemographicBreakdownKey, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
+import type { DropdownVarId } from '../config/DropDownIds'
 
 const CHR_DATATYPE_IDS_ONLY_ALLS: DataTypeId[] = [
   'diabetes',
@@ -190,10 +187,12 @@ class AhrProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const { breakdowns, dataTypeId, timeView } = metricQuery
+    const { breakdowns, dataTypeId } = metricQuery
     const datasetId = this.getDatasetId(breakdowns, dataTypeId)
 
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const ahr = await getDataManager().loadDataset(specificDatasetId)
     let df = ahr.toDataFrame()

@@ -9,7 +9,7 @@ import type {
   DemographicType,
   DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
-import type { DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getConfigFromDataTypeId } from '../../utils/MadLibs'
 
@@ -91,7 +91,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
   )
 }
 
-interface DropDownMenuProps {
+interface DemographicGroupMenuProps {
   // Dropdown's currently selected option.
   value: DemographicGroup
   // Map of first level menu option to submenu options.
@@ -109,12 +109,12 @@ interface DropDownMenuProps {
 }
 
 /*
-   DropDownMenu is a dropdown menu with one or two levels of menu items.
+   DemographicGroupMenu is a dropdown menu with one or two levels of menu items.
    For example you can have:
      * Dropdown with one level listing all race options
      * Dropdown with one level to select race and a second level listing all race options
 */
-function DropDownMenu(props: DropDownMenuProps) {
+function DemographicGroupMenu(props: DemographicGroupMenuProps) {
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0],
   )
@@ -128,7 +128,7 @@ function DropDownMenu(props: DropDownMenuProps) {
   const selectedConfig = getConfigFromDataTypeId(props.dataTypeId)
   const ageSubPop = selectedConfig?.ageSubPopulationLabel ?? ''
   const suffix =
-    props.value === 'All' && props.demographicType === 'age'
+    props.value === 'All' && props.demographicType === 'age' && ageSubPop
       ? ` (${ageSubPop.replace('Ages ', '')})`
       : ''
 
@@ -192,4 +192,4 @@ function DropDownMenu(props: DropDownMenuProps) {
   )
 }
 
-export default DropDownMenu
+export default DemographicGroupMenu

@@ -4,14 +4,12 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
 import { urlMap } from '../../../utils/externalUrls'
+import { buildTopicsString } from './linkUtils'
 
 export const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,

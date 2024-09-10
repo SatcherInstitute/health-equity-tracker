@@ -6,7 +6,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { DataTypeConfig } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -46,6 +46,7 @@ interface RateTrendsChartCardProps {
   fips: Fips
   isCompareCard?: boolean
   reportTitle: string
+  className?: string
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -126,6 +127,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     '#card-options-menu',
   ]
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -135,6 +138,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(

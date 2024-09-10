@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom'
-import type { DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -9,7 +8,6 @@ import {
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   FAQ_TAB_LINK,
-  GUN_VIOLENCE_POLICY,
 } from './internalRoutes'
 import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
@@ -18,6 +16,7 @@ import {
 } from '../data/utils/Constants'
 import type { ReactNode } from 'react'
 import { urlMap } from './externalUrls'
+import type { DataTypeId } from '../data/config/MetricConfigTypes'
 
 // OLDER HANDLING PARAMS
 

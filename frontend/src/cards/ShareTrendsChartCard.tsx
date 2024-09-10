@@ -6,7 +6,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { DataTypeConfig } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -48,6 +48,7 @@ interface ShareTrendsChartCardProps {
   fips: Fips
   isCompareCard?: boolean
   reportTitle: string
+  className?: string
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -118,6 +119,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const queries = [inequityQuery]
   pctShareQuery && queries.push(pctShareQuery)
 
+  const defaultClasses = 'shadow-raised bg-white'
+
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -127,6 +130,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
+      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
@@ -224,7 +228,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
                         props.demographicType
                       ],
-                    xAxisIsMonthly: metricConfigInequitable.timeSeriesCadence === 'monthly',
+                    xAxisIsMonthly:
+                      metricConfigInequitable.timeSeriesCadence === 'monthly',
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}

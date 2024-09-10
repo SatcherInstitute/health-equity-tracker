@@ -1,4 +1,4 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfig'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'
@@ -78,7 +78,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
       const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
 
       if (!datasetId) {
-        throw new Error('DatasetId is undefined.')
+        return new MetricQueryResponse([], [])
       }
 
       const gunViolenceBlackMenData =

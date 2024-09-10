@@ -2,14 +2,9 @@ import { useState, useEffect, useMemo } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import type { Fips } from '../data/utils/Fips'
-import {
-  isPctType,
-  type MapConfig,
-  type MetricConfig,
-} from '../data/config/MetricConfig'
+import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 import type { Row, FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
-
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import type { Legend } from 'vega'
 import type { DemographicGroup } from '../data/utils/Constants'
@@ -57,6 +52,7 @@ import {
 import { setupUnknownsLegend } from './legendHelperFunctions'
 import { het } from '../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import { isPctType } from '../data/config/MetricConfigUtils'
 
 const {
   howToColor: UNKNOWN_GREY,

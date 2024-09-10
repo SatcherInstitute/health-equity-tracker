@@ -1,5 +1,6 @@
 import { getDataManager } from '../../utils/globals'
-import type { MetricId, DataTypeId } from '../config/MetricConfig'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+
 import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
@@ -100,7 +101,9 @@ class CawpProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
