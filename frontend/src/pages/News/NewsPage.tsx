@@ -108,15 +108,12 @@ export default function NewsPage(props: NewsPageProps) {
           </Tabs>
 
           <Routes>
-            <Route path={`${NEWS_PAGE_LINK}/:slug`}>
-              <SinglePost />
-            </Route>
-            <Route path={`${NEWS_PAGE_LINK}/`}>
-              <AllPosts />
-            </Route>
-            <Route path={`${SHARE_YOUR_STORY_TAB_LINK}/`}>
-              <ShareYourStory />
-            </Route>
+            <Route path={`${NEWS_PAGE_LINK}/:slug`} element={<SinglePost />} />
+            <Route path={NEWS_PAGE_LINK} element={<AllPosts />} />
+            <Route
+              path={SHARE_YOUR_STORY_TAB_LINK}
+              element={<ShareYourStory />}
+            />
           </Routes>
         </div>
       </div>
