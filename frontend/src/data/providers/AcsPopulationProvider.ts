@@ -46,8 +46,9 @@ class AcsPopulationProvider extends VariableProvider {
     df = this.removeUnrequestedColumns(df, metricQuery)
 
     const datasetId = this.getDatasetId(breakdowns)
-    if (!datasetId) throw Error('DatasetId undefined')
-    return new MetricQueryResponse(df.toArray(), [datasetId])
+    let consumedDatasetIds
+    if (datasetId) consumedDatasetIds = [datasetId]
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
   private async getDataInternalWithoutPercents(

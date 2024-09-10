@@ -108,7 +108,9 @@ class CdcCovidProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const covidDataset = await getDataManager().loadDataset(specificDatasetId)
     const consumedDatasetIds = [datasetId]
