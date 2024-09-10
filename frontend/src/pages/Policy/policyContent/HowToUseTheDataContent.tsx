@@ -1,5 +1,5 @@
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import { RACE } from '../../../data/utils/Constants'
+import { AGE, RACE } from '../../../data/utils/Constants'
 import { Fips } from '../../../data/utils/Fips'
 import Custom100kBarChart from '../../../reports/Custom100kBarChart'
 import CustomBreakdownSummary from '../../../reports/CustomBreakdownSummary'
@@ -46,7 +46,13 @@ export const dataVisuals = [
         },
       ],
     },
-    customCard: <CustomChoroplethMap />,
+    customCard: (<CustomChoroplethMap
+		  fips={new Fips('13')}
+		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
+		  demographicType={AGE}
+		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
+		  className='py-0 mt-0 mb-4'
+		/>),
   },
   {
     title: 'Rates Over Time Chart',

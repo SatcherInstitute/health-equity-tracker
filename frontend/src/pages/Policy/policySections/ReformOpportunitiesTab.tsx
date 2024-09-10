@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import ResourceItem from '../policyComponents/ResourceItem'
 import {
-  effortsAndInitiatives,
+  effortsAndInsights,
   legislativeActions,
 } from '../policyContent/ReformOpportunitiesContent'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function ReformOpportunitiesTab() {
   return (
@@ -25,17 +26,18 @@ export default function ReformOpportunitiesTab() {
         </h3>
 
         <ul className='list-none my-4'>
-          {effortsAndInitiatives.map((effortsAndInitiative) => (
+          {effortsAndInsights.map((effortsAndInsight) => (
             <ResourceItem
-              key={effortsAndInitiative.title}
-              title={effortsAndInitiative.title}
-              description={effortsAndInitiative.description}
-              link={effortsAndInitiative.link}
+              key={effortsAndInsight.title}
+              title={effortsAndInsight.title}
+              description={effortsAndInsight.description}
             />
           ))}
         </ul>
       </section>
-      <section id='#call-to-action-for-policy-changes'>
+
+      <section id='#legislative-items'>
+        <HetOverline text='Call to Action' />
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Call to Action for Policy Changes
         </h3>
@@ -43,10 +45,9 @@ export default function ReformOpportunitiesTab() {
         <ul className='list-none my-4'>
           {legislativeActions.map((legislativeAction) => (
             <ResourceItem
-              key={legislativeAction.title}
-              title={legislativeAction.title}
-              description={legislativeAction.description}
-              link={legislativeAction.link}
+              key={legislativeAction.question}
+              title={legislativeAction.question}
+              description={legislativeAction.answer}
             />
           ))}
         </ul>
