@@ -117,7 +117,9 @@ class PhrmaBrfssProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(breakdowns)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const phrma = await getDataManager().loadDataset(specificDatasetId)
     let df = phrma.toDataFrame()
