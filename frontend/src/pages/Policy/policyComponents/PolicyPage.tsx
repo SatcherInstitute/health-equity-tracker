@@ -31,7 +31,7 @@ export default function PolicyPage() {
       <div className='smMd:m-5 max-w-lgXl w-svw flex flex-col grow smMd:flex-row'>
         <h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
-        <div className='min-w-fit w-svw max-w-lgXl'>
+        <div className='min-w-fit w-fit max-w-screen'>
           <PolicyCardMenu />
           <PolicyCardMenuMobile />
         </div>
