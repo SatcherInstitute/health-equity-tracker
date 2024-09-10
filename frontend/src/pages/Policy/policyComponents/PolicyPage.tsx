@@ -25,10 +25,10 @@ export default function PolicyPage() {
 				</h1>
 			)}
     <section
-      className='flex w-full justify-center text-left max-w-screen'
+      className='flex w-svw justify-center text-left max-w-lgXl'
       aria-labelledby='page-heading'
     >
-      <div className='smMd:m-5 max-w-lgXl flex flex-col grow smMd:flex-row'>
+      <div className='smMd:m-5 max-w-lgXl w-svw flex flex-col grow smMd:flex-row'>
         <h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
         <div className='min-w-fit w-fit max-w-screen'>
@@ -56,7 +56,7 @@ export default function PolicyPage() {
             })}
           </div>
 
-          <section className='flex flex-col justify-end grow mx-8 lg:mx-12 my-0'>
+          <section className='flex flex-col justify-end mx-8 md:mx-12 my-0'>
           {activeRoute?.visible && (
 								<h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-lhNormal'>
 									{activeRoute?.label}

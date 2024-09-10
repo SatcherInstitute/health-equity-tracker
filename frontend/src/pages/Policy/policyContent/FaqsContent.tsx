@@ -43,18 +43,20 @@ export const policyFaqs = [
     answer: (
       <>
         The dataset includes data on gun-related fatalities. Fatal injuries are
-        further categorized into homicide, legal intervention, and suicide.
+        further categorized into
+        <ol>
+          <li>Gun Deaths (Children, 0-17)</li>
+          <li>Gun Deaths (Young adults, 18-25)</li>
+          <li>Gun Homicides (Black Men-specific)</li>
+          <li>Gun Homicides</li>
+          <li>Gun Suicides</li>
+        </ol>
       </>
     ),
   },
   {
     question: 'At what geographic levels is the gun violence data available?',
-    answer: (
-      <>
-        <strong>Fatal Injuries:</strong> Data is available at both national and
-        state levels.
-      </>
-    ),
+    answer: <>Data is available at both national and state levels.</>,
   },
   {
     question: 'What time period does the data cover?',
@@ -69,25 +71,97 @@ export const policyFaqs = [
     question: 'What demographic details can users filter by in the dataset?',
     answer: (
       <>
-        <p className='mb-0 pb-0'>Users can filter the data by:</p> <br />
-        <br />
-        <ol className='py-0 my-0'>
-          <li className='py-0 my-0'>
-            <strong>Age Groups:</strong> Available in 5-year increments and
-            single-year groups (ranging from 0 to 85+ years, including unknown
-            ages).
-          </li>
-        </ol>
-        <br />
-        <strong>Sex:</strong> Data can be filtered for male and female
-        demographics.
-        <br />
-        <strong>Race and Ethnicity (for fatal injuries only):</strong> Options
-        include White, Black, American Indian/Alaska Native, Asian, Hawaiian
-        Native/Pacific Islander, more than one race, unknown race, and Hispanic.
-        <br />
-        <strong>Urbanicity for Black men Homicides:</strong> Options include
-        Metro and Non-Metro.
+        <p className='mb-0 pb-0'>Users can filter the data by:</p>
+
+        <p>
+          <strong>Gun Deaths (Children, 0-17):</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          <strong>Gun Deaths (Young Adults, 18-25):</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          <strong>Gun Homicides (Black Men-specific):</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> Yes
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          <strong>Gun Homicides:</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
+        </p>
+
+        <p>
+          <strong>Gun Suicides:</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
+        </p>
       </>
     ),
   },
@@ -95,9 +169,13 @@ export const policyFaqs = [
     question: 'How is youth-related violence addressed in the data?',
     answer: (
       <>
-        Youth-related violence is highlighted by categorizing data into specific
-        age groups relevant to youth (0 - 25 years) and race groups, helping
-        users focus on incidents involving younger populations.
+        Our dataset on youth-related gun violence specifically addresses gun
+        deaths among two age groups: children (0-17) and young adults (18-25).
+        For both age groups, the data is broken down by race and ethnicity,
+        providing insights into the racial and ethnic disparities that may exist
+        in gun-related deaths. However, the dataset does not currently include
+        other potential breakdowns, such as gender, socioeconomic status, or
+        geographic location.”
       </>
     ),
   },
