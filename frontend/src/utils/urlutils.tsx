@@ -124,8 +124,6 @@ export const NAVIGATION_STRUCTURE = {
 }
 
 export function useSearchParams() {
-  // Note: URLSearchParams doesn't support IE, if we keep this code and we want
-  // to support IE we'll need to change it.
   const params = new URLSearchParams(useLocation().search)
   return Object.fromEntries(params.entries())
 }
