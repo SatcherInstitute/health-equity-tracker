@@ -271,9 +271,13 @@ export function getAllDemographicOptions(
   }
 
   // remove duplicates from combined array of above additions
-  const disabledDemographicOptions = Array.from(
-    new Set(disabledDemographicOptionsWithRepeats),
-  )
+  const disabledDemographicOptions: string[][] = []
+  for (const [option, reason] of disabledDemographicOptionsWithRepeats) {
+    const currentOptions = disabledDemographicOptions.map(([option]) => option)
+    if (!currentOptions.includes(option)) {
+      disabledDemographicOptions.push([option, reason])
+    }
+  }
 
   return {
     enabledDemographicOptionsMap,
