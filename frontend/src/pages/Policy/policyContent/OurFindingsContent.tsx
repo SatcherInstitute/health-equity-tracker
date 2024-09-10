@@ -14,25 +14,25 @@ import { HET_URL } from '../../../utils/internalRoutes'
 const gunDeathsBlackMenConfig = {
   fips: new Fips('13'),
   dataTypeConfig: METRIC_CONFIG['gun_deaths_black_men'][0],
-  className: 'shadow-less py-0 mt-0 mb-4',
+  className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 const gunViolenceYouthConfig = {
   fips: new Fips('13'),
   dataTypeConfig: METRIC_CONFIG['gun_violence_youth'][0],
-  className: 'shadow-less py-0 mt-0 mb-4',
+  className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 const gunViolenceHomicideConfig = {
   fips: new Fips('13'),
   dataTypeConfig: METRIC_CONFIG['gun_violence'][0],
-  className: 'shadow-less py-0 mt-0 mb-4',
+  className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 const gunViolenceSuicideConfig = {
   fips: new Fips('13'),
   dataTypeConfig: METRIC_CONFIG['gun_violence'][1],
-  className: 'shadow-less py-0 mt-0 mb-4',
+  className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 export const youthFatalitiesFacts = [
