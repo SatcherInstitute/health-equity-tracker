@@ -1,5 +1,4 @@
 import { lazy, useEffect, useState } from 'react'
-import { Link, Route, Switch, useLocation } from 'react-router-dom'
 import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
@@ -7,6 +6,7 @@ import {
 import { Tab, Tabs } from '@mui/material'
 import ShareYourStory from './ShareYourStory'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { Link, Route, Routes, useLocation } from 'react-router-dom-v5-compat'
 
 const AllPosts = lazy(async () => await import('./AllPosts'))
 const SinglePost = lazy(async () => await import('./SinglePost'))
@@ -83,35 +83,33 @@ export default function NewsPage(props: NewsPageProps) {
     <section>
       <div className='m-auto max-w-lgXl'>
         <div className='flex-col'>
-          <Route path='/'>
-            <Tabs
-              {...tabLayout}
-              centered={true}
-              indicatorColor='primary'
-              textColor='primary'
-              value={location.pathname}
-            >
-              <Tab
-                value={NEWS_PAGE_LINK}
-                label={`${isSingleArticle ? 'Back to ' : ''}All Articles`}
-                component={Link}
-                to={NEWS_PAGE_LINK}
-              />
-              {isSingleArticle && (
-                <Tab value={location.pathname} label='Current Article' />
-              )}
-              <Tab
-                value={SHARE_YOUR_STORY_TAB_LINK}
-                label='Share Your Story'
-                component={Link}
-                to={SHARE_YOUR_STORY_TAB_LINK}
-              />
-            </Tabs>
-          </Route>
+          <Tabs
+            {...tabLayout}
+            centered={true}
+            indicatorColor='primary'
+            textColor='primary'
+            value={location.pathname}
+          >
+            <Tab
+              value={NEWS_PAGE_LINK}
+              label={`${isSingleArticle ? 'Back to ' : ''}All Articles`}
+              component={Link}
+              to={NEWS_PAGE_LINK}
+            />
+            {isSingleArticle && (
+              <Tab value={location.pathname} label='Current Article' />
+            )}
+            <Tab
+              value={SHARE_YOUR_STORY_TAB_LINK}
+              label='Share Your Story'
+              component={Link}
+              to={SHARE_YOUR_STORY_TAB_LINK}
+            />
+          </Tabs>
 
-          <Switch>
+          <Routes>
             <Route path={`${NEWS_PAGE_LINK}/:slug`}>
-              <SinglePost isMobile={props.isMobile} />
+              <SinglePost />
             </Route>
             <Route path={`${NEWS_PAGE_LINK}/`}>
               <AllPosts />
@@ -119,7 +117,7 @@ export default function NewsPage(props: NewsPageProps) {
             <Route path={`${SHARE_YOUR_STORY_TAB_LINK}/`}>
               <ShareYourStory />
             </Route>
-          </Switch>
+          </Routes>
         </div>
       </div>
     </section>

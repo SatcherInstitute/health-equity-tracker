@@ -1,4 +1,3 @@
-import { Link, useLocation } from 'react-router-dom'
 import { getLogger } from './globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -18,6 +17,7 @@ import {
 import type { ReactNode } from 'react'
 import { urlMap } from './externalUrls'
 import type { DataTypeId } from '../data/config/MetricConfigTypes'
+import { Link, useLocation } from 'react-router-dom-v5-compat'
 
 // OLDER HANDLING PARAMS
 
