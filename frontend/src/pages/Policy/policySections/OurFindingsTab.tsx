@@ -8,6 +8,37 @@ import {
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
+
+interface FindingFactsProps {
+  findings: Array<{
+    sectionTitle: string
+    facts: Array<{
+      content: string
+      customCard?: JSX.Element
+      report: string
+    }>
+  }>
+}
+
+const findingsData = [
+  {
+    sectionTitle: "Georgia's Youth Fatality Rates",
+    facts: youthFatalitiesFacts
+  },
+  {
+    sectionTitle: "Georgia's Homicide Rates",
+    facts: homicideFacts
+  },
+  {
+    sectionTitle: "Georgia's Suicide Rates",
+    facts: suicideFacts
+  },
+  {
+    sectionTitle: "Georgia's Homicide Rates Among Black Men",
+    facts: urbanicityFacts
+  }
+];
+
 export default function OurFindingsTab() {
   return (
     <>

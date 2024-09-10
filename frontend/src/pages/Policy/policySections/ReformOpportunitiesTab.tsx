@@ -4,7 +4,6 @@ import {
   effortsAndInitiatives,
   legislativeActions,
 } from '../policyContent/ReformOpportunitiesContent'
-import { OpenInNew } from '@mui/icons-material'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 
 export default function ReformOpportunitiesTab() {
@@ -26,9 +25,9 @@ export default function ReformOpportunitiesTab() {
         </h3>
 
         <ul className='list-none my-4'>
-          {effortsAndInitiatives.map((effortsAndInitiative, index) => (
+          {effortsAndInitiatives.map((effortsAndInitiative) => (
             <ResourceItem
-              key={index}
+              key={effortsAndInitiative.title}
               title={effortsAndInitiative.title}
               description={effortsAndInitiative.description}
               link={effortsAndInitiative.link}
@@ -42,9 +41,9 @@ export default function ReformOpportunitiesTab() {
         </h3>
 
         <ul className='list-none my-4'>
-          {legislativeActions.map((legislativeAction, index) => (
+          {legislativeActions.map((legislativeAction) => (
             <ResourceItem
-              key={index}
+              key={legislativeAction.title}
               title={legislativeAction.title}
               description={legislativeAction.description}
               link={legislativeAction.link}

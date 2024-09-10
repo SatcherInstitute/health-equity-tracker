@@ -5,7 +5,7 @@ interface FactCardProps {
   className?: string
 }
 
-const FactCard: React.FC<FactCardProps> = ({ content, className = '' }) => {
+const FactCard: React.FC<FactCardProps> = ({ content }) => {
   return (
     <li className='rounded-md p-4 h-full'>
       <p className='text-center content-center'>{content}</p>
