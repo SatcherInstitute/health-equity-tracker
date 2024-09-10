@@ -4,7 +4,13 @@ export default function GunViolencePolicyHomeLink() {
 	return (
 		<>
 			<section className='relative'>
+<<<<<<< HEAD
 				<HetOverline text='In Focus' className='text-center'/>
+=======
+				<p className='mb-3 mt-0 text-center font-roboto text-smallest font-semibold uppercase text-black'>
+					In Focus
+				</p>
+>>>>>>> 8c0462e4 (Data collection tab and Our Findings tab refinements (#3638))
 				<div className='flex w-full flex-col justify-center items-center'>
 					<h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
 					Understanding the Crisis of Gun Violence in Atlanta

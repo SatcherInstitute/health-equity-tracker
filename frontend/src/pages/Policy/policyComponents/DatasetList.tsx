@@ -1,4 +1,4 @@
-import React from 'react'
+import type React from 'react'
 import { CheckRounded, BlockRounded } from '@mui/icons-material'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
@@ -17,14 +17,14 @@ const DatasetList: React.FC<DatasetListProps> = ({
 }) => {
   return (
       <div className='grid grid-cols-2 md:grid-cols-3'>
-        {datasets.map((dataset, index) => (
-          <div key={index} className='m-1'>
+        {datasets.map((dataset) => (
+          <div key={dataset.datasetName} className='m-1'>
             <p className='text-smallest mb-0'>
             <HetTerm>{dataset.datasetName}</HetTerm>:
             </p>
             <ul className='ml-2 list-none p-0 text-smallest'>
-              {dataset.items.map((item, itemIndex) => (
-                <li key={itemIndex} className='flex flex-row align-center'>
+              {dataset.items.map((item) => (
+                <li key={item.label} className='flex flex-row align-center'>
                   {item.included ? (
                     <CheckRounded className='text-text text-altGreen' />
                   ) : (
