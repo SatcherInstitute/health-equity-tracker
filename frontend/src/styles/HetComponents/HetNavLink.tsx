@@ -33,7 +33,7 @@ export default function HetNavLink({
       className={`no-underline cursor-pointer flex items-center ${linkClassName ?? ''}`}
     >
       <span
-        className={`mx-6 text-altBlack hover:text-altGreen w-auto font-sansTitle text-small font-medium text-navlinkColor ${className ?? ''}`}
+        className={`hover:text-altGreen w-auto font-sansTitle text-small font-medium text-navlinkColor ${className ?? 'mx-6'}`}
       >
         {children}
       </span>
