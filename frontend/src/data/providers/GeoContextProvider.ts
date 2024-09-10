@@ -24,7 +24,9 @@ class GeoContextProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(breakdowns)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
 
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const geoContext = await getDataManager().loadDataset(specificDatasetId)

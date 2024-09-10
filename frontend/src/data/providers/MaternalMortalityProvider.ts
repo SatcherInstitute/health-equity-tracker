@@ -60,7 +60,9 @@ class MaternalMortalityProvider extends VariableProvider {
         undefined,
         metricQuery.timeView,
       )
-      if (!datasetId) throw Error('DatasetId is undefined')
+      if (!datasetId) {
+        return new MetricQueryResponse([], [])
+      }
       const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
       const maternalMortalityDataset =
         await getDataManager().loadDataset(specificDatasetId)
