@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
-import { BlockRounded, CheckRounded } from '@mui/icons-material'
-import { Tooltip, Typography } from '@mui/material'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import DatasetList from '../policyComponents/DatasetList'
+import { datasets, gvDefinitions } from '../policyContent/DataCollectionContent'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 
 export default function DataCollectionTab() {
   return (
@@ -13,10 +12,8 @@ export default function DataCollectionTab() {
       </Helmet>
       <h2 className='sr-only'>Data Collection</h2>
       <section id='#source-profile'>
-        <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8'>
-          <p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-            SOURCE PROFILE
-          </p>
+        <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8 mt-4'>
+          <HetOverline className='my-0' text='Source Profile' />
           <h3 className='my-0 text-title font-medium'>
             CDC's WISQARS™(Web-based Injury Statistics Query and Reporting
             System)
@@ -62,22 +59,10 @@ export default function DataCollectionTab() {
       </section>
       <section id='#key-metrics'>
         <div className='mb-0'>
-          <p className='my-0 text-left font-sansTitle text-smallest font-extrabold uppercase text-black tracking-widest'>
-            OUR METHODS
-          </p>
-          <Tooltip
-            placement='bottom-start'
-            title={
-              <Typography sx={{ fontSize: '14px', fontWeight: '600' }}>
-                Metrics are quantifiable indicators used to measure and analyze
-                various aspects of public health data.
-              </Typography>
-            }
-          >
-            <h4 className='my-0 text-title font-medium text-altGreen underline decoration-dotted inline'>
-              Key Metrics
-            </h4>
-          </Tooltip>
+          <HetOverline text='Our Methods' />
+          <h4 className='my-0 text-title font-medium text-altGreen'>
+            Key Metrics
+          </h4>
         </div>
         <p>
           Our key metrics encompass data on fatal gun-related incidents, with a
@@ -100,83 +85,11 @@ export default function DataCollectionTab() {
         </p>
       </section>
 
-      <section id='#available-data'>
-        <h3 className='my-0 text-title font-medium text-altGreen'>
-          Available Data
-        </h3>
-        <div className='grid grid-cols-1 md:grid-cols-2'>
-          <div>
-            <p className='text-smallest'>
-              What’s included in our <HetTerm>youth (0-17)</HetTerm> dataset:
-            </p>
-            <ul className='list-none p-0 text-smallest'>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-                <p className='my-0 ml-2'>National- and state-level data</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-
-                <p className='my-0 ml-2'>Breakdowns by race/ethnicity</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <BlockRounded className='text-text text-redOrange' />
-
-                <p className='my-0 ml-2'>Breakdowns by age</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <BlockRounded className='text-text text-redOrange' />
-
-                <p className='my-0 ml-2'>Breakdowns by sex</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <BlockRounded className='text-text text-redOrange' />
-
-                <p className='my-0 ml-2'>Breakdowns by cause of death</p>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <p className='text-smallest'>
-              What’s included in our <HetTerm>general population</HetTerm>{' '}
-              dataset:
-            </p>
-            <ul className='list-none p-0 text-smallest'>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-                <p className='my-0 ml-2'>National- and state-level data</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-
-                <p className='my-0 ml-2'>Breakdowns by race/ethnicity</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-
-                <p className='my-0 ml-2'>Breakdowns by age</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-
-                <p className='my-0 ml-2'>Breakdowns by sex</p>
-              </li>
-              <li className='flex flex-row align-center'>
-                <CheckRounded className='text-text text-altGreen' />
-
-                <p className='my-0 ml-2'>Breakdowns by cause of death</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
       <section id='#fatality-definitions'>
         <h3 className='my-4 text-title font-medium text-altGreen'>
           Fatality Definitions
         </h3>
         <StripedTable
-          id=''
           applyThickBorder={false}
           columns={[
             { header: 'Topic', accessor: 'topic' },
@@ -185,24 +98,19 @@ export default function DataCollectionTab() {
               accessor: 'measurementDefinition',
             },
           ]}
-          rows={[
-            {
-              topic: 'Gun deaths (youth)',
-              measurementDefinition:
-                'Deaths of individuals under the age of 18 caused by firearms.',
-            },
-            {
-              topic: 'Gun homicides',
-              measurementDefinition:
-                'Deaths caused by firearms used with the intent to harm others.',
-            },
-            {
-              topic: 'Gun suicides',
-              measurementDefinition:
-                'Deaths resulting from individuals using firearms to inflict self-harm.',
-            },
-          ]}
+          rows={gvDefinitions}
         />
+      </section>
+      <section id='#available-data'>
+        <h3 className='mt-6 mb-2 text-title font-medium text-altGreen'>
+          Available Data
+        </h3>
+        <p className='mb-0'>
+          Currently, all of our gun violence datasets include national- and
+          state-level data. Here is a brief overview of what is included in our
+          data collection.
+        </p>
+        <DatasetList datasets={datasets} />
       </section>
     </>
   )

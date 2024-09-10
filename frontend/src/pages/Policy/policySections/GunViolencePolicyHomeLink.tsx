@@ -1,14 +1,14 @@
 export default function GunViolencePolicyHomeLink() {
-  return (
-    <>
-      <section className='relative'>
-        <p className='mb-3 mt-0 text-center font-roboto text-smallest font-semibold uppercase text-black'>
-          In Focus
-        </p>
-        <div className='flex w-full flex-col justify-center items-center'>
-          <h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
-            Understanding the Crisis of Gun Violence in Atlanta
-          </h2>
+	return (
+		<>
+			<section className='relative'>
+				<p className='mb-3 mt-0 text-center font-roboto text-smallest font-semibold uppercase text-black'>
+					In Focus
+				</p>
+				<div className='flex w-full flex-col justify-center items-center'>
+					<h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
+					Understanding the Crisis of Gun Violence in Atlanta
+					</h2>
 
           <p className='text-center my-4 text-title lg:px-32 px-8 lg:py-8 py-4'>
             This pervasive public health challenge harms communities nationwide,

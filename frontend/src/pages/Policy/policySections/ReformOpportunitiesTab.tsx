@@ -4,7 +4,6 @@ import {
   effortsAndInitiatives,
   legislativeActions,
 } from '../policyContent/ReformOpportunitiesContent'
-import { OpenInNew } from '@mui/icons-material'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 
 export default function ReformOpportunitiesTab() {
@@ -24,35 +23,33 @@ export default function ReformOpportunitiesTab() {
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Reform Opportunities at the County and City Levels
         </h3>
-        <p>
-          <ul className='list-none'>
-            {effortsAndInitiatives.map((effortsAndInitiative, index) => (
-              <ResourceItem
-                key={index}
-                title={effortsAndInitiative.title}
-                description={effortsAndInitiative.description}
-                link={effortsAndInitiative.link}
-              />
-            ))}
-          </ul>
-        </p>
+
+        <ul className='list-none my-4'>
+          {effortsAndInitiatives.map((effortsAndInitiative) => (
+            <ResourceItem
+              key={effortsAndInitiative.title}
+              title={effortsAndInitiative.title}
+              description={effortsAndInitiative.description}
+              link={effortsAndInitiative.link}
+            />
+          ))}
+        </ul>
       </section>
       <section id='#call-to-action-for-policy-changes'>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Call to Action for Policy Changes
         </h3>
-        <p>
-          <ul className='list-none'>
-            {legislativeActions.map((legislativeAction, index) => (
-              <ResourceItem
-                key={index}
-                title={legislativeAction.title}
-                description={legislativeAction.description}
-                link={legislativeAction.link}
-              />
-            ))}
-          </ul>
-        </p>
+
+        <ul className='list-none my-4'>
+          {legislativeActions.map((legislativeAction) => (
+            <ResourceItem
+              key={legislativeAction.title}
+              title={legislativeAction.title}
+              description={legislativeAction.description}
+              link={legislativeAction.link}
+            />
+          ))}
+        </ul>
 
         <HetTextArrowLink
           link={'https://www.usa.gov/elected-officials'}
