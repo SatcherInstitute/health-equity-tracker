@@ -462,10 +462,7 @@ export function getCawpMapGroupNumeratorLabel(
 ) {
   const cases = countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
   if (activeDemographicGroup === ALL) return `Women ${cases} overall`
-  return (
-    `${getWomenRaceLabel(activeDemographicGroup)} ${cases}` ??
-    'for selected group'
-  )
+  return `${getWomenRaceLabel(activeDemographicGroup)} ${cases}`
 }
 
 export function getCawpMapGroupDenominatorLabel(countColsMap: CountColsMap) {
