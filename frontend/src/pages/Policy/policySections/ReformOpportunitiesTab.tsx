@@ -26,7 +26,7 @@ export default function ReformOpportunitiesTab() {
       </p>
 
       <section id='#where-to-start'>
-        <HetOverline text='Where to Start'/>
+        <HetOverline text='Where to Start' />
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Insights from the Advocacy Community
         </h3>
@@ -60,22 +60,24 @@ export default function ReformOpportunitiesTab() {
       </section>
 
       <section id='#legislative-items'>
-<HetOverline text='
+        <HetOverline
+          text='
 
           Call to Action
-'/>
+'
+        />
 
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Legislative Items to Consider for Policy Changes
         </h3>
-        <HetOverline text={`SOURCE: RAND Foundation `} className='inline'/>
-          
-          <a href='https://www.rand.org/research/gun-policy.html'>
-            <span>
-              [<FormatQuote className='text-text'></FormatQuote>]
-            </span>
-          </a>
-        
+        <HetOverline text={`SOURCE: RAND Foundation `} className='inline' />
+
+        <a href='https://www.rand.org/research/gun-policy.html'>
+          <span>
+            [<FormatQuote className='text-text'></FormatQuote>]
+          </span>
+        </a>
+
         <HetAccordion
           accordionData={legislativeActions}
           divClassName='py-0 my-0'
