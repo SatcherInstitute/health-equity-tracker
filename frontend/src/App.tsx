@@ -21,6 +21,7 @@ import {
   Switch,
   useLocation,
 } from 'react-router-dom'
+import { CompatRouter } from 'react-router-dom-v5-compat'
 import { autoInitGlobals } from './utils/globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -51,8 +52,6 @@ import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
 import HetAppBar from './styles/HetComponents/HetAppBar'
-import { HashLink } from 'react-router-hash-link'
-import HetNotice from './styles/HetComponents/HetNotice'
 import Banner from './reports/ui/Banner'
 import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
 
@@ -96,97 +95,99 @@ export default function App() {
 
             <div className='h-full relative'>
               <Router>
-                <Banner />
-                <HetAppBar />
-                <ScrollToTop />
-                <Suspense
-                  fallback={
-                    <main className='min-h-screen'>
-                      <CircularProgress
-                        className='mt-10'
-                        aria-label='loading'
-                      />
+                <CompatRouter>
+                  <Banner />
+                  <HetAppBar />
+                  <ScrollToTop />
+                  <Suspense
+                    fallback={
+                      <main className='min-h-screen'>
+                        <CircularProgress
+                          className='mt-10'
+                          aria-label='loading'
+                        />
+                      </main>
+                    }
+                  >
+                    <main id='main' className='scroll-smooth'>
+                      <Switch>
+                        <Route path={ABOUT_US_PAGE_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={OLD_OURTEAM_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={OLD_CONTACT_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={DATA_CATALOG_PAGE_LINK}>
+                          <DataCatalogPage />
+                        </Route>
+
+                        <Route path={METHODOLOGY_PAGE_LINK}>
+                          <MethodologyPage />
+                        </Route>
+
+                        <Route path={EXPLORE_DATA_PAGE_LINK}>
+                          <ErrorBoundaryDropParams
+                            fallback={<ExploreDataFallback />}
+                          >
+                            <ExploreDataPage isMobile={isSm} />
+                          </ErrorBoundaryDropParams>
+                        </Route>
+
+                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={FAQ_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={NEWS_PAGE_LINK}>
+                          <NewsPage isMobile={isSm} />
+                        </Route>
+
+                        <Route path={SHARE_YOUR_STORY_TAB_LINK}>
+                          <NewsPage isMobile={isSm} />
+                        </Route>
+
+                        <Route path={GUN_VIOLENCE_POLICY}>
+                          <PolicyPage />
+                        </Route>
+
+                        <Route path={'/policy'}>
+                          <Redirect to={GUN_VIOLENCE_POLICY} />
+                        </Route>
+
+                        <Route path={TERMS_OF_USE_PAGE_LINK}>
+                          <TermsOfUsePage />
+                        </Route>
+
+                        {/* redirect the old URL for possible outside links */}
+                        <Route path={'/termsofservice'}>
+                          <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                        </Route>
+
+                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
+                          <Redirect to={AGE_ADJUSTMENT_LINK} />
+                        </Route>
+
+                        <Route path='/'>
+                          <LandingPage />
+                        </Route>
+
+                        {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
+                        <Route>
+                          <NotFoundPage />
+                        </Route>
+                      </Switch>
                     </main>
-                  }
-                >
-                  <main id='main' className='scroll-smooth'>
-                    <Switch>
-                      <Route path={ABOUT_US_PAGE_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={OLD_OURTEAM_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={OLD_CONTACT_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={DATA_CATALOG_PAGE_LINK}>
-                        <DataCatalogPage />
-                      </Route>
-
-                      <Route path={METHODOLOGY_PAGE_LINK}>
-                        <MethodologyPage />
-                      </Route>
-
-                      <Route path={EXPLORE_DATA_PAGE_LINK}>
-                        <ErrorBoundaryDropParams
-                          fallback={<ExploreDataFallback />}
-                        >
-                          <ExploreDataPage isMobile={isSm} />
-                        </ErrorBoundaryDropParams>
-                      </Route>
-
-                      <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={FAQ_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={NEWS_PAGE_LINK}>
-                        <NewsPage isMobile={isSm} />
-                      </Route>
-
-                      <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                        <NewsPage isMobile={isSm} />
-                      </Route>
-
-                      <Route path={GUN_VIOLENCE_POLICY}>
-                        <PolicyPage />
-                      </Route>
-
-                      <Route path={'/policy'}>
-                        <Redirect to={GUN_VIOLENCE_POLICY} />
-                      </Route>
-
-                      <Route path={TERMS_OF_USE_PAGE_LINK}>
-                        <TermsOfUsePage />
-                      </Route>
-
-                      {/* redirect the old URL for possible outside links */}
-                      <Route path={'/termsofservice'}>
-                        <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                      </Route>
-
-                      <Route path={OLD_AGE_ADJUSTMENT_LINK}>
-                        <Redirect to={AGE_ADJUSTMENT_LINK} />
-                      </Route>
-
-                      <Route path='/'>
-                        <LandingPage />
-                      </Route>
-
-                      {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                      <Route>
-                        <NotFoundPage />
-                      </Route>
-                    </Switch>
-                  </main>
-                </Suspense>
+                  </Suspense>
+                </CompatRouter>
               </Router>
             </div>
             <footer>
