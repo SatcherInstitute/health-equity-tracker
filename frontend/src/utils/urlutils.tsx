@@ -8,6 +8,7 @@ import {
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   FAQ_TAB_LINK,
+  GUN_VIOLENCE_POLICY
 } from './internalRoutes'
 import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
@@ -105,10 +106,10 @@ export const NAVIGATION_STRUCTURE = {
     },
   },
   exploreTheData: {
-    label: 'Explore the Data',
+    label: 'Insight Hub',
     pages: {
-      [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
-      [DATA_CATALOG_PAGE_LINK]: 'Data Downloads',
+      [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
+      [DATA_CATALOG_PAGE_LINK]: 'Source Files',
       [METHODOLOGY_PAGE_LINK]: 'Methodology',
     },
   },
@@ -281,7 +282,6 @@ Dumps a string of HTML into a div (or string with optional boolean)
 export function getHtml(item: any, asString?: boolean) {
   // if div is needed
   if (!asString) {
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless Wordpress
     return <div dangerouslySetInnerHTML={{ __html: item || '' }}></div>
   }
 
