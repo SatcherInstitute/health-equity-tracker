@@ -106,7 +106,7 @@ export const NAVIGATION_STRUCTURE = {
     },
   },
   exploreTheData: {
-    label: 'Insight Hub',
+    label: 'Insights Hub',
     pages: {
       [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
       [DATA_CATALOG_PAGE_LINK]: 'Source Files',
@@ -282,6 +282,7 @@ Dumps a string of HTML into a div (or string with optional boolean)
 export function getHtml(item: any, asString?: boolean) {
   // if div is needed
   if (!asString) {
+    // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless Wordpress
     return <div dangerouslySetInnerHTML={{ __html: item || '' }}></div>
   }
 
