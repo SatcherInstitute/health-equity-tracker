@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
-import { FormatQuote } from '@mui/icons-material'
 import { gvaFacts, rocketFoundationFacts } from '../policyContent/CrisisOverviewContent'
 import FactCard from '../policyComponents/FactCard'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
 
 export default function CrisisOverviewTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -34,12 +34,7 @@ export default function CrisisOverviewTab() {
         <section>
           <div className='mb-0'>
             <HetOverline className='mb-0' text='By the Numbers' />
-            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} />
-            <a href='https://www.rocket-foundation.org/'>
-              <span>
-                [<FormatQuote className='text-text'></FormatQuote>]
-              </span>
-            </a>
+            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href='https://www.rocket-foundation.org/' />
           </div>
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
@@ -60,11 +55,8 @@ export default function CrisisOverviewTab() {
           </ul>
 
           <HetOverline className='mt-0 inline' text={`SOURCE: Gun Violence Archive `} />
-          <a href='https://www.gunviolencearchive.org/'>
-            <span>
-              [<FormatQuote className='text-text'></FormatQuote>]
-            </span>
-          </a>
+          
+          <HetQuoteLink href='https://www.gunviolencearchive.org/' />
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {gvaFacts.map((gvaFact, index) => {

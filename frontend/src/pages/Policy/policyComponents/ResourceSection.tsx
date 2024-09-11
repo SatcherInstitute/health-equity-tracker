@@ -22,8 +22,9 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ id, icon, title, desc
       </div>
       <p>{description}</p>
       <ul className='list-none'>
-        {resources.map((resource, index) => (
-          <ResourceItem key={index} title={resource.title} description={resource.description} link={resource.link} />
+        {resources.map((resource) => (
+          <ResourceItem key={resource.title} title={resource.title} description={resource.description} link={resource.link} />
+          
         ))}
       </ul>
     </section>

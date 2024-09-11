@@ -6,9 +6,9 @@ import {
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import CardLeftIcon from '../policyComponents/CardLeftIcon'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
-import { FormatQuote } from '@mui/icons-material'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
 
 export default function ReformOpportunitiesTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -71,12 +71,7 @@ export default function ReformOpportunitiesTab() {
           Legislative Items to Consider for Policy Changes
         </h3>
         <HetOverline text={`SOURCE: RAND Foundation `} className='inline' />
-
-        <a href='https://www.rand.org/research/gun-policy.html'>
-          <span>
-            [<FormatQuote className='text-text'></FormatQuote>]
-          </span>
-        </a>
+        <HetQuoteLink href='https://www.rand.org/research/gun-policy.html'/>
 
         <HetAccordion
           accordionData={legislativeActions}

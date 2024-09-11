@@ -8,7 +8,7 @@ export const economicResources = [
 				indirectly help in reducing stressors that can lead to violence.
 			</>
 		),
-		
+		link: 'https://www.acfb.org/'
 	},
 	{
 		title: 'WorkSource Atlanta',
@@ -19,6 +19,7 @@ export const economicResources = [
 				economic disparities.
 			</>
 		),
+		link: 'https://www.worksourceatlanta.org/'
 		
 	},
 ]
