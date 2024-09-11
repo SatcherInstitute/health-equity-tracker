@@ -47,7 +47,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#introduction',
       },
     ],
-    visible: false,
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -76,7 +76,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#available-data',
       },
     ],
-    visible: false,
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -101,7 +101,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#ga-homicides-urbanicity',
       },
     ],
-    visible: false,
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -134,7 +134,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#community-engagement',
       },
     ],
-    visible: false,
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -151,7 +151,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#legislative-items',
       },
     ],
-    visible: false,
+    visible: true,
   },
   {
     isTopLevel: true,
@@ -192,7 +192,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#breakdown-summary-data-table',
       },
     ],
-    visible: false,
+    visible: true,
   },
   {
     isTopLevel: true,
