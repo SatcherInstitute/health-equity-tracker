@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom-v5-compat'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { EXPLORE_DATA_PAGE_LINK } from '../internalRoutes'
 import {
@@ -27,7 +27,7 @@ const dropdownIdSwaps: Record<string, DataTypeId> = {
 }
 
 export default function useDeprecatedParamRedirects() {
-  const history = useHistory()
+  const navigate = useNavigate()
   const params = useSearchParams()
   const mlsParam = params[MADLIB_SELECTIONS_PARAM]
   const extremesParam = params[EXTREMES_1_PARAM_KEY]
@@ -42,14 +42,14 @@ export default function useDeprecatedParamRedirects() {
         dropdownVarId1,
         dropdownIdSwaps[dropdownVarId1],
       )
-      history.push(
+      navigate(
         `${EXPLORE_DATA_PAGE_LINK}?${MADLIB_SELECTIONS_PARAM}=${newMlsParam}${extremesParam ? `&${extremesParam}` : ''}`,
       )
     } else if (
       // otherwise handle other malformed ids in param and redirect to helper box
       !Object.keys(METRIC_CONFIG).includes(dropdownVarId1)
     ) {
-      history.push(`${EXPLORE_DATA_PAGE_LINK}`)
+      navigate(`${EXPLORE_DATA_PAGE_LINK}`)
     }
   }
 

@@ -22,7 +22,7 @@ import {
 import MissingDataAlert from './ui/MissingDataAlert'
 import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
 import UnknownsAlert from './ui/UnknownsAlert'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom-v5-compat'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'

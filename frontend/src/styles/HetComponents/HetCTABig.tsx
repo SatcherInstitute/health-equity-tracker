@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import type { ReactNode } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom-v5-compat'
 
 interface HetCTABigProps {
   children: ReactNode
@@ -10,10 +10,10 @@ interface HetCTABigProps {
 }
 
 export default function HetCTABig(props: HetCTABigProps) {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   let handleClick = () => {
-    history.push(props.href)
+    navigate(props.href)
   }
   let optionalMailTo = undefined
   if (props.href.startsWith('mailto:')) {

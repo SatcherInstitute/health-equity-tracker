@@ -5,7 +5,7 @@ import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
 import { render } from '@testing-library/react'
 import { act } from 'react'
 import { test, expect } from 'vitest'
-import { Router } from 'react-router-dom'
+import { Router } from 'react-router-dom-v5-compat'
 import { createMemoryHistory } from 'history'
 import { CompatRouter } from 'react-router-dom-v5-compat'
 

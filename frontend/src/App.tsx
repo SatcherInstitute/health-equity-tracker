@@ -14,14 +14,6 @@ import { CircularProgress, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 
 import React, { Suspense, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-  useLocation,
-} from 'react-router-dom'
-import { CompatRouter } from 'react-router-dom-v5-compat'
 import { autoInitGlobals } from './utils/globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -41,6 +33,14 @@ import {
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
+import { BrowserRouter as Router } from 'react-router-dom'
+import {
+  CompatRoute,
+  CompatRouter,
+  Navigate,
+  Routes,
+  useLocation,
+} from 'react-router-dom-v5-compat'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -110,81 +110,80 @@ export default function App() {
                     }
                   >
                     <main id='main' className='scroll-smooth'>
-                      <Switch>
-                        <Route path={ABOUT_US_PAGE_LINK}>
-                          <AboutUsPage />
-                        </Route>
+                      <Routes>
+                        <CompatRoute
+                          path={ABOUT_US_PAGE_LINK}
+                          element={<AboutUsPage />}
+                        />
+                        <CompatRoute
+                          path={OLD_OURTEAM_LINK}
+                          element={<AboutUsPage />}
+                        />
+                        <CompatRoute
+                          path={OLD_CONTACT_LINK}
+                          element={<AboutUsPage />}
+                        />
+                        <CompatRoute
+                          path={DATA_CATALOG_PAGE_LINK}
+                          element={<DataCatalogPage />}
+                        />
+                        <CompatRoute
+                          path={METHODOLOGY_PAGE_LINK}
+                          element={<MethodologyPage />}
+                        />
+                        <CompatRoute
+                          path={EXPLORE_DATA_PAGE_LINK}
+                          element={
+                            <ErrorBoundaryDropParams
+                              fallback={<ExploreDataFallback />}
+                            >
+                              <ExploreDataPage isMobile={isSm} />
+                            </ErrorBoundaryDropParams>
+                          }
+                        />
+                        <CompatRoute
+                          path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                          element={<WhatIsHealthEquityPage />}
+                        />
+                        <CompatRoute
+                          path={FAQ_TAB_LINK}
+                          element={<WhatIsHealthEquityPage />}
+                        />
+                        <CompatRoute
+                          path={NEWS_PAGE_LINK}
+                          element={<NewsPage isMobile={isSm} />}
+                        />
+                        <CompatRoute
+                          path={SHARE_YOUR_STORY_TAB_LINK}
+                          element={<NewsPage isMobile={isSm} />}
+                        />
+                        <CompatRoute
+                          path={GUN_VIOLENCE_POLICY}
+                          element={<PolicyPage />}
+                        />
+                        <CompatRoute
+                          path='/policy'
+                          element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                        />
+                        <CompatRoute
+                          path={TERMS_OF_USE_PAGE_LINK}
+                          element={<TermsOfUsePage />}
+                        />
 
-                        <Route path={OLD_OURTEAM_LINK}>
-                          <AboutUsPage />
-                        </Route>
+                        {/* Redirect the old URL for possible outside links */}
+                        <CompatRoute
+                          path='/termsofservice'
+                          element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
+                        />
+                        <CompatRoute
+                          path={OLD_AGE_ADJUSTMENT_LINK}
+                          element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
+                        />
+                        <CompatRoute path='/' element={<LandingPage />} />
 
-                        <Route path={OLD_CONTACT_LINK}>
-                          <AboutUsPage />
-                        </Route>
-
-                        <Route path={DATA_CATALOG_PAGE_LINK}>
-                          <DataCatalogPage />
-                        </Route>
-
-                        <Route path={METHODOLOGY_PAGE_LINK}>
-                          <MethodologyPage />
-                        </Route>
-
-                        <Route path={EXPLORE_DATA_PAGE_LINK}>
-                          <ErrorBoundaryDropParams
-                            fallback={<ExploreDataFallback />}
-                          >
-                            <ExploreDataPage isMobile={isSm} />
-                          </ErrorBoundaryDropParams>
-                        </Route>
-
-                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
-
-                        <Route path={FAQ_TAB_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
-
-                        <Route path={NEWS_PAGE_LINK}>
-                          <NewsPage isMobile={isSm} />
-                        </Route>
-
-                        <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                          <NewsPage isMobile={isSm} />
-                        </Route>
-
-                        <Route path={GUN_VIOLENCE_POLICY}>
-                          <PolicyPage />
-                        </Route>
-
-                        <Route path={'/policy'}>
-                          <Redirect to={GUN_VIOLENCE_POLICY} />
-                        </Route>
-
-                        <Route path={TERMS_OF_USE_PAGE_LINK}>
-                          <TermsOfUsePage />
-                        </Route>
-
-                        {/* redirect the old URL for possible outside links */}
-                        <Route path={'/termsofservice'}>
-                          <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                        </Route>
-
-                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
-                          <Redirect to={AGE_ADJUSTMENT_LINK} />
-                        </Route>
-
-                        <Route path='/'>
-                          <LandingPage />
-                        </Route>
-
-                        {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                        <Route>
-                          <NotFoundPage />
-                        </Route>
-                      </Switch>
+                        {/* Catch-all route */}
+                        <CompatRoute path='*' element={<NotFoundPage />} />
+                      </Routes>
                     </main>
                   </Suspense>
                 </CompatRouter>

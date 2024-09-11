@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom-v5-compat'
 import HetListItemButton from './HetListItemButton'
 import HetDivider from './HetDivider'
 import type { RouteConfig } from '../../pages/Methodology/methodologyContent/routeConfigs'

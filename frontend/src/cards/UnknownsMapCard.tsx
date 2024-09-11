@@ -19,7 +19,7 @@ import {
 } from '../data/utils/Constants'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom-v5-compat'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'

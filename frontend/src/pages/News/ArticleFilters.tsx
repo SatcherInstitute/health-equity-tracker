@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom-v5-compat'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 
 type FilterType = 'author' | 'category'
