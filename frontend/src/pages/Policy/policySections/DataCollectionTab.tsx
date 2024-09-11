@@ -12,7 +12,7 @@ export default function DataCollectionTab() {
       </Helmet>
       <h2 className='sr-only'>Data Collection</h2>
       <section id='#source-profile'>
-        <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8 mt-4'>
+        <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8 mt-8'>
           <HetOverline className='my-0' text='Source Profile' />
           <h3 className='my-0 text-title font-medium'>
             CDC's WISQARS™(Web-based Injury Statistics Query and Reporting

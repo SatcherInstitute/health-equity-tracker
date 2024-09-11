@@ -47,7 +47,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#introduction',
       },
     ],
-    visible: true,
+    visible: false,
   },
   {
     isTopLevel: true,
@@ -76,7 +76,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#available-data',
       },
     ],
-    visible: true,
+    visible: false,
   },
   {
     isTopLevel: true,
@@ -101,7 +101,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#ga-homicides-urbanicity',
       },
     ],
-    visible: true,
+    visible: false,
   },
   {
     isTopLevel: true,
@@ -134,7 +134,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#community-engagement',
       },
     ],
-    visible: true,
+    visible: false,
   },
   {
     isTopLevel: true,
@@ -151,7 +151,7 @@ export const routeConfigs: RouteConfig[] = [
         path: '#legislative-items',
       },
     ],
-    visible: true,
+    visible: false,
   },
   {
     isTopLevel: true,
@@ -192,11 +192,11 @@ export const routeConfigs: RouteConfig[] = [
         path: '#breakdown-summary-data-table',
       },
     ],
-    visible: true,
+    visible: false,
   },
   {
     isTopLevel: true,
-    label: 'FAQs',
+    label: 'Community Safety FAQs',
     path: FAQS_TAB,
     component: FaqsTab,
     subLinks: [],
