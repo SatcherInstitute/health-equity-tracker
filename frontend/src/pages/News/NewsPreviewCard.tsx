@@ -4,6 +4,7 @@ import { getHtml } from '../../utils/urlutils'
 import type { Article } from './NewsPage'
 import LazyLoad from 'react-lazyload'
 import { HetTags } from '../../styles/HetComponents/HetTags'
+import { Link } from 'react-router-dom'
 
 interface NewsPreviewCardProps {
   article: Article
@@ -25,8 +26,8 @@ export default function NewsPreviewCard(
     article?._embedded?.['wp:term']?.[0]?.map((term) => term.name) || []
 
   return (
-    <a
-      href={`${NEWS_PAGE_LINK}/${article.slug}`}
+    <Link
+      to={`${NEWS_PAGE_LINK}/${article.slug}`}
       className='h-full text-center text-title no-underline '
     >
       <LazyLoad once offset={300}>
@@ -42,6 +43,6 @@ export default function NewsPreviewCard(
           </h3>
         </div>
       </LazyLoad>
-    </a>
+    </Link>
   )
 }

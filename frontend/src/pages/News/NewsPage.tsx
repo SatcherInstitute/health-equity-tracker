@@ -1,15 +1,11 @@
-import { lazy, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from '../../utils/internalRoutes'
 import { Tab, Tabs } from '@mui/material'
-import ShareYourStory from './ShareYourStory'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { Link, Route, Routes, useLocation } from 'react-router-dom'
-
-const AllPosts = lazy(async () => await import('./AllPosts'))
-const SinglePost = lazy(async () => await import('./SinglePost'))
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 export interface Article {
   id: number
@@ -59,14 +55,9 @@ export interface Article {
   }
 }
 
-interface NewsPageProps {
-  isMobile: boolean
-}
-
-export default function NewsPage(props: NewsPageProps) {
+export default function NewsPage() {
   const isSm = useIsBreakpointAndUp('sm')
   const [tabLayout, setTabLayout] = useState({})
-
   const location = useLocation()
 
   // when screen width changes, update tab spacing MUI attribute
@@ -75,8 +66,8 @@ export default function NewsPage(props: NewsPageProps) {
   }, [isSm])
 
   const isAllArticlesTab = location.pathname === NEWS_PAGE_LINK
-  const isShareYourStoryTab = location.pathname === SHARE_YOUR_STORY_TAB_LINK
-
+  const isShareYourStoryTab =
+    location.pathname === '/news/' + SHARE_YOUR_STORY_TAB_LINK
   const isSingleArticle = !isAllArticlesTab && !isShareYourStoryTab
 
   return (
@@ -100,21 +91,14 @@ export default function NewsPage(props: NewsPageProps) {
               <Tab value={location.pathname} label='Current Article' />
             )}
             <Tab
-              value={SHARE_YOUR_STORY_TAB_LINK}
+              value={'/news/' + SHARE_YOUR_STORY_TAB_LINK}
               label='Share Your Story'
               component={Link}
               to={SHARE_YOUR_STORY_TAB_LINK}
             />
           </Tabs>
 
-          <Routes>
-            <Route path={`${NEWS_PAGE_LINK}/:slug`} element={<SinglePost />} />
-            <Route path={NEWS_PAGE_LINK} element={<AllPosts />} />
-            <Route
-              path={SHARE_YOUR_STORY_TAB_LINK}
-              element={<ShareYourStory />}
-            />
-          </Routes>
+          <Outlet />
         </div>
       </div>
     </section>

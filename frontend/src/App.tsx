@@ -52,6 +52,9 @@ import MethodologyPage from './pages/Methodology/methodologyComponents/Methodolo
 import HetAppBar from './styles/HetComponents/HetAppBar'
 import Banner from './reports/ui/Banner'
 import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
+import AllPosts from './pages/News/AllPosts'
+import ShareYourStory from './pages/News/ShareYourStory'
+import SinglePost from './pages/News/SinglePost'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -146,14 +149,18 @@ export default function App() {
                         path={FAQ_TAB_LINK}
                         element={<WhatIsHealthEquityPage />}
                       />
-                      <Route
-                        path={NEWS_PAGE_LINK}
-                        element={<NewsPage isMobile={isSm} />}
-                      />
-                      <Route
-                        path={SHARE_YOUR_STORY_TAB_LINK}
-                        element={<NewsPage isMobile={isSm} />}
-                      />
+
+                      {/* NEWS ROUTES */}
+                      <Route path={'news'} element={<NewsPage />}>
+                        <Route
+                          path={SHARE_YOUR_STORY_TAB_LINK}
+                          element={<ShareYourStory />}
+                        />
+                        <Route path={''} element={<AllPosts />} />
+                        <Route path={`:slug`} element={<SinglePost />} />
+                      </Route>
+
+                      {/* POLICY ROUTES */}
                       <Route
                         path={GUN_VIOLENCE_POLICY}
                         element={<PolicyPage />}
