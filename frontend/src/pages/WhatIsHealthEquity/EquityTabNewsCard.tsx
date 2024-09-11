@@ -1,6 +1,6 @@
 import LazyLoad from 'react-lazyload'
 import AppbarLogo from '../../assets/AppbarLogo.png'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import HetTextArrow from '../../styles/HetComponents/HetTextArrow'
 
 interface EquityTabNewsCardProps {
   href: string
@@ -16,7 +16,6 @@ export function EquityTabNewsCard({
   href,
   ariaLabel,
   imgSrc,
-  imgAlt,
   title,
   description,
   readMoreHref,
@@ -46,8 +45,7 @@ export function EquityTabNewsCard({
             </p>
           )}
           {readMoreHref && (
-            <HetTextArrowLink
-              link={readMoreHref}
+            <HetTextArrow
               aria-label={ariaLabel}
               linkText='Read article at SatcherInstitute.org'
             />
