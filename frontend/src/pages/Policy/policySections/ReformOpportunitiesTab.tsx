@@ -9,6 +9,7 @@ import HetAccordion from '../../../styles/HetComponents/HetAccordion'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import { urlMap } from '../../../utils/externalUrls'
 
 export default function ReformOpportunitiesTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -71,7 +72,7 @@ export default function ReformOpportunitiesTab() {
           Legislative Items to Consider for Policy Changes
         </h3>
         <HetOverline text={`SOURCE: RAND Foundation `} className='inline' />
-        <HetQuoteLink href='https://www.rand.org/research/gun-policy.html'/>
+        <HetQuoteLink href={urlMap.randGunPolicy}/>
 
         <HetAccordion
           accordionData={legislativeActions}
@@ -81,7 +82,7 @@ export default function ReformOpportunitiesTab() {
           detailsClassName='py-0 my-0'
         />
         <HetTextArrowLink
-          link='https://www.usa.gov/elected-officials'
+          link={urlMap.findElectedOfficials}
           linkText='Find and contact your elected officials'
           containerClassName='flex items-center justify-center mt-8 mx-auto'
           linkClassName='font-sansTitle text-smallestHeader'

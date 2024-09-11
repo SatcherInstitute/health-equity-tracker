@@ -4,6 +4,7 @@ import FactCard from '../policyComponents/FactCard'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import { urlMap } from '../../../utils/externalUrls'
 
 export default function CrisisOverviewTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -34,7 +35,7 @@ export default function CrisisOverviewTab() {
         <section>
           <div className='mb-0'>
             <HetOverline className='mb-0' text='By the Numbers' />
-            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href='https://www.rocket-foundation.org/' />
+            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href={urlMap.rocketFoundation} />
           </div>
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
@@ -56,7 +57,7 @@ export default function CrisisOverviewTab() {
 
           <HetOverline className='mt-0 inline' text={`SOURCE: Gun Violence Archive `} />
           
-          <HetQuoteLink href='https://www.gunviolencearchive.org/' />
+          <HetQuoteLink href={urlMap.gunViolenceArchive} />
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {gvaFacts.map((gvaFact, index) => {
