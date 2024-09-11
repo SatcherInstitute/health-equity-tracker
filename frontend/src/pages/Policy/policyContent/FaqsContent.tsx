@@ -1,3 +1,6 @@
+import DatasetList from '../policyComponents/DatasetList'
+import { datasets } from './DataCollectionContent'
+
 export const policyFaqs = [
   {
     question: 'How does the HET define gun violence fatalities?',
@@ -43,14 +46,14 @@ export const policyFaqs = [
     answer: (
       <>
         The dataset includes data on gun-related fatalities. Fatal injuries are
-        further categorized into
-        <ol>
+        further categorized into:
+        <ul>
           <li>Gun Deaths (Children, 0-17)</li>
           <li>Gun Deaths (Young adults, 18-25)</li>
           <li>Gun Homicides (Black Men-specific)</li>
           <li>Gun Homicides</li>
           <li>Gun Suicides</li>
-        </ol>
+        </ul>
       </>
     ),
   },
@@ -71,97 +74,31 @@ export const policyFaqs = [
     question: 'What demographic details can users filter by in the dataset?',
     answer: (
       <>
-        <p className='mb-0 pb-0'>Users can filter the data by:</p>
-
         <p>
-          <strong>Gun Deaths (Children, 0-17):</strong>
-          <ul>
-            <li>
-              <strong>Breakdowns by race/ethnicity:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by age:</strong> No
-            </li>
-            <li>
-              <strong>Breakdowns by sex:</strong> No
-            </li>
-            <li>
-              <strong>Breakdowns by urbanicity:</strong> No
-            </li>
-          </ul>
+          Currently, all of our gun violence datasets include national- and
+          state-level data.
         </p>
-
+        <DatasetList datasets={datasets} />
         <p>
-          <strong>Gun Deaths (Young Adults, 18-25):</strong>
-          <ul>
-            <li>
-              <strong>Breakdowns by race/ethnicity:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by age:</strong> No
-            </li>
-            <li>
-              <strong>Breakdowns by sex:</strong> No
-            </li>
-            <li>
-              <strong>Breakdowns by urbanicity:</strong> No
-            </li>
-          </ul>
+          Additionally, (if the data is available) users can filter the
+          datasets' demographics by:
         </p>
-
-        <p>
-          <strong>Gun Homicides (Black Men-specific):</strong>
-          <ul>
-            <li>
-              <strong>Breakdowns by race/ethnicity:</strong> No
-            </li>
-            <li>
-              <strong>Breakdowns by age:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by sex:</strong> No
-            </li>
-            <li>
-              <strong>Breakdowns by urbanicity:</strong> Yes
-            </li>
-          </ul>
-        </p>
-
-        <p>
-          <strong>Gun Homicides:</strong>
-          <ul>
-            <li>
-              <strong>Breakdowns by race/ethnicity:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by age:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by sex:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by urbanicity:</strong> No
-            </li>
-          </ul>
-        </p>
-
-        <p>
-          <strong>Gun Suicides:</strong>
-          <ul>
-            <li>
-              <strong>Breakdowns by race/ethnicity:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by age:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by sex:</strong> Yes
-            </li>
-            <li>
-              <strong>Breakdowns by urbanicity:</strong> No
-            </li>
-          </ul>
-        </p>
+        <ul className='py-0 my-0'>
+          <li className='py-0 my-0'>
+            <strong>Age Groups:</strong> Available in 5-year increments and
+            single-year groups (ranging from 0 to 85+ years, including unknown
+            ages).
+          </li>
+          <li>
+            <strong>Sex:</strong> Data can be filtered for male and female
+            demographics.
+          </li>
+          <li>
+            <strong>Race and Ethnicity:</strong> Options include White, Black,
+            American Indian/Alaska Native, Asian, Hawaiian Native/Pacific
+            Islander, more than one race, unknown race, and Hispanic.
+          </li>
+        </ul>
       </>
     ),
   },
@@ -169,13 +106,21 @@ export const policyFaqs = [
     question: 'How is youth-related violence addressed in the data?',
     answer: (
       <>
-        Our dataset on youth-related gun violence specifically addresses gun
-        deaths among two age groups: children (0-17) and young adults (18-25).
-        For both age groups, the data is broken down by race and ethnicity,
-        providing insights into the racial and ethnic disparities that may exist
-        in gun-related deaths. However, the dataset does not currently include
-        other potential breakdowns, such as gender, socioeconomic status, or
-        geographic location.”
+        <p>
+          Our dataset on youth-related gun violence specifically addresses gun
+          deaths among two age groups: <strong>children (0-17)</strong> and{' '}
+          <strong>young adults (18-25)</strong>.
+        </p>
+        <p>
+          For both age groups, the data is broken down by race and ethnicity,
+          providing insights into the racial and ethnic disparities that may
+          exist in gun-related deaths.
+        </p>
+        <p>
+          However, the dataset does not currently include other potential
+          breakdowns, such as gender, socioeconomic status, or geographic
+          location.
+        </p>
       </>
     ),
   },
