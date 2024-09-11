@@ -5,7 +5,8 @@ import PolicyPagination from './PolicyPagination'
 import PolicyCardMenuMobile from './PolicyCardMenuMobile'
 import PolicyCardMenu from './PolicyCardMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { useMatch, useLocation, Routes, Route } from 'react-router-dom'
+import { useMatch, useLocation, Routes, Route, Outlet } from 'react-router-dom'
+import { GUN_VIOLENCE_POLICY } from '../../../utils/internalRoutes'
 
 export default function PolicyPage() {
   const location = useLocation()
@@ -61,21 +62,11 @@ export default function PolicyPage() {
                 </h1>
               )}
               <h2 className='sr-only'>{activeRoute?.label}</h2>
-              <Routes>
-                <>
-                  {/* TEXT */}
-                  {routeConfigs.map((route) => (
-                    <Route
-                      key={route.path}
 
-                      path={route.path}
-                      element={route.component}
-                    />
-                  ))}
-                  {/* PREV / NEXT */}
-                  <PolicyPagination />
-                </>
-              </Routes>
+              <Outlet />
+
+              {/* PREV / NEXT */}
+              <PolicyPagination />
             </section>
           </div>
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}

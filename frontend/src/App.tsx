@@ -55,6 +55,7 @@ import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
 import AllPosts from './pages/News/AllPosts'
 import ShareYourStory from './pages/News/ShareYourStory'
 import SinglePost from './pages/News/SinglePost'
+import { routeConfigs as policyRouteConfigs } from './pages/Policy/policyContent/routeConfigs'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -150,7 +151,7 @@ export default function App() {
                         element={<WhatIsHealthEquityPage />}
                       />
 
-                      {/* NEWS ROUTES */}
+                      {/* NESTED NEWS ROUTES */}
                       <Route path={'news'} element={<NewsPage />}>
                         <Route
                           path={SHARE_YOUR_STORY_TAB_LINK}
@@ -160,24 +161,39 @@ export default function App() {
                         <Route path={`:slug`} element={<SinglePost />} />
                       </Route>
 
-                      {/* POLICY ROUTES */}
-                      <Route
-                        path={GUN_VIOLENCE_POLICY}
-                        element={<PolicyPage />}
-                      />
-                      <Route
-                        path='/policy'
-                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
-                      />
+                      {/* NESTED POLICY ROUTES */}
+                      <Route path={'policy'} element={<PolicyPage />}>
+                        <>
+                          {/* TEXT */}
+                          {policyRouteConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </>
+                      </Route>
+
                       <Route
                         path={TERMS_OF_USE_PAGE_LINK}
                         element={<TermsOfUsePage />}
                       />
 
-                      {/* Redirect the old URL for possible outside links */}
+                      {/* Redirect the old URLs for possible outside links */}
                       <Route
                         path='/termsofservice'
                         element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
+                      />
+                      <Route
+                        path={'/shareyourstory'}
+                        element={
+                          <Navigate to={'/news/' + SHARE_YOUR_STORY_TAB_LINK} />
+                        }
+                      />
+                      <Route
+                        path='/policy'
+                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
                       />
                       <Route
                         path={OLD_AGE_ADJUSTMENT_LINK}
