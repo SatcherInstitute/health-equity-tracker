@@ -60,11 +60,14 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - name: Waiting for "Success" from Netlify Preview
-        uses: jakepartusch/wait-for-netlify-action@v1.4
-        id: waitFor200
+        uses: Wandalen/wretry.action@master
         with:
-          site_name: ${{env.NETLIFY_SITE_NAME}}
-          max_timeout: 90
+          action: jakepartusch/wait-for-netlify-action@v1.4
+          attempt_limit: 3
+          attempt_delay: 10000
+          with: |
+            site_name: ${{env.NETLIFY_SITE_NAME}}
+            max_timeout: 180
 
   tests_e2e_netlify:
     needs: tests_e2e_netlify_prepare

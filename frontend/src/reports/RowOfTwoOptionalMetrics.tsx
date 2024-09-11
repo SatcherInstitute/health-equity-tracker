@@ -1,10 +1,8 @@
-import {
-  type DataTypeConfig,
-  type DropdownVarId,
-} from '../data/config/MetricConfig'
-import { type Fips } from '../data/utils/Fips'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { type MadLibId } from '../utils/MadLibs'
+import type { DropdownVarId } from '../data/config/DropDownIds'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { Fips } from '../data/utils/Fips'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MadLibId } from '../utils/MadLibs'
 
 // Needed for type safety, used when the card does not need to use the fips update callback
 const unusedFipsCallback = () => {}
@@ -21,7 +19,7 @@ interface RowOfTwoOptionalMetricsProps {
     fips: Fips,
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
-    isCompareCard?: boolean
+    isCompareCard?: boolean,
   ) => JSX.Element
   dropdownVarId1?: DropdownVarId
   dropdownVarId2?: DropdownVarId
@@ -30,7 +28,7 @@ interface RowOfTwoOptionalMetricsProps {
 }
 
 export default function RowOfTwoOptionalMetrics(
-  props: RowOfTwoOptionalMetricsProps
+  props: RowOfTwoOptionalMetricsProps,
 ) {
   if (!props.dataTypeConfig1 && !props.dataTypeConfig2) {
     return <></>
@@ -57,7 +55,7 @@ export default function RowOfTwoOptionalMetrics(
               props.fips1,
               props.updateFips1 ?? unusedFipsCallback,
               props.dropdownVarId1,
-              /* isCompareCard */ false
+              /* isCompareCard */ false,
             )}
           </>
         )}
@@ -75,7 +73,7 @@ export default function RowOfTwoOptionalMetrics(
               props.fips2,
               props.updateFips2 ?? unusedFipsCallback,
               props.dropdownVarId2,
-              /* isCompareCard */ true
+              /* isCompareCard */ true,
             )}
           </>
         )}

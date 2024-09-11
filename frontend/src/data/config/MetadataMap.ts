@@ -1,5 +1,4 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
-import { SHOW_GUN_VIOLENCE } from '../providers/GunViolenceProvider'
 import type { DatasetId } from './DatasetMetadata'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -27,6 +26,7 @@ export type DataSourceId =
   | 'kff_vaccination'
   | 'maternal_health'
   | 'phrma'
+  | 'phrma_brfss'
   | 'the_unitedstates_project'
   | 'vera'
 
@@ -328,9 +328,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county.',
     dataset_ids: [
-      'vera_incarceration_county-by_sex_county_time_series',
-      'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
-      'vera_incarceration_county-by_age_county_time_series',
+      'vera_incarceration_county-by_sex_county_historical',
+      'vera_incarceration_county-by_race_and_ethnicity_county_historical',
+      'vera_incarceration_county-by_age_county_historical',
     ],
     downloadable: true,
     time_period_range: '1985 - 2016',
@@ -445,6 +445,35 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable_data_dictionary: true,
     time_period_range: null,
   },
+  phrma_brfss: {
+    id: 'phrma_brfss',
+    data_source_name: 'CDC Behavioral Risk Factor Surveillance System',
+    data_source_acronym: 'CDC BRFSS',
+    data_source_pretty_site_name: 'cdc.gov/brfss',
+    data_source_link: 'https://www.cdc.gov/brfss/annual_data/annual_2022.html',
+    geographic_level: 'National, State',
+    demographic_granularity:
+      'Race/ethnicity, sex (for lung and colorectal cancers only), age, insurance status, income, education',
+    update_frequency: 'None',
+    description:
+      'The 2022 Behavioral Risk Factor Surveillance System (BRFSS) database from the Centers for Disease Control and Prevention (CDC) was analyzed for five different cancer screening rates. Breast, colorectal, cervical, and lung cancer use data from the 50 states and Washington DC. Prostate cancer screening data is not part of the core BRFSS database so are available only for Arkansas, Delaware, Massachusetts, Mississippi, New Jersey, and South Carolina.',
+    downloadable: true,
+    time_period_range: null,
+    dataset_ids: [
+      'phrma_brfss_data-race_and_ethnicity_national',
+      'phrma_brfss_data-age_national',
+      'phrma_brfss_data-sex_national',
+      'phrma_brfss_data-insurance_status_national',
+      'phrma_brfss_data-income_national',
+      'phrma_brfss_data-education_national',
+      'phrma_brfss_data-race_and_ethnicity_state',
+      'phrma_brfss_data-age_state',
+      'phrma_brfss_data-sex_state',
+      'phrma_brfss_data-insurance_status_state',
+      'phrma_brfss_data-income_state',
+      'phrma_brfss_data-education_state',
+    ],
+  },
   covid_tracking_project: {
     id: 'covid_tracking_project',
     data_source_name: 'Covid Tracking Project’s (CTP) Racial Data Tracker',
@@ -482,7 +511,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     time_period_range: null,
   },
   cdc_wisqars: {
-    hideFromUser: !SHOW_GUN_VIOLENCE,
     id: 'cdc_wisqars',
     data_source_name: `CDC WISQARS`,
     data_source_acronym: 'CDC',

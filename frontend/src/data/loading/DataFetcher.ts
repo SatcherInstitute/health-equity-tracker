@@ -2,13 +2,13 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import { type MapOfDatasetMetadata, type Row } from '../utils/DatasetTypes'
+import type { MapOfDatasetMetadata, Row } from '../utils/DatasetTypes'
 import {
   type DatasetId,
   DatasetMetadataMap,
   type DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
-import { type Environment } from '../../utils/Environment'
+import type { Environment } from '../../utils/Environment'
 
 type FileFormat = 'json' | 'csv'
 
@@ -18,7 +18,7 @@ export interface DataFetcher {
    * @param datasetId The id of the dataset to load.
    */
   loadDataset: (
-    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
   ) => Promise<Row[]>
 
   /** Fetches and returns the MetadataMap for all datasets. */
@@ -58,7 +58,7 @@ export class ApiDataFetcher implements DataFetcher {
    */
   private getDatasetRequestPath(
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-    format: FileFormat = 'json'
+    format: FileFormat = 'json',
   ) {
     const fullDatasetName = datasetId + '.' + format
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
@@ -73,7 +73,7 @@ export class ApiDataFetcher implements DataFetcher {
    */
   private async fetchDataset(
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-    format: FileFormat = 'json'
+    format: FileFormat = 'json',
   ) {
     const requestPath = this.getDatasetRequestPath(datasetId, format)
     const resp = await fetch(requestPath)
@@ -85,7 +85,7 @@ export class ApiDataFetcher implements DataFetcher {
 
   // TODO: build in retries, timeout before showing error to user.
   async loadDataset(
-    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
   ): Promise<Row[]> {
     const result = await this.fetchDataset(datasetId)
 

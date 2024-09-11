@@ -1,6 +1,7 @@
-import { DatasetId } from '../config/DatasetMetadata'
-import { MetricId, METRIC_CONFIG, DataTypeConfig } from '../config/MetricConfig'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
+import { METRIC_CONFIG } from '../config/MetricConfig'
+import type { MetricId, DataTypeConfig } from '../config/MetricConfigTypes'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import {
   appendFipsIfNeeded,
   getExclusionList,
@@ -27,7 +28,7 @@ describe('DatasetUtils.getExtremeValues() Unit Tests', () => {
   const { lowestValues, highestValues } = getExtremeValues(
     data,
     'some_condition' as MetricId,
-    5
+    5,
   )
 
   test('5 Normal Highs', async () => {
@@ -52,7 +53,7 @@ describe('DatasetUtils.getExtremeValues() Unit Tests', () => {
     const { lowestValues, highestValues } = getExtremeValues(
       data,
       'some_condition' as MetricId,
-      10
+      10,
     )
     expect(highestValues).toEqual([
       { some_condition: 10 },
@@ -75,7 +76,7 @@ describe('DatasetUtils.getExtremeValues() Unit Tests', () => {
     const { lowestValues, highestValues } = getExtremeValues(
       [],
       'some_condition' as MetricId,
-      5
+      5,
     )
     expect(highestValues).toEqual([])
     expect(lowestValues).toEqual([])
@@ -90,7 +91,7 @@ describe('DatasetUtils.appendFipsIfNeeded() Unit Tests', () => {
     const breakdowns_for_county = Breakdowns.forFips(new Fips('06037'))
     const generated_county_set_id = appendFipsIfNeeded(
       base_id,
-      breakdowns_for_county
+      breakdowns_for_county,
     )
     expect(generated_county_set_id).toEqual(base_id + '-06')
   })
@@ -99,7 +100,7 @@ describe('DatasetUtils.appendFipsIfNeeded() Unit Tests', () => {
     const breakdowns_for_state = Breakdowns.forFips(new Fips('06'))
     const generated_state_set_id = appendFipsIfNeeded(
       base_id,
-      breakdowns_for_state
+      breakdowns_for_state,
     )
     expect(generated_state_set_id).toEqual(base_id)
   })
@@ -136,10 +137,10 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
     const sampleExclusionListPrisonRaceUSA = getExclusionList(
       sampleDataTypeConfigPrisonRaceUSA,
       sampleBreakdownPrisonRaceUSA,
-      sampleFipsPrisonRaceUSA
+      sampleFipsPrisonRaceUSA,
     )
     expect(sampleExclusionListPrisonRaceUSA).toEqual(
-      expectedExclusionListPrisonRaceUSA
+      expectedExclusionListPrisonRaceUSA,
     )
   })
   test('Diabetes by Sex in AL Exclusions', async () => {
@@ -156,10 +157,10 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
     const sampleExclusionListDiabetesSexAlabama = getExclusionList(
       sampleDataTypeConfigDiabetesSexAlabama,
       sampleBreakdownDiabetesSexAlabama,
-      sampleFipsDiabetesSexAlabama
+      sampleFipsDiabetesSexAlabama,
     )
     expect(sampleExclusionListDiabetesSexAlabama).toEqual(
-      expectedExclusionListDiabetesSexAlabama
+      expectedExclusionListDiabetesSexAlabama,
     )
   })
 })

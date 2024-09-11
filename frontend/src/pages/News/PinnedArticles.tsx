@@ -1,5 +1,5 @@
 import NewsPreviewCard from './NewsPreviewCard'
-import { type Article } from './NewsPage'
+import type { Article } from './NewsPage'
 
 export const ARTICLES_TERM = 'Articles'
 

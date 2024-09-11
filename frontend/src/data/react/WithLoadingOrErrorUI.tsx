@@ -1,9 +1,6 @@
 import { Button, CircularProgress } from '@mui/material'
-import { type Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
-import {
-  type MetricQuery,
-  type MetricQueryResponse,
-} from '../query/MetricQuery'
+import type { Dataset, MapOfDatasetMetadata } from '../utils/DatasetTypes'
+import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { getDataManager } from '../../utils/globals'
 import { MetadataCache } from '../loading/DataManager'
 import {
@@ -12,9 +9,9 @@ import {
   useResources,
 } from './useResources'
 import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
 
 /**
@@ -61,7 +58,7 @@ export function WithMetadata(props: {
   const metadatas = useResources<string, MapOfDatasetMetadata>(
     [MetadataCache.METADATA_KEY],
     async () => await getDataManager().loadMetadata(),
-    (metadataId) => metadataId
+    (metadataId) => metadataId,
   )
 
   // useResources is generalized for multiple resources, but there is only one
@@ -108,7 +105,7 @@ function WithDatasets(props: {
     props.datasetIds,
     async (id: DatasetId | DatasetIdWithStateFIPSCode) =>
       await getDataManager().loadDataset(id),
-    (id: string) => id
+    (id: string) => id,
   )
   return (
     <WithLoadingOrErrorUI<Dataset>
@@ -129,7 +126,7 @@ interface WithMetadataAndMetricsProps {
   children: (
     metadata: MapOfDatasetMetadata,
     queryResponses: MetricQueryResponse[],
-    geoData?: Record<string, any>
+    geoData?: Record<string, any>,
   ) => JSX.Element
   loadingComponent?: JSX.Element
   loadGeographies?: boolean
@@ -139,14 +136,14 @@ export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
   const key = props.queries.reduce(
     (accumulator: string, query: MetricQuery) =>
       (accumulator += query.getUniqueKey()),
-    String(!!props.loadGeographies)
+    String(!!props.loadGeographies),
   )
 
   return <WithMetadataAndMetricsWithKey key={key} {...props} />
 }
 
 export function WithMetadataAndMetricsWithKey(
-  props: WithMetadataAndMetricsProps
+  props: WithMetadataAndMetricsProps,
 ) {
   // Note: this will result in an error page if any of the required data fails
   // to be fetched. We could make the metadata optional so the charts still
@@ -179,7 +176,7 @@ export function WithMetadataAndMetricsWithKey(
                   return props.children(
                     metadata,
                     queryResponses,
-                    geographies.rows
+                    geographies.rows,
                   )
                 }}
               </WithDatasets>

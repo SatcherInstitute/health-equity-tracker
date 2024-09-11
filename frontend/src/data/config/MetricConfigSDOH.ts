@@ -2,7 +2,7 @@ import {
   medicareHigherIsWorseMapConfig,
   defaultHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -61,9 +61,10 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Health insurance is important for ensuring that people have access to quality healthcare. People of color and people with low incomes are less likely to have health insurance. Studying health insurance can help us understand why these disparities exist and how to address them.',
     },
-    dataTableTitle: 'Breakdown summary for uninsured people',
+    dataTableTitle: 'Summary for uninsured people',
     metrics: {
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'uninsured_pct_rate',
         chartTitle: 'Uninsured people',
         trendsCardTitleName: 'Rates of uninsurance over time',
@@ -98,6 +99,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Relative inequity for uninsurance',
         metricId: 'uninsured_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -121,9 +123,10 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Poverty is a major determinant of health. People who are poor are more likely to experience a number of health problems, including chronic diseases, mental illness, and substance use disorders. Studying poverty can help us understand why these disparities exist and how to address them.',
     },
-    dataTableTitle: 'Breakdown summary for people below the poverty line',
+    dataTableTitle: 'Summary for people below the poverty line',
     metrics: {
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'poverty_pct_rate',
         chartTitle: 'People below the poverty line',
         trendsCardTitleName: 'Rates of poverty over time',
@@ -159,6 +162,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Relative inequity for poverty',
         metricId: 'poverty_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -183,7 +187,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
       text: 'Avoiding care can lead to worse health outcomes. Studying avoided care in regard to health equity can help us to understand why people avoid care and how to reduce these barriers.',
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for care avoidance due to cost',
+    dataTableTitle: 'Summary for care avoidance due to cost',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_rate: {
@@ -203,7 +207,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
           shortLabel: 'Total pop. 18+',
           chartTitle: '',
           type: 'count',
-        }
+        },
       },
       pct_share: {
         chartTitle: 'Share of all care avoidance due to cost',
@@ -238,7 +242,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Studying preventable hospitalizations can help us understand why these disparities exist and how to address them.',
     },
-    dataTableTitle: 'Breakdown summary for preventable hospitalizations',
+    dataTableTitle: 'Summary for preventable hospitalizations',
     otherSubPopulationLabel: 'Medicare beneficiaries, Ages 18+',
     metrics: {
       per100k: {

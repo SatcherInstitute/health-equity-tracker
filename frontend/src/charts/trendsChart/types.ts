@@ -1,6 +1,6 @@
-import { type ScaleTime, type ScaleLinear, type ScaleOrdinal } from 'd3'
-import { type MetricType } from '../../data/config/MetricConfig'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import type { ScaleTime, ScaleLinear, ScaleOrdinal } from 'd3'
+import type { MetricType } from '../../data/config/MetricConfigTypes'
+import type { DemographicGroup } from '../../data/utils/Constants'
 
 type TrendsData = GroupData[]
 type GroupData = [DemographicGroup, TimeSeries]

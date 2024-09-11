@@ -8,14 +8,23 @@ interface HetPaginationButtonsProps {
   onClick: () => void
   children?: React.ReactNode | string
   disabled?: boolean
+  className?: string
 }
 
-export default function HetPaginationButton(props: HetPaginationButtonsProps) {
-  const isPrevious = props.direction === 'previous'
+export default function HetPaginationButton({
+  direction,
+  onClick,
+  children,
+  disabled,
+  className,
+}: HetPaginationButtonsProps) {
+  const isPrevious = direction === 'previous'
+
   return (
     <Button
-      onClick={props.onClick}
-      className='my-2 lg:mb-0 flex md:w-full sm:w-auto flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle  font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack shadow-raised-tighter hover:shadow-raised lg:w-80 min-h-24 max-h-32 h-24'
+      onClick={onClick}
+      disabled={disabled}
+      className={`my-2 lg:mb-0 flex smMd:w-full sm:w-auto flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack shadow-raised-tighter hover:shadow-raised md:w-80 min-h-24 max-h-32 h-24 ${className}`}
     >
       {/* ARROW AND DIRECTION WORD */}
       <span
@@ -25,7 +34,7 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
       >
         {isPrevious ? (
           <span className='flex align-center'>
-            <ArrowBack /> <span >Previous</span>
+            <ArrowBack /> <span>Previous</span>
           </span>
         ) : (
           <span className='flex align-center'>
@@ -42,7 +51,7 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
               : 'mr-5 items-end justify-end text-right'
           }
         >
-          {props.children}
+          {children}
         </span>
       </span>
     </Button>

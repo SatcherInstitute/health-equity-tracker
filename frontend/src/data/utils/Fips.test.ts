@@ -6,7 +6,7 @@ describe('Test getDisplayName()', () => {
   })
   test('County without addon', async () => {
     expect(new Fips('02016').getDisplayName()).toEqual(
-      'Aleutians West Census Area'
+      'Aleutians West Census Area',
     )
   })
   test('County with Parish addon', async () => {
@@ -63,7 +63,7 @@ describe('Test getFipsCategory()', () => {
   })
   test('A County-Equivalent of a Territory', async () => {
     expect(new Fips('78001').getFipsCategory()).toEqual(
-      'U.S. Virgin Islands County Equivalents'
+      'U.S. Virgin Islands County Equivalents',
     )
   })
 })

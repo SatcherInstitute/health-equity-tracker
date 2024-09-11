@@ -5,28 +5,27 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import { Breakdowns, DemographicType, TimeView } from '../query/Breakdowns'
-import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import { DataTypeId } from '../config/MetricConfig'
-import { Fips } from '../utils/Fips'
-import { MetricId } from '../config/MetricConfig'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
-import GunViolenceYouthProvider from './GunViolenceYouthProvider'
 import {
-  expect,
-  describe, test, beforeEach
-} from 'vitest'
+  Breakdowns,
+  type DemographicType,
+  type TimeView,
+} from '../query/Breakdowns'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type { DataTypeId } from '../config/MetricConfigTypes'
+import { Fips } from '../utils/Fips'
+import type { MetricId } from '../config/MetricConfigTypes'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import GunViolenceYouthProvider from './GunViolenceYouthProvider'
+import { expect, describe, test, beforeEach } from 'vitest'
 
-
-
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   gunViolenceDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   dataTypeId?: DataTypeId,
   timeView?: TimeView,
-  metricIds?: MetricId[]
+  metricIds?: MetricId[],
 ) {
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
@@ -34,7 +33,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const gunViolenceYouthProvider = new GunViolenceYouthProvider()
   const specificDatasetId = appendFipsIfNeeded(
     gunViolenceDatasetId,
-    baseBreakdown
+    baseBreakdown,
   )
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
@@ -44,8 +43,8 @@ export async function ensureCorrectDatasetsDownloaded(
       metricIds,
       baseBreakdown.addBreakdown(demographicType),
       dataTypeId,
-      timeView
-    )
+      timeView,
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -53,7 +52,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const consumedDatasetIds = [gunViolenceDatasetId]
 
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds)
+    new MetricQueryResponse([], consumedDatasetIds),
   )
 }
 
@@ -73,7 +72,7 @@ describe('GunViolenceYouthProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'gun_violence_youth',
-      'historical'
+      'historical',
     )
   })
 
@@ -83,7 +82,7 @@ describe('GunViolenceYouthProvider', () => {
       Breakdowns.forFips(new Fips('01')),
       RACE,
       'gun_violence_youth',
-      'current'
+      'current',
     )
   })
 })

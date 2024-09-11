@@ -6,15 +6,13 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../../utils/externalUrls'
+import { buildTopicsString } from './linkUtils'
 
 const sdohDataSources = [
   dataSourceMetadataMap.acs,
@@ -71,8 +69,11 @@ function SdohLink() {
           Data Sourcing
         </h3>
         <p>
-          Our tracker's data on some social determinants of health including <HetTerm>preventable hospitalizations</HetTerm> are sourced from{' '}
-          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          Our tracker's data on some social determinants of health including{' '}
+          <HetTerm>preventable hospitalizations</HetTerm> are sourced from{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and{' '}
+          <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which
+          primarily rely on the{' '}
           <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}

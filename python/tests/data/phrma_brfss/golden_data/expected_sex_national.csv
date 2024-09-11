@@ -1,0 +1,4 @@
+sex,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,state_fips,lung_screened_estimated_total,lung_screening_eligible_estimated_total,colorectal_screened_pct_rate,lung_screened_pct_rate,state_name,colorectal_screened_pct_share,colorectal_screening_eligible_population_pct,lung_screened_pct_share,lung_screening_eligible_population_pct
+All,152617,217193,00,4811,16206,66.0,28.0,United States,100.0,100.0,100.0,100.0
+Female,82352,115873,00,2249,7484,68.0,28.0,United States,54.0,53.4,46.7,46.2
+Male,70265,101320,00,2562,8722,65.0,28.0,United States,46.0,46.6,53.3,53.8

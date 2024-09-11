@@ -6,11 +6,7 @@ import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import TableCard from '../cards/TableCard'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import {
@@ -37,6 +33,9 @@ import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 interface ReportProps {
   key: string
@@ -60,11 +59,11 @@ export function Report(props: ReportProps) {
 
   const [demographicType, setDemographicType] = useParamState<DemographicType>(
     DEMOGRAPHIC_PARAM,
-    defaultDemo
+    defaultDemo,
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
-    selectedDataTypeConfig1Atom
+    selectedDataTypeConfig1Atom,
   )
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
@@ -73,7 +72,7 @@ export function Report(props: ReportProps) {
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
   if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
     setDemographicType(
-      Object.values(enabledDemographicOptionsMap)[0] as DemographicType
+      Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
     )
   }
 
@@ -85,9 +84,9 @@ export function Report(props: ReportProps) {
         (val: string) => {
           val = swapOldDatatypeParams(val)
           return METRIC_CONFIG[props.dropdownVarId]?.find(
-            (cfg) => cfg.dataTypeId === val
+            (cfg) => cfg.dataTypeId === val,
           )
-        }
+        },
       )
       setDataTypeConfig(dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
     }
@@ -104,7 +103,7 @@ export function Report(props: ReportProps) {
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
-      (key) => document.getElementById(key)?.id !== undefined
+      (key) => document.getElementById(key)?.id !== undefined,
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
@@ -122,9 +121,12 @@ export function Report(props: ReportProps) {
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
 
+  const rateMetricConfig =
+    dataTypeConfig && metricConfigFromDtConfig('rate', dataTypeConfig)
   const shareMetricConfig =
-    dataTypeConfig?.metrics.pct_share_unknown ??
-    dataTypeConfig?.metrics.pct_share
+    dataTypeConfig && metricConfigFromDtConfig('share', dataTypeConfig)
+  const inequityOverTimeConfig =
+    dataTypeConfig && metricConfigFromDtConfig('inequity', dataTypeConfig)
 
   return (
     <>
@@ -170,18 +172,20 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* RATE TRENDS LINE CHART CARD */}
-                <div
-                  tabIndex={-1}
-                  className='w-full scroll-m-0 md:scroll-mt-24'
-                  id='rates-over-time'
-                >
-                  <RateTrendsChartCard
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    fips={props.fips}
-                    reportTitle={props.reportTitle}
-                  />
-                </div>
+                {rateMetricConfig?.timeSeriesCadence && (
+                  <div
+                    tabIndex={-1}
+                    className='w-full scroll-m-0 md:scroll-mt-24'
+                    id='rates-over-time'
+                  >
+                    <RateTrendsChartCard
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      fips={props.fips}
+                      reportTitle={props.reportTitle}
+                    />
+                  </div>
+                )}
 
                 {/* 100K BAR CHART CARD */}
                 <div
@@ -226,20 +230,22 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* SHARE TRENDS LINE CHART CARD */}
-                <div
-                  tabIndex={-1}
-                  id='inequities-over-time'
-                  className='w-full scroll-m-0 md:scroll-mt-24'
-                >
-                  <LazyLoad offset={600} height={750} once>
-                    <ShareTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
-                      demographicType={demographicType}
-                      fips={props.fips}
-                      reportTitle={props.reportTitle}
-                    />
-                  </LazyLoad>
-                </div>
+                {inequityOverTimeConfig?.timeSeriesCadence && (
+                  <div
+                    tabIndex={-1}
+                    id='inequities-over-time'
+                    className='w-full scroll-m-0 md:scroll-mt-24'
+                  >
+                    <LazyLoad offset={600} height={750} once>
+                      <ShareTrendsChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={props.fips}
+                        reportTitle={props.reportTitle}
+                      />
+                    </LazyLoad>
+                  </div>
+                )}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
                 <div
@@ -280,7 +286,7 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {dataTypeConfig.metrics.age_adjusted_ratio?.ageAdjusted && (
+                {dataTypeConfig.metrics?.age_adjusted_ratio && (
                   <div
                     tabIndex={-1}
                     className='w-full'

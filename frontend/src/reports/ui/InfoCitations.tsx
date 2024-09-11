@@ -1,4 +1,4 @@
-import { type Citation } from '../../data/config/MetricConfig'
+import type { Citation } from '../../data/config/MetricConfigTypes'
 
 /* Take an option citations config, and convert into a span of links to cited sources with hover titles */
 

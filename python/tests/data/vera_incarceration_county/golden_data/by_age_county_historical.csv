@@ -1,0 +1,19 @@
+time_period,county_fips,county_name,age,jail_per_100k,prison_per_100k,jail_pct_relative_inequity,prison_pct_relative_inequity
+2010,01001,Autauga County,All,438.0,531.0,0.0,0.0
+2010,08031,Denver County,All,490.0,1099.0,0.0,0.0
+2011,01001,Autauga County,All,440.0,599.0,0.0,0.0
+2011,08031,Denver County,All,479.0,982.0,0.0,0.0
+2012,01001,Autauga County,All,450.0,619.0,0.0,0.0
+2012,08031,Denver County,All,468.0,870.0,0.0,0.0
+2013,01001,Autauga County,All,457.0,598.0,0.0,0.0
+2013,08031,Denver County,All,492.0,840.0,0.0,0.0
+2014,01001,Autauga County,All,456.0,536.0,0.0,0.0
+2014,08031,Denver County,All,464.0,836.0,0.0,0.0
+2015,01001,Autauga County,All,457.0,601.0,0.0,0.0
+2015,08031,Denver County,All,415.0,782.0,0.0,0.0
+2016,01001,Autauga County,All,453.0,503.0,0.0,0.0
+2016,08031,Denver County,All,447.0,742.0,0.0,0.0
+2017,01001,Autauga County,All,454.0,,0.0,
+2017,08031,Denver County,All,430.0,,0.0,
+2018,01001,Autauga County,All,455.0,,0.0,
+2018,08031,Denver County,All,413.0,,0.0,

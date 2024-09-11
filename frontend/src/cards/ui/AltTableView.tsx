@@ -1,5 +1,4 @@
 import {
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -9,11 +8,10 @@ import {
   Tooltip,
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
-import { formatFieldValue, isPctType, type MetricConfig } from '../../data/config/MetricConfig'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
@@ -21,14 +19,17 @@ import {
   ALL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
-import { type Row } from '../../data/utils/DatasetTypes'
+import type { Row } from '../../data/utils/DatasetTypes'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
-import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
+import {
+  formatFieldValue,
+  isPctType,
+} from '../../data/config/MetricConfigUtils'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -57,7 +58,7 @@ export default function AltTableView(props: AltTableViewProps) {
     props.knownMetricConfig,
     props.unknownMetricConfig,
     props.selectedGroups,
-    props.hasUnknowns
+    props.hasUnknowns,
   )
 
   const latestTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
@@ -80,8 +81,6 @@ export default function AltTableView(props: AltTableViewProps) {
         expanded={props.expanded}
         setExpanded={props.setExpanded}
         expandBoxLabel={props.expandBoxLabel}
-
-
       />
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
@@ -166,11 +165,13 @@ export default function AltTableView(props: AltTableViewProps) {
                               </>
                             ) : (
                               <>
-                                {isTimePeriod ? row[key] : formatFieldValue(
-                                  props.knownMetricConfig.type,
-                                  row[key],
-                                  !appendPct
-                                )}
+                                {isTimePeriod
+                                  ? row[key]
+                                  : formatFieldValue(
+                                      props.knownMetricConfig.type,
+                                      row[key],
+                                      !appendPct,
+                                    )}
                               </>
                             )}
                           </TableCell>

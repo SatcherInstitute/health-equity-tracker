@@ -1,9 +1,9 @@
 import AcsPopulationProvider from './AcsPopulationProvider'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import {
-  DatasetId,
+  type DatasetId,
   DatasetIdWithStateFIPSCode,
   DatasetMetadataMap,
 } from '../config/DatasetMetadata'
@@ -12,14 +12,14 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   acsDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
-  demographicType: DemographicType
+  demographicType: DemographicType,
 ) {
   const acsPopulationProvider = new AcsPopulationProvider()
   const specificId = appendFipsIfNeeded(acsDatasetId, baseBreakdown)
@@ -27,7 +27,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await acsPopulationProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
+    new MetricQuery([], baseBreakdown.addBreakdown(demographicType)),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -49,7 +49,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_race_county',
       Breakdowns.forFips(new Fips('01001')),
-      RACE
+      RACE,
     )
   })
 
@@ -57,7 +57,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_race_state',
       Breakdowns.forFips(new Fips('37')),
-      RACE
+      RACE,
     )
   })
 
@@ -65,7 +65,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_race_national',
       Breakdowns.forFips(new Fips('00')),
-      RACE
+      RACE,
     )
   })
 
@@ -73,7 +73,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_age_county',
       Breakdowns.forFips(new Fips('02013')),
-      AGE
+      AGE,
     )
   })
 
@@ -81,7 +81,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_age_state',
       Breakdowns.forFips(new Fips('37')),
-      AGE
+      AGE,
     )
   })
 
@@ -89,7 +89,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_age_national',
       Breakdowns.forFips(new Fips('00')),
-      AGE
+      AGE,
     )
   })
 
@@ -97,7 +97,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_sex_county',
       Breakdowns.forFips(new Fips('37001')),
-      SEX
+      SEX,
     )
   })
 
@@ -105,7 +105,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_sex_state',
       Breakdowns.forFips(new Fips('37')),
-      SEX
+      SEX,
     )
   })
 
@@ -113,7 +113,7 @@ describe('AcsPopulationProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'acs_population-by_sex_national',
       Breakdowns.forFips(new Fips('00')),
-      SEX
+      SEX,
     )
   })
 })

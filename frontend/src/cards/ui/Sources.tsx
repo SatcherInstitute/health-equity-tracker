@@ -1,14 +1,12 @@
-import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
+import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   DatasetMetadataMap,
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import {
-  type DataTypeConfig,
-} from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { useAtomValue } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
@@ -24,7 +22,7 @@ import SourcesInfo from './SourcesInfo'
 import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
 import {
   getConfigFromDataTypeId,
-  CategoryTypeId,
+  type CategoryTypeId,
 } from '../../utils/MadLibs'
 
 interface SourcesProps {
@@ -56,20 +54,19 @@ export function Sources(props: SourcesProps) {
 
   const dataSourceMap = getDataSourceMapFromDatasetIds(
     datasetIds,
-    props.metadata
+    props.metadata,
   )
 
   const selectedDataTypeConfigAtom = props.isCompareCard
     ? selectedDataTypeConfig2Atom
     : selectedDataTypeConfig1Atom
 
-  const selectedDataTypeConfig = useAtomValue(
-    selectedDataTypeConfigAtom
-  )
+  const selectedDataTypeConfig = useAtomValue(selectedDataTypeConfigAtom)
 
   const selectedDataTypeId = selectedDataTypeConfig?.dataTypeId
 
-  const category: CategoryTypeId | undefined = selectedDataTypeConfig?.categoryId
+  const category: CategoryTypeId | undefined =
+    selectedDataTypeConfig?.categoryId
   let methodologyLink = `${METHODOLOGY_PAGE_LINK}/topic-categories/`
   // TODO: refactor to sync CategoryTypeId and Methodology Category Link Routes (they're close but not identical)
   if (category === 'medicare') methodologyLink += 'medication-utilization'
@@ -102,19 +99,16 @@ export function Sources(props: SourcesProps) {
       <p className='w-full'>
         <>{optionalDefinition}</>
         <>{showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}</>
-        View{' '}
-        <HashLink to={methodologyLink}>
-          methodology
-        </HashLink>
-        .
+        View <HashLink to={methodologyLink}>methodology</HashLink>.
       </p>
 
       <div
-        className={`${props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
-          }`}
+        className={`${
+          props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
+        }`}
       >
         <SourcesInfo dataSourceMap={dataSourceMap} />
       </div>
-    </footer >
+    </footer>
   )
 }

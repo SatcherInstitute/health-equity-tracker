@@ -8,16 +8,21 @@ import {
   getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
-import { METRIC_CONFIG, DataTypeConfig, DropdownVarId } from '../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import WhatDataAreMissing from './WhatDataAreMissing'
-import { DATA_CATALOG_PAGE_LINK, RACES_AND_ETHNICITIES_LINK } from '../utils/internalRoutes'
+import {
+  DATA_CATALOG_PAGE_LINK,
+  RACES_AND_ETHNICITIES_LINK,
+} from '../utils/internalRoutes'
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
 import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
 import HetTextArrowLink from '../styles/HetComponents/HetTextArrowLink'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -42,14 +47,16 @@ function ReportProvider(props: ReportProviderProps) {
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions?.filter(
-    (condition) => condition?.definition?.text
+    (condition) => condition?.definition?.text,
   )
 
   // create a subset of MetricConfig (with top level string + datatype array)
   // that matches only the selected, defined conditions
   const metricConfigSubset = Object.entries(METRIC_CONFIG).filter(
     (dataTypeArray) =>
-      dataTypeArray[1].some((dataType) => definedConditions?.includes(dataType))
+      dataTypeArray[1].some((dataType) =>
+        definedConditions?.includes(dataType),
+      ),
   ) as Array<[DropdownVarId, DataTypeConfig[]]>
 
   let fips1: Fips = new Fips('00')
@@ -79,7 +86,7 @@ function ReportProvider(props: ReportProviderProps) {
               fips={fips1}
               updateFipsCallback={(fips: Fips) => {
                 props.setMadLib(
-                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code),
                 )
               }}
               isScrolledToTop={props.isScrolledToTop}
@@ -107,12 +114,12 @@ function ReportProvider(props: ReportProviderProps) {
               fips2={fips2}
               updateFips1Callback={(fips: Fips) => {
                 props.setMadLib(
-                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code),
                 )
               }}
               updateFips2Callback={(fips: Fips) => {
                 props.setMadLib(
-                  getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
+                  getMadLibWithUpdatedValue(props.madLib, 5, fips.code),
                 )
               }}
               isScrolledToTop={props.isScrolledToTop}
@@ -162,10 +169,11 @@ function ReportProvider(props: ReportProviderProps) {
   return (
     <>
       <div
-        className={`mx-auto my-0 w-full ${props.isSingleColumn
-          ? ' max-w-exploreDataPage'
-          : 'max-w-exploreDataTwoColumnPage'
-          }`}
+        className={`mx-auto my-0 w-full ${
+          props.isSingleColumn
+            ? ' max-w-exploreDataPage'
+            : 'max-w-exploreDataTwoColumnPage'
+        }`}
       >
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
@@ -191,10 +199,10 @@ function ReportProvider(props: ReportProviderProps) {
               <RaceRelabelingsList />
 
               <HetTextArrowLink
-              link={RACES_AND_ETHNICITIES_LINK}
-              linkText='See our methodology'
-              containerClassName='w-auto ml-8'
-              linkClassName='text-altGreen'
+                link={RACES_AND_ETHNICITIES_LINK}
+                linkText='See our methodology'
+                containerClassName='w-auto ml-8'
+                linkClassName='text-altGreen'
               />
             </div>
           )}

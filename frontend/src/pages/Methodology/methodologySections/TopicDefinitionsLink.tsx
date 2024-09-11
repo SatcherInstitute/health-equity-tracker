@@ -1,11 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import { CATEGORIES_LIST } from '../../../utils/MadLibs'
 import { slugify } from '../../../utils/urlutils'
-import {
-  type DataTypeConfig,
-  type DropdownVarId,
-  METRIC_CONFIG,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
 
 export default function TopicDefinitionsLink() {
   return (
@@ -20,7 +18,7 @@ export default function TopicDefinitionsLink() {
           const categoryConfigs = category.options.flatMap(
             (topic: DropdownVarId) => {
               return METRIC_CONFIG[topic]
-            }
+            },
           )
 
           return (

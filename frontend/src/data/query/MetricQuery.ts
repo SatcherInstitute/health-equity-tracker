@@ -1,14 +1,10 @@
-import {
-  type Breakdowns,
-  type DemographicType,
-  type TimeView,
-} from './Breakdowns'
-import { type Row, type FieldRange } from '../utils/DatasetTypes'
-import { type MetricId, type DataTypeId } from '../config/MetricConfig'
-import { type DemographicGroup } from '../utils/Constants'
-import {
-  type DatasetIdWithStateFIPSCode,
-  type DatasetId,
+import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
+import type { Row, FieldRange } from '../utils/DatasetTypes'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import type { DemographicGroup } from '../utils/Constants'
+import type {
+  DatasetIdWithStateFIPSCode,
+  DatasetId,
 } from '../config/DatasetMetadata'
 
 export class MetricQuery {
@@ -21,7 +17,7 @@ export class MetricQuery {
     metricIds: MetricId | MetricId[],
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ) {
     this.metricIds = [metricIds].flat()
     this.breakdowns = breakdowns
@@ -56,8 +52,8 @@ function getInvalidValues(rows: Row[]) {
 export function createMissingDataResponse(missingDataMessage: string) {
   return new MetricQueryResponse(
     [],
-    /* consumedDatasetIds= */[],
-    missingDataMessage
+    /* consumedDatasetIds= */ [],
+    missingDataMessage,
   )
 }
 
@@ -70,7 +66,7 @@ export class MetricQueryResponse {
   constructor(
     data: Row[],
     consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [],
-    missingDataMessage: string | undefined = undefined
+    missingDataMessage: string | undefined = undefined,
   ) {
     this.data = data
     this.consumedDatasetIds = consumedDatasetIds
@@ -107,14 +103,14 @@ export class MetricQueryResponse {
   // Filters rows to those for which the requested field has a valid value
   getValidRowsForField(fieldName: DemographicType | MetricId) {
     return this.data.filter(
-      (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null
+      (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null,
     )
   }
 
   // Generate two arrays of demographic groups, with and without data in the target metric field
   getFieldValues(
     fieldName: DemographicType,
-    targetMetric: MetricId
+    targetMetric: MetricId,
   ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
     const withData: DemographicGroup[] = []
     const noData: DemographicGroup[] = []
@@ -123,7 +119,7 @@ export class MetricQueryResponse {
 
     const validRows = this.getValidRowsForField(fieldName)
     const groupOptions = new Set<DemographicGroup>(
-      validRows.map((row) => row[fieldName])
+      validRows.map((row) => row[fieldName]),
     )
 
     groupOptions.forEach((group) => {
@@ -133,7 +129,8 @@ export class MetricQueryResponse {
       validRowsPerGroup.some((row) => {
         // exclude null and undefined, include any values including 0
         return (
-          !isNaN(parseFloat(row[targetMetric])) && row[targetMetric] != null
+          !isNaN(Number.parseFloat(row[targetMetric])) &&
+          row[targetMetric] != null
         )
       })
         ? withData.push(group)

@@ -1,7 +1,7 @@
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
-import { type DataTypeConfig } from '../data/config/MetricConfig'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -20,11 +20,11 @@ import {
 import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetNotice from '../styles/HetComponents/HetNotice'
@@ -80,36 +80,35 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
-    demographicType
+    demographicType,
   )
   const alertBreakdown = Breakdowns.forFips(props.fips).addBreakdown(
-    demographicType
+    demographicType,
   )
 
   const mapQuery = new MetricQuery(
     [metricConfig.metricId],
     mapGeoBreakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ 'current'
+    /* timeView */ 'current',
   )
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ 'current'
+    /* timeView */ 'current',
   )
 
   const chartTitle = generateChartTitle(
     /* chartTitle:  */ metricConfig.chartTitle,
     /* fips: */ props.fips,
-    demographicType
+    demographicType,
   )
 
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
-    props.dataTypeConfig
-
+    props.dataTypeConfig,
   )
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
@@ -137,7 +136,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           .filter(
             (row: Row) =>
               row[demographicType] === UNKNOWN_RACE ||
-              row[demographicType] === UNKNOWN
+              row[demographicType] === UNKNOWN,
           )
 
         const unknownEthnicities: Row[] = mapQueryResponse
@@ -150,12 +149,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           unknownEthnicities.length === 0
             ? unknownRaces
             : unknownRaces.map((unknownRaceRow, index) => {
-              return unknownRaceRow[metricConfig.metricId] >
-                unknownEthnicities[index][metricConfig.metricId] ||
-                unknownEthnicities[index][metricConfig.metricId] == null
-                ? unknownRaceRow
-                : unknownEthnicities[index]
-            })
+                return unknownRaceRow[metricConfig.metricId] >
+                  unknownEthnicities[index][metricConfig.metricId] ||
+                  unknownEthnicities[index][metricConfig.metricId] == null
+                  ? unknownRaceRow
+                  : unknownEthnicities[index]
+              })
 
         const dataIsMissing = mapQueryResponse.dataIsMissing()
         const unknownsArrayEmpty = unknowns.length === 0
@@ -173,7 +172,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const unknownsUndefined =
           unknowns.length > 0 &&
           unknowns.every(
-            (unknown: Row) => unknown[metricConfig.metricId] === undefined
+            (unknown: Row) => unknown[metricConfig.metricId] === undefined,
           )
 
         // for data sets where some geos might contain `0` for every unknown pct_share, like CAWP US Congress National
@@ -182,7 +181,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           unknowns.every(
             (unknown: Row) =>
               unknown[metricConfig.metricId] === 0 ||
-              unknown[metricConfig.metricId] == null
+              unknown[metricConfig.metricId] == null,
           )
 
         // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
@@ -209,7 +208,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
           <>
             <ChartTitle title={chartTitle} subtitle={subtitle} />
             {showingVisualization && (
-              <div className={props.fips.isUsa() ? 'mr-2 md:mr-16 xl:mr-24' : 'm-2'}>
+              <div
+                className={
+                  props.fips.isUsa() ? 'mr-2 md:mr-16 xl:mr-24' : 'm-2'
+                }
+              >
                 <ChoroplethMap
                   demographicType={demographicType}
                   activeDemographicGroup={UNKNOWN}
@@ -259,7 +262,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   mapQueryResponse
                     .getValidRowsForField(demographicType)
                     .filter(
-                      (row: Row) => row[demographicType] === UNKNOWN_ETHNICITY
+                      (row: Row) => row[demographicType] === UNKNOWN_ETHNICITY,
                     ).length !== 0
                 }
                 noDemographicInfoMap={noDemographicInfo}

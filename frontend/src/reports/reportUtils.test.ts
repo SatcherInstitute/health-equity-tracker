@@ -1,4 +1,4 @@
-import { DataTypeId } from '../data/config/MetricConfig'
+import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import {
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,
@@ -40,8 +40,8 @@ describe('Test configsContainsMatchingId()', () => {
           'voter_participation',
           'something' as DataTypeId,
           'something_else' as DataTypeId,
-        ]
-      )
+        ],
+      ),
     ).toBe(true)
   })
 
@@ -49,8 +49,8 @@ describe('Test configsContainsMatchingId()', () => {
     expect(
       configsContainsMatchingId(
         /* configs */ VOTER_PARTICIPATION_METRICS,
-        /* ids */ ['something' as DataTypeId, 'something_else' as DataTypeId]
-      )
+        /* ids */ ['something' as DataTypeId, 'something_else' as DataTypeId],
+      ),
     ).toBe(false)
   })
 
@@ -62,8 +62,8 @@ describe('Test configsContainsMatchingId()', () => {
           'women_in_us_congress',
           'something' as DataTypeId,
           'something_else' as DataTypeId,
-        ]
-      )
+        ],
+      ),
     ).toBe(true)
   })
 
@@ -76,8 +76,8 @@ describe('Test configsContainsMatchingId()', () => {
           'something' as DataTypeId,
           'something_else' as DataTypeId,
         ],
-        /* bothNeedToMatch? */ true
-      )
+        /* bothNeedToMatch? */ true,
+      ),
     ).toBe(false)
   })
 })

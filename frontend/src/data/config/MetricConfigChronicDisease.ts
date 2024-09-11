@@ -1,5 +1,5 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -43,7 +43,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Asthma cases',
     fullDisplayNameInline: 'asthma cases',
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for asthma cases',
+    dataTableTitle: 'Summary for asthma cases',
     definition: {
       text: `Adults who reported being told by a health professional that they currently have asthma.`,
     },
@@ -105,7 +105,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Cases of cardiovascular diseases',
     fullDisplayNameInline: 'cases of cardiovascular diseases',
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for cardiovascular disease',
+    dataTableTitle: 'Summary for cardiovascular disease',
     definition: {
       text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
     },
@@ -182,7 +182,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
+    dataTableTitle: 'Summary for cases of chronic kidney disease',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
@@ -238,7 +238,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
       text: `Diabetes is a chronic condition that affects the way the body uses sugar. It is more common in people of color and people with low incomes. Studying diabetes can help us understand why these disparities exist and how to address them.`,
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for diabetes',
+    dataTableTitle: 'Summary for diabetes',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {
@@ -300,7 +300,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
       ],
     },
     surveyCollectedData: true,
-    dataTableTitle: 'Breakdown summary for COPD',
+    dataTableTitle: 'Summary for COPD',
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_share: {

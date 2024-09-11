@@ -1,12 +1,12 @@
 import { Vega } from 'react-vega'
-import { type Row } from '../data/utils/DatasetTypes'
+import type { Row } from '../data/utils/DatasetTypes'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import {
   type DemographicType,
   type DemographicTypeDisplayName,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -15,12 +15,19 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
   LABEL_HEIGHT,
+  CORNER_RADIUS,
 } from './utils'
 import { createBarLabel } from './mapHelperFunctions'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
+import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
+const MEASURE_GROUP_COLOR = het.altGreen
+const MEASURE_ALL_COLOR = het.timeYellow
+const BAR_HEIGHT = 60
+const BAR_PADDING = 0.2
+const DATASET = 'DATASET'
 
 function getSpec(
   altText: string,
@@ -36,12 +43,8 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean,
   barLabelBreakpoint: number,
-  usePercentSuffix: boolean
+  usePercentSuffix: boolean,
 ): any {
-  const MEASURE_COLOR = het.altGreen
-  const BAR_HEIGHT = 60
-  const BAR_PADDING = 0.2
-  const DATASET = 'DATASET'
   const chartIsSmall = width < 400
 
   const createAxisTitle = () => {
@@ -55,17 +58,17 @@ function getSpec(
     chartIsSmall,
     measure,
     tooltipMetricDisplayColumnName,
-    usePercentSuffix
+    usePercentSuffix,
   )
 
   const legends = showLegend
     ? [
-      {
-        fill: 'variables',
-        orient: 'top',
-        padding: 4,
-      },
-    ]
+        {
+          fill: 'variables',
+          orient: 'top',
+          padding: 4,
+        },
+      ]
     : []
 
   const onlyZeros = data.every((row) => {
@@ -92,7 +95,7 @@ function getSpec(
       },
       {
         name: 'height',
-        update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
+        update: "bandspace(domain('y').length, 0.1, 0.05) * y_step + 10",
       },
     ],
     marks: [
@@ -107,15 +110,30 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
           update: {
-            fill: { value: MEASURE_COLOR },
+            cornerRadiusTopRight: {
+              value: CORNER_RADIUS,
+            },
+            cornerRadiusBottomRight: {
+              value: CORNER_RADIUS,
+            },
+            fill: {
+              signal: `datum.${demographicType} === 'All' ? '${MEASURE_ALL_COLOR}' : '${MEASURE_GROUP_COLOR}'`,
+            },
             x: { scale: 'x', field: measure },
             x2: { scale: 'x', value: 0 },
-            y: { scale: 'y', field: demographicType },
+            y: {
+              scale: 'y',
+              field: demographicType,
+              // band: 1,
+              offset: {
+                signal: `datum.${demographicType} === 'All' ? 0 : 10`,
+              },
+            },
             height: { scale: 'y', band: 1 },
           },
         },
@@ -134,23 +152,24 @@ function getSpec(
             fontSize: { value: 0 },
             text: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
             },
           },
         },
       },
+      // Labels on Bars
       {
         name: 'measure_text_labels',
         type: 'text',
         style: ['text'],
         from: { data: DATASET },
-        aria: false, // this data accessible in alt_text_labels
+        aria: false, // this data already accessible in alt_text_labels above
         encode: {
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                demographicType
+                demographicType,
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -161,17 +180,25 @@ function getSpec(
             },
             baseline: { value: 'middle' },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? '5' : '1'
-                })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
+                width > 250 ? '5' : '1'
+              })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
             },
             fill: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}  && datum.${demographicType} !== 'All', '${het.white}', '${het.black}')`,
             },
             x: { scale: 'x', field: measure },
-            y: { scale: 'y', field: demographicType, band: 0.8 },
+            y: {
+              scale: 'y',
+              field: demographicType,
+              band: 0.8,
+              offset: {
+                signal: `datum.${demographicType} === 'All' ? 0 : 10`,
+              },
+            },
             limit: { signal: 'width / 3' },
             text: {
               signal: barLabel,
@@ -202,13 +229,15 @@ function getSpec(
           field: demographicType,
         },
         range: { step: { signal: 'y_step' } },
+        paddingOuter: 0.1,
         paddingInner: BAR_PADDING,
       },
+
       {
         name: 'variables',
         type: 'ordinal',
         domain: [measureDisplayName],
-        range: [MEASURE_COLOR],
+        range: [MEASURE_GROUP_COLOR, MEASURE_ALL_COLOR],
       },
     ],
     axes: [
@@ -253,7 +282,9 @@ function getSpec(
               baseline: { value: 'bottom' },
               // Limit at which line is truncated with an ellipsis
               limit: { value: 100 },
-              dy: { signal: AXIS_LABEL_Y_DELTA },
+              dy: {
+                signal: `datum.demographicType !== 'All' ? 5 : ${AXIS_LABEL_Y_DELTA}`, // Adjust based on AXIS_LABEL_Y_DELTA
+              },
               lineHeight: { signal: LABEL_HEIGHT },
             },
           },
@@ -270,24 +301,28 @@ interface SimpleHorizontalBarChartProps {
   demographicType: DemographicType
   filename?: string
   usePercentSuffix?: boolean
+  className?: string
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
-
   const [ref, width] = useResponsiveWidth()
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     props.data,
-    props.demographicType
+    props.demographicType,
   )
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
     addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter)
   // Omit the % symbol for the tooltip because it's included in shortLabel.
-  const [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
+  let [data, tooltipMetricDisplayColumnName] = addMetricDisplayColumn(
     props.metric,
     dataWithDisplayCol,
-    /* omitPctSymbol= */ true
+    /* omitPctSymbol= */ true,
   )
+
+  if (props.demographicType === 'income') {
+    data = sortForVegaByIncome(data)
+  }
 
   const barLabelBreakpoint =
     Math.max(...props.data.map((row) => row[props.metric.metricId])) *
@@ -297,16 +332,18 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer='svg'
-        downloadFileName={`${props.filename ?? 'Data Download'
-          } - Health Equity Tracker`}
+        downloadFileName={`${
+          props.filename ?? 'Data Download'
+        } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${props.filename ?? 'Data Download'
+          /* altText  */ `Bar Chart showing ${
+            props.filename ?? 'Data Download'
           }`,
           /* data  */ data,
           /* width  */ width,
           /* demographicType  */ props.demographicType,
           /* demographicTypeDisplayName  */ DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-          props.demographicType
+            props.demographicType
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,
@@ -314,7 +351,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
           /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
-          /* usePercentSuffix  */ props.usePercentSuffix ?? false
+          /* usePercentSuffix  */ props.usePercentSuffix ?? false,
         )}
         actions={false}
       />

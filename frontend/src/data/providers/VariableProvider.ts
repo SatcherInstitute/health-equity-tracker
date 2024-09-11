@@ -1,7 +1,8 @@
-import { type IDataFrame } from 'data-forge'
-import { type MetricId, type DataTypeId } from '../config/MetricConfig'
-import { type ProviderId } from '../loading/VariableProviderMap'
-import { type Breakdowns, type TimeView } from '../query/Breakdowns'
+import type { IDataFrame } from 'data-forge'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import {
   createMissingDataResponse,
   type MetricQuery,
@@ -9,7 +10,7 @@ import {
 } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { TIME_PERIOD } from '../utils/Constants'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { DatasetId } from '../config/DatasetMetadata'
 
 abstract class VariableProvider {
   readonly providerId: ProviderId
@@ -24,9 +25,9 @@ abstract class VariableProvider {
     if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
       return createMissingDataResponse(
         'Breakdowns not supported for provider ' +
-        this.providerId +
-        ': ' +
-        metricQuery.breakdowns.getUniqueKey()
+          this.providerId +
+          ': ' +
+          metricQuery.breakdowns.getUniqueKey(),
       )
     }
 
@@ -48,34 +49,6 @@ abstract class VariableProvider {
         return df.where((row) => row[fipsColumn] === fips.code).resetIndex()
       }
     }
-    return df
-  }
-
-  filterByTimeView(
-    df: IDataFrame,
-    timeView: TimeView,
-    sourceCurrentTimePeriod?: string
-  ): IDataFrame {
-    // TODO: this should probably be deprecated, and we should rely on distinct _current or _historical tables on the backend
-    // This method should only be used when the current year  dataset is a recent subset of the historical D3 dataset
-    // For other sources like COVID, the TIME_SERIES set is in a distinct table that doesn't need the added filtering
-
-    // for updated datasets
-    // - return recent slice for current
-    // - return full df for LONG
-
-    // for older datasets
-    // - return full set for current
-    // - return empty df for LONG to trigger missing data on compare view
-
-    // const currentTimePeriod = sourceCurrentTimePeriod || "current"
-
-    if (df.getColumnNames().includes(TIME_PERIOD)) {
-      if (timeView === 'current') {
-        df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod)
-      }
-    }
-
     return df
   }
 
@@ -109,8 +82,8 @@ abstract class VariableProvider {
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(
       Object.entries(metricQuery.breakdowns.demographicBreakdowns)
-        .filter(([unusedKey, breakdown]) => breakdown.enabled)
-        .map(([unusedKey, breakdown]) => breakdown.columnName)
+        .filter(([_, breakdown]) => breakdown.enabled)
+        .map(([_, breakdown]) => breakdown.columnName),
     )
 
     const columnsToRemove = dataFrame
@@ -122,7 +95,7 @@ abstract class VariableProvider {
 
   applyDemographicBreakdownFilters(
     df: IDataFrame,
-    breakdowns: Breakdowns
+    breakdowns: Breakdowns,
   ): IDataFrame {
     let dataFrame = df
     Object.values(breakdowns.demographicBreakdowns).forEach((demo) => {
@@ -140,18 +113,18 @@ abstract class VariableProvider {
   }
 
   abstract getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse>
 
   abstract allowsBreakdowns(
     breakdowns: Breakdowns,
-    metricIds?: MetricId[]
+    metricIds?: MetricId[],
   ): boolean
 
   abstract getDatasetId(
     breakdown: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ): DatasetId | undefined
 }
 

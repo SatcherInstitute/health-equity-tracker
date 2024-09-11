@@ -1,6 +1,6 @@
-import { type Scale } from 'vega'
+import type { Scale } from 'vega'
 import { BAR_PADDING, DATASET, LEGEND_COLORS } from './constants'
-import { type ScalesProps } from './types'
+import type { ScalesProps } from './types'
 
 export function Scales({
   largerMeasure,

@@ -1,5 +1,4 @@
 import CdcCovidProvider, { dropRecentPartialMonth } from './CdcCovidProvider'
-import AcsPopulationProvider from './AcsPopulationProvider'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
@@ -20,8 +19,7 @@ async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
 ) {
-  const acsProvider = new AcsPopulationProvider()
-  const cdcCovidProvider = new CdcCovidProvider(acsProvider)
+  const cdcCovidProvider = new CdcCovidProvider()
 
   const specificId = appendFipsIfNeeded(cdcDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])

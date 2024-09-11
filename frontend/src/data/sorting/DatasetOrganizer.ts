@@ -1,9 +1,10 @@
-import { type Breakdowns } from '../query/Breakdowns'
+import type { Breakdowns } from '../query/Breakdowns'
 import { ALL, UNKNOWN, UNKNOWN_HL } from '../utils/Constants'
-import { type Row } from '../utils/DatasetTypes'
-import { type AbstractSortStrategy } from './AbstractDataSorter'
+import type { Row } from '../utils/DatasetTypes'
+import type { AbstractSortStrategy } from './AbstractDataSorter'
 import { AgeSorterStrategy } from './AgeSorterStrategy'
 import { AlphabeticalSorterStrategy } from './AlphabeticalSorterStrategy'
+import { IncomeSorterStrategy } from './IncomeSorterStrategy'
 
 export class DatasetOrganizer {
   reorderingColumn: string
@@ -21,7 +22,7 @@ export class DatasetOrganizer {
     data: Row[] | string[],
     breakdowns: Breakdowns,
     valuesToFront = [ALL],
-    valuesToBack = [UNKNOWN, UNKNOWN_HL]
+    valuesToBack = [UNKNOWN, UNKNOWN_HL],
   ) {
     this.breakdowns = breakdowns
     this.data = data
@@ -33,9 +34,10 @@ export class DatasetOrganizer {
       new AlphabeticalSorterStrategy(
         this.reorderingColumn,
         valuesToFront,
-        valuesToBack
+        valuesToBack,
       ),
       new AgeSorterStrategy(valuesToFront, valuesToBack),
+      new IncomeSorterStrategy(valuesToFront, valuesToBack),
     ]
   }
 

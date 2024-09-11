@@ -4,16 +4,14 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPhrma'
 import { MEDICARE_MEDICATION_RESOURCES } from '../methodologyContent/ResourcesData'
 import { HashLink } from 'react-router-hash-link'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../../../data/providers/PhrmaProvider'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { buildTopicsString } from './linkUtils'
 
 export const medicareMedicationDataSources = [dataSourceMetadataMap.phrma]
 
@@ -22,7 +20,7 @@ const datatypeConfigs = MEDICARE_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
 })
 
 export const medicareTopicsString = buildTopicsString(
-  MEDICARE_CATEGORY_DROPDOWNIDS
+  MEDICARE_CATEGORY_DROPDOWNIDS,
 )
 
 export default function MedicareMedicationLink() {
@@ -311,9 +309,7 @@ export default function MedicareMedicationLink() {
               </li>
               <li>
                 <i>American Indian / Alaska Native</i> we represent as{' '}
-                <HetTerm>
-                  Indigenous (Non-Hispanic)
-                </HetTerm>
+                <HetTerm>Indigenous (Non-Hispanic)</HetTerm>
               </li>
               <li>
                 <i>Non-Hispanic White</i> we represent as{' '}

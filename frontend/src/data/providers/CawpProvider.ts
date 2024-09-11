@@ -1,6 +1,7 @@
 import { getDataManager } from '../../utils/globals'
-import { type MetricId, type DataTypeId } from '../config/MetricConfig'
-import { type TimeView, type Breakdowns } from '../query/Breakdowns'
+import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+
+import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
@@ -16,7 +17,7 @@ import {
   UNKNOWN_W,
   HISP_W,
 } from '../utils/Constants'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { DatasetId } from '../config/DatasetMetadata'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -47,7 +48,7 @@ export const CAWP_DATA_TYPES: DataTypeId[] = [
 ]
 
 export function getWomenRaceLabel(
-  raceLabel: RaceAndEthnicityGroup
+  raceLabel: RaceAndEthnicityGroup,
 ): RaceAndEthnicityGroup {
   switch (raceLabel) {
     case MULTI:
@@ -78,7 +79,7 @@ class CawpProvider extends VariableProvider {
   getDatasetId(
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ): DatasetId | undefined {
     if (timeView === 'current') {
       if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
@@ -95,12 +96,14 @@ class CawpProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
@@ -114,20 +117,20 @@ class CawpProvider extends VariableProvider {
     if (
       metricQuery.metricIds.includes('cawp_population_pct') ||
       metricQuery.metricIds.includes(
-        'women_us_congress_pct_relative_inequity'
+        'women_us_congress_pct_relative_inequity',
       ) ||
       metricQuery.metricIds.includes('women_state_leg_pct_relative_inequity')
     ) {
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
+          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
         )
 
         // CAWP time-series also use DECIA_2010
         if (timeView === 'historical') {
           consumedDatasetIds.push(
-            'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level'
+            'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level',
           )
         }
       } else {

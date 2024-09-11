@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import { useAtomValue } from 'jotai'
 import {
@@ -26,7 +26,7 @@ export default function TopicInfoModalButton() {
 
   const [, setTopicInfoModalIsOpen] = useParamState<boolean>(
     TOPIC_INFO_PARAM_KEY,
-    false
+    false,
   )
 
   if (!configArray) return <></>

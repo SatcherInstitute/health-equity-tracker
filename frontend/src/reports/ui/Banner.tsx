@@ -1,78 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import FlagIcon from '@mui/icons-material/Flag';
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes';
-import { IconButton } from '@mui/material';
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink';
+import type React from 'react'
+import { useState, useEffect } from 'react'
+import FlagIcon from '@mui/icons-material/Flag'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { IconButton } from '@mui/material'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import { Close } from '@mui/icons-material'
 
 const Banner: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    const currentPath = window.location.pathname;
-    const currentSearch = window.location.search;
-    const bannerClosed = sessionStorage.getItem('bannerClosed');
+    const currentPath = window.location.pathname
+    const currentSearch = window.location.search
+    const bannerClosed = sessionStorage.getItem('bannerClosed')
 
-    if (currentPath === '/exploredata' && currentSearch === '' && !bannerClosed) {
-      setIsVisible(true);
+    if (
+      currentPath === '/exploredata' &&
+      currentSearch === '' &&
+      !bannerClosed
+    ) {
+      setIsVisible(true)
     } else {
-      setIsVisible(false);
+      setIsVisible(false)
     }
-  }, [window.location.pathname, window.location.search]);
+  }, [window.location.pathname, window.location.search])
 
   const handleClose = () => {
-    setIsVisible(false);
-    sessionStorage.setItem('bannerClosed', 'true');
-  };
+    setIsVisible(false)
+    sessionStorage.setItem('bannerClosed', 'true')
+  }
 
   if (!isVisible) {
-    return null;
+    return null
   }
 
   return (
-    <section className="bg-infobarColor text-center p-4" aria-labelledby="banner-heading">
-      <div className="flex justify-between">
-        <div className="flex lg:flex-row flex-wrap items-center justify-start md:items-center lg:justify-start m-0 px-2">
+    <section
+      className='bg-infobarColor text-center p-4'
+      aria-labelledby='banner-heading'
+    >
+      <div className='flex justify-between'>
+        <div className='flex lg:flex-row flex-wrap items-center justify-start md:items-center lg:justify-start m-0 px-2'>
           <FlagIcon
-            className="lg:visible hidden mr-2 text-alertColor"
-            aria-hidden="true"
+            className='lg:visible hidden mr-2 text-alertColor'
+            aria-hidden='true'
           />
-          <p className="text-small p-0 my-0 text-left lg:mr-8" id="banner-heading">
-            <span className="font-sansTitle text-small lg:text-text font-bold m-0 p-0">
+          <p
+            className='text-small p-0 my-0 text-left lg:mr-8'
+            id='banner-heading'
+          >
+            <span className='font-sansTitle text-small lg:text-text font-bold m-0 p-0'>
               Major gaps in the data:
             </span>{' '}
-            Structural racism causes health inequities. We’re closing these gaps to improve U.S. health policies.
+            Structural racism causes health inequities. We’re closing these gaps
+            to improve U.S. health policies.
           </p>
           <HetTextArrowLink
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            linkText="Learn more"
-            containerClassName="block md:mx-2 md:my-0 mx-0 my-4"
-            linkClassName="text-black"
+            linkText='Learn more'
+            containerClassName='block md:mx-2 md:my-0 mx-0 my-4'
+            linkClassName='text-black'
           />
         </div>
         <IconButton
           onClick={handleClose}
-          className="banner-close-button p-2.5 md:my-auto mb-auto xs:mt-[2px]"
-          aria-label="Close banner"
+          className='banner-close-button p-2.5 md:my-auto mb-auto'
+          aria-label='Close banner'
+          sx={{ borderRadius: 1 }}
         >
-          <div className="icon-small w-embed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M12.2 3.80667C11.94 3.54667 11.52 3.54667 11.26 3.80667L7.99998 7.06L4.73998 3.8C4.47998 3.54 4.05998 3.54 3.79998 3.8C3.53998 4.06 3.53998 4.48 3.79998 4.74L7.05998 8L3.79998 11.26C3.53998 11.52 3.53998 11.94 3.79998 12.2C4.05998 12.46 4.47998 12.46 4.73998 12.2L7.99998 8.94L11.26 12.2C11.52 12.46 11.94 12.46 12.2 12.2C12.46 11.94 12.46 11.52 12.2 11.26L8.93998 8L12.2 4.74C12.4533 4.48667 12.4533 4.06 12.2 3.80667Z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </div>
+          <Close />
         </IconButton>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Banner;
+export default Banner

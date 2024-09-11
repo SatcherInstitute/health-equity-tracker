@@ -76,6 +76,10 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     df_territories = prison_23.copy()
     df_jail = main_jail_table.copy()
 
+    prison_demo_cols = []
+    jail_demo_cols = []
+    demo_for_flip = ""
+
     if demo == std_col.SEX_COL:
         prison_demo_cols = BJS_SEX_GROUPS
         jail_demo_cols = BJS_SEX_GROUPS
@@ -197,7 +201,7 @@ def post_process(df, breakdown, geo, children_tables):
      Takes a breakdown df with raw incidence values by demographic by place and:
      - generates `PER_100K` column (some incoming df may already have this col and partial data)
      - generates `PCT_SHARE` column
-     - generates `total_confined_children` column, where number will be stored under the
+     - generates `confined_children_estimated_total` column, where number will be stored under the
          "All/ALL" demographic group rows for all demographic breakdowns
      - removes temporary columns needed only for calculating our metrics
 
@@ -351,7 +355,7 @@ class BJSIncarcerationData(DataSource):
             geo_level: string of "national" or "state" to determine resulting
                 geographic breakdown
             table_list: list of dfs containing needed tables for each geo/demo breakdown
-            prison_13: df needed separately for each breakdown's "total_confined_children" in prison
+            prison_13: df needed separately for each breakdown's "confined_children_estimated_total" in prison
             need JAIL confined nums here too
         Returns:
             Processed HET style df ready for BigQuery and HET frontend

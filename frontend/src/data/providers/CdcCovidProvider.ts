@@ -1,12 +1,11 @@
 import { getDataManager } from '../../utils/globals'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type AcsPopulationProvider from './AcsPopulationProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId, AgeAdjustedDataTypeId } from '../config/MetricConfig'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
@@ -14,14 +13,12 @@ import {
 import type { IDataFrame } from 'data-forge'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
-export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {
+export const dataTypeLinkMap: Partial<Record<DataTypeId, string>> = {
   covid_deaths: AGE_ADJUST_COVID_DEATHS_US_SETTING,
   covid_hospitalizations: AGE_ADJUST_COVID_HOSP_US_SETTING,
 }
 class CdcCovidProvider extends VariableProvider {
-  private readonly acsProvider: AcsPopulationProvider
-
-  constructor(acsProvider: AcsPopulationProvider) {
+  constructor() {
     super('cdc_covid_provider', [
       'covid_cases',
       'covid_deaths',
@@ -43,7 +40,6 @@ class CdcCovidProvider extends VariableProvider {
       'covid_deaths_pct_relative_inequity',
       'covid_hosp_pct_relative_inequity',
     ])
-    this.acsProvider = acsProvider
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
@@ -112,7 +108,9 @@ class CdcCovidProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const covidDataset = await getDataManager().loadDataset(specificDatasetId)
     const consumedDatasetIds = [datasetId]

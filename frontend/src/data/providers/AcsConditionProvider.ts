@@ -1,10 +1,10 @@
 import { getDataManager } from '../../utils/globals'
-import { type TimeView, type Breakdowns } from '../query/Breakdowns'
+import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { type DataTypeId, type MetricId } from '../config/MetricConfig'
-import { type DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { DatasetId } from '../config/DatasetMetadata'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
   'health_insurance',
@@ -34,7 +34,7 @@ class AcsConditionProvider extends VariableProvider {
   getDatasetId(
     breakdowns: Breakdowns,
     _dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ): DatasetId | undefined {
     if (timeView === 'historical') {
       if (breakdowns.geography === 'national') {
@@ -92,12 +92,14 @@ class AcsConditionProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const acsDataset = await getDataManager().loadDataset(specificDatasetId)
 

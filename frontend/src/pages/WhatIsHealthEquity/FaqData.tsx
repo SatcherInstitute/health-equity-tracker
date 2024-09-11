@@ -6,29 +6,29 @@ import {
 } from '../../utils/internalRoutes'
 
 export interface FAQ {
-  questionText: string
+  question: string
   answer: JSX.Element
 }
 
 export const selectFAQs: FAQ[] = [
   {
-    questionText: 'What is health equity? Why is it important?',
+    question: 'What is health equity? Why is it important?',
     answer: <AnswerWhatIsHealthEquity />,
   },
   {
-    questionText: 'What are health disparities',
+    question: 'What are health disparities?',
     answer: <AnswerWhatAreHealthDisparities />,
   },
   {
-    questionText: 'What data sources did you use? Why?',
+    question: 'What data sources did you use? Why?',
     answer: <AnswerWhatDataSources />,
   },
   {
-    questionText: 'What are the limitations in the data?',
+    question: 'What are the limitations in the data?',
     answer: <AnswerAreTheLimitations />,
   },
   {
-    questionText: 'How did you acquire and standardize the data?',
+    question: 'How did you acquire and standardize the data?',
     answer: <AnswerHowDidYouAcquire />,
   },
 ]

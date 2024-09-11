@@ -8,6 +8,7 @@ const ThemeStandardScreenSizes = {
   lgXl: '1440px',
   xl: '1920px',
   full: '100%',
+  eighty: '80vw',
 }
 
 const ThemeZIndexValues = {
@@ -20,7 +21,9 @@ const ThemeZIndexValues = {
   bottom: -999,
   middle: 0,
   almostTop: 3,
-  top: 999,
+  top: 99,
+  stickyMadLib: 100,
+  multimapModal: 101,
 }
 
 const ThemeLineHeightValues = {

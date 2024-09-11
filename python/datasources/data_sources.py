@@ -20,6 +20,7 @@ from datasources.geo_context import GeoContext
 from datasources.graphql_ahr import GraphQlAHRData
 from datasources.kff_vaccination import KFFVaccination
 from datasources.phrma import PhrmaData
+from datasources.phrma_brfss import PhrmaBrfssData
 from datasources.maternal_mortality import MaternalMortalityData
 from datasources.vera_incarceration_county import VeraIncarcerationCounty
 
@@ -47,7 +48,8 @@ DATA_SOURCES_DICT = {
     GeoContext.get_id(): GeoContext(),
     GraphQlAHRData.get_id(): GraphQlAHRData(),
     KFFVaccination.get_id(): KFFVaccination(),
-    PhrmaData.get_id(): PhrmaData(),
+    PhrmaData.get_id(): PhrmaData(),  # cv, hiv, mental health
+    PhrmaBrfssData.get_id(): PhrmaBrfssData(),  # cancer screenings
     MaternalMortalityData.get_id(): MaternalMortalityData(),
     VeraIncarcerationCounty.get_id(): VeraIncarcerationCounty(),
 }

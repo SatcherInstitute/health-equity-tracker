@@ -1,7 +1,7 @@
 import { getDataManager } from '../../utils/globals'
-import { type DatasetId } from '../config/DatasetMetadata'
-import { type DataTypeId, type MetricId } from '../config/MetricConfig'
-import { type TimeView, type Breakdowns } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
@@ -43,8 +43,7 @@ export const CARE_METRICS: MetricId[] = [
   'hiv_care_pct_share',
   'hiv_care_population_pct',
   'hiv_care_population',
-  'hiv_care'
-
+  'hiv_care',
 ]
 
 export const DEATHS_METRICS: MetricId[] = [
@@ -68,7 +67,7 @@ export const PREP_METRICS: MetricId[] = [
   'hiv_prep_pct_share',
   'hiv_prep_population_pct',
   'hiv_prep_population',
-  'hiv_prep'
+  'hiv_prep',
 ]
 
 export const PREVALENCE_METRICS: MetricId[] = [
@@ -126,7 +125,7 @@ class HivProvider extends VariableProvider {
   getDatasetId(
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
-    timeView?: TimeView
+    timeView?: TimeView,
   ): DatasetId | undefined {
     const isBlackWomenData =
       dataTypeId && BLACK_WOMEN_DATATYPES.includes(dataTypeId)
@@ -201,16 +200,18 @@ class HivProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(
       breakdowns,
       metricQuery.dataTypeId,
-      timeView
+      timeView,
     )
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const hiv = await getDataManager().loadDataset(specificDatasetId)
     let df = hiv.toDataFrame()
@@ -232,7 +233,7 @@ class HivProvider extends VariableProvider {
 
     const noCountyData = [...BLACK_WOMEN_METRICS, ...DEATHS_METRICS]
     const hasNoCountyData = metricIds.some((metricId) =>
-      noCountyData.includes(metricId)
+      noCountyData.includes(metricId),
     )
 
     return hasNoCountyData

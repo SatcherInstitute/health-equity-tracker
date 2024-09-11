@@ -4,14 +4,12 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
-import {
-  METRIC_CONFIG,
-  buildTopicsString,
-} from '../../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
 import { urlMap } from '../../../utils/externalUrls'
+import { buildTopicsString } from './linkUtils'
 
 export const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,
@@ -22,11 +20,11 @@ export const chronicDiseaseDataSources = [
 const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.flatMap(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
-  }
+  },
 )
 
 export const chronicDiseaseTopicsString = buildTopicsString(
-  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS
+  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
 )
 
 const ChronicDiseaseLink = () => {
@@ -61,7 +59,9 @@ const ChronicDiseaseLink = () => {
         <p>
           For chronic diseases like COPD and diabetes, our tracker sources data
           primarily from{' '}
-          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and  <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which primarily rely on the{' '}
+          <a href={urlMap.ahr}>America’s Health Rankings (AHR)</a> and{' '}
+          <a href={urlMap.chr}>County Health Rankings (CHR)</a>, both of which
+          primarily rely on the{' '}
           <a href={urlMap.cdcBrfss}>
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}

@@ -28,9 +28,7 @@ test('Chronic Kidney Disease', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
-  await page
-    .getByRole('heading', { name: 'Breakdown summary for cases' })
-    .click()
+  await page.getByRole('heading', { name: 'Summary for cases' }).click()
   await page.getByText('Share this report:').click()
   await page
     .getByText('Cases of chronic kidney disease', { exact: true })

@@ -14,21 +14,21 @@ import TableRow from '@mui/material/TableRow'
 import TableFooter from '@mui/material/TableFooter'
 import TablePagination from '@mui/material/TablePagination'
 import Paper from '@mui/material/Paper'
-import {
-  type MetricConfig,
-  type MetricId,
-  formatFieldValue,
-  type DataTypeId,
-} from '../data/config/MetricConfig'
+import type {
+  MetricConfig,
+  MetricId,
+  DataTypeId,
+} from '../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
 import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
-import { type Fips } from '../data/utils/Fips'
+import type { Fips } from '../data/utils/Fips'
 import ChartTitle from '../cards/ChartTitle'
 import { removeLastS } from './utils'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
@@ -36,6 +36,7 @@ import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -57,7 +58,7 @@ interface TableChartProps {
   countColsMap: CountColsMap
   data: Array<Readonly<Record<string, any>>>
   demographicType: DemographicType
-  metrics: MetricConfig[]
+  metricConfigs: MetricConfig[]
   dataTypeId: DataTypeId
   fips: Fips
   dataTableTitle: string
@@ -65,14 +66,17 @@ interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
-  const { data, metrics, demographicType } = props
+  const { data, metricConfigs, demographicType } = props
 
   let columns:
     | Array<{ Header: string; Cell: (a: any) => string; accessor: MetricId }>
     | Array<Column<any>> = []
 
-  if (metrics.length > 0 && metrics[0].metricId === 'hiv_stigma_index') {
-    const firstMetricConfig = metrics[0]
+  if (
+    metricConfigs.length > 0 &&
+    metricConfigs[0].metricId === 'hiv_stigma_index'
+  ) {
+    const firstMetricConfig = metricConfigs[0]
     columns.push({
       Header:
         firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
@@ -80,7 +84,7 @@ export function TableChart(props: TableChartProps) {
       accessor: firstMetricConfig.metricId,
     })
   } else {
-    columns = metrics.map((metricConfig) => {
+    columns = metricConfigs.map((metricConfig) => {
       return {
         Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
         Cell: (a: any) => formatFieldValue(metricConfig.type, a.value, true),
@@ -99,9 +103,29 @@ export function TableChart(props: TableChartProps) {
   ]
 
   // Changes deps array to columns on save, which triggers reload loop
-  // eslint-disable-next-line
-  const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
+  const memoCols = useMemo<Column<any>[]>(() => columns, [metricConfigs])
   const memoData = useMemo(() => data, [data])
+
+  const tableConfig: any = {
+    columns: memoCols,
+    data: memoData,
+    initialState: {
+      pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
+    },
+  }
+
+  // Set initial sort order if data wasn't already custom sorted for income
+  if (demographicType !== 'income') {
+    tableConfig.initialState = {
+      ...tableConfig.initialState,
+      sortBy: [
+        {
+          id: demographicType,
+          desc: false,
+        },
+      ],
+    }
+  }
 
   const {
     getTableProps,
@@ -112,30 +136,14 @@ export function TableChart(props: TableChartProps) {
     gotoPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns: memoCols,
-      data: memoData,
-      initialState: {
-        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
-        sortBy: [
-          {
-            id: demographicType,
-            desc: false,
-          },
-        ],
-      },
-    },
-    useSortBy,
-    usePagination
-  )
+  } = useTable(tableConfig, useSortBy, usePagination)
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
-    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps();
+    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps()
     return (
       <TableRow key={key} {...restHeaderGroupProps}>
-        {group.headers.map((col, index) => (
+        {group.headers.map((col) => (
           <TableCell key={col.id} style={headerCellStyle}>
             {col.render('Header')}
           </TableCell>
@@ -148,13 +156,13 @@ export function TableChart(props: TableChartProps) {
   function TableDataRow({ row }: { row: Row<any> }) {
     const numeratorCount = props.countColsMap.numeratorConfig?.metricId
       ? row.original[
-        props.countColsMap.numeratorConfig.metricId
-      ]?.toLocaleString()
+          props.countColsMap.numeratorConfig.metricId
+        ]?.toLocaleString()
       : ''
     const denominatorCount = props.countColsMap.denominatorConfig?.metricId
       ? row.original[
-        props.countColsMap.denominatorConfig.metricId
-      ]?.toLocaleString()
+          props.countColsMap.denominatorConfig.metricId
+        ]?.toLocaleString()
       : ''
     let numeratorLabel = props.countColsMap.numeratorConfig?.shortLabel ?? ''
     if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)
@@ -166,7 +174,7 @@ export function TableChart(props: TableChartProps) {
       return <></>
     }
 
-    const { key, ...restRowProps } = row.getRowProps();
+    const { key, ...restRowProps } = row.getRowProps()
 
     return (
       <TableRow key={key} {...restRowProps}>
@@ -188,8 +196,10 @@ export function TableChart(props: TableChartProps) {
               key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              {(cell.value < .1 && cell.value > 0 && index === 1) ? LESS_THAN_POINT_1 : cell.render('Cell')}
-              <Units column={index} metric={props.metrics} />
+              {cell.value < 0.1 && cell.value > 0 && index === 1
+                ? LESS_THAN_POINT_1
+                : cell.render('Cell')}
+              <Units column={index} metric={props.metricConfigs} />
               {index === 1 && numeratorCount && denominatorCount ? (
                 <HetUnitLabel>
                   {' '}
@@ -200,7 +210,7 @@ export function TableChart(props: TableChartProps) {
                 <></>
               )}
             </TableCell>
-          )
+          ),
         )}
       </TableRow>
     )
@@ -208,14 +218,15 @@ export function TableChart(props: TableChartProps) {
 
   return (
     <>
-      {props.data.length <= 0 || props.metrics.length <= 0 ? (
+      {props.data.length <= 0 || props.metricConfigs.length <= 0 ? (
         <h1>Insufficient Data</h1>
       ) : (
         <figure className='m-3'>
           <figcaption>
             <ChartTitle
-              title={`${props.dataTableTitle
-                } in ${props.fips.getSentenceDisplayName()}`}
+              title={`${
+                props.dataTableTitle
+              } in ${props.fips.getSentenceDisplayName()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}`}
               subtitle={props.subtitle}
             />
           </figcaption>

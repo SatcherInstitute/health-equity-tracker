@@ -114,8 +114,8 @@ class CDCWisqarsData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CDCWISQARS")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")
-        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")
+        demographic: WISQARS_DEMO_TYPE = self.get_attr(attrs, "demographic")  # type: ignore
+        geo_level: GEO_TYPE = self.get_attr(attrs, "geographic")  # type: ignore
 
         national_totals_by_intent_df = process_wisqars_df(WISQARS_ALL, geo_level)
 

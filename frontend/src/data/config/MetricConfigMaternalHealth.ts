@@ -1,7 +1,5 @@
-import {
-  defaultHigherIsWorseMapConfig,
-} from '../../charts/mapGlobals'
-import { type DataTypeConfig } from './MetricConfig'
+import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -27,15 +25,15 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Maternal mortality',
     fullDisplayNameInline: 'maternal mortality',
     definition: {
-      text: '',
+      text: `Maternal deaths per 100,000 live births.`,
     },
     description: {
-      text: '',
+      text: `Maternal deaths per 100,000 live births. Births were modeled using counts of live births among individuals aged 10 to 54 years between 1999 and 2019. Deaths were modeled from death certificate data for pregnant or recently pregnant individuals aged 10 to 54 years. Maternal deaths are coded as deaths that occurred up to 1 year after the end of pregnancy and were coded with the use of the US standard pregnancy question and/or a specific International Statistical Classification of Diseases and Related Health Problems codes.`,
     },
-    dataTableTitle: 'Breakdown summary for maternal mortality',
+    dataTableTitle: 'Summary for maternal mortality',
     metrics: {
-
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'maternal_mortality_per_100k',
         chartTitle: 'Maternal mortality',
         trendsCardTitleName: 'Rates of maternal mortality over time',
@@ -72,8 +70,3 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
     },
   },
 ]
-
-
-
-
-

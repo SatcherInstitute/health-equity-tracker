@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { usePopover } from '../../utils/hooks/usePopover'
-import { type DataTypeId } from '../../data/config/MetricConfig'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
@@ -13,7 +13,7 @@ interface DataTypeSelectorProps {
 
 export default function DataTypeSelector(props: DataTypeSelectorProps) {
   const chosenOption = props.options.find(
-    (i: string[]) => i[0] === props.newValue
+    (i: string[]) => i[0] === props.newValue,
   )
   const currentDisplayName = chosenOption ? chosenOption[1] : ''
   const popoverRef = useRef(null)

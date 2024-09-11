@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 test('Statin Adherence', async ({ page }) => {
   await page.goto(
-    '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=statins_adherence'
+    '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=statins_adherence',
   )
   await page.getByLabel('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
@@ -27,7 +27,9 @@ test('Statin Adherence', async ({ page }) => {
     })
     .click()
   await page
-    .getByRole('heading', { name: 'Breakdown summary for adherence to statins in the United States' })
+    .getByRole('heading', {
+      name: 'Summary for adherence to statins in the United States',
+    })
     .click()
   await page.locator('#data-table').getByLabel('Card export options').click()
   await page.locator('.MuiBackdrop-root').first().click()
@@ -36,7 +38,7 @@ test('Statin Adherence', async ({ page }) => {
   await page.getByText('Adherence to statins', { exact: true }).click()
   await page
     .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love'
+      'Do you have information that belongs on the Health Equity Tracker? We would love',
     )
     .click()
 })

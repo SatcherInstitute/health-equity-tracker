@@ -1,6 +1,6 @@
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import { type DisparityBarChartProps } from './types'
+import type { DisparityBarChartProps } from './types'
 import {
   BACKGROUND_COLOR,
   LABEL_SWAP_CUTOFF_PERCENT,
@@ -11,7 +11,7 @@ import { Axes } from './Axes'
 import { Legends } from './Legends'
 import { Marks } from './Marks'
 import { AIAN, NHPI, RACE } from '../../data/utils/Constants'
-import { type AutoSize } from 'vega'
+import type { AutoSize } from 'vega'
 import { useChartDimensions } from '../../utils/hooks/useChartDimensions'
 import { Scales } from './Scales'
 import {
@@ -19,8 +19,9 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
 } from '../utils'
-import { type MetricConfig } from '../../data/config/MetricConfig'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
+import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
 
 export const altLightMetric: MetricConfig = {
   chartTitle: 'Population Share (ACS)',
@@ -67,10 +68,14 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     })
   }
 
+  if (props.demographicType === 'income') {
+    dataFromProps = sortForVegaByIncome(dataFromProps)
+  }
+
   // add delimiter for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     dataFromProps,
-    demographicType
+    demographicType,
   )
 
   // omit the % symbol because it's included in shortLabel
@@ -110,7 +115,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const largerMeasure = getLargerMeasure(
     dataFromProps,
     lightMetric.metricId,
-    darkMetric.metricId
+    darkMetric.metricId,
   )
 
   const markProps = {

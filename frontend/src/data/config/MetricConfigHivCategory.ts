@@ -3,7 +3,7 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfig'
+import type { DataTypeConfig } from './MetricConfigTypes'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
 export const HIV_CATEGORY_DROPDOWNIDS = [
@@ -94,8 +94,9 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Access to quality HIV care is essential for ensuring that people living with HIV can live long and healthy lives. However, not everyone with HIV has access to quality care. Studying HIV care in regard to health equity can help us to understand why these disparities exist and how to improve access to quality care for all people living with HIV.',
     },
-    dataTableTitle: 'Breakdown summary for linkage to HIV care',
-    ageSubPopulationLabel: 'People diagnosed with HIV, Ages 13+',
+    dataTableTitle: 'Summary for linkage to HIV care',
+    ageSubPopulationLabel: 'Ages 13+',
+    otherSubPopulationLabel: 'People diagnosed with HIV',
 
     metrics: {
       pct_share: {
@@ -116,6 +117,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_care_linkage',
         chartTitle: 'Linkage to HIV care',
         trendsCardTitleName: 'Rates of linkage to HIV care over time',
@@ -136,6 +138,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity in linkage to HIV care',
         metricId: 'hiv_care_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -158,7 +161,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
-    dataTableTitle: 'Breakdown summary for HIV prevalence',
+    dataTableTitle: 'Summary for HIV prevalence',
     ageSubPopulationLabel: 'Ages 13+',
 
     metrics: {
@@ -178,6 +181,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_prevalence_per_100k',
         chartTitle: 'HIV prevalence',
         trendsCardTitleName: 'HIV prevalence over time',
@@ -198,6 +202,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for HIV prevalence',
         metricId: 'hiv_prevalence_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -218,7 +223,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
-    dataTableTitle: 'Breakdown summary for HIV diagnoses',
+    dataTableTitle: 'Summary for HIV diagnoses',
     ageSubPopulationLabel: 'Ages 13+',
 
     metrics: {
@@ -238,6 +243,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_diagnoses_per_100k',
         chartTitle: 'HIV diagnoses',
         trendsCardTitleName: 'HIV diagnoses over time',
@@ -258,6 +264,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for new HIV diagnoses',
         metricId: 'hiv_diagnoses_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -277,7 +284,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
-    dataTableTitle: 'Breakdown summary for HIV deaths',
+    dataTableTitle: 'Summary for HIV deaths',
     ageSubPopulationLabel: 'Ages 13+',
 
     metrics: {
@@ -298,6 +305,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_deaths_per_100k',
         chartTitle: 'HIV deaths',
         trendsCardTitleName: 'Rates of HIV deaths over time',
@@ -318,6 +326,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for HIV deaths',
         metricId: 'hiv_deaths_pct_relative_inequity',
         shortLabel: '% relative inequity',
@@ -328,7 +337,6 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Age-adjusted HIV deaths compared to White (NH)',
         shortLabel: 'Ratio compared to White (NH)',
         type: 'age_adjusted_ratio',
-        ageAdjusted: true,
       },
     },
   },
@@ -347,11 +355,13 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV stigma often intersects with other forms of stigma and discrimination, such as racism, homophobia, and sexism. Studying HIV stigma can shed light on broader issues of social injustice and inequality.',
     },
-    dataTableTitle: 'Breakdown summary for HIV stigma',
-    ageSubPopulationLabel: 'People living with HIV, Ages 18+',
+    dataTableTitle: 'Summary for HIV stigma',
+    ageSubPopulationLabel: 'Ages 18+',
+    otherSubPopulationLabel: 'People living with HIV',
 
     metrics: {
       index: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_stigma_index',
         chartTitle: 'HIV stigma',
         trendsCardTitleName: 'Rates of HIV stigma over time',
@@ -389,7 +399,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
-    dataTableTitle: 'Breakdown summary for HIV prevalence for Black (NH) women',
+    dataTableTitle: 'Summary for HIV prevalence for Black (NH) women',
 
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
@@ -413,6 +423,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_prevalence_black_women_per_100k',
         chartTitle: 'HIV prevalence for Black (NH) women',
         trendsCardTitleName: 'HIV prevalence for Black (NH) women over time',
@@ -434,6 +445,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of HIV prevalence for Black (NH) women',
         metricId: 'hiv_prevalence_black_women_pct_relative_inequity',
@@ -454,8 +466,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
-    dataTableTitle:
-      'Breakdown summary for new HIV diagnoses for Black (NH) women',
+    dataTableTitle: 'Summary for new HIV diagnoses for Black (NH) women',
 
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
@@ -479,6 +490,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_diagnoses_black_women_per_100k',
         chartTitle: 'New HIV diagnoses for Black (NH) women',
         trendsCardTitleName:
@@ -500,6 +512,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of new HIV diagnoses for Black (NH) women',
         metricId: 'hiv_diagnoses_black_women_pct_relative_inequity',
@@ -520,7 +533,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     description: {
       text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
-    dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
+    dataTableTitle: 'Summary for HIV deaths for Black (NH) women',
 
     ageSubPopulationLabel: 'Ages 13+',
     otherSubPopulationLabel: 'Black Women',
@@ -543,6 +556,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_deaths_black_women_per_100k',
         chartTitle: 'HIV deaths for Black (NH) women',
         trendsCardTitleName:
@@ -564,6 +578,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle:
           'Historical relative inequity of HIV deaths for Black (NH) women',
         metricId: 'hiv_deaths_black_women_pct_relative_inequity',
@@ -587,8 +602,9 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     description: {
       text: 'HIV PrEP is a medication that can help to prevent HIV infection. PrEP is highly effective when taken as prescribed. Studying HIV PrEP in regard to health equity can help us to understand why certain populations are more likely to use PrEP and why others are less likely to use it.',
     },
-    dataTableTitle: 'Breakdown summary for PrEP coverage',
-    ageSubPopulationLabel: 'PrEP-eligible population, Ages 16+',
+    dataTableTitle: 'Summary for PrEP coverage',
+    ageSubPopulationLabel: 'Ages 16+',
+    otherSubPopulationLabel: 'PrEP-eligible population',
     metrics: {
       pct_share: {
         chartTitle: 'Share of total PrEP prescriptions',
@@ -608,6 +624,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
         },
       },
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'hiv_prep_coverage',
         chartTitle: 'PrEP coverage',
         trendsCardTitleName: 'Rates of PrEP coverage over time',
@@ -628,6 +645,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
         chartTitle: 'Historical relative inequity for PrEP coverage',
         metricId: 'hiv_prep_pct_relative_inequity',
         shortLabel: '% relative inequity',

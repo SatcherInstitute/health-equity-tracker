@@ -21,14 +21,14 @@ export default function GlossaryTerm(props: GlossaryTermProps) {
   const { definitionItems } = props
 
   const sortedDefinitionItems = Object.entries(definitionItems).sort(
-    ([keyA], [keyB]) => keyA.localeCompare(keyB)
+    ([keyA], [keyB]) => keyA.localeCompare(keyB),
   )
 
   return (
     <>
       {sortedDefinitionItems.map(([itemKey, itemVal], index) => {
         const glossaryDefinition = itemVal.definitions.find(
-          (def) => def.key === 'Measurement Definition'
+          (def) => def.key === 'Measurement Definition',
         )?.description
 
         return (

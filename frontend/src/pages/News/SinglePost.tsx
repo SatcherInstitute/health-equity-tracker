@@ -1,6 +1,5 @@
 import { Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
-import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
 import { getHtml } from '../../utils/urlutils'
 import {
   fetchNewsData,
@@ -11,7 +10,7 @@ import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import { type Article } from './NewsPage'
+import type { Article } from './NewsPage'
 import hetLogo from '../../assets/AppbarLogo.png'
 import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
@@ -19,19 +18,16 @@ import ShareButtons, {
 } from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
-import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import { Link, useParams, useNavigate } from 'react-router-dom-v5-compat'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString(undefined, options as any)
 }
 
-interface SinglePostProps {
-  isMobile: boolean
-}
-
-export default function SinglePost(props: SinglePostProps) {
-  const history = useHistory()
+export default function SinglePost() {
+  const navigate = useNavigate()
 
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
@@ -41,13 +37,13 @@ export default function SinglePost(props: SinglePostProps) {
 
   function goNext() {
     if (nextArticle) {
-      history.push(NEWS_PAGE_LINK + '/' + nextArticle.slug)
+      navigate(NEWS_PAGE_LINK + '/' + nextArticle.slug)
     }
   }
 
   function goPrevious() {
     if (prevArticle) {
-      history.push(NEWS_PAGE_LINK + '/' + prevArticle.slug)
+      navigate(NEWS_PAGE_LINK + '/' + prevArticle.slug)
     }
   }
 
@@ -55,14 +51,14 @@ export default function SinglePost(props: SinglePostProps) {
   const { data, isLoading, isError } = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
-    REACT_QUERY_OPTIONS
+    REACT_QUERY_OPTIONS,
   )
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
-        (article: Article) => article.slug === slug
+        (article: Article) => article.slug === slug,
       )
       setFullArticle(data.data[fullArticleIndex])
       // previous and next articles wrap around both ends of the array
@@ -71,7 +67,7 @@ export default function SinglePost(props: SinglePostProps) {
           fullArticleIndex - 1 >= 0
             ? fullArticleIndex - 1
             : data.data.length - 1
-        ]
+        ],
       )
       setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length])
     }
@@ -91,13 +87,6 @@ export default function SinglePost(props: SinglePostProps) {
 
   return (
     <>
-      {isError && (
-        <Redirect
-          to={{
-            pathname: '/404',
-          }}
-        />
-      )}
       <Helmet>
         <title>{`News${
           fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -290,7 +279,7 @@ export default function SinglePost(props: SinglePostProps) {
           {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
           {fullArticle?.acf?.full_article_url && (
             <div>
-              <HetBigCTA
+              <HetCTABig
                 href={fullArticle.acf.full_article_url}
                 className='mt-10'
               >
@@ -299,7 +288,7 @@ export default function SinglePost(props: SinglePostProps) {
                   ? ` on ${fullArticle.acf.friendly_site_name}`
                   : ''}{' '}
                 <OpenInNewIcon />
-              </HetBigCTA>
+              </HetCTABig>
             </div>
           )}
 

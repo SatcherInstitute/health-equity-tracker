@@ -1,6 +1,6 @@
 import { getDataManager } from '../../utils/globals'
-import { type DatasetId } from '../config/DatasetMetadata'
-import { type Breakdowns } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
@@ -14,14 +14,13 @@ export const COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 ]
 
 class VaccineProvider extends VariableProvider {
-
   constructor() {
     super('vaccine_provider', [
       'acs_vaccinated_pop_pct',
       'vaccinated_pct_share',
       'vaccinated_pct_rate',
       'vaccinated_pop_pct',
-      'vaccinated_estimated_total'
+      'vaccinated_estimated_total',
     ])
   }
 
@@ -47,18 +46,16 @@ class VaccineProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-
     const datasetId = this.getDatasetId(breakdowns)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const vaxData = await getDataManager().loadDataset(specificDatasetId)
     let df = vaxData.toDataFrame()
-
-    df = this.filterByTimeView(df, timeView)
 
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
@@ -74,12 +71,12 @@ class VaccineProvider extends VariableProvider {
 
       if (breakdowns.filterFips === undefined) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
+          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
         )
       }
       if (breakdowns.filterFips?.isIslandArea()) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
+          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
         )
       }
     }

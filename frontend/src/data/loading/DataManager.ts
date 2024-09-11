@@ -6,9 +6,9 @@ import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
-import {
-  type DatasetIdWithStateFIPSCode,
-  type DatasetId,
+import type {
+  DatasetIdWithStateFIPSCode,
+  DatasetId,
 } from '../config/DatasetMetadata'
 
 // TODO: test this out on the real website and tweak these numbers as needed.
@@ -21,8 +21,8 @@ import {
 // 2. The total site memory usage is reasonable. This is a bit of a judgement
 //    call, but it should be comparable with other applications. This can be
 //    viewed in the browser task manager.
-const MAX_CACHE_SIZE_DATASETS = 100000
-const MAX_CACHE_SIZE_QUERIES = 10000
+const MAX_CACHE_SIZE_DATASETS = 100_000
+const MAX_CACHE_SIZE_QUERIES = 10_000
 
 // We only expect one metadata entry so we can set cache size to 1.
 const MAX_CACHE_SIZE_METADATA = 1
@@ -39,7 +39,6 @@ export abstract class ResourceCache<K, R extends {}> {
   }
 
   private createLruCache(maxSize: number): LRUCache<string, R> {
-
     const options = {
       max: maxSize,
       size: this.getResourceSize,
@@ -109,7 +108,7 @@ export abstract class ResourceCache<K, R extends {}> {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId]
       getLogger().debugLog(
-        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.size
+        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.size,
       )
 
       return result
@@ -136,7 +135,7 @@ export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
   static METADATA_KEY = 'all_metadata'
 
   protected async loadResourceInternal(
-    metadataId: string
+    metadataId: string,
   ): Promise<MapOfDatasetMetadata> {
     if (metadataId !== MetadataCache.METADATA_KEY) {
       throw new Error('Invalid metadata id')
@@ -159,7 +158,7 @@ export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
 
 class DatasetCache extends ResourceCache<string, Dataset> {
   protected async loadResourceInternal(
-    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
   ): Promise<Dataset> {
     const promise = getDataFetcher().loadDataset(datasetId)
     const metadataPromise = getDataManager().loadMetadata()
@@ -172,7 +171,7 @@ class DatasetCache extends ResourceCache<string, Dataset> {
   }
 
   getResourceId(
-    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
   ): DatasetId | DatasetIdWithStateFIPSCode {
     return datasetId
   }
@@ -197,7 +196,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
   }
 
   protected async loadResourceInternal(
-    query: MetricQuery
+    query: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const providers = this.providerMap.getUniqueProviders(query.metricIds)
 
@@ -213,20 +212,20 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     // since they're provided together. Also, it would be nice to cache ACS
     // when it's used from within another provider.
     const promises: Array<Promise<MetricQueryResponse>> = providers.map(
-      async (provider) => await provider.getData(query)
+      async (provider) => await provider.getData(query),
     )
 
     const queryResponses: MetricQueryResponse[] = await Promise.all(promises)
 
     const potentialErrorResponse = queryResponses.find((metricQueryResponse) =>
-      metricQueryResponse.dataIsMissing()
+      metricQueryResponse.dataIsMissing(),
     )
     if (potentialErrorResponse !== undefined) {
       return potentialErrorResponse
     }
 
     const dataframes: IDataFrame[] = queryResponses.map(
-      (response) => new DataFrame(response.data)
+      (response) => new DataFrame(response.data),
     )
 
     const joined = dataframes.reduce((prev, next) => {
@@ -236,14 +235,14 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     const consumedDatasetIds = queryResponses.reduce(
       (
         accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>,
-        response: MetricQueryResponse
+        response: MetricQueryResponse,
       ) => accumulator.concat(response.consumedDatasetIds),
-      []
+      [],
     )
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
     const resp = new MetricQueryResponse(
       joined.toArray(),
-      uniqueConsumedDatasetIds
+      uniqueConsumedDatasetIds,
     )
 
     new DatasetOrganizer(resp.data, query.breakdowns).organize()
@@ -280,13 +279,13 @@ export default class DataManager {
     this.datasetCache = new DatasetCache(MAX_CACHE_SIZE_DATASETS)
     this.metricQueryCache = new MetricQueryCache(
       new VariableProviderMap(),
-      MAX_CACHE_SIZE_QUERIES
+      MAX_CACHE_SIZE_QUERIES,
     )
     this.metadataCache = new MetadataCache(MAX_CACHE_SIZE_METADATA)
   }
 
   async loadDataset(
-    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
   ): Promise<Dataset> {
     return await this.datasetCache.loadResource(datasetId)
   }

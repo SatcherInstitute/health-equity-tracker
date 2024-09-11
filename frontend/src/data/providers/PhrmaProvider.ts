@@ -1,11 +1,8 @@
 import { getDataManager } from '../../utils/globals'
-import { type DatasetId } from '../config/DatasetMetadata'
-import {
-  type DropdownVarId,
-  type DataTypeId,
-  type MetricId,
-} from '../config/MetricConfig'
-import { type Breakdowns } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DropdownVarId } from '../config/DropDownIds'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
@@ -136,11 +133,13 @@ class PhrmaProvider extends VariableProvider {
   }
 
   async getDataInternal(
-    metricQuery: MetricQuery
+    metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(breakdowns)
-    if (!datasetId) throw Error('DatasetId undefined')
+    if (!datasetId) {
+      return new MetricQueryResponse([], [])
+    }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const phrma = await getDataManager().loadDataset(specificDatasetId)
     let df = phrma.toDataFrame()

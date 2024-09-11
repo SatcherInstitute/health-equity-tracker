@@ -1,12 +1,12 @@
 import { CircularProgress } from '@mui/material'
-import {
-  type MetricQuery,
-  type MetricQueryResponse,
+import type {
+  MetricQuery,
+  MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import { Sources } from './ui/Sources'
-import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
@@ -14,20 +14,18 @@ import {
 import CardOptionsMenu from './ui/CardOptionsMenu'
 
 function CardWrapper(props: {
-  // prevent layout shift as component  loads
+  // prevent layout shift as component loads
   minHeight?: number
   downloadTitle: string
-  // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element
   hideFooter?: boolean
   hideNH?: boolean
   queries: MetricQuery[]
-  // Whether to load the geographies dataset for this card.
   loadGeographies?: boolean
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
-    geoData?: Record<string, any>
+    geoData?: Record<string, any>,
   ) => JSX.Element
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
@@ -35,17 +33,20 @@ function CardWrapper(props: {
   elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
   isCompareCard?: boolean
+  className?: string
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle,
     props.elementsToHide,
     props.scrollToHash,
-    props.expanded
+    props.expanded,
   )
+
+  const defaultClasses = 'shadow-raised bg-white'
 
   const loadingComponent = (
     <div
-      className='rounded relative m-2 bg-white p-3 shadow-raised'
+      className={`rounded relative m-2 p-3 ${defaultClasses} ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
@@ -62,7 +63,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className='rounded relative m-2  bg-white p-3 shadow-raised'
+            className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
             ref={screenshotTargetRef}
             tabIndex={-1}
           >
@@ -74,7 +75,6 @@ function CardWrapper(props: {
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <Sources
-
                 isCensusNotAcs={props.isCensusNotAcs}
                 metadata={metadata}
                 queryResponses={queryResponses}

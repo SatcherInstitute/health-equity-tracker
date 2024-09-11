@@ -1,20 +1,20 @@
 import AnimateHeight from 'react-animate-height'
 import { Grid } from '@mui/material'
-import {
-  type MetricConfig,
-  type DataTypeConfig,
-  formatFieldValue,
-} from '../../data/config/MetricConfig'
-import { type Row } from '../../data/utils/DatasetTypes'
+import type {
+  MetricConfig,
+  DataTypeConfig,
+} from '../../data/config/MetricConfigTypes'
+import type { Row } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type Fips } from '../../data/utils/Fips'
-import { type DemographicType } from '../../data/query/Breakdowns'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { Fips } from '../../data/utils/Fips'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicGroup } from '../../data/utils/Constants'
 import ExtremeList from './ExtremeList'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
+import { formatFieldValue } from '../../data/config/MetricConfigUtils'
 
 interface ExtremesListBoxProps {
   // MetricConfig for data
@@ -47,13 +47,13 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
   const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
-    (row) => row[props.demographicType] === props.activeDemographicGroup
+    (row) => row[props.demographicType] === props.activeDemographicGroup,
   )
 
   const overallRate = formatFieldValue(
     /* metricType: MetricType, */ props.metricConfig.type,
     /* value: any, */ overallRow?.[props.metricConfig.metricId],
-    /* omitPctSymbol: boolean = false */ true
+    /* omitPctSymbol: boolean = false */ true,
   )
 
   return (

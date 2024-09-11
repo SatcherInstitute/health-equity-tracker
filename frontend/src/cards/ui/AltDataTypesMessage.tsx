@@ -1,8 +1,5 @@
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import {
-  type AgeAdjustedDataTypeId,
-  type DataTypeConfig,
-} from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { dataTypeLinkMap } from '../../data/providers/CdcCovidProvider'
 
 interface AltDataTypesMessageProps {
@@ -21,8 +18,7 @@ export default function AltDataTypesMessage(props: AltDataTypesMessageProps) {
           <span key={dataType.fullDisplayName}>
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
-                dataTypeLinkMap[dataType.dataTypeId as AgeAdjustedDataTypeId] ??
-                ''
+                dataTypeLinkMap[dataType.dataTypeId] ?? ''
               }#age-adjusted-ratios`}
             >
               {dataType.fullDisplayName}

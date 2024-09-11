@@ -12,11 +12,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableFooter from '@mui/material/TableFooter'
 import Paper from '@mui/material/Paper'
-import {
-  type MetricConfig,
-  type MetricId,
-  formatFieldValue,
-} from '../data/config/MetricConfig'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
@@ -25,6 +21,7 @@ import Table from '@mui/material/Table'
 import { RACE } from '../data/utils/Constants'
 import ChartTitle from '../cards/ChartTitle'
 import { het } from '../styles/DesignTokens'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 
 const headerCellStyle = {
   width: '200px',
@@ -56,7 +53,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
           /*   value: any, */ a.value,
-          /*   omitPctSymbol: boolean = false */ true
+          /*   omitPctSymbol: boolean = false */ true,
         ),
       accessor: metricConfig.metricId,
     }
@@ -88,14 +85,15 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           ],
         },
       },
-      useSortBy
+      useSortBy,
     )
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
+    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps()
     return (
-      <TableRow {...group.getHeaderGroupProps()}>
-        {group.headers.map((col, index) => (
+      <TableRow key={key} {...restHeaderGroupProps}>
+        {group.headers.map((col) => (
           <TableCell key={col.id} style={headerCellStyle}>
             {col.render('Header')}
           </TableCell>
@@ -107,8 +105,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
     prepareRow(row)
+    const { key, ...restRowProps } = row.getRowProps()
+
     return (
-      <TableRow {...row.getRowProps()}>
+      <TableRow key={key} {...restRowProps}>
         {row.cells.map((cell, index) =>
           cell.value == null ? (
             <TableCell
@@ -129,7 +129,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
             >
               {cell.render('Cell')}
             </TableCell>
-          )
+          ),
         )}
       </TableRow>
     )

@@ -1,10 +1,10 @@
-import { type IDataFrame } from 'data-forge'
-import {
-  type MetricId,
-  type DataTypeConfig,
-  type DataTypeId,
-} from '../config/MetricConfig'
-import { type Breakdowns, type DemographicType } from '../query/Breakdowns'
+import type { IDataFrame } from 'data-forge'
+import type {
+  MetricId,
+  DataTypeConfig,
+  DataTypeId,
+} from '../config/MetricConfigTypes'
+import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
   AHR_API_NH_METRICS,
   AHR_DECADE_PLUS_5_AGE_METRICS,
@@ -42,15 +42,15 @@ import {
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
   ACS_POVERTY_AGE_BUCKETS,
   AIAN_API,
-  API
+  API,
 } from './Constants'
-import { type Row } from './DatasetTypes'
-import { type Fips } from './Fips'
-import {
-  type DatasetIdWithStateFIPSCode,
-  type DatasetId,
+import type { Row } from './DatasetTypes'
+import type { Fips } from './Fips'
+import type {
+  DatasetIdWithStateFIPSCode,
+  DatasetId,
 } from '../config/DatasetMetadata'
-import { type StateFipsCode } from './FipsData'
+import type { StateFipsCode } from './FipsData'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 
@@ -66,7 +66,7 @@ export function joinOnCols(
   df1: IDataFrame,
   df2: IDataFrame,
   cols: DemographicType[],
-  joinType: JoinType = 'inner'
+  joinType: JoinType = 'inner',
 ): IDataFrame {
   const keySelector = (row: any) => {
     const keys = cols.map((col) => col + ': ' + row[col])
@@ -94,7 +94,7 @@ Returns the lowest `listSize` & highest `listSize` values, unless there are ties
 export function getExtremeValues(
   data: Row[],
   fieldName: MetricId,
-  listSize: number
+  listSize: number,
 ) {
   if (data.length === 0) return { lowestValues: [], highestValues: [] }
 
@@ -103,13 +103,13 @@ export function getExtremeValues(
   // cleanup and sort the data
   let sortedData = data
     .filter(
-      (row: Row) => !Number.isNaN(row[fieldName]) && row[fieldName] != null
+      (row: Row) => !Number.isNaN(row[fieldName]) && row[fieldName] != null,
     )
     .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]) // ascending order
 
   const lowestValue = sortedData[0][fieldName]
   const valuesTiedAtLowest = sortedData.filter(
-    (row) => row[fieldName] === lowestValue
+    (row) => row[fieldName] === lowestValue,
   )
 
   const lowestValuesAreTied = valuesTiedAtLowest.length > 1
@@ -122,7 +122,7 @@ export function getExtremeValues(
 
   const highestValue = sortedData[0][fieldName]
   const valuesTiedAtHighest = sortedData.filter(
-    (row) => row[fieldName] === highestValue
+    (row) => row[fieldName] === highestValue,
   )
   const highestValuesAreTied = valuesTiedAtHighest.length > 1
   const highestValuesPotentialOverlap: Row[] = highestValuesAreTied
@@ -130,7 +130,7 @@ export function getExtremeValues(
     : sortedData.slice(0, listSize)
 
   const highestValues = highestValuesPotentialOverlap.filter(
-    (value) => !lowestValues.includes(value)
+    (value) => !lowestValues.includes(value),
   )
 
   return { lowestValues, highestValues }
@@ -175,7 +175,7 @@ const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
 export function getExclusionList(
   currentDataType: DataTypeConfig,
   demographicType: DemographicType,
-  currentFips: Fips
+  currentFips: Fips,
 ): DemographicGroup[] {
   const currentRate =
     currentDataType.metrics?.per100k?.metricId ??
@@ -204,16 +204,16 @@ export function getExclusionList(
     exclusionList.push(
       ...AGE_BUCKETS.filter(
         (bucket: AgeBucket) =>
-          !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any) // NOTE: table card only shows most recent year; this will mute older age buckets
-      )
+          !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any), // NOTE: table card only shows most recent year; this will mute older age buckets
+      ),
     )
   }
 
   if (currentDataTypeId === 'poverty') {
     exclusionList.push(
       ...AGE_BUCKETS.filter(
-        (bucket: AgeBucket) => !ACS_POVERTY_AGE_BUCKETS.includes(bucket as any)
-      )
+        (bucket: AgeBucket) => !ACS_POVERTY_AGE_BUCKETS.includes(bucket as any),
+      ),
     )
   }
 
@@ -225,14 +225,14 @@ export function getExclusionList(
         AIAN_NH,
         ASIAN_NH,
         NHPI_NH,
-        MULTI_NH
+        MULTI_NH,
       )
     }
     if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
-          (bucket) => bucket === '13-24' || bucket === '18-24'
-        )
+          (bucket) => bucket === '13-24' || bucket === '18-24',
+        ),
       )
     }
   }
@@ -243,8 +243,8 @@ export function getExclusionList(
     if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
-          (bucket) => bucket === '16-24' || bucket === '18-24'
-        )
+          (bucket) => bucket === '16-24' || bucket === '18-24',
+        ),
       )
     }
   }
@@ -256,21 +256,32 @@ export function getExclusionList(
     if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
-          (bucket) => bucket === '13-24' || bucket === '16-24'
-        )
+          (bucket) => bucket === '13-24' || bucket === '16-24',
+        ),
       )
     }
   }
 
   if (currentDataTypeId === 'gun_deaths_youth') {
     if (demographicType === RACE) {
-      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH, AIAN_API, API_NH, NHPI_NH)
+      exclusionList.push(
+        ...NON_STANDARD_AND_MULTI,
+        OTHER_NONSTANDARD_NH,
+        AIAN_API,
+        API_NH,
+        NHPI_NH,
+      )
     }
   }
 
   if (currentDataTypeId === 'gun_deaths_young_adults') {
     if (demographicType === RACE) {
-      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH, AIAN_API, API_NH)
+      exclusionList.push(
+        ...NON_STANDARD_AND_MULTI,
+        OTHER_NONSTANDARD_NH,
+        AIAN_API,
+        API_NH,
+      )
     }
   }
 
@@ -287,14 +298,14 @@ export function getExclusionList(
         exclusionList.push(
           ...AGE_BUCKETS.filter(
             (bucket: AgeBucket) =>
-              !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any)
-          )
+              !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any),
+          ),
         )
 
       currentFips.isState() &&
         exclusionList.push(
           // No demographic breakdowns so exclude ALL age buckets
-          ...AGE_BUCKETS
+          ...AGE_BUCKETS,
         )
     }
   }
@@ -308,8 +319,8 @@ export function getExclusionList(
     if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any)
-        )
+          (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any),
+        ),
       )
     }
   }
@@ -334,7 +345,7 @@ export function getExclusionList(
 
     // remove all of the other age groups
     const irrelevantAgeBuckets = AGE_BUCKETS.filter(
-      (bucket) => !determinantBuckets.includes(bucket)
+      (bucket) => !determinantBuckets.includes(bucket),
     )
     exclusionList.push(...irrelevantAgeBuckets)
   }
@@ -344,7 +355,7 @@ export function getExclusionList(
 
 export function splitIntoKnownsAndUnknowns(
   data: Row[] | undefined,
-  demographicType: DemographicType
+  demographicType: DemographicType,
 ): Row[][] {
   const knowns: Row[] = []
   const unknowns: Row[] = []
@@ -352,7 +363,7 @@ export function splitIntoKnownsAndUnknowns(
   data?.forEach((row: Row) => {
     if (
       [UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY, UNKNOWN_W].includes(
-        row[demographicType]
+        row[demographicType],
       )
     ) {
       unknowns.push(row)
@@ -364,7 +375,7 @@ export function splitIntoKnownsAndUnknowns(
 
 export function appendFipsIfNeeded(
   baseId: DatasetId,
-  breakdowns: Breakdowns
+  breakdowns: Breakdowns,
 ): DatasetId | DatasetIdWithStateFIPSCode {
   // if there is a parent fips, append it as needed (for county-level files)
   if (breakdowns.geography !== 'county') return baseId

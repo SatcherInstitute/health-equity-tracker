@@ -24,11 +24,13 @@ PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal[
     'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income', 'all'
 ]
 
+PHRMA_DATASET_TYPE = Literal["brfss", "medicare"]
+
 HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
 WISQARS_DEMO_TYPE = Literal["sex", "age", "race_and_ethnicity", "urbanicty", "all"]
 
 INCARCERATION_TYPE = Literal["jail", "prison"]
-VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "total_confined_children"]
+VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "confined_children_estimated_total"]
 GEO_TYPE = Literal["county", "state", "national"]
 
 

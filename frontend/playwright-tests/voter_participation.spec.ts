@@ -29,11 +29,9 @@ test('Voter Participation Flow', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Graph unavailable: Population' })
     .click()
+  await page.getByRole('heading', { name: 'Summary for voter' }).click()
   await page
-    .getByRole('heading', { name: 'Breakdown summary for voter' })
-    .click()
-  await page
-    .getByRole('figure', { name: 'Breakdown summary for voter' })
+    .getByRole('figure', { name: 'Summary for voter' })
     .locator('h4')
     .click()
   await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()

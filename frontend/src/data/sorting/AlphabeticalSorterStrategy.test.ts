@@ -45,7 +45,7 @@ describe('dataset utils test', () => {
   test('test alpha sort with back multiple', async () => {
     const data: any = [RACE_A, RACE_C, RACE_B, RACE_ALL]
     data.sort(
-      new AlphabeticalSorterStrategy('race', ['All'], ['b', 'c']).compareFn
+      new AlphabeticalSorterStrategy('race', ['All'], ['b', 'c']).compareFn,
     )
     expect(data).toStrictEqual([RACE_ALL, RACE_A, RACE_B, RACE_C])
   })

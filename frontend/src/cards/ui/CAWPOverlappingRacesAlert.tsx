@@ -1,4 +1,4 @@
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
@@ -7,7 +7,7 @@ interface CAWPOverlappingRacesAlertProps {
 }
 
 export default function CAWPOverlappingRacesAlert(
-  props: CAWPOverlappingRacesAlertProps
+  props: CAWPOverlappingRacesAlertProps,
 ) {
   return (
     <HetNotice>

@@ -5,22 +5,26 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import { Breakdowns, DemographicType, TimeView } from '../query/Breakdowns'
-import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import { DataTypeId } from '../config/MetricConfig'
+import {
+  Breakdowns,
+  type DemographicType,
+  type TimeView,
+} from '../query/Breakdowns'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import { Fips } from '../utils/Fips'
-import { MetricId } from '../config/MetricConfig'
+import type { MetricId } from '../config/MetricConfigTypes'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import GunViolenceProvider from './GunViolenceProvider'
 
-export async function ensureCorrectDatasetsDownloaded(
+async function ensureCorrectDatasetsDownloaded(
   gunViolenceDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   dataTypeId?: DataTypeId,
   timeView?: TimeView,
-  metricIds?: MetricId[]
+  metricIds?: MetricId[],
 ) {
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
@@ -28,7 +32,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const gunViolenceProvider = new GunViolenceProvider()
   const specificDatasetId = appendFipsIfNeeded(
     gunViolenceDatasetId,
-    baseBreakdown
+    baseBreakdown,
   )
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
@@ -38,8 +42,8 @@ export async function ensureCorrectDatasetsDownloaded(
       metricIds,
       baseBreakdown.addBreakdown(demographicType),
       dataTypeId,
-      timeView
-    )
+      timeView,
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -47,7 +51,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const consumedDatasetIds = [gunViolenceDatasetId]
 
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds)
+    new MetricQueryResponse([], consumedDatasetIds),
   )
 }
 
@@ -67,7 +71,7 @@ describe('GunViolenceProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       AGE,
       'gun_violence',
-      'current'
+      'current',
     )
   })
 
@@ -77,7 +81,7 @@ describe('GunViolenceProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'gun_violence',
-      'historical'
+      'historical',
     )
   })
 
@@ -87,7 +91,7 @@ describe('GunViolenceProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       SEX,
       'gun_violence',
-      'historical'
+      'historical',
     )
   })
 })

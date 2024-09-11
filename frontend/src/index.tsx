@@ -5,6 +5,7 @@ import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor
 import { persistQueryClient } from 'react-query/persistQueryClient-experimental'
 import App from './App'
 import './index.css'
+import { Router } from 'react-router-dom'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,8 +32,8 @@ if (container !== null) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <App />
+          <App />
       </QueryClientProvider>
-    </StrictMode>
+    </StrictMode>,
   )
 }

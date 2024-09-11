@@ -1,12 +1,12 @@
-import { type Row } from '../../data/utils/DatasetTypes'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type MetricConfig } from '../../data/config/MetricConfig'
+import type { Row } from '../../data/utils/DatasetTypes'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
-import { type Fips } from '../../data/utils/Fips'
-import { type VisualizationType } from '../../charts/utils'
+import type { Fips } from '../../data/utils/Fips'
+import type { VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { AGE } from '../../data/utils/Constants'
@@ -31,19 +31,19 @@ interface UnknownsAlertProps {
 
 export default function UnknownsAlert(props: UnknownsAlertProps) {
   const validData = props.queryResponse.getValidRowsForField(
-    props.metricConfig.metricId
+    props.metricConfig.metricId,
   )
 
   const [, unknowns] = splitIntoKnownsAndUnknowns(
     validData,
-    props.demographicType
+    props.demographicType,
   )
 
   let additionalAgeUnknowns = null
 
   if (props.ageQueryResponse) {
     const validAgeData: Row[] = props.ageQueryResponse.getValidRowsForField(
-      props.metricConfig.metricId
+      props.metricConfig.metricId,
     )
     const [, ageUnknowns] = splitIntoKnownsAndUnknowns(validAgeData, AGE)
     additionalAgeUnknowns = ageUnknowns

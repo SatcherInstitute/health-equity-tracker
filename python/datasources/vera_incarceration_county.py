@@ -7,9 +7,10 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
     generate_pct_rel_inequity_col,
     zero_out_pct_rel_inequity,
+    get_timeview_df_and_cols,
 )
 from ingestion.merge_utils import merge_county_names
-from ingestion.constants import Sex
+from ingestion.constants import Sex, CURRENT, HISTORICAL
 import ingestion.standardized_columns as std_col
 from typing import Literal, cast
 from ingestion.het_types import SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, DEMOGRAPHIC_TYPE, GEO_TYPE
@@ -174,20 +175,17 @@ class VeraIncarcerationCounty(DataSource):
             df = use_sum_of_jail_counts_as_all(df, demo_type)
         df = add_confined_children_col(df)
 
-        table_name = f'by_{demo_type}_county_time_series'
         df = self.generate_for_bq(df, demo_type)
 
-        float_cols = [
-            *PER_100K_COL_MAP.values(),
-            std_col.CHILDREN,
-            *PCT_SHARE_COL_MAP.values(),
-            *RAW_COL_MAP.values(),
-            std_col.INCARCERATION_POP_RAW,
-            PCT_SHARE_COL_MAP[std_col.POPULATION_COL],
-            *PCT_REL_INEQUITY_COL_MAP.values(),
-        ]
-        column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
-        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
+        for timeview in [CURRENT, HISTORICAL]:
+            timeview_df = df.copy()
+            timeview_df, column_types = get_timeview_df_and_cols(
+                timeview_df,
+                timeview,
+                [std_col.PRISON_PREFIX, std_col.JAIL_PREFIX, std_col.INCARCERATION_PREFIX, std_col.CHILDREN_PREFIX],
+            )
+            table_name = f'by_{demo_type}_county_{timeview}'
+            gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_name, column_types=column_types)
 
     def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE):
         """Creates the specific breakdown df needed for bigquery by iterating over needed columns
@@ -219,7 +217,7 @@ class VeraIncarcerationCounty(DataSource):
                     **RACE_PRISON_RATE_COLS_TO_STANDARD,
                     PRISON_RATE_ALL: all_val,
                 },
-                std_col.CHILDREN: {std_col.CHILDREN: all_val},
+                std_col.CHILDREN_RAW: {std_col.CHILDREN_RAW: all_val},
             },
             std_col.SEX_COL: {
                 std_col.POPULATION_COL: {**SEX_POP_TO_STANDARD, POP_ALL: all_val},
@@ -227,7 +225,7 @@ class VeraIncarcerationCounty(DataSource):
                 PER_100K_COL_MAP[std_col.JAIL_PREFIX]: {**SEX_JAIL_RATE_COLS_TO_STANDARD, JAIL_RATE_ALL: all_val},
                 RAW_COL_MAP[std_col.PRISON_PREFIX]: {**SEX_PRISON_RAW_COLS_TO_STANDARD, PRISON_RAW_ALL: all_val},
                 PER_100K_COL_MAP[std_col.PRISON_PREFIX]: {**SEX_PRISON_RATE_COLS_TO_STANDARD, PRISON_RATE_ALL: all_val},
-                std_col.CHILDREN: {std_col.CHILDREN: all_val},
+                std_col.CHILDREN_RAW: {std_col.CHILDREN_RAW: all_val},
             },
             std_col.AGE_COL: {
                 std_col.POPULATION_COL: {POP_ALL: all_val},
@@ -235,7 +233,7 @@ class VeraIncarcerationCounty(DataSource):
                 PER_100K_COL_MAP[std_col.JAIL_PREFIX]: {JAIL_RATE_ALL: all_val},
                 RAW_COL_MAP[std_col.PRISON_PREFIX]: {PRISON_RAW_ALL: all_val},
                 PER_100K_COL_MAP[std_col.PRISON_PREFIX]: {PRISON_RATE_ALL: all_val},
-                std_col.CHILDREN: {std_col.CHILDREN: all_val},
+                std_col.CHILDREN_RAW: {std_col.CHILDREN_RAW: all_val},
             },
         }
 
@@ -297,7 +295,7 @@ class VeraIncarcerationCounty(DataSource):
             *PCT_REL_INEQUITY_COL_MAP.values(),
             *RAW_COL_MAP.values(),
             std_col.INCARCERATION_POP_RAW,
-            std_col.CHILDREN,
+            std_col.CHILDREN_RAW,
         ]
 
         # by_race gets extra cols
@@ -317,7 +315,7 @@ def add_confined_children_col(df):
     """Parameters: df: pandas df containing the entire Vera csv file.
     Returns same df replacing juvenile cols with a summed, rounded `total_confined_children` col
     """
-    df[std_col.CHILDREN] = df[JUVENILE_COLS].sum(axis="columns", numeric_only=True).round(0)
+    df[std_col.CHILDREN_RAW] = df[JUVENILE_COLS].sum(axis="columns", numeric_only=True).round(0)
     df = df.drop(columns=JUVENILE_COLS)
     return df
 

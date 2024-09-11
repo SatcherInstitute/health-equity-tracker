@@ -1,9 +1,9 @@
-import {
-  type DatasetIdWithStateFIPSCode,
-  type DatasetId,
+import type {
+  DatasetIdWithStateFIPSCode,
+  DatasetId,
 } from '../data/config/DatasetMetadata'
-import { type DataFetcher } from '../data/loading/DataFetcher'
-import { type MapOfDatasetMetadata, type Row } from '../data/utils/DatasetTypes'
+import type { DataFetcher } from '../data/loading/DataFetcher'
+import type { MapOfDatasetMetadata, Row } from '../data/utils/DatasetTypes'
 
 export default class FakeDataFetcher implements DataFetcher {
   private loadedDatasets: Record<string, Row[]> = {}
@@ -16,7 +16,7 @@ export default class FakeDataFetcher implements DataFetcher {
   private numGetMetadataCalls: number = 0
 
   async loadDataset(
-    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
   ): Promise<Row[]> {
     this.numLoadDatasetCalls++
     if (this.loadedDatasets[datasetId]) {
@@ -41,7 +41,7 @@ export default class FakeDataFetcher implements DataFetcher {
 
   setFakeDatasetLoaded(
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-    data: Row[]
+    data: Row[],
   ) {
     const resolver = this.datasetResolverMap[datasetId]
     if (!resolver) {
