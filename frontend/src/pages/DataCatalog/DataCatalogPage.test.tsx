@@ -1,5 +1,3 @@
-import { Router } from 'react-router-dom'
-import { createMemoryHistory } from 'history'
 import DataCatalogPage from './DataCatalogPage'
 import { autoInitGlobals, getDataFetcher } from '../../utils/globals'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
@@ -7,6 +5,9 @@ import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
 import { render } from '@testing-library/react'
 import { act } from 'react'
 import { test, expect } from 'vitest'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
+import { CompatRouter } from 'react-router-dom-v5-compat'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   name: 'ACS Population by Age and County',
@@ -22,7 +23,9 @@ test('Data catalog page renders all data sources', async () => {
 
   const { queryByText, findByTestId } = render(
     <Router history={history}>
-      <DataCatalogPage />
+      <CompatRouter>
+        <DataCatalogPage />
+      </CompatRouter>
     </Router>,
   )
 
@@ -54,7 +57,9 @@ test('Data catalog page renders subset of data sources', async () => {
 
   const { findByText, findByTestId, queryByTestId } = render(
     <Router history={history}>
-      <DataCatalogPage />
+      <CompatRouter>
+        <DataCatalogPage />
+      </CompatRouter>
     </Router>,
   )
 

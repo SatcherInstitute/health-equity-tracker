@@ -23,6 +23,9 @@ test('Covid Cases', async ({ page }) => {
     .getByRole('heading', { name: 'Rates of COVID-19 cases since' })
     .click()
   await page
+    .getByRole('button', { name: 'Population vs. distribution' })
+    .click()
+  await page
     .getByRole('heading', { name: 'Share of total COVID-19 cases' })
     .click()
   await page

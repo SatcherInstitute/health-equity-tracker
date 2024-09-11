@@ -15,9 +15,9 @@ import NewsPreviewCard from './NewsPreviewCard'
 import { useQuery } from 'react-query'
 import type { Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
-import { Link } from 'react-router-dom'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import PinnedArticles from './PinnedArticles'
+import { Link } from 'react-router-dom-v5-compat'
 
 export const ARTICLES_TERM = 'Articles'
 
