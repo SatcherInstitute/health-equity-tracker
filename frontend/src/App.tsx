@@ -12,7 +12,6 @@ import CssBaseline from '@mui/material/CssBaseline'
 import MaterialTheme from './styles/MaterialTheme'
 import { CircularProgress, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-
 import React, { Suspense, useEffect } from 'react'
 import { autoInitGlobals } from './utils/globals'
 import {
@@ -33,14 +32,13 @@ import {
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
-import { BrowserRouter as Router } from 'react-router-dom'
 import {
-  CompatRoute,
-  CompatRouter,
   Navigate,
   Routes,
   useLocation,
-} from 'react-router-dom-v5-compat'
+  BrowserRouter,
+  Route,
+} from 'react-router-dom'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -94,100 +92,98 @@ export default function App() {
             <SkipLink />
 
             <div className='h-full relative'>
-              <Router>
-                <CompatRouter>
-                  <Banner />
-                  <HetAppBar />
-                  <ScrollToTop />
-                  <Suspense
-                    fallback={
-                      <main className='min-h-screen'>
-                        <CircularProgress
-                          className='mt-10'
-                          aria-label='loading'
-                        />
-                      </main>
-                    }
-                  >
-                    <main id='main' className='scroll-smooth'>
-                      <Routes>
-                        <CompatRoute
-                          path={ABOUT_US_PAGE_LINK}
-                          element={<AboutUsPage />}
-                        />
-                        <CompatRoute
-                          path={OLD_OURTEAM_LINK}
-                          element={<AboutUsPage />}
-                        />
-                        <CompatRoute
-                          path={OLD_CONTACT_LINK}
-                          element={<AboutUsPage />}
-                        />
-                        <CompatRoute
-                          path={DATA_CATALOG_PAGE_LINK}
-                          element={<DataCatalogPage />}
-                        />
-                        <CompatRoute
-                          path={METHODOLOGY_PAGE_LINK}
-                          element={<MethodologyPage />}
-                        />
-                        <CompatRoute
-                          path={EXPLORE_DATA_PAGE_LINK}
-                          element={
-                            <ErrorBoundaryDropParams
-                              fallback={<ExploreDataFallback />}
-                            >
-                              <ExploreDataPage isMobile={isSm} />
-                            </ErrorBoundaryDropParams>
-                          }
-                        />
-                        <CompatRoute
-                          path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                          element={<WhatIsHealthEquityPage />}
-                        />
-                        <CompatRoute
-                          path={FAQ_TAB_LINK}
-                          element={<WhatIsHealthEquityPage />}
-                        />
-                        <CompatRoute
-                          path={NEWS_PAGE_LINK}
-                          element={<NewsPage isMobile={isSm} />}
-                        />
-                        <CompatRoute
-                          path={SHARE_YOUR_STORY_TAB_LINK}
-                          element={<NewsPage isMobile={isSm} />}
-                        />
-                        <CompatRoute
-                          path={GUN_VIOLENCE_POLICY}
-                          element={<PolicyPage />}
-                        />
-                        <CompatRoute
-                          path='/policy'
-                          element={<Navigate to={GUN_VIOLENCE_POLICY} />}
-                        />
-                        <CompatRoute
-                          path={TERMS_OF_USE_PAGE_LINK}
-                          element={<TermsOfUsePage />}
-                        />
-
-                        {/* Redirect the old URL for possible outside links */}
-                        <CompatRoute
-                          path='/termsofservice'
-                          element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
-                        />
-                        <CompatRoute
-                          path={OLD_AGE_ADJUSTMENT_LINK}
-                          element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
-                        />
-                        <CompatRoute path='/' element={<LandingPage />} />
-
-                        {/* Catch-all route */}
-                        <CompatRoute path='*' element={<NotFoundPage />} />
-                      </Routes>
+              <BrowserRouter>
+                <Banner />
+                <HetAppBar />
+                <ScrollToTop />
+                <Suspense
+                  fallback={
+                    <main className='min-h-screen'>
+                      <CircularProgress
+                        className='mt-10'
+                        aria-label='loading'
+                      />
                     </main>
-                  </Suspense>
-                </CompatRouter>
-              </Router>
+                  }
+                >
+                  <main id='main' className='scroll-smooth'>
+                    <Routes>
+                      <Route
+                        path={ABOUT_US_PAGE_LINK}
+                        element={<AboutUsPage />}
+                      />
+                      <Route
+                        path={OLD_OURTEAM_LINK}
+                        element={<AboutUsPage />}
+                      />
+                      <Route
+                        path={OLD_CONTACT_LINK}
+                        element={<AboutUsPage />}
+                      />
+                      <Route
+                        path={DATA_CATALOG_PAGE_LINK}
+                        element={<DataCatalogPage />}
+                      />
+                      <Route
+                        path={METHODOLOGY_PAGE_LINK}
+                        element={<MethodologyPage />}
+                      />
+                      <Route
+                        path={EXPLORE_DATA_PAGE_LINK}
+                        element={
+                          <ErrorBoundaryDropParams
+                            fallback={<ExploreDataFallback />}
+                          >
+                            <ExploreDataPage isMobile={isSm} />
+                          </ErrorBoundaryDropParams>
+                        }
+                      />
+                      <Route
+                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                        element={<WhatIsHealthEquityPage />}
+                      />
+                      <Route
+                        path={FAQ_TAB_LINK}
+                        element={<WhatIsHealthEquityPage />}
+                      />
+                      <Route
+                        path={NEWS_PAGE_LINK}
+                        element={<NewsPage isMobile={isSm} />}
+                      />
+                      <Route
+                        path={SHARE_YOUR_STORY_TAB_LINK}
+                        element={<NewsPage isMobile={isSm} />}
+                      />
+                      <Route
+                        path={GUN_VIOLENCE_POLICY}
+                        element={<PolicyPage />}
+                      />
+                      <Route
+                        path='/policy'
+                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                      />
+                      <Route
+                        path={TERMS_OF_USE_PAGE_LINK}
+                        element={<TermsOfUsePage />}
+                      />
+
+                      {/* Redirect the old URL for possible outside links */}
+                      <Route
+                        path='/termsofservice'
+                        element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
+                      />
+                      <Route
+                        path={OLD_AGE_ADJUSTMENT_LINK}
+                        element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
+                      />
+                      <Route path='/' element={<LandingPage />} />
+
+                      {/* Catch-all route */}
+                      <Route path='*' element={<NotFoundPage />} />
+                    </Routes>
+                  </main>
+                </Suspense>
+              </BrowserRouter>
             </div>
             <footer>
               <Suspense fallback={<span></span>}>

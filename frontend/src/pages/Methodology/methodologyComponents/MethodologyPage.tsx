@@ -7,12 +7,7 @@ import MethodologyPagination from './MethodologyPagination'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
-import {
-  CompatRoute,
-  Routes,
-  useLocation,
-  useMatch,
-} from 'react-router-dom-v5-compat'
+import { Route, Routes, useLocation, useMatch } from 'react-router-dom'
 
 export default function MethodologyPage() {
   const location = useLocation()
@@ -79,11 +74,10 @@ export default function MethodologyPage() {
                 <>
                   {/* TEXT */}
                   {routeConfigs.map((route) => (
-                    <CompatRoute
+                    <Route
                       key={route.path}
-                      exact
                       path={route.path}
-                      component={route.component}
+                      element={route.component}
                     />
                   ))}
                   {/* PREV / NEXT */}

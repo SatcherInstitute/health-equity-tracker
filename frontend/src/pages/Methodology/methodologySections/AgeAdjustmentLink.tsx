@@ -5,7 +5,7 @@ import {
   AGE_ADJUST_HIV_DEATHS_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from '../../../utils/internalRoutes'
-import { Link } from 'react-router-dom-v5-compat'
+import { Link } from 'react-router-dom'
 import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import Resources from '../methodologyComponents/Resources'
 import HetNotice from '../../../styles/HetComponents/HetNotice'

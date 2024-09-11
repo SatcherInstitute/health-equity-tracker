@@ -22,7 +22,7 @@ export type RouteConfig = {
   isTopLevel?: boolean
   label: string
   path: string
-  component?: () => ReactNode
+  component?: ReactNode
   subLinks?: RouteConfig[]
   visible?: boolean
 }
@@ -32,7 +32,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Policy Context Introduction',
     path: GUN_VIOLENCE_POLICY,
-    component: GunViolencePolicyHomeLink,
+    component: <GunViolencePolicyHomeLink />,
     subLinks: [],
     visible: false,
   },
@@ -40,7 +40,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Crisis Overview',
     path: CRISIS_OVERVIEW_TAB,
-    component: CrisisOverviewTab,
+    component: <CrisisOverviewTab />,
     subLinks: [
       {
         label: 'Understanding the Crisis of Gun Violence in Atlanta',
@@ -53,7 +53,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Data Collection',
     path: DATA_COLLECTION_TAB,
-    component: DataCollectionTab,
+    component: <DataCollectionTab />,
     subLinks: [
       {
         label: `CDC's WISQARS™`,
@@ -82,7 +82,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Our Findings',
     path: OUR_FINDINGS_TAB,
-    component: OurFindingsTab,
+    component: <OurFindingsTab />,
     subLinks: [
       {
         label: `Georgia's Youth Fatality Rates`,
@@ -107,12 +107,12 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Current Efforts',
     path: CURRENT_EFFORTS_TAB,
-    component: CurrentEffortsTab,
+    component: <CurrentEffortsTab />,
     subLinks: [
       {
         label: 'Health Inequities Defined',
         path: '#health-inequities-definition',
-      },      
+      },
       {
         label: 'Economic Inequality',
         path: '#economic-inequality',
@@ -124,7 +124,7 @@ export const routeConfigs: RouteConfig[] = [
       {
         label: 'Racial and Social Justice',
         path: '#racial-and-social-justice',
-      },      
+      },
       {
         label: 'Mental Health Services',
         path: '#mental-health-services',
@@ -140,7 +140,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Reform Opportunities',
     path: REFORM_OPPORTUNITIES_TAB,
-    component: ReformOpportunitiesTab,
+    component: <ReformOpportunitiesTab />,
     subLinks: [
       {
         label: 'Insights from the Advocacy Community',
@@ -157,7 +157,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'How to Use the Data',
     path: HOW_TO_USE_THE_DATA_TAB,
-    component: HowToUseTheDataTab,
+    component: <HowToUseTheDataTab />,
     subLinks: [
       {
         label: 'HET Data Visualization Maps and Charts',
@@ -198,7 +198,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'FAQs',
     path: FAQS_TAB,
-    component: FaqsTab,
+    component: <FaqsTab />,
     subLinks: [],
     visible: true,
   },

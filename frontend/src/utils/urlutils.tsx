@@ -7,7 +7,7 @@ import {
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   FAQ_TAB_LINK,
-  GUN_VIOLENCE_POLICY
+  GUN_VIOLENCE_POLICY,
 } from './internalRoutes'
 import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
@@ -17,7 +17,7 @@ import {
 import type { ReactNode } from 'react'
 import { urlMap } from './externalUrls'
 import type { DataTypeId } from '../data/config/MetricConfigTypes'
-import { Link, useLocation } from 'react-router-dom-v5-compat'
+import { Link, useLocation } from 'react-router-dom'
 
 // OLDER HANDLING PARAMS
 

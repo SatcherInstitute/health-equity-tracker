@@ -1,6 +1,6 @@
 import Toolbar from '@mui/material/Toolbar'
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material'
-import { useNavigate } from 'react-router-dom-v5-compat'
+import { useNavigate } from 'react-router-dom'
 
 interface HetCardMenuMobileProps {
   className?: string

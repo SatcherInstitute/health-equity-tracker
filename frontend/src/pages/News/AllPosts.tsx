@@ -17,7 +17,7 @@ import type { Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import PinnedArticles from './PinnedArticles'
-import { Link } from 'react-router-dom-v5-compat'
+import { Link } from 'react-router-dom'
 
 export const ARTICLES_TERM = 'Articles'
 

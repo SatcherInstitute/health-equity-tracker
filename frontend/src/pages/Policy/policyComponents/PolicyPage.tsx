@@ -5,7 +5,7 @@ import PolicyPagination from './PolicyPagination'
 import PolicyCardMenuMobile from './PolicyCardMenuMobile'
 import PolicyCardMenu from './PolicyCardMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { CompatRoute, useMatch, useLocation, Routes } from 'react-router-dom-v5-compat'
+import { useMatch, useLocation, Routes, Route } from 'react-router-dom'
 
 export default function PolicyPage() {
   const location = useLocation()
@@ -65,11 +65,11 @@ export default function PolicyPage() {
                 <>
                   {/* TEXT */}
                   {routeConfigs.map((route) => (
-                    <CompatRoute
+                    <Route
                       key={route.path}
-                      exact
+
                       path={route.path}
-                      component={route.component}
+                      element={route.component}
                     />
                   ))}
                   {/* PREV / NEXT */}

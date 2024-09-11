@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import type { ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom-v5-compat'
+import { useNavigate } from 'react-router-dom'
 
 interface HetCTASmallProps {
   children: ReactNode

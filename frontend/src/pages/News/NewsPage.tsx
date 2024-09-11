@@ -6,7 +6,7 @@ import {
 import { Tab, Tabs } from '@mui/material'
 import ShareYourStory from './ShareYourStory'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { Link, Route, Routes, useLocation } from 'react-router-dom-v5-compat'
+import { Link, Route, Routes, useLocation } from 'react-router-dom'
 
 const AllPosts = lazy(async () => await import('./AllPosts'))
 const SinglePost = lazy(async () => await import('./SinglePost'))

@@ -5,7 +5,7 @@ import {
   FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { Route, Routes, Link, useLocation } from 'react-router-dom-v5-compat'
+import { Route, Routes, Link, useLocation } from 'react-router-dom'
 
 // can't lazy load (yet) due to loading issues
 import EquityTab from './EquityTab'

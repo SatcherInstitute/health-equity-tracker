@@ -5,9 +5,7 @@ import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
 import { render } from '@testing-library/react'
 import { act } from 'react'
 import { test, expect } from 'vitest'
-import { Router } from 'react-router-dom-v5-compat'
-import { createMemoryHistory } from 'history'
-import { CompatRouter } from 'react-router-dom-v5-compat'
+import { MemoryRouter } from 'react-router-dom'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   name: 'ACS Population by Age and County',
@@ -19,14 +17,11 @@ autoInitGlobals()
 
 test('Data catalog page renders all data sources', async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher
-  const history = createMemoryHistory()
 
   const { queryByText, findByTestId } = render(
-    <Router history={history}>
-      <CompatRouter>
-        <DataCatalogPage />
-      </CompatRouter>
-    </Router>,
+    <MemoryRouter initialEntries={['/']}>
+      <DataCatalogPage />,
+    </MemoryRouter>,
   )
 
   act(() => {
@@ -51,16 +46,11 @@ test('Data catalog page renders all data sources', async () => {
 
 test('Data catalog page renders subset of data sources', async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher
-  const history = createMemoryHistory({
-    initialEntries: ['/exploredata?dpf=acs'],
-  })
 
   const { findByText, findByTestId, queryByTestId } = render(
-    <Router history={history}>
-      <CompatRouter>
-        <DataCatalogPage />
-      </CompatRouter>
-    </Router>,
+    <MemoryRouter initialEntries={['/exploredata?dpf=acs']}>
+      <DataCatalogPage />
+    </MemoryRouter>,
   )
 
   act(() => {

@@ -45,7 +45,7 @@ export type RouteConfig = {
   isTopLevel?: boolean
   label: string
   path: string
-  component?: () => ReactNode
+  component?: ReactNode
   subLinks?: RouteConfig[]
   visible?: boolean
 }
@@ -55,7 +55,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Methodology Introduction',
     path: METHODOLOGY_PAGE_LINK,
-    component: MethodologyHomeLink,
+    component: <MethodologyHomeLink />,
     subLinks: [],
     visible: false,
   },
@@ -64,7 +64,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Data Sources',
     path: SOURCES_LINK,
-    component: DataSourcesLink,
+    component: <DataSourcesLink />,
     subLinks: [
       {
         label: 'Data Sources',
@@ -109,7 +109,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Topic Categories',
     path: TOPIC_CATEGORIES_LINK,
-    component: TopicCategoriesLink,
+    component: <TopicCategoriesLink />,
     subLinks: [],
     visible: true,
   },
@@ -117,7 +117,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Behavioral Health',
     path: BEHAVIORAL_HEALTH_LINK,
-    component: BehavioralHealthLink,
+    component: <BehavioralHealthLink />,
     subLinks: [
       {
         label: 'Data Sourcing',
@@ -141,7 +141,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Chronic Diseases',
     path: CHRONIC_DISEASE_LINK,
-    component: ChronicDiseaseLink,
+    component: <ChronicDiseaseLink />,
     subLinks: [
       { label: 'Data Sourcing', path: '#chronic-diseases-data-sourcing' },
       { label: 'Data Sources', path: '#chronic-diseases-data-sources' },
@@ -152,7 +152,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Community Safety',
     path: COMMUNITY_SAFETY_LINK,
-    component: CommunitySafetyLink,
+    component: <CommunitySafetyLink />,
     subLinks: [
       { label: 'Data Sourcing', path: '#community-safety-data-sourcing' },
       { label: 'Data Sources', path: '#community-safety-data-sources' },
@@ -163,7 +163,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'COVID-19',
     path: COVID_19_LINK,
-    component: Covid19Link,
+    component: <Covid19Link />,
     subLinks: [
       { label: 'COVID-19', path: '#covid-19' },
       { label: 'Data Sourcing', path: '#covid-data-sourcing' },
@@ -211,7 +211,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'HIV',
     path: HIV_LINK,
-    component: HivLink,
+    component: <HivLink />,
     subLinks: [
       { label: 'HIV', path: '#hiv' },
       { label: 'Data Sourcing', path: '#hiv-data-sourcing' },
@@ -239,7 +239,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Political Determinants of Health',
     path: PDOH_LINK,
-    component: PdohLink,
+    component: <PdohLink />,
     subLinks: [
       { label: 'Political Determinants of Health', path: '#pdoh' },
       { label: 'Data Sourcing', path: '#pdoh-data-sourcing' },
@@ -297,7 +297,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Social Determinants of Health',
     path: SDOH_LINK,
-    component: SdohLink,
+    component: <SdohLink />,
     subLinks: [
       { label: 'Data Sourcing', path: '#sdoh-data-sourcing' },
       { label: 'Data Sources', path: '#sdoh-data-sources' },
@@ -309,7 +309,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Medication Utilization',
     path: MEDICATION_UTILIZATION_LINK,
-    component: MedicationUtilizationLink,
+    component: <MedicationUtilizationLink />,
     subLinks: [
       {
         label: 'Data Sourcing',
@@ -328,14 +328,14 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Data Methods',
     path: DATA_METHOD_DEFINITIONS_LINK,
-    component: DataMethodDefinitionsLink,
+    component: <DataMethodDefinitionsLink />,
     subLinks: [],
     visible: true,
   },
   {
     label: 'Limitations and Missing Data',
     path: LIMITATIONS_LINK,
-    component: LimitationsLink,
+    component: <LimitationsLink />,
     subLinks: [
       {
         label: 'Limitations',
@@ -351,7 +351,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Metrics',
     path: METRICS_LINK,
-    component: MetricsLink,
+    component: <MetricsLink />,
     subLinks: [
       {
         label: 'Age-adjusted ratios',
@@ -377,7 +377,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Topic Definitions',
     path: TOPIC_DEFINITIONS_LINK,
-    component: TopicDefinitionsLink,
+    component: <TopicDefinitionsLink />,
     subLinks: [
       { label: 'HIV Topics', path: 'hiv' },
       {
@@ -408,7 +408,7 @@ export const routeConfigs: RouteConfig[] = [
   {
     label: 'Races and Ethnicities',
     path: RACES_AND_ETHNICITIES_LINK,
-    component: RacesAndEthnicitiesLink,
+    component: <RacesAndEthnicitiesLink />,
     subLinks: [
       { label: 'Races and Ethnicities', path: '#races-and-ethnicities' },
       { label: 'Addressing Data Gaps', path: '#data-gaps' },
@@ -420,7 +420,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Age-Adjustment',
     path: AGE_ADJUSTMENT_LINK,
-    component: AgeAdjustmentLink,
+    component: <AgeAdjustmentLink />,
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
@@ -440,7 +440,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Recommended Citation',
     path: RECOMMENDED_CITATION_LINK,
-    component: RecommendedCitationLink,
+    component: <RecommendedCitationLink />,
     subLinks: [],
     visible: true,
   },
@@ -448,7 +448,7 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Glossary',
     path: GLOSSARY_LINK,
-    component: GlossaryLink,
+    component: <GlossaryLink />,
     subLinks: [
       {
         label: 'Health Equity A-Z',

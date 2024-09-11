@@ -19,7 +19,7 @@ import ShareButtons, {
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
-import { Link, useParams, useNavigate } from 'react-router-dom-v5-compat'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }

@@ -1,6 +1,6 @@
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
-import { Link } from 'react-router-dom-v5-compat'
+import { Link } from 'react-router-dom'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 

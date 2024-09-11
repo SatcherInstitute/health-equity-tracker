@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom-v5-compat'
+import { useNavigate, useLocation } from 'react-router-dom'
 import HetPaginationButton from './HetPaginationButton'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import type { RouteConfig } from '../../pages/Methodology/methodologyContent/routeConfigs'
