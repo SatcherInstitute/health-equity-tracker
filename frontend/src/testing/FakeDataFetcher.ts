@@ -3,11 +3,11 @@ import type {
   DatasetId,
 } from '../data/config/DatasetMetadata'
 import type { DataFetcher } from '../data/loading/DataFetcher'
-import type { MapOfDatasetMetadata, Row } from '../data/utils/DatasetTypes'
+import type { MapOfDatasetMetadata, HetRow } from '../data/utils/DatasetTypes'
 
 export default class FakeDataFetcher implements DataFetcher {
-  private loadedDatasets: Record<string, Row[]> = {}
-  private datasetResolverMap: Record<string, (dataset: Row[]) => void> = {}
+  private loadedDatasets: Record<string, HetRow[]> = {}
+  private datasetResolverMap: Record<string, (dataset: HetRow[]) => void> = {}
   private datasetRejecterMap: Record<string, (err: Error) => void> = {}
   private loadedMetadata: MapOfDatasetMetadata | undefined
   private metadataResolver?: (metadataMap: MapOfDatasetMetadata) => void
@@ -17,7 +17,7 @@ export default class FakeDataFetcher implements DataFetcher {
 
   async loadDataset(
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-  ): Promise<Row[]> {
+  ): Promise<HetRow[]> {
     this.numLoadDatasetCalls++
     if (this.loadedDatasets[datasetId]) {
       return this.loadedDatasets[datasetId]
@@ -41,7 +41,7 @@ export default class FakeDataFetcher implements DataFetcher {
 
   setFakeDatasetLoaded(
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-    data: Row[],
+    data: HetRow[],
   ) {
     const resolver = this.datasetResolverMap[datasetId]
     if (!resolver) {

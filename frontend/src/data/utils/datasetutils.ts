@@ -44,7 +44,7 @@ import {
   AIAN_API,
   API,
 } from './Constants'
-import type { Row } from './DatasetTypes'
+import type { HetRow } from './DatasetTypes'
 import type { Fips } from './Fips'
 import type {
   DatasetIdWithStateFIPSCode,
@@ -92,7 +92,7 @@ export function joinOnCols(
 Returns the lowest `listSize` & highest `listSize` values, unless there are ties for first and/or last in which case the only the tied values are returned. If there is overlap, it is removed from the highest values.
 */
 export function getExtremeValues(
-  data: Row[],
+  data: HetRow[],
   fieldName: MetricId,
   listSize: number,
 ) {
@@ -103,9 +103,9 @@ export function getExtremeValues(
   // cleanup and sort the data
   let sortedData = data
     .filter(
-      (row: Row) => !Number.isNaN(row[fieldName]) && row[fieldName] != null,
+      (row: HetRow) => !Number.isNaN(row[fieldName]) && row[fieldName] != null,
     )
-    .sort((rowA: Row, rowB: Row) => rowA[fieldName] - rowB[fieldName]) // ascending order
+    .sort((rowA: HetRow, rowB: HetRow) => rowA[fieldName] - rowB[fieldName]) // ascending order
 
   const lowestValue = sortedData[0][fieldName]
   const valuesTiedAtLowest = sortedData.filter(
@@ -125,7 +125,7 @@ export function getExtremeValues(
     (row) => row[fieldName] === highestValue,
   )
   const highestValuesAreTied = valuesTiedAtHighest.length > 1
-  const highestValuesPotentialOverlap: Row[] = highestValuesAreTied
+  const highestValuesPotentialOverlap: HetRow[] = highestValuesAreTied
     ? valuesTiedAtHighest
     : sortedData.slice(0, listSize)
 
@@ -354,13 +354,13 @@ export function getExclusionList(
 }
 
 export function splitIntoKnownsAndUnknowns(
-  data: Row[] | undefined,
+  data: HetRow[] | undefined,
   demographicType: DemographicType,
-): Row[][] {
-  const knowns: Row[] = []
-  const unknowns: Row[] = []
+): HetRow[][] {
+  const knowns: HetRow[] = []
+  const unknowns: HetRow[] = []
 
-  data?.forEach((row: Row) => {
+  data?.forEach((row: HetRow) => {
     if (
       [UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY, UNKNOWN_W].includes(
         row[demographicType],

@@ -1,5 +1,5 @@
 import type { Breakdowns } from '../query/Breakdowns'
-import type { Row } from '../utils/DatasetTypes'
+import type { HetRow } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
 export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
@@ -25,7 +25,7 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
     return !b.hasOnlyAge() && b.hasOneRegionOfGeographicGranularity()
   }
 
-  compareFn = (l: Row | string, r: Row | string) => {
+  compareFn = (l: HetRow | string, r: HetRow | string) => {
     const lVal = typeof l === 'string' ? l : l[this.reorderCol]
     const rVal = typeof r === 'string' ? r : r[this.reorderCol]
 

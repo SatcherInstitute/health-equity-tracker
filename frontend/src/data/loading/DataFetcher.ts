@@ -2,7 +2,7 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import type { MapOfDatasetMetadata, Row } from '../utils/DatasetTypes'
+import type { MapOfDatasetMetadata, HetRow } from '../utils/DatasetTypes'
 import {
   type DatasetId,
   DatasetMetadataMap,
@@ -19,7 +19,7 @@ export interface DataFetcher {
    */
   loadDataset: (
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-  ) => Promise<Row[]>
+  ) => Promise<HetRow[]>
 
   /** Fetches and returns the MetadataMap for all datasets. */
   getMetadata: () => Promise<MapOfDatasetMetadata>
@@ -86,7 +86,7 @@ export class ApiDataFetcher implements DataFetcher {
   // TODO: build in retries, timeout before showing error to user.
   async loadDataset(
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
-  ): Promise<Row[]> {
+  ): Promise<HetRow[]> {
     const result = await this.fetchDataset(datasetId)
 
     // Note that treating geographies as a normal dataset is a bit weird

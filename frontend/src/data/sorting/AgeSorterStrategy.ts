@@ -1,5 +1,5 @@
 import type { Breakdowns } from '../query/Breakdowns'
-import type { Row } from '../utils/DatasetTypes'
+import type { HetRow } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
 export class AgeSorterStrategy extends AbstractSortStrategy {
@@ -19,7 +19,7 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
     this.backValues = backValues
   }
 
-  readonly compareFn = (l: Row | string, r: Row | string) => {
+  readonly compareFn = (l: HetRow | string, r: HetRow | string) => {
     const lAge = typeof l === 'string' ? l : l.age
     const rAge = typeof r === 'string' ? r : r.age // Rage hehe
 

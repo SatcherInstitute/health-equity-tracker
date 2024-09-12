@@ -1,5 +1,5 @@
 import type { DemographicType } from '../query/Breakdowns'
-import type { Row } from '../utils/DatasetTypes'
+import type { HetRow } from '../utils/DatasetTypes'
 import { AgeSorterStrategy } from './AgeSorterStrategy'
 import { IncomeSorterStrategy } from './IncomeSorterStrategy'
 

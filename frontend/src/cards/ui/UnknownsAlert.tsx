@@ -1,4 +1,4 @@
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
@@ -42,7 +42,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   let additionalAgeUnknowns = null
 
   if (props.ageQueryResponse) {
-    const validAgeData: Row[] = props.ageQueryResponse.getValidRowsForField(
+    const validAgeData: HetRow[] = props.ageQueryResponse.getValidRowsForField(
       props.metricConfig.metricId,
     )
     const [, ageUnknowns] = splitIntoKnownsAndUnknowns(validAgeData, AGE)

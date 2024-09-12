@@ -6,7 +6,7 @@ import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
 import type {
   MapOfDatasetMetadata,
-  Row,
+  HetRow,
   FieldRange,
 } from '../../data/utils/DatasetTypes'
 import type {
@@ -54,7 +54,7 @@ interface MultiMapDialogProps {
   // Geographic region of maps
   fips: Fips
   // Data that populates maps
-  data: Row[]
+  data: HetRow[]
   // Range of metric's values, used for creating a common legend across maps
   fieldRange: FieldRange | undefined
   // Whether or not dialog is currently open
@@ -177,7 +177,8 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 ? getWomenRaceLabel(demographicGroup)
                 : demographicGroup
               const dataForValue = props.data.filter(
-                (row: Row) => row[props.demographicType] === demographicGroup,
+                (row: HetRow) =>
+                  row[props.demographicType] === demographicGroup,
               )
 
               return (
