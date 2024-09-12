@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async'
-import { FormatQuote } from '@mui/icons-material'
 import { gvaFacts, rocketFoundationFacts } from '../policyContent/CrisisOverviewContent'
 import FactCard from '../policyComponents/FactCard'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import { urlMap } from '../../../utils/externalUrls'
 
 export default function CrisisOverviewTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -34,37 +35,29 @@ export default function CrisisOverviewTab() {
         <section>
           <div className='mb-0'>
             <HetOverline className='mb-0' text='By the Numbers' />
-            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} />
-            <a href='https://www.rocket-foundation.org/'>
-              <span>
-                [<FormatQuote className='text-text'></FormatQuote>]
-              </span>
-            </a>
+            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href={urlMap.rocketFoundation} label='The Rocket Foundation' />
           </div>
           
-          <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+          <div className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {rocketFoundationFacts.map((rocketFoundationFact, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0 
               const isDesktopShadow = isMdAndUp && index % 2 !== 0 
 
               return (
-                <li
+                <div
                   key={index}
                   className={`fade-in-up-blur rounded-md p-8 ${isMobileShadow || isDesktopShadow ? 'shadow-raised-tighter' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <FactCard key={index} content={rocketFoundationFact.content} />
-                </li>
+                </div>
               )
             })}
-          </ul>
+          </div>
 
           <HetOverline className='mt-0 inline' text={`SOURCE: Gun Violence Archive `} />
-          <a href='https://www.gunviolencearchive.org/'>
-            <span>
-              [<FormatQuote className='text-text'></FormatQuote>]
-            </span>
-          </a>
+          
+          <HetQuoteLink href={urlMap.gunViolenceArchive} label='Gun Violence Archive'/>
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {gvaFacts.map((gvaFact, index) => {

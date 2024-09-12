@@ -17,6 +17,7 @@ import {
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import ResourceSection from '../policyComponents/ResourceSection'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 
 export default function CurrentEffortsTab() {
   return (
@@ -43,8 +44,8 @@ export default function CurrentEffortsTab() {
         </p>
         <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur'>
           <p>
-            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>: Unfair and
-            avoidable differences in health status across various groups,
+            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>: <HetTermUnderline>Unfair and
+            avoidable</HetTermUnderline> differences in health status across various groups,
             influenced by social, economic, and environmental factors.
           </p>
         </article>

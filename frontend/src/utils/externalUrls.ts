@@ -49,6 +49,20 @@ export type LinkName =
   | 'msm'
   | 'whoWomenVoting'
   | 'wisqarsMethodology'
+  | 'atlantaCommunityFoodBank'
+  | 'workSourceAtlanta'
+  | 'communitiesInSchoolsAtlanta'
+  | 'atlantaEducationalTelecommunications'
+  | 'kingCenter'
+  | 'southernCenterForHumanRights'
+  | 'namiAtlantaAuburn'
+  | 'chris180'
+  | 'cureViolenceAtlanta'
+  | 'atlantaPoliceFoundation'
+  | 'rocketFoundation'
+  | 'gunViolenceArchive'
+  | 'randGunPolicy'
+  | 'findElectedOfficials'
 
 export const urlMap: Record<LinkName, string> = {
   hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
@@ -119,4 +133,18 @@ export const urlMap: Record<LinkName, string> = {
     'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html',
   wisqarsMethodology:
     'https://wisqars.cdc.gov/about/fatal-injury-data/#resources',
+  atlantaCommunityFoodBank: 'https://www.acfb.org/',
+  workSourceAtlanta: 'https://www.worksourceatlanta.org/',
+  communitiesInSchoolsAtlanta: 'https://www.cisatlanta.org/',
+  atlantaEducationalTelecommunications: 'https://www.wabe.org/',
+  kingCenter: 'https://thekingcenter.org/',
+  southernCenterForHumanRights: 'https://www.schr.org/',
+  namiAtlantaAuburn: 'https://namiatlantaauburn.org/',
+  chris180: 'https://chris180.org/',
+  cureViolenceAtlanta: 'https://chris180.org/program/violence-prevention/',
+  atlantaPoliceFoundation: 'https://atlantapolicefoundation.org/',
+  rocketFoundation: 'https://www.rocket-foundation.org/',
+  gunViolenceArchive: 'https://www.gunviolencearchive.org/',
+  randGunPolicy: 'https://www.rand.org/research/gun-policy.html',
+  findElectedOfficials: 'https://www.usa.gov/elected-officials'
 }
