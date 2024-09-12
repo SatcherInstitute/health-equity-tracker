@@ -2,14 +2,10 @@ import { useEffect, useState } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
-  FAQ_TAB_LINK,
+  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { Route, Routes, Link, useLocation } from 'react-router-dom-v5-compat'
-
-// can't lazy load (yet) due to loading issues
-import EquityTab from './EquityTab'
-import FaqTab from './FaqTab'
+import { Link, useLocation, Outlet } from 'react-router-dom'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function WhatIsHealthEquityPage() {
@@ -38,17 +34,15 @@ export default function WhatIsHealthEquityPage() {
           to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
         />
         <Tab
-          value={FAQ_TAB_LINK}
+          value={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK}
           label='FAQs'
           component={Link}
-          to={FAQ_TAB_LINK}
+          to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK}
         />
       </Tabs>
 
-      <Routes>
-        <Route path={FAQ_TAB_LINK} element={<FaqTab />} />
-        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK} element={<EquityTab />} />
-      </Routes>
+      {/* RENDER SELECTED TAB'S COMPONENT FROM REACT ROUTER */}
+      <Outlet />
     </div>
   )
 }

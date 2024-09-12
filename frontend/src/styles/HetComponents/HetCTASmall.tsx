@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import type { ReactNode } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface HetCTASmallProps {
   children: ReactNode
@@ -15,11 +15,11 @@ export default function HetCTASmall({
   id,
   className,
 }: HetCTASmallProps) {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleClick = () => {
     if (!href.startsWith('mailto:')) {
-      history.push(href)
+      navigate(href)
     }
   }
 

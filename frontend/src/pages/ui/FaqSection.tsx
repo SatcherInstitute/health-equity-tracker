@@ -1,4 +1,4 @@
-import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
+import { WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK } from '../../utils/internalRoutes'
 import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
 import HetAccordion from '../../styles/HetComponents/HetAccordion'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
@@ -13,7 +13,7 @@ export default function FaqSection() {
       </div>
       <HetAccordion accordionData={selectFAQs} />
       <HetTextArrowLink
-        link={FAQ_TAB_LINK}
+        link={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK}
         linkText='See our full FAQ page'
         containerClassName='flex items-center justify-center mt-4 mx-auto '
         linkClassName='font-sansTitle text-smallestHeader'

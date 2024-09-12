@@ -9,9 +9,9 @@ import {
   XIcon,
 } from 'react-share'
 import { Tooltip } from '@mui/material'
-import type { Article } from '../../pages/News/NewsPage'
 import { getHtml } from '../../utils/urlutils'
 import { het } from '../../styles/DesignTokens'
+import type { Article } from '../../pages/News/ArticleTypes'
 
 export const SHARE_LABEL = 'Share this report:'
 

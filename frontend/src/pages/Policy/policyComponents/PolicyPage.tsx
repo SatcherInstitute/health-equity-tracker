@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async'
-import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import { routeConfigs } from '../policyContent/routeConfigs'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import PolicyPagination from './PolicyPagination'
 import PolicyCardMenuMobile from './PolicyCardMenuMobile'
 import PolicyCardMenu from './PolicyCardMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import { useMatch, useLocation, Outlet } from 'react-router-dom'
 import { useResponsiveWidth } from '../../../utils/hooks/useResponsiveWidth'
 
 export default function PolicyPage() {
@@ -42,9 +42,9 @@ export default function PolicyPage() {
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
             <div className='md:hidden px-8'>
               {routeConfigs.map((routeConfig) => {
-                const match = useRouteMatch({
+                const match = useMatch({
                   path: routeConfig.path,
-                  exact: true,
+                  end: true,
                 })
                 const hasSublinks =
                   routeConfig.subLinks && routeConfig.subLinks.length > 0
@@ -58,41 +58,31 @@ export default function PolicyPage() {
             </div>
 
             <section className='flex flex-col justify-end mx-8 md:mx-12 my-0'>
-              {activeRoute?.visible && isMobileView && (
-                <h1 className='block md:hidden font-sansTitle text-bigHeader font-bold my-0 leading-lhNormal'>
+              {activeRoute?.visible && !isMobileView && (
+                <h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-lhNormal'>
                   {activeRoute?.label}
                 </h1>
               )}
               <h2 className='sr-only'>{activeRoute?.label}</h2>
-              <Switch>
-                <>
-                  {/* TEXT */}
-                  {routeConfigs.map((route) => (
-                    <Route
-                      key={route.path}
-                      exact
-                      path={route.path}
-                      component={route.component}
-                    />
-                  ))}
-                  {/* PREV / NEXT */}
-                  <PolicyPagination />
-                </>
-              </Switch>
+
+              <Outlet />
+
+              {/* PREV / NEXT */}
+              <PolicyPagination />
             </section>
           </div>
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}
           <div className='hidden min-w-fit md:block'>
             {routeConfigs.map((routeConfig) => {
-              const match = useRouteMatch({
+              const match = useMatch({
                 path: routeConfig.path,
-                exact: true,
+                end: true,
               })
               const hasSublinks =
                 routeConfig.subLinks && routeConfig.subLinks.length > 0
               return match && hasSublinks ? (
                 <div
-                  className='min-w-40 w-48 max-w-40 sticky top-24 z-almostTop hidden h-min max-w-menu smMd:block flex flex-col'
+                  className='min-w-40 w-48 max-w-40 sticky top-24 z-almostTop hidden h-min max-w-menu smMd:flex flex-col'
                   key={routeConfig.path}
                 >
                   <HetOverline text='On this Page' />
