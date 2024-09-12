@@ -123,14 +123,7 @@ export default function App() {
                         path={ABOUT_US_PAGE_LINK}
                         element={<AboutUsPage />}
                       />
-                      <Route
-                        path={OLD_OURTEAM_LINK}
-                        element={<AboutUsPage />}
-                      />
-                      <Route
-                        path={OLD_CONTACT_LINK}
-                        element={<AboutUsPage />}
-                      />
+
                       <Route
                         path={DATA_CATALOG_PAGE_LINK}
                         element={<DataCatalogPage />}
@@ -207,6 +200,14 @@ export default function App() {
 
                       {/* Redirect the old URLs for possible outside links */}
                       <Route
+                        path={OLD_OURTEAM_LINK}
+                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
+                      />
+                      <Route
+                        path={OLD_CONTACT_LINK}
+                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
+                      />
+                      <Route
                         path={OLD_TERMS_OF_SERVICE_LINK}
                         element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
                       />
@@ -218,9 +219,7 @@ export default function App() {
                       />
                       <Route
                         path={SHARE_YOUR_STORY_PATH}
-                        element={
-                          <Navigate to={SHARE_YOUR_STORY_TAB_LINK} />
-                        }
+                        element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
                       />
 
                       <Route
