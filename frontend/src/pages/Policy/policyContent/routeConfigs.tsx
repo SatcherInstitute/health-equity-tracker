@@ -196,7 +196,7 @@ export const routeConfigs: RouteConfig[] = [
   },
   {
     isTopLevel: true,
-    label: 'FAQs',
+    label: 'Community Safety FAQs',
     path: FAQS_TAB,
     component: FaqsTab,
     subLinks: [],

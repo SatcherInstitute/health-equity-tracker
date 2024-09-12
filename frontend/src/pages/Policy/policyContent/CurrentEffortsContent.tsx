@@ -1,3 +1,5 @@
+import { urlMap } from '../../../utils/externalUrls'
+
 export const economicResources = [
 	{
 		title: 'Atlanta Community Food Bank',
@@ -8,7 +10,7 @@ export const economicResources = [
 				indirectly help in reducing stressors that can lead to violence.
 			</>
 		),
-		
+		link: (urlMap.atlantaCommunityFoodBank)
 	},
 	{
 		title: 'WorkSource Atlanta',
@@ -19,6 +21,7 @@ export const economicResources = [
 				economic disparities.
 			</>
 		),
+		link: (urlMap.workSourceAtlanta)
 		
 	},
 ]
@@ -33,7 +36,7 @@ export const educationalResources = [
         education and after-school programs.
       </>
     ),
-    link: 'https://www.cisatlanta.org/',
+    link: (urlMap.communitiesInSchoolsAtlanta)
   },
   {
     title: 'The Atlanta Educational Telecommunications Collaborative',
@@ -43,7 +46,7 @@ export const educationalResources = [
         educational experiences in the community.
       </>
     ),
-    link: 'https://www.wabe.org/',
+    link: (urlMap.atlantaEducationalTelecommunications)
   },
 ]
 
@@ -56,7 +59,7 @@ export const justiceResources = [
 				addressing racial injustice as a core element of reducing violence.
 			</>
 		),
-		link: 'https://thekingcenter.org/',
+		link: (urlMap.kingCenter)
 	},
 	{
 		title: 'Southern Center for Human Rights',
@@ -67,7 +70,7 @@ export const justiceResources = [
 				lead to violence.
 			</>
 		),
-		link: 'https://www.schr.org/',
+		link: (urlMap.southernCenterForHumanRights)
 	},
 ]
 
@@ -81,7 +84,7 @@ export const mentalHealthResources = [
 				community.
 			</>
 		),
-		link: 'https://namiatlantaauburn.org/',
+		link: (urlMap.namiAtlantaAuburn)
 	},
 	{
 		title: 'CHRIS 180',
@@ -91,7 +94,7 @@ export const mentalHealthResources = [
 				particularly important in communities affected by gun violence.
 			</>
 		),
-		link: 'https://chris180.org/',
+		link: (urlMap.chris180)
 	},
 ]
 
@@ -106,7 +109,7 @@ export const communityResources = [
 				social norms.
 			</>
 		),
-		link: 'https://chris180.org/program/violence-prevention/',
+		link: (urlMap.cureViolenceAtlanta)
 	},
 	{
 		title: 'Atlanta Police Foundation',
@@ -117,7 +120,7 @@ export const communityResources = [
 				violence.
 			</>
 		),
-		link: 'https://atlantapolicefoundation.org/',
+		link: (urlMap.atlantaPoliceFoundation)
 	},
 ]
   
