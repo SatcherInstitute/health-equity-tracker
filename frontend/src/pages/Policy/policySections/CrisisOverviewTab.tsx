@@ -38,22 +38,22 @@ export default function CrisisOverviewTab() {
             <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href={urlMap.rocketFoundation} label='The Rocket Foundation' />
           </div>
           
-          <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+          <div className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {rocketFoundationFacts.map((rocketFoundationFact, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0 
               const isDesktopShadow = isMdAndUp && index % 2 !== 0 
 
               return (
-                <li
+                <div
                   key={index}
                   className={`fade-in-up-blur rounded-md p-8 ${isMobileShadow || isDesktopShadow ? 'shadow-raised-tighter' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <FactCard key={index} content={rocketFoundationFact.content} />
-                </li>
+                </div>
               )
             })}
-          </ul>
+          </div>
 
           <HetOverline className='mt-0 inline' text={`SOURCE: Gun Violence Archive `} />
           
