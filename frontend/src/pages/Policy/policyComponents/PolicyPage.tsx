@@ -5,8 +5,7 @@ import PolicyPagination from './PolicyPagination'
 import PolicyCardMenuMobile from './PolicyCardMenuMobile'
 import PolicyCardMenu from './PolicyCardMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { useMatch, useLocation, Routes, Route, Outlet } from 'react-router-dom'
-import { GUN_VIOLENCE_POLICY } from '../../../utils/internalRoutes'
+import { useMatch, useLocation, Outlet } from 'react-router-dom'
 
 export default function PolicyPage() {
   const location = useLocation()

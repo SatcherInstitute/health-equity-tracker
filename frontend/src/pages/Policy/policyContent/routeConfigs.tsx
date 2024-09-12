@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import {
   CRISIS_OVERVIEW_TAB,
   CURRENT_EFFORTS_TAB,
@@ -17,15 +16,7 @@ import HowToUseTheDataTab from '../policySections/HowToUseTheDataTab'
 import ReformOpportunitiesTab from '../policySections/ReformOpportunitiesTab'
 import GunViolencePolicyHomeLink from '../policySections/GunViolencePolicyHomeLink'
 import OurFindingsTab from '../policySections/OurFindingsTab'
-
-export type RouteConfig = {
-  isTopLevel?: boolean
-  label: string
-  path: string
-  component?: ReactNode
-  subLinks?: RouteConfig[]
-  visible?: boolean
-}
+import type { RouteConfig } from '../../sharedTypes'
 
 export const routeConfigs: RouteConfig[] = [
   {

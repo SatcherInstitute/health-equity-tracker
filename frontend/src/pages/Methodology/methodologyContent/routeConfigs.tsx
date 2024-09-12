@@ -37,18 +37,9 @@ import TopicCategoriesLink from '../methodologySections/TopicCategoriesLink'
 import LimitationsLink from '../methodologySections/LimitationsLink'
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
 import GlossaryLink from '../methodologySections/GlossaryLink'
-import type { ReactNode } from 'react'
 import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
 import CommunitySafetyLink from '../methodologySections/CommunitySafetyLink'
-
-export type RouteConfig = {
-  isTopLevel?: boolean
-  label: string
-  path: string
-  component?: ReactNode
-  subLinks?: RouteConfig[]
-  visible?: boolean
-}
+import type { RouteConfig } from '../../sharedTypes'
 
 export const routeConfigs: RouteConfig[] = [
   {

@@ -75,93 +75,93 @@ export const policyFaqs = [
 
         <p>
           <strong>Gun Deaths (Children, 0-17):</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
         </p>
-        <ul>
-          <li>
-            <strong>Breakdowns by race/ethnicity:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by age:</strong> No
-          </li>
-          <li>
-            <strong>Breakdowns by sex:</strong> No
-          </li>
-          <li>
-            <strong>Breakdowns by urbanicity:</strong> No
-          </li>
-        </ul>
 
         <p>
           <strong>Gun Deaths (Young Adults, 18-25):</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
         </p>
-        <ul>
-          <li>
-            <strong>Breakdowns by race/ethnicity:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by age:</strong> No
-          </li>
-          <li>
-            <strong>Breakdowns by sex:</strong> No
-          </li>
-          <li>
-            <strong>Breakdowns by urbanicity:</strong> No
-          </li>
-        </ul>
 
         <p>
           <strong>Gun Homicides (Black Men-specific):</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> No
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> Yes
+            </li>
+          </ul>
         </p>
-        <ul>
-          <li>
-            <strong>Breakdowns by race/ethnicity:</strong> No
-          </li>
-          <li>
-            <strong>Breakdowns by age:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by sex:</strong> No
-          </li>
-          <li>
-            <strong>Breakdowns by urbanicity:</strong> Yes
-          </li>
-        </ul>
 
         <p>
           <strong>Gun Homicides:</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
         </p>
-        <ul>
-          <li>
-            <strong>Breakdowns by race/ethnicity:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by age:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by sex:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by urbanicity:</strong> No
-          </li>
-        </ul>
 
         <p>
           <strong>Gun Suicides:</strong>
+          <ul>
+            <li>
+              <strong>Breakdowns by race/ethnicity:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by age:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by sex:</strong> Yes
+            </li>
+            <li>
+              <strong>Breakdowns by urbanicity:</strong> No
+            </li>
+          </ul>
         </p>
-        <ul>
-          <li>
-            <strong>Breakdowns by race/ethnicity:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by age:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by sex:</strong> Yes
-          </li>
-          <li>
-            <strong>Breakdowns by urbanicity:</strong> No
-          </li>
-        </ul>
       </>
     ),
   },
