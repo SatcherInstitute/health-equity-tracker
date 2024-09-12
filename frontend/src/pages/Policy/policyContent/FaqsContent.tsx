@@ -74,7 +74,7 @@ export const policyFaqs = [
     question: 'What demographic details can users filter by in the dataset?',
     answer: (
       <>
-        <p>
+        <p className='pb-0 mb-0'>
           Currently, all of our gun violence datasets include national- and
           state-level data.
         </p>
@@ -83,22 +83,62 @@ export const policyFaqs = [
           Additionally, (if the data is available) users can filter the
           datasets' demographics by:
         </p>
-        <ul className='py-0 my-0'>
-          <li className='py-0 my-0'>
+        <div className='ml-2'>
+          <p className='pt-0 mt-0'>
             <strong>Age Groups:</strong> Available in 5-year increments and
-            single-year groups (ranging from 0 to 85+ years, including unknown
-            ages).
-          </li>
-          <li>
+            single-year groups.</p>
+            <ul className='list-none flex flex-row justify-evenly my-4'>
+              <div>
+                <li>Ages 0-14</li>
+                <li>Ages 15-19</li>
+                <li>Ages 20-24</li>
+              </div>
+              <div className='border border-solid border-l-0 border-t-0 border-b-0 border-r-1.2 w-1.2 border-methodologyGreen pr-10 w-fit'></div>
+              <div>
+                <li>Ages 25-29</li>
+                <li>Ages 30-34</li>
+                <li>Ages 35-44</li>
+              </div>
+              <div className='border border-solid border-l-0 border-t-0 border-b-0 border-r-1.2 w-1.2 border-methodologyGreen pr-10 w-fit'></div>
+              <div className='w-fit'>
+                <li>Ages 45-64</li>
+                <li>Ages 65+</li>
+              </div>
+            </ul>
+          </div>
+          <p>
             <strong>Sex:</strong> Data can be filtered for male and female
             demographics.
-          </li>
-          <li>
-            <strong>Race and Ethnicity:</strong> Options include White, Black,
-            American Indian/Alaska Native, Asian, Hawaiian Native/Pacific
-            Islander, more than one race, unknown race, and Hispanic.
-          </li>
-        </ul>
+          </p>
+          <p><strong>Race and Ethnicity Options:</strong></p> 
+<div className='w-full flex flex-wrap justify-evenly'>
+<div className='flex flex-col'>
+<p className='py-0 my-0 font-sansTitle text-text font-medium'>Races</p>
+
+<ul className='list-none'>
+  <li>Asian</li>
+  <li>Black or African American</li>
+  <li>Hawaiian Native/Pacific Islander</li>
+  <li>Indigenous</li>
+  <li>Individuals of an unrepresented race</li>
+  <li>Individuals of more than one race</li>
+  <li>White</li>
+</ul>
+</div>
+<div className='border border-solid border-l-0 border-t-0 border-b-0 border-r-1.2 w-1.2 border-methodologyGreen pr-10 w-fit'></div>
+  <div className='flex flex-col'>
+
+<p className='py-0 my-0 font-sansTitle text-text font-medium'>Ethnicities</p>
+<ul className='list-none'>
+  <li>Hispanic/Latino</li>
+</ul>
+  </div>
+
+
+ 
+</div>
+        
+        
       </>
     ),
   },
@@ -118,8 +158,7 @@ export const policyFaqs = [
         </p>
         <p>
           However, the dataset does not currently include other potential
-          breakdowns, such as gender, socioeconomic status, or geographic
-          location.
+          breakdowns, such as gender, socioeconomic status, or geographic classification (metropolitan vs. non-metropolitan).
         </p>
       </>
     ),

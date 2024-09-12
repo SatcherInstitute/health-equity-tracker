@@ -35,7 +35,7 @@ export default function CrisisOverviewTab() {
         <section>
           <div className='mb-0'>
             <HetOverline className='mb-0' text='By the Numbers' />
-            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href={urlMap.rocketFoundation} />
+            <HetOverline className='mt-0 inline' text={`SOURCE: The Rocket Foundation `} /><HetQuoteLink href={urlMap.rocketFoundation} label='The Rocket Foundation' />
           </div>
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
@@ -57,7 +57,7 @@ export default function CrisisOverviewTab() {
 
           <HetOverline className='mt-0 inline' text={`SOURCE: Gun Violence Archive `} />
           
-          <HetQuoteLink href={urlMap.gunViolenceArchive} />
+          <HetQuoteLink href={urlMap.gunViolenceArchive} label='Gun Violence Archive'/>
           
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {gvaFacts.map((gvaFact, index) => {

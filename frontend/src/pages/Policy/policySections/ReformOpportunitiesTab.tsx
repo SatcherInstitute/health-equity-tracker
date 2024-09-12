@@ -71,8 +71,8 @@ export default function ReformOpportunitiesTab() {
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Legislative Items to Consider for Policy Changes
         </h3>
-        <HetOverline text={`SOURCE: RAND Foundation `} className='inline' />
-        <HetQuoteLink href={urlMap.randGunPolicy}/>
+        <HetOverline text={`SOURCE: RAND Foundation`} className='inline' />
+        <HetQuoteLink href={urlMap.randGunPolicy} label='RAND Foundation'/>
 
         <HetAccordion
           accordionData={legislativeActions}
