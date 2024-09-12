@@ -6,9 +6,12 @@ import PolicyCardMenuMobile from './PolicyCardMenuMobile'
 import PolicyCardMenu from './PolicyCardMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import { useMatch, useLocation, Outlet } from 'react-router-dom'
+import { useResponsiveWidth } from '../../../utils/hooks/useResponsiveWidth'
 
 export default function PolicyPage() {
   const location = useLocation()
+  const [ref, width] = useResponsiveWidth()
+  const isMobileView = width < 960
 
   const activeRoute = routeConfigs.find(
     (route) => route.path === location.pathname,
@@ -19,11 +22,11 @@ export default function PolicyPage() {
       <Helmet>
         <title>Policy Context - Health Equity Tracker</title>
       </Helmet>
-      {activeRoute?.visible && (
-        <h1 className='sr-only' id='page-heading'>
-          {activeRoute?.label}
-        </h1>
-      )}
+
+      <h1 className='sr-only' id='page-heading'>
+        {activeRoute?.label}
+      </h1>
+
       <section
         className='flex w-svw justify-center text-left max-w-lgXl'
         aria-labelledby='page-heading'
@@ -55,7 +58,7 @@ export default function PolicyPage() {
             </div>
 
             <section className='flex flex-col justify-end mx-8 md:mx-12 my-0'>
-              {activeRoute?.visible && (
+              {activeRoute?.visible && !isMobileView && (
                 <h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-lhNormal'>
                   {activeRoute?.label}
                 </h1>
