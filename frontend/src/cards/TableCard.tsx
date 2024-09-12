@@ -17,7 +17,7 @@ import {
 } from '../data/utils/datasetutils'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
@@ -137,7 +137,9 @@ export default function TableCard(props: TableCardProps) {
           normalMetricIds = metricIds.filter(
             (id) => id !== 'confined_children_estimated_total',
           )
-          data = data.filter((row: Row) => row[props.demographicType] !== ALL)
+          data = data.filter(
+            (row: HetRow) => row[props.demographicType] !== ALL,
+          )
         }
 
         const showMissingDataAlert =

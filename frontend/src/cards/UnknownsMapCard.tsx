@@ -1,7 +1,7 @@
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -131,17 +131,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
-        const unknownRaces: Row[] = mapQueryResponse
+        const unknownRaces: HetRow[] = mapQueryResponse
           .getValidRowsForField(demographicType)
           .filter(
-            (row: Row) =>
+            (row: HetRow) =>
               row[demographicType] === UNKNOWN_RACE ||
               row[demographicType] === UNKNOWN,
           )
 
-        const unknownEthnicities: Row[] = mapQueryResponse
+        const unknownEthnicities: HetRow[] = mapQueryResponse
           .getValidRowsForField(demographicType)
-          .filter((row: Row) => row[demographicType] === UNKNOWN_ETHNICITY)
+          .filter((row: HetRow) => row[demographicType] === UNKNOWN_ETHNICITY)
 
         // If a state provides both unknown race and ethnicity numbers
         // use the higher one
@@ -163,23 +163,24 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const noDemographicInfo =
           mapQueryResponse
             .getValidRowsForField(demographicType)
-            .filter((row: Row) => row[demographicType] !== ALL).length === 0 &&
+            .filter((row: HetRow) => row[demographicType] !== ALL).length ===
+            0 &&
           mapQueryResponse
             .getValidRowsForField(demographicType)
-            .filter((row: Row) => row[demographicType] === ALL).length > 0
+            .filter((row: HetRow) => row[demographicType] === ALL).length > 0
 
         // when suppressing states with too low COVID numbers
         const unknownsUndefined =
           unknowns.length > 0 &&
           unknowns.every(
-            (unknown: Row) => unknown[metricConfig.metricId] === undefined,
+            (unknown: HetRow) => unknown[metricConfig.metricId] === undefined,
           )
 
         // for data sets where some geos might contain `0` for every unknown pct_share, like CAWP US Congress National
         const unknownsAllZero =
           unknowns.length > 0 &&
           unknowns.every(
-            (unknown: Row) =>
+            (unknown: HetRow) =>
               unknown[metricConfig.metricId] === 0 ||
               unknown[metricConfig.metricId] == null,
           )
@@ -262,7 +263,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   mapQueryResponse
                     .getValidRowsForField(demographicType)
                     .filter(
-                      (row: Row) => row[demographicType] === UNKNOWN_ETHNICITY,
+                      (row: HetRow) =>
+                        row[demographicType] === UNKNOWN_ETHNICITY,
                     ).length !== 0
                 }
                 noDemographicInfoMap={noDemographicInfo}

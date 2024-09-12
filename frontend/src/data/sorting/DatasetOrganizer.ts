@@ -1,6 +1,6 @@
 import type { Breakdowns } from '../query/Breakdowns'
 import { ALL, UNKNOWN, UNKNOWN_HL } from '../utils/Constants'
-import type { Row } from '../utils/DatasetTypes'
+import type { HetRow } from '../utils/DatasetTypes'
 import type { AbstractSortStrategy } from './AbstractDataSorter'
 import { AgeSorterStrategy } from './AgeSorterStrategy'
 import { AlphabeticalSorterStrategy } from './AlphabeticalSorterStrategy'
@@ -9,7 +9,7 @@ import { IncomeSorterStrategy } from './IncomeSorterStrategy'
 export class DatasetOrganizer {
   reorderingColumn: string
   breakdowns: Breakdowns
-  data: Row[] | string[]
+  data: HetRow[] | string[]
   sortStrategies: AbstractSortStrategy[]
 
   /*
@@ -19,7 +19,7 @@ export class DatasetOrganizer {
     valuesToBack: values to bring to the back in left to right being the frontmost
 =  */
   constructor(
-    data: Row[] | string[],
+    data: HetRow[] | string[],
     breakdowns: Breakdowns,
     valuesToFront = [ALL],
     valuesToBack = [UNKNOWN, UNKNOWN_HL],

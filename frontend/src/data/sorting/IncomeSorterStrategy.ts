@@ -1,20 +1,20 @@
 import type { Breakdowns } from '../query/Breakdowns'
-import type { Row } from '../utils/DatasetTypes'
+import type { HetRow } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
 export const regexStripIncomeString = /^[^\d-]*(\d+)/
 
-export function compareIncome(a: Row, b: Row): number {
+export function compareIncome(a: HetRow, b: HetRow): number {
   const aValue = a?.['income']?.match(regexStripIncomeString)?.[1] || 0
   const bValue = b?.['income']?.match(regexStripIncomeString)?.[1] || 0
   return aValue - bValue
 }
 
-export function sortForVegaByIncome(data: Row[]): Row[] {
-  const dataWithUnder = data.filter((row: Row) => {
+export function sortForVegaByIncome(data: HetRow[]): HetRow[] {
+  const dataWithUnder = data.filter((row: HetRow) => {
     return row['income'].includes('Under') || row['income'].includes('All')
   })
-  const dataWithoutUnder = data.filter((row: Row) => {
+  const dataWithoutUnder = data.filter((row: HetRow) => {
     return !row['income'].includes('Under') && !row['income'].includes('All')
   })
 
@@ -41,7 +41,7 @@ export class IncomeSorterStrategy extends AbstractSortStrategy {
     this.backValues = backValues
   }
 
-  readonly compareFn = (l: Row | string, r: Row | string) => {
+  readonly compareFn = (l: HetRow | string, r: HetRow | string) => {
     const extractBounds = (income: string) => {
       // Remove the dollar sign and commas, then split on the hyphen
       const [min, max] = income.replace(/[$,k]/g, '').split('-')
