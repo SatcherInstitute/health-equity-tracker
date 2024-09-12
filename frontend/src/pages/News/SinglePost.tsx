@@ -1,6 +1,5 @@
 import { Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
-import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
 import { getHtml } from '../../utils/urlutils'
 import {
   fetchNewsData,
@@ -20,18 +19,15 @@ import ShareButtons, {
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import { Link, useParams, useNavigate } from 'react-router-dom-v5-compat'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString(undefined, options as any)
 }
 
-interface SinglePostProps {
-  isMobile: boolean
-}
-
-export default function SinglePost(props: SinglePostProps) {
-  const history = useHistory()
+export default function SinglePost() {
+  const navigate = useNavigate()
 
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
@@ -41,13 +37,13 @@ export default function SinglePost(props: SinglePostProps) {
 
   function goNext() {
     if (nextArticle) {
-      history.push(NEWS_PAGE_LINK + '/' + nextArticle.slug)
+      navigate(NEWS_PAGE_LINK + '/' + nextArticle.slug)
     }
   }
 
   function goPrevious() {
     if (prevArticle) {
-      history.push(NEWS_PAGE_LINK + '/' + prevArticle.slug)
+      navigate(NEWS_PAGE_LINK + '/' + prevArticle.slug)
     }
   }
 
@@ -91,13 +87,6 @@ export default function SinglePost(props: SinglePostProps) {
 
   return (
     <>
-      {isError && (
-        <Redirect
-          to={{
-            pathname: '/404',
-          }}
-        />
-      )}
       <Helmet>
         <title>{`News${
           fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
