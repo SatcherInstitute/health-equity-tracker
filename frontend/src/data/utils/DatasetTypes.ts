@@ -43,7 +43,7 @@ export interface FieldRange {
 }
 
 // TODO: make typedef for valid data types instead of any.
-export type Row = Readonly<Record<string, any>>
+export type HetRow = Readonly<Record<string, any>>
 
 // Note: we currently don't support both commas and quotes together, which requires escaping the quotes with another quote.
 export function convertSpecialCharactersForCsv(val: any) {
@@ -57,10 +57,10 @@ export function convertSpecialCharactersForCsv(val: any) {
 }
 
 export class Dataset {
-  readonly rows: Readonly<Row[]>
+  readonly rows: Readonly<HetRow[]>
   readonly metadata: Readonly<DatasetMetadata>
 
-  constructor(rows: Row[], metadata: DatasetMetadata) {
+  constructor(rows: HetRow[], metadata: DatasetMetadata) {
     this.rows = rows
     this.metadata = metadata
   }

@@ -3,7 +3,7 @@ import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import type { Fips } from '../data/utils/Fips'
 import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
-import type { Row, FieldRange } from '../data/utils/DatasetTypes'
+import type { HetRow, FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import type { Legend } from 'vega'
@@ -120,7 +120,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   let suppressedData = props.data
 
   if (isPhrma) {
-    suppressedData = props.data.map((row: Row) => {
+    suppressedData = props.data.map((row: HetRow) => {
       const newRow = { ...row }
 
       const numeratorId = props.countColsMap?.numeratorConfig?.metricId

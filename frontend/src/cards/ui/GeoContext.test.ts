@@ -1,7 +1,7 @@
 import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
@@ -9,7 +9,7 @@ import {
 import { describe, test, expect } from 'vitest'
 
 describe('test getTotalACSPopulationPhrase()', () => {
-  const nationalACSPopData: Row[] = [
+  const nationalACSPopData: HetRow[] = [
     {
       population: 328016242,
       fips: '00',
@@ -28,7 +28,7 @@ describe('test getTotalACSPopulationPhrase()', () => {
 })
 
 describe('test getSubPopulationPhrase()', () => {
-  const nationalPhrmaData: Row[] = [
+  const nationalPhrmaData: HetRow[] = [
     {
       statins_beneficiaries_estimated_total: 41816007,
       race_and_ethnicity: 'All',
@@ -88,7 +88,7 @@ describe('test getSubPopulationPhrase()', () => {
     )
   })
 
-  const countyPhrmaData: Row[] = [
+  const countyPhrmaData: HetRow[] = [
     {
       medicare_population: null,
       some_metric_: 50.0,
@@ -125,7 +125,7 @@ describe('test getSubPopulationPhrase()', () => {
     )
   })
 
-  const nationalCovidData: Row[] = [
+  const nationalCovidData: HetRow[] = [
     {
       covid_estimated_total: 41816007,
       race_and_ethnicity: 'All',

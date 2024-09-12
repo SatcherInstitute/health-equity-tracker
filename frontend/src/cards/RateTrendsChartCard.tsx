@@ -27,7 +27,7 @@ import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
@@ -154,7 +154,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         // swap race labels if applicable
         const ratesDataLabelled = isCawp
-          ? ratesData.map((row: Row) => {
+          ? ratesData.map((row: HetRow) => {
               const altRow = { ...row }
               altRow.race_and_ethnicity = getWomenRaceLabel(
                 row.race_and_ethnicity,

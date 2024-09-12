@@ -21,7 +21,7 @@ import {
   type DemographicGroup,
   RACE,
 } from '../data/utils/Constants'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
 import {
@@ -335,13 +335,15 @@ function MapCardWithKey(props: MapCardProps) {
 
         let dataForActiveDemographicGroup = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
-          .filter((row: Row) => row[demographicType] === activeDemographicGroup)
+          .filter(
+            (row: HetRow) => row[demographicType] === activeDemographicGroup,
+          )
 
         const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
-          (row: Row) => row[demographicType] === activeDemographicGroup,
+          (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
 
-        const dataForSvi: Row[] =
+        const dataForSvi: HetRow[] =
           sviQueryResponse
             ?.getValidRowsForField(SVI)
             ?.filter((row) =>

@@ -1,12 +1,12 @@
 import { Grid } from '@mui/material'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 import { formatFieldValue } from '../../data/config/MetricConfigUtils'
 
 interface ExtremeListProps {
   whichExtreme: 'Highest' | 'Lowest'
-  values: Row[]
+  values: HetRow[]
   metricConfig: MetricConfig
   qualifierItems?: string[]
   qualifierMessage?: string

@@ -10,7 +10,7 @@ import {
   makeA11yTableData,
   getMinMaxGroups,
 } from './DatasetTimeUtils'
-import type { Row } from './DatasetTypes'
+import type { HetRow } from './DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from './datasetutils'
 
 describe('Tests for time_period functions', () => {
@@ -156,7 +156,7 @@ describe('Tests for A11y Table Data functions', () => {
       'sex',
     )
 
-    const expectedA11yTableDataOnlyMale: Row[] = [
+    const expectedA11yTableDataOnlyMale: HetRow[] = [
       {
         '% of total jail population with unknown sex': 40,
         Male: 2000,

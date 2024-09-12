@@ -1,5 +1,5 @@
 import { Vega } from 'react-vega'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import {
   type DemographicType,
@@ -31,7 +31,7 @@ const DATASET = 'DATASET'
 
 function getSpec(
   altText: string,
-  data: Row[],
+  data: HetRow[],
   width: number,
   demographicType: DemographicType,
   demographicTypeDisplayName: DemographicTypeDisplayName,
@@ -296,7 +296,7 @@ function getSpec(
 }
 
 interface SimpleHorizontalBarChartProps {
-  data: Row[]
+  data: HetRow[]
   metric: MetricConfig
   demographicType: DemographicType
   filename?: string

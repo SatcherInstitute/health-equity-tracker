@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import type { DatasetMetadata, Row } from '../utils/DatasetTypes'
+import type { DatasetMetadata, HetRow } from '../utils/DatasetTypes'
 import { act } from 'react'
 import { MetricQuery } from '../query/MetricQuery'
 import { Breakdowns } from '../query/Breakdowns'
@@ -26,7 +26,7 @@ autoInitGlobals()
 
 function WithMetricsWrapperApp(props: {
   query: MetricQuery
-  displayRow?: (row: Row) => void
+  displayRow?: (row: HetRow) => void
 }) {
   return (
     <WithMetrics queries={[props.query]}>
@@ -68,7 +68,7 @@ describe('WithLoadingOrErrorUI', () => {
     const { findByTestId } = render(
       <WithMetricsWrapperApp
         query={query}
-        displayRow={(row: Row) =>
+        displayRow={(row: HetRow) =>
           `${row.race_and_ethnicity}: ${row.copd_per_100k}. `
         }
       />,
