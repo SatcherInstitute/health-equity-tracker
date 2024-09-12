@@ -10,7 +10,6 @@ import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import type { Article } from './NewsPage'
 import hetLogo from '../../assets/AppbarLogo.png'
 import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
@@ -19,7 +18,8 @@ import ShareButtons, {
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
-import { Link, useParams, useNavigate } from 'react-router-dom-v5-compat'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import type { Article } from './ArticleTypes'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }

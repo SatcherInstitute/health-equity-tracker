@@ -3,7 +3,7 @@ import { policyFaqs } from '../policyContent/FaqsContent'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
 
 export default function FaqsTab() {
-	
+
 	return (
 		<>
 			<Helmet>
@@ -12,5 +12,5 @@ export default function FaqsTab() {
 			<h2 className='sr-only'>FAQs</h2>
 			<HetAccordion accordionData={policyFaqs}/>
 		</>
-	)
+	) 
 }

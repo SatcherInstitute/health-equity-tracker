@@ -12,23 +12,13 @@ import CssBaseline from '@mui/material/CssBaseline'
 import MaterialTheme from './styles/MaterialTheme'
 import { CircularProgress, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-
 import React, { Suspense, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-  useLocation,
-} from 'react-router-dom'
-import { CompatRouter } from 'react-router-dom-v5-compat'
 import { autoInitGlobals } from './utils/globals'
 import {
   ABOUT_US_PAGE_LINK,
   OLD_CONTACT_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  FAQ_TAB_LINK,
   OLD_OURTEAM_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -38,9 +28,21 @@ import {
   METHODOLOGY_PAGE_LINK,
   AGE_ADJUSTMENT_LINK,
   GUN_VIOLENCE_POLICY,
+  POLICY_PAGE_LINK,
+  WIHE_FAQS_PATH,
+  OLD_TERMS_OF_SERVICE_LINK,
+  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
+  SHARE_YOUR_STORY_PATH,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
+import {
+  Navigate,
+  Routes,
+  useLocation,
+  BrowserRouter,
+  Route,
+} from 'react-router-dom'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -54,6 +56,13 @@ import MethodologyPage from './pages/Methodology/methodologyComponents/Methodolo
 import HetAppBar from './styles/HetComponents/HetAppBar'
 import Banner from './reports/ui/Banner'
 import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
+import AllPosts from './pages/News/AllPosts'
+import ShareYourStory from './pages/News/ShareYourStory'
+import SinglePost from './pages/News/SinglePost'
+import { routeConfigs as policyRouteConfigs } from './pages/Policy/policyContent/routeConfigs'
+import { routeConfigs as methodologyRouteConfigs } from './pages/Methodology/methodologyContent/routeConfigs'
+import EquityTab from './pages/WhatIsHealthEquity/EquityTab'
+import FaqTab from './pages/WhatIsHealthEquity/FaqTab'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -61,9 +70,6 @@ const ExploreDataPage = React.lazy(
 const Footer = React.lazy(async () => await import('./Footer'))
 const LandingPage = React.lazy(
   async () => await import('./pages/Landing/LandingPage'),
-)
-const NotFoundPage = React.lazy(
-  async () => await import('./pages/NotFoundPage'),
 )
 const TermsOfUsePage = React.lazy(
   async () => await import('./pages/TermsOfUsePage/TermsOfUsePage'),
@@ -94,101 +100,136 @@ export default function App() {
             <SkipLink />
 
             <div className='h-full relative'>
-              <Router>
-                <CompatRouter>
-                  <Banner />
-                  <HetAppBar />
-                  <ScrollToTop />
-                  <Suspense
-                    fallback={
-                      <main className='min-h-screen'>
-                        <CircularProgress
-                          className='mt-10'
-                          aria-label='loading'
-                        />
-                      </main>
-                    }
-                  >
-                    <main id='main' className='scroll-smooth'>
-                      <Switch>
-                        <Route path={ABOUT_US_PAGE_LINK}>
-                          <AboutUsPage />
-                        </Route>
+              <BrowserRouter>
+                <Banner />
+                <HetAppBar />
+                <ScrollToTop />
+                <Suspense
+                  fallback={
+                    <main className='min-h-screen'>
+                      <CircularProgress
+                        className='mt-10'
+                        aria-label='loading'
+                      />
+                    </main>
+                  }
+                >
+                  <main id='main' className='scroll-smooth'>
+                    <Routes>
+                      <Route
+                        path={ABOUT_US_PAGE_LINK}
+                        element={<AboutUsPage />}
+                      />
 
-                        <Route path={OLD_OURTEAM_LINK}>
-                          <AboutUsPage />
-                        </Route>
+                      <Route
+                        path={DATA_CATALOG_PAGE_LINK}
+                        element={<DataCatalogPage />}
+                      />
 
-                        <Route path={OLD_CONTACT_LINK}>
-                          <AboutUsPage />
-                        </Route>
-
-                        <Route path={DATA_CATALOG_PAGE_LINK}>
-                          <DataCatalogPage />
-                        </Route>
-
-                        <Route path={METHODOLOGY_PAGE_LINK}>
-                          <MethodologyPage />
-                        </Route>
-
-                        <Route path={EXPLORE_DATA_PAGE_LINK}>
+                      <Route
+                        path={EXPLORE_DATA_PAGE_LINK}
+                        element={
                           <ErrorBoundaryDropParams
                             fallback={<ExploreDataFallback />}
                           >
                             <ExploreDataPage isMobile={isSm} />
                           </ErrorBoundaryDropParams>
-                        </Route>
+                        }
+                      />
 
-                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
+                      {/* WHAT IS HEALTH EQUITY ROUTES */}
+                      <Route
+                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                        element={<WhatIsHealthEquityPage />}
+                      >
+                        <Route path={WIHE_FAQS_PATH} element={<FaqTab />} />
+                        <Route path={''} element={<EquityTab />} />
+                      </Route>
 
-                        <Route path={FAQ_TAB_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
+                      {/* NESTED METHODOLOGY ROUTES */}
+                      <Route
+                        path={METHODOLOGY_PAGE_LINK}
+                        element={<MethodologyPage />}
+                      >
+                        <>
+                          {methodologyRouteConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </>
+                      </Route>
 
-                        <Route path={NEWS_PAGE_LINK}>
-                          <NewsPage isMobile={isSm} />
-                        </Route>
+                      {/* NESTED POLICY ROUTES */}
 
-                        <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                          <NewsPage isMobile={isSm} />
-                        </Route>
+                      <Route
+                        path={POLICY_PAGE_LINK}
+                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                      />
+                      <Route path={POLICY_PAGE_LINK} element={<PolicyPage />}>
+                        <>
+                          {policyRouteConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </>
+                      </Route>
 
-                        <Route path={GUN_VIOLENCE_POLICY}>
-                          <PolicyPage />
-                        </Route>
+                      {/* NESTED NEWS ROUTES */}
+                      <Route path={NEWS_PAGE_LINK} element={<NewsPage />}>
+                        <Route
+                          path={SHARE_YOUR_STORY_TAB_LINK}
+                          element={<ShareYourStory />}
+                        />
+                        <Route path={''} element={<AllPosts />} />
+                        <Route path={`:slug`} element={<SinglePost />} />
+                      </Route>
 
-                        <Route path={'/policy'}>
-                          <Redirect to={GUN_VIOLENCE_POLICY} />
-                        </Route>
+                      <Route
+                        path={TERMS_OF_USE_PAGE_LINK}
+                        element={<TermsOfUsePage />}
+                      />
 
-                        <Route path={TERMS_OF_USE_PAGE_LINK}>
-                          <TermsOfUsePage />
-                        </Route>
+                      {/* Redirect the old URLs for possible outside links */}
+                      <Route
+                        path={OLD_OURTEAM_LINK}
+                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
+                      />
+                      <Route
+                        path={OLD_CONTACT_LINK}
+                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
+                      />
+                      <Route
+                        path={OLD_TERMS_OF_SERVICE_LINK}
+                        element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
+                      />
+                      <Route
+                        path={WIHE_FAQS_PATH}
+                        element={
+                          <Navigate to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK} />
+                        }
+                      />
+                      <Route
+                        path={SHARE_YOUR_STORY_PATH}
+                        element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
+                      />
 
-                        {/* redirect the old URL for possible outside links */}
-                        <Route path={'/termsofservice'}>
-                          <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                        </Route>
+                      <Route
+                        path={OLD_AGE_ADJUSTMENT_LINK}
+                        element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
+                      />
 
-                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
-                          <Redirect to={AGE_ADJUSTMENT_LINK} />
-                        </Route>
-
-                        <Route path='/'>
-                          <LandingPage />
-                        </Route>
-
-                        {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                        <Route>
-                          <NotFoundPage />
-                        </Route>
-                      </Switch>
-                    </main>
-                  </Suspense>
-                </CompatRouter>
-              </Router>
+                      {/* Catch-all route */}
+                      <Route path='*' element={<LandingPage />} />
+                    </Routes>
+                  </main>
+                </Suspense>
+              </BrowserRouter>
             </div>
             <footer>
               <Suspense fallback={<span></span>}>

@@ -1,6 +1,6 @@
 import Toolbar from '@mui/material/Toolbar'
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface HetCardMenuMobileProps {
   className?: string
@@ -9,10 +9,10 @@ interface HetCardMenuMobileProps {
 }
 
 export default function HetCardMenuMobile(props: HetCardMenuMobileProps) {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleSelected = (event: any) => {
-    history.push(event.target.value)
+    navigate(event.target.value)
   }
 
   return (

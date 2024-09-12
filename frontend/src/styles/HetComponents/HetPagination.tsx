@@ -1,55 +1,39 @@
-import { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import HetPaginationButton from './HetPaginationButton'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import type { RouteConfig } from '../../pages/Methodology/methodologyContent/routeConfigs'
+import type { RouteConfig } from '../../pages/sharedTypes'
 
 interface HetPaginationProps {
   routeConfigs: RouteConfig[]
   className?: string
 }
 
-export default function HetPagination({ routeConfigs, className }: HetPaginationProps) {
-  const history = useHistory()
+export default function HetPagination({
+  routeConfigs,
+  className,
+}: HetPaginationProps) {
+  const navigate = useNavigate()
   const location = useLocation()
-  const [isLargeScreen, setIsLargeScreen] = useState(false)
-
-  const isMdScreen = useIsBreakpointAndUp('md')
-
+  const isLargeScreen = useIsBreakpointAndUp('md')
   const currentIndex = routeConfigs.findIndex(
-    (route) => route.path === location.pathname
+    (route) => route.path === location.pathname,
   )
-
   const nextRoute = routeConfigs[currentIndex + 1]
   const prevRoute = routeConfigs[currentIndex - 1]
 
   function goNext() {
     if (nextRoute) {
-      history.push(nextRoute.path)
+      navigate(nextRoute.path)
     }
   }
 
   function goPrevious() {
     if (prevRoute) {
-      history.push(prevRoute.path)
+      navigate(prevRoute.path)
     }
   }
 
-  const nextButtonClassName =
-    !prevRoute && isLargeScreen ? 'ml-auto' : ''
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 960)
-    }
-
-    handleResize()
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  const nextButtonClassName = !prevRoute && isLargeScreen ? 'ml-auto' : ''
 
   return (
     <div

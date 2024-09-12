@@ -7,6 +7,7 @@ import {
 } from '../policyContent/OurFindingsContent'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import LazyLoad from 'react-lazyload'
 
 export default function OurFindingsTab() {
   return (
@@ -24,7 +25,7 @@ export default function OurFindingsTab() {
 
           {youthFatalitiesFacts.map((youthFatalitiesFact) => (
             <div
-              key={youthFatalitiesFact.content?.toString()}
+              key={youthFatalitiesFact.report}
               className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
             >
               <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
@@ -48,13 +49,13 @@ export default function OurFindingsTab() {
           </h3>
           {homicideFacts.map((homicideFact) => (
             <div
-              key={homicideFact.content?.toString()}
+              key={homicideFact.report}
               className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
             >
               <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
                 {homicideFact.content}
               </p>
-              {homicideFact.customCard}
+              <LazyLoad>{homicideFact.customCard}</LazyLoad>
               <HetTextArrowLink
                 containerClassName='mx-8 mt-8 flex justify-end'
                 link={homicideFact.report}
@@ -74,13 +75,13 @@ export default function OurFindingsTab() {
 
           {suicideFacts.map((suicideFact) => (
             <div
-              key={suicideFact.content?.toString()}
+              key={suicideFact.report}
               className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
             >
               <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
                 {suicideFact.content}
               </p>
-              {suicideFact.customCard}
+              <LazyLoad> {suicideFact.customCard}</LazyLoad>
               <HetTextArrowLink
                 containerClassName='mx-8 mt-8 flex justify-end'
                 link={suicideFact.report}
@@ -99,13 +100,13 @@ export default function OurFindingsTab() {
 
           {urbanicityFacts.map((urbanicityFact) => (
             <div
-              key={urbanicityFact.content?.toString()}
+              key={urbanicityFact.report}
               className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
             >
               <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
                 {urbanicityFact.content}
               </p>
-              {urbanicityFact.customCard}
+              <LazyLoad>{urbanicityFact.customCard}</LazyLoad>
               <HetTextArrowLink
                 containerClassName='mx-8 mt-8 flex justify-end'
                 link={urbanicityFact.report}
