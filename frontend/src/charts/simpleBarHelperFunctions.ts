@@ -4,6 +4,7 @@ import type {
   DemographicTypeDisplayName,
 } from '../data/query/Breakdowns'
 import type { HetRow } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
 import { createBarLabel } from './mapHelperFunctions'
 import {
@@ -15,11 +16,11 @@ import {
   LABEL_HEIGHT,
 } from './utils'
 
-const specialAllGroup = 'All'
 const MEASURE_GROUP_COLOR = het.altGreen
 const MEASURE_ALL_COLOR = het.timeYellow
 const BAR_HEIGHT = 60
 const BAR_PADDING = 0.2
+export const specialAllGroup = 'All'
 export const DATASET = 'DATASET'
 
 export function getSpec(
@@ -34,7 +35,13 @@ export function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   usePercentSuffix: boolean,
+  fips: Fips,
+  useIntersectionalComparisonAlls?: boolean,
 ): any {
+  function getMultilineAllOverride(fips: Fips): string {
+    // only swap the intersectional ALL for the ALL AVERAGE label if it's an intersectional topic
+    return useIntersectionalComparisonAlls ? `['${fips.getUppercaseFipsTypeDisplayName()} average', '(all people)']` : MULTILINE_LABEL
+  }
   const chartIsSmall = width < 400
 
   const createAxisTitle = () => {
@@ -270,7 +277,7 @@ export function getSpec(
             update: {
               // text: { signal: MULTILINE_LABEL },
               text: {
-                signal: `datum.value === 'All' ? ['National average', '(all people)'] : ${MULTILINE_LABEL}`,
+                signal: `datum.value === '${specialAllGroup}' ? ${getMultilineAllOverride(fips)} : ${MULTILINE_LABEL}`,
               },
               baseline: { value: 'bottom' },
               // Limit at which line is truncated with an ellipsis

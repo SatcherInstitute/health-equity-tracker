@@ -3,24 +3,13 @@ import type { HetRow } from '../data/utils/DatasetTypes'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import {
   type DemographicType,
-  type DemographicTypeDisplayName,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
-import {
-  addLineBreakDelimitersToField,
-  MULTILINE_LABEL,
-  AXIS_LABEL_Y_DELTA,
-  oneLineLabel,
-  addMetricDisplayColumn,
-  PADDING_FOR_ACTIONS_MENU,
-  LABEL_HEIGHT,
-  CORNER_RADIUS,
-} from './utils'
-import { createBarLabel } from './mapHelperFunctions'
-import { het, ThemeZIndexValues } from '../styles/DesignTokens'
+import type { MetricConfig } from '../data/config/MetricConfigTypes'
+import { addLineBreakDelimitersToField, addMetricDisplayColumn } from './utils'
 import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 import { getSpec } from './simpleBarHelperFunctions'
+import type { Fips } from '../data/utils/Fips'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
@@ -29,9 +18,11 @@ interface SimpleHorizontalBarChartProps {
   data: HetRow[]
   metric: MetricConfig
   demographicType: DemographicType
+  fips: Fips
   filename?: string
   usePercentSuffix?: boolean
   className?: string
+  useIntersectionalComparisonAlls?: boolean
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -83,6 +74,8 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* usePercentSuffix  */ props.usePercentSuffix ?? false,
+          /* fips  */ props.fips,
+          /* useIntersectionalComparisonAlls  */ props.useIntersectionalComparisonAlls,
         )}
         actions={false}
       />

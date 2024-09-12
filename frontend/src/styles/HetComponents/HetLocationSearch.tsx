@@ -48,7 +48,11 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         getOptionLabel={(fips) => fips.getFullDisplayName()}
         isOptionEqualToValue={(fips) => fips.code === props.value}
         renderOption={(props, fips: Fips) => {
-          return <li {...props}>{fips.getFullDisplayName()}</li>
+          return (
+            <li {...props} key={props.key}>
+              {fips.getFullDisplayName()}
+            </li>
+          )
         }}
         open={autoCompleteOpen}
         onOpen={openAutoComplete}

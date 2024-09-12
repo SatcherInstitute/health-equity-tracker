@@ -31,6 +31,7 @@ import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
 import { isPctType } from '../data/config/MetricConfigUtils'
+import { specialAllGroup } from '../charts/simpleBarHelperFunctions'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -118,7 +119,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const defaultClasses = 'shadow-raised bg-white'
 
-  if (rateConfig.metricId === 'gun_homicides_black_men_per_100k') {
+  const rateComparisonConfig = rateConfig?.rateComparisonMetricForAlls
+
+  if (rateComparisonConfig) {
     // fetch the ALL rate to embed against Black men groups
     const breakdownsForAlls = Breakdowns.forFips(props.fips).addBreakdown(
       'sex',
@@ -126,9 +129,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     )
 
     const allsRateQuery = new MetricQuery(
-      ['gun_violence_homicide_per_100k'],
+      [rateComparisonConfig.metricId],
       breakdownsForAlls,
-      /* dataTypeId */ 'gun_violence_homicide',
+      /* dataTypeId */ props.dataTypeConfig.rateComparisonDataTypeId,
       /* timeView */ 'current',
     )
 
@@ -145,35 +148,40 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       elementsToHide={elementsToHide}
       className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
-      {([rateQueryResponseBlackMen, rateQueryResponseAlls], metadata) => {
+      {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
-        const data = rateQueryResponseBlackMen
+        let data = rateQueryResponseRate
           .getValidRowsForField(rateConfig.metricId)
           .filter((row) => row[props.demographicType] !== 'Unknown')
-          .map((row) => {
-            const renameRow = { ...row }
-            if (row[props.demographicType] === 'All') {
-              renameRow[props.demographicType] = 'All Black Men'
-            }
 
+        if (rateConfig.rateComparisonMetricForAlls) {
+          // rename intersectional 'All' group
+          data = data.map((row) => {
+            const renameRow = { ...row }
+            if (row[props.demographicType] === specialAllGroup) {
+              renameRow[props.demographicType] =
+                rateComparisonConfig?.shortLabel
+            }
             return renameRow
           })
 
-        if (rateConfig.metricId === 'gun_homicides_black_men_per_100k') {
-          const { gun_violence_homicide_per_100k, ...restData } =
-            rateQueryResponseAlls.data[0]
+          // add the comparison ALLs row to the intersectional data
+          const originalAllsRow = rateQueryResponseRateAlls.data[0]
+          const { fips, fips_name } = originalAllsRow
+
           const allsRow = {
-            [props.demographicType]: 'All',
-            ['gun_homicides_black_men_per_100k']:
-              gun_violence_homicide_per_100k,
-            ...restData,
+            fips,
+            fips_name,
+            [props.demographicType]: specialAllGroup,
+            [rateConfig.metricId]:
+              originalAllsRow[rateConfig.rateComparisonMetricForAlls.metricId],
           }
           data.unshift(allsRow)
         }
 
         const hideChart =
           data.length === 0 ||
-          rateQueryResponseBlackMen.shouldShowMissingDataMessage([
+          rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])
 
@@ -204,18 +212,20 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   metric={rateConfig}
                   filename={filename}
                   usePercentSuffix={isPctType(rateConfig.type)}
+                  fips={props.fips}
+                  useIntersectionalComparisonAlls={!!rateComparisonConfig}
                 />
                 {isIncarceration && (
                   <IncarceratedChildrenShortAlert
                     fips={props.fips}
-                    queryResponse={rateQueryResponseBlackMen}
+                    queryResponse={rateQueryResponseRate}
                     demographicType={props.demographicType}
                   />
                 )}
                 {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
                   <GenderDataShortAlert
                     fips={props.fips}
-                    queryResponse={rateQueryResponseBlackMen}
+                    queryResponse={rateQueryResponseRate}
                     demographicType={props.demographicType}
                     dataTypeId={props.dataTypeConfig.dataTypeId}
                   />
@@ -225,7 +235,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     fips={props.fips}
                     demographicType={props.demographicType}
                     metadata={metadata}
-                    queryResponse={rateQueryResponseBlackMen}
+                    queryResponse={rateQueryResponseRate}
                   />
                 )}
               </>

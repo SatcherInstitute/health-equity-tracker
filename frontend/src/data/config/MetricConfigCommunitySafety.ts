@@ -306,6 +306,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
     categoryId: 'community-safety',
     dataTableTitle: 'Summary of Black male gun homicide victims',
     dataTypeId: 'gun_deaths_black_men',
+    rateComparisonDataTypeId: 'gun_violence_homicide',
     dataTypeShortLabel: 'Gun Homicides (Black Men)',
     definition: {
       text: 'Deaths of Black or African-American (NH) males, caused by gun homicides.',
@@ -346,6 +347,12 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         trendsCardTitleName:
           'Rates of Black male gun homicide victims over time',
         type: 'per100k',
+        rateComparisonMetricForAlls: {
+          chartTitle: '',
+          metricId: 'gun_violence_homicide_per_100k',
+          shortLabel: 'All Black Men',
+          type: 'per100k',
+        },
         rateNumeratorMetric: {
           chartTitle: '',
           metricId: 'gun_homicides_black_men_estimated_total',
