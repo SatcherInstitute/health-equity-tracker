@@ -54,7 +54,7 @@ export default function SinglePost() {
     REACT_QUERY_OPTIONS,
   )
 
-  // on page load, get prev,full, next article based on fullArticle URL slug
+  // on page load, get prev, full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
@@ -75,7 +75,7 @@ export default function SinglePost() {
 
   const articleCategories = fullArticle?._embedded?.['wp:term']?.[0]
 
-  // get the large version of the image if available, if not try for the full version
+
   const articleImage =
     fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes
       ?.large?.source_url ??
@@ -84,6 +84,23 @@ export default function SinglePost() {
 
   const articleImageAltText =
     fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? ''
+
+
+  const truncateText = (text: string, maxLength: number) => {
+    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text
+  }
+
+
+  useEffect(() => {
+    const paginationButtons = document.querySelectorAll(
+      '[data-pagination-content="true"]',
+    )
+
+    paginationButtons.forEach(button => {
+      const buttonText = button.textContent || ''
+      button.textContent = truncateText(buttonText, 42)
+    })
+  }, [prevArticle, nextArticle])
 
   return (
     <>
@@ -266,7 +283,10 @@ export default function SinglePost() {
         <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col break-words'>
           {/* RENDER WP ARTICLE HTML */}
           {fullArticle ? (
-            getHtml(fullArticle.content?.rendered)
+            <div
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+              dangerouslySetInnerHTML={{ __html: fullArticle.content?.rendered }}
+            />
           ) : (
             <Skeleton
               animation='wave'
@@ -314,6 +334,7 @@ export default function SinglePost() {
               onClick={() => {
                 goPrevious()
               }}
+              data-pagination-content='true'
             >
               {getHtml(prevArticle?.title?.rendered ?? '')}
             </HetPaginationButton>
@@ -329,6 +350,7 @@ export default function SinglePost() {
               onClick={() => {
                 goNext()
               }}
+              data-pagination-content='true'
             >
               {getHtml(nextArticle?.title?.rendered ?? '')}
             </HetPaginationButton>

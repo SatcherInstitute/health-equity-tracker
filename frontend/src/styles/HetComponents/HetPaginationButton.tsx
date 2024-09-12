@@ -43,13 +43,14 @@ export default function HetPaginationButton({
         )}
       </span>
       {/* LABEL FOR LINKED PAGE */}
-      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 md:text-exploreButton text-text font-semibold'>
+      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 md:text-exploreButton text-text font-semibold leading-lhNormal'>
         <span
           className={
             isPrevious
               ? 'ml-5 items-start justify-start text-left'
               : 'mr-5 items-end justify-end text-right'
           }
+          data-pagination-content='true'
         >
           {children}
         </span>
