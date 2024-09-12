@@ -17,13 +17,13 @@ import SignupSection from '../ui/SignupSection'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import PinnedArticles from './PinnedArticles'
 import { Link } from 'react-router-dom'
-import type { ArticleType } from './ArticleTypes'
+import type { Article } from './ArticleTypes'
 
 export const ARTICLES_TERM = 'Articles'
 
 function AllPosts() {
   // articles matching client applied filters (author, category, etc)
-  const [filteredArticles, setFilteredArticles] = useState<ArticleType[]>([])
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([])
   const [authors, setAuthors] = useState<string[]>([])
   const [categories, setCategories] = useState<string[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string>('')
@@ -50,7 +50,7 @@ function AllPosts() {
 
       if (selectedCategory && data?.data) {
         setFilteredArticles(
-          data.data.filter((article: ArticleType) =>
+          data.data.filter((article: Article) =>
             article._embedded['wp:term'][0]?.some(
               (term: { name: string }) => term.name === selectedCategory,
             ),
@@ -60,7 +60,7 @@ function AllPosts() {
     } else {
       if (data?.data?.length > 0) {
         setFilteredArticles(
-          data.data.filter((article: ArticleType) => !article.sticky),
+          data.data.filter((article: Article) => !article.sticky),
         )
       }
       setSelectedCategory('')
@@ -80,7 +80,7 @@ function AllPosts() {
       if (selectedAuthor) {
         setFilteredArticles(
           data?.data.filter(
-            (article: ArticleType) =>
+            (article: Article) =>
               article.acf.contributing_author === selectedAuthor,
           ),
         )
@@ -88,7 +88,7 @@ function AllPosts() {
     } else {
       if (data?.data?.length > 0) {
         setFilteredArticles(
-          data.data.filter((article: ArticleType) => !article.sticky),
+          data.data.filter((article: Article) => !article.sticky),
         )
       }
       setSelectedAuthor('')
@@ -100,7 +100,7 @@ function AllPosts() {
     const allAuthorsSet = new Set()
 
     data?.data.forEach(
-      (article: ArticleType) =>
+      (article: Article) =>
         article.acf.contributing_author &&
         allAuthorsSet.add(article.acf.contributing_author),
     )
@@ -112,7 +112,7 @@ function AllPosts() {
   useEffect(() => {
     const allCategoriesSet = new Set()
 
-    data?.data.forEach((article: ArticleType) => {
+    data?.data.forEach((article: Article) => {
       if (article._embedded['wp:term'] !== undefined) {
         article._embedded['wp:term'][0].forEach((term: { name: string }) =>
           allCategoriesSet.add(term.name),
@@ -124,7 +124,7 @@ function AllPosts() {
   }, [data?.data])
 
   // featured "sticky" articles
-  const pinnedArticles = data?.data?.filter((post: ArticleType) => post?.sticky)
+  const pinnedArticles = data?.data?.filter((post: Article) => post?.sticky)
 
   if (data?.data.length === 0) return <></>
 

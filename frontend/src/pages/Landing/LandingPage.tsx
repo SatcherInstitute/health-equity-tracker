@@ -1,4 +1,3 @@
-//
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
@@ -18,7 +17,7 @@ import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import type { ArticleType } from '../News/ArticleTypes'
+import type { Article } from '../News/ArticleTypes'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -293,7 +292,7 @@ function LandingPage() {
           <div className='w-full'>
             <div className='flex flex-wrap px-4 '>
               {recentArticles && !isLoading ? (
-                recentArticles.map((article: ArticleType) => {
+                recentArticles.map((article: Article) => {
                   return (
                     <div
                       key={article.id}

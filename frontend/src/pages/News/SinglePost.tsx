@@ -19,7 +19,7 @@ import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import type { ArticleType } from './ArticleTypes'
+import type { Article } from './ArticleTypes'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -29,9 +29,9 @@ function prettyDate(dateString: string) {
 export default function SinglePost() {
   const navigate = useNavigate()
 
-  const [fullArticle, setFullArticle] = useState<ArticleType>()
-  const [prevArticle, setPrevArticle] = useState<ArticleType>()
-  const [nextArticle, setNextArticle] = useState<ArticleType>()
+  const [fullArticle, setFullArticle] = useState<Article>()
+  const [prevArticle, setPrevArticle] = useState<Article>()
+  const [nextArticle, setNextArticle] = useState<Article>()
 
   const { slug }: { slug?: string } = useParams()
 
@@ -58,7 +58,7 @@ export default function SinglePost() {
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
-        (article: ArticleType) => article.slug === slug,
+        (article: Article) => article.slug === slug,
       )
       setFullArticle(data.data[fullArticleIndex])
       // previous and next articles wrap around both ends of the array

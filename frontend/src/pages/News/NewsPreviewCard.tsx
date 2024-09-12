@@ -4,10 +4,10 @@ import { getHtml } from '../../utils/urlutils'
 import LazyLoad from 'react-lazyload'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { Link } from 'react-router-dom'
-import type { ArticleType } from './ArticleTypes'
+import type { Article } from './ArticleTypes'
 
 interface NewsPreviewCardProps {
-  article: ArticleType
+  article: Article
 }
 
 export default function NewsPreviewCard(

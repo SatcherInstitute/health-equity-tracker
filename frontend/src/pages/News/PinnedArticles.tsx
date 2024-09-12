@@ -1,10 +1,10 @@
 import NewsPreviewCard from './NewsPreviewCard'
-import type { ArticleType } from './ArticleTypes'
+import type { Article } from './ArticleTypes'
 
 export const ARTICLES_TERM = 'Articles'
 
 interface PinnedArticlesProps {
-  articles: ArticleType[]
+  articles: Article[]
 }
 
 export default function PinnedArticles(props: PinnedArticlesProps) {
