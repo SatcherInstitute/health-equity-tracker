@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
-  FAQ_TAB_LINK,
+  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Route, Routes, Link, useLocation, Outlet } from 'react-router-dom'
@@ -38,10 +38,10 @@ export default function WhatIsHealthEquityPage() {
           to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
         />
         <Tab
-          value={'/whatishealthequity/faqs'}
+          value={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK}
           label='FAQs'
           component={Link}
-          to={'/whatishealthequity/faqs'}
+          to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK}
         />
       </Tabs>
 

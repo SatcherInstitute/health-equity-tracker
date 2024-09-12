@@ -6,7 +6,7 @@ export const DATA_CATALOG_PAGE_LINK = '/datacatalog'
 export const NEWS_PAGE_LINK = '/news'
 export const SHARE_YOUR_STORY_TAB_LINK = 'shareyourstory'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
-export const FAQ_TAB_LINK = '/faqs'
+export const WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK = WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/faqs'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const OLD_CONTACT_LINK = '/contact'
@@ -25,9 +25,8 @@ export const HOW_TO_USE_THE_DATA_TAB =
   GUN_VIOLENCE_POLICY + '/how-to-use-the-data'
 export const FAQS_TAB = GUN_VIOLENCE_POLICY + '/faqs'
 
-// NEW METHODOLOGY SECTIONS
+// METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology'
-
 export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + '/age-adjustment'
 export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources'
 export const TOPIC_CATEGORIES_LINK = METHODOLOGY_PAGE_LINK + '/topic-categories'
