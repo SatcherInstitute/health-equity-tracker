@@ -56,6 +56,9 @@ import AllPosts from './pages/News/AllPosts'
 import ShareYourStory from './pages/News/ShareYourStory'
 import SinglePost from './pages/News/SinglePost'
 import { routeConfigs as policyRouteConfigs } from './pages/Policy/policyContent/routeConfigs'
+import { routeConfigs as methodologyRouteConfigs } from './pages/Methodology/methodologyContent/routeConfigs'
+import EquityTab from './pages/WhatIsHealthEquity/EquityTab'
+import FaqTab from './pages/WhatIsHealthEquity/FaqTab'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -128,10 +131,7 @@ export default function App() {
                         path={DATA_CATALOG_PAGE_LINK}
                         element={<DataCatalogPage />}
                       />
-                      <Route
-                        path={METHODOLOGY_PAGE_LINK}
-                        element={<MethodologyPage />}
-                      />
+
                       <Route
                         path={EXPLORE_DATA_PAGE_LINK}
                         element={
@@ -142,14 +142,41 @@ export default function App() {
                           </ErrorBoundaryDropParams>
                         }
                       />
+
+                      {/* WHAT IS HEALTH EQUITY ROUTES */}
                       <Route
-                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                        path='whatishealthequity'
                         element={<WhatIsHealthEquityPage />}
-                      />
-                      <Route
-                        path={FAQ_TAB_LINK}
-                        element={<WhatIsHealthEquityPage />}
-                      />
+                      >
+                        <Route path={'faqs'} element={<FaqTab />} />
+                        <Route path={''} element={<EquityTab />} />
+                      </Route>
+
+                      {/* NESTED METHODOLOGY ROUTES */}
+                      <Route path={'methodology'} element={<MethodologyPage />}>
+                        <>
+                          {methodologyRouteConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </>
+                      </Route>
+
+                      {/* NESTED POLICY ROUTES */}
+                      <Route path={'policy'} element={<PolicyPage />}>
+                        <>
+                          {policyRouteConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </>
+                      </Route>
 
                       {/* NESTED NEWS ROUTES */}
                       <Route path={'news'} element={<NewsPage />}>
@@ -161,20 +188,6 @@ export default function App() {
                         <Route path={`:slug`} element={<SinglePost />} />
                       </Route>
 
-                      {/* NESTED POLICY ROUTES */}
-                      <Route path={'policy'} element={<PolicyPage />}>
-                        <>
-                          {/* TEXT */}
-                          {policyRouteConfigs.map((route) => (
-                            <Route
-                              key={route.path}
-                              path={route.path}
-                              element={route.component}
-                            />
-                          ))}
-                        </>
-                      </Route>
-
                       <Route
                         path={TERMS_OF_USE_PAGE_LINK}
                         element={<TermsOfUsePage />}
@@ -184,6 +197,10 @@ export default function App() {
                       <Route
                         path='/termsofservice'
                         element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
+                      />
+                      <Route
+                        path='/faqs'
+                        element={<Navigate to={'/whatishealthequity/faqs'} />}
                       />
                       <Route
                         path={'/shareyourstory'}

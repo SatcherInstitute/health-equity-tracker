@@ -7,7 +7,7 @@ import MethodologyPagination from './MethodologyPagination'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
-import { Route, Routes, useLocation, useMatch } from 'react-router-dom'
+import { Outlet, Route, Routes, useLocation, useMatch } from 'react-router-dom'
 
 export default function MethodologyPage() {
   const location = useLocation()
@@ -70,20 +70,9 @@ export default function MethodologyPage() {
                 </h1>
               )}
               <h2 className='sr-only'>{activeRoute?.label}</h2>
-              <Routes>
-                <>
-                  {/* TEXT */}
-                  {routeConfigs.map((route) => (
-                    <Route
-                      key={route.path}
-                      path={route.path}
-                      element={route.component}
-                    />
-                  ))}
-                  {/* PREV / NEXT */}
-                  <MethodologyPagination />
-                </>
-              </Routes>
+              <Outlet />
+              {/* PREV / NEXT */}
+              <MethodologyPagination />
             </section>
           </div>
 
@@ -94,7 +83,9 @@ export default function MethodologyPage() {
                 path: routeConfig.path,
                 end: true,
               })
-              const hasMatchedSublinks = match && routeConfig?.subLinks?.length
+              const hasMatchedSublinks = Boolean(
+                match && routeConfig?.subLinks?.length,
+              )
               return (
                 hasMatchedSublinks && (
                   <div

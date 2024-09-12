@@ -5,7 +5,7 @@ import {
   FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { Route, Routes, Link, useLocation } from 'react-router-dom'
+import { Route, Routes, Link, useLocation, Outlet } from 'react-router-dom'
 
 // can't lazy load (yet) due to loading issues
 import EquityTab from './EquityTab'
@@ -38,17 +38,14 @@ export default function WhatIsHealthEquityPage() {
           to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
         />
         <Tab
-          value={FAQ_TAB_LINK}
+          value={'/whatishealthequity/faqs'}
           label='FAQs'
           component={Link}
-          to={FAQ_TAB_LINK}
+          to={'/whatishealthequity/faqs'}
         />
       </Tabs>
 
-      <Routes>
-        <Route path={FAQ_TAB_LINK} element={<FaqTab />} />
-        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK} element={<EquityTab />} />
-      </Routes>
+      <Outlet />
     </div>
   )
 }
