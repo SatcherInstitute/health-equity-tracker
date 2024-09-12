@@ -13,12 +13,12 @@ import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import NewsPreviewCard from '../News/NewsPreviewCard'
 import { useQuery } from 'react-query'
-import type { Article } from '../News/NewsPage'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import type { ArticleType } from '../News/ArticleTypes'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -293,7 +293,7 @@ function LandingPage() {
           <div className='w-full'>
             <div className='flex flex-wrap px-4 '>
               {recentArticles && !isLoading ? (
-                recentArticles.map((article: Article) => {
+                recentArticles.map((article: ArticleType) => {
                   return (
                     <div
                       key={article.id}

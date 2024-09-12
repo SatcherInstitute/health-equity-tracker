@@ -4,17 +4,23 @@ export const HET_URL = 'https://healthequitytracker.org'
 export const EXPLORE_DATA_PAGE_LINK = '/exploredata'
 export const DATA_CATALOG_PAGE_LINK = '/datacatalog'
 export const NEWS_PAGE_LINK = '/news'
-export const SHARE_YOUR_STORY_TAB_LINK = 'shareyourstory'
+export const SHARE_YOUR_STORY_PATH = 'shareyourstory'
+export const SHARE_YOUR_STORY_TAB_LINK =
+  NEWS_PAGE_LINK + '/' + SHARE_YOUR_STORY_PATH
+export const POLICY_PAGE_LINK = '/policy'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
-export const WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK = WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/faqs'
+export const WIHE_FAQS_PATH = 'faqs'
+export const WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK =
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/' + WIHE_FAQS_PATH
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const OLD_CONTACT_LINK = '/contact'
 export const OLD_OURTEAM_LINK = '/ourteam'
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
+export const OLD_TERMS_OF_SERVICE_LINK = '/termsofservice'
 
 // CONTEXT TABS
-export const GUN_VIOLENCE_POLICY = '/policy' + '/gun-violence'
+export const GUN_VIOLENCE_POLICY = POLICY_PAGE_LINK + '/gun-violence'
 export const CRISIS_OVERVIEW_TAB = GUN_VIOLENCE_POLICY + '/crisis-overview'
 export const DATA_COLLECTION_TAB = GUN_VIOLENCE_POLICY + '/data-collection'
 export const OUR_FINDINGS_TAB = GUN_VIOLENCE_POLICY + '/our-findings'

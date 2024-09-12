@@ -10,7 +10,6 @@ import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import type { Article } from './NewsPage'
 import hetLogo from '../../assets/AppbarLogo.png'
 import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
@@ -20,6 +19,7 @@ import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import type { ArticleType } from './ArticleTypes'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -29,9 +29,9 @@ function prettyDate(dateString: string) {
 export default function SinglePost() {
   const navigate = useNavigate()
 
-  const [fullArticle, setFullArticle] = useState<Article>()
-  const [prevArticle, setPrevArticle] = useState<Article>()
-  const [nextArticle, setNextArticle] = useState<Article>()
+  const [fullArticle, setFullArticle] = useState<ArticleType>()
+  const [prevArticle, setPrevArticle] = useState<ArticleType>()
+  const [nextArticle, setNextArticle] = useState<ArticleType>()
 
   const { slug }: { slug?: string } = useParams()
 
@@ -58,7 +58,7 @@ export default function SinglePost() {
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
-        (article: Article) => article.slug === slug,
+        (article: ArticleType) => article.slug === slug,
       )
       setFullArticle(data.data[fullArticleIndex])
       // previous and next articles wrap around both ends of the array

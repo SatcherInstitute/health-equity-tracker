@@ -5,11 +5,7 @@ import {
   WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { Route, Routes, Link, useLocation, Outlet } from 'react-router-dom'
-
-// can't lazy load (yet) due to loading issues
-import EquityTab from './EquityTab'
-import FaqTab from './FaqTab'
+import { Link, useLocation, Outlet } from 'react-router-dom'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function WhatIsHealthEquityPage() {
@@ -45,6 +41,7 @@ export default function WhatIsHealthEquityPage() {
         />
       </Tabs>
 
+      {/* RENDER SELECTED TAB'S COMPONENT FROM REACT ROUTER */}
       <Outlet />
     </div>
   )

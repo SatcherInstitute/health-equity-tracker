@@ -1,13 +1,13 @@
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import { getHtml } from '../../utils/urlutils'
-import type { Article } from './NewsPage'
 import LazyLoad from 'react-lazyload'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { Link } from 'react-router-dom'
+import type { ArticleType } from './ArticleTypes'
 
 interface NewsPreviewCardProps {
-  article: Article
+  article: ArticleType
 }
 
 export default function NewsPreviewCard(

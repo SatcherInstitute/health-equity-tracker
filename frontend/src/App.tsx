@@ -28,6 +28,11 @@ import {
   METHODOLOGY_PAGE_LINK,
   AGE_ADJUSTMENT_LINK,
   GUN_VIOLENCE_POLICY,
+  POLICY_PAGE_LINK,
+  WIHE_FAQS_PATH,
+  OLD_TERMS_OF_SERVICE_LINK,
+  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
+  SHARE_YOUR_STORY_PATH,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
@@ -144,15 +149,18 @@ export default function App() {
 
                       {/* WHAT IS HEALTH EQUITY ROUTES */}
                       <Route
-                        path='whatishealthequity'
+                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                         element={<WhatIsHealthEquityPage />}
                       >
-                        <Route path={'faqs'} element={<FaqTab />} />
+                        <Route path={WIHE_FAQS_PATH} element={<FaqTab />} />
                         <Route path={''} element={<EquityTab />} />
                       </Route>
 
                       {/* NESTED METHODOLOGY ROUTES */}
-                      <Route path={'methodology'} element={<MethodologyPage />}>
+                      <Route
+                        path={METHODOLOGY_PAGE_LINK}
+                        element={<MethodologyPage />}
+                      >
                         <>
                           {methodologyRouteConfigs.map((route) => (
                             <Route
@@ -165,7 +173,12 @@ export default function App() {
                       </Route>
 
                       {/* NESTED POLICY ROUTES */}
-                      <Route path={'policy'} element={<PolicyPage />}>
+
+                      <Route
+                        path={POLICY_PAGE_LINK}
+                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                      />
+                      <Route path={POLICY_PAGE_LINK} element={<PolicyPage />}>
                         <>
                           {policyRouteConfigs.map((route) => (
                             <Route
@@ -178,7 +191,7 @@ export default function App() {
                       </Route>
 
                       {/* NESTED NEWS ROUTES */}
-                      <Route path={'news'} element={<NewsPage />}>
+                      <Route path={NEWS_PAGE_LINK} element={<NewsPage />}>
                         <Route
                           path={SHARE_YOUR_STORY_TAB_LINK}
                           element={<ShareYourStory />}
@@ -194,23 +207,22 @@ export default function App() {
 
                       {/* Redirect the old URLs for possible outside links */}
                       <Route
-                        path='/termsofservice'
+                        path={OLD_TERMS_OF_SERVICE_LINK}
                         element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
                       />
                       <Route
-                        path='/faqs'
-                        element={<Navigate to={'/whatishealthequity/faqs'} />}
-                      />
-                      <Route
-                        path={'/shareyourstory'}
+                        path={WIHE_FAQS_PATH}
                         element={
-                          <Navigate to={'/news/' + SHARE_YOUR_STORY_TAB_LINK} />
+                          <Navigate to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK} />
                         }
                       />
                       <Route
-                        path='/policy'
-                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                        path={SHARE_YOUR_STORY_PATH}
+                        element={
+                          <Navigate to={SHARE_YOUR_STORY_TAB_LINK} />
+                        }
                       />
+
                       <Route
                         path={OLD_AGE_ADJUSTMENT_LINK}
                         element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
