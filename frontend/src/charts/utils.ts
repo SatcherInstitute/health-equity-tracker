@@ -8,7 +8,7 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
@@ -34,9 +34,9 @@ export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length
 export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`
 
 export function addLineBreakDelimitersToField(
-  rawData: Row[],
+  rawData: HetRow[],
   field: DemographicType,
-): Row[] {
+): HetRow[] {
   return rawData.map((data) => {
     const lines = []
     let currentLine = ''
@@ -71,9 +71,9 @@ export function addLineBreakDelimitersToField(
  */
 export function addMetricDisplayColumn(
   metric: MetricConfig,
-  data: Row[],
+  data: HetRow[],
   omitPctSymbol: boolean = false,
-): [Row[], string] {
+): [HetRow[], string] {
   const displayColName = metric.metricId + '__DISPLAY_' + String(omitPctSymbol)
   const newData = data.map((row) => {
     return {

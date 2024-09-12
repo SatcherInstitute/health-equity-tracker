@@ -19,7 +19,7 @@ import {
   ALL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
@@ -36,8 +36,8 @@ interface AltTableViewProps {
   setExpanded: (expanded: boolean) => void
   expandBoxLabel: string
   tableCaption: string
-  knownsData: Row[]
-  unknownsData: Row[]
+  knownsData: HetRow[]
+  unknownsData: HetRow[]
   demographicType: DemographicType
   knownMetricConfig: MetricConfig
   unknownMetricConfig?: MetricConfig

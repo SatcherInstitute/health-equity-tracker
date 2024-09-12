@@ -4,7 +4,7 @@ import type { Fips } from '../../data/utils/Fips'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
@@ -51,7 +51,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
     },
   }
 
-  const dataAlls: Row[] = props.queryResponse.data.filter(
+  const dataAlls: HetRow[] = props.queryResponse.data.filter(
     (row) => row[props.demographicType] === ALL,
   )
 

@@ -12,7 +12,7 @@ import {
 import type { DemographicType } from '../data/query/Breakdowns'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import {
   Table,
   TableBody,
@@ -79,8 +79,8 @@ export default function CustomAltTable(props: CustomAltTableProps) {
           splitIntoKnownsAndUnknowns(ratesData, props.demographicType)
 
         const accessibleData = makeA11yTableData(
-          knownRatesData as Row[],
-          unknownPctShareData as Row[],
+          knownRatesData as HetRow[],
+          unknownPctShareData as HetRow[],
           props.demographicType,
           metricConfigRates,
           undefined,

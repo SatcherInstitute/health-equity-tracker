@@ -29,7 +29,7 @@ import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { HIV_METRICS } from '../data/providers/HivProvider'
@@ -139,7 +139,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         // swap race labels if applicable
         const inequityDataLabelled = isCawp
-          ? inequityData.map((row: Row) => {
+          ? inequityData.map((row: HetRow) => {
               const altRow = { ...row }
               altRow.race_and_ethnicity = getWomenRaceLabel(
                 row.race_and_ethnicity,

@@ -6,7 +6,10 @@ import type { MetricId } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { ALL, BLACK_NH } from '../../data/utils/Constants'
-import type { MapOfDatasetMetadata, Row } from '../../data/utils/DatasetTypes'
+import type {
+  MapOfDatasetMetadata,
+  HetRow,
+} from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import {
@@ -23,13 +26,13 @@ interface LawEnforcementAlertProps {
 }
 
 function LawEnforcementAlert(props: LawEnforcementAlertProps) {
-  const dataAlls: Row[] = props.queryResponse.data.filter(
+  const dataAlls: HetRow[] = props.queryResponse.data.filter(
     (row) =>
       row[props.demographicType] === ALL ||
       row[props.demographicType] === 'All',
   )
 
-  const dataBlack: Row[] = props.queryResponse.data.filter(
+  const dataBlack: HetRow[] = props.queryResponse.data.filter(
     (row) => row[props.demographicType] === BLACK_NH,
   )
 

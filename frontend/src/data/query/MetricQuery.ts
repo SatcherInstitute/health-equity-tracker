@@ -1,5 +1,5 @@
 import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
-import type { Row, FieldRange } from '../utils/DatasetTypes'
+import type { HetRow, FieldRange } from '../utils/DatasetTypes'
 import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
 import type { DemographicGroup } from '../utils/Constants'
 import type {
@@ -36,9 +36,9 @@ export class MetricQuery {
   }
 }
 
-function getInvalidValues(rows: Row[]) {
+function getInvalidValues(rows: HetRow[]) {
   const invalidValues: Record<string, number> = {}
-  rows.forEach((row: Row) => {
+  rows.forEach((row: HetRow) => {
     Object.entries(row).forEach(([fieldName, value]) => {
       if (value === undefined || value === null) {
         const currentValue = invalidValues[fieldName] || 0
@@ -58,13 +58,13 @@ export function createMissingDataResponse(missingDataMessage: string) {
 }
 
 export class MetricQueryResponse {
-  readonly data: Row[]
+  readonly data: HetRow[]
   readonly missingDataMessage: string | undefined
   readonly invalidValues: Record<string, number>
   readonly consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
 
   constructor(
-    data: Row[],
+    data: HetRow[],
     consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [],
     missingDataMessage: string | undefined = undefined,
   ) {
@@ -103,7 +103,7 @@ export class MetricQueryResponse {
   // Filters rows to those for which the requested field has a valid value
   getValidRowsForField(fieldName: DemographicType | MetricId) {
     return this.data.filter(
-      (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null,
+      (row: HetRow) => row[fieldName] !== undefined && row[fieldName] !== null,
     )
   }
 
