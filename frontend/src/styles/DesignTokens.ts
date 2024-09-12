@@ -24,6 +24,7 @@ const ThemeZIndexValues = {
   top: 99,
   stickyMadLib: 100,
   multimapModal: 101,
+  skipLink: 102,
 }
 
 const ThemeLineHeightValues = {
