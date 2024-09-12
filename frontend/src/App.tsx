@@ -36,7 +36,13 @@ import {
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
-import { Routes, useLocation, BrowserRouter, Route } from 'react-router-dom'
+import {
+  Navigate,
+  Routes,
+  useLocation,
+  BrowserRouter,
+  Route,
+} from 'react-router-dom'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -57,7 +63,6 @@ import { routeConfigs as policyRouteConfigs } from './pages/Policy/policyContent
 import { routeConfigs as methodologyRouteConfigs } from './pages/Methodology/methodologyContent/routeConfigs'
 import EquityTab from './pages/WhatIsHealthEquity/EquityTab'
 import FaqTab from './pages/WhatIsHealthEquity/FaqTab'
-import RedirectWrapper from './RedirectWrapper'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -158,24 +163,21 @@ export default function App() {
                       </Route>
 
                       {/* NESTED POLICY ROUTES */}
+
+                      <Route
+                        path={POLICY_PAGE_LINK}
+                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                      />
                       <Route path={POLICY_PAGE_LINK} element={<PolicyPage />}>
-                        <Route
-                          index
-                          element={
-                            /* For now default to Gun Violence for policy */
-                            <RedirectWrapper
-                              from={POLICY_PAGE_LINK}
-                              to={GUN_VIOLENCE_POLICY}
+                        <>
+                          {policyRouteConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
                             />
-                          }
-                        />
-                        {policyRouteConfigs.map((route) => (
-                          <Route
-                            key={route.path}
-                            path={route.path}
-                            element={route.component}
-                          />
-                        ))}
+                          ))}
+                        </>
                       </Route>
 
                       {/* NESTED NEWS ROUTES */}
@@ -196,57 +198,30 @@ export default function App() {
                       {/* Redirect the old URLs for possible outside links */}
                       <Route
                         path={OLD_OURTEAM_LINK}
-                        element={
-                          <RedirectWrapper
-                            from={OLD_OURTEAM_LINK}
-                            to={ABOUT_US_PAGE_LINK}
-                          />
-                        }
+                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
                       />
                       <Route
                         path={OLD_CONTACT_LINK}
-                        element={
-                          <RedirectWrapper
-                            from={OLD_CONTACT_LINK}
-                            to={ABOUT_US_PAGE_LINK}
-                          />
-                        }
+                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
                       />
                       <Route
                         path={OLD_TERMS_OF_SERVICE_LINK}
-                        element={
-                          <RedirectWrapper
-                            from={OLD_TERMS_OF_SERVICE_LINK}
-                            to={TERMS_OF_USE_PAGE_LINK}
-                          />
-                        }
+                        element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
                       />
                       <Route
                         path={WIHE_FAQS_PATH}
                         element={
-                          <RedirectWrapper
-                            from={WIHE_FAQS_PATH}
-                            to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK}
-                          />
+                          <Navigate to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK} />
                         }
                       />
                       <Route
                         path={SHARE_YOUR_STORY_PATH}
-                        element={
-                          <RedirectWrapper
-                            from={SHARE_YOUR_STORY_PATH}
-                            to={SHARE_YOUR_STORY_TAB_LINK}
-                          />
-                        }
+                        element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
                       />
+
                       <Route
                         path={OLD_AGE_ADJUSTMENT_LINK}
-                        element={
-                          <RedirectWrapper
-                            from={OLD_AGE_ADJUSTMENT_LINK}
-                            to={AGE_ADJUSTMENT_LINK}
-                          />
-                        }
+                        element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
                       />
 
                       {/* Catch-all route */}
