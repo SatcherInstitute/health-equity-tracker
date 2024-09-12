@@ -1,8 +1,9 @@
-import type { MetricId } from '../data/config/MetricConfigTypes'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
 import type {
   DemographicType,
   DemographicTypeDisplayName,
 } from '../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../data/query/MetricQuery'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 import { het, ThemeZIndexValues } from '../styles/DesignTokens'
@@ -40,7 +41,9 @@ export function getSpec(
 ): any {
   function getMultilineAllOverride(fips: Fips): string {
     // only swap the intersectional ALL for the ALL AVERAGE label if it's an intersectional topic
-    return useIntersectionalComparisonAlls ? `['${fips.getUppercaseFipsTypeDisplayName()} average', '(all people)']` : MULTILINE_LABEL
+    return useIntersectionalComparisonAlls
+      ? `['${fips.getUppercaseFipsTypeDisplayName()} average', '(all people)']`
+      : MULTILINE_LABEL
   }
   const chartIsSmall = width < 400
 
@@ -293,4 +296,36 @@ export function getSpec(
     ],
     legends,
   }
+}
+
+export function addComparisonAllsRowToIntersectionalData(
+  data: HetRow[],
+  demographicType: DemographicType,
+  rateConfig: MetricConfig,
+  rateComparisonConfig: MetricConfig,
+  rateQueryResponseRateAlls: MetricQueryResponse,
+) {
+  // rename intersectional 'All' group
+  const dataWithAllsRow = data.map((row) => {
+    const renameRow = { ...row }
+    if (row[demographicType] === specialAllGroup) {
+      renameRow[demographicType] = rateComparisonConfig?.shortLabel
+    }
+    return renameRow
+  })
+
+  // add the comparison ALLs row to the intersectional data
+  const originalAllsRow = rateQueryResponseRateAlls.data[0]
+  const { fips, fips_name } = originalAllsRow
+
+  const allsRow = {
+    fips,
+    fips_name,
+    [demographicType]: specialAllGroup,
+    [rateConfig.metricId]:
+      originalAllsRow[rateConfig?.rateComparisonMetricForAlls?.metricId ?? ''],
+  }
+  dataWithAllsRow.unshift(allsRow)
+
+  return dataWithAllsRow
 }

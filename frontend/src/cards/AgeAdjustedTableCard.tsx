@@ -105,7 +105,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
   const ageAdjustedDataTypes: DataTypeConfig[] = dropdownId
-    ? METRIC_CONFIG[dropdownId].filter((dataType) => {
+    ? METRIC_CONFIG[dropdownId]?.filter((dataType) => {
         // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
         return dataType?.metrics?.age_adjusted_ratio
       })

@@ -31,7 +31,10 @@ import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
 import { isPctType } from '../data/config/MetricConfigUtils'
-import { specialAllGroup } from '../charts/simpleBarHelperFunctions'
+import {
+  addComparisonAllsRowToIntersectionalData,
+  specialAllGroup,
+} from '../charts/simpleBarHelperFunctions'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -154,29 +157,14 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
           .getValidRowsForField(rateConfig.metricId)
           .filter((row) => row[props.demographicType] !== 'Unknown')
 
-        if (rateConfig.rateComparisonMetricForAlls) {
-          // rename intersectional 'All' group
-          data = data.map((row) => {
-            const renameRow = { ...row }
-            if (row[props.demographicType] === specialAllGroup) {
-              renameRow[props.demographicType] =
-                rateComparisonConfig?.shortLabel
-            }
-            return renameRow
-          })
-
-          // add the comparison ALLs row to the intersectional data
-          const originalAllsRow = rateQueryResponseRateAlls.data[0]
-          const { fips, fips_name } = originalAllsRow
-
-          const allsRow = {
-            fips,
-            fips_name,
-            [props.demographicType]: specialAllGroup,
-            [rateConfig.metricId]:
-              originalAllsRow[rateConfig.rateComparisonMetricForAlls.metricId],
-          }
-          data.unshift(allsRow)
+        if (rateComparisonConfig) {
+          data = addComparisonAllsRowToIntersectionalData(
+            data,
+            props.demographicType,
+            rateConfig,
+            rateComparisonConfig,
+            rateQueryResponseRateAlls,
+          )
         }
 
         const hideChart =

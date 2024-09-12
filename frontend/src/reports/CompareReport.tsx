@@ -150,18 +150,18 @@ export default function CompareReport(props: CompareReportProps) {
     return <></>
   }
 
-  const rateConfig1 = metricConfigFromDtConfig('rate', dataTypeConfig1)
-  const rateConfig2 = metricConfigFromDtConfig('rate', dataTypeConfig2)
-  const inequityConfig1 = metricConfigFromDtConfig('inequity', dataTypeConfig1)
-  const inequityConfig2 = metricConfigFromDtConfig('inequity', dataTypeConfig2)
-  const ageAdjustedRatioConfig1 = metricConfigFromDtConfig(
-    'ratio',
-    dataTypeConfig1,
-  )
-  const ageAdjustedRatioConfig2 = metricConfigFromDtConfig(
-    'ratio',
-    dataTypeConfig2,
-  )
+  const rateConfig1 =
+    dataTypeConfig1 && metricConfigFromDtConfig('rate', dataTypeConfig1)
+  const rateConfig2 =
+    dataTypeConfig2 && metricConfigFromDtConfig('rate', dataTypeConfig2)
+  const inequityConfig1 =
+    dataTypeConfig1 && metricConfigFromDtConfig('inequity', dataTypeConfig1)
+  const inequityConfig2 =
+    dataTypeConfig2 && metricConfigFromDtConfig('inequity', dataTypeConfig2)
+  const ageAdjustedRatioConfig1 =
+    dataTypeConfig1 && metricConfigFromDtConfig('ratio', dataTypeConfig1)
+  const ageAdjustedRatioConfig2 =
+    dataTypeConfig2 && metricConfigFromDtConfig('ratio', dataTypeConfig2)
   const showRatesOverTimeCardRow =
     rateConfig1?.timeSeriesCadence || rateConfig2?.timeSeriesCadence
   const showInequitiesOverTimeCardRow = inequityConfig1 || inequityConfig2
