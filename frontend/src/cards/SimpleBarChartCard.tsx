@@ -125,7 +125,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const rateComparisonConfig = rateConfig?.rateComparisonMetricForAlls
 
   if (rateComparisonConfig) {
-    // fetch the ALL rate to embed against Black men groups
+    // fetch the ALL rate to embed against intersectional breakdowns
     const breakdownsForAlls = Breakdowns.forFips(props.fips).addBreakdown(
       'sex',
       exclude('Male', 'Female'),
