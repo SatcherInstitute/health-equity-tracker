@@ -327,7 +327,7 @@ export default function SinglePost() {
         </article>
 
         {/* PREV / NEXT ARTICLES NAV */}
-        <div className='mx-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey pt-24 md:grid-cols-3'>
+        <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
           {prevArticle && (
             <HetPaginationButton
               direction='previous'
