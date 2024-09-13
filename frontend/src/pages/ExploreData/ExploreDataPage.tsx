@@ -47,7 +47,10 @@ import type {
   DataTypeId,
   DataTypeConfig,
 } from '../../data/config/MetricConfigTypes'
-import { isDropdownVarId } from '../../data/config/DropDownIds'
+import {
+  type DropdownVarId,
+  isDropdownVarId,
+} from '../../data/config/DropDownIds'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -253,7 +256,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         : madLib.activeSelections[3]
 
     // default non-duplicate settings for compare modes
-    const var2 = var1 === 'covid' ? 'covid_vaccinations' : 'covid'
+    const var2: DropdownVarId =
+      var1 === 'poverty' ? 'health_insurance' : 'poverty'
     const geo2 = geo1 === '00' ? '13' : '00' // default to US or Georgia
 
     // Construct UPDATED madlib based on the future mode's Madlib shape

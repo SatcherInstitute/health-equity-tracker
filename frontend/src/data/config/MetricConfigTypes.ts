@@ -83,6 +83,7 @@ export interface MetricConfig {
   populationComparisonMetric?: MetricConfig
   rateNumeratorMetric?: MetricConfig
   rateDenominatorMetric?: MetricConfig
+  rateComparisonMetricForAlls?: MetricConfig
   timeSeriesCadence?: 'yearly' | 'monthly'
 
   // This metric is one where the denominator only includes records where
@@ -113,6 +114,7 @@ export interface InfoWithCitations {
 
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
+  rateComparisonDataTypeId?: DataTypeId
   dataTypeShortLabel: string
   fullDisplayName: string
   fullDisplayNameInline?: string
