@@ -34,6 +34,7 @@ interface SourcesProps {
   isMulti?: boolean
   showDefinition?: boolean
   isCompareCard?: boolean
+  hasIntersectionalAllCompareBar?: boolean
 }
 
 export function Sources(props: SourcesProps) {
@@ -96,6 +97,13 @@ export function Sources(props: SourcesProps) {
 
   return (
     <footer className='px-1 py-0 text-left text-smallest'>
+      {props.hasIntersectionalAllCompareBar && (
+        <p className='w-full'>
+          Note. "All People" represents the reference rate for the general
+          population in this area, including individuals of every race,
+          ethnicity, and sex grouping.
+        </p>
+      )}
       <p className='w-full'>
         <>{optionalDefinition}</>
         <>{showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}</>

@@ -23,6 +23,7 @@ interface SimpleHorizontalBarChartProps {
   usePercentSuffix?: boolean
   className?: string
   useIntersectionalComparisonAlls?: boolean
+  comparisonAllSubGroup?: string
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -76,6 +77,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* usePercentSuffix  */ props.usePercentSuffix ?? false,
           /* fips  */ props.fips,
           /* useIntersectionalComparisonAlls  */ props.useIntersectionalComparisonAlls,
+          /* comparisonAllSubGroup  */ props.comparisonAllSubGroup,
         )}
         actions={false}
       />
