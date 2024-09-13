@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
   type Column,
   type HeaderGroup,
-  type Row,
+  type Row as ReactTableRowType,
   usePagination,
   useSortBy,
   useTable,
@@ -153,7 +153,7 @@ export function TableChart(props: TableChartProps) {
   }
 
   /** Component for the table's data rows **/
-  function TableDataRow({ row }: { row: Row<any> }) {
+  function TableDataRow({ row }: { row: ReactTableRowType<any> }) {
     const numeratorCount = props.countColsMap.numeratorConfig?.metricId
       ? row.original[
           props.countColsMap.numeratorConfig.metricId
@@ -239,7 +239,7 @@ export function TableChart(props: TableChartProps) {
                 ))}
               </TableHead>
               <TableBody {...getTableBodyProps()}>
-                {page.map((row: Row<any>, index) => (
+                {page.map((row: ReactTableRowType<any>, index) => (
                   <TableDataRow row={row} key={index} />
                 ))}
               </TableBody>

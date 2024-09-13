@@ -181,9 +181,9 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
   gun_violence: 'Gun',
-  gun_violence_youth: 'All Gun Deaths for',
+  gun_violence_youth: 'All Gun Deaths of',
   cancer_screening: 'Screening adherence for',
-  gun_deaths_black_men: 'Gun Homicides of Black Men',
+  gun_deaths_black_men: 'Black Male Gun Homicide Victims',
 }
 
 export interface Category {
@@ -273,8 +273,8 @@ const MADLIB_LIST: MadLib[] = [
       'and',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'covid', 3: GEORGIA_FIPS, 5: USA_FIPS },
-    activeSelections: { 1: 'covid', 3: GEORGIA_FIPS, 5: USA_FIPS },
+    defaultSelections: { 1: 'poverty', 3: GEORGIA_FIPS, 5: USA_FIPS },
+    activeSelections: { 1: 'poverty', 3: GEORGIA_FIPS, 5: USA_FIPS },
   },
   {
     id: 'comparevars',
@@ -286,8 +286,8 @@ const MADLIB_LIST: MadLib[] = [
       'in',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'diabetes', 3: 'covid', 5: USA_FIPS },
-    activeSelections: { 1: 'diabetes', 3: 'covid', 5: USA_FIPS },
+    defaultSelections: { 1: 'poverty', 3: 'uninsurance', 5: USA_FIPS },
+    activeSelections: { 1: 'poverty', 3: 'uninsurance', 5: USA_FIPS },
   },
 ]
 
@@ -309,8 +309,8 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
       return dropdownId as any as DropdownVarId
     }
   }
-  // fallback to covid
-  return 'covid'
+  // fallback
+  return 'poverty'
 }
 
 export {
