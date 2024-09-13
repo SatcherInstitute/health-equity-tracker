@@ -173,6 +173,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             rateConfig.metricId,
           ])
 
+        const comparisonAllSubGroup = props.dataTypeConfig.ageSubPopulationLabel
+
         return (
           <>
             {hideChart ? (
@@ -202,6 +204,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   usePercentSuffix={isPctType(rateConfig.type)}
                   fips={props.fips}
                   useIntersectionalComparisonAlls={!!rateComparisonConfig}
+                  comparisonAllSubGroup={comparisonAllSubGroup}
                 />
                 {isIncarceration && (
                   <IncarceratedChildrenShortAlert

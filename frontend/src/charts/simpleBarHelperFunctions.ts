@@ -38,11 +38,15 @@ export function getSpec(
   usePercentSuffix: boolean,
   fips: Fips,
   useIntersectionalComparisonAlls?: boolean,
+  comparisonAllSubGroup?: string,
 ): any {
   function getMultilineAllOverride(fips: Fips): string {
+    const potentialSubGroup = comparisonAllSubGroup
+      ? `, ${comparisonAllSubGroup}`
+      : ''
     // only swap the intersectional ALL for the ALL AVERAGE label if it's an intersectional topic
     return useIntersectionalComparisonAlls
-      ? `['${fips.getUppercaseFipsTypeDisplayName()} average', '(all people)']`
+      ? `['${fips.getUppercaseFipsTypeDisplayName()} Average', '(All People${potentialSubGroup})']`
       : MULTILINE_LABEL
   }
   const chartIsSmall = width < 400

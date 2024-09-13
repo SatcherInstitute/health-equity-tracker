@@ -390,6 +390,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence_black_women',
+    rateComparisonDataTypeId: 'hiv_prevalence',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prevalence for Black Women',
     fullDisplayName: 'HIV prevalence for Black women',
@@ -431,6 +432,12 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
           'HIV prevalence for Black (NH) women per 100k people',
         shortLabel: 'prevalence per 100k',
         type: 'per100k',
+        rateComparisonMetricForAlls: {
+          chartTitle: '',
+          metricId: 'hiv_prevalence_per_100k',
+          shortLabel: 'All Black Women (Ages 13+)',
+          type: 'per100k',
+        },
         rateNumeratorMetric: {
           metricId: 'hiv_prevalence_black_women',
           shortLabel: 'Black women living with HIV',
@@ -457,6 +464,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_diagnoses_black_women',
+    rateComparisonDataTypeId: 'hiv_diagnoses',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New Diagnoses for Black Women',
     fullDisplayName: 'New HIV diagnoses for Black women',
@@ -498,6 +506,12 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'New HIV diagnoses for Black (NH) women per 100k',
         shortLabel: 'diagnoses per 100k',
         type: 'per100k',
+        rateComparisonMetricForAlls: {
+          chartTitle: '',
+          metricId: 'hiv_diagnoses_per_100k',
+          shortLabel: 'All Black Women (Ages 13+)',
+          type: 'per100k',
+        },
         rateNumeratorMetric: {
           metricId: 'hiv_diagnoses_black_women',
           shortLabel: 'HIV diagnoses for Black women',
@@ -524,6 +538,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_deaths_black_women',
+    rateComparisonDataTypeId: 'hiv_deaths',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths for Black women',
     fullDisplayName: 'HIV deaths for Black women',
@@ -564,6 +579,12 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'HIV deaths for Black (NH) women per 100k people',
         shortLabel: 'deaths per 100k',
         type: 'per100k',
+        rateComparisonMetricForAlls: {
+          chartTitle: '',
+          metricId: 'hiv_deaths_per_100k',
+          shortLabel: 'All Black Women (Ages 13+)',
+          type: 'per100k',
+        },
         rateNumeratorMetric: {
           metricId: 'hiv_deaths_black_women',
           shortLabel: 'HIV deaths for Black women',
