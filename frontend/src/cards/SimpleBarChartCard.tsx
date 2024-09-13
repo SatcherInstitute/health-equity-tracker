@@ -150,6 +150,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
     >
       {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
@@ -172,6 +173,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
           rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])
+
+        const comparisonAllSubGroup = props.dataTypeConfig.ageSubPopulationLabel
 
         return (
           <>
@@ -202,6 +205,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                   usePercentSuffix={isPctType(rateConfig.type)}
                   fips={props.fips}
                   useIntersectionalComparisonAlls={!!rateComparisonConfig}
+                  comparisonAllSubGroup={comparisonAllSubGroup}
                 />
                 {isIncarceration && (
                   <IncarceratedChildrenShortAlert

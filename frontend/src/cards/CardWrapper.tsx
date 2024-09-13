@@ -34,6 +34,7 @@ function CardWrapper(props: {
   expanded?: boolean
   isCompareCard?: boolean
   className?: string
+  hasIntersectionalAllCompareBar?: boolean
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle,
@@ -80,6 +81,9 @@ function CardWrapper(props: {
                 queryResponses={queryResponses}
                 showDefinition={props.scrollToHash === 'rate-map'}
                 isCompareCard={props.isCompareCard}
+                hasIntersectionalAllCompareBar={
+                  props.hasIntersectionalAllCompareBar
+                }
               />
             )}
           </article>
