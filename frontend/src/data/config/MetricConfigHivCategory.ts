@@ -435,7 +435,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'hiv_prevalence_per_100k',
-          shortLabel: 'All Black Women (Ages 13+)',
+          shortLabel: 'All Black Women Ages 13+',
           type: 'per100k',
         },
         rateNumeratorMetric: {
@@ -509,7 +509,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'hiv_diagnoses_per_100k',
-          shortLabel: 'All Black Women (Ages 13+)',
+          shortLabel: 'All Black Women Ages 13+',
           type: 'per100k',
         },
         rateNumeratorMetric: {
@@ -582,7 +582,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'hiv_deaths_per_100k',
-          shortLabel: 'All Black Women (Ages 13+)',
+          shortLabel: 'All Black Women Ages 13+',
           type: 'per100k',
         },
         rateNumeratorMetric: {
