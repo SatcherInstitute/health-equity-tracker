@@ -187,7 +187,7 @@ export default function App() {
                           element={<ShareYourStory />}
                         />
                         <Route path={''} element={<AllPosts />} />
-                        <Route path={`:slug`} element={<SinglePost />} />
+                        <Route path='/news/:slug' element={<SinglePost />} />
                       </Route>
 
                       <Route

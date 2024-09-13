@@ -28,33 +28,32 @@ function prettyDate(dateString: string) {
 
 export default function SinglePost() {
   const navigate = useNavigate()
+  const { slug } = useParams<{ slug: string }>()
 
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
   const [nextArticle, setNextArticle] = useState<Article>()
 
-  const { slug }: { slug?: string } = useParams()
-
   function goNext() {
     if (nextArticle) {
-      navigate(NEWS_PAGE_LINK + '/' + nextArticle.slug)
+      navigate(`${NEWS_PAGE_LINK}/${nextArticle.slug}`)
     }
   }
 
   function goPrevious() {
     if (prevArticle) {
-      navigate(NEWS_PAGE_LINK + '/' + prevArticle.slug)
+      navigate(`${NEWS_PAGE_LINK}/${prevArticle.slug}`)
     }
   }
 
   // FETCH ARTICLES
   const { data, isLoading, isError } = useQuery(
-    ARTICLES_KEY,
+    [ARTICLES_KEY, slug],
     fetchNewsData,
     REACT_QUERY_OPTIONS,
   )
 
-  // on page load, get prev, full, next article based on fullArticle URL slug
+  // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
@@ -75,7 +74,7 @@ export default function SinglePost() {
 
   const articleCategories = fullArticle?._embedded?.['wp:term']?.[0]
 
-
+  // get the large version of the image if available, if not try for the full version
   const articleImage =
     fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes
       ?.large?.source_url ??
@@ -85,25 +84,24 @@ export default function SinglePost() {
   const articleImageAltText =
     fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? ''
 
-
   const truncateText = (text: string, maxLength: number) => {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text
   }
 
-
+  // Reapplies truncation when the previous and next articles change
   useEffect(() => {
     const paginationButtons = document.querySelectorAll(
       '[data-pagination-content="true"]',
     )
 
-    paginationButtons.forEach(button => {
+    paginationButtons.forEach((button) => {
       const buttonText = button.textContent || ''
       button.textContent = truncateText(buttonText, 42)
     })
   }, [prevArticle, nextArticle])
 
   return (
-    <>
+    <div key={slug}>
       <Helmet>
         <title>{`News${
           fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -285,7 +283,9 @@ export default function SinglePost() {
           {fullArticle ? (
             <div
               // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-              dangerouslySetInnerHTML={{ __html: fullArticle.content?.rendered }}
+              dangerouslySetInnerHTML={{
+                __html: fullArticle.content?.rendered,
+              }}
             />
           ) : (
             <Skeleton
@@ -331,9 +331,7 @@ export default function SinglePost() {
           {prevArticle && (
             <HetPaginationButton
               direction='previous'
-              onClick={() => {
-                goPrevious()
-              }}
+              onClick={goPrevious}
               data-pagination-content='true'
             >
               {getHtml(prevArticle?.title?.rendered ?? '')}
@@ -347,18 +345,14 @@ export default function SinglePost() {
           {nextArticle && (
             <HetPaginationButton
               direction='next'
-              onClick={() => {
-                goNext()
-              }}
+              onClick={goNext}
               data-pagination-content='true'
             >
               {getHtml(nextArticle?.title?.rendered ?? '')}
             </HetPaginationButton>
           )}
         </div>
-        {/* EMAIL SIGNUP  */}
-        <SignupSection />
       </div>
-    </>
+    </div>
   )
 }
