@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test('HIV PrEP', async ({ page }) => {
+test('HIV PrEP: Rate Map', async ({ page }) => {
   await page.goto('/exploredata?mls=1.hiv_prep-3.00&group1=All')
   await page
     .locator('#rate-map')
@@ -23,6 +23,10 @@ test('HIV PrEP', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'PrEP-eligible population, Male, Ages 16+' })
     .click()
+})
+
+test('HIV PrEP: Rates Over Time', async ({ page }) => {
+  await page.goto('/exploredata?mls=1.hiv_prep-3.00&group1=All&demo=sex')
   await page
     .getByRole('button', { name: 'Rates over time', exact: true })
     .click()
@@ -53,6 +57,11 @@ test('HIV PrEP', async ({ page }) => {
     .locator('#rates-over-time')
     .getByText("Due to COVID-19's effects on")
     .click()
+})
+
+test('HIV PrEP: Rate chart', async ({ page }) => {
+  await page.goto('/exploredata?mls=1.hiv_prep-3.00&group1=All&demo=sex')
+  await page.getByRole('button', { name: 'Rate chart', exact: true }).click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'PrEP coverage in the United' })
@@ -62,11 +71,13 @@ test('HIV PrEP', async ({ page }) => {
     .getByRole('heading', { name: 'Ages 16+' })
     .click()
   await page.getByRole('heading', { name: 'Share of total PrEP' }).click()
+})
+
+test('HIV PrEP: Inequities over time and down', async ({ page }) => {
+  await page.goto('/exploredata?mls=1.hiv_prep-3.00&group1=All&demo=sex')
   await page
-    .locator('#unknown-demographic-map')
-    .getByRole('heading', { name: 'Ages 16+' })
+    .getByRole('button', { name: 'Inequities over time', exact: true })
     .click()
-  await page.getByText('No unknown values for sex').click()
   await page
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()

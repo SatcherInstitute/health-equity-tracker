@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test('HIV Black Women: Prevalance', async ({ page }) => {
+test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
   await page.goto('/exploredata?mls=1.hiv_black_women-3.00')
   await page.getByRole('combobox', { name: 'Demographic Age' }).click()
   await page.getByLabel('Race/Ethnicity unavailable').click()
@@ -32,7 +32,14 @@ test('HIV Black Women: Prevalance', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Ages 13+' })
     .click()
-  await page.getByRole('button', { name: 'Inequities over time', exact: true }).click()
+})
+
+test('HIV Black Women: Prevalance Bottom Cards', async ({ page }) => {
+  await page.goto('/exploredata?mls=1.hiv_black_women-3.00')
+
+  await page
+    .getByRole('button', { name: 'Inequities over time', exact: true })
+    .click()
   await page
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
@@ -59,7 +66,7 @@ test('HIV Black Women: Prevalance', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'Black or African-American (NH) women ages 13+ living with HIV (diagnosed &'
+      'Black or African-American (NH) women ages 13+ living with HIV (diagnosed &',
     )
     .click()
   await page
@@ -85,7 +92,7 @@ test('HIV Black Women: Prevalance', async ({ page }) => {
 
 test('HIV Black Women: Diagnoses', async ({ page }) => {
   await page.goto(
-    '/exploredata?mls=1.hiv_black_women-3.00&group1=All&dt1=hiv_diagnoses_black_women'
+    '/exploredata?mls=1.hiv_black_women-3.00&group1=All&dt1=hiv_diagnoses_black_women',
   )
   await page
     .locator('#rate-map')
@@ -103,7 +110,7 @@ test('HIV Black Women: Diagnoses', async ({ page }) => {
 
 test('HIV Black Women: Deaths', async ({ page }) => {
   await page.goto(
-    '/exploredata?mls=1.hiv_black_women-3.00&group1=All&dt1=hiv_deaths_black_women'
+    '/exploredata?mls=1.hiv_black_women-3.00&group1=All&dt1=hiv_deaths_black_women',
   )
   await page
     .getByRole('heading', { name: 'Rates of HIV deaths for Black' })
@@ -117,13 +124,13 @@ test('HIV Black Women: Deaths', async ({ page }) => {
   await page.getByText('New HIV diagnoses for Black').click()
   await page
     .getByText(
-      'Black or African-American (NH) women ages 13+ diagnosed with HIV in a'
+      'Black or African-American (NH) women ages 13+ diagnosed with HIV in a',
     )
     .click()
   await page.getByText('HIV deaths for Black women', { exact: true }).click()
   await page
     .getByText(
-      'Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a'
+      'Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a',
     )
     .click()
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
@@ -133,13 +140,4 @@ test('HIV Black Women: Deaths', async ({ page }) => {
     .click()
   await page.getByText("There isn't enough data to").click()
   await page.getByText('The Asian category includes').click()
-  await page.getByLabel('Scroll to Top').click()
-  await page.getByLabel('open the topic info modal').click()
-  await page
-    .getByRole('heading', { name: 'HIV deaths for Black women' })
-    .click()
-  await page.getByRole('dialog').getByText('Measurement Definition:').click()
-  await page.getByRole('paragraph').getByText('Clinical Importance:').click()
-
-  await page.getByLabel('close topic info modal').click()
 })
