@@ -198,7 +198,6 @@ export default function SinglePost() {
               font-light
               leading-lhTight
               text-altGreen sm:text-header md:text-bigHeader
-
             '
             >
               {isLoading ? (
@@ -281,12 +280,7 @@ export default function SinglePost() {
         <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col break-words'>
           {/* RENDER WP ARTICLE HTML */}
           {fullArticle ? (
-            <div
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-              dangerouslySetInnerHTML={{
-                __html: fullArticle.content?.rendered,
-              }}
-            />
+            getHtml(fullArticle.content?.rendered ?? '')
           ) : (
             <Skeleton
               animation='wave'
