@@ -49,19 +49,19 @@
 		"use-react-screenshot": "^4.0.0",
 		"vega": "^5.30.0",
 		"vega-lite": "^5.21.0",
-		"vite": "^5.4.3",
+		"vite": "^5.4.5",
 		"vite-plugin-svgr": "^4.2.0",
 		"vite-tsconfig-paths": "^5.0.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.8.3",
-		"@playwright/test": "^1.47.0",
+		"@biomejs/biome": "1.9.1",
+		"@playwright/test": "^1.47.1",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^16.0.1",
 		"@types/d3": "^7.4.0",
 		"@types/lodash": "^4.17.7",
-		"@types/node": "^22.5.4",
-		"@types/react": "^18.3.5",
+		"@types/node": "^22.5.5",
+		"@types/react": "^18.3.6",
 		"@types/react-dom": "^18.3.0",
 		"@types/react-lazyload": "^3.2.0",
 		"@types/react-router-dom": "^5.3.3",
@@ -72,10 +72,10 @@
 		"cross-env": "^7.0.3",
 		"cspell": "^8.14.2",
 		"jsdom": "^25.0.0",
-		"postcss": "^8.4.45",
+		"postcss": "^8.4.47",
 		"tailwindcss": "^3.4.10",
 		"typescript": "^5.6.2",
-		"vitest": "^2.0.5"
+		"vitest": "^2.1.1"
 	},
 	"scripts": {
 		"build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
