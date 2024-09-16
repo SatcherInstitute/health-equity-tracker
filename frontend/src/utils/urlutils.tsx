@@ -274,20 +274,21 @@ window.onpopstate = () => {
   })
 }
 
-/*
-Dumps a string of HTML into a div (or string with optional boolean)
-*/
-export function getHtml(item: any, asString?: boolean) {
-  // if div is needed
-  if (!asString) {
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless Wordpress
-    return <div dangerouslySetInnerHTML={{ __html: item || '' }}></div>
+export function getHtml(item: string | undefined, asString = false) {
+  // If only a string is needed (not setting inner HTML)
+  if (asString) {
+    const span = document.createElement('span')
+    span.innerHTML = item || ''
+    return span.textContent || span.innerText || ''
   }
 
-  // if only string is needed, create an HTML element and then extract the text
-  const span = document.createElement('span')
-  span.innerHTML = item
-  return span.textContent ?? span.innerText
+  // Return a div with dangerouslySetInnerHTML
+  return (
+    <div
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless WordPress
+      dangerouslySetInnerHTML={{ __html: item || '' }}
+    />
+  )
 }
 
 /* for converting selected group long name into URL safe param value */
