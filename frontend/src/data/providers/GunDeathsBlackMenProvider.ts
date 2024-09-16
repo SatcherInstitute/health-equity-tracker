@@ -25,7 +25,7 @@ export const BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 ]
 
 export const BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY = [
-  ['Urbanicity', 'unavailable for when comparing these topics'],
+  ['City Size', 'unavailable for when comparing these topics'],
 ]
 
 class GunViolenceBlackMenProvider extends VariableProvider {
@@ -39,7 +39,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
     timeView?: TimeView,
   ): DatasetId | undefined {
     if (timeView === 'current') {
-      if (breakdowns.hasOnlyUrbanicity()) {
+      if (breakdowns.hasOnlyCitySize()) {
         if (breakdowns.geography === 'national')
           return 'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current'
         if (breakdowns.geography === 'state')
@@ -54,7 +54,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
     }
 
     if (timeView === 'historical') {
-      if (breakdowns.hasOnlyUrbanicity()) {
+      if (breakdowns.hasOnlyCitySize()) {
         if (breakdowns.geography === 'national')
           return 'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical'
         if (breakdowns.geography === 'state')

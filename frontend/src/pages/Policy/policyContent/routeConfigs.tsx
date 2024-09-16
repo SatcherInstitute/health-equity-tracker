@@ -89,7 +89,7 @@ export const routeConfigs: RouteConfig[] = [
       },
       {
         label: `Georgia's Homicide Rates Among Black Men`,
-        path: '#ga-homicides-urbanicity',
+        path: '#ga-homicides-city-size',
       },
     ],
     visible: true,

@@ -150,7 +150,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '80-84': mapMedicareLightest,
   '85+': altGrey,
 
-  // urbanicity
+  // urbanicity / City Size
   Metro: timePurple,
   'Non-Metro': timeYellow,
 }
