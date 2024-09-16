@@ -1,7 +1,6 @@
 import { Fips } from '../utils/Fips'
 import type BreakdownFilter from './BreakdownFilter'
 //
-
 export type TimeView = 'current' | 'historical'
 
 export type GeographicBreakdown =
