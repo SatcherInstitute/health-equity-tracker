@@ -28,28 +28,27 @@ function prettyDate(dateString: string) {
 
 export default function SinglePost() {
   const navigate = useNavigate()
+  const { slug } = useParams<{ slug: string }>()
 
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
   const [nextArticle, setNextArticle] = useState<Article>()
 
-  const { slug }: { slug?: string } = useParams()
-
   function goNext() {
     if (nextArticle) {
-      navigate(NEWS_PAGE_LINK + '/' + nextArticle.slug)
+      navigate(`${NEWS_PAGE_LINK}/${nextArticle.slug}`)
     }
   }
 
   function goPrevious() {
     if (prevArticle) {
-      navigate(NEWS_PAGE_LINK + '/' + prevArticle.slug)
+      navigate(`${NEWS_PAGE_LINK}/${prevArticle.slug}`)
     }
   }
 
   // FETCH ARTICLES
   const { data, isLoading, isError } = useQuery(
-    ARTICLES_KEY,
+    [ARTICLES_KEY, slug],
     fetchNewsData,
     REACT_QUERY_OPTIONS,
   )
@@ -85,8 +84,24 @@ export default function SinglePost() {
   const articleImageAltText =
     fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? ''
 
+  const truncateText = (text: string, maxLength: number) => {
+    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text
+  }
+
+  // Reapplies truncation when the previous and next articles change
+  useEffect(() => {
+    const paginationButtons = document.querySelectorAll(
+      '[data-pagination-content="true"]',
+    )
+
+    paginationButtons.forEach((button) => {
+      const buttonText = button.textContent || ''
+      button.textContent = truncateText(buttonText, 42)
+    })
+  }, [prevArticle, nextArticle])
+
   return (
-    <>
+    <div key={slug}>
       <Helmet>
         <title>{`News${
           fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -183,7 +198,6 @@ export default function SinglePost() {
               font-light
               leading-lhTight
               text-altGreen sm:text-header md:text-bigHeader
-
             '
             >
               {isLoading ? (
@@ -266,7 +280,7 @@ export default function SinglePost() {
         <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col break-words'>
           {/* RENDER WP ARTICLE HTML */}
           {fullArticle ? (
-            getHtml(fullArticle.content?.rendered)
+            getHtml(fullArticle.content?.rendered ?? '')
           ) : (
             <Skeleton
               animation='wave'
@@ -307,13 +321,12 @@ export default function SinglePost() {
         </article>
 
         {/* PREV / NEXT ARTICLES NAV */}
-        <div className='mx-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey pt-24 md:grid-cols-3'>
+        <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
           {prevArticle && (
             <HetPaginationButton
               direction='previous'
-              onClick={() => {
-                goPrevious()
-              }}
+              onClick={goPrevious}
+              data-pagination-content='true'
             >
               {getHtml(prevArticle?.title?.rendered ?? '')}
             </HetPaginationButton>
@@ -326,17 +339,14 @@ export default function SinglePost() {
           {nextArticle && (
             <HetPaginationButton
               direction='next'
-              onClick={() => {
-                goNext()
-              }}
+              onClick={goNext}
+              data-pagination-content='true'
             >
               {getHtml(nextArticle?.title?.rendered ?? '')}
             </HetPaginationButton>
           )}
         </div>
-        {/* EMAIL SIGNUP  */}
-        <SignupSection />
       </div>
-    </>
+    </div>
   )
 }
