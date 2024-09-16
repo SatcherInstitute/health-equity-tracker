@@ -38,13 +38,12 @@ repos:
             "-sn", # Don't display the score
           ]
   # LINT/FORMAT JS/TS/JSON WITH BIOME
-  - repo: local
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v0.4.0
     hooks:
-      - id: local-biome-check
+      - id: biome-check
         name: 🦕 ts/json format + lint with biome
-        entry: npx biome check --apply --files-ignore-unknown=true --no-errors-on-unmatched --changed
-        language: system
-        types: [text]
+        additional_dependencies: ["@biomejs/biome"]
   # WARN IF TOO MANY FILES IN ONE COMMIT
   - repo: local
     hooks:
