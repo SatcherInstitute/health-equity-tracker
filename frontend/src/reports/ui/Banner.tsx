@@ -57,7 +57,7 @@ const Banner: React.FC = () => {
           </p>
           <HetTextArrowLink
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            linkText='Learn more'
+            linkText='Learn more about the data limitations'
             containerClassName='block md:mx-2 md:my-0 mx-0 my-4'
             linkClassName='text-black'
           />

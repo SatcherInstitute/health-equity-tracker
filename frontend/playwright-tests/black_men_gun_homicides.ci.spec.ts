@@ -12,11 +12,11 @@ test('Black Men Homicide Test: Top Half of Cards', async ({ page }) => {
     .click()
   await page
     .locator('#rate-map')
-    .getByRole('heading', { name: 'Black Men' })
+    .getByRole('heading', { name: 'Black (NH) Men' })
     .click()
   await page
     .locator('li')
-    .filter({ hasText: 'Total population of Black Men' })
+    .filter({ hasText: 'Total population of Black (NH) Men' })
     .click()
   await page
     .getByRole('heading', {
@@ -25,7 +25,7 @@ test('Black Men Homicide Test: Top Half of Cards', async ({ page }) => {
     .click()
   await page
     .locator('#rates-over-time')
-    .getByRole('heading', { name: 'Black Men' })
+    .getByRole('heading', { name: 'Black (NH) Men' })
     .click()
 })
 
@@ -40,7 +40,7 @@ test('Black Men Homicide Test: Bottom Half of Cards', async ({ page }) => {
     .click()
   await page
     .locator('#rate-chart')
-    .getByRole('heading', { name: 'Black Men' })
+    .getByRole('heading', { name: 'Black (NH) Men' })
     .click()
   await page
     .getByRole('button', { name: 'Inequities over time', exact: true })
@@ -50,7 +50,7 @@ test('Black Men Homicide Test: Bottom Half of Cards', async ({ page }) => {
     .click()
   await page
     .locator('#inequities-over-time')
-    .getByRole('heading', { name: 'Black Men' })
+    .getByRole('heading', { name: 'Black (NH) Men' })
     .click()
   await page
     .locator('#inequities-over-time')
@@ -61,7 +61,7 @@ test('Black Men Homicide Test: Bottom Half of Cards', async ({ page }) => {
     .click()
   await page
     .locator('#population-vs-distribution')
-    .getByRole('heading', { name: 'Black Men' })
+    .getByRole('heading', { name: 'Black (NH) Men' })
     .click()
   await page.getByLabel('Comparison bar chart showing').getByRole('img').click()
   await page.getByRole('button', { name: 'Data table' }).click()
