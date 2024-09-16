@@ -91,7 +91,7 @@ export default function OurFindingsTab() {
           ))}
         </div>
       </section>
-      <section id='#ga-homicides-urbanicity'>
+      <section id='#ga-homicides-city-size'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
           <h3 className='my-0 text-title font-medium text-altGreen'>

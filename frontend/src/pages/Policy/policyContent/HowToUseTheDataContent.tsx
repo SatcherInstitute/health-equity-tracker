@@ -14,7 +14,7 @@ const gunViolenceDemographicGranularities = [
   'Race/ethnicity',
   'Sex',
   'Age',
-  'Urbanicity (Metro/Non-Metro)',
+  'City Size (Metro/Non-Metro)',
 ]
 
 export const dataVisuals = [
@@ -46,13 +46,15 @@ export const dataVisuals = [
         },
       ],
     },
-    customCard: (<CustomChoroplethMap
-		  fips={new Fips('13')}
-		  dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
-		  demographicType={AGE}
-		  reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-		  className='py-0 mt-0 mb-4'
-		/>),
+    customCard: (
+      <CustomChoroplethMap
+        fips={new Fips('13')}
+        dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
+        demographicType={AGE}
+        reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
+        className='py-0 mt-0 mb-4'
+      />
+    ),
   },
   {
     title: 'Rates Over Time Chart',
