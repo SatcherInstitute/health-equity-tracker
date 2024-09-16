@@ -164,7 +164,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               id='modalTitle'
             >
               {title}
-              {props?.subtitle && ` (${props.subtitle})`}
             </h2>
           </div>
 

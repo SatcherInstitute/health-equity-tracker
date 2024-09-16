@@ -367,6 +367,6 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         },
       },
     },
-    otherSubPopulationLabel: 'Black Men',
+    otherSubPopulationLabel: 'Black (NH) Men',
   },
 ]
