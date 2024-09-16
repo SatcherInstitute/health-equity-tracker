@@ -53,7 +53,7 @@ export default function SinglePost() {
     REACT_QUERY_OPTIONS,
   )
 
-  // on page load, get prev,full, next article based on fullArticle URL slug
+  // on page load, get prev, full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
