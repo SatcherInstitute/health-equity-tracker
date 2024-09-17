@@ -31,10 +31,7 @@ import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
 import { isPctType } from '../data/config/MetricConfigUtils'
-import {
-  addComparisonAllsRowToIntersectionalData,
-  specialAllGroup,
-} from '../charts/simpleBarHelperFunctions'
+import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
