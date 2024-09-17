@@ -85,18 +85,6 @@ export default function CompareBubbleChartCard(
         const df1 = new DataFrame(dataTopicX)
         const df2 = new DataFrame(dataTopicY)
 
-        /*
-      const ab = a.join(
-      b,
-      (left) => left.A,
-      (right) => right.A,
-      (left, right) => {
-        return { A: left.A, b: left.b, c: right.c };
-      },
-    );
-
-        */
-
         // Merge the DataFrames based on "fips" and "race_and_ethnicity"
         const mergedData = df1.join(
           df2,

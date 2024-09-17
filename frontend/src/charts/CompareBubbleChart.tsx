@@ -25,7 +25,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
 
   const [resizeCardRef, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
-  const height = isMd ? width * 0.6 : width * 2
+  const height = isMd ? width * 0.6 : width / 0.6
 
   useEffect(() => {
     if (
