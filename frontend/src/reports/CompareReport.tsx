@@ -43,6 +43,7 @@ import type {
   DataTypeConfig,
 } from '../data/config/MetricConfigTypes'
 import type { DropdownVarId } from '../data/config/DropDownIds'
+import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -125,7 +126,7 @@ export default function CompareReport(props: CompareReportProps) {
       const newDtParam2 =
         props.trackerMode === 'comparegeos'
           ? newDtParam1
-          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
+          : (dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0])
       setDtConfig2(newDtParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')
@@ -204,6 +205,16 @@ export default function CompareReport(props: CompareReportProps) {
           />
 
           <div className='flex w-full flex-col content-center '>
+            <CompareBubbleChartCard
+              fips1={props.fips1}
+              // fips2={props.fips2}
+              dataTypeConfig1={dataTypeConfig1}
+              dataTypeConfig2={dataTypeConfig2}
+              rateConfig1={rateConfig1}
+              rateConfig2={rateConfig2}
+              demographicType={demographicType}
+              reportTitle={props.reportTitle}
+            />
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
