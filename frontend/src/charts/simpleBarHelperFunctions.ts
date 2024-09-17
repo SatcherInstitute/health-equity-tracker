@@ -317,7 +317,12 @@ export function addComparisonAllsRowToIntersectionalData(
   })
 
   // add the comparison ALLs row to the intersectional data
-  const originalAllsRow = rateQueryResponseRateAlls.data[0]
+  const originalAllsRow = rateQueryResponseRateAlls?.data?.[0]
+
+  if (!originalAllsRow) {
+    return dataWithAllsRow
+  }
+
   const { fips, fips_name } = originalAllsRow
 
   const allsRow = {
