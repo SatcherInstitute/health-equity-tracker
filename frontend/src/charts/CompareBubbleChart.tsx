@@ -1,10 +1,11 @@
 import type React from 'react'
-import { useEffect, useRef } from 'react'
+import { type RefObject, useEffect, useRef } from 'react'
 import * as d3 from 'd3'
 import { regressionLinear } from 'd3-regression'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { het } from '../styles/DesignTokens'
+import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 
 interface CompareBubbleChartProps {
   xData: HetRow[]
@@ -20,9 +21,9 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
   const xRate = props.xMetricConfig.metricId
   const yRate = props.yMetricConfig.metricId
 
-  const { width = 1400, height = 800 } = props
-
+  const [resizeCardRef, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
+  const height = width * 0.6
 
   useEffect(() => {
     if (
@@ -160,9 +161,11 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
   }, [props.xData, props.yData, props.radiusData, width, height])
 
   return (
-    <svg ref={svgRef} width={width} height={height}>
-      <title>Bubble chart with Trend Line</title>
-    </svg>
+    <div ref={resizeCardRef}>
+      <svg ref={svgRef} width={width} height={height}>
+        <title>Bubble chart with Trend Line</title>
+      </svg>
+    </div>
   )
 }
 

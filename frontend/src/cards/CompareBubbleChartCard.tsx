@@ -81,8 +81,6 @@ export default function CompareBubbleChartCard(
           .getValidRowsForField(props.rateConfig2.metricId)
           .filter((row) => row[props.demographicType] !== 'Unknown')
 
-        console.log(dataTopicX, dataTopicY)
-
         // Create DataFrames from your arrays
         const df1 = new DataFrame(dataTopicX)
         const df2 = new DataFrame(dataTopicY)
@@ -130,8 +128,6 @@ export default function CompareBubbleChartCard(
           ),
           [props.rateConfig2.metricId]: row[props.rateConfig2.metricId],
         }))
-
-        console.log('valid data', validXData, validYData)
 
         // TODO hook up this value to a metric like population or SVI
         const radiusData = validXData.map((row) => ({
