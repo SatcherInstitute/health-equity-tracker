@@ -6,6 +6,7 @@ import type { HetRow } from '../data/utils/DatasetTypes'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { het } from '../styles/DesignTokens'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 interface CompareBubbleChartProps {
   xData: HetRow[]
@@ -18,12 +19,13 @@ interface CompareBubbleChartProps {
 }
 
 const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
+  const isMd = useIsBreakpointAndUp('md')
   const xRate = props.xMetricConfig.metricId
   const yRate = props.yMetricConfig.metricId
 
   const [resizeCardRef, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
-  const height = width * 0.6
+  const height = isMd ? width * 0.6 : width * 2
 
   useEffect(() => {
     if (
