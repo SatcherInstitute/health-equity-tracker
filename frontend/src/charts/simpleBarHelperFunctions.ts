@@ -308,7 +308,7 @@ export function addComparisonAllsRowToIntersectionalData(
   rateQueryResponseRateAlls: MetricQueryResponse,
 ) {
   // rename intersectional 'All' group
-  const dataWithAllsRow = data.map((row) => {
+  const adjustedData = data.map((row) => {
     const renameRow = { ...row }
     if (row[demographicType] === specialAllGroup) {
       renameRow[demographicType] = rateComparisonConfig?.shortLabel
@@ -317,7 +317,12 @@ export function addComparisonAllsRowToIntersectionalData(
   })
 
   // add the comparison ALLs row to the intersectional data
-  const originalAllsRow = rateQueryResponseRateAlls.data[0]
+  const originalAllsRow = rateQueryResponseRateAlls?.data?.[0]
+
+  if (!originalAllsRow) {
+    return adjustedData
+  }
+
   const { fips, fips_name } = originalAllsRow
 
   const allsRow = {
@@ -327,7 +332,7 @@ export function addComparisonAllsRowToIntersectionalData(
     [rateConfig.metricId]:
       originalAllsRow[rateConfig?.rateComparisonMetricForAlls?.metricId ?? ''],
   }
-  dataWithAllsRow.unshift(allsRow)
+  adjustedData.unshift(allsRow)
 
-  return dataWithAllsRow
+  return adjustedData
 }
