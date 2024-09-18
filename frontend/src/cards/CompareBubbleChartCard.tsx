@@ -1,27 +1,17 @@
-import { queries } from '@testing-library/react'
 import CompareBubbleChart from '../charts/CompareBubbleChart'
 import type {
   DataTypeConfig,
   MetricConfig,
+  MetricId,
 } from '../data/config/MetricConfigTypes'
-import {
-  Breakdowns,
-  DEMOGRAPHIC_DISPLAY_TYPES,
-  type DemographicType,
-} from '../data/query/Breakdowns'
+import { Breakdowns, type DemographicType } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
 import { exclude } from '../data/query/BreakdownFilter'
 import { MetricQuery } from '../data/query/MetricQuery'
-import {
-  NON_HISPANIC,
-  AIAN_API,
-  UNKNOWN_RACE,
-  ALL,
-} from '../data/utils/Constants'
+import { NON_HISPANIC, AIAN_API, UNKNOWN_RACE } from '../data/utils/Constants'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { DataFrame } from 'data-forge'
 
 interface CompareBubbleChartCardProps {
@@ -45,21 +35,37 @@ export default function CompareBubbleChartCard(
     exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE),
   )
 
+  const rateIdX = props.rateConfig1?.metricId
+  const xIdsToFetch: MetricId[] = []
+  if (rateIdX) xIdsToFetch.push(rateIdX)
   const queryX = new MetricQuery(
-    [props.rateConfig1?.metricId],
+    xIdsToFetch,
     breakdowns,
-    /* dataTypeId */ props.dataTypeConfig1?.dataTypeId,
+    /* dataTypeId */ undefined,
     /* timeView */ 'current',
   )
 
+  const yIdsToFetch: MetricId[] = []
+  const rateIdY = props.rateConfig2?.metricId
+  if (rateIdY) yIdsToFetch.push(rateIdY)
   const queryY = new MetricQuery(
-    [props.rateConfig2?.metricId],
+    yIdsToFetch,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig2?.dataTypeId,
     /* timeView */ 'current',
   )
 
-  const queries = [queryX, queryY]
+  const breakdownsPop = Breakdowns.forChildrenFips(props.fips1)
+
+  const popIdToFetch: MetricId[] = ['population']
+  const queryPop = new MetricQuery(
+    popIdToFetch,
+    breakdownsPop,
+    /* dataTypeId */ undefined,
+    /* timeView */ 'current',
+  )
+
+  const queries = [queryX, queryY, queryPop]
 
   const chartTitle = `Correlation between rates of ${props.rateConfig1?.chartTitle} and ${props.rateConfig2?.chartTitle} in ${props.fips1.getSentenceDisplayName()}`
 
@@ -72,27 +78,52 @@ export default function CompareBubbleChartCard(
       reportTitle={props.reportTitle}
       className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
     >
-      {([rateQueryResponseRateX, rateQueryResponseRateY]) => {
+      {(queryResponses) => {
+        const rateQueryResponseRateX = queryResponses[0]
+        const rateQueryResponseRateY = queryResponses[1]
+        const rateQueryResponsePop = queryResponses[2]
+
         const dataTopicX = rateQueryResponseRateX
           .getValidRowsForField(props.rateConfig1.metricId)
-          .filter((row) => row[props.demographicType] !== 'Unknown')
+          .filter(
+            (row) =>
+              row[props.demographicType] !== 'Unknown' &&
+              row[props.demographicType] !== 'All',
+          )
 
         const dataTopicY = rateQueryResponseRateY
           .getValidRowsForField(props.rateConfig2.metricId)
-          .filter((row) => row[props.demographicType] !== 'Unknown')
+          .filter(
+            (row) =>
+              row[props.demographicType] !== 'Unknown' &&
+              row[props.demographicType] !== 'All',
+          )
+
+        const dataPopRadius = rateQueryResponsePop.data
 
         // Create DataFrames from your arrays
         const df1 = new DataFrame(dataTopicX)
         const df2 = new DataFrame(dataTopicY)
+        const dfPop = new DataFrame(dataPopRadius)
 
         // Merge the DataFrames based on "fips" and "race_and_ethnicity"
-        const mergedData = df1.join(
+        const mergedXYData = df1.join(
           df2,
-          (rowX) => rowX.fips + rowX.race_and_ethnicity,
-          (rowY) => rowY.fips + rowY.race_and_ethnicity,
+          (rowX) => rowX.fips + rowX.race_and_ethnicity?.replace(' (NH)', ''),
+          (rowY) => rowY.fips + rowY.race_and_ethnicity?.replace(' (NH)', ''),
           (leftRow, rightRow) => ({
             ...leftRow, // Merge fields from df1
             ...rightRow, // Merge fields from df2
+          }),
+        )
+
+        const mergedData = mergedXYData.join(
+          dfPop,
+          (row) => row.fips,
+          (rowPop) => rowPop.fips,
+          (leftRow, rightRow) => ({
+            ...leftRow,
+            ...rightRow,
           }),
         )
 
@@ -117,9 +148,8 @@ export default function CompareBubbleChartCard(
           [props.rateConfig2.metricId]: row[props.rateConfig2.metricId],
         }))
 
-        // TODO hook up this value to a metric like population or SVI
-        const radiusData = validXData.map((row) => ({
-          [props.rateConfig1.metricId]: 10,
+        const validRadiusData = mergedArray.map((row) => ({
+          population: row.population,
           fips: row.fips,
           // fips_name: row.fips_name,
           [props.demographicType]: row[props.demographicType].replace(
@@ -137,7 +167,13 @@ export default function CompareBubbleChartCard(
               xMetricConfig={props.rateConfig1}
               yData={validYData}
               yMetricConfig={props.rateConfig2}
-              radiusData={radiusData}
+              radiusData={validRadiusData}
+              radiusMetricConfig={{
+                chartTitle: 'Population',
+                metricId: 'population',
+                shortLabel: 'Population',
+                type: 'count',
+              }}
             />
           </>
         )

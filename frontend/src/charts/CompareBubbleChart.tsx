@@ -7,6 +7,7 @@ import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { het } from '../styles/DesignTokens'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import { GROUP_COLOR_MAP } from './trendsChart/constants'
 
 interface CompareBubbleChartProps {
   xData: HetRow[]
@@ -14,6 +15,7 @@ interface CompareBubbleChartProps {
   yData: HetRow[]
   yMetricConfig: MetricConfig
   radiusData: HetRow[]
+  radiusMetricConfig?: MetricConfig
   width?: number
   height?: number
 }
@@ -58,8 +60,14 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
 
     const radiusScale = d3
       .scaleSqrt<number>()
-      .domain([0, d3.max(props.radiusData, (d) => d[xRate]) || 0])
-      .range([2, 20])
+      .domain([
+        0,
+        d3.max(
+          props.radiusData,
+          (d) => d?.[props.radiusMetricConfig?.metricId || ''],
+        ) || 0,
+      ])
+      .range([4, 40])
 
     const g = svg
       .append('g')
@@ -104,9 +112,17 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
           (r) =>
             r.fips === d.fips && r.race_and_ethnicity === d.race_and_ethnicity,
         )
-        return radiusScale(radiusDataPoint ? radiusDataPoint[xRate] : 0)
+        return radiusScale(
+          radiusDataPoint
+            ? radiusDataPoint?.[props.radiusMetricConfig?.metricId || '']
+            : 0,
+        )
       })
-      .attr('fill', het.barChartLight)
+      .attr('fill', (d) => {
+        return (
+          GROUP_COLOR_MAP[d.race_and_ethnicity.replace(' (NH)', '')] || 'black'
+        )
+      })
       .attr('opacity', 0.7)
       .append('title')
       .text((d) => {
@@ -118,11 +134,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
           (r) =>
             r.fips === d.fips && r.race_and_ethnicity === d.race_and_ethnicity,
         )
-        return `FIPS: ${d.fips}, Race: ${d.race_and_ethnicity}, X: ${
-          d[xRate]
-        }, Y: ${yDataPoint ? yDataPoint[yRate] : 'N/A'}, Radius: ${
-          radiusDataPoint ? radiusDataPoint[xRate] : 'N/A'
-        }`
+        return `FIPS: ${d.fips}\nRace: ${d.race_and_ethnicity}\n${props.xMetricConfig.shortLabel}: ${d[xRate]}\n${props.yMetricConfig.shortLabel}: ${yDataPoint ? yDataPoint[yRate] : 'N/A'}\nPopulation: ${radiusDataPoint ? radiusDataPoint?.[props.radiusMetricConfig?.metricId || ''] : 'N/A'}`
       })
 
     // Prepare data for regression (only non-null points)
