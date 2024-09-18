@@ -1,9 +1,5 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
-import {
-  populationPctShortLabel,
-  populationPctTitle,
-} from './MetricConfigUtils'
 
 export const MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS = [
   'maternal_mortality',
