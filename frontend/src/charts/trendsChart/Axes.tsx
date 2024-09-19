@@ -27,6 +27,7 @@ import type { TrendsData, XScale, YScale, AxisConfig } from './types'
 import { getMinNumber, getMaxNumber, getDates } from './helpers'
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 import { het } from '../../styles/DesignTokens'
+import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
 
 /* Define type interface */
 export interface AxesProps {
@@ -102,14 +103,13 @@ export function Axes({
   const yAxisRef = useRef(null)
 
   /* Axes */
-  const numTicksIfSkinny = 5
 
   const xDateFormat =
     axisConfig?.xAxisTimeSeriesCadence === 'monthly' ? F.dateShort : F.dateYear
 
   let xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isSkinny ? numTicksIfSkinny : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
+    .ticks(isSkinny ? X_AXIS_MAX_TICKS_SKINNY : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
     // @ts-expect-error
     .tickFormat(xDateFormat)
     .tickPadding(TICK_PADDING)

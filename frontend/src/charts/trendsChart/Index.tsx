@@ -40,6 +40,7 @@ import type { DemographicGroup } from '../../data/utils/Constants'
 import ChartTitle from '../../cards/ChartTitle'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { X_AXIS_MAX_TICKS } from '../utils'
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -180,7 +181,8 @@ export function TrendsChart({
     marginLeft,
     width - marginRight,
   ])
-  axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length : null // d3 was adding duplicate time period ticks to sets with very few time periods
+  axisConfig.xAxisMaxTicks =
+    dates.length < X_AXIS_MAX_TICKS ? dates.length : null // d3 was adding duplicate time period ticks to sets with very few time periods
 
   // Y-Scale
   const yScale = scaleLinear(yExtent as [number, number], [

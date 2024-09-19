@@ -13,6 +13,7 @@ import { MetricQuery } from '../data/query/MetricQuery'
 import { NON_HISPANIC, AIAN_API, UNKNOWN_RACE } from '../data/utils/Constants'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { DataFrame } from 'data-forge'
+import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 
 interface CompareBubbleChartCardProps {
   fips1: Fips
@@ -30,6 +31,8 @@ const defaultClasses = 'shadow-raised bg-white'
 export default function CompareBubbleChartCard(
   props: CompareBubbleChartCardProps,
 ) {
+  const preloadHeight = useGuessPreloadHeight([750, 1050])
+
   const breakdowns = Breakdowns.forChildrenFips(props.fips1).addBreakdown(
     props.demographicType,
     exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE),
@@ -73,7 +76,7 @@ export default function CompareBubbleChartCard(
     <CardWrapper
       downloadTitle={''}
       queries={queries}
-      minHeight={800}
+      minHeight={preloadHeight}
       scrollToHash={'compare-bubble-chart' as ScrollableHashId}
       reportTitle={props.reportTitle}
       className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
@@ -109,8 +112,14 @@ export default function CompareBubbleChartCard(
         // Merge the DataFrames based on "fips" and "race_and_ethnicity"
         const mergedXYData = df1.join(
           df2,
-          (rowX) => rowX.fips + rowX.race_and_ethnicity?.replace(' (NH)', ''),
-          (rowY) => rowY.fips + rowY.race_and_ethnicity?.replace(' (NH)', ''),
+          (rowX) =>
+            rowX.fips +
+            rowX.fips_name +
+            rowX.race_and_ethnicity?.replace(' (NH)', ''),
+          (rowY) =>
+            rowY.fips +
+            rowY.fips_name +
+            rowY.race_and_ethnicity?.replace(' (NH)', ''),
           (leftRow, rightRow) => ({
             ...leftRow, // Merge fields from df1
             ...rightRow, // Merge fields from df2
@@ -119,8 +128,8 @@ export default function CompareBubbleChartCard(
 
         const mergedData = mergedXYData.join(
           dfPop,
-          (row) => row.fips,
-          (rowPop) => rowPop.fips,
+          (row) => row.fips + row.fips_name,
+          (rowPop) => rowPop.fips + rowPop.fips_name,
           (leftRow, rightRow) => ({
             ...leftRow,
             ...rightRow,
@@ -132,6 +141,7 @@ export default function CompareBubbleChartCard(
 
         const validXData = mergedArray.map((row) => ({
           fips: row.fips,
+          fips_name: row.fips_name,
           [props.demographicType]: row[props.demographicType].replace(
             ' (NH)',
             '',
@@ -141,6 +151,7 @@ export default function CompareBubbleChartCard(
 
         const validYData = mergedArray.map((row) => ({
           fips: row.fips,
+          fips_name: row.fips_name,
           [props.demographicType]: row[props.demographicType].replace(
             ' (NH)',
             '',
@@ -151,7 +162,7 @@ export default function CompareBubbleChartCard(
         const validRadiusData = mergedArray.map((row) => ({
           population: row.population,
           fips: row.fips,
-          // fips_name: row.fips_name,
+          fips_name: row.fips_name,
           [props.demographicType]: row[props.demographicType].replace(
             ' (NH)',
             '',
