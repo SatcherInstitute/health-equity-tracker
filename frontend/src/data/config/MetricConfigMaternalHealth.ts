@@ -1,9 +1,5 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
-import {
-  populationPctShortLabel,
-  populationPctTitle,
-} from './MetricConfigUtils'
 
 export const MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS = [
   'maternal_mortality',
@@ -25,12 +21,12 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Maternal mortality',
     fullDisplayNameInline: 'maternal mortality',
     definition: {
-      text: `Maternal deaths per 100,000 live births.`,
-    },
-    description: {
       text: `Maternal deaths per 100,000 live births. Births were modeled using counts of live births among individuals aged 10 to 54 years between 1999 and 2019. Deaths were modeled from death certificate data for pregnant or recently pregnant individuals aged 10 to 54 years. Maternal deaths are coded as deaths that occurred up to 1 year after the end of pregnancy and were coded with the use of the US standard pregnancy question and/or a specific International Statistical Classification of Diseases and Related Health Problems codes.`,
     },
     dataTableTitle: 'Summary for maternal mortality',
+    ageSubPopulationLabel: 'Ages 10-54',
+    otherSubPopulationLabel: 'New Mothers',
+
     metrics: {
       per100k: {
         timeSeriesCadence: 'yearly',
@@ -38,8 +34,8 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
         chartTitle: 'Maternal mortality',
         trendsCardTitleName: 'Rates of maternal mortality over time',
         columnTitleHeader: 'Maternal mortality',
-        shortLabel: '% maternal_mortality',
-        type: 'pct_rate',
+        shortLabel: 'deaths per 100k live births',
+        type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'maternal_deaths_estimated_total',
           shortLabel: 'Maternal deaths',
@@ -56,14 +52,14 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
       pct_share: {
         chartTitle: 'Share of maternal mortality',
         metricId: 'maternal_mortality_pct_share',
-        columnTitleHeader: 'Share of maternal mortality',
-        shortLabel: '% of maternal_mortality',
+        columnTitleHeader: 'Share of total maternal deaths',
+        shortLabel: '% of maternal deaths',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle: 'Population vs. distribution of total maternal mortality',
           metricId: 'maternal_mortality_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+          columnTitleHeader: 'Share of live births population',
+          shortLabel: '% of live births population',
           type: 'pct_share',
         },
       },
