@@ -63,22 +63,62 @@ function weightedRegression(data: WeightedDataPoint[]): [number, number][] {
   ]
 }
 
+interface TooltipProps {
+  content: {
+    fipsName: string
+    raceAndEthnicity: string
+    xLabel: string
+    xValue: number
+    yLabel: string
+    yValue: number
+    population: number
+  } | null
+  position: { x: number; y: number }
+}
+
+const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
+  if (!content) return null
+
+  return (
+    <div
+      className={`absolute border border-altGrey bg-white p-3 rounded-sm  max-w-sm z-top text-left`}
+      style={{
+        top: position.y,
+        left: position.x,
+      }}
+    >
+      <p className='m-0'>
+        <strong>
+          {content.fipsName}, {content.raceAndEthnicity}
+        </strong>
+      </p>
+      <p className='m-0'>
+        {content.xLabel}: {content.xValue}
+      </p>
+      <p className='m-0'>
+        {content.yLabel}: {content.yValue}
+      </p>
+      <p className='m-0'>Population: {content.population}</p>
+    </div>
+  )
+}
+
 const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
+  const chartRef = useRef<HTMLDivElement>(null)
   const isMd = useIsBreakpointAndUp('md')
   const xRate = props.xMetricConfig.metricId
   const yRate = props.yMetricConfig.metricId
 
   const [resizeCardRef, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement>(null)
-  const tooltipRef = useRef<HTMLDivElement>(null)
-  const [tooltipContent, setTooltipContent] = useState<string | null>(null)
+  const [tooltipContent, setTooltipContent] =
+    useState<TooltipProps['content']>(null)
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
 
-  const height = isMd
-    ? width * HEIGHT_WIDTH_RATIO
-    : Math.min(
-        width / HEIGHT_WIDTH_RATIO,
-        window.innerHeight * HEIGHT_WIDTH_RATIO,
-      )
+  const height = Math.min(
+    isMd ? width * HEIGHT_WIDTH_RATIO : width / HEIGHT_WIDTH_RATIO,
+    window.innerHeight * HEIGHT_WIDTH_RATIO,
+  )
 
   useEffect(() => {
     if (!props.xData || !props.yData || !props.radiusData) {
@@ -113,7 +153,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
           (d) => d[props.radiusMetricConfig?.metricId || ''] as number,
         ) || 4,
       ])
-      .range([4, 40])
+      .range([4, Math.sqrt(window.innerWidth) / 1.5]) //
 
     const g = svg
       .append('g')
@@ -133,7 +173,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .append('text')
       .attr('x', innerWidth / 2)
       .attr('y', 40)
-      .attr('fill', 'black')
+      .attr('fill', het.altBlack)
       .text(props.xMetricConfig.shortLabel)
 
     // Add Y axis
@@ -143,7 +183,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .attr('transform', 'rotate(-90)')
       .attr('y', -40)
       .attr('x', -innerHeight / 2)
-      .attr('fill', 'black')
+      .attr('fill', het.altBlack)
       .attr('text-anchor', 'middle')
       .text(props.yMetricConfig.shortLabel)
 
@@ -180,11 +220,12 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
               ' (NH)',
               '',
             ) as keyof typeof GROUP_COLOR_MAP
-          ] || 'black'
+          ] || het.altBlack
         )
       })
       .attr('opacity', 0.7)
-      .on('mouseover', function (event, d) {
+
+      .on('mouseover', function (event: MouseEvent, d: HetRow) {
         const yDataPoint = props.yData.find(
           (y) =>
             y.fips === d.fips && y.race_and_ethnicity === d.race_and_ethnicity,
@@ -193,26 +234,40 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
           (r) =>
             r.fips === d.fips && r.race_and_ethnicity === d.race_and_ethnicity,
         )
-        const content = `${d.fips_name}, ${d.race_and_ethnicity}<br>${props.xMetricConfig.shortLabel}: ${d[xRate]}<br>${props.yMetricConfig.shortLabel}: ${yDataPoint ? yDataPoint[yRate] : 'N/A'}<br>Population: ${radiusDataPoint ? radiusDataPoint[props.radiusMetricConfig?.metricId || ''] : 'N/A'}`
-        setTooltipContent(content)
+        setTooltipContent({
+          fipsName: d.fips_name,
+          raceAndEthnicity: d.race_and_ethnicity,
+          xLabel: props.xMetricConfig.shortLabel,
+          xValue: d[xRate] as number,
+          yLabel: props.yMetricConfig.shortLabel,
+          yValue: yDataPoint ? (yDataPoint[yRate] as number) : 0,
+          population: radiusDataPoint
+            ? (radiusDataPoint[
+                props.radiusMetricConfig?.metricId || ''
+              ] as number)
+            : 0,
+        })
+        updateTooltipPosition(event)
         d3.select(this).attr('fill', het.timeYellow).attr('opacity', 1)
         if (this.parentNode) {
-          // make hovered bubble rise to the top
           this.parentNode.appendChild(this)
         }
       })
-      .on('mouseout', function (event, d) {
+      .on('mousemove', updateTooltipPosition)
+      .on('mouseout', function () {
         setTooltipContent(null)
-        d3.select(this).attr('fill', (d: any) => {
-          return (
-            GROUP_COLOR_MAP[
-              d.race_and_ethnicity.replace(
-                ' (NH)',
-                '',
-              ) as keyof typeof GROUP_COLOR_MAP
-            ] || 'black'
-          )
-        })
+        d3.select(this)
+          .attr('fill', (d: any) => {
+            return (
+              GROUP_COLOR_MAP[
+                d.race_and_ethnicity.replace(
+                  ' (NH)',
+                  '',
+                ) as keyof typeof GROUP_COLOR_MAP
+              ] || het.altBlack
+            )
+          })
+          .attr('opacity', 0.7)
       })
 
     // Prepare data for weighted regression
@@ -271,30 +326,23 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     props.radiusMetricConfig?.metricId,
   ])
 
+  const updateTooltipPosition = (event: MouseEvent) => {
+    if (chartRef.current) {
+      const chartRect = chartRef.current.getBoundingClientRect()
+      const xPosition = event.clientX - chartRect.left
+      const yPosition = event.clientY - chartRect.top
+      setTooltipPosition({ x: xPosition, y: yPosition })
+    }
+  }
+
   return (
-    <div ref={resizeCardRef}>
-      <svg ref={svgRef} width={width} height={height}>
-        <title>Bubble chart with Weighted Trend Line</title>
-      </svg>
-      {tooltipContent && (
-        <div
-          ref={tooltipRef}
-          style={{
-            position: 'absolute',
-            top: 200,
-            right: 200,
-            backgroundColor: 'white',
-            border: '1px solid #ccc',
-            padding: '10px',
-            borderRadius: '5px',
-            pointerEvents: 'none',
-            opacity: 0.9,
-            maxWidth: '400px',
-            zIndex: 1000,
-          }}
-          dangerouslySetInnerHTML={{ __html: tooltipContent }}
-        />
-      )}
+    <div ref={chartRef} style={{ position: 'relative' }}>
+      <div ref={resizeCardRef} style={{ position: 'relative' }}>
+        <svg ref={svgRef} width={width} height={height}>
+          <title>Bubble chart with Weighted Trend Line</title>
+        </svg>
+        <Tooltip content={tooltipContent} position={tooltipPosition} />
+      </div>
     </div>
   )
 }
