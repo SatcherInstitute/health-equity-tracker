@@ -13,7 +13,7 @@ flask
 flask-cors==5.0.0
 freezegun==1.5.1
 google-api-core[grpc]
-google-auth==2.34.0
+google-auth==2.35.0
 google-cloud
 google-cloud-bigquery
 google-cloud-core
@@ -39,8 +39,8 @@ mypy-extensions==1.0.0
 numpy==2.1.1
 openpyxl==3.1.5
 packaging==24.1
-pandas==2.2.2
-platformdirs==4.3.3
+pandas==2.2.3
+platformdirs==4.3.6
 pluggy==1.5.0
 proto-plus==1.24.0
 protobuf
@@ -48,7 +48,7 @@ pyarrow==17.0.0
 pyasn1-modules==0.4.1
 pyasn1==0.6.1
 pycparser==2.22
-pylint==3.2.7
+pylint==3.3.0
 pyparsing==3.1.4
 pytest==8.3.3
 python-dateutil==2.9.0.post0
