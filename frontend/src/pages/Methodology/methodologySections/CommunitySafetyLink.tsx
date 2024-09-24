@@ -135,8 +135,9 @@ const CommunitySafetyLink = () => {
             </p>
             <p>
               <strong>Age:</strong> WISQARS provides the age of each individual
-              at the time of death. We present this data in several ways,
-              including focused reports, and as a demographic disaggregation.
+              at the time of death. We group and present this data in several
+              ways, both as focused reports and as a demographic
+              disaggregations.
             </p>
             <p>For our "Youth" reports we present:</p>
             <ul className='list-inside list-disc pl-4'>
