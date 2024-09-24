@@ -145,9 +145,9 @@ export const routeConfigs: RouteConfig[] = [
     path: COMMUNITY_SAFETY_LINK,
     component: <CommunitySafetyLink />,
     subLinks: [
-      { label: 'Data Sourcing', path: '#community-safety-data-sourcing' },
-      { label: 'Data Sources', path: '#community-safety-data-sources' },
-      { label: 'Key Terms', path: '#community-safety-key-terms' },
+      { label: 'Data Sourcing', path: 'community-safety-data-sourcing' },
+      { label: 'Data Sources', path: 'community-safety-data-sources' },
+      { label: 'Key Terms', path: 'community-safety-key-terms' },
     ],
     visible: true,
   },
