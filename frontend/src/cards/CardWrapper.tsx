@@ -43,11 +43,9 @@ function CardWrapper(props: {
     props.expanded,
   )
 
-  const defaultClasses = 'shadow-raised bg-white'
-
   const loadingComponent = (
     <div
-      className={`rounded relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={`rounded relative m-2 p-3 shadow-raised bg-white ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
@@ -64,7 +62,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+            className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
             ref={screenshotTargetRef}
             tabIndex={-1}
           >

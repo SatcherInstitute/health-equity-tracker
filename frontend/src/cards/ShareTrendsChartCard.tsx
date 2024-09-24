@@ -119,8 +119,6 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const queries = [inequityQuery]
   pctShareQuery && queries.push(pctShareQuery)
 
-  const defaultClasses = 'shadow-raised bg-white'
-
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -130,7 +128,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
