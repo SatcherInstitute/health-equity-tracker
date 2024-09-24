@@ -117,8 +117,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     '#card-options-menu',
   ]
 
-  const defaultClasses = 'shadow-raised bg-white'
-
   const rateComparisonConfig = rateConfig?.rateComparisonMetricForAlls
 
   if (rateComparisonConfig) {
@@ -146,7 +144,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
     >
       {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {

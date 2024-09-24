@@ -127,8 +127,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     '#card-options-menu',
   ]
 
-  const defaultClasses = 'shadow-raised bg-white'
-
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -138,7 +136,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
