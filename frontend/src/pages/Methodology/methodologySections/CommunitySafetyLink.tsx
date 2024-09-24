@@ -48,7 +48,7 @@ const CommunitySafetyLink = () => {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#community-safety-data-sourcing'
+          id='community-safety-data-sourcing'
         >
           Data Sourcing
         </h3>
@@ -135,19 +135,35 @@ const CommunitySafetyLink = () => {
             </p>
             <p>
               <strong>Age:</strong> WISQARS provides the age of each individual
-              at the time of death. We categorized age into the following
+              at the time of death. We present this data in several ways,
+              including focused reports, and as a demographic disaggregation.
+            </p>
+            <p>For our "Youth" reports we present:</p>
+            <ul className='list-inside list-disc pl-4'>
+              <li>0-17 years old (Children)</li>
+              <li>18-25 years old (Young Adults)</li>
+            </ul>
+            <p>
+              For our other reports, we categorize age into the following
               groups:
             </p>
+
             <ul className='list-inside list-disc pl-4'>
-              <li>0-17 years old</li>
-              <li>18-25 years old</li>
+              <li>0-14 years old</li>
+              <li>15-19 years old</li>
+              <li>20-24 years old</li>
+              <li>25-29 years old</li>
+              <li>30-34 years old</li>
+              <li>35-44 years old</li>
+              <li>45-64 years old</li>
+              <li>65 years old and over</li>
             </ul>
           </div>
         </section>
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#community-safety-data-sources'
+          id='community-safety-data-sources'
         >
           Data Sources
         </h3>
@@ -172,7 +188,7 @@ const CommunitySafetyLink = () => {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#community-safety-key-terms'
+          hashId='community-safety-key-terms'
           datatypeConfigs={dataTypeConfigs}
         />
       </article>
