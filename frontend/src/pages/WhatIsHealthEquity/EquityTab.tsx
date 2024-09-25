@@ -2,25 +2,13 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import FaqSection from '../ui/FaqSection'
-import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { EquityTabNewsCard } from './EquityTabNewsCard'
 import { NEWS_ARTICLES } from './EquityTabNewsCardData'
-import { useQuery } from 'react-query'
-import {
-  ARTICLES_KEY_4,
-  fetchLandingPageNewsData,
-  REACT_QUERY_OPTIONS,
-} from '../../utils/blogUtils'
 
 export default function EquityTab() {
-  const { isLoading, error, data }: any = useQuery(
-    ARTICLES_KEY_4,
-    fetchLandingPageNewsData,
-    REACT_QUERY_OPTIONS,
-  )
   return (
     <>
       <Helmet>
@@ -29,18 +17,11 @@ export default function EquityTab() {
       <div className='m-auto flex w-full max-w-lgXl flex-wrap xs:px-8 sm:px-24'>
         <div className='flex w-full items-center justify-center border-0 border-b border-solid border-borderColor'>
           <figure className='mx-auto mt-0 hidden p-2 text-left md:block md:w-1/3'>
-            <LazyLoad
-              offset={300}
-              height={760}
-              once
-              className='flex justify-center'
-            >
-              <img
-                alt=''
-                className='m-5 h-auto w-9/12 max-w-equityLogo rounded-md'
-                src='/img/stock/woman-in-wheelchair-with-tea.png'
-              />
-            </LazyLoad>
+            <img
+              alt=''
+              className='m-5 h-auto w-9/12 max-w-equityLogo rounded-md'
+              src='/img/stock/woman-in-wheelchair-with-tea.png'
+            />
           </figure>
           <div className='w-full border-0 px-15 py-8 md:w-2/3 md:border-l md:border-solid md:px-16 md:py-28'>
             <header className='mb-10'>
@@ -199,43 +180,36 @@ export default function EquityTab() {
               </div>
               <LazyLoad offset={300} height={700} once>
                 <div className='grid gap-6'>
-                  {isLoading ? (
-                    <HetPostsLoading
-                      className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
-                      doPulse={!error}
-                    />
-                  ) : (
-                    <>
-                      <div className='grid md:grid-cols-2 gap-6 xs:grid-cols-1'>
-                        {NEWS_ARTICLES.slice(0, 2).map((article) => (
-                          <EquityTabNewsCard
-                            key={article.title}
-                            href={article.href}
-                            ariaLabel={article.ariaLabel}
-                            imgSrc={article.imgSrc}
-                            imgAlt={article.imgAlt}
-                            title={article.title}
-                            description={article.description}
-                            readMoreHref={article.readMoreHref}
-                          />
-                        ))}
-                      </div>
-                      <div className='grid md:grid-cols-3 gap-6 xs:grid-cols-1 mt-6'>
-                        {NEWS_ARTICLES.slice(2).map((article) => (
-                          <EquityTabNewsCard
-                            key={article.title}
-                            href={article.href}
-                            ariaLabel={article.ariaLabel}
-                            imgSrc={article.imgSrc}
-                            imgAlt={article.imgAlt}
-                            title={article.title}
-                            description={article.description}
-                            readMoreHref={article.readMoreHref}
-                          />
-                        ))}
-                      </div>
-                    </>
-                  )}
+                  <>
+                    <div className='grid md:grid-cols-2 gap-6 xs:grid-cols-1'>
+                      {NEWS_ARTICLES.slice(0, 2).map((article) => (
+                        <EquityTabNewsCard
+                          key={article.title}
+                          href={article.href}
+                          ariaLabel={article.ariaLabel}
+                          imgSrc={article.imgSrc}
+                          imgAlt={article.imgAlt}
+                          title={article.title}
+                          description={article.description}
+                          readMoreHref={article.readMoreHref}
+                        />
+                      ))}
+                    </div>
+                    <div className='grid md:grid-cols-3 gap-6 xs:grid-cols-1 mt-6'>
+                      {NEWS_ARTICLES.slice(2).map((article) => (
+                        <EquityTabNewsCard
+                          key={article.title}
+                          href={article.href}
+                          ariaLabel={article.ariaLabel}
+                          imgSrc={article.imgSrc}
+                          imgAlt={article.imgAlt}
+                          title={article.title}
+                          description={article.description}
+                          readMoreHref={article.readMoreHref}
+                        />
+                      ))}
+                    </div>
+                  </>
                 </div>
               </LazyLoad>
             </div>

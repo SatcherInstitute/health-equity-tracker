@@ -101,7 +101,6 @@ export const NAVIGATION_STRUCTURE = {
     label: 'About',
     pages: {
       [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-      // [GUN_VIOLENCE_POLICY]: 'Policy Context',
       [ABOUT_US_PAGE_LINK]: 'About Us',
     },
   },
@@ -111,6 +110,7 @@ export const NAVIGATION_STRUCTURE = {
       [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
       [DATA_CATALOG_PAGE_LINK]: 'Source Files',
       [METHODOLOGY_PAGE_LINK]: 'Methodology',
+      [GUN_VIOLENCE_POLICY]: 'Policy Context',
     },
   },
   mediaAndUpdates: {

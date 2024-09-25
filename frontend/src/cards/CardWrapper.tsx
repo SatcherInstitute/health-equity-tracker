@@ -45,7 +45,7 @@ function CardWrapper(props: {
 
   const loadingComponent = (
     <div
-      className={`rounded relative m-2 p-3 shadow-raised bg-white ${props.className}`}
+      className={`rounded relative m-2 p-3 shadow-raised bg-white flex justify-center ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
