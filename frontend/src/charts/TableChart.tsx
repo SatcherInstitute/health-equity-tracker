@@ -234,14 +234,18 @@ export function TableChart(props: TableChartProps) {
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
             <Table {...getTableProps()}>
               <TableHead>
-                {headerGroups.map((group, index) => (
-                  <TableHeaderRow group={group} key={index} />
-                ))}
-              </TableHead>
+                {headerGroups.map((group, index) => {
+                  const uniqueKey = group.id ? group.id : `group-${index}`
+
+                  return <TableHeaderRow group={group} key={uniqueKey} />
+                })}
+              </TableHead>{' '}
               <TableBody {...getTableBodyProps()}>
-                {page.map((row: ReactTableRowType<any>, index) => (
-                  <TableDataRow row={row} key={index} />
-                ))}
+                {page.map((row: ReactTableRowType<any>, index) => {
+                  const uniqueKey = row.id ? row.id : `row-${index}`
+
+                  return <TableDataRow row={row} key={uniqueKey} />
+                })}
               </TableBody>
               {/* If the number of rows is less than the smallest page size, we can hide pagination */}
               {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
