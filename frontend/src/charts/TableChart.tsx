@@ -235,12 +235,15 @@ export function TableChart(props: TableChartProps) {
             <Table {...getTableProps()}>
               <TableHead>
                 {headerGroups.map((group, index) => (
-                  <TableHeaderRow group={group} key={index} />
+                  <TableHeaderRow
+                    group={group}
+                    key={group.id || `group-${index}`}
+                  />
                 ))}
-              </TableHead>
+              </TableHead>{' '}
               <TableBody {...getTableBodyProps()}>
                 {page.map((row: ReactTableRowType<any>, index) => (
-                  <TableDataRow row={row} key={index} />
+                  <TableDataRow row={row} key={row.id || `row-${index}`} />
                 ))}
               </TableBody>
               {/* If the number of rows is less than the smallest page size, we can hide pagination */}

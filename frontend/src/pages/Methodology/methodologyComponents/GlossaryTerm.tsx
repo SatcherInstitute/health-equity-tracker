@@ -26,13 +26,13 @@ export default function GlossaryTerm(props: GlossaryTermProps) {
 
   return (
     <>
-      {sortedDefinitionItems.map(([itemKey, itemVal], index) => {
+      {sortedDefinitionItems.map(([itemKey, itemVal]) => {
         const glossaryDefinition = itemVal.definitions.find(
           (def) => def.key === 'Measurement Definition',
         )?.description
 
         return (
-          <div key={index} className='mx-auto my-4'>
+          <div key={itemKey} className='mx-auto my-4'>
             <h4 className='mx-auto mb-0 mt-1 font-sansTitle text-text font-medium text-altGreen '>
               {itemKey}
             </h4>

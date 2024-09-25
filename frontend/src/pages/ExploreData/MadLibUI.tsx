@@ -131,7 +131,13 @@ export default function MadLibUI(props: MadLibUIProps) {
               )
 
               return (
-                <React.Fragment key={index}>
+                <React.Fragment
+                  key={
+                    typeof phraseSegment === 'string'
+                      ? phraseSegment
+                      : `phrase-${index}`
+                  }
+                >
                   {typeof phraseSegment === 'string' ? (
                     // NON_INTERACTIVE MADLIB WORDS
                     <span className='text-altBlack'>
