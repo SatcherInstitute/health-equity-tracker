@@ -1,5 +1,5 @@
-import { Link } from '@mui/material'
 import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 interface HetNavLinkProps {
   children: ReactNode
@@ -20,16 +20,14 @@ export default function HetNavLink({
   className,
   linkClassName,
   ariaLabel,
-  underline = false,
 }: HetNavLinkProps) {
   return (
     <Link
       color='primary'
-      href={href || '#'}
+      to={href || '#'}
       onClick={onClick}
       aria-label={ariaLabel}
       id={id}
-      underline={underline ? 'always' : 'none'}
       className={`no-underline cursor-pointer flex items-center ${linkClassName ?? ''}`}
     >
       <span
