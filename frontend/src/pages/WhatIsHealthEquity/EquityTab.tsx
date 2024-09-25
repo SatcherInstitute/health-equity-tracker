@@ -184,7 +184,7 @@ export default function EquityTab() {
                     <div className='grid md:grid-cols-2 gap-6 xs:grid-cols-1'>
                       {NEWS_ARTICLES.slice(0, 2).map((article) => (
                         <EquityTabNewsCard
-                          key={article.href}
+                          key={article.title}
                           href={article.href}
                           ariaLabel={article.ariaLabel}
                           imgSrc={article.imgSrc}
@@ -198,7 +198,7 @@ export default function EquityTab() {
                     <div className='grid md:grid-cols-3 gap-6 xs:grid-cols-1 mt-6'>
                       {NEWS_ARTICLES.slice(2).map((article) => (
                         <EquityTabNewsCard
-                          key={article.href}
+                          key={article.title}
                           href={article.href}
                           ariaLabel={article.ariaLabel}
                           imgSrc={article.imgSrc}
