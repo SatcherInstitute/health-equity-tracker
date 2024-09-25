@@ -21,25 +21,25 @@ export default function FormulaFormat(props: FormulaFormatProps) {
         </div>
         <div className='px-2 py-1'>{' = '}</div>
 
-        {props.rightSide.map((item) => {
-          const uniqueKey =
-            typeof item === 'string'
-              ? item
-              : `${item.numerator}-${item.denominator}`
-
-          return (
-            <div className='p-2' key={uniqueKey}>
-              {typeof item === 'string' ? (
-                item
-              ) : (
-                <FractionFormat
-                  numerator={item.numerator}
-                  denominator={item.denominator}
-                />
-              )}
-            </div>
-          )
-        })}
+        {props.rightSide.map((item) => (
+          <div
+            className='p-2'
+            key={
+              typeof item === 'string'
+                ? item
+                : `${item.numerator}-${item.denominator}`
+            }
+          >
+            {typeof item === 'string' ? (
+              item
+            ) : (
+              <FractionFormat
+                numerator={item.numerator}
+                denominator={item.denominator}
+              />
+            )}
+          </div>
+        ))}
       </code>
     </div>
   )

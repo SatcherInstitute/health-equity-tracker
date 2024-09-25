@@ -147,18 +147,17 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
             <Table {...getTableProps()}>
               <TableHead>
-                {headerGroups.map((group, index) => {
-                  const uniqueKey = group.id ? group.id : `group-${index}`
-
-                  return <TableHeaderRow group={group} key={uniqueKey} />
-                })}
+                {headerGroups.map((group, index) => (
+                  <TableHeaderRow
+                    group={group}
+                    key={group.id || `group-${index}`}
+                  />
+                ))}
               </TableHead>
               <TableBody {...getTableBodyProps()}>
-                {rows.map((row: ReactTableRowType<any>, index) => {
-                  const uniqueKey = row.id ? row.id : `row-${index}`
-
-                  return <TableDataRow row={row} key={uniqueKey} />
-                })}
+                {rows.map((row: ReactTableRowType<any>, index) => (
+                  <TableDataRow row={row} key={row.id || `row-${index}`} />
+                ))}
               </TableBody>
               <TableFooter>
                 <TableRow />

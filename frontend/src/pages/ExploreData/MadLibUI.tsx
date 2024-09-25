@@ -132,7 +132,11 @@ export default function MadLibUI(props: MadLibUIProps) {
 
               return (
                 <React.Fragment
-                  key={`${typeof phraseSegment === 'string' ? phraseSegment : Object.values(phraseSegment).join('')}`}
+                  key={
+                    typeof phraseSegment === 'string'
+                      ? phraseSegment
+                      : `phrase-${index}`
+                  }
                 >
                   {typeof phraseSegment === 'string' ? (
                     // NON_INTERACTIVE MADLIB WORDS

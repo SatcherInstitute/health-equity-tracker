@@ -33,20 +33,20 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
       >
         <TableHead>
           <TableRow>
-            {rowData.map((cell, index) => {
-              const uniqueKey =
-                typeof cell.content === 'string'
-                  ? cell.content
-                  : `cell-${index}`
-
-              return (
-                <TableCell className='flex content-baseline' key={uniqueKey}>
-                  <pre className='mx-auto my-0 border-none bg-opacity-0'>
-                    {cell.content}
-                  </pre>
-                </TableCell>
-              )
-            })}
+            {rowData.map((cell, index) => (
+              <TableCell
+                className='flex content-baseline'
+                key={
+                  typeof cell.content === 'string'
+                    ? cell.content
+                    : `cell-${index}`
+                }
+              >
+                <pre className='mx-auto my-0 border-none bg-opacity-0'>
+                  {cell.content}
+                </pre>
+              </TableCell>
+            ))}
           </TableRow>
         </TableHead>
       </Table>
