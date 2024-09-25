@@ -55,7 +55,7 @@ export default function HetAppToolbar() {
           <HetNavLink
             key={key}
             href={value.link}
-            className='my-0 w-auto p-0 font-sansTitle text-small font-medium text-navlinkColor'
+            className='my-0 w-auto px-2 mx-2 font-sansTitle text-small font-medium text-navlinkColor'
           >
             {value.label}
           </HetNavLink>
@@ -83,7 +83,11 @@ export default function HetAppToolbar() {
 
       <nav className='flex flex-wrap justify-evenly'>
         {renderNavItems(NAVIGATION_STRUCTURE)}
-        <HetCTASmall id='navigationCTA' href={EXPLORE_DATA_PAGE_LINK} className='ml-4'>
+        <HetCTASmall
+          id='navigationCTA'
+          href={EXPLORE_DATA_PAGE_LINK}
+          className='ml-4'
+        >
           Explore the data
         </HetCTASmall>
       </nav>

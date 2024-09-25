@@ -6,6 +6,7 @@ import {
   Collapse,
   Toolbar,
   ListItemButton,
+  ListItem,
 } from '@mui/material'
 import {
   Close,
@@ -19,6 +20,7 @@ import HetCTASmall from './HetCTASmall'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import HetNavLink from './HetNavLink'
 import AppBarLogo from '../../assets/AppbarLogo.png'
+import { Link } from 'react-router-dom'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
@@ -41,16 +43,17 @@ export default function HetMobileAppToolbar() {
               {expandedMenu === key ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={expandedMenu === key} timeout='auto' unmountOnExit>
-              <List component='div' disablePadding>
-                {Object.entries(value.pages).map(([subKey, subValue]) => (
-                  <ListItemLink href={subKey} key={subKey} sx={{ pl: 4 }}>
-                    <ListItemText
-                      className='text-altBlack'
-                      primary={subValue}
-                    />
-                  </ListItemLink>
-                ))}
-              </List>
+              {Object.entries(value.pages).map(([subKey, subValue]) => (
+                <ListItem
+                  key={subKey}
+                  component={Link}
+                  to={subKey}
+                  className='pl-8  no-underline'
+                  onClick={() => setOpen(false)}
+                >
+                  <ListItemText className='text-altBlack' primary={subValue} />
+                </ListItem>
+              ))}
             </Collapse>
           </div>
         )
@@ -58,9 +61,14 @@ export default function HetMobileAppToolbar() {
 
       if ('link' in value) {
         return (
-          <ListItemLink href={value.link} key={key}>
+          <ListItem
+            onClick={() => setOpen(false)}
+            component={Link}
+            to={value.link}
+            key={key}
+          >
             <ListItemText className='text-altBlack' primary={value.label} />
-          </ListItemLink>
+          </ListItem>
         )
       }
 
@@ -124,8 +132,4 @@ export default function HetMobileAppToolbar() {
       </Drawer>
     </Toolbar>
   )
-}
-
-function ListItemLink(props: any) {
-  return <ListItemButton component='a' {...props} />
 }
