@@ -10,7 +10,7 @@ export default function HowToUseTheDataTab() {
       </Helmet>
       <h2 className='sr-only'>How To Use The Data</h2>
       <section
-        id='#het-data-visualizations'
+        id='het-data-visualizations'
         className='max-w-svw w-fit mx-0 px-0'
       >
         <HetOverline text='How to Use the Data' />

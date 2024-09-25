@@ -4,7 +4,7 @@ import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
 
 export default function DataSourcesLink() {
   return (
-    <section id='#data-sources'>
+    <section id='data-sources'>
       <article>
         <Helmet>
           <title>Data Sources - Health Equity Tracker</title>
@@ -27,7 +27,7 @@ export default function DataSourcesLink() {
             relevant details, can be found in our data catalog.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='#data-collection'>
+          <h3 className='mt-12 text-title font-medium' id='data-collection'>
             Data Collection
           </h3>
           <ul className='list-disc pl-4'>
@@ -42,7 +42,7 @@ export default function DataSourcesLink() {
             </li>
           </ul>
 
-          <h3 className='mt-12 text-title font-medium' id='#data-processing'>
+          <h3 className='mt-12 text-title font-medium' id='data-processing'>
             Data Processing
           </h3>
 
@@ -68,7 +68,7 @@ export default function DataSourcesLink() {
 
           <h3
             className='mt-12 text-title font-medium'
-            id='#visualization-techniques'
+            id='visualization-techniques'
           >
             Visualization Techniques
           </h3>
@@ -79,10 +79,7 @@ export default function DataSourcesLink() {
             tailored to the specific type of data being presented.
           </p>
 
-          <h3
-            className='mt-12 text-title font-medium'
-            id='#dataset-limitations'
-          >
+          <h3 className='mt-12 text-title font-medium' id='dataset-limitations'>
             Dataset Limitations
           </h3>
           <p>
@@ -93,7 +90,7 @@ export default function DataSourcesLink() {
 
           <h3
             className='mt-12 text-title font-medium'
-            id='#updates-and-revisions'
+            id='updates-and-revisions'
           >
             Updates and Revisions
           </h3>
@@ -105,7 +102,7 @@ export default function DataSourcesLink() {
 
           <h3
             className='mt-12 text-title font-medium'
-            id='#stakeholder-engagement'
+            id='stakeholder-engagement'
           >
             Stakeholder Engagement
           </h3>
@@ -117,7 +114,7 @@ export default function DataSourcesLink() {
 
           <h3
             className='mt-12 text-title font-medium'
-            id='#references-and-citations'
+            id='references-and-citations'
           >
             References and Citations
           </h3>
@@ -139,10 +136,7 @@ export default function DataSourcesLink() {
             <a href='https://healthequitytracker.org/contact'>contact us</a>.
           </p>
 
-          <h3
-            className='mt-12 text-title font-medium'
-            id='#contact-information'
-          >
+          <h3 className='mt-12 text-title font-medium' id='contact-information'>
             Contact Information
           </h3>
           <div className='flex w-full flex-col items-center'>

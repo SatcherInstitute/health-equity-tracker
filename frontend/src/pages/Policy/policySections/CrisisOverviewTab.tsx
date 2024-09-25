@@ -21,7 +21,7 @@ export default function CrisisOverviewTab() {
         Understanding the Crisis of Gun Violence in Atlanta
       </h2>
       <div className='flex flex-col gap-2'>
-        <section id='#introduction'>
+        <section id='introduction'>
           <p>
             The Health Equity Tracker (HET) in partnership with The Annie E.
             Casey Foundation expanded its topics to track and integrate gun
@@ -53,7 +53,7 @@ export default function CrisisOverviewTab() {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow = isMdAndUp && index % 2 !== 0
               const uniqueKey = `fact-${index}`
-
+              
               return (
                 <div
                   key={uniqueKey}
@@ -89,7 +89,7 @@ export default function CrisisOverviewTab() {
                   className={`fade-in-up-blur ${index % 2 === 0 ? 'shadow-raised-tighter' : null}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <FactCard key={uniqueKey} content={gvaFact.content} />
+                  <FactCard key={index} content={gvaFact.content} />
                 </li>
               )
             })}

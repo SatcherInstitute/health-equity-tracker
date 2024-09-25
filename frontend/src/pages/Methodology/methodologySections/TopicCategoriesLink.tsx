@@ -13,7 +13,7 @@ const numDataSources = Object.keys(dataSourceMetadataMap).length
 
 export default function TopicCategoriesLink() {
   return (
-    <section id='#categories'>
+    <section id='categories'>
       <article>
         <Helmet>
           <title>Topics by Category - Health Equity Tracker</title>
@@ -46,11 +46,11 @@ export default function TopicCategoriesLink() {
           challenges and needs of diverse communities.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#categories'>
+        <h3 className='mt-12 text-title font-medium' id='categories'>
           Categories
         </h3>
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },

@@ -34,7 +34,7 @@ export const covidTopicsString = buildTopicsString(COVID_CATEGORY_DROPDOWNIDS)
 
 export default function Covid19Link() {
   return (
-    <section id='#covid-19'>
+    <section id='covid-19'>
       <article>
         <Helmet>
           <title>COVID-19 - Health Equity Tracker</title>
@@ -42,7 +42,7 @@ export default function Covid19Link() {
         <h2 className='sr-only'>COVID-19</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -56,7 +56,7 @@ export default function Covid19Link() {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='#covid-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='covid-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -70,7 +70,7 @@ export default function Covid19Link() {
         </p>
         <h3
           className='mt-12 text-title font-medium'
-          id='#covid-age-and-demographic-data-analysis'
+          id='covid-age-and-demographic-data-analysis'
         >
           Age and Demographic Data Analysis
         </h3>
@@ -82,7 +82,7 @@ export default function Covid19Link() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#covid-geographical-reporting'
+          id='covid-geographical-reporting'
         >
           Geographical Distribution and Reporting
         </h3>
@@ -106,7 +106,7 @@ export default function Covid19Link() {
           lapse in accurate demographic reporting.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#covid-time-series'>
+        <h3 className='mt-12 text-title font-medium' id='covid-time-series'>
           Time-Series and Temporal Analysis
         </h3>
         <p>
@@ -149,7 +149,7 @@ export default function Covid19Link() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#covid-missing-and-suppressed-data'
+          id='covid-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
         </h3>
@@ -163,7 +163,7 @@ export default function Covid19Link() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#covid-vaccination-data-analysis'
+          id='covid-vaccination-data-analysis'
         >
           Vaccination Data Compilation and Analysis
         </h3>
@@ -199,7 +199,7 @@ export default function Covid19Link() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#covid-vaccination-demographic-estimates'
+          id='covid-vaccination-demographic-estimates'
         >
           Demographic Population Estimates for Vaccination Data
         </h3>
@@ -259,7 +259,7 @@ export default function Covid19Link() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#covid-data-limitations'
+          id='covid-data-limitations'
         >
           Data Limitations and Specific Considerations
         </h3>
@@ -290,7 +290,7 @@ export default function Covid19Link() {
           administered, adding another layer to our comprehensive analysis.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#covid-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='covid-data-sources'>
           COVID-19 Data Sources
         </h3>
         <StripedTable
@@ -312,12 +312,12 @@ export default function Covid19Link() {
           }))}
         />
         <KeyTermsTopicsAccordion
-          hashId='#covid-key-terms'
+          hashId='covid-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
 
         <Resources
-          id='#covid-resources'
+          id='covid-resources'
           resourceGroups={[COVID_RESOURCES, COVID_VACCINATION_RESOURCES]}
         />
       </article>

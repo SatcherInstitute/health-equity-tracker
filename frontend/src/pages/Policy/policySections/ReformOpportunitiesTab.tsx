@@ -26,7 +26,7 @@ export default function ReformOpportunitiesTab() {
         causes of violence through equity-focused policies.
       </p>
 
-      <section id='#where-to-start'>
+      <section id='where-to-start'>
         <HetOverline text='Where to Start' />
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Insights from the Advocacy Community
@@ -60,7 +60,7 @@ export default function ReformOpportunitiesTab() {
         </ul>
       </section>
 
-      <section id='#legislative-items'>
+      <section id='legislative-items'>
         <HetOverline
           text='
 

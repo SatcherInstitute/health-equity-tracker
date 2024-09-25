@@ -24,7 +24,7 @@ export const dataTypeConfigs = COMMUNITY_SAFETY_DROPDOWNIDS.flatMap(
 
 const CommunitySafetyLink = () => {
   return (
-    <section id='#community-safety'>
+    <section id='community-safety'>
       <article>
         <Helmet>
           <title>Community Safety - Health Equity Tracker</title>
@@ -32,7 +32,7 @@ const CommunitySafetyLink = () => {
         <h2 className='sr-only'>Community Safety</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
