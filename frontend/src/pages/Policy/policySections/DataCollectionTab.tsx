@@ -11,7 +11,7 @@ export default function DataCollectionTab() {
         <title>Data Collection - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Data Collection</h2>
-      <section id='#source-profile'>
+      <section id='source-profile'>
         <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group mb-8 mt-8'>
           <HetOverline className='my-0' text='Source Profile' />
           <h3 className='my-0 text-title font-medium'>
@@ -57,7 +57,7 @@ export default function DataCollectionTab() {
           </ul>
         </article>
       </section>
-      <section id='#key-metrics'>
+      <section id='key-metrics'>
         <div className='mb-0'>
           <HetOverline text='Our Methods' />
           <h4 className='my-0 text-title font-medium text-altGreen'>
@@ -72,7 +72,7 @@ export default function DataCollectionTab() {
           crucial for understanding the impact within the Atlanta community.
         </p>
       </section>
-      <section id='#data-limitations'>
+      <section id='data-limitations'>
         <h3 className='my-0 text-title font-medium text-altGreen'>
           Data Limitations
         </h3>
@@ -85,7 +85,7 @@ export default function DataCollectionTab() {
         </p>
       </section>
 
-      <section id='#fatality-definitions'>
+      <section id='fatality-definitions'>
         <h3 className='my-4 text-title font-medium text-altGreen'>
           Fatality Definitions
         </h3>
@@ -101,7 +101,7 @@ export default function DataCollectionTab() {
           rows={gvDefinitions}
         />
       </section>
-      <section id='#available-data'>
+      <section id='available-data'>
         <h3 className='mt-6 mb-2 text-title font-medium text-altGreen'>
           Available Data
         </h3>

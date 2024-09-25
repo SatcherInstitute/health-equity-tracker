@@ -35,7 +35,7 @@ export const routeConfigs: RouteConfig[] = [
     subLinks: [
       {
         label: 'Understanding the Crisis of Gun Violence in Atlanta',
-        path: '#introduction',
+        path: 'introduction',
       },
     ],
     visible: true,
@@ -48,23 +48,23 @@ export const routeConfigs: RouteConfig[] = [
     subLinks: [
       {
         label: `CDC's WISQARS™`,
-        path: '#source-profile',
+        path: 'source-profile',
       },
       {
         label: 'Key Metrics',
-        path: '#key-metrics',
+        path: 'key-metrics',
       },
       {
         label: 'Data Limitations',
-        path: '#data-limitations',
+        path: 'data-limitations',
       },
       {
         label: 'Fatality Definitions',
-        path: '#fatality-definitions',
+        path: 'fatality-definitions',
       },
       {
         label: 'Available Data',
-        path: '#available-data',
+        path: 'available-data',
       },
     ],
     visible: true,
@@ -77,19 +77,19 @@ export const routeConfigs: RouteConfig[] = [
     subLinks: [
       {
         label: `Georgia's Youth Fatality Rates`,
-        path: '#ga-youth-fatalities',
+        path: 'ga-youth-fatalities',
       },
       {
         label: `Georgia's Homicide Rates`,
-        path: '#ga-homicides',
+        path: 'ga-homicides',
       },
       {
         label: `Georgia's Suicide Rates`,
-        path: '#ga-suicides',
+        path: 'ga-suicides',
       },
       {
         label: `Georgia's Homicide Rates Among Black Men`,
-        path: '#ga-homicides-city-size',
+        path: 'ga-homicides-city-size',
       },
     ],
     visible: true,
@@ -102,27 +102,27 @@ export const routeConfigs: RouteConfig[] = [
     subLinks: [
       {
         label: 'Health Inequities Defined',
-        path: '#health-inequities-definition',
+        path: 'health-inequities-definition',
       },
       {
         label: 'Economic Inequality',
-        path: '#economic-inequality',
+        path: 'economic-inequality',
       },
       {
         label: 'Educational Opportunities',
-        path: '#educational-opportunities',
+        path: 'educational-opportunities',
       },
       {
         label: 'Racial and Social Justice',
-        path: '#racial-and-social-justice',
+        path: 'racial-and-social-justice',
       },
       {
         label: 'Mental Health Services',
-        path: '#mental-health-services',
+        path: 'mental-health-services',
       },
       {
         label: 'Community Engagement',
-        path: '#community-engagement',
+        path: 'community-engagement',
       },
     ],
     visible: true,
@@ -135,11 +135,11 @@ export const routeConfigs: RouteConfig[] = [
     subLinks: [
       {
         label: 'Insights from the Advocacy Community',
-        path: '#where-to-start',
+        path: 'where-to-start',
       },
       {
         label: 'Legislative Items to Consider for Policy Changes',
-        path: '#legislative-items',
+        path: 'legislative-items',
       },
     ],
     visible: true,
@@ -152,35 +152,35 @@ export const routeConfigs: RouteConfig[] = [
     subLinks: [
       {
         label: 'HET Data Visualization Maps and Charts',
-        path: '#het-data-visualizations',
+        path: 'het-data-visualizations',
       },
       {
         label: 'Rate Choropleth Map',
-        path: '#rate-choropleth-map',
+        path: 'rate-choropleth-map',
       },
       {
         label: 'Rates Over Time Chart',
-        path: '#rates-over-time-chart',
+        path: 'rates-over-time-chart',
       },
       {
         label: 'Rate Bar Chart',
-        path: '#rate-bar-chart',
+        path: 'rate-bar-chart',
       },
       {
         label: 'Unknown Demographic Choropleth Map',
-        path: '#unknown-demographic-choropleth-map',
+        path: 'unknown-demographic-choropleth-map',
       },
       {
         label: 'Relative Inequity Chart',
-        path: '#relative-inequity-chart',
+        path: 'relative-inequity-chart',
       },
       {
         label: 'Population vs. Distribution Stacked Bar Chart',
-        path: '#population-vs-distribution-stacked-bar-chart',
+        path: 'population-vs-distribution-stacked-bar-chart',
       },
       {
         label: 'Breakdown Summary Data Table',
-        path: '#breakdown-summary-data-table',
+        path: 'breakdown-summary-data-table',
       },
     ],
     visible: true,

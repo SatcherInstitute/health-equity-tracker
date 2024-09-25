@@ -7,7 +7,7 @@ export default function DataMethodDefinitionsLink() {
   const sviYear = DatasetMetadataMap['geo_context-county'].original_data_sourced
 
   return (
-    <section id='#data-methods'>
+    <section id='data-methods'>
       <article>
         <Helmet>
           <title>Data Methods - Health Equity Tracker</title>

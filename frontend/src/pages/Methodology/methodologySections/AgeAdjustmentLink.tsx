@@ -50,7 +50,7 @@ const AGE_ADJUSTED_RESOURCES = [
 const AgeAdjustmentLink = () => {
   return (
     <>
-      <section id='#age-adjusted-ratios'>
+      <section id='age-adjusted-ratios'>
         {' '}
         <Helmet>
           <title>Age-Adjustment - Health Equity Tracker</title>
@@ -124,7 +124,7 @@ const AgeAdjustmentLink = () => {
               </a>
               .
             </p>
-            <h3 id='#data-sourcing' className='mt-20 text-title font-medium'>
+            <h3 id='data-sourcing' className='mt-20 text-title font-medium'>
               Data Sourcing
             </h3>
             <p>
@@ -177,7 +177,7 @@ const AgeAdjustmentLink = () => {
                 </ul>
               </li>
             </ol>
-            <h3 id='#algorithm' className='mt-20 text-title font-medium'>
+            <h3 id='algorithm' className='mt-20 text-title font-medium'>
               Algorithm
             </h3>
             <p>
@@ -279,7 +279,7 @@ const AgeAdjustmentLink = () => {
             </ol>
 
             <h3
-              id='#age-adjustment-examples'
+              id='age-adjustment-examples'
               className='text-left font-serif text-smallestHeader font-light text-altBlack'
             >
               Age-Adjustment Example: HIV Deaths
@@ -886,7 +886,7 @@ const AgeAdjustmentLink = () => {
             <div className='mb-12 mt-24 flex w-full justify-center'>
               <HetCTABig
                 href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
-                id='#age-adjustment-explore'
+                id='age-adjustment-explore'
               >
                 <span>Explore age-adjusted ratios →</span>
               </HetCTABig>
@@ -896,11 +896,11 @@ const AgeAdjustmentLink = () => {
       </section>
       <section>
         <KeyTermsAccordion
-          id='#age-adjustment-key-terms'
+          id='age-adjustment-key-terms'
           definitionsArray={ageAdjustTerms}
         />
         <Resources
-          id='#age-adjustment-resources'
+          id='age-adjustment-resources'
           resourceGroups={AGE_ADJUSTED_RESOURCES}
         />
       </section>

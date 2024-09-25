@@ -16,7 +16,7 @@ export default function OurFindingsTab() {
         <title>Addressing Inequities - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Addressing Inequities</h2>
-      <section id='#ga-youth-fatalities'>
+      <section id='ga-youth-fatalities'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
           <h3 className='my-0 text-title font-medium text-altGreen'>
@@ -41,7 +41,7 @@ export default function OurFindingsTab() {
           ))}
         </div>
       </section>
-      <section id='#ga-homicides'>
+      <section id='ga-homicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
           <h3 className='my-0 text-title font-medium text-altGreen'>
@@ -66,7 +66,7 @@ export default function OurFindingsTab() {
         </div>
       </section>
 
-      <section id='#ga-suicides'>
+      <section id='ga-suicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
           <h3 className='my-0 text-title font-medium text-altGreen'>
@@ -91,7 +91,7 @@ export default function OurFindingsTab() {
           ))}
         </div>
       </section>
-      <section id='#ga-homicides-city-size'>
+      <section id='ga-homicides-city-size'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
           <h3 className='my-0 text-title font-medium text-altGreen'>

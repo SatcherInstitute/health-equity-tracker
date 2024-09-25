@@ -7,7 +7,7 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 export default function MetricsLink() {
   return (
-    <section id='#metrics'>
+    <section id='metrics'>
       <article>
         <Helmet>
           <title>Metrics - Health Equity Tracker</title>
@@ -15,10 +15,7 @@ export default function MetricsLink() {
         <h2 className='sr-only'>Metrics</h2>
         <ConditionVariable definitions={metricDefinitions} />
 
-        <h3
-          className='mt-12 text-title font-medium'
-          id='#percent-share-example'
-        >
+        <h3 className='mt-12 text-title font-medium' id='percent-share-example'>
           Percent Share Example: COVID-19 Cases
         </h3>
         <HetNotice>

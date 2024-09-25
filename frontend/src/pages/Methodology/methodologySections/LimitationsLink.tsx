@@ -10,7 +10,7 @@ import type { DropdownVarId } from '../../../data/config/DropDownIds'
 
 export default function LimitationsLink() {
   return (
-    <section id='#limitations'>
+    <section id='limitations'>
       <article>
         <Helmet>
           <title>Limitations and Missing Data - Health Equity Tracker</title>
@@ -77,8 +77,8 @@ export default function LimitationsLink() {
           disease prevalence and distribution. These factors may not be
           adequately captured in the data or accounted for in the analysis.
         </p>
-        <div id='#missing-data'>
-          <h3 className='mt-12 text-title font-medium' id='#limitations'>
+        <div id='missing-data'>
+          <h3 className='mt-12 text-title font-medium' id='limitations'>
             What Data Are Missing
           </h3>
           <WhatDataAreMissing
