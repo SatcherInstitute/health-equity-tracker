@@ -52,15 +52,16 @@ export default function CrisisOverviewTab() {
             {rocketFoundationFacts.map((rocketFoundationFact, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow = isMdAndUp && index % 2 !== 0
-
+              const uniqueKey = `fact-${index}`
+              
               return (
                 <div
-                  key={index}
+                  key={uniqueKey}
                   className={`fade-in-up-blur rounded-md p-8 ${isMobileShadow || isDesktopShadow ? 'shadow-raised-tighter' : ''}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <FactCard
-                    key={index}
+                    key={uniqueKey}
                     content={rocketFoundationFact.content}
                   />
                 </div>
@@ -80,9 +81,11 @@ export default function CrisisOverviewTab() {
 
           <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
             {gvaFacts.map((gvaFact, index) => {
+              const uniqueKey = `fact-${index}`
+
               return (
                 <li
-                  key={index}
+                  key={uniqueKey}
                   className={`fade-in-up-blur ${index % 2 === 0 ? 'shadow-raised-tighter' : null}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >

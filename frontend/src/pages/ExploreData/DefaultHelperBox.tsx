@@ -31,8 +31,7 @@ export default function DefaultHelperBox() {
             {reportMappings.map((report, index) => (
               <li
                 className='my-4 xs:my-2 mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out w-full'
-                key={index}
-                role='listitem'
+                key={report.title}
               >
                 <article
                   className='text-left p-4 text-altGreen grid gap-4 md:items-start place-items-center md:grid-cols-[40%_60%] w-full'

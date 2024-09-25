@@ -30,7 +30,7 @@ export default function HowToUseTheDataTab() {
       </section>
       {dataVisuals.map((dataVisual, index) => (
         <section
-          key={index}
+          key={dataVisual.sectionId}
           id={dataVisual.sectionId}
           className='max-w-svw w-auto mx-0 px-0'
         >

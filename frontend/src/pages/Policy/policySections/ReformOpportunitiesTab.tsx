@@ -41,14 +41,14 @@ export default function ReformOpportunitiesTab() {
 
             return (
               <div
-                key={index}
+                key={effortsAndInsight.title}
                 className={`fade-in-up-blur rounded-md p-8 ${
                   isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
                 }`}
                 style={{ animationDelay: `${index * 0.04}s` }}
               >
                 <CardLeftIcon
-                  key={index}
+                  key={effortsAndInsight.title}
                   icon={effortsAndInsight.icon}
                   title={effortsAndInsight.title}
                   description={effortsAndInsight.description}
