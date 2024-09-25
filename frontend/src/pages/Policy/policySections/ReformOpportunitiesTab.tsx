@@ -41,14 +41,14 @@ export default function ReformOpportunitiesTab() {
 
             return (
               <div
-                key={index}
+                key={effortsAndInsight.title}
                 className={`fade-in-up-blur rounded-md p-8 ${
                   isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
                 }`}
                 style={{ animationDelay: `${index * 0.04}s` }}
               >
                 <CardLeftIcon
-                  key={index}
+                  key={effortsAndInsight.title}
                   icon={effortsAndInsight.icon}
                   title={effortsAndInsight.title}
                   description={effortsAndInsight.description}
@@ -72,7 +72,7 @@ export default function ReformOpportunitiesTab() {
           Legislative Items to Consider for Policy Changes
         </h3>
         <HetOverline text={`SOURCE: RAND Foundation`} className='inline' />
-        <HetQuoteLink href={urlMap.randGunPolicy} label='RAND Foundation'/>
+        <HetQuoteLink href={urlMap.randGunPolicy} label='RAND Foundation' />
 
         <HetAccordion
           accordionData={legislativeActions}

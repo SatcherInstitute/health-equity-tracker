@@ -302,7 +302,7 @@ export default function Covid19Link() {
           rows={covidDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
