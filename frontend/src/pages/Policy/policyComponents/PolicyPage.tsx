@@ -28,6 +28,7 @@ export default function PolicyPage() {
       </h1>
 
       <section
+        ref={ref}
         className='flex w-svw justify-center text-left max-w-lgXl'
         aria-labelledby='page-heading'
       >
