@@ -33,7 +33,7 @@ export default function CurrentEffortsTab() {
         reducing gun violence.
       </p>
 
-      <section id='#health-inequities-definition'>
+      <section id='health-inequities-definition'>
         <p>
           This approach advocates for holistic solutions that address the root
           causes of gun violence, which are often found in the systemic
@@ -44,44 +44,51 @@ export default function CurrentEffortsTab() {
         </p>
         <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur'>
           <p>
-            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>: <HetTermUnderline>Unfair and
-            avoidable</HetTermUnderline> differences in health status across various groups,
-            influenced by social, economic, and environmental factors.
+            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:{' '}
+            <HetTermUnderline>Unfair and avoidable</HetTermUnderline>{' '}
+            differences in health status across various groups, influenced by
+            social, economic, and environmental factors.
           </p>
         </article>
       </section>
-      <HetOverline text='Atlanta’s Support Initiatives'/>
+      <HetOverline text='Atlanta’s Support Initiatives' />
       <ResourceSection
-        id='#economic-inequality'
-        icon={<AttachMoneyRounded className='text-title smMd:text-smallestHeader' />}
+        id='economic-inequality'
+        icon={
+          <AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
+        }
         title='Economic Inequality'
         description='Organizations focusing on reducing economic inequality are crucial in the fight against gun violence, as poverty and lack of opportunities can contribute to crime.'
         resources={economicResources}
       />
       <ResourceSection
-        id='#educational-opportunities'
+        id='educational-opportunities'
         icon={<SchoolRounded className='text-title smMd:text-smallestHeader' />}
         title='Educational Opportunities'
         description='Improving access to education is a vital step in preventing gun violence.'
         resources={educationalResources}
       />
       <ResourceSection
-        id='#racial-and-social-justice'
+        id='racial-and-social-justice'
         icon={<GavelRounded className='text-title smMd:text-smallestHeader' />}
         title='Racial and Social Justice'
         description='Tackling systemic racial and social injustice is a fundamental aspect of addressing the root causes of gun violence.'
         resources={justiceResources}
       />
       <ResourceSection
-        id='#mental-health-services'
-        icon={<PsychologyRounded className='text-title smMd:text-smallestHeader' />}
+        id='mental-health-services'
+        icon={
+          <PsychologyRounded className='text-title smMd:text-smallestHeader' />
+        }
         title='Mental Health Services'
         description='Expanded access to mental health services is essential in addressing the trauma and stress that can lead to violence.'
         resources={mentalHealthResources}
       />
       <ResourceSection
-        id='#community-engagement'
-        icon={<Diversity3Rounded className='text-title smMd:text-smallestHeader' />}
+        id='community-engagement'
+        icon={
+          <Diversity3Rounded className='text-title smMd:text-smallestHeader' />
+        }
         title='Community Engagement'
         description='Organizations that encourage community involvement in safety and prevention initiatives are key players.'
         resources={communityResources}

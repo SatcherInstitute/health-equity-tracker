@@ -34,7 +34,7 @@ export const behavioralHealthTopicsString = buildTopicsString(
 
 export default function BehavioralHealthLink() {
   return (
-    <section id='#behavioral-health'>
+    <section id='behavioral-health'>
       <article>
         <Helmet>
           <title>Behavioral Health - Health Equity Tracker</title>
@@ -42,7 +42,7 @@ export default function BehavioralHealthLink() {
         <h2 className='sr-only'>Behavioral Health</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -57,7 +57,7 @@ export default function BehavioralHealthLink() {
         />
         <h3
           className='mt-12 text-title font-medium'
-          id='#behavioral-health-data-sourcing'
+          id='behavioral-health-data-sourcing'
         >
           Data Sourcing
         </h3>
@@ -81,7 +81,7 @@ export default function BehavioralHealthLink() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#behavioral-health-data-sources'
+          id='behavioral-health-data-sources'
         >
           Data Sources
         </h3>
@@ -104,12 +104,12 @@ export default function BehavioralHealthLink() {
           }))}
         />
         <KeyTermsTopicsAccordion
-          hashId='#behavioral-health-key-terms'
+          hashId='behavioral-health-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
 
         <Resources
-          id='#behavioral-health-resources'
+          id='behavioral-health-resources'
           resourceGroups={[MENTAL_HEALTH_RESOURCES]}
         />
 
