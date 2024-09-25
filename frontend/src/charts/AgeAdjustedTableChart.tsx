@@ -148,12 +148,15 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
             <Table {...getTableProps()}>
               <TableHead>
                 {headerGroups.map((group, index) => (
-                  <TableHeaderRow group={group} key={index} />
+                  <TableHeaderRow
+                    group={group}
+                    key={group.id || `group-${index}`}
+                  />
                 ))}
               </TableHead>
               <TableBody {...getTableBodyProps()}>
                 {rows.map((row: ReactTableRowType<any>, index) => (
-                  <TableDataRow row={row} key={index} />
+                  <TableDataRow row={row} key={row.id || `row-${index}`} />
                 ))}
               </TableBody>
               <TableFooter>
