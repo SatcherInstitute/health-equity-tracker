@@ -226,8 +226,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
                         props.demographicType
                       ],
-                    xAxisIsMonthly:
-                      metricConfigInequitable.timeSeriesCadence === 'monthly',
+                    xAxisTimeSeriesCadence:
+                      metricConfigInequitable.timeSeriesCadence,
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}

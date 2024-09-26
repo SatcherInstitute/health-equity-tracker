@@ -132,12 +132,17 @@ export function getNestedData(
   demographicGroups: DemographicGroup[],
   demographicType: DemographicType,
   metricId: MetricId,
+  keepOnlyElectionYears?: boolean,
 ): TrendsData {
   if (!data.some((row) => row[TIME_PERIOD])) return []
 
   const nestedRates = demographicGroups.map((group) => {
     let groupRows = data.filter((row) => row[demographicType] === group)
     groupRows = interpolateTimePeriods(groupRows)
+
+    if (keepOnlyElectionYears) {
+      groupRows = getElectionYearData(groupRows)
+    }
 
     const groupTimeSeries = groupRows.map((row) => [
       row[TIME_PERIOD],
@@ -280,4 +285,11 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   ]
 
   return lowestAndHighestGroups
+}
+
+export function getElectionYearData(data: HetRow[]): HetRow[] {
+  // this works because the first presidential election year happened to be evenly divisible by 4,
+  // and presidential election years have been held every 4 years since
+  data = data.filter((row: HetRow) => row[TIME_PERIOD] % 4 === 0)
+  return data
 }

@@ -72,6 +72,8 @@ export type MetricType =
   | 'index'
   | 'age_adjusted_ratio'
 
+export type TimeSeriesCadenceType = 'monthly' | 'yearly' | 'fourYearly'
+
 export interface MetricConfig {
   metricId: MetricId
   columnTitleHeader?: string
@@ -84,7 +86,7 @@ export interface MetricConfig {
   rateNumeratorMetric?: MetricConfig
   rateDenominatorMetric?: MetricConfig
   rateComparisonMetricForAlls?: MetricConfig
-  timeSeriesCadence?: 'yearly' | 'monthly'
+  timeSeriesCadence?: TimeSeriesCadenceType
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
