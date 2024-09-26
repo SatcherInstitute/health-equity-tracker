@@ -67,7 +67,6 @@ export function TrendsChart({
   setSelectedTableGroups,
   isCompareCard,
   expanded,
-  setExpanded,
   hasUnknowns,
 }: TrendsChartProps) {
   const isSm = useIsBreakpointAndUp('sm')
@@ -310,6 +309,7 @@ export function TrendsChart({
             onMouseLeave={() => {
               setHoveredDate(null)
             }}
+            // biome-ignore lint/a11y/useSemanticElements: <explanation>
             role='group'
             aria-labelledby={chartTitleId}
           >

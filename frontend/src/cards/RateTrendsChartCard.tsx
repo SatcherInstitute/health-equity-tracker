@@ -35,6 +35,7 @@ import ChartTitle from './ChartTitle'
 import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
 import { generateSubtitle } from '../charts/utils'
+import type { AxisConfig } from '../charts/trendsChart/types'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -193,7 +194,10 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           demographicGroupsLabelled,
           props.demographicType,
           metricConfigRates.metricId,
+          /* keepOnlyElectionYears */ metricConfigRates.timeSeriesCadence ===
+            'fourYearly',
         )
+
         const nestedUnknownPctShareData = getNestedUnknowns(
           unknownPctShareData,
           isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId,
@@ -202,6 +206,16 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         hasUnknowns =
           nestedUnknownPctShareData != null &&
           hasNonZeroUnknowns(nestedUnknownPctShareData)
+
+        const axesConfig: AxisConfig = {
+          type: metricConfigRates.type,
+          groupLabel:
+            DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType],
+          yAxisLabel: `${metricConfigRates.shortLabel} ${
+            props.fips.isUsa() ? '' : 'from'
+          } ${props.fips.isUsa() ? '' : props.fips.getSentenceDisplayName()}`,
+          xAxisTimeSeriesCadence: metricConfigRates.timeSeriesCadence,
+        }
 
         return (
           <>
@@ -228,22 +242,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   chartTitle={getTitleText()}
                   chartSubTitle={subtitle}
                   unknown={nestedUnknownPctShareData}
-                  axisConfig={{
-                    type: metricConfigRates.type,
-                    groupLabel:
-                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
-                      ],
-                    yAxisLabel: `${metricConfigRates.shortLabel} ${
-                      props.fips.isUsa() ? '' : 'from'
-                    } ${
-                      props.fips.isUsa()
-                        ? ''
-                        : props.fips.getSentenceDisplayName()
-                    }`,
-                    xAxisIsMonthly:
-                      metricConfigRates.timeSeriesCadence === 'monthly',
-                  }}
+                  axisConfig={axesConfig}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard ?? false}

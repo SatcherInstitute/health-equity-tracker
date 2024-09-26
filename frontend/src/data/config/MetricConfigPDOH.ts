@@ -76,7 +76,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
         chartTitle: 'Voter participation',
         shortLabel: '% voter participation',
         type: 'pct_rate',
-        timeSeriesCadence: 'yearly', // TODO: Handle every 4 years cadence, suppressing null years
+        timeSeriesCadence: 'fourYearly',
       },
       pct_share: {
         chartTitle: 'Share of all voter participation',
