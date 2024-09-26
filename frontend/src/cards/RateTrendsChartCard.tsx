@@ -105,7 +105,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfigRates?.trendsCardTitleName ?? 'Data'
+      metricConfigRates?.trendsCardTitleName ??
+      props.dataTypeConfig.fullDisplayName + ' over time '
     } in ${props.fips.getSentenceDisplayName()}`
   }
 
