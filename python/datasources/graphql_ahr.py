@@ -3,7 +3,7 @@ from typing import Literal, List, cast
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
-from ingestion.constants import CURRENT, Sex
+from ingestion.constants import CURRENT, Sex, HISTORICAL
 from ingestion.dataset_utils import (
     generate_estimated_total_col,
     generate_pct_share_col_of_summed_alls,
@@ -110,7 +110,7 @@ class GraphQlAHRData(DataSource):
         df = graphql_response_to_dataframe(response_data)
         df = self.generate_breakdown_df(demographic, geo_level, df)
 
-        for time_view in [CURRENT]:
+        for time_view in [CURRENT, HISTORICAL]:
             table_name = f"{category}_{demographic}_{geo_level}_{time_view}"
             topic_prefixes = [
                 std_col.extract_prefix(rate_col)
@@ -120,11 +120,10 @@ class GraphQlAHRData(DataSource):
             topic_prefixes.append('ahr')
             df = df[df[std_col.TIME_PERIOD_COL].astype(int) <= LAST_COMPLETE_DATA_YEAR]
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
-
             first_two_columns = df_for_bq.columns[:2].tolist()
             df_for_bq = df_for_bq.sort_values(by=first_two_columns, ascending=True).reset_index(drop=True)
 
-        gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_TYPE, df: pd.DataFrame):
         breakdown_df = parse_raw_data(df, breakdown)
