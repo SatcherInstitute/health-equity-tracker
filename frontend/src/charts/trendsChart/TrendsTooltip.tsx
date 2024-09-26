@@ -84,10 +84,7 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <div
-      className='h-full w-min whitespace-nowrap rounded-sm border border-solid border-altGrey bg-white p-3 font-sansText text-small font-medium'
-      role='tooltip'
-    >
+    <aside className='h-full w-min whitespace-nowrap rounded-sm border border-solid border-altGrey bg-white p-3 font-sansText text-small font-medium'>
       {/* Date title */}
       <div className='border-0 border-b border-solid border-altGrey pb-3 text-center'>
         <div>{displayDate}</div>
@@ -143,6 +140,6 @@ export function TrendsTooltip({
             },
           )}
       </div>
-    </div>
+    </aside>
   )
 }

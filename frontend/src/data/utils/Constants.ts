@@ -158,7 +158,7 @@ export const raceNameToCodeMap: Record<RaceAndEthnicityGroup, string> = {
   [ASIAN_NH]: 'Asian (NH)',
   // CDC HIV
   [MULTI_NH]: 'Two+ (NH)',
-  [OTHER_NONSTANDARD_NH]: 'OTHER (NH)',
+  [OTHER_NONSTANDARD_NH]: 'Unrepr. (NH)',
   // Incarceration
   [API_NH]: 'A/NHPI (NH)',
   //  race and ethnicity CAWP
