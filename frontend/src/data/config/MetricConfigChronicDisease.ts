@@ -60,6 +60,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'asthma_per_100k',
         chartTitle: 'Asthma',
         columnTitleHeader: 'Asthma cases per 100k adults',
@@ -122,6 +123,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'cardiovascular_diseases_per_100k',
         chartTitle: 'Cardiovascular diseases',
         columnTitleHeader: 'Cases of cardiovascular diseases per 100k adults',
@@ -186,6 +188,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'chronic_kidney_disease_per_100k',
         chartTitle: 'Chronic kidney disease',
         columnTitleHeader: 'Chronic kidney disease per 100k adults',
@@ -257,6 +260,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'diabetes_per_100k',
         chartTitle: 'Diabetes',
         columnTitleHeader: 'Diabetes cases per 100k adults',
@@ -318,6 +322,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'copd_per_100k',
         chartTitle: 'COPD',
         columnTitleHeader: 'COPD cases per 100k adults',

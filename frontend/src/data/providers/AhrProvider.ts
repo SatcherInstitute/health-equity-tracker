@@ -3,7 +3,11 @@ import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
-import type { DemographicBreakdownKey, Breakdowns } from '../query/Breakdowns'
+import type {
+  DemographicBreakdownKey,
+  Breakdowns,
+  TimeView,
+} from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
@@ -138,6 +142,7 @@ class AhrProvider extends VariableProvider {
   getDatasetId(
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
+    timeView?: TimeView,
   ): DatasetId | undefined {
     const currentDropdown: DropdownVarId | undefined =
       dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
@@ -146,32 +151,66 @@ class AhrProvider extends VariableProvider {
       BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
 
     if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace())
-        return isBehavioralHealth
-          ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
-          : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
-      if (breakdowns.hasOnlySex())
-        return isBehavioralHealth
-          ? 'graphql_ahr_data-behavioral_health_sex_national_current'
-          : 'graphql_ahr_data-non-behavioral_health_sex_national_current'
-      if (breakdowns.hasOnlyAge())
-        return isBehavioralHealth
-          ? 'graphql_ahr_data-behavioral_health_age_national_current'
-          : 'graphql_ahr_data-non-behavioral_health_age_national_current'
+      if (timeView === 'current') {
+        if (breakdowns.hasOnlyRace())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
+            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
+        if (breakdowns.hasOnlySex())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_sex_national_current'
+            : 'graphql_ahr_data-non-behavioral_health_sex_national_current'
+        if (breakdowns.hasOnlyAge())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_age_national_current'
+            : 'graphql_ahr_data-non-behavioral_health_age_national_current'
+      }
+
+      if (timeView === 'historical') {
+        if (breakdowns.hasOnlyRace())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_historical'
+            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_historical'
+        if (breakdowns.hasOnlySex())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_sex_national_historical'
+            : 'graphql_ahr_data-non-behavioral_health_sex_national_historical'
+        if (breakdowns.hasOnlyAge())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_age_national_historical'
+            : 'graphql_ahr_data-non-behavioral_health_age_national_historical'
+      }
     }
     if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace())
-        return isBehavioralHealth
-          ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
-          : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
-      if (breakdowns.hasOnlySex())
-        return isBehavioralHealth
-          ? 'graphql_ahr_data-behavioral_health_sex_state_current'
-          : 'graphql_ahr_data-non-behavioral_health_sex_state_current'
-      if (breakdowns.hasOnlyAge())
-        return isBehavioralHealth
-          ? 'graphql_ahr_data-behavioral_health_age_state_current'
-          : 'graphql_ahr_data-non-behavioral_health_age_state_current'
+      if (timeView === 'current') {
+        if (breakdowns.hasOnlyRace())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
+            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
+        if (breakdowns.hasOnlySex())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_sex_state_current'
+            : 'graphql_ahr_data-non-behavioral_health_sex_state_current'
+        if (breakdowns.hasOnlyAge())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_age_state_current'
+            : 'graphql_ahr_data-non-behavioral_health_age_state_current'
+      }
+
+      if (timeView === 'historical') {
+        if (breakdowns.hasOnlyRace())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_historical'
+            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_historical'
+        if (breakdowns.hasOnlySex())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_sex_state_historical'
+            : 'graphql_ahr_data-non-behavioral_health_sex_state_historical'
+        if (breakdowns.hasOnlyAge())
+          return isBehavioralHealth
+            ? 'graphql_ahr_data-behavioral_health_age_state_historical'
+            : 'graphql_ahr_data-non-behavioral_health_age_state_historical'
+      }
     }
     // some county data is available via CHR
     if (
@@ -187,8 +226,8 @@ class AhrProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const { breakdowns, dataTypeId } = metricQuery
-    const datasetId = this.getDatasetId(breakdowns, dataTypeId)
+    const { breakdowns, dataTypeId, timeView } = metricQuery
+    const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
 
     if (!datasetId) {
       return new MetricQueryResponse([], [])
