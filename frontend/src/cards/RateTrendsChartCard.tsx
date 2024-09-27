@@ -15,6 +15,7 @@ import {
   NON_HISPANIC,
   AIAN_API,
   ALL,
+  TIME_PERIOD,
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -141,9 +142,16 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       className={props.className}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
-        const ratesData = queryResponseRates.getValidRowsForField(
+        let ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId,
         )
+
+        // TODO: this is a stop-gap to deal with sketchy data. we should solve a different way
+        if (
+          props.dataTypeConfig.dataTypeId === 'preventable_hospitalizations'
+        ) {
+          ratesData = ratesData.filter((row) => row[TIME_PERIOD] >= 2016)
+        }
 
         const pctShareData = isCawp
           ? ratesData

@@ -302,6 +302,7 @@ export function TrendsChart({
       {/* Chart */}
       {filteredData && xScale && yScale && (
         <>
+          {/* biome-ignore lint/a11y/noSvgWithoutTitle: using aria-labelledby instead */}
           <svg
             height={CONFIG.HEIGHT}
             width={width}
@@ -311,8 +312,6 @@ export function TrendsChart({
             }}
             aria-labelledby={chartTitleId}
           >
-            {/* Chart Title */}
-            <title>{chartTitleId}</title>
             {/* Chart Axes */}
             <Axes
               data={filteredData}
@@ -344,7 +343,13 @@ export function TrendsChart({
                 opacity: hoveredDate ? 1 : 0,
               }}
             >
-              <line y1={HEIGHT - marginBottom} y2={MARGIN.top} x1={0} x2={0} />
+              <line
+                className='transition-opacity delay-300 duration-200 ease-linear'
+                y1={HEIGHT - marginBottom}
+                y2={MARGIN.top}
+                x1={0}
+                x2={0}
+              />
               <HoverCircles
                 data={filteredData}
                 selectedDate={hoveredDate}
