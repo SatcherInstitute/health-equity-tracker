@@ -150,10 +150,12 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '80-84': mapMedicareLightest,
   '85+': altGrey,
   // age for AHR
+  '15-24': timeCyanBlue,
   '18-44': timeCyanBlue,
   '24-34': timePink,
   '45-64': mapLight,
   '65+': timeYellow,
+  '75-84': mapLighter,
 
   // urbanicity / City Size
   Metro: timePurple,
