@@ -309,10 +309,10 @@ export function TrendsChart({
             onMouseLeave={() => {
               setHoveredDate(null)
             }}
-            // biome-ignore lint/a11y/useSemanticElements: <explanation>
-            role='group'
             aria-labelledby={chartTitleId}
           >
+            {/* Chart Title */}
+            <title>{chartTitleId}</title>
             {/* Chart Axes */}
             <Axes
               data={filteredData}
