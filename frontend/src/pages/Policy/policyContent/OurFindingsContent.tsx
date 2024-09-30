@@ -1,3 +1,4 @@
+import React from 'react'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import {
   AGE,
@@ -7,15 +8,30 @@ import {
   WHITE_NH,
 } from '../../../data/utils/Constants'
 import { Fips } from '../../../data/utils/Fips'
-import Custom100kBarChart from '../../../reports/Custom100kBarChart'
-import CustomAltTable from '../../../reports/CustomAltTable'
-import CustomBreakdownSummary from '../../../reports/CustomBreakdownSummary'
-import CustomChoroplethMap from '../../../reports/CustomChoroplethMap'
-import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
-import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
-import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 import { HET_URL } from '../../../utils/internalRoutes'
+
+const Custom100kBarChart = React.lazy(
+  () => import('../../../reports/Custom100kBarChart'),
+)
+const CustomAltTable = React.lazy(
+  () => import('../../../reports/CustomAltTable'),
+)
+const CustomBreakdownSummary = React.lazy(
+  () => import('../../../reports/CustomBreakdownSummary'),
+)
+const CustomChoroplethMap = React.lazy(
+  () => import('../../../reports/CustomChoroplethMap'),
+)
+const CustomDisparityBarChart = React.lazy(
+  () => import('../../../reports/CustomDisparityBarChart'),
+)
+const CustomRateTrendsLineChart = React.lazy(
+  () => import('../../../reports/CustomRateTrendsLineChart'),
+)
+const CustomShareTrendsLineChart = React.lazy(
+  () => import('../../../reports/CustomShareTrendsLineChart'),
+)
 
 const gunDeathsBlackMenConfig = {
   fips: new Fips('13'),

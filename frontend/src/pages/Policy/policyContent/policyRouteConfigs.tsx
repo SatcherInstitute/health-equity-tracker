@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   CRISIS_OVERVIEW_TAB,
   CURRENT_EFFORTS_TAB,
@@ -8,17 +9,33 @@ import {
   OUR_FINDINGS_TAB,
   REFORM_OPPORTUNITIES_TAB,
 } from '../../../utils/internalRoutes'
-import CrisisOverviewTab from '../policySections/CrisisOverviewTab'
-import CurrentEffortsTab from '../policySections/CurrentEffortsTab'
-import DataCollectionTab from '../policySections/DataCollectionTab'
-import FaqsTab from '../policySections/FaqsTab'
-import HowToUseTheDataTab from '../policySections/HowToUseTheDataTab'
-import ReformOpportunitiesTab from '../policySections/ReformOpportunitiesTab'
-import GunViolencePolicyHomeLink from '../policySections/GunViolencePolicyHomeLink'
-import OurFindingsTab from '../policySections/OurFindingsTab'
 import type { RouteConfig } from '../../sharedTypes'
 
-export const routeConfigs: RouteConfig[] = [
+// Lazy Load components for code-splitting
+const CrisisOverviewTab = React.lazy(
+  () => import('../policySections/CrisisOverviewTab'),
+)
+const CurrentEffortsTab = React.lazy(
+  () => import('../policySections/CurrentEffortsTab'),
+)
+const DataCollectionTab = React.lazy(
+  () => import('../policySections/DataCollectionTab'),
+)
+const FaqsTab = React.lazy(() => import('../policySections/FaqsTab'))
+const HowToUseTheDataTab = React.lazy(
+  () => import('../policySections/HowToUseTheDataTab'),
+)
+const ReformOpportunitiesTab = React.lazy(
+  () => import('../policySections/ReformOpportunitiesTab'),
+)
+const GunViolencePolicyHomeLink = React.lazy(
+  () => import('../policySections/GunViolencePolicyHomeLink'),
+)
+const OurFindingsTab = React.lazy(
+  () => import('../policySections/OurFindingsTab'),
+)
+
+export const policyRouteConfigs: RouteConfig[] = [
   {
     isTopLevel: true,
     label: 'Policy Context Introduction',
@@ -194,3 +211,5 @@ export const routeConfigs: RouteConfig[] = [
     visible: true,
   },
 ]
+
+export default policyRouteConfigs

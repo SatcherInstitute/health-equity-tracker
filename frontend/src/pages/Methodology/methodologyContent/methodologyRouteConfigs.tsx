@@ -41,7 +41,7 @@ import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
 import CommunitySafetyLink from '../methodologySections/CommunitySafetyLink'
 import type { RouteConfig } from '../../sharedTypes'
 
-export const routeConfigs: RouteConfig[] = [
+export const methodologyRouteConfigs: RouteConfig[] = [
   {
     isTopLevel: true,
     label: 'Methodology Introduction',
@@ -493,3 +493,5 @@ export const routeConfigs: RouteConfig[] = [
     visible: true,
   },
 ]
+
+export default methodologyRouteConfigs
