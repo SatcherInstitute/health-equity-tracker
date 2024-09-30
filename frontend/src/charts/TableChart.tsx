@@ -240,13 +240,12 @@ export function TableChart(props: TableChartProps) {
                     key={group.id || `group-${index}`}
                   />
                 ))}
-              </TableHead>{' '}
+              </TableHead>
               <TableBody {...getTableBodyProps()}>
                 {page.map((row: ReactTableRowType<any>, index) => (
                   <TableDataRow row={row} key={row.id || `row-${index}`} />
                 ))}
               </TableBody>
-              {/* If the number of rows is less than the smallest page size, we can hide pagination */}
               {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
                 <TableFooter>
                   <TableRow>
@@ -254,17 +253,15 @@ export function TableChart(props: TableChartProps) {
                       count={memoData.length}
                       rowsPerPage={pageSize}
                       page={pageIndex}
-                      onPageChange={(event, newPage) => {
-                        gotoPage(newPage)
-                      }}
-                      onRowsPerPageChange={(event) => {
+                      onPageChange={(_, newPage) => gotoPage(newPage)}
+                      onRowsPerPageChange={(event) =>
                         setPageSize(Number(event.target.value))
-                      }}
+                      }
                       rowsPerPageOptions={[
                         MAX_NUM_ROWS_WITHOUT_PAGINATION,
                         MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
                         MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                      ]} // If changed, update pagination condition above
+                      ]}
                     />
                   </TableRow>
                 </TableFooter>
