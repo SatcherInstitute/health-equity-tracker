@@ -205,16 +205,17 @@ export default function CompareReport(props: CompareReportProps) {
           />
 
           <div className='flex w-full flex-col content-center '>
-            <CompareBubbleChartCard
-              fips1={props.fips1}
-              // fips2={props.fips2}
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
-              rateConfig1={rateConfig1}
-              rateConfig2={rateConfig2}
-              demographicType={demographicType}
-              reportTitle={props.reportTitle}
-            />
+            {props.trackerMode === 'comparevars' && (
+              <CompareBubbleChartCard
+                fips1={props.fips1}
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
+                rateConfig1={rateConfig1}
+                rateConfig2={rateConfig2}
+                demographicType={demographicType}
+                reportTitle={props.reportTitle}
+              />
+            )}
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
