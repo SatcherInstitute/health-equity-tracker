@@ -60,8 +60,10 @@ test('Maternal Mortality', async ({ page }) => {
     .getByRole('columnheader', { name: 'Share of total maternal deaths' })
     .click()
   await page.getByRole('columnheader', { name: 'Share of live births' }).click()
-  await page.getByRole('heading', { name: 'Definitions:' }).click()
-  await page.getByRole('heading', { name: 'Maternal Health' }).click()
-  await page.locator('#definitionsList').getByText('Maternal mortality').click()
-  await page.getByText('Maternal deaths per 100,000').click()
+
+  // TODO: re-enable once methodology for maternal mortality is live on PROD
+  // await page.getByRole('heading', { name: 'Definitions:' }).click()
+  // await page.getByRole('heading', { name: 'Maternal Health' }).click()
+  // await page.locator('#definitionsList').getByText('Maternal mortality').click()
+  // await page.getByText('Maternal deaths per 100,000').click()
 })
