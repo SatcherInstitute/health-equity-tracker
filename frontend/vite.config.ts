@@ -9,7 +9,7 @@ export default defineConfig(() => {
   return {
     build: {
       outDir: 'build',
-      sourcemap: true,
+      // sourcemap: true,
     },
     server: {
       open: true,
@@ -25,7 +25,6 @@ export default defineConfig(() => {
         open: !process.env.CI,
         gzipSize: true,
         brotliSize: true,
-        template: 'sunburst',
       }),
     ],
     test: {
