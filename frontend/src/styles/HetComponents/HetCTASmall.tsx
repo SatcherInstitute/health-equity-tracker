@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 interface HetCTASmallProps {
   children: ReactNode
   href: string
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
   id?: string
   className?: string
 }
@@ -14,10 +15,14 @@ export default function HetCTASmall({
   href,
   id,
   className,
+  onClick,
 }: HetCTASmallProps) {
   const navigate = useNavigate()
 
   const handleClick = () => {
+    if (onClick) {
+      onClick({} as React.MouseEvent<HTMLAnchorElement, MouseEvent>)
+    }
     if (!href.startsWith('mailto:')) {
       navigate(href)
     }
@@ -32,7 +37,7 @@ export default function HetCTASmall({
       variant='outlined'
       className={`rounded-2xl my-2 px-8 py-2 w-auto bg-altGreen ${className ?? ''}`}
       href={optionalMailTo}
-      onClick={isMailTo ? undefined : handleClick}
+      onClick={handleClick}
     >
       <span className='text-small text-white font-bold'>{children}</span>
     </Button>

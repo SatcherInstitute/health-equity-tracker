@@ -1,5 +1,5 @@
 import HetCardMenuMobile from '../../../styles/HetComponents/HetCardMenuMobile'
-import { routeConfigs as policyRouteConfigs } from '../policyContent/routeConfigs'
+import { policyRouteConfigs } from '../policyContent/policyRouteConfigs'
 
 export default function PolicyCardMenuMobile() {
   return (

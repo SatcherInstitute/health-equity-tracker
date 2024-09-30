@@ -1,5 +1,5 @@
 import HetPagination from '../../../styles/HetComponents/HetPagination'
-import { routeConfigs as methodologyRouteConfigs } from '../methodologyContent/routeConfigs'
+import { methodologyRouteConfigs } from '../methodologyContent/methodologyRouteConfigs'
 
 export default function MethodologyPagination() {
   return <HetPagination routeConfigs={methodologyRouteConfigs} />

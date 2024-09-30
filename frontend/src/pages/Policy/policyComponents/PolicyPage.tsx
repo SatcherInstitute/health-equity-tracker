@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { routeConfigs } from '../policyContent/routeConfigs'
+import { policyRouteConfigs } from '../policyContent/policyRouteConfigs'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import PolicyPagination from './PolicyPagination'
 import PolicyCardMenuMobile from './PolicyCardMenuMobile'
@@ -13,7 +13,7 @@ export default function PolicyPage() {
   const [ref, width] = useResponsiveWidth()
   const isMobileView = width < 960
 
-  const activeRoute = routeConfigs.find(
+  const activeRoute = policyRouteConfigs.find(
     (route) => route.path === location.pathname,
   )
 
@@ -42,7 +42,7 @@ export default function PolicyPage() {
           <div className='flex grow smMd:flex-col xs:block'>
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
             <div className='md:hidden px-8'>
-              {routeConfigs.map((routeConfig) => {
+              {policyRouteConfigs.map((routeConfig) => {
                 const match = useMatch({
                   path: routeConfig.path,
                   end: true,
@@ -74,7 +74,7 @@ export default function PolicyPage() {
           </div>
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}
           <div className='hidden min-w-fit md:block'>
-            {routeConfigs.map((routeConfig) => {
+            {policyRouteConfigs.map((routeConfig) => {
               const match = useMatch({
                 path: routeConfig.path,
                 end: true,

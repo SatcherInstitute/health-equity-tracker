@@ -1,5 +1,5 @@
 import HetCardMenuMobile from '../../../styles/HetComponents/HetCardMenuMobile'
-import { routeConfigs as methodologyRouteConfigs } from '../methodologyContent/routeConfigs'
+import { methodologyRouteConfigs } from '../methodologyContent/methodologyRouteConfigs'
 
 export default function MethodologyCardMenuMobile() {
   return (

@@ -33,6 +33,7 @@ node_modules/
 /frontend/playwright-report/
 /frontend/test-results/
 /frontend/coverage/
+/frontend/stats.html
 
 config/.terraform.lock.hcl
 config/.terraform/
