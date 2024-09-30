@@ -14,6 +14,7 @@ import { NON_HISPANIC, AIAN_API, UNKNOWN_RACE } from '../data/utils/Constants'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { DataFrame } from 'data-forge'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import { SHOW_CORRELATION_CARD } from '../reports/CompareReport'
 
 interface CompareBubbleChartCardProps {
   fips1: Fips
@@ -70,7 +71,9 @@ export default function CompareBubbleChartCard(
 
   const queries = [queryX, queryY, queryPop]
 
-  const chartTitle = `Correlation between rates of ${props.rateConfig1?.chartTitle} and ${props.rateConfig2?.chartTitle} in ${props.fips1.getSentenceDisplayName()}`
+  let chartTitle = `Correlation between rates of ${props.rateConfig1?.chartTitle} and ${props.rateConfig2?.chartTitle} in ${props.fips1.getSentenceDisplayName()}`
+
+  if (SHOW_CORRELATION_CARD) chartTitle = 'PREVIEW MODE: ' + chartTitle
 
   return (
     <CardWrapper

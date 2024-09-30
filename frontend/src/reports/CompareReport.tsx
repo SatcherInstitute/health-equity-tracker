@@ -45,6 +45,8 @@ import type {
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 
+export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
+
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
 
@@ -185,6 +187,9 @@ export default function CompareReport(props: CompareReportProps) {
     props.dropdownVarId2,
   ].includes('covid')
 
+  const showCorrelationCard =
+    SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
+
   return (
     <>
       <Helmet>
@@ -205,7 +210,7 @@ export default function CompareReport(props: CompareReportProps) {
           />
 
           <div className='flex w-full flex-col content-center '>
-            {props.trackerMode === 'comparevars' && (
+            {showCorrelationCard && (
               <CompareBubbleChartCard
                 fips1={props.fips1}
                 dataTypeConfig1={dataTypeConfig1}
