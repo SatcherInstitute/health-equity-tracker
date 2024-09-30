@@ -53,6 +53,7 @@ import { setupUnknownsLegend } from './legendHelperFunctions'
 import { het } from '../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { isPctType } from '../data/config/MetricConfigUtils'
+import { HEIGHT_WIDTH_RATIO } from './utils'
 
 const {
   howToColor: UNKNOWN_GREY,
@@ -156,7 +157,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const [ref, width] = useResponsiveWidth()
 
-  const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
+  const heightWidthRatio = props.overrideShapeWithCircle
+    ? HEIGHT_WIDTH_RATIO * 2
+    : HEIGHT_WIDTH_RATIO
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})

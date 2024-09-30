@@ -12,6 +12,11 @@ import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
+
+export const HEIGHT_WIDTH_RATIO = 0.6
+export const X_AXIS_MAX_TICKS = 12
+export const X_AXIS_MAX_TICKS_SKINNY = 5
+
 export const PADDING_FOR_ACTIONS_MENU = 30
 const MAX_LINE_LENGTH = 20
 
@@ -122,7 +127,7 @@ export function generateSubtitle(
   const ageSubPop =
     demographicType === AGE && activeDemographicGroup !== ALL
       ? ''
-      : dataTypeConfig?.ageSubPopulationLabel ?? ''
+      : (dataTypeConfig?.ageSubPopulationLabel ?? '')
   const otherSubPop = dataTypeConfig?.otherSubPopulationLabel ?? ''
 
   // combine as needed to create specific population subtitle
