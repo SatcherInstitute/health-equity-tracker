@@ -22,9 +22,10 @@ export default defineConfig(() => {
       viteTsconfigPaths(),
       svgrPlugin(),
       visualizer({
-        open: true,
+        open: !process.env.CI,
         gzipSize: true,
         brotliSize: true,
+        template: 'sunburst',
       }),
     ],
     test: {
