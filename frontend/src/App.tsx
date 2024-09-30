@@ -43,27 +43,49 @@ import {
   BrowserRouter,
   Route,
 } from 'react-router-dom'
+import policyRouteConfigs from './pages/Policy/policyContent/policyRouteConfigs'
+import methodologyRouteConfigs from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 
-// these make CSS modules which are imported by other components,
-// so they must load first and not be lazy loaded
-import AboutUsPage from './pages/AboutUs/AboutUsPage'
-import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquityPage'
-import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
-import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
-import NewsPage from './pages/News/NewsPage'
-import SkipLink from './SkipLink'
-import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
-import HetAppBar from './styles/HetComponents/HetAppBar'
-import Banner from './reports/ui/Banner'
-import PolicyPage from './pages/Policy/policyComponents/PolicyPage'
-import AllPosts from './pages/News/AllPosts'
-import ShareYourStory from './pages/News/ShareYourStory'
-import SinglePost from './pages/News/SinglePost'
-import { routeConfigs as policyRouteConfigs } from './pages/Policy/policyContent/routeConfigs'
-import { routeConfigs as methodologyRouteConfigs } from './pages/Methodology/methodologyContent/routeConfigs'
-import EquityTab from './pages/WhatIsHealthEquity/EquityTab'
-import FaqTab from './pages/WhatIsHealthEquity/FaqTab'
+// Lazy Load components for code-splitting
+const AboutUsPage = React.lazy(
+  async () => await import('./pages/AboutUs/AboutUsPage'),
+)
+const WhatIsHealthEquityPage = React.lazy(
+  async () => await import('./pages/WhatIsHealthEquity/WhatIsHealthEquityPage'),
+)
+const ErrorBoundaryDropParams = React.lazy(
+  async () => await import('./ErrorBoundaryDropParams'),
+)
+const ExploreDataFallback = React.lazy(
+  async () => await import('./pages/ExploreData/ExploreDataFallback'),
+)
+const NewsPage = React.lazy(async () => await import('./pages/News/NewsPage'))
+const SkipLink = React.lazy(async () => await import('./SkipLink'))
+const MethodologyPage = React.lazy(
+  async () =>
+    await import('./pages/Methodology/methodologyComponents/MethodologyPage'),
+)
+const HetAppBar = React.lazy(
+  async () => await import('./styles/HetComponents/HetAppBar'),
+)
+const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
+const PolicyPage = React.lazy(
+  async () => await import('./pages/Policy/policyComponents/PolicyPage'),
+)
+const AllPosts = React.lazy(async () => await import('./pages/News/AllPosts'))
+const ShareYourStory = React.lazy(
+  async () => await import('./pages/News/ShareYourStory'),
+)
+const SinglePost = React.lazy(
+  async () => await import('./pages/News/SinglePost'),
+)
+const FaqTab = React.lazy(
+  async () => await import('./pages/WhatIsHealthEquity/FaqTab'),
+)
 
+const EquityTab = React.lazy(
+  async () => await import('./pages/WhatIsHealthEquity/EquityTab'),
+)
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
 )

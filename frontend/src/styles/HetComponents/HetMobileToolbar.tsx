@@ -124,6 +124,7 @@ export default function HetMobileAppToolbar() {
               className='my-4'
               id='navigationCTA'
               href={EXPLORE_DATA_PAGE_LINK}
+              onClick={() => setOpen(false)}
             >
               Explore the data
             </HetCTASmall>
