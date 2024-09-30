@@ -61,8 +61,11 @@ import ShareYourStory from './pages/News/ShareYourStory'
 import SinglePost from './pages/News/SinglePost'
 import { routeConfigs as policyRouteConfigs } from './pages/Policy/policyContent/routeConfigs'
 import { routeConfigs as methodologyRouteConfigs } from './pages/Methodology/methodologyContent/routeConfigs'
-import EquityTab from './pages/WhatIsHealthEquity/EquityTab'
 import FaqTab from './pages/WhatIsHealthEquity/FaqTab'
+
+const EquityTab = React.lazy(
+  async () => await import('./pages/WhatIsHealthEquity/EquityTab'),
+)
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
