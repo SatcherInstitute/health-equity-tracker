@@ -1,8 +1,6 @@
-import axios from 'axios'
-
 // WORDPRESS CONFIG
 export const NEWS_URL = 'https://hetblog.dreamhosters.com/'
-export const WP_API = 'wp-json/wp/v2/' // "?rest_route=/wp/v2/"
+export const WP_API = 'wp-json/wp/v2/'
 export const ALL_POSTS = 'posts'
 export const ALL_MEDIA = 'media'
 export const ALL_CATEGORIES = 'categories'
@@ -19,18 +17,24 @@ export const REACT_QUERY_OPTIONS = {
   staleTime: 1000 * 30, // treat cache data as fresh and don't refetch
 }
 
-export async function fetchNewsData() {
-  return await axios.get(
-    `${
-      NEWS_URL + WP_API + ALL_POSTS
-    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`,
-  )
+// Utility function to handle fetch responses
+async function handleFetchResponse(response: Response) {
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+  return await response.json()
 }
 
+// Fetch all news data
+export async function fetchNewsData() {
+  const url = `${NEWS_URL + WP_API + ALL_POSTS}?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
+  const response = await fetch(url)
+  return handleFetchResponse(response)
+}
+
+// Fetch landing page news data (first 4 posts)
 export async function fetchLandingPageNewsData() {
-  return await axios.get(
-    `${
-      NEWS_URL + WP_API + ALL_POSTS
-    }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${4}`,
-  )
+  const url = `${NEWS_URL + WP_API + ALL_POSTS}?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}4`
+  const response = await fetch(url)
+  return handleFetchResponse(response)
 }

@@ -1,6 +1,6 @@
 import Card from '@mui/material/Card'
-import { CITATION_APA } from '../methodologyComponents/MethodologyPage'
 import { Helmet } from 'react-helmet-async'
+import { CITATION_APA } from '../../../cards/ui/SourcesHelpers'
 
 export default function RecommendedCitationLink() {
   return (

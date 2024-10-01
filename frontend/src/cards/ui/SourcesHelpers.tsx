@@ -5,6 +5,9 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
+import { HET_URL } from '../../utils/internalRoutes'
+
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 export function currentYear(): number {
   return new Date().getFullYear()

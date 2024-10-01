@@ -1,6 +1,6 @@
-import { CITATION_APA } from '../../pages/Methodology/methodologyComponents/MethodologyPage'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import domtoimage from 'dom-to-image-more'
+import { CITATION_APA } from './SourcesHelpers'
 
 function hideElementsForScreenshot(node: HTMLElement) {
   return !node?.classList?.contains('hide-on-screenshot')
