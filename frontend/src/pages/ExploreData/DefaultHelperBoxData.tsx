@@ -38,7 +38,13 @@ export const reportMappings: ReportMapping[] = [
     preview: 'Gun Deaths of Young Adults',
     description:
       'Visualize state-to-state rates of gun deaths among young adults ages 18-25. Explore further by highlighting race/ethnicity groups ',
-    categories: ['Community Safety', 'Youth', 'State-Level', 'Choropleth Map'],
+    categories: [
+      'Gun Violence',
+      'Community Safety',
+      'Youth',
+      'State-Level',
+      'Choropleth Map',
+    ],
     icon: <FiberNewIcon />,
     previewImg: '/img/screenshots/sample-report_young_adult_gun_deaths.png',
     customCard: <CustomChoroplethMap />,
