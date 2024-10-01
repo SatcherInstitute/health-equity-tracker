@@ -13,6 +13,7 @@ export async function saveCardImage(cardId: ScrollableHashId) {
   let addedParagraph: HTMLParagraphElement | null = null
 
   if (footer && targetNode) {
+    // Add a divider above the card sources footer
     addedDivider = document.createElement('hr')
     addedDivider.classList.add(
       'w-full',
@@ -23,6 +24,7 @@ export async function saveCardImage(cardId: ScrollableHashId) {
     addedDivider.style.height = '0px'
     footer.parentNode?.insertBefore(addedDivider, footer)
 
+    // Add HET citation below the card sources footer
     addedParagraph = document.createElement('p')
     addedParagraph.innerHTML = CITATION_APA
     footer?.appendChild(addedParagraph)
