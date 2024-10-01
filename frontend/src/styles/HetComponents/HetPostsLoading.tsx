@@ -19,17 +19,32 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
       {[...Array(numberLoadingSkeletons)].map((_, i) => {
         return (
           <div
-            className={`flex flex-wrap place-content-center content-center items-center justify-center gap-x-20 ${
-              props.className ?? ''
-            }`}
+            className={`flex flex-wrap  gap-x-20 ${props.className ?? ''}`}
             key={i}
           >
+            {/* IMG PLACEHOLDER */}
             <Skeleton
               animation={props.doPulse && 'wave'}
               variant='rectangular'
-              height={100}
-              width={150}
+              height={200}
+              width={300}
             ></Skeleton>
+            {/* TAGS PLACEHOLDER */}
+            <div className='my-3 w-full flex justify-start gap-5'>
+              <Skeleton
+                animation={false}
+                variant='text'
+                height={24}
+                width={60}
+              ></Skeleton>
+              <Skeleton
+                animation={false}
+                variant='text'
+                height={24}
+                width={80}
+              ></Skeleton>
+            </div>
+            {/* TITLE PLACEHOLDER */}
             <Skeleton
               animation={false}
               variant='text'

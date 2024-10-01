@@ -1,16 +1,17 @@
 import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
-import { HET_URL } from '../../utils/internalRoutes'
 import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
+import { HET_URL } from '../../utils/internalRoutes'
+
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 export function currentYear(): number {
   return new Date().getFullYear()
 }
-export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 export function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
