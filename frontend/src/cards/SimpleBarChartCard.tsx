@@ -113,10 +113,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   const rateComparisonConfig = rateConfig?.rateComparisonMetricForAlls
 
   if (rateComparisonConfig) {
@@ -143,7 +139,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
     >

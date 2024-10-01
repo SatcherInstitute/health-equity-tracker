@@ -30,7 +30,6 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata
   isCensusNotAcs?: boolean
   hideNH?: boolean
-  downloadTargetScreenshot?: () => Promise<boolean>
   isMulti?: boolean
   showDefinition?: boolean
   isCompareCard?: boolean

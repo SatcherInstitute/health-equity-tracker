@@ -26,10 +26,6 @@ import {
   CAWP_METRICS,
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
-import {
-  type ElementHashIdHiddenOnScreenshot,
-  useDownloadCardImage,
-} from '../../utils/hooks/useDownloadCardImage'
 import TerritoryCircles from './TerritoryCircles'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
@@ -40,6 +36,7 @@ import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
+import { saveCardImage } from '../../charts/utils'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -95,23 +92,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#multi-map-close-button1',
-    '#multi-map-close-button2',
-    '#card-options-menu',
-  ]
-
   const footerContentRef = useRef(null)
 
   const scrollToHash: ScrollableHashId = 'rate-map'
-
-  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    title,
-    elementsToHide,
-    scrollToHash,
-    false,
-    footerContentRef,
-  )
 
   /* handle clicks on sub-geos in multimap view */
   const multimapSignalListeners: any = {
@@ -138,6 +121,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
   return (
     <Dialog
       className='z-multiMapModal'
+      id='multimap-modal'
       open={props.open}
       onClose={props.handleClose}
       maxWidth={false}
@@ -145,12 +129,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       aria-labelledby='modalTitle'
     >
       <DialogContent dividers={true} className='p-2'>
-        <div ref={screenshotTargetRef}>
+        <div>
           {/* card options button */}
 
           <div className='flex w-full justify-end '>
             <CardOptionsMenu
-              downloadTargetScreenshot={downloadTargetScreenshot}
+              downloadTargetScreenshot={() => saveCardImage('multimap-modal')}
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />
@@ -321,7 +305,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
-              downloadTargetScreenshot={downloadTargetScreenshot}
               isMulti={true}
             />
           </div>

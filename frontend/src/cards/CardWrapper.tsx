@@ -7,11 +7,8 @@ import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import { Sources } from './ui/Sources'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import {
-  type ElementHashIdHiddenOnScreenshot,
-  useDownloadCardImage,
-} from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
+import { saveCardImage } from '../charts/utils'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -30,19 +27,11 @@ function CardWrapper(props: {
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
   reportTitle: string
-  elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
   isCompareCard?: boolean
   className?: string
   hasIntersectionalAllCompareBar?: boolean
 }) {
-  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    props.downloadTitle,
-    props.elementsToHide,
-    props.scrollToHash,
-    props.expanded,
-  )
-
   const loadingComponent = (
     <div
       className={`rounded relative m-2 p-3 shadow-raised bg-white flex justify-center ${props.className}`}
@@ -63,11 +52,10 @@ function CardWrapper(props: {
         return (
           <article
             className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
-            ref={screenshotTargetRef}
             tabIndex={-1}
           >
             <CardOptionsMenu
-              downloadTargetScreenshot={downloadTargetScreenshot}
+              downloadTargetScreenshot={() => saveCardImage(props.scrollToHash)}
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />

@@ -113,10 +113,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -125,7 +121,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,

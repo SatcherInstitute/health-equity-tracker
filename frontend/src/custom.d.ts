@@ -4,3 +4,4 @@
 // }
 
 declare module 'd3-regression'
+declare module 'dom-to-image-more'

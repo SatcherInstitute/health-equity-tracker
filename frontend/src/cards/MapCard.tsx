@@ -65,7 +65,6 @@ import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import type { MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
@@ -79,11 +78,6 @@ import { getSortArgs } from '../data/sorting/sortingUtils'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
-const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-  '#map-group-dropdown',
-  '#download-card-image-button',
-  '#card-options-menu',
-]
 
 interface MapCardProps {
   className?: string
@@ -277,7 +271,6 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={extremesMode}
       isCompareCard={props.isCompareCard}
       className={props.className}
@@ -488,7 +481,10 @@ function MapCardWithKey(props: MapCardProps) {
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
-              <div id='map-group-dropdown' className='pb-1 pt-0 text-left'>
+              <div
+                id='map-group-dropdown'
+                className='pb-1 pt-0 text-left hide-on-screenshot'
+              >
                 <DemographicGroupMenu
                   idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                   demographicType={demographicType}
@@ -504,7 +500,7 @@ function MapCardWithKey(props: MapCardProps) {
                   onClick={() => {
                     setMultimapOpen(true)
                   }}
-                  className='flex items-center'
+                  className='flex items-center hide-on-screenshot'
                   ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
                   <GridView />

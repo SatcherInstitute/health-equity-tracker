@@ -112,10 +112,6 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   const queries = [inequityQuery]
   pctShareQuery && queries.push(pctShareQuery)
 
@@ -126,7 +122,6 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
       className={props.className}
     >

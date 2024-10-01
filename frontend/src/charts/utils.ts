@@ -10,6 +10,9 @@ import {
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
+import domtoimage from 'dom-to-image-more'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { scale } from 'vega'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 
@@ -150,4 +153,27 @@ export const getFormatterPer100k = (value: number) => {
     minimumFractionDigits: numDecimalPlaces,
     maximumFractionDigits: numDecimalPlaces,
   }
+}
+
+function hideElementsForScreenshot(node: HTMLElement) {
+  return !node?.classList?.contains('hide-on-screenshot')
+}
+
+export async function saveCardImage(cardId: ScrollableHashId) {
+  const targetNode = document.getElementById(cardId) as HTMLElement
+
+  return domtoimage
+    .toPng(targetNode, {
+      scale: 3,
+      filter: hideElementsForScreenshot,
+    })
+    .then((dataUrl: string) => {
+      const link = document.createElement('a')
+      link.download = 'my-image-name.png'
+      link.href = dataUrl
+      link.click()
+    })
+    .catch((error: Error) => {
+      console.error('oops, something went wrong!', error)
+    })
 }
