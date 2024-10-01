@@ -41,7 +41,7 @@ export async function saveCardImage(
       height: targetNode?.offsetHeight,
     })
 
-    let fileName = `${cardTitle} from Health Equity Tracker ${new Date().toLocaleDateString(
+    let fileName = `HET - ${cardTitle} ${new Date().toLocaleDateString(
       'en-US',
       {
         month: 'short',
