@@ -1,3 +1,6 @@
+import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
+import type { RouteConfig } from '../../sharedTypes'
+import { lazy } from 'react'
 import {
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
@@ -65,10 +68,6 @@ const GlossaryLink = lazy(() => import('../methodologySections/GlossaryLink'))
 const CommunitySafetyLink = lazy(
   () => import('../methodologySections/CommunitySafetyLink'),
 )
-
-import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
-import type { RouteConfig } from '../../sharedTypes'
-import { lazy } from 'react'
 
 export const methodologyRouteConfigs: RouteConfig[] = [
   {
