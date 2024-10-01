@@ -310,7 +310,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           </div>
           {/*  CLOSE button */}
           <HetLinkButton
-            className='w-full justify-center'
+            className='w-full justify-center hide-on-screenshot'
             aria-label='close this multiple maps modal'
             onClick={props.handleClose}
           >
