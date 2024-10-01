@@ -1,15 +1,24 @@
+import { lazy } from 'react'
 import {
   HIV_PREVALENCE_RACE_USA_SETTING,
-  COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
-  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
+  GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
 } from '../../utils/internalRoutes'
-import Custom100kBarChartCompare from '../../reports/Custom100kBarChartCompare'
-import CustomDisparityBarChartCompare from '../../reports/CustomDisparityBarChartCompare'
-import CustomRateTrendsLineChart from '../../reports/CustomRateTrendsLineChart'
-import CustomShareTrendsLineChart from '../../reports/CustomShareTrendsLineChart'
 import FiberNewIcon from '@mui/icons-material/FiberNew'
+
+const CustomChoroplethMap = lazy(
+  () => import('../../reports/CustomChoroplethMap'),
+)
+const Custom100kBarChartCompare = lazy(
+  () => import('../../reports/Custom100kBarChartCompare'),
+)
+const CustomDisparityBarChartCompare = lazy(
+  () => import('../../reports/CustomDisparityBarChartCompare'),
+)
+const CustomRateTrendsLineChart = lazy(
+  () => import('../../reports/CustomRateTrendsLineChart'),
+)
 
 type ReportMapping = {
   setting: string
@@ -24,20 +33,15 @@ type ReportMapping = {
 
 export const reportMappings: ReportMapping[] = [
   {
-    setting: PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
-    title: 'HIV Disparity Maps by Medicare Eligibility',
-    preview: 'Medicare HIV Cases',
+    setting: GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
+    title: 'Map of Young Adult Gun Death Victims by State',
+    preview: 'Gun Deaths of Young Adults',
     description:
-      'Visualize HIV disparities among Medicare beneficiaries. These insights are essential for optimizing treatment and reducing health inequities.',
-    categories: [
-      'HIV',
-      'Medication Utilization in the Medicare Population',
-      'Multiple Maps',
-      'National-Level',
-    ],
+      'Visualize state-to-state rates of gun deaths among young adults ages 18-25. Explore further by highlighting race/ethnicity groups ',
+    categories: ['Community Safety', 'Youth', 'State-Level', 'Choropleth Map'],
     icon: <FiberNewIcon />,
-    previewImg: '/img/screenshots/sample-report_medicare.png',
-    customCard: null,
+    previewImg: '/img/screenshots/sample-report_young_adult_gun_deaths.png',
+    customCard: <CustomChoroplethMap />,
   },
   {
     setting: HIV_PREVALENCE_RACE_USA_SETTING,
@@ -49,16 +53,7 @@ export const reportMappings: ReportMapping[] = [
     previewImg: '/img/screenshots/sample-report_hiv.png',
     customCard: <CustomRateTrendsLineChart />,
   },
-  {
-    setting: COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
-    title: 'COVID-19 Deaths in Fulton County by Age',
-    preview: 'COVID-19 Deaths',
-    description:
-      'Analyze COVID-19 mortality in Fulton County, GA, by age. Highlighting vulnerable populations helps to inform public health strategies and resource allocation.',
-    categories: ['COVID-19', 'Deaths', 'Age', 'County-Level'],
-    previewImg: '/img/screenshots/sample-report_covid.png',
-    customCard: <CustomShareTrendsLineChart />,
-  },
+
   {
     setting: PRISON_VS_POVERTY_RACE_GA_SETTING,
     title: 'Prison & Poverty in Georgia by Race',
