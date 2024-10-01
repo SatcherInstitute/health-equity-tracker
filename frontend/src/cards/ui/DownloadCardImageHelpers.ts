@@ -6,7 +6,10 @@ function hideElementsForScreenshot(node: HTMLElement) {
   return !node?.classList?.contains('hide-on-screenshot')
 }
 
-export async function saveCardImage(cardId: ScrollableHashId) {
+export async function saveCardImage(
+  cardId: ScrollableHashId,
+  cardTitle: string,
+) {
   const targetNode = document.getElementById(cardId) as HTMLElement
   const footer = targetNode?.querySelector('footer')
   let addedDivider: HTMLHRElement | null = null
@@ -38,13 +41,28 @@ export async function saveCardImage(cardId: ScrollableHashId) {
       height: targetNode?.offsetHeight,
     })
 
+    let fileName = `${cardTitle} from Health Equity Tracker ${new Date().toLocaleDateString(
+      'en-US',
+      {
+        month: 'short',
+        year: 'numeric',
+      },
+    )}.png`
+
+    // replace any unsafe characters in the filename. NOTE: spaces are allowed; we can change if it turns out to be a giant issue
+    fileName = fileName.replace('+', 'plus')
+    fileName = fileName.replace(/[^a-zA-Z0-9_.\-\s]+/g, '')
+
     const link = document.createElement('a')
-    link.download = 'my-image-name.png'
+    link.download = fileName
     link.href = dataUrl
     link.click()
     return true
   } catch (error) {
-    console.error('oops, something went wrong!', error)
+    console.error(
+      'oops, something went wrong when saving file. You can try again, or use the built-in screenshot tool. CMD+SHIFT+5 on Mac.',
+      error,
+    )
     return false
   } finally {
     // Clean up: remove the added elements
