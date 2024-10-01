@@ -1,3 +1,6 @@
+import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
+import type { RouteConfig } from '../../sharedTypes'
+import { lazy } from 'react'
 import {
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
@@ -19,27 +22,52 @@ import {
   LIMITATIONS_LINK,
   COMMUNITY_SAFETY_LINK,
 } from '../../../utils/internalRoutes'
-import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink'
-import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink'
-import ChronicDiseaseLink from '../methodologySections/ChronicDiseaseLink'
-import TopicDefinitionsLink from '../methodologySections/TopicDefinitionsLink'
-import DataMethodDefinitionsLink from '../methodologySections/DataMethodDefinitionsLink'
-import Covid19Link from '../methodologySections/Covid19Link'
-import HivLink from '../methodologySections/HivLink'
-import MetricsLink from '../methodologySections/MetricsLink'
-import PdohLink from '../methodologySections/PdohLink'
-import MedicationUtilizationLink from '../methodologySections/MedicationUtilizationLink'
-import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesLink'
-import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink'
-import SdohLink from '../methodologySections/SdohLink'
-import DataSourcesLink from '../methodologySections/DataSourcesLink'
-import TopicCategoriesLink from '../methodologySections/TopicCategoriesLink'
-import LimitationsLink from '../methodologySections/LimitationsLink'
-import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
-import GlossaryLink from '../methodologySections/GlossaryLink'
-import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
-import CommunitySafetyLink from '../methodologySections/CommunitySafetyLink'
-import type { RouteConfig } from '../../sharedTypes'
+
+const AgeAdjustmentLink = lazy(
+  () => import('../methodologySections/AgeAdjustmentLink'),
+)
+const BehavioralHealthLink = lazy(
+  () => import('../methodologySections/BehavioralHealthLink'),
+)
+const ChronicDiseaseLink = lazy(
+  () => import('../methodologySections/ChronicDiseaseLink'),
+)
+const TopicDefinitionsLink = lazy(
+  () => import('../methodologySections/TopicDefinitionsLink'),
+)
+const DataMethodDefinitionsLink = lazy(
+  () => import('../methodologySections/DataMethodDefinitionsLink'),
+)
+const Covid19Link = lazy(() => import('../methodologySections/Covid19Link'))
+const HivLink = lazy(() => import('../methodologySections/HivLink'))
+const MetricsLink = lazy(() => import('../methodologySections/MetricsLink'))
+const PdohLink = lazy(() => import('../methodologySections/PdohLink'))
+const MedicationUtilizationLink = lazy(
+  () => import('../methodologySections/MedicationUtilizationLink'),
+)
+const RacesAndEthnicitiesLink = lazy(
+  () => import('../methodologySections/RacesAndEthnicitiesLink'),
+)
+const RecommendedCitationLink = lazy(
+  () => import('../methodologySections/RecommendedCitationLink'),
+)
+const SdohLink = lazy(() => import('../methodologySections/SdohLink'))
+const DataSourcesLink = lazy(
+  () => import('../methodologySections/DataSourcesLink'),
+)
+const TopicCategoriesLink = lazy(
+  () => import('../methodologySections/TopicCategoriesLink'),
+)
+const LimitationsLink = lazy(
+  () => import('../methodologySections/LimitationsLink'),
+)
+const MethodologyHomeLink = lazy(
+  () => import('../methodologySections/MethodologyHomeLink'),
+)
+const GlossaryLink = lazy(() => import('../methodologySections/GlossaryLink'))
+const CommunitySafetyLink = lazy(
+  () => import('../methodologySections/CommunitySafetyLink'),
+)
 
 export const methodologyRouteConfigs: RouteConfig[] = [
   {

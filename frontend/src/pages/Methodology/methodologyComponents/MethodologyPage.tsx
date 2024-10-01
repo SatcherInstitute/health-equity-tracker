@@ -1,11 +1,8 @@
-import { HET_URL } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { currentYear } from '../../../cards/ui/SourcesHelpers'
 import MethodologyCardMenu from './MethodologyCardMenu'
 import MethodologyPagination from './MethodologyPagination'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
-export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 import { Outlet, useLocation, useMatch } from 'react-router-dom'
 import methodologyRouteConfigs from '../methodologyContent/methodologyRouteConfigs'
 

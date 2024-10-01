@@ -35,7 +35,7 @@ function LandingPage() {
   if (isMd) numberOfArticlePreviews = 3
   if (isLg) numberOfArticlePreviews = 4
 
-  const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
+  const recentArticles = data?.data?.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   interface ListItemProps {
