@@ -75,12 +75,13 @@ export const POVERTY_US_SETTING = '?mls=1.poverty-3.00'
 export const OPIOID_US_SETTING =
   '?dt1=non_medical_drug_use&mls=1.substance-3.00'
 
+export const GUN_DEATHS_YOUNG_ADULTS_USA_SETTING =
+  '?mls=1.gun_violence_youth-3.00&group1=All&demo=race_and_ethnicity&dt1=gun_deaths_young_adults#rate-map'
 export const HIV_PREVALENCE_RACE_USA_SETTING =
   '?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence'
 export const PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING =
   '?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true'
-export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
-  '?mls=1.covid-3.13121&group1=All&group2=All&dt1=covid_deaths&demo=age'
+
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
   '?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison'
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =

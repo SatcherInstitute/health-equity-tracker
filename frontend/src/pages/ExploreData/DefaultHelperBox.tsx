@@ -39,7 +39,7 @@ export default function DefaultHelperBox() {
                 >
                   <a
                     href={EXPLORE_DATA_PAGE_LINK + report.setting}
-                    className='bg-cover bg-no-repeat ml-6 px-4 w-full h-[18rem] transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
+                    className='bg-cover bg-center bg-no-repeat ml-6 px-4 w-full h-[18rem] transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
                     style={{
                       backgroundImage: `url(${report.previewImg})`,
                     }}

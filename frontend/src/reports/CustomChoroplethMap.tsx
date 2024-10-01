@@ -3,8 +3,8 @@ import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import MapCard from '../cards/MapCard'
-import { AGE } from '../data/utils/Constants'
 import type { DemographicType } from '../data/query/Breakdowns'
+import { getConfigFromDataTypeId } from '../utils/MadLibs'
 
 interface CustomChoroplethProps {
   fips?: Fips
@@ -16,8 +16,8 @@ interface CustomChoroplethProps {
 
 const CustomChoroplethMap: React.FC<CustomChoroplethProps> = ({
   fips = new Fips('00'),
-  dataTypeConfig = METRIC_CONFIG['gun_violence_youth'][0],
-  demographicType = AGE,
+  dataTypeConfig = getConfigFromDataTypeId('gun_deaths_young_adults'),
+  demographicType = 'race_and_ethnicity',
   reportTitle = 'Custom Choropleth Rate Map',
   className,
 }) => {
