@@ -63,7 +63,7 @@ export function FilterLegend({
           <button
             type='button'
             aria-disabled={groupsAreMinMax}
-            className={`rounded-l-sm border border-altBlack p-4 text-altBlack ${
+            className={`hide-on-screenshot rounded-l-sm border border-altBlack p-4 text-altBlack ${
               groupsAreMinMax
                 ? 'cursor-default  bg-methodologyGreen font-bold'
                 : 'cursor-pointer  bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
@@ -83,7 +83,7 @@ export function FilterLegend({
             type='button'
             aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
-            className={`rounded-r-sm border-altBlack border p-4 text-altBlack ${
+            className={`hide-on-screenshot rounded-r-sm border-altBlack border p-4 text-altBlack ${
               noGroupsAreFiltered
                 ? 'cursor-default  bg-methodologyGreen font-bold'
                 : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'

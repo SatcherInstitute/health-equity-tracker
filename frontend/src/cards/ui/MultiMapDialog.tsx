@@ -36,7 +36,7 @@ import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-import { saveCardImage } from '../../charts/utils'
+import { saveCardImage } from './DownloadCardImageHelpers'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig

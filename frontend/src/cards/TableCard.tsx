@@ -25,7 +25,6 @@ import {
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import type { CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'

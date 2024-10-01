@@ -35,7 +35,6 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 
 /* minimize layout shift */

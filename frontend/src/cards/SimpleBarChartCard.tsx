@@ -27,7 +27,6 @@ import {
   DATATYPES_NEEDING_13PLUS,
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
 import { isPctType } from '../data/config/MetricConfigUtils'

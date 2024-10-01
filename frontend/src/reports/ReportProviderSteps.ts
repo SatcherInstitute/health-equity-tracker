@@ -42,4 +42,8 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
     label: 'Definitions & missing data',
     pluralOnCompare: false,
   },
+  'multimap-modal': {
+    label: '',
+    pluralOnCompare: false,
+  },
 }

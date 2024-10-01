@@ -500,7 +500,7 @@ function MapCardWithKey(props: MapCardProps) {
                   onClick={() => {
                     setMultimapOpen(true)
                   }}
-                  className='flex items-center hide-on-screenshot'
+                  className='flex items-center'
                   ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
                   <GridView />
@@ -615,6 +615,7 @@ function MapCardWithKey(props: MapCardProps) {
                 </div>
               </div>
               <div
+                className='hide-on-screenshot'
                 id={
                   props.isCompareCard
                     ? EXTREMES_2_PARAM_KEY

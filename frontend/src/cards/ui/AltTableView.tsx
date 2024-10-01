@@ -70,7 +70,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 mx-2 rounded-md bg-listboxColor text-left'
+      className='mt-4 mx-2 rounded-md bg-listboxColor text-left hide-on-screenshot'
       id={
         props.isCompareCard
           ? ALT_TABLE_VIEW_2_PARAM_KEY

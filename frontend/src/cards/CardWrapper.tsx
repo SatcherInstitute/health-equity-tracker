@@ -8,7 +8,7 @@ import { Sources } from './ui/Sources'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
-import { saveCardImage } from '../charts/utils'
+import { saveCardImage } from './ui/DownloadCardImageHelpers'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
