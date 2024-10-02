@@ -122,17 +122,11 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll='paper'
-      // scroll='body'
       aria-labelledby='modalTitle'
     >
-      <DialogContent
-        dividers={true}
-        className='p-2'
-        id='multimap-modal-scrollable'
-      >
+      <DialogContent dividers={true} className='p-2'>
         <div>
           {/* card options button */}
-
           <div className='flex w-full justify-end '>
             <CardOptionsMenu
               downloadTargetScreenshot={() =>
@@ -293,10 +287,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               </div>
             )}
 
-            <HetNotice
-              kind='text-only'
-              className='col-span-full hide-on-screenshot'
-            >
+            <HetNotice kind='text-only' className='col-span-full'>
               <DataTypeDefinitionsList />
             </HetNotice>
           </ul>

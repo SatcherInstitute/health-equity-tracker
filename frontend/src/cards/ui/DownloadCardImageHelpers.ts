@@ -12,7 +12,16 @@ export async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
 ) {
-  const targetNode = document.getElementById(cardId) as HTMLElement
+  let targetNode = document.getElementById(cardId) as HTMLElement
+  const articleChild = targetNode.querySelector('article')
+  if (articleChild) {
+    targetNode = articleChild as HTMLElement
+  }
+
+  const cardOptionsDiv = document.getElementById(
+    'card-options-menu',
+  ) as HTMLElement
+
   const footer = targetNode?.querySelector('footer')
   let addedDivider: HTMLHRElement | null = null
   let addedParagraph: HTMLParagraphElement | null = null
@@ -38,11 +47,13 @@ export async function saveCardImage(
   }
 
   try {
+    const heightToRemove = cardId === 'multimap-modal' ? 0 : 60
+
     const dataUrl = await domtoimage.toPng(targetNode, {
       scale: 3,
       filter: hideElementsForScreenshot,
       width: targetNode?.offsetWidth,
-      height: targetNode?.offsetHeight,
+      height: targetNode?.offsetHeight - heightToRemove,
     })
 
     let fileName = `HET - ${cardTitle} ${new Date().toLocaleDateString(
