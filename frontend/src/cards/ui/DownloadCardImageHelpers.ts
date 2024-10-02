@@ -6,6 +6,8 @@ function hideElementsForScreenshot(node: HTMLElement) {
   return !node?.classList?.contains('hide-on-screenshot')
 }
 
+// TODO: known issue where screenshot captures only what is visible on screen, and hides extra content that's "below the fold"
+
 export async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
@@ -16,16 +18,18 @@ export async function saveCardImage(
   let addedParagraph: HTMLParagraphElement | null = null
 
   if (footer && targetNode) {
-    // Add a divider above the card sources footer
-    addedDivider = document.createElement('hr')
-    addedDivider.classList.add(
-      'w-full',
-      'border-b',
-      'border-solid',
-      'border-dividerGrey',
-    )
-    addedDivider.style.height = '0px'
-    footer.parentNode?.insertBefore(addedDivider, footer)
+    //add divider to non-multimap cards
+    if (cardId !== 'multimap-modal') {
+      addedDivider = document.createElement('hr')
+      addedDivider.classList.add(
+        'w-full',
+        'border-b',
+        'border-solid',
+        'border-dividerGrey',
+      )
+      addedDivider.style.height = '0px'
+      footer.parentNode?.insertBefore(addedDivider, footer)
+    }
 
     // Add HET citation below the card sources footer
     addedParagraph = document.createElement('p')

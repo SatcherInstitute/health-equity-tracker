@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
@@ -92,10 +92,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
-  const footerContentRef = useRef(null)
-
-  const scrollToHash: ScrollableHashId = 'rate-map'
-
   /* handle clicks on sub-geos in multimap view */
   const multimapSignalListeners: any = {
     click: (...args: any) => {
@@ -126,9 +122,14 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       onClose={props.handleClose}
       maxWidth={false}
       scroll='paper'
+      // scroll='body'
       aria-labelledby='modalTitle'
     >
-      <DialogContent dividers={true} className='p-2'>
+      <DialogContent
+        dividers={true}
+        className='p-2'
+        id='multimap-modal-scrollable'
+      >
         <div>
           {/* card options button */}
 
@@ -292,7 +293,10 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               </div>
             )}
 
-            <HetNotice kind='text-only' className='col-span-full'>
+            <HetNotice
+              kind='text-only'
+              className='col-span-full hide-on-screenshot'
+            >
               <DataTypeDefinitionsList />
             </HetNotice>
           </ul>
@@ -300,7 +304,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       </DialogContent>
 
       {/* MODAL FOOTER */}
-      <footer ref={footerContentRef}>
+      <section>
         <div className='flex justify-between pl-2 text-left text-small'>
           {/* Desktop only Sources and Card Options */}
           <div className='hidden w-full sm:block'>
@@ -319,7 +323,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             Close
           </HetLinkButton>
         </div>
-      </footer>
+      </section>
     </Dialog>
   )
 }
