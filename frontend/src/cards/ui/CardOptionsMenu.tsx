@@ -39,7 +39,10 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
       className='mb-0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-5 md:mr-1'
       id={'card-options-menu'}
     >
-      <Tooltip title='Card export options' className='hide-on-screenshot'>
+      <Tooltip
+        title='Card export options'
+        className='hide-on-screenshot remove-height-on-screenshot'
+      >
         <IconButton onClick={shareMenu.open}>
           <MoreHorizIcon />
         </IconButton>

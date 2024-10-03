@@ -12,24 +12,31 @@ export async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
 ) {
-  let targetNode = document.getElementById(cardId) as HTMLElement
-  const articleChild = targetNode.querySelector('article')
-  if (articleChild) {
-    targetNode = articleChild as HTMLElement
+  const parentCardNode = document.getElementById(cardId) as HTMLElement
+
+  const articleChild = parentCardNode.querySelector('article')
+  const targetNode = (articleChild as HTMLElement) || parentCardNode
+  articleChild?.classList.remove('shadow-raised')
+
+  // crop final image adjusting for hidden elements that affect height
+  let heightToCrop = 0
+  const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
+    targetNode.querySelectorAll('.remove-height-on-screenshot')
+  if (removeHeightOnScreenshotElements) {
+    removeHeightOnScreenshotElements.forEach((element) => {
+      heightToCrop += getTotalElementHeight(element)
+      console.log(element, getTotalElementHeight(element))
+    })
   }
 
-  const cardOptionsDiv = document.getElementById(
-    'card-options-menu',
-  ) as HTMLElement
-
   const footer = targetNode?.querySelector('footer')
-  let addedDivider: HTMLHRElement | null = null
+  let addedDivider: HTMLDivElement | null = null
   let addedParagraph: HTMLParagraphElement | null = null
 
   if (footer && targetNode) {
     //add divider to non-multimap cards
     if (cardId !== 'multimap-modal') {
-      addedDivider = document.createElement('hr')
+      addedDivider = document.createElement('div')
       addedDivider.classList.add(
         'w-full',
         'border-b',
@@ -44,16 +51,18 @@ export async function saveCardImage(
     addedParagraph = document.createElement('p')
     addedParagraph.innerHTML = CITATION_APA
     footer?.appendChild(addedParagraph)
+
+    heightToCrop -= getTotalElementHeight(addedParagraph)
+    heightToCrop -= getTotalElementHeight(addedDivider)
   }
 
   try {
-    const heightToRemove = cardId === 'multimap-modal' ? 0 : 60
-
+    console.log({ heightToCrop })
     const dataUrl = await domtoimage.toPng(targetNode, {
       scale: 3,
       filter: hideElementsForScreenshot,
       width: targetNode?.offsetWidth,
-      height: targetNode?.offsetHeight - heightToRemove,
+      height: targetNode?.offsetHeight - heightToCrop,
     })
 
     let fileName = `HET - ${cardTitle} ${new Date().toLocaleDateString(
@@ -80,12 +89,23 @@ export async function saveCardImage(
     )
     return false
   } finally {
-    // Clean up: remove the added elements
+    // Clean up: revert card elements
     if (addedDivider?.parentNode) {
       addedDivider.parentNode.removeChild(addedDivider)
     }
     if (addedParagraph?.parentNode) {
       addedParagraph.parentNode.removeChild(addedParagraph)
     }
+    articleChild?.classList.add('shadow-raised')
   }
+}
+
+function getTotalElementHeight(element: HTMLElement | null) {
+  if (!element) {
+    return 0
+  }
+  let height = 0
+  height += element.offsetHeight
+  height += Number.parseInt(getComputedStyle(element).marginTop)
+  return height
 }

@@ -21,7 +21,7 @@ export default function HetExpandableBoxButton(
           : 'text-ellipsis whitespace-nowrap  sm:overflow-hidden'
       } `}
     >
-      <span className='flex-grow font-medium hide-on-screenshot'>
+      <span className='flex-grow font-medium'>
         {!props.expanded ? 'Expand' : 'Collapse'} {props.expandBoxLabel}
       </span>
 
