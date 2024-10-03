@@ -166,9 +166,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   key={`${demographicGroup}-grid-item`}
                   className='min-h-multimapMobile w-full sm:p-1 md:min-h-multimapDesktop md:p-2'
                 >
-                  <h4 className='m-0 text-smallest font-medium leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
+                  <h3 className='m-0 text-smallest font-medium leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
                     {mapLabel}
-                  </h4>
+                  </h3>
                   <div>
                     {props.metricConfig && dataForValue?.length > 0 && (
                       <ChoroplethMap
@@ -219,78 +219,76 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 </li>
               )
             })}
+          </ul>
 
-            {/* LEGEND */}
-            <div className='col-span-full flex w-full justify-start md:col-span-1'>
-              <Legend
-                dataTypeConfig={props.dataTypeConfig}
-                metric={props.metricConfig}
-                legendTitle={props.metricConfig.shortLabel}
-                data={props.data}
-                scaleType={RATE_MAP_SCALE}
-                sameDotSize={true}
-                description={'Consistent legend for all displayed maps'}
-                mapConfig={mapConfig}
-                stackingDirection={
-                  props.pageIsSmall ? 'vertical' : 'horizontal'
-                }
-                columns={2}
-                handleScaleChange={handleScaleChange}
-                isMulti={true}
-                isPhrmaAdherence={props.isPhrmaAdherence}
+          {/* LEGEND */}
+          <div className='col-span-full flex w-full justify-start md:col-span-1'>
+            <Legend
+              dataTypeConfig={props.dataTypeConfig}
+              metric={props.metricConfig}
+              legendTitle={props.metricConfig.shortLabel}
+              data={props.data}
+              scaleType={RATE_MAP_SCALE}
+              sameDotSize={true}
+              description={'Consistent legend for all displayed maps'}
+              mapConfig={mapConfig}
+              stackingDirection={'horizontal'}
+              columns={6}
+              handleScaleChange={handleScaleChange}
+              isMulti={true}
+              isPhrmaAdherence={props.isPhrmaAdherence}
+            />
+          </div>
+
+          {/* Population Breadcrumbs + Legend */}
+          <div className='col-span-full flex w-full items-end justify-between'>
+            {/* DESKTOP BREADCRUMBS */}
+            <div className='hidden w-full justify-start md:flex'>
+              <HetBreadcrumbs
+                fips={props.fips}
+                updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId={'rate-map'}
+                totalPopulationPhrase={props.totalPopulationPhrase}
+                subPopulationPhrase={props.subPopulationPhrase}
               />
             </div>
 
-            {/* Population Breadcrumbs + Legend */}
-            <div className='col-span-full flex w-full items-end justify-between'>
-              {/* DESKTOP BREADCRUMBS */}
-              <div className='hidden w-full justify-start md:flex'>
-                <HetBreadcrumbs
-                  fips={props.fips}
-                  updateFipsCallback={props.updateFipsCallback}
-                  scrollToHashId={'rate-map'}
-                  totalPopulationPhrase={props.totalPopulationPhrase}
-                  subPopulationPhrase={props.subPopulationPhrase}
-                />
-              </div>
+            {/* MOBILE BREADCRUMBS */}
+            <div className='col-span-full mt-3 flex w-full justify-center md:hidden'>
+              <HetBreadcrumbs
+                fips={props.fips}
+                updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId={'rate-map'}
+                totalPopulationPhrase={props.totalPopulationPhrase}
+                subPopulationPhrase={props.subPopulationPhrase}
+              />
+            </div>
+          </div>
 
-              {/* MOBILE BREADCRUMBS */}
-              <div className='col-span-full mt-3 flex w-full justify-center md:hidden'>
-                <HetBreadcrumbs
-                  fips={props.fips}
-                  updateFipsCallback={props.updateFipsCallback}
-                  scrollToHashId={'rate-map'}
-                  totalPopulationPhrase={props.totalPopulationPhrase}
-                  subPopulationPhrase={props.subPopulationPhrase}
-                />
+          {/* Missing Groups */}
+          {props.demographicGroupsNoData.length > 0 && (
+            <div className='col-span-full w-full justify-center xl:w-7/12'>
+              <div className='my-3'>
+                <HetNotice kind='data-integrity'>
+                  <p className='m-0'>
+                    Insufficient {props.metricConfig.shortLabel} data reported
+                    at the {props.fips.getChildFipsTypeDisplayName()} level for
+                    the following groups:{' '}
+                    {props.demographicGroupsNoData.map((group, i) => (
+                      <span key={group}>
+                        <HetTerm>{group}</HetTerm>
+                        {i < props.demographicGroupsNoData.length - 1 && '; '}
+                      </span>
+                    ))}
+                  </p>
+                </HetNotice>
               </div>
             </div>
+          )}
 
-            {/* Missing Groups */}
-            {props.demographicGroupsNoData.length > 0 && (
-              <div className='col-span-full w-full justify-center xl:w-7/12'>
-                <div className='my-3'>
-                  <HetNotice kind='data-integrity'>
-                    <p className='m-0'>
-                      Insufficient {props.metricConfig.shortLabel} data reported
-                      at the {props.fips.getChildFipsTypeDisplayName()} level
-                      for the following groups:{' '}
-                      {props.demographicGroupsNoData.map((group, i) => (
-                        <span key={group}>
-                          <HetTerm>{group}</HetTerm>
-                          {i < props.demographicGroupsNoData.length - 1 && '; '}
-                        </span>
-                      ))}
-                    </p>
-                  </HetNotice>
-                </div>
-              </div>
-            )}
-
-            <HetNotice kind='text-only' className='col-span-full'>
-              <DataTypeDefinitionsList />
-            </HetNotice>
-          </ul>
+          <HetNotice kind='text-only' className='col-span-full'>
+            <DataTypeDefinitionsList />
+          </HetNotice>
         </div>
       </DialogContent>
 
