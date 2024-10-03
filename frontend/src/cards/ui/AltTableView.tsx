@@ -125,7 +125,9 @@ export default function AltTableView(props: AltTableViewProps) {
                           !isUnknownPctCol &&
                           optionalAgesPrefix}
                         {key.replaceAll('_', ' ')}
-                        {!isTimeCol && !isUnknownPctCol && ` $dataColumnLabel`}
+                        {!isTimeCol &&
+                          !isUnknownPctCol &&
+                          ` ${dataColumnLabel}`}
                         {isTimeCol &&
                           ` (${earliestTimePeriod} - ${latestTimePeriod})`}
                       </TableCell>
