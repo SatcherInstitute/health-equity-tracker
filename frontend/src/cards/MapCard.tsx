@@ -481,10 +481,7 @@ function MapCardWithKey(props: MapCardProps) {
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
-              <div
-                id='map-group-dropdown'
-                className='pb-1 pt-0 text-left hide-on-screenshot remove-height-on-screenshot'
-              >
+              <div className='pb-1 pt-0 text-left hide-on-screenshot remove-height-on-screenshot'>
                 <DemographicGroupMenu
                   idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                   demographicType={demographicType}
@@ -615,7 +612,6 @@ function MapCardWithKey(props: MapCardProps) {
                 </div>
               </div>
               <div
-                // className='hide-on-screenshot'
                 id={
                   props.isCompareCard
                     ? EXTREMES_2_PARAM_KEY
