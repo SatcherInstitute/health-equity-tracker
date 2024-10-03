@@ -25,13 +25,17 @@ export default function SimpleSelect<ListItemType>(
     ? props.selected
     : ''
 
+  const safeLabel = props.label.replace(' ', '-')
+  const labelId = `${safeLabel}-select-label`
+  const id = `${safeLabel}-select`
+
   return (
     <FormControl sx={{ m: 1, minWidth: MIN_TOP_LABEL_WIDTH }} size='small'>
-      <InputLabel id={`${props.label}-select-label`}>{props.label}</InputLabel>
+      <InputLabel id={labelId}>{props.label}</InputLabel>
       <Select
         autoWidth
-        labelId={`${props.label}-select-label`}
-        id={`${props.label}-select`}
+        labelId={labelId}
+        id={id}
         value={value as string}
         label={props.label}
         onChange={handleChange}

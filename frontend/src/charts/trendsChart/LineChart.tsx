@@ -54,7 +54,6 @@ export function LineChart({
     <g tabIndex={0} aria-label='Demographic group trendlines'>
       {data?.map(([group, d]: GroupData) => {
         const dCopy = [...d]
-
         const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1])
         const minValueForGroup = sortedDataForGroup[0]?.[1]
         const maxValueForGroup =
@@ -77,20 +76,21 @@ export function LineChart({
 
         const isUnknownLine = group === UNKNOWN_W
         return (
-          <path
-            aria-label={groupA11yDescription}
-            className={`fill-none ${
-              isUnknownLine ? 'stroke-5.5' : 'stroke-2.5'
-            }`}
-            key={`group-${group}`}
-            d={lineGen(d as any) ?? ''}
-            stroke={C(group)}
-            style={
-              isUnknownLine
-                ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
-                : { strokeLinecap: 'round' }
-            }
-          />
+          <g key={`group-${group}`} aria-label={groupA11yDescription}>
+            <title>{groupA11yDescription}</title>
+            <path
+              className={`fill-none ${
+                isUnknownLine ? 'stroke-5.5' : 'stroke-2.5'
+              }`}
+              d={lineGen(d as any) ?? ''}
+              stroke={C(group)}
+              style={
+                isUnknownLine
+                  ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
+                  : { strokeLinecap: 'round' }
+              }
+            />
+          </g>
         )
       })}
     </g>

@@ -2,26 +2,31 @@ import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import domtoimage from 'dom-to-image-more'
 import { CITATION_APA } from './SourcesHelpers'
 
-function hideElementsForScreenshot(node: HTMLElement) {
-  return !node?.classList?.contains('hide-on-screenshot')
-}
+const SCALE_FACTOR = 3
+const UNSAFE_CHAR_REGEX = /[^a-zA-Z0-9_.\-\s]+/g
 
-// TODO: known issue where screenshot captures only what is visible on screen, and hides extra content that's "below the fold"
+interface DomToImageOptions {
+  scale: number
+  filter: (node: HTMLElement) => boolean
+  width?: number
+  height?: number
+}
 
 export async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
-) {
+): Promise<boolean> {
   const parentCardNode = document.getElementById(cardId) as HTMLElement
-
-  const articleChild = parentCardNode.querySelector('article')
-  const targetNode = (articleChild as HTMLElement) || parentCardNode
+  const articleChild = parentCardNode?.querySelector(
+    'article',
+  ) as HTMLElement | null
+  const targetNode = articleChild || parentCardNode
   articleChild?.classList.remove('shadow-raised')
 
-  // crop final image adjusting for hidden elements that affect height
   let heightToCrop = 0
   const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
     targetNode.querySelectorAll('.remove-height-on-screenshot')
+
   if (removeHeightOnScreenshotElements) {
     removeHeightOnScreenshotElements.forEach((element) => {
       heightToCrop += getTotalElementHeight(element)
@@ -33,7 +38,6 @@ export async function saveCardImage(
   let addedParagraph: HTMLParagraphElement | null = null
 
   if (footer && targetNode) {
-    //add divider to non-multimap cards
     if (cardId !== 'multimap-modal') {
       addedDivider = document.createElement('div')
       addedDivider.classList.add(
@@ -46,7 +50,6 @@ export async function saveCardImage(
       footer.parentNode?.insertBefore(addedDivider, footer)
     }
 
-    // Add HET citation below the card sources footer
     addedParagraph = document.createElement('p')
     addedParagraph.innerHTML = CITATION_APA
     footer?.appendChild(addedParagraph)
@@ -56,55 +59,64 @@ export async function saveCardImage(
   }
 
   try {
-    console.log({ heightToCrop })
-    const dataUrl = await domtoimage.toPng(targetNode, {
-      scale: 3,
+    const options: DomToImageOptions = {
+      scale: SCALE_FACTOR,
       filter: hideElementsForScreenshot,
       width: targetNode?.offsetWidth,
       height: targetNode?.offsetHeight - heightToCrop,
-    })
+    }
 
-    let fileName = `HET - ${cardTitle} ${new Date().toLocaleDateString(
-      'en-US',
-      {
-        month: 'short',
-        year: 'numeric',
-      },
-    )}.png`
-
-    // replace any unsafe characters in the filename. NOTE: spaces are allowed; we can change if it turns out to be a giant issue
-    fileName = fileName.replace('+', 'plus')
-    fileName = fileName.replace(/[^a-zA-Z0-9_.\-\s]+/g, '')
+    const dataUrl = await domtoimage.toPng(targetNode, options)
+    const fileName = createFileName(cardTitle)
 
     const link = document.createElement('a')
     link.download = fileName
     link.href = dataUrl
     link.click()
     return true
-  } catch (error) {
-    console.error(
-      'oops, something went wrong when saving file. You can try again, or use a built-in screenshot tool. CMD+SHIFT+5 on Mac.',
-      error,
-    )
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Screenshot failed: ${error.message}`)
+    } else {
+      console.error('Screenshot failed with unknown error')
+    }
     return false
   } finally {
-    // Clean up: revert card elements
-    if (addedDivider?.parentNode) {
-      addedDivider.parentNode.removeChild(addedDivider)
-    }
-    if (addedParagraph?.parentNode) {
-      addedParagraph.parentNode.removeChild(addedParagraph)
-    }
-    articleChild?.classList.add('shadow-raised')
+    cleanup([addedDivider, addedParagraph], articleChild)
   }
 }
 
-function getTotalElementHeight(element: HTMLElement | null) {
+function hideElementsForScreenshot(node: HTMLElement): boolean {
+  return !node?.classList?.contains('hide-on-screenshot')
+}
+
+function getTotalElementHeight(element: HTMLElement | null): number {
   if (!element) {
     return 0
   }
-  let height = 0
-  height += element.offsetHeight
-  height += Number.parseInt(getComputedStyle(element).marginTop)
-  return height
+  const marginTop = Number.parseInt(getComputedStyle(element).marginTop)
+  return element.offsetHeight + marginTop
+}
+
+function createFileName(cardTitle: string): string {
+  const date = new Date().toLocaleDateString('en-US', {
+    month: 'short',
+    year: 'numeric',
+  })
+  const fileName = `HET - ${cardTitle} ${date}.png`
+  return fileName.replace('+', 'plus').replace(UNSAFE_CHAR_REGEX, '')
+}
+
+// Remove added elements, reset styles
+function cleanup(
+  addedNodes: Array<HTMLElement | null>,
+  articleChild: HTMLElement | null,
+): void {
+  if (addedNodes) {
+    addedNodes.forEach((node) => {
+      node?.remove()
+    })
+  }
+
+  articleChild?.classList.add('shadow-raised')
 }
