@@ -25,7 +25,6 @@ export async function saveCardImage(
   if (removeHeightOnScreenshotElements) {
     removeHeightOnScreenshotElements.forEach((element) => {
       heightToCrop += getTotalElementHeight(element)
-      console.log(element, getTotalElementHeight(element))
     })
   }
 
@@ -84,7 +83,7 @@ export async function saveCardImage(
     return true
   } catch (error) {
     console.error(
-      'oops, something went wrong when saving file. You can try again, or use the built-in screenshot tool. CMD+SHIFT+5 on Mac.',
+      'oops, something went wrong when saving file. You can try again, or use a built-in screenshot tool. CMD+SHIFT+5 on Mac.',
       error,
     )
     return false
