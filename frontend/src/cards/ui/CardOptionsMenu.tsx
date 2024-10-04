@@ -63,6 +63,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
             urlWithHash={urlWithHash}
           />
           <CopyCardImageToClipboardButton
+            scrollToHash={props.scrollToHash}
             copyTargetScreenshot={props.copyClipboardTargetScreenshot}
             popover={shareMenu}
           />

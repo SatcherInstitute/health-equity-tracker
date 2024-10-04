@@ -16,7 +16,7 @@ export async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
   destination: 'clipboard' | 'download',
-): Promise<boolean> {
+): Promise<boolean | any> {
   const parentCardNode = document.getElementById(cardId) as HTMLElement
   const articleChild = parentCardNode?.querySelector(
     'article',
@@ -81,7 +81,7 @@ export async function saveCardImage(
             [blob.type]: blob,
           }),
         ])
-        return true
+        return dataUrl
       } catch (clipboardError) {
         console.error('Failed to write to clipboard:', clipboardError)
         return false
