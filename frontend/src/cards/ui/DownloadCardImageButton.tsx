@@ -23,11 +23,7 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <MenuItem
-        className='pl-3'
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onClick={handleClick}
-      >
+      <MenuItem className='pl-3' onClick={handleClick}>
         <ListItemIcon className='flex items-center px-2 py-1'>
           <SaveAlt className='mx-1 w-8' />
           {!props.isMulti && (

@@ -24,7 +24,6 @@ import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetNotice from '../styles/HetComponents/HetNotice'
@@ -113,10 +112,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -125,7 +120,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,

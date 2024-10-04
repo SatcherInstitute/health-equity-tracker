@@ -33,7 +33,6 @@ import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
 import { generateSubtitle } from '../charts/utils'
 import type { AxisConfig } from '../charts/trendsChart/types'
@@ -126,10 +125,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -137,7 +132,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
       className={props.className}
     >

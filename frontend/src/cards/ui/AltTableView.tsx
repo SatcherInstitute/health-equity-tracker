@@ -65,17 +65,21 @@ export default function AltTableView(props: AltTableViewProps) {
   const earliestTimePeriod: string =
     accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
+  const safeLabel = props.tableCaption.replaceAll(' ', '-')
+
+  const uniqueId = `${safeLabel}-${
+    props.isCompareCard
+      ? ALT_TABLE_VIEW_2_PARAM_KEY
+      : ALT_TABLE_VIEW_1_PARAM_KEY
+  }`
+
   return (
     <AnimateHeight
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 mx-2 rounded-md bg-listboxColor text-left'
-      id={
-        props.isCompareCard
-          ? ALT_TABLE_VIEW_2_PARAM_KEY
-          : ALT_TABLE_VIEW_1_PARAM_KEY
-      }
+      className='mt-4 mx-2 rounded-md bg-listboxColor text-left hide-on-screenshot'
+      id={uniqueId}
     >
       <HetExpandableBoxButton
         expanded={props.expanded}

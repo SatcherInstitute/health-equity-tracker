@@ -35,7 +35,6 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 
 /* minimize layout shift */
@@ -112,10 +111,6 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   const queries = [inequityQuery]
   pctShareQuery && queries.push(pctShareQuery)
 
@@ -126,7 +121,6 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
       className={props.className}
     >

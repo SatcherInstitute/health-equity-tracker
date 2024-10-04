@@ -56,10 +56,10 @@ export function FilterLegend({
     // Legend Wrapper
     <div className='mt-4 font-sansText text-small font-normal'>
       {/* Legend Title & Clear Button */}
-      <div className='mb-5 flex	items-center text-left font-sansText font-medium'>
+      <div className='mb-5 flex	items-center text-left font-sansText font-medium hide-on-screenshot remove-height-on-screenshot'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
-        <div className='mx-4 flex items-center justify-center rounded-sm border-none border-altGreen '>
+        <div className='mx-4 flex items-center justify-center rounded-sm border-none border-altGreen'>
           <button
             type='button'
             aria-disabled={groupsAreMinMax}
@@ -129,7 +129,7 @@ export function FilterLegend({
             >
               {/* Legend Item color swatch */}
               <div
-                className='mr-1.5	h-4	w-4 shrink-0 rounded-xs border-2 border-dashed border-transparent text-start'
+                className='mr-1.5	h-6	w-6 shrink-0 rounded-xs border-2 border-dashed border-transparent text-start'
                 aria-hidden={true}
                 style={{
                   backgroundImage: isUnknown ? gradient : undefined,
