@@ -15,6 +15,7 @@ interface DomToImageOptions {
 export async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
+  destination: 'clipboard' | 'download',
 ): Promise<boolean> {
   const parentCardNode = document.getElementById(cardId) as HTMLElement
   const articleChild = parentCardNode?.querySelector(
@@ -57,6 +58,10 @@ export async function saveCardImage(
     heightToCrop -= getTotalElementHeight(addedParagraph)
     heightToCrop -= getTotalElementHeight(addedDivider)
   }
+  async function dataURLtoBlob(dataURL: string): Promise<Blob> {
+    const response = await fetch(dataURL)
+    return response.blob()
+  }
 
   try {
     const options: DomToImageOptions = {
@@ -67,12 +72,28 @@ export async function saveCardImage(
     }
 
     const dataUrl = await domtoimage.toPng(targetNode, options)
-    const fileName = createFileName(cardTitle)
 
-    const link = document.createElement('a')
-    link.download = fileName
-    link.href = dataUrl
-    link.click()
+    if (destination === 'clipboard') {
+      try {
+        const blob = await dataURLtoBlob(dataUrl)
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            [blob.type]: blob,
+          }),
+        ])
+        return true
+      } catch (clipboardError) {
+        console.error('Failed to write to clipboard:', clipboardError)
+        return false
+      }
+    } else if (destination === 'download') {
+      const fileName = createFileName(cardTitle)
+      const link = document.createElement('a')
+      link.download = fileName
+      link.href = dataUrl
+      link.click()
+    }
+
     return true
   } catch (error: unknown) {
     if (error instanceof Error) {

@@ -56,7 +56,18 @@ function CardWrapper(props: {
           >
             <CardOptionsMenu
               downloadTargetScreenshot={() =>
-                saveCardImage(props.scrollToHash, props.downloadTitle)
+                saveCardImage(
+                  props.scrollToHash,
+                  props.downloadTitle,
+                  'download',
+                )
+              }
+              copyClipboardTargetScreenshot={() =>
+                saveCardImage(
+                  props.scrollToHash,
+                  props.downloadTitle,
+                  'clipboard',
+                )
               }
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}

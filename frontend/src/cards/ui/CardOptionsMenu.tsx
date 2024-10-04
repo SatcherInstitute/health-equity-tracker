@@ -10,9 +10,11 @@ import CardShareIcons from './CardShareIcons'
 import { usePopover } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { CopyCardImageToClipboardButton } from './CopyCardImageToClipboardButton'
 
 interface CardOptionsMenuProps {
   downloadTargetScreenshot: () => Promise<boolean>
+  copyClipboardTargetScreenshot: () => Promise<boolean>
   reportTitle: string
   scrollToHash: ScrollableHashId
 }
@@ -59,6 +61,10 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
             scrollToHash={props.scrollToHash}
             popover={shareMenu}
             urlWithHash={urlWithHash}
+          />
+          <CopyCardImageToClipboardButton
+            copyTargetScreenshot={props.copyClipboardTargetScreenshot}
+            popover={shareMenu}
           />
           <DownloadCardImageButton
             downloadTargetScreenshot={props.downloadTargetScreenshot}

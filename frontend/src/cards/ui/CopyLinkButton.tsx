@@ -5,6 +5,7 @@ import LinkIcon from '@mui/icons-material/Link'
 import MenuItem from '@mui/material/MenuItem'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import HetDialog from '../../styles/HetComponents/HetDialog'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface CopyLinkButtonProps {
   popover: PopoverElements
@@ -42,7 +43,9 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
         </ListItemIcon>
       </MenuItem>
 
-      <HetDialog open={open} cardName={cardName} handleClose={handleClose} />
+      <HetDialog open={open} handleClose={handleClose}>
+        Direct link to <HetTerm>{cardName}</HetTerm> copied to clipboard!
+      </HetDialog>
     </>
   )
 }
