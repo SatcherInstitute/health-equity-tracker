@@ -13,8 +13,6 @@ import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { CopyCardImageToClipboardButton } from './CopyCardImageToClipboardButton'
 
 interface CardOptionsMenuProps {
-  downloadTargetScreenshot: () => Promise<boolean>
-  copyClipboardTargetScreenshot: () => Promise<boolean>
   reportTitle: string
   scrollToHash: ScrollableHashId
 }
@@ -22,9 +20,6 @@ interface CardOptionsMenuProps {
 export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   const shareMenu = usePopover()
   const isSm = useIsBreakpointAndUp('sm')
-
-  const urlWithoutHash = window.location.href.split('#')[0]
-  const urlWithHash = `${urlWithoutHash}#${props.scrollToHash}`
 
   const anchorOrigin: PopoverOrigin = {
     vertical: 'top',
@@ -60,7 +55,6 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           <CopyLinkButton
             scrollToHash={props.scrollToHash}
             popover={shareMenu}
-            urlWithHash={urlWithHash}
           />
           <CopyCardImageToClipboardButton
             scrollToHash={props.scrollToHash}
@@ -73,7 +67,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           <CardShareIcons
             reportTitle={props.reportTitle}
             popover={shareMenu}
-            urlWithHash={urlWithHash}
+            scrollToHash={props.scrollToHash}
           />
         </MenuList>
       </Popover>

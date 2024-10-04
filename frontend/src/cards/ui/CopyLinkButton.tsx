@@ -9,14 +9,12 @@ import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportM
 interface CopyLinkButtonProps {
   popover: PopoverElements
   scrollToHash: ScrollableHashId
-  urlWithHash: string
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
   const { cardName, hetDialogOpen, handleCopyLink, handleClose } = useCardImage(
     props.popover,
     props.scrollToHash,
-    props.urlWithHash,
   )
 
   return (

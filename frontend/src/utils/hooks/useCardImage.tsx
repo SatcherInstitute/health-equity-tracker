@@ -7,11 +7,14 @@ import { saveCardImage } from '../../cards/ui/DownloadCardImageHelpers'
 export function useCardImage(
   cardMenuPopover: PopoverElements,
   scrollToHash: ScrollableHashId,
-  urlWithHash?: string,
 ) {
   const [isThinking, setIsThinking] = useState(false)
   const [hetDialogOpen, setHetDialogOpen] = useState(false)
   const [imgDataUrl, setImgDataUrl] = useState<string | null>(null)
+
+  const cardName = reportProviderSteps[scrollToHash].label
+  const urlWithoutHash = window.location.href.split('#')[0]
+  const cardUrlWithHash = `${urlWithoutHash}#${scrollToHash}`
 
   const handleCopyImgToClipboard = async () => {
     setIsThinking(true)
@@ -37,8 +40,8 @@ export function useCardImage(
   }
 
   const handleCopyLink = async () => {
-    if (urlWithHash) {
-      await navigator.clipboard.writeText(urlWithHash)
+    if (cardUrlWithHash) {
+      await navigator.clipboard.writeText(cardUrlWithHash)
       setHetDialogOpen(true)
     }
   }
@@ -50,10 +53,9 @@ export function useCardImage(
     setImgDataUrl(null)
   }
 
-  const cardName = reportProviderSteps[scrollToHash].label
-
   return {
     cardName,
+    cardUrlWithHash,
     isThinking,
     setIsThinking,
     imgDataUrl,

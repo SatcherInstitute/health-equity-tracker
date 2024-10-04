@@ -1,4 +1,3 @@
-import MenuItem from '@mui/material/MenuItem'
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -11,6 +10,10 @@ import {
 } from 'react-share'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import { het } from '../../styles/DesignTokens'
+import { useCardImage } from '../../utils/hooks/useCardImage'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import type { ComponentType } from 'react'
+import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 
 const shareIconAttributes = {
   iconFillColor: het.hexShareIconGray,
@@ -21,71 +24,85 @@ const shareIconAttributes = {
 interface CardShareIconsProps {
   popover: PopoverElements
   reportTitle: string
-  urlWithHash: string
+  scrollToHash: ScrollableHashId
+}
+
+interface ShareButtonConfig {
+  Button: ComponentType<any>
+  Icon: ComponentType<any>
+  label: string
+  props: Record<string, any>
 }
 
 export default function CardShareIcons(props: CardShareIconsProps) {
   const title = `Health Equity Tracker - ${props.reportTitle}`
-  const emailShareBody = `${title}${'\n'}${'\n'}` // Add line breaks here if needed
-  const sharedUrl = props.urlWithHash
+  const emailShareBody = `${title}${'\n'}${'\n'}`
 
-  function handleClose() {
-    props.popover.close()
-  }
+  const { cardUrlWithHash, handleClose } = useCardImage(
+    props.popover,
+    props.scrollToHash,
+  )
+
+  const shareButtons: ShareButtonConfig[] = [
+    {
+      Button: TwitterShareButton,
+      Icon: XIcon,
+      label: 'Share on X',
+      props: {
+        hashtags: ['healthequity'],
+        related: ['@SatcherHealth', '@MSMEDU'],
+        'aria-label': 'Share to X (formerly Twitter)',
+      },
+    },
+    {
+      Button: FacebookShareButton,
+      Icon: FacebookIcon,
+      label: 'Share on Facebook',
+      props: {
+        hashtag: '#healthequity',
+        'aria-label': 'Post this report to Facebook',
+      },
+    },
+    {
+      Button: LinkedinShareButton,
+      Icon: LinkedinIcon,
+      label: 'Share on LinkedIn',
+      props: {
+        source: 'Health Equity Tracker',
+        'aria-label': 'Share to LinkedIn',
+      },
+    },
+    {
+      Button: EmailShareButton,
+      Icon: EmailIcon,
+      label: 'Email card link',
+      props: {
+        body: emailShareBody,
+        subject: 'Sharing from healthequitytracker.org',
+        'aria-label': 'Share by email',
+      },
+    },
+  ]
 
   return (
     <>
-      <MenuItem
-        aria-label={'Share to X (formerly Twitter)'}
-        onClick={handleClose}
-      >
-        <TwitterShareButton
-          hashtags={['healthequity']}
-          related={['@SatcherHealth', '@MSMEDU']}
-          url={sharedUrl}
-          className='flex items-center px-2 py-1'
+      {shareButtons.map(({ Button, Icon, label, props: buttonProps }) => (
+        <HetCardExportMenuItem
+          key={label}
+          Icon={Icon}
+          onClick={handleClose}
+          className='p-0'
+          iconProps={shareIconAttributes}
         >
-          <XIcon {...shareIconAttributes} className='mx-0 w-8' />
-          <div>Share on X (Twitter)</div>
-        </TwitterShareButton>
-      </MenuItem>
-
-      <MenuItem aria-label={'Share on Facebook'} onClick={handleClose}>
-        <FacebookShareButton
-          aria-label={'Post this report to Facebook'}
-          hashtag={'#healthequity'}
-          url={sharedUrl}
-          className='flex items-center px-2 py-1'
-        >
-          <FacebookIcon {...shareIconAttributes} className='mx-0 w-8' />
-          <div>Share on Facebook</div>
-        </FacebookShareButton>
-      </MenuItem>
-
-      <MenuItem aria-label={'Share on LinkedIn'} onClick={handleClose}>
-        <LinkedinShareButton
-          aria-label={'Share to LinkedIn'}
-          className='flex items-center px-2 py-1'
-          source={'Health Equity Tracker'}
-          url={sharedUrl}
-        >
-          <LinkedinIcon {...shareIconAttributes} className='mx-0 w-8' />
-          <div>Share on LinkedIn</div>
-        </LinkedinShareButton>
-      </MenuItem>
-
-      <MenuItem aria-label={'Email card link'} onClick={handleClose}>
-        <EmailShareButton
-          aria-label={'Share by email'}
-          body={emailShareBody}
-          className='flex items-center px-2 py-1'
-          subject={`Sharing from healthequitytracker.org`}
-          url={sharedUrl}
-        >
-          <EmailIcon {...shareIconAttributes} className='mx-0 w-8' />
-          <div>Email card link</div>
-        </EmailShareButton>
-      </MenuItem>
+          <Button
+            url={cardUrlWithHash}
+            className='flex w-full items-center px-2 py-1'
+            {...buttonProps}
+          >
+            {label}
+          </Button>
+        </HetCardExportMenuItem>
+      ))}
     </>
   )
 }
