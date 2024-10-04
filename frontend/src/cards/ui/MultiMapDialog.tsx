@@ -130,7 +130,10 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <div className='flex w-full justify-end '>
             <CardOptionsMenu
               downloadTargetScreenshot={() =>
-                saveCardImage('multimap-modal', title)
+                saveCardImage('multimap-modal', title, 'download')
+              }
+              copyClipboardTargetScreenshot={() =>
+                saveCardImage('multimap-modal', title, 'clipboard')
               }
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
