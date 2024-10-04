@@ -2,41 +2,40 @@ import { useState } from 'react'
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
-import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
-import type {
-  MapOfDatasetMetadata,
-  HetRow,
-  FieldRange,
-} from '../../data/utils/DatasetTypes'
+import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import type {
   DataTypeConfig,
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
-import type {
-  MetricQuery,
-  MetricQueryResponse,
-} from '../../data/query/MetricQuery'
-import {
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../../data/query/Breakdowns'
-import type { DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_METRICS,
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
-import TerritoryCircles from './TerritoryCircles'
-import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
-import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
-import CardOptionsMenu from './CardOptionsMenu'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import { Sources } from './Sources'
+import {
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+} from '../../data/query/Breakdowns'
+import type {
+  MetricQuery,
+  MetricQueryResponse,
+} from '../../data/query/MetricQuery'
+import type { DemographicGroup } from '../../data/utils/Constants'
+import type {
+  FieldRange,
+  HetRow,
+  MapOfDatasetMetadata,
+} from '../../data/utils/DatasetTypes'
+import { Fips } from '../../data/utils/Fips'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
+import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-import { saveCardImage } from './DownloadCardImageHelpers'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import CardOptionsMenu from './CardOptionsMenu'
+import { Sources } from './Sources'
+import TerritoryCircles from './TerritoryCircles'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -129,9 +128,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           {/* card options button */}
           <div className='flex w-full justify-end '>
             <CardOptionsMenu
-              downloadTargetScreenshot={() =>
-                saveCardImage('multimap-modal', title)
-              }
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />

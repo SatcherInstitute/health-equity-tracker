@@ -6,13 +6,13 @@ import Popover from '@mui/material/Popover'
 import type { PopoverOrigin } from '@mui/material/Popover'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
 import CopyLinkButton from './CopyLinkButton'
-import CardShareIcons from './CardShareIcons'
+import CardShareIconButtons from './CardShareIconButtons'
 import { usePopover } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { CopyCardImageToClipboardButton } from './CopyCardImageToClipboardButton'
 
 interface CardOptionsMenuProps {
-  downloadTargetScreenshot: () => Promise<boolean>
   reportTitle: string
   scrollToHash: ScrollableHashId
 }
@@ -20,9 +20,6 @@ interface CardOptionsMenuProps {
 export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   const shareMenu = usePopover()
   const isSm = useIsBreakpointAndUp('sm')
-
-  const urlWithoutHash = window.location.href.split('#')[0]
-  const urlWithHash = `${urlWithoutHash}#${props.scrollToHash}`
 
   const anchorOrigin: PopoverOrigin = {
     vertical: 'top',
@@ -58,16 +55,19 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           <CopyLinkButton
             scrollToHash={props.scrollToHash}
             popover={shareMenu}
-            urlWithHash={urlWithHash}
+          />
+          <CopyCardImageToClipboardButton
+            scrollToHash={props.scrollToHash}
+            popover={shareMenu}
           />
           <DownloadCardImageButton
-            downloadTargetScreenshot={props.downloadTargetScreenshot}
             popover={shareMenu}
+            scrollToHash={props.scrollToHash}
           />
-          <CardShareIcons
+          <CardShareIconButtons
             reportTitle={props.reportTitle}
             popover={shareMenu}
-            urlWithHash={urlWithHash}
+            scrollToHash={props.scrollToHash}
           />
         </MenuList>
       </Popover>

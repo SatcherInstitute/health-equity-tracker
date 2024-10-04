@@ -4,11 +4,10 @@ import type {
   MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
-import { Sources } from './ui/Sources'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
-import { saveCardImage } from './ui/DownloadCardImageHelpers'
+import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -55,9 +54,6 @@ function CardWrapper(props: {
             tabIndex={-1}
           >
             <CardOptionsMenu
-              downloadTargetScreenshot={() =>
-                saveCardImage(props.scrollToHash, props.downloadTitle)
-              }
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />
