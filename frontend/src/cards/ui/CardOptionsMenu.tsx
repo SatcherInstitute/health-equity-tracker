@@ -6,7 +6,7 @@ import Popover from '@mui/material/Popover'
 import type { PopoverOrigin } from '@mui/material/Popover'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
 import CopyLinkButton from './CopyLinkButton'
-import CardShareIcons from './CardShareIcons'
+import CardShareIconButtons from './CardShareIconButtons'
 import { usePopover } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -64,7 +64,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
             popover={shareMenu}
             scrollToHash={props.scrollToHash}
           />
-          <CardShareIcons
+          <CardShareIconButtons
             reportTitle={props.reportTitle}
             popover={shareMenu}
             scrollToHash={props.scrollToHash}
