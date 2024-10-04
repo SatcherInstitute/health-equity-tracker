@@ -1,36 +1,27 @@
-import { useState } from 'react'
 import { SaveAlt } from '@mui/icons-material'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import MenuItem from '@mui/material/MenuItem'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
+import { useCardImage } from '../../utils/hooks/useCardImage'
+import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface DownloadCardImageButtonProps {
-  downloadTargetScreenshot: () => Promise<boolean>
-  popover?: PopoverElements
-  isMulti?: boolean
+  popover: PopoverElements
+  scrollToHash: ScrollableHashId
 }
 
 export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
-  const [isThinking, setIsThinking] = useState(false)
-
-  async function handleClick() {
-    setIsThinking(true)
-    setIsThinking(!(await props.downloadTargetScreenshot()))
-    props.popover?.close()
-  }
+  const { isThinking, setIsThinking, handleDownloadImg } = useCardImage(
+    props.popover,
+    props.scrollToHash,
+  )
 
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <MenuItem className='pl-3' onClick={handleClick}>
-        <ListItemIcon className='flex items-center px-2 py-1'>
-          <SaveAlt className='mx-1 w-8' />
-          {!props.isMulti && (
-            <div className='pl-1 text-altBlack'>Save Image</div>
-          )}
-        </ListItemIcon>
-      </MenuItem>
+      <HetCardExportMenuItem Icon={SaveAlt} onClick={handleDownloadImg}>
+        Save Image
+      </HetCardExportMenuItem>
     </>
   )
 }

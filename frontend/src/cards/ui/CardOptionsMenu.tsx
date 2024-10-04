@@ -64,12 +64,11 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           />
           <CopyCardImageToClipboardButton
             scrollToHash={props.scrollToHash}
-            copyTargetScreenshot={props.copyClipboardTargetScreenshot}
             popover={shareMenu}
           />
           <DownloadCardImageButton
-            downloadTargetScreenshot={props.downloadTargetScreenshot}
             popover={shareMenu}
+            scrollToHash={props.scrollToHash}
           />
           <CardShareIcons
             reportTitle={props.reportTitle}
