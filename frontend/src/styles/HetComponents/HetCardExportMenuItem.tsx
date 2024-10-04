@@ -1,6 +1,5 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import MenuItem from '@mui/material/MenuItem'
-import type { SvgIconComponent } from '@mui/icons-material'
 import type { ComponentType } from 'react'
 
 interface HetCardExportMenuItemProps {

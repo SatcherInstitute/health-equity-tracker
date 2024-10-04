@@ -12,6 +12,7 @@
 	],
 	"editor.codeActionsOnSave": {
 		"quickfix.biome": "explicit",
+		"source.organizeImports": "always",
 		"source.addMissingImports": "always"
 	},
 	"[javascript]": {
