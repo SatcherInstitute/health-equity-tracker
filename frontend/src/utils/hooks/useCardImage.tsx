@@ -23,7 +23,11 @@ export function useCardImage(
   const handleCopyImgToClipboard = async () => {
     setIsThinking(true)
     try {
-      const result = await saveCardImage(scrollToHash, cardName, 'clipboard')
+      const result = await saveRowOfTwoCardsImage(
+        scrollToHash,
+        cardName,
+        'clipboard',
+      )
       if (typeof result === 'string') {
         setImgDataUrl(result)
         setHetDialogOpen(true)
@@ -89,12 +93,10 @@ async function saveCardImage(
   cardId: ScrollableHashId,
   cardTitle: string,
   destination: 'clipboard' | 'download',
-): Promise<boolean | any> {
-  const parentCardNode = document.getElementById(cardId) as HTMLElement
-  const articleChild = parentCardNode?.querySelector(
-    'article',
-  ) as HTMLElement | null
-  const targetNode = articleChild || parentCardNode
+): Promise<string | undefined> {
+  const cardNode = document.getElementById(cardId) as HTMLElement
+  const articleChild = cardNode?.querySelector('article') as HTMLElement | null
+  const targetNode = articleChild || cardNode
   articleChild?.classList.remove('shadow-raised')
 
   let heightToCrop = 0
@@ -131,10 +133,6 @@ async function saveCardImage(
     heightToCrop -= getTotalElementHeight(addedParagraph)
     heightToCrop -= getTotalElementHeight(addedDivider)
   }
-  async function dataURLtoBlob(dataURL: string): Promise<Blob> {
-    const response = await fetch(dataURL)
-    return response.blob()
-  }
 
   try {
     const options: DomToImageOptions = {
@@ -154,10 +152,8 @@ async function saveCardImage(
             [blob.type]: blob,
           }),
         ])
-        return dataUrl
       } catch (clipboardError) {
         console.error('Failed to write to clipboard:', clipboardError)
-        return false
       }
     } else if (destination === 'download') {
       const fileName = createFileName(cardTitle)
@@ -167,14 +163,13 @@ async function saveCardImage(
       link.click()
     }
 
-    return true
+    return dataUrl
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(`Screenshot failed: ${error.message}`)
     } else {
       console.error('Screenshot failed with unknown error')
     }
-    return false
   } finally {
     cleanup([addedDivider, addedParagraph], articleChild)
   }
@@ -201,6 +196,11 @@ function createFileName(cardTitle: string): string {
   return fileName.replace('+', 'plus').replace(UNSAFE_CHAR_REGEX, '')
 }
 
+async function dataURLtoBlob(dataURL: string): Promise<Blob> {
+  const response = await fetch(dataURL)
+  return response.blob()
+}
+
 // Remove added elements, reset styles
 function cleanup(
   addedNodes: Array<HTMLElement | null>,
@@ -213,4 +213,98 @@ function cleanup(
   }
 
   articleChild?.classList.add('shadow-raised')
+}
+
+/*
+
+
+
+
+*/
+async function saveRowOfTwoCardsImage(
+  cardId: ScrollableHashId,
+  cardTitle: string,
+  destination: 'clipboard' | 'download',
+): Promise<string | undefined> {
+  const nodeId1 = document.getElementById(cardId) as HTMLElement
+  const nodeId2 = document.getElementById(cardId + '2') as HTMLElement
+
+  if (!nodeId1 || !nodeId2) {
+    console.error('One or both nodes not found')
+    return
+  }
+
+  // Create a temporary container for the combined image
+  const tempContainer = document.createElement('div')
+  tempContainer.classList.add(
+    'flex',
+    'bg-white',
+    'gap-4',
+    'p-4',
+    'justify-around',
+  )
+  document.body.appendChild(tempContainer)
+
+  try {
+    // Clone the nodes to avoid modifying the original DOM
+    const clone1 = nodeId1.cloneNode(true) as HTMLElement
+    const clone2 = nodeId2.cloneNode(true) as HTMLElement
+
+    // Add clones to temp container
+    tempContainer.appendChild(clone1)
+    tempContainer.appendChild(clone2)
+
+    const articleChild1 = clone1?.querySelector('article') as HTMLElement | null
+    const articleChild2 = clone2?.querySelector('article') as HTMLElement | null
+
+    if (articleChild1) {
+      articleChild1.classList.remove('shadow-raised')
+    }
+    if (articleChild2) {
+      articleChild2.classList.remove('shadow-raised')
+    }
+
+    // Calculate dimensions
+    const width = nodeId1.offsetWidth + nodeId2.offsetWidth + 200
+    const height = Math.max(nodeId1.offsetHeight, nodeId2.offsetHeight)
+
+    const options: DomToImageOptions = {
+      scale: 3,
+      filter: hideElementsForScreenshot,
+      width,
+      height,
+    }
+
+    const dataUrl = await domtoimage.toPng(tempContainer, options)
+
+    if (destination === 'clipboard') {
+      try {
+        const blob = await dataURLtoBlob(dataUrl)
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            [blob.type]: blob,
+          }),
+        ])
+      } catch (clipboardError) {
+        console.error('Failed to write to clipboard:', clipboardError)
+      }
+    } else if (destination === 'download') {
+      const fileName = createFileName(cardTitle)
+      const link = document.createElement('a')
+      link.download = fileName
+      link.href = dataUrl
+      link.click()
+    }
+
+    return dataUrl
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`Screenshot failed: ${error.message}`)
+    } else {
+      console.error('Screenshot failed with unknown error')
+    }
+  } finally {
+    // Clean up the temporary container
+    document.body.removeChild(tempContainer)
+  }
 }
