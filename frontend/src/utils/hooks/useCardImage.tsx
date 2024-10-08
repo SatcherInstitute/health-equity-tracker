@@ -11,7 +11,7 @@ export function useCardImage(
 ) {
   // STATE
   const [isThinking, setIsThinking] = useState(false)
-  const [hetDialogOpen, setHetDialogOpen] = useState(false)
+  const [confirmationOpen, setConfirmationOpen] = useState(false)
   const [imgDataUrl, setImgDataUrl] = useState<string | null>(null)
 
   // COMPUTED VALUES
@@ -30,7 +30,7 @@ export function useCardImage(
       )
       if (typeof result === 'string') {
         setImgDataUrl(result)
-        setHetDialogOpen(true)
+        setConfirmationOpen(true)
       }
     } finally {
       setIsThinking(false)
@@ -50,13 +50,13 @@ export function useCardImage(
   const handleCopyLink = async () => {
     if (cardUrlWithHash) {
       await navigator.clipboard.writeText(cardUrlWithHash)
-      setHetDialogOpen(true)
+      setConfirmationOpen(true)
     }
   }
 
   function handleClose() {
     setIsThinking(false)
-    setHetDialogOpen(false)
+    setConfirmationOpen(false)
     cardMenuPopover.close()
     setImgDataUrl(null)
   }
@@ -69,8 +69,8 @@ export function useCardImage(
     setIsThinking,
     imgDataUrl,
     setImgDataUrl,
-    hetDialogOpen,
-    setHetDialogOpen,
+    confirmationOpen,
+    setConfirmationOpen,
     handleCopyImgToClipboard,
     handleDownloadImg,
     handleCopyLink,
@@ -236,12 +236,15 @@ async function saveRowOfTwoCardsImage(
 
   // Create a temporary container for the combined image
   const tempContainer = document.createElement('div')
+  // center content vertically and horizontally with their grid cells, using tailwind
+
   tempContainer.classList.add(
-    'flex',
+    'grid',
+    'grid-cols-2',
     'bg-white',
     'gap-4',
-    'p-4',
-    'justify-around',
+    // 'p-4',
+    // 'place-items-center',
   )
   document.body.appendChild(tempContainer)
 
@@ -254,19 +257,40 @@ async function saveRowOfTwoCardsImage(
     tempContainer.appendChild(clone1)
     tempContainer.appendChild(clone2)
 
+    let heightToCrop = 0
+    const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
+      clone1.querySelectorAll('.remove-height-on-screenshot')
+
+    if (removeHeightOnScreenshotElements) {
+      removeHeightOnScreenshotElements.forEach((element) => {
+        heightToCrop += getTotalElementHeight(element)
+      })
+    }
+
     const articleChild1 = clone1?.querySelector('article') as HTMLElement | null
     const articleChild2 = clone2?.querySelector('article') as HTMLElement | null
 
     if (articleChild1) {
       articleChild1.classList.remove('shadow-raised')
+      articleChild1.classList.remove('text-center')
     }
     if (articleChild2) {
       articleChild2.classList.remove('shadow-raised')
     }
 
+    const addedDivider = document.createElement('hr')
+    addedDivider.classList.add('bg-altGreen')
+    const addedParagraph = document.createElement('p')
+    // make p take up 2 cols
+    addedParagraph.classList.add('col-span-2')
+    addedParagraph.innerHTML = CITATION_APA
+
+    tempContainer?.appendChild(addedDivider)
+    tempContainer?.appendChild(addedParagraph)
+
     // Calculate dimensions
-    const width = nodeId1.offsetWidth + nodeId2.offsetWidth + 200
-    const height = Math.max(nodeId1.offsetHeight, nodeId2.offsetHeight)
+    const width = tempContainer.offsetWidth
+    const height = 100 + tempContainer.offsetHeight - heightToCrop
 
     const options: DomToImageOptions = {
       scale: 3,

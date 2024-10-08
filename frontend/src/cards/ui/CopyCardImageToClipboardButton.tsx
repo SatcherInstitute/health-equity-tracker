@@ -1,7 +1,7 @@
 import { ContentCopy } from '@mui/icons-material'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
-import HetDialog from '../../styles/HetComponents/HetDialog'
+import HetSnackbar from '../../styles/HetComponents/HetSnackbar'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { useCardImage } from '../../utils/hooks/useCardImage'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
@@ -20,7 +20,7 @@ export function CopyCardImageToClipboardButton(
     isThinking,
     setIsThinking,
     imgDataUrl,
-    hetDialogOpen,
+    confirmationOpen,
     handleCopyImgToClipboard,
     handleClose,
   } = useCardImage(props.popover, props.scrollToHash)
@@ -34,18 +34,19 @@ export function CopyCardImageToClipboardButton(
       >
         Copy Image To Clipboard
       </HetCardExportMenuItem>
-      <HetDialog open={hetDialogOpen} handleClose={handleClose}>
+      <HetSnackbar open={confirmationOpen} handleClose={handleClose}>
         Copied <HetTerm>{cardName}</HetTerm> image to clipboard!
         {imgDataUrl && (
           <div className='mt-4 rounded-lg overflow-hidden border border-gray-200'>
             <img
               src={imgDataUrl}
               alt={`Preview of ${cardName}`}
-              className='w-full h-auto max-w-tiny object-contain bg-gray-50'
+              // className='w-full h-auto max-w-tiny object-contain bg-gray-50'
+              className='w-full h-auto max-w-exploreDataPage object-contain bg-gray-50'
             />
           </div>
         )}
-      </HetDialog>
+      </HetSnackbar>
     </>
   )
 }
