@@ -2,6 +2,7 @@ import domtoimage from 'dom-to-image-more'
 import { useState } from 'react'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
+import { het } from '../../styles/DesignTokens'
 import type { PopoverElements } from './usePopover'
 import type { ScrollableHashId } from './useStepObserver'
 
@@ -221,45 +222,132 @@ function cleanup(
 
 
 */
+// async function saveRowOfTwoCardsImage(
+//   cardId: ScrollableHashId,
+//   cardTitle: string,
+//   destination: 'clipboard' | 'download',
+// ): Promise<string | undefined> {
+//   const nodeId1 = document.getElementById(cardId) as HTMLElement
+//   const nodeId2 = document.getElementById(cardId + '2') as HTMLElement
+
+//   if (!nodeId1 || !nodeId2) {
+//     console.error('One or both nodes not found')
+//     return
+//   }
+
+//   // Create a temporary container for the combined image
+//   const tempContainer = document.createElement('div')
+//   // center content vertically and horizontally with their grid cells, using tailwind
+
+//   tempContainer.classList.add(
+//     'grid',
+//     'grid-cols-2',
+//     'bg-white',
+//     'gap-4',
+//     // 'p-4',
+//     // 'place-items-center',
+//   )
+//   document.body.appendChild(tempContainer)
+
+//   try {
+//     // Clone the nodes to avoid modifying the original DOM
+//     const clone1 = nodeId1.cloneNode(true) as HTMLElement
+//     const clone2 = nodeId2.cloneNode(true) as HTMLElement
+
+//     // Add clones to temp container
+//     tempContainer.appendChild(clone1)
+//     tempContainer.appendChild(clone2)
+
+//     let heightToCrop = 0
+//     const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
+//       clone1.querySelectorAll('.remove-height-on-screenshot')
+
+//     if (removeHeightOnScreenshotElements) {
+//       removeHeightOnScreenshotElements.forEach((element) => {
+//         heightToCrop += getTotalElementHeight(element)
+//       })
+//     }
+
+//     const articleChild1 = clone1?.querySelector('article') as HTMLElement | null
+//     const articleChild2 = clone2?.querySelector('article') as HTMLElement | null
+
+//     if (articleChild1) {
+//       articleChild1.classList.remove('shadow-raised')
+//       articleChild1.classList.remove('text-center')
+//     }
+//     if (articleChild2) {
+//       articleChild2.classList.remove('shadow-raised')
+//     }
+
+//     const addedDivider = document.createElement('hr')
+//     addedDivider.classList.add('bg-altGreen')
+//     const addedParagraph = document.createElement('p')
+//     // make p take up 2 cols
+//     addedParagraph.classList.add('col-span-2')
+//     addedParagraph.innerHTML = CITATION_APA
+
+//     tempContainer?.appendChild(addedDivider)
+//     tempContainer?.appendChild(addedParagraph)
+
+//     // Calculate dimensions
+//     const width = tempContainer.offsetWidth
+//     const height = 100 + tempContainer.offsetHeight - heightToCrop
+
+//     const options: DomToImageOptions = {
+//       scale: 3,
+//       filter: hideElementsForScreenshot,
+//       width,
+//       height,
+//     }
+
+//     const dataUrl = await domtoimage.toPng(tempContainer, options)
+
+//     if (destination === 'clipboard') {
+//       try {
+//         const blob = await dataURLtoBlob(dataUrl)
+//         await navigator.clipboard.write([
+//           new ClipboardItem({
+//             [blob.type]: blob,
+//           }),
+//         ])
+//       } catch (clipboardError) {
+//         console.error('Failed to write to clipboard:', clipboardError)
+//       }
+//     } else if (destination === 'download') {
+//       const fileName = createFileName(cardTitle)
+//       const link = document.createElement('a')
+//       link.download = fileName
+//       link.href = dataUrl
+//       link.click()
+//     }
+
+//     return dataUrl
+//   } catch (error: unknown) {
+//     if (error instanceof Error) {
+//       console.error(`Screenshot failed: ${error.message}`)
+//     } else {
+//       console.error('Screenshot failed with unknown error')
+//     }
+//   } finally {
+//     // Clean up the temporary container
+//     document.body.removeChild(tempContainer)
+//   }
+// }
+
 async function saveRowOfTwoCardsImage(
   cardId: ScrollableHashId,
   cardTitle: string,
   destination: 'clipboard' | 'download',
 ): Promise<string | undefined> {
-  const nodeId1 = document.getElementById(cardId) as HTMLElement
-  const nodeId2 = document.getElementById(cardId + '2') as HTMLElement
+  const card1Node = document.getElementById(cardId) as HTMLElement
+  const rowOfCardsNode = document.getElementById(cardId + '-row') as HTMLElement
 
-  if (!nodeId1 || !nodeId2) {
-    console.error('One or both nodes not found')
-    return
-  }
-
-  // Create a temporary container for the combined image
-  const tempContainer = document.createElement('div')
-  // center content vertically and horizontally with their grid cells, using tailwind
-
-  tempContainer.classList.add(
-    'grid',
-    'grid-cols-2',
-    'bg-white',
-    'gap-4',
-    // 'p-4',
-    // 'place-items-center',
-  )
-  document.body.appendChild(tempContainer)
+  rowOfCardsNode?.classList.add('bg-white', 'm-0', 'w-full')
 
   try {
-    // Clone the nodes to avoid modifying the original DOM
-    const clone1 = nodeId1.cloneNode(true) as HTMLElement
-    const clone2 = nodeId2.cloneNode(true) as HTMLElement
-
-    // Add clones to temp container
-    tempContainer.appendChild(clone1)
-    tempContainer.appendChild(clone2)
-
     let heightToCrop = 0
     const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
-      clone1.querySelectorAll('.remove-height-on-screenshot')
+      card1Node.querySelectorAll('.remove-height-on-screenshot')
 
     if (removeHeightOnScreenshotElements) {
       removeHeightOnScreenshotElements.forEach((element) => {
@@ -267,30 +355,35 @@ async function saveRowOfTwoCardsImage(
       })
     }
 
-    const articleChild1 = clone1?.querySelector('article') as HTMLElement | null
-    const articleChild2 = clone2?.querySelector('article') as HTMLElement | null
+    const articleChildren = rowOfCardsNode?.querySelectorAll(
+      'article',
+    ) as NodeListOf<HTMLElement>
 
-    if (articleChild1) {
-      articleChild1.classList.remove('shadow-raised')
-      articleChild1.classList.remove('text-center')
-    }
-    if (articleChild2) {
-      articleChild2.classList.remove('shadow-raised')
-    }
+    articleChildren.forEach((articleChild) => {
+      articleChild.classList.remove('shadow-raised')
+    })
 
-    const addedDivider = document.createElement('hr')
-    addedDivider.classList.add('bg-altGreen')
     const addedParagraph = document.createElement('p')
-    // make p take up 2 cols
-    addedParagraph.classList.add('col-span-2')
+    addedParagraph.style.width = '100%'
     addedParagraph.innerHTML = CITATION_APA
+    addedParagraph.classList.add(
+      'text-smallest',
+      'w-full',
+      'flex',
+      'p-4',
+      'm-2',
+      'pb-4',
+      'text-center',
+      'remove-after-screenshot',
+    )
+    // set top border of p to 2px dark red
+    addedParagraph.style.borderTop = `2px solid ${het.altGrey}`
 
-    tempContainer?.appendChild(addedDivider)
-    tempContainer?.appendChild(addedParagraph)
+    rowOfCardsNode?.appendChild(addedParagraph)
 
     // Calculate dimensions
-    const width = tempContainer.offsetWidth
-    const height = 100 + tempContainer.offsetHeight - heightToCrop
+    const width = 100 + rowOfCardsNode.offsetWidth
+    const height = 100 + rowOfCardsNode.offsetHeight - heightToCrop
 
     const options: DomToImageOptions = {
       scale: 3,
@@ -299,7 +392,7 @@ async function saveRowOfTwoCardsImage(
       height,
     }
 
-    const dataUrl = await domtoimage.toPng(tempContainer, options)
+    const dataUrl = await domtoimage.toPng(rowOfCardsNode, options)
 
     if (destination === 'clipboard') {
       try {
@@ -328,7 +421,23 @@ async function saveRowOfTwoCardsImage(
       console.error('Screenshot failed with unknown error')
     }
   } finally {
-    // Clean up the temporary container
-    document.body.removeChild(tempContainer)
+    // Clean up
+    const elementsToRemove = rowOfCardsNode?.querySelectorAll(
+      '.remove-after-screenshot',
+    )
+
+    if (elementsToRemove) {
+      elementsToRemove.forEach((element) => {
+        element.remove()
+      })
+    }
+
+    const articleChildren = rowOfCardsNode?.querySelectorAll(
+      'article',
+    ) as NodeListOf<HTMLElement>
+
+    articleChildren.forEach((articleChild) => {
+      articleChild.classList.add('shadow-raised')
+    })
   }
 }
