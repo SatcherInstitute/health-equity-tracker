@@ -22,7 +22,7 @@
 		"@mui/icons-material": "^5.16.7",
 		"@mui/material": "^5.16.7",
 		"@vitejs/plugin-react": "^4.3.2",
-		"biome": "^0.2.2",
+		"biome": "^0.3.3",
 		"d3": "^7.8.5",
 		"data-forge": "^1.10.2",
 		"dom-to-image-more": "^3.4.5",
@@ -52,14 +52,14 @@
 		"vite-tsconfig-paths": "^5.0.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.9.2",
+		"@biomejs/biome": "1.9.3",
 		"@playwright/test": "^1.47.2",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^16.0.1",
 		"@types/d3": "^7.4.0",
 		"@types/dom-to-image": "^2.6.7",
 		"@types/node": "^22.7.4",
-		"@types/react": "^18.3.10",
+		"@types/react": "^18.3.11",
 		"@types/react-dom": "^18.3.0",
 		"@types/react-lazyload": "^3.2.0",
 		"@types/react-router-dom": "^5.3.3",
@@ -74,7 +74,7 @@
 		"rollup-plugin-visualizer": "^5.12.0",
 		"tailwindcss": "^3.4.13",
 		"typescript": "^5.6.2",
-		"vitest": "^2.1.1"
+		"vitest": "^2.1.2"
 	},
 	"scripts": {
 		"build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
