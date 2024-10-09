@@ -22,14 +22,12 @@ function CombinedLink(props: CombinedLinkProps) {
 
   if (isScrollLink) {
     return (
-      <a
-        className='no-underline bg-none'
-        // biome-ignore lint/a11y/useValidAnchor: need to fix this an restyle button to look like a link
-        onClick={() => scrollToAnchor(to)}
-        {...rest}
-      >
+      // TODO: fix a11y See GitHub #3711
+      // biome-ignore lint/a11y/useFocusableInteractive: <explanation>
+      // biome-ignore lint/a11y/useSemanticElements: <explanation>
+      <div onClick={() => scrollToAnchor(to)} role='link' {...rest}>
         {children}
-      </a>
+      </div>
     )
   }
   return null
