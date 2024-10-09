@@ -44,7 +44,7 @@ function createFileName(cardTitle: string): string {
     month: 'short',
     year: 'numeric',
   })
-  const fileName = `HET - ${cardTitle} ${date}.png`
+  const fileName = `HET ${cardTitle} ${date}.png`
   return fileName.replace('+', 'plus').replace(UNSAFE_CHAR_REGEX, '')
 }
 
@@ -225,13 +225,11 @@ async function captureAndSaveImage(
   addedElements: AddedElements,
   options: SaveImageOptions,
 ): Promise<string | undefined> {
-  const extraRowWidth = options.isRowOfTwo ? 0 : 0
-
   try {
     const domToImageOptions: DomToImageOptions = {
       scale: SCALE_FACTOR,
       filter: hideElementsForScreenshot,
-      width: node.offsetWidth + extraRowWidth,
+      width: node.offsetWidth,
       height: node.offsetHeight - addedElements.heightToCrop,
     }
 
@@ -249,6 +247,7 @@ async function captureAndSaveImage(
 export function useCardImage(
   cardMenuPopover: PopoverElements,
   scrollToHash: ScrollableHashId,
+  downloadTitle?: string,
 ) {
   const [isThinking, setIsThinking] = useState(false)
   const [confirmationOpen, setConfirmationOpen] = useState(false)
@@ -266,7 +265,7 @@ export function useCardImage(
     try {
       const result = await saveCardImage({
         cardId: scrollToHash,
-        cardTitle: cardName,
+        cardTitle: downloadTitle || cardName,
         destination,
         isRowOfTwo,
       })

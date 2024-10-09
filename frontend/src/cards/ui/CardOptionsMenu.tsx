@@ -63,6 +63,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           <DownloadCardImageButton
             popover={shareMenu}
             scrollToHash={props.scrollToHash}
+            reportTitle={props.reportTitle}
           />
           <CardShareIconButtons
             reportTitle={props.reportTitle}
