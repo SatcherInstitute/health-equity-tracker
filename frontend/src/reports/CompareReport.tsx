@@ -1,5 +1,8 @@
+import { useAtom } from 'jotai'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
+import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
@@ -7,13 +10,27 @@ import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../data/config/MetricConfigTypes'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import Sidebar from '../pages/ui/Sidebar'
+import { useParamState } from '../utils/hooks/useParamState'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MadLibId } from '../utils/MadLibs'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -23,27 +40,10 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { Helmet } from 'react-helmet-async'
-import Sidebar from '../pages/ui/Sidebar'
-import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-import type { MadLibId } from '../utils/MadLibs'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
-import { useAtom } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
-import { useParamState } from '../utils/hooks/useParamState'
-import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
-import type {
-  DataTypeId,
-  DataTypeConfig,
-} from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
-import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
+import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 
 export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
 

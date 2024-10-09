@@ -1,11 +1,11 @@
 import { ContentCopy } from '@mui/icons-material'
-import type { PopoverElements } from '../../utils/hooks/usePopover'
+import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
+import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 import HetDialog from '../../styles/HetComponents/HetDialog'
 import HetTerm from '../../styles/HetComponents/HetTerm'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import { useCardImage } from '../../utils/hooks/useCardImage'
-import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface CopyCardImageToClipboardButtonProps {
   popover: PopoverElements

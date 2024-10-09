@@ -1,16 +1,16 @@
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Tooltip } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuList from '@mui/material/MenuList'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import Popover from '@mui/material/Popover'
 import type { PopoverOrigin } from '@mui/material/Popover'
-import { DownloadCardImageButton } from './DownloadCardImageButton'
-import CopyLinkButton from './CopyLinkButton'
-import CardShareIconButtons from './CardShareIconButtons'
+import Popover from '@mui/material/Popover'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePopover } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import CardShareIconButtons from './CardShareIconButtons'
 import { CopyCardImageToClipboardButton } from './CopyCardImageToClipboardButton'
+import CopyLinkButton from './CopyLinkButton'
+import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 interface CardOptionsMenuProps {
   reportTitle: string

@@ -1,10 +1,10 @@
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import LinkIcon from '@mui/icons-material/Link'
-import type { PopoverElements } from '../../utils/hooks/usePopover'
+import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 import HetDialog from '../../styles/HetComponents/HetDialog'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { useCardImage } from '../../utils/hooks/useCardImage'
-import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface CopyLinkButtonProps {
   popover: PopoverElements
