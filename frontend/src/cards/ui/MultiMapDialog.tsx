@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// TODO: eventually should make a HetSnackbar to handle modals
+// TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Legend } from '../../charts/Legend'
