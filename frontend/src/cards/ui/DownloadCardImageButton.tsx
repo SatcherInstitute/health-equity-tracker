@@ -17,6 +17,7 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
     useCardImage(props.popover, props.scrollToHash, cardSpecificReportTitle)
 
   const isCompareMode = window.location.href.includes('compare')
+  const imgTerm = isCompareMode ? 'Side-by-Side Images' : 'Image'
 
   return (
     <>
@@ -25,7 +26,7 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
         Icon={SaveAlt}
         onClick={isCompareMode ? handleDownloadRowImg : handleDownloadImg}
       >
-        Save Image
+        Save {imgTerm}
       </HetCardExportMenuItem>
     </>
   )

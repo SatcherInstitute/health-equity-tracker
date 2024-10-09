@@ -27,6 +27,7 @@ export function CopyCardImageToClipboardButton(
   } = useCardImage(props.popover, props.scrollToHash)
 
   const isCompareMode = window.location.href.includes('compare')
+  const imgTerm = isCompareMode ? 'Side-by-Side Images' : 'Image'
 
   return (
     <>
@@ -37,15 +38,15 @@ export function CopyCardImageToClipboardButton(
         }
         Icon={ContentCopy}
       >
-        Copy Image To Clipboard
+        Copy {imgTerm} To Clipboard
       </HetCardExportMenuItem>
       <HetSnackbar open={confirmationOpen} handleClose={handleClose}>
-        Copied <HetTerm>{cardName}</HetTerm> image to clipboard!
+        Copied <HetTerm>{cardName}</HetTerm> {imgTerm} to clipboard!
         {imgDataUrl && (
           <div className='mt-4 rounded-lg overflow-hidden border border-gray-200'>
             <img
               src={imgDataUrl}
-              alt={`Preview of ${cardName}`}
+              alt={`Preview of ${cardName} ${imgTerm}`}
               className='w-full h-auto max-h-sm object-contain bg-gray-50'
             />
           </div>

@@ -10,7 +10,7 @@ export default function HetSnackbar(props: HetSnackbarProps) {
   return (
     <Snackbar
       open={props.open}
-      // autoHideDuration={5000}
+      autoHideDuration={5000}
       onClose={props.handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       TransitionComponent={SlideTransition}
