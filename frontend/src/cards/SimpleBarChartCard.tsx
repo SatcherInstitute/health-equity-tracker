@@ -200,7 +200,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 <RateBarChart
                   data={data}
                   demographicType={props.demographicType}
-                  metric={rateConfig}
+                  metricConfig={rateConfig}
                   filename={filename}
                   usePercentSuffix={isPctType(rateConfig.type)}
                   fips={props.fips}

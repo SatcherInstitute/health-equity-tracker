@@ -1,7 +1,11 @@
 import { max, scaleBand, scaleLinear } from 'd3'
 import { useMemo } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
-import type { DemographicType } from '../data/query/Breakdowns'
+import { isPctType } from '../data/config/MetricConfigUtils'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
 import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
@@ -9,15 +13,17 @@ import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { addLineBreakDelimitersToField, addMetricDisplayColumn } from './utils'
 
 // Constants
-const MARGIN = { top: 20, right: 20, bottom: 30, left: 160 } // Increased left margin for wrapped labels
 const BAR_PADDING = 0.2
 const LABEL_SWAP_CUTOFF_PERCENT = 66
-const MAX_LABEL_WIDTH = 140
+const MAX_LABEL_WIDTH = 100
 const CORNER_RADIUS = 4
+const MARGIN = { top: 20, right: 20, bottom: 50, left: MAX_LABEL_WIDTH + 40 }
+const BAR_HEIGHT = 60 // Base height for single line
+const EXTRA_SPACE_AFTER_ALL = 10 // Adjust this value to change the gap after "All"
 
 interface RateBarChartProps {
   data: HetRow[]
-  metric: MetricConfig
+  metricConfig: MetricConfig
   demographicType: DemographicType
   fips: Fips
   filename?: string
@@ -27,52 +33,22 @@ interface RateBarChartProps {
   comparisonAllSubGroup?: string
 }
 
-function wrapLabel(text: string, width: number): string[] {
-  const words = text.split(' ')
-  const lines: string[] = []
-  let currentLine = ''
-
-  words.forEach((word) => {
-    const testLine = currentLine ? `${currentLine} ${word}` : word
-    if (testLine.length * 6 <= width) {
-      // Approximate character width
-      currentLine = testLine
-    } else {
-      lines.push(currentLine)
-      currentLine = word
-    }
-  })
-
-  if (currentLine) {
-    lines.push(currentLine)
-  }
-
-  return lines
-}
-
-function formatValue(value: number, usePercentSuffix: boolean): string {
-  if (value >= 100000) {
-    return value >= 10
-      ? `${Math.round(value).toLocaleString()}${usePercentSuffix ? '%' : ''}`
-      : `${value.toFixed(1)}${usePercentSuffix ? '%' : ''}`
-  }
-  return `${value.toFixed(1)}${usePercentSuffix ? '%' : ''}`
-}
-
 export function RateBarChart({
   data,
-  metric,
+  metricConfig,
   demographicType,
-  usePercentSuffix = false,
 }: RateBarChartProps) {
   const [containerRef, width] = useResponsiveWidth()
 
-  // Data preprocessing
-  const processedData = useMemo(() => {
+  // Data preprocessing with spacing calculation
+  const processedData: HetRow[] = useMemo(() => {
     const processedRows = addLineBreakDelimitersToField(data, demographicType)
-    const [rowsWithDisplayCol] = addMetricDisplayColumn(metric, processedRows)
+    const [rowsWithDisplayCol] = addMetricDisplayColumn(
+      metricConfig,
+      processedRows,
+    )
     let [finalData] = addMetricDisplayColumn(
-      metric,
+      metricConfig,
       rowsWithDisplayCol,
       true, // omitPctSymbol
     )
@@ -81,8 +57,12 @@ export function RateBarChart({
       finalData = sortForVegaByIncome(finalData)
     }
 
-    return finalData
-  }, [data, demographicType, metric])
+    // Add yIndex for positioning
+    return finalData.map((row, index) => ({
+      ...row,
+      yIndex: row[demographicType] === 'All' ? -1 : index,
+    }))
+  }, [data, demographicType, metricConfig])
 
   // Prepare wrapped labels
   const wrappedLabels = useMemo(() => {
@@ -94,33 +74,43 @@ export function RateBarChart({
 
   // Calculate dimensions
   const maxLines = Math.max(...wrappedLabels.map((label) => label.lines.length))
-  const barHeight = 30 // Base height for single line
-  const adjustedBarHeight = Math.max(barHeight, maxLines * 16) // Adjust if we need more height for wrapped labels
-  const height = processedData.length * (adjustedBarHeight + 10) // 10px gap between bars
+  const adjustedBarHeight = Math.max(BAR_HEIGHT, maxLines * 16)
+  const allIndex = processedData.findIndex((d) => d[demographicType] === 'All')
+  const totalExtraSpace = allIndex !== -1 ? EXTRA_SPACE_AFTER_ALL : 0
+  const height =
+    processedData.length * (adjustedBarHeight + 10) + totalExtraSpace
   const innerWidth = width - MARGIN.left - MARGIN.right
   const innerHeight = height - MARGIN.top - MARGIN.bottom
 
   // Scales
   const xScale = useMemo(() => {
-    const maxValue = max(processedData, (d) => d[metric.metricId]) || 0
+    const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
     return scaleLinear().domain([0, maxValue]).range([0, innerWidth])
-  }, [processedData, innerWidth, metric.metricId])
+  }, [processedData, innerWidth, metricConfig.metricId])
 
   const yScale = useMemo(() => {
     return scaleBand()
       .domain(processedData.map((d) => d[demographicType]))
-      .range([0, innerHeight])
+      .range([0, innerHeight - totalExtraSpace]) // Adjust range to account for extra space
       .padding(BAR_PADDING)
-  }, [processedData, innerHeight, demographicType])
+  }, [processedData, innerHeight, totalExtraSpace])
+
+  const getYPosition = (index: number, demographicValue: string) => {
+    let position = yScale(demographicValue) || 0
+    if (allIndex !== -1 && index > allIndex) {
+      position += EXTRA_SPACE_AFTER_ALL
+    }
+    return position
+  }
 
   const barLabelBreakpoint = useMemo(() => {
-    const maxValue = max(processedData, (d) => d[metric.metricId]) || 0
+    const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
-  }, [processedData, metric.metricId])
+  }, [processedData, metricConfig.metricId])
 
   return (
     <div ref={containerRef}>
-      {/* biome-ignore lint/a11y/noSvgWithoutTitle:we need to allow hovering of individual chart elements */}
+      {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
       <svg width={width} height={height}>
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
           {/* Vertical Gridlines */}
@@ -133,46 +123,55 @@ export function RateBarChart({
                 y1={0}
                 y2={innerHeight}
                 className='stroke-timberwolf'
-                // strokeDasharray='2,2'
               />
             ))}
           </g>
+          {/* Y-axis label */}
+          <text
+            transform={`translate(${-MARGIN.left + 20},${innerHeight / 2}) rotate(-90)`}
+            textAnchor='middle'
+            className='text-smallest font-semibold p-0 m-0'
+          >
+            {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}
+          </text>
           {/* Y Axis */}
           <g className='y-axis'>
-            {wrappedLabels.map((label, index) => (
-              <g
-                key={label.original}
-                transform={`translate(0,${yScale(label.original)})`}
-              >
-                {label.lines.map((line, lineIndex) => (
-                  <text
-                    key={lineIndex}
-                    x={-5}
-                    y={
-                      yScale.bandwidth() / 2 -
-                      (label.lines.length - 1) * 8 +
-                      lineIndex * 16
-                    }
-                    dy='.32em'
-                    textAnchor='end'
-                    className='text-smallest'
-                  >
-                    {line}
-                  </text>
-                ))}
-              </g>
-            ))}
+            {wrappedLabels.map((label, index) => {
+              const yPosition = getYPosition(index, label.original)
+              return (
+                <g key={label.original} transform={`translate(0,${yPosition})`}>
+                  {label.lines.map((line, lineIndex) => (
+                    <text
+                      key={lineIndex}
+                      x={-5}
+                      y={
+                        yScale.bandwidth() / 2 -
+                        (label.lines.length - 1) * 8 +
+                        lineIndex * 16
+                      }
+                      dy='.32em'
+                      textAnchor='end'
+                      className='text-smallest'
+                    >
+                      {line}
+                    </text>
+                  ))}
+                </g>
+              )
+            })}
           </g>
 
           {/* Bars */}
-          {processedData.map((d) => {
-            const barWidth = xScale(d[metric.metricId])
-            const shouldLabelBeInside = d[metric.metricId] > barLabelBreakpoint
+          {processedData.map((d, index) => {
+            const barWidth = xScale(d[metricConfig.metricId])
+            const shouldLabelBeInside =
+              d[metricConfig.metricId] > barLabelBreakpoint
+            const yPosition = getYPosition(index, d[demographicType])
 
             return (
               <g
                 key={d[demographicType]}
-                transform={`translate(0,${yScale(d[demographicType])})`}
+                transform={`translate(0,${yPosition})`}
               >
                 <path
                   d={`
@@ -195,16 +194,24 @@ export function RateBarChart({
                   y={yScale.bandwidth() / 2}
                   dy='.32em'
                   textAnchor={shouldLabelBeInside ? 'end' : 'start'}
-                  className={`text-sm ${
+                  className={`text-smallest ${
                     shouldLabelBeInside ? 'fill-white' : 'fill-current'
                   }`}
                 >
-                  {formatValue(d[metric.metricId], usePercentSuffix)}
+                  {formatValue(d[metricConfig.metricId], metricConfig)}
                 </text>
               </g>
             )
           })}
 
+          {/* X-axis label */}
+          <text
+            transform={`translate(${innerWidth / 2},${innerHeight + 40})`}
+            textAnchor='middle'
+            className='text-smallest font-semibold'
+          >
+            {metricConfig.shortLabel}
+          </text>
           {/* X Axis */}
           <g className='x-axis' transform={`translate(0,${innerHeight})`}>
             <line x1={0} x2={innerWidth} y1={0} y2={0} stroke='currentColor' />
@@ -215,9 +222,9 @@ export function RateBarChart({
                   y={9}
                   dy='.71em'
                   textAnchor='middle'
-                  className='text-sm fill-current'
+                  className='text-smallest fill-current'
                 >
-                  {formatValue(tick, usePercentSuffix)}
+                  {tick}
                 </text>
               </g>
             ))}
@@ -226,4 +233,45 @@ export function RateBarChart({
       </svg>
     </div>
   )
+}
+
+function wrapLabel(text: string, width: number): string[] {
+  const normalizedText = text.replace(/\s+/g, ' ').trim()
+  const words = normalizedText.split(' ')
+  const lines: string[] = []
+  let currentLine = ''
+
+  words.forEach((word) => {
+    const testLine = currentLine ? `${currentLine} ${word}` : word
+    if (testLine.length * 6 <= width) {
+      currentLine = testLine
+    } else {
+      lines.push(currentLine)
+      currentLine = word
+    }
+  })
+
+  if (currentLine) {
+    lines.push(currentLine)
+  }
+
+  return lines
+}
+
+function formatValue(value: number, metricConfig: MetricConfig): string {
+  if (metricConfig.type === 'per100k')
+    return (
+      Math.round(value).toLocaleString('en-US', {
+        maximumFractionDigits: 1,
+      }) + ' per 100k'
+    )
+
+  if (isPctType(metricConfig.type))
+    return (
+      value.toLocaleString('en-US', {
+        maximumFractionDigits: 2,
+      }) + ' %'
+    )
+
+  return value.toLocaleString('en-US')
 }
