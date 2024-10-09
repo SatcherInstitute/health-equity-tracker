@@ -6,25 +6,6 @@ import type { ScrollableHashId } from './hooks/useStepObserver'
 const SCALE_FACTOR = 3
 const UNSAFE_CHAR_REGEX = /[^a-zA-Z0-9_.\-\s]+/g
 
-interface DomToImageOptions {
-  scale: number
-  filter: (node: HTMLElement) => boolean
-  width?: number
-  height?: number
-}
-
-interface SaveImageOptions {
-  cardId: ScrollableHashId
-  cardTitle: string
-  destination: 'clipboard' | 'download'
-  isRowOfTwo?: boolean
-}
-
-interface AddedElements {
-  heightToCrop: number
-  elements: Array<HTMLElement | null>
-}
-
 // Shared utility functions
 function hideElementsForScreenshot(node: HTMLElement): boolean {
   return !node?.classList?.contains('hide-on-screenshot')
@@ -50,6 +31,13 @@ async function dataURLtoBlob(dataURL: string): Promise<Blob> {
   return response.blob()
 }
 
+interface SaveImageOptions {
+  cardId: ScrollableHashId
+  cardTitle: string
+  destination: 'clipboard' | 'download'
+  isRowOfTwo?: boolean
+}
+
 async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   if (options.destination === 'clipboard') {
     try {
@@ -70,6 +58,11 @@ async function handleDestination(dataUrl: string, options: SaveImageOptions) {
     link.click()
   }
   return dataUrl
+}
+
+interface AddedElements {
+  heightToCrop: number
+  elements: Array<HTMLElement | null>
 }
 
 // Preparation functions
@@ -213,6 +206,13 @@ async function saveRowOfTwoCardsImage(
   } finally {
     cleanupRow(rowNode, addedElements)
   }
+}
+
+interface DomToImageOptions {
+  scale: number
+  filter: (node: HTMLElement) => boolean
+  width?: number
+  height?: number
 }
 
 // Shared capture logic
