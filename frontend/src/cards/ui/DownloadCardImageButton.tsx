@@ -1,8 +1,8 @@
 import { SaveAlt } from '@mui/icons-material'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
-import type { PopoverElements } from '../../utils/hooks/usePopover'
-import { useCardImage } from '../../utils/hooks/useCardImage'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
+import { useCardImage } from '../../utils/hooks/useCardImage'
+import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface DownloadCardImageButtonProps {

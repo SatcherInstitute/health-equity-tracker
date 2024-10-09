@@ -1,8 +1,8 @@
-import { useState, useEffect, type ReactNode } from 'react'
+import { useEffect, useState } from 'react'
 import { Events } from 'react-scroll'
 import HetReturnToTopFloating from '../../pages/Policy/policyComponents/HetReturnToTopFloating'
-import { useScrollToAnchor } from '../../utils/hooks/useScrollToAnchor'
 import type { RouteConfig } from '../../pages/sharedTypes'
+import { useScrollToAnchor } from '../../utils/hooks/useScrollToAnchor'
 
 interface HetOnThisPageMenuProps {
   links?: RouteConfig[]
@@ -22,9 +22,14 @@ function CombinedLink(props: CombinedLinkProps) {
 
   if (isScrollLink) {
     return (
-      <div onClick={() => scrollToAnchor(to)} role='link' {...rest}>
+      <a
+        className='no-underline bg-none'
+        // biome-ignore lint/a11y/useValidAnchor: need to fix this an restyle button to look like a link
+        onClick={() => scrollToAnchor(to)}
+        {...rest}
+      >
         {children}
-      </div>
+      </a>
     )
   }
   return null
