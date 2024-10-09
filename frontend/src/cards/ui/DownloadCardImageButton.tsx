@@ -11,15 +11,18 @@ interface DownloadCardImageButtonProps {
 }
 
 export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
-  const { isThinking, setIsThinking, handleDownloadImg } = useCardImage(
-    props.popover,
-    props.scrollToHash,
-  )
+  const { isThinking, setIsThinking, handleDownloadImg, handleDownloadRowImg } =
+    useCardImage(props.popover, props.scrollToHash)
+
+  const isCompareMode = window.location.href.includes('compare')
 
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <HetCardExportMenuItem Icon={SaveAlt} onClick={handleDownloadImg}>
+      <HetCardExportMenuItem
+        Icon={SaveAlt}
+        onClick={isCompareMode ? handleDownloadRowImg : handleDownloadImg}
+      >
         Save Image
       </HetCardExportMenuItem>
     </>

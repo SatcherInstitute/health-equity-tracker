@@ -2,84 +2,10 @@ import domtoimage from 'dom-to-image-more'
 import { useState } from 'react'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
-import { het } from '../../styles/DesignTokens'
 import type { PopoverElements } from './usePopover'
 import type { ScrollableHashId } from './useStepObserver'
 
-export function useCardImage(
-  cardMenuPopover: PopoverElements,
-  scrollToHash: ScrollableHashId,
-) {
-  // STATE
-  const [isThinking, setIsThinking] = useState(false)
-  const [confirmationOpen, setConfirmationOpen] = useState(false)
-  const [imgDataUrl, setImgDataUrl] = useState<string | null>(null)
-
-  // COMPUTED VALUES
-  const cardName = reportProviderSteps[scrollToHash].label
-  const urlWithoutHash = window.location.href.split('#')[0]
-  const cardUrlWithHash = `${urlWithoutHash}#${scrollToHash}`
-
-  // HANDLERS
-  const handleCopyImgToClipboard = async () => {
-    setIsThinking(true)
-    try {
-      const result = await saveRowOfTwoCardsImage(
-        scrollToHash,
-        cardName,
-        'clipboard',
-      )
-      if (typeof result === 'string') {
-        setImgDataUrl(result)
-        setConfirmationOpen(true)
-      }
-    } finally {
-      setIsThinking(false)
-    }
-  }
-
-  const handleDownloadImg = async () => {
-    setIsThinking(true)
-    try {
-      await saveCardImage(scrollToHash, cardName, 'download')
-      cardMenuPopover?.close()
-    } finally {
-      setIsThinking(false)
-    }
-  }
-
-  const handleCopyLink = async () => {
-    if (cardUrlWithHash) {
-      await navigator.clipboard.writeText(cardUrlWithHash)
-      setConfirmationOpen(true)
-    }
-  }
-
-  function handleClose() {
-    setIsThinking(false)
-    setConfirmationOpen(false)
-    cardMenuPopover.close()
-    setImgDataUrl(null)
-  }
-
-  // HOOK RETURN
-  return {
-    cardName,
-    cardUrlWithHash,
-    isThinking,
-    setIsThinking,
-    imgDataUrl,
-    setImgDataUrl,
-    confirmationOpen,
-    setConfirmationOpen,
-    handleCopyImgToClipboard,
-    handleDownloadImg,
-    handleCopyLink,
-    handleClose,
-  }
-}
-
-// INTERNAL HELPERS
+// Shared constants and types
 const SCALE_FACTOR = 3
 const UNSAFE_CHAR_REGEX = /[^a-zA-Z0-9_.\-\s]+/g
 
@@ -90,100 +16,25 @@ interface DomToImageOptions {
   height?: number
 }
 
-async function saveCardImage(
-  cardId: ScrollableHashId,
-  cardTitle: string,
-  destination: 'clipboard' | 'download',
-): Promise<string | undefined> {
-  const cardNode = document.getElementById(cardId) as HTMLElement
-  const articleChild = cardNode?.querySelector('article') as HTMLElement | null
-  const targetNode = articleChild || cardNode
-  articleChild?.classList.remove('shadow-raised')
-
-  let heightToCrop = 0
-  const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
-    targetNode.querySelectorAll('.remove-height-on-screenshot')
-
-  if (removeHeightOnScreenshotElements) {
-    removeHeightOnScreenshotElements.forEach((element) => {
-      heightToCrop += getTotalElementHeight(element)
-    })
-  }
-
-  const footer = targetNode?.querySelector('footer')
-  let addedDivider: HTMLDivElement | null = null
-  let addedParagraph: HTMLParagraphElement | null = null
-
-  if (footer && targetNode) {
-    if (cardId !== 'multimap-modal') {
-      addedDivider = document.createElement('div')
-      addedDivider.classList.add(
-        'w-full',
-        'border-b',
-        'border-solid',
-        'border-dividerGrey',
-      )
-      addedDivider.style.height = '0px'
-      footer.parentNode?.insertBefore(addedDivider, footer)
-    }
-
-    addedParagraph = document.createElement('p')
-    addedParagraph.innerHTML = CITATION_APA
-    footer?.appendChild(addedParagraph)
-
-    heightToCrop -= getTotalElementHeight(addedParagraph)
-    heightToCrop -= getTotalElementHeight(addedDivider)
-  }
-
-  try {
-    const options: DomToImageOptions = {
-      scale: SCALE_FACTOR,
-      filter: hideElementsForScreenshot,
-      width: targetNode?.offsetWidth,
-      height: targetNode?.offsetHeight - heightToCrop,
-    }
-
-    const dataUrl = await domtoimage.toPng(targetNode, options)
-
-    if (destination === 'clipboard') {
-      try {
-        const blob = await dataURLtoBlob(dataUrl)
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            [blob.type]: blob,
-          }),
-        ])
-      } catch (clipboardError) {
-        console.error('Failed to write to clipboard:', clipboardError)
-      }
-    } else if (destination === 'download') {
-      const fileName = createFileName(cardTitle)
-      const link = document.createElement('a')
-      link.download = fileName
-      link.href = dataUrl
-      link.click()
-    }
-
-    return dataUrl
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(`Screenshot failed: ${error.message}`)
-    } else {
-      console.error('Screenshot failed with unknown error')
-    }
-  } finally {
-    cleanup([addedDivider, addedParagraph], articleChild)
-  }
+interface SaveImageOptions {
+  cardId: ScrollableHashId
+  cardTitle: string
+  destination: 'clipboard' | 'download'
+  isRowOfTwo?: boolean
 }
 
+interface AddedElements {
+  heightToCrop: number
+  elements: Array<HTMLElement | null>
+}
+
+// Shared utility functions
 function hideElementsForScreenshot(node: HTMLElement): boolean {
   return !node?.classList?.contains('hide-on-screenshot')
 }
 
 function getTotalElementHeight(element: HTMLElement | null): number {
-  if (!element) {
-    return 0
-  }
+  if (!element) return 0
   const marginTop = Number.parseInt(getComputedStyle(element).marginTop)
   return element.offsetHeight + marginTop
 }
@@ -202,242 +53,257 @@ async function dataURLtoBlob(dataURL: string): Promise<Blob> {
   return response.blob()
 }
 
-// Remove added elements, reset styles
-function cleanup(
-  addedNodes: Array<HTMLElement | null>,
-  articleChild: HTMLElement | null,
-): void {
-  if (addedNodes) {
-    addedNodes.forEach((node) => {
-      node?.remove()
+async function handleDestination(dataUrl: string, options: SaveImageOptions) {
+  if (options.destination === 'clipboard') {
+    try {
+      const blob = await dataURLtoBlob(dataUrl)
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          [blob.type]: blob,
+        }),
+      ])
+    } catch (clipboardError) {
+      console.error('Failed to write to clipboard:', clipboardError)
+    }
+  } else if (options.destination === 'download') {
+    const fileName = createFileName(options.cardTitle)
+    const link = document.createElement('a')
+    link.download = fileName
+    link.href = dataUrl
+    link.click()
+  }
+  return dataUrl
+}
+
+// Preparation functions
+function prepareNodeForCapture(
+  node: HTMLElement,
+  options: SaveImageOptions,
+): AddedElements {
+  const articleChild = node.querySelector('article') as HTMLElement | null
+
+  node?.classList.remove('shadow-raised')
+  articleChild?.classList.remove('shadow-raised')
+
+  let heightToCrop = 0
+  const removeHeightElements = node.querySelectorAll<HTMLElement>(
+    '.remove-height-on-screenshot',
+  )
+  removeHeightElements.forEach((element) => {
+    heightToCrop += getTotalElementHeight(element)
+  })
+
+  const footer = node.querySelector('footer')
+  footer?.classList.add('leading-lhTight', 'pb-4')
+  const addedElements: Array<HTMLElement | null> = [null, null]
+
+  if (footer) {
+    if (options.cardId === 'rate-map') {
+      const divider = document.createElement('div')
+      divider.classList.add(
+        'w-full',
+        'border-b',
+        'border-solid',
+        'border-dividerGrey',
+      )
+      divider.style.height = '0px'
+      footer.parentNode?.insertBefore(divider, footer)
+      addedElements.push(divider)
+    }
+
+    const citation = document.createElement('p')
+    citation.innerHTML = CITATION_APA
+    footer.appendChild(citation)
+    addedElements.push(citation)
+
+    addedElements.forEach((element) => {
+      heightToCrop -= getTotalElementHeight(element)
     })
   }
 
+  return { heightToCrop, elements: addedElements }
+}
+
+function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
+  let heightToCrop = -150
+  const removeHeightElements = rowNode.querySelectorAll<HTMLElement>(
+    '.remove-height-on-screenshot',
+  )
+  removeHeightElements.forEach((element) => {
+    heightToCrop += getTotalElementHeight(element)
+  })
+
+  const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
+  articleChildren.forEach((article) =>
+    article.classList.remove('shadow-raised'),
+  )
+
+  const citation = document.createElement('p')
+  citation.innerHTML = CITATION_APA
+  citation.classList.add(
+    'text-smallest',
+    'px-12',
+    'mt-2',
+    'mb-0',
+    'pt-0',
+    'remove-after-screenshot',
+  )
+  citation.style.width = '100%'
+  rowNode.prepend(citation)
+  return { heightToCrop, elements: [citation] }
+}
+
+// Cleanup functions
+function cleanup(
+  addedElements: AddedElements,
+  articleChild: HTMLElement | null,
+): void {
+  addedElements.elements.forEach((element) => element?.remove())
   articleChild?.classList.add('shadow-raised')
 }
 
-/*
+function cleanupRow(rowNode: HTMLElement, addedElements: AddedElements): void {
+  addedElements.elements.forEach((element) => element?.remove())
+  const elementsToRemove = rowNode.querySelectorAll('.remove-after-screenshot')
+  elementsToRemove.forEach((element) => element.remove())
+  const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
+  articleChildren.forEach((article) => article.classList.add('shadow-raised'))
+  rowNode.classList.remove('bg-white', 'm-0', 'w-full')
+}
 
-
-
-
-*/
-// async function saveRowOfTwoCardsImage(
-//   cardId: ScrollableHashId,
-//   cardTitle: string,
-//   destination: 'clipboard' | 'download',
-// ): Promise<string | undefined> {
-//   const nodeId1 = document.getElementById(cardId) as HTMLElement
-//   const nodeId2 = document.getElementById(cardId + '2') as HTMLElement
-
-//   if (!nodeId1 || !nodeId2) {
-//     console.error('One or both nodes not found')
-//     return
-//   }
-
-//   // Create a temporary container for the combined image
-//   const tempContainer = document.createElement('div')
-//   // center content vertically and horizontally with their grid cells, using tailwind
-
-//   tempContainer.classList.add(
-//     'grid',
-//     'grid-cols-2',
-//     'bg-white',
-//     'gap-4',
-//     // 'p-4',
-//     // 'place-items-center',
-//   )
-//   document.body.appendChild(tempContainer)
-
-//   try {
-//     // Clone the nodes to avoid modifying the original DOM
-//     const clone1 = nodeId1.cloneNode(true) as HTMLElement
-//     const clone2 = nodeId2.cloneNode(true) as HTMLElement
-
-//     // Add clones to temp container
-//     tempContainer.appendChild(clone1)
-//     tempContainer.appendChild(clone2)
-
-//     let heightToCrop = 0
-//     const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
-//       clone1.querySelectorAll('.remove-height-on-screenshot')
-
-//     if (removeHeightOnScreenshotElements) {
-//       removeHeightOnScreenshotElements.forEach((element) => {
-//         heightToCrop += getTotalElementHeight(element)
-//       })
-//     }
-
-//     const articleChild1 = clone1?.querySelector('article') as HTMLElement | null
-//     const articleChild2 = clone2?.querySelector('article') as HTMLElement | null
-
-//     if (articleChild1) {
-//       articleChild1.classList.remove('shadow-raised')
-//       articleChild1.classList.remove('text-center')
-//     }
-//     if (articleChild2) {
-//       articleChild2.classList.remove('shadow-raised')
-//     }
-
-//     const addedDivider = document.createElement('hr')
-//     addedDivider.classList.add('bg-altGreen')
-//     const addedParagraph = document.createElement('p')
-//     // make p take up 2 cols
-//     addedParagraph.classList.add('col-span-2')
-//     addedParagraph.innerHTML = CITATION_APA
-
-//     tempContainer?.appendChild(addedDivider)
-//     tempContainer?.appendChild(addedParagraph)
-
-//     // Calculate dimensions
-//     const width = tempContainer.offsetWidth
-//     const height = 100 + tempContainer.offsetHeight - heightToCrop
-
-//     const options: DomToImageOptions = {
-//       scale: 3,
-//       filter: hideElementsForScreenshot,
-//       width,
-//       height,
-//     }
-
-//     const dataUrl = await domtoimage.toPng(tempContainer, options)
-
-//     if (destination === 'clipboard') {
-//       try {
-//         const blob = await dataURLtoBlob(dataUrl)
-//         await navigator.clipboard.write([
-//           new ClipboardItem({
-//             [blob.type]: blob,
-//           }),
-//         ])
-//       } catch (clipboardError) {
-//         console.error('Failed to write to clipboard:', clipboardError)
-//       }
-//     } else if (destination === 'download') {
-//       const fileName = createFileName(cardTitle)
-//       const link = document.createElement('a')
-//       link.download = fileName
-//       link.href = dataUrl
-//       link.click()
-//     }
-
-//     return dataUrl
-//   } catch (error: unknown) {
-//     if (error instanceof Error) {
-//       console.error(`Screenshot failed: ${error.message}`)
-//     } else {
-//       console.error('Screenshot failed with unknown error')
-//     }
-//   } finally {
-//     // Clean up the temporary container
-//     document.body.removeChild(tempContainer)
-//   }
-// }
-
-async function saveRowOfTwoCardsImage(
-  cardId: ScrollableHashId,
-  cardTitle: string,
-  destination: 'clipboard' | 'download',
+// Main save image function
+async function saveCardImage(
+  options: SaveImageOptions,
 ): Promise<string | undefined> {
-  const card1Node = document.getElementById(cardId) as HTMLElement
-  const rowOfCardsNode = document.getElementById(cardId + '-row') as HTMLElement
+  const { cardId, isRowOfTwo = false } = options
+  const targetNode = isRowOfTwo
+    ? (document.getElementById(cardId + '-row') as HTMLElement)
+    : (document.getElementById(cardId) as HTMLElement)
 
-  rowOfCardsNode?.classList.add('bg-white', 'm-0', 'w-full')
+  if (!targetNode) return
+
+  if (isRowOfTwo) {
+    targetNode.classList.add('bg-white', 'm-0', 'w-full')
+    return saveRowOfTwoCardsImage(targetNode, options)
+  }
+
+  return saveSingleCardImage(targetNode, options)
+}
+
+// Split into two specialized functions
+async function saveSingleCardImage(
+  targetNode: HTMLElement,
+  options: SaveImageOptions,
+): Promise<string | undefined> {
+  const articleChild = targetNode.querySelector('article') as HTMLElement | null
+  const nodeToCapture = articleChild || targetNode
+  const addedElements = prepareNodeForCapture(nodeToCapture, options)
 
   try {
-    let heightToCrop = 0
-    const removeHeightOnScreenshotElements: NodeListOf<HTMLElement> =
-      card1Node.querySelectorAll('.remove-height-on-screenshot')
-
-    if (removeHeightOnScreenshotElements) {
-      removeHeightOnScreenshotElements.forEach((element) => {
-        heightToCrop += getTotalElementHeight(element)
-      })
-    }
-
-    const articleChildren = rowOfCardsNode?.querySelectorAll(
-      'article',
-    ) as NodeListOf<HTMLElement>
-
-    articleChildren.forEach((articleChild) => {
-      articleChild.classList.remove('shadow-raised')
-    })
-
-    const addedParagraph = document.createElement('p')
-    addedParagraph.style.width = '100%'
-    addedParagraph.innerHTML = CITATION_APA
-    addedParagraph.classList.add(
-      'text-smallest',
-      'w-full',
-      'flex',
-      'p-4',
-      'm-2',
-      'pb-4',
-      'text-center',
-      'remove-after-screenshot',
-    )
-    // set top border of p to 2px dark red
-    addedParagraph.style.borderTop = `2px solid ${het.altGrey}`
-
-    rowOfCardsNode?.appendChild(addedParagraph)
-
-    // Calculate dimensions
-    const width = 100 + rowOfCardsNode.offsetWidth
-    const height = 100 + rowOfCardsNode.offsetHeight - heightToCrop
-
-    const options: DomToImageOptions = {
-      scale: 3,
-      filter: hideElementsForScreenshot,
-      width,
-      height,
-    }
-
-    const dataUrl = await domtoimage.toPng(rowOfCardsNode, options)
-
-    if (destination === 'clipboard') {
-      try {
-        const blob = await dataURLtoBlob(dataUrl)
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            [blob.type]: blob,
-          }),
-        ])
-      } catch (clipboardError) {
-        console.error('Failed to write to clipboard:', clipboardError)
-      }
-    } else if (destination === 'download') {
-      const fileName = createFileName(cardTitle)
-      const link = document.createElement('a')
-      link.download = fileName
-      link.href = dataUrl
-      link.click()
-    }
-
-    return dataUrl
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(`Screenshot failed: ${error.message}`)
-    } else {
-      console.error('Screenshot failed with unknown error')
-    }
+    return await captureAndSaveImage(nodeToCapture, addedElements, options)
   } finally {
-    // Clean up
-    const elementsToRemove = rowOfCardsNode?.querySelectorAll(
-      '.remove-after-screenshot',
-    )
+    cleanup(addedElements, articleChild)
+  }
+}
 
-    if (elementsToRemove) {
-      elementsToRemove.forEach((element) => {
-        element.remove()
-      })
+async function saveRowOfTwoCardsImage(
+  rowNode: HTMLElement,
+  options: SaveImageOptions,
+): Promise<string | undefined> {
+  const addedElements = prepareRowForCapture(rowNode)
+
+  try {
+    return await captureAndSaveImage(rowNode, addedElements, options)
+  } finally {
+    cleanupRow(rowNode, addedElements)
+  }
+}
+
+// Shared capture logic
+async function captureAndSaveImage(
+  node: HTMLElement,
+  addedElements: AddedElements,
+  options: SaveImageOptions,
+): Promise<string | undefined> {
+  const extraRowWidth = options.isRowOfTwo ? 0 : 0
+
+  try {
+    const domToImageOptions: DomToImageOptions = {
+      scale: SCALE_FACTOR,
+      filter: hideElementsForScreenshot,
+      width: node.offsetWidth + extraRowWidth,
+      height: node.offsetHeight - addedElements.heightToCrop,
     }
 
-    const articleChildren = rowOfCardsNode?.querySelectorAll(
-      'article',
-    ) as NodeListOf<HTMLElement>
+    const dataUrl = await domtoimage.toPng(node, domToImageOptions)
+    return await handleDestination(dataUrl, options)
+  } catch (error: unknown) {
+    console.error(
+      'Screenshot failed:',
+      error instanceof Error ? error.message : 'Unknown error',
+    )
+  }
+}
 
-    articleChildren.forEach((articleChild) => {
-      articleChild.classList.add('shadow-raised')
-    })
+// Hook implementation
+export function useCardImage(
+  cardMenuPopover: PopoverElements,
+  scrollToHash: ScrollableHashId,
+) {
+  const [isThinking, setIsThinking] = useState(false)
+  const [confirmationOpen, setConfirmationOpen] = useState(false)
+  const [imgDataUrl, setImgDataUrl] = useState<string | null>(null)
+
+  const cardName = reportProviderSteps[scrollToHash].label
+  const urlWithoutHash = window.location.href.split('#')[0]
+  const cardUrlWithHash = `${urlWithoutHash}#${scrollToHash}`
+
+  const handleImageAction = async (
+    destination: 'clipboard' | 'download',
+    isRowOfTwo: boolean = false,
+  ) => {
+    setIsThinking(true)
+    try {
+      const result = await saveCardImage({
+        cardId: scrollToHash,
+        cardTitle: cardName,
+        destination,
+        isRowOfTwo,
+      })
+      if (destination === 'clipboard' && typeof result === 'string') {
+        setImgDataUrl(result)
+        setConfirmationOpen(true)
+      }
+      if (destination === 'download') {
+        cardMenuPopover?.close()
+      }
+    } finally {
+      setIsThinking(false)
+    }
+  }
+
+  return {
+    cardName,
+    cardUrlWithHash,
+    isThinking,
+    setIsThinking,
+    imgDataUrl,
+    confirmationOpen,
+    handleCopyImgToClipboard: () => handleImageAction('clipboard'),
+    handleDownloadImg: () => handleImageAction('download'),
+    handleDownloadRowImg: () => handleImageAction('download', true),
+    handleCopyRowImgToClipboard: () => handleImageAction('clipboard', true),
+    handleCopyLink: async () => {
+      if (cardUrlWithHash) {
+        await navigator.clipboard.writeText(cardUrlWithHash)
+        setConfirmationOpen(true)
+      }
+    },
+    handleClose: () => {
+      setIsThinking(false)
+      setConfirmationOpen(false)
+      cardMenuPopover.close()
+      setImgDataUrl(null)
+    },
   }
 }

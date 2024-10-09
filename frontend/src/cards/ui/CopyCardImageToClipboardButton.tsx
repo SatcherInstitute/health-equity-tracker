@@ -22,14 +22,19 @@ export function CopyCardImageToClipboardButton(
     imgDataUrl,
     confirmationOpen,
     handleCopyImgToClipboard,
+    handleCopyRowImgToClipboard,
     handleClose,
   } = useCardImage(props.popover, props.scrollToHash)
+
+  const isCompareMode = window.location.href.includes('compare')
 
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
       <HetCardExportMenuItem
-        onClick={handleCopyImgToClipboard}
+        onClick={
+          isCompareMode ? handleCopyRowImgToClipboard : handleCopyImgToClipboard
+        }
         Icon={ContentCopy}
       >
         Copy Image To Clipboard
@@ -41,8 +46,7 @@ export function CopyCardImageToClipboardButton(
             <img
               src={imgDataUrl}
               alt={`Preview of ${cardName}`}
-              // className='w-full h-auto max-w-tiny object-contain bg-gray-50'
-              className='w-full h-auto max-w-exploreDataPage object-contain bg-gray-50'
+              className='w-full h-auto max-h-sm object-contain bg-gray-50'
             />
           </div>
         )}
