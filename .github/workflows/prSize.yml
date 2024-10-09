@@ -20,11 +20,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
       - name: Run sizeup
-        # https://github.com/lerebear/sizeup-action/blob/main/README.md#versioning
         uses: lerebear/sizeup-action@v0.8.8
         id: sizeup-action
-
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-
