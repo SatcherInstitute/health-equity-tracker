@@ -23,14 +23,12 @@ import {
   NORMAL_MARGIN_HEIGHT,
   Y_AXIS_LABEL_HEIGHT,
 } from './constants'
-import {
-  buildRoundedBarString,
-  formatValue,
-  getComparisonAllSubGroupLines,
-  wrapLabel,
-} from './helpers'
+import EndOfBarLabel from './EndOfBarLabel'
+import GroupLabelsYAxis from './GroupLabelsYAxis'
+import { buildRoundedBarString, wrapLabel } from './helpers'
 import { useRateChartTooltip } from './useRateChartTooltip'
 import VerticalGridlines from './VerticalGridlines'
+import XAxis from './XAxis'
 
 interface RateBarChartProps {
   data: HetRow[]
@@ -131,42 +129,13 @@ export function RateBarChart(props: RateBarChartProps) {
               {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}
             </text>
           )}
-          {/* Y Axis */}
-          <g className='y-axis'>
-            {wrappedLabels.map((label, index) => {
-              if (
-                label.original === 'All' &&
-                props.useIntersectionalComparisonAlls
-              ) {
-                label.lines = getComparisonAllSubGroupLines(
-                  props.fips,
-                  props.comparisonAllSubGroup,
-                )
-              }
-              const yPosition = getYPosition(index, label.original)
-              return (
-                <g key={label.original} transform={`translate(0,${yPosition})`}>
-                  {label.lines.map((line, lineIndex) => (
-                    <text
-                      key={lineIndex}
-                      x={-5}
-                      y={
-                        yScale.bandwidth() / 2 -
-                        (label.lines.length - 1) * 8 +
-                        lineIndex * 12
-                      }
-                      dy='.32em'
-                      textAnchor='end'
-                      className='text-smallest'
-                    >
-                      {line}
-                    </text>
-                  ))}
-                </g>
-              )
-            })}
-          </g>
 
+          <GroupLabelsYAxis
+            {...props}
+            wrappedLabels={wrappedLabels}
+            yScale={yScale}
+            getYPosition={getYPosition}
+          />
           {/* Bars */}
           {processedData.map((d, index) => {
             const barWidth = xScale(d[props.metricConfig.metricId]) || 0
@@ -201,48 +170,23 @@ export function RateBarChart(props: RateBarChartProps) {
                       : 'fill-altGreen'
                   }
                 />
-                {/* Bar Values (right side) */}
-                <text
-                  x={shouldLabelBeInside ? barWidth - 5 : barWidth + 5}
-                  y={yScale.bandwidth() / 2}
-                  dy='1.3em'
-                  textAnchor={shouldLabelBeInside ? 'end' : 'start'}
-                  className={`text-smallest ${barLabelColor}`}
-                >
-                  {formatValue(
-                    d[props.metricConfig.metricId],
-                    props.metricConfig,
-                  )}
-                </text>
+                <EndOfBarLabel
+                  {...props}
+                  d={d}
+                  shouldLabelBeInside={shouldLabelBeInside}
+                  barWidth={barWidth}
+                  yScale={yScale}
+                  barLabelColor={barLabelColor}
+                />
               </g>
             )
           })}
-
-          {/* X-axis label */}
-          <text
-            transform={`translate(${innerWidth / 2},${innerHeight + 40})`}
-            textAnchor='middle'
-            className='text-smallest font-semibold'
-          >
-            {props.metricConfig.shortLabel}
-          </text>
-          {/* X Axis */}
-          <g className='x-axis' transform={`translate(0,${innerHeight})`}>
-            <line x1={0} x2={innerWidth} y1={0} y2={0} stroke='currentColor' />
-            {xScale.ticks(5).map((tick, index) => (
-              <g key={index} transform={`translate(${xScale(tick)},0)`}>
-                <line y2={6} stroke='currentColor' />
-                <text
-                  y={9}
-                  dy='.71em'
-                  textAnchor='middle'
-                  className='text-smallest fill-current'
-                >
-                  {tick}
-                </text>
-              </g>
-            ))}
-          </g>
+          <XAxis
+            metricConfig={props.metricConfig}
+            xScale={xScale}
+            width={innerWidth}
+            height={innerHeight}
+          />
         </g>
       </svg>
     </div>
