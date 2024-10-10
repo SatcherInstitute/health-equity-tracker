@@ -1,14 +1,30 @@
+import { useAtom } from 'jotai'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
+import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
-import SimpleBarChartCard from '../cards/SimpleBarChartCard'
-import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
-import UnknownsMapCard from '../cards/UnknownsMapCard'
+import RateBarChartCard from '../cards/RateBarChartCard'
+import RateTrendsChartCard from '../cards/RateTrendsChartCard'
+import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import TableCard from '../cards/TableCard'
+import UnknownsMapCard from '../cards/UnknownsMapCard'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import {
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+} from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import Sidebar from '../pages/ui/Sidebar'
+import { useParamState } from '../utils/hooks/useParamState'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MadLibId } from '../utils/MadLibs'
+import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
@@ -16,26 +32,10 @@ import {
   psSubscribe,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
-import RateTrendsChartCard from '../cards/RateTrendsChartCard'
-import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import { reportProviderSteps } from './ReportProviderSteps'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { Helmet } from 'react-helmet-async'
-import {
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../data/query/Breakdowns'
-import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-import Sidebar from '../pages/ui/Sidebar'
-import type { MadLibId } from '../utils/MadLibs'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { useAtom } from 'jotai'
-import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
-import { useParamState } from '../utils/hooks/useParamState'
-import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 
 interface ReportProps {
   key: string
@@ -196,7 +196,7 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <SimpleBarChartCard
+                  <RateBarChartCard
                     dataTypeConfig={dataTypeConfig}
                     demographicType={demographicType}
                     fips={props.fips}

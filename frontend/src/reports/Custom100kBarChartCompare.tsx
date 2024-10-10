@@ -1,8 +1,8 @@
 import type React from 'react'
-import SimpleBarChartCard from '../cards/SimpleBarChartCard'
-import { Fips } from '../data/utils/Fips'
+import RateBarChartCard from '../cards/RateBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { Fips } from '../data/utils/Fips'
 
 const Custom100kBarChartCompare: React.FC = () => {
   const fips = new Fips('13')
@@ -13,13 +13,13 @@ const Custom100kBarChartCompare: React.FC = () => {
   return (
     <div>
       <div className='grid grid-cols-2'>
-        <SimpleBarChartCard
+        <RateBarChartCard
           dataTypeConfig={dataTypeConfigPoverty}
           demographicType='race_and_ethnicity'
           fips={fips}
           reportTitle={`Poverty in ${fips.getFullDisplayName()}`}
         />
-        <SimpleBarChartCard
+        <RateBarChartCard
           dataTypeConfig={dataTypeConfigIncarceration}
           demographicType='race_and_ethnicity'
           fips={fips}
