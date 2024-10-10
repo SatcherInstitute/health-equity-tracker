@@ -1,5 +1,5 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { isPctType, isRateType } from '../data/config/MetricConfigUtils'
 import {
@@ -12,6 +12,35 @@ import type { Fips } from '../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { addLineBreakDelimitersToField, addMetricDisplayColumn } from './utils'
+
+// Add new interfaces for tooltip
+interface TooltipData {
+  x: number
+  y: number
+  content: string
+}
+
+interface TooltipProps {
+  data: TooltipData | null
+}
+
+// Tooltip component
+function Tooltip({ data }: TooltipProps) {
+  if (!data) return null
+
+  return (
+    <div
+      className='bg-white text-altBlack rounded-sm p-3 text-title absolute cursor-help z-top shadow-raised opacity-95 whitespace-nowrap '
+      style={{
+        left: `${data.x}px`,
+        top: `${data.y}px`,
+        transform: 'translate(-5%, 50%)',
+      }}
+    >
+      {data.content}
+    </div>
+  )
+}
 
 // Constants
 const BAR_PADDING = 0.2
@@ -48,6 +77,8 @@ export function RateBarChart({
     'age',
     'insurance_status',
   ]
+
+  const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
 
   const [containerRef, width] = useResponsiveWidth()
 
@@ -123,7 +154,8 @@ export function RateBarChart({
   }, [processedData, metricConfig.metricId])
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} style={{ position: 'relative' }}>
+      <Tooltip data={tooltipData} />
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
       <svg width={width} height={height}>
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
@@ -213,6 +245,21 @@ export function RateBarChart({
                       ? 'fill-timeYellow'
                       : 'fill-altGreen'
                   }
+                  onMouseMove={(e) => {
+                    const svgRect =
+                      e.currentTarget.ownerSVGElement?.getBoundingClientRect()
+                    if (svgRect) {
+                      const tooltipContent = `${d[demographicType]}: ${formatValue(d[metricConfig.metricId], metricConfig)}`
+                      setTooltipData({
+                        x: e.clientX - svgRect.left,
+                        y: e.clientY - svgRect.top,
+                        content: tooltipContent,
+                      })
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipData(null)
+                  }}
                 />
                 {/* Bar Label */}
                 <text
@@ -283,12 +330,6 @@ function wrapLabel(text: string, width: number): string[] {
 }
 
 function formatValue(value: number, metricConfig: MetricConfig): string {
-  // set maxFractionDigits to:
-  // 0 if number isRateType() and over 10
-  // 1 if number isRateType() and under 10 and over 1
-  // 2 if number isRateType() and under 1
-  // 1 if number isPctType()
-
   let maxFractionDigits = 1
   if (isRateType(metricConfig.type)) {
     if (value > 10) maxFractionDigits = 0
