@@ -1,5 +1,5 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { isPctType, isRateType } from '../data/config/MetricConfigUtils'
 import {
@@ -28,13 +28,17 @@ interface TooltipProps {
 function Tooltip({ data }: TooltipProps) {
   if (!data) return null
 
+  const clickIsLeftHalfOfScreen = data.x < window.innerWidth / 2
+
   return (
     <div
-      className='bg-white text-altBlack rounded-sm p-3 text-title absolute cursor-help z-top shadow-raised opacity-95 whitespace-nowrap '
+      className='bg-white text-altBlack rounded-sm p-3 text-title absolute cursor-help z-top shadow-raised opacity-95 smMd:whitespace-nowrap'
       style={{
         left: `${data.x}px`,
         top: `${data.y}px`,
-        transform: 'translate(-5%, 50%)',
+        transform: clickIsLeftHalfOfScreen
+          ? 'translate(0, 5%)'
+          : 'translate(-100%, 5%)',
       }}
     >
       {data.content}
@@ -43,12 +47,19 @@ function Tooltip({ data }: TooltipProps) {
 }
 
 // Constants
+const Y_AXIS_LABEL_HEIGHT = 20
 const BAR_PADDING = 0.2
 const LABEL_SWAP_CUTOFF_PERCENT = 66
 const MAX_LABEL_WIDTH_BIG = 100
 const MAX_LABEL_WIDTH_SMALL = 50
 const CORNER_RADIUS = 4
-const MARGIN = { top: 20, right: 20, bottom: 50, left: 0 }
+const NORMAL_MARGIN_HEIGHT = 20
+const MARGIN = {
+  top: NORMAL_MARGIN_HEIGHT,
+  right: NORMAL_MARGIN_HEIGHT,
+  bottom: NORMAL_MARGIN_HEIGHT + 30,
+  left: NORMAL_MARGIN_HEIGHT,
+}
 const BAR_HEIGHT = 70
 const EXTRA_SPACE_AFTER_ALL = 10
 
@@ -78,18 +89,16 @@ export function RateBarChart({
     'insurance_status',
   ]
 
+  const isSmAndUp = useIsBreakpointAndUp('sm')
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
-
   const [containerRef, width] = useResponsiveWidth()
-
   const numTicks = getNumTicks(width)
-
-  const timeoutRef = useRef<NodeJS.Timeout>()
 
   const maxLabelWidth = smallerDemographicLabelTypes.includes(demographicType)
     ? MAX_LABEL_WIDTH_SMALL
     : MAX_LABEL_WIDTH_BIG
-  MARGIN.left = maxLabelWidth + 40
+  MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
+  if (isSmAndUp) MARGIN.left += Y_AXIS_LABEL_HEIGHT
 
   // Data preprocessing with spacing calculation
   const processedData: HetRow[] = useMemo(() => {
@@ -161,11 +170,6 @@ export function RateBarChart({
       d: HetRow,
       isTouchEvent: boolean,
     ) => {
-      // Clear any existing timeout
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-
       const svgRect = containerRef.current?.getBoundingClientRect()
       if (!svgRect) return
 
@@ -190,21 +194,11 @@ export function RateBarChart({
         y: clientY - svgRect.top,
         content: tooltipContent,
       })
-
-      // For touch events, set a timeout to hide the tooltip
-      if (isTouchEvent) {
-        timeoutRef.current = setTimeout(() => {
-          setTooltipData(null)
-        }, 2000)
-      }
     },
     [demographicType, metricConfig],
   )
 
   const closeTooltip = useCallback(() => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-    }
     setTooltipData(null)
   }, [])
 
@@ -243,13 +237,15 @@ export function RateBarChart({
             ))}
           </g>
           {/* Y-axis DemographicType label */}
-          <text
-            transform={`translate(${-MARGIN.left + 20},${innerHeight / 2}) rotate(-90)`}
-            textAnchor='middle'
-            className='text-smallest font-semibold p-0 m-0'
-          >
-            {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}
-          </text>
+          {isSmAndUp && (
+            <text
+              transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${innerHeight / 2}) rotate(-90)`}
+              textAnchor='middle'
+              className='text-smallest font-semibold p-0 m-0'
+            >
+              {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}
+            </text>
+          )}
           {/* Y Axis */}
           <g className='y-axis'>
             {wrappedLabels.map((label, index) => {
@@ -321,7 +317,7 @@ export function RateBarChart({
                     handleTooltip(e, d, true)
                   }}
                 />
-                {/* Bar Label */}
+                {/* Bar Values (right side) */}
                 <text
                   x={shouldLabelBeInside ? barWidth - 5 : barWidth + 5}
                   y={yScale.bandwidth() / 2}
