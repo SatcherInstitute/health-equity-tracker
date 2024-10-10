@@ -27,9 +27,7 @@ interface TooltipProps {
 // Tooltip component
 function Tooltip({ data }: TooltipProps) {
   if (!data) return null
-
   const clickIsLeftHalfOfScreen = data.x < window.innerWidth / 2
-
   return (
     <div
       className='bg-white text-altBlack rounded-sm p-3 text-title absolute cursor-help z-top shadow-raised opacity-95 smMd:whitespace-nowrap'
@@ -212,8 +210,8 @@ export function RateBarChart({
   return (
     <div
       ref={containerRef}
-      style={{ position: 'relative' }}
       onTouchStart={handleContainerTouch}
+      className='relative'
     >
       <Tooltip data={tooltipData} />
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
@@ -296,6 +294,11 @@ export function RateBarChart({
               <g
                 key={d[demographicType]}
                 transform={`translate(0,${yPosition})`}
+                onMouseMove={(e) => handleTooltip(e, d, false)}
+                onMouseLeave={closeTooltip}
+                onTouchStart={(e) => {
+                  handleTooltip(e, d, true)
+                }}
               >
                 <path
                   d={`
@@ -312,11 +315,6 @@ export function RateBarChart({
                       ? 'fill-timeYellow'
                       : 'fill-altGreen'
                   }
-                  onMouseMove={(e) => handleTooltip(e, d, false)}
-                  onMouseLeave={closeTooltip}
-                  onTouchStart={(e) => {
-                    handleTooltip(e, d, true)
-                  }}
                 />
                 {/* Bar Values (right side) */}
                 <text

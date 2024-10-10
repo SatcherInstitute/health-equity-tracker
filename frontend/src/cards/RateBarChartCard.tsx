@@ -36,7 +36,6 @@ import MissingDataAlert from './ui/MissingDataAlert'
 const PRELOAD_HEIGHT = 668
 
 interface RateBarChartCardProps {
-  key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
