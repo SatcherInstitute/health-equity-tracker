@@ -1,8 +1,9 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  hasSkinnyGroupLabels,
   type DemographicType,
 } from '../../data/query/Breakdowns'
 import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
@@ -10,7 +11,6 @@ import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import type { BarChartTooltipData } from './BarChartTooltip'
 import BarChartTooltip from './BarChartTooltip'
 import {
   BAR_HEIGHT,
@@ -27,9 +27,10 @@ import {
   buildRoundedBarString,
   formatValue,
   getComparisonAllSubGroupLines,
-  getNumTicks,
   wrapLabel,
 } from './helpers'
+import { useRateChartTooltip } from './useRateChartTooltip'
+import VerticalGridlines from './VerticalGridlines'
 
 interface RateBarChartProps {
   data: HetRow[]
@@ -44,22 +45,14 @@ interface RateBarChartProps {
 }
 
 export function RateBarChart(props: RateBarChartProps) {
-  const smallerDemographicLabelTypes: DemographicType[] = [
-    'sex',
-    'age',
-    'insurance_status',
-  ]
-
   const isSmAndUp = useIsBreakpointAndUp('sm')
-  const [tooltipData, setTooltipData] = useState<BarChartTooltipData | null>(
-    null,
-  )
-  const [containerRef, width] = useResponsiveWidth()
-  const numTicks = getNumTicks(width)
 
-  const maxLabelWidth = smallerDemographicLabelTypes.includes(
-    props.demographicType,
-  )
+  const [containerRef, width] = useResponsiveWidth()
+
+  const { tooltipData, handleTooltip, closeTooltip, handleContainerTouch } =
+    useRateChartTooltip(containerRef, props.metricConfig, props.demographicType)
+
+  const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL
     : MAX_LABEL_WIDTH_BIG
   MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
@@ -113,55 +106,6 @@ export function RateBarChart(props: RateBarChartProps) {
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
   }, [processedData, props.metricConfig.metricId])
 
-  const handleTooltip = useCallback(
-    (
-      event: React.MouseEvent | React.TouchEvent,
-      d: HetRow,
-      isTouchEvent: boolean,
-    ) => {
-      const svgRect = containerRef.current?.getBoundingClientRect()
-      if (!svgRect) return
-
-      let clientX: number
-      let clientY: number
-
-      if (isTouchEvent) {
-        const touchEvent = event as React.TouchEvent
-        const touch = touchEvent.touches[0]
-        clientX = touch.clientX
-        clientY = touch.clientY
-      } else {
-        const mouseEvent = event as React.MouseEvent
-        clientX = mouseEvent.clientX
-        clientY = mouseEvent.clientY
-      }
-
-      const tooltipContent = `${d[props.demographicType]}: ${formatValue(d[props.metricConfig.metricId], props.metricConfig)}`
-
-      setTooltipData({
-        x: clientX - svgRect.left,
-        y: clientY - svgRect.top,
-        content: tooltipContent,
-      })
-    },
-    [props.demographicType, props.metricConfig],
-  )
-
-  const closeTooltip = useCallback(() => {
-    setTooltipData(null)
-  }, [])
-
-  // Add touch event handler to the container to close tooltip when tapping elsewhere
-  const handleContainerTouch = useCallback(
-    (event: React.TouchEvent) => {
-      const target = event.target as SVGElement
-      if (target.tagName !== 'path') {
-        closeTooltip()
-      }
-    },
-    [closeTooltip],
-  )
-
   return (
     <div
       ref={containerRef}
@@ -172,19 +116,11 @@ export function RateBarChart(props: RateBarChartProps) {
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
       <svg width={width} height={height}>
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
-          {/* Vertical Gridlines */}
-          <g className='gridlines'>
-            {xScale.ticks(numTicks).map((tick, index) => (
-              <line
-                key={`gridline-${index}`}
-                x1={xScale(tick)}
-                x2={xScale(tick)}
-                y1={0}
-                y2={innerHeight}
-                className='stroke-timberwolf'
-              />
-            ))}
-          </g>
+          <VerticalGridlines
+            width={width}
+            height={innerHeight}
+            xScale={xScale}
+          />
           {/* Y-axis DemographicType label */}
           {isSmAndUp && (
             <text

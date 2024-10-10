@@ -1,6 +1,5 @@
 import { Fips } from '../utils/Fips'
 import type BreakdownFilter from './BreakdownFilter'
-//
 
 export type TimeView = 'current' | 'historical'
 
@@ -363,4 +362,15 @@ export class Breakdowns {
     )
     return joinCols.sort()
   }
+}
+
+const smallerDemographicLabelTypes: DemographicType[] = [
+  'sex',
+  'age',
+  'insurance_status',
+]
+
+// if all the groups in the breakdown have few letters, useful when we need to estimate the width of the y-axis labels
+export function hasSkinnyGroupLabels(demographicType: DemographicType) {
+  return smallerDemographicLabelTypes.includes(demographicType)
 }

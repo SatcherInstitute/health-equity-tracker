@@ -1,9 +1,13 @@
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType, isRateType } from '../../data/config/MetricConfigUtils'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { ALL } from '../../data/utils/Constants'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
-export function wrapLabel(text: string, width: number): string[] {
+function wrapLabel(text: string, width: number): string[] {
   const normalizedText = text.replace(/\s+/g, ' ').trim()
   const words = normalizedText.split(' ')
   const lines: string[] = []
@@ -26,7 +30,7 @@ export function wrapLabel(text: string, width: number): string[] {
   return lines
 }
 
-export function formatValue(value: number, metricConfig: MetricConfig): string {
+function formatValue(value: number, metricConfig: MetricConfig): string {
   let maxFractionDigits = 1
   if (isRateType(metricConfig.type)) {
     if (value > 10) maxFractionDigits = 0
@@ -51,7 +55,7 @@ export function formatValue(value: number, metricConfig: MetricConfig): string {
   return value.toLocaleString('en-US')
 }
 
-export function getNumTicks(width: number): number {
+function getNumTicks(width: number): number {
   const isSmMd = useIsBreakpointAndUp('smMd')
   const isCompareMode = window.location.href.includes('compare')
   let numTicks = Math.floor(width / 40)
@@ -61,7 +65,7 @@ export function getNumTicks(width: number): number {
   return numTicks
 }
 
-export function getComparisonAllSubGroupLines(
+function getComparisonAllSubGroupLines(
   fips: Fips,
   comparisonAllSubGroup?: string,
 ) {
@@ -77,7 +81,7 @@ export function getComparisonAllSubGroupLines(
   return lines
 }
 
-export function buildRoundedBarString(barWidth: number, yScale: any) {
+function buildRoundedBarString(barWidth: number, yScale: any) {
   const CORNER_RADIUS = 4
 
   const safeBarWidth = Math.max(0, barWidth)
@@ -94,4 +98,50 @@ export function buildRoundedBarString(barWidth: number, yScale: any) {
 					h -${safeBarWidth - safeCornerRadius}
 					Z
 				`
+}
+
+function addComparisonAllsRowToIntersectionalData(
+  data: HetRow[],
+  demographicType: DemographicType,
+  rateConfig: MetricConfig,
+  rateComparisonConfig: MetricConfig,
+  rateQueryResponseRateAlls: MetricQueryResponse,
+) {
+  // rename intersectional 'All' group
+  const adjustedData = data.map((row) => {
+    const renameRow = { ...row }
+    if (row[demographicType] === ALL) {
+      renameRow[demographicType] = rateComparisonConfig?.shortLabel
+    }
+    return renameRow
+  })
+
+  // add the comparison ALLs row to the intersectional data
+  const originalAllsRow = rateQueryResponseRateAlls?.data?.[0]
+
+  if (!originalAllsRow) {
+    return adjustedData
+  }
+
+  const { fips, fips_name } = originalAllsRow
+
+  const allsRow = {
+    fips,
+    fips_name,
+    [demographicType]: ALL,
+    [rateConfig.metricId]:
+      originalAllsRow[rateConfig?.rateComparisonMetricForAlls?.metricId ?? ''],
+  }
+  adjustedData.unshift(allsRow)
+
+  return adjustedData
+}
+
+export {
+  addComparisonAllsRowToIntersectionalData,
+  buildRoundedBarString,
+  formatValue,
+  getComparisonAllSubGroupLines,
+  getNumTicks,
+  wrapLabel,
 }
