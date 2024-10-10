@@ -1,5 +1,5 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { isPctType, isRateType } from '../data/config/MetricConfigUtils'
 import {
@@ -84,6 +84,8 @@ export function RateBarChart({
 
   const numTicks = getNumTicks(width)
 
+  const timeoutRef = useRef<NodeJS.Timeout>()
+
   const maxLabelWidth = smallerDemographicLabelTypes.includes(demographicType)
     ? MAX_LABEL_WIDTH_SMALL
     : MAX_LABEL_WIDTH_BIG
@@ -153,8 +155,76 @@ export function RateBarChart({
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
   }, [processedData, metricConfig.metricId])
 
+  const handleTooltip = useCallback(
+    (
+      event: React.MouseEvent | React.TouchEvent,
+      d: HetRow,
+      isTouchEvent: boolean,
+    ) => {
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+
+      const svgRect = containerRef.current?.getBoundingClientRect()
+      if (!svgRect) return
+
+      let clientX: number
+      let clientY: number
+
+      if (isTouchEvent) {
+        const touchEvent = event as React.TouchEvent
+        const touch = touchEvent.touches[0]
+        clientX = touch.clientX
+        clientY = touch.clientY
+      } else {
+        const mouseEvent = event as React.MouseEvent
+        clientX = mouseEvent.clientX
+        clientY = mouseEvent.clientY
+      }
+
+      const tooltipContent = `${d[demographicType]}: ${formatValue(d[metricConfig.metricId], metricConfig)}`
+
+      setTooltipData({
+        x: clientX - svgRect.left,
+        y: clientY - svgRect.top,
+        content: tooltipContent,
+      })
+
+      // For touch events, set a timeout to hide the tooltip
+      if (isTouchEvent) {
+        timeoutRef.current = setTimeout(() => {
+          setTooltipData(null)
+        }, 2000)
+      }
+    },
+    [demographicType, metricConfig],
+  )
+
+  const closeTooltip = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    setTooltipData(null)
+  }, [])
+
+  // Add touch event handler to the container to close tooltip when tapping elsewhere
+  const handleContainerTouch = useCallback(
+    (event: React.TouchEvent) => {
+      const target = event.target as SVGElement
+      if (target.tagName !== 'path') {
+        closeTooltip()
+      }
+    },
+    [closeTooltip],
+  )
+
   return (
-    <div ref={containerRef} style={{ position: 'relative' }}>
+    <div
+      ref={containerRef}
+      style={{ position: 'relative' }}
+      onTouchStart={handleContainerTouch}
+    >
       <Tooltip data={tooltipData} />
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
       <svg width={width} height={height}>
@@ -245,20 +315,10 @@ export function RateBarChart({
                       ? 'fill-timeYellow'
                       : 'fill-altGreen'
                   }
-                  onMouseMove={(e) => {
-                    const svgRect =
-                      e.currentTarget.ownerSVGElement?.getBoundingClientRect()
-                    if (svgRect) {
-                      const tooltipContent = `${d[demographicType]}: ${formatValue(d[metricConfig.metricId], metricConfig)}`
-                      setTooltipData({
-                        x: e.clientX - svgRect.left,
-                        y: e.clientY - svgRect.top,
-                        content: tooltipContent,
-                      })
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    setTooltipData(null)
+                  onMouseMove={(e) => handleTooltip(e, d, false)}
+                  onMouseLeave={closeTooltip}
+                  onTouchStart={(e) => {
+                    handleTooltip(e, d, true)
                   }}
                 />
                 {/* Bar Label */}
