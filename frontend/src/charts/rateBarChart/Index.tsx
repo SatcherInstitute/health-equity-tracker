@@ -1,65 +1,35 @@
 import { max, scaleBand, scaleLinear } from 'd3'
 import { useCallback, useMemo, useState } from 'react'
-import type { MetricConfig } from '../data/config/MetricConfigTypes'
-import { isPctType, isRateType } from '../data/config/MetricConfigUtils'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
-} from '../data/query/Breakdowns'
-import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
-import type { HetRow } from '../data/utils/DatasetTypes'
-import type { Fips } from '../data/utils/Fips'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
-import { addMetricDisplayColumn } from './utils'
-
-// Add new interfaces for tooltip
-interface TooltipData {
-  x: number
-  y: number
-  content: string
-}
-
-interface TooltipProps {
-  data: TooltipData | null
-}
-
-// Tooltip component
-function Tooltip({ data }: TooltipProps) {
-  if (!data) return null
-  const clickIsLeftHalfOfScreen = data.x < window.innerWidth / 2
-  return (
-    <div
-      className='bg-white text-altBlack rounded-sm p-3 text-title absolute cursor-help z-top shadow-raised opacity-95 smMd:whitespace-nowrap'
-      style={{
-        left: `${data.x}px`,
-        top: `${data.y}px`,
-        transform: clickIsLeftHalfOfScreen
-          ? 'translate(0, 5%)'
-          : 'translate(-100%, 5%)',
-      }}
-    >
-      {data.content}
-    </div>
-  )
-}
-
-// Constants
-const Y_AXIS_LABEL_HEIGHT = 20
-const BAR_PADDING = 0.2
-const LABEL_SWAP_CUTOFF_PERCENT = 66
-const MAX_LABEL_WIDTH_BIG = 100
-const MAX_LABEL_WIDTH_SMALL = 50
-const CORNER_RADIUS = 4
-const NORMAL_MARGIN_HEIGHT = 20
-const MARGIN = {
-  top: NORMAL_MARGIN_HEIGHT,
-  right: NORMAL_MARGIN_HEIGHT,
-  bottom: NORMAL_MARGIN_HEIGHT + 30,
-  left: NORMAL_MARGIN_HEIGHT,
-}
-const BAR_HEIGHT = 70
-const EXTRA_SPACE_AFTER_ALL = 10
+} from '../../data/query/Breakdowns'
+import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
+import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import type { BarChartTooltipData } from './BarChartTooltip'
+import BarChartTooltip from './BarChartTooltip'
+import {
+  BAR_HEIGHT,
+  BAR_PADDING,
+  EXTRA_SPACE_AFTER_ALL,
+  LABEL_SWAP_CUTOFF_PERCENT,
+  MARGIN,
+  MAX_LABEL_WIDTH_BIG,
+  MAX_LABEL_WIDTH_SMALL,
+  NORMAL_MARGIN_HEIGHT,
+  Y_AXIS_LABEL_HEIGHT,
+} from './constants'
+import {
+  buildRoundedBarString,
+  formatValue,
+  getComparisonAllSubGroupLines,
+  getNumTicks,
+  wrapLabel,
+} from './helpers'
 
 interface RateBarChartProps {
   data: HetRow[]
@@ -73,14 +43,7 @@ interface RateBarChartProps {
   comparisonAllSubGroup?: string
 }
 
-export function RateBarChart({
-  data,
-  fips,
-  metricConfig,
-  demographicType,
-  useIntersectionalComparisonAlls,
-  comparisonAllSubGroup,
-}: RateBarChartProps) {
+export function RateBarChart(props: RateBarChartProps) {
   const smallerDemographicLabelTypes: DemographicType[] = [
     'sex',
     'age',
@@ -88,45 +51,35 @@ export function RateBarChart({
   ]
 
   const isSmAndUp = useIsBreakpointAndUp('sm')
-  const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
+  const [tooltipData, setTooltipData] = useState<BarChartTooltipData | null>(
+    null,
+  )
   const [containerRef, width] = useResponsiveWidth()
   const numTicks = getNumTicks(width)
 
-  const maxLabelWidth = smallerDemographicLabelTypes.includes(demographicType)
+  const maxLabelWidth = smallerDemographicLabelTypes.includes(
+    props.demographicType,
+  )
     ? MAX_LABEL_WIDTH_SMALL
     : MAX_LABEL_WIDTH_BIG
   MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
   if (isSmAndUp) MARGIN.left += Y_AXIS_LABEL_HEIGHT
 
-  // Data preprocessing with spacing calculation
-  const processedData: HetRow[] = useMemo(() => {
-    const [rowsWithDisplayCol] = addMetricDisplayColumn(metricConfig, data)
-    let [finalData] = addMetricDisplayColumn(
-      metricConfig,
-      rowsWithDisplayCol,
-      true, // omitPctSymbol
-    )
+  const processedData: HetRow[] =
+    props.demographicType === 'income'
+      ? sortForVegaByIncome(props.data)
+      : props.data
 
-    if (demographicType === 'income') {
-      finalData = sortForVegaByIncome(finalData)
-    }
-
-    // Add yIndex for positioning
-    return finalData.map((row, index) => ({
-      ...row,
-      yIndex: row[demographicType] === 'All' ? -1 : index,
-    }))
-  }, [data, demographicType, metricConfig])
-
-  // Prepare wrapped labels
   const wrappedLabels = useMemo(() => {
     return processedData.map((d) => ({
-      original: d[demographicType],
-      lines: wrapLabel(d[demographicType], maxLabelWidth),
+      original: d[props.demographicType],
+      lines: wrapLabel(d[props.demographicType], maxLabelWidth),
     }))
-  }, [processedData, demographicType])
+  }, [processedData, props.demographicType])
 
-  const allIndex = processedData.findIndex((d) => d[demographicType] === 'All')
+  const allIndex = processedData.findIndex(
+    (d) => d[props.demographicType] === 'All',
+  )
   const totalExtraSpace = allIndex !== -1 ? EXTRA_SPACE_AFTER_ALL : 0
   const height = processedData.length * (BAR_HEIGHT + 10) + totalExtraSpace
   const innerWidth = width - MARGIN.left - MARGIN.right
@@ -134,13 +87,14 @@ export function RateBarChart({
 
   // Scales
   const xScale = useMemo(() => {
-    const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
+    const maxValue =
+      max(processedData, (d) => d[props.metricConfig.metricId]) || 0
     return scaleLinear().domain([0, maxValue]).range([0, innerWidth])
-  }, [processedData, innerWidth, metricConfig.metricId])
+  }, [processedData, innerWidth, props.metricConfig.metricId])
 
   const yScale = useMemo(() => {
     return scaleBand()
-      .domain(processedData.map((d) => d[demographicType]))
+      .domain(processedData.map((d) => d[props.demographicType]))
       .range([0, innerHeight - totalExtraSpace]) // Adjust range to account for extra space
       .padding(BAR_PADDING)
   }, [processedData, innerHeight, totalExtraSpace])
@@ -154,9 +108,10 @@ export function RateBarChart({
   }
 
   const barLabelBreakpoint = useMemo(() => {
-    const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
+    const maxValue =
+      max(processedData, (d) => d[props.metricConfig.metricId]) || 0
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
-  }, [processedData, metricConfig.metricId])
+  }, [processedData, props.metricConfig.metricId])
 
   const handleTooltip = useCallback(
     (
@@ -181,7 +136,7 @@ export function RateBarChart({
         clientY = mouseEvent.clientY
       }
 
-      const tooltipContent = `${d[demographicType]}: ${formatValue(d[metricConfig.metricId], metricConfig)}`
+      const tooltipContent = `${d[props.demographicType]}: ${formatValue(d[props.metricConfig.metricId], props.metricConfig)}`
 
       setTooltipData({
         x: clientX - svgRect.left,
@@ -189,7 +144,7 @@ export function RateBarChart({
         content: tooltipContent,
       })
     },
-    [demographicType, metricConfig],
+    [props.demographicType, props.metricConfig],
   )
 
   const closeTooltip = useCallback(() => {
@@ -213,15 +168,15 @@ export function RateBarChart({
       onTouchStart={handleContainerTouch}
       className='relative'
     >
-      <Tooltip data={tooltipData} />
+      <BarChartTooltip data={tooltipData} />
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
       <svg width={width} height={height}>
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
           {/* Vertical Gridlines */}
           <g className='gridlines'>
-            {xScale.ticks(numTicks).map((tick) => (
+            {xScale.ticks(numTicks).map((tick, index) => (
               <line
-                key={`gridline-${tick}`}
+                key={`gridline-${index}`}
                 x1={xScale(tick)}
                 x2={xScale(tick)}
                 y1={0}
@@ -237,16 +192,19 @@ export function RateBarChart({
               textAnchor='middle'
               className='text-smallest font-semibold p-0 m-0'
             >
-              {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}
+              {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}
             </text>
           )}
           {/* Y Axis */}
           <g className='y-axis'>
             {wrappedLabels.map((label, index) => {
-              if (label.original === 'All' && useIntersectionalComparisonAlls) {
+              if (
+                label.original === 'All' &&
+                props.useIntersectionalComparisonAlls
+              ) {
                 label.lines = getComparisonAllSubGroupLines(
-                  fips,
-                  comparisonAllSubGroup,
+                  props.fips,
+                  props.comparisonAllSubGroup,
                 )
               }
               const yPosition = getYPosition(index, label.original)
@@ -275,24 +233,23 @@ export function RateBarChart({
 
           {/* Bars */}
           {processedData.map((d, index) => {
-            const barWidth = xScale(d[metricConfig.metricId]) || 0
+            const barWidth = xScale(d[props.metricConfig.metricId]) || 0
             const shouldLabelBeInside =
-              d[metricConfig.metricId] > barLabelBreakpoint
-            const yPosition = getYPosition(index, d[demographicType])
-
-            const safeBarWidth = Math.max(0, barWidth)
-            const safeCornerRadius = Math.min(CORNER_RADIUS, safeBarWidth / 2)
-            const safeBandwidth = yScale.bandwidth() || 0
-            if (safeBarWidth <= 0 || safeBandwidth <= 0) return null
+              d[props.metricConfig.metricId] > barLabelBreakpoint
+            const yPosition = getYPosition(index, d[props.demographicType])
 
             const barLabelColor =
-              shouldLabelBeInside && d[demographicType] !== 'All'
+              shouldLabelBeInside && d[props.demographicType] !== 'All'
                 ? 'fill-white'
                 : 'fill-current'
 
+            const roundedBarString = buildRoundedBarString(barWidth, yScale)
+
+            if (!roundedBarString) return <></>
+
             return (
               <g
-                key={d[demographicType]}
+                key={index}
                 transform={`translate(0,${yPosition})`}
                 onMouseMove={(e) => handleTooltip(e, d, false)}
                 onMouseLeave={closeTooltip}
@@ -301,17 +258,9 @@ export function RateBarChart({
                 }}
               >
                 <path
-                  d={`
-                    M 0,0
-                    h ${safeBarWidth - safeCornerRadius}
-                    q ${safeCornerRadius},0 ${safeCornerRadius},${safeCornerRadius}
-                    v ${safeBandwidth - 2 * safeCornerRadius}
-                    q 0,${safeCornerRadius} -${safeCornerRadius},${safeCornerRadius}
-                    h -${safeBarWidth - safeCornerRadius}
-                    Z
-                  `}
+                  d={roundedBarString}
                   className={
-                    d[demographicType] === 'All'
+                    d[props.demographicType] === 'All'
                       ? 'fill-timeYellow'
                       : 'fill-altGreen'
                   }
@@ -324,7 +273,10 @@ export function RateBarChart({
                   textAnchor={shouldLabelBeInside ? 'end' : 'start'}
                   className={`text-smallest ${barLabelColor}`}
                 >
-                  {formatValue(d[metricConfig.metricId], metricConfig)}
+                  {formatValue(
+                    d[props.metricConfig.metricId],
+                    props.metricConfig,
+                  )}
                 </text>
               </g>
             )
@@ -336,13 +288,13 @@ export function RateBarChart({
             textAnchor='middle'
             className='text-smallest font-semibold'
           >
-            {metricConfig.shortLabel}
+            {props.metricConfig.shortLabel}
           </text>
           {/* X Axis */}
           <g className='x-axis' transform={`translate(0,${innerHeight})`}>
             <line x1={0} x2={innerWidth} y1={0} y2={0} stroke='currentColor' />
-            {xScale.ticks(5).map((tick) => (
-              <g key={tick} transform={`translate(${xScale(tick)},0)`}>
+            {xScale.ticks(5).map((tick, index) => (
+              <g key={index} transform={`translate(${xScale(tick)},0)`}>
                 <line y2={6} stroke='currentColor' />
                 <text
                   y={9}
@@ -359,78 +311,4 @@ export function RateBarChart({
       </svg>
     </div>
   )
-}
-
-function wrapLabel(text: string, width: number): string[] {
-  const normalizedText = text.replace(/\s+/g, ' ').trim()
-  const words = normalizedText.split(' ')
-  const lines: string[] = []
-  let currentLine = ''
-
-  words.forEach((word) => {
-    const testLine = currentLine ? `${currentLine} ${word}` : word
-    if (testLine.length * 6 <= width) {
-      currentLine = testLine
-    } else {
-      lines.push(currentLine)
-      currentLine = word
-    }
-  })
-
-  if (currentLine) {
-    lines.push(currentLine)
-  }
-
-  return lines
-}
-
-function formatValue(value: number, metricConfig: MetricConfig): string {
-  let maxFractionDigits = 1
-  if (isRateType(metricConfig.type)) {
-    if (value > 10) maxFractionDigits = 0
-    else if (value > 1) maxFractionDigits = 1
-    else if (value > 0.1) maxFractionDigits = 2
-  }
-
-  if (metricConfig.type === 'per100k')
-    return (
-      Math.round(value).toLocaleString('en-US', {
-        maximumFractionDigits: maxFractionDigits,
-      }) + ' per 100k'
-    )
-
-  if (isPctType(metricConfig.type))
-    return (
-      value.toLocaleString('en-US', {
-        maximumFractionDigits: maxFractionDigits,
-      }) + '%'
-    )
-
-  return value.toLocaleString('en-US')
-}
-
-function getNumTicks(width: number): number {
-  const isSmMd = useIsBreakpointAndUp('smMd')
-  const isCompareMode = window.location.href.includes('compare')
-  let numTicks = Math.floor(width / 40)
-  if (isCompareMode || !isSmMd) {
-    numTicks = Math.max(Math.floor(numTicks / 1.5), 5)
-  }
-  return numTicks
-}
-
-function getComparisonAllSubGroupLines(
-  fips: Fips,
-  comparisonAllSubGroup?: string,
-) {
-  const lines: string[] = [
-    fips.getUppercaseFipsTypeDisplayName() || '',
-    'Average',
-    'All People',
-  ]
-
-  if (comparisonAllSubGroup) {
-    lines.push(comparisonAllSubGroup)
-  }
-  return lines
 }

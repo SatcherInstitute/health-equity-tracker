@@ -1,4 +1,4 @@
-import { RateBarChart } from '../charts/RateBarChart'
+import { RateBarChart } from '../charts/rateBarChart/Index'
 import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
