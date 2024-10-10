@@ -11,7 +11,7 @@ import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
-import { addLineBreakDelimitersToField, addMetricDisplayColumn } from './utils'
+import { addMetricDisplayColumn } from './utils'
 
 // Add new interfaces for tooltip
 interface TooltipData {
@@ -102,11 +102,7 @@ export function RateBarChart({
 
   // Data preprocessing with spacing calculation
   const processedData: HetRow[] = useMemo(() => {
-    const processedRows = addLineBreakDelimitersToField(data, demographicType)
-    const [rowsWithDisplayCol] = addMetricDisplayColumn(
-      metricConfig,
-      processedRows,
-    )
+    const [rowsWithDisplayCol] = addMetricDisplayColumn(metricConfig, data)
     let [finalData] = addMetricDisplayColumn(
       metricConfig,
       rowsWithDisplayCol,
@@ -281,10 +277,15 @@ export function RateBarChart({
 
           {/* Bars */}
           {processedData.map((d, index) => {
-            const barWidth = xScale(d[metricConfig.metricId])
+            const barWidth = xScale(d[metricConfig.metricId]) || 0
             const shouldLabelBeInside =
               d[metricConfig.metricId] > barLabelBreakpoint
             const yPosition = getYPosition(index, d[demographicType])
+
+            const safeBarWidth = Math.max(0, barWidth)
+            const safeCornerRadius = Math.min(CORNER_RADIUS, safeBarWidth / 2)
+            const safeBandwidth = yScale.bandwidth() || 0
+            if (safeBarWidth <= 0 || safeBandwidth <= 0) return null
 
             const barLabelColor =
               shouldLabelBeInside && d[demographicType] !== 'All'
@@ -299,11 +300,11 @@ export function RateBarChart({
                 <path
                   d={`
                     M 0,0
-                    h ${barWidth - CORNER_RADIUS}
-                    q ${CORNER_RADIUS},0 ${CORNER_RADIUS},${CORNER_RADIUS}
-                    v ${yScale.bandwidth() - 2 * CORNER_RADIUS}
-                    q 0,${CORNER_RADIUS} -${CORNER_RADIUS},${CORNER_RADIUS}
-                    h -${barWidth - CORNER_RADIUS}
+                    h ${safeBarWidth - safeCornerRadius}
+                    q ${safeCornerRadius},0 ${safeCornerRadius},${safeCornerRadius}
+                    v ${safeBandwidth - 2 * safeCornerRadius}
+                    q 0,${safeCornerRadius} -${safeCornerRadius},${safeCornerRadius}
+                    h -${safeBarWidth - safeCornerRadius}
                     Z
                   `}
                   className={
