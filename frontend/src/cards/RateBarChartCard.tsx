@@ -1,42 +1,41 @@
-import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
-import type { Fips } from '../data/utils/Fips'
+import { RateBarChart } from '../charts/rateBarChart/Index'
+import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { isPctType } from '../data/config/MetricConfigUtils'
+import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/providers/HivProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
-import CardWrapper from './CardWrapper'
-import { exclude } from '../data/query/BreakdownFilter'
 import {
   AIAN_API,
   ALL,
   NON_HISPANIC,
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
-import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
+import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import {
-  DATATYPES_NEEDING_13PLUS,
-  GENDER_METRICS,
-} from '../data/providers/HivProvider'
-import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
-import { isPctType } from '../data/config/MetricConfigUtils'
-import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
+import MissingDataAlert from './ui/MissingDataAlert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-interface SimpleBarChartCardProps {
-  key?: string
+interface RateBarChartCardProps {
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
@@ -46,16 +45,7 @@ interface SimpleBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export default function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-  return (
-    <SimpleBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.demographicType}
-      {...props}
-    />
-  )
-}
-
-function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
+export default function RateBarChartCard(props: RateBarChartCardProps) {
   const rateConfig =
     props.dataTypeConfig.metrics?.per100k ??
     props.dataTypeConfig.metrics?.pct_rate ??
@@ -185,11 +175,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ) : (
               <>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
-
-                <SimpleHorizontalBarChart
+                <RateBarChart
                   data={data}
                   demographicType={props.demographicType}
-                  metric={rateConfig}
+                  metricConfig={rateConfig}
                   filename={filename}
                   usePercentSuffix={isPctType(rateConfig.type)}
                   fips={props.fips}

@@ -37,6 +37,10 @@ export function isPctType(metricType: MetricType) {
   return ['pct_share', 'pct_relative_inequity', 'pct_rate'].includes(metricType)
 }
 
+export function isRateType(metricType: MetricType) {
+  return ['pct_rate', 'per100k', 'index'].includes(metricType)
+}
+
 /**
  * @param metricType The type of the metric to format.
  * @param value The value to format.
