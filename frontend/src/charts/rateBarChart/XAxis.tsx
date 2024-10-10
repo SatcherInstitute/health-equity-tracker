@@ -1,4 +1,4 @@
-import type { ScaleLinear } from 'd3'
+import { format, type ScaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
@@ -12,6 +12,11 @@ interface XAxisProps {
 export default function XAxis(props: XAxisProps) {
   const isTinyAndUp = useIsBreakpointAndUp('tiny')
   const numOfLabeledTicks = isTinyAndUp ? 5 : 3
+
+  const formatTick =
+    props.metricConfig.type === 'per100k'
+      ? format('.2~s') // Uses SI-prefix with 2 significant digits
+      : format(',') // Uses thousands separator
 
   return (
     <>
@@ -37,7 +42,7 @@ export default function XAxis(props: XAxisProps) {
               textAnchor='middle'
               className='text-smallest fill-current'
             >
-              {tick}
+              {formatTick(tick)}
             </text>
           </g>
         ))}

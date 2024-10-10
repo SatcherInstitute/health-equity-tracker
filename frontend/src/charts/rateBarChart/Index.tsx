@@ -43,6 +43,7 @@ interface RateBarChartProps {
 }
 
 export function RateBarChart(props: RateBarChartProps) {
+  const isTinyAndUp = useIsBreakpointAndUp('tiny')
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
   const [containerRef, width] = useResponsiveWidth()
@@ -170,14 +171,16 @@ export function RateBarChart(props: RateBarChartProps) {
                       : 'fill-altGreen'
                   }
                 />
-                <EndOfBarLabel
-                  {...props}
-                  d={d}
-                  shouldLabelBeInside={shouldLabelBeInside}
-                  barWidth={barWidth}
-                  yScale={yScale}
-                  barLabelColor={barLabelColor}
-                />
+                {isTinyAndUp && (
+                  <EndOfBarLabel
+                    {...props}
+                    d={d}
+                    shouldLabelBeInside={shouldLabelBeInside}
+                    barWidth={barWidth}
+                    yScale={yScale}
+                    barLabelColor={barLabelColor}
+                  />
+                )}
               </g>
             )
           })}
