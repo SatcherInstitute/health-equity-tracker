@@ -35,7 +35,6 @@ test('Depression Flow', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Ages 18+' })
     .click()
-  await page.locator('#rate-chart').getByText('All').click()
   await page.locator('#rate-chart').getByText('race and ethnicity').click()
   await page.locator('#rate-chart').getByText('cases per 100k adults').click()
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
