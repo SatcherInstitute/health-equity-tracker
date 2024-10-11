@@ -1,12 +1,18 @@
+import type { ScaleBand } from 'd3'
 import type { Fips } from '../../data/utils/Fips'
 import { getComparisonAllSubGroupLines } from './helpers'
+
+type WrappedLabel = {
+  original: string
+  lines: string[]
+}
 
 interface GroupLabelsYAxisProps {
   fips: Fips
   useIntersectionalComparisonAlls?: boolean
   comparisonAllSubGroup?: string
-  wrappedLabels: any
-  yScale: any
+  wrappedLabels: WrappedLabel[]
+  yScale: ScaleBand<string>
   getYPosition: (index: number, label: string) => number
 }
 

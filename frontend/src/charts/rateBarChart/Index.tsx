@@ -2,7 +2,6 @@ import { max, scaleBand, scaleLinear } from 'd3'
 import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   hasSkinnyGroupLabels,
   type DemographicType,
 } from '../../data/query/Breakdowns'
@@ -16,19 +15,17 @@ import {
   BAR_HEIGHT,
   BAR_PADDING,
   EXTRA_SPACE_AFTER_ALL,
-  LABEL_SWAP_CUTOFF_PERCENT,
   MARGIN,
   MAX_LABEL_WIDTH_BIG,
   MAX_LABEL_WIDTH_SMALL,
   NORMAL_MARGIN_HEIGHT,
   Y_AXIS_LABEL_HEIGHT,
 } from './constants'
-import EndOfBarLabel from './EndOfBarLabel'
-import GroupLabelsYAxis from './GroupLabelsYAxis'
-import { buildRoundedBarString, wrapLabel } from './helpers'
+import RoundedBarsWithLabels from './RoundedBarsWithLabels'
 import { useRateChartTooltip } from './useRateChartTooltip'
 import VerticalGridlines from './VerticalGridlines'
 import XAxis from './XAxis'
+import YAxis from './YAxis'
 
 interface RateBarChartProps {
   data: HetRow[]
@@ -67,13 +64,6 @@ export function RateBarChart(props: RateBarChartProps) {
       ? sortForVegaByIncome(props.data)
       : props.data
 
-  const wrappedLabels = useMemo(() => {
-    return processedData.map((d) => ({
-      original: d[props.demographicType],
-      lines: wrapLabel(d[props.demographicType], maxLabelWidth),
-    }))
-  }, [processedData, props.demographicType])
-
   const allIndex = processedData.findIndex(
     (d) => d[props.demographicType] === 'All',
   )
@@ -104,12 +94,6 @@ export function RateBarChart(props: RateBarChartProps) {
     return position
   }
 
-  const barLabelBreakpoint = useMemo(() => {
-    const maxValue =
-      max(processedData, (d) => d[props.metricConfig.metricId]) || 0
-    return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
-  }, [processedData, props.metricConfig.metricId])
-
   return (
     <div
       ref={containerRef}
@@ -129,75 +113,27 @@ export function RateBarChart(props: RateBarChartProps) {
             height={innerHeight}
             xScale={xScale}
           />
-          {/* Y-axis DemographicType label */}
-          {isSmAndUp && (
-            <g>
-              <text
-                transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${innerHeight / 2}) rotate(-90)`}
-                textAnchor='middle'
-                className='text-smallest font-semibold p-0 m-0'
-                aria-label={'Y Axis Label'}
-              >
-                {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}
-              </text>
-            </g>
-          )}
-
-          <GroupLabelsYAxis
+          <RoundedBarsWithLabels
             {...props}
-            wrappedLabels={wrappedLabels}
+            processedData={processedData}
+            metricConfig={props.metricConfig}
+            demographicType={props.demographicType}
+            xScale={xScale}
             yScale={yScale}
             getYPosition={getYPosition}
+            isTinyAndUp={isTinyAndUp}
+            handleTooltip={handleTooltip}
+            closeTooltip={closeTooltip}
           />
-          {/* Bars */}
-          {processedData.map((d, index) => {
-            const barWidth = xScale(d[props.metricConfig.metricId]) || 0
-            const shouldLabelBeInside =
-              d[props.metricConfig.metricId] > barLabelBreakpoint
-            const yPosition = getYPosition(index, d[props.demographicType])
-
-            const barLabelColor =
-              shouldLabelBeInside && d[props.demographicType] !== 'All'
-                ? 'fill-white'
-                : 'fill-current'
-
-            const roundedBarString = buildRoundedBarString(barWidth, yScale)
-
-            if (!roundedBarString) return <></>
-
-            const barAriaLabel = `${d[props.demographicType]}: ${d[props.metricConfig.metricId]} ${props.metricConfig.shortLabel}`
-
-            return (
-              <g
-                key={index}
-                transform={`translate(0,${yPosition})`}
-                onMouseMove={(e) => handleTooltip(e, d, false)}
-                onMouseLeave={closeTooltip}
-                onTouchStart={(e) => {
-                  handleTooltip(e, d, true)
-                }}
-              >
-                <path
-                  d={roundedBarString}
-                  className={
-                    d[props.demographicType] === 'All'
-                      ? 'fill-timeYellow'
-                      : 'fill-altGreen'
-                  }
-                  aria-label={barAriaLabel}
-                />
-                <EndOfBarLabel
-                  {...props}
-                  d={d}
-                  shouldLabelBeInside={shouldLabelBeInside}
-                  barWidth={barWidth}
-                  yScale={yScale}
-                  barLabelColor={barLabelColor}
-                  isTinyAndUp={isTinyAndUp}
-                />
-              </g>
-            )
-          })}
+          <YAxis
+            yScale={yScale}
+            demographicType={props.demographicType}
+            isSmAndUp={isSmAndUp}
+            processedData={processedData}
+            maxLabelWidth={maxLabelWidth}
+            getYPosition={getYPosition}
+            fips={props.fips}
+          />
           <XAxis
             metricConfig={props.metricConfig}
             xScale={xScale}

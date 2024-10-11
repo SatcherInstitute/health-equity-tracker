@@ -1,3 +1,4 @@
+import type { ScaleBand } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { formatValue } from './helpers'
 
@@ -6,7 +7,7 @@ interface EndOfBarLabelProps {
   d: Record<string, any>
   shouldLabelBeInside: boolean
   barWidth: number
-  yScale: any
+  yScale: ScaleBand<string>
   barLabelColor: string
   isTinyAndUp: boolean
 }

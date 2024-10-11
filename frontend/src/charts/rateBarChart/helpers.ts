@@ -1,3 +1,4 @@
+import type { ScaleBand } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType, isRateType } from '../../data/config/MetricConfigUtils'
 import type { DemographicType } from '../../data/query/Breakdowns'
@@ -85,7 +86,7 @@ function getComparisonAllSubGroupLines(
   return lines
 }
 
-function buildRoundedBarString(barWidth: number, yScale: any) {
+function buildRoundedBarString(barWidth: number, yScale: ScaleBand<string>) {
   const CORNER_RADIUS = 4
 
   const safeBarWidth = Math.max(0, barWidth)
