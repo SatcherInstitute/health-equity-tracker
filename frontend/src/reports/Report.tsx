@@ -5,9 +5,9 @@ import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
+import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
-import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
@@ -196,7 +196,7 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <SimpleBarChartCard
+                  <RateBarChartCard
                     dataTypeConfig={dataTypeConfig}
                     demographicType={demographicType}
                     fips={props.fips}

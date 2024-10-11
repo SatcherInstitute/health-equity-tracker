@@ -1,5 +1,5 @@
-import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
-import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
+import { addComparisonAllsRowToIntersectionalData } from '../charts/rateBarChart/helpers'
+import { RateBarChart } from '../charts/rateBarChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { isPctType } from '../data/config/MetricConfigUtils'
@@ -35,8 +35,7 @@ import MissingDataAlert from './ui/MissingDataAlert'
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-interface SimpleBarChartCardProps {
-  key?: string
+interface RateBarChartCardProps {
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
@@ -46,16 +45,7 @@ interface SimpleBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export default function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-  return (
-    <SimpleBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.demographicType}
-      {...props}
-    />
-  )
-}
-
-function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
+export default function RateBarChartCard(props: RateBarChartCardProps) {
   const rateConfig =
     props.dataTypeConfig.metrics?.per100k ??
     props.dataTypeConfig.metrics?.pct_rate ??
@@ -185,11 +175,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ) : (
               <>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
-
-                <SimpleHorizontalBarChart
+                <RateBarChart
                   data={data}
                   demographicType={props.demographicType}
-                  metric={rateConfig}
+                  metricConfig={rateConfig}
                   filename={filename}
                   usePercentSuffix={isPctType(rateConfig.type)}
                   fips={props.fips}
