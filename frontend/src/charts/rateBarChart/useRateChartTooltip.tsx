@@ -8,6 +8,7 @@ export function useRateChartTooltip(
   containerRef: RefObject<HTMLDivElement>,
   metricConfig: MetricConfig,
   demographicType: string,
+  isTinyAndUp: boolean,
 ) {
   const [tooltipData, setTooltipData] = useState<BarChartTooltipData | null>(
     null,
@@ -39,6 +40,7 @@ export function useRateChartTooltip(
       const tooltipContent = `${d[demographicType]}: ${formatValue(
         d[metricConfig.metricId],
         metricConfig,
+        isTinyAndUp,
       )}`
 
       setTooltipData({
