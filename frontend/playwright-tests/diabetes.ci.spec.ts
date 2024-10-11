@@ -42,7 +42,7 @@ test('Diabetes County', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Ages 18+' })
     .click()
-  await page.getByLabel('Legend for rate map').getByRole('img').click()
+  await page.getByLabel('Legend for rate map').click()
   await page.locator('li').filter({ hasText: 'Denver County' }).click()
   await page
     .locator('#rate-chart')

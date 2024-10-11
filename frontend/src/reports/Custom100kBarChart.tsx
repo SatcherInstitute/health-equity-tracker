@@ -1,5 +1,5 @@
 import type React from 'react'
-import SimpleBarChartCard from '../cards/SimpleBarChartCard'
+import RateBarChartCard from '../cards/RateBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
@@ -22,7 +22,7 @@ const Custom100kBarChart: React.FC<Custom100kBarChartProps> = ({
   className,
 }) => {
   return (
-    <SimpleBarChartCard
+    <RateBarChartCard
       className={className}
       dataTypeConfig={dataTypeConfig}
       demographicType={demographicType}

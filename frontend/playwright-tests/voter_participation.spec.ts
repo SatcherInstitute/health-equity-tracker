@@ -23,7 +23,7 @@ test('Voter Participation Flow', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'U.S. citizens, Ages 18+' })
     .click()
-  await page.getByLabel('Bar Chart showing Voter').getByRole('img').click()
+  await page.getByLabel('Bar Chart showing Voter').click()
   await page.getByRole('heading', { name: 'Share of all voter' }).click()
   await page.getByText('No unknown values for race').click()
   await page
