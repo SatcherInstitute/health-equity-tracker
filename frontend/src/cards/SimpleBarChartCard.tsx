@@ -1,36 +1,36 @@
+import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
 import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
-import type { Fips } from '../data/utils/Fips'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { isPctType } from '../data/config/MetricConfigUtils'
+import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/providers/HivProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
-import CardWrapper from './CardWrapper'
-import { exclude } from '../data/query/BreakdownFilter'
 import {
   AIAN_API,
   ALL,
   NON_HISPANIC,
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
-import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
+import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import {
-  DATATYPES_NEEDING_13PLUS,
-  GENDER_METRICS,
-} from '../data/providers/HivProvider'
-import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
-import { isPctType } from '../data/config/MetricConfigUtils'
-import { addComparisonAllsRowToIntersectionalData } from '../charts/simpleBarHelperFunctions'
+import MissingDataAlert from './ui/MissingDataAlert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
