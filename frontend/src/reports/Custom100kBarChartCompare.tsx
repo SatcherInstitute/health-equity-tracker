@@ -1,8 +1,8 @@
 import type React from 'react'
 import SimpleBarChartCard from '../cards/SimpleBarChartCard'
-import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { Fips } from '../data/utils/Fips'
 
 const Custom100kBarChartCompare: React.FC = () => {
   const fips = new Fips('13')
