@@ -8,6 +8,7 @@ interface EndOfBarLabelProps {
   barWidth: number
   yScale: any
   barLabelColor: string
+  isTinyAndUp: boolean
 }
 
 export default function EndOfBarLabel(props: EndOfBarLabelProps) {
@@ -19,7 +20,11 @@ export default function EndOfBarLabel(props: EndOfBarLabelProps) {
       textAnchor={props.shouldLabelBeInside ? 'end' : 'start'}
       className={`text-smallest ${props.barLabelColor}`}
     >
-      {formatValue(props.d[props.metricConfig.metricId], props.metricConfig)}
+      {formatValue(
+        props.d[props.metricConfig.metricId],
+        props.metricConfig,
+        props.isTinyAndUp,
+      )}
     </text>
   )
 }

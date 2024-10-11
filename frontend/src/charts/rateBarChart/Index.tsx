@@ -171,16 +171,15 @@ export function RateBarChart(props: RateBarChartProps) {
                       : 'fill-altGreen'
                   }
                 />
-                {isTinyAndUp && (
-                  <EndOfBarLabel
-                    {...props}
-                    d={d}
-                    shouldLabelBeInside={shouldLabelBeInside}
-                    barWidth={barWidth}
-                    yScale={yScale}
-                    barLabelColor={barLabelColor}
-                  />
-                )}
+                <EndOfBarLabel
+                  {...props}
+                  d={d}
+                  shouldLabelBeInside={shouldLabelBeInside}
+                  barWidth={barWidth}
+                  yScale={yScale}
+                  barLabelColor={barLabelColor}
+                  isTinyAndUp={isTinyAndUp}
+                />
               </g>
             )
           })}

@@ -30,7 +30,11 @@ function wrapLabel(text: string, width: number): string[] {
   return lines
 }
 
-function formatValue(value: number, metricConfig: MetricConfig): string {
+function formatValue(
+  value: number,
+  metricConfig: MetricConfig,
+  isTinyAndUp: boolean,
+): string {
   let maxFractionDigits = 1
   if (isRateType(metricConfig.type)) {
     if (value > 10) maxFractionDigits = 0
@@ -38,12 +42,12 @@ function formatValue(value: number, metricConfig: MetricConfig): string {
     else if (value > 0.1) maxFractionDigits = 2
   }
 
-  if (metricConfig.type === 'per100k')
-    return (
-      Math.round(value).toLocaleString('en-US', {
-        maximumFractionDigits: maxFractionDigits,
-      }) + ' per 100k'
-    )
+  if (metricConfig.type === 'per100k') {
+    const roundedVal = Math.round(value).toLocaleString('en-US', {
+      maximumFractionDigits: maxFractionDigits,
+    })
+    return isTinyAndUp ? roundedVal + ' per 100k' : roundedVal
+  }
 
   if (isPctType(metricConfig.type))
     return (

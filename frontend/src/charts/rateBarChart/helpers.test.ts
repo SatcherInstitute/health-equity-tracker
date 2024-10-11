@@ -29,22 +29,27 @@ describe('wrapLabel', () => {
 describe('formatValue', () => {
   it('formats per100k values', () => {
     const config = { type: 'per100k' } as MetricConfig
-    expect(formatValue(1234.56, config)).toBe('1,235 per 100k')
+    expect(formatValue(1234.56, config, true)).toBe('1,235 per 100k')
+  })
+
+  it('formats per100k values on tiny mobile', () => {
+    const config = { type: 'per100k' } as MetricConfig
+    expect(formatValue(1234.56, config, false)).toBe('1,235')
   })
 
   it('formats percentage values', () => {
     const config = { type: 'pct_rate' } as MetricConfig
-    expect(formatValue(45.67, config)).toBe('46%')
+    expect(formatValue(45.67, config, true)).toBe('46%')
   })
 
   it('formats percentage values', () => {
     const config = { type: 'pct_share' } as MetricConfig
-    expect(formatValue(45.67, config)).toBe('45.7%')
+    expect(formatValue(45.67, config, true)).toBe('45.7%')
   })
 
   it('formats regular numbers', () => {
     const config = { type: 'index' } as MetricConfig
-    expect(formatValue(1234567, config)).toBe('1,234,567')
+    expect(formatValue(1234567, config, true)).toBe('1,234,567')
   })
 })
 
