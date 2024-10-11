@@ -23,6 +23,9 @@ inputs:
   basic-auth-password:
     description: "Password for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
     required: false
+  openai-api-key:
+    description: "OpenAI API key for generating insights"
+    required: false
 outputs:
   image-digest:
     description: "Digest of image pushed to GCR"
@@ -43,7 +46,8 @@ runs:
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
         --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}" \
-        --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}"
+        --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
+        --build-arg="VITE_OPENAI_API_KEY=${{ inputs.openai-api-key }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash

@@ -1,9 +1,12 @@
+import { TipsAndUpdatesOutlined } from '@mui/icons-material'
+import IconButton from '@mui/material/IconButton'
 import { useAtom } from 'jotai'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
+import { generateInsight } from '../cards/generateInsights'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
@@ -12,7 +15,7 @@ import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   type DemographicType,
@@ -53,6 +56,11 @@ interface ReportProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }
 
+export interface ChartData {
+  knownData: Readonly<Record<string, any>>[]
+  metricIds: MetricId[]
+}
+
 export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
@@ -65,6 +73,26 @@ export function Report(props: ReportProps) {
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom,
   )
+
+  const [insight, setInsight] = useState<string>('')
+  const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
+  const [chartData, setChartData] = useState<ChartData | null>(null)
+
+  const handleChartDataLoad = (data: ChartData) => {
+    setChartData(data)
+  }
+
+  const handleGenerateInsight = async () => {
+    if (!chartData) return
+
+    setIsGeneratingInsight(true)
+    try {
+      const newInsight = await generateInsight(chartData)
+      setInsight(newInsight)
+    } finally {
+      setIsGeneratingInsight(false)
+    }
+  }
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(dataTypeConfig, props.fips)
@@ -258,12 +286,24 @@ export function Report(props: ReportProps) {
                 >
                   <LazyLoad offset={800} height={750} once>
                     {shareMetricConfig && (
-                      <DisparityBarChartCard
-                        dataTypeConfig={dataTypeConfig}
-                        demographicType={demographicType}
-                        fips={props.fips}
-                        reportTitle={props.reportTitle}
-                      />
+                      <div className='list-none rounded-md shadow-raised bg-white relative'>
+                        <IconButton
+                          onClick={handleGenerateInsight}
+                          className='absolute top-2 right-2 z-10'
+                        >
+                          <TipsAndUpdatesOutlined />
+                        </IconButton>
+                        <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+                          {insight}
+                        </p>
+                        <DisparityBarChartCard
+                          dataTypeConfig={dataTypeConfig}
+                          demographicType={demographicType}
+                          fips={props.fips}
+                          reportTitle={props.reportTitle}
+                          onDataLoad={handleChartDataLoad}
+                        />
+                      </div>
                     )}
                   </LazyLoad>
                 </div>

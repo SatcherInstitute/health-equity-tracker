@@ -1,37 +1,39 @@
+import { useEffect } from 'react'
 import { DisparityBarChart } from '../charts/disparityBarChart/Index'
-import type { Fips } from '../data/utils/Fips'
-import {
-  Breakdowns,
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../data/query/Breakdowns'
-import { MetricQuery } from '../data/query/MetricQuery'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
-import CardWrapper from './CardWrapper'
-import MissingDataAlert from './ui/MissingDataAlert'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { getMetricIdToConfigMap } from '../data/config/MetricConfigUtils'
+import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
+import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
-  NON_HISPANIC,
-  ALL,
-  RACE,
-  HISPANIC,
-  SEX,
+  Breakdowns,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import {
   AGE,
+  ALL,
+  HISPANIC,
+  NON_HISPANIC,
+  RACE,
+  SEX,
 } from '../data/utils/Constants'
-import UnknownsAlert from './ui/UnknownsAlert'
 import {
   shouldShowAltPopCompare,
   splitIntoKnownsAndUnknowns,
 } from '../data/utils/datasetutils'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import type { Fips } from '../data/utils/Fips'
+import type { ChartData } from '../reports/Report'
+import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
+import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import HetNotice from '../styles/HetComponents/HetNotice'
-import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
-import { getMetricIdToConfigMap } from '../data/config/MetricConfigUtils'
+import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
+import MissingDataAlert from './ui/MissingDataAlert'
+import UnknownsAlert from './ui/UnknownsAlert'
 
 interface DisparityBarChartCardProps {
   key?: string
@@ -40,6 +42,7 @@ interface DisparityBarChartCardProps {
   fips: Fips
   reportTitle: string
   className?: string
+  onDataLoad?: (data: ChartData) => void
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -113,6 +116,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           validData,
           props.demographicType,
         )
+
+        useEffect(() => {
+          const loadData = async () => {
+            if (props.onDataLoad) props.onDataLoad({ knownData, metricIds })
+          }
+
+          loadData()
+        }, [props.onDataLoad])
 
         const isCawp = CAWP_METRICS.includes(shareConfig.metricId)
 

@@ -141,8 +141,13 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
+      - name: Update .env.deploy_preview with OpenAI API Key
+        run: |
+          sed -i 's|${OPENAI_API_KEY}|${{ secrets.OPENAI_API_KEY }}|g' .env.deploy_preview
       - id: frontend
         uses: ./.github/actions/buildAndPush
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
