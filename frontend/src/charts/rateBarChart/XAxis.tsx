@@ -25,11 +25,16 @@ export default function XAxis(props: XAxisProps) {
         transform={`translate(${props.width / 2},${props.height + 40})`}
         textAnchor='middle'
         className='text-smallest font-semibold'
+        aria-label='X Axis Label'
       >
         {props.metricConfig.shortLabel}
       </text>
       {/* X Axis */}
-      <g className='x-axis' transform={`translate(0,${props.height})`}>
+      <g
+        aria-hidden='true'
+        tabIndex={-1}
+        transform={`translate(0,${props.height})`}
+      >
         <line x1={0} x2={props.width} y1={0} y2={0} stroke='currentColor' />
 
         {/* X Axis Numbered Ticks */}
