@@ -1,0 +1,56 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Count,Population,Crude Rate
+,1999,1999,Lung and Bronchus,22030,191644,275461348,69.6
+,2000,2000,Lung and Bronchus,22030,192882,278558214,69.2
+,2001,2001,Lung and Bronchus,22030,195860,282115961,69.4
+,2002,2002,Lung and Bronchus,22030,198841,284766512,69.8
+,2003,2003,Lung and Bronchus,22030,204948,290107933,70.6
+,2004,2004,Lung and Bronchus,22030,206185,292805298,70.4
+,2005,2005,Lung and Bronchus,22030,210644,295312662,71.3
+,2006,2006,Lung and Bronchus,22030,211732,298379912,71
+,2007,2007,Lung and Bronchus,22030,213327,301231207,70.8
+,2008,2008,Lung and Bronchus,22030,216542,304093966,71.2
+,2009,2009,Lung and Bronchus,22030,217201,306771529,70.8
+,2010,2010,Lung and Bronchus,22030,214407,309382247,69.3
+,2011,2011,Lung and Bronchus,22030,215006,311860624,68.9
+,2012,2012,Lung and Bronchus,22030,217734,314371446,69.3
+,2013,2013,Lung and Bronchus,22030,219379,316765048,69.3
+,2014,2014,Lung and Bronchus,22030,221483,319294716,69.4
+,2015,2015,Lung and Bronchus,22030,224849,321850521,69.9
+,2016,2016,Lung and Bronchus,22030,225482,324377907,69.5
+,2017,2017,Lung and Bronchus,22030,227836,326611185,69.8
+,2018,2018,Lung and Bronchus,22030,227573,328525933,69.3
+,2019,2019,Lung and Bronchus,22030,230756,330222008,69.9
+,2020,2020,Lung and Bronchus,22030,204018,324722713,62.8
+,2021,2021,Lung and Bronchus,22030,209500,325218022,64.4
+---,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,
+Query Parameters:,,,,,,,
+Leading Cancer Sites: Lung and Bronchus,,,,,,,
+Group By: Year; Leading Cancer Sites,,,,,,,
+Show Totals: Disabled,,,,,,,
+Show Zero Values: False,,,,,,,
+Show Suppressed: False,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,
+---,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,
+---,,,,,,,
+"Query Date: Aug 20, 2024 11:10:46 AM",,,,,,,
+---,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 11:10:46 AM",,,,,,,
+---,,,,,,,
+Caveats:,,,,,,,
+"1. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,
+misleading.,,,,,,,
+2. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,
+"3. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,
+standard groupings of primary cancer sites.,,,,,,,
+"4. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,
