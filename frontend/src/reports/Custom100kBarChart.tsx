@@ -1,10 +1,10 @@
 import type React from 'react'
 import SimpleBarChartCard from '../cards/SimpleBarChartCard'
-import { Fips } from '../data/utils/Fips'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { RACE } from '../data/utils/Constants'
 import type { DemographicType } from '../data/query/Breakdowns'
+import { RACE } from '../data/utils/Constants'
+import { Fips } from '../data/utils/Fips'
 
 interface Custom100kBarChartProps {
   fips?: Fips
