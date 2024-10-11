@@ -127,13 +127,16 @@ export function RateBarChart(props: RateBarChartProps) {
           />
           {/* Y-axis DemographicType label */}
           {isSmAndUp && (
-            <text
-              transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${innerHeight / 2}) rotate(-90)`}
-              textAnchor='middle'
-              className='text-smallest font-semibold p-0 m-0'
-            >
-              {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}
-            </text>
+            <g>
+              <text
+                transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${innerHeight / 2}) rotate(-90)`}
+                textAnchor='middle'
+                className='text-smallest font-semibold p-0 m-0'
+                aria-label={'Y Axis Label'}
+              >
+                {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}
+              </text>
+            </g>
           )}
 
           <GroupLabelsYAxis
@@ -158,6 +161,8 @@ export function RateBarChart(props: RateBarChartProps) {
 
             if (!roundedBarString) return <></>
 
+            const barAriaLabel = `${d[props.demographicType]}: ${d[props.metricConfig.metricId]} ${props.metricConfig.shortLabel}`
+
             return (
               <g
                 key={index}
@@ -175,6 +180,7 @@ export function RateBarChart(props: RateBarChartProps) {
                       ? 'fill-timeYellow'
                       : 'fill-altGreen'
                   }
+                  aria-label={barAriaLabel}
                 />
                 <EndOfBarLabel
                   {...props}

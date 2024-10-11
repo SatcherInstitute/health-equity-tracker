@@ -19,6 +19,8 @@ export default function EndOfBarLabel(props: EndOfBarLabelProps) {
       dy='1.3em'
       textAnchor={props.shouldLabelBeInside ? 'end' : 'start'}
       className={`text-smallest ${props.barLabelColor}`}
+      aria-hidden='true'
+      tabIndex={-1}
     >
       {formatValue(
         props.d[props.metricConfig.metricId],
