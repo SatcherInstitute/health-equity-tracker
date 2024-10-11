@@ -1,12 +1,12 @@
-import { Snackbar, Alert, Slide } from '@mui/material'
+import { Alert, Slide, Snackbar } from '@mui/material'
 import type { ReactNode } from 'react'
 
-interface HetDialogProps {
+interface HetSnackbarProps {
   children?: ReactNode
   open: boolean
   handleClose: () => void
 }
-export default function HetDialog(props: HetDialogProps) {
+export default function HetSnackbar(props: HetSnackbarProps) {
   return (
     <Snackbar
       open={props.open}
