@@ -133,6 +133,7 @@ export function RateBarChart(props: RateBarChartProps) {
             maxLabelWidth={maxLabelWidth}
             getYPosition={getYPosition}
             fips={props.fips}
+            innerHeight={innerHeight}
           />
           <XAxis
             metricConfig={props.metricConfig}
