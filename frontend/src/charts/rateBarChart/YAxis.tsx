@@ -18,6 +18,7 @@ interface YAxisProps {
   yScale: ScaleBand<string>
   getYPosition: (index: number, label: string) => number
   fips: Fips
+  innerHeight: number
 }
 export default function YAxis(props: YAxisProps) {
   const wrappedLabels = useMemo(() => {
@@ -32,7 +33,7 @@ export default function YAxis(props: YAxisProps) {
       {props.isSmAndUp && (
         <g>
           <text
-            transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${innerHeight / 2}) rotate(-90)`}
+            transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${props.innerHeight / 2}) rotate(-90)`}
             textAnchor='middle'
             className='text-smallest font-semibold p-0 m-0'
             aria-label={'Y Axis Label'}
