@@ -45,7 +45,7 @@ export function mapRelevantData(
 }
 
 export async function fetchInsight(data: ResultData[]): Promise<string> {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY
+  const apiKey = import.meta.env.OPENAI_API_KEY
   const prompt = `
     Analyze this data: ${JSON.stringify(data)}
     1. Identify the most significant disparity between a subgroup's representation in the population and their share of the health outcome.

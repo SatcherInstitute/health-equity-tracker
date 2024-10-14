@@ -47,7 +47,7 @@ runs:
         --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
         --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}" \
         --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
-        --build-arg="VITE_OPENAI_API_KEY=${{ inputs.openai-api-key }}"
+        --build-arg="OPENAI_API_KEY=${{ inputs.openai-api-key }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash
