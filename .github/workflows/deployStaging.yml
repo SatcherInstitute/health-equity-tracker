@@ -143,7 +143,7 @@ jobs:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Update .env.deploy_preview with OpenAI API Key
         run: |
-          sed -i 's|${OPENAI_API_KEY}|${{ secrets.OPENAI_API_KEY }}|g' .env.deploy_preview
+          sed -i 's|VITE_OPENAI_API_KEY=.*|VITE_OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}|g' .env.deploy_preview
       - id: frontend
         uses: ./.github/actions/buildAndPush
         env:
