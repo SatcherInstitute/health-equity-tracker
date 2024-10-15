@@ -34,7 +34,7 @@ jobs:
           run: npm ci
         - name: Update .env.deploy_preview
           run: |
-            sed -i "s/VITE_OPENAI_API_KEY=dev_api_key/VITE_OPENAI_API_KEY=testing-api-key/" frontend/.env.deploy_preview
+            sed -i "s/VITE_OPENAI_API_KEY=dev_api_key/VITE_OPENAI_API_KEY=testing-api-key/" .env.deploy_preview
         - name: Build React frontend
           env:
             NODE_OPTIONS: '--max_old_space_size=4096'
