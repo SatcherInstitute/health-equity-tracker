@@ -27,7 +27,9 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
       case 'start':
         return (
           <>
-            <HetTermUnderline>{emphasizedText}</HetTermUnderline>{' '}
+            <HetTermUnderline className='text-black'>
+              {emphasizedText}
+            </HetTermUnderline>{' '}
             {description.replace(emphasizedText, '').trim()}
           </>
         )
@@ -40,7 +42,10 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
             .trim()
           return (
             <>
-              {beforeText} <HetTermUnderline>{emphasizedText}</HetTermUnderline>{' '}
+              {beforeText}{' '}
+              <HetTermUnderline className='text-black'>
+                {emphasizedText}
+              </HetTermUnderline>{' '}
               {afterText}
             </>
           )
@@ -51,7 +56,9 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
         return (
           <>
             {description.replace(emphasizedText, '').trim()}{' '}
-            <HetTermUnderline>{emphasizedText}</HetTermUnderline>
+            <HetTermUnderline className='text-black'>
+              {emphasizedText}
+            </HetTermUnderline>
           </>
         )
       default:
@@ -64,7 +71,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
       className={`rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur ${className}`}
     >
       {source && (
-        <span className='text-tinyTag uppercase text-altBlack font-sansTitle font-bold bg-ashgray30 rounded-sm py-1 px-2 mr-2 mt-1'>
+        <span className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1'>
           {source}
         </span>
       )}

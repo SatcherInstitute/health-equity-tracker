@@ -17,10 +17,14 @@ export default function EquityTab() {
         <title>What is Health Equity? - Health Equity Tracker</title>
       </Helmet>
       <section className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'>
-        <h1 className='font-sansTitle text-bigHeader font-bold leading-lhNormal'>
-          What is Health Equity?
-        </h1>
-
+        <header>
+          <h1
+            id='main'
+            className='font-sansTitle text-bigHeader font-bold leading-lhNormal'
+          >
+            What is Health Equity?
+          </h1>
+        </header>
         <h2 className='sr-only'>What is Health Equity?</h2>
         <div className='flex grow smMd:flex-col xs:block text-left items-center my-4'>
           <HetTermRaised
