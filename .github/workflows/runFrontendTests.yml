@@ -6,7 +6,7 @@ env:
   ## Sets environment variables
   NETLIFY_SITE_NAME: 'health-equity-tracker'
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
-  VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  VITE_OPENAI_API_KEY: 'testing-api-key'
 
 on:
   push:
