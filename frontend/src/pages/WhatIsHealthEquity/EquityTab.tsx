@@ -20,7 +20,7 @@ export default function EquityTab() {
         <header>
           <h1
             id='main'
-            className='font-sansTitle text-bigHeader font-bold leading-lhNormal'
+            className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
           >
             What is Health Equity?
           </h1>
@@ -38,14 +38,15 @@ export default function EquityTab() {
             source={'Health Equity Leadership & Exchange Network, 2020'}
           />
 
-          <p className='text-center text-title p-4'>
+          <p className='text-left md:text-center text-title p-4'>
             Unfortunately, social and political determinants of health
             negatively affect many communities, their people, and their ability
             to lead healthy lives.
           </p>
         </div>
-        <div className='flex flex-row justify-between gap-4 text-left'>
+        <div className='flex md:flex-row flex-col justify-evenly gap-4 text-left'>
           <HetTermRaised
+            className='xs:w-full md:w-1/2'
             term={'Political determinants of health'}
             termType={'noun'}
             emphasizedText={
@@ -56,6 +57,7 @@ export default function EquityTab() {
             source={'Daniel Dawes, 2020'}
           />
           <HetTermRaised
+            className='xs:w-full md:w-1/2'
             term={'Social determinants of health'}
             termType={'noun'}
             emphasizedText={'conditions in the environments'}
