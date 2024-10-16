@@ -45,6 +45,8 @@ export function mapRelevantData(
 }
 
 export async function fetchInsight(data: ResultData[]): Promise<string> {
+  console.log(import.meta.env.VITE_NODE_OPTIONS)
+
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY
   const prompt = `
     Analyze this data: ${JSON.stringify(data)}
