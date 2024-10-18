@@ -4,12 +4,12 @@ import HetDivider from '../../../styles/HetComponents/HetDivider'
 import type { RouteConfig } from '../../sharedTypes'
 import {
   HEALTH_EQUITY_GUIDES_TAB,
-  HEALTH_EQUITY_VIDEOS_TAB,
-} from '../../utils/internalRoutes'
-import GuidesTab from './GuidesTab'
-import VideosTab from './LearningTab'
+  HEALTH_EQUITY_RESOURCES_TAB,
+} from '../../../utils/internalRoutes'
+import GuidesTab from '../wiheSections/GuidesTab'
+import ExternalResourcesTab from '../wiheSections/ExternalResourcesTab'
 
-export const equityTabConfigs: RouteConfig[] = [
+export const wiheConfigs: RouteConfig[] = [
   {
     label: 'Data Visualization Guides',
     path: HEALTH_EQUITY_GUIDES_TAB,
@@ -17,8 +17,8 @@ export const equityTabConfigs: RouteConfig[] = [
   },
   {
     label: 'Health Equity Deep Dive',
-    path: HEALTH_EQUITY_VIDEOS_TAB,
-    component: <VideosTab />,
+    path: HEALTH_EQUITY_RESOURCES_TAB,
+    component: <ExternalResourcesTab />,
   },
 ]
 
