@@ -32,6 +32,7 @@ import {
   OLD_TERMS_OF_SERVICE_LINK,
   SHARE_YOUR_STORY_PATH,
   FULL_FAQS_LINK,
+  HEALTH_EQUITY_GUIDES_TAB,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
@@ -44,6 +45,7 @@ import {
 } from 'react-router-dom'
 import policyRouteConfigs from './pages/Policy/policyContent/policyRouteConfigs'
 import methodologyRouteConfigs from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
+import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
 
 // Lazy Load components for code-splitting
 const AboutUsPage = React.lazy(
@@ -152,13 +154,30 @@ export default function App() {
                           </ErrorBoundaryDropParams>
                         }
                       />
+                      <Route path={FULL_FAQS_LINK} element={<FaqTab />} />
 
                       {/* WHAT IS HEALTH EQUITY ROUTES */}
-                      <Route path={FULL_FAQS_LINK} element={<FaqTab />} />
                       <Route
                         path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                         element={<WhatIsHealthEquityPage />}
-                      ></Route>
+                      >
+                        <Route
+                          path=''
+                          element={
+                            <Navigate to={HEALTH_EQUITY_GUIDES_TAB} replace />
+                          }
+                        />
+
+                        <Route path={''} element={<WhatIsHealthEquityPage />}>
+                          {wiheConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </Route>
+                      </Route>
 
                       {/* NESTED METHODOLOGY ROUTES */}
                       <Route
