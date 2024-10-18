@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
-import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
-import HetDivider from '../../../styles/HetComponents/HetDivider'
-import type { RouteConfig } from '../../sharedTypes'
+import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetDivider from '../../styles/HetComponents/HetDivider'
+import type { RouteConfig } from '../sharedTypes'
 import {
   HEALTH_EQUITY_GUIDES_TAB,
   HEALTH_EQUITY_VIDEOS_TAB,
