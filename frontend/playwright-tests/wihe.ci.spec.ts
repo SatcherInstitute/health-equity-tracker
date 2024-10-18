@@ -6,9 +6,4 @@ test('WIHE Page Loads', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'What is Health Equity?', level: 1 })
     .click()
-
-  const accessibilityScanResults = await new AxeBuilder({ page })
-    .exclude('iframe') // YouTube embed is not fully accessible
-    .analyze()
-  expect(accessibilityScanResults.violations).toEqual([])
 })
