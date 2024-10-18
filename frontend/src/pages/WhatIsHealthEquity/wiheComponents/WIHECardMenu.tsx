@@ -36,7 +36,7 @@ export default function WIHECardMenu(props: WIHECardMenuProps) {
       aria-label={props.ariaLabel}
       className={`rounded-sm mb-4 sm:my-0 md:py-0 tracking-normal shadow-raised-tighter min-w-64 md:max-w-aimToGo sm:w-3/5 md:mr-8 ${props.className ?? ''}`}
     >
-      <div className='flex flex-row justify-center items-center md:flex-col '>
+      <div className='flex flex-row justify-center items-center md:flex-col bg-white'>
         {props.routeConfigs.map((config) => (
           <WIHECardMenuItem
             key={config.path}
@@ -58,20 +58,28 @@ interface WIHECardMenuItemProps {
 
 function WIHECardMenuItem(props: WIHECardMenuItemProps) {
   const { routeConfig, currentPath } = props
+  const isSelected = currentPath === routeConfig.path
 
   return (
-    <>
-      <Link className='no-underline w-full' to={routeConfig.path}>
+    <div
+      className={`w-full h-full ${isSelected ? 'bg-hoverAltGreen' : 'bg-white'}`}
+    >
+      <Link
+        className={`no-underline w-full ${isSelected ? '' : ''}`}
+        to={routeConfig.path}
+      >
         <HetListItemButton
-          className='md:mx-auto text-center w-full px-1'
-          selected={currentPath === routeConfig.path}
+          className={`md:mx-auto text-center w-full md:px-0 px-4 min-h-16 md:h-full flex items-center justify-center ${
+            isSelected ? '' : ''
+          }`}
+          selected={isSelected}
           aria-label={routeConfig.label}
           option='boldGreenRow'
         >
           {routeConfig.label}
         </HetListItemButton>
       </Link>
-      <HetDivider />
-    </>
+      <HetDivider className='hidden md:block' />
+    </div>
   )
 }

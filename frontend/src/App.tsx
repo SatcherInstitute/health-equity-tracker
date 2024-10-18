@@ -168,15 +168,13 @@ export default function App() {
                           }
                         />
 
-                        <Route path={''} element={<WhatIsHealthEquityPage />}>
-                          {wiheConfigs.map((route) => (
-                            <Route
-                              key={route.path}
-                              path={route.path}
-                              element={route.component}
-                            />
-                          ))}
-                        </Route>
+                        {wiheConfigs.map((route) => (
+                          <Route
+                            key={route.path}
+                            path={route.path}
+                            element={route.component}
+                          />
+                        ))}
                       </Route>
 
                       {/* NESTED METHODOLOGY ROUTES */}
