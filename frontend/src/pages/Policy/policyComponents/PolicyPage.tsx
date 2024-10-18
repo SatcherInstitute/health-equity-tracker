@@ -29,7 +29,7 @@ export default function PolicyPage() {
 
       <section
         ref={ref}
-        className='flex w-svw justify-center text-left max-w-lgXl'
+        className='flex w-svw justify-center text-left max-w-lgXl mx-auto'
         aria-labelledby='page-heading'
       >
         <div className='smMd:m-5 max-w-lgXl w-svw flex flex-col grow smMd:flex-row'>
