@@ -98,7 +98,7 @@ export default function WhatIsHealthEquityPage() {
           </div>
           <div
             ref={ref}
-            className='flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start text-left'
+            className='flex flex-col justify-center md:justify-between items-center text-left'
           >
             <WIHECardMenu
               routeConfigs={wiheConfigs}

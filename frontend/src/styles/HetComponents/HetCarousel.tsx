@@ -41,25 +41,7 @@ export default function HetCarousel({
   }
 
   return (
-    <section className='w-full flex xs:flex-col-reverse md:flex-col py-4'>
-      {/* Carousel Controls */}
-      <div className='flex flex-row min-h-10 my-4 ml-auto'>
-        <Button
-          aria-label='previous'
-          onClick={handlePrev}
-          className={`w-16 rounded-xl bg-methodologyGreen text-altBlack shadow-sm hover:shadow-raised transition-transform transform hover:scale-110 mx-1`}
-        >
-          <ArrowBack />
-        </Button>
-        <Button
-          aria-label='next'
-          onClick={handleNext}
-          className={`w-16 rounded-xl bg-methodologyGreen text-altBlack shadow-sm hover:shadow-raised transition-transform transform hover:scale-110 mx-1`}
-        >
-          <ArrowForward />
-        </Button>
-      </div>
-
+    <section className='w-full flex flex-col py-4'>
       {/* Carousel Cards */}
       <div className='relative md:max-w-eighty overflow-hidden h-auto flex'>
         <div
@@ -78,6 +60,23 @@ export default function HetCarousel({
             </div>
           ))}
         </div>
+      </div>
+      {/* Carousel Controls */}
+      <div className='flex min-h-10 mt-4 mx-auto'>
+        <Button
+          aria-label='previous'
+          onClick={handlePrev}
+          className={`w-16 rounded-xl bg-methodologyGreen text-altBlack shadow-sm hover:shadow-raised transition-transform transform hover:scale-110 mx-1`}
+        >
+          <ArrowBack />
+        </Button>
+        <Button
+          aria-label='next'
+          onClick={handleNext}
+          className={`w-16 rounded-xl bg-methodologyGreen text-altBlack shadow-sm hover:shadow-raised transition-transform transform hover:scale-110 mx-1`}
+        >
+          <ArrowForward />
+        </Button>
       </div>
     </section>
   )

@@ -34,9 +34,9 @@ export default function WIHECardMenu(props: WIHECardMenuProps) {
   return (
     <nav
       aria-label={props.ariaLabel}
-      className={`rounded-sm mb-4 sm:my-0 md:py-0 tracking-normal shadow-raised-tighter min-w-64 md:max-w-aimToGo sm:w-3/5 md:mr-8 ${props.className ?? ''}`}
+      className={`rounded-sm mb-4 sm:my-0 md:py-0 tracking-normal shadow-raised-tighter min-w-64 w-3/5 max-w-sm ${props.className ?? ''}`}
     >
-      <div className='flex flex-row justify-center items-center md:flex-col bg-white'>
+      <div className='flex flex-row justify-center items-center bg-white'>
         {props.routeConfigs.map((config) => (
           <WIHECardMenuItem
             key={config.path}
