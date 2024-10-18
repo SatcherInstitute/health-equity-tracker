@@ -80,9 +80,6 @@ const SinglePost = React.lazy(
 )
 const FaqTab = React.lazy(async () => await import('./pages/FAQs/FaqTab'))
 
-const EquityTab = React.lazy(
-  async () => await import('./pages/WhatIsHealthEquity/EquityTab'),
-)
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
 )
@@ -161,9 +158,7 @@ export default function App() {
                       <Route
                         path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                         element={<WhatIsHealthEquityPage />}
-                      >
-                        <Route path={''} element={<EquityTab />} />
-                      </Route>
+                      ></Route>
 
                       {/* NESTED METHODOLOGY ROUTES */}
                       <Route
