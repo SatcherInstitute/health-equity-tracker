@@ -93,7 +93,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
   {
     href: `${urlMap.ncrn}`,
     ariaLabel: 'NCRN Information',
-    imgSrc: '../../../public/img/graphics/NCRN-MSM.png',
+    imgSrc: '/img/graphics/NCRN-MSM.png',
     imgAlt: 'NCRN Information Thumbnail',
     title: 'Morehouse School of Medicine National COVID-19 Resiliency Network',
     description:
