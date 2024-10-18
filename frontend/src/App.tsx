@@ -29,10 +29,9 @@ import {
   AGE_ADJUSTMENT_LINK,
   GUN_VIOLENCE_POLICY,
   POLICY_PAGE_LINK,
-  WIHE_FAQS_PATH,
   OLD_TERMS_OF_SERVICE_LINK,
-  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
   SHARE_YOUR_STORY_PATH,
+  FULL_FAQS_LINK,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
@@ -79,9 +78,7 @@ const ShareYourStory = React.lazy(
 const SinglePost = React.lazy(
   async () => await import('./pages/News/SinglePost'),
 )
-const FaqTab = React.lazy(
-  async () => await import('./pages/WhatIsHealthEquity/FaqTab'),
-)
+const FaqTab = React.lazy(async () => await import('./pages/FAQs/FaqTab'))
 
 const EquityTab = React.lazy(
   async () => await import('./pages/WhatIsHealthEquity/EquityTab'),
@@ -160,11 +157,11 @@ export default function App() {
                       />
 
                       {/* WHAT IS HEALTH EQUITY ROUTES */}
+                      <Route path={FULL_FAQS_LINK} element={<FaqTab />} />
                       <Route
                         path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                         element={<WhatIsHealthEquityPage />}
                       >
-                        <Route path={WIHE_FAQS_PATH} element={<FaqTab />} />
                         <Route path={''} element={<EquityTab />} />
                       </Route>
 
@@ -229,12 +226,6 @@ export default function App() {
                       <Route
                         path={OLD_TERMS_OF_SERVICE_LINK}
                         element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
-                      />
-                      <Route
-                        path={WIHE_FAQS_PATH}
-                        element={
-                          <Navigate to={WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK} />
-                        }
                       />
                       <Route
                         path={SHARE_YOUR_STORY_PATH}
