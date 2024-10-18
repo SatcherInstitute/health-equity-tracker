@@ -44,7 +44,7 @@ export function HetCarouselCard({
   return (
     <>
       <div
-        className='text-title no-underline text-left mr-4 max-w-80 flex-shrink-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out h-full cursor-pointer'
+        className='text-title no-underline text-left mr-4 max-w-tiny flex-shrink-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out h-full cursor-pointer'
         onClick={handleOpen}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -60,7 +60,7 @@ export function HetCarouselCard({
           <div className='m-0 h-full flex flex-col justify-between'>
             {imgSrc ? (
               <div
-                className='min-h-36 max-h-40 w-[350px] max-w-tiny bg-no-repeat bg-cover bg-center rounded-sm'
+                className='min-h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
                 style={{ backgroundImage: `url(${getImageSource()})` }}
               ></div>
             ) : (
@@ -74,7 +74,7 @@ export function HetCarouselCard({
                 allowFullScreen
               />
             )}
-            <div className='flex flex-col h-full px-4 pb-4 pt-0 text-center justify-around'>
+            <div className='flex flex-col px-4 pb-4 pt-0 text-center justify-around h-52'>
               <div className='flex flex-col h-full justify-start pt-2 mt-0'>
                 <h4 className='font-semibold text-text my-2 pt-0 leading-lhNormal text-altGreen'>
                   {ariaLabel}
@@ -104,10 +104,10 @@ export function HetCarouselCard({
             className='h-full flex flex-col justify-start my-0 py-0'
           >
             <div
-              className='min-h-40 max-h-56 w-full bg-no-repeat bg-cover bg-center rounded-sm'
+              className='h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
               style={{ backgroundImage: `url(${getImageSource()})` }}
             ></div>
-            <div className='mx-4 mt-0 h-full flex flex-col justify-between'>
+            <div className='mx-4 mt-0 min-h-52 flex flex-col justify-between'>
               <div className='flex flex-col justify-start h-full py-4'>
                 {categories && <HetTags tags={categories} />}
                 <h4 className='font-semibold text-text my-2 pt-0 leading-lhNormal text-altGreen'>

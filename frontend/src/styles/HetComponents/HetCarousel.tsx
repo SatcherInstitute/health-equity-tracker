@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Button from '@mui/material/Button'
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface HetCarouselProps {
   items: any[]
@@ -13,48 +12,33 @@ export default function HetCarousel({
   CardComponent,
 }: HetCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [visibleCards, setVisibleCards] = useState(3)
-
-  const isMdAndUp = useIsBreakpointAndUp('md')
-  const isSmAndUp = useIsBreakpointAndUp('sm')
-
-  useEffect(() => {
-    if (isMdAndUp) {
-      setVisibleCards(3)
-    } else if (isSmAndUp) {
-      setVisibleCards(2)
-    } else {
-      setVisibleCards(1)
-    }
-  }, [isMdAndUp, isSmAndUp])
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex >= items.length - visibleCards ? 0 : prevIndex + 1,
+      prevIndex >= items.length - 1 ? 0 : prevIndex + 1,
     )
   }
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
-      prevIndex <= 0 ? items.length - visibleCards : prevIndex - 1,
+      prevIndex <= 0 ? items.length - 1 : prevIndex - 1,
     )
   }
 
   return (
     <section className='w-full flex flex-col py-4'>
       {/* Carousel Cards */}
-      <div className='relative overflow-hidden h-auto flex'>
+      <div className='relative overflow-hidden h-auto'>
         <div
-          className='flex transition-transform duration-500 h-full'
+          className='flex transition-transform duration-500'
           style={{
-            transform: `translateX(-${currentIndex * (100 / visibleCards)}%)`,
+            transform: `translateX(-${currentIndex * 100}%)`,
           }}
         >
           {items.map((item, index) => (
             <div
               key={index}
-              style={{ maxWidth: `${100 / visibleCards}%` }}
-              className='flex-shrink-0 px-2'
+              className='flex-shrink-0 px-2 w-full sm:w-1/2 md:w-1/3'
             >
               <CardComponent {...item} />
             </div>

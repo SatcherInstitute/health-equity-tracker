@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import FaqSection from '../ui/FaqSection'
@@ -6,14 +6,29 @@ import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import WIHECardMenu, { wiheConfigs } from './wiheComponents/WIHECardMenu'
+import GuidesTab from './wiheSections/GuidesTab'
 
 export default function WhatIsHealthEquityPage() {
   const location = useLocation()
   const [ref] = useResponsiveWidth()
-
   const activeRoute = wiheConfigs.find(
     (route) => route.path === location.pathname,
   )
+  const [activeTab, setActiveTab] = useState<React.ReactNode | null>(null)
+
+  useEffect(() => {
+    // If there's no active route (i.e., the path is just `/whatishealthequity`), default to Guides tab
+    if (!activeRoute) {
+      setActiveTab(<GuidesTab />) // Render Guides tab by default
+    } else {
+      setActiveTab(null) // Let Outlet handle activeRoute rendering
+    }
+  }, [location.pathname, activeRoute])
+
+  useEffect(() => {
+    // Ensure the page scrolls to the top when the component loads or the path changes
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
   useEffect(() => {
     const matchedRoute = wiheConfigs.find((route) =>
@@ -104,9 +119,16 @@ export default function WhatIsHealthEquityPage() {
               routeConfigs={wiheConfigs}
               ariaLabel={'health equity learning tab menu'}
             />
+
             <article className='flex flex-col justify-center w-full'>
               <h2 className='sr-only'>{activeRoute?.label}</h2>
-              <Outlet />
+              {activeTab ? (
+                // Render the default tab (GuidesTab) when no specific tab is selected
+                activeTab
+              ) : (
+                // Otherwise, render the current active tab via the Outlet
+                <Outlet />
+              )}
             </article>
           </div>
         </div>
