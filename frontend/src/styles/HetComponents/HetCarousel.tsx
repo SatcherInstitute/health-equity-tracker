@@ -43,7 +43,7 @@ export default function HetCarousel({
   return (
     <section className='w-full flex flex-col py-4'>
       {/* Carousel Cards */}
-      <div className='relative md:max-w-eighty overflow-hidden h-auto flex'>
+      <div className='relative overflow-hidden h-auto flex'>
         <div
           className='flex transition-transform duration-500 h-full'
           style={{

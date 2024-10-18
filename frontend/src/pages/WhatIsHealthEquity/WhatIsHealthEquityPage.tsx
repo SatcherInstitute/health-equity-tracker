@@ -104,7 +104,7 @@ export default function WhatIsHealthEquityPage() {
               routeConfigs={wiheConfigs}
               ariaLabel={'health equity learning tab menu'}
             />
-            <article className='flex flex-col justify-center w-full lg:w-4/5'>
+            <article className='flex flex-col justify-center w-full'>
               <h2 className='sr-only'>{activeRoute?.label}</h2>
               <Outlet />
             </article>

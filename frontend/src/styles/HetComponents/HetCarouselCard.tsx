@@ -60,7 +60,7 @@ export function HetCarouselCard({
           <div className='m-0 h-full flex flex-col justify-between'>
             {imgSrc ? (
               <div
-                className='min-h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
+                className='min-h-36 max-h-40 w-[350px] max-w-tiny bg-no-repeat bg-cover bg-center rounded-sm'
                 style={{ backgroundImage: `url(${getImageSource()})` }}
               ></div>
             ) : (
