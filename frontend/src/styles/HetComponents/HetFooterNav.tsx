@@ -1,9 +1,9 @@
 import {
   EXPLORE_DATA_PAGE_LINK,
   TERMS_OF_USE_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
   ABOUT_US_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
+  FULL_FAQS_LINK,
 } from '../../utils/internalRoutes'
 import HetCopyright from './HetCopywright'
 import HetLinkButton from './HetLinkButton'
@@ -17,11 +17,7 @@ export default function HetFooterLinks() {
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', METHODOLOGY_PAGE_LINK],
-          [
-            'FAQs',
-            WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
-            'Frequently Asked Questions',
-          ],
+          ['FAQs', FULL_FAQS_LINK, 'Frequently Asked Questions'],
           ['Contact Us', ABOUT_US_PAGE_LINK],
           ['Terms of Use', TERMS_OF_USE_PAGE_LINK],
         ].map(([label, url, ariaLabel]) => (

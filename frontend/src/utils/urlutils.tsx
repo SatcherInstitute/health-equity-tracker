@@ -6,8 +6,8 @@ import {
   NEWS_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK,
   GUN_VIOLENCE_POLICY,
+  FULL_FAQS_LINK,
 } from './internalRoutes'
 import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
@@ -120,7 +120,7 @@ export const NAVIGATION_STRUCTURE = {
       [urlMap.hetYouTubeShorts]: 'Videos',
     },
   },
-  faqs: { label: 'FAQs', link: WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK },
+  faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
 }
 
 export function useSearchParams() {
