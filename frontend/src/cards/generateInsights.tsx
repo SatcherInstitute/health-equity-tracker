@@ -89,15 +89,21 @@ function generateInsightPrompt(disparities: Disparity): string {
     Health outcome share: ${outcomeShare}%
     Ratio: ${ratio}
 
-    Construct a single, concise sentence in this format:
-    "[Subgroup] in [Location] make up about [X%] of the population, but account for approximately [Y%] of [measure cases], making them about [Z times] more likely to be affected."
+    Generate a single, concise sentence that highlights the disparity. The sentence should convey the following key points:
+    1. The subgroup's representation in the population
+    2. Their share of the health outcome
+    3. How much more likely they are to be affected compared to their population share
 
-    Follow these rules:
-    1. Round all percentages up to the nearest whole number.
-    2. Round the ratio up to the nearest whole number for the "Z times more likely" part.
-    3. Use phrases like "approximately" or "about" to indicate this rounding.
-    4. Replace [measure] with the specific measure (e.g., "uninsured cases", "asthma cases", etc.)
-    5. Limit your response to this one sentence only.
+    Guidelines:
+    - Use natural language and vary the sentence structure. Don't stick to a rigid template.
+    - Round percentages to the nearest whole number and use approximation terms like "about" or "approximately".
+    - Round the ratio to one decimal place for clarity.
+    - Adapt the measure to fit grammatically in the sentence (e.g., "uninsured cases", "asthma diagnoses", etc.)
+    - Ensure the sentence is grammatically correct and flows naturally.
+    - Limit your response to this one sentence only.
+
+    Example :
+    "While Hispanic individuals make up roughly 18% of the US population, they account for about 29% of uninsured cases, indicating they're approximately 1.6 times more likely to lack health insurance."
   `
 }
 
