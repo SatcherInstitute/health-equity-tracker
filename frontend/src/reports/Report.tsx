@@ -1,5 +1,3 @@
-import { TipsAndUpdatesOutlined } from '@mui/icons-material'
-import IconButton from '@mui/material/IconButton'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
@@ -12,6 +10,7 @@ import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import TableCard from '../cards/TableCard'
+import InsightDisplay from '../cards/ui/InsightDisplay'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
@@ -92,6 +91,10 @@ export function Report(props: ReportProps) {
     } finally {
       setIsGeneratingInsight(false)
     }
+  }
+
+  const handleClearInsight = () => {
+    setInsight('')
   }
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
@@ -287,15 +290,12 @@ export function Report(props: ReportProps) {
                   <LazyLoad offset={800} height={750} once>
                     {shareMetricConfig && (
                       <div className='list-none rounded-md shadow-raised bg-white relative'>
-                        <IconButton
-                          onClick={handleGenerateInsight}
-                          className='absolute top-2 right-2 z-10'
-                        >
-                          <TipsAndUpdatesOutlined />
-                        </IconButton>
-                        <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
-                          {insight}
-                        </p>
+                        <InsightDisplay
+                          insight={insight}
+                          handleGenerateInsight={handleGenerateInsight}
+                          handleClearInsight={handleClearInsight}
+                          isGeneratingInsight={isGeneratingInsight}
+                        />
                         <DisparityBarChartCard
                           dataTypeConfig={dataTypeConfig}
                           demographicType={demographicType}
