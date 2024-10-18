@@ -74,10 +74,15 @@ export function HetCarouselCard({
                 allowFullScreen
               />
             )}
-            <div className='flex flex-col h-auto p-4 text-center justify-between'>
-              <p className='text-black text-text leading-lhSomeSpace md:block hidden my-2'>
-                {description}
-              </p>
+            <div className='flex flex-col h-full px-4 pb-4 pt-0 text-center justify-around'>
+              <div className='flex flex-col h-full justify-start pt-2 mt-0'>
+                <h4 className='font-semibold text-text my-2 pt-0 leading-lhNormal text-altGreen'>
+                  {ariaLabel}
+                </h4>
+                <p className='text-black text-small leading-lhSomeSpace md:block hidden my-2'>
+                  {description}
+                </p>
+              </div>
               {readMoreHref && (
                 <div className='flex flex-row w-full justify-start items-center gap-2 mb-4 py-0'>
                   <a
@@ -149,7 +154,7 @@ export function HetCarouselCard({
             }}
           >
             <h4 className='font-semibold text-title my-8 leading-lhNormal text-altGreen text-center'>
-              {title}
+              {ariaLabel}
             </h4>
             <iframe
               className='w-full rounded-md'

@@ -61,7 +61,7 @@ export default function HetCarousel({
       </div>
 
       {/* Carousel Cards */}
-      <div className='relative max-w-eighty overflow-hidden h-auto flex'>
+      <div className='relative md:max-w-eighty overflow-hidden h-auto flex'>
         <div
           className='flex transition-transform duration-500 h-full'
           style={{
