@@ -20,97 +20,87 @@ export default function AboutUsPage() {
       <Helmet>
         <title>About Us - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>About Us</h2>
-      <header className=' flex w-full flex-col content-center items-center'>
-        <div className=' flex  w-full '>
-          <div className='hidden w-full  place-content-center border-0 border-b border-borderColor md:grid md:w-5/12 md:border-solid'>
-            <HetAddressBlock />
-          </div>
-          <div className='hidden w-full border-0 border-b border-l border-borderColor md:block md:w-7/12  md:border-solid'>
-            <img
-              width='870'
-              height='644'
-              src='/img/stock/women-laughing-in-line.png'
-              className='m-10 h-auto w-7/12 max-w-lg rounded-md'
-              alt=''
-            />
-          </div>
-        </div>
-      </header>
+      <section className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'>
+        <header>
+          <h1
+            id='main'
+            className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+          >
+            About the Health Equity Tracker
+          </h1>
+        </header>
+        <h2 className='sr-only'>About Us</h2>
 
-      <section className='mx-4 flex flex-col items-center  md:pt-20'>
-        <h2
-          id='main'
-          className='mx-4 text-center font-sansTitle text-header leading-lhSomeSpace text-altGreen md:text-bigHeader'
-        >
-          About the Health Equity Tracker
-        </h2>
-        <HetAddressBlock className='block md:hidden' />
-        <p className='max-w-md px-6 text-left'>
-          The Health Equity Tracker is a project of the{' '}
-          <a href={urlMap.shli}>Satcher Health Leadership Institute (SHLI)</a>{' '}
-          at <a href={urlMap.msm}>Morehouse School of Medicine</a>. We aim to
-          address health disparities in the United States by identifying at-risk
-          populations and highlighting data inequities. By providing
-          policymakers, community leaders, and researchers the data they need to
-          make informed decisions, this scalable, feature-rich platform supports
-          efforts to achieve health equity and justice for all.
-        </p>
-        <h3 className='font-sansTitle font-medium'>
-          Morehouse School of Medicine
-        </h3>
-        <p className='max-w-md px-6 text-left'>
-          `Morehouse School of Medicine (MSM), located in Atlanta, Ga., was
-          founded in 1975 as the Medical Education Program at Morehouse College.
-          In 1981, MSM became an independently chartered institution. MSM is
-          among the nation’s leading educators of primary care physicians and
-          was recently recognized as the top institution among U.S. medical
-          schools for our social mission. We exist to: improve the health and
-          well-being of individuals and communities; increase the diversity of
-          the health professional and scientific workforce; and address primary
-          health care through programs in education, research, and service, all
-          with an emphasis on people of color and the underserved urban and
-          rural populations in Georgia, the nation, and the world.`
-        </p>
+        <section className='mx-4 flex flex-col items-center'>
+          <p className='max-w-md px-6 text-left'>
+            The Health Equity Tracker is a project of the{' '}
+            <a href={urlMap.shli}>Satcher Health Leadership Institute (SHLI)</a>{' '}
+            at <a href={urlMap.msm}>Morehouse School of Medicine</a>. We aim to
+            address health disparities in the United States by identifying
+            at-risk populations and highlighting data inequities. By providing
+            policymakers, community leaders, and researchers the data they need
+            to make informed decisions, this scalable, feature-rich platform
+            supports efforts to achieve health equity and justice for all.
+          </p>
+          <h3 className='font-sansTitle font-medium'>
+            Morehouse School of Medicine
+          </h3>
+          <p className='max-w-md px-6 text-left'>
+            Morehouse School of Medicine (MSM), located in Atlanta, GA, was
+            founded in 1975 as the Medical Education Program at Morehouse
+            College. In 1981, MSM became an independently chartered institution.
+            MSM is among the nation’s leading educators of primary care
+            physicians and was recently recognized as the top institution among
+            U.S. medical schools for our social mission. We exist to: improve
+            the health and well-being of individuals and communities; increase
+            the diversity of the health professional and scientific workforce;
+            and address primary health care through programs in education,
+            research, and service, all with an emphasis on people of color and
+            the underserved urban and rural populations in Georgia, the nation,
+            and the world.
+          </p>
 
-        <h3 className='font-sansTitle font-medium'>
-          Satcher Health Leadership Institute
-        </h3>
+          <h3 className='font-sansTitle font-medium'>
+            Satcher Health Leadership Institute
+          </h3>
 
-        <p className='max-w-md px-6 text-left'>
-          `Rooted in the legacy of our founder, the 16th U.S. Surgeon General,
-          Dr. David Satcher, SHLI’s mission is to create systemic change at the
-          intersection of policy and equity by focusing on three priority areas:
-          the political determinants of health, health system transformation,
-          and mental and behavioral health. In conjunction with key strategic
-          partners, SHLI enhances leadership among diverse learners, conducts
-          forward-thinking research on the drivers of health inequities, and
-          advances evidence-based policies, all in an effort to contribute to
-          the achievement of health equity for all population groups.`
-        </p>
+          <p className='max-w-md px-6 text-left'>
+            Rooted in the legacy of our founder, the 16th U.S. Surgeon General,
+            Dr. David Satcher, SHLI’s mission is to create systemic change at
+            the intersection of policy and equity by focusing on three priority
+            areas: the political determinants of health, health system
+            transformation, and mental and behavioral health. In conjunction
+            with key strategic partners, SHLI enhances leadership among diverse
+            learners, conducts forward-thinking research on the drivers of
+            health inequities, and advances evidence-based policies, all in an
+            effort to contribute to the achievement of health equity for all
+            population groups.
+          </p>
 
-        <h3 className='font-sansTitle font-medium'>
-          Native Land Acknowledgment
-        </h3>
+          <h3 className='font-sansTitle font-medium'>
+            Native Land Acknowledgment
+          </h3>
 
-        <p className='max-w-md px-6 text-left'>
-          The Health Equity Tracker and Morehouse School of Medicine
-          respectfully acknowledge that our work is conducted on the ancestral
-          lands of the Mvskoke (Muscogee) people, who have stewarded this land
-          since time immemorial. We recognize the enduring relationship between
-          the Mvskoke people and these lands and honor their past, present, and
-          future contributions to this region.
-        </p>
-        <p className='max-w-md px-6 text-left'>
-          In acknowledging this history, we also commit to actions that support
-          Indigenous communities, including advocating for health equity,
-          fostering collaborations with Indigenous-led organizations, and
-          ensuring that the voices of Native peoples are amplified in our work.
-          We understand that true equity requires continuous learning and
-          engagement, and we strive to align our efforts with the needs and
-          aspirations of Indigenous communities.
-        </p>
-        <HetSocialIconLinks className='py-16' colorOverride='altBlack' />
+          <p className='max-w-md px-6 text-left'>
+            The Health Equity Tracker and Morehouse School of Medicine
+            respectfully acknowledge that our work is conducted on the ancestral
+            lands of the Mvskoke (Muscogee) people, who have stewarded this land
+            since time immemorial. We recognize the enduring relationship
+            between the Mvskoke people and these lands and honor their past,
+            present, and future contributions to this region.
+          </p>
+          <p className='max-w-md px-6 text-left'>
+            In acknowledging this history, we also commit to actions that
+            support Indigenous communities, including advocating for health
+            equity, fostering collaborations with Indigenous-led organizations,
+            and ensuring that the voices of Native peoples are amplified in our
+            work. We understand that true equity requires continuous learning
+            and engagement, and we strive to align our efforts with the needs
+            and aspirations of Indigenous communities.
+          </p>
+          <HetAddressBlock className='text-center mt-16' />
+          <HetSocialIconLinks colorOverride='altBlack' />
+        </section>
       </section>
 
       <section className='border-0 border-t border-borderColor md:border-solid  md:pt-20'>
