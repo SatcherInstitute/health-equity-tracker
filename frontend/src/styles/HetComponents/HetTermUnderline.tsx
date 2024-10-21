@@ -18,7 +18,7 @@ export default function HetTermUnderline(props: HetTermUnderlineProps) {
           observer.disconnect()
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     )
 
     if (spanRef.current) {
@@ -36,17 +36,17 @@ export default function HetTermUnderline(props: HetTermUnderlineProps) {
     const parentText = spanRef.current?.parentElement?.innerText
     if (parentText && spanRef.current) {
       const spanText = spanRef.current.innerText
-      const beforeText = parentText.split(spanText)[0].slice(-1) 
+      const beforeText = parentText.split(spanText)[0].slice(-1)
       const afterText = parentText.split(spanText)[1]?.[0]
 
       let margin = ''
-      const punctuationRegex = /[.,!?—;'"]/ 
+      const punctuationRegex = /[.,!?—;'"]/
 
       if (beforeText && !punctuationRegex.test(beforeText)) {
-        margin += ' ml-1' 
+        margin += ' ml-1'
       }
       if (afterText && !punctuationRegex.test(afterText)) {
-        margin += ' mr-1' 
+        margin += ' mr-1'
       }
 
       setMarginClass(margin)
@@ -58,10 +58,8 @@ export default function HetTermUnderline(props: HetTermUnderlineProps) {
       ref={spanRef}
       className={`font-semibold text-altGreen ${props.className} ${marginClass}`}
       style={{
-        animation: isVisible
-          ? 'underlineSlideIn 1s ease-out forwards'
-          : 'none',
-        backgroundImage: 'linear-gradient(#B5C7C2, rgba(11, 82, 64, 0.08))',
+        animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
+        backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.2))',
         backgroundPosition: '1% 100%',
         backgroundSize: '0% 8px',
         backgroundRepeat: 'no-repeat',
