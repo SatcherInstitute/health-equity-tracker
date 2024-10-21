@@ -32,7 +32,6 @@ import {
   OLD_TERMS_OF_SERVICE_LINK,
   SHARE_YOUR_STORY_PATH,
   FULL_FAQS_LINK,
-  HEALTH_EQUITY_GUIDES_TAB,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
@@ -161,20 +160,15 @@ export default function App() {
                         path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                         element={<WhatIsHealthEquityPage />}
                       >
-                        <Route
-                          path=''
-                          element={
-                            <Navigate to={HEALTH_EQUITY_GUIDES_TAB} replace />
-                          }
-                        />
-
-                        {wiheConfigs.map((route) => (
-                          <Route
-                            key={route.path}
-                            path={route.path}
-                            element={route.component}
-                          />
-                        ))}
+                        <>
+                          {wiheConfigs.map((route) => (
+                            <Route
+                              key={route.path}
+                              path={route.path}
+                              element={route.component}
+                            />
+                          ))}
+                        </>
                       </Route>
 
                       {/* NESTED METHODOLOGY ROUTES */}
@@ -194,7 +188,6 @@ export default function App() {
                       </Route>
 
                       {/* NESTED POLICY ROUTES */}
-
                       <Route
                         path={POLICY_PAGE_LINK}
                         element={<Navigate to={GUN_VIOLENCE_POLICY} />}

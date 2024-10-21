@@ -67,7 +67,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
   }
 
   return (
-    <article
+    <div
       className={`rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur ${className}`}
       aria-labelledby='term-definition'
     >
@@ -83,6 +83,6 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
         <HetTerm>{term}</HetTerm> <em>({termType})</em>:{' '}
         {getFormattedDescription()}
       </p>
-    </article>
+    </div>
   )
 }

@@ -1,5 +1,4 @@
-import { Link, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import GuidesTab from '../wiheSections/GuidesTab'
 import ExternalResourcesTab from '../wiheSections/ExternalResourcesTab'
 
@@ -16,35 +15,30 @@ export const wiheConfigs = [
   },
 ]
 
-export default function WIHECardMenu() {
-  const location = useLocation()
-
-  useEffect(() => {
-    const section = document.getElementById('learning-section')
-    if (section) {
-      setTimeout(() => {
-        section.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }, 50)
-    }
-  }, [location.pathname])
-
+interface WIHECardMenuProps {
+  activeTab: 'guides' | 'resources'
+  onTabChange: (tab: 'guides' | 'resources') => void
+}
+export default function WIHECardMenu({
+  activeTab,
+  onTabChange,
+}: WIHECardMenuProps) {
   return (
-    <div className='w-full'>
-      <nav className='flex justify-center mb-4'>
-        {wiheConfigs.map((config, index) => (
-          <Link
-            key={index}
-            to={config.path}
-            className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${
-              location.pathname.includes(config.path)
-                ? 'bg-methodologyGreen text-altBlack shadow-raised'
-                : 'bg-white text-altGreen border border-altBlack'
-            }`}
-          >
-            {config.label}
-          </Link>
-        ))}
-      </nav>
-    </div>
+    <nav className='flex justify-center mb-4'>
+      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+      <button
+        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'guides' ? 'bg-methodologyGreen text-altBlack shadow-raised' : 'bg-white text-altGreen border border-altBlack'}`}
+        onClick={() => onTabChange('guides')}
+      >
+        Data Visualization Guides
+      </button>
+      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+      <button
+        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'resources' ? 'bg-methodologyGreen text-altBlack shadow-raised' : 'bg-white text-altGreen border border-altBlack'}`}
+        onClick={() => onTabChange('resources')}
+      >
+        Health Equity Deep Dive
+      </button>
+    </nav>
   )
 }
