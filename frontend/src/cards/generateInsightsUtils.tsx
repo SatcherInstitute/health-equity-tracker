@@ -1,5 +1,5 @@
 import type { MetricId } from '../data/config/MetricConfigTypes'
-import type { ResultData, Dataset, Disparity } from './generateInsights'
+import type { Dataset, Disparity, ResultData } from './generateInsights'
 
 export function getKeyBySubstring(
   obj: any,
@@ -18,8 +18,8 @@ export function getHighestDisparity(data: ResultData[]): Disparity {
     const { fips_name, subgroup, ...rest } = item
     const [pctShareKey, measure] = getKeyBySubstring(rest, 'pct_share')
     const [populationPctKey] = getKeyBySubstring(rest, 'population_pct')
-    const outcomeShare = rest[pctShareKey]
-    const populationShare = rest[populationPctKey]
+    const outcomeShare = Math.round(rest[pctShareKey])
+    const populationShare = Math.round(rest[populationPctKey])
 
     const disparity: Disparity = {
       location: fips_name,
@@ -32,7 +32,7 @@ export function getHighestDisparity(data: ResultData[]): Disparity {
     }
 
     if (populationShare && outcomeShare) {
-      const ratio = outcomeShare / populationShare
+      const ratio = Math.round(outcomeShare / populationShare)
       disparity.ratio = ratio
       disparity.disparity = ratio - 1
     }
