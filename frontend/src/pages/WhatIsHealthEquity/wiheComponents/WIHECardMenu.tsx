@@ -27,14 +27,14 @@ export default function WIHECardMenu({
     <nav className='flex justify-center mb-4'>
       {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
       <button
-        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'guides' ? 'bg-methodologyGreen text-altBlack shadow-raised' : 'bg-white text-altGreen border border-altBlack'}`}
+        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'guides' ? 'bg-methodologyGreen text-altBlack shadow-raised border-0' : 'bg-white text-altGreen border border-dividerGrey'}`}
         onClick={() => onTabChange('guides')}
       >
         Data Visualization Guides
       </button>
       {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
       <button
-        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'resources' ? 'bg-methodologyGreen text-altBlack shadow-raised' : 'bg-white text-altGreen border border-altBlack'}`}
+        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'resources' ? 'bg-methodologyGreen text-altBlack shadow-raised border-0' : 'bg-white text-altGreen border border-dividerGrey'}`}
         onClick={() => onTabChange('resources')}
       >
         Health Equity Deep Dive
