@@ -161,6 +161,13 @@ export default function App() {
                         path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                         element={<WhatIsHealthEquityPage />}
                       >
+                        <Route
+                          path=''
+                          element={
+                            <Navigate to={HEALTH_EQUITY_GUIDES_TAB} replace />
+                          }
+                        />
+
                         {wiheConfigs.map((route) => (
                           <Route
                             key={route.path}
