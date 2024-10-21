@@ -1,85 +1,50 @@
 import { Link, useLocation } from 'react-router-dom'
-import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
-import HetDivider from '../../../styles/HetComponents/HetDivider'
-import type { RouteConfig } from '../../sharedTypes'
-import {
-  HEALTH_EQUITY_GUIDES_TAB,
-  HEALTH_EQUITY_RESOURCES_TAB,
-} from '../../../utils/internalRoutes'
+import { useEffect } from 'react'
 import GuidesTab from '../wiheSections/GuidesTab'
 import ExternalResourcesTab from '../wiheSections/ExternalResourcesTab'
 
-export const wiheConfigs: RouteConfig[] = [
+export const wiheConfigs = [
   {
     label: 'Data Visualization Guides',
-    path: HEALTH_EQUITY_GUIDES_TAB,
+    path: '/whatishealthequity/guides',
     component: <GuidesTab />,
   },
   {
     label: 'Health Equity Deep Dive',
-    path: HEALTH_EQUITY_RESOURCES_TAB,
+    path: '/whatishealthequity/external-resources',
     component: <ExternalResourcesTab />,
   },
 ]
 
-interface WIHECardMenuProps {
-  className?: string
-  routeConfigs: RouteConfig[]
-  ariaLabel: string
-}
-
-export default function WIHECardMenu(props: WIHECardMenuProps) {
+export default function WIHECardMenu() {
   const location = useLocation()
 
+  useEffect(() => {
+    const section = document.getElementById('learning-section')
+    if (section) {
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 50)
+    }
+  }, [location.pathname])
+
   return (
-    <nav
-      aria-label={props.ariaLabel}
-      className={`rounded-sm mb-4 sm:my-0 md:py-0 tracking-normal shadow-raised-tighter min-w-64 w-3/5 max-w-sm ${props.className ?? ''}`}
-    >
-      <div className='flex flex-row justify-center items-center bg-white'>
-        {props.routeConfigs.map((config) => (
-          <WIHECardMenuItem
-            key={config.path}
-            routeConfig={config}
-            currentPath={location.pathname}
-            className={` bg-white text-center w-auto ${props.className ?? ''}`}
-          />
+    <div className='w-full'>
+      <nav className='flex justify-center mb-4'>
+        {wiheConfigs.map((config, index) => (
+          <Link
+            key={index}
+            to={config.path}
+            className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${
+              location.pathname.includes(config.path)
+                ? 'bg-methodologyGreen text-altBlack shadow-raised'
+                : 'bg-white text-altGreen border border-altBlack'
+            }`}
+          >
+            {config.label}
+          </Link>
         ))}
-      </div>
-    </nav>
-  )
-}
-
-interface WIHECardMenuItemProps {
-  routeConfig: RouteConfig
-  currentPath: string
-  className?: string
-}
-
-function WIHECardMenuItem(props: WIHECardMenuItemProps) {
-  const { routeConfig, currentPath } = props
-  const isSelected = currentPath === routeConfig.path
-
-  return (
-    <div
-      className={`w-full h-full ${isSelected ? 'bg-hoverAltGreen' : 'bg-white'}`}
-    >
-      <Link
-        className={`no-underline w-full ${isSelected ? '' : ''}`}
-        to={routeConfig.path}
-      >
-        <HetListItemButton
-          className={`md:mx-auto text-center w-full md:px-0 px-4 min-h-16 md:h-full flex items-center justify-center ${
-            isSelected ? '' : ''
-          }`}
-          selected={isSelected}
-          aria-label={routeConfig.label}
-          option='boldGreenRow'
-        >
-          {routeConfig.label}
-        </HetListItemButton>
-      </Link>
-      <HetDivider className='hidden md:block' />
+      </nav>
     </div>
   )
 }

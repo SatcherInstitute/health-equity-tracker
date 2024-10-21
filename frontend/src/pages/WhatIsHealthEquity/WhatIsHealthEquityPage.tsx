@@ -1,46 +1,26 @@
-import { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import FaqSection from '../ui/FaqSection'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import WIHECardMenu, { wiheConfigs } from './wiheComponents/WIHECardMenu'
-import GuidesTab from './wiheSections/GuidesTab'
 
 export default function WhatIsHealthEquityPage() {
   const location = useLocation()
+  const navigate = useNavigate()
   const [ref] = useResponsiveWidth()
-  const activeRoute = wiheConfigs.find(
-    (route) => route.path === location.pathname,
-  )
-  const [activeTab, setActiveTab] = useState<React.ReactNode | null>(null)
 
   useEffect(() => {
-    // If there's no active route (i.e., the path is just `/whatishealthequity`), default to Guides tab
-    if (!activeRoute) {
-      setActiveTab(<GuidesTab />) // Render Guides tab by default
-    } else {
-      setActiveTab(null) // Let Outlet handle activeRoute rendering
-    }
-  }, [location.pathname, activeRoute])
-
-  useEffect(() => {
-    // Ensure the page scrolls to the top when the component loads or the path changes
     window.scrollTo(0, 0)
   }, [location.pathname])
 
   useEffect(() => {
-    const matchedRoute = wiheConfigs.find((route) =>
-      location.pathname.includes(route.path),
-    )
-    if (matchedRoute) {
-      const section = document.getElementById('equity-section')
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' })
-      }
+    if (location.pathname === '/whatishealthequity') {
+      navigate(wiheConfigs[0].path)
     }
-  }, [location.pathname])
+  }, [location.pathname, navigate])
 
   return (
     <>
@@ -99,7 +79,7 @@ export default function WhatIsHealthEquityPage() {
         </div>
       </section>
 
-      <section id='equity-section' className='bg-whiteSmoke80'>
+      <section id='learning-section' className='bg-whiteSmoke80'>
         <div className='flex flex-col w-svw justify-center max-w-lgXl p-8 mx-auto'>
           <div className='flex w-full flex-col justify-center max-w-lgXl mx-auto'>
             <HetOverline text={'Trending Topics'} className='text-center' />
@@ -115,26 +95,14 @@ export default function WhatIsHealthEquityPage() {
             ref={ref}
             className='flex flex-col justify-center md:justify-between items-center text-left'
           >
-            <WIHECardMenu
-              routeConfigs={wiheConfigs}
-              ariaLabel={'health equity learning tab menu'}
-            />
-
+            <WIHECardMenu />
             <article className='flex flex-col justify-center w-full'>
-              <h2 className='sr-only'>{activeRoute?.label}</h2>
-              {activeTab ? (
-                // Render the default tab (GuidesTab) when no specific tab is selected
-                activeTab
-              ) : (
-                // Otherwise, render the current active tab via the Outlet
-                <Outlet />
-              )}
+              <Outlet />
             </article>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className='w-svw flex mx-auto py-16 lgXl:px-0 px-8 items-center justify-center max-w-lgXl'>
         <FaqSection />
       </section>
