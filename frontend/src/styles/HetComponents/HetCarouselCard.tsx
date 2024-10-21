@@ -62,7 +62,7 @@ export function HetCarouselCard({
               <div
                 className='min-h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
                 style={{ backgroundImage: `url(${getImageSource()})` }}
-              ></div>
+              />
             ) : (
               <iframe
                 className='w-full rounded-md'
@@ -87,7 +87,7 @@ export function HetCarouselCard({
                 <div className='flex flex-row w-full justify-start items-center gap-2 mb-4 py-0'>
                   <a
                     className='ml-auto leading-lhSomeSpace text-small font-medium no-underline'
-                    aria-label={ariaLabel}
+                    aria-label={`Learn more about ${ariaLabel}`}
                     href={readMoreHref}
                   >
                     Learn more
@@ -106,7 +106,7 @@ export function HetCarouselCard({
             <div
               className='h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
               style={{ backgroundImage: `url(${getImageSource()})` }}
-            ></div>
+            />
             <div className='mx-4 mt-0 min-h-52 flex flex-col justify-between'>
               <div className='flex flex-col justify-start h-full py-4'>
                 {categories && <HetTags tags={categories} />}
@@ -123,7 +123,7 @@ export function HetCarouselCard({
                 <div className='flex flex-row w-full justify-start items-center gap-2 mb-4 py-0'>
                   <a
                     className='ml-auto leading-lhSomeSpace text-small font-medium no-underline'
-                    aria-label={ariaLabel}
+                    aria-label={`Learn more about ${ariaLabel}`}
                     href={readMoreHref}
                   >
                     Learn more
@@ -136,8 +136,13 @@ export function HetCarouselCard({
         )}
       </div>
 
+      {/* Modal should have a clear aria-labelledby */}
       {isVideo && (
-        <Modal open={open} onClose={handleClose}>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='video-modal-title'
+        >
           <Box
             className='modal-container'
             sx={{
@@ -153,7 +158,10 @@ export function HetCarouselCard({
               outline: 'none',
             }}
           >
-            <h4 className='font-semibold text-title my-8 leading-lhNormal text-altGreen text-center'>
+            <h4
+              id='video-modal-title'
+              className='font-semibold text-title my-8 leading-lhNormal text-altGreen text-center'
+            >
               {ariaLabel}
             </h4>
             <iframe

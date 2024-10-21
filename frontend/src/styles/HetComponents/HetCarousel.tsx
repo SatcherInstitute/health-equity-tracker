@@ -45,7 +45,6 @@ export default function HetCarousel({
 
   return (
     <section className='w-full flex flex-col py-4'>
-      {/* Carousel Cards */}
       <div className='relative overflow-hidden'>
         <div
           className='flex transition-transform duration-500 ease-in-out'
@@ -64,7 +63,7 @@ export default function HetCarousel({
           ))}
         </div>
       </div>
-      {/* Carousel Controls */}
+
       <div className='flex min-h-10 mt-4 mx-auto'>
         <Button
           aria-label='previous'
