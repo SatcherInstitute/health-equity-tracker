@@ -15,6 +15,7 @@ import {
   NON_HISPANIC,
   AIAN_API,
   ALL,
+  TIME_PERIOD,
 } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -27,14 +28,14 @@ import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
 import { generateSubtitle } from '../charts/utils'
+import type { AxisConfig } from '../charts/trendsChart/types'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -105,7 +106,8 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfigRates?.trendsCardTitleName ?? 'Data'
+      metricConfigRates?.trendsCardTitleName ??
+      props.dataTypeConfig.fullDisplayName + ' over time '
     } in ${props.fips.getSentenceDisplayName()}`
   }
 
@@ -123,12 +125,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
-  const defaultClasses = 'shadow-raised bg-white'
-
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -136,14 +132,20 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
-        const ratesData = queryResponseRates.getValidRowsForField(
+        let ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId,
         )
+
+        // TODO: this is a stop-gap to deal with sketchy data. we should solve a different way
+        if (
+          props.dataTypeConfig.dataTypeId === 'preventable_hospitalizations'
+        ) {
+          ratesData = ratesData.filter((row) => row[TIME_PERIOD] >= 2016)
+        }
 
         const pctShareData = isCawp
           ? ratesData
@@ -154,7 +156,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         // swap race labels if applicable
         const ratesDataLabelled = isCawp
-          ? ratesData.map((row: Row) => {
+          ? ratesData.map((row: HetRow) => {
               const altRow = { ...row }
               altRow.race_and_ethnicity = getWomenRaceLabel(
                 row.race_and_ethnicity,
@@ -194,7 +196,10 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           demographicGroupsLabelled,
           props.demographicType,
           metricConfigRates.metricId,
+          /* keepOnlyElectionYears */ metricConfigRates.timeSeriesCadence ===
+            'fourYearly',
         )
+
         const nestedUnknownPctShareData = getNestedUnknowns(
           unknownPctShareData,
           isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId,
@@ -203,6 +208,16 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         hasUnknowns =
           nestedUnknownPctShareData != null &&
           hasNonZeroUnknowns(nestedUnknownPctShareData)
+
+        const axesConfig: AxisConfig = {
+          type: metricConfigRates.type,
+          groupLabel:
+            DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType],
+          yAxisLabel: `${metricConfigRates.shortLabel} ${
+            props.fips.isUsa() ? '' : 'from'
+          } ${props.fips.isUsa() ? '' : props.fips.getSentenceDisplayName()}`,
+          xAxisTimeSeriesCadence: metricConfigRates.timeSeriesCadence,
+        }
 
         return (
           <>
@@ -229,22 +244,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   chartTitle={getTitleText()}
                   chartSubTitle={subtitle}
                   unknown={nestedUnknownPctShareData}
-                  axisConfig={{
-                    type: metricConfigRates.type,
-                    groupLabel:
-                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
-                      ],
-                    yAxisLabel: `${metricConfigRates.shortLabel} ${
-                      props.fips.isUsa() ? '' : 'from'
-                    } ${
-                      props.fips.isUsa()
-                        ? ''
-                        : props.fips.getSentenceDisplayName()
-                    }`,
-                    xAxisIsMonthly:
-                      metricConfigRates.timeSeriesCadence === 'monthly',
-                  }}
+                  axisConfig={axesConfig}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard ?? false}

@@ -3,7 +3,7 @@ import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import type { Fips } from '../data/utils/Fips'
 import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
-import type { Row, FieldRange } from '../data/utils/DatasetTypes'
+import type { HetRow, FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import type { Legend } from 'vega'
@@ -53,6 +53,7 @@ import { setupUnknownsLegend } from './legendHelperFunctions'
 import { het } from '../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { isPctType } from '../data/config/MetricConfigUtils'
+import { HEIGHT_WIDTH_RATIO } from './utils'
 
 const {
   howToColor: UNKNOWN_GREY,
@@ -120,7 +121,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   let suppressedData = props.data
 
   if (isPhrma) {
-    suppressedData = props.data.map((row: Row) => {
+    suppressedData = props.data.map((row: HetRow) => {
       const newRow = { ...row }
 
       const numeratorId = props.countColsMap?.numeratorConfig?.metricId
@@ -156,7 +157,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const [ref, width] = useResponsiveWidth()
 
-  const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
+  const heightWidthRatio = props.overrideShapeWithCircle
+    ? HEIGHT_WIDTH_RATIO * 2
+    : HEIGHT_WIDTH_RATIO
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})

@@ -87,7 +87,7 @@ const PHRMA_BRFSS_TYPES_WITH_SEX_MAP: Partial<Record<string, DemographicType>> =
   }
 
 const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
-  Urbanicity: 'urbanicity',
+  'City Size': 'urbanicity',
   Age: 'age',
 }
 

@@ -4,21 +4,24 @@ export const HET_URL = 'https://healthequitytracker.org'
 export const EXPLORE_DATA_PAGE_LINK = '/exploredata'
 export const DATA_CATALOG_PAGE_LINK = '/datacatalog'
 export const NEWS_PAGE_LINK = '/news'
-export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
+export const SHARE_YOUR_STORY_PATH = 'shareyourstory'
+export const SHARE_YOUR_STORY_TAB_LINK =
+  NEWS_PAGE_LINK + '/' + SHARE_YOUR_STORY_PATH
+export const POLICY_PAGE_LINK = '/policy'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
-export const FAQ_TAB_LINK = '/faqs'
+export const FULL_FAQS_LINK = '/faqs'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const OLD_CONTACT_LINK = '/contact'
 export const OLD_OURTEAM_LINK = '/ourteam'
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
+export const OLD_TERMS_OF_SERVICE_LINK = '/termsofservice'
 
 // CONTEXT TABS
-export const GUN_VIOLENCE_POLICY = '/policy' + '/gun-violence'
+export const GUN_VIOLENCE_POLICY = POLICY_PAGE_LINK + '/gun-violence'
 export const CRISIS_OVERVIEW_TAB = GUN_VIOLENCE_POLICY + '/crisis-overview'
 export const DATA_COLLECTION_TAB = GUN_VIOLENCE_POLICY + '/data-collection'
-export const OUR_FINDINGS_TAB =
-  GUN_VIOLENCE_POLICY + '/our-findings'
+export const OUR_FINDINGS_TAB = GUN_VIOLENCE_POLICY + '/our-findings'
 export const CURRENT_EFFORTS_TAB = GUN_VIOLENCE_POLICY + '/current-efforts'
 export const REFORM_OPPORTUNITIES_TAB =
   GUN_VIOLENCE_POLICY + '/reform-opportunities'
@@ -26,9 +29,8 @@ export const HOW_TO_USE_THE_DATA_TAB =
   GUN_VIOLENCE_POLICY + '/how-to-use-the-data'
 export const FAQS_TAB = GUN_VIOLENCE_POLICY + '/faqs'
 
-// NEW METHODOLOGY SECTIONS
+// METHODOLOGY SECTIONS
 export const METHODOLOGY_PAGE_LINK = '/methodology'
-
 export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + '/age-adjustment'
 export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources'
 export const TOPIC_CATEGORIES_LINK = METHODOLOGY_PAGE_LINK + '/topic-categories'
@@ -71,12 +73,13 @@ export const POVERTY_US_SETTING = '?mls=1.poverty-3.00'
 export const OPIOID_US_SETTING =
   '?dt1=non_medical_drug_use&mls=1.substance-3.00'
 
+export const GUN_DEATHS_YOUNG_ADULTS_USA_SETTING =
+  '?mls=1.gun_violence_youth-3.00&group1=All&demo=race_and_ethnicity&dt1=gun_deaths_young_adults#rate-map'
 export const HIV_PREVALENCE_RACE_USA_SETTING =
   '?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence'
 export const PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING =
   '?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true'
-export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
-  '?mls=1.covid-3.13121&group1=All&group2=All&dt1=covid_deaths&demo=age'
+
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
   '?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison'
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =

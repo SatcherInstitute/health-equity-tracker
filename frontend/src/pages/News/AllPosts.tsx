@@ -13,11 +13,11 @@ import { Helmet } from 'react-helmet-async'
 import ArticleFilters from './ArticleFilters'
 import NewsPreviewCard from './NewsPreviewCard'
 import { useQuery } from 'react-query'
-import type { Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import PinnedArticles from './PinnedArticles'
-import { Link } from 'react-router-dom-v5-compat'
+import { Link } from 'react-router-dom'
+import type { Article } from './ArticleTypes'
 
 export const ARTICLES_TERM = 'Articles'
 
@@ -99,7 +99,7 @@ function AllPosts() {
   useEffect(() => {
     const allAuthorsSet = new Set()
 
-    data?.data.forEach(
+    data?.data?.forEach(
       (article: Article) =>
         article.acf.contributing_author &&
         allAuthorsSet.add(article.acf.contributing_author),
@@ -112,7 +112,7 @@ function AllPosts() {
   useEffect(() => {
     const allCategoriesSet = new Set()
 
-    data?.data.forEach((article: Article) => {
+    data?.data?.forEach((article: Article) => {
       if (article._embedded['wp:term'] !== undefined) {
         article._embedded['wp:term'][0].forEach((term: { name: string }) =>
           allCategoriesSet.add(term.name),
@@ -125,8 +125,6 @@ function AllPosts() {
 
   // featured "sticky" articles
   const pinnedArticles = data?.data?.filter((post: Article) => post?.sticky)
-
-  if (data?.data.length === 0) return <></>
 
   return (
     <div className='flex w-full flex-wrap justify-center'>

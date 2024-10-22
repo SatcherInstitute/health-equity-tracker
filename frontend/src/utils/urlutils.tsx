@@ -6,8 +6,8 @@ import {
   NEWS_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  FAQ_TAB_LINK,
-  GUN_VIOLENCE_POLICY
+  GUN_VIOLENCE_POLICY,
+  FULL_FAQS_LINK,
 } from './internalRoutes'
 import type { MadLibId, PhraseSelections } from './MadLibs'
 import {
@@ -17,7 +17,7 @@ import {
 import type { ReactNode } from 'react'
 import { urlMap } from './externalUrls'
 import type { DataTypeId } from '../data/config/MetricConfigTypes'
-import { Link, useLocation } from 'react-router-dom-v5-compat'
+import { Link, useLocation } from 'react-router-dom'
 
 // OLDER HANDLING PARAMS
 
@@ -101,7 +101,6 @@ export const NAVIGATION_STRUCTURE = {
     label: 'About',
     pages: {
       [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-      // [GUN_VIOLENCE_POLICY]: 'Policy Context',
       [ABOUT_US_PAGE_LINK]: 'About Us',
     },
   },
@@ -111,6 +110,7 @@ export const NAVIGATION_STRUCTURE = {
       [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
       [DATA_CATALOG_PAGE_LINK]: 'Source Files',
       [METHODOLOGY_PAGE_LINK]: 'Methodology',
+      [GUN_VIOLENCE_POLICY]: 'Policy Context',
     },
   },
   mediaAndUpdates: {
@@ -120,7 +120,7 @@ export const NAVIGATION_STRUCTURE = {
       [urlMap.hetYouTubeShorts]: 'Videos',
     },
   },
-  faqs: { label: 'FAQs', link: FAQ_TAB_LINK },
+  faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
 }
 
 export function useSearchParams() {
@@ -274,20 +274,21 @@ window.onpopstate = () => {
   })
 }
 
-/*
-Dumps a string of HTML into a div (or string with optional boolean)
-*/
-export function getHtml(item: any, asString?: boolean) {
-  // if div is needed
-  if (!asString) {
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless Wordpress
-    return <div dangerouslySetInnerHTML={{ __html: item || '' }}></div>
+export function getHtml(item: string | undefined, asString = false) {
+  // If only a string is needed (not setting inner HTML)
+  if (asString) {
+    const span = document.createElement('span')
+    span.innerHTML = item || ''
+    return span.textContent || span.innerText || ''
   }
 
-  // if only string is needed, create an HTML element and then extract the text
-  const span = document.createElement('span')
-  span.innerHTML = item
-  return span.textContent ?? span.innerText
+  // Return a div with dangerouslySetInnerHTML
+  return (
+    <div
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless WordPress
+      dangerouslySetInnerHTML={{ __html: item || '' }}
+    />
+  )
 }
 
 /* for converting selected group long name into URL safe param value */

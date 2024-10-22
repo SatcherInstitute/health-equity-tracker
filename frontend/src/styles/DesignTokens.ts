@@ -24,6 +24,7 @@ const ThemeZIndexValues = {
   top: 99,
   stickyMadLib: 100,
   multimapModal: 101,
+  skipLink: 102,
 }
 
 const ThemeLineHeightValues = {
@@ -100,6 +101,7 @@ const het = {
   secondaryMain: '#228b7e',
   standardInfo: '#f8f9fa',
   standardWarning: '#fff8eb',
+  tinyTagGray: 'rgba(220, 229, 226, 0.2)',
   tableZebra: '#FDFFF9',
   teamBorderColor: '#9aa0a6',
   timberwolf: '#cbd0c8',

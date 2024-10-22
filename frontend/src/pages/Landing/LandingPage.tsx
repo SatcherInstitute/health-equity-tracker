@@ -1,4 +1,3 @@
-//
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
@@ -13,12 +12,12 @@ import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import NewsPreviewCard from '../News/NewsPreviewCard'
 import { useQuery } from 'react-query'
-import type { Article } from '../News/NewsPage'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import type { Article } from '../News/ArticleTypes'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -36,7 +35,7 @@ function LandingPage() {
   if (isMd) numberOfArticlePreviews = 3
   if (isLg) numberOfArticlePreviews = 4
 
-  const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
+  const recentArticles = data?.data?.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   interface ListItemProps {

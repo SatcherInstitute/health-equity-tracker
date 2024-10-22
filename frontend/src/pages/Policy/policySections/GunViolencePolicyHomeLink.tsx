@@ -26,14 +26,14 @@ export default function GunViolencePolicyHomeLink() {
               ></img>
 
               <p
-                className='text-center text-text text-altGreen font-bold text-sansText pt-0 mt-0 fade-in-up-blur'
+                className='text-center text-text text-altGreen font-bold text-sansText py-0 my-0 fade-in-up-blur'
                 style={{ animationDelay: `${0.2}s` }}
               >
                 David Satcher, M.D., Ph.D.
-                <p className='text-center text-small my-0 text-sansText'>
+              </p>
+                <p className='text-center text-small mt-0 mb-2 text-sansText'>
                   Founding Director & Senior Advisor
                 </p>
-              </p>
 
               <div className='relative text-center'>
                 <span className='absolute xs:top-[-15rem] xs:left-[-2rem] md:top-[-13rem] md:left-[-1rem] lg:top-[-14rem] lg:left-[-5rem] m-0 p-0 text-[20rem] text-hoverAltGreen'>

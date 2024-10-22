@@ -1,7 +1,7 @@
-import { useState, useEffect, type ReactNode } from 'react'
+import { useEffect, useState } from 'react'
 import { Events } from 'react-scroll'
-import type { RouteConfig } from '../../pages/Methodology/methodologyContent/routeConfigs'
 import HetReturnToTopFloating from '../../pages/Policy/policyComponents/HetReturnToTopFloating'
+import type { RouteConfig } from '../../pages/sharedTypes'
 import { useScrollToAnchor } from '../../utils/hooks/useScrollToAnchor'
 
 interface HetOnThisPageMenuProps {
@@ -22,6 +22,9 @@ function CombinedLink(props: CombinedLinkProps) {
 
   if (isScrollLink) {
     return (
+      // TODO: fix a11y See GitHub #3711
+      // biome-ignore lint/a11y/useFocusableInteractive: <explanation>
+      // biome-ignore lint/a11y/useSemanticElements: <explanation>
       <div onClick={() => scrollToAnchor(to)} role='link' {...rest}>
         {children}
       </div>

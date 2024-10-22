@@ -1,17 +1,17 @@
-import { MENTAL_HEALTH_RESOURCES } from '../methodologyContent/ResourcesData'
-import Resources from '../methodologyComponents/Resources'
-import StripedTable from '../methodologyComponents/StripedTable'
 import { Helmet } from 'react-helmet-async'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
+import LifelineAlert from '../../../reports/ui/LifelineAlert'
+import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import LifelineAlert from '../../../reports/ui/LifelineAlert'
-import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import AhrMetrics from '../methodologyComponents/AhrMetrics'
-import { urlMap } from '../../../utils/externalUrls'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import NoteBrfss from '../methodologyComponents/NoteBrfss'
+import Resources from '../methodologyComponents/Resources'
+import StripedTable from '../methodologyComponents/StripedTable'
+import { MENTAL_HEALTH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
 // All data _sources_ used for Behavioral Health category
@@ -34,7 +34,7 @@ export const behavioralHealthTopicsString = buildTopicsString(
 
 export default function BehavioralHealthLink() {
   return (
-    <section id='#behavioral-health'>
+    <section id='behavioral-health'>
       <article>
         <Helmet>
           <title>Behavioral Health - Health Equity Tracker</title>
@@ -42,7 +42,7 @@ export default function BehavioralHealthLink() {
         <h2 className='sr-only'>Behavioral Health</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -57,7 +57,7 @@ export default function BehavioralHealthLink() {
         />
         <h3
           className='mt-12 text-title font-medium'
-          id='#behavioral-health-data-sourcing'
+          id='behavioral-health-data-sourcing'
         >
           Data Sourcing
         </h3>
@@ -81,7 +81,7 @@ export default function BehavioralHealthLink() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#behavioral-health-data-sources'
+          id='behavioral-health-data-sources'
         >
           Data Sources
         </h3>
@@ -94,7 +94,7 @@ export default function BehavioralHealthLink() {
           rows={behavioralHealthDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -104,12 +104,12 @@ export default function BehavioralHealthLink() {
           }))}
         />
         <KeyTermsTopicsAccordion
-          hashId='#behavioral-health-key-terms'
+          hashId='behavioral-health-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
 
         <Resources
-          id='#behavioral-health-resources'
+          id='behavioral-health-resources'
           resourceGroups={[MENTAL_HEALTH_RESOURCES]}
         />
 

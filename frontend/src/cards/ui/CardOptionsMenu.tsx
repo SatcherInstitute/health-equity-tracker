@@ -1,18 +1,18 @@
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Tooltip } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuList from '@mui/material/MenuList'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import Popover from '@mui/material/Popover'
 import type { PopoverOrigin } from '@mui/material/Popover'
-import { DownloadCardImageButton } from './DownloadCardImageButton'
-import CopyLinkButton from './CopyLinkButton'
-import CardShareIcons from './CardShareIcons'
+import Popover from '@mui/material/Popover'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePopover } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import CardShareIconButtons from './CardShareIconButtons'
+import { CopyCardImageToClipboardButton } from './CopyCardImageToClipboardButton'
+import CopyLinkButton from './CopyLinkButton'
+import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 interface CardOptionsMenuProps {
-  downloadTargetScreenshot: () => Promise<boolean>
   reportTitle: string
   scrollToHash: ScrollableHashId
 }
@@ -20,9 +20,6 @@ interface CardOptionsMenuProps {
 export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   const shareMenu = usePopover()
   const isSm = useIsBreakpointAndUp('sm')
-
-  const urlWithoutHash = window.location.href.split('#')[0]
-  const urlWithHash = `${urlWithoutHash}#${props.scrollToHash}`
 
   const anchorOrigin: PopoverOrigin = {
     vertical: 'top',
@@ -35,11 +32,11 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   }
 
   return (
-    <div
-      className='mb-0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-5 md:mr-1'
-      id={'card-options-menu'}
-    >
-      <Tooltip title='Card export options'>
+    <div className='mb-0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-5 md:mr-1'>
+      <Tooltip
+        title='Card export options'
+        className='hide-on-screenshot remove-height-on-screenshot'
+      >
         <IconButton onClick={shareMenu.open}>
           <MoreHorizIcon />
         </IconButton>
@@ -58,16 +55,20 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           <CopyLinkButton
             scrollToHash={props.scrollToHash}
             popover={shareMenu}
-            urlWithHash={urlWithHash}
+          />
+          <CopyCardImageToClipboardButton
+            scrollToHash={props.scrollToHash}
+            popover={shareMenu}
           />
           <DownloadCardImageButton
-            downloadTargetScreenshot={props.downloadTargetScreenshot}
             popover={shareMenu}
+            scrollToHash={props.scrollToHash}
+            reportTitle={props.reportTitle}
           />
-          <CardShareIcons
+          <CardShareIconButtons
             reportTitle={props.reportTitle}
             popover={shareMenu}
-            urlWithHash={urlWithHash}
+            scrollToHash={props.scrollToHash}
           />
         </MenuList>
       </Popover>

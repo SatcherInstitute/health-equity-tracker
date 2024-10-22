@@ -1,54 +1,56 @@
+import { GridView } from '@mui/icons-material'
+import { useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import ChoroplethMap from '../charts/ChoroplethMap'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { exclude } from '../data/query/BreakdownFilter'
-import {
-  Breakdowns,
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES,
-  type DemographicTypeDisplayName,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../data/query/Breakdowns'
-import {
-  MetricQuery,
-  type MetricQueryResponse,
-} from '../data/query/MetricQuery'
-import {
-  ALL,
-  NON_HISPANIC,
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
-  type DemographicGroup,
-  RACE,
-} from '../data/utils/Constants'
-import type { Row } from '../data/utils/DatasetTypes'
-import { getExtremeValues } from '../data/utils/datasetutils'
-import { Fips } from '../data/utils/Fips'
+import { Legend } from '../charts/Legend'
+import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
+import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type { DatasetId } from '../data/config/DatasetMetadata'
+import { dataSourceMetadataMap } from '../data/config/MetadataMap'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
-import CardWrapper from './CardWrapper'
-import DemographicGroupMenu from './ui/DemographicGroupMenu'
-import { ExtremesListBox } from './ui/ExtremesListBox'
-import MissingDataAlert from './ui/MissingDataAlert'
-import MultiMapDialog from './ui/MultiMapDialog'
-import { findVerboseRating } from './ui/SviAlert'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
+import { exclude } from '../data/query/BreakdownFilter'
+import {
+  Breakdowns,
+  DEMOGRAPHIC_DISPLAY_TYPES,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+  type DemographicTypeDisplayName,
+} from '../data/query/Breakdowns'
+import {
+  MetricQuery,
+  type MetricQueryResponse,
+} from '../data/query/MetricQuery'
+import { getSortArgs } from '../data/sorting/sortingUtils'
+import {
+  ALL,
+  type DemographicGroup,
+  NON_HISPANIC,
+  RACE,
+  UNKNOWN,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN_RACE,
+} from '../data/utils/Constants'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import { getExtremeValues } from '../data/utils/datasetutils'
+import { Fips } from '../data/utils/Fips'
+import HetDivider from '../styles/HetComponents/HetDivider'
+import HetLinkButton from '../styles/HetComponents/HetLinkButton'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import HetTerm from '../styles/HetComponents/HetTerm'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import { useLocation } from 'react-router-dom'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useMemo, useState } from 'react'
-import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
-import { Legend } from '../charts/Legend'
-import GeoContext, {
-  getSubPopulationPhrase,
-  getTotalACSPopulationPhrase,
-} from './ui/GeoContext'
-import TerritoryCircles from './ui/TerritoryCircles'
-import { GridView } from '@mui/icons-material'
+import type { MadLibId } from '../utils/MadLibs'
 import {
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,
@@ -61,29 +63,21 @@ import {
   getParameter,
   setParameter,
 } from '../utils/urlutils'
+import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import { useParamState } from '../utils/hooks/useParamState'
-import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
-import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import type { MadLibId } from '../utils/MadLibs'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import HetLinkButton from '../styles/HetComponents/HetLinkButton'
-import HetDivider from '../styles/HetComponents/HetDivider'
-import { dataSourceMetadataMap } from '../data/config/MetadataMap'
-import type { DatasetId } from '../data/config/DatasetMetadata'
-import HetNotice from '../styles/HetComponents/HetNotice'
-import HetTerm from '../styles/HetComponents/HetTerm'
-import { getSortArgs } from '../data/sorting/sortingUtils'
+import DemographicGroupMenu from './ui/DemographicGroupMenu'
+import { ExtremesListBox } from './ui/ExtremesListBox'
+import GeoContext, {
+  getSubPopulationPhrase,
+  getTotalACSPopulationPhrase,
+} from './ui/GeoContext'
+import MissingDataAlert from './ui/MissingDataAlert'
+import MultiMapDialog from './ui/MultiMapDialog'
+import { findVerboseRating } from './ui/SviAlert'
+import TerritoryCircles from './ui/TerritoryCircles'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
-const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-  '#map-group-dropdown',
-  '#download-card-image-button',
-  '#card-options-menu',
-]
 
 interface MapCardProps {
   className?: string
@@ -268,7 +262,6 @@ function MapCardWithKey(props: MapCardProps) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
-  const defaultClasses = 'shadow-raised bg-white'
 
   return (
     <CardWrapper
@@ -278,10 +271,9 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={extremesMode}
       isCompareCard={props.isCompareCard}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
@@ -335,13 +327,15 @@ function MapCardWithKey(props: MapCardProps) {
 
         let dataForActiveDemographicGroup = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
-          .filter((row: Row) => row[demographicType] === activeDemographicGroup)
+          .filter(
+            (row: HetRow) => row[demographicType] === activeDemographicGroup,
+          )
 
         const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
-          (row: Row) => row[demographicType] === activeDemographicGroup,
+          (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
 
-        const dataForSvi: Row[] =
+        const dataForSvi: HetRow[] =
           sviQueryResponse
             ?.getValidRowsForField(SVI)
             ?.filter((row) =>
@@ -487,7 +481,7 @@ function MapCardWithKey(props: MapCardProps) {
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
-              <div id='map-group-dropdown' className='pb-1 pt-0 text-left'>
+              <div className='pb-1 pt-0 text-left hide-on-screenshot remove-height-on-screenshot'>
                 <DemographicGroupMenu
                   idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                   demographicType={demographicType}

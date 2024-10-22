@@ -4,14 +4,10 @@ import type {
   MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
-import { Sources } from './ui/Sources'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import {
-  type ElementHashIdHiddenOnScreenshot,
-  useDownloadCardImage,
-} from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
+import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -30,23 +26,14 @@ function CardWrapper(props: {
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
   reportTitle: string
-  elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
   isCompareCard?: boolean
   className?: string
+  hasIntersectionalAllCompareBar?: boolean
 }) {
-  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    props.downloadTitle,
-    props.elementsToHide,
-    props.scrollToHash,
-    props.expanded,
-  )
-
-  const defaultClasses = 'shadow-raised bg-white'
-
   const loadingComponent = (
     <div
-      className={`rounded relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={`rounded relative m-2 p-3 shadow-raised bg-white flex justify-center ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
@@ -63,12 +50,10 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
-            ref={screenshotTargetRef}
+            className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
             tabIndex={-1}
           >
             <CardOptionsMenu
-              downloadTargetScreenshot={downloadTargetScreenshot}
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />
@@ -80,6 +65,9 @@ function CardWrapper(props: {
                 queryResponses={queryResponses}
                 showDefinition={props.scrollToHash === 'rate-map'}
                 isCompareCard={props.isCompareCard}
+                hasIntersectionalAllCompareBar={
+                  props.hasIntersectionalAllCompareBar
+                }
               />
             )}
           </article>

@@ -40,6 +40,7 @@ import type { DemographicGroup } from '../../data/utils/Constants'
 import ChartTitle from '../../cards/ChartTitle'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { X_AXIS_MAX_TICKS } from '../utils'
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -67,7 +68,6 @@ export function TrendsChart({
   setSelectedTableGroups,
   isCompareCard,
   expanded,
-  setExpanded,
   hasUnknowns,
 }: TrendsChartProps) {
   const isSm = useIsBreakpointAndUp('sm')
@@ -181,7 +181,8 @@ export function TrendsChart({
     marginLeft,
     width - marginRight,
   ])
-  axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length : null // d3 was adding duplicate time period ticks to sets with very few time periods
+  axisConfig.xAxisMaxTicks =
+    dates.length < X_AXIS_MAX_TICKS ? dates.length : null // d3 was adding duplicate time period ticks to sets with very few time periods
 
   // Y-Scale
   const yScale = scaleLinear(yExtent as [number, number], [
@@ -303,6 +304,7 @@ export function TrendsChart({
       {/* Chart */}
       {filteredData && xScale && yScale && (
         <>
+          {/* biome-ignore lint/a11y/noSvgWithoutTitle: using aria-labelledby instead */}
           <svg
             height={CONFIG.HEIGHT}
             width={width}
@@ -310,7 +312,6 @@ export function TrendsChart({
             onMouseLeave={() => {
               setHoveredDate(null)
             }}
-            role='group'
             aria-labelledby={chartTitleId}
           >
             {/* Chart Axes */}
@@ -344,7 +345,13 @@ export function TrendsChart({
                 opacity: hoveredDate ? 1 : 0,
               }}
             >
-              <line y1={HEIGHT - marginBottom} y2={MARGIN.top} x1={0} x2={0} />
+              <line
+                className='transition-opacity delay-300 duration-200 ease-linear'
+                y1={HEIGHT - marginBottom}
+                y2={MARGIN.top}
+                x1={0}
+                x2={0}
+              />
               <HoverCircles
                 data={filteredData}
                 selectedDate={hoveredDate}

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import React from 'react'
 import {
   CRISIS_OVERVIEW_TAB,
   CURRENT_EFFORTS_TAB,
@@ -9,30 +9,38 @@ import {
   OUR_FINDINGS_TAB,
   REFORM_OPPORTUNITIES_TAB,
 } from '../../../utils/internalRoutes'
-import CrisisOverviewTab from '../policySections/CrisisOverviewTab'
-import CurrentEffortsTab from '../policySections/CurrentEffortsTab'
-import DataCollectionTab from '../policySections/DataCollectionTab'
-import FaqsTab from '../policySections/FaqsTab'
-import HowToUseTheDataTab from '../policySections/HowToUseTheDataTab'
-import ReformOpportunitiesTab from '../policySections/ReformOpportunitiesTab'
-import GunViolencePolicyHomeLink from '../policySections/GunViolencePolicyHomeLink'
-import OurFindingsTab from '../policySections/OurFindingsTab'
+import type { RouteConfig } from '../../sharedTypes'
 
-export type RouteConfig = {
-  isTopLevel?: boolean
-  label: string
-  path: string
-  component?: () => ReactNode
-  subLinks?: RouteConfig[]
-  visible?: boolean
-}
+// Lazy Load components for code-splitting
+const CrisisOverviewTab = React.lazy(
+  () => import('../policySections/CrisisOverviewTab'),
+)
+const CurrentEffortsTab = React.lazy(
+  () => import('../policySections/CurrentEffortsTab'),
+)
+const DataCollectionTab = React.lazy(
+  () => import('../policySections/DataCollectionTab'),
+)
+const FaqsTab = React.lazy(() => import('../policySections/FaqsTab'))
+const HowToUseTheDataTab = React.lazy(
+  () => import('../policySections/HowToUseTheDataTab'),
+)
+const ReformOpportunitiesTab = React.lazy(
+  () => import('../policySections/ReformOpportunitiesTab'),
+)
+const GunViolencePolicyHomeLink = React.lazy(
+  () => import('../policySections/GunViolencePolicyHomeLink'),
+)
+const OurFindingsTab = React.lazy(
+  () => import('../policySections/OurFindingsTab'),
+)
 
-export const routeConfigs: RouteConfig[] = [
+export const policyRouteConfigs: RouteConfig[] = [
   {
     isTopLevel: true,
     label: 'Policy Context Introduction',
     path: GUN_VIOLENCE_POLICY,
-    component: GunViolencePolicyHomeLink,
+    component: <GunViolencePolicyHomeLink />,
     subLinks: [],
     visible: false,
   },
@@ -40,11 +48,11 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Crisis Overview',
     path: CRISIS_OVERVIEW_TAB,
-    component: CrisisOverviewTab,
+    component: <CrisisOverviewTab />,
     subLinks: [
       {
         label: 'Understanding the Crisis of Gun Violence in Atlanta',
-        path: '#introduction',
+        path: 'introduction',
       },
     ],
     visible: true,
@@ -53,27 +61,27 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Data Collection',
     path: DATA_COLLECTION_TAB,
-    component: DataCollectionTab,
+    component: <DataCollectionTab />,
     subLinks: [
       {
         label: `CDC's WISQARS™`,
-        path: '#source-profile',
+        path: 'source-profile',
       },
       {
         label: 'Key Metrics',
-        path: '#key-metrics',
+        path: 'key-metrics',
       },
       {
         label: 'Data Limitations',
-        path: '#data-limitations',
+        path: 'data-limitations',
       },
       {
         label: 'Fatality Definitions',
-        path: '#fatality-definitions',
+        path: 'fatality-definitions',
       },
       {
         label: 'Available Data',
-        path: '#available-data',
+        path: 'available-data',
       },
     ],
     visible: true,
@@ -82,23 +90,23 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Our Findings',
     path: OUR_FINDINGS_TAB,
-    component: OurFindingsTab,
+    component: <OurFindingsTab />,
     subLinks: [
       {
         label: `Georgia's Youth Fatality Rates`,
-        path: '#ga-youth-fatalities',
+        path: 'ga-youth-fatalities',
       },
       {
         label: `Georgia's Homicide Rates`,
-        path: '#ga-homicides',
+        path: 'ga-homicides',
       },
       {
         label: `Georgia's Suicide Rates`,
-        path: '#ga-suicides',
+        path: 'ga-suicides',
       },
       {
         label: `Georgia's Homicide Rates Among Black Men`,
-        path: '#ga-homicides-urbanicity',
+        path: 'ga-homicides-city-size',
       },
     ],
     visible: true,
@@ -107,31 +115,31 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Current Efforts',
     path: CURRENT_EFFORTS_TAB,
-    component: CurrentEffortsTab,
+    component: <CurrentEffortsTab />,
     subLinks: [
       {
         label: 'Health Inequities Defined',
-        path: '#health-inequities-definition',
-      },      
+        path: 'health-inequities-definition',
+      },
       {
         label: 'Economic Inequality',
-        path: '#economic-inequality',
+        path: 'economic-inequality',
       },
       {
         label: 'Educational Opportunities',
-        path: '#educational-opportunities',
+        path: 'educational-opportunities',
       },
       {
         label: 'Racial and Social Justice',
-        path: '#racial-and-social-justice',
-      },      
+        path: 'racial-and-social-justice',
+      },
       {
         label: 'Mental Health Services',
-        path: '#mental-health-services',
+        path: 'mental-health-services',
       },
       {
         label: 'Community Engagement',
-        path: '#community-engagement',
+        path: 'community-engagement',
       },
     ],
     visible: true,
@@ -140,15 +148,15 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Reform Opportunities',
     path: REFORM_OPPORTUNITIES_TAB,
-    component: ReformOpportunitiesTab,
+    component: <ReformOpportunitiesTab />,
     subLinks: [
       {
         label: 'Insights from the Advocacy Community',
-        path: '#where-to-start',
+        path: 'where-to-start',
       },
       {
         label: 'Legislative Items to Consider for Policy Changes',
-        path: '#legislative-items',
+        path: 'legislative-items',
       },
     ],
     visible: true,
@@ -157,49 +165,51 @@ export const routeConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'How to Use the Data',
     path: HOW_TO_USE_THE_DATA_TAB,
-    component: HowToUseTheDataTab,
+    component: <HowToUseTheDataTab />,
     subLinks: [
       {
         label: 'HET Data Visualization Maps and Charts',
-        path: '#het-data-visualizations',
+        path: 'het-data-visualizations',
       },
       {
         label: 'Rate Choropleth Map',
-        path: '#rate-choropleth-map',
+        path: 'rate-choropleth-map',
       },
       {
         label: 'Rates Over Time Chart',
-        path: '#rates-over-time-chart',
+        path: 'rates-over-time-chart',
       },
       {
         label: 'Rate Bar Chart',
-        path: '#rate-bar-chart',
+        path: 'rate-bar-chart',
       },
       {
         label: 'Unknown Demographic Choropleth Map',
-        path: '#unknown-demographic-choropleth-map',
+        path: 'unknown-demographic-choropleth-map',
       },
       {
         label: 'Relative Inequity Chart',
-        path: '#relative-inequity-chart',
+        path: 'relative-inequity-chart',
       },
       {
         label: 'Population vs. Distribution Stacked Bar Chart',
-        path: '#population-vs-distribution-stacked-bar-chart',
+        path: 'population-vs-distribution-stacked-bar-chart',
       },
       {
         label: 'Breakdown Summary Data Table',
-        path: '#breakdown-summary-data-table',
+        path: 'breakdown-summary-data-table',
       },
     ],
     visible: true,
   },
   {
     isTopLevel: true,
-    label: 'FAQs',
+    label: 'Community Safety FAQs',
     path: FAQS_TAB,
-    component: FaqsTab,
+    component: <FaqsTab />,
     subLinks: [],
     visible: true,
   },
 ]
+
+export default policyRouteConfigs

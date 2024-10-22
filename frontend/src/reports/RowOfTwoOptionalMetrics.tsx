@@ -40,7 +40,7 @@ export default function RowOfTwoOptionalMetrics(
       : props.dataTypeConfig2
 
   return (
-    <div className='flex w-full flex-wrap'>
+    <div id={`${props.id}-row`} className='flex w-full flex-wrap'>
       <div
         tabIndex={-1}
         className='w-full gap-2 md:w-1/2 lg:gap-3'

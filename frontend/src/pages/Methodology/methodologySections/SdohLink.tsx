@@ -44,7 +44,7 @@ export const sdohTopicsString = buildTopicsString(SDOH_CATEGORY_DROPDOWNIDS)
 
 function SdohLink() {
   return (
-    <section id='#sdoh'>
+    <section id='sdoh'>
       <article>
         <Helmet>
           <title>Social Determinants of Health - Health Equity Tracker</title>
@@ -52,7 +52,7 @@ function SdohLink() {
         <h2 className='sr-only'>Social Determinants of Health</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -65,7 +65,7 @@ function SdohLink() {
             },
           ]}
         />
-        <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='sdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -85,7 +85,7 @@ function SdohLink() {
 
         <AhrMetrics />
 
-        <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='sdoh-data-sources'>
           Data Sources
         </h3>
         <StripedTable
@@ -97,7 +97,7 @@ function SdohLink() {
           rows={sdohDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -108,11 +108,11 @@ function SdohLink() {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#sdoh-key-terms'
+          hashId='sdoh-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
 
-        <Resources id='#sdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
+        <Resources id='sdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
   )

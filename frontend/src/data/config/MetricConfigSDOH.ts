@@ -191,6 +191,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
     ageSubPopulationLabel: 'Ages 18+',
     metrics: {
       pct_rate: {
+        timeSeriesCadence: 'yearly',
         metricId: 'avoided_care_pct_rate',
         chartTitle: 'Care avoidance due to cost',
         columnTitleHeader: 'Care avoidance due to cost',
@@ -246,6 +247,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
     otherSubPopulationLabel: 'Medicare beneficiaries, Ages 18+',
     metrics: {
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'preventable_hospitalizations_per_100k',
         chartTitle: 'Preventable hospitalizations',
         columnTitleHeader:

@@ -25,7 +25,7 @@ export const medicareTopicsString = buildTopicsString(
 
 export default function MedicareMedicationLink() {
   return (
-    <section id='#medication-utilization'>
+    <section id='medication-utilization'>
       <article>
         <Helmet>
           <title>Medication Utilization - Health Equity Tracker</title>
@@ -33,7 +33,7 @@ export default function MedicareMedicationLink() {
         <h2 className='sr-only'>HIV</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -49,7 +49,7 @@ export default function MedicareMedicationLink() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#medication-utilization-data-sourcing'
+          id='medication-utilization-data-sourcing'
         >
           Data Sourcing
         </h3>
@@ -402,7 +402,7 @@ export default function MedicareMedicationLink() {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#medication-utilization-data-sources'
+          id='medication-utilization-data-sources'
         >
           Data Sources
         </h3>
@@ -415,7 +415,7 @@ export default function MedicareMedicationLink() {
           rows={medicareMedicationDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -426,11 +426,11 @@ export default function MedicareMedicationLink() {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#medication-utilization-key-terms'
+          hashId='medication-utilization-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
         <Resources
-          id='#medication-utilization-resources'
+          id='medication-utilization-resources'
           resourceGroups={[MEDICARE_MEDICATION_RESOURCES]}
         />
       </article>

@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
   type Column,
   type HeaderGroup,
-  type Row,
+  type Row as ReactTableRowType,
   usePagination,
   useSortBy,
   useTable,
@@ -153,7 +153,7 @@ export function TableChart(props: TableChartProps) {
   }
 
   /** Component for the table's data rows **/
-  function TableDataRow({ row }: { row: Row<any> }) {
+  function TableDataRow({ row }: { row: ReactTableRowType<any> }) {
     const numeratorCount = props.countColsMap.numeratorConfig?.metricId
       ? row.original[
           props.countColsMap.numeratorConfig.metricId
@@ -235,15 +235,17 @@ export function TableChart(props: TableChartProps) {
             <Table {...getTableProps()}>
               <TableHead>
                 {headerGroups.map((group, index) => (
-                  <TableHeaderRow group={group} key={index} />
+                  <TableHeaderRow
+                    group={group}
+                    key={group.id || `group-${index}`}
+                  />
                 ))}
               </TableHead>
               <TableBody {...getTableBodyProps()}>
-                {page.map((row: Row<any>, index) => (
-                  <TableDataRow row={row} key={index} />
+                {page.map((row: ReactTableRowType<any>, index) => (
+                  <TableDataRow row={row} key={row.id || `row-${index}`} />
                 ))}
               </TableBody>
-              {/* If the number of rows is less than the smallest page size, we can hide pagination */}
               {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
                 <TableFooter>
                   <TableRow>
@@ -251,17 +253,15 @@ export function TableChart(props: TableChartProps) {
                       count={memoData.length}
                       rowsPerPage={pageSize}
                       page={pageIndex}
-                      onPageChange={(event, newPage) => {
-                        gotoPage(newPage)
-                      }}
-                      onRowsPerPageChange={(event) => {
+                      onPageChange={(_, newPage) => gotoPage(newPage)}
+                      onRowsPerPageChange={(event) =>
                         setPageSize(Number(event.target.value))
-                      }}
+                      }
                       rowsPerPageOptions={[
                         MAX_NUM_ROWS_WITHOUT_PAGINATION,
                         MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
                         MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                      ]} // If changed, update pagination condition above
+                      ]}
                     />
                   </TableRow>
                 </TableFooter>

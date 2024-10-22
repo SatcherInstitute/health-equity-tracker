@@ -6,7 +6,7 @@ import SviAlert from './SviAlert'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 
 interface GeoContextProps {
   fips: Fips
@@ -47,13 +47,13 @@ export default function GeoContext(props: GeoContextProps) {
 
 const POP_MISSING_VALUE = 'unavailable'
 
-export function getTotalACSPopulationPhrase(populationData: Row[]): string {
+export function getTotalACSPopulationPhrase(populationData: HetRow[]): string {
   const popAllCount: string = populationData[0].population.toLocaleString()
   return `Total population: ${popAllCount ?? POP_MISSING_VALUE} (from ACS 2022)`
 }
 
 export function getSubPopulationPhrase(
-  subPopulationData: Row[],
+  subPopulationData: HetRow[],
   subPopulationSourceLabel: string,
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig,

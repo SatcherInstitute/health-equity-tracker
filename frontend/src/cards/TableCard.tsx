@@ -17,7 +17,7 @@ import {
 } from '../data/utils/datasetutils'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
@@ -25,7 +25,6 @@ import {
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import type { CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
@@ -105,10 +104,6 @@ export default function TableCard(props: TableCardProps) {
 
   const HASH_ID: ScrollableHashId = 'data-table'
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   const subtitle = generateSubtitle(
     ALL,
     props.demographicType,
@@ -124,7 +119,6 @@ export default function TableCard(props: TableCardProps) {
       queries={[query]}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       className={props.className}
     >
       {([queryResponse]) => {
@@ -137,7 +131,9 @@ export default function TableCard(props: TableCardProps) {
           normalMetricIds = metricIds.filter(
             (id) => id !== 'confined_children_estimated_total',
           )
-          data = data.filter((row: Row) => row[props.demographicType] !== ALL)
+          data = data.filter(
+            (row: HetRow) => row[props.demographicType] !== ALL,
+          )
         }
 
         const showMissingDataAlert =

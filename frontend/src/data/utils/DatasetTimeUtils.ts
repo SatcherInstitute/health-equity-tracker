@@ -8,7 +8,7 @@ import {
   TIME_PERIOD,
   TIME_PERIOD_LABEL,
 } from './Constants'
-import type { Row } from './DatasetTypes'
+import type { HetRow } from './DatasetTypes'
 
 const MONTHLY_LENGTH = 7
 const YEARLY_LENGTH = 4
@@ -70,7 +70,7 @@ After (Time-Series / D3) Example:
 
 */
 
-export function generateConsecutivePeriods(data: Row[]): string[] {
+export function generateConsecutivePeriods(data: HetRow[]): string[] {
   // scan dataset for earliest and latest time_period
   const shippedTimePeriods = data.map((row) => row.time_period).sort()
   const minPeriod = shippedTimePeriods[0]
@@ -110,7 +110,7 @@ export function generateConsecutivePeriods(data: Row[]): string[] {
 // This function rebuilds the dataset ensuring a row for every time period
 // between the earliest and latest date, interpolating nulls as needed
 // At this point, data has already been filtered to a single demographic group in a single Fips location and those fields are irrelevant
-export function interpolateTimePeriods(data: Row[]) {
+export function interpolateTimePeriods(data: HetRow[]) {
   const consecutivePeriods = generateConsecutivePeriods(data)
   const interpolatedData = []
 
@@ -128,16 +128,21 @@ export function interpolateTimePeriods(data: Row[]) {
 Accepts fetched, "known" data, along with all expected groups, the current demographic breakdown type, and a target metric, and restructures the data into the nested array format required by d3 for the time-series charts
 */
 export function getNestedData(
-  data: Row[],
+  data: HetRow[],
   demographicGroups: DemographicGroup[],
   demographicType: DemographicType,
   metricId: MetricId,
+  keepOnlyElectionYears?: boolean,
 ): TrendsData {
   if (!data.some((row) => row[TIME_PERIOD])) return []
 
   const nestedRates = demographicGroups.map((group) => {
     let groupRows = data.filter((row) => row[demographicType] === group)
     groupRows = interpolateTimePeriods(groupRows)
+
+    if (keepOnlyElectionYears) {
+      groupRows = getElectionYearData(groupRows)
+    }
 
     const groupTimeSeries = groupRows.map((row) => [
       row[TIME_PERIOD],
@@ -153,7 +158,7 @@ export function getNestedData(
 Accepts fetched, prefiltered data that only contains rows with unknown pct_share data, and a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
 */
 export function getNestedUnknowns(
-  unknownsData?: Row[],
+  unknownsData?: HetRow[],
   metricId?: MetricId,
 ): TimeSeries {
   if (!metricId || !unknownsData) return []
@@ -166,14 +171,14 @@ export function getNestedUnknowns(
 To present the data from the visual charts in a more accessible manner (including but not restricted to screen reader users) we need to once again recstructure the data so that each rows represents a time_period, and the columns can present the available demographic groups, along with the "unknown_pct_share" context we present visually in the blue bubbles
 */
 export function makeA11yTableData(
-  knownsData: Row[],
-  unknownsData: Row[],
+  knownsData: HetRow[],
+  unknownsData: HetRow[],
   demographicType: DemographicType,
   knownMetric: MetricConfig,
   unknownMetric: MetricConfig | undefined,
   selectedGroups: DemographicGroup[],
   hasUnknowns: boolean,
-): Row[] {
+): HetRow[] {
   const allTimePeriods = Array.from(
     new Set(knownsData.map((row) => row[TIME_PERIOD])),
   ).sort((a, b) => b.localeCompare(a))
@@ -280,4 +285,11 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   ]
 
   return lowestAndHighestGroups
+}
+
+export function getElectionYearData(data: HetRow[]): HetRow[] {
+  // this works because the first presidential election year happened to be evenly divisible by 4,
+  // and presidential election years have been held every 4 years since
+  data = data.filter((row: HetRow) => row[TIME_PERIOD] % 4 === 0)
+  return data
 }

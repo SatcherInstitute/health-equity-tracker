@@ -94,7 +94,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [MULTI_W]: timeDarkRed,
   // race and ethnicity for HIV
   [MULTI_NH]: timeDarkRed,
-  [OTHER_NONSTANDARD_NH]: timePink,
+  [OTHER_NONSTANDARD_NH]: darkBlue,
   //  race and ethnicity for INCARCERATION
   [API_NH]: timePink,
   // sex
@@ -149,8 +149,15 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '75-79': mapMedicareLighter,
   '80-84': mapMedicareLightest,
   '85+': altGrey,
+  // age for AHR
+  '15-24': timeCyanBlue,
+  '18-44': timeCyanBlue,
+  '24-34': timePink,
+  '45-64': mapLight,
+  '65+': timeYellow,
+  '75-84': mapLighter,
 
-  // urbanicity
+  // urbanicity / City Size
   Metro: timePurple,
   'Non-Metro': timeYellow,
 }

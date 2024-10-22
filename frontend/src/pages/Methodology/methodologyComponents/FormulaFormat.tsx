@@ -21,8 +21,15 @@ export default function FormulaFormat(props: FormulaFormatProps) {
         </div>
         <div className='px-2 py-1'>{' = '}</div>
 
-        {props.rightSide.map((item, index) => (
-          <div className='p-2' key={index}>
+        {props.rightSide.map((item) => (
+          <div
+            className='p-2'
+            key={
+              typeof item === 'string'
+                ? item
+                : `${item.numerator}-${item.denominator}`
+            }
+          >
             {typeof item === 'string' ? (
               item
             ) : (

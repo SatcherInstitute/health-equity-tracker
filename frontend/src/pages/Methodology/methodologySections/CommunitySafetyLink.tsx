@@ -24,7 +24,7 @@ export const dataTypeConfigs = COMMUNITY_SAFETY_DROPDOWNIDS.flatMap(
 
 const CommunitySafetyLink = () => {
   return (
-    <section id='#community-safety'>
+    <section id='community-safety'>
       <article>
         <Helmet>
           <title>Community Safety - Health Equity Tracker</title>
@@ -32,7 +32,7 @@ const CommunitySafetyLink = () => {
         <h2 className='sr-only'>Community Safety</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -48,7 +48,7 @@ const CommunitySafetyLink = () => {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#community-safety-data-sourcing'
+          id='community-safety-data-sourcing'
         >
           Data Sourcing
         </h3>
@@ -135,19 +135,36 @@ const CommunitySafetyLink = () => {
             </p>
             <p>
               <strong>Age:</strong> WISQARS provides the age of each individual
-              at the time of death. We categorized age into the following
+              at the time of death. We group and present this data in several
+              ways, both as focused reports and as a demographic
+              disaggregations.
+            </p>
+            <p>For our "Youth" reports we present:</p>
+            <ul className='list-inside list-disc pl-4'>
+              <li>0-17 years old (Children)</li>
+              <li>18-25 years old (Young Adults)</li>
+            </ul>
+            <p>
+              For our other reports, we categorize age into the following
               groups:
             </p>
+
             <ul className='list-inside list-disc pl-4'>
-              <li>0-17 years old</li>
-              <li>18-25 years old</li>
+              <li>0-14 years old</li>
+              <li>15-19 years old</li>
+              <li>20-24 years old</li>
+              <li>25-29 years old</li>
+              <li>30-34 years old</li>
+              <li>35-44 years old</li>
+              <li>45-64 years old</li>
+              <li>65 years old and over</li>
             </ul>
           </div>
         </section>
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#community-safety-data-sources'
+          id='community-safety-data-sources'
         >
           Data Sources
         </h3>
@@ -161,7 +178,7 @@ const CommunitySafetyLink = () => {
           rows={communitySafetyDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -172,7 +189,7 @@ const CommunitySafetyLink = () => {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#community-safety-key-terms'
+          hashId='community-safety-key-terms'
           datatypeConfigs={dataTypeConfigs}
         />
       </article>

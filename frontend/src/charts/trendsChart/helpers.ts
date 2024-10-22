@@ -94,12 +94,14 @@ function getWidthPctShare(
   d: TimeSeries,
   selectedDate: string | null,
   data: TrendsData,
-) {
-  const width =
-    (Math.abs(getAmountsByDate(d, selectedDate)) /
-      (getMaxNumberForDate(data, selectedDate) ?? 1)) *
-    (BAR_WIDTH / 4)
-  return width
+): number {
+  const amount = getAmountsByDate(d, selectedDate) ?? 0
+  const maxNumber = getMaxNumberForDate(data, selectedDate) ?? 1 // Ensure non-zero denominator
+
+  if (maxNumber === 0) return 0 // Prevent division by zero
+
+  const width = (Math.abs(amount) / maxNumber) * (BAR_WIDTH / 4)
+  return Number.isFinite(width) ? width : 0 // Return 0 if width is NaN or Infinity
 }
 
 /* Returns the width of the tooltip bar for the hundred k chart for a specific group and date */
@@ -107,12 +109,14 @@ function getWidthHundredK(
   d: TimeSeries,
   selectedDate: string | null,
   data: TrendsData,
-) {
-  const width =
-    (getAmountsByDate(d, selectedDate) /
-      (getMaxNumberForDate(data, selectedDate) ?? 1)) *
-    (BAR_WIDTH / 2)
-  return width ?? 0
+): number {
+  const amount = getAmountsByDate(d, selectedDate) ?? 0
+  const maxNumber = getMaxNumberForDate(data, selectedDate) ?? 1 // Ensure non-zero denominator
+
+  if (maxNumber === 0) return 0 // Prevent division by zero
+
+  const width = (amount / maxNumber) * (BAR_WIDTH / 2)
+  return Number.isFinite(width) ? width : 0 // Return 0 if width is NaN or Infinity
 }
 
 /* Returns the number of pixels to translate tooltip bar for the percent share chart for a specific group and date */

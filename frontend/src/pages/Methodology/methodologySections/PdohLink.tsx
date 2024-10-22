@@ -29,7 +29,7 @@ export const pdohTopicsString = buildTopicsString(PDOH_CATEGORY_DROPDOWNIDS)
 
 const PdohLink = () => {
   return (
-    <section id='#pdoh'>
+    <section id='pdoh'>
       <article>
         <Helmet>
           <title>
@@ -39,7 +39,7 @@ const PdohLink = () => {
         <h2 className='sr-only'>Political Determinants of Health</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -52,7 +52,7 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='pdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -107,7 +107,7 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='#jails-vs-prisons'>
+        <h3 className='mt-12 text-title font-medium' id='jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
         <h4>Jails</h4>
@@ -149,7 +149,7 @@ const PdohLink = () => {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#children-in-adult-facilities'
+          id='children-in-adult-facilities'
         >
           Children in Adult Facilities
         </h3>
@@ -172,7 +172,7 @@ const PdohLink = () => {
             populations.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='#combined-systems'>
+        <h3 className='mt-12 text-title font-medium' id='combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -181,7 +181,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#political-forces'>
+        <h3 className='mt-12 text-title font-medium' id='political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -201,7 +201,7 @@ const PdohLink = () => {
         </p>
         <h3
           className='mt-12 text-title font-medium'
-          id='#health-impact-of-incarceration'
+          id='health-impact-of-incarceration'
         >
           Health Impact of Incarceration
         </h3>
@@ -226,7 +226,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#women-in-gov'>
+        <h3 className='mt-12 text-title font-medium' id='women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -238,7 +238,7 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-metrics'>
+        <h3 className='mt-12 text-title font-medium' id='pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
@@ -288,7 +288,7 @@ const PdohLink = () => {
           </li>
         </ol>
 
-        <h3 className='mt-12 text-title font-medium' id='#historical-tracking'>
+        <h3 className='mt-12 text-title font-medium' id='historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -316,7 +316,7 @@ const PdohLink = () => {
         </p>
         <h3
           className='mt-12 text-title font-medium'
-          id='#race-ethnicity-groupings-and-challenges'
+          id='race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
         </h3>
@@ -341,7 +341,7 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='#pdoh-missing-data'>
+        <h3 className='mt-12 text-title font-medium' id='pdoh-missing-data'>
           Missing Data
         </h3>
         <p>
@@ -357,7 +357,7 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-resources'>
+        <h3 className='mt-12 text-title font-medium' id='pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable
@@ -369,7 +369,7 @@ const PdohLink = () => {
           rows={pdohDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -379,11 +379,11 @@ const PdohLink = () => {
           }))}
         />
         <KeyTermsTopicsAccordion
-          hashId='#pdoh-key-terms'
+          hashId='pdoh-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
 
-        <Resources id='#pdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
+        <Resources id='pdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
   )

@@ -29,7 +29,6 @@ import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
 import { getMetricIdToConfigMap } from '../data/config/MetricConfigUtils'
@@ -96,12 +95,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
-  const defaultClasses = 'shadow-raised bg-white'
-
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -109,8 +102,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

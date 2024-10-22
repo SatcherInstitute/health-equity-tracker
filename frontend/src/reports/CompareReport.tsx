@@ -1,19 +1,36 @@
+import { useAtom } from 'jotai'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
+import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
+import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
-import SimpleBarChartCard from '../cards/SimpleBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../data/config/MetricConfigTypes'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import Sidebar from '../pages/ui/Sidebar'
+import { useParamState } from '../utils/hooks/useParamState'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MadLibId } from '../utils/MadLibs'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -23,26 +40,12 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { Helmet } from 'react-helmet-async'
-import Sidebar from '../pages/ui/Sidebar'
-import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-import type { MadLibId } from '../utils/MadLibs'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
-import { useAtom } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
-import { useParamState } from '../utils/hooks/useParamState'
-import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
-import type {
-  DataTypeId,
-  DataTypeConfig,
-} from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
+import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
+
+export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -125,7 +128,7 @@ export default function CompareReport(props: CompareReportProps) {
       const newDtParam2 =
         props.trackerMode === 'comparegeos'
           ? newDtParam1
-          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
+          : (dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0])
       setDtConfig2(newDtParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')
@@ -150,18 +153,18 @@ export default function CompareReport(props: CompareReportProps) {
     return <></>
   }
 
-  const rateConfig1 = metricConfigFromDtConfig('rate', dataTypeConfig1)
-  const rateConfig2 = metricConfigFromDtConfig('rate', dataTypeConfig2)
-  const inequityConfig1 = metricConfigFromDtConfig('inequity', dataTypeConfig1)
-  const inequityConfig2 = metricConfigFromDtConfig('inequity', dataTypeConfig2)
-  const ageAdjustedRatioConfig1 = metricConfigFromDtConfig(
-    'ratio',
-    dataTypeConfig1,
-  )
-  const ageAdjustedRatioConfig2 = metricConfigFromDtConfig(
-    'ratio',
-    dataTypeConfig2,
-  )
+  const rateConfig1 =
+    dataTypeConfig1 && metricConfigFromDtConfig('rate', dataTypeConfig1)
+  const rateConfig2 =
+    dataTypeConfig2 && metricConfigFromDtConfig('rate', dataTypeConfig2)
+  const inequityConfig1 =
+    dataTypeConfig1 && metricConfigFromDtConfig('inequity', dataTypeConfig1)
+  const inequityConfig2 =
+    dataTypeConfig2 && metricConfigFromDtConfig('inequity', dataTypeConfig2)
+  const ageAdjustedRatioConfig1 =
+    dataTypeConfig1 && metricConfigFromDtConfig('ratio', dataTypeConfig1)
+  const ageAdjustedRatioConfig2 =
+    dataTypeConfig2 && metricConfigFromDtConfig('ratio', dataTypeConfig2)
   const showRatesOverTimeCardRow =
     rateConfig1?.timeSeriesCadence || rateConfig2?.timeSeriesCadence
   const showInequitiesOverTimeCardRow = inequityConfig1 || inequityConfig2
@@ -184,6 +187,9 @@ export default function CompareReport(props: CompareReportProps) {
     props.dropdownVarId2,
   ].includes('covid')
 
+  const showCorrelationCard =
+    SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
+
   return (
     <>
       <Helmet>
@@ -204,6 +210,17 @@ export default function CompareReport(props: CompareReportProps) {
           />
 
           <div className='flex w-full flex-col content-center '>
+            {showCorrelationCard && (
+              <CompareBubbleChartCard
+                fips1={props.fips1}
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
+                rateConfig1={rateConfig1}
+                rateConfig2={rateConfig2}
+                demographicType={demographicType}
+                reportTitle={props.reportTitle}
+              />
+            )}
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
@@ -279,7 +296,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void,
               ) => (
-                <SimpleBarChartCard
+                <RateBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}

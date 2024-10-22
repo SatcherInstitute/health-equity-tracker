@@ -4,7 +4,7 @@ import type {
   MetricType,
 } from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
-import type { FieldRange, Row } from '../data/utils/DatasetTypes'
+import type { FieldRange, HetRow } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
 import {
   type DemographicGroup,
@@ -254,7 +254,7 @@ export function createInvisibleAltMarks(
 Generate meaningful alt text
 */
 export function makeAltText(
-  data: Row[],
+  data: HetRow[],
   filename: string,
   fips: Fips,
   overrideShapeWithCircle?: boolean,
@@ -302,7 +302,7 @@ export function getProjection(
 /*
 Calculate the min and max value for the given metricId
 */
-export function getLegendDataBounds(data: Row[], metricId: MetricId) {
+export function getLegendDataBounds(data: HetRow[], metricId: MetricId) {
   const legendLowerBound = Math.min(...data.map((row) => row[metricId]))
   const legendUpperBound = Math.max(...data.map((row) => row[metricId]))
 
@@ -311,7 +311,7 @@ export function getLegendDataBounds(data: Row[], metricId: MetricId) {
 
 /* Figure out if a reduced number of legend color buckets is needed */
 export function calculateLegendColorCount(
-  legendData: Row[],
+  legendData: HetRow[],
   metricId: MetricId,
 ) {
   const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
@@ -323,7 +323,7 @@ export function calculateLegendColorCount(
 
 /* SET UP COLOR SCALE */
 export function setupColorScale(
-  legendData: Row[],
+  legendData: HetRow[],
   metricId: MetricId,
   scaleType: ScaleType,
   fieldRange?: FieldRange,
@@ -369,7 +369,7 @@ export function setupColorScale(
 
 export function getHighestLowestGroupsByFips(
   dataTypeConfig: DataTypeConfig,
-  fullData?: Row[],
+  fullData?: HetRow[],
   demographicType?: DemographicType,
   metricId?: MetricId,
 ) {
@@ -391,7 +391,7 @@ export function getHighestLowestGroupsByFips(
       new Set(dataForFips.map((row) => row[metricId])),
     )
     if (validUniqueRates.length > 1) {
-      const ascendingRows: Row[] = dataForFips.sort(
+      const ascendingRows: HetRow[] = dataForFips.sort(
         (a, b) => a[metricId] - b[metricId],
       )
       const ascendingGroups: DemographicGroup[] = ascendingRows.map(

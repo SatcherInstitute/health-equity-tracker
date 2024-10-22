@@ -11,13 +11,13 @@ import RaceEthnicityList from './RacesEthnicitiesList'
 
 export default function RacesAndEthnicitiesLink() {
   return (
-    <section id='#races-and-ethnicities'>
+    <section id='races-and-ethnicities'>
       <article>
         <Helmet>
           <title>Races and Ethnicities - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Races and Ethnicities</h2>
-        <h3 className='mt-12 text-title font-medium' id='#data-gaps'>
+        <h3 className='mt-12 text-title font-medium' id='data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
         </h3>
         <p>

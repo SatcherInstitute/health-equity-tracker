@@ -1,42 +1,41 @@
-import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
-import type { Fips } from '../data/utils/Fips'
+import { addComparisonAllsRowToIntersectionalData } from '../charts/rateBarChart/helpers'
+import { RateBarChart } from '../charts/rateBarChart/Index'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { isPctType } from '../data/config/MetricConfigUtils'
+import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/providers/HivProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { MetricId, DataTypeConfig } from '../data/config/MetricConfigTypes'
-import CardWrapper from './CardWrapper'
-import { exclude } from '../data/query/BreakdownFilter'
 import {
   AIAN_API,
   ALL,
   NON_HISPANIC,
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
-import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
+import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import {
-  DATATYPES_NEEDING_13PLUS,
-  GENDER_METRICS,
-} from '../data/providers/HivProvider'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
-import { isPctType } from '../data/config/MetricConfigUtils'
+import MissingDataAlert from './ui/MissingDataAlert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-interface SimpleBarChartCardProps {
-  key?: string
+interface RateBarChartCardProps {
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
@@ -46,22 +45,13 @@ interface SimpleBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export default function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-  return (
-    <SimpleBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.demographicType}
-      {...props}
-    />
-  )
-}
-
-function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
-  const metricConfig =
+export default function RateBarChartCard(props: RateBarChartCardProps) {
+  const rateConfig =
     props.dataTypeConfig.metrics?.per100k ??
     props.dataTypeConfig.metrics?.pct_rate ??
     props.dataTypeConfig.metrics?.index
 
-  if (!metricConfig) return <></>
+  if (!rateConfig) return <></>
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId,
@@ -75,7 +65,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   )
 
   const metricIdsToFetch: MetricId[] = []
-  metricIdsToFetch.push(metricConfig.metricId)
+  metricIdsToFetch.push(rateConfig.metricId)
   isIncarceration && metricIdsToFetch.push('confined_children_estimated_total')
 
   if (isHIV) {
@@ -94,8 +84,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* timeView */ 'current',
   )
 
+  const queries = [query]
+
   const chartTitle = generateChartTitle(
-    /* chartTitle: */ metricConfig.chartTitle,
+    /* chartTitle: */ rateConfig.chartTitle,
     /* fips: */ props.fips,
   )
 
@@ -110,31 +102,58 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
+  const rateComparisonConfig = rateConfig?.rateComparisonMetricForAlls
 
-  const defaultClasses = 'shadow-raised bg-white'
+  if (rateComparisonConfig) {
+    // fetch the ALL rate to embed against intersectional breakdowns
+    const breakdownsForAlls = Breakdowns.forFips(props.fips).addBreakdown(
+      'sex',
+      exclude('Male', 'Female'),
+    )
+
+    const allsRateQuery = new MetricQuery(
+      [rateComparisonConfig.metricId],
+      breakdownsForAlls,
+      /* dataTypeId */ props.dataTypeConfig.rateComparisonDataTypeId,
+      /* timeView */ 'current',
+    )
+
+    queries.push(allsRateQuery)
+  }
 
   return (
     <CardWrapper
       downloadTitle={filename}
-      queries={[query]}
+      queries={queries}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
+      hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
     >
-      {([queryResponse], metadata) => {
+      {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
-        const data = queryResponse
-          .getValidRowsForField(metricConfig.metricId)
+        let data = rateQueryResponseRate
+          .getValidRowsForField(rateConfig.metricId)
           .filter((row) => row[props.demographicType] !== 'Unknown')
+
+        if (rateComparisonConfig) {
+          data = addComparisonAllsRowToIntersectionalData(
+            data,
+            props.demographicType,
+            rateConfig,
+            rateComparisonConfig,
+            rateQueryResponseRateAlls,
+          )
+        }
 
         const hideChart =
           data.length === 0 ||
-          queryResponse.shouldShowMissingDataMessage([metricConfig.metricId])
+          rateQueryResponseRate.shouldShowMissingDataMessage([
+            rateConfig.metricId,
+          ])
+
+        const comparisonAllSubGroup = props.dataTypeConfig.ageSubPopulationLabel
 
         return (
           <>
@@ -156,25 +175,27 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
             ) : (
               <>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
-
-                <SimpleHorizontalBarChart
+                <RateBarChart
                   data={data}
                   demographicType={props.demographicType}
-                  metric={metricConfig}
+                  metricConfig={rateConfig}
                   filename={filename}
-                  usePercentSuffix={isPctType(metricConfig.type)}
+                  usePercentSuffix={isPctType(rateConfig.type)}
+                  fips={props.fips}
+                  useIntersectionalComparisonAlls={!!rateComparisonConfig}
+                  comparisonAllSubGroup={comparisonAllSubGroup}
                 />
                 {isIncarceration && (
                   <IncarceratedChildrenShortAlert
                     fips={props.fips}
-                    queryResponse={queryResponse}
+                    queryResponse={rateQueryResponseRate}
                     demographicType={props.demographicType}
                   />
                 )}
                 {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
                   <GenderDataShortAlert
                     fips={props.fips}
-                    queryResponse={queryResponse}
+                    queryResponse={rateQueryResponseRate}
                     demographicType={props.demographicType}
                     dataTypeId={props.dataTypeConfig.dataTypeId}
                   />
@@ -184,7 +205,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     fips={props.fips}
                     demographicType={props.demographicType}
                     metadata={metadata}
-                    queryResponse={queryResponse}
+                    queryResponse={rateQueryResponseRate}
                   />
                 )}
               </>

@@ -18,7 +18,7 @@ import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
 
 function GlossaryLink() {
   return (
-    <section id='#health-equity-terms'>
+    <section id='health-equity-terms'>
       <article>
         <Helmet>
           <title>Glossary - Health Equity Tracker</title>
@@ -27,29 +27,29 @@ function GlossaryLink() {
 
         <GlossaryTerm topic={''} definitionItems={termDefinitions} />
 
-        <Resources resourceGroups={[RESOURCES]} id='#health-equity-resources' />
+        <Resources resourceGroups={[RESOURCES]} id='health-equity-resources' />
         <Resources
           resourceGroups={[EQUITY_INDEX_RESOURCES]}
-          id='#equity-index-resources'
+          id='equity-index-resources'
         />
         <Resources
           resourceGroups={[ECONOMIC_EQUITY_RESOURCES]}
-          id='#economic-equity-resources'
+          id='economic-equity-resources'
         />
         <Resources
           resourceGroups={[MENTAL_HEALTH_RESOURCES]}
-          id='#mental-health-resources'
+          id='mental-health-resources'
         />
-        <Resources resourceGroups={[COVID_RESOURCES]} id='#covid-resources' />
+        <Resources resourceGroups={[COVID_RESOURCES]} id='covid-resources' />
         <Resources
           resourceGroups={[COVID_VACCINATION_RESOURCES]}
-          id='#covid-vaccination-resources'
+          id='covid-vaccination-resources'
         />
-        <Resources resourceGroups={[HIV_RESOURCES]} id='#hiv-resources' />
-        <Resources resourceGroups={[AIAN_RESOURCES]} id='#aian-resources' />
-        <Resources resourceGroups={[API_RESOURCES]} id='#api-resources' />
-        <Resources resourceGroups={[HISP_RESOURCES]} id='#hisp-resources' />
-        <Resources resourceGroups={[PDOH_RESOURCES]} id='#pdoh-resources' />
+        <Resources resourceGroups={[HIV_RESOURCES]} id='hiv-resources' />
+        <Resources resourceGroups={[AIAN_RESOURCES]} id='aian-resources' />
+        <Resources resourceGroups={[API_RESOURCES]} id='api-resources' />
+        <Resources resourceGroups={[HISP_RESOURCES]} id='hisp-resources' />
+        <Resources resourceGroups={[PDOH_RESOURCES]} id='pdoh-resources' />
       </article>
     </section>
   )

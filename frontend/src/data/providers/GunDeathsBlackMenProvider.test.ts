@@ -76,7 +76,7 @@ describe('GunDeathsBlackMenProvider', () => {
     )
   })
 
-  test('Current State and Urbanicity Breakdown', async () => {
+  test('Current State and City Size Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current',
       Breakdowns.forFips(new Fips('01')),

@@ -29,7 +29,7 @@ export const chronicDiseaseTopicsString = buildTopicsString(
 
 const ChronicDiseaseLink = () => {
   return (
-    <section id='#chronic-diseases'>
+    <section id='chronic-diseases'>
       <article>
         <Helmet>
           <title>Chronic Diseases - Health Equity Tracker</title>
@@ -37,7 +37,7 @@ const ChronicDiseaseLink = () => {
         <h2 className='sr-only'>Chronic Diseases</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -52,7 +52,7 @@ const ChronicDiseaseLink = () => {
         />
         <h3
           className='mt-12 text-title font-medium'
-          id='#chronic-diseases-data-sourcing'
+          id='chronic-diseases-data-sourcing'
         >
           Data Sourcing
         </h3>
@@ -76,7 +76,7 @@ const ChronicDiseaseLink = () => {
 
         <h3
           className='mt-12 text-title font-medium'
-          id='#chronic-diseases-data-sources'
+          id='chronic-diseases-data-sources'
         >
           Data Sources
         </h3>
@@ -89,7 +89,7 @@ const ChronicDiseaseLink = () => {
           rows={chronicDiseaseDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -100,7 +100,7 @@ const ChronicDiseaseLink = () => {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#chronic-diseases-key-terms'
+          hashId='chronic-diseases-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
       </article>

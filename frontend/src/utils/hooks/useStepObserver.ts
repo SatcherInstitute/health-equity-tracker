@@ -18,6 +18,7 @@ export type ScrollableHashId =
   | 'data-table'
   | 'age-adjusted-ratios'
   | 'definitions-missing-data'
+  | 'multimap-modal'
 
 export function useStepObserver(
   stepIds: ScrollableHashId[],

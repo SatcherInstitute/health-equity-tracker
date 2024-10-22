@@ -4,7 +4,7 @@ import type {
   MetricConfig,
   DataTypeConfig,
 } from '../../data/config/MetricConfigTypes'
-import type { Row } from '../../data/utils/DatasetTypes'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { Fips } from '../../data/utils/Fips'
@@ -26,8 +26,8 @@ interface ExtremesListBoxProps {
   isOpen: boolean
   // Expand or collapse the list
   setIsOpen: (isOpen: boolean) => void
-  highestValues: Row[]
-  lowestValues: Row[]
+  highestValues: HetRow[]
+  lowestValues: HetRow[]
   // items in highest/lowest list that should receive qualifiers
   qualifierItems?: string[]
   // message to display under a list with qualifiers
@@ -61,7 +61,7 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
       duration={500}
       height={props.isOpen ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 rounded-md bg-listboxColor text-left'
+      className={`mt-4 rounded-md bg-listboxColor text-left ${props.isOpen ? '' : 'hide-on-screenshot'}`}
     >
       <HetExpandableBoxButton
         expandBoxLabel={`${placesType} rate extremes`}

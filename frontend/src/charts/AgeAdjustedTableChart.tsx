@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
   type Column,
   type HeaderGroup,
-  type Row,
+  type Row as ReactTableRowType,
   useSortBy,
   useTable,
 } from 'react-table'
@@ -103,7 +103,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   }
 
   /** Component for the table's data rows **/
-  function TableDataRow({ row }: { row: Row<any> }) {
+  function TableDataRow({ row }: { row: ReactTableRowType<any> }) {
     prepareRow(row)
     const { key, ...restRowProps } = row.getRowProps()
 
@@ -148,12 +148,15 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
             <Table {...getTableProps()}>
               <TableHead>
                 {headerGroups.map((group, index) => (
-                  <TableHeaderRow group={group} key={index} />
+                  <TableHeaderRow
+                    group={group}
+                    key={group.id || `group-${index}`}
+                  />
                 ))}
               </TableHead>
               <TableBody {...getTableBodyProps()}>
-                {rows.map((row: Row<any>, index) => (
-                  <TableDataRow row={row} key={index} />
+                {rows.map((row: ReactTableRowType<any>, index) => (
+                  <TableDataRow row={row} key={row.id || `row-${index}`} />
                 ))}
               </TableBody>
               <TableFooter>

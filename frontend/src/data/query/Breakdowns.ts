@@ -1,6 +1,5 @@
 import { Fips } from '../utils/Fips'
 import type BreakdownFilter from './BreakdownFilter'
-
 export type TimeView = 'current' | 'historical'
 
 export type GeographicBreakdown =
@@ -47,7 +46,7 @@ export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   income: 'Income',
   education: 'Education',
   insurance_status: 'Insurance',
-  urbanicity: 'Urbanicity',
+  urbanicity: 'City Size',
 } as const
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
@@ -61,10 +60,10 @@ export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
   race_and_ethnicity: 'race and ethnicity',
   age: 'age',
   sex: 'sex',
-  fips: 'FIPs codes',
+  fips: 'FIPS codes',
   lis: 'low income subsidy',
   eligibility: 'eligibility',
-  urbanicity: 'urbanicity',
+  urbanicity: 'city size',
   income: 'income',
   education: 'education',
   insurance_status: 'insurance',
@@ -323,7 +322,7 @@ export class Breakdowns {
     )
   }
 
-  hasOnlyUrbanicity() {
+  hasOnlyCitySize() {
     return (
       this.hasExactlyOneDemographic() &&
       this.demographicBreakdowns.urbanicity.enabled
@@ -362,4 +361,15 @@ export class Breakdowns {
     )
     return joinCols.sort()
   }
+}
+
+const smallerDemographicLabelTypes: DemographicType[] = [
+  'sex',
+  'age',
+  'insurance_status',
+]
+
+// if all the groups in the breakdown have few letters, useful when we need to estimate the width of the y-axis labels
+export function hasSkinnyGroupLabels(demographicType: DemographicType) {
+  return smallerDemographicLabelTypes.includes(demographicType)
 }

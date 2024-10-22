@@ -9,8 +9,9 @@ import {
   getNestedUnknowns,
   makeA11yTableData,
   getMinMaxGroups,
+  getElectionYearData,
 } from './DatasetTimeUtils'
-import type { Row } from './DatasetTypes'
+import type { HetRow } from './DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from './datasetutils'
 
 describe('Tests for time_period functions', () => {
@@ -156,7 +157,7 @@ describe('Tests for A11y Table Data functions', () => {
       'sex',
     )
 
-    const expectedA11yTableDataOnlyMale: Row[] = [
+    const expectedA11yTableDataOnlyMale: HetRow[] = [
       {
         '% of total jail population with unknown sex': 40,
         Male: 2000,
@@ -212,5 +213,29 @@ describe('Tests getPrettyDate() function', () => {
   })
   test("don't convert, just pass through sneaky almost matching string", () => {
     expect(getPrettyDate('ABCD-YZ')).toEqual('ABCD-YZ')
+  })
+})
+
+describe('getElectionYearData', () => {
+  it('should return only election years (divisible by 4)', () => {
+    const inputData: HetRow[] = [
+      { time_period: '2008', voter_participation_pct_rate: 47.6 },
+      { time_period: '2009' },
+      { time_period: '2010' },
+      { time_period: '2011' },
+      { time_period: '2012', voter_participation_pct_rate: 47.3 },
+      { time_period: '2013' },
+      { time_period: '2014' },
+      { time_period: '2015' },
+      { time_period: '2016', voter_participation_pct_rate: 49 },
+    ]
+
+    const result = getElectionYearData(inputData)
+
+    expect(result).toEqual([
+      { time_period: '2008', voter_participation_pct_rate: 47.6 },
+      { time_period: '2012', voter_participation_pct_rate: 47.3 },
+      { time_period: '2016', voter_participation_pct_rate: 49 },
+    ])
   })
 })

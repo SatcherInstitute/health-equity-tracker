@@ -29,13 +29,12 @@ import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import type { Row } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { HIV_METRICS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import type { ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 
 /* minimize layout shift */
@@ -112,14 +111,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 
-  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
-    '#card-options-menu',
-  ]
-
   const queries = [inequityQuery]
   pctShareQuery && queries.push(pctShareQuery)
-
-  const defaultClasses = 'shadow-raised bg-white'
 
   return (
     <CardWrapper
@@ -128,9 +121,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      elementsToHide={elementsToHide}
       expanded={a11yTableExpanded}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={props.className}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
@@ -139,7 +131,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         // swap race labels if applicable
         const inequityDataLabelled = isCawp
-          ? inequityData.map((row: Row) => {
+          ? inequityData.map((row: HetRow) => {
               const altRow = { ...row }
               altRow.race_and_ethnicity = getWomenRaceLabel(
                 row.race_and_ethnicity,
@@ -228,8 +220,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
                         props.demographicType
                       ],
-                    xAxisIsMonthly:
-                      metricConfigInequitable.timeSeriesCadence === 'monthly',
+                    xAxisTimeSeriesCadence:
+                      metricConfigInequitable.timeSeriesCadence,
                   }}
                   demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}

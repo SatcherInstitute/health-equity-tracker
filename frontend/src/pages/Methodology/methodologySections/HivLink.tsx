@@ -25,7 +25,7 @@ export const hivTopicsString = buildTopicsString(HIV_CATEGORY_DROPDOWNIDS)
 
 const HivLink = () => {
   return (
-    <section id='#hiv'>
+    <section id='hiv'>
       <article>
         <Helmet>
           <title>HIV - Health Equity Tracker</title>
@@ -33,7 +33,7 @@ const HivLink = () => {
         <h2 className='sr-only'>HIV</h2>
 
         <StripedTable
-          id='#categories-table'
+          id='categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -47,10 +47,10 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='#hiv-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='hiv-data-sourcing'>
           Data Sourcing
         </h3>
-        <p id='#hiv'>
+        <p id='hiv'>
           The CDC's National Center for HIV, Viral Hepatitis, STD, and TB
           Prevention (NCHHSTP) collects and studies information on the number of
           people diagnosed with HIV in the United States. This information is
@@ -90,7 +90,7 @@ const HivLink = () => {
         </p>
         <h3
           className='mt-12 text-title font-medium'
-          id='#hiv-variable-data-compilation'
+          id='hiv-variable-data-compilation'
         >
           Variable Data Compilation and Analysis
         </h3>
@@ -208,7 +208,7 @@ const HivLink = () => {
         </HetNotice>
         <h3
           className='mt-12 text-title font-medium'
-          id='#hiv-missing-and-suppressed-data'
+          id='hiv-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
         </h3>
@@ -248,7 +248,7 @@ const HivLink = () => {
           Islander" under the pre-1997 Office of Management and Budget (OMB)
           race/ethnicity classification system when querying HIV prevalence.
         </p>
-        <h3 className='mt-12 text-title font-medium' id='#prep-coverage'>
+        <h3 className='mt-12 text-title font-medium' id='prep-coverage'>
           Defining PrEP Coverage as a Percentage
         </h3>
         <p>
@@ -384,7 +384,7 @@ const HivLink = () => {
         />
         <h3
           className='mt-12 text-title font-medium'
-          id='#prep-missing-and-suppressed-data'
+          id='prep-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data
         </h3>
@@ -410,7 +410,7 @@ const HivLink = () => {
           <li>if the number of persons prescribed PrEP is less than 40.</li>
         </ul>
 
-        <h3 className='mt-12 text-title font-medium' id='#linkage-to-care'>
+        <h3 className='mt-12 text-title font-medium' id='linkage-to-care'>
           Linkage to Care
         </h3>
         <p>
@@ -510,7 +510,7 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='#stigma'>
+        <h3 className='mt-12 text-title font-medium' id='stigma'>
           HIV Stigma
         </h3>
         <p>
@@ -559,7 +559,7 @@ const HivLink = () => {
           assess the prevalence and impact of HIV stigma.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='#hiv-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='hiv-data-sources'>
           Data Sources
         </h3>
         <StripedTable
@@ -571,7 +571,7 @@ const HivLink = () => {
           rows={hivDataSources.map((source, index) => ({
             source: (
               <a
-                key={index}
+                key={source.data_source_name}
                 href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
               >
                 {source.data_source_name}
@@ -582,10 +582,10 @@ const HivLink = () => {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#hiv-key-terms'
+          hashId='hiv-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
-        <Resources id='#hiv-resources' resourceGroups={[HIV_RESOURCES]} />
+        <Resources id='hiv-resources' resourceGroups={[HIV_RESOURCES]} />
       </article>
     </section>
   )

@@ -75,6 +75,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'depression_per_100k',
         chartTitle: 'Depression',
         columnTitleHeader: 'Cases of depression per 100k adults',
@@ -139,6 +140,7 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'excessive_drinking_per_100k',
         columnTitleHeader: 'Excessive drinking cases per 100k adults',
         chartTitle: 'Excessive drinking cases',
@@ -204,6 +206,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'non_medical_drug_use_per_100k',
         columnTitleHeader: 'Non-medical drug use per 100k adults',
         chartTitle: 'Non-medical drug use',
@@ -269,6 +272,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'frequent_mental_distress_per_100k',
         chartTitle: 'Frequent mental distress',
         columnTitleHeader: 'Frequent mental distress cases per 100k adults',
@@ -325,6 +329,7 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
+        timeSeriesCadence: 'yearly',
         metricId: 'suicide_per_100k',
         chartTitle: 'Suicides',
         columnTitleHeader: 'Suicides per 100k people',
