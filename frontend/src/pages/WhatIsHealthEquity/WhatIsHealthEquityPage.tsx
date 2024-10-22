@@ -45,7 +45,8 @@ export default function WhatIsHealthEquityPage() {
         className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
       >
         <h1
-          id='main-heading'
+          id='main'
+          tabIndex={-1}
           className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
         >
           What is Health Equity?
