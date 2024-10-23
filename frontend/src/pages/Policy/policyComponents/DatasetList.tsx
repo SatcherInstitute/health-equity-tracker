@@ -1,19 +1,23 @@
-import type React from 'react'
+import React from 'react'
 import { CheckRounded, BlockRounded } from '@mui/icons-material'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
-interface DatasetListProps {
-  datasets: Array<{
-    datasetName: string
-    datasetNameDetails?: string
-    items: Array<{
-      label: string
-      included: boolean
-    }>
-  }>
+interface DatasetItem {
+  label: string
+  included: boolean
 }
 
-const DatasetList: React.FC<DatasetListProps> = ({ datasets }) => {
+interface Dataset {
+  datasetName: string
+  datasetNameDetails?: string
+  items: DatasetItem[]
+}
+
+interface DatasetListProps {
+  datasets: Dataset[]
+}
+
+export default function DatasetList({ datasets }: DatasetListProps) {
   return (
     <div className='grid grid-cols-2 md:grid-cols-3'>
       {datasets.map((dataset) => (
@@ -46,5 +50,3 @@ const DatasetList: React.FC<DatasetListProps> = ({ datasets }) => {
     </div>
   )
 }
-
-export default DatasetList

@@ -1,4 +1,14 @@
-export const datasets = [
+interface DatasetItem {
+  label: string
+  included: boolean
+}
+
+interface Dataset {
+  datasetName: string
+  datasetNameDetails?: string
+  items: DatasetItem[]
+}
+export const datasets: Dataset[] = [
   {
     datasetName: 'Gun Deaths',
     datasetNameDetails: '(Children, 0-17)',

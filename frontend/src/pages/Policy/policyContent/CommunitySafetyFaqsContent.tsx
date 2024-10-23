@@ -1,11 +1,26 @@
 import HetButtonSecondary from '../../../styles/HetComponents/HetButtonSecondary'
 import { HEALTH_EQUITY_GUIDES_TAB } from '../../../utils/internalRoutes'
 import DatasetList from '../policyComponents/DatasetList'
-import { datasets } from './DataCollectionContent'
+import { datasets } from '../policyContent/DataCollectionContent'
 
 interface OptionGroupProps {
   title: string
   children: React.ReactNode
+}
+
+interface DatasetItem {
+  label: string
+  included: boolean
+}
+
+interface Dataset {
+  datasetName: string
+  datasetNameDetails?: string
+  items: DatasetItem[]
+}
+
+interface DataDescriptionProps {
+  datasets: Dataset[]
 }
 
 const OptionGroup = ({ title, children }: OptionGroupProps) => (
@@ -66,7 +81,7 @@ const RaceEthnicityOptions = () => (
   </div>
 )
 
-export default function DataDescription({ datasets }: { datasets: any }) {
+export default function DataDescription({ datasets }: { datasets: Dataset[] }) {
   return (
     <>
       <p className='mb-0 pb-0'>
@@ -222,8 +237,10 @@ export const communitySafetyFaqs = [
           Additionally, you can find quick insights and tips on our YouTube
           Shorts channel{' '}
           <a
+            aria-label={'link to Health Equity Tracker YouTube channel'}
             href='https://www.youtube.com/@healthequitytracker/shorts'
-            target='_href'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             here
           </a>
