@@ -1,10 +1,10 @@
 import { ABOUT_US_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { selectFAQs } from './FaqData'
+import { faqMapping } from './FaqsPageData'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 
-function FaqTab() {
+function FaqsPage() {
   return (
     <>
       <Helmet>
@@ -288,4 +288,4 @@ function FaqTab() {
   )
 }
 
-export default FaqTab
+export default FaqsPage

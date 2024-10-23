@@ -5,12 +5,12 @@ import {
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 
-export interface FAQ {
+export interface FaqMapping {
   question: string
   answer: JSX.Element
 }
 
-export const selectFAQs: FAQ[] = [
+export const faqMappings: FaqMapping[] = [
   {
     question: 'What is health equity? Why is it important?',
     answer: <AnswerWhatIsHealthEquity />,
