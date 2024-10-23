@@ -1,7 +1,4 @@
 import HetButtonSecondary from '../../../styles/HetComponents/HetButtonSecondary'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
-import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
-import { urlMap } from '../../../utils/externalUrls'
 import { HEALTH_EQUITY_GUIDES_TAB } from '../../../utils/internalRoutes'
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets } from './DataCollectionContent'
