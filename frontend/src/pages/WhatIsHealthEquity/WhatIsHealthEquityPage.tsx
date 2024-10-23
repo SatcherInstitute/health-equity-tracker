@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import FaqSection from '../ui/FaqSection'
+import FaqSection from './wiheSections/FaqSection'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
