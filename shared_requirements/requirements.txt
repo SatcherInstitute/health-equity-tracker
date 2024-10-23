@@ -23,8 +23,8 @@ google-crc32c==1.6.0
 google-resumable-media
 googleapis-common-protos[grpc]==1.65.0
 grpc-google-iam-v1==0.13.1
-grpcio-status==1.66.2
-grpcio==1.66.2
+grpcio-status==1.67.0
+grpcio==1.67.0
 gunicorn==23.0.0
 idna
 importlib-metadata==8.5.0
@@ -33,7 +33,7 @@ isort==5.13.2
 itsdangerous==2.2.0
 jinja2==3.1.4
 libcst==1.5.0
-markupsafe==3.0.1
+markupsafe==3.0.2
 mccabe==0.7.0
 mypy-extensions==1.0.0
 numpy==2.1.2
