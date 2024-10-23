@@ -40,7 +40,7 @@ export default function WhatIsHealthEquityPage() {
 
       <section
         id='main-content'
-        aria-labelledby='main-heading'
+        aria-labelledby='main-content'
         tabIndex={-1}
         className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
       >
@@ -94,7 +94,11 @@ export default function WhatIsHealthEquityPage() {
           </div>
         </div>
       </section>
-      <section id='learning-section' className='bg-whiteSmoke80'>
+      <section
+        aria-labelledby='learning-section'
+        id='learning-section'
+        className='bg-whiteSmoke80'
+      >
         <div className='flex flex-col w-svw justify-center max-w-lgXl p-8 mx-auto'>
           <div className='flex w-full flex-col justify-center max-w-lgXl mx-auto'>
             <HetOverline text={'Trending Topics'} className='text-center' />
@@ -119,7 +123,10 @@ export default function WhatIsHealthEquityPage() {
         </div>
       </section>
 
-      <section className='w-svw flex mx-auto py-16 lgXl:px-0 px-8 items-center justify-center max-w-lgXl'>
+      <section
+        aria-labelledby='select-faqs'
+        className='w-svw flex mx-auto py-16 lgXl:px-0 px-8 items-center justify-center max-w-lgXl'
+      >
         <FaqSection />
       </section>
     </>
