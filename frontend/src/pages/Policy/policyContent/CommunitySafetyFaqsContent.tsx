@@ -1,22 +1,128 @@
+import HetButtonSecondary from '../../../styles/HetComponents/HetButtonSecondary'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import { urlMap } from '../../../utils/externalUrls'
 import { HEALTH_EQUITY_GUIDES_TAB } from '../../../utils/internalRoutes'
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets } from './DataCollectionContent'
 
+interface OptionGroupProps {
+  title: string
+  children: React.ReactNode
+}
+
+const OptionGroup = ({ title, children }: OptionGroupProps) => (
+  <div className='my-4'>
+    <h3 className='my-0 text-title font-medium text-altGreen'>{title}</h3>
+    {children}
+  </div>
+)
+
+const AgeGroupList = () => (
+  <div className='flex flex-col md:flex-row justify-start align-start ml-4'>
+    <div className='w-full flex flex-col md:grid md:grid-cols-8 text-small md:text-text my-2'>
+      <ul className='list-none my-4 pl-0 col-span-2'>
+        <li>Ages 0-14</li>
+        <li>Ages 15-19</li>
+        <li>Ages 20-24</li>
+      </ul>
+      <Divider />
+      <ul className='list-none my-4 pl-0 col-span-2'>
+        <li>Ages 25-29</li>
+        <li>Ages 30-34</li>
+        <li>Ages 35-44</li>
+      </ul>
+      <Divider />
+      <ul className='list-none my-4 pl-0 col-span-2'>
+        <li>Ages 45-64</li>
+        <li>Ages 65+</li>
+      </ul>
+    </div>
+  </div>
+)
+
+const Divider = () => (
+  <div className='border border-solid border-l-0 border-t-0 md:border-b-0 border-b-1.2 border-r-1.2 md:w-fit border-methodologyGreen mx-0 md:mx-10 w-full my-2 md:my-0'></div>
+)
+
+const RaceEthnicityOptions = () => (
+  <div className='flex flex-col md:flex-row justify-start align-start ml-2'>
+    <div className='flex flex-col w-auto my-2'>
+      <p className='my-0 text-altBlack text-text font-semibold'>Races</p>
+      <ul className='list-none text-small pl-1'>
+        <li>Asian</li>
+        <li>Black or African American</li>
+        <li>Hawaiian Native/Pacific Islander</li>
+        <li>Indigenous</li>
+        <li>Individuals of an unrepresented race</li>
+        <li>Individuals of more than one race</li>
+        <li>White</li>
+      </ul>
+    </div>
+    <Divider />
+    <div className='flex flex-col'>
+      <p className='my-0 text-altBlack text-text font-semibold'>Ethnicities</p>
+      <ul className='list-none text-small pl-1'>
+        <li>Hispanic/Latino</li>
+      </ul>
+    </div>
+  </div>
+)
+
+export default function DataDescription({ datasets }: { datasets: any }) {
+  return (
+    <>
+      <p className='mb-0 pb-0'>
+        If the data is available, users can filter the datasets' demographics by
+        age, sex, race and ethnicity, and city-size.
+      </p>
+      <div className='flex flex-col gap-0'>
+        <p className='pb-0 mb-0'>
+          Currently, all of our gun violence datasets include national- and
+          state-level data.
+        </p>
+        <DatasetList datasets={datasets} />
+        <OptionGroup title='Age Group Options'>
+          <p className='my-0 py-0'>
+            Source data from the CDC is available in 5-year increments and
+            single-year groups. We have combined these into larger groupings
+            that highlight at-risk groups while allowing our visualizations to
+            be effective.
+          </p>
+          <AgeGroupList />
+        </OptionGroup>
+        <OptionGroup title='Sex Options'>
+          <p className='my-0 py-0'>
+            Data can be filtered for male and female demographics.
+          </p>
+        </OptionGroup>
+        <OptionGroup title='Race and Ethnicity Options'>
+          <RaceEthnicityOptions />
+        </OptionGroup>
+        <OptionGroup title='City Size Options'>
+          <p className='my-0 py-0'>
+            Data can be filtered for metropolitan and non-metropolitan (e.g.
+            rural) city sizes.
+          </p>
+        </OptionGroup>
+      </div>
+    </>
+  )
+}
+
 export const communitySafetyFaqs = [
   {
     question: 'How does the HET define gun violence fatalities?',
     answer: (
       <>
-        We derive our definitions from the
+        We derive our definitions from the{' '}
         <a
           href='https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports'
           target='_blank'
           rel='noopener noreferrer'
         >
           CDC WISQARS Definitions
-        </a>
+        </a>{' '}
         Fatal Injury Intent Categories.
       </>
     ),
@@ -75,76 +181,7 @@ export const communitySafetyFaqs = [
   },
   {
     question: 'What demographic details can users filter by in the dataset?',
-    answer: (
-      <>
-        <p className='pb-0 mb-0'>
-          Currently, all of our gun violence datasets include national- and
-          state-level data.
-        </p>
-        <DatasetList datasets={datasets} />
-        <p>
-          Additionally, (if the data is available) users can filter the
-          datasets' demographics by:
-        </p>
-        <p className='pt-0 mt-0'>
-          <strong>Age Groups:</strong> Source data from the CDC is available in
-          5-year increments and single-year groups. We have combined these into
-          larger groupings that highlight at-risk groups while allowing our
-          visualizations to be effective.
-        </p>
-        <div className='w-full grid grid-cols-8'>
-          <ul className='list-none my-4 col-span-2'>
-            <li>Ages 0-14</li>
-            <li>Ages 15-19</li>
-            <li>Ages 20-24</li>
-          </ul>
-          <div className='border border-solid border-l-0 border-t-0 border-b-0 border-r-1.2 w-1.2 border-methodologyGreen pr-10 w-fit'></div>
-          <ul className='list-none my-4 col-span-2'>
-            <li>Ages 25-29</li>
-            <li>Ages 30-34</li>
-            <li>Ages 35-44</li>
-          </ul>
-          <div className='border border-solid border-l-0 border-t-0 border-b-0 border-r-1.2 w-1.2 border-methodologyGreen pr-10 w-fit'></div>
-          <ul className='list-none my-4 col-span-2'>
-            <li>Ages 45-64</li>
-            <li>Ages 65+</li>
-          </ul>
-        </div>
-        <p>
-          <strong>Sex:</strong> Data can be filtered for male and female
-          demographics.
-        </p>
-        <p>
-          <strong>Race and Ethnicity Options:</strong>
-        </p>
-        <div className='w-full flex flex-wrap justify-evenly'>
-          <div className='flex flex-col'>
-            <p className='py-0 my-0 font-sansTitle text-text font-medium'>
-              Races
-            </p>
-
-            <ul className='list-none'>
-              <li>Asian</li>
-              <li>Black or African American</li>
-              <li>Hawaiian Native/Pacific Islander</li>
-              <li>Indigenous</li>
-              <li>Individuals of an unrepresented race</li>
-              <li>Individuals of more than one race</li>
-              <li>White</li>
-            </ul>
-          </div>
-          <div className='border border-solid border-l-0 border-t-0 border-b-0 border-r-1.2 w-1.2 border-methodologyGreen pr-10 w-fit'></div>
-          <div className='flex flex-col'>
-            <p className='py-0 my-0 font-sansTitle text-text font-medium'>
-              Ethnicities
-            </p>
-            <ul className='list-none'>
-              <li>Hispanic/Latino</li>
-            </ul>
-          </div>
-        </div>
-      </>
-    ),
+    answer: <DataDescription datasets={datasets} />,
   },
   {
     question: 'How is youth-related violence addressed in the data?',
@@ -152,7 +189,7 @@ export const communitySafetyFaqs = [
       <>
         <p>
           Our dataset on youth-related gun violence specifically addresses gun
-          deaths among two age groups: <strong>children (0-17)</strong> and
+          deaths among two age groups: <strong>children (0-17)</strong> and{' '}
           <strong>young adults (18-25)</strong>.
         </p>
         <p>
@@ -178,13 +215,15 @@ export const communitySafetyFaqs = [
           utilizing gun violence data to demonstrate efficient navigation of the
           platform.
         </p>
-        <HetTextArrowLink
-          link={HEALTH_EQUITY_GUIDES_TAB}
-          linkText={'Watch our How-To Series'}
-        />
+        <div className='flex justify-center'>
+          <HetButtonSecondary
+            text={'Watch our How-To Series'}
+            href={HEALTH_EQUITY_GUIDES_TAB}
+          />
+        </div>
         <p>
           Additionally, you can find quick insights and tips on our YouTube
-          Shorts channel
+          Shorts channel{' '}
           <a
             href='https://www.youtube.com/@healthequitytracker/shorts'
             target='_href'
