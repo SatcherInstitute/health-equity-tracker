@@ -79,7 +79,7 @@ const ShareYourStory = React.lazy(
 const SinglePost = React.lazy(
   async () => await import('./pages/News/SinglePost'),
 )
-const FaqTab = React.lazy(async () => await import('./pages/FAQs/FaqTab'))
+const FaqsPage = React.lazy(async () => await import('./pages/FAQs/FaqsPage'))
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage'),
@@ -153,7 +153,7 @@ export default function App() {
                           </ErrorBoundaryDropParams>
                         }
                       />
-                      <Route path={FULL_FAQS_LINK} element={<FaqTab />} />
+                      <Route path={FULL_FAQS_LINK} element={<FaqsPage />} />
 
                       {/* WHAT IS HEALTH EQUITY ROUTES */}
                       <Route

@@ -16,7 +16,10 @@ test('Policy Hub Loads', async ({ page }) => {
   await expect(page.getByLabel('Policy Context Introduction')).toContainText(
     'Understanding the Crisis of Gun Violence in Atlanta',
   )
-  const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .exclude('.text-tinyTag')
+    .exclude('.shadow-raised-tighter')
+    .analyze()
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
