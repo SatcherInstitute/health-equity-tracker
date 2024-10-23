@@ -1,7 +1,7 @@
 import { ABOUT_US_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { faqMapping } from './FaqsPageData'
+import { faqMappings } from './FaqsPageData'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 
 function FaqsPage() {
@@ -26,26 +26,26 @@ function FaqsPage() {
             <div className='flex flex-wrap'>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[4].question}
+                  {faqMappings[4].question}
                 </h3>
                 <div className='font-sansText font-normal'>
-                  {selectFAQs[4].answer}
+                  {faqMappings[4].answer}
                 </div>
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[2].question}
+                  {faqMappings[2].question}
                 </h3>
                 <div className='font-sansText font-normal'>
-                  {selectFAQs[2].answer}
+                  {faqMappings[2].answer}
                 </div>
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[3].question}
+                  {faqMappings[3].question}
                 </h3>
                 <div className='font-sansText font-normal'>
-                  {selectFAQs[3].answer}
+                  {faqMappings[3].answer}
                 </div>
                 <a href='/datacatalog'>See Data Sources</a>
               </div>
@@ -144,18 +144,18 @@ function FaqsPage() {
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[0].question}
+                  {faqMappings[0].question}
                 </h3>
                 <div className='font-sansText font-normal'>
-                  {selectFAQs[0].answer}
+                  {faqMappings[0].answer}
                 </div>
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
-                  {selectFAQs[1].question}
+                  {faqMappings[1].question}
                 </h3>
                 <div className='font-sansText font-normal'>
-                  {selectFAQs[1].answer}
+                  {faqMappings[1].answer}
                 </div>
               </div>
               <div className='w-full pb-5 text-left'>

@@ -1,7 +1,7 @@
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets } from './DataCollectionContent'
 
-export const policyFaqs = [
+export const communitySafetyFaqs = [
   {
     question: 'How does the HET define gun violence fatalities?',
     answer: (
