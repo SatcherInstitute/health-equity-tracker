@@ -30,7 +30,7 @@ export default function HetButtonSecondary({
   return (
     <Button
       variant='outlined'
-      className={`shadow-none hover:shadow-none rounded-2xl my-2 mx-auto px-8 py-2 w-auto bg-white hover:bg-methodologyGreen ${className ?? ''}`}
+      className={`shadow-none hover:shadow-none hover:border-methodologyGreen rounded-2xl my-2 mx-auto px-8 py-2 w-auto bg-white hover:bg-methodologyGreen ${className ?? ''}`}
       onClick={handleClick}
     >
       <span className='text-small text-altGreen hover:text-altBlack font-bold shadow-none hover:shadow-none'>
