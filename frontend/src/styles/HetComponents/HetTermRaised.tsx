@@ -27,7 +27,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
       case 'start':
         return (
           <>
-            <HetTermUnderline className='text-black'>
+            <HetTermUnderline className='text-black' tabIndex={0}>
               {emphasizedText}
             </HetTermUnderline>{' '}
             {description.replace(emphasizedText, '').trim()}
@@ -43,7 +43,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
           return (
             <>
               {beforeText}{' '}
-              <HetTermUnderline className='text-black'>
+              <HetTermUnderline className='text-black' tabIndex={0}>
                 {emphasizedText}
               </HetTermUnderline>{' '}
               {afterText}
@@ -56,7 +56,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
         return (
           <>
             {description.replace(emphasizedText, '').trim()}{' '}
-            <HetTermUnderline className='text-black'>
+            <HetTermUnderline className='text-black' tabIndex={0}>
               {emphasizedText}
             </HetTermUnderline>
           </>
@@ -67,18 +67,22 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
   }
 
   return (
-    <article
+    <div
       className={`rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur ${className}`}
+      aria-labelledby='term-definition'
     >
       {source && (
-        <span className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1'>
+        <span
+          id='term-source'
+          className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1'
+        >
           {source}
         </span>
       )}
-      <p>
+      <p id='term-definition'>
         <HetTerm>{term}</HetTerm> <em>({termType})</em>:{' '}
         {getFormattedDescription()}
       </p>
-    </article>
+    </div>
   )
 }

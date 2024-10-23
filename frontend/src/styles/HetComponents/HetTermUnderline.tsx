@@ -3,9 +3,14 @@ import { useEffect, useRef, useState } from 'react'
 interface HetTermUnderlineProps {
   children?: string
   className?: string
+  tabIndex?: number
 }
 
-export default function HetTermUnderline(props: HetTermUnderlineProps) {
+export default function HetTermUnderline({
+  children,
+  className,
+  tabIndex = 0,
+}: HetTermUnderlineProps) {
   const spanRef = useRef<HTMLSpanElement>(null)
   const [isVisible, setIsVisible] = useState(false)
   const [marginClass, setMarginClass] = useState('')
@@ -51,12 +56,12 @@ export default function HetTermUnderline(props: HetTermUnderlineProps) {
 
       setMarginClass(margin)
     }
-  }, [props.children])
+  }, [children])
 
   return (
     <span
       ref={spanRef}
-      className={`font-semibold text-altGreen ${props.className} ${marginClass}`}
+      className={`font-semibold text-altGreen ${className} ${marginClass}`}
       style={{
         animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
         backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.2))',
@@ -64,8 +69,14 @@ export default function HetTermUnderline(props: HetTermUnderlineProps) {
         backgroundSize: '0% 8px',
         backgroundRepeat: 'no-repeat',
       }}
+      tabIndex={tabIndex}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+        }
+      }}
     >
-      {props.children}
+      {children}
     </span>
   )
 }

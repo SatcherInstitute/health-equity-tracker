@@ -37,7 +37,7 @@ function HetDesktopMenuItem(props: HetDesktopMenuItemProps) {
           className='mx-2 pl-2 font-roboto'
           selected={window.location.pathname === props.routeConfig.path}
           aria-label={props.routeConfig.label}
-          option={props.routeConfig.isTopLevel ? 'boldGreen' : 'normalBlack'}
+          option={props.routeConfig.isTopLevel ? 'boldGreenCol' : 'normalBlack'}
         >
           {props.routeConfig.label}
         </HetListItemButton>

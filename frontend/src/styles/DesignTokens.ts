@@ -101,7 +101,7 @@ const het = {
   secondaryMain: '#228b7e',
   standardInfo: '#f8f9fa',
   standardWarning: '#fff8eb',
-  tinyTagGray: 'rgba(220, 229, 226, 0.2)',
+  tinyTagGray: 'rgba(220, 229, 226, 0.18)',
   tableZebra: '#FDFFF9',
   teamBorderColor: '#9aa0a6',
   timberwolf: '#cbd0c8',
