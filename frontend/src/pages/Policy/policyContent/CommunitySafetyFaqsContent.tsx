@@ -1,3 +1,6 @@
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import { urlMap } from '../../../utils/externalUrls'
+import { HEALTH_EQUITY_GUIDES_TAB } from '../../../utils/internalRoutes'
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets } from './DataCollectionContent'
 
@@ -6,14 +9,14 @@ export const communitySafetyFaqs = [
     question: 'How does the HET define gun violence fatalities?',
     answer: (
       <>
-        We derive our definitions from the{' '}
+        We derive our definitions from the
         <a
           href='https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports'
           target='_blank'
           rel='noopener noreferrer'
         >
           CDC WISQARS Definitions
-        </a>{' '}
+        </a>
         Fatal Injury Intent Categories.
       </>
     ),
@@ -149,7 +152,7 @@ export const communitySafetyFaqs = [
       <>
         <p>
           Our dataset on youth-related gun violence specifically addresses gun
-          deaths among two age groups: <strong>children (0-17)</strong> and{' '}
+          deaths among two age groups: <strong>children (0-17)</strong> and
           <strong>young adults (18-25)</strong>.
         </p>
         <p>
@@ -169,18 +172,27 @@ export const communitySafetyFaqs = [
     question: 'What can we expect from the instructional video series?',
     answer: (
       <>
-        The upcoming instructional video series will offer clear, concise
-        guidance on how to effectively use the Health Equity Tracker. These
-        short, digestible videos focus on utilizing gun violence data to
-        demonstrate efficient navigation of the platform. Additionally, you can
-        find quick insights and tips on our YouTube Shorts channel{' '}
-        <a
-          href='https://www.youtube.com/@healthequitytracker/shorts'
-          target='_href'
-        >
-          here
-        </a>
-        .
+        <p>
+          The instructional video series offer guidance on how to effectively
+          use the Health Equity Tracker. These short, digestible videos focus on
+          utilizing gun violence data to demonstrate efficient navigation of the
+          platform.
+        </p>
+        <HetTextArrowLink
+          link={HEALTH_EQUITY_GUIDES_TAB}
+          linkText={'Watch our How-To Series'}
+        />
+        <p>
+          Additionally, you can find quick insights and tips on our YouTube
+          Shorts channel
+          <a
+            href='https://www.youtube.com/@healthequitytracker/shorts'
+            target='_href'
+          >
+            here
+          </a>
+          .
+        </p>
       </>
     ),
   },
