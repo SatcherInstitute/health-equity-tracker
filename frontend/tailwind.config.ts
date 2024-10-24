@@ -1,5 +1,9 @@
 import type { Config } from 'tailwindcss'
-import { het, ThemeZIndexValues, ThemeStandardScreenSizes } from './src/styles/DesignTokens'
+import {
+  het,
+  ThemeZIndexValues,
+  ThemeStandardScreenSizes,
+} from './src/styles/DesignTokens'
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -9,16 +13,16 @@ export default {
     maxHeight: ThemeStandardScreenSizes,
     maxWidth: ThemeStandardScreenSizes,
     borderRadius: {
-      'xs': '2px',
-      'sm': '4px',
-      'md': '8px',
-      'lg': '16px',
-      'xl': '30px',
+      xs: '2px',
+      sm: '4px',
+      md: '8px',
+      lg: '16px',
+      xl: '30px',
       '2xl': '40px',
       '3xl': '64px',
     },
     boxShadow: {
-      'raised':
+      raised:
         'rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px',
       'raised-tighter':
         'rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px',
@@ -59,7 +63,10 @@ export default {
       biggestHeader: '4rem',
     },
     // TODO: improve this hack that convinces TS that Tailwind can use z index numbers (not only strings)
-    zIndex: ThemeZIndexValues as Record<string, unknown> as Record<string, string>,
+    zIndex: ThemeZIndexValues as Record<string, unknown> as Record<
+      string,
+      string
+    >,
     extend: {
       maxHeight: {
         aimToGo: '255px',
@@ -68,6 +75,7 @@ export default {
       maxWidth: {
         aimToGo: '255px',
         menu: '320px',
+        onThisPageMenuDesktop: '200px',
         articleLogo: '700px',
         teamHeadshot: '181px',
         teamLogo: '250px',
@@ -78,8 +86,8 @@ export default {
         helperBox: '1200px',
       },
       minHeight: {
-        'multimapMobile': '125px',
-        'multimapDesktop': '175px',
+        multimapMobile: '125px',
+        multimapDesktop: '175px',
         'preload-article': '750px',
       },
       height: {
@@ -87,10 +95,11 @@ export default {
         joinEffortLogo: '720px',
       },
       width: {
-        'littleHetLogo': '30px',
-        'joinEffortLogo': '600px',
+        littleHetLogo: '30px',
+        joinEffortLogo: '600px',
         '90p': '90%',
         '98p': '98%',
+        onThisPageMenuDesktop: '192px',
       },
       padding: {
         '1p': '1%',
@@ -103,8 +112,8 @@ export default {
       },
       strokeWidth: {
         '2.5': '2.5',
-        '5.5': '5.5'
-      }
+        '5.5': '5.5',
+      },
     },
   },
   plugins: [],

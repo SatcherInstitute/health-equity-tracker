@@ -21,7 +21,10 @@ const CurrentEffortsTab = React.lazy(
 const DataCollectionTab = React.lazy(
   () => import('../policySections/DataCollectionTab'),
 )
-const FaqsTab = React.lazy(() => import('../policySections/FaqsTab'))
+const CommunitySafetyFaqsTab = React.lazy(
+  () => import('../policySections/CommunitySafetyFaqsTab'),
+)
+
 const HowToUseTheDataTab = React.lazy(
   () => import('../policySections/HowToUseTheDataTab'),
 )
@@ -206,7 +209,7 @@ export const policyRouteConfigs: RouteConfig[] = [
     isTopLevel: true,
     label: 'Community Safety FAQs',
     path: FAQS_TAB,
-    component: <FaqsTab />,
+    component: <CommunitySafetyFaqsTab />,
     subLinks: [],
     visible: true,
   },

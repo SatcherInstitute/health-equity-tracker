@@ -1,6 +1,17 @@
-export const datasets = [
+interface DatasetItem {
+  label: string
+  included: boolean
+}
+
+interface Dataset {
+  datasetName: string
+  datasetNameDetails?: string
+  items: DatasetItem[]
+}
+export const datasets: Dataset[] = [
   {
-    datasetName: 'Gun Deaths (Children, 0-17)',
+    datasetName: 'Gun Deaths',
+    datasetNameDetails: '(Children, 0-17)',
     items: [
       { label: 'Breakdowns by race/ethnicity', included: true },
       { label: 'Breakdowns by age', included: false },
@@ -9,7 +20,8 @@ export const datasets = [
     ],
   },
   {
-    datasetName: 'Gun Deaths (Young adults, 18-25)',
+    datasetName: 'Gun Deaths',
+    datasetNameDetails: '(Young adults, 18-25)',
     items: [
       { label: 'Breakdowns by race/ethnicity', included: true },
       { label: 'Breakdowns by age', included: false },
@@ -18,7 +30,8 @@ export const datasets = [
     ],
   },
   {
-    datasetName: 'Gun Homicides (Black Men-specific)',
+    datasetName: 'Gun Homicides',
+    datasetNameDetails: '(Black Men-specific)',
     items: [
       { label: 'Breakdowns by race/ethnicity', included: false },
       { label: 'Breakdowns by age', included: true },
@@ -28,6 +41,7 @@ export const datasets = [
   },
   {
     datasetName: 'Gun Homicides',
+    datasetNameDetails: '',
     items: [
       { label: 'Breakdowns by race/ethnicity', included: true },
       { label: 'Breakdowns by age', included: true },
@@ -37,6 +51,7 @@ export const datasets = [
   },
   {
     datasetName: 'Gun Suicides',
+    datasetNameDetails: '',
     items: [
       { label: 'Breakdowns by race/ethnicity', included: true },
       { label: 'Breakdowns by age', included: true },
