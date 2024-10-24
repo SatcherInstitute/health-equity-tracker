@@ -92,6 +92,7 @@ export function HetCarouselCard({
                   />
                 ) : (
                   <iframe
+                    rel='noopener noreferrer'
                     className='w-full rounded-md'
                     height='200px'
                     src={href}
@@ -106,13 +107,15 @@ export function HetCarouselCard({
                     <h4 className='font-semibold text-text my-2 pt-0 leading-lhNormal text-altGreen'>
                       {ariaLabel}
                     </h4>
-                    <p className='text-black text-small leading-lhSomeSpace md:block hidden my-2'>
+                    <p className='text-black text-small text-left leading-lhSomeSpace md:block hidden my-2'>
                       {description}
                     </p>
                   </div>
                   {readMoreHref && (
                     <div className='flex flex-row w-full justify-start items-center gap-2 mb-4 py-0'>
                       <a
+                        target='_blank'
+                        rel='noopener noreferrer'
                         className='ml-auto leading-lhSomeSpace text-small font-medium no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}

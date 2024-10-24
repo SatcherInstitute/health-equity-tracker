@@ -1,7 +1,7 @@
-import { FULL_FAQS_LINK } from '../../utils/internalRoutes'
-import { selectFAQs } from '../FAQs/FaqData'
-import HetAccordion from '../../styles/HetComponents/HetAccordion'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import { FULL_FAQS_LINK } from '../../../utils/internalRoutes'
+import { faqMappings } from '../../FAQs/FaqsPageData'
+import HetAccordion from '../../../styles/HetComponents/HetAccordion'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 
 export default function FaqSection() {
   return (
@@ -10,7 +10,7 @@ export default function FaqSection() {
         Frequently asked questions
       </h3>
 
-      <HetAccordion accordionData={selectFAQs} />
+      <HetAccordion accordionData={faqMappings} />
       <HetTextArrowLink
         link={FULL_FAQS_LINK}
         linkText='See our full FAQ page'

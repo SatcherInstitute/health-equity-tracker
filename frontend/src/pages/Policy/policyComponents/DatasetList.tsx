@@ -1,43 +1,52 @@
-import type React from 'react'
+import React from 'react'
 import { CheckRounded, BlockRounded } from '@mui/icons-material'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
-interface DatasetListProps {
-  datasets: Array<{
-    datasetName: string
-    items: Array<{
-      label: string
-      included: boolean
-    }>
-  }>
+interface DatasetItem {
+  label: string
+  included: boolean
 }
 
-const DatasetList: React.FC<DatasetListProps> = ({
-  datasets,
-}) => {
+interface Dataset {
+  datasetName: string
+  datasetNameDetails?: string
+  items: DatasetItem[]
+}
+
+interface DatasetListProps {
+  datasets: Dataset[]
+}
+
+export default function DatasetList({ datasets }: DatasetListProps) {
   return (
-      <div className='grid grid-cols-2 md:grid-cols-3'>
-        {datasets.map((dataset) => (
-          <div key={dataset.datasetName} className='m-1'>
-            <p className='text-smallest mb-0'>
-            <HetTerm>{dataset.datasetName}</HetTerm>:
+    <div className='grid grid-cols-2 md:grid-cols-3'>
+      {datasets.map((dataset) => (
+        <div key={dataset.datasetName} className='m-1'>
+          <div className='flex flex-col justify-left my-2'>
+            <p className='text-text my-0'>
+              <HetTerm>{dataset.datasetName}</HetTerm>
             </p>
-            <ul className='ml-2 list-none p-0 text-smallest'>
-              {dataset.items.map((item) => (
-                <li key={item.label} className='flex flex-row align-center'>
-                  {item.included ? (
-                    <CheckRounded className='text-text text-altGreen' />
-                  ) : (
-                    <BlockRounded className='text-text text-redOrange' />
-                  )}
-                  <p className='my-0 ml-2'>{item.label}</p>
-                </li>
-              ))}
-            </ul>
+            {dataset.datasetNameDetails && (
+              <p className='text-smallest my-0'>
+                <HetTerm>{dataset.datasetNameDetails}</HetTerm>
+              </p>
+            )}
           </div>
-        ))}
-      </div>  
+
+          <ul className='ml-2 list-none p-0 text-smallest'>
+            {dataset.items.map((item) => (
+              <li key={item.label} className='flex flex-row align-center'>
+                {item.included ? (
+                  <CheckRounded className='text-text text-altGreen' />
+                ) : (
+                  <BlockRounded className='text-text text-redOrange' />
+                )}
+                <p className='my-0 ml-2'>{item.label}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
   )
 }
-
-export default DatasetList

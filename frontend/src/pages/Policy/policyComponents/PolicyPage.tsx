@@ -59,7 +59,7 @@ export default function PolicyPage() {
             </div>
 
             <section className='flex flex-col justify-end mx-8 md:mx-12 my-0'>
-              {activeRoute?.visible && !isMobileView && (
+              {activeRoute?.visible && isMobileView && (
                 <h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-lhNormal'>
                   {activeRoute?.label}
                 </h1>
@@ -73,7 +73,7 @@ export default function PolicyPage() {
             </section>
           </div>
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}
-          <div className='hidden min-w-fit md:block'>
+          <div className='hidden min-w-fit md:block max-w-onThisPageMenuDesktop w-onThisPageMenuDesktop'>
             {policyRouteConfigs.map((routeConfig) => {
               const match = useMatch({
                 path: routeConfig.path,
@@ -83,10 +83,10 @@ export default function PolicyPage() {
                 routeConfig.subLinks && routeConfig.subLinks.length > 0
               return match && hasSublinks ? (
                 <div
-                  className='min-w-40 w-48 max-w-40 sticky top-24 z-almostTop hidden h-min max-w-menu smMd:flex flex-col'
+                  className='min-w-40 max-w-menu w-full sticky top-24 z-almostTop hidden h-min smMd:flex flex-col'
                   key={routeConfig.path}
                 >
-                  <HetOverline text='On this Page' />
+                  <HetOverline className='mt-0' text='On this Page' />
                   <h4
                     id='on-this-page-policy-header'
                     className='mt-2 mb-4 font-sansTitle text-title leading-lhNormal mr-16 w-fit'
