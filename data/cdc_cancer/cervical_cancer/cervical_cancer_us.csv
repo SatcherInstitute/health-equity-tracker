@@ -1,0 +1,58 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Count,Population,Crude Rate
+,1999,1999,Cervix Uteri,27010,13895,140394214,9.9
+,2000,2000,Cervix Uteri,27010,13897,141865770,9.8
+,2001,2001,Cervix Uteri,27010,13268,143603977,9.2
+,2002,2002,Cervix Uteri,27010,12910,144919222,8.9
+,2003,2003,Cervix Uteri,27010,12693,147679036,8.6
+,2004,2004,Cervix Uteri,27010,12503,148977286,8.4
+,2005,2005,Cervix Uteri,27010,12801,150213467,8.5
+,2006,2006,Cervix Uteri,27010,12710,151732647,8.4
+,2007,2007,Cervix Uteri,27010,12732,153166353,8.3
+,2008,2008,Cervix Uteri,27010,12774,154604015,8.3
+,2009,2009,Cervix Uteri,27010,12930,155964075,8.3
+,2010,2010,Cervix Uteri,27010,12544,157247406,8
+,2011,2011,Cervix Uteri,27010,12485,158358565,7.9
+,2012,2012,Cervix Uteri,27010,12465,159454409,7.8
+,2013,2013,Cervix Uteri,27010,12323,160501695,7.7
+,2014,2014,Cervix Uteri,27010,12882,161623478,8
+,2015,2015,Cervix Uteri,27010,13177,162741254,8.1
+,2016,2016,Cervix Uteri,27010,13369,163864557,8.2
+,2017,2017,Cervix Uteri,27010,13210,164851027,8
+,2018,2018,Cervix Uteri,27010,13210,165690421,8
+,2019,2019,Cervix Uteri,27010,13322,166422836,8
+,2020,2020,Cervix Uteri,27010,11929,163570448,7.3
+,2021,2021,Cervix Uteri,27010,12536,163880835,7.6
+---,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,
+Query Parameters:,,,,,,,
+Leading Cancer Sites: Cervix Uteri,,,,,,,
+Group By: Year; Leading Cancer Sites,,,,,,,
+Show Totals: Disabled,,,,,,,
+Show Zero Values: False,,,,,,,
+Show Suppressed: False,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,
+---,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,
+---,,,,,,,
+"Query Date: Aug 20, 2024 10:48:38 AM",,,,,,,
+---,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 10:48:38 AM",,,,,,,
+---,,,,,,,
+Caveats:,,,,,,,
+1. 'Not Applicable' is displayed for all data values when sex-specific cancers are combined with the wrong sex. More,,,,,,,
+information: http://wonder.cdc.gov/wonder/help/cancer-v2021.html#Genital Cancers List.,,,,,,,
+"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,
+misleading.,,,,,,,
+3. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,
+"4. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,
+standard groupings of primary cancer sites.,,,,,,,
+"5. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,
