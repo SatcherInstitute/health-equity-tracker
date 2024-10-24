@@ -12,6 +12,7 @@ import Evan from '../../assets/team/MartinE.jpg'
 import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 
 import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
+import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
 
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import PartnerGilead from '../../assets/partners/PartnerGilead.png'
@@ -300,6 +301,11 @@ export const GRANTORS = [
     imageUrl: GrantorPhrma,
     alt: 'Phrma Foundation',
     url: 'https://phrma.org',
+  },
+  {
+    imageUrl: GrantorElevenLabs,
+    alt: 'ElevenLabs',
+    url: 'https://elevenlabs.io/',
   },
 ]
 
