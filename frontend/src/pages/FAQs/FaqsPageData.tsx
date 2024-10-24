@@ -5,12 +5,14 @@ import {
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 
+// Interface for FAQ mapping
 export interface FaqMapping {
   question: string
   answer: JSX.Element
 }
 
-export const faqMappings: FaqMapping[] = [
+// Existing FAQ mappings from the first set of FAQs
+const faqMappings: FaqMapping[] = [
   {
     question: 'What is health equity? Why is it important?',
     answer: <AnswerWhatIsHealthEquity />,
@@ -33,6 +35,7 @@ export const faqMappings: FaqMapping[] = [
   },
 ]
 
+// Answer components for the first set of FAQs
 function AnswerWhatIsHealthEquity() {
   return (
     <div className='text-small'>
@@ -42,7 +45,6 @@ function AnswerWhatIsHealthEquity() {
         population groups defined socially, economically, demographically or
         geographically”.
       </p>
-
       <p>
         Health Equity exists when all people, regardless of race, sex,
         socio-economic status, geographic location, or other societal constructs
@@ -50,7 +52,6 @@ function AnswerWhatIsHealthEquity() {
         highest potential for health (Health Equity Leadership and Exchange
         Network).
       </p>
-
       <p>
         Health equity is important because everyone, regardless of race,
         ethnicity, sex, or socioeconomic status, should have the opportunity to
@@ -165,3 +166,57 @@ function AnswerHowDidYouAcquire() {
     </div>
   )
 }
+
+// Existing FAQ data from another source (faqsPageData)
+export const faqsPageData: FaqMapping[] = [
+  {
+    question: 'What are the inequities in the data?',
+    answer: (
+      <ul className='text-small'>
+        <li>
+          We’ve seen that many agencies do not reliably collect race and
+          ethnicity data.
+        </li>
+        <li>Others that do collect it, fail to report it.</li>
+        <li>
+          Racial and ethnic categories are often left up to a person’s
+          interpretation and may not be accurate.
+        </li>
+      </ul>
+    ),
+  },
+  {
+    question: 'What principles guide you?',
+    answer: (
+      <>
+        <p>
+          It is essential that this work and its resulting products are done
+          consistently in an ethical manner. One of the core values of the
+          Health Equity Task Force charged with developing the Health Equity
+          Tracker is the importance of working in a way that garners public
+          trust.
+        </p>
+        <ul>
+          <li>Do we have open access and input in place?</li>
+          <li>Is there transparency among stakeholders?</li>
+          <li>
+            Are we using valid and current data that is reflective of the
+            realities?
+          </li>
+          <li>
+            Is the community a part of the ownership and authorship of this
+            work?
+          </li>
+          <li>
+            Have we created a tool that has real value for all stakeholders,
+            including the communities?
+          </li>
+          <li>Are we holding our partners accountable?</li>
+        </ul>
+      </>
+    ),
+  },
+]
+
+// Consolidating both faqMappings and faqsPageData into one massive array
+export const consolidatedFaqs: FaqMapping[] = [...faqMappings, ...faqsPageData]
