@@ -49,19 +49,19 @@
 		"seamless-scroll-polyfill": "^2.3.4",
 		"vega": "^5.30.0",
 		"vega-lite": "^5.21.0",
-		"vite": "^5.4.9",
+		"vite": "^5.4.10",
 		"vite-plugin-svgr": "^4.2.0",
 		"vite-tsconfig-paths": "^5.0.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@playwright/test": "^1.48.1",
+		"@playwright/test": "^1.48.2",
 		"@testing-library/jest-dom": "^5.17.0",
 		"@testing-library/react": "^16.0.1",
 		"@types/d3": "^7.4.0",
 		"@types/dom-to-image": "^2.6.7",
-		"@types/node": "^22.7.7",
-		"@types/react": "^18.3.11",
+		"@types/node": "^22.8.1",
+		"@types/react": "^18.3.12",
 		"@types/react-dom": "^18.3.1",
 		"@types/react-lazyload": "^3.2.0",
 		"@types/react-router-dom": "^5.3.3",
@@ -76,7 +76,7 @@
 		"rollup-plugin-visualizer": "^5.12.0",
 		"tailwindcss": "^3.4.14",
 		"typescript": "^5.6.3",
-		"vitest": "^2.1.3"
+		"vitest": "^2.1.4"
 	},
 	"scripts": {
 		"build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
