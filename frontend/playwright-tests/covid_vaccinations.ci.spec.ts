@@ -5,30 +5,23 @@ test.describe.configure({ mode: 'parallel' })
 
 test.describe('Home to COVID Vax by Age', () => {
   test('Tracker Default to Covid Vax', async ({ page }) => {
-    // Load Tracker Default helper view
     await page.goto(`/exploredata`, { waitUntil: 'commit' })
-
-    // Stop the pulsing button so we can target it
     await page.emulateMedia({ reducedMotion: 'reduce' })
 
-    // Choose VAXX from the no topic screen
-    const madLibTopic = await page.waitForSelector(
-      'button:visible:has-text("select a topic")',
-    )
-    await madLibTopic.click()
-    const covidVaxOption = await page.waitForSelector(
-      'span:has-text("COVID-19 Vaccinations")',
-    )
-    await covidVaxOption.click()
-    await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00/)
+    await page.getByRole('button', { name: 'select a topic' }).click()
+    await page.getByRole('button', { name: 'COVID-19 Vaccinations' }).click()
 
-    // Back button works properly for madlib condition changes
+    await expect(page).toHaveURL(/.*mls=1.covid_vaccinations-3.00&group1=All/)
+
+    // Check back button functionality for madlib condition changes
     await page.goBack()
-    await expect(page).not.toHaveURL(/.*mls=1.covid_vaccinations-3.00/)
+    await expect(page).toHaveURL('/exploredata?')
 
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .exclude('iframe')
+      .exclude('iframe') // YouTube embed is not fully accessible
       .analyze()
+
+    // Confirm no accessibility violations
     expect(accessibilityScanResults.violations).toEqual([])
   })
 })
