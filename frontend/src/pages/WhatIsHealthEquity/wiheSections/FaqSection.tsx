@@ -10,7 +10,7 @@ export default function FaqSection() {
         Frequently asked questions
       </h3>
 
-      <HetAccordion accordionData={faqMappings} />
+      <HetAccordion accordionData={faqMappings} searchTerm={''} />
       <HetTextArrowLink
         link={FULL_FAQS_LINK}
         linkText='See our full FAQ page'

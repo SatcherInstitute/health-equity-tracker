@@ -80,6 +80,7 @@ export default function ReformOpportunitiesTab() {
           accordionClassName='my-4'
           summaryClassName='text-text leading-lhsomeSpace font-medium'
           detailsClassName='py-0 my-0'
+          searchTerm={''}
         />
         <HetTextArrowLink
           link={urlMap.findElectedOfficials}

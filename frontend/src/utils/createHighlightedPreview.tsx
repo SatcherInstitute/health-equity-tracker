@@ -1,26 +1,47 @@
-import type React from 'react'
+import React from 'react'
 
 export default function createHighlightedPreview(
   answer: string | React.ReactNode,
   searchTerm: string,
-) {
-  if (!searchTerm || typeof answer !== 'string') return answer // Return answer as-is if there's no search term or answer isn't a string
+  p0: number,
+): React.ReactNode {
+  if (!searchTerm) return answer // Return answer as-is if there's no search term
 
-  const lowerAnswer = answer.toLowerCase()
-  const lowerSearchTerm = searchTerm.toLowerCase()
-  const startIndex = lowerAnswer.indexOf(lowerSearchTerm)
+  const highlight = (text: string) => {
+    const regex = new RegExp(`(${searchTerm})`, 'gi')
+    const parts = text.split(regex)
 
-  if (startIndex === -1) return answer // No match found, return original answer
+    return parts.map((part, index) =>
+      regex.test(part) ? (
+        <span
+          key={index}
+          style={{ backgroundColor: 'yellow', fontWeight: 'bold' }}
+        >
+          {part}
+        </span>
+      ) : (
+        part
+      ),
+    )
+  }
 
-  const endIndex = startIndex + searchTerm.length
+  const processNode = (node: React.ReactNode): React.ReactNode => {
+    if (typeof node === 'string') {
+      return highlight(node)
+    } else if (React.isValidElement(node)) {
+      // Clone the element and process its children recursively
+      return React.cloneElement(
+        node,
+        { ...node.props },
+        React.Children.map(node.props.children, (child) => processNode(child)),
+      )
+    } else if (Array.isArray(node)) {
+      return node.map((child, index) => (
+        <React.Fragment key={index}>{processNode(child)}</React.Fragment>
+      ))
+    }
+    return node
+  }
 
-  return (
-    <span>
-      {answer.slice(0, startIndex)}
-      <span className='font-semibold underline'>
-        {answer.slice(startIndex, endIndex)}
-      </span>
-      {answer.slice(endIndex)}
-    </span>
-  )
+  return processNode(answer)
 }

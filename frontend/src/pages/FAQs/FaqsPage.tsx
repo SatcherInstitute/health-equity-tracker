@@ -1,8 +1,8 @@
-import { ABOUT_US_PAGE_LINK } from '../../utils/internalRoutes'
-import { Helmet } from 'react-helmet-async'
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
-import { faqMappings } from './FaqsPageData'
-import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
+// import { ABOUT_US_PAGE_LINK } from '../../utils/internalRoutes'
+// import { Helmet } from 'react-helmet-async'
+// import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+// import { faqMappings } from './FaqsPageData'
+// import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 import FaqsPageWithSearch from './FaqsPageWithSearch'
 
 export default function FaqsPage() {
