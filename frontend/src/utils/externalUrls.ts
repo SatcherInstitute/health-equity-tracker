@@ -49,6 +49,7 @@ export type LinkName =
   | 'msm'
   | 'whoWomenVoting'
   | 'wisqarsMethodology'
+  | 'wisqarsDefinitions'
   | 'atlantaCommunityFoodBank'
   | 'workSourceAtlanta'
   | 'communitiesInSchoolsAtlanta'
@@ -133,6 +134,8 @@ export const urlMap: Record<LinkName, string> = {
     'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html',
   wisqarsMethodology:
     'https://wisqars.cdc.gov/about/fatal-injury-data/#resources',
+  wisqarsDefinitions:
+    'https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports',
   atlantaCommunityFoodBank: 'https://www.acfb.org/',
   workSourceAtlanta: 'https://www.worksourceatlanta.org/',
   communitiesInSchoolsAtlanta: 'https://www.cisatlanta.org/',
@@ -146,5 +149,5 @@ export const urlMap: Record<LinkName, string> = {
   rocketFoundation: 'https://www.rocket-foundation.org/',
   gunViolenceArchive: 'https://www.gunviolencearchive.org/',
   randGunPolicy: 'https://www.rand.org/research/gun-policy.html',
-  findElectedOfficials: 'https://www.usa.gov/elected-officials'
+  findElectedOfficials: 'https://www.usa.gov/elected-officials',
 }

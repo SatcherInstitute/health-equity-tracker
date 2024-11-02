@@ -3,6 +3,7 @@ import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets, gvDefinitions } from '../policyContent/DataCollectionContent'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 export default function DataCollectionTab() {
   return (
@@ -21,7 +22,7 @@ export default function DataCollectionTab() {
 
           <p>
             The{' '}
-            <a href='https://www.cdc.gov/injury/wisqars/index.html'>
+            <a href={dataSourceMetadataMap.cdc_wisqars.data_source_link}>
               CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting
               System)
             </a>{' '}
