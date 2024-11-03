@@ -3,6 +3,7 @@ import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../utils/externalUrls'
 import {
+  ABOUT_US_PAGE_LINK,
   AGE_ADJUSTMENT_LINK,
   DATA_CATALOG_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -288,6 +289,28 @@ export const additionalFaqs: Faq[] = [
           Tracker is the importance of working in a way that garners public
           trust.
         </p>
+
+        <p className='text-altBlack text-text font-semibold'>
+          These guiding questions help ensure the right standards are in place:
+        </p>
+
+        <IndentedItem label={'Do we have open access and input in place?'} />
+        <IndentedItem label={'Is there transparency among stakeholders?'} />
+        <IndentedItem
+          label={`Are we using valid and current data that is reflective of the
+            realities?`}
+        />
+        <IndentedItem
+          label={`Is the community a part of the ownership and authorship of this
+            work?`}
+        />
+        <IndentedItem
+          label={` Have we created a tool that has real value for all stakeholders
+            including the communities?`}
+        />
+        <IndentedItem label={`Are we holding our partners accountable?`} />
+
+        <HetDivider className='my-8' />
         <p className='text-altBlack text-text font-semibold'>
           We are committed to the following ethics:
         </p>
@@ -318,27 +341,13 @@ export const additionalFaqs: Faq[] = [
           determining what data to use in making policy recommendations.
         `}
           />
+          <div className='flex justify-center mt-8'>
+            <HetButtonSecondary
+              text={'Learn more About the Health Equity Tracker'}
+              href={ABOUT_US_PAGE_LINK}
+            />
+          </div>
         </div>
-        <p className='text-altBlack text-text font-semibold'>
-          These guiding questions help ensure the right standards are in place:
-        </p>
-
-        <IndentedItem label={'Do we have open access and input in place?'} />
-        <IndentedItem label={'Is there transparency among stakeholders?'} />
-        <IndentedItem
-          label={`Are we using valid and current data that is reflective of the
-            realities?`}
-        />
-        <IndentedItem
-          label={`Is the community a part of the ownership and authorship of this
-            work?`}
-        />
-        <IndentedItem
-          label={` Have we created a tool that has real value for all stakeholders
-            including the communities?`}
-        />
-        <IndentedItem label={`Are we holding our partners accountable?`} />
-        <IndentedItem label={``} />
       </>
     ),
   },
@@ -408,23 +417,44 @@ export const additionalFaqs: Faq[] = [
     answer: (
       <>
         <p>
-          To advance health equity, we need smart, talented, passionate folks
-          like you on board.
+          Your passion and talents can help drive real change in health equity!
+          By joining our community, you can play a crucial role in amplifying
+          the visibility of health disparities and promoting solutions. Here’s
+          how you can make a difference:
         </p>
-        <IndentedItem
-          label={
-            'Share our site and graphs with your community on social media'
-          }
+        <ResourceItem
+          title={'Spread the Word'}
+          description={`Share our site and visualizations with your network on social media. Together, we can raise awareness and spark important conversations in communities everywhere.`}
         />
-        <IndentedItem
-          label={
+
+        <ResourceItem
+          title={'Tell Your Story'}
+          description={`hare your personal health equity story. Real-life experiences are powerful and help shape the broader narrative around health equity challenges and progress.`}
+        />
+        <ResourceItem
+          title={'Volunteer for UX Testing'}
+          description={
             <>
-              <a href={SHARE_YOUR_STORY_TAB_LINK}>
-                Share your health equity story
-              </a>
+              We’re always seeking dedicated individuals to help improve the
+              Health Equity Tracker experience. Interested in participating in
+              ongoing user experience testing? Email us at{' '}
+              <a href='mailto:info@healthequitytracker.org'>
+                info@healthequitytracker.org
+              </a>{' '}
+              to volunteer and become part of our mission to make health equity
+              data accessible, insightful, and impactful for all.
             </>
           }
         />
+
+        <p>Join us, and let’s advance health equity together!</p>
+
+        <div className='flex justify-center'>
+          <HetButtonSecondary
+            text={'Share your health equity story'}
+            href={SHARE_YOUR_STORY_TAB_LINK}
+          />
+        </div>
       </>
     ),
   },
@@ -435,25 +465,37 @@ export const additionalFaqs: Faq[] = [
       <>
         <p>
           In the top-right of each card, there is an icon button with three
-          horizontal dots like this: <MoreHorizIcon />. Clicking on this button
-          within each card gives you some options for exporting the content of
-          the card. You can:
+          horizontal dots like this: <MoreHorizIcon />.
         </p>
-        <IndentedItem
-          label={`Copy a link that will navigate back to this exact card on this exact
+        <div className='flex justify-center mb-8'>
+          <img
+            src={'/img/screenshots/card-menu-options.png'}
+            aria-label='options on card menu'
+            className='rounded-md shadow-raised-tighter '
+          />
+        </div>
+        <p>
+          Clicking on this button within each card gives you some options for
+          exporting the content of the card. You can:
+        </p>
+
+        <div className='flex flex-col gap-0'>
+          <IndentedItem
+            label={`Copy a link that will navigate back to this exact card on this exact
             report`}
-        />
-        <IndentedItem
-          label={`Save an image of the entire card as a PNG file to your device`}
-        />
-        <IndentedItem
-          label={`Share the direct card link to multiple social media platforms as a
+          />
+          <IndentedItem
+            label={`Save an image of the entire card as a PNG file to your device`}
+          />
+          <IndentedItem
+            label={`Share the direct card link to multiple social media platforms as a
             post`}
-        />
-        <IndentedItem
-          label={`Compose a new email on your device with a direct link back to this
+          />
+          <IndentedItem
+            label={`Compose a new email on your device with a direct link back to this
             card on this report`}
-        />
+          />
+        </div>
       </>
     ),
   },
