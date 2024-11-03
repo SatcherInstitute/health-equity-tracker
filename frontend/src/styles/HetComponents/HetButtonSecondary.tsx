@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 interface HetButtonSecondaryProps {
   text: string
   href: string
+  ariaLabel?: string
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 
   className?: string
@@ -12,7 +13,7 @@ interface HetButtonSecondaryProps {
 export default function HetButtonSecondary({
   text,
   href,
-
+  ariaLabel,
   className,
   onClick,
 }: HetButtonSecondaryProps) {
@@ -32,6 +33,7 @@ export default function HetButtonSecondary({
       variant='outlined'
       className={`shadow-none hover:shadow-none hover:border-methodologyGreen rounded-2xl my-2 mx-auto px-8 py-2 w-auto bg-white hover:bg-methodologyGreen ${className ?? ''}`}
       onClick={handleClick}
+      aria-label={ariaLabel}
     >
       <span className='text-small text-altGreen hover:text-altBlack font-bold shadow-none hover:shadow-none'>
         {text}
