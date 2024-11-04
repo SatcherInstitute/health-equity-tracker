@@ -51,7 +51,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           shareMenu.close()
         }}
       >
-        <MenuList className='pr-1'>
+        <MenuList className='py-0'>
           <CopyLinkButton
             scrollToHash={props.scrollToHash}
             popover={shareMenu}
