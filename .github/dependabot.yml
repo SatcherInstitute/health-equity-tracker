@@ -1,22 +1,19 @@
-# Please see the documentation for all configuration options:
-# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
-
 version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "frontend/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       minor-frontend:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 1
   - package-ecosystem: "npm"
     directory: "frontend_server/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       minor-frontend-server:
         update-types:
@@ -26,20 +23,20 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       minor-gh-actions:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "shared_requirements/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       minor-python:
         update-types:
           - "minor"
           - "patch"
-    open-pull-requests-limit: 3
+    open-pull-requests-limit: 1

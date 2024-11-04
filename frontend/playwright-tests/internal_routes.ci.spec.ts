@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 test.describe.configure({ mode: 'parallel' })
 
@@ -16,6 +16,8 @@ test('Policy Hub Loads', async ({ page }) => {
   await expect(page.getByLabel('Policy Context Introduction')).toContainText(
     'Understanding the Crisis of Gun Violence in Atlanta',
   )
+  // mimic reduced motion to prevent animation, which was causing contrast a11y error
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   const accessibilityScanResults = await new AxeBuilder({ page })
     .exclude('.text-tinyTag')
     .exclude('.shadow-raised-tighter')

@@ -14,20 +14,20 @@
  **/
 
 /* External Imports */
-import { useRef, useEffect } from 'react'
-import { axisLeft, axisBottom, select } from 'd3'
+import { axisBottom, axisLeft, select } from 'd3'
+import { useEffect, useRef } from 'react'
 
 /* Local Imports */
 
 /* Constants */
-import { CONFIG, TYPES, FORMATTERS as F } from './constants'
-import type { TrendsData, XScale, YScale, AxisConfig } from './types'
+import { CONFIG, FORMATTERS as F, TYPES } from './constants'
+import type { AxisConfig, TrendsData, XScale, YScale } from './types'
 
 /* Helpers */
-import { getMinNumber, getMaxNumber, getDates } from './helpers'
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 import { het } from '../../styles/DesignTokens'
 import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
+import { getDates, getMaxNumber, getMinNumber } from './helpers'
 
 /* Define type interface */
 export interface AxesProps {
@@ -207,7 +207,9 @@ export function Axes({
         </g>
         {/* Top Y-Axis Label */}
         <g transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}>
-          <text textAnchor='end'>{Y_AXIS_CONFIG[type]?.topLabel}</text>
+          <text className='cursor-vertical-text' textAnchor='end'>
+            {Y_AXIS_CONFIG[type]?.topLabel}
+          </text>
         </g>
         {/* Bottom Y-Axis Label */}
         <g
@@ -215,7 +217,9 @@ export function Axes({
             HEIGHT - marginBottom
           })rotate(-90)`}
         >
-          <text textAnchor='start'>{Y_AXIS_CONFIG[type]?.bottomLabel}</text>
+          <text className='cursor-vertical-text' textAnchor='start'>
+            {Y_AXIS_CONFIG[type]?.bottomLabel}
+          </text>
         </g>
       </g>
     </g>
