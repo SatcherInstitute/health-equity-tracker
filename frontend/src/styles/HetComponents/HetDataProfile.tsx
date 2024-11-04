@@ -156,7 +156,7 @@ export function HetDataProfile({
       </div>
       <p className='leading-lhSomeSpace my-4'>{description}</p>
       {downloadable && (
-        <div className='mt-8 text-right'>
+        <div className='mt-8 text-left'>
           <HetButtonSecondary
             text='View downloadable tables'
             onClick={() => setDialogIsOpen(true)}
