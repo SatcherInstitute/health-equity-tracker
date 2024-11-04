@@ -8,16 +8,20 @@ export const SHARE_YOUR_STORY_PATH = 'shareyourstory'
 export const SHARE_YOUR_STORY_TAB_LINK =
   NEWS_PAGE_LINK + '/' + SHARE_YOUR_STORY_PATH
 export const POLICY_PAGE_LINK = '/policy'
-export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
-export const WIHE_FAQS_PATH = 'faqs'
-export const WHAT_IS_HEALTH_EQUITY_FAQ_TAB_LINK =
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/' + WIHE_FAQS_PATH
+export const FULL_FAQS_LINK = '/faqs'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const OLD_CONTACT_LINK = '/contact'
 export const OLD_OURTEAM_LINK = '/ourteam'
 export const OLD_AGE_ADJUSTMENT_LINK = '/ageadjustment'
 export const OLD_TERMS_OF_SERVICE_LINK = '/termsofservice'
+
+// WIHE TABS
+export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
+export const HEALTH_EQUITY_GUIDES_TAB =
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/guides'
+export const HEALTH_EQUITY_RESOURCES_TAB =
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/external-resources'
 
 // CONTEXT TABS
 export const GUN_VIOLENCE_POLICY = POLICY_PAGE_LINK + '/gun-violence'

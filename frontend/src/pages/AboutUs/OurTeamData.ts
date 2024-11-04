@@ -1,16 +1,18 @@
-import Allyson from '../../assets/team/BeltonAllyson.jpg'
+import Allyson from '../../assets/team/BeltonA.png'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
 import Ben from '../../assets/team/HammondBen.jpg'
 import Eric from '../../assets/team/WarrenEric.png'
-import Maisha from '../../assets/team/StandiferMaisha.jpg'
+import Maisha from '../../assets/team/StandiferM.png'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Megan from '../../assets/team/DouglasMegan.jpg'
 import Donrie from '../../assets/team/PurcellDonrie.png'
-import Jareese from '../../assets/team/StroudJareese.png'
+import Jareese from '../../assets/team/StroudJ.png'
 import Kim from '../../assets/team/CincoKim.jpg'
-import Evan from '../../assets/team/MartinEvan.jpg'
+import Evan from '../../assets/team/MartinE.jpg'
+import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 
 import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
+import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
 
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import PartnerGilead from '../../assets/partners/PartnerGilead.png'
@@ -20,6 +22,11 @@ import PartnerAARP from '../../assets/partners/PartnerAARP.png'
 import PartnerAECF from '../../assets/partners/PartnerAECF.jpg'
 
 export const LEADERSHIP_TEAM = [
+  {
+    name: 'Sandra Harris-Hooker, PhD',
+    role: 'Interim Executive Director',
+    imageUrl: DrHH,
+  },
   {
     name: 'Allyson Belton, MPH',
     role: 'Coalition/Engagement',
@@ -294,6 +301,11 @@ export const GRANTORS = [
     imageUrl: GrantorPhrma,
     alt: 'Phrma Foundation',
     url: 'https://phrma.org',
+  },
+  {
+    imageUrl: GrantorElevenLabs,
+    alt: 'ElevenLabs',
+    url: 'https://elevenlabs.io/',
   },
 ]
 

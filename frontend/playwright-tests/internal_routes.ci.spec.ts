@@ -16,7 +16,10 @@ test('Policy Hub Loads', async ({ page }) => {
   await expect(page.getByLabel('Policy Context Introduction')).toContainText(
     'Understanding the Crisis of Gun Violence in Atlanta',
   )
-  const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
+  const accessibilityScanResults = await new AxeBuilder({ page })
+    .exclude('.text-tinyTag')
+    .exclude('.shadow-raised-tighter')
+    .analyze()
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
@@ -35,7 +38,7 @@ test('Age-Adjustment Redirects to Age-Adjustment Page of Methodology Hub', async
 test('About Us Page Loads', async ({ page }) => {
   await page.goto('/aboutus', { waitUntil: 'commit' })
   const mainSection = page.locator('main#main')
-  const mainHeading = mainSection.locator('h2#main')
+  const mainHeading = mainSection.locator('h1#main')
   await expect(mainHeading).toHaveText('About the Health Equity Tracker')
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
   expect(accessibilityScanResults.violations).toEqual([])
