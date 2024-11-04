@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface HetCTASmallProps {
-  children: ReactNode
+  children?: ReactNode
   href: string
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
   id?: string
@@ -35,7 +35,7 @@ export default function HetCTASmall({
     <Button
       id={id}
       variant='outlined'
-      className={`rounded-2xl my-2 px-8 py-2 w-auto bg-altGreen ${className ?? ''}`}
+      className={`rounded-2xl my-2 px-8 py-2 w-auto bg-altGreen hover:bg-darkGreen ${className ?? ''}`}
       href={optionalMailTo}
       onClick={handleClick}
     >

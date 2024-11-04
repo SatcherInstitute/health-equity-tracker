@@ -13,6 +13,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import HetDataProfile from '../../styles/HetComponents/HetDataProfile'
+import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -76,12 +77,17 @@ export default function DataCatalogPage() {
 
         <h2 className='sr-only'>Data Downloads</h2>
         <p className='text-text'>
-          Here you can access and download the data sources that are displayed
-          in the charts on the Health Equity Tracker. Want to explore what each
-          data set can show us about different health outcomes?{' '}
-          <a href={EXPLORE_DATA_PAGE_LINK}>Explore the data dashboard</a>
-          <span aria-hidden={true}>.</span>
+          Here you can access and download the data source files that are
+          displayed in the charts on the Health Equity Tracker. Want to explore
+          what each data set can show us about different health outcomes?
         </p>
+
+        <HetCTASmall
+          className='w-fit mx-auto font-extrabold'
+          href={EXPLORE_DATA_PAGE_LINK}
+        >
+          Explore the data dashboard
+        </HetCTASmall>
 
         <ul className='list-none pl-0'>
           <WithMetadata>
