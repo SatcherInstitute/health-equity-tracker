@@ -8,6 +8,8 @@ interface HetCardExportMenuItemProps {
   className?: string
   children?: React.ReactNode
   iconProps?: Record<string, any>
+  spanClassName?: string
+  iconClassName?: string
 }
 
 export function HetCardExportMenuItem({
@@ -16,13 +18,19 @@ export function HetCardExportMenuItem({
   children,
   className = '',
   iconProps = {},
+  spanClassName,
+  iconClassName,
 }: HetCardExportMenuItemProps) {
   return (
     <MenuItem className={`pl-3 ${className}`} onClick={onClick}>
-      <ListItemIcon className='flex items-center px-2 py-1'>
+      <ListItemIcon
+        className={`${iconClassName} flex items-center px-2 py-1 w-full`}
+      >
         <Icon className='mx-1 w-8' {...iconProps} />
         {children && (
-          <span className='text-altBlack text-small'>{children}</span>
+          <span className={`text-altBlack text-small ${spanClassName}`}>
+            {children}
+          </span>
         )}
       </ListItemIcon>
     </MenuItem>
