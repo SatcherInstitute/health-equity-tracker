@@ -17,17 +17,19 @@ interface CombinedLinkProps {
 }
 
 function CombinedLink(props: CombinedLinkProps) {
-  const { to, isScrollLink, children, ...rest } = props
+  const { to, isScrollLink, children, className, ...rest } = props
   const scrollToAnchor = useScrollToAnchor()
 
   if (isScrollLink) {
     return (
-      // TODO: fix a11y See GitHub #3711
-      // biome-ignore lint/a11y/useFocusableInteractive: <explanation>
-      // biome-ignore lint/a11y/useSemanticElements: <explanation>
-      <div onClick={() => scrollToAnchor(to)} role='link' {...rest}>
+      <button
+        onClick={() => scrollToAnchor(to)}
+        type='button'
+        {...rest}
+        className={`bg-transparent border-none p-0 m-0 text-left text-smallest ${className ?? ''}`}
+      >
         {children}
-      </div>
+      </button>
     )
   }
   return null
