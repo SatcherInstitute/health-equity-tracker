@@ -23,6 +23,9 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
       <HetCardExportMenuItem
+        spanClassName='py-0 pr-4'
+        iconClassName='h-12'
+        className='py-0 pr-0'
         Icon={SaveAlt}
         onClick={isCompareMode ? handleDownloadRowImg : handleDownloadImg}
       >
