@@ -14,7 +14,7 @@ const FaqGroup: React.FC<FaqGroupProps> = ({ title, faqs }) => (
     </h3>
     <div className='md:col-span-5 flex flex-col w-full'>
       {faqs.map((faq, index) => (
-        <div key={index} id={`faq-${index}`}>
+        <div key={faq.question} id={`faq-${index}`}>
           <HetAccordion accordionData={faq} accordionClassName='my-2' />
         </div>
       ))}

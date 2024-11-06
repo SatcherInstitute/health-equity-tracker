@@ -95,39 +95,19 @@ function AnswerWhatDataSources() {
   return (
     <>
       <p>
-        In this tracker, we use a variety of reputable data sources, including:
+        In this tracker, we use a variety of reputable data sources, including{' '}
+        <HetTerm>American Community Survey 5-year estimates </HetTerm>
+        <HetLaunchLink
+          label={'American Community Survey 5-year estimates'}
+          href={urlMap.acs5}
+        />
+        , multiple datasets from the CDC, such as the{' '}
+        <HetTerm>
+          CDC’s Behavioral Risk Factor Surveillance System (BRFSS) data set{' '}
+        </HetTerm>
+        <HetLaunchLink label={`CDC’s BRFSS data set`} href={urlMap.cdcBrfss} />,
+        sourced via America's Health Rankings, among others.
       </p>
-      <p className='my-0 py-0'>
-        <span className='my-0 py-0'>
-          <IndentedItem
-            label={`American Community Survey 5-year estimates`}
-            pClassName='inline mr-1'
-          />
-          <HetLaunchLink
-            label={'American Community Survey 5-year estimates'}
-            href={'urlMap.acs5'}
-          />
-          ,
-        </span>
-      </p>
-      <p className='my-0 py-0'>
-        <span className='my-0 py-0'>
-          <IndentedItem
-            label={`multiple datasets from the CDC, such as the CDC’s Behavioral Risk Factor Surveillance System (BRFSS) data set`}
-            pClassName='inline mr-1'
-          />
-          <HetLaunchLink
-            label={`CDC’s BRFSS data set`}
-            href={urlMap.cdcBrfss}
-          />
-          ,
-        </span>
-      </p>
-      <IndentedItem
-        label={`sourced via America's Health
-        Rankings, among others.`}
-        pClassName='inline'
-      />
 
       <p>
         These sources are chosen for their rigorous methodologies, national
@@ -429,7 +409,7 @@ export const additionalFaqs: Faq[] = [
 
         <ResourceItem
           title={'Tell Your Story'}
-          description={`hare your personal health equity story. Real-life experiences are powerful and help shape the broader narrative around health equity challenges and progress.`}
+          description={`Share your personal health equity story. Real-life experiences are powerful and help shape the broader narrative around health equity challenges and progress.`}
         />
         <ResourceItem
           title={'Volunteer for UX Testing'}

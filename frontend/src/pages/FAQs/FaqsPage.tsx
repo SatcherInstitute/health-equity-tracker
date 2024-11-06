@@ -31,7 +31,6 @@ export default function FaqsPage() {
         <FaqGroup title='Methods' faqs={methodsFaqGroup} />
         <FaqGroup title='Data Collection' faqs={dataFaqGroup} />
         <FaqGroup title='Definitions' faqs={definitionsFaqGroup} />
-        <FaqGroup title='Community Safety Topics' faqs={communitySafetyFaqs} />
       </section>
     </>
   )
