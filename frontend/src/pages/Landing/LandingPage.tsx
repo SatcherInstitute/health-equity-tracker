@@ -120,7 +120,7 @@ function LandingPage() {
         ></img>
         <div className='p-0 m-0 relative lg:w-1/2 md:w-full sm:w-full text-left'>
           <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0 xs:text-header'>
-            🕵️Where will the <br />
+            🕵️🕵️🕵️Where will the <br />
             <span className='text-altGreen'>Health Equity Tracker</span>
             <br /> take you?
           </h1>
