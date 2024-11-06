@@ -14,6 +14,8 @@ import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import HetDataProfile from '../../styles/HetComponents/HetDataProfile'
 import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -65,7 +67,7 @@ export default function DataCatalogPage() {
         id='main-content'
         aria-labelledby='main-content'
         tabIndex={-1}
-        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-56 mx-auto'
+        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-16 md:px-24 lg:px-56 mx-auto'
       >
         <h1
           id='main'
@@ -127,7 +129,7 @@ export default function DataCatalogPage() {
                             sourceMetadata.downloadable_data_dictionary
                           }
                           timePeriodRange={
-                            sourceMetadata.time_period_range || null
+                            sourceMetadata.time_period_range || undefined
                           }
                           datasetIds={sourceMetadata.dataset_ids}
                           datasetMetadata={datasetMetadata}
@@ -136,9 +138,11 @@ export default function DataCatalogPage() {
                     )
                   })}
                   {viewingSubsetOfSources && (
-                    <HetCTABig href={DATA_CATALOG_PAGE_LINK} className='mt-10'>
-                      View All Datasets
-                    </HetCTABig>
+                    <HetTextArrowLink
+                      link={DATA_CATALOG_PAGE_LINK}
+                      linkText='View All Datasets'
+                      containerClassName='text-title justify-center'
+                    />
                   )}
                 </>
               )

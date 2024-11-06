@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom'
 
 interface HetButtonSecondaryProps {
   text: string
-  href: string
+  href?: string
   ariaLabel?: string
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-
   className?: string
 }
 
@@ -25,7 +24,9 @@ export default function HetButtonSecondary({
     if (onClick) {
       onClick(event)
     }
-    navigate(href)
+    if (href) {
+      navigate(href)
+    }
   }
 
   return (

@@ -1,32 +1,35 @@
-import { useState } from 'react'
-import DialogTitle from '@mui/material/DialogTitle'
-import Dialog from '@mui/material/Dialog'
-import List from '@mui/material/List'
+import React, { useState } from 'react'
+import {
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  CircularProgress,
+} from '@mui/material'
+import {
+  GetApp as GetAppIcon,
+  CheckCircle as CheckCircleIcon,
+  SaveAlt as SaveAltIcon,
+} from '@mui/icons-material'
 import HetNotice from './HetNotice'
 import HetCloseButton from './HetCloseButton'
 import HetButtonSecondary from './HetButtonSecondary'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import CircularProgress from '@mui/material/CircularProgress'
-import ListItemText from '@mui/material/ListItemText'
-import GetAppIcon from '@mui/icons-material/GetApp'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import type {
-  DataSourceMetadata,
-  DatasetMetadata,
-} from '../../data/utils/DatasetTypes'
-import type { DatasetId } from '../../data/config/DatasetMetadata'
-import type { DatasetIdWithStateFIPSCode } from '../../data/config/DatasetMetadata'
-import { ListItem } from '@mui/material'
-import downloadDataset from '../../pages/DataCatalog/downloadDataset'
 import HetLinkButton from './HetLinkButton'
-import { SaveAlt, SaveAltRounded } from '@mui/icons-material'
+import downloadDataset from '../../pages/DataCatalog/downloadDataset'
+import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+} from '../../data/config/DatasetMetadata'
 
 type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
 interface HetDataProfileProps {
   description: string
   name: string
-  acronym: string
+  acronym?: string
   prettySiteName: string
   link: string
   geographicLevel: string
@@ -35,7 +38,7 @@ interface HetDataProfileProps {
   downloadable: boolean
   downloadableBlurb?: string
   downloadableDataDictionary?: boolean
-  timePeriodRange: string | null
+  timePeriodRange?: string | undefined
   datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
   datasetMetadata: Record<string, DatasetMetadata>
 }
@@ -48,10 +51,15 @@ function DownloadDatasetListItem({
   datasetMetadata: DatasetMetadata
 }) {
   const [downloadStatus, setDownloadStatus] = useState<LoadStatus>('unloaded')
+
   const download = async () => {
     setDownloadStatus('loading')
-    const state = await downloadDataset(datasetId)
-    setDownloadStatus(state ? 'loaded' : 'error')
+    try {
+      const state = await downloadDataset(datasetId)
+      setDownloadStatus(state ? 'loaded' : 'error')
+    } catch (error) {
+      setDownloadStatus('error')
+    }
   }
 
   const getIcon = () => {
@@ -63,22 +71,28 @@ function DownloadDatasetListItem({
       case 'loaded':
         return <CheckCircleIcon />
       case 'error':
-        return ''
+        return null
+      default:
+        return null
     }
   }
 
+  if (!datasetMetadata) {
+    return (
+      <HetNotice kind='health-crisis'>
+        Dataset metadata missing for dataset ID: {datasetId}.
+      </HetNotice>
+    )
+  }
+
   return (
-    <ListItem
-      className='px-6 hover:cursor-pointer'
-      onClick={download}
-      key={datasetId}
-    >
+    <ListItem button onClick={download} key={datasetId}>
       {downloadStatus !== 'error' ? (
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
-            primary={datasetMetadata.name + '.csv'}
-            secondary={'Last updated: ' + datasetMetadata.original_data_sourced}
+            primary={`${datasetMetadata.name}.csv`}
+            secondary={`Last updated: ${datasetMetadata.original_data_sourced}`}
           />
         </>
       ) : (
@@ -90,26 +104,30 @@ function DownloadDatasetListItem({
   )
 }
 
-export function HetDataProfile({
-  description,
-  name,
-  acronym,
-  prettySiteName,
-  link,
-  geographicLevel,
-  demographicGranularity,
-  updateFrequency,
-  downloadable,
-  downloadableBlurb,
-  downloadableDataDictionary,
-  timePeriodRange,
-  datasetIds,
-  datasetMetadata,
-}: HetDataProfileProps) {
+export function HetDataProfile(props: HetDataProfileProps) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false)
 
+  const {
+    description,
+    name,
+    prettySiteName,
+    link,
+    geographicLevel,
+    demographicGranularity,
+    updateFrequency,
+    downloadable,
+    downloadableDataDictionary,
+    timePeriodRange,
+    datasetIds,
+    datasetMetadata,
+    acronym,
+  } = props
+
   return (
-    <article className='rounded-md border border-solid border-altGreen shadow-raised-tighter bg-white p-12 md:px-20 md:pb-10 md:pt-14 group my-8 text-left hover:shadow-raised group transition-all duration-300 ease-in-out'>
+    <article
+      className='rounded-md border border-solid border-altGreen shadow-raised-tighter bg-white p-12 md:px-20 md:pb-10 md:pt-14 group my-8 text-left hover:shadow-raised group transition-all duration-300 ease-in-out'
+      aria-labelledby={`${acronym} data source profile}`}
+    >
       <h2 className='my-0 text-title md:text-smallestHeader font-bold md:font-medium leading-lhSomeMoreSpace'>
         {name}
       </h2>
@@ -134,6 +152,7 @@ export function HetDataProfile({
             {geographicLevel}
           </p>
         </div>
+
         <div className='flex md:flex-row flex-col justify-start items-center gap-1 md:gap-4 mb-2 text-small'>
           <p className='my-0 text-altGreen font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Demographic Granularity
@@ -142,6 +161,7 @@ export function HetDataProfile({
             {demographicGranularity}
           </p>
         </div>
+
         <div className='flex md:flex-row flex-col justify-start items-center gap-1 md:gap-4 mb-2 text-small'>
           <p className='my-0 text-altGreen font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Update Frequency
@@ -150,44 +170,59 @@ export function HetDataProfile({
             {updateFrequency}
           </p>
         </div>
+
         <div className='flex md:flex-row flex-col justify-start items-center gap-1 md:gap-4 mb-2 text-small'>
           <p className='my-0 text-altGreen font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Source Website
           </p>
           <a
-            href={prettySiteName}
+            href={link}
+            target='_blank'
+            rel='noopener noreferrer'
             aria-label={`Link to ${name}`}
-            className='pl-2 my-0 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal no-underline'
+            className='pl-2 my-0 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal no-underline hover:underline'
           >
             {prettySiteName}
           </a>
         </div>
       </div>
-      <p className='leading-lhSomeSpace my-0 md:my-4 text-small md:text-text'>
+
+      <p className='leading-lhSomeSpace my-0 md:my-4 text-smallest sm:text-small lg:text-text'>
         {description}
       </p>
-      <div className='flex lg:flex-row lg:justify-start lg:items-center mt-8 lg:gap-4 flex-col-reverse gap-2'>
+
+      <div className='flex md:flex-row md:justify-start md:items-center mt-8 lg:gap-4 flex-col-reverse gap-2'>
         {downloadableDataDictionary && (
           <HetLinkButton
             href='/data_dictionaries/medicare_population.csv'
-            className='font-bold py-0 pl-0 pr-0'
-            buttonClassName='w-auto md:w-1/2 mx-auto lg:w-auto lg:mr-2 lg:ml-0'
+            className='font-bold py-0 px-0 text-center leading-lhNormal'
+            buttonClassName='w-auto md:w-1/2 mx-auto lg:w-auto lg:mr-2 lg:ml-0 px-0'
+            ariaLabel='Download data dictionary'
           >
-            <SaveAlt className='pr-2' />
+            <SaveAltIcon className='pr-2' />
             Download data dictionary
           </HetLinkButton>
         )}
+
         {downloadable && (
           <HetButtonSecondary
-            className='lg:mr-auto lg:ml-0 mx-auto'
+            className='md:mr-auto md:ml-0 mx-auto leading-lhNormal'
             text='View downloadable tables'
             onClick={() => setDialogIsOpen(true)}
-            href={''}
+            ariaLabel='View downloadable tables'
           />
         )}
       </div>
-      <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
-        <DialogTitle className='flex justify-between'>
+
+      <Dialog
+        onClose={() => setDialogIsOpen(false)}
+        open={dialogIsOpen}
+        aria-labelledby='download-dialog-title'
+      >
+        <DialogTitle
+          id='download-dialog-title'
+          className='flex justify-between'
+        >
           <header className='flex w-8/12 sm:w-10/12'>
             <h3 className='mt-8 text-exploreButton font-medium leading-lhSomeMoreSpace'>
               Available breakdowns for {name}
@@ -195,7 +230,7 @@ export function HetDataProfile({
           </header>
           <HetCloseButton
             onClick={() => setDialogIsOpen(false)}
-            ariaLabel='close dialogue'
+            ariaLabel='Close dialog'
           />
         </DialogTitle>
         <List>
