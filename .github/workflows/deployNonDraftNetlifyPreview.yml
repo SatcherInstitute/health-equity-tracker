@@ -12,20 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version-file: frontend/package.json
-
-    - name: Install dependencies
-      working-directory: ./frontend
-      run: npm ci
-
-    - name: Build
-      working-directory: ./frontend
-      run: npm run build
+    - uses: actions/checkout@v4
 
     - name: Deploy to Netlify
       uses: jsmrcaga/action-netlify-deploy@v2.0.0
@@ -33,7 +20,6 @@ jobs:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         NETLIFY_DEPLOY_MESSAGE: "Deploy Non-Draft PR Changes from GitHub Actions"
-        build_directory: "./frontend/dist"
         deploy_alias: ${{ github.head_ref }}
 
     - name: Comment on PR
