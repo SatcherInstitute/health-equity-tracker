@@ -14,16 +14,31 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Deploy to Netlify
-      uses: jsmrcaga/action-netlify-deploy@v2.0.0
+    - name: Use Node.js
+      uses: actions/setup-node@v4
       with:
-        build_directory: frontend
-        monorepo_package: frontend
-        build_command: npm run build:deploy_preview
+        node-version-file: frontend/package.json
+
+    - name: Cache Netlify CLI
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm/netlify-cli
+        key: ${{ runner.os }}-netlify-cli-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-netlify-cli-
+
+    - name: Install and Cache Netlify CLI
+      run: |
+        if [ ! -f ~/.npm/netlify-cli/node_modules/.bin/netlify ]; then
+          npm install -g netlify-cli
+        fi
+
+    - name: Deploy to Netlify
+      env:
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        NETLIFY_DEPLOY_MESSAGE: "Deploy Non-Draft PR Changes from GitHub Actions"
-        deploy_alias: ${{ github.head_ref }}
+      run: |
+        netlify deploy --dir=./frontend/dist --alias=${{ github.head_ref }} --message="Deploy Non-Draft PR Changes from GitHub Actions"
 
     - name: Comment on PR
       uses: actions/github-script@v6
