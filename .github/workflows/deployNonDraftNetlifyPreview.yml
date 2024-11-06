@@ -18,6 +18,7 @@ jobs:
       uses: jsmrcaga/action-netlify-deploy@v2.0.0
       with:
         build_directory: frontend
+        monorepo_package: frontend
         build_command: npm run build:deploy_preview
         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
