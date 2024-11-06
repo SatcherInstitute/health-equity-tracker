@@ -1,0 +1,49 @@
+name: Deploy Non-Draft PR to Netlify Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: frontend/package.json
+
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: npm ci
+
+    - name: Build
+      working-directory: ./frontend
+      run: npm run build
+
+    - name: Deploy to Netlify
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      run: |
+        npm install -g netlify-cli
+        netlify deploy --dir=./frontend/dist --alias=${{ github.head_ref }} --message="Deploy Non-Draft PR Changes from GitHub Actions"
+
+    - name: Comment on PR
+      uses: actions/github-script@v6
+      if: success()
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: 'Netlify preview deployed: https://deploy-preview-${{ github.event.pull_request.number }}--${{ secrets.NETLIFY_SITE_ID }}.netlify.app'
+          })
