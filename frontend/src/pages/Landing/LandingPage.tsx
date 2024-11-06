@@ -1,23 +1,23 @@
+import { Helmet } from 'react-helmet-async'
+import LazyLoad from 'react-lazyload'
+import { useQuery } from 'react-query'
+import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
   REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
   WARM_WELCOME_DEMO_SETTING,
 } from '../../utils/internalRoutes'
-import { Helmet } from 'react-helmet-async'
-import LazyLoad from 'react-lazyload'
-import NewsPreviewCard from '../News/NewsPreviewCard'
-import { useQuery } from 'react-query'
-import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
-import HetCTABig from '../../styles/HetComponents/HetCTABig'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import type { Article } from '../News/ArticleTypes'
+import NewsPreviewCard from '../News/NewsPreviewCard'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -120,7 +120,7 @@ function LandingPage() {
         ></img>
         <div className='p-0 m-0 relative lg:w-1/2 md:w-full sm:w-full text-left'>
           <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0 xs:text-header'>
-            🕵️ Where will the <br />
+            🕵️✅ Where will the <br />
             <span className='text-altGreen'>Health Equity Tracker</span>
             <br /> take you?
           </h1>
