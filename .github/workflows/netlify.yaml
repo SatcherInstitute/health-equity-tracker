@@ -30,15 +30,25 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Debug Environment
+        run: |
+          echo "Working directory: $(pwd)"
+          echo "Listing dist directory:"
+          ls -la dist/
+          echo "NETLIFY_SITE_ID exists: ${{ secrets.NETLIFY_SITE_ID != '' }}"
+          echo "NETLIFY_AUTH_TOKEN exists: ${{ secrets.NETLIFY_AUTH_TOKEN != '' }}"
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.1
         with:
-          publish-dir: './frontend/build'  # Adjust this if your build output directory is different
+          publish-dir: 'build'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deploy Preview for PR #${{ github.event.pull_request.number }}"
           enable-pull-request-comment: true
           enable-commit-comment: false
           overwrites-pull-request-comment: true
+          alias: "deploy-preview-${{ github.event.pull_request.number }}"
+          production-deploy: false
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
