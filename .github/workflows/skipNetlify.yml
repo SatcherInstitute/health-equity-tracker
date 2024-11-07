@@ -28,4 +28,4 @@ jobs:
           git commit --amend -m "[skip-netlify] ${{ github.event.pull_request.title }}"
 
           # Use the GITHUB_TOKEN to push changes
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/SatcherInstitute/health-equity-tracker.git HEAD --force
+          git push https://x-access-token:${{ secrets.PAT_DRAFT_COMMIT }}@github.com/SatcherInstitute/health-equity-tracker.git HEAD --force
