@@ -10,7 +10,6 @@ jobs:
   deploy-preview:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    # Add explicit permissions for secrets
     permissions:
       contents: read
       pull-requests: write
@@ -40,8 +39,12 @@ jobs:
           echo "Working directory: $(pwd)"
           echo "Listing build directory:"
           ls -la build/
-          echo "NETLIFY_SITE_ID exists: ${{ secrets.NETLIFY_SITE_ID != '' }}"
-          echo "NETLIFY_AUTH_TOKEN exists: ${{ secrets.NETLIFY_AUTH_TOKEN != '' }}"
+          echo "Checking secret lengths:"
+          echo "NETLIFY_SITE_ID length: ${#NETLIFY_SITE_ID}"
+          echo "NETLIFY_AUTH_TOKEN length: ${#NETLIFY_AUTH_TOKEN}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2.1
