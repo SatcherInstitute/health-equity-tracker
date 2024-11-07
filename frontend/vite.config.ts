@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
           }
         : {},
     },
+    cache: true,
     server: isDeployPreview
       ? {} // Keep minimal config for deploy previews
       : {
