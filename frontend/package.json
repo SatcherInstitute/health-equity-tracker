@@ -48,8 +48,7 @@
 		"vega": "^5.30.0",
 		"vega-lite": "^5.21.0",
 		"vite": "^5.4.10",
-		"vite-plugin-svgr": "^4.3.0",
-		"vite-tsconfig-paths": "^5.1.0"
+		"vite-plugin-svgr": "^4.3.0"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.10.0",
@@ -75,14 +74,15 @@
 		"rollup-plugin-visualizer": "^5.12.0",
 		"tailwindcss": "^3.4.14",
 		"typescript": "^5.6.3",
-		"vitest": "^2.1.4"
+		"vitest": "^2.1.4",
+		"vite-tsconfig-paths": "^5.1.0"
 	},
 	"scripts": {
 		"build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
 		"build:development": "env-cmd -f .env.development npm run build",
 		"build:prod": "env-cmd -f .env.prod npm run build",
 		"build:staging": "env-cmd -f .env.staging npm run build",
-		"build": "tsc && vite build",
+		"build": "vite build",
 		"cspell": "cspell '../**/*.{ts,tsx,css,md,py}' --no-progress --no-must-find-files --gitignore",
 		"dev": "env-cmd -f .env.development npm run start -- --host & npm run tsc:watch",
 		"e2e": "npx playwright install chromium && npx playwright test --project=E2E_CI --workers 2",
