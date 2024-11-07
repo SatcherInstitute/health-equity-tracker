@@ -1,0 +1,26 @@
+name: Detect and Ignore Draft PRs Deploying to Netlify Preview
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  ignore-draft-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect draft PR
+        id: draft_pr
+        run: |
+          if [[ "${{ github.event.pull_request.draft }}" == "true" ]]; then
+            echo "::set-output name=is_draft::true"
+          else
+            echo "::set-output name=is_draft::false"
+          fi
+
+      - name: Rewrite commit message
+        if: steps.draft_pr.outputs.is_draft == 'true'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit --amend -m "[skip-netlify] ${{ github.event.pull_request.title }}"
+          git push origin HEAD --force
