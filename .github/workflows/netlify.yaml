@@ -1,13 +1,18 @@
-name: Build and Deploy to Netlify
+name: Netlify Preview Deploy
+
 on:
   pull_request:
-    branches:
-      - main
     types: [opened, synchronize, reopened]
+    paths:
+      - 'frontend/**'
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
+  deploy-preview:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
 
     steps:
       - uses: actions/checkout@v4
@@ -15,30 +20,25 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
           cache: 'npm'
-          cache-dependency-path: './frontend/package-lock.json'
+          cache-dependency-path: frontend/package-lock.json
 
-      - name: Install Dependencies
-        working-directory: ./frontend
+      - name: Install dependencies
         run: npm ci
 
       - name: Build
-        working-directory: ./frontend
         run: npm run build
-        env:
-          CI: true
 
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3.0
+        uses: nwtgck/actions-netlify@v2.1
         with:
-          publish-dir: './frontend/build'
+          publish-dir: './frontend/build'  # Adjust this if your build output directory is different
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
+          deploy-message: "Deploy Preview for PR #${{ github.event.pull_request.number }}"
           enable-pull-request-comment: true
-          enable-commit-comment: true
-          enable-github-deployment: true
-          fails-without-credentials: true
+          enable-commit-comment: false
+          overwrites-pull-request-comment: true
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
