@@ -4,14 +4,10 @@ import {
   dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
 import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
-import {
-  DATA_CATALOG_PAGE_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-} from '../../utils/internalRoutes'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
-import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
 
@@ -56,7 +52,7 @@ export default function DataCatalogPage() {
   }
 
   return (
-    <>
+    <HelmetProvider>
       <Helmet>
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
@@ -124,6 +120,6 @@ export default function DataCatalogPage() {
           </WithMetadata>
         </ul>
       </section>
-    </>
+    </HelmetProvider>
   )
 }
