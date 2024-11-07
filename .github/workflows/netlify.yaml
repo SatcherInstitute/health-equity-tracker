@@ -33,8 +33,8 @@ jobs:
       - name: Debug Environment
         run: |
           echo "Working directory: $(pwd)"
-          echo "Listing dist directory:"
-          ls -la dist/
+          echo "Listing build directory:"
+          ls -la build/
           echo "NETLIFY_SITE_ID exists: ${{ secrets.NETLIFY_SITE_ID != '' }}"
           echo "NETLIFY_AUTH_TOKEN exists: ${{ secrets.NETLIFY_AUTH_TOKEN != '' }}"
 
