@@ -1,0 +1,38 @@
+name: PR Details Logger
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  log-pr-details:
+    name: Log PR Details
+    runs-on: ubuntu-latest
+    if: github.event.pull_request
+
+    steps:
+      - name: Log PR Information
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_DRAFT: ${{ github.event.pull_request.draft }}
+          PR_BASE: ${{ github.event.pull_request.base.ref }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          PR_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          echo "📝 PR Details:"
+          echo "Title: $PR_TITLE"
+          echo "Number: #$PR_NUMBER"
+          echo "Author: $PR_AUTHOR"
+          echo "Draft Status: $PR_DRAFT"
+          echo "Base Branch: $PR_BASE"
+          echo "Head Branch: $PR_HEAD"
+          echo "Source Repository: $PR_REPO"
+          echo "Latest Commit SHA: $LAST_COMMIT_SHA"
