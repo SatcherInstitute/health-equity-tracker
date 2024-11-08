@@ -4,14 +4,12 @@ import {
   dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
 import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
-import {
-  DATA_CATALOG_PAGE_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-} from '../../utils/internalRoutes'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
-import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -58,23 +56,31 @@ export default function DataCatalogPage() {
       <Helmet>
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>Data Downloads</h2>
-      <div className='mx-auto min-h-full max-w-md flex-col p-10'>
-        <header className='pb-2'>
-          <h3
-            id='main'
-            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-altBlack'
-          >
-            View and download Health Equity Tracker data sources
-          </h3>
-          <p className='text-small'>
-            Here you can access and download the data sources that are displayed
-            in the charts on the Health Equity Tracker. Want to explore what
-            each data set can show us about different health outcomes?{' '}
-            <a href={EXPLORE_DATA_PAGE_LINK}>Explore the data dashboard</a>
-            <span aria-hidden={true}>.</span>
-          </p>
-        </header>
+      <section
+        id='main-content'
+        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-16 md:px-24 lg:px-56 mx-auto'
+      >
+        <h1
+          id='main'
+          tabIndex={-1}
+          className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+        >
+          Data Downloads
+        </h1>
+
+        <h2 className='sr-only'>Data Downloads</h2>
+        <p className='text-text'>
+          Here you can access and download the data source files that are
+          displayed in the charts on the Health Equity Tracker. Want to explore
+          what each data set can show us about different health outcomes?
+        </p>
+
+        <HetCTASmall
+          className='w-fit mx-auto font-extrabold'
+          href={EXPLORE_DATA_PAGE_LINK}
+        >
+          Explore the data dashboard
+        </HetCTASmall>
         <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
@@ -100,16 +106,18 @@ export default function DataCatalogPage() {
                     </li>
                   ))}
                   {viewingSubsetOfSources && (
-                    <HetCTABig href={DATA_CATALOG_PAGE_LINK} className='mt-10'>
-                      View All Datasets
-                    </HetCTABig>
+                    <HetTextArrowLink
+                      containerClassName='flex justify-center'
+                      link={`DATA_CATALOG_PAGE_LINK`}
+                      linkText={'View All Datasets'}
+                    />
                   )}
                 </>
               )
             }}
           </WithMetadata>
         </ul>
-      </div>
+      </section>
     </HelmetProvider>
   )
 }
