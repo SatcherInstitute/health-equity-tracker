@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     build: {
       outDir: 'build',
       sourcemap: !isDeployPreview, // Disable sourcemaps for deploy previews
-      minify: isDeployPreview ? false : 'terser', // Skip minification for deploy previews
+      minify: !isDeployPreview,
 
       rollupOptions: isDeployPreview
         ? {
