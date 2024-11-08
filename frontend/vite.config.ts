@@ -23,12 +23,10 @@ export default defineConfig(({ mode }) => {
         : {},
     },
     cache: true,
-    server: isDeployPreview
-      ? {} // Keep minimal config for deploy previews
-      : {
-          open: true,
-          port: 3000,
-        },
+    server: {
+      open: true,
+      port: 3000,
+    },
     plugins: [
       react({
         include: '**/*.tsx',
