@@ -58,8 +58,6 @@ export default function DataCatalogPage() {
       </Helmet>
       <section
         id='main-content'
-        aria-labelledby='main-content'
-        tabIndex={-1}
         className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-16 md:px-24 lg:px-56 mx-auto'
       >
         <h1
