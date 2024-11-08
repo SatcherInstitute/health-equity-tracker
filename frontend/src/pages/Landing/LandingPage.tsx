@@ -18,7 +18,6 @@ import {
 } from '../../utils/internalRoutes'
 import type { Article } from '../News/ArticleTypes'
 import NewsPreviewCard from '../News/NewsPreviewCard'
-//
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(

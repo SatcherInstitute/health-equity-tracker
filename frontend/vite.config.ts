@@ -1,31 +1,51 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import viteTsconfigPaths from 'vite-tsconfig-paths'
-import svgrPlugin from 'vite-plugin-svgr'
-import { configDefaults } from 'vitest/config'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { defineConfig } from 'vite'
+import svgrPlugin from 'vite-plugin-svgr'
+import viteTsconfigPaths from 'vite-tsconfig-paths'
+import { configDefaults } from 'vitest/config'
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
+  const isDeployPreview = process.env.VITE_DEPLOY_CONTEXT === 'deploy_preview'
+
   return {
     build: {
       outDir: 'build',
-      // sourcemap: true,
+      sourcemap: !isDeployPreview, // Disable sourcemaps for deploy previews
+      minify: isDeployPreview ? false : 'terser', // Skip minification for deploy previews
+
+      rollupOptions: isDeployPreview
+        ? {
+            output: {
+              manualChunks: undefined, // Disable code splitting for deploy previews
+            },
+          }
+        : {},
     },
-    server: {
-      open: true,
-      port: 3000,
-    },
+    cache: true,
+    server: isDeployPreview
+      ? {} // Keep minimal config for deploy previews
+      : {
+          open: true,
+          port: 3000,
+        },
     plugins: [
       react({
         include: '**/*.tsx',
       }),
-      viteTsconfigPaths(),
-      svgrPlugin(),
-      visualizer({
-        open: !process.env.CI,
-        gzipSize: true,
-        brotliSize: true,
-      }),
+
+      // Only use essential plugins for deploy previews
+      ...(isDeployPreview
+        ? []
+        : [
+            viteTsconfigPaths(), // Keep only for non-preview environments
+            svgrPlugin(), // Keep only for non-preview environments
+            visualizer({
+              open: !process.env.CI,
+              gzipSize: true,
+              brotliSize: true,
+            }),
+          ]),
     ],
     test: {
       exclude: [...configDefaults.exclude, 'playwright-tests/*'],
@@ -35,6 +55,14 @@ export default defineConfig(() => {
       coverage: {
         reporter: ['text', 'html'],
       },
+      // Optionally, disable tests during deploy preview for faster builds
+      ...(isDeployPreview ? { run: false } : {}),
     },
+    // Conditional settings based on the VITE_DEPLOY_CONTEXT
+    ...(isDeployPreview
+      ? {
+          logLevel: 'warn', // Reduce logging for deploy preview builds
+        }
+      : {}),
   }
 })
