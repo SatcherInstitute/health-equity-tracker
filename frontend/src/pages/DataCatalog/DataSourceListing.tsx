@@ -13,8 +13,12 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import CircularProgress from '@mui/material/CircularProgress'
 import ListItemText from '@mui/material/ListItemText'
-import GetAppIcon from '@mui/icons-material/GetApp'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+
+import {
+  GetApp as GetAppIcon,
+  CheckCircle as CheckCircleIcon,
+  SaveAlt as SaveAltIcon,
+} from '@mui/icons-material'
 
 import type {
   DatasetId,
@@ -23,6 +27,7 @@ import type {
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -100,10 +105,10 @@ export function DataSourceListing(props: DataSourceListingProps) {
 
   return (
     <article
-      className='mb-5 w-full p-2 pt-5 shadow-raised-tighter sm:p-5'
+      className='rounded-md border border-solid border-altGreen shadow-raised-tighter bg-white p-12 md:px-20 md:pb-10 md:pt-14 group my-8 text-left hover:shadow-raised group transition-all duration-300 ease-in-out'
       data-testid={props.source_metadata.id}
     >
-      <h4 className='m-0 text-left font-serif text-title font-light'>
+      <h3 className='my-0 text-title md:text-smallestHeader font-bold md:font-medium leading-lhSomeMoreSpace'>
         <a
           href={props.source_metadata.data_source_link}
           target='_blank'
@@ -112,80 +117,82 @@ export function DataSourceListing(props: DataSourceListingProps) {
         >
           {props.source_metadata.data_source_name}
         </a>
-      </h4>
-      <ul className='list-none px-0 py-2 text-left'>
+      </h3>
+      <ul className='list-none flex flex-col my-4 mx-0 px-0 md:my-8 md:gap-1'>
         {props.source_metadata.time_period_range && (
-          <li className='pb-1 sm:flex'>
-            <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
+          <li className='flex md:flex-row flex-col justify-start items-center mb-2 text-small'>
+            <p className='my-0 xs:mb-1 text-altBlack font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
               Time Series Range
             </p>
-            <p className='m-0 text-small'>
+            <p className='my-0 pl-0 xs:pl-2 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal'>
               {props.source_metadata.time_period_range}
             </p>
           </li>
         )}
 
-        <li className='pb-1 sm:flex'>
-          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
+        <li className='flex md:flex-row flex-col justify-start items-center mb-2 text-small'>
+          <p className='my-0 xs:mb-1 text-altBlack font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Geographic Level
           </p>
-          <p className='m-0 text-small'>
+          <p className='my-0 pl-0 xs:pl-2 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal'>
             {props.source_metadata.geographic_level}
           </p>
         </li>
-        <li className='pb-1 sm:flex'>
-          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
+        <li className='flex md:flex-row flex-col justify-start items-center mb-2 text-small'>
+          <p className='my-0 xs:mb-1 text-altBlack font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Demographic Granularity
           </p>
-          <p className='m-0 text-small'>
+          <p className='my-0 pl-0 xs:pl-2 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal'>
             {props.source_metadata.demographic_granularity}
           </p>
         </li>
-        <li className='pb-1 sm:flex'>
-          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
+        <li className='flex md:flex-row flex-col justify-start items-center mb-2 text-small'>
+          <p className='my-0 xs:mb-1 text-altBlack font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Update Frequency
           </p>
-          <p className='m-0 text-small'>
+          <p className='my-0 pl-0 xs:pl-2 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal'>
             {props.source_metadata.update_frequency}
           </p>
         </li>
-        <li className='pb-1 sm:flex'>
-          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
+        <li className='flex md:flex-row flex-col justify-start items-center mb-2 text-small'>
+          <p className='my-0 xs:mb-1 text-altBlack font-semibold w-full md:min-w-1/3 md:w-1/3 leading-lhNormal'>
             Source Website
           </p>
           <a
             href={props.source_metadata.data_source_link}
             target='_blank'
             rel='noopener noreferrer'
-            className='no-underline hover:underline'
+            className='my-0 pl-0 xs:pl-2 ml-auto w-full md:w-7/12 md:max-w-2/3 leading-lhNormal no-underline hover:underline'
           >
-            <p className='m-0 text-small'>
-              {props.source_metadata.data_source_pretty_site_name}
-            </p>
+            {props.source_metadata.data_source_pretty_site_name}
           </a>
         </li>
       </ul>
-      <p className='text-left text-small'>
+      <p className='leading-lhSomeSpace my-0 md:my-4 text-smallest sm:text-small lg:text-text'>
         {props.source_metadata.description}
       </p>
-      <footer className='mb-2 mt-4 flex h-auto w-full flex-col justify-end sm:flex-row'>
-        {props.source_metadata.downloadable && (
-          <HetLinkButton
-            onClick={() => {
-              setDialogIsOpen(true)
-            }}
-            ariaLabel={'Download ' + props.source_metadata.data_source_name}
-          >
-            View downloadable tables
-          </HetLinkButton>
-        )}
+      <div className='xs:flex md:inline md:flex-row md:justify-start md:items-center mt-8 lg:gap-1 xs:flex-col-reverse gap-2'>
         {props.source_metadata.downloadable_data_dictionary && (
           <HetLinkButton
             href='/data_dictionaries/medicare_population.csv'
+            className='font-bold text-center leading-lhNormal py-0 px-0'
+            buttonClassName='w-auto mx-auto md:w-auto md:mr-4 md:ml-0 px-0 pt-2 pb-4'
             ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
+            <SaveAltIcon className='pt-1 pr-2 pl-0' />
             Download data dictionary
           </HetLinkButton>
+        )}
+        {props.source_metadata.downloadable && (
+          <HetButtonSecondary
+            className='md:mr-auto md:ml-0 mx-auto py-4 leading-lhNormal'
+            text='View downloadable tables'
+            onClick={() => {
+              setDialogIsOpen(true)
+            }}
+            ariaLabel={`'Download ${props.source_metadata.data_source_name}`}
+            href={''}
+          />
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}
@@ -197,10 +204,10 @@ export function DataSourceListing(props: DataSourceListingProps) {
         >
           <DialogTitle className='flex justify-between'>
             <header className='flex w-8/12 sm:w-10/12'>
-              <h3 className='text-left font-serif text-title font-light'>
+              <h4 className='mt-8 text-exploreButton font-medium leading-lhSomeMoreSpace'>
                 Available breakdowns for{' '}
                 {props.source_metadata.data_source_name}
-              </h3>
+              </h4>
             </header>
             <HetCloseButton
               onClick={() => setDialogIsOpen(false)}
@@ -217,7 +224,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
             ))}
           </List>
         </Dialog>
-      </footer>
+      </div>
     </article>
   )
 }
