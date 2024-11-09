@@ -13,7 +13,8 @@ jobs:
   log-pr-details:
     name: Log PR Details
     runs-on: ubuntu-latest
-    if: github.event.pull_request
+    # Added condition to check draft status
+    if: github.event.pull_request && github.event.pull_request.draft == true
 
     steps:
       - name: Log PR Information
@@ -27,7 +28,7 @@ jobs:
           PR_REPO: ${{ github.event.pull_request.head.repo.full_name }}
           LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          echo "📝 PR Details:"
+          echo "📝 Draft PR Details:"
           echo "Title: $PR_TITLE"
           echo "Number: #$PR_NUMBER"
           echo "Author: $PR_AUTHOR"
