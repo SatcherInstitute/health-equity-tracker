@@ -28,6 +28,7 @@ jobs:
           LAST_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           echo "📝 Draft PR Details:"
+          echo "Time: $(TZ='America/Denver' date '+%Y-%m-%d %I:%M:%S %p %Z')"
           echo "Title: $PR_TITLE"
           echo "Number: #$PR_NUMBER"
           echo "Author: $PR_AUTHOR"
