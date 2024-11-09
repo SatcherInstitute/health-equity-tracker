@@ -13,7 +13,6 @@ jobs:
   log-pr-details:
     name: Log PR Details
     runs-on: ubuntu-latest
-    # Added condition to check draft status
     if: github.event.pull_request && github.event.pull_request.draft == true
 
     steps:
