@@ -31,15 +31,22 @@ class MaternalMortalityProvider extends VariableProvider {
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
-  ): DatasetId {
+  ): DatasetId | undefined {
     if (timeView === 'current') {
-      if (breakdowns.geography === 'state')
-        return 'maternal_mortality_data-by_race_state_current'
-      else return 'maternal_mortality_data-by_race_national_current'
-    } else {
-      if (breakdowns.geography === 'state')
-        return 'maternal_mortality_data-by_race_state_historical'
-      else return 'maternal_mortality_data-by_race_national_historical'
+      if (breakdowns.hasOnlyRace()) {
+        if (breakdowns.geography === 'state')
+          return 'maternal_mortality_data-by_race_state_current'
+        if (breakdowns.geography === 'national')
+          return 'maternal_mortality_data-by_race_national_current'
+      }
+    }
+    if (timeView === 'historical') {
+      if (breakdowns.hasOnlyRace()) {
+        if (breakdowns.geography === 'state')
+          return 'maternal_mortality_data-by_race_state_historical'
+        if (breakdowns.geography === 'national')
+          return 'maternal_mortality_data-by_race_national_historical'
+      }
     }
   }
 
@@ -47,15 +54,15 @@ class MaternalMortalityProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      let breakdowns = metricQuery.breakdowns
+      const breakdowns = metricQuery.breakdowns
       const originalDemographicBreakdown =
         metricQuery.breakdowns.getSoleDemographicBreakdown().columnName
-      let shouldUseFallback = false
+      let shouldFallbacksToAlls = false
 
       if (!breakdowns.hasOnlyRace()) {
+        shouldFallbacksToAlls = true
         breakdowns.removeBreakdown(originalDemographicBreakdown)
-        breakdowns = breakdowns.addBreakdown(RACE)
-        shouldUseFallback = true
+        breakdowns.addBreakdown(RACE)
       }
 
       const datasetId = this.getDatasetId(
@@ -63,6 +70,10 @@ class MaternalMortalityProvider extends VariableProvider {
         undefined,
         metricQuery.timeView,
       )
+
+      if (!datasetId) {
+        return new MetricQueryResponse([], [])
+      }
 
       const maternalMortalityDataset =
         await getDataManager().loadDataset(datasetId)
@@ -74,20 +85,17 @@ class MaternalMortalityProvider extends VariableProvider {
         return new MetricQueryResponse([], consumedDatasetIds)
       }
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
       df = this.renameGeoColumns(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
 
-      if (shouldUseFallback) {
-        df = df
-          .where((row) => row.race_and_ethnicity === 'All')
-          .renameSeries({
-            race_and_ethnicity: originalDemographicBreakdown,
-          })
+      if (shouldFallbacksToAlls) {
+        df = this.castAllsAsMissingDemographicBreakdown(
+          df,
+          originalDemographicBreakdown,
+        )
       }
 
-      const dataArray = df.toArray()
-
-      return new MetricQueryResponse(dataArray, consumedDatasetIds)
+      return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
     } catch (error) {
       console.error('Error fetching maternal mortality data:', error)
       throw error

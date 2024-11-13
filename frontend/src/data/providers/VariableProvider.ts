@@ -1,8 +1,9 @@
 import type { IDataFrame } from 'data-forge'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
+import type { DatasetId } from '../config/DatasetMetadata'
 import type { ProviderId } from '../loading/VariableProviderMap'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type { Breakdowns, DemographicType, TimeView } from '../query/Breakdowns'
 import {
   createMissingDataResponse,
   type MetricQuery,
@@ -10,7 +11,6 @@ import {
 } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { TIME_PERIOD } from '../utils/Constants'
-import type { DatasetId } from '../config/DatasetMetadata'
 
 abstract class VariableProvider {
   readonly providerId: ProviderId
@@ -110,6 +110,17 @@ abstract class VariableProvider {
       }
     })
     return dataFrame
+  }
+
+  castAllsAsMissingDemographicBreakdown(
+    df: IDataFrame,
+    originalDemographicBreakdown: DemographicType,
+  ): IDataFrame {
+    return df
+      .where((row) => row.race_and_ethnicity === 'All')
+      .renameSeries({
+        race_and_ethnicity: originalDemographicBreakdown,
+      })
   }
 
   abstract getDataInternal(
