@@ -1,5 +1,15 @@
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import HetButtonSecondary from '../../../styles/HetComponents/HetButtonSecondary'
-import { HEALTH_EQUITY_GUIDES_TAB } from '../../../utils/internalRoutes'
+import HetDivider from '../../../styles/HetComponents/HetDivider'
+import HetLaunchLink from '../../../styles/HetComponents/HetLaunchLink'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import { urlMap } from '../../../utils/externalUrls'
+import {
+  DATA_COLLECTION_TAB,
+  HEALTH_EQUITY_GUIDES_TAB,
+} from '../../../utils/internalRoutes'
+import { IndentedItem } from '../../FAQs/FaqsPageData'
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets } from '../policyContent/DataCollectionContent'
 
@@ -19,8 +29,9 @@ interface Dataset {
   items: DatasetItem[]
 }
 
-interface DataDescriptionProps {
-  datasets: Dataset[]
+export interface Faq {
+  question: string
+  answer: React.ReactNode | string
 }
 
 const OptionGroup = ({ title, children }: OptionGroupProps) => (
@@ -122,20 +133,23 @@ export default function DataDescription({ datasets }: { datasets: Dataset[] }) {
   )
 }
 
-export const communitySafetyFaqs = [
+export const communitySafetyFaqs: Faq[] = [
   {
     question: 'How does the HET define gun violence fatalities?',
     answer: (
       <>
-        We derive our definitions from the{' '}
-        <a
-          href='https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          CDC WISQARS Definitions
-        </a>{' '}
-        Fatal Injury Intent Categories.
+        We derive our definitions from the CDC WISQARS Definitions Fatal Injury
+        Intent Categories.
+        <HetLaunchLink
+          label={`CDC WISQARS Definitions`}
+          href={urlMap.wisqarsDefinitions}
+        />
+        <p>
+          <HetTextArrowLink
+            link={DATA_COLLECTION_TAB}
+            linkText={'Learn about our data collection process'}
+          />
+        </p>
       </>
     ),
   },
@@ -155,10 +169,14 @@ export const communitySafetyFaqs = [
     question: 'What is the main source of the gun violence data?',
     answer: (
       <>
-        The primary source of our gun violence data is the CDC's WISQARS
-        dataset, which offers a wide range of information on gun-related
-        injuries and fatal incidents. This dataset helps provide a holistic
-        perspective on the effects of gun-related violence.
+        The primary source of our gun violence data is the CDC's WISQARS dataset{' '}
+        <HetLaunchLink
+          label={`CDC WISQARS Definitions`}
+          href={dataSourceMetadataMap.cdc_wisqars.data_source_link}
+        />
+        , which offers a wide range of information on gun-related injuries and
+        fatal incidents. This dataset helps provide a holistic perspective on
+        the effects of gun-related violence.
       </>
     ),
   },
@@ -166,15 +184,19 @@ export const communitySafetyFaqs = [
     question: 'What types of injuries are covered in the dataset?',
     answer: (
       <>
-        The dataset includes data on gun-related fatalities. Fatal injuries are
-        further categorized into:
-        <ul>
-          <li>Gun Deaths (Children, 0-17)</li>
-          <li>Gun Deaths (Young adults, 18-25)</li>
-          <li>Gun Homicides (Black Men-specific)</li>
-          <li>Gun Homicides</li>
-          <li>Gun Suicides</li>
-        </ul>
+        <p>
+          The dataset includes data on gun-related fatalities, which further
+          categorizes gun deaths among adults as:
+        </p>
+        <IndentedItem label={'Gun Homicides (Black Men-specific)'} />
+        <IndentedItem label={'Gun Homicides'} />
+        <IndentedItem label={'Gun Suicides'} />
+        <p>
+          Our dataset on <HetTerm>youth-related gun violence</HetTerm>{' '}
+          specifically categorizes fatalities as:
+          <IndentedItem label={'Gun Deaths (Children, 0-17)'} />
+          <IndentedItem label={'Gun Deaths (Young adults, 18-25)'} />
+        </p>
       </>
     ),
   },
@@ -233,19 +255,19 @@ export const communitySafetyFaqs = [
             href={HEALTH_EQUITY_GUIDES_TAB}
           />
         </div>
+        <HetDivider className='my-8' />
+
         <p>
-          Additionally, you can find quick insights and tips on our YouTube
-          Shorts channel{' '}
-          <a
-            aria-label={'link to Health Equity Tracker YouTube channel'}
-            href='https://www.youtube.com/@healthequitytracker/shorts'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            here
-          </a>
-          .
+          In addition to covering our community safety topics, you can find
+          quick insights and tips across a variety of our featured health topics
+          on our YouTube Shorts channel.
         </p>
+        <div className='flex justify-center'>
+          <HetTextArrowLink
+            link={urlMap.hetYouTubeShorts}
+            linkText={'Visit our Health Equity Tracker YouTube channel'}
+          />
+        </div>
       </>
     ),
   },

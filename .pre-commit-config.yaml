@@ -44,6 +44,14 @@ repos:
       - id: biome-check
         name: 🦕 ts/json format + lint with biome
         additional_dependencies: ["@biomejs/biome"]
+  # TYPE CHECK WITH TSC
+  - repo: local
+    hooks:
+      - id: tsc-check
+        name: 🏁 TypeScript type check
+        entry: tsc --noEmit
+        language: system
+        types: [ts, tsx]
   # WARN IF TOO MANY FILES IN ONE COMMIT
   - repo: local
     hooks:

@@ -33,6 +33,9 @@ export function CopyCardImageToClipboardButton(
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
       <HetCardExportMenuItem
+        spanClassName='py-0 pr-4'
+        iconClassName='h-12'
+        className='py-0 pr-0'
         onClick={
           isCompareMode ? handleCopyRowImgToClipboard : handleCopyImgToClipboard
         }

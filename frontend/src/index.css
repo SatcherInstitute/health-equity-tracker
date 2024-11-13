@@ -80,7 +80,7 @@ button[data-action='back']:focus {
     text-align: center !important;
     font-size: 0.75rem !important;
     font-weight: 200 !important;
-    font-decoration: none !important;
+    text-decoration: none !important;
     max-width: 600px;
   }
 
@@ -231,38 +231,56 @@ button[data-action='back']:focus {
   }
 }
 
-/* ResourceItemCard Animations */
-@keyframes fadeInUpBlur {
-  0% {
+/* Base styles without animation */
+.fade-in-up-blur {
+  visibility: visible; /* Default visible state for reduced motion */
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ResourceItemCard Animations */
+  @keyframes fadeInUpBlur {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(20%);
+      will-change: opacity, filter, transform;
+    }
+    1% {
+      visibility: visible;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0%);
+      will-change: auto;
+    }
+  }
+
+  .fade-in-up-blur {
     visibility: hidden;
-    opacity: 0;
-    filter: blur(10px);
-    transform: translateY(20%);
-    will-change: opacity, filter, transform;
+    animation: fadeInUpBlur 0.5s ease-in-out forwards;
   }
-  1% {
-    visibility: visible;
+
+  /* Underline Animation */
+  @keyframes underlineSlideIn {
+    from {
+      background-size: 0% 8px;
+    }
+    to {
+      background-size: 100% 8px;
+    }
   }
-  100% {
+}
+
+/* For users who haven't specified a preference, we can optionally add a fallback */
+@media (prefers-reduced-motion) {
+  .fade-in-up-blur {
     visibility: visible;
     opacity: 1;
-    filter: blur(0px);
-    transform: translateY(0%);
-    will-change: auto;
-  }
-}
-
-.fade-in-up-blur {
-  visibility: hidden;
-  animation: fadeInUpBlur 0.5s ease-in-out forwards;
-}
-
-/* Underline Animation */
-@keyframes underlineSlideIn {
-  from {
-    background-size: 0% 8px;
-  }
-  to {
-    background-size: 100% 8px;
+    transform: none;
+    filter: none;
   }
 }

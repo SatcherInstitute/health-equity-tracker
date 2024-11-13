@@ -17,7 +17,13 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
 
   return (
     <>
-      <HetCardExportMenuItem Icon={LinkIcon} onClick={handleCopyLink}>
+      <HetCardExportMenuItem
+        spanClassName='py-0 pr-4'
+        iconClassName='h-12'
+        className='py-0 pr-0'
+        Icon={LinkIcon}
+        onClick={handleCopyLink}
+      >
         Copy Card Link
       </HetCardExportMenuItem>
       <HetSnackbar open={confirmationOpen} handleClose={handleClose}>
