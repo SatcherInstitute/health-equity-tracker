@@ -1,10 +1,10 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { RACE } from '../utils/Constants'
 import VariableProvider from './VariableProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
   .VITE_SHOW_NEW_MATERNAL_MORTALITY
@@ -31,22 +31,15 @@ class MaternalMortalityProvider extends VariableProvider {
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
-  ): DatasetId | undefined {
+  ): DatasetId {
     if (timeView === 'current') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'maternal_mortality_data-by_race_state_current'
-        if (breakdowns.geography === 'national')
-          return 'maternal_mortality_data-by_race_national_current'
-      }
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'maternal_mortality_data-by_race_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'maternal_mortality_data-by_race_national_historical'
-      }
+      if (breakdowns.geography === 'state')
+        return 'maternal_mortality_data-by_race_state_current'
+      else return 'maternal_mortality_data-by_race_national_current'
+    } else {
+      if (breakdowns.geography === 'state')
+        return 'maternal_mortality_data-by_race_state_historical'
+      else return 'maternal_mortality_data-by_race_national_historical'
     }
   }
 
@@ -54,34 +47,47 @@ class MaternalMortalityProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const breakdowns = metricQuery.breakdowns
+      let breakdowns = metricQuery.breakdowns
+      const originalDemographicBreakdown =
+        metricQuery.breakdowns.getSoleDemographicBreakdown().columnName
+      let shouldUseFallback = false
+
+      if (!breakdowns.hasOnlyRace()) {
+        breakdowns.removeBreakdown(originalDemographicBreakdown)
+        breakdowns = breakdowns.addBreakdown(RACE)
+        shouldUseFallback = true
+      }
+
       const datasetId = this.getDatasetId(
         breakdowns,
         undefined,
         metricQuery.timeView,
       )
-      if (!datasetId) {
-        return new MetricQueryResponse([], [])
-      }
-      const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+
       const maternalMortalityDataset =
-        await getDataManager().loadDataset(specificDatasetId)
+        await getDataManager().loadDataset(datasetId)
       const consumedDatasetIds = [datasetId]
       let df = maternalMortalityDataset.toDataFrame()
 
-      // Filter by geography
       df = this.filterByGeo(df, breakdowns)
-
       if (df.toArray().length === 0) {
         return new MetricQueryResponse([], consumedDatasetIds)
       }
-      df = this.renameGeoColumns(df, breakdowns)
-
-      // Apply demographic breakdown filters
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
       df = this.removeUnrequestedColumns(df, metricQuery)
+      df = this.renameGeoColumns(df, breakdowns)
 
-      return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+      if (shouldUseFallback) {
+        df = df
+          .where((row) => row.race_and_ethnicity === 'All')
+          .renameSeries({
+            race_and_ethnicity: originalDemographicBreakdown,
+          })
+      }
+
+      const dataArray = df.toArray()
+
+      return new MetricQueryResponse(dataArray, consumedDatasetIds)
     } catch (error) {
       console.error('Error fetching maternal mortality data:', error)
       throw error

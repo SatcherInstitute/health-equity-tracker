@@ -47,7 +47,7 @@ export default function RoundedBarsWithLabels(
 
     return (
       <g
-        key={index + barAriaLabel}
+        key={`${index}-${barAriaLabel}`}
         transform={`translate(0,${yPosition})`}
         onMouseMove={(e) => props.handleTooltip(e, d, false)}
         onMouseLeave={props.closeTooltip}

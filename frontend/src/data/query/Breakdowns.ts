@@ -164,6 +164,7 @@ export class Breakdowns {
       this.filterFips ? new Fips(this.filterFips.code) : undefined,
     )
   }
+  switchDemographic(demographicType: DemographicType) {}
 
   static national(): Breakdowns {
     return new Breakdowns('national')
@@ -224,6 +225,30 @@ export class Breakdowns {
         // Column name is the same as key
         this.demographicBreakdowns[demographicType] =
           createDemographicBreakdown(demographicType, true, filter)
+        return this
+      case 'fips':
+        throw new Error('Fips breakdown cannot be added')
+    }
+  }
+
+  removeBreakdown(
+    demographicType: DemographicType,
+    filter?: BreakdownFilter,
+  ): Breakdowns {
+    switch (demographicType) {
+      case 'race_and_ethnicity':
+      case 'age':
+      case 'sex':
+      case 'lis':
+      case 'eligibility':
+      case 'urbanicity':
+      case 'income':
+      case 'education':
+      case 'insurance_status':
+        this.demographicBreakdowns[demographicType] = {
+          ...this.demographicBreakdowns[demographicType],
+          enabled: false,
+        }
         return this
       case 'fips':
         throw new Error('Fips breakdown cannot be added')
