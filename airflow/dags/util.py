@@ -65,6 +65,7 @@ def generate_bq_payload(
     geographic: str | None = None,
     category: str | None = None,
     year: str | None = None,
+    should_export_as_alls: bool | None = None,
 ) -> dict:
     """Creates the payload object required for the BQ ingestion operator.
 
@@ -84,6 +85,8 @@ def generate_bq_payload(
                  Either `national`, `state` or `county`.
     category: The topic category to generate the bq pipeline for.
     year: string 4 digit year that determines which year should be processed
+    should_export_as_alls: boolean that determines whether the pipeline should
+                           extract the ALLS rows from this table and export as an additional json
     """
     message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
     message['dataset'] = dataset
@@ -99,6 +102,8 @@ def generate_bq_payload(
         message['year'] = year
     if category is not None:
         message['category'] = category
+    if should_export_as_alls is not None:
+        message['should_export_as_alls'] = should_export_as_alls
     return {'message': message}
 
 
@@ -141,7 +146,6 @@ def service_request(url: str, data: dict, **kwargs):  # pylint: disable=unused-a
         resp = requests.post(url, json=data, headers=receiving_service_headers, timeout=600)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
-        # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
     except requests.exceptions.HTTPError as err:
         raise Exception(f'Failed response code: {err}')
 

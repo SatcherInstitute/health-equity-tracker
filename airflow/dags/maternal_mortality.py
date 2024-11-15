@@ -15,7 +15,9 @@ data_ingestion_dag = DAG(
     schedule_interval=None,
     description='Ingestion configuration for MATERNAL_MORTALITY',
 )
-maternal_mortality_bq_payload = util.generate_bq_payload(_MM_WORKFLOW_ID, _MM_DATASET_NAME)
+maternal_mortality_bq_payload = util.generate_bq_payload(
+    _MM_WORKFLOW_ID, _MM_DATASET_NAME, demographic='race_and_ethnicity', should_export_as_alls=True
+)
 maternal_mortality_bq_operator = util.create_bq_ingest_operator(
     'maternal_mortality_to_bq', maternal_mortality_bq_payload, data_ingestion_dag
 )
