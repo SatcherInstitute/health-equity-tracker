@@ -27,6 +27,10 @@ def export_dataset_tables():
     if data.get('category') is not None:
         category = data.get('category')
 
+    should_export_as_alls = False
+    if data.get('should_export_as_alls') is not None:
+        should_export_as_alls = data.get('should_export_as_alls')
+
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
@@ -76,6 +80,9 @@ def export_dataset_tables():
                 500,
             )
 
+        if should_export_as_alls:
+            export_alls(bq_client, table, export_bucket, demographic)
+
     return ('', 204)
 
 
@@ -87,7 +94,7 @@ def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     logging.info(f'Exported {table_ref.table_id} to {dest_uri}')
 
 
-def export_split_county_tables(bq_client, table, export_bucket):
+def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table, export_bucket: str):
     """Split county-level table by parent state FIPS,
     and export as individual blobs to the given destination and wait for completion"""
 
@@ -139,6 +146,35 @@ def has_multi_demographics(table_id: str):
         or ("age" in table_id and "race" in table_id)
         or ("sex" in table_id and "race" in table_id)
     )
+
+
+def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket: str, demographic: str):
+    """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode"""
+    table_name = get_table_name(table)
+    alls_table_id = table.table_id.replace(demographic, 'alls')
+    alls_file_name = f'{table.dataset_id}-{alls_table_id}.json'
+
+    logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
+    bucket = prepare_bucket(export_bucket)
+    query = f"""
+        SELECT *
+        FROM {table_name}
+        WHERE {demographic} = 'All'
+    """
+
+    try:
+        blob = prepare_blob(bucket, alls_file_name)
+        alls_df = get_query_results_as_df(bq_client, query)
+        alls_df.drop(columns=[demographic], inplace=True)
+        nd_json = alls_df.to_json(orient="records", lines=True)
+        export_nd_json_to_blob(blob, nd_json)
+
+    except Exception as err:
+        logging.error(err)
+        return (
+            f'Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}',
+            500,
+        )
 
 
 def get_table_name(table):
