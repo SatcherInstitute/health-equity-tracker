@@ -104,26 +104,6 @@ def generate_bq_payload(
     return {'message': message}
 
 
-def generate_exporter_payload(
-    workflow_id: str, dataset: str, gcs_bucket: str | None = None, should_export_as_alls: bool | None = None
-) -> dict:
-    """Creates the payload object required for the exporter operator.
-
-    workflow_id: ID of the datasource workflow. Should match ID defined in
-                 DATA_SOURCES_DICT.
-    dataset: Name of the BQ dataset to write the data to.
-    gcs_bucket: GCS bucket to read from. Defaults to the GCS_LANDING_BUCKET env
-                var.
-    should_export_as_alls: boolean that determines whether the pipeline should
-                           extract the ALLS rows from this table and export as an additional json
-    """
-    message = get_required_attrs(workflow_id, gcs_bucket=gcs_bucket)
-    message['dataset_name'] = dataset
-    if should_export_as_alls is not None:
-        message['should_export_as_alls'] = should_export_as_alls
-    return {'message': message}
-
-
 def create_gcs_ingest_operator(task_id: str, payload: dict, dag: DAG) -> PythonOperator:
     return create_request_operator(task_id, Variable.get('INGEST_TO_GCS_SERVICE_ENDPOINT'), payload, dag)
 
