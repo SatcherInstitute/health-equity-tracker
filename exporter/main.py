@@ -29,16 +29,31 @@ def export_dataset_tables():
 
     should_export_as_alls = data.get('should_export_as_alls', False)
 
-    print("^^^^^^ should_export_as_alls:", should_export_as_alls)
-
     dataset_name = data['dataset_name']
+
+    print("^^^^^^ dataset_name: ", dataset_name)
+
     project_id = os.environ.get('PROJECT_ID')
+
+    print("^^^^^^ project_id: ", project_id)
     export_bucket = os.environ.get('EXPORT_BUCKET')
+
+    print("^^^^^^ export_bucket: ", export_bucket)
     dataset_id = f'{project_id}.{dataset_name}'
 
+    print("^^^^^^ dataset_id: ", dataset_id)
+
     bq_client = bigquery.Client()
+
+    print("---- made bq_client")
+
     dataset = bq_client.get_dataset(dataset_id)
+
+    print("---- made dataset")
+
     tables = list(bq_client.list_tables(dataset))
+
+    print("---- made tables")
 
     # process intersectional tables only once in their own DAG step
     if demographic == "multi":
@@ -49,6 +64,8 @@ def export_dataset_tables():
         tables = [
             table for table in tables if (not has_multi_demographics(table.table_id) and demographic in table.table_id)
         ]
+
+    print("-----", tables)
 
     # filter out non-category tables if category arg is present
     if category is not None:
@@ -63,6 +80,9 @@ def export_dataset_tables():
         return (f'Dataset has no tables with "{demographic}" in the table_id.', 500)
 
     for table in tables:
+
+        print(f'====== Exporting table {table.table_id}')
+
         # split up county-level tables by state and export those individually
         if not has_multi_demographics(table.table_id):
             export_split_county_tables(bq_client, table, export_bucket)
