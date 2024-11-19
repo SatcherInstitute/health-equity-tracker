@@ -1,10 +1,10 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import VariableProvider from './VariableProvider'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
   .VITE_SHOW_NEW_MATERNAL_MORTALITY
@@ -38,6 +38,11 @@ class MaternalMortalityProvider extends VariableProvider {
           return 'maternal_mortality_data-by_race_state_current'
         if (breakdowns.geography === 'national')
           return 'maternal_mortality_data-by_race_national_current'
+      } else {
+        if (breakdowns.geography === 'state')
+          return 'maternal_mortality_data-by_alls_state_current'
+        if (breakdowns.geography === 'national')
+          return 'maternal_mortality_data-by_alls_national_current'
       }
     }
     if (timeView === 'historical') {
@@ -46,6 +51,11 @@ class MaternalMortalityProvider extends VariableProvider {
           return 'maternal_mortality_data-by_race_state_historical'
         if (breakdowns.geography === 'national')
           return 'maternal_mortality_data-by_race_national_historical'
+      } else {
+        if (breakdowns.geography === 'state')
+          return 'maternal_mortality_data-by_alls_state_historical'
+        if (breakdowns.geography === 'national')
+          return 'maternal_mortality_data-by_alls_national_historical'
       }
     }
   }
@@ -60,6 +70,9 @@ class MaternalMortalityProvider extends VariableProvider {
         undefined,
         metricQuery.timeView,
       )
+
+      console.log({ datasetId })
+
       if (!datasetId) {
         return new MetricQueryResponse([], [])
       }
