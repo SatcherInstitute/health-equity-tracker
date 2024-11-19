@@ -89,17 +89,16 @@ function generateInsightPrompt(disparities: Disparity): string {
     Health outcome share: ${outcomeShare}%
     Ratio: ${ratio}
 
-    Generate a single, concise sentence that follows these examples:
-    1. "Hispanic individuals (18% of US population) account for about 29% of uninsured cases, making them twice as likely to lack health insurance."
-    2. "In the US, two or more races individuals only make up 2% of the population, but account for over 8% of HIV deaths, making them 4 times more likely to die from HIV."
-    
+Example:
+    "In the US, [Subgroup] individuals make up [Population Share]% of the population but account for [Outcome Share]% of [Measure], making them [Ratio] times more likely to [Impact]."
+
     Guidelines:
-    - Aim for a sentence of 20-30 words.
-    - Use contrasting words (e.g., "but", "while", "yet") to emphasize the disparity.
-    - Adapt the measure to fit grammatically (e.g., "uninsured cases", "HIV deaths").
-    - Use natural language like "more likely to experience/affected by" or when describing ratio.
-    - Ensure the sentence is grammatically correct and easily understood.
-    - Limit your response to one sentence only.
+    - Uses contrasting words like "but" or "while" to emphasize differences.
+    - Avoids assumptions and reflects the data as presented.
+    - Uses clear and simple language to make the disparity easily understood.
+    - Adapt the measure to fit grammatically (e.g., "uninsured cases", "HIV deaths, Black women").
+    - Is suitable for use in reports or presentations.
+    - If measure PrEP, population share is the PrEP eligible population and the measure if PrEP prescriptions.
   `
 }
 

@@ -39,6 +39,9 @@ import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 
+export const SHOW_INSIGHT_GENERATION = import.meta.env
+  .VITE_SHOW_INSIGHT_GENERATION
+
 interface ReportProps {
   key: string
   dropdownVarId: DropdownVarId
@@ -288,23 +291,31 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {shareMetricConfig && (
-                      <div className='list-none rounded-md shadow-raised bg-white relative'>
-                        <InsightDisplay
-                          insight={insight}
-                          handleGenerateInsight={handleGenerateInsight}
-                          handleClearInsight={handleClearInsight}
-                          isGeneratingInsight={isGeneratingInsight}
-                        />
+                    {shareMetricConfig &&
+                      (SHOW_INSIGHT_GENERATION ? (
+                        <div className='list-none rounded-md shadow-raised bg-white relative'>
+                          <InsightDisplay
+                            insight={insight}
+                            handleGenerateInsight={handleGenerateInsight}
+                            handleClearInsight={handleClearInsight}
+                            isGeneratingInsight={isGeneratingInsight}
+                          />
+                          <DisparityBarChartCard
+                            dataTypeConfig={dataTypeConfig}
+                            demographicType={demographicType}
+                            fips={props.fips}
+                            reportTitle={props.reportTitle}
+                            onDataLoad={handleChartDataLoad}
+                          />
+                        </div>
+                      ) : (
                         <DisparityBarChartCard
                           dataTypeConfig={dataTypeConfig}
                           demographicType={demographicType}
                           fips={props.fips}
                           reportTitle={props.reportTitle}
-                          onDataLoad={handleChartDataLoad}
                         />
-                      </div>
-                    )}
+                      ))}
                   </LazyLoad>
                 </div>
 

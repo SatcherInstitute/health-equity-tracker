@@ -14,33 +14,31 @@ export function getKeyBySubstring(
 }
 
 export function getHighestDisparity(data: ResultData[]): Disparity {
-  const disparities = data.map((item) => {
+  // Filter out items with subgroup equal to "White (NH)"
+  const filteredData = data.filter((item) => item.subgroup !== 'White (NH)')
+
+  const disparities = filteredData.map((item) => {
     const { fips_name, subgroup, ...rest } = item
     const [pctShareKey, measure] = getKeyBySubstring(rest, 'pct_share')
     const [populationPctKey] = getKeyBySubstring(rest, 'population_pct')
     const outcomeShare = Math.round(rest[pctShareKey])
     const populationShare = Math.round(rest[populationPctKey])
+    const ratio = Math.round(outcomeShare / populationShare)
 
     const disparity: Disparity = {
       location: fips_name,
       subgroup,
-      disparity: 0,
+      disparity: ratio - 1,
       measure,
       outcomeShare,
       populationShare,
-      ratio: 0,
-    }
-
-    if (populationShare && outcomeShare) {
-      const ratio = Math.round(outcomeShare / populationShare)
-      disparity.ratio = ratio
-      disparity.disparity = ratio - 1
+      ratio,
     }
 
     return disparity
   })
 
-  // Return the object with the highest disparity
+  // Return the object with the highest disparity among the valid disparities
   return disparities.reduce((max, curr) =>
     curr.disparity > max.disparity ? curr : max,
   )
