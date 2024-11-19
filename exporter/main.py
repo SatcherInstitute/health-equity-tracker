@@ -23,11 +23,17 @@ def export_dataset_tables():
     if data.get('demographic') is not None:
         demographic = data.get('demographic')
 
+    print("^^^^^^ demographic: ", demographic)
+
     category = None
     if data.get('category') is not None:
         category = data.get('category')
 
+    print("^^^^^^ category: ", category)
+
     should_export_as_alls = data.get('should_export_as_alls', False)
+
+    print("^^^^^^ should_export_as_alls: ", should_export_as_alls)
 
     dataset_name = data['dataset_name']
 
@@ -49,11 +55,13 @@ def export_dataset_tables():
 
     dataset = bq_client.get_dataset(dataset_id)
 
-    print("---- made dataset")
+    print("---- made dataset: ", dataset)
 
     tables = list(bq_client.list_tables(dataset))
 
     print("---- made tables")
+    for table in tables:
+        print(table.table_id)
 
     # process intersectional tables only once in their own DAG step
     if demographic == "multi":
