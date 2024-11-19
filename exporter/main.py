@@ -183,6 +183,10 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     alls_table_id = table.table_id.replace(demographic, 'alls')
     alls_file_name = f'{table.dataset_id}-{alls_table_id}.json'
     demo_col = 'race_and_ethnicity' if demographic == 'race' else demographic
+    demo_cols = [demo_col]
+
+    if demographic == 'race':
+        demo_cols.append('race_category_id')
 
     logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
     print(f'Exporting ALLs data {alls_table_id} from {table_name}.')
@@ -196,7 +200,8 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     try:
         blob = prepare_blob(bucket, alls_file_name)
         alls_df = get_query_results_as_df(bq_client, query)
-        alls_df.drop(columns=[demo_col], inplace=True)
+        alls_df.drop(columns=demo_cols, inplace=True)
+
         print("ALLS DF")
         print(alls_df)
         nd_json = alls_df.to_json(orient="records", lines=True)
