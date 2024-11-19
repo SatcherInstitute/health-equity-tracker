@@ -27,5 +27,4 @@ maternal_mortality_exporter_payload_race = {
 maternal_mortality_exporter_operator_race = util.create_exporter_operator(
     'maternal_mortality_exporter_race', maternal_mortality_exporter_payload_race, data_ingestion_dag
 )
-# Ingestion DAG
 (maternal_mortality_bq_operator >> maternal_mortality_exporter_operator_race)

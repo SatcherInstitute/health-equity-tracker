@@ -1,7 +1,5 @@
 import logging
 import os
-
-#
 from flask import Flask, request
 from google.cloud import bigquery, storage
 
@@ -23,45 +21,17 @@ def export_dataset_tables():
     if data.get('demographic') is not None:
         demographic = data.get('demographic')
 
-    print("^^^^^^ demographic: ", demographic)
-
     category = None
     if data.get('category') is not None:
         category = data.get('category')
-
-    print("^^^^^^ category: ", category)
-
     should_export_as_alls = data.get('should_export_as_alls', False)
-
-    print("^^^^^^ should_export_as_alls: ", should_export_as_alls)
-
     dataset_name = data['dataset_name']
-
-    print("^^^^^^ dataset_name: ", dataset_name)
-
     project_id = os.environ.get('PROJECT_ID')
-
-    print("^^^^^^ project_id: ", project_id)
     export_bucket = os.environ.get('EXPORT_BUCKET')
-
-    print("^^^^^^ export_bucket: ", export_bucket)
     dataset_id = f'{project_id}.{dataset_name}'
-
-    print("^^^^^^ dataset_id: ", dataset_id)
-
     bq_client = bigquery.Client()
-
-    print("---- made bq_client")
-
     dataset = bq_client.get_dataset(dataset_id)
-
-    print("---- made dataset: ", dataset)
-
     tables = list(bq_client.list_tables(dataset))
-
-    print("---- made tables")
-    for table in tables:
-        print(table.table_id)
 
     # process intersectional tables only once in their own DAG step
     if demographic == "multi":
@@ -72,8 +42,6 @@ def export_dataset_tables():
         tables = [
             table for table in tables if (not has_multi_demographics(table.table_id) and demographic in table.table_id)
         ]
-
-    print("-----", tables)
 
     # filter out non-category tables if category arg is present
     if category is not None:
@@ -88,9 +56,6 @@ def export_dataset_tables():
         return (f'Dataset has no tables with "{demographic}" in the table_id.', 500)
 
     for table in tables:
-
-        print(f'====== Exporting table {table.table_id}')
-
         # split up county-level tables by state and export those individually
         if not has_multi_demographics(table.table_id):
             export_split_county_tables(bq_client, table, export_bucket)
@@ -109,7 +74,6 @@ def export_dataset_tables():
             )
 
         if should_export_as_alls:
-            print("SHOULD EXPORT ALLS")
             export_alls(bq_client, table, export_bucket, demographic)
 
     return ('', 204)
@@ -181,6 +145,7 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode"""
     table_name = get_table_name(table)
     alls_table_id = table.table_id.replace(demographic, 'alls')
+    logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
     alls_file_name = f'{table.dataset_id}-{alls_table_id}.json'
     demo_col = 'race_and_ethnicity' if demographic == 'race' else demographic
     demo_cols = [demo_col]
@@ -188,8 +153,6 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     if demographic == 'race':
         demo_cols.append('race_category_id')
 
-    logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
-    print(f'Exporting ALLs data {alls_table_id} from {table_name}.')
     bucket = prepare_bucket(export_bucket)
     query = f"""
         SELECT *
@@ -201,15 +164,11 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
         blob = prepare_blob(bucket, alls_file_name)
         alls_df = get_query_results_as_df(bq_client, query)
         alls_df.drop(columns=demo_cols, inplace=True)
-
-        print("ALLS DF")
-        print(alls_df)
         nd_json = alls_df.to_json(orient="records", lines=True)
         export_nd_json_to_blob(blob, nd_json)
 
     except Exception as err:
         logging.error(err)
-        print(err)
         return (
             f'Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}',
             500,
