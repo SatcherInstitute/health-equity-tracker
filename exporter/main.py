@@ -31,6 +31,8 @@ def export_dataset_tables():
     if data.get('should_export_as_alls') is not None:
         should_export_as_alls = data.get('should_export_as_alls')
 
+    print("^^^^^^:", should_export_as_alls)
+
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
     export_bucket = os.environ.get('EXPORT_BUCKET')
@@ -81,6 +83,7 @@ def export_dataset_tables():
             )
 
         if should_export_as_alls:
+            print("SHOULD EXPORT ALLS")
             export_alls(bq_client, table, export_bucket, demographic)
 
     return ('', 204)
@@ -155,6 +158,7 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     alls_file_name = f'{table.dataset_id}-{alls_table_id}.json'
 
     logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
+    print(f'Exporting ALLs data {alls_table_id} from {table_name}.')
     bucket = prepare_bucket(export_bucket)
     query = f"""
         SELECT *
@@ -166,11 +170,14 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
         blob = prepare_blob(bucket, alls_file_name)
         alls_df = get_query_results_as_df(bq_client, query)
         alls_df.drop(columns=[demographic], inplace=True)
+        print("ALLS DF")
+        print(alls_df)
         nd_json = alls_df.to_json(orient="records", lines=True)
         export_nd_json_to_blob(blob, nd_json)
 
     except Exception as err:
         logging.error(err)
+        print(err)
         return (
             f'Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}',
             500,
