@@ -27,11 +27,9 @@ def export_dataset_tables():
     if data.get('category') is not None:
         category = data.get('category')
 
-    should_export_as_alls = False
-    if data.get('should_export_as_alls') is not None:
-        should_export_as_alls = data.get('should_export_as_alls')
+    should_export_as_alls = data.get('should_export_as_alls', False)
 
-    print("^^^^^^:", should_export_as_alls)
+    print("^^^^^^ should_export_as_alls:", should_export_as_alls)
 
     dataset_name = data['dataset_name']
     project_id = os.environ.get('PROJECT_ID')
