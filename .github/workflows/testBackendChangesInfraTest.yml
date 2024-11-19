@@ -132,12 +132,15 @@ jobs:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: frontend
         uses: ./.github/actions/buildAndPush
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
