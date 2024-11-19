@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
-import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { covidTopicsString } from './Covid19Link'
 import { pdohTopicsString } from './PdohLink'
 import { hivTopicsString } from './HivLink'
