@@ -1,9 +1,12 @@
-import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import { getDataManager } from '../../utils/globals'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
@@ -69,63 +72,15 @@ class MaternalMortalityProvider extends VariableProvider {
     }
   }
 
-  resolveDatasetId(metricQuery: MetricQuery): {
-    datasetId: DatasetId | undefined
-    breakdowns: Breakdowns
-    useFallback: boolean
-  } {
-    const { breakdowns, scrollToHashId, timeView } = metricQuery
-    const breakdownDatasetId = this.getDatasetId(
-      breakdowns,
-      undefined,
-      timeView,
-    )
-
-    const shouldFallBackToAlls = Boolean(
-      scrollToHashId &&
-        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
-        breakdownDatasetId === undefined,
-    )
-
-    const fallbackAllsDatasetId = shouldFallBackToAlls
-      ? this.getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
-      : undefined
-
-    return {
-      datasetId: breakdownDatasetId || fallbackAllsDatasetId,
-      breakdowns,
-      useFallback: Boolean(fallbackAllsDatasetId),
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      // const { breakdowns, scrollToHashId } = metricQuery
-      // const breakdownDatasetId = this.getDatasetId(
-      //   breakdowns,
-      //   undefined,
-      //   metricQuery.timeView,
-      // )
-
-      // const shouldFallBackToAlls =
-      //   scrollToHashId &&
-      //   CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
-      //   breakdownDatasetId === undefined
-
-      // const fallbackAllsDatasetId =
-      //   shouldFallBackToAlls &&
-      //   this.getFallbackAllsDatasetId(
-      //     breakdowns,
-      //     undefined,
-      //     metricQuery.timeView,
-      //   )
-
-      // const datasetId = breakdownDatasetId || fallbackAllsDatasetId
-
-      const { breakdowns, datasetId, useFallback } =
-        this.resolveDatasetId(metricQuery)
+      const { breakdowns, datasetId, useFallback } = resolveDatasetId(
+        metricQuery,
+        this.getDatasetId.bind(this),
+        this.getFallbackAllsDatasetId.bind(this),
+      )
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
