@@ -69,63 +69,63 @@ class MaternalMortalityProvider extends VariableProvider {
     }
   }
 
-  // resolveDatasetId(metricQuery: MetricQuery): {
-  //   datasetId: DatasetId | undefined
-  //   breakdowns: Breakdowns
-  //   useFallback: boolean
-  // } {
-  //   const { breakdowns, scrollToHashId, timeView } = metricQuery
-  //   const breakdownDatasetId = this.getDatasetId(
-  //     breakdowns,
-  //     undefined,
-  //     timeView,
-  //   )
+  resolveDatasetId(metricQuery: MetricQuery): {
+    datasetId: DatasetId | undefined
+    breakdowns: Breakdowns
+    useFallback: boolean
+  } {
+    const { breakdowns, scrollToHashId, timeView } = metricQuery
+    const breakdownDatasetId = this.getDatasetId(
+      breakdowns,
+      undefined,
+      timeView,
+    )
 
-  //   const shouldFallBackToAlls = Boolean(
-  //     scrollToHashId &&
-  //       CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
-  //       breakdownDatasetId === undefined,
-  //   )
+    const shouldFallBackToAlls = Boolean(
+      scrollToHashId &&
+        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
+        breakdownDatasetId === undefined,
+    )
 
-  //   const fallbackAllsDatasetId = shouldFallBackToAlls
-  //     ? this.getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
-  //     : undefined
+    const fallbackAllsDatasetId = shouldFallBackToAlls
+      ? this.getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
+      : undefined
 
-  //   return {
-  //     datasetId: breakdownDatasetId || fallbackAllsDatasetId,
-  //     breakdowns,
-  //     useFallback: Boolean(fallbackAllsDatasetId),
-  //   }
-  // }
+    return {
+      datasetId: breakdownDatasetId || fallbackAllsDatasetId,
+      breakdowns,
+      useFallback: Boolean(fallbackAllsDatasetId),
+    }
+  }
 
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, scrollToHashId } = metricQuery
-      const breakdownDatasetId = this.getDatasetId(
-        breakdowns,
-        undefined,
-        metricQuery.timeView,
-      )
+      // const { breakdowns, scrollToHashId } = metricQuery
+      // const breakdownDatasetId = this.getDatasetId(
+      //   breakdowns,
+      //   undefined,
+      //   metricQuery.timeView,
+      // )
 
-      const shouldFallBackToAlls =
-        scrollToHashId &&
-        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
-        breakdownDatasetId === undefined
+      // const shouldFallBackToAlls =
+      //   scrollToHashId &&
+      //   CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
+      //   breakdownDatasetId === undefined
 
-      const fallbackAllsDatasetId =
-        shouldFallBackToAlls &&
-        this.getFallbackAllsDatasetId(
-          breakdowns,
-          undefined,
-          metricQuery.timeView,
-        )
+      // const fallbackAllsDatasetId =
+      //   shouldFallBackToAlls &&
+      //   this.getFallbackAllsDatasetId(
+      //     breakdowns,
+      //     undefined,
+      //     metricQuery.timeView,
+      //   )
 
-      const datasetId = breakdownDatasetId || fallbackAllsDatasetId
+      // const datasetId = breakdownDatasetId || fallbackAllsDatasetId
 
-      // const { breakdowns, datasetId, useFallback } =
-      //   this.resolveDatasetId(metricQuery)
+      const { breakdowns, datasetId, useFallback } =
+        this.resolveDatasetId(metricQuery)
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
@@ -142,7 +142,7 @@ class MaternalMortalityProvider extends VariableProvider {
       }
       df = this.renameGeoColumns(df, breakdowns)
 
-      if (fallbackAllsDatasetId) {
+      if (useFallback) {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {
         df = this.applyDemographicBreakdownFilters(df, breakdowns)
