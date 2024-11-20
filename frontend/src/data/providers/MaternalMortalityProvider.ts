@@ -1,11 +1,16 @@
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
+import { isValidDatasetId, type DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type {
+  Breakdowns,
+  DemographicType,
+  GeographicBreakdown,
+  TimeView,
+} from '../query/Breakdowns'
 import {
-  type MetricQuery,
   MetricQueryResponse,
   resolveDatasetId,
+  type MetricQuery,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
@@ -30,45 +35,55 @@ class MaternalMortalityProvider extends VariableProvider {
     super('maternal_mortality_provider', MATERNAL_MORTALITY_METRIC_IDS)
   }
 
+  // getDatasetId(
+  //   breakdowns: Breakdowns,
+  //   dataTypeId?: DataTypeId,
+  //   timeView?: TimeView,
+  // ): DatasetId | undefined {
+  //   if (timeView === 'current') {
+  //     if (breakdowns.hasOnlyRace()) {
+  //       if (breakdowns.geography === 'state')
+  //         return 'maternal_mortality_data-by_race_state_current'
+  //       if (breakdowns.geography === 'national')
+  //         return 'maternal_mortality_data-by_race_national_current'
+  //     }
+  //   }
+  //   if (timeView === 'historical') {
+  //     if (breakdowns.hasOnlyRace()) {
+  //       if (breakdowns.geography === 'state')
+  //         return 'maternal_mortality_data-by_race_state_historical'
+  //       if (breakdowns.geography === 'national')
+  //         return 'maternal_mortality_data-by_race_national_historical'
+  //     }
+  //   }
+  // }
+
   getDatasetId(
     breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
+    _?: DataTypeId,
     timeView?: TimeView,
   ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'maternal_mortality_data-by_race_state_current'
-        if (breakdowns.geography === 'national')
-          return 'maternal_mortality_data-by_race_national_current'
-      }
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'maternal_mortality_data-by_race_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'maternal_mortality_data-by_race_national_historical'
-      }
+    const requestedDemographic: DemographicType = breakdowns.hasOnlyRace()
+      ? ('race' as DemographicType)
+      : breakdowns.getSoleDemographicBreakdown().columnName
+
+    const requestedGeography: GeographicBreakdown = breakdowns.geography
+    const requestedDatasetId: string = `maternal_mortality_data-by_${requestedDemographic}_${requestedGeography}_${timeView}`
+
+    if (isValidDatasetId(requestedDatasetId)) {
+      return requestedDatasetId
     }
   }
 
   getFallbackAllsDatasetId(
     breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
+    _?: DataTypeId,
     timeView?: TimeView,
   ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.geography === 'state')
-        return 'maternal_mortality_data-by_alls_state_current'
-      if (breakdowns.geography === 'national')
-        return 'maternal_mortality_data-by_alls_national_current'
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.geography === 'state')
-        return 'maternal_mortality_data-by_alls_state_historical'
-      if (breakdowns.geography === 'national')
-        return 'maternal_mortality_data-by_alls_national_historical'
+    const requestedGeography: GeographicBreakdown = breakdowns.geography
+    const requestedFallbackAllsDatasetId: string = `maternal_mortality_data-by_alls_${requestedGeography}_${timeView}`
+    if (isValidDatasetId(requestedFallbackAllsDatasetId)) {
+      return requestedFallbackAllsDatasetId
     }
   }
 

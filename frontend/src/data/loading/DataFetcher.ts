@@ -2,13 +2,13 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import type { MapOfDatasetMetadata, HetRow } from '../utils/DatasetTypes'
+import type { Environment } from '../../utils/Environment'
 import {
-  type DatasetId,
   DatasetMetadataMap,
+  type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
-import type { Environment } from '../../utils/Environment'
+import type { HetRow, MapOfDatasetMetadata } from '../utils/DatasetTypes'
 
 type FileFormat = 'json' | 'csv'
 
