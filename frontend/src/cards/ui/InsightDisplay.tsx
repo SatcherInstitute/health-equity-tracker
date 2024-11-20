@@ -33,9 +33,6 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   demographicType,
   metricIds,
 }) => {
-  if (!SHOW_INSIGHT_GENERATION) {
-    return
-  }
   const [insight, setInsight] = useState<string>('')
   const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
 
@@ -44,7 +41,8 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   const [knownData] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
   const handleGenerateInsight = async () => {
-    if (!knownData.length || !metricIds.length) return
+    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length)
+      return
 
     setIsGeneratingInsight(true)
     try {
