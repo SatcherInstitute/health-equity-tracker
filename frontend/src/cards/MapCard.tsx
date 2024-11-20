@@ -196,6 +196,7 @@ function MapCardWithKey(props: MapCardProps) {
         ),
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
       /* timeView */ 'current',
+      /* scrollToHashId */ HASH_ID,
     )
   }
 

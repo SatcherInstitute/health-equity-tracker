@@ -1,10 +1,13 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
   .VITE_SHOW_NEW_MATERNAL_MORTALITY
@@ -50,26 +53,43 @@ class MaternalMortalityProvider extends VariableProvider {
     }
   }
 
+  getFallbackAllsDatasetId(
+    breakdowns: Breakdowns,
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView,
+  ): DatasetId | undefined {
+    if (timeView === 'current') {
+      if (breakdowns.geography === 'state')
+        return 'maternal_mortality_data-by_alls_state_current'
+      if (breakdowns.geography === 'national')
+        return 'maternal_mortality_data-by_alls_national_current'
+    }
+    if (timeView === 'historical') {
+      if (breakdowns.geography === 'state')
+        return 'maternal_mortality_data-by_alls_state_historical'
+      if (breakdowns.geography === 'national')
+        return 'maternal_mortality_data-by_alls_national_historical'
+    }
+  }
+
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const breakdowns = metricQuery.breakdowns
-      const datasetId = this.getDatasetId(
-        breakdowns,
-        undefined,
-        metricQuery.timeView,
+      const { breakdowns, datasetId, useFallback } = resolveDatasetId(
+        metricQuery,
+        this.getDatasetId.bind(this),
+        this.getFallbackAllsDatasetId.bind(this),
       )
+
       if (!datasetId) {
         return new MetricQueryResponse([], [])
       }
-      const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+
       const maternalMortalityDataset =
-        await getDataManager().loadDataset(specificDatasetId)
+        await getDataManager().loadDataset(datasetId)
       const consumedDatasetIds = [datasetId]
       let df = maternalMortalityDataset.toDataFrame()
-
-      // Filter by geography
       df = this.filterByGeo(df, breakdowns)
 
       if (df.toArray().length === 0) {
@@ -77,9 +97,12 @@ class MaternalMortalityProvider extends VariableProvider {
       }
       df = this.renameGeoColumns(df, breakdowns)
 
-      // Apply demographic breakdown filters
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
+      if (useFallback) {
+        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+      } else {
+        df = this.applyDemographicBreakdownFilters(df, breakdowns)
+        df = this.removeUnrequestedColumns(df, metricQuery)
+      }
 
       return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
     } catch (error) {

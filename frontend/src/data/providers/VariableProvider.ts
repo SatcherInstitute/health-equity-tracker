@@ -1,6 +1,6 @@
 import type { IDataFrame } from 'data-forge'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
-
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import {
@@ -10,7 +10,6 @@ import {
 } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { TIME_PERIOD } from '../utils/Constants'
-import type { DatasetId } from '../config/DatasetMetadata'
 
 abstract class VariableProvider {
   readonly providerId: ProviderId
@@ -112,6 +111,21 @@ abstract class VariableProvider {
     return dataFrame
   }
 
+  // add the requested demographic column to the ALLS df, with the value 'All' on each row
+  castAllsAsRequestedDemographicBreakdown(
+    df: IDataFrame,
+    breakdowns: Breakdowns,
+  ): IDataFrame {
+    const requestedDemographic =
+      breakdowns.getSoleDemographicBreakdown().columnName
+    df = df.generateSeries((row) => {
+      row[requestedDemographic] = 'All'
+      return row
+    })
+
+    return df
+  }
+
   abstract getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse>
@@ -122,6 +136,12 @@ abstract class VariableProvider {
   ): boolean
 
   abstract getDatasetId(
+    breakdown: Breakdowns,
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView,
+  ): DatasetId | undefined
+
+  getFallbackAllsDatasetId?(
     breakdown: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,

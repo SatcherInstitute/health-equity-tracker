@@ -1,41 +1,41 @@
 import { useState } from 'react'
-import type { Fips } from '../data/utils/Fips'
-import {
-  Breakdowns,
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../data/query/Breakdowns'
-import { MetricQuery } from '../data/query/MetricQuery'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import CardWrapper from './CardWrapper'
+import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { TrendsChart } from '../charts/trendsChart/Index'
+import type { AxisConfig } from '../charts/trendsChart/types'
+import { generateSubtitle } from '../charts/utils'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
+import { HIV_METRICS } from '../data/providers/HivProvider'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
-  type DemographicGroup,
-  NON_HISPANIC,
+  Breakdowns,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import {
   AIAN_API,
   ALL,
+  type DemographicGroup,
+  NON_HISPANIC,
   TIME_PERIOD,
 } from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import {
   getNestedData,
   getNestedUnknowns,
 } from '../data/utils/DatasetTimeUtils'
-import AltTableView from './ui/AltTableView'
-import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
+import type { Fips } from '../data/utils/Fips'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import type { HetRow } from '../data/utils/DatasetTypes'
-import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
-import { HIV_METRICS } from '../data/providers/HivProvider'
-import Hiv2020Alert from './ui/Hiv2020Alert'
+import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
+import AltTableView from './ui/AltTableView'
+import Hiv2020Alert from './ui/Hiv2020Alert'
+import MissingDataAlert from './ui/MissingDataAlert'
+import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
-import { generateSubtitle } from '../charts/utils'
-import type { AxisConfig } from '../charts/trendsChart/types'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -88,6 +88,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'historical',
+    /* scrollToHashId */ 'rates-over-time',
   )
 
   // get pct_share with unknown demographic for optional bubble chart
