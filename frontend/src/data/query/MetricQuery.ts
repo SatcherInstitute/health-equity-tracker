@@ -1,28 +1,32 @@
-import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
-import type { HetRow, FieldRange } from '../utils/DatasetTypes'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
-import type { DemographicGroup } from '../utils/Constants'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import type {
-  DatasetIdWithStateFIPSCode,
   DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { DemographicGroup } from '../utils/Constants'
+import type { FieldRange, HetRow } from '../utils/DatasetTypes'
+import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
 
 export class MetricQuery {
   readonly metricIds: MetricId[]
   readonly breakdowns: Breakdowns
   readonly dataTypeId: DataTypeId | undefined
   readonly timeView: TimeView
+  scrollToHashId?: ScrollableHashId
 
   constructor(
     metricIds: MetricId | MetricId[],
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
+    scrollToHashId?: ScrollableHashId,
   ) {
     this.metricIds = [metricIds].flat()
     this.breakdowns = breakdowns
     this.dataTypeId = dataTypeId
     this.timeView = timeView ?? 'current'
+    this.scrollToHashId = scrollToHashId
   }
 
   getUniqueKey(): string {
