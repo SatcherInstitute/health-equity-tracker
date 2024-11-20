@@ -1,7 +1,6 @@
 import type { IDataFrame } from 'data-forge'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-
 import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import {

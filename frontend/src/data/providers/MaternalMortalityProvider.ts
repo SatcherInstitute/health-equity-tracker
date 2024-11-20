@@ -1,5 +1,5 @@
+import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import { getDataManager } from '../../utils/globals'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
@@ -80,14 +80,9 @@ class MaternalMortalityProvider extends VariableProvider {
         metricQuery.timeView,
       )
 
-      const cardsThatShouldFallbackToAlls: ScrollableHashId[] = [
-        'rate-map',
-        'rates-over-time',
-      ]
-
       const shouldFallBackToAlls =
         scrollToHashId &&
-        cardsThatShouldFallbackToAlls.includes(scrollToHashId) &&
+        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
         breakdownDatasetId === undefined
 
       const fallbackAllsDatasetId =
