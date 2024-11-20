@@ -1,6 +1,6 @@
 import type {
-  DataTypeId,
   DataTypeConfig,
+  DataTypeId,
 } from '../data/config/MetricConfigTypes'
 import {
   AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
@@ -20,11 +20,11 @@ import {
   GUN_VIOLENCE_YOUTH_DATATYPES,
   GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/GunViolenceYouthProvider'
-import { MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/MaternalMortalityProvider'
 import {
   BLACK_WOMEN_DATATYPES,
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/HivProvider'
+import { MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/MaternalMortalityProvider'
 import {
   PHRMA_BRFSS_ALL_SEXES_DATATYPES,
   PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -38,6 +38,7 @@ import {
 import { COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/VaccineProvider'
 import type { DemographicType } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
@@ -284,3 +285,8 @@ export function getAllDemographicOptions(
     disabledDemographicOptions,
   }
 }
+
+export const CARDS_THAT_SHOULD_FALLBACK_TO_ALLS: ScrollableHashId[] = [
+  'rate-map',
+  'rates-over-time',
+]

@@ -1,28 +1,33 @@
-import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
-import type { HetRow, FieldRange } from '../utils/DatasetTypes'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
-import type { DemographicGroup } from '../utils/Constants'
+import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import type {
-  DatasetIdWithStateFIPSCode,
   DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { DemographicGroup } from '../utils/Constants'
+import type { FieldRange, HetRow } from '../utils/DatasetTypes'
+import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
 
 export class MetricQuery {
   readonly metricIds: MetricId[]
   readonly breakdowns: Breakdowns
   readonly dataTypeId: DataTypeId | undefined
   readonly timeView: TimeView
+  scrollToHashId?: ScrollableHashId
 
   constructor(
     metricIds: MetricId | MetricId[],
     breakdowns: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
+    scrollToHashId?: ScrollableHashId,
   ) {
     this.metricIds = [metricIds].flat()
     this.breakdowns = breakdowns
     this.dataTypeId = dataTypeId
     this.timeView = timeView ?? 'current'
+    this.scrollToHashId = scrollToHashId
   }
 
   getUniqueKey(): string {
@@ -148,5 +153,43 @@ export class MetricQueryResponse {
     return (
       this.dataIsMissing() || fields.some((field) => this.isFieldMissing(field))
     )
+  }
+}
+
+// wraps around each provider's getDatasetId and getFallbackAllsDatasetId functions and returns the resolved datasetId and whether that id is an ALLS fallback
+export function resolveDatasetId(
+  metricQuery: MetricQuery,
+  getDatasetId: (
+    breakdowns: Breakdowns,
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView,
+  ) => DatasetId | undefined,
+  getFallbackAllsDatasetId?: (
+    breakdowns: Breakdowns,
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView,
+  ) => DatasetId | undefined,
+): {
+  datasetId: DatasetId | undefined
+  breakdowns: Breakdowns
+  useFallback: boolean
+} {
+  const { breakdowns, scrollToHashId, timeView } = metricQuery
+  const breakdownDatasetId = getDatasetId(breakdowns, undefined, timeView)
+
+  const shouldFallBackToAlls = Boolean(
+    scrollToHashId &&
+      CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
+      breakdownDatasetId === undefined,
+  )
+
+  const fallbackAllsDatasetId = shouldFallBackToAlls
+    ? getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
+    : undefined
+
+  return {
+    datasetId: breakdownDatasetId || fallbackAllsDatasetId,
+    breakdowns,
+    useFallback: Boolean(fallbackAllsDatasetId),
   }
 }
