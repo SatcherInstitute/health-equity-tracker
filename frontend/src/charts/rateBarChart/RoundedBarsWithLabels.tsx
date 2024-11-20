@@ -41,7 +41,7 @@ export default function RoundedBarsWithLabels(
 
     const roundedBarString = buildRoundedBarString(barWidth, props.yScale)
 
-    if (!roundedBarString) return <></>
+    if (!roundedBarString) return null
 
     const barAriaLabel = `${d[props.demographicType]}: ${d[props.metricConfig.metricId]} ${props.metricConfig.shortLabel}`
 
