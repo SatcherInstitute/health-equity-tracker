@@ -111,6 +111,7 @@ abstract class VariableProvider {
     return dataFrame
   }
 
+  // add the requested demographic column to the ALLS df, with the value 'All' on each row
   castAllsAsRequestedDemographicBreakdown(
     df: IDataFrame,
     breakdowns: Breakdowns,

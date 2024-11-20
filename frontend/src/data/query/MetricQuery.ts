@@ -156,6 +156,7 @@ export class MetricQueryResponse {
   }
 }
 
+// wraps around each provider's getDatasetId and getFallbackAllsDatasetId functions and returns the resolved datasetId and whether that id is an ALLS fallback
 export function resolveDatasetId(
   metricQuery: MetricQuery,
   getDatasetId: (
