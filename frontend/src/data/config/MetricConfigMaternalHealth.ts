@@ -1,4 +1,4 @@
-import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import { womenHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS = [
@@ -16,7 +16,7 @@ export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'maternal_health',
     dataTypeId: 'maternal_mortality',
-    mapConfig: defaultHigherIsWorseMapConfig,
+    mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Maternal mortality',
     fullDisplayName: 'Maternal mortality',
     fullDisplayNameInline: 'maternal mortality',

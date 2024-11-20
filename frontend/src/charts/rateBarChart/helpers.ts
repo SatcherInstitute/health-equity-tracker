@@ -9,6 +9,7 @@ import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 function wrapLabel(text: string, width: number): string[] {
+  if (!text) return []
   const normalizedText = text.replace(/\s+/g, ' ').trim()
   const words = normalizedText.split(' ')
   const lines: string[] = []

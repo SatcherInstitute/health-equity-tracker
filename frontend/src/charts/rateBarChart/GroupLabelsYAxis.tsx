@@ -28,7 +28,10 @@ export default function GroupLabelsYAxis(props: GroupLabelsYAxisProps) {
         }
         const yPosition = props.getYPosition(index, label.original)
         return (
-          <g key={label.original} transform={`translate(0,${yPosition})`}>
+          <g
+            key={`${label.original}-${index}`}
+            transform={`translate(0,${yPosition})`}
+          >
             {label.lines.map((line: string, lineIndex: number) => {
               return (
                 <text
