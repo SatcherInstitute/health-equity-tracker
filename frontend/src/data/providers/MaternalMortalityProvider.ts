@@ -69,6 +69,35 @@ class MaternalMortalityProvider extends VariableProvider {
     }
   }
 
+  // resolveDatasetId(metricQuery: MetricQuery): {
+  //   datasetId: DatasetId | undefined
+  //   breakdowns: Breakdowns
+  //   useFallback: boolean
+  // } {
+  //   const { breakdowns, scrollToHashId, timeView } = metricQuery
+  //   const breakdownDatasetId = this.getDatasetId(
+  //     breakdowns,
+  //     undefined,
+  //     timeView,
+  //   )
+
+  //   const shouldFallBackToAlls = Boolean(
+  //     scrollToHashId &&
+  //       CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
+  //       breakdownDatasetId === undefined,
+  //   )
+
+  //   const fallbackAllsDatasetId = shouldFallBackToAlls
+  //     ? this.getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
+  //     : undefined
+
+  //   return {
+  //     datasetId: breakdownDatasetId || fallbackAllsDatasetId,
+  //     breakdowns,
+  //     useFallback: Boolean(fallbackAllsDatasetId),
+  //   }
+  // }
+
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
@@ -94,6 +123,9 @@ class MaternalMortalityProvider extends VariableProvider {
         )
 
       const datasetId = breakdownDatasetId || fallbackAllsDatasetId
+
+      // const { breakdowns, datasetId, useFallback } =
+      //   this.resolveDatasetId(metricQuery)
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
