@@ -35,29 +35,6 @@ class MaternalMortalityProvider extends VariableProvider {
     super('maternal_mortality_provider', MATERNAL_MORTALITY_METRIC_IDS)
   }
 
-  // getDatasetId(
-  //   breakdowns: Breakdowns,
-  //   dataTypeId?: DataTypeId,
-  //   timeView?: TimeView,
-  // ): DatasetId | undefined {
-  //   if (timeView === 'current') {
-  //     if (breakdowns.hasOnlyRace()) {
-  //       if (breakdowns.geography === 'state')
-  //         return 'maternal_mortality_data-by_race_state_current'
-  //       if (breakdowns.geography === 'national')
-  //         return 'maternal_mortality_data-by_race_national_current'
-  //     }
-  //   }
-  //   if (timeView === 'historical') {
-  //     if (breakdowns.hasOnlyRace()) {
-  //       if (breakdowns.geography === 'state')
-  //         return 'maternal_mortality_data-by_race_state_historical'
-  //       if (breakdowns.geography === 'national')
-  //         return 'maternal_mortality_data-by_race_national_historical'
-  //     }
-  //   }
-  // }
-
   getDatasetId(
     breakdowns: Breakdowns,
     _?: DataTypeId,
