@@ -33,6 +33,9 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   demographicType,
   metricIds,
 }) => {
+  if (!SHOW_INSIGHT_GENERATION) {
+    return
+  }
   const [insight, setInsight] = useState<string>('')
   const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
 
