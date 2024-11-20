@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { DisparityBarChart } from '../charts/disparityBarChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
@@ -25,7 +24,6 @@ import {
   splitIntoKnownsAndUnknowns,
 } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
-import type { ChartData } from '../reports/Report'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -42,7 +40,6 @@ interface DisparityBarChartCardProps {
   fips: Fips
   reportTitle: string
   className?: string
-  onDataLoad?: (data: ChartData) => void
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -106,6 +103,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
       className={props.className}
+      shareConfig={shareConfig}
+      metricIds={metricIds}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(
@@ -116,14 +115,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           validData,
           props.demographicType,
         )
-
-        useEffect(() => {
-          const loadData = async () => {
-            if (props.onDataLoad) props.onDataLoad({ knownData, metricIds })
-          }
-
-          loadData()
-        }, [props.onDataLoad])
 
         const isCawp = CAWP_METRICS.includes(shareConfig.metricId)
 

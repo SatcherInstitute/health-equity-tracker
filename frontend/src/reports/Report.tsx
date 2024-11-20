@@ -1,16 +1,14 @@
 import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
-import { generateInsight } from '../cards/generateInsights'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import TableCard from '../cards/TableCard'
-import InsightDisplay from '../cards/ui/InsightDisplay'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
@@ -38,9 +36,6 @@ import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-
-export const SHOW_INSIGHT_GENERATION = import.meta.env
-  .VITE_SHOW_INSIGHT_GENERATION
 
 interface ReportProps {
   key: string
@@ -75,30 +70,6 @@ export function Report(props: ReportProps) {
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom,
   )
-
-  const [insight, setInsight] = useState<string>('')
-  const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
-  const [chartData, setChartData] = useState<ChartData | null>(null)
-
-  const handleChartDataLoad = (data: ChartData) => {
-    setChartData(data)
-  }
-
-  const handleGenerateInsight = async () => {
-    if (!chartData) return
-
-    setIsGeneratingInsight(true)
-    try {
-      const newInsight = await generateInsight(chartData)
-      setInsight(newInsight)
-    } finally {
-      setIsGeneratingInsight(false)
-    }
-  }
-
-  const handleClearInsight = () => {
-    setInsight('')
-  }
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(dataTypeConfig, props.fips)
@@ -291,31 +262,14 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {shareMetricConfig &&
-                      (SHOW_INSIGHT_GENERATION ? (
-                        <div className='list-none rounded-md shadow-raised bg-white relative'>
-                          <InsightDisplay
-                            insight={insight}
-                            handleGenerateInsight={handleGenerateInsight}
-                            handleClearInsight={handleClearInsight}
-                            isGeneratingInsight={isGeneratingInsight}
-                          />
-                          <DisparityBarChartCard
-                            dataTypeConfig={dataTypeConfig}
-                            demographicType={demographicType}
-                            fips={props.fips}
-                            reportTitle={props.reportTitle}
-                            onDataLoad={handleChartDataLoad}
-                          />
-                        </div>
-                      ) : (
-                        <DisparityBarChartCard
-                          dataTypeConfig={dataTypeConfig}
-                          demographicType={demographicType}
-                          fips={props.fips}
-                          reportTitle={props.reportTitle}
-                        />
-                      ))}
+                    {shareMetricConfig && (
+                      <DisparityBarChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={props.fips}
+                        reportTitle={props.reportTitle}
+                      />
+                    )}
                   </LazyLoad>
                 </div>
 
