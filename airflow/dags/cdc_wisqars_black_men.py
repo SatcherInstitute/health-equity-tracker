@@ -73,6 +73,7 @@ cdc_wisqars_black_men_bq_operator_age_state = util.create_bq_ingest_operator(
 payload_urbanicity = {
     'dataset_name': _CDC_WISQARS_BLACK_MEN_DATASET_NAME,
     'demographic': "urbanicity",
+    'should_export_as_alls': True,
 }
 cdc_wisqars_black_men_exporter_operator_urbanicity = util.create_exporter_operator(
     'cdc_wisqars_black_men_exporter_urbanicity', payload_urbanicity, data_ingestion_dag
