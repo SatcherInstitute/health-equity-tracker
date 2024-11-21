@@ -1,26 +1,26 @@
 import {
-  Drawer,
-  IconButton,
-  List,
-  ListItemText,
-  Collapse,
-  Toolbar,
-  ListItemButton,
-  ListItem,
-} from '@mui/material'
-import {
   Close,
   ExpandLess,
   ExpandMore,
   Menu as MenuIcon,
 } from '@mui/icons-material'
+import {
+  Collapse,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+} from '@mui/material'
 import { useState } from 'react'
-import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
-import HetCTASmall from './HetCTASmall'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import HetNavLink from './HetNavLink'
-import AppBarLogo from '../../assets/AppbarLogo.png'
 import { Link } from 'react-router-dom'
+import AppBarLogo from '../../assets/AppbarLogo.png'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
+import HetCTALinkSmall from './HetCTALinkSmall'
+import HetNavLink from './HetNavLink'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
@@ -120,14 +120,14 @@ export default function HetMobileAppToolbar() {
         <nav>
           <List className='flex flex-col justify-center pt-0'>
             {renderNavItems(NAVIGATION_STRUCTURE)}
-            <HetCTASmall
+            <HetCTALinkSmall
               className='my-4'
               id='navigationCTA'
               href={EXPLORE_DATA_PAGE_LINK}
               onClick={() => setOpen(false)}
             >
               Explore the data
-            </HetCTASmall>
+            </HetCTALinkSmall>
           </List>
         </nav>
       </Drawer>

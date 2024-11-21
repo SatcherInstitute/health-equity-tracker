@@ -1,15 +1,15 @@
-import DataSourceListing from './DataSourceListing'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import {
   type DataSourceId,
   dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
-import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
+import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
+import HetCTALinkSmall from '../../styles/HetComponents/HetCTALinkSmall'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
+import DataSourceListing from './DataSourceListing'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -75,12 +75,12 @@ export default function DataCatalogPage() {
           what each data set can show us about different health outcomes?
         </p>
 
-        <HetCTASmall
+        <HetCTALinkSmall
           className='w-fit mx-auto font-extrabold'
           href={EXPLORE_DATA_PAGE_LINK}
         >
           Explore the data dashboard
-        </HetCTASmall>
+        </HetCTALinkSmall>
         <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
