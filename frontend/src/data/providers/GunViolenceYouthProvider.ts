@@ -1,8 +1,11 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import type { DatasetId } from '../config/DatasetMetadata'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
 // TODO: ideally we should fix on the backend to clarify: `youth` is the parent category, that combines both `children` (ages 0-17) and `young_adults` (ages 18-25)
@@ -45,37 +48,15 @@ class GunViolenceYouthProvider extends VariableProvider {
     super('gun_violence_youth_provider', GUN_VIOLENCE_YOUTH_METRICS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current'
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current'
-      }
-    }
-
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical'
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical'
-      }
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, dataTypeId, timeView } = metricQuery
-
-      const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
+      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+        'cdc_wisqars_youth_data',
+        'youth_by_',
+        metricQuery,
+      )
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
@@ -86,8 +67,12 @@ class GunViolenceYouthProvider extends VariableProvider {
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
+      if (isFallbackId) {
+        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+      } else {
+        df = this.applyDemographicBreakdownFilters(df, breakdowns)
+        df = this.removeUnrequestedColumns(df, metricQuery)
+      }
 
       const consumedDatasetIds = [datasetId]
       return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
