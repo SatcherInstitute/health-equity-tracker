@@ -33,7 +33,7 @@ class MaternalMortalityProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, datasetId, useFallback } = resolveDatasetId(
+      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
         'maternal_mortality_data',
         'by_',
         metricQuery,
@@ -54,7 +54,7 @@ class MaternalMortalityProvider extends VariableProvider {
       }
       df = this.renameGeoColumns(df, breakdowns)
 
-      if (useFallback) {
+      if (isFallbackId) {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {
         df = this.applyDemographicBreakdownFilters(df, breakdowns)

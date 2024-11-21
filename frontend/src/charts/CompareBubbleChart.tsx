@@ -1,12 +1,12 @@
+import * as d3 from 'd3'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
-import * as d3 from 'd3'
-import { het } from '../styles/DesignTokens'
-import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import { GROUP_COLOR_MAP } from './trendsChart/constants'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import type { HetRow } from '../data/utils/DatasetTypes'
+import { het } from '../styles/DesignTokens'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import { GROUP_COLOR_MAP } from './trendsChart/constants'
 import {
   HEIGHT_WIDTH_RATIO,
   X_AXIS_MAX_TICKS,
@@ -102,6 +102,8 @@ const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
     </div>
   )
 }
+
+// TODO: this only works for race_and_ethnicity now
 
 const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
   const chartRef = useRef<HTMLDivElement>(null)
@@ -216,7 +218,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .attr('fill', (d) => {
         return (
           GROUP_COLOR_MAP[
-            d.race_and_ethnicity.replace(
+            d.race_and_ethnicity?.replace(
               ' (NH)',
               '',
             ) as keyof typeof GROUP_COLOR_MAP
@@ -260,7 +262,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
           .attr('fill', (d: any) => {
             return (
               GROUP_COLOR_MAP[
-                d.race_and_ethnicity.replace(
+                d.race_and_ethnicity?.replace(
                   ' (NH)',
                   '',
                 ) as keyof typeof GROUP_COLOR_MAP
