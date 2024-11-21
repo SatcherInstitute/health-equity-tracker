@@ -135,7 +135,9 @@ abstract class VariableProvider {
     metricIds?: MetricId[],
   ): boolean
 
-  abstract getDatasetId(
+  // TODO: remove getDatasetId and getFallbackAllsDatasetId once all providers have migrated in favor of resolveDatasetId in datasetutils
+
+  getDatasetId?(
     breakdown: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,

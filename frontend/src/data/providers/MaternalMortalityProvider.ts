@@ -1,11 +1,10 @@
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type { MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns } from '../query/Breakdowns'
 import {
-  type MetricQuery,
   MetricQueryResponse,
   resolveDatasetId,
+  type MetricQuery,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
@@ -30,56 +29,14 @@ class MaternalMortalityProvider extends VariableProvider {
     super('maternal_mortality_provider', MATERNAL_MORTALITY_METRIC_IDS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'maternal_mortality_data-by_race_state_current'
-        if (breakdowns.geography === 'national')
-          return 'maternal_mortality_data-by_race_national_current'
-      }
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'maternal_mortality_data-by_race_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'maternal_mortality_data-by_race_national_historical'
-      }
-    }
-  }
-
-  getFallbackAllsDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.geography === 'state')
-        return 'maternal_mortality_data-by_alls_state_current'
-      if (breakdowns.geography === 'national')
-        return 'maternal_mortality_data-by_alls_national_current'
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.geography === 'state')
-        return 'maternal_mortality_data-by_alls_state_historical'
-      if (breakdowns.geography === 'national')
-        return 'maternal_mortality_data-by_alls_national_historical'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
       const { breakdowns, datasetId, useFallback } = resolveDatasetId(
+        'maternal_mortality_data',
+        'by_',
         metricQuery,
-        this.getDatasetId.bind(this),
-        this.getFallbackAllsDatasetId.bind(this),
       )
 
       if (!datasetId) {

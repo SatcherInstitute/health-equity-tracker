@@ -1,13 +1,19 @@
 import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import type {
-  DatasetId,
-  DatasetIdWithStateFIPSCode,
+import {
+  isValidDatasetId,
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DemographicGroup } from '../utils/Constants'
 import type { FieldRange, HetRow } from '../utils/DatasetTypes'
-import type { Breakdowns, DemographicType, TimeView } from './Breakdowns'
+import type {
+  Breakdowns,
+  DemographicType,
+  GeographicBreakdown,
+  TimeView,
+} from './Breakdowns'
 
 export class MetricQuery {
   readonly metricIds: MetricId[]
@@ -156,40 +162,56 @@ export class MetricQueryResponse {
   }
 }
 
-// wraps around each provider's getDatasetId and getFallbackAllsDatasetId functions and returns the resolved datasetId and whether that id is an ALLS fallback
 export function resolveDatasetId(
+  bqDatasetName: string,
+  tablePrefix: string,
   metricQuery: MetricQuery,
-  getDatasetId: (
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ) => DatasetId | undefined,
-  getFallbackAllsDatasetId?: (
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ) => DatasetId | undefined,
 ): {
-  datasetId: DatasetId | undefined
   breakdowns: Breakdowns
-  useFallback: boolean
+  datasetId?: DatasetId
+  useFallback?: boolean
 } {
-  const { breakdowns, scrollToHashId, timeView } = metricQuery
-  const breakdownDatasetId = getDatasetId(breakdowns, undefined, timeView)
+  const { breakdowns, timeView } = metricQuery
+  const requestedDemographic: DemographicType =
+    breakdowns.getSoleDemographicBreakdown().columnName
+  const requestedGeography: GeographicBreakdown = breakdowns.geography
 
-  const shouldFallBackToAlls = Boolean(
-    scrollToHashId &&
-      CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
-      breakdownDatasetId === undefined,
-  )
-
-  const fallbackAllsDatasetId = shouldFallBackToAlls
-    ? getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
-    : undefined
-
-  return {
-    datasetId: breakdownDatasetId || fallbackAllsDatasetId,
-    breakdowns,
-    useFallback: Boolean(fallbackAllsDatasetId),
+  // Normal, valid demographic request
+  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}`
+  if (isValidDatasetId(requestedDatasetId)) {
+    return {
+      breakdowns,
+      datasetId: requestedDatasetId as DatasetId,
+    }
   }
+
+  // Handle tables that still use `race` instead of `race_and_ethnicity`
+  if (breakdowns.hasOnlyRace()) {
+    const requestedRaceDatasetId: string = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
+    if (isValidDatasetId(requestedRaceDatasetId)) {
+      return {
+        breakdowns,
+        datasetId: requestedRaceDatasetId as DatasetId,
+      }
+    }
+  }
+
+  // Fallback to ALLS
+  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}`
+  if (isValidDatasetId(fallbackAllsDatasetId)) {
+    const isFallbackEligible =
+      metricQuery.scrollToHashId &&
+      CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(metricQuery.scrollToHashId)
+
+    return {
+      breakdowns,
+      datasetId: isFallbackEligible
+        ? (fallbackAllsDatasetId as DatasetId)
+        : undefined,
+      useFallback: isFallbackEligible,
+    }
+  }
+
+  // No valid dataset or fallback
+  return { breakdowns }
 }

@@ -1262,3 +1262,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'maternal_health',
   },
 }
+
+export function isValidDatasetId(id: string): id is DatasetId {
+  return id in DatasetMetadataMap
+}
