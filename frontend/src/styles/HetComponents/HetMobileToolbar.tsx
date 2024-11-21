@@ -19,8 +19,8 @@ import { Link } from 'react-router-dom'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
-import HetCTALinkSmall from './HetCTALinkSmall'
 import HetNavLink from './HetNavLink'
+import HetCTASmall from './HetCTASmall'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
@@ -120,14 +120,14 @@ export default function HetMobileAppToolbar() {
         <nav>
           <List className='flex flex-col justify-center pt-0'>
             {renderNavItems(NAVIGATION_STRUCTURE)}
-            <HetCTALinkSmall
+            <HetCTASmall
               className='my-4'
               id='navigationCTA'
               href={EXPLORE_DATA_PAGE_LINK}
               onClick={() => setOpen(false)}
             >
               Explore the data
-            </HetCTALinkSmall>
+            </HetCTASmall>
           </List>
         </nav>
       </Drawer>

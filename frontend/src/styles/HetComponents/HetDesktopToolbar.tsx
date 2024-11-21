@@ -3,9 +3,9 @@ import { useState } from 'react'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
-import HetCTALinkSmall from './HetCTALinkSmall'
 import HetNavButton from './HetNavButton'
 import HetNavLink from './HetNavLink'
+import HetCTASmall from './HetCTASmall'
 
 export default function HetAppToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -83,13 +83,13 @@ export default function HetAppToolbar() {
 
       <nav className='flex flex-wrap justify-evenly'>
         {renderNavItems(NAVIGATION_STRUCTURE)}
-        <HetCTALinkSmall
+        <HetCTASmall
           id='navigationCTA'
           href={EXPLORE_DATA_PAGE_LINK}
           className='ml-4'
         >
           Explore the data
-        </HetCTALinkSmall>
+        </HetCTASmall>
       </nav>
     </Toolbar>
   )

@@ -5,11 +5,11 @@ import {
 } from '../../data/config/MetadataMap'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
 import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
-import HetCTALinkSmall from '../../styles/HetComponents/HetCTALinkSmall'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 import DataSourceListing from './DataSourceListing'
+import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -75,12 +75,12 @@ export default function DataCatalogPage() {
           what each data set can show us about different health outcomes?
         </p>
 
-        <HetCTALinkSmall
+        <HetCTASmall
           className='w-fit mx-auto font-extrabold'
           href={EXPLORE_DATA_PAGE_LINK}
         >
           Explore the data dashboard
-        </HetCTALinkSmall>
+        </HetCTASmall>
         <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
