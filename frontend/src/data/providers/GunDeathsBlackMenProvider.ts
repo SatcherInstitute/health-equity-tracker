@@ -40,8 +40,8 @@ class GunViolenceBlackMenProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, datasetId, useFallback } = resolveDatasetId(
-        'maternal_mortality_data',
+      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+        'cdc_wisqars_black_men_data',
         'black_men_by_',
         metricQuery,
       )
@@ -56,7 +56,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
-      if (useFallback) {
+      if (isFallbackId) {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {
         df = this.applyDemographicBreakdownFilters(df, breakdowns)

@@ -169,7 +169,7 @@ export function resolveDatasetId(
 ): {
   breakdowns: Breakdowns
   datasetId?: DatasetId
-  useFallback?: boolean
+  isFallbackId?: boolean
 } {
   const { breakdowns, timeView } = metricQuery
   const requestedDemographic: DemographicType =
@@ -208,7 +208,7 @@ export function resolveDatasetId(
       datasetId: isFallbackEligible
         ? (fallbackAllsDatasetId as DatasetId)
         : undefined,
-      useFallback: isFallbackEligible,
+      isFallbackId: isFallbackEligible,
     }
   }
 
