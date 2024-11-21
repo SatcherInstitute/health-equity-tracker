@@ -1,8 +1,11 @@
 import { getDataManager } from '../../utils/globals'
 import type { MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
-import { MetricQueryResponse, type MetricQuery } from '../query/MetricQuery'
-import { resolveDatasetOrFallbackId } from '../utils/datasetutils'
+import {
+  MetricQueryResponse,
+  resolveDatasetOrFallbackId,
+  type MetricQuery,
+} from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env

@@ -1,15 +1,10 @@
 import type { IDataFrame } from 'data-forge'
-import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
-  isValidDatasetId,
-} from '../config/DatasetMetadata'
 import type {
+  MetricId,
   DataTypeConfig,
   DataTypeId,
-  MetricId,
 } from '../config/MetricConfigTypes'
+import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
   AHR_API_NH_METRICS,
   AHR_DECADE_PLUS_5_AGE_METRICS,
@@ -18,44 +13,43 @@ import {
   ALL_AHR_METRICS,
 } from '../providers/AhrProvider'
 import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
-import type {
-  Breakdowns,
-  DemographicType,
-  GeographicBreakdown,
-} from '../query/Breakdowns'
-import type { MetricQuery } from '../query/MetricQuery'
 import {
-  ACS_POVERTY_AGE_BUCKETS,
-  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
-  AGE,
-  AGE_BUCKETS,
-  type AgeBucket,
-  AIAN_API,
-  AIAN_NH,
+  RACE,
   ALL,
-  API_NH,
-  ASIAN_NH,
-  BJS_JAIL_AGE_BUCKETS,
-  BJS_NATIONAL_AGE_BUCKETS,
   BROAD_AGE_BUCKETS,
   DECADE_PLUS_5_AGE_BUCKETS,
-  type DemographicGroup,
+  VOTER_AGE_BUCKETS,
+  AGE_BUCKETS,
+  AIAN_NH,
+  ASIAN_NH,
+  NHPI_NH,
   MULTI_NH,
+  OTHER_NONSTANDARD_NH,
+  API_NH,
+  NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
-  NHPI_NH,
+  type AgeBucket,
   NON_HISPANIC,
-  NON_STANDARD_RACES,
-  OTHER_NONSTANDARD_NH,
-  RACE,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
   UNKNOWN_RACE,
+  AGE,
+  BJS_NATIONAL_AGE_BUCKETS,
+  BJS_JAIL_AGE_BUCKETS,
+  type DemographicGroup,
   UNKNOWN_W,
-  VOTER_AGE_BUCKETS,
+  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
+  ACS_POVERTY_AGE_BUCKETS,
+  AIAN_API,
+  API,
 } from './Constants'
 import type { HetRow } from './DatasetTypes'
 import type { Fips } from './Fips'
+import type {
+  DatasetIdWithStateFIPSCode,
+  DatasetId,
+} from '../config/DatasetMetadata'
 import type { StateFipsCode } from './FipsData'
 
 export type JoinType = 'inner' | 'left' | 'outer'
@@ -395,60 +389,4 @@ export function appendFipsIfNeeded(
     : breakdowns?.filterFips?.getParentFips()?.code
 
   return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
-}
-
-// Returns an object that contains the datasetId or fallbackId, the breakdowns object, and the useFallback flag to trigger casting an ALLS table as the requested demographic
-// If the requested datasetId is not found, returns undefined triggering an empty metricQueryResponse
-export function resolveDatasetOrFallbackId(
-  bqDatasetName: string,
-  tablePrefix: string,
-  metricQuery: MetricQuery,
-): {
-  breakdowns: Breakdowns
-  datasetId?: DatasetId
-  useFallback?: boolean
-} {
-  const { breakdowns, timeView } = metricQuery
-  const requestedDemographic: DemographicType =
-    breakdowns.getSoleDemographicBreakdown().columnName
-  const requestedGeography: GeographicBreakdown = breakdowns.geography
-
-  // Normal, valid demographic request
-  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}`
-  if (isValidDatasetId(requestedDatasetId)) {
-    return {
-      breakdowns,
-      datasetId: requestedDatasetId as DatasetId,
-    }
-  }
-
-  // Handle tables that still use `race` instead of `race_and_ethnicity`
-  if (breakdowns.hasOnlyRace()) {
-    const requestedRaceDatasetId: string = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
-    if (isValidDatasetId(requestedRaceDatasetId)) {
-      return {
-        breakdowns,
-        datasetId: requestedRaceDatasetId as DatasetId,
-      }
-    }
-  }
-
-  // Fallback to ALLS
-  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}`
-  if (isValidDatasetId(fallbackAllsDatasetId)) {
-    const isFallbackEligible =
-      metricQuery.scrollToHashId &&
-      CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(metricQuery.scrollToHashId)
-
-    return {
-      breakdowns,
-      datasetId: isFallbackEligible
-        ? (fallbackAllsDatasetId as DatasetId)
-        : undefined,
-      useFallback: isFallbackEligible,
-    }
-  }
-
-  // No valid dataset or fallback
-  return { breakdowns }
 }
