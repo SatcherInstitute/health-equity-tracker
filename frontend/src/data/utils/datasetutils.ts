@@ -401,6 +401,7 @@ export function appendFipsIfNeeded(
 // If the requested datasetId is not found, returns undefined triggering an empty metricQueryResponse
 export function resolveDatasetOrFallbackId(
   bqDatasetName: string,
+  tablePrefix: string,
   metricQuery: MetricQuery,
 ): {
   breakdowns: Breakdowns
@@ -413,7 +414,7 @@ export function resolveDatasetOrFallbackId(
   const requestedGeography: GeographicBreakdown = breakdowns.geography
 
   // Normal, valid demographic request
-  const requestedDatasetId: string = `${bqDatasetName}-by_${requestedDemographic}_${requestedGeography}_${timeView}`
+  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}`
   if (isValidDatasetId(requestedDatasetId)) {
     return {
       breakdowns,
@@ -423,7 +424,7 @@ export function resolveDatasetOrFallbackId(
 
   // Handle tables that still use `race` instead of `race_and_ethnicity`
   if (breakdowns.hasOnlyRace()) {
-    const requestedRaceDatasetId: string = `${bqDatasetName}-by_race_${requestedGeography}_${timeView}`
+    const requestedRaceDatasetId: string = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
     if (isValidDatasetId(requestedRaceDatasetId)) {
       return {
         breakdowns,
@@ -433,7 +434,7 @@ export function resolveDatasetOrFallbackId(
   }
 
   // Fallback to ALLS
-  const fallbackAllsDatasetId: string = `${bqDatasetName}-by_alls_${requestedGeography}_${timeView}`
+  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}`
   if (isValidDatasetId(fallbackAllsDatasetId)) {
     const isFallbackEligible =
       metricQuery.scrollToHashId &&
