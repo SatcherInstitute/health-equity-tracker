@@ -1,4 +1,3 @@
-import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import type {
   DatasetId,
@@ -153,43 +152,5 @@ export class MetricQueryResponse {
     return (
       this.dataIsMissing() || fields.some((field) => this.isFieldMissing(field))
     )
-  }
-}
-
-// wraps around each provider's getDatasetId and getFallbackAllsDatasetId functions and returns the resolved datasetId and whether that id is an ALLS fallback
-export function resolveDatasetId(
-  metricQuery: MetricQuery,
-  getDatasetId: (
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ) => DatasetId | undefined,
-  getFallbackAllsDatasetId?: (
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ) => DatasetId | undefined,
-): {
-  datasetId: DatasetId | undefined
-  breakdowns: Breakdowns
-  useFallback: boolean
-} {
-  const { breakdowns, scrollToHashId, timeView } = metricQuery
-  const breakdownDatasetId = getDatasetId(breakdowns, undefined, timeView)
-
-  const shouldFallBackToAlls = Boolean(
-    scrollToHashId &&
-      CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(scrollToHashId) &&
-      breakdownDatasetId === undefined,
-  )
-
-  const fallbackAllsDatasetId = shouldFallBackToAlls
-    ? getFallbackAllsDatasetId?.(breakdowns, undefined, timeView)
-    : undefined
-
-  return {
-    datasetId: breakdownDatasetId || fallbackAllsDatasetId,
-    breakdowns,
-    useFallback: Boolean(fallbackAllsDatasetId),
   }
 }

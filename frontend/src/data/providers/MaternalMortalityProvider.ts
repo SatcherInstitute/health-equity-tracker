@@ -1,17 +1,13 @@
+import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import { getDataManager } from '../../utils/globals'
 import { isValidDatasetId, type DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { MetricId } from '../config/MetricConfigTypes'
 import type {
   Breakdowns,
   DemographicType,
   GeographicBreakdown,
-  TimeView,
 } from '../query/Breakdowns'
-import {
-  MetricQueryResponse,
-  resolveDatasetId,
-  type MetricQuery,
-} from '../query/MetricQuery'
+import { MetricQueryResponse, type MetricQuery } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
@@ -35,44 +31,52 @@ class MaternalMortalityProvider extends VariableProvider {
     super('maternal_mortality_provider', MATERNAL_MORTALITY_METRIC_IDS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    _?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
+  resolveDatasetOrFallbackId(metricQuery: MetricQuery): {
+    breakdowns: Breakdowns
+    datasetId?: DatasetId
+    useFallback?: boolean
+  } {
+    const { breakdowns, timeView } = metricQuery
     const requestedDemographic: DemographicType = breakdowns.hasOnlyRace()
       ? ('race' as DemographicType)
       : breakdowns.getSoleDemographicBreakdown().columnName
-
     const requestedGeography: GeographicBreakdown = breakdowns.geography
+
+    // Normal, valid demographic request
     const requestedDatasetId: string = `maternal_mortality_data-by_${requestedDemographic}_${requestedGeography}_${timeView}`
-
     if (isValidDatasetId(requestedDatasetId)) {
-      return requestedDatasetId
+      return {
+        breakdowns,
+        datasetId: requestedDatasetId as DatasetId,
+      }
     }
-  }
 
-  getFallbackAllsDatasetId(
-    breakdowns: Breakdowns,
-    _?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    const requestedGeography: GeographicBreakdown = breakdowns.geography
-    const requestedFallbackAllsDatasetId: string = `maternal_mortality_data-by_alls_${requestedGeography}_${timeView}`
-    if (isValidDatasetId(requestedFallbackAllsDatasetId)) {
-      return requestedFallbackAllsDatasetId
+    // Fallback to ALLS
+    const fallbackAllsDatasetId: string = `maternal_mortality_data-by_alls_${requestedGeography}_${timeView}`
+    if (isValidDatasetId(fallbackAllsDatasetId)) {
+      const isFallbackEligible =
+        metricQuery.scrollToHashId &&
+        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(metricQuery.scrollToHashId)
+
+      return {
+        breakdowns,
+        datasetId: isFallbackEligible
+          ? (fallbackAllsDatasetId as DatasetId)
+          : undefined,
+        useFallback: isFallbackEligible,
+      }
     }
+
+    // No valid dataset or fallback
+    return { breakdowns }
   }
 
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, datasetId, useFallback } = resolveDatasetId(
-        metricQuery,
-        this.getDatasetId.bind(this),
-        this.getFallbackAllsDatasetId.bind(this),
-      )
+      const { breakdowns, datasetId, useFallback } =
+        this.resolveDatasetOrFallbackId(metricQuery)
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])

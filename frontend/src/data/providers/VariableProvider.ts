@@ -135,7 +135,9 @@ abstract class VariableProvider {
     metricIds?: MetricId[],
   ): boolean
 
-  abstract getDatasetId(
+  // TODO: remove getDatasetId and getFallbackAllsDatasetId in favor of resolveDatasetOrFallbackId
+
+  getDatasetId?(
     breakdown: Breakdowns,
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
@@ -146,6 +148,13 @@ abstract class VariableProvider {
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
   ): DatasetId | undefined
+
+  // TODO: eventually abstract this to to avoid needing to implement per child provider class
+  resolveDatasetOrFallbackId?(metricQuery: MetricQuery): {
+    breakdowns: Breakdowns
+    datasetId?: DatasetId
+    useFallback?: boolean
+  }
 }
 
 export default VariableProvider
