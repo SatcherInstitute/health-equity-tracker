@@ -1,26 +1,26 @@
 import {
+  Drawer,
+  IconButton,
+  List,
+  ListItemText,
+  Collapse,
+  Toolbar,
+  ListItemButton,
+  ListItem,
+} from '@mui/material'
+import {
   Close,
   ExpandLess,
   ExpandMore,
   Menu as MenuIcon,
 } from '@mui/icons-material'
-import {
-  Collapse,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Toolbar,
-} from '@mui/material'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import AppBarLogo from '../../assets/AppbarLogo.png'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
-import HetNavLink from './HetNavLink'
 import HetCTASmall from './HetCTASmall'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import HetNavLink from './HetNavLink'
+import AppBarLogo from '../../assets/AppbarLogo.png'
+import { Link } from 'react-router-dom'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
