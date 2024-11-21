@@ -1,7 +1,9 @@
 import type { IDataFrame } from 'data-forge'
-import type {
-  DatasetId,
-  DatasetIdWithStateFIPSCode,
+import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
+import {
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
+  isValidDatasetId,
 } from '../config/DatasetMetadata'
 import type {
   DataTypeConfig,
@@ -16,7 +18,12 @@ import {
   ALL_AHR_METRICS,
 } from '../providers/AhrProvider'
 import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
-import type { Breakdowns, DemographicType } from '../query/Breakdowns'
+import type {
+  Breakdowns,
+  DemographicType,
+  GeographicBreakdown,
+} from '../query/Breakdowns'
+import type { MetricQuery } from '../query/MetricQuery'
 import {
   ACS_POVERTY_AGE_BUCKETS,
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
@@ -388,4 +395,59 @@ export function appendFipsIfNeeded(
     : breakdowns?.filterFips?.getParentFips()?.code
 
   return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
+}
+
+// Returns an object that contains the datasetId or fallbackId, the breakdowns object, and the useFallback flag to trigger casting an ALLS table as the requested demographic
+// If the requested datasetId is not found, returns undefined triggering an empty metricQueryResponse
+export function resolveDatasetOrFallbackId(
+  bqDatasetName: string,
+  metricQuery: MetricQuery,
+): {
+  breakdowns: Breakdowns
+  datasetId?: DatasetId
+  useFallback?: boolean
+} {
+  const { breakdowns, timeView } = metricQuery
+  const requestedDemographic: DemographicType =
+    breakdowns.getSoleDemographicBreakdown().columnName
+  const requestedGeography: GeographicBreakdown = breakdowns.geography
+
+  // Normal, valid demographic request
+  const requestedDatasetId: string = `${bqDatasetName}-by_${requestedDemographic}_${requestedGeography}_${timeView}`
+  if (isValidDatasetId(requestedDatasetId)) {
+    return {
+      breakdowns,
+      datasetId: requestedDatasetId as DatasetId,
+    }
+  }
+
+  // Handle tables that still use `race` instead of `race_and_ethnicity`
+  if (breakdowns.hasOnlyRace()) {
+    const requestedRaceDatasetId: string = `${bqDatasetName}-by_race_${requestedGeography}_${timeView}`
+    if (isValidDatasetId(requestedRaceDatasetId)) {
+      return {
+        breakdowns,
+        datasetId: requestedRaceDatasetId as DatasetId,
+      }
+    }
+  }
+
+  // Fallback to ALLS
+  const fallbackAllsDatasetId: string = `${bqDatasetName}-by_alls_${requestedGeography}_${timeView}`
+  if (isValidDatasetId(fallbackAllsDatasetId)) {
+    const isFallbackEligible =
+      metricQuery.scrollToHashId &&
+      CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(metricQuery.scrollToHashId)
+
+    return {
+      breakdowns,
+      datasetId: isFallbackEligible
+        ? (fallbackAllsDatasetId as DatasetId)
+        : undefined,
+      useFallback: isFallbackEligible,
+    }
+  }
+
+  // No valid dataset or fallback
+  return { breakdowns }
 }

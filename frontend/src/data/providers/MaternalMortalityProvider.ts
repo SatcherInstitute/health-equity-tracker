@@ -2,6 +2,7 @@ import { getDataManager } from '../../utils/globals'
 import type { MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import { MetricQueryResponse, type MetricQuery } from '../query/MetricQuery'
+import { resolveDatasetOrFallbackId } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
@@ -29,8 +30,10 @@ class MaternalMortalityProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, datasetId, useFallback } =
-        super.resolveDatasetOrFallbackId('maternal_mortality_data', metricQuery)
+      const { breakdowns, datasetId, useFallback } = resolveDatasetOrFallbackId(
+        'maternal_mortality_data',
+        metricQuery,
+      )
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
