@@ -37,9 +37,8 @@ class MaternalMortalityProvider extends VariableProvider {
     useFallback?: boolean
   } {
     const { breakdowns, timeView } = metricQuery
-    const requestedDemographic: DemographicType = breakdowns.hasOnlyRace()
-      ? ('race' as DemographicType)
-      : breakdowns.getSoleDemographicBreakdown().columnName
+    const requestedDemographic: DemographicType =
+      breakdowns.getSoleDemographicBreakdown().columnName
     const requestedGeography: GeographicBreakdown = breakdowns.geography
 
     // Normal, valid demographic request
@@ -48,6 +47,17 @@ class MaternalMortalityProvider extends VariableProvider {
       return {
         breakdowns,
         datasetId: requestedDatasetId as DatasetId,
+      }
+    }
+
+    // Handle tables that still use `race` instead of `race_and_ethnicity`
+    if (breakdowns.hasOnlyRace()) {
+      const requestedRaceDatasetId: string = `maternal_mortality_data-by_race_and_ethnicity_${requestedGeography}_${timeView}`
+      if (isValidDatasetId(requestedRaceDatasetId)) {
+        return {
+          breakdowns,
+          datasetId: requestedRaceDatasetId as DatasetId,
+        }
       }
     }
 
