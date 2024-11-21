@@ -186,8 +186,9 @@ export function resolveDatasetId(
   }
 
   // Handle tables that still use `race` instead of `race_and_ethnicity`
+  let requestedRaceDatasetId = ''
   if (breakdowns.hasOnlyRace()) {
-    const requestedRaceDatasetId: string = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
+    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
     if (isValidDatasetId(requestedRaceDatasetId)) {
       return {
         breakdowns,
@@ -213,5 +214,8 @@ export function resolveDatasetId(
   }
 
   // No valid dataset or fallback
+  console.warn(
+    `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? '\n' + requestedRaceDatasetId : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
+  )
   return { breakdowns }
 }

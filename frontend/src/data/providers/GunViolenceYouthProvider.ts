@@ -1,7 +1,6 @@
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type { Breakdowns } from '../query/Breakdowns'
 import {
   type MetricQuery,
   MetricQueryResponse,
@@ -47,30 +46,6 @@ export const GUN_VIOLENCE_YOUTH_METRICS = [
 class GunViolenceYouthProvider extends VariableProvider {
   constructor() {
     super('gun_violence_youth_provider', GUN_VIOLENCE_YOUTH_METRICS)
-  }
-
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current'
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current'
-      }
-    }
-
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical'
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical'
-      }
-    }
   }
 
   async getDataInternal(
