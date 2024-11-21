@@ -169,7 +169,7 @@ export function resolveDatasetId(
 ): {
   breakdowns: Breakdowns
   datasetId?: DatasetId
-  useFallback?: boolean
+  isFallbackId?: boolean
 } {
   const { breakdowns, timeView } = metricQuery
   const requestedDemographic: DemographicType =
@@ -186,8 +186,9 @@ export function resolveDatasetId(
   }
 
   // Handle tables that still use `race` instead of `race_and_ethnicity`
+  let requestedRaceDatasetId = ''
   if (breakdowns.hasOnlyRace()) {
-    const requestedRaceDatasetId: string = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
+    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
     if (isValidDatasetId(requestedRaceDatasetId)) {
       return {
         breakdowns,
@@ -208,10 +209,13 @@ export function resolveDatasetId(
       datasetId: isFallbackEligible
         ? (fallbackAllsDatasetId as DatasetId)
         : undefined,
-      useFallback: isFallbackEligible,
+      isFallbackId: isFallbackEligible,
     }
   }
 
   // No valid dataset or fallback
+  console.warn(
+    `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? '\n' + requestedRaceDatasetId : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
+  )
   return { breakdowns }
 }
