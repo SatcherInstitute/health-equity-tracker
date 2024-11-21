@@ -3,7 +3,7 @@ import type { MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
   MetricQueryResponse,
-  resolveDatasetOrFallbackId,
+  resolveDatasetId,
   type MetricQuery,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
@@ -33,7 +33,7 @@ class MaternalMortalityProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, datasetId, useFallback } = resolveDatasetOrFallbackId(
+      const { breakdowns, datasetId, useFallback } = resolveDatasetId(
         'maternal_mortality_data',
         'by_',
         metricQuery,

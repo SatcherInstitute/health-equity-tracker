@@ -162,9 +162,7 @@ export class MetricQueryResponse {
   }
 }
 
-// Returns an object that contains the datasetId or fallbackId, the breakdowns object, and the useFallback flag to trigger casting an ALLS table as the requested demographic
-// If the requested datasetId is not found, returns undefined triggering an empty metricQueryResponse
-export function resolveDatasetOrFallbackId(
+export function resolveDatasetId(
   bqDatasetName: string,
   tablePrefix: string,
   metricQuery: MetricQuery,
