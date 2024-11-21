@@ -1,7 +1,3 @@
-// Note: this Will be replaced with real API calls. Leaving data fetches
-// untyped for now, but we should define types for the API calls once we
-// establish the API types.
-
 import type { Environment } from '../../utils/Environment'
 import {
   DatasetMetadataMap,
