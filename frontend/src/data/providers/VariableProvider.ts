@@ -1,8 +1,14 @@
 import type { IDataFrame } from 'data-forge'
-import type { DatasetId } from '../config/DatasetMetadata'
+import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
+import { isValidDatasetId, type DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type {
+  Breakdowns,
+  DemographicType,
+  GeographicBreakdown,
+  TimeView,
+} from '../query/Breakdowns'
 import {
   createMissingDataResponse,
   type MetricQuery,
@@ -126,6 +132,58 @@ abstract class VariableProvider {
     return df
   }
 
+  // Returns an object that contains the datasetId or fallbackId, the breakdowns object, and the useFallback flag to trigger casting an ALLS table as the requested demographic
+  // If the requested datasetId is not found, returns undefined triggering an empty metricQueryResponse
+  resolveDatasetOrFallbackId(metricQuery: MetricQuery): {
+    breakdowns: Breakdowns
+    datasetId?: DatasetId
+    useFallback?: boolean
+  } {
+    const { breakdowns, timeView } = metricQuery
+    const requestedDemographic: DemographicType =
+      breakdowns.getSoleDemographicBreakdown().columnName
+    const requestedGeography: GeographicBreakdown = breakdowns.geography
+
+    // Normal, valid demographic request
+    const requestedDatasetId: string = `maternal_mortality_data-by_${requestedDemographic}_${requestedGeography}_${timeView}`
+    if (isValidDatasetId(requestedDatasetId)) {
+      return {
+        breakdowns,
+        datasetId: requestedDatasetId as DatasetId,
+      }
+    }
+
+    // Handle tables that still use `race` instead of `race_and_ethnicity`
+    if (breakdowns.hasOnlyRace()) {
+      const requestedRaceDatasetId: string = `maternal_mortality_data-by_race_${requestedGeography}_${timeView}`
+      if (isValidDatasetId(requestedRaceDatasetId)) {
+        return {
+          breakdowns,
+          datasetId: requestedRaceDatasetId as DatasetId,
+        }
+      }
+    }
+
+    // Fallback to ALLS
+    const fallbackAllsDatasetId: string = `maternal_mortality_data-by_alls_${requestedGeography}_${timeView}`
+    if (isValidDatasetId(fallbackAllsDatasetId)) {
+      const isFallbackEligible =
+        metricQuery.scrollToHashId &&
+        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(metricQuery.scrollToHashId)
+
+      return {
+        breakdowns,
+        datasetId: isFallbackEligible
+          ? (fallbackAllsDatasetId as DatasetId)
+          : undefined,
+        useFallback: isFallbackEligible,
+      }
+    }
+
+    // No valid dataset or fallback
+    return { breakdowns }
+  }
+
   abstract getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse>
@@ -135,7 +193,7 @@ abstract class VariableProvider {
     metricIds?: MetricId[],
   ): boolean
 
-  // TODO: remove getDatasetId and getFallbackAllsDatasetId once all providers have migrated in favor of resolveDatasetOrFallbackId
+  // TODO: remove getDatasetId and getFallbackAllsDatasetId once all providers have migrated in favor of resolveDatasetOrFallbackId above
 
   getDatasetId?(
     breakdown: Breakdowns,
@@ -148,13 +206,6 @@ abstract class VariableProvider {
     dataTypeId?: DataTypeId,
     timeView?: TimeView,
   ): DatasetId | undefined
-
-  // TODO: eventually abstract this to avoid re-implementing for every child provider class
-  resolveDatasetOrFallbackId?(metricQuery: MetricQuery): {
-    breakdowns: Breakdowns
-    datasetId?: DatasetId
-    useFallback?: boolean
-  }
 }
 
 export default VariableProvider

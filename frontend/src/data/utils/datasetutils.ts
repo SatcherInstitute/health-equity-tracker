@@ -1,10 +1,13 @@
 import type { IDataFrame } from 'data-forge'
 import type {
-  MetricId,
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
+import type {
   DataTypeConfig,
   DataTypeId,
+  MetricId,
 } from '../config/MetricConfigTypes'
-import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
   AHR_API_NH_METRICS,
   AHR_DECADE_PLUS_5_AGE_METRICS,
@@ -13,43 +16,39 @@ import {
   ALL_AHR_METRICS,
 } from '../providers/AhrProvider'
 import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
+import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
-  RACE,
+  ACS_POVERTY_AGE_BUCKETS,
+  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
+  AGE,
+  AGE_BUCKETS,
+  type AgeBucket,
+  AIAN_API,
+  AIAN_NH,
   ALL,
+  API_NH,
+  ASIAN_NH,
+  BJS_JAIL_AGE_BUCKETS,
+  BJS_NATIONAL_AGE_BUCKETS,
   BROAD_AGE_BUCKETS,
   DECADE_PLUS_5_AGE_BUCKETS,
-  VOTER_AGE_BUCKETS,
-  AGE_BUCKETS,
-  AIAN_NH,
-  ASIAN_NH,
-  NHPI_NH,
+  type DemographicGroup,
   MULTI_NH,
-  OTHER_NONSTANDARD_NH,
-  API_NH,
-  NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
-  type AgeBucket,
+  NHPI_NH,
   NON_HISPANIC,
+  NON_STANDARD_RACES,
+  OTHER_NONSTANDARD_NH,
+  RACE,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
   UNKNOWN_RACE,
-  AGE,
-  BJS_NATIONAL_AGE_BUCKETS,
-  BJS_JAIL_AGE_BUCKETS,
-  type DemographicGroup,
   UNKNOWN_W,
-  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
-  ACS_POVERTY_AGE_BUCKETS,
-  AIAN_API,
-  API,
+  VOTER_AGE_BUCKETS,
 } from './Constants'
 import type { HetRow } from './DatasetTypes'
 import type { Fips } from './Fips'
-import type {
-  DatasetIdWithStateFIPSCode,
-  DatasetId,
-} from '../config/DatasetMetadata'
 import type { StateFipsCode } from './FipsData'
 
 export type JoinType = 'inner' | 'left' | 'outer'
