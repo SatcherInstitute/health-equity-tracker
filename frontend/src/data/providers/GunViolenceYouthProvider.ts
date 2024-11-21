@@ -1,8 +1,12 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManager } from '../../utils/globals'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import type { DatasetId } from '../config/DatasetMetadata'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
 // TODO: ideally we should fix on the backend to clarify: `youth` is the parent category, that combines both `children` (ages 0-17) and `young_adults` (ages 18-25)
@@ -73,9 +77,11 @@ class GunViolenceYouthProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, dataTypeId, timeView } = metricQuery
-
-      const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
+      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+        'cdc_wisqars_youth_data',
+        'youth_by_',
+        metricQuery,
+      )
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
@@ -86,8 +92,12 @@ class GunViolenceYouthProvider extends VariableProvider {
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
+      if (isFallbackId) {
+        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+      } else {
+        df = this.applyDemographicBreakdownFilters(df, breakdowns)
+        df = this.removeUnrequestedColumns(df, metricQuery)
+      }
 
       const consumedDatasetIds = [datasetId]
       return new MetricQueryResponse(df.toArray(), consumedDatasetIds)

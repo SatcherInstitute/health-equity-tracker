@@ -48,6 +48,7 @@ cdc_wisqars_youth_bq_operator_race_state = util.create_bq_ingest_operator(
 payload_race = {
     'dataset_name': _CDC_WISQARS_YOUTH_DATASET_NAME,
     'demographic': "race_and_ethnicity",
+    'should_export_as_alls': True,
 }
 cdc_wisqars_youth_exporter_operator_race = util.create_exporter_operator(
     'cdc_wisqars_youth_exporter_race', payload_race, data_ingestion_dag

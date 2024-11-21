@@ -110,7 +110,11 @@ cdc_wisqars_exporter_operator_race = util.create_exporter_operator(
     'cdc_wisqars_exporter_race', payload_race, data_ingestion_dag
 )
 
-payload_sex = {'dataset_name': _CDC_WISQARS_DATASET_NAME, 'demographic': "sex"}
+payload_sex = {
+    'dataset_name': _CDC_WISQARS_DATASET_NAME,
+    'demographic': "sex",
+    'should_export_as_alls': True,
+}
 cdc_wisqars_exporter_operator_sex = util.create_exporter_operator(
     'cdc_wisqars_exporter_sex', payload_sex, data_ingestion_dag
 )
