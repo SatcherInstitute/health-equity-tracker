@@ -5,6 +5,7 @@ import {
   extractRelevantData,
   getHighestDisparity,
 } from './generateInsightsUtils'
+import { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
 
 export type Dataset = Record<string, any>
 
@@ -77,6 +78,9 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
 }
 
 function generateInsightPrompt(disparities: Disparity): string {
+  if (!SHOW_INSIGHT_GENERATION) {
+    return ''
+  }
   const { subgroup, location, measure, populationShare, outcomeShare, ratio } =
     disparities
 

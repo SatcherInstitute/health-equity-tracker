@@ -7,6 +7,7 @@ import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
+import InsightDisplay, { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
 import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {
@@ -22,6 +23,7 @@ function CardWrapper(props: {
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>,
+    knownData?: Record<string, any>,
   ) => JSX.Element
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
@@ -30,6 +32,9 @@ function CardWrapper(props: {
   isCompareCard?: boolean
   className?: string
   hasIntersectionalAllCompareBar?: boolean
+  shareConfig?: any
+  demographicType?: any
+  metricIds?: any
 }) {
   const loadingComponent = (
     <div
@@ -40,6 +45,8 @@ function CardWrapper(props: {
       <CircularProgress aria-label='loading' />
     </div>
   )
+
+  const shouldShowInsightDisplay = SHOW_INSIGHT_GENERATION && props.shareConfig
 
   return (
     <WithMetadataAndMetrics
@@ -53,6 +60,14 @@ function CardWrapper(props: {
             className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
             tabIndex={-1}
           >
+            {shouldShowInsightDisplay && (
+              <InsightDisplay
+                demographicType={props.demographicType}
+                metricIds={props.metricIds}
+                queryResponses={queryResponses}
+                shareConfig={props.shareConfig}
+              />
+            )}
             <CardOptionsMenu
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
