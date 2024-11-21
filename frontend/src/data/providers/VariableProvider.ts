@@ -134,7 +134,10 @@ abstract class VariableProvider {
 
   // Returns an object that contains the datasetId or fallbackId, the breakdowns object, and the useFallback flag to trigger casting an ALLS table as the requested demographic
   // If the requested datasetId is not found, returns undefined triggering an empty metricQueryResponse
-  resolveDatasetOrFallbackId(metricQuery: MetricQuery): {
+  resolveDatasetOrFallbackId(
+    bqDatasetName: string,
+    metricQuery: MetricQuery,
+  ): {
     breakdowns: Breakdowns
     datasetId?: DatasetId
     useFallback?: boolean
@@ -145,7 +148,7 @@ abstract class VariableProvider {
     const requestedGeography: GeographicBreakdown = breakdowns.geography
 
     // Normal, valid demographic request
-    const requestedDatasetId: string = `maternal_mortality_data-by_${requestedDemographic}_${requestedGeography}_${timeView}`
+    const requestedDatasetId: string = `${bqDatasetName}-by_${requestedDemographic}_${requestedGeography}_${timeView}`
     if (isValidDatasetId(requestedDatasetId)) {
       return {
         breakdowns,
@@ -155,7 +158,7 @@ abstract class VariableProvider {
 
     // Handle tables that still use `race` instead of `race_and_ethnicity`
     if (breakdowns.hasOnlyRace()) {
-      const requestedRaceDatasetId: string = `maternal_mortality_data-by_race_${requestedGeography}_${timeView}`
+      const requestedRaceDatasetId: string = `${bqDatasetName}-by_race_${requestedGeography}_${timeView}`
       if (isValidDatasetId(requestedRaceDatasetId)) {
         return {
           breakdowns,
@@ -165,7 +168,7 @@ abstract class VariableProvider {
     }
 
     // Fallback to ALLS
-    const fallbackAllsDatasetId: string = `maternal_mortality_data-by_alls_${requestedGeography}_${timeView}`
+    const fallbackAllsDatasetId: string = `${bqDatasetName}-by_alls_${requestedGeography}_${timeView}`
     if (isValidDatasetId(fallbackAllsDatasetId)) {
       const isFallbackEligible =
         metricQuery.scrollToHashId &&

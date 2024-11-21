@@ -30,7 +30,7 @@ class MaternalMortalityProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     try {
       const { breakdowns, datasetId, useFallback } =
-        super.resolveDatasetOrFallbackId(metricQuery)
+        super.resolveDatasetOrFallbackId('maternal_mortality_data', metricQuery)
 
       if (!datasetId) {
         return new MetricQueryResponse([], [])
