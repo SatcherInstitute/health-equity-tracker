@@ -1,4 +1,4 @@
-import type { DatasetMetadata } from '../utils/DatasetTypes'
+import type { DatasetMetadata, DataSourceMetadata } from '../utils/DatasetTypes'
 
 export type DatasetIdCommunitySafetyCategory =
   | 'cdc_wisqars_data-age_national_current'
@@ -242,3 +242,50 @@ export const DatasetMetadataMapCommunitySafetyCategory: Record<
     source_id: 'cdc_wisqars',
   },
 }
+
+interface DataSourceMetadataCommunitySafetyCategory
+  extends Omit<DataSourceMetadata, 'dataset_ids'> {
+  readonly dataset_ids: DatasetIdCommunitySafetyCategory[]
+}
+
+export const datasourceMetadataCommunitySafetyCategory: DataSourceMetadataCommunitySafetyCategory =
+  {
+    id: 'cdc_wisqars',
+    data_source_name: `CDC WISQARS`,
+    data_source_acronym: 'CDC',
+    data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
+    data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
+    geographic_level: 'National, State',
+    demographic_granularity:
+      'Race/ethnicity, sex, age, city size (metro/non-metro)',
+    update_frequency: 'Yearly',
+    description: `The CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting System) dataset includes a wide range of information related to gun-related injuries, providing a holistic perspective on the impact of gun-related incidents.`,
+    dataset_ids: [
+      'cdc_wisqars_data-age_national_current',
+      'cdc_wisqars_data-age_national_historical',
+      'cdc_wisqars_data-age_state_current',
+      'cdc_wisqars_data-age_state_historical',
+      'cdc_wisqars_data-race_and_ethnicity_national_current',
+      'cdc_wisqars_data-race_and_ethnicity_national_historical',
+      'cdc_wisqars_data-race_and_ethnicity_state_current',
+      'cdc_wisqars_data-race_and_ethnicity_state_historical',
+      'cdc_wisqars_data-sex_national_current',
+      'cdc_wisqars_data-sex_national_historical',
+      'cdc_wisqars_data-sex_state_current',
+      'cdc_wisqars_data-sex_state_historical',
+      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current',
+      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical',
+      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current',
+      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current',
+      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_current',
+      'cdc_wisqars_black_men_data-black_men_by_age_national_historical',
+      'cdc_wisqars_black_men_data-black_men_by_age_state_current',
+      'cdc_wisqars_black_men_data-black_men_by_age_state_historical',
+    ],
+    downloadable: true,
+    time_period_range: '2001 - current',
+  }

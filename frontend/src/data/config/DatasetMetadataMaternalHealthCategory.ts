@@ -1,4 +1,4 @@
-import type { DatasetMetadata } from '../utils/DatasetTypes'
+import type { DatasetMetadata, DataSourceMetadata } from '../utils/DatasetTypes'
 
 export type DatasetIdMaternalHealthCategory =
   | 'maternal_mortality_data-by_race_national_current'
@@ -55,3 +55,30 @@ export const DatasetMetadataMapMaternalHealthCategory: Record<
     source_id: 'maternal_health',
   },
 }
+
+interface DataSourceMetadataMaternalHealthCategory
+  extends Omit<DataSourceMetadata, 'dataset_ids'> {
+  readonly dataset_ids: DatasetIdMaternalHealthCategory[]
+}
+
+export const datasourceMetadataMaternalHealthCategory: DataSourceMetadataMaternalHealthCategory =
+  {
+    id: 'maternal_health',
+    data_source_name: `Trends in State-Level Maternal Mortality by Racial and Ethnic Group in the United States`,
+    data_source_acronym: 'JAMA',
+    data_source_pretty_site_name: 'JAMA Network',
+    data_source_link:
+      'https://jamanetwork.com/journals/jama/fullarticle/2806661',
+    geographic_level: 'National, State',
+    demographic_granularity: 'Race/ethnicity',
+    update_frequency: 'N/A',
+    description: ``,
+    dataset_ids: [
+      'maternal_mortality_data-by_race_national_current',
+      'maternal_mortality_data-by_race_national_historical',
+      'maternal_mortality_data-by_race_state_current',
+      'maternal_mortality_data-by_race_state_historical',
+    ],
+    downloadable: true,
+    time_period_range: '1999 - 2019',
+  }
