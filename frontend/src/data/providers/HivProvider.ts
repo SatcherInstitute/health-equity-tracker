@@ -1,8 +1,11 @@
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { Breakdowns } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -122,108 +125,39 @@ class HivProvider extends VariableProvider {
     super('hiv_provider', HIV_METRICS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    const isBlackWomenData =
-      dataTypeId && BLACK_WOMEN_DATATYPES.includes(dataTypeId)
-
-    if (timeView === 'historical') {
-      if (isBlackWomenData && breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_hiv_data-black_women_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'cdc_hiv_data-black_women_national_historical'
-      } else {
-        if (breakdowns.hasOnlyRace()) {
-          if (breakdowns.geography === 'county')
-            return 'cdc_hiv_data-race_and_ethnicity_county_historical'
-          if (breakdowns.geography === 'state')
-            return 'cdc_hiv_data-race_and_ethnicity_state_historical'
-          if (breakdowns.geography === 'national')
-            return 'cdc_hiv_data-race_and_ethnicity_national_historical'
-        }
-        if (breakdowns.hasOnlyAge()) {
-          if (breakdowns.geography === 'county')
-            return 'cdc_hiv_data-age_county_historical'
-          if (breakdowns.geography === 'state')
-            return 'cdc_hiv_data-age_state_historical'
-          if (breakdowns.geography === 'national')
-            return 'cdc_hiv_data-age_national_historical'
-        }
-        if (breakdowns.hasOnlySex()) {
-          if (breakdowns.geography === 'county')
-            return 'cdc_hiv_data-sex_county_historical'
-          if (breakdowns.geography === 'state')
-            return 'cdc_hiv_data-sex_state_historical'
-          if (breakdowns.geography === 'national')
-            return 'cdc_hiv_data-sex_national_historical'
-        }
-      }
-    }
-
-    if (timeView === 'current') {
-      if (isBlackWomenData && breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_hiv_data-black_women_state_current'
-        if (breakdowns.geography === 'national')
-          return 'cdc_hiv_data-black_women_national_current'
-      } else {
-        if (breakdowns.hasOnlyRace()) {
-          if (breakdowns.geography === 'county')
-            return 'cdc_hiv_data-race_and_ethnicity_county_current'
-          if (breakdowns.geography === 'state')
-            return 'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust'
-          if (breakdowns.geography === 'national')
-            return 'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
-        }
-        if (breakdowns.hasOnlyAge()) {
-          if (breakdowns.geography === 'county')
-            return 'cdc_hiv_data-age_county_current'
-          if (breakdowns.geography === 'state')
-            return 'cdc_hiv_data-age_state_current'
-          if (breakdowns.geography === 'national')
-            return 'cdc_hiv_data-age_national_current'
-        }
-        if (breakdowns.hasOnlySex()) {
-          if (breakdowns.geography === 'county')
-            return 'cdc_hiv_data-sex_county_current'
-          if (breakdowns.geography === 'state')
-            return 'cdc_hiv_data-sex_state_current'
-          if (breakdowns.geography === 'national')
-            return 'cdc_hiv_data-sex_national_current'
-        }
-      }
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(
-      breakdowns,
-      metricQuery.dataTypeId,
-      timeView,
+    const isBlackWomenData =
+      metricQuery.dataTypeId &&
+      BLACK_WOMEN_DATATYPES.includes(metricQuery.dataTypeId)
+
+    console.log('isBlackWomenData', isBlackWomenData)
+
+    const tablePrefix = isBlackWomenData ? 'black_women_by_' : 'by_'
+
+    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+      'cdc_hiv_data',
+      tablePrefix,
+      metricQuery,
     )
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
+    const consumedDatasetIds = [datasetId]
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const hiv = await getDataManager().loadDataset(specificDatasetId)
     let df = hiv.toDataFrame()
-
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
 
-    const consumedDatasetIds = [datasetId]
-
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
