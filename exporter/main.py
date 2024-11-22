@@ -144,10 +144,17 @@ def has_multi_demographics(table_id: str):
 def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket: str, demographic: str):
     """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode"""
     table_name = get_table_name(table)
-    alls_table_id = table.table_id.replace(demographic, 'alls')
+    demo_cols = []
+    demo_to_replace = demographic if demographic != 'black_women' else 'age'
+    demo_col = demographic
+    if demographic == 'black_women':
+        demo_col = 'age'
+    if demographic == 'race':
+        demo_col = 'race_and_ethnicity'
+
+    alls_table_id = table.table_id.replace(demo_to_replace, 'alls')
     logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
     alls_file_name = f'{table.dataset_id}-{alls_table_id}.json'
-    demo_col = 'race_and_ethnicity' if demographic == 'race' else demographic
     demo_cols = [demo_col]
 
     if demographic == 'race':
