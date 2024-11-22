@@ -170,6 +170,7 @@ export function resolveDatasetId(
   breakdowns: Breakdowns
   datasetId?: DatasetId
   isFallbackId?: boolean
+  timeView?: TimeView
 } {
   const { breakdowns, timeView } = metricQuery
   const requestedDemographic: DemographicType =
@@ -182,6 +183,7 @@ export function resolveDatasetId(
     return {
       breakdowns,
       datasetId: requestedDatasetId as DatasetId,
+      timeView,
     }
   }
 
@@ -193,6 +195,7 @@ export function resolveDatasetId(
       return {
         breakdowns,
         datasetId: requestedRaceDatasetId as DatasetId,
+        timeView,
       }
     }
   }
@@ -210,6 +213,7 @@ export function resolveDatasetId(
         ? (fallbackAllsDatasetId as DatasetId)
         : undefined,
       isFallbackId: isFallbackEligible,
+      timeView,
     }
   }
 
@@ -217,5 +221,5 @@ export function resolveDatasetId(
   console.warn(
     `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? '\n' + requestedRaceDatasetId : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
   )
-  return { breakdowns }
+  return { breakdowns, timeView }
 }
