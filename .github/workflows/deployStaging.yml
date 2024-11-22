@@ -118,6 +118,7 @@ jobs:
       - id: serving
         uses: ./.github/actions/buildAndPush
         with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
 
@@ -318,3 +319,4 @@ jobs:
           FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
           PATH_TO_SA_CREDS: config/creds.json
           AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

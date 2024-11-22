@@ -1,7 +1,7 @@
 import logging
 import os
 
-from flask import Flask, Response, request
+from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 from werkzeug.datastructures import Headers
 
@@ -71,6 +71,20 @@ def get_dataset():
         return Response(dataset, mimetype='text/csv', headers=headers)
 
     return Response(generate_response(), mimetype='application/json', headers=headers)
+
+
+@app.route('/api/get-api-key', methods=['GET'])
+def get_api_key():
+    """Returns the OpenAI API key."""
+    try:
+        api_key = os.getenv("OPENAI_API_KEY")
+
+        if not api_key:
+            return jsonify({"error": "API key not found"}), 500
+        return jsonify({"apiKey": api_key})
+    except Exception as e:
+        logging.error(f"Error retrieving API key: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":

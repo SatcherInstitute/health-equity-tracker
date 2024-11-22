@@ -1,4 +1,3 @@
-import axios from 'axios'
 import type { MetricId } from '../data/config/MetricConfigTypes'
 import type { ChartData } from '../reports/Report'
 import {
@@ -32,26 +31,24 @@ const API_KEY_URL =
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
-async function fetchApiKey(): Promise<string> {
-  try {
-    const response = await fetch(API_KEY_URL)
-    if (!response.ok)
-      throw new Error(`Network response was not ok: ${response.statusText}`)
-    const { apiKey } = await response.json()
-    return apiKey
-  } catch (error) {
-    console.error('Failed to fetch API key:', error)
-    throw error
-  }
-}
-
 export async function fetchAIInsight(prompt: string): Promise<string> {
-  const apiKey = await fetchApiKey()
-
   try {
-    const response = await axios.post(
-      OPENAI_API_URL,
-      {
+    const apiKeyResponse = await fetch('http://localhost:8080/api/get-api-key') // need to update for production
+    if (!apiKeyResponse.ok) {
+      throw new Error(`Failed to fetch API key: ${apiKeyResponse.statusText}`)
+    }
+
+    const apiKeyData = await apiKeyResponse.json()
+    const apiKey = apiKeyData.apiKey
+    console.log({ apiKey })
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
         model: 'gpt-3.5-turbo',
         messages: [
           { role: 'system', content: '' },
@@ -59,17 +56,22 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
         ],
         max_tokens: 150,
         temperature: 0.7,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    )
+      }),
+    })
 
-    const content = response.data.choices?.[0]?.message?.content
-    if (!content) throw new Error('No valid response from OpenAI API')
+    if (!response.ok) {
+      throw new Error(
+        `OpenAI API responded with status ${response.status}: ${await response.text()}`,
+      )
+    }
+
+    const data = await response.json()
+    const content = data.choices?.[0]?.message?.content
+
+    if (!content) {
+      throw new Error('No valid response from OpenAI API')
+    }
+
     return content.trim().replace(/^"|"$/g, '')
   } catch (error) {
     console.error('Error generating insight:', error)
@@ -78,9 +80,6 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
 }
 
 function generateInsightPrompt(disparities: Disparity): string {
-  if (!SHOW_INSIGHT_GENERATION) {
-    return ''
-  }
   const { subgroup, location, measure, populationShare, outcomeShare, ratio } =
     disparities
 
@@ -116,6 +115,9 @@ function mapRelevantData(
 export async function generateInsight(
   chartMetrics: ChartData,
 ): Promise<string> {
+  if (!SHOW_INSIGHT_GENERATION) {
+    return ''
+  }
   const { knownData, metricIds } = chartMetrics
   try {
     const processedData = mapRelevantData(knownData, metricIds)
