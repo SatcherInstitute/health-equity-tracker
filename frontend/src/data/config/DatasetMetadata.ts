@@ -1,8 +1,23 @@
 import type { DatasetMetadata } from '../utils/DatasetTypes'
 import type { StateFipsCode } from '../utils/FipsData'
+import {
+  DatasetMetadataMapCommunitySafetyCategory,
+  type DatasetIdCommunitySafetyCategory,
+} from './DatasetMetadataCommunitySafetyCategory'
+import {
+  DatasetMetadataMapHivCategory,
+  type DatasetIdHivCategory,
+} from './DatasetMetadataHivCategory'
+import {
+  DatasetMetadataMapMaternalHealthCategory,
+  type DatasetIdMaternalHealthCategory,
+} from './DatasetMetadataMaternalHealthCategory'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
 export type DatasetId =
+  | DatasetIdHivCategory
+  | DatasetIdMaternalHealthCategory
+  | DatasetIdCommunitySafetyCategory
   | 'acs_condition-by_race_county_historical'
   | 'acs_condition-by_race_county_current'
   | 'acs_condition-by_race_state_historical'
@@ -65,30 +80,40 @@ export type DatasetId =
   | 'cawp_time_data-race_and_ethnicity_national_historical'
   | 'cawp_time_data-race_and_ethnicity_state_historical'
   | 'cawp_time_data-race_and_ethnicity_state_historical_names'
-  | 'cdc_hiv_data-age_county_current'
-  | 'cdc_hiv_data-age_national_current'
-  | 'cdc_hiv_data-age_state_current'
-  | 'cdc_hiv_data-black_women_national_current'
-  | 'cdc_hiv_data-black_women_state_current'
-  | 'cdc_hiv_data-race_and_ethnicity_county_current'
-  | 'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
-  | 'cdc_hiv_data-race_and_ethnicity_national_current'
-  | 'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust'
-  | 'cdc_hiv_data-race_and_ethnicity_state_current'
-  | 'cdc_hiv_data-sex_county_current'
-  | 'cdc_hiv_data-sex_national_current'
-  | 'cdc_hiv_data-sex_state_current'
-  | 'cdc_hiv_data-age_county_historical'
-  | 'cdc_hiv_data-age_national_historical'
-  | 'cdc_hiv_data-age_state_historical'
-  | 'cdc_hiv_data-black_women_national_historical'
-  | 'cdc_hiv_data-black_women_state_historical'
-  | 'cdc_hiv_data-race_and_ethnicity_county_historical'
-  | 'cdc_hiv_data-race_and_ethnicity_national_historical'
-  | 'cdc_hiv_data-race_and_ethnicity_state_historical'
-  | 'cdc_hiv_data-sex_county_historical'
-  | 'cdc_hiv_data-sex_national_historical'
-  | 'cdc_hiv_data-sex_state_historical'
+  | 'cdc_hiv_data-by_age_county_current'
+  | 'cdc_hiv_data-by_age_county_historical'
+  | 'cdc_hiv_data-by_age_national_current'
+  | 'cdc_hiv_data-by_age_national_historical'
+  | 'cdc_hiv_data-by_age_state_current'
+  | 'cdc_hiv_data-by_age_state_historical'
+  | 'cdc_hiv_data-by_alls_county_current'
+  | 'cdc_hiv_data-by_alls_county_historical'
+  | 'cdc_hiv_data-by_alls_national_current'
+  | 'cdc_hiv_data-by_alls_national_historical'
+  | 'cdc_hiv_data-by_alls_state_current'
+  | 'cdc_hiv_data-by_alls_state_historical'
+  | 'cdc_hiv_data-black_women_by_age_national_current'
+  | 'cdc_hiv_data-black_women_by_age_national_historical'
+  | 'cdc_hiv_data-black_women_by_age_state_current'
+  | 'cdc_hiv_data-black_women_by_age_state_historical'
+  | 'cdc_hiv_data-black_women_by_alls_national_current'
+  | 'cdc_hiv_data-black_women_by_alls_national_historical'
+  | 'cdc_hiv_data-black_women_by_alls_state_current'
+  | 'cdc_hiv_data-black_women_by_alls_state_historical'
+  | 'cdc_hiv_data-by_race_and_ethnicity_county_current'
+  | 'cdc_hiv_data-by_race_and_ethnicity_county_historical'
+  | 'cdc_hiv_data-by_race_and_ethnicity_national_current-with_age_adjust'
+  | 'cdc_hiv_data-by_race_and_ethnicity_national_current'
+  | 'cdc_hiv_data-by_race_and_ethnicity_national_historical'
+  | 'cdc_hiv_data-by_race_and_ethnicity_state_current-with_age_adjust'
+  | 'cdc_hiv_data-by_race_and_ethnicity_state_current'
+  | 'cdc_hiv_data-by_race_and_ethnicity_state_historical'
+  | 'cdc_hiv_data-by_sex_county_current'
+  | 'cdc_hiv_data-by_sex_county_historical'
+  | 'cdc_hiv_data-by_sex_national_current'
+  | 'cdc_hiv_data-by_sex_national_historical'
+  | 'cdc_hiv_data-by_sex_state_current'
+  | 'cdc_hiv_data-by_sex_state_historical'
   | 'cdc_restricted_data-by_age_county_processed_time_series'
   | 'cdc_restricted_data-by_age_county_processed'
   | 'cdc_restricted_data-by_age_national_processed_time_series'
@@ -214,6 +239,9 @@ export type DatasetId =
 export type DatasetIdWithStateFIPSCode = `${DatasetId}-${StateFipsCode}`
 
 export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
+  ...DatasetMetadataMapHivCategory,
+  ...DatasetMetadataMapMaternalHealthCategory,
+  ...DatasetMetadataMapCommunitySafetyCategory,
   'acs_population-by_race_county': {
     name: 'Population by race/ethnicity and county',
     original_data_sourced: '2022',
@@ -258,134 +286,6 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     name: 'Population by sex nationally',
     original_data_sourced: '2022',
     source_id: 'acs',
-  },
-  'cdc_hiv_data-race_and_ethnicity_county_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and county',
-    original_data_sourced: '2008-2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_state_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
-    original_data_sourced: '2008-2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_national_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
-    original_data_sourced: '2008-2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-age_county_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and county',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-age_state_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and state',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-age_national_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-sex_county_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and county',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-sex_state_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and state',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-sex_national_historical': {
-    name: 'Yearly HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-black_women_state_historical': {
-    name: 'Yearly HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-black_women_national_historical': {
-    name: 'Yearly HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
-    original_data_sourced: '2008-2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_county_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and county',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_state_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_national_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust': {
-    name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust': {
-    name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-age_county_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and county',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-age_state_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-age_national_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-sex_county_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and county',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-sex_state_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-sex_national_current': {
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-black_women_state_current': {
-    name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
-  },
-  'cdc_hiv_data-black_women_national_current': {
-    name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_atlas',
   },
   'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level':
     {
@@ -1097,245 +997,6 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
-  },
-  'cdc_wisqars_data-age_state_historical': {
-    name: 'Gun-related Deaths, by age and state',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-race_and_ethnicity_state_historical': {
-    name: 'Gun-related Deaths, by race/ethnicity and state',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-sex_state_historical': {
-    name: 'Gun-related Deaths, by sex and state',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-age_state_current': {
-    name: 'Gun-related Deaths, by age and state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-race_and_ethnicity_state_current': {
-    name: 'Gun-related Deaths, by race/ethnicity and state',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-sex_state_current': {
-    name: 'Gun-related Deaths, by sex and and state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-age_national_historical': {
-    name: 'Gun-related Deaths, by age, nationally',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-race_and_ethnicity_national_historical': {
-    name: 'Gun-related Deaths, by race/ethnicity, nationally',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-sex_national_historical': {
-    name: 'Gun-related Deaths, by sex, nationally',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-age_national_current': {
-    name: 'Gun-related Deaths, by age, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-race_and_ethnicity_national_current': {
-    name: 'Gun-related Deaths, by race/ethnicity, nationally',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-sex_national_current': {
-    name: 'Gun-related Deaths, by sex, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-
-  'cdc_wisqars_data-alls_state_historical': {
-    name: 'Gun-related Deaths, by state',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-alls_state_current': {
-    name: 'Gun-related Deaths, by state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-alls_national_historical': {
-    name: 'Gun-related Deaths, nationally',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_data-alls_national_current': {
-    name: 'Gun-related Deaths, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-
-  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current': {
-    name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical': {
-    name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity, nationally',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current': {
-    name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity and state',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical': {
-    name: 'Gun-related Youth and Young Adult Deaths, by race and ethnicity and state',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-
-  'cdc_wisqars_youth_data-youth_by_alls_state_historical': {
-    name: 'Gun-related Deaths, by state',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_youth_data-youth_by_alls_state_current': {
-    name: 'Gun-related Deaths, by state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_youth_data-youth_by_alls_national_historical': {
-    name: 'Gun-related Deaths, nationally',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_youth_data-youth_by_alls_national_current': {
-    name: 'Gun-related Deaths, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-
-  'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current': {
-    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical': {
-    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro), nationally',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current': {
-    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical': {
-    name: 'Gun homicides for Black men, by urbanicity (e.g. Metro or Non-Metro) and state',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-
-  'cdc_wisqars_black_men_data-black_men_by_age_national_current': {
-    name: 'Gun homicides for Black men, by age, nationally',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_age_national_historical': {
-    name: 'Gun homicides for Black men, by age, nationally',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_age_state_current': {
-    name: 'Gun homicides for Black men, by age and state',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_age_state_historical': {
-    name: 'Gun homicides for Black men, by age and state',
-    original_data_sourced: '2018-2021',
-    contains_nh: true,
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_alls_state_historical': {
-    name: 'Gun-related Deaths, by state',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_alls_state_current': {
-    name: 'Gun-related Deaths, by state',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_alls_national_historical': {
-    name: 'Gun-related Deaths, nationally',
-    original_data_sourced: '2018-2021',
-    source_id: 'cdc_wisqars',
-  },
-  'cdc_wisqars_black_men_data-black_men_by_alls_national_current': {
-    name: 'Gun-related Deaths, nationally',
-    original_data_sourced: '2021',
-    source_id: 'cdc_wisqars',
-  },
-  'maternal_mortality_data-by_race_national_current': {
-    name: 'Maternal Mortality, by race, nationally',
-    original_data_sourced: '2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_race_national_historical': {
-    name: 'Maternal Mortality, by race, nationally',
-    original_data_sourced: '1999 - 2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_race_state_current': {
-    name: 'Maternal Mortality, by race and state',
-    original_data_sourced: '2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_race_state_historical': {
-    name: 'Maternal Mortality, by race and state',
-    original_data_sourced: '1999 - 2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_alls_national_current': {
-    name: 'Maternal Mortality, nationally',
-    original_data_sourced: '2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_alls_national_historical': {
-    name: 'Maternal Mortality, nationally',
-    original_data_sourced: '1999 - 2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_alls_state_current': {
-    name: 'Maternal Mortality and state',
-    original_data_sourced: '2019',
-    source_id: 'maternal_health',
-  },
-  'maternal_mortality_data-by_alls_state_historical': {
-    name: 'Maternal Mortality and state',
-    original_data_sourced: '1999 - 2019',
-    source_id: 'maternal_health',
   },
 }
 

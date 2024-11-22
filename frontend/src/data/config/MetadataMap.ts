@@ -1,10 +1,10 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
 import type { DatasetId } from './DatasetMetadata'
+import { datasourceMetadataCommunitySafetyCategory } from './DatasetMetadataCommunitySafetyCategory'
+import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
+import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
-
-// ALERT!!! Keep this file in sync with DatasetMetadata while it is present
-// All dataset IDs should be in the DatasetMetadata
 
 export type DataSourceId =
   | 'acs'
@@ -31,6 +31,8 @@ export type DataSourceId =
   | 'vera'
 
 export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
+  cdc_wisqars: datasourceMetadataCommunitySafetyCategory,
+  maternal_health: datasourceMetadataMaternalHealthCategory,
   cdc_restricted: {
     id: 'cdc_restricted',
     data_source_name: 'CDC Case Surveillance Restricted Access Detailed Data',
@@ -207,46 +209,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: true,
     time_period_range: null,
   },
-  cdc_atlas: {
-    id: 'cdc_atlas',
-    data_source_name: 'CDC NCHHSTP AtlasPlus',
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'cdc.gov',
-    data_source_link: 'https://www.cdc.gov/nchhstp/atlas/index.htm',
-    geographic_level: 'National, State, County',
-    demographic_granularity: 'Race/ethnicity, age, sex',
-    update_frequency: 'Yearly',
-    description:
-      'The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, prevalence, linkage to HIV care, HIV stigma, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.',
-    dataset_ids: [
-      'cdc_hiv_data-age_county_current',
-      'cdc_hiv_data-age_national_current',
-      'cdc_hiv_data-age_state_current',
-      'cdc_hiv_data-sex_county_current',
-      'cdc_hiv_data-sex_national_current',
-      'cdc_hiv_data-sex_state_current',
-      'cdc_hiv_data-race_and_ethnicity_county_current',
-      'cdc_hiv_data-race_and_ethnicity_national_current',
-      'cdc_hiv_data-race_and_ethnicity_state_current',
-      'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust',
-      'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust',
-      'cdc_hiv_data-black_women_national_current',
-      'cdc_hiv_data-black_women_state_current',
-      'cdc_hiv_data-age_county_historical',
-      'cdc_hiv_data-age_national_historical',
-      'cdc_hiv_data-age_state_historical',
-      'cdc_hiv_data-sex_county_historical',
-      'cdc_hiv_data-sex_national_historical',
-      'cdc_hiv_data-sex_state_historical',
-      'cdc_hiv_data-race_and_ethnicity_county_historical',
-      'cdc_hiv_data-race_and_ethnicity_national_historical',
-      'cdc_hiv_data-race_and_ethnicity_state_historical',
-      'cdc_hiv_data-black_women_national_historical',
-      'cdc_hiv_data-black_women_state_historical',
-    ],
-    downloadable: true,
-    time_period_range: '2008 - current',
-  },
+  cdc_atlas: datasourceMetadataHivCategory,
   kff_vaccination: {
     id: 'kff_vaccination',
     data_source_name: 'Kaiser Family Foundation (KFF) COVID-19 Indicators',
@@ -509,65 +472,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     dataset_ids: [],
     downloadable: false,
     time_period_range: null,
-  },
-  cdc_wisqars: {
-    id: 'cdc_wisqars',
-    data_source_name: `CDC WISQARS`,
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
-    data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
-    geographic_level: 'National, State',
-    demographic_granularity: 'Race/ethnicity, sex, age, city size (metro/non-metro)',
-    update_frequency: 'Yearly',
-    description: `The CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting System) dataset includes a wide range of information related to gun-related injuries, providing a holistic perspective on the impact of gun-related incidents.`,
-    dataset_ids: [
-      'cdc_wisqars_data-age_national_current',
-      'cdc_wisqars_data-age_national_historical',
-      'cdc_wisqars_data-age_state_current',
-      'cdc_wisqars_data-age_state_historical',
-      'cdc_wisqars_data-race_and_ethnicity_national_current',
-      'cdc_wisqars_data-race_and_ethnicity_national_historical',
-      'cdc_wisqars_data-race_and_ethnicity_state_current',
-      'cdc_wisqars_data-race_and_ethnicity_state_historical',
-      'cdc_wisqars_data-sex_national_current',
-      'cdc_wisqars_data-sex_national_historical',
-      'cdc_wisqars_data-sex_state_current',
-      'cdc_wisqars_data-sex_state_historical',
-      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_current',
-      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_national_historical',
-      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_current',
-      'cdc_wisqars_youth_data-youth_by_race_and_ethnicity_state_historical',
-      'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_current',
-      'cdc_wisqars_black_men_data-black_men_by_urbanicity_national_historical',
-      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_current',
-      'cdc_wisqars_black_men_data-black_men_by_urbanicity_state_historical',
-      'cdc_wisqars_black_men_data-black_men_by_age_national_current',
-      'cdc_wisqars_black_men_data-black_men_by_age_national_historical',
-      'cdc_wisqars_black_men_data-black_men_by_age_state_current',
-      'cdc_wisqars_black_men_data-black_men_by_age_state_historical',
-    ],
-    downloadable: true,
-    time_period_range: '2001 - current',
-  },
-  maternal_health: {
-    id: 'maternal_health',
-    data_source_name: `Trends in State-Level Maternal Mortality by Racial and Ethnic Group in the United States`,
-    data_source_acronym: 'JAMA',
-    data_source_pretty_site_name: 'JAMA Network',
-    data_source_link:
-      'https://jamanetwork.com/journals/jama/fullarticle/2806661',
-    geographic_level: 'National, State',
-    demographic_granularity: 'Race/ethnicity',
-    update_frequency: 'N/A',
-    description: ``,
-    dataset_ids: [
-      'maternal_mortality_data-by_race_national_current',
-      'maternal_mortality_data-by_race_national_historical',
-      'maternal_mortality_data-by_race_state_current',
-      'maternal_mortality_data-by_race_state_historical',
-    ],
-    downloadable: true,
-    time_period_range: '1999 - 2019',
   },
 }
 
