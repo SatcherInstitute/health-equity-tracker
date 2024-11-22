@@ -73,12 +73,9 @@ export const datasourceMetadataMaternalHealthCategory: DataSourceMetadataMaterna
     demographic_granularity: 'Race/ethnicity',
     update_frequency: 'N/A',
     description: ``,
-    dataset_ids: [
-      'maternal_mortality_data-by_race_national_current',
-      'maternal_mortality_data-by_race_national_historical',
-      'maternal_mortality_data-by_race_state_current',
-      'maternal_mortality_data-by_race_state_historical',
-    ],
+    dataset_ids: Object.keys(
+      DatasetMetadataMapMaternalHealthCategory,
+    ) as DatasetIdMaternalHealthCategory[],
     downloadable: true,
     time_period_range: '1999 - 2019',
   }
