@@ -224,7 +224,6 @@ class CDCHIVData(DataSource):
             return
 
         all = "black_women_all" if demographic == std_col.BLACK_WOMEN else "all"
-
         alls_df = load_atlas_df_from_data_dir(geo_level, all)
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
@@ -233,8 +232,8 @@ class CDCHIVData(DataSource):
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
 
-            table_demographic = f'by_{demographic}' if demographic != std_col.BLACK_WOMEN else 'black_women_by_age'
-            table_name = f"{table_demographic}_{geo_level}_{table_type}"
+            table_demo = f'by_{demographic}' if demographic != std_col.BLACK_WOMEN else 'black_women_by_age'
+            table_name = f"{table_demo}_{geo_level}_{table_type}"
             if demographic == std_col.BLACK_WOMEN:
                 df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
             else:
