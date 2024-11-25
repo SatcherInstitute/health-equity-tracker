@@ -45,6 +45,7 @@ import {
 import policyRouteConfigs from './pages/Policy/policyContent/policyRouteConfigs'
 import methodologyRouteConfigs from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
+import NewsAndStoriesPage from './pages/News/NewsAndStoriesPage'
 
 // Lazy Load components for code-splitting
 const AboutUsPage = React.lazy(
@@ -72,7 +73,10 @@ const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
 const PolicyPage = React.lazy(
   async () => await import('./pages/Policy/policyComponents/PolicyPage'),
 )
-const AllPosts = React.lazy(async () => await import('./pages/News/AllPosts'))
+// const AllPosts = React.lazy(async () => await import('./pages/News/AllPosts'))
+const AllPosts = React.lazy(
+  async () => await import('./pages/News/NewsAndStoriesPage'),
+)
 const ShareYourStory = React.lazy(
   async () => await import('./pages/News/ShareYourStory'),
 )
@@ -210,7 +214,8 @@ export default function App() {
                           path={SHARE_YOUR_STORY_TAB_LINK}
                           element={<ShareYourStory />}
                         />
-                        <Route path={''} element={<AllPosts />} />
+                        {/* <Route path={''} element={<AllPosts />} /> */}
+                        <Route path={''} element={<NewsAndStoriesPage />} />
                         <Route path='/news/:slug' element={<SinglePost />} />
                       </Route>
 

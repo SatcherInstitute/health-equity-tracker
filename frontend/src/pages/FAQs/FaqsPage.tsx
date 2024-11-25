@@ -4,7 +4,6 @@ import {
   definitionsFaqGroup,
   methodsFaqGroup,
 } from './FaqsPageData'
-import { communitySafetyFaqs } from '../Policy/policyContent/CommunitySafetyFaqsContent'
 import FaqGroup from './FaqGroup'
 
 export default function FaqsPage() {
