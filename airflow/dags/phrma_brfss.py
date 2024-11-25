@@ -169,7 +169,7 @@ phrma_brfss_exporter_operator_age = util.create_exporter_operator(
     'phrma_brfss_exporter_age', payload_age, data_ingestion_dag
 )
 
-payload_sex = {'dataset_name': _PHRMA_BRFSS_DATASET_NAME, 'demographic': "sex"}
+payload_sex = {'dataset_name': _PHRMA_BRFSS_DATASET_NAME, 'demographic': "sex", 'should_export_as_alls': True}
 phrma_brfss_exporter_operator_sex = util.create_exporter_operator(
     'phrma_brfss_exporter_sex', payload_sex, data_ingestion_dag
 )

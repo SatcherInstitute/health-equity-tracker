@@ -11,18 +11,18 @@ GOLDEN_DIR = os.path.join(TEST_DIR, 'phrma_brfss', 'golden_data')
 
 
 GOLDEN_DATA = {
-    'race_and_ethnicity_national': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_national.csv'),
-    'race_and_ethnicity_state': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_state.csv'),
-    'age_national': os.path.join(GOLDEN_DIR, 'expected_age_national.csv'),
-    'age_state': os.path.join(GOLDEN_DIR, 'expected_age_state.csv'),
-    'sex_national': os.path.join(GOLDEN_DIR, 'expected_sex_national.csv'),
-    'sex_state': os.path.join(GOLDEN_DIR, 'expected_sex_state.csv'),
-    'insurance_status_national': os.path.join(GOLDEN_DIR, 'expected_insurance_status_national.csv'),
-    'insurance_status_state': os.path.join(GOLDEN_DIR, 'expected_insurance_status_state.csv'),
-    'income_national': os.path.join(GOLDEN_DIR, 'expected_income_national.csv'),
-    'income_state': os.path.join(GOLDEN_DIR, 'expected_income_state.csv'),
-    'education_national': os.path.join(GOLDEN_DIR, 'expected_education_national.csv'),
-    'education_state': os.path.join(GOLDEN_DIR, 'expected_education_state.csv'),
+    'race_and_ethnicity_national_current': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_national.csv'),
+    'race_and_ethnicity_state_current': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_state.csv'),
+    'age_national_current': os.path.join(GOLDEN_DIR, 'expected_age_national.csv'),
+    'age_state_current': os.path.join(GOLDEN_DIR, 'expected_age_state.csv'),
+    'sex_national_current': os.path.join(GOLDEN_DIR, 'expected_sex_national.csv'),
+    'sex_state_current': os.path.join(GOLDEN_DIR, 'expected_sex_state.csv'),
+    'insurance_status_national_current': os.path.join(GOLDEN_DIR, 'expected_insurance_status_national.csv'),
+    'insurance_status_state_current': os.path.join(GOLDEN_DIR, 'expected_insurance_status_state.csv'),
+    'income_national_current': os.path.join(GOLDEN_DIR, 'expected_income_national.csv'),
+    'income_state_current': os.path.join(GOLDEN_DIR, 'expected_income_state.csv'),
+    'education_national_current': os.path.join(GOLDEN_DIR, 'expected_education_national.csv'),
+    'education_state_current': os.path.join(GOLDEN_DIR, 'expected_education_state.csv'),
 }
 
 
@@ -44,7 +44,7 @@ def testBreakdownRaceNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'race_and_ethnicity_national'
+    assert table_name == 'race_and_ethnicity_national_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -66,7 +66,7 @@ def testBreakdownRaceState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'race_and_ethnicity_state'
+    assert table_name == 'race_and_ethnicity_state_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -88,7 +88,7 @@ def testBreakdownAgeNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'age_national'
+    assert table_name == 'age_national_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -110,7 +110,7 @@ def testBreakdownAgeState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'age_state'
+    assert table_name == 'age_state_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -132,7 +132,7 @@ def testBreakdownSexNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'sex_national'
+    assert table_name == 'sex_national_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -154,7 +154,7 @@ def testBreakdownSexState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'sex_state'
+    assert table_name == 'sex_state_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -176,7 +176,7 @@ def testBreakdownInsuranceNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'insurance_status_national'
+    assert table_name == 'insurance_status_national_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -198,7 +198,7 @@ def testBreakdownInsuranceState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'insurance_status_state'
+    assert table_name == 'insurance_status_state_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -220,7 +220,7 @@ def testBreakdownEducationNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'education_national'
+    assert table_name == 'education_national_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -242,7 +242,7 @@ def testBreakdownEducationState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'education_state'
+    assert table_name == 'education_state_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -264,7 +264,7 @@ def testBreakdownIncomeNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'income_national'
+    assert table_name == 'income_national_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -286,7 +286,7 @@ def testBreakdownIncomeState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'income_state'
+    assert table_name == 'income_state_current'
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})

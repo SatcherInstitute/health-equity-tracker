@@ -52,7 +52,7 @@ class PhrmaBrfssData(DataSource):
         demo_type = self.get_attr(attrs, 'demographic')
         geo_level = self.get_attr(attrs, 'geographic')
 
-        table_name = f'{demo_type}_{geo_level}'
+        table_name = f'{demo_type}_{geo_level}_current'
 
         df = self.generate_breakdown_df(demo_type, geo_level)
 
