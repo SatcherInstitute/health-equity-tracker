@@ -67,7 +67,7 @@ class PhrmaData(DataSource):
 
         alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, PHRMA_MEDICARE, PHRMA_MEDICARE_CONDITIONS)
 
-        table_name = f'{demo_type}_{geo_level}'
+        table_name = f'{demo_type}_{geo_level}_current'
         df = self.generate_breakdown_df(demo_type, geo_level, alls_df)
 
         # POP COMPARE FOR 100K

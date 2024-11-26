@@ -1,8 +1,11 @@
-import type { Breakdowns } from '../query/Breakdowns'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { DatasetId } from '../config/DatasetMetadata'
 import { getDataManager } from '../../utils/globals'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
@@ -41,61 +44,15 @@ class GunViolenceProvider extends VariableProvider {
     super('gun_violence_provider', GUN_DEATH_METRIC_IDS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: string,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_data-age_state_current'
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_data-age_national_current'
-      }
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_data-race_and_ethnicity_state_current'
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_data-race_and_ethnicity_national_current'
-      }
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_data-sex_state_current'
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_data-sex_national_current'
-      }
-    }
-
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_data-age_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_data-age_national_historical'
-      }
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_data-race_and_ethnicity_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_data-race_and_ethnicity_national_historical'
-      }
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'state')
-          return 'cdc_wisqars_data-sex_state_historical'
-        if (breakdowns.geography === 'national')
-          return 'cdc_wisqars_data-sex_national_historical'
-      }
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, dataTypeId, timeView } = metricQuery
-      const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
-
+      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+        'cdc_wisqars_data',
+        '', // TODO: only some tables prepend with `_by`; we should standardize frontend/backend table naming
+        metricQuery,
+      )
       if (!datasetId) {
         throw new Error('DatasetId is undefined.')
       }
@@ -105,8 +62,12 @@ class GunViolenceProvider extends VariableProvider {
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
+      if (isFallbackId) {
+        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+      } else {
+        df = this.applyDemographicBreakdownFilters(df, breakdowns)
+        df = this.removeUnrequestedColumns(df, metricQuery)
+      }
 
       const consumedDatasetIds = [datasetId]
       return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
