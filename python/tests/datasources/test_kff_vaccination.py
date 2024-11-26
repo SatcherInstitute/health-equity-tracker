@@ -89,8 +89,8 @@ def testWriteToBq(
     assert mock_json.call_count == 3
     assert mock_csv_web.call_count == 1
     assert mock_bq.call_count == 2
-    assert mock_bq.call_args_list[0].args[2] == 'race_and_ethnicity_state'
-    assert mock_bq.call_args_list[1].args[2] == 'alls_state'
+    assert mock_bq.call_args_list[0].args[2] == 'race_and_ethnicity_state_current'
+    assert mock_bq.call_args_list[1].args[2] == 'alls_state_current'
 
     df = mock_bq.call_args_list[0].args[0]
 
