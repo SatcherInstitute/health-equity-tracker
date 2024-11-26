@@ -34,7 +34,7 @@ export default function ShareYourStory() {
             we kindly ask you to follow the guidelines outlined below.
           </p>
           <HetButtonSecondary
-            className='px-40 py-4 mb-10'
+            className='md:px-40 px-32 py-4 mb-10'
             text={'Share your story'}
             href='mailto:info@healthequitytracker.org'
           />
@@ -79,7 +79,7 @@ export default function ShareYourStory() {
             a more inclusive and informed community.
           </p>
           <HetButtonSecondary
-            className='px-40 py-4 mt-10'
+            className='md:px-40 px-32 py-4 mt-10'
             text={'Share your story'}
             href='mailto:info@healthequitytracker.org'
           />
