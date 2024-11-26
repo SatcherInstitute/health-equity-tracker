@@ -3,7 +3,7 @@ import ingestion.standardized_columns as std_col
 import pandas as pd
 from ingestion.standardized_columns import Race
 from ingestion import gcs_to_bq_util
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, Sex, CURRENT
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_with_unknowns,
@@ -314,19 +314,19 @@ class BJSIncarcerationData(DataSource):
 
         # BJS tables needed per breakdown
         table_lookup = {
-            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}': [prisoners_10, jail_6],
-            f'{std_col.AGE_COL}_{STATE_LEVEL}': [prisoners_2, prisoners_23, jail_6],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}': [prisoners_app_2, prisoners_23, jail_7],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}': [prisoners_app_2, prisoners_23, jail_7],
-            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}': [prisoners_2, prisoners_23, jail_6],
-            f'{std_col.SEX_COL}_{STATE_LEVEL}': [prisoners_2, prisoners_23, jail_6],
+            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_10, jail_6],
+            f'{std_col.AGE_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
+            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_app_2, prisoners_23, jail_7],
+            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_app_2, prisoners_23, jail_7],
+            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
+            f'{std_col.SEX_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
         }
 
         children_tables = [prisoners_13, jail_6]
 
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                table_name = f'{breakdown}_{geo_level}'
+                table_name = f'{breakdown}_{geo_level}_current'
 
                 df = self.generate_breakdown_df(breakdown, geo_level, table_lookup[table_name], children_tables)
 
