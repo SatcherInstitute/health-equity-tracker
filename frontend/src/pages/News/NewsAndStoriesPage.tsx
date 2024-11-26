@@ -110,13 +110,10 @@ export default function NewsAndStoriesPage() {
 
       <section
         id='main-content'
-        aria-labelledby='main-content'
-        tabIndex={-1}
         className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
       >
         <h1
           id='main'
-          tabIndex={-1}
           className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
         >
           News and Stories
