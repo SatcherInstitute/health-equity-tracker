@@ -47,7 +47,7 @@ def _get_svi_as_df():
 
 
 def _generate_breakdown(*args):
-    print("mocking generate_breakdown()")
+    print("mocking generate_breakdown()", args)
     return pd.DataFrame({"fake_col1": [0, 1, 2], "fake_col2": ["a", "b", "c"]})
 
 
