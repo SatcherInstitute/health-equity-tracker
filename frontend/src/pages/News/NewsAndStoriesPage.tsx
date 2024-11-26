@@ -168,7 +168,7 @@ export default function NewsAndStoriesPage() {
                     <>
                       {/* Default view with featured article and next four */}
                       {/* First 5 Articles Section */}
-                      <div className='grid grid-cols-1 lg:grid-cols-5 lg:gap-1 gap-4 w-full mt-8 smMd:gap-0'>
+                      <div className='grid grid-cols-1 lg:grid-cols-5 lg:gap-1 gap-4 min-w-[28rem] w-full mt-8 smMd:gap-0'>
                         <>
                           {/* Featured Article */}
                           <div className='col-span-1 lg:col-span-2 w-full smMd:mb-4'>
@@ -176,7 +176,7 @@ export default function NewsAndStoriesPage() {
                               <NewsAndStoriesPreviewCardOutlined
                                 article={firstFiveArticles[0]}
                                 bgHeight={bgHeight}
-                                linkClassName='smMd:mx-0 w-[28rem]'
+                                linkClassName='smMd:mx-0 min-w-[28rem]'
                               />
                             )}
                           </div>
