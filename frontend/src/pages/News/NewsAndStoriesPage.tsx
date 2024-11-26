@@ -122,7 +122,7 @@ export default function NewsAndStoriesPage() {
           News and Stories
         </h1>
         <section className='mx-4 flex flex-col items-center'>
-          <p className='max-w-md px-6 text-left'>
+          <p className='max-w-md px-6 text-left leading-lhDefaultMobile md:leading-lhDefault'>
             We believe in the power of storytelling. The Health Equity Tracker
             is designed to enable transformative change through data, but we
             know that is only part of the picture. Here, you will find news and

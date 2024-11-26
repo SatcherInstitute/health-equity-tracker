@@ -32,7 +32,6 @@ const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       target: { value },
     } = event
 
-    // Handle select all
     if (value[value.length - 1] === 'all') {
       if (isAllSelected) {
         onSelectionChange([])
@@ -42,7 +41,6 @@ const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
       return
     }
 
-    // Handle clear selections
     if (value[value.length - 1] === 'clear') {
       onSelectionChange([])
       return

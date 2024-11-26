@@ -25,7 +25,7 @@ export default function NewsPage() {
     <section>
       <div className='m-auto max-w-lgXl'>
         <div className='flex-col'>
-          {/* <Tabs
+          <Tabs
             {...tabLayout}
             centered={true}
             indicatorColor='primary'
@@ -47,7 +47,7 @@ export default function NewsPage() {
               component={Link}
               to={SHARE_YOUR_STORY_TAB_LINK}
             />
-          </Tabs> */}
+          </Tabs>
 
           <Outlet />
         </div>

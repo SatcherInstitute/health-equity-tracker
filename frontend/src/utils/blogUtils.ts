@@ -11,7 +11,8 @@ export const MAX_FETCH = 100
 
 // REACT QUERY
 export const ARTICLES_KEY = 'cached_wp_articles'
-export const ARTICLES_KEY_4 = 'cached_wp_articles_first_five'
+export const ARTICLES_KEY_4 = 'cached_wp_articles_first_four'
+export const ARTICLES_KEY_5 = 'cached_wp_articles_first_five'
 export const REACT_QUERY_OPTIONS = {
   cacheTime: 1000 * 60 * 5, // never garbage collect, always default to cache
   staleTime: 1000 * 30, // treat cache data as fresh and don't refetch
