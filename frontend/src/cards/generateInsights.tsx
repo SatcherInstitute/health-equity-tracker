@@ -26,23 +26,28 @@ export interface ResultData {
   [key: string]: any
 }
 
-const API_KEY_URL =
-  'https://us-central1-het-infra-test-05.cloudfunctions.net/function-1'
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
 export async function fetchAIInsight(prompt: string): Promise<string> {
   try {
-    const apiKeyResponse = await fetch('http://localhost:8080/api/get-api-key') // need to update for production
+    const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+    const apiKeyUrl = `${baseApiUrl}/api/get-api-key`
+
+    const apiKeyResponse = await fetch(apiKeyUrl)
     if (!apiKeyResponse.ok) {
       throw new Error(`Failed to fetch API key: ${apiKeyResponse.statusText}`)
     }
 
     const apiKeyData = await apiKeyResponse.json()
     const apiKey = apiKeyData.apiKey
-    console.log({ apiKey })
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    if (!apiKey) {
+      throw new Error('API key is missing in the response')
+    }
+
+    // Call the OpenAI API
+    const response = await fetch(OPENAI_API_URL, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,

@@ -1,6 +1,7 @@
 import logging
 import os
 
+from google.cloud import secretmanager
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 from werkzeug.datastructures import Headers
@@ -75,15 +76,17 @@ def get_dataset():
 
 @app.route('/api/get-api-key', methods=['GET'])
 def get_api_key():
-    """Returns the OpenAI API key."""
+    """Fetches the OpenAI API key from Google Cloud Secret Manager."""
     try:
-        api_key = os.getenv("OPENAI_API_KEY")
+        client = secretmanager.SecretManagerServiceClient()
 
-        if not api_key:
-            return jsonify({"error": "API key not found"}), 500
+        secret_name = "projects/585592748590/secrets/openai-api-key/versions/latest"
+        response = client.access_secret_version(name=secret_name)
+        api_key = response.payload.data.decode("UTF-8")
+
         return jsonify({"apiKey": api_key})
     except Exception as e:
-        logging.error(f"Error retrieving API key: {e}")
+        logging.error(f"Error retrieving API key from Secret Manager: {e}")
         return jsonify({"error": str(e)}), 500
 
 
