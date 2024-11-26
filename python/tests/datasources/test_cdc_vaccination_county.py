@@ -39,7 +39,7 @@ def testWriteToBq(
     cdcVaccinationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_csv.call_count == 1
     assert mock_bq.call_count == 1
-    assert mock_bq.call_args_list[0].args[2] == 'alls_county'
+    assert mock_bq.call_args_list[0].args[2] == 'alls_county_current'
 
     expected_df = pd.read_csv(
         GOLDEN_DATA,
