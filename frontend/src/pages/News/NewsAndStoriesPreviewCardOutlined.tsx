@@ -14,7 +14,7 @@ interface NewsAndStoriesPreviewCardOutlinedProps {
 
 export default function NewsAndStoriesPreviewCardOutlined({
   article,
-  bgHeight = '12rem',
+  bgHeight = '10rem',
   linkClassName = '',
 }: NewsAndStoriesPreviewCardOutlinedProps): JSX.Element {
   const getImageSource = (): string => {
@@ -44,7 +44,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
           <div className='flex flex-col m-4 text-center justify-around h-auto'>
             <div className='flex flex-col justify-around h-full'>
               <HetTags tags={tagNames} />
-              <h4 className='font-semibold text-text text-left my-2 pt-0 leading-lhNormal text-altGreen'>
+              <h4 className='font-semibold text-text text-left my-2 pt-0 mt-8 leading-lhNormal text-altGreen'>
                 {getHtml(article.title.rendered, true)}
               </h4>
             </div>

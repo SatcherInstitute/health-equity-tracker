@@ -9,6 +9,7 @@ import CheckboxDropdown from './CheckboxDropdown'
 import { useState, useEffect } from 'react'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+
 export default function NewsAndStoriesPage() {
   const { isLoading, error, data }: any = useQuery(
     blogUtils.ARTICLES_KEY,
@@ -16,6 +17,7 @@ export default function NewsAndStoriesPage() {
     blogUtils.REACT_QUERY_OPTIONS,
   )
 
+  const [allArticles, setAllArticles] = useState<Article[]>([])
   const [authors, setAuthors] = useState<string[]>([])
   const [categories, setCategories] = useState<string[]>([])
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([])
@@ -25,13 +27,15 @@ export default function NewsAndStoriesPage() {
   const isLgUp = useIsBreakpointAndUp('lg')
   const bgHeight = isLgUp ? '42rem' : '12rem'
 
-  // Extract authors and categories from all articles
   useEffect(() => {
     if (data?.data) {
+      const articles = data.data
+      setAllArticles(articles)
+
       const authorSet = new Set<string>()
       const categorySet = new Set<string>()
 
-      data.data.forEach((article: Article) => {
+      articles.forEach((article: Article) => {
         if (article.acf?.contributing_author) {
           authorSet.add(article.acf.contributing_author)
         }
@@ -42,14 +46,20 @@ export default function NewsAndStoriesPage() {
         }
       })
 
-      setAuthors(Array.from(authorSet))
-      setCategories(Array.from(categorySet))
+      const sortedAuthors = Array.from(authorSet).sort((a, b) =>
+        a.localeCompare(b),
+      )
+      const sortedCategories = Array.from(categorySet).sort((a, b) =>
+        a.localeCompare(b),
+      )
+
+      setAuthors(sortedAuthors)
+      setCategories(sortedCategories)
     }
   }, [data?.data])
 
-  // Filtering logic
   const filteredArticles =
-    data?.data?.filter((article: Article) => {
+    allArticles.filter((article: Article) => {
       const matchesAuthor =
         selectedAuthors.length === 0 ||
         selectedAuthors.includes(article.acf?.contributing_author)
@@ -61,24 +71,20 @@ export default function NewsAndStoriesPage() {
       return matchesAuthor && matchesCategory
     }) || []
 
-  // Determine if filters are applied
   const filtersApplied =
     selectedAuthors.length > 0 || selectedCategories.length > 0
 
-  // Split articles into first five and remaining if no filters are applied
-  const firstFiveArticles = filtersApplied ? [] : filteredArticles.slice(0, 5)
-  const remainingArticles = filtersApplied
-    ? filteredArticles
-    : filteredArticles.slice(5)
+  const firstFiveArticles = filteredArticles.slice(0, 5)
+  const remainingArticles = filteredArticles.slice(5)
 
   const handleAuthorChange = (selected: string[]) => {
     setSelectedAuthors(selected)
-    setShowAllArticles(false) // Reset to show only first five when filters change
+    setShowAllArticles(false)
   }
 
   const handleCategoryChange = (selected: string[]) => {
     setSelectedCategories(selected)
-    setShowAllArticles(false) // Reset to show only first five when filters change
+    setShowAllArticles(false)
   }
 
   const handleResetFilters = () => {
@@ -89,11 +95,11 @@ export default function NewsAndStoriesPage() {
 
   const handleLoadAllArticles = () => {
     setLoadingMoreArticles(true)
-    // Simulate a delay to represent data fetching
+
     setTimeout(() => {
       setShowAllArticles(true)
       setLoadingMoreArticles(false)
-    }, 1000) // Adjust the delay as needed
+    }, 1000)
   }
 
   return (
@@ -125,7 +131,6 @@ export default function NewsAndStoriesPage() {
             share insights and analysis into the Health Equity movement.
           </p>
 
-          {/* Author and Category Filters */}
           <div className='flex flex-col md:flex-row gap-4 w-full mt-4'>
             <CheckboxDropdown
               label='Authors'
@@ -147,7 +152,6 @@ export default function NewsAndStoriesPage() {
             />
           </div>
 
-          {/* Displaying Articles */}
           {isLoading ? (
             <HetPostsLoading className='w-full mt-8' doPulse={!error} />
           ) : (
@@ -155,33 +159,31 @@ export default function NewsAndStoriesPage() {
               {filteredArticles.length > 0 ? (
                 <>
                   {filtersApplied ? (
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8'>
+                    <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 w-full'>
                       {filteredArticles.map((article: Article) => (
-                        <NewsAndStoriesPreviewCardOutlined
-                          key={article.id}
-                          article={article}
-                          bgHeight='12rem'
-                        />
+                        <div key={article.id} className='w-full'>
+                          <NewsAndStoriesPreviewCardOutlined
+                            article={article}
+                            bgHeight='12rem'
+                            linkClassName='w-full'
+                          />
+                        </div>
                       ))}
                     </div>
                   ) : (
                     <>
-                      {/* Default view with featured article and next four */}
-                      {/* First 5 Articles Section */}
-                      <div className='grid grid-cols-1 lg:grid-cols-5 lg:gap-1 gap-4 min-w-[28rem] w-full mt-8 smMd:gap-0'>
+                      <div className='grid grid-cols-1 lg:grid-cols-5 lg:gap-1 gap-4 w-full mt-8 smMd:gap-0'>
                         <>
-                          {/* Featured Article */}
-                          <div className='col-span-1 lg:col-span-2 w-full smMd:mb-4'>
+                          <div className='col-span-1 lg:col-span-2 w-full smMd:mb-4 lg:mb-0'>
                             {firstFiveArticles[0] && (
                               <NewsAndStoriesPreviewCardOutlined
                                 article={firstFiveArticles[0]}
                                 bgHeight={bgHeight}
-                                linkClassName='smMd:mx-0 min-w-[28rem]'
+                                linkClassName='mx-0 lg:mr-2'
                               />
                             )}
                           </div>
 
-                          {/* Next Four Articles */}
                           <div className='col-span-1 md:col-span-3 grid smMd:grid-cols-2 grid-cols-1 gap-4 lg:mb-0 mb-4'>
                             {firstFiveArticles
                               .slice(1)
@@ -196,7 +198,6 @@ export default function NewsAndStoriesPage() {
                         </>
                       </div>
 
-                      {/* Remaining Articles */}
                       {showAllArticles && (
                         <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:mt-8'>
                           {remainingArticles.map((article: Article) => (
@@ -209,7 +210,6 @@ export default function NewsAndStoriesPage() {
                         </div>
                       )}
 
-                      {/* Loading Spinner for Remaining Articles */}
                       {loadingMoreArticles && (
                         <div className='mt-8'>
                           <HetPostsLoading
@@ -229,7 +229,6 @@ export default function NewsAndStoriesPage() {
             </>
           )}
 
-          {/* Bottom Centered Button */}
           <div className='flex justify-center w-full mt-8'>
             {filtersApplied ? (
               <HetLinkButton
