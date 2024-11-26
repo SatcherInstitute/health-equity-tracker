@@ -148,8 +148,12 @@ class PhrmaProvider extends VariableProvider {
     df = this.renameGeoColumns(df, breakdowns)
     const consumedDatasetIds = [datasetId]
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }

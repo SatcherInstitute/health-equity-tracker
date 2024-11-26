@@ -81,8 +81,6 @@ class VaccineProvider extends VariableProvider {
       }
     }
     if (breakdowns.geography === 'county') {
-      // We merge this in on the backend, no need to redownload it here
-      // but we want to provide the proper citation
       consumedDatasetIds.push('acs_population-by_race_county')
     }
 
