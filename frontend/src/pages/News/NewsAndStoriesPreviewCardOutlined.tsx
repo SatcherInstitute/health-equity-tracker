@@ -8,14 +8,14 @@ import type { Article } from './ArticleTypes'
 
 interface NewsAndStoriesPreviewCardOutlinedProps {
   article: Article
-
   bgHeight?: string
+  linkClassName?: string
 }
 
 export default function NewsAndStoriesPreviewCardOutlined({
   article,
-
-  bgHeight = '10rem',
+  bgHeight = '12rem',
+  linkClassName = '',
 }: NewsAndStoriesPreviewCardOutlinedProps): JSX.Element {
   const getImageSource = (): string => {
     const imageSource =
@@ -30,7 +30,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
   return (
     <Link
       to={`${NEWS_PAGE_LINK}/${article.slug}`}
-      className='h-full text-center text-title no-underline group mr-4 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out cursor-pointer'
+      className={`h-full text-center text-title no-underline group flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out cursor-pointer ${linkClassName ?? 'mr-4'}`}
     >
       <LazyLoad once offset={300} className='h-full m-0 p-0'>
         <div className='m-0 h-full flex flex-col justify-between'>
