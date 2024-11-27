@@ -27,20 +27,22 @@ export default function ShareYourStory() {
             We believe that everyone's voice matters when it comes to health
             equity and ending the HIV epidemic. We invite community members,
             advocates, and individuals directly affected by HIV to share their
-            personal stories, insights, and experiences on our ‘New and Stories’
-            page. By contributing, you can help raise awareness, foster
+            personal stories, insights, and experiences on our ‘News and
+            Stories’ page. By contributing, you can help raise awareness, foster
             understanding, and inspire positive change in underserved
             communities. To ensure the quality and credibility of the content,
             we kindly ask you to follow the guidelines outlined below.
           </p>
           <HetButtonSecondary
-            className='md:px-40 px-32 py-4 mb-10'
-            text={'Share your story'}
+            buttonClassName='md:px-40 px-32 py-4 mb-10'
             href='mailto:info@healthequitytracker.org'
-          />
+          >
+            Share your story
+          </HetButtonSecondary>
+
           <div className='mt-5 flex w-full items-center'>
             <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
-            <h3 className='m-0 pe-4 ps-4  text-altGreen text-title md:text-smallestHeader font-bold md:font-medium leading-lhSomeMoreSpace'>
+            <h3 className='m-0 pe-4 ps-4 text-altGreen text-title md:text-smallestHeader font-bold md:font-medium leading-lhSomeMoreSpace'>
               Submission guidelines
             </h3>
             <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
@@ -57,7 +59,7 @@ export default function ShareYourStory() {
               return (
                 <div
                   key={submissionGuideline.title}
-                  className={`fade-in-up-blur rounded-md p-8 ${
+                  className={`fade-in-up-blur rounded-md p-2 md:p-8 ${
                     isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
                   }`}
                   style={{ animationDelay: `${index * 0.04}s` }}
@@ -79,10 +81,11 @@ export default function ShareYourStory() {
             a more inclusive and informed community.
           </p>
           <HetButtonSecondary
-            className='md:px-40 px-32 py-4 mt-10'
-            text={'Share your story'}
+            buttonClassName='md:px-40 px-32 py-4 mt-10'
             href='mailto:info@healthequitytracker.org'
-          />
+          >
+            Share Your Story
+          </HetButtonSecondary>
         </section>
       </section>
     </>
