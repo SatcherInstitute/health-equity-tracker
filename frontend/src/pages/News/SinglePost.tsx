@@ -19,6 +19,7 @@ import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
+import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -218,11 +219,8 @@ export default function SinglePost() {
                 <>
                   by{' '}
                   <Link
-<<<<<<< HEAD
                     className='cursor-pointer my-2 md:my-4 text-center md:text-left text-text no-underline group-hover:underline'
-=======
-                    className='cursor-pointer'
->>>>>>> 4373b62b (modified het tags)
+                    
                     to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(fullArticle.acf.contributing_author)}`}
                   >
                     {fullArticle.acf.contributing_author}
