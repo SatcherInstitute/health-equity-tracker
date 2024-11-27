@@ -10,6 +10,7 @@ import { useLocation } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
 import CheckboxDropdown from './CheckboxDropdown'
 import NewsAndStoriesPreviewCardOutlined from './NewsAndStoriesPreviewCardOutlined'
+import { useLocation } from 'react-router-dom'
 
 export default function NewsAndStoriesPage() {
   const location = useLocation()
