@@ -3,5 +3,4 @@
 flask
 flask-cors
 gunicorn
-google-cloud
 google-cloud-secret-manager
