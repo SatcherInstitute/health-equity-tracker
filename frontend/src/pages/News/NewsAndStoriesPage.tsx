@@ -9,8 +9,11 @@ import CheckboxDropdown from './CheckboxDropdown'
 import { useState, useEffect } from 'react'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { useLocation } from 'react-router-dom'
 
 export default function NewsAndStoriesPage() {
+  const location = useLocation()
+  const query = new URLSearchParams(location.search)
   const { isLoading, error, data }: any = useQuery(
     blogUtils.ARTICLES_KEY,
     fetchNewsData,
@@ -26,7 +29,24 @@ export default function NewsAndStoriesPage() {
   const [loadingMoreArticles, setLoadingMoreArticles] = useState(false)
   const isLgUp = useIsBreakpointAndUp('lg')
   const bgHeight = isLgUp ? '42rem' : '12rem'
+  useEffect(() => {
+    const authorParam = query.get('author')
+    const categoryParam = query.get('category')
 
+    if (authorParam) {
+      const authors = authorParam.split(',').map(decodeURIComponent)
+      setSelectedAuthors(authors)
+    } else {
+      setSelectedAuthors([])
+    }
+
+    if (categoryParam) {
+      const categories = categoryParam.split(',').map(decodeURIComponent)
+      setSelectedCategories(categories)
+    } else {
+      setSelectedCategories([])
+    }
+  }, [location.search])
   useEffect(() => {
     if (data?.data) {
       const articles = data.data

@@ -20,7 +20,9 @@ import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
-
+import HomeIcon from '@mui/icons-material/Home'
+import { ChevronRight } from '@mui/icons-material'
+import { HetTags } from '../../styles/HetComponents/HetTags'
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString(undefined, options as any)
@@ -217,7 +219,7 @@ export default function SinglePost() {
                   Authored by{' '}
                   <Link
                     className='cursor-pointer'
-                    to={`${NEWS_PAGE_LINK}?author=${fullArticle.acf.contributing_author}`}
+                    to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(fullArticle.acf.contributing_author)}`}
                   >
                     {fullArticle.acf.contributing_author}
                   </Link>
@@ -251,23 +253,6 @@ export default function SinglePost() {
             </div>
 
             {/* OPTIONAL ARTICLE CATEGORIES */}
-            {articleCategories ? (
-              <div className='text-start text-text text-altDark'>
-                Categorized under:{' '}
-                {articleCategories.map((categoryChunk, i) => (
-                  <span key={categoryChunk.id}>
-                    <Link
-                      to={`${NEWS_PAGE_LINK}?category=${categoryChunk.name}`}
-                    >
-                      {categoryChunk.name}
-                    </Link>
-                    {i < articleCategories.length - 1 ? ', ' : ''}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <Skeleton width='50%'></Skeleton>
-            )}
 
             {/* SOCIAL MEDIA ICONS */}
             <div className='w-full py-6 text-left md:w-1/4'>
@@ -320,6 +305,21 @@ export default function SinglePost() {
           </div>
         </article>
 
+        {articleCategories ? (
+          <div className='text-start text-text text-altDark'>
+            Tagged:
+            <HetTags
+              tags={articleCategories.map((categoryChunk) => ({
+                name: categoryChunk.name,
+                link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
+                  categoryChunk.name,
+                )}`,
+              }))}
+            />
+          </div>
+        ) : (
+          <Skeleton width='50%'></Skeleton>
+        )}
         {/* PREV / NEXT ARTICLES NAV */}
         <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
           {prevArticle && (
