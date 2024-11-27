@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import hetLogo from '../../assets/AppbarLogo.png'
-import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
@@ -20,9 +19,8 @@ import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
-import HomeIcon from '@mui/icons-material/Home'
-import { ChevronRight } from '@mui/icons-material'
 import { HetTags } from '../../styles/HetComponents/HetTags'
+import { HetOverline } from '../../styles/HetComponents/HetOverline'
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString(undefined, options as any)
@@ -186,20 +184,23 @@ export default function SinglePost() {
           '
           >
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
+
+            {fullArticle?.date ? (
+              <HetOverline text={prettyDate(fullArticle.date)} />
+            ) : (
+              <Skeleton width='50%'></Skeleton>
+            )}
             <div
               className='
-              m-auto
+              py-8
               flex
               w-full
               flex-wrap
               justify-start
-              pb-4
+              
               text-left
-              font-serif
-              text-smallHeader
-              font-light
-              leading-lhTight
               text-altGreen sm:text-header md:text-bigHeader
+              ont-sansTitle text-header font-bold leading-lhNormal
             '
             >
               {isLoading ? (
@@ -213,12 +214,12 @@ export default function SinglePost() {
             </div>
 
             {/* AUTHOR(S) OR LOADING OR NOTHING */}
-            <div className='text-start text-text text-altDark'>
+            <div className='group text-start text-text text-altDark font-medium'>
               {fullArticle?.acf?.contributing_author ? (
                 <>
-                  Authored by{' '}
+                  by{' '}
                   <Link
-                    className='cursor-pointer'
+                    className='cursor-pointer my-2 md:my-4 text-center md:text-left text-text no-underline group-hover:underline'
                     to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(fullArticle.acf.contributing_author)}`}
                   >
                     {fullArticle.acf.contributing_author}
@@ -244,13 +245,6 @@ export default function SinglePost() {
             </div>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
-            <div className='text-start text-text text-altDark'>
-              {fullArticle?.date ? (
-                <>Published {prettyDate(fullArticle.date)}</>
-              ) : (
-                <Skeleton width='50%'></Skeleton>
-              )}
-            </div>
 
             {/* OPTIONAL ARTICLE CATEGORIES */}
 
@@ -303,23 +297,25 @@ export default function SinglePost() {
               )}
             </div>
           </div>
+          {articleCategories ? (
+            <div className='text-text text-altDark flex flex-row items-center justify-center'>
+              Tagged:
+              <HetTags
+                containerClassName='mt-0 ml-4 flex'
+                linkClassName='mt-0'
+                tags={articleCategories.map((categoryChunk) => ({
+                  name: categoryChunk.name,
+                  link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
+                    categoryChunk.name,
+                  )}`,
+                }))}
+              />
+            </div>
+          ) : (
+            <Skeleton width='50%'></Skeleton>
+          )}
         </article>
 
-        {articleCategories ? (
-          <div className='text-start text-text text-altDark'>
-            Tagged:
-            <HetTags
-              tags={articleCategories.map((categoryChunk) => ({
-                name: categoryChunk.name,
-                link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
-                  categoryChunk.name,
-                )}`,
-              }))}
-            />
-          </div>
-        ) : (
-          <Skeleton width='50%'></Skeleton>
-        )}
         {/* PREV / NEXT ARTICLES NAV */}
         <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
           {prevArticle && (
