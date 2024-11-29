@@ -48,7 +48,8 @@ export default function ShareYourStory() {
             <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
           </div>
 
-          <ul className='mt-4 mb-8 grid grid-cols-1 md:grid-cols-2 list-none ml-0 gap-2 max-w-md px-6 '>
+          {/* Updated to use <li> as direct child of <ul> */}
+          <ul className='mt-4 mb-8 grid grid-cols-1 md:grid-cols-2 list-none ml-0 gap-2 max-w-md px-6'>
             {submissionGuidelines.map((submissionGuideline, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow =
@@ -57,7 +58,7 @@ export default function ShareYourStory() {
                   (Math.floor(index / 2) % 2 !== 0 && index % 2 !== 0))
 
               return (
-                <div
+                <li
                   key={submissionGuideline.title}
                   className={`fade-in-up-blur rounded-md p-2 md:p-8 ${
                     isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
@@ -69,12 +70,12 @@ export default function ShareYourStory() {
                     title={submissionGuideline.title}
                     description={submissionGuideline.description}
                   />
-                </div>
+                </li>
               )
             })}
           </ul>
 
-          <p className='max-w-md px-6 '>
+          <p className='max-w-md px-6'>
             Thank you for considering sharing your story with us. Your voice can
             make a difference in advancing health equity for all people. We look
             forward to hearing from you and appreciate your support in creating
