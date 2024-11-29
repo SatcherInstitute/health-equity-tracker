@@ -11,21 +11,40 @@ interface HetButtonSecondaryProps {
   underline?: boolean
 }
 
+const isExternalLink = (href?: string): boolean => {
+  return (
+    !!href &&
+    (href.startsWith('http://') ||
+      href.startsWith('https://') ||
+      href.startsWith('mailto:'))
+  )
+}
+
+const getComponentType = (href?: string): React.ElementType => {
+  if (isExternalLink(href)) {
+    return 'a'
+  }
+  if (href) {
+    return RouterLink
+  }
+  return 'button'
+}
+
+const getLinkProps = (href?: string): Record<string, unknown> => {
+  if (isExternalLink(href)) {
+    return { href }
+  }
+  if (href) {
+    return { to: href }
+  }
+  return {}
+}
+
 export default function HetButtonSecondary(props: HetButtonSecondaryProps) {
   const { children, href, onClick, buttonClassName, ariaLabel } = props
 
-  const isExternalLink =
-    href?.startsWith('http://') ||
-    href?.startsWith('https://') ||
-    href?.startsWith('mailto:')
-
-  const ComponentProp: React.ElementType = isExternalLink
-    ? 'a'
-    : href
-      ? RouterLink
-      : 'button'
-
-  const linkProps = isExternalLink ? { href } : href ? { to: href } : {}
+  const ComponentProp = getComponentType(href)
+  const linkProps = getLinkProps(href)
 
   return (
     <Button
