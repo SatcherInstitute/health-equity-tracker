@@ -207,11 +207,11 @@ export default function NewsAndStoriesPage() {
                         </div>
                       )}
 
-                      {/* {loadingMoreArticles && ( */}
-                      <div className='mt-8 w-full'>
-                        <HetPostsLoading doPulse={!error} />
-                      </div>
-                      {/* )} */}
+                      {loadingMoreArticles && (
+                        <div className='mt-8 w-full'>
+                          <HetPostsLoading doPulse={!error} />
+                        </div>
+                      )}
                     </>
                   )}
                 </>
