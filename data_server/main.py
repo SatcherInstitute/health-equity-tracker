@@ -74,7 +74,7 @@ def get_dataset():
     return Response(generate_response(), mimetype='application/json', headers=headers)
 
 
-@app.route('/get-api-key', methods=['GET'])
+@app.route('/api/get-api-key', methods=['GET'])
 def get_api_key():
     """Fetches the OpenAI API key from Google Cloud Secret Manager."""
     try:

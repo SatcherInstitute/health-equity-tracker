@@ -32,7 +32,7 @@ const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 export async function fetchAIInsight(prompt: string): Promise<string> {
   try {
     const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-    const apiKeyUrl = `${baseApiUrl}/get-api-key`
+    const apiKeyUrl = `${baseApiUrl}/api/get-api-key`
 
     const apiKeyResponse = await fetch(apiKeyUrl)
     if (!apiKeyResponse.ok) {
