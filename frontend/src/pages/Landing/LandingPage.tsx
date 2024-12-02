@@ -238,7 +238,7 @@ function LandingPage() {
           <div className='flex flex-col items-center justify-center xs:max-h-[75vh] xs:min-h-[75vh] overflow-y-auto relative py-[1rem]'>
             <ul className='w-full flex flex-col items-center justify-center py-0 px-8 scrollbar-hide absolute top-[0] xs:px-4 pb-8'>
               <ListItem
-                // title='Take a tour of the data'
+                title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
                 iframeSrc='https://www.youtube.com/embed/XBoqT9Jjc8w'
                 videoSrc={undefined}
