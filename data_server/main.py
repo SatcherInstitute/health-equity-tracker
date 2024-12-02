@@ -1,7 +1,7 @@
 import logging
 import os
 
-from google.cloud import secretmanager
+# from google.cloud import secretmanager
 from flask import Flask, Response, request, jsonify
 from flask_cors import CORS
 from werkzeug.datastructures import Headers
@@ -78,10 +78,10 @@ def get_dataset():
 def get_api_key():
     """Fetches the OpenAI API key from Google Cloud Secret Manager."""
     try:
-        client = secretmanager.SecretManagerServiceClient()
+        # client = secretmanager.SecretManagerServiceClient()
 
-        secret_name = "projects/585592748590/secrets/openai-api-key/versions/latest"
-        response = client.access_secret_version(name=secret_name)
+        # secret_name = "projects/585592748590/secrets/openai-api-key/versions/latest"
+        # response = client.access_secret_version(name=secret_name)
         # api_key = response.payload.data.decode("UTF-8")
         test_api_key = os.environ.get('OPENAI_API_KEY')
 
