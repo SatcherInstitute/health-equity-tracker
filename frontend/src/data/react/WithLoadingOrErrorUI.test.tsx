@@ -1,18 +1,18 @@
 import { render } from '@testing-library/react'
-import type { DatasetMetadata, HetRow } from '../utils/DatasetTypes'
 import { act } from 'react'
-import { MetricQuery } from '../query/MetricQuery'
-import { Breakdowns } from '../query/Breakdowns'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
-import { WithMetrics } from './WithLoadingOrErrorUI'
+import { beforeEach, describe, expect, test } from 'vitest'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import { DatasetMetadataMap } from '../config/DatasetMetadata'
 import { excludeAll } from '../query/BreakdownFilter'
-import { describe, test, expect, beforeEach } from 'vitest'
+import { Breakdowns } from '../query/Breakdowns'
+import { MetricQuery } from '../query/MetricQuery'
+import type { DatasetMetadata, HetRow } from '../utils/DatasetTypes'
+import { WithMetrics } from './WithLoadingOrErrorUI'
 
 const STATE_NAMES_ID = 'state_names'
 const ANOTHER_FAKE_DATASET_ID = 'fake_dataset_2'
@@ -40,7 +40,7 @@ function WithMetricsWrapperApp(props: {
               <>
                 Loaded {response.data.length} rows.{' '}
                 {props.displayRow !== undefined &&
-                  response.data.map((row) => props.displayRow!(row))}
+                  response.data.map((row) => props.displayRow!(row) as any)}
               </>
             )}
           </div>

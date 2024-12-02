@@ -1,14 +1,14 @@
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
-import type { Article } from './ArticleTypes'
 import { useQuery } from 'react-query'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
+import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import * as blogUtils from '../../utils/blogUtils'
 import { fetchNewsData } from '../../utils/blogUtils'
-import NewsAndStoriesPreviewCardOutlined from './NewsAndStoriesPreviewCardOutlined'
-import CheckboxDropdown from './CheckboxDropdown'
-import { useState, useEffect } from 'react'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import type { Article } from './ArticleTypes'
+import CheckboxDropdown from './CheckboxDropdown'
+import NewsAndStoriesPreviewCardOutlined from './NewsAndStoriesPreviewCardOutlined'
 
 export default function NewsAndStoriesPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -112,13 +112,12 @@ export default function NewsAndStoriesPage() {
         id='main-content'
         className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
       >
-        <h1
+        <h2
           id='main'
           className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
         >
           News and Stories
-        </h1>
-        <h2 className='sr-only'>News and Stories</h2>
+        </h2>
         <section className='mx-4 flex flex-col items-center'>
           <p className='max-w-md px-6 text-left'>
             We believe in the power of storytelling. The Health Equity Tracker
