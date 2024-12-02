@@ -15,7 +15,7 @@ cache = DatasetCache()
 
 @app.route('/', methods=['GET'])
 def get_program_name():
-    return 'Running data server.'
+    return 'Running data server test.'
 
 
 @app.route('/metadata', methods=['GET'])
