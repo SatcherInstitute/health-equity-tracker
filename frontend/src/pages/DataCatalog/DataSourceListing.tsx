@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import type {
-  DataSourceMetadata,
-  MapOfDatasetMetadata,
-  DatasetMetadata,
-} from '../../data/utils/DatasetTypes'
-import { getLogger } from '../../utils/globals'
-import downloadDataset from './downloadDataset'
-import DialogTitle from '@mui/material/DialogTitle'
+import CircularProgress from '@mui/material/CircularProgress'
 import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import CircularProgress from '@mui/material/CircularProgress'
 import ListItemText from '@mui/material/ListItemText'
+import { useState } from 'react'
+import type {
+  DatasetMetadata,
+  DataSourceMetadata,
+  MapOfDatasetMetadata,
+} from '../../data/utils/DatasetTypes'
+import { getLogger } from '../../utils/globals'
+import downloadDataset from './downloadDataset'
 
 import {
-  GetApp as GetAppIcon,
   CheckCircle as CheckCircleIcon,
+  GetApp as GetAppIcon,
   SaveAlt as SaveAltIcon,
 } from '@mui/icons-material'
 
@@ -24,10 +24,10 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import HetNotice from '../../styles/HetComponents/HetNotice'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
+import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -185,14 +185,15 @@ export function DataSourceListing(props: DataSourceListingProps) {
         )}
         {props.source_metadata.downloadable && (
           <HetButtonSecondary
-            className='md:mr-auto md:ml-0 mx-auto py-4 leading-lhNormal'
-            text='View downloadable tables'
+            buttonClassName='md:mr-auto md:ml-0 mx-auto py-4 leading-lhNormal'
             onClick={() => {
               setDialogIsOpen(true)
             }}
             ariaLabel={`'Download ${props.source_metadata.data_source_name}`}
             href={''}
-          />
+          >
+            View downloadable tables
+          </HetButtonSecondary>
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}

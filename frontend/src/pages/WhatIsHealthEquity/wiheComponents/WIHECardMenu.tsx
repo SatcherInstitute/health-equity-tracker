@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom'
-import GuidesTab from '../wiheSections/GuidesTab'
 import ExternalResourcesTab from '../wiheSections/ExternalResourcesTab'
+import GuidesTab from '../wiheSections/GuidesTab'
 
 export const wiheConfigs = [
   {
@@ -25,20 +24,37 @@ export default function WIHECardMenu({
 }: WIHECardMenuProps) {
   return (
     <nav className='flex justify-center mb-4'>
-      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-      <button
-        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'guides' ? 'bg-methodologyGreen text-altBlack shadow-raised border-0' : 'bg-white text-altGreen border border-dividerGrey'}`}
+      <HetTabButton
+        isActiveTab={activeTab === 'guides'}
         onClick={() => onTabChange('guides')}
       >
         Data Visualization Guides
-      </button>
-      {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
-      <button
-        className={`py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${activeTab === 'resources' ? 'bg-methodologyGreen text-altBlack shadow-raised border-0' : 'bg-white text-altGreen border border-dividerGrey'}`}
+      </HetTabButton>
+
+      <HetTabButton
+        isActiveTab={activeTab === 'resources'}
         onClick={() => onTabChange('resources')}
       >
         Health Equity Deep Dive
-      </button>
+      </HetTabButton>
     </nav>
+  )
+}
+
+interface HetTabButtonProps {
+  children: React.ReactNode
+  onClick: () => void
+  isActiveTab: boolean
+}
+
+function HetTabButton(props: HetTabButtonProps) {
+  return (
+    <button
+      className={`cursor-pointer py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${props.isActiveTab ? 'bg-methodologyGreen text-altBlack shadow-raised border-0 cursor-auto' : 'bg-white text-altGreen border border-dividerGrey'}`}
+      type='button'
+      onClick={props.onClick}
+    >
+      {props.children}
+    </button>
   )
 }
