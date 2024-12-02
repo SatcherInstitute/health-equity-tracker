@@ -250,10 +250,9 @@ export const communitySafetyFaqs: Faq[] = [
           platform.
         </p>
         <div className='flex justify-center'>
-          <HetButtonSecondary
-            text={'Watch our How-To Series'}
-            href={HEALTH_EQUITY_GUIDES_TAB}
-          />
+          <HetButtonSecondary href={HEALTH_EQUITY_GUIDES_TAB}>
+            Watch our How-To Series
+          </HetButtonSecondary>
         </div>
         <HetDivider className='my-8' />
 
