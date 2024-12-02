@@ -15,7 +15,7 @@ cache = DatasetCache()
 
 @app.route('/', methods=['GET'])
 def get_program_name():
-    return 'Running data server test.'
+    return 'Running data server.'
 
 
 @app.route('/metadata', methods=['GET'])
@@ -79,7 +79,8 @@ def get_api_key():
     """Fetches the OpenAI API key from the environment variable."""
     try:
         # Retrieve the API key from the environment variable
-        api_key = os.environ.get('OPENAI_API_KEY')
+        # api_key = os.environ.get('OPENAI_API_KEY')
+        api_key = 'testing'
 
         if not api_key:
             raise ValueError("API key not found in environment variables.")
@@ -88,23 +89,6 @@ def get_api_key():
     except Exception as e:
         logging.error(f"Error retrieving API key: {e}")
         return jsonify({"error": str(e)}), 500
-
-
-# @app.route('/api/get-api-key', methods=['GET'])
-# def get_api_key():
-#     """Fetches the OpenAI API key from Google Cloud Secret Manager."""
-#     try:
-#         # client = secretmanager.SecretManagerServiceClient()
-
-#         # secret_name = "projects/585592748590/secrets/openai-api-key/versions/latest"
-#         # response = client.access_secret_version(name=secret_name)
-#         # api_key = response.payload.data.decode("UTF-8")
-#         test_api_key = os.environ.get('OPENAI_API_KEY')
-
-#         return jsonify({"apiKey": test_api_key})
-#     except Exception as e:
-#         logging.error(f"Error retrieving API key from Secret Manager: {e}")
-#         return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
