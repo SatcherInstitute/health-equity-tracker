@@ -1,9 +1,9 @@
-import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
-import AppbarLogo from '../../assets/AppbarLogo.png'
-import { getHtml } from '../../utils/urlutils'
 import LazyLoad from 'react-lazyload'
-import { HetTags } from '../../styles/HetComponents/HetTags'
 import { Link } from 'react-router-dom'
+import AppbarLogo from '../../assets/AppbarLogo.png'
+import { HetTags } from '../../styles/HetComponents/HetTags'
+import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
+import { getHtml } from '../../utils/urlutils'
 import type { Article } from './ArticleTypes'
 
 interface NewsAndStoriesPreviewCardOutlinedProps {
@@ -44,9 +44,9 @@ export default function NewsAndStoriesPreviewCardOutlined({
           <div className='flex flex-col m-4 text-center justify-around h-auto'>
             <div className='flex flex-col justify-around h-full'>
               <HetTags tags={tagNames} />
-              <h4 className='font-semibold text-text text-left my-2 pt-0 mt-8 leading-lhNormal text-altGreen'>
+              <h3 className='font-semibold text-text text-left my-2 pt-0 mt-8 leading-lhNormal text-altGreen'>
                 {getHtml(article.title.rendered, true)}
-              </h4>
+              </h3>
             </div>
           </div>
         </div>

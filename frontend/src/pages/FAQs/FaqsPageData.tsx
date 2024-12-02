@@ -1,6 +1,10 @@
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
+import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
+import HetDivider from '../../styles/HetComponents/HetDivider'
+import HetLaunchLink from '../../styles/HetComponents/HetLaunchLink'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { urlMap } from '../../utils/externalUrls'
 import {
   ABOUT_US_PAGE_LINK,
@@ -9,11 +13,7 @@ import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from '../../utils/internalRoutes'
-import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import ResourceItem from '../Policy/policyComponents/ResourceItem'
-import HetLaunchLink from '../../styles/HetComponents/HetLaunchLink'
-import HetDivider from '../../styles/HetComponents/HetDivider'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 
 export interface Faq {
   question: string
@@ -129,10 +129,9 @@ function AnswerWhatDataSources() {
         is provided for each of our data sources.
       </p>
       <div className='flex justify-center'>
-        <HetButtonSecondary
-          text={'Browse our Data Sources'}
-          href={DATA_CATALOG_PAGE_LINK}
-        />
+        <HetButtonSecondary href={DATA_CATALOG_PAGE_LINK}>
+          Browse our Data Sources
+        </HetButtonSecondary>
       </div>
     </>
   )
@@ -212,10 +211,9 @@ function AnswerHowDidYouAcquire() {
         methodology.
       </p>
       <div className='flex justify-center'>
-        <HetButtonSecondary
-          text={'Browse our Methodology'}
-          href={AGE_ADJUSTMENT_LINK}
-        />
+        <HetButtonSecondary href={AGE_ADJUSTMENT_LINK}>
+          Browse our Methodology
+        </HetButtonSecondary>
       </div>
       <HetDivider className='my-8' />
       <p>
@@ -322,10 +320,9 @@ export const additionalFaqs: Faq[] = [
         `}
           />
           <div className='flex justify-center mt-8'>
-            <HetButtonSecondary
-              text={'Learn more About the Health Equity Tracker'}
-              href={ABOUT_US_PAGE_LINK}
-            />
+            <HetButtonSecondary href={ABOUT_US_PAGE_LINK}>
+              Learn more about the Health Equity Tracker
+            </HetButtonSecondary>
           </div>
         </div>
       </>
@@ -430,10 +427,9 @@ export const additionalFaqs: Faq[] = [
         <p>Join us, and let’s advance health equity together!</p>
 
         <div className='flex justify-center'>
-          <HetButtonSecondary
-            text={'Share your health equity story'}
-            href={SHARE_YOUR_STORY_TAB_LINK}
-          />
+          <HetButtonSecondary href={SHARE_YOUR_STORY_TAB_LINK}>
+            Share your health equity story
+          </HetButtonSecondary>
         </div>
       </>
     ),
