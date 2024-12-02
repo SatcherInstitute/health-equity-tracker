@@ -18,6 +18,7 @@ import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import PinnedArticles from './PinnedArticles'
 import { Link } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
+import NewsAndStoriesPreviewCardOutlined from './NewsAndStoriesPreviewCardOutlined'
 
 export const ARTICLES_TERM = 'Articles'
 
@@ -158,50 +159,6 @@ function AllPosts() {
         </div>
 
         <div className='w-full md:w-3/4'>
-          <div className='mx-10'>
-            <div>
-              <div>
-                <h2
-                  id='main'
-                  className='
-                    m-0
-                    text-center
-                    font-serif
-                    text-header
-                    font-light
-                    leading-lhNormal
-                    text-altGreen
-                    md:text-bigHeader
-
-                    '
-                >
-                  News and Stories
-                </h2>
-              </div>
-              <div className='text-left font-sansText font-light leading-lhSomeSpace md:text-title md:leading-lhSomeMoreSpace'>
-                <p>
-                  We believe in the power of storytelling. The Health Equity
-                  Tracker is designed to enable transformative change through
-                  data, but we know that is only part of the picture. Here, you
-                  will find news and stories from the Satcher Health Leadership
-                  Institute, partners, guest authors, and other contributors
-                  that go beyond the numbers to share insights and analysis into
-                  the Health Equity movement.
-                </p>
-
-                <p>
-                  Health Equity is a transformative pursuit that empowers all
-                  people: giving their voices the platform to be heard and their
-                  experiences the visibility they deserve. We encourage your to{' '}
-                  <LinkWithStickyParams to={SHARE_YOUR_STORY_TAB_LINK}>
-                    share your story
-                  </LinkWithStickyParams>
-                  .
-                </p>
-              </div>
-            </div>
-          </div>
-
           <div className='flex flex-wrap justify-center'>
             <div className='m-10 flex w-full justify-start'>
               {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
@@ -270,14 +227,14 @@ function AllPosts() {
 
             {/* all posts matching client applied filters */}
             <div className='flex flex-wrap items-start justify-between'>
-              {filteredArticles?.map((post: any) => {
+              {filteredArticles?.slice(5, -1).map((post: any) => {
                 return (
                   <div
                     className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'
                     key={post.id}
                   >
                     <div className='my-4'>
-                      <NewsPreviewCard article={post} />
+                      <NewsAndStoriesPreviewCardOutlined article={post} />
                     </div>
                   </div>
                 )

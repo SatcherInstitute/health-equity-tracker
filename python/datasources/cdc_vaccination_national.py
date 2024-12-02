@@ -92,12 +92,12 @@ class CDCVaccinationNational(DataSource):
 
             if write_local_instead_of_bq:
                 local_pipeline_utils.write_df_as_json_to_frontend_tmp(
-                    breakdown_df, f'{self.get_table_name()}-{breakdown}_processed'
+                    breakdown_df, f'{self.get_table_name()}-{breakdown}_current'
                 )
             else:
                 float_cols = [std_col.VACCINATED_PCT_RATE, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
                 col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
-                gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_processed', column_types=col_types)
+                gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_current', column_types=col_types)
 
     def generate_breakdown(self, breakdown, df):
         demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == RACE else breakdown

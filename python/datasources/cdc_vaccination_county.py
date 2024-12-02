@@ -52,7 +52,7 @@ class CDCVaccinationCounty(DataSource):
             df, float_cols=[std_col.VACCINATED_PCT_RATE, std_col.VACCINATED_RAW]
         )
 
-        gcs_to_bq_util.add_df_to_bq(df, dataset, 'alls_county', column_types=col_types)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, 'alls_county_current', column_types=col_types)
 
 
 def generate_breakdown(df):
