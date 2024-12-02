@@ -82,7 +82,7 @@ def get_api_key():
 
         secret_name = "projects/585592748590/secrets/openai-api-key/versions/latest"
         response = client.access_secret_version(name=secret_name)
-        api_key = response.payload.data.decode("UTF-8")
+        # api_key = response.payload.data.decode("UTF-8")
         test_api_key = os.environ.get('OPENAI_API_KEY')
 
         return jsonify({"apiKey": test_api_key})
