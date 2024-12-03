@@ -150,7 +150,7 @@ export default function NewsAndStoriesPage() {
           </div>
 
           {isLoading ? (
-            <HetPostsLoading className='w-full mt-8' doPulse={!error} />
+            <HetPostsLoading className='mt-8' doPulse={!error} />
           ) : (
             <>
               {filteredArticles.length > 0 ? (
@@ -208,11 +208,8 @@ export default function NewsAndStoriesPage() {
                       )}
 
                       {loadingMoreArticles && (
-                        <div className='mt-8'>
-                          <HetPostsLoading
-                            className='w-full'
-                            doPulse={!error}
-                          />
+                        <div className='mt-8 w-full'>
+                          <HetPostsLoading doPulse={!error} />
                         </div>
                       )}
                     </>
