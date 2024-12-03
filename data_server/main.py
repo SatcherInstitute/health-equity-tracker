@@ -14,9 +14,13 @@ app = Flask(__name__)
 CORS(
     app,
     resources={
-        r"/fetch-ai-insight/*": {
-            "origins": ["https://*.netlify.app"],
-            "methods": ["GET"],
+        r"/*": {
+            "origins": [
+                "https://dev.healthequitytracker.org",
+                "https://deploy-preview-3824--health-equity-tracker.netlify.app",
+                "http://localhost:3000",  # Add any other origins you need
+            ],
+            "methods": ["GET", "OPTIONS"],
             "allow_headers": ["Content-Type"],
         }
     },
