@@ -11,7 +11,16 @@ from data_server.dataset_cache import DatasetCache
 import requests
 
 app = Flask(__name__)
-CORS(app, origins=['https://*.netlify.app'])
+CORS(
+    app,
+    resources={
+        r"/fetch-ai-insight/*": {
+            "origins": ["https://*.netlify.app"],
+            "methods": ["GET"],
+            "allow_headers": ["Content-Type"],
+        }
+    },
+)
 cache = DatasetCache()
 
 OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
