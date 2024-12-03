@@ -11,7 +11,7 @@ from data_server.dataset_cache import DatasetCache
 import requests
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['https://*.netlify.app'])
 cache = DatasetCache()
 
 OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
