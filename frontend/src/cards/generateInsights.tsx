@@ -26,60 +26,28 @@ export interface ResultData {
   [key: string]: any
 }
 
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
 export async function fetchAIInsight(prompt: string): Promise<string> {
   try {
     const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-    const apiKeyUrl = `${baseApiUrl}/api/get-api-key`
+    const dataServerUrl = `${baseApiUrl}/fetch-ai-insight/${encodeURIComponent(prompt)}`
 
-    const apiKeyResponse = await fetch(apiKeyUrl)
-    if (!apiKeyResponse.ok) {
-      throw new Error(`Failed to fetch API key: ${apiKeyResponse.statusText}`)
+    const dataResponse = await fetch(dataServerUrl)
+
+    if (!dataResponse.ok) {
+      throw new Error(`Failed to fetch AI insight: ${dataResponse.statusText}`)
     }
 
-    const apiKeyData = await apiKeyResponse.json()
-    const apiKey = apiKeyData.apiKey
+    const insight = await dataResponse.json()
 
-    if (!apiKey) {
-      throw new Error('API key is missing in the response')
+    if (!insight || typeof insight.content !== 'string') {
+      throw new Error('Invalid response structure from the server')
     }
 
-    // Call the OpenAI API
-    const response = await fetch(OPENAI_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: '' },
-          { role: 'user', content: prompt },
-        ],
-        max_tokens: 150,
-        temperature: 0.7,
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error(
-        `OpenAI API responded with status ${response.status}: ${await response.text()}`,
-      )
-    }
-
-    const data = await response.json()
-    const content = data.choices?.[0]?.message?.content
-
-    if (!content) {
-      throw new Error('No valid response from OpenAI API')
-    }
-
-    return content.trim().replace(/^"|"$/g, '')
+    return insight.content.trim()
   } catch (error) {
-    console.error('Error generating insight:', error)
+    console.error(ERROR_GENERATING_INSIGHT, error)
     throw error
   }
 }

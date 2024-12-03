@@ -8,9 +8,14 @@ from werkzeug.datastructures import Headers
 
 from data_server.dataset_cache import DatasetCache
 
+import requests
+
 app = Flask(__name__)
 CORS(app)
 cache = DatasetCache()
+
+OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
+OPENAI_MODEL = 'gpt-3.5-turbo'
 
 
 @app.route('/', methods=['GET'])
@@ -74,21 +79,55 @@ def get_dataset():
     return Response(generate_response(), mimetype='application/json', headers=headers)
 
 
-@app.route('/api/get-api-key', methods=['GET'])
-def get_api_key():
-    """Fetches the OpenAI API key from the environment variable."""
+@app.route('/fetch-ai-insight/<string:prompt>', methods=['GET'])
+def fetch_ai_insight(prompt):
+    """Fetches AI insight based on the user input."""
     try:
-        # Retrieve the API key from the environment variable
-        # api_key = os.environ.get('OPENAI_API_KEY')
-        api_key = 'testing'
+        api_key = get_api_key()
 
-        if not api_key:
-            raise ValueError("API key not found in environment variables.")
+        response = call_openai_api(prompt, api_key)
 
-        return jsonify({"apiKey": api_key})
+        return jsonify({"content": response})
+    except ValueError as ve:
+        # Handles missing API key or bad response
+        logging.error(f"Validation error: {ve}")
+        return jsonify({"error": str(ve)}), 400
     except Exception as e:
-        logging.error(f"Error retrieving API key: {e}")
-        return jsonify({"error": str(e)}), 500
+        logging.error(f"Error processing prompt: {prompt}. Exception: {e}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
+def get_api_key():
+    """Helper function to retrieve the API key."""
+    api_key = os.environ.get('OPENAI_API_KEY')
+    if not api_key:
+        raise ValueError("API key not found in environment variables.")
+    return api_key
+
+
+def call_openai_api(prompt, api_key):
+    """Call the OpenAI API and extract the response content."""
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    payload = {
+        "model": OPENAI_MODEL,
+        "messages": [
+            {"role": "system", "content": "You are an expert in public health and health disparities."},
+            {"role": "user", "content": prompt},
+        ],
+        "max_tokens": 150,
+        "temperature": 0.7,
+    }
+
+    try:
+        response = requests.post(url=OPENAI_URL, headers=headers, json=payload, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+
+        return data["choices"][0]["message"]["content"].strip()
+    except requests.exceptions.Timeout:
+        raise ValueError("Request to OpenAI API timed out.")
+    except requests.exceptions.RequestException as e:
+        raise ValueError(f"Request to OpenAI API failed: {e}")
 
 
 if __name__ == "__main__":
