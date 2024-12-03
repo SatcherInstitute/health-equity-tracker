@@ -11,20 +11,23 @@ from data_server.dataset_cache import DatasetCache
 import requests
 
 app = Flask(__name__)
-CORS(
-    app,
-    resources={
-        r"/*": {
-            "origins": [
-                "https://dev.healthequitytracker.org",
-                "https://deploy-preview-3824--health-equity-tracker.netlify.app",
-                "http://localhost:3000",  # Add any other origins you need
-            ],
-            "methods": ["GET", "OPTIONS"],
-            "allow_headers": ["Content-Type"],
-        }
-    },
-)
+if app.config['TESTING']:
+    CORS(app)
+else:
+    CORS(
+        app,
+        resources={
+            r"/*": {
+                "origins": [
+                    "https://dev.healthequitytracker.org",
+                    "https://deploy-preview-3824--health-equity-tracker.netlify.app",
+                    "http://localhost:3000",
+                ],
+                "methods": ["GET", "OPTIONS"],
+                "allow_headers": ["Content-Type"],
+            }
+        },
+    )
 cache = DatasetCache()
 
 OPENAI_URL = 'https://api.openai.com/v1/chat/completions'
