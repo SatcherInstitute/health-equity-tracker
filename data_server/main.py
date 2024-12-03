@@ -29,7 +29,7 @@ def create_app(testing=False):
                         "http://localhost:3000",
                     ],
                     "methods": ["GET", "OPTIONS"],
-                    "allow_headers": ["Content-Type"],
+                    "allow_headers": ["Content-Type", "Authorization"],
                 }
             },
         )
