@@ -315,6 +315,6 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
     assert mock_csv.call_args_list[1].args[1] == 'cdc_restricted_by_race_and_age_state.csv'
 
     assert mock_bq.call_count == 3
-    assert mock_bq.call_args_list[0].args[2] == 'by_race_and_ethnicity_national_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_race_and_ethnicity_national_processed_time_series'
-    assert mock_bq.call_args_list[2].args[2] == 'by_race_and_ethnicity_age_state'
+    assert mock_bq.call_args_list[0].args[2] == 'by_race_national_processed'
+    assert mock_bq.call_args_list[1].args[2] == 'by_race_national_processed_time_series'
+    assert mock_bq.call_args_list[2].args[2] == 'by_race_age_state'
