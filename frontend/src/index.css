@@ -65,26 +65,46 @@ button[data-action='back']:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 auto;
+    padding: 2rem 8rem;
+    width: 100%;
+    max-width: 1440px !important;
+    justify-content: center !important;
+    
+    @media screen(sm) {
+      padding: 2rem 4rem;
+    }
+    @media screen(md) {
+      padding: 2rem 4rem;
+    }
   }
 
   & figure {
-    margin-inline: 0 !important;
+    /* margin-inline: 0 !important; */
+    margin: 0 auto !important;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: start;
   }
 
   & figcaption {
     margin-top: 0.5rem;
+    margin-bottom: 4rem;
     text-align: center !important;
-    font-size: 0.75rem !important;
-    font-weight: 200 !important;
+    font-size: 0.8rem !important;
+    font-weight: 300;
     text-decoration: none !important;
+    font-style: italic;
     max-width: 600px;
   }
 
-  & p,
+  & p {
+    width: 100%;
+    max-width: 95vw;
+  }
+
   & ul,
   & ol,
   & h1,
@@ -93,13 +113,11 @@ button[data-action='back']:focus {
   & h4,
   & h5,
   & h6 {
-    width: 95vw;
-    max-width: 800px;
     @media screen(sm) {
-      width: 75vw;
+      width: 100%;
     }
     @media screen(md) {
-      width: 50vw;
+      width: 95%;
     }
   }
 
@@ -114,12 +132,24 @@ button[data-action='back']:focus {
     width: 50%;
   }
 
+  & blockquote {
+    width: 100%;
+    max-width: 88vw;
+    padding: 2rem;
+  }
+
   & blockquote > p {
     font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    justify-content: center !important;
   }
 
   & h1 {
-    font-family: 'Taviraj', serif !important;
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -130,7 +160,7 @@ button[data-action='back']:focus {
   }
 
   & h2 {
-    font-family: 'Taviraj', serif !important;
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -141,7 +171,7 @@ button[data-action='back']:focus {
   }
 
   & h3 {
-    font-family: 'Taviraj', serif !important;
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -152,7 +182,7 @@ button[data-action='back']:focus {
   }
 
   & h4 {
-    font-family: 'Taviraj', serif !important;
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.smallestHeader') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -163,7 +193,7 @@ button[data-action='back']:focus {
   }
 
   & h5 {
-    font-family: 'Taviraj', serif !important;
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.title') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -174,7 +204,7 @@ button[data-action='back']:focus {
   }
 
   & h6 {
-    font-family: 'Taviraj', serif !important;
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.text') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -199,10 +229,11 @@ button[data-action='back']:focus {
     font-size: 1.5rem !important;
   }
 
-  & img {
+  & figure > img {
     display: block;
-    margin: 40px auto 10px auto;
-    max-width: 100%;
+    width: 100%;
+    min-width: 70vw;
+    margin: 1rem auto;
     height: auto;
   }
 

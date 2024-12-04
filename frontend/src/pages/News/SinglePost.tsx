@@ -128,27 +128,12 @@ export default function SinglePost() {
             items-center
             justify-between
             p-4
+            mx-16
             md:px-0
         '
         >
           {/* TEXT SECTION OF HEADER */}
-          <div
-            //   className='
-            //     flex
-            //     w-full
-            //     flex-col
-            //     flex-wrap
-            //     justify-center
-
-            //     px-32
-            //     py-8
-            //     md:w-2/3
-
-            //     md:px-16
-            //     md:py-24
-            // '
-            className='flex flex-col w-full px-16 lg:px-24'
-          >
+          <div className='flex flex-col w-full px-4 md:px-16 lg:px-24'>
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
 
             {fullArticle?.date ? (
@@ -186,7 +171,6 @@ export default function SinglePost() {
                   by{' '}
                   <Link
                     className='cursor-pointer my-2 md:my-4 text-center md:text-left text-text no-underline group-hover:underline'
-                    
                     to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(fullArticle.acf.contributing_author)}`}
                   >
                     {fullArticle.acf.contributing_author}
@@ -220,9 +204,9 @@ export default function SinglePost() {
               <ShareButtons isMobile={false} article={fullArticle} />
             </div>
           </div>
+
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
-          {/* <div className='flex w-10/12 items-center justify-center md:w-1/3'> */}
-          <div className='flex items-center justify-center w-1/2'>
+          <div className='flex items-center justify-center w-1/2 rounded-sm'>
             {isLoading && (
               <Skeleton
                 width={300}
@@ -241,19 +225,13 @@ export default function SinglePost() {
               />
             )}
             {!isLoading && !isError && articleImage && (
-              // <img
-              //   src={articleImage}
-              //   // className='mt-8 hidden h-auto w-3/5 max-w-md rounded-md object-contain sm:block md:mt-0 md:max-h-articleLogo'
-              //   className='h-auto rounded-md'
-              //   alt={articleImageAltText}
-              //   width={200}
-              //   height={100}
-              // />
               <div
-                className='w-full md:block hidden h-56 md:h-96 bg-no-repeat bg-contain bg-center rounded-sm'
+                aria-label={articleImageAltText}
+                className='w-full smMd:block hidden h-56 md:h-96 bg-contain bg-center bg-no-repeat rounded-sm px-8'
                 style={{
                   backgroundImage: `url(${articleImage})`,
-                  height: `30rem`,
+                  backgroundClip: 'border-box',
+                  borderRadius: '8px',
                 }}
               ></div>
             )}
