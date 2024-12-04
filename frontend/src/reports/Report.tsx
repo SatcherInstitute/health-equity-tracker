@@ -1,7 +1,6 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import topoJsonData from '../../public/tmp/13063.topo.json'
 import GeorgiaCountiesTractsMap from '../charts/GeorgiaCountiesTractsMap'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
@@ -167,7 +166,7 @@ export function Report(props: ReportProps) {
                     reportTitle={props.reportTitle}
                     trackerMode={props.trackerMode}
                   /> */}
-                  <GeorgiaCountiesTractsMap topoJson={topoJsonData as any} />
+                  <GeorgiaCountiesTractsMap />
                 </div>
 
                 <div className='mt-16'>
