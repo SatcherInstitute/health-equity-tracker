@@ -122,6 +122,7 @@ resource "google_cloud_run_service" "exporter_service" {
         resources {
           limits = {
             memory = "8Gi"
+            cpu    = 4
           }
         }
         env {
