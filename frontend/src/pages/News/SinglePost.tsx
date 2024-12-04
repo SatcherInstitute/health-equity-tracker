@@ -123,65 +123,31 @@ export default function SinglePost() {
           className='
             flex
             w-full
-            flex-row
-            flex-wrap
+            md:flex-row
+            flex-col-reversereverse
             items-center
-            justify-center
-            border-0
-            border-b
-            border-solid
-            border-borderColor px-10
+            justify-between
+            p-4
             md:px-0
         '
         >
-          {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
-          <div className='flex w-10/12 items-center justify-center md:w-1/3'>
-            {isLoading && (
-              <Skeleton
-                width={300}
-                height={300}
-                animation='wave'
-                className='m-10'
-              ></Skeleton>
-            )}
-            {isError && (
-              <img
-                src={hetLogo}
-                className='mt-8 h-auto w-3/5 max-w-md rounded-md object-contain md:mt-0 md:max-h-articleLogo'
-                alt={''}
-                width={200}
-                height={100}
-              />
-            )}
-            {!isLoading && !isError && articleImage && (
-              <img
-                src={articleImage}
-                className='mt-8 hidden h-auto w-3/5 max-w-md rounded-md object-contain sm:block md:mt-0 md:max-h-articleLogo'
-                alt={articleImageAltText}
-                width={200}
-                height={100}
-              />
-            )}
-          </div>
-
           {/* TEXT SECTION OF HEADER */}
           <div
-            className='
-              flex
-              w-full
-              flex-col
-              flex-wrap
-              justify-center
-              border-0
-              border-solid
-              border-borderColor
-              px-16
-              pt-8
-              md:w-2/3
-              md:border-l
-              md:px-16
-              md:py-24
-          '
+            //   className='
+            //     flex
+            //     w-full
+            //     flex-col
+            //     flex-wrap
+            //     justify-center
+
+            //     px-32
+            //     py-8
+            //     md:w-2/3
+
+            //     md:px-16
+            //     md:py-24
+            // '
+            className='flex flex-col w-full px-16 lg:px-24'
           >
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
 
@@ -253,6 +219,44 @@ export default function SinglePost() {
             <div className='w-full py-6 text-left md:w-1/4'>
               <ShareButtons isMobile={false} article={fullArticle} />
             </div>
+          </div>
+          {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
+          {/* <div className='flex w-10/12 items-center justify-center md:w-1/3'> */}
+          <div className='flex items-center justify-center w-1/2'>
+            {isLoading && (
+              <Skeleton
+                width={300}
+                height={300}
+                animation='wave'
+                className='m-10'
+              ></Skeleton>
+            )}
+            {isError && (
+              <img
+                src={hetLogo}
+                className='mt-8 h-auto w-3/5 max-w-md rounded-md object-contain md:mt-0 md:max-h-articleLogo'
+                alt={''}
+                width={200}
+                height={100}
+              />
+            )}
+            {!isLoading && !isError && articleImage && (
+              // <img
+              //   src={articleImage}
+              //   // className='mt-8 hidden h-auto w-3/5 max-w-md rounded-md object-contain sm:block md:mt-0 md:max-h-articleLogo'
+              //   className='h-auto rounded-md'
+              //   alt={articleImageAltText}
+              //   width={200}
+              //   height={100}
+              // />
+              <div
+                className='w-full md:block hidden h-56 md:h-96 bg-no-repeat bg-contain bg-center rounded-sm'
+                style={{
+                  backgroundImage: `url(${articleImage})`,
+                  height: `30rem`,
+                }}
+              ></div>
+            )}
           </div>
         </div>
 
