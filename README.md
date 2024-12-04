@@ -6,7 +6,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 [![Run Playwright E2E Nightly Against PROD](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/e2eScheduled.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/e2eScheduled.yml)
 [![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml)
-[![GitHub Super-Linter](https://github.com/SatcherInstitute/health-equity-tracker/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
+[![GitHub Super-Linter](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/runSuperLinter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## Frontend Quick-Start
 
