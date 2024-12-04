@@ -227,7 +227,7 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_national_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_age_national_time_series'
+    assert mock_bq.call_args_list[1].args[2] == 'by_age_national_processed_time_series'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
@@ -249,7 +249,7 @@ def testWriteToBqAgeState(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_state_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_age_state_time_series'
+    assert mock_bq.call_args_list[1].args[2] == 'by_age_state_processed_time_series'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
@@ -271,7 +271,7 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_age_county_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_age_county_time_series'
+    assert mock_bq.call_args_list[1].args[2] == 'by_age_county_processed_time_series'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
@@ -293,7 +293,7 @@ def testWriteToBqSexCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     assert mock_bq.call_count == 2
     assert mock_bq.call_args_list[0].args[2] == 'by_sex_county_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_sex_county_time_series'
+    assert mock_bq.call_args_list[1].args[2] == 'by_sex_county_processed_time_series'
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df', side_effect=get_cdc_numbers_as_df)
@@ -316,5 +316,5 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
 
     assert mock_bq.call_count == 3
     assert mock_bq.call_args_list[0].args[2] == 'by_race_and_ethnicity_national_processed'
-    assert mock_bq.call_args_list[1].args[2] == 'by_race_and_ethnicity_national_time_series'
+    assert mock_bq.call_args_list[1].args[2] == 'by_race_and_ethnicity_national_processed_time_series'
     assert mock_bq.call_args_list[2].args[2] == 'by_race_and_ethnicity_age_state'
