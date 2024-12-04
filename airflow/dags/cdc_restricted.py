@@ -133,23 +133,22 @@ cdc_restricted_age_adjust_op = util.create_bq_ingest_operator(
 
 # sanity_check = util.sanity_check_operator('sanity_check', _CDC_RESTRICTED_DATASET, data_ingestion_dag)
 
-cdc_restricted_exporter_payload_race = {'dataset_name': _CDC_RESTRICTED_DATASET, 'demographic': "race"}
+cdc_restricted_exporter_payload_race = {'dataset_name': _CDC_RESTRICTED_DATASET, 'demographic': "by_race"}
 cdc_restricted_exporter_operator_race = util.create_exporter_operator(
     'cdc_restricted_exporter_race', cdc_restricted_exporter_payload_race, data_ingestion_dag
 )
 
 
-cdc_restricted_exporter_payload_age = {'dataset_name': _CDC_RESTRICTED_DATASET, 'demographic': "age"}
+cdc_restricted_exporter_payload_age = {'dataset_name': _CDC_RESTRICTED_DATASET, 'demographic': "by_age"}
 cdc_restricted_exporter_operator_age = util.create_exporter_operator(
     'cdc_restricted_exporter_age', cdc_restricted_exporter_payload_age, data_ingestion_dag
 )
 
 
-cdc_restricted_exporter_payload_sex = {'dataset_name': _CDC_RESTRICTED_DATASET, 'demographic': "sex"}
+cdc_restricted_exporter_payload_sex = {'dataset_name': _CDC_RESTRICTED_DATASET, 'demographic': "by_sex"}
 cdc_restricted_exporter_operator_sex = util.create_exporter_operator(
     'cdc_restricted_exporter_sex', cdc_restricted_exporter_payload_sex, data_ingestion_dag
 )
-
 # CDC Restricted Data Ingestion DAG
 (
     cdc_restricted_bq_op_race_county
