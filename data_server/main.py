@@ -15,7 +15,6 @@ def create_app(testing=False):
     app = Flask(__name__)
     app.config['TESTING'] = testing
 
-    # Configure CORS
     if app.config['TESTING']:
         CORS(app, resources={r"/*": {"origins": "*", "methods": ["GET", "OPTIONS"], "allow_headers": ["Content-Type"]}})
     else:
