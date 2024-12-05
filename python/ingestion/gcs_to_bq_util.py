@@ -8,6 +8,8 @@ from io import BytesIO, StringIO
 from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
 import numpy as np
+from ingestion.het_types import TIME_VIEW_TYPE, COMPREHENSIVE_DEMOGRAPHIC_TYPE  # pylint: disable=no-name-in-module
+
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
@@ -465,3 +467,7 @@ def get_bq_column_types(df, float_cols: List[str]):
         column_types[col] = BQ_FLOAT
 
     return column_types
+
+
+def generate_standard_bq_table_id(demographic: COMPREHENSIVE_DEMOGRAPHIC_TYPE, geographic, time_view: TIME_VIEW_TYPE):
+    return f"{demographic}_{geographic}_{time_view}"
