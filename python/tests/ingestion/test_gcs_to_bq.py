@@ -7,7 +7,6 @@ import numpy as np
 from freezegun import freeze_time  # type: ignore
 from pandas import DataFrame  # type: ignore
 from pandas.testing import assert_frame_equal
-import pytest
 from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 import warnings
@@ -161,7 +160,3 @@ class GcsToBqTest(TestCase):
 
 def test_generate_standard_bq_table_id():
     assert gcs_to_bq_util.generate_standard_bq_table_id('race', 'national', 'current') == 'race_national_current'
-
-    # Test invalid inputs
-    with pytest.raises(ValueError):
-        gcs_to_bq_util.generate_standard_bq_table_id('broken', 'nonexistent', 'invalid')

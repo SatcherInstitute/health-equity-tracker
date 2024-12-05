@@ -50,6 +50,8 @@ from ingestion.constants import (
     US_FIPS,
     US_NAME,
     TERRITORY_POSTALS,
+    CURRENT,
+    HISTORICAL,
 )
 from typing import cast, List
 from ingestion.het_types import GEO_TYPE, SEX_RACE_AGE_TYPE
@@ -227,7 +229,7 @@ class CAWPTimeData(DataSource):
 
         for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
             df = base_df.copy()
-            df, bq_table_name = self.generate_breakdown(df, geo_level)
+            df = self.generate_breakdown(df, geo_level)
 
             # make _historical table with limited cols
             df_historical = df.copy()
@@ -255,7 +257,7 @@ class CAWPTimeData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df_historical,
                 dataset,
-                f'{bq_table_name}_historical',
+                gcs_to_bq_util.generate_standard_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, HISTORICAL),
                 column_types=column_types,
             )
 
@@ -288,7 +290,7 @@ class CAWPTimeData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df_current,
                 dataset,
-                f'{bq_table_name}_current',
+                gcs_to_bq_util.generate_standard_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, CURRENT),
                 column_types=column_types,
             )
 
@@ -397,8 +399,6 @@ class CAWPTimeData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
 
-        bq_table_name = f'race_and_ethnicity_{geo_level}'
-
         # calculate rates of representation
         df[std_col.PCT_OF_CONGRESS] = round(
             df[std_col.W_THIS_RACE_CONGRESS_COUNT] / df[std_col.CONGRESS_COUNT] * 100, 1
@@ -467,7 +467,7 @@ class CAWPTimeData(DataSource):
             }
         )
 
-        return [df, bq_table_name]
+        return df
 
     def generate_names_breakdown(self, df: pd.DataFrame):
         """Create the state-level, names-only df which will be available for download
