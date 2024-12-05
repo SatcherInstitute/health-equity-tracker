@@ -160,3 +160,7 @@ class GcsToBqTest(TestCase):
 
 def test_make_bq_table_id():
     assert gcs_to_bq_util.make_bq_table_id('race', 'national', 'current') == 'race_national_current'
+    assert (
+        gcs_to_bq_util.make_bq_table_id('race', 'state', 'current', category_prefix='behavioral_health')
+        == 'behavioral_health_race_state_current'
+    )
