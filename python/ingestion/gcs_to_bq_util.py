@@ -469,5 +469,5 @@ def get_bq_column_types(df, float_cols: List[str]):
     return column_types
 
 
-def get_table_id(demographic: COMPREHENSIVE_DEMOGRAPHIC_TYPE, geographic, time_view: TIME_VIEW_TYPE):
+def make_bq_table_id(demographic: COMPREHENSIVE_DEMOGRAPHIC_TYPE, geographic, time_view: TIME_VIEW_TYPE):
     return f"{demographic}_{geographic}_{time_view}"

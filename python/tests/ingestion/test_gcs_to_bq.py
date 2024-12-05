@@ -158,5 +158,5 @@ class GcsToBqTest(TestCase):
         assert mock_bq.call_count == 2
 
 
-def test_get_table_id():
-    assert gcs_to_bq_util.get_table_id('race', 'national', 'current') == 'race_national_current'
+def test_make_bq_table_id():
+    assert gcs_to_bq_util.make_bq_table_id('race', 'national', 'current') == 'race_national_current'

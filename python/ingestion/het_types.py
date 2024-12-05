@@ -27,7 +27,8 @@ COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
     'income',
     'all',
     'black_women',
-    'urbanicty',
+    'urbanicity',
+    'black_women_by_age',
 ]
 
 SEX_RACE_AGE_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race')
@@ -42,7 +43,7 @@ PHRMA_BREAKDOWN_TYPE_OR_ALL: TypeAlias = create_subset_type(
 )
 
 HIV_BREAKDOWN_TYPE: TypeAlias = create_subset_type('age', 'sex', 'race', 'race_and_ethnicity', 'black_women')
-WISQARS_DEMO_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race_and_ethnicity', 'urbanicty', 'all')
+WISQARS_DEMO_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race_and_ethnicity', 'urbanicity', 'all')
 
 
 GEO_TYPE = Literal["county", "state", "national"]

@@ -257,7 +257,7 @@ class CAWPTimeData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df_historical,
                 dataset,
-                gcs_to_bq_util.get_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, HISTORICAL),
+                gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, HISTORICAL),
                 column_types=column_types,
             )
 
@@ -290,7 +290,7 @@ class CAWPTimeData(DataSource):
             gcs_to_bq_util.add_df_to_bq(
                 df_current,
                 dataset,
-                gcs_to_bq_util.get_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, CURRENT),
+                gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, CURRENT),
                 column_types=column_types,
             )
 

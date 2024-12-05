@@ -228,21 +228,21 @@ class CDCHIVData(DataSource):
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
-        for table_type in (CURRENT, HISTORICAL):
+        for time_view in (CURRENT, HISTORICAL):
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
 
-            table_demo = f'by_{demographic}' if demographic != std_col.BLACK_WOMEN else 'black_women_by_age'
-            table_name = f"{table_demo}_{geo_level}_{table_type}"
+            table_demo = demographic if demographic != std_col.BLACK_WOMEN else 'black_women_by_age'
+            table_name = gcs_to_bq_util.make_bq_table_id(table_demo, geo_level, time_view)
             if demographic == std_col.BLACK_WOMEN:
                 df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
             else:
                 df_for_bq.rename(columns={std_col.POPULATION_COL: std_col.HIV_POPULATION}, inplace=True)
 
-            col_types = get_bq_col_types(demographic, geo_level, table_type)
+            col_types = get_bq_col_types(demographic, geo_level, time_view)
 
             # drop unneeded rows from current
-            if table_type == CURRENT:
+            if time_view == CURRENT:
                 df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
 
             # drop unneeded columns to reduce file size
@@ -556,14 +556,14 @@ def generate_atlas_cols_to_exclude(breakdown: str):
     return atlas_cols
 
 
-def get_bq_col_types(demo, geo, table_type):
+def get_bq_col_types(demo, geo, time_view):
     """Set the columns and associated BigQuery dtypes based
     on the breakdown of the table"""
 
     # All Black Women tables get (almost) the same columns and bq types
     if demo == std_col.BLACK_WOMEN:
         bw_col_types = {}
-        if table_type == HISTORICAL:
+        if time_view == HISTORICAL:
             bw_col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
 
         bw_col_types.update(
@@ -580,7 +580,7 @@ def get_bq_col_types(demo, geo, table_type):
             }
         )
 
-        if table_type == HISTORICAL:
+        if time_view == HISTORICAL:
             bw_col_types.update(
                 {
                     "hiv_deaths_black_women_pct_relative_inequity": BQ_FLOAT,
@@ -588,7 +588,7 @@ def get_bq_col_types(demo, geo, table_type):
                     "hiv_prevalence_black_women_pct_relative_inequity": BQ_FLOAT,
                 }
             )
-        elif table_type == CURRENT:
+        elif time_view == CURRENT:
             bw_col_types.update(
                 {
                     "hiv_deaths_black_women": BQ_FLOAT,
@@ -608,7 +608,7 @@ def get_bq_col_types(demo, geo, table_type):
     col_types = {}
 
     # KEEP COLUMNS IN ORDER FOR EASIER READING ON BQ
-    if table_type == HISTORICAL:
+    if time_view == HISTORICAL:
         col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
 
     # SET GEO COLS
@@ -649,7 +649,7 @@ def get_bq_col_types(demo, geo, table_type):
     )
 
     # SET DATA COLS
-    if table_type == CURRENT:
+    if time_view == CURRENT:
         col_types.update(
             {
                 "hiv_care_pct_share": BQ_FLOAT,
@@ -670,7 +670,7 @@ def get_bq_col_types(demo, geo, table_type):
                 std_col.HIV_PREP_POPULATION: BQ_FLOAT,
             }
         )
-    elif table_type == HISTORICAL:
+    elif time_view == HISTORICAL:
         col_types.update(
             {
                 "hiv_care_pct_relative_inequity": BQ_FLOAT,
