@@ -326,7 +326,7 @@ class BJSIncarcerationData(DataSource):
 
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                table_name = gcs_to_bq_util.generate_standard_bq_table_id(breakdown, geo_level, CURRENT)
+                table_name = gcs_to_bq_util.get_table_id(breakdown, geo_level, CURRENT)
 
                 df = self.generate_breakdown_df(breakdown, geo_level, table_lookup[table_name], children_tables)
 
