@@ -92,7 +92,7 @@ export const PHRMA_METRICS: MetricId[] = [
 const phrmaReason = 'only available when comparing two Medicare topics'
 
 export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
-  ['lis', phrmaReason],
+  ['Low Income Subsidy', phrmaReason],
   ['Eligibility', phrmaReason],
 ]
 
