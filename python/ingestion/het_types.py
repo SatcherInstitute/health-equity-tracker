@@ -29,6 +29,8 @@ COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
     'black_women',
     'urbanicity',
     'black_women_by_age',
+    'black_men_by_age',
+    'black_men_by_urbanicity',
     'alls',
 ]
 
