@@ -29,6 +29,7 @@ COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
     'black_women',
     'urbanicity',
     'black_women_by_age',
+    'alls',
 ]
 
 SEX_RACE_AGE_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race')
