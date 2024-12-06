@@ -1,20 +1,6 @@
 from typing import Literal, get_args, TypedDict
 from typing_extensions import TypeAlias
 
-
-def create_subset_type(*options):
-    comprehensive_options = set(get_args(COMPREHENSIVE_DEMOGRAPHIC_TYPE))
-    invalid_options = set(options) - comprehensive_options
-    if invalid_options:
-        raise ValueError(f"Invalid options {invalid_options}. Must be subset of comprehensive demographic type")
-    return Literal[tuple(options)]
-
-
-"""
-Whenever a new demographic type is added, it should be added to this list,
-and then the source's specific subset generated as below
-
-"""
 COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
     'sex',
     'age',
@@ -35,20 +21,29 @@ COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
     'alls',
 ]
 
-SEX_RACE_AGE_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race')
-SEX_RACE_ETH_AGE_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race_and_ethnicity')
-DEMOGRAPHIC_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race', 'race_and_ethnicity')
 
-PHRMA_BREAKDOWN_TYPE: TypeAlias = create_subset_type(
+def create_subset_type(*options):
+    comprehensive_options = set(get_args(COMPREHENSIVE_DEMOGRAPHIC_TYPE))
+    invalid_options = set(options) - comprehensive_options
+    if invalid_options:
+        raise ValueError(f"Invalid options {invalid_options}. Must be subset of comprehensive demographic type")
+    return Literal[options]
+
+
+# Define type aliases explicitly
+SEX_RACE_AGE_TYPE: TypeAlias = Literal['sex', 'age', 'race']
+SEX_RACE_ETH_AGE_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity']
+DEMOGRAPHIC_TYPE: TypeAlias = Literal['sex', 'age', 'race', 'race_and_ethnicity']
+
+PHRMA_BREAKDOWN_TYPE: TypeAlias = Literal[
     'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income'
-)
-PHRMA_BREAKDOWN_TYPE_OR_ALL: TypeAlias = create_subset_type(
+]
+PHRMA_BREAKDOWN_TYPE_OR_ALL: TypeAlias = Literal[
     'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income', 'all'
-)
+]
 
-HIV_BREAKDOWN_TYPE: TypeAlias = create_subset_type('age', 'sex', 'race', 'race_and_ethnicity', 'black_women')
-WISQARS_DEMO_TYPE: TypeAlias = create_subset_type('sex', 'age', 'race_and_ethnicity', 'urbanicity', 'all')
-
+HIV_BREAKDOWN_TYPE: TypeAlias = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
+WISQARS_DEMO_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity', 'urbanicity', 'all']
 
 GEO_TYPE = Literal["county", "state", "national"]
 
