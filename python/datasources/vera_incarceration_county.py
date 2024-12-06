@@ -10,7 +10,7 @@ from ingestion.dataset_utils import (
     get_timeview_df_and_cols,
 )
 from ingestion.merge_utils import merge_county_names
-from ingestion.constants import Sex, CURRENT, HISTORICAL
+from ingestion.constants import Sex, CURRENT, HISTORICAL, COUNTY_LEVEL
 import ingestion.standardized_columns as std_col
 from typing import Literal, cast
 from ingestion.het_types import SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, DEMOGRAPHIC_TYPE, GEO_TYPE
@@ -184,8 +184,8 @@ class VeraIncarcerationCounty(DataSource):
                 timeview,
                 [std_col.PRISON_PREFIX, std_col.JAIL_PREFIX, std_col.INCARCERATION_PREFIX, std_col.CHILDREN_PREFIX],
             )
-            table_name = f'by_{demo_type}_county_{timeview}'
-            gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_name, column_types=column_types)
+            table_id = gcs_to_bq_util.make_bq_table_id(demo_type, COUNTY_LEVEL, timeview)
+            gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_id, column_types=column_types)
 
     def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE):
         """Creates the specific breakdown df needed for bigquery by iterating over needed columns

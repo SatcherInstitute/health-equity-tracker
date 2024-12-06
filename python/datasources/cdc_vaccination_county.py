@@ -1,7 +1,7 @@
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion.merge_utils import merge_county_names, merge_pop_numbers
-from ingestion.constants import COUNTY_LEVEL, RACE
+from ingestion.constants import COUNTY_LEVEL, RACE, CURRENT
 from ingestion.dataset_utils import generate_pct_rate_col
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
@@ -52,7 +52,9 @@ class CDCVaccinationCounty(DataSource):
             df, float_cols=[std_col.VACCINATED_PCT_RATE, std_col.VACCINATED_RAW]
         )
 
-        gcs_to_bq_util.add_df_to_bq(df, dataset, 'alls_county_current', column_types=col_types)
+        table_id = gcs_to_bq_util.make_bq_table_id("alls", COUNTY_LEVEL, CURRENT)
+
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
 
 
 def generate_breakdown(df):

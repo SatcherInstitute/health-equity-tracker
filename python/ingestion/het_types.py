@@ -1,38 +1,51 @@
-from typing import Literal, TypedDict
+from typing import Literal, get_args, TypedDict
+from typing_extensions import TypeAlias
 
-""" Use these when using cast(TYPE, variable) to explicitly tell the linter
-that the variable is actually the expected type.
-
-Prefer using an explicit `Literal["a", "b"]` in function signatures however, as
-it seems that (at least VSCODE) can't interpret these TYPE variables as the underlying literals. """
-
-SEX_RACE_AGE_TYPE = Literal["sex", "age", "race"]
-SEX_RACE_ETH_AGE_TYPE = Literal["sex", "age", "race_and_ethnicity"]
-DEMOGRAPHIC_TYPE = Literal["sex", "age", "race", "race_and_ethnicity"]
-
-PHRMA_BREAKDOWN_TYPE = Literal[
-    'age',
+COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
     'sex',
+    'age',
+    'race',
     'race_and_ethnicity',
     'lis',
     'eligibility',
     'insurance_status',
     'education',
     'income',
+    'all',
+    'black_women',
+    'urbanicity',
+    'black_women_by_age',
+    'black_men_by_age',
+    'black_men_by_urbanicity',
+    'youth_by_race_and_ethnicity',
+    'alls',
 ]
-PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal[
+
+
+def create_subset_type(*options):
+    comprehensive_options = set(get_args(COMPREHENSIVE_DEMOGRAPHIC_TYPE))
+    invalid_options = set(options) - comprehensive_options
+    if invalid_options:
+        raise ValueError(f"Invalid options {invalid_options}. Must be subset of comprehensive demographic type")
+    return Literal[options]
+
+
+# Define type aliases explicitly
+SEX_RACE_AGE_TYPE: TypeAlias = Literal['sex', 'age', 'race']
+SEX_RACE_ETH_AGE_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity']
+DEMOGRAPHIC_TYPE: TypeAlias = Literal['sex', 'age', 'race', 'race_and_ethnicity']
+
+PHRMA_BREAKDOWN_TYPE: TypeAlias = Literal[
+    'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income'
+]
+PHRMA_BREAKDOWN_TYPE_OR_ALL: TypeAlias = Literal[
     'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income', 'all'
 ]
 
-PHRMA_DATASET_TYPE = Literal["brfss", "medicare"]
+HIV_BREAKDOWN_TYPE: TypeAlias = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
+WISQARS_DEMO_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity', 'urbanicity', 'all']
 
-HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
-WISQARS_DEMO_TYPE = Literal["sex", "age", "race_and_ethnicity", "urbanicty", "all"]
-
-INCARCERATION_TYPE = Literal["jail", "prison"]
-VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "confined_children_estimated_total"]
 GEO_TYPE = Literal["county", "state", "national"]
-
 
 TIME_VIEW_TYPE = Literal['historical', 'current']
 
@@ -41,6 +54,7 @@ TOPIC_CATEGORY_TYPE = Literal[
     'all',
     'behavioral_health',
 ]
+PHRMA_DATASET_TYPE = Literal["brfss", "medicare"]
 
 WISQARS_VAR_TYPE = Literal[
     "fatal_gun_injuries",
@@ -51,6 +65,9 @@ WISQARS_VAR_TYPE = Literal[
     "gun_homicides_black_men",
     "fatal",
 ]
+
+INCARCERATION_TYPE = Literal["jail", "prison"]
+VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "confined_children_estimated_total"]
 
 SUFFIX_TYPE = Literal["count", "pct_share", "per_100k", "estimated_total", "pct_relative_inequity", "pct_rate", "index"]
 
