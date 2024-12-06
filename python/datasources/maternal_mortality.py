@@ -125,18 +125,13 @@ class MaternalMortalityData(DataSource):
             ).reset_index(drop=True)
 
             for time_type in [HISTORICAL, CURRENT]:
-                table_name = f'by_race_{geo_level}_{time_type}'
-
+                table_id = gcs_to_bq_util.make_bq_table_id('race', geo_level, time_type)
                 float_cols = get_float_cols(time_type, geo_level)
-
                 df_for_bq = df.copy()[keep_string_cols + float_cols]
-
                 if time_type == CURRENT:
                     df_for_bq = dataset_utils.preserve_only_current_time_period_rows(df_for_bq, std_col.TIME_PERIOD_COL)
-
                 col_types = gcs_to_bq_util.get_bq_column_types(df_for_bq, float_cols)
-
-                gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+                gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
 
 def preprocess_source_rates() -> pd.DataFrame:

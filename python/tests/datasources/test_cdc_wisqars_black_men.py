@@ -63,7 +63,7 @@ def test_write_to_bq_black_men_by_urbanicity_national(
         geographic=NATIONAL_LEVEL,
     )
 
-    # calls for the ALL source table and the BY_URBANICTY table
+    # calls for the ALL source table and the BY_URBANICITY table
     assert mock_data_dir.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
@@ -103,7 +103,7 @@ def test_write_to_bq_black_men_by_urbanicity_state(
         geographic=STATE_LEVEL,
     )
 
-    # calls for the ALL source table and the BY_URBANICTY table
+    # calls for the ALL source table and the BY_URBANICITY table
     assert mock_data_dir.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
@@ -149,7 +149,7 @@ def test_write_to_bq_black_men_by_age_national(
         geographic=NATIONAL_LEVEL,
     )
 
-    # calls for the ALL source table and the BY_URBANICTY table
+    # calls for the ALL source table and the BY_URBANICITY table
     assert mock_data_dir.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
@@ -191,7 +191,7 @@ def test_write_to_bq_black_men_by_age_state(
         geographic=STATE_LEVEL,
     )
 
-    # calls for the ALL source table and the BY_URBANICTY table
+    # calls for the ALL source table and the BY_URBANICITY table
     assert mock_data_dir.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list

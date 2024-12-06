@@ -1,7 +1,7 @@
 from datasources.data_source import DataSource
 from ingestion import dataset_utils, merge_utils, gcs_to_bq_util, standardized_columns as std_col
 from ingestion.constants import COUNTY_LEVEL, CURRENT, HISTORICAL
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Tuple
 import pandas as pd
 
 # NOTE: col values for numerator and denominator are NULL
@@ -97,8 +97,7 @@ class CHRData(DataSource):
 
         for timeview in [CURRENT]:
             df = df.copy()
-
-            table_name = f"{demographic}_{COUNTY_LEVEL}_{timeview}"
+            table_id = gcs_to_bq_util.make_bq_table_id(demographic, COUNTY_LEVEL, timeview)
             timeview_float_cols_map = get_float_cols()
             float_cols = timeview_float_cols_map[timeview]
 
@@ -108,7 +107,7 @@ class CHRData(DataSource):
                 df_for_bq, float_cols, timeview, demographic
             )
 
-            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
 
 def get_source_usecols(sheet_name: str) -> List[str]:
@@ -256,7 +255,7 @@ def get_df_from_chr_excel_sheet(sheet_name: str) -> pd.DataFrame:
     )
 
 
-def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> tuple[pd.DataFrame, List[str]]:
+def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tuple[pd.DataFrame, List[str]]:
     """
     Converts specific pct_rate columns to per_100k in both the df and the float cols list and
     rounds all float cols as needed.

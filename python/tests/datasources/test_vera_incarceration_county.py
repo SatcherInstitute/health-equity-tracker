@@ -13,16 +13,16 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "vera_incarceration_county"
 
 
 GOLDEN_DATA = {
-    'by_race_and_ethnicity_county_current': os.path.join(
+    'race_and_ethnicity_county_current': os.path.join(
         TEST_DIR, "golden_data", 'by_race_and_ethnicity_county_current.csv'
     ),
-    'by_race_and_ethnicity_county_historical': os.path.join(
+    'race_and_ethnicity_county_historical': os.path.join(
         TEST_DIR, "golden_data", 'by_race_and_ethnicity_county_historical.csv'
     ),
-    'by_age_county_current': os.path.join(TEST_DIR, "golden_data", 'by_age_county_current.csv'),
-    'by_age_county_historical': os.path.join(TEST_DIR, "golden_data", 'by_age_county_historical.csv'),
-    'by_sex_county_current': os.path.join(TEST_DIR, "golden_data", 'by_sex_county_current.csv'),
-    'by_sex_county_historical': os.path.join(TEST_DIR, "golden_data", 'by_sex_county_historical.csv'),
+    'age_county_current': os.path.join(TEST_DIR, "golden_data", 'by_age_county_current.csv'),
+    'age_county_historical': os.path.join(TEST_DIR, "golden_data", 'by_age_county_historical.csv'),
+    'sex_county_current': os.path.join(TEST_DIR, "golden_data", 'by_sex_county_current.csv'),
+    'sex_county_historical': os.path.join(TEST_DIR, "golden_data", 'by_sex_county_historical.csv'),
 }
 
 
@@ -74,13 +74,13 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_count == 1
 
     df_current, _, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_sex_county_current"
+    assert table_name == "sex_county_current"
     # df_current.to_csv(table_name, index=False)
     expected_df_current = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
     assert_frame_equal(df_current, expected_df_current, check_dtype=False)
 
     df_historical, _, table_name = mock_bq.call_args_list[1][0]
-    assert table_name == "by_sex_county_historical"
+    assert table_name == "sex_county_historical"
     # df_historical.to_csv(table_name, index=False)
     expected_df_historical = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
     assert_frame_equal(df_historical, expected_df_historical, check_dtype=False)
@@ -100,13 +100,13 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_count == 1
 
     df_current, _, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_age_county_current"
+    assert table_name == "age_county_current"
     # df_current.to_csv(table_name, index=False)
     expected_df_current = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
     assert_frame_equal(df_current, expected_df_current, check_dtype=False)
 
     df_historical, _, table_name = mock_bq.call_args_list[1][0]
-    assert table_name == "by_age_county_historical"
+    assert table_name == "age_county_historical"
     # df_historical.to_csv(table_name, index=False)
     expected_df_historical = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
     assert_frame_equal(df_historical, expected_df_historical, check_dtype=False)
@@ -126,13 +126,13 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_count == 1
 
     df_current, _, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_race_and_ethnicity_county_current"
+    assert table_name == "race_and_ethnicity_county_current"
     # df_current.to_csv(table_name, index=False)
     expected_df_current = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
     assert_frame_equal(df_current, expected_df_current, check_dtype=False)
 
     df_historical, _, table_name = mock_bq.call_args_list[1][0]
-    assert table_name == "by_race_and_ethnicity_county_historical"
+    assert table_name == "race_and_ethnicity_county_historical"
     # df_historical.to_csv(table_name, index=False)
     expected_df_historical = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
     assert_frame_equal(df_historical, expected_df_historical, check_dtype=False)

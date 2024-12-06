@@ -13,8 +13,6 @@ from ingestion.constants import (
     AGE,
     SEX,
     UNKNOWN,
-    CURRENT,
-    HISTORICAL,
 )
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import RACE_NAMES_MAPPING, SEX_NAMES_MAPPING, AGE_NAMES_MAPPING
@@ -31,7 +29,7 @@ DC_COUNTY_FIPS = '11001'
 
 ONLY_FIPS_FILES = {
     # These files only need to get their fips codes merged in
-    'cdc_restricted_by_race_and_age_state.csv': 'race_and_ethnicity_age_state',
+    'cdc_restricted_by_race_and_age_state.csv': 'by_race_age_state',
 }
 
 COVID_CONDITION_TO_PREFIX = {
@@ -90,13 +88,14 @@ class CDCRestrictedData(DataSource):
 
         for time_series in [False, True]:
             df = self.generate_breakdown(df_from_gcs, demo, geo, time_series)
-            table_id_demo = "race_and_ethnicity" if demo == RACE else demo
             if demo == RACE:
                 std_col.add_race_columns_from_category_id(df)
 
             column_types = get_col_types(df, add_rel_inequality_col=time_series)
-            time_view = HISTORICAL if time_series else CURRENT
-            table_name = f'{table_id_demo}_{geo}_{time_view}'
+
+            table_name = f'by_{demo}_{geo}_processed'
+            if time_series:
+                table_name += '_time_series'
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
