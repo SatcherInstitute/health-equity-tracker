@@ -213,11 +213,11 @@ class CDCHIVData(DataSource):
 
         # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
         if geo_level != COUNTY_LEVEL and demographic == std_col.RACE_OR_HISPANIC_COL:
-            table_name = f"by_race_age_{geo_level}"
+            race_age_table_id = f"by_race_age_{geo_level}"
             race_age_df = self.generate_race_age_deaths_df(geo_level)
             float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
             col_types = gcs_to_bq_util.get_bq_column_types(race_age_df, float_cols)
-            gcs_to_bq_util.add_df_to_bq(race_age_df, dataset, table_name, column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(race_age_df, dataset, race_age_table_id, column_types=col_types)
 
         # WE DONT SHOW BLACK WOMEN AT COUNTY LEVEL
         if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
@@ -233,7 +233,7 @@ class CDCHIVData(DataSource):
             df_for_bq = df.copy()
 
             table_demo = demographic if demographic != std_col.BLACK_WOMEN else 'black_women_by_age'
-            table_name = gcs_to_bq_util.make_bq_table_id(table_demo, geo_level, time_view)
+            table_id = gcs_to_bq_util.make_bq_table_id(table_demo, geo_level, time_view)
             if demographic == std_col.BLACK_WOMEN:
                 df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
             else:
@@ -249,7 +249,7 @@ class CDCHIVData(DataSource):
             keep_cols = col_types.keys()
             df_for_bq = df_for_bq[keep_cols]
 
-            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level

@@ -325,10 +325,10 @@ class BJSIncarcerationData(DataSource):
         children_tables = [prisoners_13, jail_6]
 
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
-            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                table_name = gcs_to_bq_util.make_bq_table_id(breakdown, geo_level, CURRENT)
+            for demo_type in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
+                table_name = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
 
-                df = self.generate_breakdown_df(breakdown, geo_level, table_lookup[table_name], children_tables)
+                df = self.generate_breakdown_df(demo_type, geo_level, table_lookup[table_name], children_tables)
 
                 float_cols = [
                     std_col.INCARCERATION_POP_PCT_SHARE,
@@ -344,16 +344,16 @@ class BJSIncarcerationData(DataSource):
 
                 gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, table_list, children_tables):
+    def generate_breakdown_df(self, demo_type, geo_level, table_list, children_tables):
         """
         Accepts demographic and geographic settings, along with the mapping of BJS tables
         to HET breakdowns, and generates the specified HET breakdown
 
         Parameters:
-            breakdown: string of "age", "race_and_ethnicity", or "sex" to determine
-                resulting demographic breakdown
+            demo_type: string of "age", "race_and_ethnicity", or "sex" to determine
+                resulting demographic type
             geo_level: string of "national" or "state" to determine resulting
-                geographic breakdown
+                geographic level
             table_list: list of dfs containing needed tables for each geo/demo breakdown
             prison_13: df needed separately for each breakdown's "confined_children_estimated_total" in prison
             need JAIL confined nums here too
@@ -361,11 +361,11 @@ class BJSIncarcerationData(DataSource):
             Processed HET style df ready for BigQuery and HET frontend
         """
 
-        if breakdown == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
+        if demo_type == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
             raw_df = generate_raw_national_age_breakdown(table_list)
         else:
-            raw_df = generate_raw_breakdown(breakdown, geo_level, table_list)
+            raw_df = generate_raw_breakdown(demo_type, geo_level, table_list)
 
-        processed_df = post_process(raw_df, breakdown, geo_level, children_tables)
+        processed_df = post_process(raw_df, demo_type, geo_level, children_tables)
 
         return processed_df
