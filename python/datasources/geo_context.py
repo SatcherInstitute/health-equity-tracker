@@ -49,7 +49,8 @@ class GeoContext(DataSource):
             if geo_level == COUNTY_LEVEL:
                 float_cols.append(std_col.SVI)
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
-            gcs_to_bq_util.add_df_to_bq(df, dataset, f'{geo_level}_{CURRENT}', column_types=column_types)
+            table_id = gcs_to_bq_util.make_bq_table_id('alls', geo_level, CURRENT)
+            gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=column_types)
 
     def generate_breakdown(self, geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
 

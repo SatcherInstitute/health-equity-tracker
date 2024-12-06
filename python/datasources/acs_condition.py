@@ -364,8 +364,7 @@ class AcsCondition(DataSource):
                 if demo == RACE:
                     add_race_columns_from_category_id(df)
 
-                table_name_prefix = f'by_{demo}_{geo}'
-                dfs[table_name_prefix] = df
+                dfs[(demo, geo)] = df
 
         suffixes_time_series_only = [
             std_col.PCT_REL_INEQUITY_SUFFIX,
@@ -382,8 +381,7 @@ class AcsCondition(DataSource):
             f'{POP_SUFFIX}_{std_col.RAW_SUFFIX}',  # denominator counts
         ]
 
-        for table_name_prefix, df in dfs.items():
-
+        for [demo, geo], df in dfs.items():
             # MAKE AND WRITE TIME SERIES TABLE
             df_time_series = df.copy()
             df_time_series[std_col.TIME_PERIOD_COL] = self.year
@@ -398,20 +396,18 @@ class AcsCondition(DataSource):
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
             overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
-
             float_cols_time_series = []
             for acs_item in acs_items.values():
                 float_cols_time_series += [
                     generate_column_name(acs_item.bq_prefix, suffix)
                     for suffix in suffixes_time_series_only + suffixes_both
                 ]
-
             col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
-
+            table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
             gcs_to_bq_util.add_df_to_bq(
                 df_time_series,
                 dataset,
-                f'{table_name_prefix}_{HISTORICAL}',
+                table_id_historical,
                 column_types=col_types,
                 overwrite=overwrite,
             )
@@ -419,7 +415,6 @@ class AcsCondition(DataSource):
             # MAKE AND WRITE CURRENT TABLE
             if self.year == CURRENT_ACS_CONDITION_YEAR:
                 df_current = df.copy()
-
                 # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
                 float_cols_to_drop = []
                 for acs_item in acs_items.values():
@@ -427,19 +422,15 @@ class AcsCondition(DataSource):
                         generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only
                     ]
                 df_current.drop(columns=float_cols_to_drop, inplace=True)
-
                 float_cols_current = []
                 for acs_item in acs_items.values():
                     float_cols_current += [
                         generate_column_name(acs_item.bq_prefix, suffix)
                         for suffix in suffixes_current_only + suffixes_both
                     ]
-
                 col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
-
-                gcs_to_bq_util.add_df_to_bq(
-                    df_current, dataset, f'{table_name_prefix}_{CURRENT}', column_types=col_types
-                )
+                table_id_current = gcs_to_bq_util.make_bq_table_id(demo, geo, CURRENT)
+                gcs_to_bq_util.add_df_to_bq(df_current, dataset, table_id_current, column_types=col_types)
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
