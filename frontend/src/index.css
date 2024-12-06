@@ -71,10 +71,10 @@ button[data-action='back']:focus {
     max-width: 1440px !important;
     justify-content: center !important;
     
-    @media screen(sm) {
-      padding: 2rem 4rem;
+    @screen sm {
+      padding: 2rem 3rem;
     }
-    @media screen(md) {
+    @screen md {
       padding: 2rem 4rem;
     }
   }
@@ -113,10 +113,10 @@ button[data-action='back']:focus {
   & h4,
   & h5,
   & h6 {
-    @media screen(sm) {
+    @screen sm  {
       width: 100%;
     }
-    @media screen(md) {
+    @screen md  {
       width: 95%;
     }
   }

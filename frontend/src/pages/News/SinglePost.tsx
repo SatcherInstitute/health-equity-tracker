@@ -119,21 +119,9 @@ export default function SinglePost() {
       {/* PAGE CONTENT */}
       <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
         {/* HEADER ROW */}
-        <div
-          className='
-            flex
-            w-full
-            md:flex-row
-            flex-col-reversereverse
-            items-center
-            justify-between
-            p-4
-            mx-16
-            md:px-0
-        '
-        >
+        <div className=' flex w-full md:flex-row flex-col-reversereverse items-center justify-between mx-16 md:px-0'>
           {/* TEXT SECTION OF HEADER */}
-          <div className='flex flex-col w-full px-4 md:px-16 lg:px-24'>
+          <div className='flex flex-col w-full px-4 md:px-16 lg:px-24 h-auto'>
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
 
             {fullArticle?.date ? (
@@ -141,19 +129,7 @@ export default function SinglePost() {
             ) : (
               <Skeleton width='50%'></Skeleton>
             )}
-            <div
-              className='
-              py-8
-              flex
-              w-full
-              flex-wrap
-              justify-start
-              
-              text-left
-              text-altGreen sm:text-header md:text-bigHeader
-              font-sansTitle text-header font-bold leading-lhNormal
-            '
-            >
+            <div className=' py-8 flex w-full flex-wrap justify-start text-left text-altGreen sm:text-header md:text-bigHeader font-sansTitle text-header font-bold leading-lhNormal'>
               {isLoading ? (
                 <>
                   <Skeleton animation='wave' width={'100%'} height={'60'} />
@@ -206,7 +182,10 @@ export default function SinglePost() {
           </div>
 
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
-          <div className='flex items-center justify-center w-1/2 rounded-sm'>
+          <div
+            className='flex items-center justify-center w-1/2 rounded-sm py-16
+        '
+          >
             {isLoading && (
               <Skeleton
                 width={300}
@@ -280,12 +259,11 @@ export default function SinglePost() {
               )}
             </div>
           </div>
+
           {articleCategories ? (
-            <div className='text-text text-altDark flex flex-row items-center justify-center'>
+            <div className='text-start text-text text-altDark'>
               Tagged:
               <HetTags
-                containerClassName='mt-0 ml-4 flex'
-                linkClassName='mt-0'
                 tags={articleCategories.map((categoryChunk) => ({
                   name: categoryChunk.name,
                   link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
@@ -299,21 +277,6 @@ export default function SinglePost() {
           )}
         </article>
 
-        {articleCategories ? (
-          <div className='text-start text-text text-altDark'>
-            Tagged:
-            <HetTags
-              tags={articleCategories.map((categoryChunk) => ({
-                name: categoryChunk.name,
-                link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
-                  categoryChunk.name,
-                )}`,
-              }))}
-            />
-          </div>
-        ) : (
-          <Skeleton width='50%'></Skeleton>
-        )}
         {/* PREV / NEXT ARTICLES NAV */}
         <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
           {prevArticle && (
