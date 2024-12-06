@@ -1,11 +1,10 @@
 import pandas as pd  # type: ignore
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, local_pipeline_utils
 from ingestion.standardized_columns import Race
 from ingestion import standardized_columns as std_col
 from ingestion.merge_utils import merge_pop_numbers
-from ingestion.constants import Sex, NATIONAL_LEVEL, US_FIPS, US_NAME, RACE, AGE, SEX, UNKNOWN
+from ingestion.constants import Sex, NATIONAL_LEVEL, US_FIPS, US_NAME, RACE, AGE, SEX, UNKNOWN, CURRENT
 
 CDC_SEX_GROUPS_TO_STANDARD = {
     'Sex_Female': Sex.FEMALE,
@@ -97,7 +96,8 @@ class CDCVaccinationNational(DataSource):
             else:
                 float_cols = [std_col.VACCINATED_PCT_RATE, std_col.VACCINATED_PCT_SHARE, std_col.VACCINATED_POP_PCT]
                 col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
-                gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, f'{breakdown}_current', column_types=col_types)
+                table_id = gcs_to_bq_util.make_bq_table_id(breakdown, NATIONAL_LEVEL, CURRENT)
+                gcs_to_bq_util.add_df_to_bq(breakdown_df, dataset, table_id, column_types=col_types)
 
     def generate_breakdown(self, breakdown, df):
         demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == RACE else breakdown

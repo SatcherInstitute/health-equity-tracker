@@ -51,7 +51,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_tsv: m
 
     df_state_historical, _, table_name = mock_bq.call_args_list[0][0]
     # df_state_historical.to_csv(table_name, index=False)
-    assert table_name == 'by_race_state_historical'
+    assert table_name == 'race_state_historical'
 
     expected_state_historical_df = pd.read_csv(
         GOLDEN_DATA_RACE_STATE_HISTORICAL, dtype={'state_fips': str, 'time_period': str}
@@ -60,14 +60,14 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_tsv: m
 
     df_state_current, _, table_name = mock_bq.call_args_list[1][0]
     # df_state_current.to_csv(table_name, index=False)
-    assert table_name == 'by_race_state_current'
+    assert table_name == 'race_state_current'
 
     expected_state_current_df = pd.read_csv(GOLDEN_DATA_RACE_STATE_CURRENT, dtype={'state_fips': str})
     assert_frame_equal(df_state_current, expected_state_current_df, check_like=True, check_dtype=False)
 
     df_national_historical, _, table_name = mock_bq.call_args_list[2][0]
     # df_national_historical.to_csv(table_name, index=False)
-    assert table_name == 'by_race_national_historical'
+    assert table_name == 'race_national_historical'
 
     expected_national_historical_df = pd.read_csv(
         GOLDEN_DATA_RACE_NATIONAL_HISTORICAL, dtype={'state_fips': str, 'time_period': str}
@@ -76,7 +76,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock, mock_tsv: m
 
     df_national_current, _, table_name = mock_bq.call_args_list[3][0]
     # df_national_current.to_csv(table_name, index=False)
-    assert table_name == 'by_race_national_current'
+    assert table_name == 'race_national_current'
 
     expected_national_current_df = pd.read_csv(GOLDEN_DATA_RACE_NATIONAL_CURRENT, dtype={'state_fips': str})
     assert_frame_equal(df_national_current, expected_national_current_df, check_like=True, check_dtype=False)
