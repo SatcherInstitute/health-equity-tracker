@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
-from ingestion.constants import COUNTY_LEVEL, STATE_LEVEL, Sex
+from ingestion.constants import COUNTY_LEVEL, STATE_LEVEL, Sex, CURRENT
 from ingestion import gcs_to_bq_util, standardized_columns as std_col, dataset_utils
 
 from ingestion.merge_utils import merge_county_names, merge_state_ids
@@ -181,8 +181,8 @@ class Decia2020TerritoryPopulationData(DataSource):
         df = self.generate_breakdown_df(raw_dfs_by_postal_map, breakdown, geo_level)
         float_cols = [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
         column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
-        table_name = f'by_{breakdown}_territory_{geo_level}_level'
-        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
+        table_id = gcs_to_bq_util.make_bq_table_id(breakdown, geo_level, CURRENT)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=column_types)
 
     def generate_breakdown_df(
         self,
@@ -221,8 +221,7 @@ class Decia2020TerritoryPopulationData(DataSource):
                 rename_map = get_rename_map(RACE_CODES_TO_STD[postal])
 
             # cleanup and store raw dfs
-            raw_df[value_cols] = raw_df[value_cols].replace(['-', '(X)'], np.nan)
-            raw_df[value_cols] = raw_df[value_cols].astype(float)
+            raw_df.loc[:, value_cols] = raw_df[value_cols].replace(['-', '(X)'], np.nan).astype(float)
             needed_cols = [geo_col] + value_cols
             raw_df = raw_df[needed_cols]
             raw_df = raw_df.rename(columns=rename_map)

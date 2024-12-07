@@ -1,6 +1,6 @@
 import ingestion.standardized_columns as std_col
 from datasources.data_source import DataSource
-from ingestion import gcs_to_bq_util
+from ingestion import gcs_to_bq_util, constants
 from ingestion.dataset_utils import generate_pct_share_col_without_unknowns
 from ingestion.standardized_columns import Race
 
@@ -40,7 +40,7 @@ class Decia2010TerritoryPopulationData(DataSource):
         # In this instance, we expect filename to be a string with
         # comma-separated CSV filenames.
         if ',' not in gcs_files:
-            raise ValueError('filename passed to write_to_bq is not a ' 'comma-separated list of files')
+            raise ValueError('filename passed to write_to_bq is not a ' + 'comma-separated list of files')
         files = gcs_files.split(',')
 
         for f in files:
@@ -58,12 +58,10 @@ class Decia2010TerritoryPopulationData(DataSource):
             # Clean up column names.
             self.clean_frame_column_names(df)
 
-            table_name = f.replace('.json', '')  # Table name is file name
-            table_name = table_name.replace('decia_2010_territory_population-', '')  # Don't need this
-            # ACS 2010 only makes state equivalent level, but not county equivalent level
-            table_name += "_state_level"
+            demo_type = next((demo for demo in ['race', 'sex', 'age', 'race_and_ethnicity'] if demo in f), None)
+            table_id = gcs_to_bq_util.make_bq_table_id(demo_type, constants.STATE_LEVEL, constants.CURRENT)
 
             column_types = gcs_to_bq_util.get_bq_column_types(
                 df, float_cols=[std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
             )
-            gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
+            gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=column_types)

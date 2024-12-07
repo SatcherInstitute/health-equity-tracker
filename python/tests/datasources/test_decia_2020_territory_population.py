@@ -42,7 +42,7 @@ def testGenerateAgeTerritory(
     assert mock_data_dir.call_count == 4
 
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_age_territory_state_level"
+    assert table_name == "age_state_current"
     expected_df = pd.read_csv(os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
 
     assert_frame_equal(df, expected_df, check_dtype=False)
@@ -62,7 +62,7 @@ def testGenerateRaceTerritory(
     assert mock_data_dir.call_count == 4
 
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_race_and_ethnicity_territory_state_level"
+    assert table_name == "race_and_ethnicity_state_current"
     expected_df = pd.read_csv(os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
 
     df = df.sort_values(by=['state_fips', 'race_category_id']).reset_index(drop=True)
@@ -85,6 +85,6 @@ def testGenerateSexTerritoryCountyEquivalent(
     assert mock_data_dir.call_count == 4
 
     df, _dataset, table_name = mock_bq.call_args_list[0][0]
-    assert table_name == "by_sex_territory_county_level"
+    assert table_name == "sex_county_current"
     expected_df = pd.read_csv(os.path.join(GOLDEN_DIR, f'{table_name}.csv'), index_col=False, dtype=dtypes)
     assert_frame_equal(df, expected_df, check_dtype=False)
