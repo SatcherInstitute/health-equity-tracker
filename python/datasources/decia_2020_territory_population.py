@@ -221,8 +221,7 @@ class Decia2020TerritoryPopulationData(DataSource):
                 rename_map = get_rename_map(RACE_CODES_TO_STD[postal])
 
             # cleanup and store raw dfs
-            raw_df[value_cols] = raw_df[value_cols].replace(['-', '(X)'], np.nan)
-            raw_df[value_cols] = raw_df[value_cols].astype(float)
+            raw_df.loc[:, value_cols] = raw_df[value_cols].replace(['-', '(X)'], np.nan).astype(float)
             needed_cols = [geo_col] + value_cols
             raw_df = raw_df[needed_cols]
             raw_df = raw_df.rename(columns=rename_map)
