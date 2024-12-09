@@ -1,18 +1,18 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States,States Code,Sex,Sex Code,Count,Population,Crude Rate
-,1999,1999,Lung and Bronchus,22030,Alabama,1,Female,F,1193,2293259,52
-,1999,1999,Lung and Bronchus,22030,Alabama,1,Male,M,2145,2136882,100.4
-,1999,1999,Lung and Bronchus,22030,Alaska,2,Female,F,130,301266,43.2
-,1999,1999,Lung and Bronchus,22030,Alaska,2,Male,M,145,323513,44.8
-,1999,1999,Lung and Bronchus,22030,Arizona,4,Female,F,1308,2518299,51.9
-,1999,1999,Lung and Bronchus,22030,Arizona,4,Male,M,1769,2505524,70.6
-,1999,1999,Lung and Bronchus,22030,Arkansas,5,Female,F,853,1359445,62.7
-,1999,1999,Lung and Bronchus,22030,Arkansas,5,Male,M,1477,1292415,114.3
-,1999,1999,Lung and Bronchus,22030,California,6,Female,F,8138,16800161,48.4
-,1999,1999,Lung and Bronchus,22030,California,6,Male,M,9339,16699043,55.9
-,1999,1999,Lung and Bronchus,22030,Colorado,8,Female,F,786,2101358,37.4
-,1999,1999,Lung and Bronchus,22030,Colorado,8,Male,M,980,2124660,46.1
-,1999,1999,Lung and Bronchus,22030,Connecticut,9,Female,F,1147,1747148,65.6
-,1999,1999,Lung and Bronchus,22030,Connecticut,9,Male,M,1343,1639253,81.9
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Sex,Sex Code,Count,Population,Crude Rate
+,1999,1999,Lung and Bronchus,22030,Alabama,01,Female,F,1193,2293259,52
+,1999,1999,Lung and Bronchus,22030,Alabama,01,Male,M,2145,2136882,100.4
+,1999,1999,Lung and Bronchus,22030,Alaska,02,Female,F,130,301266,43.2
+,1999,1999,Lung and Bronchus,22030,Alaska,02,Male,M,145,323513,44.8
+,1999,1999,Lung and Bronchus,22030,Arizona,04,Female,F,1308,2518299,51.9
+,1999,1999,Lung and Bronchus,22030,Arizona,04,Male,M,1769,2505524,70.6
+,1999,1999,Lung and Bronchus,22030,Arkansas,05,Female,F,853,1359445,62.7
+,1999,1999,Lung and Bronchus,22030,Arkansas,05,Male,M,1477,1292415,114.3
+,1999,1999,Lung and Bronchus,22030,California,06,Female,F,8138,16800161,48.4
+,1999,1999,Lung and Bronchus,22030,California,06,Male,M,9339,16699043,55.9
+,1999,1999,Lung and Bronchus,22030,Colorado,08,Female,F,786,2101358,37.4
+,1999,1999,Lung and Bronchus,22030,Colorado,08,Male,M,980,2124660,46.1
+,1999,1999,Lung and Bronchus,22030,Connecticut,09,Female,F,1147,1747148,65.6
+,1999,1999,Lung and Bronchus,22030,Connecticut,09,Male,M,1343,1639253,81.9
 ,1999,1999,Lung and Bronchus,22030,Delaware,10,Female,F,281,398732,70.5
 ,1999,1999,Lung and Bronchus,22030,Delaware,10,Male,M,373,376258,99.1
 ,1999,1999,Lung and Bronchus,22030,District of Columbia,11,Female,F,160,301797,53
@@ -97,20 +97,20 @@
 ,1999,1999,Lung and Bronchus,22030,Wisconsin,55,Male,M,2114,2631141,80.3
 ,1999,1999,Lung and Bronchus,22030,Wyoming,56,Female,F,122,244518,49.9
 ,1999,1999,Lung and Bronchus,22030,Wyoming,56,Male,M,159,247262,64.3
-,2000,2000,Lung and Bronchus,22030,Alabama,1,Female,F,1298,2302835,56.4
-,2000,2000,Lung and Bronchus,22030,Alabama,1,Male,M,2142,2149338,99.7
-,2000,2000,Lung and Bronchus,22030,Alaska,2,Female,F,107,303213,35.3
-,2000,2000,Lung and Bronchus,22030,Alaska,2,Male,M,153,324750,47.1
-,2000,2000,Lung and Bronchus,22030,Arizona,4,Female,F,1472,2584579,57
-,2000,2000,Lung and Bronchus,22030,Arizona,4,Male,M,1717,2576007,66.7
-,2000,2000,Lung and Bronchus,22030,Arkansas,5,Female,F,898,1371015,65.5
-,2000,2000,Lung and Bronchus,22030,Arkansas,5,Male,M,1475,1307573,112.8
-,2000,2000,Lung and Bronchus,22030,California,6,Female,F,8071,17050415,47.3
-,2000,2000,Lung and Bronchus,22030,California,6,Male,M,9448,16937562,55.8
-,2000,2000,Lung and Bronchus,22030,Colorado,8,Female,F,849,2147742,39.5
-,2000,2000,Lung and Bronchus,22030,Colorado,8,Male,M,1037,2179179,47.6
-,2000,2000,Lung and Bronchus,22030,Connecticut,9,Female,F,1169,1759318,66.4
-,2000,2000,Lung and Bronchus,22030,Connecticut,9,Male,M,1296,1652459,78.4
+,2000,2000,Lung and Bronchus,22030,Alabama,01,Female,F,1298,2302835,56.4
+,2000,2000,Lung and Bronchus,22030,Alabama,01,Male,M,2142,2149338,99.7
+,2000,2000,Lung and Bronchus,22030,Alaska,02,Female,F,107,303213,35.3
+,2000,2000,Lung and Bronchus,22030,Alaska,02,Male,M,153,324750,47.1
+,2000,2000,Lung and Bronchus,22030,Arizona,04,Female,F,1472,2584579,57
+,2000,2000,Lung and Bronchus,22030,Arizona,04,Male,M,1717,2576007,66.7
+,2000,2000,Lung and Bronchus,22030,Arkansas,05,Female,F,898,1371015,65.5
+,2000,2000,Lung and Bronchus,22030,Arkansas,05,Male,M,1475,1307573,112.8
+,2000,2000,Lung and Bronchus,22030,California,06,Female,F,8071,17050415,47.3
+,2000,2000,Lung and Bronchus,22030,California,06,Male,M,9448,16937562,55.8
+,2000,2000,Lung and Bronchus,22030,Colorado,08,Female,F,849,2147742,39.5
+,2000,2000,Lung and Bronchus,22030,Colorado,08,Male,M,1037,2179179,47.6
+,2000,2000,Lung and Bronchus,22030,Connecticut,09,Female,F,1169,1759318,66.4
+,2000,2000,Lung and Bronchus,22030,Connecticut,09,Male,M,1296,1652459,78.4
 ,2000,2000,Lung and Bronchus,22030,Delaware,10,Female,F,287,404447,71
 ,2000,2000,Lung and Bronchus,22030,Delaware,10,Male,M,342,381926,89.5
 ,2000,2000,Lung and Bronchus,22030,District of Columbia,11,Female,F,161,302643,53.2
@@ -195,20 +195,20 @@
 ,2000,2000,Lung and Bronchus,22030,Wisconsin,55,Male,M,2011,2654764,75.8
 ,2000,2000,Lung and Bronchus,22030,Wyoming,56,Female,F,107,245584,43.6
 ,2000,2000,Lung and Bronchus,22030,Wyoming,56,Male,M,148,248716,59.5
-,2001,2001,Lung and Bronchus,22030,Alabama,1,Female,F,1352,2309496,58.5
-,2001,2001,Lung and Bronchus,22030,Alabama,1,Male,M,2291,2158138,106.2
-,2001,2001,Lung and Bronchus,22030,Alaska,2,Female,F,122,305579,39.9
-,2001,2001,Lung and Bronchus,22030,Alaska,2,Male,M,160,328135,48.8
-,2001,2001,Lung and Bronchus,22030,Arizona,4,Female,F,1502,2641676,56.9
-,2001,2001,Lung and Bronchus,22030,Arizona,4,Male,M,1805,2631801,68.6
-,2001,2001,Lung and Bronchus,22030,Arkansas,5,Female,F,936,1376845,68
-,2001,2001,Lung and Bronchus,22030,Arkansas,5,Male,M,1507,1314726,114.6
-,2001,2001,Lung and Bronchus,22030,California,6,Female,F,8159,17294223,47.2
-,2001,2001,Lung and Bronchus,22030,California,6,Male,M,9425,17185235,54.8
-,2001,2001,Lung and Bronchus,22030,Colorado,8,Female,F,929,2195705,42.3
-,2001,2001,Lung and Bronchus,22030,Colorado,8,Male,M,1092,2229982,49
-,2001,2001,Lung and Bronchus,22030,Connecticut,9,Female,F,1173,1768959,66.3
-,2001,2001,Lung and Bronchus,22030,Connecticut,9,Male,M,1371,1663876,82.4
+,2001,2001,Lung and Bronchus,22030,Alabama,01,Female,F,1352,2309496,58.5
+,2001,2001,Lung and Bronchus,22030,Alabama,01,Male,M,2291,2158138,106.2
+,2001,2001,Lung and Bronchus,22030,Alaska,02,Female,F,122,305579,39.9
+,2001,2001,Lung and Bronchus,22030,Alaska,02,Male,M,160,328135,48.8
+,2001,2001,Lung and Bronchus,22030,Arizona,04,Female,F,1502,2641676,56.9
+,2001,2001,Lung and Bronchus,22030,Arizona,04,Male,M,1805,2631801,68.6
+,2001,2001,Lung and Bronchus,22030,Arkansas,05,Female,F,936,1376845,68
+,2001,2001,Lung and Bronchus,22030,Arkansas,05,Male,M,1507,1314726,114.6
+,2001,2001,Lung and Bronchus,22030,California,06,Female,F,8159,17294223,47.2
+,2001,2001,Lung and Bronchus,22030,California,06,Male,M,9425,17185235,54.8
+,2001,2001,Lung and Bronchus,22030,Colorado,08,Female,F,929,2195705,42.3
+,2001,2001,Lung and Bronchus,22030,Colorado,08,Male,M,1092,2229982,49
+,2001,2001,Lung and Bronchus,22030,Connecticut,09,Female,F,1173,1768959,66.3
+,2001,2001,Lung and Bronchus,22030,Connecticut,09,Male,M,1371,1663876,82.4
 ,2001,2001,Lung and Bronchus,22030,Delaware,10,Female,F,260,409349,63.5
 ,2001,2001,Lung and Bronchus,22030,Delaware,10,Male,M,363,386350,94
 ,2001,2001,Lung and Bronchus,22030,District of Columbia,11,Female,F,166,303740,54.7
@@ -295,20 +295,20 @@
 ,2001,2001,Lung and Bronchus,22030,Wisconsin,55,Male,M,1974,2673188,73.8
 ,2001,2001,Lung and Bronchus,22030,Wyoming,56,Female,F,110,245327,44.8
 ,2001,2001,Lung and Bronchus,22030,Wyoming,56,Male,M,135,249330,54.1
-,2002,2002,Lung and Bronchus,22030,Alabama,1,Female,F,1436,2314370,62
-,2002,2002,Lung and Bronchus,22030,Alabama,1,Male,M,2191,2165719,101.2
-,2002,2002,Lung and Bronchus,22030,Alaska,2,Female,F,123,309633,39.7
-,2002,2002,Lung and Bronchus,22030,Alaska,2,Male,M,166,332704,49.9
-,2002,2002,Lung and Bronchus,22030,Arizona,4,Female,F,1455,2704217,53.8
-,2002,2002,Lung and Bronchus,22030,Arizona,4,Male,M,1797,2692038,66.8
-,2002,2002,Lung and Bronchus,22030,Arkansas,5,Female,F,948,1383239,68.5
-,2002,2002,Lung and Bronchus,22030,Arkansas,5,Male,M,1505,1322688,113.8
-,2002,2002,Lung and Bronchus,22030,California,6,Female,F,8367,17498462,47.8
-,2002,2002,Lung and Bronchus,22030,California,6,Male,M,9104,17373381,52.4
-,2002,2002,Lung and Bronchus,22030,Colorado,8,Female,F,962,2228665,43.2
-,2002,2002,Lung and Bronchus,22030,Colorado,8,Male,M,1104,2261741,48.8
-,2002,2002,Lung and Bronchus,22030,Connecticut,9,Female,F,1273,1780500,71.5
-,2002,2002,Lung and Bronchus,22030,Connecticut,9,Male,M,1354,1678249,80.7
+,2002,2002,Lung and Bronchus,22030,Alabama,01,Female,F,1436,2314370,62
+,2002,2002,Lung and Bronchus,22030,Alabama,01,Male,M,2191,2165719,101.2
+,2002,2002,Lung and Bronchus,22030,Alaska,02,Female,F,123,309633,39.7
+,2002,2002,Lung and Bronchus,22030,Alaska,02,Male,M,166,332704,49.9
+,2002,2002,Lung and Bronchus,22030,Arizona,04,Female,F,1455,2704217,53.8
+,2002,2002,Lung and Bronchus,22030,Arizona,04,Male,M,1797,2692038,66.8
+,2002,2002,Lung and Bronchus,22030,Arkansas,05,Female,F,948,1383239,68.5
+,2002,2002,Lung and Bronchus,22030,Arkansas,05,Male,M,1505,1322688,113.8
+,2002,2002,Lung and Bronchus,22030,California,06,Female,F,8367,17498462,47.8
+,2002,2002,Lung and Bronchus,22030,California,06,Male,M,9104,17373381,52.4
+,2002,2002,Lung and Bronchus,22030,Colorado,08,Female,F,962,2228665,43.2
+,2002,2002,Lung and Bronchus,22030,Colorado,08,Male,M,1104,2261741,48.8
+,2002,2002,Lung and Bronchus,22030,Connecticut,09,Female,F,1273,1780500,71.5
+,2002,2002,Lung and Bronchus,22030,Connecticut,09,Male,M,1354,1678249,80.7
 ,2002,2002,Lung and Bronchus,22030,Delaware,10,Female,F,287,414652,69.2
 ,2002,2002,Lung and Bronchus,22030,Delaware,10,Male,M,335,391517,85.6
 ,2002,2002,Lung and Bronchus,22030,District of Columbia,11,Female,F,157,303146,51.8
@@ -395,20 +395,20 @@
 ,2002,2002,Lung and Bronchus,22030,Wisconsin,55,Male,M,1966,2693465,73
 ,2002,2002,Lung and Bronchus,22030,Wyoming,56,Female,F,116,247785,46.8
 ,2002,2002,Lung and Bronchus,22030,Wyoming,56,Male,M,143,252232,56.7
-,2003,2003,Lung and Bronchus,22030,Alabama,1,Female,F,1378,2324069,59.3
-,2003,2003,Lung and Bronchus,22030,Alabama,1,Male,M,2186,2179422,100.3
-,2003,2003,Lung and Bronchus,22030,Alaska,2,Female,F,126,313034,40.3
-,2003,2003,Lung and Bronchus,22030,Alaska,2,Male,M,173,335380,51.6
-,2003,2003,Lung and Bronchus,22030,Arizona,4,Female,F,1541,2764077,55.8
-,2003,2003,Lung and Bronchus,22030,Arizona,4,Male,M,1902,2746287,69.3
-,2003,2003,Lung and Bronchus,22030,Arkansas,5,Female,F,944,1391523,67.8
-,2003,2003,Lung and Bronchus,22030,Arkansas,5,Male,M,1528,1333293,114.6
-,2003,2003,Lung and Bronchus,22030,California,6,Female,F,8277,17709509,46.7
-,2003,2003,Lung and Bronchus,22030,California,6,Male,M,9115,17543650,52
-,2003,2003,Lung and Bronchus,22030,Colorado,8,Female,F,966,2253214,42.9
-,2003,2003,Lung and Bronchus,22030,Colorado,8,Male,M,1075,2275518,47.2
-,2003,2003,Lung and Bronchus,22030,Connecticut,9,Female,F,1289,1793468,71.9
-,2003,2003,Lung and Bronchus,22030,Connecticut,9,Male,M,1377,1690868,81.4
+,2003,2003,Lung and Bronchus,22030,Alabama,01,Female,F,1378,2324069,59.3
+,2003,2003,Lung and Bronchus,22030,Alabama,01,Male,M,2186,2179422,100.3
+,2003,2003,Lung and Bronchus,22030,Alaska,02,Female,F,126,313034,40.3
+,2003,2003,Lung and Bronchus,22030,Alaska,02,Male,M,173,335380,51.6
+,2003,2003,Lung and Bronchus,22030,Arizona,04,Female,F,1541,2764077,55.8
+,2003,2003,Lung and Bronchus,22030,Arizona,04,Male,M,1902,2746287,69.3
+,2003,2003,Lung and Bronchus,22030,Arkansas,05,Female,F,944,1391523,67.8
+,2003,2003,Lung and Bronchus,22030,Arkansas,05,Male,M,1528,1333293,114.6
+,2003,2003,Lung and Bronchus,22030,California,06,Female,F,8277,17709509,46.7
+,2003,2003,Lung and Bronchus,22030,California,06,Male,M,9115,17543650,52
+,2003,2003,Lung and Bronchus,22030,Colorado,08,Female,F,966,2253214,42.9
+,2003,2003,Lung and Bronchus,22030,Colorado,08,Male,M,1075,2275518,47.2
+,2003,2003,Lung and Bronchus,22030,Connecticut,09,Female,F,1289,1793468,71.9
+,2003,2003,Lung and Bronchus,22030,Connecticut,09,Male,M,1377,1690868,81.4
 ,2003,2003,Lung and Bronchus,22030,Delaware,10,Female,F,350,420802,83.2
 ,2003,2003,Lung and Bronchus,22030,Delaware,10,Male,M,388,397201,97.7
 ,2003,2003,Lung and Bronchus,22030,District of Columbia,11,Female,F,168,300607,55.9
@@ -497,20 +497,20 @@
 ,2003,2003,Lung and Bronchus,22030,Wisconsin,55,Male,M,2048,2712302,75.5
 ,2003,2003,Lung and Bronchus,22030,Wyoming,56,Female,F,135,249128,54.2
 ,2003,2003,Lung and Bronchus,22030,Wyoming,56,Male,M,161,254325,63.3
-,2004,2004,Lung and Bronchus,22030,Alabama,1,Female,F,1457,2337857,62.3
-,2004,2004,Lung and Bronchus,22030,Alabama,1,Male,M,2347,2192872,107
-,2004,2004,Lung and Bronchus,22030,Alaska,2,Female,F,141,317807,44.4
-,2004,2004,Lung and Bronchus,22030,Alaska,2,Male,M,187,341479,54.8
-,2004,2004,Lung and Bronchus,22030,Arizona,4,Female,F,1559,2835606,55
-,2004,2004,Lung and Bronchus,22030,Arizona,4,Male,M,1895,2816798,67.3
-,2004,2004,Lung and Bronchus,22030,Arkansas,5,Female,F,1056,1403048,75.3
-,2004,2004,Lung and Bronchus,22030,Arkansas,5,Male,M,1468,1346638,109
-,2004,2004,Lung and Bronchus,22030,California,6,Female,F,8392,17871415,47
-,2004,2004,Lung and Bronchus,22030,California,6,Male,M,9044,17703161,51.1
-,2004,2004,Lung and Bronchus,22030,Colorado,8,Female,F,998,2274511,43.9
-,2004,2004,Lung and Bronchus,22030,Colorado,8,Male,M,1003,2300502,43.6
-,2004,2004,Lung and Bronchus,22030,Connecticut,9,Female,F,1250,1798078,69.5
-,2004,2004,Lung and Bronchus,22030,Connecticut,9,Male,M,1330,1698016,78.3
+,2004,2004,Lung and Bronchus,22030,Alabama,01,Female,F,1457,2337857,62.3
+,2004,2004,Lung and Bronchus,22030,Alabama,01,Male,M,2347,2192872,107
+,2004,2004,Lung and Bronchus,22030,Alaska,02,Female,F,141,317807,44.4
+,2004,2004,Lung and Bronchus,22030,Alaska,02,Male,M,187,341479,54.8
+,2004,2004,Lung and Bronchus,22030,Arizona,04,Female,F,1559,2835606,55
+,2004,2004,Lung and Bronchus,22030,Arizona,04,Male,M,1895,2816798,67.3
+,2004,2004,Lung and Bronchus,22030,Arkansas,05,Female,F,1056,1403048,75.3
+,2004,2004,Lung and Bronchus,22030,Arkansas,05,Male,M,1468,1346638,109
+,2004,2004,Lung and Bronchus,22030,California,06,Female,F,8392,17871415,47
+,2004,2004,Lung and Bronchus,22030,California,06,Male,M,9044,17703161,51.1
+,2004,2004,Lung and Bronchus,22030,Colorado,08,Female,F,998,2274511,43.9
+,2004,2004,Lung and Bronchus,22030,Colorado,08,Male,M,1003,2300502,43.6
+,2004,2004,Lung and Bronchus,22030,Connecticut,09,Female,F,1250,1798078,69.5
+,2004,2004,Lung and Bronchus,22030,Connecticut,09,Male,M,1330,1698016,78.3
 ,2004,2004,Lung and Bronchus,22030,Delaware,10,Female,F,315,427320,73.7
 ,2004,2004,Lung and Bronchus,22030,Delaware,10,Male,M,417,403483,103.4
 ,2004,2004,Lung and Bronchus,22030,District of Columbia,11,Female,F,139,300284,46.3
@@ -599,20 +599,20 @@
 ,2004,2004,Lung and Bronchus,22030,Wisconsin,55,Male,M,2085,2731348,76.3
 ,2004,2004,Lung and Bronchus,22030,Wyoming,56,Female,F,119,251506,47.3
 ,2004,2004,Lung and Bronchus,22030,Wyoming,56,Male,M,157,257600,60.9
-,2005,2005,Lung and Bronchus,22030,Alabama,1,Female,F,1535,2354514,65.2
-,2005,2005,Lung and Bronchus,22030,Alabama,1,Male,M,2231,2211403,100.9
-,2005,2005,Lung and Bronchus,22030,Alaska,2,Female,F,166,320920,51.7
-,2005,2005,Lung and Bronchus,22030,Alaska,2,Male,M,171,346026,49.4
-,2005,2005,Lung and Bronchus,22030,Arizona,4,Female,F,1715,2930811,58.5
-,2005,2005,Lung and Bronchus,22030,Arizona,4,Male,M,1870,2908266,64.3
-,2005,2005,Lung and Bronchus,22030,Arkansas,5,Female,F,1044,1418295,73.6
-,2005,2005,Lung and Bronchus,22030,Arkansas,5,Male,M,1563,1362802,114.7
-,2005,2005,Lung and Bronchus,22030,California,6,Female,F,8404,17996230,46.7
-,2005,2005,Lung and Bronchus,22030,California,6,Male,M,9158,17831713,51.4
-,2005,2005,Lung and Bronchus,22030,Colorado,8,Female,F,1002,2308238,43.4
-,2005,2005,Lung and Bronchus,22030,Colorado,8,Male,M,993,2323650,42.7
-,2005,2005,Lung and Bronchus,22030,Connecticut,9,Female,F,1334,1802068,74
-,2005,2005,Lung and Bronchus,22030,Connecticut,9,Male,M,1287,1704888,75.5
+,2005,2005,Lung and Bronchus,22030,Alabama,01,Female,F,1535,2354514,65.2
+,2005,2005,Lung and Bronchus,22030,Alabama,01,Male,M,2231,2211403,100.9
+,2005,2005,Lung and Bronchus,22030,Alaska,02,Female,F,166,320920,51.7
+,2005,2005,Lung and Bronchus,22030,Alaska,02,Male,M,171,346026,49.4
+,2005,2005,Lung and Bronchus,22030,Arizona,04,Female,F,1715,2930811,58.5
+,2005,2005,Lung and Bronchus,22030,Arizona,04,Male,M,1870,2908266,64.3
+,2005,2005,Lung and Bronchus,22030,Arkansas,05,Female,F,1044,1418295,73.6
+,2005,2005,Lung and Bronchus,22030,Arkansas,05,Male,M,1563,1362802,114.7
+,2005,2005,Lung and Bronchus,22030,California,06,Female,F,8404,17996230,46.7
+,2005,2005,Lung and Bronchus,22030,California,06,Male,M,9158,17831713,51.4
+,2005,2005,Lung and Bronchus,22030,Colorado,08,Female,F,1002,2308238,43.4
+,2005,2005,Lung and Bronchus,22030,Colorado,08,Male,M,993,2323650,42.7
+,2005,2005,Lung and Bronchus,22030,Connecticut,09,Female,F,1334,1802068,74
+,2005,2005,Lung and Bronchus,22030,Connecticut,09,Male,M,1287,1704888,75.5
 ,2005,2005,Lung and Bronchus,22030,Delaware,10,Female,F,402,435227,92.4
 ,2005,2005,Lung and Bronchus,22030,Delaware,10,Male,M,381,409923,92.9
 ,2005,2005,Lung and Bronchus,22030,District of Columbia,11,Female,F,166,299613,55.4
@@ -701,20 +701,22 @@
 ,2005,2005,Lung and Bronchus,22030,Wisconsin,55,Male,M,1930,2749105,70.2
 ,2005,2005,Lung and Bronchus,22030,Wyoming,56,Female,F,144,253726,56.8
 ,2005,2005,Lung and Bronchus,22030,Wyoming,56,Male,M,147,260431,56.4
-,2006,2006,Lung and Bronchus,22030,Alabama,1,Female,F,1484,2385480,62.2
-,2006,2006,Lung and Bronchus,22030,Alabama,1,Male,M,2345,2243501,104.5
-,2006,2006,Lung and Bronchus,22030,Alaska,2,Female,F,152,325121,46.8
-,2006,2006,Lung and Bronchus,22030,Alaska,2,Male,M,198,350181,56.5
-,2006,2006,Lung and Bronchus,22030,Arizona,4,Female,F,1675,3026134,55.4
-,2006,2006,Lung and Bronchus,22030,Arizona,4,Male,M,1858,3003007,61.9
-,2006,2006,Lung and Bronchus,22030,Arkansas,5,Female,F,1026,1438428,71.3
-,2006,2006,Lung and Bronchus,22030,Arkansas,5,Male,M,1472,1383333,106.4
-,2006,2006,Lung and Bronchus,22030,California,6,Female,F,8475,18097471,46.8
-,2006,2006,Lung and Bronchus,22030,California,6,Male,M,9124,17923731,50.9
-,2006,2006,Lung and Bronchus,22030,Colorado,8,Female,F,991,2352960,42.1
-,2006,2006,Lung and Bronchus,22030,Colorado,8,Male,M,1041,2367463,44
-,2006,2006,Lung and Bronchus,22030,Connecticut,9,Female,F,1382,1807675,76.5
-,2006,2006,Lung and Bronchus,22030,Connecticut,9,Male,M,1333,1709785,78
+,2005,2005,Lung and Bronchus,22030,Puerto Rico,72,Female,F,239,1986644,12
+,2005,2005,Lung and Bronchus,22030,Puerto Rico,72,Male,M,458,1834718,25
+,2006,2006,Lung and Bronchus,22030,Alabama,01,Female,F,1484,2385480,62.2
+,2006,2006,Lung and Bronchus,22030,Alabama,01,Male,M,2345,2243501,104.5
+,2006,2006,Lung and Bronchus,22030,Alaska,02,Female,F,152,325121,46.8
+,2006,2006,Lung and Bronchus,22030,Alaska,02,Male,M,198,350181,56.5
+,2006,2006,Lung and Bronchus,22030,Arizona,04,Female,F,1675,3026134,55.4
+,2006,2006,Lung and Bronchus,22030,Arizona,04,Male,M,1858,3003007,61.9
+,2006,2006,Lung and Bronchus,22030,Arkansas,05,Female,F,1026,1438428,71.3
+,2006,2006,Lung and Bronchus,22030,Arkansas,05,Male,M,1472,1383333,106.4
+,2006,2006,Lung and Bronchus,22030,California,06,Female,F,8475,18097471,46.8
+,2006,2006,Lung and Bronchus,22030,California,06,Male,M,9124,17923731,50.9
+,2006,2006,Lung and Bronchus,22030,Colorado,08,Female,F,991,2352960,42.1
+,2006,2006,Lung and Bronchus,22030,Colorado,08,Male,M,1041,2367463,44
+,2006,2006,Lung and Bronchus,22030,Connecticut,09,Female,F,1382,1807675,76.5
+,2006,2006,Lung and Bronchus,22030,Connecticut,09,Male,M,1333,1709785,78
 ,2006,2006,Lung and Bronchus,22030,Delaware,10,Female,F,395,442766,89.2
 ,2006,2006,Lung and Bronchus,22030,Delaware,10,Male,M,419,416502,100.6
 ,2006,2006,Lung and Bronchus,22030,District of Columbia,11,Female,F,163,301322,54.1
@@ -803,20 +805,22 @@
 ,2006,2006,Lung and Bronchus,22030,Wisconsin,55,Male,M,2032,2765379,73.5
 ,2006,2006,Lung and Bronchus,22030,Wyoming,56,Female,F,133,257361,51.7
 ,2006,2006,Lung and Bronchus,22030,Wyoming,56,Male,M,139,265306,52.4
-,2007,2007,Lung and Bronchus,22030,Alabama,1,Female,F,1589,2407275,66
-,2007,2007,Lung and Bronchus,22030,Alabama,1,Male,M,2275,2265565,100.4
-,2007,2007,Lung and Bronchus,22030,Alaska,2,Female,F,131,327138,40
-,2007,2007,Lung and Bronchus,22030,Alaska,2,Male,M,199,353162,56.3
-,2007,2007,Lung and Bronchus,22030,Arizona,4,Female,F,1767,3096998,57.1
-,2007,2007,Lung and Bronchus,22030,Arizona,4,Male,M,1875,3070683,61.1
-,2007,2007,Lung and Bronchus,22030,Arkansas,5,Female,F,1076,1451358,74.1
-,2007,2007,Lung and Bronchus,22030,Arkansas,5,Male,M,1620,1397292,115.9
-,2007,2007,Lung and Bronchus,22030,California,6,Female,F,8358,18214926,45.9
-,2007,2007,Lung and Bronchus,22030,California,6,Male,M,9089,18035385,50.4
-,2007,2007,Lung and Bronchus,22030,Colorado,8,Female,F,1096,2396433,45.7
-,2007,2007,Lung and Bronchus,22030,Colorado,8,Male,M,1107,2407435,46
-,2007,2007,Lung and Bronchus,22030,Connecticut,9,Female,F,1362,1811617,75.2
-,2007,2007,Lung and Bronchus,22030,Connecticut,9,Male,M,1331,1715653,77.6
+,2006,2006,Lung and Bronchus,22030,Puerto Rico,72,Female,F,244,1979256,12.3
+,2006,2006,Lung and Bronchus,22030,Puerto Rico,72,Male,M,440,1825958,24.1
+,2007,2007,Lung and Bronchus,22030,Alabama,01,Female,F,1589,2407275,66
+,2007,2007,Lung and Bronchus,22030,Alabama,01,Male,M,2275,2265565,100.4
+,2007,2007,Lung and Bronchus,22030,Alaska,02,Female,F,131,327138,40
+,2007,2007,Lung and Bronchus,22030,Alaska,02,Male,M,199,353162,56.3
+,2007,2007,Lung and Bronchus,22030,Arizona,04,Female,F,1767,3096998,57.1
+,2007,2007,Lung and Bronchus,22030,Arizona,04,Male,M,1875,3070683,61.1
+,2007,2007,Lung and Bronchus,22030,Arkansas,05,Female,F,1076,1451358,74.1
+,2007,2007,Lung and Bronchus,22030,Arkansas,05,Male,M,1620,1397292,115.9
+,2007,2007,Lung and Bronchus,22030,California,06,Female,F,8358,18214926,45.9
+,2007,2007,Lung and Bronchus,22030,California,06,Male,M,9089,18035385,50.4
+,2007,2007,Lung and Bronchus,22030,Colorado,08,Female,F,1096,2396433,45.7
+,2007,2007,Lung and Bronchus,22030,Colorado,08,Male,M,1107,2407435,46
+,2007,2007,Lung and Bronchus,22030,Connecticut,09,Female,F,1362,1811617,75.2
+,2007,2007,Lung and Bronchus,22030,Connecticut,09,Male,M,1331,1715653,77.6
 ,2007,2007,Lung and Bronchus,22030,Delaware,10,Female,F,349,449398,77.7
 ,2007,2007,Lung and Bronchus,22030,Delaware,10,Male,M,397,422351,94
 ,2007,2007,Lung and Bronchus,22030,District of Columbia,11,Female,F,145,302949,47.9
@@ -905,20 +909,22 @@
 ,2007,2007,Lung and Bronchus,22030,Wisconsin,55,Male,M,2049,2782993,73.6
 ,2007,2007,Lung and Bronchus,22030,Wyoming,56,Female,F,137,262776,52.1
 ,2007,2007,Lung and Bronchus,22030,Wyoming,56,Male,M,135,272100,49.6
-,2008,2008,Lung and Bronchus,22030,Alabama,1,Female,F,1642,2430257,67.6
-,2008,2008,Lung and Bronchus,22030,Alabama,1,Male,M,2487,2287949,108.7
-,2008,2008,Lung and Bronchus,22030,Alaska,2,Female,F,164,329412,49.8
-,2008,2008,Lung and Bronchus,22030,Alaska,2,Male,M,184,358043,51.4
-,2008,2008,Lung and Bronchus,22030,Arizona,4,Female,F,1723,3155278,54.6
-,2008,2008,Lung and Bronchus,22030,Arizona,4,Male,M,1926,3125084,61.6
-,2008,2008,Lung and Bronchus,22030,Arkansas,5,Female,F,1101,1464220,75.2
-,2008,2008,Lung and Bronchus,22030,Arkansas,5,Male,M,1516,1410334,107.5
-,2008,2008,Lung and Bronchus,22030,California,6,Female,F,8275,18396972,45
-,2008,2008,Lung and Bronchus,22030,California,6,Male,M,9051,18207365,49.7
-,2008,2008,Lung and Bronchus,22030,Colorado,8,Female,F,1117,2439060,45.8
-,2008,2008,Lung and Bronchus,22030,Colorado,8,Male,M,1167,2450670,47.6
-,2008,2008,Lung and Bronchus,22030,Connecticut,9,Female,F,1342,1820749,73.7
-,2008,2008,Lung and Bronchus,22030,Connecticut,9,Male,M,1371,1724830,79.5
+,2007,2007,Lung and Bronchus,22030,Puerto Rico,72,Female,F,264,1968707,13.4
+,2007,2007,Lung and Bronchus,22030,Puerto Rico,72,Male,M,405,1814288,22.3
+,2008,2008,Lung and Bronchus,22030,Alabama,01,Female,F,1642,2430257,67.6
+,2008,2008,Lung and Bronchus,22030,Alabama,01,Male,M,2487,2287949,108.7
+,2008,2008,Lung and Bronchus,22030,Alaska,02,Female,F,164,329412,49.8
+,2008,2008,Lung and Bronchus,22030,Alaska,02,Male,M,184,358043,51.4
+,2008,2008,Lung and Bronchus,22030,Arizona,04,Female,F,1723,3155278,54.6
+,2008,2008,Lung and Bronchus,22030,Arizona,04,Male,M,1926,3125084,61.6
+,2008,2008,Lung and Bronchus,22030,Arkansas,05,Female,F,1101,1464220,75.2
+,2008,2008,Lung and Bronchus,22030,Arkansas,05,Male,M,1516,1410334,107.5
+,2008,2008,Lung and Bronchus,22030,California,06,Female,F,8275,18396972,45
+,2008,2008,Lung and Bronchus,22030,California,06,Male,M,9051,18207365,49.7
+,2008,2008,Lung and Bronchus,22030,Colorado,08,Female,F,1117,2439060,45.8
+,2008,2008,Lung and Bronchus,22030,Colorado,08,Male,M,1167,2450670,47.6
+,2008,2008,Lung and Bronchus,22030,Connecticut,09,Female,F,1342,1820749,73.7
+,2008,2008,Lung and Bronchus,22030,Connecticut,09,Male,M,1371,1724830,79.5
 ,2008,2008,Lung and Bronchus,22030,Delaware,10,Female,F,379,455481,83.2
 ,2008,2008,Lung and Bronchus,22030,Delaware,10,Male,M,393,428393,91.7
 ,2008,2008,Lung and Bronchus,22030,District of Columbia,11,Female,F,150,306265,49
@@ -1007,20 +1013,22 @@
 ,2008,2008,Lung and Bronchus,22030,Wisconsin,55,Male,M,2116,2798728,75.6
 ,2008,2008,Lung and Bronchus,22030,Wyoming,56,Female,F,140,267982,52.2
 ,2008,2008,Lung and Bronchus,22030,Wyoming,56,Male,M,161,278061,57.9
-,2009,2009,Lung and Bronchus,22030,Alabama,1,Female,F,1633,2448159,66.7
-,2009,2009,Lung and Bronchus,22030,Alabama,1,Male,M,2409,2309779,104.3
-,2009,2009,Lung and Bronchus,22030,Alaska,2,Female,F,157,337002,46.6
-,2009,2009,Lung and Bronchus,22030,Alaska,2,Male,M,213,361893,58.9
-,2009,2009,Lung and Bronchus,22030,Arizona,4,Female,F,1862,3189908,58.4
-,2009,2009,Lung and Bronchus,22030,Arizona,4,Male,M,2030,3153246,64.4
-,2009,2009,Lung and Bronchus,22030,Arkansas,5,Female,F,1062,1475013,72
-,2009,2009,Lung and Bronchus,22030,Arkansas,5,Male,M,1358,1421830,95.5
-,2009,2009,Lung and Bronchus,22030,California,6,Female,F,8792,18583075,47.3
-,2009,2009,Lung and Bronchus,22030,California,6,Male,M,9262,18378154,50.4
-,2009,2009,Lung and Bronchus,22030,Colorado,8,Female,F,1118,2480710,45.1
-,2009,2009,Lung and Bronchus,22030,Colorado,8,Male,M,1133,2491485,45.5
-,2009,2009,Lung and Bronchus,22030,Connecticut,9,Female,F,1385,1828779,75.7
-,2009,2009,Lung and Bronchus,22030,Connecticut,9,Male,M,1284,1733028,74.1
+,2008,2008,Lung and Bronchus,22030,Puerto Rico,72,Female,F,229,1957525,11.7
+,2008,2008,Lung and Bronchus,22030,Puerto Rico,72,Male,M,475,1803341,26.3
+,2009,2009,Lung and Bronchus,22030,Alabama,01,Female,F,1633,2448159,66.7
+,2009,2009,Lung and Bronchus,22030,Alabama,01,Male,M,2409,2309779,104.3
+,2009,2009,Lung and Bronchus,22030,Alaska,02,Female,F,157,337002,46.6
+,2009,2009,Lung and Bronchus,22030,Alaska,02,Male,M,213,361893,58.9
+,2009,2009,Lung and Bronchus,22030,Arizona,04,Female,F,1862,3189908,58.4
+,2009,2009,Lung and Bronchus,22030,Arizona,04,Male,M,2030,3153246,64.4
+,2009,2009,Lung and Bronchus,22030,Arkansas,05,Female,F,1062,1475013,72
+,2009,2009,Lung and Bronchus,22030,Arkansas,05,Male,M,1358,1421830,95.5
+,2009,2009,Lung and Bronchus,22030,California,06,Female,F,8792,18583075,47.3
+,2009,2009,Lung and Bronchus,22030,California,06,Male,M,9262,18378154,50.4
+,2009,2009,Lung and Bronchus,22030,Colorado,08,Female,F,1118,2480710,45.1
+,2009,2009,Lung and Bronchus,22030,Colorado,08,Male,M,1133,2491485,45.5
+,2009,2009,Lung and Bronchus,22030,Connecticut,09,Female,F,1385,1828779,75.7
+,2009,2009,Lung and Bronchus,22030,Connecticut,09,Male,M,1284,1733028,74.1
 ,2009,2009,Lung and Bronchus,22030,Delaware,10,Female,F,349,459795,75.9
 ,2009,2009,Lung and Bronchus,22030,Delaware,10,Male,M,397,431935,91.9
 ,2009,2009,Lung and Bronchus,22030,District of Columbia,11,Female,F,168,311828,53.9
@@ -1109,20 +1117,22 @@
 ,2009,2009,Lung and Bronchus,22030,Wisconsin,55,Male,M,2027,2813161,72.1
 ,2009,2009,Lung and Bronchus,22030,Wyoming,56,Female,F,129,274046,47.1
 ,2009,2009,Lung and Bronchus,22030,Wyoming,56,Male,M,177,285805,61.9
-,2010,2010,Lung and Bronchus,22030,Alabama,1,Female,F,1614,2463321,65.5
-,2010,2010,Lung and Bronchus,22030,Alabama,1,Male,M,2419,2324760,104.1
-,2010,2010,Lung and Bronchus,22030,Alaska,2,Female,F,171,342289,50
-,2010,2010,Lung and Bronchus,22030,Alaska,2,Male,M,195,371737,52.5
-,2010,2010,Lung and Bronchus,22030,Arizona,4,Female,F,1769,3220061,54.9
-,2010,2010,Lung and Bronchus,22030,Arizona,4,Male,M,1928,3182111,60.6
-,2010,2010,Lung and Bronchus,22030,Arkansas,5,Female,F,1096,1486792,73.7
-,2010,2010,Lung and Bronchus,22030,Arkansas,5,Male,M,1370,1434816,95.5
-,2010,2010,Lung and Bronchus,22030,California,6,Female,F,8402,18771019,44.8
-,2010,2010,Lung and Bronchus,22030,California,6,Male,M,8916,18551841,48.1
-,2010,2010,Lung and Bronchus,22030,Colorado,8,Female,F,1108,2517257,44
-,2010,2010,Lung and Bronchus,22030,Colorado,8,Male,M,1093,2529888,43.2
-,2010,2010,Lung and Bronchus,22030,Connecticut,9,Female,F,1343,1837204,73.1
-,2010,2010,Lung and Bronchus,22030,Connecticut,9,Male,M,1316,1743193,75.5
+,2009,2009,Lung and Bronchus,22030,Puerto Rico,72,Female,F,263,1947361,13.5
+,2009,2009,Lung and Bronchus,22030,Puerto Rico,72,Male,M,497,1793049,27.7
+,2010,2010,Lung and Bronchus,22030,Alabama,01,Female,F,1614,2463321,65.5
+,2010,2010,Lung and Bronchus,22030,Alabama,01,Male,M,2419,2324760,104.1
+,2010,2010,Lung and Bronchus,22030,Alaska,02,Female,F,171,342289,50
+,2010,2010,Lung and Bronchus,22030,Alaska,02,Male,M,195,371737,52.5
+,2010,2010,Lung and Bronchus,22030,Arizona,04,Female,F,1769,3220061,54.9
+,2010,2010,Lung and Bronchus,22030,Arizona,04,Male,M,1928,3182111,60.6
+,2010,2010,Lung and Bronchus,22030,Arkansas,05,Female,F,1096,1486792,73.7
+,2010,2010,Lung and Bronchus,22030,Arkansas,05,Male,M,1370,1434816,95.5
+,2010,2010,Lung and Bronchus,22030,California,06,Female,F,8402,18771019,44.8
+,2010,2010,Lung and Bronchus,22030,California,06,Male,M,8916,18551841,48.1
+,2010,2010,Lung and Bronchus,22030,Colorado,08,Female,F,1108,2517257,44
+,2010,2010,Lung and Bronchus,22030,Colorado,08,Male,M,1093,2529888,43.2
+,2010,2010,Lung and Bronchus,22030,Connecticut,09,Female,F,1343,1837204,73.1
+,2010,2010,Lung and Bronchus,22030,Connecticut,09,Male,M,1316,1743193,75.5
 ,2010,2010,Lung and Bronchus,22030,Delaware,10,Female,F,366,463976,78.9
 ,2010,2010,Lung and Bronchus,22030,Delaware,10,Male,M,372,435806,85.4
 ,2010,2010,Lung and Bronchus,22030,District of Columbia,11,Female,F,163,319019,51.1
@@ -1211,20 +1221,22 @@
 ,2010,2010,Lung and Bronchus,22030,Wisconsin,55,Male,M,2182,2825524,77.2
 ,2010,2010,Lung and Bronchus,22030,Wyoming,56,Female,F,145,276623,52.4
 ,2010,2010,Lung and Bronchus,22030,Wyoming,56,Male,M,159,287806,55.2
-,2011,2011,Lung and Bronchus,22030,Alabama,1,Female,F,1728,2475112,69.8
-,2011,2011,Lung and Bronchus,22030,Alabama,1,Male,M,2289,2337199,97.9
-,2011,2011,Lung and Bronchus,22030,Alaska,2,Female,F,160,346090,46.2
-,2011,2011,Lung and Bronchus,22030,Alaska,2,Male,M,195,376520,51.8
-,2011,2011,Lung and Bronchus,22030,Arizona,4,Female,F,1880,3238879,58
-,2011,2011,Lung and Bronchus,22030,Arizona,4,Male,M,1988,3208408,62
-,2011,2011,Lung and Bronchus,22030,Arkansas,5,Female,F,1097,1494102,73.4
-,2011,2011,Lung and Bronchus,22030,Arkansas,5,Male,M,1414,1444834,97.9
-,2011,2011,Lung and Bronchus,22030,California,6,Female,F,8192,18930689,43.3
-,2011,2011,Lung and Bronchus,22030,California,6,Male,M,8535,18722648,45.6
-,2011,2011,Lung and Bronchus,22030,Colorado,8,Female,F,1115,2551425,43.7
-,2011,2011,Lung and Bronchus,22030,Colorado,8,Male,M,1108,2568280,43.1
-,2011,2011,Lung and Bronchus,22030,Connecticut,9,Female,F,1296,1842651,70.3
-,2011,2011,Lung and Bronchus,22030,Connecticut,9,Male,M,1356,1751874,77.4
+,2010,2010,Lung and Bronchus,22030,Puerto Rico,72,Female,F,266,1938743,13.7
+,2010,2010,Lung and Bronchus,22030,Puerto Rico,72,Male,M,451,1782782,25.3
+,2011,2011,Lung and Bronchus,22030,Alabama,01,Female,F,1728,2475112,69.8
+,2011,2011,Lung and Bronchus,22030,Alabama,01,Male,M,2289,2337199,97.9
+,2011,2011,Lung and Bronchus,22030,Alaska,02,Female,F,160,346090,46.2
+,2011,2011,Lung and Bronchus,22030,Alaska,02,Male,M,195,376520,51.8
+,2011,2011,Lung and Bronchus,22030,Arizona,04,Female,F,1880,3238879,58
+,2011,2011,Lung and Bronchus,22030,Arizona,04,Male,M,1988,3208408,62
+,2011,2011,Lung and Bronchus,22030,Arkansas,05,Female,F,1097,1494102,73.4
+,2011,2011,Lung and Bronchus,22030,Arkansas,05,Male,M,1414,1444834,97.9
+,2011,2011,Lung and Bronchus,22030,California,06,Female,F,8192,18930689,43.3
+,2011,2011,Lung and Bronchus,22030,California,06,Male,M,8535,18722648,45.6
+,2011,2011,Lung and Bronchus,22030,Colorado,08,Female,F,1115,2551425,43.7
+,2011,2011,Lung and Bronchus,22030,Colorado,08,Male,M,1108,2568280,43.1
+,2011,2011,Lung and Bronchus,22030,Connecticut,09,Female,F,1296,1842651,70.3
+,2011,2011,Lung and Bronchus,22030,Connecticut,09,Male,M,1356,1751874,77.4
 ,2011,2011,Lung and Bronchus,22030,Delaware,10,Female,F,369,468251,78.8
 ,2011,2011,Lung and Bronchus,22030,Delaware,10,Male,M,450,440058,102.3
 ,2011,2011,Lung and Bronchus,22030,District of Columbia,11,Female,F,156,324975,48
@@ -1313,20 +1325,22 @@
 ,2011,2011,Lung and Bronchus,22030,Wisconsin,55,Male,M,2118,2838861,74.6
 ,2011,2011,Lung and Bronchus,22030,Wyoming,56,Female,F,137,277595,49.4
 ,2011,2011,Lung and Bronchus,22030,Wyoming,56,Male,M,148,289303,51.2
-,2012,2012,Lung and Bronchus,22030,Alabama,1,Female,F,1648,2487610,66.2
-,2012,2012,Lung and Bronchus,22030,Alabama,1,Male,M,2380,2351853,101.2
-,2012,2012,Lung and Bronchus,22030,Alaska,2,Female,F,176,349169,50.4
-,2012,2012,Lung and Bronchus,22030,Alaska,2,Male,M,180,382124,47.1
-,2012,2012,Lung and Bronchus,22030,Arizona,4,Female,F,1888,3266750,57.8
-,2012,2012,Lung and Bronchus,22030,Arizona,4,Male,M,1957,3241834,60.4
-,2012,2012,Lung and Bronchus,22030,Arkansas,5,Female,F,1135,1497794,75.8
-,2012,2012,Lung and Bronchus,22030,Arkansas,5,Male,M,1355,1451214,93.4
-,2012,2012,Lung and Bronchus,22030,California,6,Female,F,8324,19077032,43.6
-,2012,2012,Lung and Bronchus,22030,California,6,Male,M,8623,18897402,45.6
-,2012,2012,Lung and Bronchus,22030,Colorado,8,Female,F,1201,2583360,46.5
-,2012,2012,Lung and Bronchus,22030,Colorado,8,Male,M,1132,2606132,43.4
-,2012,2012,Lung and Bronchus,22030,Connecticut,9,Female,F,1382,1846774,74.8
-,2012,2012,Lung and Bronchus,22030,Connecticut,9,Male,M,1289,1758955,73.3
+,2011,2011,Lung and Bronchus,22030,Puerto Rico,72,Female,F,291,1915291,15.2
+,2011,2011,Lung and Bronchus,22030,Puerto Rico,72,Male,M,475,1763441,26.9
+,2012,2012,Lung and Bronchus,22030,Alabama,01,Female,F,1648,2487610,66.2
+,2012,2012,Lung and Bronchus,22030,Alabama,01,Male,M,2380,2351853,101.2
+,2012,2012,Lung and Bronchus,22030,Alaska,02,Female,F,176,349169,50.4
+,2012,2012,Lung and Bronchus,22030,Alaska,02,Male,M,180,382124,47.1
+,2012,2012,Lung and Bronchus,22030,Arizona,04,Female,F,1888,3266750,57.8
+,2012,2012,Lung and Bronchus,22030,Arizona,04,Male,M,1957,3241834,60.4
+,2012,2012,Lung and Bronchus,22030,Arkansas,05,Female,F,1135,1497794,75.8
+,2012,2012,Lung and Bronchus,22030,Arkansas,05,Male,M,1355,1451214,93.4
+,2012,2012,Lung and Bronchus,22030,California,06,Female,F,8324,19077032,43.6
+,2012,2012,Lung and Bronchus,22030,California,06,Male,M,8623,18897402,45.6
+,2012,2012,Lung and Bronchus,22030,Colorado,08,Female,F,1201,2583360,46.5
+,2012,2012,Lung and Bronchus,22030,Colorado,08,Male,M,1132,2606132,43.4
+,2012,2012,Lung and Bronchus,22030,Connecticut,09,Female,F,1382,1846774,74.8
+,2012,2012,Lung and Bronchus,22030,Connecticut,09,Male,M,1289,1758955,73.3
 ,2012,2012,Lung and Bronchus,22030,Delaware,10,Female,F,380,472129,80.5
 ,2012,2012,Lung and Bronchus,22030,Delaware,10,Male,M,390,444694,87.7
 ,2012,2012,Lung and Bronchus,22030,District of Columbia,11,Female,F,183,331676,55.2
@@ -1415,20 +1429,22 @@
 ,2012,2012,Lung and Bronchus,22030,Wisconsin,55,Male,M,2095,2852344,73.4
 ,2012,2012,Lung and Bronchus,22030,Wyoming,56,Female,F,159,281187,56.5
 ,2012,2012,Lung and Bronchus,22030,Wyoming,56,Male,M,150,294353,51
-,2013,2013,Lung and Bronchus,22030,Alabama,1,Female,F,1659,2498831,66.4
-,2013,2013,Lung and Bronchus,22030,Alabama,1,Male,M,2279,2365767,96.3
-,2013,2013,Lung and Bronchus,22030,Alaska,2,Female,F,136,350800,38.8
-,2013,2013,Lung and Bronchus,22030,Alaska,2,Male,M,199,387488,51.4
-,2013,2013,Lung and Bronchus,22030,Arizona,4,Female,F,1902,3293421,57.8
-,2013,2013,Lung and Bronchus,22030,Arizona,4,Male,M,2122,3271389,64.9
-,2013,2013,Lung and Bronchus,22030,Arkansas,5,Female,F,1212,1499855,80.8
-,2013,2013,Lung and Bronchus,22030,Arkansas,5,Male,M,1470,1454936,101
-,2013,2013,Lung and Bronchus,22030,California,6,Female,F,8389,19227118,43.6
-,2013,2013,Lung and Bronchus,22030,California,6,Male,M,8479,19068920,44.5
-,2013,2013,Lung and Bronchus,22030,Colorado,8,Female,F,1190,2617360,45.5
-,2013,2013,Lung and Bronchus,22030,Colorado,8,Male,M,1091,2647050,41.2
-,2013,2013,Lung and Bronchus,22030,Connecticut,9,Female,F,1422,1847613,77
-,2013,2013,Lung and Bronchus,22030,Connecticut,9,Male,M,1342,1763195,76.1
+,2012,2012,Lung and Bronchus,22030,Puerto Rico,72,Female,F,317,1895416,16.7
+,2012,2012,Lung and Bronchus,22030,Puerto Rico,72,Male,M,490,1739072,28.2
+,2013,2013,Lung and Bronchus,22030,Alabama,01,Female,F,1659,2498831,66.4
+,2013,2013,Lung and Bronchus,22030,Alabama,01,Male,M,2279,2365767,96.3
+,2013,2013,Lung and Bronchus,22030,Alaska,02,Female,F,136,350800,38.8
+,2013,2013,Lung and Bronchus,22030,Alaska,02,Male,M,199,387488,51.4
+,2013,2013,Lung and Bronchus,22030,Arizona,04,Female,F,1902,3293421,57.8
+,2013,2013,Lung and Bronchus,22030,Arizona,04,Male,M,2122,3271389,64.9
+,2013,2013,Lung and Bronchus,22030,Arkansas,05,Female,F,1212,1499855,80.8
+,2013,2013,Lung and Bronchus,22030,Arkansas,05,Male,M,1470,1454936,101
+,2013,2013,Lung and Bronchus,22030,California,06,Female,F,8389,19227118,43.6
+,2013,2013,Lung and Bronchus,22030,California,06,Male,M,8479,19068920,44.5
+,2013,2013,Lung and Bronchus,22030,Colorado,08,Female,F,1190,2617360,45.5
+,2013,2013,Lung and Bronchus,22030,Colorado,08,Male,M,1091,2647050,41.2
+,2013,2013,Lung and Bronchus,22030,Connecticut,09,Female,F,1422,1847613,77
+,2013,2013,Lung and Bronchus,22030,Connecticut,09,Male,M,1342,1763195,76.1
 ,2013,2013,Lung and Bronchus,22030,Delaware,10,Female,F,404,476794,84.7
 ,2013,2013,Lung and Bronchus,22030,Delaware,10,Male,M,423,449119,94.2
 ,2013,2013,Lung and Bronchus,22030,District of Columbia,11,Female,F,173,337928,51.2
@@ -1517,20 +1533,22 @@
 ,2013,2013,Lung and Bronchus,22030,Wisconsin,55,Male,M,2175,2866612,75.9
 ,2013,2013,Lung and Bronchus,22030,Wyoming,56,Female,F,126,283658,44.4
 ,2013,2013,Lung and Bronchus,22030,Wyoming,56,Male,M,135,297325,45.4
-,2014,2014,Lung and Bronchus,22030,Alabama,1,Female,F,1633,2509291,65.1
-,2014,2014,Lung and Bronchus,22030,Alabama,1,Male,M,2330,2377579,98
-,2014,2014,Lung and Bronchus,22030,Alaska,2,Female,F,152,349894,43.4
-,2014,2014,Lung and Bronchus,22030,Alaska,2,Male,M,208,387965,53.6
-,2014,2014,Lung and Bronchus,22030,Arizona,4,Female,F,1921,3327508,57.7
-,2014,2014,Lung and Bronchus,22030,Arizona,4,Male,M,2042,3312366,61.6
-,2014,2014,Lung and Bronchus,22030,Arkansas,5,Female,F,1284,1501997,85.5
-,2014,2014,Lung and Bronchus,22030,Arkansas,5,Male,M,1442,1459250,98.8
-,2014,2014,Lung and Bronchus,22030,California,6,Female,F,8598,19381496,44.4
-,2014,2014,Lung and Bronchus,22030,California,6,Male,M,8561,19258992,44.5
-,2014,2014,Lung and Bronchus,22030,Colorado,8,Female,F,1171,2651999,44.2
-,2014,2014,Lung and Bronchus,22030,Colorado,8,Male,M,1183,2691819,43.9
-,2014,2014,Lung and Bronchus,22030,Connecticut,9,Female,F,1381,1847943,74.7
-,2014,2014,Lung and Bronchus,22030,Connecticut,9,Male,M,1309,1767185,74.1
+,2013,2013,Lung and Bronchus,22030,Puerto Rico,72,Female,F,336,1872797,17.9
+,2013,2013,Lung and Bronchus,22030,Puerto Rico,72,Male,M,525,1720280,30.5
+,2014,2014,Lung and Bronchus,22030,Alabama,01,Female,F,1633,2509291,65.1
+,2014,2014,Lung and Bronchus,22030,Alabama,01,Male,M,2330,2377579,98
+,2014,2014,Lung and Bronchus,22030,Alaska,02,Female,F,152,349894,43.4
+,2014,2014,Lung and Bronchus,22030,Alaska,02,Male,M,208,387965,53.6
+,2014,2014,Lung and Bronchus,22030,Arizona,04,Female,F,1921,3327508,57.7
+,2014,2014,Lung and Bronchus,22030,Arizona,04,Male,M,2042,3312366,61.6
+,2014,2014,Lung and Bronchus,22030,Arkansas,05,Female,F,1284,1501997,85.5
+,2014,2014,Lung and Bronchus,22030,Arkansas,05,Male,M,1442,1459250,98.8
+,2014,2014,Lung and Bronchus,22030,California,06,Female,F,8598,19381496,44.4
+,2014,2014,Lung and Bronchus,22030,California,06,Male,M,8561,19258992,44.5
+,2014,2014,Lung and Bronchus,22030,Colorado,08,Female,F,1171,2651999,44.2
+,2014,2014,Lung and Bronchus,22030,Colorado,08,Male,M,1183,2691819,43.9
+,2014,2014,Lung and Bronchus,22030,Connecticut,09,Female,F,1381,1847943,74.7
+,2014,2014,Lung and Bronchus,22030,Connecticut,09,Male,M,1309,1767185,74.1
 ,2014,2014,Lung and Bronchus,22030,Delaware,10,Female,F,416,481382,86.4
 ,2014,2014,Lung and Bronchus,22030,Delaware,10,Male,M,400,454094,88.1
 ,2014,2014,Lung and Bronchus,22030,District of Columbia,11,Female,F,165,342405,48.2
@@ -1619,20 +1637,22 @@
 ,2014,2014,Lung and Bronchus,22030,Wisconsin,55,Male,M,2150,2880268,74.6
 ,2014,2014,Lung and Bronchus,22030,Wyoming,56,Female,F,158,283505,55.7
 ,2014,2014,Lung and Bronchus,22030,Wyoming,56,Male,M,145,297478,48.7
-,2015,2015,Lung and Bronchus,22030,Alabama,1,Female,F,1674,2518825,66.5
-,2015,2015,Lung and Bronchus,22030,Alabama,1,Male,M,2267,2389348,94.9
-,2015,2015,Lung and Bronchus,22030,Alaska,2,Female,F,163,350220,46.5
-,2015,2015,Lung and Bronchus,22030,Alaska,2,Male,M,222,389085,57.1
-,2015,2015,Lung and Bronchus,22030,Arizona,4,Female,F,2013,3362624,59.9
-,2015,2015,Lung and Bronchus,22030,Arizona,4,Male,M,2074,3353450,61.8
-,2015,2015,Lung and Bronchus,22030,Arkansas,5,Female,F,1273,1504935,84.6
-,2015,2015,Lung and Bronchus,22030,Arkansas,5,Male,M,1483,1465464,101.2
-,2015,2015,Lung and Bronchus,22030,California,6,Female,F,8617,19524913,44.1
-,2015,2015,Lung and Bronchus,22030,California,6,Male,M,8719,19444856,44.8
-,2015,2015,Lung and Bronchus,22030,Colorado,8,Female,F,1187,2695909,44
-,2015,2015,Lung and Bronchus,22030,Colorado,8,Male,M,1174,2747063,42.7
-,2015,2015,Lung and Bronchus,22030,Connecticut,9,Female,F,1377,1845155,74.6
-,2015,2015,Lung and Bronchus,22030,Connecticut,9,Male,M,1272,1767209,72
+,2014,2014,Lung and Bronchus,22030,Puerto Rico,72,Female,F,307,1845988,16.6
+,2014,2014,Lung and Bronchus,22030,Puerto Rico,72,Male,M,512,1688886,30.3
+,2015,2015,Lung and Bronchus,22030,Alabama,01,Female,F,1674,2518825,66.5
+,2015,2015,Lung and Bronchus,22030,Alabama,01,Male,M,2267,2389348,94.9
+,2015,2015,Lung and Bronchus,22030,Alaska,02,Female,F,163,350220,46.5
+,2015,2015,Lung and Bronchus,22030,Alaska,02,Male,M,222,389085,57.1
+,2015,2015,Lung and Bronchus,22030,Arizona,04,Female,F,2013,3362624,59.9
+,2015,2015,Lung and Bronchus,22030,Arizona,04,Male,M,2074,3353450,61.8
+,2015,2015,Lung and Bronchus,22030,Arkansas,05,Female,F,1273,1504935,84.6
+,2015,2015,Lung and Bronchus,22030,Arkansas,05,Male,M,1483,1465464,101.2
+,2015,2015,Lung and Bronchus,22030,California,06,Female,F,8617,19524913,44.1
+,2015,2015,Lung and Bronchus,22030,California,06,Male,M,8719,19444856,44.8
+,2015,2015,Lung and Bronchus,22030,Colorado,08,Female,F,1187,2695909,44
+,2015,2015,Lung and Bronchus,22030,Colorado,08,Male,M,1174,2747063,42.7
+,2015,2015,Lung and Bronchus,22030,Connecticut,09,Female,F,1377,1845155,74.6
+,2015,2015,Lung and Bronchus,22030,Connecticut,09,Male,M,1272,1767209,72
 ,2015,2015,Lung and Bronchus,22030,Delaware,10,Female,F,413,485933,85
 ,2015,2015,Lung and Bronchus,22030,Delaware,10,Male,M,477,458995,103.9
 ,2015,2015,Lung and Bronchus,22030,District of Columbia,11,Female,F,174,348303,50
@@ -1721,20 +1741,22 @@
 ,2015,2015,Lung and Bronchus,22030,Wisconsin,55,Male,M,2278,2891837,78.8
 ,2015,2015,Lung and Bronchus,22030,Wyoming,56,Female,F,144,284365,50.6
 ,2015,2015,Lung and Bronchus,22030,Wyoming,56,Male,M,140,299354,46.8
-,2016,2016,Lung and Bronchus,22030,Alabama,1,Female,F,1712,2529744,67.7
-,2016,2016,Lung and Bronchus,22030,Alabama,1,Male,M,2316,2400746,96.5
-,2016,2016,Lung and Bronchus,22030,Alaska,2,Female,F,170,352134,48.3
-,2016,2016,Lung and Bronchus,22030,Alaska,2,Male,M,207,391396,52.9
-,2016,2016,Lung and Bronchus,22030,Arizona,4,Female,F,1929,3404276,56.7
-,2016,2016,Lung and Bronchus,22030,Arizona,4,Male,M,2047,3398843,60.2
-,2016,2016,Lung and Bronchus,22030,Arkansas,5,Female,F,1275,1508822,84.5
-,2016,2016,Lung and Bronchus,22030,Arkansas,5,Male,M,1497,1471748,101.7
-,2016,2016,Lung and Bronchus,22030,California,6,Female,F,8555,19633747,43.6
-,2016,2016,Lung and Bronchus,22030,California,6,Male,M,8626,19591636,44
-,2016,2016,Lung and Bronchus,22030,Colorado,8,Female,F,1240,2734236,45.4
-,2016,2016,Lung and Bronchus,22030,Colorado,8,Male,M,1144,2795496,40.9
-,2016,2016,Lung and Bronchus,22030,Connecticut,9,Female,F,1453,1842071,78.9
-,2016,2016,Lung and Bronchus,22030,Connecticut,9,Male,M,1341,1765849,75.9
+,2015,2015,Lung and Bronchus,22030,Puerto Rico,72,Female,F,316,1816871,17.4
+,2015,2015,Lung and Bronchus,22030,Puerto Rico,72,Male,M,483,1656361,29.2
+,2016,2016,Lung and Bronchus,22030,Alabama,01,Female,F,1712,2529744,67.7
+,2016,2016,Lung and Bronchus,22030,Alabama,01,Male,M,2316,2400746,96.5
+,2016,2016,Lung and Bronchus,22030,Alaska,02,Female,F,170,352134,48.3
+,2016,2016,Lung and Bronchus,22030,Alaska,02,Male,M,207,391396,52.9
+,2016,2016,Lung and Bronchus,22030,Arizona,04,Female,F,1929,3404276,56.7
+,2016,2016,Lung and Bronchus,22030,Arizona,04,Male,M,2047,3398843,60.2
+,2016,2016,Lung and Bronchus,22030,Arkansas,05,Female,F,1275,1508822,84.5
+,2016,2016,Lung and Bronchus,22030,Arkansas,05,Male,M,1497,1471748,101.7
+,2016,2016,Lung and Bronchus,22030,California,06,Female,F,8555,19633747,43.6
+,2016,2016,Lung and Bronchus,22030,California,06,Male,M,8626,19591636,44
+,2016,2016,Lung and Bronchus,22030,Colorado,08,Female,F,1240,2734236,45.4
+,2016,2016,Lung and Bronchus,22030,Colorado,08,Male,M,1144,2795496,40.9
+,2016,2016,Lung and Bronchus,22030,Connecticut,09,Female,F,1453,1842071,78.9
+,2016,2016,Lung and Bronchus,22030,Connecticut,09,Male,M,1341,1765849,75.9
 ,2016,2016,Lung and Bronchus,22030,Delaware,10,Female,F,456,490294,93
 ,2016,2016,Lung and Bronchus,22030,Delaware,10,Male,M,421,463008,90.9
 ,2016,2016,Lung and Bronchus,22030,District of Columbia,11,Female,F,152,351947,43.2
@@ -1823,20 +1845,22 @@
 ,2016,2016,Lung and Bronchus,22030,Wisconsin,55,Male,M,2272,2904163,78.2
 ,2016,2016,Lung and Bronchus,22030,Wyoming,56,Female,F,149,283480,52.6
 ,2016,2016,Lung and Bronchus,22030,Wyoming,56,Male,M,166,298541,55.6
-,2017,2017,Lung and Bronchus,22030,Alabama,1,Female,F,1729,2540935,68
-,2017,2017,Lung and Bronchus,22030,Alabama,1,Male,M,2246,2410917,93.2
-,2017,2017,Lung and Bronchus,22030,Alaska,2,Female,F,175,351866,49.7
-,2017,2017,Lung and Bronchus,22030,Alaska,2,Male,M,199,390149,51
-,2017,2017,Lung and Bronchus,22030,Arizona,4,Female,F,2036,3441337,59.2
-,2017,2017,Lung and Bronchus,22030,Arizona,4,Male,M,2037,3439404,59.2
-,2017,2017,Lung and Bronchus,22030,Arkansas,5,Female,F,1252,1512745,82.8
-,2017,2017,Lung and Bronchus,22030,Arkansas,5,Male,M,1430,1477837,96.8
-,2017,2017,Lung and Bronchus,22030,California,6,Female,F,8690,19709744,44.1
-,2017,2017,Lung and Bronchus,22030,California,6,Male,M,8457,19713651,42.9
-,2017,2017,Lung and Bronchus,22030,Colorado,8,Female,F,1266,2764979,45.8
-,2017,2017,Lung and Bronchus,22030,Colorado,8,Male,M,1175,2835322,41.4
-,2017,2017,Lung and Bronchus,22030,Connecticut,9,Female,F,1472,1840849,80
-,2017,2017,Lung and Bronchus,22030,Connecticut,9,Male,M,1363,1766722,77.1
+,2016,2016,Lung and Bronchus,22030,Puerto Rico,72,Female,F,280,1786406,15.7
+,2016,2016,Lung and Bronchus,22030,Puerto Rico,72,Male,M,436,1620266,26.9
+,2017,2017,Lung and Bronchus,22030,Alabama,01,Female,F,1729,2540935,68
+,2017,2017,Lung and Bronchus,22030,Alabama,01,Male,M,2246,2410917,93.2
+,2017,2017,Lung and Bronchus,22030,Alaska,02,Female,F,175,351866,49.7
+,2017,2017,Lung and Bronchus,22030,Alaska,02,Male,M,199,390149,51
+,2017,2017,Lung and Bronchus,22030,Arizona,04,Female,F,2036,3441337,59.2
+,2017,2017,Lung and Bronchus,22030,Arizona,04,Male,M,2037,3439404,59.2
+,2017,2017,Lung and Bronchus,22030,Arkansas,05,Female,F,1252,1512745,82.8
+,2017,2017,Lung and Bronchus,22030,Arkansas,05,Male,M,1430,1477837,96.8
+,2017,2017,Lung and Bronchus,22030,California,06,Female,F,8690,19709744,44.1
+,2017,2017,Lung and Bronchus,22030,California,06,Male,M,8457,19713651,42.9
+,2017,2017,Lung and Bronchus,22030,Colorado,08,Female,F,1266,2764979,45.8
+,2017,2017,Lung and Bronchus,22030,Colorado,08,Male,M,1175,2835322,41.4
+,2017,2017,Lung and Bronchus,22030,Connecticut,09,Female,F,1472,1840849,80
+,2017,2017,Lung and Bronchus,22030,Connecticut,09,Male,M,1363,1766722,77.1
 ,2017,2017,Lung and Bronchus,22030,Delaware,10,Female,F,408,494305,82.5
 ,2017,2017,Lung and Bronchus,22030,Delaware,10,Male,M,381,467350,81.5
 ,2017,2017,Lung and Bronchus,22030,District of Columbia,11,Female,F,156,355633,43.9
@@ -1925,20 +1949,22 @@
 ,2017,2017,Lung and Bronchus,22030,Wisconsin,55,Male,M,2234,2918843,76.5
 ,2017,2017,Lung and Bronchus,22030,Wyoming,56,Female,F,129,280857,45.9
 ,2017,2017,Lung and Bronchus,22030,Wyoming,56,Male,M,156,295391,52.8
-,2018,2018,Lung and Bronchus,22030,Alabama,1,Female,F,1779,2553156,69.7
-,2018,2018,Lung and Bronchus,22030,Alabama,1,Male,M,2230,2422906,92
-,2018,2018,Lung and Bronchus,22030,Alaska,2,Female,F,167,349910,47.7
-,2018,2018,Lung and Bronchus,22030,Alaska,2,Male,M,189,387881,48.7
-,2018,2018,Lung and Bronchus,22030,Arizona,4,Female,F,2011,3483806,57.7
-,2018,2018,Lung and Bronchus,22030,Arizona,4,Male,M,2136,3486699,61.3
-,2018,2018,Lung and Bronchus,22030,Arkansas,5,Female,F,1348,1515761,88.9
-,2018,2018,Lung and Bronchus,22030,Arkansas,5,Male,M,1522,1481299,102.7
-,2018,2018,Lung and Bronchus,22030,California,6,Female,F,8412,19744172,42.6
-,2018,2018,Lung and Bronchus,22030,California,6,Male,M,8361,19790095,42.2
-,2018,2018,Lung and Bronchus,22030,Colorado,8,Female,F,1245,2800474,44.5
-,2018,2018,Lung and Bronchus,22030,Colorado,8,Male,M,1157,2876776,40.2
-,2018,2018,Lung and Bronchus,22030,Connecticut,9,Female,F,1381,1842025,75
-,2018,2018,Lung and Bronchus,22030,Connecticut,9,Male,M,1286,1769203,72.7
+,2017,2017,Lung and Bronchus,22030,Puerto Rico,72,Female,F,171,872259,19.6
+,2017,2017,Lung and Bronchus,22030,Puerto Rico,72,Male,M,244,790392,30.9
+,2018,2018,Lung and Bronchus,22030,Alabama,01,Female,F,1779,2553156,69.7
+,2018,2018,Lung and Bronchus,22030,Alabama,01,Male,M,2230,2422906,92
+,2018,2018,Lung and Bronchus,22030,Alaska,02,Female,F,167,349910,47.7
+,2018,2018,Lung and Bronchus,22030,Alaska,02,Male,M,189,387881,48.7
+,2018,2018,Lung and Bronchus,22030,Arizona,04,Female,F,2011,3483806,57.7
+,2018,2018,Lung and Bronchus,22030,Arizona,04,Male,M,2136,3486699,61.3
+,2018,2018,Lung and Bronchus,22030,Arkansas,05,Female,F,1348,1515761,88.9
+,2018,2018,Lung and Bronchus,22030,Arkansas,05,Male,M,1522,1481299,102.7
+,2018,2018,Lung and Bronchus,22030,California,06,Female,F,8412,19744172,42.6
+,2018,2018,Lung and Bronchus,22030,California,06,Male,M,8361,19790095,42.2
+,2018,2018,Lung and Bronchus,22030,Colorado,08,Female,F,1245,2800474,44.5
+,2018,2018,Lung and Bronchus,22030,Colorado,08,Male,M,1157,2876776,40.2
+,2018,2018,Lung and Bronchus,22030,Connecticut,09,Female,F,1381,1842025,75
+,2018,2018,Lung and Bronchus,22030,Connecticut,09,Male,M,1286,1769203,72.7
 ,2018,2018,Lung and Bronchus,22030,Delaware,10,Female,F,425,499050,85.2
 ,2018,2018,Lung and Bronchus,22030,Delaware,10,Male,M,396,472114,83.9
 ,2018,2018,Lung and Bronchus,22030,District of Columbia,11,Female,F,151,357544,42.2
@@ -2027,20 +2053,22 @@
 ,2018,2018,Lung and Bronchus,22030,Wisconsin,55,Male,M,2304,2933555,78.5
 ,2018,2018,Lung and Bronchus,22030,Wyoming,56,Female,F,150,280241,53.5
 ,2018,2018,Lung and Bronchus,22030,Wyoming,56,Male,M,134,294546,45.5
-,2019,2019,Lung and Bronchus,22030,Alabama,1,Female,F,1741,2566696,67.8
-,2019,2019,Lung and Bronchus,22030,Alabama,1,Male,M,2256,2436554,92.6
-,2019,2019,Lung and Bronchus,22030,Alaska,2,Female,F,206,348072,59.2
-,2019,2019,Lung and Bronchus,22030,Alaska,2,Male,M,210,386813,54.3
-,2019,2019,Lung and Bronchus,22030,Arizona,4,Female,F,2080,3531944,58.9
-,2019,2019,Lung and Bronchus,22030,Arizona,4,Male,M,2040,3538864,57.6
-,2019,2019,Lung and Bronchus,22030,Arkansas,5,Female,F,1344,1518663,88.5
-,2019,2019,Lung and Bronchus,22030,Arkansas,5,Male,M,1465,1485478,98.6
-,2019,2019,Lung and Bronchus,22030,California,6,Female,F,8683,19733279,44
-,2019,2019,Lung and Bronchus,22030,California,6,Male,M,8557,19813381,43.2
-,2019,2019,Lung and Bronchus,22030,Colorado,8,Female,F,1328,2825265,47
-,2019,2019,Lung and Bronchus,22030,Colorado,8,Male,M,1179,2910654,40.5
-,2019,2019,Lung and Bronchus,22030,Connecticut,9,Female,F,1448,1838979,78.7
-,2019,2019,Lung and Bronchus,22030,Connecticut,9,Male,M,1292,1768149,73.1
+,2018,2018,Lung and Bronchus,22030,Puerto Rico,72,Female,F,303,1676341,18.1
+,2018,2018,Lung and Bronchus,22030,Puerto Rico,72,Male,M,474,1517003,31.2
+,2019,2019,Lung and Bronchus,22030,Alabama,01,Female,F,1741,2566696,67.8
+,2019,2019,Lung and Bronchus,22030,Alabama,01,Male,M,2256,2436554,92.6
+,2019,2019,Lung and Bronchus,22030,Alaska,02,Female,F,206,348072,59.2
+,2019,2019,Lung and Bronchus,22030,Alaska,02,Male,M,210,386813,54.3
+,2019,2019,Lung and Bronchus,22030,Arizona,04,Female,F,2080,3531944,58.9
+,2019,2019,Lung and Bronchus,22030,Arizona,04,Male,M,2040,3538864,57.6
+,2019,2019,Lung and Bronchus,22030,Arkansas,05,Female,F,1344,1518663,88.5
+,2019,2019,Lung and Bronchus,22030,Arkansas,05,Male,M,1465,1485478,98.6
+,2019,2019,Lung and Bronchus,22030,California,06,Female,F,8683,19733279,44
+,2019,2019,Lung and Bronchus,22030,California,06,Male,M,8557,19813381,43.2
+,2019,2019,Lung and Bronchus,22030,Colorado,08,Female,F,1328,2825265,47
+,2019,2019,Lung and Bronchus,22030,Colorado,08,Male,M,1179,2910654,40.5
+,2019,2019,Lung and Bronchus,22030,Connecticut,09,Female,F,1448,1838979,78.7
+,2019,2019,Lung and Bronchus,22030,Connecticut,09,Male,M,1292,1768149,73.1
 ,2019,2019,Lung and Bronchus,22030,Delaware,10,Female,F,391,504102,77.6
 ,2019,2019,Lung and Bronchus,22030,Delaware,10,Male,M,419,477217,87.8
 ,2019,2019,Lung and Bronchus,22030,District of Columbia,11,Female,F,169,358565,47.1
@@ -2129,20 +2157,22 @@
 ,2019,2019,Lung and Bronchus,22030,Wisconsin,55,Male,M,2340,2947274,79.4
 ,2019,2019,Lung and Bronchus,22030,Wyoming,56,Female,F,179,280259,63.9
 ,2019,2019,Lung and Bronchus,22030,Wyoming,56,Male,M,158,295097,53.5
-,2020,2020,Lung and Bronchus,22030,Alabama,1,Female,F,1605,2581772,62.2
-,2020,2020,Lung and Bronchus,22030,Alabama,1,Male,M,1998,2449590,81.6
-,2020,2020,Lung and Bronchus,22030,Alaska,2,Female,F,178,346883,51.3
-,2020,2020,Lung and Bronchus,22030,Alaska,2,Male,M,197,386040,51
-,2020,2020,Lung and Bronchus,22030,Arizona,4,Female,F,1916,3585457,53.4
-,2020,2020,Lung and Bronchus,22030,Arizona,4,Male,M,1993,3594486,55.4
-,2020,2020,Lung and Bronchus,22030,Arkansas,5,Female,F,1158,1523396,76
-,2020,2020,Lung and Bronchus,22030,Arkansas,5,Male,M,1342,1490799,90
-,2020,2020,Lung and Bronchus,22030,California,6,Female,F,7502,19702206,38.1
-,2020,2020,Lung and Bronchus,22030,California,6,Male,M,7699,19799447,38.9
-,2020,2020,Lung and Bronchus,22030,Colorado,8,Female,F,1247,2847911,43.8
-,2020,2020,Lung and Bronchus,22030,Colorado,8,Male,M,1146,2936954,39
-,2020,2020,Lung and Bronchus,22030,Connecticut,9,Female,F,1280,1833701,69.8
-,2020,2020,Lung and Bronchus,22030,Connecticut,9,Male,M,1090,1763661,61.8
+,2019,2019,Lung and Bronchus,22030,Puerto Rico,72,Female,F,306,1677955,18.2
+,2019,2019,Lung and Bronchus,22030,Puerto Rico,72,Male,M,465,1515598,30.7
+,2020,2020,Lung and Bronchus,22030,Alabama,01,Female,F,1605,2581772,62.2
+,2020,2020,Lung and Bronchus,22030,Alabama,01,Male,M,1998,2449590,81.6
+,2020,2020,Lung and Bronchus,22030,Alaska,02,Female,F,178,346883,51.3
+,2020,2020,Lung and Bronchus,22030,Alaska,02,Male,M,197,386040,51
+,2020,2020,Lung and Bronchus,22030,Arizona,04,Female,F,1916,3585457,53.4
+,2020,2020,Lung and Bronchus,22030,Arizona,04,Male,M,1993,3594486,55.4
+,2020,2020,Lung and Bronchus,22030,Arkansas,05,Female,F,1158,1523396,76
+,2020,2020,Lung and Bronchus,22030,Arkansas,05,Male,M,1342,1490799,90
+,2020,2020,Lung and Bronchus,22030,California,06,Female,F,7502,19702206,38.1
+,2020,2020,Lung and Bronchus,22030,California,06,Male,M,7699,19799447,38.9
+,2020,2020,Lung and Bronchus,22030,Colorado,08,Female,F,1247,2847911,43.8
+,2020,2020,Lung and Bronchus,22030,Colorado,08,Male,M,1146,2936954,39
+,2020,2020,Lung and Bronchus,22030,Connecticut,09,Female,F,1280,1833701,69.8
+,2020,2020,Lung and Bronchus,22030,Connecticut,09,Male,M,1090,1763661,61.8
 ,2020,2020,Lung and Bronchus,22030,Delaware,10,Female,F,378,509621,74.2
 ,2020,2020,Lung and Bronchus,22030,Delaware,10,Male,M,368,482493,76.3
 ,2020,2020,Lung and Bronchus,22030,District of Columbia,11,Female,F,148,349097,42.4
@@ -2229,20 +2259,22 @@
 ,2020,2020,Lung and Bronchus,22030,Wisconsin,55,Male,M,2172,2958022,73.4
 ,2020,2020,Lung and Bronchus,22030,Wyoming,56,Female,F,144,281171,51.2
 ,2020,2020,Lung and Bronchus,22030,Wyoming,56,Male,M,144,296434,48.6
-,2021,2021,Lung and Bronchus,22030,Alabama,1,Female,F,1691,2593360,65.2
-,2021,2021,Lung and Bronchus,22030,Alabama,1,Male,M,2183,2456486,88.9
-,2021,2021,Lung and Bronchus,22030,Alaska,2,Female,F,201,347513,57.8
-,2021,2021,Lung and Bronchus,22030,Alaska,2,Male,M,190,386669,49.1
-,2021,2021,Lung and Bronchus,22030,Arizona,4,Female,F,1951,3630237,53.7
-,2021,2021,Lung and Bronchus,22030,Arizona,4,Male,M,1868,3634640,51.4
-,2021,2021,Lung and Bronchus,22030,Arkansas,5,Female,F,1279,1530815,83.6
-,2021,2021,Lung and Bronchus,22030,Arkansas,5,Male,M,1351,1497307,90.2
-,2021,2021,Lung and Bronchus,22030,California,6,Female,F,7940,19536044,40.6
-,2021,2021,Lung and Bronchus,22030,California,6,Male,M,7704,19606947,39.3
-,2021,2021,Lung and Bronchus,22030,Colorado,8,Female,F,1193,2861186,41.7
-,2021,2021,Lung and Bronchus,22030,Colorado,8,Male,M,1098,2950111,37.2
-,2021,2021,Lung and Bronchus,22030,Connecticut,9,Female,F,1509,1848249,81.6
-,2021,2021,Lung and Bronchus,22030,Connecticut,9,Male,M,1263,1775106,71.2
+,2020,2020,Lung and Bronchus,22030,Puerto Rico,72,Female,F,309,1726492,17.9
+,2020,2020,Lung and Bronchus,22030,Puerto Rico,72,Male,M,403,1555065,25.9
+,2021,2021,Lung and Bronchus,22030,Alabama,01,Female,F,1691,2593360,65.2
+,2021,2021,Lung and Bronchus,22030,Alabama,01,Male,M,2183,2456486,88.9
+,2021,2021,Lung and Bronchus,22030,Alaska,02,Female,F,201,347513,57.8
+,2021,2021,Lung and Bronchus,22030,Alaska,02,Male,M,190,386669,49.1
+,2021,2021,Lung and Bronchus,22030,Arizona,04,Female,F,1951,3630237,53.7
+,2021,2021,Lung and Bronchus,22030,Arizona,04,Male,M,1868,3634640,51.4
+,2021,2021,Lung and Bronchus,22030,Arkansas,05,Female,F,1279,1530815,83.6
+,2021,2021,Lung and Bronchus,22030,Arkansas,05,Male,M,1351,1497307,90.2
+,2021,2021,Lung and Bronchus,22030,California,06,Female,F,7940,19536044,40.6
+,2021,2021,Lung and Bronchus,22030,California,06,Male,M,7704,19606947,39.3
+,2021,2021,Lung and Bronchus,22030,Colorado,08,Female,F,1193,2861186,41.7
+,2021,2021,Lung and Bronchus,22030,Colorado,08,Male,M,1098,2950111,37.2
+,2021,2021,Lung and Bronchus,22030,Connecticut,09,Female,F,1509,1848249,81.6
+,2021,2021,Lung and Bronchus,22030,Connecticut,09,Male,M,1263,1775106,71.2
 ,2021,2021,Lung and Bronchus,22030,Delaware,10,Female,F,427,516346,82.7
 ,2021,2021,Lung and Bronchus,22030,Delaware,10,Male,M,397,488461,81.3
 ,2021,2021,Lung and Bronchus,22030,District of Columbia,11,Female,F,166,349456,47.5
@@ -2329,11 +2361,13 @@
 ,2021,2021,Lung and Bronchus,22030,Wisconsin,55,Male,M,2103,2949080,71.3
 ,2021,2021,Lung and Bronchus,22030,Wyoming,56,Female,F,134,282577,47.4
 ,2021,2021,Lung and Bronchus,22030,Wyoming,56,Male,M,134,296906,45.1
+,2021,2021,Lung and Bronchus,22030,Puerto Rico,72,Female,F,343,1718448,20
+,2021,2021,Lung and Bronchus,22030,Puerto Rico,72,Male,M,451,1544245,29.2
 ---,,,,,,,,,,,
 "Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,,,
 Query Parameters:,,,,,,,,,,,
 Leading Cancer Sites: Lung and Bronchus,,,,,,,,,,,
-Group By: Year; Leading Cancer Sites; States; Sex,,,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico; Sex,,,,,,,,,,,
 Show Totals: Disabled,,,,,,,,,,,
 Show Zero Values: False,,,,,,,,,,,
 Show Suppressed: False,,,,,,,,,,,
@@ -2342,24 +2376,26 @@ Standard Population: 2000 U.S. Std. Million,,,,,,,,,,,
 ---,,,,,,,,,,,
 Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,,,
 ---,,,,,,,,,,,
-"Query Date: Aug 20, 2024 2:22:44 PM",,,,,,,,,,,
+"Query Date: Dec 6, 2024 11:28:29 AM",,,,,,,,,,,
 ---,,,,,,,,,,,
 "Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,,,
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 2:22:44 PM",,,,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:28:29 AM",,,,,,,,,,,
 ---,,,,,,,,,,,
 Messages:,,,,,,,,,,,
 1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,,,
 ---,,,,,,,,,,,
 Caveats:,,,,,,,,,,,
-"1. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%",,,,,,,,,,,
-"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population.",,,,,,,,,,,
-2. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,,,
+1. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,,,
 Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,,,
-"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,,,
+"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,,,
 values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,,,
 misleading.,,,,,,,,,,,
-4. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000.,,,,,,,,,,,
+3. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,,,
+4. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,,,
 5. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,,,
 shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,,,
 "6. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,,,

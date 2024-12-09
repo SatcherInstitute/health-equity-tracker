@@ -1,11 +1,11 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States,States Code,Count,Population,Crude Rate
-,1999,1999,Lung and Bronchus,22030,Alabama,1,3338,4430141,75.3
-,1999,1999,Lung and Bronchus,22030,Alaska,2,275,624779,44
-,1999,1999,Lung and Bronchus,22030,Arizona,4,3077,5023823,61.2
-,1999,1999,Lung and Bronchus,22030,Arkansas,5,2330,2651860,87.9
-,1999,1999,Lung and Bronchus,22030,California,6,17477,33499204,52.2
-,1999,1999,Lung and Bronchus,22030,Colorado,8,1766,4226018,41.8
-,1999,1999,Lung and Bronchus,22030,Connecticut,9,2490,3386401,73.5
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,1999,1999,Lung and Bronchus,22030,Alabama,01,3338,4430141,75.3
+,1999,1999,Lung and Bronchus,22030,Alaska,02,275,624779,44
+,1999,1999,Lung and Bronchus,22030,Arizona,04,3077,5023823,61.2
+,1999,1999,Lung and Bronchus,22030,Arkansas,05,2330,2651860,87.9
+,1999,1999,Lung and Bronchus,22030,California,06,17477,33499204,52.2
+,1999,1999,Lung and Bronchus,22030,Colorado,08,1766,4226018,41.8
+,1999,1999,Lung and Bronchus,22030,Connecticut,09,2490,3386401,73.5
 ,1999,1999,Lung and Bronchus,22030,Delaware,10,654,774990,84.4
 ,1999,1999,Lung and Bronchus,22030,District of Columbia,11,406,570213,71.2
 ,1999,1999,Lung and Bronchus,22030,Florida,12,15637,15759421,99.2
@@ -48,13 +48,13 @@
 ,1999,1999,Lung and Bronchus,22030,West Virginia,54,2034,1811799,112.3
 ,1999,1999,Lung and Bronchus,22030,Wisconsin,55,3594,5332666,67.4
 ,1999,1999,Lung and Bronchus,22030,Wyoming,56,281,491780,57.1
-,2000,2000,Lung and Bronchus,22030,Alabama,1,3440,4452173,77.3
-,2000,2000,Lung and Bronchus,22030,Alaska,2,260,627963,41.4
-,2000,2000,Lung and Bronchus,22030,Arizona,4,3189,5160586,61.8
-,2000,2000,Lung and Bronchus,22030,Arkansas,5,2373,2678588,88.6
-,2000,2000,Lung and Bronchus,22030,California,6,17519,33987977,51.5
-,2000,2000,Lung and Bronchus,22030,Colorado,8,1886,4326921,43.6
-,2000,2000,Lung and Bronchus,22030,Connecticut,9,2465,3411777,72.2
+,2000,2000,Lung and Bronchus,22030,Alabama,01,3440,4452173,77.3
+,2000,2000,Lung and Bronchus,22030,Alaska,02,260,627963,41.4
+,2000,2000,Lung and Bronchus,22030,Arizona,04,3189,5160586,61.8
+,2000,2000,Lung and Bronchus,22030,Arkansas,05,2373,2678588,88.6
+,2000,2000,Lung and Bronchus,22030,California,06,17519,33987977,51.5
+,2000,2000,Lung and Bronchus,22030,Colorado,08,1886,4326921,43.6
+,2000,2000,Lung and Bronchus,22030,Connecticut,09,2465,3411777,72.2
 ,2000,2000,Lung and Bronchus,22030,Delaware,10,629,786373,80
 ,2000,2000,Lung and Bronchus,22030,District of Columbia,11,353,572046,61.7
 ,2000,2000,Lung and Bronchus,22030,Florida,12,15989,16047515,99.6
@@ -97,13 +97,13 @@
 ,2000,2000,Lung and Bronchus,22030,West Virginia,54,1999,1807021,110.6
 ,2000,2000,Lung and Bronchus,22030,Wisconsin,55,3465,5373999,64.5
 ,2000,2000,Lung and Bronchus,22030,Wyoming,56,255,494300,51.6
-,2001,2001,Lung and Bronchus,22030,Alabama,1,3643,4467634,81.5
-,2001,2001,Lung and Bronchus,22030,Alaska,2,282,633714,44.5
-,2001,2001,Lung and Bronchus,22030,Arizona,4,3307,5273477,62.7
-,2001,2001,Lung and Bronchus,22030,Arkansas,5,2443,2691571,90.8
-,2001,2001,Lung and Bronchus,22030,California,6,17584,34479458,51
-,2001,2001,Lung and Bronchus,22030,Colorado,8,2021,4425687,45.7
-,2001,2001,Lung and Bronchus,22030,Connecticut,9,2544,3432835,74.1
+,2001,2001,Lung and Bronchus,22030,Alabama,01,3643,4467634,81.5
+,2001,2001,Lung and Bronchus,22030,Alaska,02,282,633714,44.5
+,2001,2001,Lung and Bronchus,22030,Arizona,04,3307,5273477,62.7
+,2001,2001,Lung and Bronchus,22030,Arkansas,05,2443,2691571,90.8
+,2001,2001,Lung and Bronchus,22030,California,06,17584,34479458,51
+,2001,2001,Lung and Bronchus,22030,Colorado,08,2021,4425687,45.7
+,2001,2001,Lung and Bronchus,22030,Connecticut,09,2544,3432835,74.1
 ,2001,2001,Lung and Bronchus,22030,Delaware,10,623,795699,78.3
 ,2001,2001,Lung and Bronchus,22030,District of Columbia,11,404,574504,70.3
 ,2001,2001,Lung and Bronchus,22030,Florida,12,15801,16356966,96.6
@@ -147,13 +147,13 @@
 ,2001,2001,Lung and Bronchus,22030,West Virginia,54,2028,1801481,112.6
 ,2001,2001,Lung and Bronchus,22030,Wisconsin,55,3589,5406835,66.4
 ,2001,2001,Lung and Bronchus,22030,Wyoming,56,245,494657,49.5
-,2002,2002,Lung and Bronchus,22030,Alabama,1,3627,4480089,81
-,2002,2002,Lung and Bronchus,22030,Alaska,2,289,642337,45
-,2002,2002,Lung and Bronchus,22030,Arizona,4,3252,5396255,60.3
-,2002,2002,Lung and Bronchus,22030,Arkansas,5,2453,2705927,90.7
-,2002,2002,Lung and Bronchus,22030,California,6,17471,34871843,50.1
-,2002,2002,Lung and Bronchus,22030,Colorado,8,2066,4490406,46
-,2002,2002,Lung and Bronchus,22030,Connecticut,9,2627,3458749,76
+,2002,2002,Lung and Bronchus,22030,Alabama,01,3627,4480089,81
+,2002,2002,Lung and Bronchus,22030,Alaska,02,289,642337,45
+,2002,2002,Lung and Bronchus,22030,Arizona,04,3252,5396255,60.3
+,2002,2002,Lung and Bronchus,22030,Arkansas,05,2453,2705927,90.7
+,2002,2002,Lung and Bronchus,22030,California,06,17471,34871843,50.1
+,2002,2002,Lung and Bronchus,22030,Colorado,08,2066,4490406,46
+,2002,2002,Lung and Bronchus,22030,Connecticut,09,2627,3458749,76
 ,2002,2002,Lung and Bronchus,22030,Delaware,10,622,806169,77.2
 ,2002,2002,Lung and Bronchus,22030,District of Columbia,11,378,573158,66
 ,2002,2002,Lung and Bronchus,22030,Florida,12,16043,16689370,96.1
@@ -197,13 +197,13 @@
 ,2002,2002,Lung and Bronchus,22030,West Virginia,54,1995,1805414,110.5
 ,2002,2002,Lung and Bronchus,22030,Wisconsin,55,3555,5445162,65.3
 ,2002,2002,Lung and Bronchus,22030,Wyoming,56,259,500017,51.8
-,2003,2003,Lung and Bronchus,22030,Alabama,1,3564,4503491,79.1
-,2003,2003,Lung and Bronchus,22030,Alaska,2,299,648414,46.1
-,2003,2003,Lung and Bronchus,22030,Arizona,4,3443,5510364,62.5
-,2003,2003,Lung and Bronchus,22030,Arkansas,5,2472,2724816,90.7
-,2003,2003,Lung and Bronchus,22030,California,6,17392,35253159,49.3
-,2003,2003,Lung and Bronchus,22030,Colorado,8,2041,4528732,45.1
-,2003,2003,Lung and Bronchus,22030,Connecticut,9,2666,3484336,76.5
+,2003,2003,Lung and Bronchus,22030,Alabama,01,3564,4503491,79.1
+,2003,2003,Lung and Bronchus,22030,Alaska,02,299,648414,46.1
+,2003,2003,Lung and Bronchus,22030,Arizona,04,3443,5510364,62.5
+,2003,2003,Lung and Bronchus,22030,Arkansas,05,2472,2724816,90.7
+,2003,2003,Lung and Bronchus,22030,California,06,17392,35253159,49.3
+,2003,2003,Lung and Bronchus,22030,Colorado,08,2041,4528732,45.1
+,2003,2003,Lung and Bronchus,22030,Connecticut,09,2666,3484336,76.5
 ,2003,2003,Lung and Bronchus,22030,Delaware,10,738,818003,90.2
 ,2003,2003,Lung and Bronchus,22030,District of Columbia,11,377,568502,66.3
 ,2003,2003,Lung and Bronchus,22030,Florida,12,16114,17004085,94.8
@@ -248,13 +248,13 @@
 ,2003,2003,Lung and Bronchus,22030,West Virginia,54,1907,1812295,105.2
 ,2003,2003,Lung and Bronchus,22030,Wisconsin,55,3660,5479203,66.8
 ,2003,2003,Lung and Bronchus,22030,Wyoming,56,296,503453,58.8
-,2004,2004,Lung and Bronchus,22030,Alabama,1,3804,4530729,84
-,2004,2004,Lung and Bronchus,22030,Alaska,2,328,659286,49.8
-,2004,2004,Lung and Bronchus,22030,Arizona,4,3454,5652404,61.1
-,2004,2004,Lung and Bronchus,22030,Arkansas,5,2524,2749686,91.8
-,2004,2004,Lung and Bronchus,22030,California,6,17436,35574576,49
-,2004,2004,Lung and Bronchus,22030,Colorado,8,2001,4575013,43.7
-,2004,2004,Lung and Bronchus,22030,Connecticut,9,2580,3496094,73.8
+,2004,2004,Lung and Bronchus,22030,Alabama,01,3804,4530729,84
+,2004,2004,Lung and Bronchus,22030,Alaska,02,328,659286,49.8
+,2004,2004,Lung and Bronchus,22030,Arizona,04,3454,5652404,61.1
+,2004,2004,Lung and Bronchus,22030,Arkansas,05,2524,2749686,91.8
+,2004,2004,Lung and Bronchus,22030,California,06,17436,35574576,49
+,2004,2004,Lung and Bronchus,22030,Colorado,08,2001,4575013,43.7
+,2004,2004,Lung and Bronchus,22030,Connecticut,09,2580,3496094,73.8
 ,2004,2004,Lung and Bronchus,22030,Delaware,10,732,830803,88.1
 ,2004,2004,Lung and Bronchus,22030,District of Columbia,11,341,567754,60.1
 ,2004,2004,Lung and Bronchus,22030,Florida,12,16520,17415318,94.9
@@ -299,13 +299,13 @@
 ,2004,2004,Lung and Bronchus,22030,West Virginia,54,1985,1816438,109.3
 ,2004,2004,Lung and Bronchus,22030,Wisconsin,55,3695,5514026,67
 ,2004,2004,Lung and Bronchus,22030,Wyoming,56,276,509106,54.2
-,2005,2005,Lung and Bronchus,22030,Alabama,1,3766,4565917,82.5
-,2005,2005,Lung and Bronchus,22030,Alaska,2,337,666946,50.5
-,2005,2005,Lung and Bronchus,22030,Arizona,4,3585,5839077,61.4
-,2005,2005,Lung and Bronchus,22030,Arkansas,5,2607,2781097,93.7
-,2005,2005,Lung and Bronchus,22030,California,6,17562,35827943,49
-,2005,2005,Lung and Bronchus,22030,Colorado,8,1995,4631888,43.1
-,2005,2005,Lung and Bronchus,22030,Connecticut,9,2621,3506956,74.7
+,2005,2005,Lung and Bronchus,22030,Alabama,01,3766,4565917,82.5
+,2005,2005,Lung and Bronchus,22030,Alaska,02,337,666946,50.5
+,2005,2005,Lung and Bronchus,22030,Arizona,04,3585,5839077,61.4
+,2005,2005,Lung and Bronchus,22030,Arkansas,05,2607,2781097,93.7
+,2005,2005,Lung and Bronchus,22030,California,06,17562,35827943,49
+,2005,2005,Lung and Bronchus,22030,Colorado,08,1995,4631888,43.1
+,2005,2005,Lung and Bronchus,22030,Connecticut,09,2621,3506956,74.7
 ,2005,2005,Lung and Bronchus,22030,Delaware,10,783,845150,92.6
 ,2005,2005,Lung and Bronchus,22030,District of Columbia,11,349,567136,61.5
 ,2005,2005,Lung and Bronchus,22030,Florida,12,16635,17842038,93.2
@@ -350,13 +350,14 @@
 ,2005,2005,Lung and Bronchus,22030,West Virginia,54,2133,1820492,117.2
 ,2005,2005,Lung and Bronchus,22030,Wisconsin,55,3710,5546166,66.9
 ,2005,2005,Lung and Bronchus,22030,Wyoming,56,291,514157,56.6
-,2006,2006,Lung and Bronchus,22030,Alabama,1,3829,4628981,82.7
-,2006,2006,Lung and Bronchus,22030,Alaska,2,350,675302,51.8
-,2006,2006,Lung and Bronchus,22030,Arizona,4,3533,6029141,58.6
-,2006,2006,Lung and Bronchus,22030,Arkansas,5,2498,2821761,88.5
-,2006,2006,Lung and Bronchus,22030,California,6,17599,36021202,48.9
-,2006,2006,Lung and Bronchus,22030,Colorado,8,2032,4720423,43
-,2006,2006,Lung and Bronchus,22030,Connecticut,9,2715,3517460,77.2
+,2005,2005,Lung and Bronchus,22030,Puerto Rico,72,697,3821362,18.2
+,2006,2006,Lung and Bronchus,22030,Alabama,01,3829,4628981,82.7
+,2006,2006,Lung and Bronchus,22030,Alaska,02,350,675302,51.8
+,2006,2006,Lung and Bronchus,22030,Arizona,04,3533,6029141,58.6
+,2006,2006,Lung and Bronchus,22030,Arkansas,05,2498,2821761,88.5
+,2006,2006,Lung and Bronchus,22030,California,06,17599,36021202,48.9
+,2006,2006,Lung and Bronchus,22030,Colorado,08,2032,4720423,43
+,2006,2006,Lung and Bronchus,22030,Connecticut,09,2715,3517460,77.2
 ,2006,2006,Lung and Bronchus,22030,Delaware,10,814,859268,94.7
 ,2006,2006,Lung and Bronchus,22030,District of Columbia,11,352,570681,61.7
 ,2006,2006,Lung and Bronchus,22030,Florida,12,16449,18166990,90.5
@@ -401,13 +402,14 @@
 ,2006,2006,Lung and Bronchus,22030,West Virginia,54,2104,1827912,115.1
 ,2006,2006,Lung and Bronchus,22030,Wisconsin,55,3832,5577655,68.7
 ,2006,2006,Lung and Bronchus,22030,Wyoming,56,272,522667,52
-,2007,2007,Lung and Bronchus,22030,Alabama,1,3864,4672840,82.7
-,2007,2007,Lung and Bronchus,22030,Alaska,2,330,680300,48.5
-,2007,2007,Lung and Bronchus,22030,Arizona,4,3642,6167681,59
-,2007,2007,Lung and Bronchus,22030,Arkansas,5,2696,2848650,94.6
-,2007,2007,Lung and Bronchus,22030,California,6,17447,36250311,48.1
-,2007,2007,Lung and Bronchus,22030,Colorado,8,2203,4803868,45.9
-,2007,2007,Lung and Bronchus,22030,Connecticut,9,2693,3527270,76.3
+,2006,2006,Lung and Bronchus,22030,Puerto Rico,72,684,3805214,18
+,2007,2007,Lung and Bronchus,22030,Alabama,01,3864,4672840,82.7
+,2007,2007,Lung and Bronchus,22030,Alaska,02,330,680300,48.5
+,2007,2007,Lung and Bronchus,22030,Arizona,04,3642,6167681,59
+,2007,2007,Lung and Bronchus,22030,Arkansas,05,2696,2848650,94.6
+,2007,2007,Lung and Bronchus,22030,California,06,17447,36250311,48.1
+,2007,2007,Lung and Bronchus,22030,Colorado,08,2203,4803868,45.9
+,2007,2007,Lung and Bronchus,22030,Connecticut,09,2693,3527270,76.3
 ,2007,2007,Lung and Bronchus,22030,Delaware,10,746,871749,85.6
 ,2007,2007,Lung and Bronchus,22030,District of Columbia,11,328,574404,57.1
 ,2007,2007,Lung and Bronchus,22030,Florida,12,16389,18367842,89.2
@@ -452,13 +454,14 @@
 ,2007,2007,Lung and Bronchus,22030,West Virginia,54,2032,1834052,110.8
 ,2007,2007,Lung and Bronchus,22030,Wisconsin,55,3817,5610775,68
 ,2007,2007,Lung and Bronchus,22030,Wyoming,56,272,534876,50.9
-,2008,2008,Lung and Bronchus,22030,Alabama,1,4129,4718206,87.5
-,2008,2008,Lung and Bronchus,22030,Alaska,2,348,687455,50.6
-,2008,2008,Lung and Bronchus,22030,Arizona,4,3649,6280362,58.1
-,2008,2008,Lung and Bronchus,22030,Arkansas,5,2617,2874554,91
-,2008,2008,Lung and Bronchus,22030,California,6,17326,36604337,47.3
-,2008,2008,Lung and Bronchus,22030,Colorado,8,2284,4889730,46.7
-,2008,2008,Lung and Bronchus,22030,Connecticut,9,2713,3545579,76.5
+,2007,2007,Lung and Bronchus,22030,Puerto Rico,72,669,3782995,17.7
+,2008,2008,Lung and Bronchus,22030,Alabama,01,4129,4718206,87.5
+,2008,2008,Lung and Bronchus,22030,Alaska,02,348,687455,50.6
+,2008,2008,Lung and Bronchus,22030,Arizona,04,3649,6280362,58.1
+,2008,2008,Lung and Bronchus,22030,Arkansas,05,2617,2874554,91
+,2008,2008,Lung and Bronchus,22030,California,06,17326,36604337,47.3
+,2008,2008,Lung and Bronchus,22030,Colorado,08,2284,4889730,46.7
+,2008,2008,Lung and Bronchus,22030,Connecticut,09,2713,3545579,76.5
 ,2008,2008,Lung and Bronchus,22030,Delaware,10,772,883874,87.3
 ,2008,2008,Lung and Bronchus,22030,District of Columbia,11,327,580236,56.4
 ,2008,2008,Lung and Bronchus,22030,Florida,12,16790,18527305,90.6
@@ -503,13 +506,14 @@
 ,2008,2008,Lung and Bronchus,22030,West Virginia,54,2144,1840310,116.5
 ,2008,2008,Lung and Bronchus,22030,Wisconsin,55,3944,5640996,69.9
 ,2008,2008,Lung and Bronchus,22030,Wyoming,56,301,546043,55.1
-,2009,2009,Lung and Bronchus,22030,Alabama,1,4042,4757938,85
-,2009,2009,Lung and Bronchus,22030,Alaska,2,370,698895,52.9
-,2009,2009,Lung and Bronchus,22030,Arizona,4,3892,6343154,61.4
-,2009,2009,Lung and Bronchus,22030,Arkansas,5,2420,2896843,83.5
-,2009,2009,Lung and Bronchus,22030,California,6,18054,36961229,48.8
-,2009,2009,Lung and Bronchus,22030,Colorado,8,2251,4972195,45.3
-,2009,2009,Lung and Bronchus,22030,Connecticut,9,2669,3561807,74.9
+,2008,2008,Lung and Bronchus,22030,Puerto Rico,72,704,3760866,18.7
+,2009,2009,Lung and Bronchus,22030,Alabama,01,4042,4757938,85
+,2009,2009,Lung and Bronchus,22030,Alaska,02,370,698895,52.9
+,2009,2009,Lung and Bronchus,22030,Arizona,04,3892,6343154,61.4
+,2009,2009,Lung and Bronchus,22030,Arkansas,05,2420,2896843,83.5
+,2009,2009,Lung and Bronchus,22030,California,06,18054,36961229,48.8
+,2009,2009,Lung and Bronchus,22030,Colorado,08,2251,4972195,45.3
+,2009,2009,Lung and Bronchus,22030,Connecticut,09,2669,3561807,74.9
 ,2009,2009,Lung and Bronchus,22030,Delaware,10,746,891730,83.7
 ,2009,2009,Lung and Bronchus,22030,District of Columbia,11,359,592228,60.6
 ,2009,2009,Lung and Bronchus,22030,Florida,12,16849,18652644,90.3
@@ -554,13 +558,14 @@
 ,2009,2009,Lung and Bronchus,22030,West Virginia,54,2046,1847775,110.7
 ,2009,2009,Lung and Bronchus,22030,Wisconsin,55,3849,5669264,67.9
 ,2009,2009,Lung and Bronchus,22030,Wyoming,56,306,559851,54.7
-,2010,2010,Lung and Bronchus,22030,Alabama,1,4033,4788081,84.2
-,2010,2010,Lung and Bronchus,22030,Alaska,2,366,714026,51.3
-,2010,2010,Lung and Bronchus,22030,Arizona,4,3697,6402172,57.7
-,2010,2010,Lung and Bronchus,22030,Arkansas,5,2466,2921608,84.4
-,2010,2010,Lung and Bronchus,22030,California,6,17318,37322860,46.4
-,2010,2010,Lung and Bronchus,22030,Colorado,8,2201,5047145,43.6
-,2010,2010,Lung and Bronchus,22030,Connecticut,9,2659,3580397,74.3
+,2009,2009,Lung and Bronchus,22030,Puerto Rico,72,760,3740410,20.3
+,2010,2010,Lung and Bronchus,22030,Alabama,01,4033,4788081,84.2
+,2010,2010,Lung and Bronchus,22030,Alaska,02,366,714026,51.3
+,2010,2010,Lung and Bronchus,22030,Arizona,04,3697,6402172,57.7
+,2010,2010,Lung and Bronchus,22030,Arkansas,05,2466,2921608,84.4
+,2010,2010,Lung and Bronchus,22030,California,06,17318,37322860,46.4
+,2010,2010,Lung and Bronchus,22030,Colorado,08,2201,5047145,43.6
+,2010,2010,Lung and Bronchus,22030,Connecticut,09,2659,3580397,74.3
 ,2010,2010,Lung and Bronchus,22030,Delaware,10,738,899782,82
 ,2010,2010,Lung and Bronchus,22030,District of Columbia,11,347,604863,57.4
 ,2010,2010,Lung and Bronchus,22030,Florida,12,16822,18843093,89.3
@@ -605,13 +610,14 @@
 ,2010,2010,Lung and Bronchus,22030,West Virginia,54,1953,1854428,105.3
 ,2010,2010,Lung and Bronchus,22030,Wisconsin,55,4082,5692094,71.7
 ,2010,2010,Lung and Bronchus,22030,Wyoming,56,304,564429,53.9
-,2011,2011,Lung and Bronchus,22030,Alabama,1,4017,4812311,83.5
-,2011,2011,Lung and Bronchus,22030,Alaska,2,355,722610,49.1
-,2011,2011,Lung and Bronchus,22030,Arizona,4,3868,6447287,60
-,2011,2011,Lung and Bronchus,22030,Arkansas,5,2511,2938936,85.4
-,2011,2011,Lung and Bronchus,22030,California,6,16727,37653337,44.4
-,2011,2011,Lung and Bronchus,22030,Colorado,8,2223,5119705,43.4
-,2011,2011,Lung and Bronchus,22030,Connecticut,9,2652,3594525,73.8
+,2010,2010,Lung and Bronchus,22030,Puerto Rico,72,717,3721525,19.3
+,2011,2011,Lung and Bronchus,22030,Alabama,01,4017,4812311,83.5
+,2011,2011,Lung and Bronchus,22030,Alaska,02,355,722610,49.1
+,2011,2011,Lung and Bronchus,22030,Arizona,04,3868,6447287,60
+,2011,2011,Lung and Bronchus,22030,Arkansas,05,2511,2938936,85.4
+,2011,2011,Lung and Bronchus,22030,California,06,16727,37653337,44.4
+,2011,2011,Lung and Bronchus,22030,Colorado,08,2223,5119705,43.4
+,2011,2011,Lung and Bronchus,22030,Connecticut,09,2652,3594525,73.8
 ,2011,2011,Lung and Bronchus,22030,Delaware,10,819,908309,90.2
 ,2011,2011,Lung and Bronchus,22030,District of Columbia,11,331,617919,53.6
 ,2011,2011,Lung and Bronchus,22030,Florida,12,16584,19040534,87.1
@@ -656,13 +662,14 @@
 ,2011,2011,Lung and Bronchus,22030,West Virginia,54,2044,1857508,110
 ,2011,2011,Lung and Bronchus,22030,Wisconsin,55,4129,5713582,72.3
 ,2011,2011,Lung and Bronchus,22030,Wyoming,56,285,566898,50.3
-,2012,2012,Lung and Bronchus,22030,Alabama,1,4028,4839463,83.2
-,2012,2012,Lung and Bronchus,22030,Alaska,2,356,731293,48.7
-,2012,2012,Lung and Bronchus,22030,Arizona,4,3845,6508584,59.1
-,2012,2012,Lung and Bronchus,22030,Arkansas,5,2490,2949008,84.4
-,2012,2012,Lung and Bronchus,22030,California,6,16947,37974434,44.6
-,2012,2012,Lung and Bronchus,22030,Colorado,8,2333,5189492,45
-,2012,2012,Lung and Bronchus,22030,Connecticut,9,2671,3605729,74.1
+,2011,2011,Lung and Bronchus,22030,Puerto Rico,72,766,3678732,20.8
+,2012,2012,Lung and Bronchus,22030,Alabama,01,4028,4839463,83.2
+,2012,2012,Lung and Bronchus,22030,Alaska,02,356,731293,48.7
+,2012,2012,Lung and Bronchus,22030,Arizona,04,3845,6508584,59.1
+,2012,2012,Lung and Bronchus,22030,Arkansas,05,2490,2949008,84.4
+,2012,2012,Lung and Bronchus,22030,California,06,16947,37974434,44.6
+,2012,2012,Lung and Bronchus,22030,Colorado,08,2333,5189492,45
+,2012,2012,Lung and Bronchus,22030,Connecticut,09,2671,3605729,74.1
 ,2012,2012,Lung and Bronchus,22030,Delaware,10,770,916823,84
 ,2012,2012,Lung and Bronchus,22030,District of Columbia,11,380,631263,60.2
 ,2012,2012,Lung and Bronchus,22030,Florida,12,17116,19274146,88.8
@@ -707,13 +714,14 @@
 ,2012,2012,Lung and Bronchus,22030,West Virginia,54,2009,1859012,108.1
 ,2012,2012,Lung and Bronchus,22030,Wisconsin,55,4092,5734585,71.4
 ,2012,2012,Lung and Bronchus,22030,Wyoming,56,309,575540,53.7
-,2013,2013,Lung and Bronchus,22030,Alabama,1,3938,4864598,81
-,2013,2013,Lung and Bronchus,22030,Alaska,2,335,738288,45.4
-,2013,2013,Lung and Bronchus,22030,Arizona,4,4024,6564810,61.3
-,2013,2013,Lung and Bronchus,22030,Arkansas,5,2682,2954791,90.8
-,2013,2013,Lung and Bronchus,22030,California,6,16868,38296038,44
-,2013,2013,Lung and Bronchus,22030,Colorado,8,2281,5264410,43.3
-,2013,2013,Lung and Bronchus,22030,Connecticut,9,2764,3610808,76.5
+,2012,2012,Lung and Bronchus,22030,Puerto Rico,72,807,3634488,22.2
+,2013,2013,Lung and Bronchus,22030,Alabama,01,3938,4864598,81
+,2013,2013,Lung and Bronchus,22030,Alaska,02,335,738288,45.4
+,2013,2013,Lung and Bronchus,22030,Arizona,04,4024,6564810,61.3
+,2013,2013,Lung and Bronchus,22030,Arkansas,05,2682,2954791,90.8
+,2013,2013,Lung and Bronchus,22030,California,06,16868,38296038,44
+,2013,2013,Lung and Bronchus,22030,Colorado,08,2281,5264410,43.3
+,2013,2013,Lung and Bronchus,22030,Connecticut,09,2764,3610808,76.5
 ,2013,2013,Lung and Bronchus,22030,Delaware,10,827,925913,89.3
 ,2013,2013,Lung and Bronchus,22030,District of Columbia,11,333,644892,51.6
 ,2013,2013,Lung and Bronchus,22030,Florida,12,16947,19510365,86.9
@@ -758,13 +766,14 @@
 ,2013,2013,Lung and Bronchus,22030,West Virginia,54,2096,1856971,112.9
 ,2013,2013,Lung and Bronchus,22030,Wisconsin,55,4186,5757711,72.7
 ,2013,2013,Lung and Bronchus,22030,Wyoming,56,261,580983,44.9
-,2014,2014,Lung and Bronchus,22030,Alabama,1,3963,4886870,81.1
-,2014,2014,Lung and Bronchus,22030,Alaska,2,360,737859,48.8
-,2014,2014,Lung and Bronchus,22030,Arizona,4,3963,6639874,59.7
-,2014,2014,Lung and Bronchus,22030,Arkansas,5,2726,2961247,92.1
-,2014,2014,Lung and Bronchus,22030,California,6,17159,38640488,44.4
-,2014,2014,Lung and Bronchus,22030,Colorado,8,2354,5343818,44.1
-,2014,2014,Lung and Bronchus,22030,Connecticut,9,2690,3615128,74.4
+,2013,2013,Lung and Bronchus,22030,Puerto Rico,72,861,3593077,24
+,2014,2014,Lung and Bronchus,22030,Alabama,01,3963,4886870,81.1
+,2014,2014,Lung and Bronchus,22030,Alaska,02,360,737859,48.8
+,2014,2014,Lung and Bronchus,22030,Arizona,04,3963,6639874,59.7
+,2014,2014,Lung and Bronchus,22030,Arkansas,05,2726,2961247,92.1
+,2014,2014,Lung and Bronchus,22030,California,06,17159,38640488,44.4
+,2014,2014,Lung and Bronchus,22030,Colorado,08,2354,5343818,44.1
+,2014,2014,Lung and Bronchus,22030,Connecticut,09,2690,3615128,74.4
 ,2014,2014,Lung and Bronchus,22030,Delaware,10,816,935476,87.2
 ,2014,2014,Lung and Bronchus,22030,District of Columbia,11,324,654680,49.5
 ,2014,2014,Lung and Bronchus,22030,Florida,12,17169,19798068,86.7
@@ -809,13 +818,14 @@
 ,2014,2014,Lung and Bronchus,22030,West Virginia,54,2064,1853340,111.4
 ,2014,2014,Lung and Bronchus,22030,Wisconsin,55,4198,5778715,72.6
 ,2014,2014,Lung and Bronchus,22030,Wyoming,56,303,580983,52.2
-,2015,2015,Lung and Bronchus,22030,Alabama,1,3941,4908173,80.3
-,2015,2015,Lung and Bronchus,22030,Alaska,2,385,739305,52.1
-,2015,2015,Lung and Bronchus,22030,Arizona,4,4087,6716074,60.9
-,2015,2015,Lung and Bronchus,22030,Arkansas,5,2756,2970399,92.8
-,2015,2015,Lung and Bronchus,22030,California,6,17336,38969769,44.5
-,2015,2015,Lung and Bronchus,22030,Colorado,8,2361,5442972,43.4
-,2015,2015,Lung and Bronchus,22030,Connecticut,9,2649,3612364,73.3
+,2014,2014,Lung and Bronchus,22030,Puerto Rico,72,819,3534874,23.2
+,2015,2015,Lung and Bronchus,22030,Alabama,01,3941,4908173,80.3
+,2015,2015,Lung and Bronchus,22030,Alaska,02,385,739305,52.1
+,2015,2015,Lung and Bronchus,22030,Arizona,04,4087,6716074,60.9
+,2015,2015,Lung and Bronchus,22030,Arkansas,05,2756,2970399,92.8
+,2015,2015,Lung and Bronchus,22030,California,06,17336,38969769,44.5
+,2015,2015,Lung and Bronchus,22030,Colorado,08,2361,5442972,43.4
+,2015,2015,Lung and Bronchus,22030,Connecticut,09,2649,3612364,73.3
 ,2015,2015,Lung and Bronchus,22030,Delaware,10,890,944928,94.2
 ,2015,2015,Lung and Bronchus,22030,District of Columbia,11,312,665747,46.9
 ,2015,2015,Lung and Bronchus,22030,Florida,12,17175,20148144,85.2
@@ -860,13 +870,14 @@
 ,2015,2015,Lung and Bronchus,22030,West Virginia,54,2118,1846651,114.7
 ,2015,2015,Lung and Bronchus,22030,Wisconsin,55,4285,5794297,74
 ,2015,2015,Lung and Bronchus,22030,Wyoming,56,284,583719,48.7
-,2016,2016,Lung and Bronchus,22030,Alabama,1,4028,4930490,81.7
-,2016,2016,Lung and Bronchus,22030,Alaska,2,377,743530,50.7
-,2016,2016,Lung and Bronchus,22030,Arizona,4,3976,6803119,58.4
-,2016,2016,Lung and Bronchus,22030,Arkansas,5,2772,2980570,93
-,2016,2016,Lung and Bronchus,22030,California,6,17181,39225383,43.8
-,2016,2016,Lung and Bronchus,22030,Colorado,8,2384,5529732,43.1
-,2016,2016,Lung and Bronchus,22030,Connecticut,9,2794,3607920,77.4
+,2015,2015,Lung and Bronchus,22030,Puerto Rico,72,799,3473232,23
+,2016,2016,Lung and Bronchus,22030,Alabama,01,4028,4930490,81.7
+,2016,2016,Lung and Bronchus,22030,Alaska,02,377,743530,50.7
+,2016,2016,Lung and Bronchus,22030,Arizona,04,3976,6803119,58.4
+,2016,2016,Lung and Bronchus,22030,Arkansas,05,2772,2980570,93
+,2016,2016,Lung and Bronchus,22030,California,06,17181,39225383,43.8
+,2016,2016,Lung and Bronchus,22030,Colorado,08,2384,5529732,43.1
+,2016,2016,Lung and Bronchus,22030,Connecticut,09,2794,3607920,77.4
 ,2016,2016,Lung and Bronchus,22030,Delaware,10,877,953302,92
 ,2016,2016,Lung and Bronchus,22030,District of Columbia,11,275,673900,40.8
 ,2016,2016,Lung and Bronchus,22030,Florida,12,17632,20539843,85.8
@@ -911,13 +922,14 @@
 ,2016,2016,Lung and Bronchus,22030,West Virginia,54,2030,1836221,110.6
 ,2016,2016,Lung and Bronchus,22030,Wisconsin,55,4420,5812359,76
 ,2016,2016,Lung and Bronchus,22030,Wyoming,56,315,582021,54.1
-,2017,2017,Lung and Bronchus,22030,Alabama,1,3975,4951852,80.3
-,2017,2017,Lung and Bronchus,22030,Alaska,2,374,742015,50.4
-,2017,2017,Lung and Bronchus,22030,Arizona,4,4073,6880741,59.2
-,2017,2017,Lung and Bronchus,22030,Arkansas,5,2682,2990582,89.7
-,2017,2017,Lung and Bronchus,22030,California,6,17147,39423395,43.5
-,2017,2017,Lung and Bronchus,22030,Colorado,8,2441,5600301,43.6
-,2017,2017,Lung and Bronchus,22030,Connecticut,9,2835,3607571,78.6
+,2016,2016,Lung and Bronchus,22030,Puerto Rico,72,716,3406672,21
+,2017,2017,Lung and Bronchus,22030,Alabama,01,3975,4951852,80.3
+,2017,2017,Lung and Bronchus,22030,Alaska,02,374,742015,50.4
+,2017,2017,Lung and Bronchus,22030,Arizona,04,4073,6880741,59.2
+,2017,2017,Lung and Bronchus,22030,Arkansas,05,2682,2990582,89.7
+,2017,2017,Lung and Bronchus,22030,California,06,17147,39423395,43.5
+,2017,2017,Lung and Bronchus,22030,Colorado,08,2441,5600301,43.6
+,2017,2017,Lung and Bronchus,22030,Connecticut,09,2835,3607571,78.6
 ,2017,2017,Lung and Bronchus,22030,Delaware,10,789,961655,82
 ,2017,2017,Lung and Bronchus,22030,District of Columbia,11,298,680978,43.8
 ,2017,2017,Lung and Bronchus,22030,Florida,12,17873,20872368,85.6
@@ -962,13 +974,14 @@
 ,2017,2017,Lung and Bronchus,22030,West Virginia,54,2236,1822823,122.7
 ,2017,2017,Lung and Bronchus,22030,Wisconsin,55,4412,5836099,75.6
 ,2017,2017,Lung and Bronchus,22030,Wyoming,56,285,576248,49.5
-,2018,2018,Lung and Bronchus,22030,Alabama,1,4009,4976062,80.6
-,2018,2018,Lung and Bronchus,22030,Alaska,2,356,737791,48.3
-,2018,2018,Lung and Bronchus,22030,Arizona,4,4147,6970505,59.5
-,2018,2018,Lung and Bronchus,22030,Arkansas,5,2870,2997060,95.8
-,2018,2018,Lung and Bronchus,22030,California,6,16773,39534267,42.4
-,2018,2018,Lung and Bronchus,22030,Colorado,8,2402,5677250,42.3
-,2018,2018,Lung and Bronchus,22030,Connecticut,9,2667,3611228,73.9
+,2017,2017,Lung and Bronchus,22030,Puerto Rico,72,415,1662651,25
+,2018,2018,Lung and Bronchus,22030,Alabama,01,4009,4976062,80.6
+,2018,2018,Lung and Bronchus,22030,Alaska,02,356,737791,48.3
+,2018,2018,Lung and Bronchus,22030,Arizona,04,4147,6970505,59.5
+,2018,2018,Lung and Bronchus,22030,Arkansas,05,2870,2997060,95.8
+,2018,2018,Lung and Bronchus,22030,California,06,16773,39534267,42.4
+,2018,2018,Lung and Bronchus,22030,Colorado,08,2402,5677250,42.3
+,2018,2018,Lung and Bronchus,22030,Connecticut,09,2667,3611228,73.9
 ,2018,2018,Lung and Bronchus,22030,Delaware,10,821,971164,84.5
 ,2018,2018,Lung and Bronchus,22030,District of Columbia,11,309,685637,45.1
 ,2018,2018,Lung and Bronchus,22030,Florida,12,18268,21134065,86.4
@@ -1013,13 +1026,14 @@
 ,2018,2018,Lung and Bronchus,22030,West Virginia,54,2088,1810562,115.3
 ,2018,2018,Lung and Bronchus,22030,Wisconsin,55,4515,5858390,77.1
 ,2018,2018,Lung and Bronchus,22030,Wyoming,56,284,574787,49.4
-,2019,2019,Lung and Bronchus,22030,Alabama,1,3997,5003250,79.9
-,2019,2019,Lung and Bronchus,22030,Alaska,2,416,734885,56.6
-,2019,2019,Lung and Bronchus,22030,Arizona,4,4120,7070808,58.3
-,2019,2019,Lung and Bronchus,22030,Arkansas,5,2809,3004141,93.5
-,2019,2019,Lung and Bronchus,22030,California,6,17240,39546660,43.6
-,2019,2019,Lung and Bronchus,22030,Colorado,8,2507,5735919,43.7
-,2019,2019,Lung and Bronchus,22030,Connecticut,9,2740,3607128,76
+,2018,2018,Lung and Bronchus,22030,Puerto Rico,72,777,3193344,24.3
+,2019,2019,Lung and Bronchus,22030,Alabama,01,3997,5003250,79.9
+,2019,2019,Lung and Bronchus,22030,Alaska,02,416,734885,56.6
+,2019,2019,Lung and Bronchus,22030,Arizona,04,4120,7070808,58.3
+,2019,2019,Lung and Bronchus,22030,Arkansas,05,2809,3004141,93.5
+,2019,2019,Lung and Bronchus,22030,California,06,17240,39546660,43.6
+,2019,2019,Lung and Bronchus,22030,Colorado,08,2507,5735919,43.7
+,2019,2019,Lung and Bronchus,22030,Connecticut,09,2740,3607128,76
 ,2019,2019,Lung and Bronchus,22030,Delaware,10,810,981319,82.5
 ,2019,2019,Lung and Bronchus,22030,District of Columbia,11,326,687406,47.4
 ,2019,2019,Lung and Bronchus,22030,Florida,12,18354,21354226,86
@@ -1064,13 +1078,14 @@
 ,2019,2019,Lung and Bronchus,22030,West Virginia,54,2059,1800427,114.4
 ,2019,2019,Lung and Bronchus,22030,Wisconsin,55,4615,5879993,78.5
 ,2019,2019,Lung and Bronchus,22030,Wyoming,56,337,575356,58.6
-,2020,2020,Lung and Bronchus,22030,Alabama,1,3603,5031362,71.6
-,2020,2020,Lung and Bronchus,22030,Alaska,2,375,732923,51.2
-,2020,2020,Lung and Bronchus,22030,Arizona,4,3909,7179943,54.4
-,2020,2020,Lung and Bronchus,22030,Arkansas,5,2500,3014195,82.9
-,2020,2020,Lung and Bronchus,22030,California,6,15201,39501653,38.5
-,2020,2020,Lung and Bronchus,22030,Colorado,8,2393,5784865,41.4
-,2020,2020,Lung and Bronchus,22030,Connecticut,9,2370,3597362,65.9
+,2019,2019,Lung and Bronchus,22030,Puerto Rico,72,771,3193553,24.1
+,2020,2020,Lung and Bronchus,22030,Alabama,01,3603,5031362,71.6
+,2020,2020,Lung and Bronchus,22030,Alaska,02,375,732923,51.2
+,2020,2020,Lung and Bronchus,22030,Arizona,04,3909,7179943,54.4
+,2020,2020,Lung and Bronchus,22030,Arkansas,05,2500,3014195,82.9
+,2020,2020,Lung and Bronchus,22030,California,06,15201,39501653,38.5
+,2020,2020,Lung and Bronchus,22030,Colorado,08,2393,5784865,41.4
+,2020,2020,Lung and Bronchus,22030,Connecticut,09,2370,3597362,65.9
 ,2020,2020,Lung and Bronchus,22030,Delaware,10,746,992114,75.2
 ,2020,2020,Lung and Bronchus,22030,District of Columbia,11,274,670868,40.8
 ,2020,2020,Lung and Bronchus,22030,Florida,12,17056,21589602,79
@@ -1114,13 +1129,14 @@
 ,2020,2020,Lung and Bronchus,22030,West Virginia,54,1897,1791420,105.9
 ,2020,2020,Lung and Bronchus,22030,Wisconsin,55,4185,5896271,71
 ,2020,2020,Lung and Bronchus,22030,Wyoming,56,288,577605,49.9
-,2021,2021,Lung and Bronchus,22030,Alabama,1,3874,5049846,76.7
-,2021,2021,Lung and Bronchus,22030,Alaska,2,391,734182,53.3
-,2021,2021,Lung and Bronchus,22030,Arizona,4,3819,7264877,52.6
-,2021,2021,Lung and Bronchus,22030,Arkansas,5,2630,3028122,86.9
-,2021,2021,Lung and Bronchus,22030,California,6,15644,39142991,40
-,2021,2021,Lung and Bronchus,22030,Colorado,8,2291,5811297,39.4
-,2021,2021,Lung and Bronchus,22030,Connecticut,9,2772,3623355,76.5
+,2020,2020,Lung and Bronchus,22030,Puerto Rico,72,712,3281557,21.7
+,2021,2021,Lung and Bronchus,22030,Alabama,01,3874,5049846,76.7
+,2021,2021,Lung and Bronchus,22030,Alaska,02,391,734182,53.3
+,2021,2021,Lung and Bronchus,22030,Arizona,04,3819,7264877,52.6
+,2021,2021,Lung and Bronchus,22030,Arkansas,05,2630,3028122,86.9
+,2021,2021,Lung and Bronchus,22030,California,06,15644,39142991,40
+,2021,2021,Lung and Bronchus,22030,Colorado,08,2291,5811297,39.4
+,2021,2021,Lung and Bronchus,22030,Connecticut,09,2772,3623355,76.5
 ,2021,2021,Lung and Bronchus,22030,Delaware,10,824,1004807,82
 ,2021,2021,Lung and Bronchus,22030,District of Columbia,11,290,668791,43.4
 ,2021,2021,Lung and Bronchus,22030,Florida,12,17608,21828069,80.7
@@ -1164,11 +1180,12 @@
 ,2021,2021,Lung and Bronchus,22030,West Virginia,54,2055,1785526,115.1
 ,2021,2021,Lung and Bronchus,22030,Wisconsin,55,4260,5880101,72.4
 ,2021,2021,Lung and Bronchus,22030,Wyoming,56,268,579483,46.2
+,2021,2021,Lung and Bronchus,22030,Puerto Rico,72,794,3262693,24.3
 ---,,,,,,,,,
 "Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
 Query Parameters:,,,,,,,,,
 Leading Cancer Sites: Lung and Bronchus,,,,,,,,,
-Group By: Year; Leading Cancer Sites; States,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
 Show Totals: Disabled,,,,,,,,,
 Show Zero Values: False,,,,,,,,,
 Show Suppressed: False,,,,,,,,,
@@ -1177,24 +1194,26 @@ Standard Population: 2000 U.S. Std. Million,,,,,,,,,
 ---,,,,,,,,,
 Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
 ---,,,,,,,,,
-"Query Date: Aug 20, 2024 11:24:33 AM",,,,,,,,,
+"Query Date: Dec 6, 2024 11:29:51 AM",,,,,,,,,
 ---,,,,,,,,,
 "Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 11:24:33 AM",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:29:51 AM",,,,,,,,,
 ---,,,,,,,,,
 Messages:,,,,,,,,,
 1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,
 ---,,,,,,,,,
 Caveats:,,,,,,,,,
-"1. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%",,,,,,,,,
-"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population.",,,,,,,,,
-2. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+1. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
 Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
-"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
 values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
 misleading.,,,,,,,,,
-4. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000.,,,,,,,,,
+3. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+4. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
 5. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
 shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
 "6. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,

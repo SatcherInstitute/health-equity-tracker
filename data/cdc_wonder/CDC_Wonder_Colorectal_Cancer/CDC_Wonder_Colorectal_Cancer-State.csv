@@ -1,11 +1,11 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States,States Code,Count,Population,Crude Rate
-,1999,1999,Colon and Rectum,21041-21052,Alabama,1,2250,4430141,50.8
-,1999,1999,Colon and Rectum,21041-21052,Alaska,2,209,624779,33.5
-,1999,1999,Colon and Rectum,21041-21052,Arizona,4,2344,5023823,46.7
-,1999,1999,Colon and Rectum,21041-21052,Arkansas,5,1436,2651860,54.2
-,1999,1999,Colon and Rectum,21041-21052,California,6,14567,33499204,43.5
-,1999,1999,Colon and Rectum,21041-21052,Colorado,8,1619,4226018,38.3
-,1999,1999,Colon and Rectum,21041-21052,Connecticut,9,2283,3386401,67.4
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,1999,1999,Colon and Rectum,21041-21052,Alabama,01,2250,4430141,50.8
+,1999,1999,Colon and Rectum,21041-21052,Alaska,02,209,624779,33.5
+,1999,1999,Colon and Rectum,21041-21052,Arizona,04,2344,5023823,46.7
+,1999,1999,Colon and Rectum,21041-21052,Arkansas,05,1436,2651860,54.2
+,1999,1999,Colon and Rectum,21041-21052,California,06,14567,33499204,43.5
+,1999,1999,Colon and Rectum,21041-21052,Colorado,08,1619,4226018,38.3
+,1999,1999,Colon and Rectum,21041-21052,Connecticut,09,2283,3386401,67.4
 ,1999,1999,Colon and Rectum,21041-21052,Delaware,10,454,774990,58.6
 ,1999,1999,Colon and Rectum,21041-21052,District of Columbia,11,334,570213,58.6
 ,1999,1999,Colon and Rectum,21041-21052,Florida,12,11890,15759421,75.4
@@ -48,13 +48,13 @@
 ,1999,1999,Colon and Rectum,21041-21052,West Virginia,54,1320,1811799,72.9
 ,1999,1999,Colon and Rectum,21041-21052,Wisconsin,55,3310,5332666,62.1
 ,1999,1999,Colon and Rectum,21041-21052,Wyoming,56,267,491780,54.3
-,2000,2000,Colon and Rectum,21041-21052,Alabama,1,2305,4452173,51.8
-,2000,2000,Colon and Rectum,21041-21052,Alaska,2,232,627963,36.9
-,2000,2000,Colon and Rectum,21041-21052,Arizona,4,2504,5160586,48.5
-,2000,2000,Colon and Rectum,21041-21052,Arkansas,5,1450,2678588,54.1
-,2000,2000,Colon and Rectum,21041-21052,California,6,14523,33987977,42.7
-,2000,2000,Colon and Rectum,21041-21052,Colorado,8,1730,4326921,40
-,2000,2000,Colon and Rectum,21041-21052,Connecticut,9,2267,3411777,66.4
+,2000,2000,Colon and Rectum,21041-21052,Alabama,01,2305,4452173,51.8
+,2000,2000,Colon and Rectum,21041-21052,Alaska,02,232,627963,36.9
+,2000,2000,Colon and Rectum,21041-21052,Arizona,04,2504,5160586,48.5
+,2000,2000,Colon and Rectum,21041-21052,Arkansas,05,1450,2678588,54.1
+,2000,2000,Colon and Rectum,21041-21052,California,06,14523,33987977,42.7
+,2000,2000,Colon and Rectum,21041-21052,Colorado,08,1730,4326921,40
+,2000,2000,Colon and Rectum,21041-21052,Connecticut,09,2267,3411777,66.4
 ,2000,2000,Colon and Rectum,21041-21052,Delaware,10,499,786373,63.5
 ,2000,2000,Colon and Rectum,21041-21052,District of Columbia,11,361,572046,63.1
 ,2000,2000,Colon and Rectum,21041-21052,Florida,12,12093,16047515,75.4
@@ -97,13 +97,13 @@
 ,2000,2000,Colon and Rectum,21041-21052,West Virginia,54,1316,1807021,72.8
 ,2000,2000,Colon and Rectum,21041-21052,Wisconsin,55,3263,5373999,60.7
 ,2000,2000,Colon and Rectum,21041-21052,Wyoming,56,226,494300,45.7
-,2001,2001,Colon and Rectum,21041-21052,Alabama,1,2337,4467634,52.3
-,2001,2001,Colon and Rectum,21041-21052,Alaska,2,239,633714,37.7
-,2001,2001,Colon and Rectum,21041-21052,Arizona,4,2487,5273477,47.2
-,2001,2001,Colon and Rectum,21041-21052,Arkansas,5,1499,2691571,55.7
-,2001,2001,Colon and Rectum,21041-21052,California,6,14589,34479458,42.3
-,2001,2001,Colon and Rectum,21041-21052,Colorado,8,1706,4425687,38.5
-,2001,2001,Colon and Rectum,21041-21052,Connecticut,9,2216,3432835,64.6
+,2001,2001,Colon and Rectum,21041-21052,Alabama,01,2337,4467634,52.3
+,2001,2001,Colon and Rectum,21041-21052,Alaska,02,239,633714,37.7
+,2001,2001,Colon and Rectum,21041-21052,Arizona,04,2487,5273477,47.2
+,2001,2001,Colon and Rectum,21041-21052,Arkansas,05,1499,2691571,55.7
+,2001,2001,Colon and Rectum,21041-21052,California,06,14589,34479458,42.3
+,2001,2001,Colon and Rectum,21041-21052,Colorado,08,1706,4425687,38.5
+,2001,2001,Colon and Rectum,21041-21052,Connecticut,09,2216,3432835,64.6
 ,2001,2001,Colon and Rectum,21041-21052,Delaware,10,479,795699,60.2
 ,2001,2001,Colon and Rectum,21041-21052,District of Columbia,11,321,574504,55.9
 ,2001,2001,Colon and Rectum,21041-21052,Florida,12,11817,16356966,72.2
@@ -147,13 +147,13 @@
 ,2001,2001,Colon and Rectum,21041-21052,West Virginia,54,1371,1801481,76.1
 ,2001,2001,Colon and Rectum,21041-21052,Wisconsin,55,3143,5406835,58.1
 ,2001,2001,Colon and Rectum,21041-21052,Wyoming,56,229,494657,46.3
-,2002,2002,Colon and Rectum,21041-21052,Alabama,1,2355,4480089,52.6
-,2002,2002,Colon and Rectum,21041-21052,Alaska,2,215,642337,33.5
-,2002,2002,Colon and Rectum,21041-21052,Arizona,4,2439,5396255,45.2
-,2002,2002,Colon and Rectum,21041-21052,Arkansas,5,1467,2705927,54.2
-,2002,2002,Colon and Rectum,21041-21052,California,6,14545,34871843,41.7
-,2002,2002,Colon and Rectum,21041-21052,Colorado,8,1702,4490406,37.9
-,2002,2002,Colon and Rectum,21041-21052,Connecticut,9,2267,3458749,65.5
+,2002,2002,Colon and Rectum,21041-21052,Alabama,01,2355,4480089,52.6
+,2002,2002,Colon and Rectum,21041-21052,Alaska,02,215,642337,33.5
+,2002,2002,Colon and Rectum,21041-21052,Arizona,04,2439,5396255,45.2
+,2002,2002,Colon and Rectum,21041-21052,Arkansas,05,1467,2705927,54.2
+,2002,2002,Colon and Rectum,21041-21052,California,06,14545,34871843,41.7
+,2002,2002,Colon and Rectum,21041-21052,Colorado,08,1702,4490406,37.9
+,2002,2002,Colon and Rectum,21041-21052,Connecticut,09,2267,3458749,65.5
 ,2002,2002,Colon and Rectum,21041-21052,Delaware,10,446,806169,55.3
 ,2002,2002,Colon and Rectum,21041-21052,District of Columbia,11,305,573158,53.2
 ,2002,2002,Colon and Rectum,21041-21052,Florida,12,11327,16689370,67.9
@@ -197,13 +197,13 @@
 ,2002,2002,Colon and Rectum,21041-21052,West Virginia,54,1368,1805414,75.8
 ,2002,2002,Colon and Rectum,21041-21052,Wisconsin,55,3048,5445162,56
 ,2002,2002,Colon and Rectum,21041-21052,Wyoming,56,226,500017,45.2
-,2003,2003,Colon and Rectum,21041-21052,Alabama,1,2376,4503491,52.8
-,2003,2003,Colon and Rectum,21041-21052,Alaska,2,226,648414,34.9
-,2003,2003,Colon and Rectum,21041-21052,Arizona,4,2531,5510364,45.9
-,2003,2003,Colon and Rectum,21041-21052,Arkansas,5,1518,2724816,55.7
-,2003,2003,Colon and Rectum,21041-21052,California,6,14767,35253159,41.9
-,2003,2003,Colon and Rectum,21041-21052,Colorado,8,1757,4528732,38.8
-,2003,2003,Colon and Rectum,21041-21052,Connecticut,9,2091,3484336,60
+,2003,2003,Colon and Rectum,21041-21052,Alabama,01,2376,4503491,52.8
+,2003,2003,Colon and Rectum,21041-21052,Alaska,02,226,648414,34.9
+,2003,2003,Colon and Rectum,21041-21052,Arizona,04,2531,5510364,45.9
+,2003,2003,Colon and Rectum,21041-21052,Arkansas,05,1518,2724816,55.7
+,2003,2003,Colon and Rectum,21041-21052,California,06,14767,35253159,41.9
+,2003,2003,Colon and Rectum,21041-21052,Colorado,08,1757,4528732,38.8
+,2003,2003,Colon and Rectum,21041-21052,Connecticut,09,2091,3484336,60
 ,2003,2003,Colon and Rectum,21041-21052,Delaware,10,463,818003,56.6
 ,2003,2003,Colon and Rectum,21041-21052,District of Columbia,11,356,568502,62.6
 ,2003,2003,Colon and Rectum,21041-21052,Florida,12,11212,17004085,65.9
@@ -248,13 +248,13 @@
 ,2003,2003,Colon and Rectum,21041-21052,West Virginia,54,1371,1812295,75.6
 ,2003,2003,Colon and Rectum,21041-21052,Wisconsin,55,3056,5479203,55.8
 ,2003,2003,Colon and Rectum,21041-21052,Wyoming,56,239,503453,47.5
-,2004,2004,Colon and Rectum,21041-21052,Alabama,1,2471,4530729,54.5
-,2004,2004,Colon and Rectum,21041-21052,Alaska,2,248,659286,37.6
-,2004,2004,Colon and Rectum,21041-21052,Arizona,4,2428,5652404,43
-,2004,2004,Colon and Rectum,21041-21052,Arkansas,5,1548,2749686,56.3
-,2004,2004,Colon and Rectum,21041-21052,California,6,14313,35574576,40.2
-,2004,2004,Colon and Rectum,21041-21052,Colorado,8,1900,4575013,41.5
-,2004,2004,Colon and Rectum,21041-21052,Connecticut,9,2147,3496094,61.4
+,2004,2004,Colon and Rectum,21041-21052,Alabama,01,2471,4530729,54.5
+,2004,2004,Colon and Rectum,21041-21052,Alaska,02,248,659286,37.6
+,2004,2004,Colon and Rectum,21041-21052,Arizona,04,2428,5652404,43
+,2004,2004,Colon and Rectum,21041-21052,Arkansas,05,1548,2749686,56.3
+,2004,2004,Colon and Rectum,21041-21052,California,06,14313,35574576,40.2
+,2004,2004,Colon and Rectum,21041-21052,Colorado,08,1900,4575013,41.5
+,2004,2004,Colon and Rectum,21041-21052,Connecticut,09,2147,3496094,61.4
 ,2004,2004,Colon and Rectum,21041-21052,Delaware,10,454,830803,54.6
 ,2004,2004,Colon and Rectum,21041-21052,District of Columbia,11,293,567754,51.6
 ,2004,2004,Colon and Rectum,21041-21052,Florida,12,11278,17415318,64.8
@@ -299,13 +299,13 @@
 ,2004,2004,Colon and Rectum,21041-21052,West Virginia,54,1320,1816438,72.7
 ,2004,2004,Colon and Rectum,21041-21052,Wisconsin,55,2877,5514026,52.2
 ,2004,2004,Colon and Rectum,21041-21052,Wyoming,56,244,509106,47.9
-,2005,2005,Colon and Rectum,21041-21052,Alabama,1,2476,4565917,54.2
-,2005,2005,Colon and Rectum,21041-21052,Alaska,2,241,666946,36.1
-,2005,2005,Colon and Rectum,21041-21052,Arizona,4,2574,5839077,44.1
-,2005,2005,Colon and Rectum,21041-21052,Arkansas,5,1544,2781097,55.5
-,2005,2005,Colon and Rectum,21041-21052,California,6,14674,35827943,41
-,2005,2005,Colon and Rectum,21041-21052,Colorado,8,1829,4631888,39.5
-,2005,2005,Colon and Rectum,21041-21052,Connecticut,9,1992,3506956,56.8
+,2005,2005,Colon and Rectum,21041-21052,Alabama,01,2476,4565917,54.2
+,2005,2005,Colon and Rectum,21041-21052,Alaska,02,241,666946,36.1
+,2005,2005,Colon and Rectum,21041-21052,Arizona,04,2574,5839077,44.1
+,2005,2005,Colon and Rectum,21041-21052,Arkansas,05,1544,2781097,55.5
+,2005,2005,Colon and Rectum,21041-21052,California,06,14674,35827943,41
+,2005,2005,Colon and Rectum,21041-21052,Colorado,08,1829,4631888,39.5
+,2005,2005,Colon and Rectum,21041-21052,Connecticut,09,1992,3506956,56.8
 ,2005,2005,Colon and Rectum,21041-21052,Delaware,10,491,845150,58.1
 ,2005,2005,Colon and Rectum,21041-21052,District of Columbia,11,289,567136,51
 ,2005,2005,Colon and Rectum,21041-21052,Florida,12,10780,17842038,60.4
@@ -350,13 +350,14 @@
 ,2005,2005,Colon and Rectum,21041-21052,West Virginia,54,1227,1820492,67.4
 ,2005,2005,Colon and Rectum,21041-21052,Wisconsin,55,2719,5546166,49
 ,2005,2005,Colon and Rectum,21041-21052,Wyoming,56,240,514157,46.7
-,2006,2006,Colon and Rectum,21041-21052,Alabama,1,2501,4628981,54
-,2006,2006,Colon and Rectum,21041-21052,Alaska,2,255,675302,37.8
-,2006,2006,Colon and Rectum,21041-21052,Arizona,4,2357,6029141,39.1
-,2006,2006,Colon and Rectum,21041-21052,Arkansas,5,1483,2821761,52.6
-,2006,2006,Colon and Rectum,21041-21052,California,6,14707,36021202,40.8
-,2006,2006,Colon and Rectum,21041-21052,Colorado,8,1763,4720423,37.3
-,2006,2006,Colon and Rectum,21041-21052,Connecticut,9,1943,3517460,55.2
+,2005,2005,Colon and Rectum,21041-21052,Puerto Rico,72,1678,3821362,43.9
+,2006,2006,Colon and Rectum,21041-21052,Alabama,01,2501,4628981,54
+,2006,2006,Colon and Rectum,21041-21052,Alaska,02,255,675302,37.8
+,2006,2006,Colon and Rectum,21041-21052,Arizona,04,2357,6029141,39.1
+,2006,2006,Colon and Rectum,21041-21052,Arkansas,05,1483,2821761,52.6
+,2006,2006,Colon and Rectum,21041-21052,California,06,14707,36021202,40.8
+,2006,2006,Colon and Rectum,21041-21052,Colorado,08,1763,4720423,37.3
+,2006,2006,Colon and Rectum,21041-21052,Connecticut,09,1943,3517460,55.2
 ,2006,2006,Colon and Rectum,21041-21052,Delaware,10,499,859268,58.1
 ,2006,2006,Colon and Rectum,21041-21052,District of Columbia,11,262,570681,45.9
 ,2006,2006,Colon and Rectum,21041-21052,Florida,12,10680,18166990,58.8
@@ -401,13 +402,14 @@
 ,2006,2006,Colon and Rectum,21041-21052,West Virginia,54,1235,1827912,67.6
 ,2006,2006,Colon and Rectum,21041-21052,Wisconsin,55,2774,5577655,49.7
 ,2006,2006,Colon and Rectum,21041-21052,Wyoming,56,259,522667,49.6
-,2007,2007,Colon and Rectum,21041-21052,Alabama,1,2528,4672840,54.1
-,2007,2007,Colon and Rectum,21041-21052,Alaska,2,210,680300,30.9
-,2007,2007,Colon and Rectum,21041-21052,Arizona,4,2500,6167681,40.5
-,2007,2007,Colon and Rectum,21041-21052,Arkansas,5,1481,2848650,52
-,2007,2007,Colon and Rectum,21041-21052,California,6,15109,36250311,41.7
-,2007,2007,Colon and Rectum,21041-21052,Colorado,8,1802,4803868,37.5
-,2007,2007,Colon and Rectum,21041-21052,Connecticut,9,1854,3527270,52.6
+,2006,2006,Colon and Rectum,21041-21052,Puerto Rico,72,1730,3805214,45.5
+,2007,2007,Colon and Rectum,21041-21052,Alabama,01,2528,4672840,54.1
+,2007,2007,Colon and Rectum,21041-21052,Alaska,02,210,680300,30.9
+,2007,2007,Colon and Rectum,21041-21052,Arizona,04,2500,6167681,40.5
+,2007,2007,Colon and Rectum,21041-21052,Arkansas,05,1481,2848650,52
+,2007,2007,Colon and Rectum,21041-21052,California,06,15109,36250311,41.7
+,2007,2007,Colon and Rectum,21041-21052,Colorado,08,1802,4803868,37.5
+,2007,2007,Colon and Rectum,21041-21052,Connecticut,09,1854,3527270,52.6
 ,2007,2007,Colon and Rectum,21041-21052,Delaware,10,477,871749,54.7
 ,2007,2007,Colon and Rectum,21041-21052,District of Columbia,11,310,574404,54
 ,2007,2007,Colon and Rectum,21041-21052,Florida,12,10464,18367842,57
@@ -452,13 +454,14 @@
 ,2007,2007,Colon and Rectum,21041-21052,West Virginia,54,1227,1834052,66.9
 ,2007,2007,Colon and Rectum,21041-21052,Wisconsin,55,2750,5610775,49
 ,2007,2007,Colon and Rectum,21041-21052,Wyoming,56,225,534876,42.1
-,2008,2008,Colon and Rectum,21041-21052,Alabama,1,2632,4718206,55.8
-,2008,2008,Colon and Rectum,21041-21052,Alaska,2,247,687455,35.9
-,2008,2008,Colon and Rectum,21041-21052,Arizona,4,2555,6280362,40.7
-,2008,2008,Colon and Rectum,21041-21052,Arkansas,5,1512,2874554,52.6
-,2008,2008,Colon and Rectum,21041-21052,California,6,15402,36604337,42.1
-,2008,2008,Colon and Rectum,21041-21052,Colorado,8,1754,4889730,35.9
-,2008,2008,Colon and Rectum,21041-21052,Connecticut,9,1828,3545579,51.6
+,2007,2007,Colon and Rectum,21041-21052,Puerto Rico,72,1776,3782995,46.9
+,2008,2008,Colon and Rectum,21041-21052,Alabama,01,2632,4718206,55.8
+,2008,2008,Colon and Rectum,21041-21052,Alaska,02,247,687455,35.9
+,2008,2008,Colon and Rectum,21041-21052,Arizona,04,2555,6280362,40.7
+,2008,2008,Colon and Rectum,21041-21052,Arkansas,05,1512,2874554,52.6
+,2008,2008,Colon and Rectum,21041-21052,California,06,15402,36604337,42.1
+,2008,2008,Colon and Rectum,21041-21052,Colorado,08,1754,4889730,35.9
+,2008,2008,Colon and Rectum,21041-21052,Connecticut,09,1828,3545579,51.6
 ,2008,2008,Colon and Rectum,21041-21052,Delaware,10,456,883874,51.6
 ,2008,2008,Colon and Rectum,21041-21052,District of Columbia,11,242,580236,41.7
 ,2008,2008,Colon and Rectum,21041-21052,Florida,12,10723,18527305,57.9
@@ -503,13 +506,14 @@
 ,2008,2008,Colon and Rectum,21041-21052,West Virginia,54,1214,1840310,66
 ,2008,2008,Colon and Rectum,21041-21052,Wisconsin,55,2825,5640996,50.1
 ,2008,2008,Colon and Rectum,21041-21052,Wyoming,56,220,546043,40.3
-,2009,2009,Colon and Rectum,21041-21052,Alabama,1,2476,4757938,52
-,2009,2009,Colon and Rectum,21041-21052,Alaska,2,290,698895,41.5
-,2009,2009,Colon and Rectum,21041-21052,Arizona,4,2598,6343154,41
-,2009,2009,Colon and Rectum,21041-21052,Arkansas,5,1407,2896843,48.6
-,2009,2009,Colon and Rectum,21041-21052,California,6,15039,36961229,40.7
-,2009,2009,Colon and Rectum,21041-21052,Colorado,8,1699,4972195,34.2
-,2009,2009,Colon and Rectum,21041-21052,Connecticut,9,1828,3561807,51.3
+,2008,2008,Colon and Rectum,21041-21052,Puerto Rico,72,1757,3760866,46.7
+,2009,2009,Colon and Rectum,21041-21052,Alabama,01,2476,4757938,52
+,2009,2009,Colon and Rectum,21041-21052,Alaska,02,290,698895,41.5
+,2009,2009,Colon and Rectum,21041-21052,Arizona,04,2598,6343154,41
+,2009,2009,Colon and Rectum,21041-21052,Arkansas,05,1407,2896843,48.6
+,2009,2009,Colon and Rectum,21041-21052,California,06,15039,36961229,40.7
+,2009,2009,Colon and Rectum,21041-21052,Colorado,08,1699,4972195,34.2
+,2009,2009,Colon and Rectum,21041-21052,Connecticut,09,1828,3561807,51.3
 ,2009,2009,Colon and Rectum,21041-21052,Delaware,10,433,891730,48.6
 ,2009,2009,Colon and Rectum,21041-21052,District of Columbia,11,273,592228,46.1
 ,2009,2009,Colon and Rectum,21041-21052,Florida,12,10080,18652644,54
@@ -554,13 +558,14 @@
 ,2009,2009,Colon and Rectum,21041-21052,West Virginia,54,1161,1847775,62.8
 ,2009,2009,Colon and Rectum,21041-21052,Wisconsin,55,2702,5669264,47.7
 ,2009,2009,Colon and Rectum,21041-21052,Wyoming,56,235,559851,42
-,2010,2010,Colon and Rectum,21041-21052,Alabama,1,2378,4788081,49.7
-,2010,2010,Colon and Rectum,21041-21052,Alaska,2,284,714026,39.8
-,2010,2010,Colon and Rectum,21041-21052,Arizona,4,2550,6402172,39.8
-,2010,2010,Colon and Rectum,21041-21052,Arkansas,5,1391,2921608,47.6
-,2010,2010,Colon and Rectum,21041-21052,California,6,14713,37322860,39.4
-,2010,2010,Colon and Rectum,21041-21052,Colorado,8,1705,5047145,33.8
-,2010,2010,Colon and Rectum,21041-21052,Connecticut,9,1755,3580397,49
+,2009,2009,Colon and Rectum,21041-21052,Puerto Rico,72,1786,3740410,47.7
+,2010,2010,Colon and Rectum,21041-21052,Alabama,01,2378,4788081,49.7
+,2010,2010,Colon and Rectum,21041-21052,Alaska,02,284,714026,39.8
+,2010,2010,Colon and Rectum,21041-21052,Arizona,04,2550,6402172,39.8
+,2010,2010,Colon and Rectum,21041-21052,Arkansas,05,1391,2921608,47.6
+,2010,2010,Colon and Rectum,21041-21052,California,06,14713,37322860,39.4
+,2010,2010,Colon and Rectum,21041-21052,Colorado,08,1705,5047145,33.8
+,2010,2010,Colon and Rectum,21041-21052,Connecticut,09,1755,3580397,49
 ,2010,2010,Colon and Rectum,21041-21052,Delaware,10,445,899782,49.5
 ,2010,2010,Colon and Rectum,21041-21052,District of Columbia,11,271,604863,44.8
 ,2010,2010,Colon and Rectum,21041-21052,Florida,12,9645,18843093,51.2
@@ -605,13 +610,14 @@
 ,2010,2010,Colon and Rectum,21041-21052,West Virginia,54,1075,1854428,58
 ,2010,2010,Colon and Rectum,21041-21052,Wisconsin,55,2590,5692094,45.5
 ,2010,2010,Colon and Rectum,21041-21052,Wyoming,56,262,564429,46.4
-,2011,2011,Colon and Rectum,21041-21052,Alabama,1,2310,4812311,48
-,2011,2011,Colon and Rectum,21041-21052,Alaska,2,266,722610,36.8
-,2011,2011,Colon and Rectum,21041-21052,Arizona,4,2521,6447287,39.1
-,2011,2011,Colon and Rectum,21041-21052,Arkansas,5,1390,2938936,47.3
-,2011,2011,Colon and Rectum,21041-21052,California,6,14408,37653337,38.3
-,2011,2011,Colon and Rectum,21041-21052,Colorado,8,1735,5119705,33.9
-,2011,2011,Colon and Rectum,21041-21052,Connecticut,9,1676,3594525,46.6
+,2010,2010,Colon and Rectum,21041-21052,Puerto Rico,72,1758,3721525,47.2
+,2011,2011,Colon and Rectum,21041-21052,Alabama,01,2310,4812311,48
+,2011,2011,Colon and Rectum,21041-21052,Alaska,02,266,722610,36.8
+,2011,2011,Colon and Rectum,21041-21052,Arizona,04,2521,6447287,39.1
+,2011,2011,Colon and Rectum,21041-21052,Arkansas,05,1390,2938936,47.3
+,2011,2011,Colon and Rectum,21041-21052,California,06,14408,37653337,38.3
+,2011,2011,Colon and Rectum,21041-21052,Colorado,08,1735,5119705,33.9
+,2011,2011,Colon and Rectum,21041-21052,Connecticut,09,1676,3594525,46.6
 ,2011,2011,Colon and Rectum,21041-21052,Delaware,10,404,908309,44.5
 ,2011,2011,Colon and Rectum,21041-21052,District of Columbia,11,260,617919,42.1
 ,2011,2011,Colon and Rectum,21041-21052,Florida,12,10219,19040534,53.7
@@ -656,13 +662,14 @@
 ,2011,2011,Colon and Rectum,21041-21052,West Virginia,54,1156,1857508,62.2
 ,2011,2011,Colon and Rectum,21041-21052,Wisconsin,55,2641,5713582,46.2
 ,2011,2011,Colon and Rectum,21041-21052,Wyoming,56,223,566898,39.3
-,2012,2012,Colon and Rectum,21041-21052,Alabama,1,2441,4839463,50.4
-,2012,2012,Colon and Rectum,21041-21052,Alaska,2,252,731293,34.5
-,2012,2012,Colon and Rectum,21041-21052,Arizona,4,2606,6508584,40
-,2012,2012,Colon and Rectum,21041-21052,Arkansas,5,1398,2949008,47.4
-,2012,2012,Colon and Rectum,21041-21052,California,6,14280,37974434,37.6
-,2012,2012,Colon and Rectum,21041-21052,Colorado,8,1771,5189492,34.1
-,2012,2012,Colon and Rectum,21041-21052,Connecticut,9,1771,3605729,49.1
+,2011,2011,Colon and Rectum,21041-21052,Puerto Rico,72,1926,3678732,52.4
+,2012,2012,Colon and Rectum,21041-21052,Alabama,01,2441,4839463,50.4
+,2012,2012,Colon and Rectum,21041-21052,Alaska,02,252,731293,34.5
+,2012,2012,Colon and Rectum,21041-21052,Arizona,04,2606,6508584,40
+,2012,2012,Colon and Rectum,21041-21052,Arkansas,05,1398,2949008,47.4
+,2012,2012,Colon and Rectum,21041-21052,California,06,14280,37974434,37.6
+,2012,2012,Colon and Rectum,21041-21052,Colorado,08,1771,5189492,34.1
+,2012,2012,Colon and Rectum,21041-21052,Connecticut,09,1771,3605729,49.1
 ,2012,2012,Colon and Rectum,21041-21052,Delaware,10,386,916823,42.1
 ,2012,2012,Colon and Rectum,21041-21052,District of Columbia,11,247,631263,39.1
 ,2012,2012,Colon and Rectum,21041-21052,Florida,12,9776,19274146,50.7
@@ -707,13 +714,14 @@
 ,2012,2012,Colon and Rectum,21041-21052,West Virginia,54,1107,1859012,59.5
 ,2012,2012,Colon and Rectum,21041-21052,Wisconsin,55,2559,5734585,44.6
 ,2012,2012,Colon and Rectum,21041-21052,Wyoming,56,229,575540,39.8
-,2013,2013,Colon and Rectum,21041-21052,Alabama,1,2517,4864598,51.7
-,2013,2013,Colon and Rectum,21041-21052,Alaska,2,285,738288,38.6
-,2013,2013,Colon and Rectum,21041-21052,Arizona,4,2558,6564810,39
-,2013,2013,Colon and Rectum,21041-21052,Arkansas,5,1487,2954791,50.3
-,2013,2013,Colon and Rectum,21041-21052,California,6,14208,38296038,37.1
-,2013,2013,Colon and Rectum,21041-21052,Colorado,8,1856,5264410,35.3
-,2013,2013,Colon and Rectum,21041-21052,Connecticut,9,1598,3610808,44.3
+,2012,2012,Colon and Rectum,21041-21052,Puerto Rico,72,1887,3634488,51.9
+,2013,2013,Colon and Rectum,21041-21052,Alabama,01,2517,4864598,51.7
+,2013,2013,Colon and Rectum,21041-21052,Alaska,02,285,738288,38.6
+,2013,2013,Colon and Rectum,21041-21052,Arizona,04,2558,6564810,39
+,2013,2013,Colon and Rectum,21041-21052,Arkansas,05,1487,2954791,50.3
+,2013,2013,Colon and Rectum,21041-21052,California,06,14208,38296038,37.1
+,2013,2013,Colon and Rectum,21041-21052,Colorado,08,1856,5264410,35.3
+,2013,2013,Colon and Rectum,21041-21052,Connecticut,09,1598,3610808,44.3
 ,2013,2013,Colon and Rectum,21041-21052,Delaware,10,395,925913,42.7
 ,2013,2013,Colon and Rectum,21041-21052,District of Columbia,11,249,644892,38.6
 ,2013,2013,Colon and Rectum,21041-21052,Florida,12,10188,19510365,52.2
@@ -758,13 +766,14 @@
 ,2013,2013,Colon and Rectum,21041-21052,West Virginia,54,1176,1856971,63.3
 ,2013,2013,Colon and Rectum,21041-21052,Wisconsin,55,2553,5757711,44.3
 ,2013,2013,Colon and Rectum,21041-21052,Wyoming,56,213,580983,36.7
-,2014,2014,Colon and Rectum,21041-21052,Alabama,1,2543,4886870,52
-,2014,2014,Colon and Rectum,21041-21052,Alaska,2,277,737859,37.5
-,2014,2014,Colon and Rectum,21041-21052,Arizona,4,2733,6639874,41.2
-,2014,2014,Colon and Rectum,21041-21052,Arkansas,5,1526,2961247,51.5
-,2014,2014,Colon and Rectum,21041-21052,California,6,14821,38640488,38.4
-,2014,2014,Colon and Rectum,21041-21052,Colorado,8,1842,5343818,34.5
-,2014,2014,Colon and Rectum,21041-21052,Connecticut,9,1611,3615128,44.6
+,2013,2013,Colon and Rectum,21041-21052,Puerto Rico,72,1912,3593077,53.2
+,2014,2014,Colon and Rectum,21041-21052,Alabama,01,2543,4886870,52
+,2014,2014,Colon and Rectum,21041-21052,Alaska,02,277,737859,37.5
+,2014,2014,Colon and Rectum,21041-21052,Arizona,04,2733,6639874,41.2
+,2014,2014,Colon and Rectum,21041-21052,Arkansas,05,1526,2961247,51.5
+,2014,2014,Colon and Rectum,21041-21052,California,06,14821,38640488,38.4
+,2014,2014,Colon and Rectum,21041-21052,Colorado,08,1842,5343818,34.5
+,2014,2014,Colon and Rectum,21041-21052,Connecticut,09,1611,3615128,44.6
 ,2014,2014,Colon and Rectum,21041-21052,Delaware,10,434,935476,46.4
 ,2014,2014,Colon and Rectum,21041-21052,District of Columbia,11,291,654680,44.4
 ,2014,2014,Colon and Rectum,21041-21052,Florida,12,10363,19798068,52.3
@@ -809,13 +818,14 @@
 ,2014,2014,Colon and Rectum,21041-21052,West Virginia,54,1157,1853340,62.4
 ,2014,2014,Colon and Rectum,21041-21052,Wisconsin,55,2594,5778715,44.9
 ,2014,2014,Colon and Rectum,21041-21052,Wyoming,56,198,580983,34.1
-,2015,2015,Colon and Rectum,21041-21052,Alabama,1,2512,4908173,51.2
-,2015,2015,Colon and Rectum,21041-21052,Alaska,2,301,739305,40.7
-,2015,2015,Colon and Rectum,21041-21052,Arizona,4,2675,6716074,39.8
-,2015,2015,Colon and Rectum,21041-21052,Arkansas,5,1553,2970399,52.3
-,2015,2015,Colon and Rectum,21041-21052,California,6,14868,38969769,38.2
-,2015,2015,Colon and Rectum,21041-21052,Colorado,8,1954,5442972,35.9
-,2015,2015,Colon and Rectum,21041-21052,Connecticut,9,1597,3612364,44.2
+,2014,2014,Colon and Rectum,21041-21052,Puerto Rico,72,1936,3534874,54.8
+,2015,2015,Colon and Rectum,21041-21052,Alabama,01,2512,4908173,51.2
+,2015,2015,Colon and Rectum,21041-21052,Alaska,02,301,739305,40.7
+,2015,2015,Colon and Rectum,21041-21052,Arizona,04,2675,6716074,39.8
+,2015,2015,Colon and Rectum,21041-21052,Arkansas,05,1553,2970399,52.3
+,2015,2015,Colon and Rectum,21041-21052,California,06,14868,38969769,38.2
+,2015,2015,Colon and Rectum,21041-21052,Colorado,08,1954,5442972,35.9
+,2015,2015,Colon and Rectum,21041-21052,Connecticut,09,1597,3612364,44.2
 ,2015,2015,Colon and Rectum,21041-21052,Delaware,10,468,944928,49.5
 ,2015,2015,Colon and Rectum,21041-21052,District of Columbia,11,217,665747,32.6
 ,2015,2015,Colon and Rectum,21041-21052,Florida,12,10466,20148144,51.9
@@ -860,13 +870,14 @@
 ,2015,2015,Colon and Rectum,21041-21052,West Virginia,54,1173,1846651,63.5
 ,2015,2015,Colon and Rectum,21041-21052,Wisconsin,55,2558,5794297,44.1
 ,2015,2015,Colon and Rectum,21041-21052,Wyoming,56,200,583719,34.3
-,2016,2016,Colon and Rectum,21041-21052,Alabama,1,2575,4930490,52.2
-,2016,2016,Colon and Rectum,21041-21052,Alaska,2,277,743530,37.3
-,2016,2016,Colon and Rectum,21041-21052,Arizona,4,2634,6803119,38.7
-,2016,2016,Colon and Rectum,21041-21052,Arkansas,5,1490,2980570,50
-,2016,2016,Colon and Rectum,21041-21052,California,6,14781,39225383,37.7
-,2016,2016,Colon and Rectum,21041-21052,Colorado,8,1903,5529732,34.4
-,2016,2016,Colon and Rectum,21041-21052,Connecticut,9,1616,3607920,44.8
+,2015,2015,Colon and Rectum,21041-21052,Puerto Rico,72,1922,3473232,55.3
+,2016,2016,Colon and Rectum,21041-21052,Alabama,01,2575,4930490,52.2
+,2016,2016,Colon and Rectum,21041-21052,Alaska,02,277,743530,37.3
+,2016,2016,Colon and Rectum,21041-21052,Arizona,04,2634,6803119,38.7
+,2016,2016,Colon and Rectum,21041-21052,Arkansas,05,1490,2980570,50
+,2016,2016,Colon and Rectum,21041-21052,California,06,14781,39225383,37.7
+,2016,2016,Colon and Rectum,21041-21052,Colorado,08,1903,5529732,34.4
+,2016,2016,Colon and Rectum,21041-21052,Connecticut,09,1616,3607920,44.8
 ,2016,2016,Colon and Rectum,21041-21052,Delaware,10,483,953302,50.7
 ,2016,2016,Colon and Rectum,21041-21052,District of Columbia,11,234,673900,34.7
 ,2016,2016,Colon and Rectum,21041-21052,Florida,12,10654,20539843,51.9
@@ -911,13 +922,14 @@
 ,2016,2016,Colon and Rectum,21041-21052,West Virginia,54,1111,1836221,60.5
 ,2016,2016,Colon and Rectum,21041-21052,Wisconsin,55,2670,5812359,45.9
 ,2016,2016,Colon and Rectum,21041-21052,Wyoming,56,228,582021,39.2
-,2017,2017,Colon and Rectum,21041-21052,Alabama,1,2545,4951852,51.4
-,2017,2017,Colon and Rectum,21041-21052,Alaska,2,318,742015,42.9
-,2017,2017,Colon and Rectum,21041-21052,Arizona,4,2755,6880741,40
-,2017,2017,Colon and Rectum,21041-21052,Arkansas,5,1545,2990582,51.7
-,2017,2017,Colon and Rectum,21041-21052,California,6,14731,39423395,37.4
-,2017,2017,Colon and Rectum,21041-21052,Colorado,8,1988,5600301,35.5
-,2017,2017,Colon and Rectum,21041-21052,Connecticut,9,1543,3607571,42.8
+,2016,2016,Colon and Rectum,21041-21052,Puerto Rico,72,1885,3406672,55.3
+,2017,2017,Colon and Rectum,21041-21052,Alabama,01,2545,4951852,51.4
+,2017,2017,Colon and Rectum,21041-21052,Alaska,02,318,742015,42.9
+,2017,2017,Colon and Rectum,21041-21052,Arizona,04,2755,6880741,40
+,2017,2017,Colon and Rectum,21041-21052,Arkansas,05,1545,2990582,51.7
+,2017,2017,Colon and Rectum,21041-21052,California,06,14731,39423395,37.4
+,2017,2017,Colon and Rectum,21041-21052,Colorado,08,1988,5600301,35.5
+,2017,2017,Colon and Rectum,21041-21052,Connecticut,09,1543,3607571,42.8
 ,2017,2017,Colon and Rectum,21041-21052,Delaware,10,463,961655,48.1
 ,2017,2017,Colon and Rectum,21041-21052,District of Columbia,11,245,680978,36
 ,2017,2017,Colon and Rectum,21041-21052,Florida,12,10463,20872368,50.1
@@ -962,13 +974,14 @@
 ,2017,2017,Colon and Rectum,21041-21052,West Virginia,54,1151,1822823,63.1
 ,2017,2017,Colon and Rectum,21041-21052,Wisconsin,55,2549,5836099,43.7
 ,2017,2017,Colon and Rectum,21041-21052,Wyoming,56,232,576248,40.3
-,2018,2018,Colon and Rectum,21041-21052,Alabama,1,2476,4976062,49.8
-,2018,2018,Colon and Rectum,21041-21052,Alaska,2,302,737791,40.9
-,2018,2018,Colon and Rectum,21041-21052,Arizona,4,2892,6970505,41.5
-,2018,2018,Colon and Rectum,21041-21052,Arkansas,5,1555,2997060,51.9
-,2018,2018,Colon and Rectum,21041-21052,California,6,14986,39534267,37.9
-,2018,2018,Colon and Rectum,21041-21052,Colorado,8,1949,5677250,34.3
-,2018,2018,Colon and Rectum,21041-21052,Connecticut,9,1626,3611228,45
+,2017,2017,Colon and Rectum,21041-21052,Puerto Rico,72,962,1662651,57.9
+,2018,2018,Colon and Rectum,21041-21052,Alabama,01,2476,4976062,49.8
+,2018,2018,Colon and Rectum,21041-21052,Alaska,02,302,737791,40.9
+,2018,2018,Colon and Rectum,21041-21052,Arizona,04,2892,6970505,41.5
+,2018,2018,Colon and Rectum,21041-21052,Arkansas,05,1555,2997060,51.9
+,2018,2018,Colon and Rectum,21041-21052,California,06,14986,39534267,37.9
+,2018,2018,Colon and Rectum,21041-21052,Colorado,08,1949,5677250,34.3
+,2018,2018,Colon and Rectum,21041-21052,Connecticut,09,1626,3611228,45
 ,2018,2018,Colon and Rectum,21041-21052,Delaware,10,446,971164,45.9
 ,2018,2018,Colon and Rectum,21041-21052,District of Columbia,11,260,685637,37.9
 ,2018,2018,Colon and Rectum,21041-21052,Florida,12,10657,21134065,50.4
@@ -1013,13 +1026,14 @@
 ,2018,2018,Colon and Rectum,21041-21052,West Virginia,54,1123,1810562,62
 ,2018,2018,Colon and Rectum,21041-21052,Wisconsin,55,2551,5858390,43.5
 ,2018,2018,Colon and Rectum,21041-21052,Wyoming,56,239,574787,41.6
-,2019,2019,Colon and Rectum,21041-21052,Alabama,1,2568,5003250,51.3
-,2019,2019,Colon and Rectum,21041-21052,Alaska,2,292,734885,39.7
-,2019,2019,Colon and Rectum,21041-21052,Arizona,4,2854,7070808,40.4
-,2019,2019,Colon and Rectum,21041-21052,Arkansas,5,1699,3004141,56.6
-,2019,2019,Colon and Rectum,21041-21052,California,6,15308,39546660,38.7
-,2019,2019,Colon and Rectum,21041-21052,Colorado,8,1984,5735919,34.6
-,2019,2019,Colon and Rectum,21041-21052,Connecticut,9,1544,3607128,42.8
+,2018,2018,Colon and Rectum,21041-21052,Puerto Rico,72,1797,3193344,56.3
+,2019,2019,Colon and Rectum,21041-21052,Alabama,01,2568,5003250,51.3
+,2019,2019,Colon and Rectum,21041-21052,Alaska,02,292,734885,39.7
+,2019,2019,Colon and Rectum,21041-21052,Arizona,04,2854,7070808,40.4
+,2019,2019,Colon and Rectum,21041-21052,Arkansas,05,1699,3004141,56.6
+,2019,2019,Colon and Rectum,21041-21052,California,06,15308,39546660,38.7
+,2019,2019,Colon and Rectum,21041-21052,Colorado,08,1984,5735919,34.6
+,2019,2019,Colon and Rectum,21041-21052,Connecticut,09,1544,3607128,42.8
 ,2019,2019,Colon and Rectum,21041-21052,Delaware,10,436,981319,44.4
 ,2019,2019,Colon and Rectum,21041-21052,District of Columbia,11,244,687406,35.5
 ,2019,2019,Colon and Rectum,21041-21052,Florida,12,11025,21354226,51.6
@@ -1064,13 +1078,14 @@
 ,2019,2019,Colon and Rectum,21041-21052,West Virginia,54,1109,1800427,61.6
 ,2019,2019,Colon and Rectum,21041-21052,Wisconsin,55,2637,5879993,44.8
 ,2019,2019,Colon and Rectum,21041-21052,Wyoming,56,263,575356,45.7
-,2020,2020,Colon and Rectum,21041-21052,Alabama,1,2314,5031362,46
-,2020,2020,Colon and Rectum,21041-21052,Alaska,2,308,732923,42
-,2020,2020,Colon and Rectum,21041-21052,Arizona,4,2692,7179943,37.5
-,2020,2020,Colon and Rectum,21041-21052,Arkansas,5,1359,3014195,45.1
-,2020,2020,Colon and Rectum,21041-21052,California,6,13604,39501653,34.4
-,2020,2020,Colon and Rectum,21041-21052,Colorado,8,1806,5784865,31.2
-,2020,2020,Colon and Rectum,21041-21052,Connecticut,9,1421,3597362,39.5
+,2019,2019,Colon and Rectum,21041-21052,Puerto Rico,72,1785,3193553,55.9
+,2020,2020,Colon and Rectum,21041-21052,Alabama,01,2314,5031362,46
+,2020,2020,Colon and Rectum,21041-21052,Alaska,02,308,732923,42
+,2020,2020,Colon and Rectum,21041-21052,Arizona,04,2692,7179943,37.5
+,2020,2020,Colon and Rectum,21041-21052,Arkansas,05,1359,3014195,45.1
+,2020,2020,Colon and Rectum,21041-21052,California,06,13604,39501653,34.4
+,2020,2020,Colon and Rectum,21041-21052,Colorado,08,1806,5784865,31.2
+,2020,2020,Colon and Rectum,21041-21052,Connecticut,09,1421,3597362,39.5
 ,2020,2020,Colon and Rectum,21041-21052,Delaware,10,393,992114,39.6
 ,2020,2020,Colon and Rectum,21041-21052,District of Columbia,11,204,670868,30.4
 ,2020,2020,Colon and Rectum,21041-21052,Florida,12,10191,21589602,47.2
@@ -1114,13 +1129,14 @@
 ,2020,2020,Colon and Rectum,21041-21052,West Virginia,54,1032,1791420,57.6
 ,2020,2020,Colon and Rectum,21041-21052,Wisconsin,55,2267,5896271,38.4
 ,2020,2020,Colon and Rectum,21041-21052,Wyoming,56,235,577605,40.7
-,2021,2021,Colon and Rectum,21041-21052,Alabama,1,2510,5049846,49.7
-,2021,2021,Colon and Rectum,21041-21052,Alaska,2,292,734182,39.8
-,2021,2021,Colon and Rectum,21041-21052,Arizona,4,2666,7264877,36.7
-,2021,2021,Colon and Rectum,21041-21052,Arkansas,5,1417,3028122,46.8
-,2021,2021,Colon and Rectum,21041-21052,California,6,15096,39142991,38.6
-,2021,2021,Colon and Rectum,21041-21052,Colorado,8,2047,5811297,35.2
-,2021,2021,Colon and Rectum,21041-21052,Connecticut,9,1578,3623355,43.6
+,2020,2020,Colon and Rectum,21041-21052,Puerto Rico,72,1465,3281557,44.6
+,2021,2021,Colon and Rectum,21041-21052,Alabama,01,2510,5049846,49.7
+,2021,2021,Colon and Rectum,21041-21052,Alaska,02,292,734182,39.8
+,2021,2021,Colon and Rectum,21041-21052,Arizona,04,2666,7264877,36.7
+,2021,2021,Colon and Rectum,21041-21052,Arkansas,05,1417,3028122,46.8
+,2021,2021,Colon and Rectum,21041-21052,California,06,15096,39142991,38.6
+,2021,2021,Colon and Rectum,21041-21052,Colorado,08,2047,5811297,35.2
+,2021,2021,Colon and Rectum,21041-21052,Connecticut,09,1578,3623355,43.6
 ,2021,2021,Colon and Rectum,21041-21052,Delaware,10,422,1004807,42
 ,2021,2021,Colon and Rectum,21041-21052,District of Columbia,11,231,668791,34.5
 ,2021,2021,Colon and Rectum,21041-21052,Florida,12,11073,21828069,50.7
@@ -1164,11 +1180,12 @@
 ,2021,2021,Colon and Rectum,21041-21052,West Virginia,54,1083,1785526,60.7
 ,2021,2021,Colon and Rectum,21041-21052,Wisconsin,55,2549,5880101,43.3
 ,2021,2021,Colon and Rectum,21041-21052,Wyoming,56,251,579483,43.3
+,2021,2021,Colon and Rectum,21041-21052,Puerto Rico,72,1786,3262693,54.7
 ---,,,,,,,,,
 "Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
 Query Parameters:,,,,,,,,,
 Leading Cancer Sites: Colon and Rectum,,,,,,,,,
-Group By: Year; Leading Cancer Sites; States,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
 Show Totals: Disabled,,,,,,,,,
 Show Zero Values: False,,,,,,,,,
 Show Suppressed: False,,,,,,,,,
@@ -1177,24 +1194,26 @@ Standard Population: 2000 U.S. Std. Million,,,,,,,,,
 ---,,,,,,,,,
 Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
 ---,,,,,,,,,
-"Query Date: Aug 20, 2024 11:23:29 AM",,,,,,,,,
+"Query Date: Dec 6, 2024 11:23:26 AM",,,,,,,,,
 ---,,,,,,,,,
 "Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 11:23:29 AM",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:23:26 AM",,,,,,,,,
 ---,,,,,,,,,
 Messages:,,,,,,,,,
 1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,
 ---,,,,,,,,,
 Caveats:,,,,,,,,,
-"1. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%",,,,,,,,,
-"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population.",,,,,,,,,
-2. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+1. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
 Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
-"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
 values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
 misleading.,,,,,,,,,
-4. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000.,,,,,,,,,
+3. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+4. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
 5. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
 shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
 "6. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,

@@ -1,11 +1,11 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States,States Code,Count,Population,Crude Rate
-,1999,1999,Cervix Uteri,27010,Alabama,1,237,2293259,10.3
-,1999,1999,Cervix Uteri,27010,Alaska,2,21,301266,7
-,1999,1999,Cervix Uteri,27010,Arizona,4,197,2518299,7.8
-,1999,1999,Cervix Uteri,27010,Arkansas,5,161,1359445,11.8
-,1999,1999,Cervix Uteri,27010,California,6,1686,16800161,10
-,1999,1999,Cervix Uteri,27010,Colorado,8,136,2101358,6.5
-,1999,1999,Cervix Uteri,27010,Connecticut,9,155,1747148,8.9
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,1999,1999,Cervix Uteri,27010,Alabama,01,237,2293259,10.3
+,1999,1999,Cervix Uteri,27010,Alaska,02,21,301266,7
+,1999,1999,Cervix Uteri,27010,Arizona,04,197,2518299,7.8
+,1999,1999,Cervix Uteri,27010,Arkansas,05,161,1359445,11.8
+,1999,1999,Cervix Uteri,27010,California,06,1686,16800161,10
+,1999,1999,Cervix Uteri,27010,Colorado,08,136,2101358,6.5
+,1999,1999,Cervix Uteri,27010,Connecticut,09,155,1747148,8.9
 ,1999,1999,Cervix Uteri,27010,Delaware,10,37,398732,9.3
 ,1999,1999,Cervix Uteri,27010,District of Columbia,11,35,301797,11.6
 ,1999,1999,Cervix Uteri,27010,Florida,12,978,8073847,12.1
@@ -48,13 +48,13 @@
 ,1999,1999,Cervix Uteri,27010,West Virginia,54,138,931809,14.8
 ,1999,1999,Cervix Uteri,27010,Wisconsin,55,248,2701525,9.2
 ,1999,1999,Cervix Uteri,27010,Wyoming,56,22,244518,9
-,2000,2000,Cervix Uteri,27010,Alabama,1,237,2302835,10.3
-,2000,2000,Cervix Uteri,27010,Alaska,2,23,303213,7.6
-,2000,2000,Cervix Uteri,27010,Arizona,4,180,2584579,7
-,2000,2000,Cervix Uteri,27010,Arkansas,5,151,1371015,11
-,2000,2000,Cervix Uteri,27010,California,6,1675,17050415,9.8
-,2000,2000,Cervix Uteri,27010,Colorado,8,153,2147742,7.1
-,2000,2000,Cervix Uteri,27010,Connecticut,9,128,1759318,7.3
+,2000,2000,Cervix Uteri,27010,Alabama,01,237,2302835,10.3
+,2000,2000,Cervix Uteri,27010,Alaska,02,23,303213,7.6
+,2000,2000,Cervix Uteri,27010,Arizona,04,180,2584579,7
+,2000,2000,Cervix Uteri,27010,Arkansas,05,151,1371015,11
+,2000,2000,Cervix Uteri,27010,California,06,1675,17050415,9.8
+,2000,2000,Cervix Uteri,27010,Colorado,08,153,2147742,7.1
+,2000,2000,Cervix Uteri,27010,Connecticut,09,128,1759318,7.3
 ,2000,2000,Cervix Uteri,27010,Delaware,10,48,404447,11.9
 ,2000,2000,Cervix Uteri,27010,District of Columbia,11,41,302643,13.5
 ,2000,2000,Cervix Uteri,27010,Florida,12,1053,8217314,12.8
@@ -97,13 +97,13 @@
 ,2000,2000,Cervix Uteri,27010,West Virginia,54,113,928269,12.2
 ,2000,2000,Cervix Uteri,27010,Wisconsin,55,258,2719235,9.5
 ,2000,2000,Cervix Uteri,27010,Wyoming,56,22,245584,9
-,2001,2001,Cervix Uteri,27010,Alabama,1,232,2309496,10
-,2001,2001,Cervix Uteri,27010,Alaska,2,29,305579,9.5
-,2001,2001,Cervix Uteri,27010,Arizona,4,208,2641676,7.9
-,2001,2001,Cervix Uteri,27010,Arkansas,5,159,1376845,11.5
-,2001,2001,Cervix Uteri,27010,California,6,1535,17294223,8.9
-,2001,2001,Cervix Uteri,27010,Colorado,8,168,2195705,7.7
-,2001,2001,Cervix Uteri,27010,Connecticut,9,136,1768959,7.7
+,2001,2001,Cervix Uteri,27010,Alabama,01,232,2309496,10
+,2001,2001,Cervix Uteri,27010,Alaska,02,29,305579,9.5
+,2001,2001,Cervix Uteri,27010,Arizona,04,208,2641676,7.9
+,2001,2001,Cervix Uteri,27010,Arkansas,05,159,1376845,11.5
+,2001,2001,Cervix Uteri,27010,California,06,1535,17294223,8.9
+,2001,2001,Cervix Uteri,27010,Colorado,08,168,2195705,7.7
+,2001,2001,Cervix Uteri,27010,Connecticut,09,136,1768959,7.7
 ,2001,2001,Cervix Uteri,27010,Delaware,10,42,409349,10.3
 ,2001,2001,Cervix Uteri,27010,District of Columbia,11,37,303740,12.2
 ,2001,2001,Cervix Uteri,27010,Florida,12,1005,8372776,12
@@ -147,13 +147,13 @@
 ,2001,2001,Cervix Uteri,27010,West Virginia,54,127,923643,13.7
 ,2001,2001,Cervix Uteri,27010,Wisconsin,55,186,2733647,6.8
 ,2001,2001,Cervix Uteri,27010,Wyoming,56,18,245327,7.3
-,2002,2002,Cervix Uteri,27010,Alabama,1,261,2314370,11.3
-,2002,2002,Cervix Uteri,27010,Alaska,2,23,309633,7.4
-,2002,2002,Cervix Uteri,27010,Arizona,4,200,2704217,7.4
-,2002,2002,Cervix Uteri,27010,Arkansas,5,121,1383239,8.7
-,2002,2002,Cervix Uteri,27010,California,6,1557,17498462,8.9
-,2002,2002,Cervix Uteri,27010,Colorado,8,168,2228665,7.5
-,2002,2002,Cervix Uteri,27010,Connecticut,9,121,1780500,6.8
+,2002,2002,Cervix Uteri,27010,Alabama,01,261,2314370,11.3
+,2002,2002,Cervix Uteri,27010,Alaska,02,23,309633,7.4
+,2002,2002,Cervix Uteri,27010,Arizona,04,200,2704217,7.4
+,2002,2002,Cervix Uteri,27010,Arkansas,05,121,1383239,8.7
+,2002,2002,Cervix Uteri,27010,California,06,1557,17498462,8.9
+,2002,2002,Cervix Uteri,27010,Colorado,08,168,2228665,7.5
+,2002,2002,Cervix Uteri,27010,Connecticut,09,121,1780500,6.8
 ,2002,2002,Cervix Uteri,27010,Delaware,10,37,414652,8.9
 ,2002,2002,Cervix Uteri,27010,District of Columbia,11,33,303146,10.9
 ,2002,2002,Cervix Uteri,27010,Florida,12,970,8541734,11.4
@@ -197,13 +197,13 @@
 ,2002,2002,Cervix Uteri,27010,West Virginia,54,97,923841,10.5
 ,2002,2002,Cervix Uteri,27010,Wisconsin,55,189,2751697,6.9
 ,2002,2002,Cervix Uteri,27010,Wyoming,56,21,247785,8.5
-,2003,2003,Cervix Uteri,27010,Alabama,1,204,2324069,8.8
-,2003,2003,Cervix Uteri,27010,Alaska,2,18,313034,5.8
-,2003,2003,Cervix Uteri,27010,Arizona,4,200,2764077,7.2
-,2003,2003,Cervix Uteri,27010,Arkansas,5,143,1391523,10.3
-,2003,2003,Cervix Uteri,27010,California,6,1450,17709509,8.2
-,2003,2003,Cervix Uteri,27010,Colorado,8,164,2253214,7.3
-,2003,2003,Cervix Uteri,27010,Connecticut,9,130,1793468,7.2
+,2003,2003,Cervix Uteri,27010,Alabama,01,204,2324069,8.8
+,2003,2003,Cervix Uteri,27010,Alaska,02,18,313034,5.8
+,2003,2003,Cervix Uteri,27010,Arizona,04,200,2764077,7.2
+,2003,2003,Cervix Uteri,27010,Arkansas,05,143,1391523,10.3
+,2003,2003,Cervix Uteri,27010,California,06,1450,17709509,8.2
+,2003,2003,Cervix Uteri,27010,Colorado,08,164,2253214,7.3
+,2003,2003,Cervix Uteri,27010,Connecticut,09,130,1793468,7.2
 ,2003,2003,Cervix Uteri,27010,Delaware,10,26,420802,6.2
 ,2003,2003,Cervix Uteri,27010,District of Columbia,11,51,300607,17
 ,2003,2003,Cervix Uteri,27010,Florida,12,880,8697573,10.1
@@ -248,13 +248,13 @@
 ,2003,2003,Cervix Uteri,27010,West Virginia,54,96,925835,10.4
 ,2003,2003,Cervix Uteri,27010,Wisconsin,55,191,2766901,6.9
 ,2003,2003,Cervix Uteri,27010,Wyoming,56,22,249128,8.8
-,2004,2004,Cervix Uteri,27010,Alabama,1,199,2337857,8.5
-,2004,2004,Cervix Uteri,27010,Alaska,2,21,317807,6.6
-,2004,2004,Cervix Uteri,27010,Arizona,4,210,2835606,7.4
-,2004,2004,Cervix Uteri,27010,Arkansas,5,139,1403048,9.9
-,2004,2004,Cervix Uteri,27010,California,6,1447,17871415,8.1
-,2004,2004,Cervix Uteri,27010,Colorado,8,143,2274511,6.3
-,2004,2004,Cervix Uteri,27010,Connecticut,9,139,1798078,7.7
+,2004,2004,Cervix Uteri,27010,Alabama,01,199,2337857,8.5
+,2004,2004,Cervix Uteri,27010,Alaska,02,21,317807,6.6
+,2004,2004,Cervix Uteri,27010,Arizona,04,210,2835606,7.4
+,2004,2004,Cervix Uteri,27010,Arkansas,05,139,1403048,9.9
+,2004,2004,Cervix Uteri,27010,California,06,1447,17871415,8.1
+,2004,2004,Cervix Uteri,27010,Colorado,08,143,2274511,6.3
+,2004,2004,Cervix Uteri,27010,Connecticut,09,139,1798078,7.7
 ,2004,2004,Cervix Uteri,27010,Delaware,10,38,427320,8.9
 ,2004,2004,Cervix Uteri,27010,District of Columbia,11,43,300284,14.3
 ,2004,2004,Cervix Uteri,27010,Florida,12,887,8902447,10
@@ -299,13 +299,13 @@
 ,2004,2004,Cervix Uteri,27010,West Virginia,54,98,927027,10.6
 ,2004,2004,Cervix Uteri,27010,Wisconsin,55,208,2782678,7.5
 ,2004,2004,Cervix Uteri,27010,Wyoming,56,21,251506,8.3
-,2005,2005,Cervix Uteri,27010,Alabama,1,197,2354514,8.4
-,2005,2005,Cervix Uteri,27010,Alaska,2,28,320920,8.7
-,2005,2005,Cervix Uteri,27010,Arizona,4,209,2930811,7.1
-,2005,2005,Cervix Uteri,27010,Arkansas,5,139,1418295,9.8
-,2005,2005,Cervix Uteri,27010,California,6,1533,17996230,8.5
-,2005,2005,Cervix Uteri,27010,Colorado,8,154,2308238,6.7
-,2005,2005,Cervix Uteri,27010,Connecticut,9,119,1802068,6.6
+,2005,2005,Cervix Uteri,27010,Alabama,01,197,2354514,8.4
+,2005,2005,Cervix Uteri,27010,Alaska,02,28,320920,8.7
+,2005,2005,Cervix Uteri,27010,Arizona,04,209,2930811,7.1
+,2005,2005,Cervix Uteri,27010,Arkansas,05,139,1418295,9.8
+,2005,2005,Cervix Uteri,27010,California,06,1533,17996230,8.5
+,2005,2005,Cervix Uteri,27010,Colorado,08,154,2308238,6.7
+,2005,2005,Cervix Uteri,27010,Connecticut,09,119,1802068,6.6
 ,2005,2005,Cervix Uteri,27010,Delaware,10,38,435227,8.7
 ,2005,2005,Cervix Uteri,27010,District of Columbia,11,37,299613,12.3
 ,2005,2005,Cervix Uteri,27010,Florida,12,942,9117950,10.3
@@ -350,13 +350,14 @@
 ,2005,2005,Cervix Uteri,27010,West Virginia,54,109,927690,11.7
 ,2005,2005,Cervix Uteri,27010,Wisconsin,55,186,2797061,6.6
 ,2005,2005,Cervix Uteri,27010,Wyoming,56,18,253726,7.1
-,2006,2006,Cervix Uteri,27010,Alabama,1,200,2385480,8.4
-,2006,2006,Cervix Uteri,27010,Alaska,2,32,325121,9.8
-,2006,2006,Cervix Uteri,27010,Arizona,4,228,3026134,7.5
-,2006,2006,Cervix Uteri,27010,Arkansas,5,140,1438428,9.7
-,2006,2006,Cervix Uteri,27010,California,6,1476,18097471,8.2
-,2006,2006,Cervix Uteri,27010,Colorado,8,182,2352960,7.7
-,2006,2006,Cervix Uteri,27010,Connecticut,9,126,1807675,7
+,2005,2005,Cervix Uteri,27010,Puerto Rico,72,202,1986644,10.2
+,2006,2006,Cervix Uteri,27010,Alabama,01,200,2385480,8.4
+,2006,2006,Cervix Uteri,27010,Alaska,02,32,325121,9.8
+,2006,2006,Cervix Uteri,27010,Arizona,04,228,3026134,7.5
+,2006,2006,Cervix Uteri,27010,Arkansas,05,140,1438428,9.7
+,2006,2006,Cervix Uteri,27010,California,06,1476,18097471,8.2
+,2006,2006,Cervix Uteri,27010,Colorado,08,182,2352960,7.7
+,2006,2006,Cervix Uteri,27010,Connecticut,09,126,1807675,7
 ,2006,2006,Cervix Uteri,27010,Delaware,10,43,442766,9.7
 ,2006,2006,Cervix Uteri,27010,District of Columbia,11,25,301322,8.3
 ,2006,2006,Cervix Uteri,27010,Florida,12,953,9280080,10.3
@@ -400,13 +401,14 @@
 ,2006,2006,Cervix Uteri,27010,West Virginia,54,84,930605,9
 ,2006,2006,Cervix Uteri,27010,Wisconsin,55,159,2812276,5.7
 ,2006,2006,Cervix Uteri,27010,Wyoming,56,26,257361,10.1
-,2007,2007,Cervix Uteri,27010,Alabama,1,237,2407275,9.8
-,2007,2007,Cervix Uteri,27010,Alaska,2,21,327138,6.4
-,2007,2007,Cervix Uteri,27010,Arizona,4,244,3096998,7.9
-,2007,2007,Cervix Uteri,27010,Arkansas,5,147,1451358,10.1
-,2007,2007,Cervix Uteri,27010,California,6,1521,18214926,8.4
-,2007,2007,Cervix Uteri,27010,Colorado,8,171,2396433,7.1
-,2007,2007,Cervix Uteri,27010,Connecticut,9,132,1811617,7.3
+,2006,2006,Cervix Uteri,27010,Puerto Rico,72,205,1979256,10.4
+,2007,2007,Cervix Uteri,27010,Alabama,01,237,2407275,9.8
+,2007,2007,Cervix Uteri,27010,Alaska,02,21,327138,6.4
+,2007,2007,Cervix Uteri,27010,Arizona,04,244,3096998,7.9
+,2007,2007,Cervix Uteri,27010,Arkansas,05,147,1451358,10.1
+,2007,2007,Cervix Uteri,27010,California,06,1521,18214926,8.4
+,2007,2007,Cervix Uteri,27010,Colorado,08,171,2396433,7.1
+,2007,2007,Cervix Uteri,27010,Connecticut,09,132,1811617,7.3
 ,2007,2007,Cervix Uteri,27010,Delaware,10,42,449398,9.3
 ,2007,2007,Cervix Uteri,27010,District of Columbia,11,36,302949,11.9
 ,2007,2007,Cervix Uteri,27010,Florida,12,938,9378587,10
@@ -449,13 +451,14 @@
 ,2007,2007,Cervix Uteri,27010,West Virginia,54,99,932683,10.6
 ,2007,2007,Cervix Uteri,27010,Wisconsin,55,168,2827782,5.9
 ,2007,2007,Cervix Uteri,27010,Wyoming,56,18,262776,6.8
-,2008,2008,Cervix Uteri,27010,Alabama,1,198,2430257,8.1
-,2008,2008,Cervix Uteri,27010,Alaska,2,27,329412,8.2
-,2008,2008,Cervix Uteri,27010,Arizona,4,228,3155278,7.2
-,2008,2008,Cervix Uteri,27010,Arkansas,5,162,1464220,11.1
-,2008,2008,Cervix Uteri,27010,California,6,1567,18396972,8.5
-,2008,2008,Cervix Uteri,27010,Colorado,8,153,2439060,6.3
-,2008,2008,Cervix Uteri,27010,Connecticut,9,101,1820749,5.5
+,2007,2007,Cervix Uteri,27010,Puerto Rico,72,231,1968707,11.7
+,2008,2008,Cervix Uteri,27010,Alabama,01,198,2430257,8.1
+,2008,2008,Cervix Uteri,27010,Alaska,02,27,329412,8.2
+,2008,2008,Cervix Uteri,27010,Arizona,04,228,3155278,7.2
+,2008,2008,Cervix Uteri,27010,Arkansas,05,162,1464220,11.1
+,2008,2008,Cervix Uteri,27010,California,06,1567,18396972,8.5
+,2008,2008,Cervix Uteri,27010,Colorado,08,153,2439060,6.3
+,2008,2008,Cervix Uteri,27010,Connecticut,09,101,1820749,5.5
 ,2008,2008,Cervix Uteri,27010,Delaware,10,44,455481,9.7
 ,2008,2008,Cervix Uteri,27010,District of Columbia,11,26,306265,8.5
 ,2008,2008,Cervix Uteri,27010,Florida,12,942,9465279,10
@@ -499,13 +502,14 @@
 ,2008,2008,Cervix Uteri,27010,West Virginia,54,99,934911,10.6
 ,2008,2008,Cervix Uteri,27010,Wisconsin,55,160,2842268,5.6
 ,2008,2008,Cervix Uteri,27010,Wyoming,56,24,267982,9
-,2009,2009,Cervix Uteri,27010,Alabama,1,235,2448159,9.6
-,2009,2009,Cervix Uteri,27010,Alaska,2,33,337002,9.8
-,2009,2009,Cervix Uteri,27010,Arizona,4,239,3189908,7.5
-,2009,2009,Cervix Uteri,27010,Arkansas,5,152,1475013,10.3
-,2009,2009,Cervix Uteri,27010,California,6,1450,18583075,7.8
-,2009,2009,Cervix Uteri,27010,Colorado,8,149,2480710,6
-,2009,2009,Cervix Uteri,27010,Connecticut,9,119,1828779,6.5
+,2008,2008,Cervix Uteri,27010,Puerto Rico,72,216,1957525,11
+,2009,2009,Cervix Uteri,27010,Alabama,01,235,2448159,9.6
+,2009,2009,Cervix Uteri,27010,Alaska,02,33,337002,9.8
+,2009,2009,Cervix Uteri,27010,Arizona,04,239,3189908,7.5
+,2009,2009,Cervix Uteri,27010,Arkansas,05,152,1475013,10.3
+,2009,2009,Cervix Uteri,27010,California,06,1450,18583075,7.8
+,2009,2009,Cervix Uteri,27010,Colorado,08,149,2480710,6
+,2009,2009,Cervix Uteri,27010,Connecticut,09,119,1828779,6.5
 ,2009,2009,Cervix Uteri,27010,Delaware,10,43,459795,9.4
 ,2009,2009,Cervix Uteri,27010,District of Columbia,11,20,311828,6.4
 ,2009,2009,Cervix Uteri,27010,Florida,12,984,9534289,10.3
@@ -550,13 +554,14 @@
 ,2009,2009,Cervix Uteri,27010,West Virginia,54,103,937434,11
 ,2009,2009,Cervix Uteri,27010,Wisconsin,55,176,2856103,6.2
 ,2009,2009,Cervix Uteri,27010,Wyoming,56,26,274046,9.5
-,2010,2010,Cervix Uteri,27010,Alabama,1,200,2463321,8.1
-,2010,2010,Cervix Uteri,27010,Alaska,2,16,342289,4.7
-,2010,2010,Cervix Uteri,27010,Arizona,4,228,3220061,7.1
-,2010,2010,Cervix Uteri,27010,Arkansas,5,163,1486792,11
-,2010,2010,Cervix Uteri,27010,California,6,1454,18771019,7.7
-,2010,2010,Cervix Uteri,27010,Colorado,8,160,2517257,6.4
-,2010,2010,Cervix Uteri,27010,Connecticut,9,128,1837204,7
+,2009,2009,Cervix Uteri,27010,Puerto Rico,72,249,1947361,12.8
+,2010,2010,Cervix Uteri,27010,Alabama,01,200,2463321,8.1
+,2010,2010,Cervix Uteri,27010,Alaska,02,16,342289,4.7
+,2010,2010,Cervix Uteri,27010,Arizona,04,228,3220061,7.1
+,2010,2010,Cervix Uteri,27010,Arkansas,05,163,1486792,11
+,2010,2010,Cervix Uteri,27010,California,06,1454,18771019,7.7
+,2010,2010,Cervix Uteri,27010,Colorado,08,160,2517257,6.4
+,2010,2010,Cervix Uteri,27010,Connecticut,09,128,1837204,7
 ,2010,2010,Cervix Uteri,27010,Delaware,10,44,463976,9.5
 ,2010,2010,Cervix Uteri,27010,District of Columbia,11,27,319019,8.5
 ,2010,2010,Cervix Uteri,27010,Florida,12,919,9630573,9.5
@@ -600,13 +605,14 @@
 ,2010,2010,Cervix Uteri,27010,West Virginia,54,125,939822,13.3
 ,2010,2010,Cervix Uteri,27010,Wisconsin,55,192,2866570,6.7
 ,2010,2010,Cervix Uteri,27010,Wyoming,56,21,276623,7.6
-,2011,2011,Cervix Uteri,27010,Alabama,1,207,2475112,8.4
-,2011,2011,Cervix Uteri,27010,Alaska,2,21,346090,6.1
-,2011,2011,Cervix Uteri,27010,Arizona,4,209,3238879,6.5
-,2011,2011,Cervix Uteri,27010,Arkansas,5,125,1494102,8.4
-,2011,2011,Cervix Uteri,27010,California,6,1402,18930689,7.4
-,2011,2011,Cervix Uteri,27010,Colorado,8,147,2551425,5.8
-,2011,2011,Cervix Uteri,27010,Connecticut,9,124,1842651,6.7
+,2010,2010,Cervix Uteri,27010,Puerto Rico,72,258,1938743,13.3
+,2011,2011,Cervix Uteri,27010,Alabama,01,207,2475112,8.4
+,2011,2011,Cervix Uteri,27010,Alaska,02,21,346090,6.1
+,2011,2011,Cervix Uteri,27010,Arizona,04,209,3238879,6.5
+,2011,2011,Cervix Uteri,27010,Arkansas,05,125,1494102,8.4
+,2011,2011,Cervix Uteri,27010,California,06,1402,18930689,7.4
+,2011,2011,Cervix Uteri,27010,Colorado,08,147,2551425,5.8
+,2011,2011,Cervix Uteri,27010,Connecticut,09,124,1842651,6.7
 ,2011,2011,Cervix Uteri,27010,Delaware,10,44,468251,9.4
 ,2011,2011,Cervix Uteri,27010,District of Columbia,11,40,324975,12.3
 ,2011,2011,Cervix Uteri,27010,Florida,12,1010,9720059,10.4
@@ -651,13 +657,14 @@
 ,2011,2011,Cervix Uteri,27010,West Virginia,54,97,939889,10.3
 ,2011,2011,Cervix Uteri,27010,Wisconsin,55,176,2874721,6.1
 ,2011,2011,Cervix Uteri,27010,Wyoming,56,32,277595,11.5
-,2012,2012,Cervix Uteri,27010,Alabama,1,236,2487610,9.5
-,2012,2012,Cervix Uteri,27010,Alaska,2,27,349169,7.7
-,2012,2012,Cervix Uteri,27010,Arizona,4,228,3266750,7
-,2012,2012,Cervix Uteri,27010,Arkansas,5,141,1497794,9.4
-,2012,2012,Cervix Uteri,27010,California,6,1496,19077032,7.8
-,2012,2012,Cervix Uteri,27010,Colorado,8,152,2583360,5.9
-,2012,2012,Cervix Uteri,27010,Connecticut,9,135,1846774,7.3
+,2011,2011,Cervix Uteri,27010,Puerto Rico,72,269,1915291,14
+,2012,2012,Cervix Uteri,27010,Alabama,01,236,2487610,9.5
+,2012,2012,Cervix Uteri,27010,Alaska,02,27,349169,7.7
+,2012,2012,Cervix Uteri,27010,Arizona,04,228,3266750,7
+,2012,2012,Cervix Uteri,27010,Arkansas,05,141,1497794,9.4
+,2012,2012,Cervix Uteri,27010,California,06,1496,19077032,7.8
+,2012,2012,Cervix Uteri,27010,Colorado,08,152,2583360,5.9
+,2012,2012,Cervix Uteri,27010,Connecticut,09,135,1846774,7.3
 ,2012,2012,Cervix Uteri,27010,Delaware,10,42,472129,8.9
 ,2012,2012,Cervix Uteri,27010,District of Columbia,11,27,331676,8.1
 ,2012,2012,Cervix Uteri,27010,Florida,12,941,9834712,9.6
@@ -701,13 +708,14 @@
 ,2012,2012,Cervix Uteri,27010,West Virginia,54,102,939094,10.9
 ,2012,2012,Cervix Uteri,27010,Wisconsin,55,195,2882241,6.8
 ,2012,2012,Cervix Uteri,27010,Wyoming,56,17,281187,6
-,2013,2013,Cervix Uteri,27010,Alabama,1,224,2498831,9
-,2013,2013,Cervix Uteri,27010,Alaska,2,20,350800,5.7
-,2013,2013,Cervix Uteri,27010,Arizona,4,218,3293421,6.6
-,2013,2013,Cervix Uteri,27010,Arkansas,5,168,1499855,11.2
-,2013,2013,Cervix Uteri,27010,California,6,1418,19227118,7.4
-,2013,2013,Cervix Uteri,27010,Colorado,8,156,2617360,6
-,2013,2013,Cervix Uteri,27010,Connecticut,9,140,1847613,7.6
+,2012,2012,Cervix Uteri,27010,Puerto Rico,72,236,1895416,12.5
+,2013,2013,Cervix Uteri,27010,Alabama,01,224,2498831,9
+,2013,2013,Cervix Uteri,27010,Alaska,02,20,350800,5.7
+,2013,2013,Cervix Uteri,27010,Arizona,04,218,3293421,6.6
+,2013,2013,Cervix Uteri,27010,Arkansas,05,168,1499855,11.2
+,2013,2013,Cervix Uteri,27010,California,06,1418,19227118,7.4
+,2013,2013,Cervix Uteri,27010,Colorado,08,156,2617360,6
+,2013,2013,Cervix Uteri,27010,Connecticut,09,140,1847613,7.6
 ,2013,2013,Cervix Uteri,27010,Delaware,10,36,476794,7.6
 ,2013,2013,Cervix Uteri,27010,District of Columbia,11,27,337928,8
 ,2013,2013,Cervix Uteri,27010,Florida,12,971,9947169,9.8
@@ -751,13 +759,14 @@
 ,2013,2013,Cervix Uteri,27010,West Virginia,54,77,936692,8.2
 ,2013,2013,Cervix Uteri,27010,Wisconsin,55,167,2891099,5.8
 ,2013,2013,Cervix Uteri,27010,Wyoming,56,17,283658,6
-,2014,2014,Cervix Uteri,27010,Alabama,1,247,2509291,9.8
-,2014,2014,Cervix Uteri,27010,Alaska,2,22,349894,6.3
-,2014,2014,Cervix Uteri,27010,Arizona,4,196,3327508,5.9
-,2014,2014,Cervix Uteri,27010,Arkansas,5,139,1501997,9.3
-,2014,2014,Cervix Uteri,27010,California,6,1420,19381496,7.3
-,2014,2014,Cervix Uteri,27010,Colorado,8,175,2651999,6.6
-,2014,2014,Cervix Uteri,27010,Connecticut,9,125,1847943,6.8
+,2013,2013,Cervix Uteri,27010,Puerto Rico,72,237,1872797,12.7
+,2014,2014,Cervix Uteri,27010,Alabama,01,247,2509291,9.8
+,2014,2014,Cervix Uteri,27010,Alaska,02,22,349894,6.3
+,2014,2014,Cervix Uteri,27010,Arizona,04,196,3327508,5.9
+,2014,2014,Cervix Uteri,27010,Arkansas,05,139,1501997,9.3
+,2014,2014,Cervix Uteri,27010,California,06,1420,19381496,7.3
+,2014,2014,Cervix Uteri,27010,Colorado,08,175,2651999,6.6
+,2014,2014,Cervix Uteri,27010,Connecticut,09,125,1847943,6.8
 ,2014,2014,Cervix Uteri,27010,Delaware,10,45,481382,9.3
 ,2014,2014,Cervix Uteri,27010,District of Columbia,11,32,342405,9.3
 ,2014,2014,Cervix Uteri,27010,Florida,12,983,10086932,9.7
@@ -801,13 +810,14 @@
 ,2014,2014,Cervix Uteri,27010,West Virginia,54,89,934129,9.5
 ,2014,2014,Cervix Uteri,27010,Wisconsin,55,208,2898447,7.2
 ,2014,2014,Cervix Uteri,27010,Wyoming,56,18,283505,6.3
-,2015,2015,Cervix Uteri,27010,Alabama,1,236,2518825,9.4
-,2015,2015,Cervix Uteri,27010,Alaska,2,30,350220,8.6
-,2015,2015,Cervix Uteri,27010,Arizona,4,253,3362624,7.5
-,2015,2015,Cervix Uteri,27010,Arkansas,5,163,1504935,10.8
-,2015,2015,Cervix Uteri,27010,California,6,1456,19524913,7.5
-,2015,2015,Cervix Uteri,27010,Colorado,8,180,2695909,6.7
-,2015,2015,Cervix Uteri,27010,Connecticut,9,124,1845155,6.7
+,2014,2014,Cervix Uteri,27010,Puerto Rico,72,270,1845988,14.6
+,2015,2015,Cervix Uteri,27010,Alabama,01,236,2518825,9.4
+,2015,2015,Cervix Uteri,27010,Alaska,02,30,350220,8.6
+,2015,2015,Cervix Uteri,27010,Arizona,04,253,3362624,7.5
+,2015,2015,Cervix Uteri,27010,Arkansas,05,163,1504935,10.8
+,2015,2015,Cervix Uteri,27010,California,06,1456,19524913,7.5
+,2015,2015,Cervix Uteri,27010,Colorado,08,180,2695909,6.7
+,2015,2015,Cervix Uteri,27010,Connecticut,09,124,1845155,6.7
 ,2015,2015,Cervix Uteri,27010,Delaware,10,39,485933,8
 ,2015,2015,Cervix Uteri,27010,District of Columbia,11,32,348303,9.2
 ,2015,2015,Cervix Uteri,27010,Florida,12,1012,10256144,9.9
@@ -849,13 +859,14 @@
 ,2015,2015,Cervix Uteri,27010,Washington,53,253,3578562,7.1
 ,2015,2015,Cervix Uteri,27010,West Virginia,54,81,929173,8.7
 ,2015,2015,Cervix Uteri,27010,Wisconsin,55,214,2902460,7.4
-,2016,2016,Cervix Uteri,27010,Alabama,1,251,2529744,9.9
-,2016,2016,Cervix Uteri,27010,Alaska,2,26,352134,7.4
-,2016,2016,Cervix Uteri,27010,Arizona,4,232,3404276,6.8
-,2016,2016,Cervix Uteri,27010,Arkansas,5,134,1508822,8.9
-,2016,2016,Cervix Uteri,27010,California,6,1534,19633747,7.8
-,2016,2016,Cervix Uteri,27010,Colorado,8,178,2734236,6.5
-,2016,2016,Cervix Uteri,27010,Connecticut,9,116,1842071,6.3
+,2015,2015,Cervix Uteri,27010,Puerto Rico,72,248,1816871,13.6
+,2016,2016,Cervix Uteri,27010,Alabama,01,251,2529744,9.9
+,2016,2016,Cervix Uteri,27010,Alaska,02,26,352134,7.4
+,2016,2016,Cervix Uteri,27010,Arizona,04,232,3404276,6.8
+,2016,2016,Cervix Uteri,27010,Arkansas,05,134,1508822,8.9
+,2016,2016,Cervix Uteri,27010,California,06,1534,19633747,7.8
+,2016,2016,Cervix Uteri,27010,Colorado,08,178,2734236,6.5
+,2016,2016,Cervix Uteri,27010,Connecticut,09,116,1842071,6.3
 ,2016,2016,Cervix Uteri,27010,Delaware,10,42,490294,8.6
 ,2016,2016,Cervix Uteri,27010,District of Columbia,11,34,351947,9.7
 ,2016,2016,Cervix Uteri,27010,Florida,12,1138,10449033,10.9
@@ -899,13 +910,14 @@
 ,2016,2016,Cervix Uteri,27010,West Virginia,54,85,922809,9.2
 ,2016,2016,Cervix Uteri,27010,Wisconsin,55,205,2908196,7
 ,2016,2016,Cervix Uteri,27010,Wyoming,56,18,283480,6.3
-,2017,2017,Cervix Uteri,27010,Alabama,1,242,2540935,9.5
-,2017,2017,Cervix Uteri,27010,Alaska,2,30,351866,8.5
-,2017,2017,Cervix Uteri,27010,Arizona,4,232,3441337,6.7
-,2017,2017,Cervix Uteri,27010,Arkansas,5,128,1512745,8.5
-,2017,2017,Cervix Uteri,27010,California,6,1512,19709744,7.7
-,2017,2017,Cervix Uteri,27010,Colorado,8,184,2764979,6.7
-,2017,2017,Cervix Uteri,27010,Connecticut,9,90,1840849,4.9
+,2016,2016,Cervix Uteri,27010,Puerto Rico,72,226,1786406,12.7
+,2017,2017,Cervix Uteri,27010,Alabama,01,242,2540935,9.5
+,2017,2017,Cervix Uteri,27010,Alaska,02,30,351866,8.5
+,2017,2017,Cervix Uteri,27010,Arizona,04,232,3441337,6.7
+,2017,2017,Cervix Uteri,27010,Arkansas,05,128,1512745,8.5
+,2017,2017,Cervix Uteri,27010,California,06,1512,19709744,7.7
+,2017,2017,Cervix Uteri,27010,Colorado,08,184,2764979,6.7
+,2017,2017,Cervix Uteri,27010,Connecticut,09,90,1840849,4.9
 ,2017,2017,Cervix Uteri,27010,Delaware,10,37,494305,7.5
 ,2017,2017,Cervix Uteri,27010,District of Columbia,11,27,355633,7.6
 ,2017,2017,Cervix Uteri,27010,Florida,12,1085,10612637,10.2
@@ -949,13 +961,14 @@
 ,2017,2017,Cervix Uteri,27010,West Virginia,54,110,914720,12
 ,2017,2017,Cervix Uteri,27010,Wisconsin,55,176,2917256,6
 ,2017,2017,Cervix Uteri,27010,Wyoming,56,26,280857,9.3
-,2018,2018,Cervix Uteri,27010,Alabama,1,220,2553156,8.6
-,2018,2018,Cervix Uteri,27010,Alaska,2,30,349910,8.6
-,2018,2018,Cervix Uteri,27010,Arizona,4,225,3483806,6.5
-,2018,2018,Cervix Uteri,27010,Arkansas,5,164,1515761,10.8
-,2018,2018,Cervix Uteri,27010,California,6,1557,19744172,7.9
-,2018,2018,Cervix Uteri,27010,Colorado,8,173,2800474,6.2
-,2018,2018,Cervix Uteri,27010,Connecticut,9,118,1842025,6.4
+,2017,2017,Cervix Uteri,27010,Puerto Rico,72,136,872259,15.6
+,2018,2018,Cervix Uteri,27010,Alabama,01,220,2553156,8.6
+,2018,2018,Cervix Uteri,27010,Alaska,02,30,349910,8.6
+,2018,2018,Cervix Uteri,27010,Arizona,04,225,3483806,6.5
+,2018,2018,Cervix Uteri,27010,Arkansas,05,164,1515761,10.8
+,2018,2018,Cervix Uteri,27010,California,06,1557,19744172,7.9
+,2018,2018,Cervix Uteri,27010,Colorado,08,173,2800474,6.2
+,2018,2018,Cervix Uteri,27010,Connecticut,09,118,1842025,6.4
 ,2018,2018,Cervix Uteri,27010,Delaware,10,47,499050,9.4
 ,2018,2018,Cervix Uteri,27010,District of Columbia,11,18,357544,5
 ,2018,2018,Cervix Uteri,27010,Florida,12,1060,10739166,9.9
@@ -999,13 +1012,14 @@
 ,2018,2018,Cervix Uteri,27010,West Virginia,54,100,907743,11
 ,2018,2018,Cervix Uteri,27010,Wisconsin,55,184,2924835,6.3
 ,2018,2018,Cervix Uteri,27010,Wyoming,56,32,280241,11.4
-,2019,2019,Cervix Uteri,27010,Alabama,1,257,2566696,10
-,2019,2019,Cervix Uteri,27010,Alaska,2,23,348072,6.6
-,2019,2019,Cervix Uteri,27010,Arizona,4,229,3531944,6.5
-,2019,2019,Cervix Uteri,27010,Arkansas,5,152,1518663,10
-,2019,2019,Cervix Uteri,27010,California,6,1483,19733279,7.5
-,2019,2019,Cervix Uteri,27010,Colorado,8,166,2825265,5.9
-,2019,2019,Cervix Uteri,27010,Connecticut,9,100,1838979,5.4
+,2018,2018,Cervix Uteri,27010,Puerto Rico,72,210,1676341,12.5
+,2019,2019,Cervix Uteri,27010,Alabama,01,257,2566696,10
+,2019,2019,Cervix Uteri,27010,Alaska,02,23,348072,6.6
+,2019,2019,Cervix Uteri,27010,Arizona,04,229,3531944,6.5
+,2019,2019,Cervix Uteri,27010,Arkansas,05,152,1518663,10
+,2019,2019,Cervix Uteri,27010,California,06,1483,19733279,7.5
+,2019,2019,Cervix Uteri,27010,Colorado,08,166,2825265,5.9
+,2019,2019,Cervix Uteri,27010,Connecticut,09,100,1838979,5.4
 ,2019,2019,Cervix Uteri,27010,Delaware,10,39,504102,7.7
 ,2019,2019,Cervix Uteri,27010,District of Columbia,11,31,358565,8.6
 ,2019,2019,Cervix Uteri,27010,Florida,12,1127,10845683,10.4
@@ -1050,12 +1064,13 @@
 ,2019,2019,Cervix Uteri,27010,West Virginia,54,75,901370,8.3
 ,2019,2019,Cervix Uteri,27010,Wisconsin,55,180,2932719,6.1
 ,2019,2019,Cervix Uteri,27010,Wyoming,56,28,280259,10
-,2020,2020,Cervix Uteri,27010,Alabama,1,239,2581772,9.3
-,2020,2020,Cervix Uteri,27010,Arizona,4,207,3585457,5.8
-,2020,2020,Cervix Uteri,27010,Arkansas,5,128,1523396,8.4
-,2020,2020,Cervix Uteri,27010,California,6,1368,19702206,6.9
-,2020,2020,Cervix Uteri,27010,Colorado,8,170,2847911,6
-,2020,2020,Cervix Uteri,27010,Connecticut,9,98,1833701,5.3
+,2019,2019,Cervix Uteri,27010,Puerto Rico,72,216,1677955,12.9
+,2020,2020,Cervix Uteri,27010,Alabama,01,239,2581772,9.3
+,2020,2020,Cervix Uteri,27010,Arizona,04,207,3585457,5.8
+,2020,2020,Cervix Uteri,27010,Arkansas,05,128,1523396,8.4
+,2020,2020,Cervix Uteri,27010,California,06,1368,19702206,6.9
+,2020,2020,Cervix Uteri,27010,Colorado,08,170,2847911,6
+,2020,2020,Cervix Uteri,27010,Connecticut,09,98,1833701,5.3
 ,2020,2020,Cervix Uteri,27010,Delaware,10,34,509621,6.7
 ,2020,2020,Cervix Uteri,27010,District of Columbia,11,26,349097,7.4
 ,2020,2020,Cervix Uteri,27010,Florida,12,1035,10964255,9.4
@@ -1099,13 +1114,14 @@
 ,2020,2020,Cervix Uteri,27010,West Virginia,54,88,896132,9.8
 ,2020,2020,Cervix Uteri,27010,Wisconsin,55,162,2938249,5.5
 ,2020,2020,Cervix Uteri,27010,Wyoming,56,22,281171,7.8
-,2021,2021,Cervix Uteri,27010,Alabama,1,250,2593360,9.6
-,2021,2021,Cervix Uteri,27010,Alaska,2,25,347513,7.2
-,2021,2021,Cervix Uteri,27010,Arizona,4,241,3630237,6.6
-,2021,2021,Cervix Uteri,27010,Arkansas,5,148,1530815,9.7
-,2021,2021,Cervix Uteri,27010,California,6,1430,19536044,7.3
-,2021,2021,Cervix Uteri,27010,Colorado,8,188,2861186,6.6
-,2021,2021,Cervix Uteri,27010,Connecticut,9,108,1848249,5.8
+,2020,2020,Cervix Uteri,27010,Puerto Rico,72,186,1726492,10.8
+,2021,2021,Cervix Uteri,27010,Alabama,01,250,2593360,9.6
+,2021,2021,Cervix Uteri,27010,Alaska,02,25,347513,7.2
+,2021,2021,Cervix Uteri,27010,Arizona,04,241,3630237,6.6
+,2021,2021,Cervix Uteri,27010,Arkansas,05,148,1530815,9.7
+,2021,2021,Cervix Uteri,27010,California,06,1430,19536044,7.3
+,2021,2021,Cervix Uteri,27010,Colorado,08,188,2861186,6.6
+,2021,2021,Cervix Uteri,27010,Connecticut,09,108,1848249,5.8
 ,2021,2021,Cervix Uteri,27010,Delaware,10,42,516346,8.1
 ,2021,2021,Cervix Uteri,27010,District of Columbia,11,36,349456,10.3
 ,2021,2021,Cervix Uteri,27010,Florida,12,1085,11087829,9.8
@@ -1149,11 +1165,12 @@
 ,2021,2021,Cervix Uteri,27010,West Virginia,54,89,893400,10
 ,2021,2021,Cervix Uteri,27010,Wisconsin,55,169,2931021,5.8
 ,2021,2021,Cervix Uteri,27010,Wyoming,56,20,282577,7.1
+,2021,2021,Cervix Uteri,27010,Puerto Rico,72,206,1718448,12
 ---,,,,,,,,,
 "Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
 Query Parameters:,,,,,,,,,
 Leading Cancer Sites: Cervix Uteri,,,,,,,,,
-Group By: Year; Leading Cancer Sites; States,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
 Show Totals: Disabled,,,,,,,,,
 Show Zero Values: False,,,,,,,,,
 Show Suppressed: False,,,,,,,,,
@@ -1162,11 +1179,11 @@ Standard Population: 2000 U.S. Std. Million,,,,,,,,,
 ---,,,,,,,,,
 Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
 ---,,,,,,,,,
-"Query Date: Aug 20, 2024 11:22:25 AM",,,,,,,,,
+"Query Date: Dec 6, 2024 11:08:12 AM",,,,,,,,,
 ---,,,,,,,,,
 "Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 11:22:25 AM",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:08:12 AM",,,,,,,,,
 ---,,,,,,,,,
 Messages:,,,,,,,,,
 1. Totals are not available for these results due to suppression constraints. More Information:,,,,,,,,,
@@ -1188,14 +1205,16 @@ whether to suppress data for specific race and ethnicity categories. The suppres
 these data More information: http://wonder.cdc.gov/wonder/help/cancer-v2021.html#Confidentiality.,,,,,,,,,
 2. 'Not Applicable' is displayed for all data values when sex-specific cancers are combined with the wrong sex. More,,,,,,,,,
 information: http://wonder.cdc.gov/wonder/help/cancer-v2021.html#Genital Cancers List.,,,,,,,,,
-"3. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%",,,,,,,,,
-"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population.",,,,,,,,,
-4. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+3. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
 Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
-"5. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+"4. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
 values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
 misleading.,,,,,,,,,
-6. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000.,,,,,,,,,
+5. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+6. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
 7. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
 shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
 "8. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,

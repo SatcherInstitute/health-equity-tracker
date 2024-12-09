@@ -32,8 +32,7 @@ WISQARS_DEMO_TYPE = Literal["sex", "age", "race_and_ethnicity", "urbanicty", "al
 INCARCERATION_TYPE = Literal["jail", "prison"]
 VERA_PROPERTY_TYPE = Literal["raw", "rate", "population", "confined_children_estimated_total"]
 GEO_TYPE = Literal["county", "state", "national"]
-
-
+CANCER_TYPE_OR_ALL = Literal['age', 'race', 'race_and_ethncity', 'sex', 'all']
 TIME_VIEW_TYPE = Literal['historical', 'current']
 
 TOPIC_CATEGORY_TYPE = Literal[

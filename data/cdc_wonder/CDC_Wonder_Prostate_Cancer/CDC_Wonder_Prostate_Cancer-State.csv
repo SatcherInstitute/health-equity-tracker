@@ -1,11 +1,11 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States,States Code,Count,Population,Crude Rate
-,1999,1999,Prostate,28010,Alabama,1,2544,2136882,119.1
-,1999,1999,Prostate,28010,Alaska,2,287,323513,88.7
-,1999,1999,Prostate,28010,Arizona,4,3164,2505524,126.3
-,1999,1999,Prostate,28010,Arkansas,5,1890,1292415,146.2
-,1999,1999,Prostate,28010,California,6,20973,16699043,125.6
-,1999,1999,Prostate,28010,Colorado,8,2720,2124660,128
-,1999,1999,Prostate,28010,Connecticut,9,2717,1639253,165.7
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,1999,1999,Prostate,28010,Alabama,01,2544,2136882,119.1
+,1999,1999,Prostate,28010,Alaska,02,287,323513,88.7
+,1999,1999,Prostate,28010,Arizona,04,3164,2505524,126.3
+,1999,1999,Prostate,28010,Arkansas,05,1890,1292415,146.2
+,1999,1999,Prostate,28010,California,06,20973,16699043,125.6
+,1999,1999,Prostate,28010,Colorado,08,2720,2124660,128
+,1999,1999,Prostate,28010,Connecticut,09,2717,1639253,165.7
 ,1999,1999,Prostate,28010,Delaware,10,609,376258,161.9
 ,1999,1999,Prostate,28010,District of Columbia,11,540,268416,201.2
 ,1999,1999,Prostate,28010,Florida,12,15927,7685574,207.2
@@ -48,13 +48,13 @@
 ,1999,1999,Prostate,28010,West Virginia,54,1370,879990,155.7
 ,1999,1999,Prostate,28010,Wisconsin,55,4183,2631141,159
 ,1999,1999,Prostate,28010,Wyoming,56,394,247262,159.3
-,2000,2000,Prostate,28010,Alabama,1,2793,2149338,129.9
-,2000,2000,Prostate,28010,Alaska,2,307,324750,94.5
-,2000,2000,Prostate,28010,Arizona,4,3109,2576007,120.7
-,2000,2000,Prostate,28010,Arkansas,5,1901,1307573,145.4
-,2000,2000,Prostate,28010,California,6,20947,16937562,123.7
-,2000,2000,Prostate,28010,Colorado,8,2718,2179179,124.7
-,2000,2000,Prostate,28010,Connecticut,9,3097,1652459,187.4
+,2000,2000,Prostate,28010,Alabama,01,2793,2149338,129.9
+,2000,2000,Prostate,28010,Alaska,02,307,324750,94.5
+,2000,2000,Prostate,28010,Arizona,04,3109,2576007,120.7
+,2000,2000,Prostate,28010,Arkansas,05,1901,1307573,145.4
+,2000,2000,Prostate,28010,California,06,20947,16937562,123.7
+,2000,2000,Prostate,28010,Colorado,08,2718,2179179,124.7
+,2000,2000,Prostate,28010,Connecticut,09,3097,1652459,187.4
 ,2000,2000,Prostate,28010,Delaware,10,599,381926,156.8
 ,2000,2000,Prostate,28010,District of Columbia,11,565,269403,209.7
 ,2000,2000,Prostate,28010,Florida,12,16194,7830201,206.8
@@ -97,13 +97,13 @@
 ,2000,2000,Prostate,28010,West Virginia,54,1531,878752,174.2
 ,2000,2000,Prostate,28010,Wisconsin,55,4237,2654764,159.6
 ,2000,2000,Prostate,28010,Wyoming,56,436,248716,175.3
-,2001,2001,Prostate,28010,Alabama,1,3113,2158138,144.2
-,2001,2001,Prostate,28010,Alaska,2,340,328135,103.6
-,2001,2001,Prostate,28010,Arizona,4,3330,2631801,126.5
-,2001,2001,Prostate,28010,Arkansas,5,1976,1314726,150.3
-,2001,2001,Prostate,28010,California,6,21592,17185235,125.6
-,2001,2001,Prostate,28010,Colorado,8,2843,2229982,127.5
-,2001,2001,Prostate,28010,Connecticut,9,3102,1663876,186.4
+,2001,2001,Prostate,28010,Alabama,01,3113,2158138,144.2
+,2001,2001,Prostate,28010,Alaska,02,340,328135,103.6
+,2001,2001,Prostate,28010,Arizona,04,3330,2631801,126.5
+,2001,2001,Prostate,28010,Arkansas,05,1976,1314726,150.3
+,2001,2001,Prostate,28010,California,06,21592,17185235,125.6
+,2001,2001,Prostate,28010,Colorado,08,2843,2229982,127.5
+,2001,2001,Prostate,28010,Connecticut,09,3102,1663876,186.4
 ,2001,2001,Prostate,28010,Delaware,10,711,386350,184
 ,2001,2001,Prostate,28010,District of Columbia,11,489,270764,180.6
 ,2001,2001,Prostate,28010,Florida,12,16681,7984190,208.9
@@ -147,13 +147,13 @@
 ,2001,2001,Prostate,28010,West Virginia,54,1536,877838,175
 ,2001,2001,Prostate,28010,Wisconsin,55,4429,2673188,165.7
 ,2001,2001,Prostate,28010,Wyoming,56,430,249330,172.5
-,2002,2002,Prostate,28010,Alabama,1,3076,2165719,142
-,2002,2002,Prostate,28010,Alaska,2,397,332704,119.3
-,2002,2002,Prostate,28010,Arizona,4,3146,2692038,116.9
-,2002,2002,Prostate,28010,Arkansas,5,2104,1322688,159.1
-,2002,2002,Prostate,28010,California,6,22464,17373381,129.3
-,2002,2002,Prostate,28010,Colorado,8,2894,2261741,128
-,2002,2002,Prostate,28010,Connecticut,9,3026,1678249,180.3
+,2002,2002,Prostate,28010,Alabama,01,3076,2165719,142
+,2002,2002,Prostate,28010,Alaska,02,397,332704,119.3
+,2002,2002,Prostate,28010,Arizona,04,3146,2692038,116.9
+,2002,2002,Prostate,28010,Arkansas,05,2104,1322688,159.1
+,2002,2002,Prostate,28010,California,06,22464,17373381,129.3
+,2002,2002,Prostate,28010,Colorado,08,2894,2261741,128
+,2002,2002,Prostate,28010,Connecticut,09,3026,1678249,180.3
 ,2002,2002,Prostate,28010,Delaware,10,771,391517,196.9
 ,2002,2002,Prostate,28010,District of Columbia,11,533,270012,197.4
 ,2002,2002,Prostate,28010,Florida,12,16251,8147636,199.5
@@ -197,13 +197,13 @@
 ,2002,2002,Prostate,28010,West Virginia,54,1469,881573,166.6
 ,2002,2002,Prostate,28010,Wisconsin,55,4351,2693465,161.5
 ,2002,2002,Prostate,28010,Wyoming,56,406,252232,161
-,2003,2003,Prostate,28010,Alabama,1,3089,2179422,141.7
-,2003,2003,Prostate,28010,Alaska,2,319,335380,95.1
-,2003,2003,Prostate,28010,Arizona,4,3232,2746287,117.7
-,2003,2003,Prostate,28010,Arkansas,5,2249,1333293,168.7
-,2003,2003,Prostate,28010,California,6,21126,17543650,120.4
-,2003,2003,Prostate,28010,Colorado,8,2871,2275518,126.2
-,2003,2003,Prostate,28010,Connecticut,9,2776,1690868,164.2
+,2003,2003,Prostate,28010,Alabama,01,3089,2179422,141.7
+,2003,2003,Prostate,28010,Alaska,02,319,335380,95.1
+,2003,2003,Prostate,28010,Arizona,04,3232,2746287,117.7
+,2003,2003,Prostate,28010,Arkansas,05,2249,1333293,168.7
+,2003,2003,Prostate,28010,California,06,21126,17543650,120.4
+,2003,2003,Prostate,28010,Colorado,08,2871,2275518,126.2
+,2003,2003,Prostate,28010,Connecticut,09,2776,1690868,164.2
 ,2003,2003,Prostate,28010,Delaware,10,701,397201,176.5
 ,2003,2003,Prostate,28010,District of Columbia,11,484,267895,180.7
 ,2003,2003,Prostate,28010,Florida,12,15087,8306512,181.6
@@ -248,13 +248,13 @@
 ,2003,2003,Prostate,28010,West Virginia,54,1263,886460,142.5
 ,2003,2003,Prostate,28010,Wisconsin,55,4215,2712302,155.4
 ,2003,2003,Prostate,28010,Wyoming,56,436,254325,171.4
-,2004,2004,Prostate,28010,Alabama,1,3271,2192872,149.2
-,2004,2004,Prostate,28010,Alaska,2,378,341479,110.7
-,2004,2004,Prostate,28010,Arizona,4,3425,2816798,121.6
-,2004,2004,Prostate,28010,Arkansas,5,2099,1346638,155.9
-,2004,2004,Prostate,28010,California,6,22451,17703161,126.8
-,2004,2004,Prostate,28010,Colorado,8,2923,2300502,127.1
-,2004,2004,Prostate,28010,Connecticut,9,2536,1698016,149.4
+,2004,2004,Prostate,28010,Alabama,01,3271,2192872,149.2
+,2004,2004,Prostate,28010,Alaska,02,378,341479,110.7
+,2004,2004,Prostate,28010,Arizona,04,3425,2816798,121.6
+,2004,2004,Prostate,28010,Arkansas,05,2099,1346638,155.9
+,2004,2004,Prostate,28010,California,06,22451,17703161,126.8
+,2004,2004,Prostate,28010,Colorado,08,2923,2300502,127.1
+,2004,2004,Prostate,28010,Connecticut,09,2536,1698016,149.4
 ,2004,2004,Prostate,28010,Delaware,10,654,403483,162.1
 ,2004,2004,Prostate,28010,District of Columbia,11,428,267470,160
 ,2004,2004,Prostate,28010,Florida,12,14215,8512871,167
@@ -299,13 +299,13 @@
 ,2004,2004,Prostate,28010,West Virginia,54,1261,889411,141.8
 ,2004,2004,Prostate,28010,Wisconsin,55,4393,2731348,160.8
 ,2004,2004,Prostate,28010,Wyoming,56,411,257600,159.5
-,2005,2005,Prostate,28010,Alabama,1,3352,2211403,151.6
-,2005,2005,Prostate,28010,Alaska,2,291,346026,84.1
-,2005,2005,Prostate,28010,Arizona,4,3758,2908266,129.2
-,2005,2005,Prostate,28010,Arkansas,5,2307,1362802,169.3
-,2005,2005,Prostate,28010,California,6,20762,17831713,116.4
-,2005,2005,Prostate,28010,Colorado,8,3060,2323650,131.7
-,2005,2005,Prostate,28010,Connecticut,9,2629,1704888,154.2
+,2005,2005,Prostate,28010,Alabama,01,3352,2211403,151.6
+,2005,2005,Prostate,28010,Alaska,02,291,346026,84.1
+,2005,2005,Prostate,28010,Arizona,04,3758,2908266,129.2
+,2005,2005,Prostate,28010,Arkansas,05,2307,1362802,169.3
+,2005,2005,Prostate,28010,California,06,20762,17831713,116.4
+,2005,2005,Prostate,28010,Colorado,08,3060,2323650,131.7
+,2005,2005,Prostate,28010,Connecticut,09,2629,1704888,154.2
 ,2005,2005,Prostate,28010,Delaware,10,685,409923,167.1
 ,2005,2005,Prostate,28010,District of Columbia,11,424,267523,158.5
 ,2005,2005,Prostate,28010,Florida,12,15260,8724088,174.9
@@ -350,13 +350,14 @@
 ,2005,2005,Prostate,28010,West Virginia,54,1360,892802,152.3
 ,2005,2005,Prostate,28010,Wisconsin,55,4279,2749105,155.7
 ,2005,2005,Prostate,28010,Wyoming,56,387,260431,148.6
-,2006,2006,Prostate,28010,Alabama,1,3785,2243501,168.7
-,2006,2006,Prostate,28010,Alaska,2,362,350181,103.4
-,2006,2006,Prostate,28010,Arizona,4,4459,3003007,148.5
-,2006,2006,Prostate,28010,Arkansas,5,2344,1383333,169.4
-,2006,2006,Prostate,28010,California,6,22285,17923731,124.3
-,2006,2006,Prostate,28010,Colorado,8,3282,2367463,138.6
-,2006,2006,Prostate,28010,Connecticut,9,3094,1709785,181
+,2005,2005,Prostate,28010,Puerto Rico,72,3018,1834718,164.5
+,2006,2006,Prostate,28010,Alabama,01,3785,2243501,168.7
+,2006,2006,Prostate,28010,Alaska,02,362,350181,103.4
+,2006,2006,Prostate,28010,Arizona,04,4459,3003007,148.5
+,2006,2006,Prostate,28010,Arkansas,05,2344,1383333,169.4
+,2006,2006,Prostate,28010,California,06,22285,17923731,124.3
+,2006,2006,Prostate,28010,Colorado,08,3282,2367463,138.6
+,2006,2006,Prostate,28010,Connecticut,09,3094,1709785,181
 ,2006,2006,Prostate,28010,Delaware,10,909,416502,218.2
 ,2006,2006,Prostate,28010,District of Columbia,11,438,269359,162.6
 ,2006,2006,Prostate,28010,Florida,12,16157,8886910,181.8
@@ -401,13 +402,14 @@
 ,2006,2006,Prostate,28010,West Virginia,54,1560,897307,173.9
 ,2006,2006,Prostate,28010,Wisconsin,55,4302,2765379,155.6
 ,2006,2006,Prostate,28010,Wyoming,56,467,265306,176
-,2007,2007,Prostate,28010,Alabama,1,3925,2265565,173.2
-,2007,2007,Prostate,28010,Alaska,2,413,353162,116.9
-,2007,2007,Prostate,28010,Arizona,4,4253,3070683,138.5
-,2007,2007,Prostate,28010,Arkansas,5,2336,1397292,167.2
-,2007,2007,Prostate,28010,California,6,24064,18035385,133.4
-,2007,2007,Prostate,28010,Colorado,8,3828,2407435,159
-,2007,2007,Prostate,28010,Connecticut,9,3182,1715653,185.5
+,2006,2006,Prostate,28010,Puerto Rico,72,3108,1825958,170.2
+,2007,2007,Prostate,28010,Alabama,01,3925,2265565,173.2
+,2007,2007,Prostate,28010,Alaska,02,413,353162,116.9
+,2007,2007,Prostate,28010,Arizona,04,4253,3070683,138.5
+,2007,2007,Prostate,28010,Arkansas,05,2336,1397292,167.2
+,2007,2007,Prostate,28010,California,06,24064,18035385,133.4
+,2007,2007,Prostate,28010,Colorado,08,3828,2407435,159
+,2007,2007,Prostate,28010,Connecticut,09,3182,1715653,185.5
 ,2007,2007,Prostate,28010,Delaware,10,963,422351,228
 ,2007,2007,Prostate,28010,District of Columbia,11,567,271455,208.9
 ,2007,2007,Prostate,28010,Florida,12,17331,8989255,192.8
@@ -452,13 +454,14 @@
 ,2007,2007,Prostate,28010,West Virginia,54,1685,901369,186.9
 ,2007,2007,Prostate,28010,Wisconsin,55,4556,2782993,163.7
 ,2007,2007,Prostate,28010,Wyoming,56,481,272100,176.8
-,2008,2008,Prostate,28010,Alabama,1,3780,2287949,165.2
-,2008,2008,Prostate,28010,Alaska,2,396,358043,110.6
-,2008,2008,Prostate,28010,Arizona,4,3664,3125084,117.2
-,2008,2008,Prostate,28010,Arkansas,5,2173,1410334,154.1
-,2008,2008,Prostate,28010,California,6,22713,18207365,124.7
-,2008,2008,Prostate,28010,Colorado,8,3634,2450670,148.3
-,2008,2008,Prostate,28010,Connecticut,9,2969,1724830,172.1
+,2007,2007,Prostate,28010,Puerto Rico,72,2816,1814288,155.2
+,2008,2008,Prostate,28010,Alabama,01,3780,2287949,165.2
+,2008,2008,Prostate,28010,Alaska,02,396,358043,110.6
+,2008,2008,Prostate,28010,Arizona,04,3664,3125084,117.2
+,2008,2008,Prostate,28010,Arkansas,05,2173,1410334,154.1
+,2008,2008,Prostate,28010,California,06,22713,18207365,124.7
+,2008,2008,Prostate,28010,Colorado,08,3634,2450670,148.3
+,2008,2008,Prostate,28010,Connecticut,09,2969,1724830,172.1
 ,2008,2008,Prostate,28010,Delaware,10,903,428393,210.8
 ,2008,2008,Prostate,28010,District of Columbia,11,513,273971,187.2
 ,2008,2008,Prostate,28010,Florida,12,16735,9062026,184.7
@@ -503,13 +506,14 @@
 ,2008,2008,Prostate,28010,West Virginia,54,1446,905399,159.7
 ,2008,2008,Prostate,28010,Wisconsin,55,4428,2798728,158.2
 ,2008,2008,Prostate,28010,Wyoming,56,451,278061,162.2
-,2009,2009,Prostate,28010,Alabama,1,3854,2309779,166.9
-,2009,2009,Prostate,28010,Alaska,2,390,361893,107.8
-,2009,2009,Prostate,28010,Arizona,4,3650,3153246,115.8
-,2009,2009,Prostate,28010,Arkansas,5,2135,1421830,150.2
-,2009,2009,Prostate,28010,California,6,22631,18378154,123.1
-,2009,2009,Prostate,28010,Colorado,8,3558,2491485,142.8
-,2009,2009,Prostate,28010,Connecticut,9,3112,1733028,179.6
+,2008,2008,Prostate,28010,Puerto Rico,72,2925,1803341,162.2
+,2009,2009,Prostate,28010,Alabama,01,3854,2309779,166.9
+,2009,2009,Prostate,28010,Alaska,02,390,361893,107.8
+,2009,2009,Prostate,28010,Arizona,04,3650,3153246,115.8
+,2009,2009,Prostate,28010,Arkansas,05,2135,1421830,150.2
+,2009,2009,Prostate,28010,California,06,22631,18378154,123.1
+,2009,2009,Prostate,28010,Colorado,08,3558,2491485,142.8
+,2009,2009,Prostate,28010,Connecticut,09,3112,1733028,179.6
 ,2009,2009,Prostate,28010,Delaware,10,850,431935,196.8
 ,2009,2009,Prostate,28010,District of Columbia,11,465,280400,165.8
 ,2009,2009,Prostate,28010,Florida,12,16332,9118355,179.1
@@ -554,13 +558,14 @@
 ,2009,2009,Prostate,28010,West Virginia,54,1383,910341,151.9
 ,2009,2009,Prostate,28010,Wisconsin,55,4260,2813161,151.4
 ,2009,2009,Prostate,28010,Wyoming,56,428,285805,149.8
-,2010,2010,Prostate,28010,Alabama,1,3875,2324760,166.7
-,2010,2010,Prostate,28010,Alaska,2,396,371737,106.5
-,2010,2010,Prostate,28010,Arizona,4,3487,3182111,109.6
-,2010,2010,Prostate,28010,Arkansas,5,2106,1434816,146.8
-,2010,2010,Prostate,28010,California,6,22854,18551841,123.2
-,2010,2010,Prostate,28010,Colorado,8,3227,2529888,127.6
-,2010,2010,Prostate,28010,Connecticut,9,2827,1743193,162.2
+,2009,2009,Prostate,28010,Puerto Rico,72,3081,1793049,171.8
+,2010,2010,Prostate,28010,Alabama,01,3875,2324760,166.7
+,2010,2010,Prostate,28010,Alaska,02,396,371737,106.5
+,2010,2010,Prostate,28010,Arizona,04,3487,3182111,109.6
+,2010,2010,Prostate,28010,Arkansas,05,2106,1434816,146.8
+,2010,2010,Prostate,28010,California,06,22854,18551841,123.2
+,2010,2010,Prostate,28010,Colorado,08,3227,2529888,127.6
+,2010,2010,Prostate,28010,Connecticut,09,2827,1743193,162.2
 ,2010,2010,Prostate,28010,Delaware,10,802,435806,184
 ,2010,2010,Prostate,28010,District of Columbia,11,508,285844,177.7
 ,2010,2010,Prostate,28010,Florida,12,15949,9212520,173.1
@@ -605,13 +610,14 @@
 ,2010,2010,Prostate,28010,West Virginia,54,1363,914606,149
 ,2010,2010,Prostate,28010,Wisconsin,55,4210,2825524,149
 ,2010,2010,Prostate,28010,Wyoming,56,403,287806,140
-,2011,2011,Prostate,28010,Alabama,1,3819,2337199,163.4
-,2011,2011,Prostate,28010,Alaska,2,349,376520,92.7
-,2011,2011,Prostate,28010,Arizona,4,3224,3208408,100.5
-,2011,2011,Prostate,28010,Arkansas,5,2077,1444834,143.8
-,2011,2011,Prostate,28010,California,6,22908,18722648,122.4
-,2011,2011,Prostate,28010,Colorado,8,3239,2568280,126.1
-,2011,2011,Prostate,28010,Connecticut,9,2758,1751874,157.4
+,2010,2010,Prostate,28010,Puerto Rico,72,3064,1782782,171.9
+,2011,2011,Prostate,28010,Alabama,01,3819,2337199,163.4
+,2011,2011,Prostate,28010,Alaska,02,349,376520,92.7
+,2011,2011,Prostate,28010,Arizona,04,3224,3208408,100.5
+,2011,2011,Prostate,28010,Arkansas,05,2077,1444834,143.8
+,2011,2011,Prostate,28010,California,06,22908,18722648,122.4
+,2011,2011,Prostate,28010,Colorado,08,3239,2568280,126.1
+,2011,2011,Prostate,28010,Connecticut,09,2758,1751874,157.4
 ,2011,2011,Prostate,28010,Delaware,10,828,440058,188.2
 ,2011,2011,Prostate,28010,District of Columbia,11,553,292944,188.8
 ,2011,2011,Prostate,28010,Florida,12,15910,9320475,170.7
@@ -656,13 +662,14 @@
 ,2011,2011,Prostate,28010,West Virginia,54,1399,917619,152.5
 ,2011,2011,Prostate,28010,Wisconsin,55,4337,2838861,152.8
 ,2011,2011,Prostate,28010,Wyoming,56,411,289303,142.1
-,2012,2012,Prostate,28010,Alabama,1,3415,2351853,145.2
-,2012,2012,Prostate,28010,Alaska,2,314,382124,82.2
-,2012,2012,Prostate,28010,Arizona,4,2874,3241834,88.7
-,2012,2012,Prostate,28010,Arkansas,5,1791,1451214,123.4
-,2012,2012,Prostate,28010,California,6,19968,18897402,105.7
-,2012,2012,Prostate,28010,Colorado,8,2838,2606132,108.9
-,2012,2012,Prostate,28010,Connecticut,9,2342,1758955,133.1
+,2011,2011,Prostate,28010,Puerto Rico,72,3138,1763441,177.9
+,2012,2012,Prostate,28010,Alabama,01,3415,2351853,145.2
+,2012,2012,Prostate,28010,Alaska,02,314,382124,82.2
+,2012,2012,Prostate,28010,Arizona,04,2874,3241834,88.7
+,2012,2012,Prostate,28010,Arkansas,05,1791,1451214,123.4
+,2012,2012,Prostate,28010,California,06,19968,18897402,105.7
+,2012,2012,Prostate,28010,Colorado,08,2838,2606132,108.9
+,2012,2012,Prostate,28010,Connecticut,09,2342,1758955,133.1
 ,2012,2012,Prostate,28010,Delaware,10,799,444694,179.7
 ,2012,2012,Prostate,28010,District of Columbia,11,469,299587,156.5
 ,2012,2012,Prostate,28010,Florida,12,14098,9439434,149.4
@@ -707,13 +714,14 @@
 ,2012,2012,Prostate,28010,West Virginia,54,1163,919918,126.4
 ,2012,2012,Prostate,28010,Wisconsin,55,3672,2852344,128.7
 ,2012,2012,Prostate,28010,Wyoming,56,307,294353,104.3
-,2013,2013,Prostate,28010,Alabama,1,3320,2365767,140.3
-,2013,2013,Prostate,28010,Alaska,2,284,387488,73.3
-,2013,2013,Prostate,28010,Arizona,4,3027,3271389,92.5
-,2013,2013,Prostate,28010,Arkansas,5,1639,1454936,112.7
-,2013,2013,Prostate,28010,California,6,19415,19068920,101.8
-,2013,2013,Prostate,28010,Colorado,8,2883,2647050,108.9
-,2013,2013,Prostate,28010,Connecticut,9,2287,1763195,129.7
+,2012,2012,Prostate,28010,Puerto Rico,72,3184,1739072,183.1
+,2013,2013,Prostate,28010,Alabama,01,3320,2365767,140.3
+,2013,2013,Prostate,28010,Alaska,02,284,387488,73.3
+,2013,2013,Prostate,28010,Arizona,04,3027,3271389,92.5
+,2013,2013,Prostate,28010,Arkansas,05,1639,1454936,112.7
+,2013,2013,Prostate,28010,California,06,19415,19068920,101.8
+,2013,2013,Prostate,28010,Colorado,08,2883,2647050,108.9
+,2013,2013,Prostate,28010,Connecticut,09,2287,1763195,129.7
 ,2013,2013,Prostate,28010,Delaware,10,745,449119,165.9
 ,2013,2013,Prostate,28010,District of Columbia,11,362,306964,117.9
 ,2013,2013,Prostate,28010,Florida,12,14913,9563196,155.9
@@ -758,13 +766,14 @@
 ,2013,2013,Prostate,28010,West Virginia,54,1192,920279,129.5
 ,2013,2013,Prostate,28010,Wisconsin,55,3751,2866612,130.9
 ,2013,2013,Prostate,28010,Wyoming,56,354,297325,119.1
-,2014,2014,Prostate,28010,Alabama,1,3111,2377579,130.8
-,2014,2014,Prostate,28010,Alaska,2,278,387965,71.7
-,2014,2014,Prostate,28010,Arizona,4,3443,3312366,103.9
-,2014,2014,Prostate,28010,Arkansas,5,1780,1459250,122
-,2014,2014,Prostate,28010,California,6,17633,19258992,91.6
-,2014,2014,Prostate,28010,Colorado,8,2683,2691819,99.7
-,2014,2014,Prostate,28010,Connecticut,9,2230,1767185,126.2
+,2013,2013,Prostate,28010,Puerto Rico,72,3115,1720280,181.1
+,2014,2014,Prostate,28010,Alabama,01,3111,2377579,130.8
+,2014,2014,Prostate,28010,Alaska,02,278,387965,71.7
+,2014,2014,Prostate,28010,Arizona,04,3443,3312366,103.9
+,2014,2014,Prostate,28010,Arkansas,05,1780,1459250,122
+,2014,2014,Prostate,28010,California,06,17633,19258992,91.6
+,2014,2014,Prostate,28010,Colorado,08,2683,2691819,99.7
+,2014,2014,Prostate,28010,Connecticut,09,2230,1767185,126.2
 ,2014,2014,Prostate,28010,Delaware,10,708,454094,155.9
 ,2014,2014,Prostate,28010,District of Columbia,11,364,312275,116.6
 ,2014,2014,Prostate,28010,Florida,12,14710,9711136,151.5
@@ -809,13 +818,14 @@
 ,2014,2014,Prostate,28010,West Virginia,54,1087,919211,118.3
 ,2014,2014,Prostate,28010,Wisconsin,55,3663,2880268,127.2
 ,2014,2014,Prostate,28010,Wyoming,56,360,297478,121
-,2015,2015,Prostate,28010,Alabama,1,3504,2389348,146.7
-,2015,2015,Prostate,28010,Alaska,2,262,389085,67.3
-,2015,2015,Prostate,28010,Arizona,4,3538,3353450,105.5
-,2015,2015,Prostate,28010,Arkansas,5,1993,1465464,136
-,2015,2015,Prostate,28010,California,6,18652,19444856,95.9
-,2015,2015,Prostate,28010,Colorado,8,2618,2747063,95.3
-,2015,2015,Prostate,28010,Connecticut,9,2503,1767209,141.6
+,2014,2014,Prostate,28010,Puerto Rico,72,2928,1688886,173.4
+,2015,2015,Prostate,28010,Alabama,01,3504,2389348,146.7
+,2015,2015,Prostate,28010,Alaska,02,262,389085,67.3
+,2015,2015,Prostate,28010,Arizona,04,3538,3353450,105.5
+,2015,2015,Prostate,28010,Arkansas,05,1993,1465464,136
+,2015,2015,Prostate,28010,California,06,18652,19444856,95.9
+,2015,2015,Prostate,28010,Colorado,08,2618,2747063,95.3
+,2015,2015,Prostate,28010,Connecticut,09,2503,1767209,141.6
 ,2015,2015,Prostate,28010,Delaware,10,764,458995,166.5
 ,2015,2015,Prostate,28010,District of Columbia,11,349,317444,109.9
 ,2015,2015,Prostate,28010,Florida,12,14808,9892000,149.7
@@ -860,13 +870,14 @@
 ,2015,2015,Prostate,28010,West Virginia,54,1192,917478,129.9
 ,2015,2015,Prostate,28010,Wisconsin,55,4078,2891837,141
 ,2015,2015,Prostate,28010,Wyoming,56,363,299354,121.3
-,2016,2016,Prostate,28010,Alabama,1,3685,2400746,153.5
-,2016,2016,Prostate,28010,Alaska,2,377,391396,96.3
-,2016,2016,Prostate,28010,Arizona,4,3392,3398843,99.8
-,2016,2016,Prostate,28010,Arkansas,5,1904,1471748,129.4
-,2016,2016,Prostate,28010,California,6,19246,19591636,98.2
-,2016,2016,Prostate,28010,Colorado,8,2724,2795496,97.4
-,2016,2016,Prostate,28010,Connecticut,9,2643,1765849,149.7
+,2015,2015,Prostate,28010,Puerto Rico,72,3183,1656361,192.2
+,2016,2016,Prostate,28010,Alabama,01,3685,2400746,153.5
+,2016,2016,Prostate,28010,Alaska,02,377,391396,96.3
+,2016,2016,Prostate,28010,Arizona,04,3392,3398843,99.8
+,2016,2016,Prostate,28010,Arkansas,05,1904,1471748,129.4
+,2016,2016,Prostate,28010,California,06,19246,19591636,98.2
+,2016,2016,Prostate,28010,Colorado,08,2724,2795496,97.4
+,2016,2016,Prostate,28010,Connecticut,09,2643,1765849,149.7
 ,2016,2016,Prostate,28010,Delaware,10,768,463008,165.9
 ,2016,2016,Prostate,28010,District of Columbia,11,385,321953,119.6
 ,2016,2016,Prostate,28010,Florida,12,15226,10090810,150.9
@@ -911,13 +922,14 @@
 ,2016,2016,Prostate,28010,West Virginia,54,1254,913412,137.3
 ,2016,2016,Prostate,28010,Wisconsin,55,4256,2904163,146.5
 ,2016,2016,Prostate,28010,Wyoming,56,411,298541,137.7
-,2017,2017,Prostate,28010,Alabama,1,3959,2410917,164.2
-,2017,2017,Prostate,28010,Alaska,2,365,390149,93.6
-,2017,2017,Prostate,28010,Arizona,4,3799,3439404,110.5
-,2017,2017,Prostate,28010,Arkansas,5,2120,1477837,143.5
-,2017,2017,Prostate,28010,California,6,21200,19713651,107.5
-,2017,2017,Prostate,28010,Colorado,8,2986,2835322,105.3
-,2017,2017,Prostate,28010,Connecticut,9,2876,1766722,162.8
+,2016,2016,Prostate,28010,Puerto Rico,72,3074,1620266,189.7
+,2017,2017,Prostate,28010,Alabama,01,3959,2410917,164.2
+,2017,2017,Prostate,28010,Alaska,02,365,390149,93.6
+,2017,2017,Prostate,28010,Arizona,04,3799,3439404,110.5
+,2017,2017,Prostate,28010,Arkansas,05,2120,1477837,143.5
+,2017,2017,Prostate,28010,California,06,21200,19713651,107.5
+,2017,2017,Prostate,28010,Colorado,08,2986,2835322,105.3
+,2017,2017,Prostate,28010,Connecticut,09,2876,1766722,162.8
 ,2017,2017,Prostate,28010,Delaware,10,809,467350,173.1
 ,2017,2017,Prostate,28010,District of Columbia,11,446,325345,137.1
 ,2017,2017,Prostate,28010,Florida,12,14854,10259731,144.8
@@ -962,13 +974,14 @@
 ,2017,2017,Prostate,28010,West Virginia,54,1298,908103,142.9
 ,2017,2017,Prostate,28010,Wisconsin,55,4542,2918843,155.6
 ,2017,2017,Prostate,28010,Wyoming,56,487,295391,164.9
-,2018,2018,Prostate,28010,Alabama,1,3797,2422906,156.7
-,2018,2018,Prostate,28010,Alaska,2,417,387881,107.5
-,2018,2018,Prostate,28010,Arizona,4,3772,3486699,108.2
-,2018,2018,Prostate,28010,Arkansas,5,2199,1481299,148.5
-,2018,2018,Prostate,28010,California,6,20841,19790095,105.3
-,2018,2018,Prostate,28010,Colorado,8,3288,2876776,114.3
-,2018,2018,Prostate,28010,Connecticut,9,2918,1769203,164.9
+,2017,2017,Prostate,28010,Puerto Rico,72,1636,790392,207
+,2018,2018,Prostate,28010,Alabama,01,3797,2422906,156.7
+,2018,2018,Prostate,28010,Alaska,02,417,387881,107.5
+,2018,2018,Prostate,28010,Arizona,04,3772,3486699,108.2
+,2018,2018,Prostate,28010,Arkansas,05,2199,1481299,148.5
+,2018,2018,Prostate,28010,California,06,20841,19790095,105.3
+,2018,2018,Prostate,28010,Colorado,08,3288,2876776,114.3
+,2018,2018,Prostate,28010,Connecticut,09,2918,1769203,164.9
 ,2018,2018,Prostate,28010,Delaware,10,848,472114,179.6
 ,2018,2018,Prostate,28010,District of Columbia,11,431,328093,131.4
 ,2018,2018,Prostate,28010,Florida,12,16056,10394899,154.5
@@ -1013,13 +1026,14 @@
 ,2018,2018,Prostate,28010,West Virginia,54,1419,902819,157.2
 ,2018,2018,Prostate,28010,Wisconsin,55,4715,2933555,160.7
 ,2018,2018,Prostate,28010,Wyoming,56,481,294546,163.3
-,2019,2019,Prostate,28010,Alabama,1,3795,2436554,155.8
-,2019,2019,Prostate,28010,Alaska,2,442,386813,114.3
-,2019,2019,Prostate,28010,Arizona,4,3957,3538864,111.8
-,2019,2019,Prostate,28010,Arkansas,5,2278,1485478,153.4
-,2019,2019,Prostate,28010,California,6,22680,19813381,114.5
-,2019,2019,Prostate,28010,Colorado,8,3593,2910654,123.4
-,2019,2019,Prostate,28010,Connecticut,9,3174,1768149,179.5
+,2018,2018,Prostate,28010,Puerto Rico,72,3437,1517003,226.6
+,2019,2019,Prostate,28010,Alabama,01,3795,2436554,155.8
+,2019,2019,Prostate,28010,Alaska,02,442,386813,114.3
+,2019,2019,Prostate,28010,Arizona,04,3957,3538864,111.8
+,2019,2019,Prostate,28010,Arkansas,05,2278,1485478,153.4
+,2019,2019,Prostate,28010,California,06,22680,19813381,114.5
+,2019,2019,Prostate,28010,Colorado,08,3593,2910654,123.4
+,2019,2019,Prostate,28010,Connecticut,09,3174,1768149,179.5
 ,2019,2019,Prostate,28010,Delaware,10,965,477217,202.2
 ,2019,2019,Prostate,28010,District of Columbia,11,437,328841,132.9
 ,2019,2019,Prostate,28010,Florida,12,16208,10508543,154.2
@@ -1064,13 +1078,14 @@
 ,2019,2019,Prostate,28010,West Virginia,54,1380,899057,153.5
 ,2019,2019,Prostate,28010,Wisconsin,55,5222,2947274,177.2
 ,2019,2019,Prostate,28010,Wyoming,56,457,295097,154.9
-,2020,2020,Prostate,28010,Alabama,1,3342,2449590,136.4
-,2020,2020,Prostate,28010,Alaska,2,394,386040,102.1
-,2020,2020,Prostate,28010,Arizona,4,3406,3594486,94.8
-,2020,2020,Prostate,28010,Arkansas,5,1554,1490799,104.2
-,2020,2020,Prostate,28010,California,6,20444,19799447,103.3
-,2020,2020,Prostate,28010,Colorado,8,3502,2936954,119.2
-,2020,2020,Prostate,28010,Connecticut,9,2695,1763661,152.8
+,2019,2019,Prostate,28010,Puerto Rico,72,3540,1515598,233.6
+,2020,2020,Prostate,28010,Alabama,01,3342,2449590,136.4
+,2020,2020,Prostate,28010,Alaska,02,394,386040,102.1
+,2020,2020,Prostate,28010,Arizona,04,3406,3594486,94.8
+,2020,2020,Prostate,28010,Arkansas,05,1554,1490799,104.2
+,2020,2020,Prostate,28010,California,06,20444,19799447,103.3
+,2020,2020,Prostate,28010,Colorado,08,3502,2936954,119.2
+,2020,2020,Prostate,28010,Connecticut,09,2695,1763661,152.8
 ,2020,2020,Prostate,28010,Delaware,10,962,482493,199.4
 ,2020,2020,Prostate,28010,District of Columbia,11,359,321771,111.6
 ,2020,2020,Prostate,28010,Florida,12,14692,10625347,138.3
@@ -1114,13 +1129,14 @@
 ,2020,2020,Prostate,28010,West Virginia,54,1170,895288,130.7
 ,2020,2020,Prostate,28010,Wisconsin,55,4465,2958022,150.9
 ,2020,2020,Prostate,28010,Wyoming,56,417,296434,140.7
-,2021,2021,Prostate,28010,Alabama,1,3563,2456486,145
-,2021,2021,Prostate,28010,Alaska,2,461,386669,119.2
-,2021,2021,Prostate,28010,Arizona,4,3393,3634640,93.4
-,2021,2021,Prostate,28010,Arkansas,5,1639,1497307,109.5
-,2021,2021,Prostate,28010,California,6,23267,19606947,118.7
-,2021,2021,Prostate,28010,Colorado,8,3036,2950111,102.9
-,2021,2021,Prostate,28010,Connecticut,9,3665,1775106,206.5
+,2020,2020,Prostate,28010,Puerto Rico,72,2695,1555065,173.3
+,2021,2021,Prostate,28010,Alabama,01,3563,2456486,145
+,2021,2021,Prostate,28010,Alaska,02,461,386669,119.2
+,2021,2021,Prostate,28010,Arizona,04,3393,3634640,93.4
+,2021,2021,Prostate,28010,Arkansas,05,1639,1497307,109.5
+,2021,2021,Prostate,28010,California,06,23267,19606947,118.7
+,2021,2021,Prostate,28010,Colorado,08,3036,2950111,102.9
+,2021,2021,Prostate,28010,Connecticut,09,3665,1775106,206.5
 ,2021,2021,Prostate,28010,Delaware,10,921,488461,188.6
 ,2021,2021,Prostate,28010,District of Columbia,11,418,319335,130.9
 ,2021,2021,Prostate,28010,Florida,12,17941,10740240,167
@@ -1164,11 +1180,12 @@
 ,2021,2021,Prostate,28010,West Virginia,54,1413,892126,158.4
 ,2021,2021,Prostate,28010,Wisconsin,55,5406,2949080,183.3
 ,2021,2021,Prostate,28010,Wyoming,56,462,296906,155.6
+,2021,2021,Prostate,28010,Puerto Rico,72,3207,1544245,207.7
 ---,,,,,,,,,
 "Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
 Query Parameters:,,,,,,,,,
 Leading Cancer Sites: Prostate,,,,,,,,,
-Group By: Year; Leading Cancer Sites; States,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
 Show Totals: Disabled,,,,,,,,,
 Show Zero Values: False,,,,,,,,,
 Show Suppressed: False,,,,,,,,,
@@ -1177,11 +1194,11 @@ Standard Population: 2000 U.S. Std. Million,,,,,,,,,
 ---,,,,,,,,,
 Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
 ---,,,,,,,,,
-"Query Date: Aug 20, 2024 11:25:34 AM",,,,,,,,,
+"Query Date: Dec 6, 2024 11:35:13 AM",,,,,,,,,
 ---,,,,,,,,,
 "Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 11:25:34 AM",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:35:13 AM",,,,,,,,,
 ---,,,,,,,,,
 Messages:,,,,,,,,,
 1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,
@@ -1189,14 +1206,16 @@ Messages:,,,,,,,,,
 Caveats:,,,,,,,,,
 1. 'Not Applicable' is displayed for all data values when sex-specific cancers are combined with the wrong sex. More,,,,,,,,,
 information: http://wonder.cdc.gov/wonder/help/cancer-v2021.html#Genital Cancers List.,,,,,,,,,
-"2. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%",,,,,,,,,
-"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population.",,,,,,,,,
-3. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+2. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
 Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
-"4. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
 values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
 misleading.,,,,,,,,,
-5. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000.,,,,,,,,,
+4. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+5. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
 6. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
 shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
 "7. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
