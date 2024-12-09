@@ -1,4 +1,3 @@
-import axios from 'axios'
 import type { MetricId } from '../data/config/MetricConfigTypes'
 import type { ChartData } from '../reports/Report'
 import {
@@ -27,60 +26,33 @@ export interface ResultData {
   [key: string]: any
 }
 
-const API_KEY_URL =
-  'https://us-central1-het-infra-test-05.cloudfunctions.net/function-1'
-const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
-async function fetchApiKey(): Promise<string> {
-  try {
-    const response = await fetch(API_KEY_URL)
-    if (!response.ok)
-      throw new Error(`Network response was not ok: ${response.statusText}`)
-    const { apiKey } = await response.json()
-    return apiKey
-  } catch (error) {
-    console.error('Failed to fetch API key:', error)
-    throw error
-  }
-}
-
 export async function fetchAIInsight(prompt: string): Promise<string> {
-  const apiKey = await fetchApiKey()
-
   try {
-    const response = await axios.post(
-      OPENAI_API_URL,
-      {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: '' },
-          { role: 'user', content: prompt },
-        ],
-        max_tokens: 150,
-        temperature: 0.7,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    )
+    const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+    const dataServerUrl = `${baseApiUrl}/fetch-ai-insight/${encodeURIComponent(prompt)}`
 
-    const content = response.data.choices?.[0]?.message?.content
-    if (!content) throw new Error('No valid response from OpenAI API')
-    return content.trim().replace(/^"|"$/g, '')
+    const dataResponse = await fetch(dataServerUrl)
+
+    if (!dataResponse.ok) {
+      throw new Error(`Failed to fetch AI insight: ${dataResponse.statusText}`)
+    }
+
+    const insight = await dataResponse.json()
+
+    if (!insight || typeof insight.content !== 'string') {
+      throw new Error('Invalid response structure from the server')
+    }
+
+    return insight.content.trim()
   } catch (error) {
-    console.error('Error generating insight:', error)
+    console.error(ERROR_GENERATING_INSIGHT, error)
     throw error
   }
 }
 
 function generateInsightPrompt(disparities: Disparity): string {
-  if (!SHOW_INSIGHT_GENERATION) {
-    return ''
-  }
   const { subgroup, location, measure, populationShare, outcomeShare, ratio } =
     disparities
 
@@ -116,6 +88,9 @@ function mapRelevantData(
 export async function generateInsight(
   chartMetrics: ChartData,
 ): Promise<string> {
+  if (!SHOW_INSIGHT_GENERATION) {
+    return ''
+  }
   const { knownData, metricIds } = chartMetrics
   try {
     const processedData = mapRelevantData(knownData, metricIds)

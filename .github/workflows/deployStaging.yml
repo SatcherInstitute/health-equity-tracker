@@ -118,6 +118,7 @@ jobs:
       - id: serving
         uses: ./.github/actions/buildAndPush
         with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           dockerfile: 'data_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
 
@@ -141,13 +142,10 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
-      - name: Update VITE_OPENAI_API_KEY in .env.deploy_preview
-        run: |
-          sed -i 's/VITE_OPENAI_API_KEY=1/VITE_OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}/' frontend/.env.deploy_preview
       - id: frontend
         uses: ./.github/actions/buildAndPush
         env:
-          VITE_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         with:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
@@ -318,3 +316,4 @@ jobs:
           FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
           PATH_TO_SA_CREDS: config/creds.json
           AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

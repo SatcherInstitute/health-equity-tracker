@@ -57,6 +57,7 @@ jobs:
         uses: ./.github/actions/buildAndPush
         with:
           ahr-api-key: ${{ secrets.AHR_API_KEY }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
           dockerfile: 'run_gcs_to_bq/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
 
@@ -262,3 +263,4 @@ jobs:
           FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
           PATH_TO_SA_CREDS: config/creds.json
           AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
