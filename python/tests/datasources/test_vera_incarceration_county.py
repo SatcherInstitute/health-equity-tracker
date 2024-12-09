@@ -4,8 +4,9 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from datasources.vera_incarceration_county import (
     VeraIncarcerationCounty,
-    VERA_COL_TYPES,
 )
+from test_utils import _load_csv_as_df_from_real_data_dir
+
 
 # Current working directory .
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,25 +14,15 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "vera_incarceration_county"
 
 
 GOLDEN_DATA = {
-    'race_and_ethnicity_county_current': os.path.join(
-        TEST_DIR, "golden_data", 'by_race_and_ethnicity_county_current.csv'
-    ),
+    'race_and_ethnicity_county_current': os.path.join(TEST_DIR, "golden_data", 'race_and_ethnicity_county_current.csv'),
     'race_and_ethnicity_county_historical': os.path.join(
-        TEST_DIR, "golden_data", 'by_race_and_ethnicity_county_historical.csv'
+        TEST_DIR, "golden_data", 'race_and_ethnicity_county_historical.csv'
     ),
-    'age_county_current': os.path.join(TEST_DIR, "golden_data", 'by_age_county_current.csv'),
-    'age_county_historical': os.path.join(TEST_DIR, "golden_data", 'by_age_county_historical.csv'),
-    'sex_county_current': os.path.join(TEST_DIR, "golden_data", 'by_sex_county_current.csv'),
-    'sex_county_historical': os.path.join(TEST_DIR, "golden_data", 'by_sex_county_historical.csv'),
+    'age_county_current': os.path.join(TEST_DIR, "golden_data", 'age_county_current.csv'),
+    'age_county_historical': os.path.join(TEST_DIR, "golden_data", 'age_county_historical.csv'),
+    'sex_county_current': os.path.join(TEST_DIR, "golden_data", 'sex_county_current.csv'),
+    'sex_county_historical': os.path.join(TEST_DIR, "golden_data", 'sex_county_historical.csv'),
 }
-
-
-def get_mocked_data_as_df():
-    df = pd.read_csv(
-        os.path.join(TEST_DIR, 'test_input_incarceration_trends.csv'),
-        dtype=VERA_COL_TYPES,
-    )
-    return df
 
 
 dtypes = {
@@ -61,8 +52,8 @@ veraIncarcerationCounty = VeraIncarcerationCounty()
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-    return_value=get_mocked_data_as_df(),
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
@@ -87,8 +78,8 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-    return_value=get_mocked_data_as_df(),
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
@@ -113,8 +104,8 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-    return_value=get_mocked_data_as_df(),
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
