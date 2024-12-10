@@ -1,4 +1,4 @@
-from ingestion.het_types import GEO_TYPE, CANCER_TYPE_OR_ALL, SEX_RACE_ETH_AGE_TYPE
+from ingestion.het_types import GEO_TYPE, CANCER_TYPE_OR_ALL
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.constants import CURRENT, STATE_LEVEL, NATIONAL_LEVEL, US_FIPS
@@ -149,13 +149,12 @@ def load_cdc_df_from_data_dir(
                 count_cols_to_sum=count_cols_to_sum,
                 race_alone_to_het_code_map=BREAKDOWN_TO_STANDARD_BY_COL[std_col.RACE_CATEGORY_ID_COL],
                 ethnicity_value="Hispanic",
-                # race_eth_output_col=std_col.RACE_CATEGORY_ID_COL,
             )
 
         topic_df = rename_cols(
             topic_df,
             cast(GEO_TYPE, geo_level),
-            cast(SEX_RACE_ETH_AGE_TYPE, breakdown),
+            cast(CANCER_TYPE_OR_ALL, breakdown),
             condition,
             state_code_col,
         )
