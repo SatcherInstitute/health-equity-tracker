@@ -47,6 +47,8 @@ WISQARS_DEMO_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity', 'urba
 
 GEO_TYPE = Literal["county", "state", "national"]
 
+CANCER_TYPE_OR_ALL = Literal['age', 'race', 'race_and_ethncity', 'sex', 'all']
+
 TIME_VIEW_TYPE = Literal['historical', 'current']
 
 TOPIC_CATEGORY_TYPE = Literal[
