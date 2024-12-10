@@ -2,7 +2,6 @@
 # pylint: disable=no-name-in-module
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _VERA_WORKFLOW_ID = 'VERA_INCARCERATION_COUNTY'
@@ -36,7 +35,10 @@ vera_bq_operator_sex = util.create_bq_ingest_operator(
 )
 
 
-vera_exporter_payload_race = {'dataset_name': _VERA_DATASET_NAME, 'demographic': "race_and_ethnicity"}
+vera_exporter_payload_race = {
+    'dataset_name': _VERA_DATASET_NAME,
+    'demographic': "race_and_ethnicity",
+}
 vera_exporter_operator_race = util.create_exporter_operator(
     'vera_incarceration_county_exporter_race', vera_exporter_payload_race, data_ingestion_dag
 )
@@ -46,16 +48,19 @@ vera_exporter_operator_age = util.create_exporter_operator(
     'vera_incarceration_county_exporter_age', vera_exporter_payload_age, data_ingestion_dag
 )
 
-vera_exporter_payload_sex = {'dataset_name': _VERA_DATASET_NAME, 'demographic': "sex"}
+vera_exporter_payload_sex = {
+    'dataset_name': _VERA_DATASET_NAME,
+    'demographic': "sex",
+    'should_export_as_alls': True,
+}
 vera_exporter_operator_sex = util.create_exporter_operator(
     'vera_incarceration_county_exporter_sex', vera_exporter_payload_sex, data_ingestion_dag
 )
 
-connector = DummyOperator(default_args=default_args, dag=data_ingestion_dag, task_id='connector')
-
 # Ingestion DAG
 (
     [vera_bq_operator_race, vera_bq_operator_age, vera_bq_operator_sex]
-    >> connector
-    >> [vera_exporter_operator_race, vera_exporter_operator_age, vera_exporter_operator_sex]
+    >> vera_exporter_operator_sex
+    >> vera_exporter_operator_age
+    >> vera_exporter_operator_race
 )
