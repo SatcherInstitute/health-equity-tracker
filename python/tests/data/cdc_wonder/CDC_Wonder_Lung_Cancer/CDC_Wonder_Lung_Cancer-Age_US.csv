@@ -1,0 +1,41 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Age Groups,Age Groups Code,Count,Population,Crude Rate
+,2021,2021,Lung and Bronchus,22030,50-54 years,50-54,6545,20641464,31.7
+,2021,2021,Lung and Bronchus,22030,55-59 years,55-59,16386,21249093,77.1
+,2021,2021,Lung and Bronchus,22030,60-64 years ,60-64,30108,20866161,144.3
+,2021,2021,Lung and Bronchus,22030,65-69 years,65-69,37684,18064464,208.6
+,2021,2021,Lung and Bronchus,22030,70-74 years,70-74,40683,15063976,270.1
+,2021,2021,Lung and Bronchus,22030,75-79 years,75-79,34435,9872411,348.8
+---,,,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
+Query Parameters:,,,,,,,,,
+Age Groups: 50-54 years; 55-59 years; 60-64 years ; 65-69 years; 70-74 years; 75-79 years,,,,,,,,,
+Leading Cancer Sites: Lung and Bronchus,,,,,,,,,
+Group By: Year; Leading Cancer Sites; Age Groups,,,,,,,,,
+Show Totals: Disabled,,,,,,,,,
+Show Zero Values: False,,,,,,,,,
+Show Suppressed: False,,,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,,,
+---,,,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
+---,,,,,,,,,
+"Query Date: Dec 9, 2024 11:08:58 AM",,,,,,,,,
+---,,,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 9, 2024 11:08:58 AM",,,,,,,,,
+---,,,,,,,,,
+Caveats:,,,,,,,,,
+"1. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
+misleading.,,,,,,,,,
+2. Age-adjusted rates are not available when results are grouped by age.,,,,,,,,,
+3. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
+"4. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,
+standard groupings of primary cancer sites.,,,,,,,,,
+"5. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,

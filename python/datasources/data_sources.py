@@ -11,6 +11,7 @@ from datasources.cdc_vaccination_national import CDCVaccinationNational
 from datasources.cdc_wisqars import CDCWisqarsData
 from datasources.cdc_wisqars_youth import CDCWisqarsYouthData
 from datasources.cdc_wisqars_black_men import CDCWisqarsBlackMenData
+from datasources.cdc_wonder import CdcWonderData
 from datasources.census_pop_estimates import CensusPopEstimates
 from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
 from datasources.chr import CHRData
@@ -40,6 +41,7 @@ DATA_SOURCES_DICT = {
     CDCWisqarsData.get_id(): CDCWisqarsData(),
     CDCWisqarsYouthData.get_id(): CDCWisqarsYouthData(),
     CDCWisqarsBlackMenData.get_id(): CDCWisqarsBlackMenData(),
+    CdcWonderData.get_id(): CdcWonderData(),
     CensusPopEstimates.get_id(): CensusPopEstimates(),
     CensusPopEstimatesSC.get_id(): CensusPopEstimatesSC(),
     CHRData.get_id(): CHRData(),
