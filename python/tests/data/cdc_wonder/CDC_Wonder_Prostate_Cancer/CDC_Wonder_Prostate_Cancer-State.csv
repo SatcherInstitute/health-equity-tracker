@@ -1,0 +1,96 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,2021,2021,Prostate,28010,Alabama,01,3563,2456486,145
+,2021,2021,Prostate,28010,Alaska,02,461,386669,119.2
+,2021,2021,Prostate,28010,Arizona,04,3393,3634640,93.4
+,2021,2021,Prostate,28010,Arkansas,05,1639,1497307,109.5
+,2021,2021,Prostate,28010,California,06,23267,19606947,118.7
+,2021,2021,Prostate,28010,Colorado,08,3036,2950111,102.9
+,2021,2021,Prostate,28010,Connecticut,09,3665,1775106,206.5
+,2021,2021,Prostate,28010,Delaware,10,921,488461,188.6
+,2021,2021,Prostate,28010,District of Columbia,11,418,319335,130.9
+,2021,2021,Prostate,28010,Florida,12,17941,10740240,167
+,2021,2021,Prostate,28010,Georgia,13,9034,5270607,171.4
+,2021,2021,Prostate,28010,Hawaii,15,1110,729664,152.1
+,2021,2021,Prostate,28010,Idaho,16,1373,959021,143.2
+,2021,2021,Prostate,28010,Illinois,17,9667,6282788,153.9
+,2021,2021,Prostate,28010,Iowa,19,2799,1605219,174.4
+,2021,2021,Prostate,28010,Kansas,20,2220,1476378,150.4
+,2021,2021,Prostate,28010,Kentucky,21,3482,2236962,155.7
+,2021,2021,Prostate,28010,Louisiana,22,4225,2267863,186.3
+,2021,2021,Prostate,28010,Maine,23,1263,679613,185.8
+,2021,2021,Prostate,28010,Maryland,24,5260,3009015,174.8
+,2021,2021,Prostate,28010,Massachusetts,25,4906,3423380,143.3
+,2021,2021,Prostate,28010,Michigan,26,7792,4985697,156.3
+,2021,2021,Prostate,28010,Minnesota,27,4568,2868505,159.2
+,2021,2021,Prostate,28010,Mississippi,28,2511,1434980,175
+,2021,2021,Prostate,28010,Missouri,29,3940,3051417,129.1
+,2021,2021,Prostate,28010,Montana,30,1067,561704,190
+,2021,2021,Prostate,28010,Nebraska,31,1272,988840,128.6
+,2021,2021,Prostate,28010,Nevada,32,1870,1589220,117.7
+,2021,2021,Prostate,28010,New Hampshire,33,1222,693826,176.1
+,2021,2021,Prostate,28010,New Jersey,34,8719,4568447,190.9
+,2021,2021,Prostate,28010,New Mexico,35,1274,1054939,120.8
+,2021,2021,Prostate,28010,New York,36,17784,9719571,183
+,2021,2021,Prostate,28010,North Carolina,37,8650,5178342,167
+,2021,2021,Prostate,28010,North Dakota,38,573,400055,143.2
+,2021,2021,Prostate,28010,Ohio,39,9550,5814093,164.3
+,2021,2021,Prostate,28010,Oklahoma,40,2539,1991837,127.5
+,2021,2021,Prostate,28010,Oregon,41,2693,2126917,126.6
+,2021,2021,Prostate,28010,Pennsylvania,42,9943,6424780,154.8
+,2021,2021,Prostate,28010,Rhode Island,44,726,538698,134.8
+,2021,2021,Prostate,28010,South Carolina,45,3944,2531346,155.8
+,2021,2021,Prostate,28010,South Dakota,46,723,455967,158.6
+,2021,2021,Prostate,28010,Tennessee,47,4620,3421969,135
+,2021,2021,Prostate,28010,Texas,48,15990,14788972,108.1
+,2021,2021,Prostate,28010,Utah,49,2117,1694223,125
+,2021,2021,Prostate,28010,Vermont,50,593,322137,184.1
+,2021,2021,Prostate,28010,Virginia,51,5727,4288493,133.5
+,2021,2021,Prostate,28010,Washington,53,5328,3908288,136.3
+,2021,2021,Prostate,28010,West Virginia,54,1413,892126,158.4
+,2021,2021,Prostate,28010,Wisconsin,55,5406,2949080,183.3
+,2021,2021,Prostate,28010,Wyoming,56,462,296906,155.6
+,2021,2021,Prostate,28010,Puerto Rico,72,3207,1544245,207.7
+---,,,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
+Query Parameters:,,,,,,,,,
+Leading Cancer Sites: Prostate,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
+Show Totals: Disabled,,,,,,,,,
+Show Zero Values: False,,,,,,,,,
+Show Suppressed: False,,,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,,,
+---,,,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
+---,,,,,,,,,
+"Query Date: Dec 6, 2024 11:35:13 AM",,,,,,,,,
+---,,,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:35:13 AM",,,,,,,,,
+---,,,,,,,,,
+Messages:,,,,,,,,,
+1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,
+---,,,,,,,,,
+Caveats:,,,,,,,,,
+1. 'Not Applicable' is displayed for all data values when sex-specific cancers are combined with the wrong sex. More,,,,,,,,,
+information: http://wonder.cdc.gov/wonder/help/cancer-v2021.html#Genital Cancers List.,,,,,,,,,
+2. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
+"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
+misleading.,,,,,,,,,
+4. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+5. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
+6. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
+"7. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,
+standard groupings of primary cancer sites.,,,,,,,,,
+"8. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,
