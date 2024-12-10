@@ -21,12 +21,17 @@ import { Link, useParams, useNavigate } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTags } from '../../styles/HetComponents/HetTags'
+import HetModal from '../../styles/HetComponents/HetModal'
+
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString(undefined, options as any)
 }
 
 export default function SinglePost() {
+  const [isModalOpen, setModalOpen] = useState(false)
+  const handleModalOpen = () => setModalOpen(true)
+  const handleModalClose = () => setModalOpen(false)
   const navigate = useNavigate()
   const { slug } = useParams<{ slug: string }>()
 
@@ -182,9 +187,13 @@ export default function SinglePost() {
           </div>
 
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
-          <div
-            className='flex items-center justify-center w-1/2 rounded-sm py-16
-        '
+          <button
+            className='flex items-center justify-center w-1/2 rounded-sm py-16 appearance-none focus:outline-none bg-transparent outline-none focus:ring-2 focus:ring-blue-500 border-none'
+            onClick={handleModalOpen}
+            type='button'
+            style={{ cursor: articleImage ? 'pointer' : 'default' }}
+            disabled={!articleImage}
+            aria-label='Open image in modal'
           >
             {isLoading && (
               <Skeleton
@@ -192,13 +201,13 @@ export default function SinglePost() {
                 height={300}
                 animation='wave'
                 className='m-10'
-              ></Skeleton>
+              />
             )}
             {isError && (
               <img
                 src={hetLogo}
                 className='mt-8 h-auto w-3/5 max-w-md rounded-md object-contain md:mt-0 md:max-h-articleLogo'
-                alt={''}
+                alt=''
                 width={200}
                 height={100}
               />
@@ -206,7 +215,7 @@ export default function SinglePost() {
             {!isLoading && !isError && articleImage && (
               <div
                 aria-label={articleImageAltText}
-                className='w-full smMd:block hidden h-56 md:h-96 bg-contain bg-center bg-no-repeat rounded-sm px-8'
+                className='w-full smMd:block hidden h-56 md:h-96 bg-bg-cover bg-center bg-no-repeat rounded-md shadow-raised-tighter'
                 style={{
                   backgroundImage: `url(${articleImage})`,
                   backgroundClip: 'border-box',
@@ -214,7 +223,17 @@ export default function SinglePost() {
                 }}
               ></div>
             )}
-          </div>
+          </button>
+
+          {/* Image Modal */}
+          {articleImage && (
+            <HetModal
+              open={isModalOpen}
+              onClose={handleModalClose}
+              imageUrl={articleImage}
+              altText={articleImageAltText}
+            />
+          )}
         </div>
 
         {/* ARTICLE CONTENT SECTION */}

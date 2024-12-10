@@ -80,7 +80,6 @@ button[data-action='back']:focus {
   }
 
   & figure {
-    /* margin-inline: 0 !important; */
     margin: 0 auto !important;
     width: 100%;
     display: flex;
