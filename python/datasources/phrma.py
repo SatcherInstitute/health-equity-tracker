@@ -6,6 +6,7 @@ from ingestion.constants import (
     NATIONAL_LEVEL,
     ALL_VALUE,
     US_NAME,
+    CURRENT,
     UNKNOWN,
 )
 from ingestion.dataset_utils import (
@@ -67,7 +68,8 @@ class PhrmaData(DataSource):
 
         alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, PHRMA_MEDICARE, PHRMA_MEDICARE_CONDITIONS)
 
-        table_name = f'{demo_type}_{geo_level}_current'
+        table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
+
         df = self.generate_breakdown_df(demo_type, geo_level, alls_df)
 
         # POP COMPARE FOR 100K
@@ -100,7 +102,7 @@ class PhrmaData(DataSource):
 
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(
         self,

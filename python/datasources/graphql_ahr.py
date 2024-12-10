@@ -105,13 +105,12 @@ class GraphQlAHRData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
         category: TOPIC_CATEGORY_TYPE = self.get_attr(attrs, "category")  # type: ignore
-
         response_data = fetch_ahr_data_from_graphql(demographic, geo_level, category)
         df = graphql_response_to_dataframe(response_data)
         df = self.generate_breakdown_df(demographic, geo_level, df)
 
         for time_view in [CURRENT, HISTORICAL]:
-            table_name = f"{category}_{demographic}_{geo_level}_{time_view}"
+            table_id = gcs_to_bq_util.make_bq_table_id(demographic, geo_level, time_view, category_prefix=category)
             topic_prefixes = [
                 std_col.extract_prefix(rate_col)
                 for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()
@@ -122,8 +121,7 @@ class GraphQlAHRData(DataSource):
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
             first_two_columns = df_for_bq.columns[:2].tolist()
             df_for_bq = df_for_bq.sort_values(by=first_two_columns, ascending=True).reset_index(drop=True)
-
-            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: DEMOGRAPHIC_TYPE, geo_level: GEO_TYPE, df: pd.DataFrame):
         breakdown_df = parse_raw_data(df, breakdown)

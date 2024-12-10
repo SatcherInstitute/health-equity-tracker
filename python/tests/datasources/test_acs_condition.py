@@ -51,6 +51,9 @@ def testSexNationalBaseTable(mock_acs: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_NATIONAL_SEX, dtype={'state_fips': str})
     cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 2
+
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
         expected_df.sort_values(cols).reset_index(drop=True),
@@ -73,6 +76,9 @@ def testSexStateBaseTable(mock_acs: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_STATE_SEX, dtype={'state_fips': str})
     cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 2
+
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
         expected_df.sort_values(cols).reset_index(drop=True),
@@ -95,6 +101,9 @@ def testSexCountyBaseTable(mock_acs: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_COUNTY_SEX, dtype={'state_fips': str, 'county_fips': str})
     cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 2
+
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
         expected_df.sort_values(cols).reset_index(drop=True),
@@ -117,6 +126,9 @@ def testRaceCountyBaseTable(mock_acs: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_COUNTY_RACE, dtype={'state_fips': str, 'county_fips': str})
     cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 16
+
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
         expected_df.sort_values(cols).reset_index(drop=True),
@@ -134,6 +146,9 @@ def testWriteToBqOverwriteEarliestYear(
 ):
     acsCondition2012 = AcsCondition()
     acsCondition2012.write_to_bq('dataset', 'gcs_bucket', year='2012')
+
+    assert mock_acs.call_count == 60
+    assert mock_json.call_count == 1
 
     for call in mock_bq.call_args_list:
         # This earliest year should OVERWRITE and create brand new BQ tables
@@ -253,29 +268,29 @@ def testWriteToBqAppend2022(
     # One call for each table write to BQ
     assert mock_bq.call_count == 18
 
-    assert mock_bq.call_args_list[0].args[2] == 'by_race_national_historical'
-    assert mock_bq.call_args_list[1].args[2] == 'by_race_national_current'
+    assert mock_bq.call_args_list[0].args[2] == 'race_national_historical'
+    assert mock_bq.call_args_list[1].args[2] == 'race_national_current'
 
-    assert mock_bq.call_args_list[2].args[2] == 'by_age_national_historical'
-    assert mock_bq.call_args_list[3].args[2] == 'by_age_national_current'
+    assert mock_bq.call_args_list[2].args[2] == 'age_national_historical'
+    assert mock_bq.call_args_list[3].args[2] == 'age_national_current'
 
-    assert mock_bq.call_args_list[4].args[2] == 'by_sex_national_historical'
-    assert mock_bq.call_args_list[5].args[2] == 'by_sex_national_current'
+    assert mock_bq.call_args_list[4].args[2] == 'sex_national_historical'
+    assert mock_bq.call_args_list[5].args[2] == 'sex_national_current'
 
-    assert mock_bq.call_args_list[6].args[2] == 'by_race_state_historical'
-    assert mock_bq.call_args_list[7].args[2] == 'by_race_state_current'
+    assert mock_bq.call_args_list[6].args[2] == 'race_state_historical'
+    assert mock_bq.call_args_list[7].args[2] == 'race_state_current'
 
-    assert mock_bq.call_args_list[8].args[2] == 'by_age_state_historical'
-    assert mock_bq.call_args_list[9].args[2] == 'by_age_state_current'
+    assert mock_bq.call_args_list[8].args[2] == 'age_state_historical'
+    assert mock_bq.call_args_list[9].args[2] == 'age_state_current'
 
-    assert mock_bq.call_args_list[10].args[2] == 'by_sex_state_historical'
-    assert mock_bq.call_args_list[11].args[2] == 'by_sex_state_current'
+    assert mock_bq.call_args_list[10].args[2] == 'sex_state_historical'
+    assert mock_bq.call_args_list[11].args[2] == 'sex_state_current'
 
-    assert mock_bq.call_args_list[12].args[2] == 'by_race_county_historical'
-    assert mock_bq.call_args_list[13].args[2] == 'by_race_county_current'
+    assert mock_bq.call_args_list[12].args[2] == 'race_county_historical'
+    assert mock_bq.call_args_list[13].args[2] == 'race_county_current'
 
-    assert mock_bq.call_args_list[14].args[2] == 'by_age_county_historical'
-    assert mock_bq.call_args_list[15].args[2] == 'by_age_county_current'
+    assert mock_bq.call_args_list[14].args[2] == 'age_county_historical'
+    assert mock_bq.call_args_list[15].args[2] == 'age_county_current'
 
-    assert mock_bq.call_args_list[16].args[2] == 'by_sex_county_historical'
-    assert mock_bq.call_args_list[17].args[2] == 'by_sex_county_current'
+    assert mock_bq.call_args_list[16].args[2] == 'sex_county_historical'
+    assert mock_bq.call_args_list[17].args[2] == 'sex_county_current'

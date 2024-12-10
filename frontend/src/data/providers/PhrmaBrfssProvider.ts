@@ -65,17 +65,15 @@ const phrmaBrfssReason =
   'only available when comparing two cancer screening topics'
 
 export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS = [
-  ['income', phrmaBrfssReason],
-  ['insurance_status', phrmaBrfssReason],
-  ['education', phrmaBrfssReason],
+  ['Income', phrmaBrfssReason],
+  ['Insurance Status', phrmaBrfssReason],
+  ['Education', phrmaBrfssReason],
 ]
 
 export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
-  ['income', phrmaBrfssReason],
-  ['insurance_status', phrmaBrfssReason],
-  ['education', phrmaBrfssReason],
+  ...PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
   [
-    'sex',
+    'Sex',
     "only available when comparing cancer screening topics that aren't sex-specific",
   ],
 ]

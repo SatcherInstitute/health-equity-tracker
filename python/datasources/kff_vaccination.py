@@ -1,17 +1,12 @@
 import pandas as pd
 import numpy as np
-
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
-
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, github_util
-
 from ingestion.dataset_utils import generate_pct_rate_col
-
 from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
-
-from ingestion.constants import STATE_LEVEL, RACE
+from ingestion.constants import STATE_LEVEL, RACE, CURRENT
 
 BASE_KFF_URL_TOTALS_STATE = (
     'https://raw.githubusercontent.com/KFFData/COVID-19-Data/kff_master/State%20Trend%20Data/State_Trend_Data.csv'
@@ -318,9 +313,8 @@ class KFFVaccination(DataSource):
         # WRITE RACE TABLE
         std_col.add_race_columns_from_category_id(df)
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-        gcs_to_bq_util.add_df_to_bq(
-            df, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_state_current', column_types=col_types
-        )
+        table_id = gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL, CURRENT)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
 
         # WRITE ALLS TABLE FOR SEX/AGE (get just the All rows from the race table and add needed cols)
         df = df.copy()

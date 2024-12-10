@@ -1,3 +1,0 @@
-county_fips,county_name,age,prison_per_100k,prison_pct_share,prison_estimated_total,jail_per_100k,jail_pct_share,jail_estimated_total,incarceration_population_pct,incarceration_population_estimated_total,confined_children_estimated_total
-01001,Autauga County,All,503.0,100.0,183.0,455.0,100.0,165.0,100.0,36279.0,0.0
-08031,Denver County,All,742.0,100.0,3687.0,413.0,100.0,2116.0,100.0,512619.0,0.0
