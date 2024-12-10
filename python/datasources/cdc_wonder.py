@@ -1,8 +1,8 @@
 import pandas as pd
 from ingestion.cdc_wonder_utils import (
     ALL_CANCER_CONDITIONS,
-    BREAKDOWN_TO_STANDARD_BY_COL,
-    CANCERS_WITH_SEX_BREAKDOWN,
+    DEMOGRAPHIC_TO_STANDARD_BY_COL,
+    CANCERS_WITH_SEX_DEMOGRAPHIC,
     TMP_ALL,
     get_float_cols,
     load_cdc_df_from_data_dir,
@@ -41,41 +41,54 @@ class CdcWonderData(DataSource):
         raise NotImplementedError('upload_to_gcs should not be called for CdcWonderData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
+        """Writes CDC Wonder data to BigQuery with specific demographic and geographic splits
+
+        Args:
+            dataset: BigQuery dataset to write to
+            gcs_bucket: GCS bucket (unused)
+            **attrs: Additional attributes including 'demographic' and 'geographic'
+        """
+        demographic_type = self.get_attr(attrs, 'demographic')
         geo_level = self.get_attr(attrs, 'geographic')
 
-        df = self.generate_breakdown_df(demo_type, geo_level)
+        df = self.generate_breakdown_df(demographic_type, geo_level)
 
-        for table_type in (CURRENT, HISTORICAL):
-            table_name = f"{demo_type}_{geo_level}_{table_type}"
-            conditions = CANCERS_WITH_SEX_BREAKDOWN if demo_type == std_col.SEX_COL else ALL_CANCER_CONDITIONS
-            float_cols = get_float_cols(table_type, conditions)
+        for time_view in (CURRENT, HISTORICAL):
+            table_id = gcs_to_bq_util.make_bq_table_id(demographic_type, geo_level, time_view)
+            conditions = CANCERS_WITH_SEX_DEMOGRAPHIC if demographic_type == std_col.SEX_COL else ALL_CANCER_CONDITIONS
+            float_cols = get_float_cols(time_view, conditions)
 
-            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, float_cols, table_type, demo_type)
-            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, float_cols, table_id, demographic_type)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(
         self,
-        demo_breakdown: CANCER_TYPE_OR_ALL,
+        demographic_type: CANCER_TYPE_OR_ALL,
         geo_level: GEO_TYPE,
     ) -> pd.DataFrame:
-        """Generates HET-stye dataframe by demo_breakdown and geo_level
-        demo_breakdown: string equal to `lis`, `eligibility`, `age`, `race_and_ethnicity`, or `sex`
-        geo_level: string equal to `national`, or `state`
-        return: a breakdown df by demographic and geo_level"""
+        """Generates HET-style dataframe by demographic type and geographic level
 
-        demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
-        all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
+        Args:
+            demographic_type: Type of demographic analysis (e.g., 'age', 'race_and_ethnicity', 'sex', 'all')
+            geo_level: Geographic level ('national' or 'state')
 
-        conditions = CANCERS_WITH_SEX_BREAKDOWN if demo_breakdown == std_col.SEX_COL else ALL_CANCER_CONDITIONS
+        Returns:
+            pd.DataFrame: Processed dataframe with demographic and geographic splits
+        """
+        demographic_col = (
+            std_col.RACE_CATEGORY_ID_COL if demographic_type == std_col.RACE_OR_HISPANIC_COL else demographic_type
+        )
+        all_val = std_col.Race.ALL.value if demographic_type == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
+
+        conditions = CANCERS_WITH_SEX_DEMOGRAPHIC if demographic_type == std_col.SEX_COL else ALL_CANCER_CONDITIONS
 
         alls_df = load_cdc_df_from_data_dir(geo_level, TMP_ALL, conditions)
-        alls_df[demo_col] = all_val
+        alls_df[demographic_col] = all_val
 
-        breakdown_group_df = load_cdc_df_from_data_dir(geo_level, demo_breakdown, conditions)
+        demographic_df = load_cdc_df_from_data_dir(geo_level, demographic_type, conditions)
 
-        df = pd.concat([breakdown_group_df, alls_df], axis=0)
-        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+        df = pd.concat([demographic_df, alls_df], axis=0)
+        df = df.replace(to_replace=DEMOGRAPHIC_TO_STANDARD_BY_COL)
 
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_NAME_COL] = US_NAME
@@ -89,49 +102,51 @@ class CdcWonderData(DataSource):
         pct_rel_inequity_map = {}
 
         for condition in conditions:
-            # HET cols to make
             cancer_type = condition.lower()
-            het_rate_numerator = f'{cancer_type}_count_{std_col.RAW_SUFFIX}'
-            het_rate_denominator = f'{cancer_type}_{std_col.RAW_POP_SUFFIX}'
-            het_pct_share = f'{cancer_type}_{std_col.PCT_SHARE_SUFFIX}'
-            het_pop_pct_share = f'{cancer_type}_{std_col.POP_PCT_SUFFIX}'
-            het_pct_rel_inequity = f'{cancer_type}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
 
-            # Pct share mappings
-            count_to_pct_share_map[het_rate_numerator] = het_pct_share
-            count_to_pct_share_map[het_rate_denominator] = het_pop_pct_share
+            # Define column names
+            count_col = f'{cancer_type}_count_{std_col.RAW_SUFFIX}'
+            pop_col = f'{cancer_type}_{std_col.RAW_POP_SUFFIX}'
+            pct_share_col = f'{cancer_type}_{std_col.PCT_SHARE_SUFFIX}'
+            pop_pct_share_col = f'{cancer_type}_{std_col.POP_PCT_SUFFIX}'
+            pct_rel_inequity_col = f'{cancer_type}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
 
-            # Build mappings for inequity calculation
-            raw_totals_map[cancer_type] = het_rate_numerator
-            pct_share_map[het_rate_numerator] = het_pct_share
-            pop_pct_share_map[het_rate_numerator] = het_pop_pct_share
-            pct_rel_inequity_map[het_rate_numerator] = het_pct_rel_inequity
+            # Set up column mappings
+            count_to_pct_share_map[count_col] = pct_share_col
+            count_to_pct_share_map[pop_col] = pop_pct_share_col
 
-            if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
+            # Set up inequity calculation mappings
+            raw_totals_map[cancer_type] = count_col
+            pct_share_map[count_col] = pct_share_col
+            pop_pct_share_map[count_col] = pop_pct_share_col
+            pct_rel_inequity_map[count_col] = pct_rel_inequity_col
+
+            if demographic_type == std_col.RACE_OR_HISPANIC_COL:
                 std_col.add_race_columns_from_category_id(df)
 
-        if demo_breakdown == std_col.AGE_COL:
-            # For age breakdowns, calculate totals from available age groups
-            non_all_df = df[df[demo_breakdown] != ALL_VALUE]
+        # Handle age-specific calculations
+        if demographic_type == std_col.AGE_COL:
+            non_all_df = df[df[demographic_type] != ALL_VALUE]
             for condition in conditions:
                 count_col = f'{condition.lower()}_count_{std_col.RAW_SUFFIX}'
                 if count_col in df.columns:
-                    # Update the 'All' row with sum of available age groups
+                    # Update 'All' rows with sum of available age groups
                     available_total = non_all_df[count_col].sum()
-                    df.loc[df[demo_breakdown] == ALL_VALUE, count_col] = available_total
+                    df.loc[df[demographic_type] == ALL_VALUE, count_col] = available_total
 
-        if demo_breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+        # Generate percentage share & inequity columns
+        if demographic_type in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
             df = generate_pct_share_col_without_unknowns(
                 df,
                 count_to_pct_share_map,
-                demo_breakdown,
+                demographic_type,
                 ALL_VALUE,
             )
         else:
             df = generate_pct_share_col_with_unknowns(
                 df,
                 count_to_pct_share_map,
-                demo_breakdown,
+                demographic_type,
                 ALL_VALUE,
                 UNKNOWN,
             )
@@ -145,6 +160,6 @@ class CdcWonderData(DataSource):
                     pct_rel_inequity_map[raw_total_col],
                 )
 
-        df = df.sort_values(by=[std_col.STATE_FIPS_COL, demo_col]).reset_index(drop=True)
+        df = df.sort_values(by=[std_col.STATE_FIPS_COL, demographic_col]).reset_index(drop=True)
 
         return df
