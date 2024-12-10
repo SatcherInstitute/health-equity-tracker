@@ -38,7 +38,6 @@ vera_bq_operator_sex = util.create_bq_ingest_operator(
 vera_exporter_payload_race = {
     'dataset_name': _VERA_DATASET_NAME,
     'demographic': "race_and_ethnicity",
-    'should_export_as_alls': True,
 }
 vera_exporter_operator_race = util.create_exporter_operator(
     'vera_incarceration_county_exporter_race', vera_exporter_payload_race, data_ingestion_dag
@@ -49,7 +48,11 @@ vera_exporter_operator_age = util.create_exporter_operator(
     'vera_incarceration_county_exporter_age', vera_exporter_payload_age, data_ingestion_dag
 )
 
-vera_exporter_payload_sex = {'dataset_name': _VERA_DATASET_NAME, 'demographic': "sex"}
+vera_exporter_payload_sex = {
+    'dataset_name': _VERA_DATASET_NAME,
+    'demographic': "sex",
+    'should_export_as_alls': True,
+}
 vera_exporter_operator_sex = util.create_exporter_operator(
     'vera_incarceration_county_exporter_sex', vera_exporter_payload_sex, data_ingestion_dag
 )
