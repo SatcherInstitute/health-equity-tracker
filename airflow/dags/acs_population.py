@@ -3,7 +3,7 @@
 from airflow import DAG  # type: ignore
 from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-
+from datetime import timedelta
 import util
 
 _ACS_WORKFLOW_ID = 'ACS_POPULATION'
@@ -11,6 +11,7 @@ _ACS_DATASET_NAME = 'acs_population'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

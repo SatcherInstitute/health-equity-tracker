@@ -3,11 +3,14 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
+from datetime import timedelta
+
 
 _MM_WORKFLOW_ID = 'MATERNAL_MORTALITY_DATA'
 _MM_DATASET_NAME = 'maternal_mortality_data'
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 data_ingestion_dag = DAG(
     'maternal_mortality_ingestion_dag',

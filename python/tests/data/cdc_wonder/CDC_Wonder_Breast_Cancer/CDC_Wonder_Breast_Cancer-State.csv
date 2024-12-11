@@ -1,0 +1,98 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,2021,2021,Breast,26000,Alabama,01,4289,5049846,84.9
+,2021,2021,Breast,26000,Alaska,02,465,734182,63.3
+,2021,2021,Breast,26000,Arizona,04,5343,7264877,73.5
+,2021,2021,Breast,26000,Arkansas,05,2413,3028122,79.7
+,2021,2021,Breast,26000,California,06,30203,39142991,77.2
+,2021,2021,Breast,26000,Colorado,08,4641,5811297,79.9
+,2021,2021,Breast,26000,Connecticut,09,3806,3623355,105
+,2021,2021,Breast,26000,Delaware,10,1029,1004807,102.4
+,2021,2021,Breast,26000,District of Columbia,11,529,668791,79.1
+,2021,2021,Breast,26000,Florida,12,20889,21828069,95.7
+,2021,2021,Breast,26000,Georgia,13,9029,10788029,83.7
+,2021,2021,Breast,26000,Hawaii,15,1298,1447154,89.7
+,2021,2021,Breast,26000,Idaho,16,1478,1904314,77.6
+,2021,2021,Breast,26000,Illinois,17,11098,12686469,87.5
+,2021,2021,Breast,26000,Iowa,19,2787,3197689,87.2
+,2021,2021,Breast,26000,Kansas,20,2510,2937922,85.4
+,2021,2021,Breast,26000,Kentucky,21,3862,4506589,85.7
+,2021,2021,Breast,26000,Louisiana,22,3838,4627098,82.9
+,2021,2021,Breast,26000,Maine,23,1478,1377238,107.3
+,2021,2021,Breast,26000,Maryland,24,5660,6174610,91.7
+,2021,2021,Breast,26000,Massachusetts,25,6471,6989690,92.6
+,2021,2021,Breast,26000,Michigan,26,8628,10037504,86
+,2021,2021,Breast,26000,Minnesota,27,5105,5711471,89.4
+,2021,2021,Breast,26000,Mississippi,28,2374,2949586,80.5
+,2021,2021,Breast,26000,Missouri,29,5375,6169823,87.1
+,2021,2021,Breast,26000,Montana,30,930,1106227,84.1
+,2021,2021,Breast,26000,Nebraska,31,1462,1963554,74.5
+,2021,2021,Breast,26000,Nevada,32,2186,3146402,69.5
+,2021,2021,Breast,26000,New Hampshire,33,1398,1387505,100.8
+,2021,2021,Breast,26000,New Jersey,34,8628,9267961,93.1
+,2021,2021,Breast,26000,New Mexico,35,1599,2116677,75.5
+,2021,2021,Breast,26000,New York,36,18063,19857492,91
+,2021,2021,Breast,26000,North Carolina,37,9962,10565885,94.3
+,2021,2021,Breast,26000,North Dakota,38,577,777934,74.2
+,2021,2021,Breast,26000,Ohio,39,10737,11764342,91.3
+,2021,2021,Breast,26000,Oklahoma,40,3083,3991225,77.2
+,2021,2021,Breast,26000,Oregon,41,3466,4256301,81.4
+,2021,2021,Breast,26000,Pennsylvania,42,11724,13012059,90.1
+,2021,2021,Breast,26000,Rhode Island,44,1062,1096985,96.8
+,2021,2021,Breast,26000,South Carolina,45,4862,5193266,93.6
+,2021,2021,Breast,26000,South Dakota,46,705,896164,78.7
+,2021,2021,Breast,26000,Tennessee,47,5667,6968351,81.3
+,2021,2021,Breast,26000,Texas,48,20001,29558864,67.7
+,2021,2021,Breast,26000,Utah,49,1978,3339113,59.2
+,2021,2021,Breast,26000,Vermont,50,532,646972,82.2
+,2021,2021,Breast,26000,Virginia,51,7242,8657365,83.7
+,2021,2021,Breast,26000,Washington,53,6780,7740745,87.6
+,2021,2021,Breast,26000,West Virginia,54,1701,1785526,95.3
+,2021,2021,Breast,26000,Wisconsin,55,5361,5880101,91.2
+,2021,2021,Breast,26000,Wyoming,56,499,579483,86.1
+,2021,2021,Breast,26000,Puerto Rico,72,2594,3262693,79.5
+---,,,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
+Query Parameters:,,,,,,,,,
+Leading Cancer Sites: Breast,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
+Show Totals: Disabled,,,,,,,,,
+Show Zero Values: False,,,,,,,,,
+Show Suppressed: False,,,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,,,
+---,,,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
+---,,,,,,,,,
+"Query Date: Dec 6, 2024 10:07:25 AM",,,,,,,,,
+---,,,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 10:07:25 AM",,,,,,,,,
+---,,,,,,,,,
+Messages:,,,,,,,,,
+1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,
+---,,,,,,,,,
+Footnotes:,,,,,,,,,
+"1. Data for in situ breast cancers are listed separately and are not included in the ""All Invasive Cancer Sites Combined"" or",,,,,,,,,
+"""Male and Female Breast"" cancer categories.",,,,,,,,,
+---,,,,,,,,,
+Caveats:,,,,,,,,,
+1. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
+"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
+misleading.,,,,,,,,,
+3. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+4. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
+5. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
+"6. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,
+standard groupings of primary cancer sites.,,,,,,,,,
+"7. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,
