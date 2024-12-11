@@ -3,6 +3,7 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 from airflow.operators.dummy_operator import DummyOperator  # type: ignore
+from datetime import timedelta
 
 import util
 
@@ -11,6 +12,7 @@ _DECIA_2020_TERRITORY_POPULATION_DATASET_NAME = 'decia_2020_territory_population
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

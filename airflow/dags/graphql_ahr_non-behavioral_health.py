@@ -2,12 +2,15 @@
 from airflow import DAG  # pylint: disable=no-name-in-module
 from airflow.utils.dates import days_ago  # pylint: disable=no-name-in-module
 import util
+from datetime import timedelta
+
 
 _GRAPHQL_AHR_WORKFLOW_ID = 'GRAPHQL_AHR_DATA'
 _GRAPHQL_AHR_DATASET_NAME = 'graphql_ahr_data'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

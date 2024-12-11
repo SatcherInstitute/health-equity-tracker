@@ -2,12 +2,14 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
+from datetime import timedelta
 
 _CDC_WONDER_WORKFLOW_ID = 'CDC_WONDER_DATA'
 _CDC_WONDER_DATASET_NAME = 'cdc_wonder_data'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

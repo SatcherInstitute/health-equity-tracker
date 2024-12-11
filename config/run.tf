@@ -8,7 +8,7 @@ resource "google_cloud_run_service" "ingestion_service" {
 
   template {
     spec {
-      timeout_seconds = 60 * 10 // 10 minutes
+      timeout_seconds = 60 * 15 // 15 minutes
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
@@ -37,7 +37,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
   template {
     spec {
-      timeout_seconds = 60 * 10 //  10 minutes
+      timeout_seconds = 60 * 15 //  15 minutes
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
         env {
@@ -115,7 +115,7 @@ resource "google_cloud_run_service" "exporter_service" {
 
   template {
     spec {
-      timeout_seconds = 60 * 10 // 10 minutes
+      timeout_seconds = 60 * 15 // 15 minutes
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.exporter_image_name, var.exporter_image_digest)
 
