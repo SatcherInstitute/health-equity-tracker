@@ -2,7 +2,7 @@
 # pylint: disable=no-name-in-module
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-
+from datetime import timedelta
 import util
 
 _BJS_INCARCERATION_WORKFLOW_ID = 'BJS_INCARCERATION_DATA'
@@ -10,6 +10,7 @@ _BJS_INCARCERATION_DATASET_NAME = 'bjs_incarceration_data'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

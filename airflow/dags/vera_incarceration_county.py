@@ -3,12 +3,15 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
+from datetime import timedelta
+
 
 _VERA_WORKFLOW_ID = 'VERA_INCARCERATION_COUNTY'
 _VERA_DATASET_NAME = 'vera_incarceration_county'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

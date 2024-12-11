@@ -2,6 +2,7 @@
 # pylint: disable=no-name-in-module
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
+from datetime import timedelta
 
 import util
 
@@ -10,6 +11,7 @@ _GEO_CONTEXT_DATASET_NAME = 'geo_context'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

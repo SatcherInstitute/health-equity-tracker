@@ -2,14 +2,17 @@
 from airflow import DAG  # type: ignore
 from airflow.models import Variable  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-
+from datetime import timedelta
 import util
 
 _CDC_RESTRICTED_WORKFLOW_ID = 'CDC_RESTRICTED_DATA'
 _AGE_ADJUST_WORKFLOW_ID = 'AGE_ADJUST_CDC_RESTRICTED'
 _CDC_RESTRICTED_DATASET = 'cdc_restricted_data'
 
-default_args = {'start_date': days_ago(0)}
+default_args = {
+    'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
+}
 
 
 data_ingestion_dag = DAG(
