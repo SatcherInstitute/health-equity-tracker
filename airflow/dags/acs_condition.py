@@ -3,12 +3,14 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
+from datetime import timedelta
 
 _ACS_WORKFLOW_ID = "ACS_CONDITION"
 _ACS_DATASET_NAME = "acs_condition"
 
 default_args = {
-    "start_date": days_ago(0),
+    'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(

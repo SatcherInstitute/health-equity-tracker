@@ -2,7 +2,7 @@
 from airflow import DAG  # type: ignore[attr-defined]
 from airflow.models import Variable  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-
+from datetime import timedelta
 import util
 
 # one very long comma separated string
@@ -14,7 +14,10 @@ _DECIA_2010_POPULATION_GCS_FILENAMES: str = (
 _DECIA_2010_POPULATION_WORKFLOW_ID = 'DECIA_2010_POPULATION'
 _DECIA_2010_POPULATION_DATASET = 'decia_2010_territory_population'
 
-default_args = {'start_date': days_ago(0)}
+default_args = {
+    'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
+}
 
 data_ingestion_dag = DAG(
     'decia_2010_population_data_ingestion_dag',

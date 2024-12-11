@@ -2,12 +2,15 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 import util
+from datetime import timedelta
+
 
 _PHRMA_BRFSS_WORKFLOW_ID = 'PHRMA_BRFSS_DATA'
 _PHRMA_BRFSS_DATASET_NAME = 'phrma_brfss_data'
 
 default_args = {
     'start_date': days_ago(0),
+    'execution_timeout': timedelta(minutes=15),
 }
 
 data_ingestion_dag = DAG(
