@@ -1,0 +1,94 @@
+﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,States and Puerto Rico,States and Puerto Rico Code,Count,Population,Crude Rate
+,2021,2021,Colon and Rectum,21041-21052,Alabama,01,2510,5049846,49.7
+,2021,2021,Colon and Rectum,21041-21052,Alaska,02,292,734182,39.8
+,2021,2021,Colon and Rectum,21041-21052,Arizona,04,2666,7264877,36.7
+,2021,2021,Colon and Rectum,21041-21052,Arkansas,05,1417,3028122,46.8
+,2021,2021,Colon and Rectum,21041-21052,California,06,15096,39142991,38.6
+,2021,2021,Colon and Rectum,21041-21052,Colorado,08,2047,5811297,35.2
+,2021,2021,Colon and Rectum,21041-21052,Connecticut,09,1578,3623355,43.6
+,2021,2021,Colon and Rectum,21041-21052,Delaware,10,422,1004807,42
+,2021,2021,Colon and Rectum,21041-21052,District of Columbia,11,231,668791,34.5
+,2021,2021,Colon and Rectum,21041-21052,Florida,12,11073,21828069,50.7
+,2021,2021,Colon and Rectum,21041-21052,Georgia,13,4906,10788029,45.5
+,2021,2021,Colon and Rectum,21041-21052,Hawaii,15,766,1447154,52.9
+,2021,2021,Colon and Rectum,21041-21052,Idaho,16,837,1904314,44
+,2021,2021,Colon and Rectum,21041-21052,Illinois,17,5878,12686469,46.3
+,2021,2021,Colon and Rectum,21041-21052,Iowa,19,1559,3197689,48.8
+,2021,2021,Colon and Rectum,21041-21052,Kansas,20,1293,2937922,44
+,2021,2021,Colon and Rectum,21041-21052,Kentucky,21,2456,4506589,54.5
+,2021,2021,Colon and Rectum,21041-21052,Louisiana,22,2448,4627098,52.9
+,2021,2021,Colon and Rectum,21041-21052,Maine,23,706,1377238,51.3
+,2021,2021,Colon and Rectum,21041-21052,Maryland,24,2542,6174610,41.2
+,2021,2021,Colon and Rectum,21041-21052,Massachusetts,25,2572,6989690,36.8
+,2021,2021,Colon and Rectum,21041-21052,Michigan,26,4221,10037504,42.1
+,2021,2021,Colon and Rectum,21041-21052,Minnesota,27,2512,5711471,44
+,2021,2021,Colon and Rectum,21041-21052,Mississippi,28,1608,2949586,54.5
+,2021,2021,Colon and Rectum,21041-21052,Missouri,29,3012,6169823,48.8
+,2021,2021,Colon and Rectum,21041-21052,Montana,30,543,1106227,49.1
+,2021,2021,Colon and Rectum,21041-21052,Nebraska,31,855,1963554,43.5
+,2021,2021,Colon and Rectum,21041-21052,Nevada,32,1236,3146402,39.3
+,2021,2021,Colon and Rectum,21041-21052,New Hampshire,33,601,1387505,43.3
+,2021,2021,Colon and Rectum,21041-21052,New Jersey,34,4587,9267961,49.5
+,2021,2021,Colon and Rectum,21041-21052,New Mexico,35,863,2116677,40.8
+,2021,2021,Colon and Rectum,21041-21052,New York,36,8997,19857492,45.3
+,2021,2021,Colon and Rectum,21041-21052,North Carolina,37,4496,10565885,42.6
+,2021,2021,Colon and Rectum,21041-21052,North Dakota,38,352,777934,45.2
+,2021,2021,Colon and Rectum,21041-21052,Ohio,39,5664,11764342,48.1
+,2021,2021,Colon and Rectum,21041-21052,Oklahoma,40,1971,3991225,49.4
+,2021,2021,Colon and Rectum,21041-21052,Oregon,41,1628,4256301,38.2
+,2021,2021,Colon and Rectum,21041-21052,Pennsylvania,42,6042,13012059,46.4
+,2021,2021,Colon and Rectum,21041-21052,Rhode Island,44,442,1096985,40.3
+,2021,2021,Colon and Rectum,21041-21052,South Carolina,45,2275,5193266,43.8
+,2021,2021,Colon and Rectum,21041-21052,South Dakota,46,408,896164,45.5
+,2021,2021,Colon and Rectum,21041-21052,Tennessee,47,3154,6968351,45.3
+,2021,2021,Colon and Rectum,21041-21052,Texas,48,11563,29558864,39.1
+,2021,2021,Colon and Rectum,21041-21052,Utah,49,882,3339113,26.4
+,2021,2021,Colon and Rectum,21041-21052,Vermont,50,278,646972,43
+,2021,2021,Colon and Rectum,21041-21052,Virginia,51,3441,8657365,39.7
+,2021,2021,Colon and Rectum,21041-21052,Washington,53,3093,7740745,40
+,2021,2021,Colon and Rectum,21041-21052,West Virginia,54,1083,1785526,60.7
+,2021,2021,Colon and Rectum,21041-21052,Wisconsin,55,2549,5880101,43.3
+,2021,2021,Colon and Rectum,21041-21052,Wyoming,56,251,579483,43.3
+,2021,2021,Colon and Rectum,21041-21052,Puerto Rico,72,1786,3262693,54.7
+---,,,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
+Query Parameters:,,,,,,,,,
+Leading Cancer Sites: Colon and Rectum,,,,,,,,,
+Group By: Year; Leading Cancer Sites; States and Puerto Rico,,,,,,,,,
+Show Totals: Disabled,,,,,,,,,
+Show Zero Values: False,,,,,,,,,
+Show Suppressed: False,,,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,,,
+---,,,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
+---,,,,,,,,,
+"Query Date: Dec 6, 2024 11:23:26 AM",,,,,,,,,
+---,,,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
+"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 6, 2024 11:23:26 AM",,,,,,,,,
+---,,,,,,,,,
+Messages:,,,,,,,,,
+1. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,
+---,,,,,,,,,
+Caveats:,,,,,,,,,
+1. 'Missing' is displayed for a combination of states/territories/MSAs and years that did not meet the United States Cancer,,,,,,,,,
+Statistics (USCS) publication standard or did not allow permission for their data to be used.,,,,,,,,,
+"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
+misleading.,,,,,,,,,
+3. These states are missing data for the indicated year: Indiana 2020-2021; Mississippi 1999-2002; South Dakota 1999-2000;,,,,,,,,,
+Puerto Rico 1999-2004.,,,,,,,,,
+4. Puerto Rico's 2017 incidence counts and rates are based on the first six months of reported data (January to June 2017),,,,,,,,,
+coupled with half of the population estimate. Cases with unknown month of diagnosis were included. Data from July to December,,,,,,,,,
+2017 are excluded to account for the population shift that occurred due to Hurricane Maria.,,,,,,,,,
+5. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
+shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
+"6. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,
+standard groupings of primary cancer sites.,,,,,,,,,
+"7. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,
