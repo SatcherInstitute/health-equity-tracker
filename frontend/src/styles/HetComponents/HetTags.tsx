@@ -32,7 +32,7 @@ export const HetTags: React.FC<HetTagsProps> = ({
             to={tagLink}
             key={tagName}
             aria-label={tagName}
-            className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1'
+            className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1 no-underline'
           >
             {tagName}
           </Link>
@@ -40,7 +40,7 @@ export const HetTags: React.FC<HetTagsProps> = ({
           <span
             key={tagName}
             aria-label={tagName}
-            className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1'
+            className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1 no-underline'
           >
             {tagName}
           </span>

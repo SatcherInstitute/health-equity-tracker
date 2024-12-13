@@ -81,12 +81,22 @@ button[data-action='back']:focus {
 
   & figure {
     margin: 0 auto !important;
-    width: 100%;
+    width: auto;
+    max-width: 80vw;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-  }
+    }
+    
+    & figure > a > img {
+      display: block;
+      min-width: 70vw;
+      max-width: 88vw;
+      margin: 1rem auto;
+      height: auto;
+    }
 
   & figcaption {
     margin-top: 0.5rem;
@@ -98,10 +108,19 @@ button[data-action='back']:focus {
     font-style: italic;
     max-width: 600px;
   }
-
+  
   & p {
     width: 100%;
     max-width: 95vw;
+  }
+  
+  & p > a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+  
+  & p > a:hover {
+    text-decoration: underline;
   }
 
   & ul,
@@ -143,7 +162,6 @@ button[data-action='back']:focus {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
-    /* padding: 2rem; */
     justify-content: center !important;
   }
 
@@ -228,13 +246,6 @@ button[data-action='back']:focus {
     font-size: 1.5rem !important;
   }
 
-  & figure > img {
-    display: block;
-    width: 100%;
-    min-width: 70vw;
-    margin: 1rem auto;
-    height: auto;
-  }
 
   /* hide featured image since already in header; hide HRs; show youtube embed <figure> */
   .wp-block-post-featured-image {
