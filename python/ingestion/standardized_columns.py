@@ -337,6 +337,7 @@ class Race(Enum):
 
     # CAWP Non-standard, non-exclusive Race/Eth Categories
     ASIAN_PAC = ("ASIAN_PAC", "Asian American & Pacific Islander", True)
+    ASIAN_PAC_NH = ("ASIAN_PAC_NH", "Asian American & Pacific Islander", False)
     AIANNH = ("AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
     # Composite group needed for CAWP pct_relative_inequity calculations
     # which is equiv to the combo ACS categories AIAN + ASIAN + NHPI
