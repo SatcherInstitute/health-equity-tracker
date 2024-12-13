@@ -20,8 +20,7 @@ export default function CrisisOverviewTab() {
       <h2 className='sr-only'>
         Understanding the Crisis of Gun Violence in Atlanta
       </h2>
-      <div
-      className='flex flex-col gap-2'>
+      <div className='flex flex-col gap-2'>
         <section id='introduction'>
           <p>
             The Health Equity Tracker (HET) in partnership with The Annie E.
