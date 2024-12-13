@@ -47,7 +47,7 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
     # Sex source groups already match needed HET groups
 }
 
-DTYPE = {STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
+DTYPE = {YEAR_COL: str, STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
 
 
 def get_state_code_col(demographic_type: CANCER_TYPE_OR_ALL) -> str:
