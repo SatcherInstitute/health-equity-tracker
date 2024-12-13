@@ -53,7 +53,7 @@ export default function CrisisOverviewTab() {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow = isMdAndUp && index % 2 !== 0
               const uniqueKey = `fact-${index}`
-              
+
               return (
                 <div
                   key={uniqueKey}
