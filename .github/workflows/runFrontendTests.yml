@@ -88,7 +88,7 @@ jobs:
         run: npm ci
       - name: Install playwright deps
         run: npx playwright install --with-deps chromium
-      - name: run quicker E2E on DEPLOY_PREVIEW
+      - name: run E2E on DEPLOY_PREVIEW
         run: npx playwright test --project=E2E_NIGHTLY --workers 4
         # base url based on the GITHUB_PR_NUMBER +  NETLIFY_SITE_NAME
         env:
