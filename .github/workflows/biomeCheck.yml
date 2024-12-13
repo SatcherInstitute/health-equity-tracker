@@ -1,8 +1,8 @@
-name: reviewdog
+name: RUN Frontend Linter + Fixer
 on: [pull_request]
 jobs:
   biome:
-    name: RUN Biome - Frontend Linter + Fixer
+    name: Biome Fix PR
     runs-on: ubuntu-latest
     permissions:
       contents: read
