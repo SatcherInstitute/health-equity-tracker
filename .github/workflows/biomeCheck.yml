@@ -5,8 +5,9 @@ jobs:
     name: Biome Fix PR
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
+      checks: write
     steps:
       - uses: actions/checkout@v4
       - uses: mongolyy/reviewdog-action-biome@v1
