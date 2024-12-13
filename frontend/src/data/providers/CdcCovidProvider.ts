@@ -1,16 +1,16 @@
+import type { IDataFrame } from 'data-forge'
 import { getDataManager } from '../../utils/globals'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import VariableProvider from './VariableProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfigTypes'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
 } from '../../utils/internalRoutes'
-import type { IDataFrame } from 'data-forge'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId } from '../config/MetricConfigTypes'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
+import VariableProvider from './VariableProvider'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 export const dataTypeLinkMap: Partial<Record<DataTypeId, string>> = {

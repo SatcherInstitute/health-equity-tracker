@@ -1,24 +1,27 @@
 import { getDataManager } from '../../utils/globals'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import VariableProvider from './VariableProvider'
+import type { Breakdowns } from '../query/Breakdowns'
 import {
-  UNKNOWN_RACE,
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
+import {
+  type RaceAndEthnicityGroup,
+  HISP_W,
   HISPANIC,
   MULTI,
-  UNREPRESENTED,
-  type RaceAndEthnicityGroup,
-  OTHER_W,
   MULTI_W,
   OTHER_STANDARD,
+  OTHER_W,
+  UNKNOWN_RACE,
   UNKNOWN_W,
-  HISP_W,
+  UNREPRESENTED,
 } from '../utils/Constants'
-import type { DatasetId } from '../config/DatasetMetadata'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
+import VariableProvider from './VariableProvider'
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',
@@ -76,40 +79,20 @@ class CawpProvider extends VariableProvider {
     super('cawp_provider', CAWP_METRICS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_national_current'
-      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_state_current'
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_national_historical'
-      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_state_historical'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
+    const { breakdowns, datasetId, isFallbackId, timeView } = resolveDatasetId(
+      'cawp_time_data',
+      '',
+      metricQuery,
+    )
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
-
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
 
     const consumedDatasetIds = [datasetId]
 
@@ -143,8 +126,15 @@ class CawpProvider extends VariableProvider {
       consumedDatasetIds.push('the_unitedstates_project')
     }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    df = this.filterByGeo(df, breakdowns)
+    df = this.renameGeoColumns(df, breakdowns)
+
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }

@@ -1,12 +1,16 @@
 import { getDataManager } from '../../utils/globals'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 
-import VariableProvider from './VariableProvider'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type { DatasetId } from '../config/DatasetMetadata'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
+import VariableProvider from './VariableProvider'
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
@@ -88,9 +92,19 @@ class IncarcerationProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
+    const isVera = metricQuery.breakdowns.geography === 'county'
+
+    const datasetName = isVera
+      ? 'vera_incarceration_county'
+      : 'bjs_incarceration_data'
+    const prefix = isVera ? 'by_' : ''
+
+    const { breakdowns, datasetId, isFallbackId, timeView } = resolveDatasetId(
+      datasetName,
+      prefix,
+      metricQuery,
+    )
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
@@ -132,8 +146,12 @@ class IncarcerationProvider extends VariableProvider {
       }
     }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }

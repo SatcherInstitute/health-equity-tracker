@@ -1,17 +1,17 @@
 import { getDataManager } from '../../utils/globals'
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { DropdownVarId } from '../config/DropDownIds'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type {
-  DemographicBreakdownKey,
   Breakdowns,
+  DemographicBreakdownKey,
   TimeView,
 } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
-import type { DropdownVarId } from '../config/DropDownIds'
 
 const CHR_DATATYPE_IDS_ONLY_ALLS: DataTypeId[] = [
   'diabetes',
@@ -257,8 +257,12 @@ class AhrProvider extends VariableProvider {
       })
     }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }

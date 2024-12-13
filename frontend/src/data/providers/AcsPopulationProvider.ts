@@ -1,10 +1,10 @@
 import type { IDataFrame } from 'data-forge'
 import { getDataManager } from '../../utils/globals'
+import type { DatasetId } from '../config/DatasetMetadata'
 import type { Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
-import type { DatasetId } from '../config/DatasetMetadata'
 
 export function GetAcsDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
   if (breakdowns.geography === 'national') {
@@ -44,7 +44,6 @@ class AcsPopulationProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)
     df = this.removeUnrequestedColumns(df, metricQuery)
-
     const datasetId = this.getDatasetId(breakdowns)
     let consumedDatasetIds
     if (datasetId) consumedDatasetIds = [datasetId]

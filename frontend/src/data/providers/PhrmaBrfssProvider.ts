@@ -3,7 +3,11 @@ import type { DatasetId } from '../config/DatasetMetadata'
 import type { DropdownVarId } from '../config/DropDownIds'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -113,8 +117,12 @@ class PhrmaBrfssProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const datasetId = this.getDatasetId(breakdowns)
+    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+      'phrma_brfss_data',
+      '',
+      metricQuery,
+    )
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
@@ -126,8 +134,12 @@ class PhrmaBrfssProvider extends VariableProvider {
     df = this.renameGeoColumns(df, breakdowns)
     const consumedDatasetIds = [datasetId]
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
 
     const data = df.toArray()
 

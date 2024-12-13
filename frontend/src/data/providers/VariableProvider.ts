@@ -1,8 +1,7 @@
 import type { IDataFrame } from 'data-forge'
-import type { DatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type { Breakdowns } from '../query/Breakdowns'
 import {
   createMissingDataResponse,
   type MetricQuery,
@@ -134,20 +133,6 @@ abstract class VariableProvider {
     breakdowns: Breakdowns,
     metricIds?: MetricId[],
   ): boolean
-
-  // TODO: remove getDatasetId and getFallbackAllsDatasetId once all providers have migrated in favor of resolveDatasetId in datasetutils
-
-  getDatasetId?(
-    breakdown: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined
-
-  getFallbackAllsDatasetId?(
-    breakdown: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined
 }
 
 export default VariableProvider
