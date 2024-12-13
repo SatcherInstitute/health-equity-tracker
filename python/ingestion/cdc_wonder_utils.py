@@ -47,7 +47,7 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
     # Sex source groups already match needed HET groups
 }
 
-DTYPE = {STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
+DTYPE = {YEAR_COL: str, STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
 
 
 def get_state_code_col(demographic_type: CANCER_TYPE_OR_ALL) -> str:
@@ -139,7 +139,6 @@ def load_cdc_df_from_data_dir(
         if geo_level == NATIONAL_LEVEL:
             topic_df[state_code_col] = US_FIPS
 
-        topic_df[YEAR_COL] = topic_df[YEAR_COL].astype(int).astype(str)
         topic_df = topic_df.rename(columns={YEAR_COL: std_col.TIME_PERIOD_COL})
 
         # Handle race and ethnicity combination if applicable
