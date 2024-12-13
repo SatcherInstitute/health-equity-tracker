@@ -41,8 +41,8 @@ import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/Ethnicity': 'race_and_ethnicity',
-  'Sex at Birth': 'sex',
+  'Race/ethnicity': 'race_and_ethnicity',
+  Sex: 'sex',
   Age: 'age',
 }
 
@@ -51,17 +51,17 @@ const ONLY_AGE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 }
 
 const ONLY_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/Ethnicity': 'race_and_ethnicity',
+  'Race/ethnicity': 'race_and_ethnicity',
 }
 
 const ONLY_SEX_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/Ethnicity': 'race_and_ethnicity',
-  'Sex at Birth': 'sex',
+  'Race/ethnicity': 'race_and_ethnicity',
+  Sex: 'sex',
 }
 
 const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/Ethnicity': 'race_and_ethnicity',
-  'Sex at Birth': 'sex',
+  'Race/ethnicity': 'race_and_ethnicity',
+  Sex: 'sex',
   Age: 'age',
   Subsidy: 'lis',
   Eligibility: 'eligibility',
@@ -70,7 +70,7 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
 const PHRMA_BRFSS_TYPES_WITHOUT_SEX_MAP: Partial<
   Record<string, DemographicType>
 > = {
-  'Race/Ethnicity': 'race_and_ethnicity',
+  'Race/ethnicity': 'race_and_ethnicity',
   Age: 'age',
   'Insurance Status': 'insurance_status',
   Education: 'education',
@@ -79,12 +79,12 @@ const PHRMA_BRFSS_TYPES_WITHOUT_SEX_MAP: Partial<
 
 const PHRMA_BRFSS_TYPES_WITH_SEX_MAP: Partial<Record<string, DemographicType>> =
   {
-    'Race/Ethnicity': 'race_and_ethnicity',
+    'Race/ethnicity': 'race_and_ethnicity',
     Age: 'age',
     'Insurance Status': 'insurance_status',
     Education: 'education',
     Income: 'income',
-    'Sex at Birth': 'sex',
+    Sex: 'sex',
   }
 
 const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {

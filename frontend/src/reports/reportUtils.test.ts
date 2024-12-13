@@ -1,13 +1,13 @@
+import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import {
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,
 } from '../data/config/MetricConfigPDOH'
-import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import { Fips } from '../data/utils/Fips'
 import {
+  isStateCountyLevel,
   configsContainsMatchingId,
   getAllDemographicOptions,
-  isStateCountyLevel,
 } from './reportUtils'
 
 describe('Test isStateCountyLevel()', () => {
@@ -90,7 +90,7 @@ describe('Test getAllDemographicOptions()', () => {
 
   test('CAWP National enabled options', () => {
     expect(enabledDemographicOptionsMap).toEqual({
-      'Race/Ethnicity': 'race_and_ethnicity',
+      'Race/ethnicity': 'race_and_ethnicity',
     })
   })
 

@@ -1,6 +1,6 @@
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
+import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import type { MouseEvent, ReactNode } from 'react'
+import type { ReactNode, MouseEvent } from 'react'
 
 interface HetMadLibButtonProps {
   children: ReactNode

@@ -13,8 +13,8 @@ test('HIV PrEP: Rate Map', async ({ page }) => {
   await page
     .getByRole('combobox', { name: 'Demographic Race/ethnicity' })
     .click()
-  await page.getByRole('option', { name: 'Sex at Birth' }).click()
-  await page.getByLabel('Sex at Birth:').click()
+  await page.getByRole('option', { name: 'Sex' }).click()
+  await page.getByLabel('Sex:').click()
   await page.getByRole('button', { name: 'Male', exact: true }).click()
   await page
     .locator('#rate-map')

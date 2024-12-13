@@ -1,31 +1,15 @@
-import { useAtom } from 'jotai'
 import React from 'react'
-import {
-  type DropdownVarId,
-  isDropdownVarId,
-} from '../../data/config/DropDownIds'
-import { METRIC_CONFIG } from '../../data/config/MetricConfig'
-import type {
-  DataTypeConfig,
-  DataTypeId,
-} from '../../data/config/MetricConfigTypes'
-import type { DemographicType } from '../../data/query/Breakdowns'
-import { Fips, isFipsString } from '../../data/utils/Fips'
-import { getAllDemographicOptions } from '../../reports/reportUtils'
+import { isFipsString } from '../../data/utils/Fips'
 import {
   DEFAULT,
   MADLIB_LIST,
+  getMadLibWithUpdatedValue,
+  insertOptionalThe,
   type MadLib,
   type PhraseSegment,
   getConfigFromDataTypeId,
-  getMadLibWithUpdatedValue,
   getParentDropdownFromDataTypeId,
-  insertOptionalThe,
 } from '../../utils/MadLibs'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -35,9 +19,22 @@ import {
   stringifyMls,
 } from '../../utils/urlutils'
 import DataTypeSelector from './DataTypeSelector'
-import DemographicSelector from './DemographicSelector'
-import LocationSelector from './LocationSelector'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import { useAtom } from 'jotai'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 import TopicSelector from './TopicSelector'
+import LocationSelector from './LocationSelector'
+import type {
+  DataTypeId,
+  DataTypeConfig,
+} from '../../data/config/MetricConfigTypes'
+import {
+  type DropdownVarId,
+  isDropdownVarId,
+} from '../../data/config/DropDownIds'
 
 interface MadLibUIProps {
   madLib: MadLib
@@ -99,17 +96,6 @@ export default function MadLibUI(props: MadLibUIProps) {
   const [selectedDataTypeConfig2, setSelectedDataTypeConfig2] = useAtom(
     selectedDataTypeConfig2Atom,
   )
-
-  const { enabledDemographicOptionsMap } = getAllDemographicOptions(
-    selectedDataTypeConfig1,
-    new Fips('00'),
-    selectedDataTypeConfig2,
-    new Fips('00'),
-  )
-
-  const demographicOptions: Array<[DemographicType, string]> = Object.entries(
-    enabledDemographicOptionsMap,
-  ).map(([label, demoType]) => [demoType as DemographicType, label])
 
   return (
     <>
@@ -205,11 +191,6 @@ export default function MadLibUI(props: MadLibUIProps) {
               )
             },
           )}
-          <span>by</span>
-          <DemographicSelector
-            newValue={'race_and_ethnicity'}
-            options={demographicOptions}
-          />
         </div>
       </div>
     </>
