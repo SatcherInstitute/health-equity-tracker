@@ -9,19 +9,18 @@ import {
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import hetLogo from '../../assets/AppbarLogo.png'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
-import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import type { Article } from './ArticleTypes'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import HetModal from '../../styles/HetComponents/HetModal'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -124,7 +123,7 @@ export default function SinglePost() {
       {/* PAGE CONTENT */}
       <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
         {/* HEADER ROW */}
-        <div className=' flex w-full md:flex-row flex-col-reversereverse items-center justify-between mx-16 md:px-0'>
+        <div className=' flex w-full md:flex-row flex-col-reversereverse items-center justify-between mx-2 smMd:mx-16 md:px-0'>
           {/* TEXT SECTION OF HEADER */}
           <div className='flex flex-col w-full px-4 md:px-16 lg:px-24 h-auto'>
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
@@ -134,7 +133,7 @@ export default function SinglePost() {
             ) : (
               <Skeleton width='50%'></Skeleton>
             )}
-            <div className=' py-8 flex w-full flex-wrap justify-start text-left text-altGreen sm:text-header md:text-bigHeader font-sansTitle text-header font-bold leading-lhNormal'>
+            <div className=' py-2 smMd:py-8 flex w-full flex-wrap justify-start text-left text-altGreen xs:text-smallestHeader md:text-bigHeader font-sansTitle text-header font-bold leading-lhNormal'>
               {isLoading ? (
                 <>
                   <Skeleton animation='wave' width={'100%'} height={'60'} />
@@ -181,14 +180,14 @@ export default function SinglePost() {
             {/* OPTIONAL ARTICLE CATEGORIES */}
 
             {/* SOCIAL MEDIA ICONS */}
-            <div className='w-full py-6 text-left md:w-1/4'>
+            <div className='w-full py-6 pb-0 text-left'>
               <ShareButtons isMobile={false} article={fullArticle} />
             </div>
           </div>
 
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
           <button
-            className='flex items-center justify-center w-1/2 rounded-sm py-16 appearance-none focus:outline-none bg-transparent outline-none focus:ring-2 focus:ring-blue-500 border-none'
+            className='hidden smMd:flex items-center justify-center w-1/2 rounded-sm py-16 appearance-none focus:outline-none bg-transparent outline-none border-none'
             onClick={handleModalOpen}
             type='button'
             style={{ cursor: articleImage ? 'pointer' : 'default' }}
@@ -215,7 +214,7 @@ export default function SinglePost() {
             {!isLoading && !isError && articleImage && (
               <div
                 aria-label={articleImageAltText}
-                className='w-full smMd:block hidden h-56 md:h-96 bg-bg-cover bg-center bg-no-repeat rounded-md shadow-raised-tighter'
+                className='w-full smMd:block hidden h-56 md:h-96 bg-cover bg-center bg-no-repeat rounded-md shadow-raised-tighter'
                 style={{
                   backgroundImage: `url(${articleImage})`,
                   backgroundClip: 'border-box',
@@ -237,7 +236,7 @@ export default function SinglePost() {
         </div>
 
         {/* ARTICLE CONTENT SECTION */}
-        <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col break-words'>
+        <article className='fetched-wordpress-html m-8 md:m-20 flex min-h-preload-article w-full flex-col break-words'>
           {/* RENDER WP ARTICLE HTML */}
           {fullArticle ? (
             getHtml(fullArticle.content?.rendered ?? '')
@@ -253,21 +252,22 @@ export default function SinglePost() {
           {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
           {fullArticle?.acf?.full_article_url && (
             <div>
-              <HetCTABig
-                href={fullArticle.acf.full_article_url}
-                className='mt-10'
-              >
-                Continue Reading
-                {fullArticle?.acf?.friendly_site_name
-                  ? ` on ${fullArticle.acf.friendly_site_name}`
-                  : ''}{' '}
-                <OpenInNewIcon />
-              </HetCTABig>
+              <HetTextArrowLink
+                link={fullArticle.acf.full_article_url}
+                linkText={`Continue Reading${
+                  fullArticle?.acf?.friendly_site_name
+                    ? ` on ${fullArticle.acf.friendly_site_name}`
+                    : ''
+                }`}
+                containerClassName='my-2'
+                linkClassName='flex items-center'
+                textClassName='mr-2'
+              />
             </div>
           )}
 
           {/* OPTIONALLY RENDER REPRINT NOTICE */}
-          <div className='mt-10'>
+          <div className='mt-4'>
             <div className='text-left font-sansText text-text font-medium'>
               {fullArticle?.acf?.canonical_url && (
                 <span className='text-small italic'>
