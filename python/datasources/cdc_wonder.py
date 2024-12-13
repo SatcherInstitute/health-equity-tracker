@@ -47,7 +47,7 @@ class CdcWonderData(DataSource):
         df = self.generate_breakdown_df(demo_type, geo_level)
 
         for time_view in (CURRENT, HISTORICAL):
-            table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
+            table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, time_view)
             conditions = CANCERS_WITH_SEX_DEMOGRAPHIC if demo_type == std_col.SEX_COL else ALL_CANCER_CONDITIONS
             float_cols = get_float_cols(time_view, conditions)
 
