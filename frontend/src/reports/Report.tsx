@@ -1,15 +1,7 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
-import LazyLoad from 'react-lazyload'
-import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
-import MapCard from '../cards/MapCard'
-import RateBarChartCard from '../cards/RateBarChartCard'
-import RateTrendsChartCard from '../cards/RateTrendsChartCard'
-import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
-import TableCard from '../cards/TableCard'
-import UnknownsMapCard from '../cards/UnknownsMapCard'
+import GeorgiaCountiesTractsMap from '../charts/GeorgiaCountiesTractsMap'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
@@ -164,7 +156,7 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <MapCard
+                  {/* <MapCard
                     dataTypeConfig={dataTypeConfig}
                     fips={props.fips}
                     updateFipsCallback={(fips: Fips) => {
@@ -173,144 +165,10 @@ export function Report(props: ReportProps) {
                     demographicType={demographicType}
                     reportTitle={props.reportTitle}
                     trackerMode={props.trackerMode}
-                  />
+                  /> */}
+                  <GeorgiaCountiesTractsMap />
                 </div>
 
-                {/* RATE TRENDS LINE CHART CARD */}
-                {rateMetricConfig?.timeSeriesCadence && (
-                  <div
-                    tabIndex={-1}
-                    className='w-full scroll-m-0 md:scroll-mt-24'
-                    id='rates-over-time'
-                  >
-                    <RateTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
-                      demographicType={demographicType}
-                      fips={props.fips}
-                      reportTitle={props.reportTitle}
-                    />
-                  </div>
-                )}
-
-                {/* 100K BAR CHART CARD */}
-                <div
-                  tabIndex={-1}
-                  className='w-full'
-                  id='rate-chart'
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  <RateBarChartCard
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    fips={props.fips}
-                    reportTitle={props.reportTitle}
-                  />
-                </div>
-
-                {/* UNKNOWNS MAP CARD */}
-                <div
-                  tabIndex={-1}
-                  className='w-full'
-                  id='unknown-demographic-map'
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  <LazyLoad offset={800} height={750} once>
-                    {shareMetricConfig && (
-                      <UnknownsMapCard
-                        overrideAndWithOr={demographicType === RACE}
-                        dataTypeConfig={dataTypeConfig}
-                        fips={props.fips}
-                        updateFipsCallback={(fips: Fips) => {
-                          props.updateFipsCallback(fips)
-                        }}
-                        demographicType={demographicType}
-                        reportTitle={props.reportTitle}
-                      />
-                    )}
-                  </LazyLoad>
-                </div>
-
-                {/* SHARE TRENDS LINE CHART CARD */}
-                {inequityOverTimeConfig?.timeSeriesCadence && (
-                  <div
-                    tabIndex={-1}
-                    id='inequities-over-time'
-                    className='w-full scroll-m-0 md:scroll-mt-24'
-                  >
-                    <LazyLoad offset={600} height={750} once>
-                      <ShareTrendsChartCard
-                        dataTypeConfig={dataTypeConfig}
-                        demographicType={demographicType}
-                        fips={props.fips}
-                        reportTitle={props.reportTitle}
-                      />
-                    </LazyLoad>
-                  </div>
-                )}
-
-                {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-                <div
-                  tabIndex={-1}
-                  className='w-full'
-                  id='population-vs-distribution'
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  <LazyLoad offset={800} height={750} once>
-                    {shareMetricConfig && (
-                      <DisparityBarChartCard
-                        dataTypeConfig={dataTypeConfig}
-                        demographicType={demographicType}
-                        fips={props.fips}
-                        reportTitle={props.reportTitle}
-                      />
-                    )}
-                  </LazyLoad>
-                </div>
-
-                {/* DATA TABLE CARD */}
-                <div
-                  tabIndex={-1}
-                  className='w-full'
-                  id='data-table'
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  <TableCard
-                    fips={props.fips}
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    reportTitle={props.reportTitle}
-                  />
-                </div>
-
-                {/* AGE ADJUSTED TABLE CARD */}
-                {dataTypeConfig.metrics?.age_adjusted_ratio && (
-                  <div
-                    tabIndex={-1}
-                    className='w-full'
-                    id='age-adjusted-ratios'
-                    style={{
-                      scrollMarginTop: props.headerScrollMargin,
-                    }}
-                  >
-                    <LazyLoad offset={800} height={800} once>
-                      <AgeAdjustedTableCard
-                        fips={props.fips}
-                        dataTypeConfig={dataTypeConfig}
-                        dropdownVarId={props.dropdownVarId}
-                        demographicType={demographicType}
-                        reportTitle={props.reportTitle}
-                      />
-                    </LazyLoad>
-                  </div>
-                )}
                 <div className='mt-16'>
                   <p>{SHARE_LABEL}</p>
                   <ShareButtons
