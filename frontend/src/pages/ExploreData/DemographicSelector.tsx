@@ -1,37 +1,41 @@
 import { useRef } from 'react'
-import type { DataTypeId } from '../../data/config/MetricConfigTypes'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES,
+  type DemographicType,
+} from '../../data/query/Breakdowns'
 import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
+import { useParamState } from '../../utils/hooks/useParamState'
 import { usePopover } from '../../utils/hooks/usePopover'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
-interface DataTypeSelectorProps {
-  newValue: DataTypeId
-  options: Array<[DataTypeId, string]>
-  onOptionUpdate: (option: string) => void
+interface DemographicSelectorProps {
+  newValue: DemographicType
+  options: Array<[DemographicType, string]>
 }
 
-export default function DataTypeSelector(props: DataTypeSelectorProps) {
-  const chosenOption = props.options.find(
-    (i: string[]) => i[0] === props.newValue,
+export default function DemographicSelector(props: DemographicSelectorProps) {
+  const defaultDemo: DemographicType = props.options[0][0]
+
+  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+    DEMOGRAPHIC_PARAM,
+    defaultDemo,
   )
-  const currentDisplayName = chosenOption ? chosenOption[1] : ''
+
+  const currentDisplayName = DEMOGRAPHIC_DISPLAY_TYPES[demographicType]
   const popoverRef = useRef(null)
   const popover = usePopover()
 
   return (
     <>
       <span ref={popoverRef}>
-        <HetMadLibButton
-          className='ml-0'
-          isOpen={popover.isOpen}
-          handleClick={popover.open}
-        >
+        <HetMadLibButton isOpen={popover.isOpen} handleClick={popover.open}>
           {currentDisplayName}
         </HetMadLibButton>
 
         <HetPopover popover={popover}>
-          {/* DataType SubTopic Dropdown */}
+          {/* Demographic Dropdown */}
           <>
             <menu className='m-3 flex p-5'>
               <ul className='m-0 pl-0'>
@@ -43,7 +47,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                       selected={optionId === props.newValue}
                       onClick={() => {
                         popover.close()
-                        props.onOptionUpdate(optionId)
+                        setDemographicType(optionId as DemographicType)
                       }}
                       option='topicOption'
                     >
