@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import { urlMap } from '../../../utils/externalUrls'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import FactCard from '../policyComponents/FactCard'
 import {
   gvaFacts,
   rocketFoundationFacts,
 } from '../policyContent/CrisisOverviewContent'
-import FactCard from '../policyComponents/FactCard'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
-import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
-import { urlMap } from '../../../utils/externalUrls'
 
 export default function CrisisOverviewTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -20,7 +20,8 @@ export default function CrisisOverviewTab() {
       <h2 className='sr-only'>
         Understanding the Crisis of Gun Violence in Atlanta
       </h2>
-      <div className='flex flex-col gap-2'>
+      <div
+      className='flex flex-col gap-2'>
         <section id='introduction'>
           <p>
             The Health Equity Tracker (HET) in partnership with The Annie E.
