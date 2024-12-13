@@ -1,0 +1,89 @@
+Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Sex,Sex Code,Deaths,Population,Crude Rate
+,1999,1999,Breast,26000,Female,F,41144,142237295,28.9
+,1999,1999,Breast,26000,Male,M,384,136802873,0.3
+,2000,2000,Breast,26000,Female,F,41872,143719004,29.1
+,2000,2000,Breast,26000,Male,M,428,138443407,0.3
+,2001,2001,Breast,26000,Female,F,41394,145077463,28.5
+,2001,2001,Breast,26000,Male,M,415,139891492,0.3
+,2002,2002,Breast,26000,Female,F,41514,146394634,28.4
+,2002,2002,Breast,26000,Male,M,369,141230559,0.3
+,2003,2003,Breast,26000,Female,F,41619,147679036,28.2
+,2003,2003,Breast,26000,Male,M,379,142428897,0.3
+,2004,2004,Breast,26000,Female,F,40954,148977286,27.5
+,2004,2004,Breast,26000,Male,M,362,143828012,0.3
+,2005,2005,Breast,26000,Female,F,41116,150213467,27.4
+,2005,2005,Breast,26000,Male,M,375,145099195,0.3
+,2006,2006,Breast,26000,Female,F,40820,151732647,26.9
+,2006,2006,Breast,26000,Male,M,389,146647265,0.3
+,2007,2007,Breast,26000,Female,F,40598,153166353,26.5
+,2007,2007,Breast,26000,Male,M,371,148064854,0.3
+,2008,2008,Breast,26000,Female,F,40589,154604015,26.3
+,2008,2008,Breast,26000,Male,M,437,149489951,0.3
+,2009,2009,Breast,26000,Female,F,40676,155964075,26.1
+,2009,2009,Breast,26000,Male,M,400,150807454,0.3
+,2010,2010,Breast,26000,Female,F,40996,157247406,26.1
+,2010,2010,Breast,26000,Male,M,439,152134841,0.3
+,2011,2011,Breast,26000,Female,F,40931,158358565,25.8
+,2011,2011,Breast,26000,Male,M,443,153502059,0.3
+,2012,2012,Breast,26000,Female,F,41150,159454409,25.8
+,2012,2012,Breast,26000,Male,M,405,154917037,0.3
+,2013,2013,Breast,26000,Female,F,40860,160501695,25.5
+,2013,2013,Breast,26000,Male,M,464,156263353,0.3
+,2014,2014,Breast,26000,Female,F,41211,161623478,25.5
+,2014,2014,Breast,26000,Male,M,465,157671238,0.3
+,2015,2015,Breast,26000,Female,F,41523,162741254,25.5
+,2015,2015,Breast,26000,Male,M,463,159109267,0.3
+,2016,2016,Breast,26000,Female,F,41487,163864557,25.3
+,2016,2016,Breast,26000,Male,M,464,160513350,0.3
+,2017,2017,Breast,26000,Female,F,42000,164851027,25.5
+,2017,2017,Breast,26000,Male,M,510,161760158,0.3
+,2018,2018,Breast,26000,Female,F,42465,165690421,25.6
+,2018,2018,Breast,26000,Male,M,484,162835512,0.3
+,2019,2019,Breast,26000,Female,F,42280,166422836,25.4
+,2019,2019,Breast,26000,Male,M,467,163799172,0.3
+,2020,2020,Breast,26000,Female,F,42273,166986403,25.3
+,2020,2020,Breast,26000,Male,M,490,164525109,0.3
+,2021,2021,Breast,26000,Female,F,42310,167308559,25.3
+,2021,2021,Breast,26000,Male,M,500,164722995,0.3
+---,,,,,,,,,
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Mortality",,,,,,,,,
+Query Parameters:,,,,,,,,,
+Leading Cancer Sites: Breast,,,,,,,,,
+Group By: Year; Leading Cancer Sites; Sex,,,,,,,,,
+Show Totals: Disabled,,,,,,,,,
+Show Zero Values: False,,,,,,,,,
+Show Suppressed: False,,,,,,,,,
+"Calculate Rates Per: 100,000",,,,,,,,,
+Standard Population: 2000 U.S. Std. Million,,,,,,,,,
+---,,,,,,,,,
+Help: See http://wonder.cdc.gov/wonder/help/CancerMort-v2021.html for more information.,,,,,,,,,
+---,,,,,,,,,
+"Query Date: Dec 12, 2024 1:36:35 PM",,,,,,,,,
+---,,,,,,,,,
+"Suggested Citation: United States Cancer Statistics - Mortality: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
+"of Health and Human Services, Centers for Disease Control and Prevention; 2024. Accessed at",,,,,,,,,
+"http://wonder.cdc.gov/CancerMort-v2021.html on Dec 12, 2024 1:36:35 PM",,,,,,,,,
+---,,,,,,,,,
+Caveats:,,,,,,,,,
+"1. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
+values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
+misleading.,,,,,,,,,
+"2. About rate comparisons: <ul><li> For consistency with the data on cancer incidence, the cancer sites in mortality data were",,,,,,,,,
+"grouped according to the revised SEER recodes dated March 1, 2018 (see SEER Cause of Death Recodes:",,,,,,,,,
+"http://seer.cancer.gov/codrecode/.). Because NCHS uses different groupings for some sites, the death rates in this report may",,,,,,,,,
+"differ slightly from those published by NCHS. In addition, under the ICD, there are differences in mortality and incidence",,,,,,,,,
+"coding. For example, there are several codes for mesothelioma in ICD-10 (depending on the primary site). However in ICD-O-3, one",,,,,,,,,
+code captures all of the primary sites that mesothelioma affects. Note that Kaposi sarcoma deaths included in this dataset are,,,,,,,,,
+"only those deaths with underlying cause of death attributed to Kaposi Sarcoma, and do not include deaths where the condition was",,,,,,,,,
+"a contributing cause of death, or subsequent to another underlying condition. </li><li> The population used to age-adjust the",,,,,,,,,
+"rates in this report is the 2000 U.S. standard population, which is in accordance with a 1998 recommendation of the US.",,,,,,,,,
+Department of Health and Human Services. The 2000 U.S. standard population is based on the proportion of the 2000 population in,,,,,,,,,
+"specific age groups (younger than 1 year, 1-4 years, 5-9 years, 10-14 years, 15-19 years, . . . 85 years or older); the",,,,,,,,,
+proportions of the 2000 population in these age groups serve as weights for calculating age-adjusted incidence and death rates.,,,,,,,,,
+"NCHS, however, uses a different set of age groups in its age adjustment of death rates, and thus the cancer death rates in this",,,,,,,,,
+report may differ slightly from those published by NCHS. </li><li> Deaths of persons of unknown age are not included in this,,,,,,,,,
+data set. Death rates may differ slightly from other reports where deaths of persons of unknown age are included. </li></ul>,,,,,,,,,
+"3. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
+Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
+"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,

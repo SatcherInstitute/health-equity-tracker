@@ -38,7 +38,7 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
     # Age source groups already match needed HET groups
     std_col.RACE_CATEGORY_ID_COL: {
         'American Indian or Alaska Native': std_col.Race.AIAN_NH.value,
-        'Asian or Pacific Islander': std_col.Race.ASIAN_PAC_NH.value,
+        'Asian or Pacific Islander': std_col.Race.API_NH.value,
         'Hispanic': std_col.Race.HISP.value,
         'White': std_col.Race.WHITE_NH.value,
         'Black or African American': std_col.Race.BLACK_NH.value,
