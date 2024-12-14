@@ -30,6 +30,22 @@ jobs:
           version: latest
       - name: Run Biome
         run: biome ci src/
+      - name: Biome Failure Guidance
+        if: failure()
+        run: |
+          echo "❌ Code Quality Check Failed 🚨"
+          echo ""
+          echo "To fix these issues:"
+          echo "1. 🔧 Run Biome locally to automatically fix issues:"
+          echo "   In your frontend folder, run: \`npm run cleanup\`"
+          echo ""
+          echo "2. 🔍 Ensure your local pre-commit hooks are set up correctly"
+          echo "   The Biome check should be automatically running on every local commit."
+          echo "   See https://github.com/SatcherInstitute/health-equity-tracker?tab=readme-ov-file#install-node-and-pre-commit"
+          echo ""
+          echo "After fixing, add, commit, and re-push your changes. 💾"
+          exit 1
+
 
   build_frontend:
     needs: code-quality
