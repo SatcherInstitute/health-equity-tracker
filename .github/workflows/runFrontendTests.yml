@@ -19,22 +19,20 @@ defaults:
     working-directory: frontend
 
 jobs:
-  code_quality:
-    name: Biome Code Quality Check
+  code-quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
         with:
-          node-version-file: frontend/package.json
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Run Biome Code Check
-        run: npx @biomejs/biome check ./src
+          version: latest
+      - name: Run Biome
+        run: biome ci .
 
   build_frontend:
+    needs: code-quality
     name: Builds frontend
     runs-on: ubuntu-latest
     steps:
@@ -53,6 +51,7 @@ jobs:
         run: npx tsc --noEmit && npm run build:deploy_preview
 
   frontend_unit_tests:
+    needs: code-quality
     name: Runs frontend unit tests
     runs-on: ubuntu-latest
     steps:
