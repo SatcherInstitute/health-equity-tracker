@@ -30,8 +30,10 @@ jobs:
           version: latest
       - name: Run Biome
         run: |
-          echo "Running biome"
-          echo "🚨🔧 If this fails, please run 'npm run cleanup' locally and push again. Also check your pre-commit settings as this should be auto-fixed on every local commit."
+          echo "Running Biome"
+          echo "🚨 If this fails, please run 'npm run cleanup' locally, add/commit and push again."
+          echo "🔧 Also, please check your local pre-commit, as Biome should run on every local commit."
+          echo "See https://github.com/SatcherInstitute/health-equity-tracker?tab=readme-ov-file#install-node-and-pre-commit"
           biome ci src/
 
   build_frontend:
