@@ -37,7 +37,6 @@ jobs:
           biome ci src/
 
   build_frontend:
-    needs: code-quality
     name: Builds frontend
     runs-on: ubuntu-latest
     steps:
@@ -56,7 +55,6 @@ jobs:
         run: npx tsc --noEmit && npm run build:deploy_preview
 
   frontend_unit_tests:
-    needs: code-quality
     name: Runs frontend unit tests
     runs-on: ubuntu-latest
     steps:
