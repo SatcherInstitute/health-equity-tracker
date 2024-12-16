@@ -31,7 +31,6 @@ const CustomBreakdownSummary: React.FC<CustomBreakdownSummaryProps> = ({
       reportTitle={reportTitle}
       className={`max-w-eighty ${className}`}
     />
-    
   )
 }
 

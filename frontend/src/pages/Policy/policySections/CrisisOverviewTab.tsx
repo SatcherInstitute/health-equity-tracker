@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import { urlMap } from '../../../utils/externalUrls'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import FactCard from '../policyComponents/FactCard'
 import {
   gvaFacts,
   rocketFoundationFacts,
 } from '../policyContent/CrisisOverviewContent'
-import FactCard from '../policyComponents/FactCard'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
-import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
-import { urlMap } from '../../../utils/externalUrls'
 
 export default function CrisisOverviewTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -53,7 +53,7 @@ export default function CrisisOverviewTab() {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow = isMdAndUp && index % 2 !== 0
               const uniqueKey = `fact-${index}`
-              
+
               return (
                 <div
                   key={uniqueKey}
