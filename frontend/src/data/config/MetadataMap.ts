@@ -16,6 +16,7 @@ export type DataSourceId =
   | 'cdc_vaccination_county'
   | 'cdc_vaccination_national'
   | 'cdc_wisqars'
+  | 'cdc_wonder'
   | 'census_pop_estimates'
   | 'chr'
   | 'covid_tracking_project'
@@ -31,6 +32,34 @@ export type DataSourceId =
   | 'vera'
 
 export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
+  cdc_wonder: {
+    id: 'cdc_wonder',
+    data_source_name: 'CDC WONDER Cancer Statistics',
+    data_source_acronym: 'CDC',
+    data_source_pretty_site_name: 'wonder.cdc.gov',
+    data_source_link: 'https://wonder.cdc.gov/cancer-v2021.HTML',
+    geographic_level: 'National, State',
+    time_period_range: '1999 - 2021',
+    demographic_granularity: 'Race/ethnicity, age, sex',
+    update_frequency: 'Annual',
+    description:
+      'Cancer incidence statistics from the CDC WONDER database, providing detailed information about new cancer cases across the United States. The data includes incidence rates, counts, and population data stratified by various demographic characteristics. The statistics are derived from cancer registries reporting to the National Program of Cancer Registries (NPCR) and/or the Surveillance, Epidemiology, and End Results (SEER) Program. Rates are calculated using bridged-race population estimates from the U.S. Census Bureau. Age-adjusted rates are calculated based on the 2000 U.S. standard population. Users can access data on different types of cancer, with breakdowns by demographic factors and geographic areas.',
+    dataset_ids: [
+      'cdc_wonder_data-age_national_current',
+      'cdc_wonder_data-age_national_historical',
+      'cdc_wonder_data-age_state_current',
+      'cdc_wonder_data-age_state_historical',
+      'cdc_wonder_data-race_and_ethnicity_national_current',
+      'cdc_wonder_data-race_and_ethnicity_national_historical',
+      'cdc_wonder_data-race_and_ethnicity_state_current',
+      'cdc_wonder_data-race_and_ethnicity_state_historical',
+      'cdc_wonder_data-sex_national_current',
+      'cdc_wonder_data-sex_national_historical',
+      'cdc_wonder_data-sex_state_current',
+      'cdc_wonder_data-sex_state_historical',
+    ],
+    downloadable: true,
+  },
   cdc_wisqars: datasourceMetadataCommunitySafetyCategory,
   maternal_health: datasourceMetadataMaternalHealthCategory,
   cdc_restricted: {
