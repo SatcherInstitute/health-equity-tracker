@@ -150,7 +150,7 @@ def load_cdc_df_from_data_dir(
             }
             topic_df = topic_df.rename(columns=initial_renames)
 
-            count_cols_to_sum = [COUNT_COL, POP_COL]
+            count_cols_to_sum = [COUNT_COL, POP_COL, CRUDE_RATE_COL]
 
             topic_df = combine_race_ethnicity(
                 topic_df,
