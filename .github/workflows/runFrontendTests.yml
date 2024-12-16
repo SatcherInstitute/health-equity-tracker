@@ -19,6 +19,23 @@ defaults:
     working-directory: frontend
 
 jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+      - name: Run Biome
+        run: |
+          echo "Running Biome"
+          echo "🚨 If this fails, run 'npm run cleanup' from your frontend/ local directory, add/commit, and push again."
+          echo "🔧 Also, please check your local pre-commit, as Biome should run on every local commit."
+          echo "See https://github.com/SatcherInstitute/health-equity-tracker?tab=readme-ov-file#install-node-and-pre-commit"
+          biome ci src/
+
   build_frontend:
     name: Builds frontend
     runs-on: ubuntu-latest
@@ -36,7 +53,6 @@ jobs:
           NODE_OPTIONS: '--max_old_space_size=4096'
           VITE_NODE_OPTIONS: '--max_old_space_size=4096'
         run: npx tsc --noEmit && npm run build:deploy_preview
-
 
   frontend_unit_tests:
     name: Runs frontend unit tests
@@ -72,7 +88,9 @@ jobs:
             max_timeout: 180
 
   tests_e2e_netlify:
-    needs: tests_e2e_netlify_prepare
+    needs:
+      - tests_e2e_netlify_prepare
+      - code-quality
     name: Run E2E tests on deploy preview
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -88,7 +106,7 @@ jobs:
         run: npm ci
       - name: Install playwright deps
         run: npx playwright install --with-deps chromium
-      - name: run quicker E2E on DEPLOY_PREVIEW
+      - name: run E2E on DEPLOY_PREVIEW
         run: npx playwright test --project=E2E_NIGHTLY --workers 4
         # base url based on the GITHUB_PR_NUMBER +  NETLIFY_SITE_NAME
         env:

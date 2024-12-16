@@ -12,7 +12,11 @@ const HetLaunchLink: React.FC<HetLaunchLinkProps> = ({ href, label }) => {
       href={href}
       target='_blank'
       rel='noreferrer'
-      aria-label={label ? `Opens the ${label} website in a new window` : `Opens ${href} in a new window`}
+      aria-label={
+        label
+          ? `Opens the ${label} website in a new window`
+          : `Opens ${href} in a new window`
+      }
     >
       <LaunchRounded className='text-text' />
     </a>

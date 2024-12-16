@@ -29,7 +29,7 @@ const CardLeftIcon: React.FC<CardLeftIconProps> = ({
           </p>
         </div>
         <div className='flex flex-col'>
-            <HetOverline text='Advocacy Experts Say' className='mb-0 mt-4'/>
+          <HetOverline text='Advocacy Experts Say' className='mb-0 mt-4' />
           <p className='text-small w-fit py-0 my-0'>{advice}</p>
         </div>
       </div>
