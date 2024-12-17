@@ -8,7 +8,6 @@ updates:
       minor-frontend:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
   - package-ecosystem: "npm"
     directory: "frontend_server/"
@@ -18,7 +17,6 @@ updates:
       minor-frontend-server:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -28,7 +26,6 @@ updates:
       minor-gh-actions:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
   - package-ecosystem: "pip"
     directory: "shared_requirements/"
@@ -38,5 +35,4 @@ updates:
       minor-python:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
