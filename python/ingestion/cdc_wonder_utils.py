@@ -47,7 +47,7 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
     # Sex source groups already match needed HET groups
 }
 
-DTYPE = {STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
+DTYPE = {YEAR_COL: str, STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
 
 
 def get_state_code_col(demographic_type: CANCER_TYPE_OR_ALL) -> str:
@@ -150,7 +150,7 @@ def load_cdc_df_from_data_dir(
             }
             topic_df = topic_df.rename(columns=initial_renames)
 
-            count_cols_to_sum = [COUNT_COL, POP_COL]
+            count_cols_to_sum = [COUNT_COL, POP_COL, CRUDE_RATE_COL]
 
             topic_df = combine_race_ethnicity(
                 topic_df,

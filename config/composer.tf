@@ -9,7 +9,7 @@ resource "google_composer_environment" "composer-env" {
 
   config {
     software_config {
-      image_version = "composer-3-airflow-2.9.1"
+      image_version = "composer-3-airflow-2.9.3"
     }
 
   }
