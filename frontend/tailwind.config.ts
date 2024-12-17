@@ -54,7 +54,7 @@ export default {
       title: '1.125rem',
       exploreButton: '1.2rem',
       navBarHeader: '1.25rem',
-      fluidMadLib: 'clamp(1rem, 2.5vw, 1.625rem)',
+      fluidMadLib: 'clamp(1rem, 2.5vw, 1.5rem)',
       smallestHeader: '1.5rem',
       smallerHeader: '1.625rem',
       smallHeader: '1.75rem',

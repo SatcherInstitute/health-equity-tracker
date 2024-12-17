@@ -14,7 +14,7 @@ export default function HetMadLibButton(props: HetMadLibButtonProps) {
     <Button
       variant='text'
       aria-haspopup='true'
-      className={`mx-4 my-1 min-w-[100px] border border-solid border-altGreen  py-0 pl-3 pr-1 font-medium text-altGreen shadow-raised-tighter text-fluidMadLib ${
+      className={`mx-4 my-1 min-w-[80px] border border-solid border-altGreen  py-0 pl-3 pr-1 font-medium text-altGreen shadow-raised-tighter text-fluidMadLib ${
         props.className ?? ''
       } `}
       onClick={props.handleClick}

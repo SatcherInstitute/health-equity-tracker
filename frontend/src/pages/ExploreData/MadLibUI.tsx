@@ -111,6 +111,12 @@ export default function MadLibUI(props: MadLibUIProps) {
     enabledDemographicOptionsMap,
   ).map(([label, demoType]) => [demoType as DemographicType, label])
 
+  const defaultDemoOption: DemographicType = demographicOptions.some(
+    (option) => option[0] === 'race_and_ethnicity',
+  )
+    ? 'race_and_ethnicity'
+    : demographicOptions[0][0]
+
   return (
     <>
       <div className='grid place-content-center'>
@@ -207,7 +213,7 @@ export default function MadLibUI(props: MadLibUIProps) {
           )}
           <span>by</span>
           <DemographicSelector
-            newValue={'race_and_ethnicity'}
+            newValue={defaultDemoOption}
             options={demographicOptions}
           />
         </div>
