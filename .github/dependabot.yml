@@ -4,39 +4,50 @@ updates:
     directory: "frontend/"
     schedule:
       interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
     groups:
       minor-frontend:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
+
   - package-ecosystem: "npm"
     directory: "frontend_server/"
     schedule:
       interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
     groups:
       minor-frontend-server:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
     groups:
       minor-gh-actions:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
+
   - package-ecosystem: "pip"
     directory: "shared_requirements/"
     schedule:
       interval: "monthly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
     groups:
       minor-python:
         update-types:
           - "minor"
-          - "patch"
     open-pull-requests-limit: 1
