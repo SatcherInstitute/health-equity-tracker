@@ -1,9 +1,9 @@
 import { useRef } from 'react'
-import type { DataTypeId } from '../../data/config/MetricConfigTypes'
-import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
-import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
-import HetPopover from '../../styles/HetComponents/HetPopover'
 import { usePopover } from '../../utils/hooks/usePopover'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
+import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
+import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetPopover from '../../styles/HetComponents/HetPopover'
 
 interface DataTypeSelectorProps {
   newValue: DataTypeId
