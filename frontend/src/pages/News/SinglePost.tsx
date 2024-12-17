@@ -22,6 +22,14 @@ import { HetTags } from '../../styles/HetComponents/HetTags'
 import HetModal from '../../styles/HetComponents/HetModal'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 
+interface Tag {
+  name: string
+  link?: string
+}
+
+const standardizeTags = (tags: (string | Tag)[]): Tag[] =>
+  tags.map((tag) => (typeof tag === 'string' ? { name: tag } : tag))
+
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
   return new Date(dateString).toLocaleDateString(undefined, options as any)
@@ -50,21 +58,18 @@ export default function SinglePost() {
     }
   }
 
-  // FETCH ARTICLES
   const { data, isLoading, isError } = useQuery(
     [ARTICLES_KEY, slug],
     fetchNewsData,
     REACT_QUERY_OPTIONS,
   )
 
-  // on page load, get prev, full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
         (article: Article) => article.slug === slug,
       )
       setFullArticle(data.data[fullArticleIndex])
-      // previous and next articles wrap around both ends of the array
       setPrevArticle(
         data.data[
           fullArticleIndex - 1 >= 0
@@ -78,7 +83,6 @@ export default function SinglePost() {
 
   const articleCategories = fullArticle?._embedded?.['wp:term']?.[0]
 
-  // get the large version of the image if available, if not try for the full version
   const articleImage =
     fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes
       ?.large?.source_url ??
@@ -92,12 +96,10 @@ export default function SinglePost() {
     return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text
   }
 
-  // Reapplies truncation when the previous and next articles change
   useEffect(() => {
     const paginationButtons = document.querySelectorAll(
       '[data-pagination-content="true"]',
     )
-
     paginationButtons.forEach((button) => {
       const buttonText = button.textContent || ''
       button.textContent = truncateText(buttonText, 42)
@@ -110,7 +112,6 @@ export default function SinglePost() {
         <title>{`News${
           fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
         } - Health Equity Tracker`}</title>
-        {/* if cross-posted from external site, should be input on WP as canonical_url */}
         {fullArticle && (
           <link
             rel='canonical'
@@ -120,72 +121,58 @@ export default function SinglePost() {
         <meta name='description' content={ARTICLE_DESCRIPTION} />
       </Helmet>
 
-      {/* PAGE CONTENT */}
       <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
-        {/* HEADER ROW */}
-        <div className=' flex w-full md:flex-row flex-col-reversereverse items-center justify-between mx-2 smMd:mx-16 md:px-0'>
-          {/* TEXT SECTION OF HEADER */}
+        <div className='flex w-full md:flex-row flex-col-reversereverse items-center justify-between mx-2 smMd:mx-16 md:px-0'>
           <div className='flex flex-col w-full px-4 md:px-16 lg:px-24 h-auto'>
-            {/* ARTICLE TITLE OR LOADING INDICATOR */}
-
             {fullArticle?.date ? (
               <HetOverline text={prettyDate(fullArticle.date)} />
             ) : (
-              <Skeleton width='50%'></Skeleton>
+              <Skeleton width='50%' />
             )}
-            <div className=' py-2 smMd:py-8 flex w-full flex-wrap justify-start text-left text-altGreen xs:text-smallestHeader md:text-bigHeader font-sansTitle text-header font-bold leading-lhNormal'>
+            <div className='py-2 smMd:py-8 flex w-full flex-wrap justify-start text-left text-altGreen xs:text-smallestHeader md:text-bigHeader font-sansTitle text-header font-bold leading-lhNormal'>
               {isLoading ? (
                 <>
-                  <Skeleton animation='wave' width={'100%'} height={'60'} />
-                  <Skeleton animation='wave' width={'100%'} height={'60'} />
+                  <Skeleton animation='wave' width='100%' height='60' />
+                  <Skeleton animation='wave' width='100%' height='60' />
                 </>
               ) : (
                 getHtml(fullArticle?.title?.rendered ?? '')
               )}
             </div>
 
-            {/* AUTHOR(S) OR LOADING OR NOTHING */}
             <div className='group text-start text-text text-altDark font-medium'>
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   by{' '}
                   <Link
                     className='cursor-pointer my-2 md:my-4 text-center md:text-left text-text no-underline group-hover:underline'
-                    to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(fullArticle.acf.contributing_author)}`}
+                    to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(
+                      fullArticle.acf.contributing_author,
+                    )}`}
                   >
                     {fullArticle.acf.contributing_author}
                   </Link>
                 </>
               ) : isLoading ? (
-                <Skeleton></Skeleton>
-              ) : (
-                <></>
-              )}
+                <Skeleton />
+              ) : null}
 
               {fullArticle?.acf?.contributing_author &&
               fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
-              {fullArticle?.acf?.additional_contributors ? (
+              {fullArticle?.acf?.additional_contributors && (
                 <div className='text-start text-text text-altDark'>
                   Contributors: {fullArticle.acf.additional_contributors}
                 </div>
-              ) : (
-                ''
               )}
             </div>
 
-            {/* PUBLISH DATE WITH LOADING INDICATOR */}
-
-            {/* OPTIONAL ARTICLE CATEGORIES */}
-
-            {/* SOCIAL MEDIA ICONS */}
             <div className='w-full py-6 pb-0 text-left'>
               <ShareButtons isMobile={false} article={fullArticle} />
             </div>
           </div>
 
-          {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
           <button
             className='hidden smMd:flex items-center justify-center w-1/2 rounded-sm py-16 appearance-none focus:outline-none bg-transparent outline-none border-none'
             onClick={handleModalOpen}
@@ -224,7 +211,6 @@ export default function SinglePost() {
             )}
           </button>
 
-          {/* Image Modal */}
           {articleImage && (
             <HetModal
               open={isModalOpen}
@@ -235,21 +221,18 @@ export default function SinglePost() {
           )}
         </div>
 
-        {/* ARTICLE CONTENT SECTION */}
         <article className='fetched-wordpress-html m-8 md:m-20 flex min-h-preload-article w-full flex-col break-words'>
-          {/* RENDER WP ARTICLE HTML */}
           {fullArticle ? (
             getHtml(fullArticle.content?.rendered ?? '')
           ) : (
             <Skeleton
               animation='wave'
-              width={'100%'}
-              height={'100%'}
+              width='100%'
+              height='100%'
               className='m-10'
             />
           )}
 
-          {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
           {fullArticle?.acf?.full_article_url && (
             <div>
               <HetTextArrowLink
@@ -266,37 +249,35 @@ export default function SinglePost() {
             </div>
           )}
 
-          {/* OPTIONALLY RENDER REPRINT NOTICE */}
-          <div className='mt-4'>
-            <div className='text-left font-sansText text-text font-medium'>
-              {fullArticle?.acf?.canonical_url && (
-                <span className='text-small italic'>
-                  Note: this article was originally published on{' '}
-                  <a href={fullArticle?.acf?.canonical_url}>another site</a>,
-                  and is reprinted here with permission.
-                </span>
-              )}
-            </div>
+          <div className='mt-4 text-left font-sansText text-text font-medium'>
+            {fullArticle?.acf?.canonical_url && (
+              <span className='text-small italic'>
+                Note: this article was originally published on{' '}
+                <a href={fullArticle?.acf?.canonical_url}>another site</a>, and
+                is reprinted here with permission.
+              </span>
+            )}
           </div>
 
           {articleCategories ? (
             <div className='text-start text-text text-altDark'>
               Tagged:
               <HetTags
-                tags={articleCategories.map((categoryChunk) => ({
-                  name: categoryChunk.name,
-                  link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
-                    categoryChunk.name,
-                  )}`,
-                }))}
+                tags={standardizeTags(
+                  articleCategories.map((categoryChunk) => ({
+                    name: categoryChunk.name,
+                    link: `${NEWS_PAGE_LINK}?category=${encodeURIComponent(
+                      categoryChunk.name,
+                    )}`,
+                  })),
+                )}
               />
             </div>
           ) : (
-            <Skeleton width='50%'></Skeleton>
+            <Skeleton width='50%' />
           )}
         </article>
 
-        {/* PREV / NEXT ARTICLES NAV */}
         <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
           {prevArticle && (
             <HetPaginationButton
