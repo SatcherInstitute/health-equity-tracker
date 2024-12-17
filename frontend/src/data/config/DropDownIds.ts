@@ -7,7 +7,7 @@ import { HIV_CATEGORY_DROPDOWNIDS } from './MetricConfigHivCategory'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from './MetricConfigMaternalHealth'
 import { PDOH_CATEGORY_DROPDOWNIDS } from './MetricConfigPDOH'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from './MetricConfigPhrma'
-import { CANCER_CATEGORY_DROPDOWNIDS } from './MetricConfigPhrmaBrfss'
+import { CANCER_SCREENING_CATEGORY_DROPDOWNIDS } from './MetricConfigPhrmaBrfss'
 import { SDOH_CATEGORY_DROPDOWNIDS } from './MetricConfigSDOH'
 
 export const DROPDOWN_IDS = [
@@ -20,7 +20,7 @@ export const DROPDOWN_IDS = [
   ...MEDICARE_CATEGORY_DROPDOWNIDS,
   ...COMMUNITY_SAFETY_DROPDOWNIDS,
   ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
-  ...CANCER_CATEGORY_DROPDOWNIDS,
+  ...CANCER_SCREENING_CATEGORY_DROPDOWNIDS,
   ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
 ] as const
 

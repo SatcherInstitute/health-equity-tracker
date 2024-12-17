@@ -184,6 +184,10 @@ export type DatasetId =
   | 'cdc_wonder_data-sex_national_historical'
   | 'cdc_wonder_data-sex_state_current'
   | 'cdc_wonder_data-sex_state_historical'
+  | 'cdc_wonder_data-alls_national_current'
+  | 'cdc_wonder_data-alls_national_historical'
+  | 'cdc_wonder_data-alls_state_current'
+  | 'cdc_wonder_data-alls_state_historical'
   | 'census_pop_estimates-race_and_ethnicity'
   | 'chr_data-race_and_ethnicity_county_current'
   | 'covid_tracking_project-cases_by_race_state'
@@ -255,62 +259,82 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   ...DatasetMetadataMapMaternalHealthCategory,
   ...DatasetMetadataMapCommunitySafetyCategory,
   'cdc_wonder_data-age_national_current': {
-    name: 'Cancer incidence by age group, national current data',
+    name: 'Cancer incidence by age, nationally',
     original_data_sourced: '2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-age_national_historical': {
-    name: 'Cancer incidence by age group, national historical data',
+    name: 'Cancer incidence by age, nationally',
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-age_state_current': {
-    name: 'Cancer incidence by age group, state current data',
+    name: 'Cancer incidence by age and state',
     original_data_sourced: '2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-age_state_historical': {
-    name: 'Cancer incidence by age group, state historical data',
+    name: 'Cancer incidence by age and state',
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-race_and_ethnicity_national_current': {
-    name: 'Cancer incidence by race and ethnicity, national current data',
+    name: 'Cancer incidence by race and ethnicity, nationally',
     original_data_sourced: '2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-race_and_ethnicity_national_historical': {
-    name: 'Cancer incidence by race and ethnicity, national historical data',
+    name: 'Cancer incidence by race and ethnicity, nationally',
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-race_and_ethnicity_state_current': {
-    name: 'Cancer incidence by race and ethnicity, state current data',
+    name: 'Cancer incidence by race and ethnicity and state',
     original_data_sourced: '2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-race_and_ethnicity_state_historical': {
-    name: 'Cancer incidence by race and ethnicity, state historical data',
+    name: 'Cancer incidence by race and ethnicity and state',
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-sex_national_current': {
-    name: 'Cancer incidence by sex, national current data',
+    name: 'Cancer incidence by sex, nationally',
     original_data_sourced: '2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-sex_national_historical': {
-    name: 'Cancer incidence by sex, national historical data',
+    name: 'Cancer incidence by sex, nationally',
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-sex_state_current': {
-    name: 'Cancer incidence by sex, state current data',
+    name: 'Cancer incidence by sex and state',
     original_data_sourced: '2021',
     source_id: 'cdc_wonder',
   },
   'cdc_wonder_data-sex_state_historical': {
-    name: 'Cancer incidence by sex, state historical data',
+    name: 'Cancer incidence by sex and state',
+    original_data_sourced: '1999-2021',
+    source_id: 'cdc_wonder',
+  },
+  'cdc_wonder_data-alls_national_current': {
+    name: 'Cancer incidence, nationally',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wonder',
+  },
+  'cdc_wonder_data-alls_national_historical': {
+    name: 'Cancer incidence, nationally',
+    original_data_sourced: '1999-2021',
+    source_id: 'cdc_wonder',
+  },
+  'cdc_wonder_data-alls_state_current': {
+    name: 'Cancer incidence by state',
+    original_data_sourced: '2021',
+    source_id: 'cdc_wonder',
+  },
+  'cdc_wonder_data-alls_state_historical': {
+    name: 'Cancer incidence by state',
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },

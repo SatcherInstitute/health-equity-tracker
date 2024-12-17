@@ -1,4 +1,8 @@
-import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import {
+  defaultHigherIsWorseMapConfig,
+  menHigherIsWorseMapConfig,
+  womenHigherIsWorseMapConfig,
+} from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const CDC_CANCER_CATEGORY_DROPDOWNIDS = ['cancer_incidence'] as const
@@ -57,7 +61,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     },
     fullDisplayName: 'Breast cancer cases',
     fullDisplayNameInline: 'breast cancer cases',
-    mapConfig: defaultHigherIsWorseMapConfig,
+    mapConfig: womenHigherIsWorseMapConfig,
     metrics: {
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity of breast cancer cases',
@@ -85,7 +89,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Breast cancer cases for women',
+        chartTitle: 'Breast cancer cases per 100k women',
         columnTitleHeader: 'Breast cancer cases for women per 100k people',
         metricId: 'breast_per_100k',
         rateDenominatorMetric: {
@@ -122,7 +126,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     },
     fullDisplayName: 'Cervical cancer cases',
     fullDisplayNameInline: 'cervical cancer cases',
-    mapConfig: defaultHigherIsWorseMapConfig,
+    mapConfig: womenHigherIsWorseMapConfig,
     metrics: {
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity of cervical cancer cases',
@@ -313,7 +317,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     },
     fullDisplayName: 'Prostate cancer cases',
     fullDisplayNameInline: 'prostate cancer cases',
-    mapConfig: defaultHigherIsWorseMapConfig,
+    mapConfig: menHigherIsWorseMapConfig,
     metrics: {
       pct_relative_inequity: {
         chartTitle: 'Historical relative inequity of prostate cancer cases',
@@ -340,7 +344,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Prostate cancer cases for men',
+        chartTitle: 'Prostate cancer cases per 100k men',
         columnTitleHeader: 'Prostate cancer cases for men per 100k people',
         metricId: 'prostate_per_100k',
         rateDenominatorMetric: {

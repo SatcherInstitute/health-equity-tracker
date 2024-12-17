@@ -12,7 +12,7 @@ import {
   MEDICARE_CATEGORY_DROPDOWNIDS,
   MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
 } from '../data/config/MetricConfigPhrma'
-import { CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
+import { CANCER_SCREENING_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
 import type {
   DataTypeConfig,
@@ -186,6 +186,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   gun_violence_youth: 'All Gun Deaths of',
   cancer_screening: 'Screening adherence for',
   gun_deaths_black_men: 'Black Male Gun Homicide Victims',
+  cancer_incidence: 'Incidence for',
 }
 
 export interface Category {
@@ -255,7 +256,7 @@ if (SHOW_CANCER_SCREENINGS) {
     definition: '',
     options: [
       ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
-      ...CANCER_CATEGORY_DROPDOWNIDS,
+      ...CANCER_SCREENING_CATEGORY_DROPDOWNIDS,
     ] as unknown as DropdownVarId[],
   })
 }
