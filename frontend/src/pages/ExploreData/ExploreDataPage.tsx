@@ -1,15 +1,37 @@
-import { useCallback, useEffect, useState, lazy } from 'react'
+import { useAtomValue } from 'jotai'
+import { lazy, useCallback, useEffect, useState } from 'react'
 import { STATUS } from 'react-joyride'
+import { useLocation } from 'react-router-dom'
+import {
+  type DropdownVarId,
+  isDropdownVarId,
+} from '../../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../../data/config/MetricConfigTypes'
+import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
+import { ALL } from '../../data/utils/Constants'
 import ReportProvider from '../../reports/ReportProvider'
+import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
+import { srSpeak } from '../../utils/a11yutils'
+import { urlMap } from '../../utils/externalUrls'
+import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
+import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
   getMadLibPhraseText,
   getSelectedConditions,
   type MadLib,
   MADLIB_LIST,
+  type MadLibId,
   type PhraseSegment,
   type PhraseSelections,
-  type MadLibId,
 } from '../../utils/MadLibs'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -25,32 +47,10 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
 } from '../../utils/urlutils'
-import { srSpeak } from '../../utils/a11yutils'
-import { urlMap } from '../../utils/externalUrls'
-import { METRIC_CONFIG } from '../../data/config/MetricConfig'
-import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
-import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
-import { useLocation } from 'react-router-dom'
 import DefaultHelperBox from './DefaultHelperBox'
-import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
-import { ALL } from '../../data/utils/Constants'
 import TopicInfoModal from './TopicInfoModal'
-import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
-import { useAtomValue } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
 import VoteDotOrgModal from './VoteDotOrgModal'
-import type {
-  DataTypeId,
-  DataTypeConfig,
-} from '../../data/config/MetricConfigTypes'
-import {
-  type DropdownVarId,
-  isDropdownVarId,
-} from '../../data/config/DropDownIds'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -333,7 +333,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-stickyMadLib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full
+          className={`z-stickyMadLib bg-white px-4 py-2 md:py-4 shadow-raised-tighter md:top-0 md:w-full
             ${!noTopicChosen ? 'md:sticky' : ''}
           `}
           id='madlib-container'
