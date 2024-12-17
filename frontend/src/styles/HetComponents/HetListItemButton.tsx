@@ -24,7 +24,7 @@ const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
   boldGreenRow: 'py-2 font-sansTitle text-small font-medium no-underline',
   normalBlack: 'py-1 pl-2 text-small font-light text-altBlack',
   topicOption:
-    'py-1 pl-0 text-smallest sm:text-small font-roboto font-light text-altBlack leading-lhSomeMoreSpace',
+    'py-0 pl-0 text-smallest sm:text-small font-roboto font-light text-altBlack leading-lhSomeMoreSpace',
 }
 
 export default function HetListItemButton(props: HetListItemButtonProps) {
