@@ -1,60 +1,54 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
-export const CDC_CANCER_CATEGORY_DROPDOWNIDS = [
-  'breast_cancer',
-  'cervical_cancer',
-  'prostate_cancer',
-  'colorectal_cancer',
-  'lung_cancer',
-] as const
+export const CDC_CANCER_CATEGORY_DROPDOWNIDS = ['cancer_incidence'] as const
 
 export type CancerCategoryDataTypeId =
   | 'breast_cancer'
   | 'cervical_cancer'
-  | 'prostate_cancer'
   | 'colorectal_cancer'
   | 'lung_cancer'
+  | 'prostate_cancer'
 
 export type CancerCategoryMetricId =
-  | 'breast_per_100k'
   | 'breast_count_estimated_total'
-  | 'breast_population_pct'
-  | 'breast_population_estimated_total'
-  | 'breast_pct_share'
   | 'breast_pct_relative_inequity'
-  | 'cervical_per_100k'
+  | 'breast_pct_share'
+  | 'breast_per_100k'
+  | 'breast_population_estimated_total'
+  | 'breast_population_pct'
   | 'cervical_count_estimated_total'
-  | 'cervical_population_pct'
-  | 'cervical_population_estimated_total'
-  | 'cervical_pct_share'
   | 'cervical_pct_relative_inequity'
-  | 'prostate_per_100k'
-  | 'prostate_count_estimated_total'
-  | 'prostate_population_pct'
-  | 'prostate_population_estimated_total'
-  | 'prostate_pct_share'
-  | 'prostate_pct_relative_inequity'
-  | 'colorectal_per_100k'
+  | 'cervical_pct_share'
+  | 'cervical_per_100k'
+  | 'cervical_population_estimated_total'
+  | 'cervical_population_pct'
   | 'colorectal_count_estimated_total'
-  | 'colorectal_population_pct'
-  | 'colorectal_population_estimated_total'
-  | 'colorectal_pct_share'
   | 'colorectal_pct_relative_inequity'
-  | 'lung_per_100k'
+  | 'colorectal_pct_share'
+  | 'colorectal_per_100k'
+  | 'colorectal_population_estimated_total'
+  | 'colorectal_population_pct'
   | 'lung_count_estimated_total'
-  | 'lung_population_pct'
-  | 'lung_population_estimated_total'
-  | 'lung_pct_share'
   | 'lung_pct_relative_inequity'
+  | 'lung_pct_share'
+  | 'lung_per_100k'
+  | 'lung_population_estimated_total'
+  | 'lung_population_pct'
+  | 'prostate_count_estimated_total'
+  | 'prostate_pct_relative_inequity'
+  | 'prostate_pct_share'
+  | 'prostate_per_100k'
+  | 'prostate_population_estimated_total'
+  | 'prostate_population_pct'
 
-export const BREAST_CANCER_METRICS: DataTypeConfig[] = [
+export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
   {
     ageSubPopulationLabel: 'Ages 50-74',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for breast cancer cases',
-    dataTypeId: 'breast_cancer',
-    dataTypeShortLabel: 'Breast Cancer Cases',
+    dataTypeId: 'breast_cancer_incidence',
+    dataTypeShortLabel: 'Breast cancer',
     definition: {
       text: 'The number of new cases of breast cancer diagnosed among women ages 50-74 within a specific time period.',
     },
@@ -121,15 +115,12 @@ export const BREAST_CANCER_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Surveyed Females',
   },
-]
-
-export const CERVICAL_CANCER_METRICS: DataTypeConfig[] = [
   {
     ageSubPopulationLabel: 'Ages 20-64',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for cervical cancer cases',
-    dataTypeId: 'cervical_cancer',
-    dataTypeShortLabel: 'Cervical Cancer Cases',
+    dataTypeId: 'cervical_cancer_incidence',
+    dataTypeShortLabel: 'Cervical cancer',
     definition: {
       text: 'The number of new cases of cervical cancer diagnosed among women ages 20-64 within a specific time period.',
     },
@@ -196,15 +187,12 @@ export const CERVICAL_CANCER_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Surveyed Females',
   },
-]
-
-export const COLORECTAL_CANCER_METRICS: DataTypeConfig[] = [
   {
     ageSubPopulationLabel: 'Ages 45-74',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for colorectal cancer cases',
-    dataTypeId: 'colorectal_cancer',
-    dataTypeShortLabel: 'Colorectal Cancer Cases',
+    dataTypeId: 'colorectal_cancer_incidence',
+    dataTypeShortLabel: 'Colorectal cancer',
     definition: {
       text: 'The number of new cases of colorectal cancer diagnosed among people ages 45-74 within a specific time period.',
     },
@@ -270,15 +258,12 @@ export const COLORECTAL_CANCER_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Surveyed Population',
   },
-]
-
-export const LUNG_CANCER_METRICS: DataTypeConfig[] = [
   {
     ageSubPopulationLabel: 'Ages 50-79',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for lung cancer cases',
-    dataTypeId: 'lung_cancer',
-    dataTypeShortLabel: 'Lung Cancer Cases',
+    dataTypeId: 'lung_cancer_incidence',
+    dataTypeShortLabel: 'Lung cancer',
     definition: {
       text: 'The number of new cases of lung cancer diagnosed among people ages 50-79 within a specific time period.',
     },
@@ -342,15 +327,12 @@ export const LUNG_CANCER_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Surveyed Population',
   },
-]
-
-export const PROSTATE_CANCER_METRICS: DataTypeConfig[] = [
   {
     ageSubPopulationLabel: 'Ages 55-69',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for prostate cancer cases',
-    dataTypeId: 'prostate_cancer',
-    dataTypeShortLabel: 'Prostate Cancer Cases',
+    dataTypeId: 'prostate_cancer_incidence',
+    dataTypeShortLabel: 'Prostate cancer',
     definition: {
       text: 'The number of new cases of prostate cancer diagnosed among men ages 55-69 within a specific time period.',
     },

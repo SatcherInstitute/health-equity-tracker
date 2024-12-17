@@ -1,4 +1,5 @@
 import { getDataManager } from '../../utils/globals'
+import type { DropdownVarId } from '../config/DropDownIds'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
@@ -8,51 +9,49 @@ import {
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
-export const CANCER_DATATYPES: DataTypeId[] = [
-  'breast_cancer',
-  'cervical_cancer',
-  'prostate_cancer',
-  'colorectal_cancer',
-  'lung_cancer',
+export const CDC_CANCER_CONDITIONS: DropdownVarId[] = ['cancer_incidence']
+
+export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
+  'breast_cancer_incidence',
+  'cervical_cancer_incidence',
+  'prostate_cancer_incidence',
 ]
 
-export const BREAST_CANCER_METRIC_IDS: MetricId[] = [
+export const CDC_CANCER_ALL_SEXES_DATATYPES: DataTypeId[] = [
+  'colorectal_cancer_incidence',
+  'lung_cancer_incidence',
+]
+
+export const CDC_CANCER_DATATYPES: DataTypeId[] = [
+  ...CDC_CANCER_SEX_SPECIFIC_DATATYPES,
+  ...CDC_CANCER_ALL_SEXES_DATATYPES,
+]
+
+export const CDC_CANCER_METRICS: MetricId[] = [
   'breast_per_100k',
   'breast_count_estimated_total',
   'breast_population_pct',
   'breast_population_estimated_total',
   'breast_pct_share',
   'breast_pct_relative_inequity',
-]
-
-export const CERVICAL_CANCER_METRIC_IDS: MetricId[] = [
   'cervical_per_100k',
   'cervical_count_estimated_total',
   'cervical_population_pct',
   'cervical_population_estimated_total',
   'cervical_pct_share',
   'cervical_pct_relative_inequity',
-]
-
-export const PROSTATE_CANCER_METRIC_IDS: MetricId[] = [
   'prostate_per_100k',
   'prostate_count_estimated_total',
   'prostate_population_pct',
   'prostate_population_estimated_total',
   'prostate_pct_share',
   'prostate_pct_relative_inequity',
-]
-
-export const COLORECTAL_CANCER_METRIC_IDS: MetricId[] = [
   'colorectal_per_100k',
   'colorectal_count_estimated_total',
   'colorectal_population_pct',
   'colorectal_population_estimated_total',
   'colorectal_pct_share',
   'colorectal_pct_relative_inequity',
-]
-
-export const LUNG_CANCER_METRIC_IDS: MetricId[] = [
   'lung_per_100k',
   'lung_count_estimated_total',
   'lung_population_pct',
@@ -61,17 +60,16 @@ export const LUNG_CANCER_METRIC_IDS: MetricId[] = [
   'lung_pct_relative_inequity',
 ]
 
-export const CANCER_METRICS = [
-  ...BREAST_CANCER_METRIC_IDS,
-  ...CERVICAL_CANCER_METRIC_IDS,
-  ...PROSTATE_CANCER_METRIC_IDS,
-  ...COLORECTAL_CANCER_METRIC_IDS,
-  ...LUNG_CANCER_METRIC_IDS,
+export const CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
+  [
+    'Sex',
+    "only available when comparing cancer incidence topics that aren't sex-specific",
+  ],
 ]
 
 class CdcCancerProvider extends VariableProvider {
   constructor() {
-    super('cdc_cancer_provider', CANCER_METRICS)
+    super('cdc_cancer_provider', CDC_CANCER_METRICS)
   }
 
   async getDataInternal(
@@ -83,9 +81,8 @@ class CdcCancerProvider extends VariableProvider {
         '',
         metricQuery,
       )
-
       if (!datasetId) {
-        return new MetricQueryResponse([], [])
+        throw new Error('DatasetId is undefined.')
       }
 
       const cancerData = await getDataManager().loadDataset(datasetId)

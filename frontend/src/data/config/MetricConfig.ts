@@ -9,13 +9,7 @@ import {
   SUBSTANCE_MISUSE_METRICS,
   SUICIDE_METRICS,
 } from './MetricConfigBehavioralHealth'
-import {
-  BREAST_CANCER_METRICS,
-  CERVICAL_CANCER_METRICS,
-  COLORECTAL_CANCER_METRICS,
-  LUNG_CANCER_METRICS,
-  PROSTATE_CANCER_METRICS,
-} from './MetricConfigCancer'
+import { CDC_CANCER_INCIDENCE_METRICS } from './MetricConfigCancer'
 import {
   ASTHMA_METRICS,
   CARDIOVASCULAR_DISEASES_METRICS,
@@ -96,9 +90,5 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
   maternal_mortality: MATERNAL_HEALTH_METRICS,
   cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
-  breast_cancer: BREAST_CANCER_METRICS,
-  cervical_cancer: CERVICAL_CANCER_METRICS,
-  prostate_cancer: PROSTATE_CANCER_METRICS,
-  colorectal_cancer: COLORECTAL_CANCER_METRICS,
-  lung_cancer: LUNG_CANCER_METRICS,
+  cancer_incidence: CDC_CANCER_INCIDENCE_METRICS,
 }

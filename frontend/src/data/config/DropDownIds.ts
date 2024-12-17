@@ -1,4 +1,5 @@
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from './MetricConfigBehavioralHealth'
+import { CDC_CANCER_CATEGORY_DROPDOWNIDS } from './MetricConfigCancer'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from './MetricConfigChronicDisease'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from './MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from './MetricConfigCovidCategory'
@@ -20,6 +21,7 @@ export const DROPDOWN_IDS = [
   ...COMMUNITY_SAFETY_DROPDOWNIDS,
   ...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
   ...CANCER_CATEGORY_DROPDOWNIDS,
+  ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
 ] as const
 
 export type DropdownVarId = (typeof DROPDOWN_IDS)[number]

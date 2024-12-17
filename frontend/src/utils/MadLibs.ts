@@ -141,6 +141,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   asthma: 'Asthma',
   avoided_care: 'Care Avoidance Due to Cost',
   cancer_screening: 'Cancer Screening',
+  cancer_incidence: 'Cancer',
   cardiovascular_diseases: 'Cardiovascular Diseases',
   chronic_kidney_disease: 'Chronic Kidney Disease',
   copd: 'COPD',
@@ -170,11 +171,6 @@ export const DROPDOWN_TOPIC_MAP: Record<
   suicide: 'Suicide',
   voter_participation: 'Voter Participation',
   women_in_gov: 'Women Serving in Legislative Office',
-  breast_cancer: 'Breast Cancer',
-  cervical_cancer: 'Cervical Cancer',
-  colorectal_cancer: 'Colorectal Cancer',
-  lung_cancer: 'Lung Cancer',
-  prostate_cancer: 'Prostate Cancer',
 }
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
@@ -226,11 +222,6 @@ const CATEGORIES_LIST: Category[] = [
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
-    title: 'Cancer',
-    definition: '',
-    options: CDC_CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
-  },
-  {
     title: 'COVID-19',
     definition: '',
     options: COVID_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
@@ -262,7 +253,10 @@ if (SHOW_CANCER_SCREENINGS) {
   CATEGORIES_LIST.push({
     title: 'Cancer',
     definition: '',
-    options: CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+    options: [
+      ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
+      ...CANCER_CATEGORY_DROPDOWNIDS,
+    ] as unknown as DropdownVarId[],
   })
 }
 
