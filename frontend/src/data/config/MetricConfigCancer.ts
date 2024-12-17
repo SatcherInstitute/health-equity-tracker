@@ -88,13 +88,6 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Breast cancer cases for women',
         columnTitleHeader: 'Breast cancer cases for women per 100k people',
         metricId: 'breast_per_100k',
-        rateComparisonMetricForAlls: {
-          chartTitle: 'Breast cancer cases for all women',
-          metricId: 'breast_per_100k',
-          shortLabel: 'All Women Ages 50-74',
-          timeSeriesCadence: 'yearly',
-          type: 'per100k',
-        },
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'breast_population_estimated_total',
@@ -159,13 +152,6 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Cervical cancer cases for women',
         columnTitleHeader: 'Cervical cancer cases for women per 100k people',
         metricId: 'cervical_per_100k',
-        rateComparisonMetricForAlls: {
-          chartTitle: 'Cervical cancer cases for all women',
-          metricId: 'cervical_per_100k',
-          shortLabel: 'All Women Ages 20-64',
-          timeSeriesCadence: 'yearly',
-          type: 'per100k',
-        },
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'cervical_population_estimated_total',
@@ -231,13 +217,6 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Colorectal cancer cases',
         columnTitleHeader: 'Colorectal cancer cases per 100k people',
         metricId: 'colorectal_per_100k',
-        rateComparisonMetricForAlls: {
-          chartTitle: 'Colorectal cancer cases',
-          metricId: 'colorectal_per_100k',
-          shortLabel: 'All Ages 45-74',
-          timeSeriesCadence: 'yearly',
-          type: 'per100k',
-        },
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'colorectal_population_estimated_total',
@@ -300,13 +279,6 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Lung cancer cases',
         columnTitleHeader: 'Lung cancer cases per 100k people',
         metricId: 'lung_per_100k',
-        rateComparisonMetricForAlls: {
-          chartTitle: 'Lung cancer cases',
-          metricId: 'lung_per_100k',
-          shortLabel: 'All Ages 50-79',
-          timeSeriesCadence: 'yearly',
-          type: 'per100k',
-        },
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'lung_population_estimated_total',
@@ -371,13 +343,6 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Prostate cancer cases for men',
         columnTitleHeader: 'Prostate cancer cases for men per 100k people',
         metricId: 'prostate_per_100k',
-        rateComparisonMetricForAlls: {
-          chartTitle: 'Prostate cancer cases for all men',
-          metricId: 'prostate_per_100k',
-          shortLabel: 'All Men Ages 55-69',
-          timeSeriesCadence: 'yearly',
-          type: 'per100k',
-        },
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'prostate_population_estimated_total',
