@@ -1,4 +1,4 @@
-import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 
 interface HetExpandableBoxButtonProps {
   expanded: boolean

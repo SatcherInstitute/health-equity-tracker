@@ -1,7 +1,7 @@
 import PhoneIcon from '@mui/icons-material/Phone'
-import { urlMap } from '../../utils/externalUrls'
-import HetNotice from '../../styles/HetComponents/HetNotice'
 import type { DataTypeId } from '../../data/config/MetricConfigTypes'
+import HetNotice from '../../styles/HetComponents/HetNotice'
+import { urlMap } from '../../utils/externalUrls'
 
 export const LIFELINE_IDS: DataTypeId[] = ['suicide', 'gun_violence_suicide']
 

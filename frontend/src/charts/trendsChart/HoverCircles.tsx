@@ -13,10 +13,10 @@
 import { getAmountsByDate } from './helpers'
 import type { TrendsData, YScale } from './types'
 
-/* Helpers */
-import { COLORS as C } from './constants'
 import type { DemographicGroup } from '../../data/utils/Constants'
 import { het } from '../../styles/DesignTokens'
+/* Helpers */
+import { COLORS as C } from './constants'
 
 /* Define type interface */
 interface HoverCirclesProps {

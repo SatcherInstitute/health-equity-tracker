@@ -1,7 +1,7 @@
 import Joyride from 'react-joyride'
-import { getOnboardingSteps } from './OnboardingSteps'
+import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
+import { getOnboardingSteps } from './OnboardingSteps'
 
 export default function Onboarding(props: {
   callback: (data: any) => void

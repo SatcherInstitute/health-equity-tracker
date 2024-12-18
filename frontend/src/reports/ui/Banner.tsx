@@ -1,10 +1,10 @@
-import type React from 'react'
-import { useState, useEffect } from 'react'
-import FlagIcon from '@mui/icons-material/Flag'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
-import { IconButton } from '@mui/material'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { Close } from '@mui/icons-material'
+import FlagIcon from '@mui/icons-material/Flag'
+import { IconButton } from '@mui/material'
+import type React from 'react'
+import { useEffect, useState } from 'react'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 const Banner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)

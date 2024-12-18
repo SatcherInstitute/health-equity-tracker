@@ -1,9 +1,9 @@
-import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
-import AppbarLogo from '../../assets/AppbarLogo.png'
-import { getHtml } from '../../utils/urlutils'
 import LazyLoad from 'react-lazyload'
-import { HetTags } from '../../styles/HetComponents/HetTags'
 import { Link } from 'react-router-dom'
+import AppbarLogo from '../../assets/AppbarLogo.png'
+import { HetTags } from '../../styles/HetComponents/HetTags'
+import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
+import { getHtml } from '../../utils/urlutils'
 import type { Article } from './ArticleTypes'
 
 interface NewsPreviewCardProps {

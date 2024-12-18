@@ -1,18 +1,18 @@
-import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import { Helmet } from 'react-helmet-async'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import Resources from '../methodologyComponents/Resources'
+import StripedTable from '../methodologyComponents/StripedTable'
 import {
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
 } from '../methodologyContent/ResourcesData'
-import Resources from '../methodologyComponents/Resources'
-import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { buildTopicsString } from './linkUtils'
 
 export const covidDataSources = [

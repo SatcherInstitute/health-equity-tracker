@@ -1,6 +1,6 @@
 import {
-  type AgeBucket,
   ALL,
+  type AgeBucket,
   type DemographicGroup,
   type RaceAndEthnicityGroup,
 } from '../utils/Constants'

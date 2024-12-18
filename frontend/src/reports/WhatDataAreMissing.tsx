@@ -1,23 +1,23 @@
-import { ABOUT_US_PAGE_LINK } from '../utils/internalRoutes'
-import { LinkWithStickyParams } from '../utils/urlutils'
-import {
-  MissingCovidData,
-  MissingCovidVaccinationData,
-  MissingCAWPData,
-  MissingHIVData,
-  MissingAHRData,
-  MissingPrepData,
-  MissingPhrmaData,
-  MissingIslandAreaPopulationData,
-  MissingWisqarsData,
-} from '../pages/Methodology/methodologyContent/missingDataBlurbs'
-import type { Fips } from '../data/utils/Fips'
-import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
-import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
-import HetTerm from '../styles/HetComponents/HetTerm'
+import type { DropdownVarId } from '../data/config/DropDownIds'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
+import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
+import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
+import type { Fips } from '../data/utils/Fips'
+import {
+  MissingAHRData,
+  MissingCAWPData,
+  MissingCovidData,
+  MissingCovidVaccinationData,
+  MissingHIVData,
+  MissingIslandAreaPopulationData,
+  MissingPhrmaData,
+  MissingPrepData,
+  MissingWisqarsData,
+} from '../pages/Methodology/methodologyContent/missingDataBlurbs'
+import HetTerm from '../styles/HetComponents/HetTerm'
+import { ABOUT_US_PAGE_LINK } from '../utils/internalRoutes'
+import { LinkWithStickyParams } from '../utils/urlutils'
 
 interface WhatDataAreMissingProps {
   metricConfigSubset: Array<[DropdownVarId, DataTypeConfig[]]>

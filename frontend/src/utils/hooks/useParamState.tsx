@@ -1,5 +1,5 @@
-import { locationAtom } from '../sharedSettingsState'
 import { useAtom, useAtomValue } from 'jotai'
+import { locationAtom } from '../sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,

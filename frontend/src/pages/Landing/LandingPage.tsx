@@ -6,8 +6,8 @@ import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
   ARTICLES_KEY_4,
-  fetchLandingPageNewsData,
   REACT_QUERY_OPTIONS,
+  fetchLandingPageNewsData,
 } from '../../utils/blogUtils'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'

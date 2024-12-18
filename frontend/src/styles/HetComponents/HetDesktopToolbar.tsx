@@ -1,11 +1,11 @@
+import { Menu, MenuItem, Toolbar } from '@mui/material'
 import { useState } from 'react'
-import { Toolbar, Menu, MenuItem } from '@mui/material'
 import AppBarLogo from '../../assets/AppbarLogo.png'
-import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
-import HetNavLink from './HetNavLink'
-import HetNavButton from './HetNavButton'
-import HetCTASmall from './HetCTASmall'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
+import HetCTASmall from './HetCTASmall'
+import HetNavButton from './HetNavButton'
+import HetNavLink from './HetNavLink'
 
 export default function HetAppToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)

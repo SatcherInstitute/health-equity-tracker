@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
 import DatasetList from '../policyComponents/DatasetList'
 import { datasets, gvDefinitions } from '../policyContent/DataCollectionContent'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 export default function DataCollectionTab() {
   return (

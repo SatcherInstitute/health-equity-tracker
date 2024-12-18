@@ -1,8 +1,8 @@
 import type { Config } from 'tailwindcss'
 import {
-  het,
   ThemeStandardScreenSizes,
   ThemeZIndexValues,
+  het,
 } from './src/styles/DesignTokens'
 
 export default {

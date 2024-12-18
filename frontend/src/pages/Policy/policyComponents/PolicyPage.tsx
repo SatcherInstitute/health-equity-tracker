@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async'
-import { policyRouteConfigs } from '../policyContent/policyRouteConfigs'
+import { Outlet, useLocation, useMatch } from 'react-router-dom'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
-import PolicyPagination from './PolicyPagination'
-import PolicyCardMenuMobile from './PolicyCardMenuMobile'
-import PolicyCardMenu from './PolicyCardMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { useMatch, useLocation, Outlet } from 'react-router-dom'
 import { useResponsiveWidth } from '../../../utils/hooks/useResponsiveWidth'
+import { policyRouteConfigs } from '../policyContent/policyRouteConfigs'
+import PolicyCardMenu from './PolicyCardMenu'
+import PolicyCardMenuMobile from './PolicyCardMenuMobile'
+import PolicyPagination from './PolicyPagination'
 
 export default function PolicyPage() {
   const location = useLocation()

@@ -1,10 +1,10 @@
-import type { Fips } from '../../data/utils/Fips'
-import { urlMap } from '../../utils/externalUrls'
-import type { MetricQueryResponse } from '../../data/query/MetricQuery'
-import type { HetRow } from '../../data/utils/DatasetTypes'
-import { ALL } from '../../data/utils/Constants'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { ALL } from '../../data/utils/Constants'
+import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { urlMap } from '../../utils/externalUrls'
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse

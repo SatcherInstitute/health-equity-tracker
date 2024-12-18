@@ -1,9 +1,9 @@
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { HetTags } from '../../styles/HetComponents/HetTags'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { reportMappings } from './DefaultHelperBoxData'
 import TogglePreview from './TogglePreview'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function DefaultHelperBox() {
   const isMobile = !useIsBreakpointAndUp('md')

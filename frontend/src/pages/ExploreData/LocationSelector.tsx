@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { Fips } from '../../data/utils/Fips'
-import { usePopover } from '../../utils/hooks/usePopover'
+import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
-import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
+import { usePopover } from '../../utils/hooks/usePopover'
 
 interface LocationSelectorProps {
   newValue: string // fips location name as string

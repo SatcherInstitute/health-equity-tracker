@@ -1,14 +1,14 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Paper,
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import type React from 'react'
 import { useState } from 'react'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 
 interface KeyTermsAccordionProps {
   definitionsArray: Array<{

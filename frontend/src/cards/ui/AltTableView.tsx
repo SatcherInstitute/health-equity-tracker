@@ -1,3 +1,4 @@
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import {
   Table,
   TableBody,
@@ -7,29 +8,28 @@ import {
   TableRow,
   Tooltip,
 } from '@mui/material'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import {
+  formatFieldValue,
+  isPctType,
+} from '../../data/config/MetricConfigUtils'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import {
-  type DemographicGroup,
-  TIME_PERIOD_LABEL,
   AGE,
   ALL,
+  type DemographicGroup,
+  TIME_PERIOD_LABEL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../../data/utils/DatasetTypes'
+import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
-import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
-import {
-  formatFieldValue,
-  isPctType,
-} from '../../data/config/MetricConfigUtils'
 
 interface AltTableViewProps {
   expanded: boolean

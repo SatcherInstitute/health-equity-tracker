@@ -15,17 +15,17 @@ import {
   raceNameToCodeMap,
 } from '../../data/utils/Constants'
 
+import { COLORS as C, FORMATTERS as F, TYPES } from './constants'
 /* Constants */
-import type { TrendsData, GroupData, TimeSeries, AxisConfig } from './types'
-import { TYPES, FORMATTERS as F, COLORS as C } from './constants'
+import type { AxisConfig, GroupData, TimeSeries, TrendsData } from './types'
 
 /* Helpers */
 import {
   getAmountsByDate,
+  getWidthHundredK,
+  getWidthPctShare,
   sortDataDescending,
   translateXPctShare,
-  getWidthPctShare,
-  getWidthHundredK,
 } from './helpers'
 
 /* Define type interface */

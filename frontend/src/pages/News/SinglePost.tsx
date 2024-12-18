@@ -1,26 +1,26 @@
 import { Skeleton } from '@mui/material'
-import { useState, useEffect } from 'react'
-import { getHtml } from '../../utils/urlutils'
-import {
-  fetchNewsData,
-  ARTICLES_KEY,
-  REACT_QUERY_OPTIONS,
-} from '../../utils/blogUtils'
-import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import hetLogo from '../../assets/AppbarLogo.png'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
-import { Link, useParams, useNavigate } from 'react-router-dom'
-import type { Article } from './ArticleTypes'
-import { HetOverline } from '../../styles/HetComponents/HetOverline'
-import { HetTags } from '../../styles/HetComponents/HetTags'
 import HetModal from '../../styles/HetComponents/HetModal'
+import { HetOverline } from '../../styles/HetComponents/HetOverline'
+import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
+import { HetTags } from '../../styles/HetComponents/HetTags'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import {
+  ARTICLES_KEY,
+  REACT_QUERY_OPTIONS,
+  fetchNewsData,
+} from '../../utils/blogUtils'
+import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
+import { getHtml } from '../../utils/urlutils'
+import type { Article } from './ArticleTypes'
 
 interface Tag {
   name: string

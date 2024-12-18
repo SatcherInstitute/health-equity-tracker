@@ -1,9 +1,9 @@
-import { Alert, AlertTitle, type AlertColor } from '@mui/material'
-import type { ReactNode } from 'react'
-import FlagIcon from '@mui/icons-material/Flag'
-import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined'
+import FlagIcon from '@mui/icons-material/Flag'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
+import { Alert, type AlertColor, AlertTitle } from '@mui/material'
+import type { ReactNode } from 'react'
 
 export type HetNoticeKind =
   | 'data-integrity'

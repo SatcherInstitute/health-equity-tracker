@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
-import { CATEGORIES_LIST } from '../../../utils/MadLibs'
-import { slugify } from '../../../utils/urlutils'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../../../data/config/DropDownIds'
+import { CATEGORIES_LIST } from '../../../utils/MadLibs'
+import { slugify } from '../../../utils/urlutils'
 
 export default function TopicDefinitionsLink() {
   return (

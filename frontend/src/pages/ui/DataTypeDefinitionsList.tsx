@@ -1,10 +1,10 @@
 import { useAtomValue } from 'jotai'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import InfoCitations from '../../reports/ui/InfoCitations'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
-import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import InfoCitations from '../../reports/ui/InfoCitations'
 
 export default function DataTypeDefinitionsList() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)

@@ -1,9 +1,9 @@
 import {
-  EXPLORE_DATA_PAGE_LINK,
-  TERMS_OF_USE_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
-  METHODOLOGY_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
   FULL_FAQS_LINK,
+  METHODOLOGY_PAGE_LINK,
+  TERMS_OF_USE_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import HetCopyright from './HetCopywright'
 import HetLinkButton from './HetLinkButton'

@@ -1,15 +1,15 @@
 import { Helmet } from 'react-helmet-async'
-import {
-  legislativeActions,
-  effortsAndInsights,
-} from '../policyContent/ReformOpportunitiesContent'
-import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
-import CardLeftIcon from '../policyComponents/CardLeftIcon'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import { urlMap } from '../../../utils/externalUrls'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import CardLeftIcon from '../policyComponents/CardLeftIcon'
+import {
+  effortsAndInsights,
+  legislativeActions,
+} from '../policyContent/ReformOpportunitiesContent'
 
 export default function ReformOpportunitiesTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')

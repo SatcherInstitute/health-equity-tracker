@@ -1,23 +1,23 @@
-import { Helmet } from 'react-helmet-async'
-import ResourceItem from '../policyComponents/ResourceItem'
 import {
+  AttachMoneyRounded,
+  Diversity3Rounded,
+  GavelRounded,
+  PsychologyRounded,
+  SchoolRounded,
+} from '@mui/icons-material'
+import { Helmet } from 'react-helmet-async'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
+import ResourceItem from '../policyComponents/ResourceItem'
+import ResourceSection from '../policyComponents/ResourceSection'
+import {
+  communityResources,
   economicResources,
   educationalResources,
   justiceResources,
   mentalHealthResources,
-  communityResources,
 } from '../policyContent/CurrentEffortsContent'
-import {
-  AttachMoneyRounded,
-  SchoolRounded,
-  GavelRounded,
-  PsychologyRounded,
-  Diversity3Rounded,
-} from '@mui/icons-material'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
-import ResourceSection from '../policyComponents/ResourceSection'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 
 export default function CurrentEffortsTab() {
   return (

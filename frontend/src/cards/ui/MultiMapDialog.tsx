@@ -1,6 +1,6 @@
-import { useState } from 'react'
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
+import { useState } from 'react'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Legend } from '../../charts/Legend'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
@@ -13,8 +13,8 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../../data/query/Breakdowns'
 import type {
   MetricQuery,

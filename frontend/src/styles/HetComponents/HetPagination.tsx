@@ -1,7 +1,7 @@
-import { useNavigate, useLocation } from 'react-router-dom'
-import HetPaginationButton from './HetPaginationButton'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { useLocation, useNavigate } from 'react-router-dom'
 import type { RouteConfig } from '../../pages/sharedTypes'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import HetPaginationButton from './HetPaginationButton'
 
 interface HetPaginationProps {
   routeConfigs: RouteConfig[]

@@ -1,4 +1,4 @@
-import { findRating, findColor } from './SviAlert'
+import { findColor, findRating } from './SviAlert'
 
 //Find Rating Unit Test
 describe('find rating', () => {

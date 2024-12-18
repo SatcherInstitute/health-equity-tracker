@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async'
+import LazyLoad from 'react-lazyload'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import {
-  youthFatalitiesFacts,
   homicideFacts,
   suicideFacts,
   urbanicityFacts,
+  youthFatalitiesFacts,
 } from '../policyContent/OurFindingsContent'
-import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import LazyLoad from 'react-lazyload'
 
 export default function OurFindingsTab() {
   return (

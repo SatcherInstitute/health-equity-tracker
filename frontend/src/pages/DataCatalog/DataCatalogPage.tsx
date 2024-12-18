@@ -1,15 +1,15 @@
-import DataSourceListing from './DataSourceListing'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import {
   type DataSourceId,
   dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
-import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
+import DataSourceListing from './DataSourceListing'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.

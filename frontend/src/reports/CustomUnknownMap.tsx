@@ -1,10 +1,10 @@
 import type React from 'react'
 import LazyLoad from 'react-lazyload'
-import { Fips } from '../data/utils/Fips'
-import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
-import { UNKNOWN_RACE } from '../data/utils/Constants'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { UNKNOWN_RACE } from '../data/utils/Constants'
+import { Fips } from '../data/utils/Fips'
 
 interface CustomUnknownMapProps {
   headerScrollMargin?: string

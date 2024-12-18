@@ -1,7 +1,7 @@
-import { FULL_FAQS_LINK } from '../../../utils/internalRoutes'
-import { faqMappings } from '../../FAQs/FaqsPageData'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import { FULL_FAQS_LINK } from '../../../utils/internalRoutes'
+import { faqMappings } from '../../FAQs/FaqsPageData'
 
 export default function FaqSection() {
   return (

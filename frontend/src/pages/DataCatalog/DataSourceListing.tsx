@@ -7,8 +7,8 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { useState } from 'react'
 import type {
-  DatasetMetadata,
   DataSourceMetadata,
+  DatasetMetadata,
   MapOfDatasetMetadata,
 } from '../../data/utils/DatasetTypes'
 import { getLogger } from '../../utils/globals'

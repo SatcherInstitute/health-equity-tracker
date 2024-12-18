@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import FaqSection from './wiheSections/FaqSection'
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import WIHECardMenu from './wiheComponents/WIHECardMenu'
 import { useScrollToAnchor } from '../../utils/hooks/useScrollToAnchor'
+import WIHECardMenu from './wiheComponents/WIHECardMenu'
 import ExternalResourcesTab from './wiheSections/ExternalResourcesTab'
+import FaqSection from './wiheSections/FaqSection'
 import GuidesTab from './wiheSections/GuidesTab'
 
 export default function WhatIsHealthEquityPage() {

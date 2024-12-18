@@ -1,12 +1,12 @@
-import { Button } from '@mui/material'
-import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import { Button } from '@mui/material'
 import { useAtomValue } from 'jotai'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import { useParamState } from '../../utils/hooks/useParamState'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
-import { useParamState } from '../../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 
 export default function TopicInfoModalButton() {

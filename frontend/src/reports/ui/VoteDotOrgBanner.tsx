@@ -1,7 +1,7 @@
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 export default function VoteDotOrgBanner() {
   const [_, setModalIsOpen] = useParamState(VOTE_DOT_ORG_PARAM_KEY)

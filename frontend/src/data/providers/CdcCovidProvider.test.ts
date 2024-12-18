@@ -1,18 +1,18 @@
-import CdcCovidProvider, { dropRecentPartialMonth } from './CdcCovidProvider'
-import { Breakdowns, type DemographicType } from '../query/Breakdowns'
-import { MetricQuery } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { DataFrame } from 'data-forge'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { CHATAM, NC, VI, USA } from './TestUtils'
-import { RACE, SEX, AGE } from '../utils/Constants'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
+import { MetricQuery } from '../query/MetricQuery'
+import { AGE, RACE, SEX } from '../utils/Constants'
+import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { DataFrame } from 'data-forge'
+import CdcCovidProvider, { dropRecentPartialMonth } from './CdcCovidProvider'
+import { CHATAM, NC, USA, VI } from './TestUtils'
 
 async function ensureCorrectDatasetsDownloaded(
   cdcDatasetId: DatasetId,

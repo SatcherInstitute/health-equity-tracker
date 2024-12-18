@@ -18,7 +18,7 @@ import {
   getMapGroupLabel,
 } from './mapHelperFunctions'
 
-import { describe, test, expect } from 'vitest'
+import { describe, expect, test } from 'vitest'
 
 describe('Test addCountsTooltipInfo()', () => {
   const phrmaCountColsMap: CountColsMap = {

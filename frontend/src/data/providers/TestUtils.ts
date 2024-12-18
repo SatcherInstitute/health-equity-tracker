@@ -1,14 +1,14 @@
-import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import type VariableProvider from './VariableProvider'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId } from '../config/MetricConfigTypes'
-import { excludeAll } from '../query/BreakdownFilter'
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
-import { USA_FIPS, USA_DISPLAY_NAME } from '../utils/ConstantsGeography'
+import type { MetricId } from '../config/MetricConfigTypes'
+import { excludeAll } from '../query/BreakdownFilter'
+import type { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { USA_DISPLAY_NAME, USA_FIPS } from '../utils/ConstantsGeography'
+import type VariableProvider from './VariableProvider'
 
 export interface FipsSpec {
   code: string

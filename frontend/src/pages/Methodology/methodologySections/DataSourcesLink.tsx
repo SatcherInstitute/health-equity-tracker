@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 export default function DataSourcesLink() {
   return (

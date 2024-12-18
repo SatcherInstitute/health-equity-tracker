@@ -1,13 +1,13 @@
-import { styled } from '@mui/material/styles'
 import {
+  Paper,
   Table,
+  TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  TableBody,
 } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { het } from '../../../styles/DesignTokens'
 
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({

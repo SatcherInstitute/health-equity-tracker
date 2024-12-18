@@ -1,13 +1,13 @@
+import { Helmet } from 'react-helmet-async'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
 export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]

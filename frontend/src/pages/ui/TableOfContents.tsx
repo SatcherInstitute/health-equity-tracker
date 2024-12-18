@@ -1,10 +1,10 @@
 import { Step, StepButton, Stepper } from '@mui/material'
-import {
-  useStepObserver,
-  type ScrollableHashId,
-} from '../../utils/hooks/useStepObserver'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
+import {
+  type ScrollableHashId,
+  useStepObserver,
+} from '../../utils/hooks/useStepObserver'
 
 interface TableOfContentsProps {
   reportStepHashIds: ScrollableHashId[]

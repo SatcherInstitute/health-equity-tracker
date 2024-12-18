@@ -1,18 +1,18 @@
 import { Helmet } from 'react-helmet-async'
-import GoalListItem from './GoalListItem'
 import LazyLoad from 'react-lazyload'
-import {
-  LEADERSHIP_TEAM,
-  HET_ALUMNI,
-  GOOGLE_FELLOWS,
-  HE_TASKFORCE,
-  PARTNERS,
-  GRANTORS,
-  HET_DEV_PROGRAM,
-} from './OurTeamData'
-import { urlMap } from '../../utils/externalUrls'
 import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
 import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
+import { urlMap } from '../../utils/externalUrls'
+import GoalListItem from './GoalListItem'
+import {
+  GOOGLE_FELLOWS,
+  GRANTORS,
+  HET_ALUMNI,
+  HET_DEV_PROGRAM,
+  HE_TASKFORCE,
+  LEADERSHIP_TEAM,
+  PARTNERS,
+} from './OurTeamData'
 
 export default function AboutUsPage() {
   return (

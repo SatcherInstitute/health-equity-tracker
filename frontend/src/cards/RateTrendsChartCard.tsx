@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { TrendsChart } from '../charts/trendsChart/Index'
+import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import type { AxisConfig } from '../charts/trendsChart/types'
 import { generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
@@ -25,17 +25,17 @@ import {
   getNestedUnknowns,
 } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
+import UnknownPctRateGradient from './UnknownPctRateGradient'
 import AltTableView from './ui/AltTableView'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
-import UnknownPctRateGradient from './UnknownPctRateGradient'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668

@@ -40,17 +40,17 @@ import {
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { getExtremeValues } from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
+import { getExtremeValues } from '../data/utils/datasetutils'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
+import type { MadLibId } from '../utils/MadLibs'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 import {
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,

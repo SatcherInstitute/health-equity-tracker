@@ -1,9 +1,9 @@
 import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
-  isValidDatasetId,
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
+  isValidDatasetId,
 } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DemographicGroup } from '../utils/Constants'

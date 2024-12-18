@@ -4,8 +4,8 @@ import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../../utils/externalUrls'
 import {
   ethnicityDefinitions,
-  raceDefinitions,
   moreNonStandardDefinitions,
+  raceDefinitions,
 } from '../methodologyContent/RacesAndEthnicitiesDefinitions'
 import RaceEthnicityList from './RacesEthnicitiesList'
 

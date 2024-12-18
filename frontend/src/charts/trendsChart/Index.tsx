@@ -7,40 +7,40 @@
  * returns jsx of a div encapsulating a div containing legend items which can be used to filter and and svg with data visualization
  */
 
+import { bisector, extent, max, min, scaleLinear, scaleTime } from 'd3'
 /* External Imports */
 import type React from 'react'
-import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
-import { scaleTime, scaleLinear, extent, min, max, bisector } from 'd3'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 /* Local Imports */
 
-/* Components */
-import { FilterLegend } from './FilterLegend'
-import { LineChart } from './LineChart'
 import { Axes } from './Axes'
 import { CircleChart } from './CircleChart'
-import { TrendsTooltip } from './TrendsTooltip'
+/* Components */
+import { FilterLegend } from './FilterLegend'
 import { HoverCircles } from './HoverCircles'
+import { LineChart } from './LineChart'
+import { TrendsTooltip } from './TrendsTooltip'
 
 /* Constants */
-import { CONFIG, BASELINE_THRESHOLD_Y_AXIS_ZERO } from './constants'
-import type { UnknownData, TrendsData, AxisConfig } from './types'
+import { BASELINE_THRESHOLD_Y_AXIS_ZERO, CONFIG } from './constants'
+import type { AxisConfig, TrendsData, UnknownData } from './types'
 
+import ChartTitle from '../../cards/ChartTitle'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicGroup } from '../../data/utils/Constants'
+import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
+import useEscape from '../../utils/hooks/useEscape'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import { X_AXIS_MAX_TICKS } from '../utils'
 /* Helpers */
 import {
   filterDataByGroup,
+  filterUnknownsByTimePeriod,
   getAmounts,
   getDates,
-  filterUnknownsByTimePeriod,
 } from './helpers'
-import type { DemographicType } from '../../data/query/Breakdowns'
-import useEscape from '../../utils/hooks/useEscape'
-import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
-import type { DemographicGroup } from '../../data/utils/Constants'
-import ChartTitle from '../../cards/ChartTitle'
-import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { X_AXIS_MAX_TICKS } from '../utils'
 
 /* Define type interface */
 export interface TrendsChartProps {

@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
+import HetCTABig from '../../../styles/HetComponents/HetCTABig'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
   AGE_ADJUST_HIV_DEATHS_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from '../../../utils/internalRoutes'
-import { Link } from 'react-router-dom'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import Resources from '../methodologyComponents/Resources'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import HetCTABig from '../../../styles/HetComponents/HetCTABig'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
-import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 import { termDefinitions } from '../methodologyContent/TermDefinitions'
 

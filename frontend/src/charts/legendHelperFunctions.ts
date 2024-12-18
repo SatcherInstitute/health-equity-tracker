@@ -1,18 +1,18 @@
-import type { ScaleType, Legend } from 'vega'
+import type { Legend, ScaleType } from 'vega'
+import type { MetricId } from '../data/config/MetricConfigTypes'
 import {
   COLOR_SCALE,
   DATASET_VALUES,
   DOT_SIZE_SCALE,
   LEGEND_SYMBOL_TYPE,
+  LEGEND_TEXT_FONT,
   NON_ZERO_DATASET_VALUES,
+  PHRMA_ADHERENCE_BREAKPOINTS,
   SUMMARY_SCALE,
   type StackingDirection,
   ZERO_DOT_SCALE,
   ZERO_SCALE,
-  PHRMA_ADHERENCE_BREAKPOINTS,
-  LEGEND_TEXT_FONT,
 } from './mapGlobals'
-import type { MetricId } from '../data/config/MetricConfigTypes'
 
 export function setupZeroLegend(
   legendBucketLabel: string,

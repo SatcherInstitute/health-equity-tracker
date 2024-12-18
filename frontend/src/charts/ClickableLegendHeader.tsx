@@ -1,8 +1,8 @@
-import { Button, Tooltip } from '@mui/material'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import { Button, Tooltip } from '@mui/material'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { useParamState } from '../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../utils/urlutils'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 
 interface ClickableLegendHeaderProps {
   legendTitle: string

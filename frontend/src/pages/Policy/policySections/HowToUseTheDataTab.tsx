@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
-import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 
 export default function HowToUseTheDataTab() {
   return (

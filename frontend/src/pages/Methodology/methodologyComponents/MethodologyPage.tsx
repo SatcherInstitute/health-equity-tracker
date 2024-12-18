@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async'
-import MethodologyCardMenu from './MethodologyCardMenu'
-import MethodologyPagination from './MethodologyPagination'
-import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
-import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import { Outlet, useLocation, useMatch } from 'react-router-dom'
+import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import methodologyRouteConfigs from '../methodologyContent/methodologyRouteConfigs'
+import MethodologyCardMenu from './MethodologyCardMenu'
+import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
+import MethodologyPagination from './MethodologyPagination'
 
 export default function MethodologyPage() {
   const location = useLocation()

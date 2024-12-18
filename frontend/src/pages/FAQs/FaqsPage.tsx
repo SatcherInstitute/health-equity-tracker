@@ -1,10 +1,10 @@
 import { Helmet } from 'react-helmet-async'
+import FaqGroup from './FaqGroup'
 import {
   dataFaqGroup,
   definitionsFaqGroup,
   methodsFaqGroup,
 } from './FaqsPageData'
-import FaqGroup from './FaqGroup'
 
 export default function FaqsPage() {
   return (

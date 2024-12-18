@@ -1,4 +1,4 @@
-import { USA_FIPS, USA_DISPLAY_NAME } from './ConstantsGeography'
+import { USA_DISPLAY_NAME, USA_FIPS } from './ConstantsGeography'
 
 export const STATE_FIPS_MAP: Record<string, string> = {
   [USA_FIPS]: USA_DISPLAY_NAME,

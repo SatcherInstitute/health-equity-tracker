@@ -1,24 +1,24 @@
 import { getDataManager } from '../../utils/globals'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import VariableProvider from './VariableProvider'
 import {
-  UNKNOWN_RACE,
   HISPANIC,
+  HISP_W,
   MULTI,
-  UNREPRESENTED,
-  type RaceAndEthnicityGroup,
-  OTHER_W,
   MULTI_W,
   OTHER_STANDARD,
+  OTHER_W,
+  type RaceAndEthnicityGroup,
+  UNKNOWN_RACE,
   UNKNOWN_W,
-  HISP_W,
+  UNREPRESENTED,
 } from '../utils/Constants'
-import type { DatasetId } from '../config/DatasetMetadata'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
+import VariableProvider from './VariableProvider'
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',

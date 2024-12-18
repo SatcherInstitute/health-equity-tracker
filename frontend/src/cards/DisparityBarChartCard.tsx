@@ -19,11 +19,11 @@ import {
   RACE,
   SEX,
 } from '../data/utils/Constants'
+import type { Fips } from '../data/utils/Fips'
 import {
   shouldShowAltPopCompare,
   splitIntoKnownsAndUnknowns,
 } from '../data/utils/datasetutils'
-import type { Fips } from '../data/utils/Fips'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'

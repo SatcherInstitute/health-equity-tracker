@@ -1,17 +1,17 @@
+import { Tooltip } from '@mui/material'
 import {
+  EmailIcon,
   EmailShareButton,
+  FacebookIcon,
   FacebookShareButton,
+  LinkedinIcon,
   LinkedinShareButton,
   TwitterShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
   XIcon,
 } from 'react-share'
-import { Tooltip } from '@mui/material'
-import { getHtml } from '../../utils/urlutils'
-import { het } from '../../styles/DesignTokens'
 import type { Article } from '../../pages/News/ArticleTypes'
+import { het } from '../../styles/DesignTokens'
+import { getHtml } from '../../utils/urlutils'
 
 export const SHARE_LABEL = 'Share this report:'
 

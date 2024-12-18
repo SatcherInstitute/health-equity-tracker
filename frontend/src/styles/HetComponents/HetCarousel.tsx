@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import Button from '@mui/material/Button'
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import Button from '@mui/material/Button'
+import { useEffect, useState } from 'react'
 
 interface HetCarouselProps {
   items: any[]

@@ -1,9 +1,9 @@
-import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
+import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 
 export default function MetricsLink() {
   return (

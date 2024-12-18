@@ -1,7 +1,7 @@
 import FlagIcon from '@mui/icons-material/Flag'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { HashLink } from 'react-router-hash-link'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 interface DisclaimerAlertProps {
   className?: string

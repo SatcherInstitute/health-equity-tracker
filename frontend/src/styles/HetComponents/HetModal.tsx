@@ -1,6 +1,6 @@
-import type React from 'react'
-import { Dialog, DialogContent, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { Dialog, DialogContent, IconButton } from '@mui/material'
+import type React from 'react'
 
 interface HetModalProps {
   open: boolean

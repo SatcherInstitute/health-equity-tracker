@@ -1,5 +1,5 @@
-import { GOOGLE_FELLOWS, PARTNERS } from './OurTeamData'
 import { getTestableUrls } from '../../utils/externalUrls.test'
+import { GOOGLE_FELLOWS, PARTNERS } from './OurTeamData'
 
 // Collect all OurTeam URLS
 const allUrls: string[] = []

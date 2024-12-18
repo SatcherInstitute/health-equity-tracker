@@ -1,39 +1,43 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Vega } from 'react-vega'
-import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
-import type { Fips } from '../data/utils/Fips'
-import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
-import type { HetRow, FieldRange } from '../data/utils/DatasetTypes'
-import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import type { Legend } from 'vega'
-import type { DemographicGroup } from '../data/utils/Constants'
+import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
+import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
+import { isPctType } from '../data/config/MetricConfigUtils'
+import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import type { DemographicType } from '../data/query/Breakdowns'
+import type { DemographicGroup } from '../data/utils/Constants'
+import type { FieldRange, HetRow } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
+import { het } from '../styles/DesignTokens'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import { setupUnknownsLegend } from './legendHelperFunctions'
 import {
-  DATA_SUPPRESSED,
-  VAR_DATASET,
-  type HighestLowest,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
+  type CountColsMap,
+  DATA_SUPPRESSED,
   GEO_DATASET,
   GREY_DOT_SCALE_SPEC,
+  type HighestLowest,
+  INVISIBLE_PRELOAD_WIDTH,
   LEGEND_DATASET,
   MISSING_DATASET,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
+  PHRMA_COLOR_SCALE_SPEC,
   RATE_MAP_SCALE,
   UNKNOWNS_MAP_SCALE,
   UNKNOWN_SCALE_SPEC,
   VALID_DATASET,
+  VAR_DATASET,
+  ZERO_DARK_SCALE,
   ZERO_DATASET,
   ZERO_DOT_SCALE_SPEC,
-  ZERO_VAR_DATASET,
-  INVISIBLE_PRELOAD_WIDTH,
-  type CountColsMap,
-  PHRMA_COLOR_SCALE_SPEC,
-  ZERO_DARK_SCALE,
   ZERO_LIGHT_SCALE,
+  ZERO_VAR_DATASET,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -49,10 +53,6 @@ import {
   makeAltText,
   setupColorScale,
 } from './mapHelperFunctions'
-import { setupUnknownsLegend } from './legendHelperFunctions'
-import { het } from '../styles/DesignTokens'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import { isPctType } from '../data/config/MetricConfigUtils'
 import { HEIGHT_WIDTH_RATIO } from './utils'
 
 const {

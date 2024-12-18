@@ -1,16 +1,16 @@
 import type { DatasetMetadata } from '../utils/DatasetTypes'
 import type { StateFipsCode } from '../utils/FipsData'
 import {
-  DatasetMetadataMapCommunitySafetyCategory,
   type DatasetIdCommunitySafetyCategory,
+  DatasetMetadataMapCommunitySafetyCategory,
 } from './DatasetMetadataCommunitySafetyCategory'
 import {
-  DatasetMetadataMapHivCategory,
   type DatasetIdHivCategory,
+  DatasetMetadataMapHivCategory,
 } from './DatasetMetadataHivCategory'
 import {
-  DatasetMetadataMapMaternalHealthCategory,
   type DatasetIdMaternalHealthCategory,
+  DatasetMetadataMapMaternalHealthCategory,
 } from './DatasetMetadataMaternalHealthCategory'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 

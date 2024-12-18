@@ -1,6 +1,6 @@
-import HetReturnToTop from './styles/HetComponents/HetReturnToTop'
-import HetLogos from './styles/HetComponents/HetLogos'
 import HetFooterNav from './styles/HetComponents/HetFooterNav'
+import HetLogos from './styles/HetComponents/HetLogos'
+import HetReturnToTop from './styles/HetComponents/HetReturnToTop'
 
 export default function Footer() {
   return (

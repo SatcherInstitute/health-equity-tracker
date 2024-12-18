@@ -1,38 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Vega, type VisualizationSpec } from 'react-vega'
+import type { Legend as LegendType, Scale, View } from 'vega'
 import type {
   DataTypeConfig,
-  MetricConfig,
   MapConfig,
+  MetricConfig,
 } from '../data/config/MetricConfigTypes'
-import type { FieldRange } from '../data/utils/DatasetTypes'
-import type { View, Legend as LegendType, Scale } from 'vega'
-import type { GeographicBreakdown } from '../data/query/Breakdowns'
+import { isPctType } from '../data/config/MetricConfigUtils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
+import type { GeographicBreakdown } from '../data/query/Breakdowns'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
-import {
-  COLOR_SCALE,
-  DATASET_VALUES,
-  DEFAULT_LEGEND_COLOR_COUNT,
-  EQUAL_DOT_SIZE,
-  GREY_DOT_SCALE,
-  MISSING_PLACEHOLDER_VALUES,
-  NON_ZERO_DATASET_VALUES,
-  NO_DATA_MESSAGE,
-  RAW_VALUES,
-  SUMMARY_SCALE,
-  SUMMARY_VALUE,
-  type ScaleType,
-  UNKNOWN_SCALE,
-  ZERO_BUCKET_LABEL,
-  ZERO_DOT_SCALE,
-  ZERO_SCALE,
-  ZERO_VALUES,
-  ORDINAL,
-  PHRMA_COLOR_SCALE_SPEC,
-  UNKNOWN_LEGEND_SPEC,
-  type StackingDirection,
-} from './mapGlobals'
+import type { FieldRange } from '../data/utils/DatasetTypes'
+import { het } from '../styles/DesignTokens'
 import ClickableLegendHeader from './ClickableLegendHeader'
 import {
   type LegendNumberFormat,
@@ -43,8 +22,29 @@ import {
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
-import { het } from '../styles/DesignTokens'
-import { isPctType } from '../data/config/MetricConfigUtils'
+import {
+  COLOR_SCALE,
+  DATASET_VALUES,
+  DEFAULT_LEGEND_COLOR_COUNT,
+  EQUAL_DOT_SIZE,
+  GREY_DOT_SCALE,
+  MISSING_PLACEHOLDER_VALUES,
+  NON_ZERO_DATASET_VALUES,
+  NO_DATA_MESSAGE,
+  ORDINAL,
+  PHRMA_COLOR_SCALE_SPEC,
+  RAW_VALUES,
+  SUMMARY_SCALE,
+  SUMMARY_VALUE,
+  type ScaleType,
+  type StackingDirection,
+  UNKNOWN_LEGEND_SPEC,
+  UNKNOWN_SCALE,
+  ZERO_BUCKET_LABEL,
+  ZERO_DOT_SCALE,
+  ZERO_SCALE,
+  ZERO_VALUES,
+} from './mapGlobals'
 
 /*
    Legend renders a vega chart that just contains a legend.

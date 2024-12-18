@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({
   page,

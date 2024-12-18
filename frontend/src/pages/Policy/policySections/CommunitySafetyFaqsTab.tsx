@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
-import { communitySafetyFaqs } from '../policyContent/CommunitySafetyFaqsContent'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
+import { communitySafetyFaqs } from '../policyContent/CommunitySafetyFaqsContent'
 
 export default function CommunitySafetyFaqsTab() {
   return (

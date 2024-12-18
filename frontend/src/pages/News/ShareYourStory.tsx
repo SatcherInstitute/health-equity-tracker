@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
-import { submissionGuidelines } from './ShareYourStoryContent'
+import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import CardLeftNumber from './CardLeftNumber'
-import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
+import { submissionGuidelines } from './ShareYourStoryContent'
 
 export default function ShareYourStory() {
   const isMdAndUp = useIsBreakpointAndUp('md')
