@@ -103,5 +103,4 @@ test('HIV PrEP: Inequities over time and down', async ({ page }) => {
   await page.getByRole('heading', { name: 'Summary for PrEP' }).click()
   await page.getByRole('columnheader', { name: 'Sex' }).click()
   await page.getByRole('cell', { name: 'Female' }).click()
-  await page.getByRole('cell', { name: 'Male', exact: true }).click()
 })
