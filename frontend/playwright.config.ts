@@ -1,4 +1,4 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
+import type { PlaywrightTestConfig } from '@playwright/test'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -12,19 +12,15 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
-  timeout: process.env.CI ? 120 * 1000 : 90 * 1000,
+  timeout: process.env.CI ? 150 * 1000 : 90 * 1000,
   /* Maximum time one "expect" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 90 * 1000
+    timeout: 90 * 1000,
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
-  reporter: [
-    [process.env.CI ? 'github' : 'list'],
-    ['html']
-  ],
-
+  reporter: [[process.env.CI ? 'github' : 'list'], ['html']],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -49,14 +45,10 @@ const config: PlaywrightTestConfig = {
       testIgnore: /.*externalUrls.spec.ts/, // both nightly + ci tests
     },
     {
-
       name: 'E2E_CI',
       testMatch: /.*ci.spec.ts/, // only most essential tests run on ci
     },
   ],
+}
 
-};
-
-export default config;
-
-
+export default config

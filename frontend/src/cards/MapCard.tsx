@@ -482,7 +482,7 @@ function MapCardWithKey(props: MapCardProps) {
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
-              <div className='pb-1 pt-0 text-left hide-on-screenshot remove-height-on-screenshot'>
+              <div className='hide-on-screenshot remove-height-on-screenshot pt-0 pb-1 text-left'>
                 <DemographicGroupMenu
                   idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                   demographicType={demographicType}
