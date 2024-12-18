@@ -10,7 +10,6 @@
 
 /* External Imports */
 
-/* Constants */
 import type { DemographicType } from '../../data/query/Breakdowns'
 import {
   AGE,
@@ -21,6 +20,7 @@ import {
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import { het } from '../../styles/DesignTokens'
 import { COLORS as C } from './constants'
+/* Constants */
 import type { TrendsData } from './types'
 
 /* Define type interface */
@@ -100,7 +100,9 @@ export function FilterLegend({
       {/* Legend Items Wrapper */}
       <menu
         aria-labelledby={legendId}
-        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'} `}
+        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${
+          isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
+        } `}
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {

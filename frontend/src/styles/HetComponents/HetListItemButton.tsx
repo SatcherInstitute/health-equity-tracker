@@ -28,7 +28,6 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}
-      component={'li'}
       role='menuitem'
     >
       <span
