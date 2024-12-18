@@ -25,6 +25,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"nursery": {
+				"useSortedClasses": "info"
+			},
 			"a11y": {
 				"useSemanticElements": "info"
 			},
