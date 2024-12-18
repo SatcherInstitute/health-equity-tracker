@@ -13,6 +13,11 @@ import {
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
 import {
+  CDC_CANCER_ALL_SEXES_DATATYPES,
+  CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
+  CDC_CANCER_SEX_SPECIFIC_DATATYPES,
+} from '../data/providers/CdcCancerProvider'
+import {
   BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
   BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY,
 } from '../data/providers/GunDeathsBlackMenProvider'
@@ -57,6 +62,11 @@ const ONLY_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 const ONLY_SEX_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   'Race/Ethnicity': 'race_and_ethnicity',
   'Sex at Birth': 'sex',
+}
+
+const ONLY_RACE_AGE_MAP: Partial<Record<string, DemographicType>> = {
+  'Race/ethnicity': 'race_and_ethnicity',
+  Age: 'age',
 }
 
 const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
@@ -157,6 +167,31 @@ export function getAllDemographicOptions(
       ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
+
+  // CDC CANCER SEX SPECIFIC CANCERS (ENABLED OPTIONS WHEN ALL REPORTS ARE SEX SPECIFIC CDC CANCER)
+  if (
+    configsContainsMatchingId(configs, CDC_CANCER_SEX_SPECIFIC_DATATYPES, true)
+  )
+    enabledDemographicOptionsMap = ONLY_RACE_AGE_MAP
+
+  // CDC CANCER (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS CDC CANCER)
+  const exactlyOneReportIsCdcCancerSexSpecific =
+    dataTypeConfig1?.dataTypeId &&
+    dataTypeConfig2?.dataTypeId &&
+    Boolean(
+      CDC_CANCER_SEX_SPECIFIC_DATATYPES.includes(dataTypeConfig1.dataTypeId),
+    ) !==
+      Boolean(
+        CDC_CANCER_SEX_SPECIFIC_DATATYPES.includes(dataTypeConfig2.dataTypeId),
+      )
+  exactlyOneReportIsCdcCancerSexSpecific &&
+    disabledDemographicOptionsWithRepeats.push(
+      ...CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
+    )
+
+  // CDC CANCER ALL SEXES (ENABLED OPTIONS WHEN ALL REPORTS ARE ALL SEXES CDC CANCER)
+  if (configsContainsMatchingId(configs, CDC_CANCER_ALL_SEXES_DATATYPES, true))
+    enabledDemographicOptionsMap = DEMOGRAPHIC_TYPES_MAP
 
   // SELECT AHR CONDITIONS
   if (

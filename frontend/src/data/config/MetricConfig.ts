@@ -1,20 +1,27 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
+import type { DropdownVarId } from './DropDownIds'
 import {
   DEPRESSION_METRICS,
   EXCESSIVE_DRINKING_METRICS,
-  SUBSTANCE_MISUSE_METRICS,
   FREQUENT_MENTAL_DISTRESS_METRICS,
+  SUBSTANCE_MISUSE_METRICS,
   SUICIDE_METRICS,
 } from './MetricConfigBehavioralHealth'
+import { CDC_CANCER_INCIDENCE_METRICS } from './MetricConfigCancer'
 import {
   ASTHMA_METRICS,
   CARDIOVASCULAR_DISEASES_METRICS,
   CHRONIC_KIDNEY_DISEASE_METRICS,
-  DIABETES_METRICS,
   COPD_METRICS,
+  DIABETES_METRICS,
 } from './MetricConfigChronicDisease'
+import {
+  GUN_DEATHS_BLACK_MEN_METRICS,
+  GUN_VIOLENCE_METRICS,
+  GUN_VIOLENCE_YOUTH_METRICS,
+} from './MetricConfigCommunitySafety'
 import {
   COVID_DISEASE_METRICS,
   COVID_VACCINATION_METRICS,
@@ -26,10 +33,11 @@ import {
   HIV_PREP_METRICS,
   HIV_STIGMA_METRICS,
 } from './MetricConfigHivCategory'
+import { MATERNAL_HEALTH_METRICS } from './MetricConfigMaternalHealth'
 import {
+  INCARCERATION_METRICS,
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,
-  INCARCERATION_METRICS,
 } from './MetricConfigPDOH'
 import {
   PHRMA_CARDIOVASCULAR_METRICS,
@@ -38,19 +46,12 @@ import {
 } from './MetricConfigPhrma'
 import { PHRMA_BRFSS_CANCER_SCREENING_METRICS } from './MetricConfigPhrmaBrfss'
 import {
-  UNINSURANCE_METRICS,
-  POVERTY_METRICS,
   CARE_AVOIDANCE_METRICS,
+  POVERTY_METRICS,
   PREVENTABLE_HOSP_METRICS,
+  UNINSURANCE_METRICS,
 } from './MetricConfigSDOH'
-import {
-  GUN_DEATHS_BLACK_MEN_METRICS,
-  GUN_VIOLENCE_METRICS,
-  GUN_VIOLENCE_YOUTH_METRICS,
-} from './MetricConfigCommunitySafety'
-import { MATERNAL_HEALTH_METRICS } from './MetricConfigMaternalHealth'
 import type { DataTypeConfig } from './MetricConfigTypes'
-import type { DropdownVarId } from './DropDownIds'
 
 // TODO: count and pct_share metric types should require populationComparisonMetric
 // Note: metrics must be declared in a consistent order because the UI relies
@@ -89,4 +90,5 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
   maternal_mortality: MATERNAL_HEALTH_METRICS,
   cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
+  cancer_incidence: CDC_CANCER_INCIDENCE_METRICS,
 }
