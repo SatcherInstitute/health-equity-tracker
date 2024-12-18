@@ -58,12 +58,12 @@ export default function DataCatalogPage() {
       </Helmet>
       <section
         id='main-content'
-        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-16 md:px-24 lg:px-56 mx-auto'
+        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-16 py-16 md:px-24 lg:px-56'
       >
         <h1
           id='main'
           tabIndex={-1}
-          className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           Data Downloads
         </h1>
@@ -76,7 +76,7 @@ export default function DataCatalogPage() {
         </p>
 
         <HetCTASmall
-          className='w-fit mx-auto font-extrabold'
+          className='mx-auto w-fit font-extrabold'
           href={EXPLORE_DATA_PAGE_LINK}
         >
           Explore the data dashboard

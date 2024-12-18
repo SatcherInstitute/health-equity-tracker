@@ -3,7 +3,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   type DemographicType,
 } from '../../data/query/Breakdowns'
-import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetListBoxOption from '../../styles/HetComponents/HetListBoxOption'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 import { useParamState } from '../../utils/hooks/useParamState'
@@ -37,26 +37,25 @@ export default function DemographicSelector(props: DemographicSelectorProps) {
         <HetPopover popover={popover}>
           {/* Demographic Dropdown */}
           <>
-            <menu className='m-3 flex p-5'>
-              <ul className='m-0 pl-0'>
+            <div className='m-3 flex p-5'>
+              <menu className='m-0 pl-0'>
                 {props.options.map((item: string[]) => {
                   const [optionId, optionDisplayName] = item
                   return (
-                    <HetListItemButton
+                    <HetListBoxOption
                       key={optionId}
                       selected={optionId === props.newValue}
                       onClick={() => {
                         popover.close()
                         setDemographicType(optionId as DemographicType)
                       }}
-                      option='topicOption'
                     >
                       {optionDisplayName}
-                    </HetListItemButton>
+                    </HetListBoxOption>
                   )
                 })}
-              </ul>
-            </menu>
+              </menu>
+            </div>
           </>
         </HetPopover>
       </span>

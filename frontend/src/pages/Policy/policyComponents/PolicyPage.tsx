@@ -29,19 +29,19 @@ export default function PolicyPage() {
 
       <section
         ref={ref}
-        className='flex w-svw justify-center text-left max-w-lgXl mx-auto'
+        className='mx-auto flex w-svw max-w-lgXl justify-center text-left'
         aria-labelledby='page-heading'
       >
-        <div className='smMd:m-5 max-w-lgXl w-svw flex flex-col grow smMd:flex-row'>
+        <div className='flex w-svw max-w-lgXl grow flex-col smMd:m-5 smMd:flex-row'>
           <h2 className='sr-only'>Gun Violence Policy Context Page</h2>
 
-          <div className='min-w-fit w-fit max-w-screen'>
+          <div className='w-fit min-w-fit max-w-screen'>
             <PolicyCardMenu />
             <PolicyCardMenuMobile />
           </div>
-          <div className='flex grow smMd:flex-col xs:block'>
+          <div className='xs:block flex grow smMd:flex-col'>
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
-            <div className='md:hidden px-8'>
+            <div className='px-8 md:hidden'>
               {policyRouteConfigs.map((routeConfig) => {
                 const match = useMatch({
                   path: routeConfig.path,
@@ -58,9 +58,9 @@ export default function PolicyPage() {
               })}
             </div>
 
-            <section className='flex flex-col justify-end mx-8 md:mx-12 my-0'>
+            <section className='mx-8 my-0 flex flex-col justify-end md:mx-12'>
               {activeRoute?.visible && isMobileView && (
-                <h1 className='font-sansTitle text-bigHeader font-bold my-0 leading-lhNormal'>
+                <h1 className='my-0 font-bold font-sansTitle text-bigHeader leading-lhNormal'>
                   {activeRoute?.label}
                 </h1>
               )}
@@ -73,7 +73,7 @@ export default function PolicyPage() {
             </section>
           </div>
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}
-          <div className='hidden min-w-fit md:block max-w-onThisPageMenuDesktop w-onThisPageMenuDesktop'>
+          <div className='hidden w-onThisPageMenuDesktop min-w-fit max-w-onThisPageMenuDesktop md:block'>
             {policyRouteConfigs.map((routeConfig) => {
               const match = useMatch({
                 path: routeConfig.path,
@@ -83,20 +83,20 @@ export default function PolicyPage() {
                 routeConfig.subLinks && routeConfig.subLinks.length > 0
               return match && hasSublinks ? (
                 <div
-                  className='min-w-40 max-w-menu w-full sticky top-24 z-almostTop hidden h-min smMd:flex flex-col'
+                  className='sticky top-24 z-almostTop hidden h-min w-full min-w-40 max-w-menu flex-col smMd:flex'
                   key={routeConfig.path}
                 >
                   <HetOverline className='mt-0' text='On this Page' />
                   <h4
                     id='on-this-page-policy-header'
-                    className='mt-2 mb-4 font-sansTitle text-title leading-lhNormal mr-16 w-fit'
+                    className='mt-2 mr-16 mb-4 w-fit font-sansTitle text-title leading-lhNormal'
                   >
                     {routeConfig.label}
                   </h4>
 
                   <HetOnThisPageMenu
                     links={routeConfig.subLinks}
-                    className='sticky right-0 top-24 z-almostTop h-min'
+                    className='sticky top-24 right-0 z-almostTop h-min'
                   />
                 </div>
               ) : null

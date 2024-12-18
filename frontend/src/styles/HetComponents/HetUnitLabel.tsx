@@ -6,7 +6,7 @@ interface HetUnitLabelProps {
 export default function HetUnitLabel(props: HetUnitLabelProps) {
   return (
     <span
-      className={`font-sansText text-smallest font-light tracking-tighter text-altDark ${
+      className={`font-light font-sansText text-altDark text-smallest tracking-tighter ${
         props.className ?? ''
       } `}
     >

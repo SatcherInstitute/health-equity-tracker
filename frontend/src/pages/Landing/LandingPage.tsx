@@ -57,17 +57,17 @@ function LandingPage() {
   }: ListItemProps) {
     return (
       <li
-        className={`p-8 sm:p-8 xs:py-2 xs:px-4 list-none flex xl:flex-row lg:flex-row sm:flex-col xs:flex-col items-center justify-around rounded-xl shadow-raised bg-white mx-24 h-auto min-h-[55vh] xs:h-[auto] sticky top-[0] my-[3rem] min-w-full ${customClassName}`}
+        className={`sticky top-[0] mx-24 my-[3rem] flex h-auto xs:h-[auto] min-h-[55vh] min-w-full list-none xs:flex-col items-center justify-around rounded-xl bg-white p-8 xs:px-4 xs:py-2 shadow-raised sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
       >
-        <div className='flex flex-col justify-between w-1/3 mx-4 md:w-auto sm:w-auto xs:w-auto '>
-          <p className='font-sansTitle text-small font-bold text-left text-altGreen xs:my-0 xs:py-0'>
+        <div className='mx-4 flex w-1/3 xs:w-auto flex-col justify-between sm:w-auto md:w-auto '>
+          <p className='xs:my-0 xs:py-0 text-left font-bold font-sansTitle text-altGreen text-small'>
             {itemNumber}/4
           </p>
-          <div className='w-full min-w-1/2 mb-4 xs:mb-0'>
-            <h4 className='font-sansTitle text-smallestHeader xs:text-title font-medium md:text-left my-2'>
+          <div className='mb-4 xs:mb-0 w-full min-w-1/2'>
+            <h4 className='my-2 font-medium font-sansTitle text-smallestHeader xs:text-title md:text-left'>
               {title}
             </h4>
-            <p className='md:text-left mb-8 sm:text-small xs:text-small xs:mb-4'>
+            <p className='mb-8 xs:mb-4 xs:text-small sm:text-small md:text-left'>
               {description}
             </p>
             <HetTextArrowLink
@@ -76,10 +76,10 @@ function LandingPage() {
             />
           </div>
         </div>
-        <div className='w-full h-auto'>
+        <div className='h-auto w-full'>
           {iframeSrc ? (
             <iframe
-              className='xl:min-h-[40vh] lg:min-h-[40vh] max-h-[40vh] md:h-[25vh] sm:h-[25vh] xs:h-[25vh] max-w-[60vw] w-full rounded-md'
+              className='xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] rounded-md sm:h-[25vh] md:h-[25vh] lg:min-h-[40vh] xl:min-h-[40vh]'
               src={iframeSrc}
               title='YouTube video player'
               loading='lazy'
@@ -93,7 +93,7 @@ function LandingPage() {
                 loop
                 muted
                 playsInline
-                className='w-full h-auto min-h-[30vh] max-h-[40vh]'
+                className='h-auto max-h-[40vh] min-h-[30vh] w-full'
               >
                 <source src={videoSrc} type='video/mp4' />
               </video>
@@ -112,14 +112,14 @@ function LandingPage() {
 
       <h2 className='sr-only'>Home Page</h2>
 
-      <section className='relative overflow-hidden px-56 py-16 md:px-24 sm:px-16 xs:px-16 min-h-5/6'>
+      <section className='relative min-h-5/6 overflow-hidden px-56 xs:px-16 py-16 sm:px-16 md:px-24'>
         <img
           src='/img/graphics/het-hero.png'
           alt='various charts from the health equity tracker'
-          className='z-0 absolute max-w-4xl top-0 mx-24 bottom-0 right-0 float-right opacity-35 md:opacity-15 sm:opacity-15 xs:opacity-15'
+          className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
         ></img>
-        <div className='p-0 m-0 relative lg:w-1/2 md:w-full sm:w-full text-left'>
-          <h1 className='leading-lhSomeSpace font-serif text-black text-bigHeader font-medium text-left mt-4 mb-0 xs:text-header'>
+        <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-1/2'>
+          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-bigHeader text-black xs:text-header leading-lhSomeSpace'>
             Where will the <br />
             <span className='text-altGreen'>Health Equity Tracker</span>
             <br /> take you?
@@ -127,12 +127,12 @@ function LandingPage() {
           <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
           </HetCTABig>
-          <div className='border-solid border-timberwolf border-l-2 border-0 py-0 pl-2 z-1'>
-            <p className='py-0 my-0 z-1'>
+          <div className='z-1 border-0 border-timberwolf border-l-2 border-solid py-0 pl-2'>
+            <p className='z-1 my-0 py-0'>
               Data sourced from major public health agencies
             </p>
           </div>
-          <div className='flex py-4 flex-wrap gap-6 justify-start w-full'>
+          <div className='flex w-full flex-wrap justify-start gap-6 py-4'>
             <div className='max-h-4'>
               <img
                 className='h-4'
@@ -194,22 +194,22 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='flex md:flex xs:block sm:block items-center justify-center p-16 bg-whiteSmoke80 mx-auto my-0 w-full min-h-[60vh] h-auto space-8 lg:space-24'>
+        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-whiteSmoke80 p-16 sm:block md:flex'>
           <img
             src='/img/graphics/banner.png'
-            className='md:w-2/5 w-full'
+            className='w-full md:w-2/5'
             alt='phone and laptop mockups displaying the health equity tracker'
           />
 
-          <div className='flex w-full flex-col justify-center items-center md:block sm:block'>
+          <div className='flex w-full flex-col items-center justify-center sm:block md:block'>
             <h2
               id='main'
-              className='m-0 font-sansTitle text-bigHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'
+              className='m-0 text-center font-bold font-sansTitle text-altGreen text-bigHeader xs:text-header leading-lhModalHeading'
             >
               Advancing Health Justice
             </h2>
 
-            <p className='lg:text-left lg:text-title mt-4 mb-16 text-title'>
+            <p className='mt-4 mb-16 text-title lg:text-left lg:text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -222,11 +222,11 @@ function LandingPage() {
         </div>
       </section>
 
-      <section className='pt-8 pb-0 h-full xs:px-4'>
-        <div className=' py-0 m-0'>
-          <div className='flex flex-col items-center justify-center m-0 p-0 '>
+      <section className='h-full xs:px-4 pt-8 pb-0'>
+        <div className=' m-0 py-0'>
+          <div className='m-0 flex flex-col items-center justify-center p-0 '>
             <div className='w-full'>
-              <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
+              <h3 className='m-0 font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
                 How do I use the Health Equity Tracker?
               </h3>
             </div>
@@ -235,8 +235,8 @@ function LandingPage() {
             </p>
           </div>
 
-          <div className='flex flex-col items-center justify-center xs:max-h-[75vh] xs:min-h-[75vh] overflow-y-auto relative py-[1rem]'>
-            <ul className='w-full flex flex-col items-center justify-center py-0 px-8 scrollbar-hide absolute top-[0] xs:px-4 pb-8'>
+          <div className='relative flex xs:max-h-[75vh] xs:min-h-[75vh] flex-col items-center justify-center overflow-y-auto py-[1rem]'>
+            <ul className='scrollbar-hide absolute top-[0] flex w-full flex-col items-center justify-center px-8 xs:px-4 py-0 pb-8'>
               <ListItem
                 title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
@@ -278,9 +278,9 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='flex flex-wrap px-56 py-24 md:px-32 sm:px-24 xs:px-16'>
+        <div className='flex flex-wrap px-56 xs:px-16 py-24 sm:px-24 md:px-32'>
           <div className='w-full'>
-            <h3 className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen'>
+            <h3 className='m-0 font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
               Recent news
             </h3>
           </div>

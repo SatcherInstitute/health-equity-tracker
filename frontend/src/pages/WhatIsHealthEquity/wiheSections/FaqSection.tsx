@@ -6,7 +6,7 @@ import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 export default function FaqSection() {
   return (
     <article className='grid'>
-      <h3 className='m-0 pb-5 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen text-center'>
+      <h3 className='m-0 pb-5 text-center font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
         Frequently asked questions
       </h3>
 

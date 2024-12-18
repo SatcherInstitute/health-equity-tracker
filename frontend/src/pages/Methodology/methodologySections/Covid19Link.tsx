@@ -56,7 +56,7 @@ export default function Covid19Link() {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='covid-data-sourcing'>
+        <h3 className='mt-12 font-medium text-title' id='covid-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -69,7 +69,7 @@ export default function Covid19Link() {
           useful.
         </p>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='covid-age-and-demographic-data-analysis'
         >
           Age and Demographic Data Analysis
@@ -81,13 +81,13 @@ export default function Covid19Link() {
         </p>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='covid-geographical-reporting'
         >
           Geographical Distribution and Reporting
         </h3>
 
-        <h4 className='text-text font-light'>National Data</h4>
+        <h4 className='font-light text-text'>National Data</h4>
         <p>
           National statistics are based on summations of all state level cases.
         </p>
@@ -96,7 +96,7 @@ export default function Covid19Link() {
           aggregations may be incomplete and potentially skewed.
         </blockquote>
 
-        <h4 className='text-text font-light'>County Data</h4>
+        <h4 className='font-light text-text'>County Data</h4>
         <p>
           Specific figures might be concealed in counties with low case counts
           to protect the privacy of affected individuals. The foundational data
@@ -106,7 +106,7 @@ export default function Covid19Link() {
           lapse in accurate demographic reporting.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='covid-time-series'>
+        <h3 className='mt-12 font-medium text-title' id='covid-time-series'>
           Time-Series and Temporal Analysis
         </h3>
         <p>
@@ -148,7 +148,7 @@ export default function Covid19Link() {
         </p>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='covid-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
@@ -162,7 +162,7 @@ export default function Covid19Link() {
         </blockquote>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='covid-vaccination-data-analysis'
         >
           Vaccination Data Compilation and Analysis
@@ -177,16 +177,16 @@ export default function Covid19Link() {
           dataset, multiple sources are use across different geographic levels:
         </p>
 
-        <h4 className='text-text font-light'>National Data</h4>
+        <h4 className='font-light text-text'>National Data</h4>
         <p>Derived from the CDC vaccine demographic dataset.</p>
 
-        <h4 className='text-text font-light'>State Data</h4>
+        <h4 className='font-light text-text'>State Data</h4>
         <p>
           Extracted from the Kaiser Family Foundation's COVID-19 Indicators
           dataset.
         </p>
 
-        <h4 className='text-text font-light'>County Data</h4>
+        <h4 className='font-light text-text'>County Data</h4>
         <p>
           At the county level, we utilize the{' '}
           <HetTerm>COVID-19 Vaccinations in the United States, County</HetTerm>{' '}
@@ -198,7 +198,7 @@ export default function Covid19Link() {
         </p>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='covid-vaccination-demographic-estimates'
         >
           Demographic Population Estimates for Vaccination Data
@@ -215,7 +215,7 @@ export default function Covid19Link() {
             estimates that the CDC offers.
           </p>
         </HetNotice>
-        <h4 className='text-text font-light'>National Estimates</h4>
+        <h4 className='font-light text-text'>National Estimates</h4>
         <p>
           We use the CDC's population numbers for our national figures,
           especially when considering regions like Palau, Micronesia, and the
@@ -223,7 +223,7 @@ export default function Covid19Link() {
           challenging.
         </p>
 
-        <h4 className='text-text font-light'>State and County Estimates</h4>
+        <h4 className='font-light text-text'>State and County Estimates</h4>
         <p>
           Accurate population estimates are essential for understanding the
           distribution of vaccinations and pinpointing disparities, especially
@@ -258,7 +258,7 @@ export default function Covid19Link() {
         </p>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='covid-data-limitations'
         >
           Data Limitations and Specific Considerations
@@ -290,7 +290,7 @@ export default function Covid19Link() {
           administered, adding another layer to our comprehensive analysis.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='covid-data-sources'>
+        <h3 className='mt-12 font-medium text-title' id='covid-data-sources'>
           COVID-19 Data Sources
         </h3>
         <StripedTable

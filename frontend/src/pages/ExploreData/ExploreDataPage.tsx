@@ -333,8 +333,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-stickyMadLib bg-white px-4 py-2 md:py-4 shadow-raised-tighter md:top-0 md:w-full
-            ${!noTopicChosen ? 'md:sticky' : ''}
+          className={`z-stickyMadLib bg-white px-4 py-2 shadow-raised-tighter md:top-0 md:w-full md:py-4 ${!noTopicChosen ? 'md:sticky' : ''}
           `}
           id='madlib-container'
         >

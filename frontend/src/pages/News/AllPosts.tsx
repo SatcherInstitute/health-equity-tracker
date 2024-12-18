@@ -132,28 +132,8 @@ function AllPosts() {
       <Helmet>
         <title>News - Health Equity Tracker</title>
       </Helmet>
-      <div
-        className='
-        flex
-        flex-wrap
-        border-0
-        border-b
-        border-solid
-        border-altGrey
-        px-5
-        py-12
-      '
-      >
-        <div
-          className='
-          hidden
-          w-full
-          flex-col
-          flex-wrap
-          md:block
-          md:w-1/4
-        '
-        >
+      <div className='flex flex-wrap border-0 border-altGrey border-b border-solid px-5 py-12 '>
+        <div className='hidden w-full flex-col flex-wrap md:block md:w-1/4 '>
           <ArticleFilters filterType={'category'} filterOptions={categories} />
           <ArticleFilters filterType={'author'} filterOptions={authors} />
         </div>
@@ -172,53 +152,16 @@ function AllPosts() {
                 <>
                   <Link
                     to={NEWS_PAGE_LINK}
-                    className='
-
-                    inline
-                    px-4
-                    py-1.5
-                    font-sansText
-                    text-small
-                    font-medium
-                    normal-case
-                    tracking-wide
-                    no-underline
-                '
+                    className='inline px-4 py-1.5 font-medium font-sansText text-small normal-case tracking-wide no-underline '
                   >
                     {ARTICLES_TERM}
                   </Link>
-                  <span
-                    className='
-
-                      inline
-                      px-4
-                      py-1.5
-                      font-sansText
-                      text-small
-                      font-medium
-                      normal-case
-                      tracking-wide
-                      no-underline
-                  '
-                  >
+                  <span className='inline px-4 py-1.5 font-medium font-sansText text-small normal-case tracking-wide no-underline '>
                     ›
                   </span>
                 </>
               )}
-              <span
-                className='
-
-                      inline
-                      px-4
-                      py-1.5
-                      font-sansText
-                      text-small
-                      font-medium
-                      normal-case
-                      tracking-wide
-                      no-underline
-                  '
-              >
+              <span className='inline px-4 py-1.5 font-medium font-sansText text-small normal-case tracking-wide no-underline '>
                 {selectedAuthor?.length > 0 && `Author: ${selectedAuthor}`}
                 {selectedCategory?.length > 0 &&
                   `Category: ${selectedCategory}`}
@@ -265,18 +208,9 @@ function AllPosts() {
           </div>
         </div>
 
-        <div
-          className='
-            flex
-            w-full
-            flex-wrap
-            content-center
-            justify-around
-            md:hidden
-        '
-        >
+        <div className='flex w-full flex-wrap content-center justify-around md:hidden '>
           <div className='w-full'>
-            <div className='mt-16 border-0	border-t border-solid border-altGrey p-4'></div>
+            <div className='mt-16 border-0 border-altGrey border-t border-solid p-4'></div>
           </div>
           <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters

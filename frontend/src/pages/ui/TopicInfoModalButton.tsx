@@ -36,7 +36,7 @@ export default function TopicInfoModalButton() {
       onClick={() => {
         setTopicInfoModalIsOpen(true)
       }}
-      className='text-smallest text-altBlack'
+      className='text-altBlack text-smallest'
       aria-label='open the topic info modal'
     >
       <InfoOutlinedIcon sx={{ mr: '4px', mb: '0px' }} fontSize='small' />

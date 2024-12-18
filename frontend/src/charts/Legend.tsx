@@ -304,9 +304,9 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <section className='mx-4 text-left flex flex-col items-center'>
+    <section className='mx-4 flex flex-col items-center text-left'>
       {props.isMulti ? (
-        <span className='inline-flex items-center break-words text-start text-smallest leading-lhSomeMoreSpace text-black'>
+        <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lhSomeMoreSpace'>
           {props.legendTitle}
         </span>
       ) : (

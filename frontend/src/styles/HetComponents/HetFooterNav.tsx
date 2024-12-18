@@ -13,7 +13,7 @@ export default function HetFooterLinks() {
       aria-label='footer site navigation'
       className='flex flex-col items-center lg:items-end'
     >
-      <ul className='flex min-h-[78px] list-none flex-col  p-0 sm:flex-row'>
+      <ul className='flex min-h-[78px] list-none flex-col p-0 sm:flex-row'>
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', METHODOLOGY_PAGE_LINK],

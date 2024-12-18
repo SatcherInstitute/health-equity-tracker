@@ -17,7 +17,7 @@ export default function RacesAndEthnicitiesLink() {
           <title>Races and Ethnicities - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Races and Ethnicities</h2>
-        <h3 className='mt-12 text-title font-medium' id='data-gaps'>
+        <h3 className='mt-12 font-medium text-title' id='data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
         </h3>
         <p>

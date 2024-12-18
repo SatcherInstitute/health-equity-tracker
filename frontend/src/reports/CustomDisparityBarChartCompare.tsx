@@ -11,7 +11,7 @@ const CustomDisparityBarChartCompare: React.FC = () => {
 
   return (
     <div className='flex justify-around'>
-      <div className='flex-1 mx-2'>
+      <div className='mx-2 flex-1'>
         <DisparityBarChartCard
           dataTypeConfig={dataTypeConfig}
           demographicType='sex'
@@ -19,7 +19,7 @@ const CustomDisparityBarChartCompare: React.FC = () => {
           reportTitle={`Uninsurance in Florida by Sex`}
         />
       </div>
-      <div className='flex-1 mx-2'>
+      <div className='mx-2 flex-1'>
         <DisparityBarChartCard
           dataTypeConfig={dataTypeConfig}
           demographicType='sex'

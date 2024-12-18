@@ -6,13 +6,13 @@ export default function HetHorizontalRuleHeading(
   props: HetHorizontalRuleHeadingProps,
 ) {
   return (
-    <div id={props.id} className='mt-5 flex w-full items-center pb-4 pt-20'>
-      <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
+    <div id={props.id} className='mt-5 flex w-full items-center pt-20 pb-4'>
+      <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
 
-      <h3 className='m-0 pe-4 ps-4 text-center font-sansText text-smallestHeader font-light text-altBlack'>
+      <h3 className='m-0 ps-4 pe-4 text-center font-light font-sansText text-altBlack text-smallestHeader'>
         {props.headingText}
       </h3>
-      <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
+      <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
     </div>
   )
 }

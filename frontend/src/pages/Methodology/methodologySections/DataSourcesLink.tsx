@@ -18,7 +18,7 @@ export default function DataSourcesLink() {
             and present our data.
           </p>
 
-          <h3 className='mt-12 text-title font-medium'>Data Sources</h3>
+          <h3 className='mt-12 font-medium text-title'>Data Sources</h3>
           <p>
             All data in the Health Equity Tracker is sourced from reputable and
             public databases, including the Centers for Disease Control and
@@ -27,7 +27,7 @@ export default function DataSourcesLink() {
             relevant details, can be found in our data catalog.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='data-collection'>
+          <h3 className='mt-12 font-medium text-title' id='data-collection'>
             Data Collection
           </h3>
           <ul className='list-disc pl-4'>
@@ -42,7 +42,7 @@ export default function DataSourcesLink() {
             </li>
           </ul>
 
-          <h3 className='mt-12 text-title font-medium' id='data-processing'>
+          <h3 className='mt-12 font-medium text-title' id='data-processing'>
             Data Processing
           </h3>
 
@@ -67,7 +67,7 @@ export default function DataSourcesLink() {
           </ul>
 
           <h3
-            className='mt-12 text-title font-medium'
+            className='mt-12 font-medium text-title'
             id='visualization-techniques'
           >
             Visualization Techniques
@@ -79,7 +79,7 @@ export default function DataSourcesLink() {
             tailored to the specific type of data being presented.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='dataset-limitations'>
+          <h3 className='mt-12 font-medium text-title' id='dataset-limitations'>
             Dataset Limitations
           </h3>
           <p>
@@ -89,7 +89,7 @@ export default function DataSourcesLink() {
           </p>
 
           <h3
-            className='mt-12 text-title font-medium'
+            className='mt-12 font-medium text-title'
             id='updates-and-revisions'
           >
             Updates and Revisions
@@ -101,7 +101,7 @@ export default function DataSourcesLink() {
           </p>
 
           <h3
-            className='mt-12 text-title font-medium'
+            className='mt-12 font-medium text-title'
             id='stakeholder-engagement'
           >
             Stakeholder Engagement
@@ -113,7 +113,7 @@ export default function DataSourcesLink() {
           </p>
 
           <h3
-            className='mt-12 text-title font-medium'
+            className='mt-12 font-medium text-title'
             id='references-and-citations'
           >
             References and Citations
@@ -136,11 +136,11 @@ export default function DataSourcesLink() {
             <a href='https://healthequitytracker.org/contact'>contact us</a>.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='contact-information'>
+          <h3 className='mt-12 font-medium text-title' id='contact-information'>
             Contact Information
           </h3>
           <div className='flex w-full flex-col items-center'>
-            <HetAddressBlock className='flex w-10/12 flex-col  rounded-lg bg-standardInfo px-10 py-5' />
+            <HetAddressBlock className='flex w-10/12 flex-col rounded-lg bg-standardInfo px-10 py-5' />
           </div>
         </div>
       </article>

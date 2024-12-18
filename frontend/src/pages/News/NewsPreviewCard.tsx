@@ -31,14 +31,14 @@ export default function NewsPreviewCard(
       className='h-full text-center text-title no-underline '
     >
       <LazyLoad once offset={300}>
-        <div className='mx-8 0 flex flex-col items-left rounded-md hover:scale-105 hover:transition-transform hover:duration-30 '>
+        <div className='0 items-left mx-8 flex flex-col rounded-md hover:scale-105 hover:transition-transform hover:duration-30 '>
           <div
-            className='news-preview-card-image min-h-40 h-56 w-full bg-no-repeat bg-cover bg-center rounded-sm shadow-raised-tighter mb-4 '
+            className='news-preview-card-image mb-4 h-56 min-h-40 w-full rounded-sm bg-center bg-cover bg-no-repeat shadow-raised-tighter '
             style={{ backgroundImage: `url(${getImageSource()})` }}
           ></div>
 
           <HetTags tags={tagNames} />
-          <h3 className='p-0 text-left font-sansText text-text font-bold text-black leading-lhSomeMoreSpace'>
+          <h3 className='p-0 text-left font-bold font-sansText text-black text-text leading-lhSomeMoreSpace'>
             {getHtml(article.title.rendered, true)}
           </h3>
         </div>

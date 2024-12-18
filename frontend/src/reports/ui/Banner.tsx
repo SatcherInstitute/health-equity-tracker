@@ -36,20 +36,20 @@ const Banner: React.FC = () => {
 
   return (
     <section
-      className='bg-infobarColor text-center p-4'
+      className='bg-infobarColor p-4 text-center'
       aria-labelledby='banner-heading'
     >
       <div className='flex justify-between'>
-        <div className='flex lg:flex-row flex-wrap items-center justify-start md:items-center lg:justify-start m-0 px-2'>
+        <div className='m-0 flex flex-wrap items-center justify-start px-2 md:items-center lg:flex-row lg:justify-start'>
           <FlagIcon
-            className='lg:visible hidden mr-2 text-alertColor'
+            className='mr-2 hidden text-alertColor lg:visible'
             aria-hidden='true'
           />
           <p
-            className='text-small p-0 my-0 text-left lg:mr-8'
+            className='my-0 p-0 text-left text-small lg:mr-8'
             id='banner-heading'
           >
-            <span className='font-sansTitle text-small lg:text-text font-bold m-0 p-0'>
+            <span className='m-0 p-0 font-bold font-sansTitle text-small lg:text-text'>
               Major gaps in the data:
             </span>{' '}
             Structural racism causes health inequities. We’re closing these gaps
@@ -64,7 +64,7 @@ const Banner: React.FC = () => {
         </div>
         <IconButton
           onClick={handleClose}
-          className='banner-close-button p-2.5 md:my-auto mb-auto'
+          className='banner-close-button mb-auto p-2.5 md:my-auto'
           aria-label='Close banner'
           sx={{ borderRadius: 1 }}
         >

@@ -78,7 +78,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 mx-2 rounded-md bg-listboxColor text-left hide-on-screenshot'
+      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-listboxColor text-left'
       id={uniqueId}
     >
       <HetExpandableBoxButton
@@ -118,7 +118,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
-                        className='break-words border-0 border-b border-altDark bg-white leading-lhSomeSpace'
+                        className='break-words border-0 border-altDark border-b bg-white leading-lhSomeSpace'
                       >
                         {!isTimeCol &&
                           key !== ALL &&

@@ -11,7 +11,7 @@ export default function Footer() {
           <HetFooterNav />
         </div>
 
-        <div className='flex justify-center px-2 py-10 sm:justify-end  sm:py-2 lg:justify-center'>
+        <div className='flex justify-center px-2 py-10 sm:justify-end sm:py-2 lg:justify-center'>
           <HetReturnToTop />
         </div>
       </div>

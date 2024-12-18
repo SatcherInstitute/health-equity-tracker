@@ -1,26 +1,18 @@
 import { ListItemButton } from '@mui/material'
 import type { ReactNode } from 'react'
 
-type HetListItemButtonOptionType = 'boldGreenCol' | 'normalBlack'
-
-interface HetListItemButtonProps {
+interface HetListBoxOptionProps {
   children: ReactNode
   onClick?: () => void
   id?: string
   className?: string
   ariaLabel?: string
   selected?: boolean
-  option?: HetListItemButtonOptionType
   style?: React.CSSProperties
   hoverStyle?: React.CSSProperties
 }
 
-const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
-  boldGreenCol: 'py-2 pl-0 font-sansTitle text-small font-medium no-underline',
-  normalBlack: 'py-1 pl-2 text-small font-light text-altBlack',
-}
-
-export default function HetListItemButton(props: HetListItemButtonProps) {
+export default function HetListBoxOption(props: HetListBoxOptionProps) {
   return (
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
@@ -28,13 +20,11 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}
-      component={'li'}
-      role='menuitem'
+      component='li'
+      role='option'
     >
       <span
-        className={`${optionsToClasses[props.option ?? 'boldGreenCol']} ${
-          props.className ?? ''
-        }`}
+        className={`py-0 pl-0 font-light font-roboto text-altBlack text-smallest leading-lhSomeMoreSpace sm:text-small ${props.className ?? ''}`}
       >
         {props.children}
       </span>

@@ -20,11 +20,11 @@ export default function AboutUsPage() {
       <Helmet>
         <title>About Us - Health Equity Tracker</title>
       </Helmet>
-      <section className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'>
+      <section className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'>
         <header>
           <h1
             id='main'
-            className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+            className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
           >
             About the Health Equity Tracker
           </h1>
@@ -42,7 +42,7 @@ export default function AboutUsPage() {
             to make informed decisions, this scalable, feature-rich platform
             supports efforts to achieve health equity and justice for all.
           </p>
-          <h3 className='font-sansTitle font-medium'>
+          <h3 className='font-medium font-sansTitle'>
             Morehouse School of Medicine
           </h3>
           <p className='max-w-md px-6 text-left'>
@@ -60,7 +60,7 @@ export default function AboutUsPage() {
             and the world.
           </p>
 
-          <h3 className='font-sansTitle font-medium'>
+          <h3 className='font-medium font-sansTitle'>
             Satcher Health Leadership Institute
           </h3>
 
@@ -77,7 +77,7 @@ export default function AboutUsPage() {
             population groups.
           </p>
 
-          <h3 className='font-sansTitle font-medium'>
+          <h3 className='font-medium font-sansTitle'>
             Native Land Acknowledgment
           </h3>
 
@@ -98,13 +98,13 @@ export default function AboutUsPage() {
             and engagement, and we strive to align our efforts with the needs
             and aspirations of Indigenous communities.
           </p>
-          <HetAddressBlock className='text-center mt-16' />
+          <HetAddressBlock className='mt-16 text-center' />
           <HetSocialIconLinks colorOverride='altBlack' />
         </section>
       </section>
 
-      <section className='border-0 border-t border-borderColor md:border-solid  md:pt-20'>
-        <h3 className='mx-4 text-center font-sansTitle text-header leading-lhSomeSpace text-altGreen sm:text-bigHeader'>
+      <section className='border-0 border-borderColor border-t md:border-solid md:pt-20'>
+        <h3 className='mx-4 text-center font-sansTitle text-altGreen text-header leading-lhSomeSpace sm:text-bigHeader'>
           We are committed to the following ethics
         </h3>
         <ul className='mx-4 flex list-none flex-wrap pl-0'>
@@ -130,9 +130,9 @@ export default function AboutUsPage() {
         </ul>
       </section>
 
-      <div className='flex w-full  flex-col p-10'>
+      <div className='flex w-full flex-col p-10'>
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-sansTitle text-smallHeader  leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -147,7 +147,7 @@ export default function AboutUsPage() {
                     />
                   </LazyLoad>
                   <div className='font-medium'>{leader.name}</div>
-                  <div className='text-small font-normal'>{leader.role}</div>
+                  <div className='font-normal text-small'>{leader.role}</div>
                 </li>
               )
             })}
@@ -155,16 +155,16 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid border-black text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             HET Software Engineering and Education Development (SEED) Program
           </h3>
 
-          <ul className='grid list-none justify-between md:grid-cols-4 gap-6 grid-cols-2'>
+          <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
             {HET_DEV_PROGRAM.map((dev) => {
               return (
                 <li className='text-left' key={dev.name}>
                   <div className='font-medium'>{dev.name}</div>
-                  <div className='text-small font-normal'>{dev.role}</div>
+                  <div className='font-normal text-small'>{dev.role}</div>
                 </li>
               )
             })}
@@ -172,16 +172,16 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid  border-black text-left font-sansTitle text-smallHeader  leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             Former SHLI Contributors
           </h3>
 
-          <ul className='grid list-none justify-between md:grid-cols-4 gap-6 grid-cols-2'>
+          <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
             {HET_ALUMNI.map((leader) => {
               return (
-                <li className='text-left mb-2' key={leader.name}>
+                <li className='mb-2 text-left' key={leader.name}>
                   <div className='font-medium'>{leader.name}</div>
-                  <div className='text-small font-normal'>{leader.role}</div>
+                  <div className='font-normal text-small'>{leader.role}</div>
                 </li>
               )
             })}
@@ -189,13 +189,13 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-sansTitle text-smallHeader  leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             Google.org Fellows
           </h3>
-          <ul className='grid list-none justify-between md:grid-cols-4 gap-6 grid-cols-2'>
+          <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
             {GOOGLE_FELLOWS.map((fellow) => {
               return (
-                <li className='text-left mb-2' key={fellow.name}>
+                <li className='mb-2 text-left' key={fellow.name}>
                   {fellow.link && (
                     <a
                       href={fellow.link}
@@ -207,7 +207,7 @@ export default function AboutUsPage() {
                   )}
 
                   <div className='font-medium'>{fellow.name}</div>
-                  <div className='text-small font-normal'>{fellow.role}</div>
+                  <div className='font-normal text-small'>{fellow.role}</div>
                 </li>
               )
             })}
@@ -215,12 +215,12 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-sansTitle text-smallHeader  leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             Health Equity Task Force
           </h3>
-          <ul className='grid list-none justify-between md:grid-cols-3 gap-6 grid-cols-2'>
+          <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-3'>
             {HE_TASKFORCE.map((taskforceName) => (
-              <li className='text-left mb-2' key={taskforceName}>
+              <li className='mb-2 text-left' key={taskforceName}>
                 {taskforceName}
               </li>
             ))}
@@ -228,12 +228,12 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid border-black text-left font-sansTitle text-smallHeader  leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             Founding Partners
           </h3>
 
           <LazyLoad offset={300} height={200} once>
-            <ul className='grid list-none justify-between md:grid-cols-2 gap-6 grid-cols-1'>
+            <ul className='grid list-none grid-cols-1 justify-between gap-6 md:grid-cols-2'>
               {PARTNERS.map((partner) => (
                 <li className='flex align-start' key={partner.url}>
                   <a href={partner.url}>
@@ -250,14 +250,14 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-sansTitle text-smallHeader  leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sansTitle text-smallHeader leading-lhSomeMoreSpace'>
             Grantors
           </h3>
 
-          <ul className='grid list-none align-center justify-between md:grid-cols-2 gap-6 grid-cols-1'>
+          <ul className='grid list-none grid-cols-1 justify-between gap-6 align-center md:grid-cols-2'>
             {GRANTORS.map((grantor) => (
               <li
-                className='flex align-start place-content-start items-center'
+                className='flex place-content-start items-center align-start'
                 key={grantor.url}
               >
                 <a href={grantor.url}>

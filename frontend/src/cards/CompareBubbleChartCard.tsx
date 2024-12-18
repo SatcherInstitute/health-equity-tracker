@@ -82,7 +82,7 @@ export default function CompareBubbleChartCard(
       minHeight={preloadHeight}
       scrollToHash={'compare-bubble-chart' as ScrollableHashId}
       reportTitle={props.reportTitle}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={`relative m-2 rounded-sm p-3 ${defaultClasses} ${props.className}`}
     >
       {(queryResponses) => {
         const rateQueryResponseRateX = queryResponses[0]

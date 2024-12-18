@@ -15,10 +15,10 @@ export default function HetExpandableBoxButton(
       onClick={() => {
         props.setExpanded(!props.expanded)
       }}
-      className={`flex w-full px-4 text-black items-center text-left cursor-pointer justify-between border-none leading-lhListBoxTitle bg-listboxColor text-smallest sm:text-text ${
+      className={`flex w-full cursor-pointer items-center justify-between border-none bg-listboxColor px-4 text-left text-black text-smallest leading-lhListBoxTitle sm:text-text ${
         props.expanded
           ? ''
-          : 'text-ellipsis whitespace-nowrap  sm:overflow-hidden'
+          : 'text-ellipsis whitespace-nowrap sm:overflow-hidden'
       } `}
     >
       <span className='flex-grow font-medium'>

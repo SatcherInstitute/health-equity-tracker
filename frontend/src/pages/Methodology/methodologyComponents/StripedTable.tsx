@@ -56,7 +56,7 @@ export default function StripedTable(props: StripedTableProps) {
                 props.applyThickBorder &&
                 props.rows.length !== 3 &&
                 (rowIndex + 1) % 2 === 0
-                  ? 'border-0 border-b-2 border-methodologyGreen'
+                  ? 'border-0 border-methodologyGreen border-b-2'
                   : ''
               }
             >
@@ -64,7 +64,7 @@ export default function StripedTable(props: StripedTableProps) {
                 <TableCell
                   key={col.accessor}
                   component='td'
-                  className='text-left font-sansText text-small font-normal'
+                  className='text-left font-normal font-sansText text-small'
                   scope='row'
                 >
                   {row[col.accessor]}

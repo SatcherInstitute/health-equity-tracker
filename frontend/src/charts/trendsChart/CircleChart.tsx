@@ -174,7 +174,7 @@ export function CircleChart({
         <text
           textAnchor='middle'
           dy='55px'
-          className='text-smallest font-medium'
+          className='font-medium text-smallest'
           id={`unknown-circle-legend-title-${circleId}`}
         >
           {unknownCircleLegendText}

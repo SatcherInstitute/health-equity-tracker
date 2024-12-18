@@ -68,7 +68,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
       minHeight={400}
       reportTitle={props.reportTitle}
       scrollToHash={HASH_ID_RATES_OVER_TIME}
-      className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
+      className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
     >
       {([queryResponseRates]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -122,7 +122,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                             whiteSpace: 'normal',
                             wordWrap: 'break-word',
                           }}
-                          className='break-words border-0 border-b border-altDark bg-white leading-lhSomeSpace'
+                          className='break-words border-0 border-altDark border-b bg-white leading-lhSomeSpace'
                         >
                           {!isTimeCol &&
                             key !== ALL &&

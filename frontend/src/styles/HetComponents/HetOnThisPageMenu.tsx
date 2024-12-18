@@ -26,7 +26,7 @@ function CombinedLink(props: CombinedLinkProps) {
         onClick={() => scrollToAnchor(to)}
         type='button'
         {...rest}
-        className={`bg-transparent border-none p-0 m-0 text-left text-smallest ${className ?? ''}`}
+        className={`m-0 border-none bg-transparent p-0 text-left text-smallest ${className ?? ''}`}
       >
         {children}
       </button>
@@ -70,9 +70,9 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className={`my-2 w-full md:w-onThisPageMenuDesktop md:max-w-onThisPageMenuDesktop text-left flex flex-col grow align-center ${props.className ?? ''}`}
+        className={`my-2 flex w-full grow flex-col text-left align-center md:w-onThisPageMenuDesktop md:max-w-onThisPageMenuDesktop ${props.className ?? ''}`}
       >
-        <ul className='my-1 list-none space-y-2 pl-0 leading-lhNormal lg:space-y-2 font-roboto text-smallest'>
+        <ul className='my-1 list-none space-y-2 pl-0 font-roboto text-smallest leading-lhNormal lg:space-y-2'>
           {props.links?.map((link) => (
             <li key={link.path}>
               <CombinedLink
@@ -83,7 +83,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
                 className={
                   activeLink === link.path
                     ? 'font-semibold text-altGreen'
-                    : 'hover:cursor-pointer text-altBlack'
+                    : 'text-altBlack hover:cursor-pointer'
                 }
               >
                 {link.label}

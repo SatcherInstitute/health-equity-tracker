@@ -19,7 +19,7 @@ export const EmbeddedIframe: React.FC<EmbeddedIframeProps> = ({
 }) => {
   return (
     <div
-      className='px-8 p-2 my-0 bg-methodologyGreen'
+      className='my-0 bg-methodologyGreen p-2 px-8'
       style={{
         width: '100%',
         height: '500px',

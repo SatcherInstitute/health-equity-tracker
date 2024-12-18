@@ -11,17 +11,17 @@
 /* External Imports */
 
 /* Constants */
-import type { TrendsData } from './types'
-import { COLORS as C } from './constants'
 import type { DemographicType } from '../../data/query/Breakdowns'
-import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import {
   AGE,
   ALL,
   type DemographicGroup,
   UNKNOWN_W,
 } from '../../data/utils/Constants'
+import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import { het } from '../../styles/DesignTokens'
+import { COLORS as C } from './constants'
+import type { TrendsData } from './types'
 
 /* Define type interface */
 interface FilterLegendProps {
@@ -54,19 +54,19 @@ export function FilterLegend({
 
   return (
     // Legend Wrapper
-    <div className='mt-4 font-sansText text-small font-normal'>
+    <div className='mt-4 font-normal font-sansText text-small'>
       {/* Legend Title & Clear Button */}
-      <div className='mb-5 flex	items-center text-left font-sansText font-medium hide-on-screenshot remove-height-on-screenshot'>
+      <div className='hide-on-screenshot remove-height-on-screenshot mb-5 flex items-center text-left font-medium font-sansText'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
-        <div className='mx-4 flex items-center justify-center rounded-sm border-none border-altGreen'>
+        <div className='mx-4 flex items-center justify-center rounded-sm border-altGreen border-none'>
           <button
             type='button'
             aria-disabled={groupsAreMinMax}
             className={`rounded-l-sm border border-altBlack p-4 text-altBlack ${
               groupsAreMinMax
-                ? 'cursor-default  bg-methodologyGreen font-bold'
-                : 'cursor-pointer  bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+                ? 'cursor-default bg-methodologyGreen font-bold'
+                : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
             }`}
             aria-label={`Highlight groups with lowest and highest average values over time`}
             onClick={() => {
@@ -83,9 +83,9 @@ export function FilterLegend({
             type='button'
             aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
-            className={`rounded-r-sm border-altBlack border p-4 text-altBlack ${
+            className={`rounded-r-sm border border-altBlack p-4 text-altBlack ${
               noGroupsAreFiltered
-                ? 'cursor-default  bg-methodologyGreen font-bold'
+                ? 'cursor-default bg-methodologyGreen font-bold'
                 : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
             }`}
             onClick={() => {
@@ -100,9 +100,7 @@ export function FilterLegend({
       {/* Legend Items Wrapper */}
       <menu
         aria-labelledby={legendId}
-        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${
-          isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
-        } `}
+        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'} `}
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {
@@ -118,7 +116,7 @@ export function FilterLegend({
               key={`legendItem-${group}`}
               aria-label={`Include ${group}`}
               aria-pressed={groupEnabled}
-              className='mb-1.5 mr-5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start text-altBlack transition-opacity	duration-300 ease-in-out'
+              className='mr-5 mb-1.5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start text-altBlack transition-opacity duration-300 ease-in-out'
               onClick={() => {
                 handleClick(group)
               }} // send group name to parent on click
@@ -129,7 +127,7 @@ export function FilterLegend({
             >
               {/* Legend Item color swatch */}
               <div
-                className='mr-1.5	h-6	w-6 shrink-0 rounded-xs border-2 border-dashed border-transparent text-start'
+                className='mr-1.5 h-6 w-6 shrink-0 rounded-xs border-2 border-transparent border-dashed text-start'
                 aria-hidden={true}
                 style={{
                   backgroundImage: isUnknown ? gradient : undefined,

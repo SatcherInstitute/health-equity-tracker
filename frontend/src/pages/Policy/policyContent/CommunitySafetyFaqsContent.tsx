@@ -36,27 +36,27 @@ export interface Faq {
 
 const OptionGroup = ({ title, children }: OptionGroupProps) => (
   <div className='my-4'>
-    <h3 className='my-0 text-title font-medium text-altGreen'>{title}</h3>
+    <h3 className='my-0 font-medium text-altGreen text-title'>{title}</h3>
     {children}
   </div>
 )
 
 const AgeGroupList = () => (
-  <div className='flex flex-col md:flex-row justify-start align-start ml-4'>
-    <div className='w-full flex flex-col md:grid md:grid-cols-8 text-small md:text-text my-2'>
-      <ul className='list-none my-4 pl-0 col-span-2'>
+  <div className='ml-4 flex flex-col justify-start align-start md:flex-row'>
+    <div className='my-2 flex w-full flex-col text-small md:grid md:grid-cols-8 md:text-text'>
+      <ul className='col-span-2 my-4 list-none pl-0'>
         <li>Ages 0-14</li>
         <li>Ages 15-19</li>
         <li>Ages 20-24</li>
       </ul>
       <Divider />
-      <ul className='list-none my-4 pl-0 col-span-2'>
+      <ul className='col-span-2 my-4 list-none pl-0'>
         <li>Ages 25-29</li>
         <li>Ages 30-34</li>
         <li>Ages 35-44</li>
       </ul>
       <Divider />
-      <ul className='list-none my-4 pl-0 col-span-2'>
+      <ul className='col-span-2 my-4 list-none pl-0'>
         <li>Ages 45-64</li>
         <li>Ages 65+</li>
       </ul>
@@ -65,14 +65,14 @@ const AgeGroupList = () => (
 )
 
 const Divider = () => (
-  <div className='border border-solid border-l-0 border-t-0 md:border-b-0 border-b-1.2 border-r-1.2 md:w-fit border-methodologyGreen mx-0 md:mx-10 w-full my-2 md:my-0'></div>
+  <div className='mx-0 my-2 w-full border border-methodologyGreen border-t-0 border-r-1.2 border-b-1.2 border-l-0 border-solid md:mx-10 md:my-0 md:w-fit md:border-b-0'></div>
 )
 
 const RaceEthnicityOptions = () => (
-  <div className='flex flex-col md:flex-row justify-start align-start ml-2'>
-    <div className='flex flex-col w-auto my-2'>
-      <p className='my-0 text-altBlack text-text font-semibold'>Races</p>
-      <ul className='list-none text-small pl-1'>
+  <div className='ml-2 flex flex-col justify-start align-start md:flex-row'>
+    <div className='my-2 flex w-auto flex-col'>
+      <p className='my-0 font-semibold text-altBlack text-text'>Races</p>
+      <ul className='list-none pl-1 text-small'>
         <li>Asian</li>
         <li>Black or African American</li>
         <li>Hawaiian Native/Pacific Islander</li>
@@ -84,8 +84,8 @@ const RaceEthnicityOptions = () => (
     </div>
     <Divider />
     <div className='flex flex-col'>
-      <p className='my-0 text-altBlack text-text font-semibold'>Ethnicities</p>
-      <ul className='list-none text-small pl-1'>
+      <p className='my-0 font-semibold text-altBlack text-text'>Ethnicities</p>
+      <ul className='list-none pl-1 text-small'>
         <li>Hispanic/Latino</li>
       </ul>
     </div>
@@ -100,7 +100,7 @@ export default function DataDescription({ datasets }: { datasets: Dataset[] }) {
         age, sex, race and ethnicity, and city-size.
       </p>
       <div className='flex flex-col gap-0'>
-        <p className='pb-0 mb-0'>
+        <p className='mb-0 pb-0'>
           Currently, all of our gun violence datasets include national- and
           state-level data.
         </p>

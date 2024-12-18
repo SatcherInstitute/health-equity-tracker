@@ -52,7 +52,7 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 className='mt-12 text-title font-medium' id='pdoh-data-sourcing'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -72,7 +72,7 @@ const PdohLink = () => {
           Offers detailed research on incarceration trends at the county level.
         </p>
         <h4>Breakdown of Our Reports</h4>
-        <h5 className='text-text font-light'>By Age</h5>
+        <h5 className='font-light text-text'>By Age</h5>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
@@ -81,20 +81,20 @@ const PdohLink = () => {
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5 className='text-text font-light'>By Race</h5>
+        <h5 className='font-light text-text'>By Race</h5>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
-        <h5 className='text-text font-light'>By Sex</h5>
+        <h5 className='font-light text-text'>By Sex</h5>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5 className='text-text font-light'>Special Reports</h5>
+        <h5 className='font-light text-text'>Special Reports</h5>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
@@ -107,7 +107,7 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='jails-vs-prisons'>
+        <h3 className='mt-12 font-medium text-title' id='jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
         <h4>Jails</h4>
@@ -126,29 +126,29 @@ const PdohLink = () => {
           person, not necessarily where they're held.
         </p>
         <p>Our data varies slightly based on the location and type:</p>
-        <h5 className='text-text font-light'>National report</h5>
+        <h5 className='font-light text-text'>National report</h5>
         <p>
           Includes all under the jurisdiction of a state or federal adult
           prison. Excludes territorial, military, or Indian Country facilities.
         </p>
-        <h5 className='text-text font-light'>State reports</h5>
+        <h5 className='font-light text-text'>State reports</h5>
         <p>
           Focuses on individuals within a state's prison system. Age-specific
           data is not available.
         </p>
-        <h5 className='text-text font-light'>Territory reports</h5>
+        <h5 className='font-light text-text'>Territory reports</h5>
         <p>
           Covers individuals in a territory's adult prison facilities. No
           specific demographic breakdown.
         </p>
-        <h5 className='text-text font-light'>County reports</h5>
+        <h5 className='font-light text-text'>County reports</h5>
         <p>
           Considers those under state prison systems but charged in a specific
           county.
         </p>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='children-in-adult-facilities'
         >
           Children in Adult Facilities
@@ -172,7 +172,7 @@ const PdohLink = () => {
             populations.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='combined-systems'>
+        <h3 className='mt-12 font-medium text-title' id='combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -181,7 +181,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='political-forces'>
+        <h3 className='mt-12 font-medium text-title' id='political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -200,7 +200,7 @@ const PdohLink = () => {
           affected by this disenfranchisement (Sentencing Project).
         </p>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='health-impact-of-incarceration'
         >
           Health Impact of Incarceration
@@ -226,7 +226,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='women-in-gov'>
+        <h3 className='mt-12 font-medium text-title' id='women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -238,7 +238,7 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='pdoh-data-metrics'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
@@ -247,10 +247,10 @@ const PdohLink = () => {
         </p>
 
         <ul className='list-disc pl-4'>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium font-sansTitle'>
             Women in State Legislature
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium font-sansTitle'>
             {' '}
             Women in U.S. Congress
           </li>
@@ -288,7 +288,7 @@ const PdohLink = () => {
           </li>
         </ol>
 
-        <h3 className='mt-12 text-title font-medium' id='historical-tracking'>
+        <h3 className='mt-12 font-medium text-title' id='historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -315,7 +315,7 @@ const PdohLink = () => {
           goes back only to 1983.
         </p>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
@@ -341,7 +341,7 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='pdoh-missing-data'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-missing-data'>
           Missing Data
         </h3>
         <p>
@@ -357,7 +357,7 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='pdoh-data-resources'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable

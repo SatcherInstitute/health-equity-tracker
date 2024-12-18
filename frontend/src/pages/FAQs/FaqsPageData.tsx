@@ -25,7 +25,7 @@ interface IndentedItemProps {
   pClassName?: string
 }
 export const IndentedItem = ({ label, pClassName }: IndentedItemProps) => (
-  <p className={`text-small leading-lhNormal my-2 ml-4 ${pClassName}`}>
+  <p className={`my-2 ml-4 text-small leading-lhNormal ${pClassName}`}>
     {label}
   </p>
 )
@@ -152,7 +152,7 @@ function AnswerAreTheLimitations() {
         label={'providing detailed race and ethnicity breakdowns, and'}
       />
       <IndentedItem label={'including thorough sex and age breakdowns.'} />
-      <p className='text-altBlack text-text font-semibold'>
+      <p className='font-semibold text-altBlack text-text'>
         Known limitations in the data
       </p>
       <p>
@@ -268,7 +268,7 @@ export const additionalFaqs: Faq[] = [
           trust.
         </p>
 
-        <p className='text-altBlack text-text font-semibold'>
+        <p className='font-semibold text-altBlack text-text'>
           These guiding questions help ensure the right standards are in place:
         </p>
 
@@ -289,11 +289,11 @@ export const additionalFaqs: Faq[] = [
         <IndentedItem label={`Are we holding our partners accountable?`} />
 
         <HetDivider className='my-8' />
-        <p className='text-altBlack text-text font-semibold'>
+        <p className='font-semibold text-altBlack text-text'>
           We are committed to the following ethics:
         </p>
         <div className='ml-2'>
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Transparency & Accountability
           </h3>
           <IndentedItem
@@ -302,7 +302,7 @@ export const additionalFaqs: Faq[] = [
           interprets the data and how that shapes the overall health narrative.
         `}
           />
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Community First
           </h3>
           <IndentedItem
@@ -311,7 +311,7 @@ export const additionalFaqs: Faq[] = [
           changes are needed to boost these communities.
         `}
           />
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Open Access
           </h3>
           <IndentedItem
@@ -319,7 +319,7 @@ export const additionalFaqs: Faq[] = [
           determining what data to use in making policy recommendations.
         `}
           />
-          <div className='flex justify-center mt-8'>
+          <div className='mt-8 flex justify-center'>
             <HetButtonSecondary href={ABOUT_US_PAGE_LINK}>
               Learn more about the Health Equity Tracker
             </HetButtonSecondary>
@@ -443,7 +443,7 @@ export const additionalFaqs: Faq[] = [
           In the top-right of each card, there is an icon button with three
           horizontal dots like this: <MoreHorizIcon />.
         </p>
-        <div className='flex justify-center mb-8'>
+        <div className='mb-8 flex justify-center'>
           <img
             src={'/img/screenshots/card-menu-options.png'}
             aria-label='options on card menu'

@@ -25,8 +25,8 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"nursery": {
-				"useSortedClasses": "error"
+			"a11y": {
+				"useSemanticElements": "info"
 			},
 			"suspicious": {
 				"noExplicitAny": "off",

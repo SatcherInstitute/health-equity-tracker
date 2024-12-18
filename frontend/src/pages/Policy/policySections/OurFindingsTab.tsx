@@ -19,16 +19,16 @@ export default function OurFindingsTab() {
       <section id='ga-youth-fatalities'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Youth Fatality Rates
           </h3>
 
           {youthFatalitiesFacts.map((youthFatalitiesFact) => (
             <div
               key={youthFatalitiesFact.report}
-              className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
+              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
             >
-              <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {youthFatalitiesFact.content}
               </p>
               {youthFatalitiesFact.customCard}
@@ -44,15 +44,15 @@ export default function OurFindingsTab() {
       <section id='ga-homicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Homicide Rates
           </h3>
           {homicideFacts.map((homicideFact) => (
             <div
               key={homicideFact.report}
-              className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
+              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
             >
-              <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {homicideFact.content}
               </p>
               <LazyLoad>{homicideFact.customCard}</LazyLoad>
@@ -69,16 +69,16 @@ export default function OurFindingsTab() {
       <section id='ga-suicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Suicide Rates
           </h3>
 
           {suicideFacts.map((suicideFact) => (
             <div
               key={suicideFact.report}
-              className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
+              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
             >
-              <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {suicideFact.content}
               </p>
               <LazyLoad> {suicideFact.customCard}</LazyLoad>
@@ -94,16 +94,16 @@ export default function OurFindingsTab() {
       <section id='ga-homicides-city-size'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 text-title font-medium text-altGreen'>
+          <h3 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Homicide Rates Among Black Men
           </h3>
 
           {urbanicityFacts.map((urbanicityFact) => (
             <div
               key={urbanicityFact.report}
-              className='list-none rounded-md shadow-raised my-8 pb-8 bg-exploreBgColor'
+              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
             >
-              <p className='text-text smMd:text-smallestHeader px-8 pt-8 pb-0 text-center text-altDark'>
+              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {urbanicityFact.content}
               </p>
               <LazyLoad>{urbanicityFact.customCard}</LazyLoad>

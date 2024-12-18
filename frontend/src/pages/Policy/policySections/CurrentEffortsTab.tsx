@@ -42,7 +42,7 @@ export default function CurrentEffortsTab() {
           of health unfairly disadvantage certain groups, leading to disparities
           in violence exposure.
         </p>
-        <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur'>
+        <article className='group fade-in-up-blur my-0 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
           <p>
             <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:{' '}
             <HetTermUnderline>Unfair and avoidable</HetTermUnderline>{' '}

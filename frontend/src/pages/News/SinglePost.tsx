@@ -122,14 +122,14 @@ export default function SinglePost() {
       </Helmet>
 
       <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
-        <div className='flex w-full md:flex-row flex-col-reversereverse items-center justify-between mx-2 smMd:mx-16 md:px-0'>
-          <div className='flex flex-col w-full px-4 md:px-16 lg:px-24 h-auto'>
+        <div className='mx-2 flex w-full flex-col-reversereverse items-center justify-between smMd:mx-16 md:flex-row md:px-0'>
+          <div className='flex h-auto w-full flex-col px-4 md:px-16 lg:px-24'>
             {fullArticle?.date ? (
               <HetOverline text={prettyDate(fullArticle.date)} />
             ) : (
               <Skeleton width='50%' />
             )}
-            <div className='py-2 smMd:py-8 flex w-full flex-wrap justify-start text-left text-altGreen xs:text-smallestHeader md:text-bigHeader font-sansTitle text-header font-bold leading-lhNormal'>
+            <div className='flex w-full flex-wrap justify-start py-2 text-left font-bold font-sansTitle text-altGreen text-header xs:text-smallestHeader leading-lhNormal smMd:py-8 md:text-bigHeader'>
               {isLoading ? (
                 <>
                   <Skeleton animation='wave' width='100%' height='60' />
@@ -140,12 +140,12 @@ export default function SinglePost() {
               )}
             </div>
 
-            <div className='group text-start text-text text-altDark font-medium'>
+            <div className='group text-start font-medium text-altDark text-text'>
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   by{' '}
                   <Link
-                    className='cursor-pointer my-2 md:my-4 text-center md:text-left text-text no-underline group-hover:underline'
+                    className='my-2 cursor-pointer text-center text-text no-underline group-hover:underline md:my-4 md:text-left'
                     to={`${NEWS_PAGE_LINK}?author=${encodeURIComponent(
                       fullArticle.acf.contributing_author,
                     )}`}
@@ -162,7 +162,7 @@ export default function SinglePost() {
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
               {fullArticle?.acf?.additional_contributors && (
-                <div className='text-start text-text text-altDark'>
+                <div className='text-start text-altDark text-text'>
                   Contributors: {fullArticle.acf.additional_contributors}
                 </div>
               )}
@@ -174,7 +174,7 @@ export default function SinglePost() {
           </div>
 
           <button
-            className='hidden smMd:flex items-center justify-center w-1/2 rounded-sm py-16 appearance-none focus:outline-none bg-transparent outline-none border-none'
+            className='hidden w-1/2 appearance-none items-center justify-center rounded-sm border-none bg-transparent py-16 outline-none focus:outline-none smMd:flex'
             onClick={handleModalOpen}
             type='button'
             style={{ cursor: articleImage ? 'pointer' : 'default' }}
@@ -201,7 +201,7 @@ export default function SinglePost() {
             {!isLoading && !isError && articleImage && (
               <div
                 aria-label={articleImageAltText}
-                className='w-full smMd:block hidden h-56 md:h-96 bg-cover bg-center bg-no-repeat rounded-md shadow-raised-tighter'
+                className='hidden h-56 w-full rounded-md bg-center bg-cover bg-no-repeat shadow-raised-tighter smMd:block md:h-96'
                 style={{
                   backgroundImage: `url(${articleImage})`,
                   backgroundClip: 'border-box',
@@ -221,7 +221,7 @@ export default function SinglePost() {
           )}
         </div>
 
-        <article className='fetched-wordpress-html m-8 md:m-20 flex min-h-preload-article w-full flex-col break-words'>
+        <article className='fetched-wordpress-html m-8 flex min-h-preload-article w-full flex-col break-words md:m-20'>
           {fullArticle ? (
             getHtml(fullArticle.content?.rendered ?? '')
           ) : (
@@ -249,7 +249,7 @@ export default function SinglePost() {
             </div>
           )}
 
-          <div className='mt-4 text-left font-sansText text-text font-medium'>
+          <div className='mt-4 text-left font-medium font-sansText text-text'>
             {fullArticle?.acf?.canonical_url && (
               <span className='text-small italic'>
                 Note: this article was originally published on{' '}
@@ -260,7 +260,7 @@ export default function SinglePost() {
           </div>
 
           {articleCategories ? (
-            <div className='text-start text-text text-altDark'>
+            <div className='text-start text-altDark text-text'>
               Tagged:
               <HetTags
                 tags={standardizeTags(
@@ -278,7 +278,7 @@ export default function SinglePost() {
           )}
         </article>
 
-        <div className='mx-10 mb-10 pt-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey md:grid-cols-3'>
+        <div className='mx-10 mb-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-altGrey border-t border-solid pt-10 md:grid-cols-3'>
           {prevArticle && (
             <HetPaginationButton
               direction='previous'

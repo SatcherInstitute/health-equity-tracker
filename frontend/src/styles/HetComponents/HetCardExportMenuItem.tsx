@@ -24,7 +24,7 @@ export function HetCardExportMenuItem({
   return (
     <MenuItem className={`pl-3 ${className}`} onClick={onClick}>
       <ListItemIcon
-        className={`${iconClassName} flex items-center px-2 py-1 w-full`}
+        className={`${iconClassName} flex w-full items-center px-2 py-1`}
       >
         <Icon className='mx-1 w-8' {...iconProps} />
         {children && (

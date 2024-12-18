@@ -10,36 +10,36 @@ export default function DefaultHelperBox() {
 
   return (
     <div
-      className='flex w-full items-center justify-center px-12 pb-0 pt-4 sm:px-20 sm:pt-8'
+      className='flex w-full items-center justify-center px-12 pt-4 pb-0 sm:px-20 sm:pt-8'
       aria-labelledby='main-heading'
     >
       <div className='m-0 mb-5 w-full max-w-helperBox content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
-        <div className='px-10 py-0 text-left smMd:px-0 md:px-10 xs:px-2'>
+        <div className='px-10 xs:px-2 py-0 text-left smMd:px-0 md:px-10'>
           <h1
             id='main-heading'
-            className='m-0 font-sansTitle text-header font-bold leading-lhModalHeading text-altGreen text-base text-center'
+            className='m-0 text-center font-bold font-sansTitle text-altGreen text-base text-header leading-lhModalHeading'
           >
             Select a topic above
           </h1>
-          <p className='text-text text-center'>
+          <p className='text-center text-text'>
             or explore one of the following reports:
           </p>
           <ul
-            className='my-0 list-none pl-0 text-left flex flex-wrap'
+            className='my-0 flex list-none flex-wrap pl-0 text-left'
             aria-labelledby='reports-heading'
           >
             {reportMappings.map((report, index) => (
               <li
-                className='my-4 xs:my-2 mx-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out w-full'
+                className='group mx-0 my-4 xs:my-2 flex w-full flex-col rounded-md border border-altGreen border-solid bg-white transition-all duration-300 ease-in-out hover:shadow-raised'
                 key={report.title}
               >
                 <article
-                  className='text-left p-4 text-altGreen grid gap-4 md:items-start place-items-center md:grid-cols-[40%_60%] w-full'
+                  className='grid w-full place-items-center gap-4 p-4 text-left text-altGreen md:grid-cols-[40%_60%] md:items-start'
                   aria-labelledby={`report-title-${index}`}
                 >
                   <a
                     href={EXPLORE_DATA_PAGE_LINK + report.setting}
-                    className='bg-cover bg-center bg-no-repeat ml-6 px-4 w-full h-[18rem] transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
+                    className='ml-6 h-[18rem] w-full bg-center bg-cover bg-no-repeat px-4 transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
                     style={{
                       backgroundImage: `url(${report.previewImg})`,
                     }}
@@ -48,12 +48,12 @@ export default function DefaultHelperBox() {
                       {report.title} preview image
                     </span>
                   </a>
-                  <div className='flex flex-col w-full md:items-start px-4 md:px-12'>
+                  <div className='flex w-full flex-col px-4 md:items-start md:px-12'>
                     <HetTags tags={report.categories} />
                     <h2
                       aria-label={report.title}
                       id={`report-title-${index}`}
-                      className='font-medium my-2 md:my-4 text-center md:text-left text-title'
+                      className='my-2 text-center font-medium text-title md:my-4 md:text-left'
                     >
                       <a
                         href={EXPLORE_DATA_PAGE_LINK + report.setting}
@@ -62,7 +62,7 @@ export default function DefaultHelperBox() {
                         {report.title} {report.icon && report.icon}
                       </a>
                     </h2>
-                    <p className='text-black md:block hidden my-0 md:mb-4'>
+                    <p className='my-0 hidden text-black md:mb-4 md:block'>
                       {report.description}
                     </p>
                     <HetTextArrowLink
