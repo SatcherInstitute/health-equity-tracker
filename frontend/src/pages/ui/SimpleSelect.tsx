@@ -1,8 +1,8 @@
+import { Tooltip } from '@mui/material'
+import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
-import { Tooltip } from '@mui/material'
 
 const MIN_TOP_LABEL_WIDTH = 110
 

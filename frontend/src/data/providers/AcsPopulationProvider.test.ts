@@ -1,20 +1,20 @@
-import AcsPopulationProvider from './AcsPopulationProvider'
-import { Breakdowns, type DemographicType } from '../query/Breakdowns'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import {
-  type DatasetId,
-  DatasetIdWithStateFIPSCode,
-  DatasetMetadataMap,
-} from '../config/DatasetMetadata'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { RACE, AGE, SEX } from '../utils/Constants'
+import {
+  type DatasetId,
+  DatasetIdWithStateFIPSCode,
+  DatasetMetadataMap,
+} from '../config/DatasetMetadata'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { AGE, RACE, SEX } from '../utils/Constants'
+import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import AcsPopulationProvider from './AcsPopulationProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   acsDatasetId: DatasetId,

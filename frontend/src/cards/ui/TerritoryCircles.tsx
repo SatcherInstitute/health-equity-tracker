@@ -5,15 +5,15 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { Fips } from '../../data/utils/Fips'
 
-import type { DemographicGroup } from '../../data/utils/Constants'
-import type { HetRow } from '../../data/utils/DatasetTypes'
-import type { DemographicType } from '../../data/query/Breakdowns'
 import {
-  type HighestLowest,
   type CountColsMap,
+  type HighestLowest,
   unknownMapConfig,
 } from '../../charts/mapGlobals'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicGroup } from '../../data/utils/Constants'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>

@@ -1,3 +1,14 @@
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import { Tooltip } from '@mui/material'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableFooter from '@mui/material/TableFooter'
+import TableHead from '@mui/material/TableHead'
+import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
 import { useMemo } from 'react'
 import {
   type Column,
@@ -7,36 +18,25 @@ import {
   useSortBy,
   useTable,
 } from 'react-table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import TableFooter from '@mui/material/TableFooter'
-import TablePagination from '@mui/material/TablePagination'
-import Paper from '@mui/material/Paper'
+import ChartTitle from '../cards/ChartTitle'
 import type {
+  DataTypeId,
   MetricConfig,
   MetricId,
-  DataTypeId,
 } from '../data/config/MetricConfigTypes'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
-import { Tooltip } from '@mui/material'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import TableContainer from '@mui/material/TableContainer'
-import Table from '@mui/material/Table'
-import type { Fips } from '../data/utils/Fips'
-import ChartTitle from '../cards/ChartTitle'
-import { removeLastS } from './utils'
-import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
-import Units from './Units'
-import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
-import { het } from '../styles/DesignTokens'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
-import { formatFieldValue } from '../data/config/MetricConfigUtils'
+import type { Fips } from '../data/utils/Fips'
+import { het } from '../styles/DesignTokens'
+import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
+import Units from './Units'
+import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
+import { removeLastS } from './utils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 

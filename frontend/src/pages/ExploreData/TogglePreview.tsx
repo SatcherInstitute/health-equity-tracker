@@ -1,5 +1,5 @@
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import React, { useState } from 'react'
-import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
 
 const TogglePreview: React.FC<{ index: number; report: any }> = ({
   index,
@@ -15,14 +15,14 @@ const TogglePreview: React.FC<{ index: number; report: any }> = ({
   }
 
   return (
-    <div className='flex flex-col bg-methodologyGreen rounded-md m-8 p-0'>
+    <div className='m-8 flex flex-col rounded-md bg-methodologyGreen p-0'>
       <button
         type='button'
         onClick={(e) => {
           e.preventDefault()
           togglePreview(index)
         }}
-        className='text-text text-black font-medium no-underline border-none w-auto cursor-pointer bg-methodologyGreen rounded-md py-4'
+        className='w-auto cursor-pointer rounded-md border-none bg-methodologyGreen py-4 font-medium text-black text-text no-underline'
         aria-expanded={showPreview[index] ? 'true' : 'false'}
         aria-controls={`preview-${index}`}
       >

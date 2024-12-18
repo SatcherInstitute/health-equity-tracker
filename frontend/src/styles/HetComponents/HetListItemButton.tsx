@@ -31,7 +31,7 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
   return (
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
-      className={`px-0 mx-auto ${props.selected ? 'bg-hoverAltGreen' : 'bg-white'}`}
+      className={`mx-auto px-0 ${props.selected ? 'bg-hoverAltGreen' : 'bg-white'}`}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}

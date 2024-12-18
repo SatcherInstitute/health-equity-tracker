@@ -1,42 +1,42 @@
+import type { Legend, ScaleType } from 'vega'
 import type {
   DataTypeConfig,
   MetricId,
   MetricType,
 } from '../data/config/MetricConfigTypes'
-import type { Fips } from '../data/utils/Fips'
-import type { FieldRange, HetRow } from '../data/utils/DatasetTypes'
-import { generateSubtitle } from './utils'
-import {
-  type DemographicGroup,
-  raceNameToCodeMap,
-  ALL,
-  RACE,
-  AGE,
-  LESS_THAN_POINT_1,
-} from '../data/utils/Constants'
-import type { ScaleType, Legend } from 'vega'
-import type { DemographicType } from '../data/query/Breakdowns'
+import { isPctType } from '../data/config/MetricConfigUtils'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
+import type { DemographicType } from '../data/query/Breakdowns'
+import {
+  AGE,
+  ALL,
+  type DemographicGroup,
+  LESS_THAN_POINT_1,
+  RACE,
+  raceNameToCodeMap,
+} from '../data/utils/Constants'
+import type { FieldRange, HetRow } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
+import { het } from '../styles/DesignTokens'
+import { type LegendNumberFormat, formatterMap } from './legendHelperFunctions'
 import {
   CIRCLE_PROJECTION,
   COLOR_SCALE,
+  type CountColsMap,
+  DEFAULT_LEGEND_COLOR_COUNT,
   GEO_DATASET,
+  GREY_DOT_SCALE,
   type HighestLowest,
+  LEGEND_SYMBOL_TYPE,
+  LEGEND_TEXT_FONT,
+  MAP_SCHEMES,
   MISSING_DATASET,
+  UNKNOWN_SCALE,
   US_PROJECTION,
   VALID_DATASET,
   VAR_DATASET,
-  LEGEND_SYMBOL_TYPE,
-  DEFAULT_LEGEND_COLOR_COUNT,
-  GREY_DOT_SCALE,
-  LEGEND_TEXT_FONT,
-  UNKNOWN_SCALE,
-  MAP_SCHEMES,
-  type CountColsMap,
 } from './mapGlobals'
-import { het } from '../styles/DesignTokens'
-import { formatterMap, type LegendNumberFormat } from './legendHelperFunctions'
-import { isPctType } from '../data/config/MetricConfigUtils'
+import { generateSubtitle } from './utils'
 
 /*
 

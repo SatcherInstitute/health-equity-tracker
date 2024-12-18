@@ -1,10 +1,10 @@
 import type React from 'react'
-import { Fips } from '../data/utils/Fips'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import TableCard from '../cards/TableCard'
-import { SEX } from '../data/utils/Constants'
-import type { DemographicType } from '../data/query/Breakdowns'
 import { GUN_VIOLENCE_METRICS } from '../data/config/MetricConfigCommunitySafety'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DemographicType } from '../data/query/Breakdowns'
+import { SEX } from '../data/utils/Constants'
+import { Fips } from '../data/utils/Fips'
 
 interface CustomBreakdownSummaryProps {
   headerScrollMargin?: string

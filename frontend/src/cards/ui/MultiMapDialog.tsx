@@ -1,6 +1,6 @@
-import { useState } from 'react'
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
+import { useState } from 'react'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Legend } from '../../charts/Legend'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
@@ -13,8 +13,8 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../../data/query/Breakdowns'
 import type {
   MetricQuery,
@@ -137,7 +137,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <div className='col-span-full flex w-full justify-between'>
             {/* Modal Title */}
             <h2
-              className='m-2 w-full text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
+              className='m-2 w-full font-light text-small leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
               id='modalTitle'
             >
               {title}
@@ -162,7 +162,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   key={`${demographicGroup}-grid-item`}
                   className='min-h-multimapMobile w-full sm:p-1 md:min-h-multimapDesktop md:p-2'
                 >
-                  <h3 className='m-0 text-smallest font-medium leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
+                  <h3 className='m-0 font-medium text-smallest leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
                     {mapLabel}
                   </h3>
                   <div>
@@ -301,7 +301,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           </div>
           {/*  CLOSE button */}
           <HetLinkButton
-            className='w-full justify-center hide-on-screenshot'
+            className='hide-on-screenshot w-full justify-center'
             aria-label='close this multiple maps modal'
             onClick={props.handleClose}
           >

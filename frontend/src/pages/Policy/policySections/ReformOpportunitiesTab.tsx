@@ -1,15 +1,15 @@
 import { Helmet } from 'react-helmet-async'
-import {
-  legislativeActions,
-  effortsAndInsights,
-} from '../policyContent/ReformOpportunitiesContent'
-import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
-import CardLeftIcon from '../policyComponents/CardLeftIcon'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import { urlMap } from '../../../utils/externalUrls'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import CardLeftIcon from '../policyComponents/CardLeftIcon'
+import {
+  effortsAndInsights,
+  legislativeActions,
+} from '../policyContent/ReformOpportunitiesContent'
 
 export default function ReformOpportunitiesTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -28,10 +28,10 @@ export default function ReformOpportunitiesTab() {
 
       <section id='where-to-start'>
         <HetOverline text='Where to Start' />
-        <h3 className='my-0 text-title font-medium text-altGreen'>
+        <h3 className='my-0 font-medium text-altGreen text-title'>
           Insights from the Advocacy Community
         </h3>
-        <ul className='mt-4 mb-8 grid grid-cols-1 md:grid-cols-2 list-none ml-0 pl-0 gap-2'>
+        <ul className='mt-4 mb-8 ml-0 grid list-none grid-cols-1 gap-2 pl-0 md:grid-cols-2'>
           {effortsAndInsights.map((effortsAndInsight, index) => {
             const isMobileShadow = !isMdAndUp && index % 2 === 0
             const isDesktopShadow =
@@ -68,7 +68,7 @@ export default function ReformOpportunitiesTab() {
 '
         />
 
-        <h3 className='my-0 text-title font-medium text-altGreen'>
+        <h3 className='my-0 font-medium text-altGreen text-title'>
           Legislative Items to Consider for Policy Changes
         </h3>
         <HetOverline text={`SOURCE: RAND Foundation`} className='inline' />

@@ -1,10 +1,10 @@
 import { Step, StepButton, Stepper } from '@mui/material'
-import {
-  useStepObserver,
-  type ScrollableHashId,
-} from '../../utils/hooks/useStepObserver'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
+import {
+  type ScrollableHashId,
+  useStepObserver,
+} from '../../utils/hooks/useStepObserver'
 
 interface TableOfContentsProps {
   reportStepHashIds: ScrollableHashId[]
@@ -40,7 +40,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
       )}
       orientation='vertical'
       aria-label='Available cards on this report'
-      className='titleSm:pl-1p hidden p-0 sm:flex sm:w-90p md:px-5'
+      className='hidden p-0 titleSm:pl-1p sm:flex sm:w-90p md:px-5'
     >
       {props.reportStepHashIds?.map((stepId) => {
         return (

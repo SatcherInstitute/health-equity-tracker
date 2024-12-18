@@ -1,6 +1,6 @@
-import type React from 'react'
-import { Dialog, DialogContent, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { Dialog, DialogContent, IconButton } from '@mui/material'
+import type React from 'react'
 
 interface HetModalProps {
   open: boolean
@@ -17,7 +17,7 @@ const HetModal: React.FC<HetModalProps> = ({
 }) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth='lg' fullWidth>
-      <DialogContent className='flex justify-center items-center p-4'>
+      <DialogContent className='flex items-center justify-center p-4'>
         <IconButton
           aria-label='close'
           onClick={onClose}
@@ -28,7 +28,7 @@ const HetModal: React.FC<HetModalProps> = ({
         <img
           src={imageUrl}
           alt={altText}
-          className='max-w-full max-h-[80vh] rounded-lg shadow-lg'
+          className='max-h-[80vh] max-w-full rounded-lg shadow-lg'
         />
       </DialogContent>
     </Dialog>

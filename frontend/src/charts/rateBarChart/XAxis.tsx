@@ -1,4 +1,4 @@
-import { format, type ScaleLinear } from 'd3'
+import { type ScaleLinear, format } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
@@ -24,7 +24,7 @@ export default function XAxis(props: XAxisProps) {
       <text
         transform={`translate(${props.width / 2},${props.height + 40})`}
         textAnchor='middle'
-        className='text-smallest font-semibold'
+        className='font-semibold text-smallest'
         aria-label='X Axis Label'
       >
         {props.metricConfig.shortLabel}
@@ -45,7 +45,7 @@ export default function XAxis(props: XAxisProps) {
               y={9}
               dy='.71em'
               textAnchor='middle'
-              className='text-smallest fill-current'
+              className='fill-current text-smallest'
             >
               {formatTick(tick)}
             </text>

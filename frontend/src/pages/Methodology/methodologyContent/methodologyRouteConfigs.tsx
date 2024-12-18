@@ -1,27 +1,27 @@
-import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
-import type { RouteConfig } from '../../sharedTypes'
 import { lazy } from 'react'
 import {
+  AGE_ADJUSTMENT_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
-  TOPIC_DEFINITIONS_LINK,
+  COMMUNITY_SAFETY_LINK,
   COVID_19_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   GLOSSARY_LINK,
   HIV_LINK,
+  LIMITATIONS_LINK,
+  MEDICATION_UTILIZATION_LINK,
+  METHODOLOGY_PAGE_LINK,
   METRICS_LINK,
   PDOH_LINK,
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   SDOH_LINK,
-  MEDICATION_UTILIZATION_LINK,
   SOURCES_LINK,
   TOPIC_CATEGORIES_LINK,
-  METHODOLOGY_PAGE_LINK,
-  AGE_ADJUSTMENT_LINK,
-  LIMITATIONS_LINK,
-  COMMUNITY_SAFETY_LINK,
+  TOPIC_DEFINITIONS_LINK,
 } from '../../../utils/internalRoutes'
+import type { RouteConfig } from '../../sharedTypes'
+import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
 
 const AgeAdjustmentLink = lazy(
   () => import('../methodologySections/AgeAdjustmentLink'),

@@ -1,41 +1,41 @@
 import { useState } from 'react'
-import type { Fips } from '../data/utils/Fips'
+import { HashLink } from 'react-router-hash-link'
+import { TrendsChart } from '../charts/trendsChart/Index'
+import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
+import { HIV_METRICS } from '../data/providers/HivProvider'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import CardWrapper from './CardWrapper'
-import { TrendsChart } from '../charts/trendsChart/Index'
-import { exclude } from '../data/query/BreakdownFilter'
 import {
   ALL,
   type DemographicGroup,
   NON_HISPANIC,
   UNKNOWN_LABELS,
 } from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import {
   getNestedData,
   getNestedUnknowns,
 } from '../data/utils/DatasetTimeUtils'
-import { HashLink } from 'react-router-hash-link'
-import { METHODOLOGY_PAGE_LINK } from '../utils/internalRoutes'
-import AltTableView from './ui/AltTableView'
-import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import { HIV_METRICS } from '../data/providers/HivProvider'
-import Hiv2020Alert from './ui/Hiv2020Alert'
-import ChartTitle from './ChartTitle'
+import type { Fips } from '../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
+import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { METHODOLOGY_PAGE_LINK } from '../utils/internalRoutes'
+import CardWrapper from './CardWrapper'
+import ChartTitle from './ChartTitle'
+import AltTableView from './ui/AltTableView'
+import Hiv2020Alert from './ui/Hiv2020Alert'
+import MissingDataAlert from './ui/MissingDataAlert'
+import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668

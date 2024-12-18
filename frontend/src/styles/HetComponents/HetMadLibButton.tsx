@@ -1,6 +1,6 @@
-import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material'
+import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import type { ReactNode, MouseEvent } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 
 interface HetMadLibButtonProps {
   children: ReactNode
@@ -14,7 +14,7 @@ export default function HetMadLibButton(props: HetMadLibButtonProps) {
     <Button
       variant='text'
       aria-haspopup='true'
-      className={`mx-4 my-1 min-w-[100px] border border-solid border-altGreen  py-0 pl-3 pr-1 text-title font-medium text-altGreen shadow-raised-tighter sm:text-smallestHeader lg:text-smallerHeader ${
+      className={`mx-4 my-1 min-w-[100px] border border-altGreen border-solid py-0 pr-1 pl-3 font-medium text-altGreen text-title shadow-raised-tighter sm:text-smallestHeader lg:text-smallerHeader ${
         props.className ?? ''
       } `}
       onClick={props.handleClick}

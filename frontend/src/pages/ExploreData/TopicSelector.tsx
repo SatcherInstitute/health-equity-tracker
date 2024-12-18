@@ -1,19 +1,19 @@
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { useRef } from 'react'
-import { usePopover } from '../../utils/hooks/usePopover'
+import type { DropdownVarId } from '../../data/config/DropDownIds'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
+import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
+import HetPopover from '../../styles/HetComponents/HetPopover'
 import {
   CATEGORIES_LIST,
   DEFAULT,
-  SELECTED_DROPDOWN_OVERRIDES,
-  type DefaultDropdownVarId,
   DROPDOWN_TOPIC_MAP,
+  type DefaultDropdownVarId,
+  SELECTED_DROPDOWN_OVERRIDES,
 } from '../../utils/MadLibs'
-import type { DataTypeId } from '../../data/config/MetricConfigTypes'
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
+import { usePopover } from '../../utils/hooks/usePopover'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
-import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
-import HetPopover from '../../styles/HetComponents/HetPopover'
-import type { DropdownVarId } from '../../data/config/DropDownIds'
 
 interface TopicSelectorProps {
   newValue: DataTypeId | DefaultDropdownVarId // DataTypeId OR default setting with no topic selected
@@ -50,12 +50,12 @@ export default function TopicSelector(props: TopicSelectorProps) {
 
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
-          <menu className='m-6 grid max-w-md grid-cols-1 gap-4 p-0 tiny:grid-cols-2 smMd:grid-cols-3'>
+          <menu className='m-6 grid max-w-md grid-cols-1 tiny:grid-cols-2 gap-4 p-0 smMd:grid-cols-3'>
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mb-1 mr-4 p-0 text-small font-semibold leading-lhSomeMoreSpace sm:text-text text-black'
+                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-lhSomeMoreSpace sm:text-text'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
@@ -83,11 +83,11 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='no-underline hover:bg-standardInfo text-black bg-white'
+                  className='bg-white text-black no-underline hover:bg-standardInfo'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <KeyboardBackspaceIcon className='text-black text-small pb-[3px]' />{' '}
-                  <span className='p-1 text-smallest text-black'>
+                  <KeyboardBackspaceIcon className='pb-[3px] text-black text-small' />{' '}
+                  <span className='p-1 text-black text-smallest'>
                     Clear selections
                   </span>
                 </a>

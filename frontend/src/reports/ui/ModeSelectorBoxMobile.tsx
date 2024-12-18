@@ -1,7 +1,7 @@
-import SimpleSelect from '../../pages/ui/SimpleSelect'
-import JumpToSelect from '../../pages/ui/JumpToSelect'
-import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import JumpToSelect from '../../pages/ui/JumpToSelect'
+import SimpleSelect from '../../pages/ui/SimpleSelect'
+import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
 

@@ -81,7 +81,7 @@ const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
 
   return (
     <div
-      className={`absolute border border-altGrey bg-white p-3 rounded-sm  max-w-sm z-top text-left`}
+      className={`absolute z-top max-w-sm rounded-sm border border-altGrey bg-white p-3 text-left`}
       style={{
         top: position.y,
         left: position.x,

@@ -1,4 +1,4 @@
-import type { DatasetMetadata, DataSourceMetadata } from '../utils/DatasetTypes'
+import type { DataSourceMetadata, DatasetMetadata } from '../utils/DatasetTypes'
 
 export type DatasetIdHivCategory =
   | 'cdc_hiv_data-by_age_county_current'

@@ -10,14 +10,14 @@ function TermsOfUsePage() {
         <div className='w-full md:w-1/4'>
           <h2
             id='main'
-            className='m-0 font-serif text-header font-light md:m-2'
+            className='m-0 font-light font-serif text-header md:m-2'
           >
             Terms of Use
           </h2>
         </div>
         <ul className='w-full max-w-lg list-none text-left md:w-3/4'>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Privacy Policy
             </h3>
             <p className='font-sansText text-small'>
@@ -30,7 +30,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Personally Provided Information
             </h3>
             <p className='font-sansText text-small'>
@@ -46,7 +46,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Email and Phone Communications
             </h3>
             <p className='font-sansText text-small'>
@@ -58,7 +58,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Collection of Technical Information
             </h3>
             <p className='font-sansText text-small'>
@@ -86,7 +86,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>Security</h3>
+            <h3 className='font-medium font-sansTitle text-title'>Security</h3>
             <p className='font-sansText text-small'>
               While no computing environment can be 100% secure, it is MSM’s
               goal to maintain as secure a technical environment as feasible
@@ -98,7 +98,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Links to Other Sites
             </h3>
             <p className='font-sansText text-small'>
@@ -111,7 +111,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Changes to our Privacy Policy
             </h3>
             <p className='font-sansText text-small'>
@@ -125,7 +125,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Complaint Process
             </h3>
             <p className='font-sansText text-small'>
@@ -137,7 +137,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-sansTitle text-title font-medium'>
+            <h3 className='font-medium font-sansTitle text-title'>
               Disclaimer
             </h3>
             <p className='font-sansText text-small'>

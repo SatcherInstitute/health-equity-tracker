@@ -1,11 +1,11 @@
-import { WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from '../../utils/internalRoutes'
+import { lazy } from 'react'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicTypeDisplayName } from '../../data/query/Breakdowns'
 import type { Fips } from '../../data/utils/Fips'
-import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import { LinkWithStickyParams } from '../../utils/urlutils'
-import { lazy } from 'react'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import { WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from '../../utils/internalRoutes'
+import { LinkWithStickyParams } from '../../utils/urlutils'
 
 const AltDataTypesMessage = lazy(
   async () => await import('./AltDataTypesMessage'),

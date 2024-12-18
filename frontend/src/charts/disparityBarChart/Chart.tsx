@@ -1,27 +1,27 @@
 import { Vega } from 'react-vega'
+import type { AutoSize } from 'vega'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
+import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
+import { AIAN, NHPI, RACE } from '../../data/utils/Constants'
+import { useChartDimensions } from '../../utils/hooks/useChartDimensions'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import type { DisparityBarChartProps } from './types'
+import {
+  PADDING_FOR_ACTIONS_MENU,
+  addLineBreakDelimitersToField,
+  addMetricDisplayColumn,
+} from '../utils'
+import { Axes } from './Axes'
+import { Legends } from './Legends'
+import { Marks } from './Marks'
+import { Scales } from './Scales'
 import {
   BACKGROUND_COLOR,
   LABEL_SWAP_CUTOFF_PERCENT,
   SCHEMA,
 } from './constants'
 import { getLargerMeasure, getSignals } from './helpers'
-import { Axes } from './Axes'
-import { Legends } from './Legends'
-import { Marks } from './Marks'
-import { AIAN, NHPI, RACE } from '../../data/utils/Constants'
-import type { AutoSize } from 'vega'
-import { useChartDimensions } from '../../utils/hooks/useChartDimensions'
-import { Scales } from './Scales'
-import {
-  addLineBreakDelimitersToField,
-  addMetricDisplayColumn,
-  PADDING_FOR_ACTIONS_MENU,
-} from '../utils'
-import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
-import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
+import type { DisparityBarChartProps } from './types'
 
 export const altLightMetric: MetricConfig = {
   chartTitle: 'Population Share (ACS)',

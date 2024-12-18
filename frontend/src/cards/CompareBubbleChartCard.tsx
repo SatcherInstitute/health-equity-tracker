@@ -1,20 +1,20 @@
+import { DataFrame } from 'data-forge'
 import CompareBubbleChart from '../charts/CompareBubbleChart'
 import type {
   DataTypeConfig,
   MetricConfig,
   MetricId,
 } from '../data/config/MetricConfigTypes'
+import { exclude } from '../data/query/BreakdownFilter'
 import { Breakdowns, type DemographicType } from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import { SHOW_CORRELATION_CARD } from '../reports/CompareReport'
+import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import { exclude } from '../data/query/BreakdownFilter'
-import { MetricQuery } from '../data/query/MetricQuery'
-import { NON_HISPANIC, AIAN_API, UNKNOWN_RACE } from '../data/utils/Constants'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { DataFrame } from 'data-forge'
-import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { SHOW_CORRELATION_CARD } from '../reports/CompareReport'
 
 interface CompareBubbleChartCardProps {
   fips1: Fips
@@ -82,7 +82,7 @@ export default function CompareBubbleChartCard(
       minHeight={preloadHeight}
       scrollToHash={'compare-bubble-chart' as ScrollableHashId}
       reportTitle={props.reportTitle}
-      className={`rounded-sm relative m-2 p-3 ${defaultClasses} ${props.className}`}
+      className={`relative m-2 rounded-sm p-3 ${defaultClasses} ${props.className}`}
     >
       {(queryResponses) => {
         const rateQueryResponseRateX = queryResponses[0]

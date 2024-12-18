@@ -70,7 +70,7 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
           <TipsAndUpdatesOutlined />
         )}
       </IconButton>
-      <p className='text-text smMd:text-smallestHeader p-8 m-0 text-center text-altDark'>
+      <p className='m-0 p-8 text-center text-altDark text-text smMd:text-smallestHeader'>
         {isGeneratingInsight ? 'Generating insight...' : insight}
       </p>
     </>

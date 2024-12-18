@@ -14,7 +14,7 @@ const ResourceItem: React.FC<ResourceItemProps> = ({
 }) => {
   return (
     <li className='flex flex-row align-center'>
-      <p className='p-0 mt-0 mb-4'>
+      <p className='mt-0 mb-4 p-0'>
         <span className='font-semibold text-black'>
           {title}
           {link ? (

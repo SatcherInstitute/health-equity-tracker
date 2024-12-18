@@ -1,11 +1,11 @@
+import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from '../../utils/internalRoutes'
-import { Tab, Tabs } from '@mui/material'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { Link, Outlet, useLocation } from 'react-router-dom'
 
 export default function NewsPage() {
   const isSm = useIsBreakpointAndUp('sm')

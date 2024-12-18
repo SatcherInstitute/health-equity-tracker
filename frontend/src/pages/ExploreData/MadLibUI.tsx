@@ -1,15 +1,29 @@
+import { useAtom } from 'jotai'
 import React from 'react'
+import {
+  type DropdownVarId,
+  isDropdownVarId,
+} from '../../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../../data/config/MetricConfigTypes'
 import { isFipsString } from '../../data/utils/Fips'
 import {
   DEFAULT,
   MADLIB_LIST,
-  getMadLibWithUpdatedValue,
-  insertOptionalThe,
   type MadLib,
   type PhraseSegment,
   getConfigFromDataTypeId,
+  getMadLibWithUpdatedValue,
   getParentDropdownFromDataTypeId,
+  insertOptionalThe,
 } from '../../utils/MadLibs'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -19,22 +33,8 @@ import {
   stringifyMls,
 } from '../../utils/urlutils'
 import DataTypeSelector from './DataTypeSelector'
-import { METRIC_CONFIG } from '../../data/config/MetricConfig'
-import { useAtom } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
-import TopicSelector from './TopicSelector'
 import LocationSelector from './LocationSelector'
-import type {
-  DataTypeId,
-  DataTypeConfig,
-} from '../../data/config/MetricConfigTypes'
-import {
-  type DropdownVarId,
-  isDropdownVarId,
-} from '../../data/config/DropDownIds'
+import TopicSelector from './TopicSelector'
 
 interface MadLibUIProps {
   madLib: MadLib

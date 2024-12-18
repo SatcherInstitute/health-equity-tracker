@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-import { het, ThemeLineHeightValues } from '../styles/DesignTokens'
+import { ThemeLineHeightValues, het } from '../styles/DesignTokens'
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {

@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
-import { CATEGORIES_LIST } from '../../../utils/MadLibs'
-import { slugify } from '../../../utils/urlutils'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../../../data/config/DropDownIds'
+import { CATEGORIES_LIST } from '../../../utils/MadLibs'
+import { slugify } from '../../../utils/urlutils'
 
 export default function TopicDefinitionsLink() {
   return (
@@ -28,7 +28,7 @@ export default function TopicDefinitionsLink() {
               key={category.title}
             >
               <div key={category.title}>
-                <h3 className='mt-12 text-title font-medium'>
+                <h3 className='mt-12 font-medium text-title'>
                   {category.title}
                 </h3>
 
@@ -36,12 +36,12 @@ export default function TopicDefinitionsLink() {
                   return (
                     <div
                       key={config.dataTypeId}
-                      className='ml-0 self-start border-0 border-altDark font-sansText text-smallest text-altGreen first:border-t'
+                      className='ml-0 self-start border-0 border-altDark font-sansText text-altGreen text-smallest first:border-t'
                     >
                       <span>
                         <strong>{config.fullDisplayName}</strong>
                       </span>
-                      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+                      <p className='m-0 ml-1 self-start text-altBlack text-small'>
                         {config.definition?.text}
                       </p>
                     </div>

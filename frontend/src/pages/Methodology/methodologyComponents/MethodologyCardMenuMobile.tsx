@@ -4,7 +4,7 @@ import { methodologyRouteConfigs } from '../methodologyContent/methodologyRouteC
 export default function MethodologyCardMenuMobile() {
   return (
     <HetCardMenuMobile
-      className='smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-0 flex justify-center'
+      className='mx-auto my-0 flex w-screen min-w-full max-w-screen justify-center px-0 smMd:hidden'
       routeConfigs={methodologyRouteConfigs}
       label='Methodology Pages'
     />

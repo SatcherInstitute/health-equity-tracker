@@ -46,11 +46,11 @@ export function CopyCardImageToClipboardButton(
       <HetSnackbar open={confirmationOpen} handleClose={handleClose}>
         Copied <HetTerm>{cardName}</HetTerm> {imgTerm} to clipboard!
         {imgDataUrl && (
-          <div className='mt-4 rounded-lg overflow-hidden border border-gray-200'>
+          <div className='mt-4 overflow-hidden rounded-lg border border-gray-200'>
             <img
               src={imgDataUrl}
               alt={`Preview of ${cardName} ${imgTerm}`}
-              className='w-full h-auto max-h-sm object-contain bg-gray-50'
+              className='h-auto max-h-sm w-full bg-gray-50 object-contain'
             />
           </div>
         )}

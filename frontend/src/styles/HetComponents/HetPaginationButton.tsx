@@ -24,11 +24,11 @@ export default function HetPaginationButton({
     <Button
       onClick={onClick}
       disabled={disabled}
-      className={`my-2 lg:mb-0 flex smMd:w-full sm:w-auto flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack shadow-raised-tighter hover:shadow-raised md:w-80 min-h-24 max-h-32 h-24 ${className}`}
+      className={`my-2 flex h-24 max-h-32 min-h-24 flex-col justify-center rounded-3xl bg-methodologyGreen font-medium font-sansTitle text-altBlack leading-lhSomeMoreSpace tracking-wide shadow-raised-tighter hover:shadow-raised sm:w-auto smMd:w-full md:w-80 lg:mb-0 ${className}`}
     >
       {/* ARROW AND DIRECTION WORD */}
       <span
-        className={`mt-5 flex items-center self-stretch font-sansText text-small leading-lhLoose text-altBlack lg:leading-lhSomeMoreSpace ${
+        className={`mt-5 flex items-center self-stretch font-sansText text-altBlack text-small leading-lhLoose lg:leading-lhSomeMoreSpace ${
           isPrevious ? 'ml-5 justify-start' : 'mr-5 justify-end'
         }`}
       >
@@ -43,7 +43,7 @@ export default function HetPaginationButton({
         )}
       </span>
       {/* LABEL FOR LINKED PAGE */}
-      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 md:text-exploreButton text-text font-semibold leading-lhNormal'>
+      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 font-semibold text-text leading-lhNormal md:text-exploreButton'>
         <span
           className={
             isPrevious

@@ -1,32 +1,32 @@
+import { useLocation } from 'react-router-dom'
 import ChoroplethMap from '../charts/ChoroplethMap'
-import { Fips } from '../data/utils/Fips'
+import { unknownMapConfig } from '../charts/mapGlobals'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import type { HetRow } from '../data/utils/DatasetTypes'
-import CardWrapper from './CardWrapper'
-import { MetricQuery } from '../data/query/MetricQuery'
-import MissingDataAlert from './ui/MissingDataAlert'
 import {
   Breakdowns,
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
 import {
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
   ALL,
   RACE,
+  UNKNOWN,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN_RACE,
 } from '../data/utils/Constants'
-import UnknownsAlert from './ui/UnknownsAlert'
-import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { useLocation } from 'react-router-dom'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import TerritoryCircles from './ui/TerritoryCircles'
-import ChartTitle from './ChartTitle'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import { unknownMapConfig } from '../charts/mapGlobals'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import { Fips } from '../data/utils/Fips'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import CardWrapper from './CardWrapper'
+import ChartTitle from './ChartTitle'
+import MissingDataAlert from './ui/MissingDataAlert'
+import TerritoryCircles from './ui/TerritoryCircles'
+import UnknownsAlert from './ui/UnknownsAlert'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns

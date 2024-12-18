@@ -1,5 +1,5 @@
+import { LinkedIn, X, YouTube } from '@mui/icons-material'
 import TikTokIcon from '../../assets/icons/tiktok'
-import { X, LinkedIn, YouTube } from '@mui/icons-material'
 import { urlMap } from '../../utils/externalUrls'
 
 interface HetSocialIconLinksProps {

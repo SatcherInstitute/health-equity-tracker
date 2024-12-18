@@ -110,11 +110,11 @@ export default function NewsAndStoriesPage() {
 
       <section
         id='main-content'
-        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
+        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
       >
         <h2
           id='main'
-          className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           News and Stories
         </h2>
@@ -128,7 +128,7 @@ export default function NewsAndStoriesPage() {
             share insights and analysis into the Health Equity movement.
           </p>
 
-          <div className='flex flex-col md:flex-row gap-4 w-full mt-4'>
+          <div className='mt-4 flex w-full flex-col gap-4 md:flex-row'>
             <CheckboxDropdown
               label='Authors'
               options={authors.map((author) => ({
@@ -156,7 +156,7 @@ export default function NewsAndStoriesPage() {
               {filteredArticles.length > 0 ? (
                 <>
                   {filtersApplied ? (
-                    <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 w-full'>
+                    <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                       {filteredArticles.map((article: Article) => (
                         <div key={article.id} className='w-full'>
                           <NewsAndStoriesPreviewCardOutlined
@@ -169,9 +169,9 @@ export default function NewsAndStoriesPage() {
                     </div>
                   ) : (
                     <>
-                      <div className='grid grid-cols-1 lg:grid-cols-5 lg:gap-1 gap-4 w-full mt-8 smMd:gap-0'>
+                      <div className='mt-8 grid w-full grid-cols-1 gap-4 smMd:gap-0 lg:grid-cols-5 lg:gap-1'>
                         <>
-                          <div className='col-span-1 lg:col-span-2 w-full smMd:mb-4 lg:mb-0'>
+                          <div className='col-span-1 w-full smMd:mb-4 lg:col-span-2 lg:mb-0'>
                             {firstFiveArticles[0] && (
                               <NewsAndStoriesPreviewCardOutlined
                                 article={firstFiveArticles[0]}
@@ -181,7 +181,7 @@ export default function NewsAndStoriesPage() {
                             )}
                           </div>
 
-                          <div className='col-span-1 md:col-span-3 grid smMd:grid-cols-2 grid-cols-1 gap-4 lg:mb-0 mb-4'>
+                          <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smMd:grid-cols-2 md:col-span-3 lg:mb-0'>
                             {firstFiveArticles
                               .slice(1)
                               .map((article: Article) => (
@@ -196,7 +196,7 @@ export default function NewsAndStoriesPage() {
                       </div>
 
                       {showAllArticles && (
-                        <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:mt-8'>
+                        <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
                           {remainingArticles.map((article: Article) => (
                             <NewsAndStoriesPreviewCardOutlined
                               key={article.id}
@@ -216,18 +216,18 @@ export default function NewsAndStoriesPage() {
                   )}
                 </>
               ) : (
-                <p className='text-center text-gray-500 mt-8'>
+                <p className='mt-8 text-center text-gray-500'>
                   No articles found.
                 </p>
               )}
             </>
           )}
 
-          <div className='flex justify-center w-full mt-8'>
+          <div className='mt-8 flex w-full justify-center'>
             {filtersApplied ? (
               <HetLinkButton
                 onClick={handleResetFilters}
-                className='font-bold text-center leading-lhNormal py-0 px-0'
+                className='px-0 py-0 text-center font-bold leading-lhNormal'
                 buttonClassName='mx-auto py-4 px-8'
               >
                 Reset Filters
@@ -237,7 +237,7 @@ export default function NewsAndStoriesPage() {
               remainingArticles.length > 0 && (
                 <HetLinkButton
                   onClick={handleLoadAllArticles}
-                  className='font-bold text-center leading-lhNormal py-0 px-0'
+                  className='px-0 py-0 text-center font-bold leading-lhNormal'
                   buttonClassName='mx-auto py-4 px-8'
                 >
                   Load All Articles

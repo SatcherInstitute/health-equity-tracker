@@ -1,7 +1,7 @@
-import { dataSourceMetadataMap } from './MetadataMap'
-import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
+import { describe, expect, test } from 'vitest'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../providers/PhrmaProvider'
-import { expect, describe, test } from 'vitest'
+import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
+import { dataSourceMetadataMap } from './MetadataMap'
 
 describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {

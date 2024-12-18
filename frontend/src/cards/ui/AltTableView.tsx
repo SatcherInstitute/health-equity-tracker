@@ -1,3 +1,4 @@
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import {
   Table,
   TableBody,
@@ -7,29 +8,28 @@ import {
   TableRow,
   Tooltip,
 } from '@mui/material'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import {
+  formatFieldValue,
+  isPctType,
+} from '../../data/config/MetricConfigUtils'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import {
-  type DemographicGroup,
-  TIME_PERIOD_LABEL,
   AGE,
   ALL,
+  type DemographicGroup,
+  TIME_PERIOD_LABEL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../../data/utils/DatasetTypes'
+import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
-import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
-import {
-  formatFieldValue,
-  isPctType,
-} from '../../data/config/MetricConfigUtils'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -78,7 +78,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 mx-2 rounded-md bg-listboxColor text-left hide-on-screenshot'
+      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-listboxColor text-left'
       id={uniqueId}
     >
       <HetExpandableBoxButton
@@ -118,7 +118,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
-                        className='break-words border-0 border-b border-altDark bg-white leading-lhSomeSpace'
+                        className='break-words border-0 border-altDark border-b bg-white leading-lhSomeSpace'
                       >
                         {!isTimeCol &&
                           key !== ALL &&
