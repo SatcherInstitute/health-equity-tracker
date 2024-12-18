@@ -1,23 +1,23 @@
+import type { ReactNode } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import type { DataTypeId } from '../data/config/MetricConfigTypes'
+import {
+  type DemographicGroup,
+  raceNameToCodeMap,
+} from '../data/utils/Constants'
+import type { MadLibId, PhraseSelections } from './MadLibs'
+import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
 import {
   ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  NEWS_PAGE_LINK,
-  METHODOLOGY_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  GUN_VIOLENCE_POLICY,
   FULL_FAQS_LINK,
+  GUN_VIOLENCE_POLICY,
+  METHODOLOGY_PAGE_LINK,
+  NEWS_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './internalRoutes'
-import type { MadLibId, PhraseSelections } from './MadLibs'
-import {
-  raceNameToCodeMap,
-  type DemographicGroup,
-} from '../data/utils/Constants'
-import type { ReactNode } from 'react'
-import { urlMap } from './externalUrls'
-import type { DataTypeId } from '../data/config/MetricConfigTypes'
-import { Link, useLocation } from 'react-router-dom'
 
 // OLDER HANDLING PARAMS
 

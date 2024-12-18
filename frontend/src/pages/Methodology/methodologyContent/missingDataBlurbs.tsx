@@ -12,11 +12,11 @@ export function MissingCdcAtlasData() {
 export function MissingIslandAreaPopulationData() {
   return (
     <>
-      <h4 className='text-text font-light'>
+      <h4 className='font-light text-text'>
         Missing population data for Census Island Areas
       </h4>
 
-      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+      <p className='m-0 ml-1 self-start text-altBlack text-small'>
         Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{' '}
         <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
         reported in the ACS five year estimates; in these territories, for
@@ -41,10 +41,10 @@ export function MissingIslandAreaPopulationData() {
 export function MissingCovidData() {
   return (
     <>
-      <h4 className='text-text font-light'>
+      <h4 className='font-light text-text'>
         Missing and suppressed COVID data
       </h4>
-      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+      <p className='m-0 ml-1 self-start text-altBlack text-small'>
         For COVID-19 related reports, this tracker uses disaggregated,
         individual{' '}
         <a href={urlMap.cdcCovidRestricted}>
@@ -62,10 +62,10 @@ export function MissingCovidData() {
 export function MissingCovidVaccinationData() {
   return (
     <>
-      <h4 className='text-text font-light'>
+      <h4 className='font-light text-text'>
         Missing COVID-19 vaccination data
       </h4>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           <b>Population data:</b> Because state-reported population categories
           do not always coincide with the categories reported by the census, we
@@ -92,10 +92,10 @@ export function MissingCovidVaccinationData() {
 export function MissingCAWPData() {
   return (
     <>
-      <h4 className='text-text font-light'>
+      <h4 className='font-light text-text'>
         Missing data for women in legislative office
       </h4>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           The Center for American Women in Politics (CAWP) dataset uses unique
           race/ethnicity groupings that do not correspond directly with the
@@ -118,10 +118,10 @@ export function MissingCAWPData() {
 export function MissingHIVData() {
   return (
     <>
-      <h4 className='text-text font-light'>
+      <h4 className='font-light text-text'>
         Missing data for HIV deaths, diagnoses, and prevalence
       </h4>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           County-level data is suppressed when the population denominator is
           less than 100, the total case count is between 1–4 cases, or when
@@ -154,8 +154,8 @@ export function MissingHIVData() {
 export function MissingPrepData() {
   return (
     <>
-      <h4 className='text-text font-light'>PrEP Coverage and Prescriptions</h4>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <h4 className='font-light text-text'>PrEP Coverage and Prescriptions</h4>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           The race and ethnicity of individuals prescribed PrEP are only
           available for less than 40% of all people prescribed PrEP and are
@@ -179,13 +179,13 @@ export function MissingPrepData() {
 export function MissingPhrmaData() {
   return (
     <>
-      <h4 className='text-text font-light'>Medicare Administration Data</h4>
+      <h4 className='font-light text-text'>Medicare Administration Data</h4>
 
-      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+      <p className='m-0 ml-1 self-start text-altBlack text-small'>
         What demographic data are missing?
       </p>
 
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           <b>Gender:</b> The Medicare source files did not include information
           on gender. Gender is not presented in this data.
@@ -208,10 +208,10 @@ export function MissingPhrmaData() {
         </li>
       </ul>
 
-      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+      <p className='m-0 ml-1 self-start text-altBlack text-small'>
         Who is missing?
       </p>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           <b>Data Suppression:</b> To{' '}
           <a href='https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.'>
@@ -227,10 +227,10 @@ export function MissingPhrmaData() {
 export function MissingAHRData() {
   return (
     <>
-      <h4 className='text-text font-light'>
+      <h4 className='font-light text-text'>
         Missing America's Health Rankings data
       </h4>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           <b>Population data:</b> AHR does not have population data available
           for: preventable hospitalizations, voter participation, and
@@ -248,8 +248,8 @@ export function MissingAHRData() {
 export function MissingWisqarsData() {
   return (
     <>
-      <h4 className='text-text font-light'>Missing WISQARS Data</h4>
-      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+      <h4 className='font-light text-text'>Missing WISQARS Data</h4>
+      <ul className='m-0 ml-1 self-start text-altBlack text-small'>
         <li>
           <b>Legal intervention data:</b> Data on deaths caused by legal
           intervention is limited. Therefore, we choose to show raw counts of

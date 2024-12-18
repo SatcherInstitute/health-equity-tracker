@@ -1,9 +1,9 @@
 import { Dialog, DialogActions, DialogContent } from '@mui/material'
-import { useParamState } from '../../utils/hooks/useParamState'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import { useEffect } from 'react'
-import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 import { het } from '../../styles/DesignTokens'
+import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 
 export default function VoteDotOrgModal() {
   const [modalIsOpen, setModalIsOpen] = useParamState(VOTE_DOT_ORG_PARAM_KEY)
@@ -68,7 +68,7 @@ export default function VoteDotOrgModal() {
           width='100%'
           height='100%'
           id='voteDotOrgIframe'
-          className='p-2 md:px-24 mt-2 bg-standardInfo border-0'
+          className='mt-2 border-0 bg-standardInfo p-2 md:px-24'
         ></iframe>
       </DialogContent>
     </Dialog>

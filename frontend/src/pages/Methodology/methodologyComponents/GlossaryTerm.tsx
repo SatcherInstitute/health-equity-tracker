@@ -33,10 +33,10 @@ export default function GlossaryTerm(props: GlossaryTermProps) {
 
         return (
           <div key={itemKey} className='mx-auto my-4'>
-            <h4 className='mx-auto mb-0 mt-1 font-sansTitle text-text font-medium text-altGreen '>
+            <h4 className='mx-auto mt-1 mb-0 font-medium font-sansTitle text-altGreen text-text '>
               {itemKey}
             </h4>
-            <p className='mx-auto mb-0 mt-1 text-smallest text-altBlack'>
+            <p className='mx-auto mt-1 mb-0 text-altBlack text-smallest'>
               {glossaryDefinition}
             </p>
           </div>

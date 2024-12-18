@@ -1,17 +1,17 @@
-import Resources from '../methodologyComponents/Resources'
-import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
-import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
-import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import NoteBrfss from '../methodologyComponents/NoteBrfss'
-import AhrMetrics from '../methodologyComponents/AhrMetrics'
+import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../../utils/externalUrls'
+import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import AhrMetrics from '../methodologyComponents/AhrMetrics'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import NoteBrfss from '../methodologyComponents/NoteBrfss'
+import Resources from '../methodologyComponents/Resources'
+import StripedTable from '../methodologyComponents/StripedTable'
+import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
 const sdohDataSources = [
@@ -65,7 +65,7 @@ function SdohLink() {
             },
           ]}
         />
-        <h3 className='mt-12 text-title font-medium' id='sdoh-data-sourcing'>
+        <h3 className='mt-12 font-medium text-title' id='sdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -85,7 +85,7 @@ function SdohLink() {
 
         <AhrMetrics />
 
-        <h3 className='mt-12 text-title font-medium' id='sdoh-data-sources'>
+        <h3 className='mt-12 font-medium text-title' id='sdoh-data-sources'>
           Data Sources
         </h3>
         <StripedTable

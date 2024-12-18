@@ -1,11 +1,11 @@
+import FiberNewIcon from '@mui/icons-material/FiberNew'
 import { lazy } from 'react'
 import {
+  GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
   HIV_PREVALENCE_RACE_USA_SETTING,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
-  GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
 } from '../../utils/internalRoutes'
-import FiberNewIcon from '@mui/icons-material/FiberNew'
 
 const CustomChoroplethMap = lazy(
   () => import('../../reports/CustomChoroplethMap'),

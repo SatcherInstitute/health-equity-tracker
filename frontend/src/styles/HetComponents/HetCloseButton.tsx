@@ -1,5 +1,5 @@
-import { Button } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
+import { Button } from '@mui/material'
 
 interface HetCloseButtonProps {
   onClick: () => void

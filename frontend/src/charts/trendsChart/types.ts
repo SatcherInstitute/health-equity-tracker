@@ -1,4 +1,4 @@
-import type { ScaleTime, ScaleLinear, ScaleOrdinal } from 'd3'
+import type { ScaleLinear, ScaleOrdinal, ScaleTime } from 'd3'
 import type {
   MetricType,
   TimeSeriesCadenceType,

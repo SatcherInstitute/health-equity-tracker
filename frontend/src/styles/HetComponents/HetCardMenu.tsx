@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import HetListItemButton from './HetListItemButton'
-import HetDivider from './HetDivider'
 import type { RouteConfig } from '../../pages/sharedTypes'
+import HetDivider from './HetDivider'
+import HetListItemButton from './HetListItemButton'
 
 interface HetCardMenuProps {
   className?: string

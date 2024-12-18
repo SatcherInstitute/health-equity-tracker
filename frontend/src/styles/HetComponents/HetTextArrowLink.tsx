@@ -17,11 +17,11 @@ const HetTextArrowLink: React.FC<HetTextArrowLinkProps> = ({
 }) => {
   return (
     <div
-      className={`flex items-center justify-start p-0 m-0 hover:translate-x-1 hover:transition-transform hover:duration-300 xs:mb-0 xs:pb-0 h-auto ${containerClassName}`}
+      className={`m-0 xs:mb-0 flex h-auto items-center justify-start p-0 xs:pb-0 hover:translate-x-1 hover:transition-transform hover:duration-300 ${containerClassName}`}
     >
       <a
         href={link}
-        className={`no-underline h-auto  p-0 m-0  flex items-center justify-start xs:mb-4 xl:m-0 lg:m-0 md:m-0 sm:m-auto xs:m-auto ${linkClassName}`}
+        className={`m-0 xs:m-auto xs:mb-4 flex h-auto items-center justify-start p-0 no-underline sm:m-auto md:m-0 lg:m-0 xl:m-0 ${linkClassName}`}
       >
         <HetTextArrow linkText={linkText} textClassName={textClassName} />
       </a>

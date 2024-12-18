@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { HIV_DISEASE_METRICS } from '../data/config/MetricConfigHivCategory'
 import { PHRMA_CARDIOVASCULAR_METRICS } from '../data/config/MetricConfigPhrma'
 import {
@@ -6,7 +7,6 @@ import {
 } from '../data/config/MetricConfigSDOH'
 import { Fips } from '../data/utils/Fips'
 import { generateChartTitle, generateSubtitle } from './utils'
-import { describe, test, expect } from 'vitest'
 
 describe('Tests generateChartTitle()', () => {
   test('Chart title (standard state)', () => {

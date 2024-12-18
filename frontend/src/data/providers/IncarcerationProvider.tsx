@@ -1,12 +1,12 @@
 import { getDataManager } from '../../utils/globals'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
 
-import VariableProvider from './VariableProvider'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type { DatasetId } from '../config/DatasetMetadata'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
+import VariableProvider from './VariableProvider'
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [

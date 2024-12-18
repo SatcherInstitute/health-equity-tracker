@@ -11,10 +11,12 @@ test('Health Insurance Flow', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Uninsured people in the United States' })
     .click()
-  await page.getByRole('button', { name: 'Expand state/territory rate' }).click();
+  await page
+    .getByRole('button', { name: 'Expand state/territory rate' })
+    .click()
   await page
     .getByText(
-      'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.'
+      'Consider the possible impact of data reporting gaps when interpreting the highest and lowest rates.',
     )
     .click()
   await page
@@ -35,7 +37,7 @@ test('Health Insurance Flow', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.'
+      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page
@@ -43,9 +45,15 @@ test('Health Insurance Flow', async ({ page }) => {
       name: 'Relative inequity for uninsurance in the United States',
     })
     .click()
-  await page.getByRole('heading', { name: 'Relative inequity for' }).click();
-  await page.locator('#inequities-over-time').getByLabel('Highlight groups with lowest').click();
-  await page.locator('#inequities-over-time').getByLabel('Clear demographic filters').click();
+  await page.getByRole('heading', { name: 'Relative inequity for' }).click()
+  await page
+    .locator('#inequities-over-time')
+    .getByLabel('Highlight groups with lowest')
+    .click()
+  await page
+    .locator('#inequities-over-time')
+    .getByLabel('Clear demographic filters')
+    .click()
   await page.getByText('Expand inequities over time').click()
   await page
     .locator('#inequities-over-time')
@@ -56,5 +64,4 @@ test('Health Insurance Flow', async ({ page }) => {
       name: 'Population vs. distribution of total uninsured people in the United States',
     })
     .click()
-
 })

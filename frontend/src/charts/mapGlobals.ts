@@ -1,9 +1,9 @@
+import type { ColorScheme, Legend, Scale } from 'vega'
+import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 /*
 To prevent components loading from one another, all exported consts for the map cards should be in this file
 */
 import type { DemographicGroup } from '../data/utils/Constants'
-import type { Scale, ColorScheme, Legend } from 'vega'
-import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 import { het } from '../styles/DesignTokens'
 
 export const DATA_SUPPRESSED = 'Data suppressed'

@@ -1,21 +1,21 @@
-import { AGE, RACE, SEX } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type { DataTypeId } from '../config/MetricConfigTypes'
+import type { MetricId } from '../config/MetricConfigTypes'
 import {
   Breakdowns,
   type DemographicType,
   type TimeView,
 } from '../query/Breakdowns'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfigTypes'
-import { Fips } from '../utils/Fips'
-import type { MetricId } from '../config/MetricConfigTypes'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import { AGE, RACE, SEX } from '../utils/Constants'
+import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import GunViolenceProvider from './GunViolenceProvider'
 
 async function ensureCorrectDatasetsDownloaded(

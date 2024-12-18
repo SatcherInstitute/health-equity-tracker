@@ -15,12 +15,12 @@ export default function RecommendedCitationLink() {
           equity, and justice.
         </p>
         <h2 className='sr-only'>Recommended Citation</h2>
-        <h3 className='mt-12 text-title font-medium'>
+        <h3 className='mt-12 font-medium text-title'>
           APA (American Psychological Association) Format
         </h3>
-        <div className='text-left font-sansText text-small text-altBlack'>
+        <div className='text-left font-sansText text-altBlack text-small'>
           <Card elevation={3}>
-            <p className='mx-0 my-4 pl-12 pr-4 first-of-type:-indent-8'>
+            <p className='first-of-type:-indent-8 mx-0 my-4 pr-4 pl-12'>
               {CITATION_APA}
             </p>
           </Card>

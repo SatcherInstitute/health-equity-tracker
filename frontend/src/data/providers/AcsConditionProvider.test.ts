@@ -1,21 +1,21 @@
-import AcsConditionProvider from './AcsConditionProvider'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from '../../utils/globals'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   Breakdowns,
   type DemographicType,
   type TimeView,
 } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
+import { AGE, RACE, SEX } from '../utils/Constants'
 import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import {
-  autoInitGlobals,
-  getDataFetcher,
-  resetCacheDebug,
-} from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { CHATAM, NC, USA } from './TestUtils'
-import { RACE, SEX, AGE } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import AcsConditionProvider from './AcsConditionProvider'
+import { CHATAM, NC, USA } from './TestUtils'
 
 async function ensureCorrectDatasetsDownloaded(
   acsDatasetId: DatasetId,

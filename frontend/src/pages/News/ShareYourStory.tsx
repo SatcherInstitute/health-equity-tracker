@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async'
-import { submissionGuidelines } from './ShareYourStoryContent'
+import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import CardLeftNumber from './CardLeftNumber'
-import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
+import { submissionGuidelines } from './ShareYourStoryContent'
 
 export default function ShareYourStory() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -14,11 +14,11 @@ export default function ShareYourStory() {
 
       <section
         id='main-content'
-        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
+        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           Share Your Story
         </h1>
@@ -41,15 +41,15 @@ export default function ShareYourStory() {
           </HetButtonSecondary>
 
           <div className='mt-5 flex w-full items-center'>
-            <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
-            <h3 className='m-0 pe-4 ps-4 text-altGreen text-title md:text-smallestHeader font-bold md:font-medium leading-lhSomeMoreSpace'>
+            <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
+            <h3 className='m-0 ps-4 pe-4 font-bold text-altGreen text-title leading-lhSomeMoreSpace md:font-medium md:text-smallestHeader'>
               Submission guidelines
             </h3>
-            <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
+            <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
           </div>
 
           {/* Updated to use <li> as direct child of <ul> */}
-          <ul className='mt-4 mb-8 grid grid-cols-1 md:grid-cols-2 list-none ml-0 gap-2 max-w-md px-6'>
+          <ul className='mt-4 mb-8 ml-0 grid max-w-md list-none grid-cols-1 gap-2 px-6 md:grid-cols-2'>
             {submissionGuidelines.map((submissionGuideline, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow =

@@ -1,12 +1,12 @@
-import { urlMap } from '../../utils/externalUrls'
-import type { MetricId, DataTypeId } from '../../data/config/MetricConfigTypes'
-import type { Fips } from '../../data/utils/Fips'
-import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { DataTypeId, MetricId } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { ALL } from '../../data/utils/Constants'
 import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import { urlMap } from '../../utils/externalUrls'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse

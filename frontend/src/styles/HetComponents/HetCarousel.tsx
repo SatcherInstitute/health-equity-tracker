@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import Button from '@mui/material/Button'
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import Button from '@mui/material/Button'
+import { useEffect, useState } from 'react'
 
 interface HetCarouselProps {
   items: any[]
@@ -44,7 +44,7 @@ export default function HetCarousel({
   }
 
   return (
-    <section className='w-full flex flex-col py-4'>
+    <section className='flex w-full flex-col py-4'>
       <div className='relative overflow-hidden'>
         <div
           className='flex transition-transform duration-500 ease-in-out'
@@ -64,18 +64,18 @@ export default function HetCarousel({
         </div>
       </div>
 
-      <div className='flex min-h-10 mt-4 mx-auto'>
+      <div className='mx-auto mt-4 flex min-h-10'>
         <Button
           aria-label='previous'
           onClick={handlePrev}
-          className='w-16 rounded-xl bg-methodologyGreen text-altBlack shadow-sm hover:shadow-raised transition-transform transform hover:scale-110 mx-1'
+          className='mx-1 w-16 transform rounded-xl bg-methodologyGreen text-altBlack shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
         >
           <ArrowBack />
         </Button>
         <Button
           aria-label='next'
           onClick={handleNext}
-          className='w-16 rounded-xl bg-methodologyGreen text-altBlack shadow-sm hover:shadow-raised transition-transform transform hover:scale-110 mx-1'
+          className='mx-1 w-16 transform rounded-xl bg-methodologyGreen text-altBlack shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
         >
           <ArrowForward />
         </Button>

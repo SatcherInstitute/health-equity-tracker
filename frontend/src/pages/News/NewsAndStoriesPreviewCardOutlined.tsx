@@ -30,21 +30,21 @@ export default function NewsAndStoriesPreviewCardOutlined({
   return (
     <Link
       to={`${NEWS_PAGE_LINK}/${article.slug}`}
-      className={`h-full text-center text-title no-underline group flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out cursor-pointer ${linkClassName ?? 'mr-4'}`}
+      className={`group group flex h-full cursor-pointer flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
     >
-      <LazyLoad once offset={300} className='h-full m-0 p-0'>
-        <div className='m-0 h-full flex flex-col justify-between'>
+      <LazyLoad once offset={300} className='m-0 h-full p-0'>
+        <div className='m-0 flex h-full flex-col justify-between'>
           <div
-            className='w-full bg-no-repeat bg-cover bg-center rounded-sm'
+            className='w-full rounded-sm bg-center bg-cover bg-no-repeat'
             style={{
               backgroundImage: `url(${getImageSource()})`,
               height: bgHeight,
             }}
           ></div>
-          <div className='flex flex-col m-4 text-center justify-around h-auto'>
-            <div className='flex flex-col justify-around h-full'>
+          <div className='m-4 flex h-auto flex-col justify-around text-center'>
+            <div className='flex h-full flex-col justify-around'>
               <HetTags tags={tagNames} />
-              <h3 className='font-semibold text-text text-left my-2 pt-0 mt-8 leading-lhNormal text-altGreen'>
+              <h3 className='my-2 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal'>
                 {getHtml(article.title.rendered, true)}
               </h3>
             </div>

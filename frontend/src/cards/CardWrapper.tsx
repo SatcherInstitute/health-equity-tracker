@@ -38,7 +38,7 @@ function CardWrapper(props: {
 }) {
   const loadingComponent = (
     <div
-      className={`rounded relative m-2 p-3 shadow-raised bg-white flex justify-center ${props.className}`}
+      className={`relative m-2 flex justify-center rounded bg-white p-3 shadow-raised ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
@@ -57,7 +57,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
+            className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
             tabIndex={-1}
           >
             {shouldShowInsightDisplay && (

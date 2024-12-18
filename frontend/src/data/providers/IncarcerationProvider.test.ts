@@ -1,22 +1,22 @@
-import IncarcerationProvider from './IncarcerationProvider'
-import {
-  Breakdowns,
-  type TimeView,
-  type DemographicType,
-} from '../query/Breakdowns'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { beforeEach, describe, expect, test } from 'vitest'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { RACE, AGE, SEX } from '../utils/Constants'
-import { expect, describe, test, beforeEach } from 'vitest'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
+import {
+  Breakdowns,
+  type DemographicType,
+  type TimeView,
+} from '../query/Breakdowns'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { AGE, RACE, SEX } from '../utils/Constants'
+import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import IncarcerationProvider from './IncarcerationProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: DatasetId,

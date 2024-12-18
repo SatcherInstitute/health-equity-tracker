@@ -1,8 +1,8 @@
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 // Needed for type safety, used when the card does not need to use the fips update callback
 const unusedFipsCallback = () => {}

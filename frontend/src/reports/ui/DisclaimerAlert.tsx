@@ -1,7 +1,7 @@
 import FlagIcon from '@mui/icons-material/Flag'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { HashLink } from 'react-router-hash-link'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 interface DisclaimerAlertProps {
   className?: string
@@ -12,7 +12,7 @@ export default function DisclaimerAlert(props: DisclaimerAlertProps) {
     <div className={props.className ?? ''}>
       <HetNotice
         kind='data-integrity'
-        className='m-1 mt-2 border border-solid border-reportAlert text-left text-smallest sm:mx-3 sm:mt-4 sm:text-small'
+        className='m-1 mt-2 border border-reportAlert border-solid text-left text-smallest sm:mx-3 sm:mt-4 sm:text-small'
         icon={<FlagIcon className='hidden sm:inline-block' />}
         title='Major gaps in the data'
       >

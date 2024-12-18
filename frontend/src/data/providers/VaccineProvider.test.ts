@@ -1,17 +1,17 @@
-import VaccineProvider from './VaccineProvider'
-import { Breakdowns, type DemographicType } from '../query/Breakdowns'
-import { MetricQuery } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { NC, USA, MARIN } from './TestUtils'
-import { RACE, SEX, AGE } from '../utils/Constants'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { Breakdowns, type DemographicType } from '../query/Breakdowns'
+import { MetricQuery } from '../query/MetricQuery'
+import { AGE, RACE, SEX } from '../utils/Constants'
+import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { MARIN, NC, USA } from './TestUtils'
+import VaccineProvider from './VaccineProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   vaccinationDatasetId: DatasetId,

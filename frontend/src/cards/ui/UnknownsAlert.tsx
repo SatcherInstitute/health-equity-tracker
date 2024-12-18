@@ -1,16 +1,16 @@
-import type { HetRow } from '../../data/utils/DatasetTypes'
-import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { VisualizationType } from '../../charts/utils'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../../data/query/Breakdowns'
-import type { Fips } from '../../data/utils/Fips'
-import type { VisualizationType } from '../../charts/utils'
-import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
-import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { AGE } from '../../data/utils/Constants'
+import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
 

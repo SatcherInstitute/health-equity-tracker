@@ -1,22 +1,22 @@
-import MaternalMortalityProvider from './MaternalMortalityProvider'
+import { beforeEach, describe, expect, test } from 'vitest'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from '../../utils/globals'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type { MetricId } from '../config/MetricConfigTypes'
 import {
   Breakdowns,
   type DemographicType,
   type TimeView,
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import {
-  autoInitGlobals,
-  getDataFetcher,
-  resetCacheDebug,
-} from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE } from '../utils/Constants'
-import { expect, describe, test, beforeEach } from 'vitest'
-import type { MetricId } from '../config/MetricConfigTypes'
+import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import MaternalMortalityProvider from './MaternalMortalityProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   MaternalMortalityDatasetId: DatasetId,

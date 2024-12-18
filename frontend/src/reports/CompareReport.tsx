@@ -18,15 +18,15 @@ import type {
 } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import Sidebar from '../pages/ui/Sidebar'
+import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
@@ -40,8 +40,8 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import { getAllDemographicOptions } from './reportUtils'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
+import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 

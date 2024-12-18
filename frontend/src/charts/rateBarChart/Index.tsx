@@ -2,8 +2,8 @@ import { max, scaleBand, scaleLinear } from 'd3'
 import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
-  hasSkinnyGroupLabels,
   type DemographicType,
+  hasSkinnyGroupLabels,
 } from '../../data/query/Breakdowns'
 import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../../data/utils/DatasetTypes'
@@ -11,6 +11,10 @@ import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import BarChartTooltip from './BarChartTooltip'
+import RoundedBarsWithLabels from './RoundedBarsWithLabels'
+import VerticalGridlines from './VerticalGridlines'
+import XAxis from './XAxis'
+import YAxis from './YAxis'
 import {
   BAR_HEIGHT,
   BAR_PADDING,
@@ -21,11 +25,7 @@ import {
   NORMAL_MARGIN_HEIGHT,
   Y_AXIS_LABEL_HEIGHT,
 } from './constants'
-import RoundedBarsWithLabels from './RoundedBarsWithLabels'
 import { useRateChartTooltip } from './useRateChartTooltip'
-import VerticalGridlines from './VerticalGridlines'
-import XAxis from './XAxis'
-import YAxis from './YAxis'
 
 interface RateBarChartProps {
   data: HetRow[]

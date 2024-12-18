@@ -1,12 +1,12 @@
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import type { Fips } from '../../data/utils/Fips'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
-import SviAlert from './SviAlert'
-import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { ALL } from '../../data/utils/Constants'
 import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
+import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import SviAlert from './SviAlert'
 
 interface GeoContextProps {
   fips: Fips

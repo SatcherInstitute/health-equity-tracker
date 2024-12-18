@@ -1,4 +1,4 @@
-import type { DatasetMetadata, DataSourceMetadata } from '../utils/DatasetTypes'
+import type { DataSourceMetadata, DatasetMetadata } from '../utils/DatasetTypes'
 
 export type DatasetIdMaternalHealthCategory =
   | 'maternal_mortality_data-by_race_national_current'
