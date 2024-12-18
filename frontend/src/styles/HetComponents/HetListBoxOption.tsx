@@ -21,7 +21,7 @@ export default function HetListBoxOption(props: HetListBoxOptionProps) {
       aria-label={props.ariaLabel}
       selected={props.selected}
       component='li'
-      role='option'
+      role='menuitem'
     >
       <span
         className={`py-0 pl-0 font-light font-roboto text-altBlack text-smallest leading-lhSomeMoreSpace sm:text-small ${props.className ?? ''}`}
