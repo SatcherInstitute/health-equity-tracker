@@ -65,26 +65,92 @@ button[data-action='back']:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 auto;
+    padding: 2rem 8rem;
+    width: 100%;
+    max-width: 1440px !important;
+    justify-content: center !important;
+    
+    @screen xs {
+      padding: 0.5rem 1rem;
+    }
+
+    @screen sm {
+      padding: 2rem 3rem;
+    }
+    @screen md {
+      padding: 2rem 4rem;
+    }
   }
 
-  & figure {
-    margin-inline: 0 !important;
+  & figure, div > figure > img {
+    margin: 0 auto !important;
     width: 100%;
+    max-width: 80vw;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+    justify-content: start;
+    }
+    
+    & figure > a > img {
+      display: block;
+      min-width: 70vw;
+      max-width: 88vw;
+      margin: 1rem auto;
+      height: auto;
+    }
+
+    & figure > figcaption {
+      margin: 0.5rem 2rem;
+      padding: 0 2rem;
+      max-width: 88vw;
+      text-align: center !important;
+      font-size: 0.8rem !important;
+      font-weight: 300;
+      text-decoration: none !important;
+      font-style: italic;
+
+      @screen xs {
+        padding: 0;
+        margin: 0 auto;
+      }
+    }
 
   & figcaption {
     margin-top: 0.5rem;
+    margin-bottom: 4rem;
     text-align: center !important;
-    font-size: 0.75rem !important;
-    font-weight: 200 !important;
+    font-size: 0.8rem !important;
+    font-weight: 300;
     text-decoration: none !important;
+    font-style: italic;
     max-width: 600px;
   }
+  
+  & p {
+    width: 100%;
+    max-width: 95vw;
+    font-size: 1rem;
+  }
+  
+  & p > a, p > strong > a, p > em > a, div > span > a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+  
+  & p > a:hover {
+    text-decoration: underline;
+  }
 
-  & p,
+  & p > strong {
+    margin: 1rem 0;
+    font-weight: 600;
+    font-size: theme('fontSize.title') !important;
+    font-family: theme('fontFamily.sansTitle') !important;
+  }
+
   & ul,
   & ol,
   & h1,
@@ -93,13 +159,11 @@ button[data-action='back']:focus {
   & h4,
   & h5,
   & h6 {
-    width: 95vw;
-    max-width: 800px;
-    @media screen(sm) {
-      width: 75vw;
+    @screen sm  {
+      width: 100%;
     }
-    @media screen(md) {
-      width: 50vw;
+    @screen md  {
+      width: 95%;
     }
   }
 
@@ -107,6 +171,7 @@ button[data-action='back']:focus {
     list-style: disc;
     margin-left: 1rem;
     padding-left: 1rem;
+    font-size: 1rem;
   }
 
   & hr {
@@ -114,12 +179,47 @@ button[data-action='back']:focus {
     width: 50%;
   }
 
+  & blockquote {
+    width: 100%;
+    max-width: 88vw;
+    padding: 2rem;
+  }
+
   & blockquote > p {
     font-style: italic;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center !important;
   }
 
-  & h1 {
-    font-family: 'Taviraj', serif !important;
+  & h1, h1 > a {
+    font-family: 'DM Sans Variable', sans-serif !important;
+    font-size: theme('fontSize.header') !important;
+    line-height: 110%;
+    color: theme('colors.altGreen');
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  & h2, h2 > a, h2 a {
+    font-family: 'DM Sans Variable', sans-serif !important;
+    font-size: theme('fontSize.header') !important;
+    line-height: 110%;
+    color: theme('colors.altGreen');
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  & h3, h3 > a {
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
@@ -129,82 +229,40 @@ button[data-action='back']:focus {
     text-align: left;
   }
 
-  & h2 {
-    font-family: 'Taviraj', serif !important;
-    font-size: theme('fontSize.header') !important;
+  & h4, h4 > a {
+    font-family: 'DM Sans Variable', sans-serif !important;
+    font-size: theme('fontSize.title') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
-    font-weight: 300;
-    margin-top: 3rem;
+    font-weight: 500;
+    margin-top: 1rem;
     margin-bottom: 0rem;
     text-align: left;
   }
 
-  & h3 {
-    font-family: 'Taviraj', serif !important;
-    font-size: theme('fontSize.header') !important;
-    line-height: 110%;
-    color: theme('colors.altGreen');
-    font-weight: 300;
-    margin-top: 3rem;
-    margin-bottom: 0rem;
-    text-align: left;
-  }
-
-  & h4 {
-    font-family: 'Taviraj', serif !important;
-    font-size: theme('fontSize.smallestHeader') !important;
-    line-height: 110%;
-    color: theme('colors.altGreen');
-    font-weight: 300;
-    margin-top: 3rem;
-    margin-bottom: 0rem;
-    text-align: left;
-  }
-
-  & h5 {
-    font-family: 'Taviraj', serif !important;
+  & h5, h5 > a {
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.title') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: 0rem;
     text-align: left;
   }
 
-  & h6 {
-    font-family: 'Taviraj', serif !important;
+  & h6, h6 > a {
+    font-family: 'DM Sans Variable', sans-serif !important;
     font-size: theme('fontSize.text') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
-    margin-top: 3rem;
+    margin-top: 1rem;
     margin-bottom: 0rem;
     text-align: left;
   }
 
-  & h6 a {
-    font-family: 'DM Sans', sans-serif !important;
-    font-weight: 500 !important;
-    background-color: theme(colors.altGreen) !important;
-    color: theme(colors.white) !important;
-    border-radius: 40px !important;
-    padding: 16px 30px !important;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    max-width: 400px;
-    margin: 40px auto 0px auto;
-    font-size: 1.5rem !important;
-  }
 
-  & img {
-    display: block;
-    margin: 40px auto 10px auto;
-    max-width: 100%;
-    height: auto;
-  }
 
   /* hide featured image since already in header; hide HRs; show youtube embed <figure> */
   .wp-block-post-featured-image {
