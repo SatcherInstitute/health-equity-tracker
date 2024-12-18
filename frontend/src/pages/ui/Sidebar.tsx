@@ -39,13 +39,6 @@ export default function Sidebar(props: SidebarProps) {
 
         <div className='mode-selector-box'>
           <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:px-2 md:py-4'>
-            <SimpleSelect<DemographicType>
-              label='Demographic'
-              optionsMap={props.enabledDemographicOptionsMap}
-              disabledOptions={props.disabledDemographicOptions}
-              selected={props.demographicType}
-              setSelected={props.setDemographicType}
-            />
             <SimpleSelect<MadLibId>
               label='Compare mode'
               optionsMap={MADLIB_MODE_MAP}

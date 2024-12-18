@@ -90,7 +90,7 @@ describe('Test getAllDemographicOptions()', () => {
 
   test('CAWP National enabled options', () => {
     expect(enabledDemographicOptionsMap).toEqual({
-      'Race/ethnicity': 'race_and_ethnicity',
+      'Race/Ethnicity': 'race_and_ethnicity',
     })
   })
 

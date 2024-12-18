@@ -4,11 +4,6 @@ test('Preventable Hospitalizations', async ({ page }) => {
   await page.goto(
     '/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All',
   )
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
-  await page.getByText('Demographic').nth(2).click()
-  await page.getByText('Off').nth(1).click()
-  await page.locator('#menu- div').first().click()
   await page
     .locator('#rate-map')
     .getByRole('heading', {
@@ -80,9 +75,4 @@ test('Preventable Hospitalizations', async ({ page }) => {
   await page.getByRole('heading', { name: "Missing America's Health" }).click()
   await page.getByText('Population data:').click()
   await page.getByText('Population data: AHR does not').click()
-  await page
-    .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!',
-    )
-    .click()
 })

@@ -26,14 +26,12 @@ test('Prison by Race', async ({ page }) => {
   await page.getByRole('button', { name: 'Data table' }).click()
   await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
   await page.getByRole('button', { name: 'Prison', exact: true }).click()
-  await page.getByRole('button', { name: 'Jail' }).click()
+  await page.getByRole('menuitem', { name: 'Jail' }).click()
 })
 test('Jail by Age', async ({ page }) => {
   await page.goto('/exploredata?mls=1.incarceration-3.00&group1=All&dt1=jail')
-  await page
-    .getByRole('combobox', { name: 'Demographic Race/ethnicity' })
-    .click()
-  await page.getByRole('option', { name: 'Age' }).click()
+  await page.getByRole('button', { name: 'Race and Ethnicity' }).click()
+  await page.getByRole('menuitem', { name: 'Age' }).click()
   await page.getByText('Age:').click()
   await page.getByRole('button', { name: '18+' }).click()
   await page.getByRole('heading', { name: 'Ages 18+' }).click()
@@ -41,7 +39,6 @@ test('Jail by Age', async ({ page }) => {
   await page.getByRole('heading', { name: 'People in jail' }).click()
   await page.getByLabel('close topic info modal').click()
   await page.getByRole('button', { name: 'Data table' }).click()
-
   await page.getByRole('columnheader', { name: 'Age' }).click()
   await page
     .getByRole('columnheader', { name: 'People in jail per 100k' })

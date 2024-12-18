@@ -15,7 +15,6 @@ test('Chronic Kidney Disease', async ({ page }) => {
   await page.getByRole('dialog').getByText('Measurement Definition:').click()
   await page.getByText('For specific calculations and')
   await page.getByLabel('close topic info modal').click()
-  await page.getByText('Demographic').nth(2).click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
   await page

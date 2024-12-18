@@ -4,7 +4,9 @@ test('calcium channel blocker adherence', async ({ page }) => {
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=ccb_adherence',
   )
-  await page.getByText('Race and Ethnicity:').click()
+  await page
+    .getByRole('button', { name: 'Race and Ethnicity', exact: true })
+    .click()
   await page.locator('.MuiBackdrop-root').click()
   await page
     .locator('#rate-map')
@@ -12,7 +14,6 @@ test('calcium channel blocker adherence', async ({ page }) => {
     .click()
   await page.getByLabel('open the topic info modal').click()
   await page.getByLabel('close topic info modal').click()
-  await page.getByText('Demographic', { exact: true }).nth(2).click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
   await page

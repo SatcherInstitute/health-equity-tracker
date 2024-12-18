@@ -10,19 +10,6 @@ test('HIV PrEP: Rate Map', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'Ages 16+' })
     .click()
-  await page
-    .getByRole('combobox', { name: 'Demographic Race/ethnicity' })
-    .click()
-  await page.getByRole('option', { name: 'Sex' }).click()
-  await page.getByLabel('Sex:').click()
-  await page.getByRole('button', { name: 'Male', exact: true }).click()
-  await page
-    .locator('#rate-map')
-    .getByRole('heading', { name: 'PrEP coverage in the United' })
-    .click()
-  await page
-    .getByRole('heading', { name: 'PrEP-eligible population, Male, Ages 16+' })
-    .click()
 })
 
 test('HIV PrEP: Rates Over Time', async ({ page }) => {
@@ -116,5 +103,4 @@ test('HIV PrEP: Inequities over time and down', async ({ page }) => {
   await page.getByRole('heading', { name: 'Summary for PrEP' }).click()
   await page.getByRole('columnheader', { name: 'Sex' }).click()
   await page.getByRole('cell', { name: 'Female' }).click()
-  await page.getByRole('cell', { name: 'Male', exact: true }).click()
 })

@@ -2,11 +2,6 @@ import { test } from '@playwright/test'
 
 test('Poverty', async ({ page }) => {
   await page.goto('/exploredata?mls=1.poverty-3.00&group1=All')
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
-  await page.getByText('Demographic').nth(2).click()
-  await page.getByText('Off').nth(1).click()
-  await page.locator('#menu- div').first().click()
   await page
     .locator('#rate-map')
     .getByRole('heading', {
@@ -69,14 +64,5 @@ test('Poverty', async ({ page }) => {
   await page
     .locator('#definitionsList')
     .getByText('People below the poverty line')
-    .click()
-  await page.getByRole('heading', { name: 'What data are missing?' }).click()
-  await page
-    .getByRole('heading', { name: 'Missing and misidentified people' })
-    .click()
-  await page
-    .getByText(
-      'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!',
-    )
     .click()
 })

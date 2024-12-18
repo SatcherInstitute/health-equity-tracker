@@ -72,6 +72,4 @@ test('Black Men Homicide Test: Bottom Half of Cards', async ({ page }) => {
   await page
     .getByRole('columnheader', { name: 'Population share (Black NH,' })
     .click()
-  await page.getByRole('combobox', { name: 'Demographic City Size' }).click()
-  await page.getByLabel('Race/Ethnicity unavailable').click()
 })

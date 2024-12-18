@@ -9,7 +9,9 @@ import type {
   DataTypeConfig,
   DataTypeId,
 } from '../../data/config/MetricConfigTypes'
-import { isFipsString } from '../../data/utils/Fips'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import { Fips, isFipsString } from '../../data/utils/Fips'
+import { getAllDemographicOptions } from '../../reports/reportUtils'
 import {
   DEFAULT,
   MADLIB_LIST,
@@ -33,6 +35,7 @@ import {
   stringifyMls,
 } from '../../utils/urlutils'
 import DataTypeSelector from './DataTypeSelector'
+import DemographicSelector from './DemographicSelector'
 import LocationSelector from './LocationSelector'
 import TopicSelector from './TopicSelector'
 
@@ -97,11 +100,28 @@ export default function MadLibUI(props: MadLibUIProps) {
     selectedDataTypeConfig2Atom,
   )
 
+  const { enabledDemographicOptionsMap } = getAllDemographicOptions(
+    selectedDataTypeConfig1,
+    new Fips('00'),
+    selectedDataTypeConfig2,
+    new Fips('00'),
+  )
+
+  const demographicOptions: Array<[DemographicType, string]> = Object.entries(
+    enabledDemographicOptionsMap,
+  ).map(([label, demoType]) => [demoType as DemographicType, label])
+
+  const defaultDemoOption: DemographicType = demographicOptions.some(
+    (option) => option[0] === 'race_and_ethnicity',
+  )
+    ? 'race_and_ethnicity'
+    : demographicOptions[0][0]
+
   return (
     <>
       <div className='grid place-content-center'>
         <div
-          className='mx-0 my-2 p-0 text-center text-title leading-lhLoose transition-all duration-200 ease-in-out sm:text-smallestHeader lg:text-smallerHeader'
+          className='mx-0 my-2 p-0 text-center text-fluidMadLib leading-lhLoose transition-all duration-200 ease-in-out'
           id='madlib-box'
         >
           {props.madLib.phrase.map(
@@ -191,6 +211,11 @@ export default function MadLibUI(props: MadLibUIProps) {
               )
             },
           )}
+          <span>by</span>
+          <DemographicSelector
+            newValue={defaultDemoOption}
+            options={demographicOptions}
+          />
         </div>
       </div>
     </>
