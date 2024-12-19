@@ -57,7 +57,7 @@ test('CAWP: Congress', async ({ page }) => {
     .click()
 
   await page.getByRole('button', { name: 'US Congress', exact: true }).click()
-  await page.getByRole('button', { name: 'State legislatures' }).click()
+  await page.getByRole('menuitem', { name: 'State legislatures' }).click()
   await page
     .getByRole('button', { name: 'Population vs. distribution' })
     .click()
@@ -76,7 +76,7 @@ test('CAWP: Congress', async ({ page }) => {
 test('CAWP: State Legislature', async ({ page }) => {
   await page.goto('/exploredata?mls=1.women_in_gov-3.00&group1=All')
   await page.getByRole('button', { name: 'US Congress', exact: true }).click()
-  await page.getByRole('button', { name: 'State legislatures' }).click()
+  await page.getByRole('menuitem', { name: 'State legislatures' }).click()
   await page.getByLabel('Race and Ethnicity:').click()
   await page.getByRole('button', { name: 'Black or African American' }).click()
 

@@ -10,7 +10,6 @@ test('Asthma', async ({ page }) => {
     .click()
   await page.getByLabel('open the topic info modal').click()
   await page.getByLabel('close topic info modal').click()
-  await page.getByText('Demographic').nth(2).click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
   await page

@@ -30,7 +30,7 @@ export function HetCarouselCard({
 }: HetCarouselCardProps) {
   const [open, setOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLButtonElement>(null)
 
   const handleOpen = () => {
     if (isVideo) {
@@ -67,7 +67,7 @@ export function HetCarouselCard({
 
   return (
     <>
-      <div
+      <button
         ref={cardRef}
         className='group mr-4 flex h-full max-w-tiny flex-shrink-0 cursor-pointer flex-col rounded-md border border-altGreen border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
         onClick={handleOpen}
@@ -76,8 +76,7 @@ export function HetCarouselCard({
             handleOpen()
           }
         }}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role='button'
+        type='button'
         tabIndex={0}
         aria-label={ariaLabel}
       >
@@ -162,7 +161,7 @@ export function HetCarouselCard({
             )}
           </>
         )}
-      </div>
+      </button>
 
       {isVideo && (
         <Modal
