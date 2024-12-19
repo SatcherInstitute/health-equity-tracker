@@ -33,8 +33,8 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
         <HetPopover popover={popover}>
           {/* DataType SubTopic Dropdown */}
           <>
-            <div className='m-3 flex p-5'>
-              <menu className='m-0 pl-0'>
+          <div className='m-0 flex p-0'>
+          <menu className='m-0 px-0 py-2'>
                 {props.options.map((item: string[]) => {
                   const [optionId, optionDisplayName] = item
                   return (
@@ -45,6 +45,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                         popover.close()
                         props.onOptionUpdate(optionId)
                       }}
+                      className='mr-auto ml-6 p-6 text-left'
                     >
                       {optionDisplayName}
                     </HetListBoxOption>
