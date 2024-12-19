@@ -6,7 +6,6 @@
 		"airflow/dev/",
 		"build/",
 		"python/tests/",
-		"python/ingestion/",
 		"python/tests/data",
 		"frontend/public/",
 		"frontend/node_modules/",

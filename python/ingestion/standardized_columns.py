@@ -231,7 +231,7 @@ FATAL_POPULATION_PCT = "fatal_population_pct"
 FATAL_PREFIX: WISQARS_VAR_TYPE = "fatal"
 
 GUN_VIOLENCE_HOMICIDE_PREFIX: WISQARS_VAR_TYPE = "gun_violence_homicide"
-GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimtated_total"
+GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimated_total"
 GUN_VIOLENCE_INJURIES_PER_100K = "gun_violence_injuries_per_100k"
 GUN_VIOLENCE_INJURIES_PREFIX = "gun_violence_injuries"
 GUN_VIOLENCE_INJURIES_RAW = "gun_violence_injuries_estimated_total"

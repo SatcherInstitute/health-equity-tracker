@@ -44,7 +44,7 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
 def _load_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     """Testing utility function; allows tests to read real input from data/ folder."""
     directory, filename, sheetname = args
-    print("ACTUALLY LOADING FROM /data", filename)
+    print("ACTUALLY LOADING FROM /data", filename, sheetname)
     use_cols = kwargs["usecols"]
     dtype = kwargs["dtype"]
     header = kwargs["header"]
