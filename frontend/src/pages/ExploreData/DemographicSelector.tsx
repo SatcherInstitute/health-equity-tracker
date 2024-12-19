@@ -36,8 +36,8 @@ export default function DemographicSelector(props: DemographicSelectorProps) {
         <HetPopover popover={popover}>
           {/* Demographic Dropdown */}
           <>
-            <div className='m-3 flex p-5'>
-              <menu className='m-0 pl-0'>
+            <div className='m-0 flex p-0'>
+              <menu className='m-0 px-0 py-2'>
                 {props.options.map((item: string[]) => {
                   const [optionId, optionDisplayName] = item
 
@@ -49,6 +49,7 @@ export default function DemographicSelector(props: DemographicSelectorProps) {
                         popover.close()
                         setDemographicType(optionId as DemographicType)
                       }}
+                      className='mr-auto ml-6 p-6 text-left'
                     >
                       {optionDisplayName}
                     </HetListBoxOption>
