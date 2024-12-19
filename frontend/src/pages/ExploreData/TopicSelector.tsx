@@ -2,7 +2,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { useRef } from 'react'
 import type { DropdownVarId } from '../../data/config/DropDownIds'
 import type { DataTypeId } from '../../data/config/MetricConfigTypes'
-import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetListBoxOption from '../../styles/HetComponents/HetListBoxOption'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 import {
@@ -63,17 +63,16 @@ export default function TopicSelector(props: TopicSelectorProps) {
                   <ul className='m-0 p-0'>
                     {category.options.map((optionId: DropdownVarId) => {
                       return (
-                        <HetListItemButton
+                        <HetListBoxOption
                           key={optionId}
                           selected={optionId === props.newValue}
                           onClick={() => {
                             popover.close()
                             props.onOptionUpdate(optionId)
                           }}
-                          option='topicOption'
                         >
                           {DROPDOWN_TOPIC_MAP[optionId]}
-                        </HetListItemButton>
+                        </HetListBoxOption>
                       )
                     })}
                   </ul>
