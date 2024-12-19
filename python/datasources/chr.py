@@ -67,10 +67,10 @@ class CHRData(DataSource):
 
         for year in ['2024']:
 
-            select_source_df = get_df_from_chr_excel_sheet(year, 'Select Measure Data')
+            main_sheet_name = 'Select Measure Data' if year == '2024' else 'Ranked Measure Data'
+            main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
             additional_source_df = get_df_from_chr_excel_sheet(year, 'Additional Measure Data')
-            year_df = pd.merge(select_source_df, additional_source_df, how='outer', on=source_fips_col)
-
+            year_df = pd.merge(main_source_df, additional_source_df, how='outer', on=source_fips_col)
             year_df = year_df.rename(
                 columns={
                     source_fips_col: std_col.COUNTY_FIPS_COL,
@@ -84,7 +84,7 @@ class CHRData(DataSource):
                 year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map
             )
             year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
-            year_df[std_col.TIME_PERIOD_COL] = '2024'
+            year_df[std_col.TIME_PERIOD_COL] = year
 
             dfs.append(year_df)
 
@@ -248,9 +248,17 @@ def get_float_cols() -> Dict[str, List[str]]:
 
 def get_df_from_chr_excel_sheet(year: str, sheet_name: str) -> pd.DataFrame:
     source_usecols = get_source_usecols(sheet_name)
+
+    file_name_lookup = {
+        '2024': '2024_county_health_release_data_-_v1.xlsx',
+        '2023': '2023 County Health Rankings Data - v2',
+    }
+
+    file_name = file_name_lookup[year]
+
     return gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
         CHR_DIR,
-        f'{year}_county_health_release_data_-_v1.xlsx',
+        file_name,
         sheet_name,
         header=1,
         usecols=source_usecols,
