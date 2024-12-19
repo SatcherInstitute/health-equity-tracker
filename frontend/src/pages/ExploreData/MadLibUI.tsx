@@ -22,6 +22,7 @@ import {
   getParentDropdownFromDataTypeId,
   insertOptionalThe,
 } from '../../utils/MadLibs'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
@@ -29,6 +30,7 @@ import {
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   setParameters,
@@ -111,11 +113,10 @@ export default function MadLibUI(props: MadLibUIProps) {
     enabledDemographicOptionsMap,
   ).map(([label, demoType]) => [demoType as DemographicType, label])
 
-  const defaultDemoOption: DemographicType = demographicOptions.some(
-    (option) => option[0] === 'race_and_ethnicity',
+  const selectedDemoType: DemographicType = useGetParamState(
+    DEMOGRAPHIC_PARAM,
+    'race_and_ethnicity',
   )
-    ? 'race_and_ethnicity'
-    : demographicOptions[0][0]
 
   return (
     <>
@@ -212,10 +213,7 @@ export default function MadLibUI(props: MadLibUIProps) {
             },
           )}
           <span>by</span>
-          <DemographicSelector
-            newValue={defaultDemoOption}
-            options={demographicOptions}
-          />
+          <DemographicSelector options={demographicOptions} />
         </div>
       </div>
     </>

@@ -11,7 +11,6 @@ import { usePopover } from '../../utils/hooks/usePopover'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface DemographicSelectorProps {
-  newValue: DemographicType
   options: Array<[DemographicType, string]>
 }
 
@@ -41,10 +40,11 @@ export default function DemographicSelector(props: DemographicSelectorProps) {
               <menu className='m-0 pl-0'>
                 {props.options.map((item: string[]) => {
                   const [optionId, optionDisplayName] = item
+
                   return (
                     <HetListBoxOption
                       key={optionId}
-                      selected={optionId === props.newValue}
+                      selected={optionId === demographicType}
                       onClick={() => {
                         popover.close()
                         setDemographicType(optionId as DemographicType)
