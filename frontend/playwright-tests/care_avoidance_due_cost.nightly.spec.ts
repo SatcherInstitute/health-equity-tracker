@@ -2,9 +2,11 @@ import { test } from '@playwright/test'
 
 test('Care Avoidance Due To Cost', async ({ page }) => {
   await page.goto('/exploredata?mls=1.avoided_care-3.00&group1=All')
-  await page.getByText('Race and Ethnicity:').click()
+  await page
+    .getByRole('button', { name: 'Race and Ethnicity', exact: true })
+    .click()
   await page.locator('.MuiBackdrop-root').click()
-  await page.getByText('Demographic').nth(2).click()
+
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
   await page
