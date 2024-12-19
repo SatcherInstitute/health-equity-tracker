@@ -63,27 +63,32 @@ class CHRData(DataSource):
         if demographic == std_col.RACE_COL:
             demographic = std_col.RACE_OR_HISPANIC_COL
 
-        select_source_df = get_df_from_chr_excel_sheet('Select Measure Data')
-        additional_source_df = get_df_from_chr_excel_sheet('Additional Measure Data')
+        dfs = []
 
-        df = pd.merge(select_source_df, additional_source_df, how='outer', on=source_fips_col)
+        for year in ['2024']:
 
-        df = df.rename(
-            columns={
-                source_fips_col: std_col.COUNTY_FIPS_COL,
-            }
-        )
+            select_source_df = get_df_from_chr_excel_sheet(year, 'Select Measure Data')
+            additional_source_df = get_df_from_chr_excel_sheet(year, 'Additional Measure Data')
+            year_df = pd.merge(select_source_df, additional_source_df, how='outer', on=source_fips_col)
 
-        # # drop national and state-level rows
-        df = df[~df[std_col.COUNTY_FIPS_COL].str.endswith('000')]
+            year_df = year_df.rename(
+                columns={
+                    source_fips_col: std_col.COUNTY_FIPS_COL,
+                }
+            )
 
-        melt_map = get_melt_map()
+            # # drop national and state-level rows
+            year_df = year_df[~year_df[std_col.COUNTY_FIPS_COL].str.endswith('000')]
+            melt_map = get_melt_map()
+            year_df = dataset_utils.melt_to_het_style_df(
+                year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map
+            )
+            year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
+            year_df[std_col.TIME_PERIOD_COL] = '2024'
 
-        df = dataset_utils.melt_to_het_style_df(df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map)
+            dfs.append(year_df)
 
-        df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str[:2]
-        df[std_col.TIME_PERIOD_COL] = '2024'
-
+        df = pd.concat(dfs)
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
         df = merge_utils.merge_yearly_pop_numbers(df, std_col.RACE_COL, COUNTY_LEVEL)
@@ -241,11 +246,11 @@ def get_float_cols() -> Dict[str, List[str]]:
     return TIME_MAP
 
 
-def get_df_from_chr_excel_sheet(sheet_name: str) -> pd.DataFrame:
+def get_df_from_chr_excel_sheet(year: str, sheet_name: str) -> pd.DataFrame:
     source_usecols = get_source_usecols(sheet_name)
     return gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
         CHR_DIR,
-        '2024_county_health_release_data_-_v1.xlsx',
+        f'{year}_county_health_release_data_-_v1.xlsx',
         sheet_name,
         header=1,
         usecols=source_usecols,

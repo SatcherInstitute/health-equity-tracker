@@ -39,3 +39,21 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
         skipinitialspace=skipinitialspace,
     )
     return df
+
+
+def _load_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
+    """Testing utility function; allows tests to read real input from data/ folder."""
+    directory, filename, sheetname = args
+    print("ACTUALLY LOADING FROM /data", filename)
+    use_cols = kwargs["usecols"]
+    dtype = kwargs["dtype"]
+    header = kwargs["header"]
+
+    df = pd.read_excel(
+        os.path.join(REAL_DATA_DIR, directory, filename),
+        sheet_name=sheetname,
+        header=header,
+        usecols=use_cols,
+        dtype=dtype,
+    )
+    return df
