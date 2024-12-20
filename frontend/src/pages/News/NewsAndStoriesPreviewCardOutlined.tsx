@@ -17,7 +17,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
   bgHeight = '10rem',
   linkClassName = '',
 }: NewsAndStoriesPreviewCardOutlinedProps): JSX.Element {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const getImageSource = (): string => {
     const imageSource =
       article?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes?.full
@@ -30,8 +30,8 @@ export default function NewsAndStoriesPreviewCardOutlined({
 
   const tags = tagNames.map((tag) => ({ name: tag }))
   const handleTagClick = (tagName: string) => {
-    navigate(`${NEWS_PAGE_LINK}?category=${encodeURIComponent(tagName)}`);
-  };
+    navigate(`${NEWS_PAGE_LINK}?category=${encodeURIComponent(tagName)}`)
+  }
   return (
     <div
       className={`group group flex h-full cursor-pointer flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
@@ -47,7 +47,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
           ></div>
           <div className='m-4 flex h-auto flex-col justify-around text-center'>
             <div className='flex h-full flex-col justify-around'>
-              <HetTags tags={tags} onTagClick={handleTagClick}/>
+              <HetTags tags={tags} onTagClick={handleTagClick} />
               <h3 className='my-2 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal no-underline'>
                 <Link
                   to={`${NEWS_PAGE_LINK}/${article.slug}`}
