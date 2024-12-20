@@ -218,8 +218,15 @@ class AhrProvider extends VariableProvider {
       dataTypeId &&
       CHR_DATATYPE_IDS.includes(dataTypeId)
     ) {
-      if (breakdowns.hasExactlyOneDemographic())
-        return 'chr_data-race_and_ethnicity_county_current'
+      if (breakdowns.hasExactlyOneDemographic()) {
+        if (timeView === 'current') {
+          return 'chr_data-race_and_ethnicity_county_current'
+
+        }
+        if (timeView === 'historical') {
+          return 'chr_data-race_and_ethnicity_county_historical'
+        }
+      }
     }
   }
 
