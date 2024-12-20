@@ -5,7 +5,7 @@ test('calcium channel blocker adherence', async ({ page }) => {
     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=ccb_adherence',
   )
   await page
-    .getByRole('button', { name: 'Race and Ethnicity', exact: true })
+    .getByRole('button', { name: 'Race/Ethnicity', exact: true })
     .click()
   await page.locator('.MuiBackdrop-root').click()
   await page
