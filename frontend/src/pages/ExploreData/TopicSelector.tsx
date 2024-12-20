@@ -70,6 +70,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
                             popover.close()
                             props.onOptionUpdate(optionId)
                           }}
+                          className='pl-2'
                         >
                           {DROPDOWN_TOPIC_MAP[optionId]}
                         </HetListBoxOption>
