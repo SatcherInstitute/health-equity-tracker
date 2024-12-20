@@ -65,7 +65,7 @@ const ONLY_SEX_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 }
 
 const ONLY_RACE_AGE_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/ethnicity': 'race_and_ethnicity',
+  'Race/Ethnicity': 'race_and_ethnicity',
   Age: 'age',
 }
 
@@ -73,7 +73,7 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/Ethnicity': 'race_and_ethnicity',
   'Sex at Birth': 'sex',
   Age: 'age',
-  Subsidy: 'lis',
+  'Low Income Subsidy': 'lis',
   Eligibility: 'eligibility',
 }
 

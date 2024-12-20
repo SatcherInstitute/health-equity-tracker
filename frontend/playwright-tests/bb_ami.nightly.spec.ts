@@ -2,7 +2,9 @@ import { test } from '@playwright/test'
 
 test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
   await page.goto('/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All')
-  await page.getByRole('button', { name: 'Race and Ethnicity' }).click()
+  await page
+    .getByRole('button', { name: 'Race/Ethnicity', exact: true })
+    .click()
   await page.getByRole('menuitem', { name: 'Eligibility' }).click()
   await page.getByText('Medicare eligibility:').click()
   await page
