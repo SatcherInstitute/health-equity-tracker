@@ -2,7 +2,9 @@ import { test } from '@playwright/test'
 
 test('HIV Linkage To Care', async ({ page }) => {
   await page.goto('/exploredata?mls=1.hiv_care-3.00&group1=All')
-  await page.getByRole('button', { name: 'Race and Ethnicity' }).click()
+  await page
+    .getByRole('button', { name: 'Race/Ethnicity', exact: true })
+    .click()
   await page.getByRole('menuitem', { name: 'Age' }).click()
   await page
     .locator('#rate-map')
