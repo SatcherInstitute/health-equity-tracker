@@ -30,7 +30,9 @@ test('Prison by Race', async ({ page }) => {
 })
 test('Jail by Age', async ({ page }) => {
   await page.goto('/exploredata?mls=1.incarceration-3.00&group1=All&dt1=jail')
-  await page.getByRole('button', { name: 'Race and Ethnicity' }).click()
+  await page
+    .getByRole('button', { name: 'Race/Ethnicity', exact: true })
+    .click()
   await page.getByRole('menuitem', { name: 'Age' }).click()
   await page.getByText('Age:').click()
   await page.getByRole('button', { name: '18+' }).click()

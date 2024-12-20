@@ -14,7 +14,7 @@ test('Topic Info Modal from Sidebar', async ({ page }) => {
   await expect(page).toHaveURL(/.*topic-info=true/)
 
   // clicking methodology link takes directly to PDOH subpage in Methodology Hub
-  await page.getByRole('link', { name: 'methodology' }).click()
+  await page.getByRole('link', { name: 'methodology'  }).click()
   await expect(page).toHaveURL(/.*methodology\/topic-categories\/pdoh/)
 
   // browser back button takes you back to the open topic modal
