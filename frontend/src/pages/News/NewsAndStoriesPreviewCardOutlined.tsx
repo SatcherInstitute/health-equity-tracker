@@ -51,7 +51,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
               <h3 className='my-2 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal no-underline'>
                 <Link
                   to={`${NEWS_PAGE_LINK}/${article.slug}`}
-                  className='no-underline hover:underline'
+                  className='mt-auto no-underline hover:underline'
                 >
                   {getHtml(article.title.rendered, true)}
                 </Link>
