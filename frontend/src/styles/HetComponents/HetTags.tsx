@@ -4,11 +4,15 @@ interface Tag {
 }
 
 interface HetTagsProps {
-  tags: Tag[]
+  tags: Tag[] | string[]
   onTagClick?: (tagName: string) => void
 }
 
 export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
+  const normalizedTags: Tag[] = tags.map((tag) =>
+    typeof tag === 'string' ? { name: tag } : tag,
+  )
+
   const handleClick = (tagName: string) => {
     if (onTagClick) {
       onTagClick(tagName)
@@ -16,8 +20,8 @@ export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
   }
 
   return (
-    <div className='md:flex md:flex-wrap text-left'>
-      {tags.map((tag) => (
+    <div className='text-left md:flex md:flex-wrap'>
+      {normalizedTags.map((tag) => (
         <button
           key={tag.name}
           type='button'
