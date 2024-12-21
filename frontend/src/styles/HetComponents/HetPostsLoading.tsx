@@ -35,21 +35,7 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
               height={`${isFirst && isLg ? '40rem' : '10rem'}`}
               sx={{ width: '100%' }}
             ></Skeleton>
-            {/* TAGS PLACEHOLDER ON LARGEST SCREENS */}
-            <div className='my-3 ml-4 hidden w-full justify-start gap-5 lg:flex'>
-              <Skeleton
-                animation={false}
-                variant='text'
-                height={24}
-                width={60}
-              ></Skeleton>
-              <Skeleton
-                animation={false}
-                variant='text'
-                height={24}
-                width={80}
-              ></Skeleton>
-            </div>
+
             {/* TITLE PLACEHOLDER */}
             <Skeleton
               className='mx-4 mt-10'
@@ -65,6 +51,21 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
               height={36}
               sx={{ width: '100%' }}
             ></Skeleton>
+            {/* TAGS PLACEHOLDER ON LARGEST SCREENS */}
+            <div className='my-3 ml-4 hidden w-full justify-start gap-5 lg:flex'>
+              <Skeleton
+                animation={false}
+                variant='text'
+                height={24}
+                width={60}
+              ></Skeleton>
+              <Skeleton
+                animation={false}
+                variant='text'
+                height={24}
+                width={80}
+              ></Skeleton>
+            </div>
           </div>
         )
       })}
