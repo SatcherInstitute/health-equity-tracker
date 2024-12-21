@@ -16,7 +16,7 @@ export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
   }
 
   return (
-    <div className='mt-2 md:flex md:flex-wrap'>
+    <div className='md:flex md:flex-wrap text-left'>
       {tags.map((tag) => (
         <button
           key={tag.name}

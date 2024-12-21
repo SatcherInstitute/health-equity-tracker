@@ -34,29 +34,32 @@ export default function NewsAndStoriesPreviewCardOutlined({
   }
   return (
     <div
-      className={`group group flex h-full cursor-pointer flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
+      className={`group flex h-full flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
     >
       <LazyLoad once offset={300} className='m-0 h-full p-0'>
-        <div className='m-0 flex h-full flex-col justify-between'>
+        <div className='relative m-0 flex h-full flex-col justify-between'>
           <div
-            className='w-full rounded-sm bg-center bg-cover bg-no-repeat'
-            style={{
-              backgroundImage: `url(${getImageSource()})`,
-              height: bgHeight,
-            }}
-          ></div>
-          <div className='m-4 flex h-auto flex-col justify-around text-center'>
-            <div className='flex h-full flex-col justify-around'>
-              <HetTags tags={tags} onTagClick={handleTagClick} />
-              <h3 className='my-2 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal no-underline'>
-                <Link
-                  to={`${NEWS_PAGE_LINK}/${article.slug}`}
-                  className='mt-auto no-underline hover:underline'
-                >
-                  {getHtml(article.title.rendered, true)}
-                </Link>
-              </h3>
-            </div>
+            className='relative overflow-hidden rounded-t-md'
+            style={{ height: bgHeight }}
+          >
+            <div
+              className='absolute inset-0 bg-center bg-cover bg-no-repeat transition-transform duration-300 ease-in-out group-hover:scale-110'
+              style={{
+                backgroundImage: `url(${getImageSource()})`,
+              }}
+            ></div>
+          </div>
+          <h3 className='mx-4 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal'>
+            <Link
+              to={`${NEWS_PAGE_LINK}/${article.slug}`}
+              className='no-underline group-hover:underline'
+            >
+              {getHtml(article.title.rendered, true)}
+            </Link>
+          </h3>
+
+          <div className='m-4 flex flex-col justify-end'>
+            <HetTags tags={tags} onTagClick={handleTagClick} />
           </div>
         </div>
       </LazyLoad>
