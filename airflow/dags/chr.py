@@ -3,7 +3,6 @@
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
 from datetime import timedelta
-
 import util
 
 _CHR_WORKFLOW_ID = 'CHR_DATA'
@@ -21,11 +20,17 @@ data_ingestion_dag = DAG(
     description='Ingestion configuration for CHR',
 )
 
-chr_bq_payload = util.generate_bq_payload(_CHR_WORKFLOW_ID, _CHR_DATASET_NAME, demographic='race')
-chr_pop_bq_operator = util.create_bq_ingest_operator('chr_to_bq', chr_bq_payload, data_ingestion_dag)
+chr_bq_payload_race = util.generate_bq_payload(_CHR_WORKFLOW_ID, _CHR_DATASET_NAME, demographic='race')
+chr_pop_bq_operator_race = util.create_bq_ingest_operator('chr_to_bq', chr_bq_payload_race, data_ingestion_dag)
 
-chr_exporter_payload = {'dataset_name': _CHR_DATASET_NAME}
-chr_exporter_operator = util.create_exporter_operator('chr_exporter', chr_exporter_payload, data_ingestion_dag)
+chr_exporter_payload_race = {
+    'dataset_name': _CHR_DATASET_NAME,
+    'demographic': "race_and_ethnicity",
+    'should_export_as_alls': True,
+}
+chr_exporter_operator_race = util.create_exporter_operator(
+    'chr_exporter', chr_exporter_payload_race, data_ingestion_dag
+)
 
 # Ingestion DAG
-(chr_pop_bq_operator >> chr_exporter_operator)
+(chr_pop_bq_operator_race >> chr_exporter_operator_race)
