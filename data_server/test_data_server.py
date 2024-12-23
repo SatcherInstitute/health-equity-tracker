@@ -6,7 +6,7 @@ import google.cloud.exceptions
 import pytest
 from flask.testing import FlaskClient
 from data_server.dataset_cache import DatasetCache
-from main import app, cache
+from main import app, cache  # pylint: disable=no-name-in-module
 
 os.environ["GCS_BUCKET"] = "test"
 os.environ["METADATA_FILENAME"] = "test_data.ndjson"
