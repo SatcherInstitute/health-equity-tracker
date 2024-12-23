@@ -191,6 +191,8 @@ export type DatasetId =
   | 'census_pop_estimates-race_and_ethnicity'
   | 'chr_data-race_and_ethnicity_county_current'
   | 'chr_data-race_and_ethnicity_county_historical'
+  | 'chr_data-alls_county_current'
+  | 'chr_data-alls_county_historical'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
   | 'covid_tracking_project-hospitalizations_by_race_state'
@@ -916,7 +918,19 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'chr_data-race_and_ethnicity_county_historical': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
+    original_data_sourced: '2016-2021',
+    contains_nh: true,
+    source_id: 'chr',
+  },
+  'chr_data-alls_county_current': {
+    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
     original_data_sourced: '2021',
+    contains_nh: true,
+    source_id: 'chr',
+  },
+  'chr_data-alls_county_historical': {
+    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
+    original_data_sourced: '2016-2021',
     contains_nh: true,
     source_id: 'chr',
   },
