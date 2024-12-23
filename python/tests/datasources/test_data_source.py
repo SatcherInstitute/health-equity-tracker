@@ -15,7 +15,7 @@ def testCleanFrameColumnNames():
     ds = TestDataSource()
     df = pd.DataFrame(
         # /* cSpell:disable */
-        {'Upp3rcase': [], 'Special!char': [], 'this=that': [], '%count': [], 'with SPACES': []}
+        {"Upp3rcase": [], "Special!char": [], "this=that": [], "%count": [], "with SPACES": []}
     )
     ds.clean_frame_column_names(df)
-    assert set(df.columns) == set(['upp3rcase', 'special_char', 'thiseqthat', 'pctcount', 'with_spaces'])
+    assert set(df.columns) == set(["upp3rcase", "special_char", "thiseqthat", "pctcount", "with_spaces"])

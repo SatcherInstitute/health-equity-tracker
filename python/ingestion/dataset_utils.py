@@ -22,7 +22,7 @@ import os
 from ingestion.het_types import TIME_VIEW_TYPE  # pylint: disable=no-name-in-module
 
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
-ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
+ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, "acs_population")
 
 # shared dataset utility functions
 
@@ -114,7 +114,7 @@ def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.Da
             }
         )
 
-    raise ValueError(f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.')
+    raise ValueError(f"The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.")
 
 
 def generate_pct_share_col_without_unknowns(
@@ -134,9 +134,9 @@ def generate_pct_share_col_without_unknowns(
     all_val: The value representing 'ALL'"""
 
     all_demo_values = set(df[breakdown_col].to_list())
-    if Race.UNKNOWN.value in all_demo_values or 'Unknown' in all_demo_values:
+    if Race.UNKNOWN.value in all_demo_values or "Unknown" in all_demo_values:
         raise ValueError(
-            ('This dataset contains unknowns, use the `generate_pct_share_col_with_unknowns` function instead')
+            ("This dataset contains unknowns, use the `generate_pct_share_col_with_unknowns` function instead")
         )
 
     return _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
@@ -174,8 +174,8 @@ def generate_pct_share_col_with_unknowns(
     if len(unknown_df) == 0:
         raise ValueError(
             (
-                'This dataset does not contains unknowns, use the '
-                'generate_pct_share_col_without_unknowns function instead'
+                "This dataset does not contains unknowns, use the "
+                "generate_pct_share_col_without_unknowns function instead"
             )
         )
 
@@ -207,11 +207,11 @@ def _generate_pct_share_col(
     df, raw_count_to_pct_share: dict[str, str], breakdown_col: str, all_val: str
 ):  # pylint: disable=unsubscriptable-object
     def calc_pct_share(record, raw_count_col):
-        return percent_avoid_rounding_to_zero(record[raw_count_col], record[f'{raw_count_col}_all'])
+        return percent_avoid_rounding_to_zero(record[raw_count_col], record[f"{raw_count_col}_all"])
 
     rename_cols = {}
     for raw_count_col in raw_count_to_pct_share.keys():
-        rename_cols[raw_count_col] = f'{raw_count_col}_all'
+        rename_cols[raw_count_col] = f"{raw_count_col}_all"
 
     alls = df.loc[df[breakdown_col] == all_val]
     alls = alls.rename(columns=rename_cols).reset_index(drop=True)
@@ -237,9 +237,9 @@ def _generate_pct_share_col(
     for f in all_splits:
         count = value_counts[f]
         if count != 1:
-            raise ValueError(f'Fips {f} has {count} ALL rows, there should be 1')
+            raise ValueError(f"Fips {f} has {count} ALL rows, there should be 1")
 
-    df = pd.merge(df, alls, how='left', on=on_cols)
+    df = pd.merge(df, alls, how="left", on=on_cols)
 
     for raw_count_col, pct_share_col in raw_count_to_pct_share.items():
         df[pct_share_col] = df.apply(calc_pct_share, axis=1, args=(raw_count_col,))
@@ -250,7 +250,7 @@ def _generate_pct_share_col(
 
 # pylint: disable=unsubscriptable-object
 def generate_pct_share_col_of_summed_alls(
-    df: pd.DataFrame, raw_count_to_pct_share: dict[str, str], demo_col: Literal['age', 'sex', 'race_and_ethnicity']
+    df: pd.DataFrame, raw_count_to_pct_share: dict[str, str], demo_col: Literal["age", "sex", "race_and_ethnicity"]
 ) -> pd.DataFrame:
     """
     Adds a `pct_share` column for each raw_count_to_pct_share item. Rather than using the "All" row's
@@ -280,11 +280,11 @@ def generate_pct_share_col_of_summed_alls(
         sums_df = df[df[demo_col] != ALL_VALUE].groupby(group_by_cols)[raw_col].sum().reset_index()
 
         # Rename the column to avoid conflict when merging
-        sum_raw_col = f'sum_{raw_col}'
+        sum_raw_col = f"sum_{raw_col}"
         sums_df.rename(columns={raw_col: sum_raw_col}, inplace=True)
 
         # Merge the sums back into the original DataFrame
-        df = df.merge(sums_df, on=group_by_cols, how='left')
+        df = df.merge(sums_df, on=group_by_cols, how="left")
 
         # Overwrite the "topic_estimated_total" value where demographic group is "All"
         df.loc[df[demo_col] == ALL_VALUE, raw_col] = df[sum_raw_col]
@@ -433,7 +433,7 @@ def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) 
         fips_col_name: string column name containing the values to be padded
         num_digits: how many digits should be present after leading zeros are added
     """
-    df[fips_col_name] = df[fips_col_name].apply(lambda code: (str(code).rjust(num_digits, '0')))
+    df[fips_col_name] = df[fips_col_name].apply(lambda code: (str(code).rjust(num_digits, "0")))
     return df
 
 
@@ -453,8 +453,8 @@ def generate_pct_rel_inequity_col(
     """
 
     # Ensure input columns are float
-    df[pct_share_col] = pd.to_numeric(df[pct_share_col], errors='coerce')
-    df[pct_pop_col] = pd.to_numeric(df[pct_pop_col], errors='coerce')
+    df[pct_share_col] = pd.to_numeric(df[pct_share_col], errors="coerce")
+    df[pct_pop_col] = pd.to_numeric(df[pct_pop_col], errors="coerce")
 
     # Create a mask for valid calculations
     valid_mask = (~df[pct_share_col].isna()) & (~df[pct_pop_col].isna()) & (df[pct_pop_col] != 0)
@@ -520,7 +520,7 @@ def zero_out_pct_rel_inequity(
 
     per_100k_col_names = {}
     for rate_col in rate_to_inequity_col_map.keys():
-        per_100k_col_names[rate_col] = f'{rate_col}_grouped'
+        per_100k_col_names[rate_col] = f"{rate_col}_grouped"
 
     demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
     unknown_val = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
@@ -539,7 +539,7 @@ def zero_out_pct_rel_inequity(
 
     df = pd.merge(df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL])
     for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
-        grouped_col = f'{rate_col}_grouped'
+        grouped_col = f"{rate_col}_grouped"
         # set pct_inequity to 0 in a place/time_period if the summed rates are zero
         df.loc[df[grouped_col] == 0, pct_inequity_col] = 0
 
@@ -627,11 +627,11 @@ def get_topic_primary_col(topic_prefix: str, df: pd.DataFrame) -> str:
         std_col.POP_PCT_SUFFIX,
         std_col.RAW_SUFFIX,
     ]:
-        possible_primary_col = f'{topic_prefix}_{primary_col_suffix}'
+        possible_primary_col = f"{topic_prefix}_{primary_col_suffix}"
         if possible_primary_col in df.columns:
             return possible_primary_col
 
-    raise ValueError(f'Could not find primary column (e.g. rate or pop. share) for topic prefix: {topic_prefix}')
+    raise ValueError(f"Could not find primary column (e.g. rate or pop. share) for topic prefix: {topic_prefix}")
 
 
 # TODO: Remove this in favor of preserve_most_recent_year_rows_per_topic above
@@ -645,13 +645,13 @@ def preserve_only_current_time_period_rows(
     and removes (or optionally keeps) the original string time_period col"""
 
     if time_period_col not in df.columns:
-        raise ValueError(f'df does not contain column: {time_period_col}.')
+        raise ValueError(f"df does not contain column: {time_period_col}.")
 
     # Convert time_period to datetime-like object
-    df['time_period_dt'] = pd.to_datetime(df[time_period_col], errors='coerce', format='%Y-%m')
+    df["time_period_dt"] = pd.to_datetime(df[time_period_col], errors="coerce", format="%Y-%m")
     # For rows that failed to convert (NaT), try again assuming just a year is provided
-    df.loc[df['time_period_dt'].isna(), 'time_period_dt'] = pd.to_datetime(
-        df[time_period_col], format='%Y', errors='coerce'
+    df.loc[df["time_period_dt"].isna(), "time_period_dt"] = pd.to_datetime(
+        df[time_period_col], format="%Y", errors="coerce"
     )
 
     # Filter the DataFrame to keep only the rows with the most recent rows
@@ -696,10 +696,10 @@ def combine_race_ethnicity(
 
     # Require std_col.RACE_COL and std_col.ETH_COL
     if std_col.RACE_COL not in df.columns or std_col.ETH_COL not in df.columns:
-        raise ValueError('df must contain columns: std_col.RACE_COL and std_col.ETH_COL')
+        raise ValueError("df must contain columns: std_col.RACE_COL and std_col.ETH_COL")
 
     if unknown_values is None:
-        unknown_values = ['NA', 'Missing', 'Unknown']
+        unknown_values = ["NA", "Missing", "Unknown"]
 
     # Create a copy of the DataFrame to avoid SettingWithCopyWarning
     df = df.copy()
@@ -772,14 +772,14 @@ def get_timeview_df_and_cols(
     - A tuple containing the processed DataFrame and a dict mapping column names needed by BigQuery
     """
 
-    if time_view not in ['current', 'historical']:
+    if time_view not in ["current", "historical"]:
         raise ValueError('time_view must be either "current" or "historical"')
 
     df = df.copy()
 
     # remove unneeded columns
     unwanted_suffixes = (
-        std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == 'historical' else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
+        std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == "historical" else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
     )
 
     for col in df.columns:
@@ -787,7 +787,7 @@ def get_timeview_df_and_cols(
             df.drop(columns=[col], inplace=True)
 
     # remove unneeded rows
-    if time_view == 'current':
+    if time_view == "current":
         df = preserve_most_recent_year_rows_per_topic(df, topic_prefixes)
 
     bq_col_types = build_bq_col_types(df)
@@ -807,8 +807,8 @@ def build_bq_col_types(df: pd.DataFrame) -> Dict[str, str]:
 def generate_time_df_with_cols_and_types(
     df: pd.DataFrame,
     numerical_cols_to_keep: List[str],
-    table_type: Literal['current', 'historical'],
-    dem_col: Literal['age', 'race', 'race_and_ethnicity', 'sex'],
+    table_type: Literal["current", "historical"],
+    dem_col: Literal["age", "race", "race_and_ethnicity", "sex"],
 ) -> tuple[pd.DataFrame, Dict[str, str]]:  # pylint: disable=unsubscriptable-object
     """
     Accepts a DataFrame along with list of column names for either current or
@@ -893,7 +893,7 @@ def generate_estimated_total_col(
         elif std_col.PER_100K_SUFFIX in rate_col:
             conversion_factor = 100_000
         else:
-            raise ValueError(f'{rate_col} must have a suffix of _pct_rate or _per_100k.')
+            raise ValueError(f"{rate_col} must have a suffix of _pct_rate or _per_100k.")
 
         df[raw_col] = df[rate_col] / conversion_factor * df[intersectional_pop_col]
         df[raw_col] = df[raw_col].round()

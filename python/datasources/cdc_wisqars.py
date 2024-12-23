@@ -76,14 +76,14 @@ TIME_MAP = {
 
 COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
     {
-        'numerator_col': 'gun_violence_homicide_estimated_total',
-        'denominator_col': 'fatal_population',
-        'rate_col': 'gun_violence_homicide_per_100k',
+        "numerator_col": "gun_violence_homicide_estimated_total",
+        "denominator_col": "fatal_population",
+        "rate_col": "gun_violence_homicide_per_100k",
     },
     {
-        'numerator_col': 'gun_violence_suicide_estimated_total',
-        'denominator_col': 'fatal_population',
-        'rate_col': 'gun_violence_suicide_per_100k',
+        "numerator_col": "gun_violence_suicide_estimated_total",
+        "denominator_col": "fatal_population",
+        "rate_col": "gun_violence_suicide_per_100k",
     },
 ]
 
@@ -176,9 +176,9 @@ class CDCWisqarsData(DataSource):
         has_unknown = df.map(contains_unknown).any().any()
 
         if has_unknown:
-            unknown = 'Unknown'
+            unknown = "Unknown"
             if demographic == std_col.RACE_OR_HISPANIC_COL:
-                unknown = 'Unknown race'
+                unknown = "Unknown race"
             df = generate_pct_share_col_with_unknowns(df, PCT_SHARE_MAP, demographic, std_col.ALL_VALUE, unknown)
 
         else:
@@ -203,25 +203,25 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     """
     output_df = pd.DataFrame(columns=["year"])
 
-    fatal_gun_injuries: WISQARS_VAR_TYPE = 'fatal_gun_injuries'
+    fatal_gun_injuries: WISQARS_VAR_TYPE = "fatal_gun_injuries"
 
     df = load_wisqars_as_df_from_data_dir(fatal_gun_injuries, geo_level, demographic)
 
     df.columns = df.columns.str.lower()
 
-    df = df[~df['intent'].isin(['Unintentional', 'Undetermined', 'Legal Intervention'])]
+    df = df[~df["intent"].isin(["Unintentional", "Undetermined", "Legal Intervention"])]
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
         index=PIVOT_DEM_COLS.get(demographic, []),
         columns="intent",
-        values=['deaths', 'crude rate'],
+        values=["deaths", "crude rate"],
     )
 
     new_columns = [
         (
             f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
-            if col[0] == 'deaths'
+            if col[0] == "deaths"
             else f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
         )
         for col in pivot_df.columns
@@ -234,24 +234,24 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     df.rename(
         columns={
             "age group": std_col.AGE_COL,
-            'population': 'fatal_population',
-            'sex': std_col.SEX_COL,
+            "population": "fatal_population",
+            "sex": std_col.SEX_COL,
         },
         inplace=True,
     )
     if demographic == std_col.AGE_COL:
-        df[std_col.AGE_COL] = df[std_col.AGE_COL].str.replace(' to ', '-')
+        df[std_col.AGE_COL] = df[std_col.AGE_COL].str.replace(" to ", "-")
 
     if std_col.ETH_COL in df.columns.to_list():
 
-        count_cols_to_sum = list(RAW_TOTALS_MAP.values()) + ['fatal_population']
+        count_cols_to_sum = list(RAW_TOTALS_MAP.values()) + ["fatal_population"]
 
         df = combine_race_ethnicity(
             df,
             count_cols_to_sum,
             RACE_NAMES_MAPPING,
-            ethnicity_value='Hispanic',
-            additional_group_cols=['year', 'state'],
+            ethnicity_value="Hispanic",
+            additional_group_cols=["year", "state"],
         )
 
         for raw_total_col in RAW_TOTALS_MAP.values():
@@ -259,7 +259,7 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
             if raw_total_col in df.columns:
                 topic_prefix = std_col.extract_prefix(raw_total_col)
                 topic_rate_col = PER_100K_MAP[topic_prefix]
-                df = generate_per_100k_col(df, raw_total_col, 'fatal_population', topic_rate_col, decimal_places=2)
+                df = generate_per_100k_col(df, raw_total_col, "fatal_population", topic_rate_col, decimal_places=2)
 
     output_df = output_df.merge(df, how="outer")
 

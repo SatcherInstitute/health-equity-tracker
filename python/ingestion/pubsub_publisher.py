@@ -19,11 +19,11 @@ def notify_topic(project_id, topic, **attrs):
 
     # Not sure if anything here is necessary since we can add attributes
     # directly. For now just adding a message to log.
-    data = 'Notifying data ingested'
-    data = data.encode('utf-8')
+    data = "Notifying data ingested"
+    data = data.encode("utf-8")
     future = publisher.publish(topic_path, data, **attrs)
 
     try:
         future.result()
     except Exception as e:
-        logging.warning('Error publishing message on topic %s: %s', topic, e)
+        logging.warning("Error publishing message on topic %s: %s", topic, e)

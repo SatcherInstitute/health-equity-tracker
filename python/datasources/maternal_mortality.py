@@ -19,12 +19,12 @@ JAMA_NATIONAL = "National"
 JAMA_CURRENT_YEAR = "2019"
 
 JAMA_RACE_GROUPS_TO_STANDARD = {
-    'Non-Hispanic American Indian and Alaska Native': std_col.Race.AIAN_NH.value,
-    'Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander': std_col.Race.API_NH.value,
-    'Non-Hispanic Black': std_col.Race.BLACK_NH.value,
-    'Non-Hispanic White': std_col.Race.WHITE_NH.value,
-    'Hispanic and any race': std_col.Race.HISP.value,
-    'All racial and ethnic groups': std_col.Race.ALL.value,
+    "Non-Hispanic American Indian and Alaska Native": std_col.Race.AIAN_NH.value,
+    "Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander": std_col.Race.API_NH.value,
+    "Non-Hispanic Black": std_col.Race.BLACK_NH.value,
+    "Non-Hispanic White": std_col.Race.WHITE_NH.value,
+    "Hispanic and any race": std_col.Race.HISP.value,
+    "All racial and ethnic groups": std_col.Race.ALL.value,
 }
 
 # Constants from the CDC Natality data
@@ -49,9 +49,9 @@ CDC_NATALITY_RACE_NAMES_TO_HET_RACE_CODES = {
 # DATA FOR NATIONAL AND REGIONAL COUNTS ARE FROM THE IMAGE IN THE
 # ORIGINAL STUDY LABELED "Table" AND MANUALLY INPUTTED TO /data
 
-JAMA_RACE = 'race_group'
-JAMA_STATE_NAME = 'location_name'
-JAMA_TIME_PERIOD = 'year_id'
+JAMA_RACE = "race_group"
+JAMA_STATE_NAME = "location_name"
+JAMA_TIME_PERIOD = "year_id"
 
 COLS_TO_STANDARD = {
     JAMA_RACE: std_col.RACE_CATEGORY_ID_COL,
@@ -59,20 +59,20 @@ COLS_TO_STANDARD = {
     JAMA_TIME_PERIOD: std_col.TIME_PERIOD_COL,
 }
 
-RATE_COLS_TO_STANDARD = {'val': std_col.MM_PER_100K, **COLS_TO_STANDARD}
+RATE_COLS_TO_STANDARD = {"val": std_col.MM_PER_100K, **COLS_TO_STANDARD}
 
 
 class MaternalMortalityData(DataSource):
     @staticmethod
     def get_id():
-        return 'MATERNAL_MORTALITY_DATA'
+        return "MATERNAL_MORTALITY_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'maternal_mortality_data'
+        return "maternal_mortality_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for MaternalMortalityData')
+        raise NotImplementedError("upload_to_gcs should not be called for MaternalMortalityData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
@@ -125,7 +125,7 @@ class MaternalMortalityData(DataSource):
             ).reset_index(drop=True)
 
             for time_type in [HISTORICAL, CURRENT]:
-                table_id = gcs_to_bq_util.make_bq_table_id('race', geo_level, time_type)
+                table_id = gcs_to_bq_util.make_bq_table_id("race", geo_level, time_type)
                 float_cols = get_float_cols(time_type, geo_level)
                 df_for_bq = df.copy()[keep_string_cols + float_cols]
                 if time_type == CURRENT:
@@ -140,8 +140,8 @@ def preprocess_source_rates() -> pd.DataFrame:
         pandas.DataFrame: preprocessed source data including state and national rows
     """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        'maternal_mortality',
-        'IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV',
+        "maternal_mortality",
+        "IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV",
         dtype={JAMA_TIME_PERIOD: str},
         usecols=RATE_COLS_TO_STANDARD.keys(),
     )
@@ -163,8 +163,8 @@ def merge_national_counts(df: pd.DataFrame) -> pd.DataFrame:
     """
 
     jama_national_counts_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        'maternal_mortality',
-        'Table.csv',
+        "maternal_mortality",
+        "Table.csv",
         dtype={JAMA_TIME_PERIOD: str},
         usecols=[
             JAMA_RACE,
@@ -245,9 +245,9 @@ def read_live_births_denominators() -> pd.DataFrame:
     usecols = [CDC_RACE, CDC_ETH, CDC_BIRTHS, CDC_STATE_FIPS]
 
     df = gcs_to_bq_util.load_tsv_as_df_from_data_dir(
-        'maternal_mortality',
-        'Natality, 2016-2022 expanded.txt',
-        delimiter='\t',
+        "maternal_mortality",
+        "Natality, 2016-2022 expanded.txt",
+        delimiter="\t",
         skipinitialspace=True,
         dtype={CDC_STATE_FIPS: str},
         usecols=usecols,
@@ -290,7 +290,7 @@ def merge_state_counts(df: pd.DataFrame) -> pd.DataFrame:
         df,
         live_births_df,
         on=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL, std_col.RACE_CATEGORY_ID_COL],
-        how='left',
+        how="left",
     )
 
     # estimate the number of maternal deaths using the rate per 100k and the original denominator of live births

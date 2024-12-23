@@ -31,18 +31,18 @@ from ingestion.merge_utils import merge_state_ids
 class CdcWonderData(DataSource):
     @staticmethod
     def get_id():
-        return 'CDC_WONDER_DATA'
+        return "CDC_WONDER_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'cdc_wonder_data'
+        return "cdc_wonder_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for CdcWonderData')
+        raise NotImplementedError("upload_to_gcs should not be called for CdcWonderData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
-        geo_level = self.get_attr(attrs, 'geographic')
+        demo_type = self.get_attr(attrs, "demographic")
+        geo_level = self.get_attr(attrs, "geographic")
 
         df = self.generate_breakdown_df(demo_type, geo_level)
 
@@ -91,11 +91,11 @@ class CdcWonderData(DataSource):
         for condition in conditions:
             # HET cols to make
             cancer_type = condition.lower()
-            het_rate_numerator = f'{cancer_type}_count_{std_col.RAW_SUFFIX}'
-            het_rate_denominator = f'{cancer_type}_{std_col.RAW_POP_SUFFIX}'
-            het_pct_share = f'{cancer_type}_{std_col.PCT_SHARE_SUFFIX}'
-            het_pop_pct_share = f'{cancer_type}_{std_col.POP_PCT_SUFFIX}'
-            het_pct_rel_inequity = f'{cancer_type}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
+            het_rate_numerator = f"{cancer_type}_count_{std_col.RAW_SUFFIX}"
+            het_rate_denominator = f"{cancer_type}_{std_col.RAW_POP_SUFFIX}"
+            het_pct_share = f"{cancer_type}_{std_col.PCT_SHARE_SUFFIX}"
+            het_pop_pct_share = f"{cancer_type}_{std_col.POP_PCT_SUFFIX}"
+            het_pct_rel_inequity = f"{cancer_type}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
 
             # Pct share mappings
             count_to_pct_share_map[het_rate_numerator] = het_pct_share
@@ -114,7 +114,7 @@ class CdcWonderData(DataSource):
             # For age breakdowns, calculate totals from available age groups
             non_all_df = df[df[demo_breakdown] != ALL_VALUE]
             for condition in conditions:
-                count_col = f'{condition.lower()}_count_{std_col.RAW_SUFFIX}'
+                count_col = f"{condition.lower()}_count_{std_col.RAW_SUFFIX}"
                 if count_col in df.columns:
                     # Update the 'All' row with sum of available age groups
                     available_total = non_all_df[count_col].sum()

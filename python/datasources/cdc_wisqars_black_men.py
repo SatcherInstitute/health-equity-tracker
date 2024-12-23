@@ -84,9 +84,9 @@ TIME_MAP = {
 
 COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
     {
-        'numerator_col': 'gun_homicides_black_men_estimated_total',
-        'denominator_col': 'gun_homicides_black_men_population_estimated_total',
-        'rate_col': 'gun_homicides_black_men_per_100k',
+        "numerator_col": "gun_homicides_black_men_estimated_total",
+        "denominator_col": "gun_homicides_black_men_population_estimated_total",
+        "rate_col": "gun_homicides_black_men_per_100k",
     }
 ]
 
@@ -159,7 +159,7 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
             df.insert(3, WISQARS_AGE_GROUP, std_col.ALL_VALUE)
         elif demographic == std_col.AGE_COL:
-            df[WISQARS_AGE_GROUP] = df[WISQARS_AGE_GROUP].str.replace(' to ', '-')
+            df[WISQARS_AGE_GROUP] = df[WISQARS_AGE_GROUP].str.replace(" to ", "-")
 
         df.rename(
             columns={
@@ -170,6 +170,6 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
             inplace=True,
         )
 
-        output_df = output_df.merge(df, how='outer')
+        output_df = output_df.merge(df, how="outer")
 
     return output_df

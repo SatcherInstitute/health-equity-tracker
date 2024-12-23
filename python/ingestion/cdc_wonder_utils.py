@@ -18,10 +18,10 @@ CRUDE_RATE_COL = "Crude Rate"
 
 # State column names for different demographic types
 STATE_CODE_RACE = "States Code"
-STATE_CODE_DEFAULT = 'States and Puerto Rico Code'
+STATE_CODE_DEFAULT = "States and Puerto Rico Code"
 
-TMP_ALL: CANCER_TYPE_OR_ALL = 'all'
-CDC_WONDER_DIR = 'cdc_wonder'
+TMP_ALL: CANCER_TYPE_OR_ALL = "all"
+CDC_WONDER_DIR = "cdc_wonder"
 
 # Cancer conditions based on sex demographic requirements
 CANCERS_WITH_SEX_DEMOGRAPHIC = ["Colorectal", "Lung"]
@@ -37,12 +37,12 @@ demographic_type_to_source = {
 DEMOGRAPHIC_TO_STANDARD_BY_COL = {
     # Age source groups already match needed HET groups
     std_col.RACE_CATEGORY_ID_COL: {
-        'American Indian or Alaska Native': std_col.Race.AIAN_NH.value,
-        'Asian or Pacific Islander': std_col.Race.API_NH.value,
-        'Hispanic': std_col.Race.HISP.value,
-        'White': std_col.Race.WHITE_NH.value,
-        'Black or African American': std_col.Race.BLACK_NH.value,
-        'Other Races and Unknown combined': std_col.Race.OTHER_NONSTANDARD_NH.value,
+        "American Indian or Alaska Native": std_col.Race.AIAN_NH.value,
+        "Asian or Pacific Islander": std_col.Race.API_NH.value,
+        "Hispanic": std_col.Race.HISP.value,
+        "White": std_col.Race.WHITE_NH.value,
+        "Black or African American": std_col.Race.BLACK_NH.value,
+        "Other Races and Unknown combined": std_col.Race.OTHER_NONSTANDARD_NH.value,
     },
     # Sex source groups already match needed HET groups
 }
@@ -122,15 +122,15 @@ def load_cdc_df_from_data_dir(
     topic_dfs = []
 
     for condition in conditions:
-        folder_name = f'CDC_Wonder_{condition}_Cancer'
-        file_name = f'{folder_name}-{source_type}.csv'
+        folder_name = f"CDC_Wonder_{condition}_Cancer"
+        file_name = f"{folder_name}-{source_type}.csv"
 
         topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             CDC_WONDER_DIR,
             file_name,
             subdirectory=folder_name,
             dtype=DTYPE,
-            na_values=['Not Applicable'],
+            na_values=["Not Applicable"],
             usecols=keep_cols,
         )
 
@@ -198,9 +198,9 @@ def standardize_columns(
         pd.DataFrame: DataFrame with standardized column names
     """
     rename_cols_map: Dict[str, str] = {
-        COUNT_COL: f'{condition.lower()}_count_{std_col.RAW_SUFFIX}',
-        POP_COL: f'{condition.lower()}_{std_col.RAW_POP_SUFFIX}',
-        CRUDE_RATE_COL: f'{condition.lower()}_{std_col.PER_100K_SUFFIX}',
+        COUNT_COL: f"{condition.lower()}_count_{std_col.RAW_SUFFIX}",
+        POP_COL: f"{condition.lower()}_{std_col.RAW_POP_SUFFIX}",
+        CRUDE_RATE_COL: f"{condition.lower()}_{std_col.PER_100K_SUFFIX}",
     }
 
     if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
@@ -240,7 +240,7 @@ def get_float_cols(time_type: str, conditions: List[str]) -> List[str]:
             cols.extend(
                 [
                     f"{cancer_type}_count_{std_col.RAW_SUFFIX}",
-                    f'{cancer_type}_{std_col.POP_PCT_SUFFIX}',
+                    f"{cancer_type}_{std_col.POP_PCT_SUFFIX}",
                     f"{cancer_type}_{std_col.RAW_POP_SUFFIX}",
                     f"{cancer_type}_{std_col.PCT_SHARE_SUFFIX}",
                 ]

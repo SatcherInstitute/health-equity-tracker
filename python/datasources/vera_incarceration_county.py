@@ -16,7 +16,7 @@ from typing import Literal, cast
 from ingestion.het_types import SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, DEMOGRAPHIC_TYPE, GEO_TYPE
 
 COUNTY: GEO_TYPE = "county"
-BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
+BASE_VERA_URL = "https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true"
 
 VERA_YEAR = "year"
 VERA_FIPS = "fips"
@@ -173,22 +173,22 @@ def get_vera_col_types(demo_type: str):
 class VeraIncarcerationCounty(DataSource):
     @staticmethod
     def get_id():
-        return 'VERA_INCARCERATION_COUNTY'
+        return "VERA_INCARCERATION_COUNTY"
 
     @staticmethod
     def get_table_name():
-        return 'vera_incarceration_county'
+        return "vera_incarceration_county"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for VeraIncarcerationCounty')
+        raise NotImplementedError("upload_to_gcs should not be called for VeraIncarcerationCounty")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
+        demo_type = self.get_attr(attrs, "demographic")
 
         vera_col_types = get_vera_col_types(demo_type)
 
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "vera", 'incarceration_trends.csv', usecols=list(vera_col_types.keys()), dtype=vera_col_types
+            "vera", "incarceration_trends.csv", usecols=list(vera_col_types.keys()), dtype=vera_col_types
         )
         df = df.rename(columns={VERA_FIPS: std_col.COUNTY_FIPS_COL, VERA_YEAR: std_col.TIME_PERIOD_COL})
         df = ensure_leading_zeros(df, std_col.COUNTY_FIPS_COL, 5)
