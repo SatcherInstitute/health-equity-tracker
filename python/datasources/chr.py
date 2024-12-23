@@ -30,8 +30,8 @@ source_race_to_id_map = {
     '(White)': std_col.Race.WHITE_NH.value,
 }
 
-# suicide
-source_nh_race_to_id_map = {
+# suicide 2024
+source_nh_race_code_to_id_map_2024 = {
     "(Hispanic (all races))": std_col.Race.HISP.value,
     "(Non-Hispanic AIAN)": std_col.Race.AIAN_NH.value,
     "(Non-Hispanic Asian)": std_col.Race.ASIAN_NH.value,
@@ -40,6 +40,16 @@ source_nh_race_to_id_map = {
     "(Non-Hispanic 2+ races)": std_col.Race.MULTI_NH.value,
     "(Non-Hispanic White)": std_col.Race.WHITE_NH.value,
 }
+
+# suicide 2023
+source_race_code_to_id_map_2023 = {
+    '(AIAN)': std_col.Race.AIAN_NH.value,
+    '(Asian)': std_col.Race.ASIAN_NH.value,
+    '(Black)': std_col.Race.BLACK_NH.value,
+    '(Hispanic)': std_col.Race.HISP.value,
+    '(White)': std_col.Race.WHITE_NH.value,
+}
+
 
 source_fips_col = 'FIPS'
 source_per_100k = 'Rate'
@@ -63,27 +73,31 @@ class CHRData(DataSource):
         if demographic == std_col.RACE_COL:
             demographic = std_col.RACE_OR_HISPANIC_COL
 
-        select_source_df = get_df_from_chr_excel_sheet('Select Measure Data')
-        additional_source_df = get_df_from_chr_excel_sheet('Additional Measure Data')
+        dfs = []
 
-        df = pd.merge(select_source_df, additional_source_df, how='outer', on=source_fips_col)
+        for year in ['2023', '2024']:
 
-        df = df.rename(
-            columns={
-                source_fips_col: std_col.COUNTY_FIPS_COL,
-            }
-        )
+            main_sheet_name = 'Select Measure Data' if year == '2024' else 'Ranked Measure Data'
+            main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
+            additional_source_df = get_df_from_chr_excel_sheet(year, 'Additional Measure Data')
+            year_df = pd.merge(main_source_df, additional_source_df, how='outer', on=source_fips_col)
+            year_df = year_df.rename(
+                columns={
+                    source_fips_col: std_col.COUNTY_FIPS_COL,
+                }
+            )
 
-        # # drop national and state-level rows
-        df = df[~df[std_col.COUNTY_FIPS_COL].str.endswith('000')]
+            # # drop national and state-level rows
+            year_df = year_df[~year_df[std_col.COUNTY_FIPS_COL].str.endswith('000')]
+            melt_map = get_melt_map(year)
+            year_df = dataset_utils.melt_to_het_style_df(
+                year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map
+            )
+            year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
+            year_df[std_col.TIME_PERIOD_COL] = year
+            dfs.append(year_df)
 
-        melt_map = get_melt_map()
-
-        df = dataset_utils.melt_to_het_style_df(df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map)
-
-        df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str[:2]
-        df[std_col.TIME_PERIOD_COL] = '2024'
-
+        df = pd.concat(dfs)
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
         df = merge_utils.merge_yearly_pop_numbers(df, std_col.RACE_COL, COUNTY_LEVEL)
@@ -95,22 +109,24 @@ class CHRData(DataSource):
         )
         std_col.add_race_columns_from_category_id(df)
 
-        for timeview in [CURRENT]:
+        for timeview in [CURRENT, HISTORICAL]:
             df = df.copy()
             table_id = gcs_to_bq_util.make_bq_table_id(demographic, COUNTY_LEVEL, timeview)
             timeview_float_cols_map = get_float_cols()
             float_cols = timeview_float_cols_map[timeview]
-
             df_for_bq, float_cols = convert_some_pct_rate_to_100k(df, float_cols)
 
-            df_for_bq, col_types = dataset_utils.generate_time_df_with_cols_and_types(
-                df_for_bq, float_cols, timeview, demographic
+            topic_prefixes = list(het_to_source_select_topic_all_to_race_prefix_map.keys()) + list(
+                het_to_source_additional_topic_all_to_race_prefix_map.keys()
             )
+            topic_prefixes.append('chr_population')
+
+            df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, timeview, topic_prefixes)
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
 
-def get_source_usecols(sheet_name: str) -> List[str]:
+def get_source_usecols(year: str, sheet_name: str) -> List[str]:
     """
     Returns a list of column names to be used when reading a source file's excel sheet.
     The list includes the source_fips_col and columns derived from the source_topic_all_to_race_prefix_map.
@@ -123,12 +139,12 @@ def get_source_usecols(sheet_name: str) -> List[str]:
 
     sheet_topic_map: Dict[str, Dict[str, Optional[str]]] = {}
     sheet_race_map: Dict[str, str] = {}
-    if sheet_name == 'Select Measure Data':
+    if sheet_name in ['Ranked Measure Data', 'Select Measure Data']:
         sheet_topic_map = het_to_source_select_topic_all_to_race_prefix_map
         sheet_race_map = source_race_to_id_map
     if sheet_name == 'Additional Measure Data':
         sheet_topic_map = het_to_source_additional_topic_all_to_race_prefix_map
-        sheet_race_map = source_nh_race_to_id_map
+        sheet_race_map = source_nh_race_code_to_id_map_2024 if year == '2024' else source_race_code_to_id_map_2023
 
     for source_topic_all_to_race_prefix_map in sheet_topic_map.values():
         for source_topic, source_topic_race_prefix in source_topic_all_to_race_prefix_map.items():
@@ -142,7 +158,7 @@ def get_source_usecols(sheet_name: str) -> List[str]:
     return source_usecols
 
 
-def get_melt_map() -> Dict[str, Dict[str, str]]:
+def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
     """
     Returns a nested dict, one item per generated metric column, which relate the source's
     original metric by race COLUMN NAME to the needed race column VALUE in the resulting HET df.
@@ -150,6 +166,9 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
     Returns:
         dict: A nested dict
     """
+
+    race_code_to_id_map = source_nh_race_code_to_id_map_2024 if year == '2024' else source_race_code_to_id_map_2023
+
     melt_map: Dict[str, Dict[str, str]] = {}
     # each topic get its own sub-mapping
     for het_prefix, source_all_race_map in het_to_source_select_topic_all_to_race_prefix_map.items():
@@ -182,7 +201,7 @@ def get_melt_map() -> Dict[str, Dict[str, str]]:
 
             # some topics only have ALLs
             if source_race_prefix is not None:
-                for source_race_suffix, het_race_id in source_nh_race_to_id_map.items():
+                for source_race_suffix, het_race_id in race_code_to_id_map.items():
                     additional_topic_melt_map[f'{source_race_prefix} {source_race_suffix}'] = het_race_id
 
         # assign 100k or pct_rate as needed
@@ -241,11 +260,19 @@ def get_float_cols() -> Dict[str, List[str]]:
     return TIME_MAP
 
 
-def get_df_from_chr_excel_sheet(sheet_name: str) -> pd.DataFrame:
-    source_usecols = get_source_usecols(sheet_name)
+def get_df_from_chr_excel_sheet(year: str, sheet_name: str) -> pd.DataFrame:
+    source_usecols = get_source_usecols(year, sheet_name)
+
+    file_name_lookup = {
+        '2024': '2024_county_health_release_data_-_v1.xlsx',
+        '2023': '2023 County Health Rankings Data - v2.xlsx',
+    }
+
+    file_name = file_name_lookup[year]
+
     return gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
         CHR_DIR,
-        '2024_county_health_release_data_-_v1.xlsx',
+        file_name,
         sheet_name,
         header=1,
         usecols=source_usecols,
