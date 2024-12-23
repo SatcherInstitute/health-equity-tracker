@@ -6,14 +6,14 @@ from ingestion.dataset_utils import generate_pct_rate_col
 from ingestion.standardized_columns import Race
 import ingestion.standardized_columns as std_col
 
-BASE_CDC_URL = 'https://data.cdc.gov/resource/8xkx-amqh.csv'
+BASE_CDC_URL = "https://data.cdc.gov/resource/8xkx-amqh.csv"
 FILE_SIZE_LIMIT = 5000
 
-CDC_COUNTY_FIPS_COL = 'fips'
-CDC_COUNTY_COL = 'recip_county'
-CDC_DOSE_ONE_COL = 'administered_dose1_recip'
-CDC_DATE_COL = 'date'
-CDC_ONE_DOSE = 'one_dose'
+CDC_COUNTY_FIPS_COL = "fips"
+CDC_COUNTY_COL = "recip_county"
+CDC_DOSE_ONE_COL = "administered_dose1_recip"
+CDC_DATE_COL = "date"
+CDC_ONE_DOSE = "one_dose"
 
 COL_NAME_MAPPING = {
     CDC_COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
@@ -25,14 +25,14 @@ COL_NAME_MAPPING = {
 class CDCVaccinationCounty(DataSource):
     @staticmethod
     def get_id():
-        return 'CDC_VACCINATION_COUNTY'
+        return "CDC_VACCINATION_COUNTY"
 
     @staticmethod
     def get_table_name():
-        return 'cdc_vaccination_county'
+        return "cdc_vaccination_county"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for CDCVaccinationCounty')
+        raise NotImplementedError("upload_to_gcs should not be called for CDCVaccinationCounty")
 
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         params = {"$limit": FILE_SIZE_LIMIT}

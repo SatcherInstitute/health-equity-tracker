@@ -37,103 +37,103 @@ from ingestion.standardized_columns import (
     generate_column_name,
 )
 
-EARLIEST_ACS_CONDITION_YEAR = '2012'
-CURRENT_ACS_CONDITION_YEAR = '2022'
+EARLIEST_ACS_CONDITION_YEAR = "2012"
+CURRENT_ACS_CONDITION_YEAR = "2022"
 
 # available years with all topics working
 ACS_URLS_MAP = {
-    EARLIEST_ACS_CONDITION_YEAR: 'https://api.census.gov/data/2012/acs/acs5',
-    '2013': 'https://api.census.gov/data/2013/acs/acs5',
-    '2014': 'https://api.census.gov/data/2014/acs/acs5',
-    '2015': 'https://api.census.gov/data/2015/acs/acs5',
-    '2016': 'https://api.census.gov/data/2016/acs/acs5',
-    '2017': 'https://api.census.gov/data/2017/acs/acs5',
-    '2018': 'https://api.census.gov/data/2018/acs/acs5',
-    '2019': 'https://api.census.gov/data/2019/acs/acs5',
-    '2020': 'https://api.census.gov/data/2020/acs/acs5',
-    '2021': 'https://api.census.gov/data/2021/acs/acs5',
-    CURRENT_ACS_CONDITION_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
+    EARLIEST_ACS_CONDITION_YEAR: "https://api.census.gov/data/2012/acs/acs5",
+    "2013": "https://api.census.gov/data/2013/acs/acs5",
+    "2014": "https://api.census.gov/data/2014/acs/acs5",
+    "2015": "https://api.census.gov/data/2015/acs/acs5",
+    "2016": "https://api.census.gov/data/2016/acs/acs5",
+    "2017": "https://api.census.gov/data/2017/acs/acs5",
+    "2018": "https://api.census.gov/data/2018/acs/acs5",
+    "2019": "https://api.census.gov/data/2019/acs/acs5",
+    "2020": "https://api.census.gov/data/2020/acs/acs5",
+    "2021": "https://api.census.gov/data/2021/acs/acs5",
+    CURRENT_ACS_CONDITION_YEAR: "https://api.census.gov/data/2022/acs/acs5",
 }
 
 
 HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS = {
-    Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
-    Race.ASIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)',
-    Race.HISP.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)',
-    Race.BLACK.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
-    Race.NHPI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)',
-    Race.WHITE.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)',
-    Race.OTHER_STANDARD.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (SOME OTHER RACE ALONE)',
-    Race.MULTI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)',
+    Race.AIAN.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)",
+    Race.ASIAN.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (ASIAN ALONE)",
+    Race.HISP.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (HISPANIC OR LATINO)",
+    Race.BLACK.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
+    Race.NHPI.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)",
+    Race.WHITE.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (WHITE ALONE)",
+    Race.OTHER_STANDARD.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (SOME OTHER RACE ALONE)",
+    Race.MULTI.value: "HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)",
 }
 
 HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE = {
-    Race.AIAN.value: 'Health Insurance Coverage Status by Age (American Indian and Alaska Native Alone)',
-    Race.ASIAN.value: 'Health Insurance Coverage Status by Age (Asian Alone)',
-    Race.HISP.value: 'Health Insurance Coverage Status by Age (Hispanic or Latino)',
-    Race.BLACK.value: 'Health Insurance Coverage Status by Age (Black or African American Alone)',
-    Race.NHPI.value: 'Health Insurance Coverage Status by Age (Native Hawaiian and Other Pacific Islander Alone)',
-    Race.WHITE.value: 'Health Insurance Coverage Status by Age (White Alone)',
-    Race.OTHER_STANDARD.value: 'Health Insurance Coverage Status by Age (Some Other Race Alone)',
-    Race.MULTI.value: 'Health Insurance Coverage Status by Age (Two or More Races)',
+    Race.AIAN.value: "Health Insurance Coverage Status by Age (American Indian and Alaska Native Alone)",
+    Race.ASIAN.value: "Health Insurance Coverage Status by Age (Asian Alone)",
+    Race.HISP.value: "Health Insurance Coverage Status by Age (Hispanic or Latino)",
+    Race.BLACK.value: "Health Insurance Coverage Status by Age (Black or African American Alone)",
+    Race.NHPI.value: "Health Insurance Coverage Status by Age (Native Hawaiian and Other Pacific Islander Alone)",
+    Race.WHITE.value: "Health Insurance Coverage Status by Age (White Alone)",
+    Race.OTHER_STANDARD.value: "Health Insurance Coverage Status by Age (Some Other Race Alone)",
+    Race.MULTI.value: "Health Insurance Coverage Status by Age (Two or More Races)",
 }
 
 POVERTY_RACE_TO_CONCEPT_CAPS = {
-    Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
-    Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
-    Race.HISP.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)',
-    Race.BLACK.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)',
+    Race.AIAN.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)",
+    Race.ASIAN.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)",
+    Race.HISP.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (HISPANIC OR LATINO)",
+    Race.BLACK.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (BLACK OR AFRICAN AMERICAN ALONE)",
     Race.NHPI.value: (
-        'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
+        "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)"
     ),
-    Race.WHITE.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)',
-    Race.OTHER_STANDARD.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)',
-    Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
+    Race.WHITE.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (WHITE ALONE)",
+    Race.OTHER_STANDARD.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (SOME OTHER RACE ALONE)",
+    Race.MULTI.value: "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)",
 }
 
 POVERTY_RACE_TO_CONCEPT_TITLE = {
-    Race.AIAN.value: 'Poverty Status in the Past 12 Months by Sex by Age (American Indian and Alaska Native Alone)',
-    Race.ASIAN.value: 'Poverty Status in the Past 12 Months by Sex by Age (Asian Alone)',
-    Race.HISP.value: 'Poverty Status in the Past 12 Months by Sex by Age (Hispanic or Latino)',
-    Race.BLACK.value: 'Poverty Status in the Past 12 Months by Sex by Age (Black or African American Alone)',
+    Race.AIAN.value: "Poverty Status in the Past 12 Months by Sex by Age (American Indian and Alaska Native Alone)",
+    Race.ASIAN.value: "Poverty Status in the Past 12 Months by Sex by Age (Asian Alone)",
+    Race.HISP.value: "Poverty Status in the Past 12 Months by Sex by Age (Hispanic or Latino)",
+    Race.BLACK.value: "Poverty Status in the Past 12 Months by Sex by Age (Black or African American Alone)",
     Race.NHPI.value: (
-        'Poverty Status in the Past 12 Months by Sex by Age (Native Hawaiian and Other Pacific Islander Alone)'
+        "Poverty Status in the Past 12 Months by Sex by Age (Native Hawaiian and Other Pacific Islander Alone)"
     ),
-    Race.WHITE.value: 'Poverty Status in the Past 12 Months by Sex by Age (White Alone)',
-    Race.OTHER_STANDARD.value: 'Poverty Status in the Past 12 Months by Sex by Age (Some Other Race Alone)',
-    Race.MULTI.value: 'Poverty Status in the Past 12 Months by Sex by Age (Two or More Races)',
+    Race.WHITE.value: "Poverty Status in the Past 12 Months by Sex by Age (White Alone)",
+    Race.OTHER_STANDARD.value: "Poverty Status in the Past 12 Months by Sex by Age (Some Other Race Alone)",
+    Race.MULTI.value: "Poverty Status in the Past 12 Months by Sex by Age (Two or More Races)",
 }
 
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 etc
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadata.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
-    'C27001A': Race.WHITE.value,
-    'C27001B': Race.BLACK.value,
-    'C27001C': Race.AIAN.value,
-    'C27001D': Race.ASIAN.value,
-    'C27001E': Race.NHPI.value,
-    'C27001F': Race.OTHER_STANDARD.value,
-    'C27001G': Race.MULTI.value,
-    'C27001I': Race.HISP.value,
+    "C27001A": Race.WHITE.value,
+    "C27001B": Race.BLACK.value,
+    "C27001C": Race.AIAN.value,
+    "C27001D": Race.ASIAN.value,
+    "C27001E": Race.NHPI.value,
+    "C27001F": Race.OTHER_STANDARD.value,
+    "C27001G": Race.MULTI.value,
+    "C27001I": Race.HISP.value,
 }
 
 POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
-    'B17001A': Race.WHITE.value,
-    'B17001B': Race.BLACK.value,
-    'B17001C': Race.AIAN.value,
-    'B17001D': Race.ASIAN.value,
-    'B17001E': Race.NHPI.value,
-    'B17001F': Race.OTHER_STANDARD.value,
-    'B17001G': Race.MULTI.value,
-    'B17001I': Race.HISP.value,
+    "B17001A": Race.WHITE.value,
+    "B17001B": Race.BLACK.value,
+    "B17001C": Race.AIAN.value,
+    "B17001D": Race.ASIAN.value,
+    "B17001E": Race.NHPI.value,
+    "B17001F": Race.OTHER_STANDARD.value,
+    "B17001G": Race.MULTI.value,
+    "B17001I": Race.HISP.value,
 }
 
 
 def get_poverty_age_range(age_range):
-    if age_range in {'0-4', '5-5'}:
-        return '0-5'
-    elif age_range in {'12-14', '15-15', '16-17'}:
-        return '12-17'
+    if age_range in {"0-4", "5-5"}:
+        return "0-5"
+    elif age_range in {"12-14", "15-15", "16-17"}:
+        return "12-17"
     else:
         return age_range
 
@@ -178,30 +178,30 @@ class AcsItem:
 
 # Health insurance by Sex only has one prefix, and is kept
 # in the form of a dict to help with standardizing code flow
-HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = 'B27001'
-HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_CAPS = 'HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE'
-HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_TITLE = 'Health Insurance Coverage Status by Sex by Age'
+HEALTH_INSURANCE_BY_SEX_GROUPS_PREFIX = "B27001"
+HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_CAPS = "HEALTH INSURANCE COVERAGE STATUS BY SEX BY AGE"
+HEALTH_INSURANCE_SEX_BY_AGE_CONCEPT_TITLE = "Health Insurance Coverage Status by Sex by Age"
 
-POVERTY_BY_SEX_AGE_GROUPS_PREFIX = 'B17001'
-POVERTY_BY_SEX_AGE_CONCEPT_CAPS = 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE'
-POVERTY_BY_SEX_AGE_CONCEPT_TITLE = 'Poverty Status in the Past 12 Months by Sex by Age'
+POVERTY_BY_SEX_AGE_GROUPS_PREFIX = "B17001"
+POVERTY_BY_SEX_AGE_CONCEPT_CAPS = "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE"
+POVERTY_BY_SEX_AGE_CONCEPT_TITLE = "Poverty Status in the Past 12 Months by Sex by Age"
 
-HAS_HEALTH_INSURANCE = 'has_health_insurance'
-INCOME_UNDER_POVERTY = 'under_poverty_line'
+HAS_HEALTH_INSURANCE = "has_health_insurance"
+INCOME_UNDER_POVERTY = "under_poverty_line"
 
 # Col names for temporary df, never written to bq
-AMOUNT = 'amount'
-POP_SUFFIX = 'pop'
-HAS_ACS_ITEM_SUFFIX = 'has_acs_item'
+AMOUNT = "amount"
+POP_SUFFIX = "pop"
+HAS_ACS_ITEM_SUFFIX = "has_acs_item"
 
-HEALTH_INSURANCE_KEY = 'No health insurance coverage'
-WITH_HEALTH_INSURANCE_KEY = 'With health insurance coverage'
+HEALTH_INSURANCE_KEY = "No health insurance coverage"
+WITH_HEALTH_INSURANCE_KEY = "With health insurance coverage"
 
-NOT_IN_POVERTY_KEY = 'Income in the past 12 months at or above poverty level'
-POVERTY_KEY = 'Income in the past 12 months below poverty level'
+NOT_IN_POVERTY_KEY = "Income in the past 12 months at or above poverty level"
+POVERTY_KEY = "Income in the past 12 months below poverty level"
 
-HEALTH_INSURANCE_MEASURE = 'health_insurance'
-POVERTY_MEASURE = 'poverty'
+HEALTH_INSURANCE_MEASURE = "health_insurance"
+POVERTY_MEASURE = "poverty"
 
 ACS_ITEMS_2021_AND_EARLIER = {
     HEALTH_INSURANCE_MEASURE: AcsItem(
@@ -272,21 +272,21 @@ def update_col_types(df):
 
 class AcsCondition(DataSource):
     def get_filename_race(self, measure, race, is_county, year):
-        geo = 'COUNTY' if is_county else 'STATE'
+        geo = "COUNTY" if is_county else "STATE"
         race = race.replace(" ", "_").upper()
-        return f'{year}-{measure.upper()}_BY_RACE_{geo}_{race}.json'
+        return f"{year}-{measure.upper()}_BY_RACE_{geo}_{race}.json"
 
     def get_filename_sex(self, measure, is_county, year):
-        geo = 'COUNTY' if is_county else 'STATE'
-        return f'{year}-{measure.upper()}_BY_SEX_{geo}.json'
+        geo = "COUNTY" if is_county else "STATE"
+        return f"{year}-{measure.upper()}_BY_SEX_{geo}.json"
 
     @staticmethod
     def get_id():
-        return 'ACS_CONDITION'
+        return "ACS_CONDITION"
 
     @staticmethod
     def get_table_name():
-        return 'acs_condition'
+        return "acs_condition"
 
     # Uploads the ACS data to GCS by providing
     # the ACS Base URL
@@ -300,7 +300,7 @@ class AcsCondition(DataSource):
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     def upload_to_gcs(self, bucket, **attrs):
 
-        year = self.get_attr(attrs, 'year')
+        year = self.get_attr(attrs, "year")
         self.year = year
         self.base_url = ACS_URLS_MAP[year]
 
@@ -344,7 +344,7 @@ class AcsCondition(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        year = self.get_attr(attrs, 'year')
+        year = self.get_attr(attrs, "year")
         self.year = year
         self.base_url = ACS_URLS_MAP[year]
         if int(year) < 2022:
@@ -378,7 +378,7 @@ class AcsCondition(DataSource):
         suffixes_current_only = [
             std_col.POP_PCT_SUFFIX,
             std_col.RAW_SUFFIX,  # numerator counts
-            f'{POP_SUFFIX}_{std_col.RAW_SUFFIX}',  # denominator counts
+            f"{POP_SUFFIX}_{std_col.RAW_SUFFIX}",  # denominator counts
         ]
 
         for [demo, geo], df in dfs.items():
@@ -474,7 +474,7 @@ class AcsCondition(DataSource):
                     concept_dfs.append(concept_df)
 
                 concept_df = pd.concat(concept_dfs)
-                df = pd.merge(df, concept_df, on=merge_cols, how='outer')
+                df = pd.merge(df, concept_df, on=merge_cols, how="outer")
 
             return df
 
@@ -495,7 +495,7 @@ class AcsCondition(DataSource):
                     var_map,
                 )
 
-                df = pd.merge(df, concept_df, on=merge_cols, how='outer')
+                df = pd.merge(df, concept_df, on=merge_cols, how="outer")
 
             return df
 
@@ -523,7 +523,7 @@ class AcsCondition(DataSource):
         # `"label": "Estimate!!Total:!!19 to 64 years:!!No health insurance coverage"`
         # we take the std_col.AGE_COL first, and the AMOUNT second
         # (The Estimate and Total keys are stripped off in the standardize frame function)
-        tmp_amount_key = 'tmp_amount_key'
+        tmp_amount_key = "tmp_amount_key"
         if measure == POVERTY_MEASURE:
             group_cols = [tmp_amount_key, std_col.SEX_COL, std_col.AGE_COL]
         elif measure == HEALTH_INSURANCE_MEASURE:
@@ -548,7 +548,7 @@ class AcsCondition(DataSource):
             df_with_without[tmp_amount_key] == acs_item.does_not_have_condition_key
         ].reset_index(drop=True)
 
-        without_condition_raw_count = generate_column_name(measure, 'without')
+        without_condition_raw_count = generate_column_name(measure, "without")
         df_without_condition = df_without_condition.rename(columns={AMOUNT: without_condition_raw_count})
 
         raw_count = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
@@ -565,7 +565,7 @@ class AcsCondition(DataSource):
 
         # Generate the population for each condition by adding together
         # the raw counts of people with and without the condition.
-        population_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how='left')
+        population_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how="left")
         population = generate_column_name(measure, POP_SUFFIX)
         population_df[[raw_count, without_condition_raw_count]] = population_df[
             [raw_count, without_condition_raw_count]
@@ -575,7 +575,7 @@ class AcsCondition(DataSource):
 
         # Merge the population df back into the df of people with the condition
         # to create our main df.
-        df = pd.merge(df_with_condition, population_df, on=merge_cols, how='left')
+        df = pd.merge(df_with_condition, population_df, on=merge_cols, how="left")
         df = df[merge_cols + [population, raw_count]]
         df = update_col_types(df)
 
@@ -671,13 +671,13 @@ class AcsCondition(DataSource):
         df = generate_pct_share_col_without_unknowns(df, pct_share_cols, demo_col, all_val)
 
         for item in acs_items.values():
-            pct_rel_inequity_col = f'{item.bq_prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
+            pct_rel_inequity_col = f"{item.bq_prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
 
             # PCT_REL_INEQUITY
             df = generate_pct_rel_inequity_col(
                 df,
-                f'{item.bq_prefix}_{std_col.PCT_SHARE_SUFFIX}',
-                f'{item.bq_prefix}_{std_col.POP_PCT_SUFFIX}',
+                f"{item.bq_prefix}_{std_col.PCT_SHARE_SUFFIX}",
+                f"{item.bq_prefix}_{std_col.POP_PCT_SUFFIX}",
                 pct_rel_inequity_col,
             )
             all_columns.append(pct_rel_inequity_col)
@@ -690,7 +690,7 @@ class AcsCondition(DataSource):
                     acs_item.bq_prefix, std_col.RAW_SUFFIX
                 ),
                 # Rename denominators e.g. health_insurance_pop to uninsurance_population_estimated_total
-                generate_column_name(measure, POP_SUFFIX): f'{acs_item.bq_prefix}_{POP_SUFFIX}_{std_col.RAW_SUFFIX}',
+                generate_column_name(measure, POP_SUFFIX): f"{acs_item.bq_prefix}_{POP_SUFFIX}_{std_col.RAW_SUFFIX}",
             }
             all_columns.extend(rename_map.values())
 

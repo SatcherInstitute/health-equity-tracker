@@ -5,14 +5,14 @@ SEX_COL = "sex"
 AGE_COL = "age"
 COUNTY_FIPS_COL = "county_fips"
 STATE_FIPS_COL = "state_fips"
-TIME_PERIOD_COL = 'time_period'
+TIME_PERIOD_COL = "time_period"
 
 
 def generate_cols(df: pd.DataFrame):
-    share_cols = df.columns.to_series().loc[df.columns.str.contains('share')].tolist()
+    share_cols = df.columns.to_series().loc[df.columns.str.contains("share")].tolist()
 
     # determine demographic column
-    dem_col = ''
+    dem_col = ""
     if RACE_CATEGORY_ID_COL in df.columns:
         dem_col = RACE_CATEGORY_ID_COL
     elif SEX_COL in df.columns:
@@ -24,7 +24,7 @@ def generate_cols(df: pd.DataFrame):
     if COUNTY_FIPS_COL in df.columns:
         std_cols = [COUNTY_FIPS_COL]
     else:
-        df = df[df[STATE_FIPS_COL] != 'Unknown']
+        df = df[df[STATE_FIPS_COL] != "Unknown"]
         std_cols = [STATE_FIPS_COL]
 
     # determine if standard columns
@@ -41,7 +41,7 @@ def check_pct_values(df, table_name):
     df = df[cols]
 
     # remove rows with 'All' & 'Unknown' as values/only known values are considered for pct share calc
-    options = ['All', 'Unknown', 'UNKNOWN', 'ALL']
+    options = ["All", "Unknown", "UNKNOWN", "ALL"]
     df = df[-df[dem_col].isin(options)]
 
     # group and sum rows
@@ -58,8 +58,8 @@ def check_pct_values(df, table_name):
     if len(bad_fips_df) > 0:
         fip_list = [*set(bad_fips_df[std_cols[0]].tolist())]
 
-        errors = {'table': table_name, 'fips': fip_list}
+        errors = {"table": table_name, "fips": fip_list}
 
         return [False, errors]
 
-    return [True, f'No errors detected on table, {table_name}']
+    return [True, f"No errors detected on table, {table_name}"]

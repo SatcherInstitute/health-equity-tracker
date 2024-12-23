@@ -24,11 +24,11 @@ def test_format_svi():
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "geo_context")
-REAL_SVI_DIR = os.path.abspath('data/cdc_svi_county')
+REAL_SVI_DIR = os.path.abspath("data/cdc_svi_county")
 
-GOLDEN_DATA_NATIONAL = os.path.join(TEST_DIR, 'test_output_geo_context_national.csv')
-GOLDEN_DATA_STATE = os.path.join(TEST_DIR, 'test_output_geo_context_state.csv')
-GOLDEN_DATA_COUNTY = os.path.join(TEST_DIR, 'test_output_geo_context_county.csv')
+GOLDEN_DATA_NATIONAL = os.path.join(TEST_DIR, "test_output_geo_context_national.csv")
+GOLDEN_DATA_STATE = os.path.join(TEST_DIR, "test_output_geo_context_state.csv")
+GOLDEN_DATA_COUNTY = os.path.join(TEST_DIR, "test_output_geo_context_county.csv")
 
 
 def _scaffold_fips_df(*args):
@@ -43,7 +43,7 @@ def _scaffold_fips_df(*args):
 
 
 def _get_svi_as_df():
-    return pd.read_csv(os.path.join(TEST_DIR, 'cdc_svi_county_test.csv'), dtype={"FIPS": str})
+    return pd.read_csv(os.path.join(TEST_DIR, "cdc_svi_county_test.csv"), dtype={"FIPS": str})
 
 
 def _generate_breakdown(*args):
@@ -55,20 +55,20 @@ def _generate_breakdown(*args):
 
 
 @mock.patch(
-    'datasources.geo_context.GeoContext.generate_breakdown',
+    "datasources.geo_context.GeoContext.generate_breakdown",
     side_effect=_generate_breakdown,
 )
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_generate_breakdown: mock.MagicMock):
     """Ensures the correct structure and arguments were
     generated to be written to BigQuery"""
     geoContext = GeoContext()
     kwargs = {
-        'filename': 'test_file.csv',
-        'metadata_table_id': 'test_metadata',
-        'table_name': 'output_table',
+        "filename": "test_file.csv",
+        "metadata_table_id": "test_metadata",
+        "table_name": "output_table",
     }
-    geoContext.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    geoContext.write_to_bq("dataset", "gcs_bucket", **kwargs)
 
     assert mock_generate_breakdown.call_count == 3
     assert mock_bq.call_count == 3
@@ -78,16 +78,16 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_generate_breakdown: mock.MagicMo
         national_call[1]["column_types"]
         == state_call[1]["column_types"]
         == {
-            'fake_col1': BQ_STRING,
-            'fake_col2': BQ_STRING,
-            'population': BQ_FLOAT,
+            "fake_col1": BQ_STRING,
+            "fake_col2": BQ_STRING,
+            "population": BQ_FLOAT,
         }
     )
     assert county_call[1]["column_types"] == {
-        'fake_col1': BQ_STRING,
-        'fake_col2': BQ_STRING,
-        'svi': BQ_FLOAT,
-        'population': BQ_FLOAT,
+        "fake_col1": BQ_STRING,
+        "fake_col2": BQ_STRING,
+        "svi": BQ_FLOAT,
+        "population": BQ_FLOAT,
     }
 
 
@@ -99,13 +99,13 @@ def testGenerateNationalBreakdown():
     expected_national_df = pd.read_csv(
         GOLDEN_DATA_NATIONAL,
         dtype={
-            'state_fips': str,
+            "state_fips": str,
         },
     )
     assert_frame_equal(national_df, expected_national_df, check_like=True)
 
 
-@mock.patch('ingestion.dataset_utils.scaffold_fips_df', side_effect=_scaffold_fips_df)
+@mock.patch("ingestion.dataset_utils.scaffold_fips_df", side_effect=_scaffold_fips_df)
 def testGenerateStateLevelBreakdown(
     mock_scaffold: mock.MagicMock,
 ):
@@ -117,7 +117,7 @@ def testGenerateStateLevelBreakdown(
     expected_state_level_df = pd.read_csv(
         GOLDEN_DATA_STATE,
         dtype={
-            'state_fips': str,
+            "state_fips": str,
         },
     )
 
@@ -126,9 +126,9 @@ def testGenerateStateLevelBreakdown(
     assert_frame_equal(state_level_df, expected_state_level_df, check_like=True)
 
 
-@mock.patch('ingestion.dataset_utils.scaffold_fips_df', side_effect=_scaffold_fips_df)
+@mock.patch("ingestion.dataset_utils.scaffold_fips_df", side_effect=_scaffold_fips_df)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     return_value=_get_svi_as_df(),
 )
 def testGenerateCountyBreakdown(
@@ -144,6 +144,6 @@ def testGenerateCountyBreakdown(
     assert mock_svi_data.call_count == 1
     assert mock_scaffold.call_count == 1
 
-    expected_county_df = pd.read_csv(GOLDEN_DATA_COUNTY, dtype={'county_fips': str})
+    expected_county_df = pd.read_csv(GOLDEN_DATA_COUNTY, dtype={"county_fips": str})
 
     assert_frame_equal(county_df, expected_county_df, check_like=True)

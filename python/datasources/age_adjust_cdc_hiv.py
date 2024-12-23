@@ -25,30 +25,30 @@ AGE_ADJUST_RACES = {
     Race.MULTI_NH.value,
 }
 
-EXPECTED_DEATHS = 'expected_deaths'
+EXPECTED_DEATHS = "expected_deaths"
 
 
 class AgeAdjustCDCHiv(DataSource):
     @staticmethod
     def get_id():
-        return 'AGE_ADJUST_CDC_HIV'
+        return "AGE_ADJUST_CDC_HIV"
 
     @staticmethod
     def get_table_name():
-        return 'cdc_hiv_data'
+        return "cdc_hiv_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for AgeAdjustCDCHiv')
+        raise NotImplementedError("upload_to_gcs should not be called for AgeAdjustCDCHiv")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for geo in [NATIONAL_LEVEL, STATE_LEVEL]:
             # only merges current year
             age_adjusted_df = self.generate_age_adjustment(geo)
-            only_race_source = f'race_and_ethnicity_{geo}_current'
-            table_name = f'{only_race_source}-with_age_adjust'
+            only_race_source = f"race_and_ethnicity_{geo}_current"
+            table_name = f"{only_race_source}-with_age_adjust"
 
             only_race_df = gcs_to_bq_util.load_df_from_bigquery(
-                'cdc_hiv_data',
+                "cdc_hiv_data",
                 only_race_source,
                 dtype={std_col.STATE_FIPS_COL: str},
             )
@@ -89,10 +89,10 @@ class AgeAdjustCDCHiv(DataSource):
 
     def generate_age_adjustment(self, geo):
         race_age_df = gcs_to_bq_util.load_df_from_bigquery(
-            'cdc_hiv_data',
-            f'by_race_age_{geo}',
+            "cdc_hiv_data",
+            f"by_race_age_{geo}",
             dtype={
-                'state_fips': str,
+                "state_fips": str,
             },
         )
 
@@ -132,7 +132,7 @@ def merge_age_adjusted(df, age_adjusted_df):
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
 
-    return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
+    return pd.merge(df, age_adjusted_df, how="left", on=merge_cols)
 
 
 def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_col):
@@ -150,7 +150,7 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     raw_number_col: string column name to get the raw number of cases to age
                     adjust from"""
 
-    this_pop_size, ref_pop_size = 'this_pop_size', 'ref_pop_size'
+    this_pop_size, ref_pop_size = "this_pop_size", "ref_pop_size"
 
     def get_expected(row):
         """Calculates the expected value of each race/age split based on the
@@ -158,7 +158,7 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
         split."""
 
         if not row[ref_pop_size]:
-            raise ValueError(f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil')
+            raise ValueError(f"Population size for {REFERENCE_POPULATION} demographic is 0 or nil")
 
         if not row[raw_number_col]:
             return None
@@ -215,7 +215,7 @@ def age_adjust_from_expected(df):
         )
         return row
 
-    base_pop_expected_deaths = 'base_pop_expected_deaths'
+    base_pop_expected_deaths = "base_pop_expected_deaths"
 
     groupby_cols = [
         std_col.STATE_FIPS_COL,

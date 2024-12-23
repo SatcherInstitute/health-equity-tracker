@@ -39,18 +39,18 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 class PhrmaBrfssData(DataSource):
     @staticmethod
     def get_id():
-        return 'PHRMA_BRFSS_DATA'
+        return "PHRMA_BRFSS_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'phrma_brfss_data'
+        return "phrma_brfss_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for PhrmaBrfssData')
+        raise NotImplementedError("upload_to_gcs should not be called for PhrmaBrfssData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
-        geo_level = self.get_attr(attrs, 'geographic')
+        demo_type = self.get_attr(attrs, "demographic")
+        geo_level = self.get_attr(attrs, "geographic")
         table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
         df = self.generate_breakdown_df(demo_type, geo_level)
         bq_col_types = build_bq_col_types(df)
@@ -86,8 +86,8 @@ class PhrmaBrfssData(DataSource):
 
         # ADHERENCE rate
         for condition in conditions:
-            source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
-            het_col_name = f'{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
+            source_col_name = f"{condition}_{ADHERENCE_RATE_LOWER}"
+            het_col_name = f"{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}"
             df[het_col_name] = df[source_col_name].round()
             df = df.drop(source_col_name, axis=1)
 
@@ -102,15 +102,15 @@ class PhrmaBrfssData(DataSource):
         for condition in conditions:
 
             # source cols
-            source_rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
-            source_rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
+            source_rate_numerator = f"{condition}_{COUNT_YES_LOWER}"
+            source_rate_denominator = f"{condition}_{COUNT_TOTAL_LOWER}"
 
             # het cols to make
             cancer_type = condition.lower()
-            het_rate_numerator = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
-            het_rate_denominator = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
-            het_pct_share = f'{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}'
-            het_pop_pct_share = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.POP_PCT_SUFFIX}'
+            het_rate_numerator = f"{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}"
+            het_rate_denominator = f"{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}"
+            het_pct_share = f"{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}"
+            het_pop_pct_share = f"{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.POP_PCT_SUFFIX}"
 
             # prepare rename mappings
             rename_col_map[source_rate_numerator] = het_rate_numerator

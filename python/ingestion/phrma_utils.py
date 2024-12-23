@@ -7,14 +7,14 @@ import numpy as np
 from typing import Dict, cast, List
 from ingestion.merge_utils import merge_dfs_list
 
-PHRMA_BRFSS: PHRMA_DATASET_TYPE = 'brfss'
-PHRMA_MEDICARE: PHRMA_DATASET_TYPE = 'medicare'
+PHRMA_BRFSS: PHRMA_DATASET_TYPE = "brfss"
+PHRMA_MEDICARE: PHRMA_DATASET_TYPE = "medicare"
 
-TMP_ALL: PHRMA_BREAKDOWN_TYPE_OR_ALL = 'all'
-PHRMA_DIR = 'phrma'
+TMP_ALL: PHRMA_BREAKDOWN_TYPE_OR_ALL = "all"
+PHRMA_DIR = "phrma"
 
-ADHERENCE = 'adherence'
-BENEFICIARIES = 'beneficiaries'
+ADHERENCE = "adherence"
+BENEFICIARIES = "beneficiaries"
 
 # PHRMA BRFSS CONSTANTS
 COUNT_TOTAL_LOWER = "total_bene"
@@ -30,8 +30,8 @@ INCOME_GROUP_LOWER = "income_group"
 EDUCATION_GROUP_LOWER = "education_group"
 STATE_FIPS_LOWER = "state_fips"
 
-SCREENED = 'screened'
-SCREENING_ELIGIBLE = 'screening_eligible'
+SCREENED = "screened"
+SCREENING_ELIGIBLE = "screening_eligible"
 
 
 # PHRMA CMS CONSTANTS
@@ -100,19 +100,19 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         "_85+": "85+",
     },
     std_col.RACE_CATEGORY_ID_COL: {
-        'American Indian or Alaskan Native': std_col.Race.AIAN_NH.value,
-        'Asian': std_col.Race.ASIAN_NH.value,
-        'Black': std_col.Race.BLACK_NH.value,
-        'Hispanic': std_col.Race.HISP.value,
-        'Multiracial': std_col.Race.MULTI_NH.value,
-        'Native Hawaiian or other Pacific Islander': std_col.Race.NHPI_NH.value,
-        'White': std_col.Race.WHITE_NH.value,
-        'Unknown': std_col.Race.UNKNOWN.value,
-        'American Indian / Alaska Native': std_col.Race.AIAN_NH.value,
-        'Asian/Pacific Islander': std_col.Race.API_NH.value,
-        'Black or African-American': std_col.Race.BLACK_NH.value,
-        'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
-        'Non-Hispanic White': std_col.Race.WHITE_NH.value,
+        "American Indian or Alaskan Native": std_col.Race.AIAN_NH.value,
+        "Asian": std_col.Race.ASIAN_NH.value,
+        "Black": std_col.Race.BLACK_NH.value,
+        "Hispanic": std_col.Race.HISP.value,
+        "Multiracial": std_col.Race.MULTI_NH.value,
+        "Native Hawaiian or other Pacific Islander": std_col.Race.NHPI_NH.value,
+        "White": std_col.Race.WHITE_NH.value,
+        "Unknown": std_col.Race.UNKNOWN.value,
+        "American Indian / Alaska Native": std_col.Race.AIAN_NH.value,
+        "Asian/Pacific Islander": std_col.Race.API_NH.value,
+        "Black or African-American": std_col.Race.BLACK_NH.value,
+        "Other": std_col.Race.OTHER_NONSTANDARD_NH.value,
+        "Non-Hispanic White": std_col.Race.WHITE_NH.value,
     },
     std_col.INSURANCE_COL: {
         "Have some form of insurance": "Insured",
@@ -195,15 +195,15 @@ def rename_cols(
     """Renames columns based on the demo/geo breakdown"""
 
     rename_cols_map: Dict[str, str] = {
-        COUNT_YES: f'{condition}_{COUNT_YES}',
-        COUNT_TOTAL: f'{condition}_{COUNT_TOTAL}',
-        ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
-        MEDICARE_DISEASE_COUNT: f'{condition}_{MEDICARE_DISEASE_COUNT}',
-        PER_100K: f'{condition}_{PER_100K}',
-        COUNT_YES_LOWER: f'{condition}_{COUNT_YES_LOWER}',
-        COUNT_TOTAL_LOWER: f'{condition}_{COUNT_TOTAL_LOWER}',
-        ADHERENCE_RATE_LOWER: f'{condition}_{ADHERENCE_RATE_LOWER}',
-        AGE_ADJ_RATE_LOWER: f'{condition}_{AGE_ADJ_RATE_LOWER}',
+        COUNT_YES: f"{condition}_{COUNT_YES}",
+        COUNT_TOTAL: f"{condition}_{COUNT_TOTAL}",
+        ADHERENCE_RATE: f"{condition}_{ADHERENCE_RATE}",
+        MEDICARE_DISEASE_COUNT: f"{condition}_{MEDICARE_DISEASE_COUNT}",
+        PER_100K: f"{condition}_{PER_100K}",
+        COUNT_YES_LOWER: f"{condition}_{COUNT_YES_LOWER}",
+        COUNT_TOTAL_LOWER: f"{condition}_{COUNT_TOTAL_LOWER}",
+        ADHERENCE_RATE_LOWER: f"{condition}_{ADHERENCE_RATE_LOWER}",
+        AGE_ADJ_RATE_LOWER: f"{condition}_{AGE_ADJ_RATE_LOWER}",
     }
 
     if geo_level == COUNTY_LEVEL:
@@ -248,7 +248,7 @@ def rename_cols(
     return df
 
 
-DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
+DTYPE = {"COUNTY_FIPS": str, "STATE_FIPS": str}
 
 
 def load_phrma_df_from_data_dir(
@@ -333,11 +333,11 @@ def load_phrma_df_from_data_dir(
                 condition_keep_cols.append(AGE_ADJ_RATE_LOWER)
 
         if dataset_type == PHRMA_MEDICARE:
-            file_name = f'{condition}-{sheet_name}.csv'
+            file_name = f"{condition}-{sheet_name}.csv"
             subdirectory = condition
         else:  # cancer
-            condition_folder = f'MSM_BRFSS {condition} Cancer Screening_2024-08-07'
-            file_name = f'{condition_folder}-{sheet_name}.csv'
+            condition_folder = f"MSM_BRFSS {condition} Cancer Screening_2024-08-07"
+            file_name = f"{condition_folder}-{sheet_name}.csv"
             subdirectory = condition_folder
 
         topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
@@ -349,7 +349,7 @@ def load_phrma_df_from_data_dir(
             usecols=condition_keep_cols,
         )
 
-        topic_df = topic_df.replace(['\n', '¬¥', '‚Äô'], [' ', "'", "'"], regex=True)
+        topic_df = topic_df.replace(["\n", "¬¥", "‚Äô"], [" ", "'", "'"], regex=True)
 
         if geo_level == NATIONAL_LEVEL:
             topic_df[STATE_FIPS] = US_FIPS
@@ -376,12 +376,12 @@ def get_age_adjusted_ratios(df: pd.DataFrame, conditions: List[str]) -> pd.DataF
     """Adds columns for age adjusted ratios (comparing each race's
     rate to the rate for White NH) for each type of cancer screening."""
 
-    _tmp_white_rates_col = 'WHITE_NH_AGE_ADJ_RATE'
+    _tmp_white_rates_col = "WHITE_NH_AGE_ADJ_RATE"
 
     for condition in conditions:
-        source_age_adj_rate_col = f'{condition}_{AGE_ADJ_RATE_LOWER}'
+        source_age_adj_rate_col = f"{condition}_{AGE_ADJ_RATE_LOWER}"
         cancer_type = condition.lower()
-        het_age_adj_ratio_col = f'{cancer_type}_{SCREENED}_{std_col.RATIO_AGE_ADJUSTED_SUFFIX}'
+        het_age_adj_ratio_col = f"{cancer_type}_{SCREENED}_{std_col.RATIO_AGE_ADJUSTED_SUFFIX}"
 
         # Step 1: Filter the DataFrame to get AGE_ADJ_RATE where RACE_ID is 'WHITE_NH'
         white_nh_rates = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.WHITE_NH.value].set_index(

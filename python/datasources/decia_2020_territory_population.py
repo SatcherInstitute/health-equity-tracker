@@ -154,29 +154,29 @@ ISLAND_SOURCE_FILE_MAP = {
 }
 
 # used to differentiate renamed columns before melting into HET style df
-TMP_COUNT_SUFFIX: Final = '_count'
+TMP_COUNT_SUFFIX: Final = "_count"
 COUNT_CHAR: Final = "C"
-TMP_PCT_SHARE_SUFFIX: Final = '_pct_share'
+TMP_PCT_SHARE_SUFFIX: Final = "_pct_share"
 PCT_CHAR: Final = "P"
 
 
 class Decia2020TerritoryPopulationData(DataSource):
     @staticmethod
     def get_id():
-        return 'DECIA_2020_TERRITORY_POPULATION_DATA'
+        return "DECIA_2020_TERRITORY_POPULATION_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'decia_2020_territory_population_data'
+        return "decia_2020_territory_population_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for Decia2020TerritoryPopulationData')
+        raise NotImplementedError("upload_to_gcs should not be called for Decia2020TerritoryPopulationData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         # get GEO and DEMO from DAG payload
-        breakdown = self.get_attr(attrs, 'demographic')
-        geo_level = self.get_attr(attrs, 'geographic')
+        breakdown = self.get_attr(attrs, "demographic")
+        geo_level = self.get_attr(attrs, "geographic")
         raw_dfs_by_postal_map = load_source_dfs()
         df = self.generate_breakdown_df(raw_dfs_by_postal_map, breakdown, geo_level)
         float_cols = [std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
@@ -221,7 +221,7 @@ class Decia2020TerritoryPopulationData(DataSource):
                 rename_map = get_rename_map(RACE_CODES_TO_STD[postal])
 
             # cleanup and store raw dfs
-            raw_df.loc[:, value_cols] = raw_df[value_cols].replace(['-', '(X)'], np.nan).astype(float)
+            raw_df.loc[:, value_cols] = raw_df[value_cols].replace(["-", "(X)"], np.nan).astype(float)
             needed_cols = [geo_col] + value_cols
             raw_df = raw_df[needed_cols]
             raw_df = raw_df.rename(columns=rename_map)
@@ -295,7 +295,7 @@ def get_source_col_names(source_codes_map: Dict[str, str], metric: Literal["_cou
         suffix_char = COUNT_CHAR
     if metric == TMP_PCT_SHARE_SUFFIX:
         suffix_char = PCT_CHAR
-    return [f'{code}{suffix_char}' for code in list(source_codes_map.keys())]
+    return [f"{code}{suffix_char}" for code in list(source_codes_map.keys())]
 
 
 def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
@@ -311,8 +311,8 @@ def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
 
     for buckets_to_sum_tuple, summed_bucket in STD_AGES_SUM_MAP.items():
         for metric_suffix in [TMP_COUNT_SUFFIX, TMP_PCT_SHARE_SUFFIX]:
-            cols_to_sum = [f'{bucket}{metric_suffix}' for bucket in buckets_to_sum_tuple]
-            df[f'{summed_bucket}{metric_suffix}'] = df[cols_to_sum].sum(min_count=1, axis=1)
+            cols_to_sum = [f"{bucket}{metric_suffix}" for bucket in buckets_to_sum_tuple]
+            df[f"{summed_bucket}{metric_suffix}"] = df[cols_to_sum].sum(min_count=1, axis=1)
     return df
 
 
@@ -321,7 +321,7 @@ def format_fips_col(df: pd.DataFrame, geo_col: str) -> pd.DataFrame:
     ("state_fips" or "county_fips")"""
 
     # FIPS codes are at the end of the string
-    df[geo_col] = df["GEO_ID"].str.split('US').str[1]
+    df[geo_col] = df["GEO_ID"].str.split("US").str[1]
     # only keep the requested geo level rows
     if geo_col == std_col.STATE_FIPS_COL:
         df = df[df[geo_col].str.len() == 2]
@@ -342,8 +342,8 @@ def get_rename_map(code_map: Dict) -> Dict[str, str]:
     to temporary, pre-melt, HET-group col names"""
     rename_map = {}
     for code, group in code_map.items():
-        rename_map[f'{code}{COUNT_CHAR}'] = f'{group}{TMP_COUNT_SUFFIX}'
-        rename_map[f'{code}{PCT_CHAR}'] = f'{group}{TMP_PCT_SHARE_SUFFIX}'
+        rename_map[f"{code}{COUNT_CHAR}"] = f"{group}{TMP_COUNT_SUFFIX}"
+        rename_map[f"{code}{PCT_CHAR}"] = f"{group}{TMP_PCT_SHARE_SUFFIX}"
     return rename_map
 
 
@@ -354,7 +354,7 @@ def get_melt_map(code_map: Dict, metric_suffix: Literal["_count", "_pct_share"])
     Returns a map for melting the temporary, pre-melt,
     HET-group metric col names into final HET groups used per row in the metric col
     """
-    return {f'{group}{metric_suffix}': group for group in code_map.values()}
+    return {f"{group}{metric_suffix}": group for group in code_map.values()}
 
 
 def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
@@ -365,8 +365,8 @@ def use_nonNH_as_NH(df: pd.DataFrame) -> pd.DataFrame:
     the non-NH races as the NH races when they are not provided (as in VI)"""
 
     for non_nh_col, nh_col in NON_NH_TO_NH_RACE_MAP.items():
-        df[f'{nh_col}_count'] = df[f'{non_nh_col}_count']
-        df[f'{nh_col}_pct_share'] = df[f'{non_nh_col}_pct_share']
+        df[f"{nh_col}_count"] = df[f"{non_nh_col}_count"]
+        df[f"{nh_col}_pct_share"] = df[f"{non_nh_col}_pct_share"]
 
     return df
 
@@ -379,7 +379,7 @@ def add_combo_race_cols(df: pd.DataFrame) -> pd.DataFrame:
 
     for suffix in ["_count", "_pct_share"]:
         for races_to_sum_tuple, combo_race in COMBO_RACES_SUM_MAP.items():
-            race_cols_to_sum = [f'{race}{suffix}' for race in races_to_sum_tuple if f'{race}{suffix}' in df.columns]
-            df[f'{combo_race}{suffix}'] = df[race_cols_to_sum].sum(axis=1)
+            race_cols_to_sum = [f"{race}{suffix}" for race in races_to_sum_tuple if f"{race}{suffix}" in df.columns]
+            df[f"{combo_race}{suffix}"] = df[race_cols_to_sum].sum(axis=1)
 
     return df

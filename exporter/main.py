@@ -1,34 +1,34 @@
 import logging
 import os
 from flask import Flask, request
-from google.cloud import bigquery, storage
+from google.cloud import bigquery, storage  # type: ignore
 
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['POST'])
+@app.route("/", methods=["POST"])
 def export_dataset_tables():
     """Exports the tables in the given dataset to GCS.
 
     Request form must include the dataset name."""
     data = request.get_json()
 
-    if data.get('dataset_name') is None:
-        return ('Request must include dataset name.', 400)
+    if data.get("dataset_name") is None:
+        return ("Request must include dataset name.", 400)
 
     demographic = None
-    if data.get('demographic') is not None:
-        demographic = data.get('demographic')
+    if data.get("demographic") is not None:
+        demographic = data.get("demographic")
 
     category = None
-    if data.get('category') is not None:
-        category = data.get('category')
-    should_export_as_alls = data.get('should_export_as_alls', False)
-    dataset_name = data['dataset_name']
-    project_id = os.environ.get('PROJECT_ID')
-    export_bucket = os.environ.get('EXPORT_BUCKET')
-    dataset_id = f'{project_id}.{dataset_name}'
+    if data.get("category") is not None:
+        category = data.get("category")
+    should_export_as_alls = data.get("should_export_as_alls", False)
+    dataset_name = data["dataset_name"]
+    project_id = os.environ.get("PROJECT_ID")
+    export_bucket = os.environ.get("EXPORT_BUCKET")
+    dataset_id = f"{project_id}.{dataset_name}"
     bq_client = bigquery.Client()
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
@@ -61,30 +61,30 @@ def export_dataset_tables():
             export_split_county_tables(bq_client, table, export_bucket)
 
         # export the full table
-        dest_uri = f'gs://{export_bucket}/{dataset_name}-{table.table_id}.json'
+        dest_uri = f"gs://{export_bucket}/{dataset_name}-{table.table_id}.json"
         table_ref = dataset.table(table.table_id)
         try:
-            export_table(bq_client, table_ref, dest_uri, 'NEWLINE_DELIMITED_JSON')
+            export_table(bq_client, table_ref, dest_uri, "NEWLINE_DELIMITED_JSON")
 
         except Exception as err:
             logging.error(err)
             return (
-                f'Error exporting table {table.table_id} to {dest_uri}:\n{err}',
+                f"Error exporting table {table.table_id} to {dest_uri}:\n{err}",
                 500,
             )
 
         if should_export_as_alls:
             export_alls(bq_client, table, export_bucket, demographic)
 
-    return ('', 204)
+    return ("", 204)
 
 
 def export_table(bq_client, table_ref, dest_uri, dest_fmt):
     """Run the extract job to export the given table to the given destination and wait for completion"""
     job_config = bigquery.ExtractJobConfig(destination_format=dest_fmt)
-    extract_job = bq_client.extract_table(table_ref, dest_uri, location='US', job_config=job_config)
+    extract_job = bq_client.extract_table(table_ref, dest_uri, location="US", job_config=job_config)
     extract_job.result()
-    logging.info(f'Exported {table_ref.table_id} to {dest_uri}')
+    logging.info(f"Exported {table_ref.table_id} to {dest_uri}")
 
 
 def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table, export_bucket: str):
@@ -95,11 +95,11 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
     if "county" not in table_name:
         return
 
-    logging.info(f'Exporting county-level data from {table_name} into additional files, split by state/territory.')
+    logging.info(f"Exporting county-level data from {table_name} into additional files, split by state/territory.")
     bucket = prepare_bucket(export_bucket)
 
     for fips in STATE_LEVEL_FIPS_LIST:
-        state_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
+        state_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
         query = f"""
             SELECT *
             FROM {table_name}
@@ -115,7 +115,7 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
         except Exception as err:
             logging.error(err)
             return (
-                f'Error splitting county-level table {table_name} into {state_file_name}:\n {err}',
+                f"Error splitting county-level table {table_name} into {state_file_name}:\n {err}",
                 500,
             )
 
@@ -131,7 +131,7 @@ def has_multi_demographics(table_id: str):
     boolean of whether there is more than one demographic substring found"""
 
     # Age adjusted tables are still just by race/eth.
-    if table_id.endswith('with_age_adjust'):
+    if table_id.endswith("with_age_adjust"):
         return False
 
     return (
@@ -145,20 +145,20 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode"""
     table_name = get_table_name(table)
     demo_cols = []
-    demo_to_replace = demographic if demographic != 'black_women' else 'age'
+    demo_to_replace = demographic if demographic != "black_women" else "age"
     demo_col = demographic
-    if demographic == 'black_women':
-        demo_col = 'age'
-    if demographic == 'race':
-        demo_col = 'race_and_ethnicity'
+    if demographic == "black_women":
+        demo_col = "age"
+    if demographic == "race":
+        demo_col = "race_and_ethnicity"
 
-    alls_table_id = table.table_id.replace(demo_to_replace, 'alls')
-    logging.info(f'Exporting ALLs data {alls_table_id} from {table_name}.')
-    alls_file_name = f'{table.dataset_id}-{alls_table_id}.json'
+    alls_table_id = table.table_id.replace(demo_to_replace, "alls")
+    logging.info(f"Exporting ALLs data {alls_table_id} from {table_name}.")
+    alls_file_name = f"{table.dataset_id}-{alls_table_id}.json"
     demo_cols = [demo_col]
 
-    if demographic == 'race':
-        demo_cols.append('race_category_id')
+    if demographic == "race":
+        demo_cols.append("race_category_id")
 
     bucket = prepare_bucket(export_bucket)
     query = f"""
@@ -177,13 +177,13 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     except Exception as err:
         logging.error(err)
         return (
-            f'Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}',
+            f"Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}",
             500,
         )
 
 
 def get_table_name(table):
-    return f'{table.project}.{table.dataset_id}.{table.table_id}'
+    return f"{table.project}.{table.dataset_id}.{table.table_id}"
 
 
 def get_query_results_as_df(bq_client, query):
@@ -201,11 +201,11 @@ def prepare_blob(bucket, state_file_name):
 
 
 def export_nd_json_to_blob(blob, nd_json):
-    blob.upload_from_string(nd_json, content_type='application/octet-stream')
+    blob.upload_from_string(nd_json, content_type="application/octet-stream")
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 
 
 STATE_LEVEL_FIPS_LIST = [

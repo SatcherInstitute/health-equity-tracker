@@ -25,11 +25,11 @@ from ingestion.dataset_utils import (
     zero_out_pct_rel_inequity,
 )
 
-DC_COUNTY_FIPS = '11001'
+DC_COUNTY_FIPS = "11001"
 
 ONLY_FIPS_FILES = {
     # These files only need to get their fips codes merged in
-    'cdc_restricted_by_race_and_age_state.csv': 'by_race_age_state',
+    "cdc_restricted_by_race_and_age_state.csv": "by_race_age_state",
 }
 
 COVID_CONDITION_TO_PREFIX = {
@@ -50,39 +50,39 @@ DEMO_COL_MAPPING = {
     SEX: (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
 }
 
-POPULATION_SUFFIX = 'population'
+POPULATION_SUFFIX = "population"
 
 
 class CDCRestrictedData(DataSource):
     @staticmethod
     def get_id():
-        return 'CDC_RESTRICTED_DATA'
+        return "CDC_RESTRICTED_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'cdc_restricted_data'
+        return "cdc_restricted_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for CDCRestrictedData')
+        raise NotImplementedError("upload_to_gcs should not be called for CDCRestrictedData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo = self.get_attr(attrs, 'demographic')
-        geo = self.get_attr(attrs, 'geographic')
+        demo = self.get_attr(attrs, "demographic")
+        geo = self.get_attr(attrs, "geographic")
         geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
-        filename = f'cdc_restricted_by_{demo}_{geo_to_pull}.csv'
+        filename = f"cdc_restricted_by_{demo}_{geo_to_pull}.csv"
 
         df_from_gcs = gcs_to_bq_util.load_csv_as_df(
             gcs_bucket,
             filename,
             dtype={
-                'county_fips': str,
-                'cases': 'uint32',
-                'hosp_y': 'uint32',
-                'hosp_n': 'uint32',
-                'hosp_unknown': 'uint32',
-                'death_y': 'uint32',
-                'death_n': 'uint32',
-                'death_unknown': 'uint32',
+                "county_fips": str,
+                "cases": "uint32",
+                "hosp_y": "uint32",
+                "hosp_n": "uint32",
+                "hosp_unknown": "uint32",
+                "death_y": "uint32",
+                "death_n": "uint32",
+                "death_unknown": "uint32",
             },
         )
 
@@ -93,9 +93,9 @@ class CDCRestrictedData(DataSource):
 
             column_types = get_col_types(df, add_rel_inequality_col=time_series)
 
-            table_name = f'by_{demo}_{geo}_processed'
+            table_name = f"by_{demo}_{geo}_processed"
             if time_series:
-                table_name += '_time_series'
+                table_name += "_time_series"
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
@@ -123,16 +123,16 @@ class CDCRestrictedData(DataSource):
                 if std_col.RACE_CATEGORY_ID_COL in df.columns:
                     std_col.add_race_columns_from_category_id(df)
 
-                column_types = {c: 'STRING' for c in df.columns}
+                column_types = {c: "STRING" for c in df.columns}
                 for col in int_cols:
                     if col in column_types:
-                        column_types[col] = 'FLOAT'
+                        column_types[col] = "FLOAT"
 
-                print(f'uploading {table_name}')
+                print(f"uploading {table_name}")
                 gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
     def generate_breakdown(self, df, demo, geo, time_series):
-        print(f'processing {demo} {geo} time_series = {time_series}')
+        print(f"processing {demo} {geo} time_series = {time_series}")
         start = time.time()
 
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo == RACE else demo
@@ -268,15 +268,15 @@ def get_col_types(df, add_rel_inequality_col=False):
     add_rel_inequality_col: Optional boolean paramater to add the
                             `rel_inequality` parameter, defaults
                             to False"""
-    column_types = {c: 'STRING' for c in df.columns}
+    column_types = {c: "STRING" for c in df.columns}
     for prefix in COVID_CONDITION_TO_PREFIX.values():
-        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = 'FLOAT'
-        column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = 'FLOAT'
+        column_types[generate_column_name(prefix, std_col.PER_100K_SUFFIX)] = "FLOAT"
+        column_types[generate_column_name(prefix, std_col.SHARE_SUFFIX)] = "FLOAT"
 
         if add_rel_inequality_col:
-            column_types[generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = 'FLOAT'
+            column_types[generate_column_name(prefix, std_col.PCT_REL_INEQUITY_SUFFIX)] = "FLOAT"
 
-    column_types[std_col.COVID_POPULATION_PCT] = 'FLOAT'
+    column_types[std_col.COVID_POPULATION_PCT] = "FLOAT"
 
     return column_types
 
@@ -415,17 +415,17 @@ def remove_or_set_to_zero(df, geo, demographic):
     demog_col = DEMO_COL_MAPPING[demographic][0]
 
     grouped_df = df.groupby(geo_cols + [demog_col]).sum(min_count=1, numeric_only=True).reset_index()
-    grouped_df = grouped_df.rename(columns={std_col.COVID_CASES: 'grouped_cases'})
-    grouped_df = grouped_df[geo_cols + [demog_col, 'grouped_cases']]
+    grouped_df = grouped_df.rename(columns={std_col.COVID_CASES: "grouped_cases"})
+    grouped_df = grouped_df[geo_cols + [demog_col, "grouped_cases"]]
 
     # Remove all rows that have zero cases throughout the pandemic
-    df = pd.merge(df, grouped_df, how='left', on=geo_cols + [demog_col])
-    df = df[pd.notna(df['grouped_cases'])]
-    df = df.drop(columns='grouped_cases')
+    df = pd.merge(df, grouped_df, how="left", on=geo_cols + [demog_col])
+    df = df[pd.notna(df["grouped_cases"])]
+    df = df.drop(columns="grouped_cases")
 
     # Unknowns are a special case, we want to keep the per_100k values
     # as NULL no matter what
-    unknown = Race.UNKNOWN.value if demographic == 'race' else UNKNOWN
+    unknown = Race.UNKNOWN.value if demographic == "race" else UNKNOWN
     unknown_df = df.loc[df[demog_col] == unknown]
 
     # Set all other null conditions to zero
