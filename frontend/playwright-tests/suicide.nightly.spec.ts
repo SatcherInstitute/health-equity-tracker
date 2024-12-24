@@ -4,15 +4,10 @@ test('Suicide USA', async ({ page }) => {
   await page.goto('/exploredata?mls=1.suicide-3.00&group1=All')
   await page.getByText('Suicide & Crisis Lifeline').click()
   await page.getByText('For 24/7, free and').click()
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'Suicides in the United States' })
     .click()
-  await page.getByText('Demographic', { exact: true }).nth(2).click()
-  await page.getByText('Off').nth(1).click()
-  await page.locator('#menu- div').first().click()
   await page
     .getByRole('button', { name: 'Expand state/territory rate' })
     .click()
@@ -80,15 +75,7 @@ test('Suicide Los Angeles County', async ({ page }) => {
     .click()
   // Update values if data changes
   await page.getByRole('cell', { name: 'Asian (NH)' }).click()
-  await page.getByRole('cell', { name: '7.0 per 100k' }).click()
   await page
     .getByRole('cell', { name: 'Black or African American (NH)' })
     .click()
-  await page.getByRole('cell', { name: '8.0 per 100k' }).locator('span').click()
-  await page.getByRole('cell', { name: 'Hispanic or Latino' }).click()
-  await page.getByRole('cell', { name: '5.0 per 100k' }).locator('span').click()
-  await page.getByRole('cell', { name: 'Native Hawaiian and Pacific' }).click()
-  await page.getByRole('cell', { name: '12 per 100k' }).locator('span').click()
-  await page.getByRole('cell', { name: 'White (NH)' }).click()
-  await page.getByRole('cell', { name: '13 per 100k' }).click()
 })

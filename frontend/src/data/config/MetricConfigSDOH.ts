@@ -1,6 +1,6 @@
 import {
-  medicareHigherIsWorseMapConfig,
   defaultHigherIsWorseMapConfig,
+  medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
 import {

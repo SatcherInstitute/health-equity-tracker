@@ -4,7 +4,7 @@ import { policyRouteConfigs } from '../policyContent/policyRouteConfigs'
 export default function PolicyCardMenuMobile() {
   return (
     <HetCardMenuMobile
-      className='smMd:hidden max-w-screen min-w-full w-screen mx-auto my-0 px-0 flex justify-center'
+      className='mx-auto my-0 flex w-screen min-w-full max-w-screen justify-center px-0 smMd:hidden'
       routeConfigs={policyRouteConfigs}
       label='Policy Context Pages'
     />

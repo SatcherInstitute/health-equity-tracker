@@ -1,14 +1,14 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Paper,
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import type React from 'react'
 import { useState } from 'react'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 
 interface KeyTermsAccordionProps {
   definitionsArray: Array<{
@@ -52,10 +52,10 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
                     return (
                       <figure
                         key={def.key}
-                        className='mx-1 mb-2 mt-1 flex flex-col  p-0'
+                        className='mx-1 mt-1 mb-2 flex flex-col p-0'
                       >
-                        <p className='mb-1 text-small font-medium'>{def.key}</p>
-                        <p className='m-0 self-start pt-1 text-small text-altBlack'>
+                        <p className='mb-1 font-medium text-small'>{def.key}</p>
+                        <p className='m-0 self-start pt-1 text-altBlack text-small'>
                           {def.description}
                         </p>
                       </figure>

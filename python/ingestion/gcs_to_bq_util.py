@@ -15,7 +15,7 @@ from ingestion.het_types import (
 )  # pylint: disable=no-name-in-module
 
 
-DATA_DIR = os.path.join(os.sep, 'app', 'data')
+DATA_DIR = os.path.join(os.sep, "app", "data")
 
 
 def __convert_frame_to_json(frame):
@@ -23,7 +23,7 @@ def __convert_frame_to_json(frame):
     # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
     # (See https://github.com/googleapis/python-bigquery/issues/19). We have to
     # use load_table_from_json as a workaround.
-    result = frame.to_json(orient='records')
+    result = frame.to_json(orient="records")
     json_data = json.loads(result)
     return json_data
 
@@ -117,10 +117,10 @@ def get_schema(frame, column_types, col_modes):
     input_cols = column_types.keys()
 
     if len(input_cols) != len(frame.columns) or set(input_cols) != set(frame.columns):
-        raise ValueError('Column types did not match frame columns')
+        raise ValueError("Column types did not match frame columns")
 
     def create_field(col):
-        return bigquery.SchemaField(col, column_types[col], mode=(col_modes[col] if col in col_modes else 'NULLABLE'))
+        return bigquery.SchemaField(col, column_types[col], mode=(col_modes[col] if col in col_modes else "NULLABLE"))
 
     return list(map(create_field, column_types.keys()))
 
@@ -144,12 +144,12 @@ def values_json_to_df(values_json, dtype=None) -> pd.DataFrame:
     NOTE: To test without needing a real json file, wrap the json string in StringIO()
     """
 
-    frame = pd.DataFrame(pd.read_json(values_json, orient='values', dtype=dtype))
+    frame = pd.DataFrame(pd.read_json(values_json, orient="values", dtype=dtype))
     new_column_names = dict(frame.iloc[0])
     frame.rename(columns=new_column_names, inplace=True)  # pylint: disable=E1101
     frame.drop([0], inplace=True)  # pylint: disable=E1101
     # Fill None values with np.nan TODO: remove after updating to pandas 3
-    with pd.option_context('future.no_silent_downcasting', True):
+    with pd.option_context("future.no_silent_downcasting", True):
         frame = frame.fillna(np.nan)  # pylint: disable=E1101
 
     return frame
@@ -162,7 +162,7 @@ def load_values_blob_as_df(blob):
 
     blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    json_string = json_string.decode('utf-8')
+    json_string = json_string.decode("utf-8")
     return values_json_to_df(StringIO(json_string))
 
 
@@ -227,7 +227,7 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None) -> pd.D
 
     url: url to download the csv file from"""
 
-    url = requests.Request('GET', url, params=params).prepare().url
+    url = requests.Request("GET", url, params=params).prepare().url
     return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
@@ -255,7 +255,7 @@ def load_xlsx_as_df_from_data_dir(
 
 
 def load_csv_as_df_from_data_dir(
-    directory, filename, subdirectory='', dtype=None, skiprows=None, na_values=None, thousands=None, usecols=None
+    directory, filename, subdirectory="", dtype=None, skiprows=None, na_values=None, thousands=None, usecols=None
 ) -> pd.DataFrame:
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
@@ -281,13 +281,13 @@ def load_csv_as_df_from_data_dir(
 def load_tsv_as_df_from_data_dir(
     directory,
     filename,
-    subdirectory='',
+    subdirectory="",
     dtype=None,
     skiprows=None,
     na_values=None,
     thousands=None,
     usecols=None,
-    delimiter='\t',
+    delimiter="\t",
     skipinitialspace=True,
 ) -> pd.DataFrame:
     """Loads tsv data from /data/{directory}/{filename} into a DataFrame.
@@ -357,7 +357,7 @@ def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_lis
     """
 
     file_path = os.path.join(DATA_DIR, directory, filename)
-    with open(file_path, 'r', encoding='utf-8') as data_file:
+    with open(file_path, "r", encoding="utf-8") as data_file:
         data = json.loads(data_file.read())
     df = pd.json_normalize(data, key_list)
     return df
@@ -368,7 +368,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None) -> pd.DataFrame:
 
     url: url to download the json from
     """
-    url = requests.Request('GET', url, params=params).prepare().url
+    url = requests.Request("GET", url, params=params).prepare().url
     return pd.read_json(url, dtype=dtype)
 
 
@@ -390,7 +390,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None) -> 
     dataset: The BigQuery dataset to write to.
     table_name: The BigQuery table to write to."""
     client = bigquery.Client()
-    table_id = f'bigquery-public-data.{dataset}.{table_name}'
+    table_id = f"bigquery-public-data.{dataset}.{table_name}"
 
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
@@ -417,11 +417,11 @@ def load_values_as_json(gcs_bucket, filename):
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
-    return json.loads(blob.download_as_bytes().decode('utf-8'))
+    return json.loads(blob.download_as_bytes().decode("utf-8"))
 
 
 def local_file_path(filename):
-    return f'/tmp/{filename}'
+    return f"/tmp/{filename}"
 
 
 def list_bucket_files(bucket_name: str) -> list:

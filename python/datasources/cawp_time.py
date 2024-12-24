@@ -135,29 +135,29 @@ def get_stleg_url(id: str):
     state info pages, for example:
     https://cawp.rutgers.edu/facts/state-state-information/alabama
     """
-    return f'https://cawp.rutgers.edu/tablefield/export/paragraph/{id}/field_table/und/0'
+    return f"https://cawp.rutgers.edu/tablefield/export/paragraph/{id}/field_table/und/0"
 
 
 CAWP_MULTI = "Multiracial Alone"
 
 # CAWP labels
 CAWP_RACE_GROUPS_TO_STANDARD = {
-    'Asian American/Pacific Islander': Race.ASIAN_PAC.value,
-    'Latina': Race.HISP.value,
-    'Middle Eastern/North African': Race.MENA.value,
-    'Native American/Alaska Native/Native Hawaiian': Race.AIANNH.value,
-    'Black': Race.BLACK.value,
-    'White': Race.WHITE.value,
-    'Unavailable': Race.UNKNOWN.value,
-    'Other': Race.OTHER_STANDARD.value,
+    "Asian American/Pacific Islander": Race.ASIAN_PAC.value,
+    "Latina": Race.HISP.value,
+    "Middle Eastern/North African": Race.MENA.value,
+    "Native American/Alaska Native/Native Hawaiian": Race.AIANNH.value,
+    "Black": Race.BLACK.value,
+    "White": Race.WHITE.value,
+    "Unavailable": Race.UNKNOWN.value,
+    "Other": Race.OTHER_STANDARD.value,
     # will combine CAWP's "Multiracial Alone" with women who selected more than one specific race
     CAWP_MULTI: Race.MULTI.value,
 }
 
 
 AIAN_API_RACES = [
-    'Asian American/Pacific Islander',
-    'Native American/Alaska Native/Native Hawaiian',
+    "Asian American/Pacific Islander",
+    "Native American/Alaska Native/Native Hawaiian",
 ]
 
 
@@ -205,14 +205,14 @@ POSITION_LABELS = {
 class CAWPTimeData(DataSource):
     @staticmethod
     def get_id():
-        return 'CAWP_TIME_DATA'
+        return "CAWP_TIME_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'cawp_time_data'
+        return "cawp_time_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for CAWPTimeData')
+        raise NotImplementedError("upload_to_gcs should not be called for CAWPTimeData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()
@@ -223,7 +223,7 @@ class CAWPTimeData(DataSource):
         gcs_to_bq_util.add_df_to_bq(
             df_names,
             dataset,
-            'race_and_ethnicity_state_historical_names',
+            "race_and_ethnicity_state_historical_names",
             column_types=column_types,
         )
 
@@ -359,7 +359,7 @@ class CAWPTimeData(DataSource):
             # Replace nulls with empty lists
             df.loc[df[col].isnull(), col] = df.loc[df[col].isnull(), col].apply(lambda x: [])
             # Convert lists to comma-separated strings
-            df[col] = df[col].apply(lambda item: ','.join(map(str, item)))
+            df[col] = df[col].apply(lambda item: ",".join(map(str, item)))
 
         # remove brackets and inner quotes, leaving just comma separated names
         df[names_cols] = df[names_cols].replace(["'", "[", "]"], "")
@@ -555,9 +555,9 @@ def get_us_congress_totals_df():
             for year in term_years:
                 year = str(year)
                 title = (
-                    f'{POSITION_LABELS[CONGRESS][term[TYPE]]}' if term[STATE] not in TERRITORY_POSTALS else "U.S. Del."
+                    f"{POSITION_LABELS[CONGRESS][term[TYPE]]}" if term[STATE] not in TERRITORY_POSTALS else "U.S. Del."
                 )
-                full_name = f'{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}'
+                full_name = f"{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}"
                 entry = {
                     ID: legislator[ID]["govtrack"],
                     NAME: full_name,
@@ -634,7 +634,7 @@ def get_women_dfs():
             columns "time_period" by year and "state_postal", "race_ethnicity"
             with specific CAWP race strings"""
 
-    df = gcs_to_bq_util.load_csv_as_df_from_data_dir('cawp_time', CAWP_LINE_ITEMS_FILE)
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp_time", CAWP_LINE_ITEMS_FILE)
 
     # keep only needed cols
     df = df[[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH]]
@@ -740,7 +740,7 @@ def get_state_leg_totals_df():
 
     territory_dfs = []
     for fips in TERRITORY_FIPS_LIST:
-        filename = f'cawp_state_leg_{fips}.csv'
+        filename = f"cawp_state_leg_{fips}.csv"
         territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             "cawp_time", filename, dtype={"state_fips": str, "time_period": str}
         )
@@ -752,10 +752,10 @@ def get_state_leg_totals_df():
         state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id), dtype=str)
 
         # remove weird chars from col headers
-        state_df.columns = state_df.columns.str.replace(r'\W', '', regex=True)
+        state_df.columns = state_df.columns.str.replace(r"\W", "", regex=True)
 
         # standardize the year col
-        state_df = state_df.rename(columns={'Year': std_col.TIME_PERIOD_COL})
+        state_df = state_df.rename(columns={"Year": std_col.TIME_PERIOD_COL})
         # Drop rows where year is NaN
         state_df = state_df.dropna(subset=[std_col.TIME_PERIOD_COL])
 
@@ -763,8 +763,8 @@ def get_state_leg_totals_df():
 
         # extract totals
         state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]] = state_df[
-            'TotalWomenTotalLegislature'
-        ].str.split('/', n=1, expand=True)
+            "TotalWomenTotalLegislature"
+        ].str.split("/", n=1, expand=True)
 
         # keep only needed cols
         state_df = state_df[[std_col.TIME_PERIOD_COL, std_col.STLEG_COUNT]]
@@ -917,7 +917,7 @@ def add_aian_api_rows(df):
         # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
         # could use either Asian or AIAN, the totals would be the same
         orig_df = df.copy()
-        df_denom_cols_aian_api_rows = orig_df.copy().loc[orig_df[RACE_ETH] == 'Asian American/Pacific Islander']
+        df_denom_cols_aian_api_rows = orig_df.copy().loc[orig_df[RACE_ETH] == "Asian American/Pacific Islander"]
 
         denom_cols = [std_col.TIME_PERIOD_COL, *STATE_COLS, *level_denom_cols]
 
@@ -1041,7 +1041,7 @@ def handle_other_and_multi_races(df):
         are renamed, allowing these 2 types of multi- to be combined in the aggregation
     """
     # convert comma separated names string into list, doesn't affect single race strings
-    df[RACE_ETH] = df[RACE_ETH].str.split(', ')
+    df[RACE_ETH] = df[RACE_ETH].str.split(", ")
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"

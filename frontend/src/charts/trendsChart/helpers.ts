@@ -1,6 +1,6 @@
 import { ascending, descending, max, min } from 'd3'
-import type { TrendsData, GroupData, TimeSeries, UnknownData } from './types'
 import { CONFIG } from './constants'
+import type { GroupData, TimeSeries, TrendsData, UnknownData } from './types'
 
 const { BAR_WIDTH } = CONFIG
 

@@ -78,11 +78,11 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
   await page.locator('.MuiBackdrop-root').first().click()
 
   await page
-    .getByRole('combobox', { name: 'Demographic Race/ethnicity' })
+    .getByRole('button', { name: 'Race/Ethnicity', exact: true })
     .click()
-  await page.getByRole('option', { name: 'Subsidy' }).click()
-  await page.getByRole('combobox', { name: 'Demographic Subsidy' }).click()
-  await page.getByRole('option', { name: 'Eligibility' }).click()
+  await page.getByRole('menuitem', { name: 'Subsidy' }).click()
+  await page.getByRole('button', { name: 'Low Income Subsidy' }).click()
+  await page.getByRole('menuitem', { name: 'Eligibility' }).click()
 
   await page.locator('#rate-map').getByText('Medicare eligibility:').hover()
   await page

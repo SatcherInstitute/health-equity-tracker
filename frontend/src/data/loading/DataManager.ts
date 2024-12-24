@@ -1,15 +1,15 @@
 import { DataFrame, type IDataFrame } from 'data-forge'
 import { LRUCache } from 'lru-cache'
 import { getDataFetcher, getDataManager, getLogger } from '../../utils/globals'
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
-import type {
-  DatasetIdWithStateFIPSCode,
-  DatasetId,
-} from '../config/DatasetMetadata'
 
 // TODO: test this out on the real website and tweak these numbers as needed.
 

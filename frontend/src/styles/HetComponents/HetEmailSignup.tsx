@@ -1,4 +1,4 @@
-import { TextField, Button } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { urlMap } from '../../utils/externalUrls'
 
 interface HetEmailSignupProps {

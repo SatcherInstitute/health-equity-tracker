@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect, type RefObject } from 'react'
 import debounce from 'just-debounce-it'
+import { type RefObject, useEffect, useRef, useState } from 'react'
 import {
   INVISIBLE_PRELOAD_WIDTH,
   MAP_RESIZE_TOLERANCE,

@@ -1,10 +1,10 @@
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Modal from '@mui/material/Modal'
 import { useEffect, useRef, useState } from 'react'
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import HetLaunchLink from '../../styles/HetComponents/HetLaunchLink'
 import { HetTags } from '../../styles/HetComponents/HetTags'
-import Modal from '@mui/material/Modal'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
 
 interface HetCarouselCardProps {
   href: string
@@ -30,7 +30,7 @@ export function HetCarouselCard({
 }: HetCarouselCardProps) {
   const [open, setOpen] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLButtonElement>(null)
 
   const handleOpen = () => {
     if (isVideo) {
@@ -67,27 +67,26 @@ export function HetCarouselCard({
 
   return (
     <>
-      <div
+      <button
         ref={cardRef}
-        className='text-title no-underline text-left mr-4 max-w-tiny flex-shrink-0 flex flex-col bg-white rounded-md hover:shadow-raised group border border-solid border-altGreen transition-all duration-300 ease-in-out h-full cursor-pointer'
+        className='group mr-4 flex h-full max-w-tiny flex-shrink-0 cursor-pointer flex-col rounded-md border border-altGreen border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
         onClick={handleOpen}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             handleOpen()
           }
         }}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
-        role='button'
+        type='button'
         tabIndex={0}
         aria-label={ariaLabel}
       >
         {isVisible && (
           <>
             {isVideo ? (
-              <div className='m-0 h-full flex flex-col justify-between'>
+              <div className='m-0 flex h-full flex-col justify-between'>
                 {imgSrc ? (
                   <div
-                    className='min-h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
+                    className='max-h-40 min-h-36 w-full rounded-sm bg-center bg-cover bg-no-repeat'
                     style={{ backgroundImage: `url(${getImageSource()})` }}
                   />
                 ) : (
@@ -102,21 +101,21 @@ export function HetCarouselCard({
                     allowFullScreen
                   />
                 )}
-                <div className='flex flex-col px-4 pb-4 pt-0 text-center justify-around h-52'>
-                  <div className='flex flex-col h-full justify-start pt-2 mt-0'>
-                    <h4 className='font-semibold text-text my-2 pt-0 leading-lhNormal text-altGreen'>
+                <div className='flex h-52 flex-col justify-around px-4 pt-0 pb-4 text-center'>
+                  <div className='mt-0 flex h-full flex-col justify-start pt-2'>
+                    <h4 className='my-2 pt-0 font-semibold text-altGreen text-text leading-lhNormal'>
                       {ariaLabel}
                     </h4>
-                    <p className='text-black text-small text-left leading-lhSomeSpace md:block hidden my-2'>
+                    <p className='my-2 hidden text-left text-black text-small leading-lhSomeSpace md:block'>
                       {description}
                     </p>
                   </div>
                   {readMoreHref && (
-                    <div className='flex flex-row w-full justify-start items-center gap-2 mb-4 py-0'>
+                    <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='ml-auto leading-lhSomeSpace text-small font-medium no-underline'
+                        className='ml-auto font-medium text-small leading-lhSomeSpace no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -128,27 +127,27 @@ export function HetCarouselCard({
                 </div>
               </div>
             ) : (
-              <div className='h-full flex flex-col justify-start my-0 py-0'>
+              <div className='my-0 flex h-full flex-col justify-start py-0'>
                 <div
-                  className='h-36 max-h-40 w-full bg-no-repeat bg-cover bg-center rounded-sm'
+                  className='h-36 max-h-40 w-full rounded-sm bg-center bg-cover bg-no-repeat'
                   style={{ backgroundImage: `url(${getImageSource()})` }}
                 />
-                <div className='mx-4 mt-0 min-h-52 flex flex-col justify-between'>
-                  <div className='flex flex-col justify-start h-full py-4'>
+                <div className='mx-4 mt-0 flex min-h-52 flex-col justify-between'>
+                  <div className='flex h-full flex-col justify-start py-4'>
                     {categories && <HetTags tags={categories} />}
-                    <h4 className='font-semibold text-text my-2 pt-0 leading-lhNormal text-altGreen'>
+                    <h4 className='my-2 pt-0 font-semibold text-altGreen text-text leading-lhNormal'>
                       {title}
                     </h4>
                     {description && (
-                      <p className='text-black text-smallest leading-lhSomeSpace md:block hidden my-0'>
+                      <p className='my-0 hidden text-black text-smallest leading-lhSomeSpace md:block'>
                         {description}
                       </p>
                     )}
                   </div>
                   {readMoreHref && (
-                    <div className='flex flex-row w-full justify-start items-center gap-2 mb-4 py-0'>
+                    <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
                       <a
-                        className='ml-auto leading-lhSomeSpace text-small font-medium no-underline'
+                        className='ml-auto font-medium text-small leading-lhSomeSpace no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -162,7 +161,7 @@ export function HetCarouselCard({
             )}
           </>
         )}
-      </div>
+      </button>
 
       {isVideo && (
         <Modal
@@ -187,7 +186,7 @@ export function HetCarouselCard({
           >
             <h4
               id='video-modal-title'
-              className='font-semibold text-title my-8 leading-lhNormal text-altGreen text-center'
+              className='my-8 text-center font-semibold text-altGreen text-title leading-lhNormal'
             >
               {ariaLabel}
             </h4>

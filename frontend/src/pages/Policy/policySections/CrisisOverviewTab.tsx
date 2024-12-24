@@ -48,7 +48,7 @@ export default function CrisisOverviewTab() {
             />
           </div>
 
-          <div className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+          <div className='my-0 grid list-none grid-cols-1 gap-4 pt-2 pb-4 pl-0 md:grid-cols-2'>
             {rocketFoundationFacts.map((rocketFoundationFact, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow = isMdAndUp && index % 2 !== 0
@@ -79,7 +79,7 @@ export default function CrisisOverviewTab() {
             label='Gun Violence Archive'
           />
 
-          <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+          <ul className='my-0 grid list-none grid-cols-1 gap-4 pt-2 pb-4 pl-0 md:grid-cols-2'>
             {gvaFacts.map((gvaFact, index) => {
               const uniqueKey = `fact-${index}`
 

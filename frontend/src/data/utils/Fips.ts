@@ -1,8 +1,8 @@
 import type { GeographicBreakdown } from '../query/Breakdowns'
 import {
-  USA_FIPS,
-  TERRITORY_CODES,
   ISLAND_AREAS_FIPS,
+  TERRITORY_CODES,
+  USA_FIPS,
 } from './ConstantsGeography'
 import { COUNTY_FIPS_MAP, INDEPENDENT_CITIES, STATE_FIPS_MAP } from './FipsData'
 

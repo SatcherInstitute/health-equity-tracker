@@ -53,18 +53,18 @@ ELIGIBILITY = "eligibility"
 class PhrmaData(DataSource):
     @staticmethod
     def get_id():
-        return 'PHRMA_DATA'
+        return "PHRMA_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'phrma_data'
+        return "phrma_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for PhrmaData')
+        raise NotImplementedError("upload_to_gcs should not be called for PhrmaData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
-        geo_level = self.get_attr(attrs, 'geographic')
+        demo_type = self.get_attr(attrs, "demographic")
+        geo_level = self.get_attr(attrs, "geographic")
 
         alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL, PHRMA_MEDICARE, PHRMA_MEDICARE_CONDITIONS)
 
@@ -74,8 +74,8 @@ class PhrmaData(DataSource):
 
         # POP COMPARE FOR 100K
         float_cols = [
-            f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
-            f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
+            f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}",
+            f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}",
         ]
 
         # PCT_RATE CONDITIONS
@@ -86,9 +86,9 @@ class PhrmaData(DataSource):
                 std_col.PCT_SHARE_SUFFIX,
                 std_col.RAW_SUFFIX,
             ]:
-                float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
+                float_cols.append(f"{condition}_{ADHERENCE}_{metric}")
             # valid-population comparison pct_share and count cols
-            float_cols.append(f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
+            float_cols.append(f"{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}")
 
         # PER_100K CONDITIONS
         for condition in PHRMA_100K_CONDITIONS:
@@ -98,7 +98,7 @@ class PhrmaData(DataSource):
                 std_col.PCT_SHARE_SUFFIX,
                 std_col.RAW_SUFFIX,
             ]:
-                float_cols.append(f'{condition}_{metric}')
+                float_cols.append(f"{condition}_{metric}")
 
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -134,13 +134,13 @@ class PhrmaData(DataSource):
 
         # ADHERENCE rate
         for condition in PHRMA_PCT_CONDITIONS:
-            source_col_name = f'{condition}_{ADHERENCE_RATE}'
-            het_col_name = f'{condition}_{ADHERENCE}_{std_col.PCT_RATE_SUFFIX}'
+            source_col_name = f"{condition}_{ADHERENCE_RATE}"
+            het_col_name = f"{condition}_{ADHERENCE}_{std_col.PCT_RATE_SUFFIX}"
             df[het_col_name] = df[source_col_name].multiply(100).round()
 
         for condition in PHRMA_100K_CONDITIONS:
-            source_col_name = f'{condition}_{PER_100K}'
-            het_col_name = f'{condition}_{std_col.PER_100K_SUFFIX}'
+            source_col_name = f"{condition}_{PER_100K}"
+            het_col_name = f"{condition}_{std_col.PER_100K_SUFFIX}"
             df[het_col_name] = df[source_col_name].round()
 
         if geo_level == COUNTY_LEVEL:
@@ -155,16 +155,16 @@ class PhrmaData(DataSource):
         count_to_share_map = {
             # Pct share of adherence
             **{
-                f'{condition}_{COUNT_YES}': f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}'
+                f"{condition}_{COUNT_YES}": f"{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}"
                 for condition in PHRMA_PCT_CONDITIONS
             },
             # Pct Share for disease
             **{
-                f'{condition}_{MEDICARE_DISEASE_COUNT}': f'{condition}_{std_col.PCT_SHARE_SUFFIX}'
+                f"{condition}_{MEDICARE_DISEASE_COUNT}": f"{condition}_{std_col.PCT_SHARE_SUFFIX}"
                 for condition in PHRMA_100K_CONDITIONS
             },
             # Shared comparison population share col for all 100ks
-            MEDICARE_POP_COUNT: (f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'),
+            MEDICARE_POP_COUNT: (f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}"),
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
@@ -179,19 +179,19 @@ class PhrmaData(DataSource):
                 df, count_to_share_map, cast(PHRMA_BREAKDOWN_TYPE, demo_col), all_val
             )
 
-        rename_col_map = {MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}'}
+        rename_col_map = {MEDICARE_POP_COUNT: f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}"}
         for condition in PHRMA_PCT_CONDITIONS:
-            rename_col_map[f'{condition}_{COUNT_YES}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
-            rename_col_map[f'{condition}_{COUNT_TOTAL}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
+            rename_col_map[f"{condition}_{COUNT_YES}"] = f"{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}"
+            rename_col_map[f"{condition}_{COUNT_TOTAL}"] = f"{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}"
         for condition in PHRMA_100K_CONDITIONS:
-            rename_col_map[f'{condition}_{MEDICARE_DISEASE_COUNT}'] = f'{condition}_{std_col.RAW_SUFFIX}'
+            rename_col_map[f"{condition}_{MEDICARE_DISEASE_COUNT}"] = f"{condition}_{std_col.RAW_SUFFIX}"
 
         df = df.rename(columns=rename_col_map)
 
         df = df.drop(
             columns=[
-                *[f'{condition}_{ADHERENCE_RATE}' for condition in PHRMA_PCT_CONDITIONS],
-                *[f'{condition}_{PER_100K}' for condition in PHRMA_100K_CONDITIONS],
+                *[f"{condition}_{ADHERENCE_RATE}" for condition in PHRMA_PCT_CONDITIONS],
+                *[f"{condition}_{PER_100K}" for condition in PHRMA_100K_CONDITIONS],
             ]
         )
 

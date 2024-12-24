@@ -1,23 +1,23 @@
-import { Helmet } from 'react-helmet-async'
-import ResourceItem from '../policyComponents/ResourceItem'
 import {
+  AttachMoneyRounded,
+  Diversity3Rounded,
+  GavelRounded,
+  PsychologyRounded,
+  SchoolRounded,
+} from '@mui/icons-material'
+import { Helmet } from 'react-helmet-async'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
+import ResourceItem from '../policyComponents/ResourceItem'
+import ResourceSection from '../policyComponents/ResourceSection'
+import {
+  communityResources,
   economicResources,
   educationalResources,
   justiceResources,
   mentalHealthResources,
-  communityResources,
 } from '../policyContent/CurrentEffortsContent'
-import {
-  AttachMoneyRounded,
-  SchoolRounded,
-  GavelRounded,
-  PsychologyRounded,
-  Diversity3Rounded,
-} from '@mui/icons-material'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
-import ResourceSection from '../policyComponents/ResourceSection'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 
 export default function CurrentEffortsTab() {
   return (
@@ -42,7 +42,7 @@ export default function CurrentEffortsTab() {
           of health unfairly disadvantage certain groups, leading to disparities
           in violence exposure.
         </p>
-        <article className='rounded-md border border-solid border-methodologyGreen shadow-raised-tighter bg-white p-4 group my-0 fade-in-up-blur'>
+        <article className='group fade-in-up-blur my-0 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
           <p>
             <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:{' '}
             <HetTermUnderline>Unfair and avoidable</HetTermUnderline>{' '}

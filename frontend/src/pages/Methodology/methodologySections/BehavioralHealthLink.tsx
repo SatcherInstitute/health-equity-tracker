@@ -56,7 +56,7 @@ export default function BehavioralHealthLink() {
           ]}
         />
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='behavioral-health-data-sourcing'
         >
           Data Sourcing
@@ -80,7 +80,7 @@ export default function BehavioralHealthLink() {
         <AhrMetrics />
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='behavioral-health-data-sources'
         >
           Data Sources

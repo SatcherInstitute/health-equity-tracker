@@ -1,27 +1,28 @@
+import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
+import { CDC_CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCancer'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
+import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
 import {
   MEDICARE_CATEGORY_DROPDOWNIDS,
   MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
 } from '../data/config/MetricConfigPhrma'
+import { CANCER_SCREENING_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
-import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
-import { FIPS_MAP } from '../data/utils/FipsData'
-import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
-import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
-import { CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
-import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 import type {
   DataTypeConfig,
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
+import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
+import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
+import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
+import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
+import { FIPS_MAP } from '../data/utils/FipsData'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -140,6 +141,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   asthma: 'Asthma',
   avoided_care: 'Care Avoidance Due to Cost',
   cancer_screening: 'Cancer Screening',
+  cancer_incidence: 'Cancer',
   cardiovascular_diseases: 'Cardiovascular Diseases',
   chronic_kidney_disease: 'Chronic Kidney Disease',
   copd: 'COPD',
@@ -184,6 +186,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   gun_violence_youth: 'All Gun Deaths of',
   cancer_screening: 'Screening adherence for',
   gun_deaths_black_men: 'Black Male Gun Homicide Victims',
+  cancer_incidence: 'Incidence for',
 }
 
 export interface Category {
@@ -219,7 +222,6 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-
   {
     title: 'COVID-19',
     definition: '',
@@ -252,7 +254,10 @@ if (SHOW_CANCER_SCREENINGS) {
   CATEGORIES_LIST.push({
     title: 'Cancer',
     definition: '',
-    options: CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+    options: [
+      ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
+      ...CANCER_SCREENING_CATEGORY_DROPDOWNIDS,
+    ] as unknown as DropdownVarId[],
   })
 }
 
@@ -314,10 +319,10 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
 }
 
 export {
-  MADLIB_LIST,
-  getMadLibPhraseText,
   CATEGORIES_LIST,
-  insertOptionalThe,
   getConfigFromDataTypeId,
+  getMadLibPhraseText,
   getParentDropdownFromDataTypeId,
+  insertOptionalThe,
+  MADLIB_LIST,
 }

@@ -1,6 +1,6 @@
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { dataTypeLinkMap } from '../../data/providers/CdcCovidProvider'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
 interface AltDataTypesMessageProps {
   ageAdjustedDataTypes: DataTypeConfig[]

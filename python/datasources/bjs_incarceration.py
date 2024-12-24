@@ -142,7 +142,7 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     df_prison = df_prison.reset_index(drop=True)
 
     merge_cols = [std_col.STATE_NAME_COL, demo_for_flip]
-    df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
+    df = pd.merge(df_prison, df_jail, how="outer", on=merge_cols)
 
     return df
 
@@ -175,11 +175,11 @@ def generate_raw_national_age_breakdown(table_list):
 
     # get and store the total value from the last row
     total_raw_prison_value = prison_10.loc[
-        prison_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PRISON_PCT_SHARE_COL
+        prison_10[std_col.AGE_COL] == "Number of sentenced prisoners", PRISON_PCT_SHARE_COL
     ].values[0]
 
     # drop the last row and just keep normal rows
-    df_prison = prison_10.loc[prison_10[std_col.AGE_COL] != 'Number of sentenced prisoners']
+    df_prison = prison_10.loc[prison_10[std_col.AGE_COL] != "Number of sentenced prisoners"]
 
     # standardize df_prison with ADULT RAW # / AGE / USA
     df_prison = merge_state_ids(df_prison)
@@ -191,7 +191,7 @@ def generate_raw_national_age_breakdown(table_list):
     df_prison = df_prison[[RAW_PRISON_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PRISON_PCT_SHARE_COL]]
 
     merge_cols = [std_col.STATE_NAME_COL, std_col.AGE_COL]
-    df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
+    df = pd.merge(df_prison, df_jail, how="outer", on=merge_cols)
 
     return df
 
@@ -251,18 +251,18 @@ def post_process(df, breakdown, geo, children_tables):
     prison_13, jail_6 = children_tables
 
     # get RAW JAIL for 0-17 and melt to set as new property for "All" rows for every demo-breakdowns
-    jail_6 = jail_6.rename(columns={'0-17': all_val})
+    jail_6 = jail_6.rename(columns={"0-17": all_val})
     jail_6 = jail_6[[std_col.STATE_NAME_COL, all_val]]
     jail_6 = cols_to_rows(jail_6, [all_val], group_col, TOTAL_CHILDREN_COL)
-    jail_6 = jail_6.rename(columns={TOTAL_CHILDREN_COL: f'{TOTAL_CHILDREN_COL}_jail'})
+    jail_6 = jail_6.rename(columns={TOTAL_CHILDREN_COL: f"{TOTAL_CHILDREN_COL}_jail"})
 
     # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
-    prison_13 = prison_13.rename(columns={RAW_PRISON_COL: f'{TOTAL_CHILDREN_COL}_prison', "age": group_col})
+    prison_13 = prison_13.rename(columns={RAW_PRISON_COL: f"{TOTAL_CHILDREN_COL}_prison", "age": group_col})
     prison_13[group_col] = all_val
 
     # sum confined children in prison+jail
     df_confined = pd.merge(jail_6, prison_13, how="outer", on=[std_col.STATE_NAME_COL, group_col])
-    df_confined[TOTAL_CHILDREN_COL] = df_confined[[f'{TOTAL_CHILDREN_COL}_jail', f'{TOTAL_CHILDREN_COL}_prison']].sum(
+    df_confined[TOTAL_CHILDREN_COL] = df_confined[[f"{TOTAL_CHILDREN_COL}_jail", f"{TOTAL_CHILDREN_COL}_prison"]].sum(
         axis="columns", numeric_only=True
     )
     df_confined = df_confined[[std_col.STATE_NAME_COL, TOTAL_CHILDREN_COL, group_col]]
@@ -284,14 +284,14 @@ def post_process(df, breakdown, geo, children_tables):
 class BJSIncarcerationData(DataSource):
     @staticmethod
     def get_id():
-        return 'BJS_INCARCERATION_DATA'
+        return "BJS_INCARCERATION_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'bjs_incarceration_data'
+        return "bjs_incarceration_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for BJSIncarcerationData')
+        raise NotImplementedError("upload_to_gcs should not be called for BJSIncarcerationData")
 
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         """
@@ -314,12 +314,12 @@ class BJSIncarcerationData(DataSource):
 
         # BJS tables needed per breakdown
         table_lookup = {
-            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_10, jail_6],
-            f'{std_col.AGE_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_app_2, prisoners_23, jail_7],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_app_2, prisoners_23, jail_7],
-            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
-            f'{std_col.SEX_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
+            f"{std_col.AGE_COL}_{NATIONAL_LEVEL}_{CURRENT}": [prisoners_10, jail_6],
+            f"{std_col.AGE_COL}_{STATE_LEVEL}_{CURRENT}": [prisoners_2, prisoners_23, jail_6],
+            f"{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}_{CURRENT}": [prisoners_app_2, prisoners_23, jail_7],
+            f"{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}": [prisoners_app_2, prisoners_23, jail_7],
+            f"{std_col.SEX_COL}_{NATIONAL_LEVEL}_{CURRENT}": [prisoners_2, prisoners_23, jail_6],
+            f"{std_col.SEX_COL}_{STATE_LEVEL}_{CURRENT}": [prisoners_2, prisoners_23, jail_6],
         }
 
         children_tables = [prisoners_13, jail_6]

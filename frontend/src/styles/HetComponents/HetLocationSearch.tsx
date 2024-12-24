@@ -1,8 +1,8 @@
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
+import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
-import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 
 interface HetLocationSearchProps {
   options: Fips[]
@@ -35,7 +35,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
 
   return (
     <div className='p-5'>
-      <h3 className='my-1 text-small font-semibold md:text-title'>
+      <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
 
@@ -74,14 +74,14 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           props.popover.close()
         }}
       />
-      <span className='text-small font-light italic text-greyDark'>
+      <span className='font-light text-greyDark text-small italic'>
         County, state, territory, or{' '}
         {isUsa ? (
           USA_DISPLAY_NAME
         ) : (
           <button
             type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 italic text-altGreen underline'
+            className='cursor-pointer border-0 bg-transparent p-0 text-altGreen italic underline'
             onClick={handleUsaButton}
           >
             United States

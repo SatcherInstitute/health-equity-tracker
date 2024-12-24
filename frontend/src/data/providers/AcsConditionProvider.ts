@@ -1,10 +1,10 @@
 import { getDataManager } from '../../utils/globals'
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import VariableProvider from './VariableProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DatasetId } from '../config/DatasetMetadata'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import VariableProvider from './VariableProvider'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
   'health_insurance',

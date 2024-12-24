@@ -1,3 +1,13 @@
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import { Tooltip } from '@mui/material'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableFooter from '@mui/material/TableFooter'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
 import { useMemo } from 'react'
 import {
   type Column,
@@ -6,22 +16,12 @@ import {
   useSortBy,
   useTable,
 } from 'react-table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import TableFooter from '@mui/material/TableFooter'
-import Paper from '@mui/material/Paper'
-import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
-import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
-import { Tooltip } from '@mui/material'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import TableContainer from '@mui/material/TableContainer'
-import Table from '@mui/material/Table'
-import { RACE } from '../data/utils/Constants'
 import ChartTitle from '../cards/ChartTitle'
-import { het } from '../styles/DesignTokens'
+import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
+import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
+import { RACE } from '../data/utils/Constants'
+import { het } from '../styles/DesignTokens'
 
 const headerCellStyle = {
   width: '200px',

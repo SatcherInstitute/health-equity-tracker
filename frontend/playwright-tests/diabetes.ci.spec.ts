@@ -2,17 +2,10 @@ import { test } from '@playwright/test'
 
 test('Diabetes USA', async ({ page }) => {
   await page.goto('/exploredata?mls=1.diabetes-3.00&group1=All')
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'Diabetes in the United States' })
     .click()
-  await page.getByLabel('open the topic info modal').click()
-  await page.getByLabel('close topic info modal').click()
-  await page.getByText('Demographic').nth(2).click()
-  await page.getByText('Off').nth(1).click()
-  await page.locator('#menu- div').first().click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Diabetes in the United States' })
@@ -53,13 +46,4 @@ test('Diabetes County', async ({ page }) => {
     .getByRole('heading', { name: 'Ages 18+' })
     .click()
   await page.locator('#rate-chart').getByText('Sources: County Health').click()
-  await page
-    .getByRole('combobox', { name: 'Demographic Race/ethnicity' })
-    .click()
-  await page.locator('#menu- div').first().click()
-  await page
-    .getByRole('combobox', { name: 'Demographic Race/ethnicity' })
-    .click()
-  await page.getByLabel('Age unavailable at the county').click()
-  await page.getByLabel('Sex unavailable at the county').click()
 })

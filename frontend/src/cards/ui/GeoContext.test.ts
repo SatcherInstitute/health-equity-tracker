@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
@@ -6,7 +7,6 @@ import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
 } from './GeoContext'
-import { describe, test, expect } from 'vitest'
 
 describe('test getTotalACSPopulationPhrase()', () => {
   const nationalACSPopData: HetRow[] = [

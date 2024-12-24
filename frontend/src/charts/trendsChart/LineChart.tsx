@@ -8,15 +8,15 @@
  **/
 
 /* External Imports */
-import { line, curveMonotoneX } from 'd3'
+import { curveMonotoneX, line } from 'd3'
 
 /* Local Imports */
 
+import { UNKNOWN_W } from '../../data/utils/Constants'
+import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
+import { COLORS as C } from './constants'
 /* Constants */
 import type { GroupData, TrendsData, XScale, YScale } from './types'
-import { COLORS as C } from './constants'
-import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
-import { UNKNOWN_W } from '../../data/utils/Constants'
 
 /* Define type interface */
 interface LineChartProps {

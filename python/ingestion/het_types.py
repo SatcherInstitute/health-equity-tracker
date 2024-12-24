@@ -2,23 +2,23 @@ from typing import Literal, get_args, TypedDict
 from typing_extensions import TypeAlias
 
 COMPREHENSIVE_DEMOGRAPHIC_TYPE: TypeAlias = Literal[
-    'sex',
-    'age',
-    'race',
-    'race_and_ethnicity',
-    'lis',
-    'eligibility',
-    'insurance_status',
-    'education',
-    'income',
-    'all',
-    'black_women',
-    'urbanicity',
-    'black_women_by_age',
-    'black_men_by_age',
-    'black_men_by_urbanicity',
-    'youth_by_race_and_ethnicity',
-    'alls',
+    "sex",
+    "age",
+    "race",
+    "race_and_ethnicity",
+    "lis",
+    "eligibility",
+    "insurance_status",
+    "education",
+    "income",
+    "all",
+    "black_women",
+    "urbanicity",
+    "black_women_by_age",
+    "black_men_by_age",
+    "black_men_by_urbanicity",
+    "youth_by_race_and_ethnicity",
+    "alls",
 ]
 
 
@@ -31,30 +31,30 @@ def create_subset_type(*options):
 
 
 # Define type aliases explicitly
-SEX_RACE_AGE_TYPE: TypeAlias = Literal['sex', 'age', 'race']
-SEX_RACE_ETH_AGE_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity']
-DEMOGRAPHIC_TYPE: TypeAlias = Literal['sex', 'age', 'race', 'race_and_ethnicity']
+SEX_RACE_AGE_TYPE: TypeAlias = Literal["sex", "age", "race"]
+SEX_RACE_ETH_AGE_TYPE: TypeAlias = Literal["sex", "age", "race_and_ethnicity"]
+DEMOGRAPHIC_TYPE: TypeAlias = Literal["sex", "age", "race", "race_and_ethnicity"]
 
 PHRMA_BREAKDOWN_TYPE: TypeAlias = Literal[
-    'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income'
+    "age", "sex", "race_and_ethnicity", "lis", "eligibility", "insurance_status", "education", "income"
 ]
 PHRMA_BREAKDOWN_TYPE_OR_ALL: TypeAlias = Literal[
-    'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'insurance_status', 'education', 'income', 'all'
+    "age", "sex", "race_and_ethnicity", "lis", "eligibility", "insurance_status", "education", "income", "all"
 ]
 
-HIV_BREAKDOWN_TYPE: TypeAlias = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']
-WISQARS_DEMO_TYPE: TypeAlias = Literal['sex', 'age', 'race_and_ethnicity', 'urbanicity', 'all']
+HIV_BREAKDOWN_TYPE: TypeAlias = Literal["age", "sex", "race", "race_and_ethnicity", "black_women"]
+WISQARS_DEMO_TYPE: TypeAlias = Literal["sex", "age", "race_and_ethnicity", "urbanicity", "all"]
 
 GEO_TYPE = Literal["county", "state", "national"]
 
-CANCER_TYPE_OR_ALL = Literal['age', 'race', 'race_and_ethncity', 'sex', 'all']
+CANCER_TYPE_OR_ALL = Literal["age", "race", "race_and_ethnicity", "sex", "all"]
 
-TIME_VIEW_TYPE = Literal['historical', 'current']
+TIME_VIEW_TYPE = Literal["historical", "current"]
 
 TOPIC_CATEGORY_TYPE = Literal[
-    'non-behavioral_health',  # TODO: delete this once AHR is split across all categories properly
-    'all',
-    'behavioral_health',
+    "non-behavioral_health",  # TODO: delete this once AHR is split across all categories properly
+    "all",
+    "behavioral_health",
 ]
 PHRMA_DATASET_TYPE = Literal["brfss", "medicare"]
 

@@ -1,18 +1,18 @@
 import { Button, CircularProgress } from '@mui/material'
-import type { Dataset, MapOfDatasetMetadata } from '../utils/DatasetTypes'
-import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { getDataManager } from '../../utils/globals'
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
+import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
 import { MetadataCache } from '../loading/DataManager'
+import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { Dataset, MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import {
   type IncompleteLoadStatus,
   useMetrics,
   useResources,
 } from './useResources'
-import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
-import type {
-  DatasetId,
-  DatasetIdWithStateFIPSCode,
-} from '../config/DatasetMetadata'
 
 /**
  * Provides a wrapper around a UI component that may be loading or have an async

@@ -5,19 +5,19 @@ from ingestion.constants import US_FIPS, US_NAME, US_ABBR, COUNTY_LEVEL, NATIONA
 from typing import Literal, List, Union, Type, Optional, Tuple, Dict
 import os
 
-ACS_EARLIEST_YEAR = '2009'
-ACS_CURRENT_YEAR = '2022'
-DECIA_CUTOFF_YEAR = '2016'
+ACS_EARLIEST_YEAR = "2009"
+ACS_CURRENT_YEAR = "2022"
+DECIA_CUTOFF_YEAR = "2016"
 
 
 # This works for both local runs and also in a container within the /app directory
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
-ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'acs_population')
-DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2010_territory_population')
-DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, 'decia_2020_territory_population')
-FIPS_CODES_DIR = os.path.join(INGESTION_DIR, 'fips_codes')
-COUNTY_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'county_level_fips.csv')
-STATE_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, 'state_level_fips.csv')
+ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, "acs_population")
+DECIA_2010_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, "decia_2010_territory_population")
+DECIA_2020_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, "decia_2020_territory_population")
+FIPS_CODES_DIR = os.path.join(INGESTION_DIR, "fips_codes")
+COUNTY_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, "county_level_fips.csv")
+STATE_LEVEL_FIPS_CSV = os.path.join(FIPS_CODES_DIR, "state_level_fips.csv")
 
 
 def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
@@ -33,8 +33,8 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
 
     if std_col.COUNTY_FIPS_COL not in df.columns:
         raise ValueError(
-            'df must be county-level with `county_fips` col of 5 digit FIPS strings.'
-            + f'This dataframe only contains these columns: {list(df.columns)}'
+            "df must be county-level with `county_fips` col of 5 digit FIPS strings."
+            + f"This dataframe only contains these columns: {list(df.columns)}"
         )
 
     county_level_fips_df = pd.read_csv(COUNTY_LEVEL_FIPS_CSV, dtype=str)
@@ -42,7 +42,7 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
     if std_col.COUNTY_NAME_COL in df.columns:
         df = df.drop(columns=std_col.COUNTY_NAME_COL)
 
-    df = pd.merge(df, county_level_fips_df, how='left', on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
+    df = pd.merge(df, county_level_fips_df, how="left", on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
 
     return df
 
@@ -67,11 +67,11 @@ def merge_state_ids(df, keep_postal=False):
         and std_col.STATE_FIPS_COL not in df.columns
     ):
         raise ValueError(
-            'Dataframe must be a state-level table '
-            + 'with at least one of the following columns: '
-            + '`state_name`, `state_fips` (2 digit FIPS strings), '
-            + ' or `state_postal` containing 2 digit FIPS strings.'
-            + f'This dataframe only contains these columns: {list(df.columns)}'
+            "Dataframe must be a state-level table "
+            + "with at least one of the following columns: "
+            + "`state_name`, `state_fips` (2 digit FIPS strings), "
+            + " or `state_postal` containing 2 digit FIPS strings."
+            + f"This dataframe only contains these columns: {list(df.columns)}"
         )
 
     state_level_fips_df = pd.read_csv(STATE_LEVEL_FIPS_CSV, dtype=str)
@@ -79,9 +79,9 @@ def merge_state_ids(df, keep_postal=False):
     united_states_fips = pd.DataFrame(
         [
             {
-                'state_fips_code': US_FIPS,
-                'state_name': US_NAME,
-                'state_postal_abbreviation': US_ABBR,
+                "state_fips_code": US_FIPS,
+                "state_name": US_NAME,
+                "state_postal_abbreviation": US_ABBR,
             }
         ]
     )
@@ -89,20 +89,20 @@ def merge_state_ids(df, keep_postal=False):
     unknown_fips = pd.DataFrame(
         [
             {
-                'state_fips_code': 'Unknown',
-                'state_name': 'Unknown',
-                'state_postal_abbreviation': 'Unknown',
+                "state_fips_code": "Unknown",
+                "state_name": "Unknown",
+                "state_postal_abbreviation": "Unknown",
             }
         ]
     )
 
-    state_level_fips_df = state_level_fips_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
+    state_level_fips_df = state_level_fips_df[["state_fips_code", "state_name", "state_postal_abbreviation"]]
     state_level_fips_df = pd.concat([state_level_fips_df, united_states_fips, unknown_fips])
 
     state_level_fips_df = state_level_fips_df.rename(
         columns={
-            'state_fips_code': std_col.STATE_FIPS_COL,
-            'state_postal_abbreviation': std_col.STATE_POSTAL_COL,
+            "state_fips_code": std_col.STATE_FIPS_COL,
+            "state_postal_abbreviation": std_col.STATE_POSTAL_COL,
         }
     ).reset_index(drop=True)
 
@@ -112,7 +112,7 @@ def merge_state_ids(df, keep_postal=False):
     if std_col.STATE_FIPS_COL in df.columns:
         merge_col = std_col.STATE_FIPS_COL
 
-    df = pd.merge(df, state_level_fips_df, how='left', on=merge_col).reset_index(drop=True)
+    df = pd.merge(df, state_level_fips_df, how="left", on=merge_col).reset_index(drop=True)
 
     if (not keep_postal) and (std_col.STATE_POSTAL_COL in df.columns):
         df = df.drop(columns=std_col.STATE_POSTAL_COL)
@@ -120,7 +120,7 @@ def merge_state_ids(df, keep_postal=False):
     return df
 
 
-def merge_pop_numbers(df, demo: Literal['age', 'sex', 'race'], loc: Literal['county', 'state', 'national']):
+def merge_pop_numbers(df, demo: Literal["age", "sex", "race"], loc: Literal["county", "state", "national"]):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
     df: a pandas df with demographic column and a `state_fips` column
@@ -132,8 +132,8 @@ def merge_pop_numbers(df, demo: Literal['age', 'sex', 'race'], loc: Literal['cou
 
 def merge_yearly_pop_numbers(
     df: pd.DataFrame,
-    demo: Literal['age', 'race', 'sex'],
-    geo_level: Literal['county', 'state', 'national'],
+    demo: Literal["age", "race", "sex"],
+    geo_level: Literal["county", "state", "national"],
 ) -> pd.DataFrame:
     """Merges multiple years of population data onto incoming df
     that contains a `time_period` col of 4 digit string year values
@@ -200,7 +200,7 @@ def merge_yearly_pop_numbers(
     return df
 
 
-def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'], condition_cols: List[str]):
+def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal["age", "race", "sex"], condition_cols: List[str]):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
 
@@ -222,9 +222,9 @@ def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'
 
 def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     on_col_map = {
-        'age': std_col.AGE_COL,
-        'race': std_col.RACE_CATEGORY_ID_COL,
-        'sex': std_col.SEX_COL,
+        "age": std_col.AGE_COL,
+        "race": std_col.RACE_CATEGORY_ID_COL,
+        "sex": std_col.SEX_COL,
     }
 
     pop_dtype = {
@@ -237,17 +237,17 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
     if demo not in on_col_map:
-        raise ValueError(f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}')
+        raise ValueError(f"{demo} not a demographic option, must be one of: {list(on_col_map.keys())}")
 
-    pop_table_name = f'by_{demo}_{loc}'
+    pop_table_name = f"by_{demo}_{loc}"
 
-    print(f'\nMerging real ACS population from python/ingestion/acs_population/{pop_table_name}')
+    print(f"\nMerging real ACS population from python/ingestion/acs_population/{pop_table_name}")
 
     if on_time_period:
         pop_table_name += "_time_series"
         pop_dtype[std_col.TIME_PERIOD_COL] = str
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'{pop_table_name}.csv')
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"{pop_table_name}.csv")
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
@@ -266,7 +266,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     # from DECIA_2020 (VI, GU, AS, MP)
     if loc != NATIONAL_LEVEL:
         verbose_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
-        pop_terr_table_name = f'by_{verbose_demo}_territory_{loc}_level'
+        pop_terr_table_name = f"by_{verbose_demo}_territory_{loc}_level"
 
         terr_pop_dtype = {
             std_col.STATE_FIPS_COL: str,
@@ -277,7 +277,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
         if loc == COUNTY_LEVEL:
             terr_pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
-        pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
+        pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f"{pop_terr_table_name}.csv")
         pop_terr_2020_df = pd.read_csv(pop_terr_2020_file, dtype=terr_pop_dtype)
 
         pop_terr_df = pop_terr_2020_df[needed_cols]
@@ -288,7 +288,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
             pop_terr_2010_file = (
                 pop_terr_2020_file
                 if loc == COUNTY_LEVEL
-                else os.path.join(DECIA_2010_MERGE_DATA_DIR, f'{pop_terr_table_name}.csv')
+                else os.path.join(DECIA_2010_MERGE_DATA_DIR, f"{pop_terr_table_name}.csv")
             )
             pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
 
@@ -319,15 +319,15 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     if on_time_period:
         on_cols.append(std_col.TIME_PERIOD_COL)
 
-    df = pd.merge(df, pop_df, how='left', on=on_cols)
+    df = pd.merge(df, pop_df, how="left", on=on_cols)
 
     return df.reset_index(drop=True)
 
 
 def merge_intersectional_pop(
     df: pd.DataFrame,
-    geo_level: Literal['national', 'state', 'county'],
-    primary_demo_col: Literal['age', 'race_and_ethnicity', 'sex', 'race'],
+    geo_level: Literal["national", "state", "county"],
+    primary_demo_col: Literal["age", "race_and_ethnicity", "sex", "race"],
     race_specific_group: Optional[str] = None,
     age_specific_group: Optional[str] = None,
     sex_specific_group: Optional[str] = None,
@@ -353,13 +353,13 @@ def merge_intersectional_pop(
     """
 
     if primary_demo_col == std_col.RACE_COL:
-        primary_demo_col = 'race_and_ethnicity'
+        primary_demo_col = "race_and_ethnicity"
 
     pop_dtype: Dict[str, Union[Type[float], Type[str]]] = {
         std_col.POPULATION_COL: float,
     }
 
-    geo_file = ''
+    geo_file = ""
 
     if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
@@ -368,22 +368,22 @@ def merge_intersectional_pop(
         pop_dtype[std_col.STATE_FIPS_COL] = str
         geo_file = STATE_LEVEL
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f'by_sex_age_race_{geo_file}.csv')
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"by_sex_age_race_{geo_file}.csv")
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     if geo_level == NATIONAL_LEVEL:
         pop_df = sum_states_to_national(pop_df)
 
     # the primary demographic breakdown can't use a specific group
-    if primary_demo_col == 'race_and_ethnicity' and race_specific_group:
-        raise ValueError('race_specific_group kwarg is not applicable when primary_demo_col is race.')
-    if primary_demo_col == 'age' and age_specific_group:
-        raise ValueError('age_specific_group kwarg is not applicable when primary_demo_col is age.')
-    if primary_demo_col == 'sex' and sex_specific_group:
-        raise ValueError('sex_specific_group kwarg is not applicable when primary_demo_col is sex.')
+    if primary_demo_col == "race_and_ethnicity" and race_specific_group:
+        raise ValueError("race_specific_group kwarg is not applicable when primary_demo_col is race.")
+    if primary_demo_col == "age" and age_specific_group:
+        raise ValueError("age_specific_group kwarg is not applicable when primary_demo_col is age.")
+    if primary_demo_col == "sex" and sex_specific_group:
+        raise ValueError("sex_specific_group kwarg is not applicable when primary_demo_col is sex.")
 
-    if age_specific_group == '18+':
-        pop_df = sum_age_groups(pop_df, '18+')
+    if age_specific_group == "18+":
+        pop_df = sum_age_groups(pop_df, "18+")
 
     specific_group_map = {}
     specific_group_map[std_col.RACE_OR_HISPANIC_COL] = ALL_VALUE if race_specific_group is None else race_specific_group
@@ -393,10 +393,10 @@ def merge_intersectional_pop(
     pop_col = std_col.POPULATION_COL
     for group in specific_group_map.values():
         if group != ALL_VALUE:
-            group = group.replace('+', 'plus')
-            group = group.replace("-", '_')
+            group = group.replace("+", "plus")
+            group = group.replace("-", "_")
             group = group.lower()
-            pop_col = f'{group}_{pop_col}'
+            pop_col = f"{group}_{pop_col}"
 
     pop_df = pop_df.rename(columns={std_col.POPULATION_COL: pop_col})
 
@@ -442,17 +442,17 @@ def merge_intersectional_pop(
     if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
         # string "_NH" off race_category_id on everything except "WHITE_NH"
         race_id_replace_map = {
-            'AIAN': 'AIAN_NH',
-            'ASIAN': 'ASIAN_NH',
-            'BLACK': 'BLACK_NH',
-            'NHPI': 'NHPI_NH',
-            'MULTI': 'MULTI_NH',
-            'OTHER_STANDARD': 'OTHER_STANDARD_NH',
+            "AIAN": "AIAN_NH",
+            "ASIAN": "ASIAN_NH",
+            "BLACK": "BLACK_NH",
+            "NHPI": "NHPI_NH",
+            "MULTI": "MULTI_NH",
+            "OTHER_STANDARD": "OTHER_STANDARD_NH",
         }
 
         pop_df[std_col.RACE_CATEGORY_ID_COL] = pop_df[std_col.RACE_CATEGORY_ID_COL].replace(race_id_replace_map)
 
-    df = df.merge(pop_df, on=merge_cols, how='left')
+    df = df.merge(pop_df, on=merge_cols, how="left")
 
     if primary_demo_col == std_col.RACE_OR_HISPANIC_COL:
         std_col.add_race_columns_from_category_id(df)
@@ -487,7 +487,7 @@ def sum_states_to_national(pop_df: pd.DataFrame) -> pd.DataFrame:
     return pop_df
 
 
-def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFrame:
+def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal["18+"]) -> pd.DataFrame:
     """
     Sums rows of smaller age groups together to generate new rows for target age group
 
@@ -500,32 +500,32 @@ def sum_age_groups(pop_df: pd.DataFrame, age_group: Literal['18+']) -> pd.DataFr
     """
 
     summed_age_groups_map = {
-        '18+': [
-            '18-19',
-            '20-20',
-            '21-21',
-            '22-24',
-            '25-29',
-            '30-34',
-            '35-39',
-            '40-44',
-            '45-49',
-            '50-54',
-            '55-59',
-            '60-61',
-            '62-64',
-            '65-66',
-            '67-69',
-            '70-74',
-            '75-79',
-            '80-84',
-            '85+',
+        "18+": [
+            "18-19",
+            "20-20",
+            "21-21",
+            "22-24",
+            "25-29",
+            "30-34",
+            "35-39",
+            "40-44",
+            "45-49",
+            "50-54",
+            "55-59",
+            "60-61",
+            "62-64",
+            "65-66",
+            "67-69",
+            "70-74",
+            "75-79",
+            "80-84",
+            "85+",
         ],
     }
 
     # throw an error is user supplies an age group that isn't in the summed_age_groups_map
     if age_group not in summed_age_groups_map:
-        raise ValueError(f'age_group kwarg must be one of {summed_age_groups_map.keys()}')
+        raise ValueError(f"age_group kwarg must be one of {summed_age_groups_map.keys()}")
 
     possible_geo_cols = [
         std_col.STATE_FIPS_COL,
@@ -571,6 +571,6 @@ def merge_dfs_list(df_list: List[pd.DataFrame], merge_cols: List[str]) -> pd.Dat
     - A single dataframe containing the merged data.
     """
 
-    merged_df = reduce(lambda left, right: pd.merge(left, right, on=merge_cols, how='outer'), df_list)
+    merged_df = reduce(lambda left, right: pd.merge(left, right, on=merge_cols, how="outer"), df_list)
 
     return merged_df

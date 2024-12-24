@@ -29,24 +29,24 @@ test_data = {
 
 
 def test_all_demographic():
-    result = get_measure_ids("all", 'all', data=test_data)
+    result = get_measure_ids("all", "all", data=test_data)
     expected_ids = ["16388", "16348", "18353", "115", "176"]
     assert result == expected_ids
 
 
 def test_age_demographic():
-    result = get_measure_ids("age", 'all', data=test_data)
+    result = get_measure_ids("age", "all", data=test_data)
     expected_ids = ["16374", "16372", "16373", "15969", "16369", "18358", "18389", "16367", "18356", "16368", "18357"]
     assert result == expected_ids
 
 
 def test_race_and_ethnicity_demographic():
-    result = get_measure_ids("race_and_ethnicity", 'all', data=test_data)
+    result = get_measure_ids("race_and_ethnicity", "all", data=test_data)
     expected_ids = ["16376", "19988", "16375", "19987", "410", "432", "19743", "409", "431", "19742"]
     assert result == expected_ids
 
 
 def test_sex_demographic():
-    result = get_measure_ids("sex", 'all', data=test_data)
+    result = get_measure_ids("sex", "all", data=test_data)
     expected_ids = ["16371", "16370", "405", "427", "404", "426"]
     assert result == expected_ids

@@ -2,9 +2,9 @@ import { getDataManager } from '../../utils/globals'
 import type { MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
+  type MetricQuery,
   MetricQueryResponse,
   resolveDatasetId,
-  type MetricQuery,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 

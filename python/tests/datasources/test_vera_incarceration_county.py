@@ -14,14 +14,14 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "vera_incarceration_county"
 
 
 GOLDEN_DATA = {
-    'race_and_ethnicity_county_current': os.path.join(TEST_DIR, "golden_data", 'race_and_ethnicity_county_current.csv'),
-    'race_and_ethnicity_county_historical': os.path.join(
-        TEST_DIR, "golden_data", 'race_and_ethnicity_county_historical.csv'
+    "race_and_ethnicity_county_current": os.path.join(TEST_DIR, "golden_data", "race_and_ethnicity_county_current.csv"),
+    "race_and_ethnicity_county_historical": os.path.join(
+        TEST_DIR, "golden_data", "race_and_ethnicity_county_historical.csv"
     ),
-    'age_county_current': os.path.join(TEST_DIR, "golden_data", 'age_county_current.csv'),
-    'age_county_historical': os.path.join(TEST_DIR, "golden_data", 'age_county_historical.csv'),
-    'sex_county_current': os.path.join(TEST_DIR, "golden_data", 'sex_county_current.csv'),
-    'sex_county_historical': os.path.join(TEST_DIR, "golden_data", 'sex_county_historical.csv'),
+    "age_county_current": os.path.join(TEST_DIR, "golden_data", "age_county_current.csv"),
+    "age_county_historical": os.path.join(TEST_DIR, "golden_data", "age_county_historical.csv"),
+    "sex_county_current": os.path.join(TEST_DIR, "golden_data", "sex_county_current.csv"),
+    "sex_county_historical": os.path.join(TEST_DIR, "golden_data", "sex_county_historical.csv"),
 }
 
 
@@ -43,22 +43,22 @@ dtypes = {
 }
 
 kwargs = {
-    'filename': 'test_file.csv',
-    'metadata_table_id': 'test_metadata',
-    'table_name': 'output_table',
+    "filename": "test_file.csv",
+    "metadata_table_id": "test_metadata",
+    "table_name": "output_table",
 }
 
 veraIncarcerationCounty = VeraIncarcerationCounty()
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     kwargs["demographic"] = "sex"
-    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    veraIncarcerationCounty.write_to_bq("dataset", "gcs_bucket", **kwargs)
 
     # writes 1 current and 1 historical table per demo breakdown
     assert mock_bq.call_count == 2
@@ -78,13 +78,13 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     kwargs["demographic"] = "age"
-    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    veraIncarcerationCounty.write_to_bq("dataset", "gcs_bucket", **kwargs)
 
     # writes 1 current and 1 historical table per demo breakdown
     assert mock_bq.call_count == 2
@@ -104,13 +104,13 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     kwargs["demographic"] = "race_and_ethnicity"
-    veraIncarcerationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    veraIncarcerationCounty.write_to_bq("dataset", "gcs_bucket", **kwargs)
 
     # writes 1 current and 1 historical table per demo breakdown
     assert mock_bq.call_count == 2

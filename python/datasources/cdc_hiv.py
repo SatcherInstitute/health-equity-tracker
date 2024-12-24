@@ -232,7 +232,7 @@ class CDCHIVData(DataSource):
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
 
-            table_demo = demographic if demographic != std_col.BLACK_WOMEN else 'black_women_by_age'
+            table_demo = demographic if demographic != std_col.BLACK_WOMEN else "black_women_by_age"
             table_id = gcs_to_bq_util.make_bq_table_id(table_demo, geo_level, time_view)
             if demographic == std_col.BLACK_WOMEN:
                 df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)

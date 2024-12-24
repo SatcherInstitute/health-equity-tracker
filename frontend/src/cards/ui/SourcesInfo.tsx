@@ -1,8 +1,8 @@
 import type { DataSourceId } from '../../data/config/MetadataMap'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
-  LinkWithStickyParams,
   DATA_SOURCE_PRE_FILTERS,
+  LinkWithStickyParams,
 } from '../../utils/urlutils'
 import { type DataSourceInfo, insertPunctuation } from './SourcesHelpers'
 

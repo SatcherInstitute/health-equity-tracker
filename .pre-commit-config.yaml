@@ -43,7 +43,9 @@ repos:
     hooks:
       - id: biome-check
         name: 🦕 ts/json format + lint with biome
+        entry: biome check --error-on-warnings false --fix
         additional_dependencies: ["@biomejs/biome"]
+        types: [ts, tsx, javascript, jsx, json, html]
   # TYPE CHECK WITH TSC
   - repo: local
     hooks:

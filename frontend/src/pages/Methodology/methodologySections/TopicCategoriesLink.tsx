@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
-import { covidTopicsString } from './Covid19Link'
-import { pdohTopicsString } from './PdohLink'
-import { hivTopicsString } from './HivLink'
 import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
-import { sdohTopicsString } from './SdohLink'
 import { communitySafetyTopicsString } from './CommunitySafetyLink'
+import { covidTopicsString } from './Covid19Link'
+import { hivTopicsString } from './HivLink'
+import { pdohTopicsString } from './PdohLink'
+import { sdohTopicsString } from './SdohLink'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 
@@ -46,7 +46,7 @@ export default function TopicCategoriesLink() {
           challenges and needs of diverse communities.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='categories'>
+        <h3 className='mt-12 font-medium text-title' id='categories'>
           Categories
         </h3>
         <StripedTable

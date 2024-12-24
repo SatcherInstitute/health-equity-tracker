@@ -3,13 +3,13 @@ import type { TrendsData } from '../../charts/trendsChart/types'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import {
   generateConsecutivePeriods,
-  getPrettyDate,
-  interpolateTimePeriods,
+  getElectionYearData,
+  getMinMaxGroups,
   getNestedData,
   getNestedUnknowns,
+  getPrettyDate,
+  interpolateTimePeriods,
   makeA11yTableData,
-  getMinMaxGroups,
-  getElectionYearData,
 } from './DatasetTimeUtils'
 import type { HetRow } from './DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from './datasetutils'

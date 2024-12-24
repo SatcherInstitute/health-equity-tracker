@@ -18,14 +18,14 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
   const isLg = useIsBreakpointAndUp('lg')
 
   return (
-    <div className='w-full grid grid-cols-12 gap-4'>
+    <div className='grid w-full grid-cols-12 gap-4'>
       {[...Array(numberLoadingSkeletons)].map((_, i) => {
         const isFirst = i === 0
         // const isNextFour = !isFirst && i < 5
 
         return (
           <div
-            className={`col-span-12 ${!isFirst && 'smMd:col-span-6 lg:col-span-4'} lg:col-span-4 ${isFirst && 'lg:row-span-2'} $ w-full my-4 rounded-md border border-solid border-altGreen flex flex-wrap  ${props.className ?? ''}`}
+            className={`col-span-12 ${!isFirst && 'smMd:col-span-6 lg:col-span-4'} lg:col-span-4 ${isFirst && 'lg:row-span-2'} $ my-4 flex w-full flex-wrap rounded-md border border-altGreen border-solid ${props.className ?? ''}`}
             key={i}
           >
             {/* IMG PLACEHOLDER */}
@@ -36,7 +36,7 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
               sx={{ width: '100%' }}
             ></Skeleton>
             {/* TAGS PLACEHOLDER ON LARGEST SCREENS */}
-            <div className='hidden lg:flex my-3 w-full ml-4 justify-start gap-5'>
+            <div className='my-3 ml-4 hidden w-full justify-start gap-5 lg:flex'>
               <Skeleton
                 animation={false}
                 variant='text'
@@ -52,14 +52,14 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
             </div>
             {/* TITLE PLACEHOLDER */}
             <Skeleton
-              className='mt-10 mx-4'
+              className='mx-4 mt-10'
               animation={props.doPulse && 'wave'}
               variant='text'
               height={36}
               sx={{ width: '100%' }}
             ></Skeleton>
             <Skeleton
-              className='ml-4 mr-20 mb-4'
+              className='mr-20 mb-4 ml-4'
               animation={props.doPulse && 'wave'}
               variant='text'
               height={36}

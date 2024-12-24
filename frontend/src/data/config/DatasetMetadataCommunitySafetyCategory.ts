@@ -1,4 +1,4 @@
-import type { DatasetMetadata, DataSourceMetadata } from '../utils/DatasetTypes'
+import type { DataSourceMetadata, DatasetMetadata } from '../utils/DatasetTypes'
 
 export type DatasetIdCommunitySafetyCategory =
   | 'cdc_wisqars_data-age_national_current'

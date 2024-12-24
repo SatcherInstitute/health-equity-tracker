@@ -1,29 +1,29 @@
-import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
-import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { useAtomValue } from 'jotai'
+import { HashLink } from 'react-router-hash-link'
 import {
-  DatasetMetadataMap,
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
+  DatasetMetadataMap,
 } from '../../data/config/DatasetMetadata'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import { useAtomValue } from 'jotai'
+import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
+import {
+  type CategoryTypeId,
+  getConfigFromDataTypeId,
+} from '../../utils/MadLibs'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
-import { HashLink } from 'react-router-hash-link'
 import {
   getDataSourceMapFromDatasetIds,
   getDatasetIdsFromResponses,
   stripCountyFips,
 } from './SourcesHelpers'
 import SourcesInfo from './SourcesInfo'
-import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
-import {
-  getConfigFromDataTypeId,
-  type CategoryTypeId,
-} from '../../utils/MadLibs'
 
 interface SourcesProps {
   queryResponses: MetricQueryResponse[]

@@ -7,8 +7,8 @@ import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { ALL, BLACK_NH } from '../../data/utils/Constants'
 import type {
-  MapOfDatasetMetadata,
   HetRow,
+  MapOfDatasetMetadata,
 } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'

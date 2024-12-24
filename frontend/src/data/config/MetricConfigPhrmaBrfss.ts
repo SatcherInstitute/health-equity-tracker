@@ -1,7 +1,7 @@
 import { medicareHigherIsBetterMapConfig } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
-export const CANCER_CATEGORY_DROPDOWNIDS = ['cancer_screening']
+export const CANCER_SCREENING_CATEGORY_DROPDOWNIDS = ['cancer_screening']
 
 export type PhrmaBrfssDataTypeId =
   | 'breast_cancer_screening'

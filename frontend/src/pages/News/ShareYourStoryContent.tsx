@@ -1,12 +1,12 @@
 import {
-  EditRounded,
   AssignmentLateRounded,
-  PeopleAltRounded,
-  FormatListBulletedRounded,
   BlockRounded,
-  PublishRounded,
-  PrivacyTipRounded,
   CampaignRounded,
+  EditRounded,
+  FormatListBulletedRounded,
+  PeopleAltRounded,
+  PrivacyTipRounded,
+  PublishRounded,
 } from '@mui/icons-material'
 
 export const submissionGuidelines = [

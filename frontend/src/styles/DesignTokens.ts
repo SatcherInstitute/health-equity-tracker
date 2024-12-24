@@ -59,6 +59,7 @@ const het = {
   greyGridColor: '#f9f9f9',
   hexShareIconGray: '#757575',
   hoverAltGreen: 'rgba(11, 82, 64, 0.08)',
+  hoverTinyTagGray: '#979787',
   howToColor: '#bdc1c6',
   infobarColor: '#f8e8b0',
   joinEffortBg1: '#a5cdc0',

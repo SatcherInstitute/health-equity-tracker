@@ -11,13 +11,13 @@
  */
 
 /* External Imports */
-import { scaleSqrt, scaleLinear, extent, min, max } from 'd3'
+import { extent, max, min, scaleLinear, scaleSqrt } from 'd3'
 
 /* Constants */
 import {
   CONFIG,
-  UNKNOWN_GROUP_COLOR_EXTENT,
   FORMATTERS as F,
+  UNKNOWN_GROUP_COLOR_EXTENT,
 } from './constants'
 import type { UnknownData, XScale } from './types'
 
@@ -174,7 +174,7 @@ export function CircleChart({
         <text
           textAnchor='middle'
           dy='55px'
-          className='text-smallest font-medium'
+          className='font-medium text-smallest'
           id={`unknown-circle-legend-title-${circleId}`}
         >
           {unknownCircleLegendText}

@@ -29,36 +29,36 @@ from ingestion.het_types import (
 from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, merge_intersectional_pop
 
 # String constants from AHR source data
-AHR_MEASURE = 'measure'
-AHR_VALUE = 'value'
+AHR_MEASURE = "measure"
+AHR_VALUE = "value"
 LAST_COMPLETE_DATA_YEAR = 2022
 
 AGE_GROUPS_TO_STANDARD = {
-    'Ages 15-24': '15-24',
-    'Ages 18-24': '18-24',
-    'Ages 18-44': '18-44',
-    'Ages 25-34': '25-34',
-    'Ages 35-44': '35-44',
-    'Ages 45-54': '45-54',
-    'Ages 45-64': '45-64',
-    'Ages 55-64': '55-64',
-    'Age 65+': '65+',
-    'Ages 65-74': '65-74',
-    'Ages 75-84': '75-84',
-    'Age 85+': '85+',
+    "Ages 15-24": "15-24",
+    "Ages 18-24": "18-24",
+    "Ages 18-44": "18-44",
+    "Ages 25-34": "25-34",
+    "Ages 35-44": "35-44",
+    "Ages 45-54": "45-54",
+    "Ages 45-64": "45-64",
+    "Ages 55-64": "55-64",
+    "Age 65+": "65+",
+    "Ages 65-74": "65-74",
+    "Ages 75-84": "75-84",
+    "Age 85+": "85+",
 }
 
 RACE_GROUPS_TO_STANDARD = {
-    'American Indian/Alaska Native': std_col.Race.AIAN_NH.value,
-    'Asian': std_col.Race.ASIAN_NH.value,
-    'Asian/Pacific Islander': std_col.Race.API_NH.value,
-    'Black': std_col.Race.BLACK_NH.value,
-    'Hispanic': std_col.Race.HISP.value,
-    'Hawaiian/Pacific Islander': std_col.Race.NHPI_NH.value,
-    'Other Race': std_col.Race.OTHER_STANDARD_NH.value,
-    'White': std_col.Race.WHITE_NH.value,
-    'Multiracial': std_col.Race.MULTI_NH.value,
-    'All': std_col.Race.ALL.value,
+    "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
+    "Asian": std_col.Race.ASIAN_NH.value,
+    "Asian/Pacific Islander": std_col.Race.API_NH.value,
+    "Black": std_col.Race.BLACK_NH.value,
+    "Hispanic": std_col.Race.HISP.value,
+    "Hawaiian/Pacific Islander": std_col.Race.NHPI_NH.value,
+    "Other Race": std_col.Race.OTHER_STANDARD_NH.value,
+    "White": std_col.Race.WHITE_NH.value,
+    "Multiracial": std_col.Race.MULTI_NH.value,
+    "All": std_col.Race.ALL.value,
 }
 
 AHR_AGE_GROUPS = list(AGE_GROUPS_TO_STANDARD.keys())
@@ -66,22 +66,22 @@ AHR_RACE_GROUPS = list(RACE_GROUPS_TO_STANDARD.keys())
 AHR_SEX_GROUPS = [Sex.FEMALE, Sex.MALE]
 
 RATE_TO_RAW_18PLUS_MAP = {
-    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.RAW_SUFFIX}'
+    rate_col: f"{std_col.extract_prefix(rate_col)}_{std_col.RAW_SUFFIX}"
     for rate_col in AHR_MEASURES_TO_RATES_MAP_18PLUS.values()
 }
 
 RATE_TO_RAW_ALL_AGES_MAP = {
-    rate_col: f'{std_col.extract_prefix(rate_col)}_{std_col.RAW_SUFFIX}'
+    rate_col: f"{std_col.extract_prefix(rate_col)}_{std_col.RAW_SUFFIX}"
     for rate_col in AHR_MEASURES_TO_RATES_MAP_ALL_AGES.values()
 }
 
 RAW_TO_SHARE_ALL_AGES_MAP = {
-    raw_col: f'{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    raw_col: f"{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}"
     for raw_col in RATE_TO_RAW_ALL_AGES_MAP.values()
 }
 
 RAW_TO_SHARE_18PLUS_MAP = {
-    raw_col: f'{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}'
+    raw_col: f"{std_col.extract_prefix(raw_col)}_{std_col.PCT_SHARE_SUFFIX}"
     for raw_col in RATE_TO_RAW_18PLUS_MAP.values()
 }
 
@@ -92,14 +92,14 @@ class GraphQlAHRData(DataSource):
 
     @staticmethod
     def get_id():
-        return 'GRAPHQL_AHR_DATA'
+        return "GRAPHQL_AHR_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'graphql_ahr_data'
+        return "graphql_ahr_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for AHRData')
+        raise NotImplementedError("upload_to_gcs should not be called for AHRData")
 
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         demographic = self.get_attr(attrs, "demographic")
@@ -116,7 +116,7 @@ class GraphQlAHRData(DataSource):
                 for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()
                 if rate_col in df.columns
             ]
-            topic_prefixes.append('ahr')
+            topic_prefixes.append("ahr")
             df = df[df[std_col.TIME_PERIOD_COL].astype(int) <= LAST_COMPLETE_DATA_YEAR]
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
             first_two_columns = df_for_bq.columns[:2].tolist()
@@ -197,7 +197,7 @@ class GraphQlAHRData(DataSource):
         if demographic != std_col.AGE_COL:
 
             breakdown_df, pop_18plus_col = merge_intersectional_pop(
-                breakdown_df, geo_level, demographic, age_specific_group='18+'
+                breakdown_df, geo_level, demographic, age_specific_group="18+"
             )
 
             rate_to_raw_18plus_map = {
@@ -214,7 +214,7 @@ class GraphQlAHRData(DataSource):
             )
 
             # all columns need to be provider-specific for the frontend
-            ahr_pop18plus_col = 'ahr_' + pop_18plus_col
+            ahr_pop18plus_col = "ahr_" + pop_18plus_col
             breakdown_df = breakdown_df.rename(
                 columns={
                     pop_18plus_col: ahr_pop18plus_col,
@@ -287,7 +287,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
         index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown_col],
         columns=AHR_MEASURE,
         values=AHR_VALUE,
-        aggfunc='first',
+        aggfunc="first",
     ).reset_index()
 
     pivot_df = pivot_df.sort_values(by=std_col.TIME_PERIOD_COL, ascending=False)
@@ -296,7 +296,7 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
 
 
 def get_float_cols(
-    time_type: Literal['current', 'historical'], demo_col: DEMOGRAPHIC_TYPE, intersectional_pop_cols: List[str]
+    time_type: Literal["current", "historical"], demo_col: DEMOGRAPHIC_TYPE, intersectional_pop_cols: List[str]
 ) -> List[str]:
     """Builds a list of col names representing numerical data per breakdown.
 

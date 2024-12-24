@@ -1,20 +1,20 @@
-import AnimateHeight from 'react-animate-height'
 import { Grid } from '@mui/material'
+import AnimateHeight from 'react-animate-height'
 import type {
-  MetricConfig,
   DataTypeConfig,
+  MetricConfig,
 } from '../../data/config/MetricConfigTypes'
-import type { HetRow } from '../../data/utils/DatasetTypes'
-import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
-import type { MetricQueryResponse } from '../../data/query/MetricQuery'
-import type { Fips } from '../../data/utils/Fips'
-import type { DemographicType } from '../../data/query/Breakdowns'
-import type { DemographicGroup } from '../../data/utils/Constants'
-import ExtremeList from './ExtremeList'
-import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
-import HetTerm from '../../styles/HetComponents/HetTerm'
-import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
 import { formatFieldValue } from '../../data/config/MetricConfigUtils'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { DemographicGroup } from '../../data/utils/Constants'
+import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
+import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
+import HetTerm from '../../styles/HetComponents/HetTerm'
+import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
+import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
+import ExtremeList from './ExtremeList'
 
 interface ExtremesListBoxProps {
   // MetricConfig for data
