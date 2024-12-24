@@ -39,7 +39,7 @@ export function initGlobals(
 ) {
   if (globals.initialized && !import.meta.env.PROD) {
     // throw new Error('Cannot initialize globals multiple times')
-    console.log('Cannot initialize globals multiple times')
+    console.error('Cannot initialize globals multiple times')
   }
 
   globals.environment = environment

@@ -5,6 +5,7 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
@@ -21,10 +22,10 @@ async function ensureCorrectDatasetsDownloaded(
   ahrDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
+  cardId?: ScrollableHashId,
 ) {
   const ahrProvider = new AhrProvider()
   const specificId = appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
-
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   // Evaluate the response with requesting "All" field
@@ -34,9 +35,9 @@ async function ensureCorrectDatasetsDownloaded(
       baseBreakdown.addBreakdown(demographicType),
       'suicide',
       'current',
+      cardId,
     ),
   )
-
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
 
   const consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [
@@ -115,9 +116,10 @@ describe('AhrProvider', () => {
 
   test('County and Sex Breakdown (should just get the ALLs)', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'chr_data-race_and_ethnicity_county_current',
+      'chr_data-alls_county_current',
       Breakdowns.forFips(new Fips('01001')),
       SEX,
+      'rates-over-time', // need to mock a call from a card that should get fallbacks
     )
   })
 })
