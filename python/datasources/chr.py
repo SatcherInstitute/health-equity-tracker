@@ -18,6 +18,13 @@ The text contains the words `National Data`
 CHR_DIR = "chr"
 
 CHR_FILE_LOOKUP = {
+    "2011": "2011 County Health Rankings National Data_v2_0.xls",
+    "2012": "2012 County Health Rankings National Data_v2_0.xls",
+    "2013": "2013CountyHealthRankingsNationalData.xls",
+    "2014": "2014 County Health Rankings Data - v6.xls",
+    "2015": "2015 County Health Rankings Data - v3.xls",
+    "2016": "2016 County Health Rankings Data - v3.xls",
+    "2017": "2017CountyHealthRankingsData.xls",
     "2018": "2018 County Health Rankings Data - v2.xls",
     "2019": "2019 County Health Rankings Data - v3.xls",
     "2020": "2020 County Health Rankings Data - v2.xlsx",
@@ -29,36 +36,53 @@ CHR_FILE_LOOKUP = {
 
 
 def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None):
-    het_to_source_select_topic_all_to_race_prefix_map = {
-        std_col.PREVENTABLE_HOSP_PREFIX: {"Preventable Hospitalization Rate": "Preventable Hosp. Rate"},
-        std_col.EXCESSIVE_DRINKING_PREFIX: {"% Excessive Drinking": None},
-    }
+    het_to_source_select_topic_all_to_race_prefix_map = {}
+
+    if year is None or int(year) >= 2012:
+        het_to_source_select_topic_all_to_race_prefix_map[std_col.EXCESSIVE_DRINKING_PREFIX] = {
+            "% Excessive Drinking": None
+        }
+
+    if year is None or int(year) >= 2015:
+        het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
+            "Preventable Hosp. Rate": None
+        }
 
     if year is None or year == "2019":
         het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
             "Preventable Hosp. Rate": "Preventable Hosp. Rate"
         }
 
-    if year is None or int(year) <= 2018:
+    if year is None or int(year) > 2019:
         het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
-            "Preventable Hosp. Rate": None
+            "Preventable Hospitalization Rate": "Preventable Hosp. Rate"
         }
 
     return het_to_source_select_topic_all_to_race_prefix_map
 
 
 def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None = None):
-    het_to_source_additional_topic_all_to_race_prefix_map = {
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: {"% Frequent Mental Distress": None},
-    }
+    het_to_source_additional_topic_all_to_race_prefix_map = {}
+
+    if year is None or int(year) >= 2011:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"Diabetes": None}
+
+    if year is None or int(year) >= 2012:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"% diabetic": None}
+
+    if year is None or int(year) >= 2014:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"% Diabetic": None}
+
+    if year is None or int(year) >= 2016:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.FREQUENT_MENTAL_DISTRESS_PREFIX] = {
+            "% Frequent Mental Distress": None
+        }
 
     if year is None or int(year) >= 2020:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.SUICIDE_PREFIX] = {"Crude Rate": "Suicide Rate"}
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {
             "% Adults with Diabetes": None
         }
-    elif year is None or int(year) <= 2019:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"% Diabetic": None}
 
     if year is None or int(year) >= 2023:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.VOTER_PARTICIPATION_PREFIX] = {
@@ -118,6 +142,7 @@ def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
 source_fips_col = "FIPS"
 source_per_100k = "Rate"
 source_pct_rate = "%"
+source_pct_rate_cols_no_symbol = ["Diabetes"]
 
 
 class CHRData(DataSource):
@@ -248,7 +273,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
         source_all_col = list(source_all_race_map.keys())[0]
         if source_per_100k in source_all_col:
             rate_suffix = std_col.PER_100K_SUFFIX
-        if source_pct_rate in source_all_col:
+        if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
             rate_suffix = std_col.PCT_RATE_SUFFIX
 
         # set this metrics sub melt map
@@ -271,7 +296,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
         source_all_col = list(source_all_race_map.keys())[0]
         if source_per_100k in source_all_col:
             rate_suffix = std_col.PER_100K_SUFFIX
-        if source_pct_rate in source_all_col:
+        if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
             rate_suffix = std_col.PCT_RATE_SUFFIX
 
         # set this metrics sub melt map

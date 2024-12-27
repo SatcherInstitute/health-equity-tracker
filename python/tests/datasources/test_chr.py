@@ -28,7 +28,7 @@ def test_write_to_bq_race_county(
     datasource = CHRData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="race")
 
-    assert mock_xlsx_data_dir.call_count == 14
+    assert mock_xlsx_data_dir.call_count == 28
 
     # calls writing COUNTY CURRENT and COUNTY HISTORICAL to bq
     assert mock_bq.call_count == 2
