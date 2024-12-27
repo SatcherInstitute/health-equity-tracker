@@ -40,7 +40,7 @@ def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None =
     return het_to_source_additional_topic_all_to_race_prefix_map
 
 
-source_race_to_id_map = {
+default_source_race_to_id_map = {
     "(AIAN)": std_col.Race.AIAN_NH.value,
     "(Asian)": std_col.Race.API_NH.value,
     "(Black)": std_col.Race.BLACK_NH.value,
@@ -76,22 +76,16 @@ source_nh_race_to_id_map = {
 
 
 def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
-
-    race_maps = {
-        ("2020", "Ranked Measure Data"): source_race_to_id_map,
-        ("2020", "Additional Measure Data"): source_race_to_id_map,
-        ("2021", "Ranked Measure Data"): source_race_to_id_map,
-        ("2021", "Additional Measure Data"): source_race_to_id_map,
+    """
+    Returns a dict of CHR source race names to the HET standard race code.
+    Some source years/sheets use inconsistent labels for the column names.
+    """
+    special_race_maps = {
         ("2022", "Ranked Measure Data"): source_race_w_to_id_map,
         ("2022", "Additional Measure Data"): source_race_w_to_id_map,
-        ("2023", "Ranked Measure Data"): source_race_to_id_map,
-        ("2023", "Additional Measure Data"): source_race_to_id_map,
-        ("2024", "Select Measure Data"): source_race_to_id_map,
-        ("2024", "Ranked Measure Data"): source_race_to_id_map,
         ("2024", "Additional Measure Data"): source_nh_race_to_id_map,
     }
-
-    return race_maps[(year, sheet_name)]
+    return special_race_maps.get((year, sheet_name), default_source_race_to_id_map)
 
 
 source_fips_col = "FIPS"
