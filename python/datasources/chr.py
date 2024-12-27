@@ -9,6 +9,9 @@ import pandas as pd
 CHR_DIR = "chr"
 
 CHR_FILE_LOOKUP = {
+    # "2019": "2019 County Health Rankings Data - v3.xls",
+    "2020": "2020 County Health Rankings Data - v2.xlsx",
+    "2021": "2021 County Health Rankings Data - v1.xlsx",
     "2022": "2022 County Health Rankings Data - v1.xlsx",
     "2023": "2023 County Health Rankings Data - v2.xlsx",
     "2024": "2024_county_health_release_data_-_v1.xlsx",
@@ -29,7 +32,7 @@ def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None =
         std_col.DIABETES_PREFIX: {"% Adults with Diabetes": None},
     }
 
-    if year != "2022":
+    if year is None or int(year) >= 2023:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.VOTER_PARTICIPATION_PREFIX] = {
             "% Voter Turnout": None
         }
@@ -37,8 +40,15 @@ def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None =
     return het_to_source_additional_topic_all_to_race_prefix_map
 
 
-# frequent mental distress
 source_race_to_id_map = {
+    "(AIAN)": std_col.Race.AIAN_NH.value,
+    "(Asian)": std_col.Race.API_NH.value,
+    "(Black)": std_col.Race.BLACK_NH.value,
+    "(Hispanic)": std_col.Race.HISP.value,
+    "(White)": std_col.Race.WHITE_NH.value,
+}
+
+source_race_few_to_id_map = {
     "(AIAN)": std_col.Race.AIAN_NH.value,
     "(Asian)": std_col.Race.API_NH.value,
     "(Black)": std_col.Race.BLACK_NH.value,
@@ -68,6 +78,10 @@ source_nh_race_to_id_map = {
 def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
 
     race_maps = {
+        ("2020", "Ranked Measure Data"): source_race_to_id_map,
+        ("2020", "Additional Measure Data"): source_race_to_id_map,
+        ("2021", "Ranked Measure Data"): source_race_to_id_map,
+        ("2021", "Additional Measure Data"): source_race_to_id_map,
         ("2022", "Ranked Measure Data"): source_race_w_to_id_map,
         ("2022", "Additional Measure Data"): source_race_w_to_id_map,
         ("2023", "Ranked Measure Data"): source_race_to_id_map,
