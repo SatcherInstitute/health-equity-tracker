@@ -35,8 +35,8 @@ CHR_FILE_LOOKUP = {
 }
 
 
-def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None):
-    het_to_source_select_topic_all_to_race_prefix_map = {}
+def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None) -> dict[str, dict[str, str | None]]:
+    het_to_source_select_topic_all_to_race_prefix_map: dict[str, dict[str, str | None]] = {}
 
     if year is None or int(year) >= 2012:
         het_to_source_select_topic_all_to_race_prefix_map[std_col.EXCESSIVE_DRINKING_PREFIX] = {
@@ -61,8 +61,10 @@ def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = Non
     return het_to_source_select_topic_all_to_race_prefix_map
 
 
-def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None = None):
-    het_to_source_additional_topic_all_to_race_prefix_map = {}
+def get_het_to_source_additional_topic_all_to_race_prefix_map(
+    year: str | None = None,
+) -> dict[str, dict[str, str | None]]:
+    het_to_source_additional_topic_all_to_race_prefix_map: dict[str, dict[str, str | None]] = {}
 
     if year is None or int(year) >= 2011:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"Diabetes": None}
