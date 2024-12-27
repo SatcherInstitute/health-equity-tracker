@@ -8,18 +8,34 @@ import pandas as pd
 
 CHR_DIR = "chr"
 
-
-het_to_source_select_topic_all_to_race_prefix_map: Dict[str, Dict[str, Optional[str]]] = {
-    std_col.PREVENTABLE_HOSP_PREFIX: {"Preventable Hospitalization Rate": "Preventable Hosp. Rate"},
-    std_col.EXCESSIVE_DRINKING_PREFIX: {"% Excessive Drinking": None},
+CHR_FILE_LOOKUP = {
+    "2022": "2022 County Health Rankings Data - v1.xlsx",
+    "2023": "2023 County Health Rankings Data - v2.xlsx",
+    "2024": "2024_county_health_release_data_-_v1.xlsx",
 }
 
-het_to_source_additional_topic_all_to_race_prefix_map: Dict[str, Dict[str, Optional[str]]] = {
-    std_col.SUICIDE_PREFIX: {"Crude Rate": "Suicide Rate"},
-    std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: {"% Frequent Mental Distress": None},
-    std_col.DIABETES_PREFIX: {"% Adults with Diabetes": None},
-    std_col.VOTER_PARTICIPATION_PREFIX: {"% Voter Turnout": None},
-}
+
+def get_het_to_source_select_topic_all_to_race_prefix_map():
+    return {
+        std_col.PREVENTABLE_HOSP_PREFIX: {"Preventable Hospitalization Rate": "Preventable Hosp. Rate"},
+        std_col.EXCESSIVE_DRINKING_PREFIX: {"% Excessive Drinking": None},
+    }
+
+
+def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None = None):
+    het_to_source_additional_topic_all_to_race_prefix_map = {
+        std_col.SUICIDE_PREFIX: {"Crude Rate": "Suicide Rate"},
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: {"% Frequent Mental Distress": None},
+        std_col.DIABETES_PREFIX: {"% Adults with Diabetes": None},
+    }
+
+    if year != "2022":
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.VOTER_PARTICIPATION_PREFIX] = {
+            "% Voter Turnout": None
+        }
+
+    return het_to_source_additional_topic_all_to_race_prefix_map
+
 
 # frequent mental distress
 source_race_to_id_map = {
@@ -30,8 +46,15 @@ source_race_to_id_map = {
     "(White)": std_col.Race.WHITE_NH.value,
 }
 
-# suicide 2024
-source_nh_race_code_to_id_map_2024 = {
+source_race_w_to_id_map = {
+    "(AIAN)": std_col.Race.AIAN_NH.value,
+    "(Asian)": std_col.Race.API_NH.value,
+    "(Black)": std_col.Race.BLACK_NH.value,
+    "(Hispanic)": std_col.Race.HISP.value,
+    "(white)": std_col.Race.WHITE_NH.value,
+}
+
+source_nh_race_to_id_map = {
     "(Hispanic (all races))": std_col.Race.HISP.value,
     "(Non-Hispanic AIAN)": std_col.Race.AIAN_NH.value,
     "(Non-Hispanic Asian)": std_col.Race.ASIAN_NH.value,
@@ -41,14 +64,20 @@ source_nh_race_code_to_id_map_2024 = {
     "(Non-Hispanic White)": std_col.Race.WHITE_NH.value,
 }
 
-# suicide 2023
-source_race_code_to_id_map_2023 = {
-    "(AIAN)": std_col.Race.AIAN_NH.value,
-    "(Asian)": std_col.Race.ASIAN_NH.value,
-    "(Black)": std_col.Race.BLACK_NH.value,
-    "(Hispanic)": std_col.Race.HISP.value,
-    "(White)": std_col.Race.WHITE_NH.value,
-}
+
+def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
+
+    race_maps = {
+        ("2022", "Ranked Measure Data"): source_race_w_to_id_map,
+        ("2022", "Additional Measure Data"): source_race_w_to_id_map,
+        ("2023", "Ranked Measure Data"): source_race_to_id_map,
+        ("2023", "Additional Measure Data"): source_race_to_id_map,
+        ("2024", "Select Measure Data"): source_race_to_id_map,
+        ("2024", "Ranked Measure Data"): source_race_to_id_map,
+        ("2024", "Additional Measure Data"): source_nh_race_to_id_map,
+    }
+
+    return race_maps[(year, sheet_name)]
 
 
 source_fips_col = "FIPS"
@@ -75,7 +104,7 @@ class CHRData(DataSource):
 
         dfs = []
 
-        for year in ["2023", "2024"]:
+        for year in CHR_FILE_LOOKUP.keys():
 
             main_sheet_name = "Select Measure Data" if year == "2024" else "Ranked Measure Data"
             main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
@@ -94,7 +123,8 @@ class CHRData(DataSource):
                 year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map
             )
             year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
-            year_df[std_col.TIME_PERIOD_COL] = year
+            year_df.insert(loc=0, column=std_col.TIME_PERIOD_COL, value=year)
+
             dfs.append(year_df)
 
         df = pd.concat(dfs)
@@ -116,8 +146,8 @@ class CHRData(DataSource):
             float_cols = timeview_float_cols_map[timeview]
             df_for_bq, float_cols = convert_some_pct_rate_to_100k(df, float_cols)
 
-            topic_prefixes = list(het_to_source_select_topic_all_to_race_prefix_map.keys()) + list(
-                het_to_source_additional_topic_all_to_race_prefix_map.keys()
+            topic_prefixes = list(get_het_to_source_select_topic_all_to_race_prefix_map().keys()) + list(
+                get_het_to_source_additional_topic_all_to_race_prefix_map().keys()
             )
             topic_prefixes.append("chr_population")
 
@@ -138,19 +168,16 @@ def get_source_usecols(year: str, sheet_name: str) -> List[str]:
     source_usecols = [source_fips_col]
 
     sheet_topic_map: Dict[str, Dict[str, Optional[str]]] = {}
-    sheet_race_map: Dict[str, str] = {}
+    sheet_race_map = get_race_map(year, sheet_name)
     if sheet_name in ["Ranked Measure Data", "Select Measure Data"]:
-        sheet_topic_map = het_to_source_select_topic_all_to_race_prefix_map
-        sheet_race_map = source_race_to_id_map
+        sheet_topic_map = get_het_to_source_select_topic_all_to_race_prefix_map()
     if sheet_name == "Additional Measure Data":
-        sheet_topic_map = het_to_source_additional_topic_all_to_race_prefix_map
-        sheet_race_map = source_nh_race_code_to_id_map_2024 if year == "2024" else source_race_code_to_id_map_2023
+        sheet_topic_map = get_het_to_source_additional_topic_all_to_race_prefix_map(year)
 
     for source_topic_all_to_race_prefix_map in sheet_topic_map.values():
         for source_topic, source_topic_race_prefix in source_topic_all_to_race_prefix_map.items():
             source_usecols.append(source_topic)
 
-            # some topics only have ALLs
             if source_topic_race_prefix is not None:
                 for race_suffix in sheet_race_map.keys():
                     source_usecols.append(f"{source_topic_race_prefix} {race_suffix}")
@@ -167,20 +194,19 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
         dict: A nested dict
     """
 
-    race_code_to_id_map = source_nh_race_code_to_id_map_2024 if year == "2024" else source_race_code_to_id_map_2023
-
     melt_map: Dict[str, Dict[str, str]] = {}
-    # each topic get its own sub-mapping
-    for het_prefix, source_all_race_map in het_to_source_select_topic_all_to_race_prefix_map.items():
-        select_topic_melt_map: Dict[str, str] = {}
-        # maps the sources by race topic column name to the needed HET race column values
-        for source_all, source_race_prefix in source_all_race_map.items():
-            select_topic_melt_map[source_all] = std_col.Race.ALL.value
 
-            # some topics only have ALLs
+    ranked_race_code_to_id_map = get_race_map(year, "Ranked Measure Data")
+    for het_prefix, source_all_race_map in get_het_to_source_select_topic_all_to_race_prefix_map().items():
+        topic_melt_map: Dict[str, str] = {}
+
+        for source_all, source_race_prefix in source_all_race_map.items():
+            topic_melt_map[source_all] = std_col.Race.ALL.value
+
+            # some topics have by race columns
             if source_race_prefix is not None:
-                for source_race_suffix, het_race_id in source_race_to_id_map.items():
-                    select_topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
+                for source_race_suffix, het_race_id in ranked_race_code_to_id_map.items():
+                    topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
 
         # assign 100k or pct_rate as needed
         rate_suffix = ""
@@ -191,9 +217,10 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
             rate_suffix = std_col.PCT_RATE_SUFFIX
 
         # set this metrics sub melt map
-        melt_map[f"{het_prefix}_{rate_suffix}"] = select_topic_melt_map
+        melt_map[f"{het_prefix}_{rate_suffix}"] = topic_melt_map
 
-    for het_prefix, source_all_race_map in het_to_source_additional_topic_all_to_race_prefix_map.items():
+    additional_race_code_to_id_map = get_race_map(year, "Additional Measure Data")
+    for het_prefix, source_all_race_map in get_het_to_source_additional_topic_all_to_race_prefix_map(year).items():
         additional_topic_melt_map: Dict[str, str] = {}
         # maps the sources by race topic column name to the needed HET race column values
         for source_all, source_race_prefix in source_all_race_map.items():
@@ -201,7 +228,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
 
             # some topics only have ALLs
             if source_race_prefix is not None:
-                for source_race_suffix, het_race_id in race_code_to_id_map.items():
+                for source_race_suffix, het_race_id in additional_race_code_to_id_map.items():
                     additional_topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
 
         # assign 100k or pct_rate as needed
@@ -231,15 +258,15 @@ def get_float_cols() -> Dict[str, List[str]]:
     historical_float_cols = []
 
     # include all numerical columns in the time map
-    all_topics = list(het_to_source_select_topic_all_to_race_prefix_map.keys()) + list(
-        het_to_source_additional_topic_all_to_race_prefix_map.keys()
+    all_topics = list(get_het_to_source_select_topic_all_to_race_prefix_map().keys()) + list(
+        get_het_to_source_additional_topic_all_to_race_prefix_map().keys()
     )
     for topic_prefix in all_topics:
 
         # assign 100k or pct_rate as needed based on the source col name
         source_dict = {
-            **het_to_source_select_topic_all_to_race_prefix_map,
-            **het_to_source_additional_topic_all_to_race_prefix_map,
+            **get_het_to_source_select_topic_all_to_race_prefix_map(),
+            **get_het_to_source_additional_topic_all_to_race_prefix_map(),
         }.get(topic_prefix)
 
         if source_dict is None:
@@ -263,12 +290,7 @@ def get_float_cols() -> Dict[str, List[str]]:
 def get_df_from_chr_excel_sheet(year: str, sheet_name: str) -> pd.DataFrame:
     source_usecols = get_source_usecols(year, sheet_name)
 
-    file_name_lookup = {
-        "2024": "2024_county_health_release_data_-_v1.xlsx",
-        "2023": "2023 County Health Rankings Data - v2.xlsx",
-    }
-
-    file_name = file_name_lookup[year]
+    file_name = CHR_FILE_LOOKUP[year]
 
     return gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
         CHR_DIR,
