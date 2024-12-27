@@ -4,12 +4,22 @@ from ingestion.constants import COUNTY_LEVEL, CURRENT, HISTORICAL
 from typing import List, Dict, Optional, Tuple
 import pandas as pd
 
-# NOTE: col values for numerator and denominator are NULL
+"""
+Files downloaded from County Health Rankings website
+Recent years:
+- countyhealthrankings.org/health-data/methodology-and-sources/data-documentation
+Older years:
+- countyhealthrankings.org/health-data/methodology-and-sources/data-documentation/national-data-documentation-2010-2022
+
+File names vary as do the download link text, but it's generally the first file in each section.
+The text contains the words `National Data`
+"""
 
 CHR_DIR = "chr"
 
 CHR_FILE_LOOKUP = {
-    # "2019": "2019 County Health Rankings Data - v3.xls",
+    "2018": "2018 County Health Rankings Data - v2.xls",
+    "2019": "2019 County Health Rankings Data - v3.xls",
     "2020": "2020 County Health Rankings Data - v2.xlsx",
     "2021": "2021 County Health Rankings Data - v1.xlsx",
     "2022": "2022 County Health Rankings Data - v1.xlsx",
@@ -18,19 +28,37 @@ CHR_FILE_LOOKUP = {
 }
 
 
-def get_het_to_source_select_topic_all_to_race_prefix_map():
-    return {
+def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None):
+    het_to_source_select_topic_all_to_race_prefix_map = {
         std_col.PREVENTABLE_HOSP_PREFIX: {"Preventable Hospitalization Rate": "Preventable Hosp. Rate"},
         std_col.EXCESSIVE_DRINKING_PREFIX: {"% Excessive Drinking": None},
     }
 
+    if year is None or year == "2019":
+        het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
+            "Preventable Hosp. Rate": "Preventable Hosp. Rate"
+        }
+
+    if year is None or int(year) <= 2018:
+        het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
+            "Preventable Hosp. Rate": None
+        }
+
+    return het_to_source_select_topic_all_to_race_prefix_map
+
 
 def get_het_to_source_additional_topic_all_to_race_prefix_map(year: str | None = None):
     het_to_source_additional_topic_all_to_race_prefix_map = {
-        std_col.SUICIDE_PREFIX: {"Crude Rate": "Suicide Rate"},
         std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: {"% Frequent Mental Distress": None},
-        std_col.DIABETES_PREFIX: {"% Adults with Diabetes": None},
     }
+
+    if year is None or int(year) >= 2020:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.SUICIDE_PREFIX] = {"Crude Rate": "Suicide Rate"}
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {
+            "% Adults with Diabetes": None
+        }
+    elif year is None or int(year) <= 2019:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"% Diabetic": None}
 
     if year is None or int(year) >= 2023:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.VOTER_PARTICIPATION_PREFIX] = {
@@ -49,8 +77,6 @@ default_source_race_to_id_map = {
 }
 
 source_race_few_to_id_map = {
-    "(AIAN)": std_col.Race.AIAN_NH.value,
-    "(Asian)": std_col.Race.API_NH.value,
     "(Black)": std_col.Race.BLACK_NH.value,
     "(Hispanic)": std_col.Race.HISP.value,
     "(White)": std_col.Race.WHITE_NH.value,
@@ -81,6 +107,7 @@ def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
     Some source years/sheets use inconsistent labels for the column names.
     """
     special_race_maps = {
+        ("2019", "Ranked Measure Data"): source_race_few_to_id_map,
         ("2022", "Ranked Measure Data"): source_race_w_to_id_map,
         ("2022", "Additional Measure Data"): source_race_w_to_id_map,
         ("2024", "Additional Measure Data"): source_nh_race_to_id_map,
@@ -124,8 +151,8 @@ class CHRData(DataSource):
                 }
             )
 
-            # # drop national and state-level rows
-            year_df = year_df[~year_df[std_col.COUNTY_FIPS_COL].str.endswith("000")]
+            # # drop any national and state-level rows
+            year_df = year_df[~year_df[std_col.COUNTY_FIPS_COL].astype(str).str.endswith("000")]
             melt_map = get_melt_map(year)
             year_df = dataset_utils.melt_to_het_style_df(
                 year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map
@@ -178,7 +205,7 @@ def get_source_usecols(year: str, sheet_name: str) -> List[str]:
     sheet_topic_map: Dict[str, Dict[str, Optional[str]]] = {}
     sheet_race_map = get_race_map(year, sheet_name)
     if sheet_name in ["Ranked Measure Data", "Select Measure Data"]:
-        sheet_topic_map = get_het_to_source_select_topic_all_to_race_prefix_map()
+        sheet_topic_map = get_het_to_source_select_topic_all_to_race_prefix_map(year)
     if sheet_name == "Additional Measure Data":
         sheet_topic_map = get_het_to_source_additional_topic_all_to_race_prefix_map(year)
 
@@ -205,7 +232,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
     melt_map: Dict[str, Dict[str, str]] = {}
 
     ranked_race_code_to_id_map = get_race_map(year, "Ranked Measure Data")
-    for het_prefix, source_all_race_map in get_het_to_source_select_topic_all_to_race_prefix_map().items():
+    for het_prefix, source_all_race_map in get_het_to_source_select_topic_all_to_race_prefix_map(year).items():
         topic_melt_map: Dict[str, str] = {}
 
         for source_all, source_race_prefix in source_all_race_map.items():
