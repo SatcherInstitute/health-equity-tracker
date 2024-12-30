@@ -12,7 +12,8 @@
 		"frontend/uncompressed_assets/",
 		"frontend/src/assets/",
 		"frontend_server/",
-		"composer-local-dev/"
+		"composer-local-dev/",
+		"**/[^.]*"
 	],
 	"allowCompoundWords": true,
 	"minWordLength": 3,
