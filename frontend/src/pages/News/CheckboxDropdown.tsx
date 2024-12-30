@@ -2,10 +2,10 @@ import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import ListItemText from '@mui/material/ListItemText'
+import type { MenuProps } from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import type React from 'react'
-import type { MenuProps } from '@mui/material/Menu'
 
 type Option = {
   value: string
