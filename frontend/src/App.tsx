@@ -73,9 +73,6 @@ const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
 const PolicyPage = React.lazy(
   async () => await import('./pages/Policy/policyComponents/PolicyPage'),
 )
-const AllPosts = React.lazy(
-  async () => await import('./pages/News/NewsAndStoriesPage'),
-)
 const ShareYourStory = React.lazy(
   async () => await import('./pages/News/ShareYourStory'),
 )

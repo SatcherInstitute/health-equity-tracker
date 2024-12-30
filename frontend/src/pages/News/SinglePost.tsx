@@ -45,7 +45,9 @@ export default function SinglePost() {
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
   const [nextArticle, setNextArticle] = useState<Article>()
-
+  const handleTagClick = (tagName: string) => {
+    navigate(`${NEWS_PAGE_LINK}?category=${encodeURIComponent(tagName)}`)
+  }
   function goNext() {
     if (nextArticle) {
       navigate(`${NEWS_PAGE_LINK}/${nextArticle.slug}`)
@@ -271,6 +273,7 @@ export default function SinglePost() {
                     )}`,
                   })),
                 )}
+                onTagClick={handleTagClick}
               />
             </div>
           ) : (
