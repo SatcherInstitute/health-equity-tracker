@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
+import { useSearchParams } from 'react-router-dom'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import * as blogUtils from '../../utils/blogUtils'
@@ -16,7 +17,7 @@ export default function NewsAndStoriesPage() {
     fetchNewsData,
     blogUtils.REACT_QUERY_OPTIONS,
   )
-
+  const [searchParams] = useSearchParams()
   const [allArticles, setAllArticles] = useState<Article[]>([])
   const [authors, setAuthors] = useState<string[]>([])
   const [categories, setCategories] = useState<string[]>([])
@@ -27,6 +28,7 @@ export default function NewsAndStoriesPage() {
   const isLgUp = useIsBreakpointAndUp('lg')
   const bgHeight = isLgUp ? '42rem' : '12rem'
 
+  // Fetch and process articles
   useEffect(() => {
     if (data?.data) {
       const articles = data.data
@@ -37,7 +39,11 @@ export default function NewsAndStoriesPage() {
 
       articles.forEach((article: Article) => {
         if (article.acf?.contributing_author) {
-          authorSet.add(article.acf.contributing_author)
+          let author = article.acf.contributing_author
+          if (author.length > 27) {
+            author = `${author.substring(0, 27)}...`
+          }
+          authorSet.add(author)
         }
         if (article._embedded?.['wp:term']) {
           article._embedded['wp:term'][0]?.forEach((term: { name: string }) =>
@@ -57,6 +63,19 @@ export default function NewsAndStoriesPage() {
       setCategories(sortedCategories)
     }
   }, [data?.data])
+
+  // Apply filters from URL on load
+  useEffect(() => {
+    const category = searchParams.get('category')
+    const author = searchParams.get('author')
+
+    if (category) {
+      setSelectedCategories([category])
+    }
+    if (author) {
+      setSelectedAuthors([author])
+    }
+  }, [searchParams])
 
   const filteredArticles =
     allArticles.filter((article: Article) => {
@@ -138,6 +157,7 @@ export default function NewsAndStoriesPage() {
               selectedOptions={selectedAuthors}
               onSelectionChange={handleAuthorChange}
             />
+
             <CheckboxDropdown
               label='Categories'
               options={categories.map((category) => ({

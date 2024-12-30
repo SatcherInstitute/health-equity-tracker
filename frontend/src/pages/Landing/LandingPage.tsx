@@ -17,7 +17,7 @@ import {
   WARM_WELCOME_DEMO_SETTING,
 } from '../../utils/internalRoutes'
 import type { Article } from '../News/ArticleTypes'
-import NewsPreviewCard from '../News/NewsPreviewCard'
+import NewsAndStoriesPreviewCardOutlined from '../News/NewsAndStoriesPreviewCardOutlined'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -26,14 +26,12 @@ function LandingPage() {
     REACT_QUERY_OPTIONS,
   )
 
-  const isSm = useIsBreakpointAndUp('sm')
   const isMd = useIsBreakpointAndUp('md')
   const isLg = useIsBreakpointAndUp('lg')
 
   let numberOfArticlePreviews = 1
-  if (isSm) numberOfArticlePreviews = 2
-  if (isMd) numberOfArticlePreviews = 3
-  if (isLg) numberOfArticlePreviews = 4
+  if (isMd) numberOfArticlePreviews = 2
+  if (isLg) numberOfArticlePreviews = 3
 
   const recentArticles = data?.data?.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -290,15 +288,15 @@ function LandingPage() {
             </p>
           </div>
           <div className='w-full'>
-            <div className='flex flex-wrap px-4 '>
+            <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
               {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
                   return (
-                    <div
-                      key={article.id}
-                      className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
-                    >
-                      <NewsPreviewCard article={article} />
+                    <div key={article.id}>
+                      <NewsAndStoriesPreviewCardOutlined
+                        article={article}
+                        bgHeight='14rem'
+                      />
                     </div>
                   )
                 })

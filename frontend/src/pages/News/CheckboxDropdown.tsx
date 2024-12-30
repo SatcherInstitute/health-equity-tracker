@@ -2,6 +2,7 @@ import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import ListItemText from '@mui/material/ListItemText'
+import type { MenuProps } from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import type React from 'react'
@@ -16,6 +17,7 @@ interface CheckboxDropdownProps {
   label: string
   selectedOptions: string[]
   onSelectionChange: (selected: string[]) => void
+  menuProps?: Partial<MenuProps>
 }
 
 const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
@@ -23,6 +25,7 @@ const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
   label,
   selectedOptions,
   onSelectionChange,
+  menuProps,
 }) => {
   const allOptionValues = options.map((option) => option.value)
   const isAllSelected = selectedOptions.length === allOptionValues.length
@@ -67,6 +70,18 @@ const CheckboxDropdown: React.FC<CheckboxDropdownProps> = ({
             ? 'All Selected'
             : (selected as string[]).join(', ')
         }
+        MenuProps={{
+          ...menuProps,
+          slotProps: {
+            paper: {
+              sx: {
+                mt: 2,
+                ml: 1,
+                mr: 1,
+              },
+            },
+          },
+        }}
       >
         <MenuItem value='all'>
           <Checkbox
