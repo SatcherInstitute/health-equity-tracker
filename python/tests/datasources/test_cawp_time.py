@@ -52,7 +52,7 @@ def _fetch_json_from_web(*args):
         file_name = "test_legislators-historical.json"
     elif url == US_CONGRESS_CURRENT_URL:
         file_name = "test_legislators-current.json"
-    print(f'reading mock US CONGRESS: {file_name}')
+    print(f"reading mock US CONGRESS: {file_name}")
     with open(os.path.join(TEST_DIR, file_name)) as file:
         return json.load(file)
 
@@ -80,7 +80,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
             "race_ethnicity": str,
         }
         return pd.read_csv(
-            os.path.join(TEST_DIR, f'test_input_{filename}'),
+            os.path.join(TEST_DIR, f"test_input_{filename}"),
             dtype=test_input_data_types,
             index_col=False,
         )
@@ -111,26 +111,26 @@ def _load_csv_as_df_from_web(*args, **kwargs):
         fips = "XX"
 
     return pd.read_csv(
-        os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv'),
+        os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f"cawp_state_leg_{fips}.csv"),
         dtype=dtype,
     )
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.fetch_json_from_web", side_effect=_fetch_json_from_web)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_web",
     side_effect=_load_csv_as_df_from_web,
 )
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_data_dir,
 )
 @mock.patch(
-    'datasources.cawp_time.get_consecutive_time_periods',
+    "datasources.cawp_time.get_consecutive_time_periods",
     side_effect=_get_consecutive_time_periods,
 )
-@mock.patch('datasources.cawp_time.get_state_level_fips', return_value=FIPS_TO_TEST)
+@mock.patch("datasources.cawp_time.get_state_level_fips", return_value=FIPS_TO_TEST)
 def testWriteToBq(
     mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
     mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
@@ -145,12 +145,12 @@ def testWriteToBq(
     print("testWriteToBq()")
 
     kwargs_for_bq = {
-        'filename': 'test_file.csv',
-        'metadata_table_id': 'test_metadata',
-        'table_name': 'output_table',
+        "filename": "test_file.csv",
+        "metadata_table_id": "test_metadata",
+        "table_name": "output_table",
     }
     cawp_data = CAWPTimeData()
-    cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
+    cawp_data.write_to_bq("dataset", "gcs_bucket", **kwargs_for_bq)
 
     # (CONGRESS + STATE LEG) * (BY RACES + BY ALL)
     assert mock_test_fips.call_count == 4

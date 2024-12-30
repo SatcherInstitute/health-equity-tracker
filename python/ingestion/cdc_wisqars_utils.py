@@ -36,7 +36,7 @@ WISQARS_DEATHS = "Deaths"
 WISQARS_CRUDE_RATE = "Crude Rate"
 WISQARS_POP = "Population"
 
-WISQARS_ALL: WISQARS_DEMO_TYPE = 'all'
+WISQARS_ALL: WISQARS_DEMO_TYPE = "all"
 
 WISQARS_COLS = [
     "Age-Adjusted Rate",
@@ -64,10 +64,10 @@ def clean_numeric(val):
     Takes a single parameter 'val' and returns the cleaned value.
     """
     if isinstance(val, str):
-        if '**' in val:
+        if "**" in val:
             return np.nan
-        if ',' in val:
-            return val.replace(',', '')
+        if "," in val:
+            return val.replace(",", "")
     return val
 
 
@@ -82,7 +82,7 @@ def contains_unknown(x):
     Returns:
         bool: True if the input contains the word 'unknown', False otherwise.
     """
-    if isinstance(x, str) and 'unknown' in x.lower():
+    if isinstance(x, str) and "unknown" in x.lower():
         return True
 
     return False
@@ -101,7 +101,7 @@ def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
     """
     for column in columns_to_convert:
         df[column] = df[column].apply(clean_numeric)
-        df[column] = pd.to_numeric(df[column], errors='coerce')
+        df[column] = pd.to_numeric(df[column], errors="coerce")
 
 
 def generate_cols_map(prefixes: List[WISQARS_VAR_TYPE], suffix: str):
@@ -140,34 +140,34 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
     """
 
     bucket_map = {
-        ('All',): 'All',
-        ('Unknown',): 'Unknown',
+        ("All",): "All",
+        ("Unknown",): "Unknown",
         (
-            '0-4',
-            '5-9',
-            '10-14',
-        ): '0-14',
-        ('15-19',): '15-19',
-        ('20-24',): '20-24',
-        ('25-29',): '25-29',
-        ('30-34',): '30-34',
+            "0-4",
+            "5-9",
+            "10-14",
+        ): "0-14",
+        ("15-19",): "15-19",
+        ("20-24",): "20-24",
+        ("25-29",): "25-29",
+        ("30-34",): "30-34",
         (
-            '35-39',
-            '40-44',
-        ): '35-44',
+            "35-39",
+            "40-44",
+        ): "35-44",
         (
-            '45-49',
-            '50-54',
-            '55-59',
-            '60-64',
-        ): '45-64',
+            "45-49",
+            "50-54",
+            "55-59",
+            "60-64",
+        ): "45-64",
         (
-            '65-69',
-            '70-74',
-            '75-79',
-            '80-84',
-            '85+',
-        ): '65+',
+            "65-69",
+            "70-74",
+            "75-79",
+            "80-84",
+            "85+",
+        ): "65+",
     }
 
     het_bucket_dfs = []
@@ -180,12 +180,12 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
         if len(source_bucket) > 1:
 
             # create a list of all count cols
-            numerator_cols = [col_dict['numerator_col'] for col_dict in col_dicts]
-            denominator_cols = [col_dict['denominator_col'] for col_dict in col_dicts]
+            numerator_cols = [col_dict["numerator_col"] for col_dict in col_dicts]
+            denominator_cols = [col_dict["denominator_col"] for col_dict in col_dicts]
             count_cols = list(set(numerator_cols + denominator_cols))
 
             # aggregate by state and year, summing count cols and dropping source rate cols
-            agg_map = {count_col: 'sum' for count_col in count_cols}
+            agg_map = {count_col: "sum" for count_col in count_cols}
             het_bucket_df = (
                 het_bucket_df.groupby([std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL]).agg(agg_map).reset_index()
             )

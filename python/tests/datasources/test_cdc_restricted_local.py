@@ -25,9 +25,7 @@ TEST_DATA = [
 GOLDEN_DATA = {
     ("state", "race"): os.path.join(TEST_DIR, "cdc_restricted_by_race_state.csv"),
     ("county", "race"): os.path.join(TEST_DIR, "cdc_restricted_by_race_county.csv"),
-    ("state", "race_and_age"): os.path.join(
-        TEST_DIR, "cdc_restricted_by_race_and_age_state.csv"
-    ),
+    ("state", "race_and_age"): os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_state.csv"),
     ("state", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_state.csv"),
     ("county", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_county.csv"),
     ("state", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_state.csv"),
@@ -35,9 +33,7 @@ GOLDEN_DATA = {
 }
 
 
-GOLDEN_DATA_NATIONAL = os.path.join(
-    TEST_DIR, "cdc_restricted_by_race_and_age_national.csv"
-)
+GOLDEN_DATA_NATIONAL = os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_national.csv")
 
 
 def testKeyMap():
@@ -57,7 +53,7 @@ def run_test(key):
     dfs = cdc.process_data(TEST_DIR, TEST_DATA)
     expected_df = pd.read_csv(GOLDEN_DATA[key], dtype=str, keep_default_na=False)
 
-    expected_df = expected_df.replace({'nan': ''})
+    expected_df = expected_df.replace({"nan": ""})
 
     assert set(dfs[key].columns) == set(expected_df.columns)
     sortby_cols = list(dfs[key].columns)
@@ -69,42 +65,42 @@ def run_test(key):
 
 
 def testStateRace():
-    key = ('state', 'race')
+    key = ("state", "race")
     run_test(key)
 
 
 def testCountyRace():
-    key = ('county', 'race')
+    key = ("county", "race")
     run_test(key)
 
 
 def testStateRaceAndAge():
-    key = ('state', 'race_and_age')
+    key = ("state", "race_and_age")
     run_test(key)
 
 
 def testStateAge():
-    key = ('state', 'age')
+    key = ("state", "age")
     run_test(key)
 
 
 def testCountyAge():
-    key = ('county', 'age')
+    key = ("county", "age")
     run_test(key)
 
 
 def testStateSex():
-    key = ('state', 'sex')
+    key = ("state", "sex")
     run_test(key)
 
 
 def testCountySex():
-    key = ('county', 'sex')
+    key = ("county", "sex")
     run_test(key)
 
 
 def testGenerateNationalDataset():
-    race_age_state = GOLDEN_DATA[('state', 'race_and_age')]
+    race_age_state = GOLDEN_DATA[("state", "race_and_age")]
     race_age_state_df = pd.read_csv(race_age_state, keep_default_na=False)
 
     groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
@@ -118,6 +114,6 @@ def testGenerateNationalDataset():
         keep_default_na=False,
     )
 
-    national_df = national_df.replace({'nan': ''})
+    national_df = national_df.replace({"nan": ""})
 
     assert_frame_equal(expected_df, national_df, check_like=True)

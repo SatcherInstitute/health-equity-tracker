@@ -1,7 +1,6 @@
 # Configuration settings for python linters when run locally / pre-commit
 # SUPER LINTER settings are stored in .github/workflows/
 [tool.black]
-skip-string-normalization = true
 line-length = 120
 
 [tool.pytest.ini_options]

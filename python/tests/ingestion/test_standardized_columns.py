@@ -8,13 +8,13 @@ import pytest
 def test_extract_prefix():
 
     with pytest.raises(ValueError):
-        extract_prefix('')
+        extract_prefix("")
 
     with pytest.raises(ValueError):
-        extract_prefix('something_without_any_known_suffix')
+        extract_prefix("something_without_any_known_suffix")
 
-    assert extract_prefix('specific_disease_per_100k') == 'specific_disease'
-    assert extract_prefix('some_prefix_estimated_total') == 'some_prefix'
+    assert extract_prefix("specific_disease_per_100k") == "specific_disease"
+    assert extract_prefix("some_prefix_estimated_total") == "some_prefix"
 
 
 def test_ends_with_suffix_from_list():

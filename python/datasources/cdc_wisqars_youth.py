@@ -112,7 +112,7 @@ class CDCWisqarsYouthData(DataSource):
             PCT_SHARE_MAP,
             std_col.RACE_OR_HISPANIC_COL,
             std_col.ALL_VALUE,
-            'Unknown race',
+            "Unknown race",
         )
 
         for col in ESTIMATED_TOTALS_MAP.values():
@@ -127,7 +127,7 @@ class CDCWisqarsYouthData(DataSource):
 
 
 def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
-    output_df = pd.DataFrame(columns=['year', 'state', 'race'])
+    output_df = pd.DataFrame(columns=["year", "state", "race"])
 
     for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:
 
@@ -142,34 +142,34 @@ def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE
         if std_col.ETH_COL in df.columns.to_list():
             df = combine_race_ethnicity(
                 df,
-                ['deaths', 'population', 'crude rate'],
+                ["deaths", "population", "crude rate"],
                 RACE_NAMES_MAPPING,
-                ethnicity_value='Hispanic',
-                additional_group_cols=['year', 'state'],
+                ethnicity_value="Hispanic",
+                additional_group_cols=["year", "state"],
                 treat_zero_count_as_missing=True,
             )
 
             # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
-            subset_mask = df[std_col.RACE_CATEGORY_ID_COL].isin(['HISP', 'UNKNOWN'])
+            subset_mask = df[std_col.RACE_CATEGORY_ID_COL].isin(["HISP", "UNKNOWN"])
 
             # Create a temporary DataFrame with just the subset
             temp_df = df[subset_mask].copy()
 
             # Apply the function to the temporary DataFrame
-            temp_df = generate_per_100k_col(temp_df, 'deaths', 'population', 'crude rate')
+            temp_df = generate_per_100k_col(temp_df, "deaths", "population", "crude rate")
 
             # Update the original DataFrame with the results for the 'crude rate' column
-            df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
+            df.loc[subset_mask, "crude rate"] = temp_df["crude rate"]
 
         df.rename(
             columns={
-                'deaths': f'{variable_string}_{std_col.RAW_SUFFIX}',
-                'population': f'{variable_string}_{std_col.POPULATION_COL}',
-                'crude rate': f'{variable_string}_{std_col.PER_100K_SUFFIX}',
+                "deaths": f"{variable_string}_{std_col.RAW_SUFFIX}",
+                "population": f"{variable_string}_{std_col.POPULATION_COL}",
+                "crude rate": f"{variable_string}_{std_col.PER_100K_SUFFIX}",
             },
             inplace=True,
         )
 
-        output_df = output_df.merge(df, how='outer')
+        output_df = output_df.merge(df, how="outer")
 
     return output_df

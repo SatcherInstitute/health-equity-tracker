@@ -35,12 +35,12 @@ parser.add_argument("-prefix", "--prefix", help="Prefix for the CDC restricted C
 # Geo columns (state, county) - we aggregate or groupby either state or county.
 # Demog columns (race, age, sex) - we groupby one of these at a time.
 # Outcome columns (hosp, death) - these are the measured variables we count.
-STATE_COL = 'res_state'
-COUNTY_FIPS_COL = 'county_fips_code'
-COUNTY_COL = 'res_county'
-AGE_COL = 'age_group'
-OUTCOME_COLS = ['hosp_yn', 'death_yn']
-CASE_DATE_COL = 'cdc_case_earliest_dt'
+STATE_COL = "res_state"
+COUNTY_FIPS_COL = "county_fips_code"
+COUNTY_COL = "res_county"
+AGE_COL = "age_group"
+OUTCOME_COLS = ["hosp_yn", "death_yn"]
+CASE_DATE_COL = "cdc_case_earliest_dt"
 
 USE_COLS = [
     STATE_COL,
@@ -55,7 +55,7 @@ USE_COLS = [
 ]
 
 # column no longer provided by CDC that we need to recreate
-RACE_ETH_COL = 'race_ethnicity_combined'
+RACE_ETH_COL = "race_ethnicity_combined"
 
 # Convenience list for when we group the data by county.
 COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
@@ -86,7 +86,7 @@ RACE_NAMES_MAPPING = {
     "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
     "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI_NH.value,
     "White": std_col.Race.WHITE_NH.value,
-    'Hispanic/Latino': std_col.Race.HISP.value,
+    "Hispanic/Latino": std_col.Race.HISP.value,
 }
 
 SEX_NAMES_MAPPING = {
@@ -115,12 +115,12 @@ AGE_NAMES_MAPPING = {
 # Mapping from geo and demo to relevant column(s) in the data. The demo
 # mapping also includes the values mapping for transforming demographic values
 # to their standardized form.
-GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
+GEO_COL_MAPPING = {"state": [STATE_COL], "county": COUNTY_COLS}
 DEMOGRAPHIC_COL_MAPPING = {
-    'race': ([std_col.RACE_COL, std_col.ETH_COL], RACE_NAMES_MAPPING),
-    'sex': ([std_col.SEX_COL], SEX_NAMES_MAPPING),
-    'age': ([AGE_COL], AGE_NAMES_MAPPING),
-    'race_and_age': (
+    "race": ([std_col.RACE_COL, std_col.ETH_COL], RACE_NAMES_MAPPING),
+    "sex": ([std_col.SEX_COL], SEX_NAMES_MAPPING),
+    "age": ([AGE_COL], AGE_NAMES_MAPPING),
+    "race_and_age": (
         [std_col.RACE_COL, std_col.ETH_COL, AGE_COL],
         {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING},
     ),
@@ -144,12 +144,12 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # Add columns for hospitalization yes/no/unknown and death yes/no/unknown,
     # as we aggregate and count these individually. Do a sanity check that we
     # covered all the data and drop the original hospitalization/death columns.
-    df[std_col.COVID_HOSP_Y] = df['hosp_yn'] == 'Yes'
-    df[std_col.COVID_HOSP_N] = df['hosp_yn'] == 'No'
-    df[std_col.COVID_HOSP_UNKNOWN] = (df['hosp_yn'] == 'Unknown') | (df['hosp_yn'] == 'Missing')
-    df[std_col.COVID_DEATH_Y] = df['death_yn'] == 'Yes'
-    df[std_col.COVID_DEATH_N] = df['death_yn'] == 'No'
-    df[std_col.COVID_DEATH_UNKNOWN] = (df['death_yn'] == 'Unknown') | (df['death_yn'] == 'Missing')
+    df[std_col.COVID_HOSP_Y] = df["hosp_yn"] == "Yes"
+    df[std_col.COVID_HOSP_N] = df["hosp_yn"] == "No"
+    df[std_col.COVID_HOSP_UNKNOWN] = (df["hosp_yn"] == "Unknown") | (df["hosp_yn"] == "Missing")
+    df[std_col.COVID_DEATH_Y] = df["death_yn"] == "Yes"
+    df[std_col.COVID_DEATH_N] = df["death_yn"] == "No"
+    df[std_col.COVID_DEATH_UNKNOWN] = (df["death_yn"] == "Unknown") | (df["death_yn"] == "Missing")
 
     check_hosp = (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] | df[std_col.COVID_HOSP_UNKNOWN]).all()
     check_deaths = (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] | df[std_col.COVID_DEATH_UNKNOWN]).all()
@@ -157,7 +157,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     assert check_hosp, "All possible hosp_yn values are not accounted for"
     assert check_deaths, "All possible death_yn values are not accounted for"
 
-    df = df.drop(columns=['hosp_yn', 'death_yn'])
+    df = df.drop(columns=["hosp_yn", "death_yn"])
 
     counts_cols_to_sum = [
         std_col.COVID_CASES,
@@ -184,7 +184,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
                 df,
                 counts_cols_to_sum,
                 RACE_NAMES_MAPPING,
-                ethnicity_value='Hispanic/Latino',
+                ethnicity_value="Hispanic/Latino",
                 additional_group_cols=source_groupby_cols,
                 race_eth_output_col=std_col.RACE_ETH_COL,
             )
@@ -315,10 +315,10 @@ def process_data(dir, files):
                 # Slice the data and aggregate for the given dimension.
                 sliced_df = df[geo_cols + demog_col + OUTCOME_COLS + [CASE_DATE_COL]]
 
-                if demo == 'race':
+                if demo == "race":
                     demog_col = [RACE_ETH_COL]
 
-                if demo == 'race_and_age':
+                if demo == "race_and_age":
                     demog_col = [RACE_ETH_COL, AGE_COL]
 
                 all_dfs[(geo, demo)] = accumulate_data(
@@ -364,8 +364,8 @@ def main():
     matching_files = []
     files = [f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
     for f in files:
-        filename_parts = f.split('.')
-        if len(filename_parts) == 2 and prefix in filename_parts[0] and filename_parts[1] == 'csv':
+        filename_parts = f.split(".")
+        if len(filename_parts) == 2 and prefix in filename_parts[0] and filename_parts[1] == "csv":
             matching_files.append(f)
 
     if len(matching_files) == 0:

@@ -25,26 +25,26 @@ def get_breakdown_col(df):
 class Decia2010TerritoryPopulationData(DataSource):
     @staticmethod
     def get_id():
-        return 'DECIA_2010_POPULATION'
+        return "DECIA_2010_POPULATION"
 
     @staticmethod
     def get_table_name():
-        return 'decia_2010_territory_population'
+        return "decia_2010_territory_population"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for Decia2010TerritoryPopulationData')
+        raise NotImplementedError("upload_to_gcs should not be called for Decia2010TerritoryPopulationData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        gcs_files = self.get_attr(attrs, 'filename')
+        gcs_files = self.get_attr(attrs, "filename")
 
         # In this instance, we expect filename to be a string with
         # comma-separated CSV filenames.
-        if ',' not in gcs_files:
-            raise ValueError('filename passed to write_to_bq is not a ' + 'comma-separated list of files')
-        files = gcs_files.split(',')
+        if "," not in gcs_files:
+            raise ValueError("filename passed to write_to_bq is not a " + "comma-separated list of files")
+        files = gcs_files.split(",")
 
         for f in files:
-            df = gcs_to_bq_util.load_json_as_df_from_data_dir("decia_2010_territory_population", f, {'state_fips': str})
+            df = gcs_to_bq_util.load_json_as_df_from_data_dir("decia_2010_territory_population", f, {"state_fips": str})
 
             total_val = Race.ALL.value if get_breakdown_col(df) == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
 
@@ -58,7 +58,7 @@ class Decia2010TerritoryPopulationData(DataSource):
             # Clean up column names.
             self.clean_frame_column_names(df)
 
-            demo_type = next((demo for demo in ['race', 'sex', 'age', 'race_and_ethnicity'] if demo in f), None)
+            demo_type = next((demo for demo in ["race", "sex", "age", "race_and_ethnicity"] if demo in f), None)
             table_id = gcs_to_bq_util.make_bq_table_id(demo_type, constants.STATE_LEVEL, constants.CURRENT)
 
             column_types = gcs_to_bq_util.get_bq_column_types(

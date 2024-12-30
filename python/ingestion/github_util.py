@@ -15,7 +15,7 @@ def decode_json_from_url_into_df(url):
     url: url to a base64 encoded github file"""
     r = requests.get(url, timeout=10)
     jsn = json.loads(r.text)
-    decoded = base64.b64decode(jsn['content'])
+    decoded = base64.b64decode(jsn["content"])
     return pandas.read_csv(BytesIO(decoded))
 
 
@@ -25,5 +25,5 @@ def decode_excel_from_url_into_df(url):
     url: url to a base64 encoded github file"""
     r = requests.get(url, timeout=10)
     jsn = json.loads(r.text)
-    decoded = base64.b64decode(jsn['content'])
+    decoded = base64.b64decode(jsn["content"])
     return pandas.read_excel(BytesIO(decoded))

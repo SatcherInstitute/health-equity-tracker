@@ -76,8 +76,8 @@ def test_write_to_bq_black_men_by_urbanicity_national(
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "black_men_by_urbanicity_national_historical"
 
-    actual_historical_df = actual_historical_df.sort_values(by=['time_period', 'urbanicity']).reset_index(drop=True)
-    expected_historical_df = expected_historical_df.sort_values(by=['time_period', 'urbanicity']).reset_index(drop=True)
+    actual_historical_df = actual_historical_df.sort_values(by=["time_period", "urbanicity"]).reset_index(drop=True)
+    expected_historical_df = expected_historical_df.sort_values(by=["time_period", "urbanicity"]).reset_index(drop=True)
 
     # calls writing NATIONAL + STATE to bq
     assert mock_bq.call_count == 2
@@ -121,11 +121,11 @@ def test_write_to_bq_black_men_by_urbanicity_state(
     # calls writing NATIONAL + STATE to bq
     assert mock_bq.call_count == 2
 
-    actual_historical_df = actual_historical_df.sort_values(by=['time_period', 'state_name', 'urbanicity']).reset_index(
+    actual_historical_df = actual_historical_df.sort_values(by=["time_period", "state_name", "urbanicity"]).reset_index(
         drop=True
     )
     expected_historical_df = expected_historical_df.sort_values(
-        by=['time_period', 'state_name', 'urbanicity']
+        by=["time_period", "state_name", "urbanicity"]
     ).reset_index(drop=True)
 
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
@@ -167,8 +167,8 @@ def test_write_to_bq_black_men_by_age_national(
     # calls writing NATIONAL + STATE to bq
     assert mock_bq.call_count == 2
 
-    actual_historical_df = actual_historical_df.sort_values(by=['time_period', 'age']).reset_index(drop=True)
-    expected_historical_df = expected_historical_df.sort_values(by=['time_period', 'age']).reset_index(drop=True)
+    actual_historical_df = actual_historical_df.sort_values(by=["time_period", "age"]).reset_index(drop=True)
+    expected_historical_df = expected_historical_df.sort_values(by=["time_period", "age"]).reset_index(drop=True)
 
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
@@ -209,10 +209,10 @@ def test_write_to_bq_black_men_by_age_state(
     # calls writing NATIONAL + STATE to bq
     assert mock_bq.call_count == 2
 
-    actual_historical_df = actual_historical_df.sort_values(by=['time_period', 'state_name', 'age']).reset_index(
+    actual_historical_df = actual_historical_df.sort_values(by=["time_period", "state_name", "age"]).reset_index(
         drop=True
     )
-    expected_historical_df = expected_historical_df.sort_values(by=['time_period', 'state_name', 'age']).reset_index(
+    expected_historical_df = expected_historical_df.sort_values(by=["time_period", "state_name", "age"]).reset_index(
         drop=True
     )
 

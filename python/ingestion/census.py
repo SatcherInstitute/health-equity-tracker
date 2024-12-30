@@ -1,3 +1,4 @@
+# pylint: disable=missing-timeout
 import requests  # type: ignore
 import json
 from ingestion.standardized_columns import (
@@ -10,10 +11,10 @@ from ingestion.standardized_columns import (
 
 def rename_age_bracket(bracket):
     """Converts ACS age bracket label to standardized bracket format of "a-b",
-       where a is the lower end of the bracket and b is the upper end,
-       inclusive.
+    where a is the lower end of the bracket and b is the upper end,
+    inclusive.
 
-       bracket: ACS age bracket."""
+    bracket: ACS age bracket."""
     parts = bracket.split()
     if len(parts) == 3 and parts[0] == "Under":
         return "0-" + str(int(parts[1]) - 1)
@@ -52,10 +53,10 @@ def get_census_params(variable_ids, county_level=False):
 def get_all_params_for_group(group, county_level=False):
     """Gets census url params to get all variables for a group.
 
-       group: String group ID to get variables for.
-       county_level: Whether to request at the county or state level."""
-    geo = 'county' if county_level else 'state'
-    return {'get': f'group({group})', 'for': geo}
+    group: String group ID to get variables for.
+    county_level: Whether to request at the county or state level."""
+    geo = "county" if county_level else "state"
+    return {"get": f"group({group})", "for": geo}
 
 
 def fetch_acs_variables(base_acs_url, variable_ids, county_level):
@@ -66,9 +67,7 @@ def fetch_acs_variables(base_acs_url, variable_ids, county_level):
     variable_ids: The ids of the variables to request. Automatically includes
         NAME.
     county_level: Whether to request at the county level, or the state level."""
-    resp2 = requests.get(
-        base_acs_url, params=get_census_params(variable_ids, county_level)
-    )
+    resp2 = requests.get(base_acs_url, params=get_census_params(variable_ids, county_level))
     json_result = resp2.json()
     json_string = json.dumps(json_result)
     return json_string
@@ -94,9 +93,7 @@ def fetch_acs_group(base_acs_url, group_concept, var_map, num_breakdowns, county
         has one breakdown while "SEX BY AGE" has two.
     county_level: Whether to request at the county level, or the state level."""
     group_vars = get_vars_for_group(group_concept, var_map, num_breakdowns)
-    json_string = fetch_acs_variables(
-        base_acs_url, list(group_vars.keys()), county_level
-    )
+    json_string = fetch_acs_variables(base_acs_url, list(group_vars.keys()), county_level)
     return json_string
 
 
@@ -142,8 +139,7 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
             num_parts = 2 + num_breakdowns
             if len(parts) == num_parts:
                 attributes = parts[2:num_parts]
-                attributes = [
-                    a[:-1] if a.endswith(":") else a for a in attributes]
+                attributes = [a[:-1] if a.endswith(":") else a for a in attributes]
                 group_vars[group] = attributes
     return group_vars
 
@@ -170,11 +166,9 @@ def standardize_frame(df, var_to_labels_map, breakdowns, county_level, measured_
     # First, "melt" the frame so that each column other than the geo identifier
     # gets converted to a value with the column name "variable"
     id_cols = ["state", "county"] if county_level else ["state"]
-    if 'NAME' in df.columns:
-        id_cols.append('NAME')
-    sort_cols = (
-        ["state", "county", "variable"] if county_level else ["state", "variable"]
-    )
+    if "NAME" in df.columns:
+        id_cols.append("NAME")
+    sort_cols = ["state", "county", "variable"] if county_level else ["state", "variable"]
 
     df = df.melt(id_vars=id_cols)
     df = df.sort_values(sort_cols)

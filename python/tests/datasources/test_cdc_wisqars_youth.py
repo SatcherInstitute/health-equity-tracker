@@ -76,10 +76,10 @@ def test_write_to_bq_youth_by_race_national(
 
     assert mock_bq.call_count == 2
 
-    actual_historical_df = actual_historical_df.sort_values(by=['time_period', 'race_and_ethnicity']).reset_index(
+    actual_historical_df = actual_historical_df.sort_values(by=["time_period", "race_and_ethnicity"]).reset_index(
         drop=True
     )
-    expected_historical_df = expected_historical_df.sort_values(by=['time_period', 'race_and_ethnicity']).reset_index(
+    expected_historical_df = expected_historical_df.sort_values(by=["time_period", "race_and_ethnicity"]).reset_index(
         drop=True
     )
 
@@ -118,18 +118,18 @@ def test_write_to_bq_youth_by_race_state(
 
     assert mock_bq.call_count == 2
 
-    actual_current_df = actual_current_df.sort_values(by=['race_and_ethnicity', 'state_name']).reset_index(drop=True)
-    expected_current_df = expected_current_df.sort_values(by=['race_and_ethnicity', 'state_name']).reset_index(
+    actual_current_df = actual_current_df.sort_values(by=["race_and_ethnicity", "state_name"]).reset_index(drop=True)
+    expected_current_df = expected_current_df.sort_values(by=["race_and_ethnicity", "state_name"]).reset_index(
         drop=True
     )
 
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df = actual_historical_df.sort_values(
-        by=['time_period', 'race_and_ethnicity', 'state_name']
+        by=["time_period", "race_and_ethnicity", "state_name"]
     ).reset_index(drop=True)
     expected_historical_df = expected_historical_df.sort_values(
-        by=['time_period', 'race_and_ethnicity', 'state_name']
+        by=["time_period", "race_and_ethnicity", "state_name"]
     ).reset_index(drop=True)
 
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
