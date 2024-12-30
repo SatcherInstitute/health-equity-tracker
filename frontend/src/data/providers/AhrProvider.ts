@@ -1,15 +1,14 @@
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
 import type { DropdownVarId } from '../config/DropDownIds'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type {
-  Breakdowns,
-  DemographicBreakdownKey,
-  TimeView,
-} from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { Breakdowns } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -139,95 +138,15 @@ class AhrProvider extends VariableProvider {
     ])
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    const currentDropdown: DropdownVarId | undefined =
-      dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
-    const isBehavioralHealth =
-      currentDropdown &&
-      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
-
-    if (breakdowns.geography === 'national') {
-      if (timeView === 'current') {
-        if (breakdowns.hasOnlyRace())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
-            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
-        if (breakdowns.hasOnlySex())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_sex_national_current'
-            : 'graphql_ahr_data-non-behavioral_health_sex_national_current'
-        if (breakdowns.hasOnlyAge())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_age_national_current'
-            : 'graphql_ahr_data-non-behavioral_health_age_national_current'
-      }
-
-      if (timeView === 'historical') {
-        if (breakdowns.hasOnlyRace())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_historical'
-            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_historical'
-        if (breakdowns.hasOnlySex())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_sex_national_historical'
-            : 'graphql_ahr_data-non-behavioral_health_sex_national_historical'
-        if (breakdowns.hasOnlyAge())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_age_national_historical'
-            : 'graphql_ahr_data-non-behavioral_health_age_national_historical'
-      }
-    }
-    if (breakdowns.geography === 'state') {
-      if (timeView === 'current') {
-        if (breakdowns.hasOnlyRace())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
-            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
-        if (breakdowns.hasOnlySex())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_sex_state_current'
-            : 'graphql_ahr_data-non-behavioral_health_sex_state_current'
-        if (breakdowns.hasOnlyAge())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_age_state_current'
-            : 'graphql_ahr_data-non-behavioral_health_age_state_current'
-      }
-
-      if (timeView === 'historical') {
-        if (breakdowns.hasOnlyRace())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_historical'
-            : 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_historical'
-        if (breakdowns.hasOnlySex())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_sex_state_historical'
-            : 'graphql_ahr_data-non-behavioral_health_sex_state_historical'
-        if (breakdowns.hasOnlyAge())
-          return isBehavioralHealth
-            ? 'graphql_ahr_data-behavioral_health_age_state_historical'
-            : 'graphql_ahr_data-non-behavioral_health_age_state_historical'
-      }
-    }
-    // some county data is available via CHR
-    if (
-      breakdowns.geography === 'county' &&
-      dataTypeId &&
-      CHR_DATATYPE_IDS.includes(dataTypeId)
-    ) {
-      if (breakdowns.hasExactlyOneDemographic())
-        return 'chr_data-race_and_ethnicity_county_current'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const { breakdowns, dataTypeId, timeView } = metricQuery
-    const datasetId = this.getDatasetId(breakdowns, dataTypeId, timeView)
+    const { isChr, categoryPrefix } = getDatasetDetails(metricQuery)
+    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
+      isChr ? 'chr_data' : 'graphql_ahr_data',
+      isChr ? '' : categoryPrefix,
+      metricQuery,
+    )
 
     if (!datasetId) {
       return new MetricQueryResponse([], [])
@@ -241,24 +160,12 @@ class AhrProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
 
-    if (
-      breakdowns.geography === 'county' &&
-      dataTypeId &&
-      CHR_DATATYPE_IDS.includes(dataTypeId) &&
-      !breakdowns.hasOnlyRace()
-    ) {
-      let requestedDemographic: DemographicBreakdownKey = 'race_and_ethnicity'
-      // CHR: treat the "All" rows from by race as "All" for sex/age
-      df = df.filter((row) => row['race_and_ethnicity'] === 'All')
-      if (breakdowns.hasOnlySex()) requestedDemographic = 'sex'
-      if (breakdowns.hasOnlyAge()) requestedDemographic = 'age'
-      df = df.renameSeries({
-        race_and_ethnicity: requestedDemographic,
-      })
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
     }
-
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
@@ -281,3 +188,26 @@ class AhrProvider extends VariableProvider {
 }
 
 export default AhrProvider
+
+function getDatasetDetails(metricQuery: MetricQuery) {
+  const { dataTypeId, breakdowns } = metricQuery
+  if (
+    dataTypeId &&
+    CHR_DATATYPE_IDS.includes(dataTypeId) &&
+    breakdowns.geography === 'county'
+  )
+    return { isChr: true, categoryPrefix: '' }
+
+  const currentDropdown: DropdownVarId | undefined =
+    dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
+
+  const isBehavioralHealth =
+    currentDropdown &&
+    BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
+
+  const categoryPrefix = isBehavioralHealth
+    ? 'behavioral_health_'
+    : 'non-behavioral_health_'
+
+  return { isChr: false, categoryPrefix }
+}
