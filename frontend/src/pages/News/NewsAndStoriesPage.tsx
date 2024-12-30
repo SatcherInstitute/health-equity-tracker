@@ -39,7 +39,11 @@ export default function NewsAndStoriesPage() {
 
       articles.forEach((article: Article) => {
         if (article.acf?.contributing_author) {
-          authorSet.add(article.acf.contributing_author)
+          let author = article.acf.contributing_author
+          if (author.length > 27) {
+            author = `${author.substring(0, 27)}...`
+          }
+          authorSet.add(author)
         }
         if (article._embedded?.['wp:term']) {
           article._embedded['wp:term'][0]?.forEach((term: { name: string }) =>
@@ -153,6 +157,7 @@ export default function NewsAndStoriesPage() {
               selectedOptions={selectedAuthors}
               onSelectionChange={handleAuthorChange}
             />
+
             <CheckboxDropdown
               label='Categories'
               options={categories.map((category) => ({
