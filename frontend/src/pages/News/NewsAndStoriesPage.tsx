@@ -11,16 +11,26 @@ import type { Article } from './ArticleTypes'
 import CheckboxDropdown from './CheckboxDropdown'
 import NewsAndStoriesPreviewCardOutlined from './NewsAndStoriesPreviewCardOutlined'
 
+interface AuthorItem {
+  value: string
+  label: string
+}
+
 export default function NewsAndStoriesPage() {
+  const isMdAndUp = useIsBreakpointAndUp('md')
+
   const { isLoading, error, data }: any = useQuery(
     blogUtils.ARTICLES_KEY,
     fetchNewsData,
     blogUtils.REACT_QUERY_OPTIONS,
   )
+
   const [searchParams] = useSearchParams()
   const [allArticles, setAllArticles] = useState<Article[]>([])
-  const [authors, setAuthors] = useState<string[]>([])
+
+  const [authors, setAuthors] = useState<AuthorItem[]>([])
   const [categories, setCategories] = useState<string[]>([])
+
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [showAllArticles, setShowAllArticles] = useState(false)
@@ -28,43 +38,49 @@ export default function NewsAndStoriesPage() {
   const isLgUp = useIsBreakpointAndUp('lg')
   const bgHeight = isLgUp ? '42rem' : '12rem'
 
-  // Fetch and process articles
   useEffect(() => {
     if (data?.data) {
       const articles = data.data
       setAllArticles(articles)
 
-      const authorSet = new Set<string>()
+      const authorMap = new Map<string, string>()
       const categorySet = new Set<string>()
 
       articles.forEach((article: Article) => {
         if (article.acf?.contributing_author) {
-          let author = article.acf.contributing_author
-          if (author.length > 27) {
-            author = `${author.substring(0, 27)}...`
+          const fullAuthor = article.acf.contributing_author.trim()
+
+          if (!authorMap.has(fullAuthor)) {
+            const truncated =
+              !isMdAndUp && fullAuthor.length > 27
+                ? `${fullAuthor.substring(0, 27)}...`
+                : fullAuthor
+
+            authorMap.set(fullAuthor, truncated)
           }
-          authorSet.add(author)
         }
+
         if (article._embedded?.['wp:term']) {
-          article._embedded['wp:term'][0]?.forEach((term: { name: string }) =>
-            categorySet.add(term.name),
-          )
+          article._embedded['wp:term'][0]?.forEach((term: { name: string }) => {
+            categorySet.add(term.name)
+          })
         }
       })
 
-      const sortedAuthors = Array.from(authorSet).sort((a, b) =>
-        a.localeCompare(b),
+      const authorItems: AuthorItem[] = Array.from(authorMap.entries()).map(
+        ([value, label]) => ({ value, label }),
       )
+      authorItems.sort((a, b) => a.label.localeCompare(b.label))
+
       const sortedCategories = Array.from(categorySet).sort((a, b) =>
         a.localeCompare(b),
       )
 
-      setAuthors(sortedAuthors)
+      setAuthors(authorItems)
       setCategories(sortedCategories)
     }
-  }, [data?.data])
+  }, [data?.data, isMdAndUp])
 
-  // Apply filters from URL on load
   useEffect(() => {
     const category = searchParams.get('category')
     const author = searchParams.get('author')
@@ -79,14 +95,17 @@ export default function NewsAndStoriesPage() {
 
   const filteredArticles =
     allArticles.filter((article: Article) => {
+      const fullAuthor = article.acf?.contributing_author
       const matchesAuthor =
         selectedAuthors.length === 0 ||
-        selectedAuthors.includes(article.acf?.contributing_author)
+        (fullAuthor && selectedAuthors.includes(fullAuthor))
+
       const matchesCategory =
         selectedCategories.length === 0 ||
         article._embedded?.['wp:term'][0]?.some((term: { name: string }) =>
           selectedCategories.includes(term.name),
         )
+
       return matchesAuthor && matchesCategory
     }) || []
 
@@ -150,9 +169,9 @@ export default function NewsAndStoriesPage() {
           <div className='mt-4 flex w-full flex-col gap-4 md:flex-row'>
             <CheckboxDropdown
               label='Authors'
-              options={authors.map((author) => ({
-                value: author,
-                label: author,
+              options={authors.map((a) => ({
+                value: a.value,
+                label: a.label,
               }))}
               selectedOptions={selectedAuthors}
               onSelectionChange={handleAuthorChange}
@@ -202,15 +221,13 @@ export default function NewsAndStoriesPage() {
                           </div>
 
                           <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smMd:grid-cols-2 md:col-span-3 lg:mb-0'>
-                            {firstFiveArticles
-                              .slice(1)
-                              .map((article: Article) => (
-                                <NewsAndStoriesPreviewCardOutlined
-                                  key={article.id}
-                                  article={article}
-                                  bgHeight='12rem'
-                                />
-                              ))}
+                            {firstFiveArticles.slice(1).map((article) => (
+                              <NewsAndStoriesPreviewCardOutlined
+                                key={article.id}
+                                article={article}
+                                bgHeight='12rem'
+                              />
+                            ))}
                           </div>
                         </>
                       </div>
