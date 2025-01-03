@@ -84,6 +84,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
         aria-label={`Stacked Bar Chart Showing ${props.filename || 'Data'}`}
       >
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
+          {/* VERTICAL LINES */}
           {xScale.ticks(20).map((tick) => (
             <line
               key={tick}
@@ -100,6 +101,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
 
             return (
               <g key={d.demographic}>
+                {/* POPULATION BARS */}
                 <path
                   d={`
                     M 0,${y}
@@ -122,6 +124,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   onMouseLeave={closeTooltip}
                 />
 
+                {/* DISTRIBUTION BARS */}
                 <path
                   d={`
                     M 0,${y + BAR_HEIGHT + PAIR_GAP}
@@ -144,16 +147,18 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   onMouseLeave={closeTooltip}
                 />
 
+                {/* DEMOGRAPHIC LABELS */}
                 <text
                   x={-10}
                   y={y + BAR_HEIGHT + PAIR_GAP / 2}
                   textAnchor='end'
                   dominantBaseline='middle'
-                  fontSize={12}
+                  fontSize={10}
                 >
                   {d.demographic}
                 </text>
 
+                {/* END OF BAR AMOUNTS */}
                 <text
                   x={Math.max(xScale(d.population || 0) + 5, 5)}
                   y={y + BAR_HEIGHT / 2}
@@ -166,7 +171,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   x={Math.max(xScale(d.distribution || 0) + 5, 5)}
                   y={y + BAR_HEIGHT * 1.5 + PAIR_GAP}
                   dominantBaseline='middle'
-                  fontSize={12}
+                  fontSize={10}
                 >
                   {`${d.distribution?.toFixed(1)}%`}
                 </text>
@@ -175,6 +180,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
           })}
 
           <g transform={`translate(0,${innerHeight})`}>
+            {/* X AXIS TICKS */}
             {xScale.ticks(10).map((tick) => (
               <text
                 key={tick}
@@ -188,6 +194,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
             ))}
           </g>
 
+          {/* LEGEND */}
           <g transform={`translate(${innerWidth - 150},-10)`}>
             <rect width={12} height={12} fill={COLORS.population} />
             <text x={16} y={10} fontSize={12}>
