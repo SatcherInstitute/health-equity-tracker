@@ -1,4 +1,5 @@
 import { DisparityBarChart } from '../charts/disparityBarChart/Index'
+import { StackedBarChart } from '../charts/stackedSharesBarChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { getMetricIdToConfigMap } from '../data/config/MetricConfigUtils'
@@ -145,6 +146,18 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
 
+                <StackedBarChart
+                  data={knownData}
+                  lightMetric={
+                    shareConfig.populationComparisonMetric ?? shareConfig
+                  }
+                  darkMetric={
+                    shareConfig.knownBreakdownComparisonMetric ?? shareConfig
+                  }
+                  demographicType={props.demographicType}
+                  metricDisplayName={shareConfig.shortLabel}
+                  filename={chartTitle}
+                />
                 <DisparityBarChart
                   data={knownData}
                   lightMetric={
