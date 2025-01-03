@@ -57,6 +57,7 @@ const het = {
   footerColor: '#edf3f0',
   greyDark: '#222',
   greyGridColor: '#f9f9f9',
+  greyGridColorDarker: '#dddddd',
   hexShareIconGray: '#757575',
   hoverAltGreen: 'rgba(11, 82, 64, 0.08)',
   hoverTinyTagGray: '#979787',

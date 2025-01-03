@@ -101,7 +101,6 @@ export function RateBarChart(props: RateBarChartProps) {
       className='relative'
     >
       <BarChartTooltip data={tooltipData} />
-      {/* biome-ignore lint/a11y/noSvgWithoutTitle: we use aria-label instead, so screen reader has accessible text but browser tooltips don't interfere with custom tooltip */}
       <svg
         width={width}
         height={height}

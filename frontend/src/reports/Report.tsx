@@ -4,12 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
-import MapCard from '../cards/MapCard'
-import RateBarChartCard from '../cards/RateBarChartCard'
-import RateTrendsChartCard from '../cards/RateTrendsChartCard'
-import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import TableCard from '../cards/TableCard'
-import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
@@ -156,7 +151,7 @@ export function Report(props: ReportProps) {
             {dataTypeConfig && (
               <div className='flex w-full flex-col content-center'>
                 {/* 100k MAP CARD */}
-                <div
+                {/* <div
                   tabIndex={-1}
                   id='rate-map'
                   // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
@@ -174,10 +169,10 @@ export function Report(props: ReportProps) {
                     reportTitle={props.reportTitle}
                     trackerMode={props.trackerMode}
                   />
-                </div>
+                </div> */}
 
                 {/* RATE TRENDS LINE CHART CARD */}
-                {rateMetricConfig?.timeSeriesCadence && (
+                {/* {rateMetricConfig?.timeSeriesCadence && (
                   <div
                     tabIndex={-1}
                     className='w-full scroll-m-0 md:scroll-mt-24'
@@ -190,10 +185,10 @@ export function Report(props: ReportProps) {
                       reportTitle={props.reportTitle}
                     />
                   </div>
-                )}
+                )} */}
 
                 {/* 100K BAR CHART CARD */}
-                <div
+                {/* <div
                   tabIndex={-1}
                   className='w-full'
                   id='rate-chart'
@@ -207,10 +202,10 @@ export function Report(props: ReportProps) {
                     fips={props.fips}
                     reportTitle={props.reportTitle}
                   />
-                </div>
+                </div> */}
 
                 {/* UNKNOWNS MAP CARD */}
-                <div
+                {/* <div
                   tabIndex={-1}
                   className='w-full'
                   id='unknown-demographic-map'
@@ -232,10 +227,10 @@ export function Report(props: ReportProps) {
                       />
                     )}
                   </LazyLoad>
-                </div>
+                </div> */}
 
                 {/* SHARE TRENDS LINE CHART CARD */}
-                {inequityOverTimeConfig?.timeSeriesCadence && (
+                {/* {inequityOverTimeConfig?.timeSeriesCadence && (
                   <div
                     tabIndex={-1}
                     id='inequities-over-time'
@@ -250,7 +245,7 @@ export function Report(props: ReportProps) {
                       />
                     </LazyLoad>
                   </div>
-                )}
+                )} */}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
                 <div
