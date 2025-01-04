@@ -21,12 +21,16 @@ interface YAxisProps {
   innerHeight: number
 }
 export default function YAxis(props: YAxisProps) {
+  console.log(props.processedData)
+
   const wrappedLabels = useMemo(() => {
     return props.processedData.map((d) => ({
       original: d[props.demographicType],
       lines: wrapLabel(d[props.demographicType], props.maxLabelWidth),
     }))
   }, [props.processedData, props.demographicType])
+
+  console.log(wrappedLabels)
 
   return (
     <g>

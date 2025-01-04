@@ -1,11 +1,24 @@
 import { scaleBand, scaleLinear } from 'd3'
 import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import type { DemographicType } from '../../data/query/Breakdowns'
+import {
+  type DemographicType,
+  hasSkinnyGroupLabels,
+} from '../../data/query/Breakdowns'
 import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../../data/utils/DatasetTypes'
+import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import XAxis from '../rateBarChart/XAxis'
+import YAxis from '../rateBarChart/YAxis'
+import {
+  MAX_LABEL_WIDTH_BIG,
+  MAX_LABEL_WIDTH_SMALL,
+  NORMAL_MARGIN_HEIGHT,
+  Y_AXIS_LABEL_HEIGHT,
+} from '../rateBarChart/constants'
 import { StackedSharesBarChartTooltip } from './StackedSharesBarChartTooltip'
 import { useStackedSharesBarChartTooltip } from './useStackedSharesBarChartTooltip'
 
@@ -13,7 +26,7 @@ const MARGIN = { top: 20, right: 30, bottom: 40, left: 200 }
 const BAR_HEIGHT = 22
 const BAR_PADDING = 0.5
 const PAIR_GAP = 3
-const SET_GAP = 10
+const SET_GAP = 20
 const COLORS = {
   population: het.barChartLight,
   distribution: het.barChartDark,
@@ -24,15 +37,23 @@ interface StackedBarChartProps {
   data: HetRow[]
   lightMetric: MetricConfig
   darkMetric: MetricConfig
+  fips: Fips
   demographicType: DemographicType
   metricDisplayName: string
   filename?: string
 }
 
 export function StackedBarChart(props: StackedBarChartProps) {
+  const isSmAndUp = useIsBreakpointAndUp('sm')
   const [containerRef, width] = useResponsiveWidth()
   const { tooltipData, handleTooltip, closeTooltip, handleContainerTouch } =
     useStackedSharesBarChartTooltip()
+
+  const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
+    ? MAX_LABEL_WIDTH_SMALL
+    : MAX_LABEL_WIDTH_BIG
+  MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
+  if (isSmAndUp) MARGIN.left += Y_AXIS_LABEL_HEIGHT
 
   const processedData = useMemo(() => {
     const data =
@@ -70,6 +91,10 @@ export function StackedBarChart(props: StackedBarChartProps) {
       .range([0, innerHeight])
       .padding(BAR_PADDING)
   }, [processedData, innerHeight])
+
+  const getYPosition = (index: number, demographicValue: string) => {
+    return yScale(demographicValue) || 0
+  }
 
   return (
     <div
@@ -148,7 +173,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
                 />
 
                 {/* DEMOGRAPHIC LABELS */}
-                <text
+                {/* <text
                   x={-10}
                   y={y + BAR_HEIGHT + PAIR_GAP / 2}
                   textAnchor='end'
@@ -156,7 +181,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   fontSize={10}
                 >
                   {d.demographic}
-                </text>
+                </text> */}
 
                 {/* END OF BAR AMOUNTS */}
                 <text
@@ -179,20 +204,24 @@ export function StackedBarChart(props: StackedBarChartProps) {
             )
           })}
 
-          <g transform={`translate(0,${innerHeight})`}>
-            {/* X AXIS TICKS */}
-            {xScale.ticks(10).map((tick) => (
-              <text
-                key={tick}
-                x={xScale(tick)}
-                y={20}
-                textAnchor='middle'
-                fontSize={12}
-              >
-                {tick}%
-              </text>
-            ))}
-          </g>
+          <XAxis
+            metricConfig={props.darkMetric}
+            secondaryMetricConfig={props.lightMetric}
+            xScale={xScale}
+            width={innerWidth}
+            height={innerHeight}
+          />
+
+          <YAxis
+            yScale={yScale}
+            demographicType={props.demographicType}
+            isSmAndUp={isSmAndUp}
+            processedData={processedData}
+            maxLabelWidth={maxLabelWidth}
+            getYPosition={getYPosition}
+            fips={props.fips}
+            innerHeight={innerHeight}
+          />
 
           {/* LEGEND */}
           <g transform={`translate(${innerWidth - 150},-10)`}>

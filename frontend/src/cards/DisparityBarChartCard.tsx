@@ -147,6 +147,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
 
                 <StackedBarChart
+                  fips={props.fips}
                   data={knownData}
                   lightMetric={
                     shareConfig.populationComparisonMetric ?? shareConfig
