@@ -55,23 +55,10 @@ export function StackedBarChart(props: StackedBarChartProps) {
   MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
   if (isSmAndUp) MARGIN.left += Y_AXIS_LABEL_HEIGHT
 
-  const processedData = useMemo(() => {
-    const data =
-      props.demographicType === 'income'
-        ? sortForVegaByIncome(props.data)
-        : props.data
-
-    return data.map((row) => ({
-      demographic: row[props.demographicType],
-      population: row[props.lightMetric.metricId],
-      distribution: row[props.darkMetric.metricId],
-    }))
-  }, [
-    props.data,
-    props.demographicType,
-    props.lightMetric.metricId,
-    props.darkMetric.metricId,
-  ])
+  const processedData =
+    props.demographicType === 'income'
+      ? sortForVegaByIncome(props.data)
+      : props.data
 
   const innerWidth = width - MARGIN.left - MARGIN.right
   const innerHeight =
@@ -80,14 +67,17 @@ export function StackedBarChart(props: StackedBarChartProps) {
 
   const xScale = useMemo(() => {
     const maxValue = Math.max(
-      ...processedData.flatMap((d) => [d.population || 0, d.distribution || 0]),
+      ...processedData.flatMap((d) => [
+        d[props.lightMetric.metricId] || 0,
+        d[props.darkMetric.metricId] || 0,
+      ]),
     )
     return scaleLinear().domain([0, maxValue]).range([0, innerWidth])
   }, [processedData, innerWidth])
 
   const yScale = useMemo(() => {
     return scaleBand()
-      .domain(processedData.map((d) => d.demographic))
+      .domain(processedData.map((d) => d[props.demographicType]))
       .range([0, innerHeight])
       .padding(BAR_PADDING)
   }, [processedData, innerHeight])
@@ -122,18 +112,18 @@ export function StackedBarChart(props: StackedBarChartProps) {
           ))}
 
           {processedData.map((d) => {
-            const y = yScale(d.demographic) || 0
+            const y = yScale(d[props.demographicType]) || 0
 
             return (
-              <g key={d.demographic}>
+              <g key={d[props.demographicType]}>
                 {/* POPULATION BARS */}
                 <path
                   d={`
                     M 0,${y}
-                    L ${xScale(d.population || 0) - BORDER_RADIUS},${y}
-                    Q ${xScale(d.population || 0)},${y} ${xScale(d.population || 0)},${y + BORDER_RADIUS}
-                    L ${xScale(d.population || 0)},${y + BAR_HEIGHT - BORDER_RADIUS}
-                    Q ${xScale(d.population || 0)},${y + BAR_HEIGHT} ${xScale(d.population || 0) - BORDER_RADIUS},${y + BAR_HEIGHT}
+                    L ${xScale(d[props.lightMetric.metricId] || 0) - BORDER_RADIUS},${y}
+                    Q ${xScale(d[props.lightMetric.metricId] || 0)},${y} ${xScale(d[props.lightMetric.metricId] || 0)},${y + BORDER_RADIUS}
+                    L ${xScale(d[props.lightMetric.metricId] || 0)},${y + BAR_HEIGHT - BORDER_RADIUS}
+                    Q ${xScale(d[props.lightMetric.metricId] || 0)},${y + BAR_HEIGHT} ${xScale(d[props.lightMetric.metricId] || 0) - BORDER_RADIUS},${y + BAR_HEIGHT}
                     L 0,${y + BAR_HEIGHT}
                     Z
                   `}
@@ -141,8 +131,8 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   onMouseEnter={(e) =>
                     handleTooltip({
                       type: 'population',
-                      value: d.population,
-                      demographic: d.demographic,
+                      value: d[props.lightMetric.metricId],
+                      demographic: d[props.demographicType],
                       event: e,
                     })
                   }
@@ -153,10 +143,10 @@ export function StackedBarChart(props: StackedBarChartProps) {
                 <path
                   d={`
                     M 0,${y + BAR_HEIGHT + PAIR_GAP}
-                    L ${xScale(d.distribution || 0) - BORDER_RADIUS},${y + BAR_HEIGHT + PAIR_GAP}
-                    Q ${xScale(d.distribution || 0)},${y + BAR_HEIGHT + PAIR_GAP} ${xScale(d.distribution || 0)},${y + BAR_HEIGHT + PAIR_GAP + BORDER_RADIUS}
-                    L ${xScale(d.distribution || 0)},${y + BAR_HEIGHT * 2 + PAIR_GAP - BORDER_RADIUS}
-                    Q ${xScale(d.distribution || 0)},${y + BAR_HEIGHT * 2 + PAIR_GAP} ${xScale(d.distribution || 0) - BORDER_RADIUS},${y + BAR_HEIGHT * 2 + PAIR_GAP}
+                    L ${xScale(d[props.darkMetric.metricId] || 0) - BORDER_RADIUS},${y + BAR_HEIGHT + PAIR_GAP}
+                    Q ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT + PAIR_GAP} ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT + PAIR_GAP + BORDER_RADIUS}
+                    L ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT * 2 + PAIR_GAP - BORDER_RADIUS}
+                    Q ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT * 2 + PAIR_GAP} ${xScale(d[props.darkMetric.metricId] || 0) - BORDER_RADIUS},${y + BAR_HEIGHT * 2 + PAIR_GAP}
                     L 0,${y + BAR_HEIGHT * 2 + PAIR_GAP}
                     Z
                   `}
@@ -164,8 +154,8 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   onMouseEnter={(e) =>
                     handleTooltip({
                       type: 'distribution',
-                      value: d.distribution,
-                      demographic: d.demographic,
+                      value: d[props.darkMetric.metricId],
+                      demographic: d[props.demographicType],
                       event: e,
                     })
                   }
@@ -180,25 +170,28 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   dominantBaseline='middle'
                   fontSize={10}
                 >
-                  {d.demographic}
+                  {d[props.demographicType]}
                 </text> */}
 
                 {/* END OF BAR AMOUNTS */}
                 <text
-                  x={Math.max(xScale(d.population || 0) + 5, 5)}
+                  x={Math.max(
+                    xScale(d[props.lightMetric.metricId] || 0) + 5,
+                    5,
+                  )}
                   y={y + BAR_HEIGHT / 2}
                   dominantBaseline='middle'
                   fontSize={12}
                 >
-                  {`${d.population?.toFixed(1)}%`}
+                  {`${d[props.lightMetric.metricId]?.toFixed(1)}%`}
                 </text>
                 <text
-                  x={Math.max(xScale(d.distribution || 0) + 5, 5)}
+                  x={Math.max(xScale(d[props.darkMetric.metricId] || 0) + 5, 5)}
                   y={y + BAR_HEIGHT * 1.5 + PAIR_GAP}
                   dominantBaseline='middle'
                   fontSize={10}
                 >
-                  {`${d.distribution?.toFixed(1)}%`}
+                  {`${d[props.darkMetric.metricId]?.toFixed(1)}%`}
                 </text>
               </g>
             )

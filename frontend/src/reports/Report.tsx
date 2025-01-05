@@ -31,6 +31,7 @@ import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
+import RateBarChartCard from '../cards/RateBarChartCard'
 
 interface ReportProps {
   key: string
@@ -188,7 +189,7 @@ export function Report(props: ReportProps) {
                 )} */}
 
                 {/* 100K BAR CHART CARD */}
-                {/* <div
+                <div
                   tabIndex={-1}
                   className='w-full'
                   id='rate-chart'
@@ -202,7 +203,7 @@ export function Report(props: ReportProps) {
                     fips={props.fips}
                     reportTitle={props.reportTitle}
                   />
-                </div> */}
+                </div>
 
                 {/* UNKNOWNS MAP CARD */}
                 {/* <div
