@@ -11,6 +11,7 @@ import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import VerticalGridlines from '../rateBarChart/VerticalGridlines'
 import XAxis from '../rateBarChart/XAxis'
 import YAxis from '../rateBarChart/YAxis'
 import {
@@ -19,20 +20,22 @@ import {
   NORMAL_MARGIN_HEIGHT,
   Y_AXIS_LABEL_HEIGHT,
 } from '../rateBarChart/constants'
+import StackedBarLegend from './StackedBarLegend'
+import StackedBarsWithLabels from './StackedBarsWithLabels'
 import { StackedSharesBarChartTooltip } from './StackedSharesBarChartTooltip'
 import { useStackedSharesBarChartTooltip } from './useStackedSharesBarChartTooltip'
-import VerticalGridlines from '../rateBarChart/VerticalGridlines'
 
-const MARGIN = { top: 20, right: 30, bottom: 40, left: 200 }
+export const STACKED_BAR_MARGIN = { top: 40, right: 30, bottom: 50, left: 200 }
 const BAR_HEIGHT = 22
 const BAR_PADDING = 0.5
 const PAIR_GAP = 3
 const SET_GAP = 20
-const COLORS = {
+export const STACKED_BAR_COLORS = {
   population: het.barChartLight,
   distribution: het.barChartDark,
 }
 const BORDER_RADIUS = 4
+const LEGEND_HEIGHT = 10
 
 interface StackedBarChartProps {
   data: HetRow[]
@@ -53,18 +56,22 @@ export function StackedBarChart(props: StackedBarChartProps) {
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL
     : MAX_LABEL_WIDTH_BIG
-  MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
-  if (isSmAndUp) MARGIN.left += Y_AXIS_LABEL_HEIGHT
+  STACKED_BAR_MARGIN.left = maxLabelWidth + NORMAL_MARGIN_HEIGHT
+  if (isSmAndUp) STACKED_BAR_MARGIN.left += Y_AXIS_LABEL_HEIGHT
 
   const processedData =
     props.demographicType === 'income'
       ? sortForVegaByIncome(props.data)
       : props.data
 
-  const innerWidth = width - MARGIN.left - MARGIN.right
+  const innerWidth = width - STACKED_BAR_MARGIN.left - STACKED_BAR_MARGIN.right
   const innerHeight =
     processedData.length * (BAR_HEIGHT * 2 + PAIR_GAP + SET_GAP)
-  const height = innerHeight + MARGIN.top + MARGIN.bottom
+  const height =
+    innerHeight +
+    STACKED_BAR_MARGIN.top +
+    STACKED_BAR_MARGIN.bottom +
+    LEGEND_HEIGHT
 
   const xScale = useMemo(() => {
     const maxValue = Math.max(
@@ -99,89 +106,29 @@ export function StackedBarChart(props: StackedBarChartProps) {
         height={height}
         aria-label={`Stacked Bar Chart Showing ${props.filename || 'Data'}`}
       >
-        <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
+        <g
+          transform={`translate(${STACKED_BAR_MARGIN.left},${STACKED_BAR_MARGIN.top})`}
+        >
           <VerticalGridlines
             width={width}
             height={innerHeight}
             xScale={xScale}
           />
 
-          {processedData.map((d) => {
-            const y = yScale(d[props.demographicType]) || 0
-
-            return (
-              <g key={d[props.demographicType]}>
-                {/* POPULATION BARS */}
-                <path
-                  d={`
-                    M 0,${y}
-                    L ${xScale(d[props.lightMetric.metricId] || 0) - BORDER_RADIUS},${y}
-                    Q ${xScale(d[props.lightMetric.metricId] || 0)},${y} ${xScale(d[props.lightMetric.metricId] || 0)},${y + BORDER_RADIUS}
-                    L ${xScale(d[props.lightMetric.metricId] || 0)},${y + BAR_HEIGHT - BORDER_RADIUS}
-                    Q ${xScale(d[props.lightMetric.metricId] || 0)},${y + BAR_HEIGHT} ${xScale(d[props.lightMetric.metricId] || 0) - BORDER_RADIUS},${y + BAR_HEIGHT}
-                    L 0,${y + BAR_HEIGHT}
-                    Z
-                  `}
-                  fill={COLORS.population}
-                  onMouseEnter={(e) =>
-                    handleTooltip({
-                      type: 'population',
-                      value: d[props.lightMetric.metricId],
-                      demographic: d[props.demographicType],
-                      event: e,
-                    })
-                  }
-                  onMouseLeave={closeTooltip}
-                />
-
-                {/* DISTRIBUTION BARS */}
-                <path
-                  d={`
-                    M 0,${y + BAR_HEIGHT + PAIR_GAP}
-                    L ${xScale(d[props.darkMetric.metricId] || 0) - BORDER_RADIUS},${y + BAR_HEIGHT + PAIR_GAP}
-                    Q ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT + PAIR_GAP} ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT + PAIR_GAP + BORDER_RADIUS}
-                    L ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT * 2 + PAIR_GAP - BORDER_RADIUS}
-                    Q ${xScale(d[props.darkMetric.metricId] || 0)},${y + BAR_HEIGHT * 2 + PAIR_GAP} ${xScale(d[props.darkMetric.metricId] || 0) - BORDER_RADIUS},${y + BAR_HEIGHT * 2 + PAIR_GAP}
-                    L 0,${y + BAR_HEIGHT * 2 + PAIR_GAP}
-                    Z
-                  `}
-                  fill={COLORS.distribution}
-                  onMouseEnter={(e) =>
-                    handleTooltip({
-                      type: 'distribution',
-                      value: d[props.darkMetric.metricId],
-                      demographic: d[props.demographicType],
-                      event: e,
-                    })
-                  }
-                  onMouseLeave={closeTooltip}
-                />
-
-               
-
-                {/* END OF BAR AMOUNTS */}
-                <text
-                  x={Math.max(
-                    xScale(d[props.lightMetric.metricId] || 0) + 5,
-                    5,
-                  )}
-                  y={y + BAR_HEIGHT / 2}
-                  dominantBaseline='middle'
-                  fontSize={12}
-                >
-                  {`${d[props.lightMetric.metricId]?.toFixed(1)}%`}
-                </text>
-                <text
-                  x={Math.max(xScale(d[props.darkMetric.metricId] || 0) + 5, 5)}
-                  y={y + BAR_HEIGHT * 1.5 + PAIR_GAP}
-                  dominantBaseline='middle'
-                  fontSize={10}
-                >
-                  {`${d[props.darkMetric.metricId]?.toFixed(1)}%`}
-                </text>
-              </g>
-            )
-          })}
+          <StackedBarsWithLabels
+            data={processedData}
+            lightMetric={props.lightMetric}
+            darkMetric={props.darkMetric}
+            xScale={xScale}
+            yScale={yScale}
+            colors={STACKED_BAR_COLORS}
+            barHeight={BAR_HEIGHT}
+            pairGap={PAIR_GAP}
+            borderRadius={BORDER_RADIUS}
+            demographicType={props.demographicType}
+            onTooltip={handleTooltip}
+            onCloseTooltip={closeTooltip}
+          />
 
           <XAxis
             metricConfig={props.darkMetric}
@@ -202,17 +149,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
             innerHeight={innerHeight}
           />
 
-          {/* LEGEND */}
-          <g transform={`translate(${innerWidth - 150},-10)`}>
-            <rect width={12} height={12} fill={COLORS.population} />
-            <text x={16} y={10} fontSize={12}>
-              % of population
-            </text>
-            <rect x={100} width={12} height={12} fill={COLORS.distribution} />
-            <text x={116} y={10} fontSize={12}>
-              % of {props.metricDisplayName}
-            </text>
-          </g>
+          <StackedBarLegend metricDisplayName={props.metricDisplayName} />
         </g>
       </svg>
     </div>

@@ -18,7 +18,7 @@ interface GroupLabelsYAxisProps {
 
 export default function GroupLabelsYAxis(props: GroupLabelsYAxisProps) {
   return (
-    <g className='y-axis' aria-hidden='true' tabIndex={-1}>
+    <g className='y-axis' pointerEvents={'none'} tabIndex={-1}>
       {props.wrappedLabels.map((label: any, index: number) => {
         if (label.original === 'All' && props.useIntersectionalComparisonAlls) {
           label.lines = getComparisonAllSubGroupLines(

@@ -21,8 +21,6 @@ interface YAxisProps {
   innerHeight: number
 }
 export default function YAxis(props: YAxisProps) {
-  console.log(props.processedData)
-
   const wrappedLabels = useMemo(() => {
     return props.processedData.map((d) => ({
       original: d[props.demographicType],
@@ -30,14 +28,12 @@ export default function YAxis(props: YAxisProps) {
     }))
   }, [props.processedData, props.demographicType])
 
-  console.log(wrappedLabels)
-
   return (
     <g>
       {props.isSmAndUp && (
         <g>
           <text
-            transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${props.innerHeight / 2}) rotate(-90)`}
+            transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT - 110},${props.innerHeight / 2}) rotate(-90)`}
             textAnchor='middle'
             className='m-0 cursor-vertical-text p-0 font-semibold text-smallest'
             aria-label={'Y Axis Label'}
