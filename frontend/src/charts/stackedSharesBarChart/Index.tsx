@@ -21,6 +21,7 @@ import {
 } from '../rateBarChart/constants'
 import { StackedSharesBarChartTooltip } from './StackedSharesBarChartTooltip'
 import { useStackedSharesBarChartTooltip } from './useStackedSharesBarChartTooltip'
+import VerticalGridlines from '../rateBarChart/VerticalGridlines'
 
 const MARGIN = { top: 20, right: 30, bottom: 40, left: 200 }
 const BAR_HEIGHT = 22
@@ -99,17 +100,11 @@ export function StackedBarChart(props: StackedBarChartProps) {
         aria-label={`Stacked Bar Chart Showing ${props.filename || 'Data'}`}
       >
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
-          {/* VERTICAL LINES */}
-          {xScale.ticks(20).map((tick) => (
-            <line
-              key={tick}
-              x1={xScale(tick)}
-              x2={xScale(tick)}
-              y1={0}
-              y2={innerHeight}
-              stroke={het.greyGridColorDarker}
-            />
-          ))}
+          <VerticalGridlines
+            width={width}
+            height={innerHeight}
+            xScale={xScale}
+          />
 
           {processedData.map((d) => {
             const y = yScale(d[props.demographicType]) || 0
@@ -162,16 +157,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
                   onMouseLeave={closeTooltip}
                 />
 
-                {/* DEMOGRAPHIC LABELS */}
-                {/* <text
-                  x={-10}
-                  y={y + BAR_HEIGHT + PAIR_GAP / 2}
-                  textAnchor='end'
-                  dominantBaseline='middle'
-                  fontSize={10}
-                >
-                  {d[props.demographicType]}
-                </text> */}
+               
 
                 {/* END OF BAR AMOUNTS */}
                 <text
