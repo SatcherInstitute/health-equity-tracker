@@ -17,8 +17,6 @@ interface AuthorItem {
 }
 
 export default function NewsAndStoriesPage() {
-  const isMdAndUp = useIsBreakpointAndUp('md')
-
   const { isLoading, error, data }: any = useQuery(
     blogUtils.ARTICLES_KEY,
     fetchNewsData,
@@ -35,8 +33,9 @@ export default function NewsAndStoriesPage() {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [showAllArticles, setShowAllArticles] = useState(false)
   const [loadingMoreArticles, setLoadingMoreArticles] = useState(false)
-  const isLgUp = useIsBreakpointAndUp('lg')
-  const bgHeight = isLgUp ? '42rem' : '12rem'
+  const isMdAndUp = useIsBreakpointAndUp('md')
+  const isLgAndUp = useIsBreakpointAndUp('lg')
+  const bgHeight = isLgAndUp ? '42rem' : '12rem'
 
   useEffect(() => {
     if (data?.data) {
