@@ -115,7 +115,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       age_adjusted_ratio: {
         metricId: 'breast_screened_ratio_age_adjusted',
         chartTitle:
-          'Age-adjusted breast cancering screening rate compared to White (NH)',
+          'Age-adjusted breast cancer screening rate compared to White (NH)',
         shortLabel: 'Ratio compared to White (NH)',
         type: 'age_adjusted_ratio',
       },
