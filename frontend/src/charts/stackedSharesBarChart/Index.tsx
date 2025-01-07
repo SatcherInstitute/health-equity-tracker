@@ -100,7 +100,11 @@ export function StackedBarChart(props: StackedBarChartProps) {
       onTouchStart={handleContainerTouch}
       className='relative'
     >
-      <StackedSharesBarChartTooltip data={tooltipData} />
+      <StackedSharesBarChartTooltip
+        data={tooltipData}
+        darkMetric={props.darkMetric}
+        lightMetric={props.lightMetric}
+      />
       <svg
         width={width}
         height={height}

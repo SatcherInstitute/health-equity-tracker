@@ -24,23 +24,26 @@ export default function EndOfStackedPairLabels(
 
     // Estimate text width (assuming ~8px per character plus metric label)
     const textWidth =
-      (value.toFixed(1).length + props.lightMetric.shortLabel.length + 1) * 8
+      (value?.toFixed(1).length + props.lightMetric.shortLabel.length + 1) * 8
 
     // Label should be inside if there's enough space in the bar
     return barWidth > textWidth + 20 // Add 20px padding for comfort
   }
 
-  // Calculate positioning for each label
   const lightLabelInside = shouldLabelBeInside(lightValue)
   const darkLabelInside = shouldLabelBeInside(darkValue)
+
+  const lightBarLabel = lightValue != null ? `${lightValue}% of pop.` : ''
+  const darkBarLabel =
+    darkValue !== null ? `${darkValue}${props.darkMetric.shortLabel}` : ''
 
   return (
     <>
       <text
         x={
           lightLabelInside
-            ? xScale(lightValue) - 8 // Inside padding
-            : xScale(lightValue) + 8 // Outside padding
+            ? xScale(lightValue ?? 0) - 8 // Inside padding
+            : xScale(lightValue ?? 0) + 8 // Outside padding
         }
         y={yPosition + barHeight / 2}
         dominantBaseline='middle'
@@ -48,13 +51,13 @@ export default function EndOfStackedPairLabels(
         fill={lightLabelInside ? 'white' : 'black'}
         className='text-smallest'
       >
-        {`${lightValue?.toFixed(1)} ${props.lightMetric.shortLabel}`}
+        {lightBarLabel}
       </text>
       <text
         x={
           darkLabelInside
-            ? xScale(darkValue) - 8 // Inside padding
-            : xScale(darkValue) + 8 // Outside padding
+            ? xScale(darkValue ?? 0) - 8 // Inside padding
+            : xScale(darkValue ?? 0) + 8 // Outside padding
         }
         y={yPosition + barHeight * 1.5 + pairGap}
         dominantBaseline='middle'
@@ -62,7 +65,7 @@ export default function EndOfStackedPairLabels(
         fill={darkLabelInside ? 'white' : 'black'}
         className='text-smallest'
       >
-        {`${darkValue?.toFixed(1)} ${props.darkMetric.shortLabel}`}
+        {darkBarLabel}
       </text>
     </>
   )

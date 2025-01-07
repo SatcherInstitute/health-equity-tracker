@@ -1,8 +1,10 @@
 import type { ScaleBand, ScaleLinear } from 'd3'
+import { useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import EndOfStackedPairLabels from './EndOfStackedBarLabel'
+import { het } from '../../styles/DesignTokens'
+import EndOfStackedPairLabels from './EndOfStackedPairLabels'
 
 interface StackedBarsWithLabelsProps {
   data: HetRow[]
@@ -10,7 +12,6 @@ interface StackedBarsWithLabelsProps {
   darkMetric: MetricConfig
   xScale: ScaleLinear<number, number>
   yScale: ScaleBand<string>
-
   colors: {
     population: string
     distribution: string
@@ -20,8 +21,8 @@ interface StackedBarsWithLabelsProps {
   borderRadius: number
   demographicType: DemographicType
   onTooltip: (params: {
-    type: 'population' | 'distribution'
-    value: number
+    lightValue: number
+    darkValue: number
     demographic: string
     event: React.MouseEvent
   }) => void
@@ -43,15 +44,42 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     onTooltip,
     onCloseTooltip,
   } = props
+
+  const [hoveredDemographic, setHoveredDemographic] = useState<string | null>(
+    null,
+  )
+
   return (
     <>
       {data.map((d) => {
         const yPosition = yScale(d[demographicType]) || 0
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
+        const isHovered = hoveredDemographic === d[demographicType]
+
+        const strokeDetails = {
+          stroke: isHovered ? het.altBlack : 'none',
+          strokeWidth: isHovered ? 1 : 0,
+          strokeOpacity: 0.5,
+        }
 
         return (
-          <g key={d[demographicType]}>
+          <g
+            key={d[demographicType]}
+            onMouseEnter={(e) => {
+              setHoveredDemographic(d[demographicType])
+              onTooltip({
+                lightValue,
+                darkValue,
+                demographic: d[demographicType],
+                event: e,
+              })
+            }}
+            onMouseLeave={() => {
+              setHoveredDemographic(null)
+              onCloseTooltip()
+            }}
+          >
             {/* POPULATION BAR */}
             <path
               d={`
@@ -64,15 +92,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 Z
               `}
               fill={colors.population}
-              onMouseEnter={(e) =>
-                onTooltip({
-                  type: 'population',
-                  value: lightValue,
-                  demographic: d[demographicType],
-                  event: e,
-                })
-              }
-              onMouseLeave={onCloseTooltip}
+              {...strokeDetails}
             />
 
             {/* DISTRIBUTION BAR */}
@@ -87,19 +107,10 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 Z
               `}
               fill={colors.distribution}
-              onMouseEnter={(e) =>
-                onTooltip({
-                  type: 'distribution',
-                  value: darkValue,
-                  demographic: d[demographicType],
-                  event: e,
-                })
-              }
-              onMouseLeave={onCloseTooltip}
+              {...strokeDetails}
             />
 
             {/* BAR LABELS */}
-
             <EndOfStackedPairLabels
               lightValue={lightValue}
               lightMetric={lightMetric}
