@@ -36,8 +36,9 @@ test('Excessive Drinking Flow', async ({ page }) => {
     .click()
   await page
     .getByLabel(
-      'Stacked Bar Chart Showing Population vs. distribution of total adult excessive drinking cases in the United States',
+      'Comparison bar chart showing Population vs. distribution of total adult excessive drinking cases in the United States',
     )
+    .getByRole('img')
     .click()
   await page
     .getByRole('heading', {

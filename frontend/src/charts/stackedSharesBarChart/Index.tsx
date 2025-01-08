@@ -105,56 +105,57 @@ export function StackedBarChart(props: StackedBarChartProps) {
         lightMetric={props.lightMetric}
         demographicType={props.demographicType}
       />
-      <svg
-        width={width}
-        height={height}
-        aria-label={`Stacked Bar Chart Showing ${props.filename || 'Data'}`}
-        role='img'
+      <div
+        role='graphics-document'
+        aria-roledescription='visualization'
+        aria-label={`Comparison bar chart showing ${props.filename || 'Data'}`}
       >
-        <g
-          transform={`translate(${STACKED_BAR_MARGIN.left},${STACKED_BAR_MARGIN.top})`}
-        >
-          <StackedBarLegend metricDisplayName={props.metricDisplayName} />
-          <VerticalGridlines
-            width={width}
-            height={innerHeight}
-            xScale={xScale}
-          />
+        <svg width={width} height={height}>
+          <g
+            transform={`translate(${STACKED_BAR_MARGIN.left},${STACKED_BAR_MARGIN.top})`}
+          >
+            <StackedBarLegend metricDisplayName={props.metricDisplayName} />
+            <VerticalGridlines
+              width={width}
+              height={innerHeight}
+              xScale={xScale}
+            />
 
-          <StackedBarsWithLabels
-            data={processedData}
-            lightMetric={props.lightMetric}
-            darkMetric={props.darkMetric}
-            xScale={xScale}
-            yScale={yScale}
-            colors={STACKED_BAR_COLORS}
-            barHeight={BAR_HEIGHT}
-            pairGap={PAIR_GAP}
-            demographicType={props.demographicType}
-            onTooltip={handleTooltip}
-            onCloseTooltip={closeTooltip}
-          />
+            <StackedBarsWithLabels
+              data={processedData}
+              lightMetric={props.lightMetric}
+              darkMetric={props.darkMetric}
+              xScale={xScale}
+              yScale={yScale}
+              colors={STACKED_BAR_COLORS}
+              barHeight={BAR_HEIGHT}
+              pairGap={PAIR_GAP}
+              demographicType={props.demographicType}
+              onTooltip={handleTooltip}
+              onCloseTooltip={closeTooltip}
+            />
 
-          <XAxis
-            metricConfig={props.darkMetric}
-            secondaryMetricConfig={props.lightMetric}
-            xScale={xScale}
-            width={innerWidth}
-            height={innerHeight}
-          />
+            <XAxis
+              metricConfig={props.darkMetric}
+              secondaryMetricConfig={props.lightMetric}
+              xScale={xScale}
+              width={innerWidth}
+              height={innerHeight}
+            />
 
-          <YAxis
-            yScale={yScale}
-            demographicType={props.demographicType}
-            isSmAndUp={isSmAndUp}
-            processedData={processedData}
-            maxLabelWidth={maxLabelWidth}
-            getYPosition={getYPosition}
-            fips={props.fips}
-            innerHeight={innerHeight}
-          />
-        </g>
-      </svg>
+            <YAxis
+              yScale={yScale}
+              demographicType={props.demographicType}
+              isSmAndUp={isSmAndUp}
+              processedData={processedData}
+              maxLabelWidth={maxLabelWidth}
+              getYPosition={getYPosition}
+              fips={props.fips}
+              innerHeight={innerHeight}
+            />
+          </g>
+        </svg>
+      </div>
     </div>
   )
 }
