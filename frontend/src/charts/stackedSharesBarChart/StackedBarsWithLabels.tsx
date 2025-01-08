@@ -4,6 +4,7 @@ import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import { het } from '../../styles/DesignTokens'
+import { buildBarPair } from '../sharedBarChartPieces/helpers'
 import EndOfStackedPairLabels from './EndOfStackedPairLabels'
 
 interface StackedBarsWithLabelsProps {
@@ -18,7 +19,6 @@ interface StackedBarsWithLabelsProps {
   }
   barHeight: number
   pairGap: number
-  borderRadius: number
   demographicType: DemographicType
   onTooltip: (params: {
     lightValue: number
@@ -39,7 +39,6 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     colors,
     barHeight,
     pairGap,
-    borderRadius,
     demographicType,
     onTooltip,
     onCloseTooltip,
@@ -63,9 +62,20 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
           strokeOpacity: 0.5,
         }
 
+        const { lightBar, darkBar } = buildBarPair(
+          lightValue,
+          darkValue,
+          yPosition,
+          barHeight,
+          pairGap,
+          xScale,
+        )
+
+        const a11yLabelForPairedBars = `${d[demographicType]}:  ${lightValue} ${lightMetric.shortLabel} vs. ${darkValue} ${darkMetric.shortLabel}`
+
         return (
           <g
-            aria-label={`${d[demographicType]}:  ${lightValue} ${lightMetric.shortLabel} vs. ${darkValue} ${darkMetric.shortLabel}`}
+            aria-label={a11yLabelForPairedBars}
             key={d[demographicType]}
             onMouseEnter={(e) => {
               setHoveredDemographic(d[demographicType])
@@ -83,36 +93,12 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
           >
             {/* POPULATION BAR */}
             {lightValue > 0 && (
-              <path
-                d={`
-                M 0,${yPosition}
-                L ${xScale(lightValue || 0) - borderRadius},${yPosition}
-                Q ${xScale(lightValue || 0)},${yPosition} ${xScale(lightValue || 0)},${yPosition + borderRadius}
-                L ${xScale(lightValue || 0)},${yPosition + barHeight - borderRadius}
-                Q ${xScale(lightValue || 0)},${yPosition + barHeight} ${xScale(lightValue || 0) - borderRadius},${yPosition + barHeight}
-                L 0,${yPosition + barHeight}
-                Z
-              `}
-                fill={colors.population}
-                {...strokeDetails}
-              />
+              <path d={lightBar} fill={colors.population} {...strokeDetails} />
             )}
 
             {/* DISTRIBUTION BAR */}
             {darkValue > 0 && (
-              <path
-                d={`
-                M 0,${yPosition + barHeight + pairGap}
-                L ${xScale(darkValue || 0) - borderRadius},${yPosition + barHeight + pairGap}
-                Q ${xScale(darkValue || 0)},${yPosition + barHeight + pairGap} ${xScale(darkValue || 0)},${yPosition + barHeight + pairGap + borderRadius}
-                L ${xScale(darkValue || 0)},${yPosition + barHeight * 2 + pairGap - borderRadius}
-                Q ${xScale(darkValue || 0)},${yPosition + barHeight * 2 + pairGap} ${xScale(darkValue || 0) - borderRadius},${yPosition + barHeight * 2 + pairGap}
-                L 0,${yPosition + barHeight * 2 + pairGap}
-                Z
-              `}
-                fill={colors.distribution}
-                {...strokeDetails}
-              />
+              <path d={darkBar} fill={colors.distribution} {...strokeDetails} />
             )}
 
             {/* BAR LABELS */}

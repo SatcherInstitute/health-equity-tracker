@@ -11,15 +11,15 @@ import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import VerticalGridlines from '../rateBarChart/VerticalGridlines'
-import XAxis from '../rateBarChart/XAxis'
-import YAxis from '../rateBarChart/YAxis'
 import {
   MAX_LABEL_WIDTH_BIG,
   MAX_LABEL_WIDTH_SMALL,
   NORMAL_MARGIN_HEIGHT,
   Y_AXIS_LABEL_HEIGHT,
 } from '../rateBarChart/constants'
+import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
+import XAxis from '../sharedBarChartPieces/XAxis'
+import YAxis from '../sharedBarChartPieces/YAxis'
 import StackedBarLegend from './StackedBarLegend'
 import StackedBarsWithLabels from './StackedBarsWithLabels'
 import { StackedSharesBarChartTooltip } from './StackedSharesBarChartTooltip'
@@ -130,7 +130,6 @@ export function StackedBarChart(props: StackedBarChartProps) {
             colors={STACKED_BAR_COLORS}
             barHeight={BAR_HEIGHT}
             pairGap={PAIR_GAP}
-            borderRadius={BORDER_RADIUS}
             demographicType={props.demographicType}
             onTooltip={handleTooltip}
             onCloseTooltip={closeTooltip}

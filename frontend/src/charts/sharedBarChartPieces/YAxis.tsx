@@ -6,8 +6,8 @@ import {
 } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
+import { MARGIN, Y_AXIS_LABEL_HEIGHT } from '../rateBarChart/constants'
 import GroupLabelsYAxis from './GroupLabelsYAxis'
-import { MARGIN, Y_AXIS_LABEL_HEIGHT } from './constants'
 import { wrapLabel } from './helpers'
 
 interface YAxisProps {
