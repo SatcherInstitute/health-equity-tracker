@@ -4,7 +4,6 @@ interface StackedBarLegendProps {
   metricDisplayName: string
 }
 export default function StackedBarLegend(props: StackedBarLegendProps) {
-  
   return (
     <g
       aria-label='legend'
