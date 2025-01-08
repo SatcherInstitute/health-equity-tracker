@@ -88,7 +88,7 @@
 		"build": "vite build",
 		"cspell": "cspell '../**/*.{ts,tsx,css,md,py}' --no-progress --no-must-find-files --gitignore",
 		"dev": "env-cmd -f .env.development npm run start -- --host & npm run tsc:watch",
-		"e2e": "npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 2",
+		"e2e": "npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 4",
 		"e2e-staging": "npx playwright install chromium && cross-env E2E_BASE_URL=https://dev.healthequitytracker.org npx playwright test --project=E2E_NIGHTLY --workers 5",
 		"e2e-prod": "npx playwright install chromium && cross-env E2E_BASE_URL=https://healthequitytracker.org npx playwright test --project=E2E_NIGHTLY --workers 5",
 		"e2e-new": "npx playwright codegen http://localhost:3000",

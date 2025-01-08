@@ -63,7 +63,7 @@ test('Black Men Homicide Test: Bottom Half of Cards', async ({ page }) => {
     .locator('#population-vs-distribution')
     .getByRole('heading', { name: 'Black (NH) Men' })
     .click()
-  await page.getByLabel('Comparison bar chart showing').getByRole('img').click()
+  await page.getByLabel('Stacked Bar Chart Showing').click()
   await page.getByRole('button', { name: 'Data table' }).click()
   await page.getByRole('heading', { name: 'Summary of Black male gun' }).click()
   await page
