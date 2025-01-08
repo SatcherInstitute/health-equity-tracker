@@ -1,12 +1,11 @@
 import type React from 'react'
-import RateBarChartCard from '../cards/RateBarChartCard'
+import StackedSharesBarChartCard from '../cards/DisparityBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
-import { RACE } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 
-interface Custom100kBarChartProps {
+interface CustomStackedSharesBarChartProps {
   fips?: Fips
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
@@ -14,22 +13,24 @@ interface Custom100kBarChartProps {
   className?: string
 }
 
-const Custom100kBarChart: React.FC<Custom100kBarChartProps> = ({
-  fips = new Fips('13'),
-  dataTypeConfig = METRIC_CONFIG['poverty'][0],
-  demographicType = RACE,
-  reportTitle = `Poverty in ${new Fips('13').getFullDisplayName()}`,
+const CustomStackedSharesBarChart: React.FC<
+  CustomStackedSharesBarChartProps
+> = ({
+  fips = new Fips('12'),
+  dataTypeConfig = METRIC_CONFIG['health_insurance'][0],
+  demographicType = 'sex',
+  reportTitle = 'Uninsurance in Florida by Sex',
   className,
 }) => {
   return (
-    <RateBarChartCard
-      className={className}
+    <StackedSharesBarChartCard
       dataTypeConfig={dataTypeConfig}
       demographicType={demographicType}
       fips={fips}
       reportTitle={reportTitle}
+      className={className}
     />
   )
 }
 
-export default Custom100kBarChart
+export default CustomStackedSharesBarChart

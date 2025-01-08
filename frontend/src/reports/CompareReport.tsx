@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
@@ -44,6 +43,7 @@ import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
+import StackedSharesBarChartCard from '../cards/DisparityBarChartCard'
 
 export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
 
@@ -377,7 +377,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void,
               ) => (
-                <DisparityBarChartCard
+                <StackedSharesBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}

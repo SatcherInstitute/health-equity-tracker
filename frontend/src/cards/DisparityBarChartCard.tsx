@@ -30,7 +30,7 @@ import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownsAlert from './ui/UnknownsAlert'
 
-interface DisparityBarChartCardProps {
+interface StackedSharesBarChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
@@ -41,18 +41,20 @@ interface DisparityBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export default function DisparityBarChartCard(
-  props: DisparityBarChartCardProps,
+export default function StackedSharesBarChartCard(
+  props: StackedSharesBarChartCardProps,
 ) {
   return (
-    <DisparityBarChartCardWithKey
+    <StackedSharesBarChartCardWithKey
       key={props.dataTypeConfig.dataTypeId + props.demographicType}
       {...props}
     />
   )
 }
 
-function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
+function StackedSharesBarChartCardWithKey(
+  props: StackedSharesBarChartCardProps,
+) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1000],
     props.demographicType === SEX,

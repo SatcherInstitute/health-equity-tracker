@@ -90,7 +90,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
       .padding(BAR_PADDING)
   }, [processedData, innerHeight])
 
-  const getYPosition = (index: number, demographicValue: string) => {
+  const getYPosition = (_index: number, demographicValue: string) => {
     return yScale(demographicValue) || 0
   }
 

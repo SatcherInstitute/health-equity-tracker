@@ -1,11 +1,12 @@
 import type React from 'react'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
+import RateBarChartCard from '../cards/RateBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
+import { RACE } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 
-interface CustomDisparityBarChartProps {
+interface CustomRateBarChartProps {
   fips?: Fips
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
@@ -13,22 +14,22 @@ interface CustomDisparityBarChartProps {
   className?: string
 }
 
-const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
-  fips = new Fips('12'),
-  dataTypeConfig = METRIC_CONFIG['health_insurance'][0],
-  demographicType = 'sex',
-  reportTitle = 'Uninsurance in Florida by Sex',
+const CustomRateBarChart: React.FC<CustomRateBarChartProps> = ({
+  fips = new Fips('13'),
+  dataTypeConfig = METRIC_CONFIG['poverty'][0],
+  demographicType = RACE,
+  reportTitle = `Poverty in ${new Fips('13').getFullDisplayName()}`,
   className,
 }) => {
   return (
-    <DisparityBarChartCard
+    <RateBarChartCard
+      className={className}
       dataTypeConfig={dataTypeConfig}
       demographicType={demographicType}
       fips={fips}
       reportTitle={reportTitle}
-      className={className}
     />
   )
 }
 
-export default CustomDisparityBarChart
+export default CustomRateBarChart
