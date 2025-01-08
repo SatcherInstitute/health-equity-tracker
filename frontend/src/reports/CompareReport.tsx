@@ -7,6 +7,7 @@ import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
@@ -43,7 +44,6 @@ import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-import StackedSharesBarChartCard from '../cards/DisparityBarChartCard'
 
 export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
 
@@ -363,7 +363,7 @@ export default function CompareReport(props: CompareReportProps) {
               />
             )}
 
-            {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
+            {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='population-vs-distribution'

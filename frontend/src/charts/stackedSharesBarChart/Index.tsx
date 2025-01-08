@@ -34,7 +34,6 @@ export const STACKED_BAR_COLORS = {
   population: het.barChartLight,
   distribution: het.barChartDark,
 }
-const BORDER_RADIUS = 4
 const LEGEND_HEIGHT = 10
 
 interface StackedBarChartProps {

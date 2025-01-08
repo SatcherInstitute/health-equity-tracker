@@ -1,5 +1,5 @@
 import type React from 'react'
-import StackedSharesBarChartCard from '../cards/DisparityBarChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'

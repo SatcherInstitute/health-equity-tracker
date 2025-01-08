@@ -39,20 +39,7 @@ interface StackedSharesBarChartCardProps {
   className?: string
 }
 
-// This wrapper ensures the proper key is set to create a new instance when
-// required rather than relying on the card caller.
 export default function StackedSharesBarChartCard(
-  props: StackedSharesBarChartCardProps,
-) {
-  return (
-    <StackedSharesBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.demographicType}
-      {...props}
-    />
-  )
-}
-
-function StackedSharesBarChartCardWithKey(
   props: StackedSharesBarChartCardProps,
 ) {
   const preloadHeight = useGuessPreloadHeight(
@@ -67,7 +54,7 @@ function StackedSharesBarChartCardWithKey(
     exclude(ALL, NON_HISPANIC),
   )
 
-  // Population Comparison Metric is required for the Disparity Bar Chart.
+  // Population Comparison Metric is required
   // If MetricConfig supports known breakdown metric, prefer this metric.
   const metricIdToConfigMap = getMetricIdToConfigMap([shareConfig])
   const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
@@ -157,19 +144,6 @@ function StackedSharesBarChartCardWithKey(
                   metricDisplayName={shareConfig.shortLabel}
                   filename={chartTitle}
                 />
-                {/* <DisparityBarChart
-                  data={knownData}
-                  lightMetric={
-                    shareConfig.populationComparisonMetric ?? shareConfig
-                  }
-                  darkMetric={
-                    shareConfig.knownBreakdownComparisonMetric ?? shareConfig
-                  }
-                  demographicType={props.demographicType}
-                  metricDisplayName={shareConfig.shortLabel}
-                  filename={chartTitle}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
-                /> */}
               </>
             )}
 
