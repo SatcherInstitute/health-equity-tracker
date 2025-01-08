@@ -65,6 +65,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
 
         return (
           <g
+            aria-label={`${d[demographicType]}:  ${lightValue} ${lightMetric.shortLabel} vs. ${darkValue} ${darkMetric.shortLabel}`}
             key={d[demographicType]}
             onMouseEnter={(e) => {
               setHoveredDemographic(d[demographicType])

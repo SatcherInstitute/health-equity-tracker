@@ -35,6 +35,8 @@ export default function EndOfStackedPairLabels(
 
   return (
     <text
+      aria-hidden='true'
+      tabIndex={-1}
       x={
         darkLabelInside
           ? xScale(darkValue ?? 0) - 8 // Inside padding

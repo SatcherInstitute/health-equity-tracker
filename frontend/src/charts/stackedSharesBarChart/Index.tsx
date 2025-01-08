@@ -114,6 +114,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
         <g
           transform={`translate(${STACKED_BAR_MARGIN.left},${STACKED_BAR_MARGIN.top})`}
         >
+          <StackedBarLegend metricDisplayName={props.metricDisplayName} />
           <VerticalGridlines
             width={width}
             height={innerHeight}
@@ -153,8 +154,6 @@ export function StackedBarChart(props: StackedBarChartProps) {
             fips={props.fips}
             innerHeight={innerHeight}
           />
-
-          <StackedBarLegend metricDisplayName={props.metricDisplayName} />
         </g>
       </svg>
     </div>
