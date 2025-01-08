@@ -1,5 +1,3 @@
-// RoundedBarsWithLabels.tsx
-
 import { type ScaleBand, type ScaleLinear, max } from 'd3'
 import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
