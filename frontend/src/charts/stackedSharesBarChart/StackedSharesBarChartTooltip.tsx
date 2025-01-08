@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import { getDemographicGroupLabel } from '../utils'
 
 export interface TooltipData {
   lightValue: number | null
@@ -12,6 +14,7 @@ interface TooltipProps {
   lightMetric: MetricConfig
   darkMetric: MetricConfig
   data: TooltipData | null
+  demographicType: DemographicType
 }
 
 export function StackedSharesBarChartTooltip(props: TooltipProps) {
@@ -77,7 +80,9 @@ export function StackedSharesBarChartTooltip(props: TooltipProps) {
         transition: 'left 0.15s ease-out, top 0.15s ease-out',
       }}
     >
-      <div className='font-semibold'>{data.demographic}</div>
+      <div className='font-semibold'>
+        {getDemographicGroupLabel(props.demographicType, data.demographic)}
+      </div>
       <div className='font-light text-sm'>
         <span>
           {data.lightValue?.toFixed(1)}

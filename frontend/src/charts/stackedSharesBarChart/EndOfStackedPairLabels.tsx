@@ -2,10 +2,8 @@ import type { ScaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 
 interface EndOfStackedPairLabelsProps {
-  lightValue: number
   darkValue: number
   darkMetric: MetricConfig
-  lightMetric: MetricConfig
   xScale: ScaleLinear<number, number>
   yPosition: number
   barHeight: number
@@ -15,7 +13,7 @@ interface EndOfStackedPairLabelsProps {
 export default function EndOfStackedPairLabels(
   props: EndOfStackedPairLabelsProps,
 ) {
-  const { lightValue, darkValue, xScale, yPosition, barHeight, pairGap } = props
+  const { darkValue, xScale, yPosition, barHeight, pairGap } = props
 
   // Helper function to determine if a label should be inside based on available space
   const shouldLabelBeInside = (value: number): boolean => {
@@ -24,49 +22,31 @@ export default function EndOfStackedPairLabels(
 
     // Estimate text width (assuming ~8px per character plus metric label)
     const textWidth =
-      (value?.toFixed(1).length + props.lightMetric.shortLabel.length + 1) * 8
+      (value?.toFixed(1).length + props.darkMetric.shortLabel.length + 1) * 8
 
     // Label should be inside if there's enough space in the bar
     return barWidth > textWidth + 20 // Add 20px padding for comfort
   }
 
-  const lightLabelInside = shouldLabelBeInside(lightValue)
   const darkLabelInside = shouldLabelBeInside(darkValue)
 
-  const lightBarLabel = lightValue != null ? `${lightValue}% of pop.` : ''
   const darkBarLabel =
     darkValue !== null ? `${darkValue}${props.darkMetric.shortLabel}` : ''
 
   return (
-    <>
-      <text
-        x={
-          lightLabelInside
-            ? xScale(lightValue ?? 0) - 8 // Inside padding
-            : xScale(lightValue ?? 0) + 8 // Outside padding
-        }
-        y={yPosition + barHeight / 2}
-        dominantBaseline='middle'
-        textAnchor={lightLabelInside ? 'end' : 'start'}
-        fill={lightLabelInside ? 'white' : 'black'}
-        className='text-smallest'
-      >
-        {lightBarLabel}
-      </text>
-      <text
-        x={
-          darkLabelInside
-            ? xScale(darkValue ?? 0) - 8 // Inside padding
-            : xScale(darkValue ?? 0) + 8 // Outside padding
-        }
-        y={yPosition + barHeight * 1.5 + pairGap}
-        dominantBaseline='middle'
-        textAnchor={darkLabelInside ? 'end' : 'start'}
-        fill={darkLabelInside ? 'white' : 'black'}
-        className='text-smallest'
-      >
-        {darkBarLabel}
-      </text>
-    </>
+    <text
+      x={
+        darkLabelInside
+          ? xScale(darkValue ?? 0) - 8 // Inside padding
+          : xScale(darkValue ?? 0) + 8 // Outside padding
+      }
+      y={yPosition + barHeight * 1.5 + pairGap}
+      dominantBaseline='middle'
+      textAnchor={darkLabelInside ? 'end' : 'start'}
+      fill={darkLabelInside ? 'white' : 'black'}
+      className='text-smallest'
+    >
+      {darkBarLabel}
+    </text>
   )
 }

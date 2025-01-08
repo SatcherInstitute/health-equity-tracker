@@ -104,6 +104,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
         data={tooltipData}
         darkMetric={props.darkMetric}
         lightMetric={props.lightMetric}
+        demographicType={props.demographicType}
       />
       <svg
         width={width}

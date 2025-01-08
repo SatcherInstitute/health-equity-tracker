@@ -1,4 +1,3 @@
-import { DisparityBarChart } from '../charts/disparityBarChart/Index'
 import { StackedBarChart } from '../charts/stackedSharesBarChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
@@ -21,10 +20,7 @@ import {
   SEX,
 } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import {
-  shouldShowAltPopCompare,
-  splitIntoKnownsAndUnknowns,
-} from '../data/utils/datasetutils'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -159,7 +155,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   metricDisplayName={shareConfig.shortLabel}
                   filename={chartTitle}
                 />
-                <DisparityBarChart
+                {/* <DisparityBarChart
                   data={knownData}
                   lightMetric={
                     shareConfig.populationComparisonMetric ?? shareConfig
@@ -171,7 +167,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   metricDisplayName={shareConfig.shortLabel}
                   filename={chartTitle}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
-                />
+                /> */}
               </>
             )}
 

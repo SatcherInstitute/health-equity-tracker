@@ -12,8 +12,8 @@ import { useRef } from 'react'
 import CardWrapper from '../cards/CardWrapper'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue, isPctType } from '../data/config/MetricConfigUtils'
-import { Breakdowns } from '../data/query/Breakdowns'
 import type { DemographicType } from '../data/query/Breakdowns'
+import { Breakdowns } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
   AGE,
@@ -93,7 +93,6 @@ export default function CustomAltTable(props: CustomAltTableProps) {
           accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
         const tableRef = useRef(null)
-        const linkRef = useRef(null)
         const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
 
         return (

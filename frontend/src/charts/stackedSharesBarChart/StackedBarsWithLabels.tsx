@@ -81,8 +81,9 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
             }}
           >
             {/* POPULATION BAR */}
-            <path
-              d={`
+            {lightValue > 0 && (
+              <path
+                d={`
                 M 0,${yPosition}
                 L ${xScale(lightValue || 0) - borderRadius},${yPosition}
                 Q ${xScale(lightValue || 0)},${yPosition} ${xScale(lightValue || 0)},${yPosition + borderRadius}
@@ -91,13 +92,15 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 L 0,${yPosition + barHeight}
                 Z
               `}
-              fill={colors.population}
-              {...strokeDetails}
-            />
+                fill={colors.population}
+                {...strokeDetails}
+              />
+            )}
 
             {/* DISTRIBUTION BAR */}
-            <path
-              d={`
+            {darkValue > 0 && (
+              <path
+                d={`
                 M 0,${yPosition + barHeight + pairGap}
                 L ${xScale(darkValue || 0) - borderRadius},${yPosition + barHeight + pairGap}
                 Q ${xScale(darkValue || 0)},${yPosition + barHeight + pairGap} ${xScale(darkValue || 0)},${yPosition + barHeight + pairGap + borderRadius}
@@ -106,14 +109,13 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 L 0,${yPosition + barHeight * 2 + pairGap}
                 Z
               `}
-              fill={colors.distribution}
-              {...strokeDetails}
-            />
+                fill={colors.distribution}
+                {...strokeDetails}
+              />
+            )}
 
             {/* BAR LABELS */}
             <EndOfStackedPairLabels
-              lightValue={lightValue}
-              lightMetric={lightMetric}
               darkValue={darkValue}
               darkMetric={darkMetric}
               xScale={xScale}
