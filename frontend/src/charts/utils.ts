@@ -111,17 +111,10 @@ export function generateSubtitle(
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig,
 ) {
-  // active group label, if any
-  let activeGroupLabel = ''
-  if (activeDemographicGroup === ALL) {
-    activeGroupLabel = ''
-  } else if (demographicType === AGE) {
-    activeGroupLabel = `Ages ${activeDemographicGroup}`
-  } else if (demographicType === 'urbanicity') {
-    activeGroupLabel = `Living in ${activeDemographicGroup} areas`
-  } else {
-    activeGroupLabel = activeDemographicGroup
-  }
+  const activeGroupLabel = getDemographicGroupLabel(
+    demographicType,
+    activeDemographicGroup,
+  )
 
   // age and any other subpopulations, if any
   const ageSubPop =
@@ -136,6 +129,23 @@ export function generateSubtitle(
     .join(', ')
 
   return subtitle
+}
+
+export function getDemographicGroupLabel(
+  demographicType: DemographicType,
+  demographicGroup: DemographicGroup,
+) {
+  let groupLabel = ''
+  if (demographicGroup === ALL) {
+    groupLabel = ''
+  } else if (demographicType === AGE) {
+    groupLabel = `Ages ${demographicGroup}`
+  } else if (demographicType === 'urbanicity') {
+    groupLabel = `Living in ${demographicGroup} areas`
+  } else {
+    groupLabel = demographicGroup
+  }
+  return groupLabel
 }
 
 export function removeLastS(inputString: string) {
