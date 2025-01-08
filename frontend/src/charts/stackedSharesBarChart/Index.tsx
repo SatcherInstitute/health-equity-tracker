@@ -109,6 +109,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
         width={width}
         height={height}
         aria-label={`Stacked Bar Chart Showing ${props.filename || 'Data'}`}
+        role='img'
       >
         <g
           transform={`translate(${STACKED_BAR_MARGIN.left},${STACKED_BAR_MARGIN.top})`}
