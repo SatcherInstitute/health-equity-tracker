@@ -46,11 +46,21 @@ test('About Us Page Loads', async ({ page }) => {
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
-test('Terms of Use Page Loads', async ({ page }) => {
+test('Terms of Use Page Loads and Renders Correctly', async ({ page }) => {
   await page.goto('/termsofuse', { waitUntil: 'commit' })
-  const mainSection = page.locator('main#main')
-  const mainHeading = mainSection.locator('h2#main')
+  const mainSection = page.locator('section#main-content')
+  await expect(mainSection).toBeVisible()
+  const mainHeading = mainSection.locator('h1#main')
   await expect(mainHeading).toHaveText('Terms of Use')
+  const termsList = mainSection.locator('ul')
+  await expect(termsList).toBeVisible()
+  const firstTerm = termsList.locator('li#tou-0')
+  const firstTermHeading = firstTerm.locator('h2')
+  await expect(firstTermHeading).toHaveText('Privacy Policy')
+  const firstTermParagraph = firstTerm.locator('p')
+  await expect(firstTermParagraph).toContainText(
+    'The Health Equity Tracker (HET)',
+  )
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
   expect(accessibilityScanResults.violations).toEqual([])
 })

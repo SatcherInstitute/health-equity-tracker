@@ -62,6 +62,7 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
+      heroHeader: '4.5rem'
     },
     // TODO: improve this hack that convinces TS that Tailwind can use z index numbers (not only strings)
     zIndex: ThemeZIndexValues as Record<string, unknown> as Record<

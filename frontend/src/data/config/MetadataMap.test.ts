@@ -7,7 +7,7 @@ describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {
     Object.values(dataSourceMetadataMap).forEach((metadata) => {
       const testUrl = metadata.data_source_link
-      console.log(testUrl, '--')
+      console.info(testUrl, '--')
 
       expect(testUrl.slice(0, 8)).toEqual('https://')
     })
