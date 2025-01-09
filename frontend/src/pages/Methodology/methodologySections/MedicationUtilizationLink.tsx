@@ -30,7 +30,6 @@ export default function MedicareMedicationLink() {
         <Helmet>
           <title>Medication Utilization - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>HIV</h2>
 
         <StripedTable
           id='categories-table'
@@ -47,12 +46,12 @@ export default function MedicareMedicationLink() {
           ]}
         />
 
-        <h3
+        <h2
           className='mt-12 font-medium text-title'
           id='medication-utilization-data-sourcing'
         >
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           Data presented is from 2020 and is sourced directly from the Medicare
           Administrative Data and encoded based on the fields below. For these
@@ -126,8 +125,8 @@ export default function MedicareMedicationLink() {
 
         <section>
           <div className='py-5'>
-            <h4 className='font-normal text-text'>Medicare PQA Adherence</h4>
-            <h5 className='my-2'>Conditions</h5>
+            <h3 className='font-normal text-text'>Medicare PQA Adherence</h3>
+            <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>Renin Angiotensin System Antagonists</HetTerm>{' '}
@@ -170,7 +169,7 @@ export default function MedicareMedicationLink() {
               </li>
             </ul>
 
-            <h5 className='my-2'>Metrics</h5>
+            <h4 className='my-2'>Metrics</h4>
             <ul>
               <li>
                 <HetTerm>Adherence Rate</HetTerm>: this rate measures the
@@ -181,11 +180,11 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
           <div className='py-5'>
-            <h4 className='list-inside font-normal text-text'>
+            <h3 className='list-inside font-normal text-text'>
               Medicare NQF Adherence
-            </h4>
+            </h3>
 
-            <h5 className='my-2'>Conditions</h5>
+            <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>
@@ -204,7 +203,7 @@ export default function MedicareMedicationLink() {
               )}
             </ul>
 
-            <h5 className='my-2'>Metrics</h5>
+            <h4 className='my-2'>Metrics</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>
@@ -234,9 +233,9 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
           <div className='py-5'>
-            <h4 className='font-normal text-text'>Medicare Disease Measures</h4>
+            <h3 className='font-normal text-text'>Medicare Disease Measures</h3>
 
-            <h5 className='my-2'>Conditions</h5>
+            <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>HIV cases</HetTerm>
@@ -249,7 +248,7 @@ export default function MedicareMedicationLink() {
               </li>
             </ul>
 
-            <h5 className='my-2'>Metrics</h5>
+            <h4 className='my-2'>Metrics</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>Cases per 100k</HetTerm>: Rate of beneficiaries with
@@ -283,9 +282,9 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
           <div className='py-5'>
-            <h4 className='font-normal text-text'>
+            <h3 className='font-normal text-text'>
               Medicare Demographic Identifiers
-            </h4>
+            </h3>
             <p>
               <strong>Race/ethnicity:</strong> Medicare enhances the race and
               ethnicity of each beneficiary that has been used by the Social

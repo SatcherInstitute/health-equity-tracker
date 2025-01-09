@@ -36,7 +36,6 @@ const PdohLink = () => {
             Political Determinants of Health - Health Equity Tracker
           </title>
         </Helmet>
-        <h2 className='sr-only'>Political Determinants of Health</h2>
 
         <StripedTable
           id='categories-table'
@@ -52,27 +51,25 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 className='mt-12 font-medium text-title' id='pdoh-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='pdoh-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           We gather our information on incarcerated individuals (including
           children) in the U.S. from trusted sources:
         </p>
-        <h4 className='font-medium italic'>
-          Bureau of Justice Statistic (BJS)
-        </h4>
+        <p className='font-medium italic'>Bureau of Justice Statistic (BJS)</p>
         <p>
           Provides comprehensive reports on people under correctional control.
           Our insights are based on combining data from their “Prisoners in
           2020” and “Census of Jails 2005-2019” reports.
         </p>
-        <h4 className='font-medium italic'>Vera Institute for Justice</h4>
+        <p className='font-medium italic'>Vera Institute for Justice</p>
         <p>
           Offers detailed research on incarceration trends at the county level.
         </p>
-        <h4>Breakdown of Our Reports</h4>
-        <h5 className='font-light text-text'>By Age</h5>
+        <h3>Breakdown of Our Reports</h3>
+        <h4 className='font-light text-text'>By Age</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
@@ -81,20 +78,20 @@ const PdohLink = () => {
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5 className='font-light text-text'>By Race</h5>
+        <h4 className='font-light text-text'>By Race</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
-        <h5 className='font-light text-text'>By Sex</h5>
+        <h4 className='font-light text-text'>By Sex</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5 className='font-light text-text'>Special Reports</h5>
+        <h4 className='font-light text-text'>Special Reports</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
@@ -110,7 +107,7 @@ const PdohLink = () => {
         <h3 className='mt-12 font-medium text-title' id='jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
-        <h4>Jails</h4>
+        <h3>Jails</h3>
         <p>
           Jails are local facilities that primarily house individuals awaiting
           trial or sentencing, or those sentenced to less than a year. Our data
@@ -118,7 +115,7 @@ const PdohLink = () => {
           facility or weekend-only inmates. For county-level data, we focus on
           individuals aged 15-64 using data from the Vera Institute.
         </p>
-        <h4>Prisons</h4>
+        <h3>Prisons</h3>
 
         <p>Prisons generally house individuals sentenced to over a year.</p>
         <p>
@@ -126,22 +123,22 @@ const PdohLink = () => {
           person, not necessarily where they're held.
         </p>
         <p>Our data varies slightly based on the location and type:</p>
-        <h5 className='font-light text-text'>National report</h5>
+        <h4 className='font-light text-text'>National report</h4>
         <p>
           Includes all under the jurisdiction of a state or federal adult
           prison. Excludes territorial, military, or Indian Country facilities.
         </p>
-        <h5 className='font-light text-text'>State reports</h5>
+        <h4 className='font-light text-text'>State reports</h4>
         <p>
           Focuses on individuals within a state's prison system. Age-specific
           data is not available.
         </p>
-        <h5 className='font-light text-text'>Territory reports</h5>
+        <h4 className='font-light text-text'>Territory reports</h4>
         <p>
           Covers individuals in a territory's adult prison facilities. No
           specific demographic breakdown.
         </p>
-        <h5 className='font-light text-text'>County reports</h5>
+        <h4 className='font-light text-text'>County reports</h4>
         <p>
           Considers those under state prison systems but charged in a specific
           county.
@@ -190,7 +187,7 @@ const PdohLink = () => {
           convicted felons are among the key political forces that determine
           voter participation in the justice-involved population.
         </p>
-        <h4 className='font-medium italic'>Voter Disenfranchisement</h4>
+        <h3 className='font-medium italic'>Voter Disenfranchisement</h3>
 
         <p>
           The ability to vote is described as the singular most powerful,
@@ -205,18 +202,18 @@ const PdohLink = () => {
         >
           Health Impact of Incarceration
         </h3>
-        <h4 className='font-medium italic'>Immediate Health Consequences</h4>
+        <h3 className='font-medium italic'>Immediate Health Consequences</h3>
         <p>
           Studies indicate that incarceration heightens the risk of chronic
           health conditions, infectious diseases like HIV/AIDS, mental
           illnesses, and substance use disorders.
         </p>
-        <h4 className='font-medium italic'>Life Expectancy</h4>
+        <h3 className='font-medium italic'>Life Expectancy</h3>
         <p>
           Each year spent in prison is associated with a reduction of 2 years in
           life expectancy.
         </p>
-        <h4 className='font-medium italic'>Post-Incarceration Challenges</h4>
+        <h3 className='font-medium italic'>Post-Incarceration Challenges</h3>
         <p>
           The health impact of incarceration extends beyond the confinement
           period. Upon reentry into society, justice-involved individuals often

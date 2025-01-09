@@ -29,7 +29,6 @@ const CommunitySafetyLink = () => {
         <Helmet>
           <title>Community Safety - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Community Safety</h2>
 
         <StripedTable
           id='categories-table'
@@ -46,12 +45,12 @@ const CommunitySafetyLink = () => {
           ]}
         />
 
-        <h3
+        <h2
           className='mt-12 font-medium text-title'
           id='community-safety-data-sourcing'
         >
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           The CDC’s Web-based Injury Statistics Query and Reporting System
           (WISQARS) collects and provides data on gun deaths in the United

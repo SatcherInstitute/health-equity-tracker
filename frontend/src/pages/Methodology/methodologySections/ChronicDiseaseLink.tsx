@@ -34,7 +34,6 @@ const ChronicDiseaseLink = () => {
         <Helmet>
           <title>Chronic Diseases - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Chronic Diseases</h2>
 
         <StripedTable
           id='categories-table'
@@ -50,12 +49,12 @@ const ChronicDiseaseLink = () => {
             },
           ]}
         />
-        <h3
+        <h2
           className='mt-12 font-medium text-title'
           id='chronic-diseases-data-sourcing'
         >
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           For chronic diseases like COPD and diabetes, our tracker sources data
           primarily from{' '}

@@ -7,7 +7,6 @@ const MethodologyHomeLink = () => {
         <Helmet>
           <title>Methodology - Health Equity Tracker</title>
         </Helmet>
-        {/* <h1 className='sr-only'>Methodology</h2> */}
 
         <div>
           <p>
