@@ -40,7 +40,7 @@ test(`Fetch First 100 Blog Posts`, async ({ page }) => {
     'https://hetblog.dreamhosters.com/wp-json/wp/v2/posts?_embed&per_page=100'
   const response = await page.goto(url, { waitUntil: 'domcontentloaded' })
   if (response?.status() !== 200)
-    console.log('\n🙀', url, response?.status(), '\n')
+    console.error('\n🙀', url, response?.status(), '\n')
 })
 
 for (const url of Object.values(urlMap)) {
@@ -48,7 +48,7 @@ for (const url of Object.values(urlMap)) {
   test(`${url}`, async ({ page }) => {
     const response = await page.goto(url, { waitUntil: 'domcontentloaded' })
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -59,7 +59,7 @@ for (const url of RESOURCES.resources
   test(`Resource Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -70,7 +70,7 @@ for (const url of PDOH_RESOURCES.resources
   test(`PDOH_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -81,7 +81,7 @@ for (const url of EQUITY_INDEX_RESOURCES.resources
   test(`EQUITY_INDEX_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -92,7 +92,7 @@ for (const url of ECONOMIC_EQUITY_RESOURCES.resources
   test(`ECONOMIC_EQUITY_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -103,7 +103,7 @@ for (const url of AIAN_RESOURCES.resources
   test(`AIAN_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -114,7 +114,7 @@ for (const url of API_RESOURCES.resources
   test(`API_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -125,7 +125,7 @@ for (const url of HISP_RESOURCES.resources
   test(`HISP_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 
@@ -136,7 +136,7 @@ for (const url of MENTAL_HEALTH_RESOURCES.resources
   test(`MENTAL_HEALTH_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 for (const url of COVID_RESOURCES.resources
@@ -146,7 +146,7 @@ for (const url of COVID_RESOURCES.resources
   test(`COVID_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
 for (const url of COVID_VACCINATION_RESOURCES.resources
@@ -156,6 +156,6 @@ for (const url of COVID_VACCINATION_RESOURCES.resources
   test(`COVID_VACCINATION_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
     if (response?.status() !== 200)
-      console.log('\n🙀', url, response?.status(), '\n')
+      console.error('\n🙀', url, response?.status(), '\n')
   })
 }
