@@ -13,9 +13,12 @@ test('Methodology Hub Loads', async ({ page }) => {
 
 test('Policy Hub Loads', async ({ page }) => {
   await page.goto('/policy', { waitUntil: 'commit' })
-  await expect(page.getByLabel('Policy Context Introduction')).toContainText(
-    'Understanding the Crisis of Gun Violence in Atlanta',
-  )
+  await page
+    .getByRole('heading', {
+      name: 'Understanding the Crisis of Gun Violence in Atlanta',
+    })
+    .click()
+
   // mimic reduced motion to prevent animation, which was causing contrast a11y error
   await page.emulateMedia({ reducedMotion: 'reduce' })
   const accessibilityScanResults = await new AxeBuilder({ page })
