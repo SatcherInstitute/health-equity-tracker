@@ -108,7 +108,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       className='group my-8 rounded-md border border-altGreen border-solid bg-white p-12 text-left shadow-raised-tighter transition-all duration-300 ease-in-out hover:shadow-raised md:px-20 md:pt-14 md:pb-10'
       data-testid={props.source_metadata.id}
     >
-      <h3 className='my-0 font-bold text-title leading-lhSomeMoreSpace md:font-medium md:text-smallestHeader'>
+      <h2 className='my-0 font-bold text-title leading-lhSomeMoreSpace md:font-medium md:text-smallestHeader'>
         <a
           href={props.source_metadata.data_source_link}
           target='_blank'
@@ -117,7 +117,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
         >
           {props.source_metadata.data_source_name}
         </a>
-      </h3>
+      </h2>
       <ul className='mx-0 my-4 flex list-none flex-col px-0 md:my-8 md:gap-1'>
         {props.source_metadata.time_period_range && (
           <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
