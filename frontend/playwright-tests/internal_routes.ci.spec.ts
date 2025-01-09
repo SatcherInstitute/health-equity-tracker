@@ -11,8 +11,6 @@ test('Methodology Hub Loads', async ({ page }) => {
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
-
-
 test('Age-Adjustment Redirects to Age-Adjustment Page of Methodology Hub', async ({
   page,
 }) => {
