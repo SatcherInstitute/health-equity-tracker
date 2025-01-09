@@ -116,8 +116,8 @@ function LandingPage() {
           alt='various charts from the health equity tracker'
           className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
         ></img>
-        <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-1/2'>
-          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-bigHeader text-black xs:text-header leading-lhSomeSpace'>
+        <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
+          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-lhSomeSpace sm:text-bigHeader lg:text-heroHeader'>
             Where will the <br />
             <span className='text-altGreen'>Health Equity Tracker</span>
             <br /> take you?
