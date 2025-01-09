@@ -39,7 +39,19 @@
 				"noImplicitAnyLet": "off",
 				"noArrayIndexKey": "off",
 				"noAssignInExpressions": "off",
-				"noGlobalIsNan": "off"
+				"noGlobalIsNan": "off",
+				"noConsole": {
+					"level": "error",
+					"fix": "unsafe",
+					"options": {
+						"allow": [
+							"assert",
+							"error",
+							"info",
+							"warn"
+						]
+					}
+				}
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off"
