@@ -41,7 +41,7 @@
 				"noAssignInExpressions": "off",
 				"noGlobalIsNan": "off",
 				"noConsole": {
-					"level": "warn",
+					"level": "error",
 					"options": {
 						"allow": [
 							"assert",
