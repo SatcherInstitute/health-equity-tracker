@@ -108,8 +108,6 @@ function LandingPage() {
         <title>Home - Health Equity Tracker</title>
       </Helmet>
 
-      <h2 className='sr-only'>Home Page</h2>
-
       <section className='relative min-h-5/6 overflow-hidden px-56 xs:px-16 py-16 sm:px-16 md:px-24'>
         <img
           src='/img/graphics/het-hero.png'
@@ -118,9 +116,9 @@ function LandingPage() {
         ></img>
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-1/2'>
           <h1 className='mt-4 mb-0 text-left font-medium font-serif text-bigHeader text-black xs:text-header leading-lhSomeSpace'>
-            Where will the <br />
+            Where will the <br aria-hidden />
             <span className='text-altGreen'>Health Equity Tracker</span>
-            <br /> take you?
+            <br aria-hidden /> take you?
           </h1>
           <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
