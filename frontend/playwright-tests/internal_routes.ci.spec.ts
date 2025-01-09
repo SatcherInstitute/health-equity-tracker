@@ -49,7 +49,7 @@ test('About Us Page Loads', async ({ page }) => {
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
-test('Terms of Use Page Loads', async ({ page }) => {
+test('Terms of Use Page Loads and Renders Correctly', async ({ page }) => {
   await page.goto('/termsofuse', { waitUntil: 'commit' })
   await page.getByRole('heading', { name: 'Terms of Use' }).click()
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
