@@ -31,7 +31,7 @@
 				"useSortedClasses": "info"
 			},
 			"a11y": {
-				"useSemanticElements": "info",
+				"useSemanticElements": "off",
 				"noSvgWithoutTitle": "off"
 			},
 			"suspicious": {
