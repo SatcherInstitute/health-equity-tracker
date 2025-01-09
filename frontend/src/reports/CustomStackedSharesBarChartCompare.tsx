@@ -1,10 +1,10 @@
 import type React from 'react'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { Fips } from '../data/utils/Fips'
 
-const CustomDisparityBarChartCompare: React.FC = () => {
+const CustomStackedSharesBarChartCompare: React.FC = () => {
   const fipsFlorida = new Fips('12')
   const fipsCalifornia = new Fips('06')
   const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['health_insurance'][0]
@@ -12,7 +12,7 @@ const CustomDisparityBarChartCompare: React.FC = () => {
   return (
     <div className='flex justify-around'>
       <div className='mx-2 flex-1'>
-        <DisparityBarChartCard
+        <StackedSharesBarChartCard
           dataTypeConfig={dataTypeConfig}
           demographicType='sex'
           fips={fipsFlorida}
@@ -20,7 +20,7 @@ const CustomDisparityBarChartCompare: React.FC = () => {
         />
       </div>
       <div className='mx-2 flex-1'>
-        <DisparityBarChartCard
+        <StackedSharesBarChartCard
           dataTypeConfig={dataTypeConfig}
           demographicType='sex'
           fips={fipsCalifornia}
@@ -31,4 +31,4 @@ const CustomDisparityBarChartCompare: React.FC = () => {
   )
 }
 
-export default CustomDisparityBarChartCompare
+export default CustomStackedSharesBarChartCompare

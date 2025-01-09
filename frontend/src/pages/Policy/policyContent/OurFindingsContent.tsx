@@ -11,8 +11,8 @@ import { Fips } from '../../../data/utils/Fips'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 import { HET_URL } from '../../../utils/internalRoutes'
 
-const Custom100kBarChart = React.lazy(
-  () => import('../../../reports/Custom100kBarChart'),
+const CustomRateBarChart = React.lazy(
+  () => import('../../../reports/CustomRateBarChart'),
 )
 const CustomAltTable = React.lazy(
   () => import('../../../reports/CustomAltTable'),
@@ -23,8 +23,8 @@ const CustomBreakdownSummary = React.lazy(
 const CustomChoroplethMap = React.lazy(
   () => import('../../../reports/CustomChoroplethMap'),
 )
-const CustomDisparityBarChart = React.lazy(
-  () => import('../../../reports/CustomDisparityBarChart'),
+const CustomStackedSharesBarChart = React.lazy(
+  () => import('../../../reports/CustomStackedSharesBarChart'),
 )
 const CustomRateTrendsLineChart = React.lazy(
   () => import('../../../reports/CustomRateTrendsLineChart'),
@@ -94,7 +94,7 @@ export const youthFatalitiesFacts = [
       </>
     ),
     customCard: (
-      <CustomDisparityBarChart
+      <CustomStackedSharesBarChart
         fips={gunViolenceYouthConfig.fips}
         dataTypeConfig={gunViolenceYouthConfig.dataTypeConfig}
         demographicType={RACE}
@@ -141,7 +141,7 @@ export const homicideFacts = [
       </>
     ),
     customCard: (
-      <Custom100kBarChart
+      <CustomRateBarChart
         fips={gunViolenceHomicideConfig.fips}
         dataTypeConfig={gunViolenceHomicideConfig.dataTypeConfig}
         demographicType={RACE}

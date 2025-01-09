@@ -19,7 +19,7 @@ export default function VerticalGridlines(props: VerticalGridlinesProps) {
           x2={props.xScale(tick)}
           y1={0}
           y2={props.height}
-          className='stroke-timberwolf'
+          className='stroke-timberwolf opacity-50'
         />
       ))}
     </g>

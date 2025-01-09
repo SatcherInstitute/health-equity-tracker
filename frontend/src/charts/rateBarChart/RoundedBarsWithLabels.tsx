@@ -3,9 +3,9 @@ import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import EndOfBarLabel from './EndOfBarLabel'
+import { buildRoundedBarString } from '../sharedBarChartPieces/helpers'
+import EndOfRateBarLabel from './EndOfRateBarLabel'
 import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
-import { buildRoundedBarString } from './helpers'
 
 interface RoundedBarsWithLabelsProps {
   processedData: HetRow[]
@@ -33,13 +33,17 @@ export default function RoundedBarsWithLabels(
     const shouldLabelBeInside =
       d[props.metricConfig.metricId] > barLabelBreakpoint
     const yPosition = props.getYPosition(index, d[props.demographicType])
+    const barHeight = props.yScale.bandwidth() || 0
 
     const barLabelColor =
       shouldLabelBeInside && d[props.demographicType] !== 'All'
         ? 'fill-white'
         : 'fill-current'
 
-    const roundedBarString = buildRoundedBarString(barWidth, props.yScale)
+    const roundedBarString = buildRoundedBarString({
+      width: barWidth,
+      height: barHeight,
+    })
 
     if (!roundedBarString) return null
 
@@ -67,7 +71,7 @@ export default function RoundedBarsWithLabels(
           }
           aria-hidden
         />
-        <EndOfBarLabel
+        <EndOfRateBarLabel
           {...props}
           d={d}
           shouldLabelBeInside={shouldLabelBeInside}

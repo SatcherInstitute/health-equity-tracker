@@ -4,6 +4,7 @@ import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface XAxisProps {
   metricConfig: MetricConfig
+  secondaryMetricConfig?: MetricConfig
   xScale: ScaleLinear<number, number>
   width: number
   height: number
@@ -18,6 +19,12 @@ export default function XAxis(props: XAxisProps) {
       ? format('.2~s') // Uses SI-prefix with 2 significant digits
       : format(',') // Uses thousands separator
 
+  const xAxisLabel = props.secondaryMetricConfig
+    ? props.secondaryMetricConfig.shortLabel +
+      ' vs ' +
+      props.metricConfig.shortLabel
+    : props.metricConfig.shortLabel
+
   return (
     <>
       {/* X Axis Metric Label */}
@@ -26,7 +33,7 @@ export default function XAxis(props: XAxisProps) {
         textAnchor='middle'
         className='font-semibold text-smallest'
       >
-        {props.metricConfig.shortLabel}
+        {xAxisLabel}
       </text>
       {/* X Axis */}
       <g
