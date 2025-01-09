@@ -42,9 +42,9 @@ export default function ShareYourStory() {
 
           <div className='mt-5 flex w-full items-center'>
             <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
-            <h3 className='m-0 ps-4 pe-4 font-bold text-altGreen text-title leading-lhSomeMoreSpace md:font-medium md:text-smallestHeader'>
+            <h2 className='m-0 ps-4 pe-4 font-bold text-altGreen text-title leading-lhSomeMoreSpace md:font-medium md:text-smallestHeader'>
               Submission guidelines
-            </h3>
+            </h2>
             <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
           </div>
 

@@ -8,18 +8,18 @@ function TermsOfUsePage() {
       </Helmet>
       <section className='flex w-full flex-col justify-center p-10 md:flex-row'>
         <div className='w-full md:w-1/4'>
-          <h2
+          <h1
             id='main'
             className='m-0 font-light font-serif text-header md:m-2'
           >
             Terms of Use
-          </h2>
+          </h1>
         </div>
         <ul className='w-full max-w-lg list-none text-left md:w-3/4'>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Privacy Policy
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               Morehouse School of Medicine’s (MSM) Health Equity Tracker (HET)
               is committed to protecting your online privacy. The only
@@ -30,9 +30,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Personally Provided Information
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               In general, you can visit official MSM web sites, such as the
               Health Equity Tracker, without revealing any personal information.
@@ -46,9 +46,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Email and Phone Communications
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               Email communication that you send to us via contact forms on our
               sites or through phone calls may be shared with a customer service
@@ -58,9 +58,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Collection of Technical Information
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               MSM and the HET use IP addresses (the Internet address of your
               computer) to help diagnose problems with our servers and to
@@ -86,7 +86,7 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>Security</h3>
+            <h2 className='font-medium font-sansTitle text-title'>Security</h2>
             <p className='font-sansText text-small'>
               While no computing environment can be 100% secure, it is MSM’s
               goal to maintain as secure a technical environment as feasible
@@ -98,9 +98,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Links to Other Sites
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               Please note that some pages within MSM web site, for the
               convenience of users, are linked to web sites not managed by the
@@ -111,9 +111,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Changes to our Privacy Policy
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               We may change the terms and conditions of our Privacy Policy at
               any time by posting revisions on the MSM and HET web site. By
@@ -125,9 +125,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Complaint Process
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               If you have a complaint or problem with the HET website, or if you
               believe your privacy rights have been violated from the HET
@@ -137,9 +137,9 @@ function TermsOfUsePage() {
             </p>
           </li>
           <li className='pb-5'>
-            <h3 className='font-medium font-sansTitle text-title'>
+            <h2 className='font-medium font-sansTitle text-title'>
               Disclaimer
-            </h3>
+            </h2>
             <p className='font-sansText text-small'>
               No data protection method or combination of methods can be
               guaranteed as completely secure. MSM nor HET are responsible for
