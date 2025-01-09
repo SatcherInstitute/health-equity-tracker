@@ -3,7 +3,8 @@ import { test } from '@playwright/test'
 test('Care Avoidance Due To Cost', async ({ page }) => {
   await page.goto('/exploredata?mls=1.avoided_care-3.00&group1=All')
   await page
-    .getByRole('button', { name: 'Race/Ethnicity', exact: true })
+    .locator('#madlib-box')
+    .getByRole('button', { name: 'Race/Ethnicity' })
     .click()
   await page.locator('.MuiBackdrop-root').click()
 

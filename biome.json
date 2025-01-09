@@ -1,7 +1,9 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
 	"files": {
-		"ignore": ["**/*.css"]
+		"ignore": [
+			"**/*.css"
+		]
 	},
 	"organizeImports": {
 		"enabled": true
@@ -29,7 +31,8 @@
 				"useSortedClasses": "info"
 			},
 			"a11y": {
-				"useSemanticElements": "info"
+				"useSemanticElements": "off",
+				"noSvgWithoutTitle": "off"
 			},
 			"suspicious": {
 				"noExplicitAny": "off",

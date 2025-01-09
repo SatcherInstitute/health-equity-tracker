@@ -304,7 +304,6 @@ export function TrendsChart({
       {/* Chart */}
       {filteredData && xScale && yScale && (
         <>
-          {/* biome-ignore lint/a11y/noSvgWithoutTitle: using aria-labelledby instead */}
           <svg
             height={CONFIG.HEIGHT}
             width={width}
