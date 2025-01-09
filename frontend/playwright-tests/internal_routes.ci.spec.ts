@@ -55,7 +55,7 @@ test('Terms of Use Page Loads and Renders Correctly', async ({ page }) => {
   const termsList = mainSection.locator('ul')
   await expect(termsList).toBeVisible()
   const firstTerm = termsList.locator('li#tou-0')
-  const firstTermHeading = firstTerm.locator('h3')
+  const firstTermHeading = firstTerm.locator('h2')
   await expect(firstTermHeading).toHaveText('Privacy Policy')
   const firstTermParagraph = firstTerm.locator('p')
   await expect(firstTermParagraph).toContainText(

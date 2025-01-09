@@ -81,7 +81,6 @@ export default function TermsOfUsePage() {
       </Helmet>
       <section
         id='main-content'
-        aria-labelledby='main-content'
         className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
       >
         <h1
@@ -90,13 +89,12 @@ export default function TermsOfUsePage() {
         >
           Terms of Use
         </h1>
-        <h2 className='sr-only'>Terms of Use</h2>
         <ul className='mx-auto w-full max-w-lg list-none p-0 text-left md:w-3/4'>
           {termsOfUseContent.map((tou, index) => (
             <li key={tou.title} className='pb-5' id={`tou-${index}`}>
-              <h3 className='mt-0 font-medium font-sansTitle text-altGreen text-title'>
+              <h2 className='mt-0 font-medium font-sansTitle text-altGreen text-title'>
                 {tou.title}
-              </h3>
+              </h2>
               <p key={tou.title} className='font-sansText text-small'>
                 {tou.paragraphs}
               </p>
