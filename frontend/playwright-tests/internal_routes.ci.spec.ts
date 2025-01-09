@@ -48,9 +48,7 @@ test('About Us Page Loads', async ({ page }) => {
 
 test('Terms of Use Page Loads', async ({ page }) => {
   await page.goto('/termsofuse', { waitUntil: 'commit' })
-  const mainSection = page.locator('main#main')
-  const mainHeading = mainSection.locator('h2#main')
-  await expect(mainHeading).toHaveText('Terms of Use')
+  await page.getByRole('heading', { name: 'Terms of Use' }).click()
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
   expect(accessibilityScanResults.violations).toEqual([])
 })

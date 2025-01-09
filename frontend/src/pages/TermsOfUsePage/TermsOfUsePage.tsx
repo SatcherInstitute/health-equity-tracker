@@ -9,7 +9,7 @@ function TermsOfUsePage() {
       <section className='flex w-full flex-col justify-center p-10 md:flex-row'>
         <div className='w-full md:w-1/4'>
           <h1
-            id='main'
+            id='main-heading'
             className='m-0 font-light font-serif text-header md:m-2'
           >
             Terms of Use
