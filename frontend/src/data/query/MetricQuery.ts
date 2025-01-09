@@ -178,6 +178,7 @@ export function resolveDatasetId(
 
   // Normal, valid demographic request
   const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}`
+
   if (isValidDatasetId(requestedDatasetId)) {
     return {
       breakdowns,

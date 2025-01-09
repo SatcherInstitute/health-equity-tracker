@@ -31,7 +31,7 @@
 				"useSortedClasses": "info"
 			},
 			"a11y": {
-				"useSemanticElements": "info",
+				"useSemanticElements": "off",
 				"noSvgWithoutTitle": "off"
 			},
 			"suspicious": {
@@ -39,7 +39,18 @@
 				"noImplicitAnyLet": "off",
 				"noArrayIndexKey": "off",
 				"noAssignInExpressions": "off",
-				"noGlobalIsNan": "off"
+				"noGlobalIsNan": "off",
+				"noConsole": {
+					"level": "info",
+					"options": {
+						"allow": [
+							"assert",
+							"error",
+							"info",
+							"warn"
+						]
+					}
+				}
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off"
