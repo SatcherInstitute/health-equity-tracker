@@ -11,22 +11,7 @@ test('Methodology Hub Loads', async ({ page }) => {
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
-test('Policy Hub Loads', async ({ page }) => {
-  await page.goto('/policy', { waitUntil: 'commit' })
-  await page
-    .getByRole('heading', {
-      name: 'Understanding the Crisis of Gun Violence in Atlanta',
-    })
-    .click()
 
-  // mimic reduced motion to prevent animation, which was causing contrast a11y error
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  const accessibilityScanResults = await new AxeBuilder({ page })
-    .exclude('.text-tinyTag')
-    .exclude('.shadow-raised-tighter')
-    .analyze()
-  expect(accessibilityScanResults.violations).toEqual([])
-})
 
 test('Age-Adjustment Redirects to Age-Adjustment Page of Methodology Hub', async ({
   page,

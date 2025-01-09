@@ -3,6 +3,11 @@ import { expect, test } from '@playwright/test'
 
 test.describe.configure({ mode: 'parallel' })
 
+// use prefers-reduced-motion to prevent a11y constrast failures on unfinished fade-in animations
+test.beforeEach(async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+})
+
 test('Gun Violence Policy Home Link Loads', async ({ page }) => {
   await page.goto('/policy/gun-violence', { waitUntil: 'commit' })
   await page
@@ -18,6 +23,7 @@ test('Crisis Overview Tab Loads', async ({ page }) => {
   await page.goto('/policy/gun-violence/crisis-overview', {
     waitUntil: 'commit',
   })
+
   await page.getByRole('heading', { name: 'Crisis Overview' }).click()
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
   expect(accessibilityScanResults.violations).toEqual([])
