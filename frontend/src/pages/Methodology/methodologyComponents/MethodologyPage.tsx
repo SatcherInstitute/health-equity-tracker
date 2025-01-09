@@ -90,12 +90,6 @@ export default function MethodologyPage() {
                     <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>
                       On this page
                     </p>
-                    <p
-                      id='on-this-page-methodology-header'
-                      className='mt-2 mb-4 font-sansTitle font-semibold text-smallestHeader leading-lhNormal'
-                    >
-                      {routeConfig.label}
-                    </p>
 
                     <HetOnThisPageMenu
                       links={routeConfig.subLinks}

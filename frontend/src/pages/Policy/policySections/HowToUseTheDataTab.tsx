@@ -8,15 +8,14 @@ export default function HowToUseTheDataTab() {
       <Helmet>
         <title>How To Use The Data - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>How To Use The Data</h2>
       <section
         id='het-data-visualizations'
         className='mx-0 w-fit max-w-svw px-0'
       >
         <HetOverline text='How to Use the Data' />
-        <h3 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-altGreen text-title'>
           HET Data Visualization Maps and Charts
-        </h3>
+        </h2>
         <p>
           In Atlanta, as in many cities, gun violence remains a pressing issue,
           disproportionately affecting marginalized communities. The open-source
@@ -37,9 +36,9 @@ export default function HowToUseTheDataTab() {
           <div className='w-auto max-w-svw'>
             <HetOverline text='Our Data Visuals' />
 
-            <h3 className='my-0 font-medium text-altGreen text-title'>
+            <h2 className='my-0 font-medium text-altGreen text-title'>
               {dataVisual.title}
-            </h3>
+            </h2>
 
             <div className='w-auto max-w-svw py-4 sm:m-0 sm:p-0'>
               {dataVisual.customCard}
@@ -84,9 +83,9 @@ export default function HowToUseTheDataTab() {
               </ul>
             </div>
             <p>
-              <h3 className='my-0 font-medium text-altGreen text-title'>
+              <h2 className='my-0 font-medium text-altGreen text-title'>
                 How to Use
-              </h3>
+              </h2>
               <div>
                 {dataVisual.details.howToUse.map((step, i) => (
                   <p className='my-0 py-0' key={i}>

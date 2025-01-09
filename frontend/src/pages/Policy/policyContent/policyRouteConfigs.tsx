@@ -112,7 +112,6 @@ export const policyRouteConfigs: RouteConfig[] = [
         path: 'ga-homicides-city-size',
       },
     ],
-    visible: true,
   },
   {
     isTopLevel: true,
@@ -203,7 +202,6 @@ export const policyRouteConfigs: RouteConfig[] = [
         path: 'breakdown-summary-data-table',
       },
     ],
-    visible: true,
   },
   {
     isTopLevel: true,

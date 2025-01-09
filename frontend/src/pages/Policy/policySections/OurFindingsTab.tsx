@@ -15,7 +15,6 @@ export default function OurFindingsTab() {
       <Helmet>
         <title>Addressing Inequities - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>Addressing Inequities</h2>
       <section id='ga-youth-fatalities'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />

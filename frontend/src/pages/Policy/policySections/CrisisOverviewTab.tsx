@@ -17,9 +17,7 @@ export default function CrisisOverviewTab() {
       <Helmet>
         <title>Crisis Overview - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>
-        Understanding the Crisis of Gun Violence in Atlanta
-      </h2>
+
       <div className='flex flex-col gap-2'>
         <section id='introduction'>
           <p>

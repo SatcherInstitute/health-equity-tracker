@@ -11,14 +11,13 @@ export default function DataCollectionTab() {
       <Helmet>
         <title>Data Collection - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>Data Collection</h2>
       <section id='source-profile'>
         <article className='group mt-8 mb-8 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
           <HetOverline className='my-0' text='Source Profile' />
-          <h3 className='my-0 font-medium text-title'>
+          <h2 className='my-0 font-medium text-title'>
             CDC's WISQARS™(Web-based Injury Statistics Query and Reporting
             System)
-          </h3>
+          </h2>
 
           <p>
             The{' '}
@@ -74,9 +73,9 @@ export default function DataCollectionTab() {
         </p>
       </section>
       <section id='data-limitations'>
-        <h3 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-altGreen text-title'>
           Data Limitations
-        </h3>
+        </h2>
         <p>
           While our dataset is comprehensive, it's important to note certain
           limitations: potential underreporting in certain demographics, and the
@@ -87,9 +86,9 @@ export default function DataCollectionTab() {
       </section>
 
       <section id='fatality-definitions'>
-        <h3 className='my-4 font-medium text-altGreen text-title'>
+        <h2 className='my-4 font-medium text-altGreen text-title'>
           Fatality Definitions
-        </h3>
+        </h2>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -103,9 +102,9 @@ export default function DataCollectionTab() {
         />
       </section>
       <section id='available-data'>
-        <h3 className='mt-6 mb-2 font-medium text-altGreen text-title'>
+        <h2 className='mt-6 mb-2 font-medium text-altGreen text-title'>
           Available Data
-        </h3>
+        </h2>
         <p className='mb-0'>
           Currently, all of our gun violence datasets include national- and
           state-level data. Here is a brief overview of what is included in our
