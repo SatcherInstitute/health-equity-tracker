@@ -3,9 +3,9 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 export function RaceRelabelingsList() {
   return (
     <aside className='px-5 pb-10'>
-      <h4 className='m-0 pb-5 font-semibold text-title'>
+      <h3 className='m-0 pb-5 font-semibold text-title'>
         Race group reclassifications
-      </h4>
+      </h3>
       <p>
         To promote inclusion, we reclassify certain race groups from the source
         data as outlined below:
