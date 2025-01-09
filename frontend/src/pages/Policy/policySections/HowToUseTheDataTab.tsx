@@ -12,6 +12,7 @@ export default function HowToUseTheDataTab() {
         id='het-data-visualizations'
         className='mx-0 w-fit max-w-svw px-0'
       >
+        <h1 className='sr-only'>How to Use the Data</h1>
         <HetOverline text='How to Use the Data' />
         <h2 className='my-0 font-medium text-altGreen text-title'>
           HET Data Visualization Maps and Charts

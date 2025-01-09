@@ -25,7 +25,7 @@ export default function DataCollectionTab() {
               CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting
               System)
             </a>{' '}
-            dataset includes a wide range of information related to gun-related
+            dataset includes a wide range of information related to gun-related
             injuries, providing a holistic perspective on the impact of
             gun-related incidents.
           </p>
@@ -60,9 +60,9 @@ export default function DataCollectionTab() {
       <section id='key-metrics'>
         <div className='mb-0'>
           <HetOverline text='Our Methods' />
-          <h4 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-altGreen text-title'>
             Key Metrics
-          </h4>
+          </h2>
         </div>
         <p>
           Our key metrics encompass data on fatal gun-related incidents, with a

@@ -17,7 +17,6 @@ export default function DataSourcesLink() {
             and present our data.
           </p>
 
-          <h2 className='mt-12 font-medium text-title'>Data Sources</h2>
           <p>
             All data in the Health Equity Tracker is sourced from reputable and
             public databases, including the Centers for Disease Control and

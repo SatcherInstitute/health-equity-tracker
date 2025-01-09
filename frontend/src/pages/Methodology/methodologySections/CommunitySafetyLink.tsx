@@ -73,8 +73,8 @@ const CommunitySafetyLink = () => {
 
         <section>
           <div className='py-5'>
-            <h4 className='font-normal text-text'>WISQARS Injuries Measures</h4>
-            <h5 className='my-2'>Conditions</h5>
+            <h3 className='font-normal text-text'>WISQARS Injuries Measures</h3>
+            <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <>
                 <li>
@@ -97,7 +97,7 @@ const CommunitySafetyLink = () => {
               </li>
             </ul>
 
-            <h5 className='my-2'>Metrics</h5>
+            <h4 className='my-2'>Metrics</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>Deaths per 100k</HetTerm>: Rate of deaths caused by
@@ -116,7 +116,7 @@ const CommunitySafetyLink = () => {
           </div>
 
           <div className='py-5'>
-            <h4 className='font-normal text-text'>Demographic Identifiers</h4>
+            <h3 className='font-normal text-text'>Demographic Identifiers</h3>
             <p>
               <strong>Race/ethnicity:</strong> WISQARS' methodology includes
               race category data from 2018 onward, aligning with WISQARS’

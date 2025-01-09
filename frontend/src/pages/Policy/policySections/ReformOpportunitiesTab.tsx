@@ -18,7 +18,6 @@ export default function ReformOpportunitiesTab() {
       <Helmet>
         <title>Reform Opportunities - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>Reform Opportunities</h2>
       <p>
         Our data points to several reform opportunities, particularly in
         enhancing community-based interventions, improving data collection on
@@ -28,9 +27,9 @@ export default function ReformOpportunitiesTab() {
 
       <section id='where-to-start'>
         <HetOverline text='Where to Start' />
-        <h3 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-altGreen text-title'>
           Insights from the Advocacy Community
-        </h3>
+        </h2>
         <ul className='mt-4 mb-8 ml-0 grid list-none grid-cols-1 gap-2 pl-0 md:grid-cols-2'>
           {effortsAndInsights.map((effortsAndInsight, index) => {
             const isMobileShadow = !isMdAndUp && index % 2 === 0
@@ -40,7 +39,7 @@ export default function ReformOpportunitiesTab() {
                 (Math.floor(index / 2) % 2 !== 0 && index % 2 !== 0))
 
             return (
-              <div
+              <li
                 key={effortsAndInsight.title}
                 className={`fade-in-up-blur rounded-md p-8 ${
                   isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
@@ -54,7 +53,7 @@ export default function ReformOpportunitiesTab() {
                   description={effortsAndInsight.description}
                   advice={effortsAndInsight.advice}
                 />
-              </div>
+              </li>
             )
           })}
         </ul>
@@ -68,9 +67,9 @@ export default function ReformOpportunitiesTab() {
 '
         />
 
-        <h3 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-altGreen text-title'>
           Legislative Items to Consider for Policy Changes
-        </h3>
+        </h2>
         <HetOverline text={`SOURCE: RAND Foundation`} className='inline' />
         <HetQuoteLink href={urlMap.randGunPolicy} label='RAND Foundation' />
 
