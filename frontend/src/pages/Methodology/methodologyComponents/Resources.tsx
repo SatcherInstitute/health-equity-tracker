@@ -53,10 +53,6 @@ export default function Resources(props: ResourcesProps) {
 
   return (
     <section>
-      <Helmet>
-        <title>Health Equity Resources - Health Equity Tracker</title>
-      </Helmet>
-      <h2 className='sr-only'>Health Equity Resources</h2>
       <div className='mx-auto my-4'>
         <Grid container>
           <div className='flex flex-col items-baseline lg:flex-row'>
