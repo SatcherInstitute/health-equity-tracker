@@ -6,8 +6,8 @@ import {
 } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
+import { MARGIN, Y_AXIS_LABEL_HEIGHT } from '../rateBarChart/constants'
 import GroupLabelsYAxis from './GroupLabelsYAxis'
-import { MARGIN, Y_AXIS_LABEL_HEIGHT } from './constants'
 import { wrapLabel } from './helpers'
 
 interface YAxisProps {
@@ -33,7 +33,7 @@ export default function YAxis(props: YAxisProps) {
       {props.isSmAndUp && (
         <g>
           <text
-            transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT},${props.innerHeight / 2}) rotate(-90)`}
+            transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT + 10},${props.innerHeight / 2}) rotate(-90)`}
             textAnchor='middle'
             className='m-0 cursor-vertical-text p-0 font-semibold text-smallest'
             aria-label={'Y Axis Label'}
