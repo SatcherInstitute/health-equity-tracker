@@ -58,6 +58,8 @@ export default function RoundedBarsWithLabels(
         onTouchStart={(e) => {
           props.handleTooltip(e, d, true)
         }}
+        aria-label={barAriaLabel}
+        role='img'
       >
         <path
           d={roundedBarString}
@@ -67,7 +69,7 @@ export default function RoundedBarsWithLabels(
               ? 'fill-timeYellow'
               : 'fill-altGreen'
           }
-          aria-label={barAriaLabel}
+          aria-hidden
         />
         <EndOfRateBarLabel
           {...props}

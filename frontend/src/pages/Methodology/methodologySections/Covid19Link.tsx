@@ -39,7 +39,6 @@ export default function Covid19Link() {
         <Helmet>
           <title>COVID-19 - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>COVID-19</h2>
 
         <StripedTable
           id='categories-table'
@@ -56,9 +55,9 @@ export default function Covid19Link() {
           ]}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='covid-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='covid-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           The primary data source is the CDC Case Surveillance Restricted Access
           Detailed Data. This dataset allows for detailed breakdowns by race,

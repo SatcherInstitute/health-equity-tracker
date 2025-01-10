@@ -76,7 +76,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     path: METHODOLOGY_PAGE_LINK,
     component: <MethodologyHomeLink />,
     subLinks: [],
-    visible: false,
+    visible: true,
   },
 
   {

@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
@@ -46,13 +46,10 @@ export default function WhatIsHealthEquityPage() {
       >
         <h1
           id='main'
-          tabIndex={-1}
           className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           What is Health Equity?
         </h1>
-
-        <h2 className='sr-only'>What is Health Equity?</h2>
 
         <div className='my-4 xs:block flex grow items-center text-left smMd:flex-col'>
           <HetTermRaised
@@ -102,9 +99,9 @@ export default function WhatIsHealthEquityPage() {
         <div className='mx-auto flex w-svw max-w-lgXl flex-col justify-center p-8'>
           <div className='mx-auto flex w-full max-w-lgXl flex-col justify-center'>
             <HetOverline text={'Trending Topics'} className='text-center' />
-            <h3 className='m-0 pb-5 text-center font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
+            <h2 className='m-0 pb-5 text-center font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
               Don't know where to start?
-            </h3>
+            </h2>
             <p className='my-4 text-center text-title'>
               Discover how the Health Equity Tracker can be your tool to drive
               change and advance health equity in your community.

@@ -100,6 +100,7 @@ test('HIV Black Women: Deaths', async ({ page }) => {
     '/exploredata?mls=1.hiv_black_women-3.00&group1=All&dt1=hiv_deaths_black_women',
   )
   await page
+    .locator('#rates-over-time')
     .getByRole('heading', { name: 'Rates of HIV deaths for Black' })
     .click()
   await page

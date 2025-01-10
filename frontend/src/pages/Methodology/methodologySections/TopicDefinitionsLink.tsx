@@ -12,7 +12,6 @@ export default function TopicDefinitionsLink() {
         <Helmet>
           <title>Topic Definitions - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Topic Definitions</h2>
 
         {CATEGORIES_LIST.map((category) => {
           const categoryConfigs = category.options.flatMap(
@@ -28,9 +27,9 @@ export default function TopicDefinitionsLink() {
               key={category.title}
             >
               <div key={category.title}>
-                <h3 className='mt-12 font-medium text-title'>
+                <h2 className='mt-12 font-medium text-title'>
                   {category.title}
-                </h3>
+                </h2>
 
                 {categoryConfigs.map((config: DataTypeConfig) => {
                   return (
@@ -51,8 +50,6 @@ export default function TopicDefinitionsLink() {
             </div>
           )
         })}
-
-        {/*  */}
       </article>
     </section>
   )

@@ -49,7 +49,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
 
   return (
     <>
-      <h4 className='font-light text-text'>Missing and misidentified people</h4>
+      <h3 className='font-light text-text'>Missing and misidentified people</h3>
       <p>
         Currently, there are no required or standardized race and ethnicity
         categories for data collection across state and local jurisdictions. The

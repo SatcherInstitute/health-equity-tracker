@@ -114,7 +114,10 @@ export function StackedBarChart(props: StackedBarChartProps) {
           <g
             transform={`translate(${STACKED_BAR_MARGIN.left},${STACKED_BAR_MARGIN.top})`}
           >
-            <StackedBarLegend metricDisplayName={props.metricDisplayName} />
+            <StackedBarLegend
+              aria-label='legend'
+              metricDisplayName={props.metricDisplayName}
+            />
             <VerticalGridlines
               width={width}
               height={innerHeight}

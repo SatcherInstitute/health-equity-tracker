@@ -103,9 +103,9 @@ export function HetCarouselCard({
                 )}
                 <div className='flex h-52 flex-col justify-around px-4 pt-0 pb-4 text-center'>
                   <div className='mt-0 flex h-full flex-col justify-start pt-2'>
-                    <h4 className='my-2 pt-0 font-semibold text-altGreen text-text leading-lhNormal'>
+                    <h3 className='my-2 pt-0 font-semibold text-altGreen text-text leading-lhNormal'>
                       {ariaLabel}
-                    </h4>
+                    </h3>
                     <p className='my-2 hidden text-left text-black text-small leading-lhSomeSpace md:block'>
                       {description}
                     </p>

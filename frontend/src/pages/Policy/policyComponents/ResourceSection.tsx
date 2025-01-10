@@ -28,7 +28,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({
             {icon}
           </div>
         </div>
-        <h3 className='my-0 font-medium text-altGreen text-title'>{title}</h3>
+        <h2 className='my-0 font-medium text-altGreen text-title'>{title}</h2>
       </div>
       <p>{description}</p>
       <ul className='list-none'>

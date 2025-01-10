@@ -12,12 +12,11 @@ export default function MetricsLink() {
         <Helmet>
           <title>Metrics - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Metrics</h2>
         <ConditionVariable definitions={metricDefinitions} />
 
-        <h3 className='mt-12 font-medium text-title' id='percent-share-example'>
+        <h2 className='mt-12 font-medium text-title' id='percent-share-example'>
           Percent Share Example: COVID-19 Cases
-        </h3>
+        </h2>
         <HetNotice>
           In the example below, we use <HetTerm>COVID-19 cases</HetTerm> as the
           variable, and <HetTerm>race and ethnicity</HetTerm> as the demographic

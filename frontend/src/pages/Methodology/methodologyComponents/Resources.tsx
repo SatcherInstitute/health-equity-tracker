@@ -34,7 +34,7 @@ export default function Resources(props: ResourcesProps) {
   }) => (
     <Grid container id={id} key={heading}>
       <Grid item xs={12}>
-        <h3 className='mt-12 font-medium text-title'>{heading} Resources</h3>
+        <h2 className='mt-12 font-medium text-title'>{heading} Resources</h2>
       </Grid>
       <Grid item xs={12} md={resources.length >= 10 ? 6 : 12}>
         {renderResourcesList(
@@ -53,10 +53,6 @@ export default function Resources(props: ResourcesProps) {
 
   return (
     <section>
-      <Helmet>
-        <title>Health Equity Resources - Health Equity Tracker</title>
-      </Helmet>
-      <h2 className='sr-only'>Health Equity Resources</h2>
       <div className='mx-auto my-4'>
         <Grid container>
           <div className='flex flex-col items-baseline lg:flex-row'>

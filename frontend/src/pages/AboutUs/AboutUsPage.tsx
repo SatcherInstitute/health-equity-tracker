@@ -29,7 +29,6 @@ export default function AboutUsPage() {
             About the Health Equity Tracker
           </h1>
         </header>
-        <h2 className='sr-only'>About Us</h2>
 
         <section className='mx-4 flex flex-col items-center'>
           <p className='max-w-md px-6 text-left'>
@@ -42,9 +41,9 @@ export default function AboutUsPage() {
             to make informed decisions, this scalable, feature-rich platform
             supports efforts to achieve health equity and justice for all.
           </p>
-          <h3 className='font-medium font-sansTitle'>
+          <h2 className='font-medium font-sansTitle'>
             Morehouse School of Medicine
-          </h3>
+          </h2>
           <p className='max-w-md px-6 text-left'>
             Morehouse School of Medicine (MSM), located in Atlanta, GA, was
             founded in 1975 as the Medical Education Program at Morehouse
@@ -60,9 +59,9 @@ export default function AboutUsPage() {
             and the world.
           </p>
 
-          <h3 className='font-medium font-sansTitle'>
+          <h2 className='font-medium font-sansTitle'>
             Satcher Health Leadership Institute
-          </h3>
+          </h2>
 
           <p className='max-w-md px-6 text-left'>
             Rooted in the legacy of our founder, the 16th U.S. Surgeon General,
@@ -77,9 +76,9 @@ export default function AboutUsPage() {
             population groups.
           </p>
 
-          <h3 className='font-medium font-sansTitle'>
+          <h2 className='font-medium font-sansTitle'>
             Native Land Acknowledgment
-          </h3>
+          </h2>
 
           <p className='max-w-md px-6 text-left'>
             The Health Equity Tracker and Morehouse School of Medicine
@@ -104,9 +103,9 @@ export default function AboutUsPage() {
       </section>
 
       <section className='border-0 border-borderColor border-t md:border-solid md:pt-20'>
-        <h3 className='mx-4 text-center font-sansTitle text-altGreen text-header leading-lhSomeSpace sm:text-bigHeader'>
+        <h2 className='mx-4 text-center font-sansTitle text-altGreen text-header leading-lhSomeSpace sm:text-bigHeader'>
           We are committed to the following ethics
-        </h3>
+        </h2>
         <ul className='mx-4 flex list-none flex-wrap pl-0'>
           <GoalListItem
             title='Transparency & Accountability'

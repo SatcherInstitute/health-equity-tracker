@@ -124,9 +124,9 @@ const AgeAdjustmentLink = () => {
               </a>
               .
             </p>
-            <h3 id='data-sourcing' className='mt-20 font-medium text-title'>
+            <h2 id='data-sourcing' className='mt-20 font-medium text-title'>
               Data Sourcing
-            </h3>
+            </h2>
             <p>
               In order to do an age-adjustment, we needed the following pieces
               of information:
@@ -177,9 +177,9 @@ const AgeAdjustmentLink = () => {
                 </ul>
               </li>
             </ol>
-            <h3 id='algorithm' className='mt-20 font-medium text-title'>
+            <h2 id='algorithm' className='mt-20 font-medium text-title'>
               Algorithm
-            </h3>
+            </h2>
             <p>
               In order to generate the age-adjusted ratios, we do the following
             </p>
@@ -278,12 +278,12 @@ const AgeAdjustmentLink = () => {
               </li>
             </ol>
 
-            <h3
+            <h2
               id='age-adjustment-examples'
               className='text-left font-medium font-sansTitle text-altGreen text-header leading-lhModalHeading '
             >
               Age-Adjustment Example: HIV Deaths
-            </h3>
+            </h2>
             <p>
               Here is an example of a single state with two races,{' '}
               <HetTerm>Race A</HetTerm> and <HetTerm>Race B</HetTerm>, with

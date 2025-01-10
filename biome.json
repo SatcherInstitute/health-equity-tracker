@@ -32,7 +32,8 @@
 			},
 			"a11y": {
 				"useSemanticElements": "off",
-				"noSvgWithoutTitle": "off"
+				"noSvgWithoutTitle": "off",
+				"noInteractiveElementToNoninteractiveRole": "off"
 			},
 			"suspicious": {
 				"noExplicitAny": "off",

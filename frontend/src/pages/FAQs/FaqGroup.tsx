@@ -9,9 +9,9 @@ interface FaqGroupProps {
 
 const FaqGroup: React.FC<FaqGroupProps> = ({ title, faqs }) => (
   <div className='flex flex-col md:grid md:grid-cols-6'>
-    <h3 className='border border-methodologyGreen border-t-0 border-r-0 border-b-2 border-l-0 border-solid py-4 font-medium text-altGreen text-title md:col-span-1 md:mt-4 md:border-r-2 md:border-b-0 md:pr-4 md:text-right'>
+    <h2 className='border border-methodologyGreen border-t-0 border-r-0 border-b-2 border-l-0 border-solid py-4 font-medium text-altGreen text-title md:col-span-1 md:mt-4 md:border-r-2 md:border-b-0 md:pr-4 md:text-right'>
       {title}
-    </h3>
+    </h2>
     <div className='flex w-full flex-col md:col-span-5'>
       {faqs.map((faq, index) => (
         <div key={faq.question} id={`faq-${index}`}>

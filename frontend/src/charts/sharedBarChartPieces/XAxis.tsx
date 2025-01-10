@@ -32,7 +32,6 @@ export default function XAxis(props: XAxisProps) {
         transform={`translate(${props.width / 2},${props.height + 40})`}
         textAnchor='middle'
         className='font-semibold text-smallest'
-        aria-label='X Axis Label'
       >
         {xAxisLabel}
       </text>

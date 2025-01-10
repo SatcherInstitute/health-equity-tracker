@@ -36,7 +36,6 @@ export default function YAxis(props: YAxisProps) {
             transform={`translate(${-MARGIN.left + Y_AXIS_LABEL_HEIGHT + 10},${props.innerHeight / 2}) rotate(-90)`}
             textAnchor='middle'
             className='m-0 cursor-vertical-text p-0 font-semibold text-smallest'
-            aria-label={'Y Axis Label'}
           >
             {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}
           </text>
