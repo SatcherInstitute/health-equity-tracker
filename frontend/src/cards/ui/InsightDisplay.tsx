@@ -58,6 +58,7 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   return (
     <>
       <IconButton
+        aria-label={insight ? 'Clear insight' : 'Generate insight'}
         onClick={insight ? handleClearInsight : handleGenerateInsight}
         className='absolute top-2 right-2 z-10'
         disabled={isGeneratingInsight}

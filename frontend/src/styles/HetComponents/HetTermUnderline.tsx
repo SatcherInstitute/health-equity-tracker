@@ -9,7 +9,6 @@ interface HetTermUnderlineProps {
 export default function HetTermUnderline({
   children,
   className,
-  tabIndex = 0,
 }: HetTermUnderlineProps) {
   const spanRef = useRef<HTMLSpanElement>(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -68,12 +67,6 @@ export default function HetTermUnderline({
         backgroundPosition: '1% 100%',
         backgroundSize: '0% 8px',
         backgroundRepeat: 'no-repeat',
-      }}
-      tabIndex={tabIndex}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-        }
       }}
     >
       {children}
