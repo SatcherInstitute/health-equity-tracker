@@ -41,7 +41,6 @@ test('CAWP: Congress', async ({ page }) => {
     .getByLabel(
       'Comparison bar chart showing Population vs. distribution of total women in US congress in the United States',
     )
-    .getByRole('img')
     .click()
   await page
     .getByLabel(

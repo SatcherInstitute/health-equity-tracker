@@ -48,7 +48,7 @@ test('Maternal Mortality', async ({ page }) => {
     .locator('#population-vs-distribution')
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
-  await page.getByLabel('Comparison bar chart showing').getByRole('img').click()
+  await page.getByLabel('Comparison bar chart showing').click()
   await page.getByRole('heading', { name: 'Summary for maternal' }).click()
   await page
     .getByRole('figure', { name: 'Summary for maternal' })
