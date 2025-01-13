@@ -1,5 +1,7 @@
 import { useLocation } from 'react-router-dom'
-import ChoroplethMap from '../charts/ChoroplethMap'
+import type { Topology } from 'topojson-specification'
+import ChoroplethMapD3 from '../charts/ChoroplethD3'
+import type { DataPoint } from '../charts/ChoroplethTypes'
 import { unknownMapConfig } from '../charts/mapGlobals'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
@@ -208,24 +210,21 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   props.fips.isUsa() ? 'mr-2 md:mr-16 xl:mr-24' : 'm-2'
                 }
               >
-                <ChoroplethMap
-                  demographicType={demographicType}
+                <ChoroplethMapD3
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
-                  isUnknownsMap={true}
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
-                  data={unknowns}
-                  showCounties={!props.fips.isUsa()}
-                  fips={props.fips}
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
-                  }
-                  geoData={geoData}
-                  filename={chartTitle}
-                  mapConfig={unknownMapConfig}
+                  data={unknowns as DataPoint[]}
+                  demographicType={demographicType}
                   extremesMode={false}
+                  filename={chartTitle}
+                  fips={props.fips}
+                  geoData={geoData as Topology}
+                  isUnknownsMap={true}
+                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
+                  mapConfig={unknownMapConfig}
+                  metric={metricConfig}
+                  showCounties={!props.fips.isUsa()}
+                  signalListeners={signalListeners}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles
