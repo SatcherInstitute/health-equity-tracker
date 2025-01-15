@@ -84,9 +84,9 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <dialog className='h-full w-min whitespace-nowrap rounded-sm border border-altGrey border-solid bg-white p-3 font-medium font-sansText text-small'>
+    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-altGrey border-solid bg-white p-3 font-medium font-sansText text-small'>
       {/* Date title */}
-      <div className='border-0 border-altGrey border-b border-solid pb-3 text-center'>
+      <figcaption className='border-0 border-altGrey border-b border-solid pb-3 text-center'>
         <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
@@ -94,7 +94,7 @@ export function TrendsTooltip({
             {F.capitalize(yAxisLabel)}
           </div>
         )}
-      </div>
+      </figcaption>
       <div
         className='grid items-center justify-items-start gap-x-2 gap-y-1 pt-3 text-smallest'
         style={{ gridTemplateColumns: '1fr 50px 1fr' }}
@@ -140,6 +140,6 @@ export function TrendsTooltip({
             },
           )}
       </div>
-    </dialog>
+    </figure>
   )
 }
