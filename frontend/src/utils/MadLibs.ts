@@ -151,6 +151,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
+  gun_deaths: 'Gun Deaths',
   gun_violence: 'Gun Homicides and Suicides',
   gun_violence_youth: 'Gun Deaths (Youth)',
   gun_deaths_black_men: 'Gun Homicides (Black Men)',
