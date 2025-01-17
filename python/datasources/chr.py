@@ -48,7 +48,7 @@ def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = Non
             "Preventable Hosp. Rate": None
         }
 
-    if year is None or year == "2019":
+    if year is None or int(year) == 2019:
         het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
             "Preventable Hosp. Rate": "Preventable Hosp. Rate"
         }
@@ -80,10 +80,16 @@ def get_het_to_source_additional_topic_all_to_race_prefix_map(
             "% Frequent Mental Distress": None
         }
 
+    if year is None or int(year) >= 2017:
+        het_to_source_additional_topic_all_to_race_prefix_map["gun_deaths"] = {"Firearm Fatalities Rate": None}
+
     if year is None or int(year) >= 2020:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.SUICIDE_PREFIX] = {"Crude Rate": "Suicide Rate"}
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {
             "% Adults with Diabetes": None
+        }
+        het_to_source_additional_topic_all_to_race_prefix_map["gun_deaths"] = {
+            "Firearm Fatalities Rate": "Firearm Fatalities Rate"
         }
 
     if year is None or int(year) >= 2023:
