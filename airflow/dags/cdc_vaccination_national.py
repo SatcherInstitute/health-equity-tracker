@@ -38,7 +38,6 @@ cdc_vaccination_national_exporter_operator_race = util.create_exporter_operator(
 
 cdc_vaccination_national_exporter_payload_age = {
     "dataset_name": _CDC_VACCINATION_NATIONAL_DATASET_NAME,
-    "should_export_as_alls": True,
     "demographic": "age",
 }
 cdc_vaccination_national_exporter_operator_age = util.create_exporter_operator(
@@ -48,7 +47,6 @@ cdc_vaccination_national_exporter_operator_age = util.create_exporter_operator(
 
 cdc_vaccination_national_exporter_payload_sex = {
     "dataset_name": _CDC_VACCINATION_NATIONAL_DATASET_NAME,
-    "should_export_as_alls": True,
     "demographic": "sex",
 }
 cdc_vaccination_national_exporter_operator_sex = util.create_exporter_operator(
