@@ -5,6 +5,9 @@
 @layer base {
   * {
     box-sizing: border-box;
+    font-weight: 400;
+    font-size:1rem;
+    letter-spacing:-0.02rem;
   }
   #root {
     height: 100%;
@@ -22,6 +25,70 @@
   }
   ul {
     margin: 0;
+  }
+  span {
+    letter-spacing: -0.025rem;
+  }
+  a {
+    letter-spacing: -0.025rem;
+    text-decoration: none;
+  }
+  a:hover{
+    text-decoration: underline;
+  }
+  h1, h2, h3, h4, h5 {
+    font-weight: 700;
+  }
+  h1{
+    font-size: 2.125rem;
+  line-height: 1;
+  letter-spacing: -0.0625rem;
+    
+    @screen sm  {
+      font-size: 1.5rem;
+    }
+  }
+  h2{
+    font-size: 1.875rem;
+    line-height: 1.067;
+      @screen md  {
+        font-size: 1.5rem;
+        
+      }
+      @screen sm  {
+        font-size: 1.125rem;
+      }
+  }
+  h3{    font-size: 1.5rem;
+    line-height: 1.083;
+    letter-spacing: -0.03125rem;
+      
+      @screen sm  {
+        font-size: 1.125rem;
+      }}
+  h4{    font-size: 1.25rem;
+    line-height: 1.1;
+    letter-spacing: -0.025rem;
+      @screen md  {
+        font-size: 1.125rem;
+        
+      }
+}
+  h5{    font-size: 1.125rem;
+    line-height: 1.111;
+    letter-spacing: -0.0125rem;
+      
+      @screen sm  {
+        font-size: 1rem;
+      }
+  }
+  h6{    font-size: 1.125rem;
+    line-height: 1.111;
+    letter-spacing: -0.0125rem;
+      
+      @screen sm  {
+        font-size: 1rem;
+      }
   }
 }
 
