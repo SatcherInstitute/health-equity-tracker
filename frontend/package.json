@@ -64,6 +64,7 @@
 		"@types/react-router-hash-link": "^2.4.6",
 		"@types/react-scroll": "^1.8.9",
 		"@types/react-table": "^7.7.15",
+		"@types/topojson-client": "^3.1.5",
 		"@vitejs/plugin-react": "^4.3.4",
 		"autoprefixer": "^10.4.20",
 		"cross-env": "^7.0.3",
