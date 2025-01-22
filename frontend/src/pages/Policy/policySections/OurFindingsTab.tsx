@@ -15,13 +15,13 @@ export default function OurFindingsTab() {
       <Helmet>
         <title>Addressing Inequities - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>Addressing Inequities</h2>
       <section id='ga-youth-fatalities'>
         <div className='mb-0'>
+          <h1 className='sr-only'>Our Findings</h1>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Youth Fatality Rates
-          </h3>
+          </h2>
 
           {youthFatalitiesFacts.map((youthFatalitiesFact) => (
             <div
@@ -44,9 +44,9 @@ export default function OurFindingsTab() {
       <section id='ga-homicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Homicide Rates
-          </h3>
+          </h2>
           {homicideFacts.map((homicideFact) => (
             <div
               key={homicideFact.report}
@@ -69,9 +69,9 @@ export default function OurFindingsTab() {
       <section id='ga-suicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Suicide Rates
-          </h3>
+          </h2>
 
           {suicideFacts.map((suicideFact) => (
             <div
@@ -94,9 +94,9 @@ export default function OurFindingsTab() {
       <section id='ga-homicides-city-size'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h3 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-altGreen text-title'>
             Georgia's Homicide Rates Among Black Men
-          </h3>
+          </h2>
 
           {urbanicityFacts.map((urbanicityFact) => (
             <div

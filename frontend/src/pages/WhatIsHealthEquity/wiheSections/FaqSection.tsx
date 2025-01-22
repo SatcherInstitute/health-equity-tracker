@@ -6,9 +6,9 @@ import { faqMappings } from '../../FAQs/FaqsPageData'
 export default function FaqSection() {
   return (
     <article className='grid'>
-      <h3 className='m-0 pb-5 text-center font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
+      <h2 className='m-0 pb-5 text-center font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
         Frequently asked questions
-      </h3>
+      </h2>
 
       <HetAccordion accordionData={faqMappings} />
       <HetTextArrowLink

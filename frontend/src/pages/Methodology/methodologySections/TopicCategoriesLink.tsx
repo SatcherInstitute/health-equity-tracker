@@ -18,7 +18,6 @@ export default function TopicCategoriesLink() {
         <Helmet>
           <title>Topics by Category - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Topics by Category</h2>
 
         <p>
           The Health Equity Tracker (HET) was initially conceived in 2020 as a
@@ -46,9 +45,9 @@ export default function TopicCategoriesLink() {
           challenges and needs of diverse communities.
         </p>
 
-        <h3 className='mt-12 font-medium text-title' id='categories'>
+        <h2 className='mt-12 font-medium text-title' id='categories'>
           Categories
-        </h3>
+        </h2>
         <StripedTable
           id='categories-table'
           applyThickBorder={false}

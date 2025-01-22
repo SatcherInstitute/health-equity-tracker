@@ -33,7 +33,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
     navigate(`${NEWS_PAGE_LINK}?category=${encodeURIComponent(tagName)}`)
   }
   return (
-    <div
+    <article
       className={`group flex h-full flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
     >
       <LazyLoad once offset={300} className='m-0 h-full p-0'>
@@ -49,20 +49,20 @@ export default function NewsAndStoriesPreviewCardOutlined({
               }}
             ></div>
           </div>
-          <h3 className='mx-4 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal'>
+          <h2 className='mx-4 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal'>
             <Link
               to={`${NEWS_PAGE_LINK}/${article.slug}`}
               className='no-underline group-hover:underline'
             >
               {getHtml(article.title.rendered, true)}
             </Link>
-          </h3>
+          </h2>
 
           <div className='m-4 flex flex-col justify-end'>
             <HetTags tags={tags} onTagClick={handleTagClick} />
           </div>
         </div>
       </LazyLoad>
-    </div>
+    </article>
   )
 }

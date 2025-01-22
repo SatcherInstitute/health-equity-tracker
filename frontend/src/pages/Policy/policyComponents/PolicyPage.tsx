@@ -23,18 +23,12 @@ export default function PolicyPage() {
         <title>Policy Context - Health Equity Tracker</title>
       </Helmet>
 
-      <h1 className='sr-only' id='page-heading'>
-        {activeRoute?.label}
-      </h1>
-
       <section
         ref={ref}
         className='mx-auto flex w-svw max-w-lgXl justify-center text-left'
         aria-labelledby='page-heading'
       >
         <div className='flex w-svw max-w-lgXl grow flex-col smMd:m-5 smMd:flex-row'>
-          <h2 className='sr-only'>Gun Violence Policy Context Page</h2>
-
           <div className='w-fit min-w-fit max-w-screen'>
             <PolicyCardMenu />
             <PolicyCardMenuMobile />
@@ -59,12 +53,11 @@ export default function PolicyPage() {
             </div>
 
             <section className='mx-8 my-0 flex flex-col justify-end md:mx-12'>
-              {activeRoute?.visible && isMobileView && (
-                <h1 className='my-0 font-bold font-sansTitle text-bigHeader leading-lhNormal'>
+              {activeRoute?.visible && (
+                <h1 className='my-2 font-bold font-sansTitle text-bigHeader leading-lhNormal'>
                   {activeRoute?.label}
                 </h1>
               )}
-              <h2 className='sr-only'>{activeRoute?.label}</h2>
 
               <Outlet />
 
@@ -87,13 +80,6 @@ export default function PolicyPage() {
                   key={routeConfig.path}
                 >
                   <HetOverline className='mt-0' text='On this Page' />
-                  <h4
-                    id='on-this-page-policy-header'
-                    className='mt-2 mr-16 mb-4 w-fit font-sansTitle text-title leading-lhNormal'
-                  >
-                    {routeConfig.label}
-                  </h4>
-
                   <HetOnThisPageMenu
                     links={routeConfig.subLinks}
                     className='sticky top-24 right-0 z-almostTop h-min'

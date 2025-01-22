@@ -1,4 +1,3 @@
-import type { ScaleBand } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType, isRateType } from '../../data/config/MetricConfigUtils'
 import type { DemographicType } from '../../data/query/Breakdowns'
@@ -86,24 +85,73 @@ function getComparisonAllSubGroupLines(
   }
   return lines
 }
+interface RoundedBarOptions {
+  width: number
+  height?: number
+  yPosition?: number
+  barHeight?: number
+  cornerRadius?: number
+}
 
-function buildRoundedBarString(barWidth: number, yScale: ScaleBand<string>) {
-  const CORNER_RADIUS = 4
+function buildRoundedBarString({
+  width,
+  height,
+  yPosition = 0,
+  barHeight,
+  cornerRadius = 4,
+}: RoundedBarOptions): string {
+  const safeWidth = Math.max(0, width)
+  const safeRadius = Math.min(cornerRadius, safeWidth / 2)
+  const effectiveHeight = height || barHeight || 0
 
-  const safeBarWidth = Math.max(0, barWidth)
-  const safeCornerRadius = Math.min(CORNER_RADIUS, safeBarWidth / 2)
-  const safeBandwidth = yScale.bandwidth() || 0
-  if (safeBarWidth <= 0 || safeBandwidth <= 0) return ''
+  if (safeWidth <= 0 || effectiveHeight <= 0) return ''
 
+  // If yPosition is provided, use absolute positioning
+  if (yPosition !== undefined && barHeight !== undefined) {
+    return `
+      M 0,${yPosition}
+      L ${safeWidth - safeRadius},${yPosition}
+      Q ${safeWidth},${yPosition} ${safeWidth},${yPosition + safeRadius}
+      L ${safeWidth},${yPosition + effectiveHeight - safeRadius}
+      Q ${safeWidth},${yPosition + effectiveHeight} ${safeWidth - safeRadius},${yPosition + effectiveHeight}
+      L 0,${yPosition + effectiveHeight}
+      Z
+    `.trim()
+  }
+
+  // Otherwise use relative positioning
   return `
-					M 0,0
-					h ${safeBarWidth - safeCornerRadius}
-					q ${safeCornerRadius},0 ${safeCornerRadius},${safeCornerRadius}
-					v ${safeBandwidth - 2 * safeCornerRadius}
-					q 0,${safeCornerRadius} -${safeCornerRadius},${safeCornerRadius}
-					h -${safeBarWidth - safeCornerRadius}
-					Z
-				`
+    M 0,0
+    h ${safeWidth - safeRadius}
+    q ${safeRadius},0 ${safeRadius},${safeRadius}
+    v ${effectiveHeight - 2 * safeRadius}
+    q 0,${safeRadius} -${safeRadius},${safeRadius}
+    h -${safeWidth - safeRadius}
+    Z
+  `.trim()
+}
+
+export function buildBarPair(
+  lightValue: number,
+  darkValue: number,
+  yPosition: number,
+  barHeight: number,
+  pairGap: number,
+  xScale: (value: number) => number,
+) {
+  const lightBar = buildRoundedBarString({
+    width: xScale(lightValue || 0),
+    yPosition,
+    barHeight,
+  })
+
+  const darkBar = buildRoundedBarString({
+    width: xScale(darkValue || 0),
+    yPosition: yPosition + barHeight + pairGap,
+    barHeight,
+  })
+
+  return { lightBar, darkBar }
 }
 
 function addComparisonAllsRowToIntersectionalData(

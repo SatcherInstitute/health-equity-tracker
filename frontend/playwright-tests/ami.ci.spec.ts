@@ -29,7 +29,11 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page
     .getByRole('button', { name: 'Population vs. distribution' })
     .click()
-  await page.getByLabel('Comparison bar chart showing').getByRole('img').click()
+  await page
+    .getByLabel('Comparison bar chart showing')
+    .getByRole('img')
+    .nth(1)
+    .click()
   await page.getByRole('heading', { name: 'Summary for acute' }).click()
   await page.getByText('Gender: The Medicare source').click()
   await page.getByText('Sexual Orientation:').click()

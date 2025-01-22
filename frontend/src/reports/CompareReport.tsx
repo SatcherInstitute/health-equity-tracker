@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
@@ -363,7 +363,7 @@ export default function CompareReport(props: CompareReportProps) {
               />
             )}
 
-            {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
+            {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='population-vs-distribution'
@@ -377,7 +377,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void,
               ) => (
-                <DisparityBarChartCard
+                <StackedSharesBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}

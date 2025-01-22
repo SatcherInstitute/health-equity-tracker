@@ -1,4 +1,4 @@
-import { DisparityBarChart } from '../charts/disparityBarChart/Index'
+import { StackedBarChart } from '../charts/stackedSharesBarChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { getMetricIdToConfigMap } from '../data/config/MetricConfigUtils'
@@ -20,10 +20,7 @@ import {
   SEX,
 } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import {
-  shouldShowAltPopCompare,
-  splitIntoKnownsAndUnknowns,
-} from '../data/utils/datasetutils'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -33,7 +30,7 @@ import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownsAlert from './ui/UnknownsAlert'
 
-interface DisparityBarChartCardProps {
+interface StackedSharesBarChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
@@ -42,20 +39,9 @@ interface DisparityBarChartCardProps {
   className?: string
 }
 
-// This wrapper ensures the proper key is set to create a new instance when
-// required rather than relying on the card caller.
-export default function DisparityBarChartCard(
-  props: DisparityBarChartCardProps,
+export default function StackedSharesBarChartCard(
+  props: StackedSharesBarChartCardProps,
 ) {
-  return (
-    <DisparityBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.demographicType}
-      {...props}
-    />
-  )
-}
-
-function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1000],
     props.demographicType === SEX,
@@ -68,7 +54,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     exclude(ALL, NON_HISPANIC),
   )
 
-  // Population Comparison Metric is required for the Disparity Bar Chart.
+  // Population Comparison Metric is required
   // If MetricConfig supports known breakdown metric, prefer this metric.
   const metricIdToConfigMap = getMetricIdToConfigMap([shareConfig])
   const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
@@ -145,7 +131,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <>
                 <ChartTitle title={chartTitle} subtitle={subtitle} />
 
-                <DisparityBarChart
+                <StackedBarChart
+                  fips={props.fips}
                   data={knownData}
                   lightMetric={
                     shareConfig.populationComparisonMetric ?? shareConfig
@@ -156,7 +143,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   demographicType={props.demographicType}
                   metricDisplayName={shareConfig.shortLabel}
                   filename={chartTitle}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
                 />
               </>
             )}

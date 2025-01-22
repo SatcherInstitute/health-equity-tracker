@@ -58,7 +58,6 @@ function CardWrapper(props: {
         return (
           <article
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
-            tabIndex={-1}
           >
             {shouldShowInsightDisplay && (
               <InsightDisplay

@@ -9,7 +9,6 @@ test('FAQ Tab Loads', async ({ page }) => {
 
   const heading = await page.getByRole('heading', {
     name: 'Frequently Asked Questions',
-    level: 1,
   })
   await expect(heading).toBeVisible()
 

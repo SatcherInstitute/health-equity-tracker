@@ -6,9 +6,9 @@ export default function GunViolencePolicyHomeLink() {
       <section className='relative'>
         <HetOverline text='In Focus' className='text-center' />
         <div className='flex w-full flex-col items-center justify-center'>
-          <h2 className='m-0 text-center font-bold font-sansTitle text-altGreen text-biggerHeader xs:text-header leading-lhModalHeading'>
+          <h1 className='m-0 text-center font-bold font-sansTitle text-altGreen text-biggerHeader xs:text-header leading-lhModalHeading'>
             Understanding the Crisis of Gun Violence in Atlanta
-          </h2>
+          </h1>
 
           <p className='my-4 px-8 py-4 text-center text-title lg:px-32 lg:py-8'>
             This pervasive public health challenge harms communities nationwide,

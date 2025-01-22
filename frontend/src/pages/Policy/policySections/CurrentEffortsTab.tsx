@@ -9,7 +9,6 @@ import { Helmet } from 'react-helmet-async'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
-import ResourceItem from '../policyComponents/ResourceItem'
 import ResourceSection from '../policyComponents/ResourceSection'
 import {
   communityResources,
@@ -25,7 +24,6 @@ export default function CurrentEffortsTab() {
       <Helmet>
         <title>Current Efforts - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>Current Efforts</h2>
       <p className='my-2'>
         We identify and analyze current intervention policies in Atlanta,
         examining their effectiveness and areas for improvement. This includes

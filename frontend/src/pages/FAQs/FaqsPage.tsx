@@ -21,12 +21,10 @@ export default function FaqsPage() {
       >
         <h1
           id='main'
-          tabIndex={-1}
           className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           Frequently Asked Questions
         </h1>
-        <h2 className='sr-only'> Frequently Asked Questions</h2>
         <FaqGroup title='Methods' faqs={methodsFaqGroup} />
         <FaqGroup title='Data Collection' faqs={dataFaqGroup} />
         <FaqGroup title='Definitions' faqs={definitionsFaqGroup} />

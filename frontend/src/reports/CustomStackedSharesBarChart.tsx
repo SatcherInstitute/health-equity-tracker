@@ -1,11 +1,11 @@
 import type React from 'react'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
 import { Fips } from '../data/utils/Fips'
 
-interface CustomDisparityBarChartProps {
+interface CustomStackedSharesBarChartProps {
   fips?: Fips
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
@@ -13,7 +13,9 @@ interface CustomDisparityBarChartProps {
   className?: string
 }
 
-const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
+const CustomStackedSharesBarChart: React.FC<
+  CustomStackedSharesBarChartProps
+> = ({
   fips = new Fips('12'),
   dataTypeConfig = METRIC_CONFIG['health_insurance'][0],
   demographicType = 'sex',
@@ -21,7 +23,7 @@ const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
   className,
 }) => {
   return (
-    <DisparityBarChartCard
+    <StackedSharesBarChartCard
       dataTypeConfig={dataTypeConfig}
       demographicType={demographicType}
       fips={fips}
@@ -31,4 +33,4 @@ const CustomDisparityBarChart: React.FC<CustomDisparityBarChartProps> = ({
   )
 }
 
-export default CustomDisparityBarChart
+export default CustomStackedSharesBarChart

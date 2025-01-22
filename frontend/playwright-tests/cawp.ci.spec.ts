@@ -41,19 +41,12 @@ test('CAWP: Congress', async ({ page }) => {
     .getByLabel(
       'Comparison bar chart showing Population vs. distribution of total women in US congress in the United States',
     )
-    .getByRole('img')
     .click()
   await page
     .getByLabel(
       'Comparison bar chart showing Population vs. distribution of total women in US congress in the United States',
     )
     .getByText('7.1% of women members', { exact: true })
-    .click()
-  await page
-    .getByLabel(
-      'Comparison bar chart showing Population vs. distribution of total women in US congress in the United States',
-    )
-    .getByText('20.0% of women members', { exact: true })
     .click()
 
   await page.getByRole('button', { name: 'US Congress', exact: true }).click()

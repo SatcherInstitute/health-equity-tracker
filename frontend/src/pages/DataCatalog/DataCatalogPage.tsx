@@ -62,13 +62,11 @@ export default function DataCatalogPage() {
       >
         <h1
           id='main'
-          tabIndex={-1}
           className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           Data Downloads
         </h1>
 
-        <h2 className='sr-only'>Data Downloads</h2>
         <p className='text-text'>
           Here you can access and download the data source files that are
           displayed in the charts on the Health Equity Tracker. Want to explore

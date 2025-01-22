@@ -149,12 +149,12 @@ export default function NewsAndStoriesPage() {
         id='main-content'
         className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
       >
-        <h2
+        <h1
           id='main'
           className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           News and Stories
-        </h2>
+        </h1>
         <section className='mx-4 flex flex-col items-center'>
           <p className='max-w-md px-6 text-left'>
             We believe in the power of storytelling. The Health Equity Tracker

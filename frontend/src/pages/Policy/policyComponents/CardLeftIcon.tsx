@@ -15,7 +15,7 @@ const CardLeftIcon: React.FC<CardLeftIconProps> = ({
   icon,
 }) => {
   return (
-    <li className='fade-in-up-blur flex flex-row gap-2'>
+    <div className='fade-in-up-blur flex flex-row gap-2'>
       <div className='flex w-1 max-w-1 flex-col items-center justify-center gap-4'>
         <div className='flex w-1.2 flex-grow border border-methodologyGreen border-t-0 border-r-0 border-b-0 border-l-1.2 border-solid py-4'></div>
         <span className='my-1 text-title'>{icon}</span>
@@ -33,7 +33,7 @@ const CardLeftIcon: React.FC<CardLeftIconProps> = ({
           <p className='my-0 w-fit py-0 text-small'>{advice}</p>
         </div>
       </div>
-    </li>
+    </div>
   )
 }
 

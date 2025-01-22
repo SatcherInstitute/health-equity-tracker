@@ -49,7 +49,6 @@ function SdohLink() {
         <Helmet>
           <title>Social Determinants of Health - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Social Determinants of Health</h2>
 
         <StripedTable
           id='categories-table'
@@ -65,9 +64,9 @@ function SdohLink() {
             },
           ]}
         />
-        <h3 className='mt-12 font-medium text-title' id='sdoh-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='sdoh-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           Our tracker's data on some social determinants of health including{' '}
           <HetTerm>preventable hospitalizations</HetTerm> are sourced from{' '}

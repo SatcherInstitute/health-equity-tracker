@@ -10,11 +10,11 @@ import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
+import XAxis from '../sharedBarChartPieces/XAxis'
+import YAxis from '../sharedBarChartPieces/YAxis'
 import BarChartTooltip from './BarChartTooltip'
 import RoundedBarsWithLabels from './RoundedBarsWithLabels'
-import VerticalGridlines from './VerticalGridlines'
-import XAxis from './XAxis'
-import YAxis from './YAxis'
 import {
   BAR_HEIGHT,
   BAR_PADDING,
@@ -101,7 +101,6 @@ export function RateBarChart(props: RateBarChartProps) {
       className='relative'
     >
       <BarChartTooltip data={tooltipData} />
-      {/* biome-ignore lint/a11y/noSvgWithoutTitle: we use aria-label instead, so screen reader has accessible text but browser tooltips don't interfere with custom tooltip */}
       <svg
         width={width}
         height={height}

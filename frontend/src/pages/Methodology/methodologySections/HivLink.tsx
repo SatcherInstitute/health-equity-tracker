@@ -30,7 +30,6 @@ const HivLink = () => {
         <Helmet>
           <title>HIV - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>HIV</h2>
 
         <StripedTable
           id='categories-table'
@@ -47,9 +46,9 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='hiv-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='hiv-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p id='hiv'>
           The CDC's National Center for HIV, Viral Hepatitis, STD, and TB
           Prevention (NCHHSTP) collects and studies information on the number of
@@ -89,7 +88,7 @@ const HivLink = () => {
           2021 as our reference year when showcasing data from a single year.
         </p>
         <h3
-          className='mt-12 font-medium text-title'
+          className='mt-12 font-semibold text-title'
           id='hiv-variable-data-compilation'
         >
           Variable Data Compilation and Analysis

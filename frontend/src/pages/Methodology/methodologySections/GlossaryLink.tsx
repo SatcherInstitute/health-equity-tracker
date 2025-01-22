@@ -23,7 +23,6 @@ function GlossaryLink() {
         <Helmet>
           <title>Glossary - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Glossary</h2>
 
         <GlossaryTerm topic={''} definitionItems={termDefinitions} />
 

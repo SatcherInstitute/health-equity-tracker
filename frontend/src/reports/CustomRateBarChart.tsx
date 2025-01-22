@@ -6,7 +6,7 @@ import type { DemographicType } from '../data/query/Breakdowns'
 import { RACE } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 
-interface Custom100kBarChartProps {
+interface CustomRateBarChartProps {
   fips?: Fips
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
@@ -14,7 +14,7 @@ interface Custom100kBarChartProps {
   className?: string
 }
 
-const Custom100kBarChart: React.FC<Custom100kBarChartProps> = ({
+const CustomRateBarChart: React.FC<CustomRateBarChartProps> = ({
   fips = new Fips('13'),
   dataTypeConfig = METRIC_CONFIG['poverty'][0],
   demographicType = RACE,
@@ -32,4 +32,4 @@ const Custom100kBarChart: React.FC<Custom100kBarChartProps> = ({
   )
 }
 
-export default Custom100kBarChart
+export default CustomRateBarChart

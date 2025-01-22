@@ -1,8 +1,8 @@
 import type { ScaleBand } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { formatValue } from './helpers'
+import { formatValue } from '../sharedBarChartPieces/helpers'
 
-interface EndOfBarLabelProps {
+interface EndOfRateBarLabelProps {
   metricConfig: MetricConfig
   d: Record<string, any>
   shouldLabelBeInside: boolean
@@ -12,7 +12,7 @@ interface EndOfBarLabelProps {
   isTinyAndUp: boolean
 }
 
-export default function EndOfBarLabel(props: EndOfBarLabelProps) {
+export default function EndOfRateBarLabel(props: EndOfRateBarLabelProps) {
   return (
     <text
       x={props.shouldLabelBeInside ? props.barWidth - 5 : props.barWidth + 5}

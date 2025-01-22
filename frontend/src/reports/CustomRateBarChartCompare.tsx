@@ -4,7 +4,7 @@ import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { Fips } from '../data/utils/Fips'
 
-const Custom100kBarChartCompare: React.FC = () => {
+const CustomRateBarChartCompare: React.FC = () => {
   const fips = new Fips('13')
   const dataTypeConfigIncarceration: DataTypeConfig =
     METRIC_CONFIG['incarceration'][0]
@@ -30,4 +30,4 @@ const Custom100kBarChartCompare: React.FC = () => {
   )
 }
 
-export default Custom100kBarChartCompare
+export default CustomRateBarChartCompare

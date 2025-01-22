@@ -39,7 +39,6 @@ export default function BehavioralHealthLink() {
         <Helmet>
           <title>Behavioral Health - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Behavioral Health</h2>
 
         <StripedTable
           id='categories-table'
@@ -55,12 +54,12 @@ export default function BehavioralHealthLink() {
             },
           ]}
         />
-        <h3
+        <h2
           className='mt-12 font-medium text-title'
           id='behavioral-health-data-sourcing'
         >
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           The data on behavioral health conditions such as frequent mental
           distress, depression, and excessive drinking, featured in the Health

@@ -18,11 +18,7 @@ export default function MethodologyPage() {
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
-      {activeRoute?.visible && (
-        <h1 className='sr-only' id='page-heading'>
-          {activeRoute?.label}
-        </h1>
-      )}
+
       <section
         className='flex w-full max-w-screen justify-center text-left'
         aria-labelledby='page-heading'
@@ -62,11 +58,13 @@ export default function MethodologyPage() {
 
             <section className='mx-8 my-0 flex grow flex-col justify-end lg:mx-12'>
               {activeRoute?.visible && (
-                <h1 className='my-0 mb-8 font-bold font-sansTitle text-bigHeader leading-lhNormal'>
+                <h1
+                  className='my-0 mb-8 font-bold font-sansTitle text-bigHeader leading-lhNormal'
+                  id='page-heading'
+                >
                   {activeRoute?.label}
                 </h1>
               )}
-              <h2 className='sr-only'>{activeRoute?.label}</h2>
               <Outlet />
               {/* PREV / NEXT */}
               <MethodologyPagination />
@@ -92,12 +90,6 @@ export default function MethodologyPage() {
                     <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>
                       On this page
                     </p>
-                    <h4
-                      id='on-this-page-methodology-header'
-                      className='mt-2 mb-4 font-sansTitle text-smallestHeader leading-lhNormal'
-                    >
-                      {routeConfig.label}
-                    </h4>
 
                     <HetOnThisPageMenu
                       links={routeConfig.subLinks}

@@ -1,5 +1,5 @@
 import { RateBarChart } from '../charts/rateBarChart/Index'
-import { addComparisonAllsRowToIntersectionalData } from '../charts/rateBarChart/helpers'
+import { addComparisonAllsRowToIntersectionalData } from '../charts/sharedBarChartPieces/helpers'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { isPctType } from '../data/config/MetricConfigUtils'
