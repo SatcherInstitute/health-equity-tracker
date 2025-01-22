@@ -1,5 +1,13 @@
 import * as d3 from 'd3'
-import type { TooltipPairs } from '../ChoroplethTypes'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import {
+  CAWP_METRICS,
+  getWomenRaceLabel,
+} from '../../data/providers/CawpProvider'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { DemographicGroup } from '../../data/utils/Constants'
+import { getMapGroupLabel } from '../mapHelperFunctions'
+import type { TooltipFeature, TooltipPairs } from './types'
 
 /**
  * Creates and styles a tooltip container.
@@ -21,23 +29,45 @@ export const createTooltipContainer = () => {
 
 /**
  * Formats the tooltip content based on the provided data.
- * @param {object} d - GeoJSON feature data.
- * @param {string | number | undefined} value - The data value for the feature.
- * @param {TooltipPairs} tooltipPairs - Key-value pairs for tooltip labels and formatters.
- * @returns {string} The HTML content for the tooltip.
  */
-export const getTooltipContent = (
-  d: { properties: { name: string } },
-  value: string | number | undefined,
+
+export function getTooltipContent(
+  feature: TooltipFeature,
+  value: number | undefined,
   tooltipPairs: TooltipPairs,
-) => {
-  const name = d.properties?.name || 'Unknown'
+  geographyType?: any,
+): string {
+  const name = feature.properties?.name || String(feature.id)
   return `
     <div>
-      <strong>${name}</strong><br/>
+      <strong>${name} ${geographyType}</strong><br/>
       ${Object.entries(tooltipPairs)
         .map(([label, formatter]) => `${label}: ${formatter(value)}`)
         .join('<br/>')}
     </div>
   `
+}
+
+export const createTooltipLabel = (
+  metric: MetricConfig,
+  activeDemographicGroup: DemographicGroup,
+  demographicType: DemographicType,
+  isUnknownsMap?: boolean,
+): string => {
+  if (isUnknownsMap) return metric.unknownsVegaLabel || '% unknown'
+  if (CAWP_METRICS.includes(metric.metricId)) {
+    return `Rate — ${getWomenRaceLabel(activeDemographicGroup)}`
+  }
+  return getMapGroupLabel(
+    demographicType,
+    activeDemographicGroup,
+    metric.type === 'index' ? 'Score' : 'Rate',
+  )
+}
+
+export const getTooltipPairs = (tooltipLabel: string): TooltipPairs => {
+  return {
+    [tooltipLabel]: (value: string | number | undefined) =>
+      value !== undefined ? value.toString() : 'no data',
+  }
 }
