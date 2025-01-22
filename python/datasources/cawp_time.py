@@ -116,7 +116,7 @@ FIPS_TO_STATE_TABLE_MAP = {
 DEFAULT_CONGRESS_FIRST_YR = 1915
 DEFAULT_STLEG_FIRST_YR = 1983
 # TODO should be calc from most recent year in numerator source data. see GitHub #2897
-DEFAULT_LAST_YR = 2024
+DEFAULT_LAST_YR = 2025
 
 # data urls
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"

@@ -28,7 +28,7 @@ def test_get_consecutive_time_periods():
     assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
     default_time_periods = get_consecutive_time_periods()
     assert default_time_periods[0] == "1915"
-    assert default_time_periods[-1] == "2024"  # TODO: make dynamic; see GitHub #2897
+    assert default_time_periods[-1] == "2025"  # TODO: make dynamic; see GitHub #2897
 
 
 # INTEGRATION TEST SETUP
