@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
+import { het } from '../../styles/DesignTokens'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import type {
   CreateColorScaleProps,
@@ -10,7 +11,7 @@ import type {
   GetFillColorProps,
 } from './types'
 
-const DEFAULT_FILL = '#ccc'
+const { altGrey: ALT_GREY } = het
 
 export const createColorScale = (props: CreateColorScaleProps) => {
   const interpolatorFn = props.reverse
@@ -53,7 +54,10 @@ export const createColorScale = (props: CreateColorScaleProps) => {
       .domain([min, max])
       .interpolator(adjustedInterpolatorFn)
   } else {
-    throw new Error(`Unsupported scaleType: ${props.scaleType}`)
+    console.error(
+      `Unsupported scaleType: ${props.scaleType}. Using fallback [0, 1].`,
+    )
+    return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
   return colorScale
@@ -107,5 +111,5 @@ export const getFillColor = (props: GetFillColorProps): string => {
   const { d, dataMap, colorScale } = props
 
   const value = dataMap.get(d.id as string)
-  return value !== undefined ? colorScale(value) : DEFAULT_FILL
+  return value !== undefined ? colorScale(value) : ALT_GREY
 }

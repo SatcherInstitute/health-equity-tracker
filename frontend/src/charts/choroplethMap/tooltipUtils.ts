@@ -6,8 +6,11 @@ import {
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { DemographicGroup } from '../../data/utils/Constants'
+import { het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { TooltipFeature, TooltipPairs } from './types'
+
+const { white, greyGridColorDarker } = het
 
 /**
  * Creates and styles a tooltip container.
@@ -19,8 +22,8 @@ export const createTooltipContainer = () => {
     .append('div')
     .style('position', 'absolute')
     .style('visibility', 'hidden')
-    .style('background-color', '#fff')
-    .style('border', '1px solid #ddd')
+    .style('background-color', white)
+    .style('border', `1px solid ${greyGridColorDarker}`)
     .style('border-radius', '4px')
     .style('padding', '8px')
     .style('font-size', '12px')
