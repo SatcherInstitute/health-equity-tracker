@@ -38,7 +38,7 @@
 		font-weight: 600;
 		color: theme('colors.altGreen');
 	}
-	h3, h4, h5, h6 {
+	h3, h4, h5 {
 		font-weight: 500;
 		color: theme('colors.altBlack');
 	}
@@ -76,14 +76,6 @@
 		letter-spacing: -0.0125rem;
 		@screen sm {
 			font-size: 1.1rem;
-		}
-	}
-	h6{
-		font-size: 1.125rem;
-		line-height: 1.111;
-		letter-spacing: -0.0125rem;
-		@screen sm {
-			font-size: 1rem;
 		}
 	}
 }
