@@ -69,7 +69,7 @@ export const urlMap: Record<LinkName, string> = {
   hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
   hetYouTubeShorts: 'https://www.youtube.com/@HealthEquityTracker/shorts',
   hetLinkedIn: 'https://www.linkedin.com/company/healthequitytracker/',
-  cdcTrans: 'https://www.cdc.gov/hiv/clinicians/transforming-health/index.html',
+  cdcTrans: 'https://www.cdc.gov/hivnexus/hcp/index.html',
   veraGithub: 'https://github.com/vera-institute/incarceration-trends',
   bjsPrisoners:
     'https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables',

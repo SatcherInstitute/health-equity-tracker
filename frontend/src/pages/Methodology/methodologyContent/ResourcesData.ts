@@ -172,7 +172,7 @@ export const AIAN_RESOURCES: ResourceGroup = {
   resources: [
     {
       name: 'American Indian Health Equity/Disparities',
-      url: 'https://in.nau.edu/cair/ai-health-equity-and-disparities/',
+      url: 'https://nau.edu/center-health-equity-research/',
     },
     {
       name: 'Indigenous Health Equity - UIHI',

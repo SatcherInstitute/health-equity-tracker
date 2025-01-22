@@ -370,7 +370,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     id: 'the_unitedstates_project',
     data_source_name: 'The @unitedstates Project',
     data_source_acronym: '@unitedstates',
-    data_source_pretty_site_name: 'theunitedstates.io',
+    data_source_pretty_site_name: 'https://unitedstates.github.io/',
     data_source_link: 'https://github.com/unitedstates/congress-legislators',
     geographic_level: 'National, State',
     demographic_granularity: 'N/A',
