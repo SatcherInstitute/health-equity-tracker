@@ -126,7 +126,7 @@ export const urlMap: Record<LinkName, string> = {
   cawp: 'https://cawpdata.rutgers.edu/',
   senateMENA:
     'https://www.hsgac.senate.gov/media/majority-media/peters-urges-omb-to-include-middle-east-north-africa-category-in-federal-standards-for-gathering-data-on-race-and-ethnicity',
-  unitedStatesIo: 'https://theunitedstates.io/',
+  unitedStatesIo: 'https://unitedstates.github.io/',
   msm: 'https://www.msm.edu/',
   whoWomenVoting:
     'https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality',
