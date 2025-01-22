@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import type { Topology } from 'topojson-specification'
-import type { DataPoint } from '../charts/ChoroplethTypes'
 import ChoroplethMap from '../charts/choroplethMap/index'
+import type { DataPoint } from '../charts/choroplethMap/types'
 import { MAP_SCHEMES, type MapConfig } from '../charts/choroplethMap/types'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
