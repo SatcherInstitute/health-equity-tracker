@@ -6,9 +6,6 @@
   * {
     box-sizing: border-box;
     font-weight: 400;
-    font-size:1rem;
-    letter-spacing:0.01rem;
-    line-height: 1.5;
   }
   #root {
     height: 100%;
@@ -28,16 +25,14 @@
   ul {
     margin: 0;
   }
-  span {
-    letter-spacing: -0.025rem;
-  }
+
 a, h2 > a{
   font-weight:500;
 }
   a:hover{
     text-decoration: underline;
   }
-  a, li > button, button > span > span, a > span, button > span, div, div > p {
+  a, li > button, button > span > span, a > span, button > span, div, div > p, li > span {
     letter-spacing: 0.0125rem;
     text-decoration: none;
   }
@@ -68,7 +63,7 @@ a, h2 > a{
   }
   h3{    font-size: 1.5rem;
     line-height: 1.083;
-    letter-spacing: -0.03125rem;
+    letter-spacing: -0.0125rem;
       
       @screen sm  {
         font-size: 1.125rem;
