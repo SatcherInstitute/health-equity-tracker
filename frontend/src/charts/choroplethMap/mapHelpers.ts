@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
-import { scaleType } from 'vega-lite/build/src/compile/scale/type'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import type {
@@ -29,21 +28,32 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     ? [props.fieldRange.min, props.fieldRange.max]
     : [legendLowerBound, legendUpperBound]
 
+  if (min === undefined || max === undefined || isNaN(min) || isNaN(max)) {
+    console.warn(
+      'Invalid domain bounds for color scale. Using fallback [0, 1].',
+    )
+    return d3.scaleSequential(interpolatorFn).domain([0, 1])
+  }
+
+  const adjustedInterpolatorFn = (t: number) => {
+    const adjustedT = 0.1 + 0.9 * t // Scale the range to skip the lightest 10%
+    return interpolatorFn(adjustedT)
+  }
+
   if (props.scaleType === 'quantileSequential') {
     const values = props.data
       .map((d) => d[props.metricId])
-      .filter((val) => val != null)
-    d3.scaleSequentialSymlog
+      .filter((val) => val != null && !isNaN(val))
     colorScale = d3
-      .scaleSequentialQuantile<string>(interpolatorFn)
+      .scaleSequentialQuantile<string>(adjustedInterpolatorFn)
       .domain(values)
   } else if (props.scaleType === 'sequentialSymlog') {
     colorScale = d3
       .scaleSequentialSymlog<string>()
       .domain([min, max])
-      .interpolator(interpolatorFn)
+      .interpolator(adjustedInterpolatorFn)
   } else {
-    throw new Error(`Unsupported scaleType: ${scaleType}`)
+    throw new Error(`Unsupported scaleType: ${props.scaleType}`)
   }
 
   return colorScale
