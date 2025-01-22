@@ -34,11 +34,11 @@
 		letter-spacing: 0.0125rem;
 		text-decoration: none;
 	}
-	h1, h2, h3 {
+	h1, h2 {
 		font-weight: 600;
 		color: theme('colors.altGreen');
 	}
-	h4, h5, h6 {
+	h3, h4, h5, h6 {
 		font-weight: 500;
 		color: theme('colors.altBlack');
 	}
