@@ -341,11 +341,11 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Detailed information on women legislators, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing legislator names and positions.',
     dataset_ids: [
-      'cawp_time_data-race_and_ethnicity_national_current',
-      'cawp_time_data-race_and_ethnicity_state_current',
-      'cawp_time_data-race_and_ethnicity_national_historical',
-      'cawp_time_data-race_and_ethnicity_state_historical',
-      'cawp_time_data-race_and_ethnicity_state_historical_names',
+      'cawp_data-race_and_ethnicity_national_current',
+      'cawp_data-race_and_ethnicity_state_current',
+      'cawp_data-race_and_ethnicity_national_historical',
+      'cawp_data-race_and_ethnicity_state_historical',
+      'cawp_data-race_and_ethnicity_state_historical_names',
     ],
     downloadable: true,
   },
