@@ -74,7 +74,7 @@ export const renderMap = (props: RenderMapProps) => {
     )
     .on('click', (event, d) => handleMapClick(d, props.updateFipsCallback))
 
-  if (!props.hideLegend) {
+  if (!props.hideLegend && !props.fips.isCounty()) {
     createUnknownLegend(legendGroup, {
       width,
       colorScale,
