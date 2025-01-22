@@ -8,6 +8,7 @@
     font-weight: 400;
     font-size:1rem;
     letter-spacing:-0.02rem;
+    line-height: 1.5;
   }
   #root {
     height: 100%;
@@ -22,6 +23,7 @@
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
     background: theme('colors.white');
+    
   }
   ul {
     margin: 0;
@@ -29,15 +31,20 @@
   span {
     letter-spacing: -0.025rem;
   }
-  a {
-    letter-spacing: -0.025rem;
+  a, li > button, button > span > span {
+    /* letter-spacing: -0.025rem; */
+    letter-spacing: 0.01rem;
     text-decoration: none;
   }
   a:hover{
     text-decoration: underline;
   }
+  a > span, button > span, div, div > p {
+    letter-spacing: 0.0125rem;
+  }
   h1, h2, h3, h4, h5 {
-    font-weight: 700;
+    font-weight: 600;
+    color: rgb(11 82 64 / var(--tw-text-opacity, 1));
   }
   h1{
     font-size: 2.125rem;
@@ -51,12 +58,9 @@
   h2{
     font-size: 1.875rem;
     line-height: 1.067;
-      @screen md  {
-        font-size: 1.5rem;
-        
-      }
+    
       @screen sm  {
-        font-size: 1.125rem;
+        font-size: 1.5rem;
       }
   }
   h3{    font-size: 1.5rem;
