@@ -1,8 +1,13 @@
 import * as d3 from 'd3'
+import type { MetricId } from '../../data/config/MetricConfigTypes'
+import { calculateLegendColorCount } from '../mapHelperFunctions'
+import type { DataPoint } from './types'
 
 export const createUnknownLegend = (
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
   props: {
+    data: DataPoint[]
+    metricId: MetricId
     width: number
     colorScale: d3.ScaleSequential<string>
     title: string
@@ -14,11 +19,21 @@ export const createUnknownLegend = (
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
-  const tickCount = isMobile ? 3 : 6
+  const tickCount = isMobile
+    ? 3
+    : calculateLegendColorCount(props.data, props.metricId)
+
+  const ticks = d3
+    .scaleLinear()
+    .domain([legendLowerBound, legendUpperBound])
+    .nice(tickCount)
+    .ticks(tickCount)
+    .filter((tick) => tick >= legendLowerBound && tick <= legendUpperBound)
 
   const legendContainer = legendGroup
     .append('g')
     .attr('class', 'unknowns-legend')
+
   legendContainer
     .append('text')
     .attr('x', 50)
@@ -33,10 +48,11 @@ export const createUnknownLegend = (
     .attr('id', 'unknowns-legend-gradient')
     .attr('x1', '0%')
     .attr('x2', '100%')
+
   gradient
     .selectAll('stop')
     .data(
-      d3.ticks(legendLowerBound, legendUpperBound, tickCount).map((value) => ({
+      ticks.map((value) => ({
         offset: `${
           ((value - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
           100
@@ -73,16 +89,24 @@ export const createUnknownLegend = (
 
   const labelGroup = legendContainer
     .append('g')
-    .attr('transform', `translate(0, ${legendHeight + 10})`)
-  d3.ticks(legendLowerBound, legendUpperBound, tickCount).forEach((label) => {
+    .attr('transform', `translate(50, ${legendHeight + 10})`) // Align to gradient start
+
+  const constrainedTicks = ticks.map((label) => {
+    // Constrain the positions of ticks to the gradient length
+    const position =
+      ((label - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
+      gradientLength
+
+    // Clamp positions to the gradient bounds
+    const clampedPosition = Math.min(Math.max(position, 10), gradientLength)
+    return { label, position: clampedPosition }
+  })
+
+  // Add labels
+  constrainedTicks.forEach(({ label, position }) => {
     labelGroup
       .append('text')
-      .attr(
-        'x',
-        ((label - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
-          gradientLength +
-          50,
-      )
+      .attr('x', position) // Correctly aligned within gradient bounds
       .attr('text-anchor', 'middle')
       .style('font', '10px sans-serif')
       .text(isPct ? `${label}%` : label.toFixed(1))

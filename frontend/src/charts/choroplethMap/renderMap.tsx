@@ -14,8 +14,16 @@ const TOOLTIP_OFFSET = { x: 10, y: 10 }
 export const renderMap = (props: RenderMapProps) => {
   const { features, projection } = props.geoData
   const geographyType = getCountyAddOn(props.fips, props.showCounties)
-  const { colorScale, height, width, svgRef, tooltipContainer, isMobile } =
-    props
+  const {
+    colorScale,
+    height,
+    width,
+    svgRef,
+    tooltipContainer,
+    isMobile,
+    data,
+    metric,
+  } = props
 
   // Clear existing SVG content and initialize
   d3.select(svgRef.current).selectAll('*').remove()
@@ -81,7 +89,10 @@ export const renderMap = (props: RenderMapProps) => {
     .on('click', (event, d) => handleMapClick(d, props.updateFipsCallback))
 
   if (!props.hideLegend && !props.fips.isCounty()) {
+    const { metricId } = metric
     createUnknownLegend(legendGroup, {
+      data,
+      metricId,
       width,
       colorScale,
       title: '% unknown',
