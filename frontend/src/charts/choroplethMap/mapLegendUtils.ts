@@ -6,13 +6,15 @@ export const createUnknownLegend = (
     width: number
     colorScale: d3.ScaleSequential<string>
     title: string
+    isMobile: boolean
     isPct?: boolean
   },
 ) => {
-  const { width, colorScale, title, isPct } = props
+  const { width, colorScale, title, isPct, isMobile } = props
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
+  const tickCount = isMobile ? 3 : 6
 
   const legendContainer = legendGroup
     .append('g')
@@ -34,7 +36,7 @@ export const createUnknownLegend = (
   gradient
     .selectAll('stop')
     .data(
-      d3.ticks(legendLowerBound, legendUpperBound, 6).map((value) => ({
+      d3.ticks(legendLowerBound, legendUpperBound, tickCount).map((value) => ({
         offset: `${
           ((value - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
           100
@@ -72,7 +74,7 @@ export const createUnknownLegend = (
   const labelGroup = legendContainer
     .append('g')
     .attr('transform', `translate(0, ${legendHeight + 10})`)
-  d3.ticks(legendLowerBound, legendUpperBound, 6).forEach((label) => {
+  d3.ticks(legendLowerBound, legendUpperBound, tickCount).forEach((label) => {
     labelGroup
       .append('text')
       .attr(

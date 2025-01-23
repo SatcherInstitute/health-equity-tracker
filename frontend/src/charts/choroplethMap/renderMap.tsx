@@ -85,6 +85,7 @@ export const renderMap = (props: RenderMapProps) => {
       width,
       colorScale,
       title: '% unknown',
+      isMobile,
       isPct: true,
     })
   }
