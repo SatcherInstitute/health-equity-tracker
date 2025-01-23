@@ -302,31 +302,22 @@ class CAWPData(DataSource):
         all congress members, all women congress members,
         and women congress members of the row's race"""
 
-        print("START: generate_base_df method")
-
         try:
-            print("Fetching women's congressional data")
             women_us_congress_df, women_state_leg_df = get_women_dfs()
-            print(f"Women US Congress DataFrame: {len(women_us_congress_df)} rows")
-            print(f"Women State Leg DataFrame: {len(women_state_leg_df)} rows")
         except Exception as e:
             print(f"ERROR in get_women_dfs(): {e}")
             print(f"Full error details: {str(e)}")
             raise
 
         try:
-            print("Fetching US Congress totals")
             us_congress_totals_df = get_us_congress_totals_df()
-            print(f"US Congress Totals DataFrame: {len(us_congress_totals_df)} rows")
         except Exception as e:
             print(f"ERROR in get_us_congress_totals_df(): {e}")
             print(f"Full error details: {str(e)}")
             raise
 
         try:
-            print("Fetching State Legislature totals")
             state_leg_totals_df = get_state_leg_totals_df()
-            print(f"State Leg Totals DataFrame: {len(state_leg_totals_df)} rows")
         except Exception as e:
             print(f"ERROR in get_state_leg_totals_df(): {e}")
             print(f"Full error details: {str(e)}")
