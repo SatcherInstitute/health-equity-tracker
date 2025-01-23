@@ -30,9 +30,6 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     : [legendLowerBound, legendUpperBound]
 
   if (min === undefined || max === undefined || isNaN(min) || isNaN(max)) {
-    console.warn(
-      'Invalid domain bounds for color scale. Using fallback [0, 1].',
-    )
     return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
@@ -54,9 +51,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
       .domain([min, max])
       .interpolator(adjustedInterpolatorFn)
   } else {
-    console.error(
-      `Unsupported scaleType: ${props.scaleType}. Using fallback [0, 1].`,
-    )
+    console.error(`Unsupported scaleType: ${props.scaleType}.`)
     return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
