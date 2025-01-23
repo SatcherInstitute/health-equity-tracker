@@ -120,8 +120,8 @@ DEFAULT_STLEG_FIRST_YR = 1983
 DEFAULT_LAST_YR = 2025
 
 # data urls
-US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
-US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
+US_CONGRESS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/legislators-current.json"
+US_CONGRESS_HISTORICAL_URL = "https://unitedstates.github.io/congress-legislators/legislators-historical.json"
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 
 
