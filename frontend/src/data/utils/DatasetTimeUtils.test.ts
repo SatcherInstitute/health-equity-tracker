@@ -1,4 +1,3 @@
-import { DataFrame } from 'data-forge'
 import type { TrendsData } from '../../charts/trendsChart/types'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import {
@@ -217,25 +216,32 @@ describe('Tests getPrettyDate() function', () => {
 })
 
 describe('getElectionYearData', () => {
-  it('should return only election years (divisible by 4)', () => {
+  it('should return only election years (divisible by 4 or 2)', () => {
     const inputData: HetRow[] = [
       { time_period: '2008', voter_participation_pct_rate: 47.6 },
-      { time_period: '2009' },
+      { time_period: '2009', women_in_gov: 25.0 },
       { time_period: '2010' },
-      { time_period: '2011' },
+      { time_period: '2011', women_in_gov: 25.0 },
       { time_period: '2012', voter_participation_pct_rate: 47.3 },
-      { time_period: '2013' },
+      { time_period: '2013', women_in_gov: 25.0 },
       { time_period: '2014' },
-      { time_period: '2015' },
+      { time_period: '2015', women_in_gov: 25.0 },
       { time_period: '2016', voter_participation_pct_rate: 49 },
     ]
 
-    const result = getElectionYearData(inputData)
-
-    expect(result).toEqual([
+    const result4yearly = getElectionYearData(inputData, 'fourYearly')
+    expect(result4yearly).toEqual([
       { time_period: '2008', voter_participation_pct_rate: 47.6 },
       { time_period: '2012', voter_participation_pct_rate: 47.3 },
       { time_period: '2016', voter_participation_pct_rate: 49 },
+    ])
+
+    const result2yearly = getElectionYearData(inputData, 'twoYearly')
+    expect(result2yearly).toEqual([
+      { time_period: '2009', women_in_gov: 25.0 },
+      { time_period: '2011', women_in_gov: 25.0 },
+      { time_period: '2013', women_in_gov: 25.0 },
+      { time_period: '2015', women_in_gov: 25.0 },
     ])
   })
 })
