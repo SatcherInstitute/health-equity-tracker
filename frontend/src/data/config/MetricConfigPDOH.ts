@@ -115,7 +115,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     otherSubPopulationLabel: 'US Congress members incl. Territorial Delegates',
     metrics: {
       pct_rate: {
-        timeSeriesCadence: 'yearly',
+        timeSeriesCadence: 'twoYearly',
         metricId: 'pct_share_of_us_congress',
         trendsCardTitleName:
           'Yearly rates of US Congress members identifying as women',
@@ -154,7 +154,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
-        timeSeriesCadence: 'yearly',
+        timeSeriesCadence: 'twoYearly',
         chartTitle:
           'Relative racial inequity of women in US Congress over time',
         metricId: 'women_us_congress_pct_relative_inequity',
@@ -178,7 +178,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
 
     metrics: {
       pct_rate: {
-        timeSeriesCadence: 'yearly',
+        timeSeriesCadence: 'twoYearly',
         metricId: 'pct_share_of_state_leg',
         chartTitle: 'Percentage of state legislators identifying as women',
         // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
@@ -218,7 +218,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         },
       },
       pct_relative_inequity: {
-        timeSeriesCadence: 'yearly',
+        timeSeriesCadence: 'twoYearly',
         chartTitle:
           'Relative racial inequity of women state legislators over time',
         metricId: 'women_state_leg_pct_relative_inequity',

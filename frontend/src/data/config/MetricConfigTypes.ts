@@ -78,7 +78,11 @@ export type MetricType =
   | 'index'
   | 'age_adjusted_ratio'
 
-export type TimeSeriesCadenceType = 'monthly' | 'yearly' | 'fourYearly'
+export type TimeSeriesCadenceType =
+  | 'monthly'
+  | 'yearly'
+  | 'twoYearly'
+  | 'fourYearly'
 
 export interface MetricConfig {
   metricId: MetricId

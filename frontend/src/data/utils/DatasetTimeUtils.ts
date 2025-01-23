@@ -1,5 +1,9 @@
 import type { TimeSeries, TrendsData } from '../../charts/trendsChart/types'
-import type { MetricConfig, MetricId } from '../config/MetricConfigTypes'
+import type {
+  MetricConfig,
+  MetricId,
+  TimeSeriesCadenceType,
+} from '../config/MetricConfigTypes'
 import type { DemographicType } from '../query/Breakdowns'
 import {
   ALL,
@@ -132,7 +136,7 @@ export function getNestedData(
   demographicGroups: DemographicGroup[],
   demographicType: DemographicType,
   metricId: MetricId,
-  keepOnlyElectionYears?: boolean,
+  timeSeriesCadence?: TimeSeriesCadenceType,
 ): TrendsData {
   if (!data.some((row) => row[TIME_PERIOD])) return []
 
@@ -140,8 +144,11 @@ export function getNestedData(
     let groupRows = data.filter((row) => row[demographicType] === group)
     groupRows = interpolateTimePeriods(groupRows)
 
-    if (keepOnlyElectionYears) {
-      groupRows = getElectionYearData(groupRows)
+    if (
+      timeSeriesCadence &&
+      ['fourYearly', 'twoYearly'].includes(timeSeriesCadence)
+    ) {
+      groupRows = getElectionYearData(groupRows, timeSeriesCadence)
     }
 
     const groupTimeSeries = groupRows.map((row) => [
@@ -287,9 +294,19 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   return lowestAndHighestGroups
 }
 
-export function getElectionYearData(data: HetRow[]): HetRow[] {
-  // this works because the first presidential election year happened to be evenly divisible by 4,
-  // and presidential election years have been held every 4 years since
-  data = data.filter((row: HetRow) => row[TIME_PERIOD] % 4 === 0)
+export function getElectionYearData(
+  data: HetRow[],
+  timeSeriesCadence: TimeSeriesCadenceType,
+): HetRow[] {
+  // for voting we want the presidential election years
+  if (timeSeriesCadence === 'fourYearly') {
+    return data.filter((row: HetRow) => row[TIME_PERIOD] % 4 === 0)
+  }
+
+  // for women in gov we want the first year of the actual terms they serve
+  if (timeSeriesCadence === 'twoYearly') {
+    return data.filter((row: HetRow) => (row[TIME_PERIOD] - 1) % 2 === 0)
+  }
+
   return data
 }

@@ -197,8 +197,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           demographicGroupsLabelled,
           props.demographicType,
           metricConfigRates.metricId,
-          /* keepOnlyElectionYears */ metricConfigRates.timeSeriesCadence ===
-            'fourYearly',
+          metricConfigRates.timeSeriesCadence
         )
 
         const nestedUnknownPctShareData = getNestedUnknowns(
