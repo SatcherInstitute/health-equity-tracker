@@ -98,6 +98,8 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
     print("MOCK READ FROM /data:", filename, kwargs)
 
+    usecols = kwargs.get("usecols", None)
+
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
         test_input_data_types = {
@@ -117,6 +119,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
             os.path.join(TEST_DIR, f"test_input_{filename}"),
             dtype=test_input_data_types,
             index_col=False,
+            usecols=usecols,
         )
     else:
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
