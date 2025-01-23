@@ -8,7 +8,6 @@ from datasources.cawp import (
     CAWPData,
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
-    get_postal_from_cawp_phrase,
     get_consecutive_time_periods,
     FIPS_TO_STATE_TABLE_MAP,
 )
@@ -16,12 +15,6 @@ from datasources.cawp import (
 FIPS_TO_TEST = ["02", "60"]
 
 # UNIT TESTS
-
-
-def testPostalFromCAWPPhrase():
-    assert get_postal_from_cawp_phrase("American Samoa - AS") == "AS"
-    assert get_postal_from_cawp_phrase("American Samoa - AM") == "AS"
-    assert get_postal_from_cawp_phrase("Anything At All - XX") == "XX"
 
 
 def test_get_consecutive_time_periods():

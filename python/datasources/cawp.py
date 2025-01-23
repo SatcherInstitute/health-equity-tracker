@@ -665,8 +665,18 @@ def get_women_dfs():
     # keep only needed cols
     df = df[[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH]]
 
-    # standardize CAWP state names as postal
-    df[std_col.STATE_POSTAL_COL] = df[STATE].apply(get_postal_from_cawp_phrase)
+    df = df.dropna(subset=[STATE])
+
+    # make df[std_col.STATE_POSTAL_COL] be only the last two digits of the [STATE] col using str methods
+    df[std_col.STATE_POSTAL_COL] = df[STATE].str[-2:]
+
+    # standardize postal codes
+    df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace(
+        {
+            "MI": "MP",
+            "AM": "AS",
+        }
+    )
 
     # merge in FIPS codes
     df = merge_utils.merge_state_ids(df, keep_postal=True)
@@ -841,26 +851,6 @@ def combine_states_to_national(df):
     df_counts[std_col.STATE_POSTAL_COL] = US_ABBR
 
     return df_counts
-
-
-def get_postal_from_cawp_phrase(cawp_place_phrase: str):
-    """Swap CAWP place phrase found in the LINE ITEM table
-    `{STATE_COL_LINE NAME} - {CODE}` with the standard 2 letter code
-
-    Parameters:
-        cawp_place_phrase: str
-    Returns:
-        string of standard 2-letter postal code"""
-
-    # swap out non-standard 2 letter codes
-    cawp_place_phrase = {
-        "American Samoa - AM": "American Samoa - AS",
-        "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
-    }.get(cawp_place_phrase, cawp_place_phrase)
-
-    print(f"CAWP place phrase: {cawp_place_phrase}")
-
-    return cawp_place_phrase.split(" - ")[1]
 
 
 def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
