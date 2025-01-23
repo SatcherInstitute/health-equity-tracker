@@ -656,7 +656,8 @@ def get_women_dfs():
     # keep only needed cols
     df = df[[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH]]
 
-    df = df.dropna(subset=[STATE])
+    # keep only valid rows
+    df = df.dropna(subset=[STATE, RACE_ETH])
 
     # standardize postal codes (can't just swap codes because Michigan is also MI)
     df[STATE] = df[STATE].replace(
