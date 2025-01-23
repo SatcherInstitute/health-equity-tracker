@@ -216,7 +216,7 @@ class CAWPData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CAWPData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        base_df = self.generate_base_df()  #
+        base_df = self.generate_base_df()
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
