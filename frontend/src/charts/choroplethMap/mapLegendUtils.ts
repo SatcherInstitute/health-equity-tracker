@@ -1,7 +1,10 @@
 import * as d3 from 'd3'
 import type { MetricId } from '../../data/config/MetricConfigTypes'
+import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
 import type { DataPoint } from './types'
+
+const { altGrey } = het
 
 export const createUnknownLegend = (
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
@@ -78,7 +81,7 @@ export const createUnknownLegend = (
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', '#ccc')
+    .style('fill', altGrey)
 
   legendContainer
     .append('text')
