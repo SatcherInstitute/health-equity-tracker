@@ -566,7 +566,8 @@ def get_us_congress_totals_df():
     for legislator in raw_legislators_json:
         # and each term they served
         for term in legislator[TERMS]:
-            term_years = list(range(int(term[START][:4]), int(term[END][:4]) + 1))
+
+            term_years = extract_term_years(term)
 
             # and each year of each term
             for year in term_years:
@@ -1061,3 +1062,22 @@ def handle_other_and_multi_races(df):
     df = df.explode(RACE_ETH)
 
     return df
+
+
+def extract_term_years(term):
+    """
+    Extract years from a term, with special handling for those finishing their term in the first weeks of January.
+
+    Args:
+        term (dict): Dictionary containing start and end date keys
+
+    Returns:
+        list: Years of the term
+    """
+    term_years = list(range(int(term[START][:4]), int(term[END][:4]) + 1))
+
+    # If the term ended the first week of January, don't count that year (to align with CAWP)
+    if term[END][5:7] == "01" and int(term[END][9:]) <= 7:
+        term_years = term_years[:-1]
+
+    return term_years
