@@ -69,7 +69,7 @@ const PdohLink = () => {
           Offers detailed research on incarceration trends at the county level.
         </p>
         <h3>Breakdown of Our Reports</h3>
-        <h4 className='font-light text-text'>By Age</h4>
+        <h4>By Age</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
@@ -78,20 +78,20 @@ const PdohLink = () => {
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h4 className='font-light text-text'>By Race</h4>
+        <h4>By Race</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
-        <h4 className='font-light text-text'>By Sex</h4>
+        <h4>By Sex</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h4 className='font-light text-text'>Special Reports</h4>
+        <h4>Special Reports</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
@@ -123,22 +123,22 @@ const PdohLink = () => {
           person, not necessarily where they're held.
         </p>
         <p>Our data varies slightly based on the location and type:</p>
-        <h4 className='font-light text-text'>National report</h4>
+        <h4>National report</h4>
         <p>
           Includes all under the jurisdiction of a state or federal adult
           prison. Excludes territorial, military, or Indian Country facilities.
         </p>
-        <h4 className='font-light text-text'>State reports</h4>
+        <h4>State reports</h4>
         <p>
           Focuses on individuals within a state's prison system. Age-specific
           data is not available.
         </p>
-        <h4 className='font-light text-text'>Territory reports</h4>
+        <h4>Territory reports</h4>
         <p>
           Covers individuals in a territory's adult prison facilities. No
           specific demographic breakdown.
         </p>
-        <h4 className='font-light text-text'>County reports</h4>
+        <h4>County reports</h4>
         <p>
           Considers those under state prison systems but charged in a specific
           county.

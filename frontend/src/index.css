@@ -3,27 +3,83 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    box-sizing: border-box;
-  }
-  #root {
-    height: 100%;
-  }
-  html {
-    scroll-behavior: smooth;
-    height: 100%;
-  }
-  body {
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    height: 100%;
-    background: theme('colors.white');
-  }
-  ul {
-    margin: 0;
-  }
+	* {
+		box-sizing: border-box;
+		font-weight: 400;
+	}
+	#root {
+		height: 100%;
+	}
+	html {
+		scroll-behavior: smooth;
+		height: 100%;
+	}
+	body {
+		margin: 0;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		height: 100%;
+		background: theme('colors.white');
+	}
+	ul {
+		margin: 0;
+	}
+	a, h2 > a{
+		font-weight:500;
+	}
+	a:hover{
+		text-decoration: underline;
+	}
+	a, li > button, button > span > span, a > span, button > span, div, div > p, li > span {
+		letter-spacing: 0.0125rem;
+		text-decoration: none;
+	}
+	h1, h2 {
+		font-weight: 600;
+		color: theme('colors.altGreen');
+	}
+	h3, h4, h5 {
+		font-weight: 500;
+		color: theme('colors.altBlack');
+	}
+	h1{
+		font-size: 2.125rem;
+		line-height: 1;
+		letter-spacing: -0.0625rem;
+		@screen sm {
+			font-size: 2rem;
+		}
+	}
+	h2{
+		font-size: 1.875rem;
+		line-height: 1.067;
+		@screen sm {
+			font-size: 1.5rem;
+		}
+	}
+	h3{
+		font-size: 1.5rem;
+		line-height: 1.083;
+		letter-spacing: -0.0125rem;
+		@screen sm {
+			font-size: 1.125rem;
+		}
+	}
+	h4{
+		font-size: 1.125rem;
+		line-height: 1.1;
+		letter-spacing: -0.025rem;
+	}
+	h5{
+		font-size: 1.1rem;
+		line-height: 1.111;
+		letter-spacing: -0.0125rem;
+		@screen sm {
+			font-size: 1.1rem;
+		}
+	}
 }
+
 
 /* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
 :root {
