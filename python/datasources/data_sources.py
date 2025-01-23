@@ -3,7 +3,7 @@ from datasources.acs_population import ACSPopulation
 from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 from datasources.bjs_incarceration import BJSIncarcerationData
-from datasources.cawp import CAWPTimeData
+from datasources.cawp import CAWPData
 from datasources.cdc_hiv import CDCHIVData
 from datasources.cdc_restricted import CDCRestrictedData
 from datasources.cdc_vaccination_county import CDCVaccinationCounty
@@ -33,7 +33,7 @@ DATA_SOURCES_DICT = {
     AgeAdjustCDCRestricted.get_id(): AgeAdjustCDCRestricted(),
     AgeAdjustCDCHiv.get_id(): AgeAdjustCDCHiv(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
-    CAWPTimeData.get_id(): CAWPTimeData(),
+    CAWPData.get_id(): CAWPData(),
     CDCHIVData.get_id(): CDCHIVData(),
     CDCRestrictedData.get_id(): CDCRestrictedData(),
     CDCVaccinationCounty.get_id(): CDCVaccinationCounty(),

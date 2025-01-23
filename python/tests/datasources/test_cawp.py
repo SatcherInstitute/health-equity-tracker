@@ -5,7 +5,7 @@ from pandas._testing import assert_frame_equal
 import json
 
 from datasources.cawp import (
-    CAWPTimeData,
+    CAWPData,
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
     get_postal_from_cawp_phrase,
@@ -149,7 +149,7 @@ def testWriteToBq(
         "metadata_table_id": "test_metadata",
         "table_name": "output_table",
     }
-    cawp_data = CAWPTimeData()
+    cawp_data = CAWPData()
     cawp_data.write_to_bq("dataset", "gcs_bucket", **kwargs_for_bq)
 
     # (CONGRESS + STATE LEG) * (BY RACES + BY ALL)

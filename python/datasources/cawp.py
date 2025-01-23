@@ -27,6 +27,7 @@ Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 - These are the other .csv files in that same /data/cawp directory, named by their FIPS code.
 - Data source: ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years
 
+
 Last Updated: Feb. 2024
 """
 
@@ -202,7 +203,7 @@ POSITION_LABELS = {
 }
 
 
-class CAWPTimeData(DataSource):
+class CAWPData(DataSource):
     @staticmethod
     def get_id():
         return "CAWP_DATA"
@@ -212,7 +213,7 @@ class CAWPTimeData(DataSource):
         return "cawp_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError("upload_to_gcs should not be called for CAWPTimeData")
+        raise NotImplementedError("upload_to_gcs should not be called for CAWPData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         base_df = self.generate_base_df()  #
