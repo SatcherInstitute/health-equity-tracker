@@ -83,15 +83,15 @@ class CawpProvider extends VariableProvider {
   ): DatasetId | undefined {
     if (timeView === 'current') {
       if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_national_current'
+        return 'cawp_data-race_and_ethnicity_national_current'
       if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_state_current'
+        return 'cawp_data-race_and_ethnicity_state_current'
     }
     if (timeView === 'historical') {
       if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_national_historical'
+        return 'cawp_data-race_and_ethnicity_national_historical'
       if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_state_historical'
+        return 'cawp_data-race_and_ethnicity_state_historical'
     }
   }
 

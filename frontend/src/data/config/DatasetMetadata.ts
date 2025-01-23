@@ -75,11 +75,11 @@ export type DatasetId =
   | 'bjs_incarceration_data-race_and_ethnicity_state'
   | 'bjs_incarceration_data-sex_national'
   | 'bjs_incarceration_data-sex_state'
-  | 'cawp_time_data-race_and_ethnicity_national_current'
-  | 'cawp_time_data-race_and_ethnicity_state_current'
-  | 'cawp_time_data-race_and_ethnicity_national_historical'
-  | 'cawp_time_data-race_and_ethnicity_state_historical'
-  | 'cawp_time_data-race_and_ethnicity_state_historical_names'
+  | 'cawp_data-race_and_ethnicity_national_current'
+  | 'cawp_data-race_and_ethnicity_state_current'
+  | 'cawp_data-race_and_ethnicity_national_historical'
+  | 'cawp_data-race_and_ethnicity_state_historical'
+  | 'cawp_data-race_and_ethnicity_state_historical_names'
   | 'cdc_hiv_data-by_age_county_current'
   | 'cdc_hiv_data-by_age_county_historical'
   | 'cdc_hiv_data-by_age_national_current'
@@ -882,32 +882,32 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     contains_nh: true,
     source_id: 'vera',
   },
-  'cawp_time_data-race_and_ethnicity_national_current': {
+  'cawp_data-race_and_ethnicity_national_current': {
     name: 'Current, national representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures',
-    original_data_sourced: 'February 2024',
+    original_data_sourced: 'February 2025',
     source_id: 'cawp',
   },
-  'cawp_time_data-race_and_ethnicity_state_current': {
+  'cawp_data-race_and_ethnicity_state_current': {
     name: 'Current representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature',
-    original_data_sourced: 'February 2024',
+    original_data_sourced: 'February 2025',
     source_id: 'cawp',
   },
-  'cawp_time_data-race_and_ethnicity_national_historical': {
+  'cawp_data-race_and_ethnicity_national_historical': {
     name: 'National representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures, over time',
     original_data_sourced:
-      '1915-2023 for Congress, 1983-2023 for state/territory legislatures',
+      '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
     source_id: 'cawp',
   },
-  'cawp_time_data-race_and_ethnicity_state_historical': {
+  'cawp_data-race_and_ethnicity_state_historical': {
     name: 'Representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature over time',
     original_data_sourced:
-      '1915-2023 for Congress, 1983-2023 for state/territory legislatures',
+      '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
     source_id: 'cawp',
   },
-  'cawp_time_data-race_and_ethnicity_state_historical_names': {
+  'cawp_data-race_and_ethnicity_state_historical_names': {
     name: 'By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity',
     original_data_sourced:
-      '1915-2023 for Congress, 1983-2023 for state/territory legislatures',
+      '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
     source_id: 'cawp',
   },
   'chr_data-race_and_ethnicity_county_current': {
@@ -936,7 +936,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   the_unitedstates_project: {
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
-    original_data_sourced: '1915-2023',
+    original_data_sourced: '1915-2025',
     source_id: 'the_unitedstates_project',
   },
   'geo_context-national': {
