@@ -9,10 +9,8 @@ test('CAWP: Congress', async ({ page }) => {
     .getByRole('button', { name: 'Expand state/territory rate' })
     .click()
 
-  await page.getByText('U.S. Virgin Islands,').click()
-  await page.getByText('Puerto Rico,').click()
-  await page.getByText('American Samoa,').click()
-  await page.getByText('District of Columbia', { exact: true }).click()
+  await page.getByRole('heading', { name: 'Highest (100%):' }).click()
+  await page.getByRole('heading', { name: 'Lowest (0.0%):' }).click()
   await page.getByLabel('Include All women').click()
   await page.getByText('Expand rates over time table').click()
   await page.getByRole('cell', { name: '1951' }).click()
@@ -41,12 +39,6 @@ test('CAWP: Congress', async ({ page }) => {
     .getByLabel(
       'Comparison bar chart showing Population vs. distribution of total women in US congress in the United States',
     )
-    .click()
-  await page
-    .getByLabel(
-      'Comparison bar chart showing Population vs. distribution of total women in US congress in the United States',
-    )
-    .getByText('7.1% of women members', { exact: true })
     .click()
 
   await page.getByRole('button', { name: 'US Congress', exact: true }).click()

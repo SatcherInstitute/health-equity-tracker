@@ -1,0 +1,23 @@
+state_fips,state_name,state_postal,total_us_congress_count,total_state_leg_count,women_this_race_us_congress_count,women_this_race_state_leg_count,race_category_id,race_and_ethnicity,pct_share_of_us_congress,pct_share_of_women_us_congress,pct_share_of_state_leg,pct_share_of_women_state_leg,cawp_population,cawp_population_pct
+02,Alaska,AK,3.0,60.0,1.0,1.0,AIANNH,"Native American, Alaska Native, & Native Hawaiian",33.3,50.0,1.7,5.0,,
+02,Alaska,AK,3.0,60.0,1.0,2.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,50.0,,10.0,163630.0,22.3
+02,Alaska,AK,3.0,60.0,2.0,20.0,ALL,All,66.7,100.0,33.3,100.0,734821.0,100.0
+02,Alaska,AK,3.0,60.0,0.0,1.0,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,1.7,5.0,,
+02,Alaska,AK,3.0,60.0,0.0,2.0,BLACK,Black or African American,0.0,0.0,3.3,10.0,23395.0,3.2
+02,Alaska,AK,3.0,60.0,0.0,1.0,HISP,Hispanic or Latino,0.0,0.0,1.7,5.0,54890.0,7.5
+02,Alaska,AK,3.0,60.0,0.0,0.0,MENA,Middle Eastern & North African,0.0,0.0,0.0,0.0,,
+02,Alaska,AK,3.0,60.0,0.0,0.0,MULTI,Two or more races,0.0,0.0,0.0,0.0,82727.0,11.3
+02,Alaska,AK,3.0,60.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,0.0,0.0,0.0,0.0,14597.0,2.0
+02,Alaska,AK,3.0,60.0,0.0,0.0,UNKNOWN,Unknown race,0.0,0.0,0.0,0.0,,
+02,Alaska,AK,3.0,60.0,1.0,15.0,WHITE,White,33.3,50.0,25.0,75.0,450472.0,61.3
+60,American Samoa,AS,1.0,39.0,0.0,0.0,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,0.0,,,
+60,American Samoa,AS,1.0,39.0,1.0,0.0,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,100.0,,,46981.0,94.5
+60,American Samoa,AS,1.0,39.0,1.0,0.0,ALL,All,100.0,100.0,0.0,,49710.0,100.0
+60,American Samoa,AS,1.0,39.0,1.0,0.0,ASIAN_PAC,Asian American & Pacific Islander,100.0,100.0,0.0,,,
+60,American Samoa,AS,1.0,39.0,0.0,0.0,BLACK,Black or African American,0.0,0.0,0.0,,24.0,0.0
+60,American Samoa,AS,1.0,39.0,0.0,0.0,HISP,Hispanic or Latino,0.0,0.0,0.0,,406.0,0.8
+60,American Samoa,AS,1.0,39.0,0.0,0.0,MENA,Middle Eastern & North African,0.0,0.0,0.0,,,
+60,American Samoa,AS,1.0,39.0,0.0,0.0,MULTI,Two or more races,0.0,0.0,0.0,,2192.0,4.4
+60,American Samoa,AS,1.0,39.0,0.0,0.0,OTHER_STANDARD,Unrepresented race,0.0,0.0,0.0,,139.0,0.3
+60,American Samoa,AS,1.0,39.0,0.0,0.0,UNKNOWN,Unknown race,0.0,0.0,0.0,,,
+60,American Samoa,AS,1.0,39.0,0.0,0.0,WHITE,White,0.0,0.0,0.0,,374.0,0.8
