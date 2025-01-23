@@ -858,6 +858,8 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
         "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
     }.get(cawp_place_phrase, cawp_place_phrase)
 
+    print(f"CAWP place phrase: {cawp_place_phrase}")
+
     return cawp_place_phrase.split(" - ")[1]
 
 
