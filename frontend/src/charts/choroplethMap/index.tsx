@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
@@ -31,6 +32,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
   } = props
   const [ref, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
+  const isMobile = !useIsBreakpointAndUp('md')
 
   const heightWidthRatio = overrideShapeWithCircle
     ? HEIGHT_WIDTH_RATIO * 2
@@ -83,6 +85,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         mapConfig,
         colorScale,
         fips,
+        isMobile,
       })
     }
     initializeMap()

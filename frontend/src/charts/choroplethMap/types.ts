@@ -101,6 +101,7 @@ export type InitializeSvgProps = {
   svgRef: React.RefObject<SVGSVGElement>
   width: number
   height: number
+  isMobile: boolean
 }
 
 export interface MapConfig {
@@ -130,6 +131,7 @@ export type RenderMapProps = {
   updateFipsCallback: (fips: Fips) => void
   width: number
   fips: Fips
+  isMobile: boolean
 }
 
 export type TooltipFeature = {

@@ -14,11 +14,17 @@ const TOOLTIP_OFFSET = { x: 10, y: 10 }
 export const renderMap = (props: RenderMapProps) => {
   const { features, projection } = props.geoData
   const geographyType = getCountyAddOn(props.fips, props.showCounties)
-  const { colorScale, height, width, svgRef, tooltipContainer } = props
+  const { colorScale, height, width, svgRef, tooltipContainer, isMobile } =
+    props
 
   // Clear existing SVG content and initialize
   d3.select(svgRef.current).selectAll('*').remove()
-  const { legendGroup, mapGroup } = initializeSvg({ svgRef, width, height })
+  const { legendGroup, mapGroup } = initializeSvg({
+    svgRef,
+    width,
+    height,
+    isMobile,
+  })
 
   projection.fitSize([width, height * 0.8], features)
   const path = d3.geoPath(projection)
@@ -96,11 +102,17 @@ const initializeSvg = (props: InitializeSvgProps) => {
     legendGroup: svg
       .append('g')
       .attr('class', 'legend-container')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`),
+      .attr(
+        'transform',
+        `translate(${margin.left}, ${props.isMobile ? 0 : margin.top})`,
+      ),
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
-      .attr('transform', `translate(${margin.left}, ${margin.top + 50})`),
+      .attr(
+        'transform',
+        `translate(${margin.left}, ${props.isMobile ? margin.top + 10 : margin.top + 50})`,
+      ),
   }
 }
 
