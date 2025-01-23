@@ -658,16 +658,14 @@ def get_women_dfs():
 
     df = df.dropna(subset=[STATE])
 
-    # make df[std_col.STATE_POSTAL_COL] be only the last two digits of the [STATE] col using str methods
-    df[std_col.STATE_POSTAL_COL] = df[STATE].str[-2:]
-
-    # standardize postal codes
-    df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace(
+    # standardize postal codes (can't just swap codes because Michigan is also MI)
+    df[STATE] = df[STATE].replace(
         {
-            "MI": "MP",
-            "AM": "AS",
+            "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
+            "American Samoa - AM": "American Samoa - AS",
         }
     )
+    df[std_col.STATE_POSTAL_COL] = df[STATE].str[-2:]
 
     # merge in FIPS codes
     df = merge_utils.merge_state_ids(df, keep_postal=True)
