@@ -20,7 +20,7 @@ export const renderMap = (props: RenderMapProps) => {
   d3.select(svgRef.current).selectAll('*').remove()
   const { legendGroup, mapGroup } = initializeSvg({ svgRef, width, height })
 
-  projection.fitSize([width * 0.9, height * 0.9], features)
+  projection.fitSize([width, height * 0.8], features)
   const path = d3.geoPath(projection)
 
   const dataMap = new Map(
@@ -100,7 +100,7 @@ const initializeSvg = (props: InitializeSvgProps) => {
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
-      .attr('transform', `translate(${margin.left}, ${margin.top + 30})`),
+      .attr('transform', `translate(${margin.left}, ${margin.top + 50})`),
   }
 }
 
