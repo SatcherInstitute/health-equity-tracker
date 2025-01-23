@@ -9,12 +9,53 @@ from datasources.cawp import (
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
     get_consecutive_time_periods,
+    extract_term_years,
     FIPS_TO_STATE_TABLE_MAP,
 )
 
 FIPS_TO_TEST = ["02", "60"]
 
 # UNIT TESTS
+
+
+def test_extract_term_years():
+
+    entry_with_jan = {
+        "type": "rep",
+        "start": "2017-01-03",
+        "end": "2019-01-03",
+        "state": "MI",
+        "district": 5,
+        "party": "Democrat",
+        "phone": "202-225-3611",
+        "url": "https://dankildee.house.gov",
+        "rss_url": "http://dankildee.house.gov/rss.xml",
+        "address": "227 Cannon House Office Building; Washington DC 20515-2205",
+        "office": "227 Cannon House Office Building",
+        "fax": "202-225-6393",
+    }
+
+    term_years_excluding_jan = extract_term_years(entry_with_jan)
+    assert term_years_excluding_jan == [2017, 2018]
+
+    entry_special_election = {
+        "type": "sen",
+        "start": "2023-01-23",
+        "end": "2024-11-05",
+        "how": "appointment",
+        "end-type": "special-election",
+        "state": "NE",
+        "class": 2,
+        "state_rank": "junior",
+        "party": "Republican",
+        "url": "https://www.ricketts.senate.gov",
+        "address": "139 Russell Senate Office Building Washington DC 20510",
+        "office": "139 Russell Senate Office Building",
+        "phone": "202-224-4224",
+    }
+
+    term_years_special_election = extract_term_years(entry_special_election)
+    assert term_years_special_election == [2023, 2024]
 
 
 def test_get_consecutive_time_periods():
@@ -57,6 +98,8 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
     print("MOCK READ FROM /data:", filename, kwargs)
 
+    usecols = kwargs.get("usecols", None)
+
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
         test_input_data_types = {
@@ -76,6 +119,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
             os.path.join(TEST_DIR, f"test_input_{filename}"),
             dtype=test_input_data_types,
             index_col=False,
+            usecols=usecols,
         )
     else:
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES

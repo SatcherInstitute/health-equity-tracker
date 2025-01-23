@@ -216,7 +216,7 @@ class CAWPData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CAWPData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        base_df = self.generate_base_df()
+        base_df = self.generate_base_df()  #
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
@@ -566,7 +566,8 @@ def get_us_congress_totals_df():
     for legislator in raw_legislators_json:
         # and each term they served
         for term in legislator[TERMS]:
-            term_years = list(range(int(term[START][:4]), int(term[END][:4]) + 1))
+
+            term_years = extract_term_years(term)
 
             # and each year of each term
             for year in term_years:
@@ -651,12 +652,12 @@ def get_women_dfs():
             columns "time_period" by year and "state_postal", "race_ethnicity"
             with specific CAWP race strings"""
 
-    df = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LINE_ITEMS_FILE)
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        "cawp", CAWP_LINE_ITEMS_FILE, usecols=[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH]
+    )
 
-    # keep only needed cols
-    df = df[[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH]]
-
-    df = df.dropna(subset=[STATE])
+    # keep only valid rows
+    df = df.dropna(subset=[STATE, RACE_ETH])
 
     # standardize postal codes (can't just swap codes because Michigan is also MI)
     df[STATE] = df[STATE].replace(
@@ -1060,3 +1061,22 @@ def handle_other_and_multi_races(df):
     df = df.explode(RACE_ETH)
 
     return df
+
+
+def extract_term_years(term):
+    """
+    Extract years from a term, with special handling for those finishing their term in the first weeks of January.
+
+    Args:
+        term (dict): Dictionary containing start and end date keys
+
+    Returns:
+        list: Years of the term
+    """
+    term_years = list(range(int(term[START][:4]), int(term[END][:4]) + 1))
+
+    # If the term ended the first week of January, don't count that year (to align with CAWP)
+    if term[END][5:7] == "01" and int(term[END][9:]) <= 7:
+        term_years = term_years[:-1]
+
+    return term_years
