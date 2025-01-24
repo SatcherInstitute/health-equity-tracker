@@ -93,7 +93,7 @@ jobs:
       - code-quality
     name: Run E2E tests on deploy preview
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
