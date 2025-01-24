@@ -154,7 +154,7 @@ export const EQUITY_INDEX_RESOURCES: ResourceGroup = {
   resources: [
     {
       name: 'Social Vulnerability Index',
-      url: 'https://www.atsdr.cdc.gov/placeandhealth/svi/index.html',
+      url: 'https://www.atsdr.cdc.gov/place-health/php/svi/index.html',
     },
     {
       name: 'Neighborhood Atlas - Area Deprivation Index',
@@ -172,7 +172,7 @@ export const AIAN_RESOURCES: ResourceGroup = {
   resources: [
     {
       name: 'American Indian Health Equity/Disparities',
-      url: 'https://in.nau.edu/cair/ai-health-equity-and-disparities/',
+      url: 'https://nau.edu/center-health-equity-research/',
     },
     {
       name: 'Indigenous Health Equity - UIHI',
