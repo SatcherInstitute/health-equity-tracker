@@ -302,9 +302,23 @@ export function getProjection(
 /*
 Calculate the min and max value for the given metricId
 */
-export function getLegendDataBounds(data: HetRow[], metricId: MetricId) {
-  const legendLowerBound = Math.min(...data.map((row) => row[metricId]))
-  const legendUpperBound = Math.max(...data.map((row) => row[metricId]))
+export function getLegendDataBounds(
+  data: HetRow[],
+  metricId: MetricId,
+): [number, number] {
+  const values = data
+    .map((row) => row[metricId])
+    .filter((value) => value != null && !isNaN(value))
+
+  if (values.length === 0) {
+    console.warn(
+      'No valid data points for legend bounds. Using fallback bounds [0, 1].',
+    )
+    return [0, 1]
+  }
+
+  const legendLowerBound = Math.min(...values)
+  const legendUpperBound = Math.max(...values)
 
   return [legendLowerBound, legendUpperBound]
 }

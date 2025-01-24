@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom'
-import ChoroplethMap from '../charts/ChoroplethMap'
-import { unknownMapConfig } from '../charts/mapGlobals'
+import type { Topology } from 'topojson-specification'
+import ChoroplethMap from '../charts/choroplethMap/index'
+import type { DataPoint } from '../charts/choroplethMap/types'
+import { MAP_SCHEMES, type MapConfig } from '../charts/choroplethMap/types'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import {
@@ -18,6 +20,7 @@ import {
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { Fips } from '../data/utils/Fips'
+import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
@@ -111,6 +114,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   )
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
+
+  const unknownMapConfig: MapConfig = {
+    scheme: MAP_SCHEMES.unknown,
+    min: het.unknownMapLeast,
+    mid: het.unknownMapMid,
+  }
 
   return (
     <CardWrapper
@@ -209,23 +218,21 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 }
               >
                 <ChoroplethMap
-                  demographicType={demographicType}
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
-                  isUnknownsMap={true}
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
-                  data={unknowns}
-                  showCounties={!props.fips.isUsa()}
-                  fips={props.fips}
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
-                  }
-                  geoData={geoData}
-                  filename={chartTitle}
-                  mapConfig={unknownMapConfig}
+                  data={unknowns as DataPoint[]}
+                  demographicType={demographicType}
                   extremesMode={false}
+                  filename={chartTitle}
+                  fips={props.fips}
+                  geoData={geoData as Topology}
+                  isUnknownsMap={true}
+                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
+                  mapConfig={unknownMapConfig}
+                  metric={metricConfig}
+                  showCounties={!props.fips.isUsa()}
+                  signalListeners={signalListeners}
+                  updateFipsCallback={props.updateFipsCallback}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles
