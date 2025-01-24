@@ -17,7 +17,7 @@ on:
     types:
       - opened
       - synchronize
-      - reopened
+      - reopened #
       - ready_for_review
 defaults:
   run:
