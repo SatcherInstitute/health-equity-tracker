@@ -22,6 +22,7 @@ const CHR_DATATYPE_IDS_ONLY_ALLS: DataTypeId[] = [
 const CHR_DATATYPE_IDS_BY_RACE: DataTypeId[] = [
   'preventable_hospitalizations',
   'suicide',
+  'gun_deaths',
 ]
 
 export const CHR_DATATYPE_IDS: DataTypeId[] = [
@@ -112,6 +113,7 @@ const CHR_METRICS: MetricId[] = [
   'excessive_drinking_per_100k',
   'frequent_mental_distress_per_100k',
   'preventable_hospitalizations_per_100k',
+  'gun_deaths_per_100k',
 ]
 
 export const AHR_DATATYPES_WITH_MISSING_AGE_DEMO: DataTypeId[] = [
@@ -135,6 +137,7 @@ class AhrProvider extends VariableProvider {
       ...AHR_METRICS,
       ...AHR_VOTER_AGE_METRICS,
       ...AHR_DECADE_PLUS_5_AGE_METRICS,
+      ...CHR_METRICS,
     ])
   }
 
