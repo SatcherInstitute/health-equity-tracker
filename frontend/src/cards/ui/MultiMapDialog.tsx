@@ -136,12 +136,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           {/* card heading row */}
           <div className='col-span-full flex w-full justify-between'>
             {/* Modal Title */}
-            <h2
-              className='m-2 w-full font-light text-small leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
-              id='modalTitle'
-            >
+            <h3 className='m-2 w-full md:m-2' id='modalTitle'>
               {title}
-            </h2>
+            </h3>
           </div>
 
           <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>

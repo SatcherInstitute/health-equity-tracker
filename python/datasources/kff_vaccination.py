@@ -316,14 +316,6 @@ class KFFVaccination(DataSource):
         table_id = gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL, CURRENT)
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
 
-        # WRITE ALLS TABLE FOR SEX/AGE (get just the All rows from the race table and add needed cols)
-        df = df.copy()
-        df = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value]
-        df.loc[:, std_col.SEX_COL] = std_col.ALL_VALUE
-        df.loc[:, std_col.AGE_COL] = std_col.ALL_VALUE
-        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-        gcs_to_bq_util.add_df_to_bq(df, dataset, "alls_state_current", column_types=col_types)
-
 
 def clean_row(df, column):
     """Removes non float KFF data from the raw data and replaces

@@ -43,7 +43,8 @@ def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_DATA["race"], dtype={"population_pct": str, "state_fips": str})
 
-    df = mock_bq.call_args_list[0].args[0]
+    df, _, table_name = mock_bq.call_args_list[0][0]
+    assert table_name == "race_national_current"
 
     assert_frame_equal(
         df,
@@ -72,7 +73,8 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_DATA["sex"], dtype={"population_pct": str, "state_fips": str})
 
-    df = mock_bq.call_args_list[1].args[0]
+    df, _, table_name = mock_bq.call_args_list[1][0]
+    assert table_name == "sex_national_current"
 
     assert_frame_equal(
         df,
@@ -101,7 +103,8 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
     expected_df = pd.read_csv(GOLDEN_DATA["age"], dtype={"vaccinated_pop_pct": str, "state_fips": str})
 
-    df = mock_bq.call_args_list[2].args[0]
+    df, _, table_name = mock_bq.call_args_list[2][0]
+    assert table_name == "age_national_current"
 
     assert_frame_equal(
         df,

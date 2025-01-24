@@ -16,10 +16,10 @@ export default function LimitationsLink() {
           <title>Limitations and Missing Data - Health Equity Tracker</title>
         </Helmet>
 
-        <h2 className='mt-12 font-medium text-title'>Limitations</h2>
+        <h2 className='mt-12'>Limitations</h2>
         <p>While we strive for accuracy, some of the limitations include:</p>
 
-        <h3 className='font-light text-text'>Data Accuracy and Completeness</h3>
+        <h3>Data Accuracy and Completeness</h3>
         <p>
           Data collected from sources like the CDC may have inaccuracies or
           incompleteness due to errors in reporting, variations in data
@@ -27,14 +27,14 @@ export default function LimitationsLink() {
           populations. This can lead to biases or distortions in the
           representation of disease prevalence.
         </p>
-        <h3 className='font-light text-text'>Temporal Lag</h3>
+        <h3>Temporal Lag</h3>
         <p>
           There might be a lag between the occurrence of a disease and its
           reporting. This delay can affect the timeliness of the data presented
           on the health equity tracker, potentially hindering real-time
           decision-making.
         </p>
-        <h3 className='font-light text-text'>Geographical Resolution</h3>
+        <h3>Geographical Resolution</h3>
 
         <p>
           While choropleth maps provide a visual representation of data at the
@@ -42,7 +42,7 @@ export default function LimitationsLink() {
           may not be sufficient for detecting localized outbreaks or disparities
           within smaller geographic areas.
         </p>
-        <h3 className='font-light text-text'>Population Heterogeneity</h3>
+        <h3>Population Heterogeneity</h3>
 
         <p>
           Population characteristics can vary significantly across different
@@ -51,7 +51,7 @@ export default function LimitationsLink() {
           as differences in socioeconomic status, access to healthcare, or
           cultural factors that influence health outcomes.
         </p>
-        <h3 className='font-light text-text'>Ecological Fallacy</h3>
+        <h3>Ecological Fallacy</h3>
 
         <p>
           This occurs when inferences about individuals are drawn from
@@ -60,7 +60,7 @@ export default function LimitationsLink() {
           affected similarly. Drawing conclusions about individuals based solely
           on aggregated data can lead to erroneous assumptions.
         </p>
-        <h3 className='font-light text-text'>Data Interpretation</h3>
+        <h3>Data Interpretation</h3>
 
         <p>
           Visualizations like choropleth maps can simplify complex data, but
@@ -68,7 +68,7 @@ export default function LimitationsLink() {
           to ensure that interpretations of the maps consider the context,
           potential confounding variables, and limitations of the data source.
         </p>
-        <h3 className='font-light text-text'>External Factors</h3>
+        <h3>External Factors</h3>
 
         <p>
           Other external factors, such as changes in healthcare policies,
@@ -77,7 +77,7 @@ export default function LimitationsLink() {
           adequately captured in the data or accounted for in the analysis.
         </p>
         <div id='missing-data'>
-          <h2 className='mt-12 font-medium text-title' id='limitations'>
+          <h2 className='mt-12' id='limitations'>
             What Data Are Missing
           </h2>
           <WhatDataAreMissing

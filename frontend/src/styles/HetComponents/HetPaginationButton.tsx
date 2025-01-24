@@ -43,7 +43,7 @@ export default function HetPaginationButton({
         )}
       </span>
       {/* LABEL FOR LINKED PAGE */}
-      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 font-semibold text-text leading-lhNormal md:text-exploreButton'>
+      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 font-semibold text-text leading-lhNormal'>
         <span
           className={
             isPrevious

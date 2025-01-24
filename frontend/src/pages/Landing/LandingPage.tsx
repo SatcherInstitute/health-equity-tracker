@@ -117,7 +117,9 @@ function LandingPage() {
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
           <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-lhSomeSpace sm:text-bigHeader lg:text-heroHeader'>
             Where will the <br aria-hidden />
-            <span className='text-altGreen'>Health Equity Tracker</span>
+            <span className='font-medium font-serif text-altGreen xs:text-header leading-lhSomeSpace sm:text-bigHeader lg:text-heroHeader'>
+              Health Equity Tracker
+            </span>
             <br aria-hidden /> take you?
           </h1>
           <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
