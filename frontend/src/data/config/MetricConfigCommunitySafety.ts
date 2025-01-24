@@ -10,6 +10,13 @@ import {
 } from './MetricConfigUtils'
 
 export const COMMUNITY_SAFETY_DROPDOWNIDS = [
+  'gun_deaths',
+  'gun_deaths_black_men',
+  'gun_violence',
+  'gun_violence_youth',
+] as const
+
+export const COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR = [
   'gun_deaths_black_men',
   'gun_violence',
   'gun_violence_youth',
@@ -52,6 +59,7 @@ export type CommunitySafetyMetricId =
   | 'gun_homicides_black_men_per_100k'
   | 'gun_homicides_black_men_population_estimated_total'
   | 'gun_homicides_black_men_population_pct'
+  | 'gun_deaths_per_100k'
 
 export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   {
@@ -169,6 +177,35 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
           shortLabel: 'Total Population',
           type: 'count',
         },
+      },
+    },
+  },
+]
+
+export const GUN_DEATH_METRICS: DataTypeConfig[] = [
+  {
+    categoryId: 'community-safety',
+    dataTableTitle: 'Summary for gun deaths',
+    dataTypeId: 'gun_deaths',
+    dataTypeShortLabel: 'Gun Deaths',
+    definition: {
+      text: 'Deaths resulting from firearms.',
+    },
+    description: {
+      text: '',
+    },
+    fullDisplayName: 'Gun deaths',
+    fullDisplayNameInline: 'gun deaths',
+    mapConfig: defaultHigherIsWorseMapConfig,
+    metrics: {
+      per100k: {
+        timeSeriesCadence: 'yearly',
+        chartTitle: 'Rates of gun deaths',
+        columnTitleHeader: 'Gun deaths per 100k people',
+        metricId: 'gun_deaths_per_100k',
+        shortLabel: 'deaths per 100k',
+        trendsCardTitleName: 'Rates of gun deaths over time',
+        type: 'per100k',
       },
     },
   },
