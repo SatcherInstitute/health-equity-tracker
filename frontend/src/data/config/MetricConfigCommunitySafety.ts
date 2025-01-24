@@ -198,27 +198,6 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'gun deaths',
     mapConfig: defaultHigherIsWorseMapConfig,
     metrics: {
-      // pct_relative_inequity: {
-      //   timeSeriesCadence: 'yearly',
-      //   chartTitle: 'Historical relative inequity of gun deaths',
-      //   metricId: 'gun_deaths_pct_relative_inequity',
-      //   shortLabel: '% relative inequity',
-      //   type: 'pct_relative_inequity',
-      // },
-      // pct_share: {
-      //   chartTitle: 'Share of total gun deaths',
-      //   columnTitleHeader: 'Share of total gun deaths',
-      //   metricId: 'gun_deaths_pct_share',
-      //   populationComparisonMetric: {
-      //     chartTitle: 'Population vs. distribution of gun deaths',
-      //     columnTitleHeader: populationPctTitle,
-      //     metricId: 'fatal_population_pct',
-      //     shortLabel: populationPctShortLabel,
-      //     type: 'pct_share',
-      //   },
-      //   shortLabel: '% of deaths',
-      //   type: 'pct_share',
-      // },
       per100k: {
         timeSeriesCadence: 'yearly',
         chartTitle: 'Rates of gun deaths',
@@ -227,18 +206,6 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths over time',
         type: 'per100k',
-        // rateNumeratorMetric: {
-        //   chartTitle: '',
-        //   metricId: 'gun_deaths_estimated_total',
-        //   shortLabel: 'Gun deaths',
-        //   type: 'count',
-        // },
-        // rateDenominatorMetric: {
-        //   chartTitle: '',
-        //   metricId: 'fatal_population',
-        //   shortLabel: 'Total Population',
-        //   type: 'count',
-        // },
       },
     },
   },
