@@ -16,6 +16,12 @@ export const COMMUNITY_SAFETY_DROPDOWNIDS = [
   'gun_violence_youth',
 ] as const
 
+export const COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR = [
+  'gun_deaths_black_men',
+  'gun_violence',
+  'gun_violence_youth',
+] as const
+
 export type CommunitySafetyDataTypeId =
   | 'gun_violence_homicide'
   | 'gun_violence_suicide'
