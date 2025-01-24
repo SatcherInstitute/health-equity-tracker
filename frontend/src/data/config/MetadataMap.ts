@@ -361,8 +361,11 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     demographic_granularity: 'Race/ethnicity (partial)',
     update_frequency: 'Annual',
     description:
-      'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), and other determinants of health (preventable hospitalizations).',
-    dataset_ids: ['chr_data-race_and_ethnicity_county_current'],
+      'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), community safety (gun deaths), and other determinants of health (preventable hospitalizations).',
+    dataset_ids: [
+      'chr_data-race_and_ethnicity_county_current',
+      'chr_data-race_and_ethnicity_county_historical',
+    ],
     downloadable: true,
     time_period_range: null,
   },
