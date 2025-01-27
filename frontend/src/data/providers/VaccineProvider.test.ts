@@ -48,7 +48,7 @@ describe('VaccineProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'kff_vaccination-race_and_ethnicity_state',
+      'kff_vaccination-race_and_ethnicity_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
     )
@@ -56,7 +56,7 @@ describe('VaccineProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-race_processed',
+      'cdc_vaccination_national-race_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
     )
@@ -64,7 +64,7 @@ describe('VaccineProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-sex_processed',
+      'cdc_vaccination_national-sex_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
     )
@@ -72,7 +72,7 @@ describe('VaccineProvider', () => {
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-age_processed',
+      'cdc_vaccination_national-age_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
     )
@@ -80,7 +80,7 @@ describe('VaccineProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_county-alls_county',
+      'cdc_vaccination_county-alls_county_current',
       Breakdowns.forFips(new Fips(MARIN.code)),
       RACE,
     )
