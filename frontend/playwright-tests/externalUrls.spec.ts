@@ -33,6 +33,7 @@ const knownFlakyUrls = [
   'https://jamanetwork.com/channels/health-forum/fullarticle/2760153',
   urlMap.southernCenterForHumanRights,
   urlMap.randGunPolicy,
+  urlMap.cdcTrans
 ]
 
 test.describe.configure({ mode: 'parallel' })
