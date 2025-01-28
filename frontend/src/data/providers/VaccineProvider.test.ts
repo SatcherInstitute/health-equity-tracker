@@ -32,7 +32,7 @@ async function ensureCorrectDatasetsDownloaded(
       baseBreakdown.addBreakdown(demographicType),
       undefined,
       undefined,
-      'rate-map',
+      'rate-map', // needed to trigger fallback to ALLs
     ),
   )
 
