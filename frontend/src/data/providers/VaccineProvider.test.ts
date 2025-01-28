@@ -27,7 +27,13 @@ async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await vaccineProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType)),
+    new MetricQuery(
+      [],
+      baseBreakdown.addBreakdown(demographicType),
+      undefined,
+      undefined,
+      'rate-map',
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -44,14 +50,6 @@ describe('VaccineProvider', () => {
     resetCacheDebug()
     dataFetcher.resetState()
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap)
-  })
-
-  test('State and Race Breakdown', async () => {
-    await ensureCorrectDatasetsDownloaded(
-      'kff_vaccination-race_and_ethnicity_state_current',
-      Breakdowns.forFips(new Fips(NC.code)),
-      RACE,
-    )
   })
 
   test('National and Race Breakdown', async () => {
@@ -75,6 +73,14 @@ describe('VaccineProvider', () => {
       'cdc_vaccination_national-age_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
+    )
+  })
+
+  test('State and Race Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'kff_vaccination-race_and_ethnicity_state_current',
+      Breakdowns.forFips(new Fips(NC.code)),
+      RACE,
     )
   })
 
