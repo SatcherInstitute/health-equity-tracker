@@ -3,9 +3,6 @@ export type LinkName =
   | 'cdcWonder'
   | 'cdcSvi'
   | 'censusRaceEthnicity'
-  | 'shliTwitter'
-  | 'shliLinkedIn'
-  | 'shliYoutube'
   | 'shli'
   | 'youtubeAllegoryOfTheOrchard'
   | 'youtubeJessicasStory'
@@ -89,9 +86,6 @@ export const urlMap: Record<LinkName, string> = {
   cdcWonder: 'https://wonder.cdc.gov/mcd.html',
   cdcSvi:
     'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf',
-  shliLinkedIn: 'https://www.linkedin.com/in/satcherhealth',
-  shliTwitter: 'https://twitter.com/SatcherHealth',
-  shliYoutube: 'https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA',
   shli: 'https://satcherinstitute.org',
   youtubeAllegoryOfTheOrchard: 'https://www.youtube.com/embed/mux1c73fJ78',
   youtubeJessicasStory: 'https://www.youtube.com/embed/cmMutvgQIcU',

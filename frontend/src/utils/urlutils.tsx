@@ -117,7 +117,7 @@ export const NAVIGATION_STRUCTURE = {
     label: 'Media & Updates',
     pages: {
       [NEWS_PAGE_LINK]: 'News',
-      [urlMap.hetYouTubeShorts]: 'Videos',
+      [urlMap.hetYouTubeShorts]: 'Videos on YouTube',
     },
   },
   faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
