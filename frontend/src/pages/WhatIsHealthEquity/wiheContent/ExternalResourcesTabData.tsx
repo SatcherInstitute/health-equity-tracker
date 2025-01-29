@@ -66,7 +66,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
     categories: ['Mental Health', 'Youth', 'Psychology'],
   },
   {
-    href: 'https://www.youtube.com/embed/mux1c73fJ78',
+    href: urlMap.youtubeAllegoryOfTheOrchard,
     ariaLabel: 'The Allegory of the Orchard Video',
     imgSrc: '',
     imgAlt: '',
@@ -79,7 +79,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
     isVideo: true,
   },
   {
-    href: 'https://www.youtube.com/embed/cmMutvgQIcU',
+    href: urlMap.youtubeJessicasStory,
     ariaLabel: `Jessica's Story Video`,
     imgSrc: '',
     imgAlt: '',

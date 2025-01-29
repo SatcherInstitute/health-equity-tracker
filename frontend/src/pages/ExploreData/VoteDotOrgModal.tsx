@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent } from '@mui/material'
+import { Dialog, DialogContent } from '@mui/material'
 import { useEffect } from 'react'
 import { het } from '../../styles/DesignTokens'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
