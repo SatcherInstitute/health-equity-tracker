@@ -57,6 +57,7 @@ from ingestion.constants import (
 from typing import cast, List
 from ingestion.het_types import GEO_TYPE, SEX_RACE_AGE_TYPE
 
+
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
 
