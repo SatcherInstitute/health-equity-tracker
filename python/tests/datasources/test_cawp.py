@@ -1,5 +1,6 @@
 from unittest import mock
 import os
+from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
@@ -320,7 +321,7 @@ def test_territorial_leg_counts_are_current():
     response = requests.get(WIKI_API_URL, params=params)
     data = response.json()
     html_content = data["parse"]["text"]["*"]
-    tables = pd.read_html(html_content)
+    tables = pd.read_html(StringIO(html_content))
     terr_table = None
     for table in tables:
         if "Total Seats" in table.columns and "U.S. Territories" in table.columns:
