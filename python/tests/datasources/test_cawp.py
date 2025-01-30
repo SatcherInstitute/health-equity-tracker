@@ -1,8 +1,10 @@
 from unittest import mock
 import os
+from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
+import requests
 
 from datasources.cawp import (
     CAWPData,
@@ -12,6 +14,7 @@ from datasources.cawp import (
     extract_term_years,
     FIPS_TO_STATE_TABLE_MAP,
 )
+
 
 FIPS_TO_TEST = ["02", "60"]
 
@@ -304,3 +307,33 @@ def testWriteToBq(
         expected_df_national_current,
         check_like=True,
     )
+
+
+def test_territorial_leg_counts_are_current():
+    WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
+    params = {
+        "action": "parse",
+        "page": "List_of_United_States_state_legislatures",
+        "format": "json",
+        "prop": "text",
+        "contentmodel": "wikitext",
+    }
+    response = requests.get(WIKI_API_URL, params=params)
+    data = response.json()
+    html_content = data["parse"]["text"]["*"]
+    tables = pd.read_html(StringIO(html_content))
+    terr_table = None
+    for table in tables:
+        if "Total Seats" in table.columns and "U.S. Territories" in table.columns:
+            terr_table = table
+            break
+
+    assert terr_table is not None, "Territorial table not found in Wikipedia page"
+    assert terr_table["Total Seats"].to_list() == [
+        39,
+        13,
+        15,
+        29,
+        78,
+        15,
+    ], "Territorial counts need to be updated here and in the data/cawp/ files"
