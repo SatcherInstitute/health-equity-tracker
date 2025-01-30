@@ -1,153 +1,35 @@
-export type LinkName =
-  | 'newsletterSignup'
-  | 'cdcWonder'
-  | 'cdcSvi'
-  | 'censusRaceEthnicity'
-  | 'shliTwitter'
-  | 'shliLinkedIn'
-  | 'shliYoutube'
-  | 'shli'
-  | 'youtubeAllegoryOfTheOrchard'
-  | 'youtubeJessicasStory'
-  | 'ncrn'
-  | 'shliPdohLab'
-  | 'shliUber'
-  | 'acs5'
-  | 'censusVoting'
-  | 'cdcBrfss'
-  | 'hetGitHub'
-  | 'uihiBestPractice'
-  | 'shliGitHubSuppressCovidCases'
-  | 'shliGitHubSuppressCovidDeaths'
-  | 'cdcVaxTrends'
-  | 'cdcVaxCounty'
-  | 'cdcCovidRestricted'
-  | 'kffCovid'
-  | 'ahr'
-  | 'chr'
-  | 'ahrMethodology'
-  | 'lifeline'
-  | 'doi1'
-  | 'doi2'
-  | 'doi3'
-  | 'cawp'
-  | 'repJohnLewisTweet'
-  | 'deniedVoting'
-  | 'aafp'
-  | 'rwjf'
-  | 'childrenInPrison'
-  | 'bjsPrisoners'
-  | 'bjsCensusOfJails'
-  | 'veraGithub'
-  | 'prisonPolicy'
-  | 'senateMENA'
-  | 'unitedStatesIo'
-  | 'cdcTrans'
-  | 'hetTikTok'
-  | 'hetYouTubeShorts'
-  | 'hetLinkedIn'
-  | 'msm'
-  | 'whoWomenVoting'
-  | 'wisqarsMethodology'
-  | 'wisqarsDefinitions'
-  | 'atlantaCommunityFoodBank'
-  | 'workSourceAtlanta'
-  | 'communitiesInSchoolsAtlanta'
-  | 'atlantaEducationalTelecommunications'
-  | 'kingCenter'
-  | 'southernCenterForHumanRights'
-  | 'namiAtlantaAuburn'
-  | 'chris180'
-  | 'cureViolenceAtlanta'
-  | 'atlantaPoliceFoundation'
-  | 'rocketFoundation'
-  | 'gunViolenceArchive'
-  | 'randGunPolicy'
-  | 'findElectedOfficials'
-
-export const urlMap: Record<LinkName, string> = {
-  hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
-  hetYouTubeShorts: 'https://www.youtube.com/@HealthEquityTracker/shorts',
-  hetLinkedIn: 'https://www.linkedin.com/company/healthequitytracker/',
-  cdcTrans: 'https://www.cdc.gov/hivnexus/hcp/index.html',
-  veraGithub: 'https://github.com/vera-institute/incarceration-trends',
-  bjsPrisoners:
-    'https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables',
-  bjsCensusOfJails:
-    'https://bjs.ojp.gov/library/publications/census-jails-2005-2019-statistical-tables',
-  prisonPolicy: 'https://www.prisonpolicy.org/reports/youth2019.html',
-  childrenInPrison: 'https://eji.org/issues/children-in-prison/',
-  rwjf: 'https://www.rwjf.org/en/library/research/2019/01/mass-incarceration-threatens-health-equity-in-america.html',
-  aafp: 'https://www.aafp.org/about/policies/all/incarceration.html',
-  deniedVoting:
-    'https://www.sentencingproject.org/publications/locked-out-2020-estimates-of-people-denied-voting-rights-due-to-a-felony-conviction/',
-  repJohnLewisTweet:
-    'https://twitter.com/repjohnlewis/status/758023941998776321?lang=en',
-  newsletterSignup:
-    'https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&',
-  censusVoting: 'https://www.census.gov/topics/public-sector/voting.html',
-  cdcWonder: 'https://wonder.cdc.gov/mcd.html',
-  cdcSvi:
-    'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf',
-  shliLinkedIn: 'https://www.linkedin.com/in/satcherhealth',
-  shliTwitter: 'https://twitter.com/SatcherHealth',
-  shliYoutube: 'https://www.youtube.com/channel/UC2sNXCD2KGLdyjqe6FGzMiA',
-  shli: 'https://satcherinstitute.org',
-  youtubeAllegoryOfTheOrchard: 'https://www.youtube.com/embed/mux1c73fJ78',
-  youtubeJessicasStory: 'https://www.youtube.com/embed/cmMutvgQIcU',
-  ncrn: 'https://ncrn.msm.edu/',
-  shliPdohLab:
-    'https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/',
-  shliUber: 'https://satcherinstitute.org/uberrideshare/',
+export const urlMap: Record<string, string> = {
   acs5: 'https://www.census.gov/data/developers/data-sets/acs-5year.html',
-  cdcBrfss: 'https://www.cdc.gov/brfss/index.html',
-  hetGitHub: 'https://github.com/SatcherInstitute/health-equity-tracker',
-  uihiBestPractice:
-    'https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/',
-  shliGitHubSuppressCovidCases:
-    'https://satcherinstitute.github.io/analysis/cdc_case_data',
-  shliGitHubSuppressCovidDeaths:
-    'https://satcherinstitute.github.io/analysis/cdc_death_data',
-  cdcVaxTrends:
-    'https://covid.cdc.gov/covid-data-tracker/#vaccination-demographics-trends',
-  kffCovid: 'https://www.kff.org/state-category/covid-19/',
-  cdcVaxCounty:
-    'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
   ahr: 'https://www.americashealthrankings.org/explore/measures',
-  chr: 'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
-  ahrMethodology:
-    'https://www.americashealthrankings.org/about/methodology/data-sources-and-measures',
+  cdcBrfss: 'https://www.cdc.gov/brfss/index.html',
   cdcCovidRestricted:
     'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
-  lifeline: 'https://988lifeline.org',
-  doi1: 'https://doi.org/10.1016/j.ssmph.2018.08.003',
-  doi2: 'https://doi.org/10.1111/j.1540-5907.2011.00512.x',
-  doi3: 'https://doi.org/10.1146/annurev.polisci.11.053106.123839',
-  cawp: 'https://cawpdata.rutgers.edu/',
-  senateMENA:
-    'https://www.hsgac.senate.gov/media/majority-media/peters-urges-omb-to-include-middle-east-north-africa-category-in-federal-standards-for-gathering-data-on-race-and-ethnicity',
-  unitedStatesIo: 'https://unitedstates.github.io/',
-  msm: 'https://www.msm.edu/',
-  whoWomenVoting:
-    'https://www.who.int/news/item/28-06-2021-the-future-we-expect-women-s-health-and-gender-equality',
+  cdcSvi:
+    'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf',
+  cdcTrans: 'https://www.cdc.gov/hivnexus/hcp/index.html',
+  cdcWonder: 'https://wonder.cdc.gov/mcd.html',
   censusRaceEthnicity:
     'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html',
-  wisqarsMethodology:
-    'https://wisqars.cdc.gov/about/fatal-injury-data/#resources',
+  censusVoting: 'https://www.census.gov/topics/public-sector/voting.html',
+  childrenInPrison: 'https://eji.org/issues/children-in-prison/',
+  chr: 'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
+  findElectedOfficials: 'https://www.usa.gov/elected-officials',
+  gunViolenceArchive: 'https://www.gunviolencearchive.org/',
+  hetGitHub: 'https://github.com/SatcherInstitute/health-equity-tracker',
+  hetLinkedIn: 'https://www.linkedin.com/company/healthequitytracker/',
+  hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
+  hetYouTubeShorts: 'https://www.youtube.com/@HealthEquityTracker/shorts',
+  lifeline: 'https://988lifeline.org',
+  msm: 'https://www.msm.edu/',
+  newsletterSignup:
+    'https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&',
+  prisonPolicy: 'https://www.prisonpolicy.org/reports/youth2019.html',
+  randGunPolicy: 'https://www.rand.org/research/gun-policy.html',
+  rocketFoundation: 'https://www.rocket-foundation.org/',
+  shli: 'https://satcherinstitute.org',
+  southernCenterForHumanRights: 'https://www.schr.org/',
+  uihiBestPractice:
+    'https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/',
   wisqarsDefinitions:
     'https://www.cdc.gov/injury/wisqars/fatal_help/definitions_fatal.html#%205.1%20Definitions%20for%20Mortality%20(Fatal%20Injury)%20Reports',
-  atlantaCommunityFoodBank: 'https://www.acfb.org/',
-  workSourceAtlanta: 'https://www.worksourceatlanta.org/',
-  communitiesInSchoolsAtlanta: 'https://www.cisatlanta.org/',
-  atlantaEducationalTelecommunications: 'https://www.wabe.org/',
-  kingCenter: 'https://thekingcenter.org/',
-  southernCenterForHumanRights: 'https://www.schr.org/',
-  namiAtlantaAuburn: 'https://namiatlantaauburn.org/',
-  chris180: 'https://chris180.org/',
-  cureViolenceAtlanta: 'https://chris180.org/program/violence-prevention/',
-  atlantaPoliceFoundation: 'https://atlantapolicefoundation.org/',
-  rocketFoundation: 'https://www.rocket-foundation.org/',
-  gunViolenceArchive: 'https://www.gunviolencearchive.org/',
-  randGunPolicy: 'https://www.rand.org/research/gun-policy.html',
-  findElectedOfficials: 'https://www.usa.gov/elected-officials',
 }

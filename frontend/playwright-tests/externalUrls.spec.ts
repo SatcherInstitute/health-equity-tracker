@@ -11,6 +11,14 @@ import {
   PDOH_RESOURCES,
   RESOURCES,
 } from '../src/pages/Methodology/methodologyContent/ResourcesData.js'
+import {
+  communityResources,
+  economicResources,
+  educationalResources,
+  justiceResources,
+  mentalHealthResources,
+} from '../src/pages/Policy/policyContent/CurrentEffortsContent.js'
+import { externalResourceMappings } from '../src/pages/WhatIsHealthEquity/wiheContent/ExternalResourcesTabData.js'
 // these are actually .ts files but load as .js to prevent some error I forget exactly what
 import { urlMap } from '../src/utils/externalUrls.js'
 
@@ -33,7 +41,7 @@ const knownFlakyUrls = [
   'https://jamanetwork.com/channels/health-forum/fullarticle/2760153',
   urlMap.southernCenterForHumanRights,
   urlMap.randGunPolicy,
-  urlMap.cdcTrans
+  urlMap.cdcTrans,
 ]
 
 test.describe.configure({ mode: 'parallel' })
@@ -159,6 +167,62 @@ for (const url of COVID_VACCINATION_RESOURCES.resources
   if (!url || knownFlakyUrls.includes(url)) continue
   test(`COVID_VACCINATION_RESOURCES Page: ${url}`, async ({ page }) => {
     const response = await page.goto(url)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
+
+for (const url of externalResourceMappings.map(
+  (resource: any) => resource.link,
+)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`WHAT IS HEALTH EQUITY Resource Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
+
+for (const url of economicResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Economic Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
+
+for (const url of mentalHealthResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Mental Health Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
+
+for (const url of justiceResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Justice Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
+
+for (const url of educationalResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Educational Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
+
+for (const url of communityResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Community Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
     if (response?.status() !== 200)
       console.error('\n🙀', url, response?.status(), '\n')
   })
