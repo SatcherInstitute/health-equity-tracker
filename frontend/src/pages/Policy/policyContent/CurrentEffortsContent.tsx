@@ -10,7 +10,7 @@ export const economicResources = [
         indirectly help in reducing stressors that can lead to violence.
       </>
     ),
-    link: urlMap.atlantaCommunityFoodBank,
+    link: 'https://www.acfb.org/',
   },
   {
     title: 'WorkSource Atlanta',
@@ -21,7 +21,7 @@ export const economicResources = [
         economic disparities.
       </>
     ),
-    link: urlMap.workSourceAtlanta,
+    link: 'https://www.worksourceatlanta.org/',
   },
 ]
 
@@ -35,7 +35,7 @@ export const educationalResources = [
         education and after-school programs.
       </>
     ),
-    link: urlMap.communitiesInSchoolsAtlanta,
+    link: 'https://www.cisatlanta.org/',
   },
   {
     title: 'The Atlanta Educational Telecommunications Collaborative',
@@ -45,7 +45,7 @@ export const educationalResources = [
         educational experiences in the community.
       </>
     ),
-    link: urlMap.atlantaEducationalTelecommunications,
+    link: 'https://www.wabe.org/',
   },
 ]
 
@@ -58,7 +58,7 @@ export const justiceResources = [
         addressing racial injustice as a core element of reducing violence.
       </>
     ),
-    link: urlMap.kingCenter,
+    link: 'https://thekingcenter.org/',
   },
   {
     title: 'Southern Center for Human Rights',
@@ -83,7 +83,7 @@ export const mentalHealthResources = [
         community.
       </>
     ),
-    link: urlMap.namiAtlantaAuburn,
+    link: 'https://namiatlantaauburn.org/',
   },
   {
     title: 'CHRIS 180',
@@ -93,7 +93,7 @@ export const mentalHealthResources = [
         particularly important in communities affected by gun violence.
       </>
     ),
-    link: urlMap.chris180,
+    link: 'https://chris180.org/',
   },
 ]
 
@@ -108,7 +108,7 @@ export const communityResources = [
         social norms.
       </>
     ),
-    link: urlMap.cureViolenceAtlanta,
+    link: 'https://chris180.org/program/violence-prevention/',
   },
   {
     title: 'Atlanta Police Foundation',
@@ -119,6 +119,6 @@ export const communityResources = [
         violence.
       </>
     ),
-    link: urlMap.atlantaPoliceFoundation,
+    link: 'https://atlantapolicefoundation.org/',
   },
 ]
