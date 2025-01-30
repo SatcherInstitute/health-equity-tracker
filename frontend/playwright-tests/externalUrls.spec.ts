@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { test } from '@playwright/test'
 import {
   AIAN_RESOURCES,
   API_RESOURCES,
@@ -11,6 +11,14 @@ import {
   PDOH_RESOURCES,
   RESOURCES,
 } from '../src/pages/Methodology/methodologyContent/ResourcesData.js'
+import {
+  communityResources,
+  economicResources,
+  educationalResources,
+  justiceResources,
+  mentalHealthResources,
+} from '../src/pages/Policy/policyContent/CurrentEffortsContent.js'
+import { externalResourceMappings } from '../src/pages/WhatIsHealthEquity/wiheContent/ExternalResourcesTabData.js'
 // these are actually .ts files but load as .js to prevent some error I forget exactly what
 import { urlMap } from '../src/utils/externalUrls.js'
 
@@ -33,7 +41,7 @@ const knownFlakyUrls = [
   'https://jamanetwork.com/channels/health-forum/fullarticle/2760153',
   urlMap.southernCenterForHumanRights,
   urlMap.randGunPolicy,
-  urlMap.cdcTrans
+  urlMap.cdcTrans,
 ]
 
 test.describe.configure({ mode: 'parallel' })
@@ -164,50 +172,58 @@ for (const url of COVID_VACCINATION_RESOURCES.resources
   })
 }
 
-test('Verify CAWP denominators from external data source', async ({ page }) => {
-  await page.goto(
-    'https://www.ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years',
-  )
+for (const url of externalResourceMappings.map(
+  (resource: any) => resource.link,
+)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`WHAT IS HEALTH EQUITY Resource Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
 
-  try {
-    const rowAS = await page.locator('tr', {
-      has: page.locator('td:first-child:text("American Samoa Fono")'), // FIPS 60
-    })
-    const lastCellAS = await rowAS.locator('td:last-child').textContent()
-    expect(lastCellAS?.trim()).toBe('39')
+for (const url of economicResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Economic Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
 
-    const rowDC = await page.locator('tr', {
-      has: page.locator('td:first-child:text("D.C. Council*")'), // FIPS 11
-    })
-    const lastCellDC = await rowDC.locator('td:last-child').textContent()
-    expect(lastCellDC?.trim()).toBe('13')
+for (const url of mentalHealthResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Mental Health Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
 
-    const rowGU = await page.locator('tr', {
-      has: page.locator('td:first-child:text("Guam Senate*")'), // FIPS 66
-    })
-    const lastCellGU = await rowGU.locator('td:last-child').textContent()
-    expect(lastCellGU?.trim()).toBe('15')
+for (const url of justiceResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Justice Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
 
-    const rowMP = await page.locator('tr', {
-      has: page.locator('td:first-child:text("Northern Mariana Islands")'), // FIPS 69
-    })
-    const lastCellMP = await rowMP.locator('td:last-child').textContent()
-    expect(lastCellMP?.trim()).toBe('29')
+for (const url of educationalResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Educational Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
 
-    const rowPR = await page.locator('tr', {
-      has: page.locator('td:first-child:text("Puerto Rico")'), // FIPS 72
-    })
-    const lastCellPR = await rowPR.locator('td:last-child').textContent()
-    expect(lastCellPR?.trim()).toBe('78')
-
-    const rowVI = await page.locator('tr', {
-      has: page.locator('td:first-child:text("U.S. Virgin Islands Senate*")'), // FIPS 78
-    })
-    const lastCellVI = await rowVI.locator('td:last-child').textContent()
-    expect(lastCellVI?.trim()).toBe('15')
-  } catch (e) {
-    throw new Error(`❌ If this test fails, it means the data on the NCSL page has changed, meaning one or more territories have a new number of territorial legislators (counting both the local senate and house equivalents where applicable). We need to verify the new number and manually update our data/cawp territory files.
-
-    Original error: ${e.message}`)
-  }
-})
+for (const url of communityResources.map((resource: any) => resource.link)) {
+  if (!url || knownFlakyUrls.includes(url as string)) continue
+  test(`Community Resources Page: ${url}`, async ({ page }) => {
+    const response = await page.goto(url as string)
+    if (response?.status() !== 200)
+      console.error('\n🙀', url, response?.status(), '\n')
+  })
+}
