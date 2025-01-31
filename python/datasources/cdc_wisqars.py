@@ -85,6 +85,11 @@ COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
         "denominator_col": "fatal_population",
         "rate_col": "gun_violence_suicide_per_100k",
     },
+    {
+        "numerator_col": "gun_deaths_estimated_total",
+        "denominator_col": "fatal_population",
+        "rate_col": "gun_deaths_per_100k",
+    },
 ]
 
 
@@ -209,7 +214,7 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
     df.columns = df.columns.str.lower()
 
-    df = df[~df["intent"].isin(["Unintentional", "Undetermined", "Legal Intervention"])]
+    # df = df[~df["intent"].isin(["Unintentional", "Undetermined", "Legal Intervention"])]
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
@@ -231,6 +236,26 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     pivot_df.columns = pd.Index(new_columns)
     df = pivot_df.reset_index()
 
+    df["gun_deaths_estimated_total"] = (
+        df["gun_violence_legal_intervention_estimated_total"]
+        + df["gun_violence_undetermined_estimated_total"]
+        + df["gun_violence_unintentional_estimated_total"]
+        + df["gun_violence_homicide_estimated_total"]
+        + df["gun_violence_suicide_estimated_total"]
+    )
+
+    df.drop(
+        columns=[
+            "gun_violence_legal_intervention_per_100k",
+            "gun_violence_undetermined_per_100k",
+            "gun_violence_unintentional_per_100k",
+            "gun_violence_legal_intervention_estimated_total",
+            "gun_violence_undetermined_estimated_total",
+            "gun_violence_unintentional_estimated_total",
+        ],
+        inplace=True,
+    )
+
     df.rename(
         columns={
             "age group": std_col.AGE_COL,
@@ -238,6 +263,10 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
             "sex": std_col.SEX_COL,
         },
         inplace=True,
+    )
+
+    df = generate_per_100k_col(
+        df, "gun_deaths_estimated_total", "fatal_population", "gun_deaths_per_100k", decimal_places=2
     )
     if demographic == std_col.AGE_COL:
         df[std_col.AGE_COL] = df[std_col.AGE_COL].str.replace(" to ", "-")
