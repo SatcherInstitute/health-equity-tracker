@@ -23,10 +23,7 @@ DATA_DIR = "cdc_wisqars"
 
 INJ_OUTCOMES = [std_col.FATAL_PREFIX]
 
-INJ_INTENTS = [
-    std_col.GUN_VIOLENCE_HOMICIDE_PREFIX,
-    std_col.GUN_VIOLENCE_SUICIDE_PREFIX,
-]
+INJ_INTENTS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX, "gun_deaths"]
 
 WISQARS_URBANICITY = "Metro / Non-Metro"
 WISQARS_AGE_GROUP = "Age Group"
@@ -38,7 +35,7 @@ WISQARS_POP = "Population"
 
 WISQARS_ALL: WISQARS_DEMO_TYPE = "all"
 
-WISQARS_COLS = [
+WISQARS_IGNORE_COLS = [
     "Age-Adjusted Rate",
     "Cases (Sample)",
     "CV",
@@ -231,7 +228,7 @@ def load_wisqars_as_df_from_data_dir(
         DATA_DIR,
         csv_filename,
         na_values=["--", "**"],
-        usecols=lambda x: x not in WISQARS_COLS,
+        usecols=lambda x: x not in WISQARS_IGNORE_COLS,
         thousands=",",
         dtype={WISQARS_YEAR: str},
     )

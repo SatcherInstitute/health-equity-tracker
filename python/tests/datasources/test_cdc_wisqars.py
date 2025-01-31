@@ -74,11 +74,14 @@ def test_write_to_bq_age_national(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "age_national_current"
-    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "age_national_historical"
+    # actual_historical_df.to_csv(table_name, index=False)
+
+    assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
 
 
@@ -101,10 +104,12 @@ def test_write_to_bq_race_national(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "race_and_ethnicity_national_current"
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "race_and_ethnicity_national_historical"
+    # actual_historical_df.to_csv(table_name, index=False)
 
     assert mock_bq.call_count == 2
 
@@ -131,10 +136,12 @@ def test_write_to_bq_sex_national(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "sex_national_current"
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "sex_national_historical"
+    # actual_historical_df.to_csv(table_name, index=False)
 
     assert mock_bq.call_count == 2
 
@@ -161,10 +168,12 @@ def test_write_to_bq_sex_state(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "sex_state_current"
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "sex_state_historical"
+    # actual_historical_df.to_csv(table_name, index=False)
 
     assert mock_bq.call_count == 2
 
