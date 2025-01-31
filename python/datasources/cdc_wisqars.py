@@ -214,8 +214,6 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
     df.columns = df.columns.str.lower()
 
-    # df = df[~df["intent"].isin(["Unintentional", "Undetermined", "Legal Intervention"])]
-
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
         index=PIVOT_DEM_COLS.get(demographic, []),
