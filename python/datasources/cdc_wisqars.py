@@ -234,13 +234,15 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     pivot_df.columns = pd.Index(new_columns)
     df = pivot_df.reset_index()
 
-    df["gun_deaths_estimated_total"] = (
-        df["gun_violence_legal_intervention_estimated_total"].fillna(0)
-        + df["gun_violence_undetermined_estimated_total"].fillna(0)
-        + df["gun_violence_unintentional_estimated_total"].fillna(0)
-        + df["gun_violence_homicide_estimated_total"].fillna(0)
-        + df["gun_violence_suicide_estimated_total"].fillna(0)
-    )
+    columns_to_sum = [
+        "gun_violence_legal_intervention_estimated_total",
+        "gun_violence_undetermined_estimated_total",
+        "gun_violence_unintentional_estimated_total",
+        "gun_violence_homicide_estimated_total",
+        "gun_violence_suicide_estimated_total",
+    ]
+
+    df["gun_deaths_estimated_total"] = df[columns_to_sum].sum(axis=1, min_count=1)
 
     df.drop(
         columns=[
