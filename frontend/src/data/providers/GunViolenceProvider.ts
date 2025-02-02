@@ -69,7 +69,7 @@ class GunViolenceProvider extends VariableProvider {
         metricQuery,
       )
       if (!datasetId) {
-        throw new Error('DatasetId is undefined.')
+        return new MetricQueryResponse([], [])
       }
 
       const gunViolenceData = await getDataManager().loadDataset(datasetId)
