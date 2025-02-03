@@ -13,7 +13,6 @@ Features include:
 
 from typing import List
 import pandas as pd
-import numpy as np
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, WISQARS_DEMO_TYPE
@@ -62,7 +61,7 @@ def clean_numeric(val):
     """
     if isinstance(val, str):
         if "**" in val:
-            return np.nan
+            return val.replace("**", "")
         if "," in val:
             return val.replace(",", "")
     return val
