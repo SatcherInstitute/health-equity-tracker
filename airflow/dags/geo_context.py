@@ -26,7 +26,10 @@ geo_context_pop_bq_operator = util.create_bq_ingest_operator(
     "geo_context_to_bq", geo_context_bq_payload, data_ingestion_dag
 )
 
-geo_context_exporter_payload = {"dataset_name": _GEO_CONTEXT_DATASET_NAME}
+geo_context_exporter_payload = {
+    "dataset_name": _GEO_CONTEXT_DATASET_NAME,
+    "should_export_as_alls": True,
+}
 geo_context_exporter_operator = util.create_exporter_operator(
     "geo_context_exporter", geo_context_exporter_payload, data_ingestion_dag
 )
