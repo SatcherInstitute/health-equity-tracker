@@ -1,10 +1,10 @@
 state_name,state_fips,race_and_ethnicity,gun_deaths_young_adults_estimated_total,gun_deaths_youth_estimated_total,gun_deaths_young_adults_pct_share,gun_deaths_youth_pct_share,gun_deaths_young_adults_population_pct,gun_deaths_youth_population_pct,gun_deaths_young_adults_per_100k,gun_deaths_youth_per_100k,gun_deaths_young_adults_population,gun_deaths_youth_population
 United States,00,Indigenous (NH),103.0,26.0,1.1,1.0,0.8,0.8,35.88,4.37,287075.0,595703.0
 United States,00,Asian (NH),130.0,36.0,1.4,1.4,5.7,5.4,6.68,0.9,1946630.0,3993700.0
-United States,00,Black or African American (NH),4636.0,1197.0,48.8,46.6,13.9,13.8,96.78,11.81,4790115.0,10131753.0
-United States,00,Hispanic or Latino,1622.0,419.0,17.1,16.3,23.2,25.7,20.0,2.0,7995794.0,18920210.0
+United States,00,Black or African American (NH),4636.0,1197.0,48.6,46.6,13.9,13.8,96.78,11.81,4790115.0,10131753.0
+United States,00,Hispanic or Latino,1658.0,419.0,17.4,16.3,23.2,25.7,21.0,2.0,7995794.0,18920210.0
 United States,00,Two or more races (NH),201.0,61.0,2.1,2.4,3.3,4.7,17.5,1.77,1148695.0,3445798.0
 United States,00,Native Hawaiian and Pacific Islander (NH),21.0,,0.2,,0.2,0.2,30.61,,68596.0,158174.0
-United States,00,White (NH),2781.0,827.0,29.3,32.2,52.8,49.4,15.31,2.28,18161141.0,36321095.0
+United States,00,White (NH),2781.0,827.0,29.2,32.2,52.8,49.4,15.31,2.28,18161141.0,36321095.0
 United States,00,Unknown race,,,,,,,,,,
 United States,00,All,9540.0,2590.0,100.0,100.0,100.0,100.0,27.73,3.52,34398046.0,73566433.0
