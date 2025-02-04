@@ -1,15 +1,16 @@
 import * as d3 from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
+import type { Topology } from 'topojson-specification'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { isPctType } from '../../data/config/MetricConfigUtils'
+import { LESS_THAN_POINT_1 } from '../../data/utils/Constants'
+import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
+import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
-import type {
-  CreateColorScaleProps,
-  CreateFeaturesProps,
-  CreateProjectionProps,
-  GetFillColorProps,
-} from './types'
+import type { CreateColorScaleProps, GetFillColorProps, HetRow } from './types'
 
 const { altGrey: ALT_GREY } = het
 
@@ -17,8 +18,6 @@ export const createColorScale = (props: CreateColorScaleProps) => {
   const interpolatorFn = props.reverse
     ? (t: number) => props.colorScheme(1 - t)
     : props.colorScheme
-
-  let colorScale: d3.ScaleSequential<string>
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     props.data,
@@ -38,31 +37,30 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     return interpolatorFn(adjustedT)
   }
 
-  if (props.scaleType === 'quantileSequential') {
+  let colorScale
+
+  if (props.isUnknown || props.fips.isCounty()) {
+    colorScale = d3
+      .scaleSequentialSymlog()
+      .domain([min, max])
+      .interpolator(adjustedInterpolatorFn)
+  } else {
     const values = props.data
       .map((d) => d[props.metricId])
       .filter((val) => val != null && !isNaN(val))
     colorScale = d3
-      .scaleSequentialQuantile<string>(adjustedInterpolatorFn)
+      .scaleSequentialQuantile(adjustedInterpolatorFn)
       .domain(values)
-  } else if (props.scaleType === 'sequentialSymlog') {
-    colorScale = d3
-      .scaleSequentialSymlog<string>()
-      .domain([min, max])
-      .interpolator(adjustedInterpolatorFn)
-  } else {
-    console.error(`Unsupported scaleType: ${props.scaleType}.`)
-    return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
   return colorScale
 }
 
 export const createFeatures = async (
-  props: CreateFeaturesProps,
+  showCounties: boolean,
+  parentFips: string,
+  geoData?: Topology,
 ): Promise<FeatureCollection> => {
-  const { showCounties, parentFips, geoData } = props
-
   const topology =
     geoData ??
     JSON.parse(
@@ -92,10 +90,11 @@ export const createFeatures = async (
 }
 
 export const createProjection = (
-  props: CreateProjectionProps,
+  fips: Fips,
+  width: number,
+  height: number,
+  features: FeatureCollection,
 ): d3.GeoProjection => {
-  const { fips, width, height, features } = props
-
   const isTerritory = fips.isTerritory() || fips.getParentFips().isTerritory()
   return isTerritory
     ? d3.geoAlbers().fitSize([width, height], features)
@@ -105,6 +104,59 @@ export const createProjection = (
 export const getFillColor = (props: GetFillColorProps): string => {
   const { d, dataMap, colorScale } = props
 
-  const value = dataMap.get(d.id as string)
+  const value = dataMap.get(d.id as string)?.value as number
+
   return value !== undefined ? colorScale(value) : ALT_GREY
+}
+
+export const formatMetricValue = (
+  value: number | undefined,
+  metricConfig: MetricConfig,
+): string => {
+  if (value === undefined) return 'no data'
+
+  if (metricConfig.type === 'per100k') {
+    if (value < 0.1) return `${LESS_THAN_POINT_1} per 100k`
+    return `${d3.format(',.2s')(value)} per 100k`
+  }
+
+  if (isPctType(metricConfig.type)) {
+    return `${d3.format('d')(value)}%`
+  }
+
+  return d3.format(',.2r')(value)
+}
+
+export const processPhrmaData = (
+  data: HetRow[],
+  countColsMap: CountColsMap,
+) => {
+  return data.map((row: HetRow) => {
+    const newRow = { ...row }
+
+    const processField = (
+      fieldConfig:
+        | typeof countColsMap.numeratorConfig
+        | typeof countColsMap.denominatorConfig,
+    ) => {
+      if (!fieldConfig) return
+
+      const value = row[fieldConfig.metricId]
+      if (value === null) return DATA_SUPPRESSED
+      if (value >= 0) return value.toLocaleString()
+      return value
+    }
+
+    const numeratorId = countColsMap?.numeratorConfig?.metricId
+    const denominatorId = countColsMap?.denominatorConfig?.metricId
+
+    if (numeratorId) {
+      newRow[numeratorId] = processField(countColsMap?.numeratorConfig)
+    }
+    if (denominatorId) {
+      newRow[denominatorId] = processField(countColsMap?.denominatorConfig)
+    }
+
+    return newRow
+  })
 }

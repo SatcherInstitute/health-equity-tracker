@@ -1,21 +1,11 @@
 import * as d3 from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import {
-  CAWP_METRICS,
-  getWomenRaceLabel,
-} from '../../data/providers/CawpProvider'
-import type { DemographicType } from '../../data/query/Breakdowns'
-import type { DemographicGroup } from '../../data/utils/Constants'
 import { het } from '../../styles/DesignTokens'
-import { getMapGroupLabel } from '../mapHelperFunctions'
-import type { TooltipFeature, TooltipPairs } from './types'
+import { formatMetricValue } from './mapHelpers'
+import type { MetricData, TooltipFeature } from './types'
 
-const { white, greyGridColorDarker } = het
+const { white, greyGridColorDarker, altGrey } = het
 
-/**
- * Creates and styles a tooltip container.
- * @returns {d3.Selection} A D3 selection for the tooltip container.
- */
 export const createTooltipContainer = () => {
   return d3
     .select('body')
@@ -30,47 +20,37 @@ export const createTooltipContainer = () => {
     .style('z-index', '1000')
 }
 
-/**
- * Formats the tooltip content based on the provided data.
- */
-
 export function getTooltipContent(
   feature: TooltipFeature,
-  value: number | undefined,
-  tooltipPairs: TooltipPairs,
-  geographyType?: any,
+  dataMap: Map<string, MetricData>,
+  metricConfig: MetricConfig,
+  geographyType?: string,
 ): string {
   const name = feature.properties?.name || String(feature.id)
+  const data = dataMap.get(feature.id as string)
+
+  if (!data)
+    return `<div><strong>${name} ${geographyType || ''}</strong><br/>No data available</div>`
+
+  const entries = Object.entries(data).filter(([key]) => key !== 'value')
+  const [firstLabel, firstValue] = entries[0]
+  const remainingEntries = entries.slice(1)
+
   return `
     <div>
-      <strong>${name} ${geographyType}</strong><br/>
-      ${Object.entries(tooltipPairs)
-        .map(([label, formatter]) => `${label}: ${formatter(value)}`)
-        .join('<br/>')}
-    </div>
-  `
-}
-
-export const createTooltipLabel = (
-  metric: MetricConfig,
-  activeDemographicGroup: DemographicGroup,
-  demographicType: DemographicType,
-  isUnknownsMap?: boolean,
-): string => {
-  if (isUnknownsMap) return metric.unknownsVegaLabel || '% unknown'
-  if (CAWP_METRICS.includes(metric.metricId)) {
-    return `Rate — ${getWomenRaceLabel(activeDemographicGroup)}`
-  }
-  return getMapGroupLabel(
-    demographicType,
-    activeDemographicGroup,
-    metric.type === 'index' ? 'Score' : 'Rate',
-  )
-}
-
-export const getTooltipPairs = (tooltipLabel: string): TooltipPairs => {
-  return {
-    [tooltipLabel]: (value: string | number | undefined) =>
-      value !== undefined ? value.toString() : 'no data',
-  }
+      <strong>${name} ${geographyType || ''}</strong>
+      <div style="text-align: center">
+        <div style="margin-bottom: 4px">
+          <span style="color: ${altGrey}">${firstLabel}:</span> ${formatMetricValue(firstValue as number, metricConfig)}
+        </div>
+        ${remainingEntries
+          .map(
+            ([label, value]) =>
+              `<div style="margin-bottom: 4px">
+                <span style="color: ${altGrey}">${label}:</span> ${value}
+              </div>`,
+          )
+          .join('')}
+      </div>
+    </div>`
 }

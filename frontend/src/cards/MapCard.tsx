@@ -1,8 +1,11 @@
 import { GridView } from '@mui/icons-material'
+import * as d3 from 'd3'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import ChoroplethMap from '../charts/ChoroplethMap'
+import type { Topology } from 'topojson-specification'
 import { Legend } from '../charts/Legend'
+import ChoroplethMap from '../charts/choroplethMap/index'
+import type { DataPoint } from '../charts/choroplethMap/types'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -405,6 +408,10 @@ function MapCardWithKey(props: MapCardProps) {
         const mapConfig = props.dataTypeConfig.mapConfig
         if (isSummaryLegend) mapConfig.min = mapConfig.mid
 
+        const updatedMapConfig = Object.assign({}, mapConfig, {
+          scheme: d3.interpolateYlGn,
+        })
+
         if (dataForActiveDemographicGroup?.length <= 1) setExtremesMode(false)
 
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
@@ -538,10 +545,10 @@ function MapCardWithKey(props: MapCardProps) {
                       highestLowestGroupsByFips={highestLowestGroupsByFips}
                       activeDemographicGroup={activeDemographicGroup}
                       countColsMap={countColsMap}
-                      data={displayData}
+                      data={displayData as DataPoint[]}
                       filename={filename}
                       fips={props.fips}
-                      geoData={geoData}
+                      geoData={geoData as Topology}
                       hideLegend={true}
                       hideMissingDataTooltip={extremesMode}
                       legendData={dataForActiveDemographicGroup}
@@ -552,9 +559,9 @@ function MapCardWithKey(props: MapCardProps) {
                         !props.fips.isUsa() && !hasSelfButNotChildGeoData
                       }
                       signalListeners={signalListeners}
-                      mapConfig={mapConfig}
-                      scaleConfig={scale}
+                      mapConfig={updatedMapConfig}
                       isPhrmaAdherence={isPhrmaAdherence}
+                      updateFipsCallback={props.updateFipsCallback}
                     />
                   </div>
 

@@ -18,7 +18,7 @@ import type { Fips } from '../../data/utils/Fips'
 import type { CountColsMap, HighestLowest } from '../mapGlobals'
 
 export const MAP_SCHEMES = {
-  default: d3.interpolateGreens,
+  default: d3.interpolateYlGn,
   women: d3.interpolatePlasma,
   men: d3.interpolateInferno,
   medicare: d3.interpolateViridis,
@@ -61,10 +61,11 @@ export interface ChoroplethMapProps {
 export interface CreateColorScaleProps {
   data: DataPoint[]
   metricId: MetricId
-  scaleType: 'quantileSequential' | 'sequentialSymlog'
   colorScheme: (t: number) => string
   reverse?: boolean
   fieldRange?: FieldRange
+  isUnknown?: boolean
+  fips: Fips
 }
 
 export type CreateFeaturesProps = {
@@ -83,13 +84,16 @@ export type CreateProjectionProps = {
 export type DataPoint = {
   fips: string
   fips_name: string
+  highestGroup?: string
+  lowestGroup?: string
+  rating?: string
 } & {
   [key in MetricId]: any
 }
 
 export type GetFillColorProps = {
   d: Feature<Geometry, GeoJsonProperties>
-  dataMap: Map<string, number>
+  dataMap: Map<string, MetricData>
   colorScale: d3.ScaleSequential<string, never>
 }
 
@@ -111,9 +115,16 @@ export interface MapConfig {
   higherIsBetter?: boolean
 }
 
+export interface MetricData {
+  [key: string]: string | number | undefined
+}
+
 export type RenderMapProps = {
+  activeDemographicGroup: DemographicGroup
   colorScale: d3.ScaleSequential<string>
-  data: DataPoint[]
+  countColsMap: CountColsMap
+  dataWithHighestLowest: DataPoint[]
+  demographicType: DemographicType
   geoData: {
     features: FeatureCollection<Geometry, GeoJsonProperties>
     projection: d3.GeoProjection
@@ -126,12 +137,11 @@ export type RenderMapProps = {
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
-  tooltipPairs: TooltipPairs
-  tooltipLabel: string
   updateFipsCallback: (fips: Fips) => void
   width: number
   fips: Fips
   isMobile: boolean
+  isCawp: boolean
 }
 
 export type TooltipFeature = {

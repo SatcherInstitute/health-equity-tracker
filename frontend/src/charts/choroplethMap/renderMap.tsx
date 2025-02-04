@@ -1,11 +1,21 @@
 import * as d3 from 'd3'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import {
+  CAWP_METRICS,
+  getWomenRaceLabel,
+} from '../../data/providers/CawpProvider'
 import { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
-import { getCountyAddOn } from '../mapHelperFunctions'
+import {
+  getCawpMapGroupDenominatorLabel,
+  getCawpMapGroupNumeratorLabel,
+  getCountyAddOn,
+  getMapGroupLabel,
+} from '../mapHelperFunctions'
 import { getFillColor } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
 import { getTooltipContent } from './tooltipUtils'
-import type { InitializeSvgProps, RenderMapProps, TooltipPairs } from './types'
+import type { InitializeSvgProps, MetricData, RenderMapProps } from './types'
 
 const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
 const STROKE_WIDTH = 0.5
@@ -21,7 +31,6 @@ export const renderMap = (props: RenderMapProps) => {
     svgRef,
     tooltipContainer,
     isMobile,
-    data,
     metric,
   } = props
 
@@ -37,8 +46,54 @@ export const renderMap = (props: RenderMapProps) => {
   projection.fitSize([width, height * 0.8], features)
   const path = d3.geoPath(projection)
 
-  const dataMap = new Map(
-    props.data.map((d) => [d.fips, d[props.metric.metricId]]),
+  const tooltipLabel = props.isUnknownsMap
+    ? metric.unknownsVegaLabel || '% unknown'
+    : CAWP_METRICS.includes(metric.metricId)
+      ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
+      : getMapGroupLabel(
+          props.demographicType,
+          props.activeDemographicGroup,
+          metric.type === 'index' ? 'Score' : 'Rate',
+        )
+
+  const numeratorPhrase = props.isCawp
+    ? getCawpMapGroupNumeratorLabel(
+        props.countColsMap,
+        props.activeDemographicGroup,
+      )
+    : getMapGroupLabel(
+        props.demographicType,
+        props.activeDemographicGroup,
+        props.countColsMap?.numeratorConfig?.shortLabel ?? '',
+      )
+
+  const denominatorPhrase = props.isCawp
+    ? getCawpMapGroupDenominatorLabel(props.countColsMap)
+    : getMapGroupLabel(
+        props.demographicType,
+        props.activeDemographicGroup,
+        props.countColsMap?.denominatorConfig?.shortLabel ?? '',
+      )
+
+  const dataMap: Map<string, MetricData> = new Map(
+    props.dataWithHighestLowest.map((d) => [
+      d.fips,
+      {
+        [tooltipLabel]: d[props.metric.metricId],
+        value: d[props.metric.metricId],
+        ...(props.countColsMap?.numeratorConfig && {
+          [`# ${numeratorPhrase}`]:
+            d[props.countColsMap.numeratorConfig.metricId],
+        }),
+        ...(props.countColsMap?.denominatorConfig && {
+          [`# ${denominatorPhrase}`]:
+            d[props.countColsMap.denominatorConfig.metricId],
+        }),
+        ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
+        ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
+        ...(d.rating && { ['County SVI']: d.rating }),
+      },
+    ]),
   )
 
   // Draw map
@@ -55,8 +110,8 @@ export const renderMap = (props: RenderMapProps) => {
         'mouseover',
         event,
         d,
-        props.tooltipPairs,
         props.colorScale,
+        metric,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -67,8 +122,8 @@ export const renderMap = (props: RenderMapProps) => {
         'mousemove',
         event,
         d,
-        props.tooltipPairs,
         props.colorScale,
+        metric,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -79,8 +134,8 @@ export const renderMap = (props: RenderMapProps) => {
         'mouseout',
         event,
         d,
-        props.tooltipPairs,
         props.colorScale,
+        metric,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -88,10 +143,10 @@ export const renderMap = (props: RenderMapProps) => {
     )
     .on('click', (event, d) => handleMapClick(d, props.updateFipsCallback))
 
-  if (!props.hideLegend && !props.fips.isCounty()) {
+  if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
     const { metricId } = metric
     createUnknownLegend(legendGroup, {
-      data,
+      dataWithHighestLowest: props.dataWithHighestLowest,
       metricId,
       width,
       colorScale,
@@ -132,20 +187,21 @@ const handleMouseEvent = (
   type: 'mouseover' | 'mousemove' | 'mouseout',
   event: any,
   d: any,
-  tooltipPairs: TooltipPairs,
   colorScale: d3.ScaleSequential<string>,
-  dataMap?: Map<string, number>,
+  metric: MetricConfig,
+  dataMap?: Map<string, MetricData>,
   tooltipContainer?: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>,
   geographyType?: string,
 ) => {
   if (type === 'mouseover' && d && dataMap) {
-    const value = dataMap.get(d.id as string)
+    const value = dataMap.get(d.id as string)?.value
+
     d3.select(event.currentTarget)
       .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
       .style('cursor', 'pointer')
     tooltipContainer
       ?.style('visibility', 'visible')
-      .html(getTooltipContent(d, value, tooltipPairs, geographyType))
+      .html(getTooltipContent(d, dataMap, metric, geographyType))
   } else if (type === 'mousemove') {
     tooltipContainer
       ?.style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
