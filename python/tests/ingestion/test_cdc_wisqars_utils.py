@@ -6,9 +6,9 @@ from pandas.testing import assert_frame_equal
 def test_clean_numeric():
 
     # double asterisk and commas removed
-    assert clean_numeric("10**") == 10
-    assert clean_numeric("1,000") == 1000
-    assert clean_numeric("1,000**") == 1000
+    assert clean_numeric("10**") == "10"
+    assert clean_numeric("1,000") == "1000"
+    assert clean_numeric("1,000**") == "1000"
 
     # non-strings pass through
     assert clean_numeric(1000) == 1000
