@@ -13,7 +13,6 @@ Features include:
 
 from typing import List
 import pandas as pd
-import numpy as np
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, WISQARS_DEMO_TYPE
@@ -58,13 +57,13 @@ RACE_NAMES_MAPPING = {
 def clean_numeric(val):
     """
     Function to clean numeric string values by removing commas and converting '**' to NaN.
-    Takes a single parameter 'val' and returns the cleaned value.
+    Takes a single parameter 'val' and returns the cleaned str value.
     """
     if isinstance(val, str):
         if "**" in val:
-            return np.nan
+            val = val.replace("**", "")
         if "," in val:
-            return val.replace(",", "")
+            val = val.replace(",", "")
     return val
 
 
