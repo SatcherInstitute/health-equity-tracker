@@ -1,22 +1,20 @@
 from ingestion.cdc_wisqars_utils import clean_numeric, contains_unknown, convert_columns_to_numeric, generate_cols_map
-import numpy as np
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
 
 def test_clean_numeric():
 
-    # double asterisk results in NaN
-    assert np.isnan(clean_numeric("1000**"))
-    assert np.isnan(clean_numeric("1,000**"))
+    # double asterisk and commas removed
+    assert clean_numeric("10**") == "10"
+    assert clean_numeric("1,000") == "1000"
+    assert clean_numeric("1,000**") == "1000"
 
     # non-strings pass through
     assert clean_numeric(1000) == 1000
     assert clean_numeric(False) is False
 
     # other strings pass through
-    # commas are removed (allowing use of thousands separators)
-    assert clean_numeric("1,000") == "1000"
     assert clean_numeric("test") == "test"
 
 
