@@ -12,7 +12,7 @@ import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import type { CreateColorScaleProps, GetFillColorProps, HetRow } from './types'
 
-const { altGrey: ALT_GREY } = het
+const { altGrey: ALT_GREY, white: WHITE } = het
 
 export const createColorScale = (props: CreateColorScaleProps) => {
   const interpolatorFn = props.reverse
@@ -102,11 +102,15 @@ export const createProjection = (
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, colorScale } = props
+  const { d, dataMap, colorScale, extremesMode } = props
 
   const value = dataMap.get(d.id as string)?.value as number
 
-  return value !== undefined ? colorScale(value) : ALT_GREY
+  if (value !== undefined) {
+    return colorScale(value)
+  } else {
+    return extremesMode ? WHITE : ALT_GREY
+  }
 }
 
 export const formatMetricValue = (

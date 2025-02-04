@@ -96,6 +96,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         isCawp,
         countColsMap: props.countColsMap,
         isUnknownsMap: props.isUnknownsMap,
+        extremesMode: props.extremesMode,
       })
     }
 

@@ -17,7 +17,12 @@ import { createUnknownLegend } from './mapLegendUtils'
 import { getTooltipContent } from './tooltipUtils'
 import type { InitializeSvgProps, MetricData, RenderMapProps } from './types'
 
-const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
+const {
+  darkBlue: DARK_BLUE,
+  redOrange: RED_ORANGE,
+  white: WHITE,
+  borderColor: BORDER_GREY,
+} = het
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 }
 
@@ -32,6 +37,7 @@ export const renderMap = (props: RenderMapProps) => {
     tooltipContainer,
     isMobile,
     metric,
+    extremesMode,
   } = props
 
   // Clear existing SVG content and initialize
@@ -102,19 +108,20 @@ export const renderMap = (props: RenderMapProps) => {
     .data(features.features)
     .join('path')
     .attr('d', (d) => path(d) || '')
-    .attr('fill', (d) => getFillColor({ d, dataMap, colorScale }))
-    .attr('stroke', '#fff')
+    .attr('fill', (d) => getFillColor({ d, dataMap, colorScale, extremesMode }))
+    .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event, d) =>
       handleMouseEvent(
         'mouseover',
         event,
         d,
-        props.colorScale,
+        colorScale,
         metric,
         dataMap,
         tooltipContainer,
         geographyType,
+        extremesMode,
       ),
     )
     .on('mousemove', (event, d) =>
@@ -122,11 +129,12 @@ export const renderMap = (props: RenderMapProps) => {
         'mousemove',
         event,
         d,
-        props.colorScale,
+        colorScale,
         metric,
         dataMap,
         tooltipContainer,
         geographyType,
+        extremesMode,
       ),
     )
     .on('mouseout', (event, d) =>
@@ -134,11 +142,12 @@ export const renderMap = (props: RenderMapProps) => {
         'mouseout',
         event,
         d,
-        props.colorScale,
+        colorScale,
         metric,
         dataMap,
         tooltipContainer,
         geographyType,
+        extremesMode,
       ),
     )
     .on('click', (event, d) => handleMapClick(d, props.updateFipsCallback))
@@ -192,6 +201,7 @@ const handleMouseEvent = (
   dataMap?: Map<string, MetricData>,
   tooltipContainer?: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>,
   geographyType?: string,
+  extremesMode?: boolean,
 ) => {
   if (type === 'mouseover' && d && dataMap) {
     const value = dataMap.get(d.id as string)?.value
@@ -209,7 +219,7 @@ const handleMouseEvent = (
   } else if (type === 'mouseout' && d && dataMap) {
     d3.select(event.currentTarget).attr(
       'fill',
-      getFillColor({ d, dataMap, colorScale }),
+      getFillColor({ d, dataMap, colorScale, extremesMode }),
     )
     tooltipContainer?.style('visibility', 'hidden').html('')
   }

@@ -95,6 +95,7 @@ export type GetFillColorProps = {
   d: Feature<Geometry, GeoJsonProperties>
   dataMap: Map<string, MetricData>
   colorScale: d3.ScaleSequential<string, never>
+  extremesMode?: boolean
 }
 
 export type HetRow = DataPoint & {
@@ -142,6 +143,7 @@ export type RenderMapProps = {
   fips: Fips
   isMobile: boolean
   isCawp: boolean
+  extremesMode: boolean
 }
 
 export type TooltipFeature = {
