@@ -23,12 +23,12 @@ export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
   countColsMap: CountColsMap
   demographicType: DemographicType
-  data: DataPoint[]
+  data: Array<Record<string, any>>
   extremesMode: boolean
   fips: Fips
   fieldRange?: FieldRange
   filename?: string
-  geoData: Topology
+  geoData?: Record<string, any>
   hideLegend?: boolean
   hideMissingDataTooltip?: boolean
   highestLowestGroupsByFips?: Record<string, HighestLowest>
@@ -52,7 +52,7 @@ export interface ChoroplethMapProps {
 }
 
 export interface CreateColorScaleProps {
-  data: DataPoint[]
+  dataWithHighestLowest: DataPoint[]
   metricId: MetricId
   colorScheme: ColorScheme | ((t: number) => string)
   reverse?: boolean

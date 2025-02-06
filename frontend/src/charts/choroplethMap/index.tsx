@@ -62,7 +62,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
 
     const initializeMap = async () => {
       const colorScale = createColorScale({
-        data,
+        dataWithHighestLowest,
         metricId: metric.metricId,
         colorScheme: props.mapConfig.scheme,
         isUnknown: props.isUnknownsMap,

@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
-import type { Topology } from 'topojson-specification'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType } from '../../data/config/MetricConfigUtils'
@@ -11,7 +10,7 @@ import { het } from '../../styles/DesignTokens'
 import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import { D3_MAP_SCHEMES } from './colorSchemes'
-import type { CreateColorScaleProps, GetFillColorProps, HetRow } from './types'
+import type { CreateColorScaleProps, GetFillColorProps } from './types'
 
 const { altGrey: ALT_GREY, white: WHITE } = het
 
@@ -28,7 +27,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     : resolvedScheme
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
-    props.data,
+    props.dataWithHighestLowest,
     props.metricId,
   )
 
@@ -53,7 +52,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
       .domain([min, max])
       .interpolator(adjustedInterpolatorFn)
   } else {
-    const values = props.data
+    const values = props.dataWithHighestLowest
       .map((d) => d[props.metricId])
       .filter((val) => val != null && !isNaN(val))
 
@@ -68,7 +67,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 export const createFeatures = async (
   showCounties: boolean,
   parentFips: string,
-  geoData?: Topology,
+  geoData?: Record<string, any>,
 ): Promise<FeatureCollection> => {
   const topology =
     geoData ??
@@ -141,10 +140,10 @@ export const formatMetricValue = (
 }
 
 export const processPhrmaData = (
-  data: HetRow[],
+  data: Array<Record<string, any>>,
   countColsMap: CountColsMap,
 ) => {
-  return data.map((row: HetRow) => {
+  return data.map((row) => {
     const newRow = { ...row }
 
     const processField = (

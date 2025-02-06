@@ -1,10 +1,8 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import type { Topology } from 'topojson-specification'
 import { Legend } from '../charts/Legend'
 import ChoroplethMap from '../charts/choroplethMap/index'
-import type { DataPoint } from '../charts/choroplethMap/types'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -540,10 +538,10 @@ function MapCardWithKey(props: MapCardProps) {
                       highestLowestGroupsByFips={highestLowestGroupsByFips}
                       activeDemographicGroup={activeDemographicGroup}
                       countColsMap={countColsMap}
-                      data={displayData as DataPoint[]}
+                      data={displayData}
                       filename={filename}
                       fips={props.fips}
-                      geoData={geoData as Topology}
+                      geoData={geoData}
                       hideLegend={true}
                       hideMissingDataTooltip={extremesMode}
                       legendData={dataForActiveDemographicGroup}
