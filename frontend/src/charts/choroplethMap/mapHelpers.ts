@@ -12,7 +12,11 @@ import { getLegendDataBounds } from '../mapHelperFunctions'
 import { D3_MAP_SCHEMES } from './colorSchemes'
 import type { CreateColorScaleProps, GetFillColorProps } from './types'
 
-const { altGrey: ALT_GREY, white: WHITE } = het
+const {
+  altGrey: ALT_GREY,
+  white: WHITE,
+  greyGridColorDarker: BORDER_GREY,
+} = het
 
 export const createColorScale = (props: CreateColorScaleProps) => {
   // Resolve string-based Vega schemes to D3 functions
@@ -119,6 +123,20 @@ export const getFillColor = (props: GetFillColorProps): string => {
   } else {
     return extremesMode ? WHITE : ALT_GREY
   }
+}
+
+export const createTooltipContainer = () => {
+  return d3
+    .select('body')
+    .append('div')
+    .style('position', 'absolute')
+    .style('visibility', 'hidden')
+    .style('background-color', WHITE)
+    .style('border', `1px solid ${BORDER_GREY}`)
+    .style('border-radius', '4px')
+    .style('padding', '8px')
+    .style('font-size', '12px')
+    .style('z-index', '1000')
 }
 
 export const formatMetricValue = (

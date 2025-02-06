@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { createRoot } from 'react-dom/client'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   CAWP_METRICS,
@@ -12,9 +13,9 @@ import {
   getCountyAddOn,
   getMapGroupLabel,
 } from '../mapHelperFunctions'
+import TooltipContent from './TooltipContent'
 import { getFillColor } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
-import { getTooltipContent } from './tooltipUtils'
 import type { InitializeSvgProps, MetricData, RenderMapProps } from './types'
 
 const {
@@ -199,30 +200,50 @@ const handleMouseEvent = (
   d: any,
   colorScale: d3.ScaleSequential<string>,
   metric: MetricConfig,
-  dataMap?: Map<string, MetricData>,
+  dataMap: Map<string, MetricData>,
   tooltipContainer?: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>,
   geographyType?: string,
   extremesMode?: boolean,
 ) => {
+  if (!tooltipContainer) return
+
+  const tooltipNode = tooltipContainer.node()
+  if (!tooltipNode) return
+
   if (type === 'mouseover' && d && dataMap) {
     const value = dataMap.get(d.id as string)?.value
 
     d3.select(event.currentTarget)
       .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
       .style('cursor', 'pointer')
-    tooltipContainer
-      ?.style('visibility', 'visible')
-      .html(getTooltipContent(d, dataMap, metric, geographyType))
+
+    // Use ReactDOM to render the tooltip component inside the tooltip container
+    const root = createRoot(tooltipNode)
+    root.render(
+      <TooltipContent
+        feature={d}
+        dataMap={dataMap}
+        metricConfig={metric}
+        geographyType={geographyType}
+      />,
+    )
+
+    tooltipContainer.style('visibility', 'visible')
   } else if (type === 'mousemove') {
     tooltipContainer
-      ?.style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
+      .style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
       .style('left', `${event.pageX + TOOLTIP_OFFSET.x}px`)
-  } else if (type === 'mouseout' && d && dataMap) {
+  } else if (type === 'mouseout') {
     d3.select(event.currentTarget).attr(
       'fill',
       getFillColor({ d, dataMap, colorScale, extremesMode }),
     )
-    tooltipContainer?.style('visibility', 'hidden').html('')
+
+    tooltipContainer.style('visibility', 'hidden')
+
+    // Clear the tooltip content when the mouse leaves
+    const root = createRoot(tooltipNode)
+    root.unmount()
   }
 }
 
