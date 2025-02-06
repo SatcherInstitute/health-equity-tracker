@@ -3,10 +3,7 @@ import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
 import { CDC_CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCancer'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
-import {
-  COMMUNITY_SAFETY_DROPDOWNIDS,
-  COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR,
-} from '../data/config/MetricConfigCommunitySafety'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
@@ -21,14 +18,11 @@ import type {
   DataTypeConfig,
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
-
 import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
 import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { FIPS_MAP } from '../data/utils/FipsData'
-
-const SHOW_CHR_GUN_DEATHS = import.meta.env.VITE_SHOW_CHR_GUN_DEATHS
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -157,7 +151,6 @@ export const DROPDOWN_TOPIC_MAP: Record<
   diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
-  gun_deaths: 'Gun Deaths',
   gun_violence: 'Gun Homicides and Suicides',
   gun_violence_youth: 'Gun Deaths (Youth)',
   gun_deaths_black_men: 'Gun Homicides (Black Men)',
@@ -237,9 +230,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Community Safety',
     definition: '',
-    options: SHOW_CHR_GUN_DEATHS
-      ? (COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[])
-      : (COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR as unknown as DropdownVarId[]),
+    options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Medication Utilization in the Medicare Population',

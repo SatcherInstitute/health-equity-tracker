@@ -7,7 +7,7 @@ import type { DataTypeConfig } from './MetricConfigTypes'
 export const MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS = [
   'medicare_cardiovascular',
   'medicare_hiv',
-] as const
+]
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'medicare_cardiovascular',

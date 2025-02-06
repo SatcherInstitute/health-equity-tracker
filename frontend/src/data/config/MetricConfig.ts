@@ -19,7 +19,6 @@ import {
 } from './MetricConfigChronicDisease'
 import {
   GUN_DEATHS_BLACK_MEN_METRICS,
-  GUN_DEATH_METRICS,
   GUN_VIOLENCE_METRICS,
   GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigCommunitySafety'
@@ -71,7 +70,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   frequent_mental_distress: FREQUENT_MENTAL_DISTRESS_METRICS,
   gun_violence: GUN_VIOLENCE_METRICS,
   gun_violence_youth: GUN_VIOLENCE_YOUTH_METRICS,
-  gun_deaths: GUN_DEATH_METRICS,
   gun_deaths_black_men: GUN_DEATHS_BLACK_MEN_METRICS,
   substance: SUBSTANCE_MISUSE_METRICS,
   suicide: SUICIDE_METRICS,
