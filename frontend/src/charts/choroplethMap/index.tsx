@@ -67,6 +67,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         colorScheme: props.mapConfig.scheme,
         isUnknown: props.isUnknownsMap,
         fips: props.fips,
+        reverse: !props.mapConfig.higherIsBetter && !props.isUnknownsMap,
       })
 
       const features = await createFeatures(
@@ -87,7 +88,6 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         tooltipContainer: tooltipContainerRef.current!,
         showCounties: props.showCounties,
         updateFipsCallback: props.updateFipsCallback,
-        mapConfig: props.mapConfig,
         colorScale,
         fips: props.fips,
         isMobile,

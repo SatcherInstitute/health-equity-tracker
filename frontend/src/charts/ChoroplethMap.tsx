@@ -308,7 +308,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
           ? UNKNOWNS_MAP_SCALE
           : RATE_MAP_SCALE,
         /* fieldRange? */ props.fieldRange,
-        /* scaleColorScheme? */ props.mapConfig.scheme,
+        /* scaleColorScheme? */ props.mapConfig.scheme as string,
         /* isTerritoryCircle? */ props.fips.isTerritory(),
         /* reverse? */ !props.mapConfig.higherIsBetter && !props.isUnknownsMap,
       )

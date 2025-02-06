@@ -10,14 +10,22 @@ import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
 import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
+import { D3_MAP_SCHEMES } from './colorSchemes'
 import type { CreateColorScaleProps, GetFillColorProps, HetRow } from './types'
 
 const { altGrey: ALT_GREY, white: WHITE } = het
 
 export const createColorScale = (props: CreateColorScaleProps) => {
+  // Resolve string-based Vega schemes to D3 functions
+  const resolvedScheme =
+    typeof props.colorScheme === 'string'
+      ? D3_MAP_SCHEMES[props.colorScheme] || d3.interpolateBlues
+      : props.colorScheme
+
+  // Handle reversing the color scale
   const interpolatorFn = props.reverse
-    ? (t: number) => props.colorScheme(1 - t)
-    : props.colorScheme
+    ? (t: number) => resolvedScheme(1 - t)
+    : resolvedScheme
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     props.data,
@@ -48,6 +56,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     const values = props.data
       .map((d) => d[props.metricId])
       .filter((val) => val != null && !isNaN(val))
+
     colorScale = d3
       .scaleSequentialQuantile(adjustedInterpolatorFn)
       .domain(values)

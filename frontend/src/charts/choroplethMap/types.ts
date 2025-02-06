@@ -7,7 +7,9 @@ import type {
 } from 'geojson'
 import type { RefObject } from 'react'
 import type { Topology } from 'topojson-specification'
+import type { ColorScheme } from 'vega'
 import type {
+  MapConfig,
   MetricConfig,
   MetricId,
 } from '../../data/config/MetricConfigTypes'
@@ -16,15 +18,6 @@ import type { DemographicGroup } from '../../data/utils/Constants'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import type { CountColsMap, HighestLowest } from '../mapGlobals'
-
-export const MAP_SCHEMES = {
-  default: d3.interpolateYlGn,
-  women: d3.interpolatePlasma,
-  men: d3.interpolateInferno,
-  medicare: d3.interpolateViridis,
-  unknown: d3.interpolateGnBu,
-  youth: d3.interpolateReds,
-}
 
 export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
@@ -61,7 +54,7 @@ export interface ChoroplethMapProps {
 export interface CreateColorScaleProps {
   data: DataPoint[]
   metricId: MetricId
-  colorScheme: (t: number) => string
+  colorScheme: ColorScheme | ((t: number) => string)
   reverse?: boolean
   fieldRange?: FieldRange
   isUnknown?: boolean
@@ -109,13 +102,6 @@ export type InitializeSvgProps = {
   isMobile: boolean
 }
 
-export interface MapConfig {
-  scheme: (t: number) => string
-  min: string
-  mid: string
-  higherIsBetter?: boolean
-}
-
 export interface MetricData {
   [key: string]: string | number | undefined
 }
@@ -133,7 +119,6 @@ export type RenderMapProps = {
   height: number
   hideLegend?: boolean
   isUnknownsMap?: boolean
-  mapConfig: MapConfig
   metric: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement>
