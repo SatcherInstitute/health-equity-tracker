@@ -5,7 +5,7 @@ import {
   METHODOLOGY_PAGE_LINK,
   TERMS_OF_USE_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import HetCopyright from './HetCopywright'
+import HetCopyright from './HetCopyright'
 import HetLinkButton from './HetLinkButton'
 export default function HetFooterLinks() {
   return (

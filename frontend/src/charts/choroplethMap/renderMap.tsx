@@ -23,6 +23,7 @@ const {
   white: WHITE,
   borderColor: BORDER_GREY,
 } = het
+
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 }
 

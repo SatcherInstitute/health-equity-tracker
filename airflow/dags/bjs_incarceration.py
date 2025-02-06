@@ -25,7 +25,11 @@ bjs_incarceration_bq_operator = util.create_bq_ingest_operator(
     "bjs_incarceration_to_bq", bjs_incarceration_bq_payload, data_ingestion_dag
 )
 
-payload_race = {"dataset_name": _BJS_INCARCERATION_DATASET_NAME, "demographic": "race_and_ethnicity"}
+payload_race = {
+    "dataset_name": _BJS_INCARCERATION_DATASET_NAME,
+    "should_export_as_alls": True,
+    "demographic": "race_and_ethnicity",
+}
 bjs_incarceration_exporter_operator_race = util.create_exporter_operator(
     "bjs_incarceration_exporter_race", payload_race, data_ingestion_dag
 )

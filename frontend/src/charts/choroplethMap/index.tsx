@@ -77,7 +77,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
       )
 
       const projection = createProjection(props.fips, width, height, features)
-
+      
       renderMap({
         svgRef,
         geoData: { features, projection },
