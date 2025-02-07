@@ -60,6 +60,7 @@ PHRMA_DATASET_TYPE = Literal["brfss", "medicare"]
 
 WISQARS_VAR_TYPE = Literal[
     "gun_deaths",
+    "gun_violence_all_intents",
     "gun_homicides_suicides",
     "gun_violence_homicide",
     "gun_violence_suicide",
