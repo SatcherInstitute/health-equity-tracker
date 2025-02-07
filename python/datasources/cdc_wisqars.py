@@ -101,37 +101,37 @@ from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_D
 
 WISQARS_URL_MAP = {
     # pylint: disable-next=line-too-long
-    "gun_deaths-national-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=NONE&r3=NONE&r4=NONE",
+    "gun_deaths-national-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=NONE&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_deaths-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=NONE&r4=NONE",
+    "gun_deaths-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_deaths-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=NONE&r4=NONE",
+    "gun_deaths-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_deaths-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=STATE&r4=NONE",
+    "gun_deaths-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=STATE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_deaths-national-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=RACE-SINGLE&r3=NONE&r4=NONE",
+    "gun_deaths-national-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=RACE-SINGLE&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_deaths-state-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=RACE-SINGLE&r3=STATE&r4=NONE",
+    "gun_deaths-state-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=RACE-SINGLE&r3=STATE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-national-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=NONE&r4=NONE",
+    "gun_homicides_suicides-national-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=STATE&r4=NONE",
+    "gun_homicides_suicides-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=STATE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=ETHNICTY&r4=NONE",
+    "gun_homicides_suicides-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=ETHNICTY&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=ETHNICTY&r4=STATE",
+    "gun_homicides_suicides-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=ETHNICTY&r4=STATE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-national-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=SEX&r4=NONE",
+    "gun_homicides_suicides-national-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=SEX&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-state-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=SEX&r4=STATE",
+    "gun_homicides_suicides-state-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=SEX&r4=STATE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-national-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=AGEGP&r4=NONE",
+    "gun_homicides_suicides-national-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=AGEGP&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-state-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=AGEGP&r4=STATE",
+    "gun_homicides_suicides-state-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=AGEGP&r4=STATE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-national-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=NONE",
+    "gun_homicides_suicides-national-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
-    "gun_homicides_suicides-state-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=STATE",
+    "gun_homicides_suicides-state-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=STATE",  # noqa: E501
 }
 
 
