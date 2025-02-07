@@ -1,25 +1,74 @@
 """
-This documentation outlines the procedure for acquiring gun violence data for the general
-population from the CDC WISQARS database. The data, once downloaded, is stored locally in
-the `data/cdc_wisqars` directory for further processing and analysis.
+This documentation outlines the procedure for acquiring gun violence data for the
+general population from the CDC WISQARS database. The data, once downloaded, is
+stored locally in the `data/cdc_wisqars` directory for further processing and
+analysis.
 
 Instructions for Downloading Data:
-1. Access the WISQARS website at https://wisqars.cdc.gov/reports/.
-2. Select `Fatal` as the injury outcome.
-3. Specify the data years of interest, from `2001-2021`.
-4. Set geography to `United States`.
-5. Choose `All Intents` for the intent.
-6. Under mechanism, opt for `Firearm`.
-7. For demographics, select `All ages`, `Both Sexes`, `All Races`.
-8. Decide on the report layout based on your requirements:
-   - For fatal_gun_injuries-national-all: `Intent`, `None`, `None`, `None`
-   - For fatal_gun_injuries-national-race: `Intent`, `Race`, `Ethnicity`, `None`
 
-Notes:
-- State-level data for non-fatal injury outcomes is not available.
-- Race data is provided only for fatal data outcomes and covers the period from 2018-2021.
+- Access the WISQARS website at https://wisqars.cdc.gov/reports/ and adjust filters
+- Select `Fatal` as the injury outcome.
+- 2018-2022 by Single Race for "by race" tables, 2001-2022 for all other tables.
+- Specify the data years of interest, matching the period selected above.
+- Set geography to `United States`.
+- Choose `All Intents` for the intent.
+- Under mechanism, opt for `Firearm`.
+- For demographics, select `All ages`, `Both Sexes`, `All Races`.
+    - For by non-hispanic race tables select `Non-Hispanic`.
+    - All other tables select `All Ethnicities`.
+- Decide on the report layout based on your requirements:
 
-Last Updated: 2/24
+
+ALL GUN DEATHS - ALL PEOPLE
+`Year`, `None`, `None`, `None`
+"gun_deaths-national-all"
+`Year`, `State`, `None`, `None`
+"gun_deaths-state-all"
+
+ALL GUN DEATHS - BY HISPANIC + UNKNOWN
+`Year`, `Ethnicity`, `None`, `None`
+"gun_deaths-national-ethnicity"
+`Year`, `Ethnicity`, `State`, `None`
+"gun_deaths-state-ethnicity"
+
+ALL GUN DEATHS - BY RACE (NH)
+`Year`, `Race`, `None`, `None`
+"gun_deaths-national-race_nh"
+`Year`, `Race`, `State`, `None`
+"gun_deaths-state-race_nh"
+
+GUN HOMICIDES AND SUICIDES - ALL PEOPLE
+`Year`, `Intent`, `None`, `None`
+"gun_homicides_suicides-national-all"
+`Year`, `Intent`, `State`, `None`
+"gun_homicides_suicides-state-all"
+
+GUN HOMICIDES AND SUICIDES - HISPANIC + UNKNOWN
+`Year`, `Intent`, `Ethnicity`, `None`
+"gun_homicides_suicides-national-ethnicity"
+`Year`, `Intent`, `Ethnicity`, `State`
+"gun_homicides_suicides-state-ethnicity"
+
+GUN HOMICIDES AND SUICIDES - BY SEX
+`Year`, `Intent`, `Sex`, `None`
+"gun_homicides_suicides-national-sex"
+`Year`, `Intent`, `Sex`, `State`
+"gun_homicides_suicides-state-sex"
+
+GUN HOMICIDES AND SUICIDES - BY AGE
+`Year`, `Intent`, `Age Group`, `None`
+"gun_homicides_suicides-national-age"
+`Year`, `Intent`, `Age Group`, `State`
+"gun_homicides_suicides-state-age"
+
+GUN HOMICIDES AND SUICIDES - BY RACE (NH)
+`Year`, `Intent`, `Race`, `None`
+"gun_homicides_suicides-national-race_nh"
+`Year`, `Intent`, `Race`, `State`
+"gun_homicides_suicides-state-race_nh"
+
+
+Last Updated: 2/25
 """
 
 import pandas as pd
@@ -48,6 +97,42 @@ from ingestion.cdc_wisqars_utils import (
 )
 from typing import List
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
+
+
+WISQARS_URL_MAP = {
+    # pylint: disable-next=line-too-long
+    "gun_deaths-national-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=NONE&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=STATE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-national-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=RACE-SINGLE&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-state-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=RACE-SINGLE&r3=STATE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-national-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=STATE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=ETHNICTY&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=ETHNICTY&r4=STATE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-national-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=SEX&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-state-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=SEX&r4=STATE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-national-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=AGEGP&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-state-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=AGEGP&r4=STATE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-national-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_homicides_suicides-state-race_nh": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=STATE",  # noqa: E501
+}
 
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
