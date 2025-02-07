@@ -162,12 +162,17 @@ export function Legend(props: LegendProps) {
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
     if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
 
+    const mapScheme =
+      typeof props.mapConfig.scheme === 'string'
+        ? props.mapConfig.scheme
+        : 'darkgreen'
+
     const legendColorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
           props.scaleType,
           props.metric.metricId,
-          props.mapConfig.scheme,
+          mapScheme,
           legendColorCount,
           props.isSummaryLegend,
           /* reverse?: boolean */ !props.mapConfig.higherIsBetter,

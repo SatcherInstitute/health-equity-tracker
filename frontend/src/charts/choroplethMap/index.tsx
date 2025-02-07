@@ -11,10 +11,10 @@ import {
   createColorScale,
   createFeatures,
   createProjection,
+  createTooltipContainer,
   processPhrmaData,
 } from './mapHelpers'
 import { renderMap } from './renderMap'
-import { createTooltipContainer } from './tooltipUtils'
 import type { ChoroplethMapProps, DataPoint } from './types'
 
 const ChoroplethMap = (props: ChoroplethMapProps) => {
