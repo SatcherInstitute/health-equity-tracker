@@ -326,8 +326,8 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     df = pd.concat([df_each_intent, df_all_intent_combined], axis=0)
 
     if demographic == std_col.RACE_OR_HISPANIC_COL:
-        df_eth_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, std_col.ETH_COL)
-        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, std_col.ETH_COL)
+        df_eth_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, "ethnicity")
+        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, "ethnicity")
         df_eth_all_intent_combined[WISQARS_INTENT] = WISQARS_ALL_INTENTS
         df_eth = pd.concat([df_eth_each_intent, df_eth_all_intent_combined], axis=0)
         df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
