@@ -43,7 +43,7 @@ PHRMA_BREAKDOWN_TYPE_OR_ALL: TypeAlias = Literal[
 ]
 
 HIV_BREAKDOWN_TYPE: TypeAlias = Literal["age", "sex", "race", "race_and_ethnicity", "black_women"]
-WISQARS_DEMO_TYPE: TypeAlias = Literal["sex", "age", "race_and_ethnicity", "urbanicity", "all"]
+WISQARS_DEMO_TYPE: TypeAlias = Literal["sex", "age", "race_and_ethnicity", "urbanicity", "all", "ethnicity"]
 
 GEO_TYPE = Literal["county", "state", "national"]
 
@@ -63,7 +63,8 @@ WISQARS_VAR_TYPE = Literal[
     "gun_violence_homicide",
     "gun_violence_suicide",
     "gun_deaths",
-    "gun_homicides_suicides" "gun_deaths_young_adults",
+    "gun_homicides_suicides",
+    "gun_deaths_young_adults",
     "gun_deaths_youth",
     "gun_homicides_black_men",
     "fatal",

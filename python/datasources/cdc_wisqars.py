@@ -105,7 +105,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_POP,
 )
 from typing import List
-from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_DEMO_TYPE, WISQARS_VAR_TYPE, GEO_TYPE
 
 
 WISQARS_URL_MAP = {
@@ -180,6 +180,8 @@ COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
         "rate_col": std_col.GUN_VIOLENCE_SUICIDE_PER_100K,
     },
 ]
+
+GUN_DEATHS_BY_INTENT: WISQARS_VAR_TYPE = "gun_homicides_suicides"
 
 
 class CDCWisqarsData(DataSource):
@@ -284,10 +286,10 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     """
     output_df = pd.DataFrame(columns=[std_col.TIME_PERIOD_COL])
 
-    df = load_wisqars_as_df_from_data_dir("gun_homicides_suicides", geo_level, demographic)
+    df = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, demographic)
 
     if demographic == std_col.RACE_OR_HISPANIC_COL:
-        df_eth = load_wisqars_as_df_from_data_dir("gun_homicides_suicides", geo_level, "ethnicity")
+        df_eth = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, "ethnicity")
         df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
         df_eth = df_eth.rename(columns={WISQARS_ETH: std_col.RACE_CATEGORY_ID_COL})
         df_eth = df_eth.replace({std_col.RACE_CATEGORY_ID_COL: ETHNICITY_NAMES_MAPPING})
