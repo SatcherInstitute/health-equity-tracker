@@ -63,7 +63,7 @@ WISQARS_VAR_TYPE = Literal[
     "gun_violence_homicide",
     "gun_violence_suicide",
     "gun_deaths",
-    "gun_deaths_young_adults",
+    "gun_homicides_suicides" "gun_deaths_young_adults",
     "gun_deaths_youth",
     "gun_homicides_black_men",
     "fatal",
