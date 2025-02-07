@@ -22,7 +22,6 @@ const CHR_DATATYPE_IDS_ONLY_ALLS: DataTypeId[] = [
 const CHR_DATATYPE_IDS_BY_RACE: DataTypeId[] = [
   'preventable_hospitalizations',
   'suicide',
-  'gun_deaths',
 ]
 
 export const CHR_DATATYPE_IDS: DataTypeId[] = [
@@ -113,8 +112,7 @@ const CHR_METRICS: MetricId[] = [
   'excessive_drinking_per_100k',
   'frequent_mental_distress_per_100k',
   'preventable_hospitalizations_per_100k',
-  'gun_deaths_per_100k',
-]
+] // TODO: Gun deaths are also from CHR but are loaded via the GunViolenceProvider not here. Should improve this somehow
 
 export const AHR_DATATYPES_WITH_MISSING_AGE_DEMO: DataTypeId[] = [
   'non_medical_drug_use',

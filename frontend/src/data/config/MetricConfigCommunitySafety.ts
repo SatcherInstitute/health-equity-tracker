@@ -59,7 +59,10 @@ export type CommunitySafetyMetricId =
   | 'gun_homicides_black_men_per_100k'
   | 'gun_homicides_black_men_population_estimated_total'
   | 'gun_homicides_black_men_population_pct'
+  | 'gun_deaths_estimated_total'
   | 'gun_deaths_per_100k'
+  | 'gun_deaths_pct_share'
+  | 'gun_deaths_pct_relative_inequity'
 
 export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   {
@@ -206,6 +209,39 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths over time',
         type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_deaths_estimated_total',
+          shortLabel: 'Gun deaths',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        },
+      },
+      pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
+        chartTitle: 'Historical relative inequity of gun deaths',
+        metricId: 'gun_deaths_pct_relative_inequity',
+        shortLabel: '% relative inequity',
+        type: 'pct_relative_inequity',
+      },
+      pct_share: {
+        chartTitle: 'Share of total gun deaths',
+        columnTitleHeader: 'Share of total gun deaths',
+        metricId: 'gun_deaths_pct_share',
+        populationComparisonMetric: {
+          chartTitle: 'Population vs. distribution of gun deaths',
+          columnTitleHeader: populationPctTitle,
+          metricId: 'fatal_population_pct',
+          shortLabel: populationPctShortLabel,
+          type: 'pct_share',
+        },
+        shortLabel: '% of gun deaths',
+        type: 'pct_share',
       },
     },
   },

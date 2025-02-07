@@ -131,6 +131,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '65-74': mapLight,
   '75+': mapLighter,
   // age for WISQARS
+  '0-14': timeCyanBlue,
   '0-4': timeCyanBlue,
   '5-9': timePastelGreen,
   '10-14': darkBlue,
@@ -222,11 +223,11 @@ const FORMATTERS = {
 const BASELINE_THRESHOLD_Y_AXIS_ZERO = 5
 
 export {
-  COLOR_RANGE,
-  UNKNOWN_GROUP_COLOR_EXTENT,
-  CONFIG,
-  TYPES,
-  FORMATTERS,
-  COLORS,
   BASELINE_THRESHOLD_Y_AXIS_ZERO,
+  COLORS,
+  COLOR_RANGE,
+  CONFIG,
+  FORMATTERS,
+  TYPES,
+  UNKNOWN_GROUP_COLOR_EXTENT,
 }

@@ -82,7 +82,7 @@ class CdcCancerProvider extends VariableProvider {
         metricQuery,
       )
       if (!datasetId) {
-        throw new Error('DatasetId is undefined.')
+        return new MetricQueryResponse([], [])
       }
 
       const cancerData = await getDataManager().loadDataset(datasetId)
