@@ -180,11 +180,11 @@ COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
         "denominator_col": std_col.FATAL_POPULATION,
         "rate_col": "gun_violence_suicide_per_100k",
     },
-    {
-        "numerator_col": "gun_deaths_estimated_total",
-        "denominator_col": std_col.FATAL_POPULATION,
-        "rate_col": "gun_deaths_per_100k",
-    },
+    # {
+    #     "numerator_col": "gun_deaths_estimated_total",
+    #     "denominator_col": std_col.FATAL_POPULATION,
+    #     "rate_col": "gun_deaths_per_100k",
+    # },
 ]
 
 
