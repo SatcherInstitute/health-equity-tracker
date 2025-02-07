@@ -58,6 +58,8 @@ RACE_NAMES_MAPPING = {
     "White": std_col.Race.WHITE_NH.value,
 }
 
+ETHNICITY_NAMES_MAPPING = {"Hispanic": std_col.Race.HISP.value, "Unknown": std_col.Race.UNKNOWN.value}
+
 
 def clean_numeric(val):
     """

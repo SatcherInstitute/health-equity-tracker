@@ -89,6 +89,7 @@ from ingestion.cdc_wisqars_utils import (
     generate_cols_map,
     contains_unknown,
     RACE_NAMES_MAPPING,
+    ETHNICITY_NAMES_MAPPING,
     INJ_INTENTS,
     INJ_OUTCOMES,
     condense_age_groups,
@@ -154,7 +155,7 @@ PCT_REL_INEQUITY_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_RE
 
 PIVOT_DEM_COLS = {
     std_col.AGE_COL: [WISQARS_YEAR, WISQARS_STATE, WISQARS_AGE_GROUP, WISQARS_POP],
-    std_col.RACE_OR_HISPANIC_COL: [WISQARS_YEAR, WISQARS_STATE, WISQARS_RACE, WISQARS_ETH, WISQARS_POP],
+    std_col.RACE_OR_HISPANIC_COL: [WISQARS_YEAR, WISQARS_STATE, std_col.RACE_CATEGORY_ID_COL, WISQARS_POP],
     std_col.SEX_COL: [WISQARS_YEAR, WISQARS_STATE, WISQARS_SEX, WISQARS_POP],
     WISQARS_ALL: [WISQARS_YEAR, WISQARS_STATE, WISQARS_POP],
 }
@@ -180,11 +181,6 @@ COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
         "denominator_col": std_col.FATAL_POPULATION,
         "rate_col": "gun_violence_suicide_per_100k",
     },
-    # {
-    #     "numerator_col": "gun_deaths_estimated_total",
-    #     "denominator_col": std_col.FATAL_POPULATION,
-    #     "rate_col": "gun_deaths_per_100k",
-    # },
 ]
 
 
@@ -293,8 +289,16 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
     df = load_wisqars_as_df_from_data_dir("gun_homicides_suicides", geo_level, demographic)
 
-    if demographic == "race_and_ethnicity":
+    if demographic == std_col.RACE_OR_HISPANIC_COL:
         df_eth = load_wisqars_as_df_from_data_dir("gun_homicides_suicides", geo_level, "ethnicity")
+        df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
+        df_eth = df_eth.rename(columns={WISQARS_ETH: std_col.RACE_CATEGORY_ID_COL})
+        df_eth = df_eth.replace({std_col.RACE_CATEGORY_ID_COL: ETHNICITY_NAMES_MAPPING})
+
+        df = df.rename(columns={WISQARS_RACE: std_col.RACE_CATEGORY_ID_COL})
+        df = df.replace({std_col.RACE_CATEGORY_ID_COL: RACE_NAMES_MAPPING})
+
+        df = pd.concat([df, df_eth], axis=0)
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
