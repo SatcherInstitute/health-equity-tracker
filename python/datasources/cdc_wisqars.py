@@ -37,6 +37,18 @@ ALL GUN DEATHS - BY RACE (NH)
 `Year`, `Race`, `State`, `None`
 "gun_deaths-state-race_and_ethnicity"
 
+ALL GUN DEATHS - BY SEX
+`Year`, `Sex`, `None`, `None`
+"gun_deaths-national-sex"
+`Year`, `Sex`, `State`, `None`
+"gun_deaths-state-sex"
+
+ALL GUN DEATHS - BY AGE
+`Year`, `Age Group`, `None`, `None`
+"gun_deaths-national-age"
+`Year`, `Age Group`, `State`, `None`
+"gun_deaths-state-age"
+
 GUN HOMICIDES AND SUICIDES - ALL PEOPLE
 `Year`, `Intent`, `None`, `None`
 "gun_homicides_suicides-national-all"
@@ -114,6 +126,14 @@ WISQARS_URL_MAP = {
     # pylint: disable-next=line-too-long
     "gun_deaths-state-all": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=STATE&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
+    "gun_deaths-national-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=SEX&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-state-sex": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=SEX&r3=STATE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-national-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=AGEGP&r3=NONE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
+    "gun_deaths-state-age": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=AGEGP&r3=STATE&r4=NONE",  # noqa: E501
+    # pylint: disable-next=line-too-long
     "gun_deaths-national-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=NONE&r4=NONE",  # noqa: E501
     # pylint: disable-next=line-too-long
     "gun_deaths-state-ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2001&y2=2022&t=0&d=&i=0&m=20890&g=00&me=0&s=0&r=0&ry=0&e=0&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=ETHNICTY&r3=STATE&r4=NONE",  # noqa: E501
@@ -178,9 +198,15 @@ COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
         "denominator_col": std_col.FATAL_POPULATION,
         "rate_col": std_col.GUN_VIOLENCE_SUICIDE_PER_100K,
     },
+    {
+        "numerator_col": "gun_violence_all_intents_estimated_total",
+        "denominator_col": std_col.FATAL_POPULATION,
+        "rate_col": "gun_violence_all_intents_per_100k",
+    },
 ]
 
 GUN_DEATHS_BY_INTENT: WISQARS_VAR_TYPE = "gun_homicides_suicides"
+GUN_DEATHS_OVERALL: WISQARS_VAR_TYPE = "gun_deaths"
 
 
 class CDCWisqarsData(DataSource):
@@ -224,7 +250,12 @@ class CDCWisqarsData(DataSource):
         for time_view in (CURRENT, HISTORICAL):
             table_id = gcs_to_bq_util.make_bq_table_id(demographic, geo_level, time_view)
             time_cols = TIME_MAP[time_view]
+
+            time_cols = [col.replace("gun_violence_all_intents", "gun_deaths") for col in time_cols]
+            df.columns = [col.replace("gun_violence_all_intents", "gun_deaths") for col in df.columns]
+
             df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, time_view, demographic)
+
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(self, demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
@@ -285,10 +316,17 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     """
     output_df = pd.DataFrame(columns=[std_col.TIME_PERIOD_COL])
 
-    df = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, demographic)
+    df_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, demographic)
+    df_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, demographic)
+    df_all_intent_combined[WISQARS_INTENT] = "All Intents"
+
+    df = pd.concat([df_each_intent, df_all_intent_combined], axis=0)
 
     if demographic == std_col.RACE_OR_HISPANIC_COL:
-        df_eth = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, "ethnicity")
+        df_eth_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, "ethnicity")
+        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, "ethnicity")
+        df_eth_all_intent_combined[WISQARS_INTENT] = "All Intents"
+        df_eth = pd.concat([df_eth_each_intent, df_eth_all_intent_combined], axis=0)
         df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
         df_eth = df_eth.rename(columns={WISQARS_ETH: std_col.RACE_CATEGORY_ID_COL})
         df_eth = df_eth.replace({std_col.RACE_CATEGORY_ID_COL: ETHNICITY_NAMES_MAPPING})
@@ -298,7 +336,7 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
         df = pd.concat([df, df_eth], axis=0)
 
-    df = df[df[WISQARS_INTENT].isin(["Homicide", "Suicide"])].copy()
+    df = df[df[WISQARS_INTENT].isin(["Homicide", "Suicide", "All Intents"])].copy()
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
@@ -307,7 +345,7 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
         values=[WISQARS_DEATHS, WISQARS_CRUDE_RATE],
     )
 
-    new_columns = [
+    flat_columns = [
         (
             f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
             if col[0] == WISQARS_DEATHS
@@ -316,8 +354,7 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
         for col in pivot_df.columns
     ]
 
-    # need to be an Index to pass linter
-    pivot_df.columns = pd.Index(new_columns)
+    pivot_df.columns = pd.Index(flat_columns)
     df = pivot_df.reset_index()
 
     df.rename(
