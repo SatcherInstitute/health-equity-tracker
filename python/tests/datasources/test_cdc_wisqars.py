@@ -84,12 +84,12 @@ def test_write_to_bq_race_national(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "race_and_ethnicity_national_current"
-    actual_current_df.to_csv(table_name, index=False)
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "race_and_ethnicity_national_historical"
-    actual_historical_df.to_csv(table_name, index=False)
+    # actual_historical_df.to_csv(table_name, index=False)
 
     assert mock_bq.call_count == 2
 

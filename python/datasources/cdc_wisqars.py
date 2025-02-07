@@ -77,11 +77,9 @@ from datasources.data_source import DataSource
 from ingestion.constants import CURRENT, HISTORICAL, Sex
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.dataset_utils import (
-    combine_race_ethnicity,
     generate_pct_rel_inequity_col,
     generate_pct_share_col_without_unknowns,
     generate_pct_share_col_with_unknowns,
-    generate_per_100k_col,
     generate_time_df_with_cols_and_types,
 )
 from ingestion.merge_utils import merge_state_ids
@@ -107,7 +105,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_POP,
 )
 from typing import List
-from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
 
 
 WISQARS_URL_MAP = {
@@ -172,14 +170,14 @@ TIME_MAP = {
 
 COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
     {
-        "numerator_col": "gun_violence_homicide_estimated_total",
+        "numerator_col": std_col.GUN_VIOLENCE_HOMICIDE_RAW,
         "denominator_col": std_col.FATAL_POPULATION,
-        "rate_col": "gun_violence_homicide_per_100k",
+        "rate_col": std_col.GUN_VIOLENCE_HOMICIDE_PER_100K,
     },
     {
-        "numerator_col": "gun_violence_suicide_estimated_total",
+        "numerator_col": std_col.GUN_VIOLENCE_SUICIDE_RAW,
         "denominator_col": std_col.FATAL_POPULATION,
-        "rate_col": "gun_violence_suicide_per_100k",
+        "rate_col": std_col.GUN_VIOLENCE_SUICIDE_PER_100K,
     },
 ]
 
@@ -215,7 +213,6 @@ class CDCWisqarsData(DataSource):
 
         alls_by_intent_df = process_wisqars_df(WISQARS_ALL, geo_level)
 
-        # set demographic col to respective "All" value
         if demographic == std_col.RACE_OR_HISPANIC_COL:
             alls_by_intent_df.insert(2, std_col.RACE_CATEGORY_ID_COL, std_col.Race.ALL.value)
         else:
@@ -300,6 +297,8 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
         df = pd.concat([df, df_eth], axis=0)
 
+    df = df[df[WISQARS_INTENT].isin(["Homicide", "Suicide"])].copy()
+
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
         index=PIVOT_DEM_COLS.get(demographic, []),
@@ -320,18 +319,6 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     pivot_df.columns = pd.Index(new_columns)
     df = pivot_df.reset_index()
 
-    df.drop(
-        columns=[
-            "gun_violence_legal_intervention_per_100k",
-            "gun_violence_undetermined_per_100k",
-            "gun_violence_unintentional_per_100k",
-            "gun_violence_legal_intervention_estimated_total",
-            "gun_violence_undetermined_estimated_total",
-            "gun_violence_unintentional_estimated_total",
-        ],
-        inplace=True,
-    )
-
     df.rename(
         columns={
             WISQARS_YEAR: std_col.TIME_PERIOD_COL,
@@ -345,27 +332,6 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
     if demographic == std_col.AGE_COL:
         df[std_col.AGE_COL] = df[std_col.AGE_COL].str.replace(" to ", "-")
-
-    # if std_col.ETH_COL in df.columns.to_list():
-
-    #     count_cols_to_sum = list(RAW_TOTALS_MAP.values()) + [std_col.FATAL_POPULATION]
-
-    #     df = combine_race_ethnicity(
-    #         df,
-    #         count_cols_to_sum,
-    #         RACE_NAMES_MAPPING,
-    #         ethnicity_value="Hispanic",
-    #         additional_group_cols=[std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL],
-    #     )
-
-    #     for raw_total_col in RAW_TOTALS_MAP.values():
-
-    #         if raw_total_col in df.columns:
-    #             topic_prefix = std_col.extract_prefix(raw_total_col)
-    #             topic_rate_col = PER_100K_MAP[topic_prefix]
-    #             df = generate_per_100k_col(
-    #                 df, raw_total_col, std_col.FATAL_POPULATION, topic_rate_col, decimal_places=2
-    #             )
 
     output_df = output_df.merge(df, how="outer")
 
