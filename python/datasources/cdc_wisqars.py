@@ -115,6 +115,9 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_RACE,
     WISQARS_ETH,
     WISQARS_POP,
+    WISQARS_HOMICIDE,
+    WISQARS_SUICIDE,
+    WISQARS_ALL_INTENTS,
 )
 from typing import List
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
@@ -251,8 +254,8 @@ class CDCWisqarsData(DataSource):
             table_id = gcs_to_bq_util.make_bq_table_id(demographic, geo_level, time_view)
             time_cols = TIME_MAP[time_view]
 
-            time_cols = [col.replace("gun_violence_all_intents", "gun_deaths") for col in time_cols]
-            df.columns = [col.replace("gun_violence_all_intents", "gun_deaths") for col in df.columns]
+            time_cols = [col.replace("gun_violence_all_intents", GUN_DEATHS_OVERALL) for col in time_cols]
+            df.columns = [col.replace("gun_violence_all_intents", GUN_DEATHS_OVERALL) for col in df.columns]
 
             df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, time_view, demographic)
 
@@ -318,14 +321,14 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
     df_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, demographic)
     df_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, demographic)
-    df_all_intent_combined[WISQARS_INTENT] = "All Intents"
+    df_all_intent_combined[WISQARS_INTENT] = WISQARS_ALL_INTENTS
 
     df = pd.concat([df_each_intent, df_all_intent_combined], axis=0)
 
     if demographic == std_col.RACE_OR_HISPANIC_COL:
-        df_eth_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, "ethnicity")
-        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, "ethnicity")
-        df_eth_all_intent_combined[WISQARS_INTENT] = "All Intents"
+        df_eth_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, std_col.ETH_COL)
+        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, std_col.ETH_COL)
+        df_eth_all_intent_combined[WISQARS_INTENT] = WISQARS_ALL_INTENTS
         df_eth = pd.concat([df_eth_each_intent, df_eth_all_intent_combined], axis=0)
         df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
         df_eth = df_eth.rename(columns={WISQARS_ETH: std_col.RACE_CATEGORY_ID_COL})
@@ -336,7 +339,7 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
 
         df = pd.concat([df, df_eth], axis=0)
 
-    df = df[df[WISQARS_INTENT].isin(["Homicide", "Suicide", "All Intents"])].copy()
+    df = df[df[WISQARS_INTENT].isin([WISQARS_HOMICIDE, WISQARS_SUICIDE, WISQARS_ALL_INTENTS])].copy()
 
     # Reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
