@@ -105,7 +105,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_POP,
 )
 from typing import List
-from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_DEMO_TYPE, WISQARS_VAR_TYPE, GEO_TYPE
+from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
 
 
 WISQARS_URL_MAP = {

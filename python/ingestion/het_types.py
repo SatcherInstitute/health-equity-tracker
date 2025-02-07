@@ -59,9 +59,6 @@ TOPIC_CATEGORY_TYPE = Literal[
 PHRMA_DATASET_TYPE = Literal["brfss", "medicare"]
 
 WISQARS_VAR_TYPE = Literal[
-    "fatal_gun_injuries",
-    "gun_violence_homicide",
-    "gun_violence_suicide",
     "gun_deaths",
     "gun_homicides_suicides",
     "gun_deaths_young_adults",
