@@ -143,7 +143,6 @@ WISQARS_URL_MAP = {
     "gun_homicides_suicides-state-race_and_ethnicity": "https://wisqars.cdc.gov/reports/?o=MORT&y1=2018&y2=2022&t=0&i=0&m=20890&g=00&me=0&s=0&r=0&ry=2&e=1&yp=65&a=ALL&g1=0&g2=199&a1=0&a2=199&r1=YEAR&r2=INTENT&r3=RACE-SINGLE&r4=STATE",  # noqa: E501
 }
 
-
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
 RAW_TOTALS_MAP = generate_cols_map(INJ_INTENTS, std_col.RAW_SUFFIX)
 RAW_POPULATIONS_MAP = generate_cols_map(INJ_OUTCOMES, std_col.POPULATION_COL)
