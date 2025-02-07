@@ -22,10 +22,14 @@ DATA_DIR = "cdc_wisqars"
 
 INJ_OUTCOMES = [std_col.FATAL_PREFIX]
 
-INJ_INTENTS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX, "gun_deaths"]
+INJ_INTENTS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX]
 
+WISQARS_INTENT = "Intent"
 WISQARS_URBANICITY = "Metro / Non-Metro"
 WISQARS_AGE_GROUP = "Age Group"
+WISQARS_RACE = "Race"
+WISQARS_ETH = "Ethnicity"
+WISQARS_SEX = "Sex"
 WISQARS_YEAR = "Year"
 WISQARS_STATE = "State"
 WISQARS_DEATHS = "Deaths"
@@ -52,6 +56,8 @@ RACE_NAMES_MAPPING = {
     "More than One Race": std_col.Race.MULTI_NH.value,
     "White": std_col.Race.WHITE_NH.value,
 }
+
+ETHNICITY_NAMES_MAPPING = {"Hispanic": std_col.Race.HISP.value, "Unknown": std_col.Race.UNKNOWN.value}
 
 
 def clean_numeric(val):
@@ -237,7 +243,7 @@ def load_wisqars_as_df_from_data_dir(
     if geo_level == NATIONAL_LEVEL:
         df.insert(1, WISQARS_STATE, US_NAME)
 
-    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
+    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE, WISQARS_POP]
     convert_columns_to_numeric(df, columns_to_convert)
 
     return df
