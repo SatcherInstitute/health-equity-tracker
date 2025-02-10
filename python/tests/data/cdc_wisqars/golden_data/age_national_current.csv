@@ -1,10 +1,10 @@
-state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,fatal_population
-United States,00,0-14,0.82,0.29,2.5,0.6,17.8,488.0,175.0,59437387.0
-United States,00,15-19,12.2,4.91,13.4,3.9,6.5,2639.0,1063.0,21635792.0
-United States,00,20-24,13.98,9.61,16.2,8.1,6.8,3175.0,2183.0,22705779.0
-United States,00,25-29,13.26,9.47,15.0,7.8,6.7,2943.0,2102.0,22193164.0
-United States,00,30-34,12.41,9.13,14.7,7.9,7.0,2893.0,2128.0,23308136.0
-United States,00,35-44,8.84,8.6,19.6,13.9,13.1,3861.0,3759.0,43695365.0
-United States,00,45-64,3.67,10.0,15.4,30.5,24.8,3027.0,8250.0,82517082.0
-United States,00,65+,1.08,12.75,3.2,27.3,17.3,625.0,7367.0,57794852.0
-United States,00,All,5.9,8.11,100.0,100.0,100.0,19651.0,27032.0,333287557.0
+state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population
+United States,00,0-14,0.82,0.29,1.32,2.5,0.6,1.6,17.8,488.0,175.0,784.0,59437387.0
+United States,00,15-19,12.2,4.91,17.73,13.4,3.9,8.0,6.5,2639.0,1063.0,3835.0,21635792.0
+United States,00,20-24,13.98,9.61,24.35,16.2,8.1,11.5,6.8,3175.0,2183.0,5528.0,22705779.0
+United States,00,25-29,13.26,9.47,23.51,15.0,7.8,10.8,6.7,2943.0,2102.0,5218.0,22193164.0
+United States,00,30-34,12.41,9.13,22.39,14.7,7.9,10.8,7.0,2893.0,2128.0,5218.0,23308136.0
+United States,00,35-44,8.84,8.6,18.09,19.6,13.9,16.4,13.1,3861.0,3759.0,7904.0,43695365.0
+United States,00,45-64,3.67,10.0,14.06,15.4,30.5,24.1,24.8,3027.0,8250.0,11606.0,82517082.0
+United States,00,65+,1.08,12.75,14.03,3.2,27.3,16.8,17.3,625.0,7367.0,8111.0,57794852.0
+United States,00,All,5.9,8.11,14.46,100.0,100.0,100.0,100.0,19651.0,27032.0,48204.0,333287557.0
