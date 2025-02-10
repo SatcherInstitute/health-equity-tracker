@@ -2,26 +2,70 @@ import * as d3 from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { isPctType } from '../../data/config/MetricConfigUtils'
+import { LESS_THAN_POINT_1 } from '../../data/utils/Constants'
+import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
+import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
-import type {
-  CreateColorScaleProps,
-  CreateFeaturesProps,
-  CreateProjectionProps,
-  GetFillColorProps,
-} from './types'
+import { D3_MAP_SCHEMES } from './colorSchemes'
+import type { CreateColorScaleProps, GetFillColorProps } from './types'
 
-const { altGrey: ALT_GREY } = het
+const {
+  altGrey: ALT_GREY,
+  white: WHITE,
+  greyGridColorDarker: BORDER_GREY,
+} = het
+
+function computeBreakpoints(data: number[]) {
+  if (data.length < 5) {
+    console.warn('⚠️ Not enough data points to compute breakpoints.')
+    return []
+  }
+
+  const quantiles = [0.2, 0.4, 0.6, 0.8]
+
+  const upperBounds = quantiles
+    .map((q) => d3.quantileSorted(data, q))
+    .filter((d): d is number => d !== null)
+
+  const finalLowerBoundIndex = data.findIndex(
+    (d) => d > upperBounds[upperBounds.length - 1],
+  )
+
+  const finalLowerBound =
+    finalLowerBoundIndex !== -1
+      ? data[finalLowerBoundIndex]
+      : data[data.length - 1]
+
+  return [...upperBounds, finalLowerBound]
+}
 
 export const createColorScale = (props: CreateColorScaleProps) => {
-  const interpolatorFn = props.reverse
-    ? (t: number) => props.colorScheme(1 - t)
-    : props.colorScheme
+  let interpolatorFn
 
-  let colorScale: d3.ScaleSequential<string>
+  if (props.scaleConfig?.range) {
+    let colorArray = props.scaleConfig.range
+
+    if (props.reverse) {
+      colorArray = [...colorArray].reverse()
+    }
+
+    interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
+  } else {
+    const resolvedScheme =
+      typeof props.colorScheme === 'string'
+        ? D3_MAP_SCHEMES[props.colorScheme] || d3.interpolateBlues
+        : props.colorScheme
+
+    interpolatorFn = props.reverse
+      ? (t: number) => resolvedScheme(1 - t)
+      : resolvedScheme
+  }
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
-    props.data,
+    props.dataWithHighestLowest,
     props.metricId,
   )
 
@@ -33,36 +77,39 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
-  const adjustedInterpolatorFn = (t: number) => {
-    const adjustedT = 0.1 + 0.9 * t // Scale the range to skip the lightest 10%
-    return interpolatorFn(adjustedT)
-  }
+  let colorScale
 
-  if (props.scaleType === 'quantileSequential') {
-    const values = props.data
-      .map((d) => d[props.metricId])
-      .filter((val) => val != null && !isNaN(val))
+  if (props.isUnknown || props.fips.isCounty()) {
     colorScale = d3
-      .scaleSequentialQuantile<string>(adjustedInterpolatorFn)
-      .domain(values)
-  } else if (props.scaleType === 'sequentialSymlog') {
-    colorScale = d3
-      .scaleSequentialSymlog<string>()
+      .scaleSequentialSymlog()
       .domain([min, max])
-      .interpolator(adjustedInterpolatorFn)
+      .interpolator(interpolatorFn)
   } else {
-    console.error(`Unsupported scaleType: ${props.scaleType}.`)
-    return d3.scaleSequential(interpolatorFn).domain([0, 1])
+    const domain = props.scaleConfig?.domain || []
+    const range = props.scaleConfig?.range || []
+
+    const breakpoints = computeBreakpoints(domain)
+
+    if (breakpoints.length !== range.length - 1) {
+      console.warn(
+        'Threshold domain length must be one less than range length. Adjusting automatically.',
+      )
+    }
+
+    colorScale = d3
+      .scaleThreshold<number, string>()
+      .domain(breakpoints)
+      .range(range)
   }
 
   return colorScale
 }
 
 export const createFeatures = async (
-  props: CreateFeaturesProps,
+  showCounties: boolean,
+  parentFips: string,
+  geoData?: Record<string, any>,
 ): Promise<FeatureCollection> => {
-  const { showCounties, parentFips, geoData } = props
-
   const topology =
     geoData ??
     JSON.parse(
@@ -92,10 +139,11 @@ export const createFeatures = async (
 }
 
 export const createProjection = (
-  props: CreateProjectionProps,
+  fips: Fips,
+  width: number,
+  height: number,
+  features: FeatureCollection,
 ): d3.GeoProjection => {
-  const { fips, width, height, features } = props
-
   const isTerritory = fips.isTerritory() || fips.getParentFips().isTerritory()
   return isTerritory
     ? d3.geoAlbers().fitSize([width, height], features)
@@ -103,8 +151,79 @@ export const createProjection = (
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, colorScale } = props
+  const { d, dataMap, colorScale, extremesMode } = props
 
-  const value = dataMap.get(d.id as string)
-  return value !== undefined ? colorScale(value) : ALT_GREY
+  const value = dataMap.get(d.id as string)?.value as number
+
+  if (value !== undefined) {
+    return colorScale(value)
+  } else {
+    return extremesMode ? WHITE : ALT_GREY
+  }
+}
+
+export const createTooltipContainer = () => {
+  return d3
+    .select('body')
+    .append('div')
+    .style('position', 'absolute')
+    .style('visibility', 'hidden')
+    .style('background-color', WHITE)
+    .style('border', `1px solid ${BORDER_GREY}`)
+    .style('border-radius', '4px')
+    .style('padding', '8px')
+    .style('font-size', '12px')
+    .style('z-index', '1000')
+}
+
+export const formatMetricValue = (
+  value: number | undefined,
+  metricConfig: MetricConfig,
+): string => {
+  if (value === undefined) return 'no data'
+
+  if (metricConfig.type === 'per100k') {
+    if (value < 0.1) return `${LESS_THAN_POINT_1} per 100k`
+    return `${d3.format(',.2s')(value)} per 100k`
+  }
+
+  if (isPctType(metricConfig.type)) {
+    return `${d3.format('d')(value)}%`
+  }
+
+  return d3.format(',.2r')(value)
+}
+
+export const processPhrmaData = (
+  data: Array<Record<string, any>>,
+  countColsMap: CountColsMap,
+) => {
+  return data.map((row) => {
+    const newRow = { ...row }
+
+    const processField = (
+      fieldConfig:
+        | typeof countColsMap.numeratorConfig
+        | typeof countColsMap.denominatorConfig,
+    ) => {
+      if (!fieldConfig) return
+
+      const value = row[fieldConfig.metricId]
+      if (value === null) return DATA_SUPPRESSED
+      if (value >= 0) return value.toLocaleString()
+      return value
+    }
+
+    const numeratorId = countColsMap?.numeratorConfig?.metricId
+    const denominatorId = countColsMap?.denominatorConfig?.metricId
+
+    if (numeratorId) {
+      newRow[numeratorId] = processField(countColsMap?.numeratorConfig)
+    }
+    if (denominatorId) {
+      newRow[denominatorId] = processField(countColsMap?.denominatorConfig)
+    }
+
+    return newRow
+  })
 }

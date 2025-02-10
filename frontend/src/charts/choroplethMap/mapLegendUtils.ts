@@ -9,7 +9,7 @@ const { altGrey } = het
 export const createUnknownLegend = (
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
   props: {
-    data: DataPoint[]
+    dataWithHighestLowest: DataPoint[]
     metricId: MetricId
     width: number
     colorScale: d3.ScaleSequential<string>
@@ -24,7 +24,7 @@ export const createUnknownLegend = (
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
   const tickCount = isMobile
     ? 3
-    : calculateLegendColorCount(props.data, props.metricId)
+    : calculateLegendColorCount(props.dataWithHighestLowest, props.metricId)
 
   const ticks = d3
     .scaleLinear()
