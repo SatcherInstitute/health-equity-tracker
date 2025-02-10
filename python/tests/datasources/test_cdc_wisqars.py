@@ -49,7 +49,7 @@ def test_write_to_bq_age_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="age", geographic="national")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 4
     assert mock_bq.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
@@ -77,7 +77,7 @@ def test_write_to_bq_race_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national")
 
-    assert mock_data_dir.call_count == 3  # extra call for the ETH table which is distinct from the NH RACE table
+    assert mock_data_dir.call_count == 6  # extra calls for the ETH tables, distinct from the NH RACE tables
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -106,7 +106,7 @@ def test_write_to_bq_sex_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="national")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 4
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -135,7 +135,7 @@ def test_write_to_bq_sex_state(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="state")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 4
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
