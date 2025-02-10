@@ -18,17 +18,51 @@ const {
   greyGridColorDarker: BORDER_GREY,
 } = het
 
-export const createColorScale = (props: CreateColorScaleProps) => {
-  // Resolve string-based Vega schemes to D3 functions
-  const resolvedScheme =
-    typeof props.colorScheme === 'string'
-      ? D3_MAP_SCHEMES[props.colorScheme] || d3.interpolateBlues
-      : props.colorScheme
+function computeBreakpoints(data: number[]) {
+  if (data.length < 5) {
+    console.warn('⚠️ Not enough data points to compute breakpoints.')
+    return []
+  }
 
-  // Handle reversing the color scale
-  const interpolatorFn = props.reverse
-    ? (t: number) => resolvedScheme(1 - t)
-    : resolvedScheme
+  const quantiles = [0.2, 0.4, 0.6, 0.8]
+
+  const upperBounds = quantiles
+    .map((q) => d3.quantileSorted(data, q))
+    .filter((d): d is number => d !== null)
+
+  const finalLowerBoundIndex = data.findIndex(
+    (d) => d > upperBounds[upperBounds.length - 1],
+  )
+
+  const finalLowerBound =
+    finalLowerBoundIndex !== -1
+      ? data[finalLowerBoundIndex]
+      : data[data.length - 1]
+
+  return [...upperBounds, finalLowerBound]
+}
+
+export const createColorScale = (props: CreateColorScaleProps) => {
+  let interpolatorFn
+
+  if (props.scaleConfig?.range) {
+    let colorArray = props.scaleConfig.range
+
+    if (props.reverse) {
+      colorArray = [...colorArray].reverse()
+    }
+
+    interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
+  } else {
+    const resolvedScheme =
+      typeof props.colorScheme === 'string'
+        ? D3_MAP_SCHEMES[props.colorScheme] || d3.interpolateBlues
+        : props.colorScheme
+
+    interpolatorFn = props.reverse
+      ? (t: number) => resolvedScheme(1 - t)
+      : resolvedScheme
+  }
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     props.dataWithHighestLowest,
@@ -43,26 +77,29 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
-  const adjustedInterpolatorFn = (t: number) => {
-    const adjustedT = 0.1 + 0.9 * t // Scale the range to skip the lightest 10%
-    return interpolatorFn(adjustedT)
-  }
-
   let colorScale
 
   if (props.isUnknown || props.fips.isCounty()) {
     colorScale = d3
       .scaleSequentialSymlog()
       .domain([min, max])
-      .interpolator(adjustedInterpolatorFn)
+      .interpolator(interpolatorFn)
   } else {
-    const values = props.dataWithHighestLowest
-      .map((d) => d[props.metricId])
-      .filter((val) => val != null && !isNaN(val))
+    const domain = props.scaleConfig?.domain || []
+    const range = props.scaleConfig?.range || []
+
+    const breakpoints = computeBreakpoints(domain)
+
+    if (breakpoints.length !== range.length - 1) {
+      console.warn(
+        'Threshold domain length must be one less than range length. Adjusting automatically.',
+      )
+    }
 
     colorScale = d3
-      .scaleSequentialQuantile(adjustedInterpolatorFn)
-      .domain(values)
+      .scaleThreshold<number, string>()
+      .domain(breakpoints)
+      .range(range)
   }
 
   return colorScale

@@ -149,7 +149,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
-  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+  const [scale, setScale] = useState<{ domain: number[]; range: string[] }>({
     domain: [],
     range: [],
   })
@@ -259,7 +259,7 @@ function MapCardWithKey(props: MapCardProps) {
   if (extremesMode) subtitle += ` (only ${pluralChildFips} with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
-  function handleScaleChange(domain: number[], range: number[]) {
+  function handleScaleChange(domain: number[], range: string[]) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
@@ -555,6 +555,7 @@ function MapCardWithKey(props: MapCardProps) {
                       mapConfig={mapConfig}
                       isPhrmaAdherence={isPhrmaAdherence}
                       updateFipsCallback={props.updateFipsCallback}
+                      scaleConfig={scale}
                     />
                   </div>
 

@@ -68,6 +68,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         isUnknown: props.isUnknownsMap,
         fips: props.fips,
         reverse: !props.mapConfig.higherIsBetter && !props.isUnknownsMap,
+        scaleConfig: props.scaleConfig,
       })
 
       const features = await createFeatures(
