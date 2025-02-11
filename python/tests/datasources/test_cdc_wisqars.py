@@ -3,6 +3,7 @@ from pandas._testing import assert_frame_equal
 from datasources.cdc_wisqars import CDCWisqarsData
 import pandas as pd
 import os
+from test_utils import _load_csv_as_df_from_real_data_dir
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
@@ -39,26 +40,8 @@ GOLDEN_DATA = {
 DTYPE = {"state_fips": str, "time_period": str}
 
 
-def _load_csv_as_df_from_data_dir(*args, **kwargs):
-    directory, filename = args
-    use_cols = kwargs["usecols"]
-
-    df = pd.read_csv(
-        os.path.join(TEST_DIR, directory, filename),
-        usecols=use_cols,
-        na_values=["--"],
-        dtype={"Year": str, "Population": float},
-        thousands=",",
-    )
-
-    return df
-
-
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_real_data_dir)
 def test_write_to_bq_age_national(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
@@ -66,7 +49,7 @@ def test_write_to_bq_age_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="age", geographic="national")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 4
     assert mock_bq.call_count == 2
 
     (mock_current, mock_historical) = mock_bq.call_args_list
@@ -86,10 +69,7 @@ def test_write_to_bq_age_national(
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_real_data_dir)
 def test_write_to_bq_race_national(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
@@ -97,7 +77,7 @@ def test_write_to_bq_race_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 6  # extra calls for the ETH tables, distinct from the NH RACE tables
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -118,10 +98,7 @@ def test_write_to_bq_race_national(
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_real_data_dir)
 def test_write_to_bq_sex_national(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
@@ -129,7 +106,7 @@ def test_write_to_bq_sex_national(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="national")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 4
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
@@ -150,10 +127,7 @@ def test_write_to_bq_sex_national(
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_real_data_dir)
 def test_write_to_bq_sex_state(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
@@ -161,7 +135,7 @@ def test_write_to_bq_sex_state(
     datasource = CDCWisqarsData()
     datasource.write_to_bq("dataset", "gcs_bucket", demographic="sex", geographic="state")
 
-    assert mock_data_dir.call_count == 2
+    assert mock_data_dir.call_count == 4
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
