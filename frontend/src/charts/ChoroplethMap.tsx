@@ -109,16 +109,30 @@ interface ChoroplethMapProps {
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
   isPhrmaAdherence?: boolean
+  onlyAtlantCounties?: boolean
+}
+
+export function isAtlantaCounty(fipsCode: string) {
+  return ['13089', '13121', '13135', '13067', '13063'].includes(fipsCode)
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
+  function isAtlantaCounty(fipsCode: string) {
+    return ['13089', '13121', '13135', '13067', '13063'].includes(fipsCode)
+  }
+
   const isMobile = !useIsBreakpointAndUp('md')
 
-  const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
+  const zeroData = props.data.filter(
+    (row) => row[props.metric.metricId] === 0 && isAtlantaCounty(row.fips),
+  )
   const isCawp = CAWP_METRICS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
 
   let suppressedData = props.data
+
+  if (props.onlyAtlantCounties)
+    suppressedData = suppressedData.filter((row) => isAtlantaCounty(row.fips))
 
   if (isPhrma) {
     suppressedData = props.data.map((row: HetRow) => {
@@ -165,7 +179,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const [spec, setSpec] = useState({})
 
   // Dataset to use for computing the legend
-  const legendData = props.legendData ?? props.data
+  let legendData = props.legendData ?? props.data
+  if (props.onlyAtlantCounties)
+    legendData = legendData.filter((row) => isAtlantaCounty(row.fips))
 
   const geoData = props.geoData
     ? { values: props.geoData }
@@ -219,6 +235,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     geoTransformers.push({
       type: 'filter',
       expr: `datum.id === "${props.fips.code}"`,
+    })
+  }
+  // Add Metro Atlanta filter
+  if (props.onlyAtlantCounties) {
+    geoTransformers.push({
+      type: 'filter',
+      expr: `indexof(['13089', '13121', '13135', '13067', '13063'], datum.id) >= 0`,
     })
   }
 
@@ -497,6 +520,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendData,
     props.mapConfig.scheme,
     props.mapConfig.min,
+    props.onlyAtlantCounties,
   ])
 
   const [shouldRenderMap, setShouldRenderMap] = useState(false)

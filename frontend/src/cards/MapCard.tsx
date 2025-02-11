@@ -1,7 +1,7 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import ChoroplethMap from '../charts/ChoroplethMap'
+import ChoroplethMap, { isAtlantaCounty } from '../charts/ChoroplethMap'
 import { Legend } from '../charts/Legend'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
@@ -118,6 +118,8 @@ function MapCardWithKey(props: MapCardProps) {
     extremesParamsKey,
     false,
   )
+
+  const [atlantaMode, setAtlantaMode] = useParamState<boolean>('atl', false)
 
   const MULTIMAP_PARAM_KEY = props.isCompareCard
     ? MULTIPLE_MAPS_2_PARAM_KEY
@@ -332,9 +334,16 @@ function MapCardWithKey(props: MapCardProps) {
             (row: HetRow) => row[demographicType] === activeDemographicGroup,
           )
 
-        const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
+        let allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
           (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
+
+        if (atlantaMode) {
+          allDataForActiveDemographicGroup =
+            allDataForActiveDemographicGroup.filter((row: HetRow) =>
+              isAtlantaCounty(row.fips),
+            )
+        }
 
         const dataForSvi: HetRow[] =
           sviQueryResponse
@@ -526,6 +535,17 @@ function MapCardWithKey(props: MapCardProps) {
                       ) : null
                     }
                   />
+
+                  <HetLinkButton
+                    onClick={() => setAtlantaMode(!atlantaMode)}
+                    className='flex items-center'
+                  >
+                    <span className='mt-1 px-1'>
+                      {atlantaMode
+                        ? 'Return to all Georgia counties'
+                        : 'Show only counties in Metro Atlanta'}
+                    </span>
+                  </HetLinkButton>
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -555,6 +575,7 @@ function MapCardWithKey(props: MapCardProps) {
                       mapConfig={mapConfig}
                       scaleConfig={scale}
                       isPhrmaAdherence={isPhrmaAdherence}
+                      onlyAtlantCounties={atlantaMode}
                     />
                   </div>
 
