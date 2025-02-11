@@ -213,6 +213,8 @@ const initializeSvg = (props: InitializeSvgProps) => {
   }
 }
 
+let tooltipRoot: ReturnType<typeof createRoot> | null = null
+
 const handleMouseEvent = (
   type: 'mouseover' | 'mousemove' | 'mouseout',
   event: any,
@@ -230,6 +232,10 @@ const handleMouseEvent = (
   const tooltipNode = tooltipContainer.node()
   if (!tooltipNode) return
 
+  if (!tooltipRoot) {
+    tooltipRoot = createRoot(tooltipNode) // Create root only once
+  }
+
   if (type === 'mouseover' && d && dataMap) {
     const value = dataMap.get(d.id as string)?.value
 
@@ -237,9 +243,7 @@ const handleMouseEvent = (
       .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
       .style('cursor', 'pointer')
 
-    // Use ReactDOM to render the tooltip component inside the tooltip container
-    const root = createRoot(tooltipNode)
-    root.render(
+    tooltipRoot.render(
       <TooltipContent
         feature={d}
         dataMap={dataMap}
@@ -267,9 +271,8 @@ const handleMouseEvent = (
 
     tooltipContainer.style('visibility', 'hidden')
 
-    // Clear the tooltip content when the mouse leaves
-    const root = createRoot(tooltipNode)
-    root.unmount()
+    tooltipRoot.unmount()
+    tooltipRoot = null
   }
 }
 
