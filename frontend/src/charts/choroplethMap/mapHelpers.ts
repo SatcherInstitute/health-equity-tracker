@@ -63,7 +63,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
       .scaleThreshold<number, string>()
       .domain(thresholds)
       .range(colors)
-  } else if (props.isUnknown || props.fips.isCounty()) {
+  } else if (props.isUnknown) {
     const darkerInterpolator = (t: number) => {
       const color = d3.color(interpolatorFn(t))
       return color ? color.darker(0.1) : null
