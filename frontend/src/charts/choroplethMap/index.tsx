@@ -89,7 +89,6 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         height,
         tooltipContainer: tooltipContainerRef.current!,
         showCounties: props.showCounties,
-        updateFipsCallback: props.updateFipsCallback,
         colorScale,
         fips: props.fips,
         isMobile,
@@ -100,6 +99,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         isUnknownsMap: props.isUnknownsMap,
         extremesMode: props.extremesMode,
         mapConfig: props.mapConfig,
+        signalListeners: props.signalListeners,
       })
     }
 
@@ -120,7 +120,6 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
     props.overrideShapeWithCircle,
     metric,
     dataWithHighestLowest,
-    props.updateFipsCallback,
     props.mapConfig,
     props.fips,
     isMobile,

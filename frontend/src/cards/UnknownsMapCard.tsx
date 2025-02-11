@@ -235,7 +235,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   metric={metricConfig}
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
-                  updateFipsCallback={props.updateFipsCallback}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles

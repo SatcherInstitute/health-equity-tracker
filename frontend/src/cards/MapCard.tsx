@@ -554,7 +554,6 @@ function MapCardWithKey(props: MapCardProps) {
                       signalListeners={signalListeners}
                       mapConfig={mapConfig}
                       isPhrmaAdherence={isPhrmaAdherence}
-                      updateFipsCallback={props.updateFipsCallback}
                       scaleConfig={scale}
                     />
                   </div>

@@ -53,7 +53,6 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  updateFipsCallback: (fips: Fips) => void
   scaleConfig?: {
     domain: number[]
     range: string[]
@@ -104,6 +103,8 @@ export type GetFillColorProps = {
   colorScale: ColorScale
   extremesMode?: boolean
   zeroColor: string
+  countyColor: string
+  fips?: Fips
 }
 
 export type HetRow = DataPoint & {
@@ -138,13 +139,13 @@ export type RenderMapProps = {
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
-  updateFipsCallback: (fips: Fips) => void
   width: number
   fips: Fips
   isMobile: boolean
   isCawp: boolean
   extremesMode: boolean
   mapConfig: MapConfig
+  signalListeners: any
 }
 
 export type TooltipFeature = {

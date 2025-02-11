@@ -8,7 +8,7 @@ import {
   CAWP_METRICS,
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
-import { Fips } from '../../data/utils/Fips'
+import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
 import {
   getCawpMapGroupDenominatorLabel,
@@ -124,7 +124,9 @@ export const renderMap = (props: RenderMapProps) => {
         dataMap,
         colorScale,
         extremesMode,
-        zeroColor: props.mapConfig.min, // Pass zero color
+        zeroColor: props.mapConfig.min,
+        countyColor: props.mapConfig.mid,
+        fips: props.fips,
       }),
     )
     .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
@@ -171,7 +173,7 @@ export const renderMap = (props: RenderMapProps) => {
         props.mapConfig,
       ),
     )
-    .on('click', (event, d) => handleMapClick(d, props.updateFipsCallback))
+    .on('click', props.signalListeners.click)
 
   if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
     const { metricId } = metric
@@ -226,6 +228,7 @@ const handleMouseEvent = (
   geographyType?: string,
   extremesMode?: boolean,
   mapConfig?: MapConfig,
+  fips?: Fips,
 ) => {
   if (!tooltipContainer) return
 
@@ -233,7 +236,7 @@ const handleMouseEvent = (
   if (!tooltipNode) return
 
   if (!tooltipRoot) {
-    tooltipRoot = createRoot(tooltipNode) // Create root only once
+    tooltipRoot = createRoot(tooltipNode)
   }
 
   if (type === 'mouseover' && d && dataMap) {
@@ -266,6 +269,8 @@ const handleMouseEvent = (
         colorScale,
         extremesMode,
         zeroColor: mapConfig?.min || '',
+        countyColor: mapConfig?.mid || '',
+        fips,
       }),
     )
 
@@ -273,13 +278,5 @@ const handleMouseEvent = (
 
     tooltipRoot.unmount()
     tooltipRoot = null
-  }
-}
-
-const handleMapClick = (d: any, updateFipsCallback: (fips: Fips) => void) => {
-  const clickedFips = d.id as string
-  if (clickedFips) {
-    updateFipsCallback(new Fips(clickedFips))
-    location.hash = '#unknown-demographic-map'
   }
 }

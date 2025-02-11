@@ -129,12 +129,16 @@ export const createProjection = (
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, colorScale, extremesMode, zeroColor } = props
+  const { d, dataMap, colorScale, extremesMode, zeroColor, countyColor } = props
 
   const value = dataMap.get(d.id as string)?.value as number
 
+  if (props.fips?.isCounty()) {
+    return countyColor
+  }
+
   if (value === 0) {
-    return zeroColor // Use the specified color for zero values
+    return zeroColor
   }
 
   if (value !== undefined) {
