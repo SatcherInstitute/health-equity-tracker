@@ -117,10 +117,6 @@ export function isAtlantaCounty(fipsCode: string) {
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
-  function isAtlantaCounty(fipsCode: string) {
-    return ['13089', '13121', '13135', '13067', '13063'].includes(fipsCode)
-  }
-
   const isMobile = !useIsBreakpointAndUp('md')
 
   const zeroData = props.data.filter(
