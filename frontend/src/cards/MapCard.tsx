@@ -52,6 +52,7 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
+  ATLANTA_MODE,
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
@@ -119,7 +120,10 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
-  const [atlantaMode, setAtlantaMode] = useParamState<boolean>('atl', false)
+  const [atlantaMode, setAtlantaMode] = useParamState<boolean>(
+    ATLANTA_MODE,
+    false,
+  )
 
   const MULTIMAP_PARAM_KEY = props.isCompareCard
     ? MULTIPLE_MAPS_2_PARAM_KEY
@@ -250,7 +254,12 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   const { metricId, chartTitle } = metricConfig
-  const title = generateChartTitle(chartTitle, props.fips)
+  const title = generateChartTitle(
+    chartTitle,
+    props.fips,
+    undefined,
+    atlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
+  )
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
@@ -294,9 +303,9 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getTotalACSPopulationPhrase(
-          acsPopulationQueryResponse.data,
-        )
+        const totalPopulationPhrase = atlantaMode
+          ? 'Metro Atlanta Counties'
+          : getTotalACSPopulationPhrase(acsPopulationQueryResponse.data)
 
         let subPopSourceLabel =
           Object.values(dataSourceMetadataMap).find((metadata) =>
@@ -310,12 +319,14 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel = '@unitedstates'
         }
 
-        const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse.data,
-          subPopSourceLabel,
-          demographicType,
-          props.dataTypeConfig,
-        )
+        const subPopulationPhrase = atlantaMode
+          ? ''
+          : getSubPopulationPhrase(
+              parentGeoQueryResponse.data,
+              subPopSourceLabel,
+              demographicType,
+              props.dataTypeConfig,
+            )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs = getSortArgs(demographicType)
@@ -454,6 +465,8 @@ function MapCardWithKey(props: MapCardProps) {
           return mapQueryResponse.getFieldRange(metricConfig.metricId)
         }, [mapQueryResponse.data, metricConfig.metricId])
 
+        const isGeorgia = props.fips.code === '13'
+
         return (
           <>
             <MultiMapDialog
@@ -488,6 +501,7 @@ function MapCardWithKey(props: MapCardProps) {
               subtitle={subtitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
+              onlyAtlantaCounties={atlantaMode}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -536,16 +550,18 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                   />
 
-                  <HetLinkButton
-                    onClick={() => setAtlantaMode(!atlantaMode)}
-                    className='flex items-center'
-                  >
-                    <span className='mt-1 px-1'>
-                      {atlantaMode
-                        ? 'Return to all Georgia counties'
-                        : 'Show only counties in Metro Atlanta'}
-                    </span>
-                  </HetLinkButton>
+                  {isGeorgia && !extremesMode && (
+                    <HetLinkButton
+                      onClick={() => setAtlantaMode(!atlantaMode)}
+                      className='flex items-center'
+                    >
+                      <span className='mt-1 px-1'>
+                        {atlantaMode
+                          ? 'Return to all counties'
+                          : 'Highlight metro Atlanta counties'}
+                      </span>
+                    </HetLinkButton>
+                  )}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -575,7 +591,7 @@ function MapCardWithKey(props: MapCardProps) {
                       mapConfig={mapConfig}
                       scaleConfig={scale}
                       isPhrmaAdherence={isPhrmaAdherence}
-                      onlyAtlantCounties={atlantaMode}
+                      onlyAtlantaCounties={atlantaMode}
                     />
                   </div>
 
@@ -641,7 +657,8 @@ function MapCardWithKey(props: MapCardProps) {
                 }
               >
                 {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveDemographicGroup.length > 1 && (
+                  dataForActiveDemographicGroup.length > 1 &&
+                  !atlantaMode && (
                     <ExtremesListBox
                       dataTypeConfig={props.dataTypeConfig}
                       selectedRaceSuffix={selectedRaceSuffix}

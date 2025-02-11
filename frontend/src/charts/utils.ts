@@ -98,12 +98,13 @@ export function generateChartTitle(
   chartTitle: string,
   fips: Fips,
   demographicType?: DemographicType,
+  geoOverride?: string,
 ): string {
   return `${chartTitle}${
     demographicType
       ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
       : ''
-  } in ${fips.getSentenceDisplayName()}`
+  } in ${geoOverride ?? fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(

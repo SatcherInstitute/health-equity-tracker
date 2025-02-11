@@ -189,10 +189,10 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
     dataTypeId: 'gun_deaths',
     dataTypeShortLabel: 'Gun Deaths',
     definition: {
-      text: 'Deaths resulting from firearms.',
+      text: 'Deaths resulting from firearms used with any intent, including Homicide, Suicide, Legal Intervention, Unintentional, and Undetermined.',
     },
     description: {
-      text: '',
+      text: 'Research on gun deaths reveals how factors like poverty, education levels, and neighborhood conditions drive disparities in firearm mortality, helping inform prevention strategies to reduce these preventable deaths.',
     },
     fullDisplayName: 'Gun deaths',
     fullDisplayNameInline: 'gun deaths',

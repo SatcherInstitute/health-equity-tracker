@@ -109,7 +109,7 @@ interface ChoroplethMapProps {
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
   isPhrmaAdherence?: boolean
-  onlyAtlantCounties?: boolean
+  onlyAtlantaCounties?: boolean
 }
 
 export function isAtlantaCounty(fipsCode: string) {
@@ -131,7 +131,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   let suppressedData = props.data
 
-  if (props.onlyAtlantCounties)
+  if (props.onlyAtlantaCounties)
     suppressedData = suppressedData.filter((row) => isAtlantaCounty(row.fips))
 
   if (isPhrma) {
@@ -179,9 +179,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const [spec, setSpec] = useState({})
 
   // Dataset to use for computing the legend
-  let legendData = props.legendData ?? props.data
-  if (props.onlyAtlantCounties)
-    legendData = legendData.filter((row) => isAtlantaCounty(row.fips))
+  const legendData = props.legendData ?? suppressedData
 
   const geoData = props.geoData
     ? { values: props.geoData }
@@ -238,7 +236,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     })
   }
   // Add Metro Atlanta filter
-  if (props.onlyAtlantCounties) {
+  if (props.onlyAtlantaCounties) {
     geoTransformers.push({
       type: 'filter',
       expr: `indexof(['13089', '13121', '13135', '13067', '13063'], datum.id) >= 0`,
@@ -520,7 +518,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendData,
     props.mapConfig.scheme,
     props.mapConfig.min,
-    props.onlyAtlantCounties,
+    props.onlyAtlantaCounties,
   ])
 
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
