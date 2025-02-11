@@ -54,7 +54,7 @@ export interface ChoroplethMapProps {
     subtitle?: string
   }
   updateFipsCallback: (fips: Fips) => void
-  scaleConfig: {
+  scaleConfig?: {
     domain: number[]
     range: string[]
   }
@@ -68,7 +68,7 @@ export interface CreateColorScaleProps {
   fieldRange?: FieldRange
   isUnknown?: boolean
   fips: Fips
-  scaleConfig: {
+  scaleConfig?: {
     domain: number[]
     range: string[]
   }
