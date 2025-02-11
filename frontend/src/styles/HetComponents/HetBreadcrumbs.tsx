@@ -15,8 +15,6 @@ export default function HetBreadcrumbs(props: {
 }) {
   const location = useLocation()
 
-  
-
   return (
     <Breadcrumbs
       className='mx-3 my-1 justify-center'
