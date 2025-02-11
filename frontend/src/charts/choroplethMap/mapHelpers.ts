@@ -18,30 +18,6 @@ const {
   greyGridColorDarker: BORDER_GREY,
 } = het
 
-function computeBreakpoints(data: number[]) {
-  if (data.length < 5) {
-    console.warn('⚠️ Not enough data points to compute breakpoints.')
-    return []
-  }
-
-  const quantiles = [0.2, 0.4, 0.6, 0.8]
-
-  const upperBounds = quantiles
-    .map((q) => d3.quantileSorted(data, q))
-    .filter((d): d is number => d !== null)
-
-  const finalLowerBoundIndex = data.findIndex(
-    (d) => d > upperBounds[upperBounds.length - 1],
-  )
-
-  const finalLowerBound =
-    finalLowerBoundIndex !== -1
-      ? data[finalLowerBoundIndex]
-      : data[data.length - 1]
-
-  return [...upperBounds, finalLowerBound]
-}
-
 export const createColorScale = (props: CreateColorScaleProps) => {
   let interpolatorFn
 
@@ -79,27 +55,29 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 
   let colorScale
 
-  if (props.isUnknown || props.fips.isCounty()) {
+  if (props.isPhrma) {
+    const thresholds = props.scaleConfig?.domain || []
+    const colors = props.scaleConfig?.range || []
+
+    colorScale = d3
+      .scaleThreshold<number, string>()
+      .domain(thresholds)
+      .range(colors)
+  } else if (props.isUnknown || props.fips.isCounty()) {
+    const darkerInterpolator = (t: number) => {
+      const color = d3.color(interpolatorFn(t))
+      return color ? color.darker(0.1) : null
+    }
+
     colorScale = d3
       .scaleSequentialSymlog()
       .domain([min, max])
-      .interpolator(interpolatorFn)
+      .interpolator(darkerInterpolator)
   } else {
     const domain = props.scaleConfig?.domain || []
     const range = props.scaleConfig?.range || []
 
-    const breakpoints = computeBreakpoints(domain)
-
-    if (breakpoints.length !== range.length - 1) {
-      console.warn(
-        'Threshold domain length must be one less than range length. Adjusting automatically.',
-      )
-    }
-
-    colorScale = d3
-      .scaleThreshold<number, string>()
-      .domain(breakpoints)
-      .range(range)
+    colorScale = d3.scaleQuantile<string, number>().domain(domain).range(range)
   }
 
   return colorScale
@@ -151,9 +129,13 @@ export const createProjection = (
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, colorScale, extremesMode } = props
+  const { d, dataMap, colorScale, extremesMode, zeroColor } = props
 
   const value = dataMap.get(d.id as string)?.value as number
+
+  if (value === 0) {
+    return zeroColor // Use the specified color for zero values
+  }
 
   if (value !== undefined) {
     return colorScale(value)

@@ -105,7 +105,7 @@ interface ChoroplethMapProps {
   mapConfig: MapConfig
   isSummaryLegend?: boolean
   isMulti?: boolean
-  scaleConfig?: { domain: number[]; range: number[] }
+  scaleConfig?: { domain: number[]; range: string[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
   isPhrmaAdherence?: boolean

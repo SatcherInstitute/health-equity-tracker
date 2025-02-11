@@ -103,12 +103,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   const mapConfig = props.dataTypeConfig.mapConfig
 
-  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+  const [scale, setScale] = useState<{ domain: number[]; range: string[] }>({
     domain: [],
     range: [],
   })
 
-  function handleScaleChange(domain: number[], range: number[]) {
+  function handleScaleChange(domain: number[], range: string[]) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }

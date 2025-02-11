@@ -69,6 +69,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         fips: props.fips,
         reverse: !props.mapConfig.higherIsBetter && !props.isUnknownsMap,
         scaleConfig: props.scaleConfig,
+        isPhrma,
       })
 
       const features = await createFeatures(
@@ -98,6 +99,7 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         countColsMap: props.countColsMap,
         isUnknownsMap: props.isUnknownsMap,
         extremesMode: props.extremesMode,
+        mapConfig: props.mapConfig,
       })
     }
 

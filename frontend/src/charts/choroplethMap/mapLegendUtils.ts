@@ -2,7 +2,7 @@ import * as d3 from 'd3'
 import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
-import type { DataPoint } from './types'
+import type { ColorScale, DataPoint } from './types'
 
 const { altGrey } = het
 
@@ -12,7 +12,7 @@ export const createUnknownLegend = (
     dataWithHighestLowest: DataPoint[]
     metricId: MetricId
     width: number
-    colorScale: d3.ScaleSequential<string>
+    colorScale: ColorScale
     title: string
     isMobile: boolean
     isPct?: boolean

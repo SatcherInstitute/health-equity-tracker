@@ -19,6 +19,11 @@ import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import type { CountColsMap, HighestLowest } from '../mapGlobals'
 
+export type ColorScale =
+  | d3.ScaleSequential<any, never>
+  | d3.ScaleThreshold<number, string, never>
+  | d3.ScaleQuantile<string, number>
+
 export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
   countColsMap: CountColsMap
@@ -67,6 +72,7 @@ export interface CreateColorScaleProps {
     domain: number[]
     range: string[]
   }
+  isPhrma: boolean
 }
 
 export type CreateFeaturesProps = {
@@ -95,8 +101,9 @@ export type DataPoint = {
 export type GetFillColorProps = {
   d: Feature<Geometry, GeoJsonProperties>
   dataMap: Map<string, MetricData>
-  colorScale: d3.ScaleSequential<string, never>
+  colorScale: ColorScale
   extremesMode?: boolean
+  zeroColor: string
 }
 
 export type HetRow = DataPoint & {
@@ -116,7 +123,7 @@ export interface MetricData {
 
 export type RenderMapProps = {
   activeDemographicGroup: DemographicGroup
-  colorScale: d3.ScaleSequential<string>
+  colorScale: ColorScale
   countColsMap: CountColsMap
   dataWithHighestLowest: DataPoint[]
   demographicType: DemographicType
@@ -137,6 +144,7 @@ export type RenderMapProps = {
   isMobile: boolean
   isCawp: boolean
   extremesMode: boolean
+  mapConfig: MapConfig
 }
 
 export type TooltipFeature = {

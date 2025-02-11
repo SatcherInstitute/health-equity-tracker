@@ -70,7 +70,7 @@ interface LegendProps {
   mapConfig: MapConfig
   columns: number
   stackingDirection: StackingDirection
-  handleScaleChange?: (domain: number[], range: number[]) => void
+  handleScaleChange?: (domain: number[], range: string[]) => void
   isMulti?: boolean
   isPhrmaAdherence?: boolean
 }
