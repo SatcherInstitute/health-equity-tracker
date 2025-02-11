@@ -231,18 +231,11 @@ FATAL_POPULATION_PCT = "fatal_population_pct"
 FATAL_PREFIX: WISQARS_VAR_TYPE = "fatal"
 
 GUN_VIOLENCE_HOMICIDE_PREFIX: WISQARS_VAR_TYPE = "gun_violence_homicide"
-GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimated_total"
-GUN_VIOLENCE_INJURIES_PER_100K = "gun_violence_injuries_per_100k"
-GUN_VIOLENCE_INJURIES_PREFIX = "gun_violence_injuries"
-GUN_VIOLENCE_INJURIES_RAW = "gun_violence_injuries_estimated_total"
-GUN_VIOLENCE_LEGAL_INTERVENTION_PREFIX = "gun_violence_legal_intervention"
-GUN_VIOLENCE_LEGAL_INTERVENTION_RAW = "gun_violence_legal_intervention_estimated_total"
+GUN_VIOLENCE_HOMICIDE_RAW = "gun_violence_homicide_estimated_total"
+GUN_VIOLENCE_HOMICIDE_PER_100K = "gun_violence_homicide_per_100k"
 GUN_VIOLENCE_SUICIDE_PREFIX: WISQARS_VAR_TYPE = "gun_violence_suicide"
-GUN_VIOLENCE_SUICIDES_RAW = "gun_violence_suicide_estimated_total"
-NON_FATAL_POPULATION = "non_fatal_population"
-NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
-NON_FATAL_PREFIX = "non_fatal"
-
+GUN_VIOLENCE_SUICIDE_RAW = "gun_violence_suicide_estimated_total"
+GUN_VIOLENCE_SUICIDE_PER_100K = "gun_violence_suicide_per_100k"
 
 # YOUNG ADULTS AND YOUTH
 GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
