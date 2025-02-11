@@ -465,7 +465,8 @@ function MapCardWithKey(props: MapCardProps) {
           return mapQueryResponse.getFieldRange(metricConfig.metricId)
         }, [mapQueryResponse.data, metricConfig.metricId])
 
-        const isGeorgia = props.fips.code === '13'
+        const isGeorgiaWithCountyData =
+          props.fips.code === '13' && !hasSelfButNotChildGeoData
 
         return (
           <>
@@ -550,7 +551,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                   />
 
-                  {isGeorgia && !extremesMode && (
+                  {isGeorgiaWithCountyData && !extremesMode && (
                     <HetLinkButton
                       onClick={() => setAtlantaMode(!atlantaMode)}
                       className='flex items-center'
