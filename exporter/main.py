@@ -147,6 +147,8 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     demo_cols = []
     demo_to_replace = demographic if demographic != "black_women" else "age"
     demo_col = demographic
+    if demographic.startswith("by_"):
+        demographic = demographic.replace("by_", "")
     if demographic == "black_women":
         demo_col = "age"
     if demographic == "race":
