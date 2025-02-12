@@ -493,8 +493,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     id: 'geographies_source',
     data_source_name: 'Map Data',
     data_source_acronym: 'TopoJSON',
-    data_source_pretty_site_name:
-      'github.com/SatcherInstitute/health-equity-tracker',
+    data_source_pretty_site_name: 'U.S. Atlas TopoJSON GitHub Repository',
     data_source_link: 'https://github.com/topojson/us-atlas#counties-10m.json',
     geographic_level: 'National, State, County',
     demographic_granularity: 'N/A',

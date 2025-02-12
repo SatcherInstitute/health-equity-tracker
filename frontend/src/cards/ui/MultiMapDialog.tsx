@@ -78,6 +78,7 @@ interface MultiMapDialogProps {
   subtitle?: string
   scrollToHash: ScrollableHashId
   isPhrmaAdherence?: boolean
+  onlyAtlantaCounties?: boolean
 }
 
 /*
@@ -87,7 +88,7 @@ interface MultiMapDialogProps {
 export default function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all ${
+  } in ${props.onlyAtlantaCounties ? 'metro Atlanta counties' : props.fips.getSentenceDisplayName()} across all ${
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
@@ -186,6 +187,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         isMulti={true}
                         scaleConfig={scale}
                         extremesMode={false}
+                        onlyAtlantaCounties={props.onlyAtlantaCounties}
                       />
                     )}
                   </div>

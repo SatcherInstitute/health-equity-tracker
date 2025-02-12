@@ -1,7 +1,7 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import ChoroplethMap from '../charts/ChoroplethMap'
+import ChoroplethMap, { isAtlantaCounty } from '../charts/ChoroplethMap'
 import { Legend } from '../charts/Legend'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
@@ -52,6 +52,7 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
+  ATLANTA_MODE,
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
@@ -116,6 +117,11 @@ function MapCardWithKey(props: MapCardProps) {
 
   const [extremesMode, setExtremesMode] = useParamState<boolean>(
     extremesParamsKey,
+    false,
+  )
+
+  const [atlantaMode, setAtlantaMode] = useParamState<boolean>(
+    ATLANTA_MODE,
     false,
   )
 
@@ -248,7 +254,12 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   const { metricId, chartTitle } = metricConfig
-  const title = generateChartTitle(chartTitle, props.fips)
+  const title = generateChartTitle(
+    chartTitle,
+    props.fips,
+    undefined,
+    atlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
+  )
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
@@ -292,9 +303,9 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getTotalACSPopulationPhrase(
-          acsPopulationQueryResponse.data,
-        )
+        const totalPopulationPhrase = atlantaMode
+          ? 'Metro Atlanta Counties'
+          : getTotalACSPopulationPhrase(acsPopulationQueryResponse.data)
 
         let subPopSourceLabel =
           Object.values(dataSourceMetadataMap).find((metadata) =>
@@ -308,12 +319,14 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel = '@unitedstates'
         }
 
-        const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse.data,
-          subPopSourceLabel,
-          demographicType,
-          props.dataTypeConfig,
-        )
+        const subPopulationPhrase = atlantaMode
+          ? ''
+          : getSubPopulationPhrase(
+              parentGeoQueryResponse.data,
+              subPopSourceLabel,
+              demographicType,
+              props.dataTypeConfig,
+            )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs = getSortArgs(demographicType)
@@ -332,9 +345,16 @@ function MapCardWithKey(props: MapCardProps) {
             (row: HetRow) => row[demographicType] === activeDemographicGroup,
           )
 
-        const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
+        let allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
           (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
+
+        if (atlantaMode) {
+          allDataForActiveDemographicGroup =
+            allDataForActiveDemographicGroup.filter((row: HetRow) =>
+              isAtlantaCounty(row.fips),
+            )
+        }
 
         const dataForSvi: HetRow[] =
           sviQueryResponse
@@ -445,6 +465,9 @@ function MapCardWithKey(props: MapCardProps) {
           return mapQueryResponse.getFieldRange(metricConfig.metricId)
         }, [mapQueryResponse.data, metricConfig.metricId])
 
+        const isGeorgiaWithCountyData =
+          props.fips.code === '13' && !hasSelfButNotChildGeoData
+
         return (
           <>
             <MultiMapDialog
@@ -479,6 +502,7 @@ function MapCardWithKey(props: MapCardProps) {
               subtitle={subtitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
+              onlyAtlantaCounties={atlantaMode}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -526,6 +550,19 @@ function MapCardWithKey(props: MapCardProps) {
                       ) : null
                     }
                   />
+
+                  {isGeorgiaWithCountyData && !extremesMode && (
+                    <HetLinkButton
+                      onClick={() => setAtlantaMode(!atlantaMode)}
+                      className='flex items-center'
+                    >
+                      <span className='mt-1 px-1'>
+                        {atlantaMode
+                          ? 'Return to all counties'
+                          : 'Highlight metro Atlanta counties'}
+                      </span>
+                    </HetLinkButton>
+                  )}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -555,6 +592,7 @@ function MapCardWithKey(props: MapCardProps) {
                       mapConfig={mapConfig}
                       scaleConfig={scale}
                       isPhrmaAdherence={isPhrmaAdherence}
+                      onlyAtlantaCounties={atlantaMode}
                     />
                   </div>
 
@@ -620,7 +658,8 @@ function MapCardWithKey(props: MapCardProps) {
                 }
               >
                 {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveDemographicGroup.length > 1 && (
+                  dataForActiveDemographicGroup.length > 1 &&
+                  !atlantaMode && (
                     <ExtremesListBox
                       dataTypeConfig={props.dataTypeConfig}
                       selectedRaceSuffix={selectedRaceSuffix}

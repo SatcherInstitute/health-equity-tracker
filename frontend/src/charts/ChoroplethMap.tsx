@@ -109,16 +109,26 @@ interface ChoroplethMapProps {
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
   isPhrmaAdherence?: boolean
+  onlyAtlantaCounties?: boolean
+}
+
+export function isAtlantaCounty(fipsCode: string) {
+  return ['13089', '13121', '13135', '13067', '13063'].includes(fipsCode)
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
   const isMobile = !useIsBreakpointAndUp('md')
 
-  const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
+  const zeroData = props.data.filter(
+    (row) => row[props.metric.metricId] === 0 && isAtlantaCounty(row.fips),
+  )
   const isCawp = CAWP_METRICS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
 
   let suppressedData = props.data
+
+  if (props.onlyAtlantaCounties)
+    suppressedData = suppressedData.filter((row) => isAtlantaCounty(row.fips))
 
   if (isPhrma) {
     suppressedData = props.data.map((row: HetRow) => {
@@ -165,7 +175,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const [spec, setSpec] = useState({})
 
   // Dataset to use for computing the legend
-  const legendData = props.legendData ?? props.data
+  const legendData = props.legendData ?? suppressedData
 
   const geoData = props.geoData
     ? { values: props.geoData }
@@ -219,6 +229,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     geoTransformers.push({
       type: 'filter',
       expr: `datum.id === "${props.fips.code}"`,
+    })
+  }
+  // Add Metro Atlanta filter
+  if (props.onlyAtlantaCounties) {
+    geoTransformers.push({
+      type: 'filter',
+      expr: `indexof(['13089', '13121', '13135', '13067', '13063'], datum.id) >= 0`,
     })
   }
 
@@ -497,6 +514,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendData,
     props.mapConfig.scheme,
     props.mapConfig.min,
+    props.onlyAtlantaCounties,
   ])
 
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
