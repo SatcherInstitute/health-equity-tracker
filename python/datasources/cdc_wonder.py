@@ -15,7 +15,6 @@ from ingestion.constants import (
     CURRENT,
     HISTORICAL,
     NATIONAL_LEVEL,
-    UNKNOWN,
     US_NAME,
 )
 from ingestion.dataset_utils import (
@@ -120,7 +119,7 @@ class CdcWonderData(DataSource):
                     available_total = non_all_df[count_col].sum()
                     df.loc[df[demo_breakdown] == ALL_VALUE, count_col] = available_total
 
-        if demo_breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.AGE_COL, std_col.SEX_COL]:
+        if demo_breakdown in [std_col.AGE_COL, std_col.SEX_COL]:
             df = generate_pct_share_col_without_unknowns(
                 df,
                 count_to_pct_share_map,
@@ -133,7 +132,7 @@ class CdcWonderData(DataSource):
                 count_to_pct_share_map,
                 demo_breakdown,
                 ALL_VALUE,
-                UNKNOWN,
+                std_col.Race.UNKNOWN.race,
             )
 
         for raw_total_col in raw_totals_map.values():

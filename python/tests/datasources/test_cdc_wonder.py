@@ -87,7 +87,6 @@ def testBreakdownRaceState(mock_data_dir: mock.MagicMock, mock_bq_write: mock.Ma
     expected_current_df = pd.read_csv(GOLDEN_DATA[current_table_name], dtype=CSV_DTYPES)
     assert current_table_name == "race_and_ethnicity_state_current"
     # actual_current_df.to_csv(current_table_name, index=False)
-
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df, _, historical_table_name = mock_historical[0]
