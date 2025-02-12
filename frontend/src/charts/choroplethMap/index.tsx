@@ -1,5 +1,5 @@
+import * as d3 from 'd3'
 import { useEffect, useMemo, useRef } from 'react'
-import { scaleType } from 'vega-lite/build/src/compile/scale/type'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -7,78 +7,112 @@ import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
 import { embedHighestLowestGroups } from '../mapHelperFunctions'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
+import { createColorScale } from './colorSchemes'
 import {
-  createColorScale,
   createFeatures,
   createProjection,
-  createTooltipContainer,
   processPhrmaData,
 } from './mapHelpers'
 import { renderMap } from './renderMap'
+import { createTooltipContainer } from './tooltipUtils'
 import type { ChoroplethMapProps, DataPoint } from './types'
 
-const ChoroplethMap = (props: ChoroplethMapProps) => {
-  const { data, metric, highestLowestGroupsByFips } = props
+const ChoroplethMap = ({
+  data,
+  metric,
+  highestLowestGroupsByFips,
+  overrideShapeWithCircle,
+  showCounties,
+  fips,
+  geoData,
+  activeDemographicGroup,
+  demographicType,
+  countColsMap,
+  isUnknownsMap = false,
+  isMulti = false,
+  extremesMode,
+  mapConfig,
+  signalListeners,
+  scaleConfig,
+}: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
-
   const tooltipContainerRef = useRef<ReturnType<
     typeof createTooltipContainer
   > | null>(null)
+  const mapInitializedRef = useRef(false)
 
   const isCawp = CAWP_METRICS.includes(metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(metric.metricId)
 
   const suppressedData = useMemo(
-    () => (isPhrma ? processPhrmaData(data, props.countColsMap) : data),
-    [data, isPhrma, props.countColsMap],
+    () => (isPhrma ? processPhrmaData(data, countColsMap) : data),
+    [data, isPhrma, countColsMap],
   )
 
   const dataWithHighestLowest: DataPoint[] = useMemo(
     () =>
-      !props.isUnknownsMap && !props.isMulti
+      !isUnknownsMap && !isMulti
         ? embedHighestLowestGroups(suppressedData, highestLowestGroupsByFips)
         : suppressedData,
-    [
-      suppressedData,
-      highestLowestGroupsByFips,
-      props.isUnknownsMap,
-      props.isMulti,
-    ],
+    [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMulti],
   )
 
-  const heightWidthRatio = props.overrideShapeWithCircle
-    ? HEIGHT_WIDTH_RATIO * 2
-    : HEIGHT_WIDTH_RATIO
-  const height = width * heightWidthRatio
+  const dimensions = useMemo(() => {
+    const heightWidthRatio = overrideShapeWithCircle
+      ? HEIGHT_WIDTH_RATIO * 2
+      : HEIGHT_WIDTH_RATIO
+    return {
+      height: width * heightWidthRatio,
+      ratio: heightWidthRatio,
+    }
+  }, [width, overrideShapeWithCircle])
+
+  const cleanup = () => {
+    if (tooltipContainerRef.current) {
+      tooltipContainerRef.current.remove()
+      tooltipContainerRef.current = null
+    }
+    if (svgRef.current) {
+      const svg = d3.select(svgRef.current)
+      svg.selectAll('*').remove()
+      svg.on('.', null)
+    }
+    mapInitializedRef.current = false
+  }
 
   useEffect(() => {
-    if (!data.length || !svgRef.current || !width) return
-
-    if (!tooltipContainerRef.current) {
-      tooltipContainerRef.current = createTooltipContainer()
+    if (!data?.length || !svgRef.current || !width) {
+      return
     }
 
     const initializeMap = async () => {
+      if (mapInitializedRef.current) {
+        return
+      }
+
+      tooltipContainerRef.current ??= createTooltipContainer()
+
       const colorScale = createColorScale({
         dataWithHighestLowest,
         metricId: metric.metricId,
-        colorScheme: props.mapConfig.scheme,
-        isUnknown: props.isUnknownsMap,
-        fips: props.fips,
-        reverse: !props.mapConfig.higherIsBetter && !props.isUnknownsMap,
-        scaleConfig: props.scaleConfig,
+        colorScheme: mapConfig.scheme,
+        isUnknown: isUnknownsMap,
+        fips,
+        reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
+        scaleConfig,
         isPhrma,
       })
 
-      const features = await createFeatures(
-        props.showCounties,
-        props.fips.code,
-        props.geoData,
-      )
+      const features = await createFeatures(showCounties, fips.code, geoData)
 
-      const projection = createProjection(props.fips, width, height, features)
+      const projection = createProjection(
+        fips,
+        width,
+        dimensions.height,
+        features,
+      )
 
       renderMap({
         svgRef,
@@ -86,55 +120,57 @@ const ChoroplethMap = (props: ChoroplethMapProps) => {
         dataWithHighestLowest,
         metric,
         width,
-        height,
+        height: dimensions.height,
         tooltipContainer: tooltipContainerRef.current!,
-        showCounties: props.showCounties,
+        showCounties,
         colorScale,
-        fips: props.fips,
+        fips,
         isMobile,
-        activeDemographicGroup: props.activeDemographicGroup,
-        demographicType: props.demographicType,
+        activeDemographicGroup,
+        demographicType,
         isCawp,
-        countColsMap: props.countColsMap,
-        isUnknownsMap: props.isUnknownsMap,
-        extremesMode: props.extremesMode,
-        mapConfig: props.mapConfig,
-        signalListeners: props.signalListeners,
+        countColsMap,
+        isUnknownsMap,
+        extremesMode,
+        mapConfig,
+        signalListeners,
       })
+
+      mapInitializedRef.current = true
     }
 
-    initializeMap()
+    cleanup()
+    initializeMap().catch((error) => {
+      console.error('Error initializing map:', error)
+    })
 
-    return () => {
-      if (tooltipContainerRef.current) {
-        tooltipContainerRef.current.remove()
-        tooltipContainerRef.current = null
-      }
-    }
+    return cleanup
   }, [
     data,
-    props.geoData,
+    geoData,
     width,
-    height,
-    props.showCounties,
-    props.overrideShapeWithCircle,
+    dimensions.height,
+    showCounties,
+    overrideShapeWithCircle,
     metric,
     dataWithHighestLowest,
-    props.mapConfig,
-    props.fips,
+    mapConfig,
+    fips,
     isMobile,
-    props.activeDemographicGroup,
-    props.demographicType,
+    activeDemographicGroup,
+    demographicType,
     isCawp,
-    props.countColsMap,
-    props.isUnknownsMap,
-    scaleType,
+    countColsMap,
+    isUnknownsMap,
+    scaleConfig,
+    signalListeners,
+    extremesMode,
   ])
 
   return (
     <div
       className={`justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
-      ref={props.overrideShapeWithCircle ? undefined : ref}
+      ref={overrideShapeWithCircle ? undefined : ref}
     >
       <svg ref={svgRef} style={{ width: '100%' }} />
     </div>

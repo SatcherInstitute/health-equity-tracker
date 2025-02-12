@@ -1,28 +1,17 @@
 import * as d3 from 'd3'
-import { createRoot } from 'react-dom/client'
-import type {
-  MapConfig,
-  MetricConfig,
-} from '../../data/config/MetricConfigTypes'
-import {
-  CAWP_METRICS,
-  getWomenRaceLabel,
-} from '../../data/providers/CawpProvider'
-import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
+import { getCountyAddOn } from '../mapHelperFunctions'
+import { getFillColor } from './colorSchemes'
 import {
-  getCawpMapGroupDenominatorLabel,
-  getCawpMapGroupNumeratorLabel,
-  getCountyAddOn,
-  getMapGroupLabel,
-} from '../mapHelperFunctions'
-import TooltipContent from './TooltipContent'
-import { getFillColor } from './mapHelpers'
+  createDataMap,
+  getDenominatorPhrase,
+  getNumeratorPhrase,
+} from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
+import { generateTooltipHtml, getTooltipLabel } from './tooltipUtils'
 import type {
-  ColorScale,
   InitializeSvgProps,
-  MetricData,
+  MouseEventHandlerProps,
   RenderMapProps,
 } from './types'
 
@@ -34,23 +23,34 @@ const {
 } = het
 
 const STROKE_WIDTH = 0.5
-const TOOLTIP_OFFSET = { x: 10, y: 10 }
+const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
+const MARGIN = { top: 20, right: 20, bottom: 20, left: 20 } as const
 
-export const renderMap = (props: RenderMapProps) => {
-  const { features, projection } = props.geoData
-  const geographyType = getCountyAddOn(props.fips, props.showCounties)
-  const {
-    colorScale,
-    height,
-    width,
-    svgRef,
-    tooltipContainer,
-    isMobile,
-    metric,
-    extremesMode,
-  } = props
+export const renderMap = ({
+  geoData,
+  fips,
+  showCounties,
+  colorScale,
+  height,
+  width,
+  svgRef,
+  tooltipContainer,
+  isMobile,
+  metric,
+  extremesMode,
+  dataWithHighestLowest,
+  isUnknownsMap,
+  isCawp,
+  activeDemographicGroup,
+  demographicType,
+  countColsMap,
+  mapConfig,
+  hideLegend,
+  signalListeners,
+}: RenderMapProps) => {
+  const { features, projection } = geoData
+  const geographyType = getCountyAddOn(fips, showCounties)
 
-  // Clear existing SVG content and initialize
   d3.select(svgRef.current).selectAll('*').remove()
   const { legendGroup, mapGroup } = initializeSvg({
     svgRef,
@@ -62,54 +62,33 @@ export const renderMap = (props: RenderMapProps) => {
   projection.fitSize([width, height * 0.8], features)
   const path = d3.geoPath(projection)
 
-  const tooltipLabel = props.isUnknownsMap
-    ? metric.unknownsVegaLabel || '% unknown'
-    : CAWP_METRICS.includes(metric.metricId)
-      ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
-      : getMapGroupLabel(
-          props.demographicType,
-          props.activeDemographicGroup,
-          metric.type === 'index' ? 'Score' : 'Rate',
-        )
+  const tooltipLabel = getTooltipLabel(
+    isUnknownsMap,
+    metric,
+    isCawp,
+    activeDemographicGroup,
+    demographicType,
+  )
+  const numeratorPhrase = getNumeratorPhrase(
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
+  )
+  const denominatorPhrase = getDenominatorPhrase(
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
+  )
 
-  const numeratorPhrase = props.isCawp
-    ? getCawpMapGroupNumeratorLabel(
-        props.countColsMap,
-        props.activeDemographicGroup,
-      )
-    : getMapGroupLabel(
-        props.demographicType,
-        props.activeDemographicGroup,
-        props.countColsMap?.numeratorConfig?.shortLabel ?? '',
-      )
-
-  const denominatorPhrase = props.isCawp
-    ? getCawpMapGroupDenominatorLabel(props.countColsMap)
-    : getMapGroupLabel(
-        props.demographicType,
-        props.activeDemographicGroup,
-        props.countColsMap?.denominatorConfig?.shortLabel ?? '',
-      )
-
-  const dataMap: Map<string, MetricData> = new Map(
-    props.dataWithHighestLowest.map((d) => [
-      d.fips,
-      {
-        [tooltipLabel]: d[props.metric.metricId],
-        value: d[props.metric.metricId],
-        ...(props.countColsMap?.numeratorConfig && {
-          [`# ${numeratorPhrase}`]:
-            d[props.countColsMap.numeratorConfig.metricId],
-        }),
-        ...(props.countColsMap?.denominatorConfig && {
-          [`# ${denominatorPhrase}`]:
-            d[props.countColsMap.denominatorConfig.metricId],
-        }),
-        ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
-        ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
-        ...(d.rating && { ['County SVI']: d.rating }),
-      },
-    ]),
+  const dataMap = createDataMap(
+    dataWithHighestLowest,
+    tooltipLabel,
+    metric,
+    numeratorPhrase,
+    denominatorPhrase,
+    countColsMap,
   )
 
   // Draw map
@@ -124,62 +103,52 @@ export const renderMap = (props: RenderMapProps) => {
         dataMap,
         colorScale,
         extremesMode,
-        zeroColor: props.mapConfig.min,
-        countyColor: props.mapConfig.mid,
-        fips: props.fips,
+        zeroColor: mapConfig.min,
+        countyColor: mapConfig.mid,
+        fips,
       }),
     )
     .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event, d) =>
-      handleMouseEvent(
-        'mouseover',
-        event,
-        d,
+      handleMouseEvent('mouseover', event, d, {
         colorScale,
         metric,
         dataMap,
         tooltipContainer,
         geographyType,
         extremesMode,
-        props.mapConfig,
-      ),
+        mapConfig,
+      }),
     )
     .on('mousemove', (event, d) =>
-      handleMouseEvent(
-        'mousemove',
-        event,
-        d,
+      handleMouseEvent('mousemove', event, d, {
         colorScale,
         metric,
         dataMap,
         tooltipContainer,
         geographyType,
         extremesMode,
-        props.mapConfig,
-      ),
+        mapConfig,
+      }),
     )
     .on('mouseout', (event, d) =>
-      handleMouseEvent(
-        'mouseout',
-        event,
-        d,
+      handleMouseEvent('mouseout', event, d, {
         colorScale,
         metric,
         dataMap,
         tooltipContainer,
         geographyType,
         extremesMode,
-        props.mapConfig,
-      ),
+        mapConfig,
+      }),
     )
-    .on('click', props.signalListeners.click)
+    .on('click', signalListeners.click)
 
-  if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
-    const { metricId } = metric
+  if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
     createUnknownLegend(legendGroup, {
-      dataWithHighestLowest: props.dataWithHighestLowest,
-      metricId,
+      dataWithHighestLowest,
+      metricId: metric.metricId,
       width,
       colorScale,
       title: '% unknown',
@@ -189,12 +158,16 @@ export const renderMap = (props: RenderMapProps) => {
   }
 }
 
-const initializeSvg = (props: InitializeSvgProps) => {
-  const margin = { top: 20, right: 20, bottom: 20, left: 20 }
+const initializeSvg = ({
+  svgRef,
+  width,
+  height,
+  isMobile,
+}: InitializeSvgProps) => {
   const svg = d3
-    .select(props.svgRef.current)
-    .attr('width', props.width)
-    .attr('height', props.height)
+    .select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
 
   return {
     svg,
@@ -203,80 +176,71 @@ const initializeSvg = (props: InitializeSvgProps) => {
       .attr('class', 'legend-container')
       .attr(
         'transform',
-        `translate(${margin.left}, ${props.isMobile ? 0 : margin.top})`,
+        `translate(${MARGIN.left}, ${isMobile ? 0 : MARGIN.top})`,
       ),
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
       .attr(
         'transform',
-        `translate(${margin.left}, ${props.isMobile ? margin.top + 10 : margin.top + 50})`,
+        `translate(${MARGIN.left}, ${isMobile ? MARGIN.top + 10 : MARGIN.top + 50})`,
       ),
   }
 }
 
-let tooltipRoot: ReturnType<typeof createRoot> | null = null
-
 const handleMouseEvent = (
-  type: 'mouseover' | 'mousemove' | 'mouseout',
+  type: 'mouseover' | 'mouseout' | 'mousemove',
   event: any,
   d: any,
-  colorScale: ColorScale,
-  metric: MetricConfig,
-  dataMap: Map<string, MetricData>,
-  tooltipContainer?: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>,
-  geographyType?: string,
-  extremesMode?: boolean,
-  mapConfig?: MapConfig,
-  fips?: Fips,
+  props: MouseEventHandlerProps,
 ) => {
+  const {
+    colorScale,
+    metric,
+    dataMap,
+    tooltipContainer,
+    geographyType,
+    extremesMode,
+    mapConfig,
+    fips,
+  } = props
+
   if (!tooltipContainer) return
 
-  const tooltipNode = tooltipContainer.node()
-  if (!tooltipNode) return
+  switch (type) {
+    case 'mouseover': {
+      if (!d || !dataMap) return
+      const value = dataMap.get(d.id as string)?.value
 
-  if (!tooltipRoot) {
-    tooltipRoot = createRoot(tooltipNode)
-  }
+      d3.select(event.currentTarget)
+        .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
+        .style('cursor', 'pointer')
 
-  if (type === 'mouseover' && d && dataMap) {
-    const value = dataMap.get(d.id as string)?.value
-
-    d3.select(event.currentTarget)
-      .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
-      .style('cursor', 'pointer')
-
-    tooltipRoot.render(
-      <TooltipContent
-        feature={d}
-        dataMap={dataMap}
-        metricConfig={metric}
-        geographyType={geographyType}
-      />,
-    )
-
-    tooltipContainer.style('visibility', 'visible')
-  } else if (type === 'mousemove') {
-    tooltipContainer
-      .style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
-      .style('left', `${event.pageX + TOOLTIP_OFFSET.x}px`)
-  } else if (type === 'mouseout') {
-    d3.select(event.currentTarget).attr(
-      'fill',
-      getFillColor({
-        d,
-        dataMap,
-        colorScale,
-        extremesMode,
-        zeroColor: mapConfig?.min || '',
-        countyColor: mapConfig?.mid || '',
-        fips,
-      }),
-    )
-
-    tooltipContainer.style('visibility', 'hidden')
-
-    tooltipRoot.unmount()
-    tooltipRoot = null
+      const tooltipHtml = generateTooltipHtml(d, dataMap, metric, geographyType)
+      tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
+      break
+    }
+    case 'mousemove': {
+      tooltipContainer
+        .style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
+        .style('left', `${event.pageX + TOOLTIP_OFFSET.x}px`)
+      break
+    }
+    case 'mouseout': {
+      d3.select(event.currentTarget).attr(
+        'fill',
+        getFillColor({
+          d,
+          dataMap,
+          colorScale,
+          extremesMode,
+          zeroColor: mapConfig?.min || '',
+          countyColor: mapConfig?.mid || '',
+          fips,
+        }),
+      )
+      tooltipContainer.style('visibility', 'hidden').html('')
+      break
+    }
   }
 }
