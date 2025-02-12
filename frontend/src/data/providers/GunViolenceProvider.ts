@@ -11,6 +11,7 @@ import VariableProvider from './VariableProvider'
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
   'gun_violence_homicide',
   'gun_violence_suicide',
+  'gun_deaths',
 ]
 
 export const GUN_HOMICIDE_METRIC_IDS: MetricId[] = [
@@ -27,34 +28,48 @@ export const GUN_SUICIDE_METRIC_IDS: MetricId[] = [
   'gun_violence_suicide_per_100k',
 ]
 
+export const GUN_DEATHS_METRIC_IDS: MetricId[] = [
+  'gun_deaths_estimated_total',
+  'gun_deaths_pct_relative_inequity',
+  'gun_deaths_pct_share',
+  'gun_deaths_per_100k',
+]
+
 export const POPULATION_METRIC_IDS: MetricId[] = [
   'fatal_population_pct',
   'fatal_population',
 ]
 
-const GUN_DEATH_METRIC_IDS: MetricId[] = [
+const GUN_VIOLENCE_METRIC_IDS: MetricId[] = [
   ...GUN_HOMICIDE_METRIC_IDS,
   ...GUN_SUICIDE_METRIC_IDS,
+  ...GUN_DEATHS_METRIC_IDS,
   ...POPULATION_METRIC_IDS,
   'gun_violence_legal_intervention_estimated_total',
 ]
 
 class GunViolenceProvider extends VariableProvider {
   constructor() {
-    super('gun_violence_provider', GUN_DEATH_METRIC_IDS)
+    super('gun_violence_provider', GUN_VIOLENCE_METRIC_IDS)
   }
 
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
-      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        'cdc_wisqars_data',
-        '', // TODO: only some tables prepend with `_by`; we should standardize frontend/backend table naming
+      const { breakdowns } = metricQuery
+
+      const isChr =
+        metricQuery.dataTypeId === 'gun_deaths' &&
+        breakdowns.geography === 'county'
+
+      const { datasetId, isFallbackId } = resolveDatasetId(
+        isChr ? 'chr_data' : 'cdc_wisqars_data',
+        '',
         metricQuery,
       )
       if (!datasetId) {
-        throw new Error('DatasetId is undefined.')
+        return new MetricQueryResponse([], [])
       }
 
       const gunViolenceData = await getDataManager().loadDataset(datasetId)
@@ -62,6 +77,12 @@ class GunViolenceProvider extends VariableProvider {
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
+      if (isChr) {
+        df = df.renameSeries({
+          chr_population_pct: 'fatal_population_pct',
+          chr_population_estimated_total: 'fatal_population',
+        })
+      }
       if (isFallbackId) {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {
@@ -82,7 +103,8 @@ class GunViolenceProvider extends VariableProvider {
       breakdowns.hasExactlyOneDemographic()
 
     return (
-      (breakdowns.geography === 'state' ||
+      (breakdowns.geography === 'county' ||
+        breakdowns.geography === 'state' ||
         breakdowns.geography === 'national') &&
       validDemographicBreakdownRequest
     )
