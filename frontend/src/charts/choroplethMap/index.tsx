@@ -34,6 +34,7 @@ const ChoroplethMap = ({
   mapConfig,
   signalListeners,
   scaleConfig,
+  filename,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -172,7 +173,11 @@ const ChoroplethMap = ({
       className={`justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
       ref={overrideShapeWithCircle ? undefined : ref}
     >
-      <svg ref={svgRef} style={{ width: '100%' }} />
+      <svg
+        ref={svgRef}
+        style={{ width: '100%' }}
+        aria-label={`Map showing ${filename}`}
+      />
     </div>
   )
 }

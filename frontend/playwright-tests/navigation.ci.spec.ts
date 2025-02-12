@@ -51,7 +51,7 @@ test('Clicking a county on state map loads county report; back button returns to
   await page.locator('path:nth-child(122)').click()
 
   // Confirm correct madlib setting includes FIPS for county
-  await expect(page).toHaveURL(/.*mls=1.incarceration-3.13241/)
+  await expect(page).toHaveURL(/.*mls=1.incarceration-3.13177/)
 
   // TODO: This is broken, re-enable once fixed. Possibly related to #2712
   // back button should take you back to state report

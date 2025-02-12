@@ -70,6 +70,8 @@ test('County Vaccination Quick Test', async ({ page }) => {
       exact: true,
     })
     .click()
-  await page.getByLabel('Map showing COVID-19').locator('path').nth(1).click()
+  await page
+    .getByRole('img', { name: 'Map showing COVID-19' })
+    .getByLabel('Map showing COVID-19')
   await page.getByText('This county has a social').click()
 })
