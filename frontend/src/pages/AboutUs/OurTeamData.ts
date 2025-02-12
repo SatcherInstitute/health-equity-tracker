@@ -8,7 +8,6 @@ import Donrie from '../../assets/team/PurcellDonrie.png'
 import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
 import Maisha from '../../assets/team/StandiferM.png'
-import Jareese from '../../assets/team/StroudJ.png'
 import Eric from '../../assets/team/WarrenEric.png'
 
 import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
@@ -28,13 +27,8 @@ export const LEADERSHIP_TEAM = [
     imageUrl: DrHH,
   },
   {
-    name: 'Allyson Belton, MPH',
-    role: 'Coalition/Engagement',
-    imageUrl: Allyson,
-  },
-  {
     name: 'Ben Hammond, BMus',
-    role: 'Senior Software Engineer',
+    role: 'Senior Software Engineer, Team Lead',
     imageUrl: Ben,
   },
   {
@@ -46,6 +40,11 @@ export const LEADERSHIP_TEAM = [
     name: 'Kim Cinco, MPsy, USN Vet.',
     role: 'UX Engineer',
     imageUrl: Kim,
+  },
+  {
+    name: 'Allyson Belton, MPH',
+    role: 'Coalition/Engagement',
+    imageUrl: Allyson,
   },
   {
     name: 'Donrie Purcell, PhD, MPH',
@@ -66,11 +65,6 @@ export const LEADERSHIP_TEAM = [
     name: 'Megan Douglas, JD',
     role: 'Health Policy Analyst',
     imageUrl: Megan,
-  },
-  {
-    name: 'Jareese Stroud, MPH',
-    role: 'Researcher',
-    imageUrl: Jareese,
   },
   {
     name: 'Evan Martin, LMSW',
@@ -138,6 +132,10 @@ export const HET_ALUMNI = [
   },
   {
     name: 'Elias Berhanu, MPH',
+    role: 'Researcher',
+  },
+  {
+    name: 'Jareese Stroud, MPH',
     role: 'Researcher',
   },
 ]
