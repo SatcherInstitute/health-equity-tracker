@@ -13,7 +13,6 @@ Features include:
 
 from typing import List
 import pandas as pd
-import numpy as np
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, WISQARS_DEMO_TYPE
@@ -23,22 +22,26 @@ DATA_DIR = "cdc_wisqars"
 
 INJ_OUTCOMES = [std_col.FATAL_PREFIX]
 
-INJ_INTENTS = [
-    std_col.GUN_VIOLENCE_HOMICIDE_PREFIX,
-    std_col.GUN_VIOLENCE_SUICIDE_PREFIX,
-]
+INJ_INTENTS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX, "gun_violence_all_intents"]
 
+WISQARS_INTENT = "Intent"
 WISQARS_URBANICITY = "Metro / Non-Metro"
 WISQARS_AGE_GROUP = "Age Group"
+WISQARS_RACE = "Race"
+WISQARS_ETH = "Ethnicity"
+WISQARS_SEX = "Sex"
 WISQARS_YEAR = "Year"
 WISQARS_STATE = "State"
 WISQARS_DEATHS = "Deaths"
 WISQARS_CRUDE_RATE = "Crude Rate"
 WISQARS_POP = "Population"
+WISQARS_HOMICIDE = "Homicide"
+WISQARS_SUICIDE = "Suicide"
+WISQARS_ALL_INTENTS = "All Intents"
 
 WISQARS_ALL: WISQARS_DEMO_TYPE = "all"
 
-WISQARS_COLS = [
+WISQARS_IGNORE_COLS = [
     "Age-Adjusted Rate",
     "Cases (Sample)",
     "CV",
@@ -57,17 +60,19 @@ RACE_NAMES_MAPPING = {
     "White": std_col.Race.WHITE_NH.value,
 }
 
+ETHNICITY_NAMES_MAPPING = {"Hispanic": std_col.Race.HISP.value, "Unknown": std_col.Race.UNKNOWN.value}
+
 
 def clean_numeric(val):
     """
     Function to clean numeric string values by removing commas and converting '**' to NaN.
-    Takes a single parameter 'val' and returns the cleaned value.
+    Takes a single parameter 'val' and returns the cleaned str value.
     """
     if isinstance(val, str):
         if "**" in val:
-            return np.nan
+            val = val.replace("**", "")
         if "," in val:
-            return val.replace(",", "")
+            val = val.replace(",", "")
     return val
 
 
@@ -231,7 +236,7 @@ def load_wisqars_as_df_from_data_dir(
         DATA_DIR,
         csv_filename,
         na_values=["--", "**"],
-        usecols=lambda x: x not in WISQARS_COLS,
+        usecols=lambda x: x not in WISQARS_IGNORE_COLS,
         thousands=",",
         dtype={WISQARS_YEAR: str},
     )
@@ -241,7 +246,7 @@ def load_wisqars_as_df_from_data_dir(
     if geo_level == NATIONAL_LEVEL:
         df.insert(1, WISQARS_STATE, US_NAME)
 
-    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
+    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE, WISQARS_POP]
     convert_columns_to_numeric(df, columns_to_convert)
 
     return df

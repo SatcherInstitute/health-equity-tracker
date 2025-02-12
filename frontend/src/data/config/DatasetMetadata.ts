@@ -132,10 +132,10 @@ export type DatasetId =
   | 'cdc_restricted_data-by_sex_national_processed'
   | 'cdc_restricted_data-by_sex_state_processed_time_series'
   | 'cdc_restricted_data-by_sex_state_processed'
-  | 'cdc_vaccination_county-alls_county'
-  | 'cdc_vaccination_national-age_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
-  | 'cdc_vaccination_national-race_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
-  | 'cdc_vaccination_national-sex_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
+  | 'cdc_vaccination_county-alls_county_current'
+  | 'cdc_vaccination_national-age_national_current'
+  | 'cdc_vaccination_national-race_national_current'
+  | 'cdc_vaccination_national-sex_national_current'
   | 'cdc_wisqars_data-age_national_current'
   | 'cdc_wisqars_data-age_national_historical'
   | 'cdc_wisqars_data-age_state_current'
@@ -210,8 +210,8 @@ export type DatasetId =
   | 'geo_context-national'
   | 'geo_context-state'
   | 'geo_context-county'
-  | 'kff_vaccination-alls_state'
-  | 'kff_vaccination-race_and_ethnicity_state'
+  | 'kff_vaccination-alls_state_current'
+  | 'kff_vaccination-race_and_ethnicity_state_current'
   | 'maternal_mortality_data-by_race_national_current'
   | 'maternal_mortality_data-by_race_national_historical'
   | 'maternal_mortality_data-by_race_state_current'
@@ -649,35 +649,35 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_vaccination_county-alls_county': {
+  'cdc_vaccination_county-alls_county_current': {
     name: 'COVID-19 vaccinations by county',
     contains_nh: true,
     original_data_sourced: 'March 2023',
     source_id: 'cdc_vaccination_county',
   },
-  'cdc_vaccination_national-age_processed': {
+  'cdc_vaccination_national-age_national_current': {
     name: 'COVID-19 vaccinations by age, nationally',
     original_data_sourced: 'March 2023',
     source_id: 'cdc_vaccination_national',
   },
-  'cdc_vaccination_national-sex_processed': {
+  'cdc_vaccination_national-sex_national_current': {
     name: 'COVID-19 vaccinations by sex, nationally',
     original_data_sourced: 'March 2023',
     source_id: 'cdc_vaccination_national',
   },
-  'cdc_vaccination_national-race_processed': {
+  'cdc_vaccination_national-race_national_current': {
     name: 'COVID-19 vaccinations by race and ethnicity, nationally',
     original_data_sourced: 'March 2023',
     contains_nh: true,
     source_id: 'cdc_vaccination_national',
   },
-  'kff_vaccination-race_and_ethnicity_state': {
+  'kff_vaccination-race_and_ethnicity_state_current': {
     name: 'COVID-19 vaccinations by race and ethnicity by state/territory',
     original_data_sourced: 'July 2022',
     contains_nh: true,
     source_id: 'kff_vaccination',
   },
-  'kff_vaccination-alls_state': {
+  'kff_vaccination-alls_state_current': {
     name: 'COVID-19 vaccinations by state/territory',
     original_data_sourced: 'July 2022',
     contains_nh: true,

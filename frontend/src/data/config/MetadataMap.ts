@@ -213,7 +213,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     update_frequency: 'Daily',
     description:
       'Overall US COVID-19 Vaccine administration and vaccine equity data at county level Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.',
-    dataset_ids: ['cdc_vaccination_county-alls_county'],
+    dataset_ids: ['cdc_vaccination_county-alls_county_current'],
     downloadable: true,
     time_period_range: null,
   },
@@ -231,9 +231,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations in the United States at national level. Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities. (CDC 2021)',
     dataset_ids: [
-      'cdc_vaccination_national-age_processed',
-      'cdc_vaccination_national-race_processed',
-      'cdc_vaccination_national-sex_processed',
+      'cdc_vaccination_national-age_national_current',
+      'cdc_vaccination_national-race_national_current',
+      'cdc_vaccination_national-sex_national_current',
     ],
     downloadable: true,
     time_period_range: null,
@@ -251,8 +251,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       "State level vaccination information based off of Kaiser Family Foundation analysis of publicly available data from state websites. Per 100k metrics are found on 'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on 'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
     dataset_ids: [
-      'kff_vaccination-race_and_ethnicity_state',
-      'kff_vaccination-alls_state',
+      'kff_vaccination-race_and_ethnicity_state_current',
+      'kff_vaccination-alls_state_current',
     ],
     downloadable: true,
     time_period_range: null,

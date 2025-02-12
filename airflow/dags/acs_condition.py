@@ -137,6 +137,7 @@ acs_condition_bq_operator_2022 = util.create_bq_ingest_operator(
 # EXPORT FROM BQ TO BUCKETS
 acs_condition_exporter_payload_race = {
     "dataset_name": _ACS_DATASET_NAME,
+    "should_export_as_alls": True,
     "demographic": "by_race",
 }
 acs_condition_exporter_operator_race = util.create_exporter_operator(

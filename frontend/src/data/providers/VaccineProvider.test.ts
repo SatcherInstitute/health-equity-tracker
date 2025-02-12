@@ -27,7 +27,13 @@ async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await vaccineProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType)),
+    new MetricQuery(
+      [],
+      baseBreakdown.addBreakdown(demographicType),
+      undefined,
+      undefined,
+      'rate-map', // needed to trigger fallback to ALLs
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -46,17 +52,9 @@ describe('VaccineProvider', () => {
     dataFetcher.setFakeMetadataLoaded(DatasetMetadataMap)
   })
 
-  test('State and Race Breakdown', async () => {
-    await ensureCorrectDatasetsDownloaded(
-      'kff_vaccination-race_and_ethnicity_state',
-      Breakdowns.forFips(new Fips(NC.code)),
-      RACE,
-    )
-  })
-
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-race_processed',
+      'cdc_vaccination_national-race_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
     )
@@ -64,7 +62,7 @@ describe('VaccineProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-sex_processed',
+      'cdc_vaccination_national-sex_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
     )
@@ -72,15 +70,23 @@ describe('VaccineProvider', () => {
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-age_processed',
+      'cdc_vaccination_national-age_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
     )
   })
 
+  test('State and Race Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'kff_vaccination-race_and_ethnicity_state_current',
+      Breakdowns.forFips(new Fips(NC.code)),
+      RACE,
+    )
+  })
+
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_county-alls_county',
+      'cdc_vaccination_county-alls_county_current',
       Breakdowns.forFips(new Fips(MARIN.code)),
       RACE,
     )
