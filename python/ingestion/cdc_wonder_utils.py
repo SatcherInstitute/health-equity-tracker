@@ -42,7 +42,7 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
         "Hispanic": std_col.Race.HISP.value,
         "White": std_col.Race.WHITE_NH.value,
         "Black or African American": std_col.Race.BLACK_NH.value,
-        "Other Races and Unknown combined": std_col.Race.OTHER_NONSTANDARD_NH.value,
+        "Other Races and Unknown combined": std_col.Race.UNKNOWN.value,
     },
     # Sex source groups already match needed HET groups
 }

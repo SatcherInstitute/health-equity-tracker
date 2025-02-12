@@ -3,6 +3,7 @@ import os
 from datasources.cdc_wonder import CdcWonderData
 from ingestion.cdc_wonder_utils import CDC_WONDER_DIR
 import pandas as pd
+
 from pandas._testing import assert_frame_equal
 
 from test_utils import _load_csv_as_df_from_real_data_dir
@@ -15,11 +16,11 @@ GOLDEN_DIR = os.path.join(TEST_DIR, CDC_WONDER_DIR, "golden_data")
 CSV_DTYPES = {std_col.TIME_PERIOD_COL: str, std_col.STATE_FIPS_COL: str}
 
 GOLDEN_DATA = {
-    "age_national_current": os.path.join(GOLDEN_DIR, "expected_age_national.csv"),
+    "age_national_current": os.path.join(GOLDEN_DIR, "expected_age_national_current.csv"),
     "age_national_historical": os.path.join(GOLDEN_DIR, "expected_age_national_historical.csv"),
-    "race_and_ethnicity_state_current": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_state.csv"),
+    "race_and_ethnicity_state_current": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_state_current.csv"),
     "race_and_ethnicity_state_historical": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_state_historical.csv"),
-    "sex_national_current": os.path.join(GOLDEN_DIR, "expected_sex_national.csv"),
+    "sex_national_current": os.path.join(GOLDEN_DIR, "expected_sex_national_current.csv"),
     "sex_national_historical": os.path.join(GOLDEN_DIR, "expected_sex_national_historical.csv"),
 }
 
@@ -38,11 +39,13 @@ def testBreakdownAgeNational(mock_data_dir: mock.MagicMock, mock_bq_write: mock.
     actual_current_df, _, current_table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[current_table_name], dtype=CSV_DTYPES)
     assert current_table_name == "age_national_current"
+    # actual_current_df.to_csv(current_table_name, index=False)
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df, _, historical_table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[historical_table_name], dtype=CSV_DTYPES)
     assert historical_table_name == "age_national_historical"
+    # actual_historical_df.to_csv(historical_table_name, index=False)
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
 
 
@@ -59,11 +62,14 @@ def testBreakdownSexNational(mock_data_dir: mock.MagicMock, mock_bq_write: mock.
     actual_current_df, _, current_table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[current_table_name], dtype=CSV_DTYPES)
     assert current_table_name == "sex_national_current"
+    # actual_current_df.to_csv(current_table_name, index=False)
+
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df, _, historical_table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[historical_table_name], dtype=CSV_DTYPES)
     assert historical_table_name == "sex_national_historical"
+    # actual_historical_df.to_csv(historical_table_name, index=False)
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
 
 
@@ -80,9 +86,12 @@ def testBreakdownRaceState(mock_data_dir: mock.MagicMock, mock_bq_write: mock.Ma
     actual_current_df, _, current_table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[current_table_name], dtype=CSV_DTYPES)
     assert current_table_name == "race_and_ethnicity_state_current"
+    # actual_current_df.to_csv(current_table_name, index=False)
+
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df, _, historical_table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[historical_table_name], dtype=CSV_DTYPES)
     assert historical_table_name == "race_and_ethnicity_state_historical"
+    # actual_historical_df.to_csv(historical_table_name, index=False)
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
