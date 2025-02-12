@@ -149,6 +149,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
 
         const hideChart =
           data.length === 0 ||
+          data.every((row) => row[props.demographicType] === 'All') ||
           rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])
