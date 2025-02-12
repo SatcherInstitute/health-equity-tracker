@@ -130,25 +130,12 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '55-64': timeYellow,
   '65-74': mapLight,
   '75+': mapLighter,
-  // age for WISQARS
-  '0-4': timeCyanBlue,
-  '5-9': timePastelGreen,
-  '10-14': darkBlue,
+  // added age buckeds for WISQARS
+  '0-14': timeCyanBlue,
   '15-19': timePurple,
   '20-24': timePink,
-  '25-29': timeDarkRed,
+  '25-29': timePastelGreen,
   '30-34': redOrange,
-  '35-39': timeYellow,
-  '40-44': mapLight,
-  '45-49': mapLighter,
-  '50-54': altOrange,
-  '55-59': mapMedicareDarkest,
-  '60-64': mapMedicareDark,
-  '65-69': mapMedicareMid,
-  '70-74': mapMedicareLight,
-  '75-79': mapMedicareLighter,
-  '80-84': mapMedicareLightest,
-  '85+': altGrey,
   // age for AHR
   '15-24': timeCyanBlue,
   '18-44': timeCyanBlue,
@@ -222,11 +209,11 @@ const FORMATTERS = {
 const BASELINE_THRESHOLD_Y_AXIS_ZERO = 5
 
 export {
-  COLOR_RANGE,
-  UNKNOWN_GROUP_COLOR_EXTENT,
-  CONFIG,
-  TYPES,
-  FORMATTERS,
-  COLORS,
   BASELINE_THRESHOLD_Y_AXIS_ZERO,
+  COLORS,
+  COLOR_RANGE,
+  CONFIG,
+  FORMATTERS,
+  TYPES,
+  UNKNOWN_GROUP_COLOR_EXTENT,
 }
