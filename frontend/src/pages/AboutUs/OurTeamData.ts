@@ -27,13 +27,8 @@ export const LEADERSHIP_TEAM = [
     imageUrl: DrHH,
   },
   {
-    name: 'Allyson Belton, MPH',
-    role: 'Coalition/Engagement',
-    imageUrl: Allyson,
-  },
-  {
     name: 'Ben Hammond, BMus',
-    role: 'Senior Software Engineer',
+    role: 'Senior Software Engineer, Team Lead',
     imageUrl: Ben,
   },
   {
@@ -45,6 +40,11 @@ export const LEADERSHIP_TEAM = [
     name: 'Kim Cinco, MPsy, USN Vet.',
     role: 'UX Engineer',
     imageUrl: Kim,
+  },
+  {
+    name: 'Allyson Belton, MPH',
+    role: 'Coalition/Engagement',
+    imageUrl: Allyson,
   },
   {
     name: 'Donrie Purcell, PhD, MPH',
