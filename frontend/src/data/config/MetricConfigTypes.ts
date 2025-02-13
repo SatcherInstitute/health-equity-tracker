@@ -104,7 +104,7 @@ export interface MetricConfig {
 }
 
 export interface MapConfig {
-  scheme: ColorScheme
+  scheme: ColorScheme | ((t: number) => string)
   min: string
   mid: string
   higherIsBetter?: boolean

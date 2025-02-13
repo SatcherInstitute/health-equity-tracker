@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import type * as d3 from 'd3'
 import type {
   Feature,
   FeatureCollection,
@@ -7,7 +7,9 @@ import type {
 } from 'geojson'
 import type { RefObject } from 'react'
 import type { Topology } from 'topojson-specification'
+import type { ColorScheme } from 'vega'
 import type {
+  MapConfig,
   MetricConfig,
   MetricId,
 } from '../../data/config/MetricConfigTypes'
@@ -17,25 +19,21 @@ import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import type { CountColsMap, HighestLowest } from '../mapGlobals'
 
-export const MAP_SCHEMES = {
-  default: d3.interpolateGreens,
-  women: d3.interpolatePlasma,
-  men: d3.interpolateInferno,
-  medicare: d3.interpolateViridis,
-  unknown: d3.interpolateGnBu,
-  youth: d3.interpolateReds,
-}
+export type ColorScale =
+  | d3.ScaleSequential<any, never>
+  | d3.ScaleThreshold<number, string, never>
+  | d3.ScaleQuantile<string, number>
 
 export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
   countColsMap: CountColsMap
   demographicType: DemographicType
-  data: DataPoint[]
+  data: Array<Record<string, any>>
   extremesMode: boolean
   fips: Fips
   fieldRange?: FieldRange
   filename?: string
-  geoData: Topology
+  geoData?: Record<string, any>
   hideLegend?: boolean
   hideMissingDataTooltip?: boolean
   highestLowestGroupsByFips?: Record<string, HighestLowest>
@@ -55,16 +53,25 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  updateFipsCallback: (fips: Fips) => void
+  scaleConfig?: {
+    domain: number[]
+    range: string[]
+  }
 }
 
 export interface CreateColorScaleProps {
-  data: DataPoint[]
+  dataWithHighestLowest: DataPoint[]
   metricId: MetricId
-  scaleType: 'quantileSequential' | 'sequentialSymlog'
-  colorScheme: (t: number) => string
+  colorScheme: ColorScheme | ((t: number) => string)
   reverse?: boolean
   fieldRange?: FieldRange
+  isUnknown?: boolean
+  fips: Fips
+  scaleConfig?: {
+    domain: number[]
+    range: string[]
+  }
+  isPhrma: boolean
 }
 
 export type CreateFeaturesProps = {
@@ -83,14 +90,21 @@ export type CreateProjectionProps = {
 export type DataPoint = {
   fips: string
   fips_name: string
+  highestGroup?: string
+  lowestGroup?: string
+  rating?: string
 } & {
   [key in MetricId]: any
 }
 
 export type GetFillColorProps = {
   d: Feature<Geometry, GeoJsonProperties>
-  dataMap: Map<string, number>
-  colorScale: d3.ScaleSequential<string, never>
+  dataMap: Map<string, MetricData>
+  colorScale: ColorScale
+  extremesMode?: boolean
+  zeroColor: string
+  countyColor: string
+  fips?: Fips
 }
 
 export type HetRow = DataPoint & {
@@ -104,16 +118,16 @@ export type InitializeSvgProps = {
   isMobile: boolean
 }
 
-export interface MapConfig {
-  scheme: (t: number) => string
-  min: string
-  mid: string
-  higherIsBetter?: boolean
+export interface MetricData {
+  [key: string]: string | number | undefined
 }
 
 export type RenderMapProps = {
-  colorScale: d3.ScaleSequential<string>
-  data: DataPoint[]
+  activeDemographicGroup: DemographicGroup
+  colorScale: ColorScale
+  countColsMap: CountColsMap
+  dataWithHighestLowest: DataPoint[]
+  demographicType: DemographicType
   geoData: {
     features: FeatureCollection<Geometry, GeoJsonProperties>
     projection: d3.GeoProjection
@@ -121,17 +135,17 @@ export type RenderMapProps = {
   height: number
   hideLegend?: boolean
   isUnknownsMap?: boolean
-  mapConfig: MapConfig
   metric: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
-  tooltipPairs: TooltipPairs
-  tooltipLabel: string
-  updateFipsCallback: (fips: Fips) => void
   width: number
   fips: Fips
   isMobile: boolean
+  isCawp: boolean
+  extremesMode: boolean
+  mapConfig: MapConfig
+  signalListeners: any
 }
 
 export type TooltipFeature = {
@@ -141,6 +155,17 @@ export type TooltipFeature = {
 
 export type TooltipPairs = {
   [key: string]: (value: number | string | undefined) => string
+}
+
+export interface MouseEventHandlerProps {
+  colorScale: ColorScale
+  metric: MetricConfig
+  dataMap: Map<string, MetricData>
+  tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
+  geographyType?: string
+  extremesMode?: boolean
+  mapConfig?: MapConfig
+  fips?: Fips
 }
 
 /**

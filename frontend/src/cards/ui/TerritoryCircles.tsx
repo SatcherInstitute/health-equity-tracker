@@ -30,7 +30,7 @@ interface TerritoryCirclesProps {
   demographicType: DemographicType
   activeDemographicGroup: DemographicGroup
   fullData?: HetRow[]
-  scaleConfig?: { domain: number[]; range: number[] }
+  scaleConfig?: { domain: number[]; range: string[] }
   isMulti?: boolean
   isPhrmaAdherence?: boolean
 }

@@ -1,119 +1,182 @@
-import { useEffect, useRef } from 'react'
+import * as d3 from 'd3'
+import { useEffect, useMemo, useRef } from 'react'
+import { CAWP_METRICS } from '../../data/providers/CawpProvider'
+import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
+import { embedHighestLowestGroups } from '../mapHelperFunctions'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
+import { createColorScale } from './colorSchemes'
 import {
-  createColorScale,
   createFeatures,
   createProjection,
+  processPhrmaData,
 } from './mapHelpers'
 import { renderMap } from './renderMap'
-import {
-  createTooltipContainer,
-  createTooltipLabel,
-  getTooltipPairs,
-} from './tooltipUtils'
-import type { ChoroplethMapProps } from './types'
+import { createTooltipContainer } from './tooltipUtils'
+import type { ChoroplethMapProps, DataPoint } from './types'
 
-const ChoroplethMap = (props: ChoroplethMapProps) => {
-  const {
-    data,
-    metric,
-    isUnknownsMap,
-    activeDemographicGroup,
-    demographicType,
-    fips,
-    geoData,
-    showCounties,
-    overrideShapeWithCircle,
-    updateFipsCallback,
-    mapConfig,
-  } = props
+const ChoroplethMap = ({
+  data,
+  metric,
+  highestLowestGroupsByFips,
+  overrideShapeWithCircle,
+  showCounties,
+  fips,
+  geoData,
+  activeDemographicGroup,
+  demographicType,
+  countColsMap,
+  isUnknownsMap = false,
+  isMulti = false,
+  extremesMode,
+  mapConfig,
+  signalListeners,
+  scaleConfig,
+  filename,
+}: ChoroplethMapProps) => {
+  const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
-  const isMobile = !useIsBreakpointAndUp('md')
+  const tooltipContainerRef = useRef<ReturnType<
+    typeof createTooltipContainer
+  > | null>(null)
+  const mapInitializedRef = useRef(false)
 
-  const heightWidthRatio = overrideShapeWithCircle
-    ? HEIGHT_WIDTH_RATIO * 2
-    : HEIGHT_WIDTH_RATIO
+  const isCawp = CAWP_METRICS.includes(metric.metricId)
+  const isPhrma = PHRMA_METRICS.includes(metric.metricId)
 
-  const height = width * heightWidthRatio
+  const suppressedData = useMemo(
+    () => (isPhrma ? processPhrmaData(data, countColsMap) : data),
+    [data, isPhrma, countColsMap],
+  )
 
-  const tooltipContainer = createTooltipContainer()
+  const dataWithHighestLowest: DataPoint[] = useMemo(
+    () =>
+      !isUnknownsMap && !isMulti
+        ? embedHighestLowestGroups(suppressedData, highestLowestGroupsByFips)
+        : suppressedData,
+    [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMulti],
+  )
+
+  const dimensions = useMemo(() => {
+    const heightWidthRatio = overrideShapeWithCircle
+      ? HEIGHT_WIDTH_RATIO * 2
+      : HEIGHT_WIDTH_RATIO
+    return {
+      height: width * heightWidthRatio,
+      ratio: heightWidthRatio,
+    }
+  }, [width, overrideShapeWithCircle])
+
+  const cleanup = () => {
+    if (tooltipContainerRef.current) {
+      tooltipContainerRef.current.remove()
+      tooltipContainerRef.current = null
+    }
+    if (svgRef.current) {
+      const svg = d3.select(svgRef.current)
+      svg.selectAll('*').remove()
+      svg.on('.', null)
+    }
+    mapInitializedRef.current = false
+  }
 
   useEffect(() => {
-    if (!data.length || !svgRef.current || !width) return
+    if (!data?.length || !svgRef.current || !width) {
+      return
+    }
 
     const initializeMap = async () => {
+      if (mapInitializedRef.current) {
+        return
+      }
+
+      tooltipContainerRef.current ??= createTooltipContainer()
+
       const colorScale = createColorScale({
-        data,
+        dataWithHighestLowest,
         metricId: metric.metricId,
-        scaleType: 'sequentialSymlog',
         colorScheme: mapConfig.scheme,
+        isUnknown: isUnknownsMap,
+        fips,
+        reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
+        scaleConfig,
+        isPhrma,
       })
 
-      const features = await createFeatures({
-        showCounties,
-        parentFips: fips.code,
-        geoData,
-      })
+      const features = await createFeatures(showCounties, fips.code, geoData)
 
-      const projection = createProjection({ fips, width, height, features })
-
-      const tooltipLabel = createTooltipLabel(
-        metric,
-        activeDemographicGroup,
-        demographicType,
-        isUnknownsMap,
+      const projection = createProjection(
+        fips,
+        width,
+        dimensions.height,
+        features,
       )
-
-      const tooltipPairs = getTooltipPairs(tooltipLabel)
 
       renderMap({
         svgRef,
         geoData: { features, projection },
-        data,
+        dataWithHighestLowest,
         metric,
         width,
-        height,
-        tooltipContainer,
-        tooltipPairs,
-        tooltipLabel,
+        height: dimensions.height,
+        tooltipContainer: tooltipContainerRef.current!,
         showCounties,
-        updateFipsCallback,
-        mapConfig,
         colorScale,
         fips,
         isMobile,
+        activeDemographicGroup,
+        demographicType,
+        isCawp,
+        countColsMap,
+        isUnknownsMap,
+        extremesMode,
+        mapConfig,
+        signalListeners,
       })
+
+      mapInitializedRef.current = true
     }
-    initializeMap()
-    return () => {
-      tooltipContainer.remove()
-    }
+
+    cleanup()
+    initializeMap().catch((error) => {
+      console.error('Error initializing map:', error)
+    })
+
+    return cleanup
   }, [
     data,
     geoData,
     width,
-    height,
+    dimensions.height,
     showCounties,
     overrideShapeWithCircle,
     metric,
+    dataWithHighestLowest,
+    mapConfig,
+    fips,
+    isMobile,
+    activeDemographicGroup,
+    demographicType,
+    isCawp,
+    countColsMap,
+    isUnknownsMap,
+    scaleConfig,
+    signalListeners,
+    extremesMode,
   ])
 
   return (
     <div
-      className={`justify-center ${
-        width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'
-      }`}
+      className={`justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
       ref={overrideShapeWithCircle ? undefined : ref}
     >
       <svg
         ref={svgRef}
-        style={{
-          width: '100%',
-        }}
+        style={{ width: '100%' }}
+        aria-label={`Map showing ${filename}`}
       />
     </div>
   )

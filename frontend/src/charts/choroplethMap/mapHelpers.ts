@@ -2,67 +2,30 @@ import * as d3 from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import type { DemographicType } from '../../data/query/Breakdowns'
+import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
-import { getLegendDataBounds } from '../mapHelperFunctions'
-import type {
-  CreateColorScaleProps,
-  CreateFeaturesProps,
-  CreateProjectionProps,
-  GetFillColorProps,
-} from './types'
+import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
+import {
+  getCawpMapGroupDenominatorLabel,
+  getCawpMapGroupNumeratorLabel,
+  getMapGroupLabel,
+} from '../mapHelperFunctions'
+import type { MetricData } from './types'
 
-const { altGrey: ALT_GREY } = het
-
-export const createColorScale = (props: CreateColorScaleProps) => {
-  const interpolatorFn = props.reverse
-    ? (t: number) => props.colorScheme(1 - t)
-    : props.colorScheme
-
-  let colorScale: d3.ScaleSequential<string>
-
-  const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
-    props.data,
-    props.metricId,
-  )
-
-  const [min, max] = props.fieldRange
-    ? [props.fieldRange.min, props.fieldRange.max]
-    : [legendLowerBound, legendUpperBound]
-
-  if (min === undefined || max === undefined || isNaN(min) || isNaN(max)) {
-    return d3.scaleSequential(interpolatorFn).domain([0, 1])
-  }
-
-  const adjustedInterpolatorFn = (t: number) => {
-    const adjustedT = 0.1 + 0.9 * t // Scale the range to skip the lightest 10%
-    return interpolatorFn(adjustedT)
-  }
-
-  if (props.scaleType === 'quantileSequential') {
-    const values = props.data
-      .map((d) => d[props.metricId])
-      .filter((val) => val != null && !isNaN(val))
-    colorScale = d3
-      .scaleSequentialQuantile<string>(adjustedInterpolatorFn)
-      .domain(values)
-  } else if (props.scaleType === 'sequentialSymlog') {
-    colorScale = d3
-      .scaleSequentialSymlog<string>()
-      .domain([min, max])
-      .interpolator(adjustedInterpolatorFn)
-  } else {
-    console.error(`Unsupported scaleType: ${props.scaleType}.`)
-    return d3.scaleSequential(interpolatorFn).domain([0, 1])
-  }
-
-  return colorScale
-}
+const {
+  altGrey: ALT_GREY,
+  white: WHITE,
+  greyGridColorDarker: BORDER_GREY,
+  borderColor,
+} = het
 
 export const createFeatures = async (
-  props: CreateFeaturesProps,
+  showCounties: boolean,
+  parentFips: string,
+  geoData?: Record<string, any>,
 ): Promise<FeatureCollection> => {
-  const { showCounties, parentFips, geoData } = props
-
   const topology =
     geoData ??
     JSON.parse(
@@ -92,19 +55,110 @@ export const createFeatures = async (
 }
 
 export const createProjection = (
-  props: CreateProjectionProps,
+  fips: Fips,
+  width: number,
+  height: number,
+  features: FeatureCollection,
 ): d3.GeoProjection => {
-  const { fips, width, height, features } = props
-
   const isTerritory = fips.isTerritory() || fips.getParentFips().isTerritory()
   return isTerritory
     ? d3.geoAlbers().fitSize([width, height], features)
     : d3.geoAlbersUsa().fitSize([width, height], features)
 }
 
-export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, colorScale } = props
+export const processPhrmaData = (
+  data: Array<Record<string, any>>,
+  countColsMap: CountColsMap,
+) => {
+  return data.map((row) => {
+    const newRow = { ...row }
 
-  const value = dataMap.get(d.id as string)
-  return value !== undefined ? colorScale(value) : ALT_GREY
+    const processField = (
+      fieldConfig:
+        | typeof countColsMap.numeratorConfig
+        | typeof countColsMap.denominatorConfig,
+    ) => {
+      if (!fieldConfig) return
+
+      const value = row[fieldConfig.metricId]
+      if (value === null) return DATA_SUPPRESSED
+      if (value >= 0) return value.toLocaleString()
+      return value
+    }
+
+    const numeratorId = countColsMap?.numeratorConfig?.metricId
+    const denominatorId = countColsMap?.denominatorConfig?.metricId
+
+    if (numeratorId) {
+      newRow[numeratorId] = processField(countColsMap?.numeratorConfig)
+    }
+    if (denominatorId) {
+      newRow[denominatorId] = processField(countColsMap?.denominatorConfig)
+    }
+
+    return newRow
+  })
+}
+
+export const getNumeratorPhrase = (
+  isCawp: boolean,
+  countColsMap: any,
+  demographicType: DemographicType,
+  activeDemographicGroup: string,
+): string => {
+  if (isCawp) {
+    return getCawpMapGroupNumeratorLabel(countColsMap, activeDemographicGroup)
+  }
+
+  return getMapGroupLabel(
+    demographicType,
+    activeDemographicGroup,
+    countColsMap?.numeratorConfig?.shortLabel ?? '',
+  )
+}
+
+export const getDenominatorPhrase = (
+  isCawp: boolean,
+  countColsMap: any,
+  demographicType: DemographicType,
+  activeDemographicGroup: string,
+): string => {
+  if (isCawp) {
+    return getCawpMapGroupDenominatorLabel(countColsMap)
+  }
+
+  return getMapGroupLabel(
+    demographicType,
+    activeDemographicGroup,
+    countColsMap?.denominatorConfig?.shortLabel ?? '',
+  )
+}
+
+export const createDataMap = (
+  dataWithHighestLowest: any[],
+  tooltipLabel: string,
+  metric: MetricConfig,
+  numeratorPhrase: string,
+  denominatorPhrase: string,
+  countColsMap: any,
+): Map<string, MetricData> => {
+  return new Map(
+    dataWithHighestLowest.map((d) => [
+      d.fips,
+      {
+        [tooltipLabel]: d[metric.metricId],
+        value: d[metric.metricId],
+        ...(countColsMap?.numeratorConfig && {
+          [`# ${numeratorPhrase}`]: d[countColsMap.numeratorConfig.metricId],
+        }),
+        ...(countColsMap?.denominatorConfig && {
+          [`# ${denominatorPhrase}`]:
+            d[countColsMap.denominatorConfig.metricId],
+        }),
+        ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
+        ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
+        ...(d.rating && { ['County SVI']: d.rating }),
+      },
+    ]),
+  )
 }

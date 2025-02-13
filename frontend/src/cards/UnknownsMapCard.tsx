@@ -2,9 +2,12 @@ import { useLocation } from 'react-router-dom'
 import type { Topology } from 'topojson-specification'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import type { DataPoint } from '../charts/choroplethMap/types'
-import { MAP_SCHEMES, type MapConfig } from '../charts/choroplethMap/types'
+import { MAP_SCHEMES } from '../charts/mapGlobals'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MapConfig,
+} from '../data/config/MetricConfigTypes'
 import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -232,7 +235,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   metric={metricConfig}
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
-                  updateFipsCallback={props.updateFipsCallback}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles

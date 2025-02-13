@@ -46,7 +46,7 @@ test('Suicide California Showing Counties', async ({ page }) => {
     .getByRole('button', { name: 'Collapse county rate extremes' })
     .click()
   // click a county
-  await page.locator('g:nth-child(3) > path:nth-child(3)').first().click()
+  await page.locator('path:nth-child(3)').first().click()
 })
 test('Suicide Los Angeles County', async ({ page }) => {
   await page.goto(

@@ -1,8 +1,8 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import ChoroplethMap from '../charts/ChoroplethMap'
 import { Legend } from '../charts/Legend'
+import ChoroplethMap from '../charts/choroplethMap/index'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -149,7 +149,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
-  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+  const [scale, setScale] = useState<{ domain: number[]; range: string[] }>({
     domain: [],
     range: [],
   })
@@ -259,7 +259,7 @@ function MapCardWithKey(props: MapCardProps) {
   if (extremesMode) subtitle += ` (only ${pluralChildFips} with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
-  function handleScaleChange(domain: number[], range: number[]) {
+  function handleScaleChange(domain: number[], range: string[]) {
     // Update the scale state when the domain or range changes
     setScale({ domain, range })
   }
@@ -553,8 +553,8 @@ function MapCardWithKey(props: MapCardProps) {
                       }
                       signalListeners={signalListeners}
                       mapConfig={mapConfig}
-                      scaleConfig={scale}
                       isPhrmaAdherence={isPhrmaAdherence}
+                      scaleConfig={scale}
                     />
                   </div>
 

@@ -2,17 +2,17 @@ import * as d3 from 'd3'
 import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
-import type { DataPoint } from './types'
+import type { ColorScale, DataPoint } from './types'
 
 const { altGrey } = het
 
 export const createUnknownLegend = (
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
   props: {
-    data: DataPoint[]
+    dataWithHighestLowest: DataPoint[]
     metricId: MetricId
     width: number
-    colorScale: d3.ScaleSequential<string>
+    colorScale: ColorScale
     title: string
     isMobile: boolean
     isPct?: boolean
@@ -24,7 +24,7 @@ export const createUnknownLegend = (
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
   const tickCount = isMobile
     ? 3
-    : calculateLegendColorCount(props.data, props.metricId)
+    : calculateLegendColorCount(props.dataWithHighestLowest, props.metricId)
 
   const ticks = d3
     .scaleLinear()
