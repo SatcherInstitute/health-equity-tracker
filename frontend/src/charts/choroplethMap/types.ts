@@ -116,6 +116,7 @@ export type InitializeSvgProps = {
   width: number
   height: number
   isMobile: boolean
+  isUnknownsMap?: boolean
 }
 
 export interface MetricData {
