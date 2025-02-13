@@ -7,13 +7,17 @@ import {
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { LESS_THAN_POINT_1 } from '../../data/utils/Constants'
-import { het } from '../../styles/DesignTokens'
+import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MetricData } from './types'
 
 const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
+const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 
-export const createTooltipContainer = () => {
+export const createTooltipContainer = (isMultimap?: boolean) => {
+  const tooltipZnumber = isMultimap ? multimapModalTooltip : mapTooltip
+  const tooltipZIndex = tooltipZnumber.toString()
+
   return d3
     .select('body')
     .append('div')
@@ -24,7 +28,7 @@ export const createTooltipContainer = () => {
     .style('border-radius', '4px')
     .style('padding', '8px')
     .style('font-size', '12px')
-    .style('z-index', '1000')
+    .style('z-index', tooltipZIndex)
 }
 
 export const formatMetricValue = (

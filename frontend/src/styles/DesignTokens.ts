@@ -21,10 +21,12 @@ const ThemeZIndexValues = {
   bottom: -999,
   middle: 0,
   almostTop: 3,
+  mapTooltip: 98,
   top: 99,
   stickyMadLib: 100,
   multimapModal: 101,
   skipLink: 102,
+  multimapModalTooltip: 1300,
 }
 
 const ThemeLineHeightValues = {
@@ -139,7 +141,7 @@ const het = {
 
 export {
   het,
-  ThemeZIndexValues,
   ThemeLineHeightValues,
   ThemeStandardScreenSizes,
+  ThemeZIndexValues,
 }

@@ -24,7 +24,7 @@ const {
 
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
-const MARGIN = { top: 20, right: 20, bottom: 20, left: 20 } as const
+const MARGIN = { top: -40, right: 20, bottom: 20, left: 20 }
 
 export const renderMap = ({
   geoData,
@@ -57,6 +57,7 @@ export const renderMap = ({
     width,
     height,
     isMobile,
+    isUnknownsMap,
   })
 
   projection.fitSize([width, height * 0.8], features)
@@ -163,7 +164,12 @@ const initializeSvg = ({
   width,
   height,
   isMobile,
+  isUnknownsMap,
 }: InitializeSvgProps) => {
+  let { left, top } = MARGIN
+  if (isUnknownsMap) {
+    top = 20
+  }
   const svg = d3
     .select(svgRef.current)
     .attr('width', width)
@@ -174,16 +180,13 @@ const initializeSvg = ({
     legendGroup: svg
       .append('g')
       .attr('class', 'legend-container')
-      .attr(
-        'transform',
-        `translate(${MARGIN.left}, ${isMobile ? 0 : MARGIN.top})`,
-      ),
+      .attr('transform', `translate(${left}, ${isMobile ? 0 : top})`),
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
       .attr(
         'transform',
-        `translate(${MARGIN.left}, ${isMobile ? MARGIN.top + 10 : MARGIN.top + 50})`,
+        `translate(${left}, ${isMobile ? top + 10 : top + 50})`,
       ),
   }
 }
