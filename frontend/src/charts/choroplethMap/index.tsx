@@ -93,7 +93,7 @@ const ChoroplethMap = ({
         return
       }
 
-      tooltipContainerRef.current ??= createTooltipContainer()
+      tooltipContainerRef.current ??= createTooltipContainer(isMulti)
 
       const colorScale = createColorScale({
         dataWithHighestLowest,

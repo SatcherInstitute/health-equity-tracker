@@ -1,8 +1,8 @@
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
 import { useState } from 'react'
-import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Legend } from '../../charts/Legend'
+import ChoroplethMap from '../../charts/choroplethMap/index'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import type {
   DataTypeConfig,
