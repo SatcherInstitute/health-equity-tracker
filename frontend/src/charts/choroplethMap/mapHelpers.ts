@@ -5,21 +5,17 @@ import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/DesignTokens'
-import { type CountColsMap, DATA_SUPPRESSED } from '../mapGlobals'
+import {
+  type CountColsMap,
+  DATA_SUPPRESSED,
+  NO_DATA_MESSAGE,
+} from '../mapGlobals'
 import {
   getCawpMapGroupDenominatorLabel,
   getCawpMapGroupNumeratorLabel,
   getMapGroupLabel,
 } from '../mapHelperFunctions'
 import type { MetricData } from './types'
-
-const {
-  altGrey: ALT_GREY,
-  white: WHITE,
-  greyGridColorDarker: BORDER_GREY,
-  borderColor,
-} = het
 
 export const createFeatures = async (
   showCounties: boolean,
@@ -149,7 +145,8 @@ export const createDataMap = (
         [tooltipLabel]: d[metric.metricId],
         value: d[metric.metricId],
         ...(countColsMap?.numeratorConfig && {
-          [`# ${numeratorPhrase}`]: d[countColsMap.numeratorConfig.metricId],
+          [`# ${numeratorPhrase}`]:
+            d?.[countColsMap.numeratorConfig.metricId] ?? NO_DATA_MESSAGE,
         }),
         ...(countColsMap?.denominatorConfig && {
           [`# ${denominatorPhrase}`]:

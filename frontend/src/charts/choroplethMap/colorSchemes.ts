@@ -118,7 +118,7 @@ export const getFillColor = (props: GetFillColorProps): string => {
     return zeroColor
   }
 
-  if (value !== undefined) {
+  if (value != null) {
     return colorScale(value)
   }
 

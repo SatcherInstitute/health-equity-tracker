@@ -24,7 +24,7 @@ const {
 
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
-const MARGIN = { top: 20, right: 20, bottom: 20, left: 20 } as const
+const MARGIN = { top: -40, right: 20, bottom: 20, left: 20 } as const
 
 export const renderMap = ({
   geoData,
