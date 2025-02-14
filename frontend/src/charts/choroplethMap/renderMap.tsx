@@ -231,9 +231,8 @@ const initializeSvg = ({
   isUnknownsMap,
 }: InitializeSvgProps) => {
   let { left, top } = MARGIN
-  if (isUnknownsMap) {
-    top = 20
-  }
+  if (isMobile) top = 0
+  if (isUnknownsMap) top = 20
   const svg = d3
     .select(svgRef.current)
     .attr('width', width)
