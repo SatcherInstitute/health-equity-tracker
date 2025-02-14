@@ -47,6 +47,7 @@ export const renderMap = ({
   mapConfig,
   hideLegend,
   signalListeners,
+  overrideShapeWithCircle,
 }: RenderMapProps) => {
   const { features, projection } = geoData
   const geographyType = getCountyAddOn(fips, showCounties)
@@ -91,60 +92,123 @@ export const renderMap = ({
     denominatorPhrase,
     countColsMap,
   )
-
-  // Draw map
-  mapGroup
-    .selectAll('path')
-    .data(features.features)
-    .join('path')
-    .attr('d', (d) => path(d) || '')
-    .attr('fill', (d) =>
-      getFillColor({
-        d,
-        dataMap,
-        colorScale,
-        extremesMode,
-        zeroColor: mapConfig.min,
-        countyColor: mapConfig.mid,
-        fips,
-      }),
-    )
-    .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
-    .attr('stroke-width', STROKE_WIDTH)
-    .on('mouseover', (event, d) =>
-      handleMouseEvent('mouseover', event, d, {
-        colorScale,
-        metric,
-        dataMap,
-        tooltipContainer,
-        geographyType,
-        extremesMode,
-        mapConfig,
-      }),
-    )
-    .on('mousemove', (event, d) =>
-      handleMouseEvent('mousemove', event, d, {
-        colorScale,
-        metric,
-        dataMap,
-        tooltipContainer,
-        geographyType,
-        extremesMode,
-        mapConfig,
-      }),
-    )
-    .on('mouseout', (event, d) =>
-      handleMouseEvent('mouseout', event, d, {
-        colorScale,
-        metric,
-        dataMap,
-        tooltipContainer,
-        geographyType,
-        extremesMode,
-        mapConfig,
-      }),
-    )
-    .on('click', signalListeners.click)
+  if (overrideShapeWithCircle) {
+    // Draw circles instead of shapes
+    mapGroup
+      .selectAll('circle')
+      .data(features.features)
+      .join('circle')
+      .attr('cx', (d) => {
+        const centroid = path.centroid(d)
+        return centroid[0]
+      })
+      .attr('cy', (d) => {
+        const centroid = path.centroid(d)
+        return centroid[1]
+      })
+      .attr('r', isMobile ? 10 : 20)
+      .attr('fill', (d) =>
+        getFillColor({
+          d,
+          dataMap,
+          colorScale,
+          extremesMode,
+          zeroColor: mapConfig.min,
+          countyColor: mapConfig.mid,
+          fips,
+        }),
+      )
+      .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
+      .attr('stroke-width', STROKE_WIDTH)
+      .on('mouseover', (event, d) =>
+        handleMouseEvent('mouseover', event, d, {
+          colorScale,
+          metric,
+          dataMap,
+          tooltipContainer,
+          geographyType,
+          extremesMode,
+          mapConfig,
+        }),
+      )
+      .on('mousemove', (event, d) =>
+        handleMouseEvent('mousemove', event, d, {
+          colorScale,
+          metric,
+          dataMap,
+          tooltipContainer,
+          geographyType,
+          extremesMode,
+          mapConfig,
+        }),
+      )
+      .on('mouseout', (event, d) =>
+        handleMouseEvent('mouseout', event, d, {
+          colorScale,
+          metric,
+          dataMap,
+          tooltipContainer,
+          geographyType,
+          extremesMode,
+          mapConfig,
+        }),
+      )
+      .on('click', signalListeners.click)
+  } else {
+    // Original path-based rendering
+    mapGroup
+      .selectAll('path')
+      .data(features.features)
+      .join('path')
+      .attr('d', (d) => path(d) || '')
+      .attr('fill', (d) =>
+        getFillColor({
+          d,
+          dataMap,
+          colorScale,
+          extremesMode,
+          zeroColor: mapConfig.min,
+          countyColor: mapConfig.mid,
+          fips,
+        }),
+      )
+      .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
+      .attr('stroke-width', STROKE_WIDTH)
+      .on('mouseover', (event, d) =>
+        handleMouseEvent('mouseover', event, d, {
+          colorScale,
+          metric,
+          dataMap,
+          tooltipContainer,
+          geographyType,
+          extremesMode,
+          mapConfig,
+        }),
+      )
+      .on('mousemove', (event, d) =>
+        handleMouseEvent('mousemove', event, d, {
+          colorScale,
+          metric,
+          dataMap,
+          tooltipContainer,
+          geographyType,
+          extremesMode,
+          mapConfig,
+        }),
+      )
+      .on('mouseout', (event, d) =>
+        handleMouseEvent('mouseout', event, d, {
+          colorScale,
+          metric,
+          dataMap,
+          tooltipContainer,
+          geographyType,
+          extremesMode,
+          mapConfig,
+        }),
+      )
+      .on('click', signalListeners.click)
+  }
 
   if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
     createUnknownLegend(legendGroup, {

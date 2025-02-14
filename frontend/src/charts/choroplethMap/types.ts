@@ -147,6 +147,7 @@ export type RenderMapProps = {
   extremesMode: boolean
   mapConfig: MapConfig
   signalListeners: any
+  overrideShapeWithCircle?: boolean
 }
 
 export type TooltipFeature = {
