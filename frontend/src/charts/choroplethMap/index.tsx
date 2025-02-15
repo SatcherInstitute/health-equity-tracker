@@ -170,7 +170,7 @@ const ChoroplethMap = ({
 
   return (
     <div
-      className={`justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
+      className={`mx-2 justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
       ref={overrideShapeWithCircle ? undefined : ref}
     >
       <svg

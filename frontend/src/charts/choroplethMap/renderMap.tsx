@@ -24,7 +24,7 @@ const {
 
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
-const MARGIN = { top: -40, right: 20, bottom: 20, left: 20 }
+const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
 
 export const renderMap = ({
   geoData,
@@ -60,7 +60,7 @@ export const renderMap = ({
     isUnknownsMap,
   })
 
-  projection.fitSize([width, height * 0.8], features)
+  projection.fitSize([width, isUnknownsMap ? height * 0.8 : height], features)
   const path = d3.geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(
