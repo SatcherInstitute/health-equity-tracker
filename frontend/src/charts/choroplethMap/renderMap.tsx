@@ -53,11 +53,11 @@ export const renderMap = ({
   mapConfig,
   hideLegend,
   signalListeners,
-  isMultimap,
+  isMulti,
 }: RenderMapProps) => {
   const territoryRadius = isMobile
     ? TERRITORIES.radiusMobile
-    : isMultimap
+    : isMulti
       ? TERRITORIES.radiusMultiMap
       : TERRITORIES.radius
 
@@ -183,7 +183,7 @@ export const renderMap = ({
   // Draw territory circles, including grayed out for missing data
   const territoryData = extractTerritoryData(fips.code, dataWithHighestLowest)
 
-  const marginRightForTerrRow = isMultimap ? 0 : TERRITORIES.marginRightForRow
+  const marginRightForTerrRow = isMulti ? 0 : TERRITORIES.marginRightForRow
 
   const territoryStartX =
     width -

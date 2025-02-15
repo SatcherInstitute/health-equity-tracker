@@ -182,7 +182,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         }
                         signalListeners={multimapSignalListeners}
                         mapConfig={mapConfig}
-                        isMultimap={true}
+                        isMulti={true}
                         scaleConfig={scale}
                         extremesMode={false}
                       />

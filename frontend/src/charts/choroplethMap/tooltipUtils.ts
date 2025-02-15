@@ -14,8 +14,8 @@ import type { MetricData } from './types'
 const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 
-export const createTooltipContainer = (isMultimap?: boolean) => {
-  const tooltipZnumber = isMultimap ? multimapModalTooltip : mapTooltip
+export const createTooltipContainer = (isMulti?: boolean) => {
+  const tooltipZnumber = isMulti ? multimapModalTooltip : mapTooltip
   const tooltipZIndex = tooltipZnumber.toString()
 
   return d3

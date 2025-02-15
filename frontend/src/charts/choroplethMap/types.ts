@@ -37,7 +37,7 @@ export interface ChoroplethMapProps {
   hideLegend?: boolean
   hideMissingDataTooltip?: boolean
   highestLowestGroupsByFips?: Record<string, HighestLowest>
-  isMultimap?: boolean
+  isMulti?: boolean
   isPhrmaAdherence?: boolean
   isSummaryLegend?: boolean
   isUnknownsMap?: boolean
@@ -146,7 +146,7 @@ export type RenderMapProps = {
   extremesMode: boolean
   mapConfig: MapConfig
   signalListeners: any
-  isMultimap?: boolean
+  isMulti?: boolean
 }
 
 export type TooltipFeature = {
