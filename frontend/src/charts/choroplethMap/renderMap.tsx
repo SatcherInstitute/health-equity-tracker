@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { het } from '../../styles/DesignTokens'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
@@ -25,6 +26,38 @@ const {
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
+const TERRITORY_CIRCLE_RADIUS = 15
+const TERRITORY_CIRCLE_RADIUS_MOBILE = 12
+
+const TERRITORY_MARGIN_TOP = 50
+const TERRITORY_RIGHT_MARGIN = 50 // Space from right edge of map
+const TERRITORY_US_VERTICAL_GAP = 50
+
+// Territory abbreviations mapping
+const TERRITORY_ABBR: Record<string, string> = {
+  '11': 'DC',
+  '72': 'PR',
+  '78': 'VI',
+  '66': 'GU',
+  '69': 'MP',
+  '60': 'AS',
+}
+
+// List of FIPS codes for territories and DC
+const TERRITORY_FIPS = ['11', '72', '78', '66', '69', '60'] // DC, PR, VI, GU, MP, AS
+
+// Helper to create a fake Feature for territory circles
+const createTerritoryFeature = (
+  fipsCode: string,
+): Feature<Geometry, GeoJsonProperties> => ({
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [0, 0],
+  },
+  properties: {},
+  id: fipsCode,
+})
 
 export const renderMap = ({
   geoData,
@@ -48,19 +81,34 @@ export const renderMap = ({
   hideLegend,
   signalListeners,
 }: RenderMapProps) => {
+  const territoryRadius = isMobile
+    ? TERRITORY_CIRCLE_RADIUS_MOBILE
+    : TERRITORY_CIRCLE_RADIUS
+
+  const territorySpacing = territoryRadius * 3
+
   const { features, projection } = geoData
   const geographyType = getCountyAddOn(fips, showCounties)
 
   d3.select(svgRef.current).selectAll('*').remove()
-  const { legendGroup, mapGroup } = initializeSvg({
+
+  // Adjust height to accommodate territory circles
+  const territoryHeight = TERRITORY_MARGIN_TOP + territoryRadius * 2
+  const mapHeight = height - territoryHeight
+
+  const { legendGroup, mapGroup, territoryGroup } = initializeSvg({
     svgRef,
     width,
     height,
+    mapHeight,
     isMobile,
     isUnknownsMap,
   })
 
-  projection.fitSize([width, isUnknownsMap ? height * 0.8 : height], features)
+  projection.fitSize(
+    [width, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
+    features,
+  )
   const path = d3.geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(
@@ -92,10 +140,14 @@ export const renderMap = ({
     countColsMap,
   )
 
-  // Draw map
+  // Draw main map
   mapGroup
     .selectAll('path')
-    .data(features.features)
+    .data(
+      features.features.filter(
+        (f) => f.id && !TERRITORY_FIPS.includes(f.id.toString()),
+      ),
+    )
     .join('path')
     .attr('d', (d) => path(d) || '')
     .attr('fill', (d) =>
@@ -120,6 +172,7 @@ export const renderMap = ({
         geographyType,
         extremesMode,
         mapConfig,
+        fips,
       }),
     )
     .on('mousemove', (event, d) =>
@@ -131,6 +184,7 @@ export const renderMap = ({
         geographyType,
         extremesMode,
         mapConfig,
+        fips,
       }),
     )
     .on('mouseout', (event, d) =>
@@ -142,9 +196,92 @@ export const renderMap = ({
         geographyType,
         extremesMode,
         mapConfig,
+        fips,
       }),
     )
     .on('click', signalListeners.click)
+
+  // Draw territory circles
+  const territoryData = dataWithHighestLowest.filter((d) =>
+    TERRITORY_FIPS.includes(d.fips),
+  )
+
+  const territoryStartX =
+    width -
+    (TERRITORY_RIGHT_MARGIN +
+      (territoryData.length - 1) * territorySpacing +
+      territoryRadius)
+
+  const territoryX = (i: number) => territoryStartX + i * territorySpacing
+
+  territoryGroup
+    .selectAll('circle')
+    .data(territoryData)
+    .join('circle')
+    .attr('cx', (_, i) => territoryX(i))
+    .attr('cy', territoryRadius + TERRITORY_US_VERTICAL_GAP - 24)
+    .attr('r', territoryRadius)
+    .attr('fill', (d) =>
+      getFillColor({
+        d: createTerritoryFeature(d.fips),
+        dataMap,
+        colorScale,
+        extremesMode,
+        zeroColor: mapConfig.min,
+        countyColor: mapConfig.mid,
+        fips,
+      }),
+    )
+    .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke-width', STROKE_WIDTH)
+    .on('mouseover', (event, d) =>
+      handleMouseEvent('mouseover', event, createTerritoryFeature(d.fips), {
+        colorScale,
+        metric,
+        dataMap,
+        tooltipContainer,
+        geographyType,
+        extremesMode,
+        mapConfig,
+        fips,
+      }),
+    )
+    .on('mousemove', (event, d) =>
+      handleMouseEvent('mousemove', event, createTerritoryFeature(d.fips), {
+        colorScale,
+        metric,
+        dataMap,
+        tooltipContainer,
+        geographyType,
+        extremesMode,
+        mapConfig,
+        fips,
+      }),
+    )
+    .on('mouseout', (event, d) =>
+      handleMouseEvent('mouseout', event, createTerritoryFeature(d.fips), {
+        colorScale,
+        metric,
+        dataMap,
+        tooltipContainer,
+        geographyType,
+        extremesMode,
+        mapConfig,
+        fips,
+      }),
+    )
+    .on('click', signalListeners.click)
+
+  // Draw territory labels
+  territoryGroup
+    .selectAll('text')
+    .data(territoryData)
+    .join('text')
+    .attr('x', (_, i) => territoryX(i))
+    .attr('y', territoryRadius + TERRITORY_US_VERTICAL_GAP + 5)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '12px')
+    .text((d) => TERRITORY_ABBR[d.fips] || d.fips)
 
   if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
     createUnknownLegend(legendGroup, {
@@ -159,16 +296,24 @@ export const renderMap = ({
   }
 }
 
+interface ExtendedInitializeSvgProps extends InitializeSvgProps {
+  mapHeight: number
+}
+
 const initializeSvg = ({
   svgRef,
   width,
   height,
+  mapHeight,
   isMobile,
   isUnknownsMap,
-}: InitializeSvgProps) => {
+}: ExtendedInitializeSvgProps) => {
   let { left, top } = MARGIN
   if (isUnknownsMap) {
     top = 20
+  }
+  if (isMobile) {
+    top = 0
   }
   const svg = d3
     .select(svgRef.current)
@@ -188,9 +333,12 @@ const initializeSvg = ({
         'transform',
         `translate(${left}, ${isMobile ? top + 10 : top + 50})`,
       ),
+    territoryGroup: svg
+      .append('g')
+      .attr('class', 'territory-container')
+      .attr('transform', `translate(0, ${mapHeight})`),
   }
 }
-
 const handleMouseEvent = (
   type: 'mouseover' | 'mouseout' | 'mousemove',
   event: any,

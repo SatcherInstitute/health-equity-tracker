@@ -45,7 +45,6 @@ export interface ChoroplethMapProps {
   legendTitle?: string | string[]
   mapConfig: MapConfig
   metric: MetricConfig
-  overrideShapeWithCircle?: boolean
   signalListeners?: {
     click?: (name: string, value: { id: string }) => void
   }

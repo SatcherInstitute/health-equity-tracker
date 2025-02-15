@@ -15,7 +15,6 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { setupUnknownsLegend } from './legendHelperFunctions'
 import {
-  CIRCLE_PROJECTION,
   COLOR_SCALE,
   type CountColsMap,
   DATA_SUPPRESSED,
@@ -89,8 +88,6 @@ interface ChoroplethMapProps {
   legendTitle?: string | string[]
   // Max/min of the data range- if present it will set the color scale at these boundaries
   fieldRange?: FieldRange
-  // If true, the geography will be rendered as a circle. Used to display territories at national level.
-  overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
   hideMissingDataTooltip?: boolean
   // Callbacks set up so map interactions can update the React UI
@@ -157,9 +154,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const [ref, width] = useResponsiveWidth()
 
-  const heightWidthRatio = props.overrideShapeWithCircle
-    ? HEIGHT_WIDTH_RATIO * 2
-    : HEIGHT_WIDTH_RATIO
+  const heightWidthRatio = HEIGHT_WIDTH_RATIO
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
@@ -200,13 +195,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     geoTransformers[0].values.push('rating')
   }
 
-  if (props.overrideShapeWithCircle) {
-    geoTransformers.push({
-      type: 'formula',
-      as: 'centroid',
-      expr: `geoCentroid('${CIRCLE_PROJECTION}', datum.fips)`,
-    })
-  }
   if (props.fips.isStateOrTerritory()) {
     // The first two characters of a county FIPS are the state FIPS
     const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`
@@ -327,7 +315,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* fips */ props.fips,
     /* width */ width,
     /* heightWidthRatio */ heightWidthRatio,
-    /* overrideShapeWithCirce */ props.overrideShapeWithCircle,
   )
 
   const marks = [
@@ -339,7 +326,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       },
       /* hoverColor= */ DARK_BLUE,
       /* tooltipExpression= */ zeroTooltipValue,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.extremesMode,
       /* is multimap */ props.isMulti,
@@ -353,7 +339,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       },
       /* hoverColor= */ props.extremesMode ? het.white : RED_ORANGE,
       /* tooltipExpression= */ missingDataTooltipValue,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.extremesMode,
       props.isMulti,
@@ -365,7 +350,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
       /* hoverColor= */ DARK_BLUE,
       /* tooltipExpression= */ tooltipValue,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.extremesMode,
       props.isMulti,
@@ -373,28 +357,24 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     ),
   ]
 
-  if (!props.overrideShapeWithCircle)
-    marks.push(
-      createInvisibleAltMarks(
-        /* tooltipDatum */ tooltipDatum,
-        /*  tooltipLabel */ tooltipLabel,
-      ),
-    )
+  marks.push(
+    createInvisibleAltMarks(
+      /* tooltipDatum */ tooltipDatum,
+      /*  tooltipLabel */ tooltipLabel,
+    ),
+  )
 
   const altText = makeAltText(
     /* data */ props.data,
     /* filename */ props.filename ?? '',
     /* fips */ props.fips,
-    /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
   )
 
   useEffect(() => {
     const newSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       background: het.white,
-      description: props.overrideShapeWithCircle
-        ? `Territory: ${props.fips.getDisplayName()}`
-        : altText,
+      description: altText,
       data: [
         {
           name: MISSING_PLACEHOLDER_VALUES,
@@ -510,13 +490,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       className={`justify-center ${props.isUnknownsMap ? 'mt-1' : 'mt-0'}
       ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}
       `}
-      ref={props.overrideShapeWithCircle ? undefined : ref}
+      ref={ref}
     >
       {mapIsReady && (
         <Vega
           renderer='svg'
           spec={spec}
-          width={props.overrideShapeWithCircle ? undefined : width}
+          width={width}
           actions={false}
           downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
           signalListeners={props.signalListeners}

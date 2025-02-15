@@ -31,7 +31,6 @@ import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
 import MissingDataAlert from './ui/MissingDataAlert'
-import TerritoryCircles from './ui/TerritoryCircles'
 import UnknownsAlert from './ui/UnknownsAlert'
 
 interface UnknownsMapCardProps {
@@ -236,21 +235,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
                 />
-                {props.fips.isUsa() && unknowns.length > 0 && (
-                  <TerritoryCircles
-                    demographicType={demographicType}
-                    activeDemographicGroup={UNKNOWN}
-                    countColsMap={{}}
-                    mapIsWide={mapIsWide}
-                    data={unknowns}
-                    metricConfig={metricConfig}
-                    dataTypeConfig={props.dataTypeConfig}
-                    signalListeners={signalListeners}
-                    geoData={geoData}
-                    isUnknownsMap={true}
-                    extremesMode={false}
-                  />
-                )}
               </div>
             )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
