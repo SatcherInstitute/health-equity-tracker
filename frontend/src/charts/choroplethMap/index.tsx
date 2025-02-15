@@ -28,7 +28,7 @@ const ChoroplethMap = ({
   demographicType,
   countColsMap,
   isUnknownsMap = false,
-  isMulti = false,
+  isMultimap,
   extremesMode,
   mapConfig,
   signalListeners,
@@ -53,10 +53,10 @@ const ChoroplethMap = ({
 
   const dataWithHighestLowest: DataPoint[] = useMemo(
     () =>
-      !isUnknownsMap && !isMulti
+      !isUnknownsMap && !isMultimap
         ? embedHighestLowestGroups(suppressedData, highestLowestGroupsByFips)
         : suppressedData,
-    [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMulti],
+    [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMultimap],
   )
 
   const dimensions = useMemo(() => {
@@ -90,7 +90,7 @@ const ChoroplethMap = ({
         return
       }
 
-      tooltipContainerRef.current ??= createTooltipContainer(isMulti)
+      tooltipContainerRef.current ??= createTooltipContainer(isMultimap)
 
       const colorScale = createColorScale({
         dataWithHighestLowest,
@@ -118,7 +118,7 @@ const ChoroplethMap = ({
         dataWithHighestLowest,
         metric,
         width,
-        height: dimensions.height,
+        height: isMultimap? dimensions.height + 100: dimensions.height,
         tooltipContainer: tooltipContainerRef.current!,
         showCounties,
         colorScale,
@@ -132,6 +132,7 @@ const ChoroplethMap = ({
         extremesMode,
         mapConfig,
         signalListeners,
+        isMultimap,
       })
 
       mapInitializedRef.current = true

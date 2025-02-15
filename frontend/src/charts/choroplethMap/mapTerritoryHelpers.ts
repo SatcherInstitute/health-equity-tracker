@@ -6,6 +6,7 @@ import type { DataPoint, HetRow } from './types'
 export const TERRITORIES = {
   radius: 15,
   radiusMobile: 12,
+  radiusMultiMap: 8,
   marginTop: 50,
   marginRightForRow: 50,
   verticalGapFromUsa: 50,
