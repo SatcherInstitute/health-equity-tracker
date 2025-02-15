@@ -1,7 +1,5 @@
 import * as d3 from 'd3'
-import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
-import { STATE_FIPS_MAP } from '../../data/utils/FipsData'
 import { het } from '../../styles/DesignTokens'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
@@ -11,6 +9,11 @@ import {
   getNumeratorPhrase,
 } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
+import {
+  TERRITORIES,
+  createTerritoryFeature,
+  extractTerritoryData,
+} from './mapTerritoryHelpers'
 import { generateTooltipHtml, getTooltipLabel } from './tooltipUtils'
 import type {
   InitializeSvgProps,
@@ -28,27 +31,6 @@ const {
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
-const TERRITORY_CIRCLE_RADIUS = 15
-const TERRITORY_CIRCLE_RADIUS_MOBILE = 12
-
-const TERRITORY_MARGIN_TOP = 50
-const TERRITORY_RIGHT_MARGIN = 50 // Space from right edge of map
-const TERRITORY_US_VERTICAL_GAP = 50
-
-// Helper to create a fake Feature for territory circles
-const createTerritoryFeature = (
-  fipsCode: string,
-): Feature<Geometry, GeoJsonProperties> => ({
-  type: 'Feature',
-  geometry: {
-    type: 'Point',
-    coordinates: [0, 0],
-  },
-  properties: {
-    name: STATE_FIPS_MAP[fipsCode],
-  },
-  id: fipsCode,
-})
 
 export const renderMap = ({
   geoData,
@@ -73,8 +55,8 @@ export const renderMap = ({
   signalListeners,
 }: RenderMapProps) => {
   const territoryRadius = isMobile
-    ? TERRITORY_CIRCLE_RADIUS_MOBILE
-    : TERRITORY_CIRCLE_RADIUS
+    ? TERRITORIES.radiusMobile
+    : TERRITORIES.radius
 
   const territorySpacing = territoryRadius * 3
 
@@ -84,7 +66,9 @@ export const renderMap = ({
   d3.select(svgRef.current).selectAll('*').remove()
 
   // Adjust height to accommodate territory circles
-  const territoryHeight = TERRITORY_MARGIN_TOP + territoryRadius * 2
+  const territoryHeight = fips.isUsa()
+    ? TERRITORIES.marginTop + territoryRadius * 2
+    : 0
   const mapHeight = height - territoryHeight
 
   const { legendGroup, mapGroup, territoryGroup } = initializeSvg({
@@ -134,9 +118,10 @@ export const renderMap = ({
   // Draw main map
   mapGroup
     .selectAll('path')
+    // skip territory shapes on national map
     .data(
       features.features.filter(
-        (f) => f.id && !TERRITORY_CODES[f.id.toString()],
+        (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
       ),
     )
     .join('path')
@@ -192,15 +177,12 @@ export const renderMap = ({
     )
     .on('click', signalListeners.click)
 
-  // Draw territory circles
-  // TODO: fix to include missing data territory circles in gray
-  const territoryData = dataWithHighestLowest.filter((d) =>
-    Boolean(TERRITORY_CODES[d.fips]),
-  )
+  // Draw territory circles, including grayed out for missing data
+  const territoryData = extractTerritoryData(fips.code, dataWithHighestLowest)
 
   const territoryStartX =
     width -
-    (TERRITORY_RIGHT_MARGIN +
+    (TERRITORIES.marginRightForRow +
       (territoryData.length - 1) * territorySpacing +
       territoryRadius)
 
@@ -211,7 +193,7 @@ export const renderMap = ({
     .data(territoryData)
     .join('circle')
     .attr('cx', (_, i) => territoryX(i))
-    .attr('cy', territoryRadius + TERRITORY_US_VERTICAL_GAP - 24)
+    .attr('cy', territoryRadius + TERRITORIES.verticalGapFromUsa - 24)
     .attr('r', territoryRadius)
     .attr('fill', (d) =>
       getFillColor({
@@ -262,7 +244,10 @@ export const renderMap = ({
         fips,
       }),
     )
-    .on('click', signalListeners.click)
+    .on('click', (event, d) => {
+      const territoryFeature = createTerritoryFeature(d.fips)
+      signalListeners.click(event, territoryFeature)
+    })
 
   // Draw territory labels
   territoryGroup
@@ -270,7 +255,7 @@ export const renderMap = ({
     .data(territoryData)
     .join('text')
     .attr('x', (_, i) => territoryX(i))
-    .attr('y', territoryRadius + TERRITORY_US_VERTICAL_GAP + 5)
+    .attr('y', territoryRadius + TERRITORIES.verticalGapFromUsa + 5)
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
     .text((d) => TERRITORY_CODES[d.fips] || d.fips)
