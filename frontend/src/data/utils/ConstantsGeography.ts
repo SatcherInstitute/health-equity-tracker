@@ -13,7 +13,7 @@ export const GUAM = '66'
 export const NORTHERN_MARIANA_ISLANDS = '69'
 export const PUERTO_RICO = '72'
 export const VIRGIN_ISLANDS = '78'
-export const TERRITORY_CODES = {
+export const TERRITORY_CODES: Record<string, string> = {
   [AMERICAN_SAMOA]: 'AS',
   [GUAM]: 'GU',
   [NORTHERN_MARIANA_ISLANDS]: 'MP',

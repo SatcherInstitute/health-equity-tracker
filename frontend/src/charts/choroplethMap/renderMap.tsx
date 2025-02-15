@@ -1,5 +1,7 @@
 import * as d3 from 'd3'
 import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import { STATE_FIPS_MAP } from '../../data/utils/FipsData'
 import { het } from '../../styles/DesignTokens'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
@@ -33,19 +35,6 @@ const TERRITORY_MARGIN_TOP = 50
 const TERRITORY_RIGHT_MARGIN = 50 // Space from right edge of map
 const TERRITORY_US_VERTICAL_GAP = 50
 
-// Territory abbreviations mapping
-const TERRITORY_ABBR: Record<string, string> = {
-  '11': 'DC',
-  '72': 'PR',
-  '78': 'VI',
-  '66': 'GU',
-  '69': 'MP',
-  '60': 'AS',
-}
-
-// List of FIPS codes for territories and DC
-const TERRITORY_FIPS = ['11', '72', '78', '66', '69', '60'] // DC, PR, VI, GU, MP, AS
-
 // Helper to create a fake Feature for territory circles
 const createTerritoryFeature = (
   fipsCode: string,
@@ -55,7 +44,9 @@ const createTerritoryFeature = (
     type: 'Point',
     coordinates: [0, 0],
   },
-  properties: {},
+  properties: {
+    name: STATE_FIPS_MAP[fipsCode],
+  },
   id: fipsCode,
 })
 
@@ -145,7 +136,7 @@ export const renderMap = ({
     .selectAll('path')
     .data(
       features.features.filter(
-        (f) => f.id && !TERRITORY_FIPS.includes(f.id.toString()),
+        (f) => f.id && !TERRITORY_CODES[f.id.toString()],
       ),
     )
     .join('path')
@@ -202,8 +193,9 @@ export const renderMap = ({
     .on('click', signalListeners.click)
 
   // Draw territory circles
+  // TODO: fix to include missing data territory circles in gray
   const territoryData = dataWithHighestLowest.filter((d) =>
-    TERRITORY_FIPS.includes(d.fips),
+    Boolean(TERRITORY_CODES[d.fips]),
   )
 
   const territoryStartX =
@@ -281,7 +273,7 @@ export const renderMap = ({
     .attr('y', territoryRadius + TERRITORY_US_VERTICAL_GAP + 5)
     .attr('text-anchor', 'middle')
     .attr('font-size', '12px')
-    .text((d) => TERRITORY_ABBR[d.fips] || d.fips)
+    .text((d) => TERRITORY_CODES[d.fips] || d.fips)
 
   if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
     createUnknownLegend(legendGroup, {
@@ -372,9 +364,21 @@ const handleMouseEvent = (
       break
     }
     case 'mousemove': {
+      // Get screen width and cursor position
+      const screenWidth = window.innerWidth
+      const cursorX = event.pageX
+
+      // If cursor is past halfway point, show tooltip to the left
+      const tooltipX =
+        cursorX > screenWidth / 2
+          ? event.pageX -
+            TOOLTIP_OFFSET.x -
+            tooltipContainer.node()!.getBoundingClientRect().width
+          : event.pageX + TOOLTIP_OFFSET.x
+
       tooltipContainer
         .style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
-        .style('left', `${event.pageX + TOOLTIP_OFFSET.x}px`)
+        .style('left', `${tooltipX}px`)
       break
     }
     case 'mouseout': {
