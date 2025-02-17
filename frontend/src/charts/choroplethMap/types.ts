@@ -7,7 +7,7 @@ import type {
 } from 'geojson'
 import type { RefObject } from 'react'
 import type { Topology } from 'topojson-specification'
-import type { ColorScheme } from 'vega'
+
 import type {
   MapConfig,
   MetricConfig,
@@ -18,6 +18,14 @@ import type { DemographicGroup } from '../../data/utils/Constants'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import type { CountColsMap, HighestLowest } from '../mapGlobals'
+
+export type ColorScheme =
+  | 'darkgreen'
+  | 'plasma'
+  | 'inferno'
+  | 'viridis'
+  | 'greenblue'
+  | 'darkred'
 
 export type ColorScale =
   | d3.ScaleSequential<any, never>
@@ -61,7 +69,7 @@ export interface ChoroplethMapProps {
 export interface CreateColorScaleProps {
   dataWithHighestLowest: DataPoint[]
   metricId: MetricId
-  colorScheme: ColorScheme | ((t: number) => string)
+  colorScheme: ColorScheme
   reverse?: boolean
   fieldRange?: FieldRange
   isUnknown?: boolean

@@ -1,8 +1,11 @@
 import * as d3 from 'd3'
-import type { ColorScheme } from 'vega'
 import { het } from '../../styles/DesignTokens'
 import { getLegendDataBounds } from '../mapHelperFunctions'
-import type { CreateColorScaleProps, GetFillColorProps } from './types'
+import type {
+  ColorScheme,
+  CreateColorScaleProps,
+  GetFillColorProps,
+} from './types'
 
 const { altGrey: ALT_GREY, white: WHITE } = het
 
