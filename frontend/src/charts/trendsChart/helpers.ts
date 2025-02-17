@@ -146,7 +146,6 @@ export {
   filterDataByGroup,
   getAmountsByDate,
   sortDataDescending,
-  
   getDates,
   getAmounts,
   getWidthPctShare,

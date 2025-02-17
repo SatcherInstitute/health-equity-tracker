@@ -16,11 +16,9 @@ export const communitySafetyTopicsString = buildTopicsString(
   COMMUNITY_SAFETY_DROPDOWNIDS,
 )
 
-const dataTypeConfigs = COMMUNITY_SAFETY_DROPDOWNIDS.flatMap(
-  (dropdownId) => {
-    return METRIC_CONFIG[dropdownId]
-  },
-)
+const dataTypeConfigs = COMMUNITY_SAFETY_DROPDOWNIDS.flatMap((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+})
 
 const CommunitySafetyLink = () => {
   return (

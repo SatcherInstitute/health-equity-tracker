@@ -19,9 +19,7 @@ const datatypeConfigs = MEDICARE_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 })
 
-const medicareTopicsString = buildTopicsString(
-  MEDICARE_CATEGORY_DROPDOWNIDS,
-)
+const medicareTopicsString = buildTopicsString(MEDICARE_CATEGORY_DROPDOWNIDS)
 
 export default function MedicareMedicationLink() {
   return (

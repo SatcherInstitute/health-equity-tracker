@@ -45,9 +45,7 @@ export function exclude(
   return { include: false, values: [...valuesToExclude] }
 }
 
-function onlyInclude(
-  ...valuesToInclude: DemographicGroup[]
-): BreakdownFilter {
+function onlyInclude(...valuesToInclude: DemographicGroup[]): BreakdownFilter {
   return { include: true, values: [...valuesToInclude] }
 }
 

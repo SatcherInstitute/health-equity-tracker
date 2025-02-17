@@ -190,10 +190,7 @@ const defaultHandler = <T,>(input: string | null): T => {
   return input as unknown as T
 }
 
-function removeParamAndReturnValue<T1>(
-  paramName: string,
-  defaultValue: T1,
-) {
+function removeParamAndReturnValue<T1>(paramName: string, defaultValue: T1) {
   setParameter(paramName, null)
   return defaultValue
 }

@@ -69,15 +69,13 @@ export const AGE_ADJUST_COVID_DEATHS_US_SETTING =
   '?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios'
 export const AGE_ADJUST_COVID_HOSP_US_SETTING =
   '?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios'
-const COVID_HOSP_NY_COUNTY_SETTING =
-  '?mls=1.covid_hospitalizations-3.36061'
+const COVID_HOSP_NY_COUNTY_SETTING = '?mls=1.covid_hospitalizations-3.36061'
 const COVID_VAX_US_SETTING = '?mls=1.covid_vaccinations-3.00'
 const COPD_US_SETTING = '?mls=1.copd-3.00'
 const DIABETES_US_SETTING = '?mls=1.diabetes-3.00'
 const UNINSURANCE_US_SETTING = '?mls=1.health_insurance-3.00'
 const POVERTY_US_SETTING = '?mls=1.poverty-3.00'
-const OPIOID_US_SETTING =
-  '?dt1=non_medical_drug_use&mls=1.substance-3.00'
+const OPIOID_US_SETTING = '?dt1=non_medical_drug_use&mls=1.substance-3.00'
 
 export const GUN_DEATHS_YOUNG_ADULTS_USA_SETTING =
   '?mls=1.gun_violence_youth-3.00&group1=All&demo=race_and_ethnicity&dt1=gun_deaths_young_adults#rate-map'

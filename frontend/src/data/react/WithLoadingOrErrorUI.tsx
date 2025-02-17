@@ -142,9 +142,7 @@ export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
   return <WithMetadataAndMetricsWithKey key={key} {...props} />
 }
 
-function WithMetadataAndMetricsWithKey(
-  props: WithMetadataAndMetricsProps,
-) {
+function WithMetadataAndMetricsWithKey(props: WithMetadataAndMetricsProps) {
   // Note: this will result in an error page if any of the required data fails
   // to be fetched. We could make the metadata optional so the charts still
   // render, but it is much easier to reason about if we require both. The

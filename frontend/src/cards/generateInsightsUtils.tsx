@@ -1,10 +1,7 @@
 import type { MetricId } from '../data/config/MetricConfigTypes'
 import type { Dataset, Disparity, ResultData } from './generateInsights'
 
-function getKeyBySubstring(
-  obj: any,
-  substring: string,
-): [string, string] {
+function getKeyBySubstring(obj: any, substring: string): [string, string] {
   const key = Object.keys(obj).find((key) => key.includes(substring)) || ''
   let measure = ''
   if (key) {
