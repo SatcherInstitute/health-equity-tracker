@@ -15,7 +15,7 @@ export const GUN_VIOLENCE_YOUTH_DATATYPES: DataTypeId[] = [
   'gun_deaths_young_adults',
 ]
 
-export const GUN_DEATHS_CHILDREN_METRIC_IDS: MetricId[] = [
+const GUN_DEATHS_CHILDREN_METRIC_IDS: MetricId[] = [
   'gun_deaths_youth_estimated_total',
   'gun_deaths_youth_pct_relative_inequity',
   'gun_deaths_youth_pct_share',
@@ -24,7 +24,7 @@ export const GUN_DEATHS_CHILDREN_METRIC_IDS: MetricId[] = [
   'gun_deaths_youth_population_pct',
 ]
 
-export const GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS: MetricId[] = [
+const GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS: MetricId[] = [
   'gun_deaths_young_adults_estimated_total',
   'gun_deaths_young_adults_pct_relative_inequity',
   'gun_deaths_young_adults_pct_share',
@@ -38,7 +38,7 @@ export const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Sex', 'unavailable for Gun Deaths (Youth)'],
 ]
 
-export const GUN_VIOLENCE_YOUTH_METRICS = [
+const GUN_VIOLENCE_YOUTH_METRICS = [
   ...GUN_DEATHS_CHILDREN_METRIC_IDS,
   ...GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS,
 ]

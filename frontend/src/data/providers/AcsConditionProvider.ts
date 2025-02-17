@@ -6,12 +6,12 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
+const ACS_CONDITION_DATATYPES: DataTypeId[] = [
   'health_insurance',
   'poverty',
 ]
 
-export const ACS_CONDITION_METRICS: MetricId[] = [
+const ACS_CONDITION_METRICS: MetricId[] = [
   'uninsured_population_pct',
   'uninsured_pct_rate',
   'uninsured_pct_share',

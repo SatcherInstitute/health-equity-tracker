@@ -31,7 +31,7 @@ export function resetCacheDebug() {
   globals.dataManager = new DataManager()
 }
 
-export function initGlobals(
+function initGlobals(
   environment: Environment,
   logger: Logger,
   dataFetcher: DataFetcher,
@@ -74,7 +74,7 @@ export function autoInitGlobals() {
   initGlobals(environment, logger, dataFetcher, cache)
 }
 
-export function getEnvironment(): Environment {
+function getEnvironment(): Environment {
   assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return globals.environment!

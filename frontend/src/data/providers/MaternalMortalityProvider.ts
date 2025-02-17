@@ -11,7 +11,7 @@ import VariableProvider from './VariableProvider'
 export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
   .VITE_SHOW_NEW_MATERNAL_MORTALITY
 
-export const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
+const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
   'maternal_mortality_per_100k',
   'maternal_mortality_pct_share',
   'maternal_mortality_population_pct',

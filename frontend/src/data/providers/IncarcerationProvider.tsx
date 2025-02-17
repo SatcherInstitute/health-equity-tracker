@@ -23,14 +23,14 @@ export const PRIVATE_JAILS_QUALIFIER = '(private jail system only)'
 
 export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
 
-export const JAIL_METRIC_IDS: MetricId[] = [
+const JAIL_METRIC_IDS: MetricId[] = [
   'jail_pct_share',
   'jail_estimated_total',
   'jail_per_100k',
   'jail_pct_relative_inequity',
 ]
 
-export const PRISON_METRIC_IDS: MetricId[] = [
+const PRISON_METRIC_IDS: MetricId[] = [
   'prison_pct_share',
   'prison_estimated_total',
   'prison_per_100k',

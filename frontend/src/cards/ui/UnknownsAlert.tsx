@@ -12,7 +12,7 @@ import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 
-export const RACE_OR_ETHNICITY = 'race or ethnicity'
+const RACE_OR_ETHNICITY = 'race or ethnicity'
 
 interface UnknownsAlertProps {
   queryResponse: MetricQueryResponse

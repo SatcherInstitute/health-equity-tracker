@@ -12,7 +12,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
-export const hivDataSources = [
+const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,
   dataSourceMetadataMap.acs,
 ]

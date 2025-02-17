@@ -507,7 +507,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   },
 }
 
-export function getDataSourceMetadataByDatasetId(
+function getDataSourceMetadataByDatasetId(
   id: DatasetId,
 ): DataSourceMetadata | undefined {
   return Object.values(dataSourceMetadataMap).find((metadata) => {

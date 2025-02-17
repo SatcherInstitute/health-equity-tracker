@@ -5,7 +5,7 @@ import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined
 import { Alert, type AlertColor, AlertTitle } from '@mui/material'
 import type { ReactNode } from 'react'
 
-export type HetNoticeKind =
+type HetNoticeKind =
   | 'data-integrity'
   | 'health-crisis'
   | 'text-only'

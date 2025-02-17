@@ -45,7 +45,7 @@ async function fetchApiKey(): Promise<string> {
   }
 }
 
-export async function fetchAIInsight(prompt: string): Promise<string> {
+async function fetchAIInsight(prompt: string): Promise<string> {
   const apiKey = await fetchApiKey()
 
   try {

@@ -9,7 +9,7 @@ import {
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
-export const CDC_CANCER_CONDITIONS: DropdownVarId[] = ['cancer_incidence']
+const CDC_CANCER_CONDITIONS: DropdownVarId[] = ['cancer_incidence']
 
 export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_incidence',
@@ -22,12 +22,12 @@ export const CDC_CANCER_ALL_SEXES_DATATYPES: DataTypeId[] = [
   'lung_cancer_incidence',
 ]
 
-export const CDC_CANCER_DATATYPES: DataTypeId[] = [
+const CDC_CANCER_DATATYPES: DataTypeId[] = [
   ...CDC_CANCER_SEX_SPECIFIC_DATATYPES,
   ...CDC_CANCER_ALL_SEXES_DATATYPES,
 ]
 
-export const CDC_CANCER_METRICS: MetricId[] = [
+const CDC_CANCER_METRICS: MetricId[] = [
   'breast_per_100k',
   'breast_count_estimated_total',
   'breast_population_pct',

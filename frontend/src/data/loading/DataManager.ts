@@ -27,7 +27,7 @@ const MAX_CACHE_SIZE_QUERIES = 10_000
 // We only expect one metadata entry so we can set cache size to 1.
 const MAX_CACHE_SIZE_METADATA = 1
 
-export abstract class ResourceCache<K, R extends {}> {
+abstract class ResourceCache<K, R extends {}> {
   private readonly lruCache: LRUCache<string, R>
   private loadingResources: Record<string, Promise<R>>
   private failedResources: Set<string>

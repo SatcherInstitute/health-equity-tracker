@@ -10,7 +10,7 @@ import type {
 export const populationPctTitle = 'Population share'
 export const populationPctShortLabel = '% of population'
 
-export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
+type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
 
 export function metricConfigFromDtConfig(
   cardType: CardMetricType,

@@ -10,7 +10,7 @@ import VariableProvider from './VariableProvider'
 export const SHOW_CANCER_SCREENINGS = import.meta.env
   .VITE_SHOW_CANCER_SCREENINGS
 
-export const PHRMA_BRFSS_CONDITIONS: DropdownVarId[] = ['cancer_screening']
+const PHRMA_BRFSS_CONDITIONS: DropdownVarId[] = ['cancer_screening']
 
 export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_screening',
@@ -23,12 +23,12 @@ export const PHRMA_BRFSS_ALL_SEXES_DATATYPES: DataTypeId[] = [
   'lung_cancer_screening',
 ]
 
-export const PHRMA_BRFSS_DATATYPES: DataTypeId[] = [
+const PHRMA_BRFSS_DATATYPES: DataTypeId[] = [
   ...PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES,
   ...PHRMA_BRFSS_ALL_SEXES_DATATYPES,
 ]
 
-export const PHRMA_BRFSS_METRICS: MetricId[] = [
+const PHRMA_BRFSS_METRICS: MetricId[] = [
   'breast_screened_estimated_total',
   'breast_screening_eligible_estimated_total',
   'breast_screened_pct_rate',
@@ -78,7 +78,7 @@ export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
   ],
 ]
 
-export const SHOW_PHRMA_BRFSS = import.meta.env.VITE_SHOW_PHRMA_BRFSS
+const SHOW_PHRMA_BRFSS = import.meta.env.VITE_SHOW_PHRMA_BRFSS
 
 class PhrmaBrfssProvider extends VariableProvider {
   constructor() {

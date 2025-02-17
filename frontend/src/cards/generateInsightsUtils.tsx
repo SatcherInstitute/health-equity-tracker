@@ -1,7 +1,7 @@
 import type { MetricId } from '../data/config/MetricConfigTypes'
 import type { Dataset, Disparity, ResultData } from './generateInsights'
 
-export function getKeyBySubstring(
+function getKeyBySubstring(
   obj: any,
   substring: string,
 ): [string, string] {

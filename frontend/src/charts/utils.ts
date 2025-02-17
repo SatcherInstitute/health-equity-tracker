@@ -17,28 +17,28 @@ export const HEIGHT_WIDTH_RATIO = 0.6
 export const X_AXIS_MAX_TICKS = 12
 export const X_AXIS_MAX_TICKS_SKINNY = 5
 
-export const PADDING_FOR_ACTIONS_MENU = 30
+const PADDING_FOR_ACTIONS_MENU = 30
 const MAX_LINE_LENGTH = 20
 
-export const CORNER_RADIUS = 3
+const CORNER_RADIUS = 3
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
-export const DELIMITER = '  '
+const DELIMITER = '  '
 
 // Returns a Vega Expression to create an array of the multiple lines in the label
-export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`
+const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`
 
 // Returns a Vega Expression to create replace delimiter token with a normal space for displaying the label on single line label
-export function oneLineLabel(field: string) {
+function oneLineLabel(field: string) {
   return `join(split(datum.${field}, '${DELIMITER}'), ' ')`
 }
 
 // We use nested ternaries to determine the label's y axis delta based on the number of lines in the label to vertically align
-export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -20 : 5`
+const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -20 : 5`
 
-export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`
+const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`
 
-export function addLineBreakDelimitersToField(
+function addLineBreakDelimitersToField(
   rawData: HetRow[],
   field: DemographicType,
 ): HetRow[] {
@@ -74,7 +74,7 @@ export function addLineBreakDelimitersToField(
  *         the name of the new display column
  *     ]
  */
-export function addMetricDisplayColumn(
+function addMetricDisplayColumn(
   metric: MetricConfig,
   data: HetRow[],
   omitPctSymbol: boolean = false,

@@ -15,7 +15,7 @@ import { generateInsight } from '../generateInsights'
 export const SHOW_INSIGHT_GENERATION = import.meta.env
   .VITE_SHOW_INSIGHT_GENERATION
 
-export interface ChartData {
+interface ChartData {
   knownData: Readonly<Record<string, any>>[]
   metricIds: MetricId[]
 }

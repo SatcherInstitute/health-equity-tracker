@@ -1,4 +1,4 @@
-export type DeployContext =
+type DeployContext =
   // Production environment in GCP
   | 'prod'
 
@@ -51,7 +51,7 @@ export interface Environment {
   forceFetchDatasetAsStaticFile: (fileName: string) => boolean
 }
 
-export class HetEnvironment implements Environment {
+class HetEnvironment implements Environment {
   readonly deployContext: DeployContext
   private readonly forceStaticFiles: string[]
 

@@ -36,11 +36,11 @@ export const ASIAN_NH = 'Asian (NH)'
 export const BLACK_NH = 'Black or African American (NH)'
 export const HISPANIC = 'Hispanic or Latino'
 export const NHPI_NH = 'Native Hawaiian and Pacific Islander (NH)'
-export const OTHER_STANDARD_NH = 'Unrepresented race (NH)'
+const OTHER_STANDARD_NH = 'Unrepresented race (NH)'
 export const MULTI_NH = 'Two or more races (NH)'
 export const WHITE_NH = 'White (NH)'
 
-export const STANDARD_RACES = [
+const STANDARD_RACES = [
   AIAN_NH,
   ASIAN_NH,
   BLACK_NH,
@@ -87,7 +87,7 @@ export const UNKNOWN_W = 'Women with unknown race'
 export const MULTI_W = 'Women of two or more races'
 export const OTHER_W = 'Women of an unrepresented race'
 
-export const CAWP_RACES = [
+const CAWP_RACES = [
   ALL_W,
   AAPI_W,
   MENA_W,
@@ -105,21 +105,21 @@ export const CAWP_RACES = [
 
 export const OTHER_NONSTANDARD_NH = 'Unrepresented race (NH)'
 
-export const HIV_RACES = [OTHER_NONSTANDARD_NH]
+const HIV_RACES = [OTHER_NONSTANDARD_NH]
 
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const AIAN_API =
   'American Indian, Alaska Native, Asian & Pacific Islander'
 export const API = 'Asian, Native Hawaiian, and Pacific Islander'
 export const API_NH = 'Asian, Native Hawaiian, and Pacific Islander (NH)'
-export const INDIGENOUS = 'Indigenous' // Combines AIAN and NHPI
-export const INDIGENOUS_NH = 'Indigenous (NH)'
+const INDIGENOUS = 'Indigenous' // Combines AIAN and NHPI
+const INDIGENOUS_NH = 'Indigenous (NH)'
 export const MULTI_OR_OTHER_STANDARD = 'Two or more races & Unrepresented race'
 export const MULTI_OR_OTHER_STANDARD_NH =
   'Two or more races & Unrepresented race (NH)'
 export const UNREPRESENTED = 'Unrepresented race'
 
-export const COMBINATION_RACES = [
+const COMBINATION_RACES = [
   AIAN_API,
   API,
   API_NH,
@@ -130,7 +130,7 @@ export const COMBINATION_RACES = [
 ] as const
 
 // COLLECT ALL RACE/ETH DEMOGRAPHIC GROUP OPTIONS INTO SINGLE ARRAY
-export const RACE_GROUPS = [
+const RACE_GROUPS = [
   ...STANDARD_RACES,
   ...NON_STANDARD_RACES,
   ...CAWP_RACES,
@@ -185,7 +185,7 @@ export const raceNameToCodeMap: Record<RaceAndEthnicityGroup, string> = {
 }
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS
-export const DECADE_AGE_BUCKETS = [
+const DECADE_AGE_BUCKETS = [
   '0-9',
   '10-19',
   '20-29',
@@ -220,7 +220,7 @@ export const VOTER_AGE_BUCKETS = [
   '65+',
 ] as const
 
-export const CDC_AGE_BUCKETS = [
+const CDC_AGE_BUCKETS = [
   '5-11',
   '12-17',
   '18-24',
@@ -250,7 +250,7 @@ export const BJS_NATIONAL_AGE_BUCKETS = [
 
 export const BJS_JAIL_AGE_BUCKETS = [ALL, '0-17', '18+'] as const
 
-export const CDC_HIV_AGE_BUCKETS = [
+const CDC_HIV_AGE_BUCKETS = [
   ALL,
   '13-24',
   '16-24',
@@ -274,7 +274,7 @@ export const ACS_POVERTY_AGE_BUCKETS = [
   '75+',
 ]
 
-export const ACS_UNINSURANCE_PRE2020_AGE_BUCKETS = [
+const ACS_UNINSURANCE_PRE2020_AGE_BUCKETS = [
   '0-5',
   '6-17',
   '18-24',
@@ -301,7 +301,7 @@ export const ACS_UNINSURANCE_CURRENT_AGE_BUCKETS = [
 
 // buckets that have been calculated in the BigQuery table but are not used in current code
 // still need to be defined here to explicitly exclude from the TABLE
-export const UNUSED_BUCKETS = [
+const UNUSED_BUCKETS = [
   '15-17',
   '65-69',
   '70-74',
@@ -309,7 +309,7 @@ export const UNUSED_BUCKETS = [
   '80-84',
 ] as const
 
-export const UNDER_18_PRISON = `Children in Adult Prison`
+const UNDER_18_PRISON = `Children in Adult Prison`
 
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
@@ -331,12 +331,12 @@ export const AGE_BUCKETS = [
 export type AgeBucket = (typeof AGE_BUCKETS)[number]
 
 // SEX DEMOGRAPHIC TERMS
-export const MALE = 'Male'
-export const FEMALE = 'Female'
-export const OTHER = 'Other'
-export const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const
+const MALE = 'Male'
+const FEMALE = 'Female'
+const OTHER = 'Other'
+const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const
 // CREATE SEX-GROUP TYPE
-export type SexGroup = (typeof SEX_GROUPS)[number]
+type SexGroup = (typeof SEX_GROUPS)[number]
 
 // CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
 export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup

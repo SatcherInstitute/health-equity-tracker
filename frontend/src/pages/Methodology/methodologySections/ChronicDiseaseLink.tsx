@@ -11,7 +11,7 @@ import NoteBrfss from '../methodologyComponents/NoteBrfss'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
-export const chronicDiseaseDataSources = [
+const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
   dataSourceMetadataMap.chr,

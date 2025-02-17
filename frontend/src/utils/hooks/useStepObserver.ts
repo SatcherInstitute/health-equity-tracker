@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
 
-export interface StepData {
+interface StepData {
   label: string
   hashId: ScrollableHashId
   pluralOnCompare: boolean

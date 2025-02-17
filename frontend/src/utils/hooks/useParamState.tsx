@@ -57,7 +57,7 @@ export function useParamState<ParamStateType>(
   return [paramState as ParamStateType, setParamState]
 }
 
-export function useGetParamState<ParamStateType>(
+function useGetParamState<ParamStateType>(
   paramKey: string,
   paramDefaultValue?: ParamStateType,
 ): ParamStateType {

@@ -115,7 +115,7 @@ export interface Citation {
   longerTitle: string
   url: string
 }
-export interface InfoWithCitations {
+interface InfoWithCitations {
   text: string
   citations?: Citation[]
 }

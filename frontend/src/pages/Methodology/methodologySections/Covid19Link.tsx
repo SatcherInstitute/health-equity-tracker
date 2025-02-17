@@ -15,7 +15,7 @@ import {
 } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
-export const covidDataSources = [
+const covidDataSources = [
   dataSourceMetadataMap.cdc_restricted,
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.decia_2010_territory_population,

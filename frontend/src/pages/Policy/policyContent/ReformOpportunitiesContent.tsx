@@ -9,7 +9,7 @@ import {
   VolunteerActivismRounded,
 } from '@mui/icons-material'
 
-export interface Faq {
+interface Faq {
   question: string
   answer: React.ReactNode | string
 }

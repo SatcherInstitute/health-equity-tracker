@@ -21,7 +21,7 @@ import {
 
 // OLDER HANDLING PARAMS
 
-export const STICKY_VERSION_PARAM = 'sv'
+const STICKY_VERSION_PARAM = 'sv'
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
 // Value is index of the phrase to jump to
 export const MADLIB_PHRASE_PARAM = 'mlp'
@@ -61,7 +61,7 @@ export function swapOldDatatypeParams(oldParam: string) {
   return swaps[oldParam] || oldParam
 }
 
-export function useUrlSearchParams() {
+function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search)
 }
 
@@ -83,7 +83,7 @@ export function LinkWithStickyParams(props: {
   return <Link {...linkProps}>{props.children}</Link>
 }
 
-export const PAGE_URL_TO_NAMES: Record<string, string> = {
+const PAGE_URL_TO_NAMES: Record<string, string> = {
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [NEWS_PAGE_LINK]: 'News',
@@ -92,7 +92,7 @@ export const PAGE_URL_TO_NAMES: Record<string, string> = {
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
-export const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
+const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
 }
 
@@ -128,7 +128,7 @@ export function useSearchParams() {
   return Object.fromEntries(params.entries())
 }
 
-export function linkToMadLib(
+function linkToMadLib(
   madLibId: MadLibId,
   phraseSelections: PhraseSelections,
   absolute = false,
@@ -158,7 +158,7 @@ export function setParameter(
   setParameters([{ name: paramName, value: paramValue }])
 }
 
-export interface ParamKeyValue {
+interface ParamKeyValue {
   name: string
   value: string | null
 }
@@ -190,7 +190,7 @@ const defaultHandler = <T,>(input: string | null): T => {
   return input as unknown as T
 }
 
-export function removeParamAndReturnValue<T1>(
+function removeParamAndReturnValue<T1>(
   paramName: string,
   defaultValue: T1,
 ) {
@@ -238,7 +238,7 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   return kvPair.join(partsSeparator)
 }
 
-export type PSEventHandler = () => void
+type PSEventHandler = () => void
 
 const psSubscriptions: any = {}
 let psCount: number = 0
@@ -258,7 +258,7 @@ export const psSubscribe = (
   }
 }
 
-export const psUnsubscribe = (k: string) => {
+const psUnsubscribe = (k: string) => {
   getLogger().debugLog('Removing PSHandler: ' + k)
   // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   delete psSubscriptions[k]

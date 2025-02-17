@@ -27,7 +27,7 @@ interface MenuPopoverProps {
   onClose?: () => void
 }
 
-export function MenuPopover(props: MenuPopoverProps): JSX.Element {
+function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
   const isSm = useIsBreakpointAndUp('sm')
   const anchorOrigin: PopoverOrigin = {

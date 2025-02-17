@@ -239,7 +239,7 @@ function AnswerHowDidYouAcquire() {
   )
 }
 
-export const additionalFaqs: Faq[] = [
+const additionalFaqs: Faq[] = [
   {
     question: 'What are the inequities in the data?',
     answer: (
@@ -482,7 +482,7 @@ export const additionalFaqs: Faq[] = [
   },
 ]
 
-export const consolidatedFaqs: Faq[] = [...faqMappings, ...additionalFaqs]
+const consolidatedFaqs: Faq[] = [...faqMappings, ...additionalFaqs]
 
 export const dataFaqGroup: Faq[] = [
   faqMappings[2],

@@ -10,13 +10,13 @@ import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAcco
 import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
-export const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
+const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
 
 export const communitySafetyTopicsString = buildTopicsString(
   COMMUNITY_SAFETY_DROPDOWNIDS,
 )
 
-export const dataTypeConfigs = COMMUNITY_SAFETY_DROPDOWNIDS.flatMap(
+const dataTypeConfigs = COMMUNITY_SAFETY_DROPDOWNIDS.flatMap(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
   },

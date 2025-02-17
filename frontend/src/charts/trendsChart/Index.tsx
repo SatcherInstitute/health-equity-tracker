@@ -43,7 +43,7 @@ import {
 } from './helpers'
 
 /* Define type interface */
-export interface TrendsChartProps {
+interface TrendsChartProps {
   data: TrendsData
   unknown: UnknownData
   axisConfig: AxisConfig

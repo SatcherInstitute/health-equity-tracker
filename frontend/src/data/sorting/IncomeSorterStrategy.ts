@@ -2,9 +2,9 @@ import type { Breakdowns } from '../query/Breakdowns'
 import type { HetRow } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
-export const regexStripIncomeString = /^[^\d-]*(\d+)/
+const regexStripIncomeString = /^[^\d-]*(\d+)/
 
-export function compareIncome(a: HetRow, b: HetRow): number {
+function compareIncome(a: HetRow, b: HetRow): number {
   const aValue = a?.['income']?.match(regexStripIncomeString)?.[1] || 0
   const bValue = b?.['income']?.match(regexStripIncomeString)?.[1] || 0
   return aValue - bValue

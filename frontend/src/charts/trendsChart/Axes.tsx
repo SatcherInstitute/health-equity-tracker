@@ -30,7 +30,7 @@ import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
 import { getDates, getMaxNumber, getMinNumber } from './helpers'
 
 /* Define type interface */
-export interface AxesProps {
+interface AxesProps {
   data: TrendsData
   xScale: XScale
   yScale: YScale
