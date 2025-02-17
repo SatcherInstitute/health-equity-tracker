@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Vega, type VisualizationSpec } from 'react-vega'
-import type { Legend as LegendType, Scale, View } from 'vega'
+import { Vega } from 'react-vega'
 import type {
   DataTypeConfig,
   MapConfig,
@@ -92,11 +91,11 @@ export function Legend(props: LegendProps) {
 
   // Initial spec state is set in useEffect
   // TODO: Why??
-  const [spec, setSpec] = useState<VisualizationSpec | null>(null)
+  const [spec, setSpec] = useState<any | null>(null)
 
-  const vegaViewRef = useRef<View | null>(null)
+  const vegaViewRef = useRef<any | null>(null)
 
-  function handleNewView(view: View) {
+  function handleNewView(view: any) {
     vegaViewRef.current = view
 
     if (props.handleScaleChange) {
@@ -131,7 +130,7 @@ export function Legend(props: LegendProps) {
     const legendFormatterType: LegendNumberFormat = isPct
       ? 'pct'
       : 'truncateWithK'
-    const legendList: LegendType[] = []
+    const legendList: any[] = []
 
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
     if (props.isPhrmaAdherence) {
@@ -254,8 +253,8 @@ export function Legend(props: LegendProps) {
         },
       ],
       scales: [
-        dotSizeScale as Scale,
-        legendColorScaleSpec as Scale,
+        dotSizeScale as any,
+        legendColorScaleSpec as any,
         {
           name: ZERO_SCALE,
           type: ORDINAL,

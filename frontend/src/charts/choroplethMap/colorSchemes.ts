@@ -42,7 +42,9 @@ const interpolatedarkRed = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
   het.mapYouthLightZero,
 ])
 
-const D3_MAP_SCHEMES: Partial<Record<ColorScheme, (t: number) => string>> = {
+export const D3_MAP_SCHEMES: Partial<
+  Record<ColorScheme, (t: number) => string>
+> = {
   darkgreen: interpolateDarkGreen,
   plasma: interpolatePlasma,
   inferno: d3.interpolateInferno,

@@ -1,4 +1,3 @@
-import type { Legend, Scale } from 'vega'
 import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 /*
 To prevent components loading from one another, all exported consts for the map cards should be in this file
@@ -128,7 +127,7 @@ export interface HighestLowest {
 
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
 
-export const PHRMA_COLOR_SCALE_SPEC: Scale = {
+export const PHRMA_COLOR_SCALE_SPEC = {
   name: COLOR_SCALE,
   type: 'threshold',
   domain: PHRMA_ADHERENCE_BREAKPOINTS,
@@ -142,7 +141,7 @@ export const PHRMA_COLOR_SCALE_SPEC: Scale = {
     het.mapMedicareLightest,
   ],
 }
-export const UNKNOWN_LEGEND_SPEC: Legend = {
+export const UNKNOWN_LEGEND_SPEC = {
   fill: UNKNOWN_SCALE,
   symbolType: LEGEND_SYMBOL_TYPE,
   size: GREY_DOT_SCALE,
