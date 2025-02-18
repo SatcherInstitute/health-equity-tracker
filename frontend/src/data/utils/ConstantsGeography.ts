@@ -5,7 +5,6 @@ export const GEORGIA_FIPS = '13'
 
 // Fips code for District of Columbia (state equivalent and county equivalent).
 const DC = '11'
-const DC_COUNTY_FIPS = '11001'
 
 // Territories
 const AMERICAN_SAMOA = '60'

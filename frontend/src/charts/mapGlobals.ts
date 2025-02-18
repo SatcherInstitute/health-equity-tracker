@@ -7,15 +7,6 @@ import { het } from '../styles/DesignTokens'
 import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
-
-const MISSING_DATASET = 'MISSING_DATASET'
-const US_PROJECTION = 'US_PROJECTION'
-const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
-const GEO_DATASET = 'GEO_DATASET'
-const VAR_DATASET = 'VAR_DATASET'
-
-const VALID_DATASET = 'VALID_DATASET'
-
 export const COLOR_SCALE = 'COLOR_SCALE'
 export const ZERO_SCALE = 'ZERO_SCALE'
 
