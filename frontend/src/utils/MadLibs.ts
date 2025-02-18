@@ -34,7 +34,7 @@ const SHOW_CHR_GUN_DEATHS = import.meta.env.VITE_SHOW_CHR_GUN_DEATHS
 export type PhraseSelections = Record<number, string>
 
 // Map of phrase selection ID to the display value
-export type PhraseSelector = Record<string, string>
+type PhraseSelector = Record<string, string>
 
 // Each phrase segment of the mad lib is either a string of text
 // or a map of IDs to string options that can fill in a blank
@@ -48,7 +48,7 @@ export const MADLIB_MODE_MAP: Record<string, MadLibId> = {
   Topics: 'comparevars',
 }
 
-export const CategoryMap = {
+const CategoryMap = {
   'behavioral-health': 'Behavioral Health',
   'black-women-health': `Black Women's Health`,
   'chronic-disease': 'Chronic Disease',
@@ -64,7 +64,7 @@ export const CategoryMap = {
 
 export type CategoryTypeId = keyof typeof CategoryMap
 
-export type CategoryTitle = (typeof CategoryMap)[CategoryTypeId]
+type CategoryTitle = (typeof CategoryMap)[CategoryTypeId]
 
 export interface MadLib {
   readonly id: MadLibId

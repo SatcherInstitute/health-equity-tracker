@@ -38,18 +38,18 @@ import Units from './Units'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import { removeLastS } from './utils'
 
-export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
+const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
-export const headerCellStyle = {
+const headerCellStyle = {
   width: '200px',
   backgroundColor: het.exploreBgColor,
 }
 
-export const cellStyle = {
+const cellStyle = {
   width: '200px',
 }
 
-export const altCellStyle = {
+const altCellStyle = {
   backgroundColor: het.standardInfo,
   width: '200px',
 }

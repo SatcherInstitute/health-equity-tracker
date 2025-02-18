@@ -29,7 +29,7 @@ interface Dataset {
   items: DatasetItem[]
 }
 
-export interface Faq {
+interface Faq {
   question: string
   answer: React.ReactNode | string
 }
@@ -92,7 +92,7 @@ const RaceEthnicityOptions = () => (
   </div>
 )
 
-export default function DataDescription({ datasets }: { datasets: Dataset[] }) {
+function DataDescription({ datasets }: { datasets: Dataset[] }) {
   return (
     <>
       <p className='mb-0 pb-0'>

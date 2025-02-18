@@ -1,4 +1,4 @@
-export type Severity = 'INFO' | 'WARNING' | 'ERROR'
+type Severity = 'INFO' | 'WARNING' | 'ERROR'
 
 class Logger {
   enableServerLogging: boolean

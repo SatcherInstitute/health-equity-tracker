@@ -30,7 +30,7 @@ export interface DatasetMetadata {
   source_id: DataSourceId | 'error'
 }
 
-export interface Field {
+interface Field {
   readonly data_type: string
   readonly name: string
   readonly description: string

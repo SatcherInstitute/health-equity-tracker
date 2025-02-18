@@ -52,7 +52,7 @@ import type { HetRow } from './DatasetTypes'
 import type { Fips } from './Fips'
 import type { StateFipsCode } from './FipsData'
 
-export type JoinType = 'inner' | 'left' | 'outer'
+type JoinType = 'inner' | 'left' | 'outer'
 
 // TODO: consider finding different library for joins, or write our own. This
 // library doesn't support multi-col joins naturally, so this uses a workaround.
@@ -139,7 +139,7 @@ export function getExtremeValues(
 /*
 Analyzes state and determines if the 2nd population source should be used
 */
-export interface ShouldShowAltPopCompareI {
+interface ShouldShowAltPopCompareI {
   fips: { isState: () => boolean }
   demographicType: DemographicType
   dataTypeConfig: { dataTypeId: DataTypeId }

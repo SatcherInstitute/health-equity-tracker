@@ -34,7 +34,7 @@ export function setupZeroLegend(
   }
 }
 
-export function setupUnknownsLegend(width: number, isPct?: boolean) {
+function setupUnknownsLegend(width: number, isPct?: boolean) {
   const unknownsLegend = {
     fill: COLOR_SCALE,
     direction: 'horizontal',

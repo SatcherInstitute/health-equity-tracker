@@ -1,6 +1,6 @@
 import { urlMap } from '../../../utils/externalUrls'
 
-export function MissingCdcAtlasData() {
+function MissingCdcAtlasData() {
   return (
     <>
       <MissingHIVData />

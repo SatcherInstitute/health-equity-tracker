@@ -45,17 +45,15 @@ export function exclude(
   return { include: false, values: [...valuesToExclude] }
 }
 
-export function onlyInclude(
-  ...valuesToInclude: DemographicGroup[]
-): BreakdownFilter {
+function onlyInclude(...valuesToInclude: DemographicGroup[]): BreakdownFilter {
   return { include: true, values: [...valuesToInclude] }
 }
 
-export function onlyIncludeStandardRaces(): BreakdownFilter {
+function onlyIncludeStandardRaces(): BreakdownFilter {
   return onlyInclude(...STANDARD_RACES)
 }
 
-export function onlyIncludeDecadeAgeBrackets(): BreakdownFilter {
+function onlyIncludeDecadeAgeBrackets(): BreakdownFilter {
   return onlyInclude(...DECADE_AGE_BRACKETS)
 }
 

@@ -1,6 +1,6 @@
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
-export interface StepLabelInfo {
+interface StepLabelInfo {
   pluralOnCompare: boolean
   label: string
 }

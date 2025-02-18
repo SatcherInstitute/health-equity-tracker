@@ -25,14 +25,11 @@ interface AxisConfig {
 }
 
 export type {
-  Date,
-  DataPoint,
   TrendsData,
   GroupData,
   TimeSeries,
   UnknownData,
   XScale,
   YScale,
-  ColorScale,
   AxisConfig,
 }

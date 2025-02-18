@@ -81,13 +81,13 @@ export interface CreateColorScaleProps {
   isPhrma: boolean
 }
 
-export type CreateFeaturesProps = {
+type CreateFeaturesProps = {
   showCounties: boolean
   parentFips: string
   geoData?: Topology
 }
 
-export type CreateProjectionProps = {
+type CreateProjectionProps = {
   fips: Fips
   width: number
   height: number
@@ -157,12 +157,12 @@ export type RenderMapProps = {
   isMulti?: boolean
 }
 
-export type TooltipFeature = {
+type TooltipFeature = {
   properties: GeoJsonProperties
   id?: string | number
 }
 
-export type TooltipPairs = {
+type TooltipPairs = {
   [key: string]: (value: number | string | undefined) => string
 }
 

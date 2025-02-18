@@ -8,11 +8,9 @@ import {
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
-export const GUN_DEATHS_BLACK_MEN_DATATYPES: DataTypeId[] = [
-  'gun_deaths_black_men',
-]
+const GUN_DEATHS_BLACK_MEN_DATATYPES: DataTypeId[] = ['gun_deaths_black_men']
 
-export const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
+const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
   'gun_homicides_black_men_estimated_total',
   'gun_homicides_black_men_pct_relative_inequity',
   'gun_homicides_black_men_pct_share',

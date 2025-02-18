@@ -31,7 +31,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('z-index', tooltipZIndex)
 }
 
-export const formatMetricValue = (
+const formatMetricValue = (
   value: number | undefined,
   metricConfig: MetricConfig,
 ): string => {

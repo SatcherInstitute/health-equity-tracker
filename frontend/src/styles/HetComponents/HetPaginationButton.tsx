@@ -1,7 +1,7 @@
 import { ArrowBack, ArrowForward } from '@mui/icons-material'
 import { Button } from '@mui/material'
 
-export type HetPaginationDirection = 'previous' | 'next'
+type HetPaginationDirection = 'previous' | 'next'
 
 interface HetPaginationButtonsProps {
   direction: HetPaginationDirection

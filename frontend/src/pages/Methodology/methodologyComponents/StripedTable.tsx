@@ -10,7 +10,7 @@ import {
 import { styled } from '@mui/material/styles'
 import { het } from '../../../styles/DesignTokens'
 
-export const StyledTableRow = styled(TableRow)(({ theme }) => ({
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: het.standardInfo,
   },

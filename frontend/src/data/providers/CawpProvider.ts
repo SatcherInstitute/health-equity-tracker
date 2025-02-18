@@ -20,12 +20,12 @@ import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 
-export const CAWP_CONGRESS_COUNTS: MetricId[] = [
+const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',
   'total_us_congress_count',
 ]
 
-export const CAWP_STLEG_COUNTS: MetricId[] = [
+const CAWP_STLEG_COUNTS: MetricId[] = [
   'women_this_race_state_leg_count',
   'total_state_leg_count',
 ]

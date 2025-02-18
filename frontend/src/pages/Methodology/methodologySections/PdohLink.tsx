@@ -10,7 +10,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
-export const pdohDataSources = [
+const pdohDataSources = [
   dataSourceMetadataMap.bjs,
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.decia_2020_territory_population,

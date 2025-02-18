@@ -29,7 +29,7 @@ import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 
-export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
+type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
 function DownloadDatasetListItem(props: {
   datasetId: DatasetId | DatasetIdWithStateFIPSCode
@@ -98,7 +98,7 @@ interface DataSourceListingProps {
   dataset_metadata: MapOfDatasetMetadata
 }
 
-export function DataSourceListing(props: DataSourceListingProps) {
+function DataSourceListing(props: DataSourceListingProps) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false)
 
   if (props.source_metadata.hideFromUser) return <></>

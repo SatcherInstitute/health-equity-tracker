@@ -106,13 +106,13 @@ export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
   return isStateLevel(fips1, fips2) || isCountyLevel(fips1, fips2)
 }
 
-export function isStateLevel(fips1?: Fips, fips2?: Fips) {
+function isStateLevel(fips1?: Fips, fips2?: Fips) {
   return (
     Boolean(fips1?.isStateOrTerritory()) || Boolean(fips2?.isStateOrTerritory())
   )
 }
 
-export function isCountyLevel(fips1?: Fips, fips2?: Fips) {
+function isCountyLevel(fips1?: Fips, fips2?: Fips) {
   return Boolean(fips1?.isCounty()) || Boolean(fips2?.isCounty())
 }
 

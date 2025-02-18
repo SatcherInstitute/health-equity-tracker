@@ -1,4 +1,4 @@
-export interface GlossaryDefinition {
+interface GlossaryDefinition {
   key: string
   description: string
 }

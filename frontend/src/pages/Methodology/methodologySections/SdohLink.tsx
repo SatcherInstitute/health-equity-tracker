@@ -22,7 +22,7 @@ const sdohDataSources = [
 ]
 
 // delete this, load from missingDataBlurbs instead
-export const missingAhrDataArray = [
+const missingAhrDataArray = [
   {
     id: '',
     topic: "Missing America's Health Rankings data",

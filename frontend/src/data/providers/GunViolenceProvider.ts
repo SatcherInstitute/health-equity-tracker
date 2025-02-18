@@ -14,28 +14,28 @@ export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
   'gun_deaths',
 ]
 
-export const GUN_HOMICIDE_METRIC_IDS: MetricId[] = [
+const GUN_HOMICIDE_METRIC_IDS: MetricId[] = [
   'gun_violence_homicide_estimated_total',
   'gun_violence_homicide_pct_relative_inequity',
   'gun_violence_homicide_pct_share',
   'gun_violence_homicide_per_100k',
 ]
 
-export const GUN_SUICIDE_METRIC_IDS: MetricId[] = [
+const GUN_SUICIDE_METRIC_IDS: MetricId[] = [
   'gun_violence_suicide_estimated_total',
   'gun_violence_suicide_pct_relative_inequity',
   'gun_violence_suicide_pct_share',
   'gun_violence_suicide_per_100k',
 ]
 
-export const GUN_DEATHS_METRIC_IDS: MetricId[] = [
+const GUN_DEATHS_METRIC_IDS: MetricId[] = [
   'gun_deaths_estimated_total',
   'gun_deaths_pct_relative_inequity',
   'gun_deaths_pct_share',
   'gun_deaths_per_100k',
 ]
 
-export const POPULATION_METRIC_IDS: MetricId[] = [
+const POPULATION_METRIC_IDS: MetricId[] = [
   'fatal_population_pct',
   'fatal_population',
 ]

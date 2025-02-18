@@ -4,15 +4,14 @@ export const USA_FIPS = '00'
 export const GEORGIA_FIPS = '13'
 
 // Fips code for District of Columbia (state equivalent and county equivalent).
-export const DC = '11'
-export const DC_COUNTY_FIPS = '11001'
+const DC = '11'
 
 // Territories
-export const AMERICAN_SAMOA = '60'
-export const GUAM = '66'
-export const NORTHERN_MARIANA_ISLANDS = '69'
-export const PUERTO_RICO = '72'
-export const VIRGIN_ISLANDS = '78'
+const AMERICAN_SAMOA = '60'
+const GUAM = '66'
+const NORTHERN_MARIANA_ISLANDS = '69'
+const PUERTO_RICO = '72'
+const VIRGIN_ISLANDS = '78'
 export const TERRITORY_CODES: Record<string, string> = {
   [AMERICAN_SAMOA]: 'AS',
   [GUAM]: 'GU',

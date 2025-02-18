@@ -13,15 +13,13 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { MEDICARE_MEDICATION_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
-export const medicareMedicationDataSources = [dataSourceMetadataMap.phrma]
+const medicareMedicationDataSources = [dataSourceMetadataMap.phrma]
 
 const datatypeConfigs = MEDICARE_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 })
 
-export const medicareTopicsString = buildTopicsString(
-  MEDICARE_CATEGORY_DROPDOWNIDS,
-)
+const medicareTopicsString = buildTopicsString(MEDICARE_CATEGORY_DROPDOWNIDS)
 
 export default function MedicareMedicationLink() {
   return (
