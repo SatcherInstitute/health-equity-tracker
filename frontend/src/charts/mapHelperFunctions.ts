@@ -1,4 +1,3 @@
-import type { Legend, ScaleType } from 'vega'
 import type {
   DataTypeConfig,
   MetricId,
@@ -15,26 +14,13 @@ import {
   RACE,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
-import type { FieldRange, HetRow } from '../data/utils/DatasetTypes'
+import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
-import { het } from '../styles/DesignTokens'
 import { type LegendNumberFormat, formatterMap } from './legendHelperFunctions'
 import {
-  CIRCLE_PROJECTION,
-  COLOR_SCALE,
   type CountColsMap,
   DEFAULT_LEGEND_COLOR_COUNT,
-  GEO_DATASET,
-  GREY_DOT_SCALE,
   type HighestLowest,
-  LEGEND_SYMBOL_TYPE,
-  LEGEND_TEXT_FONT,
-  MAP_SCHEMES,
-  MISSING_DATASET,
-  UNKNOWN_SCALE,
-  US_PROJECTION,
-  VALID_DATASET,
-  VAR_DATASET,
 } from './mapGlobals'
 import { generateSubtitle } from './utils'
 
@@ -140,166 +126,6 @@ export function formatPreventZero100k(
 }
 
 /*
-Get the  "no data" legend item with a grey box,
-
-*/
-export type HelperLegendType = 'insufficient' | 'zero'
-export function getHelperLegend(yOffset: number, xOffset: number): Legend {
-  return {
-    fill: UNKNOWN_SCALE,
-    symbolType: LEGEND_SYMBOL_TYPE,
-    orient: 'none',
-    titleFont: LEGEND_TEXT_FONT,
-    labelFont: LEGEND_TEXT_FONT,
-    legendY: yOffset,
-    legendX: xOffset,
-    size: GREY_DOT_SCALE,
-  }
-}
-
-/* DEFINE HOW TO CREATE A MARK ON THE UI */
-/**
-Function creating the Vega marks that appear on the chart (geographies or circles).
-* datasetName: name of the dataset the marks should correspond to
-* fillColor: schema defining how marks are filled - either a scale or static value.
-* hoverColor: single color that should appear on hover
-* tooltipExpression: expression defining how to render the contents of the hover tooltip
-*/
-export function createShapeMarks(
-  datasetName: string,
-  fillColor: any,
-  hoverColor: string,
-  tooltipExpression: string,
-  overrideShapeWithCircle?: boolean,
-  hideMissingDataTooltip?: boolean,
-  outlineGeos?: boolean,
-  isMulti?: boolean,
-  isMobile?: boolean,
-) {
-  let territoryBubbleSize = isMulti ? 500 : 1000
-  if (isMobile) territoryBubbleSize /= 3
-
-  let encodeEnter: any = {}
-  if (overrideShapeWithCircle) {
-    encodeEnter = {
-      size: { value: territoryBubbleSize },
-      fill: fillColor,
-      stroke: { value: 'white' },
-      strokeWidth: { value: 1.5 },
-      x: { field: 'centroid[0]' },
-      y: { field: 'centroid[1]' },
-    }
-  }
-  if (!hideMissingDataTooltip || datasetName !== MISSING_DATASET) {
-    encodeEnter.tooltip = {
-      signal: tooltipExpression,
-    }
-  }
-  const marks: any = {
-    name: datasetName + '_MARK',
-    aria: false,
-    type: overrideShapeWithCircle ? 'symbol' : 'shape',
-    from: { data: datasetName },
-    encode: {
-      enter: encodeEnter,
-      update: {
-        fill: fillColor,
-        opacity: {
-          signal: '1',
-        },
-        stroke: {
-          value: outlineGeos ? het.altGrey : het.white,
-          strokeWidth: { value: outlineGeos ? 1 : 0 },
-        },
-      },
-      hover: {
-        fill: { value: hoverColor },
-        cursor: { value: 'pointer' },
-      },
-    },
-  }
-  if (!overrideShapeWithCircle) {
-    marks.transform = [{ type: 'geoshape', projection: US_PROJECTION }]
-  }
-
-  return marks
-}
-
-/* ALT MARKS: verbose, invisible text for screen readers showing valid data (incl territories) */
-export function createInvisibleAltMarks(
-  tooltipDatum: string,
-  tooltipLabel: string,
-) {
-  return {
-    name: 'alt_text_labels',
-    type: 'text',
-    style: ['text'],
-    role: 'list-item',
-    from: { data: VAR_DATASET },
-    encode: {
-      update: {
-        opacity: {
-          signal: '0',
-        },
-        fontSize: { value: 0 },
-        text: {
-          signal: `datum.fips_name + ': ' + ${tooltipDatum} + ' ' + '${tooltipLabel}'`,
-        },
-      },
-    },
-  }
-}
-
-/*
-Generate meaningful alt text
-*/
-export function makeAltText(
-  data: HetRow[],
-  filename: string,
-  fips: Fips,
-  overrideShapeWithCircle?: boolean,
-) {
-  let altText = overrideShapeWithCircle
-    ? fips.getDisplayName()
-    : `Map showing ${filename}`
-
-  if (!fips.isCounty() && !overrideShapeWithCircle) {
-    altText += `: including data from ${
-      data.length
-    } ${fips.getPluralChildFipsTypeDisplayName()}`
-  }
-
-  return altText
-}
-
-/* SET UP PROJECTION USED TO CREATE MARKS ON THE UI */
-export function getProjection(
-  fips: Fips,
-  width: number,
-  heightWidthRatio: number,
-  overrideShapeWithCircle?: boolean,
-) {
-  return overrideShapeWithCircle
-    ? {
-        name: CIRCLE_PROJECTION,
-        type: 'albersUsa',
-        scale: 1100,
-        translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
-      }
-    : {
-        name: US_PROJECTION,
-        type:
-          fips.isTerritory() || fips.getParentFips().isTerritory()
-            ? 'albers'
-            : 'albersUsa',
-        fit: { signal: "data('" + GEO_DATASET + "')" },
-        size: {
-          signal: '[' + width + ', ' + width * heightWidthRatio + ']',
-        },
-      }
-}
-
-/*
 Calculate the min and max value for the given metricId
 */
 export function getLegendDataBounds(
@@ -333,52 +159,6 @@ export function calculateLegendColorCount(
     nonZeroData?.map((row) => row[metricId]),
   ).size
   return Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
-}
-
-/* SET UP COLOR SCALE */
-export function setupColorScale(
-  legendData: HetRow[],
-  metricId: MetricId,
-  scaleType: ScaleType,
-  fieldRange?: FieldRange,
-  scaleColorScheme?: string,
-  isTerritoryCircle?: boolean,
-  reverse?: boolean,
-) {
-  const legendColorCount = calculateLegendColorCount(legendData, metricId)
-  const colorScale: any = {
-    name: COLOR_SCALE,
-    type: scaleType,
-    // CONDITIONALLY AVOID BUGS: VALID_ makes territories with non-zero data always the darkest color while VAR_ caused non-territory non-zero county colors to not match legend scale
-    domain: {
-      data: isTerritoryCircle ? VAR_DATASET : VALID_DATASET,
-      field: metricId,
-    },
-    range: {
-      scheme: scaleColorScheme ?? MAP_SCHEMES.default,
-      count: legendColorCount,
-    },
-    reverse,
-  }
-  if (fieldRange) {
-    colorScale.domainMax = fieldRange.max
-    colorScale.domainMin = fieldRange.min
-  }
-
-  const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
-    /* data */ legendData,
-    /* metridId */ metricId,
-  )
-
-  if (legendLowerBound < legendUpperBound || Number.isNaN(legendLowerBound)) {
-    // if there is a range, adjust slope of the linear behavior of symlog around 0.
-    if (scaleType === 'symlog') colorScale.constant = 0.01
-  } else {
-    // if there is no range, use a dot instead of a gradient bar
-    colorScale.type = 'ordinal'
-  }
-
-  return colorScale
 }
 
 export function getHighestLowestGroupsByFips(

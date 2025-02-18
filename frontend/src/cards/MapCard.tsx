@@ -74,7 +74,6 @@ import GeoContext, {
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
-import TerritoryCircles from './ui/TerritoryCircles'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -557,27 +556,6 @@ function MapCardWithKey(props: MapCardProps) {
                       scaleConfig={scale}
                     />
                   </div>
-
-                  {props.fips.isUsa() && (
-                    <div className='w-full'>
-                      <TerritoryCircles
-                        demographicType={demographicType}
-                        activeDemographicGroup={activeDemographicGroup}
-                        countColsMap={countColsMap}
-                        data={displayData}
-                        fullData={mapQueryResponse.data}
-                        geoData={geoData}
-                        extremesMode={extremesMode}
-                        highestLowestGroupsByFips={highestLowestGroupsByFips}
-                        mapIsWide={mapIsWide}
-                        metricConfig={metricConfig}
-                        dataTypeConfig={props.dataTypeConfig}
-                        signalListeners={signalListeners}
-                        scaleConfig={scale}
-                        isPhrmaAdherence={isPhrmaAdherence}
-                      />
-                    </div>
-                  )}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>

@@ -1,12 +1,15 @@
 import * as d3 from 'd3'
-import type { ColorScheme } from 'vega'
 import { het } from '../../styles/DesignTokens'
 import { getLegendDataBounds } from '../mapHelperFunctions'
-import type { CreateColorScaleProps, GetFillColorProps } from './types'
+import type {
+  ColorScheme,
+  CreateColorScaleProps,
+  GetFillColorProps,
+} from './types'
 
 const { altGrey: ALT_GREY, white: WHITE } = het
 
-export const interpolateDarkGreen = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
+const interpolateDarkGreen = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
   het.mapDarkest,
   het.mapDarker,
   het.mapDark,
@@ -16,7 +19,7 @@ export const interpolateDarkGreen = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
   het.mapLightZero,
 ])
 
-export const interpolatePlasma = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
+const interpolatePlasma = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
   het.mapWomenDarkZero,
   het.mapWomenDarkest,
   het.mapWomenDarker,
@@ -27,7 +30,7 @@ export const interpolatePlasma = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
   het.mapWomenLightZero,
 ])
 
-export const interpolatedarkRed = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
+const interpolatedarkRed = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
   het.mapYouthDarkZero,
   het.mapYouthDarkest,
   het.mapYouthDarker,

@@ -21,7 +21,6 @@ const ChoroplethMap = ({
   data,
   metric,
   highestLowestGroupsByFips,
-  overrideShapeWithCircle,
   showCounties,
   fips,
   geoData,
@@ -29,7 +28,7 @@ const ChoroplethMap = ({
   demographicType,
   countColsMap,
   isUnknownsMap = false,
-  isMulti = false,
+  isMulti,
   extremesMode,
   mapConfig,
   signalListeners,
@@ -61,14 +60,12 @@ const ChoroplethMap = ({
   )
 
   const dimensions = useMemo(() => {
-    const heightWidthRatio = overrideShapeWithCircle
-      ? HEIGHT_WIDTH_RATIO * 2
-      : HEIGHT_WIDTH_RATIO
+    const heightWidthRatio = HEIGHT_WIDTH_RATIO
     return {
       height: width * heightWidthRatio,
       ratio: heightWidthRatio,
     }
-  }, [width, overrideShapeWithCircle])
+  }, [width])
 
   const cleanup = () => {
     if (tooltipContainerRef.current) {
@@ -121,7 +118,7 @@ const ChoroplethMap = ({
         dataWithHighestLowest,
         metric,
         width,
-        height: dimensions.height,
+        height: isMulti ? dimensions.height + 100 : dimensions.height,
         tooltipContainer: tooltipContainerRef.current!,
         showCounties,
         colorScale,
@@ -135,6 +132,7 @@ const ChoroplethMap = ({
         extremesMode,
         mapConfig,
         signalListeners,
+        isMulti,
       })
 
       mapInitializedRef.current = true
@@ -152,7 +150,6 @@ const ChoroplethMap = ({
     width,
     dimensions.height,
     showCounties,
-    overrideShapeWithCircle,
     metric,
     dataWithHighestLowest,
     mapConfig,
@@ -170,8 +167,8 @@ const ChoroplethMap = ({
 
   return (
     <div
-      className={`justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
-      ref={overrideShapeWithCircle ? undefined : ref}
+      className={`mx-2 justify-center ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}`}
+      ref={ref}
     >
       <svg
         ref={svgRef}

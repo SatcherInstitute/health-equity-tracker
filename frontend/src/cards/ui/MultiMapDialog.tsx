@@ -35,7 +35,6 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import CardOptionsMenu from './CardOptionsMenu'
 import { Sources } from './Sources'
-import TerritoryCircles from './TerritoryCircles'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -189,26 +188,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                       />
                     )}
                   </div>
-
-                  {/* TERRITORIES (IF NATIONAL VIEW) */}
-                  {props.metricConfig &&
-                    props.fips.isUsa() &&
-                    dataForValue.length && (
-                      <TerritoryCircles
-                        demographicType={props.demographicType}
-                        countColsMap={props.countColsMap}
-                        data={dataForValue}
-                        geoData={props.geoData}
-                        mapIsWide={false}
-                        metricConfig={props.metricConfig}
-                        dataTypeConfig={props.dataTypeConfig}
-                        signalListeners={multimapSignalListeners}
-                        scaleConfig={scale}
-                        isMulti={true}
-                        activeDemographicGroup={demographicGroup}
-                        extremesMode={false}
-                      />
-                    )}
                 </li>
               )
             })}

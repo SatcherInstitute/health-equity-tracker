@@ -1,10 +1,10 @@
-import type { ColorScheme, Legend, Scale } from 'vega'
 import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 /*
 To prevent components loading from one another, all exported consts for the map cards should be in this file
 */
 import type { DemographicGroup } from '../data/utils/Constants'
 import { het } from '../styles/DesignTokens'
+import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -13,25 +13,20 @@ export const US_PROJECTION = 'US_PROJECTION'
 export const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
 export const GEO_DATASET = 'GEO_DATASET'
 export const VAR_DATASET = 'VAR_DATASET'
-export const ZERO_VAR_DATASET = 'ZERO_VAR_DATASET'
 
 export const VALID_DATASET = 'VALID_DATASET'
-export const ZERO_DATASET = 'ZERO_DATASET'
 
 export const COLOR_SCALE = 'COLOR_SCALE'
 export const ZERO_SCALE = 'ZERO_SCALE'
-
-export const LEGEND_DATASET = 'LEGEND_DATASET'
 
 export type ScaleType = 'quantize' | 'quantile' | 'symlog'
 export type StackingDirection = 'horizontal' | 'vertical'
 
 export const RATE_MAP_SCALE: ScaleType = 'quantile'
-export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
 export const ORDINAL = 'ordinal'
 
-export type PopulationSubset =
+type PopulationSubset =
   | 'default'
   | 'women'
   | 'men'
@@ -104,12 +99,6 @@ export const youthHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
-export const unknownMapConfig: MapConfig = {
-  scheme: MAP_SCHEMES.unknown,
-  min: het.unknownMapLeast,
-  mid: het.unknownMapMid,
-}
-
 export const DOT_SIZE_SCALE = 'dot_size_scale'
 export const SUMMARY_SCALE = 'summary_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'
@@ -136,44 +125,9 @@ export interface HighestLowest {
   lowest?: DemographicGroup
 }
 
-export const UNKNOWN_SCALE_SPEC: any = {
-  name: UNKNOWN_SCALE,
-  type: ORDINAL,
-  domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-  range: [het.howToColor],
-}
-
-export const GREY_DOT_SCALE_SPEC: any = {
-  name: GREY_DOT_SCALE,
-  type: ORDINAL,
-  domain: { data: 'missing_data', field: 'missing' },
-  range: [EQUAL_DOT_SIZE],
-}
-
-export const ZERO_DOT_SCALE_SPEC: any = {
-  name: ZERO_DOT_SCALE,
-  type: ORDINAL,
-  domain: [0, 0],
-  range: [EQUAL_DOT_SIZE],
-}
-
-export const ZERO_LIGHT_SCALE = {
-  name: ZERO_SCALE,
-  type: 'ordinal',
-  domain: [0],
-  range: [het.mapLightZero],
-}
-
-export const ZERO_DARK_SCALE = {
-  name: ZERO_SCALE,
-  type: 'ordinal',
-  domain: [0],
-  range: [het.mapDarkZero],
-}
-
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
 
-export const PHRMA_COLOR_SCALE_SPEC: Scale = {
+export const PHRMA_COLOR_SCALE_SPEC = {
   name: COLOR_SCALE,
   type: 'threshold',
   domain: PHRMA_ADHERENCE_BREAKPOINTS,
@@ -187,7 +141,7 @@ export const PHRMA_COLOR_SCALE_SPEC: Scale = {
     het.mapMedicareLightest,
   ],
 }
-export const UNKNOWN_LEGEND_SPEC: Legend = {
+export const UNKNOWN_LEGEND_SPEC = {
   fill: UNKNOWN_SCALE,
   symbolType: LEGEND_SYMBOL_TYPE,
   size: GREY_DOT_SCALE,

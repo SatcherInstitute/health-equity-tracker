@@ -1,4 +1,4 @@
-import type { ColorScheme } from 'vega'
+import type { ColorScheme } from '../../charts/choroplethMap/types'
 import type { CategoryTypeId } from '../../utils/MadLibs'
 import type { DropdownVarId } from './DropDownIds'
 import type {
@@ -104,7 +104,7 @@ export interface MetricConfig {
 }
 
 export interface MapConfig {
-  scheme: ColorScheme | ((t: number) => string)
+  scheme: ColorScheme
   min: string
   mid: string
   higherIsBetter?: boolean

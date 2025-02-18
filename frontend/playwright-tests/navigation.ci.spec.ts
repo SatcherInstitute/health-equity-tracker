@@ -28,7 +28,7 @@ test('Clicking a state on national map loads state report; back button returns t
   )
 
   // click state of Mass.
-  await page.locator('path:nth-child(48)').click()
+  await page.locator('path:nth-child(46)').click()
 
   // Confirm correct madlib setting includes FIPS for state of Mass.
   await expect(page).toHaveURL(/.*mls=1.hiv-3.25/)
