@@ -34,39 +34,6 @@ export function setupZeroLegend(
   }
 }
 
-function setupUnknownsLegend(width: number, isPct?: boolean) {
-  const unknownsLegend = {
-    fill: COLOR_SCALE,
-    direction: 'horizontal',
-    title: '% unknown',
-    titleFontSize: 10,
-    titleLimit: 0,
-    labelFont: LEGEND_TEXT_FONT,
-    titleFont: LEGEND_TEXT_FONT,
-    labelOverlap: 'greedy',
-    labelSeparation: 10,
-    orient: 'none',
-    legendY: -50,
-    legendX: 50,
-    gradientLength: width * 0.35,
-    format: 'd',
-    encode: {},
-  }
-
-  if (isPct) {
-    unknownsLegend.encode = {
-      labels: {
-        update: {
-          text: {
-            signal: `format(datum.label, '0.1r') + '%'`,
-          },
-        },
-      },
-    }
-  }
-  return unknownsLegend
-}
-
 const formatterMap: Record<LegendNumberFormat, string> = {
   truncateWithK: ',.2s', // simplify large 100k legend breakpoints: e.g. 8,123 -> 8.1k
   preventM: ',.2r', // ensure values well below 1 dont render with m like 100m - 200m
