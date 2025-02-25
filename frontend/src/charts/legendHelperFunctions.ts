@@ -67,7 +67,7 @@ function setupUnknownsLegend(width: number, isPct?: boolean) {
   return unknownsLegend
 }
 
-export const formatterMap: Record<LegendNumberFormat, string> = {
+const formatterMap: Record<LegendNumberFormat, string> = {
   truncateWithK: ',.2s', // simplify large 100k legend breakpoints: e.g. 8,123 -> 8.1k
   preventM: ',.2r', // ensure values well below 1 dont render with m like 100m - 200m
   pct: 'd', // pct style

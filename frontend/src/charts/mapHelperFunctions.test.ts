@@ -7,10 +7,6 @@ import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 import { type CountColsMap, defaultHigherIsBetterMapConfig } from './mapGlobals'
 import {
-  addCountsTooltipInfo,
-  buildTooltipTemplate,
-  createBarLabel,
-  formatPreventZero100k,
   getCawpMapGroupDenominatorLabel,
   getCawpMapGroupNumeratorLabel,
   getCountyAddOn,
@@ -19,110 +15,6 @@ import {
 } from './mapHelperFunctions'
 
 import { describe, expect, test } from 'vitest'
-
-describe('Test addCountsTooltipInfo()', () => {
-  const phrmaCountColsMap: CountColsMap = {
-    numeratorConfig: {
-      metricId: 'statins_adherence_estimated_total',
-      shortLabel: 'adherent beneficiaries',
-      chartTitle: '',
-      type: 'count',
-    },
-    denominatorConfig: {
-      metricId: 'statins_beneficiaries_estimated_total',
-      shortLabel: 'total beneficiaries',
-      chartTitle: '',
-      type: 'count',
-    },
-  }
-
-  test('ALL / SEX / PHRMA', () => {
-    const sexAllTooltipPairs = addCountsTooltipInfo(
-      'sex',
-      {},
-      phrmaCountColsMap,
-      'All',
-    )
-
-    const expectedTooltipPairsSexAll = {
-      '# adherent beneficiaries overall':
-        'datum.statins_adherence_estimated_total',
-      '# total beneficiaries overall':
-        'datum.statins_beneficiaries_estimated_total',
-    }
-
-    expect(sexAllTooltipPairs).toEqual(expectedTooltipPairsSexAll)
-  })
-
-  test('Ages 1-100 / AGE / PHRMA', () => {
-    const ageTooltipPairs = addCountsTooltipInfo(
-      'age',
-      {},
-      phrmaCountColsMap,
-      '1-100',
-    )
-
-    const expectedTooltipPairsSexAll = {
-      '# adherent beneficiaries — Ages 1-100':
-        'datum.statins_adherence_estimated_total',
-      '# total beneficiaries — Ages 1-100':
-        'datum.statins_beneficiaries_estimated_total',
-    }
-
-    expect(ageTooltipPairs).toEqual(expectedTooltipPairsSexAll)
-  })
-
-  test('Black / RACE / PHRMA', () => {
-    const raceTooltipPairs = addCountsTooltipInfo(
-      'race_and_ethnicity',
-      {},
-      phrmaCountColsMap,
-      BLACK_NH,
-    )
-
-    const expectedTooltipPairsSexAll = {
-      '# adherent beneficiaries — Black (NH)':
-        'datum.statins_adherence_estimated_total',
-      '# total beneficiaries — Black (NH)':
-        'datum.statins_beneficiaries_estimated_total',
-    }
-
-    expect(raceTooltipPairs).toEqual(expectedTooltipPairsSexAll)
-  })
-
-  const cawpCountColsMap: CountColsMap = {
-    numeratorConfig: {
-      metricId: 'women_this_race_us_congress_count',
-      shortLabel: 'members',
-      chartTitle: '',
-      type: 'count',
-    },
-    denominatorConfig: {
-      metricId: 'total_us_congress_count',
-      shortLabel: 'total members',
-      chartTitle: '',
-      type: 'count',
-    },
-  }
-
-  test('Black / RACE / CAWP', () => {
-    const raceTooltipPairs = addCountsTooltipInfo(
-      'race_and_ethnicity',
-      {},
-      cawpCountColsMap,
-      BLACK,
-      true,
-    )
-
-    const expectedTooltipPairsCawpBlack = {
-      '# Black or African American women members':
-        'datum.women_this_race_us_congress_count',
-      '# total members': 'datum.total_us_congress_count',
-    }
-
-    expect(raceTooltipPairs).toEqual(expectedTooltipPairsCawpBlack)
-  })
-})
 
 describe('Test getMapGroupLabel()', () => {
   test('All becomes Overall', () => {
@@ -181,34 +73,6 @@ describe('Test getCawpMapGroupNumeratorLabel() and getCawpMapGroupLDenominatorLa
   test('DENOMINATOR always overall', () => {
     expect(getCawpMapGroupDenominatorLabel(cawpCountColsMap)).toEqual(
       'Total legislators',
-    )
-  })
-})
-
-describe('Test buildTooltipTemplate()', () => {
-  test('generates vega template string with a title, no SVI', () => {
-    const wTitleNoSvi = buildTooltipTemplate(
-      /* tooltipPairs */ {
-        [`"Some Condition"`]: 'datum.some_condition_per100k',
-      },
-      /* title? */ `"Some State"`,
-      /* includeSvi */ false,
-    )
-    expect(wTitleNoSvi).toEqual(
-      '{title: "Some State",""Some Condition"": datum.some_condition_per100k,}',
-    )
-  })
-
-  test('generates vega template string with no title, with SVI', () => {
-    const noTitleWithSvi = buildTooltipTemplate(
-      /* tooltipPairs */ {
-        [`"Some Other Condition"`]: 'datum.some_other_condition_per100k',
-      },
-      /* title? */ undefined,
-      /* includeSvi */ true,
-    )
-    expect(noTitleWithSvi).toEqual(
-      '{""Some Other Condition"": datum.some_other_condition_per100k,"County SVI": datum.rating}',
     )
   })
 })
@@ -306,75 +170,5 @@ describe('Test getHighestLowestGroupsByFips()', () => {
       '06': undefined,
       '07': undefined,
     })
-  })
-})
-
-describe('Test createBarLabel()', () => {
-  test('If chartIsSmall is true and usePercentSuffix is false, it should return multiLineLabel', () => {
-    const chartIsSmall = true
-    const usePercentSuffix = false
-    const measure = 'hiv_prevalence_per_100k'
-    const tooltipMetricDisplayColumnName =
-      'hiv_prevalence_per_100k__DISPLAY_true'
-
-    const result = createBarLabel(
-      chartIsSmall,
-      measure,
-      tooltipMetricDisplayColumnName,
-      usePercentSuffix,
-    )
-
-    expect(result).toEqual(
-      '[datum.hiv_prevalence_per_100k__DISPLAY_true, " per 100k"]',
-    )
-  })
-
-  test('If chartIsSmall and usePercentSuffix are true, it should return singleLineLabel', () => {
-    const chartIsSmall = true
-    const usePercentSuffix = true
-    const measure = 'pct_share_of_us_congress'
-    const tooltipMetricDisplayColumnName =
-      'pct_share_of_us_congress__DISPLAY_true'
-
-    const result = createBarLabel(
-      chartIsSmall,
-      measure,
-      tooltipMetricDisplayColumnName,
-      usePercentSuffix,
-    )
-
-    expect(result).toEqual('datum.pct_share_of_us_congress__DISPLAY_true + "%"')
-  })
-
-  test('If chartIsSmall is false and usePercentSuffix is true, it should return singleLineLabel', () => {
-    const chartIsSmall = false
-    const usePercentSuffix = false
-    const measure = 'hiv_stigma_index'
-    const tooltipMetricDisplayColumnName = 'hiv_stigma_index__DISPLAY_true'
-
-    const result = createBarLabel(
-      chartIsSmall,
-      measure,
-      tooltipMetricDisplayColumnName,
-      usePercentSuffix,
-    )
-
-    expect(result).toEqual('datum.hiv_stigma_index__DISPLAY_true + ""')
-  })
-
-  test('If chartIsSmall and usePercentSuffix are false, it should return singleLineLabel', () => {
-    const chartIsSmall = false
-    const usePercentSuffix = false
-    const measure = 'asthma_per_100k'
-    const tooltipMetricDisplayColumnName = 'asthma_per_100k__DISPLAY_true'
-
-    const result = createBarLabel(
-      chartIsSmall,
-      measure,
-      tooltipMetricDisplayColumnName,
-      usePercentSuffix,
-    )
-
-    expect(result).toEqual('datum.asthma_per_100k__DISPLAY_true + " per 100k"')
   })
 })
