@@ -6,6 +6,7 @@ import type {
 import { isPctType } from '../../data/config/MetricConfigUtils'
 import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
+import { D3_MAP_SCHEMES, getFillColor } from './colorSchemes'
 import type { ColorScale, DataPoint } from './types'
 
 const { altGrey } = het
@@ -131,9 +132,22 @@ export const createRateMapLegend = (
     title: string
     isMobile: boolean
     isPct?: boolean
+    extremesMode?: boolean
+    zeroColor?: string
+    countyColor?: string
   },
 ) => {
-  const { width, colorScale, title, isPct, isMobile } = props
+  const {
+    width,
+    colorScale,
+    title,
+    isPct,
+    isMobile,
+    extremesMode = false,
+    zeroColor = '#FFFFFF',
+    countyColor = '#000000',
+  } = props
+
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
   const tickCount = isMobile
     ? 3
@@ -153,7 +167,8 @@ export const createRateMapLegend = (
     ranges.push({
       min: ticks[i],
       max: ticks[i + 1],
-      color: colorScale((ticks[i] + ticks[i + 1]) / 2),
+      value: (ticks[i] + ticks[i + 1]) / 2, // Midpoint for color calculation
+      id: `range-${i}`, // Unique ID for the dataMap
     })
   }
 
@@ -165,12 +180,19 @@ export const createRateMapLegend = (
     ranges.push({
       min: lastTick,
       max: lastTick + step,
-      color: colorScale(lastTick + step / 2),
+      value: lastTick + step / 2, // Midpoint for color calculation
+      id: `range-${ticks.length - 1}`, // Unique ID for the dataMap
     })
   }
 
-  const squareSize = 20
-  const legendSpacing = 30
+  // Create a mock dataMap for getFillColor function
+  const dataMap = new Map<string, { value: number }>()
+  ranges.forEach((range) => {
+    dataMap.set(range.id, { value: range.value })
+  })
+
+  const squareSize = 12
+  const legendSpacing = 20
   const legendContainer = legendGroup
     .append('g')
     .attr('class', 'rate-map-legend')
@@ -193,12 +215,17 @@ export const createRateMapLegend = (
     .attr('class', 'legend-item')
     .attr('transform', (d, i) => `translate(50, ${i * legendSpacing})`)
 
-  // Add color squares
+  const myColor = d3
+    .scaleSequential()
+    .domain([legendLowerBound, legendUpperBound])
+    .interpolator(D3_MAP_SCHEMES.darkgreen as any)
+
+  // Add color squares using getFillColor
   legendItems
     .append('rect')
     .attr('width', squareSize)
     .attr('height', squareSize)
-    .style('fill', (d) => d.color)
+    .style('fill', (d) => myColor(d.value))
 
   // Add value range labels
   legendItems
@@ -230,7 +257,22 @@ export const createRateMapLegend = (
     .attr('y', noDataY)
     .attr('width', squareSize)
     .attr('height', squareSize)
-    .style('fill', altGrey)
+    .style(
+      'fill',
+      getFillColor({
+        d: {
+          id: 'no-data',
+          type: 'Feature',
+          geometry: null as any,
+          properties: null,
+        },
+        dataMap: new Map(), // Empty map for no data
+        colorScale,
+        extremesMode,
+        zeroColor,
+        countyColor,
+      }),
+    )
 
   legendContainer
     .append('text')
