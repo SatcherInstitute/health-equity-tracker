@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { isPctType } from '../../data/config/MetricConfigUtils'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { het } from '../../styles/DesignTokens'
 import { getCountyAddOn } from '../mapHelperFunctions'
@@ -8,7 +9,7 @@ import {
   getDenominatorPhrase,
   getNumeratorPhrase,
 } from './mapHelpers'
-import { createUnknownLegend } from './mapLegendUtils'
+import { createRateMapLegend, createUnknownLegend } from './mapLegendUtils'
 import {
   TERRITORIES,
   createTerritoryFeature,
@@ -74,14 +75,15 @@ export const renderMap = ({
     : 0
   const mapHeight = height - territoryHeight
 
-  const { legendGroup, mapGroup, territoryGroup } = initializeSvg({
-    svgRef,
-    width,
-    height,
-    mapHeight,
-    isMobile,
-    isUnknownsMap,
-  })
+  const { unknownsLegendGroup, mapGroup, territoryGroup, rateMapLegendGroup } =
+    initializeSvg({
+      svgRef,
+      width,
+      height,
+      mapHeight,
+      isMobile,
+      isUnknownsMap,
+    })
 
   projection.fitSize(
     [width, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
@@ -266,7 +268,7 @@ export const renderMap = ({
     .text((d) => TERRITORY_CODES[d.fips] || d.fips)
 
   if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
-    createUnknownLegend(legendGroup, {
+    createUnknownLegend(unknownsLegendGroup, {
       dataWithHighestLowest,
       metricId: metric.metricId,
       width,
@@ -274,6 +276,17 @@ export const renderMap = ({
       title: '% unknown',
       isMobile,
       isPct: true,
+    })
+  } else if (!hideLegend && !isUnknownsMap) {
+    createRateMapLegend(rateMapLegendGroup, {
+      dataWithHighestLowest,
+      metricId: metric.metricId,
+      metricConfig: metric,
+      width,
+      colorScale,
+      title: metric.shortLabel,
+      isMobile,
+      isPct: isPctType(metric.type),
     })
   }
 }
@@ -291,7 +304,7 @@ const initializeSvg = ({
   isUnknownsMap,
 }: ExtendedInitializeSvgProps) => {
   let { left, top } = MARGIN
-  if (isUnknownsMap) {
+  if (true) {
     top = 20
   }
   if (isMobile) {
@@ -304,10 +317,11 @@ const initializeSvg = ({
 
   return {
     svg,
-    legendGroup: svg
+    unknownsLegendGroup: svg
       .append('g')
-      .attr('class', 'legend-container')
+      .attr('class', 'unknowns-legend-container')
       .attr('transform', `translate(${left}, ${isMobile ? 0 : top})`),
+
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
@@ -319,6 +333,10 @@ const initializeSvg = ({
       .append('g')
       .attr('class', 'territory-container')
       .attr('transform', `translate(0, ${mapHeight})`),
+    rateMapLegendGroup: svg
+      .append('g')
+      .attr('class', 'rate-map-legend-container')
+      .attr('transform', `translate(${left}, ${isMobile ? 0 : top})`),
   }
 }
 const handleMouseEvent = (
