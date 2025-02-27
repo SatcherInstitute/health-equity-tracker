@@ -31,7 +31,7 @@ const {
 
 const STROKE_WIDTH = 0.5
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
-const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
+const MARGIN = { top: -40, right: 150, bottom: 0, left: 0 }
 
 export const renderMap = ({
   geoData,
@@ -86,7 +86,7 @@ export const renderMap = ({
     })
 
   projection.fitSize(
-    [width, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
+    [width - MARGIN.right, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
     features,
   )
   const path = d3.geoPath(projection)
@@ -284,7 +284,6 @@ export const renderMap = ({
       metricConfig: metric,
       width,
       colorScale,
-      title: metric.shortLabel,
       isMobile,
       isPct: isPctType(metric.type),
       mapConfig,
@@ -338,6 +337,7 @@ const initializeSvg = ({
       .append('g')
       .attr('class', 'rate-map-legend-container')
       .attr('transform', `translate(${left}, ${isMobile ? 0 : top})`),
+    // .attr('transform', `translate(${width - MARGIN.right + 10}, ${isMobile ? 0 : top})`),
   }
 }
 const handleMouseEvent = (

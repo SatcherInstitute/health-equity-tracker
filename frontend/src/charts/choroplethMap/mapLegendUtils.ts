@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import type {
   MapConfig,
   MetricConfig,
@@ -6,7 +7,7 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
-import { D3_MAP_SCHEMES, getFillColor } from './colorSchemes'
+import { getFillColor } from './colorSchemes'
 import type { ColorScale, DataPoint } from './types'
 
 const { altGrey } = het
@@ -129,7 +130,6 @@ export const createRateMapLegend = (
     metricConfig: MetricConfig
     width: number
     colorScale: ColorScale
-    title: string
     isMobile: boolean
     isPct?: boolean
     extremesMode?: boolean
@@ -141,7 +141,6 @@ export const createRateMapLegend = (
   const {
     width,
     colorScale,
-    title,
     isPct,
     isMobile,
     extremesMode = false,
@@ -160,7 +159,7 @@ export const createRateMapLegend = (
     props.metricId,
   )
 
-  const legendX = width - 70
+  const legendX = width - 100
   const legendY = 70
 
   // Create discrete ticks and value ranges
@@ -219,17 +218,28 @@ export const createRateMapLegend = (
       (d, i) => `translate(${legendX}, ${i * legendSpacing + legendY})`,
     )
 
-  const legendColorScheme = d3
-    .scaleSequential()
-    .domain([legendLowerBound, legendUpperBound])
-    .interpolator(D3_MAP_SCHEMES[props.mapConfig?.scheme || 'darkgreen'] as any)
-
-  // Add color squares using getFillColor
   legendItems
     .append('rect')
     .attr('width', squareSize)
     .attr('height', squareSize)
-    .style('fill', (d) => legendColorScheme(d.value))
+    .style('fill', (d) => {
+      // Create a mock GeoJSON feature for the getFillColor function
+      const mockFeature = {
+        id: d.id,
+        type: 'Feature',
+        geometry: null as any,
+        properties: null,
+      } as Feature<Geometry, GeoJsonProperties>
+
+      return getFillColor({
+        d: mockFeature,
+        dataMap: dataMap, // Use the dataMap you created earlier
+        colorScale: colorScale,
+        extremesMode: extremesMode,
+        zeroColor: zeroColor,
+        countyColor: countyColor,
+      })
+    })
 
   // Add value range labels
   legendItems
