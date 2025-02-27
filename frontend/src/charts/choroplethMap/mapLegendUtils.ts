@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import type {
+  MapConfig,
   MetricConfig,
   MetricId,
 } from '../../data/config/MetricConfigTypes'
@@ -135,6 +136,7 @@ export const createRateMapLegend = (
     extremesMode?: boolean
     zeroColor?: string
     countyColor?: string
+    mapConfig?: MapConfig
   },
 ) => {
   const {
@@ -215,17 +217,17 @@ export const createRateMapLegend = (
     .attr('class', 'legend-item')
     .attr('transform', (d, i) => `translate(50, ${i * legendSpacing})`)
 
-  const myColor = d3
+  const legendColorScheme = d3
     .scaleSequential()
     .domain([legendLowerBound, legendUpperBound])
-    .interpolator(D3_MAP_SCHEMES.darkgreen as any)
+    .interpolator(D3_MAP_SCHEMES[props.mapConfig?.scheme || 'darkgreen'] as any)
 
   // Add color squares using getFillColor
   legendItems
     .append('rect')
     .attr('width', squareSize)
     .attr('height', squareSize)
-    .style('fill', (d) => myColor(d.value))
+    .style('fill', (d) => legendColorScheme(d.value))
 
   // Add value range labels
   legendItems

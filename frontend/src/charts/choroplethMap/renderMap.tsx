@@ -287,6 +287,7 @@ export const renderMap = ({
       title: metric.shortLabel,
       isMobile,
       isPct: isPctType(metric.type),
+      mapConfig,
     })
   }
 }
