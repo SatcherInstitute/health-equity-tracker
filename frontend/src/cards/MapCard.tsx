@@ -527,7 +527,7 @@ function MapCardWithKey(props: MapCardProps) {
                   />
                 </div>
 
-                <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
+                <div className={'w-full'}>
                   <div
                     className='w-full'
                     style={{ minHeight: preloadHeight * 0.3 }}
@@ -558,7 +558,7 @@ function MapCardWithKey(props: MapCardProps) {
                   </div>
                 </div>
 
-                <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
+                <div className={'w-full'}>
                   <Legend
                     dataTypeConfig={props.dataTypeConfig}
                     metric={metricConfig}
