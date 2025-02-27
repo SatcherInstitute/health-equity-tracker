@@ -4,7 +4,6 @@ import type {
   MetricConfig,
   MetricId,
 } from '../../data/config/MetricConfigTypes'
-import { isPctType } from '../../data/config/MetricConfigUtils'
 import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
 import { D3_MAP_SCHEMES, getFillColor } from './colorSchemes'
@@ -150,13 +149,18 @@ export const createRateMapLegend = (
     countyColor = '#000000',
   } = props
 
-  const [legendLowerBound, legendUpperBound] = colorScale.domain()
+  const sortedData = props.dataWithHighestLowest.sort(
+    (a, b) => a[props.metricId] - b[props.metricId],
+  )
+
+  const legendLowerBound = sortedData[0][props.metricId]
+  const legendUpperBound = sortedData[sortedData.length - 1][props.metricId]
   const tickCount = calculateLegendColorCount(
     props.dataWithHighestLowest,
     props.metricId,
   )
 
-  const legendX = width - 100
+  const legendX = width - 70
   const legendY = 70
 
   // Create discrete ticks and value ranges
@@ -203,15 +207,6 @@ export const createRateMapLegend = (
     .append('g')
     .attr('class', 'rate-map-legend')
 
-  // Add title
-  legendContainer
-    .append('text')
-    .attr('x', legendX)
-    .attr('y', legendY - 10)
-    .attr('text-anchor', 'start')
-    .style('font', 'bold 10px sans-serif')
-    .text(title)
-
   // Add color squares with value ranges
   const legendItems = legendContainer
     .selectAll('.legend-item')
@@ -254,11 +249,11 @@ export const createRateMapLegend = (
         props.metricConfig,
         !isMobile,
       )
-      return `${minFormatted} - ${maxFormatted}`
+      return `${minFormatted}—${maxFormatted}${isPct ? '%' : ''}`
     })
 
   // Add "no data" item
-  const noDataY = ranges.length * legendSpacing
+  const noDataY = ranges.length * legendSpacing + legendY
 
   legendContainer
     .append('rect')
@@ -301,10 +296,6 @@ function formatLegendTickValue(
 
   if (metricConfig.type === 'per100k') {
     return format100k(value)
-  }
-
-  if (isPctType(metricConfig.type)) {
-    return `${value}%`
   }
 
   return value.toLocaleString('en-US')
