@@ -305,7 +305,7 @@ const initializeSvg = ({
   isUnknownsMap,
 }: ExtendedInitializeSvgProps) => {
   let { left, top } = MARGIN
-  if (true) {
+  if (isUnknownsMap) {
     top = 20
   }
   if (isMobile) {

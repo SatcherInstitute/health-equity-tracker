@@ -151,9 +151,13 @@ export const createRateMapLegend = (
   } = props
 
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
-  const tickCount = isMobile
-    ? 3
-    : calculateLegendColorCount(props.dataWithHighestLowest, props.metricId)
+  const tickCount = calculateLegendColorCount(
+    props.dataWithHighestLowest,
+    props.metricId,
+  )
+
+  const legendX = width - 100
+  const legendY = 70
 
   // Create discrete ticks and value ranges
   const ticks = d3
@@ -202,8 +206,8 @@ export const createRateMapLegend = (
   // Add title
   legendContainer
     .append('text')
-    .attr('x', 50)
-    .attr('y', -5)
+    .attr('x', legendX)
+    .attr('y', legendY - 10)
     .attr('text-anchor', 'start')
     .style('font', 'bold 10px sans-serif')
     .text(title)
@@ -215,7 +219,10 @@ export const createRateMapLegend = (
     .enter()
     .append('g')
     .attr('class', 'legend-item')
-    .attr('transform', (d, i) => `translate(50, ${i * legendSpacing})`)
+    .attr(
+      'transform',
+      (d, i) => `translate(${legendX}, ${i * legendSpacing + legendY})`,
+    )
 
   const legendColorScheme = d3
     .scaleSequential()
@@ -255,7 +262,7 @@ export const createRateMapLegend = (
 
   legendContainer
     .append('rect')
-    .attr('x', 50)
+    .attr('x', legendX)
     .attr('y', noDataY)
     .attr('width', squareSize)
     .attr('height', squareSize)
@@ -278,7 +285,7 @@ export const createRateMapLegend = (
 
   legendContainer
     .append('text')
-    .attr('x', 50 + squareSize + 10)
+    .attr('x', legendX + squareSize + 10)
     .attr('y', noDataY + squareSize / 2)
     .attr('dy', '0.35em')
     .style('font', '10px sans-serif')
