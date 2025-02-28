@@ -92,7 +92,6 @@ export const renderMap = ({
   const tooltipLabel = getTooltipLabel(
     isUnknownsMap,
     metric,
-    isCawp,
     activeDemographicGroup,
     demographicType,
   )
