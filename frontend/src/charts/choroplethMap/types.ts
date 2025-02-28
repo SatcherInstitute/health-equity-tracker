@@ -6,7 +6,6 @@ import type {
   Geometry,
 } from 'geojson'
 import type { RefObject } from 'react'
-import type { Topology } from 'topojson-specification'
 
 import type {
   MapConfig,
@@ -79,19 +78,6 @@ export interface CreateColorScaleProps {
     range: string[]
   }
   isPhrma: boolean
-}
-
-type CreateFeaturesProps = {
-  showCounties: boolean
-  parentFips: string
-  geoData?: Topology
-}
-
-type CreateProjectionProps = {
-  fips: Fips
-  width: number
-  height: number
-  features: FeatureCollection
 }
 
 export type DataPoint = {

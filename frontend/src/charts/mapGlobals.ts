@@ -104,7 +104,6 @@ export const ZERO_VALUES = 'zero_values'
 export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 
 export const LEGEND_SYMBOL_TYPE = 'square'
-export const LEGEND_TEXT_FONT = 'Inter Variable'
 export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
