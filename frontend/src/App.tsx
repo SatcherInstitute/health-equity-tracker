@@ -1,11 +1,11 @@
+import '@fontsource-variable/dm-sans'
+import '@fontsource-variable/inter'
+import '@fontsource/roboto'
+import '@fontsource/roboto-condensed'
 import '@fontsource/taviraj/200.css'
 import '@fontsource/taviraj/300.css'
 import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
-import '@fontsource-variable/inter'
-import '@fontsource-variable/dm-sans'
-import '@fontsource/roboto'
-import '@fontsource/roboto-condensed'
 
 import { CircularProgress, StyledEngineProvider } from '@mui/material'
 // TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
@@ -20,9 +20,9 @@ import {
   Routes,
   useLocation,
 } from 'react-router-dom'
-import methodologyRouteConfigs from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
+import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import NewsAndStoriesPage from './pages/News/NewsAndStoriesPage'
-import policyRouteConfigs from './pages/Policy/policyContent/policyRouteConfigs'
+import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
 import MaterialTheme from './styles/MaterialTheme'
 import { autoInitGlobals } from './utils/globals'
