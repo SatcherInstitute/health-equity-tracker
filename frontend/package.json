@@ -64,6 +64,7 @@
 		"@types/react-table": "^7.7.15",
 		"@types/topojson-client": "^3.1.5",
 		"@vitejs/plugin-react": "^4.3.4",
+		"@vitest/coverage-v8": "^3.0.7",
 		"autoprefixer": "^10.4.20",
 		"cross-env": "^7.0.3",
 		"cspell": "^8.17.1",
