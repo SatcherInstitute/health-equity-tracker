@@ -293,8 +293,7 @@ const initializeSvg = ({
   let { left, top } = MARGIN
   if (isUnknownsMap) {
     top = 20
-  }
-  if (isMobile) {
+  } else if (isMobile) {
     top = 0
   }
   const svg = d3

@@ -76,6 +76,7 @@ function CardWrapper(props: {
               <Sources
                 isCensusNotAcs={props.isCensusNotAcs}
                 metadata={metadata}
+                hideNH={props.hideNH}
                 queryResponses={queryResponses}
                 showDefinition={props.scrollToHash === 'rate-map'}
                 isCompareCard={props.isCompareCard}
