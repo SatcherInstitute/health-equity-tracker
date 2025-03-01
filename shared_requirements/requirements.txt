@@ -21,7 +21,7 @@ google-cloud-pubsub
 google-cloud-storage
 google-crc32c==1.6.0
 google-resumable-media
-googleapis-common-protos[grpc]==1.66.0
+googleapis-common-protos[grpc]==1.68.0
 grpc-google-iam-v1==0.14.0
 grpcio-status==1.70.0
 grpcio==1.70.0
