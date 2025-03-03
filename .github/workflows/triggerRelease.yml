@@ -1,8 +1,9 @@
 name: Send Release Event To Setup Cloud Platform
 
 on:
-  release:
-    types: [published]
+  workflow_dispatch: # todo: revert this to just the release trigger below
+  #release:
+    #types: [published]
 
 jobs:
   notify-github-action:
