@@ -1,0 +1,20 @@
+name: Keep `release` branch synced to latest GitHub release tag
+on:
+  push:
+    tags:
+      - "ReleaseV*"
+jobs:
+  deploy_releases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: release
+      # Point release branch at the latest tag so Netlify can deploy it
+      - name: Point release branch at tag
+        run: |
+          echo "Setting 'release' branch to 'tags/$'"
+          git checkout release
+          git reset --hard tags/$
+          git push -f
