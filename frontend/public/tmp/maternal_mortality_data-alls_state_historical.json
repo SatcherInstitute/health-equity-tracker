@@ -1,0 +1,51 @@
+[{"time_period":"2019","state_fips":"19","state_name":"Iowa","maternal_mortality_per_100k":20.0}
+,{"time_period":"2019","state_fips":"39","state_name":"Ohio","maternal_mortality_per_100k":37.0}
+,{"time_period":"2019","state_fips":"49","state_name":"Utah","maternal_mortality_per_100k":28.0}
+,{"time_period":"2019","state_fips":"16","state_name":"Idaho","maternal_mortality_per_100k":28.0}
+,{"time_period":"2019","state_fips":"23","state_name":"Maine","maternal_mortality_per_100k":9.0}
+,{"time_period":"2019","state_fips":"48","state_name":"Texas","maternal_mortality_per_100k":29.0}
+,{"time_period":"2019","state_fips":"02","state_name":"Alaska","maternal_mortality_per_100k":26.0}
+,{"time_period":"2019","state_fips":"15","state_name":"Hawaii","maternal_mortality_per_100k":16.0}
+,{"time_period":"2019","state_fips":"20","state_name":"Kansas","maternal_mortality_per_100k":33.0}
+,{"time_period":"2019","state_fips":"32","state_name":"Nevada","maternal_mortality_per_100k":16.0}
+,{"time_period":"2019","state_fips":"41","state_name":"Oregon","maternal_mortality_per_100k":16.0}
+,{"time_period":"2019","state_fips":"01","state_name":"Alabama","maternal_mortality_per_100k":55.0}
+,{"time_period":"2019","state_fips":"04","state_name":"Arizona","maternal_mortality_per_100k":39.0}
+,{"time_period":"2019","state_fips":"12","state_name":"Florida","maternal_mortality_per_100k":37.0}
+,{"time_period":"2019","state_fips":"13","state_name":"Georgia","maternal_mortality_per_100k":60.0}
+,{"time_period":"2019","state_fips":"18","state_name":"Indiana","maternal_mortality_per_100k":40.0}
+,{"time_period":"2019","state_fips":"30","state_name":"Montana","maternal_mortality_per_100k":38.0}
+,{"time_period":"2019","state_fips":"50","state_name":"Vermont","maternal_mortality_per_100k":20.0}
+,{"time_period":"2019","state_fips":"56","state_name":"Wyoming","maternal_mortality_per_100k":32.0}
+,{"time_period":"2019","state_fips":"05","state_name":"Arkansas","maternal_mortality_per_100k":50.0}
+,{"time_period":"2019","state_fips":"08","state_name":"Colorado","maternal_mortality_per_100k":21.0}
+,{"time_period":"2019","state_fips":"10","state_name":"Delaware","maternal_mortality_per_100k":31.0}
+,{"time_period":"2019","state_fips":"17","state_name":"Illinois","maternal_mortality_per_100k":19.0}
+,{"time_period":"2019","state_fips":"21","state_name":"Kentucky","maternal_mortality_per_100k":45.0}
+,{"time_period":"2019","state_fips":"24","state_name":"Maryland","maternal_mortality_per_100k":36.0}
+,{"time_period":"2019","state_fips":"26","state_name":"Michigan","maternal_mortality_per_100k":35.0}
+,{"time_period":"2019","state_fips":"29","state_name":"Missouri","maternal_mortality_per_100k":27.0}
+,{"time_period":"2019","state_fips":"31","state_name":"Nebraska","maternal_mortality_per_100k":30.0}
+,{"time_period":"2019","state_fips":"36","state_name":"New York","maternal_mortality_per_100k":42.0}
+,{"time_period":"2019","state_fips":"40","state_name":"Oklahoma","maternal_mortality_per_100k":36.0}
+,{"time_period":"2019","state_fips":"51","state_name":"Virginia","maternal_mortality_per_100k":32.0}
+,{"time_period":"2019","state_fips":"22","state_name":"Louisiana","maternal_mortality_per_100k":46.0}
+,{"time_period":"2019","state_fips":"27","state_name":"Minnesota","maternal_mortality_per_100k":19.0}
+,{"time_period":"2019","state_fips":"47","state_name":"Tennessee","maternal_mortality_per_100k":37.0}
+,{"time_period":"2019","state_fips":"55","state_name":"Wisconsin","maternal_mortality_per_100k":22.0}
+,{"time_period":"2019","state_fips":"06","state_name":"California","maternal_mortality_per_100k":18.0}
+,{"time_period":"2019","state_fips":"34","state_name":"New Jersey","maternal_mortality_per_100k":43.0}
+,{"time_period":"2019","state_fips":"35","state_name":"New Mexico","maternal_mortality_per_100k":27.0}
+,{"time_period":"2019","state_fips":"53","state_name":"Washington","maternal_mortality_per_100k":32.0}
+,{"time_period":"2019","state_fips":"09","state_name":"Connecticut","maternal_mortality_per_100k":26.0}
+,{"time_period":"2019","state_fips":"28","state_name":"Mississippi","maternal_mortality_per_100k":61.0}
+,{"time_period":"2019","state_fips":"38","state_name":"North Dakota","maternal_mortality_per_100k":31.0}
+,{"time_period":"2019","state_fips":"42","state_name":"Pennsylvania","maternal_mortality_per_100k":32.0}
+,{"time_period":"2019","state_fips":"44","state_name":"Rhode Island","maternal_mortality_per_100k":21.0}
+,{"time_period":"2019","state_fips":"46","state_name":"South Dakota","maternal_mortality_per_100k":37.0}
+,{"time_period":"2019","state_fips":"25","state_name":"Massachusetts","maternal_mortality_per_100k":15.0}
+,{"time_period":"2019","state_fips":"33","state_name":"New Hampshire","maternal_mortality_per_100k":18.0}
+,{"time_period":"2019","state_fips":"54","state_name":"West Virginia","maternal_mortality_per_100k":40.0}
+,{"time_period":"2019","state_fips":"37","state_name":"North Carolina","maternal_mortality_per_100k":39.0}
+,{"time_period":"2019","state_fips":"45","state_name":"South Carolina","maternal_mortality_per_100k":46.0}
+,{"time_period":"2019","state_fips":"11","state_name":"District of Columbia","maternal_mortality_per_100k":47.0}]

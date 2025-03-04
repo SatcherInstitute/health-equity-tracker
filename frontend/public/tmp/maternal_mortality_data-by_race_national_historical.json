@@ -1,0 +1,126 @@
+[{"time_period":"1999","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":13,"maternal_mortality_pct_relative_inequity":0}
+,{"time_period":"2000","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":12}
+,{"time_period":"2001","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":12}
+,{"time_period":"2002","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":14}
+,{"time_period":"2003","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":17}
+,{"time_period":"2004","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":19}
+,{"time_period":"2005","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":20}
+,{"time_period":"2006","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":21}
+,{"time_period":"2007","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":22}
+,{"time_period":"2008","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":23}
+,{"time_period":"2009","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":24}
+,{"time_period":"2010","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":25}
+,{"time_period":"2011","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":27}
+,{"time_period":"2012","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":28}
+,{"time_period":"2013","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":30}
+,{"time_period":"2014","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":33}
+,{"time_period":"2015","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":34}
+,{"time_period":"2016","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":34}
+,{"time_period":"2017","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":33}
+,{"time_period":"2018","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":33}
+,{"time_period":"2019","state_fips":"00","race_category_id":"ALL","state_name":"United States","race_and_ethnicity":"All","maternal_mortality_per_100k":32,"maternal_mortality_pct_relative_inequity":0}
+,{"time_period":"1999","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":10,"maternal_mortality_pct_relative_inequity":124.7}
+,{"time_period":"2000","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":10}
+,{"time_period":"2001","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":11}
+,{"time_period":"2002","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":11}
+,{"time_period":"2003","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":12}
+,{"time_period":"2004","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":13}
+,{"time_period":"2005","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":14}
+,{"time_period":"2006","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":15}
+,{"time_period":"2007","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":16}
+,{"time_period":"2008","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":16}
+,{"time_period":"2009","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":17}
+,{"time_period":"2010","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":18}
+,{"time_period":"2011","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":18}
+,{"time_period":"2012","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":18}
+,{"time_period":"2013","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":19}
+,{"time_period":"2014","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":20}
+,{"time_period":"2015","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":21}
+,{"time_period":"2016","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":22}
+,{"time_period":"2017","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":22}
+,{"time_period":"2018","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":22}
+,{"time_period":"2019","state_fips":"00","race_category_id":"HISP","state_name":"United States","race_and_ethnicity":"Hispanic or Latino","maternal_mortality_per_100k":21,"maternal_mortality_pct_relative_inequity":134.5}
+,{"time_period":"1999","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":10,"maternal_mortality_pct_relative_inequity":-41.4}
+,{"time_period":"2000","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":9}
+,{"time_period":"2001","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":10}
+,{"time_period":"2002","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":11}
+,{"time_period":"2003","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":12}
+,{"time_period":"2004","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":14}
+,{"time_period":"2005","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2006","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":17}
+,{"time_period":"2007","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":17}
+,{"time_period":"2008","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2009","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2010","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2011","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2012","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2013","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":17}
+,{"time_period":"2014","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":18}
+,{"time_period":"2015","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":19}
+,{"time_period":"2016","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":19}
+,{"time_period":"2017","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":19}
+,{"time_period":"2018","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":19}
+,{"time_period":"2019","state_fips":"00","race_category_id":"API_NH","state_name":"United States","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","maternal_mortality_per_100k":21,"maternal_mortality_pct_relative_inequity":-20.7}
+,{"time_period":"1999","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":19,"maternal_mortality_pct_relative_inequity":180}
+,{"time_period":"2000","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":14}
+,{"time_period":"2001","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":13}
+,{"time_period":"2002","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":14}
+,{"time_period":"2003","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2004","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":20}
+,{"time_period":"2005","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":27}
+,{"time_period":"2006","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":32}
+,{"time_period":"2007","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":34}
+,{"time_period":"2008","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":34}
+,{"time_period":"2009","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":36}
+,{"time_period":"2010","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":40}
+,{"time_period":"2011","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":46}
+,{"time_period":"2012","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":50}
+,{"time_period":"2013","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":51}
+,{"time_period":"2014","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":50}
+,{"time_period":"2015","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":49}
+,{"time_period":"2016","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":48}
+,{"time_period":"2017","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":49}
+,{"time_period":"2018","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":55}
+,{"time_period":"2019","state_fips":"00","race_category_id":"AIAN_NH","state_name":"United States","race_and_ethnicity":"Indigenous (NH)","maternal_mortality_per_100k":69,"maternal_mortality_pct_relative_inequity":280}
+,{"time_period":"1999","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":31,"maternal_mortality_pct_relative_inequity":206.7}
+,{"time_period":"2000","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":28}
+,{"time_period":"2001","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":30}
+,{"time_period":"2002","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":36}
+,{"time_period":"2003","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":42}
+,{"time_period":"2004","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":46}
+,{"time_period":"2005","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":48}
+,{"time_period":"2006","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":48}
+,{"time_period":"2007","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":48}
+,{"time_period":"2008","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":48}
+,{"time_period":"2009","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":50}
+,{"time_period":"2010","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":53}
+,{"time_period":"2011","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":57}
+,{"time_period":"2012","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":61}
+,{"time_period":"2013","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":65}
+,{"time_period":"2014","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":70}
+,{"time_period":"2015","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":71}
+,{"time_period":"2016","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":70}
+,{"time_period":"2017","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":67}
+,{"time_period":"2018","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":66}
+,{"time_period":"2019","state_fips":"00","race_category_id":"BLACK_NH","state_name":"United States","race_and_ethnicity":"Black or African American (NH)","maternal_mortality_per_100k":68,"maternal_mortality_pct_relative_inequity":170.8}
+,{"time_period":"1999","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":9,"maternal_mortality_pct_relative_inequity":-74.8}
+,{"time_period":"2000","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":8}
+,{"time_period":"2001","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":9}
+,{"time_period":"2002","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":11}
+,{"time_period":"2003","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":13}
+,{"time_period":"2004","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":15}
+,{"time_period":"2005","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":16}
+,{"time_period":"2006","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":17}
+,{"time_period":"2007","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":18}
+,{"time_period":"2008","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":19}
+,{"time_period":"2009","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":20}
+,{"time_period":"2010","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":22}
+,{"time_period":"2011","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":24}
+,{"time_period":"2012","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":25}
+,{"time_period":"2013","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":27}
+,{"time_period":"2014","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":29}
+,{"time_period":"2015","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":30}
+,{"time_period":"2016","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":30}
+,{"time_period":"2017","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":30}
+,{"time_period":"2018","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":29}
+,{"time_period":"2019","state_fips":"00","race_category_id":"WHITE_NH","state_name":"United States","race_and_ethnicity":"White (NH)","maternal_mortality_per_100k":28,"maternal_mortality_pct_relative_inequity":-73.9}]
