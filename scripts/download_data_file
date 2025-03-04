@@ -18,6 +18,7 @@ function main() {
   local data_set
   local all_files
   local tmp_dir
+  local invalid_arg=false
 
   while [[ "${#}" != 0 ]]; do
       case "${1}" in
@@ -44,13 +45,28 @@ function main() {
 
         "")
           util::print::error "you must pass in an argument for --data-file, --data-set, or --all flag"
+          invalid_arg=true
+          break
           ;;
 
         *)
           util::print::error "unknown argument \"${1}\""
-          return 1
+          invalid_arg=true
+          break
       esac
     done
+
+  # Exit if invalid arguments were encountered
+  if [[ "${invalid_arg}" == "true" ]]; then
+    exit 1
+  fi
+
+  # Validate that at least one option is provided
+  if [[ -z "${all_files}" ]] && [[ -z "${data_set}" ]] && [[ -z "${data_file}" ]]; then
+    util::print::error "you must specify --data-file, --data-set, or --all flag"
+    usage
+    exit 1
+  fi
 
   bucket_name=$(gcloud config get-value project | cut -d - -f1)-dev-export
 
