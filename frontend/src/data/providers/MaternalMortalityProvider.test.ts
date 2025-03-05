@@ -69,7 +69,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('National Current and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_national_current',
+      'maternal_mortality_data-race_national_current',
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'current',
@@ -78,7 +78,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('National Historical and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_national_historical',
+      'maternal_mortality_data-race_national_historical',
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'historical',
@@ -87,7 +87,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('State Current and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_state_current',
+      'maternal_mortality_data-race_state_current',
       Breakdowns.forFips(new Fips('08')),
       RACE,
       'current',
@@ -96,7 +96,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('State Historical and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_state_historical',
+      'maternal_mortality_data-race_state_historical',
       Breakdowns.forFips(new Fips('08')),
       RACE,
       'historical',

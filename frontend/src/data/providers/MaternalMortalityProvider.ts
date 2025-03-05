@@ -35,7 +35,7 @@ class MaternalMortalityProvider extends VariableProvider {
     try {
       const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
         'maternal_mortality_data',
-        'by_',
+        '',
         metricQuery,
       )
 
