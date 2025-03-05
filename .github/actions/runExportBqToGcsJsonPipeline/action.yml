@@ -20,7 +20,7 @@ inputs:
     required: false
     default: ""
   should_export_as_alls:
-    description: "Flag to export this demographic breakdown as the 'alls' breakdown for fallback"
+    description: "Use this demographic breakdown as the 'alls' breakdown for fallback"
     required: false
     default: "false"
 
