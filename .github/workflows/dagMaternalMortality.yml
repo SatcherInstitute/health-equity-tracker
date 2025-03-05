@@ -1,0 +1,21 @@
+name: Run Maternal Mortality Pipeline
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  process-maternal-mortality-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: BY RACE
+        uses: ./.github/actions/run-bq-pipeline
+        with:
+          workflow_id: "MATERNAL_MORTALITY_DATA"
+          dataset_name: "maternal_mortality_data"
+          demographic: "race"
+        env:
+          GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
