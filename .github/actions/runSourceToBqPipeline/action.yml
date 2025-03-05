@@ -2,6 +2,9 @@ name: "Run gcs-to-bq-service"
 description: "Triggers Cloud Run service to process source data (url, data/, or bucket) and write as tables to BigQuery."
 
 inputs:
+  service_url:
+    description: "GCS to BQ service URL"
+    required: true
   workflow_id:
     description: "Workflow ID"
     required: true
@@ -24,7 +27,5 @@ runs:
         curl -X POST \
           -H "Content-Type: application/json" \
           -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"het-data-tables\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\"}}" \
-          ${{ env.BQ_SERVICE_URL }}
+          ${{ inputs.service_url }}
       shell: bash
-      env:
-        BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
