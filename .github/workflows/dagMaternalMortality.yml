@@ -1,7 +1,7 @@
 name: DAG - MATERNAL_MORTALITY_DATA
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
 
 jobs:
   process-maternal-mortality-data:
@@ -11,11 +11,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: BY RACE
-        uses: ./.github/actions/runSourceToBqPipeline
+      - name: Process and write race tables to BigQuery
+        uses: ./.github/actions/run-bq-pipeline
         with:
           workflow_id: "MATERNAL_MORTALITY_DATA"
           dataset_name: "maternal_mortality_data"
           demographic: "race"
-        env:
-          GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+          service_url: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
