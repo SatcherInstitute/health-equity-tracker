@@ -1,4 +1,4 @@
-name: Run Maternal Mortality Pipeline
+name: DAG - MATERNAL_MORTALITY_DATA
 
 on:
   workflow_dispatch:  # Manual trigger
@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: BY RACE
-        uses: ./.github/actions/run-bq-pipeline
+        uses: ./.github/actions/runSourceToBqPipeline
         with:
           workflow_id: "MATERNAL_MORTALITY_DATA"
           dataset_name: "maternal_mortality_data"
