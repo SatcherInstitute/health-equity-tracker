@@ -18,3 +18,11 @@ jobs:
           dataset_name: "maternal_mortality_data"
           demographic: "race"
           service_url: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Export NDJSON files to GCS buckets from BigQuery tables
+        uses: ./.github/actions/run-exporter-service
+        with:
+          service_url: ${{ secrets.EXPORTER_SERVICE_URL }}
+          dataset_name: "maternal_mortality_data"
+          demographic: "race"
+          should_export_as_alls: "true"

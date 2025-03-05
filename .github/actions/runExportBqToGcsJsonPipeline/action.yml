@@ -1,0 +1,35 @@
+name: "Run exporter-service"
+description: "Triggers Cloud Run service to export processed tables from BigQuery to GCS buckets as NDJSON."
+
+inputs:
+  service_url:
+    description: "Exporter service URL"
+    required: true
+  dataset_name:
+    description: "Dataset Name"
+    required: true
+  category:
+    description: "Category (optional)"
+    required: false
+  demographic:
+    description: "Demographic (optional)"
+    required: false
+    default: ""
+  geographic:
+    description: "Geographic (optional)"
+    required: false
+    default: ""
+  should_export_as_alls:
+    description: "Flag to export this demographic breakdown as the 'alls' breakdown for fallback"
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          -d "{\"dataset_name\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"should_export_as_alls\":${{ inputs.should_export_as_alls }}}" \
+          ${{ inputs.service_url }}
+      shell: bash
