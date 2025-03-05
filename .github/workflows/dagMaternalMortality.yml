@@ -20,7 +20,7 @@ jobs:
           service_url: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Export NDJSON files to GCS buckets from BigQuery tables
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: ./.github/actions/runExportBqToGcsJsonPipeline
         with:
           service_url: ${{ secrets.EXPORTER_SERVICE_URL }}
           dataset_name: "maternal_mortality_data"
