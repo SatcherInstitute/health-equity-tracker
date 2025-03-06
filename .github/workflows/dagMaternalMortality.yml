@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  process-maternal-mortality-data:
+  trigger-data-pipeline:
     runs-on: ubuntu-latest
 
     steps:
