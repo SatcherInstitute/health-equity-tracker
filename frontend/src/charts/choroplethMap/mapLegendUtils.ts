@@ -1,7 +1,13 @@
 import * as d3 from 'd3'
-import type { MetricId } from '../../data/config/MetricConfigTypes'
+import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import type {
+  MapConfig,
+  MetricConfig,
+  MetricId,
+} from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
+import { getFillColor } from './colorSchemes'
 import type { ColorScale, DataPoint } from './types'
 
 const { altGrey } = het
@@ -114,4 +120,193 @@ export const createUnknownLegend = (
       .style('font', '10px sans-serif')
       .text(isPct ? `${label}%` : label.toFixed(1))
   })
+}
+
+export const createRateMapLegend = (
+  legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
+  props: {
+    dataWithHighestLowest: DataPoint[]
+    metricId: MetricId
+    metricConfig: MetricConfig
+    width: number
+    colorScale: ColorScale
+    isMobile: boolean
+    isPct?: boolean
+    extremesMode?: boolean
+    zeroColor?: string
+    countyColor?: string
+    mapConfig?: MapConfig
+  },
+) => {
+  const {
+    width,
+    colorScale,
+    isPct,
+    isMobile,
+    extremesMode = false,
+    zeroColor = '#FFFFFF',
+    countyColor = '#000000',
+  } = props
+
+  const sortedData = props.dataWithHighestLowest.sort(
+    (a, b) => a[props.metricId] - b[props.metricId],
+  )
+
+  const legendLowerBound = sortedData[0][props.metricId]
+  const legendUpperBound = sortedData[sortedData.length - 1][props.metricId]
+  const tickCount = calculateLegendColorCount(
+    props.dataWithHighestLowest,
+    props.metricId,
+  )
+
+  const legendX = width - 100
+  const legendY = 70
+
+  // Create discrete ticks and value ranges
+  const ticks = d3
+    .scaleLinear()
+    .domain([legendLowerBound, legendUpperBound])
+    .nice(tickCount)
+    .ticks(tickCount)
+    .filter((tick) => tick >= legendLowerBound && tick <= legendUpperBound)
+
+  // Create value ranges
+  const ranges = []
+  for (let i = 0; i < ticks.length - 1; i++) {
+    ranges.push({
+      min: ticks[i],
+      max: ticks[i + 1],
+      value: (ticks[i] + ticks[i + 1]) / 2, // Midpoint for color calculation
+      id: `range-${i}`, // Unique ID for the dataMap
+    })
+  }
+
+  // Add the highest range
+  if (ticks.length >= 2) {
+    const lastTick = ticks[ticks.length - 1]
+    const secondLastTick = ticks[ticks.length - 2]
+    const step = lastTick - secondLastTick
+    ranges.push({
+      min: lastTick,
+      max: lastTick + step,
+      value: lastTick + step / 2, // Midpoint for color calculation
+      id: `range-${ticks.length - 1}`, // Unique ID for the dataMap
+    })
+  }
+
+  // Create a mock dataMap for getFillColor function
+  const dataMap = new Map<string, { value: number }>()
+  ranges.forEach((range) => {
+    dataMap.set(range.id, { value: range.value })
+  })
+
+  const squareSize = 12
+  const legendSpacing = 20
+  const legendContainer = legendGroup
+    .append('g')
+    .attr('class', 'rate-map-legend')
+
+  // Add color squares with value ranges
+  const legendItems = legendContainer
+    .selectAll('.legend-item')
+    .data(ranges)
+    .enter()
+    .append('g')
+    .attr('class', 'legend-item')
+    .attr(
+      'transform',
+      (d, i) => `translate(${legendX}, ${i * legendSpacing + legendY})`,
+    )
+
+  legendItems
+    .append('rect')
+    .attr('width', squareSize)
+    .attr('height', squareSize)
+    .style('fill', (d) => {
+      // Create a mock GeoJSON feature for the getFillColor function
+      const mockFeature = {
+        id: d.id,
+        type: 'Feature',
+        geometry: null as any,
+        properties: null,
+      } as Feature<Geometry, GeoJsonProperties>
+
+      return getFillColor({
+        d: mockFeature,
+        dataMap: dataMap, // Use the dataMap you created earlier
+        colorScale: colorScale,
+        extremesMode: extremesMode,
+        zeroColor: zeroColor,
+        countyColor: countyColor,
+      })
+    })
+
+  // Add value range labels
+  legendItems
+    .append('text')
+    .attr('x', squareSize + 10)
+    .attr('y', squareSize / 2)
+    .attr('dy', '0.35em')
+    .style('font', '10px sans-serif')
+    .text((d) => {
+      const minFormatted = formatLegendTickValue(
+        d.min,
+        props.metricConfig,
+        !isMobile,
+      )
+      const maxFormatted = formatLegendTickValue(
+        d.max,
+        props.metricConfig,
+        !isMobile,
+      )
+      return `${minFormatted}—${maxFormatted}${isPct ? '%' : ''}`
+    })
+
+  // Add "no data" item
+  const noDataY = ranges.length * legendSpacing + legendY
+
+  legendContainer
+    .append('rect')
+    .attr('x', legendX)
+    .attr('y', noDataY)
+    .attr('width', squareSize)
+    .attr('height', squareSize)
+    .style(
+      'fill',
+      getFillColor({
+        d: {
+          id: 'no-data',
+          type: 'Feature',
+          geometry: null as any,
+          properties: null,
+        },
+        dataMap: new Map(), // Empty map for no data
+        colorScale,
+        extremesMode,
+        zeroColor,
+        countyColor,
+      }),
+    )
+
+  legendContainer
+    .append('text')
+    .attr('x', legendX + squareSize + 10)
+    .attr('y', noDataY + squareSize / 2)
+    .attr('dy', '0.35em')
+    .style('font', '10px sans-serif')
+    .text('no data')
+}
+
+function formatLegendTickValue(
+  value: number,
+  metricConfig: MetricConfig,
+  isTinyAndUp?: boolean,
+): string {
+  const format100k = d3.format('.2s')
+
+  if (metricConfig.type === 'per100k') {
+    return format100k(value)
+  }
+
+  return value.toLocaleString('en-US')
 }
