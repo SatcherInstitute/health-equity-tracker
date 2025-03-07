@@ -1,0 +1,36 @@
+name: "Run data-ingestion-service (ACS caching)"
+description: "Triggers Cloud Run service to ingest and cache data from ACS source to GCS buckets. This is only used in ACS pipelins, and as a pre-step before the normal gcs-to-bq service"
+
+inputs:
+  service_url:
+    description: "Ingestion (ACS caching) service URL"
+    required: true
+  workflow_id:
+    description: "Workflow ID (e.g., ACS_POPULATION, ACS_CONDITION)"
+    required: true
+  filename:
+    description: "Name of GCS file to store the data in (optional)"
+    required: false
+    default: ""
+  url:
+    description: "URL where the data lives (optional)"
+    required: false
+    default: ""
+  gcs_bucket:
+    description: "GCS bucket to write to (optional, defaults to env setting in service)"
+    required: false
+    default: ""
+  year:
+    description: "Year to ingest (optional)"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          -d "{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}" \
+          ${{ inputs.service_url }}
+      shell: bash
