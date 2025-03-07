@@ -66,13 +66,21 @@ const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
   ],
 }
 
-const D3_MAP_SCHEMES: Record<ColorScheme, (t: number) => string> =
-  Object.fromEntries(
-    Object.entries(COLOR_SCHEMES).map(([key, colors]) => [
-      key,
-      d3.piecewise(d3.interpolateRgb.gamma(2.2), colors),
-    ]),
-  ) as Record<ColorScheme, (t: number) => string>
+// A mapping of color scheme names to their corresponding interpolated color functions.
+const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> = {
+  darkgreen: d3.piecewise(
+    d3.interpolateRgb.gamma(2.2),
+    COLOR_SCHEMES.darkgreen,
+  ),
+  plasma: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
+  inferno: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.inferno),
+  viridis: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.viridis),
+  greenblue: d3.piecewise(
+    d3.interpolateRgb.gamma(2.2),
+    COLOR_SCHEMES.greenblue,
+  ),
+  darkred: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.darkred),
+}
 
 export const createColorScale = (props: CreateColorScaleProps) => {
   let interpolatorFn
@@ -85,7 +93,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
   interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
 
   const resolvedScheme = props.colorScheme
-    ? D3_MAP_SCHEMES[props.colorScheme]
+    ? COLOR_SCHEME_INTERPOLATORS[props.colorScheme]
     : props.colorScheme
 
   interpolatorFn = props.reverse
@@ -110,6 +118,10 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 
+  if (props.isUnknown) {
+    return d3.scaleSequentialSymlog(interpolatorFn).domain([min, max])
+  }
+
   if (props.isPhrma) {
     return d3
       .scaleThreshold<number, string>()
@@ -117,9 +129,6 @@ export const createColorScale = (props: CreateColorScaleProps) => {
       .range(colorArray)
   }
 
-  if (props.isUnknown) {
-    return d3.scaleSequentialSymlog(interpolatorFn).domain([min, max])
-  }
   return d3.scaleQuantile<string, number>().domain(domain).range(colorArray)
 }
 
