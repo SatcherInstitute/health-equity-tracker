@@ -2,7 +2,12 @@ name: DAG - VERA_INCARCERATION_COUNTY
 
 on:
   workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Branch or tag to checkout'
+        type: string
+        default: 'main'
 env:
   WORKFLOW_ID: "VERA_INCARCERATION_COUNTY"
   DATASET_NAME: "vera_incarceration_county"
