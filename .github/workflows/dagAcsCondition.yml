@@ -2,7 +2,12 @@ name: DAG - ACS_CONDITION
 
 on:
   workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Branch or tag to checkout'
+        type: string
+        default: 'main'
 env:
   WORKFLOW_ID: "ACS_CONDITION"
   DATASET_NAME: "acs_condition"
