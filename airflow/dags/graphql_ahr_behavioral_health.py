@@ -108,7 +108,12 @@ graphql_ahr_exporter_operator_race = util.create_exporter_operator(
     "graphql_ahr_exporter_race", payload_race, data_ingestion_dag
 )
 
-payload_sex = {"dataset_name": _GRAPHQL_AHR_DATASET_NAME, "category": "behavioral_health", "demographic": "sex"}
+payload_sex = {
+    "dataset_name": _GRAPHQL_AHR_DATASET_NAME,
+    "category": "behavioral_health",
+    "demographic": "sex",
+    "should_export_as_alls": True,
+}
 graphql_ahr_exporter_operator_sex = util.create_exporter_operator(
     "graphql_ahr_exporter_sex", payload_sex, data_ingestion_dag
 )
