@@ -25,7 +25,11 @@ data_ingestion_dag = DAG(
 cawp_bq_payload = util.generate_bq_payload(_CAWP_WORKFLOW_ID, _CAWP_DATASET_NAME)
 cawp_pop_bq_operator = util.create_bq_ingest_operator("cawp_to_bq", cawp_bq_payload, data_ingestion_dag)
 
-cawp_exporter_payload_race = {"dataset_name": _CAWP_DATASET_NAME, "demographic": "race_and_ethnicity"}
+cawp_exporter_payload_race = {
+    "dataset_name": _CAWP_DATASET_NAME,
+    "demographic": "race_and_ethnicity",
+    "should_export_as_alls": True,
+}
 cawp_exporter_operator_race = util.create_exporter_operator(
     "cawp_exporter_race", cawp_exporter_payload_race, data_ingestion_dag
 )

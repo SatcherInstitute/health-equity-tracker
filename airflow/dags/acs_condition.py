@@ -157,6 +157,7 @@ acs_condition_exporter_operator_age = util.create_exporter_operator(
 acs_condition_exporter_payload_sex = {
     "dataset_name": _ACS_DATASET_NAME,
     "demographic": "by_sex",
+    "should_export_as_alls": True,
 }
 acs_condition_exporter_operator_sex = util.create_exporter_operator(
     "acs_condition_exporter_sex", acs_condition_exporter_payload_sex, data_ingestion_dag
