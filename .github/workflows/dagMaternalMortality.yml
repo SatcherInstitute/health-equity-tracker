@@ -2,7 +2,12 @@ name: DAG - MATERNAL_MORTALITY_DATA
 
 on:
   workflow_dispatch:
-
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Branch or tag to checkout'
+        type: string
+        default: 'main'
 env:
   WORKFLOW_ID: "MATERNAL_MORTALITY_DATA"
   DATASET_NAME: "maternal_mortality_data"
