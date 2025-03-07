@@ -148,6 +148,11 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
+  const [scale, setScale] = useState<{ domain: number[]; range: string[] }>({
+    domain: [],
+    range: [],
+  })
+
   // ALL HOOKS MUST BE ABOVE THIS SHORT CIRCUIT
   if (!metricConfig) return <></>
 
@@ -252,6 +257,11 @@ function MapCardWithKey(props: MapCardProps) {
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
   if (extremesMode) subtitle += ` (only ${pluralChildFips} with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
+
+  function handleScaleChange(domain: number[], range: string[]) {
+    // Update the scale state when the domain or range changes
+    setScale({ domain, range })
+  }
 
   return (
     <CardWrapper

@@ -59,6 +59,10 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
+  scaleConfig?: {
+    domain: number[]
+    range: string[]
+  }
 }
 
 export interface CreateColorScaleProps {
@@ -69,6 +73,10 @@ export interface CreateColorScaleProps {
   fieldRange?: FieldRange
   isUnknown?: boolean
   fips: Fips
+  scaleConfig?: {
+    domain: number[]
+    range: string[]
+  }
   isPhrma: boolean
 }
 
