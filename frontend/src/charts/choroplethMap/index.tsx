@@ -32,8 +32,8 @@ const ChoroplethMap = ({
   extremesMode,
   mapConfig,
   signalListeners,
-  scaleConfig,
   filename,
+  legendData,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -93,13 +93,12 @@ const ChoroplethMap = ({
       tooltipContainerRef.current ??= createTooltipContainer(isMulti)
 
       const colorScale = createColorScale({
-        dataWithHighestLowest,
+        data: legendData || dataWithHighestLowest,
         metricId: metric.metricId,
         colorScheme: mapConfig.scheme,
         isUnknown: isUnknownsMap,
         fips,
         reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-        scaleConfig,
         isPhrma,
       })
 
@@ -160,7 +159,6 @@ const ChoroplethMap = ({
     isCawp,
     countColsMap,
     isUnknownsMap,
-    scaleConfig,
     signalListeners,
     extremesMode,
   ])

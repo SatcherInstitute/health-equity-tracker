@@ -59,24 +59,16 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  scaleConfig?: {
-    domain: number[]
-    range: string[]
-  }
 }
 
 export interface CreateColorScaleProps {
-  dataWithHighestLowest: DataPoint[]
+  data: Array<Record<string, any>> | DataPoint[]
   metricId: MetricId
   colorScheme: ColorScheme
   reverse?: boolean
   fieldRange?: FieldRange
   isUnknown?: boolean
   fips: Fips
-  scaleConfig?: {
-    domain: number[]
-    range: string[]
-  }
   isPhrma: boolean
 }
 

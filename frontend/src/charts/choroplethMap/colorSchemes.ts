@@ -96,16 +96,14 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     : resolvedScheme
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
-    props.dataWithHighestLowest,
+    props.data,
     props.metricId,
   )
 
-  const domain =
-    props.scaleConfig?.domain ||
-    props.dataWithHighestLowest
-      .map((d) => d[props.metricId])
-      .filter((v) => v != null && v > 0)
-      .sort((a, b) => a - b)
+  const domain = props.data
+    .map((d) => d[props.metricId])
+    .filter((v) => v != null && v > 0)
+    .sort((a, b) => a - b)
 
   const [min, max] = props.fieldRange
     ? [props.fieldRange.min, props.fieldRange.max]

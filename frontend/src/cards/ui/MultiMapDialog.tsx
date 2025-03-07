@@ -1,6 +1,5 @@
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
-import { useState } from 'react'
 import { Legend } from '../../charts/Legend'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
@@ -102,16 +101,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   const mapConfig = props.dataTypeConfig.mapConfig
 
-  const [scale, setScale] = useState<{ domain: number[]; range: string[] }>({
-    domain: [],
-    range: [],
-  })
-
-  function handleScaleChange(domain: number[], range: string[]) {
-    // Update the scale state when the domain or range changes
-    setScale({ domain, range })
-  }
-
   return (
     <Dialog
       className='z-multiMapModal'
@@ -183,7 +172,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         signalListeners={multimapSignalListeners}
                         mapConfig={mapConfig}
                         isMulti={true}
-                        scaleConfig={scale}
                         extremesMode={false}
                       />
                     )}
@@ -206,7 +194,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               mapConfig={mapConfig}
               stackingDirection={'horizontal'}
               columns={6}
-              handleScaleChange={handleScaleChange}
               isMulti={true}
               isPhrmaAdherence={props.isPhrmaAdherence}
             />
