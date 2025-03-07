@@ -19,6 +19,10 @@ inputs:
     description: "Geographic (optional)"
     required: false
     default: ""
+  year:
+    description: "Year (optional)"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -26,6 +30,6 @@ runs:
     - run: |
         curl -X POST \
           -H "Content-Type: application/json" \
-          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"het-data-tables\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\"}}" \
+          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"het-data-tables\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\"}}" \
           ${{ inputs.service_url }}
       shell: bash
