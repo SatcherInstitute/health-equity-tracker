@@ -3,11 +3,6 @@ name: DAG - PHRMA_BRFSS_DATA
 on:
   workflow_dispatch:
   workflow_call:
-    inputs:
-      ref:
-        description: 'Branch or tag to checkout'
-        type: string
-        default: 'main'
 
 env:
   WORKFLOW_ID: "PHRMA_BRFSS_DATA"
@@ -28,13 +23,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
       # NATIONAL LEVEL PROCESSING
       # Process and write tables to BigQuery for each demographic at national level
       - name: Process and write race tables to BigQuery (national)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -43,7 +35,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write age tables to BigQuery (national)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -52,7 +44,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write sex tables to BigQuery (national)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -61,7 +53,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write education tables to BigQuery (national)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -70,7 +62,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write income tables to BigQuery (national)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -79,7 +71,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write insurance_status tables to BigQuery (national)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -90,7 +82,7 @@ jobs:
       # STATE LEVEL PROCESSING
       # Process and write tables to BigQuery for each demographic at state level
       - name: Process and write race tables to BigQuery (state)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -99,7 +91,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write age tables to BigQuery (state)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -108,7 +100,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write sex tables to BigQuery (state)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -117,7 +109,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write education tables to BigQuery (state)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -126,7 +118,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write income tables to BigQuery (state)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -135,7 +127,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write insurance_status tables to BigQuery (state)
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -146,21 +138,21 @@ jobs:
       # EXPORT OPERATIONS
       # Export NDJSON files to GCS buckets for each demographic breakdown
       - name: Export NDJSON files to GCS buckets from race tables
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_ETH }}
 
       - name: Export NDJSON files to GCS buckets from age tables
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
 
       - name: Export NDJSON files to GCS buckets from sex tables
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -168,21 +160,21 @@ jobs:
           should_export_as_alls: "true"
 
       - name: Export NDJSON files to GCS buckets from insurance_status tables
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.INSURANCE_STATUS }}
 
       - name: Export NDJSON files to GCS buckets from education tables
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.EDUCATION }}
 
       - name: Export NDJSON files to GCS buckets from income tables
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
