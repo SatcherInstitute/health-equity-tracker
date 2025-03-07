@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Vega } from 'react-vega'
 import type {
   DataTypeConfig,
@@ -22,7 +22,6 @@ import {
   setupZeroLegend,
 } from './legendHelperFunctions'
 import {
-  COLOR_SCALE,
   DATASET_VALUES,
   DEFAULT_LEGEND_COLOR_COUNT,
   EQUAL_DOT_SIZE,
@@ -69,7 +68,6 @@ interface LegendProps {
   mapConfig: MapConfig
   columns: number
   stackingDirection: StackingDirection
-  handleScaleChange?: (domain: number[], range: string[]) => void
   isMulti?: boolean
   isPhrmaAdherence?: boolean
 }
@@ -92,20 +90,6 @@ export function Legend(props: LegendProps) {
   // Initial spec state is set in useEffect
   // TODO: Why??
   const [spec, setSpec] = useState<any | null>(null)
-
-  const vegaViewRef = useRef<any | null>(null)
-
-  function handleNewView(view: any) {
-    vegaViewRef.current = view
-
-    if (props.handleScaleChange) {
-      // TODO: causes warning Unrecognized scale or projection: color_scale
-      const scale = view.scale(COLOR_SCALE)
-      const domain = scale.domain()
-      const range = scale.range()
-      props.handleScaleChange(domain, range)
-    }
-  }
 
   const legendColorCount = props.isPhrmaAdherence
     ? 7
@@ -322,14 +306,7 @@ export function Legend(props: LegendProps) {
 
       {spec && (
         <div className=''>
-          <Vega
-            renderer='svg'
-            spec={spec}
-            actions={false}
-            onNewView={(view) => {
-              handleNewView(view)
-            }}
-          />
+          <Vega renderer='svg' spec={spec} actions={false} />
         </div>
       )}
     </section>
