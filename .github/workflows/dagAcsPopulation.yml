@@ -1,0 +1,163 @@
+name: DAG - ACS_POPULATION
+
+on:
+  workflow_dispatch:
+
+env:
+  WORKFLOW_ID: "ACS_POPULATION"
+  DATASET_NAME: "acs_population"
+  INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+
+jobs:
+  ingest-process-export:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # Step 1: Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
+      - name: Ingest ACS population data
+        uses: ./.github/actions/run-ingestion-service
+        with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          # Note: The original Airflow DAG doesn't specify a year for this step
+
+      # Step 2: Process and write to BigQuery for each year
+      - name: Process and write to BigQuery 2009
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2009"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2010
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2010"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2011
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2011"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2012
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2012"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2013
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2013"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2014
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2014"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2015
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2015"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2016
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2016"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2017
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2017"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2018
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2018"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2019
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2019"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2020
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2020"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2021
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2021"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write to BigQuery 2022
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2022"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # Step 3: Export from BQ to buckets
+      - name: Export data by race
+        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "by_race"
+          should_export_as_alls: "true"
+
+      - name: Export data by age
+        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "by_age"
+
+      - name: Export data by sex
+        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "by_sex"
