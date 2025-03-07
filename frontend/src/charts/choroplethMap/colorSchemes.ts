@@ -82,10 +82,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 
   colorArray = props.reverse ? [...colorArray].reverse() : colorArray
 
-  interpolatorFn = d3.piecewise(
-    d3.interpolateRgb.gamma(2.2),
-    props.reverse ? [...colorArray].reverse() : colorArray,
-  )
+  interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
 
   const resolvedScheme = props.colorScheme
     ? D3_MAP_SCHEMES[props.colorScheme]
