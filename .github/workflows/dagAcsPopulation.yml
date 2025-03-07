@@ -3,11 +3,6 @@ name: DAG - ACS_POPULATION
 on:
   workflow_dispatch:
   workflow_call:
-    inputs:
-      ref:
-        description: 'Branch or tag to checkout'
-        type: string
-        default: 'main'
 
 env:
   WORKFLOW_ID: "ACS_POPULATION"
@@ -21,12 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
 
       # Step 1: Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
       - name: Ingest ACS population data
-        uses: ./.github/actions/run-ingestion-service
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
           workflow_id: ${{ env.WORKFLOW_ID }}
@@ -34,7 +27,7 @@ jobs:
 
       # Step 2: Process and write to BigQuery for each year
       - name: Process and write to BigQuery 2009
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -42,7 +35,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2010
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -50,7 +43,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2011
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -58,7 +51,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2012
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -66,7 +59,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2013
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -74,7 +67,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2014
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -82,7 +75,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2015
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -90,7 +83,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2016
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -98,7 +91,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2017
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -106,7 +99,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2018
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -114,7 +107,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2019
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -122,7 +115,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2020
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -130,7 +123,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2021
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -138,7 +131,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2022
-        uses: ./.github/actions/runSourceToBqPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -147,7 +140,7 @@ jobs:
 
       # Step 3: Export from BQ to buckets
       - name: Export data by race
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
@@ -155,14 +148,14 @@ jobs:
           should_export_as_alls: "true"
 
       - name: Export data by age
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: "by_age"
 
       - name: Export data by sex
-        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}

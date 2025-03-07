@@ -19,7 +19,7 @@ data_ingestion_dag = DAG(
     "kff_vaccination_ingestion_dag",
     default_args=default_args,
     schedule_interval=None,
-    description="Ingestion configuration for CDC Vaccination National",
+    description="Ingestion configuration for KFF Vaccination State",
 )
 
 kff_vaccination_bq_payload = util.generate_bq_payload(_KFF_VACCINATION_WORKFLOW_ID, _KFF_VACCINATION_DATASET_NAME)
