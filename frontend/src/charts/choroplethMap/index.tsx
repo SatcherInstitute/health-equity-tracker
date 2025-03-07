@@ -32,7 +32,6 @@ const ChoroplethMap = ({
   extremesMode,
   mapConfig,
   signalListeners,
-  scaleConfig,
   filename,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
@@ -99,7 +98,6 @@ const ChoroplethMap = ({
         isUnknown: isUnknownsMap,
         fips,
         reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-        scaleConfig,
         isPhrma,
       })
 
@@ -160,7 +158,6 @@ const ChoroplethMap = ({
     isCawp,
     countColsMap,
     isUnknownsMap,
-    scaleConfig,
     signalListeners,
     extremesMode,
   ])

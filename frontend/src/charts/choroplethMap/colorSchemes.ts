@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { het } from '../../styles/DesignTokens'
+import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import type {
   ColorScheme,
@@ -9,72 +10,100 @@ import type {
 
 const { altGrey: ALT_GREY, white: WHITE } = het
 
-const interpolateDarkGreen = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
-  het.mapDarkest,
-  het.mapDarker,
-  het.mapDark,
-  het.mapLight,
-  het.mapLighter,
-  het.mapLightest,
-  het.mapLightZero,
-])
-
-const interpolatePlasma = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
-  het.mapWomenDarkZero,
-  het.mapWomenDarkest,
-  het.mapWomenDarker,
-  het.mapWomenDark,
-  het.mapWomenLight,
-  het.mapWomenLighter,
-  het.mapWomenLightest,
-  het.mapWomenLightZero,
-])
-
-const interpolatedarkRed = d3.piecewise(d3.interpolateRgb.gamma(2.2), [
-  het.mapYouthDarkZero,
-  het.mapYouthDarkest,
-  het.mapYouthDarker,
-  het.mapYouthDark,
-  het.mapYouthMid,
-  het.mapYouthLight,
-  het.mapYouthLighter,
-  het.mapYouthLightest,
-  het.mapYouthLightZero,
-])
-
-const D3_MAP_SCHEMES: Partial<Record<ColorScheme, (t: number) => string>> = {
-  darkgreen: interpolateDarkGreen,
-  plasma: interpolatePlasma,
-  inferno: d3.interpolateInferno,
-  viridis: d3.interpolateViridis,
-  greenblue: d3.interpolateGnBu,
-  darkred: interpolatedarkRed,
+const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
+  darkgreen: [
+    het.mapDarker,
+    het.mapDark,
+    het.mapMid,
+    het.mapLight,
+    het.mapLighter,
+    het.mapLightest,
+  ],
+  plasma: [
+    het.mapWomenDarker,
+    het.mapWomenDark,
+    het.mapWomenMid,
+    het.mapWomenLight,
+    het.mapWomenLighter,
+    het.mapWomenLightest,
+  ],
+  inferno: [
+    het.mapMenDarker,
+    het.mapMenDark,
+    het.mapMenMid,
+    het.mapMenLight,
+    het.mapMenLighter,
+    het.mapMenLighest,
+  ],
+  viridis: [
+    het.mapMedicareDarkest,
+    het.mapMedicareDark,
+    het.mapMedicareMid,
+    het.mapMedicareLight,
+    het.mapMedicareLighter,
+    het.mapMedicareEvenLighter,
+    het.mapMedicareLightest,
+  ],
+  greenblue: [
+    het.unknownMapLeast,
+    het.unknownMapLesser,
+    het.unknownMapLess,
+    het.unknownMapMid,
+    het.unknownMapMore,
+    het.unknownMapEvenMore,
+    het.unknownMapMost,
+  ],
+  darkred: [
+    het.mapYouthDarkZero,
+    het.mapYouthDarkest,
+    het.mapYouthDarker,
+    het.mapYouthDark,
+    het.mapYouthMid,
+    het.mapYouthLight,
+    het.mapYouthLighter,
+    het.mapYouthLightest,
+    het.mapYouthLightZero,
+  ],
 }
+
+const D3_MAP_SCHEMES: Record<ColorScheme, (t: number) => string> =
+  Object.fromEntries(
+    Object.entries(COLOR_SCHEMES).map(([key, colors]) => [
+      key,
+      d3.piecewise(d3.interpolateRgb.gamma(2.2), colors),
+    ]),
+  ) as Record<ColorScheme, (t: number) => string>
 
 export const createColorScale = (props: CreateColorScaleProps) => {
   let interpolatorFn
 
-  if (props.scaleConfig?.range) {
-    let colorArray = props.scaleConfig.range
-    if (props.reverse) {
-      colorArray = [...colorArray].reverse()
-    }
-    interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
-  } else {
-    const resolvedScheme =
-      typeof props.colorScheme === 'string'
-        ? D3_MAP_SCHEMES[props.colorScheme] || d3.interpolateBlues
-        : props.colorScheme
+  let colorArray =
+    COLOR_SCHEMES[props.colorScheme] || COLOR_SCHEMES['darkgreen']
 
-    interpolatorFn = props.reverse
-      ? (t: number) => resolvedScheme(1 - t)
-      : resolvedScheme
-  }
+  colorArray = props.reverse ? [...colorArray].reverse() : colorArray
+
+  interpolatorFn = d3.piecewise(
+    d3.interpolateRgb.gamma(2.2),
+    props.reverse ? [...colorArray].reverse() : colorArray,
+  )
+
+  const resolvedScheme = props.colorScheme
+    ? D3_MAP_SCHEMES[props.colorScheme]
+    : props.colorScheme
+
+  interpolatorFn = props.reverse
+    ? (t: number) => resolvedScheme(1 - t)
+    : resolvedScheme
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     props.dataWithHighestLowest,
     props.metricId,
   )
+
+  const domain = props.dataWithHighestLowest
+    .map((d) => d[props.metricId])
+    .filter((v) => v != null && v > 0)
+    .sort((a, b) => a - b)
 
   const [min, max] = props.fieldRange
     ? [props.fieldRange.min, props.fieldRange.max]
@@ -85,25 +114,16 @@ export const createColorScale = (props: CreateColorScaleProps) => {
   }
 
   if (props.isPhrma) {
-    const thresholds = props.scaleConfig?.domain || []
-    const colors = props.scaleConfig?.range || []
-    return d3.scaleThreshold<number, string>().domain(thresholds).range(colors)
+    return d3
+      .scaleThreshold<number, string>()
+      .domain(PHRMA_ADHERENCE_BREAKPOINTS)
+      .range(colorArray)
   }
 
   if (props.isUnknown) {
-    const darkerInterpolator = (t: number) => {
-      const color = d3.color(interpolatorFn(t))
-      return color ? color.darker(0.1) : null
-    }
-    return d3
-      .scaleSequentialSymlog()
-      .domain([min, max])
-      .interpolator(darkerInterpolator)
+    return d3.scaleSequentialSymlog(interpolatorFn).domain([min, max])
   }
-
-  const domain = props.scaleConfig?.domain || []
-  const range = props.scaleConfig?.range || []
-  return d3.scaleQuantile<string, number>().domain(domain).range(range)
+  return d3.scaleQuantile<string, number>().domain(domain).range(colorArray)
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
