@@ -1,32 +1,29 @@
-name: DAG - MATERNAL_MORTALITY_DATA
+name: DAG - CDC_VACCINATION_COUNTY
 
 on:
   workflow_dispatch:
   workflow_call:
 
 env:
-  WORKFLOW_ID: "MATERNAL_MORTALITY_DATA"
-  DATASET_NAME: "maternal_mortality_data"
+  WORKFLOW_ID: "CDC_VACCINATION_COUNTY"
+  DATASET_NAME: "cdc_vaccination_county"
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-  RACE: "race"
+  ALLS: "alls"
 
 jobs:
   trigger-data-pipeline:
     runs-on: ubuntu-latest
     steps:
-      - name: Process and write race tables to BigQuery
+      - name: Process and write tables to BigQuery
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.RACE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-
       - name: Export NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.RACE }}
-          should_export_as_alls: "true"
+          demographic: ${{ env.ALLS }}
