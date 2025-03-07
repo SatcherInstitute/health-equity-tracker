@@ -18,57 +18,51 @@ function main() {
   local data_set
   local all_files
   local tmp_dir
-  local invalid_arg=false
   local option_count=0
 
+  # Parse command line arguments
   while [[ "${#}" -gt 0 ]]; do
-      case "${1}" in
-        --help|-h)
+    case "${1}" in
+      --help|-h)
+        usage
+        exit 0
+        ;;
+
+      --data-file|-f)
+        if [[ -z "${2:-}" ]]; then
+          util::print::error "you must pass in an argument for --data-file flag"
           usage
-          exit 0
-          ;;
+          exit 1
+        fi
+        data_file="${2}"
+        ((option_count++))
+        shift 2
+        ;;
 
-        --data-file|-f)
-          if [[ -z "${2:-}" ]]; then
-            util::print::error "you must pass in an argument for --data-file flag"
-            invalid_arg=true
-            break
-          fi
-          data_file="${2}"
-          ((option_count++))
-          shift 2
-          ;;
+      --data-set|-d)
+        if [[ -z "${2:-}" ]]; then
+          util::print::error "you must pass in an argument for --data-set flag"
+          usage
+          exit 1
+        fi
+        data_set="${2}"
+        ((option_count++))
+        shift 2
+        ;;
 
-        --data-set|-d)
-          if [[ -z "${2:-}" ]]; then
-            util::print::error "you must pass in an argument for --data-set flag"
-            invalid_arg=true
-            break
-          fi
-          data_set="${2}"
-          ((option_count++))
-          shift 2
-          ;;
+      --all|-a)
+        all_files="true"
+        ((option_count++))
+        shift 1
+        ;;
 
-        --all|-a)
-          all_files="true"
-          ((option_count++))
-          shift 1
-          ;;
-
-        *)
-          util::print::error "unknown argument \"${1}\""
-          invalid_arg=true
-          break
-          ;;
-      esac
+      *)
+        util::print::error "unknown argument \"${1}\""
+        usage
+        exit 1
+        ;;
+    esac
   done
-
-  # Exit if invalid arguments were encountered
-  if [[ "${invalid_arg}" == "true" ]]; then
-    usage
-    exit 1
-  fi
 
   # Validate that exactly one option is provided
   if [[ "${option_count}" -eq 0 ]]; then
