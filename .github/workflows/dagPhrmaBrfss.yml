@@ -2,6 +2,12 @@ name: DAG - PHRMA_BRFSS_DATA
 
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Branch or tag to checkout'
+        type: string
+        default: 'main'
 
 env:
   WORKFLOW_ID: "PHRMA_BRFSS_DATA"
