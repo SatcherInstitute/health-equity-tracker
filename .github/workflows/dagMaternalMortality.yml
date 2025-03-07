@@ -1,0 +1,35 @@
+name: DAG - MATERNAL_MORTALITY_DATA
+
+on:
+  workflow_dispatch:
+
+env:
+  WORKFLOW_ID: "MATERNAL_MORTALITY_DATA"
+  DATASET_NAME: "maternal_mortality_data"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  RACE: "race"
+
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Process and write race tables to BigQuery
+        uses: ./.github/actions/runSourceToBqPipeline
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Export NDJSON files to GCS buckets from BigQuery tables
+        uses: ./.github/actions/runExportBqToGcsJsonPipeline
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE }}
+          should_export_as_alls: "true"
