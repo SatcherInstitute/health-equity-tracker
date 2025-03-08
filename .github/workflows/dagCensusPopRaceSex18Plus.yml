@@ -1,0 +1,24 @@
+name: DAG - CENSUS_POP_ESTIMATES_SC (RACE/SEX/18+)
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "CENSUS_POP_ESTIMATES_SC"
+  DATASET_NAME: "census_pop_estimates_sc"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write census population estimates SC to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      - name: Export NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
