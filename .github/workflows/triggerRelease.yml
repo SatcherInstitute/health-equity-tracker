@@ -1,9 +1,8 @@
 name: Send Release Event To Setup Cloud Platform
 
 on:
-  workflow_dispatch: # todo: revert this to just the release trigger below
-  #release:
-    #types: [published]
+  release:
+    types: [published]
 
 jobs:
   notify-github-action:
@@ -19,5 +18,4 @@ jobs:
             {
               "release": "${{ github.event.release.tag_name }}",
               "project_id": "het-infra-prod-f6",
-              "needs-composer": "true"
             }

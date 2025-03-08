@@ -156,33 +156,6 @@ jobs:
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 
-  check_for_pipeline_changes:
-    runs-on: ubuntu-latest
-    outputs:
-      pipeline_changed: ${{ steps.git_diff.outputs.pipeline_changed }}
-    steps:
-      - name: Check Out Code
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 2
-      - name: Get diff of pipeline code (comparing the merged branch against old main)
-        id: git_diff
-        run: |
-          diff_output=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} \
-            -- 'airflow/' 'config/' 'data/' 'data_server/' \
-            'e2e_tests/' 'exporter/' 'frontend_server/' \
-            'python/' 'requirements/' 'run_gcs_to_bq/' 'run_ingestion/')
-          if [ -n "$diff_output" ]; then
-            echo "Pipeline changes detected."
-            echo "::set-output name=pipeline_changed::true"
-
-          else
-            echo "No pipeline changes detected."
-            echo "::set-output name=pipeline_changed::false"
-          fi
-        shell: bash
-
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
@@ -194,7 +167,6 @@ jobs:
         build-exporter,
         build-data-server,
         build-frontend,
-        check_for_pipeline_changes,
       ]
 
     steps:
@@ -229,31 +201,17 @@ jobs:
       - name: Terraform Apply
         id: terraform
         working-directory: ./config
-        # only include composer if pipeline code has changed
         run: |
-          if [[ "${{ needs.check_for_pipeline_changes.outputs.pipeline_changed }}" == "true" ]]; then
-            terraform apply -auto-approve -var-file=test/test.tfvars \
-              -var-file=common.tfvars \
-              -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
-              -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
-              -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
-              -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
-              -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
-              -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
-              -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
-          else
-            terraform apply -auto-approve -var-file=test/test.tfvars \
-              -var-file=common.tfvars \
-              -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
-              -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
-              -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
-              -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
-              -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
-              -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
-              -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
-              -var 'include_composer=false'
-
-          fi
+          terraform apply -auto-approve -var-file=test/test.tfvars \
+            -var-file=common.tfvars \
+            -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+            -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+            -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
+            -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
+            -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
+            -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
+            -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
+            -var 'include_composer=false' # TODO eliminate composer and remove flagging
 
           data_server_url=$(terraform output data_server_url)
           echo "data_server_url=$data_server_url" >> "$GITHUB_OUTPUT"
@@ -266,45 +224,7 @@ jobs:
           frontend_url=$(terraform output frontend_url)
           echo "frontend_url=$frontend_url" >> "$GITHUB_OUTPUT"
 
-        # only run this step if pipeline files were changed
-      - name: Composer / Airflow Environment Variables
-        if: needs.check_for_pipeline_changes.outputs.pipeline_changed == 'true'
-        id: airflow-environment-variables
-        run: |
-          ENVIRONMENT_NAME=data-ingestion-environment
-          LOCATION=us-central1
-          BUCKET="us-central1-data-ingestion-bucket-${{ secrets.TEST_PROJECT_ID }}"
-
-          if ! gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION &>/dev/null; then
-            echo "INFRA-TEST Composer environment does not exist. Creating..."
-            gcloud composer environments create $ENVIRONMENT_NAME --location=$LOCATION --storage-bucket=$BUCKET --image-version=composer-3-airflow-2.9.1
-          else
-            echo "INFRA-TEST Composer environment already exists."
-          fi
-
-          echo "Waiting for Composer environment to be in RUNNING state... this can take up to 40 minutes."
-          while [[ "$(gcloud composer environments describe $ENVIRONMENT_NAME --location=$LOCATION --format='value(state)')" != "RUNNING" ]]; do
-            sleep 10
-          done
-          echo "INFRA-TEST Composer environment is now in RUNNING state."
-
-          gcloud composer environments update $ENVIRONMENT_NAME \
-          --update-env-variables=AIRFLOW_VAR_DUMMY=${{ github.run_id }} \
-          --update-env-variables=AIRFLOW_VAR_INGEST_TO_GCS_SERVICE_ENDPOINT=${{ steps.terraform.outputs.ingestion_url }} \
-          --update-env-variables=AIRFLOW_VAR_GCS_TO_BQ_SERVICE_ENDPOINT=${{ steps.terraform.outputs.gcs_to_bq_url }} \
-          --update-env-variables=AIRFLOW_VAR_EXPORTER_SERVICE_ENDPOINT=${{ steps.terraform.outputs.exporter_url }} \
-          --update-env-variables=AIRFLOW_VAR_GCS_LANDING_BUCKET=msm-test-landing-bucket \
-          --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
-          --location=$LOCATION
-
-        # only run this step if pipeline files were changed
-      - name: Upload Airflow DAGs and utility file
-        if: needs.check_for_pipeline_changes.outputs.pipeline_changed == 'true'
-        working-directory: ./airflow
-        run: |
-          ./upload-dags.sh
-
-        # always finish with testing connection between data server and frontend
+      # always finish with testing connection between data server and frontend
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
