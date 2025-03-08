@@ -202,6 +202,8 @@ jobs:
         id: terraform
         working-directory: ./config
         run: |
+          terraform state rm google_composer_environment.composer-env[0]
+
           terraform apply -auto-approve -var-file=test/test.tfvars \
             -var-file=common.tfvars \
             -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
