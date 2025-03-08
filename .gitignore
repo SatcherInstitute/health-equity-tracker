@@ -18,8 +18,6 @@ tig
 .cspellcache
 .DS_Store
 
-composer-local-dev/
-
 node_modules/
 /frontend_server/build/
 /frontend/build/
