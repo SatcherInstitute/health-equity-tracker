@@ -12,6 +12,12 @@ from ingestion.standardized_columns import Race
 # https://www.census.gov/data/datasets/2010/dec/virgin-islands.html RACE: VI/VI8_0000001_040.html
 # https://www.census.gov/data/datasets/2010/dec/cnmi.html RACE: CNMI/MP8_0000001_040.html
 
+source_data_files = [
+    "decia_2010_territory_population-by_race_and_ethnicity_territory.json,"
+    "decia_2010_territory_population-by_sex_territory.json",
+    "decia_2010_territory_population-by_age_territory.json",
+]
+
 
 def get_breakdown_col(df):
     if std_col.RACE_CATEGORY_ID_COL in df.columns:
@@ -35,15 +41,8 @@ class Decia2010TerritoryPopulationData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for Decia2010TerritoryPopulationData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        gcs_files = self.get_attr(attrs, "filename")
 
-        # In this instance, we expect filename to be a string with
-        # comma-separated CSV filenames.
-        if "," not in gcs_files:
-            raise ValueError("filename passed to write_to_bq is not a " + "comma-separated list of files")
-        files = gcs_files.split(",")
-
-        for f in files:
+        for f in source_data_files:
             df = gcs_to_bq_util.load_json_as_df_from_data_dir("decia_2010_territory_population", f, {"state_fips": str})
 
             total_val = Race.ALL.value if get_breakdown_col(df) == std_col.RACE_CATEGORY_ID_COL else std_col.ALL_VALUE
