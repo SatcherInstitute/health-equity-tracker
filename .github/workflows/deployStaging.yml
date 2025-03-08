@@ -211,7 +211,6 @@ jobs:
             -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
             -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
             -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
-            -var 'include_composer=false' # TODO eliminate composer and remove flagging
 
           data_server_url=$(terraform output data_server_url)
           echo "data_server_url=$data_server_url" >> "$GITHUB_OUTPUT"

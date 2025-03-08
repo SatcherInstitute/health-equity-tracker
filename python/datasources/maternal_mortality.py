@@ -148,7 +148,7 @@ def preprocess_source_rates() -> pd.DataFrame:
 
     df = df.rename(columns=RATE_COLS_TO_STANDARD)
     df = df.replace({JAMA_NATIONAL: US_NAME})
-    df = df.replace(JAMA_RACE_GROUPS_TO_STANDARD)
+    df = df.replace(JAMA_RACE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
     std_col.add_race_columns_from_category_id(df)
 
     df[std_col.MM_PER_100K] = df[std_col.MM_PER_100K].round(0)
@@ -177,7 +177,7 @@ def merge_national_counts(df: pd.DataFrame) -> pd.DataFrame:
 
     jama_national_counts_df = jama_national_counts_df.rename(columns=COLS_TO_STANDARD)
     jama_national_counts_df = jama_national_counts_df.replace({JAMA_NATIONAL: US_NAME})
-    jama_national_counts_df = jama_national_counts_df.replace(JAMA_RACE_GROUPS_TO_STANDARD)
+    jama_national_counts_df = jama_national_counts_df.replace(JAMA_RACE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
     std_col.add_race_columns_from_category_id(jama_national_counts_df)
 
     df = df.merge(

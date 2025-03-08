@@ -82,7 +82,7 @@ class PhrmaBrfssData(DataSource):
         breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, PHRMA_BRFSS, conditions)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
-        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)  # type: ignore[arg-type]
 
         # ADHERENCE rate
         for condition in conditions:
