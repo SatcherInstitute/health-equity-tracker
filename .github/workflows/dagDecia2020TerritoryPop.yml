@@ -1,0 +1,95 @@
+name: DAG - DECIA_2020_TERRITORY_POPULATION_DATA
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "DECIA_2020_TERRITORY_POPULATION_DATA"
+  DATASET_NAME: "decia_2020_territory_population"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
+  AGE: "age"
+  SEX: "sex"
+  STATE: "state"
+  COUNTY: "county"
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      # State level ingest steps
+      - name: Process and write race_and_ethnicity state data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
+          geographic: ${{ env.STATE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write age state data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+          geographic: ${{ env.STATE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write sex state data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.SEX }}
+          geographic: ${{ env.STATE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # County level ingest steps
+      - name: Process and write race_and_ethnicity county data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
+          geographic: ${{ env.COUNTY }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write age county data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+          geographic: ${{ env.COUNTY }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Process and write sex county data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.SEX }}
+          geographic: ${{ env.COUNTY }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # Export steps
+      - name: Export race_and_ethnicity NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
+
+      - name: Export age NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+
+      - name: Export sex NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.SEX }}

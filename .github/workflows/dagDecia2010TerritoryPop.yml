@@ -1,0 +1,43 @@
+name: DAG - DECIA_2010_POPULATION
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "DECIA_2010_POPULATION"
+  DATASET_NAME: "decia_2010_territory_population"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  GCS_MANUAL_UPLOADS_BUCKET: ${{ secrets.GCS_MANUAL_UPLOADS_BUCKET }}
+  RACE: "race"
+  AGE: "age"
+  SEX: "sex"
+  GCS_FILENAMES: "decia_2010_territory_population-by_race_and_ethnicity_territory.json,decia_2010_territory_population-by_sex_territory.json,decia_2010_territory_population-by_age_territory.json"
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write population data to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          filename: ${{ env.GCS_FILENAMES }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      - name: Export race NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE }}
+      - name: Export age NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+      - name: Export sex NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.SEX }}
