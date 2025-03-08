@@ -27,6 +27,10 @@ inputs:
     description: "Category (optional)"
     required: false
     default: ""
+  filename:
+    description: "Filename(s) (optional comma separated list of source file names in data/). NOTE: Only used by DECIA 2010 and should be hard coded into that data source module."
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -34,6 +38,6 @@ runs:
     - run: |
         curl -X POST \
           -H "Content-Type: application/json" \
-          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"het-data-tables\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
+          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"het-data-tables\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"filename\":\"${{ inputs.filename }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
           ${{ inputs.service_url }}
       shell: bash
