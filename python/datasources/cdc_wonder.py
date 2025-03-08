@@ -74,7 +74,7 @@ class CdcWonderData(DataSource):
         breakdown_group_df = load_cdc_df_from_data_dir(geo_level, demo_breakdown, conditions)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
-        df = df.replace(to_replace=DEMOGRAPHIC_TO_STANDARD_BY_COL)
+        df = df.replace(to_replace=DEMOGRAPHIC_TO_STANDARD_BY_COL)  # type: ignore[arg-type]
 
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_NAME_COL] = US_NAME

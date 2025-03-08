@@ -278,7 +278,7 @@ class CDCHIVData(DataSource):
 
         df = combined_group_df.rename(columns=cols_to_standard)
 
-        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)  # type: ignore[arg-type]
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
