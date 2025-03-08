@@ -7,11 +7,9 @@ env:
   DATASET_NAME: "decia_2010_territory_population"
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-  GCS_MANUAL_UPLOADS_BUCKET: ${{ secrets.GCS_MANUAL_UPLOADS_BUCKET }}
   RACE: "race"
   AGE: "age"
   SEX: "sex"
-  GCS_FILENAMES: "decia_2010_territory_population-by_race_and_ethnicity_territory.json,decia_2010_territory_population-by_sex_territory.json,decia_2010_territory_population-by_age_territory.json"
 jobs:
   trigger-data-pipeline:
     runs-on: ubuntu-latest
@@ -21,7 +19,6 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          filename: ${{ env.GCS_FILENAMES }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
       - name: Export race NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
