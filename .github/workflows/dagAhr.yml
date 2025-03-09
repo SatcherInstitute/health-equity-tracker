@@ -1,4 +1,4 @@
-name: DAG - GRAPHQL_AHR_DATA_NON_BEHAVIORAL
+name: DAG - GRAPHQL_AHR_DATA (NON-BEHAVIORAL HEALTH)
 
 on:
   workflow_dispatch:
