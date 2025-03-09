@@ -1,4 +1,4 @@
-name: DAG - CDC_RESTRICTED_DATA
+name: DAG - CDC_RESTRICTED_DATA (COVID)
 on:
   workflow_dispatch:
   workflow_call:
