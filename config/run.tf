@@ -68,7 +68,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
         resources {
           limits = {
             memory = "16Gi"
-            cpu    = 8
+            cpu    = 4
           }
         }
       }
