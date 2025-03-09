@@ -7,6 +7,7 @@ on:
 env:
   WORKFLOW_ID: "ACS_CONDITION"
   DATASET_NAME: "acs_condition"
+  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
   INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
@@ -101,6 +102,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2012"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -109,6 +111,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2013"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -117,6 +120,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2014"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -125,6 +129,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2015"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -133,6 +138,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2016"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -141,6 +147,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2017"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -149,6 +156,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2018"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -157,6 +165,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2019"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -165,6 +174,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2020"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -173,6 +183,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2021"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
@@ -181,6 +192,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           year: "2022"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 

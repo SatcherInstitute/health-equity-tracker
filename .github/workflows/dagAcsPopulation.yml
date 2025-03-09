@@ -7,6 +7,7 @@ on:
 env:
   WORKFLOW_ID: "ACS_POPULATION"
   DATASET_NAME: "acs_population"
+  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
   INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
@@ -32,6 +33,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2009"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2010
@@ -40,6 +42,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2010"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2011
@@ -48,6 +51,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2011"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2012
@@ -56,6 +60,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2012"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2013
@@ -64,6 +69,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2013"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2014
@@ -72,6 +78,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2014"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2015
@@ -80,6 +87,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2015"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2016
@@ -88,6 +96,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2016"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2017
@@ -96,6 +105,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2017"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2018
@@ -104,6 +114,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2018"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2019
@@ -112,6 +123,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2019"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2020
@@ -120,6 +132,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2020"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2021
@@ -128,6 +141,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2021"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write to BigQuery 2022
@@ -136,6 +150,7 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
           year: "2022"
+          gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       # Step 3: Export from BQ to buckets

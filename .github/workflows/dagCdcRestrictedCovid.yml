@@ -1,0 +1,181 @@
+name: DAG - CDC_RESTRICTED_DATA
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "CDC_RESTRICTED_DATA"
+  AGE_ADJUST_WORKFLOW_ID: "AGE_ADJUST_CDC_RESTRICTED"
+  DATASET_NAME: "cdc_restricted_data"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  GCS_MANUAL_UPLOADS_BUCKET: ${{ secrets.GCS_MANUAL_UPLOADS_BUCKET }}
+  RACE: "race"
+  SEX: "sex"
+  AGE: "age"
+  COUNTY: "county"
+  STATE: "state"
+  NATIONAL: "national"
+jobs:
+  # Race county ingestion
+  ingest-race-county:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write race county tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.COUNTY }}
+          demographic: ${{ env.RACE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Sex county ingestion
+  ingest-sex-county:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write sex county tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.COUNTY }}
+          demographic: ${{ env.SEX }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Age county ingestion
+  ingest-age-county:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write age county tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.COUNTY }}
+          demographic: ${{ env.AGE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Race state ingestion
+  ingest-race-state:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write race state tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.STATE }}
+          demographic: ${{ env.RACE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Sex state ingestion
+  ingest-sex-state:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write sex state tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.STATE }}
+          demographic: ${{ env.SEX }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Age state ingestion
+  ingest-age-state:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write age state tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.STATE }}
+          demographic: ${{ env.AGE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Race national ingestion
+  ingest-race-national:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write race national tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.NATIONAL }}
+          demographic: ${{ env.RACE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Sex national ingestion
+  ingest-sex-national:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write sex national tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.NATIONAL }}
+          demographic: ${{ env.SEX }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Age national ingestion
+  ingest-age-national:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write age national tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
+          geographic: ${{ env.NATIONAL }}
+          demographic: ${{ env.AGE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Age adjustment and export
+  age-adjust-and-export:
+    runs-on: ubuntu-latest
+    needs: [
+      ingest-race-county, ingest-sex-county, ingest-age-county,
+      ingest-race-state, ingest-sex-state, ingest-age-state,
+      ingest-race-national, ingest-sex-national, ingest-age-national
+    ]
+    steps:
+      - name: Run age adjustment process
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.AGE_ADJUST_WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      - name: Export sex data NDJSON files to GCS buckets
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "by_sex"
+
+      - name: Export race data NDJSON files to GCS buckets
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "by_race"
+          should_export_as_alls: "true"
+
+      - name: Export age data NDJSON files to GCS buckets
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "by_age"

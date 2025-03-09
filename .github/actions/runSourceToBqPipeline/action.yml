@@ -11,6 +11,9 @@ inputs:
   dataset_name:
     description: "Dataset Name"
     required: true
+  gcs_bucket:
+    description: "GCS bucket source, e.g., landing (ACS) or manual upload (COVID) buckets (optional)"
+    required: false
   demographic:
     description: "Demographic (optional)"
     required: false
@@ -34,6 +37,6 @@ runs:
     - run: |
         curl -X POST \
           -H "Content-Type: application/json" \
-          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"het-data-tables\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
+          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
           ${{ inputs.service_url }}
       shell: bash
