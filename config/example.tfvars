@@ -37,3 +37,4 @@ exporter_runner_role_id     = "exporter_runner_role"
 frontend_service_name       = "frontend-service"
 frontend_image_name         = "frontend-service"
 frontend_runner_identity_id = "frontend-runner"
+

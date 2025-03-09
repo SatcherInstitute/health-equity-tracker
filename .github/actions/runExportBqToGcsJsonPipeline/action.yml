@@ -1,5 +1,5 @@
 name: "Run exporter-service"
-description: "Triggers Cloud Run service to export processed tables from BigQuery to GCS buckets as NDJSON."
+description: "Triggers Cloud Run service to export processed tables from BigQuery to GCS bucket as NDJSON. NOTE: GCS export bucket is set during the deployment process as an environment variable."
 
 inputs:
   service_url:
