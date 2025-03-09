@@ -9,7 +9,7 @@ resource "google_cloud_run_service" "ingestion_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "1" # Limit max instances
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
       }
     }
     spec {
@@ -43,7 +43,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "1" # Limit max instances
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
       }
     }
     spec {
@@ -92,7 +92,7 @@ resource "google_cloud_run_service" "data_server_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "100" # Limit max instances
+        "autoscaling.knative.dev/maxScale" = "150" # User-facing can scale to handle many requests
       }
     }
     spec {
@@ -131,7 +131,7 @@ resource "google_cloud_run_service" "exporter_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "1" # Limit max instances
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
       }
     }
     spec {
@@ -177,7 +177,7 @@ resource "google_cloud_run_service" "frontend_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "100" # Limit max instances
+        "autoscaling.knative.dev/maxScale" = "150" # User-facing can scale to handle many requests
       }
     }
     spec {
