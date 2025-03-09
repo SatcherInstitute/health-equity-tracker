@@ -16,8 +16,8 @@ inputs:
     description: "URL where the data lives (optional)"
     required: false
     default: ""
-  gcs_bucket:
-    description: "GCS bucket to write to (optional, defaults to env setting in service)"
+  destination_gcs_bucket:
+    description: "Destination GCS bucket (optional). Only used for caching pre-formatted ACS data (landing)"
     required: false
     default: ""
   year:
@@ -31,6 +31,6 @@ runs:
     - run: |
         curl -X POST \
           -H "Content-Type: application/json" \
-          -d "{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}" \
+          -d "{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.destination_gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}" \
           ${{ inputs.service_url }}
       shell: bash
