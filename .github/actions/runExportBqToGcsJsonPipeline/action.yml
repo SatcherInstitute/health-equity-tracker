@@ -31,5 +31,5 @@ runs:
         curl -X POST \
           -H "Content-Type: application/json" \
           -d "{\"dataset_name\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"should_export_as_alls\":${{ inputs.should_export_as_alls }}}" \
-          ${{ inputs.service_url }}
+          ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}" | { read status; if [ $status -ge 400 ]; then echo "Error: Request failed with status code $status"; cat response.txt; exit 1; else echo "Success: Service request completed with status code $status"; cat response.txt; fi; }
       shell: bash

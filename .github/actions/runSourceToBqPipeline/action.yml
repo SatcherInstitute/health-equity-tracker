@@ -36,7 +36,7 @@ runs:
   steps:
     - run: |
         curl -X POST \
-          -H "Content-Type: application/json" \
-          -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
-          ${{ inputs.service_url }}
+        -H "Content-Type: application/json" \
+        -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
+        ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}" | { read status; if [ $status -ge 400 ]; then echo "Error: Request failed with status code $status"; cat response.txt; exit 1; else echo "Success: Service request completed with status code $status"; cat response.txt; fi; }
       shell: bash
