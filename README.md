@@ -347,7 +347,7 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 
 ## HET Microservice Architecture
 
-![HET Microservice Architecture Diagram](https://raw.githubusercontent.com/SatcherInstitute/health-equity-tracker/9325c032d8df110fc234f0ecd75c54129282418f/HET%20Architecture.svg)
+![HET Microservice Infrastructure Diagram](het_infrastructure.svg)
 
 ## Developing Your Own Tracker
 
