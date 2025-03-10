@@ -35,8 +35,34 @@ runs:
   using: "composite"
   steps:
     - run: |
-        curl -X POST \
-        -H "Content-Type: application/json" \
-        -d "{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}" \
-        ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}" | { read status; if [ $status -ge 400 ]; then echo "Error: Request failed with status code $status"; cat response.txt; exit 1; else echo "Success: Service request completed with status code $status"; cat response.txt; fi; }
+        echo "Making request to ${{ inputs.service_url }}"
+        echo "Workflow ID: ${{ inputs.workflow_id }}, Dataset: ${{ inputs.dataset_name }}"
+        echo "Demographic: ${{ inputs.demographic }}, Geographic: ${{ inputs.geographic }}"
+
+        # Create the request payload
+        REQUEST_PAYLOAD="{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}"
+
+        # Log the payload (optional - remove if contains sensitive data)
+        echo "Request payload: $REQUEST_PAYLOAD"
+
+        # Make the request and store the response
+        RESPONSE=$(curl -X POST \
+          -H "Content-Type: application/json" \
+          -d "$REQUEST_PAYLOAD" \
+          ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
+
+        # Always display the status code
+        echo "Response status code: $RESPONSE"
+
+        # Always display the response content
+        echo "Response content:"
+        cat response.txt || echo "No response content available"
+
+        # Check status code and handle accordingly
+        if [[ $RESPONSE -ge 400 ]]; then
+          echo "::error::Request failed with status code $RESPONSE"
+          exit 1
+        else
+          echo "::notice::Service request completed successfully with status code $RESPONSE"
+        fi
       shell: bash
