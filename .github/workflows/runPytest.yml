@@ -9,7 +9,6 @@ on:
       - main
     paths:
       # only run these tests on pull request if relevant code is changed
-      - 'airflow/**'
       - 'data_server/**'
       - 'e2e_tests/**'
       - 'exporter/**'
