@@ -137,7 +137,7 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "by_sex"
+          demographic: ${{ env.SEX }}
           should_export_as_alls: "true"
 
       - name: Export age data NDJSON files to GCS buckets
@@ -145,11 +145,11 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "by_age"
+          demographic: ${{ env.AGE }}
 
       - name: Export race data NDJSON files to GCS buckets
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "by_race"
+          demographic: ${{ env.RACE }}
