@@ -16,21 +16,66 @@ inputs:
     description: "URL where the data lives (optional)"
     required: false
     default: ""
-  gcs_bucket:
-    description: "GCS bucket to write to (optional, defaults to env setting in service)"
+  destination_gcs_bucket:
+    description: "Destination GCS bucket (optional). Only used for caching pre-formatted ACS data (landing)"
     required: false
     default: ""
   year:
     description: "Year to ingest (optional)"
     required: false
     default: ""
+  max_retries:
+    description: "Maximum number of retry attempts"
+    required: false
+    default: "5"
+  initial_backoff:
+    description: "Initial backoff time in seconds"
+    required: false
+    default: "10"
 
 runs:
   using: "composite"
   steps:
     - run: |
-        curl -X POST \
-          -H "Content-Type: application/json" \
-          -d "{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}" \
-          ${{ inputs.service_url }}
+        MAX_RETRIES=${{ inputs.max_retries }}
+        INITIAL_BACKOFF=${{ inputs.initial_backoff }}
+        ATTEMPT=0
+
+        # Create the request payload
+        REQUEST_PAYLOAD="{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.destination_gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}"
+
+        while [ $ATTEMPT -lt $MAX_RETRIES ]; do
+          echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call data-ingestion service..."
+
+          # Make the request and store the response
+          HTTP_STATUS=$(curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$REQUEST_PAYLOAD" \
+            ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
+
+          if [ $HTTP_STATUS -lt 400 ]; then
+            echo "Success: Service request completed with status code $HTTP_STATUS"
+            cat response.txt
+            exit 0
+          else
+            # Check for scaling-related error messages in response
+            if grep -q "no available instance" response.txt || grep -q "Please try again" response.txt; then
+              BACKOFF_TIME=$(( INITIAL_BACKOFF * 2**ATTEMPT ))
+              ATTEMPT=$((ATTEMPT + 1))
+
+              if [ $ATTEMPT -lt $MAX_RETRIES ]; then
+                echo "Service appears to be scaling up. Retrying in $BACKOFF_TIME seconds..."
+                sleep $BACKOFF_TIME
+              else
+                echo "Error: Maximum retries reached. Last status code: $HTTP_STATUS"
+                cat response.txt
+                exit 1
+              fi
+            else
+              echo "Error: Request failed with status code $HTTP_STATUS"
+              cat response.txt
+              exit 1
+            fi
+          fi
+        done
       shell: bash

@@ -308,7 +308,7 @@ The backend consists of:
 
 Note: If you are using VSCode, ensure you install the recommend extensions, including Black which is used for linting/formatting.
 
-### To confirm and stage changes to `/python`, `/airflow/dags`, or other backend code
+### To confirm and stage changes to `/python` or other backend code
 
 1. Follow the rest of the instructions below these steps for one-time configurations needed.
 2. Pull the latest changes from the official repo.
@@ -319,15 +319,13 @@ Note: If you are using VSCode, ensure you install the recommend extensions, incl
 6. This will trigger a build and deployment of backend images to the HET Infra TEST GCP project using the new backend code (and will also build and deploy the frontend the dev site using the frontend code from the `main` branch)
 7. Once the `deployBackendToInfraTest` GitHub action completes successfully (ignoring the `(infra-test) Terraform / Airflow Configs Process completed with exit code 1.` that unintentionally appears in the Annotations section), navigate to the test GCP project
    > Note: if you run this command again too quickly before the first run has completed, you might encounter `Error acquiring the state lock` and the run will fail. If you are SURE that this occurred because of your 2nd run being too soon after the 1st (and not because another team member is using `infra-test`) then you can manually go into the Google Cloud Storage bucket that holds the terraform state, find the file named `default.tflock` and delete it or less destructively rename by adding today's date to the file name.
-8. Navigate to Composer > Airflow and trigger the DAG that corresponds to your updated backend code
-9. Once DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
+8. Run the staging environment GitHub Action Workflow for any pipelines that have changed. These are found in the main repo (this one) under "Actions" and are named like "DAG - DECIA_2010_POPULATION". Click on them and then "Run Workflow".
+9. Once DAG  workflow completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
 10. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 11. When ready to merge, use the "Squash and merge" option
-12. **Ensure all affected pipelines are run after both merging to `main` and after cutting a release to production**.
+12. **Ensure all affected staging pipeline workflows are run after merging to `main`, and all affected production pipeline workflows after cutting a new release**.
 
-Note: Pipeline updates should be non-breaking, ideally pushing additional data to the production codebase, followed by pushing updated frontend changes to ingest the new pipeline data, finally followed by removal of the older, now-unused data.
-
-Note: All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory.
+Note: Pipeline updates should be non-breaking, ideally pushing additional data under new table names to the production codebase, followed by pushing updated frontend changes to ingest the newly named pipeline data, finally followed by removal of the older, now-unused data.
 
 ### Python Unit Testing
 

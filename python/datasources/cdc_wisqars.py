@@ -332,10 +332,10 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
         df_eth = pd.concat([df_eth_each_intent, df_eth_all_intent_combined], axis=0)
         df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
         df_eth = df_eth.rename(columns={WISQARS_ETH: std_col.RACE_CATEGORY_ID_COL})
-        df_eth = df_eth.replace({std_col.RACE_CATEGORY_ID_COL: ETHNICITY_NAMES_MAPPING})
+        df_eth = df_eth.replace({std_col.RACE_CATEGORY_ID_COL: ETHNICITY_NAMES_MAPPING})  # type: ignore[dict-item]
 
         df = df.rename(columns={WISQARS_RACE: std_col.RACE_CATEGORY_ID_COL})
-        df = df.replace({std_col.RACE_CATEGORY_ID_COL: RACE_NAMES_MAPPING})
+        df = df.replace({std_col.RACE_CATEGORY_ID_COL: RACE_NAMES_MAPPING})  # type: ignore[dict-item]
 
         df = pd.concat([df, df_eth], axis=0)
 

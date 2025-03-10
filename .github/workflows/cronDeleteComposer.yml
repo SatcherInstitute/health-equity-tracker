@@ -1,8 +1,8 @@
-name: CRON Delete Composer Weeknightly
+name: RUN Delete Composer
+
+# TODO: Remove this workflow once composer/airflow is for sure removed
 
 on:
-  schedule:
-    - cron: '0 1 * * *'  # At 01:00 UTC, which is every night 6PM MST
   workflow_dispatch:
 
 jobs:

@@ -1,21 +1,17 @@
-name: DAG - GRAPHQL_AHR_DATA (BEHAVIORAL_HEALTH)
-
+name: DAG - CDC_WISQARS_DATA (GUN DEATHS)
 on:
   workflow_dispatch:
   workflow_call:
-
 env:
-  WORKFLOW_ID: "GRAPHQL_AHR_DATA"
-  DATASET_NAME: "graphql_ahr_data"
+  WORKFLOW_ID: "CDC_WISQARS_DATA"
+  DATASET_NAME: "cdc_wisqars_data"
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-  CATEGORY: "behavioral_health"
   AGE: "age"
   RACE_AND_ETHNICITY: "race_and_ethnicity"
   SEX: "sex"
   NATIONAL: "national"
   STATE: "state"
-
 jobs:
   trigger-data-pipeline:
     runs-on: ubuntu-latest
@@ -26,7 +22,6 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.AGE }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
@@ -37,29 +32,26 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.AGE }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       # RACE NATIONAL
-      - name: Process and write race national tables to BigQuery
+      - name: Process and write race and ethnicity national tables to BigQuery
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       # RACE STATE
-      - name: Process and write race state tables to BigQuery
+      - name: Process and write race and ethnicity state tables to BigQuery
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
@@ -70,7 +62,6 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.SEX }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
@@ -81,33 +72,29 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.SEX }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       # EXPORTERS
-      - name: Export age NDJSON files to GCS buckets from BigQuery tables
+      - name: Export NDJSON files for age to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.AGE }}
 
-      - name: Export race NDJSON files to GCS buckets from BigQuery tables
+      - name: Export NDJSON files for race and ethnicity to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
 
-      - name: Export sex NDJSON files to GCS buckets from BigQuery tables
+      - name: Export NDJSON files for sex to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          category: ${{ env.CATEGORY }}
           demographic: ${{ env.SEX }}
           should_export_as_alls: "true"

@@ -155,10 +155,10 @@ class GraphQlAHRData(DataSource):
         breakdown_df = df.copy()
 
         if demographic == std_col.AGE_COL:
-            breakdown_df = breakdown_df.replace(to_replace=AGE_GROUPS_TO_STANDARD)
+            breakdown_df = breakdown_df.replace(to_replace=AGE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
         if demographic == std_col.RACE_OR_HISPANIC_COL:
             breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
-            breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)
+            breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
 
         pop_breakdown = cast(
             SEX_RACE_AGE_TYPE, std_col.RACE_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic

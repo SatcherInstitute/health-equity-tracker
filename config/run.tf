@@ -7,6 +7,11 @@ resource "google_cloud_run_service" "ingestion_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
+      }
+    }
     spec {
       timeout_seconds = 60 * 15 // 15 minutes
       containers {
@@ -36,6 +41,11 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
+      }
+    }
     spec {
       timeout_seconds = 60 * 15 //  15 minutes
       containers {
@@ -80,6 +90,11 @@ resource "google_cloud_run_service" "data_server_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "150" # User-facing can scale to handle many requests
+      }
+    }
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
@@ -114,6 +129,11 @@ resource "google_cloud_run_service" "exporter_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
+      }
+    }
     spec {
       timeout_seconds = 60 * 15 // 15 minutes
       containers {
@@ -121,7 +141,7 @@ resource "google_cloud_run_service" "exporter_service" {
 
         resources {
           limits = {
-            memory = "8Gi"
+            memory = "16Gi"
             cpu    = 4
           }
         }
@@ -155,6 +175,11 @@ resource "google_cloud_run_service" "frontend_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "150" # User-facing can scale to handle many requests
+      }
+    }
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.frontend_image_name, var.frontend_image_digest)

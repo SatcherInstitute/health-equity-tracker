@@ -134,8 +134,6 @@ cdc_restricted_age_adjust_op = util.create_bq_ingest_operator(
     "cdc_restricted_age_adjust", cdc_age_adjust_payload, data_ingestion_dag
 )
 
-# sanity_check = util.sanity_check_operator('sanity_check', _CDC_RESTRICTED_DATASET, data_ingestion_dag)
-
 cdc_restricted_exporter_payload_race = {
     "dataset_name": _CDC_RESTRICTED_DATASET,
     "should_export_as_alls": True,

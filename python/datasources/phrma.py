@@ -130,7 +130,7 @@ class PhrmaData(DataSource):
         )
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
-        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)  # type: ignore[arg-type]
 
         # ADHERENCE rate
         for condition in PHRMA_PCT_CONDITIONS:
