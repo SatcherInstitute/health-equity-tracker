@@ -46,7 +46,7 @@ runs:
         echo "Request payload: $REQUEST_PAYLOAD"
 
         # Make the request and store the response
-        RESPONSE=$(curl -X POST \
+        RESPONSE=$(curl -v -X POST \
           -H "Content-Type: application/json" \
           -d "$REQUEST_PAYLOAD" \
           ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
