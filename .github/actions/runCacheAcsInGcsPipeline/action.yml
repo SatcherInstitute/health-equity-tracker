@@ -32,5 +32,5 @@ runs:
         curl -X POST \
           -H "Content-Type: application/json" \
           -d "{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.destination_gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}" \
-          ${{ inputs.service_url }}
+          ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}" | { read status; if [ $status -ge 400 ]; then echo "Error: Request failed with status code $status"; cat response.txt; exit 1; else echo "Success: Service request completed with status code $status"; cat response.txt; fi; }
       shell: bash
