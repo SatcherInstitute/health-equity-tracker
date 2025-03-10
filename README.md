@@ -287,7 +287,7 @@ Note: Building manually is not required for development, but helpful for debuggi
 
 The backend consists of:
 
-- `health-equity-tracker/airflow/`: Code that controls the DAGs which orchestrate the execution of these various microservices
+- ~~health-equity-tracker/airflow/: Code that controls the DAGs which orchestrate the execution of these various microservices~~
 - `health-equity-tracker/config/`: Terraform configuration for setting permissions and provisioning needed resources for cloud computing
 - `health-equity-tracker/data/`: In code-base "bucket" used to store manually downloaded data from outside sources where it isn't possible to fetch new data directly via and API endpoint or linkable file URL
 - `health-equity-tracker/e2e_tests/`: Automated tests ensuring all services work together as expected; not to be confused with the Playwright E2E tests found in `/frontend`
