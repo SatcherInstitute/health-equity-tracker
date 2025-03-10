@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/", methods=["POST"])
 def ingest_bucket_to_bq():
     """Main function for moving data from buckets to bigquery. Triggered by
-    notify-data-ingested topic."""
+    topic specific GitHub action DAG workflow."""
     envelope = request.get_json()
     if not envelope:
         logging.error("No Pub/Sub message received.")
@@ -31,8 +31,7 @@ def ingest_bucket_to_bq():
 
 
 def do_ingestion(event):
-    """Main entry point for moving data from buckets to bigquery. Triggered by
-    notify-data-ingested topic.
+    """Main entry point for moving data from buckets to bigquery.
 
     event: Dict containing the Pub/Sub method. The payload will be a base-64
            encoded string in the 'data' field with additional attributes in
