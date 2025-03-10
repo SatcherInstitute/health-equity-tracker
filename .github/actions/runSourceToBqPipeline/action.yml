@@ -30,11 +30,23 @@ inputs:
     description: "Category (optional)"
     required: false
     default: ""
+  max_retries:
+    description: "Maximum number of retry attempts"
+    required: false
+    default: "5"
+  initial_backoff:
+    description: "Initial backoff time in seconds"
+    required: false
+    default: "10"
 
 runs:
   using: "composite"
   steps:
     - run: |
+        MAX_RETRIES=${{ inputs.max_retries }}
+        INITIAL_BACKOFF=${{ inputs.initial_backoff }}
+        ATTEMPT=0
+
         echo "Making request to ${{ inputs.service_url }}"
         echo "Workflow ID: ${{ inputs.workflow_id }}, Dataset: ${{ inputs.dataset_name }}"
         echo "Demographic: ${{ inputs.demographic }}, Geographic: ${{ inputs.geographic }}"
@@ -45,24 +57,42 @@ runs:
         # Log the payload (optional - remove if contains sensitive data)
         echo "Request payload: $REQUEST_PAYLOAD"
 
-        # Make the request and store the response
-        RESPONSE=$(curl -v -X POST \
-          -H "Content-Type: application/json" \
-          -d "$REQUEST_PAYLOAD" \
-          ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
+        while [ $ATTEMPT -lt $MAX_RETRIES ]; do
+          echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call gcs-to-bq service..."
 
-        # Always display the status code
-        echo "Response status code: $RESPONSE"
+          # Make the request and store the response
+          HTTP_STATUS=$(curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$REQUEST_PAYLOAD" \
+            ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
 
-        # Always display the response content
-        echo "Response content:"
-        cat response.txt || echo "No response content available"
+          echo "Response status code: $HTTP_STATUS"
 
-        # Check status code and handle accordingly
-        if [[ $RESPONSE -ge 400 ]]; then
-          echo "::error::Request failed with status code $RESPONSE"
-          exit 1
-        else
-          echo "::notice::Service request completed successfully with status code $RESPONSE"
-        fi
+          if [ $HTTP_STATUS -lt 400 ]; then
+            echo "Success: Service request completed with status code $HTTP_STATUS"
+            cat response.txt
+            exit 0
+          else
+            # Display response content
+            echo "Response content:"
+            cat response.txt || echo "No response content available"
+
+            # Check for scaling-related error messages in response
+            if grep -q "no available instance" response.txt || grep -q "Please try again" response.txt; then
+              BACKOFF_TIME=$(( INITIAL_BACKOFF * 2**ATTEMPT ))
+              ATTEMPT=$((ATTEMPT + 1))
+
+              if [ $ATTEMPT -lt $MAX_RETRIES ]; then
+                echo "Service appears to be scaling up. Retrying in $BACKOFF_TIME seconds..."
+                sleep $BACKOFF_TIME
+              else
+                echo "::error::Maximum retries reached. Last status code: $HTTP_STATUS"
+                exit 1
+              fi
+            else
+              echo "::error::Request failed with status code $HTTP_STATUS"
+              exit 1
+            fi
+          fi
+        done
       shell: bash
