@@ -30,19 +30,19 @@ def test_ingest_bucket_to_bq_with_exception(client):
 
 
 def test_do_ingestion_missing_attributes():
-    mock_event = {"is_airflow_run": False}
+    mock_event = {"is_dag_pipeline_run": False}
     with pytest.raises(RuntimeError):
         main.do_ingestion(mock_event)
 
 
 def test_do_ingestion_missing_id_and_gcs_bucket():
-    mock_event = {"is_airflow_run": False, "attributes": {}}
+    mock_event = {"is_dag_pipeline_run": False, "attributes": {}}
     with pytest.raises(RuntimeError):
         main.do_ingestion(mock_event)
 
 
 def test_do_ingestion_missing_dataset_env_variable(monkeypatch):
-    mock_event = {"is_airflow_run": False, "attributes": {"id": "123", "gcs_bucket": "bucket"}}
+    mock_event = {"is_dag_pipeline_run": False, "attributes": {"id": "123", "gcs_bucket": "bucket"}}
     monkeypatch.delenv("DATASET_NAME", raising=False)
     with pytest.raises(RuntimeError):
         main.do_ingestion(mock_event)
@@ -50,12 +50,12 @@ def test_do_ingestion_missing_dataset_env_variable(monkeypatch):
 
 # Additional tests for missing 'id' and 'gcs_bucket'
 def test_do_ingestion_missing_id():
-    mock_event = {"is_airflow_run": False, "attributes": {"gcs_bucket": "bucket"}}
+    mock_event = {"is_dag_pipeline_run": False, "attributes": {"gcs_bucket": "bucket"}}
     with pytest.raises(RuntimeError):
         main.do_ingestion(mock_event)
 
 
 def test_do_ingestion_missing_gcs_bucket():
-    mock_event = {"is_airflow_run": False, "attributes": {"id": "123"}}
+    mock_event = {"is_dag_pipeline_run": False, "attributes": {"id": "123"}}
     with pytest.raises(RuntimeError):
         main.do_ingestion(mock_event)

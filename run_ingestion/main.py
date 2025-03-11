@@ -46,8 +46,8 @@ def ingest_data_to_gcs(event):
        event: Dict containing the Pub/Sub method. The payload will be a base-64
               encoded string in the 'data' field.
     """
-    is_airflow_run = event["is_airflow_run"]
-    if is_airflow_run:
+    is_dag_pipeline_run = event["is_dag_pipeline_run"]
+    if is_dag_pipeline_run:
         event_dict = event
     else:
         if "data" not in event:

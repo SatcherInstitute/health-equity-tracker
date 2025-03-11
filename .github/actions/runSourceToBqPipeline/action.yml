@@ -52,7 +52,7 @@ runs:
         echo "Demographic: ${{ inputs.demographic }}, Geographic: ${{ inputs.geographic }}"
 
         # Create the request payload
-        REQUEST_PAYLOAD="{\"message\":{\"is_airflow_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}"
+        REQUEST_PAYLOAD="{\"message\":{\"is_dag_pipeline_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}"
 
         # Log the payload (optional - remove if contains sensitive data)
         echo "Request payload: $REQUEST_PAYLOAD"
