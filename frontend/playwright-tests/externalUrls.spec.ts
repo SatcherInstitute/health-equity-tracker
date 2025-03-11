@@ -23,6 +23,7 @@ import { externalResourceMappings } from '../src/pages/WhatIsHealthEquity/wiheCo
 import { urlMap } from '../src/utils/externalUrls.js'
 
 const knownFlakyUrls = [
+  'https://www.worksourceatlanta.org/',
   'https://satcherinstitute.github.io/analysis/cdc_case_data',
   'https://satcherinstitute.github.io/analysis/cdc_death_data',
   'https://doi.org/10.1111/j.1540-5907.2011.00512.x',

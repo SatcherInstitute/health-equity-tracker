@@ -521,5 +521,3 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     visible: true,
   },
 ]
-
-export default methodologyRouteConfigs

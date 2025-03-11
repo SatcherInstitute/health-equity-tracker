@@ -6,7 +6,6 @@ import type {
   Geometry,
 } from 'geojson'
 import type { RefObject } from 'react'
-import type { Topology } from 'topojson-specification'
 
 import type {
   MapConfig,
@@ -60,38 +59,17 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  scaleConfig?: {
-    domain: number[]
-    range: string[]
-  }
 }
 
 export interface CreateColorScaleProps {
-  dataWithHighestLowest: DataPoint[]
+  data: Array<Record<string, any>> | DataPoint[]
   metricId: MetricId
   colorScheme: ColorScheme
   reverse?: boolean
   fieldRange?: FieldRange
   isUnknown?: boolean
   fips: Fips
-  scaleConfig?: {
-    domain: number[]
-    range: string[]
-  }
   isPhrma: boolean
-}
-
-type CreateFeaturesProps = {
-  showCounties: boolean
-  parentFips: string
-  geoData?: Topology
-}
-
-type CreateProjectionProps = {
-  fips: Fips
-  width: number
-  height: number
-  features: FeatureCollection
 }
 
 export type DataPoint = {

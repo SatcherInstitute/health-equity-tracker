@@ -52,7 +52,6 @@ const formatMetricValue = (
 export const getTooltipLabel = (
   isUnknownsMap: boolean | undefined,
   metric: MetricConfig,
-  isCawp: boolean,
   activeDemographicGroup: string,
   demographicType: DemographicType,
 ): string => {

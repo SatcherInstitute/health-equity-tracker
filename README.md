@@ -287,7 +287,7 @@ Note: Building manually is not required for development, but helpful for debuggi
 
 The backend consists of:
 
-- `health-equity-tracker/airflow/`: Code that controls the DAGs which orchestrate the execution of these various microservices
+- `health-equity-tracker/.github/workflows/`: Workflow code that controls the DAGs which orchestrate the execution of these various microservices via GitHub Actions
 - `health-equity-tracker/config/`: Terraform configuration for setting permissions and provisioning needed resources for cloud computing
 - `health-equity-tracker/data/`: In code-base "bucket" used to store manually downloaded data from outside sources where it isn't possible to fetch new data directly via and API endpoint or linkable file URL
 - `health-equity-tracker/e2e_tests/`: Automated tests ensuring all services work together as expected; not to be confused with the Playwright E2E tests found in `/frontend`
@@ -296,7 +296,6 @@ The backend consists of:
 - `health-equity-tracker/requirements/`: Packages required for the HET
 - `health-equity-tracker/run_gcs_to_bq/`: Code for the microservice responsible for running datasource specific modules found in `/python` and ultimately exporting the produced dataframes to BigQuery
 - `health-equity-tracker/run_ingestion/`: (PARTIALLY USED) Code for the microservice responsible for caching datasource data into GCP buckets, for later use by the `run_gcs_to_bq` operator. This service is only used by some of our older data sources, like `acs_population`, but often for newer datasources we simply load data directly from the `run_gcs_to_bq` microservice
-- `health-equity-tracker/aggregator/`: DEPRECATED: Code for the microservice previously responsible for running SQL merges of Census data
 
 ### Python environment setup
 
@@ -308,7 +307,7 @@ The backend consists of:
 
 Note: If you are using VSCode, ensure you install the recommend extensions, including Black which is used for linting/formatting.
 
-### To confirm and stage changes to `/python`, `/airflow/dags`, or other backend code
+### To confirm and stage changes to `/python` or other backend code
 
 1. Follow the rest of the instructions below these steps for one-time configurations needed.
 2. Pull the latest changes from the official repo.
@@ -317,17 +316,15 @@ Note: If you are using VSCode, ensure you install the recommend extensions, incl
 4. From your local directory floor, change branches to the backend feature branch you want to test.
 5. Run `git push origin HEAD:infra-test -f` which will force push an exact copy of your local feature branch to the HET origin (not your fork) `infra-test` branch.
 6. This will trigger a build and deployment of backend images to the HET Infra TEST GCP project using the new backend code (and will also build and deploy the frontend the dev site using the frontend code from the `main` branch)
-7. Once the `deployBackendToInfraTest` GitHub action completes successfully (ignoring the `(infra-test) Terraform / Airflow Configs Process completed with exit code 1.` that unintentionally appears in the Annotations section), navigate to the test GCP project
+7. Once the `deployBackendToInfraTest` GitHub action completes successfully, navigate to the test GCP project
    > Note: if you run this command again too quickly before the first run has completed, you might encounter `Error acquiring the state lock` and the run will fail. If you are SURE that this occurred because of your 2nd run being too soon after the 1st (and not because another team member is using `infra-test`) then you can manually go into the Google Cloud Storage bucket that holds the terraform state, find the file named `default.tflock` and delete it or less destructively rename by adding today's date to the file name.
-8. Navigate to Composer > Airflow and trigger the DAG that corresponds to your updated backend code
-9. Once DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
+8. Run the staging environment GitHub Action Workflow for any pipelines that have changed. These are found in the main repo (this one) under "Actions" and are named like "DAG - DECIA_2010_POPULATION". Click on them and then "Run Workflow".
+9. Once DAG  workflow completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
 10. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 11. When ready to merge, use the "Squash and merge" option
-12. **Ensure all affected pipelines are run after both merging to `main` and after cutting a release to production**.
+12. **Ensure all affected staging pipeline workflows are run after merging to `main`, and all affected production pipeline workflows after cutting a new release**.
 
-Note: Pipeline updates should be non-breaking, ideally pushing additional data to the production codebase, followed by pushing updated frontend changes to ingest the new pipeline data, finally followed by removal of the older, now-unused data.
-
-Note: All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory.
+Note: Pipeline updates should be non-breaking, ideally pushing additional data under new table names to the production codebase, followed by pushing updated frontend changes to ingest the newly named pipeline data, finally followed by removal of the older, now-unused data.
 
 ### Python Unit Testing
 
@@ -349,7 +346,7 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 
 ## HET Microservice Architecture
 
-![HET Microservice Architecture Diagram](https://raw.githubusercontent.com/SatcherInstitute/health-equity-tracker/9325c032d8df110fc234f0ecd75c54129282418f/HET%20Architecture.svg)
+![HET Microservice Infrastructure Diagram](het_infrastructure.svg)
 
 ## Developing Your Own Tracker
 

@@ -1,0 +1,98 @@
+name: "Run gcs-to-bq-service"
+description: "Triggers Cloud Run service to process source data (url, data/, or bucket) and write as tables to BigQuery."
+
+inputs:
+  service_url:
+    description: "GCS to BQ service URL"
+    required: true
+  workflow_id:
+    description: "Workflow ID"
+    required: true
+  dataset_name:
+    description: "Dataset Name"
+    required: true
+  source_gcs_bucket:
+    description: "Source GCS bucket (optional). Only used for COVID (manual) and ACS (landing)"
+    required: false
+  demographic:
+    description: "Demographic (optional)"
+    required: false
+    default: ""
+  geographic:
+    description: "Geographic (optional)"
+    required: false
+    default: ""
+  year:
+    description: "Year (optional)"
+    required: false
+    default: ""
+  category:
+    description: "Category (optional)"
+    required: false
+    default: ""
+  max_retries:
+    description: "Maximum number of retry attempts"
+    required: false
+    default: "5"
+  initial_backoff:
+    description: "Initial backoff time in seconds"
+    required: false
+    default: "10"
+
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        MAX_RETRIES=${{ inputs.max_retries }}
+        INITIAL_BACKOFF=${{ inputs.initial_backoff }}
+        ATTEMPT=0
+
+        echo "Making request to ${{ inputs.service_url }}"
+        echo "Workflow ID: ${{ inputs.workflow_id }}, Dataset: ${{ inputs.dataset_name }}"
+        echo "Demographic: ${{ inputs.demographic }}, Geographic: ${{ inputs.geographic }}"
+
+        # Create the request payload
+        REQUEST_PAYLOAD="{\"message\":{\"is_dag_pipeline_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}"
+
+        # Log the payload (optional - remove if contains sensitive data)
+        echo "Request payload: $REQUEST_PAYLOAD"
+
+        while [ $ATTEMPT -lt $MAX_RETRIES ]; do
+          echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call gcs-to-bq service..."
+
+          # Make the request and store the response
+          HTTP_STATUS=$(curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$REQUEST_PAYLOAD" \
+            ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
+
+          echo "Response status code: $HTTP_STATUS"
+
+          if [ $HTTP_STATUS -lt 400 ]; then
+            echo "Success: Service request completed with status code $HTTP_STATUS"
+            cat response.txt
+            exit 0
+          else
+            # Display response content
+            echo "Response content:"
+            cat response.txt || echo "No response content available"
+
+            # Check for scaling-related error messages in response
+            if grep -q "no available instance" response.txt || grep -q "Please try again" response.txt; then
+              BACKOFF_TIME=$(( INITIAL_BACKOFF * 2**ATTEMPT ))
+              ATTEMPT=$((ATTEMPT + 1))
+
+              if [ $ATTEMPT -lt $MAX_RETRIES ]; then
+                echo "Service appears to be scaling up. Retrying in $BACKOFF_TIME seconds..."
+                sleep $BACKOFF_TIME
+              else
+                echo "::error::Maximum retries reached. Last status code: $HTTP_STATUS"
+                exit 1
+              fi
+            else
+              echo "::error::Request failed with status code $HTTP_STATUS"
+              exit 1
+            fi
+          fi
+        done
+      shell: bash

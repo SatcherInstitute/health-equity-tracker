@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom'
-import type { Topology } from 'topojson-specification'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import type { DataPoint } from '../charts/choroplethMap/types'
 import { MAP_SCHEMES } from '../charts/mapGlobals'
@@ -131,6 +130,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      hideNH={true}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
@@ -227,7 +227,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   extremesMode={false}
                   filename={chartTitle}
                   fips={props.fips}
-                  geoData={geoData as Topology}
+                  geoData={geoData}
                   isUnknownsMap={true}
                   legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
                   mapConfig={unknownMapConfig}

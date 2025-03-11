@@ -1,4 +1,4 @@
-name: Send Release Event To Setup Cloud Platform
+name: Send Release Event To Production Repo (Setup Cloud Platform)
 
 on:
   release:
@@ -17,6 +17,5 @@ jobs:
           client-payload: |
             {
               "release": "${{ github.event.release.tag_name }}",
-              "project_id": "het-infra-prod-f6",
-              "needs-composer": "true"
+              "project_id": "${{ secrets.PROD_PROJECT_ID }}"
             }

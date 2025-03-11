@@ -212,5 +212,3 @@ export const policyRouteConfigs: RouteConfig[] = [
     visible: true,
   },
 ]
-
-export default policyRouteConfigs
