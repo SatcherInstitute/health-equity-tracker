@@ -25,7 +25,6 @@ jobs:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
           workflow_id: ${{ env.WORKFLOW_ID }}
           destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-          # Note: The original Airflow DAG doesn't specify a year for this step
 
       # Step 2: Process and write to BigQuery for each year
       - name: Process and write to BigQuery 2009
