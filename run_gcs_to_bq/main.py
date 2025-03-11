@@ -36,8 +36,8 @@ def do_ingestion(event):
     event: Dict containing the Pub/Sub method. The payload will be a base-64
            encoded string in the 'data' field with additional attributes in
            the 'attributes' field."""
-    is_airflow_run = event["is_airflow_run"]
-    if is_airflow_run:
+    is_dag_pipeline_run = event["is_dag_pipeline_run"]
+    if is_dag_pipeline_run:
         attrs = event
     else:
         if "attributes" not in event:
