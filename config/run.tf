@@ -217,7 +217,7 @@ output "frontend_url" {
   value = google_cloud_run_service.frontend_service.status.0.url
 }
 
-# Output the URLs of the pipeline services for use in Airflow.
+# Output the URLs of the pipeline services (previously used for DAGs)
 output "ingestion_url" {
   value = google_cloud_run_service.ingestion_service.status.0.url
 }
