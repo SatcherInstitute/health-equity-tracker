@@ -2,6 +2,7 @@ import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Legend } from '../charts/Legend'
+import LegendD3 from '../charts/LegendD3'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
@@ -564,6 +565,19 @@ function MapCardWithKey(props: MapCardProps) {
                       isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
                     }
                     isPhrmaAdherence={isPhrmaAdherence}
+                  />
+                  <LegendD3
+                    dataTypeConfig={props.dataTypeConfig}
+                    metric={metricConfig}
+                    data={allDataForActiveDemographicGroup}
+                    scaleType={RATE_MAP_SCALE as any}
+                    description={'Legend for rate map'}
+                    fipsTypeDisplayName={fipsTypeDisplayName}
+                    mapConfig={mapConfig}
+                    columns={mapIsWide ? 1 : 3}
+                    stackingDirection={
+                      isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
+                    }
                   />
                 </div>
 
