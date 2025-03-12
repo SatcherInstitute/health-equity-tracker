@@ -549,6 +549,24 @@ function MapCardWithKey(props: MapCardProps) {
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
+                  <LegendD3
+                    dataTypeConfig={props.dataTypeConfig}
+                    metric={metricConfig}
+                    data={allDataForActiveDemographicGroup}
+                    scaleType={RATE_MAP_SCALE as any}
+                    description={'Legend for rate map'}
+                    fipsTypeDisplayName={fipsTypeDisplayName}
+                    mapConfig={mapConfig}
+                    columns={mapIsWide ? 1 : 3}
+                    stackingDirection={
+                      isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
+                    }
+                    fips={props.fips}
+                    legendTitle={metricConfig.shortLabel}
+                  />
+                </div>
+
+                <div>
                   <Legend
                     dataTypeConfig={props.dataTypeConfig}
                     metric={metricConfig}
@@ -566,22 +584,6 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                     isPhrmaAdherence={isPhrmaAdherence}
                   />
-                  <LegendD3
-                    dataTypeConfig={props.dataTypeConfig}
-                    metric={metricConfig}
-                    data={allDataForActiveDemographicGroup}
-                    scaleType={RATE_MAP_SCALE as any}
-                    description={'Legend for rate map'}
-                    fipsTypeDisplayName={fipsTypeDisplayName}
-                    mapConfig={mapConfig}
-                    columns={mapIsWide ? 1 : 3}
-                    stackingDirection={
-                      isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
-                    }
-                  />
-                </div>
-
-                <div>
                   <GeoContext
                     fips={props.fips}
                     updateFipsCallback={props.updateFipsCallback}

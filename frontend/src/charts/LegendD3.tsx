@@ -9,7 +9,11 @@ import { isPctType } from '../data/config/MetricConfigUtils'
 import type { GeographicBreakdown } from '../data/query/Breakdowns'
 import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import type { FieldRange } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
+import ClickableLegendHeader from './ClickableLegendHeader'
+import { createColorScale } from './choroplethMap/colorSchemes'
+import { formatMetricValue } from './choroplethMap/tooltipUtils'
 
 export type ScaleType = 'quantile' | 'quantize' | 'threshold' | 'ordinal'
 export type StackingDirection = 'horizontal' | 'vertical'
@@ -30,6 +34,10 @@ interface LegendD3Props {
   mapConfig: MapConfig
   columns: number
   stackingDirection: StackingDirection
+  isPhrma?: boolean
+  fips: Fips
+  isMulti?: boolean
+  legendTitle: string
 }
 
 export default function LegendD3(props: LegendD3Props) {
@@ -61,18 +69,11 @@ export default function LegendD3(props: LegendD3Props) {
     const hasZeroData = zeroData.length > 0
 
     // Setup constants for legend layout
-    const margin = { top: 10, right: 10, bottom: 10, left: 10 }
+    const margin = { top: 10, right: 10, bottom: 10, left: 100 }
     const width = 300
     const itemHeight = 25
     const symbolSize = EQUAL_DOT_SIZE
     const labelOffset = 5
-
-    // Create color scale based on the map config
-    const colorPalette = generateColorRange(
-      props.mapConfig.scheme,
-      DEFAULT_LEGEND_COLOR_COUNT,
-      Boolean(props.mapConfig.higherIsBetter),
-    )
 
     // Determine the number of buckets to use
     const bucketCount = Math.min(
@@ -86,84 +87,46 @@ export default function LegendD3(props: LegendD3Props) {
     if (uniqueNonZeroValues.length > 0) {
       // Create appropriate scale based on scaleType
       if (props.scaleType === 'quantile') {
-        // Create quantile scale for the color mapping
-        const values = nonZeroData.map((row) => row[props.metric.metricId])
-
-        const colorScale = d3
-          .scaleQuantile<string>()
-          .domain(values)
-          .range(colorPalette.slice(0, bucketCount))
+        const colorScale = createColorScale({
+          data: props.data,
+          metricId: props.metric.metricId,
+          colorScheme: props.mapConfig.scheme,
+          isUnknown: false,
+          fips: props.fips,
+          reverse: !props.mapConfig.higherIsBetter,
+          isPhrma: false, // TODO: handle phrma
+        }) as d3.ScaleQuantile<string, number>
 
         // Get the quantile thresholds (actual breakpoints)
         const thresholds = colorScale.quantiles()
 
-        // Create a nice tick formatter with appropriate precision
-        const tickFormat = d3
-          .scaleLinear()
-          .domain(d3.extent(values) as [number, number])
-          .tickFormat(5, ',.0f')
+        function labelFormat(value: number) {
+          return formatMetricValue(value, props.metric, true)
+        }
 
         // Create legend items using actual thresholds but formatted nicely
         if (thresholds.length > 0) {
           legendItems.push({
-            color: colorScale(thresholds[0] - 1),
-            label: `< ${tickFormat(thresholds[0])}${isPct ? '%' : ''}`,
+            color: colorScale(thresholds[0] - 1) as string,
+            // label: `< ${thresholdFormat(thresholds[0])}${isPct ? '%' : ''}`,
+            label: `< ${labelFormat(thresholds[0])}`,
             value: thresholds[0] - 1,
           })
 
           for (let i = 0; i < thresholds.length - 1; i++) {
             legendItems.push({
-              color: colorScale(thresholds[i]),
-              label: `${tickFormat(thresholds[i])}${isPct ? '%' : ''} – ${tickFormat(thresholds[i + 1])}${isPct ? '%' : ''}`,
+              color: colorScale(thresholds[i]) as string,
+              label: `${labelFormat(thresholds[i])} – ${labelFormat(thresholds[i + 1])}`,
               value: thresholds[i],
             })
           }
 
           legendItems.push({
-            color: colorScale(thresholds[thresholds.length - 1]),
-            label: `≥ ${tickFormat(thresholds[thresholds.length - 1])}${isPct ? '%' : ''}`,
+            color: colorScale(thresholds[thresholds.length - 1]) as string,
+            label: `≥ ${labelFormat(thresholds[thresholds.length - 1])}`,
             value: thresholds[thresholds.length - 1],
           })
         }
-      }
-      if (props.scaleType === 'threshold') {
-        // Create threshold scale
-        const min = uniqueNonZeroValues[0]
-        const max = uniqueNonZeroValues[uniqueNonZeroValues.length - 1]
-        const step = (max - min) / (bucketCount - 1)
-
-        // Create thresholds
-        const thresholds = []
-        for (let i = 1; i < bucketCount; i++) {
-          thresholds.push(min + step * i)
-        }
-
-        // Create scale
-        const colorScale = d3
-          .scaleThreshold<number, string>()
-          .domain(thresholds)
-          .range(colorPalette.slice(0, bucketCount + 1))
-
-        // Create legend items
-        legendItems.push({
-          color: colorScale(min - 1), // First color
-          label: `< ${formatLegendRangeValue(thresholds[0], isPct)}`,
-          value: min,
-        })
-
-        for (let i = 0; i < thresholds.length - 1; i++) {
-          legendItems.push({
-            color: colorScale(thresholds[i]),
-            label: `${formatLegendRangeValue(thresholds[i], isPct)} - ${formatLegendRangeValue(thresholds[i + 1], isPct)}`,
-            value: thresholds[i],
-          })
-        }
-
-        legendItems.push({
-          color: colorScale(thresholds[thresholds.length - 1]), // Last color
-          label: `≥ ${formatLegendRangeValue(thresholds[thresholds.length - 1], isPct)}`,
-          value: max,
-        })
       }
     }
 
@@ -237,80 +200,12 @@ export default function LegendD3(props: LegendD3Props) {
     props.description,
   ])
 
-  // Helper function to format values based on metric type
-  function formatLegendRangeValue(value: number, isPct: boolean): string {
-    if (isPct) {
-      return `${value.toFixed(1)}%`
-    }
-
-    if (value >= 1000000) {
-      return `${(value / 1000000).toFixed(1)}M`
-    } else if (value >= 1000) {
-      return `${(value / 1000).toFixed(1)}k`
-    }
-
-    return value.toFixed(1)
-  }
-
-  // Helper function to generate a color range based on the map scheme
-  function generateColorRange(
-    scheme: string,
-    count: number,
-    reverse: boolean,
-  ): string[] {
-    // Map your color schemes to actual color arrays
-    let colors: string[] = []
-
-    switch (scheme) {
-      case 'greens':
-        colors = [
-          het.mapLightest,
-          het.mapLighter,
-          het.mapLight,
-          het.mapMid,
-          het.mapDark,
-          het.mapDarker,
-          het.mapDarkest,
-        ]
-        break
-      case 'blues':
-        colors = [
-          het.unknownMapLeast,
-          het.unknownMapLesser,
-          het.unknownMapLess,
-          het.unknownMapMid,
-          het.unknownMapMore,
-          het.unknownMapEvenMore,
-          het.unknownMapMost,
-        ]
-        break
-      default:
-        // Default to greens
-        colors = [
-          het.mapLightest,
-          het.mapLighter,
-          het.mapLight,
-          het.mapMid,
-          het.mapDark,
-          het.mapDarker,
-          het.mapDarkest,
-        ]
-    }
-
-    // Select subset of colors to match count
-    if (colors.length > count) {
-      const indices = []
-      for (let i = 0; i < count; i++) {
-        indices.push(Math.floor((i * (colors.length - 1)) / (count - 1)))
-      }
-      colors = indices.map((i) => colors[i])
-    }
-
-    return reverse ? colors.slice().reverse() : colors
-  }
-
   return (
     <section className='mx-4 flex flex-col items-center text-left'>
+      <ClickableLegendHeader
+        legendTitle={props.legendTitle}
+        dataTypeConfig={props.dataTypeConfig}
+      />
       <svg ref={svgRef} />
     </section>
   )

@@ -31,15 +31,17 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('z-index', tooltipZIndex)
 }
 
-const formatMetricValue = (
+export const formatMetricValue = (
   value: number | undefined,
   metricConfig: MetricConfig,
+  isLegendLabel?: boolean,
 ): string => {
   if (value === undefined) return 'no data'
 
   if (metricConfig.type === 'per100k') {
-    if (value < 0.1) return `${LESS_THAN_POINT_1} per 100k`
-    return `${d3.format(',.2s')(value)} per 100k`
+    const suffix = isLegendLabel ? '' : '  per 100k'
+    if (value < 0.1) return `${LESS_THAN_POINT_1}${suffix}`
+    return `${d3.format(',.2s')(value)}${suffix}`
   }
 
   if (isPctType(metricConfig.type)) {
