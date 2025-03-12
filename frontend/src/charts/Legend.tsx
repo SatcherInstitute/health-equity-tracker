@@ -24,7 +24,6 @@ import {
 import {
   DATASET_VALUES,
   DEFAULT_LEGEND_COLOR_COUNT,
-  EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
   MISSING_PLACEHOLDER_VALUES,
   NON_ZERO_DATASET_VALUES,
@@ -44,6 +43,8 @@ import {
   ZERO_VALUES,
 } from './mapGlobals'
 
+const EQUAL_DOT_SIZE = 200
+
 /*
    Legend renders a vega chart that just contains a legend.
 */
@@ -56,7 +57,7 @@ interface LegendProps {
   legendTitle: string
   // May be used if standardizing legends across charts
   fieldRange?: FieldRange
-  // Quantile or quantize scale.
+  // Quantile or threshold scale.
   scaleType: ScaleType
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.

@@ -41,7 +41,6 @@ const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
     het.mapMedicareMid,
     het.mapMedicareLight,
     het.mapMedicareLighter,
-    het.mapMedicareEvenLighter,
     het.mapMedicareLightest,
   ],
   greenblue: [
@@ -50,19 +49,15 @@ const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
     het.unknownMapLess,
     het.unknownMapMid,
     het.unknownMapMore,
-    het.unknownMapEvenMore,
     het.unknownMapMost,
   ],
   darkred: [
-    het.mapYouthDarkZero,
     het.mapYouthDarkest,
     het.mapYouthDarker,
     het.mapYouthDark,
-    het.mapYouthMid,
     het.mapYouthLight,
     het.mapYouthLighter,
     het.mapYouthLightest,
-    het.mapYouthLightZero,
   ],
 }
 

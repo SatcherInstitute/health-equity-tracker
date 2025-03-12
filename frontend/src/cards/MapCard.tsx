@@ -2,9 +2,13 @@ import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Legend } from '../charts/Legend'
-import LegendD3 from '../charts/LegendD3'
+import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../charts/choroplethMap/index'
-import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
+import {
+  type CountColsMap,
+  RATE_MAP_SCALE,
+  SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST,
+} from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
@@ -76,7 +80,6 @@ import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
 
-const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
 
 interface MapCardProps {
@@ -549,7 +552,7 @@ function MapCardWithKey(props: MapCardProps) {
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
-                  <LegendD3
+                  <RateMapLegend
                     dataTypeConfig={props.dataTypeConfig}
                     metric={metricConfig}
                     data={allDataForActiveDemographicGroup}

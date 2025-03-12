@@ -17,6 +17,8 @@ export const RATE_MAP_SCALE: ScaleType = 'quantile'
 
 export const ORDINAL = 'ordinal'
 
+export const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
+
 type PopulationSubset =
   | 'default'
   | 'women'
@@ -105,7 +107,6 @@ export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const NO_DATA_MESSAGE = 'no data'
-export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
 export const ZERO_BUCKET_LABEL = '0'
