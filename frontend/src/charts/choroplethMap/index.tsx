@@ -92,7 +92,7 @@ const ChoroplethMap = ({
 
       tooltipContainerRef.current ??= createTooltipContainer(isMulti)
 
-      const colorScale = createColorScale({
+      const colorScale: any = createColorScale({
         data: legendData || dataWithHighestLowest,
         metricId: metric.metricId,
         colorScheme: mapConfig.scheme,
@@ -101,6 +101,9 @@ const ChoroplethMap = ({
         reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
         isPhrma,
       })
+
+      const ticks = colorScale.quantiles()
+      console.log('ticks', ticks)
 
       const features = await createFeatures(showCounties, fips.code, geoData)
 
