@@ -38,56 +38,56 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
 
 export const defaultHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.default,
-  min: het.mapDarkZero,
+  zero: het.mapDarkZero,
   mid: het.mapMid,
   higherIsBetter: true,
 }
 
 export const defaultHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.default,
-  min: het.mapLightZero,
+  zero: het.mapLightZero,
   mid: het.mapMid,
   higherIsBetter: false,
 }
 
 export const womenHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.women,
-  min: het.mapWomenDarkZero,
+  zero: het.mapWomenDarkZero,
   mid: het.mapWomenMid,
   higherIsBetter: true,
 }
 
 export const womenHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.women,
-  min: het.mapWomenLightZero,
+  zero: het.mapWomenLightZero,
   mid: het.mapWomenMid,
   higherIsBetter: false,
 }
 
 export const menHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.men,
-  min: het.mapLightZero,
+  zero: het.mapLightZero,
   mid: het.mapMid,
   higherIsBetter: false,
 }
 
 export const medicareHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: het.mapMedicareDarkZero,
+  zero: het.mapMedicareDarkZero,
   mid: het.mapMedicareMid,
   higherIsBetter: true,
 }
 
 export const medicareHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: het.mapMedicareLightZero,
+  zero: het.mapMedicareLightZero,
   mid: het.mapMedicareMid,
   higherIsBetter: false,
 }
 
 export const youthHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.youth,
-  min: het.mapLightZero,
+  zero: het.mapLightZero,
   mid: het.mapMid,
   higherIsBetter: false,
 }
