@@ -54,6 +54,7 @@ export const renderMap = ({
   hideLegend,
   signalListeners,
   isMulti,
+  isPhrmaAdherence,
 }: RenderMapProps) => {
   const territoryRadius = isMobile
     ? TERRITORIES.radiusMobile
@@ -134,9 +135,8 @@ export const renderMap = ({
         dataMap,
         colorScale,
         extremesMode,
-        zeroColor: mapConfig.zero,
-        summaryColor: mapConfig.mid,
-        fips,
+        mapConfig,
+        isPhrmaAdherence,
       }),
     )
     .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
@@ -151,6 +151,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('mousemove', (event, d) =>
@@ -163,6 +164,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('mouseout', (event, d) =>
@@ -175,6 +177,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('click', signalListeners.click)
@@ -205,9 +208,8 @@ export const renderMap = ({
         dataMap,
         colorScale,
         extremesMode,
-        zeroColor: mapConfig.zero,
-        summaryColor: mapConfig.mid,
-        fips,
+        mapConfig,
+        isPhrmaAdherence,
       }),
     )
     .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
@@ -222,6 +224,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('mousemove', (event, d) =>
@@ -234,6 +237,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('mouseout', (event, d) =>
@@ -246,6 +250,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('click', (event, d) => {
@@ -333,7 +338,7 @@ const handleMouseEvent = (
     geographyType,
     extremesMode,
     mapConfig,
-    fips,
+    isPhrmaAdherence,
   } = props
 
   if (!tooltipContainer) return
@@ -377,9 +382,8 @@ const handleMouseEvent = (
           dataMap,
           colorScale,
           extremesMode,
-          zeroColor: mapConfig?.zero || het.altBlack,
-          summaryColor: mapConfig?.mid || '',
-          fips,
+          mapConfig,
+          isPhrmaAdherence,
         }),
       )
       tooltipContainer.style('visibility', 'hidden').html('')

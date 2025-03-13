@@ -46,7 +46,7 @@ export interface ChoroplethMapProps {
   hideMissingDataTooltip?: boolean
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   isMulti?: boolean
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
   isUnknownsMap?: boolean
   legendData?: Array<Record<string, any>>
@@ -71,7 +71,7 @@ export interface CreateColorScaleProps {
   fieldRange?: FieldRange
   isUnknown?: boolean
   fips: Fips
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
 }
 
@@ -89,10 +89,9 @@ export type GetFillColorProps = {
   d: Feature<Geometry, GeoJsonProperties>
   dataMap: Map<string, MetricData>
   colorScale: ColorScale
+  mapConfig: MapConfig
   extremesMode?: boolean
-  zeroColor: string
-  summaryColor: string
-  fips?: Fips
+  isPhrmaAdherence: boolean
 }
 
 export type HetRow = DataPoint & {
@@ -136,6 +135,7 @@ export type RenderMapProps = {
   mapConfig: MapConfig
   signalListeners: any
   isMulti?: boolean
+  isPhrmaAdherence: boolean
 }
 
 type TooltipFeature = {
@@ -154,8 +154,9 @@ export interface MouseEventHandlerProps {
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
   geographyType?: string
   extremesMode?: boolean
-  mapConfig?: MapConfig
+  mapConfig: MapConfig
   fips?: Fips
+  isPhrmaAdherence: boolean
 }
 
 /**

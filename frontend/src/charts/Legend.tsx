@@ -68,7 +68,7 @@ interface LegendProps {
   columns: number
   stackingDirection: StackingDirection
   isMulti?: boolean
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
 }
 
 export function Legend(props: LegendProps) {

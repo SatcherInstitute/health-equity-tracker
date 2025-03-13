@@ -28,7 +28,7 @@ interface RateMapLegendProps {
   mapConfig: MapConfig
   columns: number
   stackingDirection: StackingDirection
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
   fips: Fips
   isMulti?: boolean

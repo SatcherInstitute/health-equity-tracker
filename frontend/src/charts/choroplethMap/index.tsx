@@ -35,7 +35,6 @@ const ChoroplethMap = ({
   filename,
   legendData,
   isPhrmaAdherence,
-  isSummaryLegend,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -135,6 +134,7 @@ const ChoroplethMap = ({
         mapConfig,
         signalListeners,
         isMulti,
+        isPhrmaAdherence,
       })
 
       mapInitializedRef.current = true

@@ -75,7 +75,7 @@ interface MultiMapDialogProps {
   reportTitle: string
   subtitle?: string
   scrollToHash: ScrollableHashId
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
 }
 
 /*
