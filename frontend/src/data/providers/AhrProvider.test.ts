@@ -23,9 +23,12 @@ async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   cardId?: ScrollableHashId,
+  isFallback?: boolean,
 ) {
   const ahrProvider = new AhrProvider()
-  const specificId = appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
+  const specificId = isFallback
+    ? ahrDatasetId
+    : appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   // Evaluate the response with requesting "All" field
@@ -120,6 +123,7 @@ describe('AhrProvider', () => {
       Breakdowns.forFips(new Fips('01001')),
       SEX,
       'rates-over-time', // need to mock a call from a card that should get fallbacks
+      true,
     )
   })
 })

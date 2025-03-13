@@ -17,12 +17,12 @@ async function ensureCorrectDatasetsDownloaded(
   vaccinationDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
+  isFallback?: boolean,
 ) {
   const vaccineProvider = new VaccineProvider()
-  const specificDatasetId = appendFipsIfNeeded(
-    vaccinationDatasetId,
-    baseBreakdown,
-  )
+  const specificDatasetId = isFallback
+    ? vaccinationDatasetId
+    : appendFipsIfNeeded(vaccinationDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
   // Evaluate the response with requesting "All" field
