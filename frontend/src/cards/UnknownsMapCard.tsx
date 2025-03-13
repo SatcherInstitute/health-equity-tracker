@@ -118,7 +118,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const unknownMapConfig: MapConfig = {
     scheme: MAP_SCHEMES.unknown,
-    min: het.unknownMapLeast,
+    zero: het.unknownMapLeast,
     mid: het.unknownMapMid,
   }
 

@@ -242,7 +242,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
 
           domain: { data: ZERO_VALUES, field: 'zero' },
-          range: [props.mapConfig.min],
+          range: [props.mapConfig.zero],
         },
         {
           name: ZERO_DOT_SCALE,
@@ -281,7 +281,7 @@ export function Legend(props: LegendProps) {
     props.fipsTypeDisplayName,
     props.isSummaryLegend,
     props.legendTitle,
-    props.mapConfig.min,
+    props.mapConfig.zero,
     props.mapConfig.scheme,
     props.metricConfig,
     props.sameDotSize,
