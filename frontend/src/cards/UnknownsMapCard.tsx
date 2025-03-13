@@ -231,7 +231,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isUnknownsMap={true}
                   legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
                   mapConfig={unknownMapConfig}
-                  metric={metricConfig}
+                  metricConfig={metricConfig}
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
                 />

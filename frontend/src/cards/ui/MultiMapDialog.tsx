@@ -164,7 +164,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         hideLegend={true}
                         key={demographicGroup}
                         legendData={props.data}
-                        metric={props.metricConfig}
+                        metricConfig={props.metricConfig}
                         showCounties={
                           !props.fips.isUsa() &&
                           !props.hasSelfButNotChildGeoData
@@ -185,7 +185,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <div className='col-span-full flex w-full justify-start md:col-span-1'>
             <Legend
               dataTypeConfig={props.dataTypeConfig}
-              metric={props.metricConfig}
+              metricConfig={props.metricConfig}
               legendTitle={props.metricConfig.shortLabel}
               data={props.data}
               scaleType={RATE_MAP_SCALE}

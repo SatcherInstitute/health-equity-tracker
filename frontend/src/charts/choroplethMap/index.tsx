@@ -19,7 +19,7 @@ import type { ChoroplethMapProps, DataPoint } from './types'
 
 const ChoroplethMap = ({
   data,
-  metric,
+  metricConfig,
   highestLowestGroupsByFips,
   showCounties,
   fips,
@@ -43,8 +43,8 @@ const ChoroplethMap = ({
   > | null>(null)
   const mapInitializedRef = useRef(false)
 
-  const isCawp = CAWP_METRICS.includes(metric.metricId)
-  const isPhrma = PHRMA_METRICS.includes(metric.metricId)
+  const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
+  const isPhrma = PHRMA_METRICS.includes(metricConfig.metricId)
 
   const suppressedData = useMemo(
     () => (isPhrma ? processPhrmaData(data, countColsMap) : data),
@@ -94,7 +94,7 @@ const ChoroplethMap = ({
 
       const colorScale = createColorScale({
         data: legendData || dataWithHighestLowest,
-        metricId: metric.metricId,
+        metricId: metricConfig.metricId,
         colorScheme: mapConfig.scheme,
         isUnknown: isUnknownsMap,
         fips,
@@ -115,7 +115,7 @@ const ChoroplethMap = ({
         svgRef,
         geoData: { features, projection },
         dataWithHighestLowest,
-        metric,
+        metricConfig,
         width,
         height: isMulti ? dimensions.height + 100 : dimensions.height,
         tooltipContainer: tooltipContainerRef.current!,
@@ -149,7 +149,7 @@ const ChoroplethMap = ({
     width,
     dimensions.height,
     showCounties,
-    metric,
+    metricConfig,
     dataWithHighestLowest,
     mapConfig,
     fips,

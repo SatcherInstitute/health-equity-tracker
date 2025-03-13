@@ -10,10 +10,7 @@
 import { Fragment } from 'react'
 
 /* Local Imports */
-import {
-  LESS_THAN_POINT_1,
-  raceNameToCodeMap,
-} from '../../data/utils/Constants'
+import { raceNameToCodeMap } from '../../data/utils/Constants'
 
 import { COLORS as C, FORMATTERS as F, TYPES } from './constants'
 /* Constants */
@@ -103,12 +100,9 @@ export function TrendsTooltip({
           sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
               // get value or "<.1" to prevent potentially misleading "0 per 100k" on rates
-              let value = TYPE_CONFIG[type]?.formatter(
+              const value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate),
               )
-
-              if (value === '0' && axisConfig.type === 'per100k')
-                value = LESS_THAN_POINT_1
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>
