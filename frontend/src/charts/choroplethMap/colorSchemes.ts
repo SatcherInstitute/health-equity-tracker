@@ -145,7 +145,8 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, mapConfig, extremesMode, colorScale, isPhrmaAdherence } = props
+  const { d, dataMap, mapConfig, extremesMode, colorScale, isPhrmaAdherence } =
+    props
 
   if (dataMap.size === 1 && !isPhrmaAdherence) return mapConfig.mid
 
