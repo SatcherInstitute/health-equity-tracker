@@ -10,12 +10,9 @@ import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
 import ClickableLegendHeader from '../ClickableLegendHeader'
-import {
-  NO_DATA_MESSAGE,
-  PHRMA_ADHERENCE_BREAKPOINTS,
-  type StackingDirection,
-} from '../mapGlobals'
+import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { createColorScale } from './colorSchemes'
+import { useGetLegendColumnCount } from './mapLegendUtils'
 import { formatMetricValue } from './tooltipUtils'
 
 interface RateMapLegendProps {
@@ -26,8 +23,6 @@ interface RateMapLegendProps {
   description: string
   fipsTypeDisplayName?: GeographicBreakdown
   mapConfig: MapConfig
-  columns: number
-  stackingDirection: StackingDirection
   isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
   fips: Fips
@@ -39,6 +34,8 @@ export default function RateMapLegend(props: RateMapLegendProps) {
   function labelFormat(value: number) {
     return formatMetricValue(value, props.metric, true)
   }
+
+  const regularColsCount = useGetLegendColumnCount()
 
   const svgRef = useRef<SVGSVGElement>(null)
 
@@ -68,8 +65,8 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     // Setup constants for legend layout
     const margin = { top: 10, right: 10, bottom: 10, left: 50 }
     const width = 300
-    const legendRowHeight = 30
-    const symbolSize = 20
+    const legendRowHeight = 20
+    const symbolSize = 15
     const labelOffset = 5
 
     // Separate regular legend items from special items
@@ -142,19 +139,21 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     // Add missing data item to special items
     if (hasMissingData) {
       specialLegendItems.push({
-        color: het.howToColor || '#cccccc',
+        color: het.howToColor || '#cccccc', // TODO: use het color
         label: NO_DATA_MESSAGE,
         value: null,
       })
     }
 
     // Calculate layout
-    const regularColumns = props.columns || 1
+
     const hasSpecialColumn = specialLegendItems.length > 0
-    const totalColumns = hasSpecialColumn ? regularColumns + 1 : regularColumns
+    const totalColumns = hasSpecialColumn
+      ? regularColsCount + 1
+      : regularColsCount
 
     const itemsPerRegularColumn = Math.ceil(
-      regularLegendItems.length / regularColumns,
+      regularLegendItems.length / regularColsCount,
     )
     const maxItemsInAnyColumn = Math.max(
       itemsPerRegularColumn,
@@ -224,14 +223,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
         .attr('y', y + symbolSize / 2 + 4) // Center text vertically with square
         .text(item.label)
     })
-  }, [
-    props.data,
-    props.metric,
-    props.mapConfig,
-    props.columns,
-    props.stackingDirection,
-    props.description,
-  ])
+  }, [props.data, props.metric, props.mapConfig, props.description])
 
   return (
     <section className='mx-4 flex flex-col items-center text-left'>

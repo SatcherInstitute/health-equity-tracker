@@ -8,7 +8,7 @@ import type { Fips } from '../data/utils/Fips'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 
-export const HEIGHT_WIDTH_RATIO = 0.6
+export const HEIGHT_WIDTH_RATIO = 0.7
 export const X_AXIS_MAX_TICKS = 12
 export const X_AXIS_MAX_TICKS_SKINNY = 5
 

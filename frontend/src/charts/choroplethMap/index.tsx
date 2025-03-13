@@ -1,12 +1,13 @@
 import * as d3 from 'd3'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
-import { embedHighestLowestGroups } from '../mapHelperFunctions'
+import { embedHighestLowestGroups, getCountyAddOn } from '../mapHelperFunctions'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
+import TerritoryCircles from './TerritoryCircles'
 import { createColorScale } from './colorSchemes'
 import {
   createFeatures,
@@ -19,7 +20,7 @@ import type { ChoroplethMapProps, DataPoint } from './types'
 
 const ChoroplethMap = ({
   data,
-  metric,
+  metricConfig,
   highestLowestGroupsByFips,
   showCounties,
   fips,
@@ -44,8 +45,14 @@ const ChoroplethMap = ({
   > | null>(null)
   const mapInitializedRef = useRef(false)
 
-  const isCawp = CAWP_METRICS.includes(metric.metricId)
-  const isPhrma = PHRMA_METRICS.includes(metric.metricId)
+  // State to store the dataMap created during map rendering
+  const [renderResult, setRenderResult] = useState<{
+    dataMap: Map<string, any>
+    mapHeight: number
+  } | null>(null)
+
+  const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
+  const isPhrma = PHRMA_METRICS.includes(metricConfig.metricId)
 
   const suppressedData = useMemo(
     () => (isPhrma ? processPhrmaData(data, countColsMap) : data),
@@ -79,6 +86,7 @@ const ChoroplethMap = ({
       svg.on('.', null)
     }
     mapInitializedRef.current = false
+    setRenderResult(null)
   }
 
   useEffect(() => {
@@ -95,7 +103,7 @@ const ChoroplethMap = ({
 
       const colorScale = createColorScale({
         data: legendData || dataWithHighestLowest,
-        metricId: metric.metricId,
+        metricId: metricConfig.metricId,
         colorScheme: mapConfig.scheme,
         isUnknown: isUnknownsMap,
         fips,
@@ -113,11 +121,11 @@ const ChoroplethMap = ({
         features,
       )
 
-      renderMap({
+      const result = renderMap({
         svgRef,
         geoData: { features, projection },
         dataWithHighestLowest,
-        metric,
+        metricConfig,
         width,
         height: isMulti ? dimensions.height + 100 : dimensions.height,
         tooltipContainer: tooltipContainerRef.current!,
@@ -137,6 +145,7 @@ const ChoroplethMap = ({
         isPhrmaAdherence,
       })
 
+      setRenderResult(result)
       mapInitializedRef.current = true
     }
 
@@ -152,7 +161,7 @@ const ChoroplethMap = ({
     width,
     dimensions.height,
     showCounties,
-    metric,
+    metricConfig,
     dataWithHighestLowest,
     mapConfig,
     fips,
@@ -176,6 +185,36 @@ const ChoroplethMap = ({
         style={{ width: '100%' }}
         aria-label={`Map showing ${filename}`}
       />
+
+      {renderResult && fips.isUsa() && (
+        <TerritoryCircles
+          svgRef={svgRef}
+          width={width}
+          mapHeight={renderResult.mapHeight}
+          fips={fips}
+          dataWithHighestLowest={dataWithHighestLowest}
+          colorScale={createColorScale({
+            data: legendData || dataWithHighestLowest,
+            metricId: metricConfig.metricId,
+            colorScheme: mapConfig.scheme,
+            isUnknown: isUnknownsMap,
+            fips,
+            reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
+            isPhrmaAdherence,
+            mapConfig,
+          })}
+          metricConfig={metricConfig}
+          dataMap={renderResult.dataMap}
+          tooltipContainer={tooltipContainerRef.current}
+          geographyType={getCountyAddOn(fips, showCounties)}
+          extremesMode={extremesMode}
+          mapConfig={mapConfig}
+          signalListeners={signalListeners}
+          isMobile={isMobile}
+          isMulti={isMulti}
+          isPhrmaAdherence={isPhrmaAdherence}
+        />
+      )}
     </div>
   )
 }

@@ -72,7 +72,6 @@ interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const isCawp = CAWP_METRICS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0,

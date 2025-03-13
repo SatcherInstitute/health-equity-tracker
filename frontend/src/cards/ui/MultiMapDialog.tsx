@@ -129,7 +129,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             </h3>
           </div>
 
-          <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
+          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smMd:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_METRICS.includes(
@@ -164,7 +164,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         hideLegend={true}
                         key={demographicGroup}
                         legendData={props.data}
-                        metric={props.metricConfig}
+                        metricConfig={props.metricConfig}
                         showCounties={
                           !props.fips.isUsa() &&
                           !props.hasSelfButNotChildGeoData

@@ -538,7 +538,7 @@ function MapCardWithKey(props: MapCardProps) {
                       legendData={dataForActiveDemographicGroup}
                       legendTitle={metricConfig.shortLabel.toLowerCase()}
                       extremesMode={extremesMode}
-                      metric={metricConfig}
+                      metricConfig={metricConfig}
                       showCounties={
                         !props.fips.isUsa() && !hasSelfButNotChildGeoData
                       }
@@ -557,10 +557,6 @@ function MapCardWithKey(props: MapCardProps) {
                     description={'Legend for rate map'}
                     fipsTypeDisplayName={fipsTypeDisplayName}
                     mapConfig={mapConfig}
-                    columns={mapIsWide ? 1 : 3}
-                    stackingDirection={
-                      isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
-                    }
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
                     fips={props.fips}

@@ -52,7 +52,7 @@ export interface ChoroplethMapProps {
   legendData?: Array<Record<string, any>>
   legendTitle?: string | string[]
   mapConfig: MapConfig
-  metric: MetricConfig
+  metricConfig: MetricConfig
   signalListeners?: {
     click?: (name: string, value: { id: string }) => void
   }
@@ -123,7 +123,7 @@ export type RenderMapProps = {
   height: number
   hideLegend?: boolean
   isUnknownsMap?: boolean
-  metric: MetricConfig
+  metricConfig: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
@@ -149,7 +149,7 @@ type TooltipPairs = {
 
 export interface MouseEventHandlerProps {
   colorScale: ColorScale
-  metric: MetricConfig
+  metricConfig: MetricConfig
   dataMap: Map<string, MetricData>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
   geographyType?: string
