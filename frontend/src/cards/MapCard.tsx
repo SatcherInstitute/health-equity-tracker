@@ -552,7 +552,8 @@ function MapCardWithKey(props: MapCardProps) {
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
                   <RateMapLegend
                     dataTypeConfig={props.dataTypeConfig}
-                    metric={metricConfig}
+                    metricConfig={metricConfig}
+                    legendTitle={metricConfig.shortLabel}
                     data={allDataForActiveDemographicGroup}
                     description={'Legend for rate map'}
                     fipsTypeDisplayName={fipsTypeDisplayName}
@@ -560,7 +561,6 @@ function MapCardWithKey(props: MapCardProps) {
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
                     fips={props.fips}
-                    legendTitle={metricConfig.shortLabel}
                   />
                 </div>
 

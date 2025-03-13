@@ -10,7 +10,7 @@ export const DATA_SUPPRESSED = 'Data suppressed'
 export const COLOR_SCALE = 'COLOR_SCALE'
 export const ZERO_SCALE = 'ZERO_SCALE'
 
-export type ScaleType = 'quantize' | 'quantile' | 'symlog'
+export type ScaleType = 'quantile' | 'symlog'
 export type StackingDirection = 'horizontal' | 'vertical'
 
 export const RATE_MAP_SCALE: ScaleType = 'quantile'

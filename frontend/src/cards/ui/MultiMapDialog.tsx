@@ -186,7 +186,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <div className='col-span-full flex w-full justify-start md:col-span-1'>
             <Legend
               dataTypeConfig={props.dataTypeConfig}
-              metric={props.metricConfig}
+              metricConfig={props.metricConfig}
               legendTitle={props.metricConfig.shortLabel}
               data={props.data}
               scaleType={RATE_MAP_SCALE}

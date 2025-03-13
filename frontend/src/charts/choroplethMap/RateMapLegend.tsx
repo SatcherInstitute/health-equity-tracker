@@ -18,7 +18,7 @@ import { formatMetricValue } from './tooltipUtils'
 interface RateMapLegendProps {
   dataTypeConfig: DataTypeConfig
   data?: Array<Record<string, any>> // Dataset for which to calculate legend
-  metric: MetricConfig
+  metricConfig: MetricConfig
   fieldRange?: FieldRange // May be used if standardizing legends across charts
   description: string
   fipsTypeDisplayName?: GeographicBreakdown
@@ -32,7 +32,7 @@ interface RateMapLegendProps {
 
 export default function RateMapLegend(props: RateMapLegendProps) {
   function labelFormat(value: number) {
-    return formatMetricValue(value, props.metric, true)
+    return formatMetricValue(value, props.metricConfig, true)
   }
 
   const regularColsCount = useGetLegendColumnCount()
@@ -47,16 +47,16 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
     // Process data - separate zero, non-zero, and missing data
     const zeroData = props.data.filter(
-      (row) => row[props.metric.metricId] === 0,
+      (row) => row[props.metricConfig.metricId] === 0,
     )
     const nonZeroData = props.data.filter(
-      (row) => row[props.metric.metricId] > 0,
+      (row) => row[props.metricConfig.metricId] > 0,
     )
     const uniqueNonZeroValues = Array.from(
-      new Set(nonZeroData.map((row) => row[props.metric.metricId])),
+      new Set(nonZeroData.map((row) => row[props.metricConfig.metricId])),
     ).sort((a, b) => a - b)
     const missingData = props.data.filter(
-      (row) => row[props.metric.metricId] == null,
+      (row) => row[props.metricConfig.metricId] == null,
     )
 
     const hasMissingData = missingData.length > 0
@@ -78,7 +78,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     if (uniqueNonZeroValues.length > 0 && !props.isSummaryLegend) {
       const colorScale = createColorScale({
         data: props.data,
-        metricId: props.metric.metricId,
+        metricId: props.metricConfig.metricId,
         colorScheme: props.mapConfig.scheme,
         isUnknown: false,
         fips: props.fips,
@@ -118,7 +118,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     }
 
     if (props.isSummaryLegend) {
-      const summaryValue = nonZeroData[0][props.metric.metricId]
+      const summaryValue = nonZeroData[0][props.metricConfig.metricId]
 
       regularLegendItems.push({
         value: summaryValue,
@@ -223,7 +223,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
         .attr('y', y + symbolSize / 2 + 4) // Center text vertically with square
         .text(item.label)
     })
-  }, [props.data, props.metric, props.mapConfig, props.description])
+  }, [props.data, props.metricConfig, props.mapConfig, props.description])
 
   return (
     <section className='mx-4 flex flex-col items-center text-left'>
