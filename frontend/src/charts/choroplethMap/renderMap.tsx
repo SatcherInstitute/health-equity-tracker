@@ -135,7 +135,7 @@ export const renderMap = ({
         colorScale,
         extremesMode,
         zeroColor: mapConfig.zero,
-        countyColor: mapConfig.mid,
+        summaryColor: mapConfig.mid,
         fips,
       }),
     )
@@ -206,7 +206,7 @@ export const renderMap = ({
         colorScale,
         extremesMode,
         zeroColor: mapConfig.zero,
-        countyColor: mapConfig.mid,
+        summaryColor: mapConfig.mid,
         fips,
       }),
     )
@@ -378,7 +378,7 @@ const handleMouseEvent = (
           colorScale,
           extremesMode,
           zeroColor: mapConfig?.zero || het.altBlack,
-          countyColor: mapConfig?.mid || '',
+          summaryColor: mapConfig?.mid || '',
           fips,
         }),
       )

@@ -34,6 +34,8 @@ const ChoroplethMap = ({
   signalListeners,
   filename,
   legendData,
+  isPhrmaAdherence,
+  isSummaryLegend,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -99,7 +101,8 @@ const ChoroplethMap = ({
         isUnknown: isUnknownsMap,
         fips,
         reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-        isPhrma,
+        isPhrmaAdherence,
+        mapConfig,
       })
 
       const features = await createFeatures(showCounties, fips.code, geoData)

@@ -113,6 +113,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     props.demographicType,
     props.dataTypeConfig,
   )
+  
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 

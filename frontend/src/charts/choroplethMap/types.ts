@@ -23,6 +23,7 @@ export type ColorScheme =
   | 'plasma'
   | 'inferno'
   | 'viridis'
+  | 'viridisAdherence'
   | 'greenblue'
   | 'darkred'
 
@@ -64,12 +65,14 @@ export interface ChoroplethMapProps {
 export interface CreateColorScaleProps {
   data: Array<Record<string, any>> | DataPoint[]
   metricId: MetricId
+  mapConfig: MapConfig
   colorScheme: ColorScheme
   reverse?: boolean
   fieldRange?: FieldRange
   isUnknown?: boolean
   fips: Fips
-  isPhrma: boolean
+  isPhrmaAdherence?: boolean
+  isSummaryLegend?: boolean
 }
 
 export type DataPoint = {
@@ -88,7 +91,7 @@ export type GetFillColorProps = {
   colorScale: ColorScale
   extremesMode?: boolean
   zeroColor: string
-  countyColor: string
+  summaryColor: string
   fips?: Fips
 }
 

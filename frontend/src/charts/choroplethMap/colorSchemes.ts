@@ -43,6 +43,15 @@ const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
     het.mapMedicareLighter,
     het.mapMedicareLightest,
   ],
+  viridisAdherence: [
+    het.mapMedicareDarkest,
+    het.mapMedicareDark,
+    het.mapMedicareMid,
+    het.mapMedicareLight,
+    het.mapMedicareLighter,
+    het.mapMedicareEvenLighter,
+    het.mapMedicareLightest,
+  ],
   greenblue: [
     het.unknownMapLeast,
     het.unknownMapLesser,
@@ -70,6 +79,10 @@ const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> = {
   plasma: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
   inferno: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.inferno),
   viridis: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.viridis),
+  viridisAdherence: d3.piecewise(
+    d3.interpolateRgb.gamma(2.2),
+    COLOR_SCHEMES.viridisAdherence,
+  ),
   greenblue: d3.piecewise(
     d3.interpolateRgb.gamma(2.2),
     COLOR_SCHEMES.greenblue,
@@ -82,6 +95,10 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 
   let colorArray =
     COLOR_SCHEMES[props.colorScheme] || COLOR_SCHEMES['darkgreen']
+
+  if (props.isSummaryLegend && !props.isPhrmaAdherence) {
+    colorArray = [props.mapConfig.mid]
+  }
 
   colorArray = props.reverse ? [...colorArray].reverse() : colorArray
 
@@ -117,7 +134,7 @@ export const createColorScale = (props: CreateColorScaleProps) => {
     return d3.scaleSequentialSymlog(interpolatorFn).domain([min, max])
   }
 
-  if (props.isPhrma) {
+  if (props.isPhrmaAdherence) {
     return d3
       .scaleThreshold<number, string>()
       .domain(PHRMA_ADHERENCE_BREAKPOINTS)
@@ -128,13 +145,9 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, colorScale, extremesMode, zeroColor, countyColor } = props
+  const { d, dataMap, colorScale, extremesMode, zeroColor } = props
 
   const value = dataMap.get(d.id as string)?.value as number
-
-  if (props.fips?.isCounty()) {
-    return countyColor
-  }
 
   if (value === 0) {
     return zeroColor

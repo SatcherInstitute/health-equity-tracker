@@ -5,7 +5,6 @@ import type {
   MapConfig,
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
-import { isPctType } from '../../data/config/MetricConfigUtils'
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
@@ -13,7 +12,7 @@ import { het } from '../../styles/DesignTokens'
 import ClickableLegendHeader from '../ClickableLegendHeader'
 import {
   NO_DATA_MESSAGE,
-  type ScaleType,
+  PHRMA_ADHERENCE_BREAKPOINTS,
   type StackingDirection,
 } from '../mapGlobals'
 import { createColorScale } from './colorSchemes'
@@ -24,13 +23,13 @@ interface RateMapLegendProps {
   data?: Array<Record<string, any>> // Dataset for which to calculate legend
   metric: MetricConfig
   fieldRange?: FieldRange // May be used if standardizing legends across charts
-  scaleType: ScaleType
   description: string
   fipsTypeDisplayName?: GeographicBreakdown
   mapConfig: MapConfig
   columns: number
   stackingDirection: StackingDirection
-  isPhrma?: boolean
+  isPhrmaAdherence?: boolean
+  isSummaryLegend?: boolean
   fips: Fips
   isMulti?: boolean
   legendTitle: string
@@ -48,8 +47,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
     const svg = d3.select(svgRef.current)
     svg.selectAll('*').remove() // Clear previous legend
-
-    const isPct = isPctType(props.metric.type)
 
     // Process data - separate zero, non-zero, and missing data
     const zeroData = props.data.filter(
@@ -81,45 +78,56 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     const specialLegendItems: { color: string; label: string; value: any }[] =
       []
 
-    if (uniqueNonZeroValues.length > 0) {
-      // Create appropriate scale based on scaleType
-      if (props.scaleType === 'quantile') {
-        const colorScale = createColorScale({
-          data: props.data,
-          metricId: props.metric.metricId,
-          colorScheme: props.mapConfig.scheme,
-          isUnknown: false,
-          fips: props.fips,
-          reverse: !props.mapConfig.higherIsBetter,
-          isPhrma: false, // TODO: handle phrma
-        }) as d3.ScaleQuantile<string, number>
+    if (uniqueNonZeroValues.length > 0 && !props.isSummaryLegend) {
+      const colorScale = createColorScale({
+        data: props.data,
+        metricId: props.metric.metricId,
+        colorScheme: props.mapConfig.scheme,
+        isUnknown: false,
+        fips: props.fips,
+        reverse: !props.mapConfig.higherIsBetter,
+        isPhrmaAdherence: props.isPhrmaAdherence,
+        isSummaryLegend: props.isSummaryLegend,
+        mapConfig: props.mapConfig,
+      }) as d3.ScaleQuantile<string, number>
 
-        const thresholds = colorScale.quantiles()
-        if (thresholds.length > 0) {
-          const firstThreshold = thresholds[0]
-          const lastThreshold = thresholds[thresholds.length - 1]
+      const thresholds = props.isPhrmaAdherence
+        ? PHRMA_ADHERENCE_BREAKPOINTS
+        : colorScale.quantiles()
+      if (thresholds.length > 0) {
+        const firstThreshold = thresholds[0]
+        const lastThreshold = thresholds[thresholds.length - 1]
 
-          regularLegendItems.push(
-            {
-              value: firstThreshold - 1,
-              label: `< ${labelFormat(firstThreshold)}`,
-              color: colorScale(firstThreshold - 1) as string,
-            },
+        regularLegendItems.push(
+          {
+            value: firstThreshold - 1,
+            label: `< ${labelFormat(firstThreshold)}`,
+            color: colorScale(firstThreshold - 1) as string,
+          },
 
-            ...thresholds.slice(0, -1).map((threshold, i) => ({
-              value: threshold,
-              label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
-              color: colorScale(threshold) as string,
-            })),
+          ...thresholds.slice(0, -1).map((threshold, i) => ({
+            value: threshold,
+            label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
+            color: colorScale(threshold) as string,
+          })),
 
-            {
-              value: lastThreshold,
-              label: `≥ ${labelFormat(lastThreshold)}`,
-              color: colorScale(lastThreshold) as string,
-            },
-          )
-        }
+          {
+            value: lastThreshold,
+            label: `≥ ${labelFormat(lastThreshold)}`,
+            color: colorScale(lastThreshold) as string,
+          },
+        )
       }
+    }
+
+    if (props.isSummaryLegend) {
+      const summaryValue = nonZeroData[0][props.metric.metricId]
+
+      regularLegendItems.push({
+        value: summaryValue,
+        label: `${labelFormat(summaryValue)} ${props.fipsTypeDisplayName} overall`,
+        color: props.mapConfig.mid,
+      })
     }
 
     // Items with value of 0
@@ -219,7 +227,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
   }, [
     props.data,
     props.metric,
-    props.scaleType,
     props.mapConfig,
     props.columns,
     props.stackingDirection,
