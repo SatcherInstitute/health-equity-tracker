@@ -10,7 +10,6 @@ test('Maternal Mortality', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
-  await page.getByLabel('Legend for rate map').getByRole('img').click()
   await page
     .locator('li')
     .filter({ hasText: 'Total population of New' })
