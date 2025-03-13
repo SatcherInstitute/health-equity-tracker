@@ -173,6 +173,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         mapConfig={mapConfig}
                         isMulti={true}
                         extremesMode={false}
+                        isPhrmaAdherence={props.isPhrmaAdherence}
                       />
                     )}
                   </div>

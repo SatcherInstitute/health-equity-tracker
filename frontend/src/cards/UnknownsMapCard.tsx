@@ -113,7 +113,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     props.demographicType,
     props.dataTypeConfig,
   )
-  
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 
@@ -235,6 +234,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   metric={metricConfig}
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
+                  isPhrmaAdherence={false}
                 />
               </div>
             )}
