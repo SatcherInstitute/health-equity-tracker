@@ -8,10 +8,8 @@ import type {
 import { isPctType } from '../data/config/MetricConfigUtils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import type { GeographicBreakdown } from '../data/query/Breakdowns'
-import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import type { FieldRange } from '../data/utils/DatasetTypes'
 import { het } from '../styles/DesignTokens'
-import ClickableLegendHeader from './ClickableLegendHeader'
 import {
   type LegendNumberFormat,
   setupLegendScaleSpec,
@@ -185,10 +183,7 @@ export function Legend(props: LegendProps) {
           name: ZERO_VALUES,
           values: [
             {
-              zero:
-                isCawp || props.isPhrmaAdherence
-                  ? ZERO_BUCKET_LABEL
-                  : LESS_THAN_POINT_1,
+              zero: ZERO_BUCKET_LABEL,
             },
           ],
         },
@@ -245,7 +240,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
 
           domain: { data: ZERO_VALUES, field: 'zero' },
-          range: [props.mapConfig.min],
+          range: [props.mapConfig.zero],
         },
         {
           name: ZERO_DOT_SCALE,
@@ -284,7 +279,7 @@ export function Legend(props: LegendProps) {
     props.fipsTypeDisplayName,
     props.isSummaryLegend,
     props.legendTitle,
-    props.mapConfig.min,
+    props.mapConfig.zero,
     props.mapConfig.scheme,
     props.metric,
     props.sameDotSize,
@@ -294,15 +289,10 @@ export function Legend(props: LegendProps) {
 
   return (
     <section className='mx-4 flex flex-col items-center text-left'>
-      {props.isMulti ? (
+      {props.isMulti && (
         <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lhSomeMoreSpace'>
           {props.legendTitle}
         </span>
-      ) : (
-        <ClickableLegendHeader
-          legendTitle={props.legendTitle}
-          dataTypeConfig={props.dataTypeConfig}
-        />
       )}
 
       {spec && (

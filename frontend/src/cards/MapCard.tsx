@@ -396,7 +396,7 @@ function MapCardWithKey(props: MapCardProps) {
           hasSelfButNotChildGeoData ?? props.fips.isCounty()
 
         const mapConfig = props.dataTypeConfig.mapConfig
-        if (isSummaryLegend) mapConfig.min = mapConfig.mid
+        if (isSummaryLegend) mapConfig.zero = mapConfig.mid
 
         if (dataForActiveDemographicGroup?.length <= 1) setExtremesMode(false)
 

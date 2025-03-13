@@ -7,7 +7,6 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { isPctType } from '../../data/config/MetricConfigUtils'
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
-import { LESS_THAN_POINT_1 } from '../../data/utils/Constants'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
@@ -123,11 +122,11 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       }
     }
 
-    // Add zero item if needed - this could go to special items if desired
+    // Items with value of 0
     if (hasZeroData) {
       specialLegendItems.push({
-        color: props.mapConfig.min || het.mapLightest,
-        label: `${LESS_THAN_POINT_1}${isPct ? '%' : ''}`,
+        color: props.mapConfig.zero || het.mapLightest,
+        label: labelFormat(0),
         value: 0,
       })
     }
