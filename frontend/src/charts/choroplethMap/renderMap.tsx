@@ -42,7 +42,7 @@ export const renderMap = ({
   svgRef,
   tooltipContainer,
   isMobile,
-  metric,
+  metricConfig,
   extremesMode,
   dataWithHighestLowest,
   isUnknownsMap,
@@ -91,7 +91,7 @@ export const renderMap = ({
 
   const tooltipLabel = getTooltipLabel(
     isUnknownsMap,
-    metric,
+    metricConfig,
     activeDemographicGroup,
     demographicType,
   )
@@ -111,7 +111,7 @@ export const renderMap = ({
   const dataMap = createDataMap(
     dataWithHighestLowest,
     tooltipLabel,
-    metric,
+    metricConfig,
     numeratorPhrase,
     denominatorPhrase,
     countColsMap,
@@ -144,7 +144,7 @@ export const renderMap = ({
     .on('mouseover', (event, d) =>
       handleMouseEvent('mouseover', event, d, {
         colorScale,
-        metric,
+        metricConfig,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -156,7 +156,7 @@ export const renderMap = ({
     .on('mousemove', (event, d) =>
       handleMouseEvent('mousemove', event, d, {
         colorScale,
-        metric,
+        metricConfig,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -168,7 +168,7 @@ export const renderMap = ({
     .on('mouseout', (event, d) =>
       handleMouseEvent('mouseout', event, d, {
         colorScale,
-        metric,
+        metricConfig,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -215,7 +215,7 @@ export const renderMap = ({
     .on('mouseover', (event, d) =>
       handleMouseEvent('mouseover', event, createTerritoryFeature(d.fips), {
         colorScale,
-        metric,
+        metricConfig,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -227,7 +227,7 @@ export const renderMap = ({
     .on('mousemove', (event, d) =>
       handleMouseEvent('mousemove', event, createTerritoryFeature(d.fips), {
         colorScale,
-        metric,
+        metricConfig,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -239,7 +239,7 @@ export const renderMap = ({
     .on('mouseout', (event, d) =>
       handleMouseEvent('mouseout', event, createTerritoryFeature(d.fips), {
         colorScale,
-        metric,
+        metricConfig,
         dataMap,
         tooltipContainer,
         geographyType,
@@ -267,7 +267,7 @@ export const renderMap = ({
   if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
     createUnknownLegend(legendGroup, {
       dataWithHighestLowest,
-      metricId: metric.metricId,
+      metricId: metricConfig.metricId,
       width,
       colorScale,
       title: '% unknown',
@@ -327,7 +327,7 @@ const handleMouseEvent = (
 ) => {
   const {
     colorScale,
-    metric,
+    metricConfig,
     dataMap,
     tooltipContainer,
     geographyType,
@@ -347,7 +347,12 @@ const handleMouseEvent = (
         .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
         .style('cursor', 'pointer')
 
-      const tooltipHtml = generateTooltipHtml(d, dataMap, metric, geographyType)
+      const tooltipHtml = generateTooltipHtml(
+        d,
+        dataMap,
+        metricConfig,
+        geographyType,
+      )
       tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
       break
     }

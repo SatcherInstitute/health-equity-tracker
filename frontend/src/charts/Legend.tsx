@@ -8,7 +8,6 @@ import type {
 import { isPctType } from '../data/config/MetricConfigUtils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import type { GeographicBreakdown } from '../data/query/Breakdowns'
-import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import type { FieldRange } from '../data/utils/DatasetTypes'
 import { het } from '../styles/DesignTokens'
 import ClickableLegendHeader from './ClickableLegendHeader'
@@ -52,11 +51,11 @@ interface LegendProps {
   // Data for which to create a legend.
   data?: Array<Record<string, any>> // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
-  metric: MetricConfig
+  metricConfig: MetricConfig
   legendTitle: string
   // May be used if standardizing legends across charts
   fieldRange?: FieldRange
-  // Quantile or quantize scale.
+  // Quantile or threshold scale.
   scaleType: ScaleType
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.
@@ -73,16 +72,18 @@ interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const isCawp = CAWP_METRICS.includes(props.metric.metricId)
-  const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
+  const isCawp = CAWP_METRICS.includes(props.metricConfig.metricId)
+  const zeroData = props.data?.filter(
+    (row) => row[props.metricConfig.metricId] === 0,
+  )
   const nonZeroData = props.data?.filter(
-    (row) => row[props.metric.metricId] > 0,
+    (row) => row[props.metricConfig.metricId] > 0,
   )
   const uniqueNonZeroValueCount = new Set(
-    nonZeroData?.map((row) => row[props.metric.metricId]),
+    nonZeroData?.map((row) => row[props.metricConfig.metricId]),
   ).size
   const missingData = props.data?.filter(
-    (row) => row[props.metric.metricId] == null,
+    (row) => row[props.metricConfig.metricId] == null,
   )
   const hasMissingData = Boolean(missingData && missingData.length > 0)
   const hasZeroData = Boolean(zeroData && zeroData.length > 0)
@@ -103,7 +104,7 @@ export function Legend(props: LegendProps) {
     // prevent bugs when a single data point prevents Vega from calculating range for buckets
     if (uniqueNonZeroValueCount === 1) dotRange.unshift(0)
 
-    const isPct = isPctType(props.metric.type)
+    const isPct = isPctType(props.metricConfig.type)
     const overallPhrase = props.isSummaryLegend
       ? ` (${props.fipsTypeDisplayName ?? 'area'} overall)`
       : ''
@@ -154,7 +155,7 @@ export function Legend(props: LegendProps) {
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
           props.scaleType,
-          props.metric.metricId,
+          props.metricConfig.metricId,
           mapScheme,
           legendColorCount,
           props.isSummaryLegend,
@@ -165,7 +166,7 @@ export function Legend(props: LegendProps) {
       ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
       : setupLegendScaleSpec(
           dotRange,
-          props.metric.metricId,
+          props.metricConfig.metricId,
           props.scaleType,
           props.isSummaryLegend,
         )
@@ -184,10 +185,7 @@ export function Legend(props: LegendProps) {
           name: ZERO_VALUES,
           values: [
             {
-              zero:
-                isCawp || props.isPhrmaAdherence
-                  ? ZERO_BUCKET_LABEL
-                  : LESS_THAN_POINT_1,
+              zero: ZERO_BUCKET_LABEL,
             },
           ],
         },
@@ -197,7 +195,7 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
+              expr: `isValid(datum["${props.metricConfig.metricId}"]) && isFinite(+datum["${props.metricConfig.metricId}"])`,
             },
           ],
         },
@@ -207,7 +205,7 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) && datum["${props.metric.metricId}"] !== 0`,
+              expr: `isValid(datum["${props.metricConfig.metricId}"]) && isFinite(+datum["${props.metricConfig.metricId}"]) && datum["${props.metricConfig.metricId}"] !== 0`,
             },
           ],
         },
@@ -219,7 +217,7 @@ export function Legend(props: LegendProps) {
           name: SUMMARY_VALUE,
           values: [
             {
-              summary: `${props.data?.[0][props.metric.metricId] as string}`,
+              summary: `${props.data?.[0][props.metricConfig.metricId] as string}`,
             },
           ],
         },
@@ -285,7 +283,7 @@ export function Legend(props: LegendProps) {
     props.legendTitle,
     props.mapConfig.min,
     props.mapConfig.scheme,
-    props.metric,
+    props.metricConfig,
     props.sameDotSize,
     props.scaleType,
     props.stackingDirection,

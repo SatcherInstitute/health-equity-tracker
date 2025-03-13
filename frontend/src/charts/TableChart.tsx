@@ -30,7 +30,6 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
-import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
@@ -192,9 +191,7 @@ export function TableChart(props: TableChartProps) {
               key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              {cell.value < 0.1 && cell.value > 0 && index === 1
-                ? LESS_THAN_POINT_1
-                : cell.render('Cell')}
+              {cell.render('Cell')}
               <Units column={index} metric={props.metricConfigs} />
               {index === 1 && numeratorCount && denominatorCount ? (
                 <HetUnitLabel>

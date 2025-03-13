@@ -6,7 +6,6 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
-import { LESS_THAN_POINT_1 } from '../../data/utils/Constants'
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MetricData } from './types'
@@ -38,7 +37,6 @@ const formatMetricValue = (
   if (value === undefined) return 'no data'
 
   if (metricConfig.type === 'per100k') {
-    if (value < 0.1) return `${LESS_THAN_POINT_1} per 100k`
     return `${d3.format(',.2s')(value)} per 100k`
   }
 

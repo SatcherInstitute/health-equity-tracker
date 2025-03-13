@@ -536,7 +536,7 @@ function MapCardWithKey(props: MapCardProps) {
                       legendData={dataForActiveDemographicGroup}
                       legendTitle={metricConfig.shortLabel.toLowerCase()}
                       extremesMode={extremesMode}
-                      metric={metricConfig}
+                      metricConfig={metricConfig}
                       showCounties={
                         !props.fips.isUsa() && !hasSelfButNotChildGeoData
                       }
@@ -550,7 +550,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
                   <Legend
                     dataTypeConfig={props.dataTypeConfig}
-                    metric={metricConfig}
+                    metricConfig={metricConfig}
                     legendTitle={metricConfig.shortLabel}
                     data={allDataForActiveDemographicGroup}
                     scaleType={RATE_MAP_SCALE}
