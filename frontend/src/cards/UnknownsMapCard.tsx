@@ -234,6 +234,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   metricConfig={metricConfig}
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
+                  isPhrmaAdherence={false}
                 />
               </div>
             )}

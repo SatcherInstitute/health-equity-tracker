@@ -1,9 +1,12 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Legend } from '../charts/Legend'
+import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../charts/choroplethMap/index'
-import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
+import {
+  type CountColsMap,
+  SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST,
+} from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
@@ -75,7 +78,6 @@ import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
 
-const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 const HASH_ID: ScrollableHashId = 'rate-map'
 
 interface MapCardProps {
@@ -277,6 +279,7 @@ function MapCardWithKey(props: MapCardProps) {
           parentGeoQueryResponse.data.filter(
             (row) => row[metricConfig.metricId],
           ).length > 0
+
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
@@ -388,11 +391,13 @@ function MapCardWithKey(props: MapCardProps) {
           ? highestValues.concat(lowestValues)
           : dataForActiveDemographicGroup
 
+        const isPhrmaAdherence =
+          PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
         const isSummaryLegend =
-          hasSelfButNotChildGeoData ?? props.fips.isCounty()
+          (hasSelfButNotChildGeoData || props.fips.isCounty()) &&
+          !isPhrmaAdherence
 
         const mapConfig = props.dataTypeConfig.mapConfig
-        if (isSummaryLegend) mapConfig.zero = mapConfig.mid
 
         if (dataForActiveDemographicGroup?.length <= 1) setExtremesMode(false)
 
@@ -422,9 +427,6 @@ function MapCardWithKey(props: MapCardProps) {
           props.demographicType,
           metricId,
         )
-
-        const isPhrmaAdherence =
-          PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
         const percentRateTooHigh =
           metricConfig.type === 'pct_rate' &&
@@ -548,22 +550,17 @@ function MapCardWithKey(props: MapCardProps) {
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
-                  <Legend
+                  <RateMapLegend
                     dataTypeConfig={props.dataTypeConfig}
                     metricConfig={metricConfig}
                     legendTitle={metricConfig.shortLabel}
                     data={allDataForActiveDemographicGroup}
-                    scaleType={RATE_MAP_SCALE}
-                    sameDotSize={true}
                     description={'Legend for rate map'}
-                    isSummaryLegend={isSummaryLegend}
                     fipsTypeDisplayName={fipsTypeDisplayName}
                     mapConfig={mapConfig}
-                    columns={mapIsWide ? 1 : 3}
-                    stackingDirection={
-                      isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
-                    }
+                    isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
+                    fips={props.fips}
                   />
                 </div>
 

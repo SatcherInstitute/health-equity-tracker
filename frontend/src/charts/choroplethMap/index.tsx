@@ -1,12 +1,13 @@
 import * as d3 from 'd3'
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
-import { embedHighestLowestGroups } from '../mapHelperFunctions'
+import { embedHighestLowestGroups, getCountyAddOn } from '../mapHelperFunctions'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
+import TerritoryCircles from './TerritoryCircles'
 import { createColorScale } from './colorSchemes'
 import {
   createFeatures,
@@ -34,6 +35,7 @@ const ChoroplethMap = ({
   signalListeners,
   filename,
   legendData,
+  isPhrmaAdherence,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -42,6 +44,12 @@ const ChoroplethMap = ({
     typeof createTooltipContainer
   > | null>(null)
   const mapInitializedRef = useRef(false)
+
+  // State to store the dataMap created during map rendering
+  const [renderResult, setRenderResult] = useState<{
+    dataMap: Map<string, any>
+    mapHeight: number
+  } | null>(null)
 
   const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
   const isPhrma = PHRMA_METRICS.includes(metricConfig.metricId)
@@ -78,6 +86,7 @@ const ChoroplethMap = ({
       svg.on('.', null)
     }
     mapInitializedRef.current = false
+    setRenderResult(null)
   }
 
   useEffect(() => {
@@ -99,7 +108,8 @@ const ChoroplethMap = ({
         isUnknown: isUnknownsMap,
         fips,
         reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-        isPhrma,
+        isPhrmaAdherence,
+        mapConfig,
       })
 
       const features = await createFeatures(showCounties, fips.code, geoData)
@@ -111,7 +121,7 @@ const ChoroplethMap = ({
         features,
       )
 
-      renderMap({
+      const result = renderMap({
         svgRef,
         geoData: { features, projection },
         dataWithHighestLowest,
@@ -132,8 +142,10 @@ const ChoroplethMap = ({
         mapConfig,
         signalListeners,
         isMulti,
+        isPhrmaAdherence,
       })
 
+      setRenderResult(result)
       mapInitializedRef.current = true
     }
 
@@ -173,6 +185,36 @@ const ChoroplethMap = ({
         style={{ width: '100%' }}
         aria-label={`Map showing ${filename}`}
       />
+
+      {renderResult && fips.isUsa() && (
+        <TerritoryCircles
+          svgRef={svgRef}
+          width={width}
+          mapHeight={renderResult.mapHeight}
+          fips={fips}
+          dataWithHighestLowest={dataWithHighestLowest}
+          colorScale={createColorScale({
+            data: legendData || dataWithHighestLowest,
+            metricId: metricConfig.metricId,
+            colorScheme: mapConfig.scheme,
+            isUnknown: isUnknownsMap,
+            fips,
+            reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
+            isPhrmaAdherence,
+            mapConfig,
+          })}
+          metricConfig={metricConfig}
+          dataMap={renderResult.dataMap}
+          tooltipContainer={tooltipContainerRef.current}
+          geographyType={getCountyAddOn(fips, showCounties)}
+          extremesMode={extremesMode}
+          mapConfig={mapConfig}
+          signalListeners={signalListeners}
+          isMobile={isMobile}
+          isMulti={isMulti}
+          isPhrmaAdherence={isPhrmaAdherence}
+        />
+      )}
     </div>
   )
 }
