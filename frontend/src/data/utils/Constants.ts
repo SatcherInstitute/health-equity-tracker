@@ -74,10 +74,8 @@ export const NON_STANDARD_RACES = [
 export const ALL_W = 'All women'
 export const AAPI_W = 'Asian American & Pacific Islander women'
 export const MENA_W = 'Middle Eastern & North African women'
-export const AIANNH_W =
-  'Native American, Alaska Native, & Native Hawaiian women'
-export const AIAN_API_W =
-  'American Indian, Alaska Native, Asian & Pacific Islander women'
+export const AIANNH_W = 'Indigenous women'
+export const AIAN_API_W = 'Indigenous, Asian & Pacific Islander women'
 export const HISP_W = 'Latinas and Hispanic women'
 export const BLACK_W = 'Black or African American women'
 export const WHITE_W = 'White women'
@@ -163,8 +161,8 @@ export const raceNameToCodeMap: Record<RaceAndEthnicityGroup, string> = {
   [ALL_W]: 'All W',
   [AAPI_W]: 'AAPI W',
   [MENA_W]: 'MENA W',
-  [AIANNH_W]: 'Indigenous W',
-  [AIAN_API_W]: 'AIAN_API W',
+  [AIANNH_W]: 'Indig. W',
+  [AIAN_API_W]: 'Indig./API W',
   [HISP_W]: 'Hisp/Lat W',
   [MULTI_W]: 'Two+ W',
   [BLACK_W]: 'Black W',
