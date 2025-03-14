@@ -26,6 +26,7 @@ import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortality
 import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
+import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
 
 const SHOW_CHR_GUN_DEATHS = import.meta.env.VITE_SHOW_CHR_GUN_DEATHS
@@ -327,9 +328,26 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   return 'poverty'
 }
 
+function getFipsFromMadlib(madlib: MadLib) {
+  const madLibMode = madlib.id
+
+  switch (madLibMode) {
+    case 'disparity':
+      return [new Fips(getPhraseValue(madlib, 3))]
+    case 'comparegeos':
+      return [
+        new Fips(getPhraseValue(madlib, 3)),
+        new Fips(getPhraseValue(madlib, 5)),
+      ]
+    case 'comparevars':
+      return [new Fips(getPhraseValue(madlib, 5))]
+  }
+}
+
 export {
   CATEGORIES_LIST,
   getConfigFromDataTypeId,
+  getFipsFromMadlib,
   getMadLibPhraseText,
   getParentDropdownFromDataTypeId,
   insertOptionalThe,
