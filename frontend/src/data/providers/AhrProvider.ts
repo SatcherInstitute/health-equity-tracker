@@ -152,7 +152,9 @@ class AhrProvider extends VariableProvider {
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const ahr = await getDataManager().loadDataset(specificDatasetId)
     let df = ahr.toDataFrame()
 

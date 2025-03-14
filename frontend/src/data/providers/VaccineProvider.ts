@@ -50,7 +50,9 @@ class VaccineProvider extends VariableProvider {
       return new MetricQueryResponse([], [])
     }
 
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const vaxData = await getDataManager().loadDataset(specificDatasetId)
     let df = vaxData.toDataFrame()
 
