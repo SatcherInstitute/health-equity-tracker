@@ -5,6 +5,8 @@ import type { DatasetId } from '../config/DatasetMetadata'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import {
+  AIANNH_W,
+  AIAN_API_W,
   HISPANIC,
   HISP_W,
   MULTI,
@@ -51,6 +53,10 @@ export function getWomenRaceLabel(
   raceLabel: RaceAndEthnicityGroup,
 ): RaceAndEthnicityGroup {
   switch (raceLabel) {
+    case 'American Indian, Alaska Native, Asian & Pacific Islander':
+      return AIAN_API_W
+    case 'Native American, Alaska Native, & Native Hawaiian':
+      return AIANNH_W
     case MULTI:
       return MULTI_W
     case OTHER_STANDARD:
