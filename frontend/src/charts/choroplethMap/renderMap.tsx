@@ -9,11 +9,7 @@ import {
   getNumeratorPhrase,
 } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
-import {
-  TERRITORIES,
-  createTerritoryFeature,
-  extractTerritoryData,
-} from './mapTerritoryHelpers'
+import { TERRITORIES } from './mapTerritoryHelpers'
 import { generateTooltipHtml, getTooltipLabel } from './tooltipUtils'
 import type {
   InitializeSvgProps,
@@ -54,27 +50,16 @@ export const renderMap = ({
   hideLegend,
   signalListeners,
   isMulti,
+  isPhrmaAdherence,
 }: RenderMapProps) => {
-  const territoryRadius = isMobile
-    ? TERRITORIES.radiusMobile
-    : isMulti
-      ? TERRITORIES.radiusMultiMap
-      : TERRITORIES.radius
-
-  const territorySpacing = territoryRadius * 3
-
-  const { features, projection } = geoData
-  const geographyType = getCountyAddOn(fips, showCounties)
-
   d3.select(svgRef.current).selectAll('*').remove()
 
-  // Adjust height to accommodate territory circles
   const territoryHeight = fips.isUsa()
-    ? TERRITORIES.marginTop + territoryRadius * 2
+    ? TERRITORIES.marginTop + TERRITORIES.radius * 2
     : 0
   const mapHeight = height - territoryHeight
 
-  const { legendGroup, mapGroup, territoryGroup } = initializeSvg({
+  const { legendGroup, mapGroup } = initializeSvg({
     svgRef,
     width,
     height,
@@ -82,6 +67,9 @@ export const renderMap = ({
     isMobile,
     isUnknownsMap,
   })
+
+  const { features, projection } = geoData
+  const geographyType = getCountyAddOn(fips, showCounties)
 
   projection.fitSize(
     [width, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
@@ -134,9 +122,8 @@ export const renderMap = ({
         dataMap,
         colorScale,
         extremesMode,
-        zeroColor: mapConfig.zero,
-        countyColor: mapConfig.mid,
-        fips,
+        mapConfig,
+        isPhrmaAdherence,
       }),
     )
     .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
@@ -151,6 +138,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('mousemove', (event, d) =>
@@ -163,6 +151,7 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('mouseout', (event, d) =>
@@ -175,94 +164,10 @@ export const renderMap = ({
         extremesMode,
         mapConfig,
         fips,
+        isPhrmaAdherence,
       }),
     )
     .on('click', signalListeners.click)
-
-  // Draw territory circles, including grayed out for missing data
-  const territoryData = extractTerritoryData(fips.code, dataWithHighestLowest)
-
-  const marginRightForTerrRow = isMulti ? 0 : TERRITORIES.marginRightForRow
-
-  const territoryStartX =
-    width -
-    (marginRightForTerrRow +
-      (territoryData.length - 1) * territorySpacing +
-      territoryRadius)
-
-  const territoryX = (i: number) => territoryStartX + i * territorySpacing
-
-  territoryGroup
-    .selectAll('circle')
-    .data(territoryData)
-    .join('circle')
-    .attr('cx', (_, i) => territoryX(i))
-    .attr('cy', territoryRadius + TERRITORIES.verticalGapFromUsa - 24)
-    .attr('r', territoryRadius)
-    .attr('fill', (d) =>
-      getFillColor({
-        d: createTerritoryFeature(d.fips),
-        dataMap,
-        colorScale,
-        extremesMode,
-        zeroColor: mapConfig.zero,
-        countyColor: mapConfig.mid,
-        fips,
-      }),
-    )
-    .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
-    .attr('stroke-width', STROKE_WIDTH)
-    .on('mouseover', (event, d) =>
-      handleMouseEvent('mouseover', event, createTerritoryFeature(d.fips), {
-        colorScale,
-        metricConfig,
-        dataMap,
-        tooltipContainer,
-        geographyType,
-        extremesMode,
-        mapConfig,
-        fips,
-      }),
-    )
-    .on('mousemove', (event, d) =>
-      handleMouseEvent('mousemove', event, createTerritoryFeature(d.fips), {
-        colorScale,
-        metricConfig,
-        dataMap,
-        tooltipContainer,
-        geographyType,
-        extremesMode,
-        mapConfig,
-        fips,
-      }),
-    )
-    .on('mouseout', (event, d) =>
-      handleMouseEvent('mouseout', event, createTerritoryFeature(d.fips), {
-        colorScale,
-        metricConfig,
-        dataMap,
-        tooltipContainer,
-        geographyType,
-        extremesMode,
-        mapConfig,
-        fips,
-      }),
-    )
-    .on('click', (event, d) => {
-      const territoryFeature = createTerritoryFeature(d.fips)
-      signalListeners.click(event, territoryFeature)
-    })
-
-  // Draw territory labels
-  territoryGroup
-    .selectAll('text')
-    .data(territoryData)
-    .join('text')
-    .attr('x', (_, i) => territoryX(i))
-    .attr('y', territoryRadius + TERRITORIES.verticalGapFromUsa + 5)
-    .attr('text-anchor', 'middle')
-    .attr('font-size', '12px')
-    .text((d) => TERRITORY_CODES[d.fips] || d.fips)
 
   if (!hideLegend && !fips.isCounty() && isUnknownsMap) {
     createUnknownLegend(legendGroup, {
@@ -274,6 +179,11 @@ export const renderMap = ({
       isMobile,
       isPct: true,
     })
+  }
+
+  return {
+    dataMap,
+    mapHeight,
   }
 }
 
@@ -313,12 +223,9 @@ const initializeSvg = ({
         'transform',
         `translate(${left}, ${isMobile ? top + 10 : top + 50})`,
       ),
-    territoryGroup: svg
-      .append('g')
-      .attr('class', 'territory-container')
-      .attr('transform', `translate(0, ${mapHeight})`),
   }
 }
+
 const handleMouseEvent = (
   type: 'mouseover' | 'mouseout' | 'mousemove',
   event: any,
@@ -333,7 +240,7 @@ const handleMouseEvent = (
     geographyType,
     extremesMode,
     mapConfig,
-    fips,
+    isPhrmaAdherence,
   } = props
 
   if (!tooltipContainer) return
@@ -382,9 +289,8 @@ const handleMouseEvent = (
           dataMap,
           colorScale,
           extremesMode,
-          zeroColor: mapConfig?.zero || '',
-          countyColor: mapConfig?.mid || '',
-          fips,
+          mapConfig,
+          isPhrmaAdherence,
         }),
       )
       tooltipContainer.style('visibility', 'hidden').html('')

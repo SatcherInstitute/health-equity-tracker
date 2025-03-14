@@ -6,11 +6,9 @@ import type {
   MetricConfig,
 } from '../data/config/MetricConfigTypes'
 import { isPctType } from '../data/config/MetricConfigUtils'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import type { GeographicBreakdown } from '../data/query/Breakdowns'
 import type { FieldRange } from '../data/utils/DatasetTypes'
 import { het } from '../styles/DesignTokens'
-import ClickableLegendHeader from './ClickableLegendHeader'
 import {
   type LegendNumberFormat,
   setupLegendScaleSpec,
@@ -23,7 +21,6 @@ import {
 import {
   DATASET_VALUES,
   DEFAULT_LEGEND_COLOR_COUNT,
-  EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
   MISSING_PLACEHOLDER_VALUES,
   NON_ZERO_DATASET_VALUES,
@@ -42,6 +39,8 @@ import {
   ZERO_SCALE,
   ZERO_VALUES,
 } from './mapGlobals'
+
+const EQUAL_DOT_SIZE = 200
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -68,11 +67,10 @@ interface LegendProps {
   columns: number
   stackingDirection: StackingDirection
   isMulti?: boolean
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
 }
 
 export function Legend(props: LegendProps) {
-  const isCawp = CAWP_METRICS.includes(props.metricConfig.metricId)
   const zeroData = props.data?.filter(
     (row) => row[props.metricConfig.metricId] === 0,
   )
@@ -291,15 +289,10 @@ export function Legend(props: LegendProps) {
 
   return (
     <section className='mx-4 flex flex-col items-center text-left'>
-      {props.isMulti ? (
+      {props.isMulti && (
         <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lhSomeMoreSpace'>
           {props.legendTitle}
         </span>
-      ) : (
-        <ClickableLegendHeader
-          legendTitle={props.legendTitle}
-          dataTypeConfig={props.dataTypeConfig}
-        />
       )}
 
       {spec && (
