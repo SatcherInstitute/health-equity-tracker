@@ -113,7 +113,7 @@ class CdcCovidProvider extends VariableProvider {
       '',
       metricQuery,
     )
-    const { timeView, dataTypeId } = metricQuery
+    const { timeView } = metricQuery
 
     if (!datasetId) {
       return new MetricQueryResponse([], [])

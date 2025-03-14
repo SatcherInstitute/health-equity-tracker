@@ -44,7 +44,7 @@ describe('cdcCovidProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_sex_national_processed',
+      'cdc_restricted_data-sex_national_cumulative',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
     )
@@ -52,7 +52,7 @@ describe('cdcCovidProvider', () => {
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_age_national_processed',
+      'cdc_restricted_data-age_national_cumulative',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
     )
@@ -60,7 +60,7 @@ describe('cdcCovidProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_race_national_processed-with_age_adjust',
+      'cdc_restricted_data-race_national_cumulative-with_age_adjust',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
     )
@@ -68,7 +68,7 @@ describe('cdcCovidProvider', () => {
 
   test('State and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_age_state_processed',
+      'cdc_restricted_data-age_state_cumulative',
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
     )
@@ -76,7 +76,7 @@ describe('cdcCovidProvider', () => {
 
   test('State and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_sex_state_processed',
+      'cdc_restricted_data-sex_state_cumulative',
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
     )
@@ -84,7 +84,7 @@ describe('cdcCovidProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_race_state_processed-with_age_adjust',
+      'cdc_restricted_data-race_state_cumulative-with_age_adjust',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
     )
@@ -92,7 +92,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_age_county_processed',
+      'cdc_restricted_data-age_county_cumulative',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE,
     )
@@ -100,7 +100,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_sex_county_processed',
+      'cdc_restricted_data-sex_county_cumulative',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX,
     )
@@ -108,7 +108,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_race_county_processed',
+      'cdc_restricted_data-race_county_cumulative',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
     )
@@ -116,7 +116,7 @@ describe('cdcCovidProvider', () => {
 
   test('population source acs 2020', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_sex_state_processed',
+      'cdc_restricted_data-sex_state_cumulative',
       Breakdowns.forFips(new Fips(VI.code)),
       'sex',
     )
