@@ -141,7 +141,9 @@ class HivProvider extends VariableProvider {
       return new MetricQueryResponse([], [])
     }
     const consumedDatasetIds = [datasetId]
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const hiv = await getDataManager().loadDataset(specificDatasetId)
     let df = hiv.toDataFrame()
     df = this.filterByGeo(df, breakdowns)

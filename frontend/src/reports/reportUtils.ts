@@ -204,7 +204,7 @@ export function getAllDemographicOptions(
     )
   }
 
-  // CHR CONDITIONS WITH ONLY RACE
+  // CHR CONDITIONS WITH ONLY RACE OR ONLY ALLS
   if (
     configsContainsMatchingId(configs, CHR_DATATYPE_IDS) &&
     isCountyLevel(fips1, fips2)

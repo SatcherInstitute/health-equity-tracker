@@ -15,7 +15,7 @@ export function isFipsString(code: string): boolean {
 }
 
 export function failInvalidFips(code: string) {
-  if (!isFipsString(code)) throw new Error('Invalid FIPS code')
+  if (!isFipsString(code)) throw new Error('Invalid FIPS code: ' + code)
 }
 
 class Fips {
