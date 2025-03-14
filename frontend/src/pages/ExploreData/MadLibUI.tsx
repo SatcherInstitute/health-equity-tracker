@@ -10,7 +10,7 @@ import type {
   DataTypeId,
 } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
-import { Fips, isFipsString } from '../../data/utils/Fips'
+import { isFipsString } from '../../data/utils/Fips'
 import { getAllDemographicOptions } from '../../reports/reportUtils'
 import {
   DEFAULT,
@@ -18,6 +18,7 @@ import {
   type MadLib,
   type PhraseSegment,
   getConfigFromDataTypeId,
+  getFipsListFromMadlib,
   getMadLibWithUpdatedValue,
   getParentDropdownFromDataTypeId,
   insertOptionalThe,
@@ -100,12 +101,15 @@ export default function MadLibUI(props: MadLibUIProps) {
     selectedDataTypeConfig2Atom,
   )
 
-  const { enabledDemographicOptionsMap } = getAllDemographicOptions(
-    selectedDataTypeConfig1,
-    new Fips('00'),
-    selectedDataTypeConfig2,
-    new Fips('00'),
-  )
+  const fipsList = getFipsListFromMadlib(props.madLib)
+
+  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
+    getAllDemographicOptions(
+      selectedDataTypeConfig1,
+      fipsList[0],
+      selectedDataTypeConfig2,
+      fipsList?.[1],
+    )
 
   const demographicOptions: Array<[DemographicType, string]> = Object.entries(
     enabledDemographicOptionsMap,
