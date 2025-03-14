@@ -8,12 +8,12 @@ from datasources.cdc_restricted import CDCRestrictedData  # type: ignore
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_restricted")
 
-GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES = os.path.join(TEST_DIR, "golden_data", "by_sex_state_time_series.json")
-GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES = os.path.join(TEST_DIR, "golden_data", "by_sex_county_time_series.json")
-GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES = os.path.join(TEST_DIR, "golden_data", "by_sex_national_time_series.json")
-GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE = os.path.join(TEST_DIR, "golden_data", "by_sex_state_cumulative.json")
-GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(TEST_DIR, "golden_data", "by_sex_county_cumulative.json")
-GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(TEST_DIR, "golden_data", "by_sex_national_cumulative.json")
+GOLDEN_DATA_BY_SEX_STATE_HISTORICAL = os.path.join(TEST_DIR, "golden_data", "sex_state_historical.json")
+GOLDEN_DATA_BY_SEX_COUNTY_HISTORICAL = os.path.join(TEST_DIR, "golden_data", "sex_county_historical.json")
+GOLDEN_DATA_BY_SEX_NATIONAL_HISTORICAL = os.path.join(TEST_DIR, "golden_data", "sex_national_historical.json")
+GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE = os.path.join(TEST_DIR, "golden_data", "sex_state_cumulative.json")
+GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(TEST_DIR, "golden_data", "sex_county_cumulative.json")
+GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(TEST_DIR, "golden_data", "sex_national_cumulative.json")
 
 
 def get_cdc_numbers_as_df(*args, **kwargs):
@@ -63,7 +63,7 @@ def testGenerateBreakdownSexStateTimeSeries():
     df = cdc_restricted.generate_breakdown(get_cdc_restricted_by_sex_state_as_df(), "sex", "state", True)
     # pylint: disable=no-member
     expected_df = pd.read_json(
-        GOLDEN_DATA_BY_SEX_STATE_TIME_SERIES,
+        GOLDEN_DATA_BY_SEX_STATE_HISTORICAL,
         dtype={
             "state_fips": str,
             "covid_cases_share": float,
@@ -88,7 +88,7 @@ def testGenerateBreakdownSexCountyTimeSeries():
 
     # pylint: disable=no-member
     expected_df = pd.read_json(
-        GOLDEN_DATA_BY_SEX_COUNTY_TIME_SERIES,
+        GOLDEN_DATA_BY_SEX_COUNTY_HISTORICAL,
         dtype={
             "state_fips": str,
             "county_fips": str,
@@ -114,7 +114,7 @@ def testGenerateBreakdownSexNationalTimeSeries():
 
     # pylint: disable=no-member
     expected_df = pd.read_json(
-        GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES,
+        GOLDEN_DATA_BY_SEX_NATIONAL_HISTORICAL,
         dtype={
             "state_fips": str,
             "covid_cases_share": float,
@@ -226,8 +226,8 @@ def testWriteToBqAgeNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_args_list[0].args[1] == "cdc_restricted_by_age_state.csv"
 
     assert mock_bq.call_count == 2
-    assert mock_bq.call_args_list[0].args[2] == "by_age_national_processed"
-    assert mock_bq.call_args_list[1].args[2] == "by_age_national_processed_time_series"
+    assert mock_bq.call_args_list[0].args[2] == "age_national_cumulative"
+    assert mock_bq.call_args_list[1].args[2] == "age_national_historical"
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df", side_effect=get_cdc_numbers_as_df)
@@ -248,8 +248,8 @@ def testWriteToBqAgeState(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_args_list[0].args[1] == "cdc_restricted_by_age_state.csv"
 
     assert mock_bq.call_count == 2
-    assert mock_bq.call_args_list[0].args[2] == "by_age_state_processed"
-    assert mock_bq.call_args_list[1].args[2] == "by_age_state_processed_time_series"
+    assert mock_bq.call_args_list[0].args[2] == "age_state_cumulative"
+    assert mock_bq.call_args_list[1].args[2] == "age_state_historical"
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df", side_effect=get_cdc_numbers_as_df)
@@ -270,8 +270,8 @@ def testWriteToBqAgeCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_args_list[0].args[1] == "cdc_restricted_by_age_county.csv"
 
     assert mock_bq.call_count == 2
-    assert mock_bq.call_args_list[0].args[2] == "by_age_county_processed"
-    assert mock_bq.call_args_list[1].args[2] == "by_age_county_processed_time_series"
+    assert mock_bq.call_args_list[0].args[2] == "age_county_cumulative"
+    assert mock_bq.call_args_list[1].args[2] == "age_county_historical"
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df", side_effect=get_cdc_numbers_as_df)
@@ -292,8 +292,8 @@ def testWriteToBqSexCounty(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_csv.call_args_list[0].args[1] == "cdc_restricted_by_sex_county.csv"
 
     assert mock_bq.call_count == 2
-    assert mock_bq.call_args_list[0].args[2] == "by_sex_county_processed"
-    assert mock_bq.call_args_list[1].args[2] == "by_sex_county_processed_time_series"
+    assert mock_bq.call_args_list[0].args[2] == "sex_county_cumulative"
+    assert mock_bq.call_args_list[1].args[2] == "sex_county_historical"
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df", side_effect=get_cdc_numbers_as_df)
@@ -315,6 +315,6 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
     assert mock_csv.call_args_list[1].args[1] == "cdc_restricted_by_race_and_age_state.csv"
 
     assert mock_bq.call_count == 3
-    assert mock_bq.call_args_list[0].args[2] == "by_race_national_processed"
-    assert mock_bq.call_args_list[1].args[2] == "by_race_national_processed_time_series"
+    assert mock_bq.call_args_list[0].args[2] == "race_national_cumulative"
+    assert mock_bq.call_args_list[1].args[2] == "race_national_historical"
     assert mock_bq.call_args_list[2].args[2] == "by_race_age_state"

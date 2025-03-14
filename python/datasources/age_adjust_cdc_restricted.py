@@ -47,12 +47,10 @@ class AgeAdjustCDCRestricted(DataSource):
 
                 age_adjusted_df = self.generate_age_adjustment(geo, time_series)
 
-                only_race = f"by_race_{geo}_processed"
-                table_name = f"{only_race}-with_age_adjust"
+                timeview = "cumulative" if not time_series else "historical"
 
-                if time_series:
-                    table_name += "_time_series"
-                    only_race += "_time_series"
+                only_race = f"race_{geo}_{timeview}"
+                table_name = f"{only_race}-with_age_adjust"
 
                 only_race_df = gcs_to_bq_util.load_df_from_bigquery("cdc_restricted_data", only_race)
 
