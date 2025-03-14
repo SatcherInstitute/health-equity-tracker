@@ -1,4 +1,5 @@
 import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
+import { getConfigFromDataTypeId } from '../../utils/MadLibs'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   type DatasetId,
@@ -176,8 +177,19 @@ export function resolveDatasetId(
     breakdowns.getSoleDemographicBreakdown().columnName
   const requestedGeography: GeographicBreakdown = breakdowns.geography
 
+  const dataTypeConfig =
+    metricQuery?.dataTypeId && getConfigFromDataTypeId(metricQuery.dataTypeId)
+  const dashAgeAdjusted =
+    dataTypeConfig &&
+    Boolean(dataTypeConfig?.metrics?.age_adjusted_ratio) &&
+    breakdowns.hasOnlyRace() &&
+    breakdowns.geography !== 'county' &&
+    timeView === 'current'
+      ? '-with_age_adjust'
+      : ''
+
   // Normal, valid demographic request
-  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}`
+  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}${dashAgeAdjusted}`
 
   if (isValidDatasetId(requestedDatasetId)) {
     return {

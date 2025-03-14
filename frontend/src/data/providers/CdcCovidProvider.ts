@@ -4,10 +4,13 @@ import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
 } from '../../utils/internalRoutes'
-import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { Breakdowns } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
@@ -43,81 +46,86 @@ class CdcCovidProvider extends VariableProvider {
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_restricted_data-by_race_county_processed'
-        if (breakdowns.geography === 'state')
-          return 'cdc_restricted_data-by_race_state_processed-with_age_adjust'
-        if (breakdowns.geography === 'national')
-          return 'cdc_restricted_data-by_race_national_processed-with_age_adjust'
-      }
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_restricted_data-by_age_county_processed'
-        if (breakdowns.geography === 'state')
-          return 'cdc_restricted_data-by_age_state_processed'
-        if (breakdowns.geography === 'national')
-          return 'cdc_restricted_data-by_age_national_processed'
-      }
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_restricted_data-by_sex_county_processed'
-        if (breakdowns.geography === 'state')
-          return 'cdc_restricted_data-by_sex_state_processed'
-        if (breakdowns.geography === 'national')
-          return 'cdc_restricted_data-by_sex_national_processed'
-      }
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_restricted_data-by_race_county_processed_time_series'
-        if (breakdowns.geography === 'state')
-          return 'cdc_restricted_data-by_race_state_processed_time_series'
-        if (breakdowns.geography === 'national')
-          return 'cdc_restricted_data-by_race_national_processed_time_series'
-      }
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_restricted_data-by_age_county_processed_time_series'
-        if (breakdowns.geography === 'state')
-          return 'cdc_restricted_data-by_age_state_processed_time_series'
-        if (breakdowns.geography === 'national')
-          return 'cdc_restricted_data-by_age_national_processed_time_series'
-      }
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_restricted_data-by_sex_county_processed_time_series'
-        if (breakdowns.geography === 'state')
-          return 'cdc_restricted_data-by_sex_state_processed_time_series'
-        if (breakdowns.geography === 'national')
-          return 'cdc_restricted_data-by_sex_national_processed_time_series'
-      }
-    }
-  }
+  // getDatasetId(
+  //   breakdowns: Breakdowns,
+  //   dataTypeId?: DataTypeId,
+  //   timeView?: TimeView,
+  // ): DatasetId | undefined {
+  //   if (timeView === 'current') {
+  //     if (breakdowns.hasOnlyRace()) {
+  //       if (breakdowns.geography === 'county')
+  //         return 'cdc_restricted_data-by_race_county_processed'
+  //       if (breakdowns.geography === 'state')
+  //         return 'cdc_restricted_data-by_race_state_processed-with_age_adjust'
+  //       if (breakdowns.geography === 'national')
+  //         return 'cdc_restricted_data-by_race_national_processed-with_age_adjust'
+  //     }
+  //     if (breakdowns.hasOnlyAge()) {
+  //       if (breakdowns.geography === 'county')
+  //         return 'cdc_restricted_data-by_age_county_processed'
+  //       if (breakdowns.geography === 'state')
+  //         return 'cdc_restricted_data-by_age_state_processed'
+  //       if (breakdowns.geography === 'national')
+  //         return 'cdc_restricted_data-by_age_national_processed'
+  //     }
+  //     if (breakdowns.hasOnlySex()) {
+  //       if (breakdowns.geography === 'county')
+  //         return 'cdc_restricted_data-by_sex_county_processed'
+  //       if (breakdowns.geography === 'state')
+  //         return 'cdc_restricted_data-by_sex_state_processed'
+  //       if (breakdowns.geography === 'national')
+  //         return 'cdc_restricted_data-by_sex_national_processed'
+  //     }
+  //   }
+  //   if (timeView === 'historical') {
+  //     if (breakdowns.hasOnlyRace()) {
+  //       if (breakdowns.geography === 'county')
+  //         return 'cdc_restricted_data-by_race_county_processed_time_series'
+  //       if (breakdowns.geography === 'state')
+  //         return 'cdc_restricted_data-by_race_state_processed_time_series'
+  //       if (breakdowns.geography === 'national')
+  //         return 'cdc_restricted_data-by_race_national_processed_time_series'
+  //     }
+  //     if (breakdowns.hasOnlyAge()) {
+  //       if (breakdowns.geography === 'county')
+  //         return 'cdc_restricted_data-by_age_county_processed_time_series'
+  //       if (breakdowns.geography === 'state')
+  //         return 'cdc_restricted_data-by_age_state_processed_time_series'
+  //       if (breakdowns.geography === 'national')
+  //         return 'cdc_restricted_data-by_age_national_processed_time_series'
+  //     }
+  //     if (breakdowns.hasOnlySex()) {
+  //       if (breakdowns.geography === 'county')
+  //         return 'cdc_restricted_data-by_sex_county_processed_time_series'
+  //       if (breakdowns.geography === 'state')
+  //         return 'cdc_restricted_data-by_sex_state_processed_time_series'
+  //       if (breakdowns.geography === 'national')
+  //         return 'cdc_restricted_data-by_sex_national_processed_time_series'
+  //     }
+  //   }
+  // }
 
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
+    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+      'cdc_restricted_data',
+      '',
+      metricQuery,
+    )
+    const { timeView, dataTypeId } = metricQuery
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const covidDataset = await getDataManager().loadDataset(specificDatasetId)
     const consumedDatasetIds = [datasetId]
     let df = covidDataset.toDataFrame()
 
-    // If requested, filter geography by state or county level. We apply the
-    // geo filter right away to reduce subsequent calculation times.
     df = this.filterByGeo(df, breakdowns)
 
     if (df.toArray().length === 0) {
@@ -177,8 +185,12 @@ class CdcCovidProvider extends VariableProvider {
       acsId && consumedDatasetIds.push(acsId)
     }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
