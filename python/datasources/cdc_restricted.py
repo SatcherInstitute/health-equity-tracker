@@ -93,9 +93,11 @@ class CDCRestrictedData(DataSource):
 
             column_types = get_col_types(df, add_rel_inequality_col=time_series)
 
-            table_name = f"by_{demo}_{geo}_processed"
+            table_name = f"{demo}_{geo}"
             if time_series:
-                table_name += "_time_series"
+                table_name += "_historical"
+            else:
+                table_name += "_cumulative"
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
