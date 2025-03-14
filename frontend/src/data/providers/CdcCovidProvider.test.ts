@@ -20,12 +20,17 @@ async function ensureCorrectDatasetsDownloaded(
   demographicType: DemographicType,
 ) {
   const cdcCovidProvider = new CdcCovidProvider()
-
   const specificId = appendFipsIfNeeded(cdcDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   const responseIncludingAll = await cdcCovidProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType)),
+    new MetricQuery(
+      [],
+      baseBreakdown.addBreakdown(demographicType),
+      /* dataTypeId? */ 'covid_cases',
+      /* timeView? */ 'current',
+      /* ScrollableHashId? */ undefined,
+    ),
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -118,7 +123,7 @@ describe('cdcCovidProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_restricted_data-sex_state_cumulative',
       Breakdowns.forFips(new Fips(VI.code)),
-      'sex',
+      SEX,
     )
   })
 })

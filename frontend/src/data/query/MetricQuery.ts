@@ -198,7 +198,8 @@ export function resolveDatasetId(
       Boolean(dtConfig.metrics?.age_adjusted_ratio),
     ) &&
     breakdowns.hasOnlyRace() &&
-    timeView !== 'historical'
+    timeView !== 'historical' &&
+    requestedGeography !== 'county'
   ) {
     tableSuffix = '-with_age_adjust'
   }
