@@ -1,4 +1,4 @@
-import { medicareHigherIsBetterMapConfig } from '../../charts/mapGlobals'
+import { medicareAdherenceHigherIsBetterMapConfig } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const CANCER_SCREENING_CATEGORY_DROPDOWNIDS = ['cancer_screening']
@@ -48,7 +48,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     categoryId: 'cancer',
     dataTypeId: 'breast_cancer_screening',
     dataTableTitle: 'Summary for breast cancer screening',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Breast cancer',
     fullDisplayName: 'Breast cancer screening',
     surveyCollectedData: true,
@@ -127,7 +127,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     categoryId: 'cancer',
     dataTypeId: 'prostate_cancer_screening',
     dataTableTitle: 'Summary for prostate cancer screening',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Prostate cancer',
     fullDisplayName: 'prostate cancer screening',
     surveyCollectedData: true,
@@ -206,7 +206,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     categoryId: 'cancer',
     dataTypeId: 'colorectal_cancer_screening',
     dataTableTitle: 'Summary for colorectal cancer screening',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Colorectal cancer',
     fullDisplayName: 'colorectal cancer screening',
     surveyCollectedData: true,
@@ -285,7 +285,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     categoryId: 'cancer',
     dataTypeId: 'cervical_cancer_screening',
     dataTableTitle: 'Summary for cervical cancer screening',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Cervical cancer',
     fullDisplayName: 'cervical cancer screening',
     surveyCollectedData: true,
@@ -363,7 +363,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     categoryId: 'cancer',
     dataTypeId: 'lung_cancer_screening',
     dataTableTitle: 'Summary for lung cancer screening',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Lung cancer',
     fullDisplayName: 'lung cancer screening',
     surveyCollectedData: true,

@@ -24,6 +24,7 @@ type PopulationSubset =
   | 'women'
   | 'men'
   | 'medicare'
+  | 'medicareAdherence'
   | 'unknown'
   | 'youth'
 
@@ -32,6 +33,7 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
   women: 'plasma',
   men: 'inferno',
   medicare: 'viridis',
+  medicareAdherence: 'viridisAdherence',
   unknown: 'greenblue',
   youth: 'darkred',
 }
@@ -71,8 +73,8 @@ export const menHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
-export const medicareHigherIsBetterMapConfig: MapConfig = {
-  scheme: MAP_SCHEMES.medicare,
+export const medicareAdherenceHigherIsBetterMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.medicareAdherence,
   zero: het.mapMedicareDarkZero,
   mid: het.mapMedicareMid,
   higherIsBetter: true,
@@ -107,7 +109,6 @@ export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const NO_DATA_MESSAGE = 'no data'
-export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
 export const ZERO_BUCKET_LABEL = '0'

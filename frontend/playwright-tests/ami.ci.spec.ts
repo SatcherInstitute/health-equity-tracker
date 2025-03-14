@@ -13,7 +13,8 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
       name: 'Medicare Beneficiaries diagnosed with AMI, Ages 85+',
     })
     .click()
-  await page.getByLabel('Legend for rate map').getByRole('img').click()
+  await page.getByRole('img', { name: 'Legend for rate map' }).click()
+
   await page
     .locator('li')
     .filter({

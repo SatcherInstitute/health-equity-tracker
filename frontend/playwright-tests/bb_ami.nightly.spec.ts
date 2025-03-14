@@ -20,7 +20,7 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
       name: 'Medicare Beta-Blocker Beneficiaries, Eligible due to disability, Ages 18+',
     })
     .click()
-  await page.getByLabel('Legend for rate map').getByRole('img').click()
+
   await page
     .locator('li')
     .filter({
