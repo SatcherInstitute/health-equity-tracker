@@ -18,7 +18,7 @@ import {
   type MadLib,
   type PhraseSegment,
   getConfigFromDataTypeId,
-  getFipsFromMadlib,
+  getFipsListFromMadlib,
   getMadLibWithUpdatedValue,
   getParentDropdownFromDataTypeId,
   insertOptionalThe,
@@ -101,7 +101,7 @@ export default function MadLibUI(props: MadLibUIProps) {
     selectedDataTypeConfig2Atom,
   )
 
-  const fipsList = getFipsFromMadlib(props.madLib)
+  const fipsList = getFipsListFromMadlib(props.madLib)
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(

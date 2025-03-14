@@ -328,7 +328,7 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   return 'poverty'
 }
 
-function getFipsFromMadlib(madlib: MadLib) {
+function getFipsListFromMadlib(madlib: MadLib) {
   const madLibMode = madlib.id
 
   switch (madLibMode) {
@@ -347,7 +347,7 @@ function getFipsFromMadlib(madlib: MadLib) {
 export {
   CATEGORIES_LIST,
   getConfigFromDataTypeId,
-  getFipsFromMadlib,
+  getFipsListFromMadlib,
   getMadLibPhraseText,
   getParentDropdownFromDataTypeId,
   insertOptionalThe,
