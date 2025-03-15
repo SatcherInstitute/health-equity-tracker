@@ -80,18 +80,18 @@ export type DatasetId =
   | 'cawp_data-race_and_ethnicity_national_historical'
   | 'cawp_data-race_and_ethnicity_state_historical'
   | 'cawp_data-race_and_ethnicity_state_historical_names'
-  | 'cdc_hiv_data-by_age_county_current'
-  | 'cdc_hiv_data-by_age_county_historical'
-  | 'cdc_hiv_data-by_age_national_current'
-  | 'cdc_hiv_data-by_age_national_historical'
-  | 'cdc_hiv_data-by_age_state_current'
-  | 'cdc_hiv_data-by_age_state_historical'
-  | 'cdc_hiv_data-by_alls_county_current'
-  | 'cdc_hiv_data-by_alls_county_historical'
-  | 'cdc_hiv_data-by_alls_national_current'
-  | 'cdc_hiv_data-by_alls_national_historical'
-  | 'cdc_hiv_data-by_alls_state_current'
-  | 'cdc_hiv_data-by_alls_state_historical'
+  | 'cdc_hiv_data-age_county_current'
+  | 'cdc_hiv_data-age_county_historical'
+  | 'cdc_hiv_data-age_national_current'
+  | 'cdc_hiv_data-age_national_historical'
+  | 'cdc_hiv_data-age_state_current'
+  | 'cdc_hiv_data-age_state_historical'
+  | 'cdc_hiv_data-alls_county_current'
+  | 'cdc_hiv_data-alls_county_historical'
+  | 'cdc_hiv_data-alls_national_current'
+  | 'cdc_hiv_data-alls_national_historical'
+  | 'cdc_hiv_data-alls_state_current'
+  | 'cdc_hiv_data-alls_state_historical'
   | 'cdc_hiv_data-black_women_by_age_national_current'
   | 'cdc_hiv_data-black_women_by_age_national_historical'
   | 'cdc_hiv_data-black_women_by_age_state_current'
@@ -100,38 +100,44 @@ export type DatasetId =
   | 'cdc_hiv_data-black_women_by_alls_national_historical'
   | 'cdc_hiv_data-black_women_by_alls_state_current'
   | 'cdc_hiv_data-black_women_by_alls_state_historical'
-  | 'cdc_hiv_data-by_race_and_ethnicity_county_current'
-  | 'cdc_hiv_data-by_race_and_ethnicity_county_historical'
-  | 'cdc_hiv_data-by_race_and_ethnicity_national_current-with_age_adjust'
-  | 'cdc_hiv_data-by_race_and_ethnicity_national_current'
-  | 'cdc_hiv_data-by_race_and_ethnicity_national_historical'
-  | 'cdc_hiv_data-by_race_and_ethnicity_state_current-with_age_adjust'
-  | 'cdc_hiv_data-by_race_and_ethnicity_state_current'
-  | 'cdc_hiv_data-by_race_and_ethnicity_state_historical'
-  | 'cdc_hiv_data-by_sex_county_current'
-  | 'cdc_hiv_data-by_sex_county_historical'
-  | 'cdc_hiv_data-by_sex_national_current'
-  | 'cdc_hiv_data-by_sex_national_historical'
-  | 'cdc_hiv_data-by_sex_state_current'
-  | 'cdc_hiv_data-by_sex_state_historical'
-  | 'cdc_restricted_data-by_age_county_processed_time_series'
-  | 'cdc_restricted_data-by_age_county_processed'
-  | 'cdc_restricted_data-by_age_national_processed_time_series'
-  | 'cdc_restricted_data-by_age_national_processed'
-  | 'cdc_restricted_data-by_age_state_processed_time_series'
-  | 'cdc_restricted_data-by_age_state_processed'
-  | 'cdc_restricted_data-by_race_county_processed_time_series'
-  | 'cdc_restricted_data-by_race_county_processed'
-  | 'cdc_restricted_data-by_race_national_processed_time_series'
-  | 'cdc_restricted_data-by_race_national_processed-with_age_adjust'
-  | 'cdc_restricted_data-by_race_state_processed_time_series'
-  | 'cdc_restricted_data-by_race_state_processed-with_age_adjust'
-  | 'cdc_restricted_data-by_sex_county_processed_time_series'
-  | 'cdc_restricted_data-by_sex_county_processed'
-  | 'cdc_restricted_data-by_sex_national_processed_time_series'
-  | 'cdc_restricted_data-by_sex_national_processed'
-  | 'cdc_restricted_data-by_sex_state_processed_time_series'
-  | 'cdc_restricted_data-by_sex_state_processed'
+  | 'cdc_hiv_data-race_and_ethnicity_county_current'
+  | 'cdc_hiv_data-race_and_ethnicity_county_historical'
+  | 'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
+  | 'cdc_hiv_data-race_and_ethnicity_national_current'
+  | 'cdc_hiv_data-race_and_ethnicity_national_historical'
+  | 'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust'
+  | 'cdc_hiv_data-race_and_ethnicity_state_current'
+  | 'cdc_hiv_data-race_and_ethnicity_state_historical'
+  | 'cdc_hiv_data-sex_county_current'
+  | 'cdc_hiv_data-sex_county_historical'
+  | 'cdc_hiv_data-sex_national_current'
+  | 'cdc_hiv_data-sex_national_historical'
+  | 'cdc_hiv_data-sex_state_current'
+  | 'cdc_hiv_data-sex_state_historical'
+  | 'cdc_restricted_data-age_county_historical'
+  | 'cdc_restricted_data-age_county_cumulative'
+  | 'cdc_restricted_data-age_national_historical'
+  | 'cdc_restricted_data-age_national_cumulative'
+  | 'cdc_restricted_data-age_state_historical'
+  | 'cdc_restricted_data-age_state_cumulative'
+  | 'cdc_restricted_data-race_county_historical'
+  | 'cdc_restricted_data-race_county_cumulative'
+  | 'cdc_restricted_data-race_national_historical'
+  | 'cdc_restricted_data-race_national_cumulative-with_age_adjust'
+  | 'cdc_restricted_data-race_state_historical'
+  | 'cdc_restricted_data-race_state_cumulative-with_age_adjust'
+  | 'cdc_restricted_data-sex_county_historical'
+  | 'cdc_restricted_data-sex_county_cumulative'
+  | 'cdc_restricted_data-sex_national_historical'
+  | 'cdc_restricted_data-sex_national_cumulative'
+  | 'cdc_restricted_data-sex_state_historical'
+  | 'cdc_restricted_data-sex_state_cumulative'
+  | 'cdc_restricted_data-alls_county_historical'
+  | 'cdc_restricted_data-alls_county_cumulative'
+  | 'cdc_restricted_data-alls_national_historical'
+  | 'cdc_restricted_data-alls_national_cumulative'
+  | 'cdc_restricted_data-alls_state_historical'
+  | 'cdc_restricted_data-alls_state_cumulative'
   | 'cdc_vaccination_county-alls_county_current'
   | 'cdc_vaccination_national-age_national_current'
   | 'cdc_vaccination_national-race_national_current'
@@ -553,99 +559,129 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'acs',
   },
 
-  'cdc_restricted_data-by_race_county_processed_time_series': {
+  'cdc_restricted_data-race_county_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_race_state_processed_time_series': {
+  'cdc_restricted_data-race_state_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_race_national_processed_time_series': {
+  'cdc_restricted_data-race_national_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_age_county_processed_time_series': {
+  'cdc_restricted_data-age_county_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_age_state_processed_time_series': {
+  'cdc_restricted_data-age_state_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_age_national_processed_time_series': {
+  'cdc_restricted_data-age_national_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_sex_county_processed_time_series': {
+  'cdc_restricted_data-sex_county_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_sex_state_processed_time_series': {
+  'cdc_restricted_data-sex_state_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_sex_national_processed_time_series': {
+  'cdc_restricted_data-sex_national_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_race_county_processed': {
+  'cdc_restricted_data-race_county_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_race_state_processed-with_age_adjust': {
+  'cdc_restricted_data-race_state_cumulative-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_race_national_processed-with_age_adjust': {
+  'cdc_restricted_data-race_national_cumulative-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_age_county_processed': {
+  'cdc_restricted_data-age_county_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_age_state_processed': {
+  'cdc_restricted_data-age_state_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_age_national_processed': {
+  'cdc_restricted_data-age_national_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_sex_county_processed': {
+  'cdc_restricted_data-sex_county_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_sex_state_processed': {
+  'cdc_restricted_data-sex_state_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-by_sex_national_processed': {
+  'cdc_restricted_data-sex_national_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
+    original_data_sourced: 'January 2020 - May 2024',
+    source_id: 'cdc_restricted',
+  },
+  'cdc_restricted_data-alls_county_historical': {
+    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by county',
+    original_data_sourced: 'January 2020 - May 2024',
+    source_id: 'cdc_restricted',
+  },
+  'cdc_restricted_data-alls_state_historical': {
+    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by state',
+    original_data_sourced: 'January 2020 - May 2024',
+    source_id: 'cdc_restricted',
+  },
+  'cdc_restricted_data-alls_national_historical': {
+    name: 'Monthly COVID-19 deaths, cases, and hospitalizations, nationally',
+    original_data_sourced: 'January 2020 - May 2024',
+    source_id: 'cdc_restricted',
+  },
+  'cdc_restricted_data-alls_county_cumulative': {
+    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by county',
+    original_data_sourced: 'January 2020 - May 2024',
+    source_id: 'cdc_restricted',
+  },
+  'cdc_restricted_data-alls_state_cumulative': {
+    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by state',
+    original_data_sourced: 'January 2020 - May 2024',
+    source_id: 'cdc_restricted',
+  },
+  'cdc_restricted_data-alls_national_cumulative': {
+    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },

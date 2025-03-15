@@ -80,13 +80,13 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const raceQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ raceBreakdowns,
-    /* dataTypeId */ undefined,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
   )
   const ageQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ ageBreakdowns,
-    /* dataTypeId */ undefined,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
   )
 

@@ -205,7 +205,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'hosp_ratio_age_adjusted',
         chartTitle:
           'Age-adjusted COVID-19 hospitalizations compared to White (NH)',
-        shortLabel: 'age-adjusted', // Table header-row label
+        shortLabel: 'Ratio compared to White (NH)', // Table header-row label
         type: 'age_adjusted_ratio',
       },
     },

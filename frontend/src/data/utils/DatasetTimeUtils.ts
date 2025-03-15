@@ -1,3 +1,4 @@
+import type { IDataFrame } from 'data-forge'
 import type { TimeSeries, TrendsData } from '../../charts/trendsChart/types'
 import type { MetricConfig, MetricId } from '../config/MetricConfigTypes'
 import type { DemographicType } from '../query/Breakdowns'
@@ -292,4 +293,26 @@ export function getElectionYearData(data: HetRow[]): HetRow[] {
   // and presidential election years have been held every 4 years since
   data = data.filter((row: HetRow) => row[TIME_PERIOD] % 4 === 0)
   return data
+}
+
+export function dropRecentPartialMonth(df: IDataFrame): IDataFrame {
+  const partialMonth = getMostRecentMonth(df)
+  return df.where((row) => row.time_period !== partialMonth)
+}
+
+function getMostRecentMonth(df: IDataFrame): string {
+  // Convert YYYY-MM strings to Date objects
+  const dates = df
+    .getSeries('time_period')
+    .toArray()
+    .map((period) => new Date(`${period}-01`).getTime()) // Get timestamp
+
+  // Find the maximum date
+  const maxTimestamp = Math.max(...dates)
+  const maxDate = new Date(maxTimestamp)
+
+  // Convert the maximum date back to YYYY-MM format
+  const year = maxDate.getUTCFullYear()
+  const month = String(maxDate.getUTCMonth() + 1).padStart(2, '0') // getUTCMonth is zero-indexed
+  return `${year}-${month}`
 }
