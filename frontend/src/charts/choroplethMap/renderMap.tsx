@@ -10,7 +10,7 @@ import {
 } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
 import { TERRITORIES } from './mapTerritoryHelpers'
-import { createEventHandler } from './mouseEventHandlers'
+import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
 import { getTooltipLabel } from './tooltipUtils'
 import type { InitializeSvgProps, RenderMapProps } from './types'
 
@@ -73,18 +73,7 @@ export const renderMap = (props: RenderMapProps) => {
     props.countColsMap,
   )
 
-  // Create mouse event handlers
-  const mouseEventProps = {
-    colorScale: props.colorScale,
-    metricConfig: props.metricConfig,
-    dataMap,
-    tooltipContainer: props.tooltipContainer,
-    geographyType,
-    extremesMode: props.extremesMode,
-    mapConfig: props.mapConfig,
-    fips: props.fips,
-    isPhrmaAdherence: props.isPhrmaAdherence,
-  }
+  const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
 
   // Draw main map
   mapGroup

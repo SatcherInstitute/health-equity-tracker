@@ -11,7 +11,7 @@ import {
   createTerritoryFeature,
   extractTerritoryData,
 } from './mapTerritoryHelpers'
-import { createEventHandler } from './mouseEventHandlers'
+import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
 import type { DataPoint } from './types'
 
 const { borderColor: BORDER_GREY, white: WHITE } = het
@@ -51,16 +51,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
   const renderTerritories = () => {
     if (!props.svgRef.current || !props.fips.isUsa()) return null
 
-    const mouseEventProps = {
-      colorScale: props.colorScale,
-      metricConfig: props.metricConfig,
-      dataMap: props.dataMap,
-      tooltipContainer: props.tooltipContainer,
-      geographyType: props.geographyType,
-      extremesMode: props.extremesMode,
-      mapConfig: props.mapConfig,
-      isPhrmaAdherence: props.isPhrmaAdherence,
-    }
+    const mouseEventProps = createMouseEventProps(props)
 
     const territoryRadius = props.isMobile
       ? TERRITORIES_CONFIG.radiusMobile

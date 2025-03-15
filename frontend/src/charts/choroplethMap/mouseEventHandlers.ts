@@ -27,6 +27,27 @@ export interface MouseEventHandlerProps {
 }
 
 /**
+ * Creates MouseEventHandlerProps from component props
+ * Works for both main map and territory components
+ */
+export const createMouseEventProps = (
+  props: any,
+  dataMap?: Map<string, any>,
+  geographyType?: string,
+): MouseEventHandlerProps => {
+  return {
+    colorScale: props.colorScale,
+    metricConfig: props.metricConfig,
+    dataMap: dataMap || props.dataMap,
+    tooltipContainer: props.tooltipContainer,
+    geographyType: geographyType || props.geographyType,
+    extremesMode: props.extremesMode,
+    mapConfig: props.mapConfig,
+    isPhrmaAdherence: props.isPhrmaAdherence,
+  }
+}
+
+/**
  * Creates an event handler for a specific mouse event type
  * Works for both regular map areas and territory circles
  */
