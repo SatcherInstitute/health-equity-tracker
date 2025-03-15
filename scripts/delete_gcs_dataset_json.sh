@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to delete JSON files in a GCS bucket that start with a specific dataset name
-# Usage: ./delete_gcs_files.sh -d DATASET_NAME [-p PROJECT_ID] [-b BUCKET_NAME]
+# Usage: ./delete_gcs_files.sh -d DATASET_NAME [-p PROJECT_ID] [-b BUCKET_NAME] [-s SKIP_SUBSTRING]
 
 # Default values
 DEFAULT_PROJECT_ID="het-infra-test-05"
@@ -9,7 +9,7 @@ DEFAULT_BUCKET_NAME="het-data-tables"
 
 # Display help message
 function show_help {
-    echo "Usage: $0 -d DATASET_NAME [-p PROJECT_ID] [-b BUCKET_NAME]"
+    echo "Usage: $0 -d DATASET_NAME [-p PROJECT_ID] [-b BUCKET_NAME] [-s SKIP_SUBSTRING]"
     echo ""
     echo "Delete JSON files in a GCS bucket that start with a specific dataset name"
     echo ""
@@ -19,16 +19,18 @@ function show_help {
     echo "Optional arguments:"
     echo "  -p PROJECT_ID     The Google Cloud project ID (default: $DEFAULT_PROJECT_ID)"
     echo "  -b BUCKET_NAME    The GCS bucket name (default: $DEFAULT_BUCKET_NAME)"
+    echo "  -s SKIP_SUBSTRING Skip files containing this substring"
     echo "  -h                Display this help message"
     exit 1
 }
 
 # Parse command-line arguments
-while getopts "d:p:b:h" opt; do
+while getopts "d:p:b:s:h" opt; do
     case $opt in
         d) DATASET_NAME=$OPTARG ;;
         p) PROJECT_ID=$OPTARG ;;
         b) BUCKET_NAME=$OPTARG ;;
+        s) SKIP_SUBSTRING=$OPTARG ;;
         h) show_help ;;
         *) show_help ;;
     esac
@@ -73,19 +75,35 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
+# Apply skip filter if provided
+if [ -n "$SKIP_SUBSTRING" ]; then
+    echo "Skipping files containing: $SKIP_SUBSTRING"
+    FILTERED_FILES=$(echo "$FILES" | grep -v "$SKIP_SUBSTRING")
+
+    if [ -z "$FILTERED_FILES" ]; then
+        echo "No files left after applying skip filter"
+        exit 0
+    fi
+
+    FILES="$FILTERED_FILES"
+fi
+
 echo "$FILES"
 
 # Count the number of files
 FILE_COUNT=$(echo "$FILES" | wc -l)
 echo "Found $FILE_COUNT files to delete"
 
-# Confirmation prompt
-read -p "Are you sure you want to delete all these files? (y/n) " -n 1 -r
+# Confirmation prompt with -r flag to handle backslashes properly
+read -r -p "Are you sure you want to delete all these files? (y/n) " -n 1 REPLY
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     # Delete all matching files
     echo "Deleting files..."
-    gsutil -m rm -a "gs://$BUCKET_NAME/$DATASET_NAME*.json"
+    echo "$FILES" | while read -r file; do
+        echo "Deleting $file"
+        gsutil rm -a "$file"
+    done
 
     echo "All matching JSON files deleted successfully from bucket '$BUCKET_NAME'."
 else

@@ -34,7 +34,7 @@ const CA: FipsSpec = {
   code: '06',
   name: 'California',
 }
-export const MARIN: FipsSpec = {
+const MARIN: FipsSpec = {
   code: '06041',
   name: 'Marin County',
 }
