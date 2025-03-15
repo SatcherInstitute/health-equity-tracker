@@ -1,96 +1,72 @@
 import { test } from '@playwright/test'
 
 test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
-  await page.goto(
-    '/exploredata?mls=1.medicare_hiv-3.00&group1=All&dt1=medicare_hiv',
-  )
+  await page.goto('/exploredata?mls=1.medicare_hiv-3.00&group1=All')
 
-  await page.getByText('Investigate rates of', { exact: true }).click()
-
-  await page.locator('#rate-map').getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
   await page
     .locator('#rate-map')
-    .getByRole('heading', {
-      name: 'Rates of HIV diagnoses in the United States',
-    })
+    .getByRole('heading', { name: 'Population adherent to' })
     .click()
   await page
     .locator('#rate-map')
-    .getByRole('heading', { name: 'Medicare beneficiaries' })
-    .click()
-
-  await page
-    .locator('#rate-chart')
-    .getByRole('heading', {
-      name: 'Rates of HIV diagnoses in the United States',
-    })
+    .getByRole('heading', { name: 'Medicare ARV Beneficiaries,' })
     .click()
   await page
-    .locator('#rate-chart')
-    .getByRole('heading', { name: 'Medicare beneficiaries' })
+    .getByRole('listitem')
+    .filter({ hasText: 'Total population of Medicare' })
     .click()
   await page
-    .locator('#rate-chart')
-    .getByText('Sources: Medicare Administrative Data')
-    .click()
-
-  await page
-    .locator('#unknown-demographic-map')
-    .getByRole('heading', {
-      name: 'Share of total HIV incidence with unknown race and ethnicity in the United States',
-    })
-    .click()
-
-  await page
-    .locator('#unknown-demographic-map')
     .getByText(
-      '% of beneficiary pop. diagnosed with HIV reported an unknown race or ethnicity in the United States overall. This map displays data for cases where either race or ethnicity was unknown.',
+      'Adherence to antiretroviral medications: Pharmacy Quality Alliance measure',
     )
     .click()
-
+  await page.getByRole('button', { name: 'Rate chart' }).click()
   await page
-    .locator('#population-vs-distribution')
-    .getByRole('heading', {
-      name: 'Share of beneficiary population vs. share of total HIV diagnoses in the United States',
+    .locator('#rate-chart')
+    .getByRole('heading', { name: 'Population adherent to' })
+    .click()
+  await page
+    .locator('#rate-chart')
+    .getByRole('heading', { name: 'Medicare ARV Beneficiaries,' })
+    .click()
+  await page.getByRole('button', { name: 'Unknown demographic map' }).click()
+  await page
+    .getByRole('button', { name: 'Population vs. distribution' })
+    .click()
+  await page.getByRole('heading', { name: 'Summary for adherence to' }).click()
+  await page
+    .getByRole('figure', { name: 'Summary for adherence to' })
+    .locator('h4')
+    .click()
+  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
+  await page
+    .getByRole('columnheader', { name: '% of pop. above adherence' })
+    .click()
+  await page.getByRole('columnheader', { name: '% of adherent pop.' }).click()
+  await page.getByRole('button', { name: 'Definitions & missing data' }).click()
+  await page.getByRole('heading', { name: 'Definitions:' }).click()
+  await page
+    .getByRole('heading', { name: 'Medication Utilization in the' })
+    .click()
+  await page
+    .getByText('Adherence to antiretroviral medications', { exact: true })
+    .click()
+  await page.getByText('New HIV diagnoses').click()
+  await page
+    .getByRole('button', {
+      name: 'Adherence to Antiretroviral Medications',
+      exact: true,
     })
     .click()
+  await page.getByText('HIV Cases').click()
+  await page.getByRole('button', { name: 'Rate map' }).click()
   await page
-    .locator('#population-vs-distribution')
-    .getByRole('heading', { name: 'Medicare beneficiaries' })
+    .locator('#rate-map')
+    .getByRole('heading', { name: 'Rates of HIV diagnoses in the' })
     .click()
   await page
-    .locator('#population-vs-distribution')
-    .getByText('View methodology.')
+    .locator('#rate-map')
+    .getByRole('heading', { name: 'Medicare beneficiaries, Ages' })
     .click()
-
-  await page
-    .locator('#data-table')
-    .getByRole('heading', {
-      name: 'Summary for HIV cases in the United States',
-    })
-    .click()
-  await page
-    .locator('#data-table')
-    .getByRole('heading', { name: 'Medicare beneficiaries' })
-    .click()
-  await page.locator('#data-table').getByLabel('Card export options').click()
-  await page.locator('.MuiBackdrop-root').first().click()
-
-  await page
-    .locator('#madlib-box')
-    .getByRole('button', { name: 'Race/Ethnicity' })
-    .click()
-  await page.getByRole('menuitem', { name: 'Subsidy' }).click()
-  await page.getByRole('button', { name: 'Low Income Subsidy' }).click()
-  await page.getByRole('menuitem', { name: 'Eligibility' }).click()
-
-  await page.locator('#rate-map').getByText('Medicare eligibility:').hover()
-  await page
-    .locator('#unknown-demographic-map')
-    .getByRole('heading', {
-      name: 'Share of total HIV incidence with unknown eligibility in the United States',
-    })
-    .click()
-  await page.getByRole('cell', { name: 'Eligible due to age' }).click()
+  await page.getByRole('img', { name: 'Map showing Rates of HIV' }).click()
 })
