@@ -11,7 +11,7 @@ import {
   createTerritoryFeature,
   extractTerritoryData,
 } from './mapTerritoryHelpers'
-import { generateTooltipHtml } from './tooltipUtils'
+import { createEventHandler } from './mouseEventHandlers'
 import type { DataPoint } from './types'
 
 const { borderColor: BORDER_GREY, white: WHITE } = het
@@ -50,6 +50,17 @@ interface TerritoryCirclesProps {
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   const renderTerritories = () => {
     if (!props.svgRef.current || !props.fips.isUsa()) return null
+
+    const mouseEventProps = {
+      colorScale: props.colorScale,
+      metricConfig: props.metricConfig,
+      dataMap: props.dataMap,
+      tooltipContainer: props.tooltipContainer,
+      geographyType: props.geographyType,
+      extremesMode: props.extremesMode,
+      mapConfig: props.mapConfig,
+      isPhrmaAdherence: props.isPhrmaAdherence,
+    }
 
     const territoryRadius = props.isMobile
       ? TERRITORIES_CONFIG.radiusMobile
@@ -92,16 +103,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     // Clear previous territories
     territoryGroup.selectAll('*').remove()
 
-    // Create event handler wrapper to simplify the event binding
-    const createEventHandler = (
-      type: 'mouseover' | 'mouseout' | 'mousemove',
-    ) => {
-      return (event: any, d: any) => {
-        const territoryFeature = createTerritoryFeature(d.fips)
-        handleMouseEvent(type, event, territoryFeature, props)
-      }
-    }
-
     // Draw territory circles
     territoryGroup
       .selectAll('circle')
@@ -122,9 +123,24 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       )
       .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
       .attr('stroke-width', STROKE_WIDTH)
-      .on('mouseover', createEventHandler('mouseover'))
-      .on('mousemove', createEventHandler('mousemove'))
-      .on('mouseout', createEventHandler('mouseout'))
+      .on(
+        'mouseover',
+        createEventHandler('mouseover', mouseEventProps, (d) =>
+          createTerritoryFeature(d.fips),
+        ),
+      )
+      .on(
+        'mousemove',
+        createEventHandler('mousemove', mouseEventProps, (d) =>
+          createTerritoryFeature(d.fips),
+        ),
+      )
+      .on(
+        'mouseout',
+        createEventHandler('mouseout', mouseEventProps, (d) =>
+          createTerritoryFeature(d.fips),
+        ),
+      )
       .on('click', (event: any, d: any) => {
         const territoryFeature = createTerritoryFeature(d.fips)
         props.signalListeners.click(event, territoryFeature)
@@ -146,76 +162,4 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
   renderTerritories()
 
   return null
-}
-
-const handleMouseEvent = (
-  type: 'mouseover' | 'mouseout' | 'mousemove',
-  event: any,
-  d: any,
-  props: {
-    colorScale: any
-    metricConfig: MetricConfig
-    dataMap: Map<string, any>
-    tooltipContainer: any
-    geographyType: string
-    extremesMode: boolean
-    mapConfig: MapConfig
-    fips: Fips
-    isPhrmaAdherence: boolean
-  },
-) => {
-  if (!props.tooltipContainer) return
-
-  switch (type) {
-    case 'mouseover': {
-      if (!d || !props.dataMap) return
-      const value = props.dataMap.get(d.id as string)?.value
-
-      d3.select(event.currentTarget)
-        .attr('fill', value !== undefined ? het.darkBlue : het.redOrange)
-        .style('cursor', 'pointer')
-
-      const tooltipHtml = generateTooltipHtml(
-        d,
-        props.dataMap,
-        props.metricConfig,
-        props.geographyType,
-      )
-      props.tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
-      break
-    }
-    case 'mousemove': {
-      // Get screen width and cursor position
-      const screenWidth = window.innerWidth
-      const cursorX = event.pageX
-
-      // If cursor is past halfway point, show tooltip to the left
-      const tooltipX =
-        cursorX > screenWidth / 2
-          ? event.pageX -
-            TOOLTIP_OFFSET.x -
-            props.tooltipContainer.node()!.getBoundingClientRect().width
-          : event.pageX + TOOLTIP_OFFSET.x
-
-      props.tooltipContainer
-        .style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
-        .style('left', `${tooltipX}px`)
-      break
-    }
-    case 'mouseout': {
-      d3.select(event.currentTarget).attr(
-        'fill',
-        getFillColor({
-          d,
-          dataMap: props.dataMap,
-          colorScale: props.colorScale,
-          extremesMode: props.extremesMode,
-          mapConfig: props.mapConfig,
-          isPhrmaAdherence: props.isPhrmaAdherence,
-        }),
-      )
-      props.tooltipContainer.style('visibility', 'hidden').html('')
-      break
-    }
-  }
 }
