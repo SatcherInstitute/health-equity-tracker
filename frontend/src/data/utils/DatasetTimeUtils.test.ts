@@ -2,6 +2,7 @@ import { DataFrame } from 'data-forge'
 import type { TrendsData } from '../../charts/trendsChart/types'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import {
+  dropRecentPartialMonth,
   generateConsecutivePeriods,
   getElectionYearData,
   getMinMaxGroups,
@@ -236,6 +237,47 @@ describe('getElectionYearData', () => {
       { time_period: '2008', voter_participation_pct_rate: 47.6 },
       { time_period: '2012', voter_participation_pct_rate: 47.3 },
       { time_period: '2016', voter_participation_pct_rate: 49 },
+    ])
+  })
+})
+
+describe('dropRecentPartialMonth', () => {
+  it('should drop rows with the most recent time period', () => {
+    const data = [
+      { time_period: '2024-01', value: 10 },
+      { time_period: '2024-02', value: 20 },
+      { time_period: '2024-03', value: 30 },
+    ]
+
+    const df = new DataFrame(data)
+    const result = dropRecentPartialMonth(df)
+
+    expect(result.toArray()).toEqual([
+      { time_period: '2024-01', value: 10 },
+      { time_period: '2024-02', value: 20 },
+    ])
+  })
+
+  it('should handle an empty DataFrame', () => {
+    const df = new DataFrame([])
+    const result = dropRecentPartialMonth(df)
+
+    expect(result.toArray()).toEqual([])
+  })
+
+  it('should handle a DataFrame with non-sequential time periods', () => {
+    const data = [
+      { time_period: '2023-12', value: 10 },
+      { time_period: '2024-01', value: 20 },
+      { time_period: '2024-03', value: 30 },
+    ]
+
+    const df = new DataFrame(data)
+    const result = dropRecentPartialMonth(df)
+
+    expect(result.toArray()).toEqual([
+      { time_period: '2023-12', value: 10 },
+      { time_period: '2024-01', value: 20 },
     ])
   })
 })

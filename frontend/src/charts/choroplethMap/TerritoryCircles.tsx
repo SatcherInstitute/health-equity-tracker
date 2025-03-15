@@ -16,6 +16,18 @@ import type { DataPoint } from './types'
 
 const { borderColor: BORDER_GREY, white: WHITE } = het
 
+const STROKE_WIDTH = 0.5
+const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
+
+const TERRITORIES_CONFIG = {
+  radius: 16,
+  radiusMobile: 12,
+  radiusMultiMap: 12,
+  verticalGapFromUsa: 50,
+  marginTop: 40,
+  marginRightForRow: 40,
+}
+
 interface TerritoryCirclesProps {
   svgRef: React.RefObject<SVGSVGElement>
   width: number
@@ -35,56 +47,30 @@ interface TerritoryCirclesProps {
   isPhrmaAdherence: boolean
 }
 
-const STROKE_WIDTH = 0.5
-const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
-
-export const TERRITORIES_CONFIG = {
-  radius: 16,
-  radiusMobile: 12,
-  radiusMultiMap: 12,
-  verticalGapFromUsa: 50,
-  marginTop: 40,
-  marginRightForRow: 40,
-}
-
-export const TerritoryCircles = ({
-  svgRef,
-  width,
-  mapHeight,
-  fips,
-  dataWithHighestLowest,
-  colorScale,
-  metricConfig,
-  dataMap,
-  tooltipContainer,
-  geographyType,
-  extremesMode,
-  mapConfig,
-  signalListeners,
-  isMobile,
-  isMulti,
-  isPhrmaAdherence,
-}: TerritoryCirclesProps) => {
+export default function TerritoryCircles(props: TerritoryCirclesProps) {
   const renderTerritories = () => {
-    if (!svgRef.current || !fips.isUsa()) return null
+    if (!props.svgRef.current || !props.fips.isUsa()) return null
 
-    const territoryRadius = isMobile
+    const territoryRadius = props.isMobile
       ? TERRITORIES_CONFIG.radiusMobile
-      : isMulti
+      : props.isMulti
         ? TERRITORIES_CONFIG.radiusMultiMap
         : TERRITORIES_CONFIG.radius
 
     const territorySpacing = territoryRadius * 2.5
 
     // Draw territory circles
-    const territoryData = extractTerritoryData(fips.code, dataWithHighestLowest)
+    const territoryData = extractTerritoryData(
+      props.fips.code,
+      props.dataWithHighestLowest,
+    )
 
-    const marginRightForTerrRow = isMulti
+    const marginRightForTerrRow = props.isMulti
       ? 10
       : TERRITORIES_CONFIG.marginRightForRow
 
     const territoryStartX =
-      width -
+      props.width -
       (marginRightForTerrRow +
         (territoryData.length - 1) * territorySpacing +
         territoryRadius)
@@ -92,15 +78,15 @@ export const TerritoryCircles = ({
     const territoryX = (i: number) => territoryStartX + i * territorySpacing
 
     const territoryGroup = d3
-      .select(svgRef.current)
+      .select(props.svgRef.current)
       .select('.territory-container')
-      .attr('transform', `translate(0, ${mapHeight})`)
+      .attr('transform', `translate(0, ${props.mapHeight})`)
 
     if (territoryGroup.empty()) {
-      d3.select(svgRef.current)
+      d3.select(props.svgRef.current)
         .append('g')
         .attr('class', 'territory-container')
-        .attr('transform', `translate(0, ${mapHeight})`)
+        .attr('transform', `translate(0, ${props.mapHeight})`)
     }
 
     // Clear previous territories
@@ -117,57 +103,57 @@ export const TerritoryCircles = ({
       .attr('fill', (d) =>
         getFillColor({
           d: createTerritoryFeature(d.fips),
-          dataMap,
-          colorScale,
-          extremesMode,
-          mapConfig,
-          isPhrmaAdherence,
+          dataMap: props.dataMap,
+          colorScale: props.colorScale,
+          extremesMode: props.extremesMode,
+          mapConfig: props.mapConfig,
+          isPhrmaAdherence: props.isPhrmaAdherence,
         }),
       )
-      .attr('stroke', extremesMode ? BORDER_GREY : WHITE)
+      .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d: any) =>
         handleMouseEvent('mouseover', event, createTerritoryFeature(d.fips), {
-          colorScale,
-          metricConfig,
-          dataMap,
-          tooltipContainer,
-          geographyType,
-          extremesMode,
-          mapConfig,
-          fips,
-          isPhrmaAdherence,
+          colorScale: props.colorScale,
+          metricConfig: props.metricConfig,
+          dataMap: props.dataMap,
+          tooltipContainer: props.tooltipContainer,
+          geographyType: props.geographyType,
+          extremesMode: props.extremesMode,
+          mapConfig: props.mapConfig,
+          fips: props.fips,
+          isPhrmaAdherence: props.isPhrmaAdherence,
         }),
       )
       .on('mousemove', (event: any, d: any) =>
         handleMouseEvent('mousemove', event, createTerritoryFeature(d.fips), {
-          colorScale,
-          metricConfig,
-          dataMap,
-          tooltipContainer,
-          geographyType,
-          extremesMode,
-          mapConfig,
-          fips,
-          isPhrmaAdherence,
+          colorScale: props.colorScale,
+          metricConfig: props.metricConfig,
+          dataMap: props.dataMap,
+          tooltipContainer: props.tooltipContainer,
+          geographyType: props.geographyType,
+          extremesMode: props.extremesMode,
+          mapConfig: props.mapConfig,
+          fips: props.fips,
+          isPhrmaAdherence: props.isPhrmaAdherence,
         }),
       )
       .on('mouseout', (event: any, d: any) =>
         handleMouseEvent('mouseout', event, createTerritoryFeature(d.fips), {
-          colorScale,
-          metricConfig,
-          dataMap,
-          tooltipContainer,
-          geographyType,
-          extremesMode,
-          mapConfig,
-          fips,
-          isPhrmaAdherence,
+          colorScale: props.colorScale,
+          metricConfig: props.metricConfig,
+          dataMap: props.dataMap,
+          tooltipContainer: props.tooltipContainer,
+          geographyType: props.geographyType,
+          extremesMode: props.extremesMode,
+          mapConfig: props.mapConfig,
+          fips: props.fips,
+          isPhrmaAdherence: props.isPhrmaAdherence,
         }),
       )
       .on('click', (event: any, d: any) => {
         const territoryFeature = createTerritoryFeature(d.fips)
-        signalListeners.click(event, territoryFeature)
+        props.signalListeners.click(event, territoryFeature)
       })
 
     // Draw territory labels
@@ -204,23 +190,12 @@ const handleMouseEvent = (
     isPhrmaAdherence: boolean
   },
 ) => {
-  const {
-    colorScale,
-    metricConfig,
-    dataMap,
-    tooltipContainer,
-    geographyType,
-    extremesMode,
-    mapConfig,
-    isPhrmaAdherence,
-  } = props
-
-  if (!tooltipContainer) return
+  if (!props.tooltipContainer) return
 
   switch (type) {
     case 'mouseover': {
-      if (!d || !dataMap) return
-      const value = dataMap.get(d.id as string)?.value
+      if (!d || !props.dataMap) return
+      const value = props.dataMap.get(d.id as string)?.value
 
       d3.select(event.currentTarget)
         .attr('fill', value !== undefined ? het.darkBlue : het.redOrange)
@@ -228,11 +203,11 @@ const handleMouseEvent = (
 
       const tooltipHtml = generateTooltipHtml(
         d,
-        dataMap,
-        metricConfig,
-        geographyType,
+        props.dataMap,
+        props.metricConfig,
+        props.geographyType,
       )
-      tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
+      props.tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
       break
     }
     case 'mousemove': {
@@ -245,10 +220,10 @@ const handleMouseEvent = (
         cursorX > screenWidth / 2
           ? event.pageX -
             TOOLTIP_OFFSET.x -
-            tooltipContainer.node()!.getBoundingClientRect().width
+            props.tooltipContainer.node()!.getBoundingClientRect().width
           : event.pageX + TOOLTIP_OFFSET.x
 
-      tooltipContainer
+      props.tooltipContainer
         .style('top', `${event.pageY + TOOLTIP_OFFSET.y}px`)
         .style('left', `${tooltipX}px`)
       break
@@ -258,17 +233,15 @@ const handleMouseEvent = (
         'fill',
         getFillColor({
           d,
-          dataMap,
-          colorScale,
-          extremesMode,
-          mapConfig,
-          isPhrmaAdherence,
+          dataMap: props.dataMap,
+          colorScale: props.colorScale,
+          extremesMode: props.extremesMode,
+          mapConfig: props.mapConfig,
+          isPhrmaAdherence: props.isPhrmaAdherence,
         }),
       )
-      tooltipContainer.style('visibility', 'hidden').html('')
+      props.tooltipContainer.style('visibility', 'hidden').html('')
       break
     }
   }
 }
-
-export default TerritoryCircles

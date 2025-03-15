@@ -1,4 +1,3 @@
-import { DataFrame } from 'data-forge'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
@@ -11,7 +10,7 @@ import { MetricQuery } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import CdcCovidProvider, { dropRecentPartialMonth } from './CdcCovidProvider'
+import CdcCovidProvider from './CdcCovidProvider'
 import { CHATAM, NC, USA, VI } from './TestUtils'
 
 async function ensureCorrectDatasetsDownloaded(
@@ -125,46 +124,5 @@ describe('cdcCovidProvider', () => {
       Breakdowns.forFips(new Fips(VI.code)),
       SEX,
     )
-  })
-})
-
-describe('dropRecentPartialMonth', () => {
-  it('should drop rows with the most recent time period', () => {
-    const data = [
-      { time_period: '2024-01', value: 10 },
-      { time_period: '2024-02', value: 20 },
-      { time_period: '2024-03', value: 30 },
-    ]
-
-    const df = new DataFrame(data)
-    const result = dropRecentPartialMonth(df)
-
-    expect(result.toArray()).toEqual([
-      { time_period: '2024-01', value: 10 },
-      { time_period: '2024-02', value: 20 },
-    ])
-  })
-
-  it('should handle an empty DataFrame', () => {
-    const df = new DataFrame([])
-    const result = dropRecentPartialMonth(df)
-
-    expect(result.toArray()).toEqual([])
-  })
-
-  it('should handle a DataFrame with non-sequential time periods', () => {
-    const data = [
-      { time_period: '2023-12', value: 10 },
-      { time_period: '2024-01', value: 20 },
-      { time_period: '2024-03', value: 30 },
-    ]
-
-    const df = new DataFrame(data)
-    const result = dropRecentPartialMonth(df)
-
-    expect(result.toArray()).toEqual([
-      { time_period: '2023-12', value: 10 },
-      { time_period: '2024-01', value: 20 },
-    ])
   })
 })
