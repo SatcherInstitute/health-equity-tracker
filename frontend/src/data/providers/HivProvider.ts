@@ -129,7 +129,7 @@ class HivProvider extends VariableProvider {
       metricQuery.dataTypeId &&
       BLACK_WOMEN_DATATYPES.includes(metricQuery.dataTypeId)
 
-    const tablePrefix = isBlackWomenData ? 'black_women_by_' : 'by_'
+    const tablePrefix = isBlackWomenData ? 'black_women_by_' : ''
 
     const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
       'cdc_hiv_data',
