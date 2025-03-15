@@ -16,7 +16,7 @@ env:
   STATE: "state"
   COUNTY: "county"
 jobs:
-  trigger-data-pipeline:
+  process-data:
     runs-on: ubuntu-latest
     steps:
       # BLACK WOMEN NATIONAL
@@ -129,8 +129,35 @@ jobs:
           geographic: ${{ env.COUNTY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
-      # EXPORTERS
+
+  pre-export-for-age-adjust:
+    runs-on: ubuntu-latest
+    needs: [process-data]
+    steps:
       - name: Export race NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: "race_and_ethnicity"
+
+
+  age-adjust:
+    runs-on: ubuntu-latest
+    needs: [pre-export-for-age-adjust]
+    steps:
+      - name: Process age adjustment for HIV data
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.AGE_ADJUST_WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  export:
+    runs-on: ubuntu-latest
+    needs: [age-adjust]
+    steps:
+      - name: Export age-adjusted race NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
@@ -159,17 +186,3 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.BLACK_WOMEN }}
 
-      # AGE ADJUST
-      - name: Process age adjustment for HIV data
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.AGE_ADJUST_WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-
-      - name: Export race with age adjust NDJSON files to GCS buckets from BigQuery tables
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
-        with:
-          service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "race_and_ethnicity"
