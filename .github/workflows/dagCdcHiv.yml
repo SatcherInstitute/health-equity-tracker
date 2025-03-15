@@ -130,21 +130,9 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
 
-  pre-export-for-age-adjust:
-    runs-on: ubuntu-latest
-    needs: [process-data]
-    steps:
-      - name: Export race NDJSON files to GCS buckets from BigQuery tables
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
-        with:
-          service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "race_and_ethnicity"
-
-
   age-adjust:
     runs-on: ubuntu-latest
-    needs: [pre-export-for-age-adjust]
+    needs: [process-data]
     steps:
       - name: Process age adjustment for HIV data
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -153,7 +141,7 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
-  export:
+  export-race-and-age:
     runs-on: ubuntu-latest
     needs: [age-adjust]
     steps:
@@ -171,6 +159,10 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
 
+  export-black-women-and-by-sex:
+    runs-on: ubuntu-latest
+    needs: [age-adjust]
+    steps:
       - name: Export sex NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
