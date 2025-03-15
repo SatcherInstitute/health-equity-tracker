@@ -58,6 +58,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       accessor: metricConfig.metricId,
     }
   })
+
   columns = [
     {
       Header: DEMOGRAPHIC_DISPLAY_TYPES[RACE],

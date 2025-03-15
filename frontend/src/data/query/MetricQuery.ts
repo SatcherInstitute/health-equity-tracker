@@ -1,11 +1,17 @@
 import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
+import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
   isValidDatasetId,
 } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import { METRIC_CONFIG } from '../config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+  MetricId,
+} from '../config/MetricConfigTypes'
 import type { DemographicGroup } from '../utils/Constants'
 import type { FieldRange, HetRow } from '../utils/DatasetTypes'
 import type {
@@ -171,13 +177,35 @@ export function resolveDatasetId(
   datasetId?: DatasetId
   isFallbackId?: boolean
 } {
-  const { breakdowns, timeView } = metricQuery
+  let { breakdowns, timeView } = metricQuery
+
+  if (bqDatasetName === 'cdc_restricted_data' && timeView !== 'historical') {
+    timeView = 'cumulative'
+  }
+
   const requestedDemographic: DemographicType =
     breakdowns.getSoleDemographicBreakdown().columnName
   const requestedGeography: GeographicBreakdown = breakdowns.geography
 
+  let tableSuffix = ''
+
+  const siblingDataTypeConfigs =
+    METRIC_CONFIG[getParentDropdownFromDataTypeId(metricQuery.dataTypeId!)]
+
+  if (
+    siblingDataTypeConfigs.length > 0 &&
+    siblingDataTypeConfigs.some((dtConfig: DataTypeConfig) =>
+      Boolean(dtConfig.metrics?.age_adjusted_ratio),
+    ) &&
+    breakdowns.hasOnlyRace() &&
+    timeView !== 'historical' &&
+    requestedGeography !== 'county'
+  ) {
+    tableSuffix = '-with_age_adjust'
+  }
+
   // Normal, valid demographic request
-  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}`
+  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}${tableSuffix}`
 
   if (isValidDatasetId(requestedDatasetId)) {
     return {
@@ -189,7 +217,7 @@ export function resolveDatasetId(
   // Handle tables that still use `race` instead of `race_and_ethnicity`
   let requestedRaceDatasetId = ''
   if (breakdowns.hasOnlyRace()) {
-    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}`
+    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}${tableSuffix}`
     if (isValidDatasetId(requestedRaceDatasetId)) {
       return {
         breakdowns,
@@ -199,7 +227,7 @@ export function resolveDatasetId(
   }
 
   // Fallback to ALLS
-  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}`
+  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}${tableSuffix}`
   if (isValidDatasetId(fallbackAllsDatasetId)) {
     const isFallbackEligible =
       metricQuery.scrollToHashId &&

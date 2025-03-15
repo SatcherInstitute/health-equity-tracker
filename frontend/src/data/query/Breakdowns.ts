@@ -1,6 +1,6 @@
 import { Fips } from '../utils/Fips'
 import type BreakdownFilter from './BreakdownFilter'
-export type TimeView = 'current' | 'historical'
+export type TimeView = 'current' | 'historical' | 'cumulative' // cumulative only used by COVID
 
 export type GeographicBreakdown =
   | 'national'
