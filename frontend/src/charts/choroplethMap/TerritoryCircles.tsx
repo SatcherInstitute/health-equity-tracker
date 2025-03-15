@@ -92,6 +92,16 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     // Clear previous territories
     territoryGroup.selectAll('*').remove()
 
+    // Create event handler wrapper to simplify the event binding
+    const createEventHandler = (
+      type: 'mouseover' | 'mouseout' | 'mousemove',
+    ) => {
+      return (event: any, d: any) => {
+        const territoryFeature = createTerritoryFeature(d.fips)
+        handleMouseEvent(type, event, territoryFeature, props)
+      }
+    }
+
     // Draw territory circles
     territoryGroup
       .selectAll('circle')
@@ -112,45 +122,9 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       )
       .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
       .attr('stroke-width', STROKE_WIDTH)
-      .on('mouseover', (event: any, d: any) =>
-        handleMouseEvent('mouseover', event, createTerritoryFeature(d.fips), {
-          colorScale: props.colorScale,
-          metricConfig: props.metricConfig,
-          dataMap: props.dataMap,
-          tooltipContainer: props.tooltipContainer,
-          geographyType: props.geographyType,
-          extremesMode: props.extremesMode,
-          mapConfig: props.mapConfig,
-          fips: props.fips,
-          isPhrmaAdherence: props.isPhrmaAdherence,
-        }),
-      )
-      .on('mousemove', (event: any, d: any) =>
-        handleMouseEvent('mousemove', event, createTerritoryFeature(d.fips), {
-          colorScale: props.colorScale,
-          metricConfig: props.metricConfig,
-          dataMap: props.dataMap,
-          tooltipContainer: props.tooltipContainer,
-          geographyType: props.geographyType,
-          extremesMode: props.extremesMode,
-          mapConfig: props.mapConfig,
-          fips: props.fips,
-          isPhrmaAdherence: props.isPhrmaAdherence,
-        }),
-      )
-      .on('mouseout', (event: any, d: any) =>
-        handleMouseEvent('mouseout', event, createTerritoryFeature(d.fips), {
-          colorScale: props.colorScale,
-          metricConfig: props.metricConfig,
-          dataMap: props.dataMap,
-          tooltipContainer: props.tooltipContainer,
-          geographyType: props.geographyType,
-          extremesMode: props.extremesMode,
-          mapConfig: props.mapConfig,
-          fips: props.fips,
-          isPhrmaAdherence: props.isPhrmaAdherence,
-        }),
-      )
+      .on('mouseover', createEventHandler('mouseover'))
+      .on('mousemove', createEventHandler('mousemove'))
+      .on('mouseout', createEventHandler('mouseout'))
       .on('click', (event: any, d: any) => {
         const territoryFeature = createTerritoryFeature(d.fips)
         props.signalListeners.click(event, territoryFeature)
