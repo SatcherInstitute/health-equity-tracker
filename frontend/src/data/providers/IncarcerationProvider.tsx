@@ -105,7 +105,7 @@ class IncarcerationProvider extends VariableProvider {
       // only time-series cards use decia 2010
       if (metricQuery.timeView === 'historical') {
         consumedDatasetIds.push(
-          'decia_2010_territory_population-by_sex_territory_state_level',
+          'decia_2010_territory_population-sex_territory_state_level',
         )
       }
     }

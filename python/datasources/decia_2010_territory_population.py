@@ -13,9 +13,9 @@ from ingestion.standardized_columns import Race
 # https://www.census.gov/data/datasets/2010/dec/cnmi.html RACE: CNMI/MP8_0000001_040.html
 
 source_data_files = [
-    "decia_2010_territory_population-by_race_and_ethnicity_territory.json,"
-    "decia_2010_territory_population-by_sex_territory.json",
-    "decia_2010_territory_population-by_age_territory.json",
+    "decia_2010_territory_population-race_and_ethnicity_territory.json",
+    "decia_2010_territory_population-sex_territory.json",
+    "decia_2010_territory_population-age_territory.json",
 ]
 
 

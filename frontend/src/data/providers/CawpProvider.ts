@@ -136,7 +136,7 @@ class CawpProvider extends VariableProvider {
         // CAWP time-series also use DECIA_2010
         if (timeView === 'historical') {
           consumedDatasetIds.push(
-            'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level',
+            'decia_2010_territory_population-race_and_ethnicity_territory_state_level',
           )
         }
       } else {
