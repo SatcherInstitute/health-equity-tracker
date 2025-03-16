@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { useEffect } from 'react'
 import type {
   MapConfig,
   MetricConfig,
@@ -46,10 +47,10 @@ interface TerritoryCirclesProps {
   isMulti?: boolean
   isPhrmaAdherence: boolean
 }
-
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const renderTerritories = () => {
-    if (!props.svgRef.current || !props.fips.isUsa()) return null
+  useEffect(() => {
+    // Only run if we have a valid SVG ref and it's a USA map
+    if (!props.svgRef.current || !props.fips.isUsa()) return
 
     const mouseEventProps = createMouseEventProps(props)
 
@@ -79,24 +80,28 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
     const territoryX = (i: number) => territoryStartX + i * territorySpacing
 
-    const territoryGroup = d3
-      .select(props.svgRef.current)
-      .select('.territory-container')
-      .attr('transform', `translate(0, ${props.mapHeight})`)
+    // Get SVG selection
+    const svg = d3.select(props.svgRef.current)
 
-    if (territoryGroup.empty()) {
-      d3.select(props.svgRef.current)
-        .append('g')
+    // Check if territory container exists
+    let territoryContainer = svg.select<SVGGElement>('.territory-container')
+
+    // If it doesn't exist, create it
+    if (territoryContainer.empty()) {
+      territoryContainer = svg
+        .append<SVGGElement>('g')
         .attr('class', 'territory-container')
-        .attr('transform', `translate(0, ${props.mapHeight})`)
     }
 
+    // Set the transform
+    territoryContainer.attr('transform', `translate(0, ${props.mapHeight})`)
+
     // Clear previous territories
-    territoryGroup.selectAll('*').remove()
+    territoryContainer.selectAll('*').remove()
 
     // Draw territory circles
-    territoryGroup
-      .selectAll('circle')
+    territoryContainer
+      .selectAll<SVGCircleElement, any>('circle')
       .data(territoryData)
       .join('circle')
       .attr('cx', (_, i) => territoryX(i))
@@ -138,8 +143,8 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       })
 
     // Draw territory labels
-    territoryGroup
-      .selectAll('text')
+    territoryContainer
+      .selectAll<SVGTextElement, any>('text')
       .data(territoryData)
       .join('text')
       .attr('x', (_, i) => territoryX(i))
@@ -147,10 +152,23 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       .attr('text-anchor', 'middle')
       .attr('font-size', '12px')
       .text((d) => TERRITORY_CODES[d.fips] || d.fips)
-  }
+  }, [
+    // Dependencies that should trigger a re-render of territories
+    props.svgRef,
+    props.width,
+    props.mapHeight,
+    props.fips,
+    props.dataWithHighestLowest,
+    props.dataMap,
+    props.colorScale,
+    props.extremesMode,
+    props.mapConfig,
+    props.isPhrmaAdherence,
+    props.signalListeners,
+    props.isMobile,
+    props.isMulti,
+  ])
 
-  // Execute rendering
-  renderTerritories()
-
+  // Return null since we're rendering directly with D3
   return null
 }
