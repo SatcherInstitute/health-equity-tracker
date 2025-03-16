@@ -82,7 +82,7 @@ describe('GeoContextProvider', () => {
       'geo_context-county',
       [
         'geo_context-county',
-        'decia_2020_territory_population-sex_territory_county_level',
+        'decia_2020_territory_population-sex_territory_county_current',
       ],
     )
   })
@@ -110,7 +110,7 @@ describe('GeoContextProvider', () => {
       new Fips('78'),
       ['population'],
       'geo_context-state',
-      ['decia_2020_territory_population-sex_territory_state_level'],
+      ['decia_2020_territory_population-sex_territory_state_current'],
     )
   })
 
