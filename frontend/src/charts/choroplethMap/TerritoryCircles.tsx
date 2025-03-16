@@ -149,7 +149,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       .text((d) => TERRITORY_CODES[d.fips] || d.fips)
   }
 
-  // Execute rendering
   renderTerritories()
 
   return null
