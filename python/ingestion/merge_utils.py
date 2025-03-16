@@ -239,7 +239,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     if demo not in on_col_map:
         raise ValueError(f"{demo} not a demographic option, must be one of: {list(on_col_map.keys())}")
 
-    pop_table_name = f"by_{demo}_{loc}"
+    pop_table_name = f"{demo}_{loc}"
 
     print(f"\nMerging real ACS population from python/ingestion/acs_population/{pop_table_name}")
 
@@ -266,7 +266,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     # from DECIA_2020 (VI, GU, AS, MP)
     if loc != NATIONAL_LEVEL:
         verbose_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
-        pop_terr_table_name = f"by_{verbose_demo}_territory_{loc}_level"
+        pop_terr_table_name = f"{verbose_demo}_territory_{loc}"
 
         terr_pop_dtype = {
             std_col.STATE_FIPS_COL: str,
@@ -368,7 +368,7 @@ def merge_intersectional_pop(
         pop_dtype[std_col.STATE_FIPS_COL] = str
         geo_file = STATE_LEVEL
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"by_sex_age_race_{geo_file}.csv")
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"multi_sex_age_race_{geo_file}.csv")
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     if geo_level == NATIONAL_LEVEL:
