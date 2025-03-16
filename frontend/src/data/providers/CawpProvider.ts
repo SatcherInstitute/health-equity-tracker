@@ -3,7 +3,11 @@ import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import {
   AIANNH_W,
   AIAN_API_W,
@@ -19,7 +23,6 @@ import {
   UNREPRESENTED,
 } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 
 const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -130,18 +133,22 @@ class CawpProvider extends VariableProvider {
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
+          'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
 
         // CAWP time-series also use DECIA_2010
         if (timeView === 'historical') {
           consumedDatasetIds.push(
-            'decia_2010_territory_population-race_and_ethnicity_territory_state_current',
+            'decia_2010_territory_population-race_and_ethnicity_state_current',
           )
         }
       } else {
         // Non-Island Areas use ACS
-        const acsId = GetAcsDatasetId(breakdowns)
+        const { datasetId: acsId } = resolveDatasetId(
+          'acs_population',
+          '',
+          metricQuery,
+        )
         acsId && consumedDatasetIds.push(acsId)
       }
     }
