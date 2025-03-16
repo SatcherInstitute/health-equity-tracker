@@ -122,7 +122,7 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
 
 def has_multi_demographics(table_id: str):
     """Determines if a table has more than one demographic breakdown
-    (e.g. `...by_race_age...` or `...sex_age_race...`)
+    (e.g. `...multi_race_age...` or `...sex_age_race...`)
 
     ARGS:
     table_id: string table name that may contain demographic breakdowns as substrings
@@ -135,7 +135,8 @@ def has_multi_demographics(table_id: str):
         return False
 
     return (
-        ("age" in table_id and "sex" in table_id)
+        "multi_" in table_id
+        or ("age" in table_id and "sex" in table_id)
         or ("age" in table_id and "race" in table_id)
         or ("sex" in table_id and "race" in table_id)
     )

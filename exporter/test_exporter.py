@@ -13,15 +13,15 @@ from main import app, STATE_LEVEL_FIPS_LIST, get_table_name, has_multi_demograph
 # UNIT TESTS
 
 # has multiple (acs, census_pop)
-assert has_multi_demographics("health_insurance_by_race_age_county")
-assert has_multi_demographics("by_race_and_ethnicity_age_state")
+assert has_multi_demographics("health_insurance_multi_race_age_county")
+assert has_multi_demographics("multi_race_and_ethnicity_age_state")
 # has only one
-assert not has_multi_demographics("by_age_territory")
+assert not has_multi_demographics("age_state")
 # has no demographic (geo_context)
 assert not has_multi_demographics("county")
 
 # age adjust special case
-assert not has_multi_demographics("by_race_national_processed-with_age_adjust")
+assert not has_multi_demographics("race_national_current-with_age_adjust")
 
 
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)

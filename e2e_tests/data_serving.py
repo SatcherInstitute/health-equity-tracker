@@ -33,7 +33,7 @@ def testDataServerDataServing():
 
 def testDataServingThroughFrontend():
     # Get the url of the frontend.
-    frontend_url = os.environ.get("FRONTEND_URL").strip('"') + "/api/dataset?name=acs_population-by_sex_state.json"
+    frontend_url = os.environ.get("FRONTEND_URL").strip('"') + "/api/dataset?name=acs_population-sex_state_current.json"
     print(f"FRONTEND_URL={frontend_url}")
 
     frame = pd.DataFrame(pd.read_json(frontend_url, orient="values"))
