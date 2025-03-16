@@ -161,9 +161,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Population totals and percent shares for 2010 at the territory level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the Census 5 year American Community Survey (ACS) estimates.',
     dataset_ids: [
-      'decia_2010_territory_population-race_and_ethnicity_territory_state_current',
-      'decia_2010_territory_population-sex_territory_state_current',
-      'decia_2010_territory_population-age_territory_state_current',
+      'decia_2010_territory_population-race_and_ethnicity_territory_state_level',
+      'decia_2010_territory_population-sex_territory_state_level',
+      'decia_2010_territory_population-age_territory_state_level',
     ],
     downloadable: true,
     time_period_range: null,
@@ -181,12 +181,12 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Population totals and percent shares for 2020 at the territory and county-equivalent level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the 5 year American Community Survey (ACS) estimates.',
     dataset_ids: [
-      'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
-      'decia_2020_territory_population-sex_territory_state_current',
-      'decia_2020_territory_population-age_territory_state_current',
-      'decia_2020_territory_population-race_and_ethnicity_territory_county_current',
-      'decia_2020_territory_population-sex_territory_county_current',
-      'decia_2020_territory_population-age_territory_county_current',
+      'decia_2020_territory_population-race_and_ethnicity_territory_state_level',
+      'decia_2020_territory_population-sex_territory_state_level',
+      'decia_2020_territory_population-age_territory_state_level',
+      'decia_2020_territory_population-race_and_ethnicity_territory_county_level',
+      'decia_2020_territory_population-sex_territory_county_level',
+      'decia_2020_territory_population-age_territory_county_level',
     ],
     downloadable: true,
     time_period_range: null,

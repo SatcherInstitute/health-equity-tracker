@@ -93,19 +93,19 @@ class IncarcerationProvider extends VariableProvider {
     // National Level - Map of all states + territory bubbles
     if (breakdowns.geography === 'state' && !breakdowns.filterFips) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-sex_territory_state_current',
+        'decia_2020_territory_population-sex_territory_state_level',
       )
     }
 
     // Territory Level (Island Areas) - All cards
     if (breakdowns.filterFips?.isIslandArea()) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-sex_territory_state_current',
+        'decia_2020_territory_population-sex_territory_state_level',
       )
       // only time-series cards use decia 2010
       if (metricQuery.timeView === 'historical') {
         consumedDatasetIds.push(
-          'decia_2010_territory_population-sex_territory_state_current',
+          'decia_2010_territory_population-sex_territory_state_level',
         )
       }
     }

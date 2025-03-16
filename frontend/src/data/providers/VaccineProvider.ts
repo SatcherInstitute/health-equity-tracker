@@ -70,12 +70,12 @@ class VaccineProvider extends VariableProvider {
 
       if (breakdowns.filterFips === undefined) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
+          'decia_2020_territory_population-race_and_ethnicity_territory_state_level',
         )
       }
       if (breakdowns.filterFips?.isIslandArea()) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
+          'decia_2020_territory_population-race_and_ethnicity_territory_state_level',
         )
       }
     }
