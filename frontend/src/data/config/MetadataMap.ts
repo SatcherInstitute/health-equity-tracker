@@ -304,12 +304,14 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.',
     dataset_ids: [
-      'bjs_incarceration_data-race_and_ethnicity_national',
-      'bjs_incarceration_data-race_and_ethnicity_state',
-      'bjs_incarceration_data-age_national',
-      'bjs_incarceration_data-age_state',
-      'bjs_incarceration_data-sex_national',
-      'bjs_incarceration_data-sex_state',
+      'bjs_incarceration_data-race_and_ethnicity_national_current',
+      'bjs_incarceration_data-race_and_ethnicity_state_current',
+      'bjs_incarceration_data-age_national_current',
+      'bjs_incarceration_data-age_state_current',
+      'bjs_incarceration_data-sex_national_current',
+      'bjs_incarceration_data-sex_state_current',
+      'bjs_incarceration_data-alls_national_current',
+      'bjs_incarceration_data-alls_state_current',
     ],
     downloadable: true,
     time_period_range: null,
@@ -326,9 +328,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county.',
     dataset_ids: [
-      'vera_incarceration_county-by_sex_county_historical',
-      'vera_incarceration_county-by_race_and_ethnicity_county_historical',
-      'vera_incarceration_county-by_age_county_historical',
+      'vera_incarceration_county-sex_county_historical',
+      'vera_incarceration_county-race_and_ethnicity_county_historical',
+      'vera_incarceration_county-age_county_historical',
     ],
     downloadable: true,
     time_period_range: '1985 - 2016',
