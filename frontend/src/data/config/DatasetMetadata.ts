@@ -208,12 +208,12 @@ export type DatasetId =
   | 'decia_2010_territory_population-age_territory_state_level'
   | 'decia_2010_territory_population-race_and_ethnicity_territory_state_level'
   | 'decia_2010_territory_population-sex_territory_state_level'
-  | 'decia_2020_territory_population-by_age_territory_county_level'
-  | 'decia_2020_territory_population-by_age_territory_state_level'
-  | 'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level'
-  | 'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
-  | 'decia_2020_territory_population-by_sex_territory_county_level'
-  | 'decia_2020_territory_population-by_sex_territory_state_level'
+  | 'decia_2020_territory_population-age_territory_county_level'
+  | 'decia_2020_territory_population-age_territory_state_level'
+  | 'decia_2020_territory_population-race_and_ethnicity_territory_county_level'
+  | 'decia_2020_territory_population-race_and_ethnicity_territory_state_level'
+  | 'decia_2020_territory_population-sex_territory_county_level'
+  | 'decia_2020_territory_population-sex_territory_state_level'
   | 'geographies'
   | 'geo_context-national'
   | 'geo_context-state'
@@ -411,34 +411,32 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2010',
     source_id: 'decia_2010_territory_population',
   },
-  'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory',
-      original_data_sourced: '2020',
-      source_id: 'decia_2020_territory_population',
-    },
-  'decia_2020_territory_population-by_sex_territory_state_level': {
+  'decia_2020_territory_population-race_and_ethnicity_territory_state_level': {
+    name: 'Population by race/ethnicity and Census Island Area territory',
+    original_data_sourced: '2020',
+    source_id: 'decia_2020_territory_population',
+  },
+  'decia_2020_territory_population-sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
   },
-  'decia_2020_territory_population-by_age_territory_state_level': {
+  'decia_2020_territory_population-age_territory_state_level': {
     name: 'Population by age and Census Island Area territory',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
   },
-  'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
-      original_data_sourced: '2020',
-      source_id: 'decia_2020_territory_population',
-    },
-  'decia_2020_territory_population-by_sex_territory_county_level': {
+  'decia_2020_territory_population-race_and_ethnicity_territory_county_level': {
+    name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
+    original_data_sourced: '2020',
+    source_id: 'decia_2020_territory_population',
+  },
+  'decia_2020_territory_population-sex_territory_county_level': {
     name: 'Population by sex and Census Island Area territory county-equivalent',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
   },
-  'decia_2020_territory_population-by_age_territory_county_level': {
+  'decia_2020_territory_population-age_territory_county_level': {
     name: 'Population by age and Census Island Area territory county-equivalent',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',

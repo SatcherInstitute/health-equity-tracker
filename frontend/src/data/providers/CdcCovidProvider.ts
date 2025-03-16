@@ -88,12 +88,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
+            'decia_2020_territory_population-race_and_ethnicity_territory_state_level',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level',
+            'decia_2020_territory_population-race_and_ethnicity_territory_county_level',
           )
         }
       }
@@ -101,12 +101,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlySex()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_sex_territory_state_level',
+            'decia_2020_territory_population-sex_territory_state_level',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_sex_territory_county_level',
+            'decia_2020_territory_population-sex_territory_county_level',
           )
         }
       }
@@ -114,12 +114,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_age_territory_state_level',
+            'decia_2020_territory_population-age_territory_state_level',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-by_age_territory_county_level',
+            'decia_2020_territory_population-age_territory_county_level',
           )
         }
       }

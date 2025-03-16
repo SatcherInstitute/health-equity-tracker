@@ -130,7 +130,7 @@ class CawpProvider extends VariableProvider {
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
+          'decia_2020_territory_population-race_and_ethnicity_territory_state_level',
         )
 
         // CAWP time-series also use DECIA_2010
