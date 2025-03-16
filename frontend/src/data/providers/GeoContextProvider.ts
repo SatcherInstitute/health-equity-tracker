@@ -49,17 +49,17 @@ class GeoContextProvider extends VariableProvider {
       national: 'acs_population-by_sex_national',
       // next entries are unused
       'state/territory': 'acs_population-by_sex_state',
-      territory: 'decia_2020_territory_population-by_sex_territory_state_level',
+      territory: 'decia_2020_territory_population-sex_territory_state_level',
     }
 
     const decia2020DatasetMap: Record<GeographicBreakdown, DatasetId> = {
-      county: 'decia_2020_territory_population-by_sex_territory_county_level',
-      state: 'decia_2020_territory_population-by_sex_territory_state_level',
+      county: 'decia_2020_territory_population-sex_territory_county_level',
+      state: 'decia_2020_territory_population-sex_territory_state_level',
       national: 'acs_population-by_sex_national',
       // next entries are unused
       'state/territory':
-        'decia_2020_territory_population-by_sex_territory_state_level',
-      territory: 'decia_2020_territory_population-by_sex_territory_state_level',
+        'decia_2020_territory_population-sex_territory_state_level',
+      territory: 'decia_2020_territory_population-sex_territory_state_level',
     }
 
     if (metricQuery.metricIds.includes(POPULATION)) {

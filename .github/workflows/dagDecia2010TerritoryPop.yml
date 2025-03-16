@@ -1,4 +1,4 @@
-name: DAG - DECIA_2010_POPULATION
+name: DAG - DECIA_2010_POPULATION (ISLAND AREA TERRITORIES)
 on:
   workflow_dispatch:
   workflow_call:
