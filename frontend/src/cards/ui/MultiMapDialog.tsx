@@ -1,6 +1,5 @@
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
-import { Legend } from '../../charts/Legend'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import type {
@@ -34,6 +33,7 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import CardOptionsMenu from './CardOptionsMenu'
 import { Sources } from './Sources'
+import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
