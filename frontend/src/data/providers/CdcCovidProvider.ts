@@ -11,7 +11,7 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import { dropRecentPartialMonth } from '../utils/DatasetTimeUtils'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
@@ -123,12 +123,7 @@ class CdcCovidProvider extends VariableProvider {
         }
       }
     } else {
-      const { datasetId: acsId } = resolveDatasetId(
-        'acs_population',
-        '',
-        metricQuery,
-      )
-      acsId && consumedDatasetIds.push(acsId)
+      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
 
     if (isFallbackId) {

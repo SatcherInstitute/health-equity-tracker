@@ -7,7 +7,7 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 // states with combined prison and jail systems
@@ -85,12 +85,7 @@ class IncarcerationProvider extends VariableProvider {
       breakdowns.geography !== 'county' &&
       !breakdowns.filterFips?.isIslandArea()
     ) {
-      const { datasetId: acsId } = resolveDatasetId(
-        'acs_population',
-        '',
-        metricQuery,
-      )
-      acsId && consumedDatasetIds.push(acsId)
+      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
 
     // National Level - Map of all states + territory bubbles

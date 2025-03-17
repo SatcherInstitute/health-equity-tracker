@@ -3,11 +3,7 @@ import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
+import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import {
   AIANNH_W,
   AIAN_API_W,
@@ -22,7 +18,7 @@ import {
   UNKNOWN_W,
   UNREPRESENTED,
 } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -144,12 +140,7 @@ class CawpProvider extends VariableProvider {
         }
       } else {
         // Non-Island Areas use ACS
-        const { datasetId: acsId } = resolveDatasetId(
-          'acs_population',
-          '',
-          metricQuery,
-        )
-        acsId && consumedDatasetIds.push(acsId)
+        addAcsIdToConsumed(metricQuery, consumedDatasetIds)
       }
     }
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {

@@ -5,7 +5,7 @@ import {
   MetricQueryResponse,
   resolveDatasetId,
 } from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 const reason =
@@ -60,12 +60,7 @@ class VaccineProvider extends VariableProvider {
 
     const consumedDatasetIds = [datasetId]
 
-    const { datasetId: acsId } = resolveDatasetId(
-      'acs_population',
-      '',
-      metricQuery,
-    )
-    acsId && consumedDatasetIds.push(acsId)
+    addAcsIdToConsumed(metricQuery, consumedDatasetIds)
 
     if (breakdowns.geography === 'state') {
       if (breakdowns.filterFips === undefined) {
