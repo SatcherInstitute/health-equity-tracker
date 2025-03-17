@@ -70,17 +70,14 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     const hasZeroData = zeroData.length > 0
 
     // Setup constants for legend layout
-    const margin = { top: 10, right: 10, bottom: 10, left: 50 }
-    const width = 300
+    const margin = { top: 10, right: 20, bottom: 10, left: 20 }
     const legendRowHeight = 20
     const symbolSize = 15
     const labelOffset = 5
 
     // Separate regular legend items from special items
-    const regularLegendItems: { color: string; label: string; value: any }[] =
-      []
-    const specialLegendItems: { color: string; label: string; value: any }[] =
-      []
+    const regularLegendItems: { color: string; label: string; value: any }[] = []
+    const specialLegendItems: { color: string; label: string; value: any }[] = []
 
     if (uniqueNonZeroValues.length > 0 && !props.isSummaryLegend) {
       const colorScale = createColorScale({
