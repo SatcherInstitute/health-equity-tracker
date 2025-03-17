@@ -13,6 +13,8 @@ import ClickableLegendHeader from '../ClickableLegendHeader'
 import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { createColorScale } from './colorSchemes'
 import { useGetLegendColumnCount } from './mapLegendUtils'
+import { INVISIBLE_PRELOAD_WIDTH } from '../../charts/mapGlobals'
+import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { formatMetricValue } from './tooltipUtils'
 
 interface RateMapLegendProps {
