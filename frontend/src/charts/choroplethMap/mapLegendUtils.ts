@@ -117,11 +117,15 @@ export const createUnknownLegend = (
   })
 }
 
-export function useGetLegendColumnCount() {
+export function useGetLegendColumnCount(isMulti?: boolean) {
   const isCompareMode = window.location.href.includes('compare')
   const isTiny = useIsBreakpointAndUp('tiny')
   const isSm = useIsBreakpointAndUp('sm')
+  const isLg = useIsBreakpointAndUp('lg')
+  if (isLg && isMulti) return 10
   if (isSm) return 1
   if (isTiny && !isCompareMode) return 2
   return 1
 }
+
+
