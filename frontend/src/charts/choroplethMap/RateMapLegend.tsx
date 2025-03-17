@@ -36,14 +36,19 @@ export default function RateMapLegend(props: RateMapLegendProps) {
   function labelFormat(value: number) {
     return formatMetricValue(value, props.metricConfig, true)
   }
-
-  const regularColsCount = useGetLegendColumnCount()
-
+  
+  // Get dynamic column count based on screen size
+  const regularColsCount = useGetLegendColumnCount(props.isMulti)
+  const [containerRef, containerWidth] = useResponsiveWidth()
+  
   const svgRef = useRef<SVGSVGElement>(null)
 
+  // Single useEffect for all rendering logic
   useEffect(() => {
-    if (!svgRef.current || !props.data) return
-
+    if (!svgRef.current || !props.data || containerWidth === INVISIBLE_PRELOAD_WIDTH) {
+      return;
+    }
+    
     const svg = d3.select(svgRef.current)
     svg.selectAll('*').remove() // Clear previous legend
 
