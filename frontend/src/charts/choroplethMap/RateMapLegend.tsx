@@ -143,21 +143,27 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     // Add missing data item to special items
     if (hasMissingData) {
       specialLegendItems.push({
-        color: het.howToColor || '#cccccc', // TODO: use het color
+        color: het.howToColor || '#cccccc',
         label: NO_DATA_MESSAGE,
         value: null,
       })
     }
 
-    // Calculate layout
+    // Calculate layout with responsive adjustments
+    // Adjust columns based on available width
+    let adjustedColumnCount = regularColsCount;
+    if (containerWidth < 500 && regularLegendItems.length > 0) {
+      adjustedColumnCount = Math.max(1, regularColsCount - 1);
+    }
 
     const hasSpecialColumn = specialLegendItems.length > 0
     const totalColumns = hasSpecialColumn
-      ? regularColsCount + 1
-      : regularColsCount
+      ? adjustedColumnCount + 1
+      : adjustedColumnCount
 
+    // Calculate how many items should be in each column
     const itemsPerRegularColumn = Math.ceil(
-      regularLegendItems.length / regularColsCount,
+      regularLegendItems.length / adjustedColumnCount,
     )
     const maxItemsInAnyColumn = Math.max(
       itemsPerRegularColumn,
