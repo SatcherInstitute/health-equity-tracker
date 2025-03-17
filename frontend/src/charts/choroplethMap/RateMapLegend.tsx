@@ -216,9 +216,10 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     // Render regular legend items after the special column
     regularLegendItems.forEach((item, i) => {
       const col = Math.floor(i / itemsPerRegularColumn)
-      // If there's a special column, shift regular columns to the right, otherwise roughly center it
-      const xOffset = hasSpecialColumn ? columnWidth : columnWidth / 4
-      const x = xOffset + col * columnWidth
+      
+      // Calculate x position with responsive adjustments
+      const xOffset = hasSpecialColumn ? columnWidth : 0;
+      const x = xOffset + (col * columnWidth);
       const row = i % itemsPerRegularColumn
       const y = row * legendRowHeight
 
