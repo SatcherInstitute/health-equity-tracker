@@ -236,16 +236,17 @@ export default function RateMapLegend(props: RateMapLegendProps) {
         .attr('x', x + symbolSize + labelOffset)
         .attr('y', y + symbolSize / 2 + 4) // Center text vertically with square
         .text(item.label)
+        .append('title').text(item.label) // Add title for tooltip on hover
     })
-  }, [props.data, props.metricConfig, props.mapConfig, props.description])
+  }, [props.data, props.metricConfig, props.mapConfig, props.description, containerWidth, regularColsCount, props.fips, props.isMulti, props.fipsTypeDisplayName, props.isPhrmaAdherence, props.isSummaryLegend])
 
   return (
-    <section className='mx-4 flex flex-col items-center text-left'>
+    <section className='mx-4 flex flex-col items-center text-left w-full' ref={containerRef}>
       <ClickableLegendHeader
         legendTitle={props.legendTitle}
         dataTypeConfig={props.dataTypeConfig}
       />
-      <svg ref={svgRef} />
+      <svg ref={svgRef} className="w-full" />
     </section>
   )
 }
