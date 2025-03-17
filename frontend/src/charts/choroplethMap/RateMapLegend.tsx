@@ -173,9 +173,9 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     const height =
       maxItemsInAnyColumn * legendRowHeight + margin.top + margin.bottom
 
-    // Set SVG dimensions
+    // Set SVG dimensions with responsive width
     svg
-      .attr('width', width)
+      .attr('width', containerWidth)
       .attr('height', height)
       .attr('aria-label', props.description)
       .style('background', 'transparent')
