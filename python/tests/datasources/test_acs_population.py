@@ -153,14 +153,14 @@ def testOverWriteToBqStateNationalCalls2009(
     table_names_for_bq = [call[0][2] for call in mock_bq.call_args_list]
     assert table_names_for_bq == [
         # 2021 should only write to the time_series tables
-        "by_race_state_time_series",
-        "by_sex_age_race_state_time_series",
-        "by_sex_age_state_time_series",
-        "by_age_state_time_series",
-        "by_sex_state_time_series",
-        "by_age_national_time_series",
-        "by_race_national_time_series",
-        "by_sex_national_time_series",
+        "race_state_historical",
+        "by_sex_age_race_state_historical",
+        "by_sex_age_state_historical",
+        "age_state_historical",
+        "sex_state_historical",
+        "age_national_historical",
+        "race_national_historical",
+        "sex_national_historical",
     ]
 
     df_age_national_2009_overwrite = mock_bq.call_args_list[5][0][0]
@@ -206,16 +206,16 @@ def testWriteToBqCountyCallsAppend2022(mock_bq: mock.MagicMock, mock_cache: mock
 
     assert table_names_for_bq == [
         # 2022 should write to both SINGLE YEAR and TIME SERIES tables
-        "by_race_county",
-        "by_race_county_time_series",
-        "by_sex_age_race_county",
-        "by_sex_age_race_county_time_series",
-        "by_sex_age_county",
-        "by_sex_age_county_time_series",
-        "by_age_county",
-        "by_age_county_time_series",
-        "by_sex_county",
-        "by_sex_county_time_series",
+        "race_county_current",
+        "race_county_historical",
+        "by_sex_age_race_county_current",
+        "by_sex_age_race_county_historical",
+        "by_sex_age_county_current",
+        "by_sex_age_county_historical",
+        "age_county_current",
+        "age_county_historical",
+        "sex_county_current",
+        "sex_county_historical",
     ]
 
 
