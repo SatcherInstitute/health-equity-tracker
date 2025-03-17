@@ -184,19 +184,18 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* LEGEND */}
           <div className='col-span-full flex w-full justify-start md:col-span-1'>
-            <Legend
+            <RateMapLegend
               dataTypeConfig={props.dataTypeConfig}
               metricConfig={props.metricConfig}
               legendTitle={props.metricConfig.shortLabel}
               data={props.data}
-              scaleType={RATE_MAP_SCALE}
-              sameDotSize={true}
-              description={'Consistent legend for all displayed maps'}
+              description={'Legend for rate map'}
               mapConfig={mapConfig}
-              stackingDirection={'horizontal'}
-              columns={6}
+              isSummaryLegend={false}
+              fieldRange={props.fieldRange}
               isMulti={true}
               isPhrmaAdherence={props.isPhrmaAdherence}
+              fips={props.fips}
             />
           </div>
 
