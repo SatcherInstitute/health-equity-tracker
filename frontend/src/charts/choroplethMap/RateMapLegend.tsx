@@ -186,8 +186,11 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    // Render legend items
-    const columnWidth = (width - margin.left - margin.right) / totalColumns
+    // Calculate available width for columns (accounting for margins)
+    const availableWidth = containerWidth - margin.left - margin.right
+    
+    // Create properly sized columns based on available width
+    const columnWidth = availableWidth / totalColumns
 
     // Render special items in the first column if they exist
     if (hasSpecialColumn) {
