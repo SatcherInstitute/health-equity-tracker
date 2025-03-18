@@ -170,6 +170,10 @@ def graphql_response_to_dataframe(response_data):
 
     Returns:
     - pd.DataFrame: A Pandas DataFrame containing the flattened data.
+
+    The function flattens the nested response_data structure, extracts relevant fields,
+    and creates a DataFrame. It also standardizes the state codes and filters the data
+    based on the geographic level.
     """
 
     flattened_data = []
