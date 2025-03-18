@@ -7,11 +7,12 @@ from datasources.cdc_vaccination_national import CDCVaccinationNational
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_vaccination_national")
+GOLDEN_DIR = os.path.join(TEST_DIR, "golden_data")
 
 GOLDEN_DATA = {
-    "race": os.path.join(TEST_DIR, "cdc_vaccination_national_by_race_and_ethnicity.csv"),
-    "sex": os.path.join(TEST_DIR, "cdc_vaccination_national_by_sex.csv"),
-    "age": os.path.join(TEST_DIR, "cdc_vaccination_national_by_age.csv"),
+    "race": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_current.csv"),
+    "sex": os.path.join(GOLDEN_DIR, "sex_national_current.csv"),
+    "age": os.path.join(GOLDEN_DIR, "age_national_current.csv"),
 }
 
 
