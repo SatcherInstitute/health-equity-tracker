@@ -53,7 +53,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Sex Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-sex_national_historical',
+      'acs_condition-by_sex_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
       'historical',
@@ -62,7 +62,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Age Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-age_national_historical',
+      'acs_condition-by_age_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
       'historical',
@@ -71,7 +71,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Race Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_national_historical',
+      'acs_condition-by_race_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
       'historical',
@@ -80,7 +80,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Age Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-age_state_historical',
+      'acs_condition-by_age_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
       'historical',
@@ -89,7 +89,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Sex Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-sex_state_historical',
+      'acs_condition-by_sex_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
       'historical',
@@ -98,7 +98,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Race Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_state_historical',
+      'acs_condition-by_race_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
       'historical',
@@ -107,7 +107,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Age Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-age_county_historical',
+      'acs_condition-by_age_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE,
       'historical',
@@ -116,7 +116,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Sex Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-sex_county_historical',
+      'acs_condition-by_sex_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX,
       'historical',
@@ -125,7 +125,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Race Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_county_historical',
+      'acs_condition-by_race_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
       'historical',
@@ -134,7 +134,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Sex Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-sex_national_current',
+      'acs_condition-by_sex_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       SEX,
       'current',
@@ -143,7 +143,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Age Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-age_national_current',
+      'acs_condition-by_age_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       AGE,
       'current',
@@ -152,7 +152,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Race Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_national_current',
+      'acs_condition-by_race_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
       'current',
@@ -161,7 +161,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Age Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-age_state_current',
+      'acs_condition-by_age_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       AGE,
       'current',
@@ -170,7 +170,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Sex Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-sex_state_current',
+      'acs_condition-by_sex_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       SEX,
       'current',
@@ -179,7 +179,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Race Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_state_current',
+      'acs_condition-by_race_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
       'current',
@@ -188,7 +188,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Age Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-age_county_current',
+      'acs_condition-by_age_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE,
       'current',
@@ -197,7 +197,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Sex Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-sex_county_current',
+      'acs_condition-by_sex_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX,
       'current',
@@ -206,7 +206,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Race Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_county_current',
+      'acs_condition-by_race_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
       'current',

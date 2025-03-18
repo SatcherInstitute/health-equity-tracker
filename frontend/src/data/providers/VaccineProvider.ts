@@ -5,7 +5,8 @@ import {
   MetricQueryResponse,
   resolveDatasetId,
 } from '../query/MetricQuery'
-import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 
 const reason =
@@ -60,19 +61,28 @@ class VaccineProvider extends VariableProvider {
 
     const consumedDatasetIds = [datasetId]
 
-    addAcsIdToConsumed(metricQuery, consumedDatasetIds)
-
+    if (breakdowns.geography === 'national') {
+      const acsId = GetAcsDatasetId(breakdowns)
+      acsId && consumedDatasetIds.push(acsId)
+    }
     if (breakdowns.geography === 'state') {
+      consumedDatasetIds.push('acs_population-by_race_state')
+
       if (breakdowns.filterFips === undefined) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_state_current',
+          'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
         )
       }
       if (breakdowns.filterFips?.isIslandArea()) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_state_current',
+          'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
         )
       }
+    }
+    if (breakdowns.geography === 'county') {
+      // We merge this in on the backend, no need to redownload it here
+      // but we want to provide the proper citation
+      consumedDatasetIds.push('acs_population-by_race_county')
     }
 
     if (isFallbackId) {

@@ -44,21 +44,22 @@ class GeoContextProvider extends VariableProvider {
     }
 
     const acsDatasetMap: Record<GeographicBreakdown, DatasetId> = {
-      county: 'acs_population-sex_county_current',
-      state: 'acs_population-sex_state_current',
-      national: 'acs_population-sex_national_current',
+      county: 'acs_population-by_sex_county',
+      state: 'acs_population-by_sex_state',
+      national: 'acs_population-by_sex_national',
       // next entries are unused
-      'state/territory': 'acs_population-sex_state_current',
-      territory: 'decia_2020_territory_population-sex_state_current',
+      'state/territory': 'acs_population-by_sex_state',
+      territory: 'decia_2020_territory_population-sex_territory_state_current',
     }
 
     const decia2020DatasetMap: Record<GeographicBreakdown, DatasetId> = {
-      county: 'decia_2020_territory_population-sex_county_current',
-      state: 'decia_2020_territory_population-sex_state_current',
-      national: 'acs_population-sex_national_current',
+      county: 'decia_2020_territory_population-sex_territory_county_current',
+      state: 'decia_2020_territory_population-sex_territory_state_current',
+      national: 'acs_population-by_sex_national',
       // next entries are unused
-      'state/territory': 'decia_2020_territory_population-sex_state_current',
-      territory: 'decia_2020_territory_population-sex_state_current',
+      'state/territory':
+        'decia_2020_territory_population-sex_territory_state_current',
+      territory: 'decia_2020_territory_population-sex_territory_state_current',
     }
 
     if (metricQuery.metricIds.includes(POPULATION)) {

@@ -280,7 +280,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
           chartTitle:
             'Population vs. distribution of total gun deaths among children',
           columnTitleHeader: `${populationPctTitle} (ages 0-17)`,
-          metricId: 'gun_deaths_youth_population_pct',
+          metricId: 'population_pct',
           shortLabel: populationPctShortLabel,
           type: 'pct_share',
         },
@@ -342,7 +342,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
           chartTitle:
             'Population vs. distribution of total gun deaths among young adults',
           columnTitleHeader: `${populationPctTitle} (ages 18-25)`,
-          metricId: 'gun_deaths_young_adults_population_pct',
+          metricId: 'population_pct',
           shortLabel: populationPctShortLabel,
           type: 'pct_share',
         },

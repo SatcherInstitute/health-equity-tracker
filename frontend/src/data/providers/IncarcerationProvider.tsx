@@ -7,7 +7,8 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 
-import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 
 // states with combined prison and jail systems
@@ -85,25 +86,26 @@ class IncarcerationProvider extends VariableProvider {
       breakdowns.geography !== 'county' &&
       !breakdowns.filterFips?.isIslandArea()
     ) {
-      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
+      const acsId = GetAcsDatasetId(breakdowns)
+      acsId && consumedDatasetIds.push(acsId)
     }
 
     // National Level - Map of all states + territory bubbles
     if (breakdowns.geography === 'state' && !breakdowns.filterFips) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-sex_state_current',
+        'decia_2020_territory_population-sex_territory_state_current',
       )
     }
 
     // Territory Level (Island Areas) - All cards
     if (breakdowns.filterFips?.isIslandArea()) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-sex_state_current',
+        'decia_2020_territory_population-sex_territory_state_current',
       )
       // only time-series cards use decia 2010
       if (metricQuery.timeView === 'historical') {
         consumedDatasetIds.push(
-          'decia_2010_territory_population-sex_state_current',
+          'decia_2010_territory_population-sex_territory_state_current',
         )
       }
     }

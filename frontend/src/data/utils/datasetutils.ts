@@ -17,7 +17,6 @@ import {
 } from '../providers/AhrProvider'
 import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
 import type { Breakdowns, DemographicType } from '../query/Breakdowns'
-import { type MetricQuery, resolveDatasetId } from '../query/MetricQuery'
 import {
   ACS_POVERTY_AGE_BUCKETS,
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
@@ -26,6 +25,7 @@ import {
   AIAN_API,
   AIAN_NH,
   ALL,
+  API,
   API_NH,
   ASIAN_NH,
   type AgeBucket,
@@ -389,15 +389,4 @@ export function appendFipsIfNeeded(
     : breakdowns?.filterFips?.getParentFips()?.code
 
   return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
-}
-
-export function addAcsIdToConsumed(
-  metricQuery: MetricQuery,
-  consumedDatasetIds: DatasetId[],
-) {
-  const { datasetId } = resolveDatasetId('acs_population', '', metricQuery)
-
-  if (datasetId) {
-    consumedDatasetIds.push(datasetId)
-  }
 }
