@@ -220,7 +220,7 @@ def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal["age", "race", "sex"
     return df
 
 
-def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
+def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
     on_col_map = {
         "age": std_col.AGE_COL,
         "race": std_col.RACE_CATEGORY_ID_COL,
@@ -233,19 +233,21 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
         std_col.POPULATION_PCT_COL: float,
     }
 
-    if loc == COUNTY_LEVEL:
+    if geo_level == COUNTY_LEVEL:
         pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
     if demo not in on_col_map:
         raise ValueError(f"{demo} not a demographic option, must be one of: {list(on_col_map.keys())}")
 
-    pop_table_name = f"by_{demo}_{loc}"
+    pop_table_name = f"{demo}_{geo_level}"
 
     print(f"\nMerging real ACS population from python/ingestion/acs_population/{pop_table_name}")
 
     if on_time_period:
-        pop_table_name += "_time_series"
+        pop_table_name += "_historical"
         pop_dtype[std_col.TIME_PERIOD_COL] = str
+    else:
+        pop_table_name += "_current"
 
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"{pop_table_name}.csv")
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
@@ -255,7 +257,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     if std_col.STATE_FIPS_COL in df.columns:
         needed_cols.append(std_col.STATE_FIPS_COL)
 
-    if loc == COUNTY_LEVEL:
+    if geo_level == COUNTY_LEVEL:
         needed_cols.append(std_col.COUNTY_FIPS_COL)
 
     keep_cols = [*needed_cols, std_col.TIME_PERIOD_COL] if on_time_period else needed_cols
@@ -264,9 +266,9 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
 
     # merge pop data for other territories/county-equivalents
     # from DECIA_2020 (VI, GU, AS, MP)
-    if loc != NATIONAL_LEVEL:
+    if geo_level != NATIONAL_LEVEL:
         verbose_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
-        pop_terr_table_name = f"by_{verbose_demo}_territory_{loc}_level"
+        pop_terr_table_name = f"{verbose_demo}_{geo_level}_current"
 
         terr_pop_dtype = {
             std_col.STATE_FIPS_COL: str,
@@ -274,7 +276,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
             std_col.POPULATION_PCT_COL: float,
         }
 
-        if loc == COUNTY_LEVEL:
+        if geo_level == COUNTY_LEVEL:
             terr_pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
         pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f"{pop_terr_table_name}.csv")
@@ -287,7 +289,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
             # load and use 2010 territory populations in every ACS year 2009-2015, only state not county level
             pop_terr_2010_file = (
                 pop_terr_2020_file
-                if loc == COUNTY_LEVEL
+                if geo_level == COUNTY_LEVEL
                 else os.path.join(DECIA_2010_MERGE_DATA_DIR, f"{pop_terr_table_name}.csv")
             )
             pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
@@ -313,7 +315,7 @@ def _merge_pop(df, demo, loc, on_time_period: Optional[bool] = None):
     if std_col.STATE_FIPS_COL in df.columns:
         on_cols.append(std_col.STATE_FIPS_COL)
 
-    if loc == COUNTY_LEVEL:
+    if geo_level == COUNTY_LEVEL:
         on_cols.append(std_col.COUNTY_FIPS_COL)
 
     if on_time_period:
@@ -368,7 +370,7 @@ def merge_intersectional_pop(
         pop_dtype[std_col.STATE_FIPS_COL] = str
         geo_file = STATE_LEVEL
 
-    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"by_sex_age_race_{geo_file}.csv")
+    pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"multi_sex_age_race_{geo_file}_current.csv")
     pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
 
     if geo_level == NATIONAL_LEVEL:

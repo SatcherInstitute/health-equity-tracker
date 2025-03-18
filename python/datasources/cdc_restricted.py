@@ -29,7 +29,7 @@ DC_COUNTY_FIPS = "11001"
 
 ONLY_FIPS_FILES = {
     # These files only need to get their fips codes merged in
-    "cdc_restricted_by_race_and_age_state.csv": "by_race_age_state",
+    "cdc_restricted_by_race_and_age_state.csv": "multi_race_age_state",
 }
 
 COVID_CONDITION_TO_PREFIX = {

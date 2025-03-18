@@ -159,7 +159,7 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "by_race"
+          demographic: "race"
           should_export_as_alls: "true"
 
       - name: Export data by age
@@ -167,11 +167,11 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "by_age"
+          demographic: "age"
 
       - name: Export data by sex
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "by_sex"
+          demographic: "sex"

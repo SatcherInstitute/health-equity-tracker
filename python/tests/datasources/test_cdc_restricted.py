@@ -317,4 +317,4 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
     assert mock_bq.call_count == 3
     assert mock_bq.call_args_list[0].args[2] == "race_national_cumulative"
     assert mock_bq.call_args_list[1].args[2] == "race_national_historical"
-    assert mock_bq.call_args_list[2].args[2] == "by_race_age_state"
+    assert mock_bq.call_args_list[2].args[2] == "multi_race_age_state"
