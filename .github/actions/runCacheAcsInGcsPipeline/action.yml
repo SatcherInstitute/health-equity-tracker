@@ -42,7 +42,7 @@ runs:
         ATTEMPT=0
 
         # Create the request payload
-        REQUEST_PAYLOAD="{\"workflow_id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.destination_gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}"
+        REQUEST_PAYLOAD="{\"message\":{\"is_dag_pipeline_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.destination_gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}}"
 
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
           echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call data-ingestion service..."
