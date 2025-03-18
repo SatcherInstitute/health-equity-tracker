@@ -1,9 +1,6 @@
 age,state_fips,state_name,asthma_per_100k,avoided_care_pct_rate,cardiovascular_diseases_per_100k,chronic_kidney_disease_per_100k,copd_per_100k,diabetes_per_100k,preventable_hospitalizations_per_100k,ahr_population_estimated_total,ahr_population_pct,voter_participation_pct_rate
-18-24,00,United States,,,,,,,,,,51.4
 18-44,00,United States,9800.0,15.2,2300.0,1300.0,2800.0,3600.0,,120601782.0,36.1,
-25-34,00,United States,,,,,,,,,,60.3
-35-44,00,United States,,,,,,,,,,65.1
-45-64,00,United States,10600.0,10.6,9900.0,3800.0,7900.0,15700.0,,84527730.0,25.3,71.0
+45-64,00,United States,10600.0,10.6,9900.0,3800.0,7900.0,15700.0,,84527730.0,25.3,
 65+,00,United States,9200.0,3.7,22400.0,8300.0,13100.0,23900.0,,55460582.0,16.6,74.5
 65-74,00,United States,,,,,,,1452.0,32641489.0,9.8,
-All,00,United States,10400.0,10.1,9100.0,3500.0,6800.0,11500.0,,334369975.0,100.0,66.8
+All,00,United States,10400.0,10.1,9100.0,3500.0,6800.0,11500.0,2665.0,334369975.0,100.0,66.8
