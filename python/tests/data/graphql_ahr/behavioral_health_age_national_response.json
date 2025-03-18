@@ -2,7 +2,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.6,
                 "measure": {
@@ -10,7 +10,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.9,
                 "measure": {
@@ -18,7 +18,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18,
                 "measure": {
@@ -26,7 +26,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.5,
                 "measure": {
@@ -34,7 +34,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.9,
                 "measure": {
@@ -42,7 +42,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19,
                 "measure": {
@@ -50,7 +50,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.4,
                 "measure": {
@@ -58,7 +58,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.5,
                 "measure": {
@@ -66,7 +66,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.7,
                 "measure": {
@@ -74,7 +74,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.5,
                 "measure": {
@@ -82,7 +82,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.5,
                 "measure": {
@@ -90,9 +90,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21.7,
+                "measure": {
+                    "name": "Depression"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22,
                 "measure": {
                     "name": "Depression"
                 }
@@ -102,7 +110,7 @@
     {
         "data": [
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.2,
                 "measure": {
@@ -110,7 +118,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.6,
                 "measure": {
@@ -118,7 +126,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.7,
                 "measure": {
@@ -126,7 +134,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.4,
                 "measure": {
@@ -134,7 +142,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.5,
                 "measure": {
@@ -142,7 +150,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19,
                 "measure": {
@@ -150,7 +158,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.2,
                 "measure": {
@@ -158,7 +166,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.6,
                 "measure": {
@@ -166,7 +174,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.8,
                 "measure": {
@@ -174,7 +182,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.6,
                 "measure": {
@@ -182,7 +190,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.3,
                 "measure": {
@@ -190,9 +198,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.4,
+                "measure": {
+                    "name": "Excessive Drinking"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 16.7,
                 "measure": {
                     "name": "Excessive Drinking"
                 }
@@ -202,7 +218,7 @@
     {
         "data": [
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.2,
                 "measure": {
@@ -210,7 +226,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.3,
                 "measure": {
@@ -218,7 +234,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11,
                 "measure": {
@@ -226,7 +242,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.7,
                 "measure": {
@@ -234,7 +250,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12,
                 "measure": {
@@ -242,7 +258,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.4,
                 "measure": {
@@ -250,7 +266,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.7,
                 "measure": {
@@ -258,7 +274,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.7,
                 "measure": {
@@ -266,7 +282,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.8,
                 "measure": {
@@ -274,7 +290,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.2,
                 "measure": {
@@ -282,7 +298,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.7,
                 "measure": {
@@ -290,9 +306,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.9,
+                "measure": {
+                    "name": "Frequent Mental Distress"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 15.4,
                 "measure": {
                     "name": "Frequent Mental Distress"
                 }
@@ -302,7 +326,7 @@
     {
         "data": [
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.9,
                 "measure": {
@@ -310,7 +334,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.3,
                 "measure": {
@@ -318,7 +342,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12,
                 "measure": {
@@ -326,7 +350,7 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.5,
                 "measure": {
@@ -334,9 +358,17 @@
                 }
             },
             {
-                "endDate": "2023-01-01T00: 00: 00.000Z",
+                "endDate": "2023-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.9,
+                "measure": {
+                    "name": "Non-Medical Drug Use - Past Year"
+                }
+            },
+            {
+                "endDate": "2024-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 17.6,
                 "measure": {
                     "name": "Non-Medical Drug Use - Past Year"
                 }
@@ -346,7 +378,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.8,
                 "measure": {
@@ -354,7 +386,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.4,
                 "measure": {
@@ -362,7 +394,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
                 "measure": {
@@ -370,7 +402,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12,
                 "measure": {
@@ -378,7 +410,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.9,
                 "measure": {
@@ -386,7 +418,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.9,
                 "measure": {
@@ -394,7 +426,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.7,
                 "measure": {
@@ -402,7 +434,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.7,
                 "measure": {
@@ -410,7 +442,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.4,
                 "measure": {
@@ -418,7 +450,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13,
                 "measure": {
@@ -426,7 +458,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
                 "measure": {
@@ -434,7 +466,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14,
                 "measure": {
@@ -442,9 +474,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
+                "measure": {
+                    "name": "Suicide"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.8,
                 "measure": {
                     "name": "Suicide"
                 }
@@ -454,7 +494,7 @@
     {
         "data": [
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13,
                 "measure": {
@@ -462,7 +502,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.4,
                 "measure": {
@@ -470,7 +510,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -478,7 +518,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.1,
                 "measure": {
@@ -486,7 +526,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15,
                 "measure": {
@@ -494,7 +534,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.4,
                 "measure": {
@@ -502,7 +542,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16,
                 "measure": {
@@ -510,7 +550,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.3,
                 "measure": {
@@ -518,7 +558,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.7,
                 "measure": {
@@ -526,7 +566,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.2,
                 "measure": {
@@ -534,7 +574,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -542,7 +582,7 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.5,
                 "measure": {
@@ -554,7 +594,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.3,
                 "measure": {
@@ -562,7 +602,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.7,
                 "measure": {
@@ -570,7 +610,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15,
                 "measure": {
@@ -578,7 +618,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.4,
                 "measure": {
@@ -586,7 +626,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16,
                 "measure": {
@@ -594,7 +634,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -602,7 +642,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.2,
                 "measure": {
@@ -610,7 +650,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -618,9 +658,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.5,
+                "measure": {
+                    "name": "Depression - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.7,
                 "measure": {
                     "name": "Depression - Age 65+"
                 }
@@ -630,7 +678,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.3,
                 "measure": {
@@ -638,7 +686,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.3,
                 "measure": {
@@ -646,7 +694,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17,
                 "measure": {
@@ -654,7 +702,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.5,
                 "measure": {
@@ -662,7 +710,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.2,
                 "measure": {
@@ -670,7 +718,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.8,
                 "measure": {
@@ -678,7 +726,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.4,
                 "measure": {
@@ -686,7 +734,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.2,
                 "measure": {
@@ -694,9 +742,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.7,
+                "measure": {
+                    "name": "Depression - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.5,
                 "measure": {
                     "name": "Depression - Ages 18-44"
                 }
@@ -706,7 +762,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.5,
                 "measure": {
@@ -714,7 +770,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.4,
                 "measure": {
@@ -722,7 +778,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20,
                 "measure": {
@@ -730,7 +786,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.7,
                 "measure": {
@@ -738,7 +794,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21,
                 "measure": {
@@ -746,7 +802,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.6,
                 "measure": {
@@ -754,7 +810,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.4,
                 "measure": {
@@ -762,7 +818,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.1,
                 "measure": {
@@ -770,9 +826,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20,
+                "measure": {
+                    "name": "Depression - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.5,
                 "measure": {
                     "name": "Depression - Ages 45-64"
                 }
@@ -782,7 +846,7 @@
     {
         "data": [
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.8,
                 "measure": {
@@ -790,7 +854,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.6,
                 "measure": {
@@ -798,7 +862,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.7,
                 "measure": {
@@ -806,7 +870,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.4,
                 "measure": {
@@ -814,7 +878,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.6,
                 "measure": {
@@ -822,7 +886,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.1,
                 "measure": {
@@ -830,7 +894,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.4,
                 "measure": {
@@ -838,7 +902,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.2,
                 "measure": {
@@ -846,7 +910,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.7,
                 "measure": {
@@ -854,7 +918,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.4,
                 "measure": {
@@ -862,7 +926,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7,
                 "measure": {
@@ -870,7 +934,115 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.7,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.9,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2014-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.6,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2016-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.1,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2015-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.7,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.4,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.2,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.7,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2011-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.4,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2012-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.6,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2013-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.8,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.4,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7,
+                "measure": {
+                    "name": "Excessive Drinking - Age 65+"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.7,
                 "measure": {
@@ -882,107 +1054,7 @@
     {
         "data": [
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 6.6,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7.1,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 6.7,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7.4,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7.2,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7.7,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 6.4,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 6.6,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 6.8,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7.4,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            },
-            {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 7.7,
-                "measure": {
-                    "name": "Excessive Drinking - Age 65+"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 24.5,
                 "measure": {
@@ -990,7 +1062,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.8,
                 "measure": {
@@ -998,7 +1070,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 24.3,
                 "measure": {
@@ -1006,7 +1078,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 27.4,
                 "measure": {
@@ -1014,7 +1086,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 25.2,
                 "measure": {
@@ -1022,7 +1094,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 25.2,
                 "measure": {
@@ -1030,7 +1102,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 25.4,
                 "measure": {
@@ -1038,7 +1110,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 24.5,
                 "measure": {
@@ -1046,7 +1118,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 25.2,
                 "measure": {
@@ -1054,7 +1126,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.4,
                 "measure": {
@@ -1062,7 +1134,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.2,
                 "measure": {
@@ -1070,9 +1142,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 24.4,
+                "measure": {
+                    "name": "Excessive Drinking - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 22.6,
                 "measure": {
                     "name": "Excessive Drinking - Ages 18-44"
                 }
@@ -1082,7 +1162,7 @@
     {
         "data": [
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.1,
                 "measure": {
@@ -1090,7 +1170,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.8,
                 "measure": {
@@ -1098,7 +1178,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.2,
                 "measure": {
@@ -1106,7 +1186,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.8,
                 "measure": {
@@ -1114,7 +1194,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.1,
                 "measure": {
@@ -1122,7 +1202,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.9,
                 "measure": {
@@ -1130,7 +1210,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16,
                 "measure": {
@@ -1138,7 +1218,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.9,
                 "measure": {
@@ -1146,7 +1226,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.6,
                 "measure": {
@@ -1154,7 +1234,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.5,
                 "measure": {
@@ -1162,7 +1242,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.1,
                 "measure": {
@@ -1170,9 +1250,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.5,
+                "measure": {
+                    "name": "Excessive Drinking - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 15.1,
                 "measure": {
                     "name": "Excessive Drinking - Ages 45-64"
                 }
@@ -1182,7 +1270,7 @@
     {
         "data": [
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.4,
                 "measure": {
@@ -1190,7 +1278,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.4,
                 "measure": {
@@ -1198,7 +1286,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.3,
                 "measure": {
@@ -1206,7 +1294,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.9,
                 "measure": {
@@ -1214,7 +1302,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.9,
                 "measure": {
@@ -1222,7 +1310,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.1,
                 "measure": {
@@ -1230,7 +1318,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.5,
                 "measure": {
@@ -1238,7 +1326,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.5,
                 "measure": {
@@ -1246,7 +1334,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.2,
                 "measure": {
@@ -1254,7 +1342,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.1,
                 "measure": {
@@ -1262,7 +1350,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.5,
                 "measure": {
@@ -1270,7 +1358,7 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.4,
                 "measure": {
@@ -1282,7 +1370,7 @@
     {
         "data": [
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.3,
                 "measure": {
@@ -1290,7 +1378,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.4,
                 "measure": {
@@ -1298,7 +1386,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.2,
                 "measure": {
@@ -1306,7 +1394,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.4,
                 "measure": {
@@ -1314,7 +1402,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.9,
                 "measure": {
@@ -1322,7 +1410,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.9,
                 "measure": {
@@ -1330,7 +1418,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.1,
                 "measure": {
@@ -1338,7 +1426,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.1,
                 "measure": {
@@ -1346,7 +1434,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.7,
                 "measure": {
@@ -1354,7 +1442,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.5,
                 "measure": {
@@ -1362,7 +1450,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.5,
                 "measure": {
@@ -1370,9 +1458,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.4,
+                "measure": {
+                    "name": "Frequent Mental Distress - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 8.7,
                 "measure": {
                     "name": "Frequent Mental Distress - Age 65+"
                 }
@@ -1382,7 +1478,7 @@
     {
         "data": [
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.9,
                 "measure": {
@@ -1390,7 +1486,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.5,
                 "measure": {
@@ -1398,7 +1494,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.1,
                 "measure": {
@@ -1406,7 +1502,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.3,
                 "measure": {
@@ -1414,7 +1510,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.1,
                 "measure": {
@@ -1422,7 +1518,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.9,
                 "measure": {
@@ -1430,7 +1526,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.5,
                 "measure": {
@@ -1438,7 +1534,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.5,
                 "measure": {
@@ -1446,7 +1542,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.9,
                 "measure": {
@@ -1454,7 +1550,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.6,
                 "measure": {
@@ -1462,7 +1558,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.4,
                 "measure": {
@@ -1470,9 +1566,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.1,
+                "measure": {
+                    "name": "Frequent Mental Distress - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20,
                 "measure": {
                     "name": "Frequent Mental Distress - Ages 18-44"
                 }
@@ -1482,7 +1586,7 @@
     {
         "data": [
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.5,
                 "measure": {
@@ -1490,7 +1594,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.3,
                 "measure": {
@@ -1498,7 +1602,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.8,
                 "measure": {
@@ -1506,7 +1610,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.5,
                 "measure": {
@@ -1514,7 +1618,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.8,
                 "measure": {
@@ -1522,7 +1626,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.6,
                 "measure": {
@@ -1530,7 +1634,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.1,
                 "measure": {
@@ -1538,7 +1642,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.8,
                 "measure": {
@@ -1546,7 +1650,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.8,
                 "measure": {
@@ -1554,7 +1658,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.3,
                 "measure": {
@@ -1562,7 +1666,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.5,
                 "measure": {
@@ -1570,9 +1674,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.1,
+                "measure": {
+                    "name": "Frequent Mental Distress - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 14.2,
                 "measure": {
                     "name": "Frequent Mental Distress - Ages 45-64"
                 }
@@ -1582,143 +1694,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 17,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.7,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.5,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.6,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.6,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.7,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 17,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.9,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.5,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.6,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.1,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.2,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 16.9,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 17.1,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            },
-            {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 17.3,
-                "measure": {
-                    "name": "Suicide - Age 65+"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.1,
                 "measure": {
@@ -1726,7 +1702,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.3,
                 "measure": {
@@ -1734,7 +1710,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.9,
                 "measure": {
@@ -1742,7 +1718,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.1,
                 "measure": {
@@ -1750,7 +1726,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19,
                 "measure": {
@@ -1758,7 +1734,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.6,
                 "measure": {
@@ -1766,7 +1742,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.6,
                 "measure": {
@@ -1774,7 +1750,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.1,
                 "measure": {
@@ -1782,7 +1758,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.4,
                 "measure": {
@@ -1790,7 +1766,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.8,
                 "measure": {
@@ -1798,7 +1774,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.4,
                 "measure": {
@@ -1806,7 +1782,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.9,
                 "measure": {
@@ -1814,77 +1790,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.4,
                 "measure": {
                     "name": "Suicide - Age 85+"
                 }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 19.4,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
-                "value": 19.5,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
-            },
-            {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 19.1,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
-            },
-            {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 19.3,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
-            },
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 20,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
-            },
-            {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 21.1,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
-            },
-            {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 19.8,
-                "measure": {
-                    "name": "Suicide - Age 85+"
-                }
-            },
-            {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 22.1,
+                "value": 23,
                 "measure": {
                     "name": "Suicide - Age 85+"
                 }
@@ -1894,7 +1810,7 @@
     {
         "data": [
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.9,
                 "measure": {
@@ -1902,7 +1818,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.2,
                 "measure": {
@@ -1910,7 +1826,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.1,
                 "measure": {
@@ -1918,7 +1834,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.5,
                 "measure": {
@@ -1926,7 +1842,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
                 "measure": {
@@ -1934,7 +1850,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.5,
                 "measure": {
@@ -1942,7 +1858,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.1,
                 "measure": {
@@ -1950,7 +1866,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10,
                 "measure": {
@@ -1958,7 +1874,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
                 "measure": {
@@ -1966,7 +1882,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.6,
                 "measure": {
@@ -1974,7 +1890,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11,
                 "measure": {
@@ -1982,7 +1898,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.2,
                 "measure": {
@@ -1990,9 +1906,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.2,
+                "measure": {
+                    "name": "Suicide - Ages 15-24"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 13.6,
                 "measure": {
                     "name": "Suicide - Ages 15-24"
                 }
@@ -2002,7 +1926,7 @@
     {
         "data": [
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.5,
                 "measure": {
@@ -2010,7 +1934,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.5,
                 "measure": {
@@ -2018,7 +1942,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.8,
                 "measure": {
@@ -2026,7 +1950,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14,
                 "measure": {
@@ -2034,7 +1958,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.6,
                 "measure": {
@@ -2042,7 +1966,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.7,
                 "measure": {
@@ -2050,7 +1974,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.7,
                 "measure": {
@@ -2058,7 +1982,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.1,
                 "measure": {
@@ -2066,7 +1990,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.5,
                 "measure": {
@@ -2074,7 +1998,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.1,
                 "measure": {
@@ -2082,7 +2006,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -2090,7 +2014,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.4,
                 "measure": {
@@ -2098,9 +2022,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.5,
+                "measure": {
+                    "name": "Suicide - Ages 25-34"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19,
                 "measure": {
                     "name": "Suicide - Ages 25-34"
                 }
@@ -2110,7 +2042,7 @@
     {
         "data": [
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.2,
                 "measure": {
@@ -2118,7 +2050,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.1,
                 "measure": {
@@ -2126,7 +2058,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.4,
                 "measure": {
@@ -2134,7 +2066,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.2,
                 "measure": {
@@ -2142,7 +2074,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16,
                 "measure": {
@@ -2150,7 +2082,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.2,
                 "measure": {
@@ -2158,7 +2090,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.1,
                 "measure": {
@@ -2166,7 +2098,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.7,
                 "measure": {
@@ -2174,7 +2106,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.1,
                 "measure": {
@@ -2182,7 +2114,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.9,
                 "measure": {
@@ -2190,7 +2122,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.6,
                 "measure": {
@@ -2198,7 +2130,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.4,
                 "measure": {
@@ -2206,9 +2138,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.1,
+                "measure": {
+                    "name": "Suicide - Ages 35-44"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.7,
                 "measure": {
                     "name": "Suicide - Ages 35-44"
                 }
@@ -2218,7 +2158,7 @@
     {
         "data": [
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.8,
                 "measure": {
@@ -2226,7 +2166,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.6,
                 "measure": {
@@ -2234,7 +2174,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.7,
                 "measure": {
@@ -2242,7 +2182,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.7,
                 "measure": {
@@ -2250,7 +2190,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.6,
                 "measure": {
@@ -2258,7 +2198,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20,
                 "measure": {
@@ -2266,7 +2206,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.3,
                 "measure": {
@@ -2274,7 +2214,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20,
                 "measure": {
@@ -2282,7 +2222,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.2,
                 "measure": {
@@ -2290,7 +2230,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.2,
                 "measure": {
@@ -2298,7 +2238,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.2,
                 "measure": {
@@ -2306,7 +2246,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18,
                 "measure": {
@@ -2314,9 +2254,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.2,
+                "measure": {
+                    "name": "Suicide - Ages 45-54"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 19.2,
                 "measure": {
                     "name": "Suicide - Ages 45-54"
                 }
@@ -2326,7 +2274,7 @@
     {
         "data": [
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.8,
                 "measure": {
@@ -2334,7 +2282,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.1,
                 "measure": {
@@ -2342,7 +2290,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.4,
                 "measure": {
@@ -2350,7 +2298,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.7,
                 "measure": {
@@ -2358,7 +2306,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.1,
                 "measure": {
@@ -2366,7 +2314,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.5,
                 "measure": {
@@ -2374,7 +2322,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.2,
                 "measure": {
@@ -2382,7 +2330,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.9,
                 "measure": {
@@ -2390,7 +2338,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18,
                 "measure": {
@@ -2398,7 +2346,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.4,
                 "measure": {
@@ -2406,7 +2354,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19,
                 "measure": {
@@ -2414,7 +2362,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.9,
                 "measure": {
@@ -2422,9 +2370,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17,
+                "measure": {
+                    "name": "Suicide - Ages 55-64"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 18.7,
                 "measure": {
                     "name": "Suicide - Ages 55-64"
                 }
@@ -2434,7 +2390,7 @@
     {
         "data": [
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.6,
                 "measure": {
@@ -2442,7 +2398,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.1,
                 "measure": {
@@ -2450,7 +2406,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.5,
                 "measure": {
@@ -2458,7 +2414,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.4,
                 "measure": {
@@ -2466,7 +2422,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15,
                 "measure": {
@@ -2474,7 +2430,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.7,
                 "measure": {
@@ -2482,7 +2438,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.3,
                 "measure": {
@@ -2490,7 +2446,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.2,
                 "measure": {
@@ -2498,7 +2454,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14,
                 "measure": {
@@ -2506,7 +2462,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.7,
                 "measure": {
@@ -2514,7 +2470,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.6,
                 "measure": {
@@ -2522,7 +2478,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
                 "measure": {
@@ -2530,9 +2486,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.3,
+                "measure": {
+                    "name": "Suicide - Ages 65-74"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 16,
                 "measure": {
                     "name": "Suicide - Ages 65-74"
                 }
@@ -2542,75 +2506,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.8,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.4,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.3,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.4,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.4,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.1,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.8,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            },
-            {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 15.3,
-                "measure": {
-                    "name": "Suicide - Ages 65-74"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18,
                 "measure": {
@@ -2618,7 +2514,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.5,
                 "measure": {
@@ -2626,7 +2522,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.5,
                 "measure": {
@@ -2634,7 +2530,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.6,
                 "measure": {
@@ -2642,7 +2538,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.2,
                 "measure": {
@@ -2650,7 +2546,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.1,
                 "measure": {
@@ -2658,7 +2554,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.7,
                 "measure": {
@@ -2666,7 +2562,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.7,
                 "measure": {
@@ -2674,7 +2570,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.9,
                 "measure": {
@@ -2682,7 +2578,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.8,
                 "measure": {
@@ -2690,7 +2586,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.8,
                 "measure": {
@@ -2698,7 +2594,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 18.4,
                 "measure": {
@@ -2706,77 +2602,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.6,
                 "measure": {
                     "name": "Suicide - Ages 75-84"
                 }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 18.3,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
-                "value": 18,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
-            },
-            {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 17.5,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
-            },
-            {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 17.9,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
-            },
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 18.6,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
-            },
-            {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 18.9,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
-            },
-            {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 18.5,
-                "measure": {
-                    "name": "Suicide - Ages 75-84"
-                }
-            },
-            {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 19.4,
+                "value": 20.3,
                 "measure": {
                     "name": "Suicide - Ages 75-84"
                 }

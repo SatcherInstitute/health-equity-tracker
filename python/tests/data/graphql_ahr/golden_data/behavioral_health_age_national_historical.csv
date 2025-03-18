@@ -24,7 +24,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2011,45-54,,,,,19.8,00,United States
 2011,45-64,,15800.0,13300.0,,,00,United States
 2011,55-64,,,,,17.1,00,United States
-2011,65+,13000.0,6400.0,7500.0,,15.0,00,United States
+2011,65+,13000.0,6400.0,7500.0,,,00,United States
 2011,65-74,,,,,14.1,00,United States
 2011,75-84,,,,,16.5,00,United States
 2011,85+,,,,,16.9,00,United States
@@ -36,7 +36,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2012,45-54,,,,,20.0,00,United States
 2012,45-64,,15100.0,12800.0,,,00,United States
 2012,55-64,,,,,18.0,00,United States
-2012,65+,13400.0,6600.0,7500.0,,15.2,00,United States
+2012,65+,13400.0,6600.0,7500.0,,,00,United States
 2012,65-74,,,,,14.0,00,United States
 2012,75-84,,,,,16.8,00,United States
 2012,85+,,,,,17.8,00,United States
@@ -48,7 +48,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2013,45-54,,,,,19.7,00,United States
 2013,45-64,20600.0,15100.0,12800.0,,,00,United States
 2013,55-64,,,,,18.1,00,United States
-2013,65+,14600.0,6800.0,7200.0,,15.6,00,United States
+2013,65+,14600.0,6800.0,7200.0,,,00,United States
 2013,65-74,,,,,15.0,00,United States
 2013,75-84,,,,,17.1,00,United States
 2013,85+,,,,,18.6,00,United States
@@ -60,7 +60,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2014,45-54,,,,,20.2,00,United States
 2014,45-64,,14800.0,12500.0,,,00,United States
 2014,55-64,,,,,18.8,00,United States
-2014,65+,15100.0,6600.0,7400.0,,16.1,00,United States
+2014,65+,15100.0,6600.0,7400.0,,,00,United States
 2014,65-74,,,,,15.6,00,United States
 2014,75-84,,,,,17.5,00,United States
 2014,85+,,,,,19.3,00,United States
@@ -72,7 +72,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2015,45-54,,,,,20.3,00,United States
 2015,45-64,20000.0,15200.0,12300.0,,,00,United States
 2015,55-64,,,,,18.9,00,United States
-2015,65+,15000.0,6700.0,7400.0,,16.5,00,United States
+2015,65+,15000.0,6700.0,7400.0,,,00,United States
 2015,65-74,,,,,15.2,00,United States
 2015,75-84,,,,,17.9,00,United States
 2015,85+,,,,,19.4,00,United States
@@ -84,7 +84,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2016,45-54,,,,,19.7,00,United States
 2016,45-64,18700.0,15900.0,12500.0,,,00,United States
 2016,55-64,,,,,18.7,00,United States
-2016,65+,13400.0,7100.0,7300.0,,16.6,00,United States
+2016,65+,13400.0,7100.0,7300.0,,,00,United States
 2016,65-74,,,,,15.4,00,United States
 2016,75-84,,,,,18.2,00,United States
 2016,85+,,,,,19.0,00,United States
@@ -96,7 +96,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2017,45-54,,,,,20.2,00,United States
 2017,45-64,21000.0,16000.0,12800.0,,,00,United States
 2017,55-64,,,,,19.0,00,United States
-2017,65+,16000.0,7400.0,7900.0,,16.7,00,United States
+2017,65+,16000.0,7400.0,7900.0,,,00,United States
 2017,65-74,,,,,15.6,00,United States
 2017,75-84,,,,,18.0,00,United States
 2017,85+,,,,,20.1,00,United States
@@ -108,7 +108,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2018,45-54,,,,,20.0,00,United States
 2018,45-64,19500.0,15900.0,12600.0,,,00,United States
 2018,55-64,,,,,20.2,00,United States
-2018,65+,14300.0,7200.0,7900.0,,17.0,00,United States
+2018,65+,14300.0,7200.0,7900.0,,,00,United States
 2018,65-74,,,,,16.3,00,United States
 2018,75-84,,,,,18.7,00,United States
 2018,85+,,,,,19.1,00,United States
@@ -120,7 +120,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2019,45-54,,,,,19.6,00,United States
 2019,45-64,19400.0,15600.0,13100.0,,,00,United States
 2019,55-64,,,,,19.4,00,United States
-2019,65+,14700.0,7700.0,8100.0,,17.1,00,United States
+2019,65+,14700.0,7700.0,8100.0,,,00,United States
 2019,65-74,,,,,15.5,00,United States
 2019,75-84,,,,,18.6,00,United States
 2019,85+,,,,,20.1,00,United States
@@ -132,7 +132,7 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2020,45-54,,,,,18.0,00,United States
 2020,45-64,18400.0,15500.0,12800.0,,,00,United States
 2020,55-64,,,,,16.9,00,United States
-2020,65+,14200.0,7400.0,8100.0,,16.9,00,United States
+2020,65+,14200.0,7400.0,8100.0,,,00,United States
 2020,65-74,,,,,14.5,00,United States
 2020,75-84,,,,,18.4,00,United States
 2020,85+,,,,,20.9,00,United States
@@ -144,15 +144,20 @@ time_period,age,depression_per_100k,excessive_drinking_per_100k,frequent_mental_
 2021,45-54,,,,,18.2,00,United States
 2021,45-64,19100.0,15100.0,13500.0,,,00,United States
 2021,55-64,,,,,17.0,00,United States
-2021,65+,14600.0,7000.0,8500.0,,16.9,00,United States
+2021,65+,14600.0,7000.0,8500.0,,,00,United States
 2021,65-74,,,,,15.3,00,United States
 2021,75-84,,,,,19.6,00,United States
 2021,85+,,,,,22.4,00,United States
 2021,All,20500.0,17300.0,14700.0,12.0,14.5,00,United States
+2022,15-24,,,,,13.6,00,United States
 2022,18-44,23700.0,24400.0,20100.0,,,00,United States
+2022,25-34,,,,,19.0,00,United States
+2022,35-44,,,,,18.7,00,United States
+2022,45-54,,,,,19.2,00,United States
 2022,45-64,20000.0,16500.0,14100.0,,,00,United States
-2022,65+,15500.0,7700.0,9400.0,,17.3,00,United States
-2022,65-74,,,,,15.3,00,United States
-2022,75-84,,,,,19.4,00,United States
-2022,85+,,,,,22.1,00,United States
-2022,All,21700.0,18400.0,15900.0,15.5,,00,United States
+2022,55-64,,,,,18.7,00,United States
+2022,65+,15500.0,7700.0,9400.0,,,00,United States
+2022,65-74,,,,,16.0,00,United States
+2022,75-84,,,,,20.3,00,United States
+2022,85+,,,,,23.0,00,United States
+2022,All,21700.0,18400.0,15900.0,15.5,14.8,00,United States
