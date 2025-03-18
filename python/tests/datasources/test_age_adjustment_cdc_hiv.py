@@ -18,7 +18,7 @@ GOLDEN_INTEGRATION_DATA_STATE = os.path.join(
 
 def _load_df_from_bigquery(*args, **kwargs):
     dataset, table_name = args
-    print("mocking read of HET COVID tables (pre age-adjusted):", f"{dataset}-{table_name}")
+    print("mocking read of HET tables (pre age-adjusted):", f"{dataset}-{table_name}")
     dtype = kwargs["dtype"]
     race_age_df = pd.read_csv(os.path.join(TEST_DIR, f"{table_name}.csv"), dtype=dtype)
 
