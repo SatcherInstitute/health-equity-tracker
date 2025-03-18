@@ -90,7 +90,7 @@ class AgeAdjustCDCHiv(DataSource):
     def generate_age_adjustment(self, geo):
         race_age_df = gcs_to_bq_util.load_df_from_bigquery(
             "cdc_hiv_data",
-            f"by_race_age_{geo}",
+            f"multi_race_age_{geo}",
             dtype={
                 "state_fips": str,
             },

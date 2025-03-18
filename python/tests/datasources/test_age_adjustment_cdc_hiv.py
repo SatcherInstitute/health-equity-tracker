@@ -18,7 +18,7 @@ GOLDEN_INTEGRATION_DATA_STATE = os.path.join(
 
 def _load_df_from_bigquery(*args, **kwargs):
     dataset, table_name = args
-    print("mocking read of HET COVID tables (pre age-adjusted):", f"{dataset}-{table_name}")
+    print("mocking read of HET tables (pre age-adjusted):", f"{dataset}-{table_name}")
     dtype = kwargs["dtype"]
     race_age_df = pd.read_csv(os.path.join(TEST_DIR, f"{table_name}.csv"), dtype=dtype)
 
@@ -45,9 +45,9 @@ def testWriteToBq(
     assert mock_race_age.call_count == 4
     called_bq_tables = [call[0][1] for call in mock_race_age.call_args_list]
     assert called_bq_tables == [
-        "by_race_age_national",
+        "multi_race_age_national",
         "race_and_ethnicity_national_current",
-        "by_race_age_state",
+        "multi_race_age_state",
         "race_and_ethnicity_state_current",
     ]
 
