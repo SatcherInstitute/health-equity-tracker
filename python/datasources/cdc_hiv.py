@@ -213,7 +213,7 @@ class CDCHIVData(DataSource):
 
         # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
         if geo_level != COUNTY_LEVEL and demographic == std_col.RACE_OR_HISPANIC_COL:
-            race_age_table_id = f"by_race_age_{geo_level}"
+            race_age_table_id = f"multi_race_age_{geo_level}"
             race_age_df = self.generate_race_age_deaths_df(geo_level)
             float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
             col_types = gcs_to_bq_util.get_bq_column_types(race_age_df, float_cols)

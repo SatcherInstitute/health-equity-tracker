@@ -69,7 +69,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
     def generate_age_adjustment(self, geo, time_series):
         print(f"age adjusting {geo} with time_series= {time_series}")
-        with_race_age = "by_race_age_state"
+        with_race_age = "multi_race_age_state"
         with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
             "cdc_restricted_data", with_race_age, dtype={"state_fips": str}
         )

@@ -49,8 +49,10 @@ def get_mock_df_from_bq_as_df(*args, **kwargs):
         return pd.read_json(
             os.path.join(TEST_DIR, "cdc_restricted-race_national_cumulative.json"), dtype={"state_fips": str}
         )
-    elif args[1] == "by_race_age_state":
-        return pd.read_json(os.path.join(TEST_DIR, "cdc_restricted-by_race_age_state.json"), dtype={"state_fips": str})
+    elif args[1] == "multi_race_age_state":
+        return pd.read_json(
+            os.path.join(TEST_DIR, "cdc_restricted-multi_race_age_state.json"), dtype={"state_fips": str}
+        )
     elif args[1] == "race_state_historical":
         return pd.read_json(
             os.path.join(TEST_DIR, "cdc_restricted-race_state_historical.json"), dtype={"state_fips": str}
