@@ -53,7 +53,7 @@ describe('GeoContextProvider', () => {
       new Fips('06037'),
       ['svi', 'population'],
       'geo_context-county',
-      ['geo_context-county', 'acs_population-by_sex_county'],
+      ['geo_context-county', 'acs_population-sex_county_current'],
     )
   })
 
@@ -71,7 +71,7 @@ describe('GeoContextProvider', () => {
       new Fips('72123'),
       ['svi', 'population'],
       'geo_context-county',
-      ['geo_context-county', 'acs_population-by_sex_county'],
+      ['geo_context-county', 'acs_population-sex_county_current'],
     )
   })
 
@@ -82,7 +82,7 @@ describe('GeoContextProvider', () => {
       'geo_context-county',
       [
         'geo_context-county',
-        'decia_2020_territory_population-sex_territory_county_current',
+        'decia_2020_territory_population-sex_county_current',
       ],
     )
   })
@@ -92,7 +92,7 @@ describe('GeoContextProvider', () => {
       new Fips('06'),
       ['population'],
       'geo_context-state',
-      ['acs_population-by_sex_state'],
+      ['acs_population-sex_state_current'],
     )
   })
 
@@ -101,7 +101,7 @@ describe('GeoContextProvider', () => {
       new Fips('72'),
       ['population'],
       'geo_context-state',
-      ['acs_population-by_sex_state'],
+      ['acs_population-sex_state_current'],
     )
   })
 
@@ -110,7 +110,7 @@ describe('GeoContextProvider', () => {
       new Fips('78'),
       ['population'],
       'geo_context-state',
-      ['decia_2020_territory_population-sex_territory_state_current'],
+      ['decia_2020_territory_population-sex_state_current'],
     )
   })
 
@@ -119,7 +119,7 @@ describe('GeoContextProvider', () => {
       new Fips('00'),
       ['population'],
       'geo_context-national',
-      ['acs_population-by_sex_national'],
+      ['acs_population-sex_national_current'],
     )
   })
 })

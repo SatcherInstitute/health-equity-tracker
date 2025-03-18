@@ -11,8 +11,7 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import { dropRecentPartialMonth } from '../utils/DatasetTimeUtils'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
@@ -83,17 +82,17 @@ class CdcCovidProvider extends VariableProvider {
     /* We use DECIA_2020 populations OR ACS on the backend; add the correct id so footer is correct */
     const isIslandArea = breakdowns.filterFips?.isIslandArea()
 
-    // TODO: this should be a reusable function that can work for all Providers, just like GetAcsDatasetId() does
+    // TODO: this should be a reusable function that can work for all Providers
     if (isIslandArea) {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
+            'decia_2020_territory_population-race_and_ethnicity_state_current',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-race_and_ethnicity_territory_county_current',
+            'decia_2020_territory_population-race_and_ethnicity_county_current',
           )
         }
       }
@@ -101,12 +100,12 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlySex()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-sex_territory_state_current',
+            'decia_2020_territory_population-sex_state_current',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-sex_territory_county_current',
+            'decia_2020_territory_population-sex_county_current',
           )
         }
       }
@@ -114,18 +113,17 @@ class CdcCovidProvider extends VariableProvider {
       if (breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-age_territory_state_current',
+            'decia_2020_territory_population-age_state_current',
           )
         }
         if (breakdowns.geography === 'county') {
           consumedDatasetIds.push(
-            'decia_2020_territory_population-age_territory_county_current',
+            'decia_2020_territory_population-age_county_current',
           )
         }
       }
     } else {
-      const acsId = GetAcsDatasetId(breakdowns)
-      acsId && consumedDatasetIds.push(acsId)
+      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
 
     if (isFallbackId) {
