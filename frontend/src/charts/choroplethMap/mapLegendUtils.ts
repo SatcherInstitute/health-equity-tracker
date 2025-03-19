@@ -127,5 +127,3 @@ export function useGetLegendColumnCount(isMulti?: boolean) {
   if (isTiny && !isCompareMode) return 2
   return 1
 }
-
-
