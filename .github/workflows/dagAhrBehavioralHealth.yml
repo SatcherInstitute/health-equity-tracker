@@ -15,6 +15,7 @@ env:
   SEX: "sex"
   NATIONAL: "national"
   STATE: "state"
+  AHR_API_KEY: ${{ secrets.AHR_API_KEY }}
 
 jobs:
   trigger-data-pipeline:
@@ -30,6 +31,7 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          ahr_api_key: ${{ secrets.AHR_API_KEY }}
 
       # AGE STATE
       - name: Process and write age state tables to BigQuery
@@ -41,6 +43,7 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          ahr_api_key: ${{ secrets.AHR_API_KEY }}
 
       # RACE NATIONAL
       - name: Process and write race national tables to BigQuery
@@ -52,6 +55,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          ahr_api_key: ${{ secrets.AHR_API_KEY }}
 
       # RACE STATE
       - name: Process and write race state tables to BigQuery
@@ -63,6 +67,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          ahr_api_key: ${{ secrets.AHR_API_KEY }}
 
       # SEX NATIONAL
       - name: Process and write sex national tables to BigQuery
@@ -85,6 +90,7 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          ahr_api_key: ${{ secrets.AHR_API_KEY }}
 
       # EXPORTERS
       - name: Export age NDJSON files to GCS buckets from BigQuery tables
