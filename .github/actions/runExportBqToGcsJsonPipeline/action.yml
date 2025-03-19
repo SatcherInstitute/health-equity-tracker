@@ -31,6 +31,10 @@ inputs:
     description: "Initial backoff time in seconds"
     required: false
     default: "10"
+  ahr_api_key:
+    description: "API key for America's Health Rankings service"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
