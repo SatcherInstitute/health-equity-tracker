@@ -1,6 +1,6 @@
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
-import { Legend } from '../../charts/Legend'
+import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import type {
@@ -184,19 +184,18 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* LEGEND */}
           <div className='col-span-full flex w-full justify-start md:col-span-1'>
-            <Legend
+            <RateMapLegend
               dataTypeConfig={props.dataTypeConfig}
               metricConfig={props.metricConfig}
               legendTitle={props.metricConfig.shortLabel}
               data={props.data}
-              scaleType={RATE_MAP_SCALE}
-              sameDotSize={true}
-              description={'Consistent legend for all displayed maps'}
+              description={'Legend for rate map'}
               mapConfig={mapConfig}
-              stackingDirection={'horizontal'}
-              columns={6}
+              isSummaryLegend={false}
+              fieldRange={props.fieldRange}
               isMulti={true}
               isPhrmaAdherence={props.isPhrmaAdherence}
+              fips={props.fips}
             />
           </div>
 
