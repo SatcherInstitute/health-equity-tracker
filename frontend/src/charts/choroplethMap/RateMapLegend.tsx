@@ -10,12 +10,12 @@ import type { GeographicBreakdown } from '../../data/query/Breakdowns'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
+import { getTailwindBreakpointValue } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import ClickableLegendHeader from '../ClickableLegendHeader'
 import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { createColorScale } from './colorSchemes'
 import { useGetLegendColumnCount } from './mapLegendUtils'
-import { getTailwindBreakpointValue } from '../../utils/hooks/useIsBreakpointAndUp'
 import { formatMetricValue } from './tooltipUtils'
 
 interface RateMapLegendProps {
