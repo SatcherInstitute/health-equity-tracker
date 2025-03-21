@@ -159,7 +159,8 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     // Calculate layout with responsive adjustments
     // Adjust columns based on available width
     let adjustedColumnCount = regularColsCount
-    if (containerWidth < 500 && regularLegendItems.length > 0) {
+    const smBreakpoint = getTailwindBreakpointValue('sm')
+    if (containerWidth < smBreakpoint && regularLegendItems.length > 0) {
       adjustedColumnCount = Math.max(1, regularColsCount - 1)
     }
 
