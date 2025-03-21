@@ -150,7 +150,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     // Add missing data item to special items
     if (hasMissingData) {
       specialLegendItems.push({
-        color: het.howToColor || '#cccccc',
+        color: het.howToColor,
         label: NO_DATA_MESSAGE,
         value: null,
       })
