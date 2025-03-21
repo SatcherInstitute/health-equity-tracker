@@ -18,8 +18,7 @@ import {
   UNKNOWN_W,
   UNREPRESENTED,
 } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 const CAWP_CONGRESS_COUNTS: MetricId[] = [
@@ -130,19 +129,18 @@ class CawpProvider extends VariableProvider {
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_territory_state_current',
+          'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
 
         // CAWP time-series also use DECIA_2010
         if (timeView === 'historical') {
           consumedDatasetIds.push(
-            'decia_2010_territory_population-race_and_ethnicity_territory_state_current',
+            'decia_2010_territory_population-race_and_ethnicity_state_current',
           )
         }
       } else {
         // Non-Island Areas use ACS
-        const acsId = GetAcsDatasetId(breakdowns)
-        acsId && consumedDatasetIds.push(acsId)
+        addAcsIdToConsumed(metricQuery, consumedDatasetIds)
       }
     }
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {

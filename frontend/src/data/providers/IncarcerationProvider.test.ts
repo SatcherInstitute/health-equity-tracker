@@ -82,7 +82,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       RACE,
       'jail',
-      ['acs_population-by_race_state'],
+      ['acs_population-race_state_current'],
     )
   })
 
@@ -92,7 +92,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'jail',
-      ['acs_population-by_race_national'],
+      ['acs_population-race_national_current'],
     )
   })
 
@@ -113,7 +113,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       AGE,
       'prison',
-      ['acs_population-by_age_state'],
+      ['acs_population-age_state_current'],
     )
   })
 
@@ -123,7 +123,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       AGE,
       'prison',
-      ['acs_population-by_age_national'],
+      ['acs_population-age_national_current'],
     )
   })
 
@@ -144,7 +144,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       SEX,
       'jail',
-      ['acs_population-by_sex_state'],
+      ['acs_population-sex_state_current'],
     )
   })
 
@@ -154,7 +154,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       SEX,
       'jail',
-      ['acs_population-by_sex_national'],
+      ['acs_population-sex_national_current'],
     )
   })
 })

@@ -1,6 +1,5 @@
 import type { MetricId } from '../config/MetricConfigTypes'
 import AcsConditionProvider from '../providers/AcsConditionProvider'
-import AcsPopulationProvider from '../providers/AcsPopulationProvider'
 import AhrProvider from '../providers/AhrProvider'
 import CawpProvider from '../providers/CawpProvider'
 import CdcCancerProvider from '../providers/CdcCancerProvider'
@@ -42,9 +41,7 @@ export default class VariableProviderMap {
   private readonly metricsToProviderIds: Record<MetricId, ProviderId>
 
   constructor() {
-    const acsProvider = new AcsPopulationProvider()
     this.providers = [
-      acsProvider,
       new AcsConditionProvider(),
       new AhrProvider(),
       new CawpProvider(),
