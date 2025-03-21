@@ -121,9 +121,11 @@ export function useGetLegendColumnCount(isMulti?: boolean) {
   const isCompareMode = window.location.href.includes('compare')
   const isTiny = useIsBreakpointAndUp('tiny')
   const isSm = useIsBreakpointAndUp('sm')
+  const isMd = useIsBreakpointAndUp('md')
   const isLg = useIsBreakpointAndUp('lg')
   if (isLg && isMulti) return 10
-  if (isSm) return 1
-  if (isTiny && !isCompareMode) return 2
+  if (isMd) return 3
+  if (isSm) return 2
+  if (isTiny && !isCompareMode) return 1
   return 1
 }
