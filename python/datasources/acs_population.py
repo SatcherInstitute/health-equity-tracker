@@ -410,7 +410,7 @@ class ACSPopulationIngester:
 
                 # write the default single year table without a time_period col
                 # to maintain existing merge_util functionality
-                gcs_to_bq_util.add_df_to_bq(df_single_year, dataset, table_name, column_types=column_types)
+                gcs_to_bq_util.add_df_to_bq(df_single_year, dataset, f"{table_name}_current", column_types=column_types)
 
             # TIME SERIES TABLE
             df_for_time_series = df.copy()
@@ -426,7 +426,7 @@ class ACSPopulationIngester:
             gcs_to_bq_util.add_df_to_bq(
                 df_for_time_series,
                 dataset,
-                f"{table_name}_time_series",
+                f"{table_name}_historical",
                 column_types=column_types,
                 overwrite=overwrite,
             )
@@ -463,7 +463,7 @@ class ACSPopulationIngester:
             self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(var_map, sex_by_age_frames),
         }
 
-        frames[f"by_sex_age_{self.get_geo_name()}"] = self.get_by_sex_age(
+        frames[f"multi_sex_age_{self.get_geo_name()}"] = self.get_by_sex_age(
             frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket
         )
 
@@ -498,8 +498,8 @@ class ACSPopulationIngester:
             )
             by_sex_phrma_age = self.get_by_sex_age(frames[self.get_table_name_by_sex_age_race()], get_phrma_age_bucket)
 
-        frames[f"by_age_{self.get_geo_name()}"] = self.get_by_age(
-            frames[f"by_sex_age_{self.get_geo_name()}"],
+        frames[f"age_{self.get_geo_name()}"] = self.get_by_age(
+            frames[f"multi_sex_age_{self.get_geo_name()}"],
             by_sex_standard_age_ahr,
             by_sex_suicide_denominator_ahr,
             by_sex_decade_plus_5_age_ahr,
@@ -509,15 +509,13 @@ class ACSPopulationIngester:
             by_sex_phrma_age,
         )
 
-        frames[f"by_sex_{self.get_geo_name()}"] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
+        frames[f"sex_{self.get_geo_name()}"] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
 
         # Generate national level datasets based on state datasets
         if not self.county_level:
             for demo in ["age", "race", "sex"]:
-                state_table_name = f"by_{demo}_state"
-                frames[f"by_{demo}_national"] = generate_national_dataset_with_all_states(
-                    frames[state_table_name], demo
-                )
+                state_table_name = f"{demo}_state"
+                frames[f"{demo}_national"] = generate_national_dataset_with_all_states(frames[state_table_name], demo)
 
         return frames
 
@@ -534,10 +532,10 @@ class ACSPopulationIngester:
         return std_col.COUNTY_NAME_COL if self.county_level else std_col.STATE_NAME_COL
 
     def get_table_name_by_race(self):
-        return "by_race" + self.get_table_geo_suffix()
+        return "race" + self.get_table_geo_suffix()
 
     def get_table_name_by_sex_age_race(self):
-        return "by_sex_age_race" + self.get_table_geo_suffix()
+        return "multi_sex_age_race" + self.get_table_geo_suffix()
 
     def get_filename(self, concept: str):
         """Returns the name of a file for the given ACS concept

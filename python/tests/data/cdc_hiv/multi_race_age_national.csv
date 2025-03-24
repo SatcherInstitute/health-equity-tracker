@@ -1,0 +1,49 @@
+time_period,state_name,state_fips,age,race_category_id,hiv_deaths_estimated_total,population,race_and_ethnicity
+2021,United States,00,All,ALL,19623,280202649,All
+2021,United States,00,All,MULTI_NH,1478,5237094,Two or more races (NH)
+2021,United States,00,All,WHITE_NH,6025,171591284,White (NH)
+2021,United States,00,All,NHPI_NH,14,512209,Native Hawaiian and Pacific Islander (NH)
+2021,United States,00,All,HISP,3498,49289880,Hispanic or Latino
+2021,United States,00,All,BLACK_NH,8402,34715303,Black or African American (NH)
+2021,United States,00,All,ASIAN_NH,125,16816427,Asian (NH)
+2021,United States,00,All,AIAN_NH,80,2040452,Indigenous (NH)
+2021,United States,00,55+,ALL,12124,98651017,All
+2021,United States,00,45-54,ALL,3783,40688436,All
+2021,United States,00,35-44,ALL,2247,43403854,All
+2021,United States,00,25-34,ALL,1360,45495105,All
+2021,United States,00,13-24,ALL,109,51964237,All
+2021,United States,00,55+,MULTI_NH,920,929695,Two or more races (NH)
+2021,United States,00,45-54,MULTI_NH,288,538234,Two or more races (NH)
+2021,United States,00,35-44,MULTI_NH,163,742834,Two or more races (NH)
+2021,United States,00,25-34,MULTI_NH,99,1115409,Two or more races (NH)
+2021,United States,00,13-24,MULTI_NH,8,1910922,Two or more races (NH)
+2021,United States,00,55+,WHITE_NH,4047,71126726,White (NH)
+2021,United States,00,45-54,WHITE_NH,1116,24433257,White (NH)
+2021,United States,00,35-44,WHITE_NH,566,24479915,White (NH)
+2021,United States,00,25-34,WHITE_NH,278,24615425,White (NH)
+2021,United States,00,13-24,WHITE_NH,18,26935961,White (NH)
+2021,United States,00,55+,NHPI_NH,6,134847,Native Hawaiian and Pacific Islander (NH)
+2021,United States,00,45-54,NHPI_NH,5,75268,Native Hawaiian and Pacific Islander (NH)
+2021,United States,00,35-44,NHPI_NH,3,97162,Native Hawaiian and Pacific Islander (NH)
+2021,United States,00,25-34,NHPI_NH,0,101076,Native Hawaiian and Pacific Islander (NH)
+2021,United States,00,13-24,NHPI_NH,0,103856,Native Hawaiian and Pacific Islander (NH)
+2021,United States,00,55+,HISP,1937,10580173,Hispanic or Latino
+2021,United States,00,45-54,HISP,746,7527470,Hispanic or Latino
+2021,United States,00,35-44,HISP,488,8995033,Hispanic or Latino
+2021,United States,00,25-34,HISP,297,9585266,Hispanic or Latino
+2021,United States,00,13-24,HISP,30,12601938,Hispanic or Latino
+2021,United States,00,55+,BLACK_NH,5119,10343251,Black or African American (NH)
+2021,United States,00,45-54,BLACK_NH,1578,5070664,Black or African American (NH)
+2021,United States,00,35-44,BLACK_NH,990,5574092,Black or African American (NH)
+2021,United States,00,25-34,BLACK_NH,662,6550730,Black or African American (NH)
+2021,United States,00,13-24,BLACK_NH,53,7176566,Black or African American (NH)
+2021,United States,00,55+,ASIAN_NH,61,4906490,Asian (NH)
+2021,United States,00,45-54,ASIAN_NH,35,2760545,Asian (NH)
+2021,United States,00,35-44,ASIAN_NH,17,3199693,Asian (NH)
+2021,United States,00,25-34,ASIAN_NH,12,3150525,Asian (NH)
+2021,United States,00,13-24,ASIAN_NH,0,2799174,Asian (NH)
+2021,United States,00,55+,AIAN_NH,33,629835,Indigenous (NH)
+2021,United States,00,45-54,AIAN_NH,15,282998,Indigenous (NH)
+2021,United States,00,35-44,AIAN_NH,20,315125,Indigenous (NH)
+2021,United States,00,25-34,AIAN_NH,12,376674,Indigenous (NH)
+2021,United States,00,13-24,AIAN_NH,0,435820,Indigenous (NH)

@@ -16,10 +16,13 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
 GOLDEN_DIR = os.path.join(TEST_DIR, HIV_DIR, "golden_data")
 BLACK_GOLDEN_DIR = os.path.join(TEST_DIR, BLACK_HIV_DIR, "golden_data")
 
+SOURCE_DATA = {
+    "race_age_national": os.path.join(TEST_DIR, HIV_DIR, "multi_race_age_national.csv"),
+}
+
 GOLDEN_DATA = {
     "age_national_current": os.path.join(GOLDEN_DIR, "age_national_current.csv"),
     "age_national_historical": os.path.join(GOLDEN_DIR, "age_national_historical.csv"),
-    "race_age_national": os.path.join(GOLDEN_DIR, "by_race_age_national.csv"),
     "race_national_current": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_current.csv"),
     "race_national_historical": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_historical.csv"),
     "sex_state_current": os.path.join(GOLDEN_DIR, "sex_state_current.csv"),
@@ -76,8 +79,8 @@ def test_write_to_bq_race_national(
         _dataset,
         race_age_table_name,
     ), _col_types = mock_bq_race_age_national
-    assert race_age_table_name == "by_race_age_national"
-    expected_race_age_national_df = pd.read_csv(GOLDEN_DATA["race_age_national"], dtype=EXP_DTYPE)
+    assert race_age_table_name == "multi_race_age_national"
+    expected_race_age_national_df = pd.read_csv(SOURCE_DATA["race_age_national"], dtype=EXP_DTYPE)
 
     race_age_national_df = race_age_national_df.sort_values(by=["time_period", "race_and_ethnicity"]).reset_index(
         drop=True

@@ -1,0 +1,1093 @@
+state_fips,state_name,population,race_category_id,population_pct,race_and_ethnicity
+01,Alabama,4795685.0,NH,95.4,Not Hispanic or Latino
+02,Alaska,679931.0,NH,92.5,Not Hispanic or Latino
+04,Arizona,4874769.0,NH,68.0,Not Hispanic or Latino
+05,Arkansas,2775348.0,NH,91.9,Not Hispanic or Latino
+06,California,23738174.0,NH,60.3,Not Hispanic or Latino
+08,Colorado,4497028.0,NH,77.9,Not Hispanic or Latino
+09,Connecticut,2983909.0,NH,82.6,Not Hispanic or Latino
+10,Delaware,894939.0,NH,90.1,Not Hispanic or Latino
+11,District of Columbia,593419.0,NH,88.5,Not Hispanic or Latino
+12,Florida,15896246.0,NH,73.5,Not Hispanic or Latino
+13,Georgia,9643868.0,NH,89.9,Not Hispanic or Latino
+15,Hawaii,1291566.0,NH,89.0,Not Hispanic or Latino
+16,Idaho,1611873.0,NH,86.9,Not Hispanic or Latino
+17,Illinois,10481930.0,NH,82.2,Not Hispanic or Latino
+18,Indiana,6273419.0,NH,92.5,Not Hispanic or Latino
+19,Iowa,2980199.0,NH,93.5,Not Hispanic or Latino
+20,Kansas,2565952.0,NH,87.4,Not Hispanic or Latino
+21,Kentucky,4322454.0,NH,96.0,Not Hispanic or Latino
+22,Louisiana,4384962.0,NH,94.5,Not Hispanic or Latino
+23,Maine,1341051.0,NH,98.1,Not Hispanic or Latino
+24,Maryland,5488802.0,NH,89.1,Not Hispanic or Latino
+25,Massachusetts,6104909.0,NH,87.4,Not Hispanic or Latino
+26,Michigan,9507494.0,NH,94.5,Not Hispanic or Latino
+27,Minnesota,5368243.0,NH,94.3,Not Hispanic or Latino
+28,Mississippi,2861723.0,NH,96.7,Not Hispanic or Latino
+29,Missouri,5874344.0,NH,95.4,Not Hispanic or Latino
+30,Montana,1045959.0,NH,95.8,Not Hispanic or Latino
+31,Nebraska,1728170.0,NH,88.2,Not Hispanic or Latino
+32,Nevada,2186308.0,NH,70.4,Not Hispanic or Latino
+33,New Hampshire,1320956.0,NH,95.7,Not Hispanic or Latino
+34,New Jersey,7285640.0,NH,78.8,Not Hispanic or Latino
+35,New Mexico,1060837.0,NH,50.2,Not Hispanic or Latino
+36,New York,16098665.0,NH,80.5,Not Hispanic or Latino
+37,North Carolina,9419206.0,NH,90.0,Not Hispanic or Latino
+38,North Dakota,743685.0,NH,95.7,Not Hispanic or Latino
+39,Ohio,11280058.0,NH,95.8,Not Hispanic or Latino
+40,Oklahoma,3511811.0,NH,88.4,Not Hispanic or Latino
+41,Oregon,3646308.0,NH,86.2,Not Hispanic or Latino
+42,Pennsylvania,11934100.0,NH,91.9,Not Hispanic or Latino
+44,Rhode Island,911054.0,NH,83.3,Not Hispanic or Latino
+45,South Carolina,4823875.0,NH,93.8,Not Hispanic or Latino
+46,South Dakota,851145.0,NH,95.6,Not Hispanic or Latino
+47,Tennessee,6511150.0,NH,94.0,Not Hispanic or Latino
+48,Texas,17578062.0,NH,60.1,Not Hispanic or Latino
+49,Utah,2802966.0,NH,85.4,Not Hispanic or Latino
+50,Vermont,630023.0,NH,97.9,Not Hispanic or Latino
+51,Virginia,7759496.0,NH,90.0,Not Hispanic or Latino
+53,Washington,6651396.0,NH,86.5,Not Hispanic or Latino
+54,West Virginia,1760057.0,NH,98.2,Not Hispanic or Latino
+55,Wisconsin,5451152.0,NH,92.7,Not Hispanic or Latino
+56,Wyoming,517411.0,NH,89.5,Not Hispanic or Latino
+72,Puerto Rico,41055.0,NH,1.3,Not Hispanic or Latino
+01,Alabama,5028092.0,ALL,100.0,All
+02,Alaska,734821.0,ALL,100.0,All
+04,Arizona,7172282.0,ALL,100.0,All
+05,Arkansas,3018669.0,ALL,100.0,All
+06,California,39356104.0,ALL,100.0,All
+08,Colorado,5770790.0,ALL,100.0,All
+09,Connecticut,3611317.0,ALL,100.0,All
+10,Delaware,993635.0,ALL,100.0,All
+11,District of Columbia,670587.0,ALL,100.0,All
+12,Florida,21634529.0,ALL,100.0,All
+13,Georgia,10722325.0,ALL,100.0,All
+15,Hawaii,1450589.0,ALL,100.0,All
+16,Idaho,1854109.0,ALL,100.0,All
+17,Illinois,12757634.0,ALL,100.0,All
+18,Indiana,6784403.0,ALL,100.0,All
+19,Iowa,3188836.0,ALL,100.0,All
+20,Kansas,2935922.0,ALL,100.0,All
+21,Kentucky,4502935.0,ALL,100.0,All
+22,Louisiana,4640546.0,ALL,100.0,All
+23,Maine,1366949.0,ALL,100.0,All
+24,Maryland,6161707.0,ALL,100.0,All
+25,Massachusetts,6984205.0,ALL,100.0,All
+26,Michigan,10057921.0,ALL,100.0,All
+27,Minnesota,5695292.0,ALL,100.0,All
+28,Mississippi,2958846.0,ALL,100.0,All
+29,Missouri,6154422.0,ALL,100.0,All
+30,Montana,1091840.0,ALL,100.0,All
+31,Nebraska,1958939.0,ALL,100.0,All
+32,Nevada,3104817.0,ALL,100.0,All
+33,New Hampshire,1379610.0,ALL,100.0,All
+34,New Jersey,9249063.0,ALL,100.0,All
+35,New Mexico,2112463.0,ALL,100.0,All
+36,New York,19994379.0,ALL,100.0,All
+37,North Carolina,10470214.0,ALL,100.0,All
+38,North Dakota,776874.0,ALL,100.0,All
+39,Ohio,11774683.0,ALL,100.0,All
+40,Oklahoma,3970497.0,ALL,100.0,All
+41,Oregon,4229374.0,ALL,100.0,All
+42,Pennsylvania,12989208.0,ALL,100.0,All
+44,Rhode Island,1094250.0,ALL,100.0,All
+45,South Carolina,5142750.0,ALL,100.0,All
+46,South Dakota,890342.0,ALL,100.0,All
+47,Tennessee,6923772.0,ALL,100.0,All
+48,Texas,29243342.0,ALL,100.0,All
+49,Utah,3283809.0,ALL,100.0,All
+50,Vermont,643816.0,ALL,100.0,All
+51,Virginia,8624511.0,ALL,100.0,All
+53,Washington,7688549.0,ALL,100.0,All
+54,West Virginia,1792967.0,ALL,100.0,All
+55,Wisconsin,5882128.0,ALL,100.0,All
+56,Wyoming,577929.0,ALL,100.0,All
+72,Puerto Rico,3272382.0,ALL,100.0,All
+01,Alabama,21122.0,AIAN,0.4,Indigenous
+02,Alaska,104957.0,AIAN,14.3,Indigenous
+04,Arizona,297590.0,AIAN,4.1,Indigenous
+05,Arkansas,16840.0,AIAN,0.6,Indigenous
+06,California,394188.0,AIAN,1.0,Indigenous
+08,Colorado,57022.0,AIAN,1.0,Indigenous
+09,Connecticut,9043.0,AIAN,0.3,Indigenous
+10,Delaware,3309.0,AIAN,0.3,Indigenous
+11,District of Columbia,2209.0,AIAN,0.3,Indigenous
+12,Florida,59197.0,AIAN,0.3,Indigenous
+13,Georgia,37920.0,AIAN,0.4,Indigenous
+15,Hawaii,4210.0,AIAN,0.3,Indigenous
+16,Idaho,22297.0,AIAN,1.2,Indigenous
+17,Illinois,55819.0,AIAN,0.4,Indigenous
+18,Indiana,12465.0,AIAN,0.2,Indigenous
+19,Iowa,10111.0,AIAN,0.3,Indigenous
+20,Kansas,22015.0,AIAN,0.7,Indigenous
+21,Kentucky,6821.0,AIAN,0.2,Indigenous
+22,Louisiana,24952.0,AIAN,0.5,Indigenous
+23,Maine,6722.0,AIAN,0.5,Indigenous
+24,Maryland,18343.0,AIAN,0.3,Indigenous
+25,Massachusetts,14740.0,AIAN,0.2,Indigenous
+26,Michigan,45662.0,AIAN,0.5,Indigenous
+27,Minnesota,51434.0,AIAN,0.9,Indigenous
+28,Mississippi,12777.0,AIAN,0.4,Indigenous
+29,Missouri,17559.0,AIAN,0.3,Indigenous
+30,Montana,63493.0,AIAN,5.8,Indigenous
+31,Nebraska,18550.0,AIAN,0.9,Indigenous
+32,Nevada,40745.0,AIAN,1.3,Indigenous
+33,New Hampshire,2070.0,AIAN,0.2,Indigenous
+34,New Jersey,29780.0,AIAN,0.3,Indigenous
+35,New Mexico,198140.0,AIAN,9.4,Indigenous
+36,New York,93384.0,AIAN,0.5,Indigenous
+37,North Carolina,109600.0,AIAN,1.0,Indigenous
+38,North Dakota,36284.0,AIAN,4.7,Indigenous
+39,Ohio,17094.0,AIAN,0.1,Indigenous
+40,Oklahoma,298628.0,AIAN,7.5,Indigenous
+41,Oregon,46880.0,AIAN,1.1,Indigenous
+42,Pennsylvania,20570.0,AIAN,0.2,Indigenous
+44,Rhode Island,4072.0,AIAN,0.4,Indigenous
+45,South Carolina,15617.0,AIAN,0.3,Indigenous
+46,South Dakota,70948.0,AIAN,8.0,Indigenous
+47,Tennessee,14118.0,AIAN,0.2,Indigenous
+48,Texas,169576.0,AIAN,0.6,Indigenous
+49,Utah,32948.0,AIAN,1.0,Indigenous
+50,Vermont,1336.0,AIAN,0.2,Indigenous
+51,Virginia,23728.0,AIAN,0.3,Indigenous
+53,Washington,91698.0,AIAN,1.2,Indigenous
+54,West Virginia,1730.0,AIAN,0.1,Indigenous
+55,Wisconsin,43759.0,AIAN,0.7,Indigenous
+56,Wyoming,12359.0,AIAN,2.1,Indigenous
+72,Puerto Rico,5066.0,AIAN,0.2,Indigenous
+01,Alabama,232407.0,HISP,4.6,Hispanic or Latino
+02,Alaska,54890.0,HISP,7.5,Hispanic or Latino
+04,Arizona,2297513.0,HISP,32.0,Hispanic or Latino
+05,Arkansas,243321.0,HISP,8.1,Hispanic or Latino
+06,California,15617930.0,HISP,39.7,Hispanic or Latino
+08,Colorado,1273762.0,HISP,22.1,Hispanic or Latino
+09,Connecticut,627408.0,HISP,17.4,Hispanic or Latino
+10,Delaware,98696.0,HISP,9.9,Hispanic or Latino
+11,District of Columbia,77168.0,HISP,11.5,Hispanic or Latino
+12,Florida,5738283.0,HISP,26.5,Hispanic or Latino
+13,Georgia,1078457.0,HISP,10.1,Hispanic or Latino
+15,Hawaii,159023.0,HISP,11.0,Hispanic or Latino
+16,Idaho,242236.0,HISP,13.1,Hispanic or Latino
+17,Illinois,2275704.0,HISP,17.8,Hispanic or Latino
+18,Indiana,510984.0,HISP,7.5,Hispanic or Latino
+19,Iowa,208637.0,HISP,6.5,Hispanic or Latino
+20,Kansas,369970.0,HISP,12.6,Hispanic or Latino
+21,Kentucky,180481.0,HISP,4.0,Hispanic or Latino
+22,Louisiana,255584.0,HISP,5.5,Hispanic or Latino
+23,Maine,25898.0,HISP,1.9,Hispanic or Latino
+24,Maryland,672905.0,HISP,10.9,Hispanic or Latino
+25,Massachusetts,879296.0,HISP,12.6,Hispanic or Latino
+26,Michigan,550427.0,HISP,5.5,Hispanic or Latino
+27,Minnesota,327049.0,HISP,5.7,Hispanic or Latino
+28,Mississippi,97123.0,HISP,3.3,Hispanic or Latino
+29,Missouri,280078.0,HISP,4.6,Hispanic or Latino
+30,Montana,45881.0,HISP,4.2,Hispanic or Latino
+31,Nebraska,230769.0,HISP,11.8,Hispanic or Latino
+32,Nevada,918509.0,HISP,29.6,Hispanic or Latino
+33,New Hampshire,58654.0,HISP,4.3,Hispanic or Latino
+34,New Jersey,1963423.0,HISP,21.2,Hispanic or Latino
+35,New Mexico,1051626.0,HISP,49.8,Hispanic or Latino
+36,New York,3895714.0,HISP,19.5,Hispanic or Latino
+37,North Carolina,1051008.0,HISP,10.0,Hispanic or Latino
+38,North Dakota,33189.0,HISP,4.3,Hispanic or Latino
+39,Ohio,494625.0,HISP,4.2,Hispanic or Latino
+40,Oklahoma,458686.0,HISP,11.6,Hispanic or Latino
+41,Oregon,583066.0,HISP,13.8,Hispanic or Latino
+42,Pennsylvania,1055108.0,HISP,8.1,Hispanic or Latino
+44,Rhode Island,183196.0,HISP,16.7,Hispanic or Latino
+45,South Carolina,318875.0,HISP,6.2,Hispanic or Latino
+46,South Dakota,39197.0,HISP,4.4,Hispanic or Latino
+47,Tennessee,412622.0,HISP,6.0,Hispanic or Latino
+48,Texas,11665280.0,HISP,39.9,Hispanic or Latino
+49,Utah,480843.0,HISP,14.6,Hispanic or Latino
+50,Vermont,13793.0,HISP,2.1,Hispanic or Latino
+51,Virginia,865015.0,HISP,10.0,Hispanic or Latino
+53,Washington,1037153.0,HISP,13.5,Hispanic or Latino
+54,West Virginia,32910.0,HISP,1.8,Hispanic or Latino
+55,Wisconsin,430976.0,HISP,7.3,Hispanic or Latino
+56,Wyoming,60518.0,HISP,10.5,Hispanic or Latino
+72,Puerto Rico,3231327.0,HISP,98.7,Hispanic or Latino
+01,Alabama,2253.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+02,Alaska,11209.0,NHPI,1.5,Native Hawaiian and Pacific Islander
+04,Arizona,14116.0,NHPI,0.2,Native Hawaiian and Pacific Islander
+05,Arkansas,11117.0,NHPI,0.4,Native Hawaiian and Pacific Islander
+06,California,150531.0,NHPI,0.4,Native Hawaiian and Pacific Islander
+08,Colorado,8094.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+09,Connecticut,1345.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+10,Delaware,365.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+11,District of Columbia,420.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+12,Florida,13200.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+13,Georgia,7411.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+15,Hawaii,150797.0,NHPI,10.4,Native Hawaiian and Pacific Islander
+16,Idaho,2721.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+17,Illinois,5476.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+18,Indiana,2490.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+19,Iowa,4582.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+20,Kansas,2729.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+21,Kentucky,3805.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+22,Louisiana,2361.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+23,Maine,265.0,NHPI,0.02,Native Hawaiian and Pacific Islander
+24,Maryland,3120.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+25,Massachusetts,2766.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+26,Michigan,2780.0,NHPI,0.03,Native Hawaiian and Pacific Islander
+27,Minnesota,2324.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+28,Mississippi,1200.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+29,Missouri,8831.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+30,Montana,681.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+31,Nebraska,1318.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+32,Nevada,21884.0,NHPI,0.7,Native Hawaiian and Pacific Islander
+33,New Hampshire,348.0,NHPI,0.03,Native Hawaiian and Pacific Islander
+34,New Jersey,2554.0,NHPI,0.03,Native Hawaiian and Pacific Islander
+35,New Mexico,1849.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+36,New York,9120.0,NHPI,0.05,Native Hawaiian and Pacific Islander
+37,North Carolina,6948.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+38,North Dakota,1459.0,NHPI,0.2,Native Hawaiian and Pacific Islander
+39,Ohio,4037.0,NHPI,0.03,Native Hawaiian and Pacific Islander
+40,Oklahoma,7313.0,NHPI,0.2,Native Hawaiian and Pacific Islander
+41,Oregon,17139.0,NHPI,0.4,Native Hawaiian and Pacific Islander
+42,Pennsylvania,4256.0,NHPI,0.03,Native Hawaiian and Pacific Islander
+44,Rhode Island,761.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+45,South Carolina,2722.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+46,South Dakota,494.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+47,Tennessee,4684.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+48,Texas,27350.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+49,Utah,30748.0,NHPI,0.9,Native Hawaiian and Pacific Islander
+50,Vermont,148.0,NHPI,0.02,Native Hawaiian and Pacific Islander
+51,Virginia,6185.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+53,Washington,53003.0,NHPI,0.7,Native Hawaiian and Pacific Islander
+54,West Virginia,657.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+55,Wisconsin,2261.0,NHPI,0.04,Native Hawaiian and Pacific Islander
+56,Wyoming,636.0,NHPI,0.1,Native Hawaiian and Pacific Islander
+72,Puerto Rico,279.0,NHPI,0.01,Native Hawaiian and Pacific Islander
+01,Alabama,69808.0,ASIAN,1.4,Asian
+02,Alaska,47464.0,ASIAN,6.5,Asian
+04,Arizona,240642.0,ASIAN,3.4,Asian
+05,Arkansas,47413.0,ASIAN,1.6,Asian
+06,California,5949136.0,ASIAN,15.1,Asian
+08,Colorado,185431.0,ASIAN,3.2,Asian
+09,Connecticut,170945.0,ASIAN,4.7,Asian
+10,Delaware,40570.0,ASIAN,4.1,Asian
+11,District of Columbia,27067.0,ASIAN,4.0,Asian
+12,Florida,609990.0,ASIAN,2.8,Asian
+13,Georgia,465487.0,ASIAN,4.3,Asian
+15,Hawaii,538970.0,ASIAN,37.2,Asian
+16,Idaho,24987.0,ASIAN,1.3,Asian
+17,Illinois,738071.0,ASIAN,5.8,Asian
+18,Indiana,168899.0,ASIAN,2.5,Asian
+19,Iowa,78940.0,ASIAN,2.5,Asian
+20,Kansas,88513.0,ASIAN,3.0,Asian
+21,Kentucky,69187.0,ASIAN,1.5,Asian
+22,Louisiana,80363.0,ASIAN,1.7,Asian
+23,Maine,15071.0,ASIAN,1.1,Asian
+24,Maryland,399736.0,ASIAN,6.5,Asian
+25,Massachusetts,487600.0,ASIAN,7.0,Asian
+26,Michigan,327551.0,ASIAN,3.3,Asian
+27,Minnesota,286146.0,ASIAN,5.0,Asian
+28,Mississippi,29041.0,ASIAN,1.0,Asian
+29,Missouri,127044.0,ASIAN,2.1,Asian
+30,Montana,9211.0,ASIAN,0.8,Asian
+31,Nebraska,48874.0,ASIAN,2.5,Asian
+32,Nevada,263063.0,ASIAN,8.5,Asian
+33,New Hampshire,36352.0,ASIAN,2.6,Asian
+34,New Jersey,913364.0,ASIAN,9.9,Asian
+35,New Mexico,34400.0,ASIAN,1.6,Asian
+36,New York,1767598.0,ASIAN,8.8,Asian
+37,North Carolina,325670.0,ASIAN,3.1,Asian
+38,North Dakota,12474.0,ASIAN,1.6,Asian
+39,Ohio,283278.0,ASIAN,2.4,Asian
+40,Oklahoma,91720.0,ASIAN,2.3,Asian
+41,Oregon,187852.0,ASIAN,4.4,Asian
+42,Pennsylvania,473192.0,ASIAN,3.6,Asian
+44,Rhode Island,37881.0,ASIAN,3.5,Asian
+45,South Carolina,85834.0,ASIAN,1.7,Asian
+46,South Dakota,12754.0,ASIAN,1.4,Asian
+47,Tennessee,128630.0,ASIAN,1.9,Asian
+48,Texas,1511069.0,ASIAN,5.2,Asian
+49,Utah,77761.0,ASIAN,2.4,Asian
+50,Vermont,10824.0,ASIAN,1.7,Asian
+51,Virginia,591088.0,ASIAN,6.9,Asian
+53,Washington,708647.0,ASIAN,9.2,Asian
+54,West Virginia,13602.0,ASIAN,0.8,Asian
+55,Wisconsin,169052.0,ASIAN,2.9,Asian
+56,Wyoming,4717.0,ASIAN,0.8,Asian
+72,Puerto Rico,6295.0,ASIAN,0.2,Asian
+01,Alabama,1326341.0,BLACK,26.4,Black or African American
+02,Alaska,23395.0,BLACK,3.2,Black or African American
+04,Arizona,327077.0,BLACK,4.6,Black or African American
+05,Arkansas,456693.0,BLACK,15.1,Black or African American
+06,California,2202587.0,BLACK,5.6,Black or African American
+08,Colorado,233712.0,BLACK,4.0,Black or African American
+09,Connecticut,385407.0,BLACK,10.7,Black or African American
+10,Delaware,218266.0,BLACK,22.0,Black or African American
+11,District of Columbia,297101.0,BLACK,44.3,Black or African American
+12,Florida,3355708.0,BLACK,15.5,Black or African American
+13,Georgia,3373948.0,BLACK,31.5,Black or African American
+15,Hawaii,28665.0,BLACK,2.0,Black or African American
+16,Idaho,12781.0,BLACK,0.7,Black or African American
+17,Illinois,1774605.0,BLACK,13.9,Black or African American
+18,Indiana,640752.0,BLACK,9.4,Black or African American
+19,Iowa,120619.0,BLACK,3.8,Black or African American
+20,Kansas,163581.0,BLACK,5.6,Black or African American
+21,Kentucky,360184.0,BLACK,8.0,Black or African American
+22,Louisiana,1464582.0,BLACK,31.6,Black or African American
+23,Maine,21775.0,BLACK,1.6,Black or African American
+24,Maryland,1841926.0,BLACK,29.9,Black or African American
+25,Massachusetts,498785.0,BLACK,7.1,Black or African American
+26,Michigan,1363539.0,BLACK,13.6,Black or African American
+27,Minnesota,382082.0,BLACK,6.7,Black or African American
+28,Mississippi,1101836.0,BLACK,37.2,Black or African American
+29,Missouri,693892.0,BLACK,11.3,Black or African American
+30,Montana,6026.0,BLACK,0.6,Black or African American
+31,Nebraska,93555.0,BLACK,4.8,Black or African American
+32,Nevada,290223.0,BLACK,9.3,Black or African American
+33,New Hampshire,20920.0,BLACK,1.5,Black or African American
+34,New Jersey,1213265.0,BLACK,13.1,Black or African American
+35,New Mexico,44894.0,BLACK,2.1,Black or African American
+36,New York,3011116.0,BLACK,15.1,Black or African American
+37,North Carolina,2192455.0,BLACK,20.9,Black or African American
+38,North Dakota,25233.0,BLACK,3.2,Black or African American
+39,Ohio,1449450.0,BLACK,12.3,Black or African American
+40,Oklahoma,284453.0,BLACK,7.2,Black or African American
+41,Oregon,79593.0,BLACK,1.9,Black or African American
+42,Pennsylvania,1407814.0,BLACK,10.8,Black or African American
+44,Rhode Island,67615.0,BLACK,6.2,Black or African American
+45,South Carolina,1326209.0,BLACK,25.8,Black or African American
+46,South Dakota,19525.0,BLACK,2.2,Black or African American
+47,Tennessee,1126815.0,BLACK,16.3,Black or African American
+48,Texas,3552579.0,BLACK,12.1,Black or African American
+49,Utah,37712.0,BLACK,1.1,Black or African American
+50,Vermont,8000.0,BLACK,1.2,Black or African American
+51,Virginia,1630355.0,BLACK,18.9,Black or African American
+53,Washington,301477.0,BLACK,3.9,Black or African American
+54,West Virginia,61227.0,BLACK,3.4,Black or African American
+55,Wisconsin,363331.0,BLACK,6.2,Black or African American
+56,Wyoming,4891.0,BLACK,0.8,Black or African American
+72,Puerto Rico,286388.0,BLACK,8.8,Black or African American
+01,Alabama,185632.0,MULTI,3.7,Two or more races
+02,Alaska,82727.0,MULTI,11.3,Two or more races
+04,Arizona,961794.0,MULTI,13.4,Two or more races
+05,Arkansas,203476.0,MULTI,6.7,Two or more races
+06,California,5327003.0,MULTI,13.5,Two or more races
+08,Colorado,609976.0,MULTI,10.6,Two or more races
+09,Connecticut,288485.0,MULTI,8.0,Two or more races
+10,Delaware,64130.0,MULTI,6.5,Two or more races
+11,District of Columbia,47278.0,MULTI,7.1,Two or more races
+12,Florida,2743467.0,MULTI,12.7,Two or more races
+13,Georgia,638881.0,MULTI,6.0,Two or more races
+15,Hawaii,370148.0,MULTI,25.5,Two or more races
+16,Idaho,132577.0,MULTI,7.2,Two or more races
+17,Illinois,952451.0,MULTI,7.5,Two or more races
+18,Indiana,345830.0,MULTI,5.1,Two or more races
+19,Iowa,150396.0,MULTI,4.7,Two or more races
+20,Kansas,215150.0,MULTI,7.3,Two or more races
+21,Kentucky,189589.0,MULTI,4.2,Two or more races
+22,Louisiana,225187.0,MULTI,4.9,Two or more races
+23,Maine,53704.0,MULTI,3.9,Two or more races
+24,Maryland,388933.0,MULTI,6.3,Two or more races
+25,Massachusetts,557288.0,MULTI,8.0,Two or more races
+26,Michigan,543305.0,MULTI,5.4,Two or more races
+27,Minnesota,302989.0,MULTI,5.3,Two or more races
+28,Mississippi,87204.0,MULTI,2.9,Two or more races
+29,Missouri,331228.0,MULTI,5.4,Two or more races
+30,Montana,57010.0,MULTI,5.2,Two or more races
+31,Nebraska,124088.0,MULTI,6.3,Two or more races
+32,Nevada,395499.0,MULTI,12.7,Two or more races
+33,New Hampshire,63317.0,MULTI,4.6,Two or more races
+34,New Jersey,792890.0,MULTI,8.6,Two or more races
+35,New Mexico,348588.0,MULTI,16.5,Two or more races
+36,New York,1485013.0,MULTI,7.4,Two or more races
+37,North Carolina,613129.0,MULTI,5.9,Two or more races
+38,North Dakota,34294.0,MULTI,4.4,Two or more races
+39,Ohio,581637.0,MULTI,4.9,Two or more races
+40,Oklahoma,447289.0,MULTI,11.3,Two or more races
+41,Oregon,389281.0,MULTI,9.2,Two or more races
+42,Pennsylvania,667575.0,MULTI,5.1,Two or more races
+44,Rhode Island,91944.0,MULTI,8.4,Two or more races
+45,South Carolina,246238.0,MULTI,4.8,Two or more races
+46,South Dakota,44430.0,MULTI,5.0,Two or more races
+47,Tennessee,326851.0,MULTI,4.7,Two or more races
+48,Texas,4407783.0,MULTI,15.1,Two or more races
+49,Utah,224725.0,MULTI,6.8,Two or more races
+50,Vermont,25809.0,MULTI,4.0,Two or more races
+51,Virginia,596298.0,MULTI,6.9,Two or more races
+53,Washington,759279.0,MULTI,9.9,Two or more races
+54,West Virginia,66905.0,MULTI,3.7,Two or more races
+55,Wisconsin,320056.0,MULTI,5.4,Two or more races
+56,Wyoming,34024.0,MULTI,5.9,Two or more races
+72,Puerto Rico,762608.0,MULTI,23.3,Two or more races
+01,Alabama,3329012.0,WHITE,66.2,White
+02,Alaska,450472.0,WHITE,61.3,White
+04,Arizona,4781702.0,WHITE,66.7,White
+05,Arkansas,2193348.0,WHITE,72.7,White
+06,California,18943660.0,WHITE,48.1,White
+08,Colorado,4393409.0,WHITE,76.1,White
+09,Connecticut,2522166.0,WHITE,69.8,White
+10,Delaware,634244.0,WHITE,63.8,White
+11,District of Columbia,265633.0,WHITE,39.6,White
+12,Florida,13807410.0,WHITE,63.8,White
+13,Georgia,5820019.0,WHITE,54.3,White
+15,Hawaii,333296.0,WHITE,23.0,White
+16,Idaho,1574859.0,WHITE,84.9,White
+17,Illinois,8388659.0,WHITE,65.8,White
+18,Indiana,5426227.0,WHITE,80.0,White
+19,Iowa,2769619.0,WHITE,86.9,White
+20,Kansas,2341473.0,WHITE,79.8,White
+21,Kentucky,3816997.0,WHITE,84.8,White
+22,Louisiana,2758714.0,WHITE,59.4,White
+23,Maine,1261284.0,WHITE,92.3,White
+24,Maryland,3154247.0,WHITE,51.2,White
+25,Massachusetts,5075525.0,WHITE,72.7,White
+26,Michigan,7617085.0,WHITE,75.7,White
+27,Minnesota,4537219.0,WHITE,79.7,White
+28,Mississippi,1685024.0,WHITE,56.9,White
+29,Missouri,4884165.0,WHITE,79.4,White
+30,Montana,943827.0,WHITE,86.4,White
+31,Nebraska,1603239.0,WHITE,81.8,White
+32,Nevada,1732783.0,WHITE,55.8,White
+33,New Hampshire,1241594.0,WHITE,90.0,White
+34,New Jersey,5528604.0,WHITE,59.8,White
+35,New Mexico,1250614.0,WHITE,59.2,White
+36,New York,11749652.0,WHITE,58.8,White
+37,North Carolina,6800458.0,WHITE,65.0,White
+38,North Dakota,656425.0,WHITE,84.5,White
+39,Ohio,9281702.0,WHITE,78.8,White
+40,Oklahoma,2716667.0,WHITE,68.4,White
+41,Oregon,3328095.0,WHITE,78.7,White
+42,Pennsylvania,10010379.0,WHITE,77.1,White
+44,Rhode Island,816308.0,WHITE,74.6,White
+45,South Carolina,3342861.0,WHITE,65.0,White
+46,South Dakota,731624.0,WHITE,82.2,White
+47,Tennessee,5182736.0,WHITE,74.9,White
+48,Texas,17293460.0,WHITE,59.1,White
+49,Utah,2705194.0,WHITE,82.4,White
+50,Vermont,594131.0,WHITE,92.3,White
+51,Virginia,5473610.0,WHITE,63.5,White
+53,Washington,5374874.0,WHITE,69.9,White
+54,West Virginia,1639342.0,WHITE,91.4,White
+55,Wisconsin,4854979.0,WHITE,82.5,White
+56,Wyoming,504798.0,WHITE,87.3,White
+72,Puerto Rico,1425431.0,WHITE,43.6,White
+01,Alabama,70656.0,API_NH,1.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+02,Alaska,57447.0,API_NH,7.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+04,Arizona,246628.0,API_NH,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+05,Arkansas,57616.0,API_NH,1.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+06,California,5997109.0,API_NH,15.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+08,Colorado,188568.0,API_NH,3.3,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+09,Connecticut,170244.0,API_NH,4.7,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+10,Delaware,40647.0,API_NH,4.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+11,District of Columbia,26868.0,API_NH,4.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+12,Florida,607761.0,API_NH,2.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+13,Georgia,466832.0,API_NH,4.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+15,Hawaii,670151.0,API_NH,46.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+16,Idaho,26546.0,API_NH,1.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+17,Illinois,734176.0,API_NH,5.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+18,Indiana,169853.0,API_NH,2.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+19,Iowa,82596.0,API_NH,2.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+20,Kansas,89390.0,API_NH,3.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+21,Kentucky,71736.0,API_NH,1.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+22,Louisiana,81764.0,API_NH,1.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+23,Maine,15178.0,API_NH,1.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+24,Maryland,399088.0,API_NH,6.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+25,Massachusetts,486503.0,API_NH,7.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+26,Michigan,327936.0,API_NH,3.3,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+27,Minnesota,286351.0,API_NH,5.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+28,Mississippi,29568.0,API_NH,1.0,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+29,Missouri,134075.0,API_NH,2.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+30,Montana,9660.0,API_NH,0.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+31,Nebraska,49489.0,API_NH,2.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+32,Nevada,276652.0,API_NH,8.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+33,New Hampshire,36557.0,API_NH,2.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+34,New Jersey,907551.0,API_NH,9.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+35,New Mexico,33331.0,API_NH,1.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+36,New York,1758202.0,API_NH,8.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+37,North Carolina,329009.0,API_NH,3.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+38,North Dakota,13829.0,API_NH,1.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+39,Ohio,284812.0,API_NH,2.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+40,Oklahoma,96876.0,API_NH,2.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+41,Oregon,201149.0,API_NH,4.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+42,Pennsylvania,472096.0,API_NH,3.6,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+44,Rhode Island,37623.0,API_NH,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+45,South Carolina,87415.0,API_NH,1.7,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+46,South Dakota,13168.0,API_NH,1.5,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+47,Tennessee,130540.0,API_NH,1.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+48,Texas,1510412.0,API_NH,5.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+49,Utah,106354.0,API_NH,3.2,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+50,Vermont,10811.0,API_NH,1.7,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+51,Virginia,591951.0,API_NH,6.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+53,Washington,753639.0,API_NH,9.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+54,West Virginia,14091.0,API_NH,0.8,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+55,Wisconsin,169414.0,API_NH,2.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+56,Wyoming,5085.0,API_NH,0.9,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+72,Puerto Rico,2526.0,API_NH,0.1,"Asian, Native Hawaiian, and Pacific Islander (NH)"
+01,Alabama,14864.0,AIAN_NH,0.3,Indigenous (NH)
+02,Alaska,102445.0,AIAN_NH,13.9,Indigenous (NH)
+04,Arizona,249047.0,AIAN_NH,3.5,Indigenous (NH)
+05,Arkansas,11851.0,AIAN_NH,0.4,Indigenous (NH)
+06,California,114271.0,AIAN_NH,0.3,Indigenous (NH)
+08,Colorado,24781.0,AIAN_NH,0.4,Indigenous (NH)
+09,Connecticut,3565.0,AIAN_NH,0.1,Indigenous (NH)
+10,Delaware,1799.0,AIAN_NH,0.2,Indigenous (NH)
+11,District of Columbia,829.0,AIAN_NH,0.1,Indigenous (NH)
+12,Florida,26405.0,AIAN_NH,0.1,Indigenous (NH)
+13,Georgia,11377.0,AIAN_NH,0.1,Indigenous (NH)
+15,Hawaii,2056.0,AIAN_NH,0.1,Indigenous (NH)
+16,Idaho,16217.0,AIAN_NH,0.9,Indigenous (NH)
+17,Illinois,10119.0,AIAN_NH,0.1,Indigenous (NH)
+18,Indiana,5085.0,AIAN_NH,0.1,Indigenous (NH)
+19,Iowa,6472.0,AIAN_NH,0.2,Indigenous (NH)
+20,Kansas,14025.0,AIAN_NH,0.5,Indigenous (NH)
+21,Kentucky,3902.0,AIAN_NH,0.1,Indigenous (NH)
+22,Louisiana,19612.0,AIAN_NH,0.4,Indigenous (NH)
+23,Maine,6072.0,AIAN_NH,0.4,Indigenous (NH)
+24,Maryland,8480.0,AIAN_NH,0.1,Indigenous (NH)
+25,Massachusetts,6760.0,AIAN_NH,0.1,Indigenous (NH)
+26,Michigan,35080.0,AIAN_NH,0.3,Indigenous (NH)
+27,Minnesota,43877.0,AIAN_NH,0.8,Indigenous (NH)
+28,Mississippi,10704.0,AIAN_NH,0.4,Indigenous (NH)
+29,Missouri,12789.0,AIAN_NH,0.2,Indigenous (NH)
+30,Montana,61081.0,AIAN_NH,5.6,Indigenous (NH)
+31,Nebraska,12132.0,AIAN_NH,0.6,Indigenous (NH)
+32,Nevada,22068.0,AIAN_NH,0.7,Indigenous (NH)
+33,New Hampshire,1332.0,AIAN_NH,0.1,Indigenous (NH)
+34,New Jersey,7905.0,AIAN_NH,0.1,Indigenous (NH)
+35,New Mexico,178608.0,AIAN_NH,8.5,Indigenous (NH)
+36,New York,38481.0,AIAN_NH,0.2,Indigenous (NH)
+37,North Carolina,91599.0,AIAN_NH,0.9,Indigenous (NH)
+38,North Dakota,34275.0,AIAN_NH,4.4,Indigenous (NH)
+39,Ohio,9032.0,AIAN_NH,0.1,Indigenous (NH)
+40,Oklahoma,277945.0,AIAN_NH,7.0,Indigenous (NH)
+41,Oregon,31339.0,AIAN_NH,0.7,Indigenous (NH)
+42,Pennsylvania,8215.0,AIAN_NH,0.1,Indigenous (NH)
+44,Rhode Island,2061.0,AIAN_NH,0.2,Indigenous (NH)
+45,South Carolina,10304.0,AIAN_NH,0.2,Indigenous (NH)
+46,South Dakota,67419.0,AIAN_NH,7.6,Indigenous (NH)
+47,Tennessee,8159.0,AIAN_NH,0.1,Indigenous (NH)
+48,Texas,49329.0,AIAN_NH,0.2,Indigenous (NH)
+49,Utah,23449.0,AIAN_NH,0.7,Indigenous (NH)
+50,Vermont,999.0,AIAN_NH,0.2,Indigenous (NH)
+51,Virginia,11625.0,AIAN_NH,0.1,Indigenous (NH)
+53,Washington,67829.0,AIAN_NH,0.9,Indigenous (NH)
+54,West Virginia,1465.0,AIAN_NH,0.1,Indigenous (NH)
+55,Wisconsin,36369.0,AIAN_NH,0.6,Indigenous (NH)
+56,Wyoming,10782.0,AIAN_NH,1.9,Indigenous (NH)
+72,Puerto Rico,112.0,AIAN_NH,0.0,Indigenous (NH)
+01,Alabama,1557.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+02,Alaska,10940.0,NHPI_NH,1.5,Native Hawaiian and Pacific Islander (NH)
+04,Arizona,12764.0,NHPI_NH,0.2,Native Hawaiian and Pacific Islander (NH)
+05,Arkansas,11023.0,NHPI_NH,0.4,Native Hawaiian and Pacific Islander (NH)
+06,California,135460.0,NHPI_NH,0.3,Native Hawaiian and Pacific Islander (NH)
+08,Colorado,7230.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+09,Connecticut,695.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+10,Delaware,253.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+11,District of Columbia,356.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+12,Florida,10933.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+13,Georgia,5637.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+15,Hawaii,140790.0,NHPI_NH,9.7,Native Hawaiian and Pacific Islander (NH)
+16,Idaho,2357.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+17,Illinois,2979.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+18,Indiana,2256.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+19,Iowa,4355.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+20,Kansas,2380.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+21,Kentucky,3167.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+22,Louisiana,2206.0,NHPI_NH,0.05,Native Hawaiian and Pacific Islander (NH)
+23,Maine,234.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+24,Maryland,2105.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+25,Massachusetts,2212.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+26,Michigan,2472.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+27,Minnesota,1967.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+28,Mississippi,905.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+29,Missouri,8193.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+30,Montana,658.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+31,Nebraska,1043.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+32,Nevada,19991.0,NHPI_NH,0.6,Native Hawaiian and Pacific Islander (NH)
+33,New Hampshire,325.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+34,New Jersey,1799.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+35,New Mexico,1117.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+36,New York,5458.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+37,North Carolina,6114.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+38,North Dakota,1449.0,NHPI_NH,0.2,Native Hawaiian and Pacific Islander (NH)
+39,Ohio,3574.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+40,Oklahoma,6210.0,NHPI_NH,0.2,Native Hawaiian and Pacific Islander (NH)
+41,Oregon,16000.0,NHPI_NH,0.4,Native Hawaiian and Pacific Islander (NH)
+42,Pennsylvania,2662.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+44,Rhode Island,446.0,NHPI_NH,0.04,Native Hawaiian and Pacific Islander (NH)
+45,South Carolina,2443.0,NHPI_NH,0.05,Native Hawaiian and Pacific Islander (NH)
+46,South Dakota,490.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+47,Tennessee,3173.0,NHPI_NH,0.05,Native Hawaiian and Pacific Islander (NH)
+48,Texas,23212.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+49,Utah,30071.0,NHPI_NH,0.9,Native Hawaiian and Pacific Islander (NH)
+50,Vermont,133.0,NHPI_NH,0.02,Native Hawaiian and Pacific Islander (NH)
+51,Virginia,5397.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+53,Washington,51303.0,NHPI_NH,0.7,Native Hawaiian and Pacific Islander (NH)
+54,West Virginia,631.0,NHPI_NH,0.04,Native Hawaiian and Pacific Islander (NH)
+55,Wisconsin,1902.0,NHPI_NH,0.03,Native Hawaiian and Pacific Islander (NH)
+56,Wyoming,534.0,NHPI_NH,0.1,Native Hawaiian and Pacific Islander (NH)
+72,Puerto Rico,0.0,NHPI_NH,0.0,Native Hawaiian and Pacific Islander (NH)
+01,Alabama,93183.0,AIAN_API,1.9,"American Indian, Alaska Native, Asian & Pacific Islander"
+02,Alaska,163630.0,AIAN_API,22.3,"American Indian, Alaska Native, Asian & Pacific Islander"
+04,Arizona,552348.0,AIAN_API,7.7,"American Indian, Alaska Native, Asian & Pacific Islander"
+05,Arkansas,75370.0,AIAN_API,2.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+06,California,6493855.0,AIAN_API,16.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+08,Colorado,250547.0,AIAN_API,4.3,"American Indian, Alaska Native, Asian & Pacific Islander"
+09,Connecticut,181333.0,AIAN_API,5.0,"American Indian, Alaska Native, Asian & Pacific Islander"
+10,Delaware,44244.0,AIAN_API,4.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+11,District of Columbia,29696.0,AIAN_API,4.4,"American Indian, Alaska Native, Asian & Pacific Islander"
+12,Florida,682387.0,AIAN_API,3.2,"American Indian, Alaska Native, Asian & Pacific Islander"
+13,Georgia,510818.0,AIAN_API,4.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+15,Hawaii,693977.0,AIAN_API,47.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+16,Idaho,50005.0,AIAN_API,2.7,"American Indian, Alaska Native, Asian & Pacific Islander"
+17,Illinois,799366.0,AIAN_API,6.3,"American Indian, Alaska Native, Asian & Pacific Islander"
+18,Indiana,183854.0,AIAN_API,2.7,"American Indian, Alaska Native, Asian & Pacific Islander"
+19,Iowa,93633.0,AIAN_API,2.9,"American Indian, Alaska Native, Asian & Pacific Islander"
+20,Kansas,113257.0,AIAN_API,3.9,"American Indian, Alaska Native, Asian & Pacific Islander"
+21,Kentucky,79813.0,AIAN_API,1.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+22,Louisiana,107676.0,AIAN_API,2.3,"American Indian, Alaska Native, Asian & Pacific Islander"
+23,Maine,22058.0,AIAN_API,1.6,"American Indian, Alaska Native, Asian & Pacific Islander"
+24,Maryland,421199.0,AIAN_API,6.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+25,Massachusetts,505106.0,AIAN_API,7.2,"American Indian, Alaska Native, Asian & Pacific Islander"
+26,Michigan,375993.0,AIAN_API,3.7,"American Indian, Alaska Native, Asian & Pacific Islander"
+27,Minnesota,339904.0,AIAN_API,6.0,"American Indian, Alaska Native, Asian & Pacific Islander"
+28,Mississippi,43018.0,AIAN_API,1.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+29,Missouri,153434.0,AIAN_API,2.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+30,Montana,73385.0,AIAN_API,6.7,"American Indian, Alaska Native, Asian & Pacific Islander"
+31,Nebraska,68742.0,AIAN_API,3.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+32,Nevada,325692.0,AIAN_API,10.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+33,New Hampshire,38770.0,AIAN_API,2.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+34,New Jersey,945698.0,AIAN_API,10.2,"American Indian, Alaska Native, Asian & Pacific Islander"
+35,New Mexico,234389.0,AIAN_API,11.1,"American Indian, Alaska Native, Asian & Pacific Islander"
+36,New York,1870102.0,AIAN_API,9.4,"American Indian, Alaska Native, Asian & Pacific Islander"
+37,North Carolina,442218.0,AIAN_API,4.2,"American Indian, Alaska Native, Asian & Pacific Islander"
+38,North Dakota,50217.0,AIAN_API,6.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+39,Ohio,304409.0,AIAN_API,2.6,"American Indian, Alaska Native, Asian & Pacific Islander"
+40,Oklahoma,397661.0,AIAN_API,10.0,"American Indian, Alaska Native, Asian & Pacific Islander"
+41,Oregon,251871.0,AIAN_API,6.0,"American Indian, Alaska Native, Asian & Pacific Islander"
+42,Pennsylvania,498018.0,AIAN_API,3.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+44,Rhode Island,42714.0,AIAN_API,3.9,"American Indian, Alaska Native, Asian & Pacific Islander"
+45,South Carolina,104173.0,AIAN_API,2.0,"American Indian, Alaska Native, Asian & Pacific Islander"
+46,South Dakota,84196.0,AIAN_API,9.5,"American Indian, Alaska Native, Asian & Pacific Islander"
+47,Tennessee,147432.0,AIAN_API,2.1,"American Indian, Alaska Native, Asian & Pacific Islander"
+48,Texas,1707995.0,AIAN_API,5.8,"American Indian, Alaska Native, Asian & Pacific Islander"
+49,Utah,141457.0,AIAN_API,4.3,"American Indian, Alaska Native, Asian & Pacific Islander"
+50,Vermont,12308.0,AIAN_API,1.9,"American Indian, Alaska Native, Asian & Pacific Islander"
+51,Virginia,621001.0,AIAN_API,7.2,"American Indian, Alaska Native, Asian & Pacific Islander"
+53,Washington,853348.0,AIAN_API,11.1,"American Indian, Alaska Native, Asian & Pacific Islander"
+54,West Virginia,15989.0,AIAN_API,0.9,"American Indian, Alaska Native, Asian & Pacific Islander"
+55,Wisconsin,215072.0,AIAN_API,3.7,"American Indian, Alaska Native, Asian & Pacific Islander"
+56,Wyoming,17712.0,AIAN_API,3.1,"American Indian, Alaska Native, Asian & Pacific Islander"
+72,Puerto Rico,11640.0,AIAN_API,0.4,"American Indian, Alaska Native, Asian & Pacific Islander"
+01,Alabama,69099.0,ASIAN_NH,1.4,Asian (NH)
+02,Alaska,46507.0,ASIAN_NH,6.3,Asian (NH)
+04,Arizona,233864.0,ASIAN_NH,3.3,Asian (NH)
+05,Arkansas,46593.0,ASIAN_NH,1.5,Asian (NH)
+06,California,5861649.0,ASIAN_NH,14.9,Asian (NH)
+08,Colorado,181338.0,ASIAN_NH,3.1,Asian (NH)
+09,Connecticut,169549.0,ASIAN_NH,4.7,Asian (NH)
+10,Delaware,40394.0,ASIAN_NH,4.1,Asian (NH)
+11,District of Columbia,26512.0,ASIAN_NH,4.0,Asian (NH)
+12,Florida,596828.0,ASIAN_NH,2.8,Asian (NH)
+13,Georgia,461195.0,ASIAN_NH,4.3,Asian (NH)
+15,Hawaii,529361.0,ASIAN_NH,36.5,Asian (NH)
+16,Idaho,24189.0,ASIAN_NH,1.3,Asian (NH)
+17,Illinois,731197.0,ASIAN_NH,5.7,Asian (NH)
+18,Indiana,167597.0,ASIAN_NH,2.5,Asian (NH)
+19,Iowa,78241.0,ASIAN_NH,2.5,Asian (NH)
+20,Kansas,87010.0,ASIAN_NH,3.0,Asian (NH)
+21,Kentucky,68569.0,ASIAN_NH,1.5,Asian (NH)
+22,Louisiana,79558.0,ASIAN_NH,1.7,Asian (NH)
+23,Maine,14944.0,ASIAN_NH,1.1,Asian (NH)
+24,Maryland,396983.0,ASIAN_NH,6.4,Asian (NH)
+25,Massachusetts,484291.0,ASIAN_NH,6.9,Asian (NH)
+26,Michigan,325464.0,ASIAN_NH,3.2,Asian (NH)
+27,Minnesota,284384.0,ASIAN_NH,5.0,Asian (NH)
+28,Mississippi,28663.0,ASIAN_NH,1.0,Asian (NH)
+29,Missouri,125882.0,ASIAN_NH,2.0,Asian (NH)
+30,Montana,9002.0,ASIAN_NH,0.8,Asian (NH)
+31,Nebraska,48446.0,ASIAN_NH,2.5,Asian (NH)
+32,Nevada,256661.0,ASIAN_NH,8.3,Asian (NH)
+33,New Hampshire,36232.0,ASIAN_NH,2.6,Asian (NH)
+34,New Jersey,905752.0,ASIAN_NH,9.8,Asian (NH)
+35,New Mexico,32214.0,ASIAN_NH,1.5,Asian (NH)
+36,New York,1752744.0,ASIAN_NH,8.8,Asian (NH)
+37,North Carolina,322895.0,ASIAN_NH,3.1,Asian (NH)
+38,North Dakota,12380.0,ASIAN_NH,1.6,Asian (NH)
+39,Ohio,281238.0,ASIAN_NH,2.4,Asian (NH)
+40,Oklahoma,90666.0,ASIAN_NH,2.3,Asian (NH)
+41,Oregon,185149.0,ASIAN_NH,4.4,Asian (NH)
+42,Pennsylvania,469434.0,ASIAN_NH,3.6,Asian (NH)
+44,Rhode Island,37177.0,ASIAN_NH,3.4,Asian (NH)
+45,South Carolina,84972.0,ASIAN_NH,1.7,Asian (NH)
+46,South Dakota,12678.0,ASIAN_NH,1.4,Asian (NH)
+47,Tennessee,127367.0,ASIAN_NH,1.8,Asian (NH)
+48,Texas,1487200.0,ASIAN_NH,5.1,Asian (NH)
+49,Utah,76283.0,ASIAN_NH,2.3,Asian (NH)
+50,Vermont,10678.0,ASIAN_NH,1.7,Asian (NH)
+51,Virginia,586554.0,ASIAN_NH,6.8,Asian (NH)
+53,Washington,702336.0,ASIAN_NH,9.1,Asian (NH)
+54,West Virginia,13460.0,ASIAN_NH,0.8,Asian (NH)
+55,Wisconsin,167512.0,ASIAN_NH,2.8,Asian (NH)
+56,Wyoming,4551.0,ASIAN_NH,0.8,Asian (NH)
+72,Puerto Rico,2526.0,ASIAN_NH,0.1,Asian (NH)
+01,Alabama,1318388.0,BLACK_NH,26.2,Black or African American (NH)
+02,Alaska,22400.0,BLACK_NH,3.0,Black or African American (NH)
+04,Arizona,307726.0,BLACK_NH,4.3,Black or African American (NH)
+05,Arkansas,454728.0,BLACK_NH,15.1,Black or African American (NH)
+06,California,2102510.0,BLACK_NH,5.3,Black or African American (NH)
+08,Colorado,221211.0,BLACK_NH,3.8,Black or African American (NH)
+09,Connecticut,355970.0,BLACK_NH,9.9,Black or African American (NH)
+10,Delaware,213516.0,BLACK_NH,21.5,Black or African American (NH)
+11,District of Columbia,291880.0,BLACK_NH,43.5,Black or African American (NH)
+12,Florida,3232871.0,BLACK_NH,14.9,Black or African American (NH)
+13,Georgia,3334095.0,BLACK_NH,31.1,Black or African American (NH)
+15,Hawaii,26664.0,BLACK_NH,1.8,Black or African American (NH)
+16,Idaho,11919.0,BLACK_NH,0.6,Black or African American (NH)
+17,Illinois,1744151.0,BLACK_NH,13.7,Black or African American (NH)
+18,Indiana,631919.0,BLACK_NH,9.3,Black or African American (NH)
+19,Iowa,117940.0,BLACK_NH,3.7,Black or African American (NH)
+20,Kansas,157768.0,BLACK_NH,5.4,Black or African American (NH)
+21,Kentucky,355368.0,BLACK_NH,7.9,Black or African American (NH)
+22,Louisiana,1456107.0,BLACK_NH,31.4,Black or African American (NH)
+23,Maine,21093.0,BLACK_NH,1.5,Black or African American (NH)
+24,Maryland,1815877.0,BLACK_NH,29.5,Black or African American (NH)
+25,Massachusetts,459848.0,BLACK_NH,6.6,Black or African American (NH)
+26,Michigan,1346918.0,BLACK_NH,13.4,Black or African American (NH)
+27,Minnesota,377173.0,BLACK_NH,6.6,Black or African American (NH)
+28,Mississippi,1098675.0,BLACK_NH,37.1,Black or African American (NH)
+29,Missouri,688219.0,BLACK_NH,11.2,Black or African American (NH)
+30,Montana,5248.0,BLACK_NH,0.5,Black or African American (NH)
+31,Nebraska,91357.0,BLACK_NH,4.7,Black or African American (NH)
+32,Nevada,278689.0,BLACK_NH,9.0,Black or African American (NH)
+33,New Hampshire,18477.0,BLACK_NH,1.3,Black or African American (NH)
+34,New Jersey,1147770.0,BLACK_NH,12.4,Black or African American (NH)
+35,New Mexico,37996.0,BLACK_NH,1.8,Black or African American (NH)
+36,New York,2767223.0,BLACK_NH,13.8,Black or African American (NH)
+37,North Carolina,2161841.0,BLACK_NH,20.6,Black or African American (NH)
+38,North Dakota,24882.0,BLACK_NH,3.2,Black or African American (NH)
+39,Ohio,1431238.0,BLACK_NH,12.2,Black or African American (NH)
+40,Oklahoma,277702.0,BLACK_NH,7.0,Black or African American (NH)
+41,Oregon,75790.0,BLACK_NH,1.8,Black or African American (NH)
+42,Pennsylvania,1347784.0,BLACK_NH,10.4,Black or African American (NH)
+44,Rhode Island,58304.0,BLACK_NH,5.3,Black or African American (NH)
+45,South Carolina,1316074.0,BLACK_NH,25.6,Black or African American (NH)
+46,South Dakota,19172.0,BLACK_NH,2.2,Black or African American (NH)
+47,Tennessee,1116871.0,BLACK_NH,16.1,Black or African American (NH)
+48,Texas,3449557.0,BLACK_NH,11.8,Black or African American (NH)
+49,Utah,34485.0,BLACK_NH,1.1,Black or African American (NH)
+50,Vermont,7548.0,BLACK_NH,1.2,Black or African American (NH)
+51,Virginia,1601668.0,BLACK_NH,18.6,Black or African American (NH)
+53,Washington,290907.0,BLACK_NH,3.8,Black or African American (NH)
+54,West Virginia,60237.0,BLACK_NH,3.4,Black or African American (NH)
+55,Wisconsin,356150.0,BLACK_NH,6.1,Black or African American (NH)
+56,Wyoming,4488.0,BLACK_NH,0.8,Black or African American (NH)
+72,Puerto Rico,4043.0,BLACK_NH,0.1,Black or African American (NH)
+01,Alabama,129791.0,MULTI_NH,2.6,Two or more races (NH)
+02,Alaska,65029.0,MULTI_NH,8.8,Two or more races (NH)
+04,Arizona,247176.0,MULTI_NH,3.4,Two or more races (NH)
+05,Arkansas,140175.0,MULTI_NH,4.6,Two or more races (NH)
+06,California,1499338.0,MULTI_NH,3.8,Two or more races (NH)
+08,Colorado,218981.0,MULTI_NH,3.8,Two or more races (NH)
+09,Connecticut,123258.0,MULTI_NH,3.4,Two or more races (NH)
+10,Delaware,37140.0,MULTI_NH,3.7,Two or more races (NH)
+11,District of Columbia,26392.0,MULTI_NH,3.9,Two or more races (NH)
+12,Florida,669598.0,MULTI_NH,3.1,Two or more races (NH)
+13,Georgia,336283.0,MULTI_NH,3.1,Two or more races (NH)
+15,Hawaii,283610.0,MULTI_NH,19.6,Two or more races (NH)
+16,Idaho,65046.0,MULTI_NH,3.5,Two or more races (NH)
+17,Illinois,351702.0,MULTI_NH,2.8,Two or more races (NH)
+18,Indiana,204190.0,MULTI_NH,3.0,Two or more races (NH)
+19,Iowa,93578.0,MULTI_NH,2.9,Two or more races (NH)
+20,Kansas,116607.0,MULTI_NH,4.0,Two or more races (NH)
+21,Kentucky,132047.0,MULTI_NH,2.9,Two or more races (NH)
+22,Louisiana,139617.0,MULTI_NH,3.0,Two or more races (NH)
+23,Maine,44927.0,MULTI_NH,3.3,Two or more races (NH)
+24,Maryland,243820.0,MULTI_NH,4.0,Two or more races (NH)
+25,Massachusetts,271251.0,MULTI_NH,3.9,Two or more races (NH)
+26,Michigan,369637.0,MULTI_NH,3.7,Two or more races (NH)
+27,Minnesota,215392.0,MULTI_NH,3.8,Two or more races (NH)
+28,Mississippi,61811.0,MULTI_NH,2.1,Two or more races (NH)
+29,Missouri,244888.0,MULTI_NH,4.0,Two or more races (NH)
+30,Montana,42347.0,MULTI_NH,3.9,Two or more races (NH)
+31,Nebraska,60476.0,MULTI_NH,3.1,Two or more races (NH)
+32,Nevada,153600.0,MULTI_NH,4.9,Two or more races (NH)
+33,New Hampshire,42906.0,MULTI_NH,3.1,Two or more races (NH)
+34,New Jersey,258811.0,MULTI_NH,2.8,Two or more races (NH)
+35,New Mexico,50798.0,MULTI_NH,2.4,Two or more races (NH)
+36,New York,613623.0,MULTI_NH,3.1,Two or more races (NH)
+37,North Carolina,341905.0,MULTI_NH,3.3,Two or more races (NH)
+38,North Dakota,24629.0,MULTI_NH,3.2,Two or more races (NH)
+39,Ohio,422364.0,MULTI_NH,3.6,Two or more races (NH)
+40,Oklahoma,318993.0,MULTI_NH,8.0,Two or more races (NH)
+41,Oregon,219864.0,MULTI_NH,5.2,Two or more races (NH)
+42,Pennsylvania,386786.0,MULTI_NH,3.0,Two or more races (NH)
+44,Rhode Island,40464.0,MULTI_NH,3.7,Two or more races (NH)
+45,South Carolina,150550.0,MULTI_NH,2.9,Two or more races (NH)
+46,South Dakota,31410.0,MULTI_NH,3.5,Two or more races (NH)
+47,Tennessee,207431.0,MULTI_NH,3.0,Two or more races (NH)
+48,Texas,749031.0,MULTI_NH,2.6,Two or more races (NH)
+49,Utah,106852.0,MULTI_NH,3.3,Two or more races (NH)
+50,Vermont,20484.0,MULTI_NH,3.2,Two or more races (NH)
+51,Virginia,341207.0,MULTI_NH,4.0,Two or more races (NH)
+53,Washington,465280.0,MULTI_NH,6.1,Two or more races (NH)
+54,West Virginia,54844.0,MULTI_NH,3.1,Two or more races (NH)
+55,Wisconsin,175591.0,MULTI_NH,3.0,Two or more races (NH)
+56,Wyoming,17571.0,MULTI_NH,3.0,Two or more races (NH)
+72,Puerto Rico,2924.0,MULTI_NH,0.1,Two or more races (NH)
+01,Alabama,3247262.0,WHITE_NH,64.6,White (NH)
+02,Alaska,428802.0,WHITE_NH,58.4,White (NH)
+04,Arizona,3801121.0,WHITE_NH,53.0,White (NH)
+05,Arkansas,2103784.0,WHITE_NH,69.7,White (NH)
+06,California,13848294.0,WHITE_NH,35.2,White (NH)
+08,Colorado,3821584.0,WHITE_NH,66.2,White (NH)
+09,Connecticut,2308644.0,WHITE_NH,63.9,White (NH)
+10,Delaware,597532.0,WHITE_NH,60.1,White (NH)
+11,District of Columbia,243730.0,WHITE_NH,36.3,White (NH)
+12,Florida,11242515.0,WHITE_NH,52.0,White (NH)
+13,Georgia,5445155.0,WHITE_NH,50.8,White (NH)
+15,Hawaii,305224.0,WHITE_NH,21.0,White (NH)
+16,Idaho,1484468.0,WHITE_NH,80.1,White (NH)
+17,Illinois,7601615.0,WHITE_NH,59.6,White (NH)
+18,Indiana,5238582.0,WHITE_NH,77.2,White (NH)
+19,Iowa,2672930.0,WHITE_NH,83.8,White (NH)
+20,Kansas,2179129.0,WHITE_NH,74.2,White (NH)
+21,Kentucky,3748657.0,WHITE_NH,83.2,White (NH)
+22,Louisiana,2669166.0,WHITE_NH,57.5,White (NH)
+23,Maine,1249638.0,WHITE_NH,91.4,White (NH)
+24,Maryland,2989005.0,WHITE_NH,48.5,White (NH)
+25,Massachusetts,4809687.0,WHITE_NH,68.9,White (NH)
+26,Michigan,7394140.0,WHITE_NH,73.5,White (NH)
+27,Minnesota,4423442.0,WHITE_NH,77.7,White (NH)
+28,Mississippi,1653172.0,WHITE_NH,55.9,White (NH)
+29,Missouri,4774137.0,WHITE_NH,77.6,White (NH)
+30,Montana,923663.0,WHITE_NH,84.6,White (NH)
+31,Nebraska,1509776.0,WHITE_NH,77.1,White (NH)
+32,Nevada,1439924.0,WHITE_NH,46.4,White (NH)
+33,New Hampshire,1217710.0,WHITE_NH,88.3,White (NH)
+34,New Jersey,4900415.0,WHITE_NH,53.0,White (NH)
+35,New Mexico,752424.0,WHITE_NH,35.6,White (NH)
+36,New York,10761815.0,WHITE_NH,53.8,White (NH)
+37,North Carolina,6455988.0,WHITE_NH,61.7,White (NH)
+38,North Dakota,644419.0,WHITE_NH,83.0,White (NH)
+39,Ohio,9094774.0,WHITE_NH,77.2,White (NH)
+40,Oklahoma,2529927.0,WHITE_NH,63.7,White (NH)
+41,Oregon,3100790.0,WHITE_NH,73.3,White (NH)
+42,Pennsylvania,9671148.0,WHITE_NH,74.5,White (NH)
+44,Rhode Island,764160.0,WHITE_NH,69.8,White (NH)
+45,South Carolina,3240171.0,WHITE_NH,63.0,White (NH)
+46,South Dakota,718056.0,WHITE_NH,80.6,White (NH)
+47,Tennessee,5024964.0,WHITE_NH,72.6,White (NH)
+48,Texas,11732834.0,WHITE_NH,40.1,White (NH)
+49,Utah,2521231.0,WHITE_NH,76.8,White (NH)
+50,Vermont,588638.0,WHITE_NH,91.4,White (NH)
+51,Virginia,5172397.0,WHITE_NH,60.0,White (NH)
+53,Washington,5038521.0,WHITE_NH,65.5,White (NH)
+54,West Virginia,1625416.0,WHITE_NH,90.7,White (NH)
+55,Wisconsin,4698967.0,WHITE_NH,79.9,White (NH)
+56,Wyoming,476921.0,WHITE_NH,82.5,White (NH)
+72,Puerto Rico,27190.0,WHITE_NH,0.8,White (NH)
+01,Alabama,93924.0,OTHER_STANDARD,1.9,Unrepresented race
+02,Alaska,14597.0,OTHER_STANDARD,2.0,Unrepresented race
+04,Arizona,549361.0,OTHER_STANDARD,7.7,Unrepresented race
+05,Arkansas,89782.0,OTHER_STANDARD,3.0,Unrepresented race
+06,California,6388999.0,OTHER_STANDARD,16.2,Unrepresented race
+08,Colorado,283146.0,OTHER_STANDARD,4.9,Unrepresented race
+09,Connecticut,233926.0,OTHER_STANDARD,6.5,Unrepresented race
+10,Delaware,32751.0,OTHER_STANDARD,3.3,Unrepresented race
+11,District of Columbia,30879.0,OTHER_STANDARD,4.6,Unrepresented race
+12,Florida,1045557.0,OTHER_STANDARD,4.8,Unrepresented race
+13,Georgia,378659.0,OTHER_STANDARD,3.5,Unrepresented race
+15,Hawaii,24503.0,OTHER_STANDARD,1.7,Unrepresented race
+16,Idaho,83887.0,OTHER_STANDARD,4.5,Unrepresented race
+17,Illinois,842553.0,OTHER_STANDARD,6.6,Unrepresented race
+18,Indiana,187740.0,OTHER_STANDARD,2.8,Unrepresented race
+19,Iowa,54569.0,OTHER_STANDARD,1.7,Unrepresented race
+20,Kansas,102461.0,OTHER_STANDARD,3.5,Unrepresented race
+21,Kentucky,56352.0,OTHER_STANDARD,1.3,Unrepresented race
+22,Louisiana,84387.0,OTHER_STANDARD,1.8,Unrepresented race
+23,Maine,8128.0,OTHER_STANDARD,0.6,Unrepresented race
+24,Maryland,355402.0,OTHER_STANDARD,5.8,Unrepresented race
+25,Massachusetts,347501.0,OTHER_STANDARD,5.0,Unrepresented race
+26,Michigan,157999.0,OTHER_STANDARD,1.6,Unrepresented race
+27,Minnesota,133098.0,OTHER_STANDARD,2.3,Unrepresented race
+28,Mississippi,41764.0,OTHER_STANDARD,1.4,Unrepresented race
+29,Missouri,91703.0,OTHER_STANDARD,1.5,Unrepresented race
+30,Montana,11592.0,OTHER_STANDARD,1.1,Unrepresented race
+31,Nebraska,69315.0,OTHER_STANDARD,3.5,Unrepresented race
+32,Nevada,360620.0,OTHER_STANDARD,11.6,Unrepresented race
+33,New Hampshire,15009.0,OTHER_STANDARD,1.1,Unrepresented race
+34,New Jersey,768606.0,OTHER_STANDARD,8.3,Unrepresented race
+35,New Mexico,233978.0,OTHER_STANDARD,11.1,Unrepresented race
+36,New York,1878496.0,OTHER_STANDARD,9.4,Unrepresented race
+37,North Carolina,421954.0,OTHER_STANDARD,4.0,Unrepresented race
+38,North Dakota,10705.0,OTHER_STANDARD,1.4,Unrepresented race
+39,Ohio,157485.0,OTHER_STANDARD,1.3,Unrepresented race
+40,Oklahoma,124427.0,OTHER_STANDARD,3.1,Unrepresented race
+41,Oregon,180534.0,OTHER_STANDARD,4.3,Unrepresented race
+42,Pennsylvania,405422.0,OTHER_STANDARD,3.1,Unrepresented race
+44,Rhode Island,75669.0,OTHER_STANDARD,6.9,Unrepresented race
+45,South Carolina,123269.0,OTHER_STANDARD,2.4,Unrepresented race
+46,South Dakota,10567.0,OTHER_STANDARD,1.2,Unrepresented race
+47,Tennessee,139938.0,OTHER_STANDARD,2.0,Unrepresented race
+48,Texas,2281525.0,OTHER_STANDARD,7.8,Unrepresented race
+49,Utah,174721.0,OTHER_STANDARD,5.3,Unrepresented race
+50,Vermont,3568.0,OTHER_STANDARD,0.6,Unrepresented race
+51,Virginia,303247.0,OTHER_STANDARD,3.5,Unrepresented race
+53,Washington,399571.0,OTHER_STANDARD,5.2,Unrepresented race
+54,West Virginia,9504.0,OTHER_STANDARD,0.5,Unrepresented race
+55,Wisconsin,128690.0,OTHER_STANDARD,2.2,Unrepresented race
+56,Wyoming,16504.0,OTHER_STANDARD,2.9,Unrepresented race
+72,Puerto Rico,786315.0,OTHER_STANDARD,24.0,Unrepresented race
+01,Alabama,14724.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+02,Alaska,3808.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+04,Arizona,23071.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+05,Arkansas,7194.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+06,California,176652.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+08,Colorado,21903.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+09,Connecticut,22228.0,OTHER_STANDARD_NH,0.6,Unrepresented race (NH)
+10,Delaware,4305.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+11,District of Columbia,3720.0,OTHER_STANDARD_NH,0.6,Unrepresented race (NH)
+12,Florida,117096.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+13,Georgia,50126.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+15,Hawaii,3861.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+16,Idaho,7677.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+17,Illinois,40167.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+18,Indiana,23790.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+19,Iowa,6683.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+20,Kansas,9033.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+21,Kentucky,10744.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+22,Louisiana,18696.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+23,Maine,4143.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+24,Maryland,32532.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+25,Massachusetts,70860.0,OTHER_STANDARD_NH,1.0,Unrepresented race (NH)
+26,Michigan,33783.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+27,Minnesota,22008.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+28,Mississippi,7793.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+29,Missouri,20236.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+30,Montana,3960.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+31,Nebraska,4940.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+32,Nevada,15375.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+33,New Hampshire,3974.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+34,New Jersey,63188.0,OTHER_STANDARD_NH,0.7,Unrepresented race (NH)
+35,New Mexico,7680.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+36,New York,159321.0,OTHER_STANDARD_NH,0.8,Unrepresented race (NH)
+37,North Carolina,38864.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+38,North Dakota,1651.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+39,Ohio,37838.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+40,Oklahoma,10368.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+41,Oregon,17376.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+42,Pennsylvania,48071.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+44,Rhode Island,8442.0,OTHER_STANDARD_NH,0.8,Unrepresented race (NH)
+45,South Carolina,19361.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+46,South Dakota,1920.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+47,Tennessee,23185.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+48,Texas,86899.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+49,Utah,10595.0,OTHER_STANDARD_NH,0.3,Unrepresented race (NH)
+50,Vermont,1543.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+51,Virginia,40648.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+53,Washington,35220.0,OTHER_STANDARD_NH,0.5,Unrepresented race (NH)
+54,West Virginia,4004.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+55,Wisconsin,14661.0,OTHER_STANDARD_NH,0.2,Unrepresented race (NH)
+56,Wyoming,2564.0,OTHER_STANDARD_NH,0.4,Unrepresented race (NH)
+72,Puerto Rico,4260.0,OTHER_STANDARD_NH,0.1,Unrepresented race (NH)
+01,Alabama,279556.0,MULTI_OR_OTHER_STANDARD,5.6,Two or more races & Unrepresented race
+02,Alaska,97324.0,MULTI_OR_OTHER_STANDARD,13.2,Two or more races & Unrepresented race
+04,Arizona,1511155.0,MULTI_OR_OTHER_STANDARD,21.1,Two or more races & Unrepresented race
+05,Arkansas,293258.0,MULTI_OR_OTHER_STANDARD,9.7,Two or more races & Unrepresented race
+06,California,11716002.0,MULTI_OR_OTHER_STANDARD,29.8,Two or more races & Unrepresented race
+08,Colorado,893122.0,MULTI_OR_OTHER_STANDARD,15.5,Two or more races & Unrepresented race
+09,Connecticut,522411.0,MULTI_OR_OTHER_STANDARD,14.5,Two or more races & Unrepresented race
+10,Delaware,96881.0,MULTI_OR_OTHER_STANDARD,9.8,Two or more races & Unrepresented race
+11,District of Columbia,78157.0,MULTI_OR_OTHER_STANDARD,11.7,Two or more races & Unrepresented race
+12,Florida,3789024.0,MULTI_OR_OTHER_STANDARD,17.5,Two or more races & Unrepresented race
+13,Georgia,1017540.0,MULTI_OR_OTHER_STANDARD,9.5,Two or more races & Unrepresented race
+15,Hawaii,394651.0,MULTI_OR_OTHER_STANDARD,27.2,Two or more races & Unrepresented race
+16,Idaho,216464.0,MULTI_OR_OTHER_STANDARD,11.7,Two or more races & Unrepresented race
+17,Illinois,1795004.0,MULTI_OR_OTHER_STANDARD,14.1,Two or more races & Unrepresented race
+18,Indiana,533570.0,MULTI_OR_OTHER_STANDARD,7.9,Two or more races & Unrepresented race
+19,Iowa,204965.0,MULTI_OR_OTHER_STANDARD,6.4,Two or more races & Unrepresented race
+20,Kansas,317611.0,MULTI_OR_OTHER_STANDARD,10.8,Two or more races & Unrepresented race
+21,Kentucky,245941.0,MULTI_OR_OTHER_STANDARD,5.5,Two or more races & Unrepresented race
+22,Louisiana,309574.0,MULTI_OR_OTHER_STANDARD,6.7,Two or more races & Unrepresented race
+23,Maine,61832.0,MULTI_OR_OTHER_STANDARD,4.5,Two or more races & Unrepresented race
+24,Maryland,744335.0,MULTI_OR_OTHER_STANDARD,12.1,Two or more races & Unrepresented race
+25,Massachusetts,904789.0,MULTI_OR_OTHER_STANDARD,13.0,Two or more races & Unrepresented race
+26,Michigan,701304.0,MULTI_OR_OTHER_STANDARD,7.0,Two or more races & Unrepresented race
+27,Minnesota,436087.0,MULTI_OR_OTHER_STANDARD,7.7,Two or more races & Unrepresented race
+28,Mississippi,128968.0,MULTI_OR_OTHER_STANDARD,4.4,Two or more races & Unrepresented race
+29,Missouri,422931.0,MULTI_OR_OTHER_STANDARD,6.9,Two or more races & Unrepresented race
+30,Montana,68602.0,MULTI_OR_OTHER_STANDARD,6.3,Two or more races & Unrepresented race
+31,Nebraska,193403.0,MULTI_OR_OTHER_STANDARD,9.9,Two or more races & Unrepresented race
+32,Nevada,756119.0,MULTI_OR_OTHER_STANDARD,24.4,Two or more races & Unrepresented race
+33,New Hampshire,78326.0,MULTI_OR_OTHER_STANDARD,5.7,Two or more races & Unrepresented race
+34,New Jersey,1561496.0,MULTI_OR_OTHER_STANDARD,16.9,Two or more races & Unrepresented race
+35,New Mexico,582566.0,MULTI_OR_OTHER_STANDARD,27.6,Two or more races & Unrepresented race
+36,New York,3363509.0,MULTI_OR_OTHER_STANDARD,16.8,Two or more races & Unrepresented race
+37,North Carolina,1035083.0,MULTI_OR_OTHER_STANDARD,9.9,Two or more races & Unrepresented race
+38,North Dakota,44999.0,MULTI_OR_OTHER_STANDARD,5.8,Two or more races & Unrepresented race
+39,Ohio,739122.0,MULTI_OR_OTHER_STANDARD,6.3,Two or more races & Unrepresented race
+40,Oklahoma,571716.0,MULTI_OR_OTHER_STANDARD,14.4,Two or more races & Unrepresented race
+41,Oregon,569815.0,MULTI_OR_OTHER_STANDARD,13.5,Two or more races & Unrepresented race
+42,Pennsylvania,1072997.0,MULTI_OR_OTHER_STANDARD,8.3,Two or more races & Unrepresented race
+44,Rhode Island,167613.0,MULTI_OR_OTHER_STANDARD,15.3,Two or more races & Unrepresented race
+45,South Carolina,369507.0,MULTI_OR_OTHER_STANDARD,7.2,Two or more races & Unrepresented race
+46,South Dakota,54997.0,MULTI_OR_OTHER_STANDARD,6.2,Two or more races & Unrepresented race
+47,Tennessee,466789.0,MULTI_OR_OTHER_STANDARD,6.7,Two or more races & Unrepresented race
+48,Texas,6689308.0,MULTI_OR_OTHER_STANDARD,22.9,Two or more races & Unrepresented race
+49,Utah,399446.0,MULTI_OR_OTHER_STANDARD,12.2,Two or more races & Unrepresented race
+50,Vermont,29377.0,MULTI_OR_OTHER_STANDARD,4.6,Two or more races & Unrepresented race
+51,Virginia,899545.0,MULTI_OR_OTHER_STANDARD,10.4,Two or more races & Unrepresented race
+53,Washington,1158850.0,MULTI_OR_OTHER_STANDARD,15.1,Two or more races & Unrepresented race
+54,West Virginia,76409.0,MULTI_OR_OTHER_STANDARD,4.3,Two or more races & Unrepresented race
+55,Wisconsin,448746.0,MULTI_OR_OTHER_STANDARD,7.6,Two or more races & Unrepresented race
+56,Wyoming,50528.0,MULTI_OR_OTHER_STANDARD,8.7,Two or more races & Unrepresented race
+72,Puerto Rico,1548923.0,MULTI_OR_OTHER_STANDARD,47.3,Two or more races & Unrepresented race
+01,Alabama,144515.0,MULTI_OR_OTHER_STANDARD_NH,2.9,Two or more races & Unrepresented race (NH)
+02,Alaska,68837.0,MULTI_OR_OTHER_STANDARD_NH,9.4,Two or more races & Unrepresented race (NH)
+04,Arizona,270247.0,MULTI_OR_OTHER_STANDARD_NH,3.8,Two or more races & Unrepresented race (NH)
+05,Arkansas,147369.0,MULTI_OR_OTHER_STANDARD_NH,4.9,Two or more races & Unrepresented race (NH)
+06,California,1675990.0,MULTI_OR_OTHER_STANDARD_NH,4.3,Two or more races & Unrepresented race (NH)
+08,Colorado,240884.0,MULTI_OR_OTHER_STANDARD_NH,4.2,Two or more races & Unrepresented race (NH)
+09,Connecticut,145486.0,MULTI_OR_OTHER_STANDARD_NH,4.0,Two or more races & Unrepresented race (NH)
+10,Delaware,41445.0,MULTI_OR_OTHER_STANDARD_NH,4.2,Two or more races & Unrepresented race (NH)
+11,District of Columbia,30112.0,MULTI_OR_OTHER_STANDARD_NH,4.5,Two or more races & Unrepresented race (NH)
+12,Florida,786694.0,MULTI_OR_OTHER_STANDARD_NH,3.6,Two or more races & Unrepresented race (NH)
+13,Georgia,386409.0,MULTI_OR_OTHER_STANDARD_NH,3.6,Two or more races & Unrepresented race (NH)
+15,Hawaii,287471.0,MULTI_OR_OTHER_STANDARD_NH,19.8,Two or more races & Unrepresented race (NH)
+16,Idaho,72723.0,MULTI_OR_OTHER_STANDARD_NH,3.9,Two or more races & Unrepresented race (NH)
+17,Illinois,391869.0,MULTI_OR_OTHER_STANDARD_NH,3.1,Two or more races & Unrepresented race (NH)
+18,Indiana,227980.0,MULTI_OR_OTHER_STANDARD_NH,3.4,Two or more races & Unrepresented race (NH)
+19,Iowa,100261.0,MULTI_OR_OTHER_STANDARD_NH,3.1,Two or more races & Unrepresented race (NH)
+20,Kansas,125640.0,MULTI_OR_OTHER_STANDARD_NH,4.3,Two or more races & Unrepresented race (NH)
+21,Kentucky,142791.0,MULTI_OR_OTHER_STANDARD_NH,3.2,Two or more races & Unrepresented race (NH)
+22,Louisiana,158313.0,MULTI_OR_OTHER_STANDARD_NH,3.4,Two or more races & Unrepresented race (NH)
+23,Maine,49070.0,MULTI_OR_OTHER_STANDARD_NH,3.6,Two or more races & Unrepresented race (NH)
+24,Maryland,276352.0,MULTI_OR_OTHER_STANDARD_NH,4.5,Two or more races & Unrepresented race (NH)
+25,Massachusetts,342111.0,MULTI_OR_OTHER_STANDARD_NH,4.9,Two or more races & Unrepresented race (NH)
+26,Michigan,403420.0,MULTI_OR_OTHER_STANDARD_NH,4.0,Two or more races & Unrepresented race (NH)
+27,Minnesota,237400.0,MULTI_OR_OTHER_STANDARD_NH,4.2,Two or more races & Unrepresented race (NH)
+28,Mississippi,69604.0,MULTI_OR_OTHER_STANDARD_NH,2.4,Two or more races & Unrepresented race (NH)
+29,Missouri,265124.0,MULTI_OR_OTHER_STANDARD_NH,4.3,Two or more races & Unrepresented race (NH)
+30,Montana,46307.0,MULTI_OR_OTHER_STANDARD_NH,4.2,Two or more races & Unrepresented race (NH)
+31,Nebraska,65416.0,MULTI_OR_OTHER_STANDARD_NH,3.3,Two or more races & Unrepresented race (NH)
+32,Nevada,168975.0,MULTI_OR_OTHER_STANDARD_NH,5.4,Two or more races & Unrepresented race (NH)
+33,New Hampshire,46880.0,MULTI_OR_OTHER_STANDARD_NH,3.4,Two or more races & Unrepresented race (NH)
+34,New Jersey,321999.0,MULTI_OR_OTHER_STANDARD_NH,3.5,Two or more races & Unrepresented race (NH)
+35,New Mexico,58478.0,MULTI_OR_OTHER_STANDARD_NH,2.8,Two or more races & Unrepresented race (NH)
+36,New York,772944.0,MULTI_OR_OTHER_STANDARD_NH,3.9,Two or more races & Unrepresented race (NH)
+37,North Carolina,380769.0,MULTI_OR_OTHER_STANDARD_NH,3.6,Two or more races & Unrepresented race (NH)
+38,North Dakota,26280.0,MULTI_OR_OTHER_STANDARD_NH,3.4,Two or more races & Unrepresented race (NH)
+39,Ohio,460202.0,MULTI_OR_OTHER_STANDARD_NH,3.9,Two or more races & Unrepresented race (NH)
+40,Oklahoma,329361.0,MULTI_OR_OTHER_STANDARD_NH,8.3,Two or more races & Unrepresented race (NH)
+41,Oregon,237240.0,MULTI_OR_OTHER_STANDARD_NH,5.6,Two or more races & Unrepresented race (NH)
+42,Pennsylvania,434857.0,MULTI_OR_OTHER_STANDARD_NH,3.3,Two or more races & Unrepresented race (NH)
+44,Rhode Island,48906.0,MULTI_OR_OTHER_STANDARD_NH,4.5,Two or more races & Unrepresented race (NH)
+45,South Carolina,169911.0,MULTI_OR_OTHER_STANDARD_NH,3.3,Two or more races & Unrepresented race (NH)
+46,South Dakota,33330.0,MULTI_OR_OTHER_STANDARD_NH,3.7,Two or more races & Unrepresented race (NH)
+47,Tennessee,230616.0,MULTI_OR_OTHER_STANDARD_NH,3.3,Two or more races & Unrepresented race (NH)
+48,Texas,835930.0,MULTI_OR_OTHER_STANDARD_NH,2.9,Two or more races & Unrepresented race (NH)
+49,Utah,117447.0,MULTI_OR_OTHER_STANDARD_NH,3.6,Two or more races & Unrepresented race (NH)
+50,Vermont,22027.0,MULTI_OR_OTHER_STANDARD_NH,3.4,Two or more races & Unrepresented race (NH)
+51,Virginia,381855.0,MULTI_OR_OTHER_STANDARD_NH,4.4,Two or more races & Unrepresented race (NH)
+53,Washington,500500.0,MULTI_OR_OTHER_STANDARD_NH,6.5,Two or more races & Unrepresented race (NH)
+54,West Virginia,58848.0,MULTI_OR_OTHER_STANDARD_NH,3.3,Two or more races & Unrepresented race (NH)
+55,Wisconsin,190252.0,MULTI_OR_OTHER_STANDARD_NH,3.2,Two or more races & Unrepresented race (NH)
+56,Wyoming,20135.0,MULTI_OR_OTHER_STANDARD_NH,3.5,Two or more races & Unrepresented race (NH)
+72,Puerto Rico,7184.0,MULTI_OR_OTHER_STANDARD_NH,0.2,Two or more races & Unrepresented race (NH)

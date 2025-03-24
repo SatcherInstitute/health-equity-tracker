@@ -13,7 +13,6 @@ from datasources.cdc_wisqars_youth import CDCWisqarsYouthData
 from datasources.cdc_wisqars_black_men import CDCWisqarsBlackMenData
 from datasources.cdc_wonder import CdcWonderData
 from datasources.census_pop_estimates import CensusPopEstimates
-from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
 from datasources.chr import CHRData
 from datasources.decia_2010_territory_population import Decia2010TerritoryPopulationData
 from datasources.decia_2020_territory_population import Decia2020TerritoryPopulationData
@@ -43,7 +42,6 @@ DATA_SOURCES_DICT = {
     CDCWisqarsBlackMenData.get_id(): CDCWisqarsBlackMenData(),
     CdcWonderData.get_id(): CdcWonderData(),
     CensusPopEstimates.get_id(): CensusPopEstimates(),
-    CensusPopEstimatesSC.get_id(): CensusPopEstimatesSC(),
     CHRData.get_id(): CHRData(),
     Decia2010TerritoryPopulationData.get_id(): Decia2010TerritoryPopulationData(),
     Decia2020TerritoryPopulationData.get_id(): Decia2020TerritoryPopulationData(),

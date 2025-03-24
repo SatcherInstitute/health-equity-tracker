@@ -1,0 +1,11 @@
+state_name,state_fips,age,vaccinated_pct_share,vaccinated_pop_pct,vaccinated_pct_rate,vaccinated_estimated_total
+United States,00,0-1,0.1,2.3,3.4,259174.0
+United States,00,2-4,0.3,3.6,5.7,682581.0
+United States,00,5-11,1.9,8.7,15.5,4461075.0
+United States,00,18-24,8.9,9.2,68.5,20955927.0
+United States,00,25-49,21.1,32.9,72.3,49452236.0
+United States,00,65+,14.0,16.5,99.9,32893412.0
+United States,00,50-64,23.8,19.2,87.7,55833589.0
+United States,00,All,100.0,100,70.6,234269053.0
+United States,00,12-17,6.6,7.6,61.3,15514175.0
+United States,00,Unknown,0.0,,,24085.0

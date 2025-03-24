@@ -1,0 +1,1561 @@
+state_fips,state_name,sex,age,population
+01,Alabama,All,0-9,591060.0
+01,Alabama,All,10-19,667547.0
+01,Alabama,All,20-29,669190.0
+01,Alabama,All,30-39,627855.0
+01,Alabama,All,40-49,616003.0
+01,Alabama,All,50-59,649740.0
+01,Alabama,All,60-69,621766.0
+01,Alabama,All,70-79,392892.0
+01,Alabama,All,80+,192039.0
+01,Alabama,All,All,5028092.0
+01,Alabama,Female,0-9,287848.0
+01,Alabama,Female,10-19,330045.0
+01,Alabama,Female,20-29,332618.0
+01,Alabama,Female,30-39,321813.0
+01,Alabama,Female,40-49,313300.0
+01,Alabama,Female,50-59,332587.0
+01,Alabama,Female,60-69,326650.0
+01,Alabama,Female,70-79,216157.0
+01,Alabama,Female,80+,121079.0
+01,Alabama,Female,All,2582097.0
+01,Alabama,Male,0-9,303212.0
+01,Alabama,Male,10-19,337502.0
+01,Alabama,Male,20-29,336572.0
+01,Alabama,Male,30-39,306042.0
+01,Alabama,Male,40-49,302703.0
+01,Alabama,Male,50-59,317153.0
+01,Alabama,Male,60-69,295116.0
+01,Alabama,Male,70-79,176735.0
+01,Alabama,Male,80+,70960.0
+01,Alabama,Male,All,2445995.0
+02,Alaska,All,0-9,101021.0
+02,Alaska,All,10-19,96682.0
+02,Alaska,All,20-29,108834.0
+02,Alaska,All,30-39,110529.0
+02,Alaska,All,40-49,88341.0
+02,Alaska,All,50-59,89719.0
+02,Alaska,All,60-69,84044.0
+02,Alaska,All,70-79,39766.0
+02,Alaska,All,80+,15885.0
+02,Alaska,All,All,734821.0
+02,Alaska,Female,0-9,48945.0
+02,Alaska,Female,10-19,46408.0
+02,Alaska,Female,20-29,47786.0
+02,Alaska,Female,30-39,52172.0
+02,Alaska,Female,40-49,41673.0
+02,Alaska,Female,50-59,42192.0
+02,Alaska,Female,60-69,39785.0
+02,Alaska,Female,70-79,20344.0
+02,Alaska,Female,80+,8867.0
+02,Alaska,Female,All,348172.0
+02,Alaska,Male,0-9,52076.0
+02,Alaska,Male,10-19,50274.0
+02,Alaska,Male,20-29,61048.0
+02,Alaska,Male,30-39,58357.0
+02,Alaska,Male,40-49,46668.0
+02,Alaska,Male,50-59,47527.0
+02,Alaska,Male,60-69,44259.0
+02,Alaska,Male,70-79,19422.0
+02,Alaska,Male,80+,7018.0
+02,Alaska,Male,All,386649.0
+04,Arizona,All,0-9,837050.0
+04,Arizona,All,10-19,954649.0
+04,Arizona,All,20-29,1002986.0
+04,Arizona,All,30-39,937684.0
+04,Arizona,All,40-49,859861.0
+04,Arizona,All,50-59,848059.0
+04,Arizona,All,60-69,831071.0
+04,Arizona,All,70-79,605361.0
+04,Arizona,All,80+,295561.0
+04,Arizona,All,All,7172282.0
+04,Arizona,Female,0-9,410189.0
+04,Arizona,Female,10-19,465441.0
+04,Arizona,Female,20-29,480881.0
+04,Arizona,Female,30-39,453101.0
+04,Arizona,Female,40-49,421849.0
+04,Arizona,Female,50-59,427026.0
+04,Arizona,Female,60-69,438457.0
+04,Arizona,Female,70-79,318848.0
+04,Arizona,Female,80+,167980.0
+04,Arizona,Female,All,3583772.0
+04,Arizona,Male,0-9,426861.0
+04,Arizona,Male,10-19,489208.0
+04,Arizona,Male,20-29,522105.0
+04,Arizona,Male,30-39,484583.0
+04,Arizona,Male,40-49,438012.0
+04,Arizona,Male,50-59,421033.0
+04,Arizona,Male,60-69,392614.0
+04,Arizona,Male,70-79,286513.0
+04,Arizona,Male,80+,127581.0
+04,Arizona,Male,All,3588510.0
+05,Arkansas,All,0-9,375137.0
+05,Arkansas,All,10-19,406467.0
+05,Arkansas,All,20-29,400796.0
+05,Arkansas,All,30-39,387024.0
+05,Arkansas,All,40-49,365471.0
+05,Arkansas,All,50-59,373812.0
+05,Arkansas,All,60-69,357925.0
+05,Arkansas,All,70-79,234334.0
+05,Arkansas,All,80+,117703.0
+05,Arkansas,All,All,3018669.0
+05,Arkansas,Female,0-9,182734.0
+05,Arkansas,Female,10-19,197665.0
+05,Arkansas,Female,20-29,196840.0
+05,Arkansas,Female,30-39,193674.0
+05,Arkansas,Female,40-49,181792.0
+05,Arkansas,Female,50-59,187310.0
+05,Arkansas,Female,60-69,187923.0
+05,Arkansas,Female,70-79,126611.0
+05,Arkansas,Female,80+,72498.0
+05,Arkansas,Female,All,1527047.0
+05,Arkansas,Male,0-9,192403.0
+05,Arkansas,Male,10-19,208802.0
+05,Arkansas,Male,20-29,203956.0
+05,Arkansas,Male,30-39,193350.0
+05,Arkansas,Male,40-49,183679.0
+05,Arkansas,Male,50-59,186502.0
+05,Arkansas,Male,60-69,170002.0
+05,Arkansas,Male,70-79,107723.0
+05,Arkansas,Male,80+,45205.0
+05,Arkansas,Male,All,1491622.0
+06,California,All,0-9,4626466.0
+06,California,All,10-19,5212166.0
+06,California,All,20-29,5598160.0
+06,California,All,30-39,5731477.0
+06,California,All,40-49,5067295.0
+06,California,All,50-59,4948799.0
+06,California,All,60-69,4219339.0
+06,California,All,70-79,2527755.0
+06,California,All,80+,1424647.0
+06,California,All,All,39356104.0
+06,California,Female,0-9,2257846.0
+06,California,Female,10-19,2542611.0
+06,California,Female,20-29,2708591.0
+06,California,Female,30-39,2767771.0
+06,California,Female,40-49,2496663.0
+06,California,Female,50-59,2463161.0
+06,California,Female,60-69,2172236.0
+06,California,Female,70-79,1376366.0
+06,California,Female,80+,861912.0
+06,California,Female,All,19647157.0
+06,California,Male,0-9,2368620.0
+06,California,Male,10-19,2669555.0
+06,California,Male,20-29,2889569.0
+06,California,Male,30-39,2963706.0
+06,California,Male,40-49,2570632.0
+06,California,Male,50-59,2485638.0
+06,California,Male,60-69,2047103.0
+06,California,Male,70-79,1151389.0
+06,California,Male,80+,562735.0
+06,California,Male,All,19708947.0
+08,Colorado,All,0-9,655967.0
+08,Colorado,All,10-19,741611.0
+08,Colorado,All,20-29,834246.0
+08,Colorado,All,30-39,880568.0
+08,Colorado,All,40-49,753455.0
+08,Colorado,All,50-59,703895.0
+08,Colorado,All,60-69,644770.0
+08,Colorado,All,70-79,374695.0
+08,Colorado,All,80+,181583.0
+08,Colorado,All,All,5770790.0
+08,Colorado,Female,0-9,321797.0
+08,Colorado,Female,10-19,357419.0
+08,Colorado,Female,20-29,396970.0
+08,Colorado,Female,30-39,419956.0
+08,Colorado,Female,40-49,361211.0
+08,Colorado,Female,50-59,348242.0
+08,Colorado,Female,60-69,330589.0
+08,Colorado,Female,70-79,198500.0
+08,Colorado,Female,80+,108518.0
+08,Colorado,Female,All,2843202.0
+08,Colorado,Male,0-9,334170.0
+08,Colorado,Male,10-19,384192.0
+08,Colorado,Male,20-29,437276.0
+08,Colorado,Male,30-39,460612.0
+08,Colorado,Male,40-49,392244.0
+08,Colorado,Male,50-59,355653.0
+08,Colorado,Male,60-69,314181.0
+08,Colorado,Male,70-79,176195.0
+08,Colorado,Male,80+,73065.0
+08,Colorado,Male,All,2927588.0
+09,Connecticut,All,0-9,379368.0
+09,Connecticut,All,10-19,469768.0
+09,Connecticut,All,20-29,464952.0
+09,Connecticut,All,30-39,453092.0
+09,Connecticut,All,40-49,440832.0
+09,Connecticut,All,50-59,518259.0
+09,Connecticut,All,60-69,456567.0
+09,Connecticut,All,70-79,269570.0
+09,Connecticut,All,80+,158909.0
+09,Connecticut,All,All,3611317.0
+09,Connecticut,Female,0-9,187324.0
+09,Connecticut,Female,10-19,229040.0
+09,Connecticut,Female,20-29,227602.0
+09,Connecticut,Female,30-39,227203.0
+09,Connecticut,Female,40-49,223880.0
+09,Connecticut,Female,50-59,266094.0
+09,Connecticut,Female,60-69,235588.0
+09,Connecticut,Female,70-79,146312.0
+09,Connecticut,Female,80+,99078.0
+09,Connecticut,Female,All,1842121.0
+09,Connecticut,Male,0-9,192044.0
+09,Connecticut,Male,10-19,240728.0
+09,Connecticut,Male,20-29,237350.0
+09,Connecticut,Male,30-39,225889.0
+09,Connecticut,Male,40-49,216952.0
+09,Connecticut,Male,50-59,252165.0
+09,Connecticut,Male,60-69,220979.0
+09,Connecticut,Male,70-79,123258.0
+09,Connecticut,Male,80+,59831.0
+09,Connecticut,Male,All,1769196.0
+10,Delaware,All,0-9,109968.0
+10,Delaware,All,10-19,123481.0
+10,Delaware,All,20-29,122674.0
+10,Delaware,All,30-39,124265.0
+10,Delaware,All,40-49,114864.0
+10,Delaware,All,50-59,131642.0
+10,Delaware,All,60-69,137636.0
+10,Delaware,All,70-79,87953.0
+10,Delaware,All,80+,41152.0
+10,Delaware,All,All,993635.0
+10,Delaware,Female,0-9,54250.0
+10,Delaware,Female,10-19,61080.0
+10,Delaware,Female,20-29,60574.0
+10,Delaware,Female,30-39,61260.0
+10,Delaware,Female,40-49,59908.0
+10,Delaware,Female,50-59,67386.0
+10,Delaware,Female,60-69,74732.0
+10,Delaware,Female,70-79,47432.0
+10,Delaware,Female,80+,24104.0
+10,Delaware,Female,All,510726.0
+10,Delaware,Male,0-9,55718.0
+10,Delaware,Male,10-19,62401.0
+10,Delaware,Male,20-29,62100.0
+10,Delaware,Male,30-39,63005.0
+10,Delaware,Male,40-49,54956.0
+10,Delaware,Male,50-59,64256.0
+10,Delaware,Male,60-69,62904.0
+10,Delaware,Male,70-79,40521.0
+10,Delaware,Male,80+,17048.0
+10,Delaware,Male,All,482909.0
+11,District of Columbia,All,0-9,76159.0
+11,District of Columbia,All,10-19,64579.0
+11,District of Columbia,All,20-29,120136.0
+11,District of Columbia,All,30-39,138750.0
+11,District of Columbia,All,40-49,84138.0
+11,District of Columbia,All,50-59,69364.0
+11,District of Columbia,All,60-69,60497.0
+11,District of Columbia,All,70-79,36807.0
+11,District of Columbia,All,80+,20157.0
+11,District of Columbia,All,All,670587.0
+11,District of Columbia,Female,0-9,38011.0
+11,District of Columbia,Female,10-19,32069.0
+11,District of Columbia,Female,20-29,65382.0
+11,District of Columbia,Female,30-39,71009.0
+11,District of Columbia,Female,40-49,41989.0
+11,District of Columbia,Female,50-59,33823.0
+11,District of Columbia,Female,60-69,32924.0
+11,District of Columbia,Female,70-79,21538.0
+11,District of Columbia,Female,80+,13045.0
+11,District of Columbia,Female,All,349790.0
+11,District of Columbia,Male,0-9,38148.0
+11,District of Columbia,Male,10-19,32510.0
+11,District of Columbia,Male,20-29,54754.0
+11,District of Columbia,Male,30-39,67741.0
+11,District of Columbia,Male,40-49,42149.0
+11,District of Columbia,Male,50-59,35541.0
+11,District of Columbia,Male,60-69,27573.0
+11,District of Columbia,Male,70-79,15269.0
+11,District of Columbia,Male,80+,7112.0
+11,District of Columbia,Male,All,320797.0
+12,Florida,All,0-9,2244141.0
+12,Florida,All,10-19,2507794.0
+12,Florida,All,20-29,2659873.0
+12,Florida,All,30-39,2749766.0
+12,Florida,All,40-49,2642290.0
+12,Florida,All,50-59,2868328.0
+12,Florida,All,60-69,2765674.0
+12,Florida,All,70-79,2050453.0
+12,Florida,All,80+,1146210.0
+12,Florida,All,All,21634529.0
+12,Florida,Female,0-9,1098377.0
+12,Florida,Female,10-19,1222233.0
+12,Florida,Female,20-29,1303469.0
+12,Florida,Female,30-39,1353126.0
+12,Florida,Female,40-49,1321664.0
+12,Florida,Female,50-59,1460476.0
+12,Florida,Female,60-69,1456629.0
+12,Florida,Female,70-79,1100323.0
+12,Florida,Female,80+,671446.0
+12,Florida,Female,All,10987743.0
+12,Florida,Male,0-9,1145764.0
+12,Florida,Male,10-19,1285561.0
+12,Florida,Male,20-29,1356404.0
+12,Florida,Male,30-39,1396640.0
+12,Florida,Male,40-49,1320626.0
+12,Florida,Male,50-59,1407852.0
+12,Florida,Male,60-69,1309045.0
+12,Florida,Male,70-79,950130.0
+12,Florida,Male,80+,474764.0
+12,Florida,Male,All,10646786.0
+13,Georgia,All,0-9,1315156.0
+13,Georgia,All,10-19,1505467.0
+13,Georgia,All,20-29,1485937.0
+13,Georgia,All,30-39,1450622.0
+13,Georgia,All,40-49,1402843.0
+13,Georgia,All,50-59,1390207.0
+13,Georgia,All,60-69,1158942.0
+13,Georgia,All,70-79,695109.0
+13,Georgia,All,80+,318042.0
+13,Georgia,All,All,10722325.0
+13,Georgia,Female,0-9,641914.0
+13,Georgia,Female,10-19,737757.0
+13,Georgia,Female,20-29,734271.0
+13,Georgia,Female,30-39,740349.0
+13,Georgia,Female,40-49,717549.0
+13,Georgia,Female,50-59,709624.0
+13,Georgia,Female,60-69,615483.0
+13,Georgia,Female,70-79,383633.0
+13,Georgia,Female,80+,197269.0
+13,Georgia,Female,All,5477849.0
+13,Georgia,Male,0-9,673242.0
+13,Georgia,Male,10-19,767710.0
+13,Georgia,Male,20-29,751666.0
+13,Georgia,Male,30-39,710273.0
+13,Georgia,Male,40-49,685294.0
+13,Georgia,Male,50-59,680583.0
+13,Georgia,Male,60-69,543459.0
+13,Georgia,Male,70-79,311476.0
+13,Georgia,Male,80+,120773.0
+13,Georgia,Male,All,5244476.0
+15,Hawaii,All,0-9,169535.0
+15,Hawaii,All,10-19,166647.0
+15,Hawaii,All,20-29,190382.0
+15,Hawaii,All,30-39,199984.0
+15,Hawaii,All,40-49,174785.0
+15,Hawaii,All,50-59,176129.0
+15,Hawaii,All,60-69,181225.0
+15,Hawaii,All,70-79,120194.0
+15,Hawaii,All,80+,71708.0
+15,Hawaii,All,All,1450589.0
+15,Hawaii,Female,0-9,81262.0
+15,Hawaii,Female,10-19,80643.0
+15,Hawaii,Female,20-29,86967.0
+15,Hawaii,Female,30-39,96775.0
+15,Hawaii,Female,40-49,85882.0
+15,Hawaii,Female,50-59,86881.0
+15,Hawaii,Female,60-69,93913.0
+15,Hawaii,Female,70-79,61937.0
+15,Hawaii,Female,80+,44269.0
+15,Hawaii,Female,All,718529.0
+15,Hawaii,Male,0-9,88273.0
+15,Hawaii,Male,10-19,86004.0
+15,Hawaii,Male,20-29,103415.0
+15,Hawaii,Male,30-39,103209.0
+15,Hawaii,Male,40-49,88903.0
+15,Hawaii,Male,50-59,89248.0
+15,Hawaii,Male,60-69,87312.0
+15,Hawaii,Male,70-79,58257.0
+15,Hawaii,Male,80+,27439.0
+15,Hawaii,Male,All,732060.0
+16,Idaho,All,0-9,237976.0
+16,Idaho,All,10-19,277984.0
+16,Idaho,All,20-29,246427.0
+16,Idaho,All,30-39,238884.0
+16,Idaho,All,40-49,224832.0
+16,Idaho,All,50-59,213297.0
+16,Idaho,All,60-69,214001.0
+16,Idaho,All,70-79,137827.0
+16,Idaho,All,80+,62881.0
+16,Idaho,All,All,1854109.0
+16,Idaho,Female,0-9,116212.0
+16,Idaho,Female,10-19,137542.0
+16,Idaho,Female,20-29,118382.0
+16,Idaho,Female,30-39,117342.0
+16,Idaho,Female,40-49,109424.0
+16,Idaho,Female,50-59,105643.0
+16,Idaho,Female,60-69,109034.0
+16,Idaho,Female,70-79,71074.0
+16,Idaho,Female,80+,35728.0
+16,Idaho,Female,All,920381.0
+16,Idaho,Male,0-9,121764.0
+16,Idaho,Male,10-19,140442.0
+16,Idaho,Male,20-29,128045.0
+16,Idaho,Male,30-39,121542.0
+16,Idaho,Male,40-49,115408.0
+16,Idaho,Male,50-59,107654.0
+16,Idaho,Male,60-69,104967.0
+16,Idaho,Male,70-79,66753.0
+16,Idaho,Male,80+,27153.0
+16,Idaho,Male,All,933728.0
+17,Illinois,All,0-9,1485516.0
+17,Illinois,All,10-19,1676093.0
+17,Illinois,All,20-29,1719036.0
+17,Illinois,All,30-39,1724368.0
+17,Illinois,All,40-49,1610047.0
+17,Illinois,All,50-59,1661016.0
+17,Illinois,All,60-69,1488832.0
+17,Illinois,All,70-79,895598.0
+17,Illinois,All,80+,497128.0
+17,Illinois,All,All,12757634.0
+17,Illinois,Female,0-9,727436.0
+17,Illinois,Female,10-19,816493.0
+17,Illinois,Female,20-29,845720.0
+17,Illinois,Female,30-39,851429.0
+17,Illinois,Female,40-49,797825.0
+17,Illinois,Female,50-59,832204.0
+17,Illinois,Female,60-69,771134.0
+17,Illinois,Female,70-79,489950.0
+17,Illinois,Female,80+,312424.0
+17,Illinois,Female,All,6444615.0
+17,Illinois,Male,0-9,758080.0
+17,Illinois,Male,10-19,859600.0
+17,Illinois,Male,20-29,873316.0
+17,Illinois,Male,30-39,872939.0
+17,Illinois,Male,40-49,812222.0
+17,Illinois,Male,50-59,828812.0
+17,Illinois,Male,60-69,717698.0
+17,Illinois,Male,70-79,405648.0
+17,Illinois,Male,80+,184704.0
+17,Illinois,Male,All,6313019.0
+18,Indiana,All,0-9,842340.0
+18,Indiana,All,10-19,931419.0
+18,Indiana,All,20-29,928309.0
+18,Indiana,All,30-39,869320.0
+18,Indiana,All,40-49,821312.0
+18,Indiana,All,50-59,861541.0
+18,Indiana,All,60-69,796046.0
+18,Indiana,All,70-79,481166.0
+18,Indiana,All,80+,252950.0
+18,Indiana,All,All,6784403.0
+18,Indiana,Female,0-9,410036.0
+18,Indiana,Female,10-19,453396.0
+18,Indiana,Female,20-29,454972.0
+18,Indiana,Female,30-39,429984.0
+18,Indiana,Female,40-49,408435.0
+18,Indiana,Female,50-59,429270.0
+18,Indiana,Female,60-69,410515.0
+18,Indiana,Female,70-79,262914.0
+18,Indiana,Female,80+,158083.0
+18,Indiana,Female,All,3417605.0
+18,Indiana,Male,0-9,432304.0
+18,Indiana,Male,10-19,478023.0
+18,Indiana,Male,20-29,473337.0
+18,Indiana,Male,30-39,439336.0
+18,Indiana,Male,40-49,412877.0
+18,Indiana,Male,50-59,432271.0
+18,Indiana,Male,60-69,385531.0
+18,Indiana,Male,70-79,218252.0
+18,Indiana,Male,80+,94867.0
+18,Indiana,Male,All,3366798.0
+19,Iowa,All,0-9,392464.0
+19,Iowa,All,10-19,433541.0
+19,Iowa,All,20-29,431457.0
+19,Iowa,All,30-39,403435.0
+19,Iowa,All,40-49,366770.0
+19,Iowa,All,50-59,389436.0
+19,Iowa,All,60-69,391848.0
+19,Iowa,All,70-79,236254.0
+19,Iowa,All,80+,143631.0
+19,Iowa,All,All,3188836.0
+19,Iowa,Female,0-9,190224.0
+19,Iowa,Female,10-19,212224.0
+19,Iowa,Female,20-29,208108.0
+19,Iowa,Female,30-39,196043.0
+19,Iowa,Female,40-49,178357.0
+19,Iowa,Female,50-59,193707.0
+19,Iowa,Female,60-69,196421.0
+19,Iowa,Female,70-79,126200.0
+19,Iowa,Female,80+,88997.0
+19,Iowa,Female,All,1590281.0
+19,Iowa,Male,0-9,202240.0
+19,Iowa,Male,10-19,221317.0
+19,Iowa,Male,20-29,223349.0
+19,Iowa,Male,30-39,207392.0
+19,Iowa,Male,40-49,188413.0
+19,Iowa,Male,50-59,195729.0
+19,Iowa,Male,60-69,195427.0
+19,Iowa,Male,70-79,110054.0
+19,Iowa,Male,80+,54634.0
+19,Iowa,Male,All,1598555.0
+20,Kansas,All,0-9,375941.0
+20,Kansas,All,10-19,414112.0
+20,Kansas,All,20-29,408738.0
+20,Kansas,All,30-39,383953.0
+20,Kansas,All,40-49,338409.0
+20,Kansas,All,50-59,349044.0
+20,Kansas,All,60-69,345415.0
+20,Kansas,All,70-79,201753.0
+20,Kansas,All,80+,118557.0
+20,Kansas,All,All,2935922.0
+20,Kansas,Female,0-9,182157.0
+20,Kansas,Female,10-19,201827.0
+20,Kansas,Female,20-29,193700.0
+20,Kansas,Female,30-39,186810.0
+20,Kansas,Female,40-49,165599.0
+20,Kansas,Female,50-59,173189.0
+20,Kansas,Female,60-69,175856.0
+20,Kansas,Female,70-79,108676.0
+20,Kansas,Female,80+,73160.0
+20,Kansas,Female,All,1460974.0
+20,Kansas,Male,0-9,193784.0
+20,Kansas,Male,10-19,212285.0
+20,Kansas,Male,20-29,215038.0
+20,Kansas,Male,30-39,197143.0
+20,Kansas,Male,40-49,172810.0
+20,Kansas,Male,50-59,175855.0
+20,Kansas,Male,60-69,169559.0
+20,Kansas,Male,70-79,93077.0
+20,Kansas,Male,80+,45397.0
+20,Kansas,Male,All,1474948.0
+21,Kentucky,All,0-9,544788.0
+21,Kentucky,All,10-19,585242.0
+21,Kentucky,All,20-29,604512.0
+21,Kentucky,All,30-39,569603.0
+21,Kentucky,All,40-49,556363.0
+21,Kentucky,All,50-59,586096.0
+21,Kentucky,All,60-69,556053.0
+21,Kentucky,All,70-79,337123.0
+21,Kentucky,All,80+,163155.0
+21,Kentucky,All,All,4502935.0
+21,Kentucky,Female,0-9,263238.0
+21,Kentucky,Female,10-19,286140.0
+21,Kentucky,Female,20-29,292347.0
+21,Kentucky,Female,30-39,282723.0
+21,Kentucky,Female,40-49,275621.0
+21,Kentucky,Female,50-59,294496.0
+21,Kentucky,Female,60-69,290034.0
+21,Kentucky,Female,70-79,182844.0
+21,Kentucky,Female,80+,101451.0
+21,Kentucky,Female,All,2268894.0
+21,Kentucky,Male,0-9,281550.0
+21,Kentucky,Male,10-19,299102.0
+21,Kentucky,Male,20-29,312165.0
+21,Kentucky,Male,30-39,286880.0
+21,Kentucky,Male,40-49,280742.0
+21,Kentucky,Male,50-59,291600.0
+21,Kentucky,Male,60-69,266019.0
+21,Kentucky,Male,70-79,154279.0
+21,Kentucky,Male,80+,61704.0
+21,Kentucky,Male,All,2234041.0
+22,Louisiana,All,0-9,584130.0
+22,Louisiana,All,10-19,621215.0
+22,Louisiana,All,20-29,628683.0
+22,Louisiana,All,30-39,639265.0
+22,Louisiana,All,40-49,548443.0
+22,Louisiana,All,50-59,574567.0
+22,Louisiana,All,60-69,553059.0
+22,Louisiana,All,70-79,331236.0
+22,Louisiana,All,80+,159948.0
+22,Louisiana,All,All,4640546.0
+22,Louisiana,Female,0-9,285404.0
+22,Louisiana,Female,10-19,303432.0
+22,Louisiana,Female,20-29,313139.0
+22,Louisiana,Female,30-39,322642.0
+22,Louisiana,Female,40-49,275978.0
+22,Louisiana,Female,50-59,293132.0
+22,Louisiana,Female,60-69,291190.0
+22,Louisiana,Female,70-79,181314.0
+22,Louisiana,Female,80+,98966.0
+22,Louisiana,Female,All,2365197.0
+22,Louisiana,Male,0-9,298726.0
+22,Louisiana,Male,10-19,317783.0
+22,Louisiana,Male,20-29,315544.0
+22,Louisiana,Male,30-39,316623.0
+22,Louisiana,Male,40-49,272465.0
+22,Louisiana,Male,50-59,281435.0
+22,Louisiana,Male,60-69,261869.0
+22,Louisiana,Male,70-79,149922.0
+22,Louisiana,Male,80+,60982.0
+22,Louisiana,Male,All,2275349.0
+23,Maine,All,0-9,132162.0
+23,Maine,All,10-19,151778.0
+23,Maine,All,20-29,157154.0
+23,Maine,All,30-39,168150.0
+23,Maine,All,40-49,159166.0
+23,Maine,All,50-59,196369.0
+23,Maine,All,60-69,206338.0
+23,Maine,All,70-79,128852.0
+23,Maine,All,80+,66980.0
+23,Maine,All,All,1366949.0
+23,Maine,Female,0-9,64592.0
+23,Maine,Female,10-19,73317.0
+23,Maine,Female,20-29,76895.0
+23,Maine,Female,30-39,83702.0
+23,Maine,Female,40-49,79824.0
+23,Maine,Female,50-59,100433.0
+23,Maine,Female,60-69,105030.0
+23,Maine,Female,70-79,68183.0
+23,Maine,Female,80+,40743.0
+23,Maine,Female,All,692719.0
+23,Maine,Male,0-9,67570.0
+23,Maine,Male,10-19,78461.0
+23,Maine,Male,20-29,80259.0
+23,Maine,Male,30-39,84448.0
+23,Maine,Male,40-49,79342.0
+23,Maine,Male,50-59,95936.0
+23,Maine,Male,60-69,101308.0
+23,Maine,Male,70-79,60669.0
+23,Maine,Male,80+,26237.0
+23,Maine,Male,All,674230.0
+24,Maryland,All,0-9,731603.0
+24,Maryland,All,10-19,788149.0
+24,Maryland,All,20-29,781847.0
+24,Maryland,All,30-39,849706.0
+24,Maryland,All,40-49,773691.0
+24,Maryland,All,50-59,842636.0
+24,Maryland,All,60-69,732761.0
+24,Maryland,All,70-79,431110.0
+24,Maryland,All,80+,230204.0
+24,Maryland,All,All,6161707.0
+24,Maryland,Female,0-9,358776.0
+24,Maryland,Female,10-19,385359.0
+24,Maryland,Female,20-29,387894.0
+24,Maryland,Female,30-39,428688.0
+24,Maryland,Female,40-49,394651.0
+24,Maryland,Female,50-59,434705.0
+24,Maryland,Female,60-69,385599.0
+24,Maryland,Female,70-79,240364.0
+24,Maryland,Female,80+,142775.0
+24,Maryland,Female,All,3158811.0
+24,Maryland,Male,0-9,372827.0
+24,Maryland,Male,10-19,402790.0
+24,Maryland,Male,20-29,393953.0
+24,Maryland,Male,30-39,421018.0
+24,Maryland,Male,40-49,379040.0
+24,Maryland,Male,50-59,407931.0
+24,Maryland,Male,60-69,347162.0
+24,Maryland,Male,70-79,190746.0
+24,Maryland,Male,80+,87429.0
+24,Maryland,Male,All,3002896.0
+25,Massachusetts,All,0-9,715790.0
+25,Massachusetts,All,10-19,860719.0
+25,Massachusetts,All,20-29,980465.0
+25,Massachusetts,All,30-39,950985.0
+25,Massachusetts,All,40-49,849745.0
+25,Massachusetts,All,50-59,965425.0
+25,Massachusetts,All,60-69,853596.0
+25,Massachusetts,All,70-79,515035.0
+25,Massachusetts,All,80+,292445.0
+25,Massachusetts,All,All,6984205.0
+25,Massachusetts,Female,0-9,349586.0
+25,Massachusetts,Female,10-19,422802.0
+25,Massachusetts,Female,20-29,486846.0
+25,Massachusetts,Female,30-39,474639.0
+25,Massachusetts,Female,40-49,429025.0
+25,Massachusetts,Female,50-59,489909.0
+25,Massachusetts,Female,60-69,444047.0
+25,Massachusetts,Female,70-79,283881.0
+25,Massachusetts,Female,80+,184131.0
+25,Massachusetts,Female,All,3564866.0
+25,Massachusetts,Male,0-9,366204.0
+25,Massachusetts,Male,10-19,437917.0
+25,Massachusetts,Male,20-29,493619.0
+25,Massachusetts,Male,30-39,476346.0
+25,Massachusetts,Male,40-49,420720.0
+25,Massachusetts,Male,50-59,475516.0
+25,Massachusetts,Male,60-69,409549.0
+25,Massachusetts,Male,70-79,231154.0
+25,Massachusetts,Male,80+,108314.0
+25,Massachusetts,Male,All,3419339.0
+26,Michigan,All,0-9,1138841.0
+26,Michigan,All,10-19,1283000.0
+26,Michigan,All,20-29,1369256.0
+26,Michigan,All,30-39,1248458.0
+26,Michigan,All,40-49,1184321.0
+26,Michigan,All,50-59,1341146.0
+26,Michigan,All,60-69,1303078.0
+26,Michigan,All,70-79,779949.0
+26,Michigan,All,80+,409872.0
+26,Michigan,All,All,10057921.0
+26,Michigan,Female,0-9,553860.0
+26,Michigan,Female,10-19,626404.0
+26,Michigan,Female,20-29,665475.0
+26,Michigan,Female,30-39,616700.0
+26,Michigan,Female,40-49,588834.0
+26,Michigan,Female,50-59,674370.0
+26,Michigan,Female,60-69,666277.0
+26,Michigan,Female,70-79,420566.0
+26,Michigan,Female,80+,251739.0
+26,Michigan,Female,All,5064225.0
+26,Michigan,Male,0-9,584981.0
+26,Michigan,Male,10-19,656596.0
+26,Michigan,Male,20-29,703781.0
+26,Michigan,Male,30-39,631758.0
+26,Michigan,Male,40-49,595487.0
+26,Michigan,Male,50-59,666776.0
+26,Michigan,Male,60-69,636801.0
+26,Michigan,Male,70-79,359383.0
+26,Michigan,Male,80+,158133.0
+26,Michigan,Male,All,4993696.0
+27,Minnesota,All,0-9,705541.0
+27,Minnesota,All,10-19,750004.0
+27,Minnesota,All,20-29,735214.0
+27,Minnesota,All,30-39,774237.0
+27,Minnesota,All,40-49,686171.0
+27,Minnesota,All,50-59,731307.0
+27,Minnesota,All,60-69,684077.0
+27,Minnesota,All,70-79,400022.0
+27,Minnesota,All,80+,228719.0
+27,Minnesota,All,All,5695292.0
+27,Minnesota,Female,0-9,343473.0
+27,Minnesota,Female,10-19,367250.0
+27,Minnesota,Female,20-29,359686.0
+27,Minnesota,Female,30-39,376719.0
+27,Minnesota,Female,40-49,333308.0
+27,Minnesota,Female,50-59,359732.0
+27,Minnesota,Female,60-69,346156.0
+27,Minnesota,Female,70-79,213113.0
+27,Minnesota,Female,80+,137891.0
+27,Minnesota,Female,All,2837328.0
+27,Minnesota,Male,0-9,362068.0
+27,Minnesota,Male,10-19,382754.0
+27,Minnesota,Male,20-29,375528.0
+27,Minnesota,Male,30-39,397518.0
+27,Minnesota,Male,40-49,352863.0
+27,Minnesota,Male,50-59,371575.0
+27,Minnesota,Male,60-69,337921.0
+27,Minnesota,Male,70-79,186909.0
+27,Minnesota,Male,80+,90828.0
+27,Minnesota,Male,All,2857964.0
+28,Mississippi,All,0-9,361306.0
+28,Mississippi,All,10-19,421101.0
+28,Mississippi,All,20-29,398548.0
+28,Mississippi,All,30-39,372902.0
+28,Mississippi,All,40-49,358030.0
+28,Mississippi,All,50-59,365099.0
+28,Mississippi,All,60-69,354786.0
+28,Mississippi,All,70-79,220336.0
+28,Mississippi,All,80+,106738.0
+28,Mississippi,All,All,2958846.0
+28,Mississippi,Female,0-9,178649.0
+28,Mississippi,Female,10-19,206022.0
+28,Mississippi,Female,20-29,197717.0
+28,Mississippi,Female,30-39,190781.0
+28,Mississippi,Female,40-49,183080.0
+28,Mississippi,Female,50-59,188070.0
+28,Mississippi,Female,60-69,187710.0
+28,Mississippi,Female,70-79,120360.0
+28,Mississippi,Female,80+,68469.0
+28,Mississippi,Female,All,1520858.0
+28,Mississippi,Male,0-9,182657.0
+28,Mississippi,Male,10-19,215079.0
+28,Mississippi,Male,20-29,200831.0
+28,Mississippi,Male,30-39,182121.0
+28,Mississippi,Male,40-49,174950.0
+28,Mississippi,Male,50-59,177029.0
+28,Mississippi,Male,60-69,167076.0
+28,Mississippi,Male,70-79,99976.0
+28,Mississippi,Male,80+,38269.0
+28,Mississippi,Male,All,1437988.0
+29,Missouri,All,0-9,735832.0
+29,Missouri,All,10-19,804352.0
+29,Missouri,All,20-29,822912.0
+29,Missouri,All,30-39,805323.0
+29,Missouri,All,40-49,726783.0
+29,Missouri,All,50-59,780599.0
+29,Missouri,All,60-69,760436.0
+29,Missouri,All,70-79,467238.0
+29,Missouri,All,80+,250947.0
+29,Missouri,All,All,6154422.0
+29,Missouri,Female,0-9,357061.0
+29,Missouri,Female,10-19,392656.0
+29,Missouri,Female,20-29,405176.0
+29,Missouri,Female,30-39,400200.0
+29,Missouri,Female,40-49,362747.0
+29,Missouri,Female,50-59,394087.0
+29,Missouri,Female,60-69,392425.0
+29,Missouri,Female,70-79,255878.0
+29,Missouri,Female,80+,154972.0
+29,Missouri,Female,All,3115202.0
+29,Missouri,Male,0-9,378771.0
+29,Missouri,Male,10-19,411696.0
+29,Missouri,Male,20-29,417736.0
+29,Missouri,Male,30-39,405123.0
+29,Missouri,Male,40-49,364036.0
+29,Missouri,Male,50-59,386512.0
+29,Missouri,Male,60-69,368011.0
+29,Missouri,Male,70-79,211360.0
+29,Missouri,Male,80+,95975.0
+29,Missouri,Male,All,3039220.0
+30,Montana,All,0-9,122293.0
+30,Montana,All,10-19,136974.0
+30,Montana,All,20-29,145044.0
+30,Montana,All,30-39,140078.0
+30,Montana,All,40-49,125949.0
+30,Montana,All,50-59,131227.0
+30,Montana,All,60-69,151085.0
+30,Montana,All,70-79,95621.0
+30,Montana,All,80+,43569.0
+30,Montana,All,All,1091840.0
+30,Montana,Female,0-9,59256.0
+30,Montana,Female,10-19,65948.0
+30,Montana,Female,20-29,69062.0
+30,Montana,Female,30-39,67772.0
+30,Montana,Female,40-49,61085.0
+30,Montana,Female,50-59,65435.0
+30,Montana,Female,60-69,76749.0
+30,Montana,Female,70-79,47737.0
+30,Montana,Female,80+,25080.0
+30,Montana,Female,All,538124.0
+30,Montana,Male,0-9,63037.0
+30,Montana,Male,10-19,71026.0
+30,Montana,Male,20-29,75982.0
+30,Montana,Male,30-39,72306.0
+30,Montana,Male,40-49,64864.0
+30,Montana,Male,50-59,65792.0
+30,Montana,Male,60-69,74336.0
+30,Montana,Male,70-79,47884.0
+30,Montana,Male,80+,18489.0
+30,Montana,Male,All,553716.0
+31,Nebraska,All,0-9,260324.0
+31,Nebraska,All,10-19,276784.0
+31,Nebraska,All,20-29,266427.0
+31,Nebraska,All,30-39,258810.0
+31,Nebraska,All,40-49,227852.0
+31,Nebraska,All,50-59,228141.0
+31,Nebraska,All,60-69,227660.0
+31,Nebraska,All,70-79,133641.0
+31,Nebraska,All,80+,79300.0
+31,Nebraska,All,All,1958939.0
+31,Nebraska,Female,0-9,127090.0
+31,Nebraska,Female,10-19,134166.0
+31,Nebraska,Female,20-29,129761.0
+31,Nebraska,Female,30-39,126443.0
+31,Nebraska,Female,40-49,109460.0
+31,Nebraska,Female,50-59,112494.0
+31,Nebraska,Female,60-69,115150.0
+31,Nebraska,Female,70-79,71159.0
+31,Nebraska,Female,80+,48646.0
+31,Nebraska,Female,All,974369.0
+31,Nebraska,Male,0-9,133234.0
+31,Nebraska,Male,10-19,142618.0
+31,Nebraska,Male,20-29,136666.0
+31,Nebraska,Male,30-39,132367.0
+31,Nebraska,Male,40-49,118392.0
+31,Nebraska,Male,50-59,115647.0
+31,Nebraska,Male,60-69,112510.0
+31,Nebraska,Male,70-79,62482.0
+31,Nebraska,Male,80+,30654.0
+31,Nebraska,Male,All,984570.0
+32,Nevada,All,0-9,366500.0
+32,Nevada,All,10-19,394032.0
+32,Nevada,All,20-29,411015.0
+32,Nevada,All,30-39,443480.0
+32,Nevada,All,40-49,402323.0
+32,Nevada,All,50-59,397277.0
+32,Nevada,All,60-69,355289.0
+32,Nevada,All,70-79,235977.0
+32,Nevada,All,80+,98924.0
+32,Nevada,All,All,3104817.0
+32,Nevada,Female,0-9,179281.0
+32,Nevada,Female,10-19,191582.0
+32,Nevada,Female,20-29,200239.0
+32,Nevada,Female,30-39,215080.0
+32,Nevada,Female,40-49,196707.0
+32,Nevada,Female,50-59,195557.0
+32,Nevada,Female,60-69,180048.0
+32,Nevada,Female,70-79,122736.0
+32,Nevada,Female,80+,55255.0
+32,Nevada,Female,All,1536485.0
+32,Nevada,Male,0-9,187219.0
+32,Nevada,Male,10-19,202450.0
+32,Nevada,Male,20-29,210776.0
+32,Nevada,Male,30-39,228400.0
+32,Nevada,Male,40-49,205616.0
+32,Nevada,Male,50-59,201720.0
+32,Nevada,Male,60-69,175241.0
+32,Nevada,Male,70-79,113241.0
+32,Nevada,Male,80+,43669.0
+32,Nevada,Male,All,1568332.0
+33,New Hampshire,All,0-9,131479.0
+33,New Hampshire,All,10-19,162096.0
+33,New Hampshire,All,20-29,174497.0
+33,New Hampshire,All,30-39,171144.0
+33,New Hampshire,All,40-49,164337.0
+33,New Hampshire,All,50-59,207906.0
+33,New Hampshire,All,60-69,193274.0
+33,New Hampshire,All,70-79,117059.0
+33,New Hampshire,All,80+,57818.0
+33,New Hampshire,All,All,1379610.0
+33,New Hampshire,Female,0-9,64121.0
+33,New Hampshire,Female,10-19,79153.0
+33,New Hampshire,Female,20-29,83857.0
+33,New Hampshire,Female,30-39,83351.0
+33,New Hampshire,Female,40-49,81088.0
+33,New Hampshire,Female,50-59,103773.0
+33,New Hampshire,Female,60-69,96706.0
+33,New Hampshire,Female,70-79,62598.0
+33,New Hampshire,Female,80+,35238.0
+33,New Hampshire,Female,All,689885.0
+33,New Hampshire,Male,0-9,67358.0
+33,New Hampshire,Male,10-19,82943.0
+33,New Hampshire,Male,20-29,90640.0
+33,New Hampshire,Male,30-39,87793.0
+33,New Hampshire,Male,40-49,83249.0
+33,New Hampshire,Male,50-59,104133.0
+33,New Hampshire,Male,60-69,96568.0
+33,New Hampshire,Male,70-79,54461.0
+33,New Hampshire,Male,80+,22580.0
+33,New Hampshire,Male,All,689725.0
+34,New Jersey,All,0-9,1071994.0
+34,New Jersey,All,10-19,1174268.0
+34,New Jersey,All,20-29,1160262.0
+34,New Jersey,All,30-39,1211893.0
+34,New Jersey,All,40-49,1190802.0
+34,New Jersey,All,50-59,1295107.0
+34,New Jersey,All,60-69,1103431.0
+34,New Jersey,All,70-79,661582.0
+34,New Jersey,All,80+,379724.0
+34,New Jersey,All,All,9249063.0
+34,New Jersey,Female,0-9,520156.0
+34,New Jersey,Female,10-19,575389.0
+34,New Jersey,Female,20-29,569245.0
+34,New Jersey,Female,30-39,597862.0
+34,New Jersey,Female,40-49,594546.0
+34,New Jersey,Female,50-59,655804.0
+34,New Jersey,Female,60-69,574660.0
+34,New Jersey,Female,70-79,365798.0
+34,New Jersey,Female,80+,239272.0
+34,New Jersey,Female,All,4692732.0
+34,New Jersey,Male,0-9,551838.0
+34,New Jersey,Male,10-19,598879.0
+34,New Jersey,Male,20-29,591017.0
+34,New Jersey,Male,30-39,614031.0
+34,New Jersey,Male,40-49,596256.0
+34,New Jersey,Male,50-59,639303.0
+34,New Jersey,Male,60-69,528771.0
+34,New Jersey,Male,70-79,295784.0
+34,New Jersey,Male,80+,140452.0
+34,New Jersey,Male,All,4556331.0
+35,New Mexico,All,0-9,245511.0
+35,New Mexico,All,10-19,287214.0
+35,New Mexico,All,20-29,286296.0
+35,New Mexico,All,30-39,275573.0
+35,New Mexico,All,40-49,245496.0
+35,New Mexico,All,50-59,250634.0
+35,New Mexico,All,60-69,266268.0
+35,New Mexico,All,70-79,169023.0
+35,New Mexico,All,80+,86448.0
+35,New Mexico,All,All,2112463.0
+35,New Mexico,Female,0-9,120029.0
+35,New Mexico,Female,10-19,139960.0
+35,New Mexico,Female,20-29,137892.0
+35,New Mexico,Female,30-39,133567.0
+35,New Mexico,Female,40-49,121559.0
+35,New Mexico,Female,50-59,127936.0
+35,New Mexico,Female,60-69,139920.0
+35,New Mexico,Female,70-79,87896.0
+35,New Mexico,Female,80+,50846.0
+35,New Mexico,Female,All,1059605.0
+35,New Mexico,Male,0-9,125482.0
+35,New Mexico,Male,10-19,147254.0
+35,New Mexico,Male,20-29,148404.0
+35,New Mexico,Male,30-39,142006.0
+35,New Mexico,Male,40-49,123937.0
+35,New Mexico,Male,50-59,122698.0
+35,New Mexico,Male,60-69,126348.0
+35,New Mexico,Male,70-79,81127.0
+35,New Mexico,Male,80+,35602.0
+35,New Mexico,Male,All,1052858.0
+36,New York,All,0-9,2226863.0
+36,New York,All,10-19,2428519.0
+36,New York,All,20-29,2752586.0
+36,New York,All,30-39,2755659.0
+36,New York,All,40-49,2440615.0
+36,New York,All,50-59,2681166.0
+36,New York,All,60-69,2382913.0
+36,New York,All,70-79,1470998.0
+36,New York,All,80+,855060.0
+36,New York,All,All,19994379.0
+36,New York,Female,0-9,1089133.0
+36,New York,Female,10-19,1186001.0
+36,New York,Female,20-29,1374935.0
+36,New York,Female,30-39,1371400.0
+36,New York,Female,40-49,1227703.0
+36,New York,Female,50-59,1363499.0
+36,New York,Female,60-69,1243369.0
+36,New York,Female,70-79,816226.0
+36,New York,Female,80+,540827.0
+36,New York,Female,All,10213093.0
+36,New York,Male,0-9,1137730.0
+36,New York,Male,10-19,1242518.0
+36,New York,Male,20-29,1377651.0
+36,New York,Male,30-39,1384259.0
+36,New York,Male,40-49,1212912.0
+36,New York,Male,50-59,1317667.0
+36,New York,Male,60-69,1139544.0
+36,New York,Male,70-79,654772.0
+36,New York,Male,80+,314233.0
+36,New York,Male,All,9781286.0
+37,North Carolina,All,0-9,1208319.0
+37,North Carolina,All,10-19,1375754.0
+37,North Carolina,All,20-29,1416595.0
+37,North Carolina,All,30-39,1354588.0
+37,North Carolina,All,40-49,1327998.0
+37,North Carolina,All,50-59,1369157.0
+37,North Carolina,All,60-69,1241696.0
+37,North Carolina,All,70-79,796957.0
+37,North Carolina,All,80+,379150.0
+37,North Carolina,All,All,10470214.0
+37,North Carolina,Female,0-9,591606.0
+37,North Carolina,Female,10-19,671732.0
+37,North Carolina,Female,20-29,692557.0
+37,North Carolina,Female,30-39,683919.0
+37,North Carolina,Female,40-49,673741.0
+37,North Carolina,Female,50-59,696432.0
+37,North Carolina,Female,60-69,656846.0
+37,North Carolina,Female,70-79,436167.0
+37,North Carolina,Female,80+,235844.0
+37,North Carolina,Female,All,5338844.0
+37,North Carolina,Male,0-9,616713.0
+37,North Carolina,Male,10-19,704022.0
+37,North Carolina,Male,20-29,724038.0
+37,North Carolina,Male,30-39,670669.0
+37,North Carolina,Male,40-49,654257.0
+37,North Carolina,Male,50-59,672725.0
+37,North Carolina,Male,60-69,584850.0
+37,North Carolina,Male,70-79,360790.0
+37,North Carolina,Male,80+,143306.0
+37,North Carolina,Male,All,5131370.0
+38,North Dakota,All,0-9,103358.0
+38,North Dakota,All,10-19,104054.0
+38,North Dakota,All,20-29,120021.0
+38,North Dakota,All,30-39,108904.0
+38,North Dakota,All,40-49,83712.0
+38,North Dakota,All,50-59,86928.0
+38,North Dakota,All,60-69,86967.0
+38,North Dakota,All,70-79,50116.0
+38,North Dakota,All,80+,32814.0
+38,North Dakota,All,All,776874.0
+38,North Dakota,Female,0-9,49889.0
+38,North Dakota,Female,10-19,49958.0
+38,North Dakota,Female,20-29,56524.0
+38,North Dakota,Female,30-39,50797.0
+38,North Dakota,Female,40-49,38909.0
+38,North Dakota,Female,50-59,42472.0
+38,North Dakota,Female,60-69,42517.0
+38,North Dakota,Female,70-79,26250.0
+38,North Dakota,Female,80+,20213.0
+38,North Dakota,Female,All,377529.0
+38,North Dakota,Male,0-9,53469.0
+38,North Dakota,Male,10-19,54096.0
+38,North Dakota,Male,20-29,63497.0
+38,North Dakota,Male,30-39,58107.0
+38,North Dakota,Male,40-49,44803.0
+38,North Dakota,Male,50-59,44456.0
+38,North Dakota,Male,60-69,44450.0
+38,North Dakota,Male,70-79,23866.0
+38,North Dakota,Male,80+,12601.0
+38,North Dakota,Male,All,399345.0
+39,Ohio,All,0-9,1379417.0
+39,Ohio,All,10-19,1529438.0
+39,Ohio,All,20-29,1546909.0
+39,Ohio,All,30-39,1495599.0
+39,Ohio,All,40-49,1411833.0
+39,Ohio,All,50-59,1545018.0
+39,Ohio,All,60-69,1481804.0
+39,Ohio,All,70-79,900030.0
+39,Ohio,All,80+,484635.0
+39,Ohio,All,All,11774683.0
+39,Ohio,Female,0-9,671692.0
+39,Ohio,Female,10-19,748247.0
+39,Ohio,Female,20-29,758471.0
+39,Ohio,Female,30-39,741920.0
+39,Ohio,Female,40-49,702875.0
+39,Ohio,Female,50-59,774806.0
+39,Ohio,Female,60-69,769296.0
+39,Ohio,Female,70-79,490924.0
+39,Ohio,Female,80+,301716.0
+39,Ohio,Female,All,5959947.0
+39,Ohio,Male,0-9,707725.0
+39,Ohio,Male,10-19,781191.0
+39,Ohio,Male,20-29,788438.0
+39,Ohio,Male,30-39,753679.0
+39,Ohio,Male,40-49,708958.0
+39,Ohio,Male,50-59,770212.0
+39,Ohio,Male,60-69,712508.0
+39,Ohio,Male,70-79,409106.0
+39,Ohio,Male,80+,182919.0
+39,Ohio,Male,All,5814736.0
+40,Oklahoma,All,0-9,510720.0
+40,Oklahoma,All,10-19,553521.0
+40,Oklahoma,All,20-29,554327.0
+40,Oklahoma,All,30-39,533953.0
+40,Oklahoma,All,40-49,472069.0
+40,Oklahoma,All,50-59,469600.0
+40,Oklahoma,All,60-69,447724.0
+40,Oklahoma,All,70-79,284622.0
+40,Oklahoma,All,80+,143961.0
+40,Oklahoma,All,All,3970497.0
+40,Oklahoma,Female,0-9,249856.0
+40,Oklahoma,Female,10-19,269250.0
+40,Oklahoma,Female,20-29,267620.0
+40,Oklahoma,Female,30-39,262299.0
+40,Oklahoma,Female,40-49,231614.0
+40,Oklahoma,Female,50-59,234962.0
+40,Oklahoma,Female,60-69,231188.0
+40,Oklahoma,Female,70-79,155116.0
+40,Oklahoma,Female,80+,88114.0
+40,Oklahoma,Female,All,1990019.0
+40,Oklahoma,Male,0-9,260864.0
+40,Oklahoma,Male,10-19,284271.0
+40,Oklahoma,Male,20-29,286707.0
+40,Oklahoma,Male,30-39,271654.0
+40,Oklahoma,Male,40-49,240455.0
+40,Oklahoma,Male,50-59,234638.0
+40,Oklahoma,Male,60-69,216536.0
+40,Oklahoma,Male,70-79,129506.0
+40,Oklahoma,Male,80+,55847.0
+40,Oklahoma,Male,All,1980478.0
+41,Oregon,All,0-9,451070.0
+41,Oregon,All,10-19,508250.0
+41,Oregon,All,20-29,561913.0
+41,Oregon,All,30-39,599991.0
+41,Oregon,All,40-49,546977.0
+41,Oregon,All,50-59,512144.0
+41,Oregon,All,60-69,535553.0
+41,Oregon,All,70-79,346518.0
+41,Oregon,All,80+,166958.0
+41,Oregon,All,All,4229374.0
+41,Oregon,Female,0-9,218695.0
+41,Oregon,Female,10-19,247601.0
+41,Oregon,Female,20-29,274464.0
+41,Oregon,Female,30-39,293450.0
+41,Oregon,Female,40-49,266897.0
+41,Oregon,Female,50-59,252875.0
+41,Oregon,Female,60-69,280349.0
+41,Oregon,Female,70-79,183882.0
+41,Oregon,Female,80+,97820.0
+41,Oregon,Female,All,2116033.0
+41,Oregon,Male,0-9,232375.0
+41,Oregon,Male,10-19,260649.0
+41,Oregon,Male,20-29,287449.0
+41,Oregon,Male,30-39,306541.0
+41,Oregon,Male,40-49,280080.0
+41,Oregon,Male,50-59,259269.0
+41,Oregon,Male,60-69,255204.0
+41,Oregon,Male,70-79,162636.0
+41,Oregon,Male,80+,69138.0
+41,Oregon,Male,All,2113341.0
+42,Pennsylvania,All,0-9,1414507.0
+42,Pennsylvania,All,10-19,1618552.0
+42,Pennsylvania,All,20-29,1664312.0
+42,Pennsylvania,All,30-39,1673037.0
+42,Pennsylvania,All,40-49,1527736.0
+42,Pennsylvania,All,50-59,1740453.0
+42,Pennsylvania,All,60-69,1701799.0
+42,Pennsylvania,All,70-79,1042930.0
+42,Pennsylvania,All,80+,605882.0
+42,Pennsylvania,All,All,12989208.0
+42,Pennsylvania,Female,0-9,691432.0
+42,Pennsylvania,Female,10-19,790196.0
+42,Pennsylvania,Female,20-29,815884.0
+42,Pennsylvania,Female,30-39,825023.0
+42,Pennsylvania,Female,40-49,756101.0
+42,Pennsylvania,Female,50-59,873218.0
+42,Pennsylvania,Female,60-69,877529.0
+42,Pennsylvania,Female,70-79,567482.0
+42,Pennsylvania,Female,80+,381577.0
+42,Pennsylvania,Female,All,6578442.0
+42,Pennsylvania,Male,0-9,723075.0
+42,Pennsylvania,Male,10-19,828356.0
+42,Pennsylvania,Male,20-29,848428.0
+42,Pennsylvania,Male,30-39,848014.0
+42,Pennsylvania,Male,40-49,771635.0
+42,Pennsylvania,Male,50-59,867235.0
+42,Pennsylvania,Male,60-69,824270.0
+42,Pennsylvania,Male,70-79,475448.0
+42,Pennsylvania,Male,80+,224305.0
+42,Pennsylvania,Male,All,6410766.0
+44,Rhode Island,All,0-9,110241.0
+44,Rhode Island,All,10-19,134426.0
+44,Rhode Island,All,20-29,153702.0
+44,Rhode Island,All,30-39,147093.0
+44,Rhode Island,All,40-49,126621.0
+44,Rhode Island,All,50-59,148336.0
+44,Rhode Island,All,60-69,141128.0
+44,Rhode Island,All,70-79,84902.0
+44,Rhode Island,All,80+,47801.0
+44,Rhode Island,All,All,1094250.0
+44,Rhode Island,Female,0-9,54344.0
+44,Rhode Island,Female,10-19,66057.0
+44,Rhode Island,Female,20-29,75425.0
+44,Rhode Island,Female,30-39,72340.0
+44,Rhode Island,Female,40-49,62843.0
+44,Rhode Island,Female,50-59,75137.0
+44,Rhode Island,Female,60-69,73676.0
+44,Rhode Island,Female,70-79,46375.0
+44,Rhode Island,Female,80+,30832.0
+44,Rhode Island,Female,All,557029.0
+44,Rhode Island,Male,0-9,55897.0
+44,Rhode Island,Male,10-19,68369.0
+44,Rhode Island,Male,20-29,78277.0
+44,Rhode Island,Male,30-39,74753.0
+44,Rhode Island,Male,40-49,63778.0
+44,Rhode Island,Male,50-59,73199.0
+44,Rhode Island,Male,60-69,67452.0
+44,Rhode Island,Male,70-79,38527.0
+44,Rhode Island,Male,80+,16969.0
+44,Rhode Island,Male,All,537221.0
+45,South Carolina,All,0-9,587537.0
+45,South Carolina,All,10-19,665055.0
+45,South Carolina,All,20-29,668852.0
+45,South Carolina,All,30-39,652529.0
+45,South Carolina,All,40-49,621087.0
+45,South Carolina,All,50-59,661438.0
+45,South Carolina,All,60-69,659021.0
+45,South Carolina,All,70-79,433222.0
+45,South Carolina,All,80+,194009.0
+45,South Carolina,All,All,5142750.0
+45,South Carolina,Female,0-9,288623.0
+45,South Carolina,Female,10-19,322694.0
+45,South Carolina,Female,20-29,329874.0
+45,South Carolina,Female,30-39,333745.0
+45,South Carolina,Female,40-49,314434.0
+45,South Carolina,Female,50-59,340524.0
+45,South Carolina,Female,60-69,351423.0
+45,South Carolina,Female,70-79,235212.0
+45,South Carolina,Female,80+,116202.0
+45,South Carolina,Female,All,2632731.0
+45,South Carolina,Male,0-9,298914.0
+45,South Carolina,Male,10-19,342361.0
+45,South Carolina,Male,20-29,338978.0
+45,South Carolina,Male,30-39,318784.0
+45,South Carolina,Male,40-49,306653.0
+45,South Carolina,Male,50-59,320914.0
+45,South Carolina,Male,60-69,307598.0
+45,South Carolina,Male,70-79,198010.0
+45,South Carolina,Male,80+,77807.0
+45,South Carolina,Male,All,2510019.0
+46,South Dakota,All,0-9,119122.0
+46,South Dakota,All,10-19,121809.0
+46,South Dakota,All,20-29,117036.0
+46,South Dakota,All,30-39,116196.0
+46,South Dakota,All,40-49,97795.0
+46,South Dakota,All,50-59,104265.0
+46,South Dakota,All,60-69,112141.0
+46,South Dakota,All,70-79,64699.0
+46,South Dakota,All,80+,37279.0
+46,South Dakota,All,All,890342.0
+46,South Dakota,Female,0-9,58526.0
+46,South Dakota,Female,10-19,58965.0
+46,South Dakota,Female,20-29,55733.0
+46,South Dakota,Female,30-39,54730.0
+46,South Dakota,Female,40-49,47744.0
+46,South Dakota,Female,50-59,51309.0
+46,South Dakota,Female,60-69,54706.0
+46,South Dakota,Female,70-79,33762.0
+46,South Dakota,Female,80+,23196.0
+46,South Dakota,Female,All,438671.0
+46,South Dakota,Male,0-9,60596.0
+46,South Dakota,Male,10-19,62844.0
+46,South Dakota,Male,20-29,61303.0
+46,South Dakota,Male,30-39,61466.0
+46,South Dakota,Male,40-49,50051.0
+46,South Dakota,Male,50-59,52956.0
+46,South Dakota,Male,60-69,57435.0
+46,South Dakota,Male,70-79,30937.0
+46,South Dakota,Male,80+,14083.0
+46,South Dakota,Male,All,451671.0
+47,Tennessee,All,0-9,817684.0
+47,Tennessee,All,10-19,886386.0
+47,Tennessee,All,20-29,944806.0
+47,Tennessee,All,30-39,909603.0
+47,Tennessee,All,40-49,860169.0
+47,Tennessee,All,50-59,902030.0
+47,Tennessee,All,60-69,831478.0
+47,Tennessee,All,70-79,524126.0
+47,Tennessee,All,80+,247490.0
+47,Tennessee,All,All,6923772.0
+47,Tennessee,Female,0-9,399555.0
+47,Tennessee,Female,10-19,432587.0
+47,Tennessee,Female,20-29,469750.0
+47,Tennessee,Female,30-39,457519.0
+47,Tennessee,Female,40-49,431101.0
+47,Tennessee,Female,50-59,459983.0
+47,Tennessee,Female,60-69,433635.0
+47,Tennessee,Female,70-79,285180.0
+47,Tennessee,Female,80+,153483.0
+47,Tennessee,Female,All,3522793.0
+47,Tennessee,Male,0-9,418129.0
+47,Tennessee,Male,10-19,453799.0
+47,Tennessee,Male,20-29,475056.0
+47,Tennessee,Male,30-39,452084.0
+47,Tennessee,Male,40-49,429068.0
+47,Tennessee,Male,50-59,442047.0
+47,Tennessee,Male,60-69,397843.0
+47,Tennessee,Male,70-79,238946.0
+47,Tennessee,Male,80+,94007.0
+47,Tennessee,Male,All,3400979.0
+48,Texas,All,0-9,3951159.0
+48,Texas,All,10-19,4302184.0
+48,Texas,All,20-29,4186118.0
+48,Texas,All,30-39,4186617.0
+48,Texas,All,40-49,3824893.0
+48,Texas,All,50-59,3442512.0
+48,Texas,All,60-69,2874003.0
+48,Texas,All,70-79,1661735.0
+48,Texas,All,80+,814121.0
+48,Texas,All,All,29243342.0
+48,Texas,Female,0-9,1931103.0
+48,Texas,Female,10-19,2101070.0
+48,Texas,Female,20-29,2038326.0
+48,Texas,Female,30-39,2059819.0
+48,Texas,Female,40-49,1884039.0
+48,Texas,Female,50-59,1719785.0
+48,Texas,Female,60-69,1483427.0
+48,Texas,Female,70-79,904042.0
+48,Texas,Female,80+,497093.0
+48,Texas,Female,All,14618704.0
+48,Texas,Male,0-9,2020056.0
+48,Texas,Male,10-19,2201114.0
+48,Texas,Male,20-29,2147792.0
+48,Texas,Male,30-39,2126798.0
+48,Texas,Male,40-49,1940854.0
+48,Texas,Male,50-59,1722727.0
+48,Texas,Male,60-69,1390576.0
+48,Texas,Male,70-79,757693.0
+48,Texas,Male,80+,317028.0
+48,Texas,Male,All,14624638.0
+49,Utah,All,0-9,501180.0
+49,Utah,All,10-19,541186.0
+49,Utah,All,20-29,532458.0
+49,Utah,All,30-39,462493.0
+49,Utah,All,40-49,405226.0
+49,Utah,All,50-59,314550.0
+49,Utah,All,60-69,280357.0
+49,Utah,All,70-79,165204.0
+49,Utah,All,80+,81155.0
+49,Utah,All,All,3283809.0
+49,Utah,Female,0-9,243318.0
+49,Utah,Female,10-19,264618.0
+49,Utah,Female,20-29,257830.0
+49,Utah,Female,30-39,224721.0
+49,Utah,Female,40-49,197207.0
+49,Utah,Female,50-59,155536.0
+49,Utah,Female,60-69,141443.0
+49,Utah,Female,70-79,87480.0
+49,Utah,Female,80+,46447.0
+49,Utah,Female,All,1618600.0
+49,Utah,Male,0-9,257862.0
+49,Utah,Male,10-19,276568.0
+49,Utah,Male,20-29,274628.0
+49,Utah,Male,30-39,237772.0
+49,Utah,Male,40-49,208019.0
+49,Utah,Male,50-59,159014.0
+49,Utah,Male,60-69,138914.0
+49,Utah,Male,70-79,77724.0
+49,Utah,Male,80+,34708.0
+49,Utah,Male,All,1665209.0
+50,Vermont,All,0-9,60286.0
+50,Vermont,All,10-19,77696.0
+50,Vermont,All,20-29,84981.0
+50,Vermont,All,30-39,77123.0
+50,Vermont,All,40-49,73843.0
+50,Vermont,All,50-59,88570.0
+50,Vermont,All,60-69,94856.0
+50,Vermont,All,70-79,57875.0
+50,Vermont,All,80+,28586.0
+50,Vermont,All,All,643816.0
+50,Vermont,Female,0-9,28780.0
+50,Vermont,Female,10-19,37596.0
+50,Vermont,Female,20-29,41372.0
+50,Vermont,Female,30-39,38504.0
+50,Vermont,Female,40-49,36902.0
+50,Vermont,Female,50-59,44165.0
+50,Vermont,Female,60-69,48985.0
+50,Vermont,Female,70-79,30115.0
+50,Vermont,Female,80+,17058.0
+50,Vermont,Female,All,323477.0
+50,Vermont,Male,0-9,31506.0
+50,Vermont,Male,10-19,40100.0
+50,Vermont,Male,20-29,43609.0
+50,Vermont,Male,30-39,38619.0
+50,Vermont,Male,40-49,36941.0
+50,Vermont,Male,50-59,44405.0
+50,Vermont,Male,60-69,45871.0
+50,Vermont,Male,70-79,27760.0
+50,Vermont,Male,80+,11528.0
+50,Vermont,Male,All,320339.0
+51,Virginia,All,0-9,1006113.0
+51,Virginia,All,10-19,1119237.0
+51,Virginia,All,20-29,1159916.0
+51,Virginia,All,30-39,1178722.0
+51,Virginia,All,40-49,1098415.0
+51,Virginia,All,50-59,1137643.0
+51,Virginia,All,60-69,997136.0
+51,Virginia,All,70-79,617232.0
+51,Virginia,All,80+,310097.0
+51,Virginia,All,All,8624511.0
+51,Virginia,Female,0-9,488381.0
+51,Virginia,Female,10-19,547346.0
+51,Virginia,Female,20-29,565753.0
+51,Virginia,Female,30-39,585635.0
+51,Virginia,Female,40-49,546926.0
+51,Virginia,Female,50-59,573585.0
+51,Virginia,Female,60-69,519477.0
+51,Virginia,Female,70-79,338300.0
+51,Virginia,Female,80+,190333.0
+51,Virginia,Female,All,4355736.0
+51,Virginia,Male,0-9,517732.0
+51,Virginia,Male,10-19,571891.0
+51,Virginia,Male,20-29,594163.0
+51,Virginia,Male,30-39,593087.0
+51,Virginia,Male,40-49,551489.0
+51,Virginia,Male,50-59,564058.0
+51,Virginia,Male,60-69,477659.0
+51,Virginia,Male,70-79,278932.0
+51,Virginia,Male,80+,119764.0
+51,Virginia,Male,All,4268775.0
+53,Washington,All,0-9,906054.0
+53,Washington,All,10-19,941540.0
+53,Washington,All,20-29,1064904.0
+53,Washington,All,30-39,1148357.0
+53,Washington,All,40-49,976537.0
+53,Washington,All,50-59,937928.0
+53,Washington,All,60-69,898576.0
+53,Washington,All,70-79,547055.0
+53,Washington,All,80+,267598.0
+53,Washington,All,All,7688549.0
+53,Washington,Female,0-9,439648.0
+53,Washington,Female,10-19,460714.0
+53,Washington,Female,20-29,507018.0
+53,Washington,Female,30-39,552466.0
+53,Washington,Female,40-49,475993.0
+53,Washington,Female,50-59,463055.0
+53,Washington,Female,60-69,459409.0
+53,Washington,Female,70-79,292434.0
+53,Washington,Female,80+,159894.0
+53,Washington,Female,All,3810631.0
+53,Washington,Male,0-9,466406.0
+53,Washington,Male,10-19,480826.0
+53,Washington,Male,20-29,557886.0
+53,Washington,Male,30-39,595891.0
+53,Washington,Male,40-49,500544.0
+53,Washington,Male,50-59,474873.0
+53,Washington,Male,60-69,439167.0
+53,Washington,Male,70-79,254621.0
+53,Washington,Male,80+,107704.0
+53,Washington,Male,All,3877918.0
+54,West Virginia,All,0-9,188943.0
+54,West Virginia,All,10-19,218804.0
+54,West Virginia,All,20-29,220728.0
+54,West Virginia,All,30-39,207879.0
+54,West Virginia,All,40-49,223092.0
+54,West Virginia,All,50-59,237106.0
+54,West Virginia,All,60-69,251285.0
+54,West Virginia,All,70-79,163980.0
+54,West Virginia,All,80+,81150.0
+54,West Virginia,All,All,1792967.0
+54,West Virginia,Female,0-9,92431.0
+54,West Virginia,Female,10-19,105391.0
+54,West Virginia,Female,20-29,105500.0
+54,West Virginia,Female,30-39,100598.0
+54,West Virginia,Female,40-49,110463.0
+54,West Virginia,Female,50-59,118113.0
+54,West Virginia,Female,60-69,128889.0
+54,West Virginia,Female,70-79,86768.0
+54,West Virginia,Female,80+,50042.0
+54,West Virginia,Female,All,898195.0
+54,West Virginia,Male,0-9,96512.0
+54,West Virginia,Male,10-19,113413.0
+54,West Virginia,Male,20-29,115228.0
+54,West Virginia,Male,30-39,107281.0
+54,West Virginia,Male,40-49,112629.0
+54,West Virginia,Male,50-59,118993.0
+54,West Virginia,Male,60-69,122396.0
+54,West Virginia,Male,70-79,77212.0
+54,West Virginia,Male,80+,31108.0
+54,West Virginia,Male,All,894772.0
+55,Wisconsin,All,0-9,667363.0
+55,Wisconsin,All,10-19,762645.0
+55,Wisconsin,All,20-29,774462.0
+55,Wisconsin,All,30-39,745409.0
+55,Wisconsin,All,40-49,690582.0
+55,Wisconsin,All,50-59,791881.0
+55,Wisconsin,All,60-69,756118.0
+55,Wisconsin,All,70-79,446795.0
+55,Wisconsin,All,80+,246873.0
+55,Wisconsin,All,All,5882128.0
+55,Wisconsin,Female,0-9,325677.0
+55,Wisconsin,Female,10-19,371135.0
+55,Wisconsin,Female,20-29,377430.0
+55,Wisconsin,Female,30-39,363293.0
+55,Wisconsin,Female,40-49,338237.0
+55,Wisconsin,Female,50-59,392571.0
+55,Wisconsin,Female,60-69,380344.0
+55,Wisconsin,Female,70-79,233634.0
+55,Wisconsin,Female,80+,151045.0
+55,Wisconsin,Female,All,2933366.0
+55,Wisconsin,Male,0-9,341686.0
+55,Wisconsin,Male,10-19,391510.0
+55,Wisconsin,Male,20-29,397032.0
+55,Wisconsin,Male,30-39,382116.0
+55,Wisconsin,Male,40-49,352345.0
+55,Wisconsin,Male,50-59,399310.0
+55,Wisconsin,Male,60-69,375774.0
+55,Wisconsin,Male,70-79,213161.0
+55,Wisconsin,Male,80+,95828.0
+55,Wisconsin,Male,All,2948762.0
+56,Wyoming,All,0-9,69778.0
+56,Wyoming,All,10-19,77958.0
+56,Wyoming,All,20-29,74499.0
+56,Wyoming,All,30-39,77825.0
+56,Wyoming,All,40-49,68551.0
+56,Wyoming,All,50-59,69278.0
+56,Wyoming,All,60-69,75194.0
+56,Wyoming,All,70-79,44545.0
+56,Wyoming,All,80+,20301.0
+56,Wyoming,All,All,577929.0
+56,Wyoming,Female,0-9,33587.0
+56,Wyoming,Female,10-19,37867.0
+56,Wyoming,Female,20-29,35354.0
+56,Wyoming,Female,30-39,37465.0
+56,Wyoming,Female,40-49,32796.0
+56,Wyoming,Female,50-59,33659.0
+56,Wyoming,Female,60-69,37503.0
+56,Wyoming,Female,70-79,22219.0
+56,Wyoming,Female,80+,11644.0
+56,Wyoming,Female,All,282094.0
+56,Wyoming,Male,0-9,36191.0
+56,Wyoming,Male,10-19,40091.0
+56,Wyoming,Male,20-29,39145.0
+56,Wyoming,Male,30-39,40360.0
+56,Wyoming,Male,40-49,35755.0
+56,Wyoming,Male,50-59,35619.0
+56,Wyoming,Male,60-69,37691.0
+56,Wyoming,Male,70-79,22326.0
+56,Wyoming,Male,80+,8657.0
+56,Wyoming,Male,All,295835.0
+72,Puerto Rico,All,0-9,264105.0
+72,Puerto Rico,All,10-19,386511.0
+72,Puerto Rico,All,20-29,443711.0
+72,Puerto Rico,All,30-39,385061.0
+72,Puerto Rico,All,40-49,413076.0
+72,Puerto Rico,All,50-59,435411.0
+72,Puerto Rico,All,60-69,419251.0
+72,Puerto Rico,All,70-79,329213.0
+72,Puerto Rico,All,80+,196043.0
+72,Puerto Rico,All,All,3272382.0
+72,Puerto Rico,Female,0-9,128866.0
+72,Puerto Rico,Female,10-19,189611.0
+72,Puerto Rico,Female,20-29,219898.0
+72,Puerto Rico,Female,30-39,200187.0
+72,Puerto Rico,Female,40-49,217671.0
+72,Puerto Rico,Female,50-59,233698.0
+72,Puerto Rico,Female,60-69,227103.0
+72,Puerto Rico,Female,70-79,186975.0
+72,Puerto Rico,Female,80+,116705.0
+72,Puerto Rico,Female,All,1720714.0
+72,Puerto Rico,Male,0-9,135239.0
+72,Puerto Rico,Male,10-19,196900.0
+72,Puerto Rico,Male,20-29,223813.0
+72,Puerto Rico,Male,30-39,184874.0
+72,Puerto Rico,Male,40-49,195405.0
+72,Puerto Rico,Male,50-59,201713.0
+72,Puerto Rico,Male,60-69,192148.0
+72,Puerto Rico,Male,70-79,142238.0
+72,Puerto Rico,Male,80+,79338.0
+72,Puerto Rico,Male,All,1551668.0
