@@ -31,7 +31,7 @@ inputs:
   initial_backoff:
     description: "Initial backoff time in seconds"
     required: false
-    default: "10"
+    default: "30"
 
 runs:
   using: "composite"
