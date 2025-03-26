@@ -18,33 +18,33 @@ export type DatasetId =
   | DatasetIdHivCategory
   | DatasetIdMaternalHealthCategory
   | DatasetIdCommunitySafetyCategory
-  | 'acs_condition-by_race_county_historical'
-  | 'acs_condition-by_race_county_current'
-  | 'acs_condition-by_race_state_historical'
-  | 'acs_condition-by_race_state_current'
-  | 'acs_condition-by_race_national_historical'
-  | 'acs_condition-by_race_national_current'
-  | 'acs_condition-by_age_county_historical'
-  | 'acs_condition-by_age_county_current'
-  | 'acs_condition-by_age_state_historical'
-  | 'acs_condition-by_age_state_current'
-  | 'acs_condition-by_age_national_historical'
-  | 'acs_condition-by_age_national_current'
-  | 'acs_condition-by_sex_county_historical'
-  | 'acs_condition-by_sex_county_current'
-  | 'acs_condition-by_sex_state_historical'
-  | 'acs_condition-by_sex_state_current'
-  | 'acs_condition-by_sex_national_historical'
-  | 'acs_condition-by_sex_national_current'
-  | 'acs_population-by_age_county'
-  | 'acs_population-by_age_national'
-  | 'acs_population-by_age_state'
-  | 'acs_population-by_race_county'
-  | 'acs_population-by_race_national'
-  | 'acs_population-by_race_state'
-  | 'acs_population-by_sex_county'
-  | 'acs_population-by_sex_national'
-  | 'acs_population-by_sex_state'
+  | 'acs_condition-race_county_historical'
+  | 'acs_condition-race_county_current'
+  | 'acs_condition-race_state_historical'
+  | 'acs_condition-race_state_current'
+  | 'acs_condition-race_national_historical'
+  | 'acs_condition-race_national_current'
+  | 'acs_condition-age_county_historical'
+  | 'acs_condition-age_county_current'
+  | 'acs_condition-age_state_historical'
+  | 'acs_condition-age_state_current'
+  | 'acs_condition-age_national_historical'
+  | 'acs_condition-age_national_current'
+  | 'acs_condition-sex_county_historical'
+  | 'acs_condition-sex_county_current'
+  | 'acs_condition-sex_state_historical'
+  | 'acs_condition-sex_state_current'
+  | 'acs_condition-sex_national_historical'
+  | 'acs_condition-sex_national_current'
+  | 'acs_population-age_county_current'
+  | 'acs_population-age_national_current'
+  | 'acs_population-age_state_current'
+  | 'acs_population-race_county_current'
+  | 'acs_population-race_national_current'
+  | 'acs_population-race_state_current'
+  | 'acs_population-sex_county_current'
+  | 'acs_population-sex_national_current'
+  | 'acs_population-sex_state_current'
   | 'graphql_ahr_data-behavioral_health_age_national_current'
   | 'graphql_ahr_data-behavioral_health_age_state_current'
   | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
@@ -205,15 +205,15 @@ export type DatasetId =
   | 'covid_tracking_project-deaths_by_race_state'
   | 'covid_tracking_project-hospitalizations_by_race_state'
   | 'covid_tracking_project-tests_by_race_state'
-  | 'decia_2010_territory_population-age_territory_state_current'
-  | 'decia_2010_territory_population-race_and_ethnicity_territory_state_current'
-  | 'decia_2010_territory_population-sex_territory_state_current'
-  | 'decia_2020_territory_population-age_territory_county_current'
-  | 'decia_2020_territory_population-age_territory_state_current'
-  | 'decia_2020_territory_population-race_and_ethnicity_territory_county_current'
-  | 'decia_2020_territory_population-race_and_ethnicity_territory_state_current'
-  | 'decia_2020_territory_population-sex_territory_county_current'
-  | 'decia_2020_territory_population-sex_territory_state_current'
+  | 'decia_2010_territory_population-age_state_current'
+  | 'decia_2010_territory_population-race_and_ethnicity_state_current'
+  | 'decia_2010_territory_population-sex_state_current'
+  | 'decia_2020_territory_population-age_county_current'
+  | 'decia_2020_territory_population-age_state_current'
+  | 'decia_2020_territory_population-race_and_ethnicity_county_current'
+  | 'decia_2020_territory_population-race_and_ethnicity_state_current'
+  | 'decia_2020_territory_population-sex_county_current'
+  | 'decia_2020_territory_population-sex_state_current'
   | 'geographies'
   | 'geo_context-national'
   | 'geo_context-state'
@@ -351,95 +351,92 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '1999-2021',
     source_id: 'cdc_wonder',
   },
-  'acs_population-by_race_county': {
+  'acs_population-race_county_current': {
     name: 'Population by race/ethnicity and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_race_state': {
+  'acs_population-race_state_current': {
     name: 'Population by race/ethnicity and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_race_national': {
+  'acs_population-race_national_current': {
     name: 'Population by race/ethnicity nationally',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_age_county': {
+  'acs_population-age_county_current': {
     name: 'Population by age and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_age_state': {
+  'acs_population-age_state_current': {
     name: 'Population by age and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_age_national': {
+  'acs_population-age_national_current': {
     name: 'Population by age nationally',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_sex_county': {
+  'acs_population-sex_county_current': {
     name: 'Population by sex and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_sex_state': {
+  'acs_population-sex_state_current': {
     name: 'Population by sex and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'acs_population-by_sex_national': {
+  'acs_population-sex_national_current': {
     name: 'Population by sex nationally',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'decia_2010_territory_population-race_and_ethnicity_territory_state_current':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory',
-      original_data_sourced: '2010',
-      source_id: 'decia_2010_territory_population',
-    },
-  'decia_2010_territory_population-sex_territory_state_current': {
+  'decia_2010_territory_population-race_and_ethnicity_state_current': {
+    name: 'Population by race/ethnicity and Census Island Area territory',
+    original_data_sourced: '2010',
+    source_id: 'decia_2010_territory_population',
+  },
+  'decia_2010_territory_population-sex_state_current': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2010',
     source_id: 'decia_2010_territory_population',
   },
-  'decia_2010_territory_population-age_territory_state_current': {
+  'decia_2010_territory_population-age_state_current': {
     name: 'Population by age and Census Island Area territory',
     original_data_sourced: '2010',
     source_id: 'decia_2010_territory_population',
   },
-  'decia_2020_territory_population-race_and_ethnicity_territory_state_current':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory',
-      original_data_sourced: '2020',
-      source_id: 'decia_2020_territory_population',
-    },
-  'decia_2020_territory_population-sex_territory_state_current': {
+  'decia_2020_territory_population-race_and_ethnicity_state_current': {
+    name: 'Population by race/ethnicity and Census Island Area territory',
+    original_data_sourced: '2020',
+    source_id: 'decia_2020_territory_population',
+  },
+  'decia_2020_territory_population-sex_state_current': {
     name: 'Population by sex and Census Island Area territory',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
   },
-  'decia_2020_territory_population-age_territory_state_current': {
+  'decia_2020_territory_population-age_state_current': {
     name: 'Population by age and Census Island Area territory',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
   },
-  'decia_2020_territory_population-race_and_ethnicity_territory_county_current':
-    {
-      name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
-      original_data_sourced: '2020',
-      source_id: 'decia_2020_territory_population',
-    },
-  'decia_2020_territory_population-sex_territory_county_current': {
+  'decia_2020_territory_population-race_and_ethnicity_county_current': {
+    name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
+    original_data_sourced: '2020',
+    source_id: 'decia_2020_territory_population',
+  },
+  'decia_2020_territory_population-sex_county_current': {
     name: 'Population by sex and Census Island Area territory county-equivalent',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
   },
-  'decia_2020_territory_population-age_territory_county_current': {
+  'decia_2020_territory_population-age_county_current': {
     name: 'Population by age and Census Island Area territory county-equivalent',
     original_data_sourced: '2020',
     source_id: 'decia_2020_territory_population',
@@ -464,100 +461,100 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: 'April 2021',
     source_id: 'covid_tracking_project',
   },
-  'acs_condition-by_age_county_historical': {
+  'acs_condition-age_county_historical': {
     name: 'Health insurance and poverty, yearly, by age and county',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_age_state_historical': {
+  'acs_condition-age_state_historical': {
     name: 'Health insurance and poverty, yearly, by age and state',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_age_national_historical': {
+  'acs_condition-age_national_historical': {
     name: 'Health insurance and poverty, yearly, by age at the national level',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_sex_county_historical': {
+  'acs_condition-sex_county_historical': {
     name: 'Health insurance and poverty, yearly, by sex and county',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_sex_state_historical': {
+  'acs_condition-sex_state_historical': {
     name: 'Health insurance and poverty, yearly, by sex and state',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_sex_national_historical': {
+  'acs_condition-sex_national_historical': {
     name: 'Health insurance and poverty, yearly, by sex at the national level',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_race_county_historical': {
+  'acs_condition-race_county_historical': {
     name: 'Health insurance and poverty, yearly, by race and county',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_race_state_historical': {
+  'acs_condition-race_state_historical': {
     name: 'Health insurance and poverty, yearly, by race and state',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_race_national_historical': {
+  'acs_condition-race_national_historical': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-by_age_county_current': {
+  'acs_condition-age_county_current': {
     name: 'Health insurance and poverty, yearly, by age and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_age_state_current': {
+  'acs_condition-age_state_current': {
     name: 'Health insurance and poverty, yearly, by age and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_age_national_current': {
+  'acs_condition-age_national_current': {
     name: 'Health insurance and poverty, yearly, by age at the national level',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_sex_county_current': {
+  'acs_condition-sex_county_current': {
     name: 'Health insurance and poverty, yearly, by sex and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_sex_state_current': {
+  'acs_condition-sex_state_current': {
     name: 'Health insurance and poverty, yearly, by sex and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_sex_national_current': {
+  'acs_condition-sex_national_current': {
     name: 'Health insurance and poverty, yearly, by sex at the national level',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_race_county_current': {
+  'acs_condition-race_county_current': {
     name: 'Health insurance and poverty, yearly, by race and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_race_state_current': {
+  'acs_condition-race_state_current': {
     name: 'Health insurance and poverty, yearly, by race and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-by_race_national_current': {
+  'acs_condition-race_national_current': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
     original_data_sourced: '2022',
     source_id: 'acs',
