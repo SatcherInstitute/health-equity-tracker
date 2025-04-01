@@ -1,5 +1,5 @@
 name: "Run data-ingestion-service (ACS caching)"
-description: "Triggers Cloud Run service to ingest and cache data from ACS source to GCS buckets. This is only used in ACS pipelins, and as a pre-step before the normal gcs-to-bq service"
+description: "Triggers Cloud Run service to ingest and cache data from ACS source to GCS buckets. This is only used in ACS pipelines, and as a pre-step before the normal gcs-to-bq service"
 
 inputs:
   service_url:
