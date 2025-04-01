@@ -13,7 +13,7 @@ resource "google_cloud_run_service" "ingestion_service" {
       }
     }
     spec {
-      timeout_seconds = 60 * 30
+      timeout_seconds = 60 * 60 // timeout at 60 minutes; wasn't finishing ACS CONDITION with only 30 minutes
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
