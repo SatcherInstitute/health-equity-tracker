@@ -19,7 +19,8 @@ const config: PlaywrightTestConfig = {
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
+  maxFailures: process.env.CI ? 1 : 0,
   reporter: [[process.env.CI ? 'github' : 'list'], ['html']],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
