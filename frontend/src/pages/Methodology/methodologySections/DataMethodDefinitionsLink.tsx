@@ -5,7 +5,8 @@ export default function DataMethodDefinitionsLink() {
   const acsYear =
     DatasetMetadataMap['acs_population-race_national_current']
       .original_data_sourced
-  const sviYear = DatasetMetadataMap['geo_context-county'].original_data_sourced
+  const sviYear =
+    DatasetMetadataMap['geo_context-alls_county_current'].original_data_sourced
 
   return (
     <section id='data-methods'>
