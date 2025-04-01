@@ -20,7 +20,6 @@ class GeoContextProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-
     const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
       'geo_context',
       '',
@@ -40,7 +39,9 @@ class GeoContextProvider extends VariableProvider {
     df = this.removeUnrequestedColumns(df, metricQuery)
 
     // handles both SVI and/or POPULATION requests, need to dynamically infer the consumed datasets for footer
-    const consumedDatasetIds: DatasetId[] = [datasetId]
+    const consumedDatasetIds: DatasetId[] = []
+
+    if (breakdowns.geography === 'county') consumedDatasetIds.push(datasetId)
 
     const acsDatasetMap: Partial<Record<GeographicBreakdown, DatasetId>> = {
       county: 'acs_population-sex_county_current',
