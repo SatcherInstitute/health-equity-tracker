@@ -52,8 +52,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06037'),
       ['svi', 'population'],
-      'geo_context-county',
-      ['geo_context-county', 'acs_population-sex_county_current'],
+      'geo_context-alls_county_current',
+      ['geo_context-alls_county_current', 'acs_population-sex_county_current'],
     )
   })
 
@@ -61,8 +61,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06037'),
       ['svi'],
-      'geo_context-county',
-      ['geo_context-county'],
+      'geo_context-alls_county_current',
+      ['geo_context-alls_county_current'],
     )
   })
 
@@ -70,8 +70,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('72123'),
       ['svi', 'population'],
-      'geo_context-county',
-      ['geo_context-county', 'acs_population-sex_county_current'],
+      'geo_context-alls_county_current',
+      ['geo_context-alls_county_current', 'acs_population-sex_county_current'],
     )
   })
 
@@ -79,9 +79,9 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('78010'),
       ['svi', 'population'],
-      'geo_context-county',
+      'geo_context-alls_county_current',
       [
-        'geo_context-county',
+        'geo_context-alls_county_current',
         'decia_2020_territory_population-sex_county_current',
       ],
     )
@@ -91,7 +91,7 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06'),
       ['population'],
-      'geo_context-state',
+      'geo_context-alls_state_current',
       ['acs_population-sex_state_current'],
     )
   })
@@ -100,7 +100,7 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('72'),
       ['population'],
-      'geo_context-state',
+      'geo_context-alls_state_current',
       ['acs_population-sex_state_current'],
     )
   })
@@ -109,7 +109,7 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('78'),
       ['population'],
-      'geo_context-state',
+      'geo_context-alls_state_current',
       ['decia_2020_territory_population-sex_state_current'],
     )
   })
@@ -118,7 +118,7 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('00'),
       ['population'],
-      'geo_context-national',
+      'geo_context-alls_national_current',
       ['acs_population-sex_national_current'],
     )
   })
