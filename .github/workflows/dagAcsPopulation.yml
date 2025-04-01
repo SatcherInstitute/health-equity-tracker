@@ -1,5 +1,7 @@
 name: ACS_CONDITION_PROCESS_EXPORT
 
+# NOTE: This workflow requires pre-cached ingestion files in the landing bucket, created in the dagAcsConditionPreCacheIngestion.yml file. If starting from scratch, please run that workflow first, and then come back to run this file.
+
 on:
   workflow_dispatch:
   workflow_call:
