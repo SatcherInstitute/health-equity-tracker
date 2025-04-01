@@ -76,7 +76,7 @@ describe('WithLoadingOrErrorUI', () => {
 
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata)
-      dataFetcher.setFakeDatasetLoaded('acs_population-by_race_state', [])
+      dataFetcher.setFakeDatasetLoaded('acs_population-race_state_current', [])
       dataFetcher.setFakeDatasetLoaded(
         'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current',
         [
@@ -119,7 +119,10 @@ describe('WithLoadingOrErrorUI', () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />)
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata)
-      dataFetcher.setFakeDatasetLoaded('acs_population-by_race_national', [])
+      dataFetcher.setFakeDatasetLoaded(
+        'acs_population-race_national_current',
+        [],
+      )
       dataFetcher.setFakeDatasetLoaded(
         'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current',
         [],
@@ -142,7 +145,7 @@ describe('WithLoadingOrErrorUI', () => {
     const { findByTestId } = render(<WithMetricsWrapperApp query={query} />)
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata)
-      dataFetcher.setFakeDatasetLoaded('acs_population-by_age_county', [])
+      dataFetcher.setFakeDatasetLoaded('acs_population-age_county_current', [])
       dataFetcher.setFakeDatasetLoaded('ahr_data-race_and_ethnicity' as any, [])
     })
 
