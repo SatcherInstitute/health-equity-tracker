@@ -404,6 +404,8 @@ class AcsCondition(DataSource):
                 ]
             col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
             table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
+
+            print("**\twriting to bq", table_id_historical)
             gcs_to_bq_util.add_df_to_bq(
                 df_time_series,
                 dataset,
