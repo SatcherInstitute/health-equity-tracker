@@ -377,7 +377,7 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None) -> pd.DataFrame:
 
     url: url to download the json from
     key: key in the json in which all data underneath will be loaded into the dataframe"""
-    r = requests.get(url, timeout=10)
+    r = requests.get(url, timeout=60)
     jsn = json.loads(r.text)
     return pd.DataFrame(jsn[key], dtype=dtype)
 
@@ -440,7 +440,7 @@ def fetch_zip_as_files(url: str) -> ZipFile:
     Fetches a .zip files from the given url and returns a zip object
     with the listed internal files.
     """
-    response = requests.get(url, timeout=10)
+    response = requests.get(url, timeout=60)
     response.raise_for_status()  # Ensure we notice bad responses
     zip_file = BytesIO(response.content)
     return ZipFile(zip_file)
@@ -450,7 +450,7 @@ def fetch_json_from_web(url):
     """
     fetches json from a URL
     """
-    r = requests.get(url, timeout=10)
+    r = requests.get(url, timeout=60)
     return json.loads(r.text)
 
 
