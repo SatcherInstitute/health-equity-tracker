@@ -107,15 +107,15 @@ jobs:
       #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
       #     year: "2022"
 
-      # # Step 2: Process and write to BigQuery
-      # - name: Process and write to BigQuery 2012
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-      #   with:
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     dataset_name: ${{ env.DATASET_NAME }}
-      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-      #     year: "2012"
-      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # Step 2: Process and write to BigQuery
+      - name: Process and write to BigQuery 2012
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          year: "2012"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       # - name: Process and write to BigQuery 2013
       #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
