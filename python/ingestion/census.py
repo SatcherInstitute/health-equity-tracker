@@ -75,7 +75,7 @@ def fetch_acs_variables(base_acs_url, variable_ids, county_level):
 def fetch_acs_metadata(base_acs_url):
     """Fetches ACS variable metadata as JSON."""
     try:
-        resp = requests.get(base_acs_url + "/variables.json", timeout=10)  # Set a timeout
+        resp = requests.get(base_acs_url + "/variables.json", timeout=120)  # Set a timeout
         resp.raise_for_status()  # Raise an error for non-200 responses
         return resp.json()
     except requests.exceptions.Timeout:
