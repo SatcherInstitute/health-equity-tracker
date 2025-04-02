@@ -1,3 +1,4 @@
+import logging
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
@@ -345,6 +346,7 @@ class AcsCondition(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         year = self.get_attr(attrs, "year")
+        logging.info(year)
         self.year = year
         self.base_url = ACS_URLS_MAP[year]
         if int(year) < 2022:
@@ -354,12 +356,21 @@ class AcsCondition(DataSource):
             acs_items = ACS_ITEMS_2022_AND_LATER
             health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE
 
+        logging.info("fetching acs meta data")
         metadata = census.fetch_acs_metadata(self.base_url)
+
+        logging.info("fetched meta data")
+
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
 
+                logging.info(f"!!! {geo}, {demo}")
+
+                logging.info("getting raw data")
                 df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
+                logging.info("post processing")
+
                 df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
                 if demo == RACE:
                     add_race_columns_from_category_id(df)
@@ -382,6 +393,8 @@ class AcsCondition(DataSource):
         ]
 
         for [demo, geo], df in dfs.items():
+            logging.info(f"iterating dfs, {demo}, {geo}")
+
             # MAKE AND WRITE TIME SERIES TABLE
             df_time_series = df.copy()
             df_time_series[std_col.TIME_PERIOD_COL] = self.year
@@ -405,7 +418,7 @@ class AcsCondition(DataSource):
             col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
             table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
 
-            print("**\twriting to bq", table_id_historical)
+            logging.info(f"**\twriting time series to bq, {table_id_historical}")
             gcs_to_bq_util.add_df_to_bq(
                 df_time_series,
                 dataset,
@@ -416,6 +429,8 @@ class AcsCondition(DataSource):
 
             # MAKE AND WRITE CURRENT TABLE
             if self.year == CURRENT_ACS_CONDITION_YEAR:
+                logging.info("IS CURRENT YEAR")
+
                 df_current = df.copy()
                 # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
                 float_cols_to_drop = []
