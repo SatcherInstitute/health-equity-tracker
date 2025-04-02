@@ -37,6 +37,15 @@ from ingestion.standardized_columns import (
     generate_column_name,
 )
 
+import logging
+import sys
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger(__name__)
+
+
 EARLIEST_ACS_CONDITION_YEAR = "2012"
 CURRENT_ACS_CONDITION_YEAR = "2022"
 
@@ -344,28 +353,58 @@ class AcsCondition(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
+        logger.info("Child subclass AcsCondition.write_to_bq method called.")
+
+        logger.info("Starting write_to_bq with dataset=%s, gcs_bucket=%s, attrs=%s", dataset, gcs_bucket, attrs)
+
         year = self.get_attr(attrs, "year")
         self.year = year
         self.base_url = ACS_URLS_MAP[year]
+        logger.info("Processing ACS data for year: %s, base_url: %s", year, self.base_url)
+
         if int(year) < 2022:
             acs_items = ACS_ITEMS_2021_AND_EARLIER
             health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS
+            logger.info("Using pre-2022 ACS items and concept mappings")
         else:
             acs_items = ACS_ITEMS_2022_AND_LATER
             health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE
+            logger.info("Using 2022+ ACS items and concept mappings")
 
+        logger.info("Fetching ACS metadata from %s", self.base_url)
         metadata = census.fetch_acs_metadata(self.base_url)
+        logger.info("Successfully retrieved metadata")
+
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
+                logger.info("Processing data for geography: %s, demographic: %s", geo, demo)
 
+                logger.info("Getting raw data for demo=%s, geo=%s", demo, geo)
                 df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
+                logger.info(
+                    "Retrieved raw data: %s rows, %s columns",
+                    len(df) if df is not None else 0,
+                    len(df.columns) if df is not None else 0,
+                )
+
+                logger.info("Post-processing data for demo=%s, geo=%s", demo, geo)
                 df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
+                logger.info(
+                    "Post-processing complete: %s rows, %s columns",
+                    len(df) if df is not None else 0,
+                    len(df.columns) if df is not None else 0,
+                )
+
                 if demo == RACE:
+                    logger.info("Adding race columns from category ID")
                     add_race_columns_from_category_id(df)
+                    logger.info("Race columns added successfully")
 
                 dfs[(demo, geo)] = df
+                logger.info("Successfully processed and stored data for geo=%s, demo=%s", geo, demo)
 
+        logger.info("Defining column suffixes for different table types")
         suffixes_time_series_only = [
             std_col.PCT_REL_INEQUITY_SUFFIX,
         ]
@@ -381,10 +420,20 @@ class AcsCondition(DataSource):
             f"{POP_SUFFIX}_{std_col.RAW_SUFFIX}",  # denominator counts
         ]
 
+        logger.info("Starting to write processed data to BigQuery, total dataframes: %s", len(dfs))
         for [demo, geo], df in dfs.items():
+            logger.info(
+                "Processing data for BigQuery: demo=%s, geo=%s, df_shape=%s",
+                demo,
+                geo,
+                df.shape if df is not None else "None",
+            )
+
             # MAKE AND WRITE TIME SERIES TABLE
+            logger.info("Creating time series dataframe copy")
             df_time_series = df.copy()
             df_time_series[std_col.TIME_PERIOD_COL] = self.year
+            logger.info("Added time period column with year: %s", self.year)
 
             # DROP THE "CURRENT" COLUMNS WE DON'T NEED
             float_cols_to_drop = []
@@ -392,18 +441,31 @@ class AcsCondition(DataSource):
                 float_cols_to_drop += [
                     generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current_only
                 ]
+            logger.info("Dropping %s current-only columns from time series dataframe", len(float_cols_to_drop))
             df_time_series.drop(columns=float_cols_to_drop, inplace=True)
+            logger.info("Time series dataframe shape after dropping columns: %s", df_time_series.shape)
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
             overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
+            logger.info(
+                "Time series table overwrite mode: %s (year=%s, earliest_year=%s)",
+                overwrite,
+                self.year,
+                EARLIEST_ACS_CONDITION_YEAR,
+            )
+
             float_cols_time_series = []
             for acs_item in acs_items.values():
                 float_cols_time_series += [
                     generate_column_name(acs_item.bq_prefix, suffix)
                     for suffix in suffixes_time_series_only + suffixes_both
                 ]
+            logger.info("Getting BigQuery column types for %s float columns", len(float_cols_time_series))
             col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
+            logger.info("Generated column types for BigQuery schema")
+
             table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
+            logger.info("Writing time series data to BigQuery table: %s", table_id_historical)
             gcs_to_bq_util.add_df_to_bq(
                 df_time_series,
                 dataset,
@@ -411,26 +473,49 @@ class AcsCondition(DataSource):
                 column_types=col_types,
                 overwrite=overwrite,
             )
+            logger.info("Successfully wrote time series data to BigQuery table: %s", table_id_historical)
 
             # MAKE AND WRITE CURRENT TABLE
             if self.year == CURRENT_ACS_CONDITION_YEAR:
+                logger.info(
+                    "Current year matches CURRENT_ACS_CONDITION_YEAR (%s), processing current table",
+                    CURRENT_ACS_CONDITION_YEAR,
+                )
                 df_current = df.copy()
+                logger.info("Created current dataframe copy")
+
                 # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
                 float_cols_to_drop = []
                 for acs_item in acs_items.values():
                     float_cols_to_drop += [
                         generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only
                     ]
+                logger.info("Dropping %s time-series-only columns from current dataframe", len(float_cols_to_drop))
                 df_current.drop(columns=float_cols_to_drop, inplace=True)
+                logger.info("Current dataframe shape after dropping columns: %s", df_current.shape)
+
                 float_cols_current = []
                 for acs_item in acs_items.values():
                     float_cols_current += [
                         generate_column_name(acs_item.bq_prefix, suffix)
                         for suffix in suffixes_current_only + suffixes_both
                     ]
+                logger.info("Getting BigQuery column types for %s float columns", len(float_cols_current))
                 col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
+                logger.info("Generated column types for BigQuery schema")
+
                 table_id_current = gcs_to_bq_util.make_bq_table_id(demo, geo, CURRENT)
+                logger.info("Writing current data to BigQuery table: %s", table_id_current)
                 gcs_to_bq_util.add_df_to_bq(df_current, dataset, table_id_current, column_types=col_types)
+                logger.info("Successfully wrote current data to BigQuery table: %s", table_id_current)
+            else:
+                logger.info(
+                    "Skipping current table creation as year (%s) != CURRENT_ACS_CONDITION_YEAR (%s)",
+                    self.year,
+                    CURRENT_ACS_CONDITION_YEAR,
+                )
+
+        logger.info("write_to_bq completed successfully")
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
