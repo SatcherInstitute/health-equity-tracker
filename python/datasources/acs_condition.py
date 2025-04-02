@@ -1,7 +1,3 @@
-import time
-import logging
-
-
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
@@ -346,154 +342,95 @@ class AcsCondition(DataSource):
 
         return file_diff
 
+    def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-def write_to_bq(self, dataset, gcs_bucket, **attrs):
-    logger = logging.getLogger(__name__)
+        year = self.get_attr(attrs, "year")
+        self.year = year
+        self.base_url = ACS_URLS_MAP[year]
+        if int(year) < 2022:
+            acs_items = ACS_ITEMS_2021_AND_EARLIER
+            health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS
+        else:
+            acs_items = ACS_ITEMS_2022_AND_LATER
+            health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE
 
-    start_time = time.time()
-    logger.info("Starting write_to_bq operation with dataset=%s, gcs_bucket=%s, attrs=%s", dataset, gcs_bucket, attrs)
+        metadata = census.fetch_acs_metadata(self.base_url)
+        dfs = {}
+        for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
+            for demo in [RACE, AGE, SEX]:
 
-    year = self.get_attr(attrs, "year")
-    self.year = year
-    self.base_url = ACS_URLS_MAP[year]
-    logger.info("Processing year=%s, base_url=%s", year, self.base_url)
+                df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
+                df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
+                if demo == RACE:
+                    add_race_columns_from_category_id(df)
 
-    if int(year) < 2022:
-        acs_items = ACS_ITEMS_2021_AND_EARLIER
-        health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_CAPS
-        logger.info("Using 2021 and earlier mappings")
-    else:
-        acs_items = ACS_ITEMS_2022_AND_LATER
-        health_insurance_race_to_concept = HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE
-        logger.info("Using 2022 and later mappings")
+                dfs[(demo, geo)] = df
 
-    logger.info("Fetching ACS metadata from base_url")
-    metadata_start = time.time()
-    metadata = census.fetch_acs_metadata(self.base_url)
-    logger.info("Metadata fetch complete in %.2f seconds", time.time() - metadata_start)
+        suffixes_time_series_only = [
+            std_col.PCT_REL_INEQUITY_SUFFIX,
+        ]
 
-    dfs = {}
-    for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
-        for demo in [RACE, AGE, SEX]:
-            logger.info("Processing geo=%s, demo=%s", geo, demo)
-            raw_data_start = time.time()
+        suffixes_both = [
+            std_col.PCT_SHARE_SUFFIX,
+            std_col.PCT_RATE_SUFFIX,
+        ]
 
-            logger.info("Getting raw data")
-            df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
-            logger.info(
-                "Raw data fetch complete in %.2f seconds, shape=%s",
-                time.time() - raw_data_start,
-                df.shape if df is not None else "None",
-            )
+        suffixes_current_only = [
+            std_col.POP_PCT_SUFFIX,
+            std_col.RAW_SUFFIX,  # numerator counts
+            f"{POP_SUFFIX}_{std_col.RAW_SUFFIX}",  # denominator counts
+        ]
 
-            post_process_start = time.time()
-            logger.info("Post-processing data")
-            df = self.post_process(df, demo, geo, acs_items, health_insurance_race_to_concept)
-            logger.info(
-                "Post-processing complete in %.2f seconds, shape=%s",
-                time.time() - post_process_start,
-                df.shape if df is not None else "None",
-            )
+        for [demo, geo], df in dfs.items():
+            # MAKE AND WRITE TIME SERIES TABLE
+            df_time_series = df.copy()
+            df_time_series[std_col.TIME_PERIOD_COL] = self.year
 
-            if demo == RACE:
-                logger.info("Adding race columns from category_id")
-                race_cols_start = time.time()
-                add_race_columns_from_category_id(df)
-                logger.info("Race columns added in %.2f seconds", time.time() - race_cols_start)
-
-            dfs[(demo, geo)] = df
-            logger.info(
-                "Completed processing for geo=%s, demo=%s in %.2f seconds", geo, demo, time.time() - raw_data_start
-            )
-
-    logger.info("All data processing complete, preparing to write to BigQuery")
-
-    suffixes_time_series_only = [
-        std_col.PCT_REL_INEQUITY_SUFFIX,
-    ]
-
-    suffixes_both = [
-        std_col.PCT_SHARE_SUFFIX,
-        std_col.PCT_RATE_SUFFIX,
-    ]
-
-    suffixes_current_only = [
-        std_col.POP_PCT_SUFFIX,
-        std_col.RAW_SUFFIX,  # numerator counts
-        f"{POP_SUFFIX}_{std_col.RAW_SUFFIX}",  # denominator counts
-    ]
-
-    for i, ([demo, geo], df) in enumerate(dfs.items()):
-        logger.info("Writing to BigQuery for demo=%s, geo=%s (%d/%d)", demo, geo, i + 1, len(dfs))
-
-        # MAKE AND WRITE TIME SERIES TABLE
-        time_series_start = time.time()
-        logger.info("Preparing time series table")
-        df_time_series = df.copy()
-        df_time_series[std_col.TIME_PERIOD_COL] = self.year
-
-        # DROP THE "CURRENT" COLUMNS WE DON'T NEED
-        logger.info("Dropping current columns from time series table")
-        float_cols_to_drop = []
-        for acs_item in acs_items.values():
-            float_cols_to_drop += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current_only]
-        df_time_series.drop(columns=float_cols_to_drop, inplace=True)
-
-        # the first year written should OVERWRITE, the subsequent years should APPEND_
-        overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
-        logger.info("Time series table will %s", "OVERWRITE" if overwrite else "APPEND")
-
-        float_cols_time_series = []
-        for acs_item in acs_items.values():
-            float_cols_time_series += [
-                generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only + suffixes_both
-            ]
-        logger.info("Getting BQ column types")
-        col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
-        table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
-
-        logger.info("Writing to BigQuery table %s", table_id_historical)
-        bq_write_start = time.time()
-        gcs_to_bq_util.add_df_to_bq(
-            df_time_series,
-            dataset,
-            table_id_historical,
-            column_types=col_types,
-            overwrite=overwrite,
-        )
-        logger.info("Completed writing time series table in %.2f seconds", time.time() - bq_write_start)
-        logger.info("Time series table processing complete in %.2f seconds", time.time() - time_series_start)
-
-        # MAKE AND WRITE CURRENT TABLE
-        if self.year == CURRENT_ACS_CONDITION_YEAR:
-            logger.info("Year matches current year, preparing current table")
-            current_start = time.time()
-            df_current = df.copy()
-            # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
-            logger.info("Dropping time series columns from current table")
+            # DROP THE "CURRENT" COLUMNS WE DON'T NEED
             float_cols_to_drop = []
             for acs_item in acs_items.values():
                 float_cols_to_drop += [
-                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only
+                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current_only
                 ]
-            df_current.drop(columns=float_cols_to_drop, inplace=True)
-            float_cols_current = []
+            df_time_series.drop(columns=float_cols_to_drop, inplace=True)
+
+            # the first year written should OVERWRITE, the subsequent years should APPEND_
+            overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
+            float_cols_time_series = []
             for acs_item in acs_items.values():
-                float_cols_current += [
-                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_current_only + suffixes_both
+                float_cols_time_series += [
+                    generate_column_name(acs_item.bq_prefix, suffix)
+                    for suffix in suffixes_time_series_only + suffixes_both
                 ]
-            logger.info("Getting BQ column types for current table")
-            col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
-            table_id_current = gcs_to_bq_util.make_bq_table_id(demo, geo, CURRENT)
+            col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
+            table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
+            gcs_to_bq_util.add_df_to_bq(
+                df_time_series,
+                dataset,
+                table_id_historical,
+                column_types=col_types,
+                overwrite=overwrite,
+            )
 
-            logger.info("Writing to BigQuery current table %s", table_id_current)
-            current_bq_write_start = time.time()
-            gcs_to_bq_util.add_df_to_bq(df_current, dataset, table_id_current, column_types=col_types)
-            logger.info("Completed writing current table in %.2f seconds", time.time() - current_bq_write_start)
-            logger.info("Current table processing complete in %.2f seconds", time.time() - current_start)
-
-    total_time = time.time() - start_time
-    logger.info("All BigQuery writes complete in %.2f seconds (%.1f minutes)", total_time, total_time / 60)
+            # MAKE AND WRITE CURRENT TABLE
+            if self.year == CURRENT_ACS_CONDITION_YEAR:
+                df_current = df.copy()
+                # DROP THE "TIME SERIES" COLUMNS WE DON'T NEED
+                float_cols_to_drop = []
+                for acs_item in acs_items.values():
+                    float_cols_to_drop += [
+                        generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes_time_series_only
+                    ]
+                df_current.drop(columns=float_cols_to_drop, inplace=True)
+                float_cols_current = []
+                for acs_item in acs_items.values():
+                    float_cols_current += [
+                        generate_column_name(acs_item.bq_prefix, suffix)
+                        for suffix in suffixes_current_only + suffixes_both
+                    ]
+                col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
+                table_id_current = gcs_to_bq_util.make_bq_table_id(demo, geo, CURRENT)
+                gcs_to_bq_util.add_df_to_bq(df_current, dataset, table_id_current, column_types=col_types)
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
