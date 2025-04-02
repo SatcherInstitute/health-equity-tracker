@@ -1,4 +1,3 @@
-# pylint: disable=missing-timeout
 import requests  # type: ignore
 import json
 from ingestion.standardized_columns import (
@@ -74,12 +73,17 @@ def fetch_acs_variables(base_acs_url, variable_ids, county_level):
 
 
 def fetch_acs_metadata(base_acs_url):
-    """Fetches ACS variable metadata as json.
-
-    base_acs_url: The base ACS url to use. This is used to specify which year or
-        version of ACS."""
-    resp = requests.get(base_acs_url + "/variables.json")
-    return resp.json()
+    """Fetches ACS variable metadata as JSON."""
+    try:
+        resp = requests.get(base_acs_url + "/variables.json", timeout=10)  # Set a timeout
+        resp.raise_for_status()  # Raise an error for non-200 responses
+        return resp.json()
+    except requests.exceptions.Timeout:
+        print("Request timed out")
+        return None
+    except requests.exceptions.RequestException as e:
+        print(f"Request failed: {e}")
+        return None
 
 
 def fetch_acs_group(base_acs_url, group_concept, var_map, num_breakdowns, county_level):
