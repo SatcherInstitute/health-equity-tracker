@@ -3,6 +3,13 @@ import re
 from typing import Any
 import pandas as pd
 from ingestion import url_file_to_gcs, gcs_to_bq_util
+import logging
+import sys
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger(__name__)
 
 
 # Abstract base class for all data sources ingested by the Health Equity
@@ -52,6 +59,9 @@ class DataSource(ABC):
         write_local_instead_of_bq: If true, writes the data to a local file. Default False
         attrs: Additional message attributes such as url and filename that are
                needed for this data source."""
+
+        logger.info("Abstract Parent DataSource.write_to_bq method called.")
+
         if write_local_instead_of_bq:
             print("TODO: Writing to local file instead of BigQuery")
         self.write_to_bq_table(dataset, gcs_bucket, self.get_attr(attrs, "filename"), self.get_table_name())

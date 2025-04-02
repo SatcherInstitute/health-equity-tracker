@@ -87,6 +87,8 @@ def do_ingestion(event):
     logger.info("Retrieving data source for workflow: %s", workflow_id)
     data_source = DATA_SOURCES_DICT[workflow_id]
 
+    logger.info(f"Retrieved data source type: {type(data_source)}")  # Add this line
+
     logger.info(
         "Starting BigQuery write operation with parameters: dataset=%s, bucket=%s, additional_attrs=%s",
         dataset,
