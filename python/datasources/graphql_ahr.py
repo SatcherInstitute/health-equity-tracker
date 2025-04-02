@@ -135,7 +135,7 @@ class GraphQlAHRData(DataSource):
 
         Args:
         - df (pd.DataFrame): The DataFrame containing the raw demographic data.
-        - breakdown_col (DEMOGRAPHIC_TYPE): The type of demographic to be standardized.
+        - demographic (DEMOGRAPHIC_TYPE): The type of demographic to be standardized.
         - geo_level (GEO_TYPE): The geographic level of the data.
 
         Returns:
@@ -151,9 +151,9 @@ class GraphQlAHRData(DataSource):
         - Sorts the DataFrame by state FIPS code and time period in descending order.
         - Converts the `time_period` column to datetime and filters data up to the year 2021.
         """
-
         breakdown_df = df.copy()
 
+        # Standardize demographic breakdowns
         if demographic == std_col.AGE_COL:
             breakdown_df = breakdown_df.replace(to_replace=AGE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
         if demographic == std_col.RACE_OR_HISPANIC_COL:
@@ -180,7 +180,16 @@ class GraphQlAHRData(DataSource):
             if rate_col in breakdown_df.columns
         }
 
+        # 18+ metrics - All other metrics
+        rate_to_raw_18plus = {
+            rate_col: raw_col
+            for rate_col, raw_col in RATE_TO_RAW_18PLUS_MAP.items()
+            if rate_col in breakdown_df.columns
+        }
+
+        # Apply estimated total calculations for both types of metrics using general population
         breakdown_df = generate_estimated_total_col(breakdown_df, std_col.POPULATION_COL, rate_to_raw_map_all_ages)
+        breakdown_df = generate_estimated_total_col(breakdown_df, std_col.POPULATION_COL, rate_to_raw_18plus)
 
         if demographic in [std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL]:
             std_col.add_race_columns_from_category_id(breakdown_df)
@@ -191,7 +200,16 @@ class GraphQlAHRData(DataSource):
             for raw_col, share_col in RAW_TO_SHARE_ALL_AGES_MAP.items()
             if raw_col in breakdown_df.columns
         }
+
+        raw_to_share_18plus = {
+            raw_col: share_col
+            for raw_col, share_col in RAW_TO_SHARE_18PLUS_MAP.items()
+            if raw_col in breakdown_df.columns
+        }
+
+        # generate percent share columns for both sets of metrics
         breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_all_ages_map, share_demo)
+        breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_18plus, share_demo)
 
         # merge another col with 18+ population if by race or by sex
         if demographic != std_col.AGE_COL:
@@ -215,13 +233,8 @@ class GraphQlAHRData(DataSource):
 
             # all columns need to be provider-specific for the frontend
             ahr_pop18plus_col = "ahr_" + pop_18plus_col
-            breakdown_df = breakdown_df.rename(
-                columns={
-                    pop_18plus_col: ahr_pop18plus_col,
-                }
-            )
-
             # save the generated intersectional population column for later use writing to bq
+            breakdown_df = breakdown_df.rename(columns={pop_18plus_col: ahr_pop18plus_col})
             self.intersectional_pop_cols.append(ahr_pop18plus_col)
 
             # share cols for 18+
@@ -230,6 +243,7 @@ class GraphQlAHRData(DataSource):
                 for raw_col, share_col in RAW_TO_SHARE_18PLUS_MAP.items()
                 if raw_col in breakdown_df.columns
             }
+
             breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_18plus_map, share_demo)
 
         # need unique pop col names per provider
