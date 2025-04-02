@@ -33,7 +33,7 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
 def get_first_response(url_list, url_params):
     for url in url_list:
         try:
-            file_from_url = requests.get(url, params=url_params, timeout=10)
+            file_from_url = requests.get(url, params=url_params, timeout=120)
             file_from_url.raise_for_status()
             return file_from_url
         except requests.HTTPError as err:
