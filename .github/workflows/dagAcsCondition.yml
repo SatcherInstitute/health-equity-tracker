@@ -1,6 +1,4 @@
-name: ACS_CONDITION_PROCESS_EXPORT
-
-# NOTE: This workflow requires pre-cached ingestion files in the landing bucket, created in the dagAcsConditionPreCacheIngestion.yml file. If starting from scratch, please run that workflow first, and then come back to run this file.
+name: DAG - ACS_CONDITION
 
 on:
   workflow_dispatch:
@@ -9,117 +7,207 @@ on:
 env:
   WORKFLOW_ID: "ACS_CONDITION"
   DATASET_NAME: "acs_condition"
-  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }}
+  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
+  INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
 
 jobs:
-  process-to-bigquery:
+  ingest-process-export:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Process and write to BigQuery 2012
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+
+      # Step 1: Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
+      - name: Ingest ACS condition data 2012
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
           workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
           year: "2012"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
-      - name: Process and write to BigQuery 2013
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2013"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2013
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2013"
 
-      - name: Process and write to BigQuery 2014
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2014"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2014
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2014"
 
-      - name: Process and write to BigQuery 2015
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2015"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2015
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2015"
 
-      - name: Process and write to BigQuery 2016
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2016"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2016
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2016"
 
-      - name: Process and write to BigQuery 2017
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2017"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2017
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2017"
 
-      - name: Process and write to BigQuery 2018
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2018"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2018
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2018"
 
-      - name: Process and write to BigQuery 2019
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2019"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2019
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2019"
 
-      - name: Process and write to BigQuery 2020
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2020"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2020
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2020"
 
-      - name: Process and write to BigQuery 2021
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2021"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2021
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2021"
 
-      - name: Process and write to BigQuery 2022
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
-          year: "2022"
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      # - name: Ingest ACS condition data 2022
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+      #   with:
+      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+      #     year: "2022"
 
-  export-data:
-    needs: process-to-bigquery
-    runs-on: ubuntu-latest
-    steps:
+      # # Step 2: Process and write to BigQuery
+      # - name: Process and write to BigQuery 2012
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2012"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2013
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2013"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2014
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2014"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2015
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2015"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2016
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2016"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2017
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2017"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2018
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2018"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2019
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2019"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2020
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2020"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2021
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2021"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # - name: Process and write to BigQuery 2022
+      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+      #   with:
+      #     workflow_id: ${{ env.WORKFLOW_ID }}
+      #     dataset_name: ${{ env.DATASET_NAME }}
+      #     source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+      #     year: "2022"
+      #     service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # Step 3: Export from BQ to buckets
       - name: Export data by race
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
