@@ -18,7 +18,7 @@ jobs:
 
     steps:
 
-      # Step 1: Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
+      # Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
       - name: Ingest ACS condition data 2012
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
