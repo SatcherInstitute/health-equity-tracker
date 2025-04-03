@@ -13,7 +13,7 @@ env:
   INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
 
 jobs:
-  ingest-process-export:
+  ingest-pre-cache:
     runs-on: ubuntu-latest
 
     steps:
