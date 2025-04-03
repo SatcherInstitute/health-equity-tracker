@@ -5,7 +5,7 @@ import {
   type DemographicType,
   hasSkinnyGroupLabels,
 } from '../../data/query/Breakdowns'
-import { sortForVegaByIncome } from '../../data/sorting/IncomeSorterStrategy'
+import { sortByIncome } from '../../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -60,9 +60,7 @@ export function RateBarChart(props: RateBarChartProps) {
   if (isSmAndUp) MARGIN.left += Y_AXIS_LABEL_HEIGHT
 
   const processedData: HetRow[] =
-    props.demographicType === 'income'
-      ? sortForVegaByIncome(props.data)
-      : props.data
+    props.demographicType === 'income' ? sortByIncome(props.data) : props.data
 
   const allIndex = processedData.findIndex(
     (d) => d[props.demographicType] === 'All',

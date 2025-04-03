@@ -37,7 +37,7 @@ Currently BigQuery data is stored in json "rows" where every "column" name is pr
 
 D3 requires the data in a different format, as a series of nested arrays, per demographic group, per time_period
 
-Before (Table / Vega) Example:
+Before (Table) Example:
 
 [
   {

@@ -56,7 +56,7 @@ export const getTooltipLabel = (
   demographicType: DemographicType,
 ): string => {
   if (isUnknownsMap) {
-    return metric.unknownsVegaLabel || '% unknown'
+    return metric.unknownsLabel || '% unknown'
   }
 
   if (CAWP_METRICS.includes(metric.metricId)) {
