@@ -1,5 +1,7 @@
 name: DAG - ACS_CONDITION
 
+# NOTE: This workflow requires pre-cached, ingested ACS files in our GCS landing buckets, (they have names like 2020-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json). If those files aren't present or might be out of date, please first run the dagAcsConditionPreCache.yml workflow, and then come back to run this workflow. Be mindful of rate limiting on the Census API.
+
 on:
   workflow_dispatch:
   workflow_call:
@@ -8,7 +10,6 @@ env:
   WORKFLOW_ID: "ACS_CONDITION"
   DATASET_NAME: "acs_condition"
   GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
-  INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
 
@@ -18,96 +19,7 @@ jobs:
 
     steps:
 
-      # # Step 1: Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
-      # - name: Ingest ACS condition data 2012
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2012"
-
-      # - name: Ingest ACS condition data 2013
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2013"
-
-      # - name: Ingest ACS condition data 2014
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2014"
-
-      # - name: Ingest ACS condition data 2015
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2015"
-
-      # - name: Ingest ACS condition data 2016
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2016"
-
-      # - name: Ingest ACS condition data 2017
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2017"
-
-      # - name: Ingest ACS condition data 2018
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2018"
-
-      # - name: Ingest ACS condition data 2019
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2019"
-
-      # - name: Ingest ACS condition data 2020
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2020"
-
-      # - name: Ingest ACS condition data 2021
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2021"
-
-      # - name: Ingest ACS condition data 2022
-      #   uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-      #   with:
-      #     service_url: ${{ env.INGESTION_SERVICE_URL }}
-      #     workflow_id: ${{ env.WORKFLOW_ID }}
-      #     destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-      #     year: "2022"
-
-      # Step 2: Process and write to BigQuery
+      # Process and write to BigQuery
       - name: Process and write to BigQuery 2012
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
@@ -207,7 +119,7 @@ jobs:
           year: "2022"
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
-      # Step 3: Export from BQ to buckets
+      # Export from BQ to buckets
       - name: Export data by race
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
