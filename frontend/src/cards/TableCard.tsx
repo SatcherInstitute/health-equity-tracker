@@ -19,7 +19,7 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
+import { sortByIncome } from '../data/sorting/IncomeSorterStrategy'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
@@ -141,7 +141,7 @@ export default function TableCard(props: TableCardProps) {
           data.length <= 0
 
         if (props.demographicType === 'income') {
-          data = sortForVegaByIncome(data)
+          data = sortByIncome(data)
         }
 
         return (

@@ -10,7 +10,7 @@ function compareIncome(a: HetRow, b: HetRow): number {
   return aValue - bValue
 }
 
-export function sortForVegaByIncome(data: HetRow[]): HetRow[] {
+export function sortByIncome(data: HetRow[]): HetRow[] {
   const dataWithUnder = data.filter((row: HetRow) => {
     return row['income'].includes('Under') || row['income'].includes('All')
   })

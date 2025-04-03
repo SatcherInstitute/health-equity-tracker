@@ -206,7 +206,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
           'Inequitable share of women in state legislatures over time',
         columnTitleHeader: 'Percent share of women state legislators',
         shortLabel: '% of women legislators', // DISPARITY BAR LEGEND
-        unknownsVegaLabel: '% unknown race',
+        unknownsLabel: '% unknown race',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:

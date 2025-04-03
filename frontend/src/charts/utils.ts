@@ -15,7 +15,7 @@ export const X_AXIS_MAX_TICKS_SKINNY = 5
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
 
 /**
- * Adds a display column to the data with the formatted values. This allows Vega
+ * Adds a display column to the data with the formatted values. This allows the viz
  * to directly reference the display column for labels and tooltips rather than
  * relying on formatting expression strings.
  * @param metric The metric to add the display column for.

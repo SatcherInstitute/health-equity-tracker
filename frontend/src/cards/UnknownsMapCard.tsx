@@ -229,7 +229,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   fips={props.fips}
                   geoData={geoData}
                   isUnknownsMap={true}
-                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
+                  legendTitle={metricConfig?.unknownsLabel ?? ''}
                   mapConfig={unknownMapConfig}
                   metricConfig={metricConfig}
                   showCounties={!props.fips.isUsa()}
