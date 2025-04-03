@@ -405,9 +405,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'This is a composite dataset we create for faster loading; it includes population data from ACS and SVI data at the county level from the CDC. SVI: Every community must prepare for and respond to hazardous events, whether a natural disaster like a tornado or a disease outbreak, or an anthropogenic event such as a harmful chemical spill. The degree to which a community exhibits certain social conditions, including high poverty, low percentage of vehicle access, or crowded households, may affect that community’s ability to prevent human suffering and financial loss in the event of disaster. These factors describe a community’s social vulnerability.',
     dataset_ids: [
-      'geo_context-county',
-      'geo_context-state',
-      'geo_context-national',
+      'geo_context-alls_county_current',
+      'geo_context-alls_state_current',
+      'geo_context-alls_national_current',
     ],
     downloadable: true,
     time_period_range: null,

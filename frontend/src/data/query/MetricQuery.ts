@@ -183,8 +183,10 @@ export function resolveDatasetId(
     timeView = 'cumulative'
   }
 
-  const requestedDemographic: DemographicType =
-    breakdowns.getSoleDemographicBreakdown().columnName
+  const requestedDemographic: DemographicType | 'alls' =
+    breakdowns.hasNoDemographicBreakdown()
+      ? 'alls'
+      : breakdowns.getSoleDemographicBreakdown().columnName
   const requestedGeography: GeographicBreakdown = breakdowns.geography
 
   let tableSuffix = ''

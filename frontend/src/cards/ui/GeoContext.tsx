@@ -48,7 +48,7 @@ export default function GeoContext(props: GeoContextProps) {
 const POP_MISSING_VALUE = 'unavailable'
 
 export function getTotalACSPopulationPhrase(populationData: HetRow[]): string {
-  const popAllCount: string = populationData[0].population.toLocaleString()
+  const popAllCount: string = populationData?.[0]?.population?.toLocaleString()
   return `Total population: ${popAllCount ?? POP_MISSING_VALUE} (from ACS 2022)`
 }
 

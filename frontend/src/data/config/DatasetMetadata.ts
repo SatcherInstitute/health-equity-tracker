@@ -215,9 +215,9 @@ export type DatasetId =
   | 'decia_2020_territory_population-sex_county_current'
   | 'decia_2020_territory_population-sex_state_current'
   | 'geographies'
-  | 'geo_context-national'
-  | 'geo_context-state'
-  | 'geo_context-county'
+  | 'geo_context-alls_national_current'
+  | 'geo_context-alls_state_current'
+  | 'geo_context-alls_county_current'
   | 'kff_vaccination-alls_state_current'
   | 'kff_vaccination-race_and_ethnicity_state_current'
   | 'maternal_mortality_data-race_national_current'
@@ -998,17 +998,17 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '1915-2025',
     source_id: 'the_unitedstates_project',
   },
-  'geo_context-national': {
+  'geo_context-alls_national_current': {
     name: 'Population from ACS nationally',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'geo_context-state': {
+  'geo_context-alls_state_current': {
     name: 'Population from ACS by state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'geo_context-county': {
+  'geo_context-alls_county_current': {
     name: 'SVI from CDC, Population from ACS by county',
     original_data_sourced: '2022',
     source_id: 'geo_context',

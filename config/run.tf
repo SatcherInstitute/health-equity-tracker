@@ -47,7 +47,7 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
       }
     }
     spec {
-      timeout_seconds = 60 * 30
+      timeout_seconds = 60 * 60 // timeout at 60 minutes; wasn't finishing ACS CONDITION with only 30 minutes
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
         env {
