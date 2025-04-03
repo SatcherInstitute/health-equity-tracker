@@ -86,7 +86,7 @@ export interface MetricConfig {
   trendsCardTitleName?: string
   chartTitle: string
   shortLabel: string
-  unknownsVegaLabel?: string
+  unknownsLabel?: string
   type: MetricType
   populationComparisonMetric?: MetricConfig
   rateNumeratorMetric?: MetricConfig

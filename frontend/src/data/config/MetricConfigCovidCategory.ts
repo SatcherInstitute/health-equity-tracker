@@ -70,7 +70,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Share of total COVID-19 cases',
         metricId: 'covid_cases_share',
         columnTitleHeader: 'Share of total COVID-19 cases',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         shortLabel: '% of COVID-19 cases',
         type: 'pct_share',
         populationComparisonMetric: {
@@ -119,7 +119,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'covid_deaths_share',
         columnTitleHeader: 'Share of total COVID-19 deaths',
         shortLabel: '% of COVID-19 deaths',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -173,7 +173,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'covid_hosp_share',
         columnTitleHeader: 'Share of total COVID-19 hospitalizations',
         shortLabel: '% of COVID-19 hospitalizations',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -245,7 +245,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
         chartTitle: 'Share of total COVID-19 vaccinations',
         metricId: 'vaccinated_pct_share',
         columnTitleHeader: 'Share of total COVID-19 vaccinations',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         shortLabel: '% of all vaccinations',
         type: 'pct_share',
         populationComparisonMetric: {
