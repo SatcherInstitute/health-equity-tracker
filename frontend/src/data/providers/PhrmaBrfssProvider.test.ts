@@ -58,7 +58,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-race_and_ethnicity_national',
+      'phrma_brfss_data-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips('00')),
       'race_and_ethnicity',
     )
@@ -66,7 +66,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-sex_national',
+      'phrma_brfss_data-sex_national_current',
       Breakdowns.forFips(new Fips('00')),
       'sex',
     )
@@ -74,7 +74,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Education Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-education_national',
+      'phrma_brfss_data-education_national_current',
       Breakdowns.forFips(new Fips('00')),
       'education',
     )
@@ -82,7 +82,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('State and Income Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-income_state',
+      'phrma_brfss_data-income_state_current',
       Breakdowns.forFips(new Fips('02')),
       'income',
     )

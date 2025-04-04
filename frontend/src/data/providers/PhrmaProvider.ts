@@ -107,28 +107,30 @@ class PhrmaProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
-        return 'phrma_data-race_and_ethnicity_national'
-      if (breakdowns.hasOnlyAge()) return 'phrma_data-age_national'
-      if (breakdowns.hasOnlySex()) return 'phrma_data-sex_national'
-      if (breakdowns.hasOnlyLis()) return 'phrma_data-lis_national'
+        return 'phrma_data-race_and_ethnicity_national_current'
+      if (breakdowns.hasOnlyAge()) return 'phrma_data-age_national_current'
+      if (breakdowns.hasOnlySex()) return 'phrma_data-sex_national_current'
+      if (breakdowns.hasOnlyLis()) return 'phrma_data-lis_national_current'
       if (breakdowns.hasOnlyEligibility())
-        return 'phrma_data-eligibility_national'
+        return 'phrma_data-eligibility_national_current'
     }
     if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace()) return 'phrma_data-race_and_ethnicity_state'
-      if (breakdowns.hasOnlyAge()) return 'phrma_data-age_state'
-      if (breakdowns.hasOnlySex()) return 'phrma_data-sex_state'
-      if (breakdowns.hasOnlyLis()) return 'phrma_data-lis_state'
-      if (breakdowns.hasOnlyEligibility()) return 'phrma_data-eligibility_state'
+      if (breakdowns.hasOnlyRace())
+        return 'phrma_data-race_and_ethnicity_state_current'
+      if (breakdowns.hasOnlyAge()) return 'phrma_data-age_state_current'
+      if (breakdowns.hasOnlySex()) return 'phrma_data-sex_state_current'
+      if (breakdowns.hasOnlyLis()) return 'phrma_data-lis_state_current'
+      if (breakdowns.hasOnlyEligibility())
+        return 'phrma_data-eligibility_state_current'
     }
     if (breakdowns.geography === 'county') {
       if (breakdowns.hasOnlyRace())
-        return 'phrma_data-race_and_ethnicity_county'
-      if (breakdowns.hasOnlyAge()) return 'phrma_data-age_county'
-      if (breakdowns.hasOnlySex()) return 'phrma_data-sex_county'
-      if (breakdowns.hasOnlyLis()) return 'phrma_data-lis_county'
+        return 'phrma_data-race_and_ethnicity_county_current'
+      if (breakdowns.hasOnlyAge()) return 'phrma_data-age_county_current'
+      if (breakdowns.hasOnlySex()) return 'phrma_data-sex_county_current'
+      if (breakdowns.hasOnlyLis()) return 'phrma_data-lis_county_current'
       if (breakdowns.hasOnlyEligibility())
-        return 'phrma_data-eligibility_county'
+        return 'phrma_data-eligibility_county_current'
     }
   }
 

@@ -88,25 +88,29 @@ class PhrmaBrfssProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
-        return 'phrma_brfss_data-race_and_ethnicity_national'
-      if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_national'
-      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_national'
+        return 'phrma_brfss_data-race_and_ethnicity_national_current'
+      if (breakdowns.hasOnlyAge())
+        return 'phrma_brfss_data-age_national_current'
+      if (breakdowns.hasOnlySex())
+        return 'phrma_brfss_data-sex_national_current'
       if (breakdowns.hasOnlyInsuranceStatus())
-        return 'phrma_brfss_data-insurance_status_national'
-      if (breakdowns.hasOnlyIncome()) return 'phrma_brfss_data-income_national'
+        return 'phrma_brfss_data-insurance_status_national_current'
+      if (breakdowns.hasOnlyIncome())
+        return 'phrma_brfss_data-income_national_current'
       if (breakdowns.hasOnlyEducation())
-        return 'phrma_brfss_data-education_national'
+        return 'phrma_brfss_data-education_national_current'
     }
     if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace())
-        return 'phrma_brfss_data-race_and_ethnicity_state'
-      if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_state'
-      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_state'
+        return 'phrma_brfss_data-race_and_ethnicity_state_current'
+      if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_state_current'
+      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_state_current'
       if (breakdowns.hasOnlyInsuranceStatus())
-        return 'phrma_brfss_data-insurance_status_state'
-      if (breakdowns.hasOnlyIncome()) return 'phrma_brfss_data-income_state'
+        return 'phrma_brfss_data-insurance_status_state_current'
+      if (breakdowns.hasOnlyIncome())
+        return 'phrma_brfss_data-income_state_current'
       if (breakdowns.hasOnlyEducation())
-        return 'phrma_brfss_data-education_state'
+        return 'phrma_brfss_data-education_state_current'
     }
   }
 

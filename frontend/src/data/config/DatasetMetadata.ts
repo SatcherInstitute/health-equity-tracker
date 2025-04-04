@@ -228,33 +228,33 @@ export type DatasetId =
   | 'maternal_mortality_data-alls_national_historical'
   | 'maternal_mortality_data-alls_state_current'
   | 'maternal_mortality_data-alls_state_historical'
-  | 'phrma_data-age_county'
-  | 'phrma_data-age_national'
-  | 'phrma_data-age_state'
-  | 'phrma_data-eligibility_county'
-  | 'phrma_data-eligibility_national'
-  | 'phrma_data-eligibility_state'
-  | 'phrma_data-lis_county'
-  | 'phrma_data-lis_national'
-  | 'phrma_data-lis_state'
-  | 'phrma_data-race_and_ethnicity_county'
-  | 'phrma_data-race_and_ethnicity_national'
-  | 'phrma_data-race_and_ethnicity_state'
-  | 'phrma_data-sex_county'
-  | 'phrma_data-sex_national'
-  | 'phrma_data-sex_state'
-  | 'phrma_brfss_data-race_and_ethnicity_national'
-  | 'phrma_brfss_data-age_national'
-  | 'phrma_brfss_data-sex_national'
-  | 'phrma_brfss_data-insurance_status_national'
-  | 'phrma_brfss_data-income_national'
-  | 'phrma_brfss_data-education_national'
-  | 'phrma_brfss_data-race_and_ethnicity_state'
-  | 'phrma_brfss_data-age_state'
-  | 'phrma_brfss_data-sex_state'
-  | 'phrma_brfss_data-insurance_status_state'
-  | 'phrma_brfss_data-income_state'
-  | 'phrma_brfss_data-education_state'
+  | 'phrma_data-age_county_current'
+  | 'phrma_data-age_national_current'
+  | 'phrma_data-age_state_current'
+  | 'phrma_data-eligibility_county_current'
+  | 'phrma_data-eligibility_national_current'
+  | 'phrma_data-eligibility_state_current'
+  | 'phrma_data-lis_county_current'
+  | 'phrma_data-lis_national_current'
+  | 'phrma_data-lis_state_current'
+  | 'phrma_data-race_and_ethnicity_county_current'
+  | 'phrma_data-race_and_ethnicity_national_current'
+  | 'phrma_data-race_and_ethnicity_state_current'
+  | 'phrma_data-sex_county_current'
+  | 'phrma_data-sex_national_current'
+  | 'phrma_data-sex_state_current'
+  | 'phrma_brfss_data-race_and_ethnicity_national_current'
+  | 'phrma_brfss_data-age_national_current'
+  | 'phrma_brfss_data-sex_national_current'
+  | 'phrma_brfss_data-insurance_status_national_current'
+  | 'phrma_brfss_data-income_national_current'
+  | 'phrma_brfss_data-education_national_current'
+  | 'phrma_brfss_data-race_and_ethnicity_state_current'
+  | 'phrma_brfss_data-age_state_current'
+  | 'phrma_brfss_data-sex_state_current'
+  | 'phrma_brfss_data-insurance_status_state_current'
+  | 'phrma_brfss_data-income_state_current'
+  | 'phrma_brfss_data-education_state_current'
   | 'the_unitedstates_project'
   | 'vera_incarceration_county-age_county_current'
   | 'vera_incarceration_county-age_county_historical'
@@ -1024,151 +1024,151 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     contains_nh: true,
     source_id: 'census_pop_estimates',
   },
-  'phrma_data-race_and_ethnicity_national': {
+  'phrma_data-race_and_ethnicity_national_current': {
     name: 'medicare adherence by race/ethnicity, nationally',
     original_data_sourced: '2020',
     contains_nh: true,
     source_id: 'phrma',
   },
-  'phrma_data-race_and_ethnicity_state': {
+  'phrma_data-race_and_ethnicity_state_current': {
     name: 'medicare adherence by race/ethnicity, by state',
     original_data_sourced: '2020',
     contains_nh: true,
     source_id: 'phrma',
   },
-  'phrma_data-race_and_ethnicity_county': {
+  'phrma_data-race_and_ethnicity_county_current': {
     name: 'medicare adherence by race/ethnicity, by county',
     original_data_sourced: '2020',
     contains_nh: true,
     source_id: 'phrma',
   },
-  'phrma_data-age_national': {
+  'phrma_data-age_national_current': {
     name: 'medicare adherence by age, nationally',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-age_state': {
+  'phrma_data-age_state_current': {
     name: 'medicare adherence by age, by state',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-age_county': {
+  'phrma_data-age_county_current': {
     name: 'medicare adherence by age, by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-sex_national': {
+  'phrma_data-sex_national_current': {
     name: 'medicare adherence by sex, nationally',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-sex_state': {
+  'phrma_data-sex_state_current': {
     name: 'medicare adherence by sex, by state',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-sex_county': {
+  'phrma_data-sex_county_current': {
     name: 'medicare adherence by sex, by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-lis_national': {
+  'phrma_data-lis_national_current': {
     name: 'medicare adherence by low income subsidy status (LIS), nationally',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-lis_state': {
+  'phrma_data-lis_state_current': {
     name: 'medicare adherence by low income subsidy (LIS), by state',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-lis_county': {
+  'phrma_data-lis_county_current': {
     name: 'medicare adherence by low income subsidy (LIS), by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-eligibility_national': {
+  'phrma_data-eligibility_national_current': {
     name: 'medicare adherence by Medicare eligibility reason, nationally',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-eligibility_state': {
+  'phrma_data-eligibility_state_current': {
     name: 'medicare adherence by Medicare eligibility reason, by state',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_data-eligibility_county': {
+  'phrma_data-eligibility_county_current': {
     name: 'medicare adherence by Medicare eligibility reason, by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_brfss_data-race_and_ethnicity_national': {
+  'phrma_brfss_data-race_and_ethnicity_national_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by race/ethnicity, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-age_national': {
+  'phrma_brfss_data-age_national_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by age, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-sex_national': {
+  'phrma_brfss_data-sex_national_current': {
     name: 'Screening adherence for colorectal and lung cancers, by sex, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-insurance_status_national': {
+  'phrma_brfss_data-insurance_status_national_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by insurance status, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-income_national': {
+  'phrma_brfss_data-income_national_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by income, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-education_national': {
+  'phrma_brfss_data-education_national_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by education, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-race_and_ethnicity_state': {
+  'phrma_brfss_data-race_and_ethnicity_state_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by race/ethnicity, by state',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-age_state': {
+  'phrma_brfss_data-age_state_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by age, by state',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-sex_state': {
+  'phrma_brfss_data-sex_state_current': {
     name: 'Screening adherence for colorectal and lung cancers, by sex, by state',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-insurance_status_state': {
+  'phrma_brfss_data-insurance_status_state_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by insurance status, by state',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-income_state': {
+  'phrma_brfss_data-income_state_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by income, by state',
     original_data_sourced: '2022',
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-education_state': {
+  'phrma_brfss_data-education_state_current': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by education, by state',
     original_data_sourced: '2022',
     contains_nh: true,
