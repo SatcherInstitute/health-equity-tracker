@@ -3,7 +3,11 @@ import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import {
   AIANNH_W,
   AIAN_API_W,
@@ -103,13 +107,18 @@ class CawpProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
+    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
+      'cawp_data',
+      '',
+      metricQuery,
+    )
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
 
@@ -146,10 +155,12 @@ class CawpProvider extends VariableProvider {
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {
       consumedDatasetIds.push('the_unitedstates_project')
     }
-
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 

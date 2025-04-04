@@ -106,7 +106,7 @@ const HIV_RACES = [OTHER_NONSTANDARD_NH]
 // COMBINATION RACE GROUPS AND (UNUSED) ARRAY
 export const AIAN_API =
   'American Indian, Alaska Native, Asian & Pacific Islander'
-export const API = 'Asian, Native Hawaiian, and Pacific Islander'
+const API = 'Asian, Native Hawaiian, and Pacific Islander'
 export const API_NH = 'Asian, Native Hawaiian, and Pacific Islander (NH)'
 const INDIGENOUS = 'Indigenous' // Combines AIAN and NHPI
 const INDIGENOUS_NH = 'Indigenous (NH)'

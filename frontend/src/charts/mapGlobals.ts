@@ -7,15 +7,15 @@ import { het } from '../styles/DesignTokens'
 import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
-export const COLOR_SCALE = 'COLOR_SCALE'
-export const ZERO_SCALE = 'ZERO_SCALE'
+const COLOR_SCALE = 'COLOR_SCALE'
+const ZERO_SCALE = 'ZERO_SCALE'
 
-export type ScaleType = 'quantile' | 'symlog'
-export type StackingDirection = 'horizontal' | 'vertical'
+type ScaleType = 'quantile' | 'symlog'
+type StackingDirection = 'horizontal' | 'vertical'
 
 export const RATE_MAP_SCALE: ScaleType = 'quantile'
 
-export const ORDINAL = 'ordinal'
+const ORDINAL = 'ordinal'
 
 export const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -94,24 +94,24 @@ export const youthHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
-export const DOT_SIZE_SCALE = 'dot_size_scale'
-export const SUMMARY_SCALE = 'summary_scale'
-export const GREY_DOT_SCALE = 'grey_dot_scale'
-export const UNKNOWN_SCALE = 'unknown_scale'
-export const ZERO_DOT_SCALE = 'zero_dot_scale'
+const DOT_SIZE_SCALE = 'dot_size_scale'
+const SUMMARY_SCALE = 'summary_scale'
+const GREY_DOT_SCALE = 'grey_dot_scale'
+const UNKNOWN_SCALE = 'unknown_scale'
+const ZERO_DOT_SCALE = 'zero_dot_scale'
 
-export const RAW_VALUES = 'raw_values'
-export const DATASET_VALUES = 'dataset_values'
-export const NON_ZERO_DATASET_VALUES = 'non_zero_dataset_values'
-export const SUMMARY_VALUE = 'summary_value'
-export const ZERO_VALUES = 'zero_values'
-export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
+const RAW_VALUES = 'raw_values'
+const DATASET_VALUES = 'dataset_values'
+const NON_ZERO_DATASET_VALUES = 'non_zero_dataset_values'
+const SUMMARY_VALUE = 'summary_value'
+const ZERO_VALUES = 'zero_values'
+const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 
-export const LEGEND_SYMBOL_TYPE = 'square'
+const LEGEND_SYMBOL_TYPE = 'square'
 export const NO_DATA_MESSAGE = 'no data'
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
-export const ZERO_BUCKET_LABEL = '0'
+const ZERO_BUCKET_LABEL = '0'
 
 export interface HighestLowest {
   highest?: DemographicGroup
@@ -120,7 +120,7 @@ export interface HighestLowest {
 
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
 
-export const PHRMA_COLOR_SCALE_SPEC = {
+const PHRMA_COLOR_SCALE_SPEC = {
   name: COLOR_SCALE,
   type: 'threshold',
   domain: PHRMA_ADHERENCE_BREAKPOINTS,
@@ -134,7 +134,7 @@ export const PHRMA_COLOR_SCALE_SPEC = {
     het.mapMedicareLightest,
   ],
 }
-export const UNKNOWN_LEGEND_SPEC = {
+const UNKNOWN_LEGEND_SPEC = {
   fill: UNKNOWN_SCALE,
   symbolType: LEGEND_SYMBOL_TYPE,
   size: GREY_DOT_SCALE,
