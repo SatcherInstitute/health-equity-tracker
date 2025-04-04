@@ -13,7 +13,7 @@ resource "google_cloud_run_service" "ingestion_service" {
       }
     }
     spec {
-      timeout_seconds = 60 * 30
+      timeout_seconds = 60 * 60
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
