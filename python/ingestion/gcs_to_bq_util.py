@@ -478,10 +478,14 @@ def make_bq_table_id(
     geographic,
     time_view: TIME_VIEW_TYPE,
     category_prefix: TOPIC_CATEGORY_TYPE | None = None,
+    has_age_adjust_suffix: bool = False,
 ):
 
     id = f"{demographic}_{geographic}_{time_view}"
     if category_prefix:
         id = f"{category_prefix}_{id}"
+
+    if has_age_adjust_suffix:
+        id = f"{id}-with_age_adjust"
 
     return id

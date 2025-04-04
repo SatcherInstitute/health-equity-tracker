@@ -11,8 +11,12 @@ GOLDEN_DIR = os.path.join(TEST_DIR, "phrma_brfss", "golden_data")
 
 
 GOLDEN_DATA = {
-    "race_and_ethnicity_national_current": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_national.csv"),
-    "race_and_ethnicity_state_current": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_state.csv"),
+    "race_and_ethnicity_national_current-with_age_adjust": os.path.join(
+        GOLDEN_DIR, "expected_race_and_ethnicity_national.csv"
+    ),
+    "race_and_ethnicity_state_current-with_age_adjust": os.path.join(
+        GOLDEN_DIR, "expected_race_and_ethnicity_state.csv"
+    ),
     "age_national_current": os.path.join(GOLDEN_DIR, "expected_age_national.csv"),
     "age_state_current": os.path.join(GOLDEN_DIR, "expected_age_state.csv"),
     "sex_national_current": os.path.join(GOLDEN_DIR, "expected_sex_national.csv"),
@@ -44,7 +48,7 @@ def testBreakdownRaceNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == "race_and_ethnicity_national_current"
+    assert table_name == "race_and_ethnicity_national_current-with_age_adjust"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
@@ -66,7 +70,7 @@ def testBreakdownRaceState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == "race_and_ethnicity_state_current"
+    assert table_name == "race_and_ethnicity_state_current-with_age_adjust"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
