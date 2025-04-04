@@ -51,7 +51,10 @@ class PhrmaBrfssData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo_type = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
-        table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
+        has_age_adjust_suffix = demo_type == std_col.RACE_OR_HISPANIC_COL
+        table_id = gcs_to_bq_util.make_bq_table_id(
+            demo_type, geo_level, CURRENT, has_age_adjust_suffix=has_age_adjust_suffix
+        )
         df = self.generate_breakdown_df(demo_type, geo_level)
         bq_col_types = build_bq_col_types(df)
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=bq_col_types)
