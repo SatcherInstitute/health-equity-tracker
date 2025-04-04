@@ -14,7 +14,7 @@ env:
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
 
 jobs:
-  ingest-process-export:
+  process-export:
     runs-on: ubuntu-latest
 
     steps:

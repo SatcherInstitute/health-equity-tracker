@@ -147,7 +147,7 @@ type TooltipPairs = {
   [key: string]: (value: number | string | undefined) => string
 }
 
-export interface MouseEventHandlerProps {
+interface MouseEventHandlerProps {
   colorScale: ColorScale
   metricConfig: MetricConfig
   dataMap: Map<string, MetricData>
