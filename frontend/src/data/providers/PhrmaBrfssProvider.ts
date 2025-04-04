@@ -1,9 +1,12 @@
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
 import type { DropdownVarId } from '../config/DropDownIds'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -85,53 +88,38 @@ class PhrmaBrfssProvider extends VariableProvider {
     super('phrma_brfss_provider', PHRMA_BRFSS_METRICS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
-    if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace())
-        return 'phrma_brfss_data-race_and_ethnicity_national'
-      if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_national'
-      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_national'
-      if (breakdowns.hasOnlyInsuranceStatus())
-        return 'phrma_brfss_data-insurance_status_national'
-      if (breakdowns.hasOnlyIncome()) return 'phrma_brfss_data-income_national'
-      if (breakdowns.hasOnlyEducation())
-        return 'phrma_brfss_data-education_national'
-    }
-    if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace())
-        return 'phrma_brfss_data-race_and_ethnicity_state'
-      if (breakdowns.hasOnlyAge()) return 'phrma_brfss_data-age_state'
-      if (breakdowns.hasOnlySex()) return 'phrma_brfss_data-sex_state'
-      if (breakdowns.hasOnlyInsuranceStatus())
-        return 'phrma_brfss_data-insurance_status_state'
-      if (breakdowns.hasOnlyIncome()) return 'phrma_brfss_data-income_state'
-      if (breakdowns.hasOnlyEducation())
-        return 'phrma_brfss_data-education_state'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const datasetId = this.getDatasetId(breakdowns)
+    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+      'phrma_brfss_data',
+      '',
+      metricQuery,
+    )
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
+
     const phrma = await getDataManager().loadDataset(specificDatasetId)
     let df = phrma.toDataFrame()
 
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
+
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
+
     const consumedDatasetIds = [datasetId]
-
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
-    const data = df.toArray()
-
-    return new MetricQueryResponse(data, consumedDatasetIds)
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

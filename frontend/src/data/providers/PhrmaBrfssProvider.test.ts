@@ -27,12 +27,11 @@ async function ensureCorrectDatasetsDownloaded(
   const specificDatasetId = appendFipsIfNeeded(PhrmaDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
-  // Evaluate the response with requesting "All" field
   const responseIncludingAll = await phrmaBrfssProvider.getData(
     new MetricQuery(
-      metricIds,
-      baseBreakdown.addBreakdown(demographicType),
-      undefined,
+      /* metricIds */ metricIds,
+      /* breakdowns */ baseBreakdown.addBreakdown(demographicType),
+      /* dataTypeId */ 'lung_cancer_screening',
     ),
   )
 
@@ -58,7 +57,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-race_and_ethnicity_national',
+      'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust',
       Breakdowns.forFips(new Fips('00')),
       'race_and_ethnicity',
     )
@@ -66,7 +65,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-sex_national',
+      'phrma_brfss_data-sex_national_current',
       Breakdowns.forFips(new Fips('00')),
       'sex',
     )
@@ -74,7 +73,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Education Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-education_national',
+      'phrma_brfss_data-education_national_current',
       Breakdowns.forFips(new Fips('00')),
       'education',
     )
@@ -82,7 +81,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('State and Income Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-income_state',
+      'phrma_brfss_data-income_state_current',
       Breakdowns.forFips(new Fips('02')),
       'income',
     )
