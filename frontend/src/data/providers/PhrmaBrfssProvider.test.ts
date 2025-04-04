@@ -27,12 +27,11 @@ async function ensureCorrectDatasetsDownloaded(
   const specificDatasetId = appendFipsIfNeeded(PhrmaDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
-  // Evaluate the response with requesting "All" field
   const responseIncludingAll = await phrmaBrfssProvider.getData(
     new MetricQuery(
-      metricIds,
-      baseBreakdown.addBreakdown(demographicType),
-      undefined,
+      /* metricIds */ metricIds,
+      /* breakdowns */ baseBreakdown.addBreakdown(demographicType),
+      /* dataTypeId */ 'lung_cancer_screening',
     ),
   )
 
