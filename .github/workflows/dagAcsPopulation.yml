@@ -1,5 +1,7 @@
 name: DAG - ACS_POPULATION
 
+# NOTE: This workflow requires pre-cached, ingested ACS files in our GCS landing buckets, (they have names like 2009-HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json). If those files aren't present or might be out of date, please first run the dagAcsPopulationPreCache.yml workflow, and then come back to run this workflow. Be mindful of rate limiting on the Census API; that single ingestion step repeats across all years.
+
 on:
   workflow_dispatch:
   workflow_call:
@@ -8,7 +10,6 @@ env:
   WORKFLOW_ID: "ACS_POPULATION"
   DATASET_NAME: "acs_population"
   GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
-  INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
 
@@ -18,15 +19,7 @@ jobs:
 
     steps:
 
-      # Step 1: Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
-      - name: Ingest ACS population data
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
-        with:
-          service_url: ${{ env.INGESTION_SERVICE_URL }}
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
-
-      # Step 2: Process and write to BigQuery for each year
+      # Process and write to BigQuery for each year
       - name: Process and write to BigQuery 2009
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
         with:
@@ -153,7 +146,7 @@ jobs:
           source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
-      # Step 3: Export from BQ to buckets
+      # Export from BQ to buckets
       - name: Export data by race
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
