@@ -8,7 +8,7 @@ import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { MetricId } from '../config/MetricConfigTypes'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { AGE, RACE, SEX } from '../utils/Constants'
+import { AGE, RACE } from '../utils/Constants'
 import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import PhrmaProvider from './PhrmaProvider'
@@ -59,7 +59,7 @@ describe('PhrmaProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_data-race_and_ethnicity_national',
+      'phrma_data-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips('00')),
       RACE,
     )
@@ -67,7 +67,7 @@ describe('PhrmaProvider', () => {
 
   test('State and LIS Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_data-lis_state',
+      'phrma_data-lis_state_current',
       Breakdowns.forFips(new Fips('02')),
       'lis',
     )
@@ -75,7 +75,7 @@ describe('PhrmaProvider', () => {
 
   test('County and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_data-age_county',
+      'phrma_data-age_county_current',
       Breakdowns.forFips(new Fips('02999')),
       AGE,
     )
