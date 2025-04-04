@@ -263,7 +263,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
   return (
     <section
-      className='mx-4 flex flex-col items-center text-left w-full'
+      className='mx-4 flex w-full flex-col items-center text-left'
       ref={containerRef}
     >
       <ClickableLegendHeader

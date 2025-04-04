@@ -10,12 +10,12 @@ import { generateTooltipHtml } from './tooltipUtils'
 const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
 
 // Shared constants
-export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
+const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 /**
  * Common interface for mouse event handler properties
  */
-export interface MouseEventHandlerProps {
+interface MouseEventHandlerProps {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>
@@ -66,7 +66,7 @@ export const createEventHandler = (
 /**
  * Handles mouse events for map elements (both main map and territories)
  */
-export const handleMouseEvent = (
+const handleMouseEvent = (
   type: 'mouseover' | 'mouseout' | 'mousemove',
   event: any,
   d: any,
