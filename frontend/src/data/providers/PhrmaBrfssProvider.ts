@@ -101,7 +101,10 @@ class PhrmaBrfssProvider extends VariableProvider {
       return new MetricQueryResponse([], [])
     }
 
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
+
     const phrma = await getDataManager().loadDataset(specificDatasetId)
     let df = phrma.toDataFrame()
 
