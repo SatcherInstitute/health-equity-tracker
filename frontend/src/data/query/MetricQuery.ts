@@ -191,23 +191,32 @@ export function resolveDatasetId(
 
   let tableSuffix = ''
 
-  const siblingDataTypeConfigs =
-    METRIC_CONFIG[getParentDropdownFromDataTypeId(metricQuery.dataTypeId!)]
+  // Special case for PhRMA BRFSS - don't add age_adjust suffix
+  const isPhrmaDataset = bqDatasetName === 'phrma_brfss_data'
 
-  if (
-    siblingDataTypeConfigs.length > 0 &&
-    siblingDataTypeConfigs.some((dtConfig: DataTypeConfig) =>
-      Boolean(dtConfig.metrics?.age_adjusted_ratio),
-    ) &&
-    breakdowns.hasOnlyRace() &&
-    timeView !== 'historical' &&
-    requestedGeography !== 'county'
-  ) {
-    tableSuffix = '-with_age_adjust'
+  // Only add age_adjust suffix for non-PhRMA datasets
+  if (!isPhrmaDataset) {
+    const siblingDataTypeConfigs =
+      METRIC_CONFIG[getParentDropdownFromDataTypeId(metricQuery.dataTypeId!)]
+
+    if (
+      siblingDataTypeConfigs.length > 0 &&
+      siblingDataTypeConfigs.some((dtConfig: DataTypeConfig) =>
+        Boolean(dtConfig.metrics?.age_adjusted_ratio),
+      ) &&
+      breakdowns.hasOnlyRace() &&
+      timeView !== 'historical' &&
+      requestedGeography !== 'county'
+    ) {
+      tableSuffix = '-with_age_adjust'
+    }
   }
 
+  // Handle PhRMA suffix if needed
+  const datasetSuffix = isPhrmaDataset ? '_current' : ''
+
   // Normal, valid demographic request
-  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}${tableSuffix}`
+  const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}${isPhrmaDataset ? '_current' : `_${timeView}`}${tableSuffix}`
 
   if (isValidDatasetId(requestedDatasetId)) {
     return {
@@ -219,7 +228,7 @@ export function resolveDatasetId(
   // Handle tables that still use `race` instead of `race_and_ethnicity`
   let requestedRaceDatasetId = ''
   if (breakdowns.hasOnlyRace()) {
-    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}${tableSuffix}`
+    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}${isPhrmaDataset ? '_current' : `_${timeView}`}${tableSuffix}`
     if (isValidDatasetId(requestedRaceDatasetId)) {
       return {
         breakdowns,
@@ -229,7 +238,7 @@ export function resolveDatasetId(
   }
 
   // Fallback to ALLS
-  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}${tableSuffix}`
+  const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}${isPhrmaDataset ? '_current' : `_${timeView}`}${tableSuffix}`
   if (isValidDatasetId(fallbackAllsDatasetId)) {
     const isFallbackEligible =
       metricQuery.scrollToHashId &&
