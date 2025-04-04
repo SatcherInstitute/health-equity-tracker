@@ -58,7 +58,7 @@ describe('PhrmaBrfssProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_brfss_data-race_and_ethnicity_national_current',
+      'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust',
       Breakdowns.forFips(new Fips('00')),
       'race_and_ethnicity',
     )

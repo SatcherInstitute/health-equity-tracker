@@ -243,13 +243,13 @@ export type DatasetId =
   | 'phrma_data-sex_county_current'
   | 'phrma_data-sex_national_current'
   | 'phrma_data-sex_state_current'
-  | 'phrma_brfss_data-race_and_ethnicity_national_current'
+  | 'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust'
   | 'phrma_brfss_data-age_national_current'
   | 'phrma_brfss_data-sex_national_current'
   | 'phrma_brfss_data-insurance_status_national_current'
   | 'phrma_brfss_data-income_national_current'
   | 'phrma_brfss_data-education_national_current'
-  | 'phrma_brfss_data-race_and_ethnicity_state_current'
+  | 'phrma_brfss_data-race_and_ethnicity_state_current-with_age_adjust'
   | 'phrma_brfss_data-age_state_current'
   | 'phrma_brfss_data-sex_state_current'
   | 'phrma_brfss_data-insurance_status_state_current'
@@ -1102,7 +1102,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2020',
     source_id: 'phrma',
   },
-  'phrma_brfss_data-race_and_ethnicity_national_current': {
+  'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by race/ethnicity, nationally',
     original_data_sourced: '2022',
     contains_nh: true,
@@ -1138,7 +1138,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     contains_nh: true,
     source_id: 'phrma_brfss',
   },
-  'phrma_brfss_data-race_and_ethnicity_state_current': {
+  'phrma_brfss_data-race_and_ethnicity_state_current-with_age_adjust': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by race/ethnicity, by state',
     original_data_sourced: '2022',
     contains_nh: true,

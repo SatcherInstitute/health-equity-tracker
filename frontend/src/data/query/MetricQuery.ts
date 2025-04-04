@@ -1,11 +1,17 @@
 import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
+import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
   isValidDatasetId,
 } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import { METRIC_CONFIG } from '../config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+  MetricId,
+} from '../config/MetricConfigTypes'
 import type { DemographicGroup } from '../utils/Constants'
 import type { FieldRange, HetRow } from '../utils/DatasetTypes'
 import type {
@@ -171,12 +177,6 @@ export function resolveDatasetId(
   datasetId?: DatasetId
   isFallbackId?: boolean
 } {
-  const AGE_ADJUSTED_DATA_TYPE_IDS = [
-    'hiv_deaths',
-    'covid_deaths',
-    'covid_hospitalizations',
-  ]
-
   let { breakdowns, timeView } = metricQuery
 
   if (bqDatasetName === 'cdc_restricted_data' && timeView !== 'historical') {
@@ -190,64 +190,23 @@ export function resolveDatasetId(
   const requestedGeography: GeographicBreakdown = breakdowns.geography
 
   let tableSuffix = ''
-  let shouldTryWithAgeAdjust = false
 
-  // Check using hard-coded list approach first
+  const siblingDataTypeConfigs =
+    METRIC_CONFIG[getParentDropdownFromDataTypeId(metricQuery.dataTypeId!)]
+
   if (
-    metricQuery.dataTypeId &&
-    AGE_ADJUSTED_DATA_TYPE_IDS.includes(metricQuery.dataTypeId) &&
+    siblingDataTypeConfigs.length > 0 &&
+    siblingDataTypeConfigs.some((dtConfig: DataTypeConfig) =>
+      Boolean(dtConfig.metrics?.age_adjusted_ratio),
+    ) &&
+    breakdowns.hasOnlyRace() &&
     timeView !== 'historical' &&
-    requestedGeography !== 'county' &&
-    breakdowns.hasOnlyRace()
+    requestedGeography !== 'county'
   ) {
-    shouldTryWithAgeAdjust = true
     tableSuffix = '-with_age_adjust'
   }
 
-  // First try with the age adjustment suffix if applicable
-  if (shouldTryWithAgeAdjust) {
-    // Normal, valid demographic request with age adjustment
-    const ageAdjustedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}${tableSuffix}`
-
-    if (isValidDatasetId(ageAdjustedDatasetId)) {
-      return {
-        breakdowns,
-        datasetId: ageAdjustedDatasetId as DatasetId,
-      }
-    }
-
-    // Handle tables that use `race` instead of `race_and_ethnicity` with age adjustment
-    if (breakdowns.hasOnlyRace()) {
-      const ageAdjustedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}${tableSuffix}`
-      if (isValidDatasetId(ageAdjustedRaceDatasetId)) {
-        return {
-          breakdowns,
-          datasetId: ageAdjustedRaceDatasetId as DatasetId,
-        }
-      }
-    }
-
-    // Try ALLS with age adjustment
-    const ageAdjustedAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}${tableSuffix}`
-    if (isValidDatasetId(ageAdjustedAllsDatasetId)) {
-      const isFallbackEligible =
-        metricQuery.scrollToHashId &&
-        CARDS_THAT_SHOULD_FALLBACK_TO_ALLS.includes(metricQuery.scrollToHashId)
-
-      if (isFallbackEligible) {
-        return {
-          breakdowns,
-          datasetId: ageAdjustedAllsDatasetId as DatasetId,
-          isFallbackId: true,
-        }
-      }
-    }
-  }
-
-  // If age adjustment didn't work or wasn't applicable, try without suffix
-  tableSuffix = ''
-
-  // Normal, valid demographic request without age adjustment
+  // Normal, valid demographic request
   const requestedDatasetId: string = `${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}${tableSuffix}`
 
   if (isValidDatasetId(requestedDatasetId)) {
@@ -258,8 +217,9 @@ export function resolveDatasetId(
   }
 
   // Handle tables that still use `race` instead of `race_and_ethnicity`
+  let requestedRaceDatasetId = ''
   if (breakdowns.hasOnlyRace()) {
-    const requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}${tableSuffix}`
+    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}${tableSuffix}`
     if (isValidDatasetId(requestedRaceDatasetId)) {
       return {
         breakdowns,
@@ -286,7 +246,7 @@ export function resolveDatasetId(
 
   // No valid dataset or fallback
   console.warn(
-    `Invalid datasetId requests:\n${requestedDatasetId}${shouldTryWithAgeAdjust ? `\nWith age adjust: ${bqDatasetName}-${tablePrefix}${requestedDemographic}_${requestedGeography}_${timeView}-with_age_adjust` : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
+    `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? '\n' + requestedRaceDatasetId : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
   )
   return { breakdowns }
 }
