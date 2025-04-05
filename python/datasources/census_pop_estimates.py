@@ -61,10 +61,7 @@ class CensusPopEstimates(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = gcs_to_bq_util.load_csv_as_df(
-            gcs_bucket,
-            "cc-est2019-alldata.csv",
-            dtype={"STATE": str, "COUNTY": str},
-            # gcs_bucket, "cc-est2019-alldata.csv", dtype={"STATE": str, "COUNTY": str}, encoding="ISO-8859-1"
+            gcs_bucket, "cc-est2019-alldata.csv", dtype={"STATE": str, "COUNTY": str}, encoding="ISO-8859-1"
         )
 
         state_df = generate_state_pop_data(df)
