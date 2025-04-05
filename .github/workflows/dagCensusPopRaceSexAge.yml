@@ -5,7 +5,7 @@ on:
 env:
   WORKFLOW_ID: "CENSUS_POP_ESTIMATES"
   DATASET_NAME: "census_pop_estimates"
-  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # file manually saved to our landing bucket
+  GCS_MANUAL_UPLOADS_BUCKET: ${{ secrets.GCS_MANUAL_UPLOADS_BUCKET }} # file manually saved to our landing bucket
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
   RACE: "race"
@@ -18,7 +18,7 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
-          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          source_gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
       - name: Export race NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
