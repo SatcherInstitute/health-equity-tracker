@@ -6,13 +6,12 @@ import pandas as pd  # type: ignore
 
 """
 This datasource generates population totals, by state, by race/ethnicity,
-for each decade age bucket used by the CDC restrict covid dataset
+for each decade age bucket used by the CDC restrict covid dataset.
+
+Due to issues with hitting the csv URL, we need to save the file to our manual upload bucket from
+https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv
 """
 
-
-BASE_POPULATION_URL = (
-    "https://www2.census.gov/programs-surveys/popest/datasets/2010-2019/counties/asrh/cc-est2019-alldata.csv"
-)
 
 RACES_MAP = {
     "NHWA": Race.WHITE_NH.value,
@@ -61,8 +60,11 @@ class CensusPopEstimates(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CensusPopEstimates")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        df = gcs_to_bq_util.load_csv_as_df_from_web(
-            BASE_POPULATION_URL, dtype={"STATE": str, "COUNTY": str}, encoding="ISO-8859-1"
+        df = gcs_to_bq_util.load_csv_as_df(
+            gcs_bucket,
+            "cc-est2019-alldata.csv",
+            dtype={"STATE": str, "COUNTY": str},
+            # gcs_bucket, "cc-est2019-alldata.csv", dtype={"STATE": str, "COUNTY": str}, encoding="ISO-8859-1"
         )
 
         state_df = generate_state_pop_data(df)
