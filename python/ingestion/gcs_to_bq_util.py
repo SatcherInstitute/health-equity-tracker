@@ -166,7 +166,7 @@ def load_values_blob_as_df(blob):
     return values_json_to_df(StringIO(json_string))
 
 
-def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates=False, thousands=None):
+def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates=False, thousands=None, encoding=None):
     """Loads csv data from the provided gcs_bucket and filename to a DataFrame.
     Expects the data to be in csv format, with the first row as the column
     names.
@@ -178,13 +178,16 @@ def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates
            specified; column type is auto-detected. This is useful, for
            example, to force integer-like ids to be treated as strings
     parse_dates: Column(s) that should be parsed and interpreted as dates.
-    thousands: str to be used as a thousands separator for parsing numbers"""
+    thousands: str to be used as a thousands separator for parsing numbers
+    encoding: Encoding of the file"""
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pd.read_csv(local_path, dtype=dtype, chunksize=chunksize, parse_dates=parse_dates, thousands=thousands)
+    frame = pd.read_csv(
+        local_path, dtype=dtype, chunksize=chunksize, parse_dates=parse_dates, thousands=thousands, encoding=encoding
+    )
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.
