@@ -12,7 +12,7 @@ inputs:
     description: "Dataset Name"
     required: true
   source_gcs_bucket:
-    description: "Source GCS bucket (optional). Only used for COVID (manual) and ACS (landing)"
+    description: "Source GCS bucket (optional). Only used for COVID and Census Pop Est. (manual) and ACS (landing)"
     required: false
   demographic:
     description: "Demographic (optional)"
