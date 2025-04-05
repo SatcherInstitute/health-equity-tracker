@@ -12,8 +12,8 @@ import ingestion.standardized_columns as std_col
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "census_pop_estimates")
 
-STATE_POP_DATA = os.path.join(TEST_DIR, "census_pop_estimates-race_ethnicity_age_state.csv")
-NATIONAL_POP_DATA = os.path.join(TEST_DIR, "census_pop_estimates-race_ethnicity_age_national.csv")
+STATE_POP_GOLDEN_DATA = os.path.join(TEST_DIR, "census_pop_estimates-race_ethnicity_age_state.csv")
+NATIONAL_POP_GOLDEN_DATA = os.path.join(TEST_DIR, "census_pop_estimates-race_ethnicity_age_national.csv")
 
 
 def get_pop_estimates_as_df():
@@ -26,7 +26,7 @@ def get_pop_estimates_as_df():
     )
 
 
-@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_web", return_value=get_pop_estimates_as_df())
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df", return_value=get_pop_estimates_as_df())
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     censusPopEstimates = CensusPopEstimates()
@@ -39,7 +39,7 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert mock_bq.call_count == 1
 
     expected_df = pd.read_csv(
-        STATE_POP_DATA,
+        STATE_POP_GOLDEN_DATA,
         dtype={
             "state_fips": str,
         },
@@ -50,14 +50,14 @@ def testWriteToBq(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 def testGenerateNationalPopData():
     state_df = pd.read_csv(
-        STATE_POP_DATA,
+        STATE_POP_GOLDEN_DATA,
         dtype={
             "state_fips": str,
         },
     )
 
     national_df = pd.read_csv(
-        NATIONAL_POP_DATA,
+        NATIONAL_POP_GOLDEN_DATA,
         dtype={
             "state_fips": str,
         },
