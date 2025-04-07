@@ -1,8 +1,7 @@
 import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
-import type { DatasetId } from '../config/DatasetMetadata'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
+import type { Breakdowns } from '../query/Breakdowns'
 import {
   type MetricQuery,
   MetricQueryResponse,
@@ -83,25 +82,6 @@ export const CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 class CawpProvider extends VariableProvider {
   constructor() {
     super('cawp_provider', CAWP_METRICS)
-  }
-
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_data-race_and_ethnicity_national_current'
-      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_data-race_and_ethnicity_state_current'
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_data-race_and_ethnicity_national_historical'
-      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_data-race_and_ethnicity_state_historical'
-    }
   }
 
   async getDataInternal(
