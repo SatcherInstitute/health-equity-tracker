@@ -10,8 +10,6 @@ from ingestion.constants import (
     STATE_LEVEL,
     COUNTY_LEVEL,
     RACE,
-    AGE,
-    SEX,
     UNKNOWN,
 )
 from datasources.data_source import DataSource
@@ -45,9 +43,9 @@ for prefix in COVID_CONDITION_TO_PREFIX.values():
     )
 
 DEMO_COL_MAPPING = {
-    RACE: (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
-    AGE: (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
-    SEX: (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
+    std_col.RACE_OR_HISPANIC_COL: (std_col.RACE_CATEGORY_ID_COL, list(RACE_NAMES_MAPPING.values())),
+    std_col.AGE_COL: (std_col.AGE_COL, list(AGE_NAMES_MAPPING.values())),
+    std_col.SEX_COL: (std_col.SEX_COL, list(SEX_NAMES_MAPPING.values())),
 }
 
 POPULATION_SUFFIX = "population"
@@ -68,8 +66,11 @@ class CDCRestrictedData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo = self.get_attr(attrs, "demographic")
         geo = self.get_attr(attrs, "geographic")
+
+        demo_to_pull = RACE if demo == std_col.RACE_OR_HISPANIC_COL else demo
+
         geo_to_pull = STATE_LEVEL if geo == NATIONAL_LEVEL else geo
-        filename = f"cdc_restricted_by_{demo}_{geo_to_pull}.csv"
+        filename = f"cdc_restricted_by_{demo_to_pull}_{geo_to_pull}.csv"
 
         df_from_gcs = gcs_to_bq_util.load_csv_as_df(
             gcs_bucket,
@@ -88,7 +89,7 @@ class CDCRestrictedData(DataSource):
 
         for time_series in [False, True]:
             df = self.generate_breakdown(df_from_gcs, demo, geo, time_series)
-            if demo == RACE:
+            if demo == std_col.RACE_OR_HISPANIC_COL:
                 std_col.add_race_columns_from_category_id(df)
 
             column_types = get_col_types(df, add_rel_inequality_col=time_series)
@@ -101,7 +102,7 @@ class CDCRestrictedData(DataSource):
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
         # Only do this once, open to a less weird way of doing this
-        if demo == RACE:
+        if demo == std_col.RACE_OR_HISPANIC_COL:
             for filename, table_name in ONLY_FIPS_FILES.items():
                 df = gcs_to_bq_util.load_csv_as_df(gcs_bucket, filename)
 
@@ -137,9 +138,9 @@ class CDCRestrictedData(DataSource):
         print(f"processing {demo} {geo} time_series = {time_series}")
         start = time.time()
 
-        demo_col = std_col.RACE_CATEGORY_ID_COL if demo == RACE else demo
-        unknown_val = Race.UNKNOWN.value if demo == RACE else UNKNOWN
-        all_val = Race.ALL.value if demo == RACE else std_col.ALL_VALUE
+        demo_col = std_col.RACE_CATEGORY_ID_COL if demo == std_col.RACE_OR_HISPANIC_COL else demo
+        unknown_val = Race.UNKNOWN.value if demo == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
+        all_val = Race.ALL.value if demo == std_col.RACE_OR_HISPANIC_COL else std_col.ALL_VALUE
 
         all_columns = [
             std_col.STATE_FIPS_COL,
@@ -339,7 +340,7 @@ def add_missing_demographic_values(df, geo, demographic):
 
     df: Pandas dataframe to append onto.
     geo: Geographic level. Must be "state" or "county".
-    demographic: Demographic breakdown. Must be "race", "age", or "sex".
+    demographic: Demographic breakdown. Must be "race_and_ethnicity", "age", or "sex".
     """
     geo_col_mapping = {
         STATE_LEVEL: [std_col.STATE_POSTAL_COL],
@@ -427,7 +428,7 @@ def remove_or_set_to_zero(df, geo, demographic):
 
     # Unknowns are a special case, we want to keep the per_100k values
     # as NULL no matter what
-    unknown = Race.UNKNOWN.value if demographic == "race" else UNKNOWN
+    unknown = Race.UNKNOWN.value if demographic == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
     unknown_df = df.loc[df[demog_col] == unknown]
 
     # Set all other null conditions to zero

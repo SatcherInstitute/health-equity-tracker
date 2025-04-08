@@ -200,7 +200,9 @@ def merge_yearly_pop_numbers(
     return df
 
 
-def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal["age", "race", "sex"], condition_cols: List[str]):
+def merge_multiple_pop_cols(
+    df: pd.DataFrame, demo: Literal["age", "race", "sex", "race_and_ethnicity"], condition_cols: List[str]
+):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
 
@@ -224,6 +226,7 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
     on_col_map = {
         "age": std_col.AGE_COL,
         "race": std_col.RACE_CATEGORY_ID_COL,
+        "race_and_ethnicity": std_col.RACE_CATEGORY_ID_COL,
         "sex": std_col.SEX_COL,
     }
 
@@ -239,7 +242,9 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
     if demo not in on_col_map:
         raise ValueError(f"{demo} not a demographic option, must be one of: {list(on_col_map.keys())}")
 
-    pop_table_name = f"{demo}_{geo_level}"
+    acs_demo = "race" if demo == std_col.RACE_OR_HISPANIC_COL else demo
+
+    pop_table_name = f"{acs_demo}_{geo_level}"
 
     print(f"\nMerging real ACS population from python/ingestion/acs_population/{pop_table_name}")
 
@@ -267,8 +272,10 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
     # merge pop data for other territories/county-equivalents
     # from DECIA_2020 (VI, GU, AS, MP)
     if geo_level != NATIONAL_LEVEL:
-        verbose_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
-        pop_terr_table_name = f"{verbose_demo}_{geo_level}_current"
+
+        terr_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
+
+        pop_terr_table_name = f"{terr_demo}_{geo_level}_current"
 
         terr_pop_dtype = {
             std_col.STATE_FIPS_COL: str,

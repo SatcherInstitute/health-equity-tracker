@@ -122,7 +122,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2023,Alaska,AK,WHITE,White,33.3,25.0,-18.4,22.3
 60,2023,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
 60,2023,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
-60,2023,American Samoa,AS,ALL,All,100.0,0.0,0.0,
+60,2023,American Samoa,AS,ALL,All,100.0,0.0,0.0,0.0
 60,2023,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,0.0,,
 60,2023,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,0.0
 60,2023,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,0.0
@@ -144,7 +144,7 @@ state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnici
 02,2024,Alaska,AK,WHITE,White,33.3,25.0,-18.4,22.3
 60,2024,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
 60,2024,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
-60,2024,American Samoa,AS,ALL,All,100.0,0.0,0.0,
+60,2024,American Samoa,AS,ALL,All,100.0,0.0,0.0,0.0
 60,2024,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,0.0,,
 60,2024,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,0.0
 60,2024,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,0.0

@@ -9,7 +9,7 @@ env:
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
   GCS_MANUAL_UPLOADS_BUCKET: ${{ secrets.GCS_MANUAL_UPLOADS_BUCKET }}
-  RACE: "race"
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
   SEX: "sex"
   AGE: "age"
   COUNTY: "county"
@@ -27,7 +27,7 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           source_gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
           geographic: ${{ env.NATIONAL }}
-          demographic: ${{ env.RACE }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write race state tables to BigQuery
@@ -37,7 +37,7 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           source_gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
           geographic: ${{ env.STATE }}
-          demographic: ${{ env.RACE }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
       - name: Process and write race county tables to BigQuery
@@ -47,7 +47,7 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           source_gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
           geographic: ${{ env.COUNTY }}
-          demographic: ${{ env.RACE }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
 
   # Process all sex data second
@@ -163,4 +163,4 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.RACE }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
