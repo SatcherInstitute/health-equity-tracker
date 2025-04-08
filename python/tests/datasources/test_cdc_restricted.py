@@ -305,7 +305,7 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
         "filename": "test_file.csv",
         "metadata_table_id": "test_metadata",
         "table_name": "output_table",
-        "demographic": "race",
+        "demographic": "race_and_ethnicity",
         "geographic": "national",
     }
     cdc_restricted.write_to_bq("dataset", "gcs_bucket", **kwargs)
@@ -315,6 +315,6 @@ def testWriteToBqRaceNational(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock)
     assert mock_csv.call_args_list[1].args[1] == "cdc_restricted_by_race_and_age_state.csv"
 
     assert mock_bq.call_count == 3
-    assert mock_bq.call_args_list[0].args[2] == "race_national_cumulative"
-    assert mock_bq.call_args_list[1].args[2] == "race_national_historical"
+    assert mock_bq.call_args_list[0].args[2] == "race_and_ethnicity_national_cumulative"
+    assert mock_bq.call_args_list[1].args[2] == "race_and_ethnicity_national_historical"
     assert mock_bq.call_args_list[2].args[2] == "multi_race_age_state"
