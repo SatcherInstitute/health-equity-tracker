@@ -62,7 +62,7 @@ def test_write_to_bq_race_national(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race", geographic="national")
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national")
 
     assert mock_data_dir.call_count == 20
 
