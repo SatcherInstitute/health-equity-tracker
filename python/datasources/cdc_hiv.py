@@ -208,8 +208,6 @@ class CDCHIVData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
-        if demographic == std_col.RACE_COL:
-            demographic = std_col.RACE_OR_HISPANIC_COL
 
         # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
         if geo_level != COUNTY_LEVEL and demographic == std_col.RACE_OR_HISPANIC_COL:
