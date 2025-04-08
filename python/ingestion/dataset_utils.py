@@ -8,7 +8,6 @@ from ingestion.constants import (
     NATIONAL_LEVEL,
     STATE_LEVEL,
     COUNTY_LEVEL,
-    RACE,
     UNKNOWN,
     STATE_LEVEL_FIPS_LIST,
     COUNTY_LEVEL_FIPS_LIST,
@@ -477,7 +476,7 @@ def generate_pct_rel_inequity_col(
 def zero_out_pct_rel_inequity(
     df: pd.DataFrame,
     geo: Literal["national", "state", "county"],
-    demographic: Literal["sex", "age", "race"],
+    demographic: Literal["sex", "age", "race", "race_and_ethnicity"],
     rate_to_inequity_col_map: dict,
     pop_pct_col: str = "",
 ):
@@ -490,7 +489,7 @@ def zero_out_pct_rel_inequity(
     Parameters:
         df: Dataframe to zero rows out on.
         geo: string of Geographic level.
-        demographic: Demographic breakdown. Must be `race`, `age`, or `sex`.
+        demographic: Demographic breakdown. Must be `race`, `race_and_ethnicity`, `age`, or `sex`.
         rate_cols: dict mapping condition rates (usually but not always `per_100k`)
            to the corresponding`pct_rel_inequity`s. Example map below:
             {"something_per_100k": "something_pct_relative_inequity",
@@ -522,9 +521,11 @@ def zero_out_pct_rel_inequity(
     for rate_col in rate_to_inequity_col_map.keys():
         per_100k_col_names[rate_col] = f"{rate_col}_grouped"
 
-    demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
-    unknown_val = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
-    all_val = Race.ALL.value if demographic == RACE else std_col.ALL_VALUE
+    demo_col = (
+        std_col.RACE_CATEGORY_ID_COL if demographic in [std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL] else demographic
+    )
+    unknown_val = Race.UNKNOWN.value if demographic == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
+    all_val = Race.ALL.value if demographic == std_col.RACE_OR_HISPANIC_COL else std_col.ALL_VALUE
 
     df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
     df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]

@@ -49,7 +49,7 @@ class AgeAdjustCDCRestricted(DataSource):
 
                 timeview = "cumulative" if not time_series else "historical"
 
-                only_race = f"race_{geo}_{timeview}"
+                only_race = f"race_and_ethnicity_{geo}_{timeview}"
                 table_name = f"{only_race}-with_age_adjust"
 
                 only_race_df = gcs_to_bq_util.load_df_from_bigquery("cdc_restricted_data", only_race)

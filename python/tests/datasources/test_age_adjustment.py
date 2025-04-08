@@ -10,7 +10,7 @@ from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "age_adjustment")
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_restricted_age_adjustment")
 
 COVID_DATA_SIMPLE = os.path.join(TEST_DIR, "unit_tests", "race_age_state_simple.json")
 COVID_DATA_SIMPLE_TIME_SERIES = os.path.join(TEST_DIR, "unit_tests", "race_age_state_time_series_simple.json")
@@ -21,16 +21,18 @@ EXPECTED_DEATHS_TIME_SERIES_JSON = os.path.join(TEST_DIR, "unit_tests", "expecte
 AGE_ADJUST_JSON = os.path.join(TEST_DIR, "unit_tests", "age_adjusted.json")
 AGE_ADJUST_TIME_SERIES_JSON = os.path.join(TEST_DIR, "unit_tests", "age_adjusted_time_series.json")
 
-GOLDEN_INTEGRATION_DATA_STATE = os.path.join(TEST_DIR, "cdc_restricted-race_state_cumulative-with_age_adjust.json")
+GOLDEN_INTEGRATION_DATA_STATE = os.path.join(
+    TEST_DIR, "cdc_restricted-race_and_ethnicity_state_cumulative-with_age_adjust.json"
+)
 GOLDEN_INTEGRATION_DATA_NATIONAL = os.path.join(
-    TEST_DIR, "cdc_restricted-race_national_cumulative-with_age_adjust.json"
+    TEST_DIR, "cdc_restricted-race_and_ethnicity_national_cumulative-with_age_adjust.json"
 )
 
 GOLDEN_INTEGRATION_DATA_STATE_TIME_SERIES = os.path.join(
-    TEST_DIR, "cdc_restricted-race_state_historical-with_age_adjust.json"
+    TEST_DIR, "cdc_restricted-race_and_ethnicity_state_historical-with_age_adjust.json"
 )
 GOLDEN_INTEGRATION_DATA_NATIONAL_TIME_SERIES = os.path.join(
-    TEST_DIR, "cdc_restricted-race_national_historical-with_age_adjust.json"
+    TEST_DIR, "cdc_restricted-race_and_ethnicity_national_historical-with_age_adjust.json"
 )
 
 
@@ -41,25 +43,27 @@ def get_census_pop_estimates_as_df():
 def get_mock_df_from_bq_as_df(*args, **kwargs):
     if args[0] == "census_pop_estimates":
         return pd.read_csv(os.path.join(TEST_DIR, "census_pop_estimates.csv"), dtype={"state_fips": str})
-    elif args[1] == "race_state_cumulative":
+    elif args[1] == "race_and_ethnicity_state_cumulative":
         return pd.read_json(
-            os.path.join(TEST_DIR, "cdc_restricted-race_state_cumulative.json"), dtype={"state_fips": str}
+            os.path.join(TEST_DIR, "cdc_restricted-race_and_ethnicity_state_cumulative.json"), dtype={"state_fips": str}
         )
-    elif args[1] == "race_national_cumulative":
+    elif args[1] == "race_and_ethnicity_national_cumulative":
         return pd.read_json(
-            os.path.join(TEST_DIR, "cdc_restricted-race_national_cumulative.json"), dtype={"state_fips": str}
+            os.path.join(TEST_DIR, "cdc_restricted-race_and_ethnicity_national_cumulative.json"),
+            dtype={"state_fips": str},
         )
     elif args[1] == "multi_race_age_state":
         return pd.read_json(
             os.path.join(TEST_DIR, "cdc_restricted-multi_race_age_state.json"), dtype={"state_fips": str}
         )
-    elif args[1] == "race_state_historical":
+    elif args[1] == "race_and_ethnicity_state_historical":
         return pd.read_json(
-            os.path.join(TEST_DIR, "cdc_restricted-race_state_historical.json"), dtype={"state_fips": str}
+            os.path.join(TEST_DIR, "cdc_restricted-race_and_ethnicity_state_historical.json"), dtype={"state_fips": str}
         )
-    elif args[1] == "race_national_historical":
+    elif args[1] == "race_and_ethnicity_national_historical":
         return pd.read_json(
-            os.path.join(TEST_DIR, "cdc_restricted-race_national_historical.json"), dtype={"state_fips": str}
+            os.path.join(TEST_DIR, "cdc_restricted-race_and_ethnicity_national_historical.json"),
+            dtype={"state_fips": str},
         )
     raise ValueError("No dataset for these args")
 
