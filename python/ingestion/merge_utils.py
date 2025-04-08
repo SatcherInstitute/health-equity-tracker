@@ -272,7 +272,10 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
     # merge pop data for other territories/county-equivalents
     # from DECIA_2020 (VI, GU, AS, MP)
     if geo_level != NATIONAL_LEVEL:
-        pop_terr_table_name = f"{demo}_{geo_level}_current"
+
+        terr_demo = std_col.RACE_OR_HISPANIC_COL if demo == std_col.RACE_COL else demo
+
+        pop_terr_table_name = f"{terr_demo}_{geo_level}_current"
 
         terr_pop_dtype = {
             std_col.STATE_FIPS_COL: str,

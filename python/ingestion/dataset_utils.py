@@ -476,7 +476,7 @@ def generate_pct_rel_inequity_col(
 def zero_out_pct_rel_inequity(
     df: pd.DataFrame,
     geo: Literal["national", "state", "county"],
-    demographic: Literal["sex", "age", "race"],
+    demographic: Literal["sex", "age", "race", "race_and_ethnicity"],
     rate_to_inequity_col_map: dict,
     pop_pct_col: str = "",
 ):
@@ -521,7 +521,9 @@ def zero_out_pct_rel_inequity(
     for rate_col in rate_to_inequity_col_map.keys():
         per_100k_col_names[rate_col] = f"{rate_col}_grouped"
 
-    demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == std_col.RACE_OR_HISPANIC_COL else demographic
+    demo_col = (
+        std_col.RACE_CATEGORY_ID_COL if demographic in [std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL] else demographic
+    )
     unknown_val = Race.UNKNOWN.value if demographic == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
     all_val = Race.ALL.value if demographic == std_col.RACE_OR_HISPANIC_COL else std_col.ALL_VALUE
 

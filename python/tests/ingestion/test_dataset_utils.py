@@ -390,7 +390,7 @@ def testZeroOutPctRelInequity():
     ).reset_index(drop=True)
     rate_to_inequity_cols_map = {"something_per_100k": "something_pct_relative_inequity"}
     df = dataset_utils.zero_out_pct_rel_inequity(
-        df, "state", "race", rate_to_inequity_cols_map, pop_pct_col="something_pop_pct"
+        df, "state", "race_and_ethnicity", rate_to_inequity_cols_map, pop_pct_col="something_pop_pct"
     )
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity))
