@@ -57,7 +57,7 @@ class Decia2010TerritoryPopulationData(DataSource):
             # Clean up column names.
             self.clean_frame_column_names(df)
 
-            demo_type = next((demo for demo in ["race", "sex", "age", "race_and_ethnicity"] if demo in f), None)
+            demo_type = next((demo for demo in ["sex", "age", "race_and_ethnicity"] if demo in f), None)
             table_id = gcs_to_bq_util.make_bq_table_id(demo_type, constants.STATE_LEVEL, constants.CURRENT)
 
             column_types = gcs_to_bq_util.get_bq_column_types(

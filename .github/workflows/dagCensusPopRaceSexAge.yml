@@ -8,7 +8,7 @@ env:
   GCS_MANUAL_UPLOADS_BUCKET: ${{ secrets.GCS_MANUAL_UPLOADS_BUCKET }} # file manually saved to our landing bucket
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-  RACE: "race"
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
 jobs:
   trigger-data-pipeline:
     runs-on: ubuntu-latest
@@ -25,4 +25,4 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.RACE }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}

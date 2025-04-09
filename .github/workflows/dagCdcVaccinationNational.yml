@@ -9,7 +9,7 @@ env:
   DATASET_NAME: "cdc_vaccination_national"
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-  RACE: "race"
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
   AGE: "age"
   SEX: "sex"
 
@@ -28,8 +28,7 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.RACE }}
-          should_export_as_alls: "true"
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
       - name: Export age NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
@@ -42,3 +41,4 @@ jobs:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
+          should_export_as_alls: "true"
