@@ -4,7 +4,7 @@ test('Covid Cases', async ({ page }) => {
   await page.goto('/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_cases')
   await page
     .locator('#rate-map')
-    .getByRole('heading', { name: 'Rates of COVID-19 cases since' })
+    .getByRole('heading', { name: 'Rates of COVID-19 cases' })
     .click()
   await page
     .getByRole('heading', { name: 'Monthly COVID-19 cases per' })
@@ -13,7 +13,7 @@ test('Covid Cases', async ({ page }) => {
   await page.getByRole('button', { name: 'Collapse rates over time' }).click()
   await page
     .locator('#rate-chart')
-    .getByRole('heading', { name: 'Rates of COVID-19 cases since' })
+    .getByRole('heading', { name: 'Rates of COVID-19 cases' })
     .click()
   await page
     .getByRole('button', { name: 'Population vs. distribution' })

@@ -7,10 +7,10 @@ import { stripCountyFips } from './SourcesHelpers'
 describe('stripCountyFips', () => {
   it('Should return string without fips code', () => {
     const output: Array<DatasetId> = [
-      'cdc_restricted_data-race_county_historical',
+      'cdc_restricted_data-race_and_ethnicity_county_historical',
     ]
     const input: Array<DatasetId | DatasetIdWithStateFIPSCode> = [
-      'cdc_restricted_data-race_county_historical-48',
+      'cdc_restricted_data-race_and_ethnicity_county_historical-48',
     ]
     expect(stripCountyFips(input)).toEqual(output)
   })
@@ -24,14 +24,14 @@ describe('stripCountyFips', () => {
 
   it('Should return multiple strings without fips code', () => {
     const output: Array<DatasetId> = [
-      'cdc_restricted_data-race_county_historical',
+      'cdc_restricted_data-race_and_ethnicity_county_historical',
       'cdc_restricted_data-age_county_historical',
-      'cdc_restricted_data-race_county_historical',
+      'cdc_restricted_data-race_and_ethnicity_county_historical',
     ]
     const input: Array<DatasetId | DatasetIdWithStateFIPSCode> = [
-      'cdc_restricted_data-race_county_historical-48',
+      'cdc_restricted_data-race_and_ethnicity_county_historical-48',
       'cdc_restricted_data-age_county_historical-48',
-      'cdc_restricted_data-race_county_historical',
+      'cdc_restricted_data-race_and_ethnicity_county_historical',
     ]
     expect(stripCountyFips(input)).toEqual(output)
   })
