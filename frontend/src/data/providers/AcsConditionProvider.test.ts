@@ -71,7 +71,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Race Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_national_historical',
+      'acs_condition-race_and_ethnicity_national_historical',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
       'historical',
@@ -98,7 +98,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Race Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_state_historical',
+      'acs_condition-race_and_ethnicity_state_historical',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
       'historical',
@@ -125,7 +125,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Race Historical Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_county_historical',
+      'acs_condition-race_and_ethnicity_county_historical',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
       'historical',
@@ -152,7 +152,7 @@ describe('acsConditionProvider', () => {
 
   test('National and Race Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_national_current',
+      'acs_condition-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
       'current',
@@ -179,7 +179,7 @@ describe('acsConditionProvider', () => {
 
   test('State and Race Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_state_current',
+      'acs_condition-race_and_ethnicity_state_current',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
       'current',
@@ -206,7 +206,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Race Current Year Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-race_county_current',
+      'acs_condition-race_and_ethnicity_county_current',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
       'current',
