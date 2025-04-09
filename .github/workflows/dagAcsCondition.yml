@@ -12,6 +12,9 @@ env:
   GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
+  AGE: "age"
+  SEX: "sex"
 
 jobs:
   process-export:
@@ -125,7 +128,7 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "race"
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
           should_export_as_alls: "true"
 
       - name: Export data by age
@@ -133,11 +136,11 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "age"
+          demographic: ${{ env.AGE }}
 
       - name: Export data by sex
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: "sex"
+          demographic: ${{ env.SEX }}

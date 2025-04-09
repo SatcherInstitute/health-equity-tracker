@@ -353,8 +353,6 @@ class AcsCondition(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        logger.info("Child subclass AcsCondition.write_to_bq method called.")
-
         logger.info("Starting write_to_bq with dataset=%s, gcs_bucket=%s, attrs=%s", dataset, gcs_bucket, attrs)
 
         year = self.get_attr(attrs, "year")
@@ -464,7 +462,8 @@ class AcsCondition(DataSource):
             col_types = gcs_to_bq_util.get_bq_column_types(df_time_series, float_cols_time_series)
             logger.info("Generated column types for BigQuery schema")
 
-            table_id_historical = gcs_to_bq_util.make_bq_table_id(demo, geo, HISTORICAL)
+            table_demo = std_col.RACE_OR_HISPANIC_COL if demo == RACE else demo
+            table_id_historical = gcs_to_bq_util.make_bq_table_id(table_demo, geo, HISTORICAL)
             logger.info("Writing time series data to BigQuery table: %s", table_id_historical)
             gcs_to_bq_util.add_df_to_bq(
                 df_time_series,
@@ -504,7 +503,7 @@ class AcsCondition(DataSource):
                 col_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols_current)
                 logger.info("Generated column types for BigQuery schema")
 
-                table_id_current = gcs_to_bq_util.make_bq_table_id(demo, geo, CURRENT)
+                table_id_current = gcs_to_bq_util.make_bq_table_id(table_demo, geo, CURRENT)
                 logger.info("Writing current data to BigQuery table: %s", table_id_current)
                 gcs_to_bq_util.add_df_to_bq(df_current, dataset, table_id_current, column_types=col_types)
                 logger.info("Successfully wrote current data to BigQuery table: %s", table_id_current)
