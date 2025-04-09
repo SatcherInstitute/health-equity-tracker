@@ -18,12 +18,12 @@ export type DatasetId =
   | DatasetIdHivCategory
   | DatasetIdMaternalHealthCategory
   | DatasetIdCommunitySafetyCategory
-  | 'acs_condition-race_county_historical'
-  | 'acs_condition-race_county_current'
-  | 'acs_condition-race_state_historical'
-  | 'acs_condition-race_state_current'
-  | 'acs_condition-race_national_historical'
-  | 'acs_condition-race_national_current'
+  | 'acs_condition-race_and_ethnicity_county_historical'
+  | 'acs_condition-race_and_ethnicity_county_current'
+  | 'acs_condition-race_and_ethnicity_state_historical'
+  | 'acs_condition-race_and_ethnicity_state_current'
+  | 'acs_condition-race_and_ethnicity_national_historical'
+  | 'acs_condition-race_and_ethnicity_national_current'
   | 'acs_condition-age_county_historical'
   | 'acs_condition-age_county_current'
   | 'acs_condition-age_state_historical'
@@ -491,17 +491,17 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-race_county_historical': {
+  'acs_condition-race_and_ethnicity_county_historical': {
     name: 'Health insurance and poverty, yearly, by race and county',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-race_state_historical': {
+  'acs_condition-race_and_ethnicity_state_historical': {
     name: 'Health insurance and poverty, yearly, by race and state',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
   },
-  'acs_condition-race_national_historical': {
+  'acs_condition-race_and_ethnicity_national_historical': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
     original_data_sourced: '2012-2022',
     source_id: 'acs',
@@ -542,19 +542,19 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'acs',
   },
 
-  'acs_condition-race_county_current': {
+  'acs_condition-race_and_ethnicity_county_current': {
     name: 'Health insurance and poverty, yearly, by race and county',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-race_state_current': {
+  'acs_condition-race_and_ethnicity_state_current': {
     name: 'Health insurance and poverty, yearly, by race and state',
     original_data_sourced: '2022',
     source_id: 'acs',
   },
 
-  'acs_condition-race_national_current': {
+  'acs_condition-race_and_ethnicity_national_current': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
     original_data_sourced: '2022',
     source_id: 'acs',
