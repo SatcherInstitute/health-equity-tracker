@@ -75,7 +75,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total COVID-19 cases since Jan 2020',
+            'Population vs. distribution of total COVID-19 cases (Cumulative Jan 2020 - May 2024)',
           metricId: 'covid_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -91,7 +91,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         metricId: 'covid_cases_per_100k',
-        chartTitle: 'Rates of COVID-19 cases since Jan 2020',
+        chartTitle: 'Rates of COVID-19 cases (Cumulative Jan 2020 - May 2024)',
         trendsCardTitleName: 'Monthly COVID-19 cases per 100k',
         columnTitleHeader: 'Rates of COVID-19 cases',
         shortLabel: 'cases per 100k',
@@ -123,7 +123,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total COVID-19 deaths since Jan 2020',
+            'Population vs. distribution of total COVID-19 deaths (Cumulative Jan 2020 - May 2024)',
           metricId: 'covid_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -132,7 +132,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         metricId: 'covid_deaths_per_100k',
-        chartTitle: 'Rates of COVID-19 deaths since Jan 2020',
+        chartTitle: 'Rates of COVID-19 deaths (Cumulative Jan 2020 - May 2024)',
         columnTitleHeader: 'Rates of COVID-19 deaths',
         trendsCardTitleName: 'Monthly COVID-19 deaths per 100k',
         shortLabel: 'deaths per 100k',
@@ -177,7 +177,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total COVID-19 hospitalizations since Jan 2020',
+            'Population vs. distribution of total COVID-19 hospitalizations (Cumulative Jan 2020 - May 2024)',
 
           metricId: 'covid_population_pct',
           columnTitleHeader: populationPctTitle,
@@ -194,7 +194,8 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         metricId: 'covid_hosp_per_100k',
-        chartTitle: 'Rates of COVID-19 hospitalizations since Jan 2020',
+        chartTitle:
+          'Rates of COVID-19 hospitalizations (Cumulative Jan 2020 - May 2024)',
         columnTitleHeader: 'Rates of COVID-19 hospitalizations',
         trendsCardTitleName: 'Monthly COVID-19 hospitalizations per 100k',
         shortLabel: 'hospitalizations per 100k',

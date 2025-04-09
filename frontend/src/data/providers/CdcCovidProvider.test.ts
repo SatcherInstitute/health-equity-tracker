@@ -64,7 +64,7 @@ describe('cdcCovidProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-race_national_cumulative-with_age_adjust',
+      'cdc_restricted_data-race_and_ethnicity_national_cumulative-with_age_adjust',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
     )
@@ -88,7 +88,7 @@ describe('cdcCovidProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-race_state_cumulative-with_age_adjust',
+      'cdc_restricted_data-race_and_ethnicity_state_cumulative-with_age_adjust',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE,
     )
@@ -112,7 +112,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-race_county_cumulative',
+      'cdc_restricted_data-race_and_ethnicity_county_cumulative',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE,
     )
