@@ -122,12 +122,12 @@ export type DatasetId =
   | 'cdc_restricted_data-age_national_cumulative'
   | 'cdc_restricted_data-age_state_historical'
   | 'cdc_restricted_data-age_state_cumulative'
-  | 'cdc_restricted_data-race_county_historical'
-  | 'cdc_restricted_data-race_county_cumulative'
-  | 'cdc_restricted_data-race_national_historical'
-  | 'cdc_restricted_data-race_national_cumulative-with_age_adjust'
-  | 'cdc_restricted_data-race_state_historical'
-  | 'cdc_restricted_data-race_state_cumulative-with_age_adjust'
+  | 'cdc_restricted_data-race_and_ethnicity_county_historical'
+  | 'cdc_restricted_data-race_and_ethnicity_county_cumulative'
+  | 'cdc_restricted_data-race_and_ethnicity_national_historical'
+  | 'cdc_restricted_data-race_and_ethnicity_national_cumulative-with_age_adjust'
+  | 'cdc_restricted_data-race_and_ethnicity_state_historical'
+  | 'cdc_restricted_data-race_and_ethnicity_state_cumulative-with_age_adjust'
   | 'cdc_restricted_data-sex_county_historical'
   | 'cdc_restricted_data-sex_county_cumulative'
   | 'cdc_restricted_data-sex_national_historical'
@@ -560,19 +560,19 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     source_id: 'acs',
   },
 
-  'cdc_restricted_data-race_county_historical': {
+  'cdc_restricted_data-race_and_ethnicity_county_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-race_state_historical': {
+  'cdc_restricted_data-race_and_ethnicity_state_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-race_national_historical': {
+  'cdc_restricted_data-race_and_ethnicity_national_historical': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
@@ -608,24 +608,25 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: 'January 2020 - May 2024',
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-race_county_cumulative': {
+  'cdc_restricted_data-race_and_ethnicity_county_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-race_state_cumulative-with_age_adjust': {
+  'cdc_restricted_data-race_and_ethnicity_state_cumulative-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
     original_data_sourced: 'January 2020 - May 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
-  'cdc_restricted_data-race_national_cumulative-with_age_adjust': {
-    name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    contains_nh: true,
-    source_id: 'cdc_restricted',
-  },
+  'cdc_restricted_data-race_and_ethnicity_national_cumulative-with_age_adjust':
+    {
+      name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
+      original_data_sourced: 'January 2020 - May 2024',
+      contains_nh: true,
+      source_id: 'cdc_restricted',
+    },
   'cdc_restricted_data-age_county_cumulative': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
     original_data_sourced: 'January 2020 - May 2024',
