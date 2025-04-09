@@ -54,7 +54,7 @@ describe('VaccineProvider', () => {
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_national-race_and_ethnicity__national_current',
+      'cdc_vaccination_national-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips(USA.code)),
       RACE,
     )
