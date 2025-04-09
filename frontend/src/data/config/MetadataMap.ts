@@ -238,7 +238,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations in the United States at national level. Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities. (CDC 2021)',
     dataset_ids: [
       'cdc_vaccination_national-age_national_current',
-      'cdc_vaccination_national-race_and_ethnicity__national_current',
+      'cdc_vaccination_national-race_and_ethnicity_national_current',
       'cdc_vaccination_national-sex_national_current',
     ],
     downloadable: true,

@@ -142,7 +142,7 @@ export type DatasetId =
   | 'cdc_restricted_data-alls_state_cumulative'
   | 'cdc_vaccination_county-alls_county_current'
   | 'cdc_vaccination_national-age_national_current'
-  | 'cdc_vaccination_national-race_and_ethnicity__national_current'
+  | 'cdc_vaccination_national-race_and_ethnicity_national_current'
   | 'cdc_vaccination_national-sex_national_current'
   | 'cdc_wisqars_data-age_national_current'
   | 'cdc_wisqars_data-age_national_historical'
@@ -703,7 +703,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: 'March 2023',
     source_id: 'cdc_vaccination_national',
   },
-  'cdc_vaccination_national-race_and_ethnicity__national_current': {
+  'cdc_vaccination_national-race_and_ethnicity_national_current': {
     name: 'COVID-19 vaccinations by race and ethnicity, nationally',
     original_data_sourced: 'March 2023',
     contains_nh: true,
