@@ -7,7 +7,7 @@ env:
   DATASET_NAME: "decia_2010_territory_population"
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-  RACE: "race"
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
   AGE: "age"
   SEX: "sex"
 jobs:
@@ -25,7 +25,7 @@ jobs:
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.RACE }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
       - name: Export age NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
