@@ -125,7 +125,7 @@ class MaternalMortalityData(DataSource):
             ).reset_index(drop=True)
 
             for time_type in [HISTORICAL, CURRENT]:
-                table_id = gcs_to_bq_util.make_bq_table_id("race", geo_level, time_type)
+                table_id = gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, time_type)
                 float_cols = get_float_cols(time_type, geo_level)
                 df_for_bq = df.copy()[keep_string_cols + float_cols]
                 if time_type == CURRENT:
