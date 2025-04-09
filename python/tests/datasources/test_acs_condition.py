@@ -20,7 +20,7 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_condition")
 GOLDEN_BASE_TABLE_NATIONAL_SEX = os.path.join(TEST_DIR, "golden_data", "sex_national.csv")
 GOLDEN_BASE_TABLE_STATE_SEX = os.path.join(TEST_DIR, "golden_data", "sex_state.csv")
 GOLDEN_BASE_TABLE_COUNTY_SEX = os.path.join(TEST_DIR, "golden_data", "sex_county.csv")
-GOLDEN_BASE_TABLE_COUNTY_RACE = os.path.join(TEST_DIR, "golden_data", "race_county.csv")
+GOLDEN_BASE_TABLE_COUNTY_RACE = os.path.join(TEST_DIR, "golden_data", "race_and_ethnicity_county.csv")
 
 
 # NOT USING SHARED POPULATION MOCKS BECAUSE THESE ARE THE CACHED ACS_CONDITION TABLES,
@@ -268,8 +268,8 @@ def testWriteToBqAppend2022(
     # One call for each table write to BQ
     assert mock_bq.call_count == 18
 
-    assert mock_bq.call_args_list[0].args[2] == "race_national_historical"
-    assert mock_bq.call_args_list[1].args[2] == "race_national_current"
+    assert mock_bq.call_args_list[0].args[2] == "race_and_ethnicity_national_historical"
+    assert mock_bq.call_args_list[1].args[2] == "race_and_ethnicity_national_current"
 
     assert mock_bq.call_args_list[2].args[2] == "age_national_historical"
     assert mock_bq.call_args_list[3].args[2] == "age_national_current"
@@ -277,8 +277,8 @@ def testWriteToBqAppend2022(
     assert mock_bq.call_args_list[4].args[2] == "sex_national_historical"
     assert mock_bq.call_args_list[5].args[2] == "sex_national_current"
 
-    assert mock_bq.call_args_list[6].args[2] == "race_state_historical"
-    assert mock_bq.call_args_list[7].args[2] == "race_state_current"
+    assert mock_bq.call_args_list[6].args[2] == "race_and_ethnicity_state_historical"
+    assert mock_bq.call_args_list[7].args[2] == "race_and_ethnicity_state_current"
 
     assert mock_bq.call_args_list[8].args[2] == "age_state_historical"
     assert mock_bq.call_args_list[9].args[2] == "age_state_current"
@@ -286,8 +286,8 @@ def testWriteToBqAppend2022(
     assert mock_bq.call_args_list[10].args[2] == "sex_state_historical"
     assert mock_bq.call_args_list[11].args[2] == "sex_state_current"
 
-    assert mock_bq.call_args_list[12].args[2] == "race_county_historical"
-    assert mock_bq.call_args_list[13].args[2] == "race_county_current"
+    assert mock_bq.call_args_list[12].args[2] == "race_and_ethnicity_county_historical"
+    assert mock_bq.call_args_list[13].args[2] == "race_and_ethnicity_county_current"
 
     assert mock_bq.call_args_list[14].args[2] == "age_county_historical"
     assert mock_bq.call_args_list[15].args[2] == "age_county_current"
