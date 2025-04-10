@@ -49,7 +49,7 @@ describe('DatasetTypes', () => {
   ]
 
   const expectedCsvString =
-    'population_pct,race_and_ethnicity,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,ALL,01,Alabama,,<0.01\r\n99,"Asian, Native Hawaiian, and Pacific Islander",API_NH,01,Alabama,,<0.01'
+    'population_pct,race_and_ethnicity,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,01,Alabama,,<0.01\r\n99,"Asian, Native Hawaiian, and Pacific Islander",01,Alabama,,<0.01'
 
   const dataset = new Dataset(fakeRows, fakeMetaData)
 
