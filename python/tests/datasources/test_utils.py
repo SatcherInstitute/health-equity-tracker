@@ -42,9 +42,7 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     )
 
     if create_sample:
-        n = len(df) // 50  # Calculate step size to get ~50 rows
-        sample_df = df.iloc[::n][:50]  # Take every nth row, limit to 50
-        return sample_df
+        df = _create_df_sample(df)
 
     return df
 
@@ -62,6 +60,7 @@ def _load_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     use_cols = kwargs["usecols"]
     dtype = kwargs["dtype"]
     header = kwargs["header"]
+    create_sample = kwargs.get("create_sample", False)
 
     df = pd.read_excel(
         os.path.join(REAL_DATA_DIR, directory, filename),
@@ -70,4 +69,20 @@ def _load_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
         usecols=use_cols,
         dtype=dtype,
     )
+
+    if create_sample:
+        df = _create_df_sample(df)
+
     return df
+
+
+def _load_sample_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
+    """Creates a sample of the full dataset loaded from from data/ folder.
+    Useful in county, historical, or other slow data sources."""
+    return _load_xlsx_as_df_from_real_data_dir(*args, create_sample=True, **kwargs)
+
+
+def _create_df_sample(df: pd.DataFrame, sample_size: int = 50) -> pd.DataFrame:
+    n = len(df) // sample_size  # Calculate step size to get few enough rows
+    sample_df = df.iloc[::n][:sample_size]  # Take every nth row, limit to sample_size
+    return sample_df
