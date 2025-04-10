@@ -25,10 +25,16 @@ def test_write_to_bq_race_county(
     mock_xlsx_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
-    datasource = CHRData()
-    datasource.write_to_bq("dataset", "gcs_bucket", demographic="race")
+    subset_dict = {
+        "2011": "2011 County Health Rankings National Data_v2_0.xls",
+        "2024": "2024_county_health_release_data_-_v1.xlsx",
+    }
 
-    assert mock_xlsx_data_dir.call_count == 28
+    with mock.patch.dict("datasources.chr.CHR_FILE_LOOKUP", subset_dict, clear=True):
+        datasource = CHRData()
+        datasource.write_to_bq("dataset", "gcs_bucket", demographic="race")
+
+    assert mock_xlsx_data_dir.call_count == 4  # only testing subset; 2 years of source files
 
     # calls writing COUNTY CURRENT and COUNTY HISTORICAL to bq
     assert mock_bq.call_count == 2
