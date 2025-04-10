@@ -437,6 +437,14 @@ def add_race_columns_from_category_id(df):
     df.drop("race_tuple", axis=1, inplace=True)
 
 
+def swap_race_id_col_for_names_col(df):
+    """Swaps the race category id column for the race_and_ethnicity col."""
+    df["race_tuple"] = df.apply(lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1)
+    df[Race.get_col_names()] = pd.DataFrame(df["race_tuple"].tolist(), index=df.index)
+    df.drop("race_tuple", axis=1, inplace=True)
+    df.drop(RACE_CATEGORY_ID_COL, axis=1, inplace=True)
+
+
 def generate_column_name(prefix, suffix):
     """Generates a standard column name.
 

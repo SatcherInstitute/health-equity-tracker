@@ -103,29 +103,27 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
     assert_frame_equal(df_historical, expected_df_historical, check_dtype=False)
 
 
-# TODO: speed up this datasource and reenable this race test
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+    side_effect=_load_csv_as_df_from_real_data_dir,
+)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
+    kwargs["demographic"] = "race_and_ethnicity"
+    veraIncarcerationCounty.write_to_bq("dataset", "gcs_bucket", **kwargs)
 
-# @mock.patch(
-#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-#     side_effect=_load_csv_as_df_from_real_data_dir,
-# )
-# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-# def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
-#     kwargs["demographic"] = "race_and_ethnicity"
-#     veraIncarcerationCounty.write_to_bq("dataset", "gcs_bucket", **kwargs)
+    # writes 1 current and 1 historical table per demo breakdown
+    assert mock_bq.call_count == 2
+    assert mock_csv.call_count == 1
 
-#     # writes 1 current and 1 historical table per demo breakdown
-#     assert mock_bq.call_count == 2
-#     assert mock_csv.call_count == 1
+    df_current, _, table_name = mock_bq.call_args_list[0][0]
+    assert table_name == "race_and_ethnicity_county_current"
+    # df_current.to_csv(table_name, index=False)
+    expected_df_current = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
+    assert_frame_equal(df_current, expected_df_current, check_dtype=False)
 
-#     df_current, _, table_name = mock_bq.call_args_list[0][0]
-#     assert table_name == "race_and_ethnicity_county_current"
-#     # df_current.to_csv(table_name, index=False)
-#     expected_df_current = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
-#     assert_frame_equal(df_current, expected_df_current, check_dtype=False)
-
-#     df_historical, _, table_name = mock_bq.call_args_list[1][0]
-#     assert table_name == "race_and_ethnicity_county_historical"
-#     # df_historical.to_csv(table_name, index=False)
-#     expected_df_historical = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
-#     assert_frame_equal(df_historical, expected_df_historical, check_dtype=False)
+    df_historical, _, table_name = mock_bq.call_args_list[1][0]
+    assert table_name == "race_and_ethnicity_county_historical"
+    # df_historical.to_csv(table_name, index=False)
+    expected_df_historical = pd.read_csv(GOLDEN_DATA[table_name], dtype=dtypes)
+    assert_frame_equal(df_historical, expected_df_historical, check_dtype=False)
