@@ -5,7 +5,7 @@ from pandas._testing import assert_frame_equal
 from datasources.vera_incarceration_county import (
     VeraIncarcerationCounty,
 )
-from test_utils import _load_csv_as_df_from_real_data_dir
+from test_utils import _load_sample_csv_as_df_from_real_data_dir
 
 
 # Current working directory .
@@ -53,7 +53,7 @@ veraIncarcerationCounty = VeraIncarcerationCounty()
 
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_real_data_dir,
+    side_effect=_load_sample_csv_as_df_from_real_data_dir,
 )
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
@@ -79,7 +79,7 @@ def testWriteToBqSex(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_real_data_dir,
+    side_effect=_load_sample_csv_as_df_from_real_data_dir,
 )
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
@@ -105,7 +105,7 @@ def testWriteToBqAge(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
 
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_real_data_dir,
+    side_effect=_load_sample_csv_as_df_from_real_data_dir,
 )
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqRace(mock_bq: mock.MagicMock, mock_csv: mock.MagicMock):
