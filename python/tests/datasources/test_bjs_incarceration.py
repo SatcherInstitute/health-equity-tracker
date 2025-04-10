@@ -338,7 +338,6 @@ def testWriteToBqNetworkCalls(
     assert table_name_age_national == "age_national_current"
 
     (df_race_national, _, table_name_race_national) = mock_bq.call_args_list[1].args
-    print(df_race_national.to_string())
     # BJS drops the race_category_id column outside of the tested methods above,
     # so ensure that it's dropped before shipping to BQ
     assert (

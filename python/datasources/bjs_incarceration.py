@@ -341,7 +341,7 @@ class BJSIncarcerationData(DataSource):
                         float_cols.append(std_col.generate_column_name(prefix, suffix))
 
                 if demo_type == std_col.RACE_OR_HISPANIC_COL:
-                    df.drop(std_col.RACE_OR_HISPANIC_COL, axis=1, inplace=True)
+                    df.drop(std_col.RACE_CATEGORY_ID_COL, axis=1, inplace=True)
 
                 column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
 
