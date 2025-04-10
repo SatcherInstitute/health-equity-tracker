@@ -429,6 +429,7 @@ class Race(Enum):
         return RaceTuple(self.race_category_id, self.race_and_ethnicity)
 
 
+# TODO: Remove this function in favor of swap_race_id_col_for_names_col if possible
 def add_race_columns_from_category_id(df):
     """Adds all race-related columns to the dataframe using the race category id
     to determine these values."""
