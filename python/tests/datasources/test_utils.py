@@ -17,7 +17,8 @@ def get_acs_metadata_as_json(year: int):
 
 def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     """Testing utility function; allows tests to read real input from data/ folder.
-    Used as a mock, but only because the loading file structure is different in test vs. via Docker
+    Used as a mock, but only because the loading file structure is different in test vs. via Docker.
+    Call the wrapper below for slow data sets to enable sampling and significant test speed boost.
     """
     directory, filename = args
     print("ACTUALLY LOADING FROM /data", filename)
@@ -27,6 +28,7 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     usecols = kwargs.get("usecols", None)
     delimiter = kwargs.get("delimiter", None)
     skipinitialspace = kwargs.get("skipinitialspace", None)
+    create_sample = kwargs.get("create_sample", False)
 
     file_path = os.path.join(REAL_DATA_DIR, directory, subdirectory, filename)
 
@@ -38,7 +40,19 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
         delimiter=delimiter,
         skipinitialspace=skipinitialspace,
     )
+
+    if create_sample:
+        n = len(df) // 50  # Calculate step size to get ~50 rows
+        sample_df = df.iloc[::n][:50]  # Take every nth row, limit to 50
+        return sample_df
+
     return df
+
+
+def _load_sample_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
+    """Creates a sample of the full dataset loaded from from data/ folder.
+    Useful in county, historical, or other slow data sources."""
+    return _load_csv_as_df_from_real_data_dir(*args, create_sample=True, **kwargs)
 
 
 def _load_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
