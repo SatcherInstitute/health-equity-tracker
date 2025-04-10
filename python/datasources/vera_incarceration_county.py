@@ -324,8 +324,8 @@ class VeraIncarcerationCounty(DataSource):
 
         # race gets extra cols
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(breakdown_df)
-            needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
+            std_col.swap_race_id_col_for_names_col(breakdown_df)
+            # needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
 
         # keep and sort needed cols
         breakdown_df = breakdown_df[needed_cols].sort_values(
