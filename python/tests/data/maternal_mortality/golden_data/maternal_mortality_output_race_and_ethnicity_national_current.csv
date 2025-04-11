@@ -1,7 +1,7 @@
-state_fips,race_category_id,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_deaths_estimated_total,live_births_estimated_total,maternal_mortality_population_pct,maternal_mortality_pct_share
-00,AIAN_NH,United States,Indigenous (NH),69.0,23.0,33300.0,0.5,1.9
-00,ALL,United States,All,32.0,1210.0,3749100.0,100.0,100.0
-00,API_NH,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,56.0,268600.0,5.8,4.6
-00,BLACK_NH,United States,Black or African American (NH),68.0,393.0,581400.0,12.0,32.5
-00,HISP,United States,Hispanic or Latino,21.0,551.0,1979000.0,19.4,45.5
-00,WHITE_NH,United States,White (NH),28.0,184.0,886900.0,58.3,15.2
+state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_deaths_estimated_total,live_births_estimated_total,maternal_mortality_population_pct,maternal_mortality_pct_share
+00,United States,Indigenous (NH),69.0,23.0,33300.0,0.5,1.9
+00,United States,All,32.0,1210.0,3749100.0,100.0,100.0
+00,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,56.0,268600.0,5.8,4.6
+00,United States,Black or African American (NH),68.0,393.0,581400.0,12.0,32.5
+00,United States,Hispanic or Latino,21.0,551.0,1979000.0,19.4,45.5
+00,United States,White (NH),28.0,184.0,886900.0,58.3,15.2
