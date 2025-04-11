@@ -2,7 +2,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "BLACK_NH",
     "race_and_ethnicity": "Black or African American (NH)",
     "death_ratio_age_adjusted": 0.6,
     "hosp_ratio_age_adjusted": 0.7,
@@ -12,7 +11,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "HISP",
     "race_and_ethnicity": "Hispanic or Latino",
     "death_ratio_age_adjusted": 3.3,
     "hosp_ratio_age_adjusted": 4.4,
@@ -22,7 +20,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "WHITE_NH",
     "race_and_ethnicity": "White (NH)",
     "death_ratio_age_adjusted": 1,
     "hosp_ratio_age_adjusted": 1,
