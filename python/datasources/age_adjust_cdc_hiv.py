@@ -54,12 +54,12 @@ class AgeAdjustCDCHiv(DataSource):
             )
 
             df = merge_age_adjusted(only_race_df, age_adjusted_df)
+            df = df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
 
             col_types = {
                 "state_name": BQ_STRING,
                 "state_fips": BQ_STRING,
                 "race_and_ethnicity": BQ_STRING,
-                "race_category_id": BQ_STRING,
                 "hiv_stigma_index": BQ_FLOAT,
                 "hiv_deaths_per_100k": BQ_FLOAT,
                 "hiv_diagnoses_per_100k": BQ_FLOAT,
