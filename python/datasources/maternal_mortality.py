@@ -98,7 +98,6 @@ class MaternalMortalityData(DataSource):
             keep_string_cols = [
                 std_col.TIME_PERIOD_COL,
                 std_col.STATE_FIPS_COL,
-                std_col.RACE_CATEGORY_ID_COL,
                 std_col.STATE_NAME_COL,
                 std_col.RACE_OR_HISPANIC_COL,
             ]
@@ -123,6 +122,7 @@ class MaternalMortalityData(DataSource):
             df = df.sort_values(
                 [std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
             ).reset_index(drop=True)
+            df = df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
 
             for time_type in [HISTORICAL, CURRENT]:
                 table_id = gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, time_type)
