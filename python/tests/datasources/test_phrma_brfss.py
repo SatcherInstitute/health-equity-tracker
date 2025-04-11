@@ -3,7 +3,9 @@ from datasources.phrma_brfss import PhrmaBrfssData
 import os
 from test_utils import _load_csv_as_df_from_real_data_dir
 import pandas as pd
+
 from pandas._testing import assert_frame_equal
+
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")

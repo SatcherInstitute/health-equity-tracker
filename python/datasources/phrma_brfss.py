@@ -56,6 +56,8 @@ class PhrmaBrfssData(DataSource):
             demo_type, geo_level, CURRENT, has_age_adjust_suffix=has_age_adjust_suffix
         )
         df = self.generate_breakdown_df(demo_type, geo_level)
+        if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            df = df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
         bq_col_types = build_bq_col_types(df)
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=bq_col_types)
 
