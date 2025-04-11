@@ -63,7 +63,7 @@ class AgeAdjustCDCRestricted(DataSource):
                 # Clean up column names.
                 self.clean_frame_column_names(df)
 
-                std_col.add_race_columns_from_category_id(df)
+                std_col.swap_race_id_col_for_names_col(df)
 
                 gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
