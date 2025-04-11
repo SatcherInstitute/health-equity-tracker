@@ -100,6 +100,9 @@ class PhrmaData(DataSource):
             ]:
                 float_cols.append(f"{condition}_{metric}")
 
+        if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            df = df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
+
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
