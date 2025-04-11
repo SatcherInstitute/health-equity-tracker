@@ -138,6 +138,6 @@ class CDCVaccinationNational(DataSource):
         ]
 
         if demographic == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(df)
+            std_col.swap_race_id_col_for_names_col(df)
 
         return df

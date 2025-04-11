@@ -311,7 +311,7 @@ class KFFVaccination(DataSource):
         ]
 
         # WRITE RACE TABLE
-        std_col.add_race_columns_from_category_id(df)
+        std_col.swap_race_id_col_for_names_col(df)
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
         table_id = gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL, CURRENT)
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
