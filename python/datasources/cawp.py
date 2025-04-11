@@ -232,10 +232,11 @@ class CAWPData(DataSource):
         for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
             df = base_df.copy()
             df = self.generate_breakdown(df, geo_level)
+            df = df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
 
             # make _historical table with limited cols
             df_historical = df.copy()
-            df_historical = df.drop(
+            df_historical = df_historical.drop(
                 columns=[
                     std_col.CONGRESS_COUNT,
                     std_col.W_THIS_RACE_CONGRESS_COUNT,
@@ -503,8 +504,8 @@ class CAWPData(DataSource):
                 std_col.TIME_PERIOD_COL,
                 std_col.STATE_FIPS_COL,
                 std_col.STATE_NAME_COL,
-                std_col.RACE_CATEGORY_ID_COL,
                 std_col.RACE_OR_HISPANIC_COL,
+                std_col.RACE_CATEGORY_ID_COL,
                 std_col.CONGRESS_NAMES,
                 std_col.W_THIS_RACE_CONGRESS_NAMES,
                 std_col.W_THIS_RACE_STLEG_NAMES,
