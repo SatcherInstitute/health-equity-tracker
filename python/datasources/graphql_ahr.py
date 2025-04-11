@@ -258,6 +258,9 @@ class GraphQlAHRData(DataSource):
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
         )
 
+        if demographic == std_col.RACE_OR_HISPANIC_COL:
+            breakdown_df = breakdown_df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
+
         return breakdown_df
 
 

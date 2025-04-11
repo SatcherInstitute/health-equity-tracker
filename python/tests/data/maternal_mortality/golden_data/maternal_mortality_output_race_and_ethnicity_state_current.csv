@@ -1,307 +1,307 @@
-state_fips,race_category_id,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_deaths_estimated_total,live_births_estimated_total
-01,AIAN_NH,Alabama,Indigenous (NH),4.0,0.0,151.0
-01,ALL,Alabama,All,55.0,31.0,56652.0
-01,API_NH,Alabama,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0,,
-01,BLACK_NH,Alabama,Black or African American (NH),78.0,14.0,18197.0
-01,HISP,Alabama,Hispanic or Latino,16.0,1.0,4910.0
-01,WHITE_NH,Alabama,White (NH),47.0,16.0,33394.0
-02,AIAN_NH,Alaska,Indigenous (NH),59.0,1.0,1885.0
-02,ALL,Alaska,All,26.0,2.0,7821.0
-02,API_NH,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0,,
-02,BLACK_NH,Alaska,Black or African American (NH),33.0,0.0,290.0
-02,HISP,Alaska,Hispanic or Latino,9.0,0.0,787.0
-02,WHITE_NH,Alaska,White (NH),26.0,1.0,4859.0
-04,AIAN_NH,Arizona,Indigenous (NH),93.0,4.0,3911.0
-04,ALL,Arizona,All,39.0,29.0,74032.0
-04,API_NH,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
-04,BLACK_NH,Arizona,Black or African American (NH),123.0,6.0,4542.0
-04,HISP,Arizona,Hispanic or Latino,32.0,11.0,33639.0
-04,WHITE_NH,Arizona,White (NH),25.0,8.0,31940.0
-05,AIAN_NH,Arkansas,Indigenous (NH),4.0,0.0,191.0
-05,ALL,Arkansas,All,50.0,17.0,34342.0
-05,API_NH,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",39.0,,
-05,BLACK_NH,Arkansas,Black or African American (NH),89.0,6.0,6998.0
-05,HISP,Arkansas,Hispanic or Latino,29.0,1.0,4088.0
-05,WHITE_NH,Arkansas,White (NH),45.0,10.0,23065.0
-06,AIAN_NH,California,Indigenous (NH),40.0,1.0,1458.0
-06,ALL,California,All,18.0,64.0,348904.0
-06,API_NH,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,,
-06,BLACK_NH,California,Black or African American (NH),49.0,11.0,22374.0
-06,HISP,California,Hispanic or Latino,15.0,31.0,203996.0
-06,WHITE_NH,California,White (NH),17.0,21.0,121076.0
-08,AIAN_NH,Colorado,Indigenous (NH),33.0,0.0,365.0
-08,ALL,Colorado,All,21.0,12.0,57636.0
-08,API_NH,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0,,
-08,BLACK_NH,Colorado,Black or African American (NH),29.0,1.0,3044.0
-08,HISP,Colorado,Hispanic or Latino,30.0,5.0,18205.0
-08,WHITE_NH,Colorado,White (NH),16.0,6.0,36022.0
-09,AIAN_NH,Connecticut,Indigenous (NH),10.0,0.0,24.0
-09,ALL,Connecticut,All,26.0,8.0,31330.0
-09,API_NH,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0,,
-09,BLACK_NH,Connecticut,Black or African American (NH),51.0,2.0,4221.0
-09,HISP,Connecticut,Hispanic or Latino,22.0,2.0,8719.0
-09,WHITE_NH,Connecticut,White (NH),23.0,4.0,18366.0
-10,AIAN_NH,Delaware,Indigenous (NH),16.0,0.0,14.0
-10,ALL,Delaware,All,31.0,3.0,9579.0
-10,API_NH,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0,,
-10,BLACK_NH,Delaware,Black or African American (NH),57.0,2.0,2804.0
-10,HISP,Delaware,Hispanic or Latino,2.0,0.0,1737.0
-10,WHITE_NH,Delaware,White (NH),18.0,1.0,5024.0
-11,AIAN_NH,District of Columbia,Indigenous (NH),8.0,0.0,11.0
-11,ALL,District of Columbia,All,47.0,4.0,8481.0
-11,API_NH,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",26.0,,
-11,BLACK_NH,District of Columbia,Black or African American (NH),107.0,4.0,4131.0
-11,HISP,District of Columbia,Hispanic or Latino,6.0,0.0,1354.0
-11,WHITE_NH,District of Columbia,White (NH),9.0,0.0,2985.0
-12,AIAN_NH,Florida,Indigenous (NH),63.0,0.0,234.0
-12,ALL,Florida,All,37.0,78.0,209788.0
-12,API_NH,Florida,"Asian, Native Hawaiian, and Pacific Islander (NH)",30.0,,
-12,BLACK_NH,Florida,Black or African American (NH),66.0,32.0,47730.0
-12,HISP,Florida,Hispanic or Latino,19.0,13.0,68234.0
-12,WHITE_NH,Florida,White (NH),35.0,33.0,93590.0
-13,AIAN_NH,Georgia,Indigenous (NH),76.0,0.0,87.0
-13,ALL,Georgia,All,60.0,70.0,117073.0
-13,API_NH,Georgia,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
-13,BLACK_NH,Georgia,Black or African American (NH),101.0,44.0,43710.0
-13,HISP,Georgia,Hispanic or Latino,22.0,4.0,18426.0
-13,WHITE_NH,Georgia,White (NH),40.0,22.0,54850.0
-15,AIAN_NH,Hawaii,Indigenous (NH),15.0,0.0,27.0
-15,ALL,Hawaii,All,16.0,1.0,6256.0
-15,API_NH,Hawaii,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
-15,BLACK_NH,Hawaii,Black or African American (NH),4.0,0.0,429.0
-15,HISP,Hawaii,Hispanic or Latino,14.0,0.0,2577.0
-15,WHITE_NH,Hawaii,White (NH),19.0,1.0,3223.0
-16,AIAN_NH,Idaho,Indigenous (NH),286.0,1.0,219.0
-16,ALL,Idaho,All,28.0,6.0,21135.0
-16,API_NH,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0,,
-16,BLACK_NH,Idaho,Black or African American (NH),74.0,0.0,261.0
-16,HISP,Idaho,Hispanic or Latino,22.0,1.0,3696.0
-16,WHITE_NH,Idaho,White (NH),24.0,4.0,16959.0
-17,AIAN_NH,Illinois,Indigenous (NH),11.0,0.0,79.0
-17,ALL,Illinois,All,19.0,24.0,127868.0
-17,API_NH,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,,
-17,BLACK_NH,Illinois,Black or African American (NH),22.0,5.0,23258.0
-17,HISP,Illinois,Hispanic or Latino,12.0,4.0,30097.0
-17,WHITE_NH,Illinois,White (NH),20.0,15.0,74434.0
-18,AIAN_NH,Indiana,Indigenous (NH),89.0,0.0,57.0
-18,ALL,Indiana,All,40.0,31.0,76937.0
-18,API_NH,Indiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0,,
-18,BLACK_NH,Indiana,Black or African American (NH),39.0,4.0,10249.0
-18,HISP,Indiana,Hispanic or Latino,20.0,2.0,8420.0
-18,WHITE_NH,Indiana,White (NH),43.0,25.0,58211.0
-19,AIAN_NH,Iowa,Indigenous (NH),139.0,0.0,150.0
-19,ALL,Iowa,All,20.0,7.0,35722.0
-19,API_NH,Iowa,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0,,
-19,BLACK_NH,Iowa,Black or African American (NH),24.0,1.0,2827.0
-19,HISP,Iowa,Hispanic or Latino,22.0,1.0,3695.0
-19,WHITE_NH,Iowa,White (NH),18.0,5.0,29050.0
-20,AIAN_NH,Kansas,Indigenous (NH),55.0,0.0,150.0
-20,ALL,Kansas,All,33.0,11.0,33228.0
-20,API_NH,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,,
-20,BLACK_NH,Kansas,Black or African American (NH),92.0,2.0,2458.0
-20,HISP,Kansas,Hispanic or Latino,19.0,1.0,6071.0
-20,WHITE_NH,Kansas,White (NH),33.0,8.0,24549.0
-21,AIAN_NH,Kentucky,Indigenous (NH),8.0,0.0,50.0
-21,ALL,Kentucky,All,45.0,23.0,50749.0
-21,API_NH,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0,,
-21,BLACK_NH,Kentucky,Black or African American (NH),75.0,4.0,5034.0
-21,HISP,Kentucky,Hispanic or Latino,11.0,0.0,3450.0
-21,WHITE_NH,Kentucky,White (NH),44.0,19.0,42215.0
-22,AIAN_NH,Louisiana,Indigenous (NH),53.0,0.0,249.0
-22,ALL,Louisiana,All,46.0,26.0,56977.0
-22,API_NH,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",35.0,,
-22,BLACK_NH,Louisiana,Black or African American (NH),71.0,16.0,22106.0
-22,HISP,Louisiana,Hispanic or Latino,19.0,1.0,4994.0
-22,WHITE_NH,Louisiana,White (NH),32.0,9.0,29628.0
-23,AIAN_NH,Maine,Indigenous (NH),6.0,0.0,91.0
-23,ALL,Maine,All,9.0,1.0,11276.0
-23,API_NH,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0,,
-23,BLACK_NH,Maine,Black or African American (NH),60.0,0.0,541.0
-23,HISP,Maine,Hispanic or Latino,6.0,0.0,243.0
-23,WHITE_NH,Maine,White (NH),13.0,1.0,10401.0
-24,AIAN_NH,Maryland,Indigenous (NH),8.0,0.0,75.0
-24,ALL,Maryland,All,36.0,23.0,63287.0
-24,API_NH,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,,
-24,BLACK_NH,Maryland,Black or African American (NH),61.0,13.0,21494.0
-24,HISP,Maryland,Hispanic or Latino,17.0,2.0,12872.0
-24,WHITE_NH,Maryland,White (NH),29.0,8.0,28846.0
-25,AIAN_NH,Massachusetts,Indigenous (NH),133.0,0.0,79.0
-25,ALL,Massachusetts,All,15.0,9.0,60282.0
-25,API_NH,Massachusetts,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0,,
-25,BLACK_NH,Massachusetts,Black or African American (NH),24.0,2.0,6850.0
-25,HISP,Massachusetts,Hispanic or Latino,16.0,2.0,14134.0
-25,WHITE_NH,Massachusetts,White (NH),13.0,5.0,39219.0
-26,AIAN_NH,Michigan,Indigenous (NH),96.0,0.0,400.0
-26,ALL,Michigan,All,35.0,35.0,100912.0
-26,API_NH,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0,,
-26,BLACK_NH,Michigan,Black or African American (NH),55.0,11.0,20370.0
-26,HISP,Michigan,Hispanic or Latino,23.0,2.0,7117.0
-26,WHITE_NH,Michigan,White (NH),30.0,22.0,73025.0
-27,AIAN_NH,Minnesota,Indigenous (NH),78.0,1.0,944.0
-27,ALL,Minnesota,All,19.0,11.0,58919.0
-27,API_NH,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0,,
-27,BLACK_NH,Minnesota,Black or African American (NH),25.0,2.0,8253.0
-27,HISP,Minnesota,Hispanic or Latino,10.0,1.0,5129.0
-27,WHITE_NH,Minnesota,White (NH),16.0,7.0,44593.0
-28,AIAN_NH,Mississippi,Indigenous (NH),8.0,0.0,225.0
-28,ALL,Mississippi,All,61.0,22.0,35860.0
-28,API_NH,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0,,
-28,BLACK_NH,Mississippi,Black or African American (NH),97.0,15.0,15706.0
-28,HISP,Mississippi,Hispanic or Latino,26.0,0.0,1700.0
-28,WHITE_NH,Mississippi,White (NH),37.0,7.0,18229.0
-29,AIAN_NH,Missouri,Indigenous (NH),65.0,0.0,145.0
-29,ALL,Missouri,All,27.0,18.0,67555.0
-29,API_NH,Missouri,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0,,
-29,BLACK_NH,Missouri,Black or African American (NH),38.0,4.0,10501.0
-29,HISP,Missouri,Hispanic or Latino,30.0,1.0,4386.0
-29,WHITE_NH,Missouri,White (NH),24.0,13.0,52523.0
-30,AIAN_NH,Montana,Indigenous (NH),85.0,1.0,1120.0
-30,ALL,Montana,All,38.0,4.0,10586.0
-30,API_NH,Montana,"Asian, Native Hawaiian, and Pacific Islander (NH)",53.0,,
-30,BLACK_NH,Montana,Black or African American (NH),95.0,0.0,61.0
-30,HISP,Montana,Hispanic or Latino,11.0,0.0,605.0
-30,WHITE_NH,Montana,White (NH),32.0,3.0,8800.0
-31,AIAN_NH,Nebraska,Indigenous (NH),180.0,1.0,323.0
-31,ALL,Nebraska,All,30.0,7.0,23252.0
-31,API_NH,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0,,
-31,BLACK_NH,Nebraska,Black or African American (NH),30.0,0.0,1654.0
-31,HISP,Nebraska,Hispanic or Latino,16.0,1.0,4345.0
-31,WHITE_NH,Nebraska,White (NH),32.0,5.0,16930.0
-32,AIAN_NH,Nevada,Indigenous (NH),59.0,0.0,277.0
-32,ALL,Nevada,All,16.0,5.0,30508.0
-32,API_NH,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0,,
-32,BLACK_NH,Nevada,Black or African American (NH),30.0,1.0,4514.0
-32,HISP,Nevada,Hispanic or Latino,11.0,1.0,13238.0
-32,WHITE_NH,Nevada,White (NH),24.0,3.0,12479.0
-33,AIAN_NH,New Hampshire,Indigenous (NH),270.0,0.0,11.0
-33,ALL,New Hampshire,All,18.0,2.0,11109.0
-33,API_NH,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0,,
-33,BLACK_NH,New Hampshire,Black or African American (NH),33.0,0.0,255.0
-33,HISP,New Hampshire,Hispanic or Latino,3.0,0.0,764.0
-33,WHITE_NH,New Hampshire,White (NH),19.0,2.0,10079.0
-34,AIAN_NH,New Jersey,Indigenous (NH),49.0,0.0,66.0
-34,ALL,New Jersey,All,43.0,37.0,86271.0
-34,API_NH,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0,,
-34,BLACK_NH,New Jersey,Black or African American (NH),120.0,16.0,13394.0
-34,HISP,New Jersey,Hispanic or Latino,41.0,11.0,27443.0
-34,WHITE_NH,New Jersey,White (NH),21.0,10.0,45368.0
-35,AIAN_NH,New Mexico,Indigenous (NH),35.0,1.0,2633.0
-35,ALL,New Mexico,All,27.0,6.0,22121.0
-35,API_NH,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0,,
-35,BLACK_NH,New Mexico,Black or African American (NH),58.0,0.0,355.0
-35,HISP,New Mexico,Hispanic or Latino,25.0,3.0,12915.0
-35,WHITE_NH,New Mexico,White (NH),40.0,2.0,6218.0
-36,AIAN_NH,New York,Indigenous (NH),14.0,0.0,370.0
-36,ALL,New York,All,42.0,81.0,192049.0
-36,API_NH,New York,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0,,
-36,BLACK_NH,New York,Black or African American (NH),110.0,35.0,32075.0
-36,HISP,New York,Hispanic or Latino,32.0,16.0,50323.0
-36,WHITE_NH,New York,White (NH),27.0,30.0,109281.0
-37,AIAN_NH,North Carolina,Indigenous (NH),43.0,1.0,1445.0
-37,ALL,North Carolina,All,39.0,43.0,110488.0
-37,API_NH,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0,,
-37,BLACK_NH,North Carolina,Black or African American (NH),74.0,21.0,27733.0
-37,HISP,North Carolina,Hispanic or Latino,19.0,4.0,19105.0
-37,WHITE_NH,North Carolina,White (NH),28.0,17.0,62205.0
-38,AIAN_NH,North Dakota,Indigenous (NH),104.0,1.0,785.0
-38,ALL,North Dakota,All,31.0,3.0,9654.0
-38,API_NH,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,,
-38,BLACK_NH,North Dakota,Black or African American (NH),13.0,0.0,651.0
-38,HISP,North Dakota,Hispanic or Latino,29.0,0.0,651.0
-38,WHITE_NH,North Dakota,White (NH),22.0,2.0,7567.0
-39,AIAN_NH,Ohio,Indigenous (NH),11.0,0.0,101.0
-39,ALL,Ohio,All,37.0,47.0,126002.0
-39,API_NH,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0,,
-39,BLACK_NH,Ohio,Black or African American (NH),60.0,14.0,22555.0
-39,HISP,Ohio,Hispanic or Latino,11.0,1.0,7725.0
-39,WHITE_NH,Ohio,White (NH),33.0,32.0,95621.0
-40,AIAN_NH,Oklahoma,Indigenous (NH),32.0,1.0,4662.0
-40,ALL,Oklahoma,All,36.0,16.0,43903.0
-40,API_NH,Oklahoma,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0,,
-40,BLACK_NH,Oklahoma,Black or African American (NH),61.0,3.0,4101.0
-40,HISP,Oklahoma,Hispanic or Latino,30.0,2.0,7713.0
-40,WHITE_NH,Oklahoma,White (NH),36.0,10.0,27427.0
-41,AIAN_NH,Oregon,Indigenous (NH),25.0,0.0,402.0
-41,ALL,Oregon,All,16.0,6.0,37228.0
-41,API_NH,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0,,
-41,BLACK_NH,Oregon,Black or African American (NH),28.0,0.0,1007.0
-41,HISP,Oregon,Hispanic or Latino,14.0,1.0,8180.0
-41,WHITE_NH,Oregon,White (NH),19.0,5.0,27639.0
-42,AIAN_NH,Pennsylvania,Indigenous (NH),25.0,0.0,77.0
-42,ALL,Pennsylvania,All,32.0,40.0,123090.0
-42,API_NH,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0,,
-42,BLACK_NH,Pennsylvania,Black or African American (NH),72.0,13.0,17585.0
-42,HISP,Pennsylvania,Hispanic or Latino,25.0,4.0,16718.0
-42,WHITE_NH,Pennsylvania,White (NH),26.0,23.0,88710.0
-44,AIAN_NH,Rhode Island,Indigenous (NH),11.0,0.0,42.0
-44,ALL,Rhode Island,All,21.0,2.0,9363.0
-44,API_NH,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,
-44,BLACK_NH,Rhode Island,Black or African American (NH),22.0,0.0,836.0
-44,HISP,Rhode Island,Hispanic or Latino,23.0,1.0,2921.0
-44,WHITE_NH,Rhode Island,White (NH),26.0,1.0,5564.0
-45,AIAN_NH,South Carolina,Indigenous (NH),57.0,0.0,118.0
-45,ALL,South Carolina,All,46.0,25.0,54321.0
-45,API_NH,South Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",37.0,,
-45,BLACK_NH,South Carolina,Black or African American (NH),75.0,13.0,16802.0
-45,HISP,South Carolina,Hispanic or Latino,16.0,1.0,5741.0
-45,WHITE_NH,South Carolina,White (NH),35.0,11.0,31660.0
-46,AIAN_NH,South Dakota,Indigenous (NH),130.0,2.0,1606.0
-46,ALL,South Dakota,All,37.0,4.0,10804.0
-46,API_NH,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",43.0,,
-46,BLACK_NH,South Dakota,Black or African American (NH),45.0,0.0,416.0
-46,HISP,South Dakota,Hispanic or Latino,25.0,0.0,628.0
-46,WHITE_NH,South Dakota,White (NH),22.0,2.0,8154.0
-47,AIAN_NH,Tennessee,Indigenous (NH),87.0,0.0,92.0
-47,ALL,Tennessee,All,37.0,28.0,76688.0
-47,API_NH,Tennessee,"Asian, Native Hawaiian, and Pacific Islander (NH)",65.0,,
-47,BLACK_NH,Tennessee,Black or African American (NH),76.0,12.0,15972.0
-47,HISP,Tennessee,Hispanic or Latino,32.0,3.0,8437.0
-47,WHITE_NH,Tennessee,White (NH),25.0,13.0,52187.0
-48,AIAN_NH,Texas,Indigenous (NH),24.0,0.0,689.0
-48,ALL,Texas,All,29.0,103.0,352382.0
-48,API_NH,Texas,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,,
-48,BLACK_NH,Texas,Black or African American (NH),54.0,26.0,47326.0
-48,HISP,Texas,Hispanic or Latino,22.0,40.0,179689.0
-48,WHITE_NH,Texas,White (NH),30.0,37.0,124678.0
-49,AIAN_NH,Utah,Indigenous (NH),301.0,1.0,357.0
-49,ALL,Utah,All,28.0,12.0,42439.0
-49,API_NH,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0,,
-49,BLACK_NH,Utah,Black or African American (NH),34.0,0.0,580.0
-49,HISP,Utah,Hispanic or Latino,18.0,1.0,8139.0
-49,WHITE_NH,Utah,White (NH),29.0,10.0,33363.0
-50,AIAN_NH,Vermont,Indigenous (NH),5.0,0.0,10.0
-50,ALL,Vermont,All,20.0,1.0,5117.0
-50,API_NH,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
-50,BLACK_NH,Vermont,Black or African American (NH),6.0,0.0,133.0
-50,HISP,Vermont,Hispanic or Latino,7.0,0.0,118.0
-50,WHITE_NH,Vermont,White (NH),21.0,1.0,4856.0
-51,AIAN_NH,Virginia,Indigenous (NH),49.0,0.0,144.0
-51,ALL,Virginia,All,32.0,28.0,87922.0
-51,API_NH,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0,,
-51,BLACK_NH,Virginia,Black or African American (NH),63.0,13.0,20339.0
-51,HISP,Virginia,Hispanic or Latino,24.0,3.0,14442.0
-51,WHITE_NH,Virginia,White (NH),22.0,12.0,52997.0
-53,AIAN_NH,Washington,Indigenous (NH),194.0,2.0,1018.0
-53,ALL,Washington,All,32.0,22.0,68427.0
-53,API_NH,Washington,"Asian, Native Hawaiian, and Pacific Islander (NH)",40.0,,
-53,BLACK_NH,Washington,Black or African American (NH),45.0,2.0,3813.0
-53,HISP,Washington,Hispanic or Latino,20.0,3.0,16161.0
-53,WHITE_NH,Washington,White (NH),32.0,15.0,47435.0
-54,AIAN_NH,West Virginia,Indigenous (NH),20.0,,
-54,ALL,West Virginia,All,40.0,7.0,17475.0
-54,API_NH,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0,,
-54,BLACK_NH,West Virginia,Black or African American (NH),53.0,0.0,620.0
-54,HISP,West Virginia,Hispanic or Latino,6.0,0.0,379.0
-54,WHITE_NH,West Virginia,White (NH),42.0,7.0,16476.0
-55,AIAN_NH,Wisconsin,Indigenous (NH),27.0,0.0,632.0
-55,ALL,Wisconsin,All,22.0,13.0,58733.0
-55,API_NH,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0,,
-55,BLACK_NH,Wisconsin,Black or African American (NH),40.0,3.0,6859.0
-55,HISP,Wisconsin,Hispanic or Latino,8.0,1.0,6458.0
-55,WHITE_NH,Wisconsin,White (NH),19.0,9.0,44784.0
-56,AIAN_NH,Wyoming,Indigenous (NH),100.0,0.0,191.0
-56,ALL,Wyoming,All,32.0,2.0,6235.0
-56,API_NH,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",88.0,,
-56,BLACK_NH,Wyoming,Black or African American (NH),15.0,0.0,61.0
-56,HISP,Wyoming,Hispanic or Latino,25.0,0.0,825.0
-56,WHITE_NH,Wyoming,White (NH),47.0,2.0,5158.0
+state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_deaths_estimated_total,live_births_estimated_total
+01,Alabama,Indigenous (NH),4.0,0.0,151.0
+01,Alabama,All,55.0,31.0,56652.0
+01,Alabama,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0,,
+01,Alabama,Black or African American (NH),78.0,14.0,18197.0
+01,Alabama,Hispanic or Latino,16.0,1.0,4910.0
+01,Alabama,White (NH),47.0,16.0,33394.0
+02,Alaska,Indigenous (NH),59.0,1.0,1885.0
+02,Alaska,All,26.0,2.0,7821.0
+02,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0,,
+02,Alaska,Black or African American (NH),33.0,0.0,290.0
+02,Alaska,Hispanic or Latino,9.0,0.0,787.0
+02,Alaska,White (NH),26.0,1.0,4859.0
+04,Arizona,Indigenous (NH),93.0,4.0,3911.0
+04,Arizona,All,39.0,29.0,74032.0
+04,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
+04,Arizona,Black or African American (NH),123.0,6.0,4542.0
+04,Arizona,Hispanic or Latino,32.0,11.0,33639.0
+04,Arizona,White (NH),25.0,8.0,31940.0
+05,Arkansas,Indigenous (NH),4.0,0.0,191.0
+05,Arkansas,All,50.0,17.0,34342.0
+05,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",39.0,,
+05,Arkansas,Black or African American (NH),89.0,6.0,6998.0
+05,Arkansas,Hispanic or Latino,29.0,1.0,4088.0
+05,Arkansas,White (NH),45.0,10.0,23065.0
+06,California,Indigenous (NH),40.0,1.0,1458.0
+06,California,All,18.0,64.0,348904.0
+06,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,,
+06,California,Black or African American (NH),49.0,11.0,22374.0
+06,California,Hispanic or Latino,15.0,31.0,203996.0
+06,California,White (NH),17.0,21.0,121076.0
+08,Colorado,Indigenous (NH),33.0,0.0,365.0
+08,Colorado,All,21.0,12.0,57636.0
+08,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0,,
+08,Colorado,Black or African American (NH),29.0,1.0,3044.0
+08,Colorado,Hispanic or Latino,30.0,5.0,18205.0
+08,Colorado,White (NH),16.0,6.0,36022.0
+09,Connecticut,Indigenous (NH),10.0,0.0,24.0
+09,Connecticut,All,26.0,8.0,31330.0
+09,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0,,
+09,Connecticut,Black or African American (NH),51.0,2.0,4221.0
+09,Connecticut,Hispanic or Latino,22.0,2.0,8719.0
+09,Connecticut,White (NH),23.0,4.0,18366.0
+10,Delaware,Indigenous (NH),16.0,0.0,14.0
+10,Delaware,All,31.0,3.0,9579.0
+10,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0,,
+10,Delaware,Black or African American (NH),57.0,2.0,2804.0
+10,Delaware,Hispanic or Latino,2.0,0.0,1737.0
+10,Delaware,White (NH),18.0,1.0,5024.0
+11,District of Columbia,Indigenous (NH),8.0,0.0,11.0
+11,District of Columbia,All,47.0,4.0,8481.0
+11,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",26.0,,
+11,District of Columbia,Black or African American (NH),107.0,4.0,4131.0
+11,District of Columbia,Hispanic or Latino,6.0,0.0,1354.0
+11,District of Columbia,White (NH),9.0,0.0,2985.0
+12,Florida,Indigenous (NH),63.0,0.0,234.0
+12,Florida,All,37.0,78.0,209788.0
+12,Florida,"Asian, Native Hawaiian, and Pacific Islander (NH)",30.0,,
+12,Florida,Black or African American (NH),66.0,32.0,47730.0
+12,Florida,Hispanic or Latino,19.0,13.0,68234.0
+12,Florida,White (NH),35.0,33.0,93590.0
+13,Georgia,Indigenous (NH),76.0,0.0,87.0
+13,Georgia,All,60.0,70.0,117073.0
+13,Georgia,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
+13,Georgia,Black or African American (NH),101.0,44.0,43710.0
+13,Georgia,Hispanic or Latino,22.0,4.0,18426.0
+13,Georgia,White (NH),40.0,22.0,54850.0
+15,Hawaii,Indigenous (NH),15.0,0.0,27.0
+15,Hawaii,All,16.0,1.0,6256.0
+15,Hawaii,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
+15,Hawaii,Black or African American (NH),4.0,0.0,429.0
+15,Hawaii,Hispanic or Latino,14.0,0.0,2577.0
+15,Hawaii,White (NH),19.0,1.0,3223.0
+16,Idaho,Indigenous (NH),286.0,1.0,219.0
+16,Idaho,All,28.0,6.0,21135.0
+16,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0,,
+16,Idaho,Black or African American (NH),74.0,0.0,261.0
+16,Idaho,Hispanic or Latino,22.0,1.0,3696.0
+16,Idaho,White (NH),24.0,4.0,16959.0
+17,Illinois,Indigenous (NH),11.0,0.0,79.0
+17,Illinois,All,19.0,24.0,127868.0
+17,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,,
+17,Illinois,Black or African American (NH),22.0,5.0,23258.0
+17,Illinois,Hispanic or Latino,12.0,4.0,30097.0
+17,Illinois,White (NH),20.0,15.0,74434.0
+18,Indiana,Indigenous (NH),89.0,0.0,57.0
+18,Indiana,All,40.0,31.0,76937.0
+18,Indiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0,,
+18,Indiana,Black or African American (NH),39.0,4.0,10249.0
+18,Indiana,Hispanic or Latino,20.0,2.0,8420.0
+18,Indiana,White (NH),43.0,25.0,58211.0
+19,Iowa,Indigenous (NH),139.0,0.0,150.0
+19,Iowa,All,20.0,7.0,35722.0
+19,Iowa,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0,,
+19,Iowa,Black or African American (NH),24.0,1.0,2827.0
+19,Iowa,Hispanic or Latino,22.0,1.0,3695.0
+19,Iowa,White (NH),18.0,5.0,29050.0
+20,Kansas,Indigenous (NH),55.0,0.0,150.0
+20,Kansas,All,33.0,11.0,33228.0
+20,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,,
+20,Kansas,Black or African American (NH),92.0,2.0,2458.0
+20,Kansas,Hispanic or Latino,19.0,1.0,6071.0
+20,Kansas,White (NH),33.0,8.0,24549.0
+21,Kentucky,Indigenous (NH),8.0,0.0,50.0
+21,Kentucky,All,45.0,23.0,50749.0
+21,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0,,
+21,Kentucky,Black or African American (NH),75.0,4.0,5034.0
+21,Kentucky,Hispanic or Latino,11.0,0.0,3450.0
+21,Kentucky,White (NH),44.0,19.0,42215.0
+22,Louisiana,Indigenous (NH),53.0,0.0,249.0
+22,Louisiana,All,46.0,26.0,56977.0
+22,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",35.0,,
+22,Louisiana,Black or African American (NH),71.0,16.0,22106.0
+22,Louisiana,Hispanic or Latino,19.0,1.0,4994.0
+22,Louisiana,White (NH),32.0,9.0,29628.0
+23,Maine,Indigenous (NH),6.0,0.0,91.0
+23,Maine,All,9.0,1.0,11276.0
+23,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0,,
+23,Maine,Black or African American (NH),60.0,0.0,541.0
+23,Maine,Hispanic or Latino,6.0,0.0,243.0
+23,Maine,White (NH),13.0,1.0,10401.0
+24,Maryland,Indigenous (NH),8.0,0.0,75.0
+24,Maryland,All,36.0,23.0,63287.0
+24,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,,
+24,Maryland,Black or African American (NH),61.0,13.0,21494.0
+24,Maryland,Hispanic or Latino,17.0,2.0,12872.0
+24,Maryland,White (NH),29.0,8.0,28846.0
+25,Massachusetts,Indigenous (NH),133.0,0.0,79.0
+25,Massachusetts,All,15.0,9.0,60282.0
+25,Massachusetts,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0,,
+25,Massachusetts,Black or African American (NH),24.0,2.0,6850.0
+25,Massachusetts,Hispanic or Latino,16.0,2.0,14134.0
+25,Massachusetts,White (NH),13.0,5.0,39219.0
+26,Michigan,Indigenous (NH),96.0,0.0,400.0
+26,Michigan,All,35.0,35.0,100912.0
+26,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0,,
+26,Michigan,Black or African American (NH),55.0,11.0,20370.0
+26,Michigan,Hispanic or Latino,23.0,2.0,7117.0
+26,Michigan,White (NH),30.0,22.0,73025.0
+27,Minnesota,Indigenous (NH),78.0,1.0,944.0
+27,Minnesota,All,19.0,11.0,58919.0
+27,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0,,
+27,Minnesota,Black or African American (NH),25.0,2.0,8253.0
+27,Minnesota,Hispanic or Latino,10.0,1.0,5129.0
+27,Minnesota,White (NH),16.0,7.0,44593.0
+28,Mississippi,Indigenous (NH),8.0,0.0,225.0
+28,Mississippi,All,61.0,22.0,35860.0
+28,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0,,
+28,Mississippi,Black or African American (NH),97.0,15.0,15706.0
+28,Mississippi,Hispanic or Latino,26.0,0.0,1700.0
+28,Mississippi,White (NH),37.0,7.0,18229.0
+29,Missouri,Indigenous (NH),65.0,0.0,145.0
+29,Missouri,All,27.0,18.0,67555.0
+29,Missouri,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0,,
+29,Missouri,Black or African American (NH),38.0,4.0,10501.0
+29,Missouri,Hispanic or Latino,30.0,1.0,4386.0
+29,Missouri,White (NH),24.0,13.0,52523.0
+30,Montana,Indigenous (NH),85.0,1.0,1120.0
+30,Montana,All,38.0,4.0,10586.0
+30,Montana,"Asian, Native Hawaiian, and Pacific Islander (NH)",53.0,,
+30,Montana,Black or African American (NH),95.0,0.0,61.0
+30,Montana,Hispanic or Latino,11.0,0.0,605.0
+30,Montana,White (NH),32.0,3.0,8800.0
+31,Nebraska,Indigenous (NH),180.0,1.0,323.0
+31,Nebraska,All,30.0,7.0,23252.0
+31,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0,,
+31,Nebraska,Black or African American (NH),30.0,0.0,1654.0
+31,Nebraska,Hispanic or Latino,16.0,1.0,4345.0
+31,Nebraska,White (NH),32.0,5.0,16930.0
+32,Nevada,Indigenous (NH),59.0,0.0,277.0
+32,Nevada,All,16.0,5.0,30508.0
+32,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0,,
+32,Nevada,Black or African American (NH),30.0,1.0,4514.0
+32,Nevada,Hispanic or Latino,11.0,1.0,13238.0
+32,Nevada,White (NH),24.0,3.0,12479.0
+33,New Hampshire,Indigenous (NH),270.0,0.0,11.0
+33,New Hampshire,All,18.0,2.0,11109.0
+33,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0,,
+33,New Hampshire,Black or African American (NH),33.0,0.0,255.0
+33,New Hampshire,Hispanic or Latino,3.0,0.0,764.0
+33,New Hampshire,White (NH),19.0,2.0,10079.0
+34,New Jersey,Indigenous (NH),49.0,0.0,66.0
+34,New Jersey,All,43.0,37.0,86271.0
+34,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0,,
+34,New Jersey,Black or African American (NH),120.0,16.0,13394.0
+34,New Jersey,Hispanic or Latino,41.0,11.0,27443.0
+34,New Jersey,White (NH),21.0,10.0,45368.0
+35,New Mexico,Indigenous (NH),35.0,1.0,2633.0
+35,New Mexico,All,27.0,6.0,22121.0
+35,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0,,
+35,New Mexico,Black or African American (NH),58.0,0.0,355.0
+35,New Mexico,Hispanic or Latino,25.0,3.0,12915.0
+35,New Mexico,White (NH),40.0,2.0,6218.0
+36,New York,Indigenous (NH),14.0,0.0,370.0
+36,New York,All,42.0,81.0,192049.0
+36,New York,"Asian, Native Hawaiian, and Pacific Islander (NH)",12.0,,
+36,New York,Black or African American (NH),110.0,35.0,32075.0
+36,New York,Hispanic or Latino,32.0,16.0,50323.0
+36,New York,White (NH),27.0,30.0,109281.0
+37,North Carolina,Indigenous (NH),43.0,1.0,1445.0
+37,North Carolina,All,39.0,43.0,110488.0
+37,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0,,
+37,North Carolina,Black or African American (NH),74.0,21.0,27733.0
+37,North Carolina,Hispanic or Latino,19.0,4.0,19105.0
+37,North Carolina,White (NH),28.0,17.0,62205.0
+38,North Dakota,Indigenous (NH),104.0,1.0,785.0
+38,North Dakota,All,31.0,3.0,9654.0
+38,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,,
+38,North Dakota,Black or African American (NH),13.0,0.0,651.0
+38,North Dakota,Hispanic or Latino,29.0,0.0,651.0
+38,North Dakota,White (NH),22.0,2.0,7567.0
+39,Ohio,Indigenous (NH),11.0,0.0,101.0
+39,Ohio,All,37.0,47.0,126002.0
+39,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0,,
+39,Ohio,Black or African American (NH),60.0,14.0,22555.0
+39,Ohio,Hispanic or Latino,11.0,1.0,7725.0
+39,Ohio,White (NH),33.0,32.0,95621.0
+40,Oklahoma,Indigenous (NH),32.0,1.0,4662.0
+40,Oklahoma,All,36.0,16.0,43903.0
+40,Oklahoma,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0,,
+40,Oklahoma,Black or African American (NH),61.0,3.0,4101.0
+40,Oklahoma,Hispanic or Latino,30.0,2.0,7713.0
+40,Oklahoma,White (NH),36.0,10.0,27427.0
+41,Oregon,Indigenous (NH),25.0,0.0,402.0
+41,Oregon,All,16.0,6.0,37228.0
+41,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0,,
+41,Oregon,Black or African American (NH),28.0,0.0,1007.0
+41,Oregon,Hispanic or Latino,14.0,1.0,8180.0
+41,Oregon,White (NH),19.0,5.0,27639.0
+42,Pennsylvania,Indigenous (NH),25.0,0.0,77.0
+42,Pennsylvania,All,32.0,40.0,123090.0
+42,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0,,
+42,Pennsylvania,Black or African American (NH),72.0,13.0,17585.0
+42,Pennsylvania,Hispanic or Latino,25.0,4.0,16718.0
+42,Pennsylvania,White (NH),26.0,23.0,88710.0
+44,Rhode Island,Indigenous (NH),11.0,0.0,42.0
+44,Rhode Island,All,21.0,2.0,9363.0
+44,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,,
+44,Rhode Island,Black or African American (NH),22.0,0.0,836.0
+44,Rhode Island,Hispanic or Latino,23.0,1.0,2921.0
+44,Rhode Island,White (NH),26.0,1.0,5564.0
+45,South Carolina,Indigenous (NH),57.0,0.0,118.0
+45,South Carolina,All,46.0,25.0,54321.0
+45,South Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",37.0,,
+45,South Carolina,Black or African American (NH),75.0,13.0,16802.0
+45,South Carolina,Hispanic or Latino,16.0,1.0,5741.0
+45,South Carolina,White (NH),35.0,11.0,31660.0
+46,South Dakota,Indigenous (NH),130.0,2.0,1606.0
+46,South Dakota,All,37.0,4.0,10804.0
+46,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",43.0,,
+46,South Dakota,Black or African American (NH),45.0,0.0,416.0
+46,South Dakota,Hispanic or Latino,25.0,0.0,628.0
+46,South Dakota,White (NH),22.0,2.0,8154.0
+47,Tennessee,Indigenous (NH),87.0,0.0,92.0
+47,Tennessee,All,37.0,28.0,76688.0
+47,Tennessee,"Asian, Native Hawaiian, and Pacific Islander (NH)",65.0,,
+47,Tennessee,Black or African American (NH),76.0,12.0,15972.0
+47,Tennessee,Hispanic or Latino,32.0,3.0,8437.0
+47,Tennessee,White (NH),25.0,13.0,52187.0
+48,Texas,Indigenous (NH),24.0,0.0,689.0
+48,Texas,All,29.0,103.0,352382.0
+48,Texas,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,,
+48,Texas,Black or African American (NH),54.0,26.0,47326.0
+48,Texas,Hispanic or Latino,22.0,40.0,179689.0
+48,Texas,White (NH),30.0,37.0,124678.0
+49,Utah,Indigenous (NH),301.0,1.0,357.0
+49,Utah,All,28.0,12.0,42439.0
+49,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0,,
+49,Utah,Black or African American (NH),34.0,0.0,580.0
+49,Utah,Hispanic or Latino,18.0,1.0,8139.0
+49,Utah,White (NH),29.0,10.0,33363.0
+50,Vermont,Indigenous (NH),5.0,0.0,10.0
+50,Vermont,All,20.0,1.0,5117.0
+50,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,,
+50,Vermont,Black or African American (NH),6.0,0.0,133.0
+50,Vermont,Hispanic or Latino,7.0,0.0,118.0
+50,Vermont,White (NH),21.0,1.0,4856.0
+51,Virginia,Indigenous (NH),49.0,0.0,144.0
+51,Virginia,All,32.0,28.0,87922.0
+51,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0,,
+51,Virginia,Black or African American (NH),63.0,13.0,20339.0
+51,Virginia,Hispanic or Latino,24.0,3.0,14442.0
+51,Virginia,White (NH),22.0,12.0,52997.0
+53,Washington,Indigenous (NH),194.0,2.0,1018.0
+53,Washington,All,32.0,22.0,68427.0
+53,Washington,"Asian, Native Hawaiian, and Pacific Islander (NH)",40.0,,
+53,Washington,Black or African American (NH),45.0,2.0,3813.0
+53,Washington,Hispanic or Latino,20.0,3.0,16161.0
+53,Washington,White (NH),32.0,15.0,47435.0
+54,West Virginia,Indigenous (NH),20.0,,
+54,West Virginia,All,40.0,7.0,17475.0
+54,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0,,
+54,West Virginia,Black or African American (NH),53.0,0.0,620.0
+54,West Virginia,Hispanic or Latino,6.0,0.0,379.0
+54,West Virginia,White (NH),42.0,7.0,16476.0
+55,Wisconsin,Indigenous (NH),27.0,0.0,632.0
+55,Wisconsin,All,22.0,13.0,58733.0
+55,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0,,
+55,Wisconsin,Black or African American (NH),40.0,3.0,6859.0
+55,Wisconsin,Hispanic or Latino,8.0,1.0,6458.0
+55,Wisconsin,White (NH),19.0,9.0,44784.0
+56,Wyoming,Indigenous (NH),100.0,0.0,191.0
+56,Wyoming,All,32.0,2.0,6235.0
+56,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",88.0,,
+56,Wyoming,Black or African American (NH),15.0,0.0,61.0
+56,Wyoming,Hispanic or Latino,25.0,0.0,825.0
+56,Wyoming,White (NH),47.0,2.0,5158.0
