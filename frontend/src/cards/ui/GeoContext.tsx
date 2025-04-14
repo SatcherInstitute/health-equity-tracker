@@ -15,6 +15,7 @@ interface GeoContextProps {
   totalPopulationPhrase: string
   subPopulationPhrase: string
   sviQueryResponse: MetricQueryResponse | null
+  isAtlantaMode?: boolean
 }
 
 const HASH_ID: ScrollableHashId = 'rate-map'
@@ -30,7 +31,10 @@ export default function GeoContext(props: GeoContextProps) {
         ariaLabel={props.dataTypeConfig.fullDisplayName}
         scrollToHashId={HASH_ID}
         totalPopulationPhrase={props.totalPopulationPhrase}
-        subPopulationPhrase={props.subPopulationPhrase}
+        subPopulationPhrase={
+          props.isAtlantaMode ? '' : props.subPopulationPhrase
+        }
+        isAtlantaMode={props.isAtlantaMode}
       />
       <div className='md:flex md:items-center'>
         {props.fips.isCounty() && (

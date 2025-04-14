@@ -209,8 +209,13 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
                 scrollToHashId={'rate-map'}
-                totalPopulationPhrase={props.totalPopulationPhrase}
-                subPopulationPhrase={props.subPopulationPhrase}
+                totalPopulationPhrase={
+                  props.isAtlantaMode ? '' : props.totalPopulationPhrase
+                }
+                subPopulationPhrase={
+                  props.isAtlantaMode ? '' : props.subPopulationPhrase
+                }
+                isAtlantaMode={props.isAtlantaMode}
               />
             </div>
 
@@ -220,8 +225,13 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
                 scrollToHashId={'rate-map'}
-                totalPopulationPhrase={props.totalPopulationPhrase}
-                subPopulationPhrase={props.subPopulationPhrase}
+                totalPopulationPhrase={
+                  props.isAtlantaMode ? '' : props.totalPopulationPhrase
+                }
+                subPopulationPhrase={
+                  props.isAtlantaMode ? '' : props.subPopulationPhrase
+                }
+                isAtlantaMode={props.isAtlantaMode}
               />
             </div>
           </div>

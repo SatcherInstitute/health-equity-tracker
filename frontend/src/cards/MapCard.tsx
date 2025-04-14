@@ -343,6 +343,8 @@ function MapCardWithKey(props: MapCardProps) {
           (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
 
+        let dataForMultimaps = mapQueryResponse.data
+
         if (isAtlantaMode) {
           dataForActiveDemographicGroup = dataForActiveDemographicGroup.filter(
             (row) =>
@@ -356,6 +358,11 @@ function MapCardWithKey(props: MapCardProps) {
                 ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
                 : true,
             )
+          dataForMultimaps = dataForMultimaps.filter((row) =>
+            props.fips.code === '13'
+              ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
+              : true,
+          )
         }
 
         const dataForSvi: HetRow[] =
@@ -474,7 +481,7 @@ function MapCardWithKey(props: MapCardProps) {
               demographicGroups={demographicGroups}
               demographicGroupsNoData={fieldValues.noData}
               countColsMap={countColsMap}
-              data={mapQueryResponse.data}
+              data={dataForMultimaps}
               fieldRange={fieldRange}
               fips={props.fips}
               geoData={geoData}
@@ -500,6 +507,7 @@ function MapCardWithKey(props: MapCardProps) {
               subtitle={subtitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
+              isAtlantaMode={isAtlantaMode}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -615,6 +623,7 @@ function MapCardWithKey(props: MapCardProps) {
                     totalPopulationPhrase={totalPopulationPhrase}
                     subPopulationPhrase={subPopulationPhrase}
                     sviQueryResponse={sviQueryResponse}
+                    isAtlantaMode={isAtlantaMode}
                   />
                 </div>
               </div>
@@ -626,7 +635,8 @@ function MapCardWithKey(props: MapCardProps) {
                 }
               >
                 {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveDemographicGroup.length > 1 && (
+                  dataForActiveDemographicGroup.length > 1 &&
+                  !isAtlantaMode && (
                     <ExtremesListBox
                       dataTypeConfig={props.dataTypeConfig}
                       selectedRaceSuffix={selectedRaceSuffix}
