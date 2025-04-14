@@ -9,6 +9,7 @@ import {
   GLOSSARY_LINK,
   HIV_LINK,
   LIMITATIONS_LINK,
+  MATERNAL_HEALTH_LINK,
   MEDICATION_UTILIZATION_LINK,
   METHODOLOGY_PAGE_LINK,
   METRICS_LINK,
@@ -67,6 +68,9 @@ const MethodologyHomeLink = lazy(
 const GlossaryLink = lazy(() => import('../methodologySections/GlossaryLink'))
 const CommunitySafetyLink = lazy(
   () => import('../methodologySections/CommunitySafetyLink'),
+)
+const MaternalHealthLink = lazy(
+  () => import('../methodologySections/MaternalHealthLink'),
 )
 
 export const methodologyRouteConfigs: RouteConfig[] = [
@@ -176,6 +180,17 @@ export const methodologyRouteConfigs: RouteConfig[] = [
       { label: 'Data Sourcing', path: 'community-safety-data-sourcing' },
       { label: 'Data Sources', path: 'community-safety-data-sources' },
       { label: 'Key Terms', path: 'community-safety-key-terms' },
+    ],
+    visible: true,
+  },
+  {
+    label: 'Maternal Health',
+    path: MATERNAL_HEALTH_LINK,
+    component: <MaternalHealthLink />,
+    subLinks: [
+      { label: 'Data Sourcing', path: 'maternal-health-data-sourcing' },
+      { label: 'Data Sources', path: 'maternal-health-data-sources' },
+      { label: 'Key Terms', path: 'maternal-health-key-terms' },
     ],
     visible: true,
   },
