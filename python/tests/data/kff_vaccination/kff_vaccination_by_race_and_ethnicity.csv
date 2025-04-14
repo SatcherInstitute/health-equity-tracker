@@ -1,34 +1,34 @@
-state_name,state_fips,race_category_id,vaccinated_pct_share,vaccinated_pct_rate,vaccinated_pop_pct,acs_vaccinated_pop_pct,race_and_ethnicity,vaccinated_estimated_total
-Alabama,01,UNKNOWN,13.0,,,,Unknown race,
-Alabama,01,ETHNICITY_UNKNOWN,40.0,,,,Unknown ethnicity,
-Alabama,01,WHITE,65.0,37.0,68.10000000000001,66.2,White,
-Alabama,01,BLACK,25.0,37.0,26.6,26.4,Black or African American,
-Alabama,01,HISP,6.0,34.0,4.3999999999999995,4.6,Hispanic or Latino,
-Alabama,01,ASIAN,2.0,68.0,1.4000000000000001,1.4,Asian,
-Alabama,01,AIAN,,,,0.4,Indigenous,
-Alabama,01,NHPI,,,,0.04,Native Hawaiian and Pacific Islander,
-Alabama,01,OTHER_NONSTANDARD,7.000000000000001,,,,Unrepresented race,
-Arizona,04,UNKNOWN,11.0,,,,Unknown race,
-Arizona,04,ETHNICITY_UNKNOWN,11.0,,,,Unknown ethnicity,
-Arizona,04,WHITE_NH,52.0,47.0,54.2,53.0,White (NH),
-Arizona,04,BLACK_NH,3.0,34.0,4.3,4.3,Black or African American (NH),
-Arizona,04,HISP,19.0,29.0,31.8,32.0,Hispanic or Latino,
-Arizona,04,API_NH,4.0,61.0,3.3000000000000003,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)",
-Arizona,04,AIAN_NH,3.0,,,3.5,Indigenous (NH),
-Arizona,04,NHPI_NH,,,,0.2,Native Hawaiian and Pacific Islander (NH),
-Arizona,04,OTHER_NONSTANDARD_NH,19.0,,,,Unrepresented race (NH),
-Indiana,18,UNKNOWN,5.0,,,,Unknown race,
-Indiana,18,ETHNICITY_UNKNOWN,7.000000000000001,,,,Unknown ethnicity,
-Indiana,18,WHITE,82.0,47.0,83.0,80.0,White,
-Indiana,18,BLACK,7.000000000000001,37.0,9.4,9.4,Black or African American,
-Indiana,18,HISP,6.0,41.0,7.199999999999999,7.5,Hispanic or Latino,
-Indiana,18,ASIAN,3.0,67.0,2.5,2.5,Asian,
-Indiana,18,AIAN,,,,0.2,Indigenous,
-Indiana,18,NHPI,,,,0.04,Native Hawaiian and Pacific Islander,
-Indiana,18,OTHER_NONSTANDARD,7.000000000000001,,,,Unrepresented race,
-Alabama,01,ALL,,47.0,100.0,100.0,All,2380869.0
-Arizona,04,ALL,,57.0,100.0,100.0,All,4085580.0
-Indiana,18,ALL,,49.0,100.0,100.0,All,3334275.0
-Guam,66,ALL,,73.0,100.0,100.0,All,112184.0
-Puerto Rico,72,ALL,,0.0,100.0,100.0,All,1000.0
-Northern Mariana Islands,69,ALL,,72.0,100.0,100.0,All,34034.0
+state_name,state_fips,vaccinated_pct_share,vaccinated_pct_rate,vaccinated_pop_pct,acs_vaccinated_pop_pct,race_and_ethnicity,vaccinated_estimated_total
+Alabama,01,13.0,,,,Unknown race,
+Alabama,01,40.0,,,,Unknown ethnicity,
+Alabama,01,65.0,37.0,68.10000000000001,66.2,White,
+Alabama,01,25.0,37.0,26.6,26.4,Black or African American,
+Alabama,01,6.0,34.0,4.3999999999999995,4.6,Hispanic or Latino,
+Alabama,01,2.0,68.0,1.4000000000000001,1.4,Asian,
+Alabama,01,,,,0.4,Indigenous,
+Alabama,01,,,,0.04,Native Hawaiian and Pacific Islander,
+Alabama,01,7.000000000000001,,,,Unrepresented race,
+Arizona,04,11.0,,,,Unknown race,
+Arizona,04,11.0,,,,Unknown ethnicity,
+Arizona,04,52.0,47.0,54.2,53.0,White (NH),
+Arizona,04,3.0,34.0,4.3,4.3,Black or African American (NH),
+Arizona,04,19.0,29.0,31.8,32.0,Hispanic or Latino,
+Arizona,04,4.0,61.0,3.3000000000000003,3.4,"Asian, Native Hawaiian, and Pacific Islander (NH)",
+Arizona,04,3.0,,,3.5,Indigenous (NH),
+Arizona,04,,,,0.2,Native Hawaiian and Pacific Islander (NH),
+Arizona,04,19.0,,,,Unrepresented race (NH),
+Indiana,18,5.0,,,,Unknown race,
+Indiana,18,7.000000000000001,,,,Unknown ethnicity,
+Indiana,18,82.0,47.0,83.0,80.0,White,
+Indiana,18,7.000000000000001,37.0,9.4,9.4,Black or African American,
+Indiana,18,6.0,41.0,7.199999999999999,7.5,Hispanic or Latino,
+Indiana,18,3.0,67.0,2.5,2.5,Asian,
+Indiana,18,,,,0.2,Indigenous,
+Indiana,18,,,,0.04,Native Hawaiian and Pacific Islander,
+Indiana,18,7.000000000000001,,,,Unrepresented race,
+Alabama,01,,47.0,100.0,100.0,All,2380869.0
+Arizona,04,,57.0,100.0,100.0,All,4085580.0
+Indiana,18,,49.0,100.0,100.0,All,3334275.0
+Guam,66,,73.0,100.0,100.0,All,112184.0
+Puerto Rico,72,,0.0,100.0,100.0,All,1000.0
+Northern Mariana Islands,69,,72.0,100.0,100.0,All,34034.0

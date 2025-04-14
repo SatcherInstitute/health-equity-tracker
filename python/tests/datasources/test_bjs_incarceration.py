@@ -167,7 +167,6 @@ expected_dtype_age = {
 expected_dtype_race = {
     **expected_dtype,
     "race_and_ethnicity": str,
-    "race_category_id": str,
     "incarceration_population_estimated_total": float,
     "prison_estimated_total": float,
     "jail_estimated_total": float,
@@ -333,3 +332,33 @@ def testWriteToBqNetworkCalls(
 
     assert mock_bq.call_count == 6
     assert mock_zip.call_count == 2
+
+    (df_age_national, _, table_name_age_national) = mock_bq.call_args_list[0].args
+    assert df_age_national.shape == (14, 12)
+    assert table_name_age_national == "age_national_current"
+
+    (df_race_national, _, table_name_race_national) = mock_bq.call_args_list[1].args
+    # BJS drops the race_category_id column outside of the tested methods above,
+    # so ensure that it's dropped before shipping to BQ
+    assert (
+        list(df_race_national.columns).sort()
+        == [
+            "prison_estimated_total",
+            "state_name",
+            "race_and_ethnicity",
+            "prison_pct_share",
+            "jail_estimated_total",
+            "state_fips",
+            "incarceration_population_estimated_total",
+            "incarceration_population_pct",
+            "prison_per_100k",
+            "jail_per_100k",
+            "jail_pct_share",
+            "confined_children_estimated_total",
+        ].sort()
+    )
+    assert table_name_race_national == "race_and_ethnicity_national_current"
+
+    (df_sex_national, _, table_name_sex_national) = mock_bq.call_args_list[2].args
+    assert df_sex_national.shape == (3, 12)
+    assert table_name_sex_national == "sex_national_current"

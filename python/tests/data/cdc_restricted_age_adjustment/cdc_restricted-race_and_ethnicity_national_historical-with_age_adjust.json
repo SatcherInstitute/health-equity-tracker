@@ -2,7 +2,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "BLACK_NH",
     "time_period": "2021-01",
     "race_and_ethnicity": "Black or African American (NH)",
     "death_ratio_age_adjusted": 0.6,
@@ -13,7 +12,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "HISP",
     "time_period": "2021-01",
     "race_and_ethnicity": "Hispanic or Latino",
     "death_ratio_age_adjusted": 3.3,
@@ -24,7 +22,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "WHITE_NH",
     "time_period": "2021-01",
     "race_and_ethnicity": "White (NH)",
     "death_ratio_age_adjusted": 1,
@@ -35,7 +32,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "BLACK_NH",
     "time_period": "2022-01",
     "race_and_ethnicity": "Black or African American (NH)",
     "death_ratio_age_adjusted": 0.6,
@@ -46,7 +42,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "HISP",
     "time_period": "2022-01",
     "race_and_ethnicity": "Hispanic or Latino",
     "death_ratio_age_adjusted": 3.3,
@@ -57,7 +52,6 @@
   {
     "state_fips": "00",
     "state_name": "United States",
-    "race_category_id": "WHITE_NH",
     "time_period": "2022-01",
     "race_and_ethnicity": "White (NH)",
     "death_ratio_age_adjusted": 1,

@@ -4,6 +4,8 @@ from datasources.phrma import PhrmaData
 from ingestion.phrma_utils import PHRMA_DIR
 import pandas as pd
 import os
+from test_utils import _load_csv_as_df_from_real_data_dir
+
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
@@ -46,7 +48,6 @@ def _generate_breakdown_df(*args):
         {
             "state_fips": ["01", "02", "03"],
             "state_name": ["SomeState01", "SomeState02", "SomeState03"],
-            "race_category_id": ["BLACK", "BLACK", "BLACK"],
             "race_and_ethnicity": ["Black", "Black", "Black"],
             "fake_col1": [0, 1, 2],
             "fake_col2": ["a", "b", "c"],
@@ -60,7 +61,7 @@ def _generate_breakdown_df(*args):
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownLisNational(
     mock_data_dir: mock.MagicMock,
@@ -83,7 +84,7 @@ def testBreakdownLisNational(
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownEligibilityNational(
     mock_data_dir: mock.MagicMock,
@@ -106,7 +107,7 @@ def testBreakdownEligibilityNational(
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownSexNational(
     mock_data_dir: mock.MagicMock,
@@ -129,7 +130,7 @@ def testBreakdownSexNational(
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownSexState(
     mock_data_dir: mock.MagicMock,
@@ -152,7 +153,7 @@ def testBreakdownSexState(
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownRaceState(
     mock_data_dir: mock.MagicMock,
@@ -175,7 +176,7 @@ def testBreakdownRaceState(
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
+    side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownAgeCounty(
     mock_data_dir: mock.MagicMock,
@@ -192,5 +193,4 @@ def testBreakdownAgeCounty(
 
     expected_df = pd.read_csv(GOLDEN_DATA["age_county_current"], dtype={"county_fips": str, "state_fips": str})
     # breakdown_df.to_csv(table_name, index=False)
-
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)

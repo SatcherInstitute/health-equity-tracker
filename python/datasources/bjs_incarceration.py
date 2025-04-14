@@ -340,6 +340,9 @@ class BJSIncarcerationData(DataSource):
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
                         float_cols.append(std_col.generate_column_name(prefix, suffix))
 
+                if demo_type == std_col.RACE_OR_HISPANIC_COL:
+                    df.drop(std_col.RACE_CATEGORY_ID_COL, axis=1, inplace=True)
+
                 column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
 
                 gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)

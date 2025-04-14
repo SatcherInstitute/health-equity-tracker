@@ -205,7 +205,7 @@ class CHRData(DataSource):
                 std_col.POPULATION_COL: std_col.CHR_POPULATION_RAW,
             }
         )
-        std_col.add_race_columns_from_category_id(df)
+        std_col.swap_race_id_col_for_names_col(df)
 
         for timeview in [CURRENT, HISTORICAL]:
             df = df.copy()

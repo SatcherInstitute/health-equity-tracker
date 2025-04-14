@@ -1,16 +1,16 @@
-age,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,prostate_screened_pct_rate,state_name,breast_screened_pct_share,breast_screening_eligible_population_pct,cervical_screened_pct_share,cervical_screening_eligible_population_pct,colorectal_screened_pct_share,colorectal_screening_eligible_population_pct,lung_screened_pct_share,lung_screening_eligible_population_pct,prostate_screened_pct_share,prostate_screening_eligible_population_pct
+age,breast_screened_estimated_total,breast_screening_eligible_estimated_total,state_fips,cervical_screened_estimated_total,cervical_screening_eligible_estimated_total,prostate_screened_estimated_total,prostate_screening_eligible_estimated_total,colorectal_screened_estimated_total,colorectal_screening_eligible_estimated_total,lung_screened_estimated_total,lung_screening_eligible_estimated_total,breast_screened_pct_rate,cervical_screened_pct_rate,prostate_screened_pct_rate,colorectal_screened_pct_rate,lung_screened_pct_rate,state_name,breast_screened_pct_share,breast_screening_eligible_population_pct,cervical_screened_pct_share,cervical_screening_eligible_population_pct,prostate_screened_pct_share,prostate_screening_eligible_population_pct,colorectal_screened_pct_share,colorectal_screening_eligible_population_pct,lung_screened_pct_share,lung_screening_eligible_population_pct
 21-24,,,00,1868.0,6170.0,,,,,,,,26.0,,,,United States,,,3.3,5.2,,,,,,
 25-29,,,00,3653.0,8534.0,,,,,,,,40.0,,,,United States,,,6.5,7.2,,,,,,
 30-34,,,00,4841.0,10474.0,,,,,,,,44.0,,,,United States,,,8.6,8.9,,,,,,
 35-39,,,00,5778.0,11870.0,,,,,,,,46.0,,,,United States,,,10.2,10.1,,,,,,
 40-44,,,00,6911.0,12770.0,,,,,,,,52.0,,,,United States,,,12.2,10.8,,,,,,
-45-49,,,00,6741.0,12324.0,7430.0,25200.0,,,,,,52.0,30.0,,,United States,,,11.9,10.5,4.9,11.6,,,,
-50-54,11932.0,16118.0,00,7668.0,14828.0,16788.0,29794.0,215.0,1701.0,,,74.0,51.0,54.0,13.0,,United States,15.3,16.1,13.6,12.6,11.0,13.7,4.5,10.5,,
-55-59,13224.0,17541.0,00,7980.0,16110.0,23976.0,32699.0,594.0,2595.0,284.0,884.0,76.0,50.0,71.0,22.0,30.0,United States,17.0,17.5,14.1,13.7,15.7,15.1,12.3,16.0,22.2,28.9
-60-64,16850.0,21889.0,00,,,30420.0,39805.0,1092.0,3604.0,435.0,1059.0,76.0,,75.0,29.0,35.0,United States,21.7,21.8,,,19.9,18.3,22.7,22.2,33.9,34.6
+45-49,,,00,6741.0,12324.0,,,7430.0,25200.0,,,,52.0,,30.0,,United States,,,11.9,10.5,,,4.9,11.6,,
+50-54,11932.0,16118.0,00,7668.0,14828.0,,,16788.0,29794.0,215.0,1701.0,74.0,51.0,,54.0,13.0,United States,15.3,16.1,13.6,12.6,,,11.0,13.7,4.5,10.5
+55-59,13224.0,17541.0,00,7980.0,16110.0,284.0,884.0,23976.0,32699.0,594.0,2595.0,76.0,50.0,30.0,71.0,22.0,United States,17.0,17.5,14.1,13.7,22.2,28.9,15.7,15.1,12.3,16.0
+60-64,16850.0,21889.0,00,,,435.0,1059.0,30420.0,39805.0,1092.0,3604.0,76.0,,35.0,75.0,29.0,United States,21.7,21.8,,,33.9,34.6,19.9,18.3,22.7,22.2
 60-65,,,00,11135.0,24842.0,,,,,,,,44.0,,,,United States,,,19.7,21.1,,,,,,
-65-69,18526.0,23217.0,00,,,34570.0,42506.0,1274.0,3669.0,563.0,1116.0,79.0,,80.0,34.0,49.0,United States,23.8,23.2,,,22.7,19.6,26.5,22.6,43.9,36.5
-70-74,17273.0,21512.0,00,,,,,1090.0,2995.0,,,79.0,,,35.0,,United States,22.2,21.5,,,,,22.7,18.5,,
-70-75,,,00,,,39433.0,47189.0,,,,,,,83.0,,,United States,,,,,25.8,21.7,,,,
-75-79,,,00,,,,,546.0,1642.0,,,,,,38.0,,United States,,,,,,,11.3,10.1,,
-All,77805.0,100277.0,00,56575.0,117922.0,152617.0,217193.0,4811.0,16206.0,1282.0,3059.0,77.0,45.0,66.0,28.0,37.0,United States,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0
+65-69,18526.0,23217.0,00,,,563.0,1116.0,34570.0,42506.0,1274.0,3669.0,79.0,,49.0,80.0,34.0,United States,23.8,23.2,,,43.9,36.5,22.7,19.6,26.5,22.6
+70-74,17273.0,21512.0,00,,,,,,,1090.0,2995.0,79.0,,,,35.0,United States,22.2,21.5,,,,,,,22.7,18.5
+70-75,,,00,,,,,39433.0,47189.0,,,,,,83.0,,United States,,,,,,,25.8,21.7,,
+75-79,,,00,,,,,,,546.0,1642.0,,,,,38.0,United States,,,,,,,,,11.3,10.1
+All,77805.0,100277.0,00,56575.0,117922.0,1282.0,3059.0,152617.0,217193.0,4811.0,16206.0,77.0,45.0,37.0,66.0,28.0,United States,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0

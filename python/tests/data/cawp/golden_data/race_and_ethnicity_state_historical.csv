@@ -1,155 +1,155 @@
-state_fips,time_period,state_name,state_postal,race_category_id,race_and_ethnicity,pct_share_of_us_congress,pct_share_of_state_leg,women_us_congress_pct_relative_inequity,women_state_leg_pct_relative_inequity
-02,2018,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,3.3,,
-02,2018,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-52.1
-02,2018,Alaska,AK,ALL,All,33.3,31.7,0.0,0.0
-02,2018,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
-02,2018,Alaska,AK,BLACK,Black or African American,0.0,0.0,-100.0,-100.0
-02,2018,Alaska,AK,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-02,2018,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2018,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2018,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2018,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2018,Alaska,AK,WHITE,White,33.3,28.3,54.3,38.1
-60,2018,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2018,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,5.8
-60,2018,American Samoa,AS,ALL,All,100.0,7.7,0.0,0.0
-60,2018,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,7.7,,
-60,2018,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
-60,2018,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-60,2018,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2018,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-60,2018,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-60,2018,American Samoa,AS,UNKNOWN,Unknown race,0.0,0.0,,
-60,2018,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
-02,2019,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
-02,2019,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-80.8
-02,2019,Alaska,AK,ALL,All,33.3,38.3,0.0,0.0
-02,2019,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
-02,2019,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,163.6
-02,2019,Alaska,AK,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-02,2019,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2019,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2019,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2019,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2019,Alaska,AK,WHITE,White,33.3,33.3,54.8,34.7
-60,2019,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2019,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
-60,2019,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
-60,2019,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
-60,2019,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
-60,2019,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-60,2019,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2019,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-60,2019,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-60,2019,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
-60,2019,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
-02,2020,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
-02,2020,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-80.8
-02,2020,Alaska,AK,ALL,All,33.3,38.3,0.0,0.0
-02,2020,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
-02,2020,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,171.9
-02,2020,Alaska,AK,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-02,2020,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2020,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2020,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2020,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2020,Alaska,AK,WHITE,White,33.3,33.3,57.7,37.2
-60,2020,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2020,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
-60,2020,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
-60,2020,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
-60,2020,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
-60,2020,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-60,2020,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2020,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-60,2020,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-60,2020,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
-60,2020,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
-02,2021,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
-02,2021,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-75.1
-02,2021,Alaska,AK,ALL,All,33.3,30.0,0.0,0.0
-02,2021,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
-02,2021,Alaska,AK,BLACK,Black or African American,0.0,1.7,-100.0,75.0
-02,2021,Alaska,AK,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-02,2021,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2021,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2021,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2021,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2021,Alaska,AK,WHITE,White,33.3,26.7,60.5,42.7
-60,2021,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2021,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
-60,2021,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
-60,2021,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
-60,2021,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
-60,2021,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-60,2021,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2021,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-60,2021,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-60,2021,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
-60,2021,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
-02,2022,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",25.0,1.7,,
-02,2022,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-74.9
-02,2022,Alaska,AK,ALL,All,50.0,30.0,0.0,0.0
-02,2022,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,0.0,,
-02,2022,Alaska,AK,BLACK,Black or African American,0.0,1.7,-100.0,75.0
-02,2022,Alaska,AK,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-02,2022,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2022,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2022,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2022,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2022,Alaska,AK,WHITE,White,25.0,26.7,-18.4,45.0
-60,2022,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2022,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
-60,2022,American Samoa,AS,ALL,All,100.0,5.1,0.0,0.0
-60,2022,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,2.6,,
-60,2022,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,
-60,2022,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,-100.0
-60,2022,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2022,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-60,2022,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-60,2022,American Samoa,AS,UNKNOWN,Unknown race,0.0,2.6,,
-60,2022,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,-100.0
-02,2023,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
-02,2023,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
-02,2023,Alaska,AK,ALL,All,66.7,33.3,0.0,0.0
-02,2023,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,1.7,,
-02,2023,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,212.5
-02,2023,Alaska,AK,HISP,Hispanic or Latino,0.0,1.7,-100.0,-33.3
-02,2023,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2023,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2023,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2023,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2023,Alaska,AK,WHITE,White,33.3,25.0,-18.4,22.3
-60,2023,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2023,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
-60,2023,American Samoa,AS,ALL,All,100.0,0.0,0.0,0.0
-60,2023,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,0.0,,
-60,2023,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,0.0
-60,2023,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,0.0
-60,2023,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2023,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,0.0
-60,2023,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,0.0
-60,2023,American Samoa,AS,UNKNOWN,Unknown race,0.0,0.0,,
-60,2023,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,0.0
-02,2024,Alaska,AK,AIANNH,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
-02,2024,Alaska,AK,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
-02,2024,Alaska,AK,ALL,All,66.7,33.3,0.0,0.0
-02,2024,Alaska,AK,ASIAN_PAC,Asian American & Pacific Islander,0.0,1.7,,
-02,2024,Alaska,AK,BLACK,Black or African American,0.0,3.3,-100.0,212.5
-02,2024,Alaska,AK,HISP,Hispanic or Latino,0.0,1.7,-100.0,-33.3
-02,2024,Alaska,AK,MENA,Middle Eastern & North African,0.0,0.0,,
-02,2024,Alaska,AK,MULTI,Two or more races,0.0,0.0,-100.0,-100.0
-02,2024,Alaska,AK,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,-100.0
-02,2024,Alaska,AK,UNKNOWN,Unknown race,0.0,0.0,,
-02,2024,Alaska,AK,WHITE,White,33.3,25.0,-18.4,22.3
-60,2024,American Samoa,AS,AIANNH,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
-60,2024,American Samoa,AS,AIAN_API,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
-60,2024,American Samoa,AS,ALL,All,100.0,0.0,0.0,0.0
-60,2024,American Samoa,AS,ASIAN_PAC,Asian American & Pacific Islander,100.0,0.0,,
-60,2024,American Samoa,AS,BLACK,Black or African American,0.0,0.0,,0.0
-60,2024,American Samoa,AS,HISP,Hispanic or Latino,0.0,0.0,-100.0,0.0
-60,2024,American Samoa,AS,MENA,Middle Eastern & North African,0.0,0.0,,
-60,2024,American Samoa,AS,MULTI,Two or more races,0.0,0.0,-100.0,0.0
-60,2024,American Samoa,AS,OTHER_STANDARD,Unrepresented race,0.0,0.0,-100.0,0.0
-60,2024,American Samoa,AS,UNKNOWN,Unknown race,0.0,0.0,,
-60,2024,American Samoa,AS,WHITE,White,0.0,0.0,-100.0,0.0
+state_fips,time_period,state_name,state_postal,race_and_ethnicity,pct_share_of_us_congress,pct_share_of_state_leg,women_us_congress_pct_relative_inequity,women_state_leg_pct_relative_inequity
+02,2018,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",0.0,3.3,,
+02,2018,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-52.1
+02,2018,Alaska,AK,All,33.3,31.7,0.0,0.0
+02,2018,Alaska,AK,Asian American & Pacific Islander,0.0,0.0,,
+02,2018,Alaska,AK,Black or African American,0.0,0.0,-100.0,-100.0
+02,2018,Alaska,AK,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+02,2018,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2018,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2018,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2018,Alaska,AK,Unknown race,0.0,0.0,,
+02,2018,Alaska,AK,White,33.3,28.3,54.3,38.1
+60,2018,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2018,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,5.8
+60,2018,American Samoa,AS,All,100.0,7.7,0.0,0.0
+60,2018,American Samoa,AS,Asian American & Pacific Islander,100.0,7.7,,
+60,2018,American Samoa,AS,Black or African American,0.0,0.0,,
+60,2018,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+60,2018,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2018,American Samoa,AS,Two or more races,0.0,0.0,-100.0,-100.0
+60,2018,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,-100.0
+60,2018,American Samoa,AS,Unknown race,0.0,0.0,,
+60,2018,American Samoa,AS,White,0.0,0.0,-100.0,-100.0
+02,2019,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
+02,2019,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-80.8
+02,2019,Alaska,AK,All,33.3,38.3,0.0,0.0
+02,2019,Alaska,AK,Asian American & Pacific Islander,0.0,0.0,,
+02,2019,Alaska,AK,Black or African American,0.0,3.3,-100.0,163.6
+02,2019,Alaska,AK,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+02,2019,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2019,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2019,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2019,Alaska,AK,Unknown race,0.0,0.0,,
+02,2019,Alaska,AK,White,33.3,33.3,54.8,34.7
+60,2019,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2019,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
+60,2019,American Samoa,AS,All,100.0,5.1,0.0,0.0
+60,2019,American Samoa,AS,Asian American & Pacific Islander,100.0,2.6,,
+60,2019,American Samoa,AS,Black or African American,0.0,0.0,,
+60,2019,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+60,2019,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2019,American Samoa,AS,Two or more races,0.0,0.0,-100.0,-100.0
+60,2019,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,-100.0
+60,2019,American Samoa,AS,Unknown race,0.0,2.6,,
+60,2019,American Samoa,AS,White,0.0,0.0,-100.0,-100.0
+02,2020,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
+02,2020,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-80.8
+02,2020,Alaska,AK,All,33.3,38.3,0.0,0.0
+02,2020,Alaska,AK,Asian American & Pacific Islander,0.0,0.0,,
+02,2020,Alaska,AK,Black or African American,0.0,3.3,-100.0,171.9
+02,2020,Alaska,AK,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+02,2020,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2020,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2020,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2020,Alaska,AK,Unknown race,0.0,0.0,,
+02,2020,Alaska,AK,White,33.3,33.3,57.7,37.2
+60,2020,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2020,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
+60,2020,American Samoa,AS,All,100.0,5.1,0.0,0.0
+60,2020,American Samoa,AS,Asian American & Pacific Islander,100.0,2.6,,
+60,2020,American Samoa,AS,Black or African American,0.0,0.0,,
+60,2020,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+60,2020,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2020,American Samoa,AS,Two or more races,0.0,0.0,-100.0,-100.0
+60,2020,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,-100.0
+60,2020,American Samoa,AS,Unknown race,0.0,2.6,,
+60,2020,American Samoa,AS,White,0.0,0.0,-100.0,-100.0
+02,2021,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",0.0,1.7,,
+02,2021,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,-100.0,-75.1
+02,2021,Alaska,AK,All,33.3,30.0,0.0,0.0
+02,2021,Alaska,AK,Asian American & Pacific Islander,0.0,0.0,,
+02,2021,Alaska,AK,Black or African American,0.0,1.7,-100.0,75.0
+02,2021,Alaska,AK,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+02,2021,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2021,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2021,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2021,Alaska,AK,Unknown race,0.0,0.0,,
+02,2021,Alaska,AK,White,33.3,26.7,60.5,42.7
+60,2021,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2021,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
+60,2021,American Samoa,AS,All,100.0,5.1,0.0,0.0
+60,2021,American Samoa,AS,Asian American & Pacific Islander,100.0,2.6,,
+60,2021,American Samoa,AS,Black or African American,0.0,0.0,,
+60,2021,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+60,2021,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2021,American Samoa,AS,Two or more races,0.0,0.0,-100.0,-100.0
+60,2021,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,-100.0
+60,2021,American Samoa,AS,Unknown race,0.0,2.6,,
+60,2021,American Samoa,AS,White,0.0,0.0,-100.0,-100.0
+02,2022,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",25.0,1.7,,
+02,2022,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-74.9
+02,2022,Alaska,AK,All,50.0,30.0,0.0,0.0
+02,2022,Alaska,AK,Asian American & Pacific Islander,0.0,0.0,,
+02,2022,Alaska,AK,Black or African American,0.0,1.7,-100.0,75.0
+02,2022,Alaska,AK,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+02,2022,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2022,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2022,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2022,Alaska,AK,Unknown race,0.0,0.0,,
+02,2022,Alaska,AK,White,25.0,26.7,-18.4,45.0
+60,2022,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2022,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,-47.1
+60,2022,American Samoa,AS,All,100.0,5.1,0.0,0.0
+60,2022,American Samoa,AS,Asian American & Pacific Islander,100.0,2.6,,
+60,2022,American Samoa,AS,Black or African American,0.0,0.0,,
+60,2022,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,-100.0
+60,2022,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2022,American Samoa,AS,Two or more races,0.0,0.0,-100.0,-100.0
+60,2022,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,-100.0
+60,2022,American Samoa,AS,Unknown race,0.0,2.6,,
+60,2022,American Samoa,AS,White,0.0,0.0,-100.0,-100.0
+02,2023,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
+02,2023,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
+02,2023,Alaska,AK,All,66.7,33.3,0.0,0.0
+02,2023,Alaska,AK,Asian American & Pacific Islander,0.0,1.7,,
+02,2023,Alaska,AK,Black or African American,0.0,3.3,-100.0,212.5
+02,2023,Alaska,AK,Hispanic or Latino,0.0,1.7,-100.0,-33.3
+02,2023,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2023,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2023,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2023,Alaska,AK,Unknown race,0.0,0.0,,
+02,2023,Alaska,AK,White,33.3,25.0,-18.4,22.3
+60,2023,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2023,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
+60,2023,American Samoa,AS,All,100.0,0.0,0.0,0.0
+60,2023,American Samoa,AS,Asian American & Pacific Islander,100.0,0.0,,
+60,2023,American Samoa,AS,Black or African American,0.0,0.0,,0.0
+60,2023,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,0.0
+60,2023,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2023,American Samoa,AS,Two or more races,0.0,0.0,-100.0,0.0
+60,2023,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,0.0
+60,2023,American Samoa,AS,Unknown race,0.0,0.0,,
+60,2023,American Samoa,AS,White,0.0,0.0,-100.0,0.0
+02,2024,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
+02,2024,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
+02,2024,Alaska,AK,All,66.7,33.3,0.0,0.0
+02,2024,Alaska,AK,Asian American & Pacific Islander,0.0,1.7,,
+02,2024,Alaska,AK,Black or African American,0.0,3.3,-100.0,212.5
+02,2024,Alaska,AK,Hispanic or Latino,0.0,1.7,-100.0,-33.3
+02,2024,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
+02,2024,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
+02,2024,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
+02,2024,Alaska,AK,Unknown race,0.0,0.0,,
+02,2024,Alaska,AK,White,33.3,25.0,-18.4,22.3
+60,2024,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
+60,2024,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
+60,2024,American Samoa,AS,All,100.0,0.0,0.0,0.0
+60,2024,American Samoa,AS,Asian American & Pacific Islander,100.0,0.0,,
+60,2024,American Samoa,AS,Black or African American,0.0,0.0,,0.0
+60,2024,American Samoa,AS,Hispanic or Latino,0.0,0.0,-100.0,0.0
+60,2024,American Samoa,AS,Middle Eastern & North African,0.0,0.0,,
+60,2024,American Samoa,AS,Two or more races,0.0,0.0,-100.0,0.0
+60,2024,American Samoa,AS,Unrepresented race,0.0,0.0,-100.0,0.0
+60,2024,American Samoa,AS,Unknown race,0.0,0.0,,
+60,2024,American Samoa,AS,White,0.0,0.0,-100.0,0.0

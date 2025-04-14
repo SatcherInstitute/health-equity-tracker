@@ -429,12 +429,21 @@ class Race(Enum):
         return RaceTuple(self.race_category_id, self.race_and_ethnicity)
 
 
+# TODO: Remove this function in favor of swap_race_id_col_for_names_col if possible
 def add_race_columns_from_category_id(df):
     """Adds all race-related columns to the dataframe using the race category id
     to determine these values."""
     df["race_tuple"] = df.apply(lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1)
     df[Race.get_col_names()] = pd.DataFrame(df["race_tuple"].tolist(), index=df.index)
     df.drop("race_tuple", axis=1, inplace=True)
+
+
+def swap_race_id_col_for_names_col(df):
+    """Swaps the race category id column for the race_and_ethnicity col."""
+    df["race_tuple"] = df.apply(lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1)
+    df[Race.get_col_names()] = pd.DataFrame(df["race_tuple"].tolist(), index=df.index)
+    df.drop("race_tuple", axis=1, inplace=True)
+    df.drop(RACE_CATEGORY_ID_COL, axis=1, inplace=True)
 
 
 def generate_column_name(prefix, suffix):
