@@ -6,6 +6,7 @@ import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
 import { communitySafetyTopicsString } from './CommunitySafetyLink'
 import { covidTopicsString } from './Covid19Link'
 import { hivTopicsString } from './HivLink'
+import { maternalHealthTopicsString } from './MaternalHealthLink'
 import { pdohTopicsString } from './PdohLink'
 import { sdohTopicsString } from './SdohLink'
 
@@ -67,6 +68,10 @@ export default function TopicCategoriesLink() {
             {
               category: 'Community Safety',
               topic: communitySafetyTopicsString,
+            },
+            {
+              category: 'Maternal Health',
+              topic: maternalHealthTopicsString,
             },
             {
               category: 'COVID-19',
