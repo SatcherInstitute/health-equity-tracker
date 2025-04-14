@@ -45,6 +45,7 @@ export const BEHAVIORAL_HEALTH_LINK =
   TOPIC_CATEGORIES_LINK + '/behavioral-health'
 export const CHRONIC_DISEASE_LINK = TOPIC_CATEGORIES_LINK + '/chronic-disease'
 export const COMMUNITY_SAFETY_LINK = TOPIC_CATEGORIES_LINK + '/community-safety'
+export const MATERNAL_HEALTH_LINK = TOPIC_CATEGORIES_LINK + '/maternal-health'
 export const COVID_19_LINK = TOPIC_CATEGORIES_LINK + '/covid'
 export const GLOSSARY_LINK = METHODOLOGY_PAGE_LINK + '/glossary'
 export const HIV_LINK = TOPIC_CATEGORIES_LINK + '/hiv'
