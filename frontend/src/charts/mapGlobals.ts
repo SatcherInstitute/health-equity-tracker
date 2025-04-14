@@ -143,7 +143,10 @@ export interface CountColsMap {
 export const INVISIBLE_PRELOAD_WIDTH = 25
 export const MAP_RESIZE_TOLERANCE = 15
 
-
-
-export const ATLANTA_METRO_COUNTY_FIPS =
-  ['13089', '13121', '13135', '13067', '13063']
+export const ATLANTA_METRO_COUNTY_FIPS = [
+  '13089',
+  '13121',
+  '13135',
+  '13067',
+  '13063',
+]
