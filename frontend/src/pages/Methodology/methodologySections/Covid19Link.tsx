@@ -55,7 +55,7 @@ export default function Covid19Link() {
           ]}
         />
 
-        <h2 className='mt-12' id='covid-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='covid-data-sourcing'>
           Data Sourcing
         </h2>
         <p>
