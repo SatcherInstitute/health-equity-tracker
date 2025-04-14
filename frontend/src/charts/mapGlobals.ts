@@ -134,12 +134,6 @@ const PHRMA_COLOR_SCALE_SPEC = {
     het.mapMedicareLightest,
   ],
 }
-const UNKNOWN_LEGEND_SPEC = {
-  fill: UNKNOWN_SCALE,
-  symbolType: LEGEND_SYMBOL_TYPE,
-  size: GREY_DOT_SCALE,
-  orient: 'left',
-}
 
 export interface CountColsMap {
   numeratorConfig?: MetricConfig
@@ -148,3 +142,8 @@ export interface CountColsMap {
 
 export const INVISIBLE_PRELOAD_WIDTH = 25
 export const MAP_RESIZE_TOLERANCE = 15
+
+
+
+export const ATLANTA_METRO_COUNTY_FIPS =
+  ['13089', '13121', '13135', '13067', '13063']

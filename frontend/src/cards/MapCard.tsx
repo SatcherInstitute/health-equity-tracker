@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import {
+  ATLANTA_METRO_COUNTY_FIPS,
   type CountColsMap,
   SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST,
 } from '../charts/mapGlobals'
@@ -55,6 +56,7 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
+  ATLANTA_MODE_PARAM_KEY,
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
@@ -137,6 +139,11 @@ function MapCardWithKey(props: MapCardProps) {
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
+
+  const [isAtlantaMode, setIsAtlantaMode] = useParamState<boolean>(
+    ATLANTA_MODE_PARAM_KEY,
+    false,
+  )
 
   const metricConfig =
     props.dataTypeConfig?.metrics?.per100k ??
@@ -244,7 +251,12 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   const { metricId, chartTitle } = metricConfig
-  const title = generateChartTitle(chartTitle, props.fips)
+  const title = generateChartTitle(
+    chartTitle,
+    props.fips,
+    undefined,
+    isAtlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
+  )
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
@@ -284,9 +296,12 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getTotalACSPopulationPhrase(
-          acsPopulationQueryResponse.data,
-        )
+        const isGeorgiaWithCountyData =
+          props.fips.code === '13' && !hasSelfButNotChildGeoData
+
+        const totalPopulationPhrase = isAtlantaMode
+          ? 'Metro Atlanta Counties'
+          : getTotalACSPopulationPhrase(acsPopulationQueryResponse.data)
 
         let subPopSourceLabel =
           Object.values(dataSourceMetadataMap).find((metadata) =>
@@ -324,9 +339,24 @@ function MapCardWithKey(props: MapCardProps) {
             (row: HetRow) => row[demographicType] === activeDemographicGroup,
           )
 
-        const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
+        let allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
           (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
+
+        if (isAtlantaMode) {
+          dataForActiveDemographicGroup = dataForActiveDemographicGroup.filter(
+            (row) =>
+              props.fips.code === '13'
+                ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
+                : true,
+          )
+          allDataForActiveDemographicGroup =
+            allDataForActiveDemographicGroup.filter((row) =>
+              props.fips.code === '13'
+                ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
+                : true,
+            )
+        }
 
         const dataForSvi: HetRow[] =
           sviQueryResponse
@@ -517,6 +547,18 @@ function MapCardWithKey(props: MapCardProps) {
                       ) : null
                     }
                   />
+                  {isGeorgiaWithCountyData && !extremesMode && (
+                    <HetLinkButton
+                      onClick={() => setIsAtlantaMode(!isAtlantaMode)}
+                      className='flex items-center'
+                    >
+                      <span className='mt-1 px-1'>
+                        {isAtlantaMode
+                          ? 'Return to all counties'
+                          : 'Highlight metro Atlanta counties'}
+                      </span>
+                    </HetLinkButton>
+                  )}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -545,6 +587,7 @@ function MapCardWithKey(props: MapCardProps) {
                       signalListeners={signalListeners}
                       mapConfig={mapConfig}
                       isPhrmaAdherence={isPhrmaAdherence}
+                      isAtlantaMode={isAtlantaMode}
                     />
                   </div>
                 </div>

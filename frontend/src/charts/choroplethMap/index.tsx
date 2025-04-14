@@ -36,6 +36,7 @@ const ChoroplethMap = ({
   filename,
   legendData,
   isPhrmaAdherence,
+  isAtlantaMode,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -112,7 +113,12 @@ const ChoroplethMap = ({
         mapConfig,
       })
 
-      const features = await createFeatures(showCounties, fips.code, geoData)
+      const features = await createFeatures(
+        showCounties,
+        fips.code,
+        geoData,
+        isAtlantaMode,
+      )
 
       const projection = createProjection(
         fips,
