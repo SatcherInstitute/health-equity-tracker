@@ -22,7 +22,6 @@ import type {
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
 
-import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
 import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
@@ -250,15 +249,12 @@ const CATEGORIES_LIST: Category[] = [
       ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
       : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
   },
-]
-
-if (SHOW_NEW_MATERNAL_MORTALITY) {
-  CATEGORIES_LIST.push({
+  {
     title: 'Maternal Health',
     definition: '',
     options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
-  })
-}
+  },
+]
 
 if (SHOW_CANCER_SCREENINGS) {
   CATEGORIES_LIST.push({
