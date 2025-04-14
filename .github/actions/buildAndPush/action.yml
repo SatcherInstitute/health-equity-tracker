@@ -17,12 +17,6 @@ inputs:
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "staging". Only used for the frontend'
     required: false
-  basic-auth-username:
-    description: "Username for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
-    required: false
-  basic-auth-password:
-    description: "Password for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
-    required: false
   openai-api-key:
     description: "OpenAI API key for generating insights"
     required: false
@@ -37,15 +31,12 @@ runs:
       run: gcloud auth configure-docker -q
       shell: bash
     # Note: it is not generally recommended to pass secrets as build args, but
-    # the basic auth credentials are not real secrets because we will provide
     # them to users for beta testing. If we ever need to rely on credentials for
     # protecting sensitive information, we should not use build args.
     # More info here: https://docs.docker.com/engine/reference/builder/#arg
     - run: |
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
-        --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
-        --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}" \
         --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
         --build-arg="OPENAI_API_KEY=${{ inputs.openai-api-key }}"
       shell: bash
