@@ -171,6 +171,7 @@ function MapCardWithKey(props: MapCardProps) {
     click: (...args: any) => {
       const clickedData = args[1]
       if (clickedData?.id) {
+        if (isAtlantaMode) setIsAtlantaMode(false)
         props.updateFipsCallback(new Fips(clickedData.id))
         location.hash = `#${HASH_ID}`
       }
@@ -508,6 +509,7 @@ function MapCardWithKey(props: MapCardProps) {
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
               isAtlantaMode={isAtlantaMode}
+              setIsAtlantaMode={setIsAtlantaMode}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (

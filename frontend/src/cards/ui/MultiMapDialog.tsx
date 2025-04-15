@@ -77,6 +77,7 @@ interface MultiMapDialogProps {
   scrollToHash: ScrollableHashId
   isPhrmaAdherence: boolean
   isAtlantaMode?: boolean
+  setIsAtlantaMode: (isAtlantaMode: boolean) => void
 }
 
 /*
@@ -95,6 +96,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     click: (...args: any) => {
       const clickedData = args[1]
       if (clickedData?.id) {
+        if (props.isAtlantaMode) props.setIsAtlantaMode(false)
         props.updateFipsCallback(new Fips(clickedData.id))
       }
     },
