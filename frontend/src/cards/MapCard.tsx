@@ -316,13 +316,6 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel = '@unitedstates'
         }
 
-        const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse.data,
-          subPopSourceLabel,
-          demographicType,
-          props.dataTypeConfig,
-        )
-
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs = getSortArgs(demographicType)
 
@@ -345,6 +338,9 @@ function MapCardWithKey(props: MapCardProps) {
         )
 
         let dataForMultimaps = mapQueryResponse.data
+        let atlantaPopulation
+
+        const popId = metricConfig.rateDenominatorMetric?.metricId
 
         if (isAtlantaMode) {
           dataForActiveDemographicGroup = dataForActiveDemographicGroup.filter(
@@ -359,12 +355,37 @@ function MapCardWithKey(props: MapCardProps) {
                 ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
                 : true,
             )
+
           dataForMultimaps = dataForMultimaps.filter((row) =>
             props.fips.code === '13'
               ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
               : true,
           )
+
+          if (popId) {
+            atlantaPopulation = dataForMultimaps
+              .filter((row: HetRow) => row[props.demographicType] === 'All')
+              .reduce((total, row) => total + row[popId], 0)
+          }
         }
+
+        const atlantaData = isAtlantaMode
+          ? [
+              {
+                fips: '13',
+                fips_name: 'Georgia',
+                race_and_ethnicity: 'All',
+                [popId as string]: atlantaPopulation,
+              },
+            ]
+          : []
+
+        const subPopulationPhrase = getSubPopulationPhrase(
+          isAtlantaMode ? atlantaData : parentGeoQueryResponse.data,
+          subPopSourceLabel,
+          demographicType,
+          props.dataTypeConfig,
+        )
 
         const dataForSvi: HetRow[] =
           sviQueryResponse

@@ -31,9 +31,7 @@ export default function GeoContext(props: GeoContextProps) {
         ariaLabel={props.dataTypeConfig.fullDisplayName}
         scrollToHashId={HASH_ID}
         totalPopulationPhrase={props.totalPopulationPhrase}
-        subPopulationPhrase={
-          props.isAtlantaMode ? '' : props.subPopulationPhrase
-        }
+        subPopulationPhrase={props.subPopulationPhrase}
         isAtlantaMode={props.isAtlantaMode}
       />
       <div className='md:flex md:items-center'>
