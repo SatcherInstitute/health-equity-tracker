@@ -73,13 +73,13 @@ import ChartTitle from './ChartTitle'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
 
+import GeoContext from './ui/GeoContext'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
-import GeoContext from './ui/GeoContext'
 import {
-  getTotalACSPopulationPhrase,
   getSubPopulationPhrase,
+  getTotalACSPopulationPhrase,
 } from './ui/geoContextHelpers'
 
 const HASH_ID: ScrollableHashId = 'rate-map'
