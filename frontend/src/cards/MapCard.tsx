@@ -72,13 +72,15 @@ import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
-import GeoContext, {
-  getSubPopulationPhrase,
-  getTotalACSPopulationPhrase,
-} from './ui/GeoContext'
+
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
+import GeoContext from './ui/GeoContext'
+import {
+  getTotalACSPopulationPhrase,
+  getSubPopulationPhrase,
+} from './ui/geoContextHelpers'
 
 const HASH_ID: ScrollableHashId = 'rate-map'
 
@@ -374,7 +376,7 @@ function MapCardWithKey(props: MapCardProps) {
               {
                 fips: '13',
                 fips_name: 'Georgia',
-                race_and_ethnicity: 'All',
+                [demographicType]: 'All',
                 [popId as string]: atlantaPopulation,
               },
             ]
