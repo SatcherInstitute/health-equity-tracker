@@ -148,7 +148,6 @@ const ChoroplethMap = ({
         mapConfig,
         signalListeners,
         isMulti,
-        isPhrmaAdherence,
       })
 
       setRenderResult(result)

@@ -92,7 +92,7 @@ export type GetFillColorProps = {
   colorScale: ColorScale
   mapConfig: MapConfig
   extremesMode?: boolean
-  isPhrmaAdherence: boolean
+  isMultiMap?: boolean
 }
 
 export type HetRow = DataPoint & {
@@ -136,7 +136,6 @@ export type RenderMapProps = {
   mapConfig: MapConfig
   signalListeners: any
   isMulti?: boolean
-  isPhrmaAdherence: boolean
 }
 
 type TooltipFeature = {
