@@ -133,7 +133,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
       regularLegendItems.push({
         value: summaryValue,
-        label: `${labelFormat(summaryValue)} ${props.fipsTypeDisplayName} overall`,
+        label: `${labelFormat(summaryValue)} (${props.fipsTypeDisplayName} overall)`,
         color: props.mapConfig.mid,
       })
     }
