@@ -2,7 +2,7 @@
 import { Dialog, DialogContent } from '@mui/material'
 import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../../charts/choroplethMap/index'
-import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
+import type { CountColsMap } from '../../charts/mapGlobals'
 import type {
   DataTypeConfig,
   MetricConfig,
