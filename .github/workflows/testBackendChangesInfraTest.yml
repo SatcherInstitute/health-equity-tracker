@@ -21,7 +21,7 @@ jobs:
         with:
           ref: infra-test
           environment: staging
-          terraform-var-file: test/test.tfvars
+          terraform-var-file: gcp.tfvars
           deployer-sa-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           project-id: ${{ secrets.TEST_PROJECT_ID }}
           tf-state-bucket: ${{ secrets.TEST_TF_STATE_BUCKET }}

@@ -8,9 +8,6 @@ inputs:
   environment:
     description: "Environment to deploy to (prod or staging)"
     required: true
-  terraform-var-file:
-    description: "Path to Terraform variable file"
-    required: true
   deployer-sa-key:
     description: "GCP service account key JSON"
     required: true
@@ -146,7 +143,7 @@ runs:
       id: terraform
       working-directory: ./config
       run: |
-        terraform apply -auto-approve -var-file=test/test.tfvars \
+        terraform apply -auto-approve -var-file=gcp.tfvars \
           -var-file=common.tfvars \
           -var 'gcp_credentials=${{ inputs.deployer-sa-key }}' \
           -var 'project_id=${{ inputs.project-id }}' \
