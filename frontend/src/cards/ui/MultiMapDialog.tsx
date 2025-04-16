@@ -76,6 +76,8 @@ interface MultiMapDialogProps {
   subtitle?: string
   scrollToHash: ScrollableHashId
   isPhrmaAdherence: boolean
+  isAtlantaMode?: boolean
+  setIsAtlantaMode: (isAtlantaMode: boolean) => void
 }
 
 /*
@@ -85,7 +87,7 @@ interface MultiMapDialogProps {
 export default function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all ${
+  } in ${props.isAtlantaMode ? 'metro Atlanta counties' : props.fips.getSentenceDisplayName()} across all ${
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
@@ -94,6 +96,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     click: (...args: any) => {
       const clickedData = args[1]
       if (clickedData?.id) {
+        if (props.isAtlantaMode) props.setIsAtlantaMode(false)
         props.updateFipsCallback(new Fips(clickedData.id))
       }
     },
@@ -174,6 +177,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         isMulti={true}
                         extremesMode={false}
                         isPhrmaAdherence={props.isPhrmaAdherence}
+                        isAtlantaMode={props.isAtlantaMode}
                       />
                     )}
                   </div>
@@ -209,6 +213,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 scrollToHashId={'rate-map'}
                 totalPopulationPhrase={props.totalPopulationPhrase}
                 subPopulationPhrase={props.subPopulationPhrase}
+                isAtlantaMode={props.isAtlantaMode}
               />
             </div>
 
@@ -220,6 +225,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 scrollToHashId={'rate-map'}
                 totalPopulationPhrase={props.totalPopulationPhrase}
                 subPopulationPhrase={props.subPopulationPhrase}
+                isAtlantaMode={props.isAtlantaMode}
               />
             </div>
           </div>

@@ -60,6 +60,7 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
+  isAtlantaMode?: boolean
 }
 
 export interface CreateColorScaleProps {

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import {
+  ATLANTA_METRO_COUNTY_FIPS,
   type CountColsMap,
   SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST,
 } from '../charts/mapGlobals'
@@ -55,6 +56,7 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
+  ATLANTA_MODE_PARAM_KEY,
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
@@ -70,13 +72,15 @@ import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
-import GeoContext, {
-  getSubPopulationPhrase,
-  getTotalACSPopulationPhrase,
-} from './ui/GeoContext'
+
+import GeoContext from './ui/GeoContext'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
 import { findVerboseRating } from './ui/SviAlert'
+import {
+  getSubPopulationPhrase,
+  getTotalACSPopulationPhrase,
+} from './ui/geoContextHelpers'
 
 const HASH_ID: ScrollableHashId = 'rate-map'
 
@@ -138,6 +142,11 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
 
+  const [isAtlantaMode, setIsAtlantaMode] = useParamState<boolean>(
+    ATLANTA_MODE_PARAM_KEY,
+    false,
+  )
+
   const metricConfig =
     props.dataTypeConfig?.metrics?.per100k ??
     props.dataTypeConfig?.metrics?.pct_rate ??
@@ -164,6 +173,7 @@ function MapCardWithKey(props: MapCardProps) {
     click: (...args: any) => {
       const clickedData = args[1]
       if (clickedData?.id) {
+        if (isAtlantaMode) setIsAtlantaMode(false)
         props.updateFipsCallback(new Fips(clickedData.id))
         location.hash = `#${HASH_ID}`
       }
@@ -244,7 +254,12 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   const { metricId, chartTitle } = metricConfig
-  const title = generateChartTitle(chartTitle, props.fips)
+  const title = generateChartTitle(
+    chartTitle,
+    props.fips,
+    undefined,
+    isAtlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
+  )
   let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
@@ -284,9 +299,12 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getTotalACSPopulationPhrase(
-          acsPopulationQueryResponse.data,
-        )
+        const isGeorgiaWithCountyData =
+          props.fips.code === '13' && !hasSelfButNotChildGeoData
+
+        const totalPopulationPhrase = isAtlantaMode
+          ? 'Metro Atlanta Counties'
+          : getTotalACSPopulationPhrase(acsPopulationQueryResponse.data)
 
         let subPopSourceLabel =
           Object.values(dataSourceMetadataMap).find((metadata) =>
@@ -299,13 +317,6 @@ function MapCardWithKey(props: MapCardProps) {
         if (props.dataTypeConfig.dataTypeId === 'women_in_us_congress') {
           subPopSourceLabel = '@unitedstates'
         }
-
-        const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse.data,
-          subPopSourceLabel,
-          demographicType,
-          props.dataTypeConfig,
-        )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs = getSortArgs(demographicType)
@@ -324,8 +335,58 @@ function MapCardWithKey(props: MapCardProps) {
             (row: HetRow) => row[demographicType] === activeDemographicGroup,
           )
 
-        const allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
+        let allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
           (row: HetRow) => row[demographicType] === activeDemographicGroup,
+        )
+
+        let dataForMultimaps = mapQueryResponse.data
+        let atlantaPopulation
+
+        const popId = metricConfig.rateDenominatorMetric?.metricId
+
+        if (isAtlantaMode) {
+          dataForActiveDemographicGroup = dataForActiveDemographicGroup.filter(
+            (row) =>
+              props.fips.code === '13'
+                ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
+                : true,
+          )
+          allDataForActiveDemographicGroup =
+            allDataForActiveDemographicGroup.filter((row) =>
+              props.fips.code === '13'
+                ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
+                : true,
+            )
+
+          dataForMultimaps = dataForMultimaps.filter((row) =>
+            props.fips.code === '13'
+              ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
+              : true,
+          )
+
+          if (popId) {
+            atlantaPopulation = dataForMultimaps
+              .filter((row: HetRow) => row[props.demographicType] === 'All')
+              .reduce((total, row) => total + row[popId], 0)
+          }
+        }
+
+        const atlantaData = isAtlantaMode
+          ? [
+              {
+                fips: '13',
+                fips_name: 'Georgia',
+                [demographicType]: 'All',
+                [popId as string]: atlantaPopulation,
+              },
+            ]
+          : []
+
+        const subPopulationPhrase = getSubPopulationPhrase(
+          isAtlantaMode ? atlantaData : parentGeoQueryResponse.data,
+          subPopSourceLabel,
+          demographicType,
+          props.dataTypeConfig,
         )
 
         const dataForSvi: HetRow[] =
@@ -444,7 +505,7 @@ function MapCardWithKey(props: MapCardProps) {
               demographicGroups={demographicGroups}
               demographicGroupsNoData={fieldValues.noData}
               countColsMap={countColsMap}
-              data={mapQueryResponse.data}
+              data={dataForMultimaps}
               fieldRange={fieldRange}
               fips={props.fips}
               geoData={geoData}
@@ -470,6 +531,8 @@ function MapCardWithKey(props: MapCardProps) {
               subtitle={subtitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
+              isAtlantaMode={isAtlantaMode}
+              setIsAtlantaMode={setIsAtlantaMode}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -517,6 +580,18 @@ function MapCardWithKey(props: MapCardProps) {
                       ) : null
                     }
                   />
+                  {isGeorgiaWithCountyData && !extremesMode && (
+                    <HetLinkButton
+                      onClick={() => setIsAtlantaMode(!isAtlantaMode)}
+                      className='flex items-center'
+                    >
+                      <span className='mt-1 px-1'>
+                        {isAtlantaMode
+                          ? 'Return to all counties'
+                          : 'Highlight metro Atlanta counties'}
+                      </span>
+                    </HetLinkButton>
+                  )}
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
@@ -545,6 +620,7 @@ function MapCardWithKey(props: MapCardProps) {
                       signalListeners={signalListeners}
                       mapConfig={mapConfig}
                       isPhrmaAdherence={isPhrmaAdherence}
+                      isAtlantaMode={isAtlantaMode}
                     />
                   </div>
                 </div>
@@ -572,6 +648,7 @@ function MapCardWithKey(props: MapCardProps) {
                     totalPopulationPhrase={totalPopulationPhrase}
                     subPopulationPhrase={subPopulationPhrase}
                     sviQueryResponse={sviQueryResponse}
+                    isAtlantaMode={isAtlantaMode}
                   />
                 </div>
               </div>
@@ -583,7 +660,8 @@ function MapCardWithKey(props: MapCardProps) {
                 }
               >
                 {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveDemographicGroup.length > 1 && (
+                  dataForActiveDemographicGroup.length > 1 &&
+                  !isAtlantaMode && (
                     <ExtremesListBox
                       dataTypeConfig={props.dataTypeConfig}
                       selectedRaceSuffix={selectedRaceSuffix}

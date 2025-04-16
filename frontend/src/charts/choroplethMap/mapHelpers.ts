@@ -6,6 +6,7 @@ import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { Fips } from '../../data/utils/Fips'
 import {
+  ATLANTA_METRO_COUNTY_FIPS,
   type CountColsMap,
   DATA_SUPPRESSED,
   NO_DATA_MESSAGE,
@@ -21,6 +22,7 @@ export const createFeatures = async (
   showCounties: boolean,
   parentFips: string,
   geoData?: Record<string, any>,
+  isAtlantaMode?: boolean,
 ): Promise<FeatureCollection> => {
   const topology =
     geoData ??
@@ -37,17 +39,22 @@ export const createFeatures = async (
     topology.objects[geographyKey],
   ) as unknown as FeatureCollection
 
-  const filtered =
-    parentFips === '00'
-      ? features
-      : {
-          ...features,
-          features: features.features.filter((f) =>
-            String(f.id)?.startsWith(parentFips),
-          ),
-        }
+  if (parentFips === '00') return features
 
-  return filtered.features.length ? filtered : features
+  if (isAtlantaMode)
+    return {
+      ...features,
+      features: features.features.filter((f) =>
+        ATLANTA_METRO_COUNTY_FIPS.includes(String(f.id)),
+      ),
+    }
+
+  return {
+    ...features,
+    features: features.features.filter((f) =>
+      String(f.id)?.startsWith(parentFips),
+    ),
+  }
 }
 
 export const createProjection = (

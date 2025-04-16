@@ -6,7 +6,7 @@ import type { HetRow } from '../../data/utils/DatasetTypes'
 import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
-} from './GeoContext'
+} from './geoContextHelpers'
 
 describe('test getTotalACSPopulationPhrase()', () => {
   const nationalACSPopData: HetRow[] = [
