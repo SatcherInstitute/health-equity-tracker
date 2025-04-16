@@ -74,7 +74,7 @@ const apiProxyOptions = {
   target: assertEnvVar('DATA_SERVER_URL'),
   changeOrigin: true, // needed for virtual hosted sites
   pathRewrite: { '^/api': '' },
-  onProxyReq: (proxyReq, req, res) => {
+  onProxyReq: (proxyReq) => {
     proxyReq.setHeader(
       'Authorization',
       proxyReq.getHeader('Authorization_DataServer'),
