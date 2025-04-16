@@ -3,7 +3,6 @@ import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 // TODO: change over to use ESModules with import() instead of require() ?
 import express from 'express'
-import basicAuth from 'express-basic-auth'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
@@ -57,10 +56,7 @@ app.use('/api', (req, res, next) => {
     fetch(fetchUrl, options)
       .then((res) => res.text())
       .then((token) => {
-        // Set the bearer token temporarily to Authorization_DataServer header. If BasicAuth is enabled,
-        // it will overwrite the Authorization header after the token is fetched. Right before the proxy
-        // request is sent, overwrite the Authorization header with the bearer token from the service
-        // account and delete the Authorization_DataServer header.
+        // Set the bearer token temporarily to Authorization_DataServer header.
         req.headers['Authorization_DataServer'] = `bearer ${token}`
         next()
       })
@@ -70,7 +66,6 @@ app.use('/api', (req, res, next) => {
   }
 })
 
-// TODO should this go before or after basic auth?
 // TODO check if these are all the right proxy options. For example, there's a
 // "secure" option that makes it check SSL certificates. I don't think we need
 // it but I can't find good documentation.
@@ -79,8 +74,7 @@ const apiProxyOptions = {
   target: assertEnvVar('DATA_SERVER_URL'),
   changeOrigin: true, // needed for virtual hosted sites
   pathRewrite: { '^/api': '' },
-  onProxyReq: (proxyReq, req, res) => {
-    // Replace the basic auth header with the service account token.
+  onProxyReq: (proxyReq) => {
     proxyReq.setHeader(
       'Authorization',
       proxyReq.getHeader('Authorization_DataServer'),
@@ -90,22 +84,6 @@ const apiProxyOptions = {
 }
 const apiProxy = createProxyMiddleware(apiProxyOptions)
 app.use('/api', apiProxy)
-
-// auth middleware must be installed before setting up routes so it applies
-// to the whole site.
-if (!getBooleanEnvVar('DISABLE_BASIC_AUTH')) {
-  const username = assertEnvVar('BASIC_AUTH_USERNAME')
-  const password = assertEnvVar('BASIC_AUTH_PASSWORD')
-  app.use(
-    basicAuth({
-      // Temporary values until we can use Github Secrets. Also needs to be set up
-      // so that it's disabled for production but enabled for the test site.
-      users: { [username]: password },
-      challenge: true,
-      realm: 'Health Equity Tracker',
-    }),
-  )
-}
 
 app.use(compression())
 
