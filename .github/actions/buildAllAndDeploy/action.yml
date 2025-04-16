@@ -148,8 +148,8 @@ runs:
       run: |
         terraform apply -auto-approve -var-file=test/test.tfvars \
           -var-file=common.tfvars \
-          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
-          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'gcp_credentials=${{ inputs.deployer-sa-key }}' \
+          -var 'project_id=${{ inputs.project-id }}' \
           -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
