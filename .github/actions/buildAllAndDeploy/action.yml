@@ -142,19 +142,19 @@ runs:
         -backend-config="credentials=creds.json"
 
     - name: Terraform Apply
-      id: terraform
       shell: bash
+      id: terraform
       working-directory: ./config
       run: |
-        terraform apply -auto-approve -var-file=${{ inputs.terraform-var-file }} \
+        terraform apply -auto-approve -var-file=test/test.tfvars \
           -var-file=common.tfvars \
-          -var "gcp_credentials=${{ inputs.deployer-sa-key }}" \
-          -var "project_id=${{ inputs.project-id }}" \
-          -var "ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}" \
-          -var "gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}" \
-          -var "data_server_image_digest=${{ steps.serving.outputs.image-digest }}" \
-          -var "exporter_image_digest=${{ steps.exporter.outputs.image-digest }}" \
-          -var "frontend_image_digest=${{ steps.frontend.outputs.image-digest }}"
+          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+          -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
+          -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
+          -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
+          -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
+          -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}' \
 
         data_server_url=$(terraform output data_server_url)
         echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
