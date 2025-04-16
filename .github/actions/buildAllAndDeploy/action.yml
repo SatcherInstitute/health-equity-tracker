@@ -146,7 +146,7 @@ runs:
       shell: bash
       working-directory: ./config
       run: |
-        terraform apply -auto-approve -var-file=${{ inputs.terraform-var-file }} \
+        terraform apply -auto-approve -var-file='${{ inputs.terraform-var-file }}' \
           -var-file=common.tfvars \
           -var "gcp_credentials=${{ inputs.deployer-sa-key }}" \
           -var "project_id=${{ inputs.project-id }}" \
