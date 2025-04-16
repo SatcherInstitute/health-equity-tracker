@@ -20,12 +20,6 @@ inputs:
   tf-state-bucket:
     description: "Terraform state bucket"
     required: true
-  basic-auth-username:
-    description: "Basic auth username"
-    required: true
-  basic-auth-password:
-    description: "Basic auth password"
-    required: true
   openai-api-key:
     description: "OpenAI API key"
     required: false
@@ -124,8 +118,6 @@ runs:
         dockerfile: "frontend_server/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/frontend"
         deploy-context: ${{ inputs.environment }}
-        basic-auth-username: ${{ inputs.basic-auth-username }}
-        basic-auth-password: ${{ inputs.basic-auth-password }}
         openai-api-key: ${{ inputs.openai-api-key }}
 
     # Terraform and deployment
