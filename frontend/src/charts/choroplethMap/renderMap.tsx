@@ -94,7 +94,7 @@ export const renderMap = (props: RenderMapProps) => {
         colorScale: props.colorScale,
         extremesMode: props.extremesMode,
         mapConfig: props.mapConfig,
-        isPhrmaAdherence: props.isPhrmaAdherence,
+        isMultiMap: props.isMulti,
       }),
     )
     .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)

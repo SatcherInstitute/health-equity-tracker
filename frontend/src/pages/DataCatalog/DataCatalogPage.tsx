@@ -7,7 +7,10 @@ import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
 import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import {
+  DATA_CATALOG_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
+} from '../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 import DataSourceListing from './DataSourceListing'
 
@@ -106,7 +109,7 @@ export default function DataCatalogPage() {
                   {viewingSubsetOfSources && (
                     <HetTextArrowLink
                       containerClassName='flex justify-center'
-                      link={`DATA_CATALOG_PAGE_LINK`}
+                      link={DATA_CATALOG_PAGE_LINK}
                       linkText={'View All Datasets'}
                     />
                   )}
