@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to Staging
-        uses: ./.github/actions/deploy
+        uses: ./.github/actions/buildAllAndDeploy
         with:
           ref: main
           environment: staging

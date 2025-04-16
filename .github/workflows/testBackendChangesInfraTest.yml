@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to Test Environment
-        uses: ./.github/actions/deploy
+        uses: ./.github/actions/buildAllAndDeploy
         with:
           ref: infra-test
           environment: staging
