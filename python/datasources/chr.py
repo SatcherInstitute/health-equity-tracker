@@ -167,8 +167,6 @@ class CHRData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")
-        if demographic == std_col.RACE_COL:
-            demographic = std_col.RACE_OR_HISPANIC_COL
 
         dfs = []
 

@@ -32,7 +32,7 @@ def test_write_to_bq_race_county(
 
     with mock.patch.dict("datasources.chr.CHR_FILE_LOOKUP", subset_dict, clear=True):
         datasource = CHRData()
-        datasource.write_to_bq("dataset", "gcs_bucket", demographic="race")
+        datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity")
 
     assert mock_xlsx_data_dir.call_count == 4  # only testing subset; 2 years of source files
 
