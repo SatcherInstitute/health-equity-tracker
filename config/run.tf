@@ -90,6 +90,11 @@ resource "google_cloud_run_service" "data_server_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "80" # User-facing can scale to handle many requests
+      }
+    }
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
@@ -102,7 +107,7 @@ resource "google_cloud_run_service" "data_server_service" {
         resources {
           limits = {
             memory = "8Gi"
-            cpu    = 2
+            cpu    = 4
           }
         }
       }
@@ -172,7 +177,7 @@ resource "google_cloud_run_service" "frontend_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "20" # User-facing can scale to handle many requests
+        "autoscaling.knative.dev/maxScale" = "80" # User-facing can scale to handle many requests
       }
     }
     spec {
@@ -187,7 +192,7 @@ resource "google_cloud_run_service" "frontend_service" {
         resources {
           limits = {
             memory = "8Gi"
-            cpu    = 2
+            cpu    = 4
           }
         }
 
