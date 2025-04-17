@@ -45,7 +45,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # Removed the checkout step
 
     - name: Set Up GCP Auth
       uses: google-github-actions/auth@v2
