@@ -90,11 +90,6 @@ resource "google_cloud_run_service" "data_server_service" {
   project  = var.project_id
 
   template {
-    metadata {
-      annotations = {
-        "autoscaling.knative.dev/maxScale" = "20" # User-facing can scale to handle many requests
-      }
-    }
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
