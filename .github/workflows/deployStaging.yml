@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Deploy to Staging
         uses: ./.github/actions/buildAllAndDeploy
