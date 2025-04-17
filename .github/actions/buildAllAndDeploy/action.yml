@@ -45,11 +45,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # Initial checkout and setup with the single ref
-    - name: Check Out Code
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ inputs.ref }}
 
     - name: Set Up GCP Auth
       uses: google-github-actions/auth@v2
