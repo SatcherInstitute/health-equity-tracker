@@ -45,7 +45,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-
     - name: Set Up GCP Auth
       uses: google-github-actions/auth@v2
       with:
@@ -59,7 +58,7 @@ runs:
     # Build ingestion image
     - name: Build and Push Ingestion Image
       id: ingestion
-      uses: ./.github/actions/buildAndPush
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       with:
         dockerfile: "run_ingestion/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/data-ingestion"
@@ -68,7 +67,7 @@ runs:
     # Build GCS to BQ image
     - name: Build and Push GCS to BQ Image
       id: gcstobq
-      uses: ./.github/actions/buildAndPush
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       with:
         ahr-api-key: ${{ inputs.ahr-api-key }}
         dockerfile: "run_gcs_to_bq/Dockerfile"
@@ -78,7 +77,7 @@ runs:
     # Build exporter image
     - name: Build and Push Exporter Image
       id: exporter
-      uses: ./.github/actions/buildAndPush
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       with:
         dockerfile: "exporter/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/exporter"
@@ -87,7 +86,7 @@ runs:
     # Build data server image
     - name: Build and Push Data Server Image
       id: serving
-      uses: ./.github/actions/buildAndPush
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       with:
         dockerfile: "data_server/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/data-server"
@@ -103,7 +102,7 @@ runs:
 
     - name: Build and Push Frontend Image
       id: frontend
-      uses: ./.github/actions/buildAndPush
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       env:
         VITE_OPENAI_API_KEY: ${{ inputs.openai-api-key }}
       with:
