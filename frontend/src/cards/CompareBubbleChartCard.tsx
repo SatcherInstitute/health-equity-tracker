@@ -10,11 +10,11 @@ import { Breakdowns, type DemographicType } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import { SHOW_CORRELATION_CARD } from '../reports/CompareReport'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
+import { SHOW_CORRELATION_CARD } from '../featureFlags'
 
 interface CompareBubbleChartCardProps {
   fips1: Fips

@@ -5,7 +5,7 @@ import {
   extractRelevantData,
   getHighestDisparity,
 } from './generateInsightsUtils'
-import { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 
 export type Dataset = Record<string, any>
 

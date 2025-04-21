@@ -1,0 +1,9 @@
+export const SHOW_INSIGHT_GENERATION = import.meta.env
+  .VITE_SHOW_INSIGHT_GENERATION
+export const SHOW_CANCER_SCREENINGS = import.meta.env
+  .VITE_SHOW_CANCER_SCREENINGS
+export const SHOW_PHRMA_BRFSS = import.meta.env.VITE_SHOW_PHRMA_BRFSS
+export const SHOW_PHRMA_MENTAL_HEALTH = import.meta.env
+  .VITE_SHOW_PHRMA_MENTAL_HEALTH
+export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
+export const SHOW_CHR_GUN_DEATHS = import.meta.env.VITE_SHOW_CHR_GUN_DEATHS

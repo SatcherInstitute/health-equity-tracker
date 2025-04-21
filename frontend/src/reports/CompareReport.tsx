@@ -44,8 +44,7 @@ import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-
-export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
+import { SHOW_CORRELATION_CARD } from '../featureFlags'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */

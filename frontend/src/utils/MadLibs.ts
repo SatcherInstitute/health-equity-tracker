@@ -22,13 +22,14 @@ import type {
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
 
-import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
-
-const SHOW_CHR_GUN_DEATHS = import.meta.env.VITE_SHOW_CHR_GUN_DEATHS
+import {
+  SHOW_CANCER_SCREENINGS,
+  SHOW_CHR_GUN_DEATHS,
+  SHOW_PHRMA_MENTAL_HEALTH,
+} from '../featureFlags'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>

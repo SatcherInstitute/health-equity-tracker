@@ -10,10 +10,8 @@ import type {
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
+import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateInsight } from '../generateInsights'
-
-export const SHOW_INSIGHT_GENERATION = import.meta.env
-  .VITE_SHOW_INSIGHT_GENERATION
 
 interface ChartData {
   knownData: Readonly<Record<string, any>>[]
