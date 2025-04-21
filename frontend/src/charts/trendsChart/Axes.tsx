@@ -116,7 +116,7 @@ export function Axes({
 
   if (axisConfig.xAxisTimeSeriesCadence === 'fourYearly') {
     xAxis = xAxis.tickValues(
-      xScale.ticks().filter((tick) => tick.getFullYear() % 4 === 0),
+      xScale.ticks().filter((tick: Date) => tick.getFullYear() % 4 === 0),
     )
   }
 
