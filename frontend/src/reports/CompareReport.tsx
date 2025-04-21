@@ -23,6 +23,7 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import Sidebar from '../pages/ui/Sidebar'
 import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
@@ -44,7 +45,6 @@ import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-import { SHOW_CORRELATION_CARD } from '../featureFlags'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */

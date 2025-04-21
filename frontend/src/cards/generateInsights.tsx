@@ -1,11 +1,11 @@
 import axios from 'axios'
 import type { MetricId } from '../data/config/MetricConfigTypes'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ChartData } from '../reports/Report'
 import {
   extractRelevantData,
   getHighestDisparity,
 } from './generateInsightsUtils'
-import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 
 export type Dataset = Record<string, any>
 

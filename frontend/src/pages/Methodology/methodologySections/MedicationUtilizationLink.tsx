@@ -3,6 +3,7 @@ import { HashLink } from 'react-router-hash-link'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPhrma'
+import { SHOW_PHRMA_MENTAL_HEALTH } from '../../../featureFlags'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -11,7 +12,6 @@ import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { MEDICARE_MEDICATION_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../../../featureFlags'
 
 const medicareMedicationDataSources = [dataSourceMetadataMap.phrma]
 

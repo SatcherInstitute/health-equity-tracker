@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
+import { SHOW_PHRMA_MENTAL_HEALTH } from '../../featureFlags'
 import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
 import { dataSourceMetadataMap } from './MetadataMap'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../../featureFlags'
 
 describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {
