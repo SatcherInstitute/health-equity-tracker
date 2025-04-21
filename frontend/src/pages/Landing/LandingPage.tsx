@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
-import { useQuery } from 'react-query'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
@@ -20,11 +20,11 @@ import type { Article } from '../News/ArticleTypes'
 import NewsAndStoriesPreviewCardOutlined from '../News/NewsAndStoriesPreviewCardOutlined'
 
 function LandingPage() {
-  const { isLoading, error, data }: any = useQuery(
-    ARTICLES_KEY_4,
-    fetchLandingPageNewsData,
-    REACT_QUERY_OPTIONS,
-  )
+  const { isLoading, error, data }: any = useQuery({
+    queryKey: [ARTICLES_KEY_4],
+    queryFn: fetchLandingPageNewsData,
+    ...REACT_QUERY_OPTIONS,
+  })
 
   const isMd = useIsBreakpointAndUp('md')
   const isLg = useIsBreakpointAndUp('lg')
