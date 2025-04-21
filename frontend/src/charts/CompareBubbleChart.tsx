@@ -13,8 +13,6 @@ import {
   X_AXIS_MAX_TICKS,
 
 
-
-  
   X_AXIS_MAX_TICKS_SKINNY,
 } from './utils'
 
