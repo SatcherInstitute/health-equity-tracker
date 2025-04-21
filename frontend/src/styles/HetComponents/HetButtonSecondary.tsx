@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import type { ReactNode } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router'
 
 interface HetButtonSecondaryProps {
   children: ReactNode

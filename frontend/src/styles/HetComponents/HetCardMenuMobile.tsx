@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 interface HetCardMenuMobileProps {
   className?: string

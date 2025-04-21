@@ -1,5 +1,5 @@
 import LazyLoad from 'react-lazyload'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router'
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'

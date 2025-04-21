@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'

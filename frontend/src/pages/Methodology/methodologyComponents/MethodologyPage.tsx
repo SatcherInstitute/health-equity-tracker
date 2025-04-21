@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { Outlet, useLocation, useMatch } from 'react-router-dom'
+import { Outlet, useLocation, useMatch } from 'react-router'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import { methodologyRouteConfigs } from '../methodologyContent/methodologyRouteConfigs'
 import MethodologyCardMenu from './MethodologyCardMenu'
