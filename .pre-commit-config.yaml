@@ -38,10 +38,14 @@ repos:
             "-sn", # Don't display the score
           ]
   # LINT/FORMAT JS/TS/JSON WITH BIOME
-  - repo: https://github.com/biomejs/pre-commit
-    rev: v0.6.1 # Use the sha / tag you want to point at
+  - repo: local
     hooks:
       - id: biome-check
+        name: 🧬 format with biome
+        entry: bash -c 'cd frontend && npm run cleanup'
+        language: system
+        files: ^frontend/.*\.(js|ts|jsx|tsx|json)$
+        pass_filenames: false
   # TYPE CHECK WITH TSC
   - repo: local
     hooks:

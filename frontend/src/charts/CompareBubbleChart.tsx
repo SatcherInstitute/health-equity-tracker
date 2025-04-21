@@ -11,8 +11,6 @@ import { GROUP_COLOR_MAP } from './trendsChart/constants'
 import {
   HEIGHT_WIDTH_RATIO,
   X_AXIS_MAX_TICKS,
-
-
   X_AXIS_MAX_TICKS_SKINNY,
 } from './utils'
 
