@@ -70,7 +70,7 @@ async function fetchAIInsight(prompt: string): Promise<string> {
 
     const content = response.data.choices?.[0]?.message?.content
     if (!content) throw new Error('No valid response from OpenAI API')
-    return content.trim().replace(/^"|"$/g, '');
+    return content.trim().replace(/^"|"$/g, '')
   } catch (error) {
     console.error('Error generating insight:', error)
     throw error

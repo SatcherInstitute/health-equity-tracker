@@ -86,7 +86,7 @@ export function getDemographicGroupLabel(
 
 export function removeLastS(inputString: string) {
   // Use a regular expression to replace the last "s" with an empty string
-  return inputString.replace(/s$/, '');
+  return inputString.replace(/s$/, '')
 }
 
 // Returns an options object for toLocaleString() that will round larger 100k numbers to whole numbers, but allow 1 decimal place for numbers under 10 and 2 decimal places for numbers under 1

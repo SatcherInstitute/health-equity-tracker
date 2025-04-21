@@ -146,5 +146,5 @@ export function FilterLegend({
         })}
       </menu>
     </div>
-  );
+  )
 }

@@ -248,7 +248,7 @@ export function TrendsChart({
       <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
         {isSm && (
           // Render Chart Title DESKTOP ABOVE LEGEND
-          (<ChartTitle title={chartTitle} subtitle={chartSubTitle} />)
+          <ChartTitle title={chartTitle} subtitle={chartSubTitle} />
         )}
         {/* Filter */}
         {data && (
@@ -268,7 +268,7 @@ export function TrendsChart({
         )}
         {!isSm && (
           // Render Chart Title MOBILE BELOW LEGEND
-          (<ChartTitle title={chartTitle} subtitle={chartSubTitle} />)
+          <ChartTitle title={chartTitle} subtitle={chartSubTitle} />
         )}
       </div>
       {/* Tooltip */}
@@ -375,5 +375,5 @@ export function TrendsChart({
         </>
       )}
     </figure>
-  );
+  )
 }
