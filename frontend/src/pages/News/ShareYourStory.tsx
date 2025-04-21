@@ -58,7 +58,7 @@ export default function ShareYourStory() {
                   (Math.floor(index / 2) % 2 !== 0 && index % 2 !== 0))
 
               return (
-                <li
+                <div
                   key={submissionGuideline.title}
                   className={`fade-in-up-blur rounded-md p-2 md:p-8 ${
                     isMobileShadow || isDesktopShadow ? 'shadow-raised' : ''
@@ -70,7 +70,7 @@ export default function ShareYourStory() {
                     title={submissionGuideline.title}
                     description={submissionGuideline.description}
                   />
-                </li>
+                </div>
               )
             })}
           </ul>

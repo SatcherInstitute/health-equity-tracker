@@ -1,7 +1,7 @@
 import { Skeleton } from '@mui/material'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useQuery } from 'react-query'
 import { Link, useNavigate, useParams } from 'react-router'
 import hetLogo from '../../assets/AppbarLogo.png'
 import ShareButtons, {
@@ -60,11 +60,11 @@ export default function SinglePost() {
     }
   }
 
-  const { data, isLoading, isError } = useQuery(
-    [ARTICLES_KEY, slug],
-    fetchNewsData,
-    REACT_QUERY_OPTIONS,
-  )
+  const { data, isLoading, isError } = useQuery({
+    queryKey: [ARTICLES_KEY, slug],
+    queryFn: fetchNewsData,
+    ...REACT_QUERY_OPTIONS,
+  })
 
   useEffect(() => {
     if (data?.data) {
