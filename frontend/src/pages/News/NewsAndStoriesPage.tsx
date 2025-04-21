@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useQuery } from 'react-query'
 import { useSearchParams } from 'react-router'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
@@ -17,11 +17,11 @@ interface AuthorItem {
 }
 
 export default function NewsAndStoriesPage() {
-  const { isLoading, error, data }: any = useQuery(
-    blogUtils.ARTICLES_KEY,
-    fetchNewsData,
-    blogUtils.REACT_QUERY_OPTIONS,
-  )
+  const { isLoading, error, data }: any = useQuery({
+    queryKey: [blogUtils.ARTICLES_KEY],
+    queryFn: fetchNewsData,
+    ...blogUtils.REACT_QUERY_OPTIONS,
+  })
 
   const [searchParams] = useSearchParams()
   const [allArticles, setAllArticles] = useState<Article[]>([])
