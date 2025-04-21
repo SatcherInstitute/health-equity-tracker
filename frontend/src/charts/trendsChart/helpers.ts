@@ -26,7 +26,7 @@ function getAmountsByDate(d: TimeSeries, selectedDate: string | null) {
 function sortDataDescending(d: TrendsData, selectedDate: string) {
   return (
     // copy array because sort is destructive
-    [...d]
+    ([...d]
       // filter out falsy values other than 0 for this date
       .filter(
         ([, data]) =>
@@ -39,8 +39,8 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
           getAmountsByDate(aData, selectedDate),
           getAmountsByDate(bData, selectedDate),
         ),
-      ) || d
-  )
+      ) || d)
+  );
 }
 
 /* Returns the highest absolute value amount (y value) at a given date (x value) */

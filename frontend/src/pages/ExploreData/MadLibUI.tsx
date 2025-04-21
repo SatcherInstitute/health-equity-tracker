@@ -158,24 +158,24 @@ export default function MadLibUI(props: MadLibUIProps) {
                 >
                   {typeof phraseSegment === 'string' ? (
                     // NON_INTERACTIVE MADLIB WORDS
-                    <span className='text-altBlack'>
+                    (<span className='text-altBlack'>
                       {phraseSegment}
                       {insertOptionalThe(props.madLib.activeSelections, index)}
-                    </span>
+                    </span>)
                   ) : (
                     <>
                       {isLocationMadLib ? (
                         // LOCATION
-                        <LocationSelector
+                        (<LocationSelector
                           newValue={props.madLib.activeSelections[index]}
                           onOptionUpdate={(newValue) => {
                             handleOptionUpdate(newValue, index)
                           }}
                           phraseSegment={phraseSegment}
-                        />
+                        />)
                       ) : (
                         // MAIN PARENT TOPIC
-                        <TopicSelector
+                        (<TopicSelector
                           newValue={
                             props.madLib.activeSelections[
                               index
@@ -185,12 +185,12 @@ export default function MadLibUI(props: MadLibUIProps) {
                             handleOptionUpdate(newValue, index)
                           }}
                           phraseSegment={phraseSegment}
-                        />
+                        />)
                       )}
 
                       {dataTypes?.length > 1 && (
                         // DATA TYPE SUB TOPIC
-                        <DataTypeSelector
+                        (<DataTypeSelector
                           key={`${index}-datatype`}
                           newValue={config?.dataTypeId ?? dataTypes[0][0]}
                           onOptionUpdate={(newValue) => {
@@ -201,12 +201,12 @@ export default function MadLibUI(props: MadLibUIProps) {
                             )
                           }}
                           options={dataTypes}
-                        />
+                        />)
                       )}
                     </>
                   )}
                 </React.Fragment>
-              )
+              );
             },
           )}
           <span>by</span>
@@ -214,5 +214,5 @@ export default function MadLibUI(props: MadLibUIProps) {
         </h1>
       </div>
     </>
-  )
+  );
 }
