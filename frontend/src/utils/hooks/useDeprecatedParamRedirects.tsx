@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import { EXPLORE_DATA_PAGE_LINK } from '../internalRoutes'

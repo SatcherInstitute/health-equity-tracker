@@ -8,7 +8,7 @@ interface Dataset {
   datasetNameDetails?: string
   items: DatasetItem[]
 }
-export const datasets: Dataset[] = [
+export const gunViolenceDatasets: Dataset[] = [
   {
     datasetName: 'Gun Deaths',
     datasetNameDetails: '(Children, 0-17)',

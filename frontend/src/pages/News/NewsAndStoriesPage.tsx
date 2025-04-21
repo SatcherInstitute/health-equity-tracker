@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from 'react-query'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import * as blogUtils from '../../utils/blogUtils'

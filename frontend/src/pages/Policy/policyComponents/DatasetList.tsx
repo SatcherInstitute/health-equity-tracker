@@ -1,5 +1,4 @@
 import { BlockRounded, CheckRounded } from '@mui/icons-material'
-import React from 'react'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 interface DatasetItem {
@@ -21,7 +20,10 @@ export default function DatasetList({ datasets }: DatasetListProps) {
   return (
     <div className='grid grid-cols-2 md:grid-cols-3'>
       {datasets.map((dataset) => (
-        <div key={dataset.datasetName} className='m-1'>
+        <div
+          key={dataset.datasetName + '_' + dataset.datasetNameDetails}
+          className='m-1'
+        >
           <div className='justify-left my-2 flex flex-col'>
             <p className='my-0 text-text'>
               <HetTerm>{dataset.datasetName}</HetTerm>

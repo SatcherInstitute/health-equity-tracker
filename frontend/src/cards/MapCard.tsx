@@ -1,6 +1,6 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import {

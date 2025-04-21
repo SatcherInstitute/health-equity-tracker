@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../../data/config/MetricConfigUtils'
 import type { HetRow } from '../../data/utils/DatasetTypes'
@@ -24,7 +23,7 @@ export default function ExtremeList(props: ExtremeListProps) {
     : null
 
   return (
-    <Grid item xs={12} sm={6}>
+    <div className='w-full px-0 sm:w-1/2 sm:px-2'>
       <h4 className='m-0'>
         {tieDisplayValue
           ? `${props.whichExtreme} (${tieDisplayValue}):`
@@ -71,6 +70,6 @@ export default function ExtremeList(props: ExtremeListProps) {
           </>
         )}
       </ul>
-    </Grid>
+    </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { AgeAdjustedTableChart } from '../charts/AgeAdjustedTableChart'
 import { generateChartTitle } from '../charts/utils'
 import type { DropdownVarId } from '../data/config/DropDownIds'

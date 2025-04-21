@@ -15,7 +15,7 @@ import {
   Toolbar,
 } from '@mui/material'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'

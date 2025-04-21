@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router'
 import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import {
   type DemographicGroup,

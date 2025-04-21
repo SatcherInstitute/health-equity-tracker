@@ -19,7 +19,7 @@ import {
   Route,
   Routes,
   useLocation,
-} from 'react-router-dom'
+} from 'react-router'
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import NewsAndStoriesPage from './pages/News/NewsAndStoriesPage'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'

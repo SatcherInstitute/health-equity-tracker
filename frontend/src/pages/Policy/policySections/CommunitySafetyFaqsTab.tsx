@@ -8,7 +8,10 @@ export default function CommunitySafetyFaqsTab() {
       <Helmet>
         <title>FAQs - Health Equity Tracker</title>
       </Helmet>
-      <HetAccordion accordionData={communitySafetyFaqs} />
+      <HetAccordion
+        accordionData={communitySafetyFaqs}
+        headingLevelOverride='h2'
+      />
     </>
   )
 }

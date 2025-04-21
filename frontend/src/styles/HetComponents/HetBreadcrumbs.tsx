@@ -1,6 +1,6 @@
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Button from '@mui/material/Button'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import { useParamState } from '../../utils/hooks/useParamState'
