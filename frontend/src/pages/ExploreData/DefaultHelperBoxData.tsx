@@ -1,5 +1,5 @@
 import FiberNewIcon from '@mui/icons-material/FiberNew'
-import { lazy } from 'react'
+import { lazy, type JSX } from 'react';
 import {
   GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
   HIV_PREVALENCE_RACE_USA_SETTING,

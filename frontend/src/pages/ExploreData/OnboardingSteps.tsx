@@ -1,6 +1,8 @@
 import LazyLoad from 'react-lazyload'
 import covidClick from '../../assets/screengrabs/covidClick.mp4'
 
+import type { JSX } from "react";
+
 export function getOnboardingSteps(pageIsWide: boolean) {
   const steps = [
     onboardingStep(

@@ -9,6 +9,8 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 import InfoCitations from './InfoCitations'
 
+import type { JSX } from "react";
+
 interface DefinitionsListProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }

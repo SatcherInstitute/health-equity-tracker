@@ -14,6 +14,8 @@ import {
   useResources,
 } from './useResources'
 
+import type { JSX } from "react";
+
 /**
  * Provides a wrapper around a UI component that may be loading or have an async
  * error, and displays loading and error indicators.

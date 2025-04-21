@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 interface HetTermProps {
   children?: JSX.Element | string | string[]
 }

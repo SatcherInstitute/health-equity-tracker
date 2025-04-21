@@ -2,7 +2,7 @@ import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
 import { Button, List, ListItem, ListItemText } from '@mui/material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import type React from 'react'
-import { useState } from 'react'
+import { useState, type JSX } from 'react';
 import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import type {
   DemographicType,

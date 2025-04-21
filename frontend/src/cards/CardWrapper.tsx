@@ -10,6 +10,8 @@ import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightDisplay, { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
 import { Sources } from './ui/Sources'
 
+import type { JSX } from "react";
+
 function CardWrapper(props: {
   // prevent layout shift as component loads
   minHeight?: number

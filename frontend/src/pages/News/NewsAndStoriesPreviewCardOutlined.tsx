@@ -6,6 +6,8 @@ import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { getHtml } from '../../utils/urlutils'
 import type { Article } from './ArticleTypes'
 
+import type { JSX } from "react";
+
 interface NewsAndStoriesPreviewCardOutlinedProps {
   article: Article
   bgHeight?: string

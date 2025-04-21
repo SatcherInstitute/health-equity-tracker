@@ -1,6 +1,8 @@
 import type React from 'react'
 import ResourceItem from './ResourceItem'
 
+import type { JSX } from "react";
+
 interface ResourceSectionProps {
   id: string
   icon: React.ReactNode
