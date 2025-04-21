@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { act } from 'react'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router'
 import { expect, test } from 'vitest'
 import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'

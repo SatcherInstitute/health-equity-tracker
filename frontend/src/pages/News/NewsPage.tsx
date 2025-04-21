@@ -1,6 +1,6 @@
 import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import {
   NEWS_PAGE_LINK,

@@ -11,7 +11,7 @@ import {
 } from '../../../utils/internalRoutes'
 import { IndentedItem } from '../../FAQs/FaqsPageData'
 import DatasetList from '../policyComponents/DatasetList'
-import { datasets } from '../policyContent/DataCollectionContent'
+import { gunViolenceDatasets } from '../policyContent/DataCollectionContent'
 
 interface OptionGroupProps {
   title: string
@@ -144,12 +144,12 @@ export const communitySafetyFaqs: Faq[] = [
           label={`CDC WISQARS Definitions`}
           href={urlMap.wisqarsDefinitions}
         />
-        <p>
+        <div>
           <HetTextArrowLink
             link={DATA_COLLECTION_TAB}
             linkText={'Learn about our data collection process'}
           />
-        </p>
+        </div>
       </>
     ),
   },
@@ -194,9 +194,9 @@ export const communitySafetyFaqs: Faq[] = [
         <p>
           Our dataset on <HetTerm>youth-related gun violence</HetTerm>{' '}
           specifically categorizes fatalities as:
-          <IndentedItem label={'Gun Deaths (Children, 0-17)'} />
-          <IndentedItem label={'Gun Deaths (Young adults, 18-25)'} />
         </p>
+        <IndentedItem label={'Gun Deaths (Children, 0-17)'} />
+        <IndentedItem label={'Gun Deaths (Young adults, 18-25)'} />
       </>
     ),
   },
@@ -215,7 +215,7 @@ export const communitySafetyFaqs: Faq[] = [
   },
   {
     question: 'What demographic details can users filter by in the dataset?',
-    answer: <DataDescription datasets={datasets} />,
+    answer: <DataDescription datasets={gunViolenceDatasets} />,
   },
   {
     question: 'How is youth-related violence addressed in the data?',

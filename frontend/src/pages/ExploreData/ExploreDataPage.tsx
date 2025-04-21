@@ -1,7 +1,7 @@
 import { useAtomValue } from 'jotai'
 import { lazy, useCallback, useEffect, useState } from 'react'
 import { STATUS } from 'react-joyride'
-import { useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router'
 import {
   type DropdownVarId,
   isDropdownVarId,

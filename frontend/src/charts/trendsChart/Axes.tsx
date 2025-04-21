@@ -168,6 +168,7 @@ export function Axes({
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
           tabIndex={0}
+          role='graphics-symbol'
         />
         {/* Y-Axis */}
         <g
@@ -180,6 +181,7 @@ export function Axes({
             getMaxNumber(data) ?? 'highest'
           }${optionalPct}`}
           tabIndex={0}
+          role='graphics-symbol'
         />
       </g>
       {/* Zero Line Indicator */}

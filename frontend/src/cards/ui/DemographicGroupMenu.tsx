@@ -1,5 +1,11 @@
 import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
-import { Button, List, ListItem, ListItemText } from '@mui/material'
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import type React from 'react'
 import { useState } from 'react'
@@ -52,16 +58,15 @@ function MenuPopover(props: MenuPopoverProps): JSX.Element {
       return <ListItem key={listItem}>{listItem} [unavailable]</ListItem>
     } else {
       return (
-        <ListItem
+        <ListItemButton
           key={listItem}
-          button
           onClick={(event) => {
             props.onClick(event, listItem)
           }}
         >
           <ListItemText primary={listItem} />
           {hasChildren && <ArrowRight />}
-        </ListItem>
+        </ListItemButton>
       )
     }
   }

@@ -16,6 +16,7 @@ interface HetAccordionProps {
   accordionClassName?: string
   summaryClassName?: string
   detailsClassName?: string
+  headingLevelOverride?: 'h2' | 'h4' | 'h5' | 'h6'
 }
 
 const HetAccordion: React.FC<HetAccordionProps> = ({
@@ -24,6 +25,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
   accordionClassName,
   summaryClassName,
   detailsClassName,
+  headingLevelOverride,
 }) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
@@ -34,6 +36,9 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
 
   const renderAccordionItem = (data: AccordionData, index: number) => (
     <Accordion
+      slotProps={
+        headingLevelOverride && { heading: { component: headingLevelOverride } }
+      }
       key={index}
       expanded={expandedIndex === index}
       onChange={handleChange(index)}

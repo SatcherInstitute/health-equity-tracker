@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import AnimateHeight from 'react-animate-height'
 import type {
   DataTypeConfig,
@@ -75,7 +74,7 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
       {props.isOpen && (
         <>
           <div className='mx-4 my-0'>
-            <Grid container justifyContent='space-around'>
+            <div className='flex flex-row justify-around'>
               <ExtremeList
                 whichExtreme='Highest'
                 values={props.highestValues}
@@ -91,7 +90,7 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
                 qualifierMessage={props.qualifierMessage}
                 qualifierItems={props.qualifierItems}
               />
-            </Grid>
+            </div>
 
             <h4>{props.fips.getUppercaseFipsTypeDisplayName()} overall:</h4>
             <ul>
