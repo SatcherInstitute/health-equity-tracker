@@ -7,8 +7,7 @@ import '@fontsource/taviraj/300.css'
 import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
 
-import { CircularProgress, StyledEngineProvider } from '@mui/material'
-// TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
+import { CircularProgress } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { Suspense, useEffect } from 'react'
@@ -110,153 +109,148 @@ export default function App() {
 
   return (
     <HelmetProvider>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={MaterialTheme}>
-          <CssBaseline />
-          <div className='relative min-h-full bg-white text-center'>
-            <SkipLink />
+      <ThemeProvider theme={MaterialTheme} defaultMode='light'>
+        <CssBaseline />
+        <div className='relative min-h-full bg-white text-center'>
+          <SkipLink />
 
-            <div className='relative h-full'>
-              <BrowserRouter>
-                <Banner />
-                <HetAppBar />
-                <ScrollToTop />
-                <Suspense
-                  fallback={
-                    <main className='min-h-screen'>
-                      <CircularProgress
-                        className='mt-10'
-                        aria-label='loading'
-                      />
-                    </main>
-                  }
-                >
-                  <main id='main' className='scroll-smooth'>
-                    <Routes>
-                      <Route
-                        path={ABOUT_US_PAGE_LINK}
-                        element={<AboutUsPage />}
-                      />
-
-                      <Route
-                        path={DATA_CATALOG_PAGE_LINK}
-                        element={<DataCatalogPage />}
-                      />
-
-                      <Route
-                        path={EXPLORE_DATA_PAGE_LINK}
-                        element={
-                          <ErrorBoundaryDropParams
-                            fallback={<ExploreDataFallback />}
-                          >
-                            <ExploreDataPage isMobile={isSm} />
-                          </ErrorBoundaryDropParams>
-                        }
-                      />
-                      <Route path={FULL_FAQS_LINK} element={<FaqsPage />} />
-
-                      {/* WHAT IS HEALTH EQUITY ROUTES */}
-                      <Route
-                        path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
-                        element={<WhatIsHealthEquityPage />}
-                      >
-                        <>
-                          {wiheConfigs.map((route) => (
-                            <Route
-                              key={route.path}
-                              path={route.path}
-                              element={route.component}
-                            />
-                          ))}
-                        </>
-                      </Route>
-
-                      {/* NESTED METHODOLOGY ROUTES */}
-                      <Route
-                        path={METHODOLOGY_PAGE_LINK}
-                        element={<MethodologyPage />}
-                      >
-                        <>
-                          {methodologyRouteConfigs.map((route) => (
-                            <Route
-                              key={route.path}
-                              path={route.path}
-                              element={route.component}
-                            />
-                          ))}
-                        </>
-                      </Route>
-
-                      {/* NESTED POLICY ROUTES */}
-                      <Route
-                        path={POLICY_PAGE_LINK}
-                        element={<Navigate to={GUN_VIOLENCE_POLICY} />}
-                      />
-                      <Route path={POLICY_PAGE_LINK} element={<PolicyPage />}>
-                        <>
-                          {policyRouteConfigs.map((route) => (
-                            <Route
-                              key={route.path}
-                              path={route.path}
-                              element={route.component}
-                            />
-                          ))}
-                        </>
-                      </Route>
-
-                      {/* NESTED NEWS ROUTES */}
-                      <Route path={NEWS_PAGE_LINK} element={<NewsPage />}>
-                        <Route
-                          path={SHARE_YOUR_STORY_TAB_LINK}
-                          element={<ShareYourStory />}
-                        />
-                        <Route path={''} element={<NewsAndStoriesPage />} />
-                        <Route path='/news/:slug' element={<SinglePost />} />
-                      </Route>
-
-                      <Route
-                        path={TERMS_OF_USE_PAGE_LINK}
-                        element={<TermsOfUsePage />}
-                      />
-
-                      {/* Redirect the old URLs for possible outside links */}
-                      <Route
-                        path={OLD_OURTEAM_LINK}
-                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
-                      />
-                      <Route
-                        path={OLD_CONTACT_LINK}
-                        element={<Navigate to={ABOUT_US_PAGE_LINK} />}
-                      />
-                      <Route
-                        path={OLD_TERMS_OF_SERVICE_LINK}
-                        element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
-                      />
-                      <Route
-                        path={SHARE_YOUR_STORY_PATH}
-                        element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
-                      />
-
-                      <Route
-                        path={OLD_AGE_ADJUSTMENT_LINK}
-                        element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
-                      />
-
-                      {/* Catch-all route */}
-                      <Route path='*' element={<LandingPage />} />
-                    </Routes>
+          <div className='relative h-full'>
+            <BrowserRouter>
+              <Banner />
+              <HetAppBar />
+              <ScrollToTop />
+              <Suspense
+                fallback={
+                  <main className='min-h-screen'>
+                    <CircularProgress className='mt-10' aria-label='loading' />
                   </main>
-                </Suspense>
-              </BrowserRouter>
-            </div>
-            <footer>
-              <Suspense fallback={<span></span>}>
-                <Footer />
+                }
+              >
+                <main id='main' className='scroll-smooth'>
+                  <Routes>
+                    <Route
+                      path={ABOUT_US_PAGE_LINK}
+                      element={<AboutUsPage />}
+                    />
+
+                    <Route
+                      path={DATA_CATALOG_PAGE_LINK}
+                      element={<DataCatalogPage />}
+                    />
+
+                    <Route
+                      path={EXPLORE_DATA_PAGE_LINK}
+                      element={
+                        <ErrorBoundaryDropParams
+                          fallback={<ExploreDataFallback />}
+                        >
+                          <ExploreDataPage isMobile={isSm} />
+                        </ErrorBoundaryDropParams>
+                      }
+                    />
+                    <Route path={FULL_FAQS_LINK} element={<FaqsPage />} />
+
+                    {/* WHAT IS HEALTH EQUITY ROUTES */}
+                    <Route
+                      path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
+                      element={<WhatIsHealthEquityPage />}
+                    >
+                      <>
+                        {wiheConfigs.map((route) => (
+                          <Route
+                            key={route.path}
+                            path={route.path}
+                            element={route.component}
+                          />
+                        ))}
+                      </>
+                    </Route>
+
+                    {/* NESTED METHODOLOGY ROUTES */}
+                    <Route
+                      path={METHODOLOGY_PAGE_LINK}
+                      element={<MethodologyPage />}
+                    >
+                      <>
+                        {methodologyRouteConfigs.map((route) => (
+                          <Route
+                            key={route.path}
+                            path={route.path}
+                            element={route.component}
+                          />
+                        ))}
+                      </>
+                    </Route>
+
+                    {/* NESTED POLICY ROUTES */}
+                    <Route
+                      path={POLICY_PAGE_LINK}
+                      element={<Navigate to={GUN_VIOLENCE_POLICY} />}
+                    />
+                    <Route path={POLICY_PAGE_LINK} element={<PolicyPage />}>
+                      <>
+                        {policyRouteConfigs.map((route) => (
+                          <Route
+                            key={route.path}
+                            path={route.path}
+                            element={route.component}
+                          />
+                        ))}
+                      </>
+                    </Route>
+
+                    {/* NESTED NEWS ROUTES */}
+                    <Route path={NEWS_PAGE_LINK} element={<NewsPage />}>
+                      <Route
+                        path={SHARE_YOUR_STORY_TAB_LINK}
+                        element={<ShareYourStory />}
+                      />
+                      <Route path={''} element={<NewsAndStoriesPage />} />
+                      <Route path='/news/:slug' element={<SinglePost />} />
+                    </Route>
+
+                    <Route
+                      path={TERMS_OF_USE_PAGE_LINK}
+                      element={<TermsOfUsePage />}
+                    />
+
+                    {/* Redirect the old URLs for possible outside links */}
+                    <Route
+                      path={OLD_OURTEAM_LINK}
+                      element={<Navigate to={ABOUT_US_PAGE_LINK} />}
+                    />
+                    <Route
+                      path={OLD_CONTACT_LINK}
+                      element={<Navigate to={ABOUT_US_PAGE_LINK} />}
+                    />
+                    <Route
+                      path={OLD_TERMS_OF_SERVICE_LINK}
+                      element={<Navigate to={TERMS_OF_USE_PAGE_LINK} />}
+                    />
+                    <Route
+                      path={SHARE_YOUR_STORY_PATH}
+                      element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
+                    />
+
+                    <Route
+                      path={OLD_AGE_ADJUSTMENT_LINK}
+                      element={<Navigate to={AGE_ADJUSTMENT_LINK} />}
+                    />
+
+                    {/* Catch-all route */}
+                    <Route path='*' element={<LandingPage />} />
+                  </Routes>
+                </main>
               </Suspense>
-            </footer>
+            </BrowserRouter>
           </div>
-        </ThemeProvider>
-      </StyledEngineProvider>
+          <footer>
+            <Suspense fallback={<span></span>}>
+              <Footer />
+            </Suspense>
+          </footer>
+        </div>
+      </ThemeProvider>
     </HelmetProvider>
   )
 }
