@@ -1,48 +1,22 @@
-import { createTheme } from '@mui/material/styles'
+import { extendTheme } from '@mui/material'
 import { ThemeLineHeightValues, het } from '../styles/DesignTokens'
 
-declare module '@mui/material/styles' {
-  interface BreakpointOverrides {
-    // Normal Breakpoints
-    xs: true
-    sm: true
-    md: true
-    lg: true
-    xl: true
-    // Custom breakpoints for useChartTitle, useFont
-    titleXs: true
-    titleSm: true
-    titleMd: true
-    titleLg: true
-    titleXl: true
-  }
-}
-
-const MaterialTheme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 960,
-      lg: 1280,
-      xl: 1920,
-      titleXs: 0,
-      titleSm: 800,
-      titleMd: 900,
-      titleLg: 1500,
-      titleXl: 1850,
-    },
-  },
-  palette: {
-    primary: {
-      light: het.barChartLight,
-      main: het.altGreen,
-      dark: het.darkGreen,
-    },
-    secondary: {
-      light: het.secondaryLight,
-      main: het.secondaryMain,
-      dark: het.secondaryDark,
+// Use the new extendTheme function from MUI v7
+const MaterialTheme = extendTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: {
+          light: het.barChartLight,
+          main: het.altGreen,
+          dark: het.darkGreen,
+        },
+        secondary: {
+          light: het.secondaryLight,
+          main: het.secondaryMain,
+          dark: het.secondaryDark,
+        },
+      },
     },
   },
   components: {
@@ -51,31 +25,31 @@ const MaterialTheme = createTheme({
         body: {
           fontFamily: '"Inter", sans-serif',
         },
-        '.MuiAlert-standardInfo .MuiAlert-icon': {
-          color: `${het.altGreen} !important`,
-        },
-        '.MuiAlert-standardWarning .MuiAlert-icon': {
-          color: `${het.alertColor} !important`,
-        },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
           fontFamily: '"Inter", sans-serif',
-        },
-        standardInfo: {
-          backgroundColor: `${het.standardInfo} !important`,
-          color: `${het.black} !important`,
-          textAlign: 'left',
-        },
-        standardWarning: {
-          backgroundColor: `${het.standardWarning} !important`,
-          color: `${het.black} !important`,
-          textAlign: 'left',
-        },
-        standardError: {
-          textAlign: 'left',
+          '&.MuiAlert-standardInfo': {
+            backgroundColor: het.standardInfo,
+            color: het.black,
+            textAlign: 'left',
+            '& .MuiAlert-icon': {
+              color: het.altGreen,
+            },
+          },
+          '&.MuiAlert-standardWarning': {
+            backgroundColor: het.standardWarning,
+            color: het.black,
+            textAlign: 'left',
+            '& .MuiAlert-icon': {
+              color: het.alertColor,
+            },
+          },
+          '&.MuiAlert-standardError': {
+            textAlign: 'left',
+          },
         },
       },
     },
