@@ -37,6 +37,7 @@ const PORT = 8080
 const HOST = '0.0.0.0'
 const app = express()
 
+app.use(express.json())
 app.use(compression())
 
 // Add Authorization header for all requests that are proxied to the data server.
@@ -86,6 +87,41 @@ const apiProxy = createProxyMiddleware(apiProxyOptions)
 app.use('/api', apiProxy)
 
 app.use(compression())
+
+app.get('/fetch-ai-insight/:prompt', async (req, res) => {
+  const prompt = decodeURIComponent(req.params.prompt)
+  const apiKey = assertEnvVar('OPENAI_API_KEY')
+
+  try {
+    const aiResponse = await fetch(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 500,
+        }),
+      },
+    )
+
+    if (!aiResponse.ok) {
+      throw new Error(`AI API Error: ${aiResponse.statusText}`)
+    }
+
+    const json = await aiResponse.json()
+    const content = json.choices?.[0]?.message?.content || 'No content returned'
+
+    res.json({ content: content.trim() })
+  } catch (err) {
+    console.error('Error fetching AI insight:', err)
+    res.status(500).json({ error: 'Failed to fetch AI insight' })
+  }
+})
 
 // Serve static files from the build directory.
 const __dirname = dirname(fileURLToPath(import.meta.url))
