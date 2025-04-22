@@ -17,7 +17,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
   article,
   bgHeight = '10rem',
   linkClassName = '',
-}: NewsAndStoriesPreviewCardOutlinedProps): React.ReactElement {
+}: NewsAndStoriesPreviewCardOutlinedProps): React.ReactElement<any> {
   const navigate = useNavigate()
   const getImageSource = (): string => {
     const imageSource =

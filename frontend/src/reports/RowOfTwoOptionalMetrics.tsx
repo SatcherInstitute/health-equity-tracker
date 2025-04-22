@@ -20,7 +20,7 @@ interface RowOfTwoOptionalMetricsProps {
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
     isCompareCard?: boolean,
-  ) => React.ReactElement
+  ) => React.ReactElement<any>
   dropdownVarId1?: DropdownVarId
   dropdownVarId2?: DropdownVarId
   headerScrollMargin: number
