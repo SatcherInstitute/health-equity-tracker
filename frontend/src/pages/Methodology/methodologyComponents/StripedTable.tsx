@@ -7,32 +7,49 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { het } from '../../../styles/DesignTokens'
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: het.standardInfo,
-  },
-  '&:nth-of-type(even)': {
-    backgroundColor: het.white,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}))
+interface StripedTableRowProps {
+  children: React.ReactNode
+  index: number
+  applyThickBorder?: boolean
+  rowCount?: number
+}
 
-type Row = Record<string, any>
-
-interface Column {
-  header: string
-  accessor: string
+function StripedTableRow({
+  children,
+  index,
+  applyThickBorder,
+  rowCount,
+  ...props
+}: StripedTableRowProps) {
+  return (
+    <TableRow
+      sx={{
+        backgroundColor: index % 2 === 0 ? het.standardInfo : het.white,
+        '&:last-child td, &:last-child th': {
+          border: 0,
+        },
+        ...(applyThickBorder && rowCount !== 3 && (index + 1) % 2 === 0
+          ? {
+              borderBottom: '2px solid',
+              borderColor: 'methodologyGreen',
+              borderLeft: 0,
+              borderRight: 0,
+              borderTop: 0,
+            }
+          : {}),
+      }}
+      {...props}
+    >
+      {children}
+    </TableRow>
+  )
 }
 
 interface StripedTableProps {
-  rows: Row[]
-  columns: Column[]
+  rows: Record<string, any>[]
+  columns: { header: string; accessor: string }[]
   id?: string
   applyThickBorder?: boolean
 }
@@ -50,15 +67,11 @@ export default function StripedTable(props: StripedTableProps) {
         </TableHead>
         <TableBody>
           {props.rows.map((row, rowIndex) => (
-            <StyledTableRow
+            <StripedTableRow
               key={rowIndex}
-              className={
-                props.applyThickBorder &&
-                props.rows.length !== 3 &&
-                (rowIndex + 1) % 2 === 0
-                  ? 'border-0 border-methodologyGreen border-b-2'
-                  : ''
-              }
+              index={rowIndex}
+              applyThickBorder={props.applyThickBorder}
+              rowCount={props.rows.length}
             >
               {props.columns.map((col) => (
                 <TableCell
@@ -70,7 +83,7 @@ export default function StripedTable(props: StripedTableProps) {
                   {row[col.accessor]}
                 </TableCell>
               ))}
-            </StyledTableRow>
+            </StripedTableRow>
           ))}
         </TableBody>
       </Table>
