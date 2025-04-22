@@ -1,4 +1,5 @@
 import FiberNewIcon from '@mui/icons-material/FiberNew'
+import type React from 'react'
 import { lazy } from 'react'
 import {
   GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
@@ -26,9 +27,9 @@ type ReportMapping = {
   preview: string
   description: string
   categories: string[]
-  icon?: JSX.Element
+  icon?: React.ReactNode
   previewImg: string
-  customCard: JSX.Element | null
+  customCard: React.ReactNode | null
 }
 
 export const reportMappings: ReportMapping[] = [
