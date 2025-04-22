@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
@@ -16,9 +15,7 @@ export default function TopicCategoriesLink() {
   return (
     <section id='categories'>
       <article>
-        <Helmet>
-          <title>Topics by Category - Health Equity Tracker</title>
-        </Helmet>
+        <title>Topics by Category - Health Equity Tracker</title>
 
         <p>
           The Health Equity Tracker (HET) was initially conceived in 2020 as a

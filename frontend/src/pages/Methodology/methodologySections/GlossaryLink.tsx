@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
 import Resources from '../methodologyComponents/Resources'
 import {
@@ -20,9 +19,7 @@ function GlossaryLink() {
   return (
     <section id='health-equity-terms'>
       <article>
-        <Helmet>
-          <title>Glossary - Health Equity Tracker</title>
-        </Helmet>
+        <title>Glossary - Health Equity Tracker</title>
 
         <GlossaryTerm topic={''} definitionItems={termDefinitions} />
 

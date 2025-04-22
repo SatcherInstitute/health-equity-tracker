@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { HashLink } from 'react-router-hash-link'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
@@ -25,9 +24,7 @@ export default function MedicareMedicationLink() {
   return (
     <section id='medication-utilization'>
       <article>
-        <Helmet>
-          <title>Medication Utilization - Health Equity Tracker</title>
-        </Helmet>
+        <title>Medication Utilization - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'

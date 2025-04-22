@@ -1,12 +1,8 @@
-import { Helmet } from 'react-helmet-async'
-
 const MethodologyHomeLink = () => {
   return (
     <section>
       <article>
-        <Helmet>
-          <title>Methodology - Health Equity Tracker</title>
-        </Helmet>
+        <title>Methodology - Health Equity Tracker</title>
 
         <div>
           <p>

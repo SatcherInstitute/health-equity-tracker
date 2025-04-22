@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
 import { urlMap } from '../../../utils/externalUrls'
@@ -14,9 +13,7 @@ export default function CrisisOverviewTab() {
 
   return (
     <>
-      <Helmet>
-        <title>Crisis Overview - Health Equity Tracker</title>
-      </Helmet>
+      <title>Crisis Overview - Health Equity Tracker</title>
 
       <div className='flex flex-col gap-2'>
         <section id='introduction'>

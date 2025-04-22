@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { Outlet, useLocation, useMatch } from 'react-router'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
@@ -19,9 +18,7 @@ export default function PolicyPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Policy Context - Health Equity Tracker</title>
-      </Helmet>
+      <title>Policy Context - Health Equity Tracker</title>
 
       <section
         ref={ref}

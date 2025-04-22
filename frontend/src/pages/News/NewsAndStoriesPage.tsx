@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { useSearchParams } from 'react-router'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
@@ -141,9 +140,7 @@ export default function NewsAndStoriesPage() {
 
   return (
     <>
-      <Helmet>
-        <title>News and Stories - Health Equity Tracker</title>
-      </Helmet>
+      <title>News and Stories - Health Equity Tracker</title>
 
       <section
         id='main-content'

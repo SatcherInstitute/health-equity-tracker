@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { DatasetMetadataMap } from '../../../data/config/DatasetMetadata'
 
 export default function DataMethodDefinitionsLink() {
@@ -11,9 +10,7 @@ export default function DataMethodDefinitionsLink() {
   return (
     <section id='data-methods'>
       <article>
-        <Helmet>
-          <title>Data Methods - Health Equity Tracker</title>
-        </Helmet>
+        <title>Data Methods - Health Equity Tracker</title>
 
         <h2 className='mt-12 font-medium text-title'>Population</h2>
         <p>

@@ -1,6 +1,5 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-import { Helmet } from 'react-helmet-async'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 import MapCard from '../cards/MapCard'
@@ -191,9 +190,7 @@ export default function CompareReport(props: CompareReportProps) {
 
   return (
     <>
-      <Helmet>
-        <title>{browserTitle} - Health Equity Tracker</title>
-      </Helmet>
+      <title>{`${browserTitle} - Health Equity Tracker`}</title>
       <div className='flex'>
         {/* CARDS COLUMN */}
         <div className=' w-full md:w-10/12'>
