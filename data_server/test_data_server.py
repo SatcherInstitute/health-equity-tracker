@@ -32,23 +32,22 @@ test_data_json = (
 test_data_csv = b"label1,label2,label3\nvalueA,valueB,valueC\nvalueD,valueE,valueF\n"
 
 
-def get_test_data(_gcs_bucket: str, _filename: str):
+def get_test_data(gcs_bucket: str, filename: str):
     """Returns the contents of filename as a bytes object. Meant to be used to
     patch gcs_utils.download_blob_as_bytes."""
     return test_data
 
 
-def get_test_data_csv(_gcs_bucket: str, _filename: str):
+def get_test_data_csv(gcs_bucket: str, filename: str):
     """Returns the contents of filename.csv as a bytes object. Meant to be used to
     patch gcs_utils.download_blob_as_bytes."""
     return test_data_csv
 
 
-@pytest.fixture
-def app():
-    """Creates a Flask app for testing"""
-    app = create_app(testing=True)
-    return app
+@pytest.fixture(autouse=True)
+def reset_cache():
+    """Clears the global cache before every test is run."""
+    cache.clear()
 
 
 @pytest.fixture
