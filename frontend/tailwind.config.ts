@@ -1,8 +1,8 @@
 import type { Config } from 'tailwindcss'
 import {
-  het,
-  ThemeZIndexValues,
   ThemeStandardScreenSizes,
+  ThemeZIndexValues,
+  het,
 } from './src/styles/DesignTokens'
 
 export default {
@@ -54,6 +54,7 @@ export default {
       title: '1.125rem',
       exploreButton: '1.2rem',
       navBarHeader: '1.25rem',
+      fluidMadLib: 'clamp(1rem, 2.5vw, 1.5rem)',
       smallestHeader: '1.5rem',
       smallerHeader: '1.625rem',
       smallHeader: '1.75rem',
@@ -61,6 +62,7 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
+      heroHeader: '4.5rem',
     },
     // TODO: improve this hack that convinces TS that Tailwind can use z index numbers (not only strings)
     zIndex: ThemeZIndexValues as Record<string, unknown> as Record<

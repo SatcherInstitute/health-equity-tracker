@@ -13,8 +13,8 @@ import {
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import HivProvider from './HivProvider'
 
 async function ensureCorrectDatasetsDownloaded(
@@ -62,7 +62,7 @@ interface TestCase {
 const testCases: TestCase[] = [
   {
     name: 'County and Sex Breakdown for PrEP',
-    datasetId: 'cdc_hiv_data-by_sex_county_historical',
+    datasetId: 'cdc_hiv_data-sex_county_historical',
     breakdowns: Breakdowns.forFips(new Fips('06037')),
     demographicType: SEX,
     dataTypeId: 'hiv_prep',
@@ -70,7 +70,7 @@ const testCases: TestCase[] = [
   },
   {
     name: 'State and Race Breakdown Deaths',
-    datasetId: 'cdc_hiv_data-by_race_and_ethnicity_state_historical',
+    datasetId: 'cdc_hiv_data-race_and_ethnicity_state_historical',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     demographicType: RACE,
     dataTypeId: 'hiv_deaths',
@@ -78,7 +78,7 @@ const testCases: TestCase[] = [
   },
   {
     name: 'State and Age Breakdown PrEP',
-    datasetId: 'cdc_hiv_data-by_age_state_historical',
+    datasetId: 'cdc_hiv_data-age_state_historical',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     demographicType: AGE,
     dataTypeId: 'hiv_prep',
@@ -86,7 +86,7 @@ const testCases: TestCase[] = [
   },
   {
     name: 'State and Sex Breakdown Diagnoses',
-    datasetId: 'cdc_hiv_data-by_sex_state_historical',
+    datasetId: 'cdc_hiv_data-sex_state_historical',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     demographicType: SEX,
     dataTypeId: 'hiv_diagnoses',

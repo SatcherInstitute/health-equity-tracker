@@ -1,0 +1,176 @@
+name: "Deploy to GCP Environment"
+description: "Builds and deploys all Health Equity Tracker services to a GCP environment."
+
+inputs:
+  ref:
+    description: "Git reference to checkout for all services"
+    required: true
+  environment:
+    description: "Environment to deploy to (prod or staging)"
+    required: true
+  deployer-sa-key:
+    description: "GCP service account key JSON"
+    required: true
+  project-id:
+    description: "GCP project ID"
+    required: true
+  tf-state-bucket:
+    description: "Terraform state bucket"
+    required: true
+  openai-api-key:
+    description: "OpenAI API key"
+    required: false
+    default: ""
+  ahr-api-key:
+    description: "AHR API key"
+    required: true
+
+outputs:
+  data-server-url:
+    description: "URL of the deployed data server"
+    value: ${{ steps.terraform.outputs.data_server_url }}
+  ingestion-url:
+    description: "URL of the deployed ingestion service"
+    value: ${{ steps.terraform.outputs.ingestion_url }}
+  gcs-to-bq-url:
+    description: "URL of the deployed GCS to BQ service"
+    value: ${{ steps.terraform.outputs.gcs_to_bq_url }}
+  exporter-url:
+    description: "URL of the deployed exporter service"
+    value: ${{ steps.terraform.outputs.exporter_url }}
+  frontend-url:
+    description: "URL of the deployed frontend"
+    value: ${{ steps.terraform.outputs.frontend_url }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set Up GCP Auth
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ inputs.deployer-sa-key }}
+
+    - name: Set Up gcloud
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        project_id: ${{ inputs.project-id }}
+
+    # Build ingestion image
+    - name: Build and Push Ingestion Image
+      id: ingestion
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
+      with:
+        dockerfile: "run_ingestion/Dockerfile"
+        image-path: "gcr.io/${{ inputs.project-id }}/data-ingestion"
+        deploy-context: ${{ inputs.environment }}
+
+    # Build GCS to BQ image
+    - name: Build and Push GCS to BQ Image
+      id: gcstobq
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
+      with:
+        ahr-api-key: ${{ inputs.ahr-api-key }}
+        dockerfile: "run_gcs_to_bq/Dockerfile"
+        image-path: "gcr.io/${{ inputs.project-id }}/gcs-to-bq"
+        deploy-context: ${{ inputs.environment }}
+
+    # Build exporter image
+    - name: Build and Push Exporter Image
+      id: exporter
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
+      with:
+        dockerfile: "exporter/Dockerfile"
+        image-path: "gcr.io/${{ inputs.project-id }}/exporter"
+        deploy-context: ${{ inputs.environment }}
+
+    # Build data server image
+    - name: Build and Push Data Server Image
+      id: serving
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
+      with:
+        dockerfile: "data_server/Dockerfile"
+        image-path: "gcr.io/${{ inputs.project-id }}/data-server"
+        deploy-context: ${{ inputs.environment }}
+
+    # Build frontend image
+    - name: Update VITE_OPENAI_API_KEY in .env.deploy_preview
+      shell: bash
+      run: |
+        if [ -f frontend/.env.deploy_preview ] && [ "${{ inputs.openai-api-key }}" != "" ]; then
+          sed -i 's/VITE_OPENAI_API_KEY=1/VITE_OPENAI_API_KEY=${{ inputs.openai-api-key }}/' frontend/.env.deploy_preview
+        fi
+
+    - name: Build and Push Frontend Image
+      id: frontend
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
+      env:
+        VITE_OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+      with:
+        dockerfile: "frontend_server/Dockerfile"
+        image-path: "gcr.io/${{ inputs.project-id }}/frontend"
+        deploy-context: ${{ inputs.environment }}
+        openai-api-key: ${{ inputs.openai-api-key }}
+
+    # Terraform and deployment
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_wrapper: false
+
+    - name: Save GCP Credentials for Terraform
+      shell: bash
+      working-directory: ./config
+      run: |
+        cat > creds.json << EOF
+        ${{ inputs.deployer-sa-key }}
+        EOF
+
+    - name: Terraform Init
+      shell: bash
+      working-directory: ./config
+      run: |
+        terraform init -backend-config="bucket=${{ inputs.tf-state-bucket }}" \
+        -backend-config="credentials=creds.json"
+
+    - name: Terraform Apply
+      shell: bash
+      id: terraform
+      working-directory: ./config
+      run: |
+        terraform apply -auto-approve -var-file=gcp.tfvars \
+          -var-file=common.tfvars \
+          -var 'gcp_credentials=${{ inputs.deployer-sa-key }}' \
+          -var 'project_id=${{ inputs.project-id }}' \
+          -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
+          -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
+          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
+          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
+          -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}' \
+
+        data_server_url=$(terraform output data_server_url)
+        echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
+        ingestion_url=$(terraform output ingestion_url)
+        echo "ingestion_url=$ingestion_url" >> $GITHUB_OUTPUT
+        gcs_to_bq_url=$(terraform output gcs_to_bq_url)
+        echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
+        exporter_url=$(terraform output exporter_url)
+        echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
+        frontend_url=$(terraform output frontend_url)
+        echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
+
+    # Run E2E tests
+    - name: Set up Python for E2E Tests
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Run Python E2E Tests
+      shell: bash
+      run: |
+        pip install -r e2e_tests/requirements.txt
+        pytest e2e_tests/data_serving.py
+      env:
+        SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+        FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
+        PATH_TO_SA_CREDS: config/creds.json
+        AHR_API_KEY: ${{ inputs.ahr-api-key }}

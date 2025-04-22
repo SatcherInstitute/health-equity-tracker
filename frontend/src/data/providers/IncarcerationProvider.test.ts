@@ -1,22 +1,22 @@
-import IncarcerationProvider from './IncarcerationProvider'
-import {
-  Breakdowns,
-  type TimeView,
-  type DemographicType,
-} from '../query/Breakdowns'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import { beforeEach, describe, expect, test } from 'vitest'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { RACE, AGE, SEX } from '../utils/Constants'
-import { expect, describe, test, beforeEach } from 'vitest'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
+import {
+  Breakdowns,
+  type DemographicType,
+  type TimeView,
+} from '../query/Breakdowns'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { AGE, RACE, SEX } from '../utils/Constants'
+import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
+import IncarcerationProvider from './IncarcerationProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: DatasetId,
@@ -67,7 +67,7 @@ describe('IncarcerationProvider', () => {
 
   test('County and Race Breakdown for Prison', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_race_and_ethnicity_county_historical',
+      'vera_incarceration_county-race_and_ethnicity_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       RACE,
       'prison',
@@ -78,27 +78,27 @@ describe('IncarcerationProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'bjs_incarceration_data-race_and_ethnicity_state',
+      'bjs_incarceration_data-race_and_ethnicity_state_current',
       Breakdowns.forFips(new Fips('37')),
       RACE,
       'jail',
-      ['acs_population-by_race_state'],
+      ['acs_population-race_state_current'],
     )
   })
 
   test('National and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'bjs_incarceration_data-race_and_ethnicity_national',
+      'bjs_incarceration_data-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'jail',
-      ['acs_population-by_race_national'],
+      ['acs_population-race_national_current'],
     )
   })
 
   test('County and Age Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_age_county_current',
+      'vera_incarceration_county-age_county_current',
       Breakdowns.forFips(new Fips('06037')),
       AGE,
       'jail',
@@ -109,27 +109,27 @@ describe('IncarcerationProvider', () => {
 
   test('State and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'bjs_incarceration_data-age_state',
+      'bjs_incarceration_data-age_state_current',
       Breakdowns.forFips(new Fips('37')),
       AGE,
       'prison',
-      ['acs_population-by_age_state'],
+      ['acs_population-age_state_current'],
     )
   })
 
   test('National and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'bjs_incarceration_data-age_national',
+      'bjs_incarceration_data-age_national_current',
       Breakdowns.forFips(new Fips('00')),
       AGE,
       'prison',
-      ['acs_population-by_age_national'],
+      ['acs_population-age_national_current'],
     )
   })
 
   test('County and Sex Breakdown for Jail', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'vera_incarceration_county-by_sex_county_historical',
+      'vera_incarceration_county-sex_county_historical',
       Breakdowns.forFips(new Fips('06037')),
       SEX,
       'jail',
@@ -140,21 +140,21 @@ describe('IncarcerationProvider', () => {
 
   test('State and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'bjs_incarceration_data-sex_state',
+      'bjs_incarceration_data-sex_state_current',
       Breakdowns.forFips(new Fips('37')),
       SEX,
       'jail',
-      ['acs_population-by_sex_state'],
+      ['acs_population-sex_state_current'],
     )
   })
 
   test('National and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'bjs_incarceration_data-sex_national',
+      'bjs_incarceration_data-sex_national_current',
       Breakdowns.forFips(new Fips('00')),
       SEX,
       'jail',
-      ['acs_population-by_sex_national'],
+      ['acs_population-sex_national_current'],
     )
   })
 })

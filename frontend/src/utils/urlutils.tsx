@@ -1,27 +1,27 @@
+import type { ReactNode } from 'react'
+import { Link, useLocation } from 'react-router'
+import type { DataTypeId } from '../data/config/MetricConfigTypes'
+import {
+  type DemographicGroup,
+  raceNameToCodeMap,
+} from '../data/utils/Constants'
+import type { MadLibId, PhraseSelections } from './MadLibs'
+import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
 import {
   ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-  NEWS_PAGE_LINK,
-  METHODOLOGY_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  GUN_VIOLENCE_POLICY,
   FULL_FAQS_LINK,
+  GUN_VIOLENCE_POLICY,
+  METHODOLOGY_PAGE_LINK,
+  NEWS_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './internalRoutes'
-import type { MadLibId, PhraseSelections } from './MadLibs'
-import {
-  raceNameToCodeMap,
-  type DemographicGroup,
-} from '../data/utils/Constants'
-import type { ReactNode } from 'react'
-import { urlMap } from './externalUrls'
-import type { DataTypeId } from '../data/config/MetricConfigTypes'
-import { Link, useLocation } from 'react-router-dom'
 
 // OLDER HANDLING PARAMS
 
-export const STICKY_VERSION_PARAM = 'sv'
+const STICKY_VERSION_PARAM = 'sv'
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
 // Value is index of the phrase to jump to
 export const MADLIB_PHRASE_PARAM = 'mlp'
@@ -50,6 +50,7 @@ export const EXTREMES_1_PARAM_KEY = 'extremes'
 export const EXTREMES_2_PARAM_KEY = 'extremes2'
 export const ALT_TABLE_VIEW_1_PARAM_KEY = 'alt-table-view1'
 export const ALT_TABLE_VIEW_2_PARAM_KEY = 'alt-table-view2'
+export const ATLANTA_MODE_PARAM_KEY = 'atl'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
@@ -61,7 +62,7 @@ export function swapOldDatatypeParams(oldParam: string) {
   return swaps[oldParam] || oldParam
 }
 
-export function useUrlSearchParams() {
+function useUrlSearchParams() {
   return new URLSearchParams(useLocation().search)
 }
 
@@ -83,7 +84,7 @@ export function LinkWithStickyParams(props: {
   return <Link {...linkProps}>{props.children}</Link>
 }
 
-export const PAGE_URL_TO_NAMES: Record<string, string> = {
+const PAGE_URL_TO_NAMES: Record<string, string> = {
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [NEWS_PAGE_LINK]: 'News',
@@ -92,7 +93,7 @@ export const PAGE_URL_TO_NAMES: Record<string, string> = {
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
-export const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
+const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
 }
 
@@ -117,7 +118,7 @@ export const NAVIGATION_STRUCTURE = {
     label: 'Media & Updates',
     pages: {
       [NEWS_PAGE_LINK]: 'News',
-      [urlMap.hetYouTubeShorts]: 'Videos',
+      [urlMap.hetYouTubeShorts]: 'Videos on YouTube',
     },
   },
   faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
@@ -128,7 +129,7 @@ export function useSearchParams() {
   return Object.fromEntries(params.entries())
 }
 
-export function linkToMadLib(
+function linkToMadLib(
   madLibId: MadLibId,
   phraseSelections: PhraseSelections,
   absolute = false,
@@ -158,7 +159,7 @@ export function setParameter(
   setParameters([{ name: paramName, value: paramValue }])
 }
 
-export interface ParamKeyValue {
+interface ParamKeyValue {
   name: string
   value: string | null
 }
@@ -190,10 +191,7 @@ const defaultHandler = <T,>(input: string | null): T => {
   return input as unknown as T
 }
 
-export function removeParamAndReturnValue<T1>(
-  paramName: string,
-  defaultValue: T1,
-) {
+function removeParamAndReturnValue<T1>(paramName: string, defaultValue: T1) {
   setParameter(paramName, null)
   return defaultValue
 }
@@ -238,7 +236,7 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   return kvPair.join(partsSeparator)
 }
 
-export type PSEventHandler = () => void
+type PSEventHandler = () => void
 
 const psSubscriptions: any = {}
 let psCount: number = 0
@@ -258,7 +256,7 @@ export const psSubscribe = (
   }
 }
 
-export const psUnsubscribe = (k: string) => {
+const psUnsubscribe = (k: string) => {
   getLogger().debugLog('Removing PSHandler: ' + k)
   // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   delete psSubscriptions[k]

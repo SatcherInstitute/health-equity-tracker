@@ -1,6 +1,6 @@
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import SimpleSelect from './SimpleSelect'
 import TableOfContents from './TableOfContents'
 import TopicInfoModalButton from './TopicInfoModalButton'
@@ -39,13 +39,6 @@ export default function Sidebar(props: SidebarProps) {
 
         <div className='mode-selector-box'>
           <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:px-2 md:py-4'>
-            <SimpleSelect<DemographicType>
-              label='Demographic'
-              optionsMap={props.enabledDemographicOptionsMap}
-              disabledOptions={props.disabledDemographicOptions}
-              selected={props.demographicType}
-              setSelected={props.setDemographicType}
-            />
             <SimpleSelect<MadLibId>
               label='Compare mode'
               optionsMap={MADLIB_MODE_MAP}

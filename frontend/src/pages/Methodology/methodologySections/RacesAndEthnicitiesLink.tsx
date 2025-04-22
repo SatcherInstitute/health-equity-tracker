@@ -4,8 +4,8 @@ import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../../utils/externalUrls'
 import {
   ethnicityDefinitions,
-  raceDefinitions,
   moreNonStandardDefinitions,
+  raceDefinitions,
 } from '../methodologyContent/RacesAndEthnicitiesDefinitions'
 import RaceEthnicityList from './RacesEthnicitiesList'
 
@@ -16,10 +16,9 @@ export default function RacesAndEthnicitiesLink() {
         <Helmet>
           <title>Races and Ethnicities - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Races and Ethnicities</h2>
-        <h3 className='mt-12 text-title font-medium' id='data-gaps'>
+        <h2 className='mt-12 font-medium text-title' id='data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
-        </h3>
+        </h2>
         <p>
           Health inequities arise from deep-rooted issues of structural racism
           and oppression, often resulting in gaps in data collection. We strive

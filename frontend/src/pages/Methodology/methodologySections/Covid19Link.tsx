@@ -1,21 +1,21 @@
-import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import { Helmet } from 'react-helmet-async'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import Resources from '../methodologyComponents/Resources'
+import StripedTable from '../methodologyComponents/StripedTable'
 import {
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
 } from '../methodologyContent/ResourcesData'
-import Resources from '../methodologyComponents/Resources'
-import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { buildTopicsString } from './linkUtils'
 
-export const covidDataSources = [
+const covidDataSources = [
   dataSourceMetadataMap.cdc_restricted,
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.decia_2010_territory_population,
@@ -39,7 +39,6 @@ export default function Covid19Link() {
         <Helmet>
           <title>COVID-19 - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>COVID-19</h2>
 
         <StripedTable
           id='categories-table'
@@ -56,9 +55,9 @@ export default function Covid19Link() {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='covid-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='covid-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           The primary data source is the CDC Case Surveillance Restricted Access
           Detailed Data. This dataset allows for detailed breakdowns by race,
@@ -68,10 +67,7 @@ export default function Covid19Link() {
           Times itself now relies on the CDC dataset making comparisons less
           useful.
         </p>
-        <h3
-          className='mt-12 text-title font-medium'
-          id='covid-age-and-demographic-data-analysis'
-        >
+        <h3 className='mt-12' id='covid-age-and-demographic-data-analysis'>
           Age and Demographic Data Analysis
         </h3>
         <p>
@@ -80,14 +76,11 @@ export default function Covid19Link() {
           breakdown by both race and age.
         </p>
 
-        <h3
-          className='mt-12 text-title font-medium'
-          id='covid-geographical-reporting'
-        >
+        <h3 className='mt-12' id='covid-geographical-reporting'>
           Geographical Distribution and Reporting
         </h3>
 
-        <h4 className='text-text font-light'>National Data</h4>
+        <h4>National Data</h4>
         <p>
           National statistics are based on summations of all state level cases.
         </p>
@@ -96,7 +89,7 @@ export default function Covid19Link() {
           aggregations may be incomplete and potentially skewed.
         </blockquote>
 
-        <h4 className='text-text font-light'>County Data</h4>
+        <h4>County Data</h4>
         <p>
           Specific figures might be concealed in counties with low case counts
           to protect the privacy of affected individuals. The foundational data
@@ -106,7 +99,7 @@ export default function Covid19Link() {
           lapse in accurate demographic reporting.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='covid-time-series'>
+        <h3 className='mt-12' id='covid-time-series'>
           Time-Series and Temporal Analysis
         </h3>
         <p>
@@ -147,10 +140,7 @@ export default function Covid19Link() {
           group might be lacking.
         </p>
 
-        <h3
-          className='mt-12 text-title font-medium'
-          id='covid-missing-and-suppressed-data'
-        >
+        <h3 className='mt-12' id='covid-missing-and-suppressed-data'>
           Addressing Missing and Suppressed Data
         </h3>
 
@@ -161,10 +151,7 @@ export default function Covid19Link() {
           COVID-19's overall impact.
         </blockquote>
 
-        <h3
-          className='mt-12 text-title font-medium'
-          id='covid-vaccination-data-analysis'
-        >
+        <h3 className='mt-12' id='covid-vaccination-data-analysis'>
           Vaccination Data Compilation and Analysis
         </h3>
         <p>
@@ -177,16 +164,16 @@ export default function Covid19Link() {
           dataset, multiple sources are use across different geographic levels:
         </p>
 
-        <h4 className='text-text font-light'>National Data</h4>
+        <h4>National Data</h4>
         <p>Derived from the CDC vaccine demographic dataset.</p>
 
-        <h4 className='text-text font-light'>State Data</h4>
+        <h4>State Data</h4>
         <p>
           Extracted from the Kaiser Family Foundation's COVID-19 Indicators
           dataset.
         </p>
 
-        <h4 className='text-text font-light'>County Data</h4>
+        <h4>County Data</h4>
         <p>
           At the county level, we utilize the{' '}
           <HetTerm>COVID-19 Vaccinations in the United States, County</HetTerm>{' '}
@@ -197,10 +184,7 @@ export default function Covid19Link() {
           near future.
         </p>
 
-        <h3
-          className='mt-12 text-title font-medium'
-          id='covid-vaccination-demographic-estimates'
-        >
+        <h3 className='mt-12' id='covid-vaccination-demographic-estimates'>
           Demographic Population Estimates for Vaccination Data
         </h3>
 
@@ -215,7 +199,7 @@ export default function Covid19Link() {
             estimates that the CDC offers.
           </p>
         </HetNotice>
-        <h4 className='text-text font-light'>National Estimates</h4>
+        <h4>National Estimates</h4>
         <p>
           We use the CDC's population numbers for our national figures,
           especially when considering regions like Palau, Micronesia, and the
@@ -223,7 +207,7 @@ export default function Covid19Link() {
           challenging.
         </p>
 
-        <h4 className='text-text font-light'>State and County Estimates</h4>
+        <h4>State and County Estimates</h4>
         <p>
           Accurate population estimates are essential for understanding the
           distribution of vaccinations and pinpointing disparities, especially
@@ -257,10 +241,7 @@ export default function Covid19Link() {
           without any demographic breakdown.
         </p>
 
-        <h3
-          className='mt-12 text-title font-medium'
-          id='covid-data-limitations'
-        >
+        <h3 className='mt-12' id='covid-data-limitations'>
           Data Limitations and Specific Considerations
         </h3>
         <p>
@@ -290,7 +271,7 @@ export default function Covid19Link() {
           administered, adding another layer to our comprehensive analysis.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='covid-data-sources'>
+        <h3 className='mt-12' id='covid-data-sources'>
           COVID-19 Data Sources
         </h3>
         <StripedTable

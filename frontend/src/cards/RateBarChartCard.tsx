@@ -1,5 +1,5 @@
-import { addComparisonAllsRowToIntersectionalData } from '../charts/rateBarChart/helpers'
 import { RateBarChart } from '../charts/rateBarChart/Index'
+import { addComparisonAllsRowToIntersectionalData } from '../charts/sharedBarChartPieces/helpers'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { isPctType } from '../data/config/MetricConfigUtils'
@@ -149,6 +149,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
 
         const hideChart =
           data.length === 0 ||
+          data.every((row) => row[props.demographicType] === 'All') ||
           rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])

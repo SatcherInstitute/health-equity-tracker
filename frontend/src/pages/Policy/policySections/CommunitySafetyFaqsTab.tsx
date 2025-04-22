@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
-import { communitySafetyFaqs } from '../policyContent/CommunitySafetyFaqsContent'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
+import { communitySafetyFaqs } from '../policyContent/CommunitySafetyFaqsContent'
 
 export default function CommunitySafetyFaqsTab() {
   return (
@@ -8,8 +8,10 @@ export default function CommunitySafetyFaqsTab() {
       <Helmet>
         <title>FAQs - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>FAQs</h2>
-      <HetAccordion accordionData={communitySafetyFaqs} />
+      <HetAccordion
+        accordionData={communitySafetyFaqs}
+        headingLevelOverride='h2'
+      />
     </>
   )
 }

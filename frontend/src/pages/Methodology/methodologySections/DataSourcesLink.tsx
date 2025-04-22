@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 export default function DataSourcesLink() {
   return (
@@ -9,7 +9,6 @@ export default function DataSourcesLink() {
         <Helmet>
           <title>Data Sources - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Source Acquisition</h2>
         <div>
           <p>
             The Health Equity Tracker is committed to providing accurate,
@@ -18,7 +17,6 @@ export default function DataSourcesLink() {
             and present our data.
           </p>
 
-          <h3 className='mt-12 text-title font-medium'>Data Sources</h3>
           <p>
             All data in the Health Equity Tracker is sourced from reputable and
             public databases, including the Centers for Disease Control and
@@ -27,9 +25,9 @@ export default function DataSourcesLink() {
             relevant details, can be found in our data catalog.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='data-collection'>
+          <h2 className='mt-12 font-medium text-title' id='data-collection'>
             Data Collection
-          </h3>
+          </h2>
           <ul className='list-disc pl-4'>
             <li>
               Methods: Data are retrieved from publicly sourced application
@@ -42,9 +40,9 @@ export default function DataSourcesLink() {
             </li>
           </ul>
 
-          <h3 className='mt-12 text-title font-medium' id='data-processing'>
+          <h2 className='mt-12 font-medium text-title' id='data-processing'>
             Data Processing
-          </h3>
+          </h2>
 
           <ul className='list-disc pl-4'>
             <li>
@@ -66,12 +64,12 @@ export default function DataSourcesLink() {
             </li>
           </ul>
 
-          <h3
-            className='mt-12 text-title font-medium'
+          <h2
+            className='mt-12 font-medium text-title'
             id='visualization-techniques'
           >
             Visualization Techniques
-          </h3>
+          </h2>
           <p>
             The Health Equity Tracker employs a range of visualization
             techniques to present data in an intuitive and user-friendly manner.
@@ -79,45 +77,45 @@ export default function DataSourcesLink() {
             tailored to the specific type of data being presented.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='dataset-limitations'>
+          <h2 className='mt-12 font-medium text-title' id='dataset-limitations'>
             Dataset Limitations
-          </h3>
+          </h2>
           <p>
             While we strive for accuracy, some datasets may have inherent
             limitations, including gaps, potential biases, or uncertainties. We
             transparently communicate these limitations whenever relevant.
           </p>
 
-          <h3
-            className='mt-12 text-title font-medium'
+          <h2
+            className='mt-12 font-medium text-title'
             id='updates-and-revisions'
           >
             Updates and Revisions
-          </h3>
+          </h2>
           <p>
             Data sources are continuously monitored for updates. The Health
             Equity Tracker ensures that all visualizations and datasets are
             refreshed in line with the latest available data.
           </p>
 
-          <h3
-            className='mt-12 text-title font-medium'
+          <h2
+            className='mt-12 font-medium text-title'
             id='stakeholder-engagement'
           >
             Stakeholder Engagement
-          </h3>
+          </h2>
           <p>
             We value the input of various stakeholders, including health
             professionals, community leaders, and the general public, in shaping
             the content and presentation of our tracker.
           </p>
 
-          <h3
-            className='mt-12 text-title font-medium'
+          <h2
+            className='mt-12 font-medium text-title'
             id='references-and-citations'
           >
             References and Citations
-          </h3>
+          </h2>
           <p>
             The entire Health Equity Tracker codebase is publicly available and
             open-source; contributions are welcome via{' '}
@@ -136,11 +134,11 @@ export default function DataSourcesLink() {
             <a href='https://healthequitytracker.org/contact'>contact us</a>.
           </p>
 
-          <h3 className='mt-12 text-title font-medium' id='contact-information'>
+          <h2 className='mt-12 font-medium text-title' id='contact-information'>
             Contact Information
-          </h3>
+          </h2>
           <div className='flex w-full flex-col items-center'>
-            <HetAddressBlock className='flex w-10/12 flex-col  rounded-lg bg-standardInfo px-10 py-5' />
+            <HetAddressBlock className='flex w-10/12 flex-col rounded-lg bg-standardInfo px-10 py-5' />
           </div>
         </div>
       </article>

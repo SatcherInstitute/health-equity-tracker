@@ -10,22 +10,19 @@
 import { Fragment } from 'react'
 
 /* Local Imports */
-import {
-  LESS_THAN_POINT_1,
-  raceNameToCodeMap,
-} from '../../data/utils/Constants'
+import { raceNameToCodeMap } from '../../data/utils/Constants'
 
+import { COLORS as C, FORMATTERS as F, TYPES } from './constants'
 /* Constants */
-import type { TrendsData, GroupData, TimeSeries, AxisConfig } from './types'
-import { TYPES, FORMATTERS as F, COLORS as C } from './constants'
+import type { AxisConfig, GroupData, TimeSeries, TrendsData } from './types'
 
 /* Helpers */
 import {
   getAmountsByDate,
+  getWidthHundredK,
+  getWidthPctShare,
   sortDataDescending,
   translateXPctShare,
-  getWidthPctShare,
-  getWidthHundredK,
 } from './helpers'
 
 /* Define type interface */
@@ -84,17 +81,17 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <aside className='h-full w-min whitespace-nowrap rounded-sm border border-solid border-altGrey bg-white p-3 font-sansText text-small font-medium'>
+    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-altGrey border-solid bg-white p-3 font-medium font-sansText text-small'>
       {/* Date title */}
-      <div className='border-0 border-b border-solid border-altGrey pb-3 text-center'>
+      <figcaption className='border-0 border-altGrey border-b border-solid pb-3 text-center'>
         <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
-          <div className='mt-1 font-sansText text-smallest font-normal'>
+          <div className='mt-1 font-normal font-sansText text-smallest'>
             {F.capitalize(yAxisLabel)}
           </div>
         )}
-      </div>
+      </figcaption>
       <div
         className='grid items-center justify-items-start gap-x-2 gap-y-1 pt-3 text-smallest'
         style={{ gridTemplateColumns: '1fr 50px 1fr' }}
@@ -103,12 +100,9 @@ export function TrendsTooltip({
           sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
               // get value or "<.1" to prevent potentially misleading "0 per 100k" on rates
-              let value = TYPE_CONFIG[type]?.formatter(
+              const value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate),
               )
-
-              if (value === '0' && axisConfig.type === 'per100k')
-                value = LESS_THAN_POINT_1
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>
@@ -130,8 +124,8 @@ export function TrendsTooltip({
                   {/* amount */}
                   <div className='justify-end whitespace-nowrap'>
                     {/* // TODO: update way rounding number */}
-                    <span className='font-sansText font-normal'>{value}</span>
-                    <span className='font-sansText font-normal'>
+                    <span className='font-normal font-sansText'>{value}</span>
+                    <span className='font-normal font-sansText'>
                       {TYPE_CONFIG[type]?.UNIT}
                     </span>
                   </div>
@@ -140,6 +134,6 @@ export function TrendsTooltip({
             },
           )}
       </div>
-    </aside>
+    </figure>
   )
 }

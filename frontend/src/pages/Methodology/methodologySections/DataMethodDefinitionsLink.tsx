@@ -3,8 +3,10 @@ import { DatasetMetadataMap } from '../../../data/config/DatasetMetadata'
 
 export default function DataMethodDefinitionsLink() {
   const acsYear =
-    DatasetMetadataMap['acs_population-by_race_national'].original_data_sourced
-  const sviYear = DatasetMetadataMap['geo_context-county'].original_data_sourced
+    DatasetMetadataMap['acs_population-race_national_current']
+      .original_data_sourced
+  const sviYear =
+    DatasetMetadataMap['geo_context-alls_county_current'].original_data_sourced
 
   return (
     <section id='data-methods'>
@@ -12,9 +14,8 @@ export default function DataMethodDefinitionsLink() {
         <Helmet>
           <title>Data Methods - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Data Methods</h2>
 
-        <h3 className='mt-12 text-title font-medium'>Population</h3>
+        <h2 className='mt-12 font-medium text-title'>Population</h2>
         <p>
           Unless otherwise noted throughout this methodology, population counts
           and rates are obtained from the American Community Survey (ACS) 5-year
@@ -25,9 +26,9 @@ export default function DataMethodDefinitionsLink() {
           {acsYear}.
         </p>
 
-        <h3 className='mt-12 text-title font-medium'>
+        <h2 className='mt-12 font-medium text-title'>
           Social Vulnerability Index (SVI)
-        </h3>
+        </h2>
         <p>
           To provide context when viewing county-level reports, SVI rankings are
           obtained from the CDC and incorporated into our alerting system where
@@ -50,7 +51,7 @@ export default function DataMethodDefinitionsLink() {
           services.
         </p>
 
-        <h3 className='mt-12 text-title font-medium'>Visualizations</h3>
+        <h2 className='mt-12 font-medium text-title'>Visualizations</h2>
         <p>
           Please consider the impact of under-reporting and data gaps when
           exploring the visualizations. These issues may lead to incorrect

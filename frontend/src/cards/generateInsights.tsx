@@ -1,10 +1,10 @@
 import type { MetricId } from '../data/config/MetricConfigTypes'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ChartData } from '../reports/Report'
 import {
   extractRelevantData,
   getHighestDisparity,
 } from './generateInsightsUtils'
-import { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
 
 export type Dataset = Record<string, any>
 
@@ -33,7 +33,8 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
     const baseApiUrl = import.meta.env.VITE_BASE_API_URL
     const dataServerUrl = `${baseApiUrl}/fetch-ai-insight/${encodeURIComponent(prompt)}`
 
-    const dataResponse = await fetch(dataServerUrl)
+async function fetchAIInsight(prompt: string): Promise<string> {
+  const apiKey = await fetchApiKey()
 
     if (!dataResponse.ok) {
       throw new Error(`Failed to fetch AI insight: ${dataResponse.statusText}`)

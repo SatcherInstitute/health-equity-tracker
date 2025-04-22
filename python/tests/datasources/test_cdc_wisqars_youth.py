@@ -69,17 +69,19 @@ def test_write_to_bq_youth_by_race_national(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_national_current"
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_national_historical"
+    # actual_historical_df.to_csv(table_name, index=False)
 
     assert mock_bq.call_count == 2
 
-    actual_historical_df = actual_historical_df.sort_values(by=['time_period', 'race_and_ethnicity']).reset_index(
+    actual_historical_df = actual_historical_df.sort_values(by=["time_period", "race_and_ethnicity"]).reset_index(
         drop=True
     )
-    expected_historical_df = expected_historical_df.sort_values(by=['time_period', 'race_and_ethnicity']).reset_index(
+    expected_historical_df = expected_historical_df.sort_values(by=["time_period", "race_and_ethnicity"]).reset_index(
         drop=True
     )
 
@@ -111,25 +113,27 @@ def test_write_to_bq_youth_by_race_state(
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_state_current"
+    # actual_current_df.to_csv(table_name, index=False)
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_state_historical"
+    # actual_historical_df.to_csv(table_name, index=False)
 
     assert mock_bq.call_count == 2
 
-    actual_current_df = actual_current_df.sort_values(by=['race_and_ethnicity', 'state_name']).reset_index(drop=True)
-    expected_current_df = expected_current_df.sort_values(by=['race_and_ethnicity', 'state_name']).reset_index(
+    actual_current_df = actual_current_df.sort_values(by=["race_and_ethnicity", "state_name"]).reset_index(drop=True)
+    expected_current_df = expected_current_df.sort_values(by=["race_and_ethnicity", "state_name"]).reset_index(
         drop=True
     )
 
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
 
     actual_historical_df = actual_historical_df.sort_values(
-        by=['time_period', 'race_and_ethnicity', 'state_name']
+        by=["time_period", "race_and_ethnicity", "state_name"]
     ).reset_index(drop=True)
     expected_historical_df = expected_historical_df.sort_values(
-        by=['time_period', 'race_and_ethnicity', 'state_name']
+        by=["time_period", "race_and_ethnicity", "state_name"]
     ).reset_index(drop=True)
 
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)

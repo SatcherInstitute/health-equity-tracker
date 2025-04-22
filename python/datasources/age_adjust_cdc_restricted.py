@@ -25,21 +25,21 @@ AGE_ADJUST_RACES = {
     Race.ASIAN_NH.value,
 }
 
-EXPECTED_HOSPS = 'expected_hosps'
-EXPECTED_DEATHS = 'expected_deaths'
+EXPECTED_HOSPS = "expected_hosps"
+EXPECTED_DEATHS = "expected_deaths"
 
 
 class AgeAdjustCDCRestricted(DataSource):
     @staticmethod
     def get_id():
-        return 'AGE_ADJUST_CDC_RESTRICTED'
+        return "AGE_ADJUST_CDC_RESTRICTED"
 
     @staticmethod
     def get_table_name():
-        return 'cdc_restricted_data'
+        return "cdc_restricted_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for AgeAdjustCDCRestricted')
+        raise NotImplementedError("upload_to_gcs should not be called for AgeAdjustCDCRestricted")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for time_series in [False, True]:
@@ -47,37 +47,32 @@ class AgeAdjustCDCRestricted(DataSource):
 
                 age_adjusted_df = self.generate_age_adjustment(geo, time_series)
 
-                only_race = f'by_race_{geo}_processed'
-                table_name = f'{only_race}-with_age_adjust'
+                timeview = "cumulative" if not time_series else "historical"
 
-                if time_series:
-                    table_name += '_time_series'
-                    only_race += '_time_series'
+                only_race = f"race_and_ethnicity_{geo}_{timeview}"
+                table_name = f"{only_race}-with_age_adjust"
 
-                only_race_df = gcs_to_bq_util.load_df_from_bigquery('cdc_restricted_data', only_race)
+                only_race_df = gcs_to_bq_util.load_df_from_bigquery("cdc_restricted_data", only_race)
 
                 df = merge_age_adjusted(only_race_df, age_adjusted_df, time_series)
 
+                std_col.swap_race_id_col_for_names_col(df)
                 column_types = get_col_types(df)
-                column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = 'FLOAT'
-                column_types[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = 'FLOAT'
-
-                # Clean up column names.
+                column_types[std_col.COVID_HOSP_RATIO_AGE_ADJUSTED] = "FLOAT"
+                column_types[std_col.COVID_DEATH_RATIO_AGE_ADJUSTED] = "FLOAT"
                 self.clean_frame_column_names(df)
-
-                std_col.add_race_columns_from_category_id(df)
 
                 gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
     def generate_age_adjustment(self, geo, time_series):
-        print(f'age adjusting {geo} with time_series= {time_series}')
-        with_race_age = 'by_race_age_state'
+        print(f"age adjusting {geo} with time_series= {time_series}")
+        with_race_age = "multi_race_age_state"
         with_race_age_df = gcs_to_bq_util.load_df_from_bigquery(
-            'cdc_restricted_data', with_race_age, dtype={'state_fips': str}
+            "cdc_restricted_data", with_race_age, dtype={"state_fips": str}
         )
 
         pop_df = gcs_to_bq_util.load_df_from_bigquery(
-            'census_pop_estimates', 'race_and_ethnicity', dtype={'state_fips': str}
+            "census_pop_estimates", "race_and_ethnicity", dtype={"state_fips": str}
         )
 
         # Only get the covid data from states we have population data for
@@ -142,7 +137,7 @@ def merge_age_adjusted(df, age_adjusted_df, time_series):
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
 
-    return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
+    return pd.merge(df, age_adjusted_df, how="left", on=merge_cols)
 
 
 def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_col):
@@ -160,7 +155,7 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     raw_number_col: string column name to get the raw number of cases to age
                     adjust from"""
 
-    this_pop_size, ref_pop_size = 'this_pop_size', 'ref_pop_size'
+    this_pop_size, ref_pop_size = "this_pop_size", "ref_pop_size"
 
     def get_expected(row):
         """Calculates the expected value of each race/age split based on the
@@ -168,7 +163,7 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
         split."""
 
         if not row[ref_pop_size]:
-            raise ValueError(f'Population size for {REFERENCE_POPULATION} demographic is 0 or nil')
+            raise ValueError(f"Population size for {REFERENCE_POPULATION} demographic is 0 or nil")
 
         if not row[raw_number_col]:
             return None
@@ -228,7 +223,7 @@ def age_adjust_from_expected(df, time_series):
 
         return row
 
-    base_pop_expected_deaths, base_pop_expected_hosps = 'base_pop_expected_deaths', 'base_pop_expected_hosps'
+    base_pop_expected_deaths, base_pop_expected_hosps = "base_pop_expected_deaths", "base_pop_expected_hosps"
 
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL, std_col.RACE_CATEGORY_ID_COL]
     if time_series:

@@ -1,7 +1,7 @@
 import { ApiDataFetcher, type DataFetcher } from '../data/loading/DataFetcher'
 import DataManager from '../data/loading/DataManager'
 import FakeDataFetcher from '../testing/FakeDataFetcher'
-import { createEnvironment, type Environment } from './Environment'
+import { type Environment, createEnvironment } from './Environment'
 import Logger from './Logger'
 
 interface Globals {
@@ -31,7 +31,7 @@ export function resetCacheDebug() {
   globals.dataManager = new DataManager()
 }
 
-export function initGlobals(
+function initGlobals(
   environment: Environment,
   logger: Logger,
   dataFetcher: DataFetcher,
@@ -39,7 +39,7 @@ export function initGlobals(
 ) {
   if (globals.initialized && !import.meta.env.PROD) {
     // throw new Error('Cannot initialize globals multiple times')
-    console.log('Cannot initialize globals multiple times')
+    console.error('Cannot initialize globals multiple times')
   }
 
   globals.environment = environment
@@ -74,7 +74,7 @@ export function autoInitGlobals() {
   initGlobals(environment, logger, dataFetcher, cache)
 }
 
-export function getEnvironment(): Environment {
+function getEnvironment(): Environment {
   assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return globals.environment!

@@ -10,13 +10,13 @@ from ingestion.dataset_utils import (
     get_timeview_df_and_cols,
 )
 from ingestion.merge_utils import merge_county_names
-from ingestion.constants import Sex, CURRENT, HISTORICAL
+from ingestion.constants import Sex, CURRENT, HISTORICAL, COUNTY_LEVEL
 import ingestion.standardized_columns as std_col
 from typing import Literal, cast
 from ingestion.het_types import SEX_RACE_AGE_TYPE, SEX_RACE_ETH_AGE_TYPE, DEMOGRAPHIC_TYPE, GEO_TYPE
 
 COUNTY: GEO_TYPE = "county"
-BASE_VERA_URL = 'https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true'
+BASE_VERA_URL = "https://github.com/vera-institute/incarceration_trends/blob/master/incarceration_trends.csv?raw=true"
 
 VERA_YEAR = "year"
 VERA_FIPS = "fips"
@@ -117,55 +117,79 @@ DATA_TYPE_TO_COL_MAP = {
 JUVENILE_COLS = ["female_juvenile_jail_pop", "male_juvenile_jail_pop"]
 JUVENILE = "0-17"
 ADULT = "18+"
-
-# NO AGE BREAKDOWN DATA
-
-DATA_COLS = [
-    *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
-    *RACE_PRISON_RATE_COLS_TO_STANDARD.keys(),
-    *SEX_PRISON_RAW_COLS_TO_STANDARD.keys(),
-    *SEX_PRISON_RATE_COLS_TO_STANDARD.keys(),
-    *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
-    *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
-    *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
-    *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
-    PRISON_RAW_ALL,
-    JAIL_RAW_ALL,
-    PRISON_RATE_ALL,
-    JAIL_RATE_ALL,
-]
-
 GEO_COLS_TO_STANDARD = {VERA_FIPS: std_col.COUNTY_FIPS_COL, VERA_COUNTY: std_col.COUNTY_NAME_COL}
 
-POP_COLS = [POP_ALL, *RACE_POP_TO_STANDARD.keys(), *SEX_POP_TO_STANDARD.keys()]
 
-location_col_types = {col: str for col in GEO_COLS_TO_STANDARD.keys()}
-data_col_types = {col: float for col in DATA_COLS}
-pop_col_types = {col: float for col in POP_COLS}
-VERA_COL_TYPES = {
-    VERA_YEAR: str,
-    **location_col_types,
-    **data_col_types,  # type: ignore
-    **pop_col_types,  # type: ignore
-}
+def get_vera_col_types(demo_type: str):
+    """
+    Returns a dictionary of column types for the given demo type.
+    The keys are also used to optimize the slow csv read by defining the usecols
+    """
+
+    # NO AGE BREAKDOWN DATA
+    RACE_DATA_COLS = [
+        *RACE_PRISON_RAW_COLS_TO_STANDARD.keys(),
+        *RACE_PRISON_RATE_COLS_TO_STANDARD.keys(),
+        *RACE_JAIL_RAW_COLS_TO_STANDARD.keys(),
+        *RACE_JAIL_RATE_COLS_TO_STANDARD.keys(),
+    ]
+
+    SEX_DATA_COLS = [
+        *SEX_PRISON_RAW_COLS_TO_STANDARD.keys(),
+        *SEX_PRISON_RATE_COLS_TO_STANDARD.keys(),
+        *SEX_JAIL_RAW_COLS_TO_STANDARD.keys(),
+        *SEX_JAIL_RATE_COLS_TO_STANDARD.keys(),
+    ]
+
+    ALLS_DATA_COLS = [
+        PRISON_RAW_ALL,
+        JAIL_RAW_ALL,
+        PRISON_RATE_ALL,
+        JAIL_RATE_ALL,
+        *JUVENILE_COLS,
+    ]
+
+    DATA_COLS = ALLS_DATA_COLS
+    if demo_type == std_col.RACE_OR_HISPANIC_COL:
+        DATA_COLS.extend(RACE_DATA_COLS)
+    if demo_type == std_col.SEX_COL:
+        DATA_COLS.extend(SEX_DATA_COLS)
+
+    POP_COLS = [POP_ALL, *RACE_POP_TO_STANDARD.keys(), *SEX_POP_TO_STANDARD.keys()]
+
+    location_col_types = {col: str for col in GEO_COLS_TO_STANDARD.keys()}
+    data_col_types = {col: float for col in DATA_COLS}
+    pop_col_types = {col: float for col in POP_COLS}
+    VERA_COL_TYPES = {
+        VERA_YEAR: str,
+        **location_col_types,
+        **data_col_types,  # type: ignore
+        **pop_col_types,  # type: ignore
+    }
+
+    return VERA_COL_TYPES
 
 
 class VeraIncarcerationCounty(DataSource):
     @staticmethod
     def get_id():
-        return 'VERA_INCARCERATION_COUNTY'
+        return "VERA_INCARCERATION_COUNTY"
 
     @staticmethod
     def get_table_name():
-        return 'vera_incarceration_county'
+        return "vera_incarceration_county"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for VeraIncarcerationCounty')
+        raise NotImplementedError("upload_to_gcs should not be called for VeraIncarcerationCounty")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
+        demo_type = self.get_attr(attrs, "demographic")
 
-        df = gcs_to_bq_util.load_csv_as_df_from_web(BASE_VERA_URL, dtype=VERA_COL_TYPES)
+        vera_col_types = get_vera_col_types(demo_type)
+
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            "vera", "incarceration_trends.csv", usecols=list(vera_col_types.keys()), dtype=vera_col_types
+        )
         df = df.rename(columns={VERA_FIPS: std_col.COUNTY_FIPS_COL, VERA_YEAR: std_col.TIME_PERIOD_COL})
         df = ensure_leading_zeros(df, std_col.COUNTY_FIPS_COL, 5)
         df = merge_county_names(df)
@@ -184,8 +208,8 @@ class VeraIncarcerationCounty(DataSource):
                 timeview,
                 [std_col.PRISON_PREFIX, std_col.JAIL_PREFIX, std_col.INCARCERATION_PREFIX, std_col.CHILDREN_PREFIX],
             )
-            table_name = f'by_{demo_type}_county_{timeview}'
-            gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_name, column_types=column_types)
+            table_id = gcs_to_bq_util.make_bq_table_id(demo_type, COUNTY_LEVEL, timeview)
+            gcs_to_bq_util.add_df_to_bq(timeview_df, dataset, table_id, column_types=column_types)
 
     def generate_for_bq(self, df: pd.DataFrame, demo_type: SEX_RACE_ETH_AGE_TYPE):
         """Creates the specific breakdown df needed for bigquery by iterating over needed columns
@@ -298,10 +322,10 @@ class VeraIncarcerationCounty(DataSource):
             std_col.CHILDREN_RAW,
         ]
 
-        # by_race gets extra cols
+        # race gets extra cols
         if demo_type == std_col.RACE_OR_HISPANIC_COL:
-            std_col.add_race_columns_from_category_id(breakdown_df)
-            needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
+            std_col.swap_race_id_col_for_names_col(breakdown_df)
+            # needed_cols.append(std_col.RACE_CATEGORY_ID_COL)
 
         # keep and sort needed cols
         breakdown_df = breakdown_df[needed_cols].sort_values(

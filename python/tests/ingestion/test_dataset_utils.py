@@ -20,210 +20,210 @@ from ingestion.dataset_utils import (
 from io import StringIO
 
 _fake_race_data = [
-    ['state_fips', 'state_name', 'race', 'population'],
-    ['01', 'Alabama', 'Asian alone', '660'],
-    ['01', 'Alabama', 'Some other race alone', '700'],
-    ['01', 'Alabama', 'Two or more races', '919'],
-    ['01', 'Alabama', 'An underrepresented race', '1'],
-    ['01', 'Alabama', 'ALL', '2280'],
-    ['01', 'Alabama', 'UNKNOWN', '30'],
-    ['02', 'Alaska', 'Asian alone', '45'],
-    ['02', 'Alaska', 'Some other race alone', '11'],
-    ['02', 'Alaska', 'Two or more races', '60'],
-    ['02', 'Alaska', 'ALL', '116'],
-    ['02', 'Alaska', 'UNKNOWN', '20'],
-    ['04', 'Arizona', 'Asian alone', '23'],
-    ['04', 'Arizona', 'Some other race alone', '46'],
-    ['04', 'Arizona', 'Two or more races', '26'],
-    ['04', 'Arizona', 'ALL', '95'],
-    ['04', 'Arizona', 'UNKNOWN', '10'],
+    ["state_fips", "state_name", "race", "population"],
+    ["01", "Alabama", "Asian alone", "660"],
+    ["01", "Alabama", "Some other race alone", "700"],
+    ["01", "Alabama", "Two or more races", "919"],
+    ["01", "Alabama", "An underrepresented race", "1"],
+    ["01", "Alabama", "ALL", "2280"],
+    ["01", "Alabama", "UNKNOWN", "30"],
+    ["02", "Alaska", "Asian alone", "45"],
+    ["02", "Alaska", "Some other race alone", "11"],
+    ["02", "Alaska", "Two or more races", "60"],
+    ["02", "Alaska", "ALL", "116"],
+    ["02", "Alaska", "UNKNOWN", "20"],
+    ["04", "Arizona", "Asian alone", "23"],
+    ["04", "Arizona", "Some other race alone", "46"],
+    ["04", "Arizona", "Two or more races", "26"],
+    ["04", "Arizona", "ALL", "95"],
+    ["04", "Arizona", "UNKNOWN", "10"],
 ]
 
 _expected_pct_share_data_without_unknowns = [
-    ['state_fips', 'state_name', 'race', 'population', 'pct_share'],
-    ['01', 'Alabama', 'Asian alone', '660', '28.9'],
-    ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
-    ['01', 'Alabama', 'Two or more races', '919', '40.3'],
-    ['01', 'Alabama', 'An underrepresented race', '1', '.04'],
-    ['01', 'Alabama', 'ALL', '2280', '100'],
-    ['02', 'Alaska', 'Asian alone', '45', '38.8'],
-    ['02', 'Alaska', 'Some other race alone', '11', '9.5'],
-    ['02', 'Alaska', 'Two or more races', '60', '51.7'],
-    ['02', 'Alaska', 'ALL', '116', '100'],
-    ['04', 'Arizona', 'Asian alone', '23', '24.2'],
-    ['04', 'Arizona', 'Some other race alone', '46', '48.4'],
-    ['04', 'Arizona', 'Two or more races', '26', '27.4'],
-    ['04', 'Arizona', 'ALL', '95', '100'],
+    ["state_fips", "state_name", "race", "population", "pct_share"],
+    ["01", "Alabama", "Asian alone", "660", "28.9"],
+    ["01", "Alabama", "Some other race alone", "700", "30.7"],
+    ["01", "Alabama", "Two or more races", "919", "40.3"],
+    ["01", "Alabama", "An underrepresented race", "1", ".04"],
+    ["01", "Alabama", "ALL", "2280", "100"],
+    ["02", "Alaska", "Asian alone", "45", "38.8"],
+    ["02", "Alaska", "Some other race alone", "11", "9.5"],
+    ["02", "Alaska", "Two or more races", "60", "51.7"],
+    ["02", "Alaska", "ALL", "116", "100"],
+    ["04", "Arizona", "Asian alone", "23", "24.2"],
+    ["04", "Arizona", "Some other race alone", "46", "48.4"],
+    ["04", "Arizona", "Two or more races", "26", "27.4"],
+    ["04", "Arizona", "ALL", "95", "100"],
 ]
 
 _expected_pct_share_data_with_unknowns = [
-    ['state_fips', 'state_name', 'race', 'population', 'pct_share'],
-    ['01', 'Alabama', 'Asian alone', '660', '28.9'],
-    ['01', 'Alabama', 'Some other race alone', '700', '30.7'],
-    ['01', 'Alabama', 'Two or more races', '919', '40.3'],
-    ['01', 'Alabama', 'An underrepresented race', '1', '.04'],
-    ['01', 'Alabama', 'ALL', '2280', '100'],
-    ['01', 'Alabama', 'UNKNOWN', '30', '1.3'],
-    ['02', 'Alaska', 'Asian alone', '45', '38.8'],
-    ['02', 'Alaska', 'Some other race alone', '11', '9.5'],
-    ['02', 'Alaska', 'Two or more races', '60', '51.7'],
-    ['02', 'Alaska', 'ALL', '116', '100'],
-    ['02', 'Alaska', 'UNKNOWN', '20', '17.2'],
-    ['04', 'Arizona', 'Asian alone', '23', '24.2'],
-    ['04', 'Arizona', 'Some other race alone', '46', '48.4'],
-    ['04', 'Arizona', 'Two or more races', '26', '27.4'],
-    ['04', 'Arizona', 'ALL', '95', '100'],
-    ['04', 'Arizona', 'UNKNOWN', '10', '10.5'],
+    ["state_fips", "state_name", "race", "population", "pct_share"],
+    ["01", "Alabama", "Asian alone", "660", "28.9"],
+    ["01", "Alabama", "Some other race alone", "700", "30.7"],
+    ["01", "Alabama", "Two or more races", "919", "40.3"],
+    ["01", "Alabama", "An underrepresented race", "1", ".04"],
+    ["01", "Alabama", "ALL", "2280", "100"],
+    ["01", "Alabama", "UNKNOWN", "30", "1.3"],
+    ["02", "Alaska", "Asian alone", "45", "38.8"],
+    ["02", "Alaska", "Some other race alone", "11", "9.5"],
+    ["02", "Alaska", "Two or more races", "60", "51.7"],
+    ["02", "Alaska", "ALL", "116", "100"],
+    ["02", "Alaska", "UNKNOWN", "20", "17.2"],
+    ["04", "Arizona", "Asian alone", "23", "24.2"],
+    ["04", "Arizona", "Some other race alone", "46", "48.4"],
+    ["04", "Arizona", "Two or more races", "26", "27.4"],
+    ["04", "Arizona", "ALL", "95", "100"],
+    ["04", "Arizona", "UNKNOWN", "10", "10.5"],
 ]
 
 _fake_data_without_pct_relative_inequity_col = [
-    ['state_fips', 'state_name', 'race', 'pct_share', 'pct_pop'],
-    ['01', 'Alabama', 'Race 1', 0, 0.0],
-    ['01', 'Alabama', 'Race 2', 10.0, 10.0],
-    ['01', 'Alabama', 'Race 3', 45.0, 80.0],
-    ['01', 'Alabama', 'Race 4', 45.0, 10.0],
-    ['01', 'Alabama', 'Race 5', None, None],
+    ["state_fips", "state_name", "race", "pct_share", "pct_pop"],
+    ["01", "Alabama", "Race 1", 0, 0.0],
+    ["01", "Alabama", "Race 2", 10.0, 10.0],
+    ["01", "Alabama", "Race 3", 45.0, 80.0],
+    ["01", "Alabama", "Race 4", 45.0, 10.0],
+    ["01", "Alabama", "Race 5", None, None],
 ]
 
 _expected_data_with_pct_relative_inequity_col = [
     [
-        'state_fips',
-        'state_name',
-        'race',
-        'pct_share',
-        'pct_pop',
-        'pct_relative_inequity',
+        "state_fips",
+        "state_name",
+        "race",
+        "pct_share",
+        "pct_pop",
+        "pct_relative_inequity",
     ],
-    ['01', 'Alabama', 'Race 1', 0, 0.0, np.nan],
-    ['01', 'Alabama', 'Race 2', 10.0, 10.0, 0.0],
-    ['01', 'Alabama', 'Race 3', 45.0, 80.0, -43.8],
-    ['01', 'Alabama', 'Race 4', 45.0, 10.0, 350.0],
-    ['01', 'Alabama', 'Race 5', None, None, np.nan],
+    ["01", "Alabama", "Race 1", 0, 0.0, np.nan],
+    ["01", "Alabama", "Race 2", 10.0, 10.0, 0.0],
+    ["01", "Alabama", "Race 3", 45.0, 80.0, -43.8],
+    ["01", "Alabama", "Race 4", 45.0, 10.0, 350.0],
+    ["01", "Alabama", "Race 5", None, None, np.nan],
 ]
 
 _fake_data_with_pct_rel_inequity_with_zero_rates = [
     [
-        'time_period',
-        'state_fips',
-        'state_name',
-        'race_category_id',
-        'something_per_100k',
-        'something_pct_relative_inequity',
-        'something_pop_pct',
+        "time_period",
+        "state_fips",
+        "state_name",
+        "race_category_id",
+        "something_per_100k",
+        "something_pct_relative_inequity",
+        "something_pop_pct",
     ],
-    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
-    ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
-    ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
-    ['2020', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
-    ['2020', '01', 'Alabama', 'Race2', 0, 0.0, 10.0],
-    ['2020', '01', 'Alabama', 'Race3', 0, 500.0, 10.0],
-    ['2020', '01', 'Alabama', 'Race4', 0, None, 10.0],
-    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
-    ['2020', '01', 'Alabama', 'Race6', 0, None, 10.0],
-    ['2020', '99', 'StateWithRates', 'Race6', 100_000, 50.0, 10.0],
+    ["2018", "99", "StateWithRates", "RaceNoPop", 90_000, None, None],
+    ["2019", "01", "Alabama", "Race1", 0, -100.0, 10.0],
+    ["2019", "01", "Alabama", "Race2", 10.001, 0.0, 10.0],
+    ["2019", "01", "Alabama", "Race3", 60.0, 500.0, 10.0],
+    ["2019", "01", "Alabama", "Race4", 60.0, None, 10.0],
+    ["2019", "01", "Alabama", "RaceNoPop", 1, None, None],
+    ["2019", "01", "Alabama", "Race6", 100.0, None, 10.0],
+    ["2020", "01", "Alabama", "Race1", 0, -100.0, 10.0],
+    ["2020", "01", "Alabama", "Race2", 0, 0.0, 10.0],
+    ["2020", "01", "Alabama", "Race3", 0, 500.0, 10.0],
+    ["2020", "01", "Alabama", "Race4", 0, None, 10.0],
+    ["2020", "01", "Alabama", "RaceNoPop", 0, None, None],
+    ["2020", "01", "Alabama", "Race6", 0, None, 10.0],
+    ["2020", "99", "StateWithRates", "Race6", 100_000, 50.0, 10.0],
 ]
 
 _expected_data_with_properly_zeroed_pct_rel_inequity = [
     [
-        'time_period',
-        'state_fips',
-        'state_name',
-        'race_category_id',
-        'something_per_100k',
-        'something_pct_relative_inequity',
-        'something_pop_pct',
+        "time_period",
+        "state_fips",
+        "state_name",
+        "race_category_id",
+        "something_per_100k",
+        "something_pct_relative_inequity",
+        "something_pop_pct",
     ],
-    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, np.nan, np.nan],
-    ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan, 10.0],
-    ['2019', '01', 'Alabama', 'RaceNoPop', 1, np.nan, np.nan],
-    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan, 10.0],
+    ["2018", "99", "StateWithRates", "RaceNoPop", 90_000, np.nan, np.nan],
+    ["2019", "01", "Alabama", "Race1", 0, -100.0, 10.0],
+    ["2019", "01", "Alabama", "Race2", 10.001, 0.0, 10.0],
+    ["2019", "01", "Alabama", "Race3", 60.0, 500.0, 10.0],
+    ["2019", "01", "Alabama", "Race4", 60.0, np.nan, 10.0],
+    ["2019", "01", "Alabama", "RaceNoPop", 1, np.nan, np.nan],
+    ["2019", "01", "Alabama", "Race6", 100.0, np.nan, 10.0],
     # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are ZEROED
     # expect for races where the population_pct_share is null
-    ['2020', '01', 'Alabama', 'Race1', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'Race2', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'Race3', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'Race4', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'RaceNoPop', 0, np.nan, np.nan],
-    ['2020', '01', 'Alabama', 'Race6', 0, 0, 10.0],
+    ["2020", "01", "Alabama", "Race1", 0, 0, 10.0],
+    ["2020", "01", "Alabama", "Race2", 0, 0, 10.0],
+    ["2020", "01", "Alabama", "Race3", 0, 0, 10.0],
+    ["2020", "01", "Alabama", "Race4", 0, 0, 10.0],
+    ["2020", "01", "Alabama", "RaceNoPop", 0, np.nan, np.nan],
+    ["2020", "01", "Alabama", "Race6", 0, 0, 10.0],
     # each PLACE/YEAR is considered independently so the fact Race6
     # has a rate in StateWithRates doesn't prevent the zeroing above
-    ['2020', '99', 'StateWithRates', 'Race6', 100_000, 50.0, 10.0],
+    ["2020", "99", "StateWithRates", "Race6", 100_000, 50.0, 10.0],
 ]
 
 _fake_condition_data = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total', 'population'],
-    ['01', 'Alabama', 'Asian alone', 100, 1000],
-    ['01', 'Alabama', 'Some other race alone', 200, 5000],
-    ['02', 'Alaska', 'Two or more races', 10, 2000],
-    ['02', 'Alaska', 'TOTAL', 100, 4000],
-    ['04', 'Arizona', 'Two or more races', 20, 4000],
-    ['04', 'Arizona', 'TOTAL', 10, 2000],
+    ["state_fips", "state_name", "race", "some_condition_total", "population"],
+    ["01", "Alabama", "Asian alone", 100, 1000],
+    ["01", "Alabama", "Some other race alone", 200, 5000],
+    ["02", "Alaska", "Two or more races", 10, 2000],
+    ["02", "Alaska", "TOTAL", 100, 4000],
+    ["04", "Arizona", "Two or more races", 20, 4000],
+    ["04", "Arizona", "TOTAL", 10, 2000],
 ]
 
 _fake_condition_data_with_per_100k = [
     [
-        'state_fips',
-        'state_name',
-        'race',
-        'some_condition_total',
-        'population',
-        'condition_per_100k',
+        "state_fips",
+        "state_name",
+        "race",
+        "some_condition_total",
+        "population",
+        "condition_per_100k",
     ],
-    ['01', 'Alabama', 'Asian alone', 100, 1000, 10000],
-    ['01', 'Alabama', 'Some other race alone', 200, 5000, 4000],
-    ['02', 'Alaska', 'Two or more races', 10, 2000, 500],
-    ['02', 'Alaska', 'TOTAL', 100, 4000, 2500],
-    ['04', 'Arizona', 'Two or more races', 20, 4000, 500],
-    ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
+    ["01", "Alabama", "Asian alone", 100, 1000, 10000],
+    ["01", "Alabama", "Some other race alone", 200, 5000, 4000],
+    ["02", "Alaska", "Two or more races", 10, 2000, 500],
+    ["02", "Alaska", "TOTAL", 100, 4000, 2500],
+    ["04", "Arizona", "Two or more races", 20, 4000, 500],
+    ["04", "Arizona", "TOTAL", 10, 2000, 500],
 ]
 
 _fake_race_data_without_totals = [
-    ['state_fips', 'state_name', 'race', 'population'],
-    ['01', 'Alabama', 'Asian alone', '66'],
-    ['01', 'Alabama', 'Some other race alone', '70'],
-    ['01', 'Alabama', 'Two or more races', '92'],
-    ['02', 'Alaska', 'Asian alone', '45'],
-    ['02', 'Alaska', 'Some other race alone', '11'],
-    ['02', 'Alaska', 'Two or more races', '60'],
-    ['04', 'Arizona', 'Asian alone', '23'],
-    ['04', 'Arizona', 'Some other race alone', '46'],
-    ['04', 'Arizona', 'Two or more races', '26'],
+    ["state_fips", "state_name", "race", "population"],
+    ["01", "Alabama", "Asian alone", "66"],
+    ["01", "Alabama", "Some other race alone", "70"],
+    ["01", "Alabama", "Two or more races", "92"],
+    ["02", "Alaska", "Asian alone", "45"],
+    ["02", "Alaska", "Some other race alone", "11"],
+    ["02", "Alaska", "Two or more races", "60"],
+    ["04", "Arizona", "Asian alone", "23"],
+    ["04", "Arizona", "Some other race alone", "46"],
+    ["04", "Arizona", "Two or more races", "26"],
 ]
 
 _expected_race_data_with_totals = [
-    ['state_fips', 'state_name', 'race', 'population'],
-    ['01', 'Alabama', 'Asian alone', '66'],
-    ['01', 'Alabama', 'Some other race alone', '70'],
-    ['01', 'Alabama', 'Two or more races', '92'],
-    ['02', 'Alaska', 'Asian alone', '45'],
-    ['02', 'Alaska', 'Some other race alone', '11'],
-    ['02', 'Alaska', 'Two or more races', '60'],
-    ['04', 'Arizona', 'Asian alone', '23'],
-    ['04', 'Arizona', 'Some other race alone', '46'],
-    ['04', 'Arizona', 'Two or more races', '26'],
-    ['01', 'Alabama', 'ALL', '228'],
-    ['02', 'Alaska', 'ALL', '116'],
-    ['04', 'Arizona', 'ALL', '95'],
+    ["state_fips", "state_name", "race", "population"],
+    ["01", "Alabama", "Asian alone", "66"],
+    ["01", "Alabama", "Some other race alone", "70"],
+    ["01", "Alabama", "Two or more races", "92"],
+    ["02", "Alaska", "Asian alone", "45"],
+    ["02", "Alaska", "Some other race alone", "11"],
+    ["02", "Alaska", "Two or more races", "60"],
+    ["04", "Arizona", "Asian alone", "23"],
+    ["04", "Arizona", "Some other race alone", "46"],
+    ["04", "Arizona", "Two or more races", "26"],
+    ["01", "Alabama", "ALL", "228"],
+    ["02", "Alaska", "ALL", "116"],
+    ["04", "Arizona", "ALL", "95"],
 ]
 
 _fake_data_missing_zeros = [
-    ['state_fips', 'state_name', 'race', 'population'],
-    ['1', 'Alabama', 'Asian alone', '66'],
-    ['1', 'Alabama', 'Some other race alone', '70'],
-    ['1', 'Alabama', 'Two or more races', '92'],
-    ['2', 'Alaska', 'Asian alone', '45'],
-    ['2', 'Alaska', 'Some other race alone', '11'],
-    ['2', 'Alaska', 'Two or more races', '60'],
-    ['4', 'Arizona', 'Asian alone', '23'],
-    ['4', 'Arizona', 'Some other race alone', '46'],
-    ['4', 'Arizona', 'Two or more races', '26'],
+    ["state_fips", "state_name", "race", "population"],
+    ["1", "Alabama", "Asian alone", "66"],
+    ["1", "Alabama", "Some other race alone", "70"],
+    ["1", "Alabama", "Two or more races", "92"],
+    ["2", "Alaska", "Asian alone", "45"],
+    ["2", "Alaska", "Some other race alone", "11"],
+    ["2", "Alaska", "Two or more races", "60"],
+    ["4", "Arizona", "Asian alone", "23"],
+    ["4", "Arizona", "Some other race alone", "46"],
+    ["4", "Arizona", "Two or more races", "26"],
 ]
 
 
@@ -241,14 +241,14 @@ def testPercentAvoidRoundingToZero():
 def testAddSumOfRows():
     df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data_without_totals))).reset_index(drop=True)
 
-    df['population'] = df['population'].astype(int)
-    df = dataset_utils.add_sum_of_rows(df, 'race', 'population', 'ALL')
+    df["population"] = df["population"].astype(int)
+    df = dataset_utils.add_sum_of_rows(df, "race", "population", "ALL")
 
     expected_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_race_data_with_totals))).reset_index(
         drop=True
     )
 
-    expected_df['population'] = expected_df['population'].astype(int)
+    expected_df["population"] = expected_df["population"].astype(int)
 
     assert_frame_equal(expected_df, df)
 
@@ -256,18 +256,18 @@ def testAddSumOfRows():
 def testGeneratePctShareColWithoutUnknowns():
     df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data))).reset_index(drop=True)
 
-    df = df.loc[df['race'] != 'UNKNOWN']
-    df['population'] = df['population'].astype(float)
+    df = df.loc[df["race"] != "UNKNOWN"]
+    df["population"] = df["population"].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_pct_share_data_without_unknowns))
     ).reset_index(drop=True)
 
-    expected_df['population'] = expected_df['population'].astype(float)
+    expected_df["population"] = expected_df["population"].astype(float)
 
-    expected_df['pct_share'] = expected_df['pct_share'].astype(float)
+    expected_df["pct_share"] = expected_df["pct_share"].astype(float)
 
-    df = dataset_utils.generate_pct_share_col_without_unknowns(df, {'population': 'pct_share'}, 'race', 'ALL')
+    df = dataset_utils.generate_pct_share_col_without_unknowns(df, {"population": "pct_share"}, "race", "ALL")
 
     assert_frame_equal(expected_df, df)
 
@@ -275,19 +275,19 @@ def testGeneratePctShareColWithoutUnknowns():
 def testGeneratePctShareColWithUnknowns():
     df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_race_data))).reset_index(drop=True)
 
-    df['population'] = df['population'].astype(float)
+    df["population"] = df["population"].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_pct_share_data_with_unknowns))
     ).reset_index(drop=True)
 
-    expected_df['population'] = expected_df['population'].astype(float)
+    expected_df["population"] = expected_df["population"].astype(float)
 
-    expected_df['pct_share'] = expected_df['pct_share'].astype(float)
+    expected_df["pct_share"] = expected_df["pct_share"].astype(float)
 
-    df = dataset_utils.generate_pct_share_col_with_unknowns(df, {'population': 'pct_share'}, 'race', 'ALL', 'UNKNOWN')
+    df = dataset_utils.generate_pct_share_col_with_unknowns(df, {"population": "pct_share"}, "race", "ALL", "UNKNOWN")
 
-    df = df.sort_values(by=['state_fips']).reset_index(drop=True)
+    df = df.sort_values(by=["state_fips"]).reset_index(drop=True)
     assert_frame_equal(expected_df, df)
 
 
@@ -297,61 +297,61 @@ def testGeneratePctShareColExtraTotalError():
     extra_row = pd.DataFrame(
         [
             {
-                'state_fips': '01',
-                'state_name': 'Alabama',
-                'race': 'ALL',
-                'population': '66',
+                "state_fips": "01",
+                "state_name": "Alabama",
+                "race": "ALL",
+                "population": "66",
             }
         ]
     )
 
     df = pd.concat([df, extra_row])
 
-    df = df.loc[df['race'] != 'UNKNOWN']
-    df['population'] = df['population'].astype(float)
+    df = df.loc[df["race"] != "UNKNOWN"]
+    df["population"] = df["population"].astype(float)
 
     expected_error = re.escape("Fips ('01',) has 2 ALL rows, there should be 1")
     with pytest.raises(ValueError, match=expected_error):
-        df = dataset_utils.generate_pct_share_col_without_unknowns(df, {'population': 'pct_share'}, 'race', 'ALL')
+        df = dataset_utils.generate_pct_share_col_without_unknowns(df, {"population": "pct_share"}, "race", "ALL")
 
 
 def testGeneratePer100kCol():
     df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_fake_condition_data))).reset_index(drop=True)
 
-    df = dataset_utils.generate_per_100k_col(df, 'some_condition_total', 'population', 'condition_per_100k')
+    df = dataset_utils.generate_per_100k_col(df, "some_condition_total", "population", "condition_per_100k")
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_fake_condition_data_with_per_100k))
     ).reset_index(drop=True)
 
-    expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
+    expected_df["condition_per_100k"] = df["condition_per_100k"].astype(float)
 
     assert_frame_equal(expected_df, df, check_like=True)
 
 
 def test_generate_pct_rate_col():
     data = [
-        {'some_condition_total': 1, 'population': 2},
-        {'some_condition_total': 11, 'population': 1000},
-        {'some_condition_total': 0, 'population': 1000},
-        {'some_condition_total': 1, 'population': 0},
-        {'some_condition_total': None, 'population': 1000},
-        {'some_condition_total': 1, 'population': 1000},
+        {"some_condition_total": 1, "population": 2},
+        {"some_condition_total": 11, "population": 1000},
+        {"some_condition_total": 0, "population": 1000},
+        {"some_condition_total": 1, "population": 0},
+        {"some_condition_total": None, "population": 1000},
+        {"some_condition_total": 1, "population": 1000},
     ]
     df = pd.DataFrame(data)
 
-    df = dataset_utils.generate_pct_rate_col(df, 'some_condition_total', 'population', 'condition_pct_rate')
+    df = dataset_utils.generate_pct_rate_col(df, "some_condition_total", "population", "condition_pct_rate")
 
     expected_data = [
-        {'some_condition_total': 1, 'population': 2, 'condition_pct_rate': 50},
-        {'some_condition_total': 11, 'population': 1000, 'condition_pct_rate': 1.0},
-        {'some_condition_total': 0, 'population': 1000, 'condition_pct_rate': 0.0},
-        {'some_condition_total': 1, 'population': 0, 'condition_pct_rate': None},
-        {'some_condition_total': None, 'population': 1000, 'condition_pct_rate': None},
-        {'some_condition_total': 1, 'population': 1000, 'condition_pct_rate': 0.0},
+        {"some_condition_total": 1, "population": 2, "condition_pct_rate": 50},
+        {"some_condition_total": 11, "population": 1000, "condition_pct_rate": 1.0},
+        {"some_condition_total": 0, "population": 1000, "condition_pct_rate": 0.0},
+        {"some_condition_total": 1, "population": 0, "condition_pct_rate": None},
+        {"some_condition_total": None, "population": 1000, "condition_pct_rate": None},
+        {"some_condition_total": 1, "population": 1000, "condition_pct_rate": 0.0},
     ]
     expected_df = pd.DataFrame(expected_data)
-    expected_df['condition_pct_rate'] = expected_df['condition_pct_rate'].astype(float)
+    expected_df["condition_pct_rate"] = expected_df["condition_pct_rate"].astype(float)
 
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -372,13 +372,13 @@ def testGeneratePctRelInequityCol():
     df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_fake_data_without_pct_relative_inequity_col))
     ).reset_index(drop=True)
-    df = dataset_utils.generate_pct_rel_inequity_col(df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
+    df = dataset_utils.generate_pct_rel_inequity_col(df, "pct_share", "pct_pop", "pct_relative_inequity")
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_data_with_pct_relative_inequity_col))
     ).reset_index(drop=True)
-    expected_df[['pct_relative_inequity', 'pct_share', 'pct_pop']] = expected_df[
-        ['pct_relative_inequity', 'pct_share', 'pct_pop']
+    expected_df[["pct_relative_inequity", "pct_share", "pct_pop"]] = expected_df[
+        ["pct_relative_inequity", "pct_share", "pct_pop"]
     ].astype(float)
 
     assert_frame_equal(df, expected_df, check_like=True)
@@ -390,7 +390,7 @@ def testZeroOutPctRelInequity():
     ).reset_index(drop=True)
     rate_to_inequity_cols_map = {"something_per_100k": "something_pct_relative_inequity"}
     df = dataset_utils.zero_out_pct_rel_inequity(
-        df, 'state', 'race', rate_to_inequity_cols_map, pop_pct_col="something_pop_pct"
+        df, "state", "race_and_ethnicity", rate_to_inequity_cols_map, pop_pct_col="something_pop_pct"
     )
     expected_df = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity))
@@ -401,30 +401,30 @@ def testZeroOutPctRelInequity():
 
 _fake_wide_short_source_data = [
     [
-        'time_period',
-        'state_fips',
-        'state_name',
-        'black_A_100k',
-        'white_A_100k',
-        'black_B_100k',
-        'white_B_100k',
+        "time_period",
+        "state_fips",
+        "state_name",
+        "black_A_100k",
+        "white_A_100k",
+        "black_B_100k",
+        "white_B_100k",
     ],
-    ['1999', '88', 'North Somestate', 100, 50, 999, 2222],
-    ['1999', '99', 'South Somestate', 101, 51, 998, 2221],
-    ['2000', '88', 'North Somestate', 100, 50, 999, 2222],
-    ['2000', '99', 'South Somestate', 101, 51, 998, 2221],
+    ["1999", "88", "North Somestate", 100, 50, 999, 2222],
+    ["1999", "99", "South Somestate", 101, 51, 998, 2221],
+    ["2000", "88", "North Somestate", 100, 50, 999, 2222],
+    ["2000", "99", "South Somestate", 101, 51, 998, 2221],
 ]
 
 _expected_HET_style_data = [
-    ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-    ['1999', '88', 'North Somestate', 'black', 100, 999],
-    ['1999', '88', 'North Somestate', 'white', 50, 2222],
-    ['1999', '99', 'South Somestate', 'black', 101, 998],
-    ['1999', '99', 'South Somestate', 'white', 51, 2221],
-    ['2000', '88', 'North Somestate', 'black', 100, 999],
-    ['2000', '88', 'North Somestate', 'white', 50, 2222],
-    ['2000', '99', 'South Somestate', 'black', 101, 998],
-    ['2000', '99', 'South Somestate', 'white', 51, 2221],
+    ["time_period", "state_fips", "state_name", "race", "A_100k", "B_100k"],
+    ["1999", "88", "North Somestate", "black", 100, 999],
+    ["1999", "88", "North Somestate", "white", 50, 2222],
+    ["1999", "99", "South Somestate", "black", 101, 998],
+    ["1999", "99", "South Somestate", "white", 51, 2221],
+    ["2000", "88", "North Somestate", "black", 100, 999],
+    ["2000", "88", "North Somestate", "white", 50, 2222],
+    ["2000", "99", "South Somestate", "black", 101, 998],
+    ["2000", "99", "South Somestate", "white", 51, 2221],
 ]
 
 
@@ -454,26 +454,26 @@ def test_melt_to_het_style_df():
 def test_preserve_only_current_time_period_rows():
 
     _time_data = [
-        ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-        ['1999-01', '88', 'North Somestate', 'black', 100, 999],
-        ['1999', '88', 'North Somestate', 'white', 50, 2222],
-        ['1999', '99', 'South Somestate', 'black', 101, 998],
-        ['1999', '99', 'South Somestate', 'white', 51, 2221],
-        ['2000', '88', 'North Somestate', 'black', 100, 999],
-        ['2000', '88', 'North Somestate', 'white', 50, 2222],
-        ['2000', '99', 'South Somestate', 'black', 101, 998],
-        ['2000', '99', 'South Somestate', 'white', 51, 2221],
+        ["time_period", "state_fips", "state_name", "race", "A_100k", "B_100k"],
+        ["1999-01", "88", "North Somestate", "black", 100, 999],
+        ["1999", "88", "North Somestate", "white", 50, 2222],
+        ["1999", "99", "South Somestate", "black", 101, 998],
+        ["1999", "99", "South Somestate", "white", 51, 2221],
+        ["2000", "88", "North Somestate", "black", 100, 999],
+        ["2000", "88", "North Somestate", "white", 50, 2222],
+        ["2000", "99", "South Somestate", "black", 101, 998],
+        ["2000", "99", "South Somestate", "white", 51, 2221],
     ]
     time_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_time_data))).reset_index(drop=True)
 
     # normal mode: drop time_period
     current_df = dataset_utils.preserve_only_current_time_period_rows(time_df)
     _expected_current_data = [
-        ['state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-        ['88', 'North Somestate', 'black', 100, 999],
-        ['88', 'North Somestate', 'white', 50, 2222],
-        ['99', 'South Somestate', 'black', 101, 998],
-        ['99', 'South Somestate', 'white', 51, 2221],
+        ["state_fips", "state_name", "race", "A_100k", "B_100k"],
+        ["88", "North Somestate", "black", 100, 999],
+        ["88", "North Somestate", "white", 50, 2222],
+        ["99", "South Somestate", "black", 101, 998],
+        ["99", "South Somestate", "white", 51, 2221],
     ]
     expected_current_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_expected_current_data))).reset_index(
         drop=True
@@ -484,11 +484,11 @@ def test_preserve_only_current_time_period_rows():
     # optional mode: keep time_period
     current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(time_df, keep_time_period_col=True)
     _expected_current_data = [
-        ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-        ['2000', '88', 'North Somestate', 'black', 100, 999],
-        ['2000', '88', 'North Somestate', 'white', 50, 2222],
-        ['2000', '99', 'South Somestate', 'black', 101, 998],
-        ['2000', '99', 'South Somestate', 'white', 51, 2221],
+        ["time_period", "state_fips", "state_name", "race", "A_100k", "B_100k"],
+        ["2000", "88", "North Somestate", "black", 100, 999],
+        ["2000", "88", "North Somestate", "white", 50, 2222],
+        ["2000", "99", "South Somestate", "black", 101, 998],
+        ["2000", "99", "South Somestate", "white", 51, 2221],
     ]
     expected_current_df_with_time = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_current_data)), dtype={"time_period": str}
@@ -499,21 +499,21 @@ def test_preserve_only_current_time_period_rows():
     # optional alt name for time_period column
     _time_alt_col_data = [
         [
-            'some_other_datetime_col',
-            'state_fips',
-            'state_name',
-            'race',
-            'A_100k',
-            'B_100k',
+            "some_other_datetime_col",
+            "state_fips",
+            "state_name",
+            "race",
+            "A_100k",
+            "B_100k",
         ],
-        ['1999-01', '88', 'North Somestate', 'black', 100, 999],
-        ['1999', '88', 'North Somestate', 'white', 50, 2222],
-        ['1999', '99', 'South Somestate', 'black', 101, 998],
-        ['1999', '99', 'South Somestate', 'white', 51, 2221],
-        ['2000', '88', 'North Somestate', 'black', 100, 999],
-        ['2000', '88', 'North Somestate', 'white', 50, 2222],
-        ['2000', '99', 'South Somestate', 'black', 101, 998],
-        ['2000', '99', 'South Somestate', 'white', 51, 2221],
+        ["1999-01", "88", "North Somestate", "black", 100, 999],
+        ["1999", "88", "North Somestate", "white", 50, 2222],
+        ["1999", "99", "South Somestate", "black", 101, 998],
+        ["1999", "99", "South Somestate", "white", 51, 2221],
+        ["2000", "88", "North Somestate", "black", 100, 999],
+        ["2000", "88", "North Somestate", "white", 50, 2222],
+        ["2000", "99", "South Somestate", "black", 101, 998],
+        ["2000", "99", "South Somestate", "white", 51, 2221],
     ]
     time_alt_col_df = gcs_to_bq_util.values_json_to_df(StringIO(json.dumps(_time_alt_col_data))).reset_index(drop=True)
 
@@ -521,11 +521,11 @@ def test_preserve_only_current_time_period_rows():
         time_alt_col_df, time_period_col="some_other_datetime_col"
     )
     _expected_alt_col_current_data = [
-        ['state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-        ['88', 'North Somestate', 'black', 100, 999],
-        ['88', 'North Somestate', 'white', 50, 2222],
-        ['99', 'South Somestate', 'black', 101, 998],
-        ['99', 'South Somestate', 'white', 51, 2221],
+        ["state_fips", "state_name", "race", "A_100k", "B_100k"],
+        ["88", "North Somestate", "black", 100, 999],
+        ["88", "North Somestate", "white", 50, 2222],
+        ["99", "South Somestate", "black", 101, 998],
+        ["99", "South Somestate", "white", 51, 2221],
     ]
     expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
         StringIO(json.dumps(_expected_alt_col_current_data))
@@ -540,15 +540,15 @@ def test_preserve_only_current_time_period_rows():
 def test_combine_race_ethnicity_hispanic_default_behavior_with_count():
     df = pd.DataFrame(
         {
-            'ethnicity': ['Hispanic or Latino', 'Hispanic or Latino'],
-            'race': ['White', 'Black'],
-            'state_fips': ['99', '99'],
-            'condition_count': [100, 200],
+            "ethnicity": ["Hispanic or Latino", "Hispanic or Latino"],
+            "race": ["White", "Black"],
+            "state_fips": ["99", "99"],
+            "condition_count": [100, 200],
         }
     )
-    result_df = combine_race_ethnicity(df, ['condition_count'], {'White': 'WHITE_NH', 'Black': 'BLACK_NH'})
+    result_df = combine_race_ethnicity(df, ["condition_count"], {"White": "WHITE_NH", "Black": "BLACK_NH"})
     expected_df = pd.DataFrame(
-        {'race_category_id': ["HISP"], 'state_fips': ['99'], 'condition_count': [300]}  # Sum of Hispanic counts
+        {"race_category_id": ["HISP"], "state_fips": ["99"], "condition_count": [300]}  # Sum of Hispanic counts
     )
     assert_frame_equal(result_df, expected_df, check_like=True)
 
@@ -556,23 +556,23 @@ def test_combine_race_ethnicity_hispanic_default_behavior_with_count():
 def test_combine_race_ethnicity_hispanic_latino_specific_hisp_value_with_count():
     df = pd.DataFrame(
         {
-            'ethnicity': ['Hispanic/Latino', 'Hispanic/Latino', 'Not Hispanic/Latino'],
-            'race': ['Black', 'Asian', 'White'],
-            'state_fips': ['99', '99', '99'],
-            'condition_count': [150, 250, 300],
+            "ethnicity": ["Hispanic/Latino", "Hispanic/Latino", "Not Hispanic/Latino"],
+            "race": ["Black", "Asian", "White"],
+            "state_fips": ["99", "99", "99"],
+            "condition_count": [150, 250, 300],
         }
     )
     result_df = combine_race_ethnicity(
         df,
         ["condition_count"],
-        {'Black': 'BLACK_NH', 'Asian': 'ASIAN_NH', 'White': 'WHITE_NH'},
-        ethnicity_value='Hispanic/Latino',
+        {"Black": "BLACK_NH", "Asian": "ASIAN_NH", "White": "WHITE_NH"},
+        ethnicity_value="Hispanic/Latino",
     )
     expected_df = pd.DataFrame(
         {
-            'race_category_id': ["HISP", "WHITE_NH"],
-            'state_fips': ['99', '99'],
-            'condition_count': [400, 300],  # Sum of Hispanic counts, Non-Hispanic count
+            "race_category_id": ["HISP", "WHITE_NH"],
+            "state_fips": ["99", "99"],
+            "condition_count": [400, 300],  # Sum of Hispanic counts, Non-Hispanic count
         }
     )
     assert_frame_equal(result_df, expected_df, check_like=True)
@@ -581,20 +581,20 @@ def test_combine_race_ethnicity_hispanic_latino_specific_hisp_value_with_count()
 def test_combine_race_ethnicity_non_hispanic_default_behavior_with_count():
     df = pd.DataFrame(
         {
-            'ethnicity': ['Non-Hispanic/Latino', 'Non-Hispanic/Latino', 'Hispanic or Latino'],
-            'race': ['White', 'Black', 'Asian'],
-            'state_fips': ['99', '99', '99'],
-            'condition_count': [200, 100, 300],
+            "ethnicity": ["Non-Hispanic/Latino", "Non-Hispanic/Latino", "Hispanic or Latino"],
+            "race": ["White", "Black", "Asian"],
+            "state_fips": ["99", "99", "99"],
+            "condition_count": [200, 100, 300],
         }
     )
     result_df = combine_race_ethnicity(
-        df, ['condition_count'], {'White': 'WHITE_NH', 'Black': 'BLACK_NH', 'Asian': 'ASIAN_NH'}
+        df, ["condition_count"], {"White": "WHITE_NH", "Black": "BLACK_NH", "Asian": "ASIAN_NH"}
     )
     expected_df = pd.DataFrame(
         {
-            'race_category_id': ["BLACK_NH", "HISP", "WHITE_NH"],
-            'state_fips': ['99', '99', '99'],
-            'condition_count': [100, 300, 200],
+            "race_category_id": ["BLACK_NH", "HISP", "WHITE_NH"],
+            "state_fips": ["99", "99", "99"],
+            "condition_count": [100, 300, 200],
         }
     )
     assert_frame_equal(result_df, expected_df, check_like=True)
@@ -603,20 +603,20 @@ def test_combine_race_ethnicity_non_hispanic_default_behavior_with_count():
 def test_combine_race_ethnicity_unknown_and_missing_default_values_with_count():
     df = pd.DataFrame(
         {
-            'ethnicity': ['Unknown', 'Missing', 'Hispanic or Latino', 'Hispanic or Latino'],
-            'race': ['Asian', 'Missing', 'White', 'Black'],
-            'state_fips': ['99', '99', '99', '99'],
-            'condition_count': [50, 75, 100, 200],
+            "ethnicity": ["Unknown", "Missing", "Hispanic or Latino", "Hispanic or Latino"],
+            "race": ["Asian", "Missing", "White", "Black"],
+            "state_fips": ["99", "99", "99", "99"],
+            "condition_count": [50, 75, 100, 200],
         }
     )
     result_df = combine_race_ethnicity(
-        df, ['condition_count'], {'Asian': 'ASIAN_NH', 'White': 'WHITE_NH', 'Black': 'BLACK_NH'}
+        df, ["condition_count"], {"Asian": "ASIAN_NH", "White": "WHITE_NH", "Black": "BLACK_NH"}
     )
     expected_df = pd.DataFrame(
         {
-            'race_category_id': ["HISP", "UNKNOWN"],
-            'state_fips': ['99', '99'],
-            'condition_count': [300, 125],  # sum Unknown counts, sum Hispanic counts
+            "race_category_id": ["HISP", "UNKNOWN"],
+            "state_fips": ["99", "99"],
+            "condition_count": [300, 125],  # sum Unknown counts, sum Hispanic counts
         }
     )
     assert_frame_equal(result_df, expected_df, check_like=True)
@@ -625,23 +625,23 @@ def test_combine_race_ethnicity_unknown_and_missing_default_values_with_count():
 def test_combine_race_ethnicity_unknown_and_missing_specific_unknown_value_with_count():
     df = pd.DataFrame(
         {
-            'ethnicity': ['Nothing', 'Hispanic or Latino', 'Hispanic or Latino', 'Not Hispanic/Latino'],
-            'race': ['Asian', 'White', 'Black', 'Asian'],
-            'state_fips': ['99', '99', '99', '99'],
-            'condition_count': [25, 150, 250, 100],
+            "ethnicity": ["Nothing", "Hispanic or Latino", "Hispanic or Latino", "Not Hispanic/Latino"],
+            "race": ["Asian", "White", "Black", "Asian"],
+            "state_fips": ["99", "99", "99", "99"],
+            "condition_count": [25, 150, 250, 100],
         }
     )
     result_df = combine_race_ethnicity(
         df,
-        ['condition_count'],
-        {'Asian': 'ASIAN_NH', 'White': 'WHITE_NH', 'Black': 'BLACK_NH'},
-        unknown_values=['Nothing'],
+        ["condition_count"],
+        {"Asian": "ASIAN_NH", "White": "WHITE_NH", "Black": "BLACK_NH"},
+        unknown_values=["Nothing"],
     )
     expected_df = pd.DataFrame(
         {
-            'race_category_id': ["ASIAN_NH", "HISP", "UNKNOWN"],
-            'state_fips': ['99', '99', '99'],
-            'condition_count': [100, 400, 25],  # Unknown count, sum of Hispanic counts, Non-Hispanic count
+            "race_category_id": ["ASIAN_NH", "HISP", "UNKNOWN"],
+            "state_fips": ["99", "99", "99"],
+            "condition_count": [100, 400, 25],  # Unknown count, sum of Hispanic counts, Non-Hispanic count
         }
     )
     assert_frame_equal(result_df, expected_df, check_like=True)
@@ -651,76 +651,76 @@ def test_generate_time_df_with_cols_and_types():
 
     test_data = pd.DataFrame(
         {
-            'time_period': ['2020', '2021'],
-            'state_name': ['Alabama', 'California'],
-            'state_fips': ['01', '02'],
-            'age': ['25-30', '31-36'],
-            'estimated_total': [100, 200],
-            'per_100k': [50, 75],
-            'pct_share': [0.5, 0.7],
-            'pct_relative_inequity': [0.1, 0.2],
-            'population': [1351583, 5168831],
-            'population_pct': [0.2, 0.7],
+            "time_period": ["2020", "2021"],
+            "state_name": ["Alabama", "California"],
+            "state_fips": ["01", "02"],
+            "age": ["25-30", "31-36"],
+            "estimated_total": [100, 200],
+            "per_100k": [50, 75],
+            "pct_share": [0.5, 0.7],
+            "pct_relative_inequity": [0.1, 0.2],
+            "population": [1351583, 5168831],
+            "population_pct": [0.2, 0.7],
         }
     )
 
     expected_current_df = pd.DataFrame(
         {
-            'state_name': ['California'],
-            'state_fips': ['02'],
-            'age': ['31-36'],
-            'estimated_total': [200.0],
-            'per_100k': [75.0],
-            'pct_share': [0.7],
-            'population_pct': [0.7],
+            "state_name": ["California"],
+            "state_fips": ["02"],
+            "age": ["31-36"],
+            "estimated_total": [200.0],
+            "per_100k": [75.0],
+            "pct_share": [0.7],
+            "population_pct": [0.7],
         }
     )
     expected_current_df.reset_index(drop=True)
 
     expected_historical_df = pd.DataFrame(
         {
-            'time_period': ['2020', '2021'],
-            'state_name': ['Alabama', 'California'],
-            'state_fips': ['01', '02'],
-            'age': ['25-30', '31-36'],
-            'per_100k': [50.0, 75.0],
-            'pct_relative_inequity': [0.1, 0.2],
-            'pct_share': [0.5, 0.7],
+            "time_period": ["2020", "2021"],
+            "state_name": ["Alabama", "California"],
+            "state_fips": ["01", "02"],
+            "age": ["25-30", "31-36"],
+            "per_100k": [50.0, 75.0],
+            "pct_relative_inequity": [0.1, 0.2],
+            "pct_share": [0.5, 0.7],
         }
     )
 
     expected_current_col_types = {
-        'state_name': 'STRING',
-        'state_fips': 'STRING',
-        'age': 'STRING',
-        'estimated_total': 'FLOAT64',
-        'per_100k': 'FLOAT64',
-        'pct_share': 'FLOAT64',
-        'population_pct': 'FLOAT64',
+        "state_name": "STRING",
+        "state_fips": "STRING",
+        "age": "STRING",
+        "estimated_total": "FLOAT64",
+        "per_100k": "FLOAT64",
+        "pct_share": "FLOAT64",
+        "population_pct": "FLOAT64",
     }
 
     expected_historical_col_types = {
-        'time_period': 'STRING',
-        'state_name': 'STRING',
-        'state_fips': 'STRING',
-        'age': 'STRING',
-        'per_100k': 'FLOAT64',
-        'pct_relative_inequity': 'FLOAT64',
-        'pct_share': 'FLOAT64',
+        "time_period": "STRING",
+        "state_name": "STRING",
+        "state_fips": "STRING",
+        "age": "STRING",
+        "per_100k": "FLOAT64",
+        "pct_relative_inequity": "FLOAT64",
+        "pct_share": "FLOAT64",
     }
 
     current_df, current_col_types = generate_time_df_with_cols_and_types(
         test_data,
-        ['estimated_total', 'per_100k', 'pct_share', 'population_pct'],  # numerical_cols_to_keep
-        'current',  # table_type
-        'age',  # dem_col
+        ["estimated_total", "per_100k", "pct_share", "population_pct"],  # numerical_cols_to_keep
+        "current",  # table_type
+        "age",  # dem_col
     )
 
     historical_df, historical_col_types = generate_time_df_with_cols_and_types(
         test_data,
-        ['per_100k', 'pct_relative_inequity', 'pct_share'],  # numerical_cols_to_keep
-        'historical',  # table_type
-        'age',  # dem_col
+        ["per_100k", "pct_relative_inequity", "pct_share"],  # numerical_cols_to_keep
+        "historical",  # table_type
+        "age",  # dem_col
     )
 
     current_df.reset_index(drop=True)
@@ -735,31 +735,31 @@ def test_generate_time_df_with_cols_and_types():
 # # STATE BY SEX DATA
 
 fake_state_by_sex_data_with_rates_pop_18plus = {
-    'topic_per_100k': [20, 60, 40, 50, 50, 50],
-    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
-    'state_fips': ['01', '01', '01', '02', '02', '02'],
-    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-    'population_18+': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
-    'topic_estimated_total': [376.0, 1223.0, 1567.0, 147.0, 131.0, 278.0],
+    "topic_per_100k": [20, 60, 40, 50, 50, 50],
+    "sex": ["Male", "Female", "All", "Male", "Female", "All"],
+    "state_fips": ["01", "01", "01", "02", "02", "02"],
+    "state_name": ["Alabama", "Alabama", "Alabama", "Alaska", "Alaska", "Alaska"],
+    "population_18+": [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    "topic_estimated_total": [376.0, 1223.0, 1567.0, 147.0, 131.0, 278.0],
 }
 
 fake_state_by_sex_data_with_rates_pop_18plus_and_counts = {
-    'topic_per_100k': [20, 60, 40, 50, 50, 50],
-    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
-    'state_fips': ['01', '01', '01', '02', '02', '02'],
-    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-    'population_18+': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
-    'topic_estimated_total': [376.0, 1223.0, 1567.0, 147.0, 131.0, 278.0],
+    "topic_per_100k": [20, 60, 40, 50, 50, 50],
+    "sex": ["Male", "Female", "All", "Male", "Female", "All"],
+    "state_fips": ["01", "01", "01", "02", "02", "02"],
+    "state_name": ["Alabama", "Alabama", "Alabama", "Alaska", "Alaska", "Alaska"],
+    "population_18+": [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    "topic_estimated_total": [376.0, 1223.0, 1567.0, 147.0, 131.0, 278.0],
 }
 
 fake_state_by_sex_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share = {
-    'topic_per_100k': [20, 60, 40, 50, 50, 50],
-    'sex': ['Male', 'Female', 'All', 'Male', 'Female', 'All'],
-    'state_fips': ['01', '01', '01', '02', '02', '02'],
-    'state_name': ['Alabama', 'Alabama', 'Alabama', 'Alaska', 'Alaska', 'Alaska'],
-    'population_18+': [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
-    'topic_estimated_total': [376.0, 1223.0, 1599.0, 147.0, 131.0, 278.0],  # note the new summed Alls
-    'topic_pct_share': [23.5, 76.5, 100.0, 52.9, 47.1, 100.0],
+    "topic_per_100k": [20, 60, 40, 50, 50, 50],
+    "sex": ["Male", "Female", "All", "Male", "Female", "All"],
+    "state_fips": ["01", "01", "01", "02", "02", "02"],
+    "state_name": ["Alabama", "Alabama", "Alabama", "Alaska", "Alaska", "Alaska"],
+    "population_18+": [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+    "topic_estimated_total": [376.0, 1223.0, 1599.0, 147.0, 131.0, 278.0],  # note the new summed Alls
+    "topic_pct_share": [23.5, 76.5, 100.0, 52.9, 47.1, 100.0],
 }
 
 # # STATE BY SEX TESTS
@@ -767,13 +767,13 @@ fake_state_by_sex_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share =
 
 def test_state_sex_generate_estimated_total_col():
     df = pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus)
-    df = generate_estimated_total_col(df, 'population_18+', {'topic_per_100k': 'topic_estimated_total'})
+    df = generate_estimated_total_col(df, "population_18+", {"topic_per_100k": "topic_estimated_total"})
     assert_frame_equal(df, pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus_and_counts), check_like=True)
 
 
 def test_state_sex_generate_pct_share_col_of_summed_alls():
     df = pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus_and_counts)
-    df = generate_pct_share_col_of_summed_alls(df, {'topic_estimated_total': 'topic_pct_share'}, 'sex')
+    df = generate_pct_share_col_of_summed_alls(df, {"topic_estimated_total": "topic_pct_share"}, "sex")
     assert_frame_equal(
         df,
         pd.DataFrame(fake_state_by_sex_data_with_rates_pop_18plus_adjusted_all_counts_and_pct_share),
@@ -784,78 +784,78 @@ def test_state_sex_generate_pct_share_col_of_summed_alls():
 # COUNTY BY RACE DATA
 
 fake_county_by_race_data_with_rates_and_pop = {
-    'topic_per_100k': [100, 10, 20, 50, 50, 50],
-    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
-    'race_and_ethnicity': [
-        'Black or African American (NH)',
-        'White (NH)',
-        'All',
-        'Black or African American (NH)',
-        'White (NH)',
-        'All',
+    "topic_per_100k": [100, 10, 20, 50, 50, 50],
+    "race_category_id": ["BLACK_NH", "WHITE_NH", "ALL", "BLACK_NH", "WHITE_NH", "ALL"],
+    "race_and_ethnicity": [
+        "Black or African American (NH)",
+        "White (NH)",
+        "All",
+        "Black or African American (NH)",
+        "White (NH)",
+        "All",
     ],
-    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
-    'state_fips': ['01', '01', '01', '01', '01', '01'],
-    'county_name': [
-        'Autuga County',
-        'Autuga County',
-        'Autuga County',
-        'Baldwin County',
-        'Baldwin County',
-        'Baldwin County',
+    "county_fips": ["01001", "01001", "01001", "01003", "01003", "01003"],
+    "state_fips": ["01", "01", "01", "01", "01", "01"],
+    "county_name": [
+        "Autuga County",
+        "Autuga County",
+        "Autuga County",
+        "Baldwin County",
+        "Baldwin County",
+        "Baldwin County",
     ],
-    'population': [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
+    "population": [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
 }
 
 fake_county_by_race_data_with_rates_pop_and_counts = {
-    'topic_per_100k': [100, 10, 20, 50, 50, 50],
-    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
-    'race_and_ethnicity': [
-        'Black or African American (NH)',
-        'White (NH)',
-        'All',
-        'Black or African American (NH)',
-        'White (NH)',
-        'All',
+    "topic_per_100k": [100, 10, 20, 50, 50, 50],
+    "race_category_id": ["BLACK_NH", "WHITE_NH", "ALL", "BLACK_NH", "WHITE_NH", "ALL"],
+    "race_and_ethnicity": [
+        "Black or African American (NH)",
+        "White (NH)",
+        "All",
+        "Black or African American (NH)",
+        "White (NH)",
+        "All",
     ],
-    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
-    'state_fips': ['01', '01', '01', '01', '01', '01'],
-    'county_name': [
-        'Autuga County',
-        'Autuga County',
-        'Autuga County',
-        'Baldwin County',
-        'Baldwin County',
-        'Baldwin County',
+    "county_fips": ["01001", "01001", "01001", "01003", "01003", "01003"],
+    "state_fips": ["01", "01", "01", "01", "01", "01"],
+    "county_name": [
+        "Autuga County",
+        "Autuga County",
+        "Autuga County",
+        "Baldwin County",
+        "Baldwin County",
+        "Baldwin County",
     ],
-    'population': [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
-    'topic_estimated_total': [11.0, 4.0, 12.0, 10.0, 96.0, 117.0],
+    "population": [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
+    "topic_estimated_total": [11.0, 4.0, 12.0, 10.0, 96.0, 117.0],
 }
 
 fake_county_by_race_data_with_rates_pop_adjusted_all_counts_and_pct_share = {
-    'topic_per_100k': [100, 10, 20, 50, 50, 50],
-    'race_category_id': ['BLACK_NH', 'WHITE_NH', 'ALL', 'BLACK_NH', 'WHITE_NH', 'ALL'],
-    'race_and_ethnicity': [
-        'Black or African American (NH)',
-        'White (NH)',
-        'All',
-        'Black or African American (NH)',
-        'White (NH)',
-        'All',
+    "topic_per_100k": [100, 10, 20, 50, 50, 50],
+    "race_category_id": ["BLACK_NH", "WHITE_NH", "ALL", "BLACK_NH", "WHITE_NH", "ALL"],
+    "race_and_ethnicity": [
+        "Black or African American (NH)",
+        "White (NH)",
+        "All",
+        "Black or African American (NH)",
+        "White (NH)",
+        "All",
     ],
-    'county_fips': ['01001', '01001', '01001', '01003', '01003', '01003'],
-    'state_fips': ['01', '01', '01', '01', '01', '01'],
-    'county_name': [
-        'Autuga County',
-        'Autuga County',
-        'Autuga County',
-        'Baldwin County',
-        'Baldwin County',
-        'Baldwin County',
+    "county_fips": ["01001", "01001", "01001", "01003", "01003", "01003"],
+    "state_fips": ["01", "01", "01", "01", "01", "01"],
+    "county_name": [
+        "Autuga County",
+        "Autuga County",
+        "Autuga County",
+        "Baldwin County",
+        "Baldwin County",
+        "Baldwin County",
     ],
-    'population': [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
-    'topic_estimated_total': [11.0, 4.0, 15.0, 10.0, 96.0, 106.0],  # note the new summed Alls
-    'topic_pct_share': [73.3, 26.7, 100.0, 9.4, 90.6, 100.0],
+    "population": [11496.0, 42635.0, 58761.0, 19445.0, 192161.0, 233420.0],
+    "topic_estimated_total": [11.0, 4.0, 15.0, 10.0, 96.0, 106.0],  # note the new summed Alls
+    "topic_pct_share": [73.3, 26.7, 100.0, 9.4, 90.6, 100.0],
 }
 
 
@@ -864,13 +864,13 @@ fake_county_by_race_data_with_rates_pop_adjusted_all_counts_and_pct_share = {
 
 def test_county_race_generate_estimated_total_col():
     df = pd.DataFrame(fake_county_by_race_data_with_rates_and_pop)
-    df = generate_estimated_total_col(df, 'population', {'topic_per_100k': 'topic_estimated_total'})
+    df = generate_estimated_total_col(df, "population", {"topic_per_100k": "topic_estimated_total"})
     assert_frame_equal(df, pd.DataFrame(fake_county_by_race_data_with_rates_pop_and_counts), check_like=True)
 
 
 def test_county_race_generate_pct_share_col_of_summed_alls():
     df = pd.DataFrame(fake_county_by_race_data_with_rates_pop_and_counts)
-    df = generate_pct_share_col_of_summed_alls(df, {'topic_estimated_total': 'topic_pct_share'}, 'race_and_ethnicity')
+    df = generate_pct_share_col_of_summed_alls(df, {"topic_estimated_total": "topic_pct_share"}, "race_and_ethnicity")
     assert_frame_equal(
         df,
         pd.DataFrame(fake_county_by_race_data_with_rates_pop_adjusted_all_counts_and_pct_share),
@@ -880,23 +880,23 @@ def test_county_race_generate_pct_share_col_of_summed_alls():
 
 def test_preserve_most_recent_year_rows_per_topic_normal_case():
     test_data = {
-        'race_and_ethnicity': ['Black', 'Black', 'Black', 'White', 'White', 'White'],
-        'time_period': ['2021', '2022', '2023', '2021', '2022', '2023'],
-        'topic1_per_100k': [10.0, 15.0, 20.0, None, 25.0, 30.0],
-        'topic2_pct_rate': [5.0, None, 10.0, 20.0, 25.0, None],
-        'topic3_index': [None, 1.0, 2.0, 3.0, None, 4.0],
+        "race_and_ethnicity": ["Black", "Black", "Black", "White", "White", "White"],
+        "time_period": ["2021", "2022", "2023", "2021", "2022", "2023"],
+        "topic1_per_100k": [10.0, 15.0, 20.0, None, 25.0, 30.0],
+        "topic2_pct_rate": [5.0, None, 10.0, 20.0, 25.0, None],
+        "topic3_index": [None, 1.0, 2.0, 3.0, None, 4.0],
     }
     expected_data = {
-        'race_and_ethnicity': ['Black', 'White'],
-        'topic1_per_100k': [20.0, 30.0],
-        'topic2_pct_rate': [10.0, None],
-        'topic3_index': [2.0, 4.0],
+        "race_and_ethnicity": ["Black", "White"],
+        "topic1_per_100k": [20.0, 30.0],
+        "topic2_pct_rate": [10.0, None],
+        "topic3_index": [2.0, 4.0],
     }
 
     test_df = pd.DataFrame(test_data)
     expected_df = pd.DataFrame(expected_data)
 
-    topic_prefixes = ['topic1', 'topic2', 'topic3']
+    topic_prefixes = ["topic1", "topic2", "topic3"]
     test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
     pd.testing.assert_frame_equal(test_df, expected_df)
 
@@ -906,42 +906,42 @@ def test_preserve_most_recent_year_rows_per_topic_normal_case():
 # SHARED TEST DATA
 df = pd.DataFrame(
     {
-        'time_period': ['2020', '2021', '2022'],
-        'state_fips': ['01', '02', '03'],
-        'example_per_100k': [10, 20, 30],
-        'example_estimated_total': [100, 200, 300],
-        'example_pct_relative_inequity': [0.1, 0.2, 0.3],
-        'example_pct_share': [0.5, 0.6, 0.7],
-        'other_pct_rate': [1, 2, 3],
-        'some_population_pct': [99, 100, 100],
+        "time_period": ["2020", "2021", "2022"],
+        "state_fips": ["01", "02", "03"],
+        "example_per_100k": [10, 20, 30],
+        "example_estimated_total": [100, 200, 300],
+        "example_pct_relative_inequity": [0.1, 0.2, 0.3],
+        "example_pct_share": [0.5, 0.6, 0.7],
+        "other_pct_rate": [1, 2, 3],
+        "some_population_pct": [99, 100, 100],
     }
 )
-topic_prefixes = ['example', 'other', 'some']
+topic_prefixes = ["example", "other", "some"]
 
 
 def test_current_time_view():
 
     expected_current_df = pd.DataFrame(
         {
-            'state_fips': ['03'],
-            'example_per_100k': [30],
-            'example_estimated_total': [300],
-            'example_pct_share': [0.7],
-            'other_pct_rate': [3],
-            'some_population_pct': [100],
+            "state_fips": ["03"],
+            "example_per_100k": [30],
+            "example_estimated_total": [300],
+            "example_pct_share": [0.7],
+            "other_pct_rate": [3],
+            "some_population_pct": [100],
         }
     )
 
     expected_current_bq_col_types = {
-        'state_fips': BQ_STRING,
-        'example_per_100k': BQ_FLOAT,
-        'example_estimated_total': BQ_FLOAT,
-        'example_pct_share': BQ_FLOAT,
-        'other_pct_rate': BQ_FLOAT,
-        'some_population_pct': BQ_FLOAT,
+        "state_fips": BQ_STRING,
+        "example_per_100k": BQ_FLOAT,
+        "example_estimated_total": BQ_FLOAT,
+        "example_pct_share": BQ_FLOAT,
+        "other_pct_rate": BQ_FLOAT,
+        "some_population_pct": BQ_FLOAT,
     }
 
-    result_current_df, result_bq_col_types = get_timeview_df_and_cols(df, 'current', topic_prefixes)
+    result_current_df, result_bq_col_types = get_timeview_df_and_cols(df, "current", topic_prefixes)
 
     pd.testing.assert_frame_equal(result_current_df, expected_current_df)
     assert result_bq_col_types == expected_current_bq_col_types
@@ -951,23 +951,23 @@ def test_historical_time_view():
 
     expected_historical_df = pd.DataFrame(
         {
-            'time_period': ['2020', '2021', '2022'],
-            'state_fips': ['01', '02', '03'],
-            'example_per_100k': [10, 20, 30],
-            'example_pct_relative_inequity': [0.1, 0.2, 0.3],
-            'other_pct_rate': [1, 2, 3],
+            "time_period": ["2020", "2021", "2022"],
+            "state_fips": ["01", "02", "03"],
+            "example_per_100k": [10, 20, 30],
+            "example_pct_relative_inequity": [0.1, 0.2, 0.3],
+            "other_pct_rate": [1, 2, 3],
         }
     )
 
     expected_bq_col_types = {
-        'time_period': BQ_STRING,
-        'state_fips': BQ_STRING,
-        'example_per_100k': BQ_FLOAT,
-        'example_pct_relative_inequity': BQ_FLOAT,
-        'other_pct_rate': BQ_FLOAT,
+        "time_period": BQ_STRING,
+        "state_fips": BQ_STRING,
+        "example_per_100k": BQ_FLOAT,
+        "example_pct_relative_inequity": BQ_FLOAT,
+        "other_pct_rate": BQ_FLOAT,
     }
 
-    result_df, result_bq_col_types = get_timeview_df_and_cols(df, 'historical', topic_prefixes)
+    result_df, result_bq_col_types = get_timeview_df_and_cols(df, "historical", topic_prefixes)
     pd.testing.assert_frame_equal(result_df, expected_historical_df)
     assert result_bq_col_types == expected_bq_col_types
 
@@ -975,4 +975,4 @@ def test_historical_time_view():
 def test_invalid_time_view():
 
     with pytest.raises(ValueError):
-        get_timeview_df_and_cols(df, 'some_invalid_time_viewπ', topic_prefixes)
+        get_timeview_df_and_cols(df, "some_invalid_time_viewπ", topic_prefixes)

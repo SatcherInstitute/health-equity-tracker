@@ -1,11 +1,11 @@
-import DataCatalogPage from './DataCatalogPage'
-import { autoInitGlobals, getDataFetcher } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
 import { render } from '@testing-library/react'
 import { act } from 'react'
-import { test, expect } from 'vitest'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router'
+import { expect, test } from 'vitest'
+import type { DatasetMetadata } from '../../data/utils/DatasetTypes'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import { autoInitGlobals, getDataFetcher } from '../../utils/globals'
+import DataCatalogPage from './DataCatalogPage'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   name: 'ACS Population by Age and County',

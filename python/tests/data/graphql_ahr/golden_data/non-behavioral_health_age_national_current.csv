@@ -1,9 +1,6 @@
-age,state_fips,state_name,asthma_per_100k,avoided_care_pct_rate,cardiovascular_diseases_per_100k,chronic_kidney_disease_per_100k,copd_per_100k,diabetes_per_100k,preventable_hospitalizations_per_100k,ahr_population_estimated_total,ahr_population_pct,voter_participation_pct_rate
-18-24,00,United States,,,,,,,,,,51.4
-18-44,00,United States,9800.0,15.2,2300.0,1300.0,2800.0,3600.0,,120601782.0,36.1,
-25-34,00,United States,,,,,,,,,,60.3
-35-44,00,United States,,,,,,,,,,65.1
-45-64,00,United States,10600.0,10.6,9900.0,3800.0,7900.0,15700.0,,84527730.0,25.3,71.0
-65+,00,United States,9200.0,3.7,22400.0,8300.0,13100.0,23900.0,,55460582.0,16.6,74.5
-65-74,00,United States,,,,,,,1452.0,32641489.0,9.8,
-All,00,United States,10400.0,10.1,9100.0,3500.0,6800.0,11500.0,,334369975.0,100.0,66.8
+age,state_fips,state_name,asthma_per_100k,asthma_estimated_total,asthma_pct_share,avoided_care_pct_rate,avoided_care_estimated_total,avoided_care_pct_share,cardiovascular_diseases_per_100k,cardiovascular_diseases_estimated_total,cardiovascular_diseases_pct_share,chronic_kidney_disease_per_100k,chronic_kidney_disease_estimated_total,chronic_kidney_disease_pct_share,copd_per_100k,copd_estimated_total,copd_pct_share,diabetes_per_100k,diabetes_estimated_total,diabetes_pct_share,preventable_hospitalizations_per_100k,ahr_population_estimated_total,ahr_population_pct,voter_participation_pct_rate
+18-44,00,United States,9800.0,11818975.0,45.7,15.2,18331471.0,62.5,2300.0,2773841.0,11.8,1300.0,1567823.0,16.7,2800.0,3376850.0,19.5,3600.0,4341664.0,14.1,,120601782.0,36.1,
+45-64,00,United States,10600.0,8959939.0,34.6,10.6,8959939.0,30.5,9900.0,8368245.0,35.5,3800.0,3212054.0,34.2,7900.0,6677691.0,38.6,15700.0,13270854.0,43.0,,84527730.0,25.3,
+65+,00,United States,9200.0,5102374.0,19.7,3.7,2052042.0,7.0,22400.0,12423170.0,52.7,8300.0,4603228.0,49.1,13100.0,7265336.0,41.9,23900.0,13255079.0,42.9,,55460582.0,16.6,74.5
+65-74,00,United States,,,,,,,,,,,,,,,,,,,1452.0,32641489.0,9.8,
+All,00,United States,10400.0,25881288.0,100.0,10.1,29343452.0,100.0,9100.0,23565256.0,100.0,3500.0,9383105.0,100.0,6800.0,17319877.0,100.0,11500.0,30867597.0,100.0,2665.0,334369975.0,100.0,66.8

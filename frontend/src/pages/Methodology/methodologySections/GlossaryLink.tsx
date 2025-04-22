@@ -1,20 +1,20 @@
 import { Helmet } from 'react-helmet-async'
+import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
+import Resources from '../methodologyComponents/Resources'
 import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
   AIAN_RESOURCES,
   API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
   ECONOMIC_EQUITY_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  HISP_RESOURCES,
   HIV_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  PDOH_RESOURCES,
+  RESOURCES,
 } from '../methodologyContent/ResourcesData'
-import Resources from '../methodologyComponents/Resources'
 import { termDefinitions } from '../methodologyContent/TermDefinitions'
-import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
 
 function GlossaryLink() {
   return (
@@ -23,7 +23,6 @@ function GlossaryLink() {
         <Helmet>
           <title>Glossary - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Glossary</h2>
 
         <GlossaryTerm topic={''} definitionItems={termDefinitions} />
 

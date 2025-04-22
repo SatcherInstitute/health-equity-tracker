@@ -1,3 +1,4 @@
+# pylint: disable=unused-argument
 from unittest import mock
 from unittest.mock import Mock
 import pytest
@@ -12,55 +13,50 @@ from main import app, STATE_LEVEL_FIPS_LIST, get_table_name, has_multi_demograph
 # UNIT TESTS
 
 # has multiple (acs, census_pop)
-assert has_multi_demographics("health_insurance_by_race_age_county")
-assert has_multi_demographics("by_race_and_ethnicity_age_state")
+assert has_multi_demographics("health_insurance_multi_race_age_county")
+assert has_multi_demographics("multi_race_and_ethnicity_age_state")
 # has only one
-assert not has_multi_demographics("by_age_territory")
+assert not has_multi_demographics("age_state")
 # has no demographic (geo_context)
 assert not has_multi_demographics("county")
 
 # age adjust special case
-assert not has_multi_demographics("by_race_national_processed-with_age_adjust")
+assert not has_multi_demographics("race_national_current-with_age_adjust")
 
 
 NUM_STATES_AND_TERRITORIES = len(STATE_LEVEL_FIPS_LIST)
 
-TEST_TABLES = [bigquery.Table("my-project.my-dataset.t1-sex"),
-               bigquery.Table("my-project.my-dataset.t2-age"),
-               bigquery.Table("my-project.my-dataset.t3-age"),
-               bigquery.Table("my-project.my-county-dataset.t4-age"),
-               ]
+TEST_TABLES = [
+    bigquery.Table("my-project.my-dataset.t1-sex"),
+    bigquery.Table("my-project.my-dataset.t2-age"),
+    bigquery.Table("my-project.my-dataset.t3-age"),
+    bigquery.Table("my-project.my-county-dataset.t4-age"),
+]
 
-os.environ['PROJECT_ID'] = 'my-project'
-os.environ['EXPORT_BUCKET'] = 'my-bucket'
+os.environ["PROJECT_ID"] = "my-project"
+os.environ["EXPORT_BUCKET"] = "my-bucket"
 
 
 @pytest.fixture
 def client():
     """Creates a Flask test client for each test."""
-    app.config['TESTING'] = True
+    app.config["TESTING"] = True
     with app.test_client() as app_client:
         yield app_client
 
 
 # TEST FULL FILE EXTRACT CALLS
 
-@mock.patch('main.export_split_county_tables')
-@mock.patch('google.cloud.bigquery.Client')
-def testExportDatasetTables(
-    mock_bq_client: mock.MagicMock,
-    mock_split_county: mock.MagicMock,
-    client: FlaskClient
-):
+
+@mock.patch("main.export_split_county_tables")
+@mock.patch("google.cloud.bigquery.Client")
+def testExportDatasetTables(mock_bq_client: mock.MagicMock, mock_split_county: mock.MagicMock, client: FlaskClient):
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = TEST_TABLES
 
-    payload = {
-        'dataset_name': 'my-dataset',
-        'demographic': 'age'
-    }
-    response = client.post('/', json=payload)
+    payload = {"dataset_name": "my-dataset", "demographic": "age"}
+    response = client.post("/", json=payload)
 
     assert response.status_code == 204
     # called once per "age" table
@@ -69,59 +65,46 @@ def testExportDatasetTables(
     assert mock_split_county.call_count == 3
 
 
-@mock.patch('main.export_split_county_tables')
-@mock.patch('google.cloud.bigquery.Client')
+@mock.patch("main.export_split_county_tables")
+@mock.patch("google.cloud.bigquery.Client")
 def testExportDatasetTables_InvalidInput(
-    mock_bq_client: mock.MagicMock,
-    mock_split_county: mock.MagicMock,
-    client: FlaskClient
+    mock_bq_client: mock.MagicMock, mock_split_county: mock.MagicMock, client: FlaskClient
 ):
-    response = client.post('/', json={})
+    response = client.post("/", json={})
     assert response.status_code == 400
     assert mock_split_county.call_count == 0
 
 
-@mock.patch('main.export_split_county_tables')
-@mock.patch('google.cloud.bigquery.Client')
+@mock.patch("main.export_split_county_tables")
+@mock.patch("google.cloud.bigquery.Client")
 def testExportDatasetTables_NoTables(
-    mock_bq_client: mock.MagicMock,
-    mock_split_county: mock.MagicMock,
-    client: FlaskClient
+    mock_bq_client: mock.MagicMock, mock_split_county: mock.MagicMock, client: FlaskClient
 ):
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = iter(())
 
-    payload = {
-        'dataset_name': 'my-dataset',
-        'demographic': 'age'
-    }
-    response = client.post('/', json=payload)
+    payload = {"dataset_name": "my-dataset", "demographic": "age"}
+    response = client.post("/", json=payload)
 
     assert response.status_code == 500
     assert mock_split_county.call_count == 0
 
 
-@mock.patch('main.export_split_county_tables')
-@mock.patch('google.cloud.bigquery.Client')
+@mock.patch("main.export_split_county_tables")
+@mock.patch("google.cloud.bigquery.Client")
 def testExportDatasetTables_ExtractJobFailure(
-    mock_bq_client: mock.MagicMock,
-    mock_split_county: mock.MagicMock,
-    client: FlaskClient
+    mock_bq_client: mock.MagicMock, mock_split_county: mock.MagicMock, client: FlaskClient
 ):
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = TEST_TABLES
     mock_extract_job = Mock()
     mock_bq_instance.extract_table.return_value = mock_extract_job
-    mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError(
-        'Internal')
+    mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError("Internal")
 
-    payload = {
-        'dataset_name': 'my-dataset',
-        'demographic': 'age'
-    }
-    response = client.post('/', json=payload)
+    payload = {"dataset_name": "my-dataset", "demographic": "age"}
+    response = client.post("/", json=payload)
 
     assert response.status_code == 500
     assert mock_split_county.call_count == 1
@@ -129,34 +112,33 @@ def testExportDatasetTables_ExtractJobFailure(
 
 # TEST ADDITIONAL COUNTY-LEVEL DATASET SPLIT FUNCTIONS
 
-_test_query_results_df = pd.DataFrame({
-    'county_fips': ["01001", "01002", "01003"],
-    'some_condition_per_100k': [None, 1, 2],
-})
+_test_query_results_df = pd.DataFrame(
+    {
+        "county_fips": ["01001", "01002", "01003"],
+        "some_condition_per_100k": [None, 1, 2],
+    }
+)
 
 
-@mock.patch('main.export_nd_json_to_blob')
-@mock.patch('main.prepare_blob')
-@mock.patch('main.prepare_bucket')
-@mock.patch('main.get_query_results_as_df', return_value=_test_query_results_df)
-@mock.patch('google.cloud.bigquery.Client')
+@mock.patch("main.export_nd_json_to_blob")
+@mock.patch("main.prepare_blob")
+@mock.patch("main.prepare_bucket")
+@mock.patch("main.get_query_results_as_df", return_value=_test_query_results_df)
+@mock.patch("google.cloud.bigquery.Client")
 def testExportSplitCountyTables(
-        mock_bq_client: mock.MagicMock,
-        mock_query_df: mock.MagicMock,
-        mock_prepare_bucket: mock.MagicMock,
-        mock_prepare_blob: mock.MagicMock,
-        mock_export: mock.MagicMock,
-        client: FlaskClient
+    mock_bq_client: mock.MagicMock,
+    mock_query_df: mock.MagicMock,
+    mock_prepare_bucket: mock.MagicMock,
+    mock_prepare_blob: mock.MagicMock,
+    mock_export: mock.MagicMock,
+    client: FlaskClient,
 ):
 
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = TEST_TABLES
 
-    payload = {
-        'dataset_name': 'my-dataset',
-        'demographic': 'age'
-    }
-    client.post('/', json=payload)
+    payload = {"dataset_name": "my-dataset", "demographic": "age"}
+    client.post("/", json=payload)
 
     # ensure initial call to bq client and county-level calls per state/terr
     assert mock_bq_client.call_count == 1
@@ -166,12 +148,10 @@ def testExportSplitCountyTables(
 
     # ensure generated ndjson for bq.storage matches expected ndjson
     generated_nd_json = mock_export.call_args[0][1]
-    assert (sorted(generated_nd_json) ==
-            sorted(_test_query_results_df.to_json(orient="records",
-                                                  lines=True)))
+    assert sorted(generated_nd_json) == sorted(_test_query_results_df.to_json(orient="records", lines=True))
 
     bucket_name = mock_prepare_bucket.call_args[0][0]
-    assert bucket_name == os.environ['EXPORT_BUCKET']
+    assert bucket_name == os.environ["EXPORT_BUCKET"]
 
     # for each state/terr
     for i, fips in enumerate(STATE_LEVEL_FIPS_LIST):
@@ -191,5 +171,5 @@ def testExportSplitCountyTables(
         # ensure county level files are named as expected
         state_file_name = mock_prepare_blob.call_args_list[i][0][1]
         table = TEST_TABLES[3]
-        expected_file_name = f'{table.dataset_id}-{table.table_id}-{fips}.json'
+        expected_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
         assert state_file_name == expected_file_name

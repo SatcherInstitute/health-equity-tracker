@@ -1,18 +1,36 @@
-interface HetTagsProps {
-  tags: string[]
+interface Tag {
+  name: string
+  link?: string
 }
 
-export const HetTags: React.FC<HetTagsProps> = ({ tags }) => {
+interface HetTagsProps {
+  tags: Tag[] | string[]
+  onTagClick?: (tagName: string) => void
+}
+
+export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
+  const normalizedTags: Tag[] = tags.map((tag) =>
+    typeof tag === 'string' ? { name: tag } : tag,
+  )
+
+  const handleClick = (tagName: string) => {
+    if (onTagClick) {
+      onTagClick(tagName)
+    }
+  }
+
   return (
-    <div className='md:flex md:flex-wrap mt-2 hidden'>
-      {tags.map((name) => (
-        <span
-          aria-label={name}
-          key={name}
-          className='text-tinyTag uppercase text-black font-sansTitle font-bold bg-tinyTagGray rounded-sm py-1 px-2 mr-2 mt-1'
+    <div className='text-left md:flex md:flex-wrap'>
+      {normalizedTags.map((tag) => (
+        <button
+          key={tag.name}
+          type='button'
+          aria-label={tag.name}
+          className='mt-1 mr-2 rounded-sm border-none bg-tinyTagGray px-2 py-1 font-bold font-sansTitle text-black text-tinyTag uppercase no-underline hover:cursor-pointer hover:bg-hoverTinyTagGray'
+          onClick={() => handleClick(tag.name)}
         >
-          {name}
-        </span>
+          {tag.name}
+        </button>
       ))}
     </div>
   )

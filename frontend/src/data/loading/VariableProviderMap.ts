@@ -1,26 +1,27 @@
+import type { MetricId } from '../config/MetricConfigTypes'
 import AcsConditionProvider from '../providers/AcsConditionProvider'
-import AcsPopulationProvider from '../providers/AcsPopulationProvider'
-import type VariableProvider from '../providers/VariableProvider'
-import CdcCovidProvider from '../providers/CdcCovidProvider'
-import HivProvider from '../providers/HivProvider'
 import AhrProvider from '../providers/AhrProvider'
 import CawpProvider from '../providers/CawpProvider'
-import IncarcerationProvider from '../providers/IncarcerationProvider'
-import type { MetricId } from '../config/MetricConfigTypes'
-import VaccineProvider from '../providers/VaccineProvider'
-import PhrmaProvider from '../providers/PhrmaProvider'
+import CdcCancerProvider from '../providers/CdcCancerProvider'
+import CdcCovidProvider from '../providers/CdcCovidProvider'
 import GeoContextProvider from '../providers/GeoContextProvider'
+import GunViolenceBlackMenProvider from '../providers/GunDeathsBlackMenProvider'
 import GunViolenceProvider from '../providers/GunViolenceProvider'
 import GunViolenceYouthProvider from '../providers/GunViolenceYouthProvider'
-import GunViolenceBlackMenProvider from '../providers/GunDeathsBlackMenProvider'
+import HivProvider from '../providers/HivProvider'
+import IncarcerationProvider from '../providers/IncarcerationProvider'
 import MaternalMortalityProvider from '../providers/MaternalMortalityProvider'
 import PhrmaBrfssProvider from '../providers/PhrmaBrfssProvider'
+import PhrmaProvider from '../providers/PhrmaProvider'
+import VaccineProvider from '../providers/VaccineProvider'
+import type VariableProvider from '../providers/VariableProvider'
 
 export type ProviderId =
   | 'acs_condition_provider'
   | 'acs_pop_provider'
   | 'ahr_provider'
   | 'cawp_provider'
+  | 'cdc_cancer_provider'
   | 'cdc_covid_provider'
   | 'covid_provider'
   | 'geo_context_provider'
@@ -40,12 +41,11 @@ export default class VariableProviderMap {
   private readonly metricsToProviderIds: Record<MetricId, ProviderId>
 
   constructor() {
-    const acsProvider = new AcsPopulationProvider()
     this.providers = [
-      acsProvider,
       new AcsConditionProvider(),
       new AhrProvider(),
       new CawpProvider(),
+      new CdcCancerProvider(),
       new CdcCovidProvider(),
       new GeoContextProvider(),
       new GunViolenceProvider(),

@@ -13,6 +13,11 @@ import {
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
 import {
+  CDC_CANCER_ALL_SEXES_DATATYPES,
+  CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
+  CDC_CANCER_SEX_SPECIFIC_DATATYPES,
+} from '../data/providers/CdcCancerProvider'
+import {
   BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
   BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY,
 } from '../data/providers/GunDeathsBlackMenProvider'
@@ -41,8 +46,8 @@ import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/ethnicity': 'race_and_ethnicity',
-  Sex: 'sex',
+  'Race/Ethnicity': 'race_and_ethnicity',
+  'Sex at Birth': 'sex',
   Age: 'age',
 }
 
@@ -51,26 +56,31 @@ const ONLY_AGE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 }
 
 const ONLY_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/ethnicity': 'race_and_ethnicity',
+  'Race/Ethnicity': 'race_and_ethnicity',
 }
 
 const ONLY_SEX_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/ethnicity': 'race_and_ethnicity',
-  Sex: 'sex',
+  'Race/Ethnicity': 'race_and_ethnicity',
+  'Sex at Birth': 'sex',
+}
+
+const ONLY_RACE_AGE_MAP: Partial<Record<string, DemographicType>> = {
+  'Race/Ethnicity': 'race_and_ethnicity',
+  Age: 'age',
 }
 
 const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
-  'Race/ethnicity': 'race_and_ethnicity',
-  Sex: 'sex',
+  'Race/Ethnicity': 'race_and_ethnicity',
+  'Sex at Birth': 'sex',
   Age: 'age',
-  Subsidy: 'lis',
+  'Low Income Subsidy': 'lis',
   Eligibility: 'eligibility',
 }
 
 const PHRMA_BRFSS_TYPES_WITHOUT_SEX_MAP: Partial<
   Record<string, DemographicType>
 > = {
-  'Race/ethnicity': 'race_and_ethnicity',
+  'Race/Ethnicity': 'race_and_ethnicity',
   Age: 'age',
   'Insurance Status': 'insurance_status',
   Education: 'education',
@@ -79,12 +89,12 @@ const PHRMA_BRFSS_TYPES_WITHOUT_SEX_MAP: Partial<
 
 const PHRMA_BRFSS_TYPES_WITH_SEX_MAP: Partial<Record<string, DemographicType>> =
   {
-    'Race/ethnicity': 'race_and_ethnicity',
+    'Race/Ethnicity': 'race_and_ethnicity',
     Age: 'age',
     'Insurance Status': 'insurance_status',
     Education: 'education',
     Income: 'income',
-    Sex: 'sex',
+    'Sex at Birth': 'sex',
   }
 
 const BLACK_MEN_TYPE_MAP: Partial<Record<string, DemographicType>> = {
@@ -96,13 +106,13 @@ export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
   return isStateLevel(fips1, fips2) || isCountyLevel(fips1, fips2)
 }
 
-export function isStateLevel(fips1?: Fips, fips2?: Fips) {
+function isStateLevel(fips1?: Fips, fips2?: Fips) {
   return (
     Boolean(fips1?.isStateOrTerritory()) || Boolean(fips2?.isStateOrTerritory())
   )
 }
 
-export function isCountyLevel(fips1?: Fips, fips2?: Fips) {
+function isCountyLevel(fips1?: Fips, fips2?: Fips) {
   return Boolean(fips1?.isCounty()) || Boolean(fips2?.isCounty())
 }
 
@@ -158,6 +168,31 @@ export function getAllDemographicOptions(
     )
   }
 
+  // CDC CANCER SEX SPECIFIC CANCERS (ENABLED OPTIONS WHEN ALL REPORTS ARE SEX SPECIFIC CDC CANCER)
+  if (
+    configsContainsMatchingId(configs, CDC_CANCER_SEX_SPECIFIC_DATATYPES, true)
+  )
+    enabledDemographicOptionsMap = ONLY_RACE_AGE_MAP
+
+  // CDC CANCER (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS CDC CANCER)
+  const exactlyOneReportIsCdcCancerSexSpecific =
+    dataTypeConfig1?.dataTypeId &&
+    dataTypeConfig2?.dataTypeId &&
+    Boolean(
+      CDC_CANCER_SEX_SPECIFIC_DATATYPES.includes(dataTypeConfig1.dataTypeId),
+    ) !==
+      Boolean(
+        CDC_CANCER_SEX_SPECIFIC_DATATYPES.includes(dataTypeConfig2.dataTypeId),
+      )
+  exactlyOneReportIsCdcCancerSexSpecific &&
+    disabledDemographicOptionsWithRepeats.push(
+      ...CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
+    )
+
+  // CDC CANCER ALL SEXES (ENABLED OPTIONS WHEN ALL REPORTS ARE ALL SEXES CDC CANCER)
+  if (configsContainsMatchingId(configs, CDC_CANCER_ALL_SEXES_DATATYPES, true))
+    enabledDemographicOptionsMap = DEMOGRAPHIC_TYPES_MAP
+
   // SELECT AHR CONDITIONS
   if (
     configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO) &&
@@ -169,7 +204,7 @@ export function getAllDemographicOptions(
     )
   }
 
-  // CHR CONDITIONS WITH ONLY RACE
+  // CHR CONDITIONS WITH ONLY RACE OR ONLY ALLS
   if (
     configsContainsMatchingId(configs, CHR_DATATYPE_IDS) &&
     isCountyLevel(fips1, fips2)

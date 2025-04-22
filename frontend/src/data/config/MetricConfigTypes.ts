@@ -1,9 +1,14 @@
-import type { ColorScheme } from 'vega'
+import type { ColorScheme } from '../../charts/choroplethMap/types'
 import type { CategoryTypeId } from '../../utils/MadLibs'
+import type { DropdownVarId } from './DropDownIds'
 import type {
   BehavioralHealthDataTypeId,
   BehavioralHealthMetricId,
 } from './MetricConfigBehavioralHealth'
+import type {
+  CancerCategoryDataTypeId,
+  CancerCategoryMetricId,
+} from './MetricConfigCancer'
 import type {
   ChronicDiseaseDataTypeId,
   ChronicDiseaseMetricId,
@@ -28,7 +33,6 @@ import type {
   PhrmaBrfssMetricId,
 } from './MetricConfigPhrmaBrfss'
 import type { SDOHDataTypeId, SDOHMetricId } from './MetricConfigSDOH'
-import type { DropdownVarId } from './DropDownIds'
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
@@ -42,6 +46,7 @@ export type DataTypeId =
   | PDOHDataTypeId
   | SDOHDataTypeId
   | CommunitySafetyDataTypeId
+  | CancerCategoryDataTypeId
 
 export type MetricId =
   | CovidCategoryMetricId
@@ -54,6 +59,7 @@ export type MetricId =
   | ChronicDiseaseMetricId
   | CommunitySafetyMetricId
   | MaternalHealthMetricId
+  | CancerCategoryMetricId
   | 'geo_context'
   | 'population_pct'
   | 'population'
@@ -80,7 +86,7 @@ export interface MetricConfig {
   trendsCardTitleName?: string
   chartTitle: string
   shortLabel: string
-  unknownsVegaLabel?: string
+  unknownsLabel?: string
   type: MetricType
   populationComparisonMetric?: MetricConfig
   rateNumeratorMetric?: MetricConfig
@@ -99,7 +105,7 @@ export interface MetricConfig {
 
 export interface MapConfig {
   scheme: ColorScheme
-  min: string
+  zero: string
   mid: string
   higherIsBetter?: boolean
 }
@@ -109,7 +115,7 @@ export interface Citation {
   longerTitle: string
   url: string
 }
-export interface InfoWithCitations {
+interface InfoWithCitations {
   text: string
   citations?: Citation[]
 }

@@ -1,6 +1,6 @@
 import pandas as pd
 from datasources.data_source import DataSource
-from ingestion.constants import NATIONAL_LEVEL, ALL_VALUE, US_NAME, UNKNOWN
+from ingestion.constants import NATIONAL_LEVEL, ALL_VALUE, US_NAME, UNKNOWN, CURRENT
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_state_ids
 from ingestion.dataset_utils import (
@@ -39,25 +39,27 @@ using the `scripts/extract_excel_sheets_to_csvs` script.
 class PhrmaBrfssData(DataSource):
     @staticmethod
     def get_id():
-        return 'PHRMA_BRFSS_DATA'
+        return "PHRMA_BRFSS_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'phrma_brfss_data'
+        return "phrma_brfss_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for PhrmaBrfssData')
+        raise NotImplementedError("upload_to_gcs should not be called for PhrmaBrfssData")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        demo_type = self.get_attr(attrs, 'demographic')
-        geo_level = self.get_attr(attrs, 'geographic')
-
-        table_name = f'{demo_type}_{geo_level}_current'
-
+        demo_type = self.get_attr(attrs, "demographic")
+        geo_level = self.get_attr(attrs, "geographic")
+        has_age_adjust_suffix = demo_type == std_col.RACE_OR_HISPANIC_COL
+        table_id = gcs_to_bq_util.make_bq_table_id(
+            demo_type, geo_level, CURRENT, has_age_adjust_suffix=has_age_adjust_suffix
+        )
         df = self.generate_breakdown_df(demo_type, geo_level)
-
+        if demo_type == std_col.RACE_OR_HISPANIC_COL:
+            df = df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
         bq_col_types = build_bq_col_types(df)
-        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=bq_col_types)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=bq_col_types)
 
     def generate_breakdown_df(
         self,
@@ -85,12 +87,12 @@ class PhrmaBrfssData(DataSource):
         breakdown_group_df = load_phrma_df_from_data_dir(geo_level, demo_breakdown, PHRMA_BRFSS, conditions)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
-        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)  # type: ignore[arg-type]
 
         # ADHERENCE rate
         for condition in conditions:
-            source_col_name = f'{condition}_{ADHERENCE_RATE_LOWER}'
-            het_col_name = f'{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}'
+            source_col_name = f"{condition}_{ADHERENCE_RATE_LOWER}"
+            het_col_name = f"{condition.lower()}_{SCREENED}_{std_col.PCT_RATE_SUFFIX}"
             df[het_col_name] = df[source_col_name].round()
             df = df.drop(source_col_name, axis=1)
 
@@ -105,15 +107,15 @@ class PhrmaBrfssData(DataSource):
         for condition in conditions:
 
             # source cols
-            source_rate_numerator = f'{condition}_{COUNT_YES_LOWER}'
-            source_rate_denominator = f'{condition}_{COUNT_TOTAL_LOWER}'
+            source_rate_numerator = f"{condition}_{COUNT_YES_LOWER}"
+            source_rate_denominator = f"{condition}_{COUNT_TOTAL_LOWER}"
 
             # het cols to make
             cancer_type = condition.lower()
-            het_rate_numerator = f'{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}'
-            het_rate_denominator = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}'
-            het_pct_share = f'{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}'
-            het_pop_pct_share = f'{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.POP_PCT_SUFFIX}'
+            het_rate_numerator = f"{cancer_type}_{SCREENED}_{std_col.RAW_SUFFIX}"
+            het_rate_denominator = f"{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.RAW_SUFFIX}"
+            het_pct_share = f"{cancer_type}_{SCREENED}_{std_col.PCT_SHARE_SUFFIX}"
+            het_pop_pct_share = f"{cancer_type}_{SCREENING_ELIGIBLE}_{std_col.POP_PCT_SUFFIX}"
 
             # prepare rename mappings
             rename_col_map[source_rate_numerator] = het_rate_numerator

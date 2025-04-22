@@ -32,7 +32,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   }
 
   return (
-    <div className='mb-0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-5 md:mr-1'>
+    <div className='mr-0 mb-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-5 md:mr-1'>
       <Tooltip
         title='Card export options'
         className='hide-on-screenshot remove-height-on-screenshot'

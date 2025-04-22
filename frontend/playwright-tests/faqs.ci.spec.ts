@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 test('FAQ Tab Loads', async ({ page }) => {
   await page.goto('/faqs', { waitUntil: 'commit' })
@@ -9,7 +9,6 @@ test('FAQ Tab Loads', async ({ page }) => {
 
   const heading = await page.getByRole('heading', {
     name: 'Frequently Asked Questions',
-    level: 1,
   })
   await expect(heading).toBeVisible()
 

@@ -1,9 +1,11 @@
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Button from '@mui/material/Button'
-import { useLocation } from 'react-router-dom'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { useLocation } from 'react-router'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
+import { useParamState } from '../../utils/hooks/useParamState'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { ATLANTA_MODE_PARAM_KEY } from '../../utils/urlutils'
 
 export default function HetBreadcrumbs(props: {
   fips: Fips
@@ -12,8 +14,14 @@ export default function HetBreadcrumbs(props: {
   scrollToHashId: ScrollableHashId
   totalPopulationPhrase?: string
   subPopulationPhrase?: string
+  isAtlantaMode?: boolean
 }) {
   const location = useLocation()
+
+  const [, setIsAtlantaMode] = useParamState<boolean>(
+    ATLANTA_MODE_PARAM_KEY,
+    false,
+  )
 
   return (
     <Breadcrumbs
@@ -31,13 +39,22 @@ export default function HetBreadcrumbs(props: {
           location.hash = `#${props.scrollToHashId}`
         }}
       />
-      {!props.fips.isUsa() && (
+      {!props.fips.isUsa() && !props.isAtlantaMode && (
         <Crumb
           text={props.fips.getStateDisplayName()}
           isClickable={!props.fips.isStateOrTerritory()}
           onClick={() => {
             props.updateFipsCallback(props.fips.getParentFips())
             location.hash = `#${props.scrollToHashId}`
+          }}
+        />
+      )}
+      {props.isAtlantaMode && (
+        <Crumb
+          text={'Georgia'}
+          isClickable={true}
+          onClick={() => {
+            setIsAtlantaMode(false)
           }}
         />
       )}

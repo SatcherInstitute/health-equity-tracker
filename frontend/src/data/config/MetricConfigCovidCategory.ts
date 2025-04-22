@@ -70,12 +70,12 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         chartTitle: 'Share of total COVID-19 cases',
         metricId: 'covid_cases_share',
         columnTitleHeader: 'Share of total COVID-19 cases',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         shortLabel: '% of COVID-19 cases',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total COVID-19 cases since Jan 2020',
+            'Population vs. distribution of total COVID-19 cases (Cumulative Jan 2020 - May 2024)',
           metricId: 'covid_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -91,7 +91,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         metricId: 'covid_cases_per_100k',
-        chartTitle: 'Rates of COVID-19 cases since Jan 2020',
+        chartTitle: 'Rates of COVID-19 cases (Cumulative Jan 2020 - May 2024)',
         trendsCardTitleName: 'Monthly COVID-19 cases per 100k',
         columnTitleHeader: 'Rates of COVID-19 cases',
         shortLabel: 'cases per 100k',
@@ -119,11 +119,11 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'covid_deaths_share',
         columnTitleHeader: 'Share of total COVID-19 deaths',
         shortLabel: '% of COVID-19 deaths',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total COVID-19 deaths since Jan 2020',
+            'Population vs. distribution of total COVID-19 deaths (Cumulative Jan 2020 - May 2024)',
           metricId: 'covid_population_pct',
           columnTitleHeader: populationPctTitle,
           shortLabel: populationPctShortLabel,
@@ -132,7 +132,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         metricId: 'covid_deaths_per_100k',
-        chartTitle: 'Rates of COVID-19 deaths since Jan 2020',
+        chartTitle: 'Rates of COVID-19 deaths (Cumulative Jan 2020 - May 2024)',
         columnTitleHeader: 'Rates of COVID-19 deaths',
         trendsCardTitleName: 'Monthly COVID-19 deaths per 100k',
         shortLabel: 'deaths per 100k',
@@ -173,11 +173,11 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'covid_hosp_share',
         columnTitleHeader: 'Share of total COVID-19 hospitalizations',
         shortLabel: '% of COVID-19 hospitalizations',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total COVID-19 hospitalizations since Jan 2020',
+            'Population vs. distribution of total COVID-19 hospitalizations (Cumulative Jan 2020 - May 2024)',
 
           metricId: 'covid_population_pct',
           columnTitleHeader: populationPctTitle,
@@ -194,7 +194,8 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         metricId: 'covid_hosp_per_100k',
-        chartTitle: 'Rates of COVID-19 hospitalizations since Jan 2020',
+        chartTitle:
+          'Rates of COVID-19 hospitalizations (Cumulative Jan 2020 - May 2024)',
         columnTitleHeader: 'Rates of COVID-19 hospitalizations',
         trendsCardTitleName: 'Monthly COVID-19 hospitalizations per 100k',
         shortLabel: 'hospitalizations per 100k',
@@ -205,7 +206,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
         metricId: 'hosp_ratio_age_adjusted',
         chartTitle:
           'Age-adjusted COVID-19 hospitalizations compared to White (NH)',
-        shortLabel: 'age-adjusted', // Table header-row label
+        shortLabel: 'Ratio compared to White (NH)', // Table header-row label
         type: 'age_adjusted_ratio',
       },
     },
@@ -245,7 +246,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
         chartTitle: 'Share of total COVID-19 vaccinations',
         metricId: 'vaccinated_pct_share',
         columnTitleHeader: 'Share of total COVID-19 vaccinations',
-        unknownsVegaLabel: '% unknown',
+        unknownsLabel: '% unknown',
         shortLabel: '% of all vaccinations',
         type: 'pct_share',
         populationComparisonMetric: {

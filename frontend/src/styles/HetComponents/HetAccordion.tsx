@@ -1,9 +1,9 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
 import type React from 'react'
 import { useState } from 'react'
-import Accordion from '@mui/material/Accordion'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 interface AccordionData {
   question: string
@@ -16,6 +16,7 @@ interface HetAccordionProps {
   accordionClassName?: string
   summaryClassName?: string
   detailsClassName?: string
+  headingLevelOverride?: 'h2' | 'h4' | 'h5' | 'h6'
 }
 
 const HetAccordion: React.FC<HetAccordionProps> = ({
@@ -24,6 +25,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
   accordionClassName,
   summaryClassName,
   detailsClassName,
+  headingLevelOverride,
 }) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
@@ -34,6 +36,9 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
 
   const renderAccordionItem = (data: AccordionData, index: number) => (
     <Accordion
+      slotProps={
+        headingLevelOverride && { heading: { component: headingLevelOverride } }
+      }
       key={index}
       expanded={expandedIndex === index}
       onChange={handleChange(index)}
@@ -44,7 +49,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
           content: 'none',
         },
       }}
-      className={`list-none rounded-md border border-solid border-methodologyGreen ${
+      className={`list-none rounded-md border border-methodologyGreen border-solid ${
         accordionClassName ?? 'mb-8'
       }`}
     >
@@ -54,14 +59,14 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
         id={`panel-header-${index}`}
         className={`${
           expandedIndex === index
-            ? 'bg-hoverAltGreen rounded-t-md'
+            ? 'rounded-t-md bg-hoverAltGreen'
             : 'hover:bg-whiteSmoke80'
         }`}
       >
         <div
           className={`my-0 ${
             summaryClassName ??
-            'md:py-4 p-2 md:text-title font-medium text-altBlack md:leading-lhSomeSpace leading-lhNormal text-left'
+            'p-2 text-left font-medium text-altBlack leading-lhNormal md:py-4 md:text-title md:leading-lhSomeSpace'
           }`}
         >
           {data.question}
@@ -69,8 +74,8 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
       </AccordionSummary>
       <AccordionDetails>
         <div
-          className={`text-left text-text font-normal text-altBlack leading-lhSomeMoreSpace ${
-            detailsClassName ?? 'md:my-0 md:px-6 md:py-4 p-2 m-0'
+          className={`text-left font-normal text-altBlack text-text leading-lhSomeMoreSpace ${
+            detailsClassName ?? 'm-0 p-2 md:my-0 md:px-6 md:py-4'
           }`}
         >
           {data.answer}
@@ -80,7 +85,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
   )
 
   return (
-    <article className='grid mx-4'>
+    <article className='mx-4 grid'>
       <div className={`${divClassName ?? 'py-4'}`}>
         {Array.isArray(accordionData)
           ? accordionData.map((data, index) => renderAccordionItem(data, index))

@@ -1,0 +1,51 @@
+time_period,county_fips,county_name,age,jail_per_100k,prison_per_100k,jail_pct_relative_inequity,prison_pct_relative_inequity
+1970,01001,Autauga County,All,,,,
+1970,55065,Lafayette County,All,31.0,,0.0,
+1971,47173,Union County,All,131.0,,0.0,
+1972,37119,Mecklenburg County,All,112.0,,0.0,
+1973,27133,Rock County,All,34.0,,0.0,
+1974,19053,Decatur County,All,53.0,,0.0,
+1975,08013,Boulder County,All,51.0,,0.0,
+1976,48485,Wichita County,All,103.0,,0.0,
+1977,40139,Texas County,All,107.0,,0.0,
+1978,30067,Park County,All,76.0,,0.0,
+1979,21147,McCreary County,All,60.0,,0.0,
+1980,13233,Polk County,All,128.0,215.0,0.0,0.0
+1981,54049,Marion County,All,87.0,,0.0,
+1982,47047,Fayette County,All,300.0,,0.0,
+1983,36117,Wayne County,All,79.0,,0.0,
+1984,27007,Beltrami County,All,119.0,,0.0,
+1985,18111,Newton County,All,80.0,,0.0,
+1986,06003,Alpine County,All,,0.0,,
+1987,48359,Oldham County,All,211.0,562.0,0.0,0.0
+1988,40013,Bryan County,All,150.0,375.0,0.0,0.0
+1989,29171,Putnam County,All,102.0,648.0,0.0,0.0
+1990,21021,Boyle County,All,441.0,508.0,0.0,0.0
+1991,13105,Elbert County,All,312.0,629.0,0.0,0.0
+1992,53001,Adams County,All,198.0,127.0,0.0,0.0
+1993,46055,Haakon County,All,45.0,0.0,0.0,
+1994,35045,San Juan County,All,459.0,,0.0,
+1995,26047,Emmet County,All,169.0,365.0,0.0,0.0
+1996,17189,Washington County,All,157.0,152.0,0.0,0.0
+1997,05027,Columbia County,All,151.0,,0.0,
+1998,48233,Hutchinson County,All,309.0,610.0,0.0,0.0
+1999,39063,Hancock County,All,226.0,491.0,0.0,0.0
+2000,29045,Clark County,All,381.0,905.0,0.0,0.0
+2001,20105,Lincoln County,All,145.0,,0.0,
+2002,12111,St. Lucie County,All,681.0,1124.0,0.0,0.0
+2003,51147,Prince Edward County,All,930.0,1337.0,0.0,0.0
+2004,45019,Charleston County,All,551.0,775.0,0.0,0.0
+2005,32019,Lyon County,All,210.0,663.0,0.0,0.0
+2006,23029,Washington County,All,241.0,365.0,0.0,0.0
+2007,17063,Grundy County,All,156.0,128.0,0.0,0.0
+2008,01125,Tuscaloosa County,All,456.0,684.0,0.0,0.0
+2009,48107,Crosby County,All,268.0,789.0,0.0,0.0
+2010,38043,Kidder County,All,,,,
+2011,28083,Leflore County,All,405.0,1190.0,0.0,0.0
+2012,19177,Van Buren County,All,101.0,133.0,0.0,0.0
+2013,09009,New Haven County,All,,,,
+2014,51015,Augusta County,All,320.0,,0.0,
+2015,42037,Columbia County,All,470.0,289.0,0.0,0.0
+2016,31079,Hall County,All,464.0,592.0,0.0,0.0
+2017,22031,De Soto Parish,All,691.0,,0.0,
+2018,16025,Camas County,All,,,,

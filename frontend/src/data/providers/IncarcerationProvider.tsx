@@ -1,12 +1,14 @@
 import { getDataManager } from '../../utils/globals'
-import type { Breakdowns, TimeView } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { Breakdowns } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import type { DatasetId } from '../config/DatasetMetadata'
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
@@ -23,14 +25,14 @@ export const PRIVATE_JAILS_QUALIFIER = '(private jail system only)'
 
 export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
 
-export const JAIL_METRIC_IDS: MetricId[] = [
+const JAIL_METRIC_IDS: MetricId[] = [
   'jail_pct_share',
   'jail_estimated_total',
   'jail_per_100k',
   'jail_pct_relative_inequity',
 ]
 
-export const PRISON_METRIC_IDS: MetricId[] = [
+const PRISON_METRIC_IDS: MetricId[] = [
   'prison_pct_share',
   'prison_estimated_total',
   'prison_per_100k',
@@ -50,51 +52,26 @@ class IncarcerationProvider extends VariableProvider {
     super('incarceration_provider', INCARCERATION_METRIC_IDS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    _dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace())
-        return 'bjs_incarceration_data-race_and_ethnicity_national'
-      if (breakdowns.hasOnlyAge()) return 'bjs_incarceration_data-age_national'
-      if (breakdowns.hasOnlySex()) return 'bjs_incarceration_data-sex_national'
-    }
-    if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace())
-        return 'bjs_incarceration_data-race_and_ethnicity_state'
-      if (breakdowns.hasOnlyAge()) return 'bjs_incarceration_data-age_state'
-      if (breakdowns.hasOnlySex()) return 'bjs_incarceration_data-sex_state'
-    }
-
-    if (breakdowns.geography === 'county') {
-      // only VERA has time series data; BJS is only current
-      if (breakdowns.hasOnlyRace() && timeView === 'historical')
-        return 'vera_incarceration_county-by_race_and_ethnicity_county_historical'
-      if (breakdowns.hasOnlyRace() && timeView === 'current')
-        return 'vera_incarceration_county-by_race_and_ethnicity_county_current'
-      if (breakdowns.hasOnlyAge() && timeView === 'historical')
-        return 'vera_incarceration_county-by_age_county_historical'
-      if (breakdowns.hasOnlyAge() && timeView === 'current')
-        return 'vera_incarceration_county-by_age_county_current'
-      if (breakdowns.hasOnlySex() && timeView === 'historical')
-        return 'vera_incarceration_county-by_sex_county_historical'
-      if (breakdowns.hasOnlySex() && timeView === 'current')
-        return 'vera_incarceration_county-by_sex_county_current'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
+    const bq_dataset =
+      metricQuery.breakdowns.geography === 'county'
+        ? 'vera_incarceration_county'
+        : 'bjs_incarceration_data'
+
+    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
+      bq_dataset,
+      '',
+      metricQuery,
+    )
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const dataSource = await getDataManager().loadDataset(specificDatasetId)
     let df = dataSource.toDataFrame()
 
@@ -108,33 +85,35 @@ class IncarcerationProvider extends VariableProvider {
       breakdowns.geography !== 'county' &&
       !breakdowns.filterFips?.isIslandArea()
     ) {
-      const acsId = GetAcsDatasetId(breakdowns)
-      acsId && consumedDatasetIds.push(acsId)
+      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
 
     // National Level - Map of all states + territory bubbles
     if (breakdowns.geography === 'state' && !breakdowns.filterFips) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-by_sex_territory_state_level',
+        'decia_2020_territory_population-sex_state_current',
       )
     }
 
     // Territory Level (Island Areas) - All cards
     if (breakdowns.filterFips?.isIslandArea()) {
       consumedDatasetIds.push(
-        'decia_2020_territory_population-by_sex_territory_state_level',
+        'decia_2020_territory_population-sex_state_current',
       )
       // only time-series cards use decia 2010
-      if (timeView === 'historical') {
+      if (metricQuery.timeView === 'historical') {
         consumedDatasetIds.push(
-          'decia_2010_territory_population-by_sex_territory_state_level',
+          'decia_2010_territory_population-sex_state_current',
         )
       }
     }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 

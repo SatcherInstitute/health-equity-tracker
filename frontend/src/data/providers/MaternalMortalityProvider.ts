@@ -2,16 +2,13 @@ import { getDataManager } from '../../utils/globals'
 import type { MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
+  type MetricQuery,
   MetricQueryResponse,
   resolveDatasetId,
-  type MetricQuery,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 
-export const SHOW_NEW_MATERNAL_MORTALITY = import.meta.env
-  .VITE_SHOW_NEW_MATERNAL_MORTALITY
-
-export const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
+const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
   'maternal_mortality_per_100k',
   'maternal_mortality_pct_share',
   'maternal_mortality_population_pct',
@@ -35,7 +32,7 @@ class MaternalMortalityProvider extends VariableProvider {
     try {
       const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
         'maternal_mortality_data',
-        'by_',
+        '',
         metricQuery,
       )
 

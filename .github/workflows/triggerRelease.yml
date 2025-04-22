@@ -1,4 +1,4 @@
-name: Send Release Event To Setup Cloud Platform
+name: Send Release Event To Production Repo (Health Equity Tracker - Production)
 
 on:
   release:
@@ -12,11 +12,10 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT_RELEASE_TRIGGER }}  # Personal Access Token with repo scope
-          repository: SatcherInstitute/setup-cloud-platform
+          repository: SatcherInstitute/health-equity-tracker-prod
           event-type: release-triggered
           client-payload: |
             {
               "release": "${{ github.event.release.tag_name }}",
-              "project_id": "het-infra-prod-f6",
-              "needs-composer": "true"
+              "project_id": "${{ secrets.PROD_PROJECT_ID }}"
             }

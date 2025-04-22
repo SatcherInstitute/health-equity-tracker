@@ -1,42 +1,42 @@
+import { Link } from 'react-router'
 import { AgeAdjustedTableChart } from '../charts/AgeAdjustedTableChart'
-import CardWrapper from './CardWrapper'
-import { MetricQuery } from '../data/query/MetricQuery'
-import type { Fips } from '../data/utils/Fips'
-import {
-  Breakdowns,
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../data/query/Breakdowns'
-import { METRIC_CONFIG } from '../data/config/MetricConfig'
-import { exclude } from '../data/query/BreakdownFilter'
-import {
-  NON_HISPANIC,
-  RACE,
-  ALL,
-  WHITE_NH,
-  MULTI_OR_OTHER_STANDARD_NH,
-  AGE,
-  type RaceAndEthnicityGroup,
-} from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
-import UnknownsAlert from './ui/UnknownsAlert'
-import { Link } from 'react-router-dom'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
-import HetNotice from '../styles/HetComponents/HetNotice'
-import {
-  getMetricIdToConfigMap,
-  metricConfigFromDtConfig,
-} from '../data/config/MetricConfigUtils'
+import type { DropdownVarId } from '../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type {
   DataTypeConfig,
   MetricConfig,
   MetricId,
 } from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
+import {
+  getMetricIdToConfigMap,
+  metricConfigFromDtConfig,
+} from '../data/config/MetricConfigUtils'
+import { exclude } from '../data/query/BreakdownFilter'
+import {
+  Breakdowns,
+  DEMOGRAPHIC_DISPLAY_TYPES,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import {
+  AGE,
+  ALL,
+  MULTI_OR_OTHER_STANDARD_NH,
+  NON_HISPANIC,
+  RACE,
+  type RaceAndEthnicityGroup,
+  WHITE_NH,
+} from '../data/utils/Constants'
+import type { Fips } from '../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
+import CardWrapper from './CardWrapper'
+import MissingDataAlert from './ui/MissingDataAlert'
+import UnknownsAlert from './ui/UnknownsAlert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 600
@@ -80,13 +80,13 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const raceQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ raceBreakdowns,
-    /* dataTypeId */ undefined,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
   )
   const ageQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ ageBreakdowns,
-    /* dataTypeId */ undefined,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
   )
 

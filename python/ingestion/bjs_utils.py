@@ -26,17 +26,17 @@ TOTAL_CHILDREN_COL = "confined_children_estimated_total"
 
 # maps BJS labels to our race CODES
 BJS_RACE_GROUPS_TO_STANDARD = {
-    'White': Race.WHITE_NH,
-    'Black': Race.BLACK_NH,
-    'Hispanic': Race.HISP,
-    'American Indian/Alaska Native': Race.AIAN_NH,
-    'Asian': Race.ASIAN_NH,
-    'Native Hawaiian/Other Pacific Islander': Race.NHPI_NH,
-    'Two or more races': Race.MULTI_NH,
-    'Other': Race.OTHER_STANDARD_NH,
-    'Unknown': Race.UNKNOWN,
+    "White": Race.WHITE_NH,
+    "Black": Race.BLACK_NH,
+    "Hispanic": Race.HISP,
+    "American Indian/Alaska Native": Race.AIAN_NH,
+    "Asian": Race.ASIAN_NH,
+    "Native Hawaiian/Other Pacific Islander": Race.NHPI_NH,
+    "Two or more races": Race.MULTI_NH,
+    "Other": Race.OTHER_STANDARD_NH,
+    "Unknown": Race.UNKNOWN,
     # 'Unknown' + 'Did not report' -> "Unknown"
-    'Total': Race.ALL,
+    "Total": Race.ALL,
 }
 
 STANDARD_RACE_CODES = [race_tuple.value for race_tuple in BJS_RACE_GROUPS_TO_STANDARD.values()]
@@ -136,7 +136,7 @@ def load_tables(zip_url: str, table_crops):
                     encoding="ISO-8859-1",
                     skiprows=table_crops[file]["header_rows"],
                     skipfooter=table_crops[file]["footer_rows"],
-                    thousands=',',
+                    thousands=",",
                     engine="python",
                 )
 
@@ -164,7 +164,7 @@ def strip_footnote_refs_from_df(df):
     """
 
     def strip_footnote_refs(cell_value):
-        return re.sub(r'/[a-z].*', "", cell_value) if isinstance(cell_value, str) else cell_value
+        return re.sub(r"/[a-z].*", "", cell_value) if isinstance(cell_value, str) else cell_value
 
     df.columns = [strip_footnote_refs(col_name) for col_name in df.columns]
     df = df.map(strip_footnote_refs)
@@ -191,7 +191,7 @@ def missing_data_to_nan(df):
     symbols_to_null = ["/", "~", "^"]
 
     # TODO: remove after updating to pandas 3
-    with pd.option_context('future.no_silent_downcasting', True):
+    with pd.option_context("future.no_silent_downcasting", True):
         df = df.replace(symbols_to_null, np.nan)
 
     return df
@@ -208,16 +208,16 @@ def set_state_col(df):
             df (Pandas Dataframe): the same dataframe with a "state_name" column added, using existing place columns
     """
 
-    if 'U.S. territory/U.S. commonwealth' in list(df.columns):
-        df[std_col.STATE_NAME_COL] = df['U.S. territory/U.S. commonwealth']
+    if "U.S. territory/U.S. commonwealth" in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df["U.S. territory/U.S. commonwealth"]
         return df
 
-    elif 'Jurisdiction' in list(df.columns):
-        df[std_col.STATE_NAME_COL] = df['Jurisdiction'].combine_first(df["Unnamed: 1"])
+    elif "Jurisdiction" in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df["Jurisdiction"].combine_first(df["Unnamed: 1"])
         return df
 
-    elif 'State' in list(df.columns):
-        df[std_col.STATE_NAME_COL] = df['State'].combine_first(df["Unnamed: 1"])
+    elif "State" in list(df.columns):
+        df[std_col.STATE_NAME_COL] = df["State"].combine_first(df["Unnamed: 1"])
         return df
 
     return df
@@ -240,7 +240,7 @@ def filter_cols(df, demo_type):
         std_col.SEX_COL: BJS_SEX_GROUPS,
     }
     if demo_type not in cols_to_keep.keys():
-        raise ValueError(f'{demo_type} is not a demographic option, must be one of: {list(cols_to_keep.keys())} ')
+        raise ValueError(f"{demo_type} is not a demographic option, must be one of: {list(cols_to_keep.keys())} ")
     df = df[df.columns.intersection([std_col.STATE_NAME_COL, *cols_to_keep[demo_type]])]
     df = df.copy()
     df[df.columns.intersection(cols_to_keep[demo_type])] = df[df.columns.intersection(cols_to_keep[demo_type])].astype(
@@ -287,7 +287,7 @@ def standardize_table_2_df(df):
 
     df = df.rename(
         columns={
-            'Total.1': std_col.ALL_VALUE,
+            "Total.1": std_col.ALL_VALUE,
             "Male": "Male-2019",
             "Female": "Female-2019",
             "Male.1": constants.Sex.MALE,
@@ -313,10 +313,10 @@ def standardize_table_10_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df[std_col.AGE_COL] = df['Age'].combine_first(df["Unnamed: 1"])
+    df[std_col.AGE_COL] = df["Age"].combine_first(df["Unnamed: 1"])
 
     # replace all weird characters (specifically EN-DASH –) with normal hyphen
-    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(lambda datum: re.sub('[^0-9a-zA-Z ]+', '-', datum))
+    df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(lambda datum: re.sub("[^0-9a-zA-Z ]+", "-", datum))
 
     df = df[[std_col.AGE_COL, "Total"]]
 
@@ -342,7 +342,7 @@ def standardize_table_13_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = df.rename(columns={'Total': RAW_PRISON_COL})
+    df = df.rename(columns={"Total": RAW_PRISON_COL})
     df = df[[std_col.STATE_NAME_COL, RAW_PRISON_COL]]
     df = df.replace("U.S. total", constants.US_NAME)
     df[std_col.AGE_COL] = "0-17"
@@ -362,7 +362,7 @@ def standardize_table_23_df(df):
             df (Pandas Dataframe): a "clean" dataframe ready for manipulation
     """
 
-    df = df.rename(columns={'Total': Race.ALL.value})
+    df = df.rename(columns={"Total": Race.ALL.value})
     # since American Samoa reports numbers differently,
     # we will use their Custody # instead of the null jurisdiction #
     df[Race.ALL.value] = df[Race.ALL.value].combine_first(df["Total custody population"])
@@ -413,7 +413,7 @@ def standardize_jail_6(df):
 
     df = df.rename(
         columns={
-            'Total inmates in custody': RAW_JAIL_COL,
+            "Total inmates in custody": RAW_JAIL_COL,
             "Total": "18+",
             "Male": "Male 18+",
             "Female": "Female 18+",
@@ -462,7 +462,7 @@ def standardize_jail_7(df):
     df = swap_race_col_names_to_codes(df)
     df = df.rename(
         columns={
-            'Total inmates in custody': Race.ALL.value,
+            "Total inmates in custody": Race.ALL.value,
         }
     )
 

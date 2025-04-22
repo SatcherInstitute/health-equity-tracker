@@ -10,6 +10,13 @@ import {
 } from './MetricConfigUtils'
 
 export const COMMUNITY_SAFETY_DROPDOWNIDS = [
+  'gun_deaths',
+  'gun_deaths_black_men',
+  'gun_violence',
+  'gun_violence_youth',
+] as const
+
+export const COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR = [
   'gun_deaths_black_men',
   'gun_violence',
   'gun_violence_youth',
@@ -52,6 +59,10 @@ export type CommunitySafetyMetricId =
   | 'gun_homicides_black_men_per_100k'
   | 'gun_homicides_black_men_population_estimated_total'
   | 'gun_homicides_black_men_population_pct'
+  | 'gun_deaths_estimated_total'
+  | 'gun_deaths_per_100k'
+  | 'gun_deaths_pct_share'
+  | 'gun_deaths_pct_relative_inequity'
 
 export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   {
@@ -174,6 +185,68 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
   },
 ]
 
+export const GUN_DEATH_METRICS: DataTypeConfig[] = [
+  {
+    categoryId: 'community-safety',
+    dataTableTitle: 'Summary for gun deaths',
+    dataTypeId: 'gun_deaths',
+    dataTypeShortLabel: 'Gun Deaths',
+    definition: {
+      text: 'Deaths resulting from firearms.',
+    },
+    description: {
+      text: '',
+    },
+    fullDisplayName: 'Gun deaths',
+    fullDisplayNameInline: 'gun deaths',
+    mapConfig: defaultHigherIsWorseMapConfig,
+    metrics: {
+      per100k: {
+        timeSeriesCadence: 'yearly',
+        chartTitle: 'Rates of gun deaths',
+        columnTitleHeader: 'Gun deaths per 100k people',
+        metricId: 'gun_deaths_per_100k',
+        shortLabel: 'deaths per 100k',
+        trendsCardTitleName: 'Rates of gun deaths over time',
+        type: 'per100k',
+        rateNumeratorMetric: {
+          chartTitle: '',
+          metricId: 'gun_deaths_estimated_total',
+          shortLabel: 'Gun deaths',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          chartTitle: '',
+          metricId: 'fatal_population',
+          shortLabel: 'Total Population',
+          type: 'count',
+        },
+      },
+      pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
+        chartTitle: 'Historical relative inequity of gun deaths',
+        metricId: 'gun_deaths_pct_relative_inequity',
+        shortLabel: '% relative inequity',
+        type: 'pct_relative_inequity',
+      },
+      pct_share: {
+        chartTitle: 'Share of total gun deaths',
+        columnTitleHeader: 'Share of total gun deaths',
+        metricId: 'gun_deaths_pct_share',
+        populationComparisonMetric: {
+          chartTitle: 'Population vs. distribution of gun deaths',
+          columnTitleHeader: populationPctTitle,
+          metricId: 'fatal_population_pct',
+          shortLabel: populationPctShortLabel,
+          type: 'pct_share',
+        },
+        shortLabel: '% of gun deaths',
+        type: 'pct_share',
+      },
+    },
+  },
+]
+
 export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'community-safety',
@@ -207,7 +280,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
           chartTitle:
             'Population vs. distribution of total gun deaths among children',
           columnTitleHeader: `${populationPctTitle} (ages 0-17)`,
-          metricId: 'population_pct',
+          metricId: 'gun_deaths_youth_population_pct',
           shortLabel: populationPctShortLabel,
           type: 'pct_share',
         },
@@ -269,7 +342,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
           chartTitle:
             'Population vs. distribution of total gun deaths among young adults',
           columnTitleHeader: `${populationPctTitle} (ages 18-25)`,
-          metricId: 'population_pct',
+          metricId: 'gun_deaths_young_adults_population_pct',
           shortLabel: populationPctShortLabel,
           type: 'pct_share',
         },

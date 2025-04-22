@@ -1,16 +1,16 @@
-import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
-import type VariableProvider from './VariableProvider'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import type { MetricId } from '../config/MetricConfigTypes'
-import { excludeAll } from '../query/BreakdownFilter'
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
-import { USA_FIPS, USA_DISPLAY_NAME } from '../utils/ConstantsGeography'
+import type { MetricId } from '../config/MetricConfigTypes'
+import { excludeAll } from '../query/BreakdownFilter'
+import type { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { USA_DISPLAY_NAME, USA_FIPS } from '../utils/ConstantsGeography'
+import type VariableProvider from './VariableProvider'
 
-export interface FipsSpec {
+interface FipsSpec {
   code: string
   name: string
 }
@@ -18,7 +18,7 @@ export const CHATAM: FipsSpec = {
   code: '37037',
   name: 'Chatam County',
 }
-export const DURHAM: FipsSpec = {
+const DURHAM: FipsSpec = {
   code: '37063',
   name: 'Durham County',
 }
@@ -26,19 +26,19 @@ export const NC: FipsSpec = {
   code: '37',
   name: 'North Carolina',
 }
-export const AL: FipsSpec = {
+const AL: FipsSpec = {
   code: '01',
   name: 'Alabama',
 }
-export const CA: FipsSpec = {
+const CA: FipsSpec = {
   code: '06',
   name: 'California',
 }
-export const MARIN: FipsSpec = {
+const MARIN: FipsSpec = {
   code: '06041',
   name: 'Marin County',
 }
-export const WA: FipsSpec = {
+const WA: FipsSpec = {
   code: '53',
   name: 'Washington',
 }
@@ -51,7 +51,7 @@ export const USA: FipsSpec = {
   name: USA_DISPLAY_NAME,
 }
 
-export function createWithAndWithoutAllEvaluator(
+function createWithAndWithoutAllEvaluator(
   metricIds: MetricId | MetricId[],
   dataFetcher: FakeDataFetcher,
   variableProvider: VariableProvider,

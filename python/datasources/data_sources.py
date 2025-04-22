@@ -3,7 +3,7 @@ from datasources.acs_population import ACSPopulation
 from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
 from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 from datasources.bjs_incarceration import BJSIncarcerationData
-from datasources.cawp_time import CAWPTimeData
+from datasources.cawp import CAWPData
 from datasources.cdc_hiv import CDCHIVData
 from datasources.cdc_restricted import CDCRestrictedData
 from datasources.cdc_vaccination_county import CDCVaccinationCounty
@@ -11,8 +11,8 @@ from datasources.cdc_vaccination_national import CDCVaccinationNational
 from datasources.cdc_wisqars import CDCWisqarsData
 from datasources.cdc_wisqars_youth import CDCWisqarsYouthData
 from datasources.cdc_wisqars_black_men import CDCWisqarsBlackMenData
+from datasources.cdc_wonder import CdcWonderData
 from datasources.census_pop_estimates import CensusPopEstimates
-from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
 from datasources.chr import CHRData
 from datasources.decia_2010_territory_population import Decia2010TerritoryPopulationData
 from datasources.decia_2020_territory_population import Decia2020TerritoryPopulationData
@@ -32,7 +32,7 @@ DATA_SOURCES_DICT = {
     AgeAdjustCDCRestricted.get_id(): AgeAdjustCDCRestricted(),
     AgeAdjustCDCHiv.get_id(): AgeAdjustCDCHiv(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
-    CAWPTimeData.get_id(): CAWPTimeData(),
+    CAWPData.get_id(): CAWPData(),
     CDCHIVData.get_id(): CDCHIVData(),
     CDCRestrictedData.get_id(): CDCRestrictedData(),
     CDCVaccinationCounty.get_id(): CDCVaccinationCounty(),
@@ -40,8 +40,8 @@ DATA_SOURCES_DICT = {
     CDCWisqarsData.get_id(): CDCWisqarsData(),
     CDCWisqarsYouthData.get_id(): CDCWisqarsYouthData(),
     CDCWisqarsBlackMenData.get_id(): CDCWisqarsBlackMenData(),
+    CdcWonderData.get_id(): CdcWonderData(),
     CensusPopEstimates.get_id(): CensusPopEstimates(),
-    CensusPopEstimatesSC.get_id(): CensusPopEstimatesSC(),
     CHRData.get_id(): CHRData(),
     Decia2010TerritoryPopulationData.get_id(): Decia2010TerritoryPopulationData(),
     Decia2020TerritoryPopulationData.get_id(): Decia2020TerritoryPopulationData(),

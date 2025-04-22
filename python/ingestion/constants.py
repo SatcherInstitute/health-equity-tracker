@@ -1,8 +1,8 @@
 HISTORICAL = "historical"
 CURRENT = "current"
 
-BQ_STRING = 'STRING'
-BQ_FLOAT = 'FLOAT64'
+BQ_STRING = "STRING"
+BQ_FLOAT = "FLOAT64"
 
 TERRITORY_FIPS_LIST = ["11", "60", "66", "69", "72", "78"]
 

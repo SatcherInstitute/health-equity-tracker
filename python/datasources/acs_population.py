@@ -18,20 +18,20 @@ from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_CURRENT_YEAR
 
 
 ACS_URLS_MAP = {
-    ACS_EARLIEST_YEAR: 'https://api.census.gov/data/2009/acs/acs5',
-    '2010': 'https://api.census.gov/data/2010/acs/acs5',
-    '2011': 'https://api.census.gov/data/2011/acs/acs5',
-    '2012': 'https://api.census.gov/data/2012/acs/acs5',
-    '2013': 'https://api.census.gov/data/2013/acs/acs5',
-    '2014': 'https://api.census.gov/data/2014/acs/acs5',
-    '2015': 'https://api.census.gov/data/2015/acs/acs5',
-    '2016': 'https://api.census.gov/data/2016/acs/acs5',
-    '2017': 'https://api.census.gov/data/2017/acs/acs5',
-    '2018': 'https://api.census.gov/data/2018/acs/acs5',
-    '2019': 'https://api.census.gov/data/2019/acs/acs5',
-    '2020': 'https://api.census.gov/data/2020/acs/acs5',
-    '2021': 'https://api.census.gov/data/2021/acs/acs5',
-    ACS_CURRENT_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
+    ACS_EARLIEST_YEAR: "https://api.census.gov/data/2009/acs/acs5",
+    "2010": "https://api.census.gov/data/2010/acs/acs5",
+    "2011": "https://api.census.gov/data/2011/acs/acs5",
+    "2012": "https://api.census.gov/data/2012/acs/acs5",
+    "2013": "https://api.census.gov/data/2013/acs/acs5",
+    "2014": "https://api.census.gov/data/2014/acs/acs5",
+    "2015": "https://api.census.gov/data/2015/acs/acs5",
+    "2016": "https://api.census.gov/data/2016/acs/acs5",
+    "2017": "https://api.census.gov/data/2017/acs/acs5",
+    "2018": "https://api.census.gov/data/2018/acs/acs5",
+    "2019": "https://api.census.gov/data/2019/acs/acs5",
+    "2020": "https://api.census.gov/data/2020/acs/acs5",
+    "2021": "https://api.census.gov/data/2021/acs/acs5",
+    ACS_CURRENT_YEAR: "https://api.census.gov/data/2022/acs/acs5",
 }
 
 # For the 2022 ACS, the variable names in the metadata are title-cased, not all caps
@@ -126,24 +126,24 @@ RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
 # granular age buckets when looking at all races than when breaking down by
 # race.
 def get_decade_age_bucket(age_range):
-    if age_range in {'0-4', '5-9'}:
-        return '0-9'
-    elif age_range in {'10-14', '15-17', '18-19'}:
-        return '10-19'
-    elif age_range in {'20-20', '21-21', '22-24', '25-29'}:
-        return '20-29'
-    elif age_range in {'30-34', '35-39'}:
-        return '30-39'
-    elif age_range in {'40-44', '45-49'}:
-        return '40-49'
-    elif age_range in {'50-54', '55-59'}:
-        return '50-59'
-    elif age_range in {'60-61', '62-64', '65-66', '67-69'}:
-        return '60-69'
-    elif age_range in {'70-74', '75-79'}:
-        return '70-79'
-    elif age_range in {'80-84', '85+'}:
-        return '80+'
+    if age_range in {"0-4", "5-9"}:
+        return "0-9"
+    elif age_range in {"10-14", "15-17", "18-19"}:
+        return "10-19"
+    elif age_range in {"20-20", "21-21", "22-24", "25-29"}:
+        return "20-29"
+    elif age_range in {"30-34", "35-39"}:
+        return "30-39"
+    elif age_range in {"40-44", "45-49"}:
+        return "40-49"
+    elif age_range in {"50-54", "55-59"}:
+        return "50-59"
+    elif age_range in {"60-61", "62-64", "65-66", "67-69"}:
+        return "60-69"
+    elif age_range in {"70-74", "75-79"}:
+        return "70-79"
+    elif age_range in {"80-84", "85+"}:
+        return "80+"
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
 
@@ -153,119 +153,119 @@ def get_ahr_standard_age_bucket(age_range):
         return std_col.ALL_VALUE
     # buckets for most AHR topics
     elif age_range in {
-        '18-19',
-        '20-24',
-        '20-20',
-        '21-21',
-        '22-24',
-        '25-29',
-        '30-34',
-        '35-44',
-        '35-39',
-        '40-44',
+        "18-19",
+        "20-24",
+        "20-20",
+        "21-21",
+        "22-24",
+        "25-29",
+        "30-34",
+        "35-44",
+        "35-39",
+        "40-44",
     }:
-        return '18-44'
-    elif age_range in {'45-54', '45-49', '50-54', '55-64', '55-59', '60-61', '62-64'}:
-        return '45-64'
+        return "18-44"
+    elif age_range in {"45-54", "45-49", "50-54", "55-64", "55-59", "60-61", "62-64"}:
+        return "45-64"
     elif age_range in {
-        '65-74',
-        '65-66',
-        '67-69',
-        '70-74',
-        '75-84',
-        '75-79',
-        '80-84',
-        '85+',
+        "65-74",
+        "65-66",
+        "67-69",
+        "70-74",
+        "75-84",
+        "75-79",
+        "80-84",
+        "85+",
     }:
-        return '65+'
+        return "65+"
 
 
 def get_ahr_decade_plus_5_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
     # buckets for Suicide metrics
-    elif age_range in {'15-17', '18-19', '20-20', '21-21', '22-24'}:
-        return '15-24'
-    elif age_range in {'25-29', '30-34'}:
-        return '25-34'
-    elif age_range in {'35-39', '40-44'}:
-        return '35-44'
-    elif age_range in {'45-49', '50-54'}:
-        return '45-54'
-    elif age_range in {'55-59', '60-61', '62-64'}:
-        return '55-64'
-    elif age_range in {'65-66', '67-69', '70-74'}:
-        return '65-74'
-    elif age_range in {'75-79', '80-84'}:
-        return '75-84'
-    elif age_range in {'85+'}:
-        return '85+'
+    elif age_range in {"15-17", "18-19", "20-20", "21-21", "22-24"}:
+        return "15-24"
+    elif age_range in {"25-29", "30-34"}:
+        return "25-34"
+    elif age_range in {"35-39", "40-44"}:
+        return "35-44"
+    elif age_range in {"45-49", "50-54"}:
+        return "45-54"
+    elif age_range in {"55-59", "60-61", "62-64"}:
+        return "55-64"
+    elif age_range in {"65-66", "67-69", "70-74"}:
+        return "65-74"
+    elif age_range in {"75-79", "80-84"}:
+        return "75-84"
+    elif age_range in {"85+"}:
+        return "85+"
 
 
 def get_ahr_suicide_denominators_age_bucket(age_range):
-    if age_range in {'0-4', '5-9', '10-14'}:
-        return '0-14'
+    if age_range in {"0-4", "5-9", "10-14"}:
+        return "0-14"
     elif age_range in {
-        '15-17',
-        '18-19',
-        '20-20',
-        '21-21',
-        '22-24',
-        '25-29',
-        '30-34',
-        '35-39',
-        '40-44',
-        '45-49',
-        '50-54',
-        '55-59',
-        '60-61',
-        '62-64',
-        '65-66',
-        '67-69',
-        '70-74',
-        '75-79',
-        '80-84',
-        '85+',
+        "15-17",
+        "18-19",
+        "20-20",
+        "21-21",
+        "22-24",
+        "25-29",
+        "30-34",
+        "35-39",
+        "40-44",
+        "45-49",
+        "50-54",
+        "55-59",
+        "60-61",
+        "62-64",
+        "65-66",
+        "67-69",
+        "70-74",
+        "75-79",
+        "80-84",
+        "85+",
     }:
-        return '15+'
+        return "15+"
 
 
 def get_ahr_voter_age_bucket(age_range):
     if age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
     # buckets for Voter Participation
-    elif age_range in {'18-19', '20-20', '21-21', '22-24'}:
-        return '18-24'
-    elif age_range in {'25-29', '30-34'}:
-        return '25-34'
-    elif age_range in {'35-39', '40-44'}:
-        return '35-44'
-    elif age_range in {'45-49', '50-54'}:
-        return '45-54'
-    elif age_range in {'55-59', '60-61', '62-64'}:
-        return '55-64'
+    elif age_range in {"18-19", "20-20", "21-21", "22-24"}:
+        return "18-24"
+    elif age_range in {"25-29", "30-34"}:
+        return "25-34"
+    elif age_range in {"35-39", "40-44"}:
+        return "35-44"
+    elif age_range in {"45-49", "50-54"}:
+        return "45-54"
+    elif age_range in {"55-59", "60-61", "62-64"}:
+        return "55-64"
 
 
 # buckets for BJS prisoners 2020
 def get_prison_age_bucket(age_range):
-    if age_range in {'18-19'}:
+    if age_range in {"18-19"}:
         return age_range
-    elif age_range in {'20-20', '21-21', '22-24'}:
-        return '20-24'
+    elif age_range in {"20-20", "21-21", "22-24"}:
+        return "20-24"
     elif age_range in {
-        '25-29',
-        '30-34',
-        '35-39',
-        '40-44',
-        '45-49',
-        '50-54',
-        '55-59',
+        "25-29",
+        "30-34",
+        "35-39",
+        "40-44",
+        "45-49",
+        "50-54",
+        "55-59",
     }:
         return age_range
-    elif age_range in {'60-61', '62-64'}:
-        return '60-64'
-    elif age_range in {'65-66', '67-69', '70-74', '75-79', '80-84', '85+'}:
-        return '65+'
+    elif age_range in {"60-61", "62-64"}:
+        return "60-64"
+    elif age_range in {"65-66", "67-69", "70-74", "75-79", "80-84", "85+"}:
+        return "65+"
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
 
@@ -275,46 +275,46 @@ def get_prison_age_bucket(age_range):
 
 def get_jail_age_bucket(age_range):
     if age_range in {
-        '0-4',
-        '5-9',
-        '10-14',
-        '15-17',
+        "0-4",
+        "5-9",
+        "10-14",
+        "15-17",
     }:
-        return '0-17'
+        return "0-17"
     elif age_range in {
-        '18-19',
-        '20-20',
-        '21-21',
-        '22-24',
-        '25-29',
-        '30-34',
-        '35-39',
-        '40-44',
-        '45-49',
-        '50-54',
-        '55-59',
-        '60-61',
-        '62-64',
-        '65-66',
-        '67-69',
-        '70-74',
-        '75-79',
-        '80-84',
-        '85+',
+        "18-19",
+        "20-20",
+        "21-21",
+        "22-24",
+        "25-29",
+        "30-34",
+        "35-39",
+        "40-44",
+        "45-49",
+        "50-54",
+        "55-59",
+        "60-61",
+        "62-64",
+        "65-66",
+        "67-69",
+        "70-74",
+        "75-79",
+        "80-84",
+        "85+",
     }:
-        return '18+'
+        return "18+"
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
 
 
 def get_phrma_age_bucket(age_range):
-    if age_range in {'18-19', '20-20', '21-21', '22-24', '25-29', '30-34', '35-39'}:
-        return '18-39'
-    elif age_range in {'40-44', '45-49', '50-54', '55-59', '60-61', '62-64'}:
-        return '40-64'
-    elif age_range in {'65-66', '67-69'}:
-        return '65-69'
-    elif age_range in {'70-74', '75-79', '80-84', '85+', std_col.ALL_VALUE}:
+    if age_range in {"18-19", "20-20", "21-21", "22-24", "25-29", "30-34", "35-39"}:
+        return "18-39"
+    elif age_range in {"40-44", "45-49", "50-54", "55-59", "60-61", "62-64"}:
+        return "40-64"
+    elif age_range in {"65-66", "67-69"}:
+        return "65-69"
+    elif age_range in {"70-74", "75-79", "80-84", "85+", std_col.ALL_VALUE}:
         return age_range
 
 
@@ -410,7 +410,7 @@ class ACSPopulationIngester:
 
                 # write the default single year table without a time_period col
                 # to maintain existing merge_util functionality
-                gcs_to_bq_util.add_df_to_bq(df_single_year, dataset, table_name, column_types=column_types)
+                gcs_to_bq_util.add_df_to_bq(df_single_year, dataset, f"{table_name}_current", column_types=column_types)
 
             # TIME SERIES TABLE
             df_for_time_series = df.copy()
@@ -426,7 +426,7 @@ class ACSPopulationIngester:
             gcs_to_bq_util.add_df_to_bq(
                 df_for_time_series,
                 dataset,
-                f'{table_name}_time_series',
+                f"{table_name}_historical",
                 column_types=column_types,
                 overwrite=overwrite,
             )
@@ -463,7 +463,7 @@ class ACSPopulationIngester:
             self.get_table_name_by_sex_age_race(): self.get_sex_by_age_and_race(var_map, sex_by_age_frames),
         }
 
-        frames[f'by_sex_age_{self.get_geo_name()}'] = self.get_by_sex_age(
+        frames[f"multi_sex_age_{self.get_geo_name()}"] = self.get_by_sex_age(
             frames[self.get_table_name_by_sex_age_race()], get_decade_age_bucket
         )
 
@@ -498,8 +498,8 @@ class ACSPopulationIngester:
             )
             by_sex_phrma_age = self.get_by_sex_age(frames[self.get_table_name_by_sex_age_race()], get_phrma_age_bucket)
 
-        frames[f'by_age_{self.get_geo_name()}'] = self.get_by_age(
-            frames[f'by_sex_age_{self.get_geo_name()}'],
+        frames[f"age_{self.get_geo_name()}"] = self.get_by_age(
+            frames[f"multi_sex_age_{self.get_geo_name()}"],
             by_sex_standard_age_ahr,
             by_sex_suicide_denominator_ahr,
             by_sex_decade_plus_5_age_ahr,
@@ -509,15 +509,13 @@ class ACSPopulationIngester:
             by_sex_phrma_age,
         )
 
-        frames[f'by_sex_{self.get_geo_name()}'] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
+        frames[f"sex_{self.get_geo_name()}"] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
 
         # Generate national level datasets based on state datasets
         if not self.county_level:
-            for demo in ['age', 'race', 'sex']:
-                state_table_name = f'by_{demo}_state'
-                frames[f'by_{demo}_national'] = generate_national_dataset_with_all_states(
-                    frames[state_table_name], demo
-                )
+            for demo in ["age", "race", "sex"]:
+                state_table_name = f"{demo}_state"
+                frames[f"{demo}_national"] = generate_national_dataset_with_all_states(frames[state_table_name], demo)
 
         return frames
 
@@ -525,7 +523,7 @@ class ACSPopulationIngester:
         return "_county" if self.county_level else "_state"
 
     def get_geo_name(self):
-        return 'county' if self.county_level else 'state'
+        return "county" if self.county_level else "state"
 
     def get_fips_col(self):
         return std_col.COUNTY_FIPS_COL if self.county_level else std_col.STATE_FIPS_COL
@@ -534,10 +532,10 @@ class ACSPopulationIngester:
         return std_col.COUNTY_NAME_COL if self.county_level else std_col.STATE_NAME_COL
 
     def get_table_name_by_race(self):
-        return "by_race" + self.get_table_geo_suffix()
+        return "race" + self.get_table_geo_suffix()
 
     def get_table_name_by_sex_age_race(self):
-        return "by_sex_age_race" + self.get_table_geo_suffix()
+        return "multi_sex_age_race" + self.get_table_geo_suffix()
 
     def get_filename(self, concept: str):
         """Returns the name of a file for the given ACS concept
@@ -546,7 +544,7 @@ class ACSPopulationIngester:
 
         filename = self.add_filename_suffix(concept.replace(" ", "_"))
 
-        return f'{self.year}-{filename}'
+        return f"{self.year}-{filename}"
 
     def add_filename_suffix(self, root_name):
         """Adds geography and file type suffix to the root name.
@@ -577,7 +575,7 @@ class ACSPopulationIngester:
             return pd.DataFrame(columns=[std_col.RACE_CATEGORY_ID_COL] + self.base_group_by_cols)
 
         def get_race_category_id_exclude_hispanic(row):
-            if row[std_col.HISPANIC_COL] == 'Hispanic or Latino':
+            if row[std_col.HISPANIC_COL] == "Hispanic or Latino":
                 return Race.HISP.value
             else:
                 return RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP[row[std_col.RACE_COL]]
@@ -603,7 +601,7 @@ class ACSPopulationIngester:
         by_hispanic = by_hispanic.groupby(group_by_cols).sum(numeric_only=True).reset_index()
         if not by_hispanic.empty:
             by_hispanic[std_col.RACE_CATEGORY_ID_COL] = by_hispanic.apply(
-                lambda r: (Race.HISP.value if r[std_col.HISPANIC_COL] == 'Hispanic or Latino' else Race.NH.value),
+                lambda r: (Race.HISP.value if r[std_col.HISPANIC_COL] == "Hispanic or Latino" else Race.NH.value),
                 axis=1,
             )
         by_hispanic.drop(std_col.HISPANIC_COL, axis=1, inplace=True)
@@ -842,7 +840,7 @@ class ACSPopulation(DataSource):
     @staticmethod
     def get_id():
         """Returns the data source's unique id."""
-        return 'ACS_POPULATION'
+        return "ACS_POPULATION"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
 
@@ -860,7 +858,7 @@ class ACSPopulation(DataSource):
         """Called once per year url from DAG, creates a county and non-county
         ingester to proceed with processing the time-series tables and
         potentially single year tables"""
-        year = self.get_attr(attrs, 'year')
+        year = self.get_attr(attrs, "year")
 
         for is_county in [True, False]:
             ingester = ACSPopulationIngester(is_county, year)
@@ -877,9 +875,9 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
     df = df.drop(columns=std_col.POPULATION_PCT_COL)
 
     breakdown_map = {
-        'race': std_col.RACE_CATEGORY_ID_COL,
-        'age': std_col.AGE_COL,
-        'sex': std_col.SEX_COL,
+        "race": std_col.RACE_CATEGORY_ID_COL,
+        "age": std_col.AGE_COL,
+        "sex": std_col.SEX_COL,
     }
 
     df = df.groupby(breakdown_map[demographic_breakdown_category]).sum(numeric_only=True).reset_index()
@@ -893,13 +891,13 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
         std_col.POPULATION_COL,
         std_col.POPULATION_PCT_COL,
     ]
-    if demographic_breakdown_category == 'race':
+    if demographic_breakdown_category == "race":
         needed_cols.extend(std_col.RACE_COLUMNS)
     else:
         needed_cols.append(breakdown_map[demographic_breakdown_category])
 
     total_val = std_col.ALL_VALUE
-    if demographic_breakdown_category == 'race':
+    if demographic_breakdown_category == "race":
         total_val = Race.ALL.value
 
     df = generate_pct_share_col_without_unknowns(
@@ -909,7 +907,7 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
         total_val,
     )
 
-    if demographic_breakdown_category == 'race':
+    if demographic_breakdown_category == "race":
         std_col.add_race_columns_from_category_id(df)
 
     df[std_col.STATE_FIPS_COL] = df[std_col.STATE_FIPS_COL].astype(str)

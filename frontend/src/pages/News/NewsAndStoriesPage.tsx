@@ -1,6 +1,7 @@
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useQuery } from 'react-query'
+import { useSearchParams } from 'react-router'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import * as blogUtils from '../../utils/blogUtils'
@@ -10,64 +11,100 @@ import type { Article } from './ArticleTypes'
 import CheckboxDropdown from './CheckboxDropdown'
 import NewsAndStoriesPreviewCardOutlined from './NewsAndStoriesPreviewCardOutlined'
 
-export default function NewsAndStoriesPage() {
-  const { isLoading, error, data }: any = useQuery(
-    blogUtils.ARTICLES_KEY,
-    fetchNewsData,
-    blogUtils.REACT_QUERY_OPTIONS,
-  )
+interface AuthorItem {
+  value: string
+  label: string
+}
 
+export default function NewsAndStoriesPage() {
+  const { isLoading, error, data }: any = useQuery({
+    queryKey: [blogUtils.ARTICLES_KEY],
+    queryFn: fetchNewsData,
+    ...blogUtils.REACT_QUERY_OPTIONS,
+  })
+
+  const [searchParams] = useSearchParams()
   const [allArticles, setAllArticles] = useState<Article[]>([])
-  const [authors, setAuthors] = useState<string[]>([])
+
+  const [authors, setAuthors] = useState<AuthorItem[]>([])
   const [categories, setCategories] = useState<string[]>([])
+
   const [selectedAuthors, setSelectedAuthors] = useState<string[]>([])
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [showAllArticles, setShowAllArticles] = useState(false)
   const [loadingMoreArticles, setLoadingMoreArticles] = useState(false)
-  const isLgUp = useIsBreakpointAndUp('lg')
-  const bgHeight = isLgUp ? '42rem' : '12rem'
+  const isMdAndUp = useIsBreakpointAndUp('md')
+  const isLgAndUp = useIsBreakpointAndUp('lg')
+  const bgHeight = isLgAndUp ? '42rem' : '12rem'
 
   useEffect(() => {
     if (data?.data) {
       const articles = data.data
       setAllArticles(articles)
 
-      const authorSet = new Set<string>()
+      const authorMap = new Map<string, string>()
       const categorySet = new Set<string>()
 
       articles.forEach((article: Article) => {
         if (article.acf?.contributing_author) {
-          authorSet.add(article.acf.contributing_author)
+          const fullAuthor = article.acf.contributing_author.trim()
+
+          if (!authorMap.has(fullAuthor)) {
+            const truncated =
+              !isMdAndUp && fullAuthor.length > 27
+                ? `${fullAuthor.substring(0, 27)}...`
+                : fullAuthor
+
+            authorMap.set(fullAuthor, truncated)
+          }
         }
+
         if (article._embedded?.['wp:term']) {
-          article._embedded['wp:term'][0]?.forEach((term: { name: string }) =>
-            categorySet.add(term.name),
-          )
+          article._embedded['wp:term'][0]?.forEach((term: { name: string }) => {
+            categorySet.add(term.name)
+          })
         }
       })
 
-      const sortedAuthors = Array.from(authorSet).sort((a, b) =>
-        a.localeCompare(b),
+      const authorItems: AuthorItem[] = Array.from(authorMap.entries()).map(
+        ([value, label]) => ({ value, label }),
       )
+      authorItems.sort((a, b) => a.label.localeCompare(b.label))
+
       const sortedCategories = Array.from(categorySet).sort((a, b) =>
         a.localeCompare(b),
       )
 
-      setAuthors(sortedAuthors)
+      setAuthors(authorItems)
       setCategories(sortedCategories)
     }
-  }, [data?.data])
+  }, [data?.data, isMdAndUp])
+
+  useEffect(() => {
+    const category = searchParams.get('category')
+    const author = searchParams.get('author')
+
+    if (category) {
+      setSelectedCategories([category])
+    }
+    if (author) {
+      setSelectedAuthors([author])
+    }
+  }, [searchParams])
 
   const filteredArticles =
     allArticles.filter((article: Article) => {
+      const fullAuthor = article.acf?.contributing_author
       const matchesAuthor =
         selectedAuthors.length === 0 ||
-        selectedAuthors.includes(article.acf?.contributing_author)
+        (fullAuthor && selectedAuthors.includes(fullAuthor))
+
       const matchesCategory =
         selectedCategories.length === 0 ||
         article._embedded?.['wp:term'][0]?.some((term: { name: string }) =>
           selectedCategories.includes(term.name),
         )
+
       return matchesAuthor && matchesCategory
     }) || []
 
@@ -110,14 +147,14 @@ export default function NewsAndStoriesPage() {
 
       <section
         id='main-content'
-        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-8 mx-auto'
+        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
       >
-        <h2
+        <h1
           id='main'
-          className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           News and Stories
-        </h2>
+        </h1>
         <section className='mx-4 flex flex-col items-center'>
           <p className='max-w-md px-6 text-left'>
             We believe in the power of storytelling. The Health Equity Tracker
@@ -128,16 +165,17 @@ export default function NewsAndStoriesPage() {
             share insights and analysis into the Health Equity movement.
           </p>
 
-          <div className='flex flex-col md:flex-row gap-4 w-full mt-4'>
+          <div className='mt-4 flex w-full flex-col gap-4 md:flex-row'>
             <CheckboxDropdown
               label='Authors'
-              options={authors.map((author) => ({
-                value: author,
-                label: author,
+              options={authors.map((a) => ({
+                value: a.value,
+                label: a.label,
               }))}
               selectedOptions={selectedAuthors}
               onSelectionChange={handleAuthorChange}
             />
+
             <CheckboxDropdown
               label='Categories'
               options={categories.map((category) => ({
@@ -156,7 +194,7 @@ export default function NewsAndStoriesPage() {
               {filteredArticles.length > 0 ? (
                 <>
                   {filtersApplied ? (
-                    <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 w-full'>
+                    <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                       {filteredArticles.map((article: Article) => (
                         <div key={article.id} className='w-full'>
                           <NewsAndStoriesPreviewCardOutlined
@@ -169,9 +207,9 @@ export default function NewsAndStoriesPage() {
                     </div>
                   ) : (
                     <>
-                      <div className='grid grid-cols-1 lg:grid-cols-5 lg:gap-1 gap-4 w-full mt-8 smMd:gap-0'>
+                      <div className='mt-8 grid w-full grid-cols-1 gap-4 smMd:gap-0 lg:grid-cols-5 lg:gap-1'>
                         <>
-                          <div className='col-span-1 lg:col-span-2 w-full smMd:mb-4 lg:mb-0'>
+                          <div className='col-span-1 w-full smMd:mb-4 lg:col-span-2 lg:mb-0'>
                             {firstFiveArticles[0] && (
                               <NewsAndStoriesPreviewCardOutlined
                                 article={firstFiveArticles[0]}
@@ -181,22 +219,20 @@ export default function NewsAndStoriesPage() {
                             )}
                           </div>
 
-                          <div className='col-span-1 md:col-span-3 grid smMd:grid-cols-2 grid-cols-1 gap-4 lg:mb-0 mb-4'>
-                            {firstFiveArticles
-                              .slice(1)
-                              .map((article: Article) => (
-                                <NewsAndStoriesPreviewCardOutlined
-                                  key={article.id}
-                                  article={article}
-                                  bgHeight='12rem'
-                                />
-                              ))}
+                          <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smMd:grid-cols-2 md:col-span-3 lg:mb-0'>
+                            {firstFiveArticles.slice(1).map((article) => (
+                              <NewsAndStoriesPreviewCardOutlined
+                                key={article.id}
+                                article={article}
+                                bgHeight='12rem'
+                              />
+                            ))}
                           </div>
                         </>
                       </div>
 
                       {showAllArticles && (
-                        <div className='grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:mt-8'>
+                        <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
                           {remainingArticles.map((article: Article) => (
                             <NewsAndStoriesPreviewCardOutlined
                               key={article.id}
@@ -216,18 +252,18 @@ export default function NewsAndStoriesPage() {
                   )}
                 </>
               ) : (
-                <p className='text-center text-gray-500 mt-8'>
+                <p className='mt-8 text-center text-gray-500'>
                   No articles found.
                 </p>
               )}
             </>
           )}
 
-          <div className='flex justify-center w-full mt-8'>
+          <div className='mt-8 flex w-full justify-center'>
             {filtersApplied ? (
               <HetLinkButton
                 onClick={handleResetFilters}
-                className='font-bold text-center leading-lhNormal py-0 px-0'
+                className='px-0 py-0 text-center font-bold leading-lhNormal'
                 buttonClassName='mx-auto py-4 px-8'
               >
                 Reset Filters
@@ -237,7 +273,7 @@ export default function NewsAndStoriesPage() {
               remainingArticles.length > 0 && (
                 <HetLinkButton
                   onClick={handleLoadAllArticles}
-                  className='font-bold text-center leading-lhNormal py-0 px-0'
+                  className='px-0 py-0 text-center font-bold leading-lhNormal'
                   buttonClassName='mx-auto py-4 px-8'
                 >
                   Load All Articles

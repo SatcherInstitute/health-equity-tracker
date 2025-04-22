@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
+import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import AhrMetrics from '../methodologyComponents/AhrMetrics'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import NoteBrfss from '../methodologyComponents/NoteBrfss'
-import AhrMetrics from '../methodologyComponents/AhrMetrics'
-import { urlMap } from '../../../utils/externalUrls'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
-export const chronicDiseaseDataSources = [
+const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
   dataSourceMetadataMap.chr,
@@ -34,7 +34,6 @@ const ChronicDiseaseLink = () => {
         <Helmet>
           <title>Chronic Diseases - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Chronic Diseases</h2>
 
         <StripedTable
           id='categories-table'
@@ -50,12 +49,12 @@ const ChronicDiseaseLink = () => {
             },
           ]}
         />
-        <h3
-          className='mt-12 text-title font-medium'
+        <h2
+          className='mt-12 font-medium text-title'
           id='chronic-diseases-data-sourcing'
         >
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           For chronic diseases like COPD and diabetes, our tracker sources data
           primarily from{' '}
@@ -75,7 +74,7 @@ const ChronicDiseaseLink = () => {
         <AhrMetrics />
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='chronic-diseases-data-sources'
         >
           Data Sources

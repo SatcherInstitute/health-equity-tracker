@@ -1,12 +1,12 @@
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { AGE, RACE } from '../../../data/utils/Constants'
 import { Fips } from '../../../data/utils/Fips'
-import Custom100kBarChart from '../../../reports/Custom100kBarChart'
 import CustomBreakdownSummary from '../../../reports/CustomBreakdownSummary'
 import CustomChoroplethMap from '../../../reports/CustomChoroplethMap'
-import CustomDisparityBarChart from '../../../reports/CustomDisparityBarChart'
+import CustomRateBarChart from '../../../reports/CustomRateBarChart'
 import CustomRateTrendsLineChart from '../../../reports/CustomRateTrendsLineChart'
 import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineChart'
+import CustomStackedSharesBarChart from '../../../reports/CustomStackedSharesBarChart'
 import CustomUnknownMap from '../../../reports/CustomUnknownMap'
 
 const gunViolenceGeographicLevels = ['National', 'states']
@@ -52,7 +52,7 @@ export const dataVisuals = [
         dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
         demographicType={AGE}
         reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
-        className='py-0 mt-0 mb-4'
+        className='mt-0 mb-4 py-0'
       />
     ),
   },
@@ -123,7 +123,7 @@ export const dataVisuals = [
       ],
     },
     customCard: (
-      <Custom100kBarChart
+      <CustomRateBarChart
         fips={new Fips('13')}
         dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
         demographicType='race_and_ethnicity'
@@ -234,7 +234,7 @@ export const dataVisuals = [
       ],
     },
     customCard: (
-      <CustomDisparityBarChart
+      <CustomStackedSharesBarChart
         fips={new Fips('00')}
         dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
         demographicType='urbanicity'

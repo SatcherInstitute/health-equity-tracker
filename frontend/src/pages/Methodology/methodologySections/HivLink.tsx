@@ -1,18 +1,18 @@
-import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
-import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import Resources from '../methodologyComponents/Resources'
+import StripedTable from '../methodologyComponents/StripedTable'
+import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
-export const hivDataSources = [
+const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,
   dataSourceMetadataMap.acs,
 ]
@@ -30,7 +30,6 @@ const HivLink = () => {
         <Helmet>
           <title>HIV - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>HIV</h2>
 
         <StripedTable
           id='categories-table'
@@ -47,9 +46,9 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='hiv-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='hiv-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p id='hiv'>
           The CDC's National Center for HIV, Viral Hepatitis, STD, and TB
           Prevention (NCHHSTP) collects and studies information on the number of
@@ -89,12 +88,12 @@ const HivLink = () => {
           2021 as our reference year when showcasing data from a single year.
         </p>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-semibold text-title'
           id='hiv-variable-data-compilation'
         >
           Variable Data Compilation and Analysis
         </h3>
-        <h4 className='text-text font-normal'>HIV Diagnoses</h4>
+        <h4 className='font-normal text-text'>HIV Diagnoses</h4>
         <p>
           Refers to confirmed HIV infections via laboratory or clinical evidence
           within a specific calendar year. Counts are for individuals aged 13 or
@@ -103,7 +102,7 @@ const HivLink = () => {
           CDC for HIV diagnoses are calculated directly from the raw count of
           those cases.
         </p>
-        <h4 className='text-text font-normal'>HIV Prevalence</h4>
+        <h4 className='font-normal text-text'>HIV Prevalence</h4>
         <p>
           Represents estimated individuals aged 13 and older living with HIV by
           the year's end. Accounts for both diagnosed and undiagnosed cases.
@@ -117,7 +116,7 @@ const HivLink = () => {
           people diagnosed with HIV and subsequently died provided by the CDC’s
           Atlas database.
         </p>
-        <h4 className='text-text font-normal'>HIV Deaths</h4>
+        <h4 className='font-normal text-text'>HIV Deaths</h4>
         <p>
           Counts deaths of persons aged 13 and older with diagnosed HIV or AIDS,
           irrespective of death cause. Data has a 12-month reporting delay for
@@ -125,7 +124,7 @@ const HivLink = () => {
           death. All metrics sourced from the CDC for HIV deaths are calculated
           directly from the raw count of those cases.
         </p>
-        <h4 className='text-text font-normal'>Algorithms</h4>
+        <h4 className='font-normal text-text'>Algorithms</h4>
         <h5>Percent share</h5>
         <p>
           To calculate the percent share of HIV diagnoses, prevalence, or
@@ -207,7 +206,7 @@ const HivLink = () => {
           </p>
         </HetNotice>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='hiv-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
@@ -248,7 +247,7 @@ const HivLink = () => {
           Islander" under the pre-1997 Office of Management and Budget (OMB)
           race/ethnicity classification system when querying HIV prevalence.
         </p>
-        <h3 className='mt-12 text-title font-medium' id='prep-coverage'>
+        <h3 className='mt-12 font-medium text-title' id='prep-coverage'>
           Defining PrEP Coverage as a Percentage
         </h3>
         <p>
@@ -257,7 +256,7 @@ const HivLink = () => {
           to the estimated number of individuals in the same age group with
           indications for PrEP during that year.
         </p>
-        <h4 className='text-text font-normal'>
+        <h4 className='font-normal text-text'>
           Significance of Measuring PrEP Coverage
         </h4>
         <ul className='list-disc pl-4'>
@@ -294,7 +293,7 @@ const HivLink = () => {
             effectiveness of PrEP implementation and uptake initiatives.
           </li>
         </ul>
-        <h4 className='text-text font-normal'>
+        <h4 className='font-normal text-text'>
           The Interrelation Between PrEP Coverage and Usage
         </h4>
         <p>
@@ -305,7 +304,7 @@ const HivLink = () => {
           limited access.
         </p>
 
-        <h4 className='text-text font-normal'>Algorithms</h4>
+        <h4 className='font-normal text-text'>Algorithms</h4>
 
         <p>
           All metrics sourced from the CDC are calculated based on the number of
@@ -383,7 +382,7 @@ const HivLink = () => {
           ]}
         />
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='prep-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data
@@ -410,7 +409,7 @@ const HivLink = () => {
           <li>if the number of persons prescribed PrEP is less than 40.</li>
         </ul>
 
-        <h3 className='mt-12 text-title font-medium' id='linkage-to-care'>
+        <h3 className='mt-12 font-medium text-title' id='linkage-to-care'>
           Linkage to Care
         </h3>
         <p>
@@ -431,7 +430,7 @@ const HivLink = () => {
           care can result in poorer health outcomes for individuals living with
           HIV and can increase the risk of transmitting HIV to others.
         </p>
-        <h4 className='text-text font-normal'>Algorithms</h4>
+        <h4 className='font-normal text-text'>Algorithms</h4>
         <p>
           All metrics sourced from the CDC are calculated based on the number of
           cases of HIV diagnosis where individuals have received at least 1 CD4
@@ -510,7 +509,7 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='stigma'>
+        <h3 className='mt-12 font-medium text-title' id='stigma'>
           HIV Stigma
         </h3>
         <p>
@@ -531,7 +530,7 @@ const HivLink = () => {
           stigma, promote social support, and improve the well-being of
           individuals living with HIV.
         </p>
-        <h4 className='text-text font-normal'>Algorithm</h4>
+        <h4 className='font-normal text-text'>Algorithm</h4>
 
         <p>
           All metrics related to HIV stigma are calculated based on a national
@@ -559,7 +558,7 @@ const HivLink = () => {
           assess the prevalence and impact of HIV stigma.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='hiv-data-sources'>
+        <h3 className='mt-12 font-medium text-title' id='hiv-data-sources'>
           Data Sources
         </h3>
         <StripedTable

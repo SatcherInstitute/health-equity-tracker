@@ -10,33 +10,33 @@ from ingestion.het_types import TOPIC_CATEGORY_TYPE
 ahr_api_key = os.getenv("AHR_API_KEY")
 
 # Constants
-AHR_US = 'ALL'
-GRAPHQL_URL = 'https://api.americashealthrankings.org/graphql'
-GRAPHQL_HEADERS = {'Content-Type': 'application/json', 'x-api-key': ahr_api_key}
+AHR_US = "ALL"
+GRAPHQL_URL = "https://api.americashealthrankings.org/graphql"
+GRAPHQL_HEADERS = {"Content-Type": "application/json", "x-api-key": ahr_api_key}
 
 AHR_MEASURES_TO_RATES_MAP_18PLUS = {
-    'Asthma': 'asthma_per_100k',
-    'Avoided Care Due to Cost': 'avoided_care_pct_rate',
-    'Cardiovascular Diseases': 'cardiovascular_diseases_per_100k',
-    'Chronic Kidney Disease': 'chronic_kidney_disease_per_100k',
-    'Chronic Obstructive Pulmonary Disease': 'copd_per_100k',
-    'Depression': 'depression_per_100k',
-    'Diabetes': 'diabetes_per_100k',
-    'Excessive Drinking': 'excessive_drinking_per_100k',
-    'Frequent Mental Distress': 'frequent_mental_distress_per_100k',
-    'Non-Medical Drug Use': 'non_medical_drug_use_per_100k',
+    "Asthma": "asthma_per_100k",
+    "Avoided Care Due to Cost": "avoided_care_pct_rate",
+    "Cardiovascular Diseases": "cardiovascular_diseases_per_100k",
+    "Chronic Kidney Disease": "chronic_kidney_disease_per_100k",
+    "Chronic Obstructive Pulmonary Disease": "copd_per_100k",
+    "Depression": "depression_per_100k",
+    "Diabetes": "diabetes_per_100k",
+    "Excessive Drinking": "excessive_drinking_per_100k",
+    "Frequent Mental Distress": "frequent_mental_distress_per_100k",
+    "Non-Medical Drug Use": "non_medical_drug_use_per_100k",
 }
 
 AHR_MEASURES_TO_RATES_MAP_ALL_AGES = {
-    'Suicide': 'suicide_per_100k',
+    "Suicide": "suicide_per_100k",
 }
 
 AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS = {
-    'Voter Participation (Presidential)': 'voter_participation_pct_rate',
+    "Voter Participation (Presidential)": "voter_participation_pct_rate",
 }
 
 AHR_MEASURES_TO_RATES_MAP_MEDICARE_18PLUS = {
-    'Preventable Hospitalizations': 'preventable_hospitalizations_per_100k',
+    "Preventable Hospitalizations": "preventable_hospitalizations_per_100k",
 }
 
 AHR_BASE_MEASURES_TO_RATES_MAP = {
@@ -63,9 +63,9 @@ PCT_RATE_TO_PER_100K_TOPICS = [
 # Utility functions
 def load_ahr_measures_json(category: TOPIC_CATEGORY_TYPE):
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    config_file_path = os.path.join(current_dir, 'ahr_config', f'graphql_ahr_measure_ids_{category}.json')
+    config_file_path = os.path.join(current_dir, "ahr_config", f"graphql_ahr_measure_ids_{category}.json")
 
-    with open(config_file_path, 'r') as file:
+    with open(config_file_path, "r") as file:
         return json.load(file)
 
 
@@ -89,7 +89,7 @@ def get_measure_ids(demographic: str, category: TOPIC_CATEGORY_TYPE, data=None):
     demographic_measures = data.get(demographic)
 
     for measure in demographic_measures:
-        ids = measure.get('ids') or measure.get('demographics')
+        ids = measure.get("ids") or measure.get("demographics")
         if isinstance(ids, dict):
             # Flatten the dictionary values into a single list
             ids = [item for sublist in ids.values() for item in sublist]
@@ -126,7 +126,7 @@ def fetch_ahr_data_from_graphql(demographic: str, geo_level: str, category: TOPI
     Returns:
         a list containing the data retrieved from the API.
     """
-    measure_ids = get_measure_ids('all', category) + get_measure_ids(demographic, category)
+    measure_ids = get_measure_ids("all", category) + get_measure_ids(demographic, category)
     results = []
     state_filter = '{eq: "ALL"}' if geo_level == NATIONAL_LEVEL else '{neq: "ALL"}'
 
@@ -149,10 +149,10 @@ def fetch_ahr_data_from_graphql(demographic: str, geo_level: str, category: TOPI
         }}
         """
 
-        response = requests.post(GRAPHQL_URL, json={'query': graphql_query}, headers=GRAPHQL_HEADERS, timeout=300)
+        response = requests.post(GRAPHQL_URL, json={"query": graphql_query}, headers=GRAPHQL_HEADERS, timeout=300)
 
         if response.status_code == 200:
-            results.append(response.json().get('data')['measure_A'])
+            results.append(response.json().get("data")["measure_A"])
 
         else:
             print(f"Query failed to run with a {response.status_code} for metricId: {measure_id}")
@@ -175,21 +175,24 @@ def graphql_response_to_dataframe(response_data):
     and creates a DataFrame. It also standardizes the state codes and filters the data
     based on the geographic level.
     """
+
     flattened_data = []
 
     for dataset in response_data:
-        for row in dataset['data']:
-            time_period = row['endDate'][:4]
-            measure = row['measure']['name']
-            state_postal = row['state']
-            value = row['value']
+        if dataset is None:
+            continue
+        for row in dataset["data"]:
+            time_period = row["endDate"][:4]
+            measure = row["measure"]["name"]
+            state_postal = row["state"]
+            value = row["value"]
 
             flattened_data.append(
                 {
                     std_col.TIME_PERIOD_COL: time_period,
-                    'measure': measure,
+                    "measure": measure,
                     std_col.STATE_POSTAL_COL: state_postal,
-                    'value': value,
+                    "value": value,
                 }
             )
 

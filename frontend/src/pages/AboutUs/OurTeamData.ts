@@ -1,25 +1,24 @@
 import Allyson from '../../assets/team/BeltonA.png'
-import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
-import Ben from '../../assets/team/HammondBen.jpg'
-import Eric from '../../assets/team/WarrenEric.png'
-import Maisha from '../../assets/team/StandiferM.png'
-import Jammie from '../../assets/team/HopkinsJammie.jpg'
-import Megan from '../../assets/team/DouglasMegan.jpg'
-import Donrie from '../../assets/team/PurcellDonrie.png'
-import Jareese from '../../assets/team/StroudJ.png'
 import Kim from '../../assets/team/CincoKim.jpg'
+import Megan from '../../assets/team/DouglasMegan.jpg'
+import Ben from '../../assets/team/HammondBen.jpg'
+import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Evan from '../../assets/team/MartinE.jpg'
+import Donrie from '../../assets/team/PurcellDonrie.png'
 import DrHH from '../../assets/team/SHarris-Hooker.jpg'
+import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
+import Maisha from '../../assets/team/StandiferM.png'
+import Eric from '../../assets/team/WarrenEric.png'
 
 import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
 import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
 
-import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
-import PartnerGilead from '../../assets/partners/PartnerGilead.png'
-import PartnerCdc from '../../assets/partners/PartnerCdc.png'
-import PartnerGoogle from '../../assets/partners/PartnerGoogle.png'
 import PartnerAARP from '../../assets/partners/PartnerAARP.png'
 import PartnerAECF from '../../assets/partners/PartnerAECF.jpg'
+import PartnerCdc from '../../assets/partners/PartnerCdc.png'
+import PartnerGilead from '../../assets/partners/PartnerGilead.png'
+import PartnerGoogle from '../../assets/partners/PartnerGoogle.png'
+import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 
 export const LEADERSHIP_TEAM = [
   {
@@ -28,13 +27,8 @@ export const LEADERSHIP_TEAM = [
     imageUrl: DrHH,
   },
   {
-    name: 'Allyson Belton, MPH',
-    role: 'Coalition/Engagement',
-    imageUrl: Allyson,
-  },
-  {
-    name: 'Ben Hammond, BMus',
-    role: 'Senior Software Engineer',
+    name: 'Benjamin Hammond, BMus',
+    role: 'Senior Software Engineer, Team Lead',
     imageUrl: Ben,
   },
   {
@@ -46,6 +40,11 @@ export const LEADERSHIP_TEAM = [
     name: 'Kim Cinco, MPsy, USN Vet.',
     role: 'UX Engineer',
     imageUrl: Kim,
+  },
+  {
+    name: 'Allyson Belton, MPH',
+    role: 'Coalition/Engagement',
+    imageUrl: Allyson,
   },
   {
     name: 'Donrie Purcell, PhD, MPH',
@@ -66,11 +65,6 @@ export const LEADERSHIP_TEAM = [
     name: 'Megan Douglas, JD',
     role: 'Health Policy Analyst',
     imageUrl: Megan,
-  },
-  {
-    name: 'Jareese Stroud, MPH',
-    role: 'Researcher',
-    imageUrl: Jareese,
   },
   {
     name: 'Evan Martin, LMSW',
@@ -138,6 +132,10 @@ export const HET_ALUMNI = [
   },
   {
     name: 'Elias Berhanu, MPH',
+    role: 'Researcher',
+  },
+  {
+    name: 'Jareese Stroud, MPH',
     role: 'Researcher',
   },
 ]

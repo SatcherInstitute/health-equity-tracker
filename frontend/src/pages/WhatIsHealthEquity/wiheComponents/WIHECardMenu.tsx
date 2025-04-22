@@ -23,7 +23,7 @@ export default function WIHECardMenu({
   onTabChange,
 }: WIHECardMenuProps) {
   return (
-    <nav className='flex justify-center mb-4'>
+    <nav className='mb-4 flex justify-center'>
       <HetTabButton
         isActiveTab={activeTab === 'guides'}
         onClick={() => onTabChange('guides')}
@@ -50,7 +50,7 @@ interface HetTabButtonProps {
 function HetTabButton(props: HetTabButtonProps) {
   return (
     <button
-      className={`cursor-pointer py-4 px-8 mx-2 rounded text-center font-sansTitle text-title font-semibold no-underline rounded-sm ${props.isActiveTab ? 'bg-methodologyGreen text-altBlack shadow-raised border-0 cursor-auto' : 'bg-white text-altGreen border border-dividerGrey'}`}
+      className={`mx-2 cursor-pointer rounded rounded-sm px-8 py-4 text-center font-sansTitle font-semibold text-title no-underline ${props.isActiveTab ? 'cursor-auto border-0 bg-methodologyGreen text-altBlack shadow-raised' : 'border border-dividerGrey bg-white text-altGreen'}`}
       type='button'
       onClick={props.onClick}
     >

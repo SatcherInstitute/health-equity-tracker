@@ -1,5 +1,3 @@
-import { urlMap } from '../../../utils/externalUrls'
-
 type ExternalResourceMapping = {
   href?: string
   ariaLabel?: string
@@ -91,7 +89,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
     isVideo: true,
   },
   {
-    href: `${urlMap.ncrn}`,
+    href: 'https://ncrn.msm.edu/',
     ariaLabel: 'NCRN Information',
     imgSrc: '/img/graphics/NCRN-MSM.png',
     imgAlt: 'NCRN Information Thumbnail',

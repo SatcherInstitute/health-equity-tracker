@@ -21,17 +21,17 @@ def test_set_state_col():
 
     _fake_df = pd.DataFrame(
         {
-            'Jurisdiction': ["Federal", None, None],
-            'Unnamed: 1': [None, "Georgia", "Alaska"],
-            'ignored_values': [1.0, 1.0, 1.0],
+            "Jurisdiction": ["Federal", None, None],
+            "Unnamed: 1": [None, "Georgia", "Alaska"],
+            "ignored_values": [1.0, 1.0, 1.0],
         }
     )
     _expected_df_set_state_cols = pd.DataFrame(
         {
             std_col.STATE_NAME_COL: ["Federal", "Georgia", "Alaska"],
-            'Jurisdiction': ["Federal", None, None],
-            'Unnamed: 1': [None, "Georgia", "Alaska"],
-            'ignored_values': [1.0, 1.0, 1.0],
+            "Jurisdiction": ["Federal", None, None],
+            "Unnamed: 1": [None, "Georgia", "Alaska"],
+            "ignored_values": [1.0, 1.0, 1.0],
         }
     )
 
@@ -47,9 +47,9 @@ def test_filter_cols():
                 "Maine",
                 "Florida",
             ],
-            'Male': [2.0, 4.0, 6.0],
-            'Female': [1.0, 3.0, 5.0],
-            'ignored_values': [1.0, 1.0, 1.0],
+            "Male": [2.0, 4.0, 6.0],
+            "Female": [1.0, 3.0, 5.0],
+            "ignored_values": [1.0, 1.0, 1.0],
         }
     )
 
@@ -60,8 +60,8 @@ def test_filter_cols():
                 "Maine",
                 "Florida",
             ],
-            'Male': [2.0, 4.0, 6.0],
-            'Female': [1.0, 3.0, 5.0],
+            "Male": [2.0, 4.0, 6.0],
+            "Female": [1.0, 3.0, 5.0],
         }
     )
 
@@ -75,21 +75,21 @@ _fake_by_race_df = pd.DataFrame(
             "Maine",
             "Florida",
         ],
-        'Asian': [1_000_000, "~", 1000],
-        'Black': [1_000_000, 100, "/"],
+        "Asian": [1_000_000, "~", 1000],
+        "Black": [1_000_000, 100, "/"],
     }
 )
 
 _expected_by_race_df_missing_to_nan = pd.DataFrame(
     {
         std_col.STATE_NAME_COL: ["U.S. total", "Maine", "Florida"],
-        'Asian': [1_000_000, np.nan, 1000],
-        'Black': [1_000_000, 100, np.nan],
+        "Asian": [1_000_000, np.nan, 1000],
+        "Black": [1_000_000, 100, np.nan],
     }
 )
 
 _expected_by_race_df_only_states = pd.DataFrame(
-    {std_col.STATE_NAME_COL: ["Maine", "Florida"], 'Asian': ["~", 1000], 'Black': [100, "/"]}
+    {std_col.STATE_NAME_COL: ["Maine", "Florida"], "Asian": ["~", 1000], "Black": [100, "/"]}
 )
 
 
@@ -115,8 +115,8 @@ def test_keep_only_national():
                 "Maine",
                 "Florida",
             ],
-            'Female': [1000, 100, 10],
-            'Male': [1_000_000, 100_000, 10_000],
+            "Female": [1000, 100, 10],
+            "Male": [1_000_000, 100_000, 10_000],
         }
     )
 
@@ -127,8 +127,8 @@ def test_keep_only_national():
                 "Maine",
                 "Florida",
             ],
-            'Female': [1110, 100, 10],
-            'Male': [1_110_000, 100_000, 10_000],
+            "Female": [1110, 100, 10],
+            "Male": [1_110_000, 100_000, 10_000],
         }
     )
 
@@ -137,8 +137,8 @@ def test_keep_only_national():
             std_col.STATE_NAME_COL: [
                 "United States",
             ],
-            'Female': [1110],
-            'Male': [1_110_000],
+            "Female": [1110],
+            "Male": [1_110_000],
         }
     )
 
@@ -163,8 +163,8 @@ def test_cols_to_rows():
                 "Maine",
                 "Florida",
             ],
-            'Asian': [100, 200],
-            'Black': [1000, 2000],
+            "Asian": [100, 200],
+            "Black": [1000, 2000],
         }
     )
 
@@ -176,8 +176,8 @@ def test_cols_to_rows():
                 "Maine",
                 "Florida",
             ],
-            'race': ["Asian", "Asian", "Black", "Black"],
-            'some_value': [100, 200, 1000, 2000],
+            "race": ["Asian", "Asian", "Black", "Black"],
+            "some_value": [100, 200, 1000, 2000],
         }
     )
 
@@ -196,8 +196,8 @@ def test_strip_footnote_refs():
                 "Maine/b,c",
                 "Florida",
             ],
-            'Asian/e': [1, 2, 3],
-            'Black': [4, 5, 6],
+            "Asian/e": [1, 2, 3],
+            "Black": [4, 5, 6],
         }
     )
 
@@ -208,8 +208,8 @@ def test_strip_footnote_refs():
                 "Maine",
                 "Florida",
             ],
-            'Asian': [1, 2, 3],
-            'Black': [4, 5, 6],
+            "Asian": [1, 2, 3],
+            "Black": [4, 5, 6],
         }
     )
 
@@ -229,8 +229,8 @@ def test_swap_race_col_names_to_codes():
                 "Maine",
                 "Florida",
             ],
-            'American Indian/Alaska Native': [1, 2, 3],
-            'Total': [4, 5, 6],
+            "American Indian/Alaska Native": [1, 2, 3],
+            "Total": [4, 5, 6],
         }
     )
 
@@ -241,8 +241,8 @@ def test_swap_race_col_names_to_codes():
                 "Maine",
                 "Florida",
             ],
-            'AIAN_NH': [1, 2, 3],
-            'ALL': [4, 5, 6],
+            "AIAN_NH": [1, 2, 3],
+            "ALL": [4, 5, 6],
         }
     )
 

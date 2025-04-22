@@ -1,3 +1,14 @@
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import { Tooltip } from '@mui/material'
+import Paper from '@mui/material/Paper'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableFooter from '@mui/material/TableFooter'
+import TableHead from '@mui/material/TableHead'
+import TablePagination from '@mui/material/TablePagination'
+import TableRow from '@mui/material/TableRow'
 import { useMemo } from 'react'
 import {
   type Column,
@@ -7,49 +18,37 @@ import {
   useSortBy,
   useTable,
 } from 'react-table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import TableFooter from '@mui/material/TableFooter'
-import TablePagination from '@mui/material/TablePagination'
-import Paper from '@mui/material/Paper'
+import ChartTitle from '../cards/ChartTitle'
 import type {
+  DataTypeId,
   MetricConfig,
   MetricId,
-  DataTypeId,
 } from '../data/config/MetricConfigTypes'
+import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
-import { Tooltip } from '@mui/material'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import TableContainer from '@mui/material/TableContainer'
-import Table from '@mui/material/Table'
 import type { Fips } from '../data/utils/Fips'
-import ChartTitle from '../cards/ChartTitle'
-import { removeLastS } from './utils'
-import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
-import Units from './Units'
-import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { het } from '../styles/DesignTokens'
-import { LESS_THAN_POINT_1 } from '../data/utils/Constants'
-import { formatFieldValue } from '../data/config/MetricConfigUtils'
+import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
+import Units from './Units'
+import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
+import { removeLastS } from './utils'
 
-export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
+const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
-export const headerCellStyle = {
+const headerCellStyle = {
   width: '200px',
   backgroundColor: het.exploreBgColor,
 }
 
-export const cellStyle = {
+const cellStyle = {
   width: '200px',
 }
 
-export const altCellStyle = {
+const altCellStyle = {
   backgroundColor: het.standardInfo,
   width: '200px',
 }
@@ -169,10 +168,6 @@ export function TableChart(props: TableChartProps) {
     const denominatorLabel =
       props.countColsMap.denominatorConfig?.shortLabel ?? ''
     prepareRow(row)
-    if (row.cells.slice(1).every((cell) => cell.value == null)) {
-      // skip a row if the only non-null item is the demographic group
-      return <></>
-    }
 
     const { key, ...restRowProps } = row.getRowProps()
 
@@ -196,9 +191,7 @@ export function TableChart(props: TableChartProps) {
               key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              {cell.value < 0.1 && cell.value > 0 && index === 1
-                ? LESS_THAN_POINT_1
-                : cell.render('Cell')}
+              {cell.render('Cell')}
               <Units column={index} metric={props.metricConfigs} />
               {index === 1 && numeratorCount && denominatorCount ? (
                 <HetUnitLabel>

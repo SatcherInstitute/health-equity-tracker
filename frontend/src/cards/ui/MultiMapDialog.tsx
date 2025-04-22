@@ -1,9 +1,8 @@
-import { useState } from 'react'
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
-import ChoroplethMap from '../../charts/ChoroplethMap'
-import { Legend } from '../../charts/Legend'
-import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
+import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
+import ChoroplethMap from '../../charts/choroplethMap/index'
+import type { CountColsMap } from '../../charts/mapGlobals'
 import type {
   DataTypeConfig,
   MetricConfig,
@@ -13,8 +12,8 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../../data/query/Breakdowns'
 import type {
   MetricQuery,
@@ -35,7 +34,6 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import CardOptionsMenu from './CardOptionsMenu'
 import { Sources } from './Sources'
-import TerritoryCircles from './TerritoryCircles'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -77,7 +75,9 @@ interface MultiMapDialogProps {
   reportTitle: string
   subtitle?: string
   scrollToHash: ScrollableHashId
-  isPhrmaAdherence?: boolean
+  isPhrmaAdherence: boolean
+  isAtlantaMode?: boolean
+  setIsAtlantaMode: (isAtlantaMode: boolean) => void
 }
 
 /*
@@ -87,7 +87,7 @@ interface MultiMapDialogProps {
 export default function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all ${
+  } in ${props.isAtlantaMode ? 'metro Atlanta counties' : props.fips.getSentenceDisplayName()} across all ${
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
@@ -96,22 +96,13 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     click: (...args: any) => {
       const clickedData = args[1]
       if (clickedData?.id) {
+        if (props.isAtlantaMode) props.setIsAtlantaMode(false)
         props.updateFipsCallback(new Fips(clickedData.id))
       }
     },
   }
 
   const mapConfig = props.dataTypeConfig.mapConfig
-
-  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
-    domain: [],
-    range: [],
-  })
-
-  function handleScaleChange(domain: number[], range: number[]) {
-    // Update the scale state when the domain or range changes
-    setScale({ domain, range })
-  }
 
   return (
     <Dialog
@@ -136,15 +127,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           {/* card heading row */}
           <div className='col-span-full flex w-full justify-between'>
             {/* Modal Title */}
-            <h2
-              className='m-2 w-full text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
-              id='modalTitle'
-            >
+            <h3 className='m-2 w-full md:m-2' id='modalTitle'>
               {title}
-            </h2>
+            </h3>
           </div>
 
-          <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
+          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smMd:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_METRICS.includes(
@@ -162,7 +150,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   key={`${demographicGroup}-grid-item`}
                   className='min-h-multimapMobile w-full sm:p-1 md:min-h-multimapDesktop md:p-2'
                 >
-                  <h3 className='m-0 text-smallest font-medium leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
+                  <h3 className='m-0 font-medium text-smallest leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
                     {mapLabel}
                   </h3>
                   <div>
@@ -179,7 +167,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         hideLegend={true}
                         key={demographicGroup}
                         legendData={props.data}
-                        metric={props.metricConfig}
+                        metricConfig={props.metricConfig}
                         showCounties={
                           !props.fips.isUsa() &&
                           !props.hasSelfButNotChildGeoData
@@ -187,31 +175,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         signalListeners={multimapSignalListeners}
                         mapConfig={mapConfig}
                         isMulti={true}
-                        scaleConfig={scale}
                         extremesMode={false}
+                        isPhrmaAdherence={props.isPhrmaAdherence}
+                        isAtlantaMode={props.isAtlantaMode}
                       />
                     )}
                   </div>
-
-                  {/* TERRITORIES (IF NATIONAL VIEW) */}
-                  {props.metricConfig &&
-                    props.fips.isUsa() &&
-                    dataForValue.length && (
-                      <TerritoryCircles
-                        demographicType={props.demographicType}
-                        countColsMap={props.countColsMap}
-                        data={dataForValue}
-                        geoData={props.geoData}
-                        mapIsWide={false}
-                        metricConfig={props.metricConfig}
-                        dataTypeConfig={props.dataTypeConfig}
-                        signalListeners={multimapSignalListeners}
-                        scaleConfig={scale}
-                        isMulti={true}
-                        activeDemographicGroup={demographicGroup}
-                        extremesMode={false}
-                      />
-                    )}
                 </li>
               )
             })}
@@ -219,20 +188,18 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* LEGEND */}
           <div className='col-span-full flex w-full justify-start md:col-span-1'>
-            <Legend
+            <RateMapLegend
               dataTypeConfig={props.dataTypeConfig}
-              metric={props.metricConfig}
+              metricConfig={props.metricConfig}
               legendTitle={props.metricConfig.shortLabel}
               data={props.data}
-              scaleType={RATE_MAP_SCALE}
-              sameDotSize={true}
-              description={'Consistent legend for all displayed maps'}
+              description={'Legend for rate map'}
               mapConfig={mapConfig}
-              stackingDirection={'horizontal'}
-              columns={6}
-              handleScaleChange={handleScaleChange}
+              isSummaryLegend={false}
+              fieldRange={props.fieldRange}
               isMulti={true}
               isPhrmaAdherence={props.isPhrmaAdherence}
+              fips={props.fips}
             />
           </div>
 
@@ -246,6 +213,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 scrollToHashId={'rate-map'}
                 totalPopulationPhrase={props.totalPopulationPhrase}
                 subPopulationPhrase={props.subPopulationPhrase}
+                isAtlantaMode={props.isAtlantaMode}
               />
             </div>
 
@@ -257,6 +225,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 scrollToHashId={'rate-map'}
                 totalPopulationPhrase={props.totalPopulationPhrase}
                 subPopulationPhrase={props.subPopulationPhrase}
+                isAtlantaMode={props.isAtlantaMode}
               />
             </div>
           </div>
@@ -301,7 +270,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           </div>
           {/*  CLOSE button */}
           <HetLinkButton
-            className='w-full justify-center hide-on-screenshot'
+            className='hide-on-screenshot w-full justify-center'
             aria-label='close this multiple maps modal'
             onClick={props.handleClose}
           >

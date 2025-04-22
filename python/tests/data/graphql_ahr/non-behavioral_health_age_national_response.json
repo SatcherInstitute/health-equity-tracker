@@ -2,7 +2,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.4,
                 "measure": {
@@ -10,7 +10,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.1,
                 "measure": {
@@ -18,7 +18,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.2,
                 "measure": {
@@ -26,7 +26,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.3,
                 "measure": {
@@ -34,7 +34,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.4,
                 "measure": {
@@ -42,7 +42,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.7,
                 "measure": {
@@ -50,7 +50,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.9,
                 "measure": {
@@ -58,7 +58,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.9,
                 "measure": {
@@ -66,7 +66,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9,
                 "measure": {
@@ -74,7 +74,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.6,
                 "measure": {
@@ -82,7 +82,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.8,
                 "measure": {
@@ -90,9 +90,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.4,
+                "measure": {
+                    "name": "Asthma"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.3,
                 "measure": {
                     "name": "Asthma"
                 }
@@ -102,7 +110,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.2,
                 "measure": {
@@ -110,7 +118,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.6,
                 "measure": {
@@ -118,7 +126,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.7,
                 "measure": {
@@ -126,7 +134,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.1,
                 "measure": {
@@ -134,7 +142,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.1,
                 "measure": {
@@ -142,7 +150,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.2,
                 "measure": {
@@ -150,7 +158,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.4,
                 "measure": {
@@ -158,7 +166,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.3,
                 "measure": {
@@ -166,7 +174,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12,
                 "measure": {
@@ -174,7 +182,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.8,
                 "measure": {
@@ -186,7 +194,7 @@
     {
         "data": [
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.8,
                 "measure": {
@@ -194,9 +202,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.1,
+                "measure": {
+                    "name": "Avoided Care Due to Cost"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.6,
                 "measure": {
                     "name": "Avoided Care Due to Cost"
                 }
@@ -206,7 +222,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9,
                 "measure": {
@@ -214,7 +230,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.4,
                 "measure": {
@@ -222,7 +238,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.9,
                 "measure": {
@@ -230,7 +246,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.2,
                 "measure": {
@@ -238,7 +254,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.4,
                 "measure": {
@@ -246,7 +262,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.1,
                 "measure": {
@@ -254,7 +270,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8,
                 "measure": {
@@ -262,9 +278,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.1,
+                "measure": {
+                    "name": "Cardiovascular Diseases"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 8.5,
                 "measure": {
                     "name": "Cardiovascular Diseases"
                 }
@@ -274,7 +298,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -282,7 +306,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -290,7 +314,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3,
                 "measure": {
@@ -298,7 +322,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.7,
                 "measure": {
@@ -306,7 +330,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.8,
                 "measure": {
@@ -314,7 +338,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -322,7 +346,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3,
                 "measure": {
@@ -330,9 +354,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.5,
+                "measure": {
+                    "name": "Chronic Kidney Disease"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.7,
                 "measure": {
                     "name": "Chronic Kidney Disease"
                 }
@@ -342,7 +374,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.6,
                 "measure": {
@@ -350,7 +382,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.5,
                 "measure": {
@@ -358,7 +390,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.4,
                 "measure": {
@@ -366,7 +398,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.2,
                 "measure": {
@@ -374,7 +406,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.3,
                 "measure": {
@@ -382,7 +414,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.2,
                 "measure": {
@@ -390,7 +422,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.2,
                 "measure": {
@@ -398,9 +430,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.8,
+                "measure": {
+                    "name": "Chronic Obstructive Pulmonary Disease"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 6.4,
                 "measure": {
                     "name": "Chronic Obstructive Pulmonary Disease"
                 }
@@ -410,7 +450,7 @@
     {
         "data": [
             {
-                "endDate": "2005-01-01T00: 00: 00.000Z",
+                "endDate": "2005-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.3,
                 "measure": {
@@ -418,7 +458,7 @@
                 }
             },
             {
-                "endDate": "2006-01-01T00: 00: 00.000Z",
+                "endDate": "2006-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.5,
                 "measure": {
@@ -426,7 +466,7 @@
                 }
             },
             {
-                "endDate": "2007-01-01T00: 00: 00.000Z",
+                "endDate": "2007-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8,
                 "measure": {
@@ -434,7 +474,7 @@
                 }
             },
             {
-                "endDate": "2008-01-01T00: 00: 00.000Z",
+                "endDate": "2008-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.2,
                 "measure": {
@@ -442,7 +482,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
                 "measure": {
@@ -450,7 +490,7 @@
                 }
             },
             {
-                "endDate": "1998-01-01T00: 00: 00.000Z",
+                "endDate": "1998-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.4,
                 "measure": {
@@ -458,7 +498,7 @@
                 }
             },
             {
-                "endDate": "1995-01-01T00: 00: 00.000Z",
+                "endDate": "1995-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.4,
                 "measure": {
@@ -466,7 +506,7 @@
                 }
             },
             {
-                "endDate": "1999-01-01T00: 00: 00.000Z",
+                "endDate": "1999-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.6,
                 "measure": {
@@ -474,7 +514,7 @@
                 }
             },
             {
-                "endDate": "1996-01-01T00: 00: 00.000Z",
+                "endDate": "1996-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.5,
                 "measure": {
@@ -482,7 +522,7 @@
                 }
             },
             {
-                "endDate": "2003-01-01T00: 00: 00.000Z",
+                "endDate": "2003-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.1,
                 "measure": {
@@ -490,7 +530,7 @@
                 }
             },
             {
-                "endDate": "2000-01-01T00: 00: 00.000Z",
+                "endDate": "2000-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.1,
                 "measure": {
@@ -498,7 +538,7 @@
                 }
             },
             {
-                "endDate": "1997-01-01T00: 00: 00.000Z",
+                "endDate": "1997-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.8,
                 "measure": {
@@ -506,7 +546,7 @@
                 }
             },
             {
-                "endDate": "2002-01-01T00: 00: 00.000Z",
+                "endDate": "2002-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.5,
                 "measure": {
@@ -514,7 +554,7 @@
                 }
             },
             {
-                "endDate": "2001-01-01T00: 00: 00.000Z",
+                "endDate": "2001-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.5,
                 "measure": {
@@ -522,7 +562,7 @@
                 }
             },
             {
-                "endDate": "2004-01-01T00: 00: 00.000Z",
+                "endDate": "2004-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7,
                 "measure": {
@@ -530,7 +570,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.7,
                 "measure": {
@@ -542,7 +582,7 @@
     {
         "data": [
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.5,
                 "measure": {
@@ -550,7 +590,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.7,
                 "measure": {
@@ -558,7 +598,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.5,
                 "measure": {
@@ -566,7 +606,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.5,
                 "measure": {
@@ -574,7 +614,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.9,
                 "measure": {
@@ -582,7 +622,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.8,
                 "measure": {
@@ -590,7 +630,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.9,
                 "measure": {
@@ -598,7 +638,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.6,
                 "measure": {
@@ -606,7 +646,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10,
                 "measure": {
@@ -614,7 +654,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.6,
                 "measure": {
@@ -622,7 +662,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.9,
                 "measure": {
@@ -630,7 +670,15 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.5,
+                "measure": {
+                    "name": "Diabetes"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 11.5,
                 "measure": {
@@ -642,7 +690,7 @@
     {
         "data": [
             {
-                "endDate": "1999-01-01T00: 00: 00.000Z",
+                "endDate": "1999-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 82.5,
                 "measure": {
@@ -650,7 +698,7 @@
                 }
             },
             {
-                "endDate": "2000-01-01T00: 00: 00.000Z",
+                "endDate": "2000-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 80.7,
                 "measure": {
@@ -658,7 +706,7 @@
                 }
             },
             {
-                "endDate": "2001-01-01T00: 00: 00.000Z",
+                "endDate": "2001-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 80.5,
                 "measure": {
@@ -666,7 +714,7 @@
                 }
             },
             {
-                "endDate": "2002-01-01T00: 00: 00.000Z",
+                "endDate": "2002-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 80.6,
                 "measure": {
@@ -674,7 +722,7 @@
                 }
             },
             {
-                "endDate": "2003-01-01T00: 00: 00.000Z",
+                "endDate": "2003-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 79.6,
                 "measure": {
@@ -682,7 +730,7 @@
                 }
             },
             {
-                "endDate": "2004-01-01T00: 00: 00.000Z",
+                "endDate": "2004-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 77,
                 "measure": {
@@ -690,7 +738,7 @@
                 }
             },
             {
-                "endDate": "2005-01-01T00: 00: 00.000Z",
+                "endDate": "2005-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 78.4,
                 "measure": {
@@ -698,7 +746,7 @@
                 }
             },
             {
-                "endDate": "2006-01-01T00: 00: 00.000Z",
+                "endDate": "2006-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 78.4,
                 "measure": {
@@ -706,7 +754,7 @@
                 }
             },
             {
-                "endDate": "2007-01-01T00: 00: 00.000Z",
+                "endDate": "2007-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 74.2,
                 "measure": {
@@ -714,7 +762,7 @@
                 }
             },
             {
-                "endDate": "2008-01-01T00: 00: 00.000Z",
+                "endDate": "2008-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 70.6,
                 "measure": {
@@ -722,7 +770,7 @@
                 }
             },
             {
-                "endDate": "2009-01-01T00: 00: 00.000Z",
+                "endDate": "2009-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 68.2,
                 "measure": {
@@ -730,7 +778,7 @@
                 }
             },
             {
-                "endDate": "2010-01-01T00: 00: 00.000Z",
+                "endDate": "2010-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 66.6,
                 "measure": {
@@ -738,7 +786,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 64.9,
                 "measure": {
@@ -746,7 +794,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 49.9,
                 "measure": {
@@ -754,7 +802,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 59.3,
                 "measure": {
@@ -762,7 +810,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 53.8,
                 "measure": {
@@ -770,7 +818,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 49.4,
                 "measure": {
@@ -782,7 +830,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4237,
                 "measure": {
@@ -790,7 +838,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4447,
                 "measure": {
@@ -798,7 +846,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4040,
                 "measure": {
@@ -806,7 +854,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4358,
                 "measure": {
@@ -814,7 +862,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4583,
                 "measure": {
@@ -822,7 +870,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4863,
                 "measure": {
@@ -830,7 +878,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4475,
                 "measure": {
@@ -838,7 +886,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3770,
                 "measure": {
@@ -846,7 +894,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2770,
                 "measure": {
@@ -858,7 +906,7 @@
     {
         "data": [
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2770,
                 "measure": {
@@ -866,9 +914,17 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2681,
+                "measure": {
+                    "name": "Preventable Hospitalizations"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 2665,
                 "measure": {
                     "name": "Preventable Hospitalizations"
                 }
@@ -878,7 +934,7 @@
     {
         "data": [
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 61.4,
                 "measure": {
@@ -886,7 +942,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 61.8,
                 "measure": {
@@ -894,7 +950,7 @@
                 }
             },
             {
-                "endDate": "2008-01-01T00: 00: 00.000Z",
+                "endDate": "2008-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 63.6,
                 "measure": {
@@ -902,7 +958,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 66.8,
                 "measure": {
@@ -914,7 +970,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.6,
                 "measure": {
@@ -922,7 +978,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
                 "measure": {
@@ -930,7 +986,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
                 "measure": {
@@ -938,7 +994,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.4,
                 "measure": {
@@ -946,7 +1002,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.2,
                 "measure": {
@@ -954,7 +1010,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
                 "measure": {
@@ -962,7 +1018,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
                 "measure": {
@@ -970,7 +1026,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.6,
                 "measure": {
@@ -978,9 +1034,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.2,
+                "measure": {
+                    "name": "Asthma - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.3,
                 "measure": {
                     "name": "Asthma - Age 65+"
                 }
@@ -990,7 +1054,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9,
                 "measure": {
@@ -998,7 +1062,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.9,
                 "measure": {
@@ -1006,7 +1070,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.7,
                 "measure": {
@@ -1014,7 +1078,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9,
                 "measure": {
@@ -1022,7 +1086,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.9,
                 "measure": {
@@ -1030,7 +1094,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.9,
                 "measure": {
@@ -1038,7 +1102,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.2,
                 "measure": {
@@ -1046,7 +1110,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.9,
                 "measure": {
@@ -1054,7 +1118,15 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.8,
+                "measure": {
+                    "name": "Asthma - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.8,
                 "measure": {
@@ -1066,7 +1138,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10,
                 "measure": {
@@ -1074,7 +1146,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9,
                 "measure": {
@@ -1082,7 +1154,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.5,
                 "measure": {
@@ -1090,7 +1162,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.6,
                 "measure": {
@@ -1098,7 +1170,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.6,
                 "measure": {
@@ -1106,7 +1178,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.4,
                 "measure": {
@@ -1114,7 +1186,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.7,
                 "measure": {
@@ -1122,7 +1194,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.1,
                 "measure": {
@@ -1130,9 +1202,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.6,
+                "measure": {
+                    "name": "Asthma - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 10.3,
                 "measure": {
                     "name": "Asthma - Ages 45-64"
                 }
@@ -1142,7 +1222,7 @@
     {
         "data": [
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.2,
                 "measure": {
@@ -1150,7 +1230,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.2,
                 "measure": {
@@ -1158,7 +1238,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.8,
                 "measure": {
@@ -1166,7 +1246,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.1,
                 "measure": {
@@ -1174,7 +1254,7 @@
                 }
             },
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.9,
                 "measure": {
@@ -1182,7 +1262,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.7,
                 "measure": {
@@ -1190,7 +1270,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.9,
                 "measure": {
@@ -1198,7 +1278,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.2,
                 "measure": {
@@ -1206,7 +1286,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.1,
                 "measure": {
@@ -1214,7 +1294,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.2,
                 "measure": {
@@ -1226,7 +1306,7 @@
     {
         "data": [
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.8,
                 "measure": {
@@ -1234,7 +1314,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.2,
                 "measure": {
@@ -1242,7 +1322,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.2,
                 "measure": {
@@ -1250,7 +1330,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.7,
                 "measure": {
@@ -1258,7 +1338,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.1,
                 "measure": {
@@ -1266,7 +1346,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 4.2,
                 "measure": {
@@ -1278,7 +1358,7 @@
     {
         "data": [
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.4,
                 "measure": {
@@ -1286,7 +1366,35 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.7,
+                "measure": {
+                    "name": "Avoided Care Due to Cost - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.6,
+                "measure": {
+                    "name": "Avoided Care Due to Cost - Age 65+"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.4,
+                "measure": {
+                    "name": "Avoided Care Due to Cost - Age 65+"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.7,
                 "measure": {
@@ -1298,27 +1406,7 @@
     {
         "data": [
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 3.4,
-                "measure": {
-                    "name": "Avoided Care Due to Cost - Age 65+"
-                }
-            },
-            {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 3.7,
-                "measure": {
-                    "name": "Avoided Care Due to Cost - Age 65+"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 17.2,
                 "measure": {
@@ -1326,7 +1414,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.1,
                 "measure": {
@@ -1334,7 +1422,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.8,
                 "measure": {
@@ -1342,7 +1430,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 19.8,
                 "measure": {
@@ -1350,7 +1438,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16,
                 "measure": {
@@ -1358,7 +1446,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.8,
                 "measure": {
@@ -1370,7 +1458,7 @@
     {
         "data": [
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.1,
                 "measure": {
@@ -1378,9 +1466,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.2,
+                "measure": {
+                    "name": "Avoided Care Due to Cost - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 16.1,
                 "measure": {
                     "name": "Avoided Care Due to Cost - Ages 18-44"
                 }
@@ -1390,7 +1486,7 @@
     {
         "data": [
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.8,
                 "measure": {
@@ -1398,7 +1494,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.5,
                 "measure": {
@@ -1406,7 +1502,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.1,
                 "measure": {
@@ -1414,7 +1510,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 16.6,
                 "measure": {
@@ -1422,7 +1518,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.7,
                 "measure": {
@@ -1430,7 +1526,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.5,
                 "measure": {
@@ -1442,7 +1538,7 @@
     {
         "data": [
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.6,
                 "measure": {
@@ -1450,9 +1546,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.6,
+                "measure": {
+                    "name": "Avoided Care Due to Cost - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 11.1,
                 "measure": {
                     "name": "Avoided Care Due to Cost - Ages 45-64"
                 }
@@ -1462,7 +1566,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.3,
                 "measure": {
@@ -1470,7 +1574,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21.3,
                 "measure": {
@@ -1478,7 +1582,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.3,
                 "measure": {
@@ -1486,7 +1590,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21.7,
                 "measure": {
@@ -1494,7 +1598,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.4,
                 "measure": {
@@ -1502,7 +1606,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21.5,
                 "measure": {
@@ -1510,7 +1614,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 20.6,
                 "measure": {
@@ -1518,9 +1622,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.4,
+                "measure": {
+                    "name": "Cardiovascular Diseases - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 20.5,
                 "measure": {
                     "name": "Cardiovascular Diseases - Age 65+"
                 }
@@ -1530,7 +1642,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.4,
                 "measure": {
@@ -1538,7 +1650,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2,
                 "measure": {
@@ -1546,7 +1658,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.8,
                 "measure": {
@@ -1554,7 +1666,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2,
                 "measure": {
@@ -1562,7 +1674,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.1,
                 "measure": {
@@ -1570,7 +1682,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2,
                 "measure": {
@@ -1578,7 +1690,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.9,
                 "measure": {
@@ -1586,9 +1698,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.3,
+                "measure": {
+                    "name": "Cardiovascular Diseases - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 2.1,
                 "measure": {
                     "name": "Cardiovascular Diseases - Ages 18-44"
                 }
@@ -1598,7 +1718,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 10.1,
                 "measure": {
@@ -1606,7 +1726,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.6,
                 "measure": {
@@ -1614,7 +1734,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.4,
                 "measure": {
@@ -1622,7 +1742,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.5,
                 "measure": {
@@ -1630,7 +1750,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.7,
                 "measure": {
@@ -1638,7 +1758,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9,
                 "measure": {
@@ -1646,7 +1766,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.1,
                 "measure": {
@@ -1654,9 +1774,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 9.9,
+                "measure": {
+                    "name": "Cardiovascular Diseases - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 9.7,
                 "measure": {
                     "name": "Cardiovascular Diseases - Ages 45-64"
                 }
@@ -1666,7 +1794,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.9,
                 "measure": {
@@ -1674,7 +1802,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.9,
                 "measure": {
@@ -1682,7 +1810,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.8,
                 "measure": {
@@ -1690,7 +1818,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 5.8,
                 "measure": {
@@ -1698,7 +1826,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 6.5,
                 "measure": {
@@ -1706,7 +1834,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.2,
                 "measure": {
@@ -1714,7 +1842,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.1,
                 "measure": {
@@ -1722,9 +1850,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
+                "measure": {
+                    "name": "Chronic Kidney Disease - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 8.6,
                 "measure": {
                     "name": "Chronic Kidney Disease - Age 65+"
                 }
@@ -1734,7 +1870,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.2,
                 "measure": {
@@ -1742,7 +1878,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.2,
                 "measure": {
@@ -1750,7 +1886,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.3,
                 "measure": {
@@ -1758,7 +1894,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.2,
                 "measure": {
@@ -1766,7 +1902,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.2,
                 "measure": {
@@ -1774,7 +1910,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.1,
                 "measure": {
@@ -1782,7 +1918,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.1,
                 "measure": {
@@ -1790,7 +1926,15 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 1.3,
+                "measure": {
+                    "name": "Chronic Kidney Disease - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1.3,
                 "measure": {
@@ -1802,7 +1946,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.4,
                 "measure": {
@@ -1810,7 +1954,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.4,
                 "measure": {
@@ -1818,7 +1962,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.4,
                 "measure": {
@@ -1826,7 +1970,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3,
                 "measure": {
@@ -1834,7 +1978,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.3,
                 "measure": {
@@ -1842,7 +1986,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3,
                 "measure": {
@@ -1850,7 +1994,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.2,
                 "measure": {
@@ -1858,9 +2002,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.8,
+                "measure": {
+                    "name": "Chronic Kidney Disease - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.9,
                 "measure": {
                     "name": "Chronic Kidney Disease - Ages 45-64"
                 }
@@ -1870,7 +2022,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.2,
                 "measure": {
@@ -1878,7 +2030,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.9,
                 "measure": {
@@ -1886,7 +2038,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.7,
                 "measure": {
@@ -1894,7 +2046,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.5,
                 "measure": {
@@ -1902,7 +2054,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.3,
                 "measure": {
@@ -1910,7 +2062,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.2,
                 "measure": {
@@ -1918,7 +2070,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 12.3,
                 "measure": {
@@ -1926,9 +2078,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.1,
+                "measure": {
+                    "name": "Chronic Obstructive Pulmonary Disease - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 12.3,
                 "measure": {
                     "name": "Chronic Obstructive Pulmonary Disease - Age 65+"
                 }
@@ -1938,7 +2098,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.8,
                 "measure": {
@@ -1946,7 +2106,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.7,
                 "measure": {
@@ -1954,7 +2114,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.6,
                 "measure": {
@@ -1962,7 +2122,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.6,
                 "measure": {
@@ -1970,7 +2130,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -1978,7 +2138,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.3,
                 "measure": {
@@ -1986,7 +2146,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.7,
                 "measure": {
@@ -1994,9 +2154,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.8,
+                "measure": {
+                    "name": "Chronic Obstructive Pulmonary Disease - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 2.3,
                 "measure": {
                     "name": "Chronic Obstructive Pulmonary Disease - Ages 18-44"
                 }
@@ -2006,7 +2174,7 @@
     {
         "data": [
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.5,
                 "measure": {
@@ -2014,7 +2182,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.1,
                 "measure": {
@@ -2022,7 +2190,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8.3,
                 "measure": {
@@ -2030,7 +2198,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.8,
                 "measure": {
@@ -2038,7 +2206,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 8,
                 "measure": {
@@ -2046,7 +2214,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.7,
                 "measure": {
@@ -2054,7 +2222,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.7,
                 "measure": {
@@ -2062,9 +2230,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 7.9,
+                "measure": {
+                    "name": "Chronic Obstructive Pulmonary Disease - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 7.2,
                 "measure": {
                     "name": "Chronic Obstructive Pulmonary Disease - Ages 45-64"
                 }
@@ -2074,7 +2250,7 @@
     {
         "data": [
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21.6,
                 "measure": {
@@ -2082,7 +2258,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 21.4,
                 "measure": {
@@ -2090,7 +2266,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.2,
                 "measure": {
@@ -2098,7 +2274,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.6,
                 "measure": {
@@ -2106,7 +2282,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.9,
                 "measure": {
@@ -2114,7 +2290,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23,
                 "measure": {
@@ -2122,7 +2298,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.7,
                 "measure": {
@@ -2130,7 +2306,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.2,
                 "measure": {
@@ -2138,7 +2314,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.6,
                 "measure": {
@@ -2146,7 +2322,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.5,
                 "measure": {
@@ -2154,7 +2330,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 22.6,
                 "measure": {
@@ -2162,9 +2338,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 23.9,
+                "measure": {
+                    "name": "Diabetes - Age 65+"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 23.5,
                 "measure": {
                     "name": "Diabetes - Age 65+"
                 }
@@ -2174,7 +2358,7 @@
     {
         "data": [
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.2,
                 "measure": {
@@ -2182,7 +2366,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3,
                 "measure": {
@@ -2190,7 +2374,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.8,
                 "measure": {
@@ -2198,7 +2382,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -2206,7 +2390,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.1,
                 "measure": {
@@ -2214,7 +2398,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -2222,7 +2406,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.8,
                 "measure": {
@@ -2230,7 +2414,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -2238,7 +2422,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2.9,
                 "measure": {
@@ -2246,7 +2430,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.2,
                 "measure": {
@@ -2254,7 +2438,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.4,
                 "measure": {
@@ -2262,9 +2446,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 3.6,
+                "measure": {
+                    "name": "Diabetes - Ages 18-44"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.4,
                 "measure": {
                     "name": "Diabetes - Ages 18-44"
                 }
@@ -2274,7 +2466,7 @@
     {
         "data": [
             {
-                "endDate": "2012-01-01T00: 00: 00.000Z",
+                "endDate": "2012-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.5,
                 "measure": {
@@ -2282,7 +2474,7 @@
                 }
             },
             {
-                "endDate": "2011-01-01T00: 00: 00.000Z",
+                "endDate": "2011-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.2,
                 "measure": {
@@ -2290,7 +2482,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.3,
                 "measure": {
@@ -2298,7 +2490,7 @@
                 }
             },
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.5,
                 "measure": {
@@ -2306,7 +2498,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.9,
                 "measure": {
@@ -2314,7 +2506,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -2322,7 +2514,7 @@
                 }
             },
             {
-                "endDate": "2015-01-01T00: 00: 00.000Z",
+                "endDate": "2015-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.9,
                 "measure": {
@@ -2330,7 +2522,7 @@
                 }
             },
             {
-                "endDate": "2013-01-01T00: 00: 00.000Z",
+                "endDate": "2013-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 13.7,
                 "measure": {
@@ -2338,7 +2530,7 @@
                 }
             },
             {
-                "endDate": "2014-01-01T00: 00: 00.000Z",
+                "endDate": "2014-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.1,
                 "measure": {
@@ -2346,7 +2538,7 @@
                 }
             },
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 14.6,
                 "measure": {
@@ -2354,7 +2546,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.1,
                 "measure": {
@@ -2362,9 +2554,17 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 15.7,
+                "measure": {
+                    "name": "Diabetes - Ages 45-64"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 16.1,
                 "measure": {
                     "name": "Diabetes - Ages 45-64"
                 }
@@ -2374,7 +2574,7 @@
     {
         "data": [
             {
-                "endDate": "2017-01-01T00: 00: 00.000Z",
+                "endDate": "2017-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2504,
                 "measure": {
@@ -2382,7 +2582,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2502,
                 "measure": {
@@ -2390,7 +2590,7 @@
                 }
             },
             {
-                "endDate": "2018-01-01T00: 00: 00.000Z",
+                "endDate": "2018-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2358,
                 "measure": {
@@ -2398,7 +2598,7 @@
                 }
             },
             {
-                "endDate": "2019-01-01T00: 00: 00.000Z",
+                "endDate": "2019-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 2098,
                 "measure": {
@@ -2410,7 +2610,7 @@
     {
         "data": [
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1582,
                 "measure": {
@@ -2418,7 +2618,7 @@
                 }
             },
             {
-                "endDate": "2021-01-01T00: 00: 00.000Z",
+                "endDate": "2021-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1482,
                 "measure": {
@@ -2426,7 +2626,7 @@
                 }
             },
             {
-                "endDate": "2022-01-01T00: 00: 00.000Z",
+                "endDate": "2022-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 1452,
                 "measure": {
@@ -2438,7 +2638,7 @@
     {
         "data": [
             {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
+                "endDate": "2020-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 74.5,
                 "measure": {
@@ -2446,7 +2646,7 @@
                 }
             },
             {
-                "endDate": "2016-01-01T00: 00: 00.000Z",
+                "endDate": "2016-01-01T00:00:00.000Z",
                 "state": "ALL",
                 "value": 70.9,
                 "measure": {
@@ -2455,52 +2655,8 @@
             }
         ]
     },
-    {
-        "data": [
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 51.4,
-                "measure": {
-                    "name": "Voter Participation (Presidential) - Ages 18-24 "
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 60.3,
-                "measure": {
-                    "name": "Voter Participation (Presidential) - Ages 25-34"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 65.1,
-                "measure": {
-                    "name": "Voter Participation (Presidential) - Ages 35-44"
-                }
-            }
-        ]
-    },
-    {
-        "data": [
-            {
-                "endDate": "2020-01-01T00: 00: 00.000Z",
-                "state": "ALL",
-                "value": 71,
-                "measure": {
-                    "name": "Voter Participation (Presidential) - Ages 45-64"
-                }
-            }
-        ]
-    }
+    null,
+    null,
+    null,
+    null
 ]

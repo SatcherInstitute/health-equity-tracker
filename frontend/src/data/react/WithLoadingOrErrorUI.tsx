@@ -1,24 +1,24 @@
 import { Button, CircularProgress } from '@mui/material'
-import type { Dataset, MapOfDatasetMetadata } from '../utils/DatasetTypes'
-import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { getDataManager } from '../../utils/globals'
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
+import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
 import { MetadataCache } from '../loading/DataManager'
+import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import type { Dataset, MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import {
   type IncompleteLoadStatus,
   useMetrics,
   useResources,
 } from './useResources'
-import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
-import type {
-  DatasetId,
-  DatasetIdWithStateFIPSCode,
-} from '../config/DatasetMetadata'
 
 /**
  * Provides a wrapper around a UI component that may be loading or have an async
  * error, and displays loading and error indicators.
  */
-export function WithLoadingOrErrorUI<R>(props: {
+function WithLoadingOrErrorUI<R>(props: {
   resources: R[] | IncompleteLoadStatus
   children: (resources: R[]) => JSX.Element
   loadingComponent?: JSX.Element
@@ -142,9 +142,7 @@ export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
   return <WithMetadataAndMetricsWithKey key={key} {...props} />
 }
 
-export function WithMetadataAndMetricsWithKey(
-  props: WithMetadataAndMetricsProps,
-) {
+function WithMetadataAndMetricsWithKey(props: WithMetadataAndMetricsProps) {
   // Note: this will result in an error page if any of the required data fails
   // to be fetched. We could make the metadata optional so the charts still
   // render, but it is much easier to reason about if we require both. The

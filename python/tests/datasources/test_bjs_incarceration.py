@@ -25,9 +25,9 @@ def _get_test_table_files(*args):
     for file in table_crops.keys():
         if file in table_crops:
             source_df = pd.read_csv(
-                os.path.join(TEST_DIR, f'bjs_test_input_{file}'),
+                os.path.join(TEST_DIR, f"bjs_test_input_{file}"),
                 encoding="ISO-8859-1",
-                thousands=',',
+                thousands=",",
                 engine="python",
             )
 
@@ -140,17 +140,17 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "bjs_incarceration")
 
 GOLDEN_DATA = {
-    'race_national': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_national.json'),
-    'age_national': os.path.join(TEST_DIR, 'bjs_test_output_age_national.json'),
-    'sex_national': os.path.join(TEST_DIR, 'bjs_test_output_sex_national.json'),
-    'race_state': os.path.join(TEST_DIR, 'bjs_test_output_race_and_ethnicity_state.json'),
-    'age_state': os.path.join(TEST_DIR, 'bjs_test_output_age_state.json'),
-    'sex_state': os.path.join(TEST_DIR, 'bjs_test_output_sex_state.json'),
+    "race_national": os.path.join(TEST_DIR, "bjs_test_output_race_and_ethnicity_national.json"),
+    "age_national": os.path.join(TEST_DIR, "bjs_test_output_age_national.json"),
+    "sex_national": os.path.join(TEST_DIR, "bjs_test_output_sex_national.json"),
+    "race_state": os.path.join(TEST_DIR, "bjs_test_output_race_and_ethnicity_state.json"),
+    "age_state": os.path.join(TEST_DIR, "bjs_test_output_age_state.json"),
+    "sex_state": os.path.join(TEST_DIR, "bjs_test_output_sex_state.json"),
 }
 
 expected_dtype = {
-    'state_name': str,
-    'state_fips': str,
+    "state_name": str,
+    "state_fips": str,
     "prison_per_100k": float,
     "prison_pct_share": float,
     "jail_per_100k": float,
@@ -161,24 +161,23 @@ expected_dtype = {
 }
 expected_dtype_age = {
     **expected_dtype,
-    'age': str,
-    'incarceration_population_estimated_total': float,
+    "age": str,
+    "incarceration_population_estimated_total": float,
 }
 expected_dtype_race = {
     **expected_dtype,
-    'race_and_ethnicity': str,
-    'race_category_id': str,
-    'incarceration_population_estimated_total': float,
-    'prison_estimated_total': float,
-    'jail_estimated_total': float,
+    "race_and_ethnicity": str,
+    "incarceration_population_estimated_total": float,
+    "prison_estimated_total": float,
+    "jail_estimated_total": float,
 }
 
 expected_dtype_sex = {
     **expected_dtype,
-    'sex': str,
-    'incarceration_population_estimated_total': float,
-    'prison_estimated_total': float,
-    'jail_estimated_total': float,
+    "sex": str,
+    "incarceration_population_estimated_total": float,
+    "prison_estimated_total": float,
+    "jail_estimated_total": float,
 }
 
 # --- INTEGRATION TESTS NATIONAL LEVEL
@@ -192,10 +191,10 @@ def testGenerateBreakdownAgeNational():
 
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df("age", "national", [df_prison_10, df_jail_6], [df_prison_13, df_jail_6])
-    expected_df_age_national = pd.read_json(GOLDEN_DATA['age_national'], dtype=expected_dtype_age)
+    expected_df_age_national = pd.read_json(GOLDEN_DATA["age_national"], dtype=expected_dtype_age)
 
-    df = df.sort_values(by=['state_name', 'age']).reset_index(drop=True)
-    expected_df_age_national = expected_df_age_national.sort_values(by=['state_name', 'age']).reset_index(drop=True)
+    df = df.sort_values(by=["state_name", "age"]).reset_index(drop=True)
+    expected_df_age_national = expected_df_age_national.sort_values(by=["state_name", "age"]).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df_age_national, check_like=True)
 
@@ -216,10 +215,10 @@ def testGenerateBreakdownRaceNational():
         [prison_13, jail_6],
     )
 
-    expected_df_race_national = pd.read_json(GOLDEN_DATA['race_national'], dtype=expected_dtype_race)
-    df = df.sort_values(by=['state_name', 'race_and_ethnicity']).reset_index(drop=True)
+    expected_df_race_national = pd.read_json(GOLDEN_DATA["race_national"], dtype=expected_dtype_race)
+    df = df.sort_values(by=["state_name", "race_and_ethnicity"]).reset_index(drop=True)
     expected_df_race_national = expected_df_race_national.sort_values(
-        by=['state_name', 'race_and_ethnicity']
+        by=["state_name", "race_and_ethnicity"]
     ).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df_race_national, check_like=True)
@@ -237,10 +236,10 @@ def testGenerateBreakdownSexNational():
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df("sex", "national", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
-    expected_df_sex_national = pd.read_json(GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex)
+    expected_df_sex_national = pd.read_json(GOLDEN_DATA["sex_national"], dtype=expected_dtype_sex)
 
-    df = df.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
-    expected_df_sex_national = expected_df_sex_national.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
+    df = df.sort_values(by=["state_name", "sex"]).reset_index(drop=True)
+    expected_df_sex_national = expected_df_sex_national.sort_values(by=["state_name", "sex"]).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df_sex_national, check_like=True)
 
@@ -260,10 +259,10 @@ def testGenerateBreakdownSexState():
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df("sex", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
-    expected_df_sex_state = pd.read_json(GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex)
+    expected_df_sex_state = pd.read_json(GOLDEN_DATA["sex_state"], dtype=expected_dtype_sex)
 
-    df = df.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
-    expected_df_sex_state = expected_df_sex_state.sort_values(by=['state_name', 'sex']).reset_index(drop=True)
+    df = df.sort_values(by=["state_name", "sex"]).reset_index(drop=True)
+    expected_df_sex_state = expected_df_sex_state.sort_values(by=["state_name", "sex"]).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df_sex_state, check_like=True)
 
@@ -278,10 +277,10 @@ def testGenerateBreakdownAgeState():
     datasource = BJSIncarcerationData()
     df = datasource.generate_breakdown_df("age", "state", [prison_2, prison_23, jail_6], [prison_13, jail_6])
 
-    expected_df_age_state = pd.read_json(GOLDEN_DATA['age_state'], dtype=expected_dtype_age)
+    expected_df_age_state = pd.read_json(GOLDEN_DATA["age_state"], dtype=expected_dtype_age)
 
-    df = df.sort_values(by=['state_name', 'age']).reset_index(drop=True)
-    expected_df_age_state = expected_df_age_state.sort_values(by=['state_name', 'age']).reset_index(drop=True)
+    df = df.sort_values(by=["state_name", "age"]).reset_index(drop=True)
+    expected_df_age_state = expected_df_age_state.sort_values(by=["state_name", "age"]).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df_age_state, check_like=True)
 
@@ -302,10 +301,10 @@ def testGenerateBreakdownRaceState():
         [prison_13, jail_6],
     )
 
-    expected_df_race_state = pd.read_json(GOLDEN_DATA['race_state'], dtype=expected_dtype_race)
+    expected_df_race_state = pd.read_json(GOLDEN_DATA["race_state"], dtype=expected_dtype_race)
 
-    df = df.sort_values(by=['state_name', 'race_and_ethnicity']).reset_index(drop=True)
-    expected_df_race_state = expected_df_race_state.sort_values(by=['state_name', 'race_and_ethnicity']).reset_index(
+    df = df.sort_values(by=["state_name", "race_and_ethnicity"]).reset_index(drop=True)
+    expected_df_race_state = expected_df_race_state.sort_values(by=["state_name", "race_and_ethnicity"]).reset_index(
         drop=True
     )
 
@@ -314,8 +313,8 @@ def testGenerateBreakdownRaceState():
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
 # comment out all mocks expect BQ to see real results (not just test sample results)
-@mock.patch('datasources.bjs_incarceration.load_tables', side_effect=_get_test_table_files)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("datasources.bjs_incarceration.load_tables", side_effect=_get_test_table_files)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 def testWriteToBqNetworkCalls(
     mock_bq: mock.MagicMock,
     mock_zip: mock.MagicMock,
@@ -324,12 +323,42 @@ def testWriteToBqNetworkCalls(
 
     # required by bigQuery
     kwargs = {
-        'filename': 'test_file.csv',
-        'metadata_table_id': 'test_metadata',
-        'table_name': 'output_table',
+        "filename": "test_file.csv",
+        "metadata_table_id": "test_metadata",
+        "table_name": "output_table",
     }
 
-    datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
+    datasource.write_to_bq("dataset", "gcs_bucket", **kwargs)
 
     assert mock_bq.call_count == 6
     assert mock_zip.call_count == 2
+
+    (df_age_national, _, table_name_age_national) = mock_bq.call_args_list[0].args
+    assert df_age_national.shape == (14, 12)
+    assert table_name_age_national == "age_national_current"
+
+    (df_race_national, _, table_name_race_national) = mock_bq.call_args_list[1].args
+    # BJS drops the race_category_id column outside of the tested methods above,
+    # so ensure that it's dropped before shipping to BQ
+    assert (
+        list(df_race_national.columns).sort()
+        == [
+            "prison_estimated_total",
+            "state_name",
+            "race_and_ethnicity",
+            "prison_pct_share",
+            "jail_estimated_total",
+            "state_fips",
+            "incarceration_population_estimated_total",
+            "incarceration_population_pct",
+            "prison_per_100k",
+            "jail_per_100k",
+            "jail_pct_share",
+            "confined_children_estimated_total",
+        ].sort()
+    )
+    assert table_name_race_national == "race_and_ethnicity_national_current"
+
+    (df_sex_national, _, table_name_sex_national) = mock_bq.call_args_list[2].args
+    assert df_sex_national.shape == (3, 12)
+    assert table_name_sex_national == "sex_national_current"

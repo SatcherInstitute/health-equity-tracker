@@ -1,27 +1,28 @@
-import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
-import type { RouteConfig } from '../../sharedTypes'
 import { lazy } from 'react'
 import {
+  AGE_ADJUSTMENT_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
-  TOPIC_DEFINITIONS_LINK,
+  COMMUNITY_SAFETY_LINK,
   COVID_19_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   GLOSSARY_LINK,
   HIV_LINK,
+  LIMITATIONS_LINK,
+  MATERNAL_HEALTH_LINK,
+  MEDICATION_UTILIZATION_LINK,
+  METHODOLOGY_PAGE_LINK,
   METRICS_LINK,
   PDOH_LINK,
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   SDOH_LINK,
-  MEDICATION_UTILIZATION_LINK,
   SOURCES_LINK,
   TOPIC_CATEGORIES_LINK,
-  METHODOLOGY_PAGE_LINK,
-  AGE_ADJUSTMENT_LINK,
-  LIMITATIONS_LINK,
-  COMMUNITY_SAFETY_LINK,
+  TOPIC_DEFINITIONS_LINK,
 } from '../../../utils/internalRoutes'
+import type { RouteConfig } from '../../sharedTypes'
+import { raceAndEthnicitySublinks } from './RacesAndEthnicitiesDefinitions'
 
 const AgeAdjustmentLink = lazy(
   () => import('../methodologySections/AgeAdjustmentLink'),
@@ -68,6 +69,9 @@ const GlossaryLink = lazy(() => import('../methodologySections/GlossaryLink'))
 const CommunitySafetyLink = lazy(
   () => import('../methodologySections/CommunitySafetyLink'),
 )
+const MaternalHealthLink = lazy(
+  () => import('../methodologySections/MaternalHealthLink'),
+)
 
 export const methodologyRouteConfigs: RouteConfig[] = [
   {
@@ -76,7 +80,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     path: METHODOLOGY_PAGE_LINK,
     component: <MethodologyHomeLink />,
     subLinks: [],
-    visible: false,
+    visible: true,
   },
 
   {
@@ -176,6 +180,17 @@ export const methodologyRouteConfigs: RouteConfig[] = [
       { label: 'Data Sourcing', path: 'community-safety-data-sourcing' },
       { label: 'Data Sources', path: 'community-safety-data-sources' },
       { label: 'Key Terms', path: 'community-safety-key-terms' },
+    ],
+    visible: true,
+  },
+  {
+    label: 'Maternal Health',
+    path: MATERNAL_HEALTH_LINK,
+    component: <MaternalHealthLink />,
+    subLinks: [
+      { label: 'Data Sourcing', path: 'maternal-health-data-sourcing' },
+      { label: 'Data Sources', path: 'maternal-health-data-sources' },
+      { label: 'Key Terms', path: 'maternal-health-key-terms' },
     ],
     visible: true,
   },
@@ -521,5 +536,3 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     visible: true,
   },
 ]
-
-export default methodologyRouteConfigs

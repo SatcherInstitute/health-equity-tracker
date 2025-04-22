@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
@@ -15,15 +15,15 @@ import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import Sidebar from '../pages/ui/Sidebar'
+import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
@@ -263,7 +263,7 @@ export function Report(props: ReportProps) {
                 >
                   <LazyLoad offset={800} height={750} once>
                     {shareMetricConfig && (
-                      <DisparityBarChartCard
+                      <StackedSharesBarChartCard
                         dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}
                         fips={props.fips}

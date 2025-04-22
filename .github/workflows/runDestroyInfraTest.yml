@@ -121,8 +121,6 @@ jobs:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
           deploy-context: 'staging'
-          basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
-          basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 
   deploy:
@@ -162,7 +160,7 @@ jobs:
         id: terraform
         working-directory: ./config
         run: |
-          terraform destroy -auto-approve -var-file=test/test.tfvars \
+          terraform destroy -auto-approve -var-file=gcp.tfvars \
           -var-file=common.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \

@@ -1,10 +1,12 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
 	"files": {
-		"ignore": ["**/*.css"]
+		"ignore": [
+			"**/*.css"
+		]
 	},
 	"organizeImports": {
-		"enabled": false
+		"enabled": true
 	},
 	"vcs": {
 		"enabled": true,
@@ -25,12 +27,31 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"nursery": {
+				"useSortedClasses": "info"
+			},
+			"a11y": {
+				"useSemanticElements": "off",
+				"noSvgWithoutTitle": "off",
+				"noInteractiveElementToNoninteractiveRole": "off"
+			},
 			"suspicious": {
 				"noExplicitAny": "off",
 				"noImplicitAnyLet": "off",
 				"noArrayIndexKey": "off",
 				"noAssignInExpressions": "off",
-				"noGlobalIsNan": "off"
+				"noGlobalIsNan": "off",
+				"noConsole": {
+					"level": "info",
+					"options": {
+						"allow": [
+							"assert",
+							"error",
+							"info",
+							"warn"
+						]
+					}
+				}
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off"

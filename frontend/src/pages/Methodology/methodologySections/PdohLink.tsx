@@ -1,16 +1,16 @@
-import Resources from '../methodologyComponents/Resources'
-import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-import StripedTable from '../methodologyComponents/StripedTable'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+import Resources from '../methodologyComponents/Resources'
+import StripedTable from '../methodologyComponents/StripedTable'
+import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
-export const pdohDataSources = [
+const pdohDataSources = [
   dataSourceMetadataMap.bjs,
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.decia_2020_territory_population,
@@ -36,7 +36,6 @@ const PdohLink = () => {
             Political Determinants of Health - Health Equity Tracker
           </title>
         </Helmet>
-        <h2 className='sr-only'>Political Determinants of Health</h2>
 
         <StripedTable
           id='categories-table'
@@ -52,27 +51,25 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 className='mt-12 text-title font-medium' id='pdoh-data-sourcing'>
+        <h2 className='mt-12 font-medium text-title' id='pdoh-data-sourcing'>
           Data Sourcing
-        </h3>
+        </h2>
         <p>
           We gather our information on incarcerated individuals (including
           children) in the U.S. from trusted sources:
         </p>
-        <h4 className='font-medium italic'>
-          Bureau of Justice Statistic (BJS)
-        </h4>
+        <p className='font-medium italic'>Bureau of Justice Statistic (BJS)</p>
         <p>
           Provides comprehensive reports on people under correctional control.
           Our insights are based on combining data from their “Prisoners in
           2020” and “Census of Jails 2005-2019” reports.
         </p>
-        <h4 className='font-medium italic'>Vera Institute for Justice</h4>
+        <p className='font-medium italic'>Vera Institute for Justice</p>
         <p>
           Offers detailed research on incarceration trends at the county level.
         </p>
-        <h4>Breakdown of Our Reports</h4>
-        <h5 className='text-text font-light'>By Age</h5>
+        <h3>Breakdown of Our Reports</h3>
+        <h4>By Age</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
@@ -81,20 +78,20 @@ const PdohLink = () => {
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5 className='text-text font-light'>By Race</h5>
+        <h4>By Race</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
-        <h5 className='text-text font-light'>By Sex</h5>
+        <h4>By Sex</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5 className='text-text font-light'>Special Reports</h5>
+        <h4>Special Reports</h4>
         <ul className='list-disc pl-4'>
           <li className='font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
@@ -107,10 +104,10 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='jails-vs-prisons'>
+        <h3 className='mt-12 font-medium text-title' id='jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
-        <h4>Jails</h4>
+        <h3>Jails</h3>
         <p>
           Jails are local facilities that primarily house individuals awaiting
           trial or sentencing, or those sentenced to less than a year. Our data
@@ -118,7 +115,7 @@ const PdohLink = () => {
           facility or weekend-only inmates. For county-level data, we focus on
           individuals aged 15-64 using data from the Vera Institute.
         </p>
-        <h4>Prisons</h4>
+        <h3>Prisons</h3>
 
         <p>Prisons generally house individuals sentenced to over a year.</p>
         <p>
@@ -126,29 +123,29 @@ const PdohLink = () => {
           person, not necessarily where they're held.
         </p>
         <p>Our data varies slightly based on the location and type:</p>
-        <h5 className='text-text font-light'>National report</h5>
+        <h4>National report</h4>
         <p>
           Includes all under the jurisdiction of a state or federal adult
           prison. Excludes territorial, military, or Indian Country facilities.
         </p>
-        <h5 className='text-text font-light'>State reports</h5>
+        <h4>State reports</h4>
         <p>
           Focuses on individuals within a state's prison system. Age-specific
           data is not available.
         </p>
-        <h5 className='text-text font-light'>Territory reports</h5>
+        <h4>Territory reports</h4>
         <p>
           Covers individuals in a territory's adult prison facilities. No
           specific demographic breakdown.
         </p>
-        <h5 className='text-text font-light'>County reports</h5>
+        <h4>County reports</h4>
         <p>
           Considers those under state prison systems but charged in a specific
           county.
         </p>
 
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='children-in-adult-facilities'
         >
           Children in Adult Facilities
@@ -172,7 +169,7 @@ const PdohLink = () => {
             populations.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='combined-systems'>
+        <h3 className='mt-12 font-medium text-title' id='combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -181,7 +178,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='political-forces'>
+        <h3 className='mt-12 font-medium text-title' id='political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -190,7 +187,7 @@ const PdohLink = () => {
           convicted felons are among the key political forces that determine
           voter participation in the justice-involved population.
         </p>
-        <h4 className='font-medium italic'>Voter Disenfranchisement</h4>
+        <h3 className='font-medium italic'>Voter Disenfranchisement</h3>
 
         <p>
           The ability to vote is described as the singular most powerful,
@@ -200,23 +197,23 @@ const PdohLink = () => {
           affected by this disenfranchisement (Sentencing Project).
         </p>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='health-impact-of-incarceration'
         >
           Health Impact of Incarceration
         </h3>
-        <h4 className='font-medium italic'>Immediate Health Consequences</h4>
+        <h3 className='font-medium italic'>Immediate Health Consequences</h3>
         <p>
           Studies indicate that incarceration heightens the risk of chronic
           health conditions, infectious diseases like HIV/AIDS, mental
           illnesses, and substance use disorders.
         </p>
-        <h4 className='font-medium italic'>Life Expectancy</h4>
+        <h3 className='font-medium italic'>Life Expectancy</h3>
         <p>
           Each year spent in prison is associated with a reduction of 2 years in
           life expectancy.
         </p>
-        <h4 className='font-medium italic'>Post-Incarceration Challenges</h4>
+        <h3 className='font-medium italic'>Post-Incarceration Challenges</h3>
         <p>
           The health impact of incarceration extends beyond the confinement
           period. Upon reentry into society, justice-involved individuals often
@@ -226,7 +223,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='women-in-gov'>
+        <h3 className='mt-12 font-medium text-title' id='women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -238,7 +235,7 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='pdoh-data-metrics'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
@@ -247,10 +244,10 @@ const PdohLink = () => {
         </p>
 
         <ul className='list-disc pl-4'>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium font-sansTitle'>
             Women in State Legislature
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium font-sansTitle'>
             {' '}
             Women in U.S. Congress
           </li>
@@ -288,7 +285,7 @@ const PdohLink = () => {
           </li>
         </ol>
 
-        <h3 className='mt-12 text-title font-medium' id='historical-tracking'>
+        <h3 className='mt-12 font-medium text-title' id='historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -315,7 +312,7 @@ const PdohLink = () => {
           goes back only to 1983.
         </p>
         <h3
-          className='mt-12 text-title font-medium'
+          className='mt-12 font-medium text-title'
           id='race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
@@ -341,7 +338,7 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='mt-12 text-title font-medium' id='pdoh-missing-data'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-missing-data'>
           Missing Data
         </h3>
         <p>
@@ -357,7 +354,7 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <h3 className='mt-12 text-title font-medium' id='pdoh-data-resources'>
+        <h3 className='mt-12 font-medium text-title' id='pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable

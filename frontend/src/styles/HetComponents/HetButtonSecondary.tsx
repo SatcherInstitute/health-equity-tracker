@@ -1,6 +1,6 @@
 import { Button } from '@mui/material'
 import type { ReactNode } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router'
 
 interface HetButtonSecondaryProps {
   children: ReactNode
@@ -49,7 +49,7 @@ export default function HetButtonSecondary(props: HetButtonSecondaryProps) {
   return (
     <Button
       variant='outlined'
-      className={`shadow-none hover:shadow-none hover:cursor-pointer hover:border-methodologyGreen rounded-2xl my-2 mx-auto px-8 py-2 w-auto bg-white hover:bg-methodologyGreen ${
+      className={`mx-auto my-2 w-auto rounded-2xl bg-white px-8 py-2 shadow-none hover:cursor-pointer hover:border-methodologyGreen hover:bg-methodologyGreen hover:shadow-none ${
         buttonClassName ?? ''
       }`}
       onClick={onClick}
@@ -57,7 +57,7 @@ export default function HetButtonSecondary(props: HetButtonSecondaryProps) {
       component={ComponentProp}
       {...linkProps}
     >
-      <span className='text-small text-altGreen hover:text-altBlack font-bold shadow-none hover:shadow-none'>
+      <span className='font-bold text-altGreen text-small shadow-none hover:text-altBlack hover:shadow-none'>
         {children}
       </span>
     </Button>

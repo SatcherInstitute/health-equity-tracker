@@ -1,0 +1,4 @@
+county_fips,county_name,age,prison_per_100k,prison_pct_share,prison_estimated_total,jail_per_100k,jail_pct_share,jail_estimated_total,incarceration_population_pct,incarceration_population_estimated_total,confined_children_estimated_total
+16025,Camas County,All,,,,,,,100.0,649.0,0.0
+22031,De Soto Parish,All,,,,691.0,100.0,118.0,,,
+31079,Hall County,All,592.0,100.0,227.0,,,,,,

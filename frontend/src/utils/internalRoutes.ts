@@ -20,7 +20,7 @@ export const OLD_TERMS_OF_SERVICE_LINK = '/termsofservice'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
 export const HEALTH_EQUITY_GUIDES_TAB =
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/guides'
-export const HEALTH_EQUITY_RESOURCES_TAB =
+const HEALTH_EQUITY_RESOURCES_TAB =
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK + '/external-resources'
 
 // CONTEXT TABS
@@ -45,6 +45,7 @@ export const BEHAVIORAL_HEALTH_LINK =
   TOPIC_CATEGORIES_LINK + '/behavioral-health'
 export const CHRONIC_DISEASE_LINK = TOPIC_CATEGORIES_LINK + '/chronic-disease'
 export const COMMUNITY_SAFETY_LINK = TOPIC_CATEGORIES_LINK + '/community-safety'
+export const MATERNAL_HEALTH_LINK = TOPIC_CATEGORIES_LINK + '/maternal-health'
 export const COVID_19_LINK = TOPIC_CATEGORIES_LINK + '/covid'
 export const GLOSSARY_LINK = METHODOLOGY_PAGE_LINK + '/glossary'
 export const HIV_LINK = TOPIC_CATEGORIES_LINK + '/hiv'
@@ -69,21 +70,19 @@ export const AGE_ADJUST_COVID_DEATHS_US_SETTING =
   '?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios'
 export const AGE_ADJUST_COVID_HOSP_US_SETTING =
   '?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios'
-export const COVID_HOSP_NY_COUNTY_SETTING =
-  '?mls=1.covid_hospitalizations-3.36061'
-export const COVID_VAX_US_SETTING = '?mls=1.covid_vaccinations-3.00'
-export const COPD_US_SETTING = '?mls=1.copd-3.00'
-export const DIABETES_US_SETTING = '?mls=1.diabetes-3.00'
-export const UNINSURANCE_US_SETTING = '?mls=1.health_insurance-3.00'
-export const POVERTY_US_SETTING = '?mls=1.poverty-3.00'
-export const OPIOID_US_SETTING =
-  '?dt1=non_medical_drug_use&mls=1.substance-3.00'
+const COVID_HOSP_NY_COUNTY_SETTING = '?mls=1.covid_hospitalizations-3.36061'
+const COVID_VAX_US_SETTING = '?mls=1.covid_vaccinations-3.00'
+const COPD_US_SETTING = '?mls=1.copd-3.00'
+const DIABETES_US_SETTING = '?mls=1.diabetes-3.00'
+const UNINSURANCE_US_SETTING = '?mls=1.health_insurance-3.00'
+const POVERTY_US_SETTING = '?mls=1.poverty-3.00'
+const OPIOID_US_SETTING = '?dt1=non_medical_drug_use&mls=1.substance-3.00'
 
 export const GUN_DEATHS_YOUNG_ADULTS_USA_SETTING =
   '?mls=1.gun_violence_youth-3.00&group1=All&demo=race_and_ethnicity&dt1=gun_deaths_young_adults#rate-map'
 export const HIV_PREVALENCE_RACE_USA_SETTING =
   '?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence'
-export const PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING =
+const PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING =
   '?mls=1.medicare_hiv-3.00&group1=All&demo=eligibility&dt1=medicare_hiv&multiple-maps=true'
 
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
@@ -97,5 +96,5 @@ export const WARM_WELCOME_DEMO_SETTING =
 
 // SECTION IDS
 export const WHAT_DATA_ARE_MISSING_ID = 'definitions-missing-data'
-export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
+const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
   EXPLORE_DATA_PAGE_LINK + '#' + WHAT_DATA_ARE_MISSING_ID

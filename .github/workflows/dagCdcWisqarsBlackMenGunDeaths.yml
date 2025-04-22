@@ -1,0 +1,72 @@
+name: DAG - CDC_WISQARS_BLACK_MEN_DATA (GUN DEATHS)
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "CDC_WISQARS_BLACK_MEN_DATA"
+  DATASET_NAME: "cdc_wisqars_black_men_data"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  URBANICITY: "urbanicity"
+  AGE: "age"
+  NATIONAL: "national"
+  STATE: "state"
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      # URBANICITY NATIONAL
+      - name: Process and write urbanicity national tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.URBANICITY }}
+          geographic: ${{ env.NATIONAL }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # URBANICITY STATE
+      - name: Process and write urbanicity state tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.URBANICITY }}
+          geographic: ${{ env.STATE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # AGE NATIONAL
+      - name: Process and write age national tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+          geographic: ${{ env.NATIONAL }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # AGE STATE
+      - name: Process and write age state tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+          geographic: ${{ env.STATE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # EXPORTERS
+      - name: Export NDJSON files for urbanicity to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.URBANICITY }}
+          should_export_as_alls: "true"
+
+      - name: Export NDJSON files for age to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}

@@ -1,8 +1,8 @@
-import { useCallback, useState, type RefObject } from 'react'
+import { type RefObject, useCallback, useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { HetRow } from '../../data/utils/DatasetTypes'
+import { formatValue } from '../sharedBarChartPieces/helpers'
 import type { BarChartTooltipData } from './BarChartTooltip'
-import { formatValue } from './helpers'
 
 export function useRateChartTooltip(
   containerRef: RefObject<HTMLDivElement>,

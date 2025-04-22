@@ -1,22 +1,22 @@
-import MaternalMortalityProvider from './MaternalMortalityProvider'
+import { beforeEach, describe, expect, test } from 'vitest'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import {
+  autoInitGlobals,
+  getDataFetcher,
+  resetCacheDebug,
+} from '../../utils/globals'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type { MetricId } from '../config/MetricConfigTypes'
 import {
   Breakdowns,
   type DemographicType,
   type TimeView,
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import {
-  autoInitGlobals,
-  getDataFetcher,
-  resetCacheDebug,
-} from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE } from '../utils/Constants'
-import { expect, describe, test, beforeEach } from 'vitest'
-import type { MetricId } from '../config/MetricConfigTypes'
+import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import MaternalMortalityProvider from './MaternalMortalityProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   MaternalMortalityDatasetId: DatasetId,
@@ -69,7 +69,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('National Current and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_national_current',
+      'maternal_mortality_data-race_and_ethnicity_national_current',
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'current',
@@ -78,7 +78,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('National Historical and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_national_historical',
+      'maternal_mortality_data-race_and_ethnicity_national_historical',
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'historical',
@@ -87,7 +87,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('State Current and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_state_current',
+      'maternal_mortality_data-race_and_ethnicity_state_current',
       Breakdowns.forFips(new Fips('08')),
       RACE,
       'current',
@@ -96,7 +96,7 @@ describe('MaternalMortalityProvider', () => {
 
   test('State Historical and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'maternal_mortality_data-by_race_state_historical',
+      'maternal_mortality_data-race_and_ethnicity_state_historical',
       Breakdowns.forFips(new Fips('08')),
       RACE,
       'historical',

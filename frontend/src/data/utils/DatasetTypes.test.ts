@@ -1,6 +1,6 @@
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataSourceId } from '../config/MetadataMap'
-import { convertSpecialCharactersForCsv, Dataset } from './DatasetTypes'
+import { Dataset, convertSpecialCharactersForCsv } from './DatasetTypes'
 
 describe('DatasetTypes', () => {
   test('Testing convertSpecialCharactersForCsv()', async () => {
@@ -24,7 +24,6 @@ describe('DatasetTypes', () => {
     {
       population_pct: 1.0,
       race_and_ethnicity: 'All',
-      race_category_id: 'ALL',
       state_fips: '01',
       state_name: 'Alabama',
       some_condition_per_100k: null,
@@ -33,7 +32,6 @@ describe('DatasetTypes', () => {
     {
       population_pct: 99.0,
       race_and_ethnicity: 'Asian, Native Hawaiian, and Pacific Islander',
-      race_category_id: 'API_NH',
       state_fips: '01',
       state_name: 'Alabama',
       some_condition_per_100k: null,
@@ -44,7 +42,6 @@ describe('DatasetTypes', () => {
   const expectedColumnNames = [
     'population_pct',
     'race_and_ethnicity',
-    'race_category_id',
     'state_fips',
     'state_name',
     'some_condition_per_100k',
@@ -52,7 +49,7 @@ describe('DatasetTypes', () => {
   ]
 
   const expectedCsvString =
-    'population_pct,race_and_ethnicity,race_category_id,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,ALL,01,Alabama,,<0.01\r\n99,"Asian, Native Hawaiian, and Pacific Islander",API_NH,01,Alabama,,<0.01'
+    'population_pct,race_and_ethnicity,state_fips,state_name,some_condition_per_100k,some_condition_pct_share\r\n1,All,01,Alabama,,<0.01\r\n99,"Asian, Native Hawaiian, and Pacific Islander",01,Alabama,,<0.01'
 
   const dataset = new Dataset(fakeRows, fakeMetaData)
 

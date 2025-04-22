@@ -2,10 +2,6 @@ import { test } from '@playwright/test'
 
 test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
   await page.goto('/exploredata?mls=1.hiv_black_women-3.00')
-  await page.getByRole('combobox', { name: 'Demographic Age' }).click()
-  await page.getByLabel('Race/Ethnicity unavailable').click()
-  await page.getByLabel('Sex unavailable for').click()
-  await page.getByRole('option', { name: 'Age' }).click()
   await page.getByLabel('Age:').click()
   await page.getByRole('button', { name: '+' }).click()
   await page
@@ -21,7 +17,6 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
       name: 'HIV prevalence for Black (NH) women over time in the United States',
     })
     .click()
-  await page.getByLabel('Include 55+').click()
   await page.getByLabel('Include 55+').click()
   await page.getByText("Due to COVID-19's effects on").click()
   await page
@@ -73,21 +68,13 @@ test('HIV Black Women: Prevalance Bottom Cards', async ({ page }) => {
     .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
     .click()
   await page
-    .getByRole('button', { name: 'New Diagnoses for Black Women' })
+    .getByRole('menuitem', { name: 'New Diagnoses for Black Women' })
     .click()
   await page
     .getByRole('heading', { name: 'Missing data for HIV deaths,' })
     .click()
   await page.getByText('County-level data is').click()
   await page.getByText('To protect personal privacy,').click()
-  await page
-    .getByRole('button', { name: 'New Diagnoses for Black Women' })
-    .click()
-  await page
-    .getByRole('button', { name: 'New Diagnoses for Black Women' })
-    .click()
-  await page.getByLabel('Age:').click()
-  await page.getByRole('button', { name: 'All' }).click()
 })
 
 test('HIV Black Women: Diagnoses', async ({ page }) => {
@@ -105,7 +92,7 @@ test('HIV Black Women: Diagnoses', async ({ page }) => {
   await page
     .getByRole('button', { name: 'New Diagnoses for Black Women' })
     .click()
-  await page.getByRole('button', { name: 'Deaths for Black women' }).click()
+  await page.getByRole('menuitem', { name: 'Deaths for Black women' }).click()
 })
 
 test('HIV Black Women: Deaths', async ({ page }) => {
@@ -113,6 +100,7 @@ test('HIV Black Women: Deaths', async ({ page }) => {
     '/exploredata?mls=1.hiv_black_women-3.00&group1=All&dt1=hiv_deaths_black_women',
   )
   await page
+    .locator('#rates-over-time')
     .getByRole('heading', { name: 'Rates of HIV deaths for Black' })
     .click()
   await page

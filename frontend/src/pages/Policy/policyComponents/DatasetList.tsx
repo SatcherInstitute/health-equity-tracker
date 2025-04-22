@@ -1,5 +1,4 @@
-import React from 'react'
-import { CheckRounded, BlockRounded } from '@mui/icons-material'
+import { BlockRounded, CheckRounded } from '@mui/icons-material'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 interface DatasetItem {
@@ -21,13 +20,16 @@ export default function DatasetList({ datasets }: DatasetListProps) {
   return (
     <div className='grid grid-cols-2 md:grid-cols-3'>
       {datasets.map((dataset) => (
-        <div key={dataset.datasetName} className='m-1'>
-          <div className='flex flex-col justify-left my-2'>
-            <p className='text-text my-0'>
+        <div
+          key={dataset.datasetName + '_' + dataset.datasetNameDetails}
+          className='m-1'
+        >
+          <div className='justify-left my-2 flex flex-col'>
+            <p className='my-0 text-text'>
               <HetTerm>{dataset.datasetName}</HetTerm>
             </p>
             {dataset.datasetNameDetails && (
-              <p className='text-smallest my-0'>
+              <p className='my-0 text-smallest'>
                 <HetTerm>{dataset.datasetNameDetails}</HetTerm>
               </p>
             )}
@@ -37,9 +39,9 @@ export default function DatasetList({ datasets }: DatasetListProps) {
             {dataset.items.map((item) => (
               <li key={item.label} className='flex flex-row align-center'>
                 {item.included ? (
-                  <CheckRounded className='text-text text-altGreen' />
+                  <CheckRounded className='text-altGreen text-text' />
                 ) : (
-                  <BlockRounded className='text-text text-redOrange' />
+                  <BlockRounded className='text-redOrange text-text' />
                 )}
                 <p className='my-0 ml-2'>{item.label}</p>
               </li>

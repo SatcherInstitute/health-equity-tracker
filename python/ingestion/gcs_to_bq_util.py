@@ -8,8 +8,14 @@ from io import BytesIO, StringIO
 from typing import List
 from ingestion.constants import BQ_STRING, BQ_FLOAT
 import numpy as np
+from ingestion.het_types import (
+    TIME_VIEW_TYPE,
+    COMPREHENSIVE_DEMOGRAPHIC_TYPE,
+    TOPIC_CATEGORY_TYPE,
+)  # pylint: disable=no-name-in-module
 
-DATA_DIR = os.path.join(os.sep, 'app', 'data')
+
+DATA_DIR = os.path.join(os.sep, "app", "data")
 
 
 def __convert_frame_to_json(frame):
@@ -17,7 +23,7 @@ def __convert_frame_to_json(frame):
     # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()
     # (See https://github.com/googleapis/python-bigquery/issues/19). We have to
     # use load_table_from_json as a workaround.
-    result = frame.to_json(orient='records')
+    result = frame.to_json(orient="records")
     json_data = json.loads(result)
     return json_data
 
@@ -111,10 +117,10 @@ def get_schema(frame, column_types, col_modes):
     input_cols = column_types.keys()
 
     if len(input_cols) != len(frame.columns) or set(input_cols) != set(frame.columns):
-        raise ValueError('Column types did not match frame columns')
+        raise ValueError("Column types did not match frame columns")
 
     def create_field(col):
-        return bigquery.SchemaField(col, column_types[col], mode=(col_modes[col] if col in col_modes else 'NULLABLE'))
+        return bigquery.SchemaField(col, column_types[col], mode=(col_modes[col] if col in col_modes else "NULLABLE"))
 
     return list(map(create_field, column_types.keys()))
 
@@ -138,12 +144,12 @@ def values_json_to_df(values_json, dtype=None) -> pd.DataFrame:
     NOTE: To test without needing a real json file, wrap the json string in StringIO()
     """
 
-    frame = pd.DataFrame(pd.read_json(values_json, orient='values', dtype=dtype))
+    frame = pd.DataFrame(pd.read_json(values_json, orient="values", dtype=dtype))
     new_column_names = dict(frame.iloc[0])
     frame.rename(columns=new_column_names, inplace=True)  # pylint: disable=E1101
     frame.drop([0], inplace=True)  # pylint: disable=E1101
     # Fill None values with np.nan TODO: remove after updating to pandas 3
-    with pd.option_context('future.no_silent_downcasting', True):
+    with pd.option_context("future.no_silent_downcasting", True):
         frame = frame.fillna(np.nan)  # pylint: disable=E1101
 
     return frame
@@ -156,11 +162,11 @@ def load_values_blob_as_df(blob):
 
     blob: google.cloud.storage.blob.Blob object"""
     json_string = blob.download_as_string()
-    json_string = json_string.decode('utf-8')
+    json_string = json_string.decode("utf-8")
     return values_json_to_df(StringIO(json_string))
 
 
-def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates=False, thousands=None):
+def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates=False, thousands=None, encoding=None):
     """Loads csv data from the provided gcs_bucket and filename to a DataFrame.
     Expects the data to be in csv format, with the first row as the column
     names.
@@ -172,13 +178,16 @@ def load_csv_as_df(gcs_bucket, filename, dtype=None, chunksize=None, parse_dates
            specified; column type is auto-detected. This is useful, for
            example, to force integer-like ids to be treated as strings
     parse_dates: Column(s) that should be parsed and interpreted as dates.
-    thousands: str to be used as a thousands separator for parsing numbers"""
+    thousands: str to be used as a thousands separator for parsing numbers
+    encoding: Encoding of the file"""
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
     local_path = local_file_path(filename)
     blob.download_to_filename(local_path)
-    frame = pd.read_csv(local_path, dtype=dtype, chunksize=chunksize, parse_dates=parse_dates, thousands=thousands)
+    frame = pd.read_csv(
+        local_path, dtype=dtype, chunksize=chunksize, parse_dates=parse_dates, thousands=thousands, encoding=encoding
+    )
 
     # Warning: os.remove() will remove the directory entry but will not release
     # the file's storage until the file is no longer being used by |frame|.
@@ -221,7 +230,7 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None) -> pd.D
 
     url: url to download the csv file from"""
 
-    url = requests.Request('GET', url, params=params).prepare().url
+    url = requests.Request("GET", url, params=params).prepare().url
     return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
@@ -249,7 +258,7 @@ def load_xlsx_as_df_from_data_dir(
 
 
 def load_csv_as_df_from_data_dir(
-    directory, filename, subdirectory='', dtype=None, skiprows=None, na_values=None, thousands=None, usecols=None
+    directory, filename, subdirectory="", dtype=None, skiprows=None, na_values=None, thousands=None, usecols=None
 ) -> pd.DataFrame:
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
@@ -275,13 +284,13 @@ def load_csv_as_df_from_data_dir(
 def load_tsv_as_df_from_data_dir(
     directory,
     filename,
-    subdirectory='',
+    subdirectory="",
     dtype=None,
     skiprows=None,
     na_values=None,
     thousands=None,
     usecols=None,
-    delimiter='\t',
+    delimiter="\t",
     skipinitialspace=True,
 ) -> pd.DataFrame:
     """Loads tsv data from /data/{directory}/{filename} into a DataFrame.
@@ -351,7 +360,7 @@ def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_lis
     """
 
     file_path = os.path.join(DATA_DIR, directory, filename)
-    with open(file_path, 'r', encoding='utf-8') as data_file:
+    with open(file_path, "r", encoding="utf-8") as data_file:
         data = json.loads(data_file.read())
     df = pd.json_normalize(data, key_list)
     return df
@@ -362,7 +371,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None) -> pd.DataFrame:
 
     url: url to download the json from
     """
-    url = requests.Request('GET', url, params=params).prepare().url
+    url = requests.Request("GET", url, params=params).prepare().url
     return pd.read_json(url, dtype=dtype)
 
 
@@ -371,7 +380,7 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None) -> pd.DataFrame:
 
     url: url to download the json from
     key: key in the json in which all data underneath will be loaded into the dataframe"""
-    r = requests.get(url, timeout=10)
+    r = requests.get(url, timeout=120)
     jsn = json.loads(r.text)
     return pd.DataFrame(jsn[key], dtype=dtype)
 
@@ -384,7 +393,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None) -> 
     dataset: The BigQuery dataset to write to.
     table_name: The BigQuery table to write to."""
     client = bigquery.Client()
-    table_id = f'bigquery-public-data.{dataset}.{table_name}'
+    table_id = f"bigquery-public-data.{dataset}.{table_name}"
 
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
@@ -411,11 +420,11 @@ def load_values_as_json(gcs_bucket, filename):
     client = storage.Client()
     bucket = client.get_bucket(gcs_bucket)
     blob = bucket.blob(filename)
-    return json.loads(blob.download_as_bytes().decode('utf-8'))
+    return json.loads(blob.download_as_bytes().decode("utf-8"))
 
 
 def local_file_path(filename):
-    return f'/tmp/{filename}'
+    return f"/tmp/{filename}"
 
 
 def list_bucket_files(bucket_name: str) -> list:
@@ -434,7 +443,7 @@ def fetch_zip_as_files(url: str) -> ZipFile:
     Fetches a .zip files from the given url and returns a zip object
     with the listed internal files.
     """
-    response = requests.get(url, timeout=10)
+    response = requests.get(url, timeout=120)
     response.raise_for_status()  # Ensure we notice bad responses
     zip_file = BytesIO(response.content)
     return ZipFile(zip_file)
@@ -444,7 +453,7 @@ def fetch_json_from_web(url):
     """
     fetches json from a URL
     """
-    r = requests.get(url, timeout=10)
+    r = requests.get(url, timeout=120)
     return json.loads(r.text)
 
 
@@ -465,3 +474,21 @@ def get_bq_column_types(df, float_cols: List[str]):
         column_types[col] = BQ_FLOAT
 
     return column_types
+
+
+def make_bq_table_id(
+    demographic: COMPREHENSIVE_DEMOGRAPHIC_TYPE,
+    geographic,
+    time_view: TIME_VIEW_TYPE,
+    category_prefix: TOPIC_CATEGORY_TYPE | None = None,
+    has_age_adjust_suffix: bool = False,
+):
+
+    id = f"{demographic}_{geographic}_{time_view}"
+    if category_prefix:
+        id = f"{category_prefix}_{id}"
+
+    if has_age_adjust_suffix:
+        id = f"{id}-with_age_adjust"
+
+    return id

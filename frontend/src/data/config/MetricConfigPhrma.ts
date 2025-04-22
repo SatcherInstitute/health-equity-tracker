@@ -1,5 +1,5 @@
 import {
-  medicareHigherIsBetterMapConfig,
+  medicareAdherenceHigherIsBetterMapConfig,
   medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from './MetricConfigTypes'
@@ -7,7 +7,7 @@ import type { DataTypeConfig } from './MetricConfigTypes'
 export const MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS = [
   'medicare_cardiovascular',
   'medicare_hiv',
-]
+] as const
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'medicare_cardiovascular',
@@ -86,7 +86,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     categoryId: 'medicare',
     dataTypeId: 'bb_ami_adherence',
     dataTableTitle: 'Summary for persistence of beta blockers post AMI',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
@@ -148,7 +148,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'statins_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTableTitle: 'Summary for adherence to statins',
 
     dataTypeShortLabel: 'Adherence to Statins',
@@ -217,7 +217,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'beta_blockers_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTableTitle: 'Summary for adherence to beta blockers',
 
     dataTypeShortLabel: 'Adherence to Beta Blockers',
@@ -279,7 +279,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'ras_antagonists_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RASA)',
     dataTableTitle:
@@ -342,7 +342,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'ccb_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
     fullDisplayName: 'Adherence to calcium channel blockers',
     dataTableTitle: 'Summary for adherence to calcium channel blockers',
@@ -403,7 +403,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'doac_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
     dataTableTitle: 'Summary for adherence to direct oral anticoagulants',
 
@@ -532,7 +532,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'arv_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
     dataTableTitle: 'Summary for adherence to antiretrovirals',
 
@@ -657,7 +657,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'medicare',
     dataTypeId: 'anti_psychotics_adherence',
-    mapConfig: medicareHigherIsBetterMapConfig,
+    mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Anti-Psychotics',
     dataTableTitle: 'Summary for adherence to anti-psychotics',
 

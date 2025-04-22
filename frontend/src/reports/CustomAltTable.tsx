@@ -1,18 +1,4 @@
-import { useRef } from 'react'
-import type { Fips } from '../data/utils/Fips'
-import { Breakdowns } from '../data/query/Breakdowns'
-import { MetricQuery } from '../data/query/MetricQuery'
-import CardWrapper from '../cards/CardWrapper'
-import {
-  type DemographicGroup,
-  ALL,
-  TIME_PERIOD_LABEL,
-  AGE,
-} from '../data/utils/Constants'
-import type { DemographicType } from '../data/query/Breakdowns'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
-import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
-import type { HetRow } from '../data/utils/DatasetTypes'
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import {
   Table,
   TableBody,
@@ -22,10 +8,24 @@ import {
   TableRow,
   Tooltip,
 } from '@mui/material'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { useRef } from 'react'
+import CardWrapper from '../cards/CardWrapper'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { isPctType, formatFieldValue } from '../data/config/MetricConfigUtils'
+import { formatFieldValue, isPctType } from '../data/config/MetricConfigUtils'
+import type { DemographicType } from '../data/query/Breakdowns'
+import { Breakdowns } from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import {
+  AGE,
+  ALL,
+  type DemographicGroup,
+  TIME_PERIOD_LABEL,
+} from '../data/utils/Constants'
+import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const HASH_ID_RATES_OVER_TIME: ScrollableHashId = 'rates-over-time'
 
@@ -68,7 +68,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
       minHeight={400}
       reportTitle={props.reportTitle}
       scrollToHash={HASH_ID_RATES_OVER_TIME}
-      className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
+      className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
     >
       {([queryResponseRates]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -93,7 +93,6 @@ export default function CustomAltTable(props: CustomAltTableProps) {
           accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
         const tableRef = useRef(null)
-        const linkRef = useRef(null)
         const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
 
         return (
@@ -122,7 +121,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                             whiteSpace: 'normal',
                             wordWrap: 'break-word',
                           }}
-                          className='break-words border-0 border-b border-altDark bg-white leading-lhSomeSpace'
+                          className='break-words border-0 border-altDark border-b bg-white leading-lhSomeSpace'
                         >
                           {!isTimeCol &&
                             key !== ALL &&

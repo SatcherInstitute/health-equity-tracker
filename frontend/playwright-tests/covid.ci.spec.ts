@@ -2,17 +2,10 @@ import { test } from '@playwright/test'
 
 test('Covid Cases', async ({ page }) => {
   await page.goto('/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_cases')
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
   await page
     .locator('#rate-map')
-    .getByRole('heading', { name: 'Rates of COVID-19 cases since' })
+    .getByRole('heading', { name: 'Rates of COVID-19 cases' })
     .click()
-  await page.getByLabel('open the topic info modal').click()
-  await page.getByLabel('close topic info modal').click()
-  await page.getByText('Demographic').nth(2).click()
-  await page.getByText('Off').nth(1).click()
-  await page.locator('#menu- div').first().click()
   await page
     .getByRole('heading', { name: 'Monthly COVID-19 cases per' })
     .click()
@@ -20,7 +13,7 @@ test('Covid Cases', async ({ page }) => {
   await page.getByRole('button', { name: 'Collapse rates over time' }).click()
   await page
     .locator('#rate-chart')
-    .getByRole('heading', { name: 'Rates of COVID-19 cases since' })
+    .getByRole('heading', { name: 'Rates of COVID-19 cases' })
     .click()
   await page
     .getByRole('button', { name: 'Population vs. distribution' })
@@ -45,10 +38,6 @@ test('Covid Cases', async ({ page }) => {
 
 test('Covid Deaths', async ({ page }) => {
   await page.goto('/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths')
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
-  await page.getByLabel('open the topic info modal').click()
-  await page.getByLabel('close topic info modal').click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Rates of COVID-19' })
@@ -71,10 +60,6 @@ test('Covid Deaths', async ({ page }) => {
 
 test('Covid Hospitalizations', async ({ page }) => {
   await page.goto('/exploredata?mls=1.covid-3.00&dt1=covid_hospitalizations')
-  await page.getByText('Race and Ethnicity:').click()
-  await page.locator('.MuiBackdrop-root').click()
-  await page.getByLabel('open the topic info modal').click()
-  await page.getByLabel('close topic info modal').click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Rates of COVID-19' })

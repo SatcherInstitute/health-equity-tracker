@@ -1,15 +1,18 @@
-import DataSourceListing from './DataSourceListing'
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 import {
   type DataSourceId,
   dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
-import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
-import { Helmet, HelmetProvider } from 'react-helmet-async'
-import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import HetCTASmall from '../../styles/HetComponents/HetCTASmall'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
+import {
+  DATA_CATALOG_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
+} from '../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
+import DataSourceListing from './DataSourceListing'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -58,17 +61,15 @@ export default function DataCatalogPage() {
       </Helmet>
       <section
         id='main-content'
-        className='flex flex-col w-svw justify-center max-w-lgXl py-16 px-16 md:px-24 lg:px-56 mx-auto'
+        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-16 py-16 md:px-24 lg:px-56'
       >
         <h1
           id='main'
-          tabIndex={-1}
-          className='font-sansTitle text-bigHeader font-bold leading-lhNormal text-altGreen'
+          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
         >
           Data Downloads
         </h1>
 
-        <h2 className='sr-only'>Data Downloads</h2>
         <p className='text-text'>
           Here you can access and download the data source files that are
           displayed in the charts on the Health Equity Tracker. Want to explore
@@ -76,7 +77,7 @@ export default function DataCatalogPage() {
         </p>
 
         <HetCTASmall
-          className='w-fit mx-auto font-extrabold'
+          className='mx-auto w-fit font-extrabold'
           href={EXPLORE_DATA_PAGE_LINK}
         >
           Explore the data dashboard
@@ -108,7 +109,7 @@ export default function DataCatalogPage() {
                   {viewingSubsetOfSources && (
                     <HetTextArrowLink
                       containerClassName='flex justify-center'
-                      link={`DATA_CATALOG_PAGE_LINK`}
+                      link={DATA_CATALOG_PAGE_LINK}
                       linkText={'View All Datasets'}
                     />
                   )}

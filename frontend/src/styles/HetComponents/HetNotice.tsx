@@ -1,11 +1,11 @@
-import { Alert, AlertTitle, type AlertColor } from '@mui/material'
-import type { ReactNode } from 'react'
-import FlagIcon from '@mui/icons-material/Flag'
-import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined'
+import FlagIcon from '@mui/icons-material/Flag'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
+import { Alert, type AlertColor, AlertTitle } from '@mui/material'
+import type { ReactNode } from 'react'
 
-export type HetNoticeKind =
+type HetNoticeKind =
   | 'data-integrity'
   | 'health-crisis'
   | 'text-only'
@@ -30,7 +30,7 @@ export default function HetNotice(props: HetNoticeProps) {
     <Alert
       id={props.id}
       severity={severity}
-      className={`rounded mx-2 my-4 lg:mx-5 lg:my-10 ${props.className ?? ''}`}
+      className={`mx-2 my-4 rounded lg:mx-5 lg:my-10 ${props.className ?? ''}`}
       role='note'
       icon={props.icon ?? icon}
       variant={variant}
@@ -39,7 +39,7 @@ export default function HetNotice(props: HetNoticeProps) {
         <AlertTitle
           className={
             props.kind === 'quote'
-              ? 'italic text-small md:text-title font-bold'
+              ? 'font-bold text-small italic md:text-title'
               : ''
           }
         >

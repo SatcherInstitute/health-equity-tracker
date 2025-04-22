@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async'
+import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
+import { urlMap } from '../../../utils/externalUrls'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import FactCard from '../policyComponents/FactCard'
 import {
   gvaFacts,
   rocketFoundationFacts,
 } from '../policyContent/CrisisOverviewContent'
-import FactCard from '../policyComponents/FactCard'
-import { HetOverline } from '../../../styles/HetComponents/HetOverline'
-import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
-import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
-import { urlMap } from '../../../utils/externalUrls'
 
 export default function CrisisOverviewTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
@@ -17,9 +17,7 @@ export default function CrisisOverviewTab() {
       <Helmet>
         <title>Crisis Overview - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>
-        Understanding the Crisis of Gun Violence in Atlanta
-      </h2>
+
       <div className='flex flex-col gap-2'>
         <section id='introduction'>
           <p>
@@ -48,12 +46,12 @@ export default function CrisisOverviewTab() {
             />
           </div>
 
-          <div className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+          <div className='my-0 grid list-none grid-cols-1 gap-4 pt-2 pb-4 pl-0 md:grid-cols-2'>
             {rocketFoundationFacts.map((rocketFoundationFact, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0
               const isDesktopShadow = isMdAndUp && index % 2 !== 0
               const uniqueKey = `fact-${index}`
-              
+
               return (
                 <div
                   key={uniqueKey}
@@ -79,7 +77,7 @@ export default function CrisisOverviewTab() {
             label='Gun Violence Archive'
           />
 
-          <ul className='list-none pl-0 grid gap-4 md:grid-cols-2 grid-cols-1 pt-2 pb-4 my-0'>
+          <ul className='my-0 grid list-none grid-cols-1 gap-4 pt-2 pb-4 pl-0 md:grid-cols-2'>
             {gvaFacts.map((gvaFact, index) => {
               const uniqueKey = `fact-${index}`
 

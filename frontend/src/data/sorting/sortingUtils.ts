@@ -3,7 +3,7 @@ import type { HetRow } from '../utils/DatasetTypes'
 import { AgeSorterStrategy } from './AgeSorterStrategy'
 import { IncomeSorterStrategy } from './IncomeSorterStrategy'
 
-export type OptionalSortArgs = [
+type OptionalSortArgs = [
   compareFn?: ((a: string, b: string) => number) | undefined,
 ]
 

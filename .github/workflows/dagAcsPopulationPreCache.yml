@@ -1,0 +1,28 @@
+name: DAG - ACS_POPULATION PRE-CACHE INGESTION
+
+# NOTE: This workflow pre-caches ACS response into our GCS landing buckets; it does not need to be run every time unless the source data is expected to have changed.
+
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+env:
+  WORKFLOW_ID: "ACS_POPULATION"
+  DATASET_NAME: "acs_population"
+  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
+  INGESTION_SERVICE_URL: ${{ secrets.DATA_INGESTION_SERVICE_URL }}
+
+jobs:
+  ingest-all-years:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
+      - name: Ingest ACS population data
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+        with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}

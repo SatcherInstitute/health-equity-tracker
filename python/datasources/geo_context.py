@@ -26,20 +26,20 @@ def format_svi(value: float) -> float:
         return np.nan
     if 0 <= value <= 1:
         return round(value, 2)
-    raise ValueError(f'The provided SVI: {value} is not an expected number between 0.0-1.0')
+    raise ValueError(f"The provided SVI: {value} is not an expected number between 0.0-1.0")
 
 
 class GeoContext(DataSource):
     @staticmethod
     def get_id():
-        return 'GEO_CONTEXT'
+        return "GEO_CONTEXT"
 
     @staticmethod
     def get_table_name():
-        return 'geo_context'
+        return "geo_context"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for GeoContext')
+        raise NotImplementedError("upload_to_gcs should not be called for GeoContext")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
@@ -49,7 +49,8 @@ class GeoContext(DataSource):
             if geo_level == COUNTY_LEVEL:
                 float_cols.append(std_col.SVI)
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
-            gcs_to_bq_util.add_df_to_bq(df, dataset, f'{geo_level}_{CURRENT}', column_types=column_types)
+            table_id = gcs_to_bq_util.make_bq_table_id("alls", geo_level, CURRENT)
+            gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=column_types)
 
     def generate_breakdown(self, geo_level: Literal["national", "state", "county"]) -> pd.DataFrame:
 
@@ -79,7 +80,7 @@ def merge_svi_data(df):
         original df with added std_col.SVI column of floats
     """
     svi_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        'cdc_svi_county', "cdc_svi_county_totals.csv", dtype={'FIPS': str}
+        "cdc_svi_county", "cdc_svi_county_totals.csv", dtype={"FIPS": str}
     )
     columns_to_standard = {"FIPS": std_col.COUNTY_FIPS_COL, "RPL_THEMES": std_col.SVI}
     svi_df = svi_df.rename(columns=columns_to_standard)

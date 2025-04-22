@@ -1,30 +1,30 @@
 import { useState } from 'react'
-import { Report } from './Report'
-import CompareReport from './CompareReport'
+import type { DropdownVarId } from '../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import { Fips } from '../data/utils/Fips'
+import HetTextArrowLink from '../styles/HetComponents/HetTextArrowLink'
 import {
   type MadLib,
+  getMadLibPhraseText,
   getMadLibWithUpdatedValue,
   getPhraseValue,
-  getMadLibPhraseText,
 } from '../utils/MadLibs'
-import { Fips } from '../data/utils/Fips'
-import { METRIC_CONFIG } from '../data/config/MetricConfig'
-import DefinitionsList from './ui/DefinitionsList'
-import LifelineAlert from './ui/LifelineAlert'
-import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import WhatDataAreMissing from './WhatDataAreMissing'
 import {
   DATA_CATALOG_PAGE_LINK,
   RACES_AND_ETHNICITIES_LINK,
 } from '../utils/internalRoutes'
+import CompareReport from './CompareReport'
+import { Report } from './Report'
+import WhatDataAreMissing from './WhatDataAreMissing'
+import DefinitionsList from './ui/DefinitionsList'
+import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
+import LifelineAlert from './ui/LifelineAlert'
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
 import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
-import HetTextArrowLink from '../styles/HetComponents/HetTextArrowLink'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
 
-export const SINGLE_COLUMN_WIDTH = 12
+const SINGLE_COLUMN_WIDTH = 12
 
 interface ReportProviderProps {
   isSingleColumn: boolean
@@ -189,12 +189,12 @@ function ReportProvider(props: ReportProviderProps) {
           {/* Display condition definition(s) based on the tracker madlib settings */}
           {definedConditions?.length > 0 && (
             <div className='mb-5'>
-              <h3
+              <h2
                 id='definitions-missing-data'
                 className='scroll-m-0 text-header first-of-type:mt-0 md:scroll-mt-24 '
               >
                 Definitions:
-              </h3>
+              </h2>
               <DefinitionsList dataTypesToDefine={metricConfigSubset} />
               <RaceRelabelingsList />
 
@@ -207,7 +207,7 @@ function ReportProvider(props: ReportProviderProps) {
             </div>
           )}
 
-          <h3 className='mt-12 mb-0 text-header '>What data are missing?</h3>
+          <h2 className='mt-12 mb-0 text-header '>What data are missing?</h2>
 
           <p>Unfortunately there are crucial data missing in our sources.</p>
           <HetTextArrowLink

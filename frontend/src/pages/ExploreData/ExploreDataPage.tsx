@@ -1,56 +1,56 @@
-import { useCallback, useEffect, useState, lazy } from 'react'
-import { STATUS } from 'react-joyride'
-import ReportProvider from '../../reports/ReportProvider'
-import {
-  getMadLibPhraseText,
-  getSelectedConditions,
-  type MadLib,
-  MADLIB_LIST,
-  type PhraseSegment,
-  type PhraseSelections,
-  type MadLibId,
-} from '../../utils/MadLibs'
-import {
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  getParameter,
-  MADLIB_PHRASE_PARAM,
-  MADLIB_SELECTIONS_PARAM,
-  MAP1_GROUP_PARAM,
-  MAP2_GROUP_PARAM,
-  parseMls,
-  psSubscribe,
-  setParameter,
-  setParameters,
-  SHOW_ONBOARDING_PARAM,
-  stringifyMls,
-} from '../../utils/urlutils'
-import { srSpeak } from '../../utils/a11yutils'
-import { urlMap } from '../../utils/externalUrls'
-import { METRIC_CONFIG } from '../../data/config/MetricConfig'
-import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
-import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
-import { useLocation } from 'react-router-dom'
-import DefaultHelperBox from './DefaultHelperBox'
-import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
-import MadLibUI from './MadLibUI'
-import { ALL } from '../../data/utils/Constants'
-import TopicInfoModal from './TopicInfoModal'
-import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
 import { useAtomValue } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
-import VoteDotOrgModal from './VoteDotOrgModal'
-import type {
-  DataTypeId,
-  DataTypeConfig,
-} from '../../data/config/MetricConfigTypes'
+import { lazy, useCallback, useEffect, useState } from 'react'
+import { STATUS } from 'react-joyride'
+import { useLocation } from 'react-router'
 import {
   type DropdownVarId,
   isDropdownVarId,
 } from '../../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../../data/config/MetricConfigTypes'
+import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
+import { ALL } from '../../data/utils/Constants'
+import ReportProvider from '../../reports/ReportProvider'
+import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
+import {
+  MADLIB_LIST,
+  type MadLib,
+  type MadLibId,
+  type PhraseSegment,
+  type PhraseSelections,
+  getMadLibPhraseText,
+  getSelectedConditions,
+} from '../../utils/MadLibs'
+import { srSpeak } from '../../utils/a11yutils'
+import { urlMap } from '../../utils/externalUrls'
+import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
+import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
+import {
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  MADLIB_PHRASE_PARAM,
+  MADLIB_SELECTIONS_PARAM,
+  MAP1_GROUP_PARAM,
+  MAP2_GROUP_PARAM,
+  SHOW_ONBOARDING_PARAM,
+  getParameter,
+  parseMls,
+  psSubscribe,
+  setParameter,
+  setParameters,
+  stringifyMls,
+} from '../../utils/urlutils'
+import DefaultHelperBox from './DefaultHelperBox'
+import MadLibUI from './MadLibUI'
+import TopicInfoModal from './TopicInfoModal'
+import VoteDotOrgModal from './VoteDotOrgModal'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -325,7 +325,6 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         activelyOnboarding={activelyOnboarding}
       />
 
-      <h2 className='sr-only'>{getMadLibPhraseText(madLib)}</h2>
       <div
         id={EXPLORE_DATA_ID}
         tabIndex={-1}
@@ -333,8 +332,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-stickyMadLib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full
-            ${!noTopicChosen ? 'md:sticky' : ''}
+          className={`z-stickyMadLib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''}
           `}
           id='madlib-container'
         >

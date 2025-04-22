@@ -3,35 +3,41 @@ from datasources.phrma_brfss import PhrmaBrfssData
 import os
 from test_utils import _load_csv_as_df_from_real_data_dir
 import pandas as pd
+
 from pandas._testing import assert_frame_equal
 
+
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
-GOLDEN_DIR = os.path.join(TEST_DIR, 'phrma_brfss', 'golden_data')
+TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
+GOLDEN_DIR = os.path.join(TEST_DIR, "phrma_brfss", "golden_data")
 
 
 GOLDEN_DATA = {
-    'race_and_ethnicity_national_current': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_national.csv'),
-    'race_and_ethnicity_state_current': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_state.csv'),
-    'age_national_current': os.path.join(GOLDEN_DIR, 'expected_age_national.csv'),
-    'age_state_current': os.path.join(GOLDEN_DIR, 'expected_age_state.csv'),
-    'sex_national_current': os.path.join(GOLDEN_DIR, 'expected_sex_national.csv'),
-    'sex_state_current': os.path.join(GOLDEN_DIR, 'expected_sex_state.csv'),
-    'insurance_status_national_current': os.path.join(GOLDEN_DIR, 'expected_insurance_status_national.csv'),
-    'insurance_status_state_current': os.path.join(GOLDEN_DIR, 'expected_insurance_status_state.csv'),
-    'income_national_current': os.path.join(GOLDEN_DIR, 'expected_income_national.csv'),
-    'income_state_current': os.path.join(GOLDEN_DIR, 'expected_income_state.csv'),
-    'education_national_current': os.path.join(GOLDEN_DIR, 'expected_education_national.csv'),
-    'education_state_current': os.path.join(GOLDEN_DIR, 'expected_education_state.csv'),
+    "race_and_ethnicity_national_current-with_age_adjust": os.path.join(
+        GOLDEN_DIR, "expected_race_and_ethnicity_national.csv"
+    ),
+    "race_and_ethnicity_state_current-with_age_adjust": os.path.join(
+        GOLDEN_DIR, "expected_race_and_ethnicity_state.csv"
+    ),
+    "age_national_current": os.path.join(GOLDEN_DIR, "expected_age_national.csv"),
+    "age_state_current": os.path.join(GOLDEN_DIR, "expected_age_state.csv"),
+    "sex_national_current": os.path.join(GOLDEN_DIR, "expected_sex_national.csv"),
+    "sex_state_current": os.path.join(GOLDEN_DIR, "expected_sex_state.csv"),
+    "insurance_status_national_current": os.path.join(GOLDEN_DIR, "expected_insurance_status_national.csv"),
+    "insurance_status_state_current": os.path.join(GOLDEN_DIR, "expected_insurance_status_state.csv"),
+    "income_national_current": os.path.join(GOLDEN_DIR, "expected_income_national.csv"),
+    "income_state_current": os.path.join(GOLDEN_DIR, "expected_income_state.csv"),
+    "education_national_current": os.path.join(GOLDEN_DIR, "expected_education_national.csv"),
+    "education_state_current": os.path.join(GOLDEN_DIR, "expected_education_state.csv"),
 }
 
 
 # # BREAKDOWN TESTS
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownRaceNational(
@@ -44,16 +50,16 @@ def testBreakdownRaceNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'race_and_ethnicity_national_current'
+    assert table_name == "race_and_ethnicity_national_current-with_age_adjust"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownRaceState(
@@ -66,16 +72,16 @@ def testBreakdownRaceState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'race_and_ethnicity_state_current'
+    assert table_name == "race_and_ethnicity_state_current-with_age_adjust"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownAgeNational(
@@ -88,16 +94,16 @@ def testBreakdownAgeNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'age_national_current'
+    assert table_name == "age_national_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownAgeState(
@@ -110,16 +116,16 @@ def testBreakdownAgeState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'age_state_current'
+    assert table_name == "age_state_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownSexNational(
@@ -132,16 +138,16 @@ def testBreakdownSexNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'sex_national_current'
+    assert table_name == "sex_national_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownSexState(
@@ -154,16 +160,16 @@ def testBreakdownSexState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'sex_state_current'
+    assert table_name == "sex_state_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownInsuranceNational(
@@ -176,16 +182,16 @@ def testBreakdownInsuranceNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'insurance_status_national_current'
+    assert table_name == "insurance_status_national_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownInsuranceState(
@@ -198,16 +204,16 @@ def testBreakdownInsuranceState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'insurance_status_state_current'
+    assert table_name == "insurance_status_state_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownEducationNational(
@@ -220,16 +226,16 @@ def testBreakdownEducationNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'education_national_current'
+    assert table_name == "education_national_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownEducationState(
@@ -242,16 +248,16 @@ def testBreakdownEducationState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'education_state_current'
+    assert table_name == "education_state_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownIncomeNational(
@@ -264,16 +270,16 @@ def testBreakdownIncomeNational(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'income_national_current'
+    assert table_name == "income_national_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_real_data_dir,
 )
 def testBreakdownIncomeState(
@@ -286,7 +292,7 @@ def testBreakdownIncomeState(
     assert mock_data_dir.called
 
     (breakdown_df, _dataset, table_name), _dtypes = mock_bq_write.call_args
-    assert table_name == 'income_state_current'
+    assert table_name == "income_state_current"
     # breakdown_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype={"state_fips": str})

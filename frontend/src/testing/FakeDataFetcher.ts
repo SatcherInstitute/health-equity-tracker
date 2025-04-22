@@ -1,9 +1,9 @@
 import type {
-  DatasetIdWithStateFIPSCode,
   DatasetId,
+  DatasetIdWithStateFIPSCode,
 } from '../data/config/DatasetMetadata'
 import type { DataFetcher } from '../data/loading/DataFetcher'
-import type { MapOfDatasetMetadata, HetRow } from '../data/utils/DatasetTypes'
+import type { HetRow, MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 
 export default class FakeDataFetcher implements DataFetcher {
   private loadedDatasets: Record<string, HetRow[]> = {}

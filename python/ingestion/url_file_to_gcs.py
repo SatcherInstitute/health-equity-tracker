@@ -10,7 +10,7 @@ import filecmp
 
 
 def local_file_path(filename):
-    return f'/tmp/{filename}'
+    return f"/tmp/{filename}"
 
 
 def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
@@ -33,7 +33,7 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
 def get_first_response(url_list, url_params):
     for url in url_list:
         try:
-            file_from_url = requests.get(url, params=url_params, timeout=10)
+            file_from_url = requests.get(url, params=url_params, timeout=120)
             file_from_url.raise_for_status()
             return file_from_url
         except requests.HTTPError as err:
@@ -76,7 +76,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
 
     # Download the contents of the URL to a local file
     new_file_local_path = local_file_path(dest_filename)
-    with file_from_url, open(new_file_local_path, 'wb') as new_file:
+    with file_from_url, open(new_file_local_path, "wb") as new_file:
         new_file.write(file_from_url.content)
 
     # Downloads the current file in GCS to a local file
@@ -94,7 +94,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
     if files_are_diff:
         # Upload the contents to the bucket
         bucket.blob(dest_filename).upload_from_filename(new_file_local_path)
-        print(f'Uploading to Gcs_Bucket: {gcs_bucket}, FileName: {dest_filename}')
+        print(f"Uploading to Gcs_Bucket: {gcs_bucket}, FileName: {dest_filename}")
     # Remove local files
     os.remove(new_file_local_path)
     os.remove(old_file_local_path)

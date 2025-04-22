@@ -3,6 +3,13 @@ import re
 from typing import Any
 import pandas as pd
 from ingestion import url_file_to_gcs, gcs_to_bq_util
+import logging
+import sys
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", handlers=[logging.StreamHandler(sys.stdout)]
+)
+logger = logging.getLogger(__name__)
 
 
 # Abstract base class for all data sources ingested by the Health Equity
@@ -12,13 +19,13 @@ class DataSource(ABC):
     @staticmethod
     def get_id() -> str:
         """Returns the data source's unique id usually all uppercase like `SOME_SOURCE_DATA`"""
-        return ''
+        return ""
 
     @staticmethod
     def get_table_name() -> str:
         """Returns the BigQuery base table name where the data source's data will
         stored, usually all lowercase like `some_source_data`"""
-        return ''
+        return ""
 
     def get_attr(self, attributes: dict, key: str) -> Any:
         attr = attributes.get(key)
@@ -41,7 +48,7 @@ class DataSource(ABC):
                  return true if there is at least one file that is different.
         """
         return url_file_to_gcs.url_file_to_gcs(
-            self.get_attr(attrs, 'url'), None, gcs_bucket, self.get_attr(attrs, 'filename')
+            self.get_attr(attrs, "url"), None, gcs_bucket, self.get_attr(attrs, "filename")
         )
 
     def write_to_bq(self, dataset: str, gcs_bucket: str, write_local_instead_of_bq=False, **attrs) -> None:
@@ -52,9 +59,12 @@ class DataSource(ABC):
         write_local_instead_of_bq: If true, writes the data to a local file. Default False
         attrs: Additional message attributes such as url and filename that are
                needed for this data source."""
+
+        logger.info("Abstract Parent DataSource.write_to_bq method called.")
+
         if write_local_instead_of_bq:
             print("TODO: Writing to local file instead of BigQuery")
-        self.write_to_bq_table(dataset, gcs_bucket, self.get_attr(attrs, 'filename'), self.get_table_name())
+        self.write_to_bq_table(dataset, gcs_bucket, self.get_attr(attrs, "filename"), self.get_table_name())
 
     def write_to_bq_table(self, dataset: str, gcs_bucket: str, filename: str, table_name: str, project=None) -> None:
         """Writes source data from GCS bucket to BigQuery
@@ -80,6 +90,6 @@ class DataSource(ABC):
         frame: The pandas dataframe with unclean columns
         """
         frame.rename(
-            columns=lambda col: (re.sub('[^0-9a-zA-Z_=%]+', '_', col).lower().replace('=', 'eq').replace('%', 'pct')),
+            columns=lambda col: (re.sub("[^0-9a-zA-Z_=%]+", "_", col).lower().replace("=", "eq").replace("%", "pct")),
             inplace=True,
         )

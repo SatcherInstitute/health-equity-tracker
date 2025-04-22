@@ -142,7 +142,7 @@ def generate_raw_breakdown(demo, geo_level, table_list):
     df_prison = df_prison.reset_index(drop=True)
 
     merge_cols = [std_col.STATE_NAME_COL, demo_for_flip]
-    df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
+    df = pd.merge(df_prison, df_jail, how="outer", on=merge_cols)
 
     return df
 
@@ -175,11 +175,11 @@ def generate_raw_national_age_breakdown(table_list):
 
     # get and store the total value from the last row
     total_raw_prison_value = prison_10.loc[
-        prison_10[std_col.AGE_COL] == 'Number of sentenced prisoners', PRISON_PCT_SHARE_COL
+        prison_10[std_col.AGE_COL] == "Number of sentenced prisoners", PRISON_PCT_SHARE_COL
     ].values[0]
 
     # drop the last row and just keep normal rows
-    df_prison = prison_10.loc[prison_10[std_col.AGE_COL] != 'Number of sentenced prisoners']
+    df_prison = prison_10.loc[prison_10[std_col.AGE_COL] != "Number of sentenced prisoners"]
 
     # standardize df_prison with ADULT RAW # / AGE / USA
     df_prison = merge_state_ids(df_prison)
@@ -191,7 +191,7 @@ def generate_raw_national_age_breakdown(table_list):
     df_prison = df_prison[[RAW_PRISON_COL, std_col.STATE_NAME_COL, std_col.AGE_COL, PRISON_PCT_SHARE_COL]]
 
     merge_cols = [std_col.STATE_NAME_COL, std_col.AGE_COL]
-    df = pd.merge(df_prison, df_jail, how='outer', on=merge_cols)
+    df = pd.merge(df_prison, df_jail, how="outer", on=merge_cols)
 
     return df
 
@@ -251,18 +251,18 @@ def post_process(df, breakdown, geo, children_tables):
     prison_13, jail_6 = children_tables
 
     # get RAW JAIL for 0-17 and melt to set as new property for "All" rows for every demo-breakdowns
-    jail_6 = jail_6.rename(columns={'0-17': all_val})
+    jail_6 = jail_6.rename(columns={"0-17": all_val})
     jail_6 = jail_6[[std_col.STATE_NAME_COL, all_val]]
     jail_6 = cols_to_rows(jail_6, [all_val], group_col, TOTAL_CHILDREN_COL)
-    jail_6 = jail_6.rename(columns={TOTAL_CHILDREN_COL: f'{TOTAL_CHILDREN_COL}_jail'})
+    jail_6 = jail_6.rename(columns={TOTAL_CHILDREN_COL: f"{TOTAL_CHILDREN_COL}_jail"})
 
     # get RAW PRISON for 0-17 and set as new property for "All" rows for every demo-breakdowns
-    prison_13 = prison_13.rename(columns={RAW_PRISON_COL: f'{TOTAL_CHILDREN_COL}_prison', "age": group_col})
+    prison_13 = prison_13.rename(columns={RAW_PRISON_COL: f"{TOTAL_CHILDREN_COL}_prison", "age": group_col})
     prison_13[group_col] = all_val
 
     # sum confined children in prison+jail
     df_confined = pd.merge(jail_6, prison_13, how="outer", on=[std_col.STATE_NAME_COL, group_col])
-    df_confined[TOTAL_CHILDREN_COL] = df_confined[[f'{TOTAL_CHILDREN_COL}_jail', f'{TOTAL_CHILDREN_COL}_prison']].sum(
+    df_confined[TOTAL_CHILDREN_COL] = df_confined[[f"{TOTAL_CHILDREN_COL}_jail", f"{TOTAL_CHILDREN_COL}_prison"]].sum(
         axis="columns", numeric_only=True
     )
     df_confined = df_confined[[std_col.STATE_NAME_COL, TOTAL_CHILDREN_COL, group_col]]
@@ -284,14 +284,14 @@ def post_process(df, breakdown, geo, children_tables):
 class BJSIncarcerationData(DataSource):
     @staticmethod
     def get_id():
-        return 'BJS_INCARCERATION_DATA'
+        return "BJS_INCARCERATION_DATA"
 
     @staticmethod
     def get_table_name():
-        return 'bjs_incarceration_data'
+        return "bjs_incarceration_data"
 
     def upload_to_gcs(self, _, **attrs):
-        raise NotImplementedError('upload_to_gcs should not be called for BJSIncarcerationData')
+        raise NotImplementedError("upload_to_gcs should not be called for BJSIncarcerationData")
 
     def write_to_bq(self, dataset, gcs_bucket, write_local_instead_of_bq=False, **attrs):
         """
@@ -314,21 +314,21 @@ class BJSIncarcerationData(DataSource):
 
         # BJS tables needed per breakdown
         table_lookup = {
-            f'{std_col.AGE_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_10, jail_6],
-            f'{std_col.AGE_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_app_2, prisoners_23, jail_7],
-            f'{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_app_2, prisoners_23, jail_7],
-            f'{std_col.SEX_COL}_{NATIONAL_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
-            f'{std_col.SEX_COL}_{STATE_LEVEL}_{CURRENT}': [prisoners_2, prisoners_23, jail_6],
+            f"{std_col.AGE_COL}_{NATIONAL_LEVEL}_{CURRENT}": [prisoners_10, jail_6],
+            f"{std_col.AGE_COL}_{STATE_LEVEL}_{CURRENT}": [prisoners_2, prisoners_23, jail_6],
+            f"{std_col.RACE_OR_HISPANIC_COL}_{NATIONAL_LEVEL}_{CURRENT}": [prisoners_app_2, prisoners_23, jail_7],
+            f"{std_col.RACE_OR_HISPANIC_COL}_{STATE_LEVEL}_{CURRENT}": [prisoners_app_2, prisoners_23, jail_7],
+            f"{std_col.SEX_COL}_{NATIONAL_LEVEL}_{CURRENT}": [prisoners_2, prisoners_23, jail_6],
+            f"{std_col.SEX_COL}_{STATE_LEVEL}_{CURRENT}": [prisoners_2, prisoners_23, jail_6],
         }
 
         children_tables = [prisoners_13, jail_6]
 
         for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
-            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                table_name = f'{breakdown}_{geo_level}_current'
+            for demo_type in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
+                table_name = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
 
-                df = self.generate_breakdown_df(breakdown, geo_level, table_lookup[table_name], children_tables)
+                df = self.generate_breakdown_df(demo_type, geo_level, table_lookup[table_name], children_tables)
 
                 float_cols = [
                     std_col.INCARCERATION_POP_PCT_SHARE,
@@ -340,20 +340,23 @@ class BJSIncarcerationData(DataSource):
                     for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
                         float_cols.append(std_col.generate_column_name(prefix, suffix))
 
+                if demo_type == std_col.RACE_OR_HISPANIC_COL:
+                    df.drop(std_col.RACE_CATEGORY_ID_COL, axis=1, inplace=True)
+
                 column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=float_cols)
 
                 gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=column_types)
 
-    def generate_breakdown_df(self, breakdown, geo_level, table_list, children_tables):
+    def generate_breakdown_df(self, demo_type, geo_level, table_list, children_tables):
         """
         Accepts demographic and geographic settings, along with the mapping of BJS tables
         to HET breakdowns, and generates the specified HET breakdown
 
         Parameters:
-            breakdown: string of "age", "race_and_ethnicity", or "sex" to determine
-                resulting demographic breakdown
+            demo_type: string of "age", "race_and_ethnicity", or "sex" to determine
+                resulting demographic type
             geo_level: string of "national" or "state" to determine resulting
-                geographic breakdown
+                geographic level
             table_list: list of dfs containing needed tables for each geo/demo breakdown
             prison_13: df needed separately for each breakdown's "confined_children_estimated_total" in prison
             need JAIL confined nums here too
@@ -361,11 +364,11 @@ class BJSIncarcerationData(DataSource):
             Processed HET style df ready for BigQuery and HET frontend
         """
 
-        if breakdown == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
+        if demo_type == std_col.AGE_COL and geo_level == NATIONAL_LEVEL:
             raw_df = generate_raw_national_age_breakdown(table_list)
         else:
-            raw_df = generate_raw_breakdown(breakdown, geo_level, table_list)
+            raw_df = generate_raw_breakdown(demo_type, geo_level, table_list)
 
-        processed_df = post_process(raw_df, breakdown, geo_level, children_tables)
+        processed_df = post_process(raw_df, demo_type, geo_level, children_tables)
 
         return processed_df

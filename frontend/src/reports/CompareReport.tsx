@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
-import DisparityBarChartCard from '../cards/DisparityBarChartCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
+import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
@@ -18,15 +18,16 @@ import type {
 } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import Sidebar from '../pages/ui/Sidebar'
+import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
@@ -40,12 +41,10 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import { getAllDemographicOptions } from './reportUtils'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
+import { getAllDemographicOptions } from './reportUtils'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
-
-export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -363,7 +362,7 @@ export default function CompareReport(props: CompareReportProps) {
               />
             )}
 
-            {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
+            {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='population-vs-distribution'
@@ -377,7 +376,7 @@ export default function CompareReport(props: CompareReportProps) {
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void,
               ) => (
-                <DisparityBarChartCard
+                <StackedSharesBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}

@@ -46,7 +46,7 @@ INCOME_COL = "income"
 POPULATION_PCT_COL = "population_pct"
 SVI = "svi"
 
-TIME_PERIOD_COL = 'time_period'
+TIME_PERIOD_COL = "time_period"
 
 ALL_VALUE = "All"
 
@@ -68,7 +68,7 @@ SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 PCT_REL_INEQUITY_SUFFIX = "pct_relative_inequity"
 RAW_SUFFIX = "estimated_total"
 RAW_POP_SUFFIX = "population_estimated_total"
-POP_PCT_SUFFIX = 'population_pct'
+POP_PCT_SUFFIX = "population_pct"
 RATIO_AGE_ADJUSTED_SUFFIX = "ratio_age_adjusted"
 INDEX_SUFFIX = "index"
 
@@ -99,12 +99,12 @@ COVID_DEATH_PREFIX = "covid_deaths"
 COVID_DEATH_RATIO_AGE_ADJUSTED = "death_ratio_age_adjusted"
 COVID_HOSP_RATIO_AGE_ADJUSTED = "hosp_ratio_age_adjusted"
 
-UNINSURED_PER_100K_COL = 'uninsured_per_100k'
-UNINSURED_PCT_SHARE_COL = 'uninsured_pct_share'
-UNINSURED_POPULATION_PCT = 'uninsured_population_pct'
+UNINSURED_PER_100K_COL = "uninsured_per_100k"
+UNINSURED_PCT_SHARE_COL = "uninsured_pct_share"
+UNINSURED_POPULATION_PCT = "uninsured_population_pct"
 
-UNINSURED_PREFIX = 'uninsured'
-POVERTY_PREFIX = 'poverty'
+UNINSURED_PREFIX = "uninsured"
+POVERTY_PREFIX = "poverty"
 
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
@@ -137,8 +137,8 @@ CHR_POPULATION_PCT = "chr_population_pct"
 VACCINATED_RAW = "vaccinated_estimated_total"
 VACCINATED_PCT_RATE = "vaccinated_pct_rate"
 VACCINATED_PCT_SHARE = "vaccinated_pct_share"
-VACCINATED_POP_PCT = 'vaccinated_pop_pct'
-ACS_VACCINATED_POP_PCT = 'acs_vaccinated_pop_pct'
+VACCINATED_POP_PCT = "vaccinated_pop_pct"
+ACS_VACCINATED_POP_PCT = "acs_vaccinated_pop_pct"
 
 # CAWP
 
@@ -181,29 +181,29 @@ JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_pct_relative_inequity"
 
 # HIV
-BLACK_WOMEN = 'black_women'
-HIV_BW_POPULATION_PCT = 'black_women_population_pct'
+BLACK_WOMEN = "black_women"
+HIV_BW_POPULATION_PCT = "black_women_population_pct"
 
-HIV_POPULATION = 'hiv_population'
-HIV_POPULATION_PCT = 'hiv_population_pct'
+HIV_POPULATION = "hiv_population"
+HIV_POPULATION_PCT = "hiv_population_pct"
 
 
-HIV_CARE_LINKAGE = 'hiv_care_linkage'
-HIV_CARE_POPULATION = 'hiv_care_population'
-HIV_CARE_POPULATION_PCT = 'hiv_care_population_pct'
-HIV_CARE_PREFIX = 'hiv_care'
-HIV_DEATHS_PREFIX = 'hiv_deaths'
-HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
-HIV_PREP_COVERAGE = 'hiv_prep_coverage'
+HIV_CARE_LINKAGE = "hiv_care_linkage"
+HIV_CARE_POPULATION = "hiv_care_population"
+HIV_CARE_POPULATION_PCT = "hiv_care_population_pct"
+HIV_CARE_PREFIX = "hiv_care"
+HIV_DEATHS_PREFIX = "hiv_deaths"
+HIV_DIAGNOSES_PREFIX = "hiv_diagnoses"
+HIV_PREP_COVERAGE = "hiv_prep_coverage"
 # population of individuals with PrEP indicators
-HIV_PREP_POPULATION = 'hiv_prep_population'
-HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
-HIV_PREP_PREFIX = 'hiv_prep'
-HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
-HIV_STIGMA_INDEX = 'hiv_stigma_index'
-TOTAL_TRANS_MEN = 'total_trans_men'
-TOTAL_TRANS_WOMEN = 'total_trans_women'
-TOTAL_ADDITIONAL_GENDER = 'total_additional_gender'
+HIV_PREP_POPULATION = "hiv_prep_population"
+HIV_PREP_POPULATION_PCT = "hiv_prep_population_pct"
+HIV_PREP_PREFIX = "hiv_prep"
+HIV_PREVALENCE_PREFIX = "hiv_prevalence"
+HIV_STIGMA_INDEX = "hiv_stigma_index"
+TOTAL_TRANS_MEN = "total_trans_men"
+TOTAL_TRANS_WOMEN = "total_trans_women"
+TOTAL_ADDITIONAL_GENDER = "total_additional_gender"
 HIV_DEATH_RATIO_AGE_ADJUSTED = "hiv_deaths_ratio_age_adjusted"
 
 
@@ -231,18 +231,11 @@ FATAL_POPULATION_PCT = "fatal_population_pct"
 FATAL_PREFIX: WISQARS_VAR_TYPE = "fatal"
 
 GUN_VIOLENCE_HOMICIDE_PREFIX: WISQARS_VAR_TYPE = "gun_violence_homicide"
-GUN_VIOLENCE_HOMICIDES_RAW = "gun_violence_homicide_estimtated_total"
-GUN_VIOLENCE_INJURIES_PER_100K = "gun_violence_injuries_per_100k"
-GUN_VIOLENCE_INJURIES_PREFIX = "gun_violence_injuries"
-GUN_VIOLENCE_INJURIES_RAW = "gun_violence_injuries_estimated_total"
-GUN_VIOLENCE_LEGAL_INTERVENTION_PREFIX = "gun_violence_legal_intervention"
-GUN_VIOLENCE_LEGAL_INTERVENTION_RAW = "gun_violence_legal_intervention_estimated_total"
+GUN_VIOLENCE_HOMICIDE_RAW = "gun_violence_homicide_estimated_total"
+GUN_VIOLENCE_HOMICIDE_PER_100K = "gun_violence_homicide_per_100k"
 GUN_VIOLENCE_SUICIDE_PREFIX: WISQARS_VAR_TYPE = "gun_violence_suicide"
-GUN_VIOLENCE_SUICIDES_RAW = "gun_violence_suicide_estimated_total"
-NON_FATAL_POPULATION = "non_fatal_population"
-NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
-NON_FATAL_PREFIX = "non_fatal"
-
+GUN_VIOLENCE_SUICIDE_RAW = "gun_violence_suicide_estimated_total"
+GUN_VIOLENCE_SUICIDE_PER_100K = "gun_violence_suicide_per_100k"
 
 # YOUNG ADULTS AND YOUTH
 GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
@@ -436,6 +429,7 @@ class Race(Enum):
         return RaceTuple(self.race_category_id, self.race_and_ethnicity)
 
 
+# TODO: Remove this function in favor of swap_race_id_col_for_names_col if possible
 def add_race_columns_from_category_id(df):
     """Adds all race-related columns to the dataframe using the race category id
     to determine these values."""
@@ -444,20 +438,28 @@ def add_race_columns_from_category_id(df):
     df.drop("race_tuple", axis=1, inplace=True)
 
 
+def swap_race_id_col_for_names_col(df):
+    """Swaps the race category id column for the race_and_ethnicity col."""
+    df["race_tuple"] = df.apply(lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1)
+    df[Race.get_col_names()] = pd.DataFrame(df["race_tuple"].tolist(), index=df.index)
+    df.drop("race_tuple", axis=1, inplace=True)
+    df.drop(RACE_CATEGORY_ID_COL, axis=1, inplace=True)
+
+
 def generate_column_name(prefix, suffix):
     """Generates a standard column name.
 
     prefix: A condition name
     suffix: a type of measurement (pct_share, per_100k)"""
 
-    return f'{prefix}_{suffix}'
+    return f"{prefix}_{suffix}"
 
 
 def extract_prefix(col_name: str) -> str:
     """Extracts the prefix from a column name that contains one of out standard HET suffixes."""
 
     for suffix in SUFFIXES:
-        underscore_suffix = f'_{suffix}'
+        underscore_suffix = f"_{suffix}"
         if col_name.endswith(underscore_suffix):
             prefix = col_name[: -len(underscore_suffix)]
             return prefix

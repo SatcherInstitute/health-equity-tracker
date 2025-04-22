@@ -13,7 +13,6 @@ Features include:
 
 from typing import List
 import pandas as pd
-import numpy as np
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, GEO_TYPE, WISQARS_DEMO_TYPE
@@ -23,22 +22,26 @@ DATA_DIR = "cdc_wisqars"
 
 INJ_OUTCOMES = [std_col.FATAL_PREFIX]
 
-INJ_INTENTS = [
-    std_col.GUN_VIOLENCE_HOMICIDE_PREFIX,
-    std_col.GUN_VIOLENCE_SUICIDE_PREFIX,
-]
+INJ_INTENTS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX, "gun_violence_all_intents"]
 
+WISQARS_INTENT = "Intent"
 WISQARS_URBANICITY = "Metro / Non-Metro"
 WISQARS_AGE_GROUP = "Age Group"
+WISQARS_RACE = "Race"
+WISQARS_ETH = "Ethnicity"
+WISQARS_SEX = "Sex"
 WISQARS_YEAR = "Year"
 WISQARS_STATE = "State"
 WISQARS_DEATHS = "Deaths"
 WISQARS_CRUDE_RATE = "Crude Rate"
 WISQARS_POP = "Population"
+WISQARS_HOMICIDE = "Homicide"
+WISQARS_SUICIDE = "Suicide"
+WISQARS_ALL_INTENTS = "All Intents"
 
-WISQARS_ALL: WISQARS_DEMO_TYPE = 'all'
+WISQARS_ALL: WISQARS_DEMO_TYPE = "all"
 
-WISQARS_COLS = [
+WISQARS_IGNORE_COLS = [
     "Age-Adjusted Rate",
     "Cases (Sample)",
     "CV",
@@ -57,17 +60,19 @@ RACE_NAMES_MAPPING = {
     "White": std_col.Race.WHITE_NH.value,
 }
 
+ETHNICITY_NAMES_MAPPING = {"Hispanic": std_col.Race.HISP.value, "Unknown": std_col.Race.UNKNOWN.value}
+
 
 def clean_numeric(val):
     """
     Function to clean numeric string values by removing commas and converting '**' to NaN.
-    Takes a single parameter 'val' and returns the cleaned value.
+    Takes a single parameter 'val' and returns the cleaned str value.
     """
     if isinstance(val, str):
-        if '**' in val:
-            return np.nan
-        if ',' in val:
-            return val.replace(',', '')
+        if "**" in val:
+            val = val.replace("**", "")
+        if "," in val:
+            val = val.replace(",", "")
     return val
 
 
@@ -82,7 +87,7 @@ def contains_unknown(x):
     Returns:
         bool: True if the input contains the word 'unknown', False otherwise.
     """
-    if isinstance(x, str) and 'unknown' in x.lower():
+    if isinstance(x, str) and "unknown" in x.lower():
         return True
 
     return False
@@ -101,7 +106,7 @@ def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
     """
     for column in columns_to_convert:
         df[column] = df[column].apply(clean_numeric)
-        df[column] = pd.to_numeric(df[column], errors='coerce')
+        df[column] = pd.to_numeric(df[column], errors="coerce")
 
 
 def generate_cols_map(prefixes: List[WISQARS_VAR_TYPE], suffix: str):
@@ -140,34 +145,34 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
     """
 
     bucket_map = {
-        ('All',): 'All',
-        ('Unknown',): 'Unknown',
+        ("All",): "All",
+        ("Unknown",): "Unknown",
         (
-            '0-4',
-            '5-9',
-            '10-14',
-        ): '0-14',
-        ('15-19',): '15-19',
-        ('20-24',): '20-24',
-        ('25-29',): '25-29',
-        ('30-34',): '30-34',
+            "0-4",
+            "5-9",
+            "10-14",
+        ): "0-14",
+        ("15-19",): "15-19",
+        ("20-24",): "20-24",
+        ("25-29",): "25-29",
+        ("30-34",): "30-34",
         (
-            '35-39',
-            '40-44',
-        ): '35-44',
+            "35-39",
+            "40-44",
+        ): "35-44",
         (
-            '45-49',
-            '50-54',
-            '55-59',
-            '60-64',
-        ): '45-64',
+            "45-49",
+            "50-54",
+            "55-59",
+            "60-64",
+        ): "45-64",
         (
-            '65-69',
-            '70-74',
-            '75-79',
-            '80-84',
-            '85+',
-        ): '65+',
+            "65-69",
+            "70-74",
+            "75-79",
+            "80-84",
+            "85+",
+        ): "65+",
     }
 
     het_bucket_dfs = []
@@ -180,12 +185,12 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
         if len(source_bucket) > 1:
 
             # create a list of all count cols
-            numerator_cols = [col_dict['numerator_col'] for col_dict in col_dicts]
-            denominator_cols = [col_dict['denominator_col'] for col_dict in col_dicts]
+            numerator_cols = [col_dict["numerator_col"] for col_dict in col_dicts]
+            denominator_cols = [col_dict["denominator_col"] for col_dict in col_dicts]
             count_cols = list(set(numerator_cols + denominator_cols))
 
             # aggregate by state and year, summing count cols and dropping source rate cols
-            agg_map = {count_col: 'sum' for count_col in count_cols}
+            agg_map = {count_col: "sum" for count_col in count_cols}
             het_bucket_df = (
                 het_bucket_df.groupby([std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL]).agg(agg_map).reset_index()
             )
@@ -231,7 +236,7 @@ def load_wisqars_as_df_from_data_dir(
         DATA_DIR,
         csv_filename,
         na_values=["--", "**"],
-        usecols=lambda x: x not in WISQARS_COLS,
+        usecols=lambda x: x not in WISQARS_IGNORE_COLS,
         thousands=",",
         dtype={WISQARS_YEAR: str},
     )
@@ -241,7 +246,7 @@ def load_wisqars_as_df_from_data_dir(
     if geo_level == NATIONAL_LEVEL:
         df.insert(1, WISQARS_STATE, US_NAME)
 
-    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE]
+    columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE, WISQARS_POP]
     convert_columns_to_numeric(df, columns_to_convert)
 
     return df

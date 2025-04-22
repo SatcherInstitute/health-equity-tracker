@@ -1,7 +1,7 @@
-import { useNavigate, useLocation } from 'react-router-dom'
-import HetPaginationButton from './HetPaginationButton'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { useLocation, useNavigate } from 'react-router'
 import type { RouteConfig } from '../../pages/sharedTypes'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import HetPaginationButton from './HetPaginationButton'
 
 interface HetPaginationProps {
   routeConfigs: RouteConfig[]
@@ -37,7 +37,7 @@ export default function HetPagination({
 
   return (
     <div
-      className={`mx-0 smMd:mb-0 mb-8 mt-8 flex w-full flex-col justify-between md:mt-16 md:flex-row gap-4 md:self-stretch ${className ?? ''}`}
+      className={`mx-0 mt-8 mb-8 flex w-full flex-col justify-between gap-4 smMd:mb-0 md:mt-16 md:flex-row md:self-stretch ${className ?? ''}`}
     >
       {prevRoute && (
         <HetPaginationButton direction='previous' onClick={goPrevious}>

@@ -1,13 +1,13 @@
-import { dataSourceMetadataMap } from './MetadataMap'
+import { describe, expect, test } from 'vitest'
+import { SHOW_PHRMA_MENTAL_HEALTH } from '../../featureFlags'
 import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../providers/PhrmaProvider'
-import { expect, describe, test } from 'vitest'
+import { dataSourceMetadataMap } from './MetadataMap'
 
 describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {
     Object.values(dataSourceMetadataMap).forEach((metadata) => {
       const testUrl = metadata.data_source_link
-      console.log(testUrl, '--')
+      console.info(testUrl, '--')
 
       expect(testUrl.slice(0, 8)).toEqual('https://')
     })

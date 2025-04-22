@@ -1,0 +1,120 @@
+name: DAG - ACS_POPULATION
+
+# NOTE: This workflow requires pre-cached, ingested ACS files in our GCS landing buckets, (they have names like 2009-HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json). If those files aren't present or might be out of date, please first run the dagAcsPopulationPreCache.yml workflow, and then come back to run this workflow. Be mindful of rate limiting on the Census API; that single ingestion step repeats across all years.
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+env:
+  WORKFLOW_ID: "ACS_POPULATION"
+  DATASET_NAME: "acs_population"
+  GCS_LANDING_BUCKET: ${{ secrets.GCS_LANDING_BUCKET }} # files cached in runCacheAcsInGcsPipeline
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  RACE: "race"
+  AGE: "age"
+  SEX: "sex"
+
+jobs:
+  # First process 2009 (OVERWRITE operation)
+  process-2009:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write to BigQuery 2009
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2009"
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Process 2010-2016 concurrently (APPEND operations)
+  process-2010-2016:
+    needs: process-2009
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        year: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"]
+      fail-fast: true
+      max-parallel: 7
+    steps:
+      - name: Process and write to BigQuery ${{ matrix.year }}
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: ${{ matrix.year }}
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Process 2017-2021 concurrently (APPEND operations)
+  process-2017-2021:
+    needs: process-2010-2016
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        year: ["2017", "2018", "2019", "2020", "2021"]
+      fail-fast: true
+      max-parallel: 5
+    steps:
+      - name: Process and write to BigQuery ${{ matrix.year }}
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: ${{ matrix.year }}
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Process 2022 separately (latest year)
+  process-2022:
+    needs: process-2017-2021
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write to BigQuery 2022
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          year: "2022"
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+  # Export demographic data - separate explicit jobs running in parallel
+  export-race:
+    needs: process-2022
+    runs-on: ubuntu-latest
+    steps:
+      - name: Export data by race
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE }}
+          should_export_as_alls: "true"
+
+  export-age:
+    needs: process-2022
+    runs-on: ubuntu-latest
+    steps:
+      - name: Export data by age
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.AGE }}
+          should_export_as_alls: "false"
+
+  export-sex:
+    needs: process-2022
+    runs-on: ubuntu-latest
+    steps:
+      - name: Export data by sex
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.SEX }}
+          should_export_as_alls: "false"

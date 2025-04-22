@@ -2,11 +2,11 @@ import { Helmet } from 'react-helmet-async'
 
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 
-import WhatDataAreMissing from '../../../reports/WhatDataAreMissing'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
 import { Fips } from '../../../data/utils/Fips'
-import type { DropdownVarId } from '../../../data/config/DropDownIds'
+import WhatDataAreMissing from '../../../reports/WhatDataAreMissing'
 
 export default function LimitationsLink() {
   return (
@@ -15,12 +15,11 @@ export default function LimitationsLink() {
         <Helmet>
           <title>Limitations and Missing Data - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Limitations and Missing Data</h2>
 
-        <h3 className='mt-12 text-title font-medium'>Limitations</h3>
+        <h2 className='mt-12'>Limitations</h2>
         <p>While we strive for accuracy, some of the limitations include:</p>
 
-        <h4 className='text-text font-light'>Data Accuracy and Completeness</h4>
+        <h3>Data Accuracy and Completeness</h3>
         <p>
           Data collected from sources like the CDC may have inaccuracies or
           incompleteness due to errors in reporting, variations in data
@@ -28,14 +27,14 @@ export default function LimitationsLink() {
           populations. This can lead to biases or distortions in the
           representation of disease prevalence.
         </p>
-        <h4 className='text-text font-light'>Temporal Lag</h4>
+        <h3>Temporal Lag</h3>
         <p>
           There might be a lag between the occurrence of a disease and its
           reporting. This delay can affect the timeliness of the data presented
           on the health equity tracker, potentially hindering real-time
           decision-making.
         </p>
-        <h4 className='text-text font-light'>Geographical Resolution</h4>
+        <h3>Geographical Resolution</h3>
 
         <p>
           While choropleth maps provide a visual representation of data at the
@@ -43,7 +42,7 @@ export default function LimitationsLink() {
           may not be sufficient for detecting localized outbreaks or disparities
           within smaller geographic areas.
         </p>
-        <h4 className='text-text font-light'>Population Heterogeneity</h4>
+        <h3>Population Heterogeneity</h3>
 
         <p>
           Population characteristics can vary significantly across different
@@ -52,7 +51,7 @@ export default function LimitationsLink() {
           as differences in socioeconomic status, access to healthcare, or
           cultural factors that influence health outcomes.
         </p>
-        <h4 className='text-text font-light'>Ecological Fallacy</h4>
+        <h3>Ecological Fallacy</h3>
 
         <p>
           This occurs when inferences about individuals are drawn from
@@ -61,7 +60,7 @@ export default function LimitationsLink() {
           affected similarly. Drawing conclusions about individuals based solely
           on aggregated data can lead to erroneous assumptions.
         </p>
-        <h4 className='text-text font-light'>Data Interpretation</h4>
+        <h3>Data Interpretation</h3>
 
         <p>
           Visualizations like choropleth maps can simplify complex data, but
@@ -69,7 +68,7 @@ export default function LimitationsLink() {
           to ensure that interpretations of the maps consider the context,
           potential confounding variables, and limitations of the data source.
         </p>
-        <h4 className='text-text font-light'>External Factors</h4>
+        <h3>External Factors</h3>
 
         <p>
           Other external factors, such as changes in healthcare policies,
@@ -78,9 +77,9 @@ export default function LimitationsLink() {
           adequately captured in the data or accounted for in the analysis.
         </p>
         <div id='missing-data'>
-          <h3 className='mt-12 text-title font-medium' id='limitations'>
+          <h2 className='mt-12' id='limitations'>
             What Data Are Missing
-          </h3>
+          </h2>
           <WhatDataAreMissing
             metricConfigSubset={
               Object.entries(METRIC_CONFIG) as Array<

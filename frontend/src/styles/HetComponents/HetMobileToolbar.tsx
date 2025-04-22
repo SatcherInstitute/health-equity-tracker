@@ -1,26 +1,26 @@
 import {
-  Drawer,
-  IconButton,
-  List,
-  ListItemText,
-  Collapse,
-  Toolbar,
-  ListItemButton,
-  ListItem,
-} from '@mui/material'
-import {
   Close,
   ExpandLess,
   ExpandMore,
   Menu as MenuIcon,
 } from '@mui/icons-material'
+import {
+  Collapse,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Toolbar,
+} from '@mui/material'
 import { useState } from 'react'
+import { Link } from 'react-router'
+import AppBarLogo from '../../assets/AppbarLogo.png'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import HetNavLink from './HetNavLink'
-import AppBarLogo from '../../assets/AppbarLogo.png'
-import { Link } from 'react-router-dom'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
@@ -48,7 +48,7 @@ export default function HetMobileAppToolbar() {
                   key={subKey}
                   component={Link}
                   to={subKey}
-                  className='pl-8  no-underline'
+                  className='pl-8 no-underline'
                   onClick={() => setOpen(false)}
                 >
                   <ListItemText className='text-altBlack' primary={subValue} />
@@ -103,14 +103,14 @@ export default function HetMobileAppToolbar() {
           <HetNavLink className='flex items-center pl-0' href='/'>
             <img
               src={AppBarLogo}
-              className='h-littleHetLogo w-littleHetLogo ml-2 mr-auto'
+              className='mr-auto ml-2 h-littleHetLogo w-littleHetLogo'
               alt='Health Equity Tracker logo'
             />
           </HetNavLink>
           <IconButton
             aria-label='Collapse site navigation'
             onClick={() => setOpen(false)}
-            className='p-2.5 ml-auto mx-2 my-4 text-altBlack'
+            className='mx-2 my-4 ml-auto p-2.5 text-altBlack'
             sx={{ borderRadius: 1 }}
           >
             <Close />

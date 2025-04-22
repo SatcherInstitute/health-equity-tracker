@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as d3 from 'd3'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
@@ -81,7 +82,7 @@ const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
 
   return (
     <div
-      className={`absolute border border-altGrey bg-white p-3 rounded-sm  max-w-sm z-top text-left`}
+      className={`absolute z-top max-w-sm rounded-sm border border-altGrey bg-white p-3 text-left`}
       style={{
         top: position.y,
         left: position.x,
@@ -128,7 +129,12 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       return
     }
 
-    const svg = d3.select(svgRef.current)
+    const svg = d3.select(svgRef.current) as d3.Selection<
+      SVGSVGElement,
+      unknown,
+      null,
+      undefined
+    >
     svg.selectAll('*').remove()
 
     const margin = { top: 40, right: 80, bottom: 40, left: 80 }

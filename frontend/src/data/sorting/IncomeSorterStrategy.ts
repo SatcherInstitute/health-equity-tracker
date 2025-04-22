@@ -2,15 +2,15 @@ import type { Breakdowns } from '../query/Breakdowns'
 import type { HetRow } from '../utils/DatasetTypes'
 import { AbstractSortStrategy } from './AbstractDataSorter'
 
-export const regexStripIncomeString = /^[^\d-]*(\d+)/
+const regexStripIncomeString = /^[^\d-]*(\d+)/
 
-export function compareIncome(a: HetRow, b: HetRow): number {
+function compareIncome(a: HetRow, b: HetRow): number {
   const aValue = a?.['income']?.match(regexStripIncomeString)?.[1] || 0
   const bValue = b?.['income']?.match(regexStripIncomeString)?.[1] || 0
   return aValue - bValue
 }
 
-export function sortForVegaByIncome(data: HetRow[]): HetRow[] {
+export function sortByIncome(data: HetRow[]): HetRow[] {
   const dataWithUnder = data.filter((row: HetRow) => {
     return row['income'].includes('Under') || row['income'].includes('All')
   })

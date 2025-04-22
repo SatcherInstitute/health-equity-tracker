@@ -10,7 +10,6 @@ test('Maternal Mortality', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
-  await page.getByLabel('Legend for rate map').getByRole('img').click()
   await page
     .locator('li')
     .filter({ hasText: 'Total population of New' })
@@ -48,7 +47,7 @@ test('Maternal Mortality', async ({ page }) => {
     .locator('#population-vs-distribution')
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
-  await page.getByLabel('Comparison bar chart showing').getByRole('img').click()
+  await page.getByLabel('Comparison bar chart showing').click()
   await page.getByRole('heading', { name: 'Summary for maternal' }).click()
   await page
     .getByRole('figure', { name: 'Summary for maternal' })
@@ -61,9 +60,8 @@ test('Maternal Mortality', async ({ page }) => {
     .click()
   await page.getByRole('columnheader', { name: 'Share of live births' }).click()
 
-  // TODO: re-enable once methodology for maternal mortality is live on PROD
-  // await page.getByRole('heading', { name: 'Definitions:' }).click()
-  // await page.getByRole('heading', { name: 'Maternal Health' }).click()
-  // await page.locator('#definitionsList').getByText('Maternal mortality').click()
-  // await page.getByText('Maternal deaths per 100,000').click()
+  await page.getByRole('heading', { name: 'Definitions:' }).click()
+  await page.getByRole('heading', { name: 'Maternal Health' }).click()
+  await page.locator('#definitionsList').getByText('Maternal mortality').click()
+  await page.getByText('Maternal deaths per 100,000').click()
 })

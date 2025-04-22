@@ -1,41 +1,41 @@
 import { TableChart } from '../charts/TableChart'
-import CardWrapper from './CardWrapper'
-import { MetricQuery } from '../data/query/MetricQuery'
-import type { Fips } from '../data/utils/Fips'
-import {
-  Breakdowns,
-  type DemographicType,
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-} from '../data/query/Breakdowns'
-import { exclude } from '../data/query/BreakdownFilter'
-import { ALL, RACE, SEX } from '../data/utils/Constants'
-import MissingDataAlert from './ui/MissingDataAlert'
-import { urlMap } from '../utils/externalUrls'
-import {
-  getExclusionList,
-  shouldShowAltPopCompare,
-} from '../data/utils/datasetutils'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
-import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
-import type { HetRow } from '../data/utils/DatasetTypes'
-import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import {
-  DATATYPES_NEEDING_13PLUS,
-  GENDER_METRICS,
-} from '../data/providers/HivProvider'
-import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import type { CountColsMap } from '../charts/mapGlobals'
-import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
-import HetDivider from '../styles/HetComponents/HetDivider'
-import { sortForVegaByIncome } from '../data/sorting/IncomeSorterStrategy'
+import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import {
   getMetricIdToConfigMap,
   metricConfigFromDtConfig,
 } from '../data/config/MetricConfigUtils'
-import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
-import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/providers/HivProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+import { exclude } from '../data/query/BreakdownFilter'
+import {
+  Breakdowns,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import { sortByIncome } from '../data/sorting/IncomeSorterStrategy'
+import { ALL, RACE, SEX } from '../data/utils/Constants'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
+import {
+  getExclusionList,
+  shouldShowAltPopCompare,
+} from '../data/utils/datasetutils'
+import HetDivider from '../styles/HetComponents/HetDivider'
+import HetNotice from '../styles/HetComponents/HetNotice'
+import { urlMap } from '../utils/externalUrls'
+import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import CardWrapper from './CardWrapper'
+import GenderDataShortAlert from './ui/GenderDataShortAlert'
+import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
+import MissingDataAlert from './ui/MissingDataAlert'
 
 interface TableCardProps {
   fips: Fips
@@ -141,7 +141,7 @@ export default function TableCard(props: TableCardProps) {
           data.length <= 0
 
         if (props.demographicType === 'income') {
-          data = sortForVegaByIncome(data)
+          data = sortByIncome(data)
         }
 
         return (

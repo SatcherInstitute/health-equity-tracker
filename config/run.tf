@@ -7,8 +7,13 @@ resource "google_cloud_run_service" "ingestion_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
+      }
+    }
     spec {
-      timeout_seconds = 60 * 10 // 10 minutes
+      timeout_seconds = 60 * 60
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
@@ -36,8 +41,13 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
+      }
+    }
     spec {
-      timeout_seconds = 60 * 10 //  10 minutes
+      timeout_seconds = 60 * 60 // timeout at 60 minutes; wasn't finishing ACS CONDITION with only 30 minutes
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.gcs_to_bq_image_name, var.gcs_to_bq_image_digest)
         env {
@@ -80,6 +90,11 @@ resource "google_cloud_run_service" "data_server_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "80" # User-facing can scale to handle many requests
+      }
+    }
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
@@ -114,14 +129,20 @@ resource "google_cloud_run_service" "exporter_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10" # Handle parallel DAG steps
+      }
+    }
     spec {
-      timeout_seconds = 60 * 10 // 10 minutes
+      timeout_seconds = 60 * 45
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.exporter_image_name, var.exporter_image_digest)
 
         resources {
           limits = {
-            memory = "4G"
+            memory = "8Gi"
+            cpu    = 4
           }
         }
         env {
@@ -154,6 +175,11 @@ resource "google_cloud_run_service" "frontend_service" {
   project  = var.project_id
 
   template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "80" # User-facing can scale to handle many requests
+      }
+    }
     spec {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.frontend_image_name, var.frontend_image_digest)
@@ -191,7 +217,7 @@ output "frontend_url" {
   value = google_cloud_run_service.frontend_service.status.0.url
 }
 
-# Output the URLs of the pipeline services for use in Airflow.
+# Output the URLs of the pipeline services (previously used for DAGs)
 output "ingestion_url" {
   value = google_cloud_run_service.ingestion_service.status.0.url
 }

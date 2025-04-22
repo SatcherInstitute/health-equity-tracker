@@ -5,9 +5,10 @@ import type {
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
-import InsightDisplay, { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
+import InsightDisplay from './ui/InsightDisplay'
 import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {
@@ -38,7 +39,7 @@ function CardWrapper(props: {
 }) {
   const loadingComponent = (
     <div
-      className={`rounded relative m-2 p-3 shadow-raised bg-white flex justify-center ${props.className}`}
+      className={`relative m-2 flex justify-center rounded bg-white p-3 shadow-raised ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
@@ -57,8 +58,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className={`rounded-sm relative m-2 p-3 shadow-raised bg-white ${props.className}`}
-            tabIndex={-1}
+            className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
           >
             {shouldShowInsightDisplay && (
               <InsightDisplay
@@ -77,6 +77,7 @@ function CardWrapper(props: {
               <Sources
                 isCensusNotAcs={props.isCensusNotAcs}
                 metadata={metadata}
+                hideNH={props.hideNH}
                 queryResponses={queryResponses}
                 showDefinition={props.scrollToHash === 'rate-map'}
                 isCompareCard={props.isCompareCard}

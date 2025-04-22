@@ -1,20 +1,20 @@
+import FiberNewIcon from '@mui/icons-material/FiberNew'
 import { lazy } from 'react'
 import {
+  GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
   HIV_PREVALENCE_RACE_USA_SETTING,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
-  GUN_DEATHS_YOUNG_ADULTS_USA_SETTING,
 } from '../../utils/internalRoutes'
-import FiberNewIcon from '@mui/icons-material/FiberNew'
 
 const CustomChoroplethMap = lazy(
   () => import('../../reports/CustomChoroplethMap'),
 )
-const Custom100kBarChartCompare = lazy(
-  () => import('../../reports/Custom100kBarChartCompare'),
+const CustomRateBarChartCompare = lazy(
+  () => import('../../reports/CustomRateBarChartCompare'),
 )
-const CustomDisparityBarChartCompare = lazy(
-  () => import('../../reports/CustomDisparityBarChartCompare'),
+const CustomStackedSharesBarChartCompare = lazy(
+  () => import('../../reports/CustomStackedSharesBarChartCompare'),
 )
 const CustomRateTrendsLineChart = lazy(
   () => import('../../reports/CustomRateTrendsLineChart'),
@@ -74,7 +74,7 @@ export const reportMappings: ReportMapping[] = [
       'Compare Topics',
     ],
     previewImg: '/img/screenshots/sample-report_ga.png',
-    customCard: <Custom100kBarChartCompare />,
+    customCard: <CustomRateBarChartCompare />,
   },
   {
     setting: UNINSURANCE_SEX_FL_VS_CA_SETTING,
@@ -89,6 +89,6 @@ export const reportMappings: ReportMapping[] = [
       'Compare Places',
     ],
     previewImg: '/img/screenshots/sample-report_uninsured.png',
-    customCard: <CustomDisparityBarChartCompare />,
+    customCard: <CustomStackedSharesBarChartCompare />,
   },
 ]

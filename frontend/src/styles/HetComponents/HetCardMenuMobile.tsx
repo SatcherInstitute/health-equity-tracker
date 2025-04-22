@@ -1,6 +1,6 @@
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar'
-import { Select, FormControl, MenuItem, InputLabel } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 
 interface HetCardMenuMobileProps {
   className?: string
@@ -18,11 +18,11 @@ export default function HetCardMenuMobile(props: HetCardMenuMobileProps) {
   return (
     <>
       <div
-        className={`top-0 z-almostTop flex rounded-sm bg-white pt-8 pb-4 w-fit max-w-screen ${
+        className={`top-0 z-almostTop flex w-fit max-w-screen rounded-sm bg-white pt-8 pb-4 ${
           props.className ?? ''
         }`}
       >
-        <Toolbar className='w-screen px-0 flex justify-center'>
+        <Toolbar className='flex w-screen justify-center px-0'>
           <FormControl sx={{ minWidth: '90vw' }} size='medium'>
             <InputLabel id='context-select-label'>{props.label}</InputLabel>
             <Select

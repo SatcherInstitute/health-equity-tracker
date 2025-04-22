@@ -1,22 +1,22 @@
 import { Helmet } from 'react-helmet-async'
-import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 
 export default function HowToUseTheDataTab() {
   return (
-    <div className='max-w-svw w-full mx-0 px-0'>
+    <div className='mx-0 w-full max-w-svw px-0'>
       <Helmet>
         <title>How To Use The Data - Health Equity Tracker</title>
       </Helmet>
-      <h2 className='sr-only'>How To Use The Data</h2>
       <section
         id='het-data-visualizations'
-        className='max-w-svw w-fit mx-0 px-0'
+        className='mx-0 w-fit max-w-svw px-0'
       >
+        <h1 className='sr-only'>How to Use the Data</h1>
         <HetOverline text='How to Use the Data' />
-        <h3 className='my-0 text-title font-medium text-altGreen'>
+        <h2 className='my-0 font-medium text-altGreen text-title'>
           HET Data Visualization Maps and Charts
-        </h3>
+        </h2>
         <p>
           In Atlanta, as in many cities, gun violence remains a pressing issue,
           disproportionately affecting marginalized communities. The open-source
@@ -32,25 +32,25 @@ export default function HowToUseTheDataTab() {
         <section
           key={dataVisual.sectionId}
           id={dataVisual.sectionId}
-          className='max-w-svw w-auto mx-0 px-0'
+          className='mx-0 w-auto max-w-svw px-0'
         >
-          <div className='max-w-svw w-auto'>
+          <div className='w-auto max-w-svw'>
             <HetOverline text='Our Data Visuals' />
 
-            <h3 className='my-0 text-title font-medium text-altGreen'>
+            <h2 className='my-0 font-medium text-altGreen text-title'>
               {dataVisual.title}
-            </h3>
+            </h2>
 
-            <div className='py-4 sm:p-0 sm:m-0 max-w-svw w-auto'>
+            <div className='w-auto max-w-svw py-4 sm:m-0 sm:p-0'>
               {dataVisual.customCard}
 
               <p>{dataVisual.description}</p>
             </div>
 
             <div>
-              <ul className='list-none grid gap-4 grid-cols-2 p-0 text-smallest'>
+              <ul className='grid list-none grid-cols-2 gap-4 p-0 text-smallest'>
                 <li className='flex flex-col'>
-                  <p className='my-0 text-altGreen font-semibold'>
+                  <p className='my-0 font-semibold text-altGreen'>
                     Demographic Granularity
                   </p>
                   <p className='my-0'>
@@ -60,7 +60,7 @@ export default function HowToUseTheDataTab() {
                   </p>
                 </li>
                 <li className='flex flex-col'>
-                  <p className='my-0 text-altGreen font-semibold'>
+                  <p className='my-0 font-semibold text-altGreen'>
                     Geographic Levels
                   </p>
                   <p className='my-0'>
@@ -71,7 +71,7 @@ export default function HowToUseTheDataTab() {
                 </li>
                 {dataVisual.details.alternateBreakdowns !== 'N/A' && (
                   <li className='flex flex-col'>
-                    <p className='my-0 text-altGreen font-semibold'>
+                    <p className='my-0 font-semibold text-altGreen'>
                       Alternate Disparities Breakdowns
                     </p>
                     <p className='my-0'>
@@ -84,18 +84,18 @@ export default function HowToUseTheDataTab() {
               </ul>
             </div>
             <p>
-              <h3 className='my-0 text-title font-medium text-altGreen'>
+              <h2 className='my-0 font-medium text-altGreen text-title'>
                 How to Use
-              </h3>
+              </h2>
               <div>
                 {dataVisual.details.howToUse.map((step, i) => (
-                  <p className='py-0 my-0' key={i}>
+                  <p className='my-0 py-0' key={i}>
                     <strong>{step.step}:</strong> {step.description}
                   </p>
                 ))}
               </div>
             </p>
-            <div className='mt-8 border border-b-1 border-t-0 border-x-0 border-solid border-methodologyGreen'></div>
+            <div className='mt-8 border border-methodologyGreen border-x-0 border-t-0 border-b-1 border-solid'></div>
           </div>
         </section>
       ))}

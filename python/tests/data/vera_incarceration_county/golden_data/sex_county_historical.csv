@@ -1,0 +1,151 @@
+time_period,county_fips,county_name,sex,jail_per_100k,prison_per_100k,jail_pct_relative_inequity,prison_pct_relative_inequity
+1970,01001,Autauga County,All,,,,
+1970,01001,Autauga County,Female,,,,
+1970,01001,Autauga County,Male,,,,
+1970,55065,Lafayette County,All,31.0,,0.0,
+1970,55065,Lafayette County,Female,0.0,,-100.0,
+1970,55065,Lafayette County,Male,62.0,,96.5,
+1971,47173,Union County,All,131.0,,0.0,
+1971,47173,Union County,Female,0.0,,-100.0,
+1971,47173,Union County,Male,266.0,,102.8,
+1972,37119,Mecklenburg County,All,112.0,,0.0,
+1972,37119,Mecklenburg County,Female,15.0,,-86.0,
+1972,37119,Mecklenburg County,Male,217.0,,94.3,
+1973,27133,Rock County,All,34.0,,0.0,
+1973,27133,Rock County,Female,0.0,,-100.0,
+1973,27133,Rock County,Male,31.0,,101.6,
+1974,19053,Decatur County,All,53.0,,0.0,
+1974,19053,Decatur County,Female,0.0,,-100.0,
+1974,19053,Decatur County,Male,112.0,,104.1,
+1975,08013,Boulder County,All,51.0,,0.0,
+1975,08013,Boulder County,Female,5.0,,-90.8,
+1975,08013,Boulder County,Male,93.0,,86.5,
+1976,48485,Wichita County,All,103.0,,0.0,
+1976,48485,Wichita County,Female,6.0,,-93.7,
+1976,48485,Wichita County,Male,191.0,,91.1,
+1977,40139,Texas County,All,107.0,,0.0,
+1977,40139,Texas County,Female,2.0,,-98.2,
+1977,40139,Texas County,Male,209.0,,94.7,
+1978,30067,Park County,All,76.0,,0.0,
+1978,30067,Park County,Female,0.0,,-100.0,
+1978,30067,Park County,Male,150.0,,98.4,
+1979,21147,McCreary County,All,60.0,,0.0,
+1979,21147,McCreary County,Female,0.0,,-100.0,
+1979,21147,McCreary County,Male,120.0,,99.6,
+1980,13233,Polk County,All,128.0,215.0,0.0,0.0
+1980,13233,Polk County,Female,9.0,,-92.7,
+1980,13233,Polk County,Male,256.0,,100.0,
+1981,54049,Marion County,All,87.0,,0.0,
+1981,54049,Marion County,Female,16.0,,-81.0,
+1981,54049,Marion County,Male,164.0,,88.5,
+1982,47047,Fayette County,All,300.0,,0.0,
+1982,47047,Fayette County,Female,8.0,,-97.5,
+1982,47047,Fayette County,Male,619.0,,104.8,
+1983,36117,Wayne County,All,79.0,,0.0,
+1983,36117,Wayne County,Female,7.0,,-91.1,
+1983,36117,Wayne County,Male,152.0,,92.5,
+1984,27007,Beltrami County,All,119.0,,0.0,
+1984,27007,Beltrami County,Female,9.0,,-92.0,
+1984,27007,Beltrami County,Male,228.0,,92.0,
+1985,18111,Newton County,All,80.0,,0.0,
+1985,18111,Newton County,Female,0.0,,-100.0,
+1985,18111,Newton County,Male,161.0,,100.4,
+1986,06003,Alpine County,All,,0.0,,
+1986,06003,Alpine County,Female,,,,
+1986,06003,Alpine County,Male,,,,
+1987,48359,Oldham County,All,211.0,562.0,0.0,0.0
+1987,48359,Oldham County,Female,0.0,0.0,-100.0,-100.0
+1987,48359,Oldham County,Male,378.0,1009.0,79.5,79.5
+1988,40013,Bryan County,All,150.0,375.0,0.0,0.0
+1988,40013,Bryan County,Female,29.0,,-76.4,
+1988,40013,Bryan County,Male,224.0,,79.2,
+1989,29171,Putnam County,All,102.0,648.0,0.0,0.0
+1989,29171,Putnam County,Female,0.0,,-100.0,
+1989,29171,Putnam County,Male,515.0,,98.4,
+1990,21021,Boyle County,All,441.0,508.0,0.0,0.0
+1990,21021,Boyle County,Female,99.0,60.0,-80.2,-88.3
+1990,21021,Boyle County,Male,887.0,945.0,78.3,86.2
+1991,13105,Elbert County,All,312.0,629.0,0.0,0.0
+1991,13105,Elbert County,Female,56.0,98.0,-85.1,-84.5
+1991,13105,Elbert County,Male,714.0,1195.0,90.7,90.1
+1992,53001,Adams County,All,198.0,127.0,0.0,0.0
+1992,53001,Adams County,Female,17.0,0.0,-87.9,-100.0
+1992,53001,Adams County,Male,261.0,247.0,83.8,95.3
+1993,46055,Haakon County,All,45.0,0.0,0.0,
+1993,46055,Haakon County,Female,0.0,0.0,-100.0,0.0
+1993,46055,Haakon County,Male,142.0,0.0,98.8,0.0
+1994,35045,San Juan County,All,459.0,,0.0,
+1994,35045,San Juan County,Female,80.0,,-82.2,
+1994,35045,San Juan County,Male,835.0,,84.6,
+1995,26047,Emmet County,All,169.0,365.0,0.0,0.0
+1995,26047,Emmet County,Female,32.0,,-83.0,
+1995,26047,Emmet County,Male,347.0,,83.4,
+1996,17189,Washington County,All,157.0,152.0,0.0,0.0
+1996,17189,Washington County,Female,0.0,0.0,-100.0,-100.0
+1996,17189,Washington County,Male,289.0,301.0,98.0,98.0
+1997,05027,Columbia County,All,151.0,,0.0,
+1997,05027,Columbia County,Female,4.0,,-97.3,
+1997,05027,Columbia County,Male,311.0,,102.9,
+1998,48233,Hutchinson County,All,309.0,610.0,0.0,0.0
+1998,48233,Hutchinson County,Female,101.0,,-65.9,
+1998,48233,Hutchinson County,Male,495.0,,66.9,
+1999,39063,Hancock County,All,226.0,491.0,0.0,0.0
+1999,39063,Hancock County,Female,38.0,55.0,-81.0,-88.7
+1999,39063,Hancock County,Male,369.0,934.0,82.6,90.5
+2000,29045,Clark County,All,381.0,905.0,0.0,0.0
+2000,29045,Clark County,Female,147.0,,-58.6,
+2000,29045,Clark County,Male,554.0,,55.9,
+2001,20105,Lincoln County,All,145.0,,0.0,
+2001,20105,Lincoln County,Female,32.0,,-59.6,
+2001,20105,Lincoln County,Male,127.0,,58.0,
+2002,12111,St. Lucie County,All,681.0,1124.0,0.0,0.0
+2002,12111,St. Lucie County,Female,220.0,183.0,-69.6,-83.6
+2002,12111,St. Lucie County,Male,1247.0,2092.0,71.6,86.0
+2003,51147,Prince Edward County,All,930.0,1337.0,0.0,0.0
+2003,51147,Prince Edward County,Female,152.0,286.0,-83.2,-78.6
+2003,51147,Prince Edward County,Male,1637.0,2365.0,81.6,77.0
+2004,45019,Charleston County,All,551.0,775.0,0.0,0.0
+2004,45019,Charleston County,Female,109.0,57.0,-81.6,-92.7
+2004,45019,Charleston County,Male,1092.0,1524.0,84.9,96.5
+2005,32019,Lyon County,All,210.0,663.0,0.0,0.0
+2005,32019,Lyon County,Female,74.0,,-67.8,
+2005,32019,Lyon County,Male,383.0,,66.2,
+2006,23029,Washington County,All,241.0,365.0,0.0,0.0
+2006,23029,Washington County,Female,84.0,,-67.1,
+2006,23029,Washington County,Male,424.0,,66.5,
+2007,17063,Grundy County,All,156.0,128.0,0.0,0.0
+2007,17063,Grundy County,Female,32.0,,-62.6,
+2007,17063,Grundy County,Male,136.0,,61.4,
+2008,01125,Tuscaloosa County,All,456.0,684.0,0.0,0.0
+2008,01125,Tuscaloosa County,Female,96.0,54.0,-80.6,-92.2
+2008,01125,Tuscaloosa County,Male,915.0,1343.0,84.3,96.3
+2009,48107,Crosby County,All,268.0,789.0,0.0,0.0
+2009,48107,Crosby County,Female,110.0,,-61.2,
+2009,48107,Crosby County,Male,465.0,,64.9,
+2010,38043,Kidder County,All,,,,
+2010,38043,Kidder County,Female,,,,
+2010,38043,Kidder County,Male,,,,
+2011,28083,Leflore County,All,405.0,1190.0,0.0,0.0
+2011,28083,Leflore County,Female,37.0,111.0,-93.2,-90.6
+2011,28083,Leflore County,Male,1086.0,2328.0,98.2,95.5
+2012,19177,Van Buren County,All,101.0,133.0,0.0,0.0
+2012,19177,Van Buren County,Female,32.0,0.0,-72.3,-100.0
+2012,19177,Van Buren County,Male,195.0,259.0,68.9,95.3
+2013,09009,New Haven County,All,,,,
+2013,09009,New Haven County,Female,,,,
+2013,09009,New Haven County,Male,,,,
+2014,51015,Augusta County,All,320.0,,0.0,
+2014,51015,Augusta County,Female,115.0,,-66.3,
+2014,51015,Augusta County,Male,555.0,,62.6,
+2015,42037,Columbia County,All,470.0,289.0,0.0,0.0
+2015,42037,Columbia County,Female,84.0,65.0,-66.3,-77.5
+2015,42037,Columbia County,Male,421.0,522.0,69.0,80.6
+2016,31079,Hall County,All,464.0,592.0,0.0,0.0
+2016,31079,Hall County,Female,48.0,106.0,-84.1,-82.1
+2016,31079,Hall County,Male,544.0,1062.0,81.5,79.5
+2017,22031,De Soto Parish,All,691.0,,0.0,
+2017,22031,De Soto Parish,Female,57.0,,-90.7,
+2017,22031,De Soto Parish,Male,1193.0,,95.9,
+2018,16025,Camas County,All,,,,
+2018,16025,Camas County,Female,,,,
+2018,16025,Camas County,Male,,,,

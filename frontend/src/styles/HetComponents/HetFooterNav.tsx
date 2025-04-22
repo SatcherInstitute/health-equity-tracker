@@ -1,11 +1,11 @@
 import {
-  EXPLORE_DATA_PAGE_LINK,
-  TERMS_OF_USE_PAGE_LINK,
   ABOUT_US_PAGE_LINK,
-  METHODOLOGY_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
   FULL_FAQS_LINK,
+  METHODOLOGY_PAGE_LINK,
+  TERMS_OF_USE_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import HetCopyright from './HetCopywright'
+import HetCopyright from './HetCopyright'
 import HetLinkButton from './HetLinkButton'
 export default function HetFooterLinks() {
   return (
@@ -13,7 +13,7 @@ export default function HetFooterLinks() {
       aria-label='footer site navigation'
       className='flex flex-col items-center lg:items-end'
     >
-      <ul className='flex min-h-[78px] list-none flex-col  p-0 sm:flex-row'>
+      <ul className='flex min-h-[78px] list-none flex-col p-0 sm:flex-row'>
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', METHODOLOGY_PAGE_LINK],

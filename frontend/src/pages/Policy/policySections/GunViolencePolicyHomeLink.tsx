@@ -5,42 +5,42 @@ export default function GunViolencePolicyHomeLink() {
     <>
       <section className='relative'>
         <HetOverline text='In Focus' className='text-center' />
-        <div className='flex w-full flex-col justify-center items-center'>
-          <h2 className='m-0 font-sansTitle text-biggerHeader font-bold leading-lhModalHeading text-altGreen text-center xs:text-header'>
+        <div className='flex w-full flex-col items-center justify-center'>
+          <h1 className='m-0 text-center font-bold font-sansTitle text-altGreen text-biggerHeader xs:text-header leading-lhModalHeading'>
             Understanding the Crisis of Gun Violence in Atlanta
-          </h2>
+          </h1>
 
-          <p className='text-center my-4 text-title lg:px-32 px-8 lg:py-8 py-4'>
+          <p className='my-4 px-8 py-4 text-center text-title lg:px-32 lg:py-8'>
             This pervasive public health challenge harms communities nationwide,
             disproportionately affecting Black communities. It's crucial to
             understand its impacts on mental, physical, and social health, often
             exacerbated by racial motives.
           </p>
-          <article className='rounded-md shadow-raised bg-white flex lg:px-24 px-8 pb-8 pt-0 lg:mt-8 mt-4'>
+          <article className='mt-4 flex rounded-md bg-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
             <div className='flex flex-col align-center'>
               <img
-                className='mx-auto my-0 p-0 fade-in-up-blur'
+                className='fade-in-up-blur mx-auto my-0 p-0'
                 src='/img/graphics/DrSatcher.png'
                 alt='David Satcher, MD, PhD'
                 style={{ animationDelay: `${0.3}s` }}
               ></img>
 
               <p
-                className='text-center text-text text-altGreen font-bold text-sansText py-0 my-0 fade-in-up-blur'
+                className='fade-in-up-blur my-0 py-0 text-center font-bold text-altGreen text-sansText text-text'
                 style={{ animationDelay: `${0.2}s` }}
               >
                 David Satcher, M.D., Ph.D.
               </p>
-              <p className='text-center text-small mt-0 mb-2 text-sansText'>
+              <p className='mt-0 mb-2 text-center text-sansText text-small'>
                 Founding Director & Senior Advisor
               </p>
 
               <div className='relative text-center'>
-                <span className='absolute xs:top-[-15rem] xs:left-[-2rem] md:top-[-13rem] md:left-[-1rem] lg:top-[-14rem] lg:left-[-5rem] m-0 p-0 text-[20rem] text-hoverAltGreen'>
+                <span className='absolute xs:top-[-15rem] xs:left-[-2rem] m-0 p-0 text-[20rem] text-hoverAltGreen md:top-[-13rem] md:left-[-1rem] lg:top-[-14rem] lg:left-[-5rem]'>
                   &#10077;
                 </span>
                 <p
-                  className='font-roboto text-title my-0 leading-4  fade-in-up-blur'
+                  className='fade-in-up-blur my-0 font-roboto text-title leading-4'
                   style={{ animationDelay: `${0.4}s` }}
                 >
                   Our children should be given a personal sense of security.
@@ -50,7 +50,7 @@ export default function GunViolencePolicyHomeLink() {
                   necessary to protect them.
                 </p>
 
-                <p className='font-roboto text-title font-bold my-2'>
+                <p className='my-2 font-bold font-roboto text-title'>
                   Gun violence is a major public health problem.
                 </p>
               </div>

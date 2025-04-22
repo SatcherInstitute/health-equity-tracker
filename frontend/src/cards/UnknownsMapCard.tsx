@@ -1,32 +1,36 @@
-import ChoroplethMap from '../charts/ChoroplethMap'
-import { Fips } from '../data/utils/Fips'
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import type { HetRow } from '../data/utils/DatasetTypes'
-import CardWrapper from './CardWrapper'
-import { MetricQuery } from '../data/query/MetricQuery'
-import MissingDataAlert from './ui/MissingDataAlert'
+import { useLocation } from 'react-router'
+import ChoroplethMap from '../charts/choroplethMap/index'
+import type { DataPoint } from '../charts/choroplethMap/types'
+import { MAP_SCHEMES } from '../charts/mapGlobals'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import type {
+  DataTypeConfig,
+  MapConfig,
+} from '../data/config/MetricConfigTypes'
 import {
   Breakdowns,
-  type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
 import {
-  UNKNOWN,
-  UNKNOWN_RACE,
-  UNKNOWN_ETHNICITY,
   ALL,
   RACE,
+  UNKNOWN,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN_RACE,
 } from '../data/utils/Constants'
-import UnknownsAlert from './ui/UnknownsAlert'
-import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { useLocation } from 'react-router-dom'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import TerritoryCircles from './ui/TerritoryCircles'
-import ChartTitle from './ChartTitle'
-import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import { unknownMapConfig } from '../charts/mapGlobals'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import { Fips } from '../data/utils/Fips'
+import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import CardWrapper from './CardWrapper'
+import ChartTitle from './ChartTitle'
+import MissingDataAlert from './ui/MissingDataAlert'
+import UnknownsAlert from './ui/UnknownsAlert'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -112,6 +116,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 
+  const unknownMapConfig: MapConfig = {
+    scheme: MAP_SCHEMES.unknown,
+    zero: het.unknownMapLeast,
+    mid: het.unknownMapMid,
+  }
+
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -120,6 +130,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      hideNH={true}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
@@ -209,39 +220,22 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 }
               >
                 <ChoroplethMap
-                  demographicType={demographicType}
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
-                  isUnknownsMap={true}
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
-                  data={unknowns}
-                  showCounties={!props.fips.isUsa()}
-                  fips={props.fips}
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
-                  }
-                  geoData={geoData}
-                  filename={chartTitle}
-                  mapConfig={unknownMapConfig}
+                  data={unknowns as DataPoint[]}
+                  demographicType={demographicType}
                   extremesMode={false}
+                  filename={chartTitle}
+                  fips={props.fips}
+                  geoData={geoData}
+                  isUnknownsMap={true}
+                  legendTitle={metricConfig?.unknownsLabel ?? ''}
+                  mapConfig={unknownMapConfig}
+                  metricConfig={metricConfig}
+                  showCounties={!props.fips.isUsa()}
+                  signalListeners={signalListeners}
+                  isPhrmaAdherence={false}
                 />
-                {props.fips.isUsa() && unknowns.length > 0 && (
-                  <TerritoryCircles
-                    demographicType={demographicType}
-                    activeDemographicGroup={UNKNOWN}
-                    countColsMap={{}}
-                    mapIsWide={mapIsWide}
-                    data={unknowns}
-                    metricConfig={metricConfig}
-                    dataTypeConfig={props.dataTypeConfig}
-                    signalListeners={signalListeners}
-                    geoData={geoData}
-                    isUnknownsMap={true}
-                    extremesMode={false}
-                  />
-                )}
               </div>
             )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}

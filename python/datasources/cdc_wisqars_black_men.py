@@ -84,9 +84,9 @@ TIME_MAP = {
 
 COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
     {
-        'numerator_col': 'gun_homicides_black_men_estimated_total',
-        'denominator_col': 'gun_homicides_black_men_population_estimated_total',
-        'rate_col': 'gun_homicides_black_men_per_100k',
+        "numerator_col": "gun_homicides_black_men_estimated_total",
+        "denominator_col": "gun_homicides_black_men_population_estimated_total",
+        "rate_col": "gun_homicides_black_men_per_100k",
     }
 ]
 
@@ -111,13 +111,12 @@ class CDCWisqarsBlackMenData(DataSource):
 
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
-        for table_type in [CURRENT, HISTORICAL]:
-            table_name = f"black_men_by_{demographic}_{geo_level}_{table_type}"
-            time_cols = TIME_MAP[table_type]
-
-            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, table_type, demographic)
-
-            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_name, column_types=col_types)
+        for time_view in [CURRENT, HISTORICAL]:
+            table_demo = f"black_men_by_{demographic}"
+            table_id = gcs_to_bq_util.make_bq_table_id(table_demo, geo_level, time_view)
+            time_cols = TIME_MAP[time_view]
+            df_for_bq, col_types = generate_time_df_with_cols_and_types(df, time_cols, time_view, demographic)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(self, demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE, alls_df: pd.DataFrame):
         cols_to_standard = {
@@ -160,7 +159,7 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
             df.insert(3, WISQARS_AGE_GROUP, std_col.ALL_VALUE)
         elif demographic == std_col.AGE_COL:
-            df[WISQARS_AGE_GROUP] = df[WISQARS_AGE_GROUP].str.replace(' to ', '-')
+            df[WISQARS_AGE_GROUP] = df[WISQARS_AGE_GROUP].str.replace(" to ", "-")
 
         df.rename(
             columns={
@@ -171,6 +170,6 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
             inplace=True,
         )
 
-        output_df = output_df.merge(df, how='outer')
+        output_df = output_df.merge(df, how="outer")
 
     return output_df

@@ -1,6 +1,6 @@
 import { Fips } from '../utils/Fips'
 import type BreakdownFilter from './BreakdownFilter'
-export type TimeView = 'current' | 'historical'
+export type TimeView = 'current' | 'historical' | 'cumulative' // cumulative only used by COVID
 
 export type GeographicBreakdown =
   | 'national'
@@ -21,7 +21,7 @@ export type DemographicType =
   | 'education'
   | 'insurance_status'
 
-export const DEMOGRAPHIC_TYPES = [
+const DEMOGRAPHIC_TYPES = [
   'race_and_ethnicity',
   'sex',
   'age',
@@ -34,15 +34,15 @@ export const DEMOGRAPHIC_TYPES = [
 ] as const
 
 // union type of array
-export type DemographicBreakdownKey = (typeof DEMOGRAPHIC_TYPES)[number]
+type DemographicBreakdownKey = (typeof DEMOGRAPHIC_TYPES)[number]
 
 export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   race_and_ethnicity: 'Race and Ethnicity',
   age: 'Age',
-  sex: 'Sex',
+  sex: 'Sex at Birth',
   fips: 'FIPS Code',
-  lis: 'Low income subsidy',
-  eligibility: 'Medicare eligibility',
+  lis: 'Low Income Subsidy',
+  eligibility: 'Medicare Eligibility',
   income: 'Income',
   education: 'Education',
   insurance_status: 'Insurance',

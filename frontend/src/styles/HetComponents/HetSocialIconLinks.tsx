@@ -1,5 +1,5 @@
+import { LinkedIn, YouTube } from '@mui/icons-material'
 import TikTokIcon from '../../assets/icons/tiktok'
-import { X, LinkedIn, YouTube } from '@mui/icons-material'
 import { urlMap } from '../../utils/externalUrls'
 
 interface HetSocialIconLinksProps {
@@ -18,13 +18,6 @@ export default function HetSocialIconLinks(props: HetSocialIconLinksProps) {
         aria-label='Health Equity Tracker on LinkedIn'
       >
         <LinkedIn />
-      </a>
-      <a
-        className={`mx-[8px] my-0 ${colorClass}`}
-        href={urlMap.shliTwitter}
-        aria-label='Satcher Health on X formerly Twitter'
-      >
-        <X fontSize={'small'} />
       </a>
       <a
         className={`mx-[7px] my-0 ${colorClass}`}

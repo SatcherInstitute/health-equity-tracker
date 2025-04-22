@@ -1,31 +1,35 @@
 import { getDataManager } from '../../utils/globals'
-import type { MetricId, DataTypeId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 
-import type { TimeView, Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
-import VariableProvider from './VariableProvider'
+import type { Breakdowns } from '../query/Breakdowns'
 import {
-  UNKNOWN_RACE,
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
+import {
+  AIANNH_W,
+  AIAN_API_W,
   HISPANIC,
+  HISP_W,
   MULTI,
-  UNREPRESENTED,
-  type RaceAndEthnicityGroup,
-  OTHER_W,
   MULTI_W,
   OTHER_STANDARD,
+  OTHER_W,
+  type RaceAndEthnicityGroup,
+  UNKNOWN_RACE,
   UNKNOWN_W,
-  HISP_W,
+  UNREPRESENTED,
 } from '../utils/Constants'
-import type { DatasetId } from '../config/DatasetMetadata'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
+import VariableProvider from './VariableProvider'
 
-export const CAWP_CONGRESS_COUNTS: MetricId[] = [
+const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',
   'total_us_congress_count',
 ]
 
-export const CAWP_STLEG_COUNTS: MetricId[] = [
+const CAWP_STLEG_COUNTS: MetricId[] = [
   'women_this_race_state_leg_count',
   'total_state_leg_count',
 ]
@@ -51,6 +55,10 @@ export function getWomenRaceLabel(
   raceLabel: RaceAndEthnicityGroup,
 ): RaceAndEthnicityGroup {
   switch (raceLabel) {
+    case 'American Indian, Alaska Native, Asian & Pacific Islander':
+      return AIAN_API_W
+    case 'Native American, Alaska Native, & Native Hawaiian':
+      return AIANNH_W
     case MULTI:
       return MULTI_W
     case OTHER_STANDARD:
@@ -76,35 +84,21 @@ class CawpProvider extends VariableProvider {
     super('cawp_provider', CAWP_METRICS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView,
-  ): DatasetId | undefined {
-    if (timeView === 'current') {
-      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_national_current'
-      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_state_current'
-    }
-    if (timeView === 'historical') {
-      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_national_historical'
-      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-        return 'cawp_time_data-race_and_ethnicity_state_historical'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
+    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
+      'cawp_data',
+      '',
+      metricQuery,
+    )
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
 
@@ -124,28 +118,29 @@ class CawpProvider extends VariableProvider {
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
+          'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
 
         // CAWP time-series also use DECIA_2010
         if (timeView === 'historical') {
           consumedDatasetIds.push(
-            'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level',
+            'decia_2010_territory_population-race_and_ethnicity_state_current',
           )
         }
       } else {
         // Non-Island Areas use ACS
-        const acsId = GetAcsDatasetId(breakdowns)
-        acsId && consumedDatasetIds.push(acsId)
+        addAcsIdToConsumed(metricQuery, consumedDatasetIds)
       }
     }
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {
       consumedDatasetIds.push('the_unitedstates_project')
     }
-
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 

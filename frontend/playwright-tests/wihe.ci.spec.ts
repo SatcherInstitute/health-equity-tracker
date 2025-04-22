@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 test('WIHE Page loads', async ({ page }) => {
   await page.goto('/whatishealthequity', { waitUntil: 'commit' })

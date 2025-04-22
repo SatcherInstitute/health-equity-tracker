@@ -1,16 +1,16 @@
-import GeoContextProvider from './GeoContextProvider'
-import { Breakdowns } from '../query/Breakdowns'
-import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
-import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import {
   autoInitGlobals,
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
-import type FakeDataFetcher from '../../testing/FakeDataFetcher'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { MetricId } from '../config/MetricConfigTypes'
+import { Breakdowns } from '../query/Breakdowns'
+import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import GeoContextProvider from './GeoContextProvider'
 
 /* Given the geocontext id */
 async function ensureCorrectDatasetsDownloaded(
@@ -52,8 +52,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06037'),
       ['svi', 'population'],
-      'geo_context-county',
-      ['geo_context-county', 'acs_population-by_sex_county'],
+      'geo_context-alls_county_current',
+      ['geo_context-alls_county_current', 'acs_population-sex_county_current'],
     )
   })
 
@@ -61,8 +61,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06037'),
       ['svi'],
-      'geo_context-county',
-      ['geo_context-county'],
+      'geo_context-alls_county_current',
+      ['geo_context-alls_county_current'],
     )
   })
 
@@ -70,8 +70,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('72123'),
       ['svi', 'population'],
-      'geo_context-county',
-      ['geo_context-county', 'acs_population-by_sex_county'],
+      'geo_context-alls_county_current',
+      ['geo_context-alls_county_current', 'acs_population-sex_county_current'],
     )
   })
 
@@ -79,10 +79,10 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('78010'),
       ['svi', 'population'],
-      'geo_context-county',
+      'geo_context-alls_county_current',
       [
-        'geo_context-county',
-        'decia_2020_territory_population-by_sex_territory_county_level',
+        'geo_context-alls_county_current',
+        'decia_2020_territory_population-sex_county_current',
       ],
     )
   })
@@ -91,8 +91,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06'),
       ['population'],
-      'geo_context-state',
-      ['acs_population-by_sex_state'],
+      'geo_context-alls_state_current',
+      ['acs_population-sex_state_current'],
     )
   })
 
@@ -100,8 +100,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('72'),
       ['population'],
-      'geo_context-state',
-      ['acs_population-by_sex_state'],
+      'geo_context-alls_state_current',
+      ['acs_population-sex_state_current'],
     )
   })
 
@@ -109,8 +109,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('78'),
       ['population'],
-      'geo_context-state',
-      ['decia_2020_territory_population-by_sex_territory_state_level'],
+      'geo_context-alls_state_current',
+      ['decia_2020_territory_population-sex_state_current'],
     )
   })
 
@@ -118,8 +118,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('00'),
       ['population'],
-      'geo_context-national',
-      ['acs_population-by_sex_national'],
+      'geo_context-alls_national_current',
+      ['acs_population-sex_national_current'],
     )
   })
 })

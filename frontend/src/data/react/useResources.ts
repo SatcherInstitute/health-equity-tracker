@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { getDataManager } from '../../utils/globals'
+import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 
 export type IncompleteLoadStatus = 'loading' | 'error'
 

@@ -1,9 +1,11 @@
 import { getDataManager } from '../../utils/globals'
-import type { DatasetId } from '../config/DatasetMetadata'
-import type { Breakdowns } from '../query/Breakdowns'
-import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import { GetAcsDatasetId } from './AcsPopulationProvider'
+import type { Breakdowns, GeographicBreakdown } from '../query/Breakdowns'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
+import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 const reason =
@@ -12,6 +14,14 @@ export const COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Age', reason],
   ['Sex', reason],
 ]
+
+const datasetNameMappings: Record<GeographicBreakdown, string> = {
+  national: 'cdc_vaccination_national',
+  state: 'kff_vaccination',
+  territory: 'kff_vaccination',
+  'state/territory': 'kff_vaccination',
+  county: 'cdc_vaccination_county',
+}
 
 class VaccineProvider extends VariableProvider {
   constructor() {
@@ -24,36 +34,24 @@ class VaccineProvider extends VariableProvider {
     ])
   }
 
-  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
-    if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace())
-        return 'cdc_vaccination_national-race_processed'
-      if (breakdowns.hasOnlySex())
-        return 'cdc_vaccination_national-sex_processed'
-      if (breakdowns.hasOnlyAge())
-        return 'cdc_vaccination_national-age_processed'
-    }
-    if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace())
-        return 'kff_vaccination-race_and_ethnicity_state'
-      // WE HAVE THE ALLS SO CAN AT LEAST SHOW THOSE FOR AGE OR SEX REPORTS
-      if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge())
-        return 'kff_vaccination-alls_state'
-    }
-    if (breakdowns.geography === 'county') {
-      return 'cdc_vaccination_county-alls_county'
-    }
-  }
-
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns
-    const datasetId = this.getDatasetId(breakdowns)
+    const bqDatasetName = datasetNameMappings[metricQuery.breakdowns.geography]
+
+    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
+      bqDatasetName,
+      '',
+      metricQuery,
+    )
+
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+
+    const specificDatasetId = isFallbackId
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const vaxData = await getDataManager().loadDataset(specificDatasetId)
     let df = vaxData.toDataFrame()
 
@@ -62,32 +60,27 @@ class VaccineProvider extends VariableProvider {
 
     const consumedDatasetIds = [datasetId]
 
-    if (breakdowns.geography === 'national') {
-      const acsId = GetAcsDatasetId(breakdowns)
-      acsId && consumedDatasetIds.push(acsId)
-    }
-    if (breakdowns.geography === 'state') {
-      consumedDatasetIds.push('acs_population-by_race_state')
+    addAcsIdToConsumed(metricQuery, consumedDatasetIds)
 
+    if (breakdowns.geography === 'state') {
       if (breakdowns.filterFips === undefined) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
+          'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
       }
       if (breakdowns.filterFips?.isIslandArea()) {
         consumedDatasetIds.push(
-          'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
+          'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
       }
     }
-    if (breakdowns.geography === 'county') {
-      // We merge this in on the backend, no need to redownload it here
-      // but we want to provide the proper citation
-      consumedDatasetIds.push('acs_population-by_race_county')
-    }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    df = this.removeUnrequestedColumns(df, metricQuery)
+    if (isFallbackId) {
+      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
+    } else {
+      df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      df = this.removeUnrequestedColumns(df, metricQuery)
+    }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 

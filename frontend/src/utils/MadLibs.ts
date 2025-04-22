@@ -1,33 +1,41 @@
+import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
+import { CDC_CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCancer'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
-import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
+import {
+  COMMUNITY_SAFETY_DROPDOWNIDS,
+  COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR,
+} from '../data/config/MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
+import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
 import {
   MEDICARE_CATEGORY_DROPDOWNIDS,
   MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
 } from '../data/config/MetricConfigPhrma'
+import { CANCER_SCREENING_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../data/providers/PhrmaProvider'
-import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
-import { FIPS_MAP } from '../data/utils/FipsData'
-import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
-import { SHOW_NEW_MATERNAL_MORTALITY } from '../data/providers/MaternalMortalityProvider'
-import { CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
-import { SHOW_CANCER_SCREENINGS } from '../data/providers/PhrmaBrfssProvider'
 import type {
   DataTypeConfig,
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
-import type { DropdownVarId } from '../data/config/DropDownIds'
+
+import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
+import { Fips } from '../data/utils/Fips'
+import { FIPS_MAP } from '../data/utils/FipsData'
+import {
+  SHOW_CANCER_SCREENINGS,
+  SHOW_CHR_GUN_DEATHS,
+  SHOW_PHRMA_MENTAL_HEALTH,
+} from '../featureFlags'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
 
 // Map of phrase selection ID to the display value
-export type PhraseSelector = Record<string, string>
+type PhraseSelector = Record<string, string>
 
 // Each phrase segment of the mad lib is either a string of text
 // or a map of IDs to string options that can fill in a blank
@@ -41,7 +49,7 @@ export const MADLIB_MODE_MAP: Record<string, MadLibId> = {
   Topics: 'comparevars',
 }
 
-export const CategoryMap = {
+const CategoryMap = {
   'behavioral-health': 'Behavioral Health',
   'black-women-health': `Black Women's Health`,
   'chronic-disease': 'Chronic Disease',
@@ -57,7 +65,7 @@ export const CategoryMap = {
 
 export type CategoryTypeId = keyof typeof CategoryMap
 
-export type CategoryTitle = (typeof CategoryMap)[CategoryTypeId]
+type CategoryTitle = (typeof CategoryMap)[CategoryTypeId]
 
 export interface MadLib {
   readonly id: MadLibId
@@ -140,6 +148,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   asthma: 'Asthma',
   avoided_care: 'Care Avoidance Due to Cost',
   cancer_screening: 'Cancer Screening',
+  cancer_incidence: 'Cancer',
   cardiovascular_diseases: 'Cardiovascular Diseases',
   chronic_kidney_disease: 'Chronic Kidney Disease',
   copd: 'COPD',
@@ -149,6 +158,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
+  gun_deaths: 'Gun Deaths',
   gun_violence: 'Gun Homicides and Suicides',
   gun_violence_youth: 'Gun Deaths (Youth)',
   gun_deaths_black_men: 'Gun Homicides (Black Men)',
@@ -184,6 +194,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   gun_violence_youth: 'All Gun Deaths of',
   cancer_screening: 'Screening adherence for',
   gun_deaths_black_men: 'Black Male Gun Homicide Victims',
+  cancer_incidence: 'Incidence for',
 }
 
 export interface Category {
@@ -219,7 +230,6 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-
   {
     title: 'COVID-19',
     definition: '',
@@ -228,7 +238,9 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Community Safety',
     definition: '',
-    options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
+    options: SHOW_CHR_GUN_DEATHS
+      ? (COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[])
+      : (COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR as unknown as DropdownVarId[]),
   },
   {
     title: 'Medication Utilization in the Medicare Population',
@@ -238,21 +250,21 @@ const CATEGORIES_LIST: Category[] = [
       ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
       : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
   },
-]
-
-if (SHOW_NEW_MATERNAL_MORTALITY) {
-  CATEGORIES_LIST.push({
+  {
     title: 'Maternal Health',
     definition: '',
     options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
-  })
-}
+  },
+]
 
 if (SHOW_CANCER_SCREENINGS) {
   CATEGORIES_LIST.push({
     title: 'Cancer',
     definition: '',
-    options: CANCER_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
+    options: [
+      ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
+      ...CANCER_SCREENING_CATEGORY_DROPDOWNIDS,
+    ] as unknown as DropdownVarId[],
   })
 }
 
@@ -313,11 +325,28 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   return 'poverty'
 }
 
+function getFipsListFromMadlib(madlib: MadLib) {
+  const madLibMode = madlib.id
+
+  switch (madLibMode) {
+    case 'disparity':
+      return [new Fips(getPhraseValue(madlib, 3))]
+    case 'comparegeos':
+      return [
+        new Fips(getPhraseValue(madlib, 3)),
+        new Fips(getPhraseValue(madlib, 5)),
+      ]
+    case 'comparevars':
+      return [new Fips(getPhraseValue(madlib, 5))]
+  }
+}
+
 export {
-  MADLIB_LIST,
-  getMadLibPhraseText,
   CATEGORIES_LIST,
-  insertOptionalThe,
   getConfigFromDataTypeId,
+  getFipsListFromMadlib,
+  getMadLibPhraseText,
   getParentDropdownFromDataTypeId,
+  insertOptionalThe,
+  MADLIB_LIST,
 }

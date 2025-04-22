@@ -1,17 +1,23 @@
+import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material'
+import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import type React from 'react'
 import { useState } from 'react'
-import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
-import Popover, { type PopoverOrigin } from '@mui/material/Popover'
-import { usePopover, type PopoverElements } from '../../utils/hooks/usePopover'
-import { Button, List, ListItem, ListItemText } from '@mui/material'
-import type { DemographicGroup } from '../../data/utils/Constants'
+import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import type {
   DemographicType,
   DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
-import type { DataTypeId } from '../../data/config/MetricConfigTypes'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import type { DemographicGroup } from '../../data/utils/Constants'
 import { getConfigFromDataTypeId } from '../../utils/MadLibs'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { type PopoverElements, usePopover } from '../../utils/hooks/usePopover'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -27,7 +33,7 @@ interface MenuPopoverProps {
   onClose?: () => void
 }
 
-export function MenuPopover(props: MenuPopoverProps): JSX.Element {
+function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
   const isSm = useIsBreakpointAndUp('sm')
   const anchorOrigin: PopoverOrigin = {
@@ -52,16 +58,15 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
       return <ListItem key={listItem}>{listItem} [unavailable]</ListItem>
     } else {
       return (
-        <ListItem
+        <ListItemButton
           key={listItem}
-          button
           onClick={(event) => {
             props.onClick(event, listItem)
           }}
         >
           <ListItemText primary={listItem} />
           {hasChildren && <ArrowRight />}
-        </ListItem>
+        </ListItemButton>
       )
     }
   }

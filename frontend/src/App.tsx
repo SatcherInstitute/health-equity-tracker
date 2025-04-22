@@ -1,51 +1,51 @@
+import '@fontsource-variable/dm-sans'
+import '@fontsource-variable/inter'
+import '@fontsource/roboto'
+import '@fontsource/roboto-condensed'
 import '@fontsource/taviraj/200.css'
 import '@fontsource/taviraj/300.css'
 import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
-import '@fontsource-variable/inter'
-import '@fontsource-variable/dm-sans'
-import '@fontsource/roboto'
-import '@fontsource/roboto-condensed'
 
+import { CircularProgress, StyledEngineProvider } from '@mui/material'
 // TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
 import CssBaseline from '@mui/material/CssBaseline'
-import MaterialTheme from './styles/MaterialTheme'
-import { CircularProgress, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import React, { Suspense, useEffect } from 'react'
-import { autoInitGlobals } from './utils/globals'
-import {
-  ABOUT_US_PAGE_LINK,
-  OLD_CONTACT_LINK,
-  DATA_CATALOG_PAGE_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-  OLD_OURTEAM_LINK,
-  TERMS_OF_USE_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  NEWS_PAGE_LINK,
-  SHARE_YOUR_STORY_TAB_LINK,
-  OLD_AGE_ADJUSTMENT_LINK,
-  METHODOLOGY_PAGE_LINK,
-  AGE_ADJUSTMENT_LINK,
-  GUN_VIOLENCE_POLICY,
-  POLICY_PAGE_LINK,
-  OLD_TERMS_OF_SERVICE_LINK,
-  SHARE_YOUR_STORY_PATH,
-  FULL_FAQS_LINK,
-} from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
-import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
 import {
+  BrowserRouter,
   Navigate,
+  Route,
   Routes,
   useLocation,
-  BrowserRouter,
-  Route,
-} from 'react-router-dom'
-import policyRouteConfigs from './pages/Policy/policyContent/policyRouteConfigs'
-import methodologyRouteConfigs from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
-import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
+} from 'react-router'
+import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import NewsAndStoriesPage from './pages/News/NewsAndStoriesPage'
+import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
+import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
+import MaterialTheme from './styles/MaterialTheme'
+import { autoInitGlobals } from './utils/globals'
+import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
+import {
+  ABOUT_US_PAGE_LINK,
+  AGE_ADJUSTMENT_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
+  FULL_FAQS_LINK,
+  GUN_VIOLENCE_POLICY,
+  METHODOLOGY_PAGE_LINK,
+  NEWS_PAGE_LINK,
+  OLD_AGE_ADJUSTMENT_LINK,
+  OLD_CONTACT_LINK,
+  OLD_OURTEAM_LINK,
+  OLD_TERMS_OF_SERVICE_LINK,
+  POLICY_PAGE_LINK,
+  SHARE_YOUR_STORY_PATH,
+  SHARE_YOUR_STORY_TAB_LINK,
+  TERMS_OF_USE_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from './utils/internalRoutes'
 
 // Lazy Load components for code-splitting
 const AboutUsPage = React.lazy(
@@ -72,9 +72,6 @@ const HetAppBar = React.lazy(
 const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
 const PolicyPage = React.lazy(
   async () => await import('./pages/Policy/policyComponents/PolicyPage'),
-)
-const AllPosts = React.lazy(
-  async () => await import('./pages/News/NewsAndStoriesPage'),
 )
 const ShareYourStory = React.lazy(
   async () => await import('./pages/News/ShareYourStory'),
@@ -119,7 +116,7 @@ export default function App() {
           <div className='relative min-h-full bg-white text-center'>
             <SkipLink />
 
-            <div className='h-full relative'>
+            <div className='relative h-full'>
               <BrowserRouter>
                 <Banner />
                 <HetAppBar />
