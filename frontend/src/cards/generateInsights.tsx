@@ -33,8 +33,7 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
     const baseApiUrl = import.meta.env.VITE_BASE_API_URL
     const dataServerUrl = `${baseApiUrl}/fetch-ai-insight/${encodeURIComponent(prompt)}`
 
-async function fetchAIInsight(prompt: string): Promise<string> {
-  const apiKey = await fetchApiKey()
+    const dataResponse = await fetch(dataServerUrl)
 
     if (!dataResponse.ok) {
       throw new Error(`Failed to fetch AI insight: ${dataResponse.statusText}`)
@@ -48,7 +47,7 @@ async function fetchAIInsight(prompt: string): Promise<string> {
 
     return insight.content.trim()
   } catch (error) {
-    console.error(ERROR_GENERATING_INSIGHT, error)
+    console.error('Error generating insight:', error)
     throw error
   }
 }
