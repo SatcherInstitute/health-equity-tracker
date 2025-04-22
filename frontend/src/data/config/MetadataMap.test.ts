@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../providers/PhrmaProvider'
+import { SHOW_PHRMA_MENTAL_HEALTH } from '../../featureFlags'
 import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
 import { dataSourceMetadataMap } from './MetadataMap'
 
