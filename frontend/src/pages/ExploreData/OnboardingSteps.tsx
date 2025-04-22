@@ -101,7 +101,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
 function onboardingStep(
   targetId: string,
   title: string,
-  content: JSX.Element,
+  content: React.ReactNode,
   hideCloseButton: boolean,
   placement:
     | 'auto'
