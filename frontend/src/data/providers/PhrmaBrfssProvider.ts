@@ -10,9 +10,6 @@ import {
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const SHOW_CANCER_SCREENINGS = import.meta.env
-  .VITE_SHOW_CANCER_SCREENINGS
-
 const PHRMA_BRFSS_CONDITIONS: DropdownVarId[] = ['cancer_screening']
 
 export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
@@ -80,8 +77,6 @@ export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
     "only available when comparing cancer screening topics that aren't sex-specific",
   ],
 ]
-
-const SHOW_PHRMA_BRFSS = import.meta.env.VITE_SHOW_PHRMA_BRFSS
 
 class PhrmaBrfssProvider extends VariableProvider {
   constructor() {

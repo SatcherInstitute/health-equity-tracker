@@ -5,9 +5,10 @@ import type {
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
-import InsightDisplay, { SHOW_INSIGHT_GENERATION } from './ui/InsightDisplay'
+import InsightDisplay from './ui/InsightDisplay'
 import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {

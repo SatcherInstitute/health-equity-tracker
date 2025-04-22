@@ -14,6 +14,7 @@
     "typeRoots": [
       "./node_modules"
     ],
+    "noImplicitThis": false,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
