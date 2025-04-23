@@ -100,7 +100,7 @@ export type HetRow = DataPoint & {
 }
 
 export type InitializeSvgProps = {
-  svgRef: React.RefObject<SVGSVGElement>
+  svgRef: React.RefObject<SVGSVGElement | null>
   width: number
   height: number
   isMobile: boolean
@@ -126,7 +126,7 @@ export type RenderMapProps = {
   isUnknownsMap?: boolean
   metricConfig: MetricConfig
   showCounties: boolean
-  svgRef: RefObject<SVGSVGElement>
+  svgRef: RefObject<SVGSVGElement | null>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
   width: number
   fips: Fips

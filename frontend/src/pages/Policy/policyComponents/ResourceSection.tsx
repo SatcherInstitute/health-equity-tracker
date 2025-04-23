@@ -5,10 +5,10 @@ interface ResourceSectionProps {
   id: string
   icon: React.ReactNode
   title: string
-  description: string | JSX.Element
+  description: React.ReactNode
   resources: {
     title: string
-    description: string | JSX.Element
+    description: React.ReactNode
     link?: string
   }[]
 }

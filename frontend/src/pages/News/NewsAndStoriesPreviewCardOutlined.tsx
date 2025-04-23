@@ -1,3 +1,4 @@
+import type React from 'react'
 import LazyLoad from 'react-lazyload'
 import { Link, useNavigate } from 'react-router'
 import AppbarLogo from '../../assets/AppbarLogo.png'
@@ -16,7 +17,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
   article,
   bgHeight = '10rem',
   linkClassName = '',
-}: NewsAndStoriesPreviewCardOutlinedProps): JSX.Element {
+}: NewsAndStoriesPreviewCardOutlinedProps): React.ReactElement<any> {
   const navigate = useNavigate()
   const getImageSource = (): string => {
     const imageSource =

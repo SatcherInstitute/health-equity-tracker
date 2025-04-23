@@ -13,9 +13,7 @@ interface DefinitionsListProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }
 
-export default function DefinitionsList(
-  props: DefinitionsListProps,
-): JSX.Element {
+export default function DefinitionsList(props: DefinitionsListProps) {
   // collect relevant categories
   const relevantCategoriesSet = new Set<Category>()
   props.dataTypesToDefine.forEach((dataType) => {

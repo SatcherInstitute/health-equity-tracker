@@ -5,7 +5,7 @@ import { formatValue } from '../sharedBarChartPieces/helpers'
 import type { BarChartTooltipData } from './BarChartTooltip'
 
 export function useRateChartTooltip(
-  containerRef: RefObject<HTMLDivElement>,
+  containerRef: RefObject<HTMLDivElement | null>,
   metricConfig: MetricConfig,
   demographicType: string,
   isTinyAndUp: boolean,
