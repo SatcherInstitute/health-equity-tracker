@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
@@ -46,9 +45,7 @@ function SdohLink() {
   return (
     <section id='sdoh'>
       <article>
-        <Helmet>
-          <title>Social Determinants of Health - Health Equity Tracker</title>
-        </Helmet>
+        <title>Social Determinants of Health - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'

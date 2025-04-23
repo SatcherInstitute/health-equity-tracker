@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import HetAccordion from '../../../styles/HetComponents/HetAccordion'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetQuoteLink from '../../../styles/HetComponents/HetQuoteLink'
@@ -15,9 +14,7 @@ export default function ReformOpportunitiesTab() {
   const isMdAndUp = useIsBreakpointAndUp('md')
   return (
     <>
-      <Helmet>
-        <title>Reform Opportunities - Health Equity Tracker</title>
-      </Helmet>
+      <title>Reform Opportunities - Health Equity Tracker</title>
       <p>
         Our data points to several reform opportunities, particularly in
         enhancing community-based interventions, improving data collection on

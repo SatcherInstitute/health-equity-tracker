@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
@@ -35,11 +34,8 @@ export const behavioralHealthTopicsString = buildTopicsString(
 export default function BehavioralHealthLink() {
   return (
     <section id='behavioral-health'>
+      <title>Behavioral Health - Health Equity Tracker</title>
       <article>
-        <Helmet>
-          <title>Behavioral Health - Health Equity Tracker</title>
-        </Helmet>
-
         <StripedTable
           id='categories-table'
           applyThickBorder={false}

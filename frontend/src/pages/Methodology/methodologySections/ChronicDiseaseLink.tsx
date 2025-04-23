@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
@@ -30,11 +29,8 @@ export const chronicDiseaseTopicsString = buildTopicsString(
 const ChronicDiseaseLink = () => {
   return (
     <section id='chronic-diseases'>
+      <title>Chronic Diseases - Health Equity Tracker</title>
       <article>
-        <Helmet>
-          <title>Chronic Diseases - Health Equity Tracker</title>
-        </Helmet>
-
         <StripedTable
           id='categories-table'
           applyThickBorder={false}

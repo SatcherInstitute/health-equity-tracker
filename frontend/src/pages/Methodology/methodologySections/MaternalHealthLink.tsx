@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigMaternalHealth'
@@ -25,9 +24,7 @@ const MaternalHealthLink = () => {
   return (
     <section id='maternal-health'>
       <article>
-        <Helmet>
-          <title>Maternal Health - Health Equity Tracker</title>
-        </Helmet>
+        <title>Maternal Health - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'

@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
@@ -12,9 +11,7 @@ import {
 export default function OurFindingsTab() {
   return (
     <>
-      <Helmet>
-        <title>Addressing Inequities - Health Equity Tracker</title>
-      </Helmet>
+      <title>Addressing Inequities - Health Equity Tracker</title>
       <section id='ga-youth-fatalities'>
         <div className='mb-0'>
           <h1 className='sr-only'>Our Findings</h1>

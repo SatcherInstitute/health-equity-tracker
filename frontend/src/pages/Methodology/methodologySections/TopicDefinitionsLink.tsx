@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import type { DropdownVarId } from '../../../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../../data/config/MetricConfigTypes'
@@ -9,9 +8,7 @@ export default function TopicDefinitionsLink() {
   return (
     <section id='topic-definitions'>
       <article>
-        <Helmet>
-          <title>Topic Definitions - Health Equity Tracker</title>
-        </Helmet>
+        <title>Topic Definitions - Health Equity Tracker</title>
 
         {CATEGORIES_LIST.map((category) => {
           const categoryConfigs = category.options.flatMap(
