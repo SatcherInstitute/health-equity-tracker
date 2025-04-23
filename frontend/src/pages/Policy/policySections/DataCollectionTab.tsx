@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
