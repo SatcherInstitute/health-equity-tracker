@@ -2,16 +2,28 @@
 
 # Function to display help
 function display_help() {
-    echo "Usage: $(basename "$0") -f <file_with_paths> -m <milestone> -l <label> -b <markdown_file>"
+    echo "Usage: $(basename "$0") -f <file_with_paths> -p <parent_issue_number> -m <milestone> -l <label> -b <markdown_file> -x <prefix>"
+    echo ""
+    echo "This script creates multiple GitHub issues as sub-issues of a parent issue."
+    echo "NOTE: You must first manually create the parent issue in GitHub and provide its issue number."
+    echo ""
     echo "Options:"
     echo "  -f, --file         Specify the file containing items to iterate over and make GitHub issues about."
-    echo "  -p, --prefix       Specify the prefix to prepend to each item for the GitHub issue title."
-    echo "  -b, --body         Specify the markdown file for the body of the GitHub issue."
+    echo "                     Each line in the file will become a separate sub-issue."
+    echo "  -p, --parent       REQUIRED: Specify the parent issue number that all created issues will link to."
+    echo "  -x, --prefix       Specify the prefix to prepend to each item for the GitHub issue title."
+    echo "  -b, --body         Specify the markdown file for the body template of each GitHub issue."
     echo "  -m, --milestone    Specify the milestone for the GitHub issues."
     echo "  -l, --label        Specify the label for the GitHub issues."
     echo "  -h, --help         Display this help message."
-    echo "Example: ./make_gihub_issues -f newline_delimited_file_with_keyword_per_issue.txt -p "Prefix to append to each keyword for issue title" -m "Milestone copy pasted from Milestone name on github, surrounded by double quotes" -l "Label from github, copy pasted and quoted" -b markdown_file_containing_generic_issue_body.md
-"
+    echo ""
+    echo "Example workflow:"
+    echo "  1. First create a parent issue manually in GitHub (e.g. 'Epic: Feature X Implementation')"
+    echo "  2. Note the issue number from the parent issue (e.g. #123)"
+    echo "  3. Run this script with parent issue number:"
+    echo "     ./make_github_issues -f tasks.txt -p 123 -x \"Task:\" -m \"Sprint 1\" -l \"enhancement\" -b task_template.md"
+    echo ""
+    echo "This will create proper sub-issues for each line in tasks.txt, all linked as children to issue #123."
     exit 1
 }
 
@@ -19,31 +31,249 @@ function display_help() {
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -f|--file) items="$2"; shift ;;
-        -p|--prefix) prefix="$2"; shift ;;
+        -x|--prefix) prefix="$2"; shift ;;
         -m|--milestone) milestone="$2"; shift ;;
         -l|--label) label="$2"; shift ;;
         -b|--body) body_file="$2"; shift ;;
+        -p|--parent) parent_issue="$2"; shift ;;
         -h|--help) display_help ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
     shift
 done
 
-# Validate input
-if [ -z "$items" ] || [ -z "$prefix" ] || [ -z "$milestone" ] || [ -z "$label" ] || [ -z "$body_file" ]; then
-    echo "Error: All options are required."
+# Validate input - make sure all required parameters are provided
+if [ -z "$items" ] || [ -z "$prefix" ] || [ -z "$milestone" ] || [ -z "$label" ] || [ -z "$body_file" ] || [ -z "$parent_issue" ]; then
+    echo "Error: All options are required, including the parent issue number."
+    echo ""
     display_help
 fi
 
-# Loop through each item in the file
+# Validate that parent_issue is a number
+if ! [[ "$parent_issue" =~ ^[0-9]+$ ]]; then
+    echo "Error: Parent issue must be a valid issue number (without the # symbol)."
+    echo ""
+    display_help
+fi
+
+# Check GitHub CLI version
+gh_version=$(gh --version 2>/dev/null | head -n 1 | awk '{print $3}' || echo "")
+if [ -z "$gh_version" ]; then
+    echo "Error: GitHub CLI (gh) not found. Please install it from https://cli.github.com/"
+    exit 1
+fi
+
+# Extract the repository information
+repo_owner=$(gh repo view --json owner --jq .owner.login 2>/dev/null)
+repo_name=$(gh repo view --json name --jq .name 2>/dev/null)
+
+# Fall back to simpler methods if jq parsing fails
+if [ -z "$repo_owner" ] || [ -z "$repo_name" ]; then
+    # Try to parse from git remote URL
+    git_remote=$(git config --get remote.origin.url)
+    if [[ $git_remote =~ github\.com[:/]([^/]+)/([^/.]+) ]]; then
+        repo_owner="${BASH_REMATCH[1]}"
+        repo_name="${BASH_REMATCH[2]}"
+    fi
+fi
+
+if [ -z "$repo_owner" ] || [ -z "$repo_name" ]; then
+    echo "Error: Could not determine the repository owner and name."
+    echo "Make sure you're in a git repository connected to GitHub and authenticated with GitHub CLI."
+    exit 1
+fi
+
+echo "Repository identified as $repo_owner/$repo_name"
+
+# Check if the parent issue exists
+echo "Verifying parent issue #$parent_issue exists..."
+if ! gh issue view "$parent_issue" &>/dev/null; then
+    echo "Error: Parent issue #$parent_issue does not exist or you don't have access to it."
+    exit 1
+fi
+
+# Get the parent issue ID (with clean output)
+echo "Fetching parent issue ID for #$parent_issue..."
+parent_issue_id=$(gh api graphql -F owner="$repo_owner" -F repository="$repo_name" -F number="$parent_issue" -f query='
+query ($owner: String!, $repository: String!, $number: Int!) {
+  repository(owner: $owner, name: $repository) {
+    issue(number: $number) {
+      id
+    }
+  }
+}' --jq '.data.repository.issue.id')
+
+# Check if the query was successful
+if [ $? -ne 0 ] || [ -z "$parent_issue_id" ]; then
+    echo "Error: Failed to fetch parent issue ID for #$parent_issue."
+    exit 1
+fi
+
+echo "Parent issue ID retrieved: $parent_issue_id"
+
+# Try to get the parent issue title
+parent_title=$(gh issue view "$parent_issue" --json title --jq .title 2>/dev/null)
+if [ -z "$parent_title" ]; then
+    # Fallback for older gh versions
+    parent_title=$(gh issue view "$parent_issue" | head -n 1 | sed 's/^#[0-9]* //')
+fi
+echo "Parent issue #$parent_issue confirmed: \"$parent_title\""
+
+# Count total valid items and create an array of them
+declare -a valid_items
+total_valid=0
+
+# Read all non-empty lines into the array
 while IFS= read -r item; do
+    # Skip empty lines
+    [ -z "$item" ] && continue
 
-  # Create the issue using gh command
-  gh issue create --title "$prefix $item" \
-                  --body-file "$body_file" \
-                  --milestone "$milestone" \
-                  --label "$label"
-
-  # Introduce a delay between requests
-  sleep 4
+    valid_items+=("$item")
+    ((total_valid++))
 done < "$items"
+
+if [ $total_valid -eq 0 ]; then
+    echo "Error: No valid items found in the file. Nothing to do."
+    exit 1
+fi
+
+# Display a preview of all issues to be created
+echo ""
+echo "============== PREVIEW OF ISSUES TO BE CREATED =============="
+echo "The following $total_valid sub-issues will be created for parent issue #$parent_issue:"
+echo ""
+
+for ((i=0; i<${#valid_items[@]}; i++)); do
+    echo "  $((i+1)). \"$prefix ${valid_items[$i]}\""
+done
+
+echo ""
+echo "All issues will:"
+echo "  - Be linked as proper sub-issues to parent issue #$parent_issue (\"$parent_title\")"
+echo "  - Have milestone: \"$milestone\""
+echo "  - Have label: \"$label\""
+echo "  - Use body template from: \"$body_file\""
+echo ""
+echo "==========================================================="
+
+# Ask for confirmation
+read -p "Do you want to proceed with creating these $total_valid issues? (y/n): " -n 1 -r
+echo ""  # Add a newline after the user's input
+
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Operation cancelled by user."
+    exit 0
+fi
+
+echo ""
+echo "Creating $total_valid sub-issues for parent issue #$parent_issue..."
+
+# Create the issues
+for ((i=0; i<${#valid_items[@]}; i++)); do
+    item="${valid_items[$i]}"
+    echo "Creating sub-issue $((i+1)) of $total_valid: \"$prefix $item\""
+
+    # Read the body template
+    issue_body=$(cat "$body_file")
+
+    # Create the issue
+    echo "Creating issue..."
+    issue_url=$(gh issue create --title "$prefix $item" \
+                 --body "$issue_body" \
+                 --milestone "$milestone" \
+                 --label "$label")
+
+    if [ $? -eq 0 ] && [ ! -z "$issue_url" ]; then
+        # Extract issue number from URL
+        new_issue_number=$(echo "$issue_url" | grep -o '[0-9]*$')
+        if [ -z "$new_issue_number" ]; then
+            # Alternative extraction method if the first one fails
+            new_issue_number=$(basename "$issue_url")
+        fi
+
+        echo "Created issue #$new_issue_number: $issue_url"
+
+        if [ ! -z "$new_issue_number" ]; then
+            # Fetch the child issue ID (with clean output)
+            echo "Fetching ID for new issue #$new_issue_number..."
+            child_issue_id=$(gh api graphql -F owner="$repo_owner" -F repository="$repo_name" -F number="$new_issue_number" -f query='
+            query ($owner: String!, $repository: String!, $number: Int!) {
+              repository(owner: $owner, name: $repository) {
+                issue(number: $number) {
+                  id
+                }
+              }
+            }' --jq '.data.repository.issue.id')
+
+            if [ $? -eq 0 ] && [ ! -z "$child_issue_id" ]; then
+                echo "Adding issue #$new_issue_number as a sub-issue to parent #$parent_issue..."
+
+                # Try direct approach with simplified GraphQL mutation
+                echo "Attempting to link issues with GraphQL mutation..."
+
+                # Escape quotes in IDs if needed
+                parent_id_escaped=$(echo "$parent_issue_id" | sed 's/"/\\"/g')
+                child_id_escaped=$(echo "$child_issue_id" | sed 's/"/\\"/g')
+
+                result=$(gh api graphql \
+                    -H "GraphQL-Features: issue_types sub_issues" \
+                    -f query="mutation { addSubIssue(input: { issueId: \"$parent_id_escaped\", subIssueId: \"$child_id_escaped\" }) { issue { number } subIssue { number } } }" 2>&1)
+
+                if [ $? -eq 0 ] && [[ "$result" != *"error"* ]]; then
+                    echo "Successfully added issue #$new_issue_number as sub-issue to parent #$parent_issue"
+                else
+                    echo "Failed to add as sub-issue using GraphQL. Error: $result"
+
+                    # Try REST API approach as backup
+                    echo "Trying REST API approach..."
+                    rest_result=$(gh api \
+                        --method POST \
+                        -H "Accept: application/vnd.github+json" \
+                        -H "X-GitHub-Api-Version: 2022-11-28" \
+                        "/repos/$repo_owner/$repo_name/issues/$parent_issue/sub-issues" \
+                        -f "subIssueId=$new_issue_number" 2>&1)
+
+                    if [ $? -eq 0 ]; then
+                        echo "Successfully added issue #$new_issue_number as sub-issue using REST API"
+                    else
+                        echo "REST API approach also failed. Error: $rest_result"
+
+                        # Try additional REST API format (GitHub API variations)
+                        echo "Trying alternative REST API format..."
+                        alt_rest_result=$(gh api \
+                            --method POST \
+                            -H "Accept: application/vnd.github+json" \
+                            -H "X-GitHub-Api-Version: 2022-11-28" \
+                            "/repos/$repo_owner/$repo_name/issues/$parent_issue/subissues" \
+                            -F "sub_issue_id=$new_issue_number" 2>&1)
+
+                        if [ $? -eq 0 ]; then
+                            echo "Successfully added issue #$new_issue_number as sub-issue using alternative REST API format"
+                        else
+                            echo "All automated approaches failed. You will need to manually link the issues in the GitHub UI."
+                        fi
+                    fi
+                fi
+            else
+                echo "Warning: Could not fetch ID for issue #$new_issue_number"
+                echo "The issue was created but could not be linked as a sub-issue."
+            fi
+        else
+            echo "Warning: Could not determine issue number from URL: $issue_url"
+            echo "The issue was created but could not be linked as a sub-issue."
+        fi
+    else
+        echo "Error: Failed to create issue."
+    fi
+
+    # Introduce a delay between requests to avoid rate limiting
+    if [ $((i+1)) -lt $total_valid ]; then
+        echo "Waiting to avoid API rate limits..."
+        sleep 4
+    fi
+done
+
+echo ""
+echo "All $total_valid issues processed!"
+echo "If any sub-issue relationships couldn't be established automatically,"
+echo "you can add them manually in the GitHub UI by dragging issues under the parent."
