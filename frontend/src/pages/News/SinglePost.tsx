@@ -1,12 +1,9 @@
 import { Skeleton } from '@mui/material'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { Link, useNavigate, useParams } from 'react-router'
 import hetLogo from '../../assets/AppbarLogo.png'
-import ShareButtons, {
-  ARTICLE_DESCRIPTION,
-} from '../../reports/ui/ShareButtons'
+import ShareButtons from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetModal from '../../styles/HetComponents/HetModal'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
@@ -108,20 +105,17 @@ export default function SinglePost() {
     })
   }, [prevArticle, nextArticle])
 
+  const pageTitle = `News${
+    fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
+  } - Health Equity Tracker`
+
+  const canonicalUrl =
+    fullArticle?.acf?.canonical_url ?? fullArticle?.link ?? window.location.href
+
   return (
     <div key={slug}>
-      <Helmet>
-        <title>{`News${
-          fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
-        } - Health Equity Tracker`}</title>
-        {fullArticle && (
-          <link
-            rel='canonical'
-            href={fullArticle.acf?.canonical_url ?? fullArticle.link}
-          />
-        )}
-        <meta name='description' content={ARTICLE_DESCRIPTION} />
-      </Helmet>
+      <title>{pageTitle}</title>
+      {canonicalUrl && <link rel='canonical' href={canonicalUrl} />}
 
       <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
         <div className='mx-2 flex w-full flex-col-reversereverse items-center justify-between smMd:mx-16 md:flex-row md:px-0'>

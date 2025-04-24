@@ -1,6 +1,5 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import MapCard from '../cards/MapCard'
@@ -135,9 +134,8 @@ export function Report(props: ReportProps) {
 
   return (
     <>
-      <Helmet>
-        <title>{browserTitle} - Health Equity Tracker</title>
-      </Helmet>
+      <title>{`${browserTitle} - Health Equity Tracker`}</title>
+
       <div className='flex '>
         {/* CARDS COLUMN */}
         <div className='w-full md:w-10/12'>
@@ -322,25 +320,23 @@ export function Report(props: ReportProps) {
             )}
           </div>
         </div>
-        {/* SIDEBAR COLUMN */}
-        {props.reportStepHashIds && (
-          <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-            <Sidebar
-              floatTopOffset={props.headerScrollMargin}
-              isScrolledToTop={props.isScrolledToTop}
-              reportStepHashIds={props.reportStepHashIds}
-              reportTitle={props.reportTitle}
-              isMobile={props.isMobile}
-              // Mode selectors are in sidebar only on larger screens
-              trackerMode={props.trackerMode}
-              setTrackerMode={props.setTrackerMode}
-              demographicType={demographicType}
-              setDemographicType={setDemographicType}
-              enabledDemographicOptionsMap={enabledDemographicOptionsMap}
-              disabledDemographicOptions={disabledDemographicOptions}
-            />
-          </div>
-        )}
+        <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
+          <Sidebar
+            floatTopOffset={props.headerScrollMargin}
+            isScrolledToTop={props.isScrolledToTop}
+            reportStepHashIds={props.reportStepHashIds ?? []}
+            reportTitle={props.reportTitle}
+            isMobile={props.isMobile}
+            // Mode selectors are in sidebar only on larger screens
+            trackerMode={props.trackerMode}
+            setTrackerMode={props.setTrackerMode}
+            demographicType={demographicType}
+            setDemographicType={setDemographicType}
+            enabledDemographicOptionsMap={enabledDemographicOptionsMap}
+            disabledDemographicOptions={disabledDemographicOptions}
+          />
+        </div>
+        )
       </div>
     </>
   )

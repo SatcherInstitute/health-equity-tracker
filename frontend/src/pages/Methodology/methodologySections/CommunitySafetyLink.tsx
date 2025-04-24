@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
@@ -24,9 +23,7 @@ const CommunitySafetyLink = () => {
   return (
     <section id='community-safety'>
       <article>
-        <Helmet>
-          <title>Community Safety - Health Equity Tracker</title>
-        </Helmet>
+        <title>Community Safety - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'

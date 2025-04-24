@@ -1,13 +1,10 @@
-import { Helmet } from 'react-helmet-async'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 
 export default function HowToUseTheDataTab() {
   return (
     <div className='mx-0 w-full max-w-svw px-0'>
-      <Helmet>
-        <title>How To Use The Data - Health Equity Tracker</title>
-      </Helmet>
+      <title>How To Use The Data - Health Equity Tracker</title>
       <section
         id='het-data-visualizations'
         className='mx-0 w-fit max-w-svw px-0'

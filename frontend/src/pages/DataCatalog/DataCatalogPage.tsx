@@ -1,4 +1,3 @@
-import { Helmet, HelmetProvider } from 'react-helmet-async'
 import {
   type DataSourceId,
   dataSourceMetadataMap,
@@ -55,10 +54,8 @@ export default function DataCatalogPage() {
   }
 
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>Data Downloads - Health Equity Tracker</title>
-      </Helmet>
+    <>
+      <title>Data Downloads - Health Equity Tracker</title>
       <section
         id='main-content'
         className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-16 py-16 md:px-24 lg:px-56'
@@ -119,6 +116,6 @@ export default function DataCatalogPage() {
           </WithMetadata>
         </ul>
       </section>
-    </HelmetProvider>
+    </>
   )
 }

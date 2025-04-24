@@ -1,13 +1,10 @@
 import Card from '@mui/material/Card'
-import { Helmet } from 'react-helmet-async'
 import { CITATION_APA } from '../../../cards/ui/SourcesHelpers'
 
 export default function RecommendedCitationLink() {
   return (
     <>
-      <Helmet>
-        <title>Recommended Citation - Health Equity Tracker</title>
-      </Helmet>
+      <title>Recommended Citation - Health Equity Tracker</title>
       <article id='recommended-citation'>
         <p>
           The Health Equity Tracker is a testament to Morehouse School of

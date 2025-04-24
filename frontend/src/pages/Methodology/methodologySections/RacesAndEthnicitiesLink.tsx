@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../../utils/externalUrls'
@@ -13,9 +12,8 @@ export default function RacesAndEthnicitiesLink() {
   return (
     <section id='races-and-ethnicities'>
       <article>
-        <Helmet>
-          <title>Races and Ethnicities - Health Equity Tracker</title>
-        </Helmet>
+        <title>Races and Ethnicities - Health Equity Tracker</title>
+
         <h2 className='mt-12 font-medium text-title' id='data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
         </h2>

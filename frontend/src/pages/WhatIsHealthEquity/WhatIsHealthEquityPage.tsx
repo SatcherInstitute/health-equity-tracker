@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
@@ -34,9 +33,7 @@ export default function WhatIsHealthEquityPage() {
 
   return (
     <>
-      <Helmet>
-        <title>What is Health Equity? - Health Equity Tracker</title>
-      </Helmet>
+      <title>What is Health Equity? - Health Equity Tracker</title>
 
       <section
         id='main-content'
