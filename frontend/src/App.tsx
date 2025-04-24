@@ -124,7 +124,7 @@ export default function App() {
                 </main>
               }
             >
-              <main id='main' className='scroll-smooth'>
+              <main className='scroll-smooth'>
                 <Routes>
                   <Route path={ABOUT_US_PAGE_LINK} element={<AboutUsPage />} />
 
