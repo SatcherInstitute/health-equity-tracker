@@ -6,6 +6,10 @@ import {
   getHighestDisparity,
 } from './generateInsightsUtils'
 
+// Constants
+const API_ENDPOINT = '/fetch-ai-insight'
+const ERROR_GENERATING_INSIGHT = 'Error generating insight'
+
 export type Dataset = Record<string, any>
 
 export interface Disparity {
@@ -26,19 +30,21 @@ export interface ResultData {
   [key: string]: any
 }
 
-const ERROR_GENERATING_INSIGHT = 'Error generating insight'
-
 export async function fetchAIInsight(prompt: string): Promise<string> {
+  if (!SHOW_INSIGHT_GENERATION) {
+    return ''
+  }
+
   try {
     const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-    const dataServerUrl = `${baseApiUrl}/fetch-ai-insight`
+    const dataServerUrl = `${baseApiUrl}${API_ENDPOINT}`
 
     const dataResponse = await fetch(dataServerUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ prompt: prompt }),
+      body: JSON.stringify({ prompt }),
     })
 
     if (!dataResponse.ok) {
@@ -54,7 +60,7 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
     return insight.content.trim()
   } catch (error) {
     console.error('Error generating insight:', error)
-    throw error
+    return ERROR_GENERATING_INSIGHT
   }
 }
 
@@ -71,7 +77,7 @@ function generateInsightPrompt(disparities: Disparity): string {
     Health outcome share: ${outcomeShare}%
     Ratio: ${ratio}
 
-Example:
+    Example:
     "In the US, [Subgroup] individuals make up [Population Share]% of the population but account for [Outcome Share]% of [Measure], making them [Ratio] times more likely to [Impact]."
 
     Guidelines:
@@ -97,10 +103,11 @@ export async function generateInsight(
   if (!SHOW_INSIGHT_GENERATION) {
     return ''
   }
-  const { knownData, metricIds } = chartMetrics
+
   try {
+    const { knownData, metricIds } = chartMetrics
     const processedData = mapRelevantData(knownData, metricIds)
-    const highestDisparity = getHighestDisparity(processedData)
+    const highestDisparity = getHighestDisparity(processedData) as Disparity
     const insightPrompt = generateInsightPrompt(highestDisparity)
     return await fetchAIInsight(insightPrompt)
   } catch (error) {

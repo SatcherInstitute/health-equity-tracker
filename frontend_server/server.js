@@ -118,44 +118,6 @@ app.use('/api', apiProxy)
 
 app.use(compression())
 
-app.get('/fetch-ai-insight/:prompt', async (req, res) => {
-  // We don't need to add CORS headers here anymore since
-  // they're handled by the global middleware
-  const prompt = decodeURIComponent(req.params.prompt)
-  const apiKey = assertEnvVar('OPENAI_API_KEY')
-
-  try {
-    const aiResponse = await fetch(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [{ role: 'user', content: prompt }],
-          max_tokens: 500,
-        }),
-      },
-    )
-
-    if (!aiResponse.ok) {
-      throw new Error(`AI API Error: ${aiResponse.statusText}`)
-    }
-
-    const json = await aiResponse.json()
-    const content = json.choices?.[0]?.message?.content || 'No content returned'
-
-    res.json({ content: content.trim() })
-  } catch (err) {
-    console.error('Error fetching AI insight:', err)
-    res.status(500).json({ error: 'Failed to fetch AI insight' })
-  }
-})
-
-// Add a POST version of the same endpoint (recommended)
 app.post('/fetch-ai-insight', async (req, res) => {
   const prompt = req.body.prompt
   if (!prompt) {

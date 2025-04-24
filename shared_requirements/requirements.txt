@@ -19,7 +19,6 @@ google-cloud-bigquery
 google-cloud-core
 google-cloud-pubsub
 google-cloud-storage
-google-cloud-secret-manager
 google-crc32c==1.6.0
 google-resumable-media
 googleapis-common-protos[grpc]==1.69.2
