@@ -107,7 +107,7 @@ export async function generateInsight(
   try {
     const { knownData, metricIds } = chartMetrics
     const processedData = mapRelevantData(knownData, metricIds)
-    const highestDisparity = getHighestDisparity(processedData) as Disparity
+    const highestDisparity = getHighestDisparity(processedData)
     const insightPrompt = generateInsightPrompt(highestDisparity)
     return await fetchAIInsight(insightPrompt)
   } catch (error) {

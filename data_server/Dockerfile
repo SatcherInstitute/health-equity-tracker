@@ -5,10 +5,6 @@ FROM python:3.12-slim
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 
-# Define build arguments and environment variables
-ARG OPENAI_API_KEY
-ENV OPENAI_API_KEY=$OPENAI_API_KEY
-
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
