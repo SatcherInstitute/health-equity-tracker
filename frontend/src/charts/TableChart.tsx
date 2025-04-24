@@ -9,21 +9,19 @@ import TableFooter from '@mui/material/TableFooter'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
-import { useMemo } from 'react'
 import {
-  type Column,
-  type HeaderGroup,
-  type Row as ReactTableRowType,
-  usePagination,
-  useSortBy,
-  useTable,
-} from 'react-table'
+  type ColumnDef,
+  type SortingState,
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
+import { useMemo } from 'react'
 import ChartTitle from '../cards/ChartTitle'
-import type {
-  DataTypeId,
-  MetricConfig,
-  MetricId,
-} from '../data/config/MetricConfigTypes'
+import type { DataTypeId, MetricConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
@@ -66,148 +64,77 @@ interface TableChartProps {
 
 export function TableChart(props: TableChartProps) {
   const { data, metricConfigs, demographicType } = props
+  const columnHelper = createColumnHelper<Record<string, any>>()
 
-  let columns:
-    | Array<{ Header: string; Cell: (a: any) => string; accessor: MetricId }>
-    | Array<Column<any>> = []
+  // Define columns
+  const columns = useMemo(() => {
+    const cols: ColumnDef<any>[] = []
 
-  if (
-    metricConfigs.length > 0 &&
-    metricConfigs[0].metricId === 'hiv_stigma_index'
-  ) {
-    const firstMetricConfig = metricConfigs[0]
-    columns.push({
-      Header:
-        firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
-      Cell: (a: any) => formatFieldValue(firstMetricConfig.type, a.value, true),
-      accessor: firstMetricConfig.metricId,
-    })
-  } else {
-    columns = metricConfigs.map((metricConfig) => {
-      return {
-        Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
-        Cell: (a: any) => formatFieldValue(metricConfig.type, a.value, true),
-        accessor: metricConfig.metricId,
-      }
-    })
-  }
+    // Add demographic column first
+    cols.push(
+      columnHelper.accessor(demographicType as string, {
+        header: DEMOGRAPHIC_DISPLAY_TYPES[demographicType],
+        cell: (info) => info.getValue(),
+      }),
+    )
 
-  columns = [
-    {
-      Header: DEMOGRAPHIC_DISPLAY_TYPES[demographicType],
-      Cell: (cell: any) => cell.value,
-      accessor: demographicType as MetricId,
-    },
-    ...columns,
-  ]
+    // Handle special case for hiv_stigma_index
+    if (
+      metricConfigs.length > 0 &&
+      metricConfigs[0].metricId === 'hiv_stigma_index'
+    ) {
+      const firstMetricConfig = metricConfigs[0]
+      cols.push(
+        columnHelper.accessor(firstMetricConfig.metricId, {
+          header:
+            firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
+          cell: (info) =>
+            formatFieldValue(firstMetricConfig.type, info.getValue(), true),
+        }),
+      )
+    } else {
+      // Add remaining metric columns
+      metricConfigs.forEach((metricConfig) => {
+        cols.push(
+          columnHelper.accessor(metricConfig.metricId, {
+            header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
+            cell: (info) =>
+              formatFieldValue(metricConfig.type, info.getValue(), true),
+          }),
+        )
+      })
+    }
 
-  // Changes deps array to columns on save, which triggers reload loop
-  const memoCols = useMemo<Column<any>[]>(() => columns, [metricConfigs])
-  const memoData = useMemo(() => data, [data])
+    return cols
+  }, [metricConfigs, demographicType, columnHelper])
 
-  const tableConfig: any = {
-    columns: memoCols,
-    data: memoData,
-    initialState: {
-      pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
-    },
-  }
-
-  // Set initial sort order if data wasn't already custom sorted for income
-  if (demographicType !== 'income') {
-    tableConfig.initialState = {
-      ...tableConfig.initialState,
-      sortBy: [
+  // Set initial sorting state
+  const initialSorting = useMemo<SortingState>(() => {
+    if (demographicType !== 'income') {
+      return [
         {
           id: demographicType,
           desc: false,
         },
-      ],
+      ]
     }
-  }
+    return []
+  }, [demographicType])
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    gotoPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable(tableConfig, useSortBy, usePagination)
-
-  /** Component for the table's header row **/
-  function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
-    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps()
-    return (
-      <TableRow key={key} {...restHeaderGroupProps}>
-        {group.headers.map((col) => (
-          <TableCell key={col.id} style={headerCellStyle}>
-            {col.render('Header')}
-          </TableCell>
-        ))}
-      </TableRow>
-    )
-  }
-
-  /** Component for the table's data rows **/
-  function TableDataRow({ row }: { row: ReactTableRowType<any> }) {
-    const numeratorCount = props.countColsMap.numeratorConfig?.metricId
-      ? row.original[
-          props.countColsMap.numeratorConfig.metricId
-        ]?.toLocaleString()
-      : ''
-    const denominatorCount = props.countColsMap.denominatorConfig?.metricId
-      ? row.original[
-          props.countColsMap.denominatorConfig.metricId
-        ]?.toLocaleString()
-      : ''
-    let numeratorLabel = props.countColsMap.numeratorConfig?.shortLabel ?? ''
-    if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)
-    const denominatorLabel =
-      props.countColsMap.denominatorConfig?.shortLabel ?? ''
-    prepareRow(row)
-
-    const { key, ...restRowProps } = row.getRowProps()
-
-    return (
-      <TableRow key={key} {...restRowProps}>
-        {row.cells.map((cell, index) =>
-          cell.value == null ? (
-            <TableCell
-              {...cell.getCellProps()}
-              key={`no-data-${index}`}
-              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
-            >
-              <Tooltip title={NO_DATA_MESSAGE}>
-                <WarningRoundedIcon />
-              </Tooltip>
-              <span className='sr-only'>{NO_DATA_MESSAGE}</span>
-            </TableCell>
-          ) : (
-            <TableCell
-              {...cell.getCellProps()}
-              key={`data-${index}`}
-              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
-            >
-              {cell.render('Cell')}
-              <Units column={index} metric={props.metricConfigs} />
-              {index === 1 && numeratorCount && denominatorCount ? (
-                <HetUnitLabel>
-                  {' '}
-                  ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
-                  {denominatorLabel} )
-                </HetUnitLabel>
-              ) : (
-                <></>
-              )}
-            </TableCell>
-          ),
-        )}
-      </TableRow>
-    )
-  }
+  // Initialize the table
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
+      },
+      sorting: initialSorting,
+    },
+  })
 
   return (
     <>
@@ -225,31 +152,102 @@ export function TableChart(props: TableChartProps) {
           </figcaption>
 
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
-            <Table {...getTableProps()}>
+            <Table>
               <TableHead>
-                {headerGroups.map((group, index) => (
-                  <TableHeaderRow
-                    group={group}
-                    key={group.id || `group-${index}`}
-                  />
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableCell key={header.id} style={headerCellStyle}>
+                        {header.isPlaceholder ? null : (
+                          <div>
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                          </div>
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
                 ))}
               </TableHead>
-              <TableBody {...getTableBodyProps()}>
-                {page.map((row: ReactTableRowType<any>, index) => (
-                  <TableDataRow row={row} key={row.id || `row-${index}`} />
+              <TableBody>
+                {table.getRowModel().rows.map((row, rowIndex) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell, cellIndex) => {
+                      const value = cell.getValue()
+                      const numeratorCount = props.countColsMap.numeratorConfig
+                        ?.metricId
+                        ? row.original[
+                            props.countColsMap.numeratorConfig.metricId
+                          ]?.toLocaleString()
+                        : ''
+                      const denominatorCount = props.countColsMap
+                        .denominatorConfig?.metricId
+                        ? row.original[
+                            props.countColsMap.denominatorConfig.metricId
+                          ]?.toLocaleString()
+                        : ''
+                      let numeratorLabel =
+                        props.countColsMap.numeratorConfig?.shortLabel ?? ''
+                      if (numeratorCount === 1)
+                        numeratorLabel = removeLastS(numeratorLabel)
+                      const denominatorLabel =
+                        props.countColsMap.denominatorConfig?.shortLabel ?? ''
+
+                      return value == null ? (
+                        <TableCell
+                          key={cell.id}
+                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
+                        >
+                          <Tooltip title={NO_DATA_MESSAGE}>
+                            <WarningRoundedIcon />
+                          </Tooltip>
+                          <span className='sr-only'>{NO_DATA_MESSAGE}</span>
+                        </TableCell>
+                      ) : (
+                        <TableCell
+                          key={cell.id}
+                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                          <Units
+                            column={cellIndex}
+                            metric={props.metricConfigs}
+                          />
+                          {cellIndex === 1 &&
+                          numeratorCount &&
+                          denominatorCount ? (
+                            <HetUnitLabel>
+                              {' '}
+                              ( {numeratorCount} {numeratorLabel} /{' '}
+                              {denominatorCount} {denominatorLabel} )
+                            </HetUnitLabel>
+                          ) : (
+                            <></>
+                          )}
+                        </TableCell>
+                      )
+                    })}
+                  </TableRow>
                 ))}
               </TableBody>
               {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
                 <TableFooter>
                   <TableRow>
                     <TablePagination
-                      count={memoData.length}
-                      rowsPerPage={pageSize}
-                      page={pageIndex}
-                      onPageChange={(_, newPage) => gotoPage(newPage)}
-                      onRowsPerPageChange={(event) =>
-                        setPageSize(Number(event.target.value))
-                      }
+                      count={data.length}
+                      rowsPerPage={table.getState().pagination.pageSize}
+                      page={table.getState().pagination.pageIndex}
+                      onPageChange={(_, newPage) => {
+                        table.setPageIndex(newPage)
+                      }}
+                      onRowsPerPageChange={(event) => {
+                        table.setPageSize(Number(event.target.value))
+                      }}
                       rowsPerPageOptions={[
                         MAX_NUM_ROWS_WITHOUT_PAGINATION,
                         MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,

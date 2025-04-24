@@ -8,16 +8,18 @@ import TableContainer from '@mui/material/TableContainer'
 import TableFooter from '@mui/material/TableFooter'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { useMemo } from 'react'
 import {
-  type Column,
-  type HeaderGroup,
-  type Row as ReactTableRowType,
-  useSortBy,
-  useTable,
-} from 'react-table'
+  type ColumnDef,
+  type SortingState,
+  createColumnHelper,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
+import { useMemo } from 'react'
 import ChartTitle from '../cards/ChartTitle'
-import type { MetricConfig, MetricId } from '../data/config/MetricConfigTypes'
+import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { RACE } from '../data/utils/Constants'
@@ -45,96 +47,54 @@ interface AgeAdjustedTableChartProps {
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   const { data, metricConfigs } = props
+  const columnHelper = createColumnHelper<Record<string, any>>()
 
-  let columns = metricConfigs.map((metricConfig) => {
-    return {
-      Header: metricConfig.shortLabel,
-      Cell: (a: any) =>
-        formatFieldValue(
-          /* metricType: MetricType, */ metricConfig.type,
-          /*   value: any, */ a.value,
-          /*   omitPctSymbol: boolean = false */ true,
-        ),
-      accessor: metricConfig.metricId,
-    }
-  })
+  // Define columns
+  const columns = useMemo(() => {
+    const cols: ColumnDef<any>[] = []
 
-  columns = [
-    {
-      Header: DEMOGRAPHIC_DISPLAY_TYPES[RACE],
-      Cell: (cell: any) => cell.value,
-      accessor: RACE as MetricId,
-    },
-  ].concat(columns)
+    // Add race column first
+    cols.push(
+      columnHelper.accessor(RACE as string, {
+        header: DEMOGRAPHIC_DISPLAY_TYPES[RACE],
+        cell: (info) => info.getValue(),
+      }),
+    )
 
-  // Changes deps array to columns on save, which triggers reload loop
-  // eslint-disable-next-line
-  const memoCols = useMemo<Column<any>[]>(() => columns, [metricConfigs])
-  const memoData = useMemo(() => data, [data])
+    // Add metric columns
+    metricConfigs.forEach((metricConfig) => {
+      cols.push(
+        columnHelper.accessor(metricConfig.metricId, {
+          header: metricConfig.shortLabel,
+          cell: (info) =>
+            formatFieldValue(metricConfig.type, info.getValue(), true),
+        }),
+      )
+    })
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
+    return cols
+  }, [metricConfigs, columnHelper])
+
+  // Set initial sorting state
+  const initialSorting = useMemo<SortingState>(() => {
+    return [
       {
-        columns: memoCols,
-        data: memoData,
-        initialState: {
-          sortBy: [
-            {
-              id: RACE,
-              desc: false,
-            },
-          ],
-        },
+        id: RACE,
+        desc: false,
       },
-      useSortBy,
-    )
+    ]
+  }, [])
 
-  /** Component for the table's header row **/
-  function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
-    const { key, ...restHeaderGroupProps } = group.getHeaderGroupProps()
-    return (
-      <TableRow key={key} {...restHeaderGroupProps}>
-        {group.headers.map((col) => (
-          <TableCell key={col.id} style={headerCellStyle}>
-            {col.render('Header')}
-          </TableCell>
-        ))}
-      </TableRow>
-    )
-  }
-
-  /** Component for the table's data rows **/
-  function TableDataRow({ row }: { row: ReactTableRowType<any> }) {
-    prepareRow(row)
-    const { key, ...restRowProps } = row.getRowProps()
-
-    return (
-      <TableRow key={key} {...restRowProps}>
-        {row.cells.map((cell, index) =>
-          cell.value == null ? (
-            <TableCell
-              {...cell.getCellProps()}
-              key={`no-data-${index}`}
-              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
-            >
-              <Tooltip title='No data available'>
-                <WarningRoundedIcon />
-              </Tooltip>
-              <span className='sr-only'>No Data Available</span>
-            </TableCell>
-          ) : (
-            <TableCell
-              {...cell.getCellProps()}
-              key={`data-${index}`}
-              style={row.index % 2 === 0 ? cellStyle : altCellStyle}
-            >
-              {cell.render('Cell')}
-            </TableCell>
-          ),
-        )}
-      </TableRow>
-    )
-  }
+  // Initialize the table
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    initialState: {
+      sorting: initialSorting,
+    },
+  })
 
   return (
     <>
@@ -146,18 +106,54 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
             <ChartTitle title={props.title} />
           </figcaption>
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
-            <Table {...getTableProps()}>
+            <Table>
               <TableHead>
-                {headerGroups.map((group, index) => (
-                  <TableHeaderRow
-                    group={group}
-                    key={group.id || `group-${index}`}
-                  />
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <TableRow key={headerGroup.id}>
+                    {headerGroup.headers.map((header) => (
+                      <TableCell key={header.id} style={headerCellStyle}>
+                        {header.isPlaceholder ? null : (
+                          <div>
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                          </div>
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
                 ))}
               </TableHead>
-              <TableBody {...getTableBodyProps()}>
-                {rows.map((row: ReactTableRowType<any>, index) => (
-                  <TableDataRow row={row} key={row.id || `row-${index}`} />
+              <TableBody>
+                {table.getRowModel().rows.map((row, rowIndex) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell, cellIndex) => {
+                      const value = cell.getValue()
+
+                      return value == null ? (
+                        <TableCell
+                          key={cell.id}
+                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
+                        >
+                          <Tooltip title='No data available'>
+                            <WarningRoundedIcon />
+                          </Tooltip>
+                          <span className='sr-only'>No Data Available</span>
+                        </TableCell>
+                      ) : (
+                        <TableCell
+                          key={cell.id}
+                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      )
+                    })}
+                  </TableRow>
                 ))}
               </TableBody>
               <TableFooter>
