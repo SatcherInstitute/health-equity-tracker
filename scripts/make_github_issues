@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# shellcheck disable=all
 # Function to display help
 function display_help() {
     echo "Usage: $(basename "$0") -f <file_with_paths> -p <parent_issue_number> -m <milestone> -l <label> -b <markdown_file> -x <prefix>"
