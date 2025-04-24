@@ -89,6 +89,11 @@ app.use('/api', apiProxy)
 app.use(compression())
 
 app.get('/fetch-ai-insight/:prompt', async (req, res) => {
+  // Add CORS headers
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+
   const prompt = decodeURIComponent(req.params.prompt)
   const apiKey = assertEnvVar('OPENAI_API_KEY')
 
