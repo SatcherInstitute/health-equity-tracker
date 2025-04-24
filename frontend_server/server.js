@@ -40,27 +40,14 @@ const app = express()
 app.use(express.json())
 app.use(compression())
 
-// Global CORS middleware to handle all routes
+// CORS middleware
 app.use((req, res, next) => {
-  // Be very explicit with allowed origins
-  const allowedOrigins = [
-    'https://deploy-preview-3824--health-equity-tracker.netlify.app',
-    'https://healthequitytracker.org',
-    'https://dev.healthequitytracker.org',
-  ]
+  // Allow all origins for development or use '*' in non-production environments
+  res.setHeader('Access-Control-Allow-Origin', '*')
 
-  const origin = req.headers.origin
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-  } else {
-    // For development/testing
-    res.setHeader('Access-Control-Allow-Origin', '*')
-  }
-
-  // Important: these headers are critical
+  // Set standard CORS headers
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
 
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
