@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
 import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
@@ -17,9 +16,7 @@ import {
 export default function AboutUsPage() {
   return (
     <>
-      <Helmet>
-        <title>About Us - Health Equity Tracker</title>
-      </Helmet>
+      <title>About Us - Health Equity Tracker</title>
       <section className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'>
         <header>
           <h1

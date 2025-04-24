@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
@@ -9,9 +8,8 @@ export default function MetricsLink() {
   return (
     <section id='metrics'>
       <article>
-        <Helmet>
-          <title>Metrics - Health Equity Tracker</title>
-        </Helmet>
+        <title>Metrics - Health Equity Tracker</title>
+
         <ConditionVariable definitions={metricDefinitions} />
 
         <h2 className='mt-12 font-medium text-title' id='percent-share-example'>

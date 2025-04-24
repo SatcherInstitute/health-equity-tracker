@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { Outlet, useLocation, useMatch } from 'react-router'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 import { methodologyRouteConfigs } from '../methodologyContent/methodologyRouteConfigs'
@@ -15,9 +14,7 @@ export default function MethodologyPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Methodology - Health Equity Tracker</title>
-      </Helmet>
+      <title>Methodology - Health Equity Tracker</title>
 
       <section
         className='flex w-full max-w-screen justify-center text-left'

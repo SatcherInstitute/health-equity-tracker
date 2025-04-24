@@ -30,7 +30,7 @@ const TERRITORIES_CONFIG = {
 }
 
 interface TerritoryCirclesProps {
-  svgRef: React.RefObject<SVGSVGElement>
+  svgRef: React.RefObject<SVGSVGElement | null>
   width: number
   mapHeight: number
   fips: Fips

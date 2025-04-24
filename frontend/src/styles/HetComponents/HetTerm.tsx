@@ -1,5 +1,5 @@
 interface HetTermProps {
-  children?: JSX.Element | string | string[]
+  children?: React.ReactNode
 }
 export default function HetTerm(props: HetTermProps) {
   return (

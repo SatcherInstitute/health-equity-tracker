@@ -5,7 +5,6 @@ import {
   PsychologyRounded,
   SchoolRounded,
 } from '@mui/icons-material'
-import { Helmet } from 'react-helmet-async'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
@@ -21,9 +20,8 @@ import {
 export default function CurrentEffortsTab() {
   return (
     <>
-      <Helmet>
-        <title>Current Efforts - Health Equity Tracker</title>
-      </Helmet>
+      <title>Current Efforts - Health Equity Tracker</title>
+
       <p className='my-2'>
         We identify and analyze current intervention policies in Atlanta,
         examining their effectiveness and areas for improvement. This includes
@@ -42,8 +40,8 @@ export default function CurrentEffortsTab() {
         </p>
         <article className='group fade-in-up-blur my-0 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
           <p>
-            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:{' '}
-            <HetTermUnderline>Unfair and avoidable</HetTermUnderline>{' '}
+            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:' '
+            <HetTermUnderline>Unfair and avoidable</HetTermUnderline>' '
             differences in health status across various groups, influenced by
             social, economic, and environmental factors.
           </p>
@@ -52,9 +50,7 @@ export default function CurrentEffortsTab() {
       <HetOverline text='Atlanta’s Support Initiatives' />
       <ResourceSection
         id='economic-inequality'
-        icon={
-          <AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
-        }
+        icon=<AttachMoneyRounded className='text-title smMd:text-smallestHeader' />
         title='Economic Inequality'
         description='Organizations focusing on reducing economic inequality are crucial in the fight against gun violence, as poverty and lack of opportunities can contribute to crime.'
         resources={economicResources}

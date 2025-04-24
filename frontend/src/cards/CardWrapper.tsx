@@ -15,7 +15,7 @@ function CardWrapper(props: {
   // prevent layout shift as component loads
   minHeight?: number
   downloadTitle: string
-  infoPopover?: JSX.Element
+  infoPopover?: React.ReactNode
   hideFooter?: boolean
   hideNH?: boolean
   queries: MetricQuery[]
@@ -25,7 +25,7 @@ function CardWrapper(props: {
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>,
     knownData?: Record<string, any>,
-  ) => JSX.Element
+  ) => React.ReactNode
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
   reportTitle: string

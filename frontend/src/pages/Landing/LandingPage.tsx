@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
@@ -104,9 +103,7 @@ function LandingPage() {
 
   return (
     <main className='relative' aria-label='Main Content'>
-      <Helmet>
-        <title>Home - Health Equity Tracker</title>
-      </Helmet>
+      <title>Home - Health Equity Tracker</title>
 
       <section className='relative min-h-5/6 overflow-hidden px-56 xs:px-16 py-16 sm:px-16 md:px-24'>
         <img

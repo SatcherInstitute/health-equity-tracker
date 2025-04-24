@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
@@ -11,9 +10,7 @@ import {
 export default function DataCollectionTab() {
   return (
     <>
-      <Helmet>
-        <title>Data Collection - Health Equity Tracker</title>
-      </Helmet>
+      <title>Data Collection - Health Equity Tracker</title>
       <section id='source-profile'>
         <article className='group mt-8 mb-8 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
           <HetOverline className='my-0' text='Source Profile' />

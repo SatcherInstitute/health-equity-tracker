@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router'
 import HetCTABig from '../../../styles/HetComponents/HetCTABig'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
@@ -51,10 +50,7 @@ const AgeAdjustmentLink = () => {
   return (
     <>
       <section id='age-adjusted-ratios'>
-        {' '}
-        <Helmet>
-          <title>Age-Adjustment - Health Equity Tracker</title>
-        </Helmet>
+        <title>Age-Adjustment - Health Equity Tracker</title>
         <article className='pb-6'>
           <div className='text-left font-sansText text-altBlack text-small'>
             <HetNotice>

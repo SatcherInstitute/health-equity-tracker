@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
@@ -6,9 +5,8 @@ export default function DataSourcesLink() {
   return (
     <section id='data-sources'>
       <article>
-        <Helmet>
-          <title>Data Sources - Health Equity Tracker</title>
-        </Helmet>
+        <title>Data Sources - Health Equity Tracker</title>
+
         <div>
           <p>
             The Health Equity Tracker is committed to providing accurate,

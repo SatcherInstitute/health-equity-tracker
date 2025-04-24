@@ -20,8 +20,8 @@ import {
  */
 function WithLoadingOrErrorUI<R>(props: {
   resources: R[] | IncompleteLoadStatus
-  children: (resources: R[]) => JSX.Element
-  loadingComponent?: JSX.Element
+  children: (resources: R[]) => React.ReactNode
+  loadingComponent?: React.ReactNode
 }) {
   if (props.resources === 'loading') {
     return props.loadingComponent ? (
@@ -52,8 +52,8 @@ function WithLoadingOrErrorUI<R>(props: {
 }
 
 export function WithMetadata(props: {
-  children: (metadata: MapOfDatasetMetadata) => JSX.Element
-  loadingComponent?: JSX.Element
+  children: (metadata: MapOfDatasetMetadata) => React.ReactNode
+  loadingComponent?: React.ReactNode
 }) {
   const metadatas = useResources<string, MapOfDatasetMetadata>(
     [MetadataCache.METADATA_KEY],
@@ -79,8 +79,8 @@ export function WithMetadata(props: {
  */
 export function WithMetrics(props: {
   queries: MetricQuery[]
-  children: (responses: MetricQueryResponse[]) => JSX.Element
-  loadingComponent?: JSX.Element
+  children: (responses: MetricQueryResponse[]) => React.ReactNode
+  loadingComponent?: React.ReactNode
 }) {
   const queryResponses = useMetrics(props.queries)
   return (
@@ -95,8 +95,8 @@ export function WithMetrics(props: {
 
 function WithDatasets(props: {
   datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
-  children: (datasets: Dataset[]) => JSX.Element
-  loadingComponent?: JSX.Element
+  children: (datasets: Dataset[]) => React.ReactNode
+  loadingComponent?: React.ReactNode
 }) {
   const datasets = useResources<
     DatasetId | DatasetIdWithStateFIPSCode,
@@ -127,8 +127,8 @@ interface WithMetadataAndMetricsProps {
     metadata: MapOfDatasetMetadata,
     queryResponses: MetricQueryResponse[],
     geoData?: Record<string, any>,
-  ) => JSX.Element
-  loadingComponent?: JSX.Element
+  ) => React.ReactNode
+  loadingComponent?: React.ReactNode
   loadGeographies?: boolean
 }
 

@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
@@ -31,11 +30,7 @@ const PdohLink = () => {
   return (
     <section id='pdoh'>
       <article>
-        <Helmet>
-          <title>
-            Political Determinants of Health - Health Equity Tracker
-          </title>
-        </Helmet>
+        <title>Political Determinants of Health - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'
