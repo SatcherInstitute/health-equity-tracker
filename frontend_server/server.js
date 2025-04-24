@@ -40,6 +40,19 @@ const app = express()
 app.use(express.json())
 app.use(compression())
 
+// Global CORS middleware to handle all routes
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200)
+  }
+  next()
+})
+
 // Add Authorization header for all requests that are proxied to the data server.
 // TODO: The token can be cached and only refreshed when needed
 app.use('/api', (req, res, next) => {
@@ -89,11 +102,8 @@ app.use('/api', apiProxy)
 app.use(compression())
 
 app.get('/fetch-ai-insight/:prompt', async (req, res) => {
-  // Add CORS headers
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Content-Type')
-
+  // We don't need to add CORS headers here anymore since
+  // they're handled by the global middleware
   const prompt = decodeURIComponent(req.params.prompt)
   const apiKey = assertEnvVar('OPENAI_API_KEY')
 
