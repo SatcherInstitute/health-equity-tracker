@@ -42,14 +42,31 @@ app.use(compression())
 
 // Global CORS middleware to handle all routes
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  // Be very explicit with allowed origins
+  const allowedOrigins = [
+    'https://deploy-preview-3824--health-equity-tracker.netlify.app',
+    'https://healthequitytracker.org',
+    'https://dev.healthequitytracker.org',
+  ]
+
+  const origin = req.headers.origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  } else {
+    // For development/testing
+    res.setHeader('Access-Control-Allow-Origin', '*')
+  }
+
+  // Important: these headers are critical
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
 
   // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    return res.sendStatus(200)
+    return res.status(204).end()
   }
+
   next()
 })
 
@@ -105,6 +122,46 @@ app.get('/fetch-ai-insight/:prompt', async (req, res) => {
   // We don't need to add CORS headers here anymore since
   // they're handled by the global middleware
   const prompt = decodeURIComponent(req.params.prompt)
+  const apiKey = assertEnvVar('OPENAI_API_KEY')
+
+  try {
+    const aiResponse = await fetch(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 500,
+        }),
+      },
+    )
+
+    if (!aiResponse.ok) {
+      throw new Error(`AI API Error: ${aiResponse.statusText}`)
+    }
+
+    const json = await aiResponse.json()
+    const content = json.choices?.[0]?.message?.content || 'No content returned'
+
+    res.json({ content: content.trim() })
+  } catch (err) {
+    console.error('Error fetching AI insight:', err)
+    res.status(500).json({ error: 'Failed to fetch AI insight' })
+  }
+})
+
+// Add a POST version of the same endpoint (recommended)
+app.post('/fetch-ai-insight', async (req, res) => {
+  const prompt = req.body.prompt
+  if (!prompt) {
+    return res.status(400).json({ error: 'Missing prompt parameter' })
+  }
+
   const apiKey = assertEnvVar('OPENAI_API_KEY')
 
   try {

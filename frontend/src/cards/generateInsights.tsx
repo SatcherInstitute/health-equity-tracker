@@ -31,9 +31,15 @@ const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 export async function fetchAIInsight(prompt: string): Promise<string> {
   try {
     const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-    const dataServerUrl = `${baseApiUrl}/fetch-ai-insight/${encodeURIComponent(prompt)}`
+    const dataServerUrl = `${baseApiUrl}/fetch-ai-insight`
 
-    const dataResponse = await fetch(dataServerUrl)
+    const dataResponse = await fetch(dataServerUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ prompt: prompt }),
+    })
 
     if (!dataResponse.ok) {
       throw new Error(`Failed to fetch AI insight: ${dataResponse.statusText}`)
