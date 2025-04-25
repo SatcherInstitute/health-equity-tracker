@@ -336,7 +336,6 @@ export function Report(props: ReportProps) {
             disabledDemographicOptions={disabledDemographicOptions}
           />
         </div>
-        )
       </div>
     </>
   )
