@@ -94,12 +94,7 @@
 button[data-action='back'] {
   color: theme('colors.white') !important;
 }
-
-/* all h4 that are any descendants of #react-floater-portal */
-
-
-
-#react-floater-portal h4 {
+.react-joyride__tooltip h4 {
   color: theme('colors.white') !important;
 
 }
