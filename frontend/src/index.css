@@ -94,6 +94,10 @@
 button[data-action='back'] {
   color: theme('colors.white') !important;
 }
+h4 {
+  color: theme('colors.white') !important;
+
+}
 
 /* STYLING OVERRIDES FOR D3 CHARTS */
 .yAxisGroup {
@@ -126,7 +130,7 @@ button[data-action='back']:focus {
     width: 100%;
     max-width: 1440px !important;
     justify-content: center !important;
-    
+
     @screen xs {
       padding: 0.5rem 1rem;
     }
@@ -149,7 +153,7 @@ button[data-action='back']:focus {
     align-items: center;
     justify-content: start;
     }
-    
+
     & figure > a > img {
       display: block;
       min-width: 70vw;
@@ -184,18 +188,18 @@ button[data-action='back']:focus {
     font-style: italic;
     max-width: 600px;
   }
-  
+
   & p {
     width: 100%;
     max-width: 95vw;
     font-size: 1rem;
   }
-  
+
   & p > a, p > strong > a, p > em > a, div > span > a {
     text-decoration: none;
     font-weight: 700;
   }
-  
+
   & p > a:hover {
     text-decoration: underline;
   }
