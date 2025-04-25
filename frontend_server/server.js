@@ -37,7 +37,25 @@ const PORT = 8080
 const HOST = '0.0.0.0'
 const app = express()
 
+app.use(express.json())
 app.use(compression())
+
+// CORS middleware
+app.use((req, res, next) => {
+  // Allow all origins for development or use '*' in non-production environments
+  res.setHeader('Access-Control-Allow-Origin', '*')
+
+  // Set standard CORS headers
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end()
+  }
+
+  next()
+})
 
 // Add Authorization header for all requests that are proxied to the data server.
 // TODO: The token can be cached and only refreshed when needed
@@ -86,6 +104,45 @@ const apiProxy = createProxyMiddleware(apiProxyOptions)
 app.use('/api', apiProxy)
 
 app.use(compression())
+
+app.post('/fetch-ai-insight', async (req, res) => {
+  const prompt = req.body.prompt
+  if (!prompt) {
+    return res.status(400).json({ error: 'Missing prompt parameter' })
+  }
+
+  const apiKey = assertEnvVar('OPENAI_API_KEY')
+
+  try {
+    const aiResponse = await fetch(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 500,
+        }),
+      },
+    )
+
+    if (!aiResponse.ok) {
+      throw new Error(`AI API Error: ${aiResponse.statusText}`)
+    }
+
+    const json = await aiResponse.json()
+    const content = json.choices?.[0]?.message?.content || 'No content returned'
+
+    res.json({ content: content.trim() })
+  } catch (err) {
+    console.error('Error fetching AI insight:', err)
+    res.status(500).json({ error: 'Failed to fetch AI insight' })
+  }
+})
 
 // Serve static files from the build directory.
 const __dirname = dirname(fileURLToPath(import.meta.url))
