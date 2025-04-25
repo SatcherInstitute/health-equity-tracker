@@ -45,6 +45,15 @@ export type DatasetId =
   | 'acs_population-sex_county_current'
   | 'acs_population-sex_national_current'
   | 'acs_population-sex_state_current'
+  | 'acs_population-age_county_historical'
+  | 'acs_population-age_national_historical'
+  | 'acs_population-age_state_historical'
+  | 'acs_population-race_county_historical'
+  | 'acs_population-race_national_historical'
+  | 'acs_population-race_state_historical'
+  | 'acs_population-sex_county_historical'
+  | 'acs_population-sex_national_historical'
+  | 'acs_population-sex_state_historical'
   | 'graphql_ahr_data-behavioral_health_age_national_current'
   | 'graphql_ahr_data-behavioral_health_age_state_current'
   | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
@@ -394,6 +403,51 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   'acs_population-sex_national_current': {
     name: 'Population by sex nationally',
     original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+  'acs_population-race_county_historical': {
+    name: 'Annual population by race/ethnicity and county',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-race_state_historical': {
+    name: 'Annual population by race/ethnicity and state',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-race_national_historical': {
+    name: 'Annual population by race/ethnicity nationally',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-age_county_historical': {
+    name: 'Annual population by age and county',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-age_state_historical': {
+    name: 'Annual population by age and state',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-age_national_historical': {
+    name: 'Annual population by age nationally',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-sex_county_historical': {
+    name: 'Annual population by sex and county',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-sex_state_historical': {
+    name: 'Annual population by sex and state',
+    original_data_sourced: '2009-2022',
+    source_id: 'acs',
+  },
+  'acs_population-sex_national_historical': {
+    name: 'Annual population by sex nationally',
+    original_data_sourced: '2009-2022',
     source_id: 'acs',
   },
   'decia_2010_territory_population-race_and_ethnicity_state_current': {
