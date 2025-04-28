@@ -53,6 +53,9 @@ test('HIV: Diagnoses', async ({ page }) => {
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
   await page
+    .getByRole('button', { name: 'Population vs. distribution' })
+    .click()
+  await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
   await page.getByRole('heading', { name: 'Summary for HIV' }).click()
@@ -77,6 +80,9 @@ test('HIV: Deaths', async ({ page }) => {
     .getByRole('heading', { name: 'HIV deaths in the United' })
     .click()
   await page.getByRole('heading', { name: 'Share of total HIV deaths' }).click()
+  await page
+    .getByRole('button', { name: 'Population vs. distribution' })
+    .click()
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()

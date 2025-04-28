@@ -14,7 +14,7 @@ type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
 export function metricConfigFromDtConfig(
   cardType: CardMetricType,
   dtConfig: DataTypeConfig,
-): MetricConfig {
+): MetricConfig | undefined {
   const cardToMetricTypesMap: Record<CardMetricType, MetricType[]> = {
     rate: ['pct_rate', 'per100k', 'index'],
     share: ['pct_share'],
@@ -29,7 +29,7 @@ export function metricConfigFromDtConfig(
   )
 
   // If no config is found, use the first one in the list
-  return requestedConfig ?? possibleConfigs[0]
+  return requestedConfig
 }
 
 export function isPctType(metricType: MetricType) {

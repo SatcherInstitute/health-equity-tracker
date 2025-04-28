@@ -7,6 +7,8 @@ interface HetLazyLoaderProps {
   once?: boolean
   height?: number | string
   className?: string
+  placeholder?: ReactNode
+  debug?: boolean
 }
 
 export default function HetLazyLoader({
@@ -15,19 +17,24 @@ export default function HetLazyLoader({
   once = true,
   height,
   className = '',
+  placeholder = null,
+  debug = false,
 }: HetLazyLoaderProps) {
-  const { ref, inView } = useInView({
+  const { ref, inView, entry } = useInView({
     triggerOnce: once,
-    rootMargin: `${offset}px`,
+    rootMargin: `${offset}px ${offset}px ${offset}px ${offset}px`,
+    threshold: 0,
   })
 
   return (
     <div
       ref={ref}
       className={className}
-      style={height ? { height } : undefined}
+      style={{
+        minHeight: typeof height === 'number' ? `${height}px` : height,
+      }}
     >
-      {inView ? children : null}
+      {inView ? children : placeholder}
     </div>
   )
 }

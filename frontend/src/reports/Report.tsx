@@ -216,7 +216,7 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <HetLazyLoader offset={800} height={750} once>
+                  <HetLazyLoader offset={800} height={250} once>
                     {shareMetricConfig && (
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
