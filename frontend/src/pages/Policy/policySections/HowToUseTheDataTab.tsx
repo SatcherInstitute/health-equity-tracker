@@ -80,8 +80,8 @@ export default function HowToUseTheDataTab() {
                 )}
               </ul>
             </div>
-            <p>
-              <h2 className='my-0 font-medium text-altGreen text-title'>
+            <div>
+              <h2 className='mt-4 mb-2 font-medium text-altGreen text-title'>
                 How to Use
               </h2>
               <div>
@@ -91,7 +91,7 @@ export default function HowToUseTheDataTab() {
                   </p>
                 ))}
               </div>
-            </p>
+            </div>
             <div className='mt-8 border border-methodologyGreen border-x-0 border-t-0 border-b-1 border-solid'></div>
           </div>
         </section>

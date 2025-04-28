@@ -22,6 +22,7 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
+import { DEMOGRAPHIC_DISPLAY_TYPES } from '../../data/query/Breakdowns'
 import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
@@ -141,7 +142,9 @@ function DataSourceListing(props: DataSourceListingProps) {
             Demographic Granularity
           </p>
           <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
-            {props.source_metadata.demographic_granularity}
+            {props.source_metadata.demographic_breakdowns
+              ?.map((d) => DEMOGRAPHIC_DISPLAY_TYPES[d])
+              .join(', ')}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>

@@ -256,8 +256,7 @@ export const datasourceMetadataCommunitySafetyCategory: DataSourceMetadataCommun
     data_source_pretty_site_name: 'cdc.gov/injury/wisqars',
     data_source_link: 'https://www.cdc.gov/injury/wisqars/index.html',
     geographic_level: 'National, State',
-    demographic_granularity:
-      'Race/ethnicity, sex, age, city size (metro/non-metro)',
+    demographic_breakdowns: ['age', 'race_and_ethnicity', 'sex', 'urbanicity'],
     update_frequency: 'Yearly',
     description: `The CDC's WISQARS™ (Web-based Injury Statistics Query and Reporting System) dataset includes a wide range of information related to gun-related injuries, providing a holistic perspective on the impact of gun-related incidents.`,
     dataset_ids: Object.keys(
