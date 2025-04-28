@@ -1,10 +1,10 @@
 import type React from 'react'
-import LazyLoad from 'react-lazyload'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { UNKNOWN_RACE } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
+import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 
 interface CustomUnknownMapProps {
   headerScrollMargin?: string
@@ -34,7 +34,7 @@ const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
         scrollMarginTop: headerScrollMargin,
       }}
     >
-      <LazyLoad offset={800} height={750} once>
+      <HetLazyLoader offset={800} height={750} once>
         {shareMetricConfig && (
           <UnknownsMapCard
             overrideAndWithOr={demographicType === 'race_and_ethnicity'}
@@ -45,7 +45,7 @@ const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
             reportTitle={reportTitle}
           />
         )}
-      </LazyLoad>
+      </HetLazyLoader>
     </div>
   )
 }

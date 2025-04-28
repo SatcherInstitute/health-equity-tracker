@@ -1,6 +1,5 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
-import LazyLoad from 'react-lazyload'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
@@ -20,6 +19,7 @@ import {
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import Sidebar from '../pages/ui/Sidebar'
+import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -216,7 +216,7 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <LazyLoad offset={800} height={750} once>
+                  <HetLazyLoader offset={800} height={750} once>
                     {shareMetricConfig && (
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
@@ -229,7 +229,7 @@ export function Report(props: ReportProps) {
                         reportTitle={props.reportTitle}
                       />
                     )}
-                  </LazyLoad>
+                  </HetLazyLoader>
                 </div>
 
                 {/* SHARE TRENDS LINE CHART CARD */}
@@ -239,14 +239,14 @@ export function Report(props: ReportProps) {
                     id='inequities-over-time'
                     className='w-full scroll-m-0 md:scroll-mt-24'
                   >
-                    <LazyLoad offset={600} height={750} once>
+                    <HetLazyLoader offset={600} height={750} once>
                       <ShareTrendsChartCard
                         dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
                       />
-                    </LazyLoad>
+                    </HetLazyLoader>
                   </div>
                 )}
 
@@ -259,7 +259,7 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <LazyLoad offset={800} height={750} once>
+                  <HetLazyLoader offset={800} height={750} once>
                     {shareMetricConfig && (
                       <StackedSharesBarChartCard
                         dataTypeConfig={dataTypeConfig}
@@ -268,7 +268,7 @@ export function Report(props: ReportProps) {
                         reportTitle={props.reportTitle}
                       />
                     )}
-                  </LazyLoad>
+                  </HetLazyLoader>
                 </div>
 
                 {/* DATA TABLE CARD */}
@@ -298,7 +298,7 @@ export function Report(props: ReportProps) {
                       scrollMarginTop: props.headerScrollMargin,
                     }}
                   >
-                    <LazyLoad offset={800} height={800} once>
+                    <HetLazyLoader offset={800} height={800} once>
                       <AgeAdjustedTableCard
                         fips={props.fips}
                         dataTypeConfig={dataTypeConfig}
@@ -306,7 +306,7 @@ export function Report(props: ReportProps) {
                         demographicType={demographicType}
                         reportTitle={props.reportTitle}
                       />
-                    </LazyLoad>
+                    </HetLazyLoader>
                   </div>
                 )}
                 <div className='mt-16'>
