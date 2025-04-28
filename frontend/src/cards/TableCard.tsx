@@ -2,7 +2,11 @@ import { TableChart } from '../charts/TableChart'
 import type { CountColsMap } from '../charts/mapGlobals'
 import { generateSubtitle } from '../charts/utils'
 import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
-import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+  MetricId,
+} from '../data/config/MetricConfigTypes'
 import {
   getMetricIdToConfigMap,
   metricConfigFromDtConfig,
@@ -64,7 +68,9 @@ export default function TableCard(props: TableCardProps) {
 
   const rateConfig = metricConfigFromDtConfig('rate', props.dataTypeConfig)
   const shareConfig = metricConfigFromDtConfig('share', props.dataTypeConfig)
-  const initialMetricConfigs = [rateConfig, shareConfig]
+  const initialMetricConfigs: MetricConfig[] = []
+  rateConfig && initialMetricConfigs.push(rateConfig)
+  shareConfig && initialMetricConfigs.push(shareConfig)
 
   const metricIdToConfigMap = getMetricIdToConfigMap(initialMetricConfigs)
   const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
