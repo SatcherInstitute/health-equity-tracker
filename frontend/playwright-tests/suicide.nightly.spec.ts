@@ -69,7 +69,7 @@ test('Suicide Los Angeles County', async ({ page }) => {
     .getByRole('heading', { name: 'Graph unavailable: Population' })
     .click()
   await page.getByRole('heading', { name: 'Summary for' }).click()
-  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
+  await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page
     .getByRole('columnheader', { name: 'Suicides per 100k people' })
     .click()
