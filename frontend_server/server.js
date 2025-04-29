@@ -8,6 +8,10 @@ import { createProxyMiddleware } from 'http-proxy-middleware'
 const buildDir = process.env['BUILD_DIR'] || 'build'
 console.info(`Build directory: ${buildDir}`)
 
+const insightsCache = new Map()
+const CACHE_EXPIRATION = 24 * 60 * 60 * 1000 // 24 hours
+let RATE_LIMIT_REACHED = false
+
 export function assertEnvVar(name) {
   const value = process.env[name]
   console.info(`Environment variable ${name}: ${value}`)
@@ -111,6 +115,23 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
+  // Create a cache key from the prompt
+  const cacheKey = createHash('md5').update(prompt).digest('hex')
+
+  // Check cache
+  const cachedItem = insightsCache.get(cacheKey)
+  if (cachedItem && Date.now() - cachedItem.timestamp < CACHE_EXPIRATION) {
+    console.log('Cache hit for prompt:', prompt.substring(0, 30) + '...')
+    return res.json({ content: cachedItem.content })
+  }
+
+  if (RATE_LIMIT_REACHED) {
+    return res.status(429).json({
+      error: 'API limits exceeded',
+      rateLimitReached: true,
+    })
+  }
+
   const apiKey = assertEnvVar('OPENAI_API_KEY')
 
   try {
@@ -131,17 +152,53 @@ app.post('/fetch-ai-insight', async (req, res) => {
     )
 
     if (!aiResponse.ok) {
-      throw new Error(`AI API Error: ${aiResponse.statusText}`)
+      if (aiResponse.status === 429) {
+        console.error('OpenAI API limits exceeded')
+        RATE_LIMIT_REACHED = true
+        return res.status(429).json({
+          error: 'API limits exceeded',
+          rateLimitReached: true,
+        })
+      }
+
+      console.error(
+        `OpenAI API error: ${aiResponse.status} ${aiResponse.statusText}`,
+      )
+      return res.status(aiResponse.status).json({
+        error: `API request failed: ${aiResponse.statusText}`,
+      })
     }
 
     const json = await aiResponse.json()
     const content = json.choices?.[0]?.message?.content || 'No content returned'
 
+    // Store in cache
+    insightsCache.set(cacheKey, {
+      content: content.trim(),
+      timestamp: Date.now(),
+    })
+
     res.json({ content: content.trim() })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
+
+    if (err.message?.includes('429')) {
+      RATE_LIMIT_REACHED = true
+      return res.status(429).json({
+        error: 'API limits exceeded',
+        rateLimitReached: true,
+      })
+    }
+
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
+})
+
+// Simple rate limit status endpoint
+app.get('/rate-limit-status', (req, res) => {
+  res.json({
+    rateLimitReached: RATE_LIMIT_REACHED,
+  })
 })
 
 // Serve static files from the build directory.
