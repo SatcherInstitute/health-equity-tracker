@@ -48,7 +48,7 @@ test('Multiple Maps 1 (Left Side)', async ({ page }) => {
   )
   await expect(
     page.getByRole('heading', {
-      name: 'Prison incarceration in Georgia across all race and ethnicity groups',
+      name: 'Prison incarceration in Georgia across all race/ethnicity groups',
     }),
   ).toBeVisible()
 
@@ -74,7 +74,7 @@ test('Multiple Maps 2 (Right Side)', async ({ page }) => {
   await expect(page).toHaveURL(/.*multiple-maps2=true/)
   await expect(
     page.getByRole('heading', {
-      name: 'People below the poverty line in Georgia across all race and ethnicity groups',
+      name: 'People below the poverty line in Georgia across all race/ethnicity groups',
     }),
   ).toBeVisible()
 
