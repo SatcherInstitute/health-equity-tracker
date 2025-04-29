@@ -45,7 +45,7 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .locator('#population-vs-distribution')
-    .getByText('race and ethnicity')
+    .getByText('race/ethnicity')
     .click()
   await page
     .getByRole('heading', {
