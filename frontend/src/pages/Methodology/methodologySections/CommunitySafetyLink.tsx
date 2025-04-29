@@ -66,12 +66,14 @@ const CommunitySafetyLink = () => {
           annual updates mean that reported numbers may change and should be
           interpreted with caution. Additionally, postcensal population
           estimates are updated annually, affecting fatal injury rates over
-          time.
+          time. We supplement WISQARS data at the county level with data
+          released by CHR (County Health Rankings), which also sources from the
+          National Center for Health Statistics.
         </HetNotice>
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>WISQARS Injuries Measures</h3>
+            <h3 className='font-normal text-text'>Measures</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <>
@@ -172,7 +174,7 @@ const CommunitySafetyLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={communitySafetyDataSources.map((source, index) => ({
+          rows={communitySafetyDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}
