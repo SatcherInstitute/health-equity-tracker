@@ -58,6 +58,11 @@ const CommunitySafetyLink = () => {
           explore data by intent of injury, mechanism, geographic location, and
           demographics, supporting public health and policy decisions.
         </p>
+        <p>
+          We supplement gun violence data at the county level with data released
+          by CHR (County Health Rankings), which also sources from the National
+          Center for Health Statistics.
+        </p>
         <HetNotice className='my-12' title='A note about CDC WISQARS'>
           The CDC’s WISQARS limits data released at state and county levels to
           protect privacy. Mortality data, collected from death certificates and
@@ -66,9 +71,8 @@ const CommunitySafetyLink = () => {
           annual updates mean that reported numbers may change and should be
           interpreted with caution. Additionally, postcensal population
           estimates are updated annually, affecting fatal injury rates over
-          time. We supplement WISQARS data at the county level with data
-          released by CHR (County Health Rankings), which also sources from the
-          National Center for Health Statistics.
+          time. Some data calculated on case counts less than 20 are labeled
+          "unstable" by CDC WISQARS and should be interpreted with caution.
         </HetNotice>
 
         <section>

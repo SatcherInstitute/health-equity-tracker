@@ -68,7 +68,7 @@ test('Multiple Maps 2 (Right Side)', async ({ page }) => {
   await page
     .locator('#rate-map2')
     .getByLabel(
-      'Launch multiple maps view with side-by-side maps of each race and ethnicity group',
+      'Launch multiple maps view with side-by-side maps of each race/ethnicity group',
     )
     .click()
   await expect(page).toHaveURL(/.*multiple-maps2=true/)
