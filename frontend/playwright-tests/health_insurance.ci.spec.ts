@@ -32,7 +32,7 @@ test('Health Insurance Flow', async ({ page }) => {
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
+      'No unknown values for race/ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page
