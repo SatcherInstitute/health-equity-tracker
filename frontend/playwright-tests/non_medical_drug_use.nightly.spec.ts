@@ -21,7 +21,7 @@ test('Non Medical Drug Use', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of total adult non-medical drug use with unknown race and ethnicity in the United States',
+      name: 'Share of total adult non-medical drug use with unknown race/ethnicity in the United States',
     })
     .click()
   await page.getByText('No unknown values for race').click()

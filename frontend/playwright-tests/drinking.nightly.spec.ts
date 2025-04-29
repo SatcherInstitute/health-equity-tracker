@@ -21,7 +21,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
   await page
     .getByRole('heading', {
-      name: 'Share of all adult excessive drinking cases with unknown race and ethnicity in the United States',
+      name: 'Share of all adult excessive drinking cases with unknown race/ethnicity in the United States',
     })
     .click()
   await page

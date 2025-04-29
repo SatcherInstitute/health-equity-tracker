@@ -30,7 +30,7 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of all preventable hospitalizations with unknown race and ethnicity in the United States',
+      name: 'Share of all preventable hospitalizations with unknown race/ethnicity in the United States',
     })
     .click()
   await page

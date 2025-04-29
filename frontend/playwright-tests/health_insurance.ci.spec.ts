@@ -27,7 +27,7 @@ test('Health Insurance Flow', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of uninsured people with unknown race and ethnicity in the United States',
+      name: 'Share of uninsured people with unknown race/ethnicity in the United States',
     })
     .click()
   await page
