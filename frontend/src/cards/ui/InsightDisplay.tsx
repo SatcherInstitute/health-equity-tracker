@@ -2,7 +2,7 @@ import { DeleteForever, TipsAndUpdatesOutlined } from '@mui/icons-material'
 import CircularProgress from '@mui/material/CircularProgress'
 import IconButton from '@mui/material/IconButton'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type {
   MetricConfig,
   MetricId,
@@ -12,7 +12,11 @@ import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateInsight } from '../generateInsights'
-import { checkRateLimitStatus } from '../generateInsightsUtils'
+
+interface ChartData {
+  knownData: Readonly<Record<string, any>>[]
+  metricIds: MetricId[]
+}
 
 type InsightDisplayProps = {
   demographicType: DemographicType
@@ -29,59 +33,25 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
 }) => {
   const [insight, setInsight] = useState<string>('')
   const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
-  const [rateLimitReached, setRateLimitReached] = useState<boolean>(false)
 
   const queryResponse = queryResponses[0]
   const validData = queryResponse.getValidRowsForField(shareConfig.metricId)
   const [knownData] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
-  useEffect(() => {
-    const checkRateLimit = async () => {
-      console.log('Starting rate limit check')
-
-      const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-      console.log('Base API URL:', baseApiUrl)
-
-      try {
-        const status = await checkRateLimitStatus()
-        console.log('Rate limit status response:', status)
-        setRateLimitReached(status.rateLimitReached)
-      } catch (error) {
-        console.error('Error in checkRateLimit:', error)
-      }
-    }
-
-    if (SHOW_INSIGHT_GENERATION) {
-      checkRateLimit()
-    }
-  }, [])
-
   const handleGenerateInsight = async () => {
-    if (
-      !SHOW_INSIGHT_GENERATION ||
-      !knownData.length ||
-      !metricIds.length ||
-      rateLimitReached
-    )
+    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length)
       return
 
     setIsGeneratingInsight(true)
     try {
       const newInsight = await generateInsight({ knownData, metricIds })
       setInsight(newInsight)
-    } catch (error) {
-      const status = await checkRateLimitStatus()
-      setRateLimitReached(status.rateLimitReached)
     } finally {
       setIsGeneratingInsight(false)
     }
   }
 
   const handleClearInsight = () => setInsight('')
-
-  if (!SHOW_INSIGHT_GENERATION || rateLimitReached) {
-    return null
-  }
 
   return (
     <>

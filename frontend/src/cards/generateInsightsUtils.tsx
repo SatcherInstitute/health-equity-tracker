@@ -56,33 +56,3 @@ export function extractRelevantData(
 
   return result
 }
-
-export async function checkRateLimitStatus(): Promise<{
-  rateLimitReached: boolean
-  quotaExceeded?: boolean
-  resetTime: string | null
-}> {
-  const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-  const statusEndpoint = `${baseApiUrl}/rate-limit-status`
-  console.log('Rate limit status URL:', statusEndpoint)
-
-  const defaultResponse = {
-    rateLimitReached: false,
-    quotaExceeded: false,
-    resetTime: null,
-  }
-
-  try {
-    const response = await fetch(statusEndpoint)
-    console.log('Response status:', response.status)
-
-    if (!response.ok) {
-      return defaultResponse
-    }
-
-    return await response.json()
-  } catch (error) {
-    console.error('Error checking rate limit status:', error)
-    return defaultResponse
-  }
-}
