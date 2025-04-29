@@ -41,7 +41,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     geographic_level: 'National, State',
     time_period_range: '1999 - 2021',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Annual',
+    update_frequency: 'Yearly',
     description:
       'Cancer incidence statistics from the CDC WONDER database, providing detailed information about new cancer cases across the United States. The data includes incidence rates, counts, and population data stratified by various demographic characteristics. The statistics are derived from cancer registries reporting to the National Program of Cancer Registries (NPCR) and/or the Surveillance, Epidemiology, and End Results (SEER) Program. Rates are calculated using bridged-race population estimates from the U.S. Census Bureau. Age-adjusted rates are calculated based on the 2000 U.S. standard population. Users can access data on different types of cancer, with breakdowns by demographic factors and geographic areas.',
     dataset_ids: [
@@ -72,7 +72,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     geographic_level: 'National, State, County',
     time_period_range: 'January 2020 - current',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Monthly',
+    update_frequency: 'Final update was June 2024',
     description:
       'The numbers of confirmed COVID-19 deaths, cases, and hospitalizations nationally and at the state and county levels. The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case Surveillance Data Access, Summary, and Limitations. The last case data included is two (2) weeks before they most recent release from the CDC. The CDC does not take responsibility for the scientific validity or accuracy of methodology, results, statistical analyses, or conclusions presented. We only present the data as rates that are calculated with the American Community Survey (ACS) 2019 5-year estimates, to view the raw data you must apply for access on the CDC website linked above.',
     dataset_ids: [
@@ -112,7 +112,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'https://www.census.gov/data/developers/data-sets/acs-5year.html',
     geographic_level: 'National, State, County',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Annual',
+    update_frequency: 'Yearly',
     description:
       'Yearly population percentages, health insurance rates, and poverty rates at the national, state and county levels.',
     dataset_ids: [
@@ -281,7 +281,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'https://www.americashealthrankings.org/explore/measures/CHC',
     geographic_level: 'National, State',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Annual',
+    update_frequency: 'Yearly',
     description:
       'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).',
     dataset_ids: [
@@ -309,7 +309,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link: 'https://bjs.ojp.gov',
     geographic_level: 'National, State',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Annually',
+    update_frequency: 'Yearly',
     description:
       'Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.',
     dataset_ids: [
@@ -376,7 +376,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
     geographic_level: 'County',
     demographic_breakdowns: ['race_and_ethnicity'],
-    update_frequency: 'Annual',
+    update_frequency: 'Yearly',
     description:
       'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), community safety (gun deaths), and other determinants of health (preventable hospitalizations).',
     dataset_ids: [

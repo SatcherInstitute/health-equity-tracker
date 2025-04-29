@@ -9,7 +9,10 @@ import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAcco
 import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
-const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
+const communitySafetyDataSources = [
+  dataSourceMetadataMap.cdc_wisqars,
+  dataSourceMetadataMap.chr,
+]
 
 export const communitySafetyTopicsString = buildTopicsString(
   COMMUNITY_SAFETY_DROPDOWNIDS,
