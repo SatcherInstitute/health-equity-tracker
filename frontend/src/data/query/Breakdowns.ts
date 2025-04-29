@@ -37,7 +37,7 @@ const DEMOGRAPHIC_TYPES = [
 type DemographicBreakdownKey = (typeof DEMOGRAPHIC_TYPES)[number]
 
 export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
-  race_and_ethnicity: 'Race and Ethnicity',
+  race_and_ethnicity: 'Race/Ethnicity',
   age: 'Age',
   sex: 'Sex at Birth',
   fips: 'FIPS Code',
@@ -57,7 +57,7 @@ export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
   DemographicType,
   string
 > = {
-  race_and_ethnicity: 'race and ethnicity',
+  race_and_ethnicity: 'race/ethnicity',
   age: 'age',
   sex: 'sex',
   fips: 'FIPS codes',
