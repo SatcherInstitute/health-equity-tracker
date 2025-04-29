@@ -46,7 +46,7 @@ export default function DatasetList({ datasets }: DatasetListProps) {
 
                 <span className='my-0 ml-2'>{item.label}</span>
                 <span className='sr-only'>
-                  {item.included ? ' Available' : ' Not available'}{' '}
+                  {item.included ? ' Available' : ' Not available'}
                 </span>
               </li>
             ))}
