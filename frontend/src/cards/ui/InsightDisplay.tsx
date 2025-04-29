@@ -37,8 +37,18 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
 
   useEffect(() => {
     const checkRateLimit = async () => {
-      const status = await checkRateLimitStatus()
-      setRateLimitReached(status.rateLimitReached)
+      console.log('Starting rate limit check')
+
+      const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+      console.log('Base API URL:', baseApiUrl)
+
+      try {
+        const status = await checkRateLimitStatus()
+        console.log('Rate limit status response:', status)
+        setRateLimitReached(status.rateLimitReached)
+      } catch (error) {
+        console.error('Error in checkRateLimit:', error)
+      }
     }
 
     if (SHOW_INSIGHT_GENERATION) {

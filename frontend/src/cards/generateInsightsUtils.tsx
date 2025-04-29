@@ -64,6 +64,8 @@ export async function checkRateLimitStatus(): Promise<{
 }> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
   const statusEndpoint = `${baseApiUrl}/rate-limit-status`
+  console.log('Rate limit status URL:', statusEndpoint)
+
   const defaultResponse = {
     rateLimitReached: false,
     quotaExceeded: false,
@@ -72,6 +74,7 @@ export async function checkRateLimitStatus(): Promise<{
 
   try {
     const response = await fetch(statusEndpoint)
+    console.log('Response status:', response.status)
 
     if (!response.ok) {
       return defaultResponse
