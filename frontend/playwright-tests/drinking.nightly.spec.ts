@@ -21,12 +21,12 @@ test('Excessive Drinking Flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
   await page
     .getByRole('heading', {
-      name: 'Share of all adult excessive drinking cases with unknown race and ethnicity in the United States',
+      name: 'Share of all adult excessive drinking cases with unknown race/ethnicity in the United States',
     })
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/t',
+      'No unknown values for race/ethnicity reported in this dataset at the state/t',
     )
     .click()
   await page
@@ -44,7 +44,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
       name: 'Summary for excessive drinking cases in the United States',
     })
     .click()
-  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
+  await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page
     .getByRole('columnheader', {
       name: 'Excessive drinking cases per 100k adults',

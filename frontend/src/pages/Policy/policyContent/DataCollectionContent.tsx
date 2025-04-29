@@ -1,3 +1,17 @@
+import { datasourceMetadataCommunitySafetyCategory } from '../../../data/config/DatasetMetadataCommunitySafetyCategory'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../../../data/config/MetricConfigTypes'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../../../data/query/Breakdowns'
+import { Fips } from '../../../data/utils/Fips'
+import { getAllDemographicOptions } from '../../../reports/reportUtils'
+import { getConfigFromDataTypeId } from '../../../utils/MadLibs'
+
 interface DatasetItem {
   label: string
   included: boolean
@@ -8,83 +22,73 @@ interface Dataset {
   datasetNameDetails?: string
   items: DatasetItem[]
 }
-export const gunViolenceDatasets: Dataset[] = [
-  {
-    datasetName: 'Gun Deaths',
-    datasetNameDetails: '(Children, 0-17)',
-    items: [
-      { label: 'Breakdowns by race/ethnicity', included: true },
-      { label: 'Breakdowns by age', included: false },
-      { label: 'Breakdowns by sex', included: false },
-      { label: 'Breakdowns by city size', included: false },
-    ],
-  },
-  {
-    datasetName: 'Gun Deaths',
-    datasetNameDetails: '(Young adults, 18-25)',
-    items: [
-      { label: 'Breakdowns by race/ethnicity', included: true },
-      { label: 'Breakdowns by age', included: false },
-      { label: 'Breakdowns by sex', included: false },
-      { label: 'Breakdowns by city size', included: false },
-    ],
-  },
-  {
-    datasetName: 'Gun Homicides',
-    datasetNameDetails: '(Black Men-specific)',
-    items: [
-      { label: 'Breakdowns by race/ethnicity', included: false },
-      { label: 'Breakdowns by age', included: true },
-      { label: 'Breakdowns by sex', included: false },
-      { label: 'Breakdowns by city size', included: true },
-    ],
-  },
-  {
-    datasetName: 'Gun Homicides',
-    datasetNameDetails: '',
-    items: [
-      { label: 'Breakdowns by race/ethnicity', included: true },
-      { label: 'Breakdowns by age', included: true },
-      { label: 'Breakdowns by sex', included: true },
-      { label: 'Breakdowns by city size', included: false },
-    ],
-  },
-  {
-    datasetName: 'Gun Suicides',
-    datasetNameDetails: '',
-    items: [
-      { label: 'Breakdowns by race/ethnicity', included: true },
-      { label: 'Breakdowns by age', included: true },
-      { label: 'Breakdowns by sex', included: true },
-      { label: 'Breakdowns by city size', included: false },
-    ],
-  },
+
+const unionGunDeathsDemographicOptions =
+  datasourceMetadataCommunitySafetyCategory.demographic_breakdowns
+
+const usFips = new Fips('00')
+
+function formatSubPopString({
+  ageSubPopulationLabel,
+  otherSubPopulationLabel,
+}: {
+  ageSubPopulationLabel?: string
+  otherSubPopulationLabel?: string
+}) {
+  return otherSubPopulationLabel && ageSubPopulationLabel
+    ? `${otherSubPopulationLabel}, ${ageSubPopulationLabel}`
+    : otherSubPopulationLabel || ageSubPopulationLabel || ''
+}
+
+function getItems(id: DataTypeId): DatasetItem[] {
+  const config = getConfigFromDataTypeId(id)
+  const configDemographicOptions = Object.values(
+    getAllDemographicOptions(config, usFips).enabledDemographicOptionsMap,
+  )
+
+  const items: DatasetItem[] = unionGunDeathsDemographicOptions.map(
+    (demo: DemographicType) => {
+      return {
+        label: `Breakdowns by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demo]}`,
+        included: configDemographicOptions.includes(demo),
+      }
+    },
+  )
+
+  return items
+}
+
+const gvDropdownIds = [
+  'gun_deaths',
+  'gun_violence',
+  'gun_violence_youth',
+  'gun_deaths_black_men',
 ]
 
-export const gvDefinitions = [
-  {
-    topic: 'Gun deaths (children)',
-    measurementDefinition:
-      'Deaths of individuals under the age of 18 caused by firearms.',
+function getMetricConfigsForIds(
+  ids: string[],
+): { id: string; configs: DataTypeConfig[] }[] {
+  return ids.map((id) => ({
+    id,
+    configs: METRIC_CONFIG[id],
+  }))
+}
+
+const metricConfigsWithIds = getMetricConfigsForIds(gvDropdownIds)
+
+export const gunViolenceDatasets: Dataset[] = metricConfigsWithIds.flatMap(
+  ({ configs }) => {
+    return configs.map((config) => ({
+      datasetName: config.fullDisplayName,
+      datasetNameDetails: formatSubPopString(config),
+      items: getItems(config.dataTypeId),
+    }))
   },
-  {
-    topic: 'Gun deaths (young adults)',
-    measurementDefinition:
-      'Deaths of individuals between the ages of 18-25 caused by firearms.',
-  },
-  {
-    topic: 'Gun homicides (Black Men)',
-    measurementDefinition:
-      'Deaths of Black or African-American (NH) males, caused by gun homicides.',
-  },
-  {
-    topic: 'Gun homicides',
-    measurementDefinition:
-      'Deaths caused by firearms used with the intent to harm others.',
-  },
-  {
-    topic: 'Gun suicides',
-    measurementDefinition:
-      'Deaths resulting from individuals using firearms to inflict self-harm.',
-  },
-]
+)
+
+export const gvDefinitions = metricConfigsWithIds.flatMap(({ configs }) => {
+  return configs.map((config) => ({
+    topic: config.fullDisplayName,
+    measurementDefinition: config.definition?.text || '',
+  }))
+})

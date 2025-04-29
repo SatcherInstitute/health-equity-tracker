@@ -3,7 +3,7 @@ import { test } from '@playwright/test'
 test('Non Medical Drug Use', async ({ page }) => {
   await page.goto('/exploredata?mls=1.substance-3.00&group1=All')
 
-  await page.getByText('Race and Ethnicity:').click()
+  await page.getByText('Race/Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
@@ -21,7 +21,7 @@ test('Non Medical Drug Use', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of total adult non-medical drug use with unknown race and ethnicity in the United States',
+      name: 'Share of total adult non-medical drug use with unknown race/ethnicity in the United States',
     })
     .click()
   await page.getByText('No unknown values for race').click()

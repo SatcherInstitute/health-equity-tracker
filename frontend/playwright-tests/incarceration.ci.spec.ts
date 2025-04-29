@@ -24,7 +24,7 @@ test('Prison by Race', async ({ page }) => {
     .getByText('0.4% of prison pop. reported')
     .click()
   await page.getByRole('button', { name: 'Data table' }).click()
-  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
+  await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page.getByRole('button', { name: 'Prison', exact: true }).click()
   await page.getByRole('menuitem', { name: 'Jail' }).click()
 })

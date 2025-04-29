@@ -12,7 +12,7 @@ export default function LimitationsLink() {
       <article>
         <title>Limitations and Missing Data - Health Equity Tracker</title>
 
-        <h2 className='mt-12'>Limitations</h2>
+        <h2 className='mt-12 font-medium text-title'>Limitations</h2>
         <p>While we strive for accuracy, some of the limitations include:</p>
 
         <h3>Data Accuracy and Completeness</h3>
@@ -73,7 +73,7 @@ export default function LimitationsLink() {
           adequately captured in the data or accounted for in the analysis.
         </p>
         <div id='missing-data'>
-          <h2 className='mt-12' id='limitations'>
+          <h2 className='mt-12 font-medium text-title' id='limitations'>
             What Data Are Missing
           </h2>
           <WhatDataAreMissing

@@ -30,12 +30,12 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of all preventable hospitalizations with unknown race and ethnicity in the United States',
+      name: 'Share of all preventable hospitalizations with unknown race/ethnicity in the United States',
     })
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
+      'No unknown values for race/ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page
@@ -45,7 +45,7 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .locator('#population-vs-distribution')
-    .getByText('race and ethnicity')
+    .getByText('race/ethnicity')
     .click()
   await page
     .getByRole('heading', {
