@@ -28,6 +28,18 @@ const unionGunDeathsDemographicOptions =
 
 const usFips = new Fips('00')
 
+function formatSubPopString({
+  ageSubPopulationLabel,
+  otherSubPopulationLabel,
+}: {
+  ageSubPopulationLabel?: string
+  otherSubPopulationLabel?: string
+}) {
+  return otherSubPopulationLabel && ageSubPopulationLabel
+    ? `${otherSubPopulationLabel}, ${ageSubPopulationLabel}`
+    : otherSubPopulationLabel || ageSubPopulationLabel || ''
+}
+
 function getItems(id: DataTypeId): DatasetItem[] {
   const config = getConfigFromDataTypeId(id)
   const configDemographicOptions = Object.values(
@@ -53,41 +65,30 @@ const gvDropdownIds = [
   'gun_deaths_black_men',
 ]
 
-export const gunViolenceDatasets: Dataset[] = gvDropdownIds.flatMap((id) => {
-  const gvDatasets: Dataset[] = []
+function getMetricConfigsForIds(
+  ids: string[],
+): { id: string; configs: DataTypeConfig[] }[] {
+  return ids.map((id) => ({
+    id,
+    configs: METRIC_CONFIG[id],
+  }))
+}
 
-  const metricConfigs: DataTypeConfig[] = METRIC_CONFIG[id]
+const metricConfigsWithIds = getMetricConfigsForIds(gvDropdownIds)
 
-  gvDatasets.push(
-    ...metricConfigs.map((config) => {
-      const details =
-        config.otherSubPopulationLabel && config.ageSubPopulationLabel
-          ? `${config.otherSubPopulationLabel}, ${config.ageSubPopulationLabel}`
-          : config.otherSubPopulationLabel || config.ageSubPopulationLabel || ''
+export const gunViolenceDatasets: Dataset[] = metricConfigsWithIds.flatMap(
+  ({ configs }) => {
+    return configs.map((config) => ({
+      datasetName: config.fullDisplayName,
+      datasetNameDetails: formatSubPopString(config),
+      items: getItems(config.dataTypeId),
+    }))
+  },
+)
 
-      return {
-        datasetName: config.fullDisplayName,
-        datasetNameDetails: details,
-        items: getItems(config.dataTypeId),
-      }
-    }),
-  )
-
-  return gvDatasets
-})
-
-export const gvDefinitions = gvDropdownIds.flatMap((id) => {
-  const gvDefinitions: any[] = []
-
-  const metricConfigs: DataTypeConfig[] = METRIC_CONFIG[id]
-
-  gvDefinitions.push(
-    ...metricConfigs.map((config) => {
-      return {
-        topic: config.fullDisplayName,
-        measurementDefinition: config.definition?.text || '',
-      }
-    }),
-  )
-  return gvDefinitions
+export const gvDefinitions = metricConfigsWithIds.flatMap(({ configs }) => {
+  return configs.map((config) => ({
+    topic: config.fullDisplayName,
+    measurementDefinition: config.definition?.text || '',
+  }))
 })
