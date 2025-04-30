@@ -112,7 +112,6 @@ app.get('/rate-limit-status', (req, res) => {
   })
 })
 
-// Create a cache with of 24 hours (in seconds)
 const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
 
