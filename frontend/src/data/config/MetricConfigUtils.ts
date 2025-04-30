@@ -2,13 +2,12 @@ import { getFormatterPer100k } from '../../charts/utils'
 import type { DropdownVarId } from './DropDownIds'
 import { METRIC_CONFIG } from './MetricConfig'
 import type {
+  CardMetricType,
   DataTypeConfig,
   MetricConfig,
   MetricId,
   MetricType,
 } from './MetricConfigTypes'
-
-type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
 
 export function metricConfigFromDtConfig(
   cardType: CardMetricType,

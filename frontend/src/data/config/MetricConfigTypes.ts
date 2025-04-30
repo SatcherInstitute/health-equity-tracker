@@ -146,3 +146,5 @@ export interface DataTypeConfig {
   ageSubPopulationLabel?: string
   otherSubPopulationLabel?: string
 }
+
+export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
