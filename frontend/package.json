@@ -34,7 +34,6 @@
 		"jotai-location": "^0.5.5",
 		"just-debounce-it": "^3.2.0",
 		"lru-cache": "^11.1.0",
-		"node-cache": "^5.1.2",
 		"react": "19.1.0",
 		"react-animate-height": "^3.2.3",
 		"react-dom": "19.1.0",
