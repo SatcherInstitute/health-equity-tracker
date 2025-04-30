@@ -134,7 +134,7 @@ function DataSourceListing(props: DataSourceListingProps) {
             Geographic Level
           </p>
           <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
-            {props.source_metadata.geographic_level}
+            {props.source_metadata.geographic_breakdowns}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>

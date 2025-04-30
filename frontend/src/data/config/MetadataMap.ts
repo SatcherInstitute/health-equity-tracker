@@ -38,7 +38,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'CDC',
     data_source_pretty_site_name: 'wonder.cdc.gov',
     data_source_link: 'https://wonder.cdc.gov/cancer-v2021.HTML',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     time_period_range: '1999 - 2021',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Yearly',
@@ -69,7 +69,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'data.cdc.gov',
     data_source_link:
       'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
-    geographic_level: 'National, State, County',
+    geographic_breakdowns: ['national', 'state', 'county'],
     time_period_range: 'January 2020 - current',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Final update was June 2024',
@@ -110,7 +110,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/developers/data-sets/acs-5year.html',
-    geographic_level: 'National, State, County',
+    geographic_breakdowns: ['national', 'state', 'county'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Yearly',
     description:
@@ -164,7 +164,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/datasets/2010/dec/virgin-islands.html',
-    geographic_level: 'Territory',
+    geographic_breakdowns: ['territory'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'None',
     description:
@@ -184,7 +184,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/tables/2020/dec/2020-us-virgin-islands.html',
-    geographic_level: 'Territory/County-Equivalent',
+    geographic_breakdowns: ['territory'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'None',
     description:
@@ -207,7 +207,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
       'https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html',
-    geographic_level: 'State/County',
+    geographic_breakdowns: ['state', 'county'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'None',
     description:
@@ -223,7 +223,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'data.cdc.gov',
     data_source_link:
       'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
-    geographic_level: 'County',
+    geographic_breakdowns: ['county'],
     demographic_breakdowns: [],
     update_frequency: 'Daily',
     description:
@@ -240,7 +240,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'data.cdc.gov',
     data_source_link:
       'https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb',
-    geographic_level: 'National',
+    geographic_breakdowns: ['national'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Daily',
     description:
@@ -260,7 +260,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'KFF',
     data_source_pretty_site_name: 'kff.org',
     data_source_link: 'https://www.kff.org/state-category/covid-19/',
-    geographic_level: 'State',
+    geographic_breakdowns: ['state'],
     demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'Biweekly',
     description:
@@ -279,7 +279,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'americashealthrankings.org',
     data_source_link:
       'https://www.americashealthrankings.org/explore/measures/CHC',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Yearly',
     description:
@@ -307,7 +307,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'BJS',
     data_source_pretty_site_name: 'bjs.ojp.gov',
     data_source_link: 'https://bjs.ojp.gov',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Yearly',
     description:
@@ -331,7 +331,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'Vera',
     data_source_pretty_site_name: 'vera.org',
     data_source_link: 'https://www.vera.org/projects/incarceration-trends',
-    geographic_level: 'County',
+    geographic_breakdowns: ['county'],
     demographic_breakdowns: ['race_and_ethnicity', 'sex'],
     update_frequency: 'None',
     description:
@@ -350,7 +350,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'CAWP',
     data_source_pretty_site_name: 'cawpdata.rutgers.edu',
     data_source_link: 'https://cawpdata.rutgers.edu/',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     time_period_range:
       'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
     demographic_breakdowns: ['race_and_ethnicity'],
@@ -374,7 +374,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'countyhealthrankings.org',
     data_source_link:
       'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
-    geographic_level: 'County',
+    geographic_breakdowns: ['county'],
     demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'Yearly',
     description:
@@ -392,7 +392,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: '@unitedstates',
     data_source_pretty_site_name: 'https://unitedstates.github.io/',
     data_source_link: 'https://github.com/unitedstates/congress-legislators',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     demographic_breakdowns: [],
     update_frequency: 'At least monthly',
     description:
@@ -408,7 +408,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'atsdr.cdc.gov',
     data_source_link:
       'https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html',
-    geographic_level: 'County',
+    geographic_breakdowns: ['county'],
     demographic_breakdowns: [],
     update_frequency: 'Every 2 Years',
     description:
@@ -428,7 +428,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'cms.gov',
     data_source_link:
       'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
-    geographic_level: 'National, State, County',
+    geographic_breakdowns: ['national', 'state', 'county'],
     demographic_breakdowns: [
       'race_and_ethnicity',
       'sex',
@@ -468,7 +468,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'CDC BRFSS',
     data_source_pretty_site_name: 'cdc.gov/brfss',
     data_source_link: 'https://www.cdc.gov/brfss/annual_data/annual_2022.html',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     demographic_breakdowns: [
       'race_and_ethnicity',
       'age',
@@ -503,7 +503,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_acronym: 'CTP',
     data_source_pretty_site_name: 'covidtracking.com',
     data_source_link: 'https://covidtracking.com/race',
-    geographic_level: 'State',
+    geographic_breakdowns: ['state'],
     demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'Final update was March 7 2021',
     description:
@@ -524,7 +524,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name:
       'github.com/SatcherInstitute/health-equity-tracker',
     data_source_link: 'https://github.com/topojson/us-atlas#counties-10m.json',
-    geographic_level: 'National, State, County',
+    geographic_breakdowns: ['national', 'state', 'county'],
     demographic_breakdowns: [],
     update_frequency: 'None',
     description:

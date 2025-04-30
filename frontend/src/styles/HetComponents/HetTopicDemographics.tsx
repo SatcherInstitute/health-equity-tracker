@@ -8,6 +8,7 @@ import {
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
+  type GeographicBreakdown,
 } from '../../data/query/Breakdowns'
 import type { DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import { Fips } from '../../data/utils/Fips'
@@ -80,15 +81,23 @@ export default function HetTopicDemographics(props: HetTopicDemographicsProps) {
   )
 }
 
-const usFips = new Fips('00')
+const sampleFipsMap: Record<GeographicBreakdown, Fips> = {
+  national: new Fips('00'),
+  state: new Fips('01'),
+  county: new Fips('01001'),
+  territory: new Fips('78'),
+  'state/territory': new Fips('78'),
+}
 
 function getItems(
   id: DataTypeId,
   datasourceMetadata: DataSourceMetadata,
 ): DemographicItem[] {
+  const sampleFips = sampleFipsMap[datasourceMetadata.geographic_breakdowns[0]]
+
   const config = getConfigFromDataTypeId(id)
   const configDemographicOptions = Object.values(
-    getAllDemographicOptions(config, usFips).enabledDemographicOptionsMap,
+    getAllDemographicOptions(config, sampleFips).enabledDemographicOptionsMap,
   )
 
   const items: DemographicItem[] =

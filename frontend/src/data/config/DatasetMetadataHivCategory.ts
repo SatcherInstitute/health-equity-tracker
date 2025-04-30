@@ -234,7 +234,7 @@ export const datasourceMetadataHivCategory: DataSourceMetadataHivCategory = {
   data_source_acronym: 'CDC',
   data_source_pretty_site_name: 'cdc.gov',
   data_source_link: 'https://www.cdc.gov/nchhstp/atlas/index.htm',
-  geographic_level: 'National, State, County',
+  geographic_breakdowns: ['national', 'state', 'county'],
   demographic_breakdowns: ['age', 'race_and_ethnicity', 'sex', 'urbanicity'],
   update_frequency: 'Yearly',
   description:
