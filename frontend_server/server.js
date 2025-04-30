@@ -6,8 +6,8 @@ import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
+let RATE_LIMIT_REACHED = false
 console.info(`Build directory: ${buildDir}`)
-const RATE_LIMIT_REACHED = false
 
 export function assertEnvVar(name) {
   const value = process.env[name]
@@ -106,6 +106,12 @@ app.use('/api', apiProxy)
 
 app.use(compression())
 
+app.get('/rate-limit-status', (req, res) => {
+  res.json({
+    rateLimitReached: RATE_LIMIT_REACHED,
+  })
+})
+
 app.post('/fetch-ai-insight', async (req, res) => {
   const prompt = req.body.prompt
   if (!prompt) {
@@ -131,6 +137,11 @@ app.post('/fetch-ai-insight', async (req, res) => {
       },
     )
 
+    if (aiResponse.status === 429) {
+      RATE_LIMIT_REACHED = true
+      throw new Error('Rate limit reached')
+    }
+
     if (!aiResponse.ok) {
       throw new Error(`AI API Error: ${aiResponse.statusText}`)
     }
@@ -141,15 +152,13 @@ app.post('/fetch-ai-insight', async (req, res) => {
     res.json({ content: content.trim() })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
-    res.status(500).json({ error: 'Failed to fetch AI insight' })
-  }
-})
 
-// Simple rate limit status endpoint
-app.get('/rate-limit-status', (req, res) => {
-  res.json({
-    rateLimitReached: RATE_LIMIT_REACHED,
-  })
+    if (err.message.includes('Rate limit')) {
+      res.status(429).json({ error: 'Rate limit reached' })
+    } else {
+      res.status(500).json({ error: 'Failed to fetch AI insight' })
+    }
+  }
 })
 
 // Serve static files from the build directory.

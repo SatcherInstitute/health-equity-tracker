@@ -56,3 +56,20 @@ export function extractRelevantData(
 
   return result
 }
+
+export async function checkRateLimitStatus(): Promise<boolean> {
+  try {
+    const response = await fetch('/rate-limit-status')
+
+    if (!response.ok) {
+      console.error('Failed to check rate limit status')
+      return false
+    }
+
+    const data = await response.json()
+    return data.rateLimitReached
+  } catch (error) {
+    console.error('Error checking rate limit status:', error)
+    return false
+  }
+}
