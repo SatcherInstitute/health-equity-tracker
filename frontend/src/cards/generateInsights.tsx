@@ -6,6 +6,7 @@ import {
   getHighestDisparity,
 } from './generateInsightsUtils'
 
+const API_ENDPOINT = '/fetch-ai-insight'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
 export type Dataset = Record<string, any>
@@ -34,7 +35,11 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
   }
 
   try {
-    const dataResponse = await fetch('/fetch-ai-insight', {
+    const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+    const dataServerUrl = baseApiUrl
+      ? `${baseApiUrl}${API_ENDPOINT}`
+      : API_ENDPOINT
+    const dataResponse = await fetch(dataServerUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

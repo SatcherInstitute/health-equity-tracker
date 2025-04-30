@@ -1,6 +1,8 @@
 import type { MetricId } from '../data/config/MetricConfigTypes'
 import type { Dataset, Disparity, ResultData } from './generateInsights'
 
+const RATE_LIMIT_ENDPOINT = '/rate-limit-status'
+
 function getKeyBySubstring(obj: any, substring: string): [string, string] {
   const key = Object.keys(obj).find((key) => key.includes(substring)) || ''
   let measure = ''
@@ -59,7 +61,11 @@ export function extractRelevantData(
 
 export async function checkRateLimitStatus(): Promise<boolean> {
   try {
-    const response = await fetch('/rate-limit-status')
+    const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+    const dataServerUrl = baseApiUrl
+      ? `${baseApiUrl}${RATE_LIMIT_ENDPOINT}`
+      : RATE_LIMIT_ENDPOINT
+    const response = await fetch(dataServerUrl)
 
     if (!response.ok) {
       console.error('Failed to check rate limit status')
