@@ -60,11 +60,11 @@ export function extractRelevantData(
 }
 
 export async function checkRateLimitStatus(): Promise<boolean> {
+  const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+  const dataServerUrl = baseApiUrl
+    ? `${baseApiUrl}${RATE_LIMIT_ENDPOINT}`
+    : RATE_LIMIT_ENDPOINT
   try {
-    const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-    const dataServerUrl = baseApiUrl
-      ? `${baseApiUrl}${RATE_LIMIT_ENDPOINT}`
-      : RATE_LIMIT_ENDPOINT
     const response = await fetch(dataServerUrl)
 
     if (!response.ok) {
