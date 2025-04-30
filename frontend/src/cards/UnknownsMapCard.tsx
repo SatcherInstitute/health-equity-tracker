@@ -185,9 +185,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const unknownsAllZero =
           unknowns.length > 0 &&
           unknowns.every(
-            (unknown: HetRow) =>
-              unknown[metricConfig.metricId] === 0 ||
-              unknown[metricConfig.metricId] == null,
+            (unknown: HetRow) => unknown[metricConfig.metricId] === 0,
+          )
+
+        // for data sets where some geos might contain null
+        const unknownsAllNull =
+          unknowns.length > 0 &&
+          unknowns.every(
+            (unknown: HetRow) => unknown[metricConfig.metricId] === null,
           )
 
         // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
