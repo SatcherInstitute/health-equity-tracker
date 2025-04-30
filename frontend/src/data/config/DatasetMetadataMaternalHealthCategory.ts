@@ -70,7 +70,7 @@ export const datasourceMetadataMaternalHealthCategory: DataSourceMetadataMaterna
     data_source_link:
       'https://jamanetwork.com/journals/jama/fullarticle/2806661',
     geographic_level: 'National, State',
-    demographic_granularity: 'Race/ethnicity',
+    demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'N/A',
     description: ``,
     dataset_ids: Object.keys(

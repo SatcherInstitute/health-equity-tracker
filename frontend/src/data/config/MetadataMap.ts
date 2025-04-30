@@ -40,8 +40,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link: 'https://wonder.cdc.gov/cancer-v2021.HTML',
     geographic_level: 'National, State',
     time_period_range: '1999 - 2021',
-    demographic_granularity: 'Race/ethnicity, age, sex',
-    update_frequency: 'Annual',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
+    update_frequency: 'Yearly',
     description:
       'Cancer incidence statistics from the CDC WONDER database, providing detailed information about new cancer cases across the United States. The data includes incidence rates, counts, and population data stratified by various demographic characteristics. The statistics are derived from cancer registries reporting to the National Program of Cancer Registries (NPCR) and/or the Surveillance, Epidemiology, and End Results (SEER) Program. Rates are calculated using bridged-race population estimates from the U.S. Census Bureau. Age-adjusted rates are calculated based on the 2000 U.S. standard population. Users can access data on different types of cancer, with breakdowns by demographic factors and geographic areas.',
     dataset_ids: [
@@ -71,8 +71,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
     geographic_level: 'National, State, County',
     time_period_range: 'January 2020 - current',
-    demographic_granularity: 'Race/ethnicity, age, sex',
-    update_frequency: 'Monthly',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
+    update_frequency: 'Final update was June 2024',
     description:
       'The numbers of confirmed COVID-19 deaths, cases, and hospitalizations nationally and at the state and county levels. The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case Surveillance Data Access, Summary, and Limitations. The last case data included is two (2) weeks before they most recent release from the CDC. The CDC does not take responsibility for the scientific validity or accuracy of methodology, results, statistical analyses, or conclusions presented. We only present the data as rates that are calculated with the American Community Survey (ACS) 2019 5-year estimates, to view the raw data you must apply for access on the CDC website linked above.',
     dataset_ids: [
@@ -111,8 +111,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.census.gov/data/developers/data-sets/acs-5year.html',
     geographic_level: 'National, State, County',
-    demographic_granularity: 'Race/ethnicity, age, sex',
-    update_frequency: 'Annual',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
+    update_frequency: 'Yearly',
     description:
       'Yearly population percentages, health insurance rates, and poverty rates at the national, state and county levels.',
     dataset_ids: [
@@ -165,7 +165,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.census.gov/data/datasets/2010/dec/virgin-islands.html',
     geographic_level: 'Territory',
-    demographic_granularity: 'Race/ethnicity, age, sex',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'None',
     description:
       'Population totals and percent shares for 2010 at the territory level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the Census 5 year American Community Survey (ACS) estimates.',
@@ -185,7 +185,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.census.gov/data/tables/2020/dec/2020-us-virgin-islands.html',
     geographic_level: 'Territory/County-Equivalent',
-    demographic_granularity: 'Race/ethnicity, age, sex',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'None',
     description:
       'Population totals and percent shares for 2020 at the territory and county-equivalent level for U.S. Virgin Islands, Guam, American Samoa, and the Northern Mariana Islands, which are not available in the 5 year American Community Survey (ACS) estimates.',
@@ -208,7 +208,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html',
     geographic_level: 'State/County',
-    demographic_granularity: 'Race/ethnicity, age, sex',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'None',
     description:
       'Population percentage estimates by race/ethnicity, age, and sex to the county level provided by the U.S Census Bureau. We use the single year estimates from 2019.',
@@ -224,7 +224,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
     geographic_level: 'County',
-    demographic_granularity: 'None',
+    demographic_breakdowns: [],
     update_frequency: 'Daily',
     description:
       'Overall US COVID-19 Vaccine administration and vaccine equity data at county level Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.',
@@ -241,7 +241,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb',
     geographic_level: 'National',
-    demographic_granularity: 'Race/ethnicity, age, sex',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Daily',
     description:
       'Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations in the United States at national level. Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities. (CDC 2021)',
@@ -261,7 +261,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'kff.org',
     data_source_link: 'https://www.kff.org/state-category/covid-19/',
     geographic_level: 'State',
-    demographic_granularity: 'Race/ethnicity',
+    demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'Biweekly',
     description:
       "State level vaccination information based off of Kaiser Family Foundation analysis of publicly available data from state websites. Per 100k metrics are found on 'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on 'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
@@ -280,8 +280,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.americashealthrankings.org/explore/measures/CHC',
     geographic_level: 'National, State',
-    demographic_granularity: 'Race/ethnicity, age, sex',
-    update_frequency: 'Annual',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
+    update_frequency: 'Yearly',
     description:
       'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).',
     dataset_ids: [
@@ -308,8 +308,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'bjs.ojp.gov',
     data_source_link: 'https://bjs.ojp.gov',
     geographic_level: 'National, State',
-    demographic_granularity: 'Race/ethnicity, age, sex',
-    update_frequency: 'Annually',
+    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
+    update_frequency: 'Yearly',
     description:
       'Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.',
     dataset_ids: [
@@ -332,7 +332,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'vera.org',
     data_source_link: 'https://www.vera.org/projects/incarceration-trends',
     geographic_level: 'County',
-    demographic_granularity: 'Race/ethnicity, sex',
+    demographic_breakdowns: ['race_and_ethnicity', 'sex'],
     update_frequency: 'None',
     description:
       'Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county.',
@@ -353,7 +353,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     geographic_level: 'National, State',
     time_period_range:
       'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
-    demographic_granularity: 'Race/ethnicity',
+    demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'Monthly',
     description:
       'Detailed information on women legislators, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing legislator names and positions.',
@@ -375,8 +375,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
     geographic_level: 'County',
-    demographic_granularity: 'Race/ethnicity (partial)',
-    update_frequency: 'Annual',
+    demographic_breakdowns: ['race_and_ethnicity'],
+    update_frequency: 'Yearly',
     description:
       'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), community safety (gun deaths), and other determinants of health (preventable hospitalizations).',
     dataset_ids: [
@@ -393,7 +393,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'https://unitedstates.github.io/',
     data_source_link: 'https://github.com/unitedstates/congress-legislators',
     geographic_level: 'National, State',
-    demographic_granularity: 'N/A',
+    demographic_breakdowns: [],
     update_frequency: 'At least monthly',
     description:
       'Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory. This dataset is viewable and downloadable in the CAWP datasets.',
@@ -409,7 +409,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.atsdr.cdc.gov/placeandhealth/svi/data_documentation_download.html',
     geographic_level: 'County',
-    demographic_granularity: 'N/A',
+    demographic_breakdowns: [],
     update_frequency: 'Every 2 Years',
     description:
       'This is a composite dataset we create for faster loading; it includes population data from ACS and SVI data at the county level from the CDC. SVI: Every community must prepare for and respond to hazardous events, whether a natural disaster like a tornado or a disease outbreak, or an anthropogenic event such as a harmful chemical spill. The degree to which a community exhibits certain social conditions, including high poverty, low percentage of vehicle access, or crowded households, may affect that community’s ability to prevent human suffering and financial loss in the event of disaster. These factors describe a community’s social vulnerability.',
@@ -429,8 +429,13 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_link:
       'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
     geographic_level: 'National, State, County',
-    demographic_granularity:
-      'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
+    demographic_breakdowns: [
+      'race_and_ethnicity',
+      'sex',
+      'age',
+      'lis',
+      'eligibility',
+    ],
     update_frequency: 'None',
     description:
       'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older.',
@@ -464,8 +469,14 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'cdc.gov/brfss',
     data_source_link: 'https://www.cdc.gov/brfss/annual_data/annual_2022.html',
     geographic_level: 'National, State',
-    demographic_granularity:
-      'Race/ethnicity, sex (for lung and colorectal cancers only), age, insurance status, income, education',
+    demographic_breakdowns: [
+      'race_and_ethnicity',
+      'age',
+      'sex',
+      'insurance_status',
+      'income',
+      'education',
+    ],
     update_frequency: 'None',
     description:
       'The 2022 Behavioral Risk Factor Surveillance System (BRFSS) database from the Centers for Disease Control and Prevention (CDC) was analyzed for five different cancer screening rates. Breast, colorectal, cervical, and lung cancer use data from the 50 states and Washington DC. Prostate cancer screening data is not part of the core BRFSS database so are available only for Arkansas, Delaware, Massachusetts, Mississippi, New Jersey, and South Carolina.',
@@ -493,7 +504,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_pretty_site_name: 'covidtracking.com',
     data_source_link: 'https://covidtracking.com/race',
     geographic_level: 'State',
-    demographic_granularity: 'Race/ethnicity',
+    demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'Final update was March 7 2021',
     description:
       'The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. Please note that Covid Tracking Project data is not used for any visualizations on the tracker, it is only available for download.',
@@ -514,7 +525,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'github.com/SatcherInstitute/health-equity-tracker',
     data_source_link: 'https://github.com/topojson/us-atlas#counties-10m.json',
     geographic_level: 'National, State, County',
-    demographic_granularity: 'N/A',
+    demographic_breakdowns: [],
     update_frequency: 'None',
     description:
       'This dataset contains the geographic boundaries for the United States, states, territories, counties, and county-equivalents.',
