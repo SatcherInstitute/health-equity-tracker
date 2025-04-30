@@ -1,9 +1,10 @@
 import { datasourceMetadataCommunitySafetyCategory } from '../../../data/config/DatasetMetadataCommunitySafetyCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import type {
-  DataTypeConfig,
-  DataTypeId,
-} from '../../../data/config/MetricConfigTypes'
+import type { DropdownVarId } from '../../../data/config/DropDownIds'
+import type { DataTypeId } from '../../../data/config/MetricConfigTypes'
+import {
+  formatSubPopString,
+  getMetricConfigsForIds,
+} from '../../../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
@@ -28,18 +29,6 @@ const unionGunDeathsDemographicOptions =
 
 const usFips = new Fips('00')
 
-function formatSubPopString({
-  ageSubPopulationLabel,
-  otherSubPopulationLabel,
-}: {
-  ageSubPopulationLabel?: string
-  otherSubPopulationLabel?: string
-}) {
-  return otherSubPopulationLabel && ageSubPopulationLabel
-    ? `${otherSubPopulationLabel}, ${ageSubPopulationLabel}`
-    : otherSubPopulationLabel || ageSubPopulationLabel || ''
-}
-
 function getItems(id: DataTypeId): DatasetItem[] {
   const config = getConfigFromDataTypeId(id)
   const configDemographicOptions = Object.values(
@@ -58,21 +47,12 @@ function getItems(id: DataTypeId): DatasetItem[] {
   return items
 }
 
-const gvDropdownIds = [
+const gvDropdownIds: DropdownVarId[] = [
   'gun_deaths',
   'gun_violence',
   'gun_violence_youth',
   'gun_deaths_black_men',
 ]
-
-function getMetricConfigsForIds(
-  ids: string[],
-): { id: string; configs: DataTypeConfig[] }[] {
-  return ids.map((id) => ({
-    id,
-    configs: METRIC_CONFIG[id],
-  }))
-}
 
 const metricConfigsWithIds = getMetricConfigsForIds(gvDropdownIds)
 
@@ -92,3 +72,6 @@ export const gvDefinitions = metricConfigsWithIds.flatMap(({ configs }) => {
     measurementDefinition: config.definition?.text || '',
   }))
 })
+
+// TODO: Most (all?) of this file should be removed in favor of <HetTopicDemographics />.
+// TODO: Need to move/refactor the definitions block as well.

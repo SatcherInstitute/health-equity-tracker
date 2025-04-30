@@ -1,4 +1,6 @@
 import { getFormatterPer100k } from '../../charts/utils'
+import type { DropdownVarId } from './DropDownIds'
+import { METRIC_CONFIG } from './MetricConfig'
 import type {
   DataTypeConfig,
   MetricConfig,
@@ -96,4 +98,25 @@ export function getMetricIdToConfigMap(
     },
     {} as Record<MetricId, MetricConfig>,
   )
+}
+
+export function getMetricConfigsForIds(
+  ids: DropdownVarId[],
+): { id: DropdownVarId; configs: DataTypeConfig[] }[] {
+  return ids.map((id) => ({
+    id,
+    configs: METRIC_CONFIG[id],
+  }))
+}
+
+export function formatSubPopString({
+  ageSubPopulationLabel,
+  otherSubPopulationLabel,
+}: {
+  ageSubPopulationLabel?: string
+  otherSubPopulationLabel?: string
+}) {
+  return otherSubPopulationLabel && ageSubPopulationLabel
+    ? `${otherSubPopulationLabel}, ${ageSubPopulationLabel}`
+    : otherSubPopulationLabel || ageSubPopulationLabel || ''
 }
