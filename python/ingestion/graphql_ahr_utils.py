@@ -22,7 +22,7 @@ AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     "Chronic Obstructive Pulmonary Disease": "copd_per_100k",
     "Depression": "depression_per_100k",
     "Diabetes": "diabetes_per_100k",
-    "Excessive Drinking": "excessive_drinking_per_100k",
+    "Excessive Drinking": "excessive_drinking_pct_rate",
     "Frequent Mental Distress": "frequent_mental_distress_per_100k",
     "Non-Medical Drug Use": "non_medical_drug_use_per_100k",
 }
@@ -54,7 +54,6 @@ PCT_RATE_TO_PER_100K_TOPICS = [
     "Chronic Obstructive Pulmonary Disease",
     "Depression",
     "Diabetes",
-    "Excessive Drinking",
     "Frequent Mental Distress",
     "Non-medical Drug Use",
 ]
@@ -198,5 +197,22 @@ def graphql_response_to_dataframe(response_data):
 
     df = pd.DataFrame(flattened_data)
     df[std_col.STATE_POSTAL_COL] = df[std_col.STATE_POSTAL_COL].replace(AHR_US, US_ABBR)
+
+    # ── RENAME raw columns into per_100k or pct_rate ──
+    cols_map = {}
+    for full_suffix in AHR_BASE_MEASURES_TO_RATES_MAP.values():
+        # full_suffix is like "asthma_per_100k" or "excessive_drinking_pct_rate"
+        prefix, suffix = full_suffix.rsplit("_", 1)
+        raw_col = f"{prefix}_{std_col.RAW_SUFFIX}"  # e.g. "excessive_drinking_raw"
+        cols_map.update(generate_cols_map([raw_col], suffix))
+    df = df.rename(columns=cols_map)
+
+    if "excessive_drinking_pct_rate" in df.columns:
+        # source is already a percent (e.g. “15”), not per-100k,
+        # so divide by 1 000 to undo the old ×1 000 conversion and zero-fill
+        df["excessive_drinking_pct_rate"] = (
+            df["excessive_drinking_pct_rate"].fillna(0).astype(float)  # missing → 0  # string → float
+            / 1000.0  # e.g. 15000 → 15.0
+        )
 
     return df

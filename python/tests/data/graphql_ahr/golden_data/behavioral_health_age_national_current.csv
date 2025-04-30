@@ -1,13 +1,13 @@
-age,state_fips,state_name,depression_per_100k,depression_estimated_total,depression_pct_share,excessive_drinking_per_100k,excessive_drinking_estimated_total,excessive_drinking_pct_share,frequent_mental_distress_per_100k,frequent_mental_distress_estimated_total,frequent_mental_distress_pct_share,non_medical_drug_use_per_100k,non_medical_drug_use_estimated_total,non_medical_drug_use_pct_share,suicide_per_100k,suicide_estimated_total,suicide_pct_share,ahr_population_estimated_total,ahr_population_pct
+age,state_fips,state_name,depression_per_100k,depression_estimated_total,depression_pct_share,excessive_drinking_pct_rate,excessive_drinking_estimated_total,excessive_drinking_pct_share,frequent_mental_distress_per_100k,frequent_mental_distress_estimated_total,frequent_mental_distress_pct_share,non_medical_drug_use_per_100k,non_medical_drug_use_estimated_total,non_medical_drug_use_pct_share,suicide_per_100k,suicide_estimated_total,suicide_pct_share,ahr_population_estimated_total,ahr_population_pct
 15-24,00,United States,,,,,,,,,,,,,13.6,6058.0,12.4,44543621.0,13.3
-18-44,00,United States,23700.0,28582622.0,52.8,24400.0,29426835.0,61.8,20100.0,24240958.0,58.6,,,,,,,120601782.0,36.1
+18-44,00,United States,23700.0,28582622.0,52.8,24.4,29426835.0,61.8,20100.0,24240958.0,58.6,,,,,,,120601782.0,36.1
 25-34,00,United States,,,,,,,,,,,,,19.0,8704.0,17.8,45809071.0,13.7
 35-44,00,United States,,,,,,,,,,,,,18.7,8079.0,16.5,43204002.0,12.9
 45-54,00,United States,,,,,,,,,,,,,19.2,7970.0,16.3,41508942.0,12.4
-45-64,00,United States,20000.0,16905546.0,31.3,16500.0,13947075.0,29.3,14100.0,11918410.0,28.8,,,,,,,84527730.0,25.3
+45-64,00,United States,20000.0,16905546.0,31.3,16.5,13947075.0,29.3,14100.0,11918410.0,28.8,,,,,,,84527730.0,25.3
 55-64,00,United States,,,,,,,,,,,,,18.7,8045.0,16.5,43018788.0,12.9
-65+,00,United States,15500.0,8596390.0,15.9,7700.0,4270465.0,9.0,9400.0,5213295.0,12.6,,,,,,,55460582.0,16.6
+65+,00,United States,15500.0,8596390.0,15.9,7.7,4270465.0,9.0,9400.0,5213295.0,12.6,,,,,,,55460582.0,16.6
 65-74,00,United States,,,,,,,,,,,,,16.0,5223.0,10.7,32641489.0,9.8
 75-84,00,United States,,,,,,,,,,,,,20.3,3292.0,6.7,16215371.0,4.8
 85+,00,United States,,,,,,,,,,,,,23.0,1519.0,3.1,6603722.0,2.0
-All,00,United States,21700.0,54084558.0,100.0,18400.0,47644375.0,100.0,15900.0,41372663.0,100.0,15.5,0.0,,14.8,48890.0,100.0,334369975.0,100.0
+All,00,United States,21700.0,54084558.0,100.0,18.4,47644375.0,100.0,15900.0,41372663.0,100.0,15.5,0.0,,14.8,48890.0,100.0,334369975.0,100.0
