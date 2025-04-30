@@ -8,9 +8,6 @@ import type {
   MetricType,
 } from './MetricConfigTypes'
 
-export const populationPctTitle = 'Population share'
-export const populationPctShortLabel = '% of population'
-
 type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
 
 export function metricConfigFromDtConfig(
