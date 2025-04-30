@@ -227,7 +227,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 <ChoroplethMap
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
-                  data={unknowns as DataPoint[]}
+                  data={
+                    unknowns.map((unknown) => {
+                      const value = unknown[metricConfig.metricId]
+                      return {
+                        ...unknown,
+                        [metricConfig.metricId]:
+                          value == null ? undefined : value,
+                      }
+                    }) as DataPoint[]
+                  }
                   demographicType={demographicType}
                   extremesMode={false}
                   filename={chartTitle}
