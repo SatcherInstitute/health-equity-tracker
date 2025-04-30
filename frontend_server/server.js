@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 // TODO: change over to use ESModules with import() instead of require() ?
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import NodeCache from 'node-cache'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
 let RATE_LIMIT_REACHED = false
@@ -112,10 +113,20 @@ app.get('/rate-limit-status', (req, res) => {
   })
 })
 
+// Create a cache with of 24 hours (in seconds)
+const aiInsightCache = new NodeCache({ stdTTL: 24 * 60 * 60 })
+
 app.post('/fetch-ai-insight', async (req, res) => {
   const prompt = req.body.prompt
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
+  }
+
+  // Check if response is cached
+  const cachedResponse = aiInsightCache.get(prompt)
+  if (cachedResponse) {
+    console.log('Using cached AI insight')
+    return res.json({ content: cachedResponse })
   }
 
   const apiKey = assertEnvVar('OPENAI_API_KEY')
@@ -148,8 +159,12 @@ app.post('/fetch-ai-insight', async (req, res) => {
 
     const json = await aiResponse.json()
     const content = json.choices?.[0]?.message?.content || 'No content returned'
+    const trimmedContent = content.trim()
 
-    res.json({ content: content.trim() })
+    // Store in cache
+    aiInsightCache.set(prompt, trimmedContent)
+
+    res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
 
