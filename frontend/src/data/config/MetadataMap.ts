@@ -1,5 +1,4 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
-import type { DatasetId } from './DatasetMetadata'
 import { datasourceMetadataCommunitySafetyCategory } from './DatasetMetadataCommunitySafetyCategory'
 import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
 import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
@@ -521,8 +520,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     id: 'geographies_source',
     data_source_name: 'Map Data',
     data_source_acronym: 'TopoJSON',
-    data_source_pretty_site_name:
-      'github.com/SatcherInstitute/health-equity-tracker',
+    data_source_pretty_site_name: 'github.com/topojson/us-atlas',
     data_source_link: 'https://github.com/topojson/us-atlas#counties-10m.json',
     geographic_breakdowns: ['national', 'state', 'county'],
     demographic_breakdowns: [],
@@ -533,12 +531,4 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: false,
     time_period_range: null,
   },
-}
-
-function getDataSourceMetadataByDatasetId(
-  id: DatasetId,
-): DataSourceMetadata | undefined {
-  return Object.values(dataSourceMetadataMap).find((metadata) => {
-    return metadata.dataset_ids.includes(id)
-  })
 }

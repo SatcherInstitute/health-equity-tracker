@@ -9,6 +9,14 @@ export type GeographicBreakdown =
   | 'territory'
   | 'state/territory'
 
+export const GEO_DISPLAY_TYPES: Record<GeographicBreakdown, string> = {
+  national: 'National',
+  state: 'State',
+  county: 'County',
+  territory: 'Territory',
+  'state/territory': 'State/Territory',
+}
+
 export type DemographicType =
   | 'race_and_ethnicity'
   | 'age'
