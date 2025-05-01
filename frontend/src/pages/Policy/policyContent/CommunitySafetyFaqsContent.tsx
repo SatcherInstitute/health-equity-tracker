@@ -1,17 +1,17 @@
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR } from '../../../data/config/MetricConfigCommunitySafety'
 import HetButtonSecondary from '../../../styles/HetComponents/HetButtonSecondary'
 import HetDivider from '../../../styles/HetComponents/HetDivider'
 import HetLaunchLink from '../../../styles/HetComponents/HetLaunchLink'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { urlMap } from '../../../utils/externalUrls'
 import {
   DATA_COLLECTION_TAB,
   HEALTH_EQUITY_GUIDES_TAB,
 } from '../../../utils/internalRoutes'
 import { IndentedItem } from '../../FAQs/FaqsPageData'
-import DatasetList from '../policyComponents/DatasetList'
-import { gunViolenceDatasets } from '../policyContent/DataCollectionContent'
 
 interface OptionGroupProps {
   title: string
@@ -92,7 +92,7 @@ const RaceEthnicityOptions = () => (
   </div>
 )
 
-function DataDescription({ datasets }: { datasets: Dataset[] }) {
+function DataDescription() {
   return (
     <>
       <p className='mb-0 pb-0'>
@@ -104,7 +104,10 @@ function DataDescription({ datasets }: { datasets: Dataset[] }) {
           Currently, all of our gun violence datasets include national- and
           state-level data.
         </p>
-        <DatasetList datasets={datasets} />
+        <HetTopicDemographics
+          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR]}
+          datasourceMetadata={dataSourceMetadataMap.cdc_wisqars}
+        />
         <OptionGroup title='Age Group Options'>
           <p className='my-0 py-0'>
             Source data from the CDC is available in 5-year increments and
@@ -215,7 +218,7 @@ export const communitySafetyFaqs: Faq[] = [
   },
   {
     question: 'What demographic details can users filter by in the dataset?',
-    answer: <DataDescription datasets={gunViolenceDatasets} />,
+    answer: <DataDescription />,
   },
   {
     question: 'How is youth-related violence addressed in the data?',

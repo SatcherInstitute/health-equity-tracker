@@ -206,7 +206,7 @@ export default function CompareReport(props: CompareReportProps) {
           />
 
           <div className='flex w-full flex-col content-center '>
-            {showCorrelationCard && (
+            {showCorrelationCard && rateConfig1 && rateConfig2 && (
               <CompareBubbleChartCard
                 fips1={props.fips1}
                 dataTypeConfig1={dataTypeConfig1}

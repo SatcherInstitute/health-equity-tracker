@@ -18,7 +18,7 @@ test('RAS Antagonists', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Adherent beneficiary population with unknown race and ethnicity in the United States',
+      name: 'Adherent beneficiary population with unknown race/ethnicity in the United States',
     })
     .click()
   await page
