@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import FaqGroup from './FaqGroup'
 import {
   dataFaqGroup,
@@ -9,9 +8,7 @@ import {
 export default function FaqsPage() {
   return (
     <>
-      <Helmet>
-        <title>Frequently Asked Questions - Health Equity Tracker</title>
-      </Helmet>
+      <title>Frequently Asked Questions - Health Equity Tracker</title>
 
       <section
         id='main-content'

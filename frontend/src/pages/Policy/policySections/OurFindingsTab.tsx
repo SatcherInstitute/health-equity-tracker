@@ -1,5 +1,4 @@
-import { Helmet } from 'react-helmet-async'
-import LazyLoad from 'react-lazyload'
+import HetLazyLoader from '../../../styles/HetComponents/HetLazyLoader'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTextArrowLink from '../../../styles/HetComponents/HetTextArrowLink'
 import {
@@ -12,9 +11,7 @@ import {
 export default function OurFindingsTab() {
   return (
     <>
-      <Helmet>
-        <title>Addressing Inequities - Health Equity Tracker</title>
-      </Helmet>
+      <title>Addressing Inequities - Health Equity Tracker</title>
       <section id='ga-youth-fatalities'>
         <div className='mb-0'>
           <h1 className='sr-only'>Our Findings</h1>
@@ -55,7 +52,7 @@ export default function OurFindingsTab() {
               <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {homicideFact.content}
               </p>
-              <LazyLoad>{homicideFact.customCard}</LazyLoad>
+              <HetLazyLoader>{homicideFact.customCard}</HetLazyLoader>
               <HetTextArrowLink
                 containerClassName='mx-8 mt-8 flex justify-end'
                 link={homicideFact.report}
@@ -81,7 +78,7 @@ export default function OurFindingsTab() {
               <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {suicideFact.content}
               </p>
-              <LazyLoad> {suicideFact.customCard}</LazyLoad>
+              <HetLazyLoader> {suicideFact.customCard}</HetLazyLoader>
               <HetTextArrowLink
                 containerClassName='mx-8 mt-8 flex justify-end'
                 link={suicideFact.report}
@@ -106,7 +103,7 @@ export default function OurFindingsTab() {
               <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
                 {urbanicityFact.content}
               </p>
-              <LazyLoad>{urbanicityFact.customCard}</LazyLoad>
+              <HetLazyLoader>{urbanicityFact.customCard}</HetLazyLoader>
               <HetTextArrowLink
                 containerClassName='mx-8 mt-8 flex justify-end'
                 link={urbanicityFact.report}

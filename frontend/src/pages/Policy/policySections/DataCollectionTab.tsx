@@ -1,19 +1,14 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR } from '../../../data/config/MetricConfigCommunitySafety'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
-import DatasetList from '../policyComponents/DatasetList'
-import {
-  gunViolenceDatasets,
-  gvDefinitions,
-} from '../policyContent/DataCollectionContent'
+import { gvDefinitions } from '../policyContent/DataCollectionContent'
 
 export default function DataCollectionTab() {
   return (
     <>
-      <Helmet>
-        <title>Data Collection - Health Equity Tracker</title>
-      </Helmet>
+      <title>Data Collection - Health Equity Tracker</title>
       <section id='source-profile'>
         <article className='group mt-8 mb-8 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
           <HetOverline className='my-0' text='Source Profile' />
@@ -113,7 +108,10 @@ export default function DataCollectionTab() {
           state-level data. Here is a brief overview of what is included in our
           data collection.
         </p>
-        <DatasetList datasets={gunViolenceDatasets} />
+        <HetTopicDemographics
+          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR]}
+          datasourceMetadata={dataSourceMetadataMap.cdc_wisqars}
+        />
       </section>
     </>
   )

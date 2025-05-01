@@ -22,7 +22,7 @@ test('CAWP: Congress', async ({ page }) => {
   )
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
+      'No unknown values for race/ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page
@@ -62,7 +62,7 @@ test('CAWP: State Legislature', async ({ page }) => {
   await page.goto('/exploredata?mls=1.women_in_gov-3.00&group1=All')
   await page.getByRole('button', { name: 'US Congress', exact: true }).click()
   await page.getByRole('menuitem', { name: 'State legislatures' }).click()
-  await page.getByLabel('Race and Ethnicity:').click()
+  await page.getByLabel('Race/Ethnicity:').click()
   await page.getByRole('button', { name: 'Black or African American' }).click()
 
   await page.waitForSelector('#rate-map h3:has-text("Percentage of state")', {

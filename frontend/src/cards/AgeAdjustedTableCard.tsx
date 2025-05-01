@@ -73,7 +73,9 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     props.dataTypeConfig,
   )
   const metricPctShare = metricConfigFromDtConfig('share', props.dataTypeConfig)
-  const metricConfigs = [ageAdjustedRatioMetric, metricPctShare]
+  const metricConfigs: MetricConfig[] = []
+  ageAdjustedRatioMetric && metricConfigs.push(ageAdjustedRatioMetric)
+  metricPctShare && metricConfigs.push(metricPctShare)
   const metricIdToConfigMap = getMetricIdToConfigMap(metricConfigs)
   const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
 

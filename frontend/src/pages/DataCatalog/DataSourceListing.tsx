@@ -2,7 +2,6 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { useState } from 'react'
@@ -14,16 +13,20 @@ import type {
 import { getLogger } from '../../utils/globals'
 import downloadDataset from './downloadDataset'
 
-import {
-  CheckCircle as CheckCircleIcon,
-  GetApp as GetAppIcon,
-  SaveAlt as SaveAltIcon,
-} from '@mui/icons-material'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import GetAppIcon from '@mui/icons-material/GetApp'
+import SaveAlt from '@mui/icons-material/SaveAlt'
+import { ListItemButton } from '@mui/material'
 
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES,
+  GEO_DISPLAY_TYPES,
+  type GeographicBreakdown,
+} from '../../data/query/Breakdowns'
 import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
@@ -67,7 +70,7 @@ function DownloadDatasetListItem(props: {
   }
 
   return (
-    <ListItem
+    <ListItemButton
       className='px-6 hover:cursor-pointer'
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={async () => {
@@ -90,7 +93,7 @@ function DownloadDatasetListItem(props: {
           Error downloading {props.datasetMetadata.name}.
         </HetNotice>
       )}
-    </ListItem>
+    </ListItemButton>
   )
 }
 interface DataSourceListingProps {
@@ -135,7 +138,9 @@ function DataSourceListing(props: DataSourceListingProps) {
             Geographic Level
           </p>
           <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
-            {props.source_metadata.geographic_level}
+            {props.source_metadata.geographic_breakdowns
+              .map((geo: GeographicBreakdown) => GEO_DISPLAY_TYPES[geo])
+              .join(', ')}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
@@ -143,7 +148,9 @@ function DataSourceListing(props: DataSourceListingProps) {
             Demographic Granularity
           </p>
           <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
-            {props.source_metadata.demographic_granularity}
+            {props.source_metadata.demographic_breakdowns
+              ?.map((d) => DEMOGRAPHIC_DISPLAY_TYPES[d])
+              .join(', ')}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
@@ -179,7 +186,7 @@ function DataSourceListing(props: DataSourceListingProps) {
             buttonClassName='w-auto mx-auto md:w-auto md:mr-4 md:ml-0 px-0 pt-2 pb-4'
             ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
-            <SaveAltIcon className='pt-1 pr-2 pl-0' />
+            <SaveAlt className='pt-1 pr-2 pl-0' />
             Download data dictionary
           </HetLinkButton>
         )}

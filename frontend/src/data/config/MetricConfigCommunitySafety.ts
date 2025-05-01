@@ -3,11 +3,11 @@ import {
   menHigherIsWorseMapConfig,
   youthHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
-} from './MetricConfigUtils'
+} from './MetricConfigConstants'
+import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const COMMUNITY_SAFETY_DROPDOWNIDS = [
   'gun_deaths',

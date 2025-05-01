@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
@@ -36,9 +35,7 @@ export default function Covid19Link() {
   return (
     <section id='covid-19'>
       <article>
-        <Helmet>
-          <title>COVID-19 - Health Equity Tracker</title>
-        </Helmet>
+        <title>COVID-19 - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'

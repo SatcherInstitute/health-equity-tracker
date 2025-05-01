@@ -5,20 +5,7 @@
 	"private": true,
 	"overrides": {
 		"chokidar": "3.5.3",
-		"react-lazyload": {
-			"react": "^19.1.0",
-			"react-dom": "^19.1.0"
-		},
-		"react-table": {
-			"react": "^19.1.0",
-			"react-dom": "^19.1.0"
-		},
-		"react-joyride": {
-			"react": "^19.1.0",
-			"react-dom": "^19.1.0",
-			"react-floater": "^0.9.4"
-		},
-		"react-helmet-async": {
+		"react-floater": {
 			"react": "^19.1.0",
 			"react-dom": "^19.1.0"
 		},
@@ -37,6 +24,7 @@
 		"@tanstack/query-sync-storage-persister": "^5.74.4",
 		"@tanstack/react-query": "^5.74.4",
 		"@tanstack/react-query-persist-client": "^5.74.4",
+		"@tanstack/react-table": "^8.21.3",
 		"axios": "^1.8.4",
 		"d3": "^7.9.0",
 		"data-forge": "^1.10.3",
@@ -49,14 +37,12 @@
 		"react": "19.1.0",
 		"react-animate-height": "^3.2.3",
 		"react-dom": "19.1.0",
-		"react-helmet-async": "^2.0.5",
-		"react-joyride": "^2.9.3",
-		"react-lazyload": "^3.2.1",
-		"react-router": "^7.5.1",
+		"react-intersection-observer": "^9.16.0",
+		"react-joyride-react-19": "^2.9.2",
+		"react-router": "^7.5.2",
 		"react-router-hash-link": "^2.4.3",
 		"react-scroll": "^1.9.3",
 		"react-share": "^5.2.2",
-		"react-table": "^7.8.0",
 		"seamless-scroll-polyfill": "^2.3.4",
 		"topojson-client": "^3.1.0"
 	},
@@ -73,7 +59,6 @@
 		"@types/react-lazyload": "^3.2.3",
 		"@types/react-router-hash-link": "^2.4.9",
 		"@types/react-scroll": "^1.8.10",
-		"@types/react-table": "^7.7.20",
 		"@types/topojson-client": "^3.1.5",
 		"@vitejs/plugin-react": "^4.4.1",
 		"@vitest/coverage-v8": "^3.1.2",
@@ -86,7 +71,7 @@
 		"rollup-plugin-visualizer": "^5.14.0",
 		"tailwindcss": "^3.4.17",
 		"typescript": "^5.8.3",
-		"vite": "^6.3.2",
+		"vite": "^6.3.4",
 		"vite-plugin-svgr": "^4.3.0",
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^3.1.2"

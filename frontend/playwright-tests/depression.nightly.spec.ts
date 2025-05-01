@@ -35,7 +35,7 @@ test('Depression Flow', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Ages 18+' })
     .click()
-  await page.locator('#rate-chart').getByText('race and ethnicity').click()
+  await page.locator('#rate-chart').getByText('race/ethnicity').click()
   await page.locator('#rate-chart').getByText('cases per 100k adults').click()
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
   await page.getByText('No unknown values for race').click()
@@ -47,7 +47,7 @@ test('Depression Flow', async ({ page }) => {
     .getByRole('figure', { name: 'Summary for depression in the' })
     .locator('h4')
     .click()
-  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
+  await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page
     .getByRole('columnheader', { name: 'Cases of depression per 100k' })
     .click()

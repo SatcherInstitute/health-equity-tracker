@@ -1,5 +1,3 @@
-import { Helmet } from 'react-helmet-async'
-
 interface TermsContent {
   title: string
   paragraphs: React.ReactNode | string
@@ -76,9 +74,8 @@ const termsOfUseContent: TermsContent[] = [
 export default function TermsOfUsePage() {
   return (
     <>
-      <Helmet>
-        <title>Terms of Use - Health Equity Tracker</title>
-      </Helmet>
+      <title>Terms of Use - Health Equity Tracker</title>
+
       <section
         id='main-content'
         className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'

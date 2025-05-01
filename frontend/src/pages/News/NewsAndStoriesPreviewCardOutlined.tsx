@@ -1,7 +1,7 @@
 import type React from 'react'
-import LazyLoad from 'react-lazyload'
 import { Link, useNavigate } from 'react-router'
 import AppbarLogo from '../../assets/AppbarLogo.png'
+import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { getHtml } from '../../utils/urlutils'
@@ -37,7 +37,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
     <article
       className={`group flex h-full flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
     >
-      <LazyLoad once offset={300} className='m-0 h-full p-0'>
+      <HetLazyLoader once offset={300} className='m-0 h-full p-0'>
         <div className='relative m-0 flex h-full flex-col justify-between'>
           <div
             className='relative overflow-hidden rounded-t-md'
@@ -63,7 +63,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
             <HetTags tags={tags} onTagClick={handleTagClick} />
           </div>
         </div>
-      </LazyLoad>
+      </HetLazyLoader>
     </article>
   )
 }

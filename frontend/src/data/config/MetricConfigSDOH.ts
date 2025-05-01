@@ -2,11 +2,11 @@ import {
   defaultHigherIsWorseMapConfig,
   medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
-} from './MetricConfigUtils'
+} from './MetricConfigConstants'
+import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',

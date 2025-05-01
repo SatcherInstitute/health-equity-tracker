@@ -1,5 +1,3 @@
-import { Helmet } from 'react-helmet-async'
-
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 
 import type { DropdownVarId } from '../../../data/config/DropDownIds'
@@ -12,11 +10,9 @@ export default function LimitationsLink() {
   return (
     <section id='limitations'>
       <article>
-        <Helmet>
-          <title>Limitations and Missing Data - Health Equity Tracker</title>
-        </Helmet>
+        <title>Limitations and Missing Data - Health Equity Tracker</title>
 
-        <h2 className='mt-12'>Limitations</h2>
+        <h2 className='mt-12 font-medium text-title'>Limitations</h2>
         <p>While we strive for accuracy, some of the limitations include:</p>
 
         <h3>Data Accuracy and Completeness</h3>
@@ -77,7 +73,7 @@ export default function LimitationsLink() {
           adequately captured in the data or accounted for in the analysis.
         </p>
         <div id='missing-data'>
-          <h2 className='mt-12' id='limitations'>
+          <h2 className='mt-12 font-medium text-title' id='limitations'>
             What Data Are Missing
           </h2>
           <WhatDataAreMissing

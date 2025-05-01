@@ -32,12 +32,12 @@ test('Care Avoidance Due To Cost', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of all care avoidance due to cost with unknown race and ethnicity in the United States',
+      name: 'Share of all care avoidance due to cost with unknown race/ethnicity in the United States',
     })
     .click()
   await page
     .getByText(
-      'No unknown values for race and ethnicity reported in this dataset at the state/territory level.',
+      'No unknown values for race/ethnicity reported in this dataset at the state/territory level.',
     )
     .click()
   await page

@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
@@ -10,7 +9,10 @@ import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAcco
 import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
-const communitySafetyDataSources = [dataSourceMetadataMap.cdc_wisqars]
+const communitySafetyDataSources = [
+  dataSourceMetadataMap.cdc_wisqars,
+  dataSourceMetadataMap.chr,
+]
 
 export const communitySafetyTopicsString = buildTopicsString(
   COMMUNITY_SAFETY_DROPDOWNIDS,
@@ -24,9 +26,7 @@ const CommunitySafetyLink = () => {
   return (
     <section id='community-safety'>
       <article>
-        <Helmet>
-          <title>Community Safety - Health Equity Tracker</title>
-        </Helmet>
+        <title>Community Safety - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'
@@ -58,6 +58,11 @@ const CommunitySafetyLink = () => {
           explore data by intent of injury, mechanism, geographic location, and
           demographics, supporting public health and policy decisions.
         </p>
+        <p>
+          We supplement gun violence data at the county level with data released
+          by CHR (County Health Rankings), which also sources from the National
+          Center for Health Statistics.
+        </p>
         <HetNotice className='my-12' title='A note about CDC WISQARS'>
           The CDC’s WISQARS limits data released at state and county levels to
           protect privacy. Mortality data, collected from death certificates and
@@ -66,12 +71,13 @@ const CommunitySafetyLink = () => {
           annual updates mean that reported numbers may change and should be
           interpreted with caution. Additionally, postcensal population
           estimates are updated annually, affecting fatal injury rates over
-          time.
+          time. Some data calculated on case counts less than 20 are labeled
+          "unstable" by CDC WISQARS and should be interpreted with caution.
         </HetNotice>
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>WISQARS Injuries Measures</h3>
+            <h3 className='font-normal text-text'>Measures</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <>
@@ -172,7 +178,7 @@ const CommunitySafetyLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={communitySafetyDataSources.map((source, index) => ({
+          rows={communitySafetyDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

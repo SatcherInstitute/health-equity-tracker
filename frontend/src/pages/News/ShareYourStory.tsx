@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async'
 import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import CardLeftNumber from './CardLeftNumber'
@@ -8,9 +7,7 @@ export default function ShareYourStory() {
   const isMdAndUp = useIsBreakpointAndUp('md')
   return (
     <>
-      <Helmet>
-        <title>Share Your Story - Health Equity Tracker</title>
-      </Helmet>
+      <title>Share Your Story - Health Equity Tracker</title>
 
       <section
         id='main-content'
@@ -47,8 +44,6 @@ export default function ShareYourStory() {
             </h2>
             <div className='flex-1 border-0 border-altGrey border-t border-solid'></div>
           </div>
-
-          {/* Updated to use <li> as direct child of <ul> */}
           <ul className='mt-4 mb-8 ml-0 grid max-w-md list-none grid-cols-1 gap-2 px-6 md:grid-cols-2'>
             {submissionGuidelines.map((submissionGuideline, index) => {
               const isMobileShadow = !isMdAndUp && index % 2 === 0

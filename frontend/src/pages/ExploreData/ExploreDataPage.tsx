@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai'
 import { lazy, useCallback, useEffect, useState } from 'react'
-import { STATUS } from 'react-joyride'
+import { STATUS } from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
 import { useLocation } from 'react-router'
 import {
   type DropdownVarId,

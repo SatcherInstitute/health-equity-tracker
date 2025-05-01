@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { Helmet } from 'react-helmet-async'
-import LazyLoad from 'react-lazyload'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
@@ -85,7 +84,7 @@ function LandingPage() {
               allowFullScreen
             ></iframe>
           ) : (
-            <LazyLoad offset={300} once>
+            <HetLazyLoader offset={300} once>
               <video
                 autoPlay={!prefersReducedMotion}
                 loop
@@ -95,7 +94,7 @@ function LandingPage() {
               >
                 <source src={videoSrc} type='video/mp4' />
               </video>
-            </LazyLoad>
+            </HetLazyLoader>
           )}
         </div>
       </li>
@@ -104,9 +103,7 @@ function LandingPage() {
 
   return (
     <main className='relative' aria-label='Main Content'>
-      <Helmet>
-        <title>Home - Health Equity Tracker</title>
-      </Helmet>
+      <title>Home - Health Equity Tracker</title>
 
       <section className='relative min-h-5/6 overflow-hidden px-56 xs:px-16 py-16 sm:px-16 md:px-24'>
         <img

@@ -195,6 +195,7 @@ export function resolveDatasetId(
     METRIC_CONFIG[getParentDropdownFromDataTypeId(metricQuery.dataTypeId!)]
 
   if (
+    bqDatasetName !== 'acs_population' &&
     siblingDataTypeConfigs.length > 0 &&
     siblingDataTypeConfigs.some((dtConfig: DataTypeConfig) =>
       Boolean(dtConfig.metrics?.age_adjusted_ratio),

@@ -1,13 +1,10 @@
-import { Helmet } from 'react-helmet-async'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import { dataVisuals } from '../policyContent/HowToUseTheDataContent'
 
 export default function HowToUseTheDataTab() {
   return (
     <div className='mx-0 w-full max-w-svw px-0'>
-      <Helmet>
-        <title>How To Use The Data - Health Equity Tracker</title>
-      </Helmet>
+      <title>How To Use The Data - Health Equity Tracker</title>
       <section
         id='het-data-visualizations'
         className='mx-0 w-fit max-w-svw px-0'
@@ -28,77 +25,64 @@ export default function HowToUseTheDataTab() {
           effectively.
         </p>
       </section>
-      {dataVisuals.map((dataVisual, index) => (
-        <section
-          key={dataVisual.sectionId}
-          id={dataVisual.sectionId}
-          className='mx-0 w-auto max-w-svw px-0'
-        >
-          <div className='w-auto max-w-svw'>
-            <HetOverline text='Our Data Visuals' />
+      {dataVisuals.map((dataVisual) => {
+        return (
+          <section
+            key={dataVisual.sectionId}
+            id={dataVisual.sectionId}
+            className='mx-0 w-auto max-w-svw px-0'
+          >
+            <div className='w-auto max-w-svw'>
+              <HetOverline text='Our Data Visuals' />
 
-            <h2 className='my-0 font-medium text-altGreen text-title'>
-              {dataVisual.title}
-            </h2>
-
-            <div className='w-auto max-w-svw py-4 sm:m-0 sm:p-0'>
-              {dataVisual.customCard}
-
-              <p>{dataVisual.description}</p>
-            </div>
-
-            <div>
-              <ul className='grid list-none grid-cols-2 gap-4 p-0 text-smallest'>
-                <li className='flex flex-col'>
-                  <p className='my-0 font-semibold text-altGreen'>
-                    Demographic Granularity
-                  </p>
-                  <p className='my-0'>
-                    {Array.isArray(dataVisual.details.demographicGranularities)
-                      ? dataVisual.details.demographicGranularities.join(', ')
-                      : dataVisual.details.demographicGranularities}
-                  </p>
-                </li>
-                <li className='flex flex-col'>
-                  <p className='my-0 font-semibold text-altGreen'>
-                    Geographic Levels
-                  </p>
-                  <p className='my-0'>
-                    {Array.isArray(dataVisual.details.geographicLevels)
-                      ? dataVisual.details.geographicLevels.join(', ')
-                      : dataVisual.details.geographicLevels}
-                  </p>
-                </li>
-                {dataVisual.details.alternateBreakdowns !== 'N/A' && (
-                  <li className='flex flex-col'>
-                    <p className='my-0 font-semibold text-altGreen'>
-                      Alternate Disparities Breakdowns
-                    </p>
-                    <p className='my-0'>
-                      {Array.isArray(dataVisual.details.alternateBreakdowns)
-                        ? dataVisual.details.alternateBreakdowns.join(', ')
-                        : dataVisual.details.alternateBreakdowns}
-                    </p>
-                  </li>
-                )}
-              </ul>
-            </div>
-            <p>
               <h2 className='my-0 font-medium text-altGreen text-title'>
-                How to Use
+                {dataVisual.title}
               </h2>
-              <div>
-                {dataVisual.details.howToUse.map((step, i) => (
-                  <p className='my-0 py-0' key={i}>
-                    <strong>{step.step}:</strong> {step.description}
-                  </p>
-                ))}
+
+              <div className='w-auto max-w-svw py-4 sm:m-0 sm:p-0'>
+                <p>{dataVisual.description}</p>
               </div>
-            </p>
-            <div className='mt-8 border border-methodologyGreen border-x-0 border-t-0 border-b-1 border-solid'></div>
-          </div>
-        </section>
-      ))}
+
+              <div>
+                <ul className='grid list-none grid-cols-2 gap-4 p-0 text-smallest'>
+                  {dataVisual.details.alternateBreakdowns !== 'N/A' && (
+                    <li className='flex flex-col'>
+                      <p className='my-0 font-semibold text-altGreen'>
+                        Alternate Disparities Breakdowns
+                      </p>
+                      <p className='my-0'>
+                        {Array.isArray(dataVisual.details.alternateBreakdowns)
+                          ? dataVisual.details.alternateBreakdowns.join(', ')
+                          : dataVisual.details.alternateBreakdowns}
+                      </p>
+                    </li>
+                  )}
+                </ul>
+              </div>
+              <div>
+                <h2 className='mt-4 mb-2 font-medium text-altGreen text-title'>
+                  How to Use
+                </h2>
+                <div>
+                  {dataVisual.details.howToUse.map((step, i) => (
+                    <p className='my-0 py-0' key={i}>
+                      <strong>{step.step}:</strong> {step.description}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h2 className='mt-4 mb-4 font-medium text-altGreen text-title'>
+                  Interactive Example
+                </h2>
+                {dataVisual.customCard}
+              </div>
+
+              <div className='mt-8 border border-methodologyGreen border-x-0 border-t-0 border-b-1 border-solid'></div>
+            </div>
+          </section>
+        )
+      })}
     </div>
   )
 }

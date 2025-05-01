@@ -1,4 +1,4 @@
-import Joyride from 'react-joyride'
+import Joyride from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getOnboardingSteps } from './OnboardingSteps'
