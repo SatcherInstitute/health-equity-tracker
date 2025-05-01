@@ -69,7 +69,7 @@ export const datasourceMetadataMaternalHealthCategory: DataSourceMetadataMaterna
     data_source_pretty_site_name: 'JAMA Network',
     data_source_link:
       'https://jamanetwork.com/journals/jama/fullarticle/2806661',
-    geographic_level: 'National, State',
+    geographic_breakdowns: ['national', 'state'],
     demographic_breakdowns: ['race_and_ethnicity'],
     update_frequency: 'N/A',
     description: ``,

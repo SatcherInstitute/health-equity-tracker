@@ -1,9 +1,9 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
-} from './MetricConfigUtils'
+} from './MetricConfigConstants'
+import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS = [
   'depression',

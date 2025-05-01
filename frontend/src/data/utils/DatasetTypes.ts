@@ -1,7 +1,7 @@
 import { DataFrame, type IDataFrame } from 'data-forge'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataSourceId } from '../config/MetadataMap'
-import type { DemographicType } from '../query/Breakdowns'
+import type { DemographicType, GeographicBreakdown } from '../query/Breakdowns'
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
@@ -13,7 +13,7 @@ export interface DataSourceMetadata {
   readonly data_source_acronym: string
   readonly data_source_pretty_site_name: string
   readonly data_source_link: string
-  readonly geographic_level: string
+  readonly geographic_breakdowns: GeographicBreakdown[]
   readonly demographic_breakdowns: DemographicType[]
   readonly update_frequency: string
   readonly downloadable: boolean
