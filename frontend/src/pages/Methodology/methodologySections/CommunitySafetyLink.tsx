@@ -1,8 +1,10 @@
+import { datasourceMetadataCommunitySafetyCategory } from '../../../data/config/DatasetMetadataCommunitySafetyCategory'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
@@ -164,6 +166,11 @@ const CommunitySafetyLink = () => {
             </ul>
           </div>
         </section>
+
+        <HetTopicDemographics
+          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS]}
+          datasourceMetadata={datasourceMetadataCommunitySafetyCategory}
+        />
 
         <h3
           className='mt-12 font-medium text-title'
