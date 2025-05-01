@@ -557,6 +557,13 @@ const HivLink = () => {
           assess the prevalence and impact of HIV stigma.
         </p>
 
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+
         <HetTopicDemographics
           topicIds={[...HIV_CATEGORY_DROPDOWNIDS]}
           datasourceMetadata={datasourceMetadataHivCategory}

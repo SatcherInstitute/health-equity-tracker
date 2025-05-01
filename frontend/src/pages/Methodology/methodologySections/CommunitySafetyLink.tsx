@@ -167,6 +167,12 @@ const CommunitySafetyLink = () => {
           </div>
         </section>
 
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
         <HetTopicDemographics
           topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS]}
           datasourceMetadata={datasourceMetadataCommunitySafetyCategory}
