@@ -126,7 +126,6 @@ app.post('/fetch-ai-insight', async (req, res) => {
   const cachedItem = aiInsightCache.get(prompt)
 
   if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
-    console.log('Using cached AI insight')
     return res.json({ content: cachedItem.content })
   }
 
@@ -151,8 +150,10 @@ app.post('/fetch-ai-insight', async (req, res) => {
 
     if (aiResponse.status === 429) {
       RATE_LIMIT_REACHED = true
-      res.status(429).json({ error: 'Rate limit reached' })
+      return res.status(429).json({ error: 'Rate limit reached' })
     }
+
+    RATE_LIMIT_REACHED = false
 
     if (!aiResponse.ok) {
       throw new Error(`AI API Error: ${aiResponse.statusText}`)
@@ -172,14 +173,9 @@ app.post('/fetch-ai-insight', async (req, res) => {
   } catch (err) {
     console.error('Error fetching AI insight:', err)
 
-    if (err.response && err.response.status === 429) {
-      res.status(429).json({ error: 'Rate limit reached' })
-    } else {
-      res.status(500).json({ error: 'Failed to fetch AI insight' })
-    }
+    res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })
-
 // Serve static files from the build directory.
 const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use(express.static(path.join(__dirname, buildDir)))
