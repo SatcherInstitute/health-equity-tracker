@@ -1,4 +1,3 @@
-import type { DemographicType } from '../../data/query/Breakdowns'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
@@ -8,8 +7,6 @@ import { reportProviderSteps } from '../ReportProviderSteps'
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-  demographicType: DemographicType
-  setDemographicType: (demographic: DemographicType) => void
   offerJumpToAgeAdjustment: boolean
   enabledDemographicOptionsMap: any
   disabledDemographicOptions?: string[][]

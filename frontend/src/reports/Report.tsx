@@ -74,7 +74,10 @@ export function Report(props: ReportProps) {
     getAllDemographicOptions(dataTypeConfig, props.fips)
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
-  if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
+  if (
+    dataTypeConfig &&
+    !Object.values(enabledDemographicOptionsMap).includes(demographicType)
+  ) {
     setDemographicType(
       Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
     )
@@ -143,8 +146,6 @@ export function Report(props: ReportProps) {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            demographicType={demographicType}
-            setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -330,8 +331,6 @@ export function Report(props: ReportProps) {
             // Mode selectors are in sidebar only on larger screens
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            demographicType={demographicType}
-            setDemographicType={setDemographicType}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
           />
