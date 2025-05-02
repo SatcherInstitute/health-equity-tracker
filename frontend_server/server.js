@@ -151,7 +151,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
 
     if (aiResponse.status === 429) {
       RATE_LIMIT_REACHED = true
-      throw new Error('Rate limit reached')
+      res.status(429).json({ error: 'Rate limit reached' })
     }
 
     if (!aiResponse.ok) {
@@ -172,7 +172,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
   } catch (err) {
     console.error('Error fetching AI insight:', err)
 
-    if (err.message.includes('Rate limit')) {
+    if (err.response && err.response.status === 429) {
       res.status(429).json({ error: 'Rate limit reached' })
     } else {
       res.status(500).json({ error: 'Failed to fetch AI insight' })

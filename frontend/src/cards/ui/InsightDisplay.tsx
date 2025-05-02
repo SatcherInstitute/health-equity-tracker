@@ -59,10 +59,6 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
     try {
       const newInsight = await generateInsight({ knownData, metricIds })
       setInsight(newInsight)
-    } catch (error) {
-      if (error instanceof Error && error.message.includes('rate limit')) {
-        setRateLimitReached(true)
-      }
     } finally {
       setIsGeneratingInsight(false)
     }
