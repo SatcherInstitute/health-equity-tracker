@@ -2,11 +2,11 @@ import {
   defaultHigherIsBetterMapConfig,
   defaultHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
-} from './MetricConfigUtils'
+} from './MetricConfigConstants'
+import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const COVID_CATEGORY_DROPDOWNIDS = [
   'covid_vaccinations',

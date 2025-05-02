@@ -3,8 +3,8 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
+import { populationPctShortLabel } from './MetricConfigConstants'
 import type { DataTypeConfig } from './MetricConfigTypes'
-import { populationPctShortLabel } from './MetricConfigUtils'
 
 export const HIV_CATEGORY_DROPDOWNIDS = [
   'hiv',

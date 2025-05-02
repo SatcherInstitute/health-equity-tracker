@@ -1,6 +1,7 @@
 import type { CategoryTypeId } from '../../utils/MadLibs'
 import type {
   DataTypeConfig,
+  DataTypeId,
   MapConfig,
   MetricConfig,
   MetricId,
@@ -15,7 +16,7 @@ import {
 describe('metricConfigFromDtConfig', () => {
   const fakeDataTypeConfig: DataTypeConfig = {
     categoryId: 'fake_category' as CategoryTypeId,
-    dataTypeId: 'fake_data_type',
+    dataTypeId: 'fake_data_type' as DataTypeId,
     dataTableTitle: 'fake_data_table_title',
     fullDisplayName: 'fake_full_display_name',
     dataTypeShortLabel: 'fake_data_type_short_label',

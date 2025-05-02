@@ -8,11 +8,11 @@ import type { DataTypeConfig } from './MetricConfigTypes'
 export const CDC_CANCER_CATEGORY_DROPDOWNIDS = ['cancer_incidence'] as const
 
 export type CancerCategoryDataTypeId =
-  | 'breast_cancer'
-  | 'cervical_cancer'
-  | 'colorectal_cancer'
-  | 'lung_cancer'
-  | 'prostate_cancer'
+  | 'breast_cancer_incidence'
+  | 'cervical_cancer_incidence'
+  | 'colorectal_cancer_incidence'
+  | 'lung_cancer_incidence'
+  | 'prostate_cancer_incidence'
 
 export type CancerCategoryMetricId =
   | 'breast_count_estimated_total'
