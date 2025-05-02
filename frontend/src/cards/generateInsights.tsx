@@ -6,7 +6,6 @@ import {
   getHighestDisparity,
 } from './generateInsightsUtils'
 
-// Constants
 const API_ENDPOINT = '/fetch-ai-insight'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
@@ -31,14 +30,16 @@ export interface ResultData {
 }
 
 export async function fetchAIInsight(prompt: string): Promise<string> {
+  const baseApiUrl = import.meta.env.VITE_BASE_API_URL
+  const dataServerUrl = baseApiUrl
+    ? `${baseApiUrl}${API_ENDPOINT}`
+    : API_ENDPOINT
+
   if (!SHOW_INSIGHT_GENERATION) {
     return ''
   }
 
   try {
-    const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-    const dataServerUrl = `${baseApiUrl}${API_ENDPOINT}`
-
     const dataResponse = await fetch(dataServerUrl, {
       method: 'POST',
       headers: {
@@ -52,12 +53,9 @@ export async function fetchAIInsight(prompt: string): Promise<string> {
     }
 
     const insight = await dataResponse.json()
+    const content = insight.content.trim()
 
-    if (!insight || typeof insight.content !== 'string') {
-      throw new Error('Invalid response structure from the server')
-    }
-
-    return insight.content.trim()
+    return content
   } catch (error) {
     console.error('Error generating insight:', error)
     return ERROR_GENERATING_INSIGHT
