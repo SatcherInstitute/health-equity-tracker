@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import LazyLoad from 'react-lazyload'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
@@ -84,7 +84,7 @@ function LandingPage() {
               allowFullScreen
             ></iframe>
           ) : (
-            <LazyLoad offset={300} once>
+            <HetLazyLoader offset={300} once>
               <video
                 autoPlay={!prefersReducedMotion}
                 loop
@@ -94,7 +94,7 @@ function LandingPage() {
               >
                 <source src={videoSrc} type='video/mp4' />
               </video>
-            </LazyLoad>
+            </HetLazyLoader>
           )}
         </div>
       </li>

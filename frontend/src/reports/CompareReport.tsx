@@ -198,15 +198,13 @@ export default function CompareReport(props: CompareReportProps) {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            demographicType={demographicType}
-            setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
           <div className='flex w-full flex-col content-center '>
-            {showCorrelationCard && (
+            {showCorrelationCard && rateConfig1 && rateConfig2 && (
               <CompareBubbleChartCard
                 fips1={props.fips1}
                 dataTypeConfig1={dataTypeConfig1}
@@ -454,8 +452,6 @@ export default function CompareReport(props: CompareReportProps) {
               isMobile={props.isMobile}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              demographicType={demographicType}
-              setDemographicType={setDemographicType}
               enabledDemographicOptionsMap={enabledDemographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />

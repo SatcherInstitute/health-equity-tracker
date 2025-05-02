@@ -1,5 +1,5 @@
-import LazyLoad from 'react-lazyload'
 import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
+import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
 import { urlMap } from '../../utils/externalUrls'
 import GoalListItem from './GoalListItem'
@@ -135,13 +135,13 @@ export default function AboutUsPage() {
             {LEADERSHIP_TEAM.map((leader) => {
               return (
                 <li key={leader.name}>
-                  <LazyLoad offset={300} height={181} once>
+                  <HetLazyLoader offset={300} height={181} once>
                     <img
                       src={leader.imageUrl}
                       alt=''
                       className='max-w-teamHeadshot rounded-md'
                     />
-                  </LazyLoad>
+                  </HetLazyLoader>
                   <div className='font-medium'>{leader.name}</div>
                   <div className='font-normal text-small'>{leader.role}</div>
                 </li>
@@ -228,7 +228,7 @@ export default function AboutUsPage() {
             Founding Partners
           </h3>
 
-          <LazyLoad offset={300} height={200} once>
+          <HetLazyLoader offset={300} height={200} once>
             <ul className='grid list-none grid-cols-1 justify-between gap-6 md:grid-cols-2'>
               {PARTNERS.map((partner) => (
                 <li className='flex align-start' key={partner.url}>
@@ -242,7 +242,7 @@ export default function AboutUsPage() {
                 </li>
               ))}
             </ul>
-          </LazyLoad>
+          </HetLazyLoader>
         </section>
 
         <section className='flex flex-col pt-8'>

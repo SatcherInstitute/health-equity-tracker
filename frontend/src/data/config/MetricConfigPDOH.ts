@@ -3,11 +3,11 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsBetterMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
 import {
   populationPctShortLabel,
   populationPctTitle,
-} from './MetricConfigUtils'
+} from './MetricConfigConstants'
+import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const PDOH_CATEGORY_DROPDOWNIDS = [
   'incarceration',

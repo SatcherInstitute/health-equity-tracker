@@ -1,5 +1,5 @@
-import LazyLoad from 'react-lazyload'
 import covidClick from '../../assets/screengrabs/covidClick.mp4'
+import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 
 export function getOnboardingSteps(pageIsWide: boolean) {
   const steps = [
@@ -14,7 +14,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
           </i>
           .
         </p>
-        <LazyLoad offset={300} height={300} once>
+        <HetLazyLoader offset={300} height={300} once>
           <video
             autoPlay={true}
             loop
@@ -24,7 +24,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
           >
             <source src={covidClick} type='video/mp4' />
           </video>
-        </LazyLoad>
+        </HetLazyLoader>
       </>,
       /* hideCloseButton= */ true,
       /* placement= */ undefined,

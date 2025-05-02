@@ -234,8 +234,8 @@ export const datasourceMetadataHivCategory: DataSourceMetadataHivCategory = {
   data_source_acronym: 'CDC',
   data_source_pretty_site_name: 'cdc.gov',
   data_source_link: 'https://www.cdc.gov/nchhstp/atlas/index.htm',
-  geographic_level: 'National, State, County',
-  demographic_granularity: 'Race/ethnicity, age, sex',
+  geographic_breakdowns: ['national', 'state', 'county'],
+  demographic_breakdowns: ['age', 'race_and_ethnicity', 'sex'],
   update_frequency: 'Yearly',
   description:
     'The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, prevalence, linkage to HIV care, HIV stigma, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.',

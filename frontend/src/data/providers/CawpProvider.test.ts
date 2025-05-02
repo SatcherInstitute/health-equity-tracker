@@ -42,7 +42,7 @@ async function ensureCorrectDatasetsDownloaded(
     new MetricQuery(
       ['pct_share_of_us_congress'],
       baseBreakdown.addBreakdown(demographicType),
-      'women_in_politics',
+      'women_in_us_congress',
       'current',
       cardId,
     ),

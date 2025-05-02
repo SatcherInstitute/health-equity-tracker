@@ -1,20 +1,18 @@
 import { getFormatterPer100k } from '../../charts/utils'
+import type { DropdownVarId } from './DropDownIds'
+import { METRIC_CONFIG } from './MetricConfig'
 import type {
+  CardMetricType,
   DataTypeConfig,
   MetricConfig,
   MetricId,
   MetricType,
 } from './MetricConfigTypes'
 
-export const populationPctTitle = 'Population share'
-export const populationPctShortLabel = '% of population'
-
-type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
-
 export function metricConfigFromDtConfig(
   cardType: CardMetricType,
   dtConfig: DataTypeConfig,
-): MetricConfig {
+): MetricConfig | undefined {
   const cardToMetricTypesMap: Record<CardMetricType, MetricType[]> = {
     rate: ['pct_rate', 'per100k', 'index'],
     share: ['pct_share'],
@@ -29,7 +27,7 @@ export function metricConfigFromDtConfig(
   )
 
   // If no config is found, use the first one in the list
-  return requestedConfig ?? possibleConfigs[0]
+  return requestedConfig
 }
 
 export function isPctType(metricType: MetricType) {
@@ -96,4 +94,25 @@ export function getMetricIdToConfigMap(
     },
     {} as Record<MetricId, MetricConfig>,
   )
+}
+
+export function getMetricConfigsForIds(
+  ids: DropdownVarId[],
+): { id: DropdownVarId; configs: DataTypeConfig[] }[] {
+  return ids.map((id) => ({
+    id,
+    configs: METRIC_CONFIG[id],
+  }))
+}
+
+export function formatSubPopString({
+  ageSubPopulationLabel,
+  otherSubPopulationLabel,
+}: {
+  ageSubPopulationLabel?: string
+  otherSubPopulationLabel?: string
+}) {
+  return otherSubPopulationLabel && ageSubPopulationLabel
+    ? `${otherSubPopulationLabel}, ${ageSubPopulationLabel}`
+    : otherSubPopulationLabel || ageSubPopulationLabel || ''
 }

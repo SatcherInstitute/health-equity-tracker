@@ -9,22 +9,12 @@ import CustomShareTrendsLineChart from '../../../reports/CustomShareTrendsLineCh
 import CustomStackedSharesBarChart from '../../../reports/CustomStackedSharesBarChart'
 import CustomUnknownMap from '../../../reports/CustomUnknownMap'
 
-const gunViolenceGeographicLevels = ['National', 'states']
-const gunViolenceDemographicGranularities = [
-  'Race/ethnicity',
-  'Sex',
-  'Age',
-  'City Size (Metro/Non-Metro)',
-]
-
 export const dataVisuals = [
   {
     title: 'Rate Choropleth Map',
     description: `The rate map shows the geographic disparity of gun violence across the United States. Choropleth maps indicate each area's rate compared to the other areas using a color spectrum. Our maps default to showing the "All" group, but in most cases users can highlight a specific demographic group.`,
     sectionId: '#rate-choropleth-map',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: gunViolenceGeographicLevels,
       alternateBreakdowns: [
         'Multi-maps',
         'State/territory rate extremes (lowest, highest)',
@@ -62,8 +52,6 @@ export const dataVisuals = [
       'This visualization tracks the changes in gun violence rates over specified periods.',
     sectionId: '#rates-over-time-chart',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: gunViolenceGeographicLevels,
       alternateBreakdowns: ['Table view'],
       howToUse: [
         {
@@ -98,12 +86,6 @@ export const dataVisuals = [
       'Compares gun violence rates across different demographic groups.',
     sectionId: '#rate-bar-chart',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: [
-        ...gunViolenceGeographicLevels,
-        'counties',
-        'territories',
-      ],
       alternateBreakdowns: 'N/A',
       howToUse: [
         {
@@ -137,12 +119,6 @@ export const dataVisuals = [
       'Highlights areas where data on gun violence is incomplete or missing.',
     sectionId: '#unknown-demographic-choropleth-map',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: [
-        ...gunViolenceGeographicLevels,
-        'counties',
-        'territories',
-      ],
       alternateBreakdowns: 'N/A',
       howToUse: [
         {
@@ -168,12 +144,6 @@ export const dataVisuals = [
       'Shows how disparities in gun violence exposure have evolved among different demographic groups.',
     sectionId: '#relative-inequity-chart',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: [
-        ...gunViolenceGeographicLevels,
-        'counties',
-        'territories',
-      ],
       alternateBreakdowns: ['Table view'],
       howToUse: [
         {
@@ -209,12 +179,6 @@ export const dataVisuals = [
       'Illustrates how the shares of gun violence in certain demographic groups compare to their respective population sizes.',
     sectionId: '#population-vs-distribution-stacked-bar-chart',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: [
-        ...gunViolenceGeographicLevels,
-        'counties',
-        'territories',
-      ],
       alternateBreakdowns: 'N/A',
       howToUse: [
         {
@@ -247,12 +211,6 @@ export const dataVisuals = [
     description: `'Rates' show how often something happens within a specific group, either per 100,000 people or per 100 people (as a percent). 'Share' tells you what percentage of all cases come from a particular group, while 'Population share' shows the percentage of the total population that the group makes up.`,
     sectionId: '#breakdown-summary-data-table',
     details: {
-      demographicGranularities: gunViolenceDemographicGranularities,
-      geographicLevels: [
-        ...gunViolenceGeographicLevels,
-        'counties',
-        'territories',
-      ],
       alternateBreakdowns: 'N/A',
       howToUse: [
         {

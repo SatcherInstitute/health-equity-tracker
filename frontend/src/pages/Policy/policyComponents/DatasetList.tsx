@@ -43,7 +43,11 @@ export default function DatasetList({ datasets }: DatasetListProps) {
                 ) : (
                   <BlockRounded className='text-redOrange text-text' />
                 )}
-                <p className='my-0 ml-2'>{item.label}</p>
+
+                <span className='my-0 ml-2'>{item.label}</span>
+                <span className='sr-only'>
+                  {item.included ? ' Available' : ' Not available'}
+                </span>
               </li>
             ))}
           </ul>
