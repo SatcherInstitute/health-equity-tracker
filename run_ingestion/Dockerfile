@@ -11,7 +11,7 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY ./run_ingestion ./run_ingestion
 COPY ./python ./python
-COPY ./shared_requirements ./shared_requirements
+COPY ./shared_config ./shared_config
 
 # Install production dependencies.
 RUN python -m pip install --upgrade pip

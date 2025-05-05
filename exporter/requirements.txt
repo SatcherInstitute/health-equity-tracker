@@ -1,2 +1,2 @@
--r ../shared_requirements/requirements.txt
+-r ../shared_config/requirements.txt
 

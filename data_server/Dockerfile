@@ -10,7 +10,7 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY ./data_server ./data_server
 COPY ./python/data_server ./python/data_server
-COPY ./shared_requirements ./shared_requirements
+COPY ./shared_config ./shared_config
 
 # Install production dependencies.
 RUN python -m pip install --upgrade pip

@@ -1,4 +1,4 @@
--r ../shared_requirements/requirements.txt
+-r ../shared_config/requirements.txt
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

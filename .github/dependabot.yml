@@ -40,7 +40,7 @@ updates:
     open-pull-requests-limit: 1
 
   - package-ecosystem: "pip"
-    directory: "shared_requirements/"
+    directory: "shared_config/"
     schedule:
       interval: "monthly"
     ignore:

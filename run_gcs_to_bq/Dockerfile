@@ -18,7 +18,7 @@ WORKDIR $APP_HOME
 COPY ./run_gcs_to_bq ./run_gcs_to_bq
 COPY ./python ./python
 COPY ./data ./data
-COPY ./shared_requirements ./shared_requirements
+COPY ./shared_config ./shared_config
 
 # Install production dependencies.
 RUN python -m pip install --upgrade pip
