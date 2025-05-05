@@ -35,7 +35,7 @@ export const formatMetricValue = (
   metricConfig: MetricConfig,
   isLegendLabel?: boolean,
 ): string => {
-  if (value === undefined) return 'no data'
+  if (value === undefined || value === null) return 'no data'
 
   if (metricConfig.type === 'per100k') {
     const suffix = isLegendLabel ? '' : '  per 100k'
