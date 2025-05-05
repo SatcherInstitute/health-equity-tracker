@@ -1,4 +1,3 @@
-import type { DemographicType } from '../../data/query/Breakdowns'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import SimpleSelect from './SimpleSelect'
@@ -20,8 +19,6 @@ interface SidebarProps {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-  demographicType: DemographicType
-  setDemographicType: (demographic: DemographicType) => void
   isRaceBySex?: boolean
   enabledDemographicOptionsMap: any
   disabledDemographicOptions?: string[][]
