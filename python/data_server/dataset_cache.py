@@ -1,15 +1,14 @@
 import threading
-
 import cachetools
-
 from data_server import gcs_utils
+from shared_config.constants import DATASET_CACHE_TTL_SECONDS
 
 
 class DatasetCache:
     """DatasetCache manages and stores datasets accessed through GCS.
     DatasetCache is a thin, thread-safe wrapper around cachetools.TTLCache."""
 
-    def __init__(self, max_cache_size=8, cache_ttl=2 * 3600):
+    def __init__(self, max_cache_size=8, cache_ttl=DATASET_CACHE_TTL_SECONDS):
         """max_cache_size: Max number of cache elements. Default 8.
         cache_ttl: TTL per object in seconds. Default 2 hours."""
         self.cache = cachetools.TTLCache(maxsize=max_cache_size, ttl=cache_ttl)

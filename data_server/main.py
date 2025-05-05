@@ -1,11 +1,11 @@
 import logging
 import os
-
 from flask import Flask, Response, request
 from flask_cors import CORS
 from werkzeug.datastructures import Headers
-
 from data_server.dataset_cache import DatasetCache
+from shared_config.constants import DATASET_CACHE_CONTROL
+
 
 app = Flask(__name__)
 CORS(app)
@@ -62,10 +62,7 @@ def get_dataset():
     headers = Headers()
     headers.add("Content-Disposition", "attachment", filename=dataset_name)
     headers.add("Vary", "Accept-Encoding")
-    # Allow browsers to cache datasets for 2 hours, the same as the DatasetCache
-    # TODO: If we want to make sure this stays in sync with the DatasetCache
-    # TTL, move this to a constant that's shared between them.
-    headers.add("Cache-Control", "public, max-age=7200")
+    headers.add("Cache-Control", DATASET_CACHE_CONTROL)
 
     if dataset_name.endswith(".csv"):
         return Response(dataset, mimetype="text/csv", headers=headers)
