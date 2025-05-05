@@ -14,7 +14,7 @@ export type MaternalHealthMetricId =
 
 export const MATERNAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
-    categoryId: 'maternal_health',
+    categoryId: 'maternal-health',
     dataTypeId: 'maternal_mortality',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Maternal mortality',
