@@ -22,7 +22,7 @@ AHR_MEASURES_TO_RATES_MAP_18PLUS = {
     "Chronic Obstructive Pulmonary Disease": "copd_per_100k",
     "Depression": "depression_per_100k",
     "Diabetes": "diabetes_per_100k",
-    "Excessive Drinking": "excessive_drinking_per_100k",
+    "Excessive Drinking": "excessive_drinking_pct_rate",
     "Frequent Mental Distress": "frequent_mental_distress_per_100k",
     "Non-Medical Drug Use": "non_medical_drug_use_per_100k",
 }
@@ -54,7 +54,6 @@ PCT_RATE_TO_PER_100K_TOPICS = [
     "Chronic Obstructive Pulmonary Disease",
     "Depression",
     "Diabetes",
-    "Excessive Drinking",
     "Frequent Mental Distress",
     "Non-medical Drug Use",
 ]

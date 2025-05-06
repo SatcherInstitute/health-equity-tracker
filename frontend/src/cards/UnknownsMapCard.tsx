@@ -185,9 +185,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const unknownsAllZero =
           unknowns.length > 0 &&
           unknowns.every(
-            (unknown: HetRow) =>
-              unknown[metricConfig.metricId] === 0 ||
-              unknown[metricConfig.metricId] == null,
+            (unknown: HetRow) => unknown[metricConfig.metricId] === 0,
           )
 
         // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
@@ -222,7 +220,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 <ChoroplethMap
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
-                  data={unknowns as DataPoint[]}
+                  data={unknowns}
                   demographicType={demographicType}
                   extremesMode={false}
                   filename={chartTitle}

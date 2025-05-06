@@ -6,6 +6,7 @@ import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
+let RATE_LIMIT_REACHED = false
 console.info(`Build directory: ${buildDir}`)
 
 export function assertEnvVar(name) {
@@ -105,10 +106,27 @@ app.use('/api', apiProxy)
 
 app.use(compression())
 
+app.get('/rate-limit-status', (req, res) => {
+  res.json({
+    rateLimitReached: RATE_LIMIT_REACHED,
+  })
+})
+
+const aiInsightCache = new Map()
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000
+
 app.post('/fetch-ai-insight', async (req, res) => {
   const prompt = req.body.prompt
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
+  }
+
+  // Check if response is cached and not expired
+  const now = Date.now()
+  const cachedItem = aiInsightCache.get(prompt)
+
+  if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
+    return res.json({ content: cachedItem.content })
   }
 
   const apiKey = assertEnvVar('OPENAI_API_KEY')
@@ -130,20 +148,34 @@ app.post('/fetch-ai-insight', async (req, res) => {
       },
     )
 
+    if (aiResponse.status === 429) {
+      RATE_LIMIT_REACHED = true
+      return res.status(429).json({ error: 'Rate limit reached' })
+    }
+
+    RATE_LIMIT_REACHED = false
+
     if (!aiResponse.ok) {
       throw new Error(`AI API Error: ${aiResponse.statusText}`)
     }
 
     const json = await aiResponse.json()
     const content = json.choices?.[0]?.message?.content || 'No content returned'
+    const trimmedContent = content.trim()
 
-    res.json({ content: content.trim() })
+    // Store in cache with timestamp
+    aiInsightCache.set(prompt, {
+      content: trimmedContent,
+      timestamp: now,
+    })
+
+    res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
+
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })
-
 // Serve static files from the build directory.
 const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use(express.static(path.join(__dirname, buildDir)))
