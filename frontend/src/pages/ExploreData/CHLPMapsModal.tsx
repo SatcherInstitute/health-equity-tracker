@@ -49,10 +49,12 @@ export default function CHLPMapsModal() {
       }}
       scroll='paper'
       className='h-full'
-      PaperProps={{
-        style: {
-          backgroundColor: het.standardInfo,
-          height: '95vh', // Ensure the dialog content also respects the height
+      slotProps={{
+        paper: {
+          style: {
+            backgroundColor: het.standardInfo,
+            height: '95vh',
+          },
         },
       }}
     >
@@ -62,14 +64,26 @@ export default function CHLPMapsModal() {
           onClick={() => setModalIsOpen(false)}
           ariaLabel='close modal'
         />
-        <iframe
-          title='CHLP HIV Criminalization Maps'
-          src='https://www.hivlawandpolicy.org/sites/default/files/2025-03/Mapping%20HIV%20Criminalization%20Laws%20in%20the%20US%2C%20CHLP%202025.pdf'
-          width='100%'
-          height='100%'
-          id='chlpMapsIframe'
-          className='mt-2 border-0 bg-standardInfo p-2 md:px-24'
-        ></iframe>
+        <div className='flex h-full flex-col'>
+          <iframe
+            title='CHLP HIV Criminalization Maps'
+            src='https://www.hivlawandpolicy.org/sites/default/files/2025-03/Mapping%20HIV%20Criminalization%20Laws%20in%20the%20US%2C%20CHLP%202025.pdf'
+            width='100%'
+            height='100%'
+            id='chlpMapsIframe'
+            className='mt-2 flex-grow border-0 bg-standardInfo p-2 md:px-24'
+          ></iframe>
+          <div className='mt-4 text-center'>
+            <a
+              href='https://www.hivlawandpolicy.org/sites/default/files/2025-03/Mapping%20HIV%20Criminalization%20Laws%20in%20the%20US%2C%20CHLP%202025.pdf'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='rounded px-4 py-2 text-methodology-green'
+            >
+              View Full PDF
+            </a>
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   )
