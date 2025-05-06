@@ -9,4 +9,4 @@ def download_blob_as_bytes(gcs_bucket: str, filename: str) -> bytes:
 
 
 TTL_SECONDS = 7200
-TTL_CONTROL_HEADER = f'"Cache-Control", "public, max-age={TTL_SECONDS}"'
+TTL_CONTROL_HEADER = f"public, max-age={TTL_SECONDS}"

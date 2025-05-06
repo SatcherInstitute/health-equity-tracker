@@ -63,7 +63,7 @@ def get_dataset():
     headers = Headers()
     headers.add("Content-Disposition", "attachment", filename=dataset_name)
     headers.add("Vary", "Accept-Encoding")
-    headers.add(TTL_CONTROL_HEADER)
+    headers.add("Cache-Control", TTL_CONTROL_HEADER)
 
     if dataset_name.endswith(".csv"):
         return Response(dataset, mimetype="text/csv", headers=headers)
