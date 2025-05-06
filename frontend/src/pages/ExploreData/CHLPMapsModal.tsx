@@ -63,8 +63,8 @@ export default function CHLPMapsModal() {
           ariaLabel='close modal'
         />
         <iframe
-          title='CHLP Interactive Map'
-          src='https://your-chlp-map-url-here' // Replace with the actual CHLP map URL
+          title='CHLP HIV Criminalization Maps'
+          src='https://www.hivlawandpolicy.org/sites/default/files/2025-03/Mapping%20HIV%20Criminalization%20Laws%20in%20the%20US%2C%20CHLP%202025.pdf'
           width='100%'
           height='100%'
           id='chlpMapsIframe'
