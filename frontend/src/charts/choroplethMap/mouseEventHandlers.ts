@@ -4,7 +4,6 @@ import type {
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
 import type { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
@@ -13,20 +12,6 @@ import {
   TOOLTIP_OFFSET,
   generateTooltipHtml,
 } from './tooltipUtils'
-
-const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
-
-// Add a flag to detect touch devices
-let isTouchDevice = false
-
-// Set up touch detection
-const detectTouch = () => {
-  isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-  window.removeEventListener('touchstart', detectTouch)
-}
-
-// Initialize touch detection
-window.addEventListener('touchstart', detectTouch, { once: true })
 
 /**
  * Common interface for mouse event handler properties
