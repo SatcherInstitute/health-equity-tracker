@@ -47,6 +47,7 @@ const ChoroplethMap = ({
     typeof createTooltipContainer
   > | null>(null)
   const mapInitializedRef = useRef(false)
+  const eventCleanupRef = useRef<(() => void) | null>(null)
 
   // State to store the dataMap created during map rendering
   const [renderResult, setRenderResult] = useState<{
@@ -79,15 +80,25 @@ const ChoroplethMap = ({
   }, [width])
 
   const cleanup = () => {
+    // Clean up event listeners if they exist
+    if (eventCleanupRef.current) {
+      eventCleanupRef.current()
+      eventCleanupRef.current = null
+    }
+
+    // Clean up tooltip
     if (tooltipContainerRef.current) {
       tooltipContainerRef.current.remove()
       tooltipContainerRef.current = null
     }
+
+    // Clean up SVG
     if (svgRef.current) {
       const svg = d3.select(svgRef.current)
       svg.selectAll('*').remove()
       svg.on('.', null)
     }
+
     mapInitializedRef.current = false
     setRenderResult(null)
   }
@@ -154,7 +165,16 @@ const ChoroplethMap = ({
         updateFipsCallback,
       })
 
-      setRenderResult(result)
+      // Store the event cleanup function
+      if (result.cleanupEventListeners) {
+        eventCleanupRef.current = result.cleanupEventListeners
+      }
+
+      setRenderResult({
+        dataMap: result.dataMap,
+        mapHeight: result.mapHeight,
+      })
+
       mapInitializedRef.current = true
     }
 

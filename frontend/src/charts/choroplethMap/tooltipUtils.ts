@@ -154,31 +154,3 @@ export const generateTooltipHtml = (
 
   return tooltipHtml
 }
-
-/**
- * Function to replace the number after "-3." in the "mls" query parameter with a given ID
- * @param {string|number} id - The new ID to replace the existing one
- * @returns {string} - The updated URL
- */
-function updateMlsParameterId(id: string | number) {
-  // Get the current URL
-  const currentUrl = new URL(window.location.href)
-
-  // Get the "mls" query parameter value
-  const mlsValue = currentUrl.searchParams.get('mls')
-
-  if (mlsValue) {
-    // Use regex to replace the number after "-3." with the new ID
-    // Pattern: looks for "-3." followed by any number of digits
-    const updatedMlsValue = mlsValue.replace(/-3\.(\d+)/, `-3.${id}`)
-
-    // Set the updated value back to the URL
-    currentUrl.searchParams.set('mls', updatedMlsValue)
-
-    // Return the new URL as a string
-    return currentUrl.toString()
-  }
-
-  // If "mls" parameter wasn't found, return the original URL
-  return currentUrl.toString()
-}

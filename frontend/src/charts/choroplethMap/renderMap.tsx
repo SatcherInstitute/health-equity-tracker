@@ -75,6 +75,20 @@ export const renderMap = (props: RenderMapProps) => {
 
   const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
 
+  const handleInteraction = () => {
+    d3.select('.tooltip-container').style('visibility', 'hidden')
+  }
+
+  // Add event listeners
+  window.addEventListener('click', handleInteraction)
+  // window.addEventListener('touchmove', handleInteraction)
+
+  // Create a cleanup function for event listeners
+  const cleanupEventListeners = () => {
+    window.removeEventListener('click', handleInteraction)
+    // window.removeEventListener('touchmove', handleInteraction)
+  }
+
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -141,6 +155,7 @@ export const renderMap = (props: RenderMapProps) => {
   return {
     dataMap,
     mapHeight,
+    cleanupEventListeners, // Return the cleanup function for event listeners
   }
 }
 
