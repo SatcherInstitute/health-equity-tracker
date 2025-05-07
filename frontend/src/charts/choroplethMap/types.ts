@@ -136,6 +136,7 @@ export type RenderMapProps = {
   mapConfig: MapConfig
   signalListeners: any
   isMulti?: boolean
+  isSummaryLegend?: boolean
 }
 
 type TooltipFeature = {

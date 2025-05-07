@@ -5,12 +5,15 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
-import { generateTooltipHtml } from './tooltipUtils'
+import {
+  GEO_HOVERED_BORDER_COLOR,
+  GEO_HOVERED_BORDER_WIDTH,
+  GEO_HOVERED_OPACITY,
+  TOOLTIP_OFFSET,
+  generateTooltipHtml,
+} from './tooltipUtils'
 
 const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
-
-// Shared constants
-const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 /**
  * Common interface for mouse event handler properties
@@ -24,6 +27,7 @@ interface MouseEventHandlerProps {
   extremesMode: boolean
   mapConfig: MapConfig
   isMultiMap: boolean
+  isSummaryLegend: boolean
 }
 
 /**
@@ -44,6 +48,7 @@ export const createMouseEventProps = (
     extremesMode: props.extremesMode,
     mapConfig: props.mapConfig,
     isMultiMap: props.isMultiMap,
+    isSummaryLegend: props.isSummaryLegend,
   }
 }
 
@@ -52,7 +57,7 @@ export const createMouseEventProps = (
  * Works for both regular map areas and territory circles
  */
 export const createEventHandler = (
-  type: 'mouseover' | 'mouseout' | 'mousemove',
+  type: 'mouseover' | 'pointerdown' | 'mouseout' | 'mousemove' | 'touchstart',
   props: MouseEventHandlerProps,
   transformFeature?: (d: any) => any,
 ) => {
@@ -67,7 +72,7 @@ export const createEventHandler = (
  * Handles mouse events for map elements (both main map and territories)
  */
 const handleMouseEvent = (
-  type: 'mouseover' | 'mouseout' | 'mousemove',
+  type: 'mouseover' | 'pointerdown' | 'mouseout' | 'mousemove' | 'touchstart',
   event: any,
   d: any,
   props: MouseEventHandlerProps,
@@ -75,23 +80,46 @@ const handleMouseEvent = (
   if (!props.tooltipContainer) return
 
   switch (type) {
-    case 'mouseover': {
+    case 'touchstart': {
       if (!d || !props.dataMap) return
       const value = props.dataMap.get(d.id as string)?.value
 
-      d3.select(event.currentTarget)
-        .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
-        .style('cursor', 'pointer')
+      d3.select(event.currentTarget).attr(
+        'fill',
+        value !== undefined ? DARK_BLUE : RED_ORANGE,
+      )
 
       const tooltipHtml = generateTooltipHtml(
         d,
         props.dataMap,
         props.metricConfig,
         props.geographyType,
+        props.isSummaryLegend,
       )
       props.tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
       break
     }
+    case 'mouseover': {
+      if (!d || !props.dataMap) return
+      const value = props.dataMap.get(d.id as string)?.value
+
+      d3.select(event.currentTarget)
+        .attr('stroke', GEO_HOVERED_BORDER_COLOR)
+        .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
+        .attr('opacity', GEO_HOVERED_OPACITY)
+        .style('cursor', props.isSummaryLegend ? 'default' : 'pointer')
+
+      const tooltipHtml = generateTooltipHtml(
+        d,
+        props.dataMap,
+        props.metricConfig,
+        props.geographyType,
+        props.isSummaryLegend,
+      )
+      props.tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
+      break
+    }
+
     case 'mousemove': {
       // Get screen width and cursor position
       const screenWidth = window.innerWidth
@@ -111,17 +139,21 @@ const handleMouseEvent = (
       break
     }
     case 'mouseout': {
-      d3.select(event.currentTarget).attr(
-        'fill',
-        getFillColor({
-          d,
-          dataMap: props.dataMap,
-          colorScale: props.colorScale,
-          extremesMode: props.extremesMode,
-          mapConfig: props.mapConfig,
-          isMultiMap: props.isMultiMap,
-        }),
-      )
+      d3.select(event.currentTarget)
+        .attr(
+          'fill',
+          getFillColor({
+            d,
+            dataMap: props.dataMap,
+            colorScale: props.colorScale,
+            extremesMode: props.extremesMode,
+            mapConfig: props.mapConfig,
+            isMultiMap: props.isMultiMap,
+          }),
+        )
+        .attr('stroke', '')
+        .attr('stroke-width', '')
+        .attr('opacity', 1)
       props.tooltipContainer.style('visibility', 'hidden').html('')
       break
     }

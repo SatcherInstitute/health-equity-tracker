@@ -13,6 +13,13 @@ import type { MetricData } from './types'
 const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 
+// Shared constants
+export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
+
+export const GEO_HOVERED_OPACITY = 0.5
+export const GEO_HOVERED_BORDER_COLOR = het.white
+export const GEO_HOVERED_BORDER_WIDTH = 2
+
 export const createTooltipContainer = (isMulti?: boolean) => {
   const tooltipZnumber = isMulti ? multimapModalTooltip : mapTooltip
   const tooltipZIndex = tooltipZnumber.toString()
@@ -22,6 +29,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .append('div')
     .style('position', 'absolute')
     .style('visibility', 'hidden')
+    .style('max-width', '40vw')
     .style('background-color', WHITE)
     .style('border', `1px solid ${BORDER_GREY}`)
     .style('border-radius', '4px')
@@ -75,6 +83,7 @@ export const generateTooltipHtml = (
   dataMap: Map<string, MetricData>,
   metricConfig: MetricConfig,
   geographyType: string = '',
+  isSummaryMap: boolean = false,
 ) => {
   const name = feature.properties?.name || String(feature.id)
   const data = dataMap.get(feature.id as string)
@@ -95,17 +104,23 @@ export const generateTooltipHtml = (
   const [firstLabel, firstValue] = entries[0] ?? ['', 0]
   const remainingEntries = entries.slice(1)
 
+  const exploreText = isSummaryMap
+    ? ''
+    : `Click region to explore map of ${name} ${geographyType.toLowerCase()} →`
+
   return `
     <div>
-      <strong>${name} ${geographyType}</strong>
-      <div style="text-align: center;">
+      <p><span class="font-bold">${name} ${geographyType}</span></p>
+      <p> <span class="text-sm">${exploreText} </span></p>
+      <hr>
+      <div style="text-align: left;">
         <div style="margin-bottom: 4px;">
           <span style="color: ${borderColor};">${firstLabel}:</span> ${formatMetricValue(firstValue as number, metricConfig)}
         </div>
         ${remainingEntries
           .map(
             ([label, value]) =>
-              `<div style="margin-bottom: 4px;"><span style="color: ${borderColor};">${label}:</span> ${value}</div>`,
+              `<div style="margin-bottom: 4px;"><span style="color: ${borderColor};">${label}:</span> ${value?.toLocaleString()}</div>`,
           )
           .join('')}
       </div>

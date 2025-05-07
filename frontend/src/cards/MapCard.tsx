@@ -621,6 +621,7 @@ function MapCardWithKey(props: MapCardProps) {
                       mapConfig={mapConfig}
                       isPhrmaAdherence={isPhrmaAdherence}
                       isAtlantaMode={isAtlantaMode}
+                      isSummaryLegend={isSummaryLegend}
                     />
                   </div>
                 </div>

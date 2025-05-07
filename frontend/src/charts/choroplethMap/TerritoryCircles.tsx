@@ -46,6 +46,7 @@ interface TerritoryCirclesProps {
   isMobile: boolean
   isMulti?: boolean
   isPhrmaAdherence: boolean
+  isSummaryLegend?: boolean
 }
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   useEffect(() => {

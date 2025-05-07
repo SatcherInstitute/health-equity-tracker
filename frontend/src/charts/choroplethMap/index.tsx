@@ -37,6 +37,7 @@ const ChoroplethMap = ({
   legendData,
   isPhrmaAdherence,
   isAtlantaMode,
+  isSummaryLegend,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -148,6 +149,7 @@ const ChoroplethMap = ({
         mapConfig,
         signalListeners,
         isMulti,
+        isSummaryLegend,
       })
 
       setRenderResult(result)
@@ -178,6 +180,7 @@ const ChoroplethMap = ({
     isUnknownsMap,
     signalListeners,
     extremesMode,
+    isSummaryLegend,
   ])
 
   return (
@@ -218,6 +221,7 @@ const ChoroplethMap = ({
           isMobile={isMobile}
           isMulti={isMulti}
           isPhrmaAdherence={isPhrmaAdherence}
+          isSummaryLegend={isSummaryLegend}
         />
       )}
     </div>

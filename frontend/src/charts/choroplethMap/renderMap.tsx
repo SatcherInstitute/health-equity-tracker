@@ -99,10 +99,29 @@ export const renderMap = (props: RenderMapProps) => {
     )
     .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
-    .on('mouseover', createEventHandler('mouseover', mouseEventProps))
-    .on('mousemove', createEventHandler('mousemove', mouseEventProps))
-    .on('mouseout', createEventHandler('mouseout', mouseEventProps))
-    .on('click', props.signalListeners.click)
+    .on('mouseover', (event, d) => {
+      createEventHandler('mouseover', mouseEventProps)(event, d)
+    })
+    .on('pointerdown', (event, d) => {
+      createEventHandler('pointerdown', mouseEventProps)(event, d)
+    })
+    .on('mousemove', (event, d) => {
+      createEventHandler('mousemove', mouseEventProps)(event, d)
+    })
+    .on('mouseout', (event, d) => {
+      createEventHandler('mouseout', mouseEventProps)(event, d)
+    })
+    .on('touchstart', (event, d) => {
+      createEventHandler('touchstart', mouseEventProps)(event, d)
+    })
+    .on('pointerup', (event, d) => {
+      if (
+        event.pointerType === 'mouse' &&
+        typeof props.signalListeners.click === 'function'
+      ) {
+        props.signalListeners.click(event, d)
+      }
+    })
 
   if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
     createUnknownLegend(legendGroup, {
