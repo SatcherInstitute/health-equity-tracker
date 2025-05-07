@@ -71,7 +71,7 @@ export default function CHLPMapsModal() {
             width='100%'
             height='100%'
             id='chlpMapsIframe'
-            className='mt-2 flex-grow border-0 bg-standardInfo p-2 md:px-24'
+            className='mt-2 border-0 bg-standardInfo p-2 md:px-24'
           ></iframe>
           <div className='mt-4 text-center'>
             <a

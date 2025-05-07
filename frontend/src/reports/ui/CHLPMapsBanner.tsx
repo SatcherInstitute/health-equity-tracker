@@ -8,9 +8,9 @@ export default function CHLPMapsBanner() {
 
   return (
     <HetNotice
-      className='mx-2 mt-4 mb-2 border-0 bg-teal-100 text-left text-black lg:mt-4 lg:mb-4 lg:ml-2'
+      className='mx-2 mt-4 mb-2 border-0 bg-methodologyGreen text-left text-black lg:mt-4 lg:mb-4 lg:ml-2'
       title='Explore local health resources and community services in your area through our interactive maps'
-      kind='quote'
+      kind='helpful-info'
     >
       <HetLinkButton
         className='font-semibold text-black hover:translate-x-1 hover:transition-transform hover:duration-300'
