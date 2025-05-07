@@ -84,10 +84,10 @@ const handleMouseEvent = (
       if (!d || !props.dataMap) return
       const value = props.dataMap.get(d.id as string)?.value
 
-      d3.select(event.currentTarget).attr(
-        'fill',
-        value !== undefined ? DARK_BLUE : RED_ORANGE,
-      )
+      d3.select(event.currentTarget)
+        .attr('stroke', GEO_HOVERED_BORDER_COLOR)
+        .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
+        .attr('opacity', GEO_HOVERED_OPACITY)
 
       const tooltipHtml = generateTooltipHtml(
         d,
