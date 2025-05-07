@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'vitest'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../../featureFlags'
 import { type DatasetId, DatasetMetadataMap } from './DatasetMetadata'
 import { dataSourceMetadataMap } from './MetadataMap'
 
@@ -30,15 +29,12 @@ describe('Test Data Source IDs', () => {
     const extraIdsFromDatasetMetadaIds = datasetMetadaIds.filter(
       (id) => !uniqueDataSourceMetadataIds.includes(id as DatasetId),
     )
-    if (SHOW_PHRMA_MENTAL_HEALTH)
-      expect(extraIdsFromDatasetMetadaIds).toEqual([])
+    expect(extraIdsFromDatasetMetadaIds).toEqual([])
   })
   test('There are no extra dataSourceMetadataIds', () => {
     const extraIdsFromDataSourceMetadaIds = uniqueDataSourceMetadataIds.filter(
       (id) => !datasetMetadaIds.includes(id as DatasetId),
     )
-
-    if (SHOW_PHRMA_MENTAL_HEALTH)
-      expect(extraIdsFromDataSourceMetadaIds).toEqual([])
+    expect(extraIdsFromDataSourceMetadaIds).toEqual([])
   })
 })
