@@ -112,13 +112,13 @@ export const generateTooltipHtml = (
 
   const exploreText = props.isSummaryLegend
     ? ''
-    : `Click here to explore ${name} ${props.geographyType} →`
+    : `${type === 'mouseover' ? 'Click current region to explore' : 'Explore'} ${name} ${props.geographyType} →`
 
   // Create the HTML for the tooltip
   const tooltipHtml = `
     <div>
       <p class="font-bold">${name} ${props.geographyType}</p>
-      ${exploreText ? `<button class="explore-btn text-sm text-black" data-feature-id="${featureId}">${exploreText}</button>` : ''}
+      ${exploreText ? `<button class="explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
       <hr>
       <div style="text-align: left;">
         <div style="margin-bottom: 4px;">

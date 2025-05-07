@@ -114,6 +114,9 @@ export const renderMap = (props: RenderMapProps) => {
     .on('touchstart', (event: any, d) => {
       createEventHandler('touchstart', mouseEventProps)(event, d)
     })
+    .on('touchend', (event: any, d) => {
+      createEventHandler('touchend', mouseEventProps)(event, d)
+    })
     .on('pointerup', (event: any, d) => {
       if (
         event.pointerType === 'mouse' &&

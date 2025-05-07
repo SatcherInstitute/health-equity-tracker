@@ -73,6 +73,7 @@ export type mouseEventType =
   | 'mouseout'
   | 'mousemove'
   | 'touchstart'
+  | 'touchend'
 
 /**
  * Creates an event handler for a specific mouse event type
@@ -143,6 +144,13 @@ const handleMouseEvent = (
       props.tooltipContainer
         .style('top', `${touchY + TOOLTIP_OFFSET.y}px`)
         .style('left', `${tooltipX}px`)
+      break
+    }
+    case 'touchend': {
+      d3.select(event.currentTarget)
+        .attr('stroke', '')
+        .attr('stroke-width', '')
+        .attr('opacity', 1)
       break
     }
     case 'mousemove': {
