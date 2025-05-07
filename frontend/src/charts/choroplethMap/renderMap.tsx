@@ -99,22 +99,22 @@ export const renderMap = (props: RenderMapProps) => {
     )
     .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
-    .on('mouseover', (event, d) => {
+    .on('mouseover', (event: any, d) => {
       createEventHandler('mouseover', mouseEventProps)(event, d)
     })
-    .on('pointerdown', (event, d) => {
+    .on('pointerdown', (event: any, d) => {
       createEventHandler('pointerdown', mouseEventProps)(event, d)
     })
-    .on('mousemove', (event, d) => {
+    .on('mousemove', (event: any, d) => {
       createEventHandler('mousemove', mouseEventProps)(event, d)
     })
-    .on('mouseout', (event, d) => {
+    .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventProps)(event, d)
     })
-    .on('touchstart', (event, d) => {
+    .on('touchstart', (event: any, d) => {
       createEventHandler('touchstart', mouseEventProps)(event, d)
     })
-    .on('pointerup', (event, d) => {
+    .on('pointerup', (event: any, d) => {
       if (
         event.pointerType === 'mouse' &&
         typeof props.signalListeners.click === 'function'

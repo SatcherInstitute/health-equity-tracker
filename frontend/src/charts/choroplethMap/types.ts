@@ -61,6 +61,7 @@ export interface ChoroplethMapProps {
     subtitle?: string
   }
   isAtlantaMode?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 
 export interface CreateColorScaleProps {
@@ -137,6 +138,7 @@ export type RenderMapProps = {
   signalListeners: any
   isMulti?: boolean
   isSummaryLegend?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 
 type TooltipFeature = {

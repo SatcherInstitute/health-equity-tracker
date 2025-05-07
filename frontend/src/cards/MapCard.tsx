@@ -622,6 +622,7 @@ function MapCardWithKey(props: MapCardProps) {
                       isPhrmaAdherence={isPhrmaAdherence}
                       isAtlantaMode={isAtlantaMode}
                       isSummaryLegend={isSummaryLegend}
+                      updateFipsCallback={props.updateFipsCallback}
                     />
                   </div>
                 </div>

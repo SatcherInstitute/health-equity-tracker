@@ -38,6 +38,7 @@ const ChoroplethMap = ({
   isPhrmaAdherence,
   isAtlantaMode,
   isSummaryLegend,
+  updateFipsCallback,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -150,6 +151,7 @@ const ChoroplethMap = ({
         signalListeners,
         isMulti,
         isSummaryLegend,
+        updateFipsCallback,
       })
 
       setRenderResult(result)

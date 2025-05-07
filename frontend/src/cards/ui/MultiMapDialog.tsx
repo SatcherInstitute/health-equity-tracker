@@ -178,6 +178,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         extremesMode={false}
                         isPhrmaAdherence={props.isPhrmaAdherence}
                         isAtlantaMode={props.isAtlantaMode}
+                        updateFipsCallback={props.updateFipsCallback}
                       />
                     )}
                   </div>

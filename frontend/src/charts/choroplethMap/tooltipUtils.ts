@@ -6,9 +6,13 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import { Fips } from '../../data/utils/Fips'
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
-import type { MetricData } from './types'
+import type {
+  MouseEventHandlerProps,
+  mouseEventType,
+} from './mouseEventHandlers'
 
 const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
@@ -27,6 +31,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
   return d3
     .select('body')
     .append('div')
+    .attr('class', 'tooltip-container')
     .style('position', 'absolute')
     .style('visibility', 'hidden')
     .style('max-width', '40vw')
@@ -80,42 +85,44 @@ export const getTooltipLabel = (
 
 export const generateTooltipHtml = (
   feature: any,
-  dataMap: Map<string, MetricData>,
-  metricConfig: MetricConfig,
-  geographyType: string = '',
-  isSummaryMap: boolean = false,
+  type: mouseEventType,
+  props: MouseEventHandlerProps,
 ) => {
   const name = feature.properties?.name || String(feature.id)
-  const data = dataMap.get(feature.id as string)
+  const data = props.dataMap.get(feature.id as string)
+  const featureId = feature.id
 
   if (!data) {
     return `
       <div>
-        <strong>${name} ${geographyType}</strong><br/>
+        <strong>${name} ${props.geographyType}</strong><br/>
         No data available
       </div>
     `
   }
 
   const entries = Object.entries(data)
-    .filter(([key]) => !(key === 'County SVI' && geographyType !== 'County'))
+    .filter(
+      ([key]) => !(key === 'County SVI' && props.geographyType !== 'County'),
+    )
     .filter(([key]) => key !== 'value')
 
   const [firstLabel, firstValue] = entries[0] ?? ['', 0]
   const remainingEntries = entries.slice(1)
 
-  const exploreText = isSummaryMap
+  const exploreText = props.isSummaryLegend
     ? ''
-    : `Click region to explore map of ${name} ${geographyType.toLowerCase()} →`
+    : `Click here to explore ${name} ${props.geographyType} →`
 
-  return `
+  // Create the HTML for the tooltip
+  const tooltipHtml = `
     <div>
-      <p><span class="font-bold">${name} ${geographyType}</span></p>
-      <p> <span class="text-sm">${exploreText} </span></p>
+      <p class="font-bold">${name} ${props.geographyType}</p>
+      ${exploreText ? `<button class="explore-btn text-sm text-black" data-feature-id="${featureId}">${exploreText}</button>` : ''}
       <hr>
       <div style="text-align: left;">
         <div style="margin-bottom: 4px;">
-          <span style="color: ${borderColor};">${firstLabel}:</span> ${formatMetricValue(firstValue as number, metricConfig)}
+          <span style="color: ${borderColor};">${firstLabel}:</span> ${formatMetricValue(firstValue as number, props.metricConfig)}
         </div>
         ${remainingEntries
           .map(
@@ -126,4 +133,52 @@ export const generateTooltipHtml = (
       </div>
     </div>
   `
+
+  // After the tooltip is added to the DOM, attach click handlers
+  setTimeout(() => {
+    const exploreButtons = document.querySelectorAll(
+      '.tooltip-container .explore-btn',
+    )
+    exploreButtons.forEach((button) => {
+      const btn = button as HTMLButtonElement
+      const featureId = btn.getAttribute('data-feature-id')
+
+      if (featureId && props.updateFipsCallback) {
+        btn.onclick = (e) => {
+          e.preventDefault()
+          props.updateFipsCallback(new Fips(featureId))
+        }
+      }
+    })
+  }, 0)
+
+  return tooltipHtml
+}
+
+/**
+ * Function to replace the number after "-3." in the "mls" query parameter with a given ID
+ * @param {string|number} id - The new ID to replace the existing one
+ * @returns {string} - The updated URL
+ */
+function updateMlsParameterId(id: string | number) {
+  // Get the current URL
+  const currentUrl = new URL(window.location.href)
+
+  // Get the "mls" query parameter value
+  const mlsValue = currentUrl.searchParams.get('mls')
+
+  if (mlsValue) {
+    // Use regex to replace the number after "-3." with the new ID
+    // Pattern: looks for "-3." followed by any number of digits
+    const updatedMlsValue = mlsValue.replace(/-3\.(\d+)/, `-3.${id}`)
+
+    // Set the updated value back to the URL
+    currentUrl.searchParams.set('mls', updatedMlsValue)
+
+    // Return the new URL as a string
+    return currentUrl.toString()
+  }
+
+  // If "mls" parameter wasn't found, return the original URL
+  return currentUrl.toString()
 }
