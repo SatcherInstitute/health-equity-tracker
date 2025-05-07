@@ -18,7 +18,6 @@ export default function HetLazyLoader({
   height,
   className = '',
   placeholder = null,
-  debug = false,
 }: HetLazyLoaderProps) {
   const { ref, inView, entry } = useInView({
     triggerOnce: once,
