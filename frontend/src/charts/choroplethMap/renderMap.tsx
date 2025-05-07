@@ -75,18 +75,21 @@ export const renderMap = (props: RenderMapProps) => {
 
   const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
 
+  // hide tooltip when user clicks outside the map, scrolls, or drags
   const handleInteraction = () => {
     d3.select('.tooltip-container').style('visibility', 'hidden')
   }
 
   // Add event listeners
+  window.addEventListener('wheel', handleInteraction)
   window.addEventListener('click', handleInteraction)
-  // window.addEventListener('touchmove', handleInteraction)
+  window.addEventListener('touchmove', handleInteraction)
 
   // Create a cleanup function for event listeners
   const cleanupEventListeners = () => {
+    window.removeEventListener('wheel', handleInteraction)
     window.removeEventListener('click', handleInteraction)
-    // window.removeEventListener('touchmove', handleInteraction)
+    window.removeEventListener('touchmove', handleInteraction)
   }
 
   // Draw main map
