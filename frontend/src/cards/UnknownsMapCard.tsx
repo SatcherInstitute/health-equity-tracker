@@ -130,6 +130,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
+
+        const isSummaryLegend =
+          mapQueryResponse.data === alertQueryResponse.data
+
         const unknownRaces: HetRow[] = mapQueryResponse
           .getValidRowsForField(demographicType)
           .filter(
@@ -227,6 +231,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
                   isPhrmaAdherence={false}
+                  updateFipsCallback={props.updateFipsCallback}
+                  isSummaryLegend={isSummaryLegend}
                 />
               </div>
             )}

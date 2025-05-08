@@ -61,6 +61,7 @@ export interface ChoroplethMapProps {
     subtitle?: string
   }
   isAtlantaMode?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 
 export interface CreateColorScaleProps {
@@ -136,17 +137,8 @@ export type RenderMapProps = {
   mapConfig: MapConfig
   signalListeners: any
   isMulti?: boolean
-}
-
-export interface MouseEventHandlerProps {
-  colorScale: any
-  metricConfig: MetricConfig
-  dataMap: Map<string, any>
-  tooltipContainer: any
-  geographyType: string
-  isExtremesMode: boolean
-  mapConfig: MapConfig
-  isMultiMap: boolean
+  isSummaryLegend?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 
 /**
@@ -161,4 +153,25 @@ declare global {
       ) => Promise<Uint8Array>
     }
   }
+}
+
+export type MouseEventType =
+  | 'mouseover'
+  | 'pointerdown'
+  | 'mouseout'
+  | 'mousemove'
+  | 'touchstart'
+  | 'touchend'
+
+export interface MouseEventHandlerProps {
+  colorScale: any
+  metricConfig: MetricConfig
+  dataMap: Map<string, any>
+  tooltipContainer: any
+  geographyType: string
+  mapConfig: MapConfig
+  isMultiMap: boolean
+  isSummaryLegend: boolean
+  isExtremesMode: boolean
+  updateFipsCallback: (fips: Fips) => void
 }

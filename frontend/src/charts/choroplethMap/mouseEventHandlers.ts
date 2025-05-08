@@ -1,13 +1,14 @@
 import * as d3 from 'd3'
 import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
-import { generateTooltipHtml } from './tooltipUtils'
-import type { MouseEventHandlerProps } from './types'
-
-const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
-
-// Shared constants
-const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
+import {
+  GEO_HOVERED_BORDER_COLOR,
+  GEO_HOVERED_BORDER_WIDTH,
+  GEO_HOVERED_OPACITY,
+  STROKE_WIDTH,
+} from './mapUtils'
+import { TOOLTIP_OFFSET, generateTooltipHtml } from './tooltipUtils'
+import type { MouseEventHandlerProps, MouseEventType } from './types'
 
 /**
  * Creates MouseEventHandlerProps from component props
@@ -23,10 +24,12 @@ export const createMouseEventProps = (
     metricConfig: props.metricConfig,
     dataMap: dataMap || props.dataMap,
     tooltipContainer: props.tooltipContainer,
-    geographyType: geographyType || props.geographyType,
-    isExtremesMode: props.isExtremesMode,
+    geographyType: geographyType || props.geographyType || '',
     mapConfig: props.mapConfig,
     isMultiMap: props.isMultiMap,
+    isSummaryLegend: props.isSummaryLegend,
+    isExtremesMode: props.isExtremesMode,
+    updateFipsCallback: props.updateFipsCallback,
   }
 }
 
@@ -35,13 +38,14 @@ export const createMouseEventProps = (
  * Works for both regular map areas and territory circles
  */
 export const createEventHandler = (
-  type: 'mouseover' | 'mouseout' | 'mousemove',
+  type: MouseEventType,
   props: MouseEventHandlerProps,
   transformFeature?: (d: any) => any,
 ) => {
-  return (event: any, d: any) => {
+  return (event: PointerEvent, d: any) => {
     // If transformFeature is provided (like for territories), transform the feature
     const featureToUse = transformFeature ? transformFeature(d) : d
+
     handleMouseEvent(type, event, featureToUse, props)
   }
 }
@@ -50,7 +54,7 @@ export const createEventHandler = (
  * Handles mouse events for map elements (both main map and territories)
  */
 const handleMouseEvent = (
-  type: 'mouseover' | 'mouseout' | 'mousemove',
+  type: MouseEventType,
   event: any,
   d: any,
   props: MouseEventHandlerProps,
@@ -59,20 +63,58 @@ const handleMouseEvent = (
 
   switch (type) {
     case 'mouseover': {
+      event.preventDefault()
       if (!d || !props.dataMap) return
-      const value = props.dataMap.get(d.id as string)?.value
 
       d3.select(event.currentTarget)
-        .attr('fill', value !== undefined ? DARK_BLUE : RED_ORANGE)
-        .style('cursor', 'pointer')
+        .attr(
+          'stroke',
+          props.isExtremesMode ? het.altBlack : GEO_HOVERED_BORDER_COLOR,
+        )
+        .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
+        .attr('opacity', GEO_HOVERED_OPACITY)
+        .style('cursor', props.isSummaryLegend ? 'default' : 'pointer')
 
-      const tooltipHtml = generateTooltipHtml(
-        d,
-        props.dataMap,
-        props.metricConfig,
-        props.geographyType,
-      )
+      const tooltipHtml = generateTooltipHtml(d, type, props)
       props.tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
+      break
+    }
+    case 'touchstart': {
+      event.preventDefault()
+
+      d3.select(event.currentTarget)
+        .attr(
+          'stroke',
+          props.isExtremesMode ? het.altBlack : GEO_HOVERED_BORDER_COLOR,
+        )
+        .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
+        .attr('opacity', GEO_HOVERED_OPACITY)
+
+      const tooltipHtml = generateTooltipHtml(d, type, props)
+      props.tooltipContainer.style('visibility', 'visible').html(tooltipHtml)
+
+      // Position the tooltip based on touch position
+      const touchX = event.touches[0].pageX
+      const touchY = event.touches[0].pageY
+      const screenWidth = window.innerWidth
+
+      const tooltipX =
+        touchX > screenWidth / 2
+          ? touchX -
+            TOOLTIP_OFFSET.x -
+            props.tooltipContainer.node()!.getBoundingClientRect().width
+          : touchX + TOOLTIP_OFFSET.x
+
+      props.tooltipContainer
+        .style('top', `${touchY + TOOLTIP_OFFSET.y}px`)
+        .style('left', `${tooltipX}px`)
+      break
+    }
+    case 'touchend': {
+      d3.select(event.currentTarget)
+        .attr('stroke', het.altDark)
+        .attr('stroke-width', STROKE_WIDTH)
+        .attr('opacity', 1)
       break
     }
     case 'mousemove': {
@@ -94,17 +136,21 @@ const handleMouseEvent = (
       break
     }
     case 'mouseout': {
-      d3.select(event.currentTarget).attr(
-        'fill',
-        getFillColor({
-          d,
-          dataMap: props.dataMap,
-          colorScale: props.colorScale,
-          isExtremesMode: props.isExtremesMode,
-          mapConfig: props.mapConfig,
-          isMultiMap: props.isMultiMap,
-        }),
-      )
+      d3.select(event.currentTarget)
+        .attr(
+          'fill',
+          getFillColor({
+            d,
+            dataMap: props.dataMap,
+            colorScale: props.colorScale,
+            isExtremesMode: props.isExtremesMode,
+            mapConfig: props.mapConfig,
+            isMultiMap: props.isMultiMap,
+          }),
+        )
+        .attr('stroke', het.altDark)
+        .attr('stroke-width', STROKE_WIDTH)
+        .attr('opacity', 1)
       props.tooltipContainer.style('visibility', 'hidden').html('')
       break
     }
