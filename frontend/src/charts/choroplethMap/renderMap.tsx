@@ -11,7 +11,7 @@ import {
 import { createUnknownLegend } from './mapLegendUtils'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
-import { getTooltipLabel } from './tooltipUtils'
+import { getTooltipLabel, hideTooltips } from './tooltipUtils'
 import type { InitializeSvgProps, RenderMapProps } from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
@@ -74,11 +74,6 @@ export const renderMap = (props: RenderMapProps) => {
   )
 
   const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
-
-  // hide tooltip when user clicks outside the map, scrolls, or drags
-  const hideTooltips = () => {
-    d3.selectAll('.tooltip-container').style('visibility', 'hidden')
-  }
 
   // Add event listeners
   window.addEventListener('wheel', hideTooltips)

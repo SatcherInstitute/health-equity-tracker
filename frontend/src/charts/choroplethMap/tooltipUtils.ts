@@ -154,3 +154,8 @@ export const generateTooltipHtml = (
 
   return tooltipHtml
 }
+
+// hide tooltip when user clicks outside the map, scrolls, or drags
+export const hideTooltips = () => {
+  d3.selectAll('.tooltip-container').style('visibility', 'hidden')
+}

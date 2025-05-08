@@ -13,6 +13,7 @@ import {
   extractTerritoryData,
 } from './mapTerritoryHelpers'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
+import { hideTooltips } from './tooltipUtils'
 import type { DataPoint } from './types'
 
 const { borderColor: BORDER_GREY, white: WHITE } = het
@@ -100,11 +101,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
     // Clear previous territories
     territoryContainer.selectAll('*').remove()
-
-    // Define hideTooltips function like in regular map
-    const hideTooltips = () => {
-      d3.selectAll('.tooltip-container').style('visibility', 'hidden')
-    }
 
     // Add event listeners for hiding tooltips
     window.addEventListener('wheel', hideTooltips)
