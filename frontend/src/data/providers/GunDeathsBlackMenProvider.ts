@@ -1,5 +1,5 @@
 import { getDataManager } from '../../utils/globals'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
   type MetricQuery,
@@ -7,8 +7,6 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
-
-const GUN_DEATHS_BLACK_MEN_DATATYPES: DataTypeId[] = ['gun_deaths_black_men']
 
 const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
   'gun_homicides_black_men_estimated_total',

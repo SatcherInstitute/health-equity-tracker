@@ -128,7 +128,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
               <TableBody>
                 {table.getRowModel().rows.map((row, rowIndex) => (
                   <TableRow key={row.id}>
-                    {row.getVisibleCells().map((cell, cellIndex) => {
+                    {row.getVisibleCells().map((cell) => {
                       const value = cell.getValue()
 
                       return value == null ? (

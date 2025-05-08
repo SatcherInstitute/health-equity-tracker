@@ -253,7 +253,7 @@ export class Breakdowns {
   // Helper function returning how many demographic breakdowns are currently requested
   demographicBreakdownCount() {
     return Object.entries(this.demographicBreakdowns).filter(
-      ([k, v]) => v.enabled,
+      ([_k, v]) => v.enabled,
     ).length
   }
 
@@ -361,7 +361,7 @@ export class Breakdowns {
   getJoinColumns(): DemographicType[] {
     const joinCols: DemographicType[] = ['fips']
     Object.entries(this.demographicBreakdowns).forEach(
-      ([key, demographicBreakdown]) => {
+      ([_key, demographicBreakdown]) => {
         if (demographicBreakdown.enabled) {
           joinCols.push(demographicBreakdown.columnName)
         }

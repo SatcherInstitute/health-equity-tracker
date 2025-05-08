@@ -277,7 +277,7 @@ export default function Covid19Link() {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={covidDataSources.map((source, index) => ({
+          rows={covidDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

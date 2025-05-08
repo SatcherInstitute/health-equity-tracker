@@ -399,7 +399,7 @@ export default function MedicareMedicationLink() {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={medicareMedicationDataSources.map((source, index) => ({
+          rows={medicareMedicationDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

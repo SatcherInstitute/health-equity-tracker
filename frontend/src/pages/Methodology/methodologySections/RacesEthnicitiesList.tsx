@@ -1,4 +1,3 @@
-import HetDivider from '../../../styles/HetComponents/HetDivider'
 import type { DataItem } from '../methodologyContent/RacesAndEthnicitiesDefinitions'
 
 interface RaceEthnicityListProps {

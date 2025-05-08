@@ -64,10 +64,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     const territorySpacing = territoryRadius * 2.5
 
     // Draw territory circles
-    const territoryData = extractTerritoryData(
-      props.fips.code,
-      props.dataWithHighestLowest,
-    )
+    const territoryData = extractTerritoryData(props.dataWithHighestLowest)
 
     const marginRightForTerrRow = props.isMulti
       ? 10

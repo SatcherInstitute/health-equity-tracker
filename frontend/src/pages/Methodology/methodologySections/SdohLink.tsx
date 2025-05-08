@@ -20,21 +20,6 @@ const sdohDataSources = [
   dataSourceMetadataMap.geo_context,
 ]
 
-// delete this, load from missingDataBlurbs instead
-const missingAhrDataArray = [
-  {
-    id: '',
-    topic: "Missing America's Health Rankings data",
-    definitions: [
-      {
-        key: 'Population data',
-        description:
-          'AHR does not have population data available for: preventable hospitalizations, voter participation, and non-medical drug use. We have chosen not to show any percent share metrics for the measures without population data because the source only provides the metrics as rates. Without population data, it is difficult to accurately calculate Percent share measures, which could potentially result in misleading data.',
-      },
-    ],
-  },
-]
-
 const datatypeConfigs = SDOH_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 })
@@ -90,7 +75,7 @@ function SdohLink() {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={sdohDataSources.map((source, index) => ({
+          rows={sdohDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}
