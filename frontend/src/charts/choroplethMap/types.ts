@@ -150,18 +150,6 @@ type TooltipPairs = {
   [key: string]: (value: number | string | undefined) => string
 }
 
-interface MouseEventHandlerProps {
-  colorScale: ColorScale
-  metricConfig: MetricConfig
-  dataMap: Map<string, MetricData>
-  tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
-  geographyType?: string
-  isExtremesMode?: boolean
-  mapConfig: MapConfig
-  fips?: Fips
-  isPhrmaAdherence: boolean
-}
-
 /**
  * Extended Window interface for file system access
  */
