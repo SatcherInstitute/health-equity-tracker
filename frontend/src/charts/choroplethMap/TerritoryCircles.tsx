@@ -47,6 +47,7 @@ interface TerritoryCirclesProps {
   isMulti?: boolean
   isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   useEffect(() => {
@@ -100,6 +101,16 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     // Clear previous territories
     territoryContainer.selectAll('*').remove()
 
+    // Define hideTooltips function like in regular map
+    const hideTooltips = () => {
+      d3.selectAll('.tooltip-container').style('visibility', 'hidden')
+    }
+
+    // Add event listeners for hiding tooltips
+    window.addEventListener('wheel', hideTooltips)
+    window.addEventListener('click', hideTooltips)
+    window.addEventListener('touchmove', hideTooltips)
+
     // Draw territory circles
     territoryContainer
       .selectAll<SVGCircleElement, any>('circle')
@@ -120,27 +131,47 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       )
       .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
       .attr('stroke-width', STROKE_WIDTH)
-      .on(
-        'mouseover',
+      .on('mouseover', (event: any, d) => {
+        hideTooltips()
         createEventHandler('mouseover', mouseEventProps, (d) =>
           createTerritoryFeature(d.fips),
-        ),
-      )
-      .on(
-        'mousemove',
+        )(event, d)
+      })
+      .on('pointerdown', (event: any, d) => {
+        hideTooltips()
+        createEventHandler('pointerdown', mouseEventProps, (d) =>
+          createTerritoryFeature(d.fips),
+        )(event, d)
+      })
+      .on('mousemove', (event: any, d) => {
         createEventHandler('mousemove', mouseEventProps, (d) =>
           createTerritoryFeature(d.fips),
-        ),
-      )
-      .on(
-        'mouseout',
+        )(event, d)
+      })
+      .on('mouseout', (event: any, d) => {
         createEventHandler('mouseout', mouseEventProps, (d) =>
           createTerritoryFeature(d.fips),
-        ),
-      )
-      .on('click', (event: any, d: any) => {
-        const territoryFeature = createTerritoryFeature(d.fips)
-        props.signalListeners.click(event, territoryFeature)
+        )(event, d)
+      })
+      .on('touchstart', (event: any, d) => {
+        hideTooltips()
+        createEventHandler('touchstart', mouseEventProps, (d) =>
+          createTerritoryFeature(d.fips),
+        )(event, d)
+      })
+      .on('touchend', (event: any, d) => {
+        createEventHandler('touchend', mouseEventProps, (d) =>
+          createTerritoryFeature(d.fips),
+        )(event, d)
+      })
+      .on('pointerup', (event: any, d) => {
+        if (
+          event.pointerType === 'mouse' &&
+          typeof props.signalListeners.click === 'function'
+        ) {
+          const territoryFeature = createTerritoryFeature(d.fips)
+          props.signalListeners.click(event, territoryFeature)
+        }
       })
 
     // Draw territory labels
@@ -153,6 +184,13 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       .attr('text-anchor', 'middle')
       .attr('font-size', '12px')
       .text((d) => TERRITORY_CODES[d.fips] || d.fips)
+
+    // Return cleanup function for event listeners
+    return () => {
+      window.removeEventListener('wheel', hideTooltips)
+      window.removeEventListener('click', hideTooltips)
+      window.removeEventListener('touchmove', hideTooltips)
+    }
   }, [
     // Dependencies that should trigger a re-render of territories
     props.svgRef,

@@ -247,6 +247,7 @@ const ChoroplethMap = ({
           isMulti={isMulti}
           isPhrmaAdherence={isPhrmaAdherence}
           isSummaryLegend={isSummaryLegend}
+          updateFipsCallback={updateFipsCallback}
         />
       )}
     </div>

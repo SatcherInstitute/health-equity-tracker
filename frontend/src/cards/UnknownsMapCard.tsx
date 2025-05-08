@@ -24,7 +24,6 @@ import { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -75,10 +74,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       }
     },
   }
-
-  const isSm = useIsBreakpointAndUp('sm')
-  const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !isSm && !isCompareMode
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
@@ -135,6 +130,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
+
+        const isSummaryLegend =
+          mapQueryResponse.data === alertQueryResponse.data
+
         const unknownRaces: HetRow[] = mapQueryResponse
           .getValidRowsForField(demographicType)
           .filter(
@@ -233,6 +232,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   signalListeners={signalListeners}
                   isPhrmaAdherence={false}
                   updateFipsCallback={props.updateFipsCallback}
+                  isSummaryLegend={isSummaryLegend}
                 />
               </div>
             )}
