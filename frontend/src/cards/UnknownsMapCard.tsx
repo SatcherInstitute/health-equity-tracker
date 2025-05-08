@@ -24,7 +24,6 @@ import { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -75,10 +74,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       }
     },
   }
-
-  const isSm = useIsBreakpointAndUp('sm')
-  const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !isSm && !isCompareMode
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(

@@ -138,25 +138,15 @@ export type RenderMapProps = {
   isMulti?: boolean
 }
 
-type TooltipFeature = {
-  properties: GeoJsonProperties
-  id?: string | number
-}
-
-type TooltipPairs = {
-  [key: string]: (value: number | string | undefined) => string
-}
-
-interface MouseEventHandlerProps {
-  colorScale: ColorScale
+export interface MouseEventHandlerProps {
+  colorScale: any
   metricConfig: MetricConfig
-  dataMap: Map<string, MetricData>
-  tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
-  geographyType?: string
-  isExtremesMode?: boolean
+  dataMap: Map<string, any>
+  tooltipContainer: any
+  geographyType: string
+  isExtremesMode: boolean
   mapConfig: MapConfig
-  fips?: Fips
-  isPhrmaAdherence: boolean
+  isMultiMap: boolean
 }
 
 /**

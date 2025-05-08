@@ -1,30 +1,13 @@
 import * as d3 from 'd3'
-import type {
-  MapConfig,
-  MetricConfig,
-} from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
 import { generateTooltipHtml } from './tooltipUtils'
+import type { MouseEventHandlerProps } from './types'
 
 const { darkBlue: DARK_BLUE, redOrange: RED_ORANGE } = het
 
 // Shared constants
 const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
-
-/**
- * Common interface for mouse event handler properties
- */
-interface MouseEventHandlerProps {
-  colorScale: any
-  metricConfig: MetricConfig
-  dataMap: Map<string, any>
-  tooltipContainer: any
-  geographyType: string
-  isExtremesMode: boolean
-  mapConfig: MapConfig
-  isMultiMap: boolean
-}
 
 /**
  * Creates MouseEventHandlerProps from component props

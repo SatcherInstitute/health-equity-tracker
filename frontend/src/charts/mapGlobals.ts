@@ -13,7 +13,7 @@ const ZERO_SCALE = 'ZERO_SCALE'
 type ScaleType = 'quantile' | 'symlog'
 type StackingDirection = 'horizontal' | 'vertical'
 
-export const RATE_MAP_SCALE: ScaleType = 'quantile'
+const RATE_MAP_SCALE: ScaleType = 'quantile'
 
 const ORDINAL = 'ordinal'
 
