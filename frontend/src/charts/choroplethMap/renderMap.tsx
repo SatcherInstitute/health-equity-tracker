@@ -10,13 +10,12 @@ import {
 } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
 import { TERRITORIES } from './mapTerritoryHelpers'
+import { STROKE_WIDTH } from './mapUtils'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
 import { getTooltipLabel, hideTooltips } from './tooltipUtils'
 import type { InitializeSvgProps, RenderMapProps } from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
-
-const STROKE_WIDTH = 0.5
 const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
 
 export const renderMap = (props: RenderMapProps) => {

@@ -12,14 +12,12 @@ import {
   createTerritoryFeature,
   extractTerritoryData,
 } from './mapTerritoryHelpers'
+import { STROKE_WIDTH } from './mapUtils'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
 import { hideTooltips } from './tooltipUtils'
 import type { DataPoint } from './types'
 
 const { borderColor: BORDER_GREY, white: WHITE } = het
-
-const STROKE_WIDTH = 0.5
-const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 const TERRITORIES_CONFIG = {
   radius: 16,
@@ -83,31 +81,22 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
     const territoryX = (i: number) => territoryStartX + i * territorySpacing
 
-    // Get SVG selection
     const svg = d3.select(props.svgRef.current)
-
-    // Check if territory container exists
     let territoryContainer = svg.select<SVGGElement>('.territory-container')
-
-    // If it doesn't exist, create it
     if (territoryContainer.empty()) {
       territoryContainer = svg
         .append<SVGGElement>('g')
         .attr('class', 'territory-container')
     }
 
-    // Set the transform
     territoryContainer.attr('transform', `translate(0, ${props.mapHeight})`)
-
-    // Clear previous territories
     territoryContainer.selectAll('*').remove()
 
-    // Add event listeners for hiding tooltips
     window.addEventListener('wheel', hideTooltips)
     window.addEventListener('click', hideTooltips)
     window.addEventListener('touchmove', hideTooltips)
 
-    // Draw territory circles
+    // Draw territory circles with click handlers
     territoryContainer
       .selectAll<SVGCircleElement, any>('circle')
       .data(territoryData)

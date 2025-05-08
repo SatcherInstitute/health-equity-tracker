@@ -20,10 +20,6 @@ const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 // Shared constants
 export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
-export const GEO_HOVERED_OPACITY = 0.5
-export const GEO_HOVERED_BORDER_COLOR = het.white
-export const GEO_HOVERED_BORDER_WIDTH = 2
-
 export const createTooltipContainer = (isMulti?: boolean) => {
   const tooltipZnumber = isMulti ? multimapModalTooltip : mapTooltip
   const tooltipZIndex = tooltipZnumber.toString()

@@ -9,9 +9,8 @@ import {
   GEO_HOVERED_BORDER_COLOR,
   GEO_HOVERED_BORDER_WIDTH,
   GEO_HOVERED_OPACITY,
-  TOOLTIP_OFFSET,
-  generateTooltipHtml,
-} from './tooltipUtils'
+} from './mapUtils'
+import { TOOLTIP_OFFSET, generateTooltipHtml } from './tooltipUtils'
 
 /**
  * Common interface for mouse event handler properties
