@@ -111,7 +111,10 @@ const handleMouseEvent = (
       event.preventDefault()
 
       d3.select(event.currentTarget)
-        .attr('stroke', GEO_HOVERED_BORDER_COLOR)
+        .attr(
+          'stroke',
+          props.isExtremesMode ? het.altBlack : GEO_HOVERED_BORDER_COLOR,
+        )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', GEO_HOVERED_OPACITY)
 
@@ -137,8 +140,8 @@ const handleMouseEvent = (
     }
     case 'touchend': {
       d3.select(event.currentTarget)
-        .attr('stroke', '')
-        .attr('stroke-width', '')
+        .attr('stroke', het.altDark)
+        .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       break
     }
