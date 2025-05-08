@@ -122,7 +122,6 @@ export const renderMap = (props: RenderMapProps) => {
     })
     .on('pointerdown', (event: any, d) => {
       hideTooltips()
-
       createEventHandler('pointerdown', mouseEventProps)(event, d)
     })
     .on('mousemove', (event: any, d) => {
@@ -133,7 +132,6 @@ export const renderMap = (props: RenderMapProps) => {
     })
     .on('touchstart', (event: any, d) => {
       hideTooltips()
-
       createEventHandler('touchstart', mouseEventProps)(event, d)
     })
     .on('touchend', (event: any, d) => {
