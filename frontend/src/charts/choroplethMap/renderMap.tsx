@@ -76,20 +76,20 @@ export const renderMap = (props: RenderMapProps) => {
   const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
 
   // hide tooltip when user clicks outside the map, scrolls, or drags
-  const handleInteraction = () => {
+  const hideTooltips = () => {
     d3.selectAll('.tooltip-container').style('visibility', 'hidden')
   }
 
   // Add event listeners
-  window.addEventListener('wheel', handleInteraction)
-  window.addEventListener('click', handleInteraction)
-  window.addEventListener('touchmove', handleInteraction)
+  window.addEventListener('wheel', hideTooltips)
+  window.addEventListener('click', hideTooltips)
+  window.addEventListener('touchmove', hideTooltips)
 
   // Create a cleanup function for event listeners
   const cleanupEventListeners = () => {
-    window.removeEventListener('wheel', handleInteraction)
-    window.removeEventListener('click', handleInteraction)
-    window.removeEventListener('touchmove', handleInteraction)
+    window.removeEventListener('wheel', hideTooltips)
+    window.removeEventListener('click', hideTooltips)
+    window.removeEventListener('touchmove', hideTooltips)
   }
 
   // Draw main map
@@ -117,9 +117,12 @@ export const renderMap = (props: RenderMapProps) => {
     .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
+      hideTooltips()
       createEventHandler('mouseover', mouseEventProps)(event, d)
     })
     .on('pointerdown', (event: any, d) => {
+      hideTooltips()
+
       createEventHandler('pointerdown', mouseEventProps)(event, d)
     })
     .on('mousemove', (event: any, d) => {
@@ -129,6 +132,8 @@ export const renderMap = (props: RenderMapProps) => {
       createEventHandler('mouseout', mouseEventProps)(event, d)
     })
     .on('touchstart', (event: any, d) => {
+      hideTooltips()
+
       createEventHandler('touchstart', mouseEventProps)(event, d)
     })
     .on('touchend', (event: any, d) => {
