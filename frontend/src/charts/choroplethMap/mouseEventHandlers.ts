@@ -21,7 +21,7 @@ interface MouseEventHandlerProps {
   dataMap: Map<string, any>
   tooltipContainer: any
   geographyType: string
-  extremesMode: boolean
+  isExtremesMode: boolean
   mapConfig: MapConfig
   isMultiMap: boolean
 }
@@ -41,7 +41,7 @@ export const createMouseEventProps = (
     dataMap: dataMap || props.dataMap,
     tooltipContainer: props.tooltipContainer,
     geographyType: geographyType || props.geographyType,
-    extremesMode: props.extremesMode,
+    isExtremesMode: props.isExtremesMode,
     mapConfig: props.mapConfig,
     isMultiMap: props.isMultiMap,
   }
@@ -117,7 +117,7 @@ const handleMouseEvent = (
           d,
           dataMap: props.dataMap,
           colorScale: props.colorScale,
-          extremesMode: props.extremesMode,
+          isExtremesMode: props.isExtremesMode,
           mapConfig: props.mapConfig,
           isMultiMap: props.isMultiMap,
         }),

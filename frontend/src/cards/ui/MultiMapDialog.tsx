@@ -175,7 +175,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         signalListeners={multimapSignalListeners}
                         mapConfig={mapConfig}
                         isMulti={true}
-                        extremesMode={false}
+                        isExtremesMode={false}
                         isPhrmaAdherence={props.isPhrmaAdherence}
                         isAtlantaMode={props.isAtlantaMode}
                       />
