@@ -145,7 +145,8 @@ export const createColorScale = (props: CreateColorScaleProps) => {
 }
 
 export const getFillColor = (props: GetFillColorProps): string => {
-  const { d, dataMap, mapConfig, extremesMode, colorScale, isMultiMap } = props
+  const { d, dataMap, mapConfig, isExtremesMode, colorScale, isMultiMap } =
+    props
 
   if (!isMultiMap && dataMap.size === 1) return mapConfig.mid
 
@@ -159,5 +160,5 @@ export const getFillColor = (props: GetFillColorProps): string => {
     return colorScale(value)
   }
 
-  return extremesMode ? WHITE : ALT_GREY
+  return isExtremesMode ? WHITE : ALT_GREY
 }

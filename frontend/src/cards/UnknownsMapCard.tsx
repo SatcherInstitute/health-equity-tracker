@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router'
 import ChoroplethMap from '../charts/choroplethMap/index'
-import type { DataPoint } from '../charts/choroplethMap/types'
 import { MAP_SCHEMES } from '../charts/mapGlobals'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type {
@@ -222,7 +221,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   countColsMap={{}}
                   data={unknowns}
                   demographicType={demographicType}
-                  extremesMode={false}
+                  isExtremesMode={false}
                   filename={chartTitle}
                   fips={props.fips}
                   geoData={geoData}

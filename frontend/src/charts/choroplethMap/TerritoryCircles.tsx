@@ -40,7 +40,7 @@ interface TerritoryCirclesProps {
   dataMap: Map<string, any>
   tooltipContainer: any
   geographyType: string
-  extremesMode: boolean
+  isExtremesMode: boolean
   mapConfig: MapConfig
   signalListeners: any
   isMobile: boolean
@@ -112,12 +112,12 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           d: createTerritoryFeature(d.fips),
           dataMap: props.dataMap,
           colorScale: props.colorScale,
-          extremesMode: props.extremesMode,
+          isExtremesMode: props.isExtremesMode,
           mapConfig: props.mapConfig,
           isMultiMap: props.isMulti,
         }),
       )
-      .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
+      .attr('stroke', props.isExtremesMode ? BORDER_GREY : WHITE)
       .attr('stroke-width', STROKE_WIDTH)
       .on(
         'mouseover',
@@ -161,7 +161,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     props.dataWithHighestLowest,
     props.dataMap,
     props.colorScale,
-    props.extremesMode,
+    props.isExtremesMode,
     props.mapConfig,
     props.isPhrmaAdherence,
     props.signalListeners,
