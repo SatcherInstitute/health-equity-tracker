@@ -9,10 +9,7 @@ import type { DemographicType } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
-import type {
-  MouseEventHandlerProps,
-  mouseEventType,
-} from './mouseEventHandlers'
+import type { MouseEventHandlerProps, MouseEventType } from './types'
 
 const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
@@ -81,7 +78,7 @@ export const getTooltipLabel = (
 
 export const generateTooltipHtml = (
   feature: any,
-  type: mouseEventType,
+  type: MouseEventType,
   props: MouseEventHandlerProps,
 ) => {
   const name = feature.properties?.name || String(feature.id)

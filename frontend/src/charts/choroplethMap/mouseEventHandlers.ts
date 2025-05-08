@@ -1,9 +1,4 @@
 import * as d3 from 'd3'
-import type {
-  MapConfig,
-  MetricConfig,
-} from '../../data/config/MetricConfigTypes'
-import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
 import {
@@ -13,22 +8,7 @@ import {
   STROKE_WIDTH,
 } from './mapUtils'
 import { TOOLTIP_OFFSET, generateTooltipHtml } from './tooltipUtils'
-
-/**
- * Common interface for mouse event handler properties
- */
-export interface MouseEventHandlerProps {
-  colorScale: any
-  metricConfig: MetricConfig
-  dataMap: Map<string, any>
-  tooltipContainer: any
-  geographyType: string
-  mapConfig: MapConfig
-  isMultiMap: boolean
-  isSummaryLegend: boolean
-  isExtremesMode: boolean
-  updateFipsCallback: (fips: Fips) => void
-}
+import type { MouseEventHandlerProps, MouseEventType } from './types'
 
 /**
  * Creates MouseEventHandlerProps from component props
@@ -53,20 +33,12 @@ export const createMouseEventProps = (
   }
 }
 
-export type mouseEventType =
-  | 'mouseover'
-  | 'pointerdown'
-  | 'mouseout'
-  | 'mousemove'
-  | 'touchstart'
-  | 'touchend'
-
 /**
  * Creates an event handler for a specific mouse event type
  * Works for both regular map areas and territory circles
  */
 export const createEventHandler = (
-  type: mouseEventType,
+  type: MouseEventType,
   props: MouseEventHandlerProps,
   transformFeature?: (d: any) => any,
 ) => {
@@ -82,7 +54,7 @@ export const createEventHandler = (
  * Handles mouse events for map elements (both main map and territories)
  */
 const handleMouseEvent = (
-  type: mouseEventType,
+  type: MouseEventType,
   event: any,
   d: any,
   props: MouseEventHandlerProps,

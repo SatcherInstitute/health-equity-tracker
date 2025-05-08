@@ -175,3 +175,24 @@ declare global {
     }
   }
 }
+
+export type MouseEventType =
+  | 'mouseover'
+  | 'pointerdown'
+  | 'mouseout'
+  | 'mousemove'
+  | 'touchstart'
+  | 'touchend'
+
+export interface MouseEventHandlerProps {
+  colorScale: any
+  metricConfig: MetricConfig
+  dataMap: Map<string, any>
+  tooltipContainer: any
+  geographyType: string
+  mapConfig: MapConfig
+  isMultiMap: boolean
+  isSummaryLegend: boolean
+  isExtremesMode: boolean
+  updateFipsCallback: (fips: Fips) => void
+}
