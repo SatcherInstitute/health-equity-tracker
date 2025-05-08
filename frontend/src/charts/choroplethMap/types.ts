@@ -141,15 +141,6 @@ export type RenderMapProps = {
   updateFipsCallback: (fips: Fips) => void
 }
 
-type TooltipFeature = {
-  properties: GeoJsonProperties
-  id?: string | number
-}
-
-type TooltipPairs = {
-  [key: string]: (value: number | string | undefined) => string
-}
-
 /**
  * Extended Window interface for file system access
  */
