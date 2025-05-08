@@ -119,7 +119,7 @@ function MapCardWithKey(props: MapCardProps) {
     ? EXTREMES_2_PARAM_KEY
     : EXTREMES_1_PARAM_KEY
 
-  const [isExtremesMode, setExtremesMode] = useParamState<boolean>(
+  const [isExtremesMode, setIsExtremesMode] = useParamState<boolean>(
     extremesParamsKey,
     false,
   )
@@ -461,7 +461,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         const mapConfig = props.dataTypeConfig.mapConfig
 
-        if (dataForActiveDemographicGroup?.length <= 1) setExtremesMode(false)
+        if (dataForActiveDemographicGroup?.length <= 1) setIsExtremesMode(false)
 
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
@@ -574,7 +574,7 @@ function MapCardWithKey(props: MapCardProps) {
                       isExtremesMode ? (
                         <HetLinkButton
                           buttonClassName='py-0 mx-0'
-                          onClick={() => setExtremesMode(false)}
+                          onClick={() => setIsExtremesMode(false)}
                         >
                           Reset to show all {pluralChildFips}
                         </HetLinkButton>
@@ -670,7 +670,7 @@ function MapCardWithKey(props: MapCardProps) {
                       selectedRaceSuffix={selectedRaceSuffix}
                       metricConfig={metricConfig}
                       isOpen={isExtremesMode}
-                      setIsOpen={setExtremesMode}
+                      setIsOpen={setIsExtremesMode}
                       highestValues={highestValues}
                       lowestValues={lowestValues}
                       parentGeoQueryResponse={parentGeoQueryResponse}
