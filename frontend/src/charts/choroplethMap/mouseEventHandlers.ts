@@ -4,11 +4,13 @@ import type {
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
 import type { Fips } from '../../data/utils/Fips'
+import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
   GEO_HOVERED_BORDER_WIDTH,
   GEO_HOVERED_OPACITY,
+  STROKE_WIDTH,
 } from './mapUtils'
 import { TOOLTIP_OFFSET, generateTooltipHtml } from './tooltipUtils'
 
@@ -21,10 +23,10 @@ export interface MouseEventHandlerProps {
   dataMap: Map<string, any>
   tooltipContainer: any
   geographyType: string
-  extremesMode: boolean
   mapConfig: MapConfig
   isMultiMap: boolean
   isSummaryLegend: boolean
+  isExtremesMode: boolean
   updateFipsCallback: (fips: Fips) => void
 }
 
@@ -43,10 +45,10 @@ export const createMouseEventProps = (
     dataMap: dataMap || props.dataMap,
     tooltipContainer: props.tooltipContainer,
     geographyType: geographyType || props.geographyType || '',
-    extremesMode: props.extremesMode,
     mapConfig: props.mapConfig,
     isMultiMap: props.isMultiMap,
     isSummaryLegend: props.isSummaryLegend,
+    isExtremesMode: props.isExtremesMode,
     updateFipsCallback: props.updateFipsCallback,
   }
 }
@@ -93,7 +95,10 @@ const handleMouseEvent = (
       if (!d || !props.dataMap) return
 
       d3.select(event.currentTarget)
-        .attr('stroke', GEO_HOVERED_BORDER_COLOR)
+        .attr(
+          'stroke',
+          props.isExtremesMode ? het.altBlack : GEO_HOVERED_BORDER_COLOR,
+        )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', GEO_HOVERED_OPACITY)
         .style('cursor', props.isSummaryLegend ? 'default' : 'pointer')
@@ -163,13 +168,13 @@ const handleMouseEvent = (
             d,
             dataMap: props.dataMap,
             colorScale: props.colorScale,
-            extremesMode: props.extremesMode,
+            isExtremesMode: props.isExtremesMode,
             mapConfig: props.mapConfig,
             isMultiMap: props.isMultiMap,
           }),
         )
-        .attr('stroke', '')
-        .attr('stroke-width', '')
+        .attr('stroke', het.altDark)
+        .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       props.tooltipContainer.style('visibility', 'hidden').html('')
       break

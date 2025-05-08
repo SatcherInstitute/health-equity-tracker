@@ -37,7 +37,7 @@ export interface ChoroplethMapProps {
   countColsMap: CountColsMap
   demographicType: DemographicType
   data: Array<Record<string, any>>
-  extremesMode: boolean
+  isExtremesMode: boolean
   fips: Fips
   fieldRange?: FieldRange
   filename?: string
@@ -92,7 +92,7 @@ export type GetFillColorProps = {
   dataMap: Map<string, MetricData>
   colorScale: ColorScale
   mapConfig: MapConfig
-  extremesMode?: boolean
+  isExtremesMode?: boolean
   isMultiMap?: boolean
 }
 
@@ -133,7 +133,7 @@ export type RenderMapProps = {
   fips: Fips
   isMobile: boolean
   isCawp: boolean
-  extremesMode: boolean
+  isExtremesMode: boolean
   mapConfig: MapConfig
   signalListeners: any
   isMulti?: boolean
@@ -156,7 +156,7 @@ interface MouseEventHandlerProps {
   dataMap: Map<string, MetricData>
   tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
   geographyType?: string
-  extremesMode?: boolean
+  isExtremesMode?: boolean
   mapConfig: MapConfig
   fips?: Fips
   isPhrmaAdherence: boolean

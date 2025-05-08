@@ -119,7 +119,7 @@ function MapCardWithKey(props: MapCardProps) {
     ? EXTREMES_2_PARAM_KEY
     : EXTREMES_1_PARAM_KEY
 
-  const [extremesMode, setExtremesMode] = useParamState<boolean>(
+  const [isExtremesMode, setExtremesMode] = useParamState<boolean>(
     extremesParamsKey,
     false,
   )
@@ -267,7 +267,8 @@ function MapCardWithKey(props: MapCardProps) {
   )
   const pluralChildFips =
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-  if (extremesMode) subtitle += ` (only ${pluralChildFips} with rate extremes)`
+  if (isExtremesMode)
+    subtitle += ` (only ${pluralChildFips} with rate extremes)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   return (
@@ -278,7 +279,7 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
-      expanded={extremesMode}
+      expanded={isExtremesMode}
       isCompareCard={props.isCompareCard}
       className={props.className}
     >
@@ -448,7 +449,7 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, groupCode)
         }
 
-        const displayData = extremesMode
+        const displayData = isExtremesMode
           ? highestValues.concat(lowestValues)
           : dataForActiveDemographicGroup
 
@@ -570,7 +571,7 @@ function MapCardWithKey(props: MapCardProps) {
                     title={title}
                     subtitle={subtitle}
                     filterButton={
-                      extremesMode ? (
+                      isExtremesMode ? (
                         <HetLinkButton
                           buttonClassName='py-0 mx-0'
                           onClick={() => setExtremesMode(false)}
@@ -580,7 +581,7 @@ function MapCardWithKey(props: MapCardProps) {
                       ) : null
                     }
                   />
-                  {isGeorgiaWithCountyData && !extremesMode && (
+                  {isGeorgiaWithCountyData && !isExtremesMode && (
                     <HetLinkButton
                       onClick={() => setIsAtlantaMode(!isAtlantaMode)}
                       className='flex items-center'
@@ -609,10 +610,10 @@ function MapCardWithKey(props: MapCardProps) {
                       fips={props.fips}
                       geoData={geoData}
                       hideLegend={true}
-                      hideMissingDataTooltip={extremesMode}
+                      hideMissingDataTooltip={isExtremesMode}
                       legendData={dataForActiveDemographicGroup}
                       legendTitle={metricConfig.shortLabel.toLowerCase()}
-                      extremesMode={extremesMode}
+                      isExtremesMode={isExtremesMode}
                       metricConfig={metricConfig}
                       showCounties={
                         !props.fips.isUsa() && !hasSelfButNotChildGeoData
@@ -668,7 +669,7 @@ function MapCardWithKey(props: MapCardProps) {
                       dataTypeConfig={props.dataTypeConfig}
                       selectedRaceSuffix={selectedRaceSuffix}
                       metricConfig={metricConfig}
-                      isOpen={extremesMode}
+                      isOpen={isExtremesMode}
                       setIsOpen={setExtremesMode}
                       highestValues={highestValues}
                       lowestValues={lowestValues}

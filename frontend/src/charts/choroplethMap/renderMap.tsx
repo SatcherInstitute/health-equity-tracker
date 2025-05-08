@@ -103,12 +103,12 @@ export const renderMap = (props: RenderMapProps) => {
         d,
         dataMap,
         colorScale: props.colorScale,
-        extremesMode: props.extremesMode,
+        isExtremesMode: props.isExtremesMode,
         mapConfig: props.mapConfig,
         isMultiMap: props.isMulti,
       }),
     )
-    .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke', props.isExtremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()

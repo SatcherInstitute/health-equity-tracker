@@ -220,7 +220,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   countColsMap={{}}
                   data={unknowns}
                   demographicType={demographicType}
-                  extremesMode={false}
+                  isExtremesMode={false}
                   filename={chartTitle}
                   fips={props.fips}
                   geoData={geoData}

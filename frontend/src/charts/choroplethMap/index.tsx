@@ -30,7 +30,7 @@ const ChoroplethMap = ({
   countColsMap,
   isUnknownsMap = false,
   isMulti,
-  extremesMode,
+  isExtremesMode,
   mapConfig,
   signalListeners,
   filename,
@@ -169,7 +169,7 @@ const ChoroplethMap = ({
         isCawp,
         countColsMap,
         isUnknownsMap,
-        extremesMode,
+        isExtremesMode,
         mapConfig,
         signalListeners,
         isMulti,
@@ -213,7 +213,7 @@ const ChoroplethMap = ({
     countColsMap,
     isUnknownsMap,
     signalListeners,
-    extremesMode,
+    isExtremesMode,
     isSummaryLegend,
   ])
 
@@ -240,7 +240,7 @@ const ChoroplethMap = ({
           dataMap={renderResult.dataMap}
           tooltipContainer={tooltipContainerRef.current}
           geographyType={getCountyAddOn(fips, showCounties)}
-          extremesMode={extremesMode}
+          isExtremesMode={isExtremesMode}
           mapConfig={mapConfig}
           signalListeners={signalListeners}
           isMobile={isMobile}
