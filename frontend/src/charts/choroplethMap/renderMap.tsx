@@ -77,7 +77,7 @@ export const renderMap = (props: RenderMapProps) => {
 
   // hide tooltip when user clicks outside the map, scrolls, or drags
   const handleInteraction = () => {
-    d3.select('.tooltip-container').style('visibility', 'hidden')
+    d3.selectAll('.tooltip-container').style('visibility', 'hidden')
   }
 
   // Add event listeners

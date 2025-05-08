@@ -71,6 +71,29 @@ const ChoroplethMap = ({
     [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMulti],
   )
 
+  const colorScale = useMemo(() => {
+    return createColorScale({
+      data: legendData || dataWithHighestLowest,
+      metricId: metricConfig.metricId,
+      colorScheme: mapConfig.scheme,
+      isUnknown: isUnknownsMap,
+      fips,
+      reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
+      isPhrmaAdherence,
+      mapConfig,
+    })
+  }, [
+    legendData,
+    dataWithHighestLowest,
+    metricConfig.metricId,
+    mapConfig.scheme,
+    isUnknownsMap,
+    fips,
+    mapConfig.higherIsBetter,
+    isPhrmaAdherence,
+    mapConfig,
+  ])
+
   const dimensions = useMemo(() => {
     const heightWidthRatio = HEIGHT_WIDTH_RATIO
     return {
@@ -114,17 +137,6 @@ const ChoroplethMap = ({
       }
 
       tooltipContainerRef.current ??= createTooltipContainer(isMulti)
-
-      const colorScale = createColorScale({
-        data: legendData || dataWithHighestLowest,
-        metricId: metricConfig.metricId,
-        colorScheme: mapConfig.scheme,
-        isUnknown: isUnknownsMap,
-        fips,
-        reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-        isPhrmaAdherence,
-        mapConfig,
-      })
 
       const features = await createFeatures(
         showCounties,
@@ -223,16 +235,7 @@ const ChoroplethMap = ({
           mapHeight={renderResult.mapHeight}
           fips={fips}
           dataWithHighestLowest={dataWithHighestLowest}
-          colorScale={createColorScale({
-            data: legendData || dataWithHighestLowest,
-            metricId: metricConfig.metricId,
-            colorScheme: mapConfig.scheme,
-            isUnknown: isUnknownsMap,
-            fips,
-            reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-            isPhrmaAdherence,
-            mapConfig,
-          })}
+          colorScale={colorScale}
           metricConfig={metricConfig}
           dataMap={renderResult.dataMap}
           tooltipContainer={tooltipContainerRef.current}
