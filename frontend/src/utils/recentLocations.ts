@@ -1,6 +1,6 @@
 import { Fips } from '../data/utils/Fips'
 
-const RECENT_LOCATIONS_KEY = 'recent_locations'
+const RECENT_LOCATIONS_KEY = 'Recent'
 const MAX_RECENT_LOCATIONS = 5
 
 export function getRecentLocations(): Fips[] {

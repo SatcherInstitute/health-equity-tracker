@@ -21,10 +21,8 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const popover = usePopover()
   const dropdownTarget = `${props.newValue}-dropdown-fips`
 
-  // Get recent locations
   const recentLocations = getRecentLocations()
 
-  // Get all available options
   const allOptions = Object.keys(props.phraseSegment)
     .sort((a: string, b: string) => {
       if (a.length === b.length) {
@@ -34,18 +32,14 @@ export default function LocationSelector(props: LocationSelectorProps) {
     })
     .map((fipsCode) => new Fips(fipsCode))
 
-  // Filter out recent locations from all options to avoid duplicates
   const filteredOptions = allOptions.filter(
     (option) => !recentLocations.some((recent) => recent.code === option.code),
   )
 
-  // Combine recent locations with filtered options
   const options = [...recentLocations, ...filteredOptions]
 
   const handleOptionUpdate = (newValue: string) => {
-    // Add the selected location to recent locations
     addRecentLocation(new Fips(newValue))
-    // Call the original onOptionUpdate
     props.onOptionUpdate(newValue)
   }
 

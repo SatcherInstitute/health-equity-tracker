@@ -14,7 +14,7 @@ interface HetLocationSearchProps {
   recentLocations: Fips[]
 }
 
-type GroupKey = 'recent_locations' | 'National' | 'States' | 'Territories'
+type GroupKey = 'Recent' | 'National' | 'States' | 'Territories'
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
   function handleUsaButton() {
@@ -42,14 +42,14 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
   const sortedOptions = useMemo(() => {
     const getGroup = (option: Fips): string => {
       if (props.recentLocations.some((recent) => recent.code === option.code)) {
-        return 'recent_locations'
+        return 'Recent'
       }
       return option.getFipsCategory()
     }
 
     // Define the order of groups
     const groupOrder: Record<GroupKey, number> = {
-      recent_locations: 0,
+      Recent: 0,
       National: 1,
       States: 2,
       Territories: 3,
@@ -93,7 +93,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           if (
             props.recentLocations.some((recent) => recent.code === option.code)
           ) {
-            return 'recent_locations' // Use a unique key for recent locations
+            return 'Recent' // Use a unique key for recent locations
           }
           return option.getFipsCategory()
         }}
@@ -130,11 +130,9 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           <div key={params.group}>
             <ListSubheader className='flex items-center justify-between'>
               <span>
-                {params.group === 'recent_locations'
-                  ? 'Recent Locations'
-                  : params.group}
+                {params.group === 'Recent' ? 'Recent Locations' : params.group}
               </span>
-              {params.group === 'recent_locations' &&
+              {params.group === 'Recent' &&
                 props.recentLocations.length > 0 && (
                   <HetClearButton onClick={handleClearRecent} />
                 )}
