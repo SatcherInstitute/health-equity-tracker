@@ -32,3 +32,11 @@ export function addRecentLocation(fips: Fips) {
     console.error('Error saving recent location:', e)
   }
 }
+
+export function clearRecentLocations() {
+  try {
+    localStorage.removeItem(RECENT_LOCATIONS_KEY)
+  } catch (e) {
+    console.error('Error clearing recent locations:', e)
+  }
+}

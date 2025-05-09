@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
+import { clearRecentLocations } from '../../utils/recentLocations'
 
 interface HetLocationSearchProps {
   options: Fips[]
@@ -71,6 +72,11 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
     })
   }, [props.options, props.recentLocations])
 
+  const handleClearRecent = () => {
+    clearRecentLocations()
+    props.popover.close()
+  }
+
   return (
     <div className='p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
@@ -121,10 +127,22 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         }}
         renderGroup={(params) => (
           <div key={params.group}>
-            <ListSubheader>
-              {params.group === 'recent_locations'
-                ? 'Recent Locations'
-                : params.group}
+            <ListSubheader className='flex items-center justify-between'>
+              <span>
+                {params.group === 'recent_locations'
+                  ? 'Recent Locations'
+                  : params.group}
+              </span>
+              {params.group === 'recent_locations' &&
+                props.recentLocations.length > 0 && (
+                  <button
+                    type='button'
+                    onClick={handleClearRecent}
+                    className='cursor-pointer border-0 bg-transparent text-altDark text-smallest hover:underline'
+                  >
+                    Clear
+                  </button>
+                )}
             </ListSubheader>
             {params.children}
           </div>
