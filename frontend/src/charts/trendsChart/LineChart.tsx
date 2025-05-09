@@ -52,32 +52,33 @@ export function LineChart({
 
   // Helper function to split data into consecutive segments
   const splitIntoConsecutiveSegments = (points: [string, number][]) => {
-    const validPoints = points.filter(
+    // Sort points by date first
+    const sortedPoints = [...points].sort(
+      (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime(),
+    )
+
+    // Filter out invalid points after sorting
+    const validPoints = sortedPoints.filter(
       ([date, amount]) => date != null && amount != null,
     )
 
     if (validPoints.length <= 1) return [validPoints]
 
-    // Sort points by date
-    const sortedPoints = [...validPoints].sort(
-      (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime(),
-    )
-
     const segments: [string, number][][] = []
-    let currentSegment: [string, number][] = [sortedPoints[0]]
+    let currentSegment: [string, number][] = [validPoints[0]]
 
-    for (let i = 1; i < sortedPoints.length; i++) {
-      const prevDate = new Date(sortedPoints[i - 1][0])
-      const currDate = new Date(sortedPoints[i][0])
+    for (let i = 1; i < validPoints.length; i++) {
+      const prevDate = new Date(validPoints[i - 1][0])
+      const currDate = new Date(validPoints[i][0])
       const yearDiff = currDate.getFullYear() - prevDate.getFullYear()
 
       if (yearDiff <= 1) {
         // Points are consecutive, add to current segment
-        currentSegment.push(sortedPoints[i])
+        currentSegment.push(validPoints[i])
       } else {
         // Points are not consecutive, start new segment
         segments.push(currentSegment)
-        currentSegment = [sortedPoints[i]]
+        currentSegment = [validPoints[i]]
       }
     }
 
