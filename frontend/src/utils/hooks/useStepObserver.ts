@@ -2,12 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
 
-interface StepData {
-  label: string
-  hashId: ScrollableHashId
-  pluralOnCompare: boolean
-}
-
 export type ScrollableHashId =
   | 'rate-map'
   | 'rates-over-time'

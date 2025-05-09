@@ -74,12 +74,6 @@ export function autoInitGlobals() {
   initGlobals(environment, logger, dataFetcher, cache)
 }
 
-function getEnvironment(): Environment {
-  assertInitialized()
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return globals.environment!
-}
-
 export function getLogger(): Logger {
   assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

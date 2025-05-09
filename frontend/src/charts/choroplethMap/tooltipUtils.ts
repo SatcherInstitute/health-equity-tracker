@@ -6,12 +6,16 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import { Fips } from '../../data/utils/Fips'
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
-import type { MetricData } from './types'
+import type { MouseEventHandlerProps, MouseEventType } from './types'
 
 const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
+
+// Shared constants
+export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 export const createTooltipContainer = (isMulti?: boolean) => {
   const tooltipZnumber = isMulti ? multimapModalTooltip : mapTooltip
@@ -20,8 +24,10 @@ export const createTooltipContainer = (isMulti?: boolean) => {
   return d3
     .select('body')
     .append('div')
+    .attr('class', 'tooltip-container')
     .style('position', 'absolute')
     .style('visibility', 'hidden')
+    .style('max-width', '40vw')
     .style('background-color', WHITE)
     .style('border', `1px solid ${BORDER_GREY}`)
     .style('border-radius', '4px')
@@ -72,43 +78,77 @@ export const getTooltipLabel = (
 
 export const generateTooltipHtml = (
   feature: any,
-  dataMap: Map<string, MetricData>,
-  metricConfig: MetricConfig,
-  geographyType: string = '',
+  type: MouseEventType,
+  props: MouseEventHandlerProps,
 ) => {
   const name = feature.properties?.name || String(feature.id)
-  const data = dataMap.get(feature.id as string)
+  const data = props.dataMap.get(feature.id as string)
+  const featureId = feature.id
 
   if (!data) {
     return `
       <div>
-        <strong>${name} ${geographyType}</strong><br/>
+        <strong>${name} ${props.geographyType}</strong><br/>
         No data available
       </div>
     `
   }
 
   const entries = Object.entries(data)
-    .filter(([key]) => !(key === 'County SVI' && geographyType !== 'County'))
+    .filter(
+      ([key]) => !(key === 'County SVI' && props.geographyType !== 'County'),
+    )
     .filter(([key]) => key !== 'value')
 
   const [firstLabel, firstValue] = entries[0] ?? ['', 0]
   const remainingEntries = entries.slice(1)
 
-  return `
+  const exploreText = props.isSummaryLegend
+    ? ''
+    : `${type === 'mouseover' ? 'Click current region to explore' : 'Explore'} ${name} ${props.geographyType} →`
+
+  // Create the HTML for the tooltip
+  const tooltipHtml = `
     <div>
-      <strong>${name} ${geographyType}</strong>
-      <div style="text-align: center;">
+      <p class="font-bold">${name} ${props.geographyType}</p>
+      ${exploreText ? `<button class="explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
+      <hr>
+      <div style="text-align: left;">
         <div style="margin-bottom: 4px;">
-          <span style="color: ${borderColor};">${firstLabel}:</span> ${formatMetricValue(firstValue as number, metricConfig)}
+          <span style="color: ${borderColor};">${firstLabel}:</span> ${formatMetricValue(firstValue as number, props.metricConfig)}
         </div>
         ${remainingEntries
           .map(
             ([label, value]) =>
-              `<div style="margin-bottom: 4px;"><span style="color: ${borderColor};">${label}:</span> ${value}</div>`,
+              `<div style="margin-bottom: 4px;"><span style="color: ${borderColor};">${label}:</span> ${value?.toLocaleString()}</div>`,
           )
           .join('')}
       </div>
     </div>
   `
+
+  // After the tooltip is added to the DOM, attach click handlers
+  setTimeout(() => {
+    const exploreButtons = document.querySelectorAll(
+      '.tooltip-container .explore-btn',
+    )
+    exploreButtons.forEach((button) => {
+      const btn = button as HTMLButtonElement
+      const featureId = btn.getAttribute('data-feature-id')
+
+      if (featureId && props.updateFipsCallback) {
+        btn.onclick = (e) => {
+          e.preventDefault()
+          props.updateFipsCallback(new Fips(featureId))
+        }
+      }
+    })
+  }, 0)
+
+  return tooltipHtml
+}
+
+// hide tooltip when user clicks outside the map, scrolls, or drags
+export const hideTooltips = () => {
+  d3.selectAll('.tooltip-container').style('visibility', 'hidden')
 }

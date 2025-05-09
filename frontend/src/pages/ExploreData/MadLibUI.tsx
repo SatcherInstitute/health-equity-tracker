@@ -103,13 +103,12 @@ export default function MadLibUI(props: MadLibUIProps) {
 
   const fipsList = getFipsListFromMadlib(props.madLib)
 
-  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
-    getAllDemographicOptions(
-      selectedDataTypeConfig1,
-      fipsList[0],
-      selectedDataTypeConfig2,
-      fipsList?.[1],
-    )
+  const { enabledDemographicOptionsMap } = getAllDemographicOptions(
+    selectedDataTypeConfig1,
+    fipsList[0],
+    selectedDataTypeConfig2,
+    fipsList?.[1],
+  )
 
   const demographicOptions: Array<[DemographicType, string]> = Object.entries(
     enabledDemographicOptionsMap,

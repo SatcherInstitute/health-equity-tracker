@@ -1,5 +1,4 @@
 import { getDataManager } from '../../utils/globals'
-import type { DropdownVarId } from '../config/DropDownIds'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
@@ -8,8 +7,6 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
-
-const CDC_CANCER_CONDITIONS: DropdownVarId[] = ['cancer_incidence']
 
 export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_incidence',
@@ -20,11 +17,6 @@ export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
 export const CDC_CANCER_ALL_SEXES_DATATYPES: DataTypeId[] = [
   'colorectal_cancer_incidence',
   'lung_cancer_incidence',
-]
-
-const CDC_CANCER_DATATYPES: DataTypeId[] = [
-  ...CDC_CANCER_SEX_SPECIFIC_DATATYPES,
-  ...CDC_CANCER_ALL_SEXES_DATATYPES,
 ]
 
 const CDC_CANCER_METRICS: MetricId[] = [

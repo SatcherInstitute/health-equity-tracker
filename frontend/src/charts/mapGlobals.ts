@@ -7,16 +7,6 @@ import { het } from '../styles/DesignTokens'
 import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
-const COLOR_SCALE = 'COLOR_SCALE'
-const ZERO_SCALE = 'ZERO_SCALE'
-
-type ScaleType = 'quantile' | 'symlog'
-type StackingDirection = 'horizontal' | 'vertical'
-
-export const RATE_MAP_SCALE: ScaleType = 'quantile'
-
-const ORDINAL = 'ordinal'
-
 export const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
 type PopulationSubset =
@@ -94,24 +84,8 @@ export const youthHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
-const DOT_SIZE_SCALE = 'dot_size_scale'
-const SUMMARY_SCALE = 'summary_scale'
-const GREY_DOT_SCALE = 'grey_dot_scale'
-const UNKNOWN_SCALE = 'unknown_scale'
-const ZERO_DOT_SCALE = 'zero_dot_scale'
-
-const RAW_VALUES = 'raw_values'
-const DATASET_VALUES = 'dataset_values'
-const NON_ZERO_DATASET_VALUES = 'non_zero_dataset_values'
-const SUMMARY_VALUE = 'summary_value'
-const ZERO_VALUES = 'zero_values'
-const MISSING_PLACEHOLDER_VALUES = 'missing_data'
-
-const LEGEND_SYMBOL_TYPE = 'square'
 export const NO_DATA_MESSAGE = 'no data'
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
-
-const ZERO_BUCKET_LABEL = '0'
 
 export interface HighestLowest {
   highest?: DemographicGroup
@@ -119,21 +93,6 @@ export interface HighestLowest {
 }
 
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
-
-const PHRMA_COLOR_SCALE_SPEC = {
-  name: COLOR_SCALE,
-  type: 'threshold',
-  domain: PHRMA_ADHERENCE_BREAKPOINTS,
-  range: [
-    het.mapMedicareDarkest,
-    het.mapMedicareDark,
-    het.mapMedicareMid,
-    het.mapMedicareLight,
-    het.mapMedicareLighter,
-    het.mapMedicareEvenLighter,
-    het.mapMedicareLightest,
-  ],
-}
 
 export interface CountColsMap {
   numeratorConfig?: MetricConfig

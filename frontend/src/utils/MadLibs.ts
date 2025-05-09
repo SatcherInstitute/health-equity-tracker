@@ -11,10 +11,7 @@ import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCate
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
-import {
-  MEDICARE_CATEGORY_DROPDOWNIDS,
-  MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
-} from '../data/config/MetricConfigPhrma'
+import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrma'
 import { CANCER_SCREENING_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrmaBrfss'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
 import type {
@@ -25,11 +22,7 @@ import type {
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
-import {
-  SHOW_CANCER_SCREENINGS,
-  SHOW_CHR_GUN_DEATHS,
-  SHOW_PHRMA_MENTAL_HEALTH,
-} from '../featureFlags'
+import { SHOW_CANCER_SCREENINGS, SHOW_CHR_GUN_DEATHS } from '../featureFlags'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -245,10 +238,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Medication Utilization in the Medicare Population',
     definition: '',
-    // TODO: clean this up once PHRMA fully launched all topics
-    options: SHOW_PHRMA_MENTAL_HEALTH
-      ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
-      : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
+    options: MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Maternal Health',

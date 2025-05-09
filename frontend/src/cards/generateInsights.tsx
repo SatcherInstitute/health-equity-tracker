@@ -29,7 +29,7 @@ export interface ResultData {
   [key: string]: any
 }
 
-export async function fetchAIInsight(prompt: string): Promise<string> {
+async function fetchAIInsight(prompt: string): Promise<string> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
   const dataServerUrl = baseApiUrl
     ? `${baseApiUrl}${API_ENDPOINT}`

@@ -2,7 +2,6 @@ import { HashLink } from 'react-router-hash-link'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPhrma'
-import { SHOW_PHRMA_MENTAL_HEALTH } from '../../../featureFlags'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -187,15 +186,13 @@ export default function MedicareMedicationLink() {
                 </HetTerm>{' '}
                 <a href='https://www.qualityforum.org/QPS/0071'>(NQF 0071)</a>
               </li>
-              {SHOW_PHRMA_MENTAL_HEALTH && (
-                <li>
-                  <HetTerm>
-                    Adherence to Antipsychotic Medications For Individuals with
-                    Schizophrenia
-                  </HetTerm>{' '}
-                  <a href='https://www.qualityforum.org/QPS/1879'>(NQF 1879)</a>
-                </li>
-              )}
+              <li>
+                <HetTerm>
+                  Adherence to Antipsychotic Medications For Individuals with
+                  Schizophrenia
+                </HetTerm>{' '}
+                <a href='https://www.qualityforum.org/QPS/1879'>(NQF 1879)</a>
+              </li>
             </ul>
 
             <h4 className='my-2'>Metrics</h4>
@@ -210,21 +207,19 @@ export default function MedicareMedicationLink() {
                 myocardial infarction (AMI) and who received persistent
                 beta-blocker treatment for six months after discharge.
               </li>
-              {SHOW_PHRMA_MENTAL_HEALTH && (
-                <li>
-                  <HetTerm>
-                    Adherence to Antipsychotic Medications For Individuals with
-                    Schizophrenia
-                  </HetTerm>{' '}
-                  measures the percentage of Medicare fee-for-service
-                  beneficiaries 18 years and older during the measurement year
-                  with schizophrenia or schizoaffective disorder who had at
-                  least two prescriptions filled for any antipsychotic
-                  medication and who had a Proportion of Days Covered (PDC) of
-                  at least 0.8 for antipsychotic medications during the
-                  measurement period (12 consecutive months)
-                </li>
-              )}
+              <li>
+                <HetTerm>
+                  Adherence to Antipsychotic Medications For Individuals with
+                  Schizophrenia
+                </HetTerm>{' '}
+                measures the percentage of Medicare fee-for-service
+                beneficiaries 18 years and older during the measurement year
+                with schizophrenia or schizoaffective disorder who had at least
+                two prescriptions filled for any antipsychotic medication and
+                who had a Proportion of Days Covered (PDC) of at least 0.8 for
+                antipsychotic medications during the measurement period (12
+                consecutive months)
+              </li>
             </ul>
           </div>
           <div className='py-5'>
@@ -257,12 +252,10 @@ export default function MedicareMedicationLink() {
                     HIV defined as beneficiaries having 1+ medical claims with
                     ICD-10-CM of B20.
                   </li>
-                  {SHOW_PHRMA_MENTAL_HEALTH && (
-                    <li>
-                      Schizophrenia defined as beneficiaries having 1+ medical
-                      claims with ICD-10-CM of F20.
-                    </li>
-                  )}
+                  <li>
+                    Schizophrenia defined as beneficiaries having 1+ medical
+                    claims with ICD-10-CM of F20.
+                  </li>
                 </ul>
               </li>
               <li>
@@ -406,7 +399,7 @@ export default function MedicareMedicationLink() {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={medicareMedicationDataSources.map((source, index) => ({
+          rows={medicareMedicationDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

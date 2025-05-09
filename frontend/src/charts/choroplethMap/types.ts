@@ -37,7 +37,7 @@ export interface ChoroplethMapProps {
   countColsMap: CountColsMap
   demographicType: DemographicType
   data: Array<Record<string, any>>
-  extremesMode: boolean
+  isExtremesMode: boolean
   fips: Fips
   fieldRange?: FieldRange
   filename?: string
@@ -61,6 +61,7 @@ export interface ChoroplethMapProps {
     subtitle?: string
   }
   isAtlantaMode?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 
 export interface CreateColorScaleProps {
@@ -91,7 +92,7 @@ export type GetFillColorProps = {
   dataMap: Map<string, MetricData>
   colorScale: ColorScale
   mapConfig: MapConfig
-  extremesMode?: boolean
+  isExtremesMode?: boolean
   isMultiMap?: boolean
 }
 
@@ -132,31 +133,12 @@ export type RenderMapProps = {
   fips: Fips
   isMobile: boolean
   isCawp: boolean
-  extremesMode: boolean
+  isExtremesMode: boolean
   mapConfig: MapConfig
   signalListeners: any
   isMulti?: boolean
-}
-
-type TooltipFeature = {
-  properties: GeoJsonProperties
-  id?: string | number
-}
-
-type TooltipPairs = {
-  [key: string]: (value: number | string | undefined) => string
-}
-
-interface MouseEventHandlerProps {
-  colorScale: ColorScale
-  metricConfig: MetricConfig
-  dataMap: Map<string, MetricData>
-  tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
-  geographyType?: string
-  extremesMode?: boolean
-  mapConfig: MapConfig
-  fips?: Fips
-  isPhrmaAdherence: boolean
+  isSummaryLegend?: boolean
+  updateFipsCallback: (fips: Fips) => void
 }
 
 /**
@@ -171,4 +153,25 @@ declare global {
       ) => Promise<Uint8Array>
     }
   }
+}
+
+export type MouseEventType =
+  | 'mouseover'
+  | 'pointerdown'
+  | 'mouseout'
+  | 'mousemove'
+  | 'touchstart'
+  | 'touchend'
+
+export interface MouseEventHandlerProps {
+  colorScale: any
+  metricConfig: MetricConfig
+  dataMap: Map<string, any>
+  tooltipContainer: any
+  geographyType: string
+  mapConfig: MapConfig
+  isMultiMap: boolean
+  isSummaryLegend: boolean
+  isExtremesMode: boolean
+  updateFipsCallback: (fips: Fips) => void
 }

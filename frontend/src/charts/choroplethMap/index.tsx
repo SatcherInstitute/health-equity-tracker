@@ -30,13 +30,15 @@ const ChoroplethMap = ({
   countColsMap,
   isUnknownsMap = false,
   isMulti,
-  extremesMode,
+  isExtremesMode,
   mapConfig,
   signalListeners,
   filename,
   legendData,
   isPhrmaAdherence,
   isAtlantaMode,
+  isSummaryLegend,
+  updateFipsCallback,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -45,6 +47,7 @@ const ChoroplethMap = ({
     typeof createTooltipContainer
   > | null>(null)
   const mapInitializedRef = useRef(false)
+  const eventCleanupRef = useRef<(() => void) | null>(null)
 
   // State to store the dataMap created during map rendering
   const [renderResult, setRenderResult] = useState<{
@@ -68,6 +71,29 @@ const ChoroplethMap = ({
     [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMulti],
   )
 
+  const colorScale = useMemo(() => {
+    return createColorScale({
+      data: legendData || dataWithHighestLowest,
+      metricId: metricConfig.metricId,
+      colorScheme: mapConfig.scheme,
+      isUnknown: isUnknownsMap,
+      fips,
+      reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
+      isPhrmaAdherence,
+      mapConfig,
+    })
+  }, [
+    legendData,
+    dataWithHighestLowest,
+    metricConfig.metricId,
+    mapConfig.scheme,
+    isUnknownsMap,
+    fips,
+    mapConfig.higherIsBetter,
+    isPhrmaAdherence,
+    mapConfig,
+  ])
+
   const dimensions = useMemo(() => {
     const heightWidthRatio = HEIGHT_WIDTH_RATIO
     return {
@@ -77,15 +103,25 @@ const ChoroplethMap = ({
   }, [width])
 
   const cleanup = () => {
+    // Clean up event listeners if they exist
+    if (eventCleanupRef.current) {
+      eventCleanupRef.current()
+      eventCleanupRef.current = null
+    }
+
+    // Clean up tooltip
     if (tooltipContainerRef.current) {
       tooltipContainerRef.current.remove()
       tooltipContainerRef.current = null
     }
+
+    // Clean up SVG
     if (svgRef.current) {
       const svg = d3.select(svgRef.current)
       svg.selectAll('*').remove()
       svg.on('.', null)
     }
+
     mapInitializedRef.current = false
     setRenderResult(null)
   }
@@ -101,17 +137,6 @@ const ChoroplethMap = ({
       }
 
       tooltipContainerRef.current ??= createTooltipContainer(isMulti)
-
-      const colorScale = createColorScale({
-        data: legendData || dataWithHighestLowest,
-        metricId: metricConfig.metricId,
-        colorScheme: mapConfig.scheme,
-        isUnknown: isUnknownsMap,
-        fips,
-        reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-        isPhrmaAdherence,
-        mapConfig,
-      })
 
       const features = await createFeatures(
         showCounties,
@@ -144,13 +169,24 @@ const ChoroplethMap = ({
         isCawp,
         countColsMap,
         isUnknownsMap,
-        extremesMode,
+        isExtremesMode,
         mapConfig,
         signalListeners,
         isMulti,
+        isSummaryLegend,
+        updateFipsCallback,
       })
 
-      setRenderResult(result)
+      // Store the event cleanup function
+      if (result.cleanupEventListeners) {
+        eventCleanupRef.current = result.cleanupEventListeners
+      }
+
+      setRenderResult({
+        dataMap: result.dataMap,
+        mapHeight: result.mapHeight,
+      })
+
       mapInitializedRef.current = true
     }
 
@@ -177,7 +213,8 @@ const ChoroplethMap = ({
     countColsMap,
     isUnknownsMap,
     signalListeners,
-    extremesMode,
+    isExtremesMode,
+    isSummaryLegend,
   ])
 
   return (
@@ -198,26 +235,19 @@ const ChoroplethMap = ({
           mapHeight={renderResult.mapHeight}
           fips={fips}
           dataWithHighestLowest={dataWithHighestLowest}
-          colorScale={createColorScale({
-            data: legendData || dataWithHighestLowest,
-            metricId: metricConfig.metricId,
-            colorScheme: mapConfig.scheme,
-            isUnknown: isUnknownsMap,
-            fips,
-            reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-            isPhrmaAdherence,
-            mapConfig,
-          })}
+          colorScale={colorScale}
           metricConfig={metricConfig}
           dataMap={renderResult.dataMap}
           tooltipContainer={tooltipContainerRef.current}
           geographyType={getCountyAddOn(fips, showCounties)}
-          extremesMode={extremesMode}
+          isExtremesMode={isExtremesMode}
           mapConfig={mapConfig}
           signalListeners={signalListeners}
           isMobile={isMobile}
           isMulti={isMulti}
           isPhrmaAdherence={isPhrmaAdherence}
+          isSummaryLegend={isSummaryLegend}
+          updateFipsCallback={updateFipsCallback}
         />
       )}
     </div>
