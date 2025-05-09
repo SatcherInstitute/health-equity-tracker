@@ -26,7 +26,7 @@ export const createTerritoryFeature = (
   id: fipsCode,
 })
 
-export function extractTerritoryData(fipsCode: string, data: HetRow[]) {
+export function extractTerritoryData(data: HetRow[]) {
   return Object.entries(TERRITORY_CODES).map(([fips, fips_name]) => {
     const territoryRow: DataPoint | undefined = data.find(
       (d) => d.fips === fips,

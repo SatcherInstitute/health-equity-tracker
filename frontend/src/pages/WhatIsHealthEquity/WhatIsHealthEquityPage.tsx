@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
-import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { useScrollToAnchor } from '../../utils/hooks/useScrollToAnchor'
 import WIHECardMenu from './wiheComponents/WIHECardMenu'
 import ExternalResourcesTab from './wiheSections/ExternalResourcesTab'
@@ -11,7 +10,6 @@ import GuidesTab from './wiheSections/GuidesTab'
 
 export default function WhatIsHealthEquityPage() {
   const location = useLocation()
-  const [ref] = useResponsiveWidth()
   const scrollToAnchor = useScrollToAnchor()
   const [activeTab, setActiveTab] = useState<'guides' | 'resources'>('guides')
 

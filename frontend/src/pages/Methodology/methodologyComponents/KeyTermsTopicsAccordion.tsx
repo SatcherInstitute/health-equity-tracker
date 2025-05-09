@@ -25,7 +25,7 @@ export default function KeyTermsTopicsAccordion(
   const [expanded, setExpanded] = useState(isMd)
 
   const handleAccordionToggle = (
-    event: React.SyntheticEvent,
+    _event: React.SyntheticEvent,
     newExpanded: boolean,
   ) => {
     setExpanded(newExpanded)

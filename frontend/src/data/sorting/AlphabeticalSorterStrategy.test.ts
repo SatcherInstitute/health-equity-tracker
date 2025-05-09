@@ -1,4 +1,3 @@
-import { Breakdowns } from '../query/Breakdowns'
 import { AlphabeticalSorterStrategy } from './AlphabeticalSorterStrategy'
 
 describe('dataset utils test', () => {
@@ -6,9 +5,6 @@ describe('dataset utils test', () => {
   const RACE_A = { race: 'a' }
   const RACE_B = { race: 'b' }
   const RACE_C = { race: 'c' }
-
-  const RACE_UNKNOWN = { race: 'unknown' }
-  const breakdown = Breakdowns.national()
 
   beforeEach(() => {})
 

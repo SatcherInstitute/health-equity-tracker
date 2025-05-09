@@ -34,7 +34,7 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
           getAmountsByDate(data, selectedDate) === 0,
       )
       // sort remaining data by number for this date, highest number first
-      .sort(([, aData]: GroupData, [group, bData]: GroupData) =>
+      .sort(([, aData]: GroupData, [_group, bData]: GroupData) =>
         descending(
           getAmountsByDate(aData, selectedDate),
           getAmountsByDate(bData, selectedDate),
@@ -45,7 +45,7 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
 
 /* Returns the highest absolute value amount (y value) at a given date (x value) */
 function getMaxNumberForDate(data: TrendsData, selectedDate: string | null) {
-  const numbers = data.flatMap(([group, d]) =>
+  const numbers = data.flatMap(([_group, d]) =>
     // filter out data points for selected date
     d
       .filter(([date]) => date === selectedDate)
@@ -142,16 +142,16 @@ function hasNonZeroUnknowns(data: TimeSeries | undefined) {
 }
 
 export {
-  hasNonZeroUnknowns,
   filterDataByGroup,
-  getAmountsByDate,
-  sortDataDescending,
-  getDates,
-  getAmounts,
-  getWidthPctShare,
-  getWidthHundredK,
-  translateXPctShare,
-  getMinNumber,
-  getMaxNumber,
   filterUnknownsByTimePeriod,
+  getAmounts,
+  getAmountsByDate,
+  getDates,
+  getMaxNumber,
+  getMinNumber,
+  getWidthHundredK,
+  getWidthPctShare,
+  hasNonZeroUnknowns,
+  sortDataDescending,
+  translateXPctShare,
 }

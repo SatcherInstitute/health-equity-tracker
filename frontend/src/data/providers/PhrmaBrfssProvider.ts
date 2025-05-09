@@ -1,5 +1,4 @@
 import { getDataManager } from '../../utils/globals'
-import type { DropdownVarId } from '../config/DropDownIds'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
@@ -10,8 +9,6 @@ import {
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-const PHRMA_BRFSS_CONDITIONS: DropdownVarId[] = ['cancer_screening']
-
 export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_screening',
   'cervical_cancer_screening',
@@ -21,11 +18,6 @@ export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
 export const PHRMA_BRFSS_ALL_SEXES_DATATYPES: DataTypeId[] = [
   'colorectal_cancer_screening',
   'lung_cancer_screening',
-]
-
-const PHRMA_BRFSS_DATATYPES: DataTypeId[] = [
-  ...PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES,
-  ...PHRMA_BRFSS_ALL_SEXES_DATATYPES,
 ]
 
 const PHRMA_BRFSS_METRICS: MetricId[] = [

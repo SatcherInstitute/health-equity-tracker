@@ -1,6 +1,5 @@
 import type React from 'react'
 import MapCard from '../cards/MapCard'
-import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
 import { Fips } from '../data/utils/Fips'
@@ -27,7 +26,7 @@ const CustomChoroplethMap: React.FC<CustomChoroplethProps> = ({
       demographicType={demographicType}
       fips={fips}
       reportTitle={reportTitle}
-      updateFipsCallback={(fips: Fips) => {}}
+      updateFipsCallback={(_fips: Fips) => {}}
       trackerMode={'disparity'}
       className={className}
     />

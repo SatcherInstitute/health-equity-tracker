@@ -26,7 +26,7 @@ async function downloadDataset(
     const dataset = await getDataManager().loadDataset(datasetId)
     download('HET - ' + dataset.metadata.name + '.csv', dataset.toCsvString())
     return true
-  } catch (e) {
+  } catch (_e) {
     return false
   }
 }

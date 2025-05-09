@@ -105,7 +105,7 @@ export default function AltTableView(props: AltTableViewProps) {
               <caption className='font-medium'>{props.tableCaption}</caption>
               <TableHead>
                 <TableRow>
-                  {Object.keys(accessibleData[0]).map((key, i) => {
+                  {Object.keys(accessibleData[0]).map((key) => {
                     const isTimeCol = key === TIME_PERIOD_LABEL
                     const isUnknownPctCol = key.includes('with unknown ')
 
@@ -137,14 +137,14 @@ export default function AltTableView(props: AltTableViewProps) {
               </TableHead>
 
               <TableBody>
-                {accessibleData.map((row, i) => {
+                {accessibleData.map((row) => {
                   const keys = Object.keys(row)
                   return (
                     <TableRow
                       key={row[TIME_PERIOD_LABEL]}
                       className='odd:bg-tableZebra even:bg-white'
                     >
-                      {keys.map((key, j) => {
+                      {keys.map((key) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL
 
                         const appendPct =

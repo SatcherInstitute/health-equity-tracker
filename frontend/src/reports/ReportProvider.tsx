@@ -24,8 +24,6 @@ import LifelineAlert from './ui/LifelineAlert'
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
 import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
 
-const SINGLE_COLUMN_WIDTH = 12
-
 interface ReportProviderProps {
   isSingleColumn: boolean
   madLib: MadLib

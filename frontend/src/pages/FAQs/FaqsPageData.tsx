@@ -482,8 +482,6 @@ const additionalFaqs: Faq[] = [
   },
 ]
 
-const consolidatedFaqs: Faq[] = [...faqMappings, ...additionalFaqs]
-
 export const dataFaqGroup: Faq[] = [
   faqMappings[2],
   faqMappings[3],

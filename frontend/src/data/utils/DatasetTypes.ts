@@ -31,13 +31,6 @@ export interface DatasetMetadata {
   source_id: DataSourceId | 'error'
 }
 
-interface Field {
-  readonly data_type: string
-  readonly name: string
-  readonly description: string
-  readonly origin_dataset: string
-}
-
 export interface FieldRange {
   readonly min: number
   readonly max: number

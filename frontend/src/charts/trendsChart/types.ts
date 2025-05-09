@@ -1,4 +1,4 @@
-import type { ScaleLinear, ScaleOrdinal, ScaleTime } from 'd3'
+import type { ScaleLinear, ScaleTime } from 'd3'
 import type {
   MetricType,
   TimeSeriesCadenceType,
@@ -14,7 +14,6 @@ type Date = string
 
 type XScale = ScaleTime<number, number | undefined>
 type YScale = ScaleLinear<number, number | undefined>
-type ColorScale = ScaleOrdinal<string, string, never>
 
 interface AxisConfig {
   type: MetricType
@@ -25,11 +24,11 @@ interface AxisConfig {
 }
 
 export type {
-  TrendsData,
+  AxisConfig,
   GroupData,
   TimeSeries,
+  TrendsData,
   UnknownData,
   XScale,
   YScale,
-  AxisConfig,
 }

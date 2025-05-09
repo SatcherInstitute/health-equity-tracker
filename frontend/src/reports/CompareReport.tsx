@@ -260,8 +260,8 @@ export default function CompareReport(props: CompareReportProps) {
                 createCard={(
                   dataTypeConfig: DataTypeConfig,
                   fips: Fips,
-                  unusedUpdateFips: (fips: Fips) => void,
-                  unusedDropdown: any,
+                  _unusedUpdateFips: (fips: Fips) => void,
+                  _unusedDropdown: any,
                   isCompareCard: boolean | undefined,
                 ) => (
                   <RateTrendsChartCard
@@ -288,7 +288,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void,
+                _unusedUpdateFips: (fips: Fips) => void,
               ) => (
                 <RateBarChartCard
                   dataTypeConfig={dataTypeConfig}
@@ -342,8 +342,8 @@ export default function CompareReport(props: CompareReportProps) {
                 createCard={(
                   dataTypeConfig: DataTypeConfig,
                   fips: Fips,
-                  unusedUpdateFips: (fips: Fips) => void,
-                  unusedDropdown: any,
+                  _unusedUpdateFips: (fips: Fips) => void,
+                  _unusedDropdown: any,
                   isCompareCard: boolean | undefined,
                 ) => (
                   <ShareTrendsChartCard
@@ -369,7 +369,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                unusedUpdateFips: (fips: Fips) => void,
+                _unusedUpdateFips: (fips: Fips) => void,
               ) => (
                 <StackedSharesBarChartCard
                   dataTypeConfig={dataTypeConfig}
@@ -394,7 +394,7 @@ export default function CompareReport(props: CompareReportProps) {
               createCard={(
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
-                updateFips: (fips: Fips) => void,
+                _unusedUpdateFips: (fips: Fips) => void,
               ) => (
                 <TableCard
                   fips={fips}
@@ -425,9 +425,8 @@ export default function CompareReport(props: CompareReportProps) {
                 createCard={(
                   dataTypeConfig: DataTypeConfig,
                   fips: Fips,
-                  updateFips: (fips: Fips) => void,
+                  _unusedUpdateFips: (fips: Fips) => void,
                   dropdownVarId?: DropdownVarId,
-                  isCompareCard?: boolean,
                 ) => (
                   <AgeAdjustedTableCard
                     fips={fips}
