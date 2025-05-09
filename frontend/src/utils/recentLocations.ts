@@ -1,7 +1,7 @@
 import { Fips } from '../data/utils/Fips'
 
 const RECENT_LOCATIONS_KEY = 'Recent'
-const MAX_RECENT_LOCATIONS = 5
+const MAX_RECENT_LOCATIONS = 3
 
 export function getRecentLocations(): Fips[] {
   try {
@@ -18,11 +18,8 @@ export function getRecentLocations(): Fips[] {
 export function addRecentLocation(fips: Fips) {
   try {
     const recent = getRecentLocations()
-    // Remove if already exists
     const filtered = recent.filter((f) => f.code !== fips.code)
-    // Add to front
     filtered.unshift(fips)
-    // Keep only most recent MAX_RECENT_LOCATIONS
     const trimmed = filtered.slice(0, MAX_RECENT_LOCATIONS)
     localStorage.setItem(
       RECENT_LOCATIONS_KEY,
