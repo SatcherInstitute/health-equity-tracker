@@ -4,6 +4,10 @@ import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 import { usePopover } from '../../utils/hooks/usePopover'
+import {
+  addRecentLocation,
+  getRecentLocations,
+} from '../../utils/recentLocations'
 
 interface LocationSelectorProps {
   newValue: string // fips location name as string
@@ -17,7 +21,11 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const popover = usePopover()
   const dropdownTarget = `${props.newValue}-dropdown-fips`
 
-  const options = Object.keys(props.phraseSegment)
+  // Get recent locations
+  const recentLocations = getRecentLocations()
+
+  // Get all available options
+  const allOptions = Object.keys(props.phraseSegment)
     .sort((a: string, b: string) => {
       if (a.length === b.length) {
         return a.localeCompare(b)
@@ -25,6 +33,21 @@ export default function LocationSelector(props: LocationSelectorProps) {
       return b.length > a.length ? -1 : 1
     })
     .map((fipsCode) => new Fips(fipsCode))
+
+  // Filter out recent locations from all options to avoid duplicates
+  const filteredOptions = allOptions.filter(
+    (option) => !recentLocations.some((recent) => recent.code === option.code),
+  )
+
+  // Combine recent locations with filtered options
+  const options = [...recentLocations, ...filteredOptions]
+
+  const handleOptionUpdate = (newValue: string) => {
+    // Add the selected location to recent locations
+    addRecentLocation(new Fips(newValue))
+    // Call the original onOptionUpdate
+    props.onOptionUpdate(newValue)
+  }
 
   return (
     <>
@@ -35,12 +58,12 @@ export default function LocationSelector(props: LocationSelectorProps) {
 
         <HetPopover popover={popover}>
           {/* Location Dropdown */}
-
           <HetLocationSearch
             value={props.newValue}
-            onOptionUpdate={props.onOptionUpdate}
+            onOptionUpdate={handleOptionUpdate}
             popover={popover}
             options={options}
+            recentLocations={recentLocations}
           />
         </HetPopover>
       </span>

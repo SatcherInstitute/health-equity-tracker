@@ -1,5 +1,5 @@
-import { Autocomplete, TextField } from '@mui/material'
-import { useState } from 'react'
+import { Autocomplete, ListSubheader, TextField } from '@mui/material'
+import { useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
@@ -9,7 +9,10 @@ interface HetLocationSearchProps {
   onOptionUpdate: (option: string) => void
   popover: PopoverElements
   value: string
+  recentLocations: Fips[]
 }
+
+type GroupKey = 'recent_locations' | 'National' | 'States' | 'Territories'
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
   function handleUsaButton() {
@@ -33,6 +36,41 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
 
   const isUsa = props.value === '00'
 
+  // Sort options to ensure consistent grouping
+  const sortedOptions = useMemo(() => {
+    const getGroup = (option: Fips): string => {
+      if (props.recentLocations.some((recent) => recent.code === option.code)) {
+        return 'recent_locations'
+      }
+      return option.getFipsCategory()
+    }
+
+    // Define the order of groups
+    const groupOrder: Record<GroupKey, number> = {
+      recent_locations: 0,
+      National: 1,
+      States: 2,
+      Territories: 3,
+    }
+
+    return [...props.options].sort((a, b) => {
+      const groupA = getGroup(a)
+      const groupB = getGroup(b)
+
+      // If both groups are in our predefined order, use that
+      if (groupA in groupOrder && groupB in groupOrder) {
+        return groupOrder[groupA as GroupKey] - groupOrder[groupB as GroupKey]
+      }
+
+      // If only one is in our predefined order, it comes first
+      if (groupA in groupOrder) return -1
+      if (groupB in groupOrder) return 1
+
+      // For county groups, sort by state/territory name
+      return groupA.localeCompare(groupB)
+    })
+  }, [props.options, props.recentLocations])
+
   return (
     <div className='p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
@@ -42,8 +80,16 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       <Autocomplete
         disableClearable={true}
         autoHighlight={true}
-        options={props.options}
-        groupBy={(option) => option.getFipsCategory()}
+        options={sortedOptions}
+        groupBy={(option) => {
+          // If it's a recent location, group it under "Recent Locations"
+          if (
+            props.recentLocations.some((recent) => recent.code === option.code)
+          ) {
+            return 'recent_locations' // Use a unique key for recent locations
+          }
+          return option.getFipsCategory()
+        }}
         clearOnEscape={true}
         getOptionLabel={(fips) => fips.getFullDisplayName()}
         isOptionEqualToValue={(fips) => fips.code === props.value}
@@ -73,6 +119,16 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           setTextBoxValue('')
           props.popover.close()
         }}
+        renderGroup={(params) => (
+          <div key={params.group}>
+            <ListSubheader>
+              {params.group === 'recent_locations'
+                ? 'Recent Locations'
+                : params.group}
+            </ListSubheader>
+            {params.children}
+          </div>
+        )}
       />
       <span className='font-light text-greyDark text-small italic'>
         County, state, territory, or{' '}
