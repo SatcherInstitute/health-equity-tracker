@@ -30,7 +30,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
 
   const handleChange =
-    (index: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (index: number) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpandedIndex(isExpanded ? index : null)
     }
 

@@ -18,17 +18,6 @@ interface OptionGroupProps {
   children: React.ReactNode
 }
 
-interface DatasetItem {
-  label: string
-  included: boolean
-}
-
-interface Dataset {
-  datasetName: string
-  datasetNameDetails?: string
-  items: DatasetItem[]
-}
-
 interface Faq {
   question: string
   answer: React.ReactNode | string

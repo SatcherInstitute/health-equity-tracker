@@ -68,7 +68,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             {...params}
           />
         )}
-        onChange={(e, fips) => {
+        onChange={(_e, fips) => {
           props.onOptionUpdate(fips.code)
           setTextBoxValue('')
           props.popover.close()

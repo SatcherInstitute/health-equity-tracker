@@ -564,7 +564,7 @@ const HivLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={hivDataSources.map((source, index) => ({
+          rows={hivDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

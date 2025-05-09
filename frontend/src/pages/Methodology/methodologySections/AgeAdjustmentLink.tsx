@@ -14,17 +14,21 @@ import Resources from '../methodologyComponents/Resources'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 import { termDefinitions } from '../methodologyContent/TermDefinitions'
 
-const ageAdjustTerms = [
-  metricDefinitions['Age-adjusted ratios'],
-  termDefinitions['Direct standardization method'],
-  termDefinitions['Internal standard population'],
-  termDefinitions['Condition counts broken down by both age and race'],
-  termDefinitions['Population counts broken down by both age and race'],
-  termDefinitions['Age-specific rate'],
-  termDefinitions['Standard population'],
-  termDefinitions['Expected condition counts'],
-  termDefinitions['Edge cases'],
-]
+const ageAdjustTerms = {
+  'Age-adjusted ratios': metricDefinitions['Age-adjusted ratios'],
+  'Direct standardization method':
+    termDefinitions['Direct standardization method'],
+  'Internal standard population':
+    termDefinitions['Internal standard population'],
+  'Condition counts broken down by both age and race':
+    termDefinitions['Condition counts broken down by both age and race'],
+  'Population counts broken down by both age and race':
+    termDefinitions['Population counts broken down by both age and race'],
+  'Age-specific rate': termDefinitions['Age-specific rate'],
+  'Standard population': termDefinitions['Standard population'],
+  'Expected condition counts': termDefinitions['Expected condition counts'],
+  'Edge cases': termDefinitions['Edge cases'],
+}
 
 const AGE_ADJUSTED_RESOURCES = [
   {
@@ -94,8 +98,8 @@ const AgeAdjustmentLink = () => {
               </Link>
               , and we present the findings in a distinct, age-adjusted table.
               All of the other data shown on the tracker, including
-              visualizations across all topics, are not age-adjusted, or ‘crude
-              rates’. Showing non-adjusted data can mask disparities, and we are
+              visualizations across all topics, are not age-adjusted, or 'crude
+              rates'. Showing non-adjusted data can mask disparities, and we are
               working to expand our analysis to provide a more equitable view of
               the impact to racial and ethnic minorities.
             </p>

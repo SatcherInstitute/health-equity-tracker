@@ -49,14 +49,6 @@ const {
   timeYellow,
   mapLight,
   mapLighter,
-  mapMedicareMid,
-  mapMedicareLight,
-  mapMedicareLighter,
-  mapMedicareLightest,
-  altGrey,
-  altOrange,
-  mapMedicareDarkest,
-  mapMedicareDark,
 } = het
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
