@@ -4,6 +4,7 @@ import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import { clearRecentLocations } from '../../utils/recentLocations'
+import HetClearButton from './HetClearButton'
 
 interface HetLocationSearchProps {
   options: Fips[]
@@ -135,13 +136,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
               </span>
               {params.group === 'recent_locations' &&
                 props.recentLocations.length > 0 && (
-                  <button
-                    type='button'
-                    onClick={handleClearRecent}
-                    className='cursor-pointer border-0 bg-transparent text-altDark text-smallest hover:underline'
-                  >
-                    Clear
-                  </button>
+                  <HetClearButton onClick={handleClearRecent} />
                 )}
             </ListSubheader>
             {params.children}
