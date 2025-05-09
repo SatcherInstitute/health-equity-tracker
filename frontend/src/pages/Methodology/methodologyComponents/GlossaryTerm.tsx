@@ -4,15 +4,12 @@ interface GlossaryDefinition {
 }
 
 export interface GlossaryTermItem {
-  // TODO: GitHub #2916 refactor to remove 'topic' property; it's duplicate of the keys in the definitions Records<>
-  topic: string
   definitions: GlossaryDefinition[]
   path?: string
   id?: string
 }
 
 interface GlossaryTermProps {
-  topic: string
   definitionItems: Record<string, GlossaryTermItem>
   id?: string
 }

@@ -21,7 +21,7 @@ function GlossaryLink() {
       <article>
         <title>Glossary - Health Equity Tracker</title>
 
-        <GlossaryTerm topic={''} definitionItems={termDefinitions} />
+        <GlossaryTerm definitionItems={termDefinitions} />
 
         <Resources resourceGroups={[RESOURCES]} id='health-equity-resources' />
         <Resources
