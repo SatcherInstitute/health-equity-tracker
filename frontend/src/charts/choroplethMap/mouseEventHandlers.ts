@@ -112,7 +112,7 @@ const handleMouseEvent = (
     }
     case 'touchend': {
       d3.select(event.currentTarget)
-        .attr('stroke', het.altDark)
+        .attr('stroke', props.isExtremesMode ? het.altDark : het.white)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       break
@@ -148,7 +148,7 @@ const handleMouseEvent = (
             isMultiMap: props.isMultiMap,
           }),
         )
-        .attr('stroke', het.altDark)
+        .attr('stroke', props.isExtremesMode ? het.altDark : het.white)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       props.tooltipContainer.style('visibility', 'hidden').html('')

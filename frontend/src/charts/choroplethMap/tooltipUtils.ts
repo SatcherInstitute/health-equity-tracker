@@ -11,7 +11,7 @@ import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerProps, MouseEventType } from './types'
 
-const { white: WHITE, greyGridColorDarker: BORDER_GREY, borderColor } = het
+const { white: WHITE, greyGridColorDarker: BORDER_GREY } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 
 // Shared constants
@@ -85,27 +85,17 @@ export const generateTooltipHtml = (
   const data = props.dataMap.get(feature.id as string)
   const featureId = feature.id
 
-  if (!data) {
-    return `
-      <div>
-        <strong>${name} ${props.geographyType}</strong><br/>
-        No data available
-      </div>
-    `
-  }
-
-  const entries = Object.entries(data)
-    .filter(
-      ([key]) => !(key === 'County SVI' && props.geographyType !== 'County'),
-    )
-    .filter(([key]) => key !== 'value')
-
-  const [firstLabel, firstValue] = entries[0] ?? ['', 0]
-  const remainingEntries = entries.slice(1)
-
   const exploreText = props.isSummaryLegend
     ? ''
     : `${type === 'mouseover' ? 'Click current region to explore' : 'Explore'} ${name} ${props.geographyType} →`
+
+  const entries =
+    data &&
+    Object.entries(data)
+      .filter(
+        ([key]) => !(key === 'County SVI' && props.geographyType !== 'County'),
+      )
+      .filter(([key]) => key !== 'value')
 
   // Create the HTML for the tooltip
   const tooltipHtml = `
@@ -114,15 +104,17 @@ export const generateTooltipHtml = (
       ${exploreText ? `<button class="explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
       <hr>
       <div style="text-align: left;">
-        <div style="margin-bottom: 4px;">
-          <span style="color: ${borderColor};">${firstLabel}:</span> ${formatMetricValue(firstValue as number, props.metricConfig)}
-        </div>
-        ${remainingEntries
-          .map(
-            ([label, value]) =>
-              `<div style="margin-bottom: 4px;"><span style="color: ${borderColor};">${label}:</span> ${value?.toLocaleString()}</div>`,
-          )
-          .join('')}
+
+        ${
+          entries
+            ? entries
+                .map(
+                  ([label, value]: [string, number | undefined]) =>
+                    `<div class='mb-1 text-sm text-altBlack'><span>${label}:</span> ${value?.toLocaleString()}</div>`,
+                )
+                .join('')
+            : `<div class='mb-1 text-sm text-altBlack'><span>No data</span></div>`
+        }
       </div>
     </div>
   `
