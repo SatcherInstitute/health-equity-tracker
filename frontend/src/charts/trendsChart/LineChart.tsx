@@ -50,32 +50,6 @@ export function LineChart({
     // applies curve generator
     .curve(curveMonotoneX)
 
-  // Helper function to render a point indicator
-  const renderPointIndicator = (
-    x: number,
-    y: number,
-    group: string,
-    isUnknownLine: boolean,
-  ) => {
-    const lineLength = 20 // Length of the horizontal line segment
-    return (
-      <line
-        x1={x - lineLength / 2}
-        y1={y}
-        x2={x + lineLength / 2}
-        y2={y}
-        stroke={C(group)}
-        strokeWidth={isUnknownLine ? 5.5 : 2.5}
-        strokeDasharray='4,4'
-        style={
-          isUnknownLine
-            ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
-            : { strokeLinecap: 'round' }
-        }
-      />
-    )
-  }
-
   // Helper function to split data into consecutive segments
   const splitIntoConsecutiveSegments = (points: [string, number][]) => {
     const validPoints = points.filter(
@@ -150,17 +124,32 @@ export function LineChart({
         return (
           <g key={`group-${group}`} aria-label={groupA11yDescription}>
             <title>{groupA11yDescription}</title>
-            {/* Render segments */}
+            {/* Render all segments as a single continuous line */}
             {segments.map((segment, index) => {
-              // For single points, render the three-dash indicator
+              // For single points, create a short horizontal line
               if (segment.length === 1) {
                 const [date, amount] = segment[0]
                 const x = xScale(new Date(date))
                 const y = yScale(amount)
-                if (x !== undefined && y !== undefined) {
-                  return renderPointIndicator(x, y, group, isUnknownLine)
-                }
-                return null
+                if (x === undefined || y === undefined) return null
+
+                const lineLength = 20 // Length of the horizontal line segment
+                return (
+                  <line
+                    key={`segment-${index}`}
+                    x1={x - lineLength / 2}
+                    y1={y}
+                    x2={x + lineLength / 2}
+                    y2={y}
+                    stroke={C(group)}
+                    strokeWidth={isUnknownLine ? 5.5 : 2.5}
+                    style={
+                      isUnknownLine
+                        ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
+                        : { strokeLinecap: 'round' }
+                    }
+                  />
+                )
               }
 
               // For multiple points, render a line
