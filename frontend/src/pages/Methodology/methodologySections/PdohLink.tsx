@@ -358,7 +358,7 @@ const PdohLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={pdohDataSources.map((source, index) => ({
+          rows={pdohDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

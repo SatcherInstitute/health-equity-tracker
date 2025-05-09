@@ -19,7 +19,7 @@ export default function HetLazyLoader({
   className = '',
   placeholder = null,
 }: HetLazyLoaderProps) {
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     triggerOnce: once,
     rootMargin: `${offset}px ${offset}px ${offset}px ${offset}px`,
     threshold: 0,

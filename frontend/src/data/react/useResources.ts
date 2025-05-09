@@ -27,7 +27,7 @@ export function useResources<K, R>(
       const promises = resources.map(async (resource) => await loadFn(resource))
       const results = await Promise.all(promises)
       setResourceState(results)
-    } catch (e) {
+    } catch (_e) {
       setResourceState('error')
     }
   }

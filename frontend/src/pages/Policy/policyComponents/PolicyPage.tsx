@@ -9,8 +9,7 @@ import PolicyPagination from './PolicyPagination'
 
 export default function PolicyPage() {
   const location = useLocation()
-  const [ref, width] = useResponsiveWidth()
-  const isMobileView = width < 960
+  const [ref] = useResponsiveWidth()
 
   const activeRoute = policyRouteConfigs.find(
     (route) => route.path === location.pathname,

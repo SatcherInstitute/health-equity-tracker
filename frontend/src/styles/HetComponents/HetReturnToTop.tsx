@@ -1,12 +1,7 @@
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
 import { Button } from '@mui/material'
 
-interface HetReturnToTopProps {
-  id?: string
-  className?: string
-}
-
-export default function HetReturnToTop(props: HetReturnToTopProps) {
+export default function HetReturnToTop() {
   return (
     <Button
       aria-label='Scroll to Top'

@@ -104,7 +104,7 @@ const MaternalHealthLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={maternalHealthDataSources.map((source, index) => ({
+          rows={maternalHealthDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

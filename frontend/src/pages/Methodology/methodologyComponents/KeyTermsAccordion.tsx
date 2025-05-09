@@ -22,7 +22,7 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
   const [expanded, setExpanded] = useState(isMd)
 
   const handleAccordionToggle = (
-    event: React.SyntheticEvent,
+    _event: React.SyntheticEvent,
     newExpanded: boolean,
   ) => {
     setExpanded(newExpanded)
