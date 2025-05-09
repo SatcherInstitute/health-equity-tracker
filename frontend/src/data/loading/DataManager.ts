@@ -151,7 +151,7 @@ export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
    * Since there's only one metadata entry this doesn't really matter - we just
    * use a constant factor per entry.
    */
-  getResourceSize(resource: MapOfDatasetMetadata, id: string): number {
+  getResourceSize(_resource: MapOfDatasetMetadata, _id: string): number {
     return 1
   }
 }
@@ -182,7 +182,7 @@ class DatasetCache extends ResourceCache<string, Dataset> {
    * across datasets and that key size plus metadata is roughly similar in size
    * to a small number of rows.
    */
-  getResourceSize(resource: Dataset, key: string): number {
+  getResourceSize(resource: Dataset): number {
     return resource.rows.length + 5
   }
 }
@@ -259,7 +259,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
    * across queries and that key size plus metadata is roughly similar in size
    * to a small number of rows.
    */
-  getResourceSize(resource: MetricQueryResponse, key: string): number {
+  getResourceSize(resource: MetricQueryResponse): number {
     return resource.data.length + 5
   }
 }

@@ -86,7 +86,7 @@ export default function BehavioralHealthLink() {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={behavioralHealthDataSources.map((source, index) => ({
+          rows={behavioralHealthDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

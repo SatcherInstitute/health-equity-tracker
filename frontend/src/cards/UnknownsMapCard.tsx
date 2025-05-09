@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router'
 import ChoroplethMap from '../charts/choroplethMap/index'
-import type { DataPoint } from '../charts/choroplethMap/types'
 import { MAP_SCHEMES } from '../charts/mapGlobals'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type {
@@ -25,7 +24,6 @@ import { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -76,10 +74,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       }
     },
   }
-
-  const isSm = useIsBreakpointAndUp('sm')
-  const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !isSm && !isCompareMode
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
@@ -132,10 +126,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       reportTitle={props.reportTitle}
       hideNH={true}
     >
-      {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
+      {([mapQueryResponse, alertQueryResponse], _metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
+
+        const isSummaryLegend =
+          mapQueryResponse.data === alertQueryResponse.data
+
         const unknownRaces: HetRow[] = mapQueryResponse
           .getValidRowsForField(demographicType)
           .filter(
@@ -222,7 +220,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   countColsMap={{}}
                   data={unknowns}
                   demographicType={demographicType}
-                  extremesMode={false}
+                  isExtremesMode={false}
                   filename={chartTitle}
                   fips={props.fips}
                   geoData={geoData}
@@ -233,6 +231,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   showCounties={!props.fips.isUsa()}
                   signalListeners={signalListeners}
                   isPhrmaAdherence={false}
+                  updateFipsCallback={props.updateFipsCallback}
+                  isSummaryLegend={isSummaryLegend}
                 />
               </div>
             )}

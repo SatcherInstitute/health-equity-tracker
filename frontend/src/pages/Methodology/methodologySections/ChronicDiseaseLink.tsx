@@ -81,7 +81,7 @@ const ChronicDiseaseLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={chronicDiseaseDataSources.map((source, index) => ({
+          rows={chronicDiseaseDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

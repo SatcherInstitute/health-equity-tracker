@@ -10,13 +10,12 @@ import {
 } from './mapHelpers'
 import { createUnknownLegend } from './mapLegendUtils'
 import { TERRITORIES } from './mapTerritoryHelpers'
+import { STROKE_WIDTH } from './mapUtils'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
-import { getTooltipLabel } from './tooltipUtils'
+import { getTooltipLabel, hideTooltips } from './tooltipUtils'
 import type { InitializeSvgProps, RenderMapProps } from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
-
-const STROKE_WIDTH = 0.5
 const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
 
 export const renderMap = (props: RenderMapProps) => {
@@ -75,6 +74,18 @@ export const renderMap = (props: RenderMapProps) => {
 
   const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
 
+  // Add event listeners
+  window.addEventListener('wheel', hideTooltips)
+  window.addEventListener('click', hideTooltips)
+  window.addEventListener('touchmove', hideTooltips)
+
+  // Create a cleanup function for event listeners
+  const cleanupEventListeners = () => {
+    window.removeEventListener('wheel', hideTooltips)
+    window.removeEventListener('click', hideTooltips)
+    window.removeEventListener('touchmove', hideTooltips)
+  }
+
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -92,17 +103,42 @@ export const renderMap = (props: RenderMapProps) => {
         d,
         dataMap,
         colorScale: props.colorScale,
-        extremesMode: props.extremesMode,
+        isExtremesMode: props.isExtremesMode,
         mapConfig: props.mapConfig,
         isMultiMap: props.isMulti,
       }),
     )
-    .attr('stroke', props.extremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke', props.isExtremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
-    .on('mouseover', createEventHandler('mouseover', mouseEventProps))
-    .on('mousemove', createEventHandler('mousemove', mouseEventProps))
-    .on('mouseout', createEventHandler('mouseout', mouseEventProps))
-    .on('click', props.signalListeners.click)
+    .on('mouseover', (event: any, d) => {
+      hideTooltips()
+      createEventHandler('mouseover', mouseEventProps)(event, d)
+    })
+    .on('pointerdown', (event: any, d) => {
+      hideTooltips()
+      createEventHandler('pointerdown', mouseEventProps)(event, d)
+    })
+    .on('mousemove', (event: any, d) => {
+      createEventHandler('mousemove', mouseEventProps)(event, d)
+    })
+    .on('mouseout', (event: any, d) => {
+      createEventHandler('mouseout', mouseEventProps)(event, d)
+    })
+    .on('touchstart', (event: any, d) => {
+      hideTooltips()
+      createEventHandler('touchstart', mouseEventProps)(event, d)
+    })
+    .on('touchend', (event: any, d) => {
+      createEventHandler('touchend', mouseEventProps)(event, d)
+    })
+    .on('pointerup', (event: any, d) => {
+      if (
+        event.pointerType === 'mouse' &&
+        typeof props.signalListeners.click === 'function'
+      ) {
+        props.signalListeners.click(event, d)
+      }
+    })
 
   if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
     createUnknownLegend(legendGroup, {
@@ -119,6 +155,7 @@ export const renderMap = (props: RenderMapProps) => {
   return {
     dataMap,
     mapHeight,
+    cleanupEventListeners, // Return the cleanup function for event listeners
   }
 }
 

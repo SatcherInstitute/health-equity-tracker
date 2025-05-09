@@ -1,14 +1,5 @@
 import { urlMap } from '../../../utils/externalUrls'
 
-function MissingCdcAtlasData() {
-  return (
-    <>
-      <MissingHIVData />
-      <MissingPrepData />
-    </>
-  )
-}
-
 export function MissingIslandAreaPopulationData() {
   return (
     <>

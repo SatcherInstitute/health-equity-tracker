@@ -9,17 +9,10 @@ import type React from 'react'
 import { useState } from 'react'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import type { GlossaryTermItem } from './GlossaryTerm'
 
 interface KeyTermsAccordionProps {
-  definitionsArray: Array<{
-    topic: string
-    definitions: Array<{
-      key: string
-      description: string
-    }>
-    path?: string
-    id?: string
-  }>
+  definitionsArray: Record<string, GlossaryTermItem>
   id?: string
 }
 
@@ -29,11 +22,15 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
   const [expanded, setExpanded] = useState(isMd)
 
   const handleAccordionToggle = (
-    event: React.SyntheticEvent,
+    _event: React.SyntheticEvent,
     newExpanded: boolean,
   ) => {
     setExpanded(newExpanded)
   }
+
+  const sortedDefinitions = Object.entries(props.definitionsArray).sort(
+    ([keyA], [keyB]) => keyA.localeCompare(keyB),
+  )
 
   return (
     <div id={props.id} className='mt-8 w-full'>
@@ -44,10 +41,10 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
           </AccordionSummary>
 
           <AccordionDetails>
-            {props.definitionsArray.map((item) => {
+            {sortedDefinitions.map(([topic, item]) => {
               return (
-                <div className='mb-8' id={item.id} key={item.topic}>
-                  <HetTerm>{item.topic}</HetTerm>
+                <div className='mb-8' id={item.id} key={topic}>
+                  <HetTerm>{topic}</HetTerm>
                   {item.definitions.map((def) => {
                     return (
                       <figure

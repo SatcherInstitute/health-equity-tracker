@@ -14,7 +14,7 @@ import { raceNameToCodeMap } from '../../data/utils/Constants'
 
 import { COLORS as C, FORMATTERS as F, TYPES } from './constants'
 /* Constants */
-import type { AxisConfig, GroupData, TimeSeries, TrendsData } from './types'
+import type { AxisConfig, GroupData, TrendsData } from './types'
 
 /* Helpers */
 import {
@@ -42,23 +42,25 @@ export function TrendsTooltip({
 }: TrendsTooltipProps) {
   const { type, yAxisLabel = '' } = axisConfig || {}
 
+  const zeroTranslate = () => 0
+
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
       UNIT: isSkinny ? '' : ' per 100k',
       width: getWidthHundredK,
-      translate_x: (d: TimeSeries) => 0,
+      translate_x: zeroTranslate,
       formatter: F.num100k,
     },
     [TYPES.PCT_RATE]: {
       UNIT: '',
       width: getWidthPctShare,
-      translate_x: (d: TimeSeries) => 0,
+      translate_x: zeroTranslate,
       formatter: F.pct,
     },
     [TYPES.PERCENT_SHARE]: {
       UNIT: '',
       width: getWidthPctShare,
-      translate_x: (d: TimeSeries) => 0,
+      translate_x: zeroTranslate,
       formatter: F.pct,
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
@@ -70,7 +72,7 @@ export function TrendsTooltip({
     [TYPES.INDEX]: {
       UNIT: '',
       width: getWidthHundredK,
-      translate_x: (d: TimeSeries) => 0,
+      translate_x: zeroTranslate,
       formatter: F.num100k,
     },
   }
