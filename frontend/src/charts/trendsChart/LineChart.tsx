@@ -89,6 +89,13 @@ export function LineChart({
     return segments
   }
 
+  // Helper function to check if data has gaps
+  const hasDataGaps = (segments: [string, number][][]) => {
+    return (
+      segments.length > 1 || segments.some((segment) => segment.length === 1)
+    )
+  }
+
   return (
     <g tabIndex={0} aria-label='Demographic group trendlines'>
       {data?.map(([group, d]: GroupData) => {
@@ -120,6 +127,7 @@ export function LineChart({
 
         const isUnknownLine = group === UNKNOWN_W
         const segments = splitIntoConsecutiveSegments(validData)
+        const shouldShowDots = hasDataGaps(segments)
 
         return (
           <g key={`group-${group}`} aria-label={groupA11yDescription}>
@@ -135,39 +143,69 @@ export function LineChart({
 
                 const lineLength = 20 // Length of the horizontal line segment
                 return (
-                  <line
-                    key={`segment-${index}`}
-                    x1={x - lineLength / 2}
-                    y1={y}
-                    x2={x + lineLength / 2}
-                    y2={y}
+                  <g key={`segment-${index}`}>
+                    <line
+                      x1={x - lineLength / 2}
+                      y1={y}
+                      x2={x + lineLength / 2}
+                      y2={y}
+                      stroke={C(group)}
+                      strokeWidth={isUnknownLine ? 5.5 : 2.5}
+                      style={
+                        isUnknownLine
+                          ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
+                          : { strokeLinecap: 'round' }
+                      }
+                    />
+                    {shouldShowDots && (
+                      <circle
+                        cx={x}
+                        cy={y}
+                        r={isUnknownLine ? 4 : 3}
+                        fill={C(group)}
+                        stroke='white'
+                        strokeWidth={1}
+                      />
+                    )}
+                  </g>
+                )
+              }
+
+              // For multiple points, render a line
+              return (
+                <g key={`segment-${index}`}>
+                  <path
+                    className={`fill-none ${
+                      isUnknownLine ? 'stroke-5.5' : 'stroke-2.5'
+                    }`}
+                    d={lineGen(segment as any) ?? ''}
                     stroke={C(group)}
-                    strokeWidth={isUnknownLine ? 5.5 : 2.5}
+                    strokeDasharray='none'
                     style={
                       isUnknownLine
                         ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
                         : { strokeLinecap: 'round' }
                     }
                   />
-                )
-              }
-
-              // For multiple points, render a line
-              return (
-                <path
-                  key={`segment-${index}`}
-                  className={`fill-none ${
-                    isUnknownLine ? 'stroke-5.5' : 'stroke-2.5'
-                  }`}
-                  d={lineGen(segment as any) ?? ''}
-                  stroke={C(group)}
-                  strokeDasharray='none'
-                  style={
-                    isUnknownLine
-                      ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
-                      : { strokeLinecap: 'round' }
-                  }
-                />
+                  {/* Add dots for each point in the segment only if there are gaps */}
+                  {shouldShowDots &&
+                    segment.map(([date, amount], pointIndex) => {
+                      const x = xScale(new Date(date))
+                      const y = yScale(amount)
+                      if (x === undefined || y === undefined) return null
+                      return (
+                        <circle
+                          key={`point-${pointIndex}`}
+                          cx={x}
+                          cy={y}
+                          r={isUnknownLine ? 4 : 3}
+                          fill={C(group)}
+                          stroke='white'
+                          strokeWidth={1}
+                        />
+                      )
+                    })}
+                </g>
               )
             })}
             {/* Connect segments with dashed lines if there are gaps */}
