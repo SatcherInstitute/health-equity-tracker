@@ -1,5 +1,6 @@
 import { Autocomplete, ListSubheader, TextField } from '@mui/material'
-import { useMemo, useState } from 'react'
+import debounce from 'just-debounce-it'
+import { useCallback, useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
@@ -24,12 +25,21 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
     props.popover.close()
   }
 
-  const [, setTextBoxValue] = useState('')
+  const [searchText, setSearchText] = useState('')
+  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
+
+  // Debounce the search text updates
+  const debouncedSetSearchText = useCallback(
+    debounce((value: string) => {
+      setSearchText(value)
+    }, 150),
+    [],
+  )
+
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextBoxValue(event.target.value)
+    debouncedSetSearchText(event.target.value)
   }
 
-  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
   const openAutoComplete = () => {
     setAutoCompleteOpen(true)
   }
@@ -39,6 +49,16 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
   }
 
   const isUsa = props.value === '00'
+
+  // Pre-filter options based on search text
+  const filteredOptions = useMemo(() => {
+    if (!searchText) return props.options
+
+    const searchLower = searchText.toLowerCase()
+    return props.options.filter((option) =>
+      option.getFullDisplayName().toLowerCase().includes(searchLower),
+    )
+  }, [props.options, searchText])
 
   // Sort options to ensure consistent grouping
   const sortedOptions = useMemo(() => {
@@ -57,7 +77,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       Territories: 3,
     }
 
-    return [...props.options].sort((a, b) => {
+    return [...filteredOptions].sort((a, b) => {
       const groupA = getGroup(a)
       const groupB = getGroup(b)
 
@@ -73,7 +93,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       // For county groups, sort by state/territory name
       return groupA.localeCompare(groupB)
     })
-  }, [props.options, props.recentLocations])
+  }, [filteredOptions, props.recentLocations])
 
   const handleClearRecent = () => {
     clearRecentLocations()
@@ -123,7 +143,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         )}
         onChange={(_e, fips) => {
           props.onOptionUpdate(fips.code)
-          setTextBoxValue('')
+          setSearchText('')
           props.popover.close()
         }}
         renderGroup={(params) => (
@@ -142,6 +162,11 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             {params.children}
           </div>
         )}
+        ListboxProps={{
+          style: {
+            maxHeight: '300px',
+          },
+        }}
       />
       <span className='font-light text-greyDark text-small italic'>
         County, state, territory, or{' '}
