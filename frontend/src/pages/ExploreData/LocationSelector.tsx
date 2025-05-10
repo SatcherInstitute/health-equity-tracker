@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Fips } from '../../data/utils/Fips'
 import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
@@ -38,10 +38,14 @@ export default function LocationSelector(props: LocationSelectorProps) {
 
   const options = [...recentLocations, ...filteredOptions]
 
-  const handleOptionUpdate = (newValue: string) => {
-    if (newValue !== props.newValue) {
+  // Store the current location in recent locations when it changes
+  useEffect(() => {
+    if (props.newValue) {
       addRecentLocation(new Fips(props.newValue))
     }
+  }, [props.newValue])
+
+  const handleOptionUpdate = (newValue: string) => {
     props.onOptionUpdate(newValue)
   }
 
