@@ -91,11 +91,10 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         autoHighlight={true}
         options={sortedOptions}
         groupBy={(option) => {
-          // If it's a recent location, group it under "Recent Locations"
           if (
             props.recentLocations.some((recent) => recent.code === option.code)
           ) {
-            return RECENT_LOCATIONS_KEY // Use a unique key for recent locations
+            return RECENT_LOCATIONS_KEY
           }
           return option.getFipsCategory()
         }}
@@ -115,7 +114,6 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         renderInput={(params) => (
           <TextField
             placeholder=''
-            /* eslint-disable-next-line */
             autoFocus
             margin='dense'
             variant='outlined'
