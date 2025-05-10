@@ -3,7 +3,11 @@ import { useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
-import { clearRecentLocations } from '../../utils/recentLocations'
+import {
+  type GroupKey,
+  RECENT_LOCATIONS_KEY,
+  clearRecentLocations,
+} from '../../utils/recentLocations'
 import HetClearButton from './HetClearButton'
 
 interface HetLocationSearchProps {
@@ -13,8 +17,6 @@ interface HetLocationSearchProps {
   value: string
   recentLocations: Fips[]
 }
-
-type GroupKey = 'Recent' | 'National' | 'States' | 'Territories'
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
   function handleUsaButton() {
@@ -42,7 +44,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
   const sortedOptions = useMemo(() => {
     const getGroup = (option: Fips): string => {
       if (props.recentLocations.some((recent) => recent.code === option.code)) {
-        return 'Recent'
+        return RECENT_LOCATIONS_KEY
       }
       return option.getFipsCategory()
     }
@@ -93,7 +95,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           if (
             props.recentLocations.some((recent) => recent.code === option.code)
           ) {
-            return 'Recent' // Use a unique key for recent locations
+            return RECENT_LOCATIONS_KEY // Use a unique key for recent locations
           }
           return option.getFipsCategory()
         }}
@@ -130,9 +132,11 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           <div key={params.group}>
             <ListSubheader className='flex items-center justify-between'>
               <span>
-                {params.group === 'Recent' ? 'Recent Locations' : params.group}
+                {params.group === RECENT_LOCATIONS_KEY
+                  ? 'Recent Locations'
+                  : params.group}
               </span>
-              {params.group === 'Recent' &&
+              {params.group === RECENT_LOCATIONS_KEY &&
                 props.recentLocations.length > 0 && (
                   <HetClearButton onClick={handleClearRecent} />
                 )}

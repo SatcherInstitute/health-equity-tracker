@@ -1,7 +1,10 @@
 import { Fips } from '../data/utils/Fips'
 
-const RECENT_LOCATIONS_KEY = 'Recent'
-const MAX_RECENT_LOCATIONS = 3
+export type GroupKey = 'Recent' | 'National' | 'States' | 'Territories'
+
+export const RECENT_LOCATIONS_KEY: GroupKey = 'Recent'
+
+const MAX_RECENT_LOCATIONS = 5
 
 export function getRecentLocations(): Fips[] {
   try {
