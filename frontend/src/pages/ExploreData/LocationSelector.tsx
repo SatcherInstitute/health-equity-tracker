@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Fips } from '../../data/utils/Fips'
 import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
@@ -39,19 +39,11 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const options = [...recentLocations, ...filteredOptions]
 
   const handleOptionUpdate = (newValue: string) => {
-    const newFips = new Fips(newValue)
-    addRecentLocation(newFips)
+    if (newValue !== props.newValue) {
+      addRecentLocation(new Fips(props.newValue))
+    }
     props.onOptionUpdate(newValue)
   }
-
-  // Store the current location in recent locations when component mounts or updates
-  // This ensures locations from map clicks, breadcrumbs, etc. are stored
-  useEffect(() => {
-    const currentFips = new Fips(props.newValue)
-    if (!recentLocations.some((recent) => recent.code === currentFips.code)) {
-      addRecentLocation(currentFips)
-    }
-  }, [props.newValue, recentLocations])
 
   return (
     <>
