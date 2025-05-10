@@ -51,6 +51,7 @@ export const EXTREMES_2_PARAM_KEY = 'extremes2'
 export const ALT_TABLE_VIEW_1_PARAM_KEY = 'alt-table-view1'
 export const ALT_TABLE_VIEW_2_PARAM_KEY = 'alt-table-view2'
 export const ATLANTA_MODE_PARAM_KEY = 'atl'
+export const CHLP_MAPS_PARAM_KEY = 'chlp-maps'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {

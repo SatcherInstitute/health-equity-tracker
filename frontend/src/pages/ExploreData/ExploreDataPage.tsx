@@ -47,6 +47,7 @@ import {
   setParameters,
   stringifyMls,
 } from '../../utils/urlutils'
+import CHLPMapsModal from './CHLPMapsModal'
 import DefaultHelperBox from './DefaultHelperBox'
 import MadLibUI from './MadLibUI'
 import TopicInfoModal from './TopicInfoModal'
@@ -63,6 +64,7 @@ interface ExploreDataPageProps {
 function ExploreDataPage(props: ExploreDataPageProps) {
   const location: any = useLocation()
   const [showVoteDotOrgBanner, setShowVoteDotOrgBanner] = useState(false)
+  const [showCHLPMapsBanner, setshowCHLPMapsBanner] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false)
 
@@ -297,6 +299,19 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       ),
     )
 
+    setshowCHLPMapsBanner(
+      getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
+        [
+          'hiv_deaths_black_women',
+          'hiv_deaths',
+          'hiv_diagnoses_black_women',
+          'hiv_diagnoses',
+          'hiv_prevalence_black_women',
+          'hiv_prevalence',
+        ].includes(condition?.dataTypeId),
+      ),
+    )
+
     setShowIncarceratedChildrenAlert(
       getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
         INCARCERATION_IDS.includes(condition?.dataTypeId),
@@ -312,6 +327,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       showIncarceratedChildrenAlert,
       showStickyLifeline,
       showVoteDotOrgBanner,
+      showCHLPMapsBanner,
     ],
   )
 
@@ -320,6 +336,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       {/* Conditional Modals */}
       <TopicInfoModal />
       <VoteDotOrgModal />
+      <CHLPMapsModal />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
@@ -356,6 +373,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
               showLifeLineAlert={showStickyLifeline}
               showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
               showVoteDotOrgBanner={showVoteDotOrgBanner}
+              showCHLPMapsBanner={showCHLPMapsBanner}
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
