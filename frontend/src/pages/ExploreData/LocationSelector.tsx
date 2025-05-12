@@ -21,7 +21,9 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const popover = usePopover()
   const dropdownTarget = `${props.newValue}-dropdown-fips`
 
-  const recentLocations = getRecentLocations()
+  const recentLocations = getRecentLocations().filter(
+    (location) => location.code !== props.newValue,
+  )
 
   const allOptions = Object.keys(props.phraseSegment)
     .sort((a: string, b: string) => {
