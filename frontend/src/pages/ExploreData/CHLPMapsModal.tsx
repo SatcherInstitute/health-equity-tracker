@@ -155,12 +155,12 @@ export default function CHLPMapsModal() {
           {/* View Full PDF Link */}
           <div className='mb-6 text-center'>
             <a
-              href='https://www.hivlawandpolicy.org/sites/default/files/2025-03/Mapping%20HIV%20Criminalization%20Laws%20in%20the%20US%2C%20CHLP%202025.pdf'
+              href='https://www.hivlawandpolicy.org/maps'
               target='_blank'
               rel='noopener noreferrer'
               className='rounded px-4 py-2 text-darkGreen hover:underline'
             >
-              View Full PDF
+              Learn more at hivlawandpolicy.org
             </a>
           </div>
         </div>
