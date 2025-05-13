@@ -2,7 +2,6 @@ import type { GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 export const metricDefinitions: Record<string, GlossaryTermItem> = {
   'Age-adjusted ratios': {
-    topic: 'Age-adjusted ratios',
     path: '',
     id: '#age-adjusted-ratios-metrics',
     definitions: [
@@ -19,7 +18,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Total cases per 100k people': {
-    topic: 'Total cases per 100k people',
     path: '',
     id: '#per-100k-metrics',
     definitions: [
@@ -36,7 +34,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Share of total cases with unknown race and ethnicity': {
-    topic: 'Share of total cases with unknown race and ethnicity',
     path: '',
     id: '#unknown-cases-metrics',
     definitions: [
@@ -58,7 +55,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Index score': {
-    topic: 'Index score',
     path: '',
     definitions: [
       {
@@ -69,7 +65,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Percent share': {
-    topic: 'Percent share',
     path: '',
     definitions: [
       {
@@ -80,7 +75,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Share of total cases': {
-    topic: 'Share of total cases',
     path: '',
     id: '#total-share-metrics',
     definitions: [
@@ -97,7 +91,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Population share': {
-    topic: 'Population share',
     path: '',
     id: '#population-share-metrics',
     definitions: [
@@ -114,7 +107,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Percent rate': {
-    topic: 'Percent rate',
     path: '',
     definitions: [
       {
@@ -125,7 +117,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Relative inequity': {
-    topic: 'Relative inequity',
     path: '',
     id: '#relative-inequity-metrics',
     definitions: [
