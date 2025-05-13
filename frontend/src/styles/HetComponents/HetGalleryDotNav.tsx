@@ -27,7 +27,7 @@ const HetGalleryDotNav: React.FC<HetGalleryDotNavProps> = ({
         return (
           <button
             key={item.id}
-            className={`h-3 w-3 rounded-full ${
+            className={`h-3 w-3 cursor-pointer rounded-full ${
               index === currentIndex ? activeColor : inactiveColor
             }`}
             onClick={() => onSelect(index)}

@@ -120,7 +120,7 @@ export default function CHLPMapsModal() {
               <img
                 src={mapData[currentMapIndex].imageUrl}
                 alt={`CHLP HIV Map: ${mapData[currentMapIndex].title}`}
-                className='max-h-[60vh] max-w-full object-contain'
+                className='max-h-[60vh] max-w-full object-contain rounded-lg shadow-md'
               />
             </div>
 
@@ -158,7 +158,7 @@ export default function CHLPMapsModal() {
               href='https://www.hivlawandpolicy.org/sites/default/files/2025-03/Mapping%20HIV%20Criminalization%20Laws%20in%20the%20US%2C%20CHLP%202025.pdf'
               target='_blank'
               rel='noopener noreferrer'
-              className='rounded px-4 py-2 text-methodologyGreen hover:underline'
+              className='rounded px-4 py-2 text-darkGreen hover:underline'
             >
               View Full PDF
             </a>
