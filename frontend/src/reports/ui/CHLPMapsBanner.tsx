@@ -9,7 +9,7 @@ export default function CHLPMapsBanner() {
   return (
     <HetNotice
       className='mx-2 mt-4 mb-2 border-0 bg-methodologyGreen text-left text-black lg:mt-4 lg:mb-4 lg:ml-2'
-      title='Explore local health resources and community services in your area through our interactive maps'
+      title={`Many states criminalize people living with HIV or elevate charges based on a person's knowledge of their HIV status.`}
       kind='helpful-info'
     >
       <HetLinkButton
@@ -20,7 +20,7 @@ export default function CHLPMapsBanner() {
         <span className='text-smallest sm:hidden'>View CHLP maps →</span>
         {/* Tablet/Desktop */}
         <span className='hidden sm:inline'>
-          Explore Community Health Leaders Program maps →
+          → View Center for HIV Law and Policy (CHLP) Maps
         </span>
       </HetLinkButton>
     </HetNotice>

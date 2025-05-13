@@ -120,7 +120,7 @@ export default function CHLPMapsModal() {
               <img
                 src={mapData[currentMapIndex].imageUrl}
                 alt={`CHLP HIV Map: ${mapData[currentMapIndex].title}`}
-                className='max-h-[60vh] max-w-full object-contain rounded-lg shadow-md'
+                className='max-h-[60vh] max-w-full rounded-lg object-contain shadow-md'
               />
             </div>
 
