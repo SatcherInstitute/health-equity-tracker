@@ -2,22 +2,18 @@ type DeployContext =
   // Production environment in GCP
   | 'prod'
 
-  // The "test" GCP environment that gets auto-deployed from master branch.
-  | 'staging'
+  // The "dev" GCP environment that gets auto-deployed from main branch to dev.healthequitytracker.org
+  | 'dev'
 
   // Deploy previews. Currently, all netlify deploys are considered deploy
   // previews.
   | 'deploy_preview'
 
-  // Storybook deploys and storybook deploy previews.
-  | 'storybook'
+  // When running npm run dev, or when running Docker locally
+  | 'local'
 
   // Unit or integration tests
   | 'test'
-
-  // When running npm start or npm run storybook, or when running Docker locally
-  // or deploying to a personal GCP project.
-  | 'development'
 
   // Unknown deploy context. This generally shouldn't happen.
   | 'unknown'
@@ -67,15 +63,15 @@ class HetEnvironment implements Environment {
   }
 
   isUserFacingEnvironment() {
-    return this.deployContext === 'prod' || this.deployContext === 'staging'
+    return this.deployContext === 'prod' || this.deployContext === 'dev'
   }
 
   getBaseApiUrl() {
     // If the API url isn't provided, requests are relative to current domain.
     const apiBaseUrl = this.getEnvVariable('BASE_API_URL')
-    if (!apiBaseUrl && this.deployContext === 'development') {
+    if (!apiBaseUrl && this.deployContext === 'local') {
       console.warn(
-        '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. Did you forget to copy the .env.example into an .env.development file? See the repo README for more information.',
+        '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. See the repo README for more information.',
       )
     }
     return apiBaseUrl ?? ''
@@ -99,21 +95,13 @@ function getDeployContext(): DeployContext {
     return 'test'
   }
 
-  if (import.meta.env.NODE_ENV === 'development') {
-    return 'development'
+  if (import.meta.env.NODE_ENV === 'local') {
+    return 'local'
   }
 
-  const deployContextVar =
-    import.meta.env.VITE_DEPLOY_CONTEXT ||
-    import.meta.env.STORYBOOK_DEPLOY_CONTEXT
+  const deployContextVar = import.meta.env.VITE_DEPLOY_CONTEXT
   if (deployContextVar) {
-    const expectedContexts = [
-      'prod',
-      'staging',
-      'deploy_preview',
-      'storybook',
-      'development',
-    ]
+    const expectedContexts = ['prod', 'dev', 'deploy_preview', 'local']
     if (!expectedContexts.includes(deployContextVar)) {
       throw new Error('Invalid value for deploy context environment variable')
     }
