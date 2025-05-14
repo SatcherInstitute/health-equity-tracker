@@ -13,7 +13,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 1. In your browser, create a fork of the Health Equity Tracker repo: <https://github.com/SatcherInstitute/health-equity-tracker/fork>
 
-2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your github username):
+2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your GitHub username):
 
    ```bash
    git clone https://github.com/<your-github-username>/health-equity-tracker.git

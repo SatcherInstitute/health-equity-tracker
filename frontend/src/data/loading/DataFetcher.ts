@@ -42,7 +42,7 @@ export class ApiDataFetcher implements DataFetcher {
    */
   private shouldFetchAsStaticFile(fileName: string) {
     return (
-      (this.environment.deployContext === 'development' &&
+      (this.environment.deployContext === 'local' &&
         !this.environment.getBaseApiUrl()) ||
       this.environment.forceFetchDatasetAsStaticFile(fileName)
     )
