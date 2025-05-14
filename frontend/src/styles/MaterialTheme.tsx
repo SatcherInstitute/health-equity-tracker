@@ -56,7 +56,8 @@ const MaterialTheme = extendTheme({
     MuiAutocomplete: {
       styleOverrides: {
         endAdornment: {
-          top: 'inherit',
+          top: '50%',
+          transform: 'translateY(-55%)',
         },
       },
     },
