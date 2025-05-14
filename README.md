@@ -119,7 +119,7 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
 1. While still in the `health-equity-tracker/frontend/` folder, run
 
    ```bash
-   npm run dev
+   npm run local
    ```
 
 2. In your browser, visit <http://localhost:3000>
@@ -147,7 +147,7 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
 - To run subsets of the full test suite locally, just add the filename (without the path) or even a portion of a work after the command:
   - `npm run e2e statins.nightly.spec.ts` runs the single file
   - `npm run e2e hiv` runs all tests that include the string `hiv` in the filename
-- To run the tests locally, but target either the production or staging deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-staging` respectivally. Target specific test files the same way described above.
+- To run the tests locally, but target either the production or dev-site deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-dev` respectively. Target specific test files the same way described above.
 
 ## Making a Pull Request (PR)
 

@@ -71,7 +71,7 @@ class HetEnvironment implements Environment {
     const apiBaseUrl = this.getEnvVariable('BASE_API_URL')
     if (!apiBaseUrl && this.deployContext === 'local') {
       console.warn(
-        '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. Did you forget to copy the .env.example into an .env.development file? See the repo README for more information.',
+        '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. See the repo README for more information.',
       )
     }
     return apiBaseUrl ?? ''
@@ -100,7 +100,6 @@ function getDeployContext(): DeployContext {
   }
 
   const deployContextVar = import.meta.env.VITE_DEPLOY_CONTEXT
-  console.log('deployContextVar', deployContextVar)
   if (deployContextVar) {
     const expectedContexts = ['prod', 'dev', 'deploy_preview', 'local']
     if (!expectedContexts.includes(deployContextVar)) {
