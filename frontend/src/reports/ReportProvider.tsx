@@ -180,7 +180,6 @@ function ReportProvider(props: ReportProviderProps) {
         {import.meta.env.VITE_CHLP_GRAPHS && props.showCHLPMapsBanner && (
           <CHLPMapsBanner />
         )}
-        {/* {props.showCHLPMapsBanner && <CHLPMapsBanner />} */}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
