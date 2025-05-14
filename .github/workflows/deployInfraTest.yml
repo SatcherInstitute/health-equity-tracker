@@ -1,4 +1,4 @@
-name: DEPLOY MAIN CODE TO STAGING GCP
+name: DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)
 
 on:
   push:
@@ -21,7 +21,7 @@ on:
 jobs:
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Deploy to Staging
+    name: Deploy to infra-test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -29,11 +29,11 @@ jobs:
         with:
           ref: main
 
-      - name: Deploy to Staging
+      - name: Deploy
         uses: ./.github/actions/buildAllAndDeploy
         with:
           ref: main
-          environment: staging
+          environment: dev
           deployer-sa-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           project-id: ${{ secrets.TEST_PROJECT_ID }}
           tf-state-bucket: ${{ secrets.TEST_TF_STATE_BUCKET }}

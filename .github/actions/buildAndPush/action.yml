@@ -15,7 +15,7 @@ inputs:
     required: false
     default: "."
   deploy-context:
-    description: 'String value for deploy context. Should be "prod" or "staging". Only used for the frontend'
+    description: 'String value for deploy context. Should be "prod" or "dev". Only used for the frontend'
     required: false
   openai-api-key:
     description: "OpenAI API key for generating insights"
