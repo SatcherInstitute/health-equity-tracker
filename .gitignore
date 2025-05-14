@@ -24,11 +24,6 @@ node_modules/
 /frontend_server/build/
 /frontend/build/
 /frontend_server/.env.development
-/frontend/.env.development
-/frontend/.env.local
-/frontend/.env.development.local
-/frontend/.env.test.local
-/frontend/.env.production.local
 /frontend/npm-debug.log*
 /frontend/playwright-report/
 /frontend/test-results/
