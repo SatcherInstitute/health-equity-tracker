@@ -18,6 +18,7 @@ import {
 import CompareReport from './CompareReport'
 import { Report } from './Report'
 import WhatDataAreMissing from './WhatDataAreMissing'
+import CHLPMapsBanner from './ui/CHLPMapsBanner'
 import DefinitionsList from './ui/DefinitionsList'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import LifelineAlert from './ui/LifelineAlert'
@@ -33,6 +34,7 @@ interface ReportProviderProps {
   setMadLib: (madLib: MadLib) => void
   showIncarceratedChildrenAlert: boolean
   showVoteDotOrgBanner: boolean
+  showCHLPMapsBanner: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
   isMobile: boolean
@@ -175,6 +177,9 @@ function ReportProvider(props: ReportProviderProps) {
       >
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
+        {import.meta.env.VITE_CHLP_GRAPHS && props.showCHLPMapsBanner && (
+          <CHLPMapsBanner />
+        )}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
