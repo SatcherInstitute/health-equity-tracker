@@ -106,19 +106,13 @@ Note: If you have existing git hooks (like from Husky) you need to force install
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
 
-2. Duplicate the example environmental variables file into a new, automatically git-ignored local development file:
-
-   ```bash
-   cp -i .env.example .env.development
-   ```
-
-3. Install the node modules:
+2. Install the node modules:
 
    ```bash
    npm i
    ```
 
-Note: If you are using VSCode, ensure you install the recommended extensions including Biome, which we use for linting and formatting JavaScript-based files.
+Note: If you are using VSCode or one of its forks, ensure you install the recommended extensions including Biome, which we use for linting and formatting JavaScript-based files.
 
 ### Running the Frontend Locally on a Development Server (localhost)
 
@@ -189,7 +183,7 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
    git pull origin main
    ```
 
-6. If you encounter merge conflicts, resolve them. Ben likes VSCode's new conflict resolution split screen feature, and also prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`
+6. If you encounter merge conflicts, resolve them. Ben prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`
 
 7. Make changes to the code base, save the files, add those changes to staging:
 
@@ -263,8 +257,18 @@ The frontend consists of
 
 1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and later migrated to Vite.
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
-
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
+
+### Frontend Environment Configuration
+
+The frontend uses multiple environments to assist with development, testing, and deployment:
+
+| Environment | .env File | Frontend Deployment | Backend GCP Project | Description |
+|-------------|-----------|---------------------|---------------------|-------------|
+| Local Development | `.env.local` | Local machine's <http://localhost:3000> | het-infra-test | For developer workstations. |
+| PR Preview | `.env.deploy_preview` | Netlify PR Preview; URL in GitHub PR comment | het-infra-test | Temporary deployments for pull request reviews. |
+| Development | `.env.dev` | dev.healthequitytracker.org | het-infra-test | Stable environment for testing features before production. |
+| Production | `.env.production` | healthequitytracker.org | het-infra-prod | Live environment for end users. |
 
 ### Available Overrides for local development
 
