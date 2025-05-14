@@ -141,7 +141,7 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
 
 - These tests automatically run:
   - against the dynamic Netlify deploy link on all PR updates
-  - against the <dev.healthequitytracker.org> staging site on PR merges to `main`
+  - against the <dev.healthequitytracker.org> "dev" site on PR merges to `main`
   - against the <healthequitytracker.org> production site every night
 - To manually run full suite of tests locally (ensure the localhost server is still running first): `npm run e2e`
 - To run subsets of the full test suite locally, just add the filename (without the path) or even a portion of a work after the command:
@@ -185,7 +185,7 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
 
 6. If you encounter merge conflicts, resolve them. Ben prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`
 
-7. Make changes to the code base, save the files, add those changes to staging:
+7. Make changes to the code base, save the files, stage the changes:
 
    ```bash
    git add -p`# yes/no your way through the chunks of changes
@@ -324,11 +324,11 @@ Note: If you are using VSCode, ensure you install the recommend extensions, incl
 6. This will trigger a build and deployment of backend images to the HET Infra TEST GCP project using the new backend code (and will also build and deploy the frontend the dev site using the frontend code from the `main` branch)
 7. Once the `deployBackendToInfraTest` GitHub action completes successfully, navigate to the test GCP project
    > Note: if you run this command again too quickly before the first run has completed, you might encounter `Error acquiring the state lock` and the run will fail. If you are SURE that this occurred because of your 2nd run being too soon after the 1st (and not because another team member is using `infra-test`) then you can manually go into the Google Cloud Storage bucket that holds the terraform state, find the file named `default.tflock` and delete it or less destructively rename by adding today's date to the file name.
-8. Run the staging environment GitHub Action Workflow for any pipelines that have changed. These are found in the main repo (this one) under "Actions" and are named like "DAG - DECIA_2010_POPULATION". Click on them and then "Run Workflow".
+8. Run the dev environment GitHub Action Workflow for any pipelines that have changed. These are found in the main repo (this one) under "Actions" and are named like "DAG - DECIA_2010_POPULATION". Click on them and then "Run Workflow".
 9. Once DAG  workflow completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
 10. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 11. When ready to merge, use the "Squash and merge" option
-12. **Ensure all affected staging pipeline workflows are run after merging to `main`, and all affected production pipeline workflows after cutting a new release**.
+12. **Ensure all affected dev/infra-test pipeline workflows are run after merging to `main`, and all affected production pipeline workflows after cutting a new release**.
 
 Note: Pipeline updates should be non-breaking, ideally pushing additional data under new table names to the production codebase, followed by pushing updated frontend changes to ingest the newly named pipeline data, finally followed by removal of the older, now-unused data.
 

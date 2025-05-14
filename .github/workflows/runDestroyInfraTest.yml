@@ -120,7 +120,7 @@ jobs:
         with:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
-          deploy-context: 'staging'
+          deploy-context: 'dev'
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 
   deploy:

@@ -1,7 +1,7 @@
 # This action is triggered when a local branch is force-pushed to `infra-test`  branch
 # It deploys changes from the user's local branch to test them out, without commiting those changes to `main`
 
-name: TEST BACKEND CHANGES BY DEPLOYING INFRA-TEST BRANCH TO STAGING GCP
+name: TEST BACKEND CHANGES BY DEPLOYING INFRA-TEST TO GCP
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
         uses: ./.github/actions/buildAllAndDeploy
         with:
           ref: infra-test
-          environment: staging
+          environment: dev
           terraform-var-file: gcp.tfvars
           deployer-sa-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           project-id: ${{ secrets.TEST_PROJECT_ID }}
