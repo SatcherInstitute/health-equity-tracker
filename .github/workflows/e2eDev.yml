@@ -11,8 +11,8 @@ defaults:
     working-directory: frontend
 
 jobs:
-  e2e_staging:
-    name: Runs frontend E2E_STAGING on main whenever code is pushed (or merged)
+  e2e_dev:
+    name: Runs frontend E2E_DEV on main whenever code is pushed (or merged)
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +29,8 @@ jobs:
       - name: Install playwright browsers
         run: npx playwright install chromium --with-deps
 
-      - name: Runs playwright E2E_STAGING
-        run: npm run e2e-staging
+      - name: Runs playwright E2E_DEV
+        run: npm run e2e-dev
 
       - uses: actions/upload-artifact@v4
         if: always()

@@ -16,7 +16,7 @@ Instructions for Downloading NUMERATOR Data:
 7. Once logged in, click the "Download" button again
 8. In the next modal, download, slowly, as a .csv file
 9. Once exported, save (renaming) as /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
-10. Commit to the repo, and if needed rerun the STAGING (infra TEST) and PROD DAG pipelines
+10. Commit to the repo, and if needed rerun the DEV/INFRA-TESTand PROD DAG pipelines
 
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
