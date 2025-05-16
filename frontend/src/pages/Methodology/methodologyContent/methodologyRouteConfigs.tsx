@@ -158,6 +158,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         label: 'Behavioral and Mental Health Resources',
         path: 'behavioral-health-resources',
       },
+      { label: 'Demographics', path: 'demographic-stratification' },
     ],
     visible: true,
   },
