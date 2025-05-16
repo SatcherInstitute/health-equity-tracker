@@ -147,6 +147,10 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         path: 'behavioral-health-data-sourcing',
       },
       {
+        label: 'Demographics',
+        path: 'demographic-stratification',
+      },
+      {
         label: 'Data Sources',
         path: 'behavioral-health-data-sources',
       },
@@ -158,7 +162,6 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         label: 'Behavioral and Mental Health Resources',
         path: 'behavioral-health-resources',
       },
-      { label: 'Demographics', path: 'demographic-stratification' },
     ],
     visible: true,
   },
