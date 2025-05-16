@@ -357,6 +357,10 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         path: 'medication-utilization-data-sourcing',
       },
       {
+        label: 'Demographics',
+        path: 'demographic-stratification',
+      },
+      {
         label: 'Data Sources',
         path: 'medication-utilization-data-sources',
       },
