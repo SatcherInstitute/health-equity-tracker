@@ -262,9 +262,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <section>
-        <div className='grid grid-cols-12 pl-2 text-left text-small'>
+        <div className='flex items-center justify-between pl-2 text-left text-small'>
           {/* Desktop only Sources and Card Options */}
-          <div className='col-span-9 hidden sm:block'>
+          <div className='hidden sm:block'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
@@ -272,9 +272,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             />
           </div>
           {/*  CLOSE button */}
-          <div className='col-span-12 sm:col-span-3'>
+          <div>
             <HetLinkButton
-              className='hide-on-screenshot w-full justify-center'
+              className='hide-on-screenshot justify-center'
               aria-label='close this multiple maps modal'
               onClick={props.handleClose}
             >

@@ -1,6 +1,5 @@
 import type * as d3 from 'd3'
 import { useEffect, useState } from 'react'
-import { INVISIBLE_PRELOAD_WIDTH } from '../../charts/mapGlobals'
 import type {
   DataTypeConfig,
   MapConfig,
@@ -15,7 +14,6 @@ import ClickableLegendHeader from '../ClickableLegendHeader'
 import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import LegendItem from './LegendItem'
 import { createColorScale } from './colorSchemes'
-import { useGetLegendColumnCount } from './mapLegendUtils'
 import { formatMetricValue } from './tooltipUtils'
 
 interface RateMapLegendProps {
@@ -44,9 +42,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     return formatMetricValue(value, props.metricConfig, true)
   }
 
-  // Get dynamic column count based on screen size
-  const [containerRef, containerWidth] = useResponsiveWidth()
-  const regularColsCount = useGetLegendColumnCount(containerWidth)
+  const [containerRef] = useResponsiveWidth()
   const [legendItems, setLegendItems] = useState<{
     regular: LegendItemData[]
     special: LegendItemData[]
@@ -54,7 +50,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
   // Process data and create legend items
   useEffect(() => {
-    if (!props.data || containerWidth === INVISIBLE_PRELOAD_WIDTH) {
+    if (!props.data) {
       return
     }
 
@@ -156,67 +152,51 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     props.fipsTypeDisplayName,
     props.isPhrmaAdherence,
     props.isSummaryLegend,
-    containerWidth,
   ])
-
-  // Calculate column layout
-  const hasSpecialColumn = legendItems.special.length > 0
-  const regularColumnsCount = Math.max(1, regularColsCount)
-  const totalColumns = hasSpecialColumn
-    ? regularColumnsCount + 1
-    : regularColumnsCount
-  const itemsPerRegularColumn = Math.ceil(
-    legendItems.regular.length / regularColumnsCount,
-  )
 
   return (
     <section
-      className='mx-4 flex w-full flex-col items-center text-left'
+      className={`mx-4 flex w-full flex-col items-center text-left ${
+        props.isMulti ? 'md:mx-auto md:w-1/2' : ''
+      }`}
       ref={containerRef}
     >
       <div className='w-full'>
-        <div
-          className='grid gap-4'
-          style={{
-            gridTemplateColumns: `repeat(${totalColumns}, minmax(0, 1fr))`,
-          }}
-        >
-          <div className='flex justify-center w-full col-span-12'>
+        <div className='flex flex-col gap-4'>
+          {/* Full width container for header to ensure centering */}
+          <div className='flex w-full justify-center'>
             <ClickableLegendHeader
               legendTitle={props.legendTitle}
               dataTypeConfig={props.dataTypeConfig}
             />
           </div>
-          {/* Special items column */}
-          {hasSpecialColumn && (
-            <div className='flex flex-col gap-2'>
-              {legendItems.special.map((item, i) => (
-                <LegendItem
-                  key={`special-${i}`}
-                  color={item.color}
-                  label={item.label}
-                />
-              ))}
-            </div>
-          )}
 
-          {/* Regular items columns */}
-          {Array.from({ length: regularColumnsCount }).map((_, colIndex) => (
-            <div key={`col-${colIndex}`} className='flex flex-col gap-2'>
-              {legendItems.regular
-                .slice(
-                  colIndex * itemsPerRegularColumn,
-                  (colIndex + 1) * itemsPerRegularColumn,
-                )
-                .map((item, i) => (
-                  <LegendItem
-                    key={`regular-${colIndex}-${i}`}
-                    color={item.color}
-                    label={item.label}
-                  />
-                ))}
-            </div>
-          ))}
+          {/* Legend items container */}
+          <div
+            className={`grid gap-1 ${
+              props.isMulti
+                ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+                : 'grid-cols-1 tiny:grid-cols-2 sm:grid-cols-1'
+            }`}
+          >
+            {/* Special items */}
+            {legendItems.special.map((item, i) => (
+              <LegendItem
+                key={`special-${i}`}
+                color={item.color}
+                label={item.label}
+              />
+            ))}
+
+            {/* Regular items */}
+            {legendItems.regular.map((item, i) => (
+              <LegendItem
+                key={`regular-${i}`}
+                color={item.color}
+                label={item.label}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
