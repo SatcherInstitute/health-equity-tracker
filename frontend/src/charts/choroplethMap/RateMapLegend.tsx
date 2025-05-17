@@ -171,30 +171,26 @@ export default function RateMapLegend(props: RateMapLegendProps) {
             />
           </div>
 
-          {/* Legend items container */}
+          {/* Legend items container with CSS columns for vertical flow */}
           <div
-            className={`grid gap-1 grid-cols-1 auto-cols-fr grid-flow-col auto-rows-min ${
+            className={`w-full space-y-1 ${
               props.isMulti
-                ? '  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
-                : ' tiny:grid-cols-2 sm:grid-cols-1'
-            }`}
+                ? 'columns-1 md:columns-3 lg:columns-4 xl:columns-5'
+                : 'columns-1 tiny:columns-2 sm:columns-1'
+            } gap-1`}
           >
             {/* Special items */}
             {legendItems.special.map((item, i) => (
-              <LegendItem
-                key={`special-${i}`}
-                color={item.color}
-                label={item.label}
-              />
+              <div key={`special-${i}`} className='mb-1 break-inside-avoid'>
+                <LegendItem color={item.color} label={item.label} />
+              </div>
             ))}
 
             {/* Regular items */}
             {legendItems.regular.map((item, i) => (
-              <LegendItem
-                key={`regular-${i}`}
-                color={item.color}
-                label={item.label}
-              />
+              <div key={`regular-${i}`} className='mb-1 break-inside-avoid'>
+                <LegendItem color={item.color} label={item.label} />
+              </div>
             ))}
           </div>
         </div>
