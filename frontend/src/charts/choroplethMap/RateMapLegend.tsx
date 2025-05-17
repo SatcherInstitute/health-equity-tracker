@@ -124,21 +124,21 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       })
     }
 
-    // Items with value of 0
-    if (hasZeroData) {
-      specialLegendItems.push({
-        color: props.mapConfig.zero || het.mapLightest,
-        label: labelFormat(0),
-        value: 0,
-      })
-    }
-
     // Add missing data item to special items
     if (hasMissingData) {
       specialLegendItems.push({
         color: het.howToColor,
         label: NO_DATA_MESSAGE,
         value: null,
+      })
+    }
+
+    // Items with value of 0
+    if (hasZeroData) {
+      specialLegendItems.push({
+        color: props.mapConfig.zero || het.mapLightest,
+        label: labelFormat(0),
+        value: 0,
       })
     }
 
@@ -173,10 +173,10 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
           {/* Legend items container */}
           <div
-            className={`grid gap-1 ${
+            className={`grid gap-1 grid-cols-1 auto-cols-fr grid-flow-col auto-rows-min ${
               props.isMulti
-                ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
-                : 'grid-cols-1 tiny:grid-cols-2 sm:grid-cols-1'
+                ? '  md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+                : ' tiny:grid-cols-2 sm:grid-cols-1'
             }`}
           >
             {/* Special items */}
