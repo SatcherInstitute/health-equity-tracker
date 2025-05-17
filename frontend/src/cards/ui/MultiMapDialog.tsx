@@ -115,9 +115,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       aria-labelledby='modalTitle'
     >
       <DialogContent dividers={true} className='p-2'>
-        <div>
+        <div className='grid grid-cols-12 gap-4'>
           {/* card options button */}
-          <div className='flex w-full justify-end '>
+          <div className='col-span-12 flex justify-end'>
             <CardOptionsMenu
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
@@ -125,70 +125,73 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           </div>
 
           {/* card heading row */}
-          <div className='col-span-full flex w-full justify-between'>
+          <div className='col-span-12 flex justify-between'>
             {/* Modal Title */}
             <h3 className='m-2 w-full md:m-2' id='modalTitle'>
               {title}
             </h3>
           </div>
 
-          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smMd:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
-            {/* Multiples Maps */}
-            {props.demographicGroups.map((demographicGroup) => {
-              const mapLabel = CAWP_METRICS.includes(
-                props.metricConfig.metricId,
-              )
-                ? getWomenRaceLabel(demographicGroup)
-                : demographicGroup
-              const dataForValue = props.data.filter(
-                (row: HetRow) =>
-                  row[props.demographicType] === demographicGroup,
-              )
+          {/* Maps container */}
+          <div className='col-span-12'>
+            <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smMd:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
+              {/* Multiples Maps */}
+              {props.demographicGroups.map((demographicGroup) => {
+                const mapLabel = CAWP_METRICS.includes(
+                  props.metricConfig.metricId,
+                )
+                  ? getWomenRaceLabel(demographicGroup)
+                  : demographicGroup
+                const dataForValue = props.data.filter(
+                  (row: HetRow) =>
+                    row[props.demographicType] === demographicGroup,
+                )
 
-              return (
-                <li
-                  key={`${demographicGroup}-grid-item`}
-                  className='min-h-multimapMobile w-full sm:p-1 md:min-h-multimapDesktop md:p-2'
-                >
-                  <h3 className='m-0 font-medium text-smallest leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
-                    {mapLabel}
-                  </h3>
-                  <div>
-                    {props.metricConfig && dataForValue?.length > 0 && (
-                      <ChoroplethMap
-                        demographicType={props.demographicType}
-                        activeDemographicGroup={demographicGroup}
-                        countColsMap={props.countColsMap}
-                        data={dataForValue}
-                        fieldRange={props.fieldRange}
-                        filename={title}
-                        fips={props.fips}
-                        geoData={props.geoData}
-                        hideLegend={true}
-                        key={demographicGroup}
-                        legendData={props.data}
-                        metricConfig={props.metricConfig}
-                        showCounties={
-                          !props.fips.isUsa() &&
-                          !props.hasSelfButNotChildGeoData
-                        }
-                        signalListeners={multimapSignalListeners}
-                        mapConfig={mapConfig}
-                        isMulti={true}
-                        isExtremesMode={false}
-                        isPhrmaAdherence={props.isPhrmaAdherence}
-                        isAtlantaMode={props.isAtlantaMode}
-                        updateFipsCallback={props.updateFipsCallback}
-                      />
-                    )}
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
+                return (
+                  <li
+                    key={`${demographicGroup}-grid-item`}
+                    className='min-h-multimapMobile w-full sm:p-1 md:min-h-multimapDesktop md:p-2'
+                  >
+                    <h3 className='m-0 font-medium text-smallest leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
+                      {mapLabel}
+                    </h3>
+                    <div>
+                      {props.metricConfig && dataForValue?.length > 0 && (
+                        <ChoroplethMap
+                          demographicType={props.demographicType}
+                          activeDemographicGroup={demographicGroup}
+                          countColsMap={props.countColsMap}
+                          data={dataForValue}
+                          fieldRange={props.fieldRange}
+                          filename={title}
+                          fips={props.fips}
+                          geoData={props.geoData}
+                          hideLegend={true}
+                          key={demographicGroup}
+                          legendData={props.data}
+                          metricConfig={props.metricConfig}
+                          showCounties={
+                            !props.fips.isUsa() &&
+                            !props.hasSelfButNotChildGeoData
+                          }
+                          signalListeners={multimapSignalListeners}
+                          mapConfig={mapConfig}
+                          isMulti={true}
+                          isExtremesMode={false}
+                          isPhrmaAdherence={props.isPhrmaAdherence}
+                          isAtlantaMode={props.isAtlantaMode}
+                          updateFipsCallback={props.updateFipsCallback}
+                        />
+                      )}
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
 
           {/* LEGEND */}
-          <div className='col-span-full flex w-full justify-start md:col-span-1'>
+          <div className='col-span-12'>
             <RateMapLegend
               dataTypeConfig={props.dataTypeConfig}
               metricConfig={props.metricConfig}
@@ -204,36 +207,33 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             />
           </div>
 
-          {/* Population Breadcrumbs + Legend */}
-          <div className='col-span-full flex w-full items-end justify-between'>
-            {/* DESKTOP BREADCRUMBS */}
-            <div className='hidden w-full justify-start md:flex'>
-              <HetBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId={'rate-map'}
-                totalPopulationPhrase={props.totalPopulationPhrase}
-                subPopulationPhrase={props.subPopulationPhrase}
-                isAtlantaMode={props.isAtlantaMode}
-              />
-            </div>
+          {/* Breadcrumbs - desktop only */}
+          <div className='col-span-12 mt-4 hidden md:block'>
+            <HetBreadcrumbs
+              fips={props.fips}
+              updateFipsCallback={props.updateFipsCallback}
+              scrollToHashId={'rate-map'}
+              totalPopulationPhrase={props.totalPopulationPhrase}
+              subPopulationPhrase={props.subPopulationPhrase}
+              isAtlantaMode={props.isAtlantaMode}
+            />
+          </div>
 
-            {/* MOBILE BREADCRUMBS */}
-            <div className='col-span-full mt-3 flex w-full justify-center md:hidden'>
-              <HetBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId={'rate-map'}
-                totalPopulationPhrase={props.totalPopulationPhrase}
-                subPopulationPhrase={props.subPopulationPhrase}
-                isAtlantaMode={props.isAtlantaMode}
-              />
-            </div>
+          {/* Breadcrumbs - mobile only */}
+          <div className='col-span-12 mt-3 md:hidden'>
+            <HetBreadcrumbs
+              fips={props.fips}
+              updateFipsCallback={props.updateFipsCallback}
+              scrollToHashId={'rate-map'}
+              totalPopulationPhrase={props.totalPopulationPhrase}
+              subPopulationPhrase={props.subPopulationPhrase}
+              isAtlantaMode={props.isAtlantaMode}
+            />
           </div>
 
           {/* Missing Groups */}
           {props.demographicGroupsNoData.length > 0 && (
-            <div className='col-span-full w-full justify-center xl:w-7/12'>
+            <div className='col-span-12 lg:col-span-8 xl:col-span-7'>
               <div className='my-3'>
                 <HetNotice kind='data-integrity'>
                   <p className='m-0'>
@@ -252,17 +252,19 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             </div>
           )}
 
-          <HetNotice kind='text-only' className='col-span-full'>
-            <DataTypeDefinitionsList />
-          </HetNotice>
+          <div className='col-span-12'>
+            <HetNotice kind='text-only'>
+              <DataTypeDefinitionsList />
+            </HetNotice>
+          </div>
         </div>
       </DialogContent>
 
       {/* MODAL FOOTER */}
       <section>
-        <div className='flex justify-between pl-2 text-left text-small'>
+        <div className='grid grid-cols-12 pl-2 text-left text-small'>
           {/* Desktop only Sources and Card Options */}
-          <div className='hidden w-full sm:block'>
+          <div className='col-span-9 hidden sm:block'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
@@ -270,13 +272,15 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             />
           </div>
           {/*  CLOSE button */}
-          <HetLinkButton
-            className='hide-on-screenshot w-full justify-center'
-            aria-label='close this multiple maps modal'
-            onClick={props.handleClose}
-          >
-            Close
-          </HetLinkButton>
+          <div className='col-span-12 sm:col-span-3'>
+            <HetLinkButton
+              className='hide-on-screenshot w-full justify-center'
+              aria-label='close this multiple maps modal'
+              onClick={props.handleClose}
+            >
+              Close
+            </HetLinkButton>
+          </div>
         </div>
       </section>
     </Dialog>

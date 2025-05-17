@@ -1,3 +1,5 @@
+const SWATCH_SIZE = 15
+
 interface LegendItemProps {
   color: string
   label: string
@@ -5,11 +7,11 @@ interface LegendItemProps {
 
 export default function LegendItem({ color, label }: LegendItemProps) {
   return (
-    <div className='flex items-center gap-2'>
-      <svg width={15} height={15} className='shrink-0'>
-        <rect width={15} height={15} fill={color} />
+    <div className='flex items-center gap-1'>
+      <svg width={SWATCH_SIZE} height={SWATCH_SIZE} className='shrink-0'>
+        <rect width={SWATCH_SIZE} height={SWATCH_SIZE} fill={color} />
       </svg>
-      <span className='text-sm'>{label}</span>
+      <span className='text-smallest'>{label}</span>
     </div>
   )
 }

@@ -32,3 +32,10 @@ export function useIsBreakpointAndUp(breakpoint: TailwindBreakpoint) {
 
   return isBreakpoint
 }
+
+export function valueIsBreakpointAndUp(
+  value: number,
+  breakpoint: TailwindBreakpoint,
+): boolean {
+  return value >= getTailwindBreakpointValue(breakpoint)
+}

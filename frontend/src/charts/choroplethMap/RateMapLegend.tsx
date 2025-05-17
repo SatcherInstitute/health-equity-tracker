@@ -45,8 +45,8 @@ export default function RateMapLegend(props: RateMapLegendProps) {
   }
 
   // Get dynamic column count based on screen size
-  const regularColsCount = useGetLegendColumnCount(props.isMulti)
   const [containerRef, containerWidth] = useResponsiveWidth()
+  const regularColsCount = useGetLegendColumnCount(containerWidth)
   const [legendItems, setLegendItems] = useState<{
     regular: LegendItemData[]
     special: LegendItemData[]
@@ -160,13 +160,13 @@ export default function RateMapLegend(props: RateMapLegendProps) {
   ])
 
   // Calculate column layout
-  const adjustedColumnCount = Math.max(1, regularColsCount)
   const hasSpecialColumn = legendItems.special.length > 0
+  const regularColumnsCount = Math.max(1, regularColsCount)
   const totalColumns = hasSpecialColumn
-    ? adjustedColumnCount + 1
-    : adjustedColumnCount
+    ? regularColumnsCount + 1
+    : regularColumnsCount
   const itemsPerRegularColumn = Math.ceil(
-    legendItems.regular.length / adjustedColumnCount,
+    legendItems.regular.length / regularColumnsCount,
   )
 
   return (
@@ -174,11 +174,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       className='mx-4 flex w-full flex-col items-center text-left'
       ref={containerRef}
     >
-      <ClickableLegendHeader
-        legendTitle={props.legendTitle}
-        dataTypeConfig={props.dataTypeConfig}
-      />
-
       <div className='w-full'>
         <div
           className='grid gap-4'
@@ -186,6 +181,12 @@ export default function RateMapLegend(props: RateMapLegendProps) {
             gridTemplateColumns: `repeat(${totalColumns}, minmax(0, 1fr))`,
           }}
         >
+          <div className='flex justify-center w-full col-span-12'>
+            <ClickableLegendHeader
+              legendTitle={props.legendTitle}
+              dataTypeConfig={props.dataTypeConfig}
+            />
+          </div>
           {/* Special items column */}
           {hasSpecialColumn && (
             <div className='flex flex-col gap-2'>
@@ -200,7 +201,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
           )}
 
           {/* Regular items columns */}
-          {Array.from({ length: adjustedColumnCount }).map((_, colIndex) => (
+          {Array.from({ length: regularColumnsCount }).map((_, colIndex) => (
             <div key={`col-${colIndex}`} className='flex flex-col gap-2'>
               {legendItems.regular
                 .slice(
