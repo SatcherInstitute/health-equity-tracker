@@ -31,8 +31,8 @@ interface RateMapLegendProps {
   legendTitle: string
 }
 
-interface LegendItemData {
-  color: string
+export interface LegendItemData {
+  color: string | null
   label: string
   value: any
 }
@@ -43,10 +43,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
   }
 
   const [containerRef] = useResponsiveWidth()
-  const [legendItems, setLegendItems] = useState<{
-    regular: LegendItemData[]
-    special: LegendItemData[]
-  }>({ regular: [], special: [] })
+  const [legendItems, setLegendItems] = useState<LegendItemData[]>([])
 
   // Process data and create legend items
   useEffect(() => {
@@ -54,7 +51,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       return
     }
 
-    // Process data - separate zero, non-zero, and missing data
     const zeroData = props.data.filter(
       (row) => row[props.metricConfig.metricId] === 0,
     )
@@ -124,7 +120,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       })
     }
 
-    // Add missing data item to special items
     if (hasMissingData) {
       specialLegendItems.push({
         color: het.howToColor,
@@ -133,7 +128,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       })
     }
 
-    // Items with value of 0
     if (hasZeroData) {
       specialLegendItems.push({
         color: props.mapConfig.zero || het.mapLightest,
@@ -142,7 +136,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       })
     }
 
-    setLegendItems({ regular: regularLegendItems, special: specialLegendItems })
+    setLegendItems([...specialLegendItems, ...regularLegendItems])
   }, [
     props.data,
     props.metricConfig,
@@ -154,41 +148,33 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     props.isSummaryLegend,
   ])
 
+  const isCompareMode = window.location.href.includes('compare')
+
   return (
     <section
-      className={`mx-4 flex w-full flex-col items-center text-left ${
+      className={`mx-4 flex w-full flex-col items-start text-left ${
         props.isMulti ? 'md:mx-auto md:w-1/2' : ''
       }`}
       ref={containerRef}
     >
       <div className='w-full'>
-        <div className='flex flex-col gap-4'>
-          {/* Full width container for header to ensure centering */}
-          <div className='flex w-full justify-center'>
-            <ClickableLegendHeader
-              legendTitle={props.legendTitle}
-              dataTypeConfig={props.dataTypeConfig}
-            />
-          </div>
+        <div className='flex flex-col items-center'>
+          <ClickableLegendHeader
+            legendTitle={props.legendTitle}
+            dataTypeConfig={props.dataTypeConfig}
+          />
 
-          {/* Legend items container with CSS columns for vertical flow */}
           <div
-            className={`w-full space-y-1 ${
+            className={`w-2/3 columns-1 tiny:columns-2 space-y-1 border-0 border-greyGridColorDarker border-t-[1px] border-solid px-4 pt-4 ${
               props.isMulti
-                ? 'columns-1 md:columns-3 lg:columns-4 xl:columns-5'
-                : 'columns-1 tiny:columns-2 sm:columns-1'
+                ? 'columns-auto sm:columns-3 lg:columns-4'
+                : isCompareMode
+                  ? 'smMd:columns-3 md:columns-2 lg:columns-3'
+                  : 'sm:columns-1'
             } gap-1`}
           >
-            {/* Special items */}
-            {legendItems.special.map((item, i) => (
-              <div key={`special-${i}`} className='mb-1 break-inside-avoid'>
-                <LegendItem color={item.color} label={item.label} />
-              </div>
-            ))}
-
-            {/* Regular items */}
-            {legendItems.regular.map((item, i) => (
-              <div key={`regular-${i}`} className='mb-1 break-inside-avoid'>
+            {legendItems.map((item) => (
+              <div key={item.label} className='mb-1 break-inside-avoid'>
                 <LegendItem color={item.color} label={item.label} />
               </div>
             ))}
