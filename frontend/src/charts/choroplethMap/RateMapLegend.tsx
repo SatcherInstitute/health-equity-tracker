@@ -165,13 +165,17 @@ export default function RateMapLegend(props: RateMapLegendProps) {
           />
 
           <div
-            className={`w-2/3 columns-1 tiny:columns-2 space-y-1 border-0 border-greyGridColorDarker border-t-[1px] border-solid px-4 pt-4 ${
+            // common classes across all views
+            className={`w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-greyGridColorDarker border-t-[1px] border-solid px-4 pt-4 ${
               props.isMulti
-                ? 'columns-auto sm:columns-3 lg:columns-4'
+                ? // multimap only
+                  'columns-auto sm:columns-3 lg:columns-4'
                 : isCompareMode
-                  ? 'smMd:columns-3 md:columns-2 lg:columns-3'
-                  : 'sm:columns-1'
-            } gap-1`}
+                  ? // compare mode only
+                    'smMd:columns-3 md:columns-2 lg:columns-3'
+                  : // non-compare mode only
+                    'sm:columns-1'
+            }`}
           >
             {legendItems.map((item) => (
               <div key={item.label} className='mb-1 break-inside-avoid'>
