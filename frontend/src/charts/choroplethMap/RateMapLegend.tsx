@@ -32,7 +32,7 @@ interface RateMapLegendProps {
 }
 
 interface LegendItemData {
-  color: string | null
+  color: string
   label: string
   value: any
 }
