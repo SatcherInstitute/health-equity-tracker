@@ -29,6 +29,7 @@ interface RateMapLegendProps {
   fips: Fips
   isMulti?: boolean
   legendTitle: string
+  isCompareMode?: boolean
 }
 
 interface LegendItemData {
@@ -148,8 +149,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     props.isSummaryLegend,
   ])
 
-  const isCompareMode = window.location.href.includes('compare')
-
   return (
     <section
       className={`mx-4 flex w-full flex-col items-start text-left ${
@@ -170,7 +169,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
               props.isMulti
                 ? // multimap only
                   'columns-auto sm:columns-3 lg:columns-4'
-                : isCompareMode
+                : props.isCompareMode
                   ? // compare mode only
                     'smMd:columns-3 md:columns-2 lg:columns-3'
                   : // non-compare mode only

@@ -640,6 +640,7 @@ function MapCardWithKey(props: MapCardProps) {
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
                     fips={props.fips}
+                    isCompareMode={isCompareMode}
                   />
                 </div>
 
