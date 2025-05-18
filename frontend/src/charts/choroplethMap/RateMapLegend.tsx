@@ -31,7 +31,7 @@ interface RateMapLegendProps {
   legendTitle: string
 }
 
-export interface LegendItemData {
+interface LegendItemData {
   color: string | null
   label: string
   value: any
