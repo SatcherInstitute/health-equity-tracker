@@ -22,24 +22,22 @@ export default function ClickableLegendHeader(
     props.dataTypeConfig.fullDisplayName
 
   return (
-    <div className='w-full'>
-      <Tooltip
-        arrow={true}
-        placement='top'
-        title={`Click for more info on ${topicName}`}
+    <Tooltip
+      arrow={true}
+      placement='top'
+      title={`Click for more info on ${topicName}`}
+    >
+      <Button
+        onClick={() => {
+          setTopicInfoModalIsOpen(true)
+        }}
+        className='grid h-full place-content-center'
       >
-        <Button
-          onClick={() => {
-            setTopicInfoModalIsOpen(true)
-          }}
-          className='grid h-full w-full place-content-center'
-        >
-          <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lhSomeMoreSpace'>
-            <InfoOutlinedIcon className='mr-1 mb-[-1px] p-[3px]' />
-            {props.legendTitle}
-          </span>
-        </Button>
-      </Tooltip>
-    </div>
+        <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lhSomeMoreSpace'>
+          <InfoOutlinedIcon className='mr-1 mb-[-1px] p-[3px]' />
+          {props.legendTitle}
+        </span>
+      </Button>
+    </Tooltip>
   )
 }
