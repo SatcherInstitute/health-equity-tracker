@@ -1,6 +1,5 @@
-import * as d3 from 'd3'
-import { useEffect, useRef } from 'react'
-import { INVISIBLE_PRELOAD_WIDTH } from '../../charts/mapGlobals'
+import type * as d3 from 'd3'
+import { useEffect, useState } from 'react'
 import type {
   DataTypeConfig,
   MapConfig,
@@ -10,12 +9,11 @@ import type { GeographicBreakdown } from '../../data/query/Breakdowns'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { het } from '../../styles/DesignTokens'
-import { getTailwindBreakpointValue } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import ClickableLegendHeader from '../ClickableLegendHeader'
 import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
+import LegendItem from './LegendItem'
 import { createColorScale } from './colorSchemes'
-import { useGetLegendColumnCount } from './mapLegendUtils'
 import { formatMetricValue } from './tooltipUtils'
 
 interface RateMapLegendProps {
@@ -31,6 +29,13 @@ interface RateMapLegendProps {
   fips: Fips
   isMulti?: boolean
   legendTitle: string
+  isCompareMode?: boolean
+}
+
+interface LegendItemData {
+  color: string
+  label: string
+  value: any
 }
 
 export default function RateMapLegend(props: RateMapLegendProps) {
@@ -38,26 +43,15 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     return formatMetricValue(value, props.metricConfig, true)
   }
 
-  // Get dynamic column count based on screen size
-  const regularColsCount = useGetLegendColumnCount(props.isMulti)
-  const [containerRef, containerWidth] = useResponsiveWidth()
+  const [containerRef] = useResponsiveWidth()
+  const [legendItems, setLegendItems] = useState<LegendItemData[]>([])
 
-  const svgRef = useRef<SVGSVGElement>(null)
-
-  // Single useEffect for all rendering logic
+  // Process data and create legend items
   useEffect(() => {
-    if (
-      !svgRef.current ||
-      !props.data ||
-      containerWidth === INVISIBLE_PRELOAD_WIDTH
-    ) {
+    if (!props.data) {
       return
     }
 
-    const svg = d3.select(svgRef.current)
-    svg.selectAll('*').remove() // Clear previous legend
-
-    // Process data - separate zero, non-zero, and missing data
     const zeroData = props.data.filter(
       (row) => row[props.metricConfig.metricId] === 0,
     )
@@ -74,17 +68,9 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     const hasMissingData = missingData.length > 0
     const hasZeroData = zeroData.length > 0
 
-    // Setup constants for legend layout
-    const margin = { top: 10, right: 20, bottom: 10, left: 20 }
-    const legendRowHeight = 20
-    const symbolSize = 15
-    const labelOffset = 5
-
     // Separate regular legend items from special items
-    const regularLegendItems: { color: string; label: string; value: any }[] =
-      []
-    const specialLegendItems: { color: string; label: string; value: any }[] =
-      []
+    const regularLegendItems: LegendItemData[] = []
+    const specialLegendItems: LegendItemData[] = []
 
     if (uniqueNonZeroValues.length > 0 && !props.isSummaryLegend) {
       const colorScale = createColorScale({
@@ -112,13 +98,11 @@ export default function RateMapLegend(props: RateMapLegendProps) {
             label: `< ${labelFormat(firstThreshold)}`,
             color: colorScale(firstThreshold - 1) as string,
           },
-
           ...thresholds.slice(0, -1).map((threshold, i) => ({
             value: threshold,
             label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
             color: colorScale(threshold) as string,
           })),
-
           {
             value: lastThreshold,
             label: `≥ ${labelFormat(lastThreshold)}`,
@@ -130,7 +114,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
     if (props.isSummaryLegend) {
       const summaryValue = nonZeroData[0][props.metricConfig.metricId]
-
       regularLegendItems.push({
         value: summaryValue,
         label: `${labelFormat(summaryValue)} (${props.fipsTypeDisplayName} overall)`,
@@ -138,16 +121,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       })
     }
 
-    // Items with value of 0
-    if (hasZeroData) {
-      specialLegendItems.push({
-        color: props.mapConfig.zero || het.mapLightest,
-        label: labelFormat(0),
-        value: 0,
-      })
-    }
-
-    // Add missing data item to special items
     if (hasMissingData) {
       specialLegendItems.push({
         color: het.howToColor,
@@ -156,104 +129,19 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       })
     }
 
-    // Calculate layout with responsive adjustments
-    // Adjust columns based on available width
-    let adjustedColumnCount = regularColsCount
-    const smBreakpoint = getTailwindBreakpointValue('sm')
-    if (containerWidth < smBreakpoint && regularLegendItems.length > 0) {
-      adjustedColumnCount = Math.max(1, regularColsCount - 1)
-    }
-
-    const hasSpecialColumn = specialLegendItems.length > 0
-    const totalColumns = hasSpecialColumn
-      ? adjustedColumnCount + 1
-      : adjustedColumnCount
-
-    // Calculate how many items should be in each column
-    const itemsPerRegularColumn = Math.ceil(
-      regularLegendItems.length / adjustedColumnCount,
-    )
-    const maxItemsInAnyColumn = Math.max(
-      itemsPerRegularColumn,
-      specialLegendItems.length,
-    )
-
-    const height =
-      maxItemsInAnyColumn * legendRowHeight + margin.top + margin.bottom
-
-    // Set SVG dimensions with responsive width
-    svg
-      .attr('width', containerWidth)
-      .attr('height', height)
-      .attr('aria-label', props.description)
-      .style('background', 'transparent')
-      .style('font-family', 'sans-serif')
-      .style('font-size', '12px')
-
-    const g = svg
-      .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`)
-
-    // Calculate available width for columns (accounting for margins)
-    const availableWidth = containerWidth - margin.left - margin.right
-
-    // Create properly sized columns based on available width
-    const columnWidth = availableWidth / totalColumns
-
-    // Render special items in the first column if they exist
-    if (hasSpecialColumn) {
-      specialLegendItems.forEach((item, i) => {
-        const y = i * legendRowHeight
-
-        // Add colored square
-        g.append('rect')
-          .attr('x', 0)
-          .attr('y', y)
-          .attr('width', symbolSize)
-          .attr('height', symbolSize)
-          .attr('fill', item.color)
-
-        // Add text label
-        g.append('text')
-          .attr('x', symbolSize + labelOffset)
-          .attr('y', y + symbolSize / 2 + 4) // Center text vertically with square
-          .text(item.label)
+    if (hasZeroData) {
+      specialLegendItems.push({
+        color: props.mapConfig.zero || het.mapLightest,
+        label: labelFormat(0),
+        value: 0,
       })
     }
 
-    // Render regular legend items after the special column
-    regularLegendItems.forEach((item, i) => {
-      const col = Math.floor(i / itemsPerRegularColumn)
-
-      // Calculate x position with responsive adjustments
-      const xOffset = hasSpecialColumn ? columnWidth : 0
-      const x = xOffset + col * columnWidth
-      const row = i % itemsPerRegularColumn
-      const y = row * legendRowHeight
-
-      // Add colored square
-      g.append('rect')
-        .attr('x', x)
-        .attr('y', y)
-        .attr('width', symbolSize)
-        .attr('height', symbolSize)
-        .attr('fill', item.color)
-
-      // Add text label
-      g.append('text')
-        .attr('x', x + symbolSize + labelOffset)
-        .attr('y', y + symbolSize / 2 + 4) // Center text vertically with square
-        .text(item.label)
-        .append('title')
-        .text(item.label) // Add title for tooltip on hover
-    })
+    setLegendItems([...specialLegendItems, ...regularLegendItems])
   }, [
     props.data,
     props.metricConfig,
     props.mapConfig,
-    props.description,
-    containerWidth,
-    regularColsCount,
     props.fips,
     props.isMulti,
     props.fipsTypeDisplayName,
@@ -263,14 +151,40 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
   return (
     <section
-      className='mx-4 flex w-full flex-col items-center text-left'
+      className={`mx-4 flex w-full flex-col items-start text-left ${
+        props.isMulti ? 'md:mx-auto md:w-1/2' : ''
+      }`}
+      aria-label='Legend for rate map'
       ref={containerRef}
     >
-      <ClickableLegendHeader
-        legendTitle={props.legendTitle}
-        dataTypeConfig={props.dataTypeConfig}
-      />
-      <svg ref={svgRef} className='w-full' />
+      <div className='w-full'>
+        <div className='flex flex-col items-center'>
+          <ClickableLegendHeader
+            legendTitle={props.legendTitle}
+            dataTypeConfig={props.dataTypeConfig}
+          />
+
+          <div
+            // common classes across all views
+            className={`w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-greyGridColorDarker border-t-[1px] border-solid px-4 pt-4 ${
+              props.isMulti
+                ? // multimap only
+                  'columns-auto sm:columns-3 lg:columns-4'
+                : props.isCompareMode
+                  ? // compare mode only
+                    'smMd:columns-3 md:columns-2 lg:columns-3'
+                  : // non-compare mode only
+                    'sm:columns-1'
+            }`}
+          >
+            {legendItems.map((item) => (
+              <div key={item.label} className='mb-1 break-inside-avoid'>
+                <LegendItem color={item.color} label={item.label} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   )
 }

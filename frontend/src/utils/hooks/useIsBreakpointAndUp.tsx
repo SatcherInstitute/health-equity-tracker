@@ -5,9 +5,7 @@ import tailwindConfig from '../../../tailwind.config.js'
 const fullConfig = resolveConfig(tailwindConfig)
 type TailwindBreakpoint = keyof typeof fullConfig.theme.screens
 
-export function getTailwindBreakpointValue(
-  breakpoint: TailwindBreakpoint,
-): number {
+function getTailwindBreakpointValue(breakpoint: TailwindBreakpoint): number {
   const breakpointStringValue = fullConfig.theme.screens[breakpoint]
   const pixelValue = Number.parseInt(breakpointStringValue.replace('px', ''))
   return pixelValue || 0
