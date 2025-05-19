@@ -1,6 +1,14 @@
-import { ascending, descending, max, min } from 'd3'
+import { ascending, curveMonotoneX, descending, line, max, min } from 'd3'
+import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 import { CONFIG } from './constants'
-import type { GroupData, TimeSeries, TrendsData, UnknownData } from './types'
+import type {
+  GroupData,
+  TimeSeries,
+  TrendsData,
+  UnknownData,
+  XScale,
+  YScale,
+} from './types'
 
 const { BAR_WIDTH } = CONFIG
 
@@ -141,17 +149,99 @@ function hasNonZeroUnknowns(data: TimeSeries | undefined) {
   return data?.some(([, percent]) => percent > 0) ?? false
 }
 
+// Helper functions
+const createLineGenerator = (xScale: XScale, yScale: YScale) => {
+  return line()
+    .defined(
+      ([date, amount]) =>
+        date !== null &&
+        date !== undefined &&
+        amount !== undefined &&
+        amount !== null,
+    )
+    .x(([date]) => xScale(new Date(date)) ?? 0)
+    .y(([_, amount]) => yScale(amount) ?? 0)
+    .curve(curveMonotoneX)
+}
+
+const splitIntoConsecutiveSegments = (points: [string, number][]) => {
+  const sortedPoints = [...points].sort(
+    (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime(),
+  )
+
+  const validPoints = sortedPoints.filter(
+    ([date, amount]) => date != null && amount != null,
+  )
+
+  if (validPoints.length <= 1) return [validPoints]
+
+  const segments: [string, number][][] = []
+  let currentSegment: [string, number][] = [validPoints[0]]
+
+  for (let i = 1; i < validPoints.length; i++) {
+    const prevDate = new Date(validPoints[i - 1][0])
+    const currDate = new Date(validPoints[i][0])
+    const yearDiff = currDate.getFullYear() - prevDate.getFullYear()
+
+    if (yearDiff <= 1) {
+      currentSegment.push(validPoints[i])
+    } else {
+      segments.push(currentSegment)
+      currentSegment = [validPoints[i]]
+    }
+  }
+
+  if (currentSegment.length > 0) {
+    segments.push(currentSegment)
+  }
+
+  return segments
+}
+
+const hasDataGaps = (segments: [string, number][][]) => {
+  return segments.length > 1 || segments.some((segment) => segment.length === 1)
+}
+
+const getGroupAccessibilityDescription = (
+  group: string,
+  sortedData: [string, number][],
+  valuesArePct: boolean,
+) => {
+  const minValueForGroup = sortedData[0]?.[1]
+  const maxValueForGroup = sortedData[sortedData.length - 1]?.[1]
+
+  const lowestDates = sortedData
+    .filter((row) => row[1] === minValueForGroup)
+    .map((row) => getPrettyDate(row[0]))
+
+  const highestDates = sortedData
+    .filter((row) => row[1] === maxValueForGroup)
+    .map((row) => getPrettyDate(row[0]))
+
+  const optionalPct = valuesArePct ? '%' : ''
+
+  return `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDates.join(
+    ', ',
+  )} and highest value ${maxValueForGroup}${optionalPct} in ${highestDates.join(
+    ', ',
+  )}`
+}
+
 export {
+  createLineGenerator,
   filterDataByGroup,
   filterUnknownsByTimePeriod,
   getAmounts,
   getAmountsByDate,
   getDates,
+  getGroupAccessibilityDescription,
   getMaxNumber,
   getMinNumber,
   getWidthHundredK,
   getWidthPctShare,
+  hasDataGaps,
   hasNonZeroUnknowns,
   sortDataDescending,
+  splitIntoConsecutiveSegments,
   translateXPctShare,
 }
