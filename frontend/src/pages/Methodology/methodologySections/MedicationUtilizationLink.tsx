@@ -3,6 +3,7 @@ import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPhrma'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
@@ -386,6 +387,16 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
         </section>
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+        <HetTopicDemographics
+          topicIds={[...MEDICARE_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={dataSourceMetadataMap.phrma}
+        />
 
         <h3
           className='mt-12 font-medium text-title'

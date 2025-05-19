@@ -2,6 +2,7 @@ import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -73,6 +74,16 @@ export default function BehavioralHealthLink() {
         <NoteBrfss />
 
         <AhrMetrics />
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+        <HetTopicDemographics
+          topicIds={[...BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={dataSourceMetadataMap.ahr}
+        />
 
         <h3
           className='mt-12 font-medium text-title'
