@@ -154,6 +154,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       className={`mx-4 flex w-full flex-col items-start text-left ${
         props.isMulti ? 'md:mx-auto md:w-1/2' : ''
       }`}
+      aria-label='Legend for rate map'
       ref={containerRef}
     >
       <div className='w-full'>
