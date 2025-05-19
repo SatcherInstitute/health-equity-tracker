@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { calculateLegendColorCount } from '../mapHelperFunctions'
 import type { ColorScale, DataPoint } from './types'
 
@@ -115,17 +114,4 @@ export const createUnknownLegend = (
       .style('font', '10px sans-serif')
       .text(isPct ? `${label}%` : label.toFixed(1))
   })
-}
-
-export function useGetLegendColumnCount(isMulti?: boolean) {
-  const isCompareMode = window.location.href.includes('compare')
-  const isTiny = useIsBreakpointAndUp('tiny')
-  const isSm = useIsBreakpointAndUp('sm')
-  const isMd = useIsBreakpointAndUp('md')
-  const isLg = useIsBreakpointAndUp('lg')
-  if (isLg && isMulti) return 10
-  if (isMd) return 3
-  if (isSm) return 2
-  if (isTiny && !isCompareMode) return 1
-  return 1
 }
