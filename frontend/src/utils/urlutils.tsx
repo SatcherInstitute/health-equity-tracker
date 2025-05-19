@@ -5,7 +5,7 @@ import {
   type DemographicGroup,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
-import type { MadLibId, PhraseSelections } from './MadLibs'
+import type { PhraseSelections } from './MadLibs'
 import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
 import {
@@ -51,6 +51,7 @@ export const EXTREMES_2_PARAM_KEY = 'extremes2'
 export const ALT_TABLE_VIEW_1_PARAM_KEY = 'alt-table-view1'
 export const ALT_TABLE_VIEW_2_PARAM_KEY = 'alt-table-view2'
 export const ATLANTA_MODE_PARAM_KEY = 'atl'
+export const CHLP_MAPS_PARAM_KEY = 'chlp-maps'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
@@ -60,10 +61,6 @@ export function swapOldDatatypeParams(oldParam: string) {
     hospitalizations: 'covid_hospitalizations',
   }
   return swaps[oldParam] || oldParam
-}
-
-function useUrlSearchParams() {
-  return new URLSearchParams(useLocation().search)
 }
 
 export function LinkWithStickyParams(props: {
@@ -82,19 +79,6 @@ export function LinkWithStickyParams(props: {
   linkProps.to = newUrl
 
   return <Link {...linkProps}>{props.children}</Link>
-}
-
-const PAGE_URL_TO_NAMES: Record<string, string> = {
-  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-  [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
-  [NEWS_PAGE_LINK]: 'News',
-  [DATA_CATALOG_PAGE_LINK]: 'Downloads',
-  [METHODOLOGY_PAGE_LINK]: 'Methodology',
-  [ABOUT_US_PAGE_LINK]: 'About Us',
-}
-
-const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
-  '/': 'Home',
 }
 
 export const NAVIGATION_STRUCTURE = {
@@ -127,29 +111,6 @@ export const NAVIGATION_STRUCTURE = {
 export function useSearchParams() {
   const params = new URLSearchParams(useLocation().search)
   return Object.fromEntries(params.entries())
-}
-
-function linkToMadLib(
-  madLibId: MadLibId,
-  phraseSelections: PhraseSelections,
-  absolute = false,
-) {
-  const selectionOverrides = Object.keys(phraseSelections).map(
-    (key) => key + ':' + phraseSelections[Number(key)],
-  )
-
-  const url = [
-    EXPLORE_DATA_PAGE_LINK,
-    '?',
-    MADLIB_PHRASE_PARAM,
-    '=',
-    madLibId,
-    '&',
-    MADLIB_SELECTIONS_PARAM,
-    '=',
-    selectionOverrides.join(','),
-  ].join('')
-  return absolute ? window.location.host + url : url
 }
 
 export function setParameter(

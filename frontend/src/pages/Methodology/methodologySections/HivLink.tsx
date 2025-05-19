@@ -1,7 +1,9 @@
+import { datasourceMetadataHivCategory } from '../../../data/config/DatasetMetadataHivCategory'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
@@ -555,6 +557,18 @@ const HivLink = () => {
           assess the prevalence and impact of HIV stigma.
         </p>
 
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+
+        <HetTopicDemographics
+          topicIds={[...HIV_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={datasourceMetadataHivCategory}
+        />
+
         <h3 className='mt-12 font-medium text-title' id='hiv-data-sources'>
           Data Sources
         </h3>
@@ -564,7 +578,7 @@ const HivLink = () => {
             { header: 'Source', accessor: 'source' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
-          rows={hivDataSources.map((source, index) => ({
+          rows={hivDataSources.map((source) => ({
             source: (
               <a
                 key={source.data_source_name}

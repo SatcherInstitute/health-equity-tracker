@@ -2,7 +2,6 @@ import type { GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 export const termDefinitions: Record<string, GlossaryTermItem> = {
   'Direct standardization method': {
-    topic: 'Direct standardization method',
     path: '',
     definitions: [
       {
@@ -18,7 +17,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Internal standard population': {
-    topic: 'Internal standard population',
     path: '',
     definitions: [
       {
@@ -34,7 +32,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Condition counts broken down by both age and race': {
-    topic: 'Condition counts broken down by both age and race',
     path: '',
     definitions: [
       {
@@ -50,7 +47,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Population counts broken down by both age and race': {
-    topic: 'Population counts broken down by both age and race',
     path: '',
     definitions: [
       {
@@ -66,7 +62,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Age-specific rate': {
-    topic: 'Age-specific rate',
     path: '',
     definitions: [
       {
@@ -82,7 +77,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Standard population': {
-    topic: 'Standard population',
     path: '',
     definitions: [
       {
@@ -98,7 +92,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Expected condition counts': {
-    topic: 'Expected condition counts',
     path: '',
     definitions: [
       {
@@ -114,7 +107,6 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
     ],
   },
   'Edge cases': {
-    topic: 'Edge cases',
     path: '',
     definitions: [
       {
@@ -129,9 +121,7 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
       },
     ],
   },
-
   'Time-series': {
-    topic: 'Time-series',
     path: '',
     definitions: [
       {
@@ -146,9 +136,7 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
       },
     ],
   },
-
   'Crude rates': {
-    topic: 'Crude rates',
     path: '',
     definitions: [
       {
@@ -158,9 +146,7 @@ export const termDefinitions: Record<string, GlossaryTermItem> = {
       },
     ],
   },
-
   'Inequitable Burden': {
-    topic: 'Inequitable burden',
     path: '',
     definitions: [
       {

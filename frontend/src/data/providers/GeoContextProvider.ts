@@ -20,7 +20,7 @@ class GeoContextProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
+    const { datasetId, breakdowns } = resolveDatasetId(
       'geo_context',
       '',
       metricQuery,

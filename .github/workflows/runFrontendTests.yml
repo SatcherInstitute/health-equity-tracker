@@ -70,7 +70,7 @@ jobs:
         run: npm test
 
   # If it's a PR creation or update, we'll run the e2e test here on Netlify
-  # if it's a merge to main, the E2E will run in e2eStaging.yml
+  # if it's a merge to main, the E2E will run in e2eDev.yml
 
   tests_e2e_netlify_prepare:
     name: Wait for Netlify deploy

@@ -299,8 +299,6 @@ export const ACS_UNINSURANCE_CURRENT_AGE_BUCKETS = [
 // still need to be defined here to explicitly exclude from the TABLE
 const UNUSED_BUCKETS = ['15-17', '65-69', '70-74', '75-79', '80-84'] as const
 
-const UNDER_18_PRISON = `Children in Adult Prison`
-
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
   ALL,

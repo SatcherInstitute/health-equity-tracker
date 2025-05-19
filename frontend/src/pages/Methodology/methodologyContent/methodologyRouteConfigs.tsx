@@ -147,6 +147,10 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         path: 'behavioral-health-data-sourcing',
       },
       {
+        label: 'Demographics',
+        path: 'demographic-stratification',
+      },
+      {
         label: 'Data Sources',
         path: 'behavioral-health-data-sources',
       },
@@ -178,6 +182,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     component: <CommunitySafetyLink />,
     subLinks: [
       { label: 'Data Sourcing', path: 'community-safety-data-sourcing' },
+      { label: 'Demographics', path: 'demographic-stratification' },
       { label: 'Data Sources', path: 'community-safety-data-sources' },
       { label: 'Key Terms', path: 'community-safety-key-terms' },
     ],
@@ -264,7 +269,9 @@ export const methodologyRouteConfigs: RouteConfig[] = [
       },
       { label: 'Linkage to Care', path: 'linkage-to-care' },
       { label: 'Stigma', path: 'stigma' },
+      { label: 'Demographics', path: 'demographic-stratification' },
       { label: 'Data Sources', path: 'hiv-data-sources' },
+
       { label: 'Key Terms', path: 'hiv-key-terms' },
       { label: 'Resources', path: 'hiv-resources' },
     ],
@@ -348,6 +355,10 @@ export const methodologyRouteConfigs: RouteConfig[] = [
       {
         label: 'Data Sourcing',
         path: 'medication-utilization-data-sourcing',
+      },
+      {
+        label: 'Demographics',
+        path: 'demographic-stratification',
       },
       {
         label: 'Data Sources',
