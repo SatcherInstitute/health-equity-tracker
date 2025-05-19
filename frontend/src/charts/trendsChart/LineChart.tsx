@@ -233,7 +233,8 @@ export function LineChart({
                     }`}
                     d={lineGen([lastPoint, firstPoint] as any) ?? ''}
                     stroke={C(group)}
-                    strokeDasharray='4,4'
+                    strokeDasharray='1,5'
+                    strokeOpacity={0.3}
                     style={
                       isUnknownLine
                         ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
