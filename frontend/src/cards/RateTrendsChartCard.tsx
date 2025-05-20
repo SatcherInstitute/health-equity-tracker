@@ -192,15 +192,13 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.demographicType,
         )
 
-        const keepOnlyElectionYears =
-          metricConfigRates.timeSeriesCadence === 'fourYearly'
-
         const nestedRatesData = getNestedData(
           knownRatesData,
           demographicGroupsLabelled,
           props.demographicType,
           metricConfigRates.metricId,
-          keepOnlyElectionYears,
+          /* keepOnlyElectionYears */ metricConfigRates.timeSeriesCadence ===
+            'fourYearly',
         )
 
         const nestedUnknownPctShareData = getNestedUnknowns(
@@ -254,7 +252,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   expanded={unknownsExpanded}
                   setExpanded={setUnknownsExpanded}
                   hasUnknowns={hasUnknowns}
-                  keepOnlyElectionYears={keepOnlyElectionYears}
                 />
                 {isWisqarsByRace && (
                   <MissingDataAlert

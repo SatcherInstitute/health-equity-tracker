@@ -55,7 +55,6 @@ interface TrendsChartProps {
   expanded: boolean
   setExpanded: (expanded: boolean) => void
   hasUnknowns: boolean
-  keepOnlyElectionYears?: boolean
 }
 
 /* Render component */
@@ -70,7 +69,6 @@ export function TrendsChart({
   isCompareCard,
   expanded,
   hasUnknowns,
-  keepOnlyElectionYears,
 }: TrendsChartProps) {
   const isSm = useIsBreakpointAndUp('sm')
   /* Config */
@@ -334,7 +332,6 @@ export function TrendsChart({
               xScale={xScale}
               yScale={yScale}
               valuesArePct={axisConfig.type === 'pct_share'}
-              keepOnlyElectionYears={keepOnlyElectionYears}
             />
             {/* Group for hover indicator line and circles */}
             <g
