@@ -39,7 +39,7 @@ acsCondition.year = "2022"
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
 def testSexNationalBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        "sex", "national", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket"
+        "sex", "national", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2022"
     )
     df = acsCondition.post_process(
         df,
@@ -64,7 +64,7 @@ def testSexNationalBaseTable(mock_acs: mock.MagicMock):
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
 def testSexStateBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        "sex", "state", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket"
+        "sex", "state", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2022"
     )
     df = acsCondition.post_process(
         df,
@@ -89,7 +89,7 @@ def testSexStateBaseTable(mock_acs: mock.MagicMock):
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
 def testSexCountyBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        "sex", "county", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket"
+        "sex", "county", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2022"
     )
     df = acsCondition.post_process(
         df,
@@ -114,7 +114,7 @@ def testSexCountyBaseTable(mock_acs: mock.MagicMock):
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
 def testRaceCountyBaseTable(mock_acs: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        "race", "county", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket"
+        "race", "county", get_acs_metadata_as_json(2022), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2022"
     )
     df = acsCondition.post_process(
         df,
