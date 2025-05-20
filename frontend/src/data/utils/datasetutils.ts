@@ -26,6 +26,7 @@ import {
   AIAN_API,
   AIAN_NH,
   ALL,
+  ALL_W,
   API_NH,
   ASIAN_NH,
   type AgeBucket,
@@ -400,4 +401,8 @@ export function addAcsIdToConsumed(
   if (datasetId) {
     consumedDatasetIds.push(datasetId)
   }
+}
+
+export function groupIsAll(group: DemographicGroup) {
+  return group === ALL || group === ALL_W
 }
