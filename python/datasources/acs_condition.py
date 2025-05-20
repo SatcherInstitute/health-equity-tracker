@@ -517,8 +517,8 @@ class AcsCondition(DataSource):
 
     def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket, year=None):
         """
-        Fetches raw data for the specified demographic and geographic level.
-        
+        Fetches raw data for the specified breakdown.
+
         Args:
             demo: The demographic category (e.g., RACE, AGE, SEX).
             geo: The geographic level (e.g., STATE_LEVEL, COUNTY_LEVEL).
@@ -526,10 +526,10 @@ class AcsCondition(DataSource):
             acs_items: ACS items to process.
             gcs_bucket: The GCS bucket containing the data.
             year: The year of the data to fetch. Defaults to None.
-        
+
         Returns:
             A pandas DataFrame containing the raw data.
-        
+
         Raises:
             ValueError: If year is None and a year is required for processing.
         """
@@ -542,8 +542,6 @@ class AcsCondition(DataSource):
 
         var_map = parse_acs_metadata(metadata, groups)
 
-        # Create merge cols for empty df to start merging
-        # each metric in
         merge_cols = [std_col.STATE_FIPS_COL]
         if geo == COUNTY_LEVEL:
             merge_cols.append(std_col.COUNTY_FIPS_COL)
