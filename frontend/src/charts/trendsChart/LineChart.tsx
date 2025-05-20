@@ -7,6 +7,7 @@ interface LineChartProps {
   xScale: XScale
   yScale: YScale
   valuesArePct: boolean
+  keepOnlyElectionYears?: boolean
 }
 
 export function LineChart({
@@ -14,6 +15,7 @@ export function LineChart({
   xScale,
   yScale,
   valuesArePct,
+  keepOnlyElectionYears,
 }: LineChartProps) {
   // Sort the data so that "All" group is rendered last (appears on top)
   // For non-"All" groups, the comparator returns 0 to ensure a stable sort order.
@@ -34,6 +36,7 @@ export function LineChart({
             xScale={xScale}
             yScale={yScale}
             valuesArePct={valuesArePct}
+            keepOnlyElectionYears={keepOnlyElectionYears}
           />
         )
       })}

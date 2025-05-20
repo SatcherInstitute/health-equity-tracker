@@ -16,6 +16,7 @@ interface GroupLineProps {
   xScale: XScale
   yScale: YScale
   valuesArePct: boolean
+  keepOnlyElectionYears?: boolean
 }
 
 export default function GroupLine({
@@ -24,6 +25,7 @@ export default function GroupLine({
   xScale,
   yScale,
   valuesArePct,
+  keepOnlyElectionYears,
 }: GroupLineProps) {
   const validData = data.filter(
     ([date, amount]) => date != null && amount != null,
@@ -31,7 +33,10 @@ export default function GroupLine({
 
   const sortedData = [...validData].sort((a, b) => a[1] - b[1])
   const isUnknown = group === UNKNOWN_W
-  const segments = splitIntoConsecutiveSegments(validData)
+  const segments = splitIntoConsecutiveSegments(
+    validData,
+    keepOnlyElectionYears,
+  )
   const shouldShowDots = hasDataGaps(segments)
   const lineGen = createLineGenerator(xScale, yScale)
   const color = C(group)

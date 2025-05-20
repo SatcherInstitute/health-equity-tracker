@@ -161,8 +161,11 @@ const createLineGenerator = (xScale: XScale, yScale: YScale) => {
     .curve(curveMonotoneX)
 }
 
-const splitIntoConsecutiveSegments = (points: [string, number][]) => {
-  const maxYearGap = 1 // TODO:  should be based on the metric's timeSeriesCadence
+const splitIntoConsecutiveSegments = (
+  points: [string, number][],
+  keepOnlyElectionYears?: boolean,
+) => {
+  const maxYearGap = keepOnlyElectionYears ? 4 : 1 // TODO: might need to handle more than just 4 or 1 yearly data based on the metrics timeSeriesCadence
 
   const sortedPoints = [...points].sort(
     (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime(),
