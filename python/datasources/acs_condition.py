@@ -356,6 +356,7 @@ class AcsCondition(DataSource):
         logger.info("Starting write_to_bq with dataset=%s, gcs_bucket=%s, attrs=%s", dataset, gcs_bucket, attrs)
 
         year = self.get_attr(attrs, "year")
+        self.year = year
         self.base_url = ACS_URLS_MAP[year]
         logger.info("Processing ACS data for year: %s, base_url: %s", year, self.base_url)
 
@@ -378,7 +379,7 @@ class AcsCondition(DataSource):
                 logger.info("Processing data for geography: %s, demographic: %s", geo, demo)
 
                 logger.info("Getting raw data for demo=%s, geo=%s", demo, geo)
-                df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket, year=year)
+                df = self.get_raw_data(demo, geo, metadata, acs_items, gcs_bucket=gcs_bucket)
                 logger.info(
                     "Retrieved raw data: %s rows, %s columns",
                     len(df) if df is not None else 0,
@@ -429,8 +430,8 @@ class AcsCondition(DataSource):
             # MAKE AND WRITE TIME SERIES TABLE
             logger.info("Creating time series dataframe copy")
             df_time_series = df.copy()
-            df_time_series[std_col.TIME_PERIOD_COL] = year
-            logger.info("Added time period column with year: %s", year)
+            df_time_series[std_col.TIME_PERIOD_COL] = self.year
+            logger.info("Added time period column with year: %s", self.year)
 
             # DROP THE "CURRENT" COLUMNS WE DON'T NEED
             float_cols_to_drop = []
@@ -443,11 +444,11 @@ class AcsCondition(DataSource):
             logger.info("Time series dataframe shape after dropping columns: %s", df_time_series.shape)
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
-            overwrite = year == EARLIEST_ACS_CONDITION_YEAR
+            overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
             logger.info(
                 "Time series table overwrite mode: %s (year=%s, earliest_year=%s)",
                 overwrite,
-                year,
+                self.year,
                 EARLIEST_ACS_CONDITION_YEAR,
             )
 
@@ -474,7 +475,7 @@ class AcsCondition(DataSource):
             logger.info("Successfully wrote time series data to BigQuery table: %s", table_id_historical)
 
             # MAKE AND WRITE CURRENT TABLE
-            if year == CURRENT_ACS_CONDITION_YEAR:
+            if self.year == CURRENT_ACS_CONDITION_YEAR:
                 logger.info(
                     "Current year matches CURRENT_ACS_CONDITION_YEAR (%s), processing current table",
                     CURRENT_ACS_CONDITION_YEAR,
@@ -509,13 +510,13 @@ class AcsCondition(DataSource):
             else:
                 logger.info(
                     "Skipping current table creation as year (%s) != CURRENT_ACS_CONDITION_YEAR (%s)",
-                    year,
+                    self.year,
                     CURRENT_ACS_CONDITION_YEAR,
                 )
 
         logger.info("write_to_bq completed successfully")
 
-    def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket, year):
+    def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket):
 
         groups = []
         for acs_item in acs_items.values():
@@ -547,7 +548,7 @@ class AcsCondition(DataSource):
 
                     concept_df = gcs_to_bq_util.load_values_as_df(
                         gcs_bucket,
-                        self.get_filename_race(measure, race, geo == COUNTY_LEVEL, year),
+                        self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year),
                     )
 
                     concept_df = self.generate_df_for_concept(
@@ -566,7 +567,7 @@ class AcsCondition(DataSource):
                 concept_dfs = []
                 concept_df = gcs_to_bq_util.load_values_as_df(
                     gcs_bucket,
-                    self.get_filename_sex(measure, geo == COUNTY_LEVEL, year),
+                    self.get_filename_sex(measure, geo == COUNTY_LEVEL, self.year),
                 )
                 concept_df = self.generate_df_for_concept(
                     measure,
