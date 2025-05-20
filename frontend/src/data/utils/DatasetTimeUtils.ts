@@ -3,13 +3,12 @@ import type { TimeSeries, TrendsData } from '../../charts/trendsChart/types'
 import type { MetricConfig, MetricId } from '../config/MetricConfigTypes'
 import type { DemographicType } from '../query/Breakdowns'
 import {
-  ALL,
-  ALL_W,
   type DemographicGroup,
   TIME_PERIOD,
   TIME_PERIOD_LABEL,
 } from './Constants'
 import type { HetRow } from './DatasetTypes'
+import { groupIsAll } from './datasetutils'
 
 const MONTHLY_LENGTH = 7
 const YEARLY_LENGTH = 4
@@ -247,7 +246,7 @@ export function getPrettyDate(timePeriod: string): string {
 export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   const groupAveragesOverTime = data.map((groupData) => {
     // exclude ALLs (should only be for CAWP?) from being a Highest or Lowest group
-    if (groupData[0] === ALL_W || groupData[0] === ALL) {
+    if (groupIsAll(groupData[0])) {
       return [groupData[0], null]
     }
 
