@@ -46,6 +46,13 @@ export default function GroupLine({
     <g aria-label={a11yDescription}>
       <title>{a11yDescription}</title>
 
+      <SparseDataInterpolationLines
+        segments={segments}
+        group={group}
+        xScale={xScale}
+        yScale={yScale}
+      />
+
       {segments.map((segment, index) => (
         <g key={`segment-${index}`}>
           <LineSegment
@@ -59,13 +66,6 @@ export default function GroupLine({
           />
         </g>
       ))}
-
-      <SparseDataInterpolationLines
-        segments={segments}
-        group={group}
-        xScale={xScale}
-        yScale={yScale}
-      />
     </g>
   )
 }

@@ -1,3 +1,4 @@
+import StyledPath from './StyledPath'
 import type { XScale, YScale } from './types'
 
 const SINGLE_YEAR_LENGTH = 30
@@ -59,16 +60,10 @@ export default function LineSegment({
   // Multiple points case
   return (
     <>
-      <path
-        className={`fill-none ${isUnknown ? 'stroke-5.5' : 'stroke-2.5'}`}
-        d={lineGen(segment as any) ?? ''}
-        stroke={color}
-        strokeDasharray='none'
-        style={
-          isUnknown
-            ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
-            : { strokeLinecap: 'round' }
-        }
+      <StyledPath
+        d={lineGen(segment as any)}
+        color={color}
+        isUnknown={isUnknown}
       />
       {showDots &&
         segment.map(([date, amount], pointIndex) => {
