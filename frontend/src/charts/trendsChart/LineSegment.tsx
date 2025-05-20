@@ -30,19 +30,7 @@ export default function LineSegment({
 
     return (
       <>
-        <line
-          x1={x - SINGLE_YEAR_LENGTH / 2}
-          y1={y}
-          x2={x + SINGLE_YEAR_LENGTH / 2}
-          y2={y}
-          stroke={color}
-          strokeWidth={isUnknown ? 5.5 : 2.5}
-          style={
-            isUnknown
-              ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
-              : { strokeLinecap: 'round' }
-          }
-        />
+        <IsolatedYearMiniLine x={x} y={y} color={color} isUnknown={isUnknown} />
         {showDots && (
           <circle
             cx={x}
@@ -57,7 +45,7 @@ export default function LineSegment({
     )
   }
 
-  // Multiple points case
+  // Multiple adjacent data points SOLID LINE
   return (
     <>
       <StyledPath
@@ -84,5 +72,35 @@ export default function LineSegment({
           )
         })}
     </>
+  )
+}
+
+interface IsolatedYearMiniLineProps {
+  x: number
+  y: number
+  color: string
+  isUnknown: boolean
+}
+
+function IsolatedYearMiniLine({
+  x,
+  y,
+  color,
+  isUnknown,
+}: IsolatedYearMiniLineProps) {
+  return (
+    <line
+      x1={x - SINGLE_YEAR_LENGTH / 2}
+      y1={y}
+      x2={x + SINGLE_YEAR_LENGTH / 2}
+      y2={y}
+      stroke={color}
+      strokeWidth={isUnknown ? 5.5 : 2.5}
+      style={
+        isUnknown
+          ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
+          : { strokeLinecap: 'round' }
+      }
+    />
   )
 }
