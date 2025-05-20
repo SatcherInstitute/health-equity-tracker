@@ -148,7 +148,7 @@ function hasNonZeroUnknowns(data: TimeSeries | undefined) {
 }
 
 const createLineGenerator = (xScale: XScale, yScale: YScale) => {
-  return line()
+  return line<[string, number]>()
     .defined(
       ([date, amount]) =>
         date !== null &&
