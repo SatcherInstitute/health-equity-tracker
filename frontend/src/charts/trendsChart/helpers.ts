@@ -120,8 +120,7 @@ function getWidthHundredK(
 ): number {
   const amount = getAmountsByDate(d, selectedDate) ?? 0
   const maxNumber = getMaxNumberForDate(data, selectedDate) ?? 1 // Ensure non-zero denominator
-
-  if (maxNumber === 0) return 0 // Prevent division by zero
+  if (maxNumber === 0) return 0
 
   const width = (amount / maxNumber) * (BAR_WIDTH / 2)
   return Number.isFinite(width) ? width : 0 // Return 0 if width is NaN or Infinity
@@ -144,12 +143,10 @@ function translateXPctShare(
   return translateX
 }
 
-/* Detect if at least one row in the time series data contains an unknown_pct value greater than 0 */
 function hasNonZeroUnknowns(data: TimeSeries | undefined) {
   return data?.some(([, percent]) => percent > 0) ?? false
 }
 
-// Helper functions
 const createLineGenerator = (xScale: XScale, yScale: YScale) => {
   return line()
     .defined(
@@ -165,6 +162,8 @@ const createLineGenerator = (xScale: XScale, yScale: YScale) => {
 }
 
 const splitIntoConsecutiveSegments = (points: [string, number][]) => {
+  const maxYearGap = 1 // TODO:  should be based on the metric's timeSeriesCadence
+
   const sortedPoints = [...points].sort(
     (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime(),
   )
@@ -183,7 +182,7 @@ const splitIntoConsecutiveSegments = (points: [string, number][]) => {
     const currDate = new Date(validPoints[i][0])
     const yearDiff = currDate.getFullYear() - prevDate.getFullYear()
 
-    if (yearDiff <= 1) {
+    if (yearDiff <= maxYearGap) {
       currentSegment.push(validPoints[i])
     } else {
       segments.push(currentSegment)

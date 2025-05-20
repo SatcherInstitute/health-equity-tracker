@@ -16,6 +16,7 @@ export function LineChart({
   valuesArePct,
 }: LineChartProps) {
   // Sort the data so that "All" group is rendered last (appears on top)
+  // For non-"All" groups, the comparator returns 0 to ensure a stable sort order.
   const sortedData = [...data].sort(([groupA], [groupB]) => {
     if (groupIsAll(groupA)) return 1
     if (groupIsAll(groupB)) return -1
