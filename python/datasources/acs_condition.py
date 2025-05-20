@@ -515,7 +515,26 @@ class AcsCondition(DataSource):
 
         logger.info("write_to_bq completed successfully")
 
-    def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket, year):
+    def get_raw_data(self, demo, geo, metadata, acs_items, gcs_bucket, year=None):
+        """
+        Fetches raw data for the specified demographic and geographic level.
+        
+        Args:
+            demo: The demographic category (e.g., RACE, AGE, SEX).
+            geo: The geographic level (e.g., STATE_LEVEL, COUNTY_LEVEL).
+            metadata: Metadata for parsing ACS data.
+            acs_items: ACS items to process.
+            gcs_bucket: The GCS bucket containing the data.
+            year: The year of the data to fetch. Defaults to None.
+        
+        Returns:
+            A pandas DataFrame containing the raw data.
+        
+        Raises:
+            ValueError: If year is None and a year is required for processing.
+        """
+        if year is None:
+            raise ValueError("The 'year' parameter is required but was not provided.")
 
         groups = []
         for acs_item in acs_items.values():
