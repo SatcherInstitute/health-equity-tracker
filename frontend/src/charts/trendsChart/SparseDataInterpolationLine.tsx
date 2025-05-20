@@ -6,19 +6,19 @@ import type { XScale, YScale } from './types'
 
 const SPARSE_LINE_OPACITY = 0.5
 
-interface SparseDataInterpolationLinesProps {
+interface SparseDataInterpolationLineProps {
   segments: [string, number][][]
   group: string
   xScale: XScale
   yScale: YScale
 }
 
-export default function SparseDataInterpolationLines({
+export default function SparseDataInterpolationLine({
   segments,
   group,
   xScale,
   yScale,
-}: SparseDataInterpolationLinesProps) {
+}: SparseDataInterpolationLineProps) {
   const isUnknown = group === UNKNOWN_W
   const lineGen = createLineGenerator(xScale, yScale)
   const color = C(group)

@@ -1,6 +1,6 @@
 import { UNKNOWN_W } from '../../data/utils/Constants'
 import LineSegment from './LineSegment'
-import SparseDataInterpolationLines from './SparseDataInterpolationLines'
+import SparseDataInterpolationLine from './SparseDataInterpolationLine'
 import { COLORS as C } from './constants'
 import {
   createLineGenerator,
@@ -46,7 +46,7 @@ export default function GroupLine({
     <g aria-label={a11yDescription}>
       <title>{a11yDescription}</title>
 
-      <SparseDataInterpolationLines
+      <SparseDataInterpolationLine
         segments={segments}
         group={group}
         xScale={xScale}
