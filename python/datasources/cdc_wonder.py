@@ -59,7 +59,7 @@ class CdcWonderData(DataSource):
         geo_level: GEO_TYPE,
     ) -> pd.DataFrame:
         """Generates HET-stye dataframe by demo_breakdown and geo_level
-        demo_breakdown: string equal to `lis`, `eligibility`, `age`, `race_and_ethnicity`, or `sex`
+        demo_breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
         geo_level: string equal to `national`, or `state`
         return: a breakdown df by demographic and geo_level"""
 
