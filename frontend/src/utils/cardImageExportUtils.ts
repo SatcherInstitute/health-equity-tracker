@@ -4,14 +4,33 @@ import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 
-// Shared constants and types
+// Constants
 const SCALE_FACTOR = 3
 const UNSAFE_CHAR_REGEX = /[^a-zA-Z0-9_.\-\s]+/g
-
 const SCREENSHOT_REMOVE_HEIGHT_CLASS = 'remove-height-on-screenshot'
 const SCREENSHOT_REVERT_TO_NORMAL = 'remove-after-screenshot'
 
-// Shared utility functions
+// Types
+interface SaveImageOptions {
+  cardId: ScrollableHashId
+  cardTitle: string
+  destination: 'clipboard' | 'download'
+  isRowOfTwo?: boolean
+}
+
+interface AddedElements {
+  heightToCrop: number
+  elements: Array<HTMLElement | null>
+}
+
+interface DomToImageOptions {
+  scale: number
+  filter: (node: HTMLElement) => boolean
+  width?: number
+  height?: number
+}
+
+// Utility functions
 function hideElementsForScreenshot(node: HTMLElement): boolean {
   return !node?.classList?.contains('hide-on-screenshot')
 }
@@ -36,13 +55,6 @@ async function dataURLtoBlob(dataURL: string): Promise<Blob> {
   return response.blob()
 }
 
-interface SaveImageOptions {
-  cardId: ScrollableHashId
-  cardTitle: string
-  destination: 'clipboard' | 'download'
-  isRowOfTwo?: boolean
-}
-
 async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   if (options.destination === 'clipboard') {
     try {
@@ -65,9 +77,88 @@ async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   return dataUrl
 }
 
-interface AddedElements {
-  heightToCrop: number
-  elements: Array<HTMLElement | null>
+// Legend and shadow utilities
+function removeLegendBorders(): void {
+  const legendItemsBoxes = document.querySelectorAll(
+    `.${LEGEND_ITEMS_BOX_CLASS}`,
+  )
+  legendItemsBoxes.forEach((box) => box.classList.add('border-none'))
+}
+
+function restoreLegendBorders(): void {
+  const legendItemsBoxes = document.querySelectorAll(
+    `.${LEGEND_ITEMS_BOX_CLASS}`,
+  )
+  legendItemsBoxes.forEach((box) => box.classList.remove('border-none'))
+}
+
+function removeShadows(node: HTMLElement): void {
+  node.classList.remove('shadow-raised')
+  const articleChild = node.querySelector('article') as HTMLElement | null
+  articleChild?.classList.remove('shadow-raised')
+}
+
+function removeAllShadows(rowNode: HTMLElement): void {
+  const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
+  articleChildren.forEach((article) =>
+    article.classList.remove('shadow-raised'),
+  )
+}
+
+function restoreAllShadows(rowNode: HTMLElement): void {
+  const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
+  articleChildren.forEach((article) => article.classList.add('shadow-raised'))
+}
+
+function calculateHeightToCrop(node: HTMLElement, baseHeight = 0): number {
+  let heightToCrop = baseHeight
+  const removeHeightElements = node.querySelectorAll<HTMLElement>(
+    `.${SCREENSHOT_REMOVE_HEIGHT_CLASS}`,
+  )
+  removeHeightElements.forEach((element) => {
+    heightToCrop += getTotalElementHeight(element)
+  })
+  return heightToCrop
+}
+
+// Footer handling
+function handleFooterForCard(
+  footer: HTMLElement,
+  options: SaveImageOptions,
+): HTMLElement[] {
+  const addedElements: HTMLElement[] = []
+
+  footer.classList.add('leading-lhTight', 'pb-4')
+
+  if (options.cardId === 'rate-map') {
+    const mapDivider = document.createElement('div')
+    mapDivider.classList.add(
+      'w-full',
+      'border-b',
+      'border-solid',
+      'border-dividerGrey',
+    )
+    mapDivider.style.height = '0px'
+    footer.parentNode?.insertBefore(mapDivider, footer)
+    addedElements.push(mapDivider)
+  }
+
+  if (options.cardId === 'multimap-modal') {
+    const modalContentNode = document.querySelector(
+      `#${MULTIMAP_MODAL_CONTENT_ID}`,
+    ) as HTMLElement | null
+    const clonedFooter = footer.cloneNode(true) as HTMLElement
+    clonedFooter.classList.add(SCREENSHOT_REVERT_TO_NORMAL)
+    modalContentNode?.appendChild(clonedFooter)
+    addedElements.push(clonedFooter)
+  } else {
+    const citation = document.createElement('p')
+    citation.innerHTML = CITATION_APA
+    footer.appendChild(citation)
+    addedElements.push(citation)
+  }
+
+  return addedElements
 }
 
 // Preparation functions
@@ -75,57 +166,19 @@ function prepareNodeForCapture(
   node: HTMLElement,
   options: SaveImageOptions,
 ): AddedElements {
-  const articleChild = node.querySelector('article') as HTMLElement | null
+  removeShadows(node)
+  removeLegendBorders()
 
-  node?.classList.remove('shadow-raised')
-  articleChild?.classList.remove('shadow-raised')
-
-  let heightToCrop = 0
-  const removeHeightElements = node.querySelectorAll<HTMLElement>(
-    `.${SCREENSHOT_REMOVE_HEIGHT_CLASS}`,
-  )
-  removeHeightElements.forEach((element) => {
-    heightToCrop += getTotalElementHeight(element)
-  })
-
-  const legendItemsBox = document.querySelector(`.${LEGEND_ITEMS_BOX_CLASS}`)
-
-  legendItemsBox?.classList.add('border-none')
-
-  const footer = node.querySelector('footer')
-  footer?.classList.add('leading-lhTight', 'pb-4')
+  let heightToCrop = calculateHeightToCrop(node)
+  const footer = node.querySelector('footer') as HTMLElement | null
   const addedElements: Array<HTMLElement | null> = [null, null]
 
   if (footer) {
-    if (options.cardId === 'rate-map') {
-      const mapDivider = document.createElement('div')
-      mapDivider.classList.add(
-        'w-full',
-        'border-b',
-        'border-solid',
-        'border-dividerGrey',
-      )
-      mapDivider.style.height = '0px'
-      footer.parentNode?.insertBefore(mapDivider, footer)
-      addedElements.push(mapDivider)
-    }
-    if (options.cardId === 'multimap-modal') {
-      const modalContentNode = document.querySelector(
-        `#${MULTIMAP_MODAL_CONTENT_ID}`,
-      ) as HTMLElement | null
-      // make a duplicate of the footer for the modal
-      const clonedFooter = footer.cloneNode(true) as HTMLElement
-      clonedFooter.classList.add(SCREENSHOT_REVERT_TO_NORMAL)
-      modalContentNode?.appendChild(clonedFooter)
-      addedElements.push(clonedFooter)
-    } else {
-      const citation = document.createElement('p')
-      citation.innerHTML = CITATION_APA
-      footer.appendChild(citation)
-      addedElements.push(citation)
-    }
+    const footerElements = handleFooterForCard(footer, options)
+    addedElements.push(...footerElements)
 
-    addedElements.forEach((element) => {
+    // Subtract added elements from height to crop
+    footerElements.forEach((element) => {
       heightToCrop -= getTotalElementHeight(element)
     })
   }
@@ -134,26 +187,10 @@ function prepareNodeForCapture(
 }
 
 function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
-  let heightToCrop = -150
-  const removeHeightElements = rowNode.querySelectorAll<HTMLElement>(
-    `.${SCREENSHOT_REMOVE_HEIGHT_CLASS}`,
-  )
-  removeHeightElements.forEach((element) => {
-    heightToCrop += getTotalElementHeight(element)
-  })
+  const heightToCrop = calculateHeightToCrop(rowNode, -150)
 
-  const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
-  articleChildren.forEach((article) =>
-    article.classList.remove('shadow-raised'),
-  )
-
-  const legendItemsBoxes = document.querySelectorAll(
-    `.${LEGEND_ITEMS_BOX_CLASS}`,
-  )
-
-  legendItemsBoxes.forEach((legendItemsBox) => {
-    legendItemsBox.classList.add('border-none')
-  })
+  removeAllShadows(rowNode)
+  removeLegendBorders()
 
   const citation = document.createElement('p')
   citation.innerHTML = CITATION_APA
@@ -167,6 +204,7 @@ function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
   )
   citation.style.width = '100%'
   rowNode.prepend(citation)
+
   return { heightToCrop, elements: [citation] }
 }
 
@@ -177,9 +215,7 @@ function cleanupSingleCard(
 ): void {
   addedElements.elements.forEach((element) => element?.remove())
   articleChild?.classList.add('shadow-raised')
-  const legendItemsBox = document.querySelector(`.${LEGEND_ITEMS_BOX_CLASS}`)
-
-  legendItemsBox?.classList.remove('border-none')
+  restoreLegendBorders()
 }
 
 function cleanupRowOfTwoCards(
@@ -187,42 +223,42 @@ function cleanupRowOfTwoCards(
   addedElements: AddedElements,
 ): void {
   addedElements.elements.forEach((element) => element?.remove())
+
   const elementsToRemove = rowNode.querySelectorAll(
     `.${SCREENSHOT_REVERT_TO_NORMAL}`,
   )
   elementsToRemove.forEach((element) => element.remove())
-  const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
-  articleChildren.forEach((article) => article.classList.add('shadow-raised'))
+
+  restoreAllShadows(rowNode)
   rowNode.classList.remove('bg-white', 'm-0', 'w-full')
-
-  const legendItemsBoxes = document.querySelectorAll(
-    `.${LEGEND_ITEMS_BOX_CLASS}`,
-  )
-
-  legendItemsBoxes.forEach((legendItemsBox) => {
-    legendItemsBox.classList.remove('border-none')
-  })
+  restoreLegendBorders()
 }
 
-export async function saveCardImage(
+// Core capture logic
+async function captureAndSaveImage(
+  node: HTMLElement,
+  addedElements: AddedElements,
   options: SaveImageOptions,
 ): Promise<string | undefined> {
-  const { cardId, isRowOfTwo = false } = options
-  const targetNode = isRowOfTwo
-    ? (document.getElementById(cardId + '-row') as HTMLElement)
-    : (document.getElementById(cardId) as HTMLElement)
+  try {
+    const domToImageOptions: DomToImageOptions = {
+      scale: SCALE_FACTOR,
+      filter: hideElementsForScreenshot,
+      width: node.offsetWidth,
+      height: node.offsetHeight - addedElements.heightToCrop,
+    }
 
-  if (!targetNode) return
-
-  if (isRowOfTwo) {
-    targetNode.classList.add('bg-white', 'm-0', 'w-full')
-    return saveRowOfTwoCardsImage(targetNode, options)
+    const dataUrl = await domtoimage.toPng(node, domToImageOptions)
+    return await handleDestination(dataUrl, options)
+  } catch (error: unknown) {
+    console.error(
+      'Screenshot failed:',
+      error instanceof Error ? error.message : 'Unknown error',
+    )
   }
-
-  return saveSingleCardImage(targetNode, options)
 }
 
-// Split into two specialized functions
+// Specialized capture functions
 async function saveSingleCardImage(
   targetNode: HTMLElement,
   options: SaveImageOptions,
@@ -251,33 +287,21 @@ async function saveRowOfTwoCardsImage(
   }
 }
 
-interface DomToImageOptions {
-  scale: number
-  filter: (node: HTMLElement) => boolean
-  width?: number
-  height?: number
-}
-
-// Shared capture logic
-async function captureAndSaveImage(
-  node: HTMLElement,
-  addedElements: AddedElements,
+// Main export function
+export async function saveCardImage(
   options: SaveImageOptions,
 ): Promise<string | undefined> {
-  try {
-    const domToImageOptions: DomToImageOptions = {
-      scale: SCALE_FACTOR,
-      filter: hideElementsForScreenshot,
-      width: node.offsetWidth,
-      height: node.offsetHeight - addedElements.heightToCrop,
-    }
+  const { cardId, isRowOfTwo = false } = options
+  const targetNode = isRowOfTwo
+    ? (document.getElementById(cardId + '-row') as HTMLElement)
+    : (document.getElementById(cardId) as HTMLElement)
 
-    const dataUrl = await domtoimage.toPng(node, domToImageOptions)
-    return await handleDestination(dataUrl, options)
-  } catch (error: unknown) {
-    console.error(
-      'Screenshot failed:',
-      error instanceof Error ? error.message : 'Unknown error',
-    )
+  if (!targetNode) return
+
+  if (isRowOfTwo) {
+    targetNode.classList.add('bg-white', 'm-0', 'w-full')
+    return saveRowOfTwoCardsImage(targetNode, options)
   }
+
+  return saveSingleCardImage(targetNode, options)
 }
