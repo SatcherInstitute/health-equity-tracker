@@ -84,10 +84,9 @@ function prepareNodeForCapture(
     heightToCrop += getTotalElementHeight(element)
   })
 
-  const legendItemsBoxes = node.querySelectorAll(`.${LEGEND_ITEMS_BOX_CLASS}`)
-  legendItemsBoxes.forEach((legendItemsBox) => {
-    legendItemsBox.classList.remove('border-none')
-  })
+  const legendItemsBox = document.querySelector(`.${LEGEND_ITEMS_BOX_CLASS}`)
+
+  legendItemsBox?.classList.add('border-none')
 
   const footer = node.querySelector('footer')
   footer?.classList.add('leading-lhTight', 'pb-4')
@@ -144,6 +143,14 @@ function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
     article.classList.remove('shadow-raised'),
   )
 
+  const legendItemsBoxes = document.querySelectorAll(
+    `.${LEGEND_ITEMS_BOX_CLASS}`,
+  )
+
+  legendItemsBoxes.forEach((legendItemsBox) => {
+    legendItemsBox.classList.add('border-none')
+  })
+
   const citation = document.createElement('p')
   citation.innerHTML = CITATION_APA
   citation.classList.add(
@@ -160,28 +167,35 @@ function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
 }
 
 // Cleanup functions
-function cleanup(
+function cleanupSingleCard(
   addedElements: AddedElements,
   articleChild: HTMLElement | null,
 ): void {
   addedElements.elements.forEach((element) => element?.remove())
   articleChild?.classList.add('shadow-raised')
-  const legendItemsBoxes = document.querySelectorAll(
-    `.${LEGEND_ITEMS_BOX_CLASS}`,
-  )
+  const legendItemsBox = document.querySelector(`.${LEGEND_ITEMS_BOX_CLASS}`)
 
-  legendItemsBoxes.forEach((legendItemsBox) => {
-    legendItemsBox.classList.add('border-none')
-  })
+  legendItemsBox?.classList.remove('border-none')
 }
 
-function cleanupRow(rowNode: HTMLElement, addedElements: AddedElements): void {
+function cleanupRowOfTwoCards(
+  rowNode: HTMLElement,
+  addedElements: AddedElements,
+): void {
   addedElements.elements.forEach((element) => element?.remove())
   const elementsToRemove = rowNode.querySelectorAll('.remove-after-screenshot')
   elementsToRemove.forEach((element) => element.remove())
   const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
   articleChildren.forEach((article) => article.classList.add('shadow-raised'))
   rowNode.classList.remove('bg-white', 'm-0', 'w-full')
+
+  const legendItemsBoxes = document.querySelectorAll(
+    `.${LEGEND_ITEMS_BOX_CLASS}`,
+  )
+
+  legendItemsBoxes.forEach((legendItemsBox) => {
+    legendItemsBox.classList.remove('border-none')
+  })
 }
 
 export async function saveCardImage(
@@ -214,7 +228,7 @@ async function saveSingleCardImage(
   try {
     return await captureAndSaveImage(nodeToCapture, addedElements, options)
   } finally {
-    cleanup(addedElements, articleChild)
+    cleanupSingleCard(addedElements, articleChild)
   }
 }
 
@@ -227,7 +241,7 @@ async function saveRowOfTwoCardsImage(
   try {
     return await captureAndSaveImage(rowNode, addedElements, options)
   } finally {
-    cleanupRow(rowNode, addedElements)
+    cleanupRowOfTwoCards(rowNode, addedElements)
   }
 }
 
