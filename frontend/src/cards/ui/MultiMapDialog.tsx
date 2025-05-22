@@ -114,12 +114,16 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       scroll='paper'
       aria-labelledby='modalTitle'
     >
-      <DialogContent dividers={true} className='p-2'>
+      <DialogContent
+        dividers={true}
+        className='p-2'
+        id='multimap-modal-content'
+      >
         {/* card options button */}
         <div className='mb-2 flex justify-end'>
           <CardOptionsMenu
             reportTitle={props.reportTitle}
-            scrollToHash={props.scrollToHash}
+            scrollToHash={'multimap-modal'}
           />
         </div>
 
@@ -232,7 +236,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
         {/* Missing Groups */}
         {props.demographicGroupsNoData.length > 0 && (
-          <div className='mb-4 w-full lg:w-2/3 xl:w-7/12'>
+          <div className='hide-on-screenshot mb-4 w-full lg:w-2/3 xl:w-7/12'>
             <div className='my-3'>
               <HetNotice kind='data-integrity'>
                 <p className='m-0'>
@@ -251,7 +255,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           </div>
         )}
 
-        <div className='mb-2'>
+        <div className='hide-on-screenshot mb-2'>
           <HetNotice kind='text-only'>
             <DataTypeDefinitionsList />
           </HetNotice>
@@ -259,7 +263,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       </DialogContent>
 
       {/* MODAL FOOTER */}
-      <section>
+      <section className='hide-on-screenshot'>
         <div className='flex items-center justify-between pl-2 text-left text-small'>
           {/* Desktop only Sources and Card Options */}
           <div className='hidden sm:block'>

@@ -100,11 +100,22 @@ function prepareNodeForCapture(
       footer.parentNode?.insertBefore(mapDivider, footer)
       addedElements.push(mapDivider)
     }
-
-    const citation = document.createElement('p')
-    citation.innerHTML = CITATION_APA
-    footer.appendChild(citation)
-    addedElements.push(citation)
+    if (options.cardId === 'multimap-modal') {
+      const modalContentNode = document.querySelector(
+        '#multimap-modal-content',
+      ) as HTMLElement | null
+      // make a duplicate of the footer for the modal
+      const clonedFooter = footer.cloneNode(true) as HTMLElement
+      clonedFooter.classList.add('remove-after-screenshot')
+      modalContentNode?.appendChild(clonedFooter)
+      addedElements.push(clonedFooter)
+      heightToCrop -= 200
+    } else {
+      const citation = document.createElement('p')
+      citation.innerHTML = CITATION_APA
+      footer.appendChild(citation)
+      addedElements.push(citation)
+    }
 
     addedElements.forEach((element) => {
       heightToCrop -= getTotalElementHeight(element)
