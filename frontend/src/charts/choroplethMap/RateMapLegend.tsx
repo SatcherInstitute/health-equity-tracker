@@ -165,6 +165,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
           />
 
           <div
+            id={`legend-items-box`}
             // common classes across all views
             className={`w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-greyGridColorDarker border-t-[1px] border-solid px-4 pt-4 ${
               props.isMulti

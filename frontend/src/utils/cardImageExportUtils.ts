@@ -83,6 +83,9 @@ function prepareNodeForCapture(
     heightToCrop += getTotalElementHeight(element)
   })
 
+  const legendItemsBox = node.querySelector('#legend-items-box')
+  legendItemsBox?.classList.add('border-none')
+
   const footer = node.querySelector('footer')
   footer?.classList.add('leading-lhTight', 'pb-4')
   const addedElements: Array<HTMLElement | null> = [null, null]
@@ -160,6 +163,8 @@ function cleanup(
 ): void {
   addedElements.elements.forEach((element) => element?.remove())
   articleChild?.classList.add('shadow-raised')
+  const legendItemsBox = document.querySelector('#legend-items-box')
+  legendItemsBox?.classList.remove('border-none')
 }
 
 function cleanupRow(rowNode: HTMLElement, addedElements: AddedElements): void {
