@@ -1,5 +1,6 @@
 import domtoimage from 'dom-to-image-more'
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
+import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 
 // Shared constants and types
@@ -83,8 +84,10 @@ function prepareNodeForCapture(
     heightToCrop += getTotalElementHeight(element)
   })
 
-  const legendItemsBox = node.querySelector('#legend-items-box')
-  legendItemsBox?.classList.add('border-none')
+  const legendItemsBoxes = node.querySelectorAll(`.${LEGEND_ITEMS_BOX_CLASS}`)
+  legendItemsBoxes.forEach((legendItemsBox) => {
+    legendItemsBox.classList.remove('border-none')
+  })
 
   const footer = node.querySelector('footer')
   footer?.classList.add('leading-lhTight', 'pb-4')
@@ -163,8 +166,13 @@ function cleanup(
 ): void {
   addedElements.elements.forEach((element) => element?.remove())
   articleChild?.classList.add('shadow-raised')
-  const legendItemsBox = document.querySelector('#legend-items-box')
-  legendItemsBox?.classList.remove('border-none')
+  const legendItemsBoxes = document.querySelectorAll(
+    `.${LEGEND_ITEMS_BOX_CLASS}`,
+  )
+
+  legendItemsBoxes.forEach((legendItemsBox) => {
+    legendItemsBox.classList.add('border-none')
+  })
 }
 
 function cleanupRow(rowNode: HTMLElement, addedElements: AddedElements): void {
