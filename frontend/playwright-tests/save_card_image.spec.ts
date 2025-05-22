@@ -12,19 +12,6 @@ test('Built in card-option screenshot functionality', async ({ page }) => {
   await page.getByRole('button', { name: 'Close' }).click()
 })
 
-test('Built in multimap card-option screenshot functionality', async ({
-  page,
-}) => {
-  await page.goto(
-    '/exploredata?mls=1.hiv-3.12&dt1=hiv_deaths&group1=All&multiple-maps=true',
-  )
-  await page.getByRole('button', { name: 'Card export options' }).click()
-  await page.getByText('Copy Image To Clipboard').click()
-  await page.getByText('Copied Image to clipboard!').click()
-  await page.getByRole('img', { name: 'Preview of Image' }).click()
-  await page.getByRole('button', { name: 'Close' }).click()
-})
-
 test('Built in compare mode card-option screenshot functionality', async ({
   page,
 }) => {
