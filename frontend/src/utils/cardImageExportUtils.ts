@@ -1,4 +1,5 @@
 import domtoimage from 'dom-to-image-more'
+import { MULTIMAP_MODAL_CONTENT_ID } from '../cards/ui/MultiMapDialog'
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
 import type { ScrollableHashId } from './hooks/useStepObserver'
@@ -6,6 +7,9 @@ import type { ScrollableHashId } from './hooks/useStepObserver'
 // Shared constants and types
 const SCALE_FACTOR = 3
 const UNSAFE_CHAR_REGEX = /[^a-zA-Z0-9_.\-\s]+/g
+
+const SCREENSHOT_REMOVE_HEIGHT_CLASS = 'remove-height-on-screenshot'
+const SCREENSHOT_REVERT_TO_NORMAL = 'remove-after-screenshot'
 
 // Shared utility functions
 function hideElementsForScreenshot(node: HTMLElement): boolean {
@@ -78,7 +82,7 @@ function prepareNodeForCapture(
 
   let heightToCrop = 0
   const removeHeightElements = node.querySelectorAll<HTMLElement>(
-    '.remove-height-on-screenshot',
+    `.${SCREENSHOT_REMOVE_HEIGHT_CLASS}`,
   )
   removeHeightElements.forEach((element) => {
     heightToCrop += getTotalElementHeight(element)
@@ -107,11 +111,11 @@ function prepareNodeForCapture(
     }
     if (options.cardId === 'multimap-modal') {
       const modalContentNode = document.querySelector(
-        '#multimap-modal-content',
+        `#${MULTIMAP_MODAL_CONTENT_ID}`,
       ) as HTMLElement | null
       // make a duplicate of the footer for the modal
       const clonedFooter = footer.cloneNode(true) as HTMLElement
-      clonedFooter.classList.add('remove-after-screenshot')
+      clonedFooter.classList.add(SCREENSHOT_REVERT_TO_NORMAL)
       modalContentNode?.appendChild(clonedFooter)
       addedElements.push(clonedFooter)
     } else {
@@ -132,7 +136,7 @@ function prepareNodeForCapture(
 function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
   let heightToCrop = -150
   const removeHeightElements = rowNode.querySelectorAll<HTMLElement>(
-    '.remove-height-on-screenshot',
+    `.${SCREENSHOT_REMOVE_HEIGHT_CLASS}`,
   )
   removeHeightElements.forEach((element) => {
     heightToCrop += getTotalElementHeight(element)
@@ -159,7 +163,7 @@ function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
     'mt-2',
     'mb-0',
     'pt-0',
-    'remove-after-screenshot',
+    SCREENSHOT_REVERT_TO_NORMAL,
   )
   citation.style.width = '100%'
   rowNode.prepend(citation)
@@ -183,7 +187,9 @@ function cleanupRowOfTwoCards(
   addedElements: AddedElements,
 ): void {
   addedElements.elements.forEach((element) => element?.remove())
-  const elementsToRemove = rowNode.querySelectorAll('.remove-after-screenshot')
+  const elementsToRemove = rowNode.querySelectorAll(
+    `.${SCREENSHOT_REVERT_TO_NORMAL}`,
+  )
   elementsToRemove.forEach((element) => element.remove())
   const articleChildren = rowNode.querySelectorAll<HTMLElement>('article')
   articleChildren.forEach((article) => article.classList.add('shadow-raised'))

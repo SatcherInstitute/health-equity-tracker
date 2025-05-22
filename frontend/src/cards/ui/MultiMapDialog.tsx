@@ -35,6 +35,8 @@ import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import CardOptionsMenu from './CardOptionsMenu'
 import { Sources } from './Sources'
 
+export const MULTIMAP_MODAL_CONTENT_ID = 'multimap-modal-content'
+
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
   // Metric the small maps will evaluate
@@ -117,7 +119,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       <DialogContent
         dividers={true}
         className='p-2 '
-        id='multimap-modal-content'
+        id={MULTIMAP_MODAL_CONTENT_ID}
       >
         {/* card options button */}
         <div className='mb-2 flex justify-end'>
