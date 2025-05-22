@@ -116,7 +116,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent
         dividers={true}
-        className='p-2'
+        className='p-2 '
         id='multimap-modal-content'
       >
         {/* card options button */}

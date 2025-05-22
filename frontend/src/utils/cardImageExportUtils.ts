@@ -109,7 +109,6 @@ function prepareNodeForCapture(
       clonedFooter.classList.add('remove-after-screenshot')
       modalContentNode?.appendChild(clonedFooter)
       addedElements.push(clonedFooter)
-      heightToCrop -= 200
     } else {
       const citation = document.createElement('p')
       citation.innerHTML = CITATION_APA
