@@ -101,8 +101,8 @@ export const generateTooltipHtml = (
   const tooltipHtml = `
     <div>
       <p class="font-bold">${name} ${props.geographyType}</p>
-      ${exploreText ? `<button class="explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
-      <hr>
+      ${exploreText ? `<button class="pl-2 explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
+      <hr class="pl-2 mx-2 " >
       <div style="text-align: left;">
 
         ${
@@ -110,10 +110,10 @@ export const generateTooltipHtml = (
             ? entries
                 .map(
                   ([label, value]: [string, number | undefined]) =>
-                    `<div class='mb-1 text-sm text-altBlack'><span>${label}:</span> ${value?.toLocaleString()}</div>`,
+                    `<div class='pl-2 mb-1 text-sm text-altBlack'><span>${label}:</span> ${value ? value.toLocaleString() : 'No data'}</div>`,
                 )
                 .join('')
-            : `<div class='mb-1 text-sm text-altBlack'><span>No data</span></div>`
+            : `<div class='pl-2 mb-1 text-sm text-altBlack'><span>No data</span></div>`
         }
       </div>
     </div>

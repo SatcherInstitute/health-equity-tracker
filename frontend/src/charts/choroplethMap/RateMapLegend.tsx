@@ -1,4 +1,3 @@
-import type * as d3 from 'd3'
 import { useEffect, useState } from 'react'
 import type {
   DataTypeConfig,
@@ -13,7 +12,6 @@ import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import ClickableLegendHeader from '../ClickableLegendHeader'
 import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import LegendItem from './LegendItem'
-import { createColorScale } from './colorSchemes'
 import { formatMetricValue } from './tooltipUtils'
 
 export const LEGEND_ITEMS_BOX_CLASS = 'legend-items-box'
@@ -32,6 +30,7 @@ interface RateMapLegendProps {
   isMulti?: boolean
   legendTitle: string
   isCompareMode?: boolean
+  colorScale: any
 }
 
 interface LegendItemData {
@@ -75,17 +74,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     const specialLegendItems: LegendItemData[] = []
 
     if (uniqueNonZeroValues.length > 0 && !props.isSummaryLegend) {
-      const colorScale = createColorScale({
-        data: props.data,
-        metricId: props.metricConfig.metricId,
-        colorScheme: props.mapConfig.scheme,
-        isUnknown: false,
-        fips: props.fips,
-        reverse: !props.mapConfig.higherIsBetter,
-        isPhrmaAdherence: props.isPhrmaAdherence,
-        isSummaryLegend: props.isSummaryLegend,
-        mapConfig: props.mapConfig,
-      }) as d3.ScaleQuantile<string, number>
+      const colorScale = props.colorScale
 
       const thresholds = props.isPhrmaAdherence
         ? PHRMA_ADHERENCE_BREAKPOINTS
@@ -100,7 +89,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
             label: `< ${labelFormat(firstThreshold)}`,
             color: colorScale(firstThreshold - 1) as string,
           },
-          ...thresholds.slice(0, -1).map((threshold, i) => ({
+          ...thresholds.slice(0, -1).map((threshold: number, i: number) => ({
             value: threshold,
             label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
             color: colorScale(threshold) as string,

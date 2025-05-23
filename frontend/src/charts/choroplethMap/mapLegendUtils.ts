@@ -1,7 +1,6 @@
 import * as d3 from 'd3'
 import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
-import { calculateLegendColorCount } from '../mapHelperFunctions'
 import type { ColorScale, DataPoint } from './types'
 
 const { altGrey } = het
@@ -13,22 +12,19 @@ export const createUnknownLegend = (
     metricId: MetricId
     width: number
     colorScale: ColorScale
-    isMobile: boolean
   },
 ) => {
-  const { width, colorScale, isMobile } = props
+  const { width, colorScale } = props
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
-  const tickCount = isMobile
-    ? 3
-    : calculateLegendColorCount(props.dataWithHighestLowest, props.metricId)
-
+  const tickCount = 2
   const ticks = d3
     .scaleLinear()
     .domain([legendLowerBound, legendUpperBound])
     .nice(tickCount)
     .ticks(tickCount)
+  // .filter((tick) => tick !== legendLowerBound && tick !== legendUpperBound)
 
   const legendContainer = legendGroup
     .append('g')

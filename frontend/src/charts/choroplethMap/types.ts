@@ -62,6 +62,7 @@ export interface ChoroplethMapProps {
   }
   isAtlantaMode?: boolean
   updateFipsCallback: (fips: Fips) => void
+  colorScale: any
 }
 
 export interface CreateColorScaleProps {

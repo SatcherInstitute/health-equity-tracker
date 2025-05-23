@@ -8,21 +8,17 @@ import type { DataPoint } from '../choroplethMap/types'
 interface UnknownMapGradientLegendProps {
   metricConfig: MetricConfig
   data: DataPoint[]
-
   colorScale: d3.ScaleSequential<string, never>
   fips: Fips
   width: number
-  isMobile: boolean
 }
 
 const UnknownMapGradientLegend = ({
   metricConfig,
   data,
-
   colorScale,
   fips,
   width,
-  isMobile,
 }: UnknownMapGradientLegendProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null)
 
@@ -43,9 +39,8 @@ const UnknownMapGradientLegend = ({
       metricId: metricConfig.metricId,
       width: width,
       colorScale: colorScale,
-      isMobile: isMobile,
     })
-  }, [data, metricConfig.metricId, width, colorScale, isMobile, fips])
+  }, [data, metricConfig.metricId, width, colorScale, fips])
 
   // Don't render if county level or no data
   if (fips.isCounty() || !data?.length) {

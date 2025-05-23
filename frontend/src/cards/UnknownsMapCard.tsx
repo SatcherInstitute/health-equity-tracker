@@ -224,7 +224,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const isCompareMode = window.location.href.includes('compare')
         const legendWidth = isCompareMode ? 400 : isMdAndUp ? 800 : 250
-        const isMobile = !isMdAndUp || isCompareMode
 
         return (
           <>
@@ -243,9 +242,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   fips={props.fips}
                   width={legendWidth}
-                  isMobile={isMobile}
                 />
                 <ChoroplethMap
+                  colorScale={
+                    unknownsColorScale as d3.ScaleSequential<string, never>
+                  }
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
                   data={unknowns}

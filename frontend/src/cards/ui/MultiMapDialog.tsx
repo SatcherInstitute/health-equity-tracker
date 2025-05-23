@@ -80,6 +80,7 @@ interface MultiMapDialogProps {
   isPhrmaAdherence: boolean
   isAtlantaMode?: boolean
   setIsAtlantaMode: (isAtlantaMode: boolean) => void
+  colorScale: d3.ScaleSequential<string, never>
 }
 
 /*
@@ -163,6 +164,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   <div>
                     {props.metricConfig && dataForValue?.length > 0 && (
                       <ChoroplethMap
+                        colorScale={props.colorScale}
                         demographicType={props.demographicType}
                         activeDemographicGroup={demographicGroup}
                         countColsMap={props.countColsMap}
@@ -209,6 +211,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             isMulti={true}
             isPhrmaAdherence={props.isPhrmaAdherence}
             fips={props.fips}
+            colorScale={props.colorScale}
           />
         </div>
 
