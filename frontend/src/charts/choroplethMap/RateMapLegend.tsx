@@ -18,9 +18,9 @@ import { formatMetricValue } from './tooltipUtils'
 
 interface RateMapLegendProps {
   dataTypeConfig: DataTypeConfig
-  data?: Array<Record<string, any>> // Dataset for which to calculate legend
+  data?: Array<Record<string, any>>
   metricConfig: MetricConfig
-  fieldRange?: FieldRange // May be used if standardizing legends across charts
+  fieldRange?: FieldRange
   description: string
   fipsTypeDisplayName?: GeographicBreakdown
   mapConfig: MapConfig

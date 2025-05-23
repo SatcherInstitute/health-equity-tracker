@@ -15,10 +15,9 @@ export const createUnknownLegend = (
     colorScale: ColorScale
     title: string
     isMobile: boolean
-    isPct?: boolean
   },
 ) => {
-  const { width, colorScale, title, isPct, isMobile } = props
+  const { width, colorScale, title, isMobile } = props
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
@@ -31,7 +30,6 @@ export const createUnknownLegend = (
     .domain([legendLowerBound, legendUpperBound])
     .nice(tickCount)
     .ticks(tickCount)
-    .filter((tick) => tick >= legendLowerBound && tick <= legendUpperBound)
 
   const legendContainer = legendGroup
     .append('g')
@@ -112,6 +110,6 @@ export const createUnknownLegend = (
       .attr('x', position) // Correctly aligned within gradient bounds
       .attr('text-anchor', 'middle')
       .style('font', '10px sans-serif')
-      .text(isPct ? `${label}%` : label.toFixed(1))
+      .text(`${label}%`)
   })
 }

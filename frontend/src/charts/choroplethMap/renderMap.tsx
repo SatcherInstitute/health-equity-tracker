@@ -8,7 +8,6 @@ import {
   getDenominatorPhrase,
   getNumeratorPhrase,
 } from './mapHelpers'
-import { createUnknownLegend } from './mapLegendUtils'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
@@ -16,7 +15,7 @@ import { getTooltipLabel, hideTooltips } from './tooltipUtils'
 import type { InitializeSvgProps, RenderMapProps } from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
-const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
+const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 
 export const renderMap = (props: RenderMapProps) => {
   d3.select(props.svgRef.current).selectAll('*').remove()
@@ -26,7 +25,7 @@ export const renderMap = (props: RenderMapProps) => {
     : 0
   const mapHeight = props.height - territoryHeight
 
-  const { legendGroup, mapGroup } = initializeSvg({
+  const { mapGroup } = initializeSvg({
     svgRef: props.svgRef,
     width: props.width,
     height: props.height,
@@ -140,18 +139,6 @@ export const renderMap = (props: RenderMapProps) => {
       }
     })
 
-  if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
-    createUnknownLegend(legendGroup, {
-      dataWithHighestLowest: props.dataWithHighestLowest,
-      metricId: props.metricConfig.metricId,
-      width: props.width,
-      colorScale: props.colorScale,
-      title: '% unknown',
-      isMobile: props.isMobile,
-      isPct: true,
-    })
-  }
-
   return {
     dataMap,
     mapHeight,
@@ -164,23 +151,14 @@ interface ExtendedInitializeSvgProps extends InitializeSvgProps {
 }
 
 const initializeSvg = (props: ExtendedInitializeSvgProps) => {
-  let { left, top } = MARGIN
-  if (props.isUnknownsMap) {
-    top = 20
-  } else if (props.isMobile) {
-    top = 0
-  }
+  const { left, top } = MARGIN
+
   const svg = d3
     .select(props.svgRef.current)
     .attr('width', props.width)
     .attr('height', props.height)
 
   return {
-    svg,
-    legendGroup: svg
-      .append('g')
-      .attr('class', 'legend-container')
-      .attr('transform', `translate(${left}, ${props.isMobile ? 0 : top})`),
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
