@@ -212,17 +212,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
-        const unknownsColorScale =
-          showingVisualization &&
-          createColorScale({
-            data: unknowns,
-            metricId: metricConfig.metricId,
-            mapConfig: unknownMapConfig,
-            colorScheme: unknownMapConfig.scheme,
-            isUnknown: true,
-            fips: props.fips,
-            isPhrmaAdherence: false,
-          })
+        const unknownsColorScale = showingVisualization
+          ? createColorScale({
+              data: unknowns,
+              metricId: metricConfig.metricId,
+              mapConfig: unknownMapConfig,
+              colorScheme: unknownMapConfig.scheme,
+              isUnknown: true,
+              fips: props.fips,
+              isPhrmaAdherence: false,
+            })
+          : undefined
 
         const isCompareMode = window.location.href.includes('compare')
         const legendWidth = isCompareMode ? 400 : isMdAndUp ? 800 : 250
@@ -239,16 +239,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 <UnknownMapGradientLegend
                   metricConfig={metricConfig}
                   data={unknowns as DataPoint[]}
-                  colorScale={
-                    unknownsColorScale as d3.ScaleSequential<string, never>
-                  }
+                  colorScale={unknownsColorScale}
                   fips={props.fips}
                   width={legendWidth}
                 />
                 <ChoroplethMap
-                  colorScale={
-                    unknownsColorScale as d3.ScaleSequential<string, never>
-                  }
+                  colorScale={unknownsColorScale}
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
                   data={unknowns}

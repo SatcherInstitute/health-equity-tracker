@@ -13,9 +13,15 @@ import ClickableLegendHeader from '../ClickableLegendHeader'
 import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import LegendItem from './LegendItem'
 import { formatMetricValue } from './tooltipUtils'
+import { type ColorScale, isQuantileScale } from './types'
 
 export const LEGEND_ITEMS_BOX_CLASS = 'legend-items-box'
 
+interface LegendItemData {
+  color: string
+  label: string
+  value: any
+}
 interface RateMapLegendProps {
   dataTypeConfig: DataTypeConfig
   data?: Array<Record<string, any>>
@@ -30,13 +36,7 @@ interface RateMapLegendProps {
   isMulti?: boolean
   legendTitle: string
   isCompareMode?: boolean
-  colorScale: any
-}
-
-interface LegendItemData {
-  color: string
-  label: string
-  value: any
+  colorScale: ColorScale
 }
 
 export default function RateMapLegend(props: RateMapLegendProps) {
@@ -69,7 +69,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     const hasMissingData = missingData.length > 0
     const hasZeroData = zeroData.length > 0
 
-    // Separate regular legend items from special items
     const regularLegendItems: LegendItemData[] = []
     const specialLegendItems: LegendItemData[] = []
 
@@ -78,7 +77,9 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
       const thresholds = props.isPhrmaAdherence
         ? PHRMA_ADHERENCE_BREAKPOINTS
-        : colorScale.quantiles()
+        : isQuantileScale(colorScale)
+          ? colorScale.quantiles()
+          : []
       if (thresholds.length > 0) {
         const firstThreshold = thresholds[0]
         const lastThreshold = thresholds[thresholds.length - 1]

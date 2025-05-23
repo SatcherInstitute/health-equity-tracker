@@ -3,12 +3,12 @@ import { useEffect, useRef } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { createUnknownLegend } from '../choroplethMap/mapLegendUtils'
-import type { DataPoint } from '../choroplethMap/types'
+import type { ColorScale, DataPoint } from '../choroplethMap/types'
 
 interface UnknownMapGradientLegendProps {
   metricConfig: MetricConfig
   data: DataPoint[]
-  colorScale: d3.ScaleSequential<string, never>
+  colorScale: ColorScale | undefined
   fips: Fips
   width: number
 }
@@ -34,12 +34,13 @@ const UnknownMapGradientLegend = ({
       .append('g')
       .attr('class', 'unknown-legend-container')
 
-    createUnknownLegend(legendGroup, {
-      dataWithHighestLowest: data,
-      metricId: metricConfig.metricId,
-      width: width,
-      colorScale: colorScale,
-    })
+    colorScale &&
+      createUnknownLegend(legendGroup, {
+        dataWithHighestLowest: data,
+        metricId: metricConfig.metricId,
+        width: width,
+        colorScale: colorScale,
+      })
   }, [data, metricConfig.metricId, width, colorScale, fips])
 
   // Don't render if county level or no data

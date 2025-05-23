@@ -32,6 +32,12 @@ export type ColorScale =
   | d3.ScaleThreshold<number, string, never>
   | d3.ScaleQuantile<string, number>
 
+export function isQuantileScale(
+  scale: ColorScale,
+): scale is d3.ScaleQuantile<string, number> {
+  return 'quantiles' in scale && typeof scale.quantiles === 'function'
+}
+
 export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
   countColsMap: CountColsMap
@@ -65,7 +71,7 @@ export interface ChoroplethMapProps {
   colorScale: any
 }
 
-export interface CreateColorScaleProps {
+export interface CreateColorScaleOptions {
   data: Array<Record<string, any>> | DataPoint[]
   metricId: MetricId
   mapConfig: MapConfig
@@ -88,7 +94,7 @@ export type DataPoint = {
   [key in MetricId]: any
 }
 
-export type GetFillColorProps = {
+export type GetFillColorOptions = {
   d: Feature<Geometry, GeoJsonProperties>
   dataMap: Map<string, MetricData>
   colorScale: ColorScale
@@ -113,7 +119,7 @@ export interface MetricData {
   [key: string]: string | number | undefined
 }
 
-export type RenderMapProps = {
+export type RenderMapOptions = {
   activeDemographicGroup: DemographicGroup
   colorScale: ColorScale
   countColsMap: CountColsMap

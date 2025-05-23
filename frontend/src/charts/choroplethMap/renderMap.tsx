@@ -12,12 +12,12 @@ import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
 import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
 import { getTooltipLabel, hideTooltips } from './tooltipUtils'
-import type { InitializeSvgProps, RenderMapProps } from './types'
+import type { InitializeSvgProps, RenderMapOptions } from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
 const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 
-export const renderMap = (props: RenderMapProps) => {
+export const renderMap = (props: RenderMapOptions) => {
   d3.select(props.svgRef.current).selectAll('*').remove()
 
   const territoryHeight = props.fips.isUsa()
