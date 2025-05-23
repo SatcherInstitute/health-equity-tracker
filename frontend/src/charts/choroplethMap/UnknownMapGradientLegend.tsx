@@ -48,7 +48,7 @@ const UnknownMapGradientLegend = ({
     return null
   }
 
-  const legendTitle = `% Unknown`
+  const legendTitle = '% unknown'
 
   return (
     <div className='mt-4'>
