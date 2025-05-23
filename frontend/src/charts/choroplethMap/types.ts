@@ -97,7 +97,7 @@ export type DataPoint = {
 export type GetFillColorOptions = {
   d: Feature<Geometry, GeoJsonProperties>
   dataMap: Map<string, MetricData>
-  colorScale: ColorScale
+  colorScale: ColorScale | null
   mapConfig: MapConfig
   isExtremesMode?: boolean
   isMultiMap?: boolean

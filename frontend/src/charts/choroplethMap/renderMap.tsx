@@ -62,10 +62,7 @@ export const renderMap = (options: RenderMapOptions) => {
   const { features, projection } = geoData
   const geographyType = getCountyAddOn(fips, showCounties)
 
-  projection.fitSize(
-    [width, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
-    features,
-  )
+  projection.fitSize([width, mapHeight], features)
   const path = d3.geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(

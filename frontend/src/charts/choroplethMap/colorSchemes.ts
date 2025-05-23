@@ -167,7 +167,7 @@ export function getFillColor(options: GetFillColorOptions): string {
     return mapConfig.zero
   }
 
-  if (value != null) {
+  if (value != null && colorScale) {
     return colorScale(value)
   }
 

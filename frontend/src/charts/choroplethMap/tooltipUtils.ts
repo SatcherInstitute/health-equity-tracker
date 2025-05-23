@@ -8,6 +8,7 @@ import {
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
+import { NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerProps, MouseEventType } from './types'
 
@@ -108,10 +109,11 @@ export const generateTooltipHtml = (
         ${
           entries
             ? entries
-                .map(
-                  ([label, value]: [string, number | undefined]) =>
-                    `<div class='pl-2 mb-1 text-sm text-altBlack'><span>${label}:</span> ${value ? value.toLocaleString() : 'No data'}</div>`,
-                )
+                .map(([label, value]: [string, number | undefined]) => {
+                  const displayValue =
+                    value == null ? NO_DATA_MESSAGE : value.toLocaleString()
+                  return `<div class='pl-2 mb-1 text-sm text-altBlack'><span>${label}:</span> ${displayValue}</div>`
+                })
                 .join('')
             : `<div class='pl-2 mb-1 text-sm text-altBlack'><span>No data</span></div>`
         }
