@@ -54,7 +54,6 @@ export const renderMap = (options: RenderMapOptions) => {
     svgRef: svgRef,
     width: width,
     height: height,
-    mapHeight,
     isMobile: isMobile,
     isUnknownsMap: isUnknownsMap,
   })
@@ -171,11 +170,7 @@ export const renderMap = (options: RenderMapOptions) => {
   }
 }
 
-interface ExtendedInitializeSvgProps extends InitializeSvgProps {
-  mapHeight: number
-}
-
-const initializeSvg = (options: ExtendedInitializeSvgProps) => {
+const initializeSvg = (options: InitializeSvgProps) => {
   const { svgRef, width, height, isMobile } = options
   const { left, top } = MARGIN
 
