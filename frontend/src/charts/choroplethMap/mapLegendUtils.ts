@@ -13,11 +13,10 @@ export const createUnknownLegend = (
     metricId: MetricId
     width: number
     colorScale: ColorScale
-    title: string
     isMobile: boolean
   },
 ) => {
-  const { width, colorScale, title, isMobile } = props
+  const { width, colorScale, isMobile } = props
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
@@ -34,14 +33,6 @@ export const createUnknownLegend = (
   const legendContainer = legendGroup
     .append('g')
     .attr('class', 'unknowns-legend')
-
-  legendContainer
-    .append('text')
-    .attr('x', 50)
-    .attr('y', -5)
-    .attr('text-anchor', 'start')
-    .style('font', 'bold 10px sans-serif')
-    .text(title)
 
   const gradient = legendContainer
     .append('defs')

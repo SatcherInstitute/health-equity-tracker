@@ -7,9 +7,8 @@ import type { DataPoint } from '../choroplethMap/types'
 
 interface UnknownMapGradientLegendProps {
   metricConfig: MetricConfig
-  legendTitle?: string
   data: DataPoint[]
-  description?: string
+
   colorScale: d3.ScaleSequential<string, never>
   fips: Fips
   width: number
@@ -18,9 +17,8 @@ interface UnknownMapGradientLegendProps {
 
 const UnknownMapGradientLegend = ({
   metricConfig,
-  legendTitle = '% Unknown',
   data,
-  description = 'Legend for unknown data percentages',
+
   colorScale,
   fips,
   width,
@@ -45,7 +43,6 @@ const UnknownMapGradientLegend = ({
       metricId: metricConfig.metricId,
       width: width,
       colorScale: colorScale,
-      title: '% unknown',
       isMobile: isMobile,
     })
   }, [data, metricConfig.metricId, width, colorScale, isMobile, fips])
@@ -55,13 +52,17 @@ const UnknownMapGradientLegend = ({
     return null
   }
 
+  const legendTitle = `% Unknown`
+
   return (
     <div className='mt-4'>
       <div>
         <h3 className='pl-16 text-left font-bold text-gray-700 text-tinyTag'>
           {legendTitle}
         </h3>
-        <p className='sr-only'>{description}</p>
+        <p className='sr-only'>
+          Share of cases with unknown demographic groups
+        </p>
       </div>
       <svg
         ref={svgRef}

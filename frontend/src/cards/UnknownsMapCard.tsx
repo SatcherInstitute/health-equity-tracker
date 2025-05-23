@@ -237,9 +237,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               >
                 <UnknownMapGradientLegend
                   metricConfig={metricConfig}
-                  legendTitle='% unknown'
                   data={unknowns as DataPoint[]}
-                  description='Legend for percent of cases with unknown demographic groups'
                   colorScale={
                     unknownsColorScale as d3.ScaleSequential<string, never>
                   }
