@@ -121,7 +121,7 @@ export interface MetricData {
 
 export type RenderMapOptions = {
   activeDemographicGroup: DemographicGroup
-  colorScale: ColorScale
+  colorScale: ColorScale | null
   countColsMap: CountColsMap
   dataWithHighestLowest: DataPoint[]
   demographicType: DemographicType

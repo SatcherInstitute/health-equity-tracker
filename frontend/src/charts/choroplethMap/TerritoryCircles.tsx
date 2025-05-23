@@ -13,7 +13,10 @@ import {
   extractTerritoryData,
 } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
-import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
+import {
+  createEventHandler,
+  createMouseEventOptions,
+} from './mouseEventHandlers'
 import { hideTooltips } from './tooltipUtils'
 import type { DataPoint } from './types'
 
@@ -53,7 +56,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     // Only run if we have a valid SVG ref and it's a USA map
     if (!props.svgRef.current || !props.fips.isUsa()) return
 
-    const mouseEventProps = createMouseEventProps(props)
+    const mouseEventProps = createMouseEventOptions(props)
 
     const territoryRadius = props.isMobile
       ? TERRITORIES_CONFIG.radiusMobile

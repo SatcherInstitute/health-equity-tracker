@@ -10,68 +10,97 @@ import {
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
-import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
+import {
+  createEventHandler,
+  createMouseEventOptions,
+} from './mouseEventHandlers'
 import { getTooltipLabel, hideTooltips } from './tooltipUtils'
-import type { InitializeSvgProps, RenderMapOptions } from './types'
+import type { ColorScale, InitializeSvgProps, RenderMapOptions } from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
 const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 
-export const renderMap = (props: RenderMapOptions) => {
-  d3.select(props.svgRef.current).selectAll('*').remove()
+export const renderMap = (options: RenderMapOptions) => {
+  const {
+    svgRef,
+    width,
+    height,
+    fips,
+    isMobile,
+    isUnknownsMap,
+    geoData,
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
+    dataWithHighestLowest,
+    metricConfig,
+    showCounties,
+    signalListeners,
+    isMulti,
+    mapConfig,
+    isExtremesMode,
+    colorScale,
+  } = options
 
-  const territoryHeight = props.fips.isUsa()
+  d3.select(svgRef.current).selectAll('*').remove()
+
+  const territoryHeight = fips.isUsa()
     ? TERRITORIES.marginTop + TERRITORIES.radius * 2
     : 0
-  const mapHeight = props.height - territoryHeight
+  const mapHeight = height - territoryHeight
 
   const { mapGroup } = initializeSvg({
-    svgRef: props.svgRef,
-    width: props.width,
-    height: props.height,
+    svgRef: svgRef,
+    width: width,
+    height: height,
     mapHeight,
-    isMobile: props.isMobile,
-    isUnknownsMap: props.isUnknownsMap,
+    isMobile: isMobile,
+    isUnknownsMap: isUnknownsMap,
   })
 
-  const { features, projection } = props.geoData
-  const geographyType = getCountyAddOn(props.fips, props.showCounties)
+  const { features, projection } = geoData
+  const geographyType = getCountyAddOn(fips, showCounties)
 
   projection.fitSize(
-    [props.width, props.isUnknownsMap ? mapHeight * 0.8 : mapHeight],
+    [width, isUnknownsMap ? mapHeight * 0.8 : mapHeight],
     features,
   )
   const path = d3.geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(
-    props.isUnknownsMap,
-    props.metricConfig,
-    props.activeDemographicGroup,
-    props.demographicType,
+    isUnknownsMap,
+    metricConfig,
+    activeDemographicGroup,
+    demographicType,
   )
   const numeratorPhrase = getNumeratorPhrase(
-    props.isCawp,
-    props.countColsMap,
-    props.demographicType,
-    props.activeDemographicGroup,
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
   )
   const denominatorPhrase = getDenominatorPhrase(
-    props.isCawp,
-    props.countColsMap,
-    props.demographicType,
-    props.activeDemographicGroup,
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
   )
 
   const dataMap = createDataMap(
-    props.dataWithHighestLowest,
+    dataWithHighestLowest,
     tooltipLabel,
-    props.metricConfig,
+    metricConfig,
     numeratorPhrase,
     denominatorPhrase,
-    props.countColsMap,
+    countColsMap,
   )
 
-  const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
+  const mouseEventProps = createMouseEventOptions(
+    options,
+    dataMap,
+    geographyType,
+  )
 
   // Add event listeners
   window.addEventListener('wheel', hideTooltips)
@@ -91,8 +120,7 @@ export const renderMap = (props: RenderMapOptions) => {
     // skip territory shapes on national map
     .data(
       features.features.filter(
-        (f) =>
-          f.id && (!props.fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
+        (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
       ),
     )
     .join('path')
@@ -101,13 +129,13 @@ export const renderMap = (props: RenderMapOptions) => {
       getFillColor({
         d,
         dataMap,
-        colorScale: props.colorScale,
-        isExtremesMode: props.isExtremesMode,
-        mapConfig: props.mapConfig,
-        isMultiMap: props.isMulti,
+        colorScale: colorScale as ColorScale,
+        isExtremesMode: isExtremesMode,
+        mapConfig: mapConfig,
+        isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', props.isExtremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke', isExtremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()
@@ -133,9 +161,9 @@ export const renderMap = (props: RenderMapOptions) => {
     .on('pointerup', (event: any, d) => {
       if (
         event.pointerType === 'mouse' &&
-        typeof props.signalListeners.click === 'function'
+        typeof signalListeners.click === 'function'
       ) {
-        props.signalListeners.click(event, d)
+        signalListeners.click(event, d)
       }
     })
 
@@ -150,21 +178,19 @@ interface ExtendedInitializeSvgProps extends InitializeSvgProps {
   mapHeight: number
 }
 
-const initializeSvg = (props: ExtendedInitializeSvgProps) => {
+const initializeSvg = (options: ExtendedInitializeSvgProps) => {
+  const { svgRef, width, height, isMobile } = options
   const { left, top } = MARGIN
 
   const svg = d3
-    .select(props.svgRef.current)
-    .attr('width', props.width)
-    .attr('height', props.height)
+    .select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
 
   return {
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
-      .attr(
-        'transform',
-        `translate(${left}, ${props.isMobile ? top + 10 : top})`,
-      ),
+      .attr('transform', `translate(${left}, ${isMobile ? top + 10 : top})`),
   }
 }
