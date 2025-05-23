@@ -1,20 +1,17 @@
 import * as d3 from 'd3'
-import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
-import type { ColorScale, DataPoint } from './types'
+import type { ColorScale } from './types'
 
 const { altGrey } = het
 
-export const createUnknownLegend = (
+export function createUnknownLegend(
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
-  props: {
-    dataWithHighestLowest: DataPoint[]
-    metricId: MetricId
+  options: {
     width: number
     colorScale: ColorScale
   },
-) => {
-  const { width, colorScale } = props
+) {
+  const { width, colorScale } = options
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()

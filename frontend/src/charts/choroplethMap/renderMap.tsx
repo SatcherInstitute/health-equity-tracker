@@ -15,7 +15,11 @@ import {
   createMouseEventOptions,
 } from './mouseEventHandlers'
 import { getTooltipLabel, hideTooltips } from './tooltipUtils'
-import type { ColorScale, InitializeSvgProps, RenderMapOptions } from './types'
+import type {
+  ColorScale,
+  InitializeSvgOptoions,
+  RenderMapOptions,
+} from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
 const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
@@ -92,7 +96,7 @@ export const renderMap = (options: RenderMapOptions) => {
     countColsMap,
   )
 
-  const mouseEventProps = createMouseEventOptions(
+  const mouseEventOptions = createMouseEventOptions(
     options,
     dataMap,
     geographyType,
@@ -135,24 +139,24 @@ export const renderMap = (options: RenderMapOptions) => {
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()
-      createEventHandler('mouseover', mouseEventProps)(event, d)
+      createEventHandler('mouseover', mouseEventOptions)(event, d)
     })
     .on('pointerdown', (event: any, d) => {
       hideTooltips()
-      createEventHandler('pointerdown', mouseEventProps)(event, d)
+      createEventHandler('pointerdown', mouseEventOptions)(event, d)
     })
     .on('mousemove', (event: any, d) => {
-      createEventHandler('mousemove', mouseEventProps)(event, d)
+      createEventHandler('mousemove', mouseEventOptions)(event, d)
     })
     .on('mouseout', (event: any, d) => {
-      createEventHandler('mouseout', mouseEventProps)(event, d)
+      createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
     .on('touchstart', (event: any, d) => {
       hideTooltips()
-      createEventHandler('touchstart', mouseEventProps)(event, d)
+      createEventHandler('touchstart', mouseEventOptions)(event, d)
     })
     .on('touchend', (event: any, d) => {
-      createEventHandler('touchend', mouseEventProps)(event, d)
+      createEventHandler('touchend', mouseEventOptions)(event, d)
     })
     .on('pointerup', (event: any, d) => {
       if (
@@ -170,7 +174,7 @@ export const renderMap = (options: RenderMapOptions) => {
   }
 }
 
-const initializeSvg = (options: InitializeSvgProps) => {
+const initializeSvg = (options: InitializeSvgOptoions) => {
   const { svgRef, width, height, isMobile } = options
   const { left, top } = MARGIN
 

@@ -107,7 +107,7 @@ export type HetRow = DataPoint & {
   [key: string]: string | number | undefined
 }
 
-export type InitializeSvgProps = {
+export type InitializeSvgOptoions = {
   svgRef: React.RefObject<SVGSVGElement | null>
   width: number
   height: number
@@ -170,7 +170,7 @@ export type MouseEventType =
   | 'touchstart'
   | 'touchend'
 
-export interface MouseEventHandlerProps {
+export interface MouseEventHandlerOptions {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>

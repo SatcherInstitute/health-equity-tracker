@@ -36,8 +36,6 @@ const UnknownMapGradientLegend = ({
 
     colorScale &&
       createUnknownLegend(legendGroup, {
-        dataWithHighestLowest: data,
-        metricId: metricConfig.metricId,
         width: width,
         colorScale: colorScale,
       })
