@@ -8,7 +8,7 @@ import type { ColorScale, DataPoint } from '../choroplethMap/types'
 interface UnknownMapGradientLegendProps {
   metricConfig: MetricConfig
   data: DataPoint[]
-  colorScale: ColorScale | undefined
+  colorScale: ColorScale | null
   fips: Fips
   width: number
 }

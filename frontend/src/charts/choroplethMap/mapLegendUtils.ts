@@ -24,7 +24,6 @@ export const createUnknownLegend = (
     .domain([legendLowerBound, legendUpperBound])
     .nice(tickCount)
     .ticks(tickCount)
-  // .filter((tick) => tick !== legendLowerBound && tick !== legendUpperBound)
 
   const legendContainer = legendGroup
     .append('g')

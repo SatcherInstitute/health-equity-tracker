@@ -222,7 +222,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               fips: props.fips,
               isPhrmaAdherence: false,
             })
-          : undefined
+          : null
 
         const isCompareMode = window.location.href.includes('compare')
         const legendWidth = isCompareMode ? 400 : isMdAndUp ? 800 : 250
