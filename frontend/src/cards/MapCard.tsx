@@ -519,33 +519,9 @@ function MapCardWithKey(props: MapCardProps) {
           mapConfig,
         ])
 
-        const colorScaleMultiMap = useMemo(() => {
-          return createColorScale({
-            data: dataForMultimaps,
-            metricId: metricConfig.metricId,
-            colorScheme: mapConfig.scheme,
-            isUnknown: false,
-            fips: props.fips,
-            reverse: !mapConfig.higherIsBetter,
-            isPhrmaAdherence,
-            mapConfig,
-          })
-        }, [
-          dataForMultimaps,
-          metricConfig.metricId,
-          mapConfig.scheme,
-          props.fips,
-          mapConfig.higherIsBetter,
-          isPhrmaAdherence,
-          mapConfig,
-        ])
-
         return (
           <>
             <MultiMapDialog
-              colorScale={
-                colorScaleMultiMap as d3.ScaleSequential<string, never>
-              }
               dataTypeConfig={props.dataTypeConfig}
               demographicType={demographicType}
               demographicGroups={demographicGroups}

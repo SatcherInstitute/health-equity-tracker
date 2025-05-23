@@ -164,7 +164,7 @@ const initializeSvg = (props: ExtendedInitializeSvgProps) => {
       .attr('class', 'map-container')
       .attr(
         'transform',
-        `translate(${left}, ${props.isMobile ? top + 10 : top + 50})`,
+        `translate(${left}, ${props.isMobile ? top + 10 : top})`,
       ),
   }
 }

@@ -212,15 +212,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
-        const unknownsColorScale = createColorScale({
-          data: unknowns,
-          metricId: metricConfig.metricId,
-          mapConfig: unknownMapConfig,
-          colorScheme: unknownMapConfig.scheme,
-          isUnknown: true,
-          fips: props.fips,
-          isPhrmaAdherence: false,
-        })
+        const unknownsColorScale =
+          showingVisualization &&
+          createColorScale({
+            data: unknowns,
+            metricId: metricConfig.metricId,
+            mapConfig: unknownMapConfig,
+            colorScheme: unknownMapConfig.scheme,
+            isUnknown: true,
+            fips: props.fips,
+            isPhrmaAdherence: false,
+          })
 
         const isCompareMode = window.location.href.includes('compare')
         const legendWidth = isCompareMode ? 400 : isMdAndUp ? 800 : 250
