@@ -17,7 +17,7 @@ import {
 import { getTooltipLabel, hideTooltips } from './tooltipUtils'
 import type {
   ColorScale,
-  InitializeSvgOptoions,
+  InitializeSvgOptions,
   RenderMapOptions,
 } from './types'
 
@@ -174,7 +174,7 @@ export const renderMap = (options: RenderMapOptions) => {
   }
 }
 
-const initializeSvg = (options: InitializeSvgOptoions) => {
+const initializeSvg = (options: InitializeSvgOptions) => {
   const { svgRef, width, height, isMobile } = options
   const { left, top } = MARGIN
 

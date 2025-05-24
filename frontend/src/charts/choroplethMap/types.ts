@@ -107,7 +107,7 @@ export type HetRow = DataPoint & {
   [key: string]: string | number | undefined
 }
 
-export type InitializeSvgOptoions = {
+export type InitializeSvgOptions = {
   svgRef: React.RefObject<SVGSVGElement | null>
   width: number
   height: number
