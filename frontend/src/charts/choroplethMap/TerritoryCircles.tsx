@@ -13,7 +13,10 @@ import {
   extractTerritoryData,
 } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
-import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
+import {
+  createEventHandler,
+  createMouseEventOptions,
+} from './mouseEventHandlers'
 import { hideTooltips } from './tooltipUtils'
 import type { DataPoint } from './types'
 
@@ -53,7 +56,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     // Only run if we have a valid SVG ref and it's a USA map
     if (!props.svgRef.current || !props.fips.isUsa()) return
 
-    const mouseEventProps = createMouseEventProps(props)
+    const mouseEventOptions = createMouseEventOptions(props)
 
     const territoryRadius = props.isMobile
       ? TERRITORIES_CONFIG.radiusMobile
@@ -115,34 +118,34 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d) => {
         hideTooltips()
-        createEventHandler('mouseover', mouseEventProps, (d) =>
+        createEventHandler('mouseover', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
       })
       .on('pointerdown', (event: any, d) => {
         hideTooltips()
-        createEventHandler('pointerdown', mouseEventProps, (d) =>
+        createEventHandler('pointerdown', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
       })
       .on('mousemove', (event: any, d) => {
-        createEventHandler('mousemove', mouseEventProps, (d) =>
+        createEventHandler('mousemove', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
       })
       .on('mouseout', (event: any, d) => {
-        createEventHandler('mouseout', mouseEventProps, (d) =>
+        createEventHandler('mouseout', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
       })
       .on('touchstart', (event: any, d) => {
         hideTooltips()
-        createEventHandler('touchstart', mouseEventProps, (d) =>
+        createEventHandler('touchstart', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
       })
       .on('touchend', (event: any, d) => {
-        createEventHandler('touchend', mouseEventProps, (d) =>
+        createEventHandler('touchend', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
       })

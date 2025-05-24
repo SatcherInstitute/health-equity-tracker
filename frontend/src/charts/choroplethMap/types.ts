@@ -32,6 +32,12 @@ export type ColorScale =
   | d3.ScaleThreshold<number, string, never>
   | d3.ScaleQuantile<string, number>
 
+export function isQuantileScale(
+  scale: ColorScale,
+): scale is d3.ScaleQuantile<string, number> {
+  return 'quantiles' in scale && typeof scale.quantiles === 'function'
+}
+
 export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
   countColsMap: CountColsMap
@@ -62,9 +68,10 @@ export interface ChoroplethMapProps {
   }
   isAtlantaMode?: boolean
   updateFipsCallback: (fips: Fips) => void
+  colorScale: ColorScale | null
 }
 
-export interface CreateColorScaleProps {
+export interface CreateColorScaleOptions {
   data: Array<Record<string, any>> | DataPoint[]
   metricId: MetricId
   mapConfig: MapConfig
@@ -87,10 +94,10 @@ export type DataPoint = {
   [key in MetricId]: any
 }
 
-export type GetFillColorProps = {
+export type GetFillColorOptions = {
   d: Feature<Geometry, GeoJsonProperties>
   dataMap: Map<string, MetricData>
-  colorScale: ColorScale
+  colorScale: ColorScale | null
   mapConfig: MapConfig
   isExtremesMode?: boolean
   isMultiMap?: boolean
@@ -100,7 +107,7 @@ export type HetRow = DataPoint & {
   [key: string]: string | number | undefined
 }
 
-export type InitializeSvgProps = {
+export type InitializeSvgOptions = {
   svgRef: React.RefObject<SVGSVGElement | null>
   width: number
   height: number
@@ -112,9 +119,9 @@ export interface MetricData {
   [key: string]: string | number | undefined
 }
 
-export type RenderMapProps = {
+export type RenderMapOptions = {
   activeDemographicGroup: DemographicGroup
-  colorScale: ColorScale
+  colorScale: ColorScale | null
   countColsMap: CountColsMap
   dataWithHighestLowest: DataPoint[]
   demographicType: DemographicType
@@ -163,7 +170,7 @@ export type MouseEventType =
   | 'touchstart'
   | 'touchend'
 
-export interface MouseEventHandlerProps {
+export interface MouseEventHandlerOptions {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>

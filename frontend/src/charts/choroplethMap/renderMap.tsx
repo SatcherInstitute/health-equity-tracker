@@ -8,71 +8,99 @@ import {
   getDenominatorPhrase,
   getNumeratorPhrase,
 } from './mapHelpers'
-import { createUnknownLegend } from './mapLegendUtils'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
-import { createEventHandler, createMouseEventProps } from './mouseEventHandlers'
+import {
+  createEventHandler,
+  createMouseEventOptions,
+} from './mouseEventHandlers'
 import { getTooltipLabel, hideTooltips } from './tooltipUtils'
-import type { InitializeSvgProps, RenderMapProps } from './types'
+import type {
+  ColorScale,
+  InitializeSvgOptions,
+  RenderMapOptions,
+} from './types'
 
 const { white: WHITE, borderColor: BORDER_GREY } = het
-const MARGIN = { top: -40, right: 0, bottom: 0, left: 0 }
+const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 
-export const renderMap = (props: RenderMapProps) => {
-  d3.select(props.svgRef.current).selectAll('*').remove()
+export const renderMap = (options: RenderMapOptions) => {
+  const {
+    svgRef,
+    width,
+    height,
+    fips,
+    isMobile,
+    isUnknownsMap,
+    geoData,
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
+    dataWithHighestLowest,
+    metricConfig,
+    showCounties,
+    signalListeners,
+    isMulti,
+    mapConfig,
+    isExtremesMode,
+    colorScale,
+  } = options
 
-  const territoryHeight = props.fips.isUsa()
+  d3.select(svgRef.current).selectAll('*').remove()
+
+  const territoryHeight = fips.isUsa()
     ? TERRITORIES.marginTop + TERRITORIES.radius * 2
     : 0
-  const mapHeight = props.height - territoryHeight
+  const mapHeight = height - territoryHeight
 
-  const { legendGroup, mapGroup } = initializeSvg({
-    svgRef: props.svgRef,
-    width: props.width,
-    height: props.height,
-    mapHeight,
-    isMobile: props.isMobile,
-    isUnknownsMap: props.isUnknownsMap,
+  const { mapGroup } = initializeSvg({
+    svgRef: svgRef,
+    width: width,
+    height: height,
+    isMobile: isMobile,
+    isUnknownsMap: isUnknownsMap,
   })
 
-  const { features, projection } = props.geoData
-  const geographyType = getCountyAddOn(props.fips, props.showCounties)
+  const { features, projection } = geoData
+  const geographyType = getCountyAddOn(fips, showCounties)
 
-  projection.fitSize(
-    [props.width, props.isUnknownsMap ? mapHeight * 0.8 : mapHeight],
-    features,
-  )
+  projection.fitSize([width, mapHeight], features)
   const path = d3.geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(
-    props.isUnknownsMap,
-    props.metricConfig,
-    props.activeDemographicGroup,
-    props.demographicType,
+    isUnknownsMap,
+    metricConfig,
+    activeDemographicGroup,
+    demographicType,
   )
   const numeratorPhrase = getNumeratorPhrase(
-    props.isCawp,
-    props.countColsMap,
-    props.demographicType,
-    props.activeDemographicGroup,
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
   )
   const denominatorPhrase = getDenominatorPhrase(
-    props.isCawp,
-    props.countColsMap,
-    props.demographicType,
-    props.activeDemographicGroup,
+    isCawp,
+    countColsMap,
+    demographicType,
+    activeDemographicGroup,
   )
 
   const dataMap = createDataMap(
-    props.dataWithHighestLowest,
+    dataWithHighestLowest,
     tooltipLabel,
-    props.metricConfig,
+    metricConfig,
     numeratorPhrase,
     denominatorPhrase,
-    props.countColsMap,
+    countColsMap,
   )
 
-  const mouseEventProps = createMouseEventProps(props, dataMap, geographyType)
+  const mouseEventOptions = createMouseEventOptions(
+    options,
+    dataMap,
+    geographyType,
+  )
 
   // Add event listeners
   window.addEventListener('wheel', hideTooltips)
@@ -92,8 +120,7 @@ export const renderMap = (props: RenderMapProps) => {
     // skip territory shapes on national map
     .data(
       features.features.filter(
-        (f) =>
-          f.id && (!props.fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
+        (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
       ),
     )
     .join('path')
@@ -102,55 +129,43 @@ export const renderMap = (props: RenderMapProps) => {
       getFillColor({
         d,
         dataMap,
-        colorScale: props.colorScale,
-        isExtremesMode: props.isExtremesMode,
-        mapConfig: props.mapConfig,
-        isMultiMap: props.isMulti,
+        colorScale: colorScale as ColorScale,
+        isExtremesMode: isExtremesMode,
+        mapConfig: mapConfig,
+        isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', props.isExtremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke', isExtremesMode ? BORDER_GREY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()
-      createEventHandler('mouseover', mouseEventProps)(event, d)
+      createEventHandler('mouseover', mouseEventOptions)(event, d)
     })
     .on('pointerdown', (event: any, d) => {
       hideTooltips()
-      createEventHandler('pointerdown', mouseEventProps)(event, d)
+      createEventHandler('pointerdown', mouseEventOptions)(event, d)
     })
     .on('mousemove', (event: any, d) => {
-      createEventHandler('mousemove', mouseEventProps)(event, d)
+      createEventHandler('mousemove', mouseEventOptions)(event, d)
     })
     .on('mouseout', (event: any, d) => {
-      createEventHandler('mouseout', mouseEventProps)(event, d)
+      createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
     .on('touchstart', (event: any, d) => {
       hideTooltips()
-      createEventHandler('touchstart', mouseEventProps)(event, d)
+      createEventHandler('touchstart', mouseEventOptions)(event, d)
     })
     .on('touchend', (event: any, d) => {
-      createEventHandler('touchend', mouseEventProps)(event, d)
+      createEventHandler('touchend', mouseEventOptions)(event, d)
     })
     .on('pointerup', (event: any, d) => {
       if (
         event.pointerType === 'mouse' &&
-        typeof props.signalListeners.click === 'function'
+        typeof signalListeners.click === 'function'
       ) {
-        props.signalListeners.click(event, d)
+        signalListeners.click(event, d)
       }
     })
-
-  if (!props.hideLegend && !props.fips.isCounty() && props.isUnknownsMap) {
-    createUnknownLegend(legendGroup, {
-      dataWithHighestLowest: props.dataWithHighestLowest,
-      metricId: props.metricConfig.metricId,
-      width: props.width,
-      colorScale: props.colorScale,
-      title: '% unknown',
-      isMobile: props.isMobile,
-      isPct: true,
-    })
-  }
 
   return {
     dataMap,
@@ -159,34 +174,19 @@ export const renderMap = (props: RenderMapProps) => {
   }
 }
 
-interface ExtendedInitializeSvgProps extends InitializeSvgProps {
-  mapHeight: number
-}
+const initializeSvg = (options: InitializeSvgOptions) => {
+  const { svgRef, width, height, isMobile } = options
+  const { left, top } = MARGIN
 
-const initializeSvg = (props: ExtendedInitializeSvgProps) => {
-  let { left, top } = MARGIN
-  if (props.isUnknownsMap) {
-    top = 20
-  } else if (props.isMobile) {
-    top = 0
-  }
   const svg = d3
-    .select(props.svgRef.current)
-    .attr('width', props.width)
-    .attr('height', props.height)
+    .select(svgRef.current)
+    .attr('width', width)
+    .attr('height', height)
 
   return {
-    svg,
-    legendGroup: svg
-      .append('g')
-      .attr('class', 'legend-container')
-      .attr('transform', `translate(${left}, ${props.isMobile ? 0 : top})`),
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
-      .attr(
-        'transform',
-        `translate(${left}, ${props.isMobile ? top + 10 : top + 50})`,
-      ),
+      .attr('transform', `translate(${left}, ${isMobile ? top + 10 : top})`),
   }
 }

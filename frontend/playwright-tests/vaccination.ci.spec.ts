@@ -17,7 +17,8 @@ test('National Vaccination Full Test', async ({ page }) => {
     .getByText('% vaccinated (at least one')
     .click()
   await page.getByRole('heading', { name: 'Share of total COVID-19' }).click()
-  await page.getByText('% unknown').click()
+  await page.getByRole('button', { name: 'Unknown demographic map' }).click()
+  await page.getByText('% unknown', { exact: true }).click()
   await page.locator('#unknown-demographic-map').getByText('no data').click()
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })

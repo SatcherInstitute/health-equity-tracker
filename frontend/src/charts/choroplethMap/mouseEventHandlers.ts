@@ -8,28 +8,28 @@ import {
   STROKE_WIDTH,
 } from './mapUtils'
 import { TOOLTIP_OFFSET, generateTooltipHtml } from './tooltipUtils'
-import type { MouseEventHandlerProps, MouseEventType } from './types'
+import type { MouseEventHandlerOptions, MouseEventType } from './types'
 
 /**
- * Creates MouseEventHandlerProps from component props
+ * Creates MouseEventHandlerOptions from component props
  * Works for both main map and territory components
  */
-export const createMouseEventProps = (
-  props: any,
+export const createMouseEventOptions = (
+  options: any,
   dataMap?: Map<string, any>,
   geographyType?: string,
-): MouseEventHandlerProps => {
+): MouseEventHandlerOptions => {
   return {
-    colorScale: props.colorScale,
-    metricConfig: props.metricConfig,
-    dataMap: dataMap || props.dataMap,
-    tooltipContainer: props.tooltipContainer,
-    geographyType: geographyType || props.geographyType || '',
-    mapConfig: props.mapConfig,
-    isMultiMap: props.isMultiMap,
-    isSummaryLegend: props.isSummaryLegend,
-    isExtremesMode: props.isExtremesMode,
-    updateFipsCallback: props.updateFipsCallback,
+    colorScale: options.colorScale,
+    metricConfig: options.metricConfig,
+    dataMap: dataMap || options.dataMap,
+    tooltipContainer: options.tooltipContainer,
+    geographyType: geographyType || options.geographyType || '',
+    mapConfig: options.mapConfig,
+    isMultiMap: options.isMultiMap,
+    isSummaryLegend: options.isSummaryLegend,
+    isExtremesMode: options.isExtremesMode,
+    updateFipsCallback: options.updateFipsCallback,
   }
 }
 
@@ -39,7 +39,7 @@ export const createMouseEventProps = (
  */
 export const createEventHandler = (
   type: MouseEventType,
-  props: MouseEventHandlerProps,
+  props: MouseEventHandlerOptions,
   transformFeature?: (d: any) => any,
 ) => {
   return (event: PointerEvent, d: any) => {
@@ -57,7 +57,7 @@ const handleMouseEvent = (
   type: MouseEventType,
   event: any,
   d: any,
-  props: MouseEventHandlerProps,
+  props: MouseEventHandlerOptions,
 ) => {
   if (!props.tooltipContainer) return
 
