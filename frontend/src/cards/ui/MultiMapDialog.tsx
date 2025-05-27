@@ -1,6 +1,8 @@
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
+import { useMemo } from 'react'
 import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
+import { createColorScale } from '../../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import type { CountColsMap } from '../../charts/mapGlobals'
 import type {
@@ -34,6 +36,8 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import CardOptionsMenu from './CardOptionsMenu'
 import { Sources } from './Sources'
+
+export const MULTIMAP_MODAL_CONTENT_ID = 'multimap-modal-content'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -104,6 +108,24 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   const mapConfig = props.dataTypeConfig.mapConfig
 
+  const colorScaleMultiMap = useMemo(() => {
+    return createColorScale({
+      data: props.data,
+      metricId: props.metricConfig.metricId,
+      colorScheme: mapConfig.scheme,
+      isUnknown: false,
+      fips: props.fips,
+      reverse: !mapConfig.higherIsBetter,
+      isPhrmaAdherence: props.isPhrmaAdherence,
+      mapConfig,
+    })
+  }, [
+    props.data,
+    props.metricConfig.metricId,
+    mapConfig.scheme,
+    mapConfig.higherIsBetter,
+  ])
+
   return (
     <Dialog
       className='z-multiMapModal'
@@ -114,24 +136,29 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       scroll='paper'
       aria-labelledby='modalTitle'
     >
-      <DialogContent dividers={true} className='p-2'>
-        <div>
-          {/* card options button */}
-          <div className='flex w-full justify-end '>
-            <CardOptionsMenu
-              reportTitle={props.reportTitle}
-              scrollToHash={props.scrollToHash}
-            />
-          </div>
+      <DialogContent
+        dividers={true}
+        className='p-2 '
+        id={MULTIMAP_MODAL_CONTENT_ID}
+      >
+        {/* card options button */}
+        <div className='mb-2 flex justify-end'>
+          <CardOptionsMenu
+            reportTitle={props.reportTitle}
+            scrollToHash={'multimap-modal'}
+          />
+        </div>
 
-          {/* card heading row */}
-          <div className='col-span-full flex w-full justify-between'>
-            {/* Modal Title */}
-            <h3 className='m-2 w-full md:m-2' id='modalTitle'>
-              {title}
-            </h3>
-          </div>
+        {/* card heading row */}
+        <div className='mb-4 flex justify-between'>
+          {/* Modal Title */}
+          <h3 className='m-2 w-full md:m-2' id='modalTitle'>
+            {title}
+          </h3>
+        </div>
 
+        {/* Maps container */}
+        <div className='mb-6'>
           <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smMd:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
@@ -156,6 +183,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   <div>
                     {props.metricConfig && dataForValue?.length > 0 && (
                       <ChoroplethMap
+                        colorScale={colorScaleMultiMap}
                         demographicType={props.demographicType}
                         activeDemographicGroup={demographicGroup}
                         countColsMap={props.countColsMap}
@@ -186,83 +214,83 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               )
             })}
           </ul>
+        </div>
 
-          {/* LEGEND */}
-          <div className='col-span-full flex w-full justify-start md:col-span-1'>
-            <RateMapLegend
-              dataTypeConfig={props.dataTypeConfig}
-              metricConfig={props.metricConfig}
-              legendTitle={props.metricConfig.shortLabel}
-              data={props.data}
-              description={'Legend for rate map'}
-              mapConfig={mapConfig}
-              isSummaryLegend={false}
-              fieldRange={props.fieldRange}
-              isMulti={true}
-              isPhrmaAdherence={props.isPhrmaAdherence}
-              fips={props.fips}
-            />
+        {/* LEGEND */}
+        <div className='mb-6'>
+          <RateMapLegend
+            dataTypeConfig={props.dataTypeConfig}
+            metricConfig={props.metricConfig}
+            legendTitle={props.metricConfig.shortLabel}
+            data={props.data}
+            description={'Legend for rate map'}
+            mapConfig={mapConfig}
+            isSummaryLegend={false}
+            fieldRange={props.fieldRange}
+            isMulti={true}
+            isPhrmaAdherence={props.isPhrmaAdherence}
+            fips={props.fips}
+            colorScale={colorScaleMultiMap}
+          />
+        </div>
+
+        {/* Breadcrumbs - desktop only */}
+        <div className='mt-4 mb-4 hidden md:block'>
+          <HetBreadcrumbs
+            fips={props.fips}
+            updateFipsCallback={props.updateFipsCallback}
+            scrollToHashId={'rate-map'}
+            totalPopulationPhrase={props.totalPopulationPhrase}
+            subPopulationPhrase={props.subPopulationPhrase}
+            isAtlantaMode={props.isAtlantaMode}
+          />
+        </div>
+
+        {/* Breadcrumbs - mobile only */}
+        <div className='mt-3 mb-4 md:hidden'>
+          <HetBreadcrumbs
+            fips={props.fips}
+            updateFipsCallback={props.updateFipsCallback}
+            scrollToHashId={'rate-map'}
+            totalPopulationPhrase={props.totalPopulationPhrase}
+            subPopulationPhrase={props.subPopulationPhrase}
+            isAtlantaMode={props.isAtlantaMode}
+          />
+        </div>
+
+        {/* Missing Groups */}
+        {props.demographicGroupsNoData.length > 0 && (
+          <div className='hide-on-screenshot mb-4 w-full lg:w-2/3 xl:w-7/12'>
+            <div className='my-3'>
+              <HetNotice kind='data-integrity'>
+                <p className='m-0'>
+                  Insufficient {props.metricConfig.shortLabel} data reported at
+                  the {props.fips.getChildFipsTypeDisplayName()} level for the
+                  following groups:{' '}
+                  {props.demographicGroupsNoData.map((group, i) => (
+                    <span key={group}>
+                      <HetTerm>{group}</HetTerm>
+                      {i < props.demographicGroupsNoData.length - 1 && '; '}
+                    </span>
+                  ))}
+                </p>
+              </HetNotice>
+            </div>
           </div>
+        )}
 
-          {/* Population Breadcrumbs + Legend */}
-          <div className='col-span-full flex w-full items-end justify-between'>
-            {/* DESKTOP BREADCRUMBS */}
-            <div className='hidden w-full justify-start md:flex'>
-              <HetBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId={'rate-map'}
-                totalPopulationPhrase={props.totalPopulationPhrase}
-                subPopulationPhrase={props.subPopulationPhrase}
-                isAtlantaMode={props.isAtlantaMode}
-              />
-            </div>
-
-            {/* MOBILE BREADCRUMBS */}
-            <div className='col-span-full mt-3 flex w-full justify-center md:hidden'>
-              <HetBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId={'rate-map'}
-                totalPopulationPhrase={props.totalPopulationPhrase}
-                subPopulationPhrase={props.subPopulationPhrase}
-                isAtlantaMode={props.isAtlantaMode}
-              />
-            </div>
-          </div>
-
-          {/* Missing Groups */}
-          {props.demographicGroupsNoData.length > 0 && (
-            <div className='col-span-full w-full justify-center xl:w-7/12'>
-              <div className='my-3'>
-                <HetNotice kind='data-integrity'>
-                  <p className='m-0'>
-                    Insufficient {props.metricConfig.shortLabel} data reported
-                    at the {props.fips.getChildFipsTypeDisplayName()} level for
-                    the following groups:{' '}
-                    {props.demographicGroupsNoData.map((group, i) => (
-                      <span key={group}>
-                        <HetTerm>{group}</HetTerm>
-                        {i < props.demographicGroupsNoData.length - 1 && '; '}
-                      </span>
-                    ))}
-                  </p>
-                </HetNotice>
-              </div>
-            </div>
-          )}
-
-          <HetNotice kind='text-only' className='col-span-full'>
+        <div className='hide-on-screenshot mb-2'>
+          <HetNotice kind='text-only'>
             <DataTypeDefinitionsList />
           </HetNotice>
         </div>
       </DialogContent>
 
       {/* MODAL FOOTER */}
-      <section>
-        <div className='flex justify-between pl-2 text-left text-small'>
+      <section className='hide-on-screenshot'>
+        <div className='flex items-center justify-between pl-2 text-left text-small'>
           {/* Desktop only Sources and Card Options */}
-          <div className='hidden w-full sm:block'>
+          <div className='hidden sm:block'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
@@ -270,13 +298,15 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             />
           </div>
           {/*  CLOSE button */}
-          <HetLinkButton
-            className='hide-on-screenshot w-full justify-center'
-            aria-label='close this multiple maps modal'
-            onClick={props.handleClose}
-          >
-            Close
-          </HetLinkButton>
+          <div>
+            <HetLinkButton
+              className='hide-on-screenshot justify-center'
+              aria-label='close this multiple maps modal'
+              onClick={props.handleClose}
+            >
+              Close
+            </HetLinkButton>
+          </div>
         </div>
       </section>
     </Dialog>

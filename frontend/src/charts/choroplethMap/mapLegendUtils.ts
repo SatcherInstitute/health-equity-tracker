@@ -1,50 +1,30 @@
 import * as d3 from 'd3'
-import type { MetricId } from '../../data/config/MetricConfigTypes'
 import { het } from '../../styles/DesignTokens'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { calculateLegendColorCount } from '../mapHelperFunctions'
-import type { ColorScale, DataPoint } from './types'
+import type { ColorScale } from './types'
 
 const { altGrey } = het
 
-export const createUnknownLegend = (
+export function createUnknownLegend(
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
-  props: {
-    dataWithHighestLowest: DataPoint[]
-    metricId: MetricId
+  options: {
     width: number
     colorScale: ColorScale
-    title: string
-    isMobile: boolean
-    isPct?: boolean
   },
-) => {
-  const { width, colorScale, title, isPct, isMobile } = props
+) {
+  const { width, colorScale } = options
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
-  const tickCount = isMobile
-    ? 3
-    : calculateLegendColorCount(props.dataWithHighestLowest, props.metricId)
-
+  const tickCount = 2
   const ticks = d3
     .scaleLinear()
     .domain([legendLowerBound, legendUpperBound])
     .nice(tickCount)
     .ticks(tickCount)
-    .filter((tick) => tick >= legendLowerBound && tick <= legendUpperBound)
 
   const legendContainer = legendGroup
     .append('g')
     .attr('class', 'unknowns-legend')
-
-  legendContainer
-    .append('text')
-    .attr('x', 50)
-    .attr('y', -5)
-    .attr('text-anchor', 'start')
-    .style('font', 'bold 10px sans-serif')
-    .text(title)
 
   const gradient = legendContainer
     .append('defs')
@@ -113,19 +93,6 @@ export const createUnknownLegend = (
       .attr('x', position) // Correctly aligned within gradient bounds
       .attr('text-anchor', 'middle')
       .style('font', '10px sans-serif')
-      .text(isPct ? `${label}%` : label.toFixed(1))
+      .text(`${label}%`)
   })
-}
-
-export function useGetLegendColumnCount(isMulti?: boolean) {
-  const isCompareMode = window.location.href.includes('compare')
-  const isTiny = useIsBreakpointAndUp('tiny')
-  const isSm = useIsBreakpointAndUp('sm')
-  const isMd = useIsBreakpointAndUp('md')
-  const isLg = useIsBreakpointAndUp('lg')
-  if (isLg && isMulti) return 10
-  if (isMd) return 3
-  if (isSm) return 2
-  if (isTiny && !isCompareMode) return 1
-  return 1
 }

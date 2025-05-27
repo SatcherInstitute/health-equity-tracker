@@ -13,7 +13,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 1. In your browser, create a fork of the Health Equity Tracker repo: <https://github.com/SatcherInstitute/health-equity-tracker/fork>
 
-2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your github username):
+2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your GitHub username):
 
    ```bash
    git clone https://github.com/<your-github-username>/health-equity-tracker.git
@@ -106,26 +106,20 @@ Note: If you have existing git hooks (like from Husky) you need to force install
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
 
-2. Duplicate the example environmental variables file into a new, automatically git-ignored local development file:
-
-   ```bash
-   cp -i .env.example .env.development
-   ```
-
-3. Install the node modules:
+2. Install the node modules:
 
    ```bash
    npm i
    ```
 
-Note: If you are using VSCode, ensure you install the recommended extensions including Biome, which we use for linting and formatting JavaScript-based files.
+Note: If you are using VSCode or one of its forks, ensure you install the recommended extensions including Biome, which we use for linting and formatting JavaScript-based files.
 
 ### Running the Frontend Locally on a Development Server (localhost)
 
 1. While still in the `health-equity-tracker/frontend/` folder, run
 
    ```bash
-   npm run dev
+   npm run local
    ```
 
 2. In your browser, visit <http://localhost:3000>
@@ -147,13 +141,13 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
 
 - These tests automatically run:
   - against the dynamic Netlify deploy link on all PR updates
-  - against the <dev.healthequitytracker.org> staging site on PR merges to `main`
+  - against the <dev.healthequitytracker.org> "dev" site on PR merges to `main`
   - against the <healthequitytracker.org> production site every night
 - To manually run full suite of tests locally (ensure the localhost server is still running first): `npm run e2e`
 - To run subsets of the full test suite locally, just add the filename (without the path) or even a portion of a work after the command:
   - `npm run e2e statins.nightly.spec.ts` runs the single file
   - `npm run e2e hiv` runs all tests that include the string `hiv` in the filename
-- To run the tests locally, but target either the production or staging deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-staging` respectivally. Target specific test files the same way described above.
+- To run the tests locally, but target either the production or dev-site deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-dev` respectively. Target specific test files the same way described above.
 
 ## Making a Pull Request (PR)
 
@@ -189,9 +183,9 @@ Note: If you are using VSCode, ensure you install the recommended extensions inc
    git pull origin main
    ```
 
-6. If you encounter merge conflicts, resolve them. Ben likes VSCode's new conflict resolution split screen feature, and also prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`
+6. If you encounter merge conflicts, resolve them. Ben prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`
 
-7. Make changes to the code base, save the files, add those changes to staging:
+7. Make changes to the code base, save the files, stage the changes:
 
    ```bash
    git add -p`# yes/no your way through the chunks of changes
@@ -263,8 +257,20 @@ The frontend consists of
 
 1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and later migrated to Vite.
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
-
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
+
+### Frontend Environment Configuration
+
+The frontend uses multiple environments to assist with development, testing, and deployment.
+
+| Environment | .env File | Frontend Deployment | Backend GCP Project | Description |
+|-------------|-----------|---------------------|---------------------|-------------|
+| Local Development | `.env.local` | Local machine's <http://localhost:3000> | het-infra-test | For developer workstations. |
+| PR Preview | `.env.deploy_preview` | Netlify PR Preview; URL in GitHub PR comment | het-infra-test | Temporary deployments for pull request reviews. |
+| Development | `.env.dev` | dev.healthequitytracker.org | het-infra-test | Stable environment for testing features before production. |
+| Production | `.env.production` | healthequitytracker.org | het-infra-prod | Live environment for end users. |
+
+**IMPORTANT!** All of these `.env` files are checked in to git, meaning that we DO NOT store secret information such as API keys, passwords, or other sensitive data in these files.
 
 ### Available Overrides for local development
 
@@ -318,11 +324,11 @@ Note: If you are using VSCode, ensure you install the recommend extensions, incl
 6. This will trigger a build and deployment of backend images to the HET Infra TEST GCP project using the new backend code (and will also build and deploy the frontend the dev site using the frontend code from the `main` branch)
 7. Once the `deployBackendToInfraTest` GitHub action completes successfully, navigate to the test GCP project
    > Note: if you run this command again too quickly before the first run has completed, you might encounter `Error acquiring the state lock` and the run will fail. If you are SURE that this occurred because of your 2nd run being too soon after the 1st (and not because another team member is using `infra-test`) then you can manually go into the Google Cloud Storage bucket that holds the terraform state, find the file named `default.tflock` and delete it or less destructively rename by adding today's date to the file name.
-8. Run the staging environment GitHub Action Workflow for any pipelines that have changed. These are found in the main repo (this one) under "Actions" and are named like "DAG - DECIA_2010_POPULATION". Click on them and then "Run Workflow".
+8. Run the dev environment GitHub Action Workflow for any pipelines that have changed. These are found in the main repo (this one) under "Actions" and are named like "DAG - DECIA_2010_POPULATION". Click on them and then "Run Workflow".
 9. Once DAG  workflow completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
 10. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 11. When ready to merge, use the "Squash and merge" option
-12. **Ensure all affected staging pipeline workflows are run after merging to `main`, and all affected production pipeline workflows after cutting a new release**.
+12. **Ensure all affected dev/infra-test pipeline workflows are run after merging to `main`, and all affected production pipeline workflows after cutting a new release**.
 
 Note: Pipeline updates should be non-breaking, ideally pushing additional data under new table names to the production codebase, followed by pushing updated frontend changes to ingest the newly named pipeline data, finally followed by removal of the older, now-unused data.
 

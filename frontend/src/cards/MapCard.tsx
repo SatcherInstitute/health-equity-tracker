@@ -2,6 +2,7 @@ import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
+import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import {
   ATLANTA_METRO_COUNTY_FIPS,
@@ -72,7 +73,6 @@ import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
-
 import GeoContext from './ui/GeoContext'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
@@ -498,6 +498,27 @@ function MapCardWithKey(props: MapCardProps) {
           return mapQueryResponse.getFieldRange(metricConfig.metricId)
         }, [mapQueryResponse.data, metricConfig.metricId])
 
+        const colorScale = useMemo(() => {
+          return createColorScale({
+            data: displayData,
+            metricId: metricConfig.metricId,
+            colorScheme: mapConfig.scheme,
+            isUnknown: false,
+            fips: props.fips,
+            reverse: !mapConfig.higherIsBetter,
+            isPhrmaAdherence,
+            mapConfig,
+          })
+        }, [
+          displayData,
+          metricConfig.metricId,
+          mapConfig.scheme,
+          props.fips,
+          mapConfig.higherIsBetter,
+          isPhrmaAdherence,
+          mapConfig,
+        ])
+
         return (
           <>
             <MultiMapDialog
@@ -624,12 +645,14 @@ function MapCardWithKey(props: MapCardProps) {
                       isAtlantaMode={isAtlantaMode}
                       isSummaryLegend={isSummaryLegend}
                       updateFipsCallback={props.updateFipsCallback}
+                      colorScale={colorScale}
                     />
                   </div>
                 </div>
 
                 <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
                   <RateMapLegend
+                    colorScale={colorScale}
                     dataTypeConfig={props.dataTypeConfig}
                     metricConfig={metricConfig}
                     legendTitle={metricConfig.shortLabel}
@@ -640,6 +663,7 @@ function MapCardWithKey(props: MapCardProps) {
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
                     fips={props.fips}
+                    isCompareMode={isCompareMode}
                   />
                 </div>
 

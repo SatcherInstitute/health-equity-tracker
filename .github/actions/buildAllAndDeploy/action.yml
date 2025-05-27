@@ -6,7 +6,7 @@ inputs:
     description: "Git reference to checkout for all services"
     required: true
   environment:
-    description: "Environment to deploy to (prod or staging)"
+    description: "Environment to deploy to (prod or dev)"
     required: true
   deployer-sa-key:
     description: "GCP service account key JSON"
@@ -93,12 +93,6 @@ runs:
         deploy-context: ${{ inputs.environment }}
 
     # Build frontend image
-    - name: Update VITE_OPENAI_API_KEY in .env.deploy_preview
-      shell: bash
-      run: |
-        if [ -f frontend/.env.deploy_preview ] && [ "${{ inputs.openai-api-key }}" != "" ]; then
-          sed -i 's/VITE_OPENAI_API_KEY=1/VITE_OPENAI_API_KEY=${{ inputs.openai-api-key }}/' frontend/.env.deploy_preview
-        fi
 
     - name: Build and Push Frontend Image
       id: frontend

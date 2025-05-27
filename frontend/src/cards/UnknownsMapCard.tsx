@@ -1,5 +1,8 @@
 import { useLocation } from 'react-router'
+import UnknownMapGradientLegend from '../charts/choroplethMap/UnknownMapGradientLegend'
+import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
+import type { DataPoint } from '../charts/choroplethMap/types'
 import { MAP_SCHEMES } from '../charts/mapGlobals'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type {
@@ -24,6 +27,7 @@ import { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -56,6 +60,8 @@ export default function UnknownsMapCard(props: UnknownsMapCardProps) {
 }
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
+  const isMdAndUp = useIsBreakpointAndUp('sm')
+
   const preloadHeight = useGuessPreloadHeight([700, 1000])
   const metricConfig =
     props.dataTypeConfig.metrics?.pct_share_unknown ??
@@ -206,6 +212,21 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
+        const unknownsColorScale = showingVisualization
+          ? createColorScale({
+              data: unknowns,
+              metricId: metricConfig.metricId,
+              mapConfig: unknownMapConfig,
+              colorScheme: unknownMapConfig.scheme,
+              isUnknown: true,
+              fips: props.fips,
+              isPhrmaAdherence: false,
+            })
+          : null
+
+        const isCompareMode = window.location.href.includes('compare')
+        const legendWidth = isCompareMode ? 400 : isMdAndUp ? 800 : 250
+
         return (
           <>
             <ChartTitle title={chartTitle} subtitle={subtitle} />
@@ -215,7 +236,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   props.fips.isUsa() ? 'mr-2 md:mr-16 xl:mr-24' : 'm-2'
                 }
               >
+                <UnknownMapGradientLegend
+                  metricConfig={metricConfig}
+                  data={unknowns as DataPoint[]}
+                  colorScale={unknownsColorScale}
+                  fips={props.fips}
+                  width={legendWidth}
+                />
                 <ChoroplethMap
+                  colorScale={unknownsColorScale}
                   activeDemographicGroup={UNKNOWN}
                   countColsMap={{}}
                   data={unknowns}

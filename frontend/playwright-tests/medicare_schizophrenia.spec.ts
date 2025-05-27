@@ -32,5 +32,5 @@ test('PHRMA MENTAL HEALTH conditions and medication adherence', async ({
     .locator('#unknown-demographic-map')
     .getByRole('heading', { name: 'Medicare beneficiaries with' })
     .click()
-  await page.getByText('% unknown').click()
+  await page.getByText('% unknown', { exact: true }).click()
 })
