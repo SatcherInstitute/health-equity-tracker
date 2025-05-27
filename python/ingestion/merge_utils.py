@@ -255,7 +255,7 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
         pop_table_name += "_current"
 
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"{pop_table_name}.csv")
-    pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
+    pop_df = pd.read_csv(pop_file, dtype=pop_dtype)  # type: ignore
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
@@ -287,7 +287,7 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
             terr_pop_dtype[std_col.COUNTY_FIPS_COL] = str
 
         pop_terr_2020_file = os.path.join(DECIA_2020_MERGE_DATA_DIR, f"{pop_terr_table_name}.csv")
-        pop_terr_2020_df = pd.read_csv(pop_terr_2020_file, dtype=terr_pop_dtype)
+        pop_terr_2020_df = pd.read_csv(pop_terr_2020_file, dtype=terr_pop_dtype)  # type: ignore
 
         pop_terr_df = pop_terr_2020_df[needed_cols]
 
@@ -299,7 +299,7 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
                 if geo_level == COUNTY_LEVEL
                 else os.path.join(DECIA_2010_MERGE_DATA_DIR, f"{pop_terr_table_name}.csv")
             )
-            pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)
+            pop_terr_2010_df = pd.read_csv(pop_terr_2010_file, dtype=terr_pop_dtype)  # type: ignore
 
             pop_terr_2010_df = pop_terr_2010_df[needed_cols]
 
@@ -378,7 +378,7 @@ def merge_intersectional_pop(
         geo_file = STATE_LEVEL
 
     pop_file = os.path.join(ACS_MERGE_DATA_DIR, f"multi_sex_age_race_{geo_file}_current.csv")
-    pop_df = pd.read_csv(pop_file, dtype=pop_dtype)
+    pop_df = pd.read_csv(pop_file, dtype=pop_dtype)  # type: ignore
 
     if geo_level == NATIONAL_LEVEL:
         pop_df = sum_states_to_national(pop_df)
