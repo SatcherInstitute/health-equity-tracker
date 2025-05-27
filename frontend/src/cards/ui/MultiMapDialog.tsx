@@ -1,6 +1,8 @@
 // TODO: eventually should make a HetDialog to handle modals
 import { Dialog, DialogContent } from '@mui/material'
+import { useMemo } from 'react'
 import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
+import { createColorScale } from '../../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import type { CountColsMap } from '../../charts/mapGlobals'
 import type {
@@ -106,6 +108,24 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   const mapConfig = props.dataTypeConfig.mapConfig
 
+  const colorScaleMultiMap = useMemo(() => {
+    return createColorScale({
+      data: props.data,
+      metricId: props.metricConfig.metricId,
+      colorScheme: mapConfig.scheme,
+      isUnknown: false,
+      fips: props.fips,
+      reverse: !mapConfig.higherIsBetter,
+      isPhrmaAdherence: props.isPhrmaAdherence,
+      mapConfig,
+    })
+  }, [
+    props.data,
+    props.metricConfig.metricId,
+    mapConfig.scheme,
+    mapConfig.higherIsBetter,
+  ])
+
   return (
     <Dialog
       className='z-multiMapModal'
@@ -163,6 +183,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   <div>
                     {props.metricConfig && dataForValue?.length > 0 && (
                       <ChoroplethMap
+                        colorScale={colorScaleMultiMap}
                         demographicType={props.demographicType}
                         activeDemographicGroup={demographicGroup}
                         countColsMap={props.countColsMap}
@@ -209,6 +230,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             isMulti={true}
             isPhrmaAdherence={props.isPhrmaAdherence}
             fips={props.fips}
+            colorScale={colorScaleMultiMap}
           />
         </div>
 

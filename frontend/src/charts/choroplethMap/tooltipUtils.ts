@@ -8,8 +8,9 @@ import {
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
 import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
+import { NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
-import type { MouseEventHandlerProps, MouseEventType } from './types'
+import type { MouseEventHandlerOptions, MouseEventType } from './types'
 
 const { white: WHITE, greyGridColorDarker: BORDER_GREY } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
@@ -79,41 +80,41 @@ export const getTooltipLabel = (
 export const generateTooltipHtml = (
   feature: any,
   type: MouseEventType,
-  props: MouseEventHandlerProps,
+  options: MouseEventHandlerOptions,
 ) => {
+  const { geographyType, isSummaryLegend, updateFipsCallback } = options
   const name = feature.properties?.name || String(feature.id)
-  const data = props.dataMap.get(feature.id as string)
+  const data = options.dataMap.get(feature.id as string)
   const featureId = feature.id
 
-  const exploreText = props.isSummaryLegend
+  const exploreText = isSummaryLegend
     ? ''
-    : `${type === 'mouseover' ? 'Click current region to explore' : 'Explore'} ${name} ${props.geographyType} →`
+    : `${type === 'mouseover' ? 'Click current region to explore' : 'Explore'} ${name} ${geographyType} →`
 
   const entries =
     data &&
     Object.entries(data)
-      .filter(
-        ([key]) => !(key === 'County SVI' && props.geographyType !== 'County'),
-      )
+      .filter(([key]) => !(key === 'County SVI' && geographyType !== 'County'))
       .filter(([key]) => key !== 'value')
 
   // Create the HTML for the tooltip
   const tooltipHtml = `
     <div>
-      <p class="font-bold">${name} ${props.geographyType}</p>
-      ${exploreText ? `<button class="explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
-      <hr>
+      <p class="font-bold">${name} ${geographyType}</p>
+      ${exploreText ? `<button class="pl-2 explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
+      <hr class="pl-2 mx-2 " >
       <div style="text-align: left;">
 
         ${
           entries
             ? entries
-                .map(
-                  ([label, value]: [string, number | undefined]) =>
-                    `<div class='mb-1 text-sm text-altBlack'><span>${label}:</span> ${value?.toLocaleString()}</div>`,
-                )
+                .map(([label, value]: [string, number | undefined]) => {
+                  const displayValue =
+                    value == null ? NO_DATA_MESSAGE : value.toLocaleString()
+                  return `<div class='pl-2 mb-1 text-sm text-altBlack'><span>${label}:</span> ${displayValue}</div>`
+                })
                 .join('')
-            : `<div class='mb-1 text-sm text-altBlack'><span>No data</span></div>`
+            : `<div class='pl-2 mb-1 text-sm text-altBlack'><span>No data</span></div>`
         }
       </div>
     </div>
@@ -128,10 +129,10 @@ export const generateTooltipHtml = (
       const btn = button as HTMLButtonElement
       const featureId = btn.getAttribute('data-feature-id')
 
-      if (featureId && props.updateFipsCallback) {
+      if (featureId && updateFipsCallback) {
         btn.onclick = (e) => {
           e.preventDefault()
-          props.updateFipsCallback(new Fips(featureId))
+          updateFipsCallback(new Fips(featureId))
         }
       }
     })

@@ -8,7 +8,6 @@ import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
 import { embedHighestLowestGroups, getCountyAddOn } from '../mapHelperFunctions'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
 import TerritoryCircles from './TerritoryCircles'
-import { createColorScale } from './colorSchemes'
 import {
   createFeatures,
   createProjection,
@@ -34,11 +33,11 @@ const ChoroplethMap = ({
   mapConfig,
   signalListeners,
   filename,
-  legendData,
   isPhrmaAdherence,
   isAtlantaMode,
   isSummaryLegend,
   updateFipsCallback,
+  colorScale,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -70,29 +69,6 @@ const ChoroplethMap = ({
         : suppressedData,
     [suppressedData, highestLowestGroupsByFips, isUnknownsMap, isMulti],
   )
-
-  const colorScale = useMemo(() => {
-    return createColorScale({
-      data: legendData || dataWithHighestLowest,
-      metricId: metricConfig.metricId,
-      colorScheme: mapConfig.scheme,
-      isUnknown: isUnknownsMap,
-      fips,
-      reverse: !mapConfig.higherIsBetter && !isUnknownsMap,
-      isPhrmaAdherence,
-      mapConfig,
-    })
-  }, [
-    legendData,
-    dataWithHighestLowest,
-    metricConfig.metricId,
-    mapConfig.scheme,
-    isUnknownsMap,
-    fips,
-    mapConfig.higherIsBetter,
-    isPhrmaAdherence,
-    mapConfig,
-  ])
 
   const dimensions = useMemo(() => {
     const heightWidthRatio = HEIGHT_WIDTH_RATIO
