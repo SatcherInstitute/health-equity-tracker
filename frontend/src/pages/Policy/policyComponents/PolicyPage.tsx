@@ -21,10 +21,10 @@ export default function PolicyPage() {
 
       <section
         ref={ref}
-        className='mx-auto flex w-svw max-w-lgXl justify-center text-left'
+        className='mx-auto flex w-svw max-w-lg-xl justify-center text-left'
         aria-labelledby='page-heading'
       >
-        <div className='flex w-svw max-w-lgXl grow flex-col smMd:m-5 smMd:flex-row'>
+        <div className='flex w-svw max-w-lg-xl grow flex-col smMd:m-5 smMd:flex-row'>
           <div className='w-fit min-w-fit max-w-screen'>
             <PolicyCardMenu />
             <PolicyCardMenuMobile />
@@ -50,7 +50,7 @@ export default function PolicyPage() {
 
             <section className='mx-8 my-0 flex flex-col justify-end md:mx-12'>
               {activeRoute?.visible && (
-                <h1 className='my-2 font-bold font-sansTitle text-bigHeader leading-lhNormal'>
+                <h1 className='my-2 font-bold font-sans-title text-big-header leading-lh-normal'>
                   {activeRoute?.label}
                 </h1>
               )}
@@ -62,7 +62,7 @@ export default function PolicyPage() {
             </section>
           </div>
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}
-          <div className='hidden w-onThisPageMenuDesktop min-w-fit max-w-onThisPageMenuDesktop md:block'>
+          <div className='hidden w-on-this-page-menu-desktop min-w-fit max-w-on-this-page-menu-desktop md:block'>
             {policyRouteConfigs.map((routeConfig) => {
               const match = useMatch({
                 path: routeConfig.path,
@@ -72,13 +72,13 @@ export default function PolicyPage() {
                 routeConfig.subLinks && routeConfig.subLinks.length > 0
               return match && hasSublinks ? (
                 <div
-                  className='sticky top-24 z-almostTop hidden h-min w-full min-w-40 max-w-menu flex-col smMd:flex'
+                  className='sticky top-24 z-almost-top hidden h-min w-full min-w-40 max-w-menu flex-col smMd:flex'
                   key={routeConfig.path}
                 >
                   <HetOverline className='mt-0' text='On this Page' />
                   <HetOnThisPageMenu
                     links={routeConfig.subLinks}
-                    className='sticky top-24 right-0 z-almostTop h-min'
+                    className='sticky top-24 right-0 z-almost-top h-min'
                   />
                 </div>
               ) : null

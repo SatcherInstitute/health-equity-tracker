@@ -6,7 +6,7 @@ interface RaceEthnicityListProps {
 export default function RaceEthnicityList(props: RaceEthnicityListProps) {
   return (
     <>
-      <h3 className='mt-16 mb-0 text-center font-sansTitle font-semibold text-exploreButton'>
+      <h3 className='mt-16 mb-0 text-center font-sans-title font-semibold text-explore-button'>
         {props.dataItem.topic}
       </h3>
 
@@ -18,12 +18,12 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
               id={def.path}
               key={def.key}
             >
-              <h4 className='mt-8 mb-4 font-medium font-sansTitle text-text'>
+              <h4 className='mt-8 mb-4 font-medium font-sans-title text-text'>
                 {def.key}
               </h4>
               <article className='mt-0 flex flex-col items-start pl-6'>
                 <p className='mb-1 font-semibold text-smallest'>Definition</p>
-                <p className='m-0 text-altBlack text-small italic'>
+                <p className='m-0 text-alt-black text-small italic'>
                   {def.description}
                 </p>
                 {def.considerations && def.considerations.length > 0 && (
@@ -45,7 +45,7 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
                 {def.resource && (
                   <a
                     href={def.resource}
-                    className='mt-3 font-medium font-sansTitle text-altGreen leading-lhNormal no-underline'
+                    className='mt-3 font-medium font-sans-title text-alt-green leading-lh-normal no-underline'
                   >
                     Explore {def.key} resources →
                   </a>

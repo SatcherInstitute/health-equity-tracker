@@ -54,14 +54,14 @@ function LandingPage() {
   }: ListItemProps) {
     return (
       <li
-        className={`sticky top-[0] mx-24 my-[3rem] flex h-auto xs:h-[auto] min-h-[55vh] min-w-full list-none xs:flex-col items-center justify-around rounded-xl bg-white p-8 xs:px-4 xs:py-2 shadow-raised sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
+        className={`sticky top-[0] mx-24 my-12 flex h-auto xs:h-auto min-h-[55vh] min-w-full list-none xs:flex-col items-center justify-around rounded-xl bg-white p-8 xs:px-4 xs:py-2 shadow-raised sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
       >
         <div className='mx-4 flex w-1/3 xs:w-auto flex-col justify-between sm:w-auto md:w-auto '>
-          <p className='xs:my-0 xs:py-0 text-left font-bold font-sansTitle text-altGreen text-small'>
+          <p className='xs:my-0 xs:py-0 text-left font-bold font-sans-title text-alt-green text-small'>
             {itemNumber}/4
           </p>
           <div className='mb-4 xs:mb-0 w-full min-w-1/2'>
-            <h4 className='my-2 font-medium font-sansTitle text-smallestHeader xs:text-title md:text-left'>
+            <h4 className='my-2 font-medium font-sans-title text-smallest-header xs:text-title md:text-left'>
               {title}
             </h4>
             <p className='mb-8 xs:mb-4 xs:text-small sm:text-small md:text-left'>
@@ -112,9 +112,9 @@ function LandingPage() {
           className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
         ></img>
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
-          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-lhSomeSpace sm:text-bigHeader lg:text-heroHeader'>
+          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-lh-some-space sm:text-big-header lg:text-hero-header'>
             Where will the <br aria-hidden />
-            <span className='font-medium font-serif text-altGreen xs:text-header leading-lhSomeSpace sm:text-bigHeader lg:text-heroHeader'>
+            <span className='font-medium font-serif text-alt-green xs:text-header leading-lh-some-space sm:text-big-header lg:text-hero-header'>
               Health Equity Tracker
             </span>
             <br aria-hidden /> take you?
@@ -189,7 +189,7 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-whiteSmoke80 p-16 sm:block md:flex'>
+        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-white-smoke80 p-16 sm:block md:flex'>
           <img
             src='/img/graphics/banner.png'
             className='w-full md:w-2/5'
@@ -199,7 +199,7 @@ function LandingPage() {
           <div className='flex w-full flex-col items-center justify-center sm:block md:block'>
             <h2
               id='main'
-              className='m-0 text-center font-bold font-sansTitle text-altGreen text-bigHeader xs:text-header leading-lhModalHeading'
+              className='m-0 text-center font-bold font-sans-title text-alt-green text-big-header xs:text-header leading-lh-modal-heading'
             >
               Advancing Health Justice
             </h2>
@@ -221,7 +221,7 @@ function LandingPage() {
         <div className=' m-0 py-0'>
           <div className='m-0 flex flex-col items-center justify-center p-0 '>
             <div className='w-full'>
-              <h3 className='m-0 font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
+              <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-lh-modal-heading'>
                 How do I use the Health Equity Tracker?
               </h3>
             </div>
@@ -230,7 +230,7 @@ function LandingPage() {
             </p>
           </div>
 
-          <div className='relative flex xs:max-h-[75vh] xs:min-h-[75vh] flex-col items-center justify-center overflow-y-auto py-[1rem]'>
+          <div className='relative flex xs:max-h-[75vh] xs:min-h-[75vh] flex-col items-center justify-center overflow-y-auto py-4'>
             <ul className='scrollbar-hide absolute top-[0] flex w-full flex-col items-center justify-center px-8 xs:px-4 py-0 pb-8'>
               <ListItem
                 title='Take a tour of the data'
@@ -262,7 +262,7 @@ function LandingPage() {
                 videoSrc='videos/explore-map.mp4'
                 iframeSrc={undefined}
                 itemNumber={4}
-                customClassName='xs:mt-[1rem] xs:mb-[3rem]'
+                customClassName='xs:mt-4 xs:mb-12'
               />
             </ul>
           </div>
@@ -275,7 +275,7 @@ function LandingPage() {
       <section className='flex w-full flex-wrap items-center justify-center'>
         <div className='flex flex-wrap px-56 xs:px-16 py-24 sm:px-24 md:px-32'>
           <div className='w-full'>
-            <h3 className='m-0 font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
+            <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-lh-modal-heading'>
               Recent news
             </h3>
           </div>
@@ -310,7 +310,7 @@ function LandingPage() {
                 link={NEWS_PAGE_LINK}
                 linkText='View all articles'
                 containerClassName='flex items-center justify-center mt-16 mx-auto '
-                linkClassName='font-sansTitle text-smallestHeader'
+                linkClassName='font-sans-title text-smallest-header'
               />
             </div>
           </div>

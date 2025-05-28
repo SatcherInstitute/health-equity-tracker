@@ -13,7 +13,7 @@ export default function BarChartTooltip({ data }: BarChartTooltipProps) {
   const clickIsLeftHalfOfScreen = data.x < window.innerWidth / 2
   return (
     <div
-      className='absolute z-top cursor-help rounded-sm bg-white p-3 text-altBlack text-title opacity-95 shadow-raised smMd:whitespace-nowrap'
+      className='absolute z-top cursor-help rounded-sm bg-white p-3 text-alt-black text-title opacity-95 shadow-raised smMd:whitespace-nowrap'
       style={{
         left: `${data.x}px`,
         top: `${data.y}px`,

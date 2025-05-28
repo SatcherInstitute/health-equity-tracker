@@ -70,7 +70,7 @@ export function HetCarouselCard({
     <>
       <article
         ref={cardRef}
-        className='group mr-4 flex h-full max-w-tiny flex-shrink-0 flex-col rounded-md border border-altGreen border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
+        className='group mr-4 flex h-full max-w-tiny shrink-0 flex-col rounded-md border border-alt-green border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
       >
         {isVisible && (
           <>
@@ -108,11 +108,11 @@ export function HetCarouselCard({
                       className='cursor-pointer border-none bg-transparent p-0 text-left'
                       aria-label={`Open video: ${ariaLabel}`}
                     >
-                      <h3 className='my-2 pt-0 font-semibold text-altGreen text-text leading-lhNormal'>
+                      <h3 className='my-2 pt-0 font-semibold text-alt-green text-text leading-lh-normal'>
                         {ariaLabel}
                       </h3>
                     </button>
-                    <p className='my-2 hidden text-left text-black text-small leading-lhSomeSpace md:block'>
+                    <p className='my-2 hidden text-left text-black text-small leading-lh-some-space md:block'>
                       {description}
                     </p>
                   </div>
@@ -121,7 +121,7 @@ export function HetCarouselCard({
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='ml-auto font-medium text-small leading-lhSomeSpace no-underline'
+                        className='ml-auto font-medium text-small leading-lh-some-space no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -152,12 +152,12 @@ export function HetCarouselCard({
                       aria-label={ariaLabel}
                       className='cursor-pointer no-underline'
                     >
-                      <h4 className='my-2 pt-0 font-semibold text-altGreen text-text leading-lhNormal'>
+                      <h4 className='my-2 pt-0 font-semibold text-alt-green text-text leading-lh-normal'>
                         {title}
                       </h4>
                     </a>
                     {description && (
-                      <p className='my-0 hidden text-black text-smallest leading-lhSomeSpace md:block'>
+                      <p className='my-0 hidden text-black text-smallest leading-lh-some-space md:block'>
                         {description}
                       </p>
                     )}
@@ -165,7 +165,7 @@ export function HetCarouselCard({
                   {readMoreHref && (
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
                       <a
-                        className='ml-auto font-medium text-small leading-lhSomeSpace no-underline'
+                        className='ml-auto font-medium text-small leading-lh-some-space no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -194,7 +194,7 @@ export function HetCarouselCard({
               ×
             </button>
 
-            <h4 className='mb-6 text-center font-semibold text-altGreen text-title leading-lhNormal'>
+            <h4 className='mb-6 text-center font-semibold text-alt-green text-title leading-lh-normal'>
               {ariaLabel}
             </h4>
 
@@ -213,7 +213,7 @@ export function HetCarouselCard({
               <button
                 onClick={handleClose}
                 type='button'
-                className='rounded-md bg-altGreen px-4 py-2 text-white hover:bg-opacity-90'
+                className='rounded-md bg-alt-green px-4 py-2 text-white hover:bg-opacity-90'
               >
                 Close
               </button>

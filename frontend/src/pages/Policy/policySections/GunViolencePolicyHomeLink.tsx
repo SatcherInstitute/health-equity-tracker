@@ -6,7 +6,7 @@ export default function GunViolencePolicyHomeLink() {
       <section className='relative'>
         <HetOverline text='In Focus' className='text-center' />
         <div className='flex w-full flex-col items-center justify-center'>
-          <h1 className='m-0 text-center font-bold font-sansTitle text-altGreen text-biggerHeader xs:text-header leading-lhModalHeading'>
+          <h1 className='m-0 text-center font-bold font-sans-title text-alt-green text-bigger-header xs:text-header leading-lh-modal-heading'>
             Understanding the Crisis of Gun Violence in Atlanta
           </h1>
 
@@ -26,7 +26,7 @@ export default function GunViolencePolicyHomeLink() {
               ></img>
 
               <p
-                className='fade-in-up-blur my-0 py-0 text-center font-bold text-altGreen text-sansText text-text'
+                className='fade-in-up-blur my-0 py-0 text-center font-bold text-alt-green text-sansText text-text'
                 style={{ animationDelay: `${0.2}s` }}
               >
                 David Satcher, M.D., Ph.D.
@@ -36,7 +36,7 @@ export default function GunViolencePolicyHomeLink() {
               </p>
 
               <div className='relative text-center'>
-                <span className='absolute xs:top-[-15rem] xs:left-[-2rem] m-0 p-0 text-[20rem] text-hoverAltGreen md:top-[-13rem] md:left-[-1rem] lg:top-[-14rem] lg:left-[-5rem]'>
+                <span className='absolute xs:-top-60 xs:-left-8 m-0 p-0 text-[20rem] text-hover-alt-green md:-top-52 md:-left-4 lg:-top-56 lg:-left-20'>
                   &#10077;
                 </span>
                 <p

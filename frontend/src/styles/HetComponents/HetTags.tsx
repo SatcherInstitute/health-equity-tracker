@@ -26,7 +26,7 @@ export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
           key={tag.name}
           type='button'
           aria-label={tag.name}
-          className='mt-1 mr-2 rounded-sm border-none bg-tinyTagGray px-2 py-1 font-bold font-sansTitle text-black text-tinyTag uppercase no-underline hover:cursor-pointer hover:bg-hoverTinyTagGray'
+          className='mt-1 mr-2 rounded-sm border-none bg-tiny-tag-gray px-2 py-1 font-bold font-sans-title text-black text-tiny-tag uppercase no-underline hover:cursor-pointer hover:bg-hover-tiny-tag-gray'
           onClick={() => handleClick(tag.name)}
         >
           {tag.name}

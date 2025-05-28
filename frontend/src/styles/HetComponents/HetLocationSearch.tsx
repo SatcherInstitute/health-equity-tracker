@@ -74,14 +74,14 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           props.popover.close()
         }}
       />
-      <span className='font-light text-greyDark text-small italic'>
+      <span className='font-light text-grey-dark text-small italic'>
         County, state, territory, or{' '}
         {isUsa ? (
           USA_DISPLAY_NAME
         ) : (
           <button
             type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 text-altGreen italic underline'
+            className='cursor-pointer border-0 bg-transparent p-0 text-alt-green italic underline'
             onClick={handleUsaButton}
           >
             United States

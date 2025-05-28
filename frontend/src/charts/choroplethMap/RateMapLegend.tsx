@@ -158,7 +158,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
           <div
             // common classes across all views
-            className={`${LEGEND_ITEMS_BOX_CLASS} w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-greyGridColorDarker border-t-[1px] border-solid px-4 pt-4 ${
+            className={`${LEGEND_ITEMS_BOX_CLASS} w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-grey-grid-color-darker border-t border-solid px-4 pt-4 ${
               props.isMulti
                 ? // multimap only
                   'columns-auto sm:columns-3 lg:columns-4'

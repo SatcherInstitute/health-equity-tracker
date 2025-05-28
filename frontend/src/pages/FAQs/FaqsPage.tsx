@@ -14,11 +14,11 @@ export default function FaqsPage() {
         id='main-content'
         aria-labelledby='main-content'
         tabIndex={-1}
-        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
         >
           Frequently Asked Questions
         </h1>

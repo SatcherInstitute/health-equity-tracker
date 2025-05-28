@@ -108,10 +108,10 @@ function DataSourceListing(props: DataSourceListingProps) {
 
   return (
     <article
-      className='group my-8 rounded-md border border-altGreen border-solid bg-white p-12 text-left shadow-raised-tighter transition-all duration-300 ease-in-out hover:shadow-raised md:px-20 md:pt-14 md:pb-10'
+      className='group my-8 rounded-md border border-alt-green border-solid bg-white p-12 text-left shadow-raised-tighter transition-all duration-300 ease-in-out hover:shadow-raised md:px-20 md:pt-14 md:pb-10'
       data-testid={props.source_metadata.id}
     >
-      <h2 className='my-0 font-bold text-title leading-lhSomeMoreSpace md:font-medium md:text-smallestHeader'>
+      <h2 className='my-0 font-bold text-title leading-lh-some-more-space md:font-medium md:text-smallest-header'>
         <a
           href={props.source_metadata.data_source_link}
           target='_blank'
@@ -124,65 +124,65 @@ function DataSourceListing(props: DataSourceListingProps) {
       <ul className='mx-0 my-4 flex list-none flex-col px-0 md:my-8 md:gap-1'>
         {props.source_metadata.time_period_range && (
           <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
-            <p className='my-0 xs:mb-1 w-full font-semibold text-altBlack leading-lhNormal md:w-1/3 md:min-w-1/3'>
+            <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-lh-normal md:w-1/3 md:min-w-1/3'>
               Time Series Range
             </p>
-            <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
+            <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lh-normal md:w-7/12 md:max-w-2/3'>
               {props.source_metadata.time_period_range}
             </p>
           </li>
         )}
 
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
-          <p className='my-0 xs:mb-1 w-full font-semibold text-altBlack leading-lhNormal md:w-1/3 md:min-w-1/3'>
+          <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-lh-normal md:w-1/3 md:min-w-1/3'>
             Geographic Level
           </p>
-          <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
+          <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lh-normal md:w-7/12 md:max-w-2/3'>
             {props.source_metadata.geographic_breakdowns
               .map((geo: GeographicBreakdown) => GEO_DISPLAY_TYPES[geo])
               .join(', ')}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
-          <p className='my-0 xs:mb-1 w-full font-semibold text-altBlack leading-lhNormal md:w-1/3 md:min-w-1/3'>
+          <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-lh-normal md:w-1/3 md:min-w-1/3'>
             Demographic Granularity
           </p>
-          <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
+          <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lh-normal md:w-7/12 md:max-w-2/3'>
             {props.source_metadata.demographic_breakdowns
               ?.map((d) => DEMOGRAPHIC_DISPLAY_TYPES[d])
               .join(', ')}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
-          <p className='my-0 xs:mb-1 w-full font-semibold text-altBlack leading-lhNormal md:w-1/3 md:min-w-1/3'>
+          <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-lh-normal md:w-1/3 md:min-w-1/3'>
             Update Frequency
           </p>
-          <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal md:w-7/12 md:max-w-2/3'>
+          <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lh-normal md:w-7/12 md:max-w-2/3'>
             {props.source_metadata.update_frequency}
           </p>
         </li>
         <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
-          <p className='my-0 xs:mb-1 w-full font-semibold text-altBlack leading-lhNormal md:w-1/3 md:min-w-1/3'>
+          <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-lh-normal md:w-1/3 md:min-w-1/3'>
             Source Website
           </p>
           <a
             href={props.source_metadata.data_source_link}
             target='_blank'
             rel='noopener noreferrer'
-            className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lhNormal no-underline hover:underline md:w-7/12 md:max-w-2/3'
+            className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-lh-normal no-underline hover:underline md:w-7/12 md:max-w-2/3'
           >
             {props.source_metadata.data_source_pretty_site_name}
           </a>
         </li>
       </ul>
-      <p className='my-0 text-smallest leading-lhSomeSpace sm:text-small md:my-4 lg:text-text'>
+      <p className='my-0 text-smallest leading-lh-some-space sm:text-small md:my-4 lg:text-text'>
         {props.source_metadata.description}
       </p>
       <div className='mt-8 xs:flex xs:flex-col-reverse gap-2 md:inline md:flex-row md:items-center md:justify-start lg:gap-1'>
         {props.source_metadata.downloadable_data_dictionary && (
           <HetLinkButton
             href='/data_dictionaries/medicare_population.csv'
-            className='px-0 py-0 text-center font-bold leading-lhNormal'
+            className='px-0 py-0 text-center font-bold leading-lh-normal'
             buttonClassName='w-auto mx-auto md:w-auto md:mr-4 md:ml-0 px-0 pt-2 pb-4'
             ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
@@ -192,7 +192,7 @@ function DataSourceListing(props: DataSourceListingProps) {
         )}
         {props.source_metadata.downloadable && (
           <HetButtonSecondary
-            buttonClassName='md:mr-auto md:ml-0 mx-auto py-4 leading-lhNormal'
+            buttonClassName='md:mr-auto md:ml-0 mx-auto py-4 leading-lh-normal'
             onClick={() => {
               setDialogIsOpen(true)
             }}
@@ -212,7 +212,7 @@ function DataSourceListing(props: DataSourceListingProps) {
         >
           <DialogTitle className='flex justify-between'>
             <header className='flex w-8/12 sm:w-10/12'>
-              <h4 className='mt-8 font-medium text-exploreButton leading-lhSomeMoreSpace'>
+              <h4 className='mt-8 font-medium text-explore-button leading-lh-some-more-space'>
                 Available breakdowns for{' '}
                 {props.source_metadata.data_source_name}
               </h4>

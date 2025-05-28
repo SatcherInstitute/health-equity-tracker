@@ -16,16 +16,16 @@ export default function OurFindingsTab() {
         <div className='mb-0'>
           <h1 className='sr-only'>Our Findings</h1>
           <HetOverline text='Our Findings' />
-          <h2 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-alt-green text-title'>
             Georgia's Youth Fatality Rates
           </h2>
 
           {youthFatalitiesFacts.map((youthFatalitiesFact) => (
             <div
               key={youthFatalitiesFact.report}
-              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
                 {youthFatalitiesFact.content}
               </p>
               {youthFatalitiesFact.customCard}
@@ -41,15 +41,15 @@ export default function OurFindingsTab() {
       <section id='ga-homicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h2 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-alt-green text-title'>
             Georgia's Homicide Rates
           </h2>
           {homicideFacts.map((homicideFact) => (
             <div
               key={homicideFact.report}
-              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
                 {homicideFact.content}
               </p>
               <HetLazyLoader>{homicideFact.customCard}</HetLazyLoader>
@@ -66,16 +66,16 @@ export default function OurFindingsTab() {
       <section id='ga-suicides'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h2 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-alt-green text-title'>
             Georgia's Suicide Rates
           </h2>
 
           {suicideFacts.map((suicideFact) => (
             <div
               key={suicideFact.report}
-              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
                 {suicideFact.content}
               </p>
               <HetLazyLoader> {suicideFact.customCard}</HetLazyLoader>
@@ -91,16 +91,16 @@ export default function OurFindingsTab() {
       <section id='ga-homicides-city-size'>
         <div className='mb-0'>
           <HetOverline text='Our Findings' />
-          <h2 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-alt-green text-title'>
             Georgia's Homicide Rates Among Black Men
           </h2>
 
           {urbanicityFacts.map((urbanicityFact) => (
             <div
               key={urbanicityFact.report}
-              className='my-8 list-none rounded-md bg-exploreBgColor pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-altDark text-text smMd:text-smallestHeader'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
                 {urbanicityFact.content}
               </p>
               <HetLazyLoader>{urbanicityFact.customCard}</HetLazyLoader>

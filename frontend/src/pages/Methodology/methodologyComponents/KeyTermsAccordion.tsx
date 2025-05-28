@@ -52,7 +52,7 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
                         className='mx-1 mt-1 mb-2 flex flex-col p-0'
                       >
                         <p className='mb-1 font-medium text-small'>{def.key}</p>
-                        <p className='m-0 self-start pt-1 text-altBlack text-small'>
+                        <p className='m-0 self-start pt-1 text-alt-black text-small'>
                           {def.description}
                         </p>
                       </figure>

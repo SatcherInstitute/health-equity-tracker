@@ -102,7 +102,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
               <Table
                 tabIndex={0}
                 ref={tableRef}
-                className='m-3 w-98p whitespace-nowrap rounded-sm border border-altDark'
+                className='m-3 w-98p whitespace-nowrap rounded-sm border border-alt-dark'
                 size='small'
                 stickyHeader
               >
@@ -121,7 +121,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                             whiteSpace: 'normal',
                             wordWrap: 'break-word',
                           }}
-                          className='break-words border-0 border-altDark border-b bg-white leading-lhSomeSpace'
+                          className='break-words border-0 border-alt-dark border-b bg-white leading-lh-some-space'
                         >
                           {!isTimeCol &&
                             key !== ALL &&
@@ -145,7 +145,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                     return (
                       <TableRow
                         key={row[TIME_PERIOD_LABEL]}
-                        className='odd:bg-tableZebra even:bg-white'
+                        className='odd:bg-table-zebra even:bg-white'
                       >
                         {keys.map((key) => {
                           const isTimePeriod = key === TIME_PERIOD_LABEL

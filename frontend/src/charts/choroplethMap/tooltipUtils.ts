@@ -101,7 +101,7 @@ export const generateTooltipHtml = (
   const tooltipHtml = `
     <div>
       <p class="font-bold">${name} ${geographyType}</p>
-      ${exploreText ? `<button class="pl-2 explore-btn text-sm text-altBlack bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
+      ${exploreText ? `<button class="pl-2 explore-btn text-sm text-alt-black bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
       <hr class="pl-2 mx-2 " >
       <div style="text-align: left;">
 
@@ -111,10 +111,10 @@ export const generateTooltipHtml = (
                 .map(([label, value]: [string, number | undefined]) => {
                   const displayValue =
                     value == null ? NO_DATA_MESSAGE : value.toLocaleString()
-                  return `<div class='pl-2 mb-1 text-sm text-altBlack'><span>${label}:</span> ${displayValue}</div>`
+                  return `<div class='pl-2 mb-1 text-sm text-alt-black'><span>${label}:</span> ${displayValue}</div>`
                 })
                 .join('')
-            : `<div class='pl-2 mb-1 text-sm text-altBlack'><span>No data</span></div>`
+            : `<div class='pl-2 mb-1 text-sm text-alt-black'><span>No data</span></div>`
         }
       </div>
     </div>

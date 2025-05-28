@@ -21,7 +21,7 @@ export default function MethodologyPage() {
         aria-labelledby='page-heading'
         id='main-content'
       >
-        <div className='flex max-w-lgXl grow flex-col smMd:m-5 smMd:flex-row'>
+        <div className='flex max-w-lg-xl grow flex-col smMd:m-5 smMd:flex-row'>
           {/* MAIN METHODOLOGY PAGES MENU */}
           <div className='w-fit min-w-fit max-w-screen'>
             <MethodologyCardMenu />
@@ -56,7 +56,7 @@ export default function MethodologyPage() {
             <section className='mx-8 my-0 flex grow flex-col justify-end lg:mx-12'>
               {activeRoute?.visible && (
                 <h1
-                  className='my-0 mb-8 font-bold font-sansTitle text-bigHeader leading-lhNormal'
+                  className='my-0 mb-8 font-bold font-sans-title text-big-header leading-lh-normal'
                   id='page-heading'
                 >
                   {activeRoute?.label}
@@ -81,7 +81,7 @@ export default function MethodologyPage() {
               return (
                 hasMatchedSublinks && (
                   <div
-                    className='sticky top-24 z-almostTop hidden h-min w-48 min-w-40 max-w-40 max-w-menu flex-col smMd:flex'
+                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-40 max-w-menu flex-col smMd:flex'
                     key={routeConfig.path}
                   >
                     <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>
@@ -90,7 +90,7 @@ export default function MethodologyPage() {
 
                     <HetOnThisPageMenu
                       links={routeConfig.subLinks}
-                      className='sticky top-24 right-0 z-almostTop h-min'
+                      className='sticky top-24 right-0 z-almost-top h-min'
                     />
                   </div>
                 )

@@ -1,6 +1,25 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+
+@config '../tailwind.config.ts';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 @layer base {
 	* {
@@ -19,7 +38,7 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		height: 100%;
-		background: theme('colors.white');
+		background: var(--color-white);
 	}
 	ul {
 		margin: 0;
@@ -36,24 +55,24 @@
 	}
 	h1, h2 {
 		font-weight: 600;
-		color: theme('colors.altGreen');
+		color: var(--color-alt-green);
 	}
 	h3, h4, h5 {
 		font-weight: 500;
-		color: theme('colors.altBlack');
+		color: var(--color-alt-black);
 	}
 	h1{
 		font-size: 2.125rem;
 		line-height: 1;
 		letter-spacing: -0.0625rem;
-		@screen sm {
+		@media (width >= theme(--breakpoint-sm)) {
 			font-size: 2rem;
 		}
 	}
 	h2{
 		font-size: 1.875rem;
 		line-height: 1.067;
-		@screen sm {
+		@media (width >= theme(--breakpoint-sm)) {
 			font-size: 1.5rem;
 		}
 	}
@@ -61,7 +80,7 @@
 		font-size: 1.5rem;
 		line-height: 1.083;
 		letter-spacing: -0.0125rem;
-		@screen sm {
+		@media (width >= theme(--breakpoint-sm)) {
 			font-size: 1.125rem;
 		}
 	}
@@ -74,7 +93,7 @@
 		font-size: 1.1rem;
 		line-height: 1.111;
 		letter-spacing: -0.0125rem;
-		@screen sm {
+		@media (width >= theme(--breakpoint-sm)) {
 			font-size: 1.1rem;
 		}
 	}
@@ -85,17 +104,17 @@
 :root {
   font-size: 100%;
   a {
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
   }
 }
 
 /* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
 /* override the joyride component to show back button */
 button[data-action='back'] {
-  color: theme('colors.white') !important;
+  color: var(--color-white) !important;
 }
 .react-joyride__tooltip h4 {
-  color: theme('colors.white') !important;
+  color: var(--color-white) !important;
 
 }
 
@@ -116,7 +135,7 @@ button[data-action='primary']:focus,
 button[data-action='close']:focus,
 button[data-action='skip']:focus,
 button[data-action='back']:focus {
-  outline: 1px solid theme('colors.white');
+  outline: 1px solid var(--color-white);
 }
 
 /* STYLING FOR FETCHED WORDPRESS HTML FOR NEWS AND STORIES */
@@ -131,14 +150,14 @@ button[data-action='back']:focus {
     max-width: 1440px !important;
     justify-content: center !important;
 
-    @screen xs {
+    @media (width >= theme(--breakpoint-xs)) {
       padding: 0.5rem 1rem;
     }
 
-    @screen sm {
+    @media (width >= theme(--breakpoint-sm)) {
       padding: 2rem 3rem;
     }
-    @screen md {
+    @media (width >= theme(--breakpoint-md)) {
       padding: 2rem 4rem;
     }
   }
@@ -172,7 +191,7 @@ button[data-action='back']:focus {
       text-decoration: none !important;
       font-style: italic;
 
-      @screen xs {
+      @media (width >= theme(--breakpoint-xs)) {
         padding: 0;
         margin: 0 auto;
       }
@@ -207,8 +226,8 @@ button[data-action='back']:focus {
   & p > strong {
     margin: 1rem 0;
     font-weight: 600;
-    font-size: theme('fontSize.title') !important;
-    font-family: theme('fontFamily.sansTitle') !important;
+    font-size: var(--text-title) !important;
+    font-family: var(--font-sans-title) !important;
   }
 
   & ul,
@@ -219,10 +238,10 @@ button[data-action='back']:focus {
   & h4,
   & h5,
   & h6 {
-    @screen sm  {
+    @media (width >= theme(--breakpoint-sm))  {
       width: 100%;
     }
-    @screen md  {
+    @media (width >= theme(--breakpoint-md))  {
       width: 95%;
     }
   }
@@ -256,9 +275,9 @@ button[data-action='back']:focus {
 
   & h1, h1 > a {
     font-family: 'DM Sans Variable', sans-serif !important;
-    font-size: theme('fontSize.header') !important;
+    font-size: var(--text-header) !important;
     line-height: 110%;
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
     font-weight: 700;
     margin-top: 3rem;
     margin-bottom: 0rem;
@@ -268,9 +287,9 @@ button[data-action='back']:focus {
 
   & h2, h2 > a, h2 a {
     font-family: 'DM Sans Variable', sans-serif !important;
-    font-size: theme('fontSize.header') !important;
+    font-size: var(--text-header) !important;
     line-height: 110%;
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
     font-weight: 700;
     margin-top: 3rem;
     margin-bottom: 0rem;
@@ -280,9 +299,9 @@ button[data-action='back']:focus {
 
   & h3, h3 > a {
     font-family: 'DM Sans Variable', sans-serif !important;
-    font-size: theme('fontSize.header') !important;
+    font-size: var(--text-header) !important;
     line-height: 110%;
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
     font-weight: 300;
     margin-top: 3rem;
     margin-bottom: 0rem;
@@ -291,9 +310,9 @@ button[data-action='back']:focus {
 
   & h4, h4 > a {
     font-family: 'DM Sans Variable', sans-serif !important;
-    font-size: theme('fontSize.title') !important;
+    font-size: var(--text-title) !important;
     line-height: 110%;
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
     font-weight: 500;
     margin-top: 1rem;
     margin-bottom: 0rem;
@@ -302,9 +321,9 @@ button[data-action='back']:focus {
 
   & h5, h5 > a {
     font-family: 'DM Sans Variable', sans-serif !important;
-    font-size: theme('fontSize.title') !important;
+    font-size: var(--text-title) !important;
     line-height: 110%;
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
     font-weight: 300;
     margin-top: 1rem;
     margin-bottom: 0rem;
@@ -313,9 +332,9 @@ button[data-action='back']:focus {
 
   & h6, h6 > a {
     font-family: 'DM Sans Variable', sans-serif !important;
-    font-size: theme('fontSize.text') !important;
+    font-size: var(--text-text) !important;
     line-height: 110%;
-    color: theme('colors.altGreen');
+    color: var(--color-alt-green);
     font-weight: 300;
     margin-top: 1rem;
     margin-bottom: 0rem;

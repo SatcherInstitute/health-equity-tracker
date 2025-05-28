@@ -246,7 +246,7 @@ export function TrendsChart({
 
   return (
     // Container
-    <figure className='m-0 font-normal font-sansText' ref={containerRef}>
+    <figure className='m-0 font-normal font-sans-text' ref={containerRef}>
       <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
         {isSm && (
           // Render Chart Title DESKTOP ABOVE LEGEND

@@ -144,11 +144,11 @@ export default function NewsAndStoriesPage() {
 
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
         >
           News and Stories
         </h1>
@@ -260,7 +260,7 @@ export default function NewsAndStoriesPage() {
             {filtersApplied ? (
               <HetLinkButton
                 onClick={handleResetFilters}
-                className='px-0 py-0 text-center font-bold leading-lhNormal'
+                className='px-0 py-0 text-center font-bold leading-lh-normal'
                 buttonClassName='mx-auto py-4 px-8'
               >
                 Reset Filters
@@ -270,7 +270,7 @@ export default function NewsAndStoriesPage() {
               remainingArticles.length > 0 && (
                 <HetLinkButton
                   onClick={handleLoadAllArticles}
-                  className='px-0 py-0 text-center font-bold leading-lhNormal'
+                  className='px-0 py-0 text-center font-bold leading-lh-normal'
                   buttonClassName='mx-auto py-4 px-8'
                 >
                   Load All Articles

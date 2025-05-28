@@ -33,8 +33,8 @@ export default function ClickableLegendHeader(
         }}
         className='grid h-full place-content-center'
       >
-        <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lhSomeMoreSpace'>
-          <InfoOutlinedIcon className='mr-1 mb-[-1px] p-[3px]' />
+        <span className='inline-flex items-center break-words text-start text-black text-smallest leading-lh-some-more-space'>
+          <InfoOutlinedIcon className='mr-1 -mb-px p-[3px]' />
           {props.legendTitle}
         </span>
       </Button>

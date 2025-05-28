@@ -13,11 +13,11 @@ export default function DefaultHelperBox() {
       className='flex w-full items-center justify-center px-12 pt-4 pb-0 sm:px-20 sm:pt-8'
       aria-labelledby='main-heading'
     >
-      <div className='m-0 mb-5 w-full max-w-helperBox content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
+      <div className='m-0 mb-5 w-full max-w-helper-box content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
         <div className='px-10 xs:px-2 py-0 text-left smMd:px-0 md:px-10'>
           <h1
             id='main-heading'
-            className='m-0 text-center font-bold font-sansTitle text-altGreen text-base text-header leading-lhModalHeading'
+            className='m-0 text-center font-bold font-sans-title text-alt-green text-base text-header leading-lh-modal-heading'
           >
             Select a topic above
           </h1>
@@ -30,16 +30,16 @@ export default function DefaultHelperBox() {
           >
             {reportMappings.map((report, index) => (
               <li
-                className='group mx-0 my-4 xs:my-2 flex w-full flex-col rounded-md border border-altGreen border-solid bg-white transition-all duration-300 ease-in-out hover:shadow-raised'
+                className='group mx-0 my-4 xs:my-2 flex w-full flex-col rounded-md border border-alt-green border-solid bg-white transition-all duration-300 ease-in-out hover:shadow-raised'
                 key={report.title}
               >
                 <article
-                  className='grid w-full place-items-center gap-4 p-4 text-left text-altGreen md:grid-cols-[40%_60%] md:items-start'
+                  className='grid w-full place-items-center gap-4 p-4 text-left text-alt-green md:grid-cols-[40%_60%] md:items-start'
                   aria-labelledby={`report-title-${index}`}
                 >
                   <a
                     href={EXPLORE_DATA_PAGE_LINK + report.setting}
-                    className='ml-6 h-[18rem] w-full bg-center bg-cover bg-no-repeat px-4 transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
+                    className='ml-6 h-72 w-full bg-center bg-cover bg-no-repeat px-4 transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
                     style={{
                       backgroundImage: `url(${report.previewImg})`,
                     }}

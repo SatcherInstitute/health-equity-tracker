@@ -37,11 +37,11 @@ export default function WhatIsHealthEquityPage() {
         id='main-content'
         aria-labelledby='main-content'
         tabIndex={-1}
-        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
         >
           What is Health Equity?
         </h1>
@@ -89,12 +89,12 @@ export default function WhatIsHealthEquityPage() {
       <section
         aria-labelledby='learning-section'
         id='learning-section'
-        className='bg-whiteSmoke80'
+        className='bg-white-smoke80'
       >
-        <div className='mx-auto flex w-svw max-w-lgXl flex-col justify-center p-8'>
-          <div className='mx-auto flex w-full max-w-lgXl flex-col justify-center'>
+        <div className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center p-8'>
+          <div className='mx-auto flex w-full max-w-lg-xl flex-col justify-center'>
             <HetOverline text={'Trending Topics'} className='text-center' />
-            <h2 className='m-0 pb-5 text-center font-bold font-sansTitle text-altGreen text-header leading-lhModalHeading'>
+            <h2 className='m-0 pb-5 text-center font-bold font-sans-title text-alt-green text-header leading-lh-modal-heading'>
               Don't know where to start?
             </h2>
             <p className='my-4 text-center text-title'>
@@ -117,7 +117,7 @@ export default function WhatIsHealthEquityPage() {
 
       <section
         aria-labelledby='select-faqs'
-        className='mx-auto flex w-svw max-w-lgXl items-center justify-center px-8 py-16 lgXl:px-0'
+        className='mx-auto flex w-svw max-w-lg-xl items-center justify-center px-8 py-16 lgXl:px-0'
       >
         <FaqSection />
       </section>

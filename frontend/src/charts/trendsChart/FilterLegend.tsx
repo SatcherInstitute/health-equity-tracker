@@ -54,19 +54,19 @@ export function FilterLegend({
 
   return (
     // Legend Wrapper
-    <div className='mt-4 font-normal font-sansText text-small'>
+    <div className='mt-4 font-normal font-sans-text text-small'>
       {/* Legend Title & Clear Button */}
-      <div className='hide-on-screenshot remove-height-on-screenshot mb-5 flex items-center text-left font-medium font-sansText'>
+      <div className='hide-on-screenshot remove-height-on-screenshot mb-5 flex items-center text-left font-medium font-sans-text'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
-        <div className='mx-4 flex items-center justify-center rounded-sm border-altGreen border-none'>
+        <div className='mx-4 flex items-center justify-center rounded-sm border-alt-green border-none'>
           <button
             type='button'
             aria-disabled={groupsAreMinMax}
-            className={`rounded-l-sm border border-altBlack p-4 text-altBlack ${
+            className={`rounded-l-sm border border-alt-black p-4 text-alt-black ${
               groupsAreMinMax
-                ? 'cursor-default bg-methodologyGreen font-bold'
-                : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+                ? 'cursor-default bg-methodology-green font-bold'
+                : 'cursor-pointer bg-white hover:bg-methodology-green hover:bg-opacity-[0.08]'
             }`}
             aria-label={`Highlight groups with lowest and highest average values over time`}
             onClick={() => {
@@ -83,10 +83,10 @@ export function FilterLegend({
             type='button'
             aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
-            className={`rounded-r-sm border border-altBlack p-4 text-altBlack ${
+            className={`rounded-r-sm border border-alt-black p-4 text-alt-black ${
               noGroupsAreFiltered
-                ? 'cursor-default bg-methodologyGreen font-bold'
-                : 'cursor-pointer bg-white hover:bg-methodologyGreen hover:bg-opacity-[0.08]'
+                ? 'cursor-default bg-methodology-green font-bold'
+                : 'cursor-pointer bg-white hover:bg-methodology-green hover:bg-opacity-[0.08]'
             }`}
             onClick={() => {
               handleClick(null)
@@ -118,7 +118,7 @@ export function FilterLegend({
               key={`legendItem-${group}`}
               aria-label={`Include ${group}`}
               aria-pressed={groupEnabled}
-              className='mr-5 mb-1.5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start text-altBlack transition-opacity duration-300 ease-in-out'
+              className='mr-5 mb-1.5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start text-alt-black transition-opacity duration-300 ease-in-out'
               onClick={() => {
                 handleClick(group)
               }} // send group name to parent on click

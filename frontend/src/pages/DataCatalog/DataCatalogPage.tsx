@@ -58,11 +58,11 @@ export default function DataCatalogPage() {
       <title>Data Downloads - Health Equity Tracker</title>
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-16 py-16 md:px-24 lg:px-56'
+        className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-16 py-16 md:px-24 lg:px-56'
       >
         <h1
           id='main'
-          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
         >
           Data Downloads
         </h1>

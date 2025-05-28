@@ -22,13 +22,13 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({
 }) => {
   return (
     <section id={id}>
-      <div className='flex w-full flex-row items-center rounded-md border border-methodologyGreen border-solid'>
-        <div className='mr-4 w-fit p-4 text-exploreButton'>
-          <div className='fade-in-up-blur flex w-fit flex-row items-center justify-start gap-1 rounded-sm px-0 py-0 text-altGreen smMd:gap-4'>
+      <div className='flex w-full flex-row items-center rounded-md border border-methodology-green border-solid'>
+        <div className='mr-4 w-fit p-4 text-explore-button'>
+          <div className='fade-in-up-blur flex w-fit flex-row items-center justify-start gap-1 rounded-sm px-0 py-0 text-alt-green smMd:gap-4'>
             {icon}
           </div>
         </div>
-        <h2 className='my-0 font-medium text-altGreen text-title'>{title}</h2>
+        <h2 className='my-0 font-medium text-alt-green text-title'>{title}</h2>
       </div>
       <p>{description}</p>
       <ul className='list-none'>

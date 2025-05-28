@@ -13,16 +13,16 @@ export default function GoalListItem(props: GoalListItemProps) {
       {props.src && (
         <HetLazyLoader offset={300} height={255} once>
           <img
-            className='hidden h-auto max-h-aimToGo w-full max-w-aimToGo pb-0 md:block'
+            className='hidden h-auto max-h-aim-to-go w-full max-w-aim-to-go pb-0 md:block'
             src={props.src}
             alt={props.alt}
           />
         </HetLazyLoader>
       )}
-      <h3 className='p-0 text-left font-sansTitle text-smallestHeader'>
+      <h3 className='p-0 text-left font-sans-title text-smallest-header'>
         {props.title}
       </h3>
-      <p className='my-0 text-left font-sansText '>{props.text}</p>
+      <p className='my-0 text-left font-sans-text '>{props.text}</p>
     </li>
   )
 }

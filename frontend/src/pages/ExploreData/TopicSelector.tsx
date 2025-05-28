@@ -43,7 +43,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
     <>
       <span ref={popoverRef}>
         <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
-          <span className={dropdownTarget + ' text-altGreen'}>
+          <span className={dropdownTarget + ' text-alt-green'}>
             {currentDisplayName}
           </span>
         </HetMadLibButton>
@@ -55,7 +55,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-lhSomeMoreSpace sm:text-text'
+                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-lh-some-more-space sm:text-text'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
@@ -83,7 +83,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='bg-white text-black no-underline hover:bg-standardInfo'
+                  className='bg-white text-black no-underline hover:bg-standard-info'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
                   <KeyboardBackspaceIcon className='pb-[3px] text-black text-small' />{' '}

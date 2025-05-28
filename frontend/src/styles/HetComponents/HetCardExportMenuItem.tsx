@@ -28,7 +28,7 @@ export function HetCardExportMenuItem({
       >
         <Icon className='mx-1 w-8' {...iconProps} />
         {children && (
-          <span className={`text-altBlack text-small ${spanClassName}`}>
+          <span className={`text-alt-black text-small ${spanClassName}`}>
             {children}
           </span>
         )}
